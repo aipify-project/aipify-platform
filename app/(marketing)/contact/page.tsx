@@ -28,6 +28,10 @@ export default async function ContactPage() {
       ctaBand={ctaBand}
       trustSignals={parseStringList(marketing, "trustSignalStrip", "signals")}
       differentiationThemes={parseStringList(marketing, "differentiationStrip", "themes")}
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Contact" },
+      ]}
     />
   );
 }

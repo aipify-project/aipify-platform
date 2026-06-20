@@ -32,7 +32,7 @@ type EarlyAccessFormProps = {
   variant?: "light" | "dark";
 };
 
-export default function EarlyAccessForm({ labels, verificationLabels, variant = "dark" }: EarlyAccessFormProps) {
+export default function EarlyAccessForm({ labels, verificationLabels, variant = "light" }: EarlyAccessFormProps) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const {
     requireVerification,

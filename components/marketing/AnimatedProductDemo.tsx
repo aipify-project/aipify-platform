@@ -86,28 +86,28 @@ export default function AnimatedProductDemo({
         </div>
 
         <div className="mt-12 hidden lg:block">
-          <div className="overflow-hidden rounded-2xl border border-aipify-border bg-gradient-to-br from-[#111827] to-[#0a0e14] p-1 shadow-2xl shadow-black/40">
-            <div className="rounded-xl bg-[#0f1419] p-6 sm:p-8">
+          <div className="overflow-hidden rounded-2xl border border-aipify-border bg-aipify-surface p-1 shadow-lg">
+            <div className="rounded-xl bg-aipify-surface-muted/60 p-6 sm:p-8">
               <div className="mb-6 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-violet-600">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-aipify-companion">
                     <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white">Support Operations</p>
+                    <p className="text-sm font-semibold text-aipify-text">Support Operations</p>
                     <p className="text-xs text-aipify-text-muted">Live demo sequence</p>
                   </div>
                 </div>
-                <span className="rounded-full bg-cyan-500/15 px-3 py-1 text-xs font-medium text-cyan-300">
+                <span className="rounded-full bg-aipify-accent-soft px-3 py-1 text-xs font-medium text-aipify-companion">
                   Step {activeStep + 1} / {steps.length}
                 </span>
               </div>
 
-              <div className="mb-6 h-1.5 overflow-hidden rounded-full bg-white/10">
+              <div className="mb-6 h-1.5 overflow-hidden rounded-full bg-aipify-border">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 transition-all duration-500"
+                  className="h-full rounded-full bg-aipify-companion transition-all duration-500"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -123,14 +123,14 @@ export default function AnimatedProductDemo({
                       onClick={() => setActiveStep(i)}
                       className={`rounded-xl border p-4 text-left transition ${
                         isActive
-                          ? "border-cyan-500/40 bg-cyan-500/10 shadow-lg shadow-cyan-500/10"
+                          ? "border-aipify-companion/40 bg-aipify-accent-soft shadow-sm"
                           : isPast
-                            ? "border-white/5 bg-white/[0.03] opacity-70"
-                            : "border-white/5 bg-white/[0.02] opacity-50"
+                            ? "border-aipify-border bg-aipify-surface opacity-80"
+                            : "border-aipify-border bg-aipify-surface-muted/60 opacity-70"
                       }`}
                     >
                       <span className="text-xs font-semibold text-aipify-text-muted">0{i + 1}</span>
-                      <p className="mt-1 text-sm font-semibold text-white">{step.title}</p>
+                      <p className="mt-1 text-sm font-semibold text-aipify-text">{step.title}</p>
                       {isActive && (
                         <p className="mt-2 text-xs leading-relaxed text-aipify-text-secondary">{step.detail}</p>
                       )}
@@ -139,9 +139,9 @@ export default function AnimatedProductDemo({
                 })}
               </div>
 
-              <div className="mt-6 rounded-xl border border-violet-500/20 bg-violet-500/5 p-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-violet-300">Active step</p>
-                <p className="mt-1 text-base font-medium text-white">{steps[activeStep]?.title}</p>
+              <div className="mt-6 rounded-xl border border-aipify-accent-muted bg-aipify-accent-soft/50 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-aipify-companion">Active step</p>
+                <p className="mt-1 text-base font-medium text-aipify-text">{steps[activeStep]?.title}</p>
                 <p className="mt-2 text-sm text-aipify-text-secondary">{steps[activeStep]?.detail}</p>
               </div>
             </div>

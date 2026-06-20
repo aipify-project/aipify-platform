@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
+import { PublicMarketingClasses } from "@/lib/design/public-marketing-tokens";
 import { marketingDataAttr } from "@/lib/marketing/analytics";
 
 export type GrowthPartnerCtaBandLabels = {
@@ -18,10 +19,10 @@ export default function GrowthPartnerCtaBand({
   learnMoreLabel,
 }: GrowthPartnerCtaBandProps) {
   return (
-    <section className="border-t border-white/10">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="rounded-3xl border border-violet-500/20 bg-gradient-to-r from-violet-950/40 via-indigo-950/30 to-cyan-950/20 px-8 py-12 text-center sm:px-12">
-          {title ? <h2 className="text-2xl font-bold text-white sm:text-3xl">{title}</h2> : null}
+    <section className="border-t border-aipify-border">
+      <div className={`${PublicMarketingClasses.container} py-16 sm:py-20`}>
+        <div className="rounded-3xl border border-aipify-border bg-gradient-to-br from-aipify-accent-soft/60 via-aipify-surface to-violet-50/40 px-8 py-12 text-center sm:px-12">
+          {title ? <h2 className={PublicMarketingClasses.sectionTitle}>{title}</h2> : null}
           <div className={`flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap ${title ? "mt-8" : ""}`}>
             <a
               href="#signup"
@@ -39,10 +40,10 @@ export default function GrowthPartnerCtaBand({
             </Link>
             <a
               href="#partner-journey"
-              className={`w-full sm:w-auto text-sm font-semibold text-cyan-400 transition hover:text-cyan-300 px-4 py-3`}
+              className={`text-sm font-semibold ${PublicMarketingClasses.link} px-4 py-3`}
               {...marketingDataAttr("cta_click", "growth_partner_learn_more")}
             >
-              {learnMoreLabel}
+              {learnMoreLabel} →
             </a>
           </div>
         </div>

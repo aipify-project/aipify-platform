@@ -70,7 +70,7 @@ export default function PublicKnowledgeArticlePageContent({
         integrations={article.relatedIntegrations}
       />
 
-      <section className="mt-12 rounded-2xl border border-aipify-border bg-gradient-to-r from-violet-50 to-cyan-50 p-8 dark:from-violet-950/30 dark:to-cyan-950/20">
+      <section className="mt-12 rounded-2xl border border-aipify-border bg-gradient-to-r from-violet-50 to-cyan-50 p-8">
         <h2 className="text-xl font-bold text-aipify-text">{labels.articleCtaTitle}</h2>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <Link

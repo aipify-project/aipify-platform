@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { MarketingCtaBand, MarketingDifferentiationStrip, MarketingTrustSignalStrip } from "@/components/marketing";
 import CustomerStoriesPageContent, { type CustomerStoriesPageLabels } from "@/components/marketing/CustomerStoriesPageContent";
+import { PublicCTA, PublicPageHero } from "@/components/marketing/public";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
-import { getSection, parseCtaBandLabels, parseStringList } from "@/lib/marketing/parse-marketing";
+import { getSection } from "@/lib/marketing/parse-marketing";
+import { MARKETING_PRIMARY_CTA_HREFS } from "@/lib/marketing/primary-ctas";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { marketing } = await getMarketingContext();
@@ -16,15 +17,36 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function CustomerStoriesPage() {
   const { marketing } = await getMarketingContext();
   const labels = getSection<CustomerStoriesPageLabels>(marketing, "customerStoriesPage");
-  const ctaBand = parseCtaBandLabels(marketing);
-  const trustSignals = parseStringList(marketing, "trustSignalStrip", "signals");
 
   return (
     <>
-      <MarketingTrustSignalStrip signals={trustSignals} />
-      <MarketingDifferentiationStrip themes={parseStringList(marketing, "differentiationStrip", "themes")} />
+      <PublicPageHero
+        eyebrow={labels.hero.eyebrow ?? "Customer Stories"}
+        title={labels.hero.headline}
+        subtitle={labels.hero.subheadline}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Solutions", href: "/customer-stories" },
+          { label: "Customer Stories", href: "/customer-stories" },
+        ]}
+        primaryCta={{ label: labels.hero.cta, href: "#featured-stories", analyticsId: "customer_stories_explore" }}
+        secondaryCta={{
+          label: labels.hero.ctaSecondary ?? "Book a Demo",
+          href: MARKETING_PRIMARY_CTA_HREFS.bookDemo,
+          analyticsId: "customer_stories_book_demo",
+        }}
+      />
       <CustomerStoriesPageContent labels={labels} />
-      <MarketingCtaBand {...ctaBand} />
+      <PublicCTA
+        title={labels.finalCta.headline}
+        subtitle={labels.finalPrinciple}
+        primaryLabel={labels.finalCta.bookDemo}
+        primaryHref={MARKETING_PRIMARY_CTA_HREFS.bookDemo}
+        secondaryLabel={labels.finalCta.businessPacks}
+        secondaryHref="/pricing#business-packs"
+        analyticsPrimary="customer_stories_final_demo"
+        analyticsSecondary="customer_stories_final_packs"
+      />
     </>
   );
 }

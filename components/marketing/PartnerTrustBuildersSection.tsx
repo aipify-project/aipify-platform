@@ -12,7 +12,7 @@ export default function PartnerTrustBuildersSection({
   return (
     <section aria-labelledby={title ? "partner-trust-builders-title" : undefined}>
       {title ? (
-        <h3 id="partner-trust-builders-title" className="text-sm font-semibold uppercase tracking-wide text-violet-200/90">
+        <h3 id="partner-trust-builders-title" className="text-sm font-semibold uppercase tracking-wide text-aipify-companion">
           {title}
         </h3>
       ) : null}
@@ -20,7 +20,7 @@ export default function PartnerTrustBuildersSection({
         {items.map((item) => (
           <li
             key={item}
-            className="rounded-xl border border-violet-500/20 bg-white/[0.03] px-3 py-2.5 text-center text-xs font-medium text-aipify-text-secondary sm:text-sm"
+            className="rounded-xl border border-aipify-border bg-aipify-surface-muted px-3 py-2.5 text-center text-xs font-medium text-aipify-text-secondary sm:text-sm"
           >
             {item}
           </li>

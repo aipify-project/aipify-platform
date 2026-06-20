@@ -7,10 +7,10 @@ type HumanOversightSectionProps = {
 };
 
 const LADDER_COLORS = [
-  "border-slate-500/30 bg-slate-500/10",
-  "border-cyan-500/30 bg-cyan-500/10",
-  "border-violet-500/30 bg-violet-500/10",
-  "border-amber-500/30 bg-amber-500/10",
+  "border-slate-200 bg-slate-50",
+  "border-cyan-200 bg-cyan-50",
+  "border-violet-200 bg-violet-50",
+  "border-amber-200 bg-amber-50",
 ];
 
 export default function HumanOversightSection({
@@ -37,7 +37,7 @@ export default function HumanOversightSection({
                 style={{ marginLeft: `${i * 12}px`, marginRight: `${(ladder.length - 1 - i) * 12}px` }}
               >
                 <div className="flex items-start gap-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-sm font-bold text-white">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-aipify-companion text-sm font-bold text-white">
                     {i + 1}
                   </span>
                   <div>

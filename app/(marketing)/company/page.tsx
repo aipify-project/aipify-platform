@@ -27,6 +27,10 @@ export default async function CompanyPage() {
       ctaSecondaryHref={page.ctaSecondaryHref}
       ctaBand={ctaBand}
       variant={page.variant}
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Company" },
+      ]}
     />
   );
 }

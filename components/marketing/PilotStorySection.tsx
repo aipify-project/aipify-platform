@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 import { marketingDataAttr } from "@/lib/marketing/analytics";
 
 type PilotStorySectionProps = {
@@ -21,17 +22,17 @@ export default function PilotStorySection({
   return (
     <section aria-labelledby="pilot-story-title">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="overflow-hidden rounded-3xl border border-aipify-border bg-gradient-to-br from-[#111827] via-[#0f1419] to-[#0a0e14]">
+        <div className="overflow-hidden rounded-3xl border border-aipify-border bg-gradient-to-br from-violet-50 via-aipify-surface to-cyan-50 shadow-sm">
           <div className="grid lg:grid-cols-2">
             <div className="p-8 sm:p-10 lg:p-12">
-              <p className="text-sm font-semibold uppercase tracking-wide text-cyan-400">{subtitle}</p>
+              <p className="text-sm font-semibold uppercase tracking-wide text-aipify-companion">{subtitle}</p>
               <h2 id="pilot-story-title" className="mt-3 text-3xl font-bold tracking-tight text-aipify-text sm:text-4xl">
                 {title}
               </h2>
-              <p className="mt-4 text-aipify-text-secondary leading-relaxed">{description}</p>
+              <p className="mt-4 leading-relaxed text-aipify-text-secondary">{description}</p>
               <Link
                 href="/pilot"
-                className="mt-8 inline-flex items-center rounded-xl bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/15"
+                className={`mt-8 inline-flex items-center ${AipifyMarketingClasses.primaryCta} px-6 py-3 text-sm`}
                 {...marketingDataAttr("cta_click", "pilot_learn_more")}
               >
                 {cta}
@@ -41,12 +42,12 @@ export default function PilotStorySection({
               </Link>
             </div>
 
-            <div className="border-t border-aipify-border bg-white/[0.02] p-8 sm:p-10 lg:border-l lg:border-t-0 lg:p-12">
-              <p className="text-sm font-semibold text-white">{validationTitle}</p>
+            <div className="border-t border-aipify-border bg-aipify-surface-muted/60 p-8 sm:p-10 lg:border-l lg:border-t-0 lg:p-12">
+              <p className="text-sm font-semibold text-aipify-text">{validationTitle}</p>
               <ul className="mt-6 space-y-4">
                 {highlights.map((item) => (
                   <li key={item} className="flex gap-3 text-sm text-aipify-text-secondary">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-aipify-companion" aria-hidden="true" />
                     {item}
                   </li>
                 ))}

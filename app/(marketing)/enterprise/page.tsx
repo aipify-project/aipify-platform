@@ -36,6 +36,11 @@ export default async function EnterprisePage() {
       <MarketingPageHeader
         title={enterprisePage.title ?? ""}
         subtitleLines={parseStringList(marketing, "enterprisePage", "subtitleLines")}
+        eyebrow="Enterprise"
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Enterprise" },
+        ]}
       />
 
       <EnterpriseBuyerFitSection

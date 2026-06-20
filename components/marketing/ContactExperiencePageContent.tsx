@@ -18,6 +18,7 @@ type ContactExperiencePageContentProps = {
   ctaBand: { title: string; subtitle: string; bookDemo: string; earlyAccess: string; growthPartners: string };
   trustSignals: string[];
   differentiationThemes: string[];
+  breadcrumbs?: Parameters<typeof MarketingPageHeader>[0]["breadcrumbs"];
 };
 
 export default function ContactExperiencePageContent({
@@ -28,10 +29,11 @@ export default function ContactExperiencePageContent({
   ctaBand,
   trustSignals,
   differentiationThemes,
+  breadcrumbs,
 }: ContactExperiencePageContentProps) {
   return (
     <>
-      <MarketingPageHeader title={title} subtitle={subtitle} />
+      <MarketingPageHeader title={title} subtitle={subtitle} breadcrumbs={breadcrumbs} />
       <MarketingTrustSignalStrip signals={trustSignals} />
       <MarketingDifferentiationStrip themes={differentiationThemes} />
       <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">

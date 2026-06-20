@@ -23,9 +23,9 @@ export default function OutputEngineShowcase({
           {items.map((item, i) => (
             <li
               key={item}
-              className="flex items-start gap-3 rounded-xl border border-aipify-border bg-white/[0.03] p-4"
+              className="flex items-start gap-3 rounded-xl border border-aipify-border bg-aipify-surface p-4 shadow-sm"
             >
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-cyan-500/15 text-xs font-bold text-cyan-300">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-aipify-accent-soft text-xs font-bold text-aipify-companion">
                 {i + 1}
               </span>
               <span className="text-sm text-aipify-text-secondary">{item}</span>

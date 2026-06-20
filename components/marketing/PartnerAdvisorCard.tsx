@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PublicMarketingClasses } from "@/lib/design/public-marketing-tokens";
 
 export type PartnerAdvisorLabels = {
   title: string;
@@ -18,37 +19,42 @@ type Props = {
 
 export function PartnerAdvisorCard({ labels }: Props) {
   return (
-    <div className="rounded-2xl border border-violet-500/25 bg-gradient-to-br from-violet-950/30 to-indigo-950/20 p-6 shadow-lg shadow-violet-900/10">
-      <div className="flex items-start gap-4">
+    <div className={`${PublicMarketingClasses.card} shadow-md`}>
+      <p className="text-sm font-semibold text-aipify-companion">{labels.title}</p>
+      <div className="mt-4 flex items-start gap-4">
         <div
-          className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-400 to-indigo-600 text-lg font-bold text-white"
+          className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-aipify-accent-soft text-lg font-bold text-aipify-companion"
           aria-label={labels.photoPlaceholder}
         >
           PS
         </div>
         <div>
-          <h3 className="text-base font-semibold text-white">{labels.teamName}</h3>
-          <p className="text-sm text-violet-200/90">{labels.location}</p>
-          {labels.role ? <p className="mt-1 text-xs uppercase tracking-wide text-aipify-text-muted">{labels.role}</p> : null}
+          <h3 className="text-base font-semibold text-aipify-text">{labels.teamName}</h3>
+          <p className="text-sm text-aipify-text-secondary">{labels.location}</p>
+          {labels.role ? (
+            <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-aipify-text-secondary">{labels.role}</p>
+          ) : null}
         </div>
       </div>
       <dl className="mt-6 space-y-3 text-sm">
         <div>
           <dt className="sr-only">Availability</dt>
-          <dd className="font-medium text-slate-200">{labels.availability}</dd>
+          <dd className="font-medium text-aipify-text">{labels.availability}</dd>
         </div>
       </dl>
       <ul className="mt-4 space-y-2">
         {labels.services.map((service) => (
           <li key={service} className="flex gap-2 text-sm text-aipify-text-secondary">
-            <span className="text-violet-400" aria-hidden="true">•</span>
+            <span className="text-aipify-companion" aria-hidden="true">
+              •
+            </span>
             {service}
           </li>
         ))}
       </ul>
-      <p className="mt-6 text-sm text-aipify-text-muted">
+      <p className="mt-6 text-sm text-aipify-text-secondary">
         {labels.contactLabel}:{" "}
-        <Link href="/contact" className="font-medium text-cyan-400 hover:underline">
+        <Link href="/contact" className={`font-medium ${PublicMarketingClasses.link}`}>
           {labels.contactPath}
         </Link>
       </p>

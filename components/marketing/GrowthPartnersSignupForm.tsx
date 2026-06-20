@@ -140,7 +140,7 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
   }
 
   return (
-    <form id={id} onSubmit={handleSubmit} className="relative space-y-5 rounded-2xl border border-aipify-border bg-white/[0.03] p-6 sm:p-8">
+    <form id={id} onSubmit={handleSubmit} className="relative space-y-5">
       <PublicFormHoneypot />
       <h2 className="sr-only">{labels.title}</h2>
 
@@ -198,29 +198,29 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
 
       <div className="space-y-3 border-t border-aipify-border pt-5">
         <label className="flex gap-3 text-sm text-aipify-text-secondary">
-          <input name="registered_business" type="checkbox" required className="mt-1 rounded border-white/20" />
+          <input name="registered_business" type="checkbox" required className="mt-1 rounded border-aipify-border text-aipify-companion" />
           <span>{labels.checkboxRegisteredBusiness}</span>
         </label>
         <label className="flex gap-3 text-sm text-aipify-text-secondary">
-          <input name="certification_understood" type="checkbox" required className="mt-1 rounded border-white/20" />
+          <input name="certification_understood" type="checkbox" required className="mt-1 rounded border-aipify-border text-aipify-companion" />
           <span>{labels.checkboxCertification}</span>
         </label>
         <label className="flex gap-3 text-sm text-aipify-text-secondary">
-          <input name="info_accurate" type="checkbox" required className="mt-1 rounded border-white/20" />
+          <input name="info_accurate" type="checkbox" required className="mt-1 rounded border-aipify-border text-aipify-companion" />
           <span>{labels.checkboxInfoAccurate}</span>
         </label>
         <label className="flex gap-3 text-sm text-aipify-text-secondary">
-          <input name="terms_accepted" type="checkbox" required className="mt-1 rounded border-white/20" />
+          <input name="terms_accepted" type="checkbox" required className="mt-1 rounded border-aipify-border text-aipify-companion" />
           <span>
             {labels.checkboxTerms}{" "}
-            <Link href="/growth-partner-terms" className="text-cyan-400 hover:underline" target="_blank">
+            <Link href="/growth-partner-terms" className="font-medium text-aipify-companion hover:underline" target="_blank">
               {labels.termsLinkLabel}
             </Link>
           </span>
         </label>
       </div>
 
-      {error ? <p className="text-sm text-amber-300">{error}</p> : null}
+      {error ? <p className="text-sm text-amber-800">{error}</p> : null}
 
       <AipifyHumanVerification
         labels={verificationLabels}
@@ -230,7 +230,7 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
       />
 
       {verificationRequired ? (
-        <p className="text-sm text-amber-300" role="alert">
+        <p className="text-sm text-amber-800" role="alert">
           {verificationLabels.required}
         </p>
       ) : null}
@@ -238,7 +238,7 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 px-6 py-4 text-base font-semibold text-aipify-text shadow-lg shadow-violet-600/20 transition hover:from-cyan-400 hover:to-violet-500 disabled:opacity-60"
+        className="w-full rounded-xl bg-aipify-companion px-6 py-4 text-base font-semibold text-white shadow-sm transition hover:bg-aipify-companion-hover disabled:opacity-60"
       >
         {status === "loading" ? labels.submitting : labels.submit}
       </button>

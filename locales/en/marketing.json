@@ -2946,9 +2946,11 @@
       "description": "Discover how teams use Aipify to improve operations, support customers, automate workflows, and grow — real outcomes for real organizations."
     },
     "hero": {
-      "headline": "See how organizations use Aipify.",
-      "subheadline": "Discover how teams use Aipify to improve operations, support customers, automate workflows, and grow their business.",
-      "cta": "Explore Stories"
+      "eyebrow": "Customer Stories",
+      "headline": "See how organizations operate with Aipify.",
+      "subheadline": "Explore realistic workflows across support, operations, commerce, services and governance.",
+      "cta": "Explore stories",
+      "ctaSecondary": "Book a Demo"
     },
     "categories": {
       "title": "Success categories",
@@ -3203,7 +3205,7 @@
       "attributionNote": "Representative themes from early feedback — named customer quotes will be added with approval."
     },
     "finalCta": {
-      "headline": "Your organization could be next.",
+      "headline": "See how Aipify could fit your organization.",
       "bookDemo": "Book a Demo",
       "businessPacks": "Explore Business Packs",
       "talkToSales": "Talk to Sales"

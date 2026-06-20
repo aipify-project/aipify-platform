@@ -22,7 +22,15 @@ export default function BusinessPackLandingPageContent({
 }: BusinessPackLandingPageContentProps) {
   return (
     <>
-      <MarketingPageHeader title={pack.headline} subtitle={pack.introduction} />
+      <MarketingPageHeader
+        title={pack.headline}
+        subtitle={pack.introduction}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Business Packs", href: "/pricing#business-packs" },
+          { label: pack.name },
+        ]}
+      />
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <section>
           <h2 className="text-xl font-semibold text-aipify-text">{labels.relatedUseCases}</h2>
@@ -55,7 +63,7 @@ export default function BusinessPackLandingPageContent({
 
         <MarketingKnowledgeFaqSection title={labels.faqTitle} faqs={pack.faqs} />
 
-        <section className="mt-12 rounded-2xl border border-aipify-border bg-gradient-to-r from-violet-50 to-cyan-50 p-8 dark:from-violet-950/30 dark:to-cyan-950/20">
+        <section className="mt-12 rounded-2xl border border-aipify-border bg-gradient-to-r from-violet-50 to-cyan-50 p-8">
           <h2 className="text-xl font-bold text-aipify-text">{labels.businessPackCta}</h2>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link

@@ -1,3 +1,5 @@
+import { PublicMarketingClasses } from "@/lib/design/public-marketing-tokens";
+
 type WorkStep = { title: string; description: string };
 
 type HowAipifyWorksSectionProps = {
@@ -12,18 +14,16 @@ export default function HowAipifyWorksSection({
   steps,
 }: HowAipifyWorksSectionProps) {
   return (
-    <section id="how-it-works" className="scroll-mt-20" aria-labelledby="how-it-works-title">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+    <section id="how-it-works" className="scroll-mt-20 border-y border-aipify-border bg-aipify-surface-muted/60" aria-labelledby="how-it-works-title">
+      <div className={`${PublicMarketingClasses.container} ${PublicMarketingClasses.section}`}>
         <div className="mx-auto max-w-2xl text-center">
-          <h2 id="how-it-works-title" className="text-3xl font-bold tracking-tight text-aipify-text sm:text-4xl">
+          <h2 id="how-it-works-title" className={PublicMarketingClasses.sectionTitle}>
             {title}
           </h2>
-          <p className="mt-4 text-aipify-text-secondary">{subtitle}</p>
+          <p className={PublicMarketingClasses.sectionSubtitle}>{subtitle}</p>
         </div>
 
-        <ol className="relative mt-14 space-y-8 lg:space-y-0">
-          <div className="absolute left-4 top-0 hidden h-full w-px bg-gradient-to-b from-cyan-500/50 via-violet-500/30 to-transparent lg:left-1/2 lg:block" aria-hidden="true" />
-
+        <ol className="relative mt-14 space-y-6 lg:space-y-8">
           {steps.map((step, i) => (
             <li
               key={step.title}
@@ -32,19 +32,12 @@ export default function HowAipifyWorksSection({
               }`}
             >
               <div className="lg:w-1/2 lg:px-8">
-                <div
-                  className={`rounded-2xl border border-aipify-border bg-white/[0.03] p-6 ${
-                    i % 2 === 0 ? "lg:text-right" : ""
-                  }`}
-                >
-                  <span className="text-sm font-semibold text-cyan-400">Step {i + 1}</span>
-                  <h3 className="mt-2 text-xl font-semibold text-white">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{step.description}</p>
+                <div className={`${PublicMarketingClasses.card} ${i % 2 === 0 ? "lg:text-right" : ""}`}>
+                  <span className="text-sm font-semibold text-aipify-companion">Step {i + 1}</span>
+                  <h3 className="mt-2 text-xl font-semibold text-aipify-text">{step.title}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-aipify-text-secondary">{step.description}</p>
                 </div>
               </div>
-
-              <div className="absolute left-4 hidden h-3 w-3 -translate-x-1/2 rounded-full bg-cyan-400 lg:left-1/2 lg:block" aria-hidden="true" />
-
               <div className="hidden lg:block lg:w-1/2" aria-hidden="true" />
             </li>
           ))}

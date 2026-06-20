@@ -42,7 +42,14 @@ export default function PublicKnowledgeHubPageContent({
 }: PublicKnowledgeHubPageContentProps) {
   return (
     <>
-      <MarketingPageHeader title={labels.title} subtitle={labels.subtitle} />
+      <MarketingPageHeader
+        title={labels.title}
+        subtitle={labels.subtitle}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Knowledge Center" },
+        ]}
+      />
       <MarketingTrustSignalStrip signals={trustSignals} />
       <MarketingDifferentiationStrip themes={differentiationThemes} />
 

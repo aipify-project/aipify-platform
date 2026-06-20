@@ -29,9 +29,9 @@ export default function ModuleShowcase({ title, subtitle, modules }: ModuleShowc
           {modules.map((mod, i) => (
             <li
               key={mod.name}
-              className={`group rounded-2xl border border-aipify-border bg-white/[0.03] p-5 transition duration-300 hover:-translate-y-1 hover:bg-white/[0.05] hover:shadow-lg ${MODULE_ACCENTS[i % MODULE_ACCENTS.length]}`}
+              className={`group rounded-2xl border border-aipify-border bg-aipify-surface p-5 shadow-sm transition duration-300 hover:border-aipify-companion/30 hover:shadow-md ${MODULE_ACCENTS[i % MODULE_ACCENTS.length]}`}
             >
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500/20 to-violet-600/20 text-sm font-bold text-cyan-300 transition group-hover:from-cyan-500/30 group-hover:to-violet-600/30">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-aipify-accent-soft text-sm font-bold text-aipify-companion">
                 {String(i + 1).padStart(2, "0")}
               </div>
               <h3 className="mt-4 text-base font-semibold text-aipify-text">{mod.name}</h3>

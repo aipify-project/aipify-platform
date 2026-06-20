@@ -3,6 +3,7 @@ import GrowthPartnerCtaBand from "./GrowthPartnerCtaBand";
 import GrowthPartnersSignupForm, { type GrowthPartnersSignupLabels } from "./GrowthPartnersSignupForm";
 import { PublicPageHero } from "./public";
 import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
+import { PublicMarketingClasses } from "@/lib/design/public-marketing-tokens";
 import PartnerAuthoritySection from "./PartnerAuthoritySection";
 import PartnerPortalPreviewSection from "./PartnerPortalPreviewSection";
 import PartnerSuccessStoriesSection from "./PartnerSuccessStoriesSection";
@@ -78,7 +79,7 @@ type Props = {
 };
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-2xl font-bold tracking-tight text-aipify-text sm:text-3xl">{children}</h2>;
+  return <h2 className={PublicMarketingClasses.sectionHeading}>{children}</h2>;
 }
 
 function BenefitCard({ title, body }: Card) {
@@ -92,17 +93,17 @@ function BenefitCard({ title, body }: Card) {
 
 function PartnerJourneyFlow({ title, steps }: { title: string; steps: string[] }) {
   return (
-    <section id="partner-journey" aria-labelledby="partner-journey-title" className="relative py-16 sm:py-20">
-      <div className="mx-auto max-w-lg px-4 sm:px-6 lg:px-8">
+    <section id="partner-journey" aria-labelledby="partner-journey-title" className={`relative ${PublicMarketingClasses.section}`}>
+      <div className={`${PublicMarketingClasses.containerWide} max-w-lg`}>
         <SectionTitle>{title}</SectionTitle>
         <ol className="mt-10 space-y-0">
           {steps.map((step, index) => (
             <li key={step} className="flex flex-col items-center">
-              <div className="w-full rounded-xl border border-violet-500/25 bg-violet-950/20 px-4 py-3 text-center text-sm font-medium text-violet-100">
+              <div className="w-full rounded-xl border border-aipify-accent-muted bg-aipify-accent-soft px-4 py-3 text-center text-sm font-medium text-aipify-text">
                 {step}
               </div>
               {index < steps.length - 1 ? (
-                <span className="my-2 text-lg text-cyan-400/80" aria-hidden="true">
+                <span className="my-2 text-lg text-aipify-companion" aria-hidden="true">
                   ↓
                 </span>
               ) : null}
@@ -117,15 +118,15 @@ function PartnerJourneyFlow({ title, steps }: { title: string; steps: string[] }
 function CompactJourneyFlow({ title, steps }: { title: string; steps: string[] }) {
   return (
     <div>
-      <h3 className="text-lg font-semibold text-white">{title}</h3>
+      <h3 className={PublicMarketingClasses.cardTitle}>{title}</h3>
       <ol className="mt-4 space-y-0">
         {steps.map((step, index) => (
           <li key={step} className="flex flex-col items-stretch">
-            <div className="rounded-lg border border-aipify-border bg-white/[0.03] px-3 py-2 text-center text-xs font-medium text-aipify-text-secondary">
+            <div className="rounded-lg border border-aipify-border bg-aipify-surface-muted px-3 py-2 text-center text-xs font-medium text-aipify-text-secondary">
               {step}
             </div>
             {index < steps.length - 1 ? (
-              <span className="my-1 text-center text-sm text-cyan-400/70" aria-hidden="true">
+              <span className="my-1 text-center text-sm text-aipify-companion" aria-hidden="true">
                 ↓
               </span>
             ) : null}
@@ -202,18 +203,16 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         />
       ) : null}
 
-      {/* Positioning */}
-      <section className="border-b border-white/10 bg-white/[0.02] py-10">
-        <div className="mx-auto max-w-4xl space-y-3 px-4 text-center text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
+      <section className={`border-b border-aipify-border ${PublicMarketingClasses.sectionAlt} py-10`}>
+        <div className={`${PublicMarketingClasses.container} max-w-4xl space-y-3 text-center text-sm leading-relaxed text-aipify-text-secondary sm:text-base`}>
           {positioning.lines.map((line) => (
             <p key={line}>{line}</p>
           ))}
         </div>
       </section>
 
-      {/* Why become */}
-      <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className={`relative ${PublicMarketingClasses.section}`}>
+        <div className={PublicMarketingClasses.containerWide}>
           <SectionTitle>{why.title}</SectionTitle>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {why.cards.map((card) => (
@@ -225,15 +224,14 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
 
       <PartnerJourneyFlow title={partnerJourney.title} steps={partnerJourney.steps} />
 
-      {/* Certification */}
-      <section className="border-y border-white/10 bg-white/[0.02] py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <section className={`border-y border-aipify-border ${PublicMarketingClasses.sectionAlt} ${PublicMarketingClasses.section}`}>
+        <div className={`${PublicMarketingClasses.container} max-w-3xl`}>
           <SectionTitle>{certificationExperience.title}</SectionTitle>
           <p className="mt-6 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">{certificationExperience.intro}</p>
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">
             {certificationExperience.topics.map((topic) => (
-              <li key={topic} className="flex items-center gap-2 rounded-xl border border-aipify-border bg-white/[0.03] px-4 py-3 text-sm text-aipify-text-secondary">
-                <span className="text-cyan-400" aria-hidden="true">
+              <li key={topic} className="flex items-center gap-2 rounded-xl border border-aipify-border bg-aipify-surface px-4 py-3 text-sm text-aipify-text-secondary">
+                <span className="text-aipify-companion" aria-hidden="true">
                   •
                 </span>
                 {topic}
@@ -243,13 +241,12 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* Partner support */}
-      <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className={`relative ${PublicMarketingClasses.section}`}>
+        <div className={PublicMarketingClasses.containerWide}>
           <SectionTitle>{partnerSupport.title}</SectionTitle>
           <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {partnerSupport.items.map((item) => (
-              <li key={item} className="rounded-2xl border border-aipify-border bg-white/[0.03] px-5 py-4 text-center text-sm font-medium text-aipify-text-secondary">
+              <li key={item} className="rounded-2xl border border-aipify-border bg-aipify-surface px-5 py-4 text-center text-sm font-medium text-aipify-text-secondary">
                 {item}
               </li>
             ))}
@@ -257,9 +254,8 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* Commission transparency */}
-      <section className="border-y border-white/10 bg-violet-950/20 py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <section className={`border-y border-aipify-border bg-aipify-accent-soft/40 ${PublicMarketingClasses.section}`}>
+        <div className={`${PublicMarketingClasses.container} max-w-3xl`}>
           <SectionTitle>{commissionTransparency.title}</SectionTitle>
           <div className="mt-6 space-y-4 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
             {commissionTransparency.paragraphs.map((p) => (
@@ -269,9 +265,8 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* Partner business model */}
-      <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <section className={`relative ${PublicMarketingClasses.section}`}>
+        <div className={`${PublicMarketingClasses.container} max-w-3xl`}>
           <SectionTitle>{partnerBusinessModel.title}</SectionTitle>
           <div className="mt-6 space-y-4 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
             {partnerBusinessModel.paragraphs.map((p) => (
@@ -280,8 +275,8 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
           </div>
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">
             {partnerBusinessModel.activities.map((activity) => (
-              <li key={activity} className="flex items-center gap-2 rounded-xl border border-violet-500/20 bg-violet-950/15 px-4 py-3 text-sm text-aipify-text-secondary">
-                <span className="text-violet-400" aria-hidden="true">
+              <li key={activity} className="flex items-center gap-2 rounded-xl border border-aipify-accent-muted bg-aipify-accent-soft/60 px-4 py-3 text-sm text-aipify-text-secondary">
+                <span className="text-aipify-companion" aria-hidden="true">
                   •
                 </span>
                 {activity}
@@ -299,9 +294,11 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         futureTypes={partnerSuccessStories.futureTypes}
       />
 
-      {/* Premium registration */}
-      <section id="signup" className="relative border-y border-white/10 bg-gradient-to-b from-violet-950/25 to-transparent py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section
+        id="signup"
+        className={`relative border-y border-aipify-border bg-gradient-to-b from-violet-50/80 to-aipify-canvas ${PublicMarketingClasses.section}`}
+      >
+        <div className={PublicMarketingClasses.containerWide}>
           <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
             <div className="space-y-10 lg:pr-4">
               <div>
@@ -309,7 +306,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
                 <ul className="mt-6 space-y-3">
                   {registrationLeft.benefits.map((benefit) => (
                     <li key={benefit} className="flex gap-3 text-sm text-aipify-text-secondary sm:text-base">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" aria-hidden="true" />
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-aipify-companion" aria-hidden="true" />
                       {benefit}
                     </li>
                   ))}
@@ -317,7 +314,7 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-white">{registrationLeft.certificationTitle}</h3>
+                <h3 className={PublicMarketingClasses.cardTitle}>{registrationLeft.certificationTitle}</h3>
                 <p className="mt-2 text-sm text-aipify-text-secondary">{registrationLeft.certificationIntro}</p>
                 <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                   {registrationLeft.certificationTopics.map((topic) => (
@@ -329,10 +326,10 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-white">{registrationLeft.supportTitle}</h3>
+                <h3 className={PublicMarketingClasses.cardTitle}>{registrationLeft.supportTitle}</h3>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {registrationLeft.supportItems.map((item) => (
-                    <li key={item} className="rounded-full border border-aipify-border bg-white/5 px-3 py-1.5 text-xs font-medium text-aipify-text-secondary">
+                    <li key={item} className="rounded-full border border-aipify-border bg-aipify-surface px-3 py-1.5 text-xs font-medium text-aipify-text-secondary">
                       {item}
                     </li>
                   ))}
@@ -345,11 +342,11 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
             <div className="space-y-6 lg:pl-2">
               <PartnerAdvisorCard labels={labels.partnerAdvisor} />
               <PartnerTrustBuildersSection title={trustBuilders.title} items={trustBuilders.items} compact />
-              <div className="rounded-2xl border border-aipify-border/80 bg-white/[0.02] p-6 sm:p-8">
+              <div className={`${AipifyMarketingClasses.card} p-6 sm:p-8`}>
                 <GrowthPartnersSignupForm labels={labels.signup} verificationLabels={verificationLabels} />
               </div>
               <p className="text-center text-xs text-aipify-text-muted">
-                <Link href="/login" className="text-cyan-400 hover:underline">
+                <Link href="/login" className="font-medium text-aipify-companion hover:underline">
                   Already registered?
                 </Link>
               </p>
@@ -358,24 +355,23 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* Independent partnership detail */}
-      <section className="border-b border-white/10 bg-white/[0.02] py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <section className={`border-b border-aipify-border ${PublicMarketingClasses.sectionAlt} ${PublicMarketingClasses.section}`}>
+        <div className={`${PublicMarketingClasses.container} max-w-3xl`}>
           <SectionTitle>{independentPartnership.title}</SectionTitle>
           <p className="mt-6 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">{independentPartnership.intro}</p>
           <ul className="mt-6 space-y-3">
             {independentPartnership.partnerDecides.map((p) => (
               <li key={p} className="flex gap-3 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-violet-400" aria-hidden="true" />
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-aipify-companion" aria-hidden="true" />
                 {p}
               </li>
             ))}
           </ul>
-          <p className="mt-8 text-sm font-semibold text-white">{independentPartnership.aipifyProvidesTitle}</p>
+          <p className="mt-8 text-sm font-semibold text-aipify-text">{independentPartnership.aipifyProvidesTitle}</p>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
             {independentPartnership.aipifyProvides.map((item) => (
-              <li key={item} className="flex items-center gap-2 rounded-xl border border-aipify-border bg-white/[0.03] px-4 py-3 text-sm text-aipify-text-secondary">
-                <span className="text-cyan-400" aria-hidden="true">
+              <li key={item} className="flex items-center gap-2 rounded-xl border border-aipify-border bg-aipify-surface px-4 py-3 text-sm text-aipify-text-secondary">
+                <span className="text-aipify-companion" aria-hidden="true">
                   •
                 </span>
                 {item}
@@ -385,18 +381,17 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* How it works — detail */}
-      <section id="how-it-works" className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <section id="how-it-works" className={`relative ${PublicMarketingClasses.section}`}>
+        <div className={`${PublicMarketingClasses.container} max-w-3xl`}>
           <SectionTitle>{howItWorks.title}</SectionTitle>
           <ol className="mt-10 space-y-8">
             {howItWorks.steps.map((step, i) => (
               <li key={step.title} className="relative pl-12">
-                <span className="absolute left-0 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-violet-600 text-sm font-bold text-white">
+                <span className="absolute left-0 flex h-8 w-8 items-center justify-center rounded-full bg-aipify-companion text-sm font-bold text-white">
                   {i + 1}
                 </span>
-                <h3 className="font-semibold text-white">{step.title}</h3>
-                {step.time ? <p className="mt-1 text-xs font-medium text-cyan-400/90">{step.time}</p> : null}
+                <h3 className="font-semibold text-aipify-text">{step.title}</h3>
+                {step.time ? <p className="mt-1 text-xs font-medium text-aipify-companion">{step.time}</p> : null}
                 <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{step.body}</p>
               </li>
             ))}
@@ -404,14 +399,13 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* Requirements */}
-      <section className="border-y border-white/10 bg-white/[0.02] py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <section className={`border-y border-aipify-border ${PublicMarketingClasses.sectionAlt} ${PublicMarketingClasses.section}`}>
+        <div className={`${PublicMarketingClasses.container} max-w-3xl text-center`}>
           <SectionTitle>{requirements.title}</SectionTitle>
           <ul className="mt-8 space-y-4 text-left">
             {requirements.items.map((item, i) => (
-              <li key={item} className="rounded-xl border border-aipify-border bg-white/[0.03] px-5 py-4 text-sm text-aipify-text-secondary sm:text-base">
-                <span className="font-semibold text-white">{i + 1}. </span>
+              <li key={item} className="rounded-xl border border-aipify-border bg-aipify-surface px-5 py-4 text-sm text-aipify-text-secondary sm:text-base">
+                <span className="font-semibold text-aipify-text">{i + 1}. </span>
                 {item}
               </li>
             ))}
@@ -420,9 +414,8 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* Earnings tiers */}
-      <section className="relative py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className={`relative ${PublicMarketingClasses.section}`}>
+        <div className={PublicMarketingClasses.containerWide}>
           <div className="mx-auto max-w-3xl text-center">
             <SectionTitle>{earnings.title}</SectionTitle>
             <p className="mt-4 text-aipify-text-secondary">{earnings.copy}</p>
@@ -436,15 +429,14 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
         </div>
       </section>
 
-      {/* Training */}
-      <section className="border-y border-white/10 bg-white/[0.02] py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className={`border-y border-aipify-border ${PublicMarketingClasses.sectionAlt} ${PublicMarketingClasses.section}`}>
+        <div className={PublicMarketingClasses.containerWide}>
           <SectionTitle>{training.title}</SectionTitle>
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             <ul className="space-y-2">
               {training.modules.map((mod) => (
                 <li key={mod} className="flex items-center gap-2 text-sm text-aipify-text-secondary">
-                  <span className="text-violet-400" aria-hidden="true">
+                  <span className="text-aipify-companion" aria-hidden="true">
                     •
                   </span>
                   {mod}
@@ -452,8 +444,8 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
               ))}
             </ul>
             <div className="space-y-4">
-              <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 text-sm text-amber-100">{training.statusWaiting}</div>
-              <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-sm text-emerald-100">{training.statusVerified}</div>
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">{training.statusWaiting}</div>
+              <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">{training.statusVerified}</div>
               <p className="text-xs leading-relaxed text-aipify-text-muted">{training.certificationNote}</p>
             </div>
           </div>
@@ -462,12 +454,11 @@ export default function GrowthPartnersPageContent({ labels, verificationLabels, 
 
       <GrowthPartnerCtaBand {...growthPartnerCta} />
 
-      {/* Footer note + terms */}
       <section className="relative py-12">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+        <div className={`${PublicMarketingClasses.container} max-w-3xl text-center`}>
           <p className="text-sm text-aipify-text-muted">{labels.footerNote}</p>
           <p className="mt-4">
-            <Link href="/growth-partner-terms" className="text-sm font-medium text-cyan-400 hover:underline">
+            <Link href="/growth-partner-terms" className="text-sm font-medium text-aipify-companion hover:underline">
               Growth Partner Terms &amp; Conditions
             </Link>
           </p>

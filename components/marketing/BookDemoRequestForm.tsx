@@ -46,7 +46,7 @@ type Props = {
   variant?: "light" | "dark";
 };
 
-export default function BookDemoRequestForm({ labels, verificationLabels, variant = "dark" }: Props) {
+export default function BookDemoRequestForm({ labels, verificationLabels, variant = "light" }: Props) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [confirmation, setConfirmation] = useState("");
   const {

@@ -24,6 +24,10 @@ export default async function EarlyAccessPage() {
       <MarketingPageHeader
         title={(earlyAccess.title as string) ?? ""}
         subtitle={earlyAccess.subtitle as string}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Early Access" },
+        ]}
       />
       <MarketingTrustSignalStrip signals={trustSignals} />
       <MarketingDifferentiationStrip themes={parseStringList(marketing, "differentiationStrip", "themes")} />

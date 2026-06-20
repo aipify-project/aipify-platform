@@ -18,6 +18,7 @@ type DigitalHeadquartersPageContentProps = {
   ctaSecondaryHref?: string;
   ctaBand: MarketingCtaBandLabels;
   variant?: "full" | "scaffold";
+  breadcrumbs?: Parameters<typeof MarketingPageHeader>[0]["breadcrumbs"];
 };
 
 export default function DigitalHeadquartersPageContent({
@@ -33,10 +34,11 @@ export default function DigitalHeadquartersPageContent({
   ctaSecondaryHref = "/book-demo",
   ctaBand,
   variant = "full",
+  breadcrumbs,
 }: DigitalHeadquartersPageContentProps) {
   return (
     <>
-      <MarketingPageHeader title={title} subtitle={subtitle} />
+      <MarketingPageHeader title={title} subtitle={subtitle} breadcrumbs={breadcrumbs} />
       <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         {intro ? <p className="text-base leading-relaxed text-aipify-text-secondary">{intro}</p> : null}
 
