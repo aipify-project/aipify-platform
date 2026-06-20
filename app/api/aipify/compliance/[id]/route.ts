@@ -1,20 +1,59 @@
 import { NextResponse } from "next/server";
 import { parseComplianceDetail, parsePolicyItem } from "@/lib/app-portal/compliance";
+import { isCompliancePolicyRecordId } from "@/lib/app-portal/compliance/record-id";
+import {
+  isDatabaseExecutionError,
+  requireOrganizationViewPermission,
+  requireReadyAppPortalContext,
+  rpcErrorStatus,
+} from "@/lib/tenant/app-portal-route-access";
+import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
 
 type Params = { params: Promise<{ id: string }> };
 
+function invalidRecordIdResponse() {
+  return NextResponse.json(
+    { error: "invalid_parameter", access_state: "invalid_parameter", parameter: "id" },
+    { status: 400 }
+  );
+}
+
 export async function GET(_request: Request, { params }: Params) {
   try {
     const { id } = await params;
+    if (!isCompliancePolicyRecordId(id)) return invalidRecordIdResponse();
+
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+    const access = await requireReadyAppPortalContext(supabase);
+    if (!access.ok) return access.response;
+
+    const permission = await requireOrganizationViewPermission(
+      supabase,
+      "compliance.view",
+      "compliance.manage"
+    );
+    if (!permission.ok) return permission.response;
+
     const { data, error } = await supabase.rpc("get_app_portal_compliance_policy", { p_id: id });
-    if (error) return NextResponse.json({ error: error.message }, { status: 403 });
+    if (error) {
+      const message = error.message;
+      const access_state = isDatabaseExecutionError(message)
+        ? "database_execution_error"
+        : classifyAppPortalError(message);
+      console.error("[aipify/compliance/[id]]", message);
+      return NextResponse.json(
+        { error: message, access_state, found: false },
+        { status: rpcErrorStatus(message, access_state) }
+      );
+    }
     return NextResponse.json(parseComplianceDetail(data));
-  } catch {
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Failed to load policy";
+    console.error("[aipify/compliance/[id]]", message);
     return NextResponse.json({ error: "Failed to load policy" }, { status: 500 });
   }
 }
@@ -36,6 +75,8 @@ type UpdateBody = {
 export async function PATCH(request: Request, { params }: Params) {
   try {
     const { id } = await params;
+    if (!isCompliancePolicyRecordId(id)) return invalidRecordIdResponse();
+
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

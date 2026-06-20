@@ -574,8 +574,6 @@ begin
   v_tenant_id := public._presence_tenant_for_auth();
   if v_tenant_id is null then return jsonb_build_object('has_customer', false); end if;
 
-  perform public._sec_seed_retention(v_tenant_id);
-
   select coalesce(jsonb_agg(row_to_json(p)::jsonb order by p.created_at desc), '[]'::jsonb) into v_privacy
   from (select * from public.privacy_requests where tenant_id = v_tenant_id order by created_at desc limit 10) p;
 

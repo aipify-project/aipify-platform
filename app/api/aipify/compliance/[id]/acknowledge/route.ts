@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { parsePolicyItem } from "@/lib/app-portal/compliance";
+import { isCompliancePolicyRecordId } from "@/lib/app-portal/compliance/record-id";
 import { createClient } from "@/lib/supabase/server";
 
 type Params = { params: Promise<{ id: string }> };
@@ -7,6 +8,13 @@ type Params = { params: Promise<{ id: string }> };
 export async function POST(_request: Request, { params }: Params) {
   try {
     const { id } = await params;
+    if (!isCompliancePolicyRecordId(id)) {
+      return NextResponse.json(
+        { error: "invalid_parameter", access_state: "invalid_parameter", parameter: "id" },
+        { status: 400 }
+      );
+    }
+
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
