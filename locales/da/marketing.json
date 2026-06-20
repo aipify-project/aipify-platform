@@ -33,6 +33,10 @@
     "getStartedDescription": "A structured path from first login to operational value. See your first 30 days, implementation journey, and time-to-value outcomes."
   },
   "nav": {
+    "platform": "Platform",
+    "solutions": "Løsninger",
+    "partners": "Partnere",
+    "resources": "Ressourcer",
     "product": "Product",
     "modules": "Modules",
     "businessPacks": "Business Packs",

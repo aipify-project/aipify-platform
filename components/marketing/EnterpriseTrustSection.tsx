@@ -34,10 +34,10 @@ export default function EnterpriseTrustSection({
           {points.map((point, i) => (
             <li
               key={point.title}
-              className="rounded-2xl border border-aipify-border bg-white/[0.03] p-6 transition hover:border-cyan-500/30 hover:bg-white/[0.05]"
+              className="rounded-2xl border border-aipify-border bg-aipify-surface p-6 shadow-sm transition hover:border-aipify-companion/30"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-violet-600/20">
-                <svg className="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aipify-accent-soft">
+                <svg className="h-5 w-5 text-aipify-companion" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d={ICONS[i % ICONS.length]} />
                 </svg>
               </div>

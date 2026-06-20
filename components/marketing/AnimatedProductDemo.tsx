@@ -59,8 +59,8 @@ export default function AnimatedProductDemo({
         </div>
 
         <div className="mt-12 lg:hidden">
-          <div className="rounded-2xl border border-aipify-border bg-white/5 p-6">
-            <p className="text-sm font-medium text-cyan-300">Support flow</p>
+          <div className="rounded-2xl border border-aipify-border bg-aipify-surface p-6 shadow-sm">
+            <p className="text-sm font-medium text-aipify-companion">Support flow</p>
             <p className="mt-2 text-sm text-aipify-text-secondary">{mobileSummary}</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {steps.map((step, i) => (
@@ -70,8 +70,8 @@ export default function AnimatedProductDemo({
                   onClick={() => setActiveStep(i)}
                   className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
                     i === activeStep
-                      ? "bg-cyan-500/20 text-cyan-300"
-                      : "bg-white/5 text-aipify-text-muted"
+                      ? "bg-aipify-companion text-white"
+                      : "border border-aipify-border bg-aipify-surface-muted text-aipify-text-secondary"
                   }`}
                 >
                   {i + 1}
@@ -79,7 +79,7 @@ export default function AnimatedProductDemo({
               ))}
             </div>
             <div className="mt-4">
-              <p className="font-semibold text-white">{steps[activeStep]?.title}</p>
+              <p className="font-semibold text-aipify-text">{steps[activeStep]?.title}</p>
               <p className="mt-1 text-sm text-aipify-text-secondary">{steps[activeStep]?.detail}</p>
             </div>
           </div>
