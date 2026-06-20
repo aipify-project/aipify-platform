@@ -643,7 +643,8 @@
     "profitability": "Profitability Operations",
     "serviceNetwork": "Service Network",
     "servicePayments": "Service Payments",
-    "serviceIntake": "Service Intake"
+    "serviceIntake": "Service Intake",
+    "serviceCommunications": "Service Communications"
   },
   "voiceOfCustomer": {
     "trigger": "Share Feedback",

@@ -76,6 +76,10 @@ const DASHBOARD_MODULE_OVERRIDES = new Set([
   "serviceNetwork",
   "servicePayments",
   "serviceIntake",
+  "serviceCommunications",
+  "serviceRebooking",
+  "serviceFeedback",
+  "serviceQuality",
   "systemHealth",
 ]);
 

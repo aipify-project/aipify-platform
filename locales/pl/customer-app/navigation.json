@@ -46,6 +46,9 @@
     "companionDigitalTwinSimulationEngine": "Centrum Digital Twin",
     "companionExecutionOutcomeEngine": "Centrum Wykonawcze",
     "companionWorkflowProcessEngine": "Centrum Workflow",
-    "companionResourceCapacityEngine": "Centrum Zasobów"
+    "companionResourceCapacityEngine": "Centrum Zasobów",
+    "servicePayments": "Płatności serwisowe",
+    "serviceIntake": "Przyjęcie serwisowe",
+    "serviceCommunications": "Komunikacja serwisowa"
   }
 }

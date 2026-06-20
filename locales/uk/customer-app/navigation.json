@@ -46,6 +46,9 @@
     "companionDigitalTwinSimulationEngine": "Digital Twin Center",
     "companionExecutionOutcomeEngine": "Execution Center",
     "companionWorkflowProcessEngine": "Workflow Center",
-    "companionResourceCapacityEngine": "Resource Center"
+    "companionResourceCapacityEngine": "Resource Center",
+    "servicePayments": "Сервісні платежі",
+    "serviceIntake": "Сервісний intake",
+    "serviceCommunications": "Сервісна комунікація"
   }
 }

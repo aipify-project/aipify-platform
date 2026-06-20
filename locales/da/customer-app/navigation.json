@@ -534,7 +534,8 @@
     "profitability": "Rentabilitetsoperationer",
     "serviceNetwork": "Servicenetværk",
     "servicePayments": "Servicebetalinger",
-    "serviceIntake": "Serviceindtag"
+    "serviceIntake": "Serviceindtag",
+    "serviceCommunications": "Servicekommunikation"
   },
   "companionPresence": {
     "ariaIndicator": "Aipify companion-tilstedeværelse",

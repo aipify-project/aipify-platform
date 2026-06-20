@@ -15904,7 +15904,7 @@
     }
   },
   "servicePayments": {
-    "title": "Servicebetalinger",
+    "title": "Service Payments",
     "subtitle": "Deposits, balances, refunds, cancellations, no-shows, and revenue protection — payment confirmation is always server-side.",
     "principle": "Payment confirmation is always validated server-side — never mark complete without verification.",
     "privacyNote": "Financial access respects organization, location, provider, and renter scopes.",
@@ -15940,41 +15940,116 @@
     }
   },
   "serviceIntake": {
-    "title": "Serviceindtag",
-    "subtitle": "Formularer, indsendelser, samtykker og leveringsklarhed — styret indtag før aftaler fortsætter.",
-    "principle": "Påkrævet indtag og samtykker skal være fuldført før servicelevering starter.",
-    "privacyNote": "Indtagsdata respekterer organisation, lokation, leverandør og kundeomfang.",
-    "loading": "Indlæser",
-    "empty": "Service Intake Center er ikke tilgængeligt for denne organisation.",
-    "refresh": "Opdater",
-    "noRecords": "Ingen poster i dette afsnit endnu.",
+    "title": "Service Intake",
+    "subtitle": "Forms, submissions, consents, and service delivery readiness — governed intake before appointments proceed.",
+    "principle": "Required intake and consents must be complete before service delivery begins.",
+    "privacyNote": "Intake data respects organization, location, provider, and customer scopes.",
+    "loading": "Loading",
+    "empty": "Service Intake Center is not available for this organization.",
+    "refresh": "Refresh",
+    "noRecords": "No records in this section yet.",
     "companionAdvisor": "Companion Service Intake Advisor",
     "sections": {
-      "forms": "Indtagsformularer",
-      "submissions": "Indsendelser",
-      "consents": "Samtykker",
-      "serviceDelivery": "Servicelevering"
+      "forms": "Intake Forms",
+      "submissions": "Submissions",
+      "consents": "Consents",
+      "serviceDelivery": "Service Delivery"
     },
     "stats": {
-      "activeForms": "Aktive formularer",
-      "pendingSubmissions": "Afventende indsendelser",
-      "consentsRequired": "Samtykker påkrævet",
-      "deliveryTasksOpen": "Åbne leveringsopgaver",
-      "readinessBlocked": "Klarhed blokeret"
+      "activeForms": "Active forms",
+      "pendingSubmissions": "Pending submissions",
+      "consentsRequired": "Consents required",
+      "deliveryTasksOpen": "Delivery tasks open",
+      "readinessBlocked": "Readiness blocked"
     },
     "detail": {
-      "back": "Tilbage til listen",
-      "overview": "Oversigt",
-      "notFound": "Denne indtagspost blev ikke fundet."
+      "back": "Back to list",
+      "overview": "Overview",
+      "notFound": "This intake record could not be found."
     },
     "entityTypes": {
-      "form": "Indtagsformular",
-      "submission": "Indsendelse"
+      "form": "Intake form",
+      "submission": "Submission"
     },
     "readiness": {
-      "ready": "Bookingindtag er klar",
-      "blocked": "Bookingindtag er blokeret",
-      "principle": "Bookingklarhed evalueres serverside før servicelevering."
+      "ready": "Booking intake is ready",
+      "blocked": "Booking intake is blocked",
+      "principle": "Booking readiness is evaluated server-side before service delivery."
+    }
+  },
+  "serviceCommunications": {
+    "title": "Servicekommunikation",
+    "subtitle": "Bookingbekræftelser, påmindelser, kundesvar og styrede skabeloner — tydelig kommunikation uden pres.",
+    "principle": "Aipify hjælper servicevirksomheder med at kommunikere tydeligt uden pres eller spam.",
+    "privacyNote": "Communication access respects organization, location, provider, and customer scopes.",
+    "loading": "Loading",
+    "empty": "Servicekommunikationscenter er ikke tilgængeligt for denne organisation.",
+    "refresh": "Refresh",
+    "noRecords": "No records in this section yet.",
+    "companionAdvisor": "Companion rådgiver for serviceoplevelse",
+    "sections": {
+      "overview": "Oversigt",
+      "messages": "Beskeder",
+      "scheduled": "Planlagt",
+      "failed": "Mislykket levering",
+      "replies": "Kundesvar",
+      "templates": "Skabeloner",
+      "preferences": "Præferencer",
+      "settings": "Indstillinger"
+    },
+    "stats": {
+      "scheduled": "Scheduled",
+      "delivered": "Delivered",
+      "failed": "Failed",
+      "repliesPending": "Replies pending",
+      "suppressed": "Suppressed"
+    }
+  },
+  "serviceRebooking": {
+    "title": "Service genbooking",
+    "subtitle": "Styrede genbooking-anbefalinger koblet til eksisterende bookingmotor.",
+    "principle": "Genbooking bruger eksisterende bookingmotor — gennemførte bookinger omskrives aldrig.",
+    "privacyNote": "Rebooking visibility respects location and provider assignment.",
+    "loading": "Loading",
+    "empty": "Service genbooking er ikke tilgængelig for denne organisation.",
+    "refresh": "Refresh",
+    "noRecords": "No rebooking opportunities in this view yet.",
+    "stats": {
+      "rebookingDue": "Rebooking due",
+      "rebooked": "Rebooked",
+      "remindersSent": "Reminders sent"
+    }
+  },
+  "serviceFeedback": {
+    "title": "Service feedback",
+    "subtitle": "Privat kundefeedback, servicegenopretning og valgfrie anmeldelsesanmodninger.",
+    "principle": "Privat feedback kan ignoreres — offentlige anmeldelsesanmodninger er valgfrie og frekvensbegrænsede.",
+    "privacyNote": "Feedback comments require appropriate permission — no review gating.",
+    "loading": "Loading",
+    "empty": "Service feedback er ikke tilgængelig for denne organisation.",
+    "refresh": "Refresh",
+    "noRecords": "No feedback records in this view yet.",
+    "stats": {
+      "newFeedback": "New feedback",
+      "followUpRequired": "Follow-up required",
+      "recoveryOpen": "Recovery open",
+      "reviewRequests": "Review requests"
+    }
+  },
+  "serviceQuality": {
+    "title": "Servicekvalitet",
+    "subtitle": "Operationelle indsigter i servicekvalitet — konstruktivt, ikke overvågning.",
+    "principle": "Indsigter i servicekvalitet forbedrer driften — de må ikke blive medarbejderovervågning.",
+    "privacyNote": "Quality views respect organization, location, and provider scope.",
+    "loading": "Loading",
+    "empty": "Servicekvalitetsdashboard er ikke tilgængeligt for denne organisation.",
+    "refresh": "Refresh",
+    "noRecords": "No quality data for the selected view yet.",
+    "stats": {
+      "alertsOpen": "Open alerts",
+      "avgRating": "Average rating",
+      "deliverySuccessRate": "Delivery success",
+      "rebookingRate": "Rebooking rate"
     }
   }
 }
