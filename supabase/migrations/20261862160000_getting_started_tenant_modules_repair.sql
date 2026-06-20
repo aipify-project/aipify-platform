@@ -1,17 +1,28 @@
--- Phase 274 (APP) — Onboarding & Adoption Acceleration Center
+-- Phase 620 P1 — Getting Started repair: tenant_modules uses tenant_id (customers.id), not company_id.
 
-create table if not exists public.app_portal_onboarding_progress (
-  company_id uuid primary key references public.companies (id) on delete cascade,
-  started_at timestamptz,
-  completed_at timestamptz,
-  manual_tasks jsonb not null default '{}'::jsonb,
-  dismissed_milestones jsonb not null default '[]'::jsonb,
-  updated_at timestamptz not null default now(),
-  updated_by uuid references public.users (id) on delete set null
+insert into public.aipify_permissions (permission_key, permission_name, module_key, description)
+select v.key, v.label, v.module_key, v.description
+from (values
+  ('self_support.view', 'View Self Support', null, 'Access APP self-support areas'),
+  ('self_support.manage', 'Manage Self Support', null, 'Manage APP self-support onboarding progress')
+) as v(key, label, module_key, description)
+where not exists (
+  select 1 from public.aipify_permissions p where p.permission_key = v.key
 );
 
-alter table public.app_portal_onboarding_progress enable row level security;
-revoke all on public.app_portal_onboarding_progress from authenticated, anon;
+insert into public.organization_role_permissions (organization_id, role, permission_key)
+select o.id, v.role, v.key
+from public.organizations o
+cross join (values
+  ('owner', 'self_support.view'),
+  ('owner', 'self_support.manage'),
+  ('administrator', 'self_support.view'),
+  ('administrator', 'self_support.manage'),
+  ('manager', 'self_support.view'),
+  ('support_agent', 'self_support.view'),
+  ('viewer', 'self_support.view')
+) as v(role, key)
+on conflict (organization_id, role, permission_key) do nothing;
 
 create or replace function public._apoa274_require_onboarding_access()
 returns jsonb
@@ -437,24 +448,4 @@ begin
 end;
 $$;
 
-create or replace function public.get_app_portal_onboarding_recommendations()
-returns jsonb
-language plpgsql
-stable
-security definer
-set search_path = public
-as $$
-declare v_center jsonb;
-begin
-  v_center := public.get_app_portal_onboarding();
-  return jsonb_build_object(
-    'found', true,
-    'recommendations', coalesce(v_center->'recommendations', '[]'::jsonb),
-    'advisory_only', true
-  );
-end;
-$$;
-
-grant execute on function public.get_app_portal_onboarding() to authenticated;
-grant execute on function public.patch_app_portal_onboarding(text, text, text, text) to authenticated;
-grant execute on function public.get_app_portal_onboarding_recommendations() to authenticated;
+notify pgrst, 'reload schema';
