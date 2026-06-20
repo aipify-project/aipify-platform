@@ -121,7 +121,8 @@
     },
     "foundation": {
       "back": "Tilbake til APP",
-      "structureNote": "Denne modulen er en del av APP-portalstrukturen. Funksjonalitet utvides i kommende faser."
+      "structureNote": "Denne modulen er en del av APP-portalstrukturen. Funksjonalitet utvides i kommende faser.",
+      "comingSoon": "Kommer snart"
     },
     "license": {
       "upgradeTitle": "Oppgradering kreves",
@@ -3356,7 +3357,8 @@
       },
       "organizationMissing": "Organisasjonskontekst mangler. Velg eller konfigurer arbeidsområdet før du bruker Customer Success.",
       "subscriptionRequired": "Dette området krever et aktivt organisasjonsabonnement.",
-      "permissionMissing": "Du har ikke tilgang til dette området. Kontakt organisasjonens administrator."
+      "permissionMissing": "Du har ikke tilgang til dette området. Kontakt organisasjonens administrator.",
+      "entitlementMissing": "Denne funksjonen er ikke inkludert i organisasjonens aktive Business Packs eller abonnement."
     },
     "customerHealth": {
       "title": "Customer Health",

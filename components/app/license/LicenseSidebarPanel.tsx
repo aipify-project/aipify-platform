@@ -8,8 +8,10 @@ import { formatSoftwareVersion } from "@/lib/license";
 import { resolveAppHref } from "@/lib/app/route-aliases";
 import {
   CACHE_TTL_LICENSE_MS,
+  LICENSE_SIDEBAR_CACHE_KEY,
   dedupeFetch,
   getCachedValue,
+  invalidateCachedValue,
   setCachedValue,
 } from "@/lib/polling";
 
@@ -56,7 +58,7 @@ type LicenseCache = {
   contextState: OrganizationContextState | null;
 };
 
-const LICENSE_CACHE_KEY = "license-sidebar";
+const LICENSE_CACHE_KEY = LICENSE_SIDEBAR_CACHE_KEY;
 
 export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps) {
   const cached = getCachedValue<LicenseCache>(LICENSE_CACHE_KEY);
@@ -69,16 +71,8 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
   const { sidebarMark } = AIPIFY_BRAND;
 
   const load = useCallback(async () => {
-    const hit = getCachedValue<LicenseCache>(LICENSE_CACHE_KEY);
-    if (hit) {
-      setWorkspaceName(hit.workspaceName);
-      setSummary(hit.summary);
-      setContextState(hit.contextState);
-      return;
-    }
-
     await dedupeFetch(LICENSE_CACHE_KEY, async () => {
-      const contextRes = await fetch("/api/app/organization-context");
+      const contextRes = await fetch("/api/app/organization-context", { cache: "no-store" });
       let nextWorkspace: string | null = null;
       let nextSummary: LicenseSummary | null = null;
       let nextContextState: OrganizationContextState | null = null;
@@ -102,17 +96,29 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
           software_version: "1.0.0",
           software_owner: "Aipify Group AS",
         };
+
+        const cacheable =
+          nextContextState === "ready" &&
+          Boolean(nextWorkspace) &&
+          Boolean(nextSummary?.licensed_to || nextSummary?.has_customer);
+
+        if (cacheable) {
+          setCachedValue(
+            LICENSE_CACHE_KEY,
+            {
+              workspaceName: nextWorkspace,
+              summary: nextSummary,
+              contextState: nextContextState,
+            },
+            CACHE_TTL_LICENSE_MS
+          );
+        } else {
+          invalidateCachedValue(LICENSE_CACHE_KEY);
+        }
+      } else {
+        invalidateCachedValue(LICENSE_CACHE_KEY);
       }
 
-      setCachedValue(
-        LICENSE_CACHE_KEY,
-        {
-          workspaceName: nextWorkspace,
-          summary: nextSummary,
-          contextState: nextContextState,
-        },
-        CACHE_TTL_LICENSE_MS
-      );
       setWorkspaceName(nextWorkspace);
       setSummary(nextSummary);
       setContextState(nextContextState);

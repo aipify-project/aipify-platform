@@ -29,8 +29,12 @@ export type NotificationPreferences = {
   quiet_hours_end?: string | null;
 };
 
+import type { AppOrganizationContextState } from "@/lib/tenant/resolve-app-organization-context";
+
 export type NotificationOrchestrationCenter = {
   found: boolean;
+  access_state?: AppOrganizationContextState | string;
+  error?: string;
   principle?: string;
   philosophy?: string;
   overview?: Record<string, unknown>;

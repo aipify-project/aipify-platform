@@ -14,6 +14,7 @@ import {
   type NotificationOrchestrationCenter,
   type NotificationOrchestrationLabels,
 } from "@/lib/notification-orchestration";
+import { resolveAppPortalAccessMessage } from "@/lib/tenant/app-portal-access-messages";
 
 type Tab =
   | "overview"
@@ -59,7 +60,14 @@ export function NotificationOrchestrationPanel({
       const parsed = parseNotificationOrchestrationCenter(await res.json());
       setCenter(parsed);
       if (parsed?.preferences?.frequency) setFrequency(parsed.preferences.frequency);
-    } else setCenter(null);
+    } else {
+      const body = (await res.json()) as { access_state?: string; error?: string };
+      setCenter({
+        found: false,
+        access_state: body.access_state,
+        error: body.error,
+      } as NotificationOrchestrationCenter);
+    }
     setLoading(false);
   }, []);
 
@@ -91,7 +99,14 @@ export function NotificationOrchestrationPanel({
   }
 
   if (!center?.found) {
-    return <AipifyModuleAccessDenied message={labels.accessDenied} />;
+    const message = resolveAppPortalAccessMessage(center?.access_state, {
+      accessDenied: labels.accessDenied,
+      organizationMissing: labels.organizationMissing,
+      subscriptionRequired: labels.subscriptionRequired,
+      permissionMissing: labels.permissionMissing,
+      entitlementMissing: labels.entitlementMissing,
+    });
+    return <AipifyModuleAccessDenied message={message} />;
   }
 
   const overview = center.overview ?? {};

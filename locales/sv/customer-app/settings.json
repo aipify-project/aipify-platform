@@ -3517,7 +3517,11 @@
     "acknowledgeAlert": "Bekräfta",
     "resolveAlert": "Lös",
     "openApprovals": "Öppna godkännandecenter",
-    "openCommunications": "Öppna kommunikation"
+    "openCommunications": "Öppna kommunikation",
+    "organizationMissing": "Organisationskontext saknas. Välj eller konfigurera arbetsytan innan du använder meddelandecentret.",
+    "subscriptionRequired": "Meddelandecentret kräver en aktiv organisationsprenumeration.",
+    "permissionMissing": "Du har inte behörighet till meddelandecentret. Kontakta organisationens administratör.",
+    "entitlementMissing": "Meddelandecentret ingår inte i organisationens aktiva Business Packs eller abonnemang."
   },
   "mobileApiIntegration": {
     "title": "Mobil API-integrationscenter",

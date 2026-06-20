@@ -544,5 +544,11 @@
       "high": "High",
       "critical": "Critical"
     }
+  },
+  "notificationOrchestration": {
+    "organizationMissing": "Brakuje kontekstu organizacji. Wybierz lub skonfiguruj workspace przed użyciem centrum powiadomień.",
+    "subscriptionRequired": "Centrum powiadomień wymaga aktywnej subskrypcji organizacji.",
+    "permissionMissing": "Nie masz uprawnień do centrum powiadomień. Skontaktuj się z administratorem organizacji.",
+    "entitlementMissing": "Centrum powiadomień nie jest objęte aktywnymi Business Packs ani planem organizacji."
   }
 }

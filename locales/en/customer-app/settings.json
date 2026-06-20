@@ -3679,7 +3679,11 @@
     "acknowledgeAlert": "Acknowledge",
     "resolveAlert": "Resolve",
     "openApprovals": "Open Approval Center",
-    "openCommunications": "Open Communications"
+    "openCommunications": "Open Communications",
+    "organizationMissing": "Organization context is missing. Select or configure your workspace before using Notification Center.",
+    "subscriptionRequired": "Notification Center requires an active organization subscription.",
+    "permissionMissing": "You do not have permission to access Notification Center. Contact your organization administrator.",
+    "entitlementMissing": "Notification Center is not included in your organization's active Business Packs or plan."
   },
   "mobileApiIntegration": {
     "title": "Mobile API Integration Center",

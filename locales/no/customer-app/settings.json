@@ -3549,7 +3549,11 @@
     "acknowledgeAlert": "Bekreft",
     "resolveAlert": "Løs",
     "openApprovals": "Åpne godkjenningssenter",
-    "openCommunications": "Åpne kommunikasjon"
+    "openCommunications": "Åpne kommunikasjon",
+    "organizationMissing": "Organisasjonskontekst mangler. Velg eller konfigurer arbeidsområdet før du bruker varslingssenteret.",
+    "subscriptionRequired": "Varslingssenteret krever et aktivt organisasjonsabonnement.",
+    "permissionMissing": "Du har ikke tilgang til varslingssenteret. Kontakt organisasjonens administrator.",
+    "entitlementMissing": "Varslingssenteret er ikke inkludert i organisasjonens aktive Business Packs eller abonnement."
   },
   "mobileApiIntegration": {
     "title": "Mobil API-integrasjonssenter",

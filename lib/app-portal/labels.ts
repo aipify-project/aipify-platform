@@ -38,6 +38,7 @@ export function buildAppPortalLabels(t: Translator): AppPortalLabels {
     foundation: {
       back: t(`${f}.back`),
       structureNote: t(`${f}.structureNote`),
+      comingSoon: t(`${f}.comingSoon`),
     },
     license: {
       upgradeTitle: t(`${l}.upgradeTitle`),

@@ -38,7 +38,13 @@ function parseExecutiveAlert(row: Record<string, unknown>): ExecutiveAlertItem {
 export function parseNotificationOrchestrationCenter(data: unknown): NotificationOrchestrationCenter | null {
   if (!data || typeof data !== "object") return null;
   const row = data as Record<string, unknown>;
-  if (row.found === false) return { found: false };
+  if (row.found === false) {
+    return {
+      found: false,
+      access_state: typeof row.access_state === "string" ? row.access_state : undefined,
+      error: typeof row.error === "string" ? row.error : undefined,
+    };
+  }
 
   return {
     found: true,

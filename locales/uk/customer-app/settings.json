@@ -544,5 +544,11 @@
       "high": "High",
       "critical": "Critical"
     }
+  },
+  "notificationOrchestration": {
+    "organizationMissing": "Відсутній контекст організації. Оберіть або налаштуйте workspace перед використанням центру сповіщень.",
+    "subscriptionRequired": "Центр сповіщень потребує активної підписки організації.",
+    "permissionMissing": "У вас немає доступу до центру сповіщень. Зверніться до адміністратора організації.",
+    "entitlementMissing": "Центр сповіщень не входить до активних Business Packs або плану вашої організації."
   }
 }

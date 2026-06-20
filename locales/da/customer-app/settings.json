@@ -3517,7 +3517,11 @@
     "acknowledgeAlert": "Bekræft",
     "resolveAlert": "Løs",
     "openApprovals": "Åbn godkendelsescenter",
-    "openCommunications": "Åbn kommunikation"
+    "openCommunications": "Åbn kommunikation",
+    "organizationMissing": "Organisationskontekst mangler. Vælg eller konfigurer arbejdsområdet, før du bruger meddelelsescenteret.",
+    "subscriptionRequired": "Meddelelsescenteret kræver et aktivt organisationsabonnement.",
+    "permissionMissing": "Du har ikke adgang til meddelelsescenteret. Kontakt organisationens administrator.",
+    "entitlementMissing": "Meddelelsescenteret er ikke inkluderet i organisationens aktive Business Packs eller abonnement."
   },
   "mobileApiIntegration": {
     "title": "Mobil API-integrationscenter",

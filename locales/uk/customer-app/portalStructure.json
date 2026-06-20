@@ -3044,7 +3044,8 @@
       },
       "organizationMissing": "Відсутній контекст організації. Оберіть або налаштуйте workspace перед використанням Customer Success.",
       "subscriptionRequired": "Цей розділ потребує активної підписки організації.",
-      "permissionMissing": "У вас немає доступу до цього розділу. Зверніться до адміністратора організації."
+      "permissionMissing": "У вас немає доступу до цього розділу. Зверніться до адміністратора організації.",
+      "entitlementMissing": "Ця можливість не входить до активних Business Packs або плану вашої організації."
     },
     "customerHealth": {
       "title": "Customer Health",

@@ -154,6 +154,7 @@ async function portalContext() {
 export async function renderAppPortalFoundationPage(pageKey: AppPortalPageKey) {
   const { t, labels } = await portalContext();
   const page = PAGE_KEYS[pageKey];
+  const comingSoonPages: AppPortalPageKey[] = ["profile", "preferences"];
 
   const panel = (
     <AppPortalFoundationPanel
@@ -161,6 +162,9 @@ export async function renderAppPortalFoundationPage(pageKey: AppPortalPageKey) {
       subtitle={t(page.subtitleKey)}
       structureNote={labels.foundation.structureNote}
       backLabel={labels.foundation.back}
+      comingSoonLabel={
+        comingSoonPages.includes(pageKey) ? labels.foundation.comingSoon : undefined
+      }
     />
   );
 

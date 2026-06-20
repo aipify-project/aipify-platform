@@ -7,6 +7,7 @@ export type AppOrganizationContextState =
   | "organization_missing"
   | "membership_missing"
   | "subscription_inactive"
+  | "entitlement_missing"
   | "access_denied";
 
 export type AppOrganizationContext = {
@@ -34,6 +35,7 @@ const CONTEXT_STATES = new Set<AppOrganizationContextState>([
   "organization_missing",
   "membership_missing",
   "subscription_inactive",
+  "entitlement_missing",
   "access_denied",
 ]);
 
@@ -81,6 +83,17 @@ export function classifyAppPortalError(message: string): AppOrganizationContextS
   }
   if (lower.includes("access denied for organization")) {
     return "membership_missing";
+  }
+  if (lower.includes("permission denied") || lower.includes("permission missing")) {
+    return "access_denied";
+  }
+  if (
+    lower.includes("entitlement") ||
+    lower.includes("business pack") ||
+    lower.includes("module not") ||
+    lower.includes("not included")
+  ) {
+    return "entitlement_missing";
   }
   if (lower.includes("app portal access denied") || lower.includes("unauthorized")) {
     return "access_denied";

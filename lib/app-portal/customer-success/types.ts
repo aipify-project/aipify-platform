@@ -87,6 +87,7 @@ export type CustomerSuccessLabels = {
   organizationMissing: string;
   subscriptionRequired: string;
   permissionMissing: string;
+  entitlementMissing: string;
   filters: {
     search: string;
     category: string;

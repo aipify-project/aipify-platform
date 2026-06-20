@@ -121,7 +121,8 @@
     },
     "foundation": {
       "back": "Back to APP",
-      "structureNote": "This module is part of the APP portal structure. Capabilities will expand in future phases."
+      "structureNote": "This module is part of the APP portal structure. Capabilities will expand in future phases.",
+      "comingSoon": "Coming soon"
     },
     "license": {
       "upgradeTitle": "Upgrade required",
@@ -3160,6 +3161,7 @@
       "organizationMissing": "Organization context is missing. Select or configure your workspace before using Customer Success.",
       "subscriptionRequired": "This area requires an active organization subscription.",
       "permissionMissing": "You do not have permission to access this area. Contact your organization administrator.",
+      "entitlementMissing": "This capability is not included in your organization's active Business Packs or plan.",
       "filters": {
         "search": "Search success insights…",
         "category": "Adoption category",

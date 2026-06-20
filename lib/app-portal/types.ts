@@ -64,6 +64,7 @@ export type AppPortalLabels = {
   foundation: {
     back: string;
     structureNote: string;
+    comingSoon: string;
   };
   license: {
     upgradeTitle: string;

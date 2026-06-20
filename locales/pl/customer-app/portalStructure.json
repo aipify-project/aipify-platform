@@ -3044,7 +3044,8 @@
       },
       "organizationMissing": "Brakuje kontekstu organizacji. Wybierz lub skonfiguruj workspace przed użyciem Customer Success.",
       "subscriptionRequired": "Ten obszar wymaga aktywnej subskrypcji organizacji.",
-      "permissionMissing": "Nie masz uprawnień do tego obszaru. Skontaktuj się z administratorem organizacji."
+      "permissionMissing": "Nie masz uprawnień do tego obszaru. Skontaktuj się z administratorem organizacji.",
+      "entitlementMissing": "Ta funkcja nie jest objęta aktywnymi Business Packs ani planem organizacji."
     },
     "customerHealth": {
       "title": "Customer Health",

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { parseCustomerSuccessOverview } from "@/lib/app-portal/customer-success";
 import { requireReadyAppPortalContext } from "@/lib/tenant/app-portal-route-access";
+import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
 
 export async function GET(request: Request) {
@@ -23,7 +24,11 @@ export async function GET(request: Request) {
     });
     if (error) {
       return NextResponse.json(
-        { error: error.message, access_state: "access_denied", found: false },
+        {
+          error: error.message,
+          access_state: classifyAppPortalError(error.message),
+          found: false,
+        },
         { status: 403 }
       );
     }

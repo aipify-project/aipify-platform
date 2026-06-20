@@ -18,7 +18,11 @@ const ACCESS_MESSAGES: Record<
   AppOrganizationContextState,
   keyof Pick<
     CustomerSuccessLabels,
-    "accessDenied" | "organizationMissing" | "subscriptionRequired" | "permissionMissing"
+    | "accessDenied"
+    | "organizationMissing"
+    | "subscriptionRequired"
+    | "permissionMissing"
+    | "entitlementMissing"
   >
 > = {
   ready: "accessDenied",
@@ -27,6 +31,7 @@ const ACCESS_MESSAGES: Record<
   organization_missing: "organizationMissing",
   membership_missing: "organizationMissing",
   subscription_inactive: "subscriptionRequired",
+  entitlement_missing: "entitlementMissing",
   access_denied: "permissionMissing",
 };
 

@@ -5,6 +5,7 @@ type AppPortalAccessLabels = {
   organizationMissing: string;
   subscriptionRequired: string;
   permissionMissing: string;
+  entitlementMissing: string;
 };
 
 export function resolveAppPortalAccessMessage(
@@ -18,6 +19,8 @@ export function resolveAppPortalAccessMessage(
       return labels.organizationMissing;
     case "subscription_inactive":
       return labels.subscriptionRequired;
+    case "entitlement_missing":
+      return labels.entitlementMissing;
     case "access_denied":
       return labels.permissionMissing;
     default:
