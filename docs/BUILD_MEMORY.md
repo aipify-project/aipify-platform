@@ -9,7 +9,7 @@ Documented after locale graph reduction (customerApp monolith removed from layou
 | **Build command** | `npm run build` (see `vercel.json` + `package.json`) |
 | **Build machine** | **Turbo (60 GB RAM / 30 vCPU)** recommended for production builds — configure in Vercel → Settings → Build and Deployment → Build Machines. Enhanced (16 GB) minimum if Turbo is unavailable. |
 | **Split build** | `AIPIFY_SPLIT_BUILD=1` (default) — compile and generate run as separate Node processes |
-| **Node heap (compile)** | `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=40960` in `vercel.json` — passed as a direct `node --max-old-space-size=…` CLI flag on the Next.js process in `build-split.mjs` (verified via `heap_size_limit` log) |
+| **Node heap (compile)** | `AIPIFY_BUILD_HEAP_COMPILE=--max-old-space-size=30720` in `vercel.json` — passed as a direct `node --max-old-space-size=…` CLI flag on the Next.js process in `build-split.mjs` (verified via `heap_size_limit` log). **30 GB** leaves ~30 GB for V8 Worklist native memory + OS on Turbo 60 GB. |
 | **Node heap (generate)** | `AIPIFY_BUILD_HEAP_GENERATE=--max-old-space-size=16384` — same direct invocation in a fresh process after compile exits |
 
 **Important:** Do **not** set a global `NODE_OPTIONS` heap on Vercel — it applies to every phase and breaks split-build memory isolation. Do **not** rely on `NODE_OPTIONS` + `npx next` for compile/generate — npm/npx wrappers often spawn child processes that never receive the heap flag (Vercel logs showed OOM at ~15 GB despite `configured_heap_mb=40960`). Invoke `node --max-old-space-size=… ./node_modules/next/dist/bin/next build` directly.
@@ -28,8 +28,10 @@ See `vercel.json`.
 | **webpackMemoryOptimizations** | `true` | |
 | **cpus** | `1` | |
 | **productionBrowserSourceMaps** | `false` | |
+| **enablePrerenderSourceMaps** | `false` | Next 16 defaults prerender sourcemaps on — disable to reduce generate memory |
 | **serverSourceMaps** | `false` | |
 | **webpack cache (prod)** | `false` | Reduces cache serialization pressure |
+| **UV_THREADPOOL_SIZE (compile)** | `4` | Set in `build-split.mjs` compile child — limits libuv pool alongside `parallelism: 1` |
 
 Locale JSON is excluded from the webpack module graph via `IgnorePlugin` in `next.config.ts`.
 
@@ -159,6 +161,17 @@ Platform Admin: **Operations → Build Health Center** (`/platform/operations/bu
 | **Affected modules** | `scripts/build-split.mjs`, `scripts/build-with-duration.mjs`, `vercel.json`, `next.config.ts`, `docs/BUILD_MEMORY.md` |
 | **Resolution** | Compile child receives 40 GB heap on Turbo; generate 16 GB in a fresh process |
 
+### 2026-06-20 — Vercel native OOM Worklist::Segment at 40 GB JS heap (caab7e3)
+
+| Field | Detail |
+|-------|--------|
+| **Issue** | Compile failed after ~11.4 min: `Fatal process out of memory: Worklist::Segment::Create` despite `verified heap_size_limit_mb=41152` on Turbo 60 GB |
+| **Root cause** | 40 GB JS heap + V8/webpack native parallel compile memory (Worklist segments) exceeded 60 GB physical RAM before JS heap limit was reached |
+| **Fix** | Lower compile heap to **30720 MB** (30 GB); keep generate at 16384 MB; auto-cap Turbo compile to `physical_ram - 30720`; `UV_THREADPOOL_SIZE=4` on compile child; `enablePrerenderSourceMaps: false` in `next.config.ts`. Barrel export fix (`def8defd`) already on main. |
+| **Affected modules** | `vercel.json`, `scripts/build-split.mjs`, `scripts/build-with-duration.mjs`, `next.config.ts`, `docs/BUILD_MEMORY.md` |
+| **Resolution** | ~30 GB native headroom for Worklist + OS; watch `native_headroom_mb` in Vercel logs |
+| **Fallback** | Monolithic `AIPIFY_SPLIT_BUILD=0` at 30720 MB on Turbo if split compile still OOMs |
+
 ### 2026-06-20 — Vercel webpack compile OOM at ~15 GB despite 40960 config (8225f02a)
 
 | Field | Detail |
@@ -211,5 +224,23 @@ Platform Admin: **Operations → Build Health Center** (`/platform/operations/bu
 ## Local build
 
 ```bash
-AIPIFY_BUILD_HEAP_COMPILE="--max-old-space-size=40960" AIPIFY_BUILD_HEAP_GENERATE="--max-old-space-size=16384" npm run build
+AIPIFY_BUILD_HEAP_COMPILE="--max-old-space-size=30720" AIPIFY_BUILD_HEAP_GENERATE="--max-old-space-size=16384" npm run build
 ```
+
+Quick heap verification (no compile):
+
+```bash
+AIPIFY_BUILD_HEAP_COMPILE="--max-old-space-size=30720" node scripts/build-split.mjs --from 4
+```
+
+Expect log lines: `verified heap_size_limit_mb=30720` and `native_headroom_mb=30720` on a 60 GB host.
+
+### Monolithic fallback (Turbo 60 GB only)
+
+If split compile still hits native OOM (`Worklist::Segment::Create`) at any heap size, try monolithic with barrel fixes on main (`def8defd`):
+
+```bash
+AIPIFY_SPLIT_BUILD=0 AIPIFY_BUILD_HEAP_COMPILE="--max-old-space-size=30720" npm run build
+```
+
+Set in Vercel → `vercel.json` `build.env`: `AIPIFY_SPLIT_BUILD=0` (remove or unset split-only vars). Agent `f4b95e81` reported local PASS with monolithic + barrel fixes. Prefer split when stable — monolithic peak RAM is higher but avoids split-phase artifact edge cases.

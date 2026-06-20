@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   productionBrowserSourceMaps: false,
+  // Prerender sourcemaps default true in Next 16 — disable to reduce generate-phase memory.
+  enablePrerenderSourceMaps: false,
   staticPageGenerationTimeout: 300,
   outputFileTracingIncludes: {
     "/*": ["./locales/**/*"],

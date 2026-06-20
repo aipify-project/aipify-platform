@@ -25,7 +25,7 @@ const result = useSplitBuild
     })
   : (() => {
       const heap =
-        process.env.AIPIFY_BUILD_HEAP_COMPILE ?? "--max-old-space-size=40960";
+        process.env.AIPIFY_BUILD_HEAP_COMPILE ?? "--max-old-space-size=30720";
       const match = heap.match(/(--max-old-space-size=\d+)/);
       const cliArg = match?.[1];
       const { NODE_OPTIONS: _ignored, ...envWithoutNodeOptions } = process.env;

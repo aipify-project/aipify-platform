@@ -52,7 +52,7 @@ function prepareProxyArtifactForGeneratePhase() {
   }
 }
 
-const DEFAULT_HEAP_COMPILE = "--max-old-space-size=40960";
+const DEFAULT_HEAP_COMPILE = "--max-old-space-size=30720";
 const DEFAULT_HEAP_GENERATE = "--max-old-space-size=16384";
 
 function parseHeapMb(nodeOptions) {
@@ -102,8 +102,8 @@ function capHeapToMachine(nodeOptions, maxMb) {
 
 function resolvePhaseHeaps() {
   const totalMb = Math.round(os.totalmem() / 1024 / 1024);
-  // Native/webpack headroom: ~20 GB on Turbo, ~4 GB on Enhanced, ~2 GB on Standard.
-  const compileNativeReserveMb = totalMb >= 50000 ? 20480 : totalMb >= 14000 ? 4096 : 2048;
+  // Native/webpack headroom: ~30 GB on Turbo (Worklist::Segment), ~4 GB on Enhanced, ~2 GB on Standard.
+  const compileNativeReserveMb = totalMb >= 50000 ? 30720 : totalMb >= 14000 ? 4096 : 2048;
   const maxCompileMb = Math.max(4096, totalMb - compileNativeReserveMb);
   const maxGenerateMb = Math.max(2048, Math.min(16384, totalMb - 4096));
 
@@ -120,6 +120,16 @@ function resolvePhaseHeaps() {
 }
 
 const { compile: NODE_HEAP_COMPILE, generate: NODE_HEAP_GENERATE } = resolvePhaseHeaps();
+
+/** Child env for Next.js phases — strip inherited NODE_OPTIONS heap; limit libuv pool on compile. */
+function buildNextPhaseEnv(phaseName) {
+  const { NODE_OPTIONS: _ignored, ...envWithoutNodeOptions } = process.env;
+  const env = { ...envWithoutNodeOptions };
+  if (phaseName === "Compile") {
+    env.UV_THREADPOOL_SIZE = env.UV_THREADPOOL_SIZE ?? "4";
+  }
+  return env;
+}
 
 function logPhaseEnv(phaseName, nodeOptions) {
   const heapMb = parseHeapMb(nodeOptions);
@@ -186,8 +196,7 @@ function runPhase(phase) {
     cmd = "node";
     args = [...(cliArg ? [cliArg] : []), NEXT_BIN, ...phase.args];
     // Do not rely on NODE_OPTIONS — direct CLI flag is the source of truth.
-    const { NODE_OPTIONS: _ignored, ...envWithoutNodeOptions } = process.env;
-    childEnv = envWithoutNodeOptions;
+    childEnv = buildNextPhaseEnv(phase.name);
   } else {
     cmd = phase.cmd;
     args = phase.args;
