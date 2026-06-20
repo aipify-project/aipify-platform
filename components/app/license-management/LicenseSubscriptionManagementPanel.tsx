@@ -44,13 +44,20 @@ function StatCard({ label, value, sub, highlight }: { label: string; value: stri
 export function LicenseSubscriptionManagementPanel({ labels }: { labels: LicenseManagementLabels }) {
   const [center, setCenter] = useState<LicenseSubscriptionCenter | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
     const res = await fetch("/api/app/licenses");
-    if (res.ok) setCenter(parseLicenseSubscriptionCenter(await res.json()));
-    else setCenter(null);
+    if (res.ok) {
+      setLoadError(null);
+      setCenter(parseLicenseSubscriptionCenter(await res.json()));
+    } else {
+      const body = (await res.json().catch(() => ({}))) as { error?: string };
+      setLoadError(body.error ?? "Failed to load licenses");
+      setCenter(null);
+    }
     setLoading(false);
   }, []);
 
@@ -73,6 +80,10 @@ export function LicenseSubscriptionManagementPanel({ labels }: { labels: License
         <AipifyLoader centered />
       </div>
     );
+  }
+
+  if (loadError) {
+    return <p className="p-6 text-sm text-red-600">{loadError}</p>;
   }
 
   if (!center?.found) {

@@ -42,13 +42,18 @@ export default function TrustLicenseCenterPanel({
 }: TrustLicenseCenterPanelProps) {
   const [data, setData] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const billingHref = resolveAppHref("/app/billing");
 
   useEffect(() => {
     async function load() {
       const supabase = createClient();
       const { data: center, error } = await supabase.rpc("get_customer_license_center");
-      if (!error && center) {
+      if (error) {
+        setLoadError(error.message);
+        setData(null);
+      } else if (center) {
+        setLoadError(null);
         setData(center as Record<string, unknown>);
       }
       setLoading(false);
@@ -58,6 +63,10 @@ export default function TrustLicenseCenterPanel({
 
   if (loading) {
     return <p className="text-sm text-gray-500">{labels.loading}</p>;
+  }
+
+  if (loadError) {
+    return <p className="text-sm text-red-600">{loadError}</p>;
   }
 
   const subscription = (data?.subscription as Record<string, unknown>) ?? {};

@@ -120,18 +120,6 @@ begin
     );
   end if;
 
-  update public.subscriptions s
-  set
-    license_service_status = v_license_status,
-    grace_period_ends_at = case when v_license_status = 'grace_period' then v_grace_ends else null end,
-    service_paused_at = case
-      when v_license_status = 'paused' and s.service_paused_at is null then now()
-      when v_license_status <> 'paused' then null
-      else s.service_paused_at
-    end,
-    updated_at = now()
-  where s.customer_id = v_customer_id;
-
   return jsonb_build_object(
     'has_customer', true,
     'company_name', v_company_name,

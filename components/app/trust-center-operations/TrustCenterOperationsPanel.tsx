@@ -79,14 +79,21 @@ export function TrustCenterOperationsPanel({
   const tabs = visibleTabs ?? ALL_TABS;
   const [center, setCenter] = useState<TrustCenterOperations | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [tab, setTab] = useState<TrustCenterTab>(initialTab);
   const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
     const res = await fetch("/api/app/trust-center-operations");
-    if (res.ok) setCenter(parseTrustCenterOperations(await res.json()));
-    else setCenter(null);
+    if (res.ok) {
+      setLoadError(null);
+      setCenter(parseTrustCenterOperations(await res.json()));
+    } else {
+      const body = (await res.json().catch(() => ({}))) as { error?: string };
+      setLoadError(body.error ?? "Failed to load Trust Center");
+      setCenter(null);
+    }
     setLoading(false);
   }, []);
 
@@ -122,6 +129,10 @@ export function TrustCenterOperationsPanel({
         <span className="sr-only">{labels.loading}</span>
       </div>
     );
+  }
+
+  if (loadError) {
+    return <p className="p-6 text-sm text-red-600">{loadError}</p>;
   }
 
   if (!center?.found) {

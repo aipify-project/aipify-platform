@@ -469,8 +469,10 @@ begin
   v_org_id := public._trust551_org();
   if v_org_id is null then return jsonb_build_object('found', false); end if;
 
-  perform public._trust551_ensure_settings(v_org_id);
-  perform public._trust551_seed(v_org_id);
+  if not public.has_organization_permission('trust_center.view')
+     and not public.has_organization_permission('trust_center.manage') then
+    raise exception 'Permission denied: trust_center.view';
+  end if;
 
   select o.name into v_org_name from public.organizations o where o.id = v_org_id;
 

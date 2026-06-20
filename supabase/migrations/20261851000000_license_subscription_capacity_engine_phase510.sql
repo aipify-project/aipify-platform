@@ -164,8 +164,6 @@ declare
   v_available int;
   v_status text;
 begin
-  perform public._ls510_sync_from_subscription(p_org_id);
-
   select included_capacity, purchased_capacity
   into v_included, v_purchased
   from public.organization_user_capacity_pool
@@ -215,23 +213,56 @@ returns jsonb language plpgsql stable security definer set search_path = public 
 declare
   v_row public.organization_app_license_state;
   v_plan text;
+  v_sub_status text;
+  v_renewal date;
+  v_license_status text;
+  v_app_status text;
 begin
-  perform public._ls510_sync_from_subscription(p_org_id);
   select * into v_row from public.organization_app_license_state where organization_id = p_org_id;
 
-  select plan_key into v_plan
-  from public.organization_subscriptions where organization_id = p_org_id limit 1;
+  select s.plan_key, s.status, s.expires_at::date
+  into v_plan, v_sub_status, v_renewal
+  from public.organization_subscriptions s
+  where s.organization_id = p_org_id
+  limit 1;
+
+  if v_plan is null then
+    select coalesce(s.plan_key, s.plan_type, 'business'), s.status, s.next_billing_date::date
+    into v_plan, v_sub_status, v_renewal
+    from public.subscriptions s
+    where s.customer_id = p_org_id
+    order by s.created_at desc
+    limit 1;
+  end if;
+
+  if exists (select 1 from pg_proc where proname = 'resolve_license_service_status') then
+    v_license_status := public.resolve_license_service_status(p_org_id);
+  else
+    v_license_status := coalesce(v_row.app_license_status, 'active');
+  end if;
+
+  v_app_status := coalesce(
+    v_row.app_license_status,
+    case
+      when v_license_status = 'paused' then 'suspended'
+      when v_license_status = 'grace_period' then 'grace_period'
+      when v_sub_status = 'trial' then 'trial'
+      when v_sub_status in ('active', 'trialing', 'internal') then 'active'
+      when v_sub_status in ('cancelled', 'expired') then 'cancelled'
+      else 'active'
+    end
+  );
 
   return jsonb_build_object(
-    'license_type', coalesce(v_row.license_type, 'app'),
-    'status', coalesce(v_row.app_license_status, 'active'),
-    'renewal_date', v_row.renewal_date,
+    'license_type', coalesce(v_row.license_type, case when v_plan = 'enterprise' then 'enterprise' else 'app' end),
+    'status', v_app_status,
+    'renewal_date', coalesce(v_row.renewal_date, v_renewal),
     'plan_key', coalesce(v_plan, 'business'),
     'includes', jsonb_build_array(
       'APP Organization', 'Companion', 'Core Modules', 'Settings', 'Billing',
       'License Management', 'Business Pack Marketplace', 'Domain Management'
     ),
-    'access_blocked', coalesce(v_row.app_license_status, 'active') in ('suspended', 'cancelled'),
+    'access_blocked', v_app_status in ('suspended', 'cancelled'),
     'allowed_when_suspended', jsonb_build_array('billing', 'invoices', 'support', 'renewal', 'licenses')
   );
 end; $$;
@@ -285,12 +316,13 @@ declare
   v_limits jsonb := '{}'::jsonb;
   v_pack_count int;
 begin
-  perform public._bde_require_admin();
   v_org_id := public._presence_tenant_for_auth();
   if v_org_id is null then return jsonb_build_object('found', false); end if;
 
-  perform public._ls510_sync_from_subscription(v_org_id);
-  perform public._ls510_log(v_org_id, 'center_view', 'License Subscription Center viewed', 'app');
+  if not public.has_organization_permission('license_center.view')
+     and not public.has_organization_permission('license_center.manage') then
+    raise exception 'Permission denied: license_center.view';
+  end if;
 
   if exists (select 1 from pg_proc where proname = 'get_customer_license_center') then
     v_sub := coalesce(public.get_customer_license_center()->'subscription', '{}'::jsonb);

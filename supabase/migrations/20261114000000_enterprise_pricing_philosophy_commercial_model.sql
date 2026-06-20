@@ -473,6 +473,11 @@ begin
     return jsonb_build_object('has_customer', false);
   end if;
 
+  if not public.has_organization_permission('license_center.view')
+     and not public.has_organization_permission('license_center.manage') then
+    raise exception 'Permission denied: license_center.view';
+  end if;
+
   v_license_status := public.resolve_license_service_status(v_customer_id);
   v_limits := public.get_customer_license_limits(v_customer_id);
 
@@ -482,18 +487,6 @@ begin
       now() + interval '3 days'
     );
   end if;
-
-  update public.subscriptions s
-  set
-    license_service_status = v_license_status,
-    grace_period_ends_at = case when v_license_status = 'grace_period' then v_grace_ends else null end,
-    service_paused_at = case
-      when v_license_status = 'paused' and s.service_paused_at is null then now()
-      when v_license_status <> 'paused' then null
-      else s.service_paused_at
-    end,
-    updated_at = now()
-  where s.customer_id = v_customer_id;
 
   return jsonb_build_object(
     'has_customer', true,
