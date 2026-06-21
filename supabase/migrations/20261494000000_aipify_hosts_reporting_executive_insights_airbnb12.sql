@@ -210,7 +210,7 @@ returns jsonb language sql stable as $$
     'operational_highlights', jsonb_build_array('Add properties to unlock executive reporting.'),
     'areas_requiring_attention', jsonb_build_array('No operational data yet.'),
     'improvement_opportunities', jsonb_build_array('Register your first property in Aipify Hosts.')
-  ); $$;
+  ) end $$;
 
 create or replace function public.get_aipify_hosts_reports_card(p_org_id uuid default null)
 returns jsonb language plpgsql stable security definer set search_path = public as $$
