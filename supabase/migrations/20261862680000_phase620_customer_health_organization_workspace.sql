@@ -371,7 +371,7 @@ begin
     jsonb_build_object('key', 'utilization', 'score', (v_bundle->>'utilization_score')::int, 'effect', public._ap620_customer_health_driver_effect((v_bundle->>'utilization_score')::int)),
     jsonb_build_object('key', 'learning', 'score', (v_bundle->>'learning_score')::int, 'effect', public._ap620_customer_health_driver_effect((v_bundle->>'learning_score')::int)),
     jsonb_build_object('key', 'security', 'score', (v_bundle->>'security_score')::int, 'effect', public._ap620_customer_health_driver_effect((v_bundle->>'security_score')::int)),
-    jsonb_build_object('key', 'integrations', 'score', least(100, ((v_bundle->'metrics'->>'integrations')::int * 25)), 'effect', public._ap620_customer_health_driver_effect(least(100, ((v_bundle->'metrics'->>'integrations')::int * 25)))
+    jsonb_build_object('key', 'integrations', 'score', least(100, ((v_bundle->'metrics'->>'integrations')::int * 25)), 'effect', public._ap620_customer_health_driver_effect(least(100, ((v_bundle->'metrics'->>'integrations')::int * 25))))
   );
 
   select coalesce(jsonb_agg(f), '[]'::jsonb) into v_strengths
