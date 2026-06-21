@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { humanizeTranslationKey } from "@/lib/i18n/humanize-key";
 import {
   AppEmptyState,
   AppErrorState,
@@ -88,7 +89,7 @@ function resolveOpenAlertsBadge(count: number, labels: Labels) {
   return {
     semanticType: "workflow" as const,
     semanticValue: "open",
-    statusLabel: labels.resolveLabel("common.status.semantic.workflow.open"),
+    statusLabel: labels.premium.metrics.workflowOpen,
   };
 }
 
@@ -103,7 +104,7 @@ function resolvePendingActionsBadge(count: number, labels: Labels) {
   return {
     semanticType: "workflow" as const,
     semanticValue: "pending",
-    statusLabel: labels.resolveLabel("common.status.semantic.workflow.pending"),
+    statusLabel: labels.premium.metrics.workflowPending,
   };
 }
 
@@ -120,8 +121,8 @@ function resolveCriticalItemsBadge(count: number, labels: Labels) {
   return {
     semanticType: config.type,
     semanticValue: config.value,
-    statusLabel: labels.resolveLabel("common.status.semantic.severity.critical"),
-    a11yLabel: labels.resolveLabel("common.status.semantic.severity.critical"),
+    statusLabel: labels.premium.metrics.severityCritical,
+    a11yLabel: labels.premium.metrics.severityCritical,
   };
 }
 
@@ -211,7 +212,10 @@ export function ExecutiveCommandCenterPanel({
   const [center, setCenter] = useState<ExecutiveCommandCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const { registerRefreshHandler } = useExecutiveCommandCenterRefresh();
-  const resolveLabel = labels.resolveLabel;
+  const resolveLabel = useMemo(
+    () => (key: string) => labels.labelLookup[key] ?? humanizeTranslationKey(key),
+    [labels.labelLookup]
+  );
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -344,7 +348,7 @@ export function ExecutiveCommandCenterPanel({
                 severityValue={severity}
                 severityLabel={priorityLabel(labels, priority)}
                 workflowValue="open"
-                workflowLabel={labels.resolveLabel("common.status.semantic.workflow.open")}
+                workflowLabel={labels.premium.metrics.workflowOpen}
               />
             );
           })}

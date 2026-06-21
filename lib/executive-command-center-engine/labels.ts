@@ -1,5 +1,6 @@
 import type { Translator } from "@/lib/i18n/translate";
 import { buildSinceLastLoginUxLabels } from "@/lib/command-center/since-last-login-labels";
+import { buildCommandCenterLabelLookup } from "./label-lookup";
 
 export function buildExecutiveCommandCenterLabels(t: Translator) {
   const p = "customerApp.executiveCommandCenter";
@@ -167,6 +168,6 @@ export function buildExecutiveCommandCenterLabels(t: Translator) {
         nextStep: t(`${p}.tabs.opportunities.nextStep`),
       },
     },
-    resolveLabel: t,
+    labelLookup: buildCommandCenterLabelLookup(t),
   };
 }
