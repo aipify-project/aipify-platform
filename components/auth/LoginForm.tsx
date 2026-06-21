@@ -79,7 +79,8 @@ export default function LoginForm({ labels, pwaLabels }: LoginFormProps) {
 
       const destination = await getPostLoginPath(
         supabase,
-        searchParams.get("next")
+        searchParams.get("next"),
+        typeof window !== "undefined" ? window.location.host : null
       );
 
       const statusRes = await fetch("/api/auth/2fa/status");

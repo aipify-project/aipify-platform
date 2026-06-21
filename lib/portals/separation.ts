@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { sanitizeNextPath } from "@/lib/auth/safe-next-path";
 import { isCustomerPortalHost, isSuperAdminHost } from "./hosts";
 import {
   CUSTOMER_PORTAL_ROUTE,
@@ -63,8 +64,9 @@ export function resolvePostLoginPath(
   platformRole: string | null | undefined,
   nextPath?: string | null
 ): string {
-  if (nextPath?.startsWith("/") && !nextPath.startsWith("//")) {
-    return nextPath;
+  const safeNext = sanitizeNextPath(nextPath);
+  if (safeNext) {
+    return safeNext;
   }
 
   if (platformRole === "super_admin" && isSuperAdminHost(host)) {

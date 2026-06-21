@@ -1,4 +1,7 @@
-const CUSTOMER_PORTAL_HOSTS = new Set(["app.aipify.ai", "app.localhost"]);
+export const CUSTOMER_PORTAL_DOMAIN = "app.aipify.ai";
+
+const CUSTOMER_PORTAL_HOSTS = new Set([CUSTOMER_PORTAL_DOMAIN, "app.localhost"]);
+const MARKETING_APEX_HOSTS = new Set(["aipify.ai", "www.aipify.ai", "localhost"]);
 const SUPER_ADMIN_HOSTS = new Set(["super.aipify.ai", "super.localhost"]);
 
 export function normalizeHost(host: string | null | undefined): string {
@@ -10,6 +13,14 @@ export function isCustomerPortalHost(host: string | null | undefined): boolean {
   if (!normalized) return false;
   if (CUSTOMER_PORTAL_HOSTS.has(normalized)) return true;
   return normalized.startsWith("app.");
+}
+
+export function isMarketingApexHost(host: string | null | undefined): boolean {
+  const normalized = normalizeHost(host);
+  if (!normalized) return false;
+  if (isCustomerPortalHost(host) || isSuperAdminHost(host)) return false;
+  if (MARKETING_APEX_HOSTS.has(normalized)) return true;
+  return normalized === "localhost";
 }
 
 export function isSuperAdminHost(host: string | null | undefined): boolean {

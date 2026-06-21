@@ -91,8 +91,12 @@ test("/install route page exists", () => {
   assert.ok(fs.existsSync(path.join(ROOT, "app/(marketing)/install/page.tsx")));
 });
 
-test("service worker file exists", () => {
-  assert.ok(fs.existsSync(path.join(ROOT, "public/sw.js")));
+test("service worker bypasses cache for auth routes", () => {
+  const sw = fs.readFileSync(path.join(ROOT, "public/sw.js"), "utf8");
+  assert.match(sw, /\/login/);
+  assert.match(sw, /\/app/);
+  assert.match(sw, /\/api\//);
+  assert.match(sw, /shouldBypassServiceWorkerCache/);
 });
 
 console.log("web-app-install tests passed");

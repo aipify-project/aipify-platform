@@ -1,3 +1,5 @@
+import { sanitizeNextPath } from "@/lib/auth/safe-next-path";
+
 export type TwoFactorStatus = {
   authenticated: boolean;
   enabled: boolean;
@@ -23,15 +25,11 @@ export function twoFactorRedirectPath(
 ): string | null {
   if (!sessionNeedsTwoFactorGate(status)) return null;
 
-  const next =
-    nextPath && nextPath.startsWith("/") && !nextPath.startsWith("//")
-      ? `?next=${encodeURIComponent(nextPath)}`
-      : "";
+  const safeNext = sanitizeNextPath(nextPath);
+  const next = safeNext ? `?next=${encodeURIComponent(safeNext)}` : "";
 
   if (status.needs_enrollment) {
-    const q = nextPath
-      ? `?required=1&next=${encodeURIComponent(nextPath)}`
-      : "?required=1";
+    const q = safeNext ? `?required=1&next=${encodeURIComponent(safeNext)}` : "?required=1";
     return `/app/settings/two-factor${q}`;
   }
 

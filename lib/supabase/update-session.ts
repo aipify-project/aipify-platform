@@ -1,11 +1,19 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { sanitizeNextPath } from "@/lib/auth/safe-next-path";
+import {
+  buildCustomerPortalUrl,
+  resolveCustomerPortalLoginUrl,
+  resolveLoginPageCanonicalRedirect,
+} from "@/lib/portals/customer-portal-url";
 import {
   getPlatformAccessProfile,
   isSuperAdminHost,
   resolvePortalRouteDecision,
   resolvePostLoginPath,
+  shouldCanonicalizeToCustomerPortal,
 } from "@/lib/portals";
+import { mergeAuthCookieOptions } from "@/lib/supabase/auth-cookies";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/app", "/platform", "/super"];
 
@@ -21,6 +29,29 @@ export function withPathnameRequestHeaders(request: NextRequest): Headers {
 }
 
 export async function updateSession(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  const host = request.headers.get("host");
+
+  if (shouldCanonicalizeToCustomerPortal(host, pathname)) {
+    const canonicalUrl = buildCustomerPortalUrl(
+      request,
+      pathname,
+      request.nextUrl.search
+    );
+    return NextResponse.redirect(canonicalUrl);
+  }
+
+  if (pathname === "/login" || pathname === "/register") {
+    const canonicalLogin = resolveLoginPageCanonicalRedirect(
+      request,
+      host,
+      request.nextUrl.searchParams.get("next")
+    );
+    if (canonicalLogin) {
+      return NextResponse.redirect(canonicalLogin);
+    }
+  }
+
   let supabaseResponse = NextResponse.next({
     request: { headers: withPathnameRequestHeaders(request) },
   });
@@ -45,7 +76,11 @@ export async function updateSession(request: NextRequest) {
           request: { headers: withPathnameRequestHeaders(request) },
         });
         cookiesToSet.forEach(({ name, value, options }: { name: string; value: string; options?: Record<string, unknown> }) => {
-          supabaseResponse.cookies.set(name, value, options);
+          supabaseResponse.cookies.set(
+            name,
+            value,
+            mergeAuthCookieOptions(options, host)
+          );
         });
       },
     },
@@ -55,13 +90,15 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const pathname = request.nextUrl.pathname;
-  const host = request.headers.get("host");
-
   if (!user && isProtectedPath(pathname)) {
+    if (shouldCanonicalizeToCustomerPortal(host, pathname)) {
+      return NextResponse.redirect(resolveCustomerPortalLoginUrl(request, pathname));
+    }
+
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
-    loginUrl.searchParams.set("next", pathname);
+    const safeNext = sanitizeNextPath(pathname);
+    loginUrl.searchParams.set("next", safeNext ?? pathname);
     return NextResponse.redirect(loginUrl);
   }
 
