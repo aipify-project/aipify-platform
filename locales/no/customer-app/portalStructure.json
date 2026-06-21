@@ -32,9 +32,9 @@
       "contactSupport": "Contact Support",
       "supportHistory": "Support History",
       "profile": "Profile",
-      "preferences": "Preferences",
-      "security": "Security",
-      "accountNotifications": "Notification Preferences",
+      "preferences": "Innstillinger",
+      "security": "Sikkerhet",
+      "accountNotifications": "Varslingsinnstillinger",
       "integrations": "Integrasjoner",
       "connectedIntegrations": "Tilkoblede integrasjoner",
       "connectIntegration": "Koble til integrasjon",
@@ -310,16 +310,20 @@
         "subtitle": "Your personal profile within the organization workspace."
       },
       "preferences": {
-        "title": "Preferences",
-        "subtitle": "Workspace display and interaction preferences."
+        "title": "Innstillinger",
+        "subtitle": "Visnings- og interaksjonspreferanser for arbeidsområdet ditt."
       },
       "accountSecurity": {
-        "title": "Security",
-        "subtitle": "Two-factor authentication, sessions, and security settings."
+        "title": "Sikkerhet",
+        "subtitle": "Tofaktorautentisering, økter og sikkerhetsinnstillinger."
       },
       "accountNotifications": {
-        "title": "Notification Preferences",
-        "subtitle": "Control which notifications you receive."
+        "title": "Varslingsinnstillinger",
+        "subtitle": "Kontroller hvilke varsler du mottar.",
+        "emptyTitle": "Varslingsinnstillinger administreres i Command Center",
+        "emptyDescription": "Aipify leverer operative varsler via Command Center og innstillingene i arbeidsområdet ditt. Bruk Command Center for å se varsler, eller åpne Innstillinger for stille timer og leveringsvalg.",
+        "emptyAction": "Åpne Command Center",
+        "secondaryAction": "Åpne innstillinger"
       },
       "apiAccess": {
         "title": "API Access",
@@ -3894,6 +3898,11 @@
           "title": "Encourage sertifisering",
           "reason": "Sertifisering bygger operativ modenhet i organisasjonen.",
           "action": "Åpne Customer Academy"
+        },
+        "completeFirstUnonightSync": {
+          "title": "Fullfør første synkronisering med Unonight",
+          "reason": "Aipify trenger en verifisert synkronisering før kundesuksesspoeng og operative anbefalinger kan beregnes.",
+          "action": "Se datastatus"
         }
       },
       "understanding": {
@@ -3908,18 +3917,82 @@
       },
       "empty": {
         "plans": "Ingen aktive suksessplaner ennå.",
-        "followUps": "Ingen oppfølginger eller milepæler matcher filtrene.",
+        "followUps": "Ingen åpne oppfølginger",
+        "followUpsDescription": "Det finnes ingen verifiserte kundesuksessoppgaver som krever handling akkurat nå.",
         "outcomes": "Ingen målbar utfall registrert ennå.",
-        "risks": "Ingen aktive risikoer flagget for organisasjonen.",
-        "activity": "Ingen nylig kundesuksess-aktivitet å vise."
+        "risks": "Ingen aktive kundesuksessrisikoer",
+        "risksDescription": "Ingen verifiserte risikoer er flagget for organisasjonen.",
+        "activity": "Ingen nylig kundesuksess-aktivitet å vise.",
+        "adoption": "Adopsjonsdata er ikke tilgjengelig ennå.",
+        "noLearningProgress": "Ingen relevant læringsprogresjon ennå.",
+        "scoreUnavailable": "Poengsum ikke tilgjengelig ennå",
+        "scoreUnavailableDescription": "Aipify trenger mer verifisert organisasjonsdata før poengsummen kan beregnes."
       },
       "healthStates": {
         "healthy": "Sunn",
         "good": "God",
         "moderate": "Moderat",
         "poor": "Svak",
-        "criticalHealth": "Kritisk",
-        "unknown": "Ukjent"
+        "criticalHealth": "Kritisk helse",
+        "unknown": "Utilstrekkelig datagrunnlag"
+      },
+      "scoreAvailability": {
+        "available": "Tilgjengelig",
+        "awaitingFirstSync": "Venter på første synkronisering",
+        "calculating": "Beregnes",
+        "insufficientData": "Utilstrekkelig datagrunnlag",
+        "stale": "Dataene er forsinket",
+        "sourceUnavailable": "Datakilden er midlertidig utilgjengelig",
+        "calculationFailed": "Beregning mislyktes",
+        "delayed": "Forsinket oppdatering"
+      },
+      "scoreAvailabilityDescriptions": {
+        "available": "Poeng reflekterer verifisert organisasjonsaktivitet fra tilkoblede kilder.",
+        "awaitingFirstSync": "Aipify har ennå ikke mottatt tilstrekkelige data fra Unonight.",
+        "calculating": "Aipify behandler de nyeste organisasjonssignalene.",
+        "insufficientData": "Mer verifisert aktivitet er nødvendig før poengsummen kan beregnes.",
+        "stale": "Siste verifiserte beregning vises mens kildedata kan være utdatert.",
+        "sourceUnavailable": "Datakilden er midlertidig utilgjengelig.",
+        "calculationFailed": "Poengberegning kunne ikke fullføres.",
+        "delayed": "Poeng er tilgjengelige, men oppdatering er forsinket."
+      },
+      "sourceFreshness": {
+        "current": "Oppdatert",
+        "delayed": "Forsinket",
+        "stale": "Utdatert",
+        "unavailable": "Utilgjengelig",
+        "awaitingFirstSync": "Venter på første synkronisering"
+      },
+      "pilot": {
+        "title": "Aipify-pilot",
+        "readOnlyMode": "Skrivebeskyttet observasjonsmodus",
+        "readOnlyDescription": "Aipify synkroniserer godkjente operative metadata fra Unonight. Ingen handlinger utføres i kildesystemet.",
+        "lastSuccessfulSync": "Siste vellykkede synkronisering",
+        "dataFreshness": "Datastatus",
+        "connectedSources": "Tilkoblede datakilder",
+        "awaitingFirstSync": "Venter på første synkronisering",
+        "shadowPrepared": "Anbefaling utarbeidet av Aipify",
+        "shadowNoAction": "Ingen handling er utført.",
+        "viewDataStatus": "Se datastatus",
+        "contactSupport": "Kontakt Support"
+      },
+      "workflowStates": {
+        "open": "Åpen",
+        "inProgress": "Pågår",
+        "waiting": "Venter",
+        "escalated": "Eskalert",
+        "completed": "Fullført",
+        "overdue": "Forfalt",
+        "blocked": "Blokkert",
+        "pending": "Venter",
+        "cancelled": "Avbrutt"
+      },
+      "severityLabels": {
+        "critical": "Kritisk",
+        "high": "Høy risiko",
+        "medium": "Krever oppmerksomhet",
+        "low": "Lav risiko",
+        "info": "Informasjon"
       },
       "card": {
         "owner": "Ansvarlig",
@@ -3941,106 +4014,137 @@
         "healthy": "Organisasjonen viser sterk helse på tvers av adopsjon, engasjement og utnyttelse.",
         "moderate": "Organisasjonen gjør fremskritt, men kan styrke teamengasjement og utnyttelse.",
         "poor": "Flere helsefaktorer trenger oppmerksomhet.",
-        "critical": "Helseindikatorer tyder på betydelige adopsjonsgap."
+        "critical": "Helseindikatorer tyder på betydelige adopsjonsgap.",
+        "unknown": "Aipify samler fortsatt inn verifiserte organisasjonsdata. Helsescore vises når nok aktivitet og tilkoblede kilder er tilgjengelig."
       },
-      "emptyTitle": "Kundehelse",
-      "emptyBody": "Overvåk organisasjonshelse, adopsjon og engasjement — med tydelig veiledning om hva som bør forbedres neste.",
-      "emptyAction": "Getting Started",
-      "errorTitle": "Kundehelse",
-      "errorBody": "Overvåk organisasjonshelse, adopsjon og engasjement — med tydelig veiledning om hva som bør forbedres neste.",
-      "retry": "Retry",
+      "emptyTitle": "Organisasjonshelse bygges opp",
+      "emptyBody": "Aipify viser organisasjonshelse etter hvert som arbeidsområdet blir aktivt. Start med Kom i gang for å etablere grunnlaget.",
+      "emptyAction": "Åpne Kom i gang",
+      "errorTitle": "Kundehelse utilgjengelig",
+      "errorBody": "Aipify kunne ikke laste organisasjonshelse for arbeidsområdet ditt. Bekreft tilganger og prøv igjen.",
+      "retry": "Prøv igjen",
       "sections": {
-        "overview": "Overview",
-        "recommendedAction": "Next action",
-        "drivers": "Drivers",
-        "strengths": "Strengths",
-        "needsAttention": "Needs attention",
-        "trend": "Trend",
-        "risks": "Risks",
-        "operationalSignals": "Signals",
-        "history": "History",
-        "understanding": "Kundehelse"
+        "overview": "Helseoversikt",
+        "recommendedAction": "Anbefalt neste steg",
+        "drivers": "Helsedrivere",
+        "strengths": "Styrker",
+        "needsAttention": "Trenger oppmerksomhet",
+        "trend": "Helsetrend",
+        "risks": "Risikoer",
+        "operationalSignals": "Operative signaler",
+        "history": "Helsehistorikk",
+        "understanding": "Forstå kundehelse"
       },
       "overview": {
-        "healthScore": "Kundehelse",
-        "healthState": "State",
-        "trend": "Trend",
-        "scoreChange": "Change",
-        "riskLevel": "Risk",
-        "lastCalculated": "Calculated",
-        "explanation": "Explanation",
-        "advisory": "Overvåk organisasjonshelse, adopsjon og engasjement — med tydelig veiledning om hva som bør forbedres neste."
+        "healthScore": "Organisasjonshelsescore",
+        "healthState": "Helsetilstand",
+        "trend": "Helsetrend",
+        "scoreChange": "Scoreendring",
+        "scoreChangeUnavailable": "Ikke nok verifisert historikk",
+        "riskLevel": "Risikonivå",
+        "lastCalculated": "Sist beregnet",
+        "explanation": "Scoreforklaring",
+        "advisory": "Scorer og indikatorer er veiledende. Bruk dem sammen med menneskelig vurdering når dere planlegger neste steg."
       },
       "healthStates": {
-        "healthy": "Healthy",
-        "good": "Good",
-        "moderate": "Moderate",
-        "poor": "Poor",
-        "criticalHealth": "Critical",
-        "unknown": "Unknown"
+        "healthy": "Sunn",
+        "good": "God",
+        "moderate": "Moderat",
+        "poor": "Svak",
+        "criticalHealth": "Kritisk",
+        "unknown": "Ukjent"
       },
       "trendStates": {
-        "improving": "Improving",
-        "stable": "Stable",
-        "declining": "Declining",
-        "rapidDecline": "Rapid decline",
-        "insufficientData": "Insufficient data"
+        "improving": "Forbedres",
+        "stable": "Stabil",
+        "declining": "Synkende",
+        "rapidDecline": "Rask nedgang",
+        "insufficientData": "Utilstrekkelig data"
       },
       "riskLevels": {
-        "low": "Low",
-        "moderate": "Moderate",
-        "elevated": "Elevated",
-        "high": "High"
+        "low": "Lav",
+        "moderate": "Moderat",
+        "elevated": "Forhøyet",
+        "high": "Høy"
       },
       "driverEffects": {
-        "positive": "Positive",
-        "neutral": "Neutral",
-        "moderateNegative": "Moderate negative",
-        "strongNegative": "Strong negative",
-        "criticalNegative": "Critical negative"
+        "positive": "Positiv",
+        "neutral": "Nøytral",
+        "moderateNegative": "Moderat negativ",
+        "strongNegative": "Sterkt negativ",
+        "criticalNegative": "Kritisk negativ",
+        "unavailable": "Data utilgjengelig"
       },
       "drivers": {
-        "adoption": "Adoption",
-        "engagement": "Engagement",
-        "utilization": "Utilization",
-        "learning": "Learning",
-        "security": "Security",
-        "integrations": "Integrations"
+        "adoption": "Adopsjon",
+        "engagement": "Engasjement",
+        "utilization": "Utnyttelse",
+        "learning": "Læring",
+        "security": "Sikkerhet",
+        "integrations": "Integrasjoner"
       },
       "strengths": {
-        "activeUsers": "Active users",
-        "teamSize": "Team size",
-        "businessPacks": "Business Packs",
-        "integrations": "Integrations",
+        "activeUsers": "Aktive brukere",
+        "teamSize": "Teamstørrelse",
+        "businessPacks": "Installerte Business Packs",
+        "integrations": "Tilkoblede integrasjoner",
         "openSupport": "Support",
-        "pendingApprovals": "Approvals",
-        "openFollowUps": "Follow-ups"
+        "pendingApprovals": "Godkjenninger",
+        "openFollowUps": "Oppfølginger"
+      },
+      "strengthValues": {
+        "activeUsers": "{count} aktiv(e) medlem(mer) siste 14 dager",
+        "teamSize": "{count} teammedlem(mer)",
+        "businessPacks": "{count} installerte Business Pack(s)",
+        "integrations": "{count} tilkoblede integrasjon(er)",
+        "openSupport": "Ingen åpne supportsaker",
+        "pendingApprovals": "Ingen ventende godkjenninger",
+        "openFollowUps": "Oppfølginger under kontroll",
+        "none": "Ingen verifisert verdi ennå"
       },
       "needsAttention": {
-        "activeUsers": "Active users",
-        "teamSize": "Team size",
-        "businessPacks": "Business Packs",
-        "integrations": "Integrations",
-        "openSupport": "Support",
-        "pendingApprovals": "Approvals",
-        "openFollowUps": "Follow-ups"
+        "activeUsers": "Lav aktiv brukerdeltagelse",
+        "teamSize": "Begrenset teambredde",
+        "businessPacks": "Ingen Business Packs installert",
+        "integrations": "Ingen integrasjoner tilkoblet",
+        "openSupport": "Åpne supportsaker",
+        "pendingApprovals": "Ventende godkjenninger",
+        "openFollowUps": "Åpne oppfølginger"
       },
       "risks": {
-        "openSupportBacklog": "Support backlog",
-        "pendingApprovals": "Approvals",
-        "securityNotConfigured": "Security",
-        "lowEngagement": "Engagement"
+        "openSupportBacklog": "Supportkø",
+        "pendingApprovals": "Godkjenninger",
+        "securityNotConfigured": "Sikkerhet",
+        "lowEngagement": "Engasjement"
+      },
+      "riskDescriptions": {
+        "openSupportBacklog": "{count} åpen(e) supportsak(er)",
+        "pendingApprovals": "{count} ventende godkjenning(er)",
+        "securityNotConfigured": "Sikkerhetstiltak er ikke fullt konfigurert for organisasjonen.",
+        "lowEngagement": "Nylig teamengasjement er under forventet nivå."
       },
       "operationalSignals": {
-        "teamActivity": "Team activity",
+        "teamActivity": "Teamaktivitet",
         "businessPacksInstalled": "Business Packs",
-        "capabilitiesEnabled": "Capabilities",
-        "operationsActivity": "Operations"
+        "capabilitiesEnabled": "Aktive kapabiliteter",
+        "operationsActivity": "Driftsaktivitet"
+      },
+      "signalDescriptions": {
+        "teamActivity": "{count} aktiv(e) medlem(mer) siste 14 dager",
+        "businessPacksInstalled": "{count} installerte Business Pack(s)",
+        "capabilitiesEnabled": "{count} aktive kapabilitetsmodul(er)",
+        "operationsActivity": "{count} driftsaktivitetsregistrering(er)"
+      },
+      "signalStatuses": {
+        "positive": "Positiv",
+        "neutral": "Stabil",
+        "warning": "Trenger gjennomgang",
+        "unavailable": "Utilgjengelig"
       },
       "trend": {
-        "periodLabel": "Period",
-        "empty": "No trend data",
-        "insufficientData": "Insufficient data",
+        "periodLabel": "Trendperiode",
+        "empty": "Ikke nok verifisert scorehistorikk til å vise trenddiagram ennå.",
+        "insufficientData": "Trend krever minst to verifiserte helseberegninger.",
         "periods": {
           "d7": "7d",
           "d30": "30d",
@@ -4049,33 +4153,59 @@
         }
       },
       "filters": {
-        "search": "Search",
-        "category": "Category",
-        "priority": "Priority",
+        "search": "Søk i risikoer, signaler og historikk…",
+        "category": "Kategori",
+        "priority": "Prioritet",
         "trend": "Trend",
-        "date": "Date",
-        "sortBy": "Sort",
-        "all": "All",
+        "date": "Dato fra",
+        "sortBy": "Sorter etter",
+        "all": "Alle",
         "categories": {
           "support": "Support",
-          "governance": "Governance",
-          "security": "Security",
-          "engagement": "Engagement",
-          "adoption": "Adoption",
-          "utilization": "Utilization",
-          "operations": "Operations"
+          "governance": "Styring",
+          "security": "Sikkerhet",
+          "engagement": "Engasjement",
+          "adoption": "Adopsjon",
+          "utilization": "Utnyttelse",
+          "operations": "Drift"
         },
         "sortOptions": {
-          "impactDesc": "Impact",
-          "severityDesc": "Severity",
-          "dateDesc": "Newest",
-          "dateAsc": "Oldest"
+          "impactDesc": "Påvirkning (høyest først)",
+          "severityDesc": "Alvorlighet (høyest først)",
+          "dateDesc": "Nyeste først",
+          "dateAsc": "Eldste først"
+        },
+        "priorities": {
+          "high": "Høy",
+          "highImpact": "Høy påvirkning",
+          "medium": "Middels",
+          "important": "Viktig",
+          "low": "Lav"
         }
       },
       "history": {
         "score": "Score",
-        "eventType": "Event",
-        "empty": "Empty"
+        "eventType": "Hendelse",
+        "empty": "Ingen verifiserte helseberegninger registrert ennå."
+      },
+      "historyEventTypes": {
+        "scoreCalculated": "Score beregnet",
+        "reviewStarted": "Gjennomgang startet",
+        "genericEvent": "Helsehendelse"
+      },
+      "historyDescriptions": {
+        "scoreCalculated": "Organisasjonshelsescore beregnet: {score}",
+        "reviewStarted": "Organisasjonshelse-gjennomgang startet",
+        "genericEvent": "Aktivitet registrert i helsearbeidsområdet"
+      },
+      "historyStatuses": {
+        "healthy": "Sunn",
+        "moderate": "Moderat",
+        "poor": "Svak",
+        "criticalHealth": "Kritisk",
+        "neutral": "Informasjon",
+        "unavailable": "Utilgjengelig",
+        "unknown": "Ukjent"
       },
       "understanding": {
         "q1": "Hva er kundehelse?",
@@ -4089,45 +4219,95 @@
       },
       "recommendations": {
         "inviteTeam": {
-          "title": "Invite team",
-          "reason": "Reason",
-          "action": "Action"
+          "title": "Inviter teammedlemmer",
+          "reason": "Bredere deltagelse styrker adopsjon og operasjonell dekning.",
+          "action": "Åpne teamadministrasjon"
         },
         "explorePacks": {
-          "title": "Business Packs",
-          "reason": "Reason",
-          "action": "Action"
+          "title": "Utforsk Business Packs",
+          "reason": "Installerte pakker låser opp kapabiliteter tilpasset målene deres.",
+          "action": "Se tilgjengelige pakker"
         },
         "enableIntegrations": {
-          "title": "Integrations",
-          "reason": "Reason",
-          "action": "Action"
+          "title": "Aktiver integrasjoner",
+          "reason": "Tilkoblede systemer hjelper Aipify å arbeide der teamet allerede er.",
+          "action": "Åpne integrasjoner"
         },
         "reviewSupport": {
-          "title": "Support",
-          "reason": "Reason",
-          "action": "Action"
+          "title": "Gjennomgå supportsaker",
+          "reason": "Åpne supportsaker kan bremse operasjonell fremdrift.",
+          "action": "Se supportsaker"
         },
         "reviewApprovals": {
-          "title": "Approvals",
-          "reason": "Reason",
-          "action": "Action"
+          "title": "Gjennomgå ventende godkjenninger",
+          "reason": "Ventende godkjenninger utsetter handlinger som kan kreve deres beslutning.",
+          "action": "Åpne godkjenninger"
         },
         "completeFollowUps": {
-          "title": "Follow-ups",
-          "reason": "Reason",
-          "action": "Action"
+          "title": "Fullfør oppfølginger",
+          "reason": "Åpne oppfølginger viser uferdige operative forpliktelser.",
+          "action": "Se oppfølginger"
         },
         "completeOnboarding": {
-          "title": "Onboarding",
-          "reason": "Reason",
-          "action": "Action"
+          "title": "Fullfør onboarding",
+          "reason": "Gjenstående onboarding-steg styrker organisasjonens grunnlag.",
+          "action": "Fortsett onboarding"
         },
         "configureSecurity": {
-          "title": "Security",
-          "reason": "Reason",
-          "action": "Action"
+          "title": "Konfigurer sikkerhet",
+          "reason": "Sikkerhetsinnstillinger beskytter arbeidsområdet og teamtilgang.",
+          "action": "Åpne sikkerhetsinnstillinger"
+        },
+        "completeFirstUnonightSync": {
+          "title": "Fullfør første datasynk",
+          "reason": "Verifiserte pilotdata er ikke tilgjengelig før første vellykkede synk.",
+          "action": "Se synkstatus"
         }
+      },
+      "scoreAvailability": {
+        "available": "Tilgjengelig",
+        "awaitingFirstSync": "Venter på første synk",
+        "calculating": "Beregner",
+        "insufficientData": "Utilstrekkelig data",
+        "stale": "Utdatert data",
+        "sourceUnavailable": "Kilde utilgjengelig",
+        "calculationFailed": "Beregning mislyktes",
+        "delayed": "Forsinket oppdatering"
+      },
+      "scoreAvailabilityDescriptions": {
+        "available": "Scorer reflekterer verifisert organisasjonsaktivitet fra tilkoblede kilder.",
+        "awaitingFirstSync": "Pilotdata vises etter første vellykkede synk.",
+        "calculating": "Aipify beregner helsescorer fra verifiserte kilder.",
+        "insufficientData": "Ikke nok verifisert aktivitet til å beregne organisasjonshelse ennå.",
+        "stale": "Scorer er tilgjengelige, men kildedata kan være utdatert.",
+        "sourceUnavailable": "Nødvendige datakilder er midlertidig utilgjengelige.",
+        "calculationFailed": "Helseberegning kunne ikke fullføres.",
+        "delayed": "Scorer er tilgjengelige, men oppdatering er forsinket."
+      },
+      "sourceFreshness": {
+        "current": "Aktuell",
+        "delayed": "Forsinket",
+        "stale": "Utdatert",
+        "unavailable": "Utilgjengelig",
+        "awaitingFirstSync": "Venter på første synk"
+      },
+      "pilot": {
+        "title": "Pilot-synkstatus",
+        "readOnlyMode": "Skrivebeskyttet pilot",
+        "readOnlyDescription": "Dette arbeidsområdet er i skrivebeskyttet pilotmodus. Scorer og anbefalinger er veiledende til synk er fullført.",
+        "lastSuccessfulSync": "Siste vellykkede synk",
+        "dataFreshness": "Datafriskhet",
+        "connectedSources": "Tilkoblede kilder",
+        "awaitingFirstSync": "Venter på første synk",
+        "shadowPrepared": "Skyggeanbefalinger",
+        "shadowNoAction": "Forberedt for gjennomgang — ingen automatiske handlinger i pilotmodus."
+      },
+      "severityLabels": {
+        "critical": "Kritisk",
+        "high": "Høy",
+        "medium": "Middels",
+        "low": "Lav",
+        "info": "Info"
       }
     },
     "momentum": {

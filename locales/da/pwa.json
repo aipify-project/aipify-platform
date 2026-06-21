@@ -79,6 +79,30 @@
     "sectionHint": "Installer Aipify på denne enhed for hurtig adgang med eksisterende workspace.",
     "guideLink": "Læs installationsvejledningen"
   },
+  "installCard": {
+    "availableTitle": "Installer Aipify på denne enhed",
+    "availableHint": "Føj Aipify til startskærmen eller proceslinjen for hurtig adgang med eksisterende workspace.",
+    "installButton": "Installer Aipify",
+    "alreadyInstalledTitle": "Aipify er installeret på denne enhed",
+    "alreadyInstalledHint": "Åbn Aipify fra startskærmen, docken eller proceslinjen.",
+    "unsupportedTitle": "Installation er ikke tilgængelig i denne browser",
+    "unsupportedHint": "Åbn app.aipify.ai i Chrome, Edge eller Safari for at installere Aipify Web App.",
+    "dismissedTitle": "Installationen blev afvist",
+    "dismissedHint": "Du kan installere Aipify senere fra denne side, når du er klar.",
+    "tryAgain": "Prøv igen",
+    "guideLink": "Læs installationsvejledningen"
+  },
+  "modalGuidance": {
+    "manualTitle": "Føj Aipify til din enhed",
+    "manualDescription": "Safari viser ikke en install-knap med ét klik. Følg disse trin for at føje Aipify til startskærmen eller docken.",
+    "manualStep1": "Åbn app.aipify.ai i Safari på denne enhed.",
+    "manualStep2": "Tryk Del, derefter Føj til hjemmeskærm (iOS/iPadOS) eller brug Arkiv → Føj til Dock på macOS, hvor det er tilgængeligt.",
+    "manualStep3": "Start Aipify fra det nye ikon, og log ind med din eksisterende konto.",
+    "unsupportedTitle": "Denne browser kan ikke installere Aipify Web App",
+    "unsupportedDescription": "Din nuværende browser understøtter ikke installation af Aipify som app på denne enhed.",
+    "unsupportedHint": "Åbn app.aipify.ai i Chrome, Edge eller Safari for at installere. Konto, organisation og tilladelser forbliver de samme.",
+    "close": "Luk"
+  },
   "gettingStarted": {
     "resourceTitle": "Installer Aipify Web App",
     "resourceDescription": "Hurtig adgang fra startskærmen eller proceslinjen med samme sikre login."

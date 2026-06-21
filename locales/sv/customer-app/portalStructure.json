@@ -32,9 +32,9 @@
       "contactSupport": "Contact Support",
       "supportHistory": "Support History",
       "profile": "Profile",
-      "preferences": "Preferences",
-      "security": "Security",
-      "accountNotifications": "Notification Preferences",
+      "preferences": "Inställningar",
+      "security": "Säkerhet",
+      "accountNotifications": "Aviseringsinställningar",
       "integrations": "Integrationer",
       "connectedIntegrations": "Anslutna integrationer",
       "connectIntegration": "Anslut integration",
@@ -310,16 +310,20 @@
         "subtitle": "Your personal profile within the organization workspace."
       },
       "preferences": {
-        "title": "Preferences",
-        "subtitle": "Workspace display and interaction preferences."
+        "title": "Inställningar",
+        "subtitle": "Visnings- och interaktionsinställningar för din arbetsyta."
       },
       "accountSecurity": {
-        "title": "Security",
-        "subtitle": "Two-factor authentication, sessions, and security settings."
+        "title": "Säkerhet",
+        "subtitle": "Tvåfaktorsautentisering, sessioner och säkerhetsinställningar."
       },
       "accountNotifications": {
-        "title": "Notification Preferences",
-        "subtitle": "Control which notifications you receive."
+        "title": "Aviseringsinställningar",
+        "subtitle": "Styr vilka aviseringar du får.",
+        "emptyTitle": "Aviseringsinställningar hanteras i Command Center",
+        "emptyDescription": "Aipify levererar operativa aviseringar via Command Center och dina arbetsyteinställningar. Använd Command Center för att granska aviseringar, eller öppna Inställningar för tysta timmar och leveransval.",
+        "emptyAction": "Öppna Command Center",
+        "secondaryAction": "Öppna inställningar"
       },
       "apiAccess": {
         "title": "API Access",
@@ -3894,6 +3898,11 @@
           "title": "Encourage certifiering",
           "reason": "Certifiering bygger operativ mognad i organisationen.",
           "action": "Öppna Customer Academy"
+        },
+        "completeFirstUnonightSync": {
+          "title": "Slutför första synkroniseringen med Unonight",
+          "reason": "Aipify behöver en verifierad synkronisering innan kundframgångspoäng och operativa rekommendationer kan beräknas.",
+          "action": "Visa datastatus"
         }
       },
       "understanding": {
@@ -3908,18 +3917,82 @@
       },
       "empty": {
         "plans": "Inga aktiva framgångsplaner ännu.",
-        "followUps": "Inga uppföljningar eller milstolpar matchar filtren.",
+        "followUps": "Inga öppna uppföljningar",
+        "followUpsDescription": "Det finns inga verifierade kundframgångsuppgifter som kräver åtgärd just nu.",
         "outcomes": "Inga målbara resultat registrerade ännu.",
-        "risks": "Inga aktiva risker flaggade för organisationen.",
-        "activity": "Ingen senaste kundframgång-aktivitet att visa."
+        "risks": "Inga aktiva kundframgångsrisker",
+        "risksDescription": "Inga verifierade risker är flaggade för organisationen.",
+        "activity": "Ingen senaste kundframgång-aktivitet att visa.",
+        "adoption": "Adoptionsdata är inte tillgänglig ännu.",
+        "noLearningProgress": "Ingen relevant lärandeframsteg ännu.",
+        "scoreUnavailable": "Poäng inte tillgänglig ännu",
+        "scoreUnavailableDescription": "Aipify behöver mer verifierad organisationsdata innan poängen kan beräknas."
       },
       "healthStates": {
         "healthy": "Hälsosam",
         "good": "Bra",
         "moderate": "Måttlig",
         "poor": "Svag",
-        "criticalHealth": "Kritisk",
-        "unknown": "Okänd"
+        "criticalHealth": "Kritisk hälsa",
+        "unknown": "Otillräcklig datagrund"
+      },
+      "scoreAvailability": {
+        "available": "Tillgänglig",
+        "awaitingFirstSync": "Väntar på första synkronisering",
+        "calculating": "Beräknas",
+        "insufficientData": "Otillräcklig datagrund",
+        "stale": "Data är fördröjd",
+        "sourceUnavailable": "Datakällan är tillfälligt otillgänglig",
+        "calculationFailed": "Beräkning misslyckades",
+        "delayed": "Fördröjd uppdatering"
+      },
+      "scoreAvailabilityDescriptions": {
+        "available": "Poäng återspeglar verifierad organisationsaktivitet från anslutna källor.",
+        "awaitingFirstSync": "Aipify har ännu inte mottagit tillräcklig data från Unonight.",
+        "calculating": "Aipify bearbetar de senaste organisationssignalerna.",
+        "insufficientData": "Mer verifierad aktivitet krävs innan poängen kan beräknas.",
+        "stale": "Senaste verifierade beräkning visas medan källdata kan vara inaktuell.",
+        "sourceUnavailable": "Datakällan är tillfälligt otillgänglig.",
+        "calculationFailed": "Poängberäkning kunde inte slutföras.",
+        "delayed": "Poäng är tillgängliga men uppdateringen är fördröjd."
+      },
+      "sourceFreshness": {
+        "current": "Uppdaterad",
+        "delayed": "Fördröjd",
+        "stale": "Inaktuell",
+        "unavailable": "Otillgänglig",
+        "awaitingFirstSync": "Väntar på första synkronisering"
+      },
+      "pilot": {
+        "title": "Aipify-pilot",
+        "readOnlyMode": "Skrivskyddat observationsläge",
+        "readOnlyDescription": "Aipify synkroniserar godkänd operativ metadata från Unonight. Inga åtgärder utförs i källsystemet.",
+        "lastSuccessfulSync": "Senaste lyckade synkronisering",
+        "dataFreshness": "Datastatus",
+        "connectedSources": "Anslutna datakällor",
+        "awaitingFirstSync": "Väntar på första synkronisering",
+        "shadowPrepared": "Rekommendation utarbetad av Aipify",
+        "shadowNoAction": "Ingen åtgärd har utförts.",
+        "viewDataStatus": "Visa datastatus",
+        "contactSupport": "Kontakta Support"
+      },
+      "workflowStates": {
+        "open": "Öppen",
+        "inProgress": "Pågår",
+        "waiting": "Väntar",
+        "escalated": "Eskalerad",
+        "completed": "Slutförd",
+        "overdue": "Försenad",
+        "blocked": "Blockerad",
+        "pending": "Väntar",
+        "cancelled": "Avbruten"
+      },
+      "severityLabels": {
+        "critical": "Kritisk",
+        "high": "Hög risk",
+        "medium": "Kräver uppmärksamhet",
+        "low": "Låg risk",
+        "info": "Information"
       },
       "card": {
         "owner": "Ansvarig",
@@ -3941,63 +4014,66 @@
         "healthy": "Er organisation visar stark hälsa inom adoption, engagemang och utnyttjande.",
         "moderate": "Er organisation gör framsteg men kan stärka teamengagemang.",
         "poor": "Flera hälsofaktorer behöver uppmärksamhet.",
-        "critical": "Hälsoindikatorer tyder på betydande adoptionsgap."
+        "critical": "Hälsoindikatorer tyder på betydande adoptionsgap.",
+        "unknown": "Aipify samlar fortfarande in verifierad organisationsdata. Hälsopoäng visas när tillräcklig aktivitet och anslutna källor finns."
       },
-      "emptyTitle": "Kundhälsa",
+      "emptyTitle": "Organisationshälsa byggs upp",
       "emptyBody": "Övervaka organisationshälsa, adoption och engagemang — med tydlig vägledning om vad som bör förbättras härnäst.",
-      "emptyAction": "Getting Started",
-      "errorTitle": "Kundhälsa",
+      "emptyAction": "Öppna Kom igång",
+      "errorTitle": "Kundhälsa otillgänglig",
       "errorBody": "Övervaka organisationshälsa, adoption och engagemang — med tydlig vägledning om vad som bör förbättras härnäst.",
-      "retry": "Retry",
+      "retry": "Försök igen",
       "sections": {
-        "overview": "Overview",
-        "recommendedAction": "Next action",
-        "drivers": "Drivers",
-        "strengths": "Strengths",
-        "needsAttention": "Needs attention",
-        "trend": "Trend",
-        "risks": "Risks",
-        "operationalSignals": "Signals",
-        "history": "History",
-        "understanding": "Kundhälsa"
+        "overview": "Hälsaöversikt",
+        "recommendedAction": "Rekommenderat nästa steg",
+        "drivers": "Hälsodrivare",
+        "strengths": "Styrkor",
+        "needsAttention": "Behöver uppmärksamhet",
+        "trend": "Hälsotrend",
+        "risks": "Risker",
+        "operationalSignals": "Operativa signaler",
+        "history": "Hälsohistorik",
+        "understanding": "Förstå kundhälsa"
       },
       "overview": {
-        "healthScore": "Kundhälsa",
-        "healthState": "State",
-        "trend": "Trend",
-        "scoreChange": "Change",
-        "riskLevel": "Risk",
-        "lastCalculated": "Calculated",
-        "explanation": "Explanation",
-        "advisory": "Övervaka organisationshälsa, adoption och engagemang — med tydlig vägledning om vad som bör förbättras härnäst."
+        "healthScore": "Organisationshälsopoäng",
+        "healthState": "Hälsotillstånd",
+        "trend": "Hälsotrend",
+        "scoreChange": "Poängförändring",
+        "riskLevel": "Risknivå",
+        "lastCalculated": "Senast beräknad",
+        "explanation": "Poängförklaring",
+        "advisory": "Poäng och indikatorer är vägledande. Använd dem tillsammans med mänsklig bedömning.",
+        "scoreChangeUnavailable": "Inte tillräcklig verifierad historik"
       },
       "healthStates": {
-        "healthy": "Healthy",
-        "good": "Good",
-        "moderate": "Moderate",
-        "poor": "Poor",
-        "criticalHealth": "Critical",
-        "unknown": "Unknown"
+        "healthy": "Frisk",
+        "good": "Bra",
+        "moderate": "Måttlig",
+        "poor": "Svag",
+        "criticalHealth": "Kritisk",
+        "unknown": "Okänd"
       },
       "trendStates": {
-        "improving": "Improving",
-        "stable": "Stable",
-        "declining": "Declining",
-        "rapidDecline": "Rapid decline",
-        "insufficientData": "Insufficient data"
+        "improving": "Förbättras",
+        "stable": "Stabil",
+        "declining": "Sjunkande",
+        "rapidDecline": "Snabb nedgång",
+        "insufficientData": "Otillräcklig data"
       },
       "riskLevels": {
-        "low": "Low",
-        "moderate": "Moderate",
-        "elevated": "Elevated",
-        "high": "High"
+        "low": "Låg",
+        "moderate": "Måttlig",
+        "elevated": "Förhöjd",
+        "high": "Hög"
       },
       "driverEffects": {
-        "positive": "Positive",
+        "positive": "Positiv",
         "neutral": "Neutral",
-        "moderateNegative": "Moderate negative",
-        "strongNegative": "Strong negative",
-        "criticalNegative": "Critical negative"
+        "moderateNegative": "Måttligt negativ",
+        "strongNegative": "Starkt negativ",
+        "criticalNegative": "Kritiskt negativ",
+        "unavailable": "Data otillgänglig"
       },
       "drivers": {
         "adoption": "Adoption",
@@ -4070,6 +4146,13 @@
           "severityDesc": "Severity",
           "dateDesc": "Newest",
           "dateAsc": "Oldest"
+        },
+        "priorities": {
+          "high": "High",
+          "highImpact": "High impact",
+          "medium": "Medium",
+          "important": "Important",
+          "low": "Low"
         }
       },
       "history": {
@@ -4127,7 +4210,104 @@
           "title": "Security",
           "reason": "Reason",
           "action": "Action"
+        },
+        "completeFirstUnonightSync": {
+          "title": "Complete first data sync",
+          "reason": "Verified pilot data is not available until the first successful sync completes.",
+          "action": "Review sync status"
         }
+      },
+      "strengthValues": {
+        "activeUsers": "{count} active member(s) in the last 14 days",
+        "teamSize": "{count} team member(s)",
+        "businessPacks": "{count} Business Pack(s) installed",
+        "integrations": "{count} integration(s) connected",
+        "openSupport": "No open support requests",
+        "pendingApprovals": "No pending approvals",
+        "openFollowUps": "Follow-ups under control",
+        "none": "No verified value yet"
+      },
+      "riskDescriptions": {
+        "openSupportBacklog": "{count} open support request(s)",
+        "pendingApprovals": "{count} pending approval(s)",
+        "securityNotConfigured": "Security protections are not fully configured for the organization.",
+        "lowEngagement": "Recent team engagement is below expected levels."
+      },
+      "signalDescriptions": {
+        "teamActivity": "{count} active member(s) in the last 14 days",
+        "businessPacksInstalled": "{count} Business Pack(s) installed",
+        "capabilitiesEnabled": "{count} active capability module(s)",
+        "operationsActivity": "{count} operational activity record(s)"
+      },
+      "signalStatuses": {
+        "positive": "Positive",
+        "neutral": "Stable",
+        "warning": "Needs review",
+        "unavailable": "Unavailable"
+      },
+      "historyEventTypes": {
+        "scoreCalculated": "Score calculated",
+        "reviewStarted": "Review started",
+        "genericEvent": "Health event"
+      },
+      "historyDescriptions": {
+        "scoreCalculated": "Organization health score calculated: {score}",
+        "reviewStarted": "Organization health review started",
+        "genericEvent": "Health workspace activity recorded"
+      },
+      "historyStatuses": {
+        "healthy": "Healthy",
+        "moderate": "Moderate",
+        "poor": "Poor",
+        "criticalHealth": "Critical",
+        "neutral": "Informational",
+        "unavailable": "Unavailable",
+        "unknown": "Unknown"
+      },
+      "scoreAvailability": {
+        "available": "Available",
+        "awaitingFirstSync": "Awaiting first sync",
+        "calculating": "Calculating",
+        "insufficientData": "Insufficient data",
+        "stale": "Stale data",
+        "sourceUnavailable": "Source unavailable",
+        "calculationFailed": "Calculation failed",
+        "delayed": "Delayed refresh"
+      },
+      "scoreAvailabilityDescriptions": {
+        "available": "Scores reflect verified organization activity from connected sources.",
+        "awaitingFirstSync": "Pilot data will appear after the first successful sync.",
+        "calculating": "Aipify is calculating health scores from verified sources.",
+        "insufficientData": "Not enough verified activity yet to calculate organization health.",
+        "stale": "Scores are available but source data may be outdated.",
+        "sourceUnavailable": "Required data sources are temporarily unavailable.",
+        "calculationFailed": "Health calculation could not be completed.",
+        "delayed": "Scores are available but refresh is delayed."
+      },
+      "sourceFreshness": {
+        "current": "Current",
+        "delayed": "Delayed",
+        "stale": "Stale",
+        "unavailable": "Unavailable",
+        "awaitingFirstSync": "Awaiting first sync"
+      },
+      "pilot": {
+        "title": "Pilot sync status",
+        "readOnlyMode": "Read-only pilot",
+        "readOnlyDescription": "This workspace is in read-only pilot mode. Scores and recommendations are informational until sync completes.",
+        "lastSuccessfulSync": "Last successful sync",
+        "dataFreshness": "Data freshness",
+        "connectedSources": "Connected sources",
+        "awaitingFirstSync": "Awaiting first sync",
+        "shadowPrepared": "Shadow recommendations",
+        "shadowNoAction": "Prepared for review — no automatic actions in pilot mode."
+      },
+      "severityLabels": {
+        "critical": "Critical",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low",
+        "info": "Info"
       }
     },
     "momentum": {

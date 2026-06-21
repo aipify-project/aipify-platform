@@ -1,5 +1,8 @@
 import type { HealthState } from "@/lib/design/semantic-status-system";
 import type { SuccessPlanStatus } from "./config";
+import type { CustomerSuccessScores, PilotStatus, ScoreAvailability, SourceFreshness } from "./score-availability";
+
+export type { CustomerSuccessScores, PilotStatus, ScoreAvailability, SourceFreshness };
 
 export type CustomerSuccessStatus =
   | "getting_started"
@@ -47,6 +50,7 @@ export type RecommendedNextAction = {
   key: string;
   priority: string;
   category: string;
+  shadow?: boolean;
 };
 
 export type SuccessPlan = {
@@ -108,6 +112,7 @@ export type AdoptionSignal = {
   label_key: string;
   value: number;
   unit: "score" | "count" | "percent";
+  availability?: string;
 };
 
 export type CustomerSuccessActivityEvent = {
@@ -125,10 +130,12 @@ export type CustomerSuccessOverview = {
   can_manage?: boolean;
   can_admin?: boolean;
   journey_started?: boolean;
-  adoption_score?: number;
-  utilization_score?: number;
-  engagement_score?: number;
-  health_score?: number;
+  adoption_score?: number | null;
+  utilization_score?: number | null;
+  engagement_score?: number | null;
+  health_score?: number | null;
+  scores?: CustomerSuccessScores;
+  pilot_status?: PilotStatus | null;
   health_state?: HealthState | string;
   success_status?: CustomerSuccessStatus;
   maturity?: { stage: number; key: MaturityKey | string };
@@ -239,11 +246,35 @@ export type CustomerSuccessLabels = {
   empty: {
     plans: string;
     followUps: string;
+    followUpsDescription: string;
     outcomes: string;
     risks: string;
+    risksDescription: string;
     activity: string;
+    adoption: string;
+    noLearningProgress: string;
+    scoreUnavailable: string;
+    scoreUnavailableDescription: string;
   };
   healthStates: Record<string, string>;
+  scoreAvailability: Record<string, string>;
+  scoreAvailabilityDescriptions: Record<string, string>;
+  sourceFreshness: Record<string, string>;
+  pilot: {
+    title: string;
+    readOnlyMode: string;
+    readOnlyDescription: string;
+    lastSuccessfulSync: string;
+    dataFreshness: string;
+    connectedSources: string;
+    awaitingFirstSync: string;
+    shadowPrepared: string;
+    shadowNoAction: string;
+    viewDataStatus: string;
+    contactSupport: string;
+  };
+  workflowStates: Record<string, string>;
+  severityLabels: Record<string, string>;
   card: {
     owner: string;
     progress: string;

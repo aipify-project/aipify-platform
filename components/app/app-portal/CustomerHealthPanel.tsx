@@ -25,7 +25,7 @@ import { ExecutiveMetricCard } from "@/components/app/design/ExecutiveMetricCard
 import { MetricsLineChart } from "@/components/platform/metrics/MetricsCharts";
 import { SemanticBadge } from "@/components/ui/semantic-badge";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
-import { getSeverityPresentation } from "@/lib/design/semantic-status-system";
+import { getHealthPresentation, getSeverityPresentation } from "@/lib/design/semantic-status-system";
 import { formatDateTime } from "@/lib/i18n/format-date";
 import {
   CUSTOMER_HEALTH_SUPPORT_HREF,
@@ -37,8 +37,19 @@ import {
   type CustomerHealthTrendPeriod,
   type CustomerHealthWorkspaceResponse,
   parseCustomerHealthWorkspace,
+  formatHealthScoreDisplay,
+  formatScoreChangeDisplay,
   hasTrendChartData,
+  mapHistoryStatusToSemantic,
   mapRiskLevelToSeverityValue,
+  mapSignalStatusToSemantic,
+  resolveDriverEffectSemantic,
+  resolveExplanationLabel,
+  resolveHealthOverviewState,
+  resolveHistoryDescription,
+  resolveRiskDescription,
+  resolveSignalDescription,
+  resolveStrengthDisplay,
   resolveTrendIcon,
   sortHistoryEntries,
   sortNeedsAttention,
@@ -47,10 +58,10 @@ import {
 } from "@/lib/app-portal/customer-health";
 import {
   mapRecommendationPriorityToSeverity,
-  resolveOverviewHealthState,
   resolvePurposeSummaryKey,
 } from "@/lib/app-portal/success-center/presentation";
 import { SUCCESS_RECOMMENDATION_LINKS } from "@/lib/app-portal/success-center/config";
+import type { PilotStatus } from "@/lib/app-portal/customer-success/score-availability";
 
 type Props = {
   labels: CustomerHealthLabels;
@@ -85,12 +96,68 @@ function SectionHeading({ id, title }: { id: string; title: string }) {
   );
 }
 
-function driverEffectSemantic(effect: string): string {
-  if (effect === "positive") return "healthy";
-  if (effect === "critical_negative") return "critical_health";
-  if (effect === "strong_negative") return "poor";
-  if (effect === "moderate_negative") return "moderate";
-  return "unknown";
+function severityLabel(labels: CustomerHealthLabels, severity: string): string {
+  return labels.severityLabels[severity as keyof typeof labels.severityLabels] ?? severity;
+}
+
+function priorityLabel(labels: CustomerHealthLabels, priority: string): string {
+  return labels.filters.priorities[priority as keyof typeof labels.filters.priorities] ?? priority;
+}
+
+function PilotStatusRow({
+  pilot,
+  labels,
+  locale,
+}: {
+  pilot: PilotStatus;
+  labels: CustomerHealthLabels;
+  locale: string;
+}) {
+  const freshnessKey = pilot.dataFreshness.replace(/-/g, "_");
+  const freshnessLabel =
+    labels.sourceFreshness[freshnessKey as keyof typeof labels.sourceFreshness] ??
+    labels.sourceFreshness.unavailable;
+
+  return (
+    <div className="rounded-2xl border border-violet-100 bg-violet-50/40 px-5 py-4 text-sm text-aipify-text-secondary">
+      <p className="font-medium text-aipify-text">{labels.pilot.title}</p>
+      {pilot.readOnly ? (
+        <p className="mt-1">{labels.pilot.readOnlyDescription}</p>
+      ) : null}
+      <dl className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <dt className="text-xs uppercase tracking-wide text-aipify-text-muted">
+            {labels.pilot.dataFreshness}
+          </dt>
+          <dd className="mt-1 font-medium text-aipify-text">{freshnessLabel}</dd>
+        </div>
+        <div>
+          <dt className="text-xs uppercase tracking-wide text-aipify-text-muted">
+            {labels.pilot.connectedSources}
+          </dt>
+          <dd className="mt-1 font-medium text-aipify-text">{pilot.connectedSourceCount}</dd>
+        </div>
+        <div>
+          <dt className="text-xs uppercase tracking-wide text-aipify-text-muted">
+            {labels.pilot.lastSuccessfulSync}
+          </dt>
+          <dd className="mt-1 font-medium text-aipify-text">
+            {pilot.lastSuccessfulSync
+              ? formatDateTime(pilot.lastSuccessfulSync, locale)
+              : labels.pilot.awaitingFirstSync}
+          </dd>
+        </div>
+        {pilot.shadowMode ? (
+          <div>
+            <dt className="text-xs uppercase tracking-wide text-aipify-text-muted">
+              {labels.pilot.shadowPrepared}
+            </dt>
+            <dd className="mt-1 text-aipify-text-secondary">{labels.pilot.shadowNoAction}</dd>
+          </div>
+        ) : null}
+      </dl>
+    </div>
+  );
 }
 
 export function CustomerHealthPanel({ labels, locale }: Props) {
@@ -112,7 +179,6 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
     if (category) params.set("category", category);
     if (priority) params.set("priority", priority);
     if (trendFilter) params.set("trend", trendFilter);
-    if (periodFrom) params.set("period_from", periodFrom);
     if (search.trim()) params.set("search", search.trim());
 
     if (periodFrom) {
@@ -139,11 +205,13 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
   }, [load]);
 
   const overview = data?.overview;
-  const healthState = overview
-    ? resolveOverviewHealthState(overview.health_score, overview.health_state)
-    : "unknown";
-  const purposeKey = resolvePurposeSummaryKey(healthState);
+  const healthState = resolveHealthOverviewState(overview);
+  const purposeKey =
+    healthState === "unknown"
+      ? "unknown"
+      : resolvePurposeSummaryKey(healthState);
   const trendState = overview?.trend_state ?? data?.trend_state ?? "insufficient_data";
+  const scoreAvailable = overview?.score_availability === "available";
 
   const sortedNeedsAttention = useMemo(
     () => sortNeedsAttention(data?.needs_attention ?? []),
@@ -210,7 +278,7 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
   }
 
   const showEmpty = data.has_activity === false;
-  const riskSeverity = overview ? mapRiskLevelToSeverityValue(overview.risk_level) : "info";
+  const riskSeverity = overview && scoreAvailable ? mapRiskLevelToSeverityValue(overview.risk_level) : "info";
   const riskPresentation = getSeverityPresentation(riskSeverity);
   const recommended = data.recommended_action;
   const recCopy = recommended
@@ -221,6 +289,9 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
     <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
       <header className="space-y-4 border-b border-aipify-border pb-6">
         <PanelHeader labels={labels} />
+        {data.pilot_status?.active ? (
+          <PilotStatusRow pilot={data.pilot_status} labels={labels} locale={locale} />
+        ) : null}
         {overview ? (
           <p className="rounded-2xl border border-aipify-border bg-aipify-surface-muted/60 px-5 py-4 text-sm leading-relaxed text-aipify-text">
             {labels.purposeSummary[purposeKey]}
@@ -245,20 +316,31 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
               featured
               icon={<HeartPulse className="h-5 w-5" aria-hidden="true" />}
               label={labels.overview.healthScore}
-              value={overview.health_score}
-              description={overview.explanation}
+              value={formatHealthScoreDisplay(overview)}
+              description={resolveExplanationLabel(overview, labels)}
               semanticType="health"
               semanticValue={healthState}
-              statusLabel={labels.healthStates[healthState]}
-              a11yLabel={`${labels.overview.healthState}: ${labels.healthStates[healthState]}`}
+              statusLabel={
+                scoreAvailable
+                  ? labels.healthStates[healthState]
+                  : labels.scoreAvailability[overview.score_availability]
+              }
+              a11yLabel={`${labels.overview.healthState}: ${
+                scoreAvailable
+                  ? labels.healthStates[healthState]
+                  : labels.scoreAvailability[overview.score_availability]
+              }`}
             />
             <ExecutiveMetricCard
               icon={<TrendingUp className="h-5 w-5" aria-hidden="true" />}
               label={labels.overview.trend}
               value={`${resolveTrendIcon(trendState)} ${labels.trendStates[trendState]}`}
-              description={`${labels.overview.scoreChange}: ${overview.score_change >= 0 ? "+" : ""}${overview.score_change}`}
+              description={`${labels.overview.scoreChange}: ${formatScoreChangeDisplay(
+                overview,
+                labels.overview.scoreChangeUnavailable
+              )}`}
               semanticType="health"
-              semanticValue={healthState}
+              semanticValue={trendState === "insufficient_data" ? "unknown" : healthState}
               statusLabel={labels.trendStates[trendState]}
             />
             <article
@@ -269,7 +351,11 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
                 <SemanticBadge
                   type="severity"
                   value={riskSeverity}
-                  label={labels.riskLevels[overview.risk_level]}
+                  label={
+                    scoreAvailable
+                      ? labels.riskLevels[overview.risk_level]
+                      : labels.scoreAvailability.insufficient_data
+                  }
                 />
               </div>
               {overview.last_calculated_at ? (
@@ -292,10 +378,13 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
             title={recCopy.title}
             description={recCopy.reason}
             severityValue={mapRecommendationPriorityToSeverity(recommended.priority)}
-            severityLabel={recommended.priority}
+            severityLabel={priorityLabel(labels, recommended.priority)}
             workflowValue="open"
             workflowLabel={labels.sections.recommendedAction}
-            actionHref={CUSTOMER_HEALTH_RECOMMENDATION_LINKS[recommended.key] ?? SUCCESS_RECOMMENDATION_LINKS[recommended.key]?.href}
+            actionHref={
+              CUSTOMER_HEALTH_RECOMMENDATION_LINKS[recommended.key] ??
+              SUCCESS_RECOMMENDATION_LINKS[recommended.key]?.href
+            }
             actionLabel={recCopy.action}
           />
         </section>
@@ -305,21 +394,26 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
         <section className="space-y-4">
           <SectionHeading id="drivers" title={labels.sections.drivers} />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {data.drivers!.map((driver) => (
-              <article key={driver.key} className={`${AppPremiumShell.elevatedCard} p-4`}>
-                <div className="flex items-start justify-between gap-2">
-                  <p className="font-medium text-aipify-text">
-                    {labels.drivers[driver.key as keyof typeof labels.drivers] ?? driver.key}
+            {data.drivers!.map((driver) => {
+              const driverSemantic = resolveDriverEffectSemantic(driver.effect);
+              return (
+                <article key={driver.key} className={`${AppPremiumShell.elevatedCard} p-4`}>
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="font-medium text-aipify-text">
+                      {labels.drivers[driver.key as keyof typeof labels.drivers] ?? driver.key}
+                    </p>
+                    <SemanticBadge
+                      type="health"
+                      value={driverSemantic}
+                      label={labels.driverEffects[driver.effect]}
+                    />
+                  </div>
+                  <p className="mt-2 text-2xl font-semibold text-aipify-text">
+                    {driver.score === null ? "—" : driver.score}
                   </p>
-                  <SemanticBadge
-                    type="health"
-                    value={driverEffectSemantic(driver.effect)}
-                    label={labels.driverEffects[driver.effect]}
-                  />
-                </div>
-                <p className="mt-2 text-2xl font-semibold text-aipify-text">{driver.score}</p>
-              </article>
-            ))}
+                </article>
+              );
+            })}
           </div>
         </section>
       ) : null}
@@ -336,7 +430,7 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
                 <p className="font-medium text-emerald-900">
                   {labels.strengths[item.key as keyof typeof labels.strengths] ?? item.key}
                 </p>
-                <p className="mt-1 text-sm text-emerald-800">{item.value}</p>
+                <p className="mt-1 text-sm text-emerald-800">{resolveStrengthDisplay(item, labels)}</p>
               </article>
             ))}
           </div>
@@ -349,6 +443,7 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
           <ul className="space-y-3">
             {sortedNeedsAttention.map((item) => {
               const href = item.action_href ?? NEEDS_ATTENTION_ACTION_LINKS[item.key];
+              const impactKey = item.impact_key ?? item.key;
               return (
                 <li
                   key={item.key}
@@ -356,16 +451,16 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
                 >
                   <div>
                     <p className="font-medium text-aipify-text">
-                      {labels.needsAttention[item.key as keyof typeof labels.needsAttention] ??
+                      {labels.needsAttention[impactKey as keyof typeof labels.needsAttention] ??
+                        labels.needsAttention[item.key as keyof typeof labels.needsAttention] ??
                         item.key}
                     </p>
-                    <p className="mt-1 text-sm text-aipify-text-secondary">{item.impact}</p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <SemanticBadge
                       type="severity"
                       value={item.severity}
-                      label={item.severity}
+                      label={severityLabel(labels, item.severity)}
                     />
                     {href ? (
                       <Link
@@ -442,20 +537,29 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
             <div className="space-y-3">
               <SectionHeading id="risks" title={labels.sections.risks} />
               <ul className="space-y-2">
-                {sortedRisks.map((risk) => (
-                  <li
-                    key={risk.key}
-                    className={`${AppPremiumShell.elevatedCard} flex flex-wrap items-center justify-between gap-2 border-l-4 p-4 ${getSeverityPresentation(risk.severity).borderClassName}`}
-                  >
-                    <div>
-                      <p className="font-medium text-aipify-text">
-                        {labels.risks[risk.key as keyof typeof labels.risks] ?? risk.description}
-                      </p>
-                      <p className="mt-1 text-sm text-aipify-text-secondary">{risk.description}</p>
-                    </div>
-                    <SemanticBadge type="severity" value={risk.severity} label={risk.severity} />
-                  </li>
-                ))}
+                {sortedRisks.map((risk) => {
+                  const riskPresentationItem = getSeverityPresentation(risk.severity);
+                  return (
+                    <li
+                      key={risk.key}
+                      className={`${AppPremiumShell.elevatedCard} flex flex-wrap items-center justify-between gap-2 border-l-4 p-4 ${riskPresentationItem.borderClassName}`}
+                    >
+                      <div>
+                        <p className="font-medium text-aipify-text">
+                          {labels.risks[risk.key as keyof typeof labels.risks] ?? risk.key}
+                        </p>
+                        <p className="mt-1 text-sm text-aipify-text-secondary">
+                          {resolveRiskDescription(risk, labels)}
+                        </p>
+                      </div>
+                      <SemanticBadge
+                        type="severity"
+                        value={risk.severity}
+                        label={severityLabel(labels, risk.severity)}
+                      />
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ) : null}
@@ -464,24 +568,46 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
             <div className="space-y-3">
               <SectionHeading id="operationalSignals" title={labels.sections.operationalSignals} />
               <ul className="space-y-2">
-                {sortedSignals.map((signal) => (
-                  <li key={signal.key} className={`${AppPremiumShell.elevatedCard} p-4`}>
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <p className="font-medium text-aipify-text">
-                        {labels.operationalSignals[
-                          signal.key as keyof typeof labels.operationalSignals
-                        ] ?? signal.key}
+                {sortedSignals.map((signal) => {
+                  const signalSemantic = mapSignalStatusToSemantic(signal.status);
+                  const signalPresentation = getHealthPresentation(signalSemantic);
+                  const trendKey = signal.trend as keyof typeof labels.trendStates | undefined;
+                  return (
+                    <li
+                      key={signal.key}
+                      className={`${AppPremiumShell.elevatedCard} border-l-4 p-4 ${signalPresentation.borderClassName}`}
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="font-medium text-aipify-text">
+                          {labels.operationalSignals[
+                            signal.key as keyof typeof labels.operationalSignals
+                          ] ?? signal.key}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-2">
+                          {signal.status ? (
+                            <SemanticBadge
+                              type="health"
+                              value={signalSemantic}
+                              label={
+                                labels.signalStatuses[
+                                  signal.status as keyof typeof labels.signalStatuses
+                                ] ?? signal.status
+                              }
+                            />
+                          ) : null}
+                          {trendKey && labels.trendStates[trendKey] ? (
+                            <span className="text-sm text-aipify-text-muted">
+                              {labels.trendStates[trendKey]}
+                            </span>
+                          ) : null}
+                        </div>
+                      </div>
+                      <p className="mt-1 text-sm text-aipify-text-secondary">
+                        {resolveSignalDescription(signal, labels)}
                       </p>
-                      {signal.trend ? (
-                        <span className="text-sm text-aipify-text-muted">
-                          {labels.trendStates[signal.trend as keyof typeof labels.trendStates] ??
-                            signal.trend}
-                        </span>
-                      ) : null}
-                    </div>
-                    <p className="mt-1 text-sm text-aipify-text-secondary">{signal.description}</p>
-                  </li>
-                ))}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ) : null}
@@ -492,27 +618,55 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
         <SectionHeading id="history" title={labels.sections.history} />
         {sortedHistory.length > 0 ? (
           <ul className="space-y-2">
-            {sortedHistory.map((entry) => (
-              <li
-                key={entry.id}
-                className={`${AppPremiumShell.elevatedCard} flex flex-wrap items-center justify-between gap-2 p-4 text-sm`}
-              >
-                <div>
-                  <p className="font-medium text-aipify-text">{entry.description}</p>
-                  <p className="mt-1 text-aipify-text-muted">{entry.event_type}</p>
-                </div>
-                <div className="text-right text-aipify-text-secondary">
-                  {entry.score != null ? (
-                    <p>
-                      {labels.history.score}: {entry.score}
+            {sortedHistory.map((entry) => {
+              const historySemantic = mapHistoryStatusToSemantic(entry.status);
+              const historyPresentation = getHealthPresentation(historySemantic);
+              const eventTypeKey =
+                entry.event_type_key ??
+                (entry.event_type === "score_calculated"
+                  ? "scoreCalculated"
+                  : entry.event_type === "review_started"
+                    ? "reviewStarted"
+                    : "genericEvent");
+              return (
+                <li
+                  key={entry.id}
+                  className={`${AppPremiumShell.elevatedCard} flex flex-wrap items-center justify-between gap-2 border-l-4 p-4 text-sm ${historyPresentation.borderClassName}`}
+                >
+                  <div>
+                    <p className="font-medium text-aipify-text">
+                      {resolveHistoryDescription(entry, labels)}
                     </p>
-                  ) : null}
-                  <time dateTime={entry.recorded_at}>
-                    {formatDateTime(entry.recorded_at, locale)}
-                  </time>
-                </div>
-              </li>
-            ))}
+                    <p className="mt-1 text-aipify-text-muted">
+                      {labels.historyEventTypes[
+                        eventTypeKey as keyof typeof labels.historyEventTypes
+                      ] ?? entry.event_type}
+                    </p>
+                  </div>
+                  <div className="text-right text-aipify-text-secondary">
+                    {entry.score != null ? (
+                      <p>
+                        {labels.history.score}: {entry.score}
+                      </p>
+                    ) : null}
+                    {entry.status ? (
+                      <SemanticBadge
+                        type="health"
+                        value={historySemantic}
+                        label={
+                          labels.historyStatuses[
+                            entry.status as keyof typeof labels.historyStatuses
+                          ] ?? entry.status
+                        }
+                      />
+                    ) : null}
+                    <time dateTime={entry.recorded_at} className="mt-1 block">
+                      {formatDateTime(entry.recorded_at, locale)}
+                    </time>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <p className="text-sm text-aipify-text-secondary">{labels.history.empty}</p>
@@ -607,7 +761,7 @@ function FilterBar({
           className="rounded-lg border border-aipify-border bg-white px-3 py-2 text-sm"
           aria-label={labels.filters.category}
         >
-          <option value="">{labels.filters.category}</option>
+          <option value="">{labels.filters.all}</option>
           {Object.entries(labels.filters.categories).map(([key, label]) => (
             <option key={key} value={key}>
               {label}
@@ -620,10 +774,12 @@ function FilterBar({
           className="rounded-lg border border-aipify-border bg-white px-3 py-2 text-sm"
           aria-label={labels.filters.priority}
         >
-          <option value="">{labels.filters.priority}</option>
-          <option value="high">high</option>
-          <option value="medium">medium</option>
-          <option value="low">low</option>
+          <option value="">{labels.filters.all}</option>
+          {Object.entries(labels.filters.priorities).map(([key, label]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
         </select>
         <select
           value={trend}
@@ -631,7 +787,7 @@ function FilterBar({
           className="rounded-lg border border-aipify-border bg-white px-3 py-2 text-sm"
           aria-label={labels.filters.trend}
         >
-          <option value="">{labels.filters.trend}</option>
+          <option value="">{labels.filters.all}</option>
           {Object.entries(labels.trendStates).map(([key, label]) => (
             <option key={key} value={key}>
               {label}

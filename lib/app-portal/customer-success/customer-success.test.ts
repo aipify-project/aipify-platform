@@ -5,14 +5,19 @@ import {
   SUCCESS_PLAN_STATUSES,
 } from "./config";
 import {
-  isFollowUpOverdue,
-  isValidSortOption,
-  mapPlanStatusToWorkflow,
-  mapRecommendationPriorityToSeverity,
-  mapRiskImpactToSeverity,
+  formatScoreCardValue,
+  resolveScoreCardHealthState,
+  resolveWorkflowStatusLabel,
+  resolveRiskImpactLabel,
   resolveOverviewHealthState,
   resolveRecommendationHref,
+  mapPlanStatusToWorkflow,
+  mapRiskImpactToSeverity,
+  mapRecommendationPriorityToSeverity,
+  isValidSortOption,
+  isFollowUpOverdue,
 } from "./presentation";
+import { legacyScoresToEntries } from "./score-availability";
 
 // 1. Parser handles null.
 assert.equal(parseCustomerSuccessOverview(null).found, false);
@@ -121,5 +126,51 @@ assert.equal(isValidSortOption("invalid"), false);
 assert.equal(isFollowUpOverdue("2020-01-01T00:00:00Z", "open"), true);
 assert.equal(isFollowUpOverdue("2030-01-01T00:00:00Z", "open"), false);
 assert.equal(isFollowUpOverdue("2020-01-01T00:00:00Z", "completed"), false);
+
+// 12. Missing score availability does not map to critical health.
+const unavailable = legacyScoresToEntries({}, false).health;
+assert.equal(unavailable.score, null);
+assert.equal(resolveScoreCardHealthState(unavailable), "unknown");
+assert.equal(formatScoreCardValue(unavailable), "—");
+
+// 13. Verified zero score may render when calculation completed.
+const zeroAvailable = {
+  score: 0,
+  availability: "available" as const,
+  calculatedAt: "2026-06-21T12:00:00Z",
+  sourceFreshness: "current" as const,
+  explanationKey: "customerApp.portalStructure.customerSuccess.scoreAvailability.available",
+};
+assert.equal(formatScoreCardValue(zeroAvailable), "0");
+assert.equal(resolveScoreCardHealthState(zeroAvailable), "critical_health");
+
+// 14. Workflow and severity labels normalize raw enums.
+const labelFixture = {
+  workflowStates: {
+    open: "Åpen",
+    in_progress: "Pågår",
+    waiting: "Venter",
+    escalated: "Eskalert",
+    completed: "Fullført",
+    overdue: "Forfalt",
+    blocked: "Blokkert",
+    pending: "Venter",
+    cancelled: "Avbrutt",
+  },
+  severityLabels: {
+    critical: "Kritisk",
+    high: "Høy risiko",
+    medium: "Krever oppmerksomhet",
+    low: "Lav risiko",
+    info: "Informasjon",
+  },
+  healthStates: { unknown: "Utilstrekkelig datagrunnlag" },
+  scoreAvailability: { insufficient_data: "Utilstrekkelig datagrunnlag" },
+  scoreAvailabilityDescriptions: { insufficientData: "Mer data kreves." },
+  overview: { advisory: "Veiledende." },
+} as import("./types").CustomerSuccessLabels;
+assert.equal(resolveWorkflowStatusLabel("in_progress", labelFixture), "Pågår");
+assert.equal(resolveRiskImpactLabel("major", labelFixture), "Høy risiko");
+assert.equal(resolveRiskImpactLabel("moderate", labelFixture), "Krever oppmerksomhet");
 
 console.log("customer-success.test.ts: all assertions passed");

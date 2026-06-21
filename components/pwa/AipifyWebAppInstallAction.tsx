@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { APP_WEB_APP_INSTALL_ARTICLE_PATH } from "@/lib/pwa/constants";
 import { usePwaInstall } from "./PwaInstallProvider";
 import type { PwaInstallLabels } from "@/lib/pwa/types";
 
@@ -47,7 +48,7 @@ export function AipifyWebAppInstallAction({
       </button>
       {showGuideLink ? (
         <Link
-          href="/knowledge/articles/installing-aipify-web-app"
+          href={APP_WEB_APP_INSTALL_ARTICLE_PATH}
           className="mt-2 block text-xs font-medium text-gray-500 hover:text-violet-600"
         >
           {labels.guideLink}

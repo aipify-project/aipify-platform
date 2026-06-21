@@ -3,9 +3,62 @@ import {
   mapHealthScoreToHealthState,
   type HealthState,
 } from "@/lib/design/semantic-status-system";
+import {
+  formatScoreDisplayValue,
+  resolveScoreHealthState,
+  type ScoreEntry,
+} from "./score-availability";
 import type { SuccessPlanStatus } from "./config";
-import type { CustomerSuccessRecommendation } from "./types";
+import type { CustomerSuccessLabels, CustomerSuccessRecommendation } from "./types";
 import { CUSTOMER_SUCCESS_RECOMMENDATION_LINKS, RECOMMENDATION_PRIORITY_ORDER } from "./config";
+
+function snakeToCamel(value: string): string {
+  return value.replace(/_([a-z])/g, (_, char: string) => char.toUpperCase());
+}
+
+export function resolveScoreCardHealthState(entry: ScoreEntry | undefined): HealthState {
+  if (!entry || entry.availability !== "available" || entry.score === null) return "unknown";
+  return resolveScoreHealthState(entry) ?? "unknown";
+}
+
+export function resolveScoreStatusLabel(
+  entry: ScoreEntry | undefined,
+  labels: CustomerSuccessLabels
+): string {
+  if (!entry) return labels.healthStates.unknown;
+  if (entry.availability !== "available" || entry.score === null) {
+    const key = snakeToCamel(entry.availability) as keyof typeof labels.scoreAvailability;
+    return labels.scoreAvailability[key] ?? labels.healthStates.unknown;
+  }
+  const health = resolveScoreHealthState(entry) ?? "unknown";
+  return labels.healthStates[health] ?? labels.healthStates.unknown;
+}
+
+export function resolveScoreDescription(
+  entry: ScoreEntry | undefined,
+  labels: CustomerSuccessLabels
+): string {
+  if (!entry) return labels.scoreAvailabilityDescriptions.insufficientData;
+  const key = snakeToCamel(entry.availability) as keyof typeof labels.scoreAvailabilityDescriptions;
+  return labels.scoreAvailabilityDescriptions[key] ?? labels.overview.advisory;
+}
+
+export function formatScoreCardValue(entry: ScoreEntry | undefined): string {
+  if (!entry) return "—";
+  return formatScoreDisplayValue(entry);
+}
+
+export function resolveWorkflowStatusLabel(status: string, labels: CustomerSuccessLabels): string {
+  const normalized = status.trim().toLowerCase();
+  return labels.workflowStates[normalized as keyof typeof labels.workflowStates] ?? status;
+}
+
+export function resolveRiskImpactLabel(impact: string, labels: CustomerSuccessLabels): string {
+  const normalized = impact.trim().toLowerCase();
+  if (normalized === "major") return labels.severityLabels.high;
+  if (normalized === "moderate") return labels.severityLabels.medium;
+  return labels.severityLabels[normalized as keyof typeof labels.severityLabels] ?? impact;
+}
 
 export function resolveOverviewHealthState(score: number, healthState?: string): HealthState {
   const normalized = String(healthState ?? "")

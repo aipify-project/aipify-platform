@@ -24,7 +24,6 @@ export function isIosSafari(userAgent: string): boolean {
 }
 
 export function supportsBeforeInstallPrompt(userAgent: string): boolean {
-  if (typeof window === "undefined") return false;
   if (isUnsupportedEmbeddedBrowser(userAgent)) return false;
   // Chromium desktop/Android — beforeinstallprompt when SW + manifest present.
   return /chrome|crios|edg|samsungbrowser/i.test(userAgent) && !/iphone|ipad|ipod/i.test(userAgent);

@@ -79,6 +79,30 @@
     "sectionHint": "Installera Aipify på den här enheten för snabb åtkomst med befintlig workspace.",
     "guideLink": "Läs installationsguiden"
   },
+  "installCard": {
+    "availableTitle": "Installera Aipify på den här enheten",
+    "availableHint": "Lägg till Aipify på hemskärmen eller aktivitetsfältet för snabb åtkomst med befintlig workspace.",
+    "installButton": "Installera Aipify",
+    "alreadyInstalledTitle": "Aipify är installerad på den här enheten",
+    "alreadyInstalledHint": "Öppna Aipify från hemskärmen, dockan eller aktivitetsfältet.",
+    "unsupportedTitle": "Installation är inte tillgänglig i den här webbläsaren",
+    "unsupportedHint": "Öppna app.aipify.ai i Chrome, Edge eller Safari för att installera Aipify Web App.",
+    "dismissedTitle": "Installationen avvisades",
+    "dismissedHint": "Du kan installera Aipify senare från den här sidan när du är redo.",
+    "tryAgain": "Försök igen",
+    "guideLink": "Läs installationsguiden"
+  },
+  "modalGuidance": {
+    "manualTitle": "Lägg till Aipify på din enhet",
+    "manualDescription": "Safari visar ingen install-knapp med ett klick. Följ dessa steg för att lägga till Aipify på hemskärmen eller dockan.",
+    "manualStep1": "Öppna app.aipify.ai i Safari på den här enheten.",
+    "manualStep2": "Tryck Dela, sedan Lägg till på hemskärmen (iOS/iPadOS) eller använd Arkiv → Lägg till i Dock på macOS där tillgängligt.",
+    "manualStep3": "Starta Aipify från den nya ikonen och logga in med ditt befintliga konto.",
+    "unsupportedTitle": "Den här webbläsaren kan inte installera Aipify Web App",
+    "unsupportedDescription": "Din nuvarande webbläsare stöder inte installation av Aipify som app på den här enheten.",
+    "unsupportedHint": "Öppna app.aipify.ai i Chrome, Edge eller Safari för att installera. Konto, organisation och behörigheter förblir desamma.",
+    "close": "Stäng"
+  },
   "gettingStarted": {
     "resourceTitle": "Installera Aipify Web App",
     "resourceDescription": "Snabb åtkomst från hemskärmen eller aktivitetsfältet med samma säkra inloggning."

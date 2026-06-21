@@ -41,9 +41,16 @@ import {
   mapPlanStatusToWorkflow,
   mapRecommendationPriorityToSeverity,
   mapRiskImpactToSeverity,
-  resolveOverviewHealthState,
+  formatScoreCardValue,
+  resolveRiskImpactLabel,
+  resolveScoreCardHealthState,
+  resolveScoreDescription,
+  resolveScoreStatusLabel,
+  resolveWorkflowStatusLabel,
   resolveRecommendationHref,
+  resolveOverviewHealthState,
 } from "@/lib/app-portal/customer-success/presentation";
+import type { PilotStatus, ScoreEntry } from "@/lib/app-portal/customer-success/score-availability";
 import type { AppOrganizationContextState } from "@/lib/tenant/resolve-app-organization-context";
 
 type Props = { labels: CustomerSuccessLabels; locale: string };
@@ -71,6 +78,75 @@ function SectionHeading({ id, title }: { id: string; title: string }) {
       </span>
       <h2 className={AppPremiumShell.sectionTitle}>{title}</h2>
     </div>
+  );
+}
+
+function PilotStatusRow({
+  pilot,
+  labels,
+  locale,
+}: {
+  pilot: PilotStatus;
+  labels: CustomerSuccessLabels;
+  locale: string;
+}) {
+  const freshnessKey = pilot.dataFreshness.replace(/-/g, "_") as keyof typeof labels.sourceFreshness;
+  const freshnessLabel = labels.sourceFreshness[freshnessKey] ?? labels.sourceFreshness.unavailable;
+
+  return (
+    <div className="rounded-2xl border border-violet-100 bg-violet-50/40 px-5 py-4 text-sm text-aipify-text-secondary">
+      <p className="font-medium text-aipify-text">{labels.pilot.title}</p>
+      {pilot.readOnly ? <p className="mt-1">{labels.pilot.readOnlyDescription}</p> : null}
+      <dl className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <dt className="text-xs uppercase tracking-wide text-aipify-text-muted">{labels.pilot.dataFreshness}</dt>
+          <dd className="mt-1 font-medium text-aipify-text">{freshnessLabel}</dd>
+        </div>
+        <div>
+          <dt className="text-xs uppercase tracking-wide text-aipify-text-muted">{labels.pilot.connectedSources}</dt>
+          <dd className="mt-1 font-medium text-aipify-text">{pilot.connectedSourceCount}</dd>
+        </div>
+        <div>
+          <dt className="text-xs uppercase tracking-wide text-aipify-text-muted">{labels.pilot.lastSuccessfulSync}</dt>
+          <dd className="mt-1 font-medium text-aipify-text">
+            {pilot.lastSuccessfulSync ? formatDateTime(pilot.lastSuccessfulSync, locale) : labels.pilot.awaitingFirstSync}
+          </dd>
+        </div>
+      </dl>
+    </div>
+  );
+}
+
+function ScoreMetricCard({
+  label,
+  entry,
+  description,
+  labels,
+  icon,
+  featured,
+}: {
+  label: string;
+  entry: ScoreEntry | undefined;
+  description: string;
+  labels: CustomerSuccessLabels;
+  icon: React.ReactNode;
+  featured?: boolean;
+}) {
+  const healthState = resolveScoreCardHealthState(entry);
+  const scoreAvailable = entry?.availability === "available" && entry.score !== null;
+
+  return (
+    <ExecutiveMetricCard
+      featured={featured}
+      icon={icon}
+      label={label}
+      value={formatScoreCardValue(entry)}
+      description={scoreAvailable ? description : resolveScoreDescription(entry, labels)}
+      semanticType="health"
+      semanticValue={healthState}
+      statusLabel={resolveScoreStatusLabel(entry, labels)}
+      a11yLabel={`${label}: ${resolveScoreStatusLabel(entry, labels)}`}
+    />
   );
 }
 
@@ -140,10 +216,7 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
     void load();
   }, [load]);
 
-  const healthState = resolveOverviewHealthState(
-    data?.health_score ?? data?.adoption_score ?? 0,
-    data?.health_state
-  );
+  const scores = data?.scores;
 
   const nextAction = data?.recommended_next_action;
   const nextActionCopy = nextAction
@@ -232,8 +305,7 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
   const activeRisks = data.active_risks ?? [];
   const outcomes = data.outcomes ?? [];
   const timeline = data.timeline ?? [];
-  const showFollowSection =
-    filteredFollowMilestone.followUps.length > 0 || filteredFollowMilestone.milestones.length > 0;
+  const showFollowSection = true;
 
   return (
     <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
@@ -256,54 +328,49 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
           <h1 className={AppPremiumShell.pageTitle}>{labels.title}</h1>
           <p className={AppPremiumShell.pageDescription}>{labels.subtitle}</p>
         </div>
+        {data.pilot_status?.active ? (
+          <PilotStatusRow pilot={data.pilot_status} labels={labels} locale={locale} />
+        ) : null}
       </header>
 
       <section className="space-y-4">
         <SectionHeading id="overview" title={labels.sections.overview} />
         <p className={AppPremiumShell.sectionSubtitle}>{labels.overview.organizationOverview}</p>
         <div className="grid gap-4 lg:grid-cols-4">
-          <ExecutiveMetricCard
+          <ScoreMetricCard
             featured
-            icon={<LayoutDashboard className="h-5 w-5" aria-hidden="true" />}
             label={labels.overview.healthScore}
-            value={data.health_score ?? data.adoption_score ?? 0}
+            entry={scores?.health}
             description={labels.overview.advisory}
-            semanticType="health"
-            semanticValue={healthState}
-            statusLabel={labels.healthStates[healthState]}
-            a11yLabel={`${labels.overview.healthStatus}: ${labels.healthStates[healthState]}`}
+            labels={labels}
+            icon={<LayoutDashboard className="h-5 w-5" aria-hidden="true" />}
           />
-          <ExecutiveMetricCard
-            icon={<TrendingUp className="h-5 w-5" aria-hidden="true" />}
+          <ScoreMetricCard
             label={labels.overview.adoptionScore}
-            value={data.adoption_score ?? 0}
+            entry={scores?.adoption}
             description={labels.scores.featureAdoption}
-            semanticType="health"
-            semanticValue={resolveOverviewHealthState(data.adoption_score ?? 0)}
-            statusLabel={labels.healthStates[resolveOverviewHealthState(data.adoption_score ?? 0)]}
+            labels={labels}
+            icon={<TrendingUp className="h-5 w-5" aria-hidden="true" />}
           />
-          <ExecutiveMetricCard
-            icon={<Target className="h-5 w-5" aria-hidden="true" />}
+          <ScoreMetricCard
             label={labels.overview.utilizationScore}
-            value={data.utilization_score ?? 0}
+            entry={scores?.utilization}
             description={labels.scores.operationalMaturity}
-            semanticType="health"
-            semanticValue={resolveOverviewHealthState(data.utilization_score ?? 0)}
-            statusLabel={labels.healthStates[resolveOverviewHealthState(data.utilization_score ?? 0)]}
+            labels={labels}
+            icon={<Target className="h-5 w-5" aria-hidden="true" />}
           />
-          <ExecutiveMetricCard
-            icon={<Activity className="h-5 w-5" aria-hidden="true" />}
+          <ScoreMetricCard
             label={labels.overview.engagementScore}
-            value={data.engagement_score ?? 0}
+            entry={scores?.engagement}
             description={labels.scores.userEngagement}
-            semanticType="health"
-            semanticValue={resolveOverviewHealthState(data.engagement_score ?? 0)}
-            statusLabel={labels.healthStates[resolveOverviewHealthState(data.engagement_score ?? 0)]}
+            labels={labels}
+            icon={<Activity className="h-5 w-5" aria-hidden="true" />}
           />
         </div>
-        {data.last_updated_at ? (
+        {scores?.health?.calculatedAt || data.last_updated_at ? (
           <p className="text-xs text-aipify-text-muted">
-            {labels.overview.lastUpdated}: {formatDateTime(data.last_updated_at, locale)}
+            {labels.overview.lastUpdated}:{" "}
+            {formatDateTime(scores?.health?.calculatedAt ?? data.last_updated_at!, locale)}
           </p>
         ) : null}
       </section>
@@ -322,6 +389,11 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
             actionHref={resolveRecommendationHref(nextAction.key)}
             actionLabel={nextActionCopy.action}
           />
+          {nextAction.shadow ? (
+            <p className="text-sm text-aipify-text-muted">
+              {labels.pilot.shadowPrepared} — {labels.pilot.shadowNoAction}
+            </p>
+          ) : null}
         </section>
       ) : null}
 
@@ -452,6 +524,12 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
               </button>
             ))}
           </div>
+          {filteredFollowMilestone.followUps.length === 0 && filteredFollowMilestone.milestones.length === 0 ? (
+            <div className={`${AppPremiumShell.elevatedCard} p-5 text-sm text-aipify-text-secondary`}>
+              <p className="font-medium text-aipify-text">{labels.empty.followUps}</p>
+              <p className="mt-2">{labels.empty.followUpsDescription}</p>
+            </div>
+          ) : (
           <ul className="space-y-3">
             {filteredFollowMilestone.followUps.map((item) => {
               const workflow = getWorkflowStatePresentation(mapFollowUpStatusToWorkflow(item.status));
@@ -467,8 +545,12 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
                       {item.summary ? <p className="mt-1 text-sm text-aipify-text-secondary">{item.summary}</p> : null}
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      {overdue ? <SemanticBadge type="workflow" value="overdue" label={labels.followUpTabs.overdue} /> : null}
-                      <SemanticBadge type="workflow" value={mapFollowUpStatusToWorkflow(item.status)} label={item.status} />
+                      {overdue ? <SemanticBadge type="workflow" value="overdue" label={labels.workflowStates.overdue} /> : null}
+                      <SemanticBadge
+                        type="workflow"
+                        value={mapFollowUpStatusToWorkflow(item.status)}
+                        label={resolveWorkflowStatusLabel(item.status, labels)}
+                      />
                     </div>
                   </div>
                   <p className="mt-2 text-xs text-aipify-text-muted">
@@ -495,6 +577,7 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
               </li>
             ))}
           </ul>
+          )}
         </section>
       ) : null}
 
@@ -528,8 +611,7 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
         </section>
       ) : null}
 
-      {(activeRisks.length > 0 || adoptionSignals.length > 0) ? (
-        <section className="space-y-6">
+      <section className="space-y-6">
           <SectionHeading id="risks" title={labels.sections.risksAdoption} />
           {activeRisks.length > 0 ? (
             <div className="space-y-3">
@@ -545,7 +627,7 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
                     >
                       <div className="flex flex-wrap items-start justify-between gap-2">
                         <p className="font-medium text-aipify-text">{risk.title}</p>
-                        <SemanticBadge type="severity" value={severity} label={risk.impact} />
+                        <SemanticBadge type="severity" value={severity} label={resolveRiskImpactLabel(risk.impact, labels)} />
                       </div>
                       {risk.description ? <p className="mt-2 text-sm text-aipify-text-secondary">{risk.description}</p> : null}
                       {risk.href ? (
@@ -558,7 +640,12 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
                 })}
               </ul>
             </div>
-          ) : null}
+          ) : (
+            <div className={`${AppPremiumShell.elevatedCard} p-5 text-sm text-aipify-text-secondary`}>
+              <p className="font-medium text-aipify-text">{labels.empty.risks}</p>
+              <p className="mt-2">{labels.empty.risksDescription}</p>
+            </div>
+          )}
           {adoptionSignals.length > 0 ? (
             <div className="space-y-3">
               <h3 className="text-sm font-semibold text-aipify-text-secondary">{labels.sections.adoptionSignals}</h3>
@@ -577,7 +664,6 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
             </div>
           ) : null}
         </section>
-      ) : null}
 
       {timeline.length > 0 ? (
         <section className="space-y-4">

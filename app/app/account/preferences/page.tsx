@@ -40,7 +40,6 @@ export default async function AccountPreferencesPage() {
         notificationsHint: t(`${account}.notificationsSection`),
         webAppSection: t(`${pwa}.sectionTitle`),
         webAppHint: t(`${pwa}.sectionHint`),
-        webAppGuideLink: t(`${pwa}.guideLink`),
         back: t(`${account}.back`),
       }}
     />

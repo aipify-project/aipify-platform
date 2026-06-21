@@ -13,6 +13,12 @@ import type {
   SuccessPlan,
 } from "./types";
 import { CUSTOMER_SUCCESS_STATUSES } from "./types";
+import {
+  legacyScoresToEntries,
+  parseCustomerSuccessScores,
+  parsePilotStatus,
+} from "./score-availability";
+import { filterSyntheticFollowUps, filterSyntheticRisks } from "./synthetic-filter";
 
 const STATUSES = new Set<CustomerSuccessStatus>(CUSTOMER_SUCCESS_STATUSES);
 
@@ -22,6 +28,11 @@ function str(v: unknown, fb = ""): string {
 
 function num(v: unknown, fb = 0): number {
   return typeof v === "number" ? v : fb;
+}
+
+function numOrNull(v: unknown): number | null {
+  if (v === null || v === undefined) return null;
+  return typeof v === "number" ? v : null;
 }
 
 function parseRecommendations(raw: unknown): CustomerSuccessRecommendation[] {
@@ -81,7 +92,7 @@ function parsePlans(raw: unknown): SuccessPlan[] {
       status: str(d.status),
       category: str(d.category),
       priority: str(d.priority),
-      progress_percent: num(d.progress_percent),
+      progress_percent: numOrNull(d.progress_percent) ?? 0,
       start_date: str(d.start_date) || undefined,
       target_date: str(d.target_date) || undefined,
       item_type: str(d.item_type, "success_plan"),
@@ -98,7 +109,7 @@ function parseOutcomes(raw: unknown): CustomerOutcome[] {
       title: str(d.title),
       target_value: str(d.target_value),
       current_value: str(d.current_value),
-      progress_percent: num(d.progress_percent),
+      progress_percent: numOrNull(d.progress_percent) ?? 0,
       category: str(d.category),
       status: str(d.status),
       item_type: str(d.item_type, "outcome"),
@@ -134,8 +145,9 @@ function parseAdoptionSignals(raw: unknown): AdoptionSignal[] {
     return {
       key: str(d.key),
       label_key: str(d.label_key),
-      value: num(d.value),
+      value: numOrNull(d.value) ?? 0,
       unit: unit === "count" || unit === "percent" ? unit : "score",
+      availability: str(d.availability) || undefined,
     };
   });
 }
@@ -172,7 +184,12 @@ function parseNextAction(raw: unknown): RecommendedNextAction | null {
   if (!raw || typeof raw !== "object") return null;
   const d = raw as Record<string, unknown>;
   if (!d.key) return null;
-  return { key: str(d.key), priority: str(d.priority), category: str(d.category) };
+  return {
+    key: str(d.key),
+    priority: str(d.priority),
+    category: str(d.category),
+    shadow: d.shadow === true,
+  };
 }
 
 export function parseCustomerSuccessOverview(data: unknown): CustomerSuccessOverview {
@@ -182,17 +199,34 @@ export function parseCustomerSuccessOverview(data: unknown): CustomerSuccessOver
   const maturity = d.maturity as Record<string, unknown> | undefined;
   const personal = d.personal_progress as Record<string, unknown> | undefined;
   const team = d.team_reporting as Record<string, unknown> | null | undefined;
+  const journeyStarted = d.journey_started === true;
+  const scores =
+    parseCustomerSuccessScores(d.scores) ??
+    legacyScoresToEntries(
+      {
+        health_score: numOrNull(d.health_score) ?? undefined,
+        adoption_score: numOrNull(d.adoption_score) ?? undefined,
+        utilization_score: numOrNull(d.utilization_score) ?? undefined,
+        engagement_score: numOrNull(d.engagement_score) ?? undefined,
+        health_state: str(d.health_state) || undefined,
+        last_updated_at: str(d.last_updated_at) || undefined,
+        journey_started: journeyStarted,
+      },
+      journeyStarted
+    );
 
   return {
     found: d.found === true,
     filtered_out: d.filtered_out === true,
     can_manage: d.can_manage === true,
     can_admin: d.can_admin === true,
-    journey_started: d.journey_started === true,
-    adoption_score: num(d.adoption_score),
-    utilization_score: num(d.utilization_score),
-    engagement_score: num(d.engagement_score),
-    health_score: num(d.health_score, num(d.adoption_score)),
+    journey_started: journeyStarted,
+    adoption_score: numOrNull(d.adoption_score),
+    utilization_score: numOrNull(d.utilization_score),
+    engagement_score: numOrNull(d.engagement_score),
+    health_score: numOrNull(d.health_score) ?? numOrNull(d.adoption_score),
+    scores,
+    pilot_status: parsePilotStatus(d.pilot_status),
     health_state: str(d.health_state) || undefined,
     success_status: STATUSES.has(status) ? status : "getting_started",
     maturity: maturity ? { stage: num(maturity.stage), key: str(maturity.key) } : undefined,
@@ -200,10 +234,10 @@ export function parseCustomerSuccessOverview(data: unknown): CustomerSuccessOver
     milestones_achieved: parseMilestones(d.milestones_achieved),
     recommendations: parseRecommendations(d.recommendations),
     recommended_next_action: parseNextAction(d.recommended_next_action),
-    follow_ups: parseFollowUps(d.follow_ups),
+    follow_ups: filterSyntheticFollowUps(parseFollowUps(d.follow_ups)),
     success_plans: parsePlans(d.success_plans),
     outcomes: parseOutcomes(d.outcomes),
-    active_risks: parseRisks(d.active_risks),
+    active_risks: filterSyntheticRisks(parseRisks(d.active_risks)),
     adoption_signals: parseAdoptionSignals(d.adoption_signals),
     timeline: parseActivity(d.timeline),
     owners: Array.isArray(d.owners) ? d.owners.map((o) => String(o)) : [],
@@ -213,7 +247,7 @@ export function parseCustomerSuccessOverview(data: unknown): CustomerSuccessOver
     team_reporting: team
       ? {
           team_count: str(team.team_count),
-          two_fa_adoption_percent: num(team.two_fa_adoption_percent),
+          two_fa_adoption_percent: numOrNull(team.two_fa_adoption_percent) ?? undefined,
           learning_completions: str(team.learning_completions),
         }
       : team === null

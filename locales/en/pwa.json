@@ -79,6 +79,30 @@
     "sectionHint": "Install Aipify on this device for quick access with your existing workspace.",
     "guideLink": "Read the installation guide"
   },
+  "installCard": {
+    "availableTitle": "Install Aipify on this device",
+    "availableHint": "Add Aipify to your home screen or taskbar for quick access with your existing workspace.",
+    "installButton": "Install Aipify",
+    "alreadyInstalledTitle": "Aipify is installed on this device",
+    "alreadyInstalledHint": "Open Aipify from your home screen, dock, or taskbar.",
+    "unsupportedTitle": "Installation is not available in this browser",
+    "unsupportedHint": "Open app.aipify.ai in Chrome, Edge, or Safari to install the Aipify Web App.",
+    "dismissedTitle": "Installation was dismissed",
+    "dismissedHint": "You can install Aipify later from this page when you are ready.",
+    "tryAgain": "Try again",
+    "guideLink": "Read the installation guide"
+  },
+  "modalGuidance": {
+    "manualTitle": "Add Aipify to your device",
+    "manualDescription": "Safari does not show a one-click install button. Follow these steps to add Aipify to your home screen or dock.",
+    "manualStep1": "Open app.aipify.ai in Safari on this device.",
+    "manualStep2": "Tap Share, then Add to Home Screen (iOS/iPadOS) or use File → Add to Dock on macOS where available.",
+    "manualStep3": "Launch Aipify from the new icon and sign in with your existing account.",
+    "unsupportedTitle": "This browser cannot install the Aipify Web App",
+    "unsupportedDescription": "Your current browser does not support installing Aipify as an app on this device.",
+    "unsupportedHint": "Open app.aipify.ai in Chrome, Edge, or Safari to install. Your account, organization, and permissions stay the same.",
+    "close": "Close"
+  },
   "gettingStarted": {
     "resourceTitle": "Install the Aipify Web App",
     "resourceDescription": "Quick access from your home screen or taskbar with the same secure login."

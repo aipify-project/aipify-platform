@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { AppLanguageSelector, coerceClientAppLocale } from "@/components/app/AppLanguageSelector";
 import type { AppLanguageSelectorLabels } from "@/components/app/AppLanguageSelector";
-import { AipifyWebAppInstallAction } from "@/components/pwa/AipifyWebAppInstallAction";
+import { AipifyWebAppInstallCard } from "@/components/pwa/AipifyWebAppInstallCard";
 import type { AppLocale } from "@/lib/i18n/app-locales";
 import type { PwaInstallLabels } from "@/lib/pwa/types";
 
@@ -22,7 +22,6 @@ type AccountPreferencesPanelProps = {
     notificationsHint: string;
     webAppSection: string;
     webAppHint: string;
-    webAppGuideLink: string;
     back: string;
   };
 };
@@ -75,14 +74,8 @@ export function AccountPreferencesPanel({
         <h2 className="text-lg font-semibold text-gray-900">{labels.webAppSection}</h2>
         <p className="mt-1 text-sm text-gray-500">{labels.webAppHint}</p>
         <div className="mt-4">
-          <AipifyWebAppInstallAction labels={pwaLabels} variant="button" />
+          <AipifyWebAppInstallCard labels={pwaLabels} />
         </div>
-        <Link
-          href="/knowledge/articles/installing-aipify-web-app"
-          className="mt-4 inline-flex text-sm font-medium text-violet-700 hover:text-violet-900"
-        >
-          {labels.webAppGuideLink}
-        </Link>
       </section>
 
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">

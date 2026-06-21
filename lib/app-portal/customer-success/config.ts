@@ -11,6 +11,7 @@ export const CUSTOMER_SUCCESS_RECOMMENDATION_LINKS: Record<
   connectIntegrations: { href: "/app/platform/integrations", priority: "important" },
   reviewOperationalDashboards: { href: "/app/command-center", priority: "recommended" },
   encourageCertification: { href: "/app/support/academy", priority: "opportunity" },
+  completeFirstUnonightSync: { href: "/app/support/history", priority: "high_impact" },
 };
 
 export const RECOMMENDATION_PRIORITY_ORDER: Record<string, number> = {

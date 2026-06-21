@@ -13,6 +13,7 @@ export const CUSTOMER_HEALTH_RECOMMENDATION_LINKS: Record<string, string> = {
   completeFollowUps: "/app/operations/follow-ups",
   completeOnboarding: "/app/support/getting-started",
   configureSecurity: "/app/account/security",
+  completeFirstUnonightSync: "/app/support/getting-started",
 };
 
 export const DRIVER_ACTION_LINKS: Record<string, string> = {

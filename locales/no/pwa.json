@@ -79,6 +79,30 @@
     "sectionHint": "Installer Aipify på denne enheten for rask tilgang med eksisterende workspace.",
     "guideLink": "Les installasjonsveiledningen"
   },
+  "installCard": {
+    "availableTitle": "Installer Aipify på denne enheten",
+    "availableHint": "Legg Aipify til hjemskjermen eller oppgavelinjen for rask tilgang med eksisterende workspace.",
+    "installButton": "Installer Aipify",
+    "alreadyInstalledTitle": "Aipify er installert på denne enheten",
+    "alreadyInstalledHint": "Åpne Aipify fra hjemskjermen, docken eller oppgavelinjen.",
+    "unsupportedTitle": "Installasjon er ikke tilgjengelig i denne nettleseren",
+    "unsupportedHint": "Åpne app.aipify.ai i Chrome, Edge eller Safari for å installere Aipify Web App.",
+    "dismissedTitle": "Installasjonen ble avvist",
+    "dismissedHint": "Du kan installere Aipify senere fra denne siden når du er klar.",
+    "tryAgain": "Prøv igjen",
+    "guideLink": "Les installasjonsveiledningen"
+  },
+  "modalGuidance": {
+    "manualTitle": "Legg Aipify til enheten din",
+    "manualDescription": "Safari viser ikke en ett-klikks installasjonsknapp. Følg disse trinnene for å legge Aipify til hjemskjermen eller docken.",
+    "manualStep1": "Åpne app.aipify.ai i Safari på denne enheten.",
+    "manualStep2": "Trykk Del, deretter Legg til på Hjem-skjerm (iOS/iPadOS) eller bruk Arkiv → Legg til i Dock på macOS der tilgjengelig.",
+    "manualStep3": "Start Aipify fra det nye ikonet og logg inn med eksisterende konto.",
+    "unsupportedTitle": "Denne nettleseren kan ikke installere Aipify Web App",
+    "unsupportedDescription": "Den nåværende nettleseren støtter ikke installasjon av Aipify som app på denne enheten.",
+    "unsupportedHint": "Åpne app.aipify.ai i Chrome, Edge eller Safari for å installere. Konto, organisasjon og tillatelser forblir de samme.",
+    "close": "Lukk"
+  },
   "gettingStarted": {
     "resourceTitle": "Installer Aipify Web App",
     "resourceDescription": "Rask tilgang fra hjemskjermen eller oppgavelinjen med samme sikre innlogging."

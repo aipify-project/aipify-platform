@@ -14,43 +14,46 @@ import {
   captureBeforeInstallPrompt,
   getDeferredInstallPrompt,
   invokeDeferredInstallPrompt,
-  isWebAppInstalled,
   markWebAppInstalled,
+  resetInstallPromptDismissal,
   subscribeInstallPrompt,
-  wasInstallPromptDismissed,
 } from "@/lib/pwa/install-prompt-store";
 import {
-  canOfferWebAppInstall,
-  isStandaloneDisplayMode,
-  supportsBeforeInstallPrompt,
-} from "@/lib/pwa/capability";
+  readWebAppInstallRuntimeSnapshot,
+  resolveWebAppInstallCardState,
+  resolveWebAppInstallModalPhase,
+  resolveWebAppInstallVisibility,
+  shouldShowManualInstallGuidance,
+  shouldUseNativeInstallPrompt,
+  type WebAppInstallCardState,
+  type WebAppInstallModalPhase,
+} from "@/lib/pwa/install-controller";
+import { supportsBeforeInstallPrompt } from "@/lib/pwa/capability";
 import type { BeforeInstallPromptEvent, PwaInstallVisibility } from "@/lib/pwa/types";
 import { ServiceWorkerRegistration } from "./ServiceWorkerRegistration";
 
 type PwaInstallContextValue = {
   visibility: PwaInstallVisibility;
+  cardState: WebAppInstallCardState;
   hasDeferredPrompt: boolean;
+  modalOpen: boolean;
+  modalPhase: WebAppInstallModalPhase;
   requestBrandedInstall: () => void;
   confirmInstall: () => Promise<void>;
   dismissModal: () => void;
-  modalOpen: boolean;
+  resetDismissed: () => void;
 };
 
 const PwaInstallContext = createContext<PwaInstallContextValue | null>(null);
 
 export function PwaInstallProvider({ children }: { children: ReactNode }) {
-  const [standalone, setStandalone] = useState(false);
-  const [installed, setInstalled] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
-  const [hasPrompt, setHasPrompt] = useState(false);
+  const [snapshot, setSnapshot] = useState(readWebAppInstallRuntimeSnapshot);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalPhase, setModalPhase] = useState<WebAppInstallModalPhase>("benefits");
   const returnFocusRef = useRef<HTMLElement | null>(null);
 
   const refresh = useCallback(() => {
-    setStandalone(isStandaloneDisplayMode());
-    setInstalled(isWebAppInstalled());
-    setDismissed(wasInstallPromptDismissed());
-    setHasPrompt(Boolean(getDeferredInstallPrompt()));
+    setSnapshot(readWebAppInstallRuntimeSnapshot());
   }, []);
 
   useEffect(() => {
@@ -81,46 +84,72 @@ export function PwaInstallProvider({ children }: { children: ReactNode }) {
     };
   }, [refresh]);
 
-  const visibility: PwaInstallVisibility = useMemo(() => {
-    if (standalone || installed) return "installed";
-    if (typeof window === "undefined") return "hidden";
-    const ua = window.navigator.userAgent;
-    if (!canOfferWebAppInstall(ua, standalone)) return "hidden";
-    if (dismissed && !hasPrompt) return "hidden";
-    return "install";
-  }, [standalone, installed, dismissed, hasPrompt]);
+  const visibility = useMemo(() => resolveWebAppInstallVisibility(snapshot), [snapshot]) as PwaInstallVisibility;
+  const cardState = useMemo(() => resolveWebAppInstallCardState(snapshot), [snapshot]);
 
   const requestBrandedInstall = useCallback(() => {
+    const current = readWebAppInstallRuntimeSnapshot();
     returnFocusRef.current = document.activeElement as HTMLElement | null;
+    setModalPhase(resolveWebAppInstallModalPhase(current));
     setModalOpen(true);
   }, []);
 
   const dismissModal = useCallback(() => {
     setModalOpen(false);
+    setModalPhase("benefits");
     returnFocusRef.current?.focus();
   }, []);
 
+  const resetDismissed = useCallback(() => {
+    resetInstallPromptDismissal();
+    refresh();
+  }, [refresh]);
+
   const confirmInstall = useCallback(async () => {
-    setModalOpen(false);
-    const outcome = await invokeDeferredInstallPrompt();
-    if (outcome === "unavailable") {
-      window.location.href = "/install";
+    const current = readWebAppInstallRuntimeSnapshot();
+
+    if (shouldUseNativeInstallPrompt(current)) {
+      setModalOpen(false);
+      const outcome = await invokeDeferredInstallPrompt();
+      refresh();
+      if (outcome === "dismissed") {
+        setModalPhase("benefits");
+      }
+      returnFocusRef.current?.focus();
       return;
     }
-    refresh();
-    returnFocusRef.current?.focus();
+
+    if (shouldShowManualInstallGuidance(current)) {
+      setModalPhase("manual");
+      return;
+    }
+
+    setModalPhase("unsupported");
   }, [refresh]);
 
   const value = useMemo(
     () => ({
       visibility,
-      hasDeferredPrompt: hasPrompt,
+      cardState,
+      hasDeferredPrompt: snapshot.hasDeferredPrompt,
       requestBrandedInstall,
       confirmInstall,
       dismissModal,
       modalOpen,
+      modalPhase,
+      resetDismissed,
     }),
-    [visibility, hasPrompt, requestBrandedInstall, confirmInstall, dismissModal, modalOpen]
+    [
+      visibility,
+      cardState,
+      snapshot.hasDeferredPrompt,
+      requestBrandedInstall,
+      confirmInstall,
+      dismissModal,
+      modalOpen,
+      modalPhase,
+      resetDismissed,
+    ]
   );
 
   return (

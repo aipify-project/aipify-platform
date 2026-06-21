@@ -3768,6 +3768,11 @@
           "title": "Encourage certification completion",
           "reason": "Certifications build operational maturity across your organization.",
           "action": "Open Customer Academy"
+        },
+        "completeFirstUnonightSync": {
+          "title": "Complete first Unonight synchronization",
+          "reason": "Aipify needs verified synchronization before customer-success scores and operational recommendations can be calculated.",
+          "action": "View data status"
         }
       },
       "understanding": {
@@ -3782,10 +3787,16 @@
       },
       "empty": {
         "plans": "No active success plans yet.",
-        "followUps": "No follow-ups or milestones match your filters.",
+        "followUps": "No open follow-ups",
+        "followUpsDescription": "There are no verified customer-success tasks requiring action right now.",
         "outcomes": "No measurable outcomes have been recorded yet.",
-        "risks": "No active risks are flagged for your organization.",
-        "activity": "No recent customer success activity to display."
+        "risks": "No active customer-success risks",
+        "risksDescription": "No verified risks are flagged for your organization.",
+        "activity": "No recent customer success activity to display.",
+        "adoption": "Adoption data is not available yet.",
+        "noLearningProgress": "No relevant learning progress yet.",
+        "scoreUnavailable": "Score not yet available",
+        "scoreUnavailableDescription": "Aipify needs more verified organization data before this score can be calculated."
       },
       "healthStates": {
         "healthy": "Healthy",
@@ -3794,6 +3805,64 @@
         "poor": "Poor",
         "criticalHealth": "Critical",
         "unknown": "Unknown"
+      },
+      "scoreAvailability": {
+        "available": "Available",
+        "awaitingFirstSync": "Awaiting first synchronization",
+        "calculating": "Calculating",
+        "insufficientData": "Insufficient data",
+        "stale": "Data delayed",
+        "sourceUnavailable": "Source unavailable",
+        "calculationFailed": "Calculation failed",
+        "delayed": "Delayed refresh"
+      },
+      "scoreAvailabilityDescriptions": {
+        "available": "Scores reflect verified organization activity from connected sources.",
+        "awaitingFirstSync": "Aipify has not yet received sufficient data from connected sources.",
+        "calculating": "Aipify is processing the latest organization signals.",
+        "insufficientData": "More verified activity is required before this score can be calculated.",
+        "stale": "The last verified calculation is shown while source data may be outdated.",
+        "sourceUnavailable": "The data source is temporarily unavailable.",
+        "calculationFailed": "Score calculation could not be completed.",
+        "delayed": "Scores are available but refresh is delayed."
+      },
+      "sourceFreshness": {
+        "current": "Up to date",
+        "delayed": "Delayed",
+        "stale": "Outdated",
+        "unavailable": "Unavailable",
+        "awaitingFirstSync": "Awaiting first synchronization"
+      },
+      "pilot": {
+        "title": "Aipify pilot",
+        "readOnlyMode": "Read-only observation mode",
+        "readOnlyDescription": "Aipify is synchronizing approved operational metadata. No source actions are performed.",
+        "lastSuccessfulSync": "Last successful synchronization",
+        "dataFreshness": "Data freshness",
+        "connectedSources": "Connected sources",
+        "awaitingFirstSync": "Awaiting first synchronization",
+        "shadowPrepared": "Recommendation prepared by Aipify",
+        "shadowNoAction": "No action has been performed.",
+        "viewDataStatus": "View data status",
+        "contactSupport": "Contact Support"
+      },
+      "workflowStates": {
+        "open": "Open",
+        "inProgress": "In progress",
+        "waiting": "Waiting",
+        "escalated": "Escalated",
+        "completed": "Completed",
+        "overdue": "Overdue",
+        "blocked": "Blocked",
+        "pending": "Pending",
+        "cancelled": "Cancelled"
+      },
+      "severityLabels": {
+        "critical": "Critical",
+        "high": "High risk",
+        "medium": "Requires attention",
+        "low": "Low risk",
+        "info": "Information"
       },
       "card": {
         "owner": "Owner",
@@ -3815,7 +3884,8 @@
         "healthy": "Your organization shows strong health across adoption, engagement, and utilization. Maintain momentum and address minor operational items as they arise.",
         "moderate": "Your organization is progressing with room to strengthen team engagement and capability utilization. Review the recommendations below for high-impact next steps.",
         "poor": "Several health drivers need attention. Focus on team adoption, integrations, and open operational items to improve your score.",
-        "critical": "Health indicators suggest significant adoption gaps. Prioritize onboarding, team participation, and resolving open support or approval items."
+        "critical": "Health indicators suggest significant adoption gaps. Prioritize onboarding, team participation, and resolving open support or approval items.",
+        "unknown": "Aipify is still gathering verified organization data. Health scores appear once enough activity and connected sources are available."
       },
       "emptyTitle": "Organization health insights are building",
       "emptyBody": "Aipify will surface organization health insights as your workspace becomes active. Start with Getting Started to establish your foundation.",
@@ -3840,6 +3910,7 @@
         "healthState": "Health state",
         "trend": "Health trend",
         "scoreChange": "Score change",
+        "scoreChangeUnavailable": "Not enough verified history",
         "riskLevel": "Risk level",
         "lastCalculated": "Last calculated",
         "explanation": "Score explanation",
@@ -3871,7 +3942,8 @@
         "neutral": "Neutral",
         "moderateNegative": "Moderate negative",
         "strongNegative": "Strong negative",
-        "criticalNegative": "Critical negative"
+        "criticalNegative": "Critical negative",
+        "unavailable": "Data unavailable"
       },
       "drivers": {
         "adoption": "Adoption",
@@ -3890,6 +3962,16 @@
         "pendingApprovals": "Approvals clear",
         "openFollowUps": "Follow-ups managed"
       },
+      "strengthValues": {
+        "activeUsers": "{count} active member(s) in the last 14 days",
+        "teamSize": "{count} team member(s)",
+        "businessPacks": "{count} Business Pack(s) installed",
+        "integrations": "{count} integration(s) connected",
+        "openSupport": "No open support requests",
+        "pendingApprovals": "No pending approvals",
+        "openFollowUps": "Follow-ups under control",
+        "none": "No verified value yet"
+      },
       "needsAttention": {
         "activeUsers": "Low active user participation",
         "teamSize": "Limited team breadth",
@@ -3905,11 +3987,29 @@
         "securityNotConfigured": "Security configuration gap",
         "lowEngagement": "Low team engagement"
       },
+      "riskDescriptions": {
+        "openSupportBacklog": "{count} open support request(s)",
+        "pendingApprovals": "{count} pending approval(s)",
+        "securityNotConfigured": "Security protections are not fully configured for the organization.",
+        "lowEngagement": "Recent team engagement is below expected levels."
+      },
       "operationalSignals": {
         "teamActivity": "Team activity",
         "businessPacksInstalled": "Business Packs",
         "capabilitiesEnabled": "Active capabilities",
         "operationsActivity": "Operations activity"
+      },
+      "signalDescriptions": {
+        "teamActivity": "{count} active member(s) in the last 14 days",
+        "businessPacksInstalled": "{count} Business Pack(s) installed",
+        "capabilitiesEnabled": "{count} active capability module(s)",
+        "operationsActivity": "{count} operational activity record(s)"
+      },
+      "signalStatuses": {
+        "positive": "Positive",
+        "neutral": "Stable",
+        "warning": "Needs review",
+        "unavailable": "Unavailable"
       },
       "trend": {
         "periodLabel": "Trend period",
@@ -3944,12 +4044,38 @@
           "severityDesc": "Severity (high first)",
           "dateDesc": "Newest first",
           "dateAsc": "Oldest first"
+        },
+        "priorities": {
+          "high": "High",
+          "highImpact": "High impact",
+          "medium": "Medium",
+          "important": "Important",
+          "low": "Low"
         }
       },
       "history": {
         "score": "Score",
         "eventType": "Event",
         "empty": "No verified health calculations recorded yet."
+      },
+      "historyEventTypes": {
+        "scoreCalculated": "Score calculated",
+        "reviewStarted": "Review started",
+        "genericEvent": "Health event"
+      },
+      "historyDescriptions": {
+        "scoreCalculated": "Organization health score calculated: {score}",
+        "reviewStarted": "Organization health review started",
+        "genericEvent": "Health workspace activity recorded"
+      },
+      "historyStatuses": {
+        "healthy": "Healthy",
+        "moderate": "Moderate",
+        "poor": "Poor",
+        "criticalHealth": "Critical",
+        "neutral": "Informational",
+        "unavailable": "Unavailable",
+        "unknown": "Unknown"
       },
       "understanding": {
         "q1": "What is Customer Health?",
@@ -4001,7 +4127,57 @@
           "title": "Configure security",
           "reason": "Security settings protect your workspace and team access.",
           "action": "Open security settings"
+        },
+        "completeFirstUnonightSync": {
+          "title": "Complete first data sync",
+          "reason": "Verified pilot data is not available until the first successful sync completes.",
+          "action": "Review sync status"
         }
+      },
+      "scoreAvailability": {
+        "available": "Available",
+        "awaitingFirstSync": "Awaiting first sync",
+        "calculating": "Calculating",
+        "insufficientData": "Insufficient data",
+        "stale": "Stale data",
+        "sourceUnavailable": "Source unavailable",
+        "calculationFailed": "Calculation failed",
+        "delayed": "Delayed refresh"
+      },
+      "scoreAvailabilityDescriptions": {
+        "available": "Scores reflect verified organization activity from connected sources.",
+        "awaitingFirstSync": "Pilot data will appear after the first successful sync.",
+        "calculating": "Aipify is calculating health scores from verified sources.",
+        "insufficientData": "Not enough verified activity yet to calculate organization health.",
+        "stale": "Scores are available but source data may be outdated.",
+        "sourceUnavailable": "Required data sources are temporarily unavailable.",
+        "calculationFailed": "Health calculation could not be completed.",
+        "delayed": "Scores are available but refresh is delayed."
+      },
+      "sourceFreshness": {
+        "current": "Current",
+        "delayed": "Delayed",
+        "stale": "Stale",
+        "unavailable": "Unavailable",
+        "awaitingFirstSync": "Awaiting first sync"
+      },
+      "pilot": {
+        "title": "Pilot sync status",
+        "readOnlyMode": "Read-only pilot",
+        "readOnlyDescription": "This workspace is in read-only pilot mode. Scores and recommendations are informational until sync completes.",
+        "lastSuccessfulSync": "Last successful sync",
+        "dataFreshness": "Data freshness",
+        "connectedSources": "Connected sources",
+        "awaitingFirstSync": "Awaiting first sync",
+        "shadowPrepared": "Shadow recommendations",
+        "shadowNoAction": "Prepared for review — no automatic actions in pilot mode."
+      },
+      "severityLabels": {
+        "critical": "Critical",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low",
+        "info": "Info"
       }
     },
     "momentum": {
@@ -5898,7 +6074,11 @@
       },
       "accountNotifications": {
         "title": "Notification Preferences",
-        "subtitle": "Control which notifications you receive."
+        "subtitle": "Control which notifications you receive.",
+        "emptyTitle": "Notification preferences are managed in Command Center",
+        "emptyDescription": "Aipify delivers operational alerts through Command Center and your workspace settings. Use Command Center to review alerts, or open Settings for quiet hours and delivery preferences.",
+        "emptyAction": "Open Command Center",
+        "secondaryAction": "Open Settings"
       },
       "apiAccess": {
         "title": "API Access",

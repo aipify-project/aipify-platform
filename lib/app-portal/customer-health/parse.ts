@@ -3,6 +3,11 @@ import {
   type HealthState,
 } from "@/lib/design/semantic-status-system";
 import type { RiskLevel } from "@/lib/app-portal/success-center/types";
+import {
+  legacyScoresToEntries,
+  parseCustomerSuccessScores,
+  parsePilotStatus,
+} from "@/lib/app-portal/customer-success/score-availability";
 import type {
   CustomerHealthDriver,
   CustomerHealthDriverEffect,
@@ -20,6 +25,7 @@ import type {
 } from "./types";
 import { CUSTOMER_HEALTH_TREND_STATES } from "./types";
 import { dedupeHealthHistory } from "./presentation";
+import { filterSyntheticHealthHistory } from "./synthetic-filter";
 
 const TRENDS = new Set<CustomerHealthTrendState>(CUSTOMER_HEALTH_TREND_STATES);
 const RISK: Set<RiskLevel> = new Set(["low", "moderate", "elevated", "high"]);
@@ -29,6 +35,7 @@ const EFFECTS = new Set<CustomerHealthDriverEffect>([
   "moderate_negative",
   "strong_negative",
   "critical_negative",
+  "unavailable",
 ]);
 const HEALTH_STATES: Set<HealthState> = new Set([
   "healthy",
@@ -47,9 +54,24 @@ function num(v: unknown, fb = 0): number {
   return typeof v === "number" && Number.isFinite(v) ? v : fb;
 }
 
-function parseHealthState(v: unknown, score: number): HealthState {
+function numOrNull(v: unknown): number | null {
+  if (v === null || v === undefined) return null;
+  return typeof v === "number" && Number.isFinite(v) ? v : null;
+}
+
+function parseParams(raw: unknown): Record<string, number | string> | undefined {
+  if (!raw || typeof raw !== "object") return undefined;
+  const out: Record<string, number | string> = {};
+  for (const [key, value] of Object.entries(raw as Record<string, unknown>)) {
+    if (typeof value === "number" || typeof value === "string") out[key] = value;
+  }
+  return Object.keys(out).length ? out : undefined;
+}
+
+function parseHealthState(v: unknown, score: number | null): HealthState {
   const key = str(v, "").toLowerCase().replace(/-/g, "_") as HealthState;
   if (HEALTH_STATES.has(key)) return key;
+  if (score === null) return "unknown";
   return mapHealthScoreToHealthState(score);
 }
 
@@ -66,24 +88,49 @@ function parseMetrics(raw: unknown): CustomerHealthMetrics | undefined {
   };
 }
 
-function parseOverview(raw: unknown): CustomerHealthOverviewSection | undefined {
+function parseOverview(
+  raw: unknown,
+  scoresRaw: unknown,
+  hasActivity: boolean
+): CustomerHealthOverviewSection | undefined {
   if (!raw || typeof raw !== "object") return undefined;
   const o = raw as Record<string, unknown>;
-  const score = num(o.health_score);
+  const parsedScores = parseCustomerSuccessScores(scoresRaw);
+  const journeyStarted = hasActivity || o.score_availability === "available";
+  const legacyScores = legacyScoresToEntries(
+    {
+      health_score: numOrNull(o.health_score) ?? undefined,
+      adoption_score: numOrNull(o.adoption_score) ?? undefined,
+      engagement_score: numOrNull(o.engagement_score) ?? undefined,
+      utilization_score: numOrNull(o.utilization_score) ?? undefined,
+      health_state: str(o.health_state),
+      last_updated_at: str(o.last_calculated_at) || undefined,
+    },
+    journeyStarted
+  );
+  const scores = parsedScores ?? legacyScores;
+  const healthEntry = scores.health;
+  const score = healthEntry.score;
   const trend = str(o.trend_state, "insufficient_data") as CustomerHealthTrendState;
-  const risk = str(o.risk_level, "moderate") as RiskLevel;
+  const risk = str(o.risk_level, "low") as RiskLevel;
+
   return {
     health_score: score,
     health_state: parseHealthState(o.health_state, score),
-    adoption_score: num(o.adoption_score),
-    engagement_score: num(o.engagement_score),
-    utilization_score: num(o.utilization_score),
-    learning_score: num(o.learning_score),
-    risk_level: RISK.has(risk) ? risk : "moderate",
+    adoption_score: scores.adoption.score,
+    engagement_score: scores.engagement.score,
+    utilization_score: scores.utilization.score,
+    learning_score: numOrNull(o.learning_score),
+    risk_level: RISK.has(risk) ? risk : "low",
     trend_state: TRENDS.has(trend) ? trend : "insufficient_data",
-    score_change: num(o.score_change),
-    explanation: str(o.explanation),
-    last_calculated_at: str(o.last_calculated_at) || undefined,
+    score_change: numOrNull(o.score_change),
+    explanation_key: str(
+      o.explanation_key,
+      healthEntry.explanationKey
+    ),
+    score_availability: healthEntry.availability,
+    source_freshness: healthEntry.sourceFreshness,
+    last_calculated_at: str(o.last_calculated_at) || healthEntry.calculatedAt || undefined,
   };
 }
 
@@ -95,14 +142,17 @@ export function parseCustomerHealthWorkspace(data: unknown): CustomerHealthWorks
     return { found: true, filtered_out: true, has_activity: d.has_activity === true };
   }
 
+  const hasActivity = d.has_activity === true;
+
   const drivers: CustomerHealthDriver[] = Array.isArray(d.drivers)
     ? d.drivers.map((item) => {
         const row = item as Record<string, unknown>;
         const effect = str(row.effect, "neutral") as CustomerHealthDriverEffect;
         return {
           key: str(row.key),
-          score: num(row.score),
+          score: numOrNull(row.score),
           effect: EFFECTS.has(effect) ? effect : "neutral",
+          availability: str(row.availability) || undefined,
         };
       })
     : [];
@@ -115,6 +165,8 @@ export function parseCustomerHealthWorkspace(data: unknown): CustomerHealthWorks
           value: num(row.value),
           impact: str(row.impact, "positive"),
           action_href: str(row.action_href) || undefined,
+          description_key: str(row.description_key) || str(row.key),
+          availability: (str(row.availability) as CustomerHealthStrength["availability"]) || undefined,
         };
       })
     : [];
@@ -126,8 +178,10 @@ export function parseCustomerHealthWorkspace(data: unknown): CustomerHealthWorks
           key: str(row.key),
           severity: str(row.severity, "medium"),
           impact: str(row.impact),
+          impact_key: str(row.impact_key) || str(row.key),
           action_href: str(row.action_href) || undefined,
           value: num(row.value),
+          availability: (str(row.availability) as CustomerHealthNeedsAttentionItem["availability"]) || undefined,
         };
       })
     : [];
@@ -149,38 +203,48 @@ export function parseCustomerHealthWorkspace(data: unknown): CustomerHealthWorks
         return {
           key: str(row.key),
           severity: str(row.severity, "info"),
-          description: str(row.description),
+          description: str(row.description) || undefined,
+          description_key: str(row.description_key) || undefined,
+          description_params: parseParams(row.description_params),
           category: str(row.category),
+          status: str(row.status) || undefined,
         };
       })
     : [];
 
-  const operational_signals: CustomerHealthOperationalSignal[] = Array.isArray(
-    d.operational_signals
-  )
+  const operational_signals: CustomerHealthOperationalSignal[] = Array.isArray(d.operational_signals)
     ? d.operational_signals.map((item) => {
         const row = item as Record<string, unknown>;
         return {
           key: str(row.key),
           category: str(row.category),
-          description: str(row.description),
+          description: str(row.description) || undefined,
+          description_key: str(row.description_key) || undefined,
+          description_params: parseParams(row.description_params),
           trend: str(row.trend) || undefined,
+          status: str(row.status) || undefined,
         };
       })
     : [];
 
   const historyRaw: CustomerHealthHistoryEntry[] = Array.isArray(d.health_history)
-    ? d.health_history.map((item) => {
-        const row = item as Record<string, unknown>;
-        const scoreVal = row.score;
-        return {
-          id: str(row.id),
-          event_type: str(row.event_type),
-          description: str(row.description),
-          score: typeof scoreVal === "number" ? scoreVal : undefined,
-          recorded_at: str(row.recorded_at),
-        };
-      })
+    ? filterSyntheticHealthHistory(
+        d.health_history.map((item) => {
+          const row = item as Record<string, unknown>;
+          const scoreVal = row.score;
+          return {
+            id: str(row.id),
+            event_type: str(row.event_type),
+            event_type_key: str(row.event_type_key) || undefined,
+            description: str(row.description) || undefined,
+            description_key: str(row.description_key) || undefined,
+            description_params: (row.description_params as Record<string, unknown>) || undefined,
+            score: typeof scoreVal === "number" ? scoreVal : undefined,
+            status: str(row.status) || undefined,
+            recorded_at: str(row.recorded_at),
+          };
+        })
+      )
     : [];
 
   let recommended_action: CustomerHealthRecommendedAction | null | undefined;
@@ -196,14 +260,17 @@ export function parseCustomerHealthWorkspace(data: unknown): CustomerHealthWorks
   }
 
   const trendRaw = str(d.trend_state, "") as CustomerHealthTrendState;
+  const scores = parseCustomerSuccessScores(d.scores);
 
   return {
     found: d.found === true,
-    has_activity: d.has_activity === true,
+    has_activity: hasActivity,
     can_manage: d.can_manage === true,
     can_admin: d.can_admin === true,
     organization_name: str(d.organization_name) || undefined,
-    overview: parseOverview(d.overview),
+    pilot_status: parsePilotStatus(d.pilot_status),
+    scores: scores ?? undefined,
+    overview: parseOverview(d.overview, d.scores, hasActivity),
     metrics: parseMetrics(d.metrics),
     recommended_action,
     drivers,
@@ -227,15 +294,19 @@ export function parseCustomerHealthTimeline(data: unknown): CustomerHealthHistor
   const d = data as Record<string, unknown>;
   if (!Array.isArray(d.timeline)) return [];
   return dedupeHealthHistory(
-    d.timeline.map((item) => {
-      const row = item as Record<string, unknown>;
-      return {
-        id: str(row.id),
-        event_type: str(row.event_type),
-        description: str(row.description),
-        recorded_at: str(row.created_at),
-      };
-    })
+    filterSyntheticHealthHistory(
+      d.timeline.map((item) => {
+        const row = item as Record<string, unknown>;
+        return {
+          id: str(row.id),
+          event_type: str(row.event_type),
+          event_type_key: str(row.event_type_key) || undefined,
+          description: str(row.description) || undefined,
+          description_key: str(row.description_key) || undefined,
+          recorded_at: str(row.created_at),
+        };
+      })
+    )
   );
 }
 
@@ -261,13 +332,13 @@ export function parseCustomerHealthRecommendations(data: unknown): Array<{
 
 export function parseCustomerHealthEngagement(data: unknown): {
   found: boolean;
-  engagement_score?: number;
+  engagement_score?: number | null;
 } {
   if (!data || typeof data !== "object") return { found: false };
   const d = data as Record<string, unknown>;
   const overview = d.overview as Record<string, unknown> | undefined;
   return {
     found: d.found === true,
-    engagement_score: num(overview?.engagement_score ?? d.engagement_score),
+    engagement_score: numOrNull(overview?.engagement_score ?? d.engagement_score),
   };
 }

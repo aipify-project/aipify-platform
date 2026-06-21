@@ -44,6 +44,11 @@ export function markInstallPromptDismissed(): void {
   clearDeferredInstallPrompt();
 }
 
+export function resetInstallPromptDismissal(): void {
+  dismissedThisSession = false;
+  notify();
+}
+
 export function markWebAppInstalled(): void {
   installed = true;
   clearDeferredInstallPrompt();
