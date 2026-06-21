@@ -2104,15 +2104,69 @@
           "label": "Support response",
           "disclaimer": "Illustrative workflow — your policies and approval rules apply.",
           "steps": {
-            "1": { "title": "Support request arrives", "detail": "A customer inquiry enters from email, chat, or your admin.", "prepared": "Case created · Category detected", "approval": "None required yet", "audit": "Intake logged" },
-            "2": { "title": "Intent identified", "detail": "Aipify classifies category, urgency, and routing.", "prepared": "Routing recommendation ready", "approval": "Policy check passed", "audit": "Classification recorded" },
-            "3": { "title": "Knowledge Center search", "detail": "Approved knowledge sources are searched — metadata only.", "prepared": "3 relevant articles matched", "approval": "Sources approved", "audit": "Search scope logged" },
-            "4": { "title": "Response drafted", "detail": "A business-ready draft is prepared for review.", "prepared": "Draft ready for human review", "approval": "Required before send", "audit": "Draft version saved" },
-            "5": { "title": "Human approval", "detail": "Your team approves, edits, or delegates future handling.", "prepared": "Diff and context attached", "approval": "Owner or support lead", "audit": "Approver identity captured" },
-            "6": { "title": "Response sent", "detail": "Approved work is executed inside your workflow.", "prepared": "Channel selected", "approval": "Confirmed", "audit": "Send event logged" },
-            "7": { "title": "Audit log created", "detail": "Every step is recorded with explainability.", "prepared": "Trail complete", "approval": "N/A", "audit": "Immutable entry stored" },
-            "8": { "title": "Dashboard updated", "detail": "Operations view reflects the outcome in real time.", "prepared": "Command Brief refreshed", "approval": "N/A", "audit": "Metrics updated" },
-            "9": { "title": "Workflow learned", "detail": "Approved patterns improve future recommendations — reversibly.", "prepared": "Learning suggestion queued", "approval": "Customer controls learning mode", "audit": "Learning event metadata only" }
+            "1": {
+              "title": "Support request arrives",
+              "detail": "A customer inquiry enters from email, chat, or your admin.",
+              "prepared": "Case created · Category detected",
+              "approval": "None required yet",
+              "audit": "Intake logged"
+            },
+            "2": {
+              "title": "Intent identified",
+              "detail": "Aipify classifies category, urgency, and routing.",
+              "prepared": "Routing recommendation ready",
+              "approval": "Policy check passed",
+              "audit": "Classification recorded"
+            },
+            "3": {
+              "title": "Knowledge Center search",
+              "detail": "Approved knowledge sources are searched — metadata only.",
+              "prepared": "3 relevant articles matched",
+              "approval": "Sources approved",
+              "audit": "Search scope logged"
+            },
+            "4": {
+              "title": "Response drafted",
+              "detail": "A business-ready draft is prepared for review.",
+              "prepared": "Draft ready for human review",
+              "approval": "Required before send",
+              "audit": "Draft version saved"
+            },
+            "5": {
+              "title": "Human approval",
+              "detail": "Your team approves, edits, or delegates future handling.",
+              "prepared": "Diff and context attached",
+              "approval": "Owner or support lead",
+              "audit": "Approver identity captured"
+            },
+            "6": {
+              "title": "Response sent",
+              "detail": "Approved work is executed inside your workflow.",
+              "prepared": "Channel selected",
+              "approval": "Confirmed",
+              "audit": "Send event logged"
+            },
+            "7": {
+              "title": "Audit log created",
+              "detail": "Every step is recorded with explainability.",
+              "prepared": "Trail complete",
+              "approval": "N/A",
+              "audit": "Immutable entry stored"
+            },
+            "8": {
+              "title": "Dashboard updated",
+              "detail": "Operations view reflects the outcome in real time.",
+              "prepared": "Command Brief refreshed",
+              "approval": "N/A",
+              "audit": "Metrics updated"
+            },
+            "9": {
+              "title": "Workflow learned",
+              "detail": "Approved patterns improve future recommendations — reversibly.",
+              "prepared": "Learning suggestion queued",
+              "approval": "Customer controls learning mode",
+              "audit": "Learning event metadata only"
+            }
           }
         },
         "2": {
@@ -2120,12 +2174,48 @@
           "label": "Approval request",
           "disclaimer": "Illustrative workflow — sensitivity levels enforced by your policies.",
           "steps": {
-            "1": { "title": "Action prepared", "detail": "Aipify prepares a sensitive operational change with full context.", "prepared": "Explanation attached", "approval": "Pending", "audit": "Request opened" },
-            "2": { "title": "Risk classified", "detail": "Trust & Action Engine assigns risk level and required approver.", "prepared": "Level 3 — sensitive", "approval": "Admin required", "audit": "Classification logged" },
-            "3": { "title": "Reviewer notified", "detail": "Command Brief and Approval Center surface the decision clearly.", "prepared": "Notification sent", "approval": "Awaiting human", "audit": "Delivery logged" },
-            "4": { "title": "Human decision", "detail": "Approver reviews, edits, approves, or rejects with reason.", "prepared": "Context panel open", "approval": "Explicit decision", "audit": "Decision captured" },
-            "5": { "title": "Governed execution", "detail": "Approved action runs within policy boundaries.", "prepared": "Execution queued", "approval": "Confirmed", "audit": "Execution logged" },
-            "6": { "title": "Audit trail closed", "detail": "Full lifecycle recorded for procurement and compliance review.", "prepared": "Complete", "approval": "N/A", "audit": "Trail sealed" }
+            "1": {
+              "title": "Action prepared",
+              "detail": "Aipify prepares a sensitive operational change with full context.",
+              "prepared": "Explanation attached",
+              "approval": "Pending",
+              "audit": "Request opened"
+            },
+            "2": {
+              "title": "Risk classified",
+              "detail": "Trust & Action Engine assigns risk level and required approver.",
+              "prepared": "Level 3 — sensitive",
+              "approval": "Admin required",
+              "audit": "Classification logged"
+            },
+            "3": {
+              "title": "Reviewer notified",
+              "detail": "Command Brief and Approval Center surface the decision clearly.",
+              "prepared": "Notification sent",
+              "approval": "Awaiting human",
+              "audit": "Delivery logged"
+            },
+            "4": {
+              "title": "Human decision",
+              "detail": "Approver reviews, edits, approves, or rejects with reason.",
+              "prepared": "Context panel open",
+              "approval": "Explicit decision",
+              "audit": "Decision captured"
+            },
+            "5": {
+              "title": "Governed execution",
+              "detail": "Approved action runs within policy boundaries.",
+              "prepared": "Execution queued",
+              "approval": "Confirmed",
+              "audit": "Execution logged"
+            },
+            "6": {
+              "title": "Audit trail closed",
+              "detail": "Full lifecycle recorded for procurement and compliance review.",
+              "prepared": "Complete",
+              "approval": "N/A",
+              "audit": "Trail sealed"
+            }
           }
         },
         "3": {
@@ -2133,11 +2223,41 @@
           "label": "Follow-up coordination",
           "disclaimer": "Illustrative workflow — Companion prepares; people decide.",
           "steps": {
-            "1": { "title": "Signal detected", "detail": "Aipify identifies an overdue follow-up from approved operational context.", "prepared": "Priority scored", "approval": "None", "audit": "Signal logged" },
-            "2": { "title": "Context assembled", "detail": "Related records, prior communications metadata, and policy notes combined.", "prepared": "Brief ready", "approval": "N/A", "audit": "Sources listed" },
-            "3": { "title": "Recommendation prepared", "detail": "Companion suggests next step with effort and impact explained.", "prepared": "Draft follow-up", "approval": "Review suggested", "audit": "Recommendation logged" },
-            "4": { "title": "Human confirms", "detail": "Owner approves timing, recipient, and message.", "prepared": "Editable draft", "approval": "Required", "audit": "Confirmation logged" },
-            "5": { "title": "Follow-up executed", "detail": "Approved action completes through your existing channels.", "prepared": "Sent", "approval": "Confirmed", "audit": "Outcome recorded" }
+            "1": {
+              "title": "Signal detected",
+              "detail": "Aipify identifies an overdue follow-up from approved operational context.",
+              "prepared": "Priority scored",
+              "approval": "None",
+              "audit": "Signal logged"
+            },
+            "2": {
+              "title": "Context assembled",
+              "detail": "Related records, prior communications metadata, and policy notes combined.",
+              "prepared": "Brief ready",
+              "approval": "N/A",
+              "audit": "Sources listed"
+            },
+            "3": {
+              "title": "Recommendation prepared",
+              "detail": "Companion suggests next step with effort and impact explained.",
+              "prepared": "Draft follow-up",
+              "approval": "Review suggested",
+              "audit": "Recommendation logged"
+            },
+            "4": {
+              "title": "Human confirms",
+              "detail": "Owner approves timing, recipient, and message.",
+              "prepared": "Editable draft",
+              "approval": "Required",
+              "audit": "Confirmation logged"
+            },
+            "5": {
+              "title": "Follow-up executed",
+              "detail": "Approved action completes through your existing channels.",
+              "prepared": "Sent",
+              "approval": "Confirmed",
+              "audit": "Outcome recorded"
+            }
           }
         },
         "4": {
@@ -2145,11 +2265,41 @@
           "label": "Knowledge workflow",
           "disclaimer": "Illustrative workflow — approved sources only.",
           "steps": {
-            "1": { "title": "Gap identified", "detail": "Support or operations activity reveals missing approved knowledge.", "prepared": "Gap flagged", "approval": "N/A", "audit": "Gap logged" },
-            "2": { "title": "Draft article prepared", "detail": "Aipify prepares a knowledge article from approved patterns — not raw chat.", "prepared": "Draft ready", "approval": "Admin review", "audit": "Draft saved" },
-            "3": { "title": "Review queue", "detail": "Knowledge Approval Center surfaces the item for human review.", "prepared": "Context attached", "approval": "Required", "audit": "Queue event logged" },
-            "4": { "title": "Published to approved sources", "detail": "Once approved, knowledge becomes available to governed search.", "prepared": "Live", "approval": "Confirmed", "audit": "Publication logged" },
-            "5": { "title": "Future cases improved", "detail": "Next similar requests benefit from approved knowledge — with audit.", "prepared": "Search updated", "approval": "N/A", "audit": "Usage metadata only" }
+            "1": {
+              "title": "Gap identified",
+              "detail": "Support or operations activity reveals missing approved knowledge.",
+              "prepared": "Gap flagged",
+              "approval": "N/A",
+              "audit": "Gap logged"
+            },
+            "2": {
+              "title": "Draft article prepared",
+              "detail": "Aipify prepares a knowledge article from approved patterns — not raw chat.",
+              "prepared": "Draft ready",
+              "approval": "Admin review",
+              "audit": "Draft saved"
+            },
+            "3": {
+              "title": "Review queue",
+              "detail": "Knowledge Approval Center surfaces the item for human review.",
+              "prepared": "Context attached",
+              "approval": "Required",
+              "audit": "Queue event logged"
+            },
+            "4": {
+              "title": "Published to approved sources",
+              "detail": "Once approved, knowledge becomes available to governed search.",
+              "prepared": "Live",
+              "approval": "Confirmed",
+              "audit": "Publication logged"
+            },
+            "5": {
+              "title": "Future cases improved",
+              "detail": "Next similar requests benefit from approved knowledge — with audit.",
+              "prepared": "Search updated",
+              "approval": "N/A",
+              "audit": "Usage metadata only"
+            }
           }
         }
       }
@@ -5322,5 +5472,405 @@
         "getStarted": "Schedule Demo"
       }
     }
+  },
+  "growthPartnersPageRedesign": {
+    "meta": {
+      "title": "Growth Partners — Build Your Business with Aipify",
+      "description": "Apply to become a certified Aipify Growth Partner. Professional business partnership for consultants and advisors — transparent commission tracking, certification, and Partner Success support."
+    },
+    "hero": {
+      "eyebrow": "CERTIFIED BUSINESS PARTNERSHIP",
+      "headline": "Build your business with Aipify.",
+      "copy": "Become a certified Aipify Growth Partner and help organizations modernize operations through a professional business partnership — not affiliate marketing.",
+      "keyPoints": [
+        {
+          "text": "Operate as an independent business with transparent commission tracking inside the partner portal."
+        },
+        {
+          "text": "Complete Aipify certification before active selling rights are granted."
+        },
+        {
+          "text": "Partner Success in Bergen, Norway — human guidance through onboarding and certification."
+        }
+      ],
+      "trustStatus": [
+        "Under 3 minutes to apply",
+        "Independent business",
+        "Certification required",
+        "Professional partnership"
+      ],
+      "whatHappensNext": {
+        "title": "What happens next",
+        "steps": [
+          "Submit your application with registered business details.",
+          "Partner Success reviews your application and confirms next steps.",
+          "Complete certification covering platform, governance, and customer positioning.",
+          "Access the Growth Partner portal to build your customer portfolio."
+        ]
+      }
+    },
+    "form": {
+      "title": "Apply as Growth Partner",
+      "stepAbout": "About you",
+      "stepBusiness": "Business",
+      "stepAccount": "Account",
+      "continue": "Continue",
+      "back": "Back",
+      "password": "Password",
+      "passwordConfirm": "Confirm password",
+      "fullName": "Full name",
+      "professionalRole": "Professional role",
+      "professionalRoleOptional": "optional",
+      "companyName": "Company name",
+      "businessRegistrationNumber": "Business registration number",
+      "businessRegistrationHelper": "Enter your official business registration identifier.",
+      "country": "Country",
+      "address": "Address",
+      "website": "Website",
+      "websiteOptional": "optional",
+      "market": "Primary market",
+      "marketOptional": "optional",
+      "experience": "Relevant experience",
+      "experienceOptional": "optional",
+      "phoneCountryCode": "Phone country code",
+      "phoneNumber": "Phone number",
+      "email": "Email",
+      "checkboxRegisteredBusiness": "I confirm that I operate through a registered business.",
+      "checkboxCertification": "I understand that I must complete Aipify training and certification before becoming an active seller.",
+      "checkboxInfoAccurate": "I confirm that the information I provide is correct.",
+      "checkboxTerms": "I agree to the",
+      "termsLinkLabel": "Growth Partner Terms & Conditions",
+      "submit": "Apply as Growth Partner",
+      "submitting": "Submitting your application…",
+      "errorGeneric": "Something went wrong. Please try again.",
+      "errorPasswordMismatch": "Passwords must match and be at least 8 characters.",
+      "errorRequired": "This field is required.",
+      "legalNote": "By registering, you confirm that you operate independently, are responsible for your own tax and reporting obligations, and agree to represent Aipify Group AS professionally.",
+      "successTitle": "Application received",
+      "successBody": "Thank you for applying. Partner Success will review your application and guide you through certification.",
+      "successReferenceLabel": "Reference",
+      "successNextStepsTitle": "Your next steps",
+      "successNextSteps": [
+        "Check your email to confirm your account if required.",
+        "Sign in to your Growth Partner workspace.",
+        "Complete your profile and begin certification training.",
+        "Contact Partner Success if you have questions during onboarding."
+      ],
+      "successContact": "Questions? Contact Partner Success through the contact page — we respond with clear next steps.",
+      "successPortalCta": "Continue to Growth Partner workspace"
+    },
+    "split": {
+      "youBuild": {
+        "title": "What you build",
+        "items": [
+          "Generate and qualify leads in your market.",
+          "Build trusted customer relationships.",
+          "Lead onboarding and implementation guidance.",
+          "Provide services around customer success.",
+          "Grow a long-term customer portfolio."
+        ]
+      },
+      "aipifyProvides": {
+        "title": "What Aipify provides",
+        "items": [
+          "Enterprise-grade platform and Business Packs.",
+          "Training and professional certification.",
+          "Growth Partner portal and sales resources.",
+          "Commission tracking and attribution.",
+          "Payout management and governance.",
+          "Ongoing product development and platform support."
+        ]
+      }
+    },
+    "portalPreview": {
+      "title": "Growth Partner portal preview",
+      "subtitle": "One workspace for leads, commissions, certification, and partner resources — illustrative view.",
+      "tabs": {
+        "leads": "Leads",
+        "commissions": "Commissions",
+        "certification": "Certification",
+        "resources": "Resources"
+      },
+      "previewNote": "Illustrative preview — actual data appears after approval and portal access.",
+      "leads": {
+        "heading": "Lead pipeline",
+        "rows": [
+          {
+            "label": "New inquiries",
+            "value": "Sample view"
+          },
+          {
+            "label": "In review",
+            "value": "Sample view"
+          },
+          {
+            "label": "Qualified",
+            "value": "Sample view"
+          },
+          {
+            "label": "Attributed customers",
+            "value": "Sample view"
+          }
+        ]
+      },
+      "commissions": {
+        "heading": "Commission overview",
+        "rows": [
+          {
+            "label": "Active customers",
+            "value": "Tracked in portal"
+          },
+          {
+            "label": "Pending commissions",
+            "value": "Tracked in portal"
+          },
+          {
+            "label": "Payout status",
+            "value": "Visible after certification"
+          },
+          {
+            "label": "Attribution rules",
+            "value": "Published in portal"
+          }
+        ]
+      },
+      "certification": {
+        "heading": "Certification progress",
+        "modules": [
+          {
+            "name": "Platform Fundamentals",
+            "status": "Required"
+          },
+          {
+            "name": "Business Packs",
+            "status": "Required"
+          },
+          {
+            "name": "Companion & Governance",
+            "status": "Required"
+          },
+          {
+            "name": "Customer Positioning",
+            "status": "Required"
+          }
+        ]
+      },
+      "resources": {
+        "heading": "Partner resources",
+        "items": [
+          "Sales material",
+          "Demo assets",
+          "Partner training",
+          "Knowledge Center",
+          "Brand guidelines",
+          "Commission documentation"
+        ]
+      }
+    },
+    "journey": {
+      "title": "How partnership works",
+      "steps": [
+        {
+          "title": "Apply",
+          "description": "Submit your business details — about three minutes to complete the application."
+        },
+        {
+          "title": "Review",
+          "description": "Partner Success reviews your application and confirms certification requirements."
+        },
+        {
+          "title": "Certification",
+          "description": "Complete training on platform fundamentals, Business Packs, Companion, and governance."
+        },
+        {
+          "title": "Approval",
+          "description": "After certification review, receive approval for active partner status."
+        },
+        {
+          "title": "Portal access",
+          "description": "Access leads, commissions, training, and marketing assets in the partner portal."
+        },
+        {
+          "title": "Build & earn",
+          "description": "Grow your customer portfolio with transparent commission tracking and payouts."
+        }
+      ]
+    },
+    "certification": {
+      "title": "Certification and Partner Success",
+      "intro": "Every Growth Partner completes certification before active selling. The program builds trust with customers and ensures you understand how to position Aipify professionally.",
+      "topics": [
+        "Platform Fundamentals",
+        "Business Packs",
+        "Companion",
+        "Governance",
+        "Operational Value",
+        "Customer Positioning"
+      ],
+      "note": "Certification applies to Aipify product and sales training. It does not imply public, government, or independent professional authorization."
+    },
+    "commission": {
+      "title": "Transparent commission and attribution",
+      "intro": "Growth Partners should always know what they earned, why they earned it, when payouts occur, and how performance is calculated.",
+      "lifecycleTitle": "Commission lifecycle",
+      "lifecycleStages": [
+        "Customer attribution to your partner account",
+        "Qualification against published partner rules",
+        "Active subscription and customer status",
+        "Commission accrual per published terms",
+        "Payout review and approval",
+        "Payout to your registered business"
+      ],
+      "exampleTitle": "Example commission view",
+      "exampleRows": [
+        {
+          "label": "Attribution status",
+          "value": "Visible in portal"
+        },
+        {
+          "label": "Commission basis",
+          "value": "Per published rules"
+        },
+        {
+          "label": "Payout period",
+          "value": "Per partner terms"
+        },
+        {
+          "label": "History & audit",
+          "value": "Full trail in portal"
+        }
+      ],
+      "disclaimer": "No guaranteed income. Earnings depend on your activity, customer retention, plan value, commission settings, and active partner status. Commission rules are visible inside the Growth Partner portal."
+    },
+    "requirements": {
+      "title": "Requirements and professional standards",
+      "cards": [
+        {
+          "title": "Registered business",
+          "body": "Operate through a legally registered company with valid business registration in your jurisdiction."
+        },
+        {
+          "title": "Certification required",
+          "body": "Complete Aipify training and certification before active selling rights are granted."
+        },
+        {
+          "title": "Professional conduct",
+          "body": "Represent Aipify Group AS professionally and follow brand and governance guidelines."
+        },
+        {
+          "title": "Transparent reporting",
+          "body": "Maintain accurate records for your independent business tax and reporting obligations."
+        }
+      ],
+      "checklistTitle": "Before you apply",
+      "checklistItems": [
+        "Registered business with valid registration details",
+        "Understanding that certification is required before selling",
+        "Commitment to accurate information and professional representation",
+        "Acceptance of Growth Partner Terms & Conditions"
+      ],
+      "copy": "Valid business registration and completed certification are required. Aipify does not guarantee income — earnings depend on your activity and customer outcomes."
+    },
+    "businessModel": {
+      "title": "Independent business model",
+      "intro": "Growth Partners operate independently while representing Aipify professionally — as consultants, advisors, and implementation partners.",
+      "columns": [
+        {
+          "title": "Partner responsibilities",
+          "items": [
+            "Lead generation and customer relationships",
+            "Onboarding and implementation services",
+            "Local business operations and compliance",
+            "Tax and reporting for your company"
+          ]
+        },
+        {
+          "title": "Aipify responsibilities",
+          "items": [
+            "Platform delivery and subscriptions",
+            "Product development and governance",
+            "Partner portal and commission infrastructure",
+            "Certification and Partner Success support"
+          ]
+        },
+        {
+          "title": "Customer ownership",
+          "items": [
+            "Customers belong to Aipify Platform",
+            "Partners receive attribution and commission",
+            "Partners do not own customer accounts",
+            "Relationships are built through professional partnership"
+          ]
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "What is an Aipify Growth Partner?",
+          "answer": "A Growth Partner is an independent business professional who helps organizations adopt Aipify. Partners build customer relationships, complete certification, and earn commission through a transparent partner program — not an affiliate scheme."
+        },
+        {
+          "question": "Is this an affiliate or referral program?",
+          "answer": "No. Growth Partners operate registered businesses, complete certification, and build long-term customer portfolios. Aipify provides platform infrastructure, governance, and partner support."
+        },
+        {
+          "question": "What are the requirements to apply?",
+          "answer": "You must operate through a registered business, provide accurate registration details, accept the Growth Partner Terms, and complete certification before active selling rights are granted."
+        },
+        {
+          "question": "How does certification work?",
+          "answer": "After application review, you complete training modules covering platform fundamentals, Business Packs, Companion, governance, and customer positioning. Certification is required before you represent Aipify to customers."
+        },
+        {
+          "question": "When can I start selling?",
+          "answer": "Active selling rights are granted after certification and partner approval. Until then, Partner Success guides you through onboarding and training."
+        },
+        {
+          "question": "How are commissions tracked?",
+          "answer": "Attribution, commission rules, accrual, and payout history are visible inside the Growth Partner portal. Calculations follow published partner terms — not hidden formulas."
+        },
+        {
+          "question": "Do I own the customers I bring?",
+          "answer": "Customers belong to Aipify Platform. Growth Partners receive attribution and commission for qualified customers they introduce, but do not own customer accounts."
+        },
+        {
+          "question": "What support does Aipify provide?",
+          "answer": "Partner Success in Bergen, Norway supports onboarding and certification. Partners also access sales material, demo assets, training, and the Knowledge Center through the portal."
+        },
+        {
+          "question": "Can I operate in multiple countries?",
+          "answer": "Partners may serve customers in markets aligned with Aipify availability and partner terms. Discuss international scope with Partner Success during onboarding."
+        },
+        {
+          "question": "How do I get started?",
+          "answer": "Complete the application on this page. Partner Success reviews your submission, confirms next steps, and guides you through certification and portal access."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Ready to build your business with Aipify?",
+      "subtitle": "Apply as a certified Growth Partner — professional partnership, transparent commission tracking, and Partner Success support.",
+      "primary": "Apply as Growth Partner",
+      "secondary": "Speak with Partner Success"
+    },
+    "partnerAdvisor": {
+      "title": "Partner Success Team",
+      "teamName": "Partner Success Team",
+      "location": "Bergen, Norway",
+      "photoPlaceholder": "Partner Success Team",
+      "role": "Growth Partner onboarding",
+      "availability": "Available for onboarding and certification guidance",
+      "contactLabel": "Contact",
+      "contactPath": "Speak with Partner Success",
+      "services": [
+        "Growth Partner onboarding",
+        "Certification guidance",
+        "Partner assistance",
+        "Partner development"
+      ]
+    },
+    "footerNote": "Aipify Group AS · Bergen, Norway. For the world."
   }
 }
