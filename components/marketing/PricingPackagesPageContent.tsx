@@ -1,10 +1,20 @@
 import Link from "next/link";
-import { PublicPageHero } from "./public";
+import { PublicPageHero, PublicCTA } from "./public";
+import PricingComparisonTable, { type ComparisonRow } from "./pricing/PricingComparisonTable";
+import PricingFaqAccordion from "./pricing/PricingFaqAccordion";
 import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
+import { PublicMarketingClasses } from "@/lib/design/public-marketing-tokens";
+import { MARKETING_PRIMARY_CTA_HREFS } from "@/lib/marketing/primary-ctas";
+import {
+  PUBLIC_BUSINESS_PACK_CATALOG,
+  formatLimitValue,
+  formatPublicPlanPrice,
+  getPublicPlanCatalog,
+  type PublicMarketingPlanKey,
+} from "@/lib/marketing/public-pricing";
 
-type Card = { title: string; body: string };
 type Package = {
-  key: string;
+  key: PublicMarketingPlanKey;
   name: string;
   audience: string;
   idealFor?: string;
@@ -13,84 +23,127 @@ type Package = {
   statusKey?: "available" | "popular" | "enterprise";
   cta: string;
   ctaHref: string;
+  detailsHref?: string;
 };
+
 type FaqItem = { question: string; answer: string };
-type PlanComparisonCategory = {
-  name: string;
-  starter: string;
-  professional: string;
-  business: string;
-  enterprise: string;
-};
+
+type EnterpriseItem = { label: string; status: "available" | "custom" | "planned" | "enterprise_only" };
 
 export type PricingPackagesPageLabels = {
   meta: { title: string; description: string };
   hero: {
+    eyebrow: string;
     headline: string;
     subheadline: string;
     supporting: string;
     ctaPrimary: string;
     ctaSecondary: string;
+    trustLine?: string;
   };
-  pricingPhilosophy: { title: string; paragraphs: string[] };
-  packages: { title: string; items: Package[] };
-  upgradeGrowth: { title: string; items: string[] };
+  plansIntro: string;
+  packages: { title: string; items: Package[]; detailsLink: string };
+  pricingLabels: {
+    custom: string;
+    perMonth: string;
+    currencySuffix: string;
+    notPubliclyPriced: string;
+    includes: string;
+    users: string;
+    domains: string;
+    businessPacks: string;
+    support: string;
+    supportLevels: { standard: string; priority: string; dedicated: string };
+  };
+  growthProgression: {
+    title: string;
+    stages: Array<{ name: string; items: string[] }>;
+  };
   businessPacks: {
     title: string;
     copy: string;
-    examples: string[];
-    status: string;
+    exploreAll: string;
+    pricingStatus: Record<string, string>;
+    planRequirementPrefix: string;
+    viewDetails: string;
   };
-  enterpriseOptions: { title: string; items: string[] };
-  included: { title: string; items: string[] };
-  planComparison: { title: string; categories: PlanComparisonCategory[] };
-  roiExplanation: { title: string; intro: string; benefits: string[] };
-  upgradeExperience: { title: string; intro: string; steps: string[] };
-  upgradePath: {
-    headline: string;
-    copy: string;
+  businessPackModel: {
+    title: string;
     steps: string[];
+    note: string;
   };
-  faq: { title: string; items: FaqItem[] };
-  purchasingConfidence: { title: string; paragraphs: string[] };
-  contactSales: {
-    headline: string;
-    subheadline: string;
+  enterpriseFlexibility: {
+    title: string;
+    intro: string;
+    items: EnterpriseItem[];
     cta: string;
   };
+  included: { title: string; items: string[] };
+  planComparison: { title: string; rows: ComparisonRow[]; mobileHint: string };
+  outcomes: { title: string; items: Array<{ title: string; body: string }> };
+  upgradeFlow: {
+    title: string;
+    intro: string;
+    steps: Array<{ label: string; status: "done" | "progress" | "pending" }>;
+    note: string;
+  };
+  faq: { title: string; items: FaqItem[] };
+  trustPanel: { title: string; items: string[] };
   billingArchitecture: {
     title: string;
     billing: string[];
     paymentProviders: string[];
     accounting: string;
+    regionalNote: string;
+    taxNote: string;
   };
-  finalPrinciple: string;
+  finalCta: {
+    headline: string;
+    subheadline: string;
+    primary: string;
+    secondary: string;
+    tertiary: string;
+  };
 };
 
 type Props = { labels: PricingPackagesPageLabels };
 
-const PLAN_LABELS: Record<string, string> = {
+const SECTION = "scroll-mt-24 py-12 sm:py-14";
+const PLAN_LABELS: Record<PublicMarketingPlanKey, string> = {
   starter: "Starter",
   professional: "Professional",
   business: "Business",
   enterprise: "Enterprise",
 };
 
-function SectionTitle({ children, id }: { children: React.ReactNode; id?: string }) {
-  return (
-    <h2 id={id} className="text-2xl font-bold tracking-tight text-aipify-text sm:text-3xl">
-      {children}
-    </h2>
-  );
-}
+const STATUS_ICONS: Record<EnterpriseItem["status"], string> = {
+  available: "✅",
+  custom: "ℹ️",
+  planned: "⏳",
+  enterprise_only: "🔒",
+};
 
-function PackageCard({ pkg }: { pkg: Package }) {
+function PlanCard({
+  pkg,
+  catalogEntry,
+  pricingLabels,
+  detailsLink,
+}: {
+  pkg: Package;
+  catalogEntry: ReturnType<typeof getPublicPlanCatalog>[number];
+  pricingLabels: PricingPackagesPageLabels["pricingLabels"];
+  detailsLink: string;
+}) {
   const isPopular = pkg.statusKey === "popular";
+  const priceDisplay = formatPublicPlanPrice(catalogEntry.price, pricingLabels);
+  const users = formatLimitValue(catalogEntry.limits.users, pricingLabels);
+  const domains = formatLimitValue(catalogEntry.limits.domains, pricingLabels);
+
   return (
-    <div
-      className={`relative flex flex-col rounded-2xl border p-6 shadow-sm ${
+    <article
+      className={`relative flex h-full flex-col rounded-2xl border p-6 shadow-sm ${
         isPopular
-          ? "border-aipify-companion/40 bg-aipify-accent-soft/40"
+          ? "border-aipify-companion/40 bg-aipify-accent-soft/50"
           : "border-aipify-border bg-aipify-surface"
       }`}
     >
@@ -98,184 +151,237 @@ function PackageCard({ pkg }: { pkg: Package }) {
         <span className="absolute -top-3 left-6 rounded-full bg-aipify-companion px-3 py-1 text-xs font-semibold text-white">
           {pkg.status}
         </span>
-      ) : null}
-      <div className="mb-4">
+      ) : pkg.statusKey === "enterprise" ? (
+        <span className="text-xs font-semibold uppercase tracking-wide text-aipify-companion">{pkg.status}</span>
+      ) : (
+        <span className="text-xs font-semibold uppercase tracking-wide text-aipify-text-secondary">{pkg.status}</span>
+      )}
+
+      <div className="min-h-[4.5rem]">
         <h3 className="text-xl font-bold text-aipify-text">{pkg.name}</h3>
-        {!isPopular && pkg.status ? (
-          <p className="mt-1 text-xs font-medium uppercase tracking-wide text-aipify-text-muted">{pkg.status}</p>
-        ) : null}
+        <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{pkg.audience}</p>
       </div>
-      <p className="text-sm leading-relaxed text-aipify-text-secondary">{pkg.audience}</p>
-      {pkg.idealFor ? <p className="mt-2 text-xs text-aipify-text-muted">{pkg.idealFor}</p> : null}
-      <ul className="mt-6 flex-1 space-y-2.5">
+
+      <div className="mt-5 min-h-[3.5rem] border-b border-aipify-border pb-5">
+        <p className="text-2xl font-bold tracking-tight text-aipify-text">{priceDisplay}</p>
+        {pkg.idealFor ? <p className="mt-1 text-xs font-medium text-aipify-text-secondary">{pkg.idealFor}</p> : null}
+      </div>
+
+      <div className="mt-5 space-y-2 text-sm text-aipify-text-secondary">
+        <p className="text-xs font-semibold uppercase tracking-wide text-aipify-text">{pricingLabels.includes}</p>
+        <ul className="space-y-1.5">
+          <li>
+            {pricingLabels.users}: <span className="font-medium text-aipify-text">{users}</span>
+          </li>
+          <li>
+            {pricingLabels.domains}: <span className="font-medium text-aipify-text">{domains}</span>
+          </li>
+          <li>
+            {pricingLabels.businessPacks}:{" "}
+            <span className="font-medium text-aipify-text">{catalogEntry.businessPacks.note}</span>
+          </li>
+          <li>
+            {pricingLabels.support}:{" "}
+            <span className="font-medium text-aipify-text">{pricingLabels.supportLevels[catalogEntry.supportLevel]}</span>
+          </li>
+        </ul>
+      </div>
+
+      <ul className="mt-6 flex-1 space-y-2">
         {pkg.features.map((feature) => (
           <li key={feature} className="flex gap-2 text-sm text-aipify-text-secondary">
-            <span className="text-aipify-companion" aria-hidden="true">
-              ·
+            <span className="text-emerald-600" aria-hidden="true">
+              ✓
             </span>
             {feature}
           </li>
         ))}
       </ul>
-      <Link
-        href={pkg.ctaHref}
-        className={`mt-8 inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold transition ${
-          isPopular
-            ? `${AipifyMarketingClasses.primaryCta} w-full`
-            : `${AipifyMarketingClasses.secondaryCta} w-full`
-        }`}
-      >
-        {pkg.cta}
-      </Link>
-    </div>
-  );
-}
 
-function PlanComparisonGroup({ category }: { category: PlanComparisonCategory }) {
-  const levels = [
-    { key: "starter", value: category.starter },
-    { key: "professional", value: category.professional },
-    { key: "business", value: category.business },
-    { key: "enterprise", value: category.enterprise },
-  ];
-
-  return (
-    <div className={`${AipifyMarketingClasses.card} sm:p-6`}>
-      <h3 className="text-base font-semibold text-aipify-companion">{category.name}</h3>
-      <dl className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {levels.map(({ key, value }) => (
-          <div key={key} className="rounded-xl border border-aipify-border bg-aipify-surface-muted px-3 py-3">
-            <dt className="text-xs font-semibold uppercase tracking-wide text-aipify-text-muted">
-              {PLAN_LABELS[key]}
-            </dt>
-            <dd className="mt-1 text-sm leading-relaxed text-aipify-text-secondary">{value}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
+      <div className="mt-8 space-y-2">
+        <Link
+          href={pkg.ctaHref}
+          className={`inline-flex w-full items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold transition ${
+            isPopular ? AipifyMarketingClasses.primaryCta : AipifyMarketingClasses.secondaryCta
+          }`}
+        >
+          {pkg.cta}
+        </Link>
+        {pkg.detailsHref ? (
+          <Link href={pkg.detailsHref} className={`block text-center text-sm font-medium ${PublicMarketingClasses.link}`}>
+            {detailsLink}
+          </Link>
+        ) : null}
+      </div>
+    </article>
   );
 }
 
 export default function PricingPackagesPageContent({ labels }: Props) {
-  const {
-    hero,
-    pricingPhilosophy,
-    packages,
-    upgradeGrowth,
-    businessPacks,
-    enterpriseOptions,
-    included,
-    planComparison,
-    roiExplanation,
-    upgradeExperience,
-    upgradePath,
-    faq,
-    purchasingConfidence,
-    contactSales,
-    billingArchitecture,
-    finalPrinciple,
-  } = labels;
+  const catalog = getPublicPlanCatalog();
+  const catalogByKey = Object.fromEntries(catalog.map((c) => [c.key, c])) as Record<
+    PublicMarketingPlanKey,
+    (typeof catalog)[number]
+  >;
 
   return (
     <>
       <PublicPageHero
-        eyebrow="Business Packs & Plans"
-        title={hero.headline}
-        subtitle={hero.subheadline}
+        eyebrow={labels.hero.eyebrow}
+        title={labels.hero.headline}
+        subtitle={labels.hero.subheadline}
         breadcrumbs={[
           { label: "Home", href: "/" },
-          { label: "Business Packs" },
+          { label: "Pricing" },
         ]}
-        primaryCta={{ label: hero.ctaPrimary, href: "#packages", analyticsId: "pricing_hero_packages" }}
-        secondaryCta={{ label: hero.ctaSecondary, href: "/contact", analyticsId: "pricing_hero_contact" }}
+        primaryCta={{ label: labels.hero.ctaPrimary, href: "#plans", analyticsId: "pricing_hero_plans" }}
+        secondaryCta={{ label: labels.hero.ctaSecondary, href: "/contact", analyticsId: "pricing_hero_contact" }}
+        compact
         align="center"
       />
 
-      {hero.supporting ? (
-        <p className="mx-auto -mt-8 max-w-2xl px-4 pb-8 text-center text-sm leading-relaxed text-aipify-text-muted sm:px-6">
-          {hero.supporting}
+      {(labels.hero.supporting || labels.hero.trustLine) && (
+        <p className="mx-auto -mt-4 max-w-2xl px-4 pb-6 text-center text-sm leading-relaxed text-aipify-text-secondary sm:px-6">
+          {labels.hero.trustLine ?? labels.hero.supporting}
         </p>
-      ) : null}
+      )}
 
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <SectionTitle>{pricingPhilosophy.title}</SectionTitle>
-          <div className="mt-6 space-y-4 text-base leading-relaxed text-aipify-text-secondary">
-            {pricingPhilosophy.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
+      <section id="plans" className={`${SECTION} ${AipifyMarketingClasses.sectionAlt}`}>
+        <div className={PublicMarketingClasses.container}>
+          <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-aipify-text-secondary">{labels.plansIntro}</p>
+          <h2 className="mt-8 text-center text-2xl font-bold tracking-tight text-aipify-text sm:text-3xl">{labels.packages.title}</h2>
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {labels.packages.items.map((pkg) => (
+              <PlanCard
+                key={pkg.key}
+                pkg={pkg}
+                catalogEntry={catalogByKey[pkg.key]}
+                pricingLabels={labels.pricingLabels}
+                detailsLink={labels.packages.detailsLink}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      <section id="packages" className={`${AipifyMarketingClasses.sectionAlt} py-16 sm:py-20`}>
-        <div className="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8">
-          <SectionTitle>{packages.title}</SectionTitle>
-          <div className="mt-10 grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
-            {packages.items.map((pkg) => (
-              <PackageCard key={pkg.key} pkg={pkg} />
+      <section id="billing" className={SECTION}>
+        <div className={`${PublicMarketingClasses.container} max-w-3xl`}>
+          <h2 className={PublicMarketingClasses.sectionHeading}>{labels.billingArchitecture.title}</h2>
+          <div className={`mt-6 ${PublicMarketingClasses.card} space-y-5 text-sm text-aipify-text-secondary`}>
+            <div>
+              <p className="font-semibold text-aipify-text">Billing frequency</p>
+              <ul className="mt-2 list-inside list-disc space-y-1">
+                {labels.billingArchitecture.billing.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="font-semibold text-aipify-text">Payment methods</p>
+              <ul className="mt-2 list-inside list-disc space-y-1">
+                {labels.billingArchitecture.paymentProviders.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <p>{labels.billingArchitecture.accounting}</p>
+            <p className="text-aipify-text-muted">{labels.billingArchitecture.regionalNote}</p>
+            <p className="text-aipify-text-muted">{labels.billingArchitecture.taxNote}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className={`${SECTION} ${AipifyMarketingClasses.sectionAlt}`}>
+        <div className={PublicMarketingClasses.container}>
+          <h2 className="text-center text-2xl font-bold tracking-tight text-aipify-text sm:text-3xl">{labels.growthProgression.title}</h2>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {labels.growthProgression.stages.map((stage, index) => (
+              <div key={stage.name} className={PublicMarketingClasses.card}>
+                <p className="text-xs font-bold uppercase tracking-wide text-aipify-companion">
+                  {index === 0 ? "Start" : index === 1 ? "Grow" : "Scale"}
+                </p>
+                <h3 className="mt-2 text-lg font-semibold text-aipify-text">{stage.name}</h3>
+                <ul className="mt-4 space-y-2">
+                  {stage.items.map((item) => (
+                    <li key={item} className="text-sm text-aipify-text-secondary">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <SectionTitle>{upgradeGrowth.title}</SectionTitle>
-          <ul className="mt-10 flex flex-wrap justify-center gap-3">
-            {upgradeGrowth.items.map((item) => (
-              <li
-                key={item}
-                className="rounded-full border border-aipify-border bg-aipify-surface px-4 py-2 text-sm font-medium text-aipify-text-secondary"
-              >
-                {item}
+      <section id="business-packs" className={SECTION}>
+        <div className={PublicMarketingClasses.container}>
+          <h2 className={PublicMarketingClasses.sectionHeading}>{labels.businessPacks.title}</h2>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-aipify-text-secondary">{labels.businessPacks.copy}</p>
+
+          <div className={`mt-8 ${PublicMarketingClasses.card}`}>
+            <h3 className="text-lg font-semibold text-aipify-text">{labels.businessPackModel.title}</h3>
+            <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-aipify-text-secondary">
+              {labels.businessPackModel.steps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+            <p className="mt-4 text-sm text-aipify-text-muted">{labels.businessPackModel.note}</p>
+          </div>
+
+          <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {PUBLIC_BUSINESS_PACK_CATALOG.map((pack) => (
+              <li key={pack.id} className={PublicMarketingClasses.cardInteractive}>
+                <h3 className="text-lg font-semibold text-aipify-text">{pack.name}</h3>
+                <p className="mt-1 text-xs font-medium text-aipify-companion">{pack.audience}</p>
+                <p className="mt-3 text-sm leading-relaxed text-aipify-text-secondary">{pack.value}</p>
+                <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-aipify-text-secondary">
+                  {labels.businessPacks.pricingStatus[pack.pricingStatus]}
+                </p>
+                <p className="mt-1 text-xs text-aipify-text-muted">
+                  {labels.businessPacks.planRequirementPrefix} {PLAN_LABELS[pack.planRequirement]}+
+                </p>
+                <Link href={pack.detailHref} className={`mt-4 inline-block text-sm font-semibold ${PublicMarketingClasses.link}`}>
+                  {labels.businessPacks.viewDetails} →
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Link href="/pricing#business-packs" className={`mt-8 inline-block text-sm font-semibold ${PublicMarketingClasses.link}`}>
+            {labels.businessPacks.exploreAll} →
+          </Link>
+        </div>
+      </section>
+
+      <section className={`${SECTION} ${AipifyMarketingClasses.sectionAlt}`}>
+        <div className={`${PublicMarketingClasses.container} grid gap-10 lg:grid-cols-2 lg:items-start`}>
+          <div>
+            <h2 className={PublicMarketingClasses.sectionHeading}>{labels.enterpriseFlexibility.title}</h2>
+            <p className="mt-4 text-base leading-relaxed text-aipify-text-secondary">{labels.enterpriseFlexibility.intro}</p>
+            <Link href="/contact" className={`mt-6 inline-flex ${AipifyMarketingClasses.primaryCta} px-6 py-3 text-sm`}>
+              {labels.enterpriseFlexibility.cta}
+            </Link>
+          </div>
+          <ul className="space-y-3">
+            {labels.enterpriseFlexibility.items.map((item) => (
+              <li key={item.label} className={`${PublicMarketingClasses.card} flex gap-3 px-4 py-3 text-sm`}>
+                <span aria-hidden="true">{STATUS_ICONS[item.status]}</span>
+                <span className="text-aipify-text-secondary">
+                  <span className="font-medium text-aipify-text">{item.label}</span>
+                </span>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section id="business-packs" className={`${AipifyMarketingClasses.sectionAlt} py-16 sm:py-20`}>
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <SectionTitle>{businessPacks.title}</SectionTitle>
-          <p className="mt-6 text-sm leading-relaxed text-aipify-text-secondary sm:text-base">{businessPacks.copy}</p>
-          <ul className="mt-8 flex flex-wrap justify-center gap-3">
-            {businessPacks.examples.map((example) => (
-              <li
-                key={example}
-                className="rounded-full border border-aipify-border bg-aipify-surface px-4 py-2 text-sm font-medium text-aipify-text-secondary"
-              >
-                {example}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-8 text-sm font-medium text-aipify-companion">{businessPacks.status}</p>
-        </div>
-      </section>
-
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <SectionTitle>{enterpriseOptions.title}</SectionTitle>
-          <ul className="mt-10 grid gap-3 sm:grid-cols-2">
-            {enterpriseOptions.items.map((item) => (
-              <li
-                key={item}
-                className={`${AipifyMarketingClasses.card} px-4 py-3 text-sm font-medium text-aipify-text-secondary`}
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className={`${AipifyMarketingClasses.sectionAlt} py-16 sm:py-20`}>
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <SectionTitle>{included.title}</SectionTitle>
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-            {included.items.map((item) => (
+      <section className={SECTION}>
+        <div className={`${PublicMarketingClasses.container} max-w-3xl`}>
+          <h2 className={PublicMarketingClasses.sectionHeading}>{labels.included.title}</h2>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            {labels.included.items.map((item) => (
               <li key={item} className="flex items-start gap-3 text-sm text-aipify-text-secondary">
-                <span className="text-aipify-companion" aria-hidden="true">
+                <span className="text-emerald-600" aria-hidden="true">
                   ✓
                 </span>
                 {item}
@@ -285,142 +391,91 @@ export default function PricingPackagesPageContent({ labels }: Props) {
         </div>
       </section>
 
-      <section id="compare-plans" className="py-16 sm:py-20">
-        <div className="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8">
-          <SectionTitle>{planComparison.title}</SectionTitle>
-          <div className="mt-10 space-y-4">
-            {planComparison.categories.map((category) => (
-              <PlanComparisonGroup key={category.name} category={category} />
-            ))}
+      <section id="compare" className={`${SECTION} ${AipifyMarketingClasses.sectionAlt}`}>
+        <div className={PublicMarketingClasses.container}>
+          <h2 className={PublicMarketingClasses.sectionHeading}>{labels.planComparison.title}</h2>
+          <div className="mt-8">
+            <PricingComparisonTable
+              rows={labels.planComparison.rows}
+              planLabels={PLAN_LABELS}
+              mobileHint={labels.planComparison.mobileHint}
+            />
           </div>
         </div>
       </section>
 
-      <section className={`${AipifyMarketingClasses.sectionAlt} py-16 sm:py-20`}>
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <SectionTitle>{roiExplanation.title}</SectionTitle>
-          <p className="mt-6 text-base leading-relaxed text-aipify-text-secondary">{roiExplanation.intro}</p>
-          <ul className="mx-auto mt-8 grid max-w-xl gap-3 text-left">
-            {roiExplanation.benefits.map((benefit) => (
-              <li key={benefit} className="flex gap-3 text-sm text-aipify-text-secondary">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-aipify-companion" aria-hidden="true" />
-                {benefit}
+      <section className={SECTION}>
+        <div className={PublicMarketingClasses.container}>
+          <h2 className="text-center text-2xl font-bold tracking-tight text-aipify-text sm:text-3xl">{labels.outcomes.title}</h2>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {labels.outcomes.items.map((item) => (
+              <li key={item.title} className={PublicMarketingClasses.card}>
+                <h3 className="font-semibold text-aipify-text">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{item.body}</p>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <SectionTitle>{upgradeExperience.title}</SectionTitle>
-          <p className="mt-4 text-sm leading-relaxed text-aipify-text-secondary">{upgradeExperience.intro}</p>
-          <div className="mt-10 flex flex-col items-center gap-2">
-            {upgradeExperience.steps.map((step, index) => (
-              <div key={step} className="flex flex-col items-center">
-                <span className={`${AipifyMarketingClasses.card} px-8 py-3 text-base font-semibold text-aipify-text`}>
-                  {step}
+      <section className={`${SECTION} ${AipifyMarketingClasses.sectionAlt}`}>
+        <div className={`${PublicMarketingClasses.container} max-w-4xl`}>
+          <h2 className="text-center text-2xl font-bold tracking-tight text-aipify-text sm:text-3xl">{labels.upgradeFlow.title}</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-relaxed text-aipify-text-secondary">{labels.upgradeFlow.intro}</p>
+          <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {labels.upgradeFlow.steps.map((step) => (
+              <li key={step.label} className={`${PublicMarketingClasses.card} text-center text-sm`}>
+                <span className="block text-lg" aria-hidden="true">
+                  {step.status === "done" ? "✅" : step.status === "progress" ? "⏳" : "○"}
                 </span>
-                {index < upgradeExperience.steps.length - 1 ? (
-                  <span className="my-2 text-aipify-text-muted" aria-hidden="true">
-                    ↓
-                  </span>
-                ) : null}
-              </div>
+                <span className="mt-2 block font-medium text-aipify-text">{step.label}</span>
+              </li>
             ))}
+          </ol>
+          <p className="mt-6 text-center text-sm text-aipify-text-muted">{labels.upgradeFlow.note}</p>
+        </div>
+      </section>
+
+      <section id="faq" className={SECTION}>
+        <div className={`${PublicMarketingClasses.container} max-w-3xl`}>
+          <h2 className={PublicMarketingClasses.sectionHeading}>{labels.faq.title}</h2>
+          <div className="mt-8">
+            <PricingFaqAccordion items={labels.faq.items} />
           </div>
         </div>
       </section>
 
-      <section className={`${AipifyMarketingClasses.sectionAlt} py-16 sm:py-20`}>
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <SectionTitle>{upgradePath.headline}</SectionTitle>
-          <div className="mt-10 flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:justify-center">
-            {upgradePath.steps.map((step, index) => (
-              <div key={step} className="flex items-center gap-2">
-                <span className={`${AipifyMarketingClasses.card} px-6 py-2.5 text-sm font-semibold text-aipify-text`}>
-                  {step}
+      <section className={`${SECTION} ${AipifyMarketingClasses.sectionAlt}`}>
+        <div className={`${PublicMarketingClasses.container} max-w-3xl`}>
+          <h2 className="text-center text-lg font-semibold text-aipify-text">{labels.trustPanel.title}</h2>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            {labels.trustPanel.items.map((item) => (
+              <li key={item} className="flex gap-2 text-sm text-aipify-text-secondary">
+                <span className="text-emerald-600" aria-hidden="true">
+                  ✓
                 </span>
-                {index < upgradePath.steps.length - 1 ? (
-                  <span className="hidden text-aipify-text-muted sm:inline" aria-hidden="true">
-                    →
-                  </span>
-                ) : null}
-              </div>
+                {item}
+              </li>
             ))}
-          </div>
-          <p className="mt-8 text-sm leading-relaxed text-aipify-text-secondary">{upgradePath.copy}</p>
+          </ul>
         </div>
       </section>
 
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <SectionTitle>{faq.title}</SectionTitle>
-          <dl className="mt-10 space-y-6">
-            {faq.items.map((item) => (
-              <div key={item.question} className={AipifyMarketingClasses.card}>
-                <dt className="font-semibold text-aipify-text">{item.question}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{item.answer}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      <section className={`${AipifyMarketingClasses.sectionAlt} py-16 sm:py-20`}>
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <SectionTitle>{purchasingConfidence.title}</SectionTitle>
-          <div className="mt-6 space-y-4 text-base leading-relaxed text-aipify-text-secondary">
-            {purchasingConfidence.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 sm:py-20">
-        <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold tracking-tight text-aipify-text sm:text-3xl">{contactSales.headline}</h2>
-          <p className="mt-4 text-aipify-text-secondary">{contactSales.subheadline}</p>
-          <Link href="/contact" className={`mt-8 ${AipifyMarketingClasses.primaryCta} px-8 py-4 text-base`}>
-            {contactSales.cta}
-          </Link>
-        </div>
-      </section>
-
-      <section className="border-t border-aipify-border py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <SectionTitle>{billingArchitecture.title}</SectionTitle>
-          <div className="mt-8 space-y-6 text-sm text-aipify-text-secondary">
-            <div>
-              <p className="font-medium text-aipify-text">Billing</p>
-              <ul className="mt-2 list-inside list-disc space-y-1">
-                {billingArchitecture.billing.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="font-medium text-aipify-text">Payment providers</p>
-              <ul className="mt-2 list-inside list-disc space-y-1">
-                {billingArchitecture.paymentProviders.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-            <p>
-              <span className="font-medium text-aipify-text">Accounting: </span>
-              {billingArchitecture.accounting}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-aipify-border py-12">
-        <p className="mx-auto max-w-2xl px-4 text-center text-sm leading-relaxed text-aipify-text-muted sm:text-base">
-          {finalPrinciple}
-        </p>
-      </section>
+      <PublicCTA
+        title={labels.finalCta.headline}
+        subtitle={labels.finalCta.subheadline}
+        primaryLabel={labels.finalCta.primary}
+        primaryHref="/contact"
+        secondaryLabel={labels.finalCta.secondary}
+        secondaryHref={MARKETING_PRIMARY_CTA_HREFS.bookDemo}
+        analyticsPrimary="pricing_final_contact"
+        analyticsSecondary="pricing_final_demo"
+      />
+      <div className="pb-8 text-center">
+        <Link href="#business-packs" className={`text-sm font-semibold ${PublicMarketingClasses.link}`}>
+          {labels.finalCta.tertiary} →
+        </Link>
+      </div>
     </>
   );
 }

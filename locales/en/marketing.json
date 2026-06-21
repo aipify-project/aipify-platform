@@ -182,13 +182,34 @@
       "subtitle": "Connect what you already use. Coordinate work with governance built in.",
       "learnMore": "Learn how Aipify works",
       "steps": {
-        "1": { "title": "Connect existing systems", "description": "Install Aipify into your admin, store, or custom environment." },
-        "2": { "title": "Gather approved context", "description": "Knowledge, policies and organizational memory from approved sources." },
-        "3": { "title": "Coordinate work", "description": "Support, operations and Business Pack activity in one place." },
-        "4": { "title": "Recommend next actions", "description": "Aipify prepares drafts, insights and prioritized follow-ups." },
-        "5": { "title": "Human approval", "description": "People review, edit and approve before anything sensitive runs." },
-        "6": { "title": "Governed execution", "description": "Approved workflows execute within explicit trust policies." },
-        "7": { "title": "Audit trail", "description": "Every action logged with explainability for enterprise trust." }
+        "1": {
+          "title": "Connect existing systems",
+          "description": "Install Aipify into your admin, store, or custom environment."
+        },
+        "2": {
+          "title": "Gather approved context",
+          "description": "Knowledge, policies and organizational memory from approved sources."
+        },
+        "3": {
+          "title": "Coordinate work",
+          "description": "Support, operations and Business Pack activity in one place."
+        },
+        "4": {
+          "title": "Recommend next actions",
+          "description": "Aipify prepares drafts, insights and prioritized follow-ups."
+        },
+        "5": {
+          "title": "Human approval",
+          "description": "People review, edit and approve before anything sensitive runs."
+        },
+        "6": {
+          "title": "Governed execution",
+          "description": "Approved workflows execute within explicit trust policies."
+        },
+        "7": {
+          "title": "Audit trail",
+          "description": "Every action logged with explainability for enterprise trust."
+        }
       }
     },
     "businessPacks": {
@@ -239,12 +260,30 @@
       "title": "Aipify in practice",
       "subtitle": "A grounded workflow from support request to governed response.",
       "steps": {
-        "1": { "title": "Support request arrives", "detail": "A customer inquiry enters from email, chat, or your admin." },
-        "2": { "title": "Knowledge search", "detail": "Approved knowledge sources are searched — metadata only." },
-        "3": { "title": "Draft prepared", "detail": "A business-ready response draft is prepared for review." },
-        "4": { "title": "Human approval", "detail": "Your team approves, edits, or delegates future handling." },
-        "5": { "title": "Response sent", "detail": "The approved response is sent through your existing channels." },
-        "6": { "title": "Audit logged", "detail": "Action, approver and outcome recorded in the audit trail." }
+        "1": {
+          "title": "Support request arrives",
+          "detail": "A customer inquiry enters from email, chat, or your admin."
+        },
+        "2": {
+          "title": "Knowledge search",
+          "detail": "Approved knowledge sources are searched — metadata only."
+        },
+        "3": {
+          "title": "Draft prepared",
+          "detail": "A business-ready response draft is prepared for review."
+        },
+        "4": {
+          "title": "Human approval",
+          "detail": "Your team approves, edits, or delegates future handling."
+        },
+        "5": {
+          "title": "Response sent",
+          "detail": "The approved response is sent through your existing channels."
+        },
+        "6": {
+          "title": "Audit logged",
+          "detail": "Action, approver and outcome recorded in the audit trail."
+        }
       }
     },
     "enterpriseTrust": {
@@ -252,12 +291,30 @@
       "subtitle": "Governance and human control are part of the platform — not an afterthought.",
       "exploreEnterprise": "Explore Enterprise",
       "points": {
-        "rbac": { "title": "Role-based access", "description": "Permissions mapped to your organizational roles — owner, admin, support, staff, and read-only." },
-        "approval": { "title": "Human approval", "description": "Aipify recommends and prepares. People decide before sensitive actions run." },
-        "audit": { "title": "Audit logging", "description": "Actions, approvals and configuration changes logged with explainability." },
-        "tenant": { "title": "Tenant isolation", "description": "Every customer scoped by tenant — no cross-tenant data in customer surfaces." },
-        "automation": { "title": "Governed automation", "description": "Gradually delegate approved workflows — explicit, reversible, auditable." },
-        "deployment": { "title": "Enterprise deployment options", "description": "SSO readiness, procurement-friendly governance and deployment flexibility." }
+        "rbac": {
+          "title": "Role-based access",
+          "description": "Permissions mapped to your organizational roles — owner, admin, support, staff, and read-only."
+        },
+        "approval": {
+          "title": "Human approval",
+          "description": "Aipify recommends and prepares. People decide before sensitive actions run."
+        },
+        "audit": {
+          "title": "Audit logging",
+          "description": "Actions, approvals and configuration changes logged with explainability."
+        },
+        "tenant": {
+          "title": "Tenant isolation",
+          "description": "Every customer scoped by tenant — no cross-tenant data in customer surfaces."
+        },
+        "automation": {
+          "title": "Governed automation",
+          "description": "Gradually delegate approved workflows — explicit, reversible, auditable."
+        },
+        "deployment": {
+          "title": "Enterprise deployment options",
+          "description": "SSO readiness, procurement-friendly governance and deployment flexibility."
+        }
       }
     },
     "companion": {
@@ -265,9 +322,18 @@
       "subtitle": "The Companion is not a separate chatbot. It is how Aipify stays present — tasks, approvals, briefings, and guidance in one identity.",
       "learnMore": "Explore the platform",
       "capabilities": {
-        "observes": { "title": "Observes", "description": "Surfaces operational changes from approved sources." },
-        "prepares": { "title": "Prepares", "description": "Drafts, summaries and next steps ready for review." },
-        "recommends": { "title": "Recommends", "description": "Prioritized actions with context — humans always decide." }
+        "observes": {
+          "title": "Observes",
+          "description": "Surfaces operational changes from approved sources."
+        },
+        "prepares": {
+          "title": "Prepares",
+          "description": "Drafts, summaries and next steps ready for review."
+        },
+        "recommends": {
+          "title": "Recommends",
+          "description": "Prioritized actions with context — humans always decide."
+        }
       }
     },
     "finalCta": {
@@ -2481,303 +2547,491 @@
   },
   "pricingPage": {
     "meta": {
-      "title": "Pricing — Aipify Business Operating System",
-      "description": "Simple pricing built to grow with you. Understand what you are buying, which plan fits today, and what comes next."
+      "title": "Aipify Pricing & Business Packs | Plans for Modern Organizations",
+      "description": "Compare Aipify plans, Business Packs, governance capabilities and enterprise options for your organization."
     },
     "hero": {
+      "eyebrow": "Plans & Business Packs",
       "headline": "Simple pricing. Built to grow with you.",
-      "subheadline": "Understand what you are buying, who each plan is for, and how Aipify expands with your organization.",
-      "supporting": "The platform may be complex. Purchasing should not be.",
+      "subheadline": "Choose the operational capabilities your organization needs today and expand as your team, workflows and Business Packs grow.",
+      "supporting": "Start with the right foundation. Add users, domains and Business Packs as your operational needs expand.",
+      "trustLine": "Start with the right foundation. Add users, domains and Business Packs as your operational needs expand.",
       "ctaPrimary": "Find Your Plan",
       "ctaSecondary": "Speak With Aipify"
     },
-    "pricingPhilosophy": {
-      "title": "Choose what fits your organization.",
-      "paragraphs": [
-        "Organizations should never pay for functionality they do not need.",
-        "Start with the capabilities that match your current requirements.",
-        "Expand as your organization grows."
-      ]
-    },
+    "plansIntro": "Every plan includes Aipify Core with Companion, governance foundation, and a clear upgrade path. Published prices are in NOK per month — confirm regional availability during consultation.",
     "packages": {
-      "title": "Plans built for where you are today.",
+      "title": "Plans for where you are today",
+      "detailsLink": "View full plan details",
       "items": [
         {
           "key": "starter",
           "name": "Starter",
-          "audience": "For small teams exploring operational visibility.",
-          "idealFor": "Ideal starting point for focused teams",
+          "audience": "Small teams establishing operational visibility.",
+          "idealFor": "Pilot and focused starting scope",
           "features": [
-            "Companion",
-            "Knowledge Center",
-            "Basic Operations",
-            "Governance Foundation",
-            "Basic Support"
+            "Essential Companion guidance",
+            "Knowledge Center access",
+            "Basic operations",
+            "Governance foundation",
+            "Standard support"
           ],
           "status": "Available",
           "statusKey": "available",
-          "cta": "Get Started",
-          "ctaHref": "/early-access"
+          "cta": "Request Starter Access",
+          "ctaHref": "/early-access",
+          "detailsHref": "#compare"
         },
         {
           "key": "professional",
           "name": "Professional",
-          "audience": "For growing organizations coordinating multiple workflows.",
-          "idealFor": "Ideal when coordination becomes critical",
+          "audience": "Growing organizations coordinating workflows across teams.",
+          "idealFor": "Coordination and approvals become critical",
           "features": [
             "Everything in Starter",
-            "Advanced Operations",
-            "Workflows",
-            "Approvals",
-            "Integrations",
-            "Expanded Reporting"
+            "Workflows and approvals",
+            "Expanded integrations",
+            "Business Pack add-ons",
+            "Priority support"
           ],
           "status": "Available",
           "statusKey": "available",
           "cta": "Start Professional",
-          "ctaHref": "/early-access"
+          "ctaHref": "/early-access",
+          "detailsHref": "#compare"
         },
         {
           "key": "business",
           "name": "Business",
-          "audience": "For organizations managing multiple departments and Business Packs.",
-          "idealFor": "Most Popular",
+          "audience": "Organizations managing multiple departments and Business Packs.",
+          "idealFor": "Recommended for growing organizations",
           "features": [
             "Everything in Professional",
-            "Business Packs",
-            "Advanced Governance",
-            "Advanced Analytics",
-            "Priority Support",
-            "Advanced Permissions"
+            "Multiple Business Pack add-ons",
+            "Advanced governance",
+            "Executive visibility",
+            "Advanced permissions"
           ],
           "status": "Most Popular",
           "statusKey": "popular",
           "cta": "Start Business",
-          "ctaHref": "/early-access"
+          "ctaHref": "/early-access",
+          "detailsHref": "#compare"
         },
         {
           "key": "enterprise",
           "name": "Enterprise",
-          "audience": "For organizations requiring advanced governance, scale and deployment flexibility.",
+          "audience": "Organizations requiring tailored governance, deployment and procurement.",
           "idealFor": "Custom agreements and enterprise services",
           "features": [
-            "Everything in Business",
-            "Enterprise Security",
-            "Custom Business Packs",
-            "Hybrid Deployment",
-            "Dedicated Success Support",
-            "Advanced Governance"
+            "Custom user and domain capacity",
+            "Enterprise security and SSO",
+            "Custom Business Pack configurations",
+            "Dedicated success support",
+            "Contract and procurement support"
           ],
           "status": "Enterprise",
           "statusKey": "enterprise",
           "cta": "Talk to Enterprise Sales",
-          "ctaHref": "/contact"
+          "ctaHref": "/contact",
+          "detailsHref": "#compare"
         }
       ]
     },
-    "upgradeGrowth": {
-      "title": "As your organization grows, Aipify grows with you.",
-      "items": [
-        "More Users",
-        "More Domains",
-        "More Business Packs",
-        "More Integrations",
-        "More Governance Controls",
-        "More Companion Capabilities",
-        "More Automation",
-        "More Visibility"
+    "pricingLabels": {
+      "custom": "Custom pricing",
+      "perMonth": "per month",
+      "currencySuffix": "",
+      "notPubliclyPriced": "Contact Aipify",
+      "includes": "Includes",
+      "users": "Users",
+      "domains": "Domains",
+      "businessPacks": "Business Packs",
+      "support": "Support",
+      "supportLevels": {
+        "standard": "Standard",
+        "priority": "Priority",
+        "dedicated": "Dedicated success"
+      }
+    },
+    "growthProgression": {
+      "title": "As your organization grows, Aipify grows with you",
+      "stages": [
+        {
+          "name": "Core organization",
+          "items": [
+            "Initial users",
+            "One operational scope",
+            "Governance foundation"
+          ]
+        },
+        {
+          "name": "Expanded operations",
+          "items": [
+            "More users",
+            "More domains",
+            "Additional Business Packs",
+            "More integrations"
+          ]
+        },
+        {
+          "name": "Enterprise scale",
+          "items": [
+            "Advanced governance",
+            "Executive visibility",
+            "Enterprise deployment",
+            "Dedicated support"
+          ]
+        }
       ]
     },
     "businessPacks": {
-      "title": "Activate only the Business Packs you need.",
-      "copy": "Organizations install capabilities as required — not everything at once.",
-      "examples": [
-        "Hosts",
-        "Support",
-        "Commerce",
-        "Warehouse",
-        "Partner Success",
-        "Finance",
-        "Future Industry Packs"
-      ],
-      "status": "Add Business Packs when your operational scope expands."
+      "title": "Add only the Business Packs your organization needs",
+      "copy": "Business Packs extend Aipify with domain-specific operational capabilities. Availability and pricing depend on your plan and required capacity.",
+      "exploreAll": "Explore all Business Packs",
+      "planRequirementPrefix": "Available from",
+      "viewDetails": "View details",
+      "pricingStatus": {
+        "included": "Included with qualifying plan",
+        "addon": "Add-on",
+        "custom": "Custom pricing",
+        "pilot": "Pilot availability",
+        "contact": "Contact Aipify"
+      }
     },
-    "enterpriseOptions": {
-      "title": "Enterprise flexibility.",
+    "businessPackModel": {
+      "title": "How Business Packs work",
+      "steps": [
+        "Choose your Aipify plan",
+        "Add the Business Packs you need",
+        "Select the required capacity",
+        "Complete payment or agreement",
+        "Aipify validates and activates the pack"
+      ],
+      "note": "A base plan is required. Business Packs are added on top of your subscription. Removing a pack removes its operational capabilities after the billing period ends."
+    },
+    "enterpriseFlexibility": {
+      "title": "Enterprise flexibility",
+      "intro": "Aipify supports organizations that require tailored governance, deployment, procurement and operational capacity.",
+      "cta": "Talk to Enterprise",
       "items": [
-        "Custom Agreements",
-        "Custom Deployment",
-        "Hybrid Deployment",
-        "Future On-Premise Support",
-        "Advanced Governance",
-        "Enterprise Services",
-        "Dedicated Success Support"
+        {
+          "label": "Custom agreements",
+          "status": "available"
+        },
+        {
+          "label": "Custom deployment options",
+          "status": "custom"
+        },
+        {
+          "label": "Advanced governance",
+          "status": "available"
+        },
+        {
+          "label": "Enterprise services",
+          "status": "available"
+        },
+        {
+          "label": "Dedicated success support",
+          "status": "available"
+        },
+        {
+          "label": "Hybrid deployment",
+          "status": "custom"
+        },
+        {
+          "label": "On-premise assessment",
+          "status": "planned"
+        }
       ]
     },
     "included": {
-      "title": "What is included in every plan",
+      "title": "Included in every plan",
       "items": [
         "Companion",
         "Knowledge Center",
-        "Governance Foundation",
-        "Audit Logging",
-        "Business Pack Support",
-        "Multi-Language Support",
-        "Platform Updates",
-        "Security Foundation"
+        "Governance foundation",
+        "Audit logging",
+        "Multi-language support",
+        "Platform updates",
+        "Security foundation"
       ]
     },
     "planComparison": {
-      "title": "Compare plans at a glance",
-      "categories": [
+      "title": "Compare plans",
+      "mobileHint": "Select two plans below to compare capabilities on mobile.",
+      "rows": [
         {
-          "name": "Users",
-          "starter": "Small teams getting started",
-          "professional": "Growing organizations",
-          "business": "Multi-department operations",
-          "enterprise": "Large-scale deployment"
+          "id": "monthly",
+          "group": "Pricing",
+          "label": "Monthly price (NOK)",
+          "starter": "490 / month",
+          "professional": "1 490 / month",
+          "business": "3 990 / month",
+          "enterprise": "Custom pricing"
         },
         {
-          "name": "Business Packs",
-          "starter": "Foundation only",
-          "professional": "Select packs as needed",
-          "business": "Multiple packs supported",
-          "enterprise": "Custom pack configurations"
+          "id": "annual",
+          "group": "Pricing",
+          "label": "Annual price",
+          "starter": "Contact Aipify",
+          "professional": "Contact Aipify",
+          "business": "Contact Aipify",
+          "enterprise": "Custom agreement"
         },
         {
-          "name": "Domains",
-          "starter": "Core workspace",
-          "professional": "Multiple domains",
-          "business": "Expanded domain support",
-          "enterprise": "Enterprise domain governance"
+          "id": "trial",
+          "group": "Pricing",
+          "label": "Trial or pilot",
+          "starter": "Early access",
+          "professional": "Early access",
+          "business": "Early access",
+          "enterprise": "Consultation"
         },
         {
-          "name": "Companion Capabilities",
-          "starter": "Essential guidance",
-          "professional": "Expanded context",
-          "business": "Advanced operational intelligence",
-          "enterprise": "Enterprise Companion depth"
+          "id": "users",
+          "group": "Organization",
+          "label": "Included users",
+          "starter": "1",
+          "professional": "5",
+          "business": "25",
+          "enterprise": "Custom"
         },
         {
-          "name": "Governance",
-          "starter": "Foundation controls",
-          "professional": "Approvals and workflows",
-          "business": "Advanced governance",
-          "enterprise": "Enterprise policy controls"
+          "id": "add-users",
+          "group": "Organization",
+          "label": "Additional users",
+          "starter": "Upgrade plan",
+          "professional": "Add-on",
+          "business": "Add-on",
+          "enterprise": "Custom"
         },
         {
-          "name": "Integrations",
-          "starter": "Core connections",
-          "professional": "Expanded integrations",
-          "business": "Operational integrations",
-          "enterprise": "Enterprise integration scope"
+          "id": "domains",
+          "group": "Organization",
+          "label": "Included domains",
+          "starter": "1",
+          "professional": "3",
+          "business": "10",
+          "enterprise": "Custom"
         },
         {
-          "name": "Support",
-          "starter": "Standard support",
-          "professional": "Priority support",
-          "business": "Priority support",
-          "enterprise": "Dedicated success support"
+          "id": "add-domains",
+          "group": "Organization",
+          "label": "Additional domains",
+          "starter": "Upgrade plan",
+          "professional": "Add-on",
+          "business": "Add-on",
+          "enterprise": "Custom"
         },
         {
-          "name": "Enterprise Features",
+          "id": "pack-avail",
+          "group": "Business Packs",
+          "label": "Pack availability",
+          "starter": "—",
+          "professional": "Add-on",
+          "business": "Add-on",
+          "enterprise": "Custom"
+        },
+        {
+          "id": "pack-included",
+          "group": "Business Packs",
+          "label": "Included packs",
           "starter": "—",
           "professional": "—",
-          "business": "Advanced readiness",
-          "enterprise": "Full enterprise flexibility"
+          "business": "—",
+          "enterprise": "Custom"
+        },
+        {
+          "id": "workflows",
+          "group": "Operations",
+          "label": "Workflows & approvals",
+          "starter": "Foundation",
+          "professional": "Included",
+          "business": "Advanced",
+          "enterprise": "Custom"
+        },
+        {
+          "id": "reporting",
+          "group": "Operations",
+          "label": "Reporting",
+          "starter": "Basic",
+          "professional": "Expanded",
+          "business": "Advanced",
+          "enterprise": "Custom"
+        },
+        {
+          "id": "companion",
+          "group": "Companion",
+          "label": "Context level",
+          "starter": "Essential",
+          "professional": "Expanded",
+          "business": "Advanced",
+          "enterprise": "Enterprise depth"
+        },
+        {
+          "id": "governance",
+          "group": "Governance",
+          "label": "Policy controls",
+          "starter": "Foundation",
+          "professional": "Approvals",
+          "business": "Advanced",
+          "enterprise": "Enterprise"
+        },
+        {
+          "id": "support",
+          "group": "Support",
+          "label": "Support level",
+          "starter": "Standard",
+          "professional": "Priority",
+          "business": "Priority",
+          "enterprise": "Dedicated success"
+        },
+        {
+          "id": "cloud",
+          "group": "Deployment",
+          "label": "Cloud",
+          "starter": "✅",
+          "professional": "✅",
+          "business": "✅",
+          "enterprise": "✅"
+        },
+        {
+          "id": "hybrid",
+          "group": "Deployment",
+          "label": "Hybrid",
+          "starter": "—",
+          "professional": "—",
+          "business": "—",
+          "enterprise": "Custom assessment"
         }
       ]
     },
-    "roiExplanation": {
-      "title": "Aipify is designed to reduce operational friction.",
-      "intro": "Practical operational improvement — not unrealistic ROI promises.",
-      "benefits": [
-        "Reduce time spent searching",
-        "Reduce manual follow-ups",
-        "Improve visibility",
-        "Improve coordination",
-        "Improve governance",
-        "Improve knowledge access"
+    "outcomes": {
+      "title": "Designed to reduce operational friction",
+      "items": [
+        {
+          "title": "Spend less time searching",
+          "body": "Approved knowledge and context in one operational layer."
+        },
+        {
+          "title": "Reduce manual follow-ups",
+          "body": "Companion prepares next steps — humans retain approval."
+        },
+        {
+          "title": "Improve operational visibility",
+          "body": "Executive-ready summaries without switching systems."
+        },
+        {
+          "title": "Strengthen governance",
+          "body": "Audit logging and human-controlled activation."
+        }
       ]
     },
-    "upgradeExperience": {
-      "title": "Upgrade instantly.",
-      "intro": "When a subscription changes, your organization keeps working — no waiting, no support tickets, no downtime.",
+    "upgradeFlow": {
+      "title": "Upgrade after payment and validation",
+      "intro": "Eligible upgrades are activated automatically after payment and successful validation.",
       "steps": [
-        "Payment approved",
-        "Subscription updated",
-        "Permissions updated",
-        "Features activated",
-        "Continue working"
-      ]
-    },
-    "upgradePath": {
-      "headline": "Your growth roadmap",
-      "copy": "Where you are today → which plan fits → what comes next. Upgrade naturally without changing platforms.",
-      "steps": [
-        "Starter",
-        "Professional",
-        "Business",
-        "Enterprise"
-      ]
+        {
+          "label": "Payment approved",
+          "status": "done"
+        },
+        {
+          "label": "Subscription updated",
+          "status": "done"
+        },
+        {
+          "label": "Entitlements prepared",
+          "status": "progress"
+        },
+        {
+          "label": "Activation validated",
+          "status": "progress"
+        },
+        {
+          "label": "Access available",
+          "status": "pending"
+        }
+      ],
+      "note": "If validation requires additional setup, you see Activation in progress rather than a partially available feature."
     },
     "faq": {
-      "title": "Frequent buyer questions",
+      "title": "Questions",
       "items": [
         {
           "question": "Can I start small?",
-          "answer": "Yes. Starter is designed for teams beginning with operational visibility — expand only when you need more."
+          "answer": "Yes. Starter is designed for a focused starting scope. Expand when operational needs grow."
         },
         {
           "question": "Can I upgrade later?",
-          "answer": "Yes. Upgrade at any time. Subscription, permissions, and features update immediately after payment."
+          "answer": "Yes. Upgrade at any time. Subscription and entitlements update after payment and successful validation."
         },
         {
           "question": "Can I add Business Packs later?",
-          "answer": "Yes. Activate Business Packs as your operational scope grows — you never need everything on day one."
+          "answer": "Yes. Add Business Packs as your operational scope expands — from Professional upward as add-ons."
         },
         {
           "question": "Can I add users later?",
-          "answer": "Yes. Add users as your organization expands. Plan limits scale with your subscription."
+          "answer": "Yes. User capacity grows with your plan or through approved add-ons."
         },
         {
           "question": "Can I add domains later?",
-          "answer": "Yes. Domain capacity grows with your plan as you connect more of your organization."
+          "answer": "Yes. Domain capacity increases with plan upgrades or approved add-ons."
         },
         {
-          "question": "Can I move to Enterprise later?",
-          "answer": "Yes. Most organizations start smaller and move to Enterprise when governance, scale, or deployment requirements increase."
+          "question": "How does Enterprise pricing work?",
+          "answer": "Enterprise uses custom agreements based on capacity, governance, deployment, and support requirements."
+        },
+        {
+          "question": "What happens after payment?",
+          "answer": "Payment is approved, your subscription updates, entitlements are prepared, and access becomes available after validation completes."
+        },
+        {
+          "question": "Can I change billing frequency?",
+          "answer": "Monthly billing is available today. Contact Aipify to discuss annual agreements."
+        },
+        {
+          "question": "Are taxes included?",
+          "answer": "Displayed prices exclude VAT unless stated otherwise. Applicable tax is shown during checkout or on invoice."
+        },
+        {
+          "question": "Which payment methods are available?",
+          "answer": "Stripe and Klarna where enabled for your region. Invoice billing is available for qualifying Enterprise agreements."
         }
       ]
     },
-    "purchasingConfidence": {
-      "title": "Buy with confidence.",
-      "paragraphs": [
-        "Start where you are.",
-        "Expand when needed.",
-        "Aipify is designed for long-term growth.",
-        "No pressure. No unnecessary complexity. Just operational improvement."
+    "trustPanel": {
+      "title": "Buy with confidence",
+      "items": [
+        "Start with the plan that fits today",
+        "Add users and Business Packs later",
+        "Human-controlled activation",
+        "Transparent billing",
+        "Enterprise support available"
       ]
-    },
-    "contactSales": {
-      "headline": "Not sure which plan fits today?",
-      "subheadline": "A consultative conversation helps identify the right starting point and what comes next.",
-      "cta": "Speak With Aipify"
     },
     "billingArchitecture": {
       "title": "Billing options",
       "billing": [
-        "Monthly billing",
-        "Annual billing"
+        "Monthly billing (published NOK prices)",
+        "Annual agreements through consultation"
       ],
       "paymentProviders": [
-        "Stripe",
-        "Klarna",
-        "Invoice"
+        "Stripe (card payments where enabled)",
+        "Klarna (where enabled for your region)",
+        "Invoice (Enterprise agreements)"
       ],
-      "accounting": "Fiken integration for Norwegian accounting workflows."
+      "accounting": "Fiken integration supports applicable Norwegian accounting workflows.",
+      "regionalNote": "Payment method availability varies by region and agreement type.",
+      "taxNote": "VAT and tax treatment depend on your billing country and customer status."
     },
-    "finalPrinciple": "Pricing should feel like a growth roadmap — where you are today, which plan fits, and what comes next — not a software comparison table."
+    "finalCta": {
+      "headline": "Not sure which plan fits your organization?",
+      "subheadline": "Tell Aipify how your organization works, and we will help identify the right starting point, Business Packs and capacity.",
+      "primary": "Speak With Aipify",
+      "secondary": "Book a Demo",
+      "tertiary": "Explore Business Packs"
+    }
   },
   "whyAipifyPage": {
     "meta": {
