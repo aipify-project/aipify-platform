@@ -5,7 +5,13 @@ import {
   type WorkflowState,
 } from "@/lib/design/semantic-status-system";
 
-export type SinceLastLoginCategory = "requires_attention" | "completed_by_aipify" | "information";
+export type SinceLastLoginCategory =
+  | "requires_attention"
+  | "completed_by_aipify"
+  | "observed_by_aipify"
+  | "information";
+
+export type SinceLastLoginMode = "observed_by_aipify" | "completed_by_aipify";
 
 export type SinceLastLoginEvent = {
   id: string;
@@ -95,7 +101,7 @@ function classifyCategory(input: {
   const explicit = String(input.explicitCategory ?? "")
     .trim()
     .toLowerCase();
-  if (explicit === "requires_attention" || explicit === "completed_by_aipify" || explicit === "information") {
+  if (explicit === "requires_attention" || explicit === "completed_by_aipify" || explicit === "observed_by_aipify" || explicit === "information") {
     return explicit;
   }
 
@@ -307,8 +313,9 @@ export function groupSinceLastLoginEvents(events: SinceLastLoginEvent[]): {
 
   for (const event of events) {
     if (event.category === "requires_attention") requiresAttention.push(event);
-    else if (event.category === "completed_by_aipify") completedByAipify.push(event);
-    else otherChanges.push(event);
+    else if (event.category === "completed_by_aipify" || event.category === "observed_by_aipify") {
+      completedByAipify.push(event);
+    } else otherChanges.push(event);
   }
 
   return {
@@ -374,4 +381,17 @@ export function buildSinceLastLoginDataset(input: {
   }
 
   return mergeSinceLastLoginEvents(rawEvents);
+}
+
+/** Read-only pilot: "Observed by Aipify" instead of "Completed by Aipify". */
+export function applyPilotReadOnlySinceLastLoginMode(
+  events: SinceLastLoginEvent[],
+  mode: SinceLastLoginMode | undefined
+): SinceLastLoginEvent[] {
+  if (mode !== "observed_by_aipify") return events;
+  return events.map((event) =>
+    event.category === "completed_by_aipify"
+      ? { ...event, category: "observed_by_aipify", dedupeKey: `${event.dedupeKey}:observed` }
+      : event
+  );
 }

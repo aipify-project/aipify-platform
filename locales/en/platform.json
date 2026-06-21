@@ -202,7 +202,8 @@
     "platformPlaybookCenter": "Playbooks",
     "platformHealthOperationsCenter": "Platform Health",
     "system": "System status",
-    "pilotOperations": "Customer Zero Center"
+    "pilotOperations": "Customer Zero Center",
+    "unonightPilot": "Unonight Pilot Control"
   },
   "executive": {
     "title": "Executive Center",
@@ -5333,6 +5334,44 @@
       "partiallyReady": "Partially Ready",
       "readyToAssist": "Ready to Assist",
       "readyToExecute": "Ready to Execute"
+    }
+  },
+  "unonightPilot621": {
+    "title": "Unonight Pilot Control",
+    "subtitle": "Controlled pilot activation — read-only discovery, real data ingestion framework, and shadow mode.",
+    "loading": "Loading pilot health…",
+    "healthState": "Health state",
+    "killSwitch": "Kill switch",
+    "killSwitchOn": "Active — sync and discovery paused",
+    "killSwitchOff": "Off",
+    "readOnly": "Read-only",
+    "shadowMode": "Shadow mode",
+    "dataSources": "Data sources",
+    "syncRuns": "Recent sync runs",
+    "discoveryReports": "Discovery reports",
+    "auditLogs": "Audit trail",
+    "shadowPrepared": "Shadow recommendations prepared",
+    "privacyNote": "Metadata only — no private messages, chat bodies, albums, images, or payment data.",
+    "enableDiscovery": "Enable discovery",
+    "enableReadOnly": "Enable read-only",
+    "enableShadowMode": "Enable shadow mode",
+    "pause": "Pause pilot",
+    "disable": "Disable pilot",
+    "activateKillSwitch": "Activate kill switch",
+    "deactivateKillSwitch": "Deactivate kill switch",
+    "runDiscovery": "Run discovery",
+    "runSync": "Run sync",
+    "approveSource": "Approve source",
+    "externalConnectionNote": "External Unonight read-only API views or Supabase views still required for live ingestion beyond workflow event stubs.",
+    "healthStates": {
+      "disabled": "Disabled",
+      "discovery": "Discovery",
+      "syncing": "Syncing",
+      "read_only_active": "Read-only active",
+      "shadow_mode_active": "Shadow mode active",
+      "degraded": "Degraded",
+      "paused": "Paused",
+      "failed": "Failed"
     }
   },
   "buildGovernance": {

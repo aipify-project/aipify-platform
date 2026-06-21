@@ -1692,5 +1692,29 @@
         "completed": "Completed"
       }
     }
+  },
+  "unonightPilot621": {
+    "title": "Pilot status",
+    "readOnlyActive": "Read-only discovery active",
+    "shadowModeActive": "Shadow mode active",
+    "observedByAipify": "Observed by Aipify",
+    "shadowRecommendationPrepared": "Recommendation prepared by Aipify",
+    "dataSourceFreshness": "Data source freshness",
+    "freshnessFresh": "Fresh",
+    "freshnessStale": "Stale",
+    "freshnessOutdated": "Outdated",
+    "freshnessUnknown": "Unknown",
+    "sourceFailure": "Source unavailable — sync paused for this source only.",
+    "healthStates": {
+      "disabled": "Disabled",
+      "discovery": "Discovery",
+      "syncing": "Syncing",
+      "read_only_active": "Read-only active",
+      "shadow_mode_active": "Shadow mode active",
+      "degraded": "Degraded",
+      "paused": "Paused",
+      "failed": "Failed"
+    },
+    "principle": "Unonight pilot operates in read-only discovery — Aipify observes metadata and prepares recommendations without executing changes."
   }
 }

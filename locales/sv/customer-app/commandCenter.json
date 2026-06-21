@@ -1714,5 +1714,19 @@
         "completed": "Slutförd"
       }
     }
+  },
+  "unonightPilot621": {
+    "title": "Pilotstatus",
+    "readOnlyActive": "Skrivskyddad upptäckt aktiv",
+    "shadowModeActive": "Skuggläge aktivt",
+    "observedByAipify": "Observerad av Aipify",
+    "shadowRecommendationPrepared": "Recommendation prepared by Aipify",
+    "dataSourceFreshness": "Datakällans färskhet",
+    "freshnessFresh": "Färsk",
+    "freshnessStale": "Inaktuell",
+    "freshnessOutdated": "Föråldrad",
+    "freshnessUnknown": "Okänd",
+    "sourceFailure": "Källa otillgänglig — synkronisering pausad för denna källa.",
+    "principle": "Unonight-piloten arbetar i skrivskyddad upptäckt — Aipify observerar metadata och förbereder rekommendationer utan att genomföra ändringar."
   }
 }

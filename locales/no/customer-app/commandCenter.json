@@ -1714,5 +1714,19 @@
         "completed": "Fullført"
       }
     }
+  },
+  "unonightPilot621": {
+    "title": "Pilotstatus",
+    "readOnlyActive": "Skrivebeskyttet oppdagelse aktiv",
+    "shadowModeActive": "Skygge-modus aktiv",
+    "observedByAipify": "Observert av Aipify",
+    "shadowRecommendationPrepared": "Aipify has prepared a recommendation",
+    "dataSourceFreshness": "Datakildeferskhet",
+    "freshnessFresh": "Fersk",
+    "freshnessStale": "Utdatert",
+    "freshnessOutdated": "Foreldet",
+    "freshnessUnknown": "Ukjent",
+    "sourceFailure": "Kilde utilgjengelig — synkronisering satt på pause for denne kilden.",
+    "principle": "Unonight-piloten opererer i skrivebeskyttet oppdagelse — Aipify observerer metadata og forbereder anbefalinger uten å utføre endringer."
   }
 }
