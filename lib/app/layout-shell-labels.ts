@@ -1,4 +1,6 @@
 import type { CompanionPresenceLabels } from "@/components/app/companion-presence";
+import type { CompanionExperienceLabels } from "@/lib/app/companion/types";
+import { buildCompanionExperienceLabels } from "@/lib/app/companion/labels";
 import type { CompanionPresenceState } from "@/lib/presence/companion-presence";
 import type { CommandBarLabels } from "@/lib/command-bar";
 import type { VocWidgetLabels } from "@/lib/voice-of-the-customer";
@@ -82,6 +84,10 @@ export function buildLayoutCommandBarLabels(t: Translator): CommandBarLabels {
       modules: t("shell.commandBar.categories.modules"),
     },
   };
+}
+
+export function buildLayoutCompanionExperienceLabels(t: Translator): CompanionExperienceLabels {
+  return buildCompanionExperienceLabels(t);
 }
 
 export function buildLayoutCompanionPresenceLabels(t: Translator): CompanionPresenceLabels {

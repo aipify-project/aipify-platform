@@ -76,7 +76,8 @@ export type AppPortalNavId =
   | "knowledgeCenter"
   | "contactSupport"
   | "supportRequests"
-  | "supportAssistant"
+  | "aipifyCompanion"
+  | "commandBrief"
   | "successCenter"
   | "gettingStarted"
   | "customerAcademy"
@@ -124,8 +125,6 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     defaultExpanded: true,
     items: [
       { id: "appDashboard", href: "/app/command-center", labelKey: "customerApp.portalStructure.nav.dashboard" },
-      { id: "sinceLastLogin", href: "/app/since-last-login", labelKey: "customerApp.portalStructure.nav.sinceLastLogin" },
-      { id: "appNotifications", href: "/app/notifications", labelKey: "customerApp.portalStructure.nav.notifications" },
     ],
   },
   {
@@ -185,6 +184,10 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     id: "intelligence",
     labelKey: "customerApp.portalStructure.navGroups.intelligence",
     items: [
+      { id: "aipifyCompanion", href: "/app/companion", labelKey: "customerApp.portalStructure.nav.aipifyCompanion" },
+      { id: "commandBrief", href: "/app/command-center", labelKey: "customerApp.portalStructure.nav.commandBrief" },
+      { id: "sinceLastLogin", href: "/app/since-last-login", labelKey: "customerApp.portalStructure.nav.sinceLastLogin" },
+      { id: "appNotifications", href: "/app/notifications", labelKey: "customerApp.portalStructure.nav.notifications" },
       { id: "abosCommandCenter", href: "/app/intelligence/command-center", labelKey: "customerApp.portalStructure.nav.abosCommandCenter" },
       { id: "executiveCompanion", href: "/app/intelligence/executive-companion", labelKey: "customerApp.portalStructure.nav.executiveCompanion" },
       { id: "enterpriseBenchmarking", href: "/app/intelligence/benchmarking", labelKey: "customerApp.portalStructure.nav.enterpriseBenchmarking" },
@@ -216,7 +219,6 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "knowledgeCenter", href: "/app/support/knowledge", labelKey: "customerApp.portalStructure.nav.knowledgeCenter" },
       { id: "contactSupport", href: "/app/support/contact", labelKey: "customerApp.portalStructure.nav.contactSupport" },
       { id: "supportRequests", href: "/app/support/requests", labelKey: "customerApp.portalStructure.nav.supportRequests" },
-      { id: "supportAssistant", href: "/app/support/assistant", labelKey: "customerApp.portalStructure.nav.supportAssistant" },
       { id: "successCenter", href: "/app/support/success-center", labelKey: "customerApp.portalStructure.nav.successCenter" },
       { id: "gettingStarted", href: "/app/support/getting-started", labelKey: "customerApp.portalStructure.nav.gettingStarted" },
       { id: "customerAcademy", href: "/app/support/academy", labelKey: "customerApp.portalStructure.nav.customerAcademy" },
@@ -302,7 +304,8 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/operations/momentum")) return "momentum";
   if (pathname.startsWith("/app/operations/resilience")) return "resilience";
   if (pathname.startsWith("/app/support/requests")) return "supportRequests";
-  if (pathname.startsWith("/app/support/assistant")) return "supportAssistant";
+  if (pathname === "/app/companion") return "aipifyCompanion";
+  if (pathname.startsWith("/app/support/assistant")) return "aipifyCompanion";
   if (pathname.startsWith("/app/support/success-center")) return "successCenter";
   if (pathname.startsWith("/app/support/getting-started")) return "gettingStarted";
   if (pathname.startsWith("/app/support/academy")) return "customerAcademy";

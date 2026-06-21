@@ -26,7 +26,7 @@ export const ONBOARDING_RECOMMENDATION_LINKS: Record<string, string> = {
   inviteAdmins: "/app/organization/team",
   enable2fa: "/app/account/security",
   installFirstPack: "/app/business-packs/available",
-  reviewSupportAssistant: "/app/support/assistant",
+  reviewSupportAssistant: "/app/companion",
   exploreExecutiveInsights: "/app/executive/insights",
 };
 

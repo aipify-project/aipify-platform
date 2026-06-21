@@ -1,16 +1,6 @@
-import { SupportAssistantPanel } from "@/components/app/app-portal/SupportAssistantPanel";
-import { buildSupportAssistantLabels } from "@/lib/app-portal/support-assistant";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
-import { getLocale } from "@/lib/i18n/get-locale";
-import { createTranslator } from "@/lib/i18n/translate";
+import { redirect } from "next/navigation";
+import { COMPANION_EXPERIENCE_ROUTE } from "@/lib/app/companion";
 
-export default async function SupportAssistantPage() {
-  const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
-  const t = createTranslator(dict);
-  return (
-    <div className="p-6">
-      <SupportAssistantPanel labels={buildSupportAssistantLabels(t)} />
-    </div>
-  );
+export default function LegacySupportAssistantRedirect() {
+  redirect(COMPANION_EXPERIENCE_ROUTE);
 }

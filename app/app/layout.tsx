@@ -12,6 +12,7 @@ import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfil
 import { buildAppNavConfig, buildAppNavGroupConfig } from "@/lib/app/build-nav";
 import {
   buildLayoutCommandBarLabels,
+  buildLayoutCompanionExperienceLabels,
   buildLayoutCompanionPresenceLabels,
   buildLayoutLicensePanelLabels,
   buildLayoutVocWidgetLabels,
@@ -26,7 +27,7 @@ import {
   mergeDynamicWithFallbackNav,
   parseDynamicAppNavigation,
 } from "@/lib/dynamic-navigation";
-import { getAppLayoutDictionary, getDictionary } from "@/lib/i18n/get-dictionary";
+import { getAppLayoutDictionary, getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { buildPwaInstallLabels } from "@/lib/pwa/labels";
@@ -41,7 +42,12 @@ export default async function AppLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const dict = await getAppLayoutDictionary(locale);
+  const layoutDict = await getAppLayoutDictionary(locale);
+  const customerAppDict = await getCustomerAppDictionaryForSplits(locale, [
+    "portalStructure",
+    "companion",
+  ]);
+  const dict = { ...layoutDict, customerApp: customerAppDict.customerApp };
   const t = createTranslator(dict);
   const pwaDict = await getDictionary(locale, ["pwa"]);
   const pwaT = createTranslator(pwaDict);
@@ -157,6 +163,7 @@ export default async function AppLayout({
           shellVariant="customer"
           mobileNavIds={mobileNavIds}
           licensePanelLabels={buildLayoutLicensePanelLabels(t)}
+          companionExperienceLabels={buildLayoutCompanionExperienceLabels(t)}
           companionPresenceLabels={buildLayoutCompanionPresenceLabels(t)}
           voiceOfCustomerLabels={buildLayoutVocWidgetLabels(t)}
           locale={locale}
