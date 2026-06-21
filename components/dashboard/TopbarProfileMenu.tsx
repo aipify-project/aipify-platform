@@ -1,11 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
+import { AipifyWebAppInstallAction } from "@/components/pwa/AipifyWebAppInstallAction";
 import { createClient } from "@/lib/supabase/client";
 import { clearAllPollingState } from "@/lib/polling";
 import { invalidateTwoFactorStatusCache } from "@/lib/auth/two-factor";
 import { resolveProfileHeaderDisplay } from "@/lib/app/profile-display";
 import { RoleBadge } from "@/components/ui/RoleBadge";
+import type { PwaInstallLabels } from "@/lib/pwa/types";
 
 type TopbarProfileMenuProps = {
   profileName: string;
@@ -14,6 +17,7 @@ type TopbarProfileMenuProps = {
   profileRoleKey: string;
   profileLoading?: boolean;
   signOutLabel: string;
+  pwaLabels?: PwaInstallLabels;
 };
 
 export default function TopbarProfileMenu({
@@ -23,6 +27,7 @@ export default function TopbarProfileMenu({
   profileRoleKey,
   profileLoading = false,
   signOutLabel,
+  pwaLabels,
 }: TopbarProfileMenuProps) {
   const menuId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -144,6 +149,11 @@ export default function TopbarProfileMenu({
               <RoleBadge roleKey={display.roleKey} label={profileRole} />
             </div>
           </div>
+          {pwaLabels ? (
+            <div className="border-b border-gray-100 py-1">
+              <AipifyWebAppInstallAction labels={pwaLabels} variant="menu" showGuideLink={false} />
+            </div>
+          ) : null}
           <button
             type="button"
             role="menuitem"

@@ -6,6 +6,7 @@ import {
   getPublicBusinessPackPage,
   getPublicKnowledgeArticle,
   getPublicKnowledgeCategory,
+  getPublicKnowledgeFaqs,
   getPublicKnowledgeHubLabels,
 } from "@/lib/marketing/knowledge/load";
 import { getAllArticleSlugs } from "@/lib/marketing/knowledge/registry";
@@ -47,6 +48,8 @@ export default async function KnowledgeArticlePage({ params }: PageProps) {
     return pack ? [{ slug: pack.slug as string, name: pack.name }] : [];
   });
 
+  const faqs = getPublicKnowledgeFaqs(marketing, slug);
+
   return (
     <PublicKnowledgeArticlePageContent
       article={article}
@@ -56,6 +59,7 @@ export default async function KnowledgeArticlePage({ params }: PageProps) {
       relatedArticleLinks={relatedArticleLinks}
       relatedBusinessPackLinks={relatedBusinessPackLinks}
       categoryName={category?.name ?? article.categoryId}
+      faqs={faqs}
     />
   );
 }

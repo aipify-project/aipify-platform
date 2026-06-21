@@ -61,10 +61,10 @@ test("warehouse pack is in marketing business pack registry", () => {
   assert.equal(entry?.detailHref, "/business-packs/warehouse");
 });
 
-test("eighteen article slugs in registry with i18n keys in all core locales", () => {
+test("nineteen article slugs in registry with i18n keys in all core locales", () => {
   const registrySlugs = getAllArticleSlugs();
-  assert.equal(registrySlugs.length, 18);
-  assert.equal(PUBLIC_KNOWLEDGE_ARTICLE_REGISTRY.length, 18);
+  assert.equal(registrySlugs.length, 19);
+  assert.equal(PUBLIC_KNOWLEDGE_ARTICLE_REGISTRY.length, 19);
 
   for (const locale of LOCALES) {
     const marketing = loadMarketing(locale);

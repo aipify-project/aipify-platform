@@ -85,6 +85,11 @@ export const PUBLIC_KNOWLEDGE_ARTICLE_REGISTRY: PublicKnowledgeArticleMeta[] = [
   }),
 
   // Getting started & topical
+  article("installing-aipify-web-app", "getting-started", {
+    searchIntents: ["Install Aipify", "Aipify Web App"],
+    relatedArticles: ["getting-started-with-aipify"],
+    relatedFeatures: ["Install Engine", "Command Center"],
+  }),
   article("getting-started-with-aipify", "getting-started", {
     searchIntents: ["Business Operating System"],
     relatedArticles: ["what-is-a-business-operating-system", "what-is-a-business-companion"],

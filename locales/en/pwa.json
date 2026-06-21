@@ -1,0 +1,86 @@
+{
+  "installAipify": "Install Aipify",
+  "installWebApp": "Install the Aipify Web App",
+  "openAsApp": "Open Aipify as an app",
+  "installedTitle": "✅ Aipify is installed",
+  "installedHint": "Open Aipify from your home screen, dock, or taskbar.",
+  "modalTitle": "Install the Aipify Web App",
+  "modalDescription": "Add Aipify to your device for quick access from your home screen or taskbar. You use the same secure sign-in, organization, and permissions as app.aipify.ai.",
+  "benefit1": "Open Aipify in one tap from your home screen or dock.",
+  "benefit2": "Use the same secure workspace, roles, and approvals you already trust.",
+  "benefit3": "Work in a dedicated app window without browser tab clutter.",
+  "benefit4": "Supported on desktop and mobile browsers where installation is available.",
+  "benefit5": "Receive improvements when Aipify releases updates — no separate product to manage.",
+  "continueInstall": "Continue to installation",
+  "notNow": "Not now",
+  "browserConfirmation": "Your browser will display the final installation confirmation.",
+  "learnMore": "Learn more about installation",
+  "guideLink": "Installation guide",
+  "installPage": {
+    "metaTitle": "Install the Aipify Web App",
+    "metaDescription": "Install Aipify on desktop and mobile for quick access with the same secure workspace, login, and permissions.",
+    "heroTitle": "Install the Aipify Web App",
+    "heroSubtitle": "Open Aipify like an app — with the same login, organization, and permissions you already use.",
+    "whatIsTitle": "What is the Aipify Web App?",
+    "whatIsBody": "The Aipify Web App installs Aipify to your home screen, dock, or taskbar. It is not a separate product, browser extension, or second portal. You continue using app.aipify.ai with your existing account.",
+    "benefitsTitle": "Benefits",
+    "devicesTitle": "Supported devices and browsers",
+    "instructionsTitle": "Installation instructions",
+    "securityTitle": "Security",
+    "securityBody": "Installation does not bypass Aipify sign-in, two-factor authentication, or organization permissions. Sensitive actions still require human approval under your existing policies.",
+    "offlineTitle": "Offline behavior",
+    "offlineBody": "Limited cached content may be available briefly, but Aipify is designed for connected operational work. Do not expect full offline operation.",
+    "updatesTitle": "Updates",
+    "updatesBody": "When you open the installed app, Aipify loads the latest release from our servers. Updates are not guaranteed to appear instantly on your device until the app is opened again.",
+    "removeTitle": "Remove or reinstall",
+    "removeBody": "You can remove the installed app from your browser or device settings at any time and reinstall later from Aipify or your browser menu.",
+    "faqTitle": "Frequently asked questions",
+    "faqIntro": "Common questions about installing and using the Aipify Web App.",
+    "viewAllFaqs": "View all FAQs in Knowledge Center",
+    "finalCtaTitle": "Ready to install Aipify?",
+    "finalCtaBody": "Use Install Aipify where supported, or follow the platform instructions below.",
+    "supportStates": {
+      "supported": "Supported",
+      "limited": "Limited support",
+      "unsupported": "Not currently supported"
+    },
+    "platforms": {
+      "chromeDesktop": {
+        "title": "Chrome or Edge (desktop)",
+        "state": "supported",
+        "steps": {
+          "1": "Sign in to Aipify in Chrome or Edge.",
+          "2": "Select Install Aipify from the menu or install page.",
+          "3": "Review the Aipify panel, then confirm in your browser dialog."
+        }
+      },
+      "android": {
+        "title": "Android (Chrome)",
+        "state": "supported",
+        "steps": {
+          "1": "Open app.aipify.ai in Chrome on Android.",
+          "2": "Tap Install Aipify or Add to Home screen when offered.",
+          "3": "Confirm in your browser, then open Aipify from your home screen."
+        }
+      },
+      "apple": {
+        "title": "iPhone, iPad, and Safari (macOS)",
+        "state": "limited",
+        "steps": {
+          "1": "Open app.aipify.ai in Safari.",
+          "2": "Share → Add to Home Screen (iOS/iPadOS) or File → Add to Dock (macOS Sonoma+ where available).",
+          "3": "Launch Aipify from the icon — sign in with your existing account."
+        }
+      }
+    }
+  },
+  "preferences": {
+    "sectionTitle": "Aipify Web App",
+    "sectionHint": "Install Aipify on this device for quick access with your existing workspace.",
+    "guideLink": "Read the installation guide"
+  },
+  "gettingStarted": {
+    "resourceTitle": "Install the Aipify Web App",
+    "resourceDescription": "Quick access from your home screen or taskbar with the same secure login."
+  }
+}

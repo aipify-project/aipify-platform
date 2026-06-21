@@ -1,0 +1,86 @@
+{
+  "installAipify": "Installer Aipify",
+  "installWebApp": "Installer Aipify Web App",
+  "openAsApp": "Åpne Aipify som app",
+  "installedTitle": "✅ Aipify er installert",
+  "installedHint": "Åpne Aipify fra hjemskjermen, docken eller oppgavelinjen.",
+  "modalTitle": "Installer Aipify Web App",
+  "modalDescription": "Legg Aipify til enheten din for rask tilgang fra hjemskjermen eller oppgavelinjen. Du bruker samme sikre innlogging, organisasjon og tillatelser som på app.aipify.ai.",
+  "benefit1": "Åpne Aipify med ett trykk fra hjemskjermen eller docken.",
+  "benefit2": "Bruk samme sikre workspace, roller og godkjenninger som du allerede stoler på.",
+  "benefit3": "Jobb i et dedikert appvindu uten nettleserfaner.",
+  "benefit4": "Støttes på stasjonær og mobil der installasjon er tilgjengelig.",
+  "benefit5": "Få forbedringer når Aipify publiserer oppdateringer — ingen separat produkt å administrere.",
+  "continueInstall": "Fortsett til installasjon",
+  "notNow": "Ikke nå",
+  "browserConfirmation": "Nettleseren din viser den endelige installasjonsbekreftelsen.",
+  "learnMore": "Les mer om installasjon",
+  "guideLink": "Installasjonsveiledning",
+  "installPage": {
+    "metaTitle": "Installer Aipify Web App",
+    "metaDescription": "Installer Aipify på stasjonær og mobil for rask tilgang med samme sikre workspace, innlogging og tillatelser.",
+    "heroTitle": "Installer Aipify Web App",
+    "heroSubtitle": "Åpne Aipify som en app — med samme innlogging, organisasjon og tillatelser som du allerede bruker.",
+    "whatIsTitle": "Hva er Aipify Web App?",
+    "whatIsBody": "Aipify Web App installerer Aipify på hjemskjermen, docken eller oppgavelinjen. Det er ikke et separat produkt, nettleserutvidelse eller second portal. Du fortsetter å bruke app.aipify.ai med eksisterende konto.",
+    "benefitsTitle": "Fordeler",
+    "devicesTitle": "Støttede enheter og nettlesere",
+    "instructionsTitle": "Installasjonsinstruksjoner",
+    "securityTitle": "Sikkerhet",
+    "securityBody": "Installasjon omgår ikke Aipify-innlogging, tofaktorautentisering eller organisasjonstillatelser. Sensitive handlinger krever fortsatt menneskelig godkjenning.",
+    "offlineTitle": "Offline-atferd",
+    "offlineBody": "Begrenset cachet innhold kan være tilgjengelig kortvarig, men Aipify er designet for tilkoblet operativt arbeid. Forvent ikke full offline-drift.",
+    "updatesTitle": "Oppdateringer",
+    "updatesBody": "Når du åpner den installerte appen, laster Aipify siste versjon fra våre servere. Oppdateringer vises ikke nødvendigvis umiddelbart før appen åpnes igjen.",
+    "removeTitle": "Fjern eller installer på nytt",
+    "removeBody": "Du kan fjerne den installerte appen fra nettleser- eller enhetsinnstillinger når som helst og installere på nytt senere.",
+    "faqTitle": "Ofte stilte spørsmål",
+    "faqIntro": "Vanlige spørsmål om installasjon og bruk av Aipify Web App.",
+    "viewAllFaqs": "Se alle FAQ i Knowledge Center",
+    "finalCtaTitle": "Klar til å installere Aipify?",
+    "finalCtaBody": "Bruk Installer Aipify der det støttes, eller følg plattforminstruksjonene nedenfor.",
+    "supportStates": {
+      "supported": "Støttet",
+      "limited": "Begrenset støtte",
+      "unsupported": "Støttes ikke for øyeblikket"
+    },
+    "platforms": {
+      "chromeDesktop": {
+        "title": "Chrome eller Edge (stasjonær)",
+        "state": "supported",
+        "steps": {
+          "1": "Logg inn på Aipify i Chrome eller Edge.",
+          "2": "Velg Installer Aipify fra menyen eller installasjonssiden.",
+          "3": "Gå gjennom Aipify-panelet, og bekreft i nettleserdialogen."
+        }
+      },
+      "android": {
+        "title": "Android (Chrome)",
+        "state": "supported",
+        "steps": {
+          "1": "Åpne app.aipify.ai i Chrome på Android.",
+          "2": "Trykk Installer Aipify eller Legg til på hjemskjerm når det tilbys.",
+          "3": "Bekreft i nettleseren, og åpne Aipify fra hjemskjermen."
+        }
+      },
+      "apple": {
+        "title": "iPhone, iPad og Safari (macOS)",
+        "state": "limited",
+        "steps": {
+          "1": "Åpne app.aipify.ai i Safari.",
+          "2": "Del → Legg til på Hjem-skjerm (iOS/iPadOS) eller Arkiv → Legg til i Dock (macOS der tilgjengelig).",
+          "3": "Start Aipify fra ikonet — logg inn med eksisterende konto."
+        }
+      }
+    }
+  },
+  "preferences": {
+    "sectionTitle": "Aipify Web App",
+    "sectionHint": "Installer Aipify på denne enheten for rask tilgang med eksisterende workspace.",
+    "guideLink": "Les installasjonsveiledningen"
+  },
+  "gettingStarted": {
+    "resourceTitle": "Installer Aipify Web App",
+    "resourceDescription": "Rask tilgang fra hjemskjermen eller oppgavelinjen med samme sikre innlogging."
+  }
+}

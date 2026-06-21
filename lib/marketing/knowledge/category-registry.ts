@@ -33,6 +33,7 @@ const VALID_CTA_HREFS = new Set([
   "/knowledge/operations",
   "/knowledge/business-operating-system",
   "/knowledge/articles/getting-started-with-aipify",
+  "/knowledge/articles/installing-aipify-web-app",
   "/knowledge/articles/what-is-a-business-companion",
   "/knowledge/articles/what-is-a-business-operating-system",
   "/knowledge/articles/governance-and-human-approval",
@@ -59,7 +60,10 @@ export const PUBLIC_KNOWLEDGE_CATEGORY_REGISTRY: PublicKnowledgeCategoryRegistry
   categoryEntry("getting-started", 1, {
     topicIds: ["topic1", "topic2", "topic3", "topic4"],
     relatedCategoryIds: ["companion", "business-operating-system", "governance"],
-    featuredArticleSlugs: featuredForCategory("getting-started", ["getting-started-with-aipify"]),
+    featuredArticleSlugs: featuredForCategory("getting-started", [
+      "installing-aipify-web-app",
+      "getting-started-with-aipify",
+    ]),
     ctaPrimaryHref: "/book-demo",
     ctaSecondaryHref: "/early-access",
   }),

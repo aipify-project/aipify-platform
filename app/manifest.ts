@@ -6,7 +6,9 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "Aipify",
     description:
       "Aipify Business Operating System — operational intelligence with human control for professional organizations.",
-    start_url: "/",
+    start_url: "/login",
+    scope: "/",
+    id: "/",
     display: "standalone",
     background_color: "#F7F6F3",
     theme_color: "#7C3AED",

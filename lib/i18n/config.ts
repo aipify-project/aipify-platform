@@ -46,6 +46,7 @@ export const NAMESPACES = [
   "settings",
   "install",
   "platform",
+  "pwa",
   "branding",
   "presence",
   "license",

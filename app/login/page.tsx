@@ -5,10 +5,11 @@ import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildPwaInstallLabels } from "@/lib/pwa/labels";
 
 export default async function LoginPage() {
   const locale = await getLocale();
-  const dict = await getDictionary(locale, ["common", "auth"]);
+  const dict = await getDictionary(locale, ["common", "auth", "pwa"]);
   const t = createTranslator(dict);
 
   return (
@@ -27,6 +28,7 @@ export default async function LoginPage() {
         }
       >
         <LoginForm
+          pwaLabels={buildPwaInstallLabels(t)}
           labels={{
             email: t("auth.login.email"),
             password: t("auth.login.password"),
@@ -37,6 +39,11 @@ export default async function LoginPage() {
             invalidCredentials: t("auth.errors.invalidCredentials"),
             requiredFields: t("auth.errors.requiredFields"),
             generic: t("auth.errors.generic"),
+            networkTitle: t("auth.errors.networkTitle"),
+            networkBody: t("auth.errors.networkBody"),
+            networkTryAgain: t("auth.errors.networkTryAgain"),
+            networkStatus: t("auth.errors.networkStatus"),
+            networkSupport: t("auth.errors.networkSupport"),
             trustSecurity: t("auth.login.trustSecurity"),
             trustTwoFactor: t("auth.login.trustTwoFactor"),
           }}

@@ -9,6 +9,7 @@ import {
   type AppLanguageSelectorLabels,
 } from "@/components/app/AppLanguageSelector";
 import type { AppLocale } from "@/lib/i18n/app-locales";
+import type { PwaInstallLabels } from "@/lib/pwa/types";
 import type { ReactNode } from "react";
 
 type TopbarProps = {
@@ -35,6 +36,7 @@ type TopbarProps = {
   openMenuLabel?: string;
   locale?: AppLocale;
   languageSelectorLabels?: AppLanguageSelectorLabels;
+  pwaLabels?: PwaInstallLabels;
 };
 
 export default function Topbar({
@@ -58,6 +60,7 @@ export default function Topbar({
   openMenuLabel = "Open menu",
   locale = "en",
   languageSelectorLabels,
+  pwaLabels,
 }: TopbarProps) {
   return (
     <header className={`sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:px-8 ${AipifyShellClasses.topbar}`}>
@@ -197,6 +200,7 @@ export default function Topbar({
           profileRoleKey={profileRoleKey}
           profileLoading={profileLoading}
           signOutLabel={signOutLabel}
+          pwaLabels={pwaLabels}
         />
       </div>
     </header>

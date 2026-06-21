@@ -5724,6 +5724,58 @@
           "2": "Executive portfolio views highlight client health and risks.",
           "3": "Finance and Support packs support billing-aware operations."
         }
+      },
+      "installing-aipify-web-app": {
+        "title": "Installing the Aipify Web App",
+        "metaDescription": "Install the Aipify Web App on desktop and mobile for quick access with the same secure workspace, login, and organization permissions.",
+        "introduction": "The Aipify Web App lets you open Aipify from your home screen, dock, or taskbar — using the same app.aipify.ai workspace, sign-in, and permissions you already trust. It is not a separate product or browser extension.",
+        "sections": [
+          {
+            "heading": "What is the Aipify Web App?",
+            "body": "The Aipify Web App installs Aipify to your device for quick access in a dedicated app window. You continue using app.aipify.ai with your existing account. It is not a second portal, browser extension, or standalone product license."
+          },
+          {
+            "heading": "Benefits",
+            "body": "Open Aipify in one tap from your home screen or dock. Work in a focused app window without browser tab clutter. Use the same secure workspace, roles, approvals, and Business Packs you already have. Receive improvements when Aipify releases updates — without managing a separate install package."
+          },
+          {
+            "heading": "Supported platforms",
+            "body": "Chrome and Edge on desktop support full installation with Install Aipify. Android Chrome supports Add to Home screen. iPhone, iPad, and Safari on macOS support Add to Home Screen or Add to Dock where the browser offers it — with limited standalone behavior compared to Chromium browsers."
+          },
+          {
+            "heading": "Security",
+            "body": "Installation does not bypass Aipify sign-in, two-factor authentication, or organization permissions. Sensitive actions still require human approval under your existing policies. The Web App uses the same secure session and tenant isolation as the browser workspace."
+          },
+          {
+            "heading": "Offline behavior",
+            "body": "Limited cached content may be available briefly, but Aipify is designed for connected operational work. Do not expect full offline operation. Sign-in, approvals, and live operational data require a network connection."
+          },
+          {
+            "heading": "Updates",
+            "body": "When you open the installed app, Aipify loads the latest release from our servers. Updates are not guaranteed to appear on your device until the app is opened again. You do not need to download or manage update packages manually."
+          },
+          {
+            "heading": "Remove or reinstall",
+            "body": "You can remove the installed app from your browser or device settings at any time. Your Aipify account, subscription, and organization data remain unchanged. Reinstall later from the Aipify install page, login screen, or your browser menu when installation is supported."
+          }
+        ],
+        "examples": [
+          {
+            "title": "Desktop workflow",
+            "body": "Sign in to app.aipify.ai in Chrome → Select Install Aipify → Review the Aipify panel → Confirm in your browser dialog → Open Aipify from your dock or taskbar."
+          },
+          {
+            "title": "Mobile workflow",
+            "body": "Open app.aipify.ai in Chrome on Android → Tap Install Aipify or Add to Home screen → Confirm → Launch from your home screen with the same sign-in."
+          }
+        ],
+        "keyTakeaways": {
+          "1": "The Aipify Web App is quick access to app.aipify.ai — not a separate product.",
+          "2": "Sign-in, two-factor authentication, and organization permissions remain fully enforced.",
+          "3": "You can remove or reinstall from device or browser settings without affecting your subscription."
+        },
+        "readingTime": "6 min read",
+        "publishedDate": "2026-06-21"
       }
     },
     "businessPacks": {
@@ -5900,6 +5952,120 @@
         "1": {
           "q": "Do we pay for packs we do not use?",
           "a": "Aipify is modular. Organizations license and activate only the Business Packs they need."
+        }
+      },
+      "installing-aipify-web-app": {
+        "1": {
+          "q": "What is the Aipify Web App?",
+          "a": "The Aipify Web App installs Aipify to your home screen, dock, or taskbar for quick access in a dedicated app window. You continue using app.aipify.ai with your existing account."
+        },
+        "2": {
+          "q": "Is it different from app.aipify.ai?",
+          "a": "No. The Web App opens the same Aipify workspace at app.aipify.ai. It is a convenient entry point — not a separate portal or product."
+        },
+        "3": {
+          "q": "Do I need a separate account?",
+          "a": "No. Use the same Aipify account and organization you already have. Installation does not create a second identity."
+        },
+        "4": {
+          "q": "Which browsers support installation?",
+          "a": "Chrome and Edge on desktop, Chrome on Android, and Safari on iOS, iPadOS, and macOS (where Add to Home Screen or Add to Dock is available). Support varies by platform and browser version."
+        },
+        "5": {
+          "q": "How do I install on Chrome or Edge desktop?",
+          "a": "Sign in to app.aipify.ai, select Install Aipify from the menu or install page, review the Aipify panel, then confirm in your browser installation dialog."
+        },
+        "6": {
+          "q": "How do I install on Android?",
+          "a": "Open app.aipify.ai in Chrome, tap Install Aipify or Add to Home screen when offered, confirm in your browser, then open Aipify from your home screen."
+        },
+        "7": {
+          "q": "How do I install on iPhone or iPad?",
+          "a": "Open app.aipify.ai in Safari, tap Share → Add to Home Screen, confirm, then launch Aipify from the icon. Sign in with your existing account."
+        },
+        "8": {
+          "q": "Why don't I see Install Aipify?",
+          "a": "Your browser or device may not support installation, you may already have the app installed, or installation may be limited on your platform. Try Chrome or Edge on desktop, or use Add to Home Screen in Safari on Apple devices."
+        },
+        "9": {
+          "q": "What happens when I choose Continue to installation?",
+          "a": "Aipify shows a summary of what installation means. Your browser then displays the final confirmation dialog. Installation completes only after you confirm in the browser."
+        },
+        "10": {
+          "q": "Can Aipify install without my confirmation?",
+          "a": "No. Installation always requires explicit confirmation in your browser or device dialog. Aipify never installs silently."
+        },
+        "11": {
+          "q": "Does the Web App work offline?",
+          "a": "Limited cached content may appear briefly, but Aipify requires a connection for sign-in, approvals, and live operational work. Do not expect full offline operation."
+        },
+        "12": {
+          "q": "How do updates work?",
+          "a": "When you open the installed app, Aipify loads the latest release from our servers. Updates appear when you next open the app — you do not manage update packages manually."
+        },
+        "13": {
+          "q": "Is the Web App secure?",
+          "a": "Yes. The Web App uses the same secure sign-in, session handling, and tenant isolation as app.aipify.ai. Installation does not weaken security controls."
+        },
+        "14": {
+          "q": "Does two-factor authentication still apply?",
+          "a": "Yes. Two-factor authentication and your organization's security policies apply exactly as they do in the browser workspace."
+        },
+        "15": {
+          "q": "Do my organization permissions stay the same?",
+          "a": "Yes. Roles, Business Pack access, and approval policies are identical in the Web App. Installation does not change permissions."
+        },
+        "16": {
+          "q": "Can I install on multiple devices?",
+          "a": "Yes. Install the Aipify Web App on each device you use. Each device maintains its own local install while sharing your account and organization settings."
+        },
+        "17": {
+          "q": "How do I open Aipify after installing?",
+          "a": "Open Aipify from your home screen icon, dock, taskbar entry, or app list — depending on your platform. You remain signed in when your session is active."
+        },
+        "18": {
+          "q": "How do I remove the Web App?",
+          "a": "Remove the installed app from your browser apps page, device home screen settings, or operating system app list. Your Aipify account and data are unaffected."
+        },
+        "19": {
+          "q": "Can I reinstall later?",
+          "a": "Yes. Reinstall from the Aipify install page, login screen, or your browser menu whenever installation is supported on your device."
+        },
+        "20": {
+          "q": "What is standalone mode?",
+          "a": "Standalone mode opens Aipify in a dedicated app window without browser chrome. Chromium browsers on desktop support full standalone behavior. Safari and some mobile installs may open more like a home screen shortcut."
+        },
+        "21": {
+          "q": "Does installation change my subscription?",
+          "a": "No. Installing the Web App does not change your plan, billing, or licensed Business Packs. It is only a local access method."
+        },
+        "22": {
+          "q": "Can I install from the login page?",
+          "a": "Yes. When your browser supports installation, Install Aipify is available from the login page and other entry points after you sign in."
+        },
+        "23": {
+          "q": "What data is stored on my device?",
+          "a": "Your device may store cached assets and session tokens needed for performance and sign-in convenience. Operational business data remains governed by Aipify Core — not duplicated as a full offline copy on your device."
+        },
+        "24": {
+          "q": "Does the Web App send notifications?",
+          "a": "If your organization enables Presence or desktop notifications and your browser allows them, notifications may appear for the installed app. You control notification preferences in Aipify settings and your device."
+        },
+        "25": {
+          "q": "Is this a browser extension?",
+          "a": "No. The Aipify Web App is a Progressive Web App install — not a browser extension from an extension store."
+        },
+        "26": {
+          "q": "What if installation fails?",
+          "a": "Try a supported browser, ensure you are signed in, clear the browser install prompt if stuck, and retry. Contact your administrator or Aipify support if the issue persists."
+        },
+        "27": {
+          "q": "Where can I get help?",
+          "a": "Contact your organization administrator for access issues. For product support, use your organization's Aipify support channel or visit the Knowledge Center and install guide."
+        },
+        "28": {
+          "q": "Where is the full installation guide?",
+          "a": "The full guide is available at /install on the Aipify website and in this Knowledge Center article. Platform-specific steps are listed for desktop, Android, and Apple devices."
         }
       }
     },

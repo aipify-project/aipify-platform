@@ -26,9 +26,10 @@ import {
   mergeDynamicWithFallbackNav,
   parseDynamicAppNavigation,
 } from "@/lib/dynamic-navigation";
-import { getAppLayoutDictionary } from "@/lib/i18n/get-dictionary";
+import { getAppLayoutDictionary, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildPwaInstallLabels } from "@/lib/pwa/labels";
 import { createClient } from "@/lib/supabase/server";
 
 /** Authenticated app shell — skip build-time static prerender (700+ routes). */
@@ -42,6 +43,9 @@ export default async function AppLayout({
   const locale = await getLocale();
   const dict = await getAppLayoutDictionary(locale);
   const t = createTranslator(dict);
+  const pwaDict = await getDictionary(locale, ["pwa"]);
+  const pwaT = createTranslator(pwaDict);
+  const pwaLabels = buildPwaInstallLabels(pwaT);
   const fallbackGroups = buildAppNavGroupConfig(t);
   const fallbackConfig = buildAppNavConfig(t);
 
@@ -182,6 +186,7 @@ export default async function AppLayout({
             labels: buildLayoutCommandBarLabels(t),
             navSources: customerNavSourcesFromSearchIndex(navSearchIndex),
           }}
+          pwaLabels={pwaLabels}
         >
           <NavigationUseTracker />
           {suspendedNotice ? (

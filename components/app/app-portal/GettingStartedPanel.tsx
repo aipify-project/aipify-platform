@@ -35,6 +35,12 @@ import {
 type Props = {
   labels: OnboardingLabels;
   locale: string;
+  webAppResource?: {
+    title: string;
+    description: string;
+    guideHref: string;
+    guideLabel: string;
+  };
 };
 
 const SECTION_ICONS: Record<string, LucideIcon> = {
@@ -61,7 +67,7 @@ function SectionHeading({ id, title }: { id: string; title: string }) {
   );
 }
 
-export function GettingStartedPanel({ labels, locale }: Props) {
+export function GettingStartedPanel({ labels, locale, webAppResource }: Props) {
   const [data, setData] = useState<OnboardingResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -435,6 +441,19 @@ export function GettingStartedPanel({ labels, locale }: Props) {
           </div>
         </dl>
       </section>
+
+      {webAppResource ? (
+        <section className={`${AppPremiumShell.elevatedCard} space-y-3 p-6`}>
+          <h2 className="text-lg font-semibold text-aipify-text">{webAppResource.title}</h2>
+          <p className="text-sm text-aipify-text-secondary">{webAppResource.description}</p>
+          <Link
+            href={webAppResource.guideHref}
+            className="inline-flex min-h-[44px] items-center text-sm font-medium text-aipify-companion hover:text-aipify-companion/80"
+          >
+            {webAppResource.guideLabel}
+          </Link>
+        </section>
+      ) : null}
     </div>
   );
 }

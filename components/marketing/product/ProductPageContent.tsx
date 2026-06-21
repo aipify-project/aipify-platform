@@ -21,9 +21,10 @@ const ProductEnginesExplorer = dynamic(() => import("./ProductEnginesExplorer"),
 type ProductPageContentProps = {
   content: ProductPageContent;
   appName: string;
+  installWebAppLabel: string;
 };
 
-export default function ProductPageContent({ content, appName }: ProductPageContentProps) {
+export default function ProductPageContent({ content, appName, installWebAppLabel }: ProductPageContentProps) {
   return (
     <>
       <ProductHero hero={content.hero} breadcrumbs={content.breadcrumbs} commandBrief={content.commandBriefHero} />
@@ -37,6 +38,16 @@ export default function ProductPageContent({ content, appName }: ProductPageCont
       <ProductGovernanceSection {...content.governance} />
       <ProductEnterpriseSection {...content.enterprise} />
       <ProductExpansionSection {...content.expansion} />
+
+      <div className={`${PublicMarketingClasses.container} pb-8 text-center`}>
+        <Link
+          href="/install"
+          className="text-sm font-semibold text-aipify-accent hover:text-aipify-companion"
+          {...marketingDataAttr("cta_click", "product_install_web_app")}
+        >
+          {installWebAppLabel} →
+        </Link>
+      </div>
 
       <div className="border-t border-aipify-border">
         <PublicCTA

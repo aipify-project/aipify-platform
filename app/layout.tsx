@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { PwaInstallShell } from "@/components/pwa/PwaInstallShell";
 import { SystemNoticeRootProvider } from "@/components/providers/SystemNoticeRootProvider";
 import { AIPIFY_GLOBAL_ICONS } from "@/lib/branding/favicon-metadata";
 import { getLocale } from "@/lib/i18n/get-locale";
 import "./globals.css";
+import { Geist, Geist_Mono } from "next/font/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,7 +57,9 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <SystemNoticeRootProvider>{children}</SystemNoticeRootProvider>
+        <SystemNoticeRootProvider>
+          <PwaInstallShell>{children}</PwaInstallShell>
+        </SystemNoticeRootProvider>
       </body>
     </html>
   );

@@ -35,7 +35,9 @@ import { getAppActiveNavId } from "@/lib/app/nav-config";
 import { getCustomerActiveNavId } from "@/lib/dashboard/nav-config";
 import { getPlatformActiveNavId } from "@/lib/platform/nav-config";
 import { getNavIcon } from "./nav-icons";
+import { AipifyWebAppInstallAction } from "@/components/pwa/AipifyWebAppInstallAction";
 import { coerceToAppLocale } from "@/lib/i18n/app-locales";
+import type { PwaInstallLabels } from "@/lib/pwa/types";
 
 type DashboardShellProps = {
   appName: string;
@@ -112,6 +114,7 @@ type DashboardShellProps = {
     navSources: CommandBarNavSource[];
   };
   voiceOfCustomerLabels?: VocWidgetLabels;
+  pwaLabels?: PwaInstallLabels;
   onMenuClick?: () => void;
   children: React.ReactNode;
 };
@@ -148,6 +151,7 @@ export default function DashboardShell({
   twoFactorBadgeLabels,
   commandBar,
   voiceOfCustomerLabels,
+  pwaLabels,
   children,
 }: DashboardShellProps) {
   if (commandBar) {
@@ -187,6 +191,7 @@ export default function DashboardShell({
           languageSelectorLabels={
             shellVariant === "customer" ? languageSelectorLabels : undefined
           }
+          pwaLabels={pwaLabels}
           shellUiLabels={shellUiLabels}
           organizationSwitcherLabels={organizationSwitcherLabels}
           twoFactorBadgeLabels={twoFactorBadgeLabels}
@@ -227,6 +232,7 @@ export default function DashboardShell({
       voiceOfCustomerLabels={voiceOfCustomerLabels}
       locale={locale}
       languageSelectorLabels={languageSelectorLabels}
+      pwaLabels={pwaLabels}
       shellUiLabels={shellUiLabels}
       organizationSwitcherLabels={organizationSwitcherLabels}
       twoFactorBadgeLabels={twoFactorBadgeLabels}
@@ -271,6 +277,7 @@ function DashboardShellFrame({
   organizationSwitcherLabels,
   twoFactorBadgeLabels,
   voiceOfCustomerLabels,
+  pwaLabels,
   commandBarLabels,
   children,
 }: DashboardShellFrameProps) {
@@ -434,6 +441,11 @@ function DashboardShellFrame({
                   />
                 </div>
               ) : null}
+              {shellVariant === "customer" && pwaLabels ? (
+                <div className="mb-4 rounded-xl border border-gray-200 bg-gray-50 p-3 lg:hidden">
+                  <AipifyWebAppInstallAction labels={pwaLabels} variant="button" showGuideLink={false} />
+                </div>
+              ) : null}
               {useGroupedSidebar ? (
                 <GroupedSidebar
                   groups={navGroups!}
@@ -505,6 +517,7 @@ function DashboardShellFrame({
           languageSelectorLabels={
             shellVariant === "customer" ? languageSelectorLabels : undefined
           }
+          pwaLabels={shellVariant === "customer" ? pwaLabels : undefined}
         />
 
         <main className="flex-1 overflow-y-auto px-4 py-6 pb-24 sm:px-6 sm:py-8 lg:px-8 lg:pb-8">

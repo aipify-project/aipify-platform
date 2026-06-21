@@ -6213,6 +6213,58 @@
           "2": "Portföljvyer för ledning visar kundhälsa och risk.",
           "3": "Finance- och Support-packs stödjer faktureringsmedveten drift."
         }
+      },
+      "installing-aipify-web-app": {
+        "title": "Installera Aipify Web App",
+        "metaDescription": "Installera Aipify Web App på desktop och mobil för snabb åtkomst med samma säkra arbetsyta, inloggning och organisationstillstånd.",
+        "introduction": "Aipify Web App låter dig öppna Aipify från hemskärmen, dockan eller aktivitetsfältet — med samma app.aipify.ai-arbetsyta, inloggning och behörigheter du redan litar på. Det är inte en separat produkt eller webbläsartillägg.",
+        "sections": [
+          {
+            "heading": "Vad är Aipify Web App?",
+            "body": "Aipify Web App installerar Aipify på din enhet för snabb åtkomst i ett dedikerat appfönster. Du fortsätter använda app.aipify.ai med ditt befintliga konto. Det är inte en second portal, webbläsartillägg eller separat produktlicens."
+          },
+          {
+            "heading": "Fördelar",
+            "body": "Öppna Aipify med ett tryck från hemskärmen eller dockan. Arbeta i ett fokuserat appfönster utan webbläsarflikar. Använd samma säkra arbetsyta, roller, godkännanden och Business Packs du redan har. Få förbättringar när Aipify släpper uppdateringar — utan att hantera en separat installation."
+          },
+          {
+            "heading": "Stödda plattformar",
+            "body": "Chrome och Edge på desktop stöder full installation med Installera Aipify. Android Chrome stöder Lägg till på hemskärmen. iPhone, iPad och Safari på macOS stöder Lägg till på hemskärmen eller Lägg till i Dock där webbläsaren erbjuder det — med mer begränsad standalone-beteende än Chromium-webbläsare."
+          },
+          {
+            "heading": "Säkerhet",
+            "body": "Installation kringgår inte Aipify-inloggning, tvåfaktorsautentisering eller organisationstillstånd. Känsliga åtgärder kräver fortfarande human godkännande under dina befintliga policyer. Web App använder samma säkra session och tenant-isolering som webbläsararbetsytan."
+          },
+          {
+            "heading": "Offline-beteende",
+            "body": "Begränsat cachelagrat innehåll kan vara tillgängligt tillfälligt, men Aipify är designad för uppkopplat operativt arbete. Förvänta inte full offline-funktion. Inloggning, godkännanden och live operativ data kräver nätverksanslutning."
+          },
+          {
+            "heading": "Uppdateringar",
+            "body": "När du öppnar den installerade appen laddar Aipify den senaste versionen från våra servrar. Uppdateringar visas inte nödvändigtvis på enheten förrän appen öppnas igen. Du behöver inte ladda ner eller hantera uppdateringspaket manuellt."
+          },
+          {
+            "heading": "Ta bort eller installera om",
+            "body": "Du kan ta bort den installerade appen från webbläsar- eller enhetsinställningar när som helst. Din Aipify-konto, prenumeration och organisationsdata förändras inte. Installera om senare från Aipify-installationssidan, inloggningssidan eller webbläsarmenyn när installation stöds."
+          }
+        ],
+        "examples": [
+          {
+            "title": "Desktop-arbetsflöde",
+            "body": "Logga in på app.aipify.ai i Chrome → Välj Installera Aipify → Granska Aipify-panelen → Bekräfta i webbläsarens installationsdialog → Öppna Aipify från dockan eller aktivitetsfältet."
+          },
+          {
+            "title": "Mobil-arbetsflöde",
+            "body": "Öppna app.aipify.ai i Chrome på Android → Tryck Installera Aipify eller Lägg till på hemskärmen → Bekräfta → Starta från hemskärmen med samma inloggning."
+          }
+        ],
+        "keyTakeaways": {
+          "1": "Aipify Web App är snabb åtkomst till app.aipify.ai — inte en separat produkt.",
+          "2": "Inloggning, tvåfaktorsautentisering och organisationstillstånd förblir fullt ut krävda.",
+          "3": "Du kan ta bort eller installera om från enhets- eller webbläsarinställningar utan att påverka prenumerationen."
+        },
+        "readingTime": "6 min läsning",
+        "publishedDate": "2026-06-21"
       }
     },
     "businessPacks": {
@@ -6389,6 +6441,120 @@
         "1": {
           "q": "Do we pay for packs we do not use?",
           "a": "Aipify is modular. Organizations license and activate only the Business Packs they need."
+        }
+      },
+      "installing-aipify-web-app": {
+        "1": {
+          "q": "Vad är Aipify Web App?",
+          "a": "Aipify Web App installerar Aipify på hemskärmen, dockan eller aktivitetsfältet för snabb åtkomst i ett dedikerat appfönster. Du fortsätter använda app.aipify.ai med ditt befintliga konto."
+        },
+        "2": {
+          "q": "Är det annorlunda från app.aipify.ai?",
+          "a": "Nej. Web App öppnar samma Aipify-arbetsyta på app.aipify.ai. Det är en praktisk ingång — inte en separat portal eller produkt."
+        },
+        "3": {
+          "q": "Behöver jag ett separat konto?",
+          "a": "Nej. Använd samma Aipify-konto och organisation du redan har. Installation skapar inte en second identitet."
+        },
+        "4": {
+          "q": "Vilka webbläsare stöder installation?",
+          "a": "Chrome och Edge på desktop, Chrome på Android, och Safari på iOS, iPadOS och macOS (där Lägg till på hemskärmen eller Lägg till i Dock är tillgängligt). Stöd varierar per plattform och webbläsarversion."
+        },
+        "5": {
+          "q": "Hur installerar jag på Chrome eller Edge desktop?",
+          "a": "Logga in på app.aipify.ai, välj Installera Aipify från menyn eller installationssidan, granska Aipify-panelen och bekräfta i webbläsarens installationsdialog."
+        },
+        "6": {
+          "q": "Hur installerar jag på Android?",
+          "a": "Öppna app.aipify.ai i Chrome, tryck Installera Aipify eller Lägg till på hemskärmen när det erbjuds, bekräfta i webbläsaren och öppna Aipify från hemskärmen."
+        },
+        "7": {
+          "q": "Hur installerar jag på iPhone eller iPad?",
+          "a": "Öppna app.aipify.ai i Safari, tryck Dela → Lägg till på hemskärmen, bekräfta och starta Aipify från ikonen. Logga in med ditt befintliga konto."
+        },
+        "8": {
+          "q": "Varför ser jag inte Installera Aipify?",
+          "a": "Din webbläsare eller enhet kanske inte stöder installation, appen kan redan vara installerad, eller installation kan vara begränsad på plattformen. Prova Chrome eller Edge på desktop, eller Lägg till på hemskärmen i Safari på Apple-enheter."
+        },
+        "9": {
+          "q": "Vad händer när jag väljer Fortsätt till installation?",
+          "a": "Aipify visar en sammanfattning av vad installation innebär. Webbläsaren visar sedan den slutliga bekräftelsedialogen. Installation slutförs bara efter att du bekräftar i webbläsaren."
+        },
+        "10": {
+          "q": "Kan Aipify installera utan min bekräftelse?",
+          "a": "Nej. Installation kräver alltid explicit bekräftelse i webbläsar- eller enhetsdialogen. Aipify installerar aldrig tyst."
+        },
+        "11": {
+          "q": "Fungerar Web App offline?",
+          "a": "Begränsat cachelagrat innehåll kan visas tillfälligt, men Aipify kräver anslutning för inloggning, godkännanden och live operativt arbete. Förvänta inte full offline-funktion."
+        },
+        "12": {
+          "q": "Hur fungerar uppdateringar?",
+          "a": "När du öppnar den installerade appen laddar Aipify den senaste versionen från våra servrar. Uppdateringar visas när du nästa gång öppnar appen — du hanterar inte uppdateringspaket manuellt."
+        },
+        "13": {
+          "q": "Är Web App säker?",
+          "a": "Ja. Web App använder samma säker inloggning, sessionshantering och tenant-isolering som app.aipify.ai. Installation försvagar inte säkerhetskontroller."
+        },
+        "14": {
+          "q": "Gäller tvåfaktorsautentisering fortfarande?",
+          "a": "Ja. Tvåfaktorsautentisering och organisationens säkerhetspolicyer gäller exakt som i webbläsararbetsytan."
+        },
+        "15": {
+          "q": "Förblir organisationstillstånden desamma?",
+          "a": "Ja. Roller, Business Pack-åtkomst och godkännandepolicyer är identiska i Web App. Installation ändrar inte behörigheter."
+        },
+        "16": {
+          "q": "Kan jag installera på flera enheter?",
+          "a": "Ja. Installera Aipify Web App på varje enhet du använder. Varje enhet har sin egen lokal installation medan konto och organisationsinställningar delas."
+        },
+        "17": {
+          "q": "Hur öppnar jag Aipify efter installation?",
+          "a": "Öppna Aipify från hemskärmsikonen, dockan, aktivitetsfältet eller applistan — beroende på plattform. Du förblir inloggad när sessionen är aktiv."
+        },
+        "18": {
+          "q": "Hur tar jag bort Web App?",
+          "a": "Ta bort den installerade appen från webbläsarens appsida, enhetens hemskärmsinställningar eller operativsystemets applista. Din Aipify-konto och data påverkas inte."
+        },
+        "19": {
+          "q": "Kan jag installera om senare?",
+          "a": "Ja. Installera om från Aipify-installationssidan, inloggningssidan eller webbläsarmenyn när installation stöds på enheten."
+        },
+        "20": {
+          "q": "Vad är standalone-läge?",
+          "a": "Standalone-läge öppnar Aipify i ett dedikerat appfönster utan webbläsarkrom. Chromium-webbläsare på desktop stöder full standalone-beteende. Safari och vissa mobilinstallationer kan fungera mer som en hemskärmsgenväg."
+        },
+        "21": {
+          "q": "Ändrar installation min prenumeration?",
+          "a": "Nej. Installation av Web App ändrar inte plan, fakturering eller licensierade Business Packs. Det är bara en lokal åtkomstmetod."
+        },
+        "22": {
+          "q": "Kan jag installera från inloggningssidan?",
+          "a": "Ja. När webbläsaren stöder installation är Installera Aipify tillgängligt från inloggningssidan och andra ingångar efter att du loggat in."
+        },
+        "23": {
+          "q": "Vilken data lagras på min enhet?",
+          "a": "Enheten kan lagra cachelagrade resurser och sessionstokens för prestanda och inloggningskomfort. Operativ affärsdata förblir styrd av Aipify Core — inte duplicerad som full offline-kopia på enheten."
+        },
+        "24": {
+          "q": "Skickar Web App aviseringar?",
+          "a": "Om organisationen aktiverar Presence eller desktop-aviseringar och webbläsaren tillåter det kan aviseringar visas för den installerade appen. Du kontrollerar aviseringsinställningar i Aipify och på enheten."
+        },
+        "25": {
+          "q": "Är detta ett webbläsartillägg?",
+          "a": "Nej. Aipify Web App är en Progressive Web App-installation — inte ett webbläsartillägg från en tilläggsbutik."
+        },
+        "26": {
+          "q": "Vad om installationen misslyckas?",
+          "a": "Prova en stödd webbläsare, se till att du är inloggad, rensa webbläsarens installationsdialog om den hänger, och försök igen. Kontakta administratör eller Aipify-support om problemet kvarstår."
+        },
+        "27": {
+          "q": "Var kan jag få hjälp?",
+          "a": "Kontakta organisationsadministratör för åtkomstproblem. För produktsupport, använd organisationens Aipify-supportkanal eller Knowledge Center och installationsguiden."
+        },
+        "28": {
+          "q": "Var är den fullständiga installationsguiden?",
+          "a": "Den fullständiga guiden finns på /install på Aipify-webbplatsen och i denna Knowledge Center-artikel. Plattformsspecifika steg listas för desktop, Android och Apple-enheter."
         }
       }
     },

@@ -14,6 +14,7 @@ type PublicKnowledgeArticlePageContentProps = {
   relatedArticleLinks: Array<{ slug: string; title: string }>;
   relatedBusinessPackLinks: Array<{ slug: string; name: string }>;
   categoryName: string;
+  faqs?: Array<{ q: string; a: string }>;
 };
 
 export default function PublicKnowledgeArticlePageContent({
@@ -24,6 +25,7 @@ export default function PublicKnowledgeArticlePageContent({
   relatedArticleLinks,
   relatedBusinessPackLinks,
   categoryName,
+  faqs = [],
 }: PublicKnowledgeArticlePageContentProps) {
   return (
     <>
@@ -116,6 +118,22 @@ export default function PublicKnowledgeArticlePageContent({
           features={article.relatedFeatures}
           integrations={article.relatedIntegrations}
         />
+
+        {faqs.length > 0 ? (
+          <section className="mt-12" aria-labelledby="article-faq">
+            <h2 id="article-faq" className="text-xl font-semibold text-aipify-text">
+              {labels.faqTitle}
+            </h2>
+            <dl className="mt-6 space-y-4">
+              {faqs.map((faq) => (
+                <div key={faq.q} className="rounded-xl border border-aipify-border bg-aipify-surface p-5">
+                  <dt className="font-medium text-aipify-text">{faq.q}</dt>
+                  <dd className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{faq.a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ) : null}
 
         <div className="mt-12 border-t border-aipify-border pt-8">
           <Link
