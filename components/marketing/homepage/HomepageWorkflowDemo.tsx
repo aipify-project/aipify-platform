@@ -8,12 +8,19 @@ type DemoStep = { title: string; detail: string };
 type HomepageWorkflowDemoProps = {
   title: string;
   subtitle: string;
+  ui: {
+    pauseDemo: string;
+    resumeDemo: string;
+    liveStep: string;
+    preparedLabel: string;
+    preparedDetail: string;
+  };
   steps: DemoStep[];
 };
 
 const STEP_MS = 3200;
 
-export default function HomepageWorkflowDemo({ title, subtitle, steps }: HomepageWorkflowDemoProps) {
+export default function HomepageWorkflowDemo({ title, subtitle, ui, steps }: HomepageWorkflowDemoProps) {
   const [activeStep, setActiveStep] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -80,7 +87,7 @@ export default function HomepageWorkflowDemo({ title, subtitle, steps }: Homepag
                   onClick={() => setPaused((p) => !p)}
                   className="mt-4 text-sm font-medium text-aipify-accent hover:text-aipify-companion"
                 >
-                  {paused ? "Resume demo" : "Pause demo"}
+                  {paused ? ui.resumeDemo : ui.pauseDemo}
                 </button>
               ) : null}
             </div>
@@ -88,13 +95,13 @@ export default function HomepageWorkflowDemo({ title, subtitle, steps }: Homepag
             <div className="bg-[#1e293b] p-6 text-slate-100">
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-emerald-400" aria-hidden="true" />
-                <p className="text-xs font-medium uppercase tracking-wide text-slate-300">Live step</p>
+                <p className="text-xs font-medium uppercase tracking-wide text-slate-300">{ui.liveStep}</p>
               </div>
               <p className="mt-4 text-lg font-semibold text-white">{step?.title}</p>
               <p className="mt-2 text-sm leading-relaxed text-slate-200">{step?.detail}</p>
               <div className="mt-6 rounded-lg border border-slate-600/80 bg-slate-800/80 px-4 py-3">
-                <p className="text-xs font-medium text-violet-300">Aipify prepared</p>
-                <p className="mt-1 text-sm text-slate-100">Draft ready · Awaiting human approval · Audit trail active</p>
+                <p className="text-xs font-medium text-violet-300">{ui.preparedLabel}</p>
+                <p className="mt-1 text-sm text-slate-100">{ui.preparedDetail}</p>
               </div>
             </div>
           </div>

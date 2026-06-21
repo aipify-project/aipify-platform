@@ -4,13 +4,6 @@ import type { ProductPageContent } from "@/lib/marketing/parse-product-page";
 
 type ProductEnterpriseSectionProps = ProductPageContent["enterprise"];
 
-const STATUS_LABELS: Record<ProductPageContent["enterprise"]["pillars"][number]["status"], string> = {
-  available: "Available",
-  custom: "Custom",
-  planned: "Planned",
-  enterprise_only: "Enterprise",
-};
-
 const STATUS_STYLES: Record<ProductPageContent["enterprise"]["pillars"][number]["status"], string> = {
   available: "border-emerald-200 bg-emerald-50 text-emerald-800",
   custom: "border-violet-200 bg-violet-50 text-violet-800",
@@ -18,9 +11,18 @@ const STATUS_STYLES: Record<ProductPageContent["enterprise"]["pillars"][number][
   enterprise_only: "border-indigo-200 bg-indigo-50 text-indigo-800",
 };
 
-export default function ProductEnterpriseSection({ title, pillars, trust }: ProductEnterpriseSectionProps) {
+export default function ProductEnterpriseSection({
+  title,
+  pillars,
+  trust,
+  statusLabels,
+}: ProductEnterpriseSectionProps) {
   return (
-    <section id="enterprise" className={`scroll-mt-20 ${AipifyMarketingClasses.sectionAlt}`} aria-labelledby="product-enterprise-title">
+    <section
+      id="enterprise"
+      className={`scroll-mt-20 ${AipifyMarketingClasses.sectionAlt}`}
+      aria-labelledby="product-enterprise-title"
+    >
       <div className={`${PublicMarketingClasses.container} py-14 sm:py-16`}>
         <div className="max-w-2xl">
           <h2 id="product-enterprise-title" className={PublicMarketingClasses.sectionHeading}>
@@ -37,7 +39,7 @@ export default function ProductEnterpriseSection({ title, pillars, trust }: Prod
                   <span
                     className={`shrink-0 rounded-full border px-2.5 py-0.5 text-xs font-semibold ${STATUS_STYLES[pillar.status]}`}
                   >
-                    {STATUS_LABELS[pillar.status]}
+                    {statusLabels[pillar.status]}
                   </span>
                 </div>
                 <p className={PublicMarketingClasses.cardBody}>{pillar.benefit}</p>

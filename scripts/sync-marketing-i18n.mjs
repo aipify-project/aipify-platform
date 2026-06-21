@@ -7,11 +7,12 @@ import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { translateMarketingTree } from "../lib/marketing/i18n/marketing-translator.mjs";
+import { MARKETING_SURFACE_PATCHES } from "../lib/marketing/i18n/marketing-surface-patches.mjs";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const TARGET_LOCALES = ["no", "sv", "da"];
 
-/** Top-level sections added in English redesign — must exist in all core marketing locales. */
+/** Top-level sections synced from English with phrase translation + overrides. */
 const SECTIONS_TO_SYNC = [
   "homepageRedesign",
   "platformAuthority",
@@ -19,6 +20,14 @@ const SECTIONS_TO_SYNC = [
   "publicPages",
   "growthPartnersPageRedesign",
   "knowledgePageRedesign",
+  "meta",
+  "nav",
+  "footer",
+  "hero",
+  "valueStrip",
+  "trustBar",
+  "pricingPage",
+  "installPage",
 ];
 
 function loadJson(rel) {
@@ -57,8 +66,16 @@ for (const locale of TARGET_LOCALES) {
 
   for (const section of SECTIONS_TO_SYNC) {
     if (!en[section]) continue;
+    if (section === "nav" || section === "footer") {
+      continue;
+    }
     const translated = translateMarketingTree(en[section], locale, section);
-    target[section] = translated;
+    target[section] = deepMerge(translated, target[section] ?? {});
+  }
+
+  const surfacePatch = MARKETING_SURFACE_PATCHES[locale];
+  if (surfacePatch) {
+    target = deepMerge(target, surfacePatch);
   }
 
   // Hoist publicPages if it was incorrectly nested under digitalHeadquarters

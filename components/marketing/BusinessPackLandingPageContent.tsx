@@ -12,6 +12,7 @@ type BusinessPackLandingPageContentProps = {
   labels: PublicKnowledgeHubLabels;
   relatedArticleLinks: Array<{ slug: string; title: string }>;
   ctaBand: MarketingCtaBandLabels;
+  breadcrumbs: { home: string; businessPacks: string };
 };
 
 export default function BusinessPackLandingPageContent({
@@ -19,6 +20,7 @@ export default function BusinessPackLandingPageContent({
   labels,
   relatedArticleLinks,
   ctaBand,
+  breadcrumbs,
 }: BusinessPackLandingPageContentProps) {
   return (
     <>
@@ -26,8 +28,8 @@ export default function BusinessPackLandingPageContent({
         title={pack.headline}
         subtitle={pack.introduction}
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Business Packs", href: "/pricing#business-packs" },
+          { label: breadcrumbs.home, href: "/" },
+          { label: breadcrumbs.businessPacks, href: "/pricing#business-packs" },
           { label: pack.name },
         ]}
       />

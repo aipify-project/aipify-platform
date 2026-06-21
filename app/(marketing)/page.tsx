@@ -57,6 +57,7 @@ export default async function MarketingHomePage() {
       <HomepageWorkflowDemo
         title={content.workflowDemo.title}
         subtitle={content.workflowDemo.subtitle}
+        ui={content.workflowDemo.ui}
         steps={content.workflowDemo.steps}
       />
 

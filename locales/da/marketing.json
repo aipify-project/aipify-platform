@@ -40,61 +40,61 @@
     "partners": "Partnere",
     "resources": "Ressourcer",
     "company": "Virksomhed",
-    "product": "Product",
-    "modules": "Modules",
+    "product": "Produkt",
+    "modules": "Moduler",
     "whyAipify": "Hvorfor Aipify",
     "customerStories": "Kundehistorier",
     "pricing": "Priser",
-    "security": "Security",
+    "security": "Sikkerhed",
     "pilot": "Pilot",
-    "knowledge": "Knowledge",
+    "knowledge": "Videnscenter",
     "growthPartners": "Growth Partners",
-    "earlyAccess": "Early Access",
+    "earlyAccess": "Tidlig adgang",
     "bookDemo": "Book demo",
-    "contact": "Contact",
+    "contact": "Kontakt",
     "careers": "Karriere",
     "media": "Medier",
-    "controlCenter": "Control Center",
-    "login": "Login",
-    "getStarted": "Get Started"
+    "controlCenter": "Kontrolcenter",
+    "login": "Log ind",
+    "getStarted": "Kom i gang"
   },
   "footer": {
-    "tagline": "Aipify Business Operating System (ABOS) — install-first operational intelligence for modern teams.",
+    "tagline": "Aipify Business Operating System (ABOS) — operationel intelligens med menneskelig kontrol indbygget.",
     "companyName": "Aipify Group AS",
     "headquarters": "Bergen, Norge",
     "businessOperatingSystem": "Business Operating System",
-    "description": "Bygger intelligente forretningssystemer designet til at hjælpe organisationer med at arbejde smartere, reagere hurtigere og vokse med tillid.",
+    "description": "Bygger intelligente forretningssystemer — et komplet Business Operating System med styring, operationel dybde og menneskelig kontrol.",
     "signature": "Norge. For verden.",
     "brandSignatureLine1": "Aipify Group AS",
-    "brandSignatureLine2": "Bergen. Norge. For the world.",
-    "finalSignature": "Bergen. Norge. For the world.",
+    "brandSignatureLine2": "Bergen. Norge. For verden.",
+    "finalSignature": "Bergen. Norge. For verden.",
     "foundingPrinciple": "Vores ambition er global. Vores værdier forbliver norske.",
-    "product": "Product",
+    "product": "Produkt",
     "products": "Produkter",
     "businessPacks": "Business Packs",
     "enterprise": "Enterprise",
     "companyPage": "Om Aipify",
     "careers": "Karriere",
     "media": "Medier",
-    "company": "Company",
-    "legal": "Legal",
-    "privacy": "Privacy",
-    "terms": "Terms",
+    "company": "Virksomhed",
+    "legal": "Juridisk",
+    "privacy": "Privatliv",
+    "terms": "Vilkår",
     "security": "Sikkerhed",
     "knowledge": "Viden",
-    "growthPartnerTerms": "Growth Partner Terms",
-    "contact": "Contact",
-    "earlyAccess": "Early Access",
+    "growthPartnerTerms": "Growth Partner-vilkår",
+    "contact": "Kontakt",
+    "earlyAccess": "Tidlig adgang",
     "bookDemo": "Book demo",
     "growthPartners": "Growth Partners",
-    "copyright": "Aipify Group AS. All rights reserved.",
-    "privacyNote": "Aipify does not monitor employees or conduct workplace surveillance.",
+    "copyright": "Aipify Group AS. Alle rettigheder forbeholdes.",
+    "privacyNote": "Aipify assisterer medarbejdere. Aipify overvåger ikke skærme, tastetryk, private filer eller browserhistorik.",
     "languageRegion": "Sprog og region",
-    "languageRegionHint": "Vælg dit foretrukne sprog.",
+    "languageRegionHint": "Vælg foretrukket sprog.",
     "languageActive": "Aktivt sprog",
     "languageChange": "Skift sprog",
     "languageComingLater": "Kommer senere",
-    "languageSwitchFailed": "Sprogændring mislykkedes.",
+    "languageSwitchFailed": "Sprogsskift mislykkedes.",
     "languageRetry": "Prøv igen"
   },
   "hero": {
@@ -133,8 +133,8 @@
       "explorePacks": "Udforsk Business Packs"
     },
     "commandBrief": {
-      "title": "Your organization, summarized before you start the day.",
-      "subtitle": "Aipify brings the most important information to you instead of making you search through multiple systems.",
+      "title": "Din organisation, opsummeret før du starter dagen.",
+      "subtitle": "Aipify bringer den vigtigste information til dig — i stedet for at du skal søge i flere systemer.",
       "panelTitle": "Command Brief",
       "sinceLastLogin": "Siden sidste login",
       "aipifyCompleted": "Aipify fuldførte",
@@ -142,214 +142,221 @@
       "recommendedActions": "Anbefalede handlinger",
       "organizationStatus": "Organisationsstatus",
       "sinceItems": {
-        "1": "14 support cases updated · 3 escalations resolved",
-        "2": "2 approval requests completed · 1 pending review",
-        "3": "Knowledge Center: 4 articles approved"
+        "1": "14 supportsager opdateret · 3 eskaleringer løst",
+        "2": "2 godkendelsesanmodninger fuldført · 1 afventer gennemgang",
+        "3": "Videnscenter: 4 artikler godkendt"
       },
       "completedItems": {
-        "1": "Drafted 6 support responses for review",
-        "2": "Prepared executive summary for operations",
-        "3": "Flagged subscription renewal context for finance"
+        "1": "Udkast til 6 supportsvar forberedt til gennemgang",
+        "2": "Ledelsesopsummering for drift forberedt",
+        "3": "Abonnementsfornyelse markeret for økonomi"
       },
       "attentionItems": {
-        "1": "1 high-priority approval awaiting owner decision",
-        "2": "Support queue spike in billing category",
-        "3": "Guest check-in workflow needs policy confirmation"
+        "1": "1 højprioriteret godkendelse afventer ejerbeslutning",
+        "2": "Stigning i supportkø i faktureringskategori",
+        "3": "Check-in-flow for gæster kræver bekræftelse af retningslinjer"
       },
       "actionItems": {
-        "1": "Review prepared support draft — Billing dispute",
-        "2": "Approve updated escalation policy",
-        "3": "Schedule follow-up with operations lead"
+        "1": "Gennemgå forberedt supportudkast — Faktureringstvist",
+        "2": "Godkend opdateret eskaleringspolitik",
+        "3": "Planlæg opfølgning med driftsleder"
       },
       "statusItems": {
-        "1": "Support: Active",
-        "2": "Styring: 1 pending",
-        "3": "Hosts pack: Operational",
-        "4": "License: Healthy"
+        "1": "Support: Aktiv",
+        "2": "Styring: 1 afventer",
+        "3": "Hosts pack: I drift",
+        "4": "Licens: OK"
       }
     },
     "coreOutcomes": {
-      "title": "Operational clarity without another dashboard.",
+      "title": "Operationel overblik uden endnu et dashboard.",
       "items": {
         "1": {
-          "title": "Know what changed",
-          "description": "Aipify summarizes activity, risk, approvals and important operational changes across your organization."
+          "title": "Vid hvad der ændrede sig",
+          "description": "Aipify opsummerer aktivitet, risiko, godkendelser og vigtige operationelle ændringer i organisationen."
         },
         "2": {
-          "title": "Know what needs you",
-          "description": "Human decisions, approvals and exceptions are clearly prioritized — never buried in noise."
+          "title": "Vid hvad der har brug for dig",
+          "description": "Menneskelige beslutninger, godkendelser og undtagelser prioriteres tydeligt — aldrig begravet i støj."
         },
         "3": {
-          "title": "Let Aipify prepare the work",
-          "description": "Aipify prepares drafts, recommendations, follow-ups and approved next steps while you stay in control."
+          "title": "Lad Aipify forberede arbejdet",
+          "description": "Aipify forbereder udkast, anbefalinger, opfølgninger og godkendte næste skridt — du beholder kontrollen."
         }
       }
     },
     "simpleFlow": {
-      "title": "How Aipify works",
-      "subtitle": "Connect what you already use. Coordinate work with governance built in.",
-      "learnMore": "Learn how Aipify works",
+      "title": "Sådan fungerer Aipify",
+      "subtitle": "Forbind det du allerede bruger. Koordiner arbejde med indbygget styring.",
+      "learnMore": "Lær hvordan Aipify fungerer",
       "steps": {
         "1": {
-          "title": "Connect existing systems",
-          "description": "Install Aipify into your admin, store, or custom environment."
+          "title": "Forbind eksisterende systemer",
+          "description": "Installer Aipify i admin, butik eller tilpasset miljø."
         },
         "2": {
-          "title": "Gather approved context",
-          "description": "Knowledge, policies and organizational memory from approved sources."
+          "title": "Saml godkendt kontekst",
+          "description": "Viden, politikker og organisationshukommelse fra godkendte kilder."
         },
         "3": {
-          "title": "Coordinate work",
-          "description": "Support, operations and Business Pack activity in one place."
+          "title": "Koordiner arbejde",
+          "description": "Support, drift og Business Pack-aktivitet ét sted."
         },
         "4": {
-          "title": "Recommend next actions",
-          "description": "Aipify prepares drafts, insights and prioritized follow-ups."
+          "title": "Anbefal næste handlinger",
+          "description": "Aipify forbereder udkast, indsigt og prioriterede opfølgninger."
         },
         "5": {
-          "title": "Human approval",
-          "description": "Mennesker review, edit and approve before anything sensitive runs."
+          "title": "Menneskelig godkendelse",
+          "description": "Dit team gennemgår, redigerer og godkender før følsomme handlinger køres."
         },
         "6": {
-          "title": "Governed execution",
-          "description": "Approved workflows execute within explicit trust policies."
+          "title": "Styret eksekvering",
+          "description": "Godkendte arbejdsgange køres inden for eksplicitte tillidsregler."
         },
         "7": {
-          "title": "Audit trail",
-          "description": "Every action logged with explainability for enterprise trust."
+          "title": "Revisionsspor",
+          "description": "Hver handling logges med forklaring for enterprise-tillid."
         }
       }
     },
     "businessPacks": {
-      "title": "Choose the capabilities your organization needs.",
-      "subtitle": "Activate modular Business Packs without buying software you will never use.",
-      "viewDetails": "View details",
-      "exploreAll": "Explore all Business Packs",
+      "title": "Vælg de kapabiliteter organisationen har brug for.",
+      "subtitle": "Aktiver modulære Business Packs uden at købe software du aldrig bruger.",
+      "viewDetails": "Se detaljer",
+      "exploreAll": "Udforsk alle Business Packs",
       "packs": {
         "hosts": {
           "name": "Hosts",
-          "audience": "Hospitality & property operators",
-          "value": "Guest workflows, property coordination and operational briefings.",
+          "audience": "Gæste- og ejendomsoperatører",
+          "value": "Gæstearbejdsgange, ejendomskoordinering og operationelle briefings.",
           "href": "/business-packs/hosts"
         },
         "support": {
           "name": "Support",
-          "audience": "Support & customer success teams",
-          "value": "Triage, knowledge search, draft responses and governed escalation.",
+          "audience": "Support- og kundesuccessteams",
+          "value": "Triage, vidensøgning, svarudkast og styret eskalering.",
           "href": "/business-packs/support"
         },
         "commerce": {
           "name": "Commerce",
-          "audience": "Commerce & retail operations",
-          "value": "Order visibility, fulfillment coordination and customer context.",
+          "audience": "Handel og detail",
+          "value": "Ordreoversigt, leveringskoordinering og kundekontekst.",
           "href": "/business-packs/commerce"
         },
         "services": {
           "name": "Services",
-          "audience": "Professional services & consulting",
-          "value": "Client delivery, knowledge reuse and engagement visibility.",
+          "audience": "Professionelle tjenester og rådgivning",
+          "value": "Leverance, genbrug af viden og engagementsoversigt.",
           "href": "/business-packs/services"
         },
         "projects": {
           "name": "Projects",
-          "audience": "Project & delivery teams",
-          "value": "Milestone tracking, assignments and operational status reporting.",
+          "audience": "Projekt- og leveranceteams",
+          "value": "Milepæle, tildelinger og operationel statusrapportering.",
           "href": "/business-packs/projects"
         },
         "finance": {
           "name": "Finance",
-          "audience": "Finance & business operations",
-          "value": "Billing awareness, subscription context and operational finance alerts.",
+          "audience": "Økonomi og forretningsdrift",
+          "value": "Faktureringsoversigt, abonnementskontekst og operationelle økonomi-advarsler.",
           "href": "/business-packs/finance"
         }
       }
     },
     "workflowDemo": {
-      "title": "Aipify in practice",
-      "subtitle": "A grounded workflow from support request to governed response.",
+      "title": "Aipify i praksis",
+      "subtitle": "En konkret arbejdsgang fra supportanmodning til styret svar.",
+      "ui": {
+        "pauseDemo": "Pause demo",
+        "resumeDemo": "Fortsæt demo",
+        "liveStep": "Aktivt trin",
+        "preparedLabel": "Aipify forberedte",
+        "preparedDetail": "Udkast klar · Afventer menneskelig godkendelse · Revisionsspor aktivt"
+      },
       "steps": {
         "1": {
-          "title": "Support request arrives",
-          "detail": "A customer inquiry enters from email, chat, or your admin."
+          "title": "Supportanmodning modtages",
+          "detail": "En kundeforespørgsel kommer ind via e-mail, chat eller admin."
         },
         "2": {
-          "title": "Knowledge search",
-          "detail": "Approved knowledge sources are searched — metadata only."
+          "title": "Vidensøgning",
+          "detail": "Godkendte videnskilder søges — kun metadata."
         },
         "3": {
-          "title": "Draft prepared",
-          "detail": "A business-ready response draft is prepared for review."
+          "title": "Udkast forberedt",
+          "detail": "Et forretningsklart svarudkast forberedes til gennemgang."
         },
         "4": {
-          "title": "Human approval",
-          "detail": "Your team approves, edits, or delegates future handling."
+          "title": "Menneskelig godkendelse",
+          "detail": "Dit team godkender, redigerer eller delegerer fremtidig håndtering."
         },
         "5": {
-          "title": "Response sent",
-          "detail": "The approved response is sent through your existing channels."
+          "title": "Svar sendt",
+          "detail": "Det godkendte svar sendes via dine eksisterende kanaler."
         },
         "6": {
-          "title": "Audit logged",
-          "detail": "Action, approver and outcome recorded in the audit trail."
+          "title": "Revision logget",
+          "detail": "Handling, godkender og resultat registreres i revisionssporet."
         }
       }
     },
     "enterpriseTrust": {
-      "title": "Enterprise trust, built in.",
-      "subtitle": "Styring and human control are part of the platform — not an afterthought.",
-      "exploreEnterprise": "Explore Enterprise",
+      "title": "Enterprise-tillid, indbygget.",
+      "subtitle": "Styring og menneskelig kontrol er en del af platformen — ikke en eftertanke.",
+      "exploreEnterprise": "Udforsk Enterprise",
       "points": {
         "rbac": {
-          "title": "Role-based access",
-          "description": "Permissions mapped to your organizational roles — owner, admin, support, staff, and read-only."
+          "title": "Rollebaseret adgang",
+          "description": "Tilladelser knyttet til organisationsroller — ejer, admin, support, medarbejder og skrivebeskyttet."
         },
         "approval": {
-          "title": "Human approval",
-          "description": "Aipify recommends and prepares. Mennesker decide before sensitive actions run."
+          "title": "Menneskelig godkendelse",
+          "description": "Aipify anbefaler og forbereder. Mennesker bestemmer før følsomme handlinger køres."
         },
         "audit": {
-          "title": "Audit logging",
-          "description": "Actions, approvals and configuration changes logged with explainability."
+          "title": "Revisionslogning",
+          "description": "Handlinger, godkendelser og konfigurationsændringer logges med forklaring."
         },
         "tenant": {
-          "title": "Tenant isolation",
-          "description": "Every customer scoped by tenant — no cross-tenant data in customer surfaces."
+          "title": "Tenant-isolation",
+          "description": "Hver kunde afgrænses per tenant — ingen kryds-tenant-data i kundeflader."
         },
         "automation": {
-          "title": "Governed automation",
-          "description": "Gradually delegate approved workflows — explicit, reversible, auditable."
+          "title": "Styret automatisering",
+          "description": "Deleger gradvist godkendte arbejdsgange — eksplicit, reversibelt, reviderbart."
         },
         "deployment": {
-          "title": "Enterprise deployment options",
-          "description": "SSO readiness, procurement-friendly governance and deployment flexibility."
+          "title": "Enterprise-distribution",
+          "description": "SSO-klarhed, indkøbsvenlig styring og fleksibel distribution."
         }
       }
     },
     "companion": {
-      "title": "One Aipify — connected to your operations",
-      "subtitle": "The Companion is not a separate chatbot. It is how Aipify stays present — tasks, approvals, briefings, and guidance in one identity.",
-      "learnMore": "Explore the platform",
+      "title": "Én Aipify — forbundet til din drift",
+      "subtitle": "Companion er ikke en separat chatbot. Det er hvordan Aipify forbliver til stede — opgaver, godkendelser, briefings og vejledning i én identitet.",
+      "learnMore": "Udforsk platformen",
       "capabilities": {
         "observes": {
-          "title": "Observes",
-          "description": "Overflades operational changes from approved sources."
+          "title": "Observerer",
+          "description": "Viser operationelle ændringer fra godkendte kilder."
         },
         "prepares": {
-          "title": "Prepares",
-          "description": "Drafts, summaries and next steps ready for review."
+          "title": "Forbereder",
+          "description": "Udkast, opsummeringer og næste skridt klar til gennemgang."
         },
         "recommends": {
-          "title": "Recommends",
-          "description": "Prioritized actions with context — humans always decide."
+          "title": "Anbefaler",
+          "description": "Prioriterede handlinger med kontekst — mennesker bestemmer altid."
         }
       }
     },
     "finalCta": {
-      "title": "Ready to see Aipify in your organization?",
-      "subtitle": "Book a demonstration or request early access. Aipify Group AS — Bergen, Norway. For the world.",
+      "title": "Klar til at se Aipify i din organisation?",
+      "subtitle": "Book en demonstration eller anmod om tidlig adgang. Aipify Group AS — Bergen, Norge. For the world.",
       "bookDemo": "Book demo",
       "earlyAccess": "Anmod om tidlig adgang",
-      "earlyAccessDivider": "Or request early access"
+      "earlyAccessDivider": "Eller anmod om tidlig adgang"
     }
   },
   "valueStrip": {
@@ -2726,6 +2733,12 @@
     },
     "enterprise": {
       "title": "Built for professional and enterprise organizations.",
+      "statusLabels": {
+        "available": "Tilgængelig",
+        "custom": "Custom",
+        "planned": "Planned",
+        "enterprise_only": "Enterprise"
+      },
       "pillars": {
         "1": {
           "title": "Multi-tenant architecture",
@@ -7648,7 +7661,20 @@
       "breadcrumbHome": "Hjem",
       "breadcrumbKnowledge": "Knowledge Center"
     },
-    "localesNote": "Tilgængelig in English, Norwegian, Swedish, and Danish. German, Spanish, French, and Polish planned."
+    "localesNote": "Tilgængelig in English, Norwegian, Swedish, and Danish. German, Spanish, French, and Polish planned.",
+    "hub": {
+      "eyebrow": "VIDENSCENTER",
+      "title": "Lær hvordan Aipify moderniserer drift",
+      "subtitle": "Guider, artikler og brancheindsigt — med styret intelligens, operationel overblik og menneskecentreret design.",
+      "browseCategories": "Gennemse kategorier",
+      "featuredArticles": "Udvalgte artikler",
+      "industryGuides": "Brancheguider",
+      "businessPacks": "Business Packs",
+      "viewAllArticles": "Se alle artikler",
+      "readArticle": "Læs artikel",
+      "readGuide": "Læs guide",
+      "backToKnowledge": "Tilbage til Videnscenter"
+    }
   },
   "businessPackDetailPages": {
     "shared": {
@@ -7673,7 +7699,7 @@
       },
       "ctas": {
         "bookDemo": "Book a demo",
-        "viewDetails": "View details",
+        "viewDetails": "Se detaljer",
         "exploreBusinessPacks": "Udforsk Business Packs"
       },
       "planNames": {

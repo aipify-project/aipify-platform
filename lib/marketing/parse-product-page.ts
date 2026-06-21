@@ -141,6 +141,7 @@ export type ProductPageContent = {
   };
   enterprise: {
     title: string;
+    statusLabels: Record<"available" | "custom" | "planned" | "enterprise_only", string>;
     pillars: Array<{ title: string; benefit: string; example: string; status: "available" | "custom" | "planned" | "enterprise_only" }>;
     trust: Array<{ title: string; body: string }>;
   };
@@ -479,6 +480,14 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
     },
     enterprise: {
       title: String(entSection?.title ?? "Built for professional and enterprise organizations."),
+      statusLabels: {
+        available: String((entSection?.statusLabels as Record<string, string>)?.available ?? "Available"),
+        custom: String((entSection?.statusLabels as Record<string, string>)?.custom ?? "Custom"),
+        planned: String((entSection?.statusLabels as Record<string, string>)?.planned ?? "Planned"),
+        enterprise_only: String(
+          (entSection?.statusLabels as Record<string, string>)?.enterprise_only ?? "Enterprise",
+        ),
+      },
       pillars: parseEnterprisePillars(entSection),
       trust: parseTrustItems(entSection),
     },

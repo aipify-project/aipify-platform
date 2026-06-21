@@ -266,6 +266,13 @@
     "workflowDemo": {
       "title": "Aipify in practice",
       "subtitle": "A grounded workflow from support request to governed response.",
+      "ui": {
+        "pauseDemo": "Pause demo",
+        "resumeDemo": "Resume demo",
+        "liveStep": "Live step",
+        "preparedLabel": "Aipify prepared",
+        "preparedDetail": "Draft ready · Awaiting human approval · Audit trail active"
+      },
       "steps": {
         "1": {
           "title": "Support request arrives",
@@ -2692,6 +2699,12 @@
     },
     "enterprise": {
       "title": "Built for professional and enterprise organizations.",
+      "statusLabels": {
+        "available": "Available",
+        "custom": "Custom",
+        "planned": "Planned",
+        "enterprise_only": "Enterprise"
+      },
       "pillars": {
         "1": {
           "title": "Multi-tenant architecture",

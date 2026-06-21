@@ -70,6 +70,13 @@ export type HomepageRedesignContent = {
   workflowDemo: {
     title: string;
     subtitle: string;
+    ui: {
+      pauseDemo: string;
+      resumeDemo: string;
+      liveStep: string;
+      preparedLabel: string;
+      preparedDetail: string;
+    };
     steps: { title: string; detail: string }[];
   };
   enterpriseTrust: {
@@ -227,6 +234,18 @@ export function parseHomepageRedesign(marketing: MarketingDictionary): HomepageR
     workflowDemo: {
       title: String((hp.workflowDemo as Record<string, string> | undefined)?.title ?? ""),
       subtitle: String((hp.workflowDemo as Record<string, string> | undefined)?.subtitle ?? ""),
+      ui: {
+        pauseDemo: String((hp.workflowDemo as { ui?: { pauseDemo?: string } })?.ui?.pauseDemo ?? "Pause demo"),
+        resumeDemo: String((hp.workflowDemo as { ui?: { resumeDemo?: string } })?.ui?.resumeDemo ?? "Resume demo"),
+        liveStep: String((hp.workflowDemo as { ui?: { liveStep?: string } })?.ui?.liveStep ?? "Live step"),
+        preparedLabel: String(
+          (hp.workflowDemo as { ui?: { preparedLabel?: string } })?.ui?.preparedLabel ?? "Aipify prepared",
+        ),
+        preparedDetail: String(
+          (hp.workflowDemo as { ui?: { preparedDetail?: string } })?.ui?.preparedDetail ??
+            "Draft ready · Awaiting human approval · Audit trail active",
+        ),
+      },
       steps: parseDemoSteps(hp.workflowDemo as Record<string, unknown> | undefined),
     },
     enterpriseTrust: {
