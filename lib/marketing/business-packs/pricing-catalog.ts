@@ -32,7 +32,15 @@ export function parseBusinessPackPricingCatalogItem(
 export function parseAllBusinessPackPricingCatalogItems(
   marketing: MarketingDictionary,
 ): Record<MarketingBusinessPackSlug, BusinessPackPricingCatalogStrings> {
-  const slugs: MarketingBusinessPackSlug[] = ["hosts", "support", "commerce", "services", "projects", "finance"];
+  const slugs: MarketingBusinessPackSlug[] = [
+    "hosts",
+    "support",
+    "warehouse",
+    "commerce",
+    "services",
+    "projects",
+    "finance",
+  ];
   return Object.fromEntries(
     slugs.map((slug) => [slug, parseBusinessPackPricingCatalogItem(marketing, slug)]),
   ) as Record<MarketingBusinessPackSlug, BusinessPackPricingCatalogStrings>;

@@ -528,7 +528,7 @@ export type AppNavItem = {
 
 /** Canonical Customer App 1.0 navigation (Phase 28). */
 export const APP_NAV: AppNavItem[] = [
-  { id: "overview", href: "/app", labelKey: "navigation.nav.overview" },
+  { id: "overview", href: "/app/command-center", labelKey: "navigation.nav.overview" },
   { id: "workspaceProductivityHub", href: "/app/workspace", labelKey: "navigation.nav.workspaceProductivityHub" },
   { id: "aipifyCorePlatformEngine", href: "/app/aipify-core", labelKey: "navigation.nav.aipifyCorePlatformEngine" },
   { id: "multiTenantArchitectureEngine", href: "/app/multi-tenant", labelKey: "navigation.nav.multiTenantArchitectureEngine" },
@@ -2327,12 +2327,16 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   const portalId = getAppPortalActiveNavId(pathname);
   const portalMatch = APP_PORTAL_NAV.find((item) => item.id === portalId);
   if (portalMatch) {
-    if (portalMatch.href === "/app" ? pathname === "/app" : pathname.startsWith(portalMatch.href)) {
+    if (portalMatch.href === "/app/command-center"
+      ? pathname === "/app" || pathname === "/app/command-center" || pathname.startsWith("/app/command-center/")
+      : pathname.startsWith(portalMatch.href)) {
       return portalId as AppNavId;
     }
   }
 
-  if (pathname === "/app" || pathname === "/dashboard") return "appDashboard" as AppNavId;
+  if (pathname === "/app" || pathname === "/app/command-center" || pathname === "/dashboard") {
+    return "appDashboard" as AppNavId;
+  }
   if (pathname.startsWith("/app/workspace")) return "workspaceProductivityHub";
   if (pathname.startsWith("/app/aipify-core")) return "aipifyCorePlatformEngine";
   if (pathname.startsWith("/app/multi-tenant")) return "multiTenantArchitectureEngine";

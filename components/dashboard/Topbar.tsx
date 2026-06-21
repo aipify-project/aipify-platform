@@ -3,6 +3,12 @@ import TopbarPresenceSlot from "./TopbarPresenceSlot";
 import TopbarProfileMenu from "./TopbarProfileMenu";
 import TopbarNotificationButton from "./TopbarNotificationButton";
 import { TwoFactorSecurityBadge } from "@/components/ui/TwoFactorSecurityBadge";
+import {
+  AppLanguageSelector,
+  coerceClientAppLocale,
+  type AppLanguageSelectorLabels,
+} from "@/components/app/AppLanguageSelector";
+import type { AppLocale } from "@/lib/i18n/app-locales";
 import type { ReactNode } from "react";
 
 type TopbarProps = {
@@ -26,6 +32,9 @@ type TopbarProps = {
   onCommandBarClick?: () => void;
   commandBarPlaceholder?: string;
   commandBarOpenLabel?: string;
+  openMenuLabel?: string;
+  locale?: AppLocale;
+  languageSelectorLabels?: AppLanguageSelectorLabels;
 };
 
 export default function Topbar({
@@ -46,6 +55,9 @@ export default function Topbar({
   onCommandBarClick,
   commandBarPlaceholder,
   commandBarOpenLabel,
+  openMenuLabel = "Open menu",
+  locale = "en",
+  languageSelectorLabels,
 }: TopbarProps) {
   return (
     <header className={`sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:px-8 ${AipifyShellClasses.topbar}`}>
@@ -54,7 +66,7 @@ export default function Topbar({
           type="button"
           onClick={onMenuClick}
           className="inline-flex shrink-0 items-center justify-center rounded-lg p-2 text-gray-600 transition hover:bg-gray-100 lg:hidden"
-          aria-label="Open menu"
+          aria-label={openMenuLabel}
         >
           <svg
             className="h-5 w-5"
@@ -164,6 +176,13 @@ export default function Topbar({
         )}
 
         <TopbarPresenceSlot />
+
+        {languageSelectorLabels ? (
+          <AppLanguageSelector
+            currentLocale={coerceClientAppLocale(locale)}
+            labels={languageSelectorLabels}
+          />
+        ) : null}
 
         {twoFactorBadgeLabels ? (
           <TwoFactorSecurityBadge labels={twoFactorBadgeLabels} />

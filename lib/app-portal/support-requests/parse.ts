@@ -12,7 +12,7 @@ const CATS = new Set<SupportRequestCategory>([
 ]);
 const PRIOS = new Set<SupportRequestPriority>(["low", "medium", "high", "urgent"]);
 const STATUSES = new Set<SupportRequestStatus>([
-  "open", "in_review", "waiting_for_customer", "waiting_for_aipify", "resolved", "closed",
+  "open", "in_review", "waiting_for_customer", "waiting_for_aipify", "resolved", "closed", "reopened", "archived",
 ]);
 
 function str(v: unknown, fb = ""): string {
@@ -37,6 +37,8 @@ function parseItem(raw: unknown): SupportRequestItem {
     assigned_support_owner_id: str(d.assigned_support_owner_id) || undefined,
     assigned_support_owner: str(d.assigned_support_owner, "Unassigned"),
     related_module: str(d.related_module) || undefined,
+    channel: str(d.channel) || undefined,
+    resolved_at: str(d.resolved_at) || undefined,
     attachments: Array.isArray(d.attachments) ? d.attachments : [],
     internal_notes: str(d.internal_notes_full) || str(d.internal_notes) || undefined,
     internal_notes_full: str(d.internal_notes_full) || undefined,
@@ -74,9 +76,19 @@ export function parseSupportRequestDetail(data: unknown): SupportRequestDetail {
   if (!data || typeof data !== "object") return { found: false };
   const d = data as Record<string, unknown>;
   if (d.found !== true) return { found: false };
+  const resolutionRaw = d.resolution as Record<string, unknown> | undefined;
   return {
     found: true,
     can_manage: d.can_manage === true,
+    can_reopen: d.can_reopen === true,
+    is_historical: d.is_historical === true,
+    resolution: resolutionRaw
+      ? {
+          status: str(resolutionRaw.status),
+          resolved_at: str(resolutionRaw.resolved_at) || undefined,
+          summary: str(resolutionRaw.summary) || undefined,
+        }
+      : undefined,
     request: d.request ? parseItem(d.request) : undefined,
     status_history: Array.isArray(d.status_history)
       ? d.status_history.map((s) => {

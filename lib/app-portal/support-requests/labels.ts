@@ -69,6 +69,8 @@ export function buildSupportRequestsLabels(t: Translator): SupportRequestsLabels
       waiting_for_aipify: t(`${p}.statuses.waitingForAipify`),
       resolved: t(`${p}.statuses.resolved`),
       closed: t(`${p}.statuses.closed`),
+      reopened: t(`${p}.statuses.reopened`),
+      archived: t(`${p}.statuses.archived`),
     },
     form: {
       title: t(`${p}.form.title`),

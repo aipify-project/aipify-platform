@@ -26,7 +26,7 @@ type ProductPageContentProps = {
 export default function ProductPageContent({ content, appName }: ProductPageContentProps) {
   return (
     <>
-      <ProductHero hero={content.hero} commandBrief={content.commandBriefHero} />
+      <ProductHero hero={content.hero} breadcrumbs={content.breadcrumbs} commandBrief={content.commandBriefHero} />
       <ProductCommandBriefSection section={content.commandBriefSection} />
       <ProductWorkflowDemo {...content.workflow} />
       <ProductCoordinationVisual {...content.coordination} />

@@ -2,6 +2,12 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import {
+  AppLanguageSelector,
+  coerceClientAppLocale,
+  type AppLanguageSelectorLabels,
+} from "@/components/app/AppLanguageSelector";
+import type { AppLocale } from "@/lib/i18n/app-locales";
 import { COMMON_TIMEZONES, getBrowserTimezone } from "@/lib/core/greeting";
 import { QUIET_HOURS_MODES, type QuietHoursMode } from "@/lib/presence/quiet-hours";
 import type { PresenceNotificationLevel } from "@/lib/presence/notifications";
@@ -23,17 +29,25 @@ type CustomerSettingsCenterPanelProps = {
       notifications: string;
       quietHours: string;
       timezone: string;
+      language: string;
     };
     timezoneHint: string;
+    languageHint: string;
     quietModes: Record<QuietHoursMode, string>;
     levels: Record<PresenceNotificationLevel, string>;
     save: string;
     saved: string;
     categories: SettingsCategory[];
   };
+  currentLocale: AppLocale;
+  languageSelectorLabels: AppLanguageSelectorLabels;
 };
 
-export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPanelProps) {
+export function CustomerSettingsCenterPanel({
+  labels,
+  currentLocale,
+  languageSelectorLabels,
+}: CustomerSettingsCenterPanelProps) {
   const [quietMode, setQuietMode] = useState<QuietHoursMode>("standard");
   const [timezone, setTimezone] = useState("UTC");
   const [saved, setSaved] = useState(false);
@@ -106,6 +120,18 @@ export function CustomerSettingsCenterPanel({ labels }: CustomerSettingsCenterPa
           </article>
         ))}
       </div>
+
+      <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.sections.language}</h2>
+        <p className="mt-1 text-sm text-gray-500">{labels.languageHint}</p>
+        <div className="mt-4">
+          <AppLanguageSelector
+            currentLocale={coerceClientAppLocale(currentLocale)}
+            labels={languageSelectorLabels}
+            variant="settings"
+          />
+        </div>
+      </section>
 
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-gray-900">{labels.sections.timezone}</h2>

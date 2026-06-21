@@ -1,140 +1,273 @@
+import {
+  mapHealthScoreToHealthState,
+  type HealthState,
+} from "@/lib/design/semantic-status-system";
+import type { RiskLevel } from "@/lib/app-portal/success-center/types";
 import type {
-  CustomerHealthEngagementInsights,
-  CustomerHealthIndicators,
-  CustomerHealthOverview,
-  CustomerHealthRecommendation,
-  CustomerHealthStatus,
-  CustomerHealthSupportInsights,
-  CustomerHealthTimelineEvent,
-  CustomerHealthTrend,
+  CustomerHealthDriver,
+  CustomerHealthDriverEffect,
+  CustomerHealthHistoryEntry,
+  CustomerHealthMetrics,
+  CustomerHealthNeedsAttentionItem,
+  CustomerHealthOperationalSignal,
+  CustomerHealthOverviewSection,
+  CustomerHealthRecommendedAction,
+  CustomerHealthRiskItem,
+  CustomerHealthStrength,
+  CustomerHealthTrendPoint,
+  CustomerHealthTrendState,
+  CustomerHealthWorkspaceResponse,
 } from "./types";
-import { CUSTOMER_HEALTH_STATUSES, CUSTOMER_HEALTH_TRENDS } from "./types";
+import { CUSTOMER_HEALTH_TREND_STATES } from "./types";
+import { dedupeHealthHistory } from "./presentation";
 
-const STATUSES = new Set<CustomerHealthStatus>(CUSTOMER_HEALTH_STATUSES);
-const TRENDS = new Set<CustomerHealthTrend>(CUSTOMER_HEALTH_TRENDS);
+const TRENDS = new Set<CustomerHealthTrendState>(CUSTOMER_HEALTH_TREND_STATES);
+const RISK: Set<RiskLevel> = new Set(["low", "moderate", "elevated", "high"]);
+const EFFECTS = new Set<CustomerHealthDriverEffect>([
+  "positive",
+  "neutral",
+  "moderate_negative",
+  "strong_negative",
+  "critical_negative",
+]);
+const HEALTH_STATES: Set<HealthState> = new Set([
+  "healthy",
+  "good",
+  "moderate",
+  "poor",
+  "critical_health",
+  "unknown",
+]);
 
 function str(v: unknown, fb = ""): string {
   return typeof v === "string" ? v : fb;
 }
 
 function num(v: unknown, fb = 0): number {
-  return typeof v === "number" ? v : fb;
+  return typeof v === "number" && Number.isFinite(v) ? v : fb;
 }
 
-function parseStringArray(raw: unknown): string[] {
-  if (!Array.isArray(raw)) return [];
-  return raw.map((x) => String(x));
+function parseHealthState(v: unknown, score: number): HealthState {
+  const key = str(v, "").toLowerCase().replace(/-/g, "_") as HealthState;
+  if (HEALTH_STATES.has(key)) return key;
+  return mapHealthScoreToHealthState(score);
 }
 
-function parseRecommendations(raw: unknown): CustomerHealthRecommendation[] {
-  if (!Array.isArray(raw)) return [];
-  return raw.map((item) => {
-    const d = item as Record<string, unknown>;
-    return { id: str(d.id), key: str(d.key), priority: str(d.priority), category: str(d.category) };
-  });
-}
-
-function parseIndicators(raw: unknown): CustomerHealthIndicators | undefined {
+function parseMetrics(raw: unknown): CustomerHealthMetrics | undefined {
   if (!raw || typeof raw !== "object") return undefined;
-  const d = raw as Record<string, unknown>;
+  const m = raw as Record<string, unknown>;
   return {
-    platform_engagement: num(d.platform_engagement),
-    training_participation: num(d.training_participation),
-    support_interactions: num(d.support_interactions),
-    adoption_progress: num(d.adoption_progress),
-    security_completion: num(d.security_completion),
-    integration_activity: num(d.integration_activity),
-    recommendation_completion: num(d.recommendation_completion),
+    team_count: num(m.team_count),
+    active_users: num(m.active_users),
+    business_packs: num(m.business_packs),
+    active_capabilities: num(m.active_capabilities),
+    integrations: num(m.integrations),
+    operations_activity: num(m.operations_activity),
   };
 }
 
-function parseEngagement(raw: unknown): CustomerHealthEngagementInsights | undefined {
+function parseOverview(raw: unknown): CustomerHealthOverviewSection | undefined {
   if (!raw || typeof raw !== "object") return undefined;
-  const d = raw as Record<string, unknown>;
+  const o = raw as Record<string, unknown>;
+  const score = num(o.health_score);
+  const trend = str(o.trend_state, "insufficient_data") as CustomerHealthTrendState;
+  const risk = str(o.risk_level, "moderate") as RiskLevel;
   return {
-    active_teams: parseStringArray(d.active_teams),
-    departments_requiring_support: parseStringArray(d.departments_requiring_support),
-    underutilized_capabilities: parseStringArray(d.underutilized_capabilities),
-    positive_momentum: parseStringArray(d.positive_momentum),
-    declining_activity: parseStringArray(d.declining_activity),
+    health_score: score,
+    health_state: parseHealthState(o.health_state, score),
+    adoption_score: num(o.adoption_score),
+    engagement_score: num(o.engagement_score),
+    utilization_score: num(o.utilization_score),
+    learning_score: num(o.learning_score),
+    risk_level: RISK.has(risk) ? risk : "moderate",
+    trend_state: TRENDS.has(trend) ? trend : "insufficient_data",
+    score_change: num(o.score_change),
+    explanation: str(o.explanation),
+    last_calculated_at: str(o.last_calculated_at) || undefined,
   };
 }
 
-function parseSupport(raw: unknown): CustomerHealthSupportInsights | undefined {
-  if (!raw || typeof raw !== "object") return undefined;
-  const d = raw as Record<string, unknown>;
-  return {
-    open_requests: num(d.open_requests),
-    resolved_requests: num(d.resolved_requests),
-    resolution_trend: str(d.resolution_trend),
-    satisfaction_indicator: num(d.satisfaction_indicator),
-    self_service_sessions: num(d.self_service_sessions),
-    knowledge_engagement: num(d.knowledge_engagement),
-  };
-}
-
-export function parseCustomerHealthOverview(data: unknown): CustomerHealthOverview {
+export function parseCustomerHealthWorkspace(data: unknown): CustomerHealthWorkspaceResponse {
   if (!data || typeof data !== "object") return { found: false };
   const d = data as Record<string, unknown>;
-  const status = str(d.health_status, "stable") as CustomerHealthStatus;
-  const trend = str(d.relationship_trend, "insufficient_data") as CustomerHealthTrend;
-  const dept = d.department_reporting as Record<string, unknown> | null | undefined;
+
+  if (d.filtered_out === true) {
+    return { found: true, filtered_out: true, has_activity: d.has_activity === true };
+  }
+
+  const drivers: CustomerHealthDriver[] = Array.isArray(d.drivers)
+    ? d.drivers.map((item) => {
+        const row = item as Record<string, unknown>;
+        const effect = str(row.effect, "neutral") as CustomerHealthDriverEffect;
+        return {
+          key: str(row.key),
+          score: num(row.score),
+          effect: EFFECTS.has(effect) ? effect : "neutral",
+        };
+      })
+    : [];
+
+  const strengths: CustomerHealthStrength[] = Array.isArray(d.strengths)
+    ? d.strengths.map((item) => {
+        const row = item as Record<string, unknown>;
+        return {
+          key: str(row.key),
+          value: num(row.value),
+          impact: str(row.impact, "positive"),
+          action_href: str(row.action_href) || undefined,
+        };
+      })
+    : [];
+
+  const needs_attention: CustomerHealthNeedsAttentionItem[] = Array.isArray(d.needs_attention)
+    ? d.needs_attention.map((item) => {
+        const row = item as Record<string, unknown>;
+        return {
+          key: str(row.key),
+          severity: str(row.severity, "medium"),
+          impact: str(row.impact),
+          action_href: str(row.action_href) || undefined,
+          value: num(row.value),
+        };
+      })
+    : [];
+
+  const trend_points: CustomerHealthTrendPoint[] = Array.isArray(d.trend_points)
+    ? d.trend_points.map((item) => {
+        const row = item as Record<string, unknown>;
+        return {
+          recorded_at: str(row.recorded_at),
+          score: num(row.score),
+          health_state: str(row.health_state) || undefined,
+        };
+      })
+    : [];
+
+  const risks: CustomerHealthRiskItem[] = Array.isArray(d.risks)
+    ? d.risks.map((item) => {
+        const row = item as Record<string, unknown>;
+        return {
+          key: str(row.key),
+          severity: str(row.severity, "info"),
+          description: str(row.description),
+          category: str(row.category),
+        };
+      })
+    : [];
+
+  const operational_signals: CustomerHealthOperationalSignal[] = Array.isArray(
+    d.operational_signals
+  )
+    ? d.operational_signals.map((item) => {
+        const row = item as Record<string, unknown>;
+        return {
+          key: str(row.key),
+          category: str(row.category),
+          description: str(row.description),
+          trend: str(row.trend) || undefined,
+        };
+      })
+    : [];
+
+  const historyRaw: CustomerHealthHistoryEntry[] = Array.isArray(d.health_history)
+    ? d.health_history.map((item) => {
+        const row = item as Record<string, unknown>;
+        const scoreVal = row.score;
+        return {
+          id: str(row.id),
+          event_type: str(row.event_type),
+          description: str(row.description),
+          score: typeof scoreVal === "number" ? scoreVal : undefined,
+          recorded_at: str(row.recorded_at),
+        };
+      })
+    : [];
+
+  let recommended_action: CustomerHealthRecommendedAction | null | undefined;
+  if (d.recommended_action && typeof d.recommended_action === "object") {
+    const row = d.recommended_action as Record<string, unknown>;
+    recommended_action = {
+      key: str(row.key),
+      priority: str(row.priority),
+      module: str(row.module) || undefined,
+    };
+  } else if (d.recommended_action === null) {
+    recommended_action = null;
+  }
+
+  const trendRaw = str(d.trend_state, "") as CustomerHealthTrendState;
 
   return {
     found: d.found === true,
+    has_activity: d.has_activity === true,
     can_manage: d.can_manage === true,
     can_admin: d.can_admin === true,
-    review_started: d.review_started === true,
-    overall_health_score: num(d.overall_health_score),
-    engagement_score: num(d.engagement_score),
-    support_satisfaction_score: num(d.support_satisfaction_score),
-    adoption_score: num(d.adoption_score),
-    learning_completion_score: num(d.learning_completion_score),
-    health_status: STATUSES.has(status) ? status : "stable",
-    relationship_trend: TRENDS.has(trend) ? trend : "insufficient_data",
-    open_recommendations_count: num(d.open_recommendations_count),
-    health_indicators: parseIndicators(d.health_indicators),
-    engagement_insights: parseEngagement(d.engagement_insights),
-    support_insights: parseSupport(d.support_insights),
-    recommendations: parseRecommendations(d.recommendations),
-    personal_recommendations: Array.isArray(d.personal_recommendations)
-      ? d.personal_recommendations.map((p) => {
-          const row = p as Record<string, unknown>;
-          return { id: str(row.id), title: str(row.title), status: str(row.status), due_date: str(row.due_date) || null };
-        })
-      : [],
-    department_reporting: dept
-      ? { department: str(dept.department), engagement_score: num(dept.engagement_score), learning_participation: num(dept.learning_participation) }
-      : dept === null ? null : undefined,
-    principle: str(d.principle),
+    organization_name: str(d.organization_name) || undefined,
+    overview: parseOverview(d.overview),
+    metrics: parseMetrics(d.metrics),
+    recommended_action,
+    drivers,
+    strengths,
+    needs_attention,
+    trend_points,
+    trend_state: TRENDS.has(trendRaw) ? trendRaw : undefined,
+    risks,
+    operational_signals,
+    health_history: dedupeHealthHistory(historyRaw),
   };
 }
 
-export function parseCustomerHealthTimeline(data: unknown): CustomerHealthTimelineEvent[] {
+/** @deprecated use parseCustomerHealthWorkspace */
+export function parseCustomerHealthOverview(data: unknown): CustomerHealthWorkspaceResponse {
+  return parseCustomerHealthWorkspace(data);
+}
+
+export function parseCustomerHealthTimeline(data: unknown): CustomerHealthHistoryEntry[] {
   if (!data || typeof data !== "object") return [];
   const d = data as Record<string, unknown>;
   if (!Array.isArray(d.timeline)) return [];
-  return d.timeline.map((item) => {
-    const row = item as Record<string, unknown>;
-    return { id: str(row.id), event_type: str(row.event_type), description: str(row.description), created_at: str(row.created_at) };
-  });
+  return dedupeHealthHistory(
+    d.timeline.map((item) => {
+      const row = item as Record<string, unknown>;
+      return {
+        id: str(row.id),
+        event_type: str(row.event_type),
+        description: str(row.description),
+        recorded_at: str(row.created_at),
+      };
+    })
+  );
 }
 
-export function parseCustomerHealthRecommendations(data: unknown): CustomerHealthRecommendation[] {
+export function parseCustomerHealthRecommendations(data: unknown): Array<{
+  id: string;
+  key: string;
+  priority: string;
+  category: string;
+}> {
   if (!data || typeof data !== "object") return [];
-  return parseRecommendations((data as Record<string, unknown>).recommendations);
+  const d = data as Record<string, unknown>;
+  if (!Array.isArray(d.recommendations)) return [];
+  return d.recommendations.map((item) => {
+    const row = item as Record<string, unknown>;
+    return {
+      id: str(row.id),
+      key: str(row.key),
+      priority: str(row.priority),
+      category: str(row.module ?? row.category),
+    };
+  });
 }
 
 export function parseCustomerHealthEngagement(data: unknown): {
   found: boolean;
   engagement_score?: number;
-  engagement_insights?: CustomerHealthEngagementInsights;
 } {
   if (!data || typeof data !== "object") return { found: false };
   const d = data as Record<string, unknown>;
+  const overview = d.overview as Record<string, unknown> | undefined;
   return {
     found: d.found === true,
-    engagement_score: num(d.engagement_score),
-    engagement_insights: parseEngagement(d.engagement_insights),
+    engagement_score: num(overview?.engagement_score ?? d.engagement_score),
   };
 }

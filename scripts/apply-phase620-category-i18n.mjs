@@ -1,0 +1,861 @@
+#!/usr/bin/env node
+/**
+ * Phase 620 — merge publicKnowledge.categoryPage + extended categories into marketing.json
+ * Run: node scripts/apply-phase620-category-i18n.mjs
+ */
+import { readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+
+const ROOT = join(import.meta.dirname, "..");
+const LOCALES = ["en", "no", "sv", "da"];
+
+const categoryPage = {
+  en: {
+    topicsTitle: "What you will find here",
+    featuredTitle: "Featured resources",
+    featuredSubtitle: "Start with the most relevant guides in this category.",
+    allResourcesTitle: "All resources in this category",
+    relatedTitle: "Related categories",
+    resourceCount: "{count} resources",
+    readArticle: "Read article",
+    viewCategory: "View category →",
+    emptyArticles: "No articles in this category yet. Explore related categories or book a demo to learn more.",
+    searchPlaceholder: "Search in this category…",
+    searchAriaLabel: "Search category resources",
+    typeLabel: "Content type",
+    sortLabel: "Sort",
+    allTypes: "All types",
+    sortTitleAsc: "Title A–Z",
+    sortTitleDesc: "Title Z–A",
+    resultsCount: "{count} resources",
+    openFilters: "Filters",
+    closeFilters: "Close filters",
+    resourceTypes: {
+      hub: "Hub articles",
+      industry: "Industry guides",
+      article: "General articles",
+    },
+  },
+  no: {
+    topicsTitle: "Det finner du her",
+    featuredTitle: "Utvalgte ressurser",
+    featuredSubtitle: "Start med de mest relevante guidene i denne kategorien.",
+    allResourcesTitle: "Alle ressurser i denne kategorien",
+    relatedTitle: "Relaterte kategorier",
+    resourceCount: "{count} ressurser",
+    readArticle: "Les artikkel",
+    viewCategory: "Se kategori →",
+    emptyArticles: "Ingen artikler i denne kategorien ennå. Utforsk relaterte kategorier eller book en demo for å lære mer.",
+    searchPlaceholder: "Søk i denne kategorien…",
+    searchAriaLabel: "Søk i kategoriens ressurser",
+    typeLabel: "Innholdstype",
+    sortLabel: "Sorter",
+    allTypes: "Alle typer",
+    sortTitleAsc: "Tittel A–Å",
+    sortTitleDesc: "Tittel Å–A",
+    resultsCount: "{count} ressurser",
+    openFilters: "Filtre",
+    closeFilters: "Lukk filtre",
+    resourceTypes: {
+      hub: "Hub-artikler",
+      industry: "Bransjeguider",
+      article: "Generelle artikler",
+    },
+  },
+  sv: {
+    topicsTitle: "Det hittar du här",
+    featuredTitle: "Utvalda resurser",
+    featuredSubtitle: "Börja med de mest relevanta guiderna i den här kategorin.",
+    allResourcesTitle: "Alla resurser i den här kategorin",
+    relatedTitle: "Relaterade kategorier",
+    resourceCount: "{count} resurser",
+    readArticle: "Läs artikel",
+    viewCategory: "Visa kategori →",
+    emptyArticles: "Inga artiklar i den här kategorin ännu. Utforska relaterade kategorier eller boka en demo för att lära dig mer.",
+    searchPlaceholder: "Sök i den här kategorin…",
+    searchAriaLabel: "Sök i kategoriens resurser",
+    typeLabel: "Innehållstyp",
+    sortLabel: "Sortera",
+    allTypes: "Alla typer",
+    sortTitleAsc: "Titel A–Ö",
+    sortTitleDesc: "Titel Ö–A",
+    resultsCount: "{count} resurser",
+    openFilters: "Filter",
+    closeFilters: "Stäng filter",
+    resourceTypes: {
+      hub: "Hub-artiklar",
+      industry: "Branschguider",
+      article: "Allmänna artiklar",
+    },
+  },
+  da: {
+    topicsTitle: "Det finder du her",
+    featuredTitle: "Udvalgte ressourcer",
+    featuredSubtitle: "Start med de mest relevante guider i denne kategori.",
+    allResourcesTitle: "Alle ressourcer i denne kategori",
+    relatedTitle: "Relaterede kategorier",
+    resourceCount: "{count} ressourcer",
+    readArticle: "Læs artikel",
+    viewCategory: "Se kategori →",
+    emptyArticles: "Ingen artikler i denne kategori endnu. Udforsk relaterede kategorier, eller book en demo for at lære mere.",
+    searchPlaceholder: "Søg i denne kategori…",
+    searchAriaLabel: "Søg i kategoriens ressourcer",
+    typeLabel: "Indholdstype",
+    sortLabel: "Sortér",
+    allTypes: "Alle typer",
+    sortTitleAsc: "Titel A–Å",
+    sortTitleDesc: "Titel Å–A",
+    resultsCount: "{count} ressourcer",
+    openFilters: "Filtre",
+    closeFilters: "Luk filtre",
+    resourceTypes: {
+      hub: "Hub-artikler",
+      industry: "Brancheguider",
+      article: "Generelle artikler",
+    },
+  },
+};
+
+/** @type {Record<string, Record<string, unknown>>} */
+const categoriesByLocale = {
+  en: {
+    "getting-started": {
+      name: "Getting Started",
+      description: "Orientation for organizations evaluating Aipify.",
+      headline: "Start your Aipify evaluation with clarity",
+      introduction:
+        "Whether you are exploring a Business Operating System for the first time or comparing platforms, these resources explain how Aipify fits your organization — without hype or jargon.",
+      topics: {
+        topic1: { title: "Platform orientation", description: "Understand what Aipify is, who it serves, and how install-first delivery works in practice." },
+        topic2: { title: "Evaluation checklist", description: "Questions procurement, IT, and operations leaders should ask before selecting operational software." },
+        topic3: { title: "First steps", description: "How teams move from discovery to pilot — licensing, installation, and initial configuration." },
+        topic4: { title: "Roles and ownership", description: "Who owns approvals, knowledge, and day-to-day coordination inside your organization." },
+      },
+      seo: { title: "Getting Started | Aipify Knowledge Center", description: "Orientation guides for organizations evaluating Aipify — platform basics, evaluation checklists, and first steps." },
+      cta: { primary: "Book a demo", secondary: "Request early access", primaryHref: "/book-demo", secondaryHref: "/early-access" },
+    },
+    companion: {
+      name: "Companion",
+      description: "How Aipify's Companion supports leaders and teams — not a chatbot.",
+      headline: "Aipify Companion — governed intelligence for your organization",
+      introduction:
+        "Companion is how Aipify supports leaders and teams with context, recommendations, and prepared next steps. It is designed for accountability — not open-ended chat.",
+      topics: {
+        topic1: { title: "Companion vs. chatbot", description: "Why operational software needs governed intelligence, not generic conversational AI." },
+        topic2: { title: "Executive support", description: "Briefings, priorities, and decision support that respect human ownership." },
+        topic3: { title: "Team coordination", description: "How Companion helps teams act on approved knowledge and operational signals." },
+        topic4: { title: "Human-centered design", description: "Transparency, approval flows, and explainability built into every interaction." },
+        topic5: { title: "Enterprise readiness", description: "How Companion scales across roles, departments, and licensed modules." },
+      },
+      seo: { title: "Companion | Aipify Knowledge Center", description: "Learn how Aipify Companion supports leaders and teams with governed operational intelligence — not a chatbot." },
+      cta: { primary: "Book a demo", secondary: "Read: What is a business Companion?", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/what-is-a-business-companion" },
+    },
+    "business-operating-system": {
+      name: "Business Operating System",
+      description: "Category definition and operational platform strategy.",
+      headline: "What a Business Operating System means for modern organizations",
+      introduction:
+        "A Business Operating System coordinates knowledge, operations, governance, and intelligence above the tools you already use — with humans always in control.",
+      topics: {
+        topic1: { title: "Category definition", description: "How a BOS differs from ERP, CRM, helpdesk, and point automation tools." },
+        topic2: { title: "Operational visibility", description: "Why leaders need signal across teams — without surveillance or noise." },
+        topic3: { title: "Knowledge as advantage", description: "How approved operational knowledge compounds into faster, more consistent execution." },
+        topic4: { title: "Future of operations", description: "Gradual trust, governed automation, and human accountability at scale." },
+      },
+      seo: { title: "Business Operating System | Aipify Knowledge Center", description: "Define the Business Operating System category — operational visibility, governed intelligence, and platform strategy." },
+      cta: { primary: "Book a demo", secondary: "Read: What is a BOS?", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/what-is-a-business-operating-system" },
+    },
+    "knowledge-center": {
+      name: "Knowledge Center",
+      description: "Operational knowledge, playbooks, and institutional memory.",
+      headline: "Operational knowledge your organization can trust",
+      introduction:
+        "Aipify Knowledge Center helps teams capture, approve, and reuse operational knowledge — playbooks, procedures, and institutional memory — with role-based access and full transparency.",
+      topics: {
+        topic1: { title: "Approved sources", description: "Knowledge enters from administrator-approved sources — never hidden scraping." },
+        topic2: { title: "Role-based access", description: "Teams see what they need; sensitive procedures stay appropriately scoped." },
+        topic3: { title: "Gap detection", description: "When confidence is low, Aipify surfaces gaps and recommends improvements." },
+        topic4: { title: "Employee guidance", description: "Step-by-step guidance for internal teams without replacing human judgment." },
+      },
+      seo: { title: "Knowledge Center | Aipify Knowledge Center", description: "Enterprise knowledge management — approved playbooks, institutional memory, and governed operational knowledge." },
+      cta: { primary: "Book a demo", secondary: "Read: Enterprise knowledge management", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/enterprise-knowledge-management" },
+    },
+    operations: {
+      name: "Operations",
+      description: "Day-to-day coordination, visibility, and operational intelligence.",
+      headline: "Operational intelligence for day-to-day coordination",
+      introduction:
+        "From hospitality and commerce to support and warehouse workflows — explore how Aipify brings visibility, coordination, and governed intelligence to operational teams.",
+      topics: {
+        topic1: { title: "Cross-team visibility", description: "See priorities, blockers, and prepared actions across operational functions." },
+        topic2: { title: "Industry playbooks", description: "Guides tailored to hospitality, property, commerce, support, warehouse, and professional services." },
+        topic3: { title: "Business Pack alignment", description: "How modular packs activate domain capabilities without unnecessary complexity." },
+        topic4: { title: "Executive coordination", description: "Connect frontline operations to leadership briefings and decision support." },
+        topic5: { title: "Continuous improvement", description: "Operational signals feed learning and knowledge gaps — humans approve changes." },
+      },
+      seo: { title: "Operations | Aipify Knowledge Center", description: "Day-to-day operational coordination, industry guides, and visibility for modern organizations." },
+      cta: { primary: "Book a demo", secondary: "Explore Business Packs", primaryHref: "/book-demo", secondaryHref: "/pricing#business-packs" },
+    },
+    governance: {
+      name: "Governance",
+      description: "Human approval, policies, and auditable automation.",
+      headline: "Governance and human approval — by design",
+      introduction:
+        "Sensitive actions require explicit approval. Policies define what Aipify may prepare versus execute. Every important step is auditable — so trust grows through transparency.",
+      topics: {
+        topic1: { title: "Approval policies", description: "Configure what requires human sign-off before execution." },
+        topic2: { title: "Risk levels", description: "From informational drafts to sensitive actions — critical operations stay human-only." },
+        topic3: { title: "Audit trails", description: "Immutable logs for compliance, security reviews, and operational accountability." },
+        topic4: { title: "Emergency controls", description: "Pause automation instantly when circumstances require human intervention." },
+      },
+      seo: { title: "Governance | Aipify Knowledge Center", description: "Human approval, auditable automation, and governance policies for operational AI." },
+      cta: { primary: "Book a demo", secondary: "Read: Governance and human approval", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/governance-and-human-approval" },
+    },
+    "trust-center": {
+      name: "Trust Center",
+      description: "Transparency, data ownership, and governance controls.",
+      headline: "Trust, transparency, and data ownership",
+      introduction:
+        "Customers own their data. Aipify owns the intelligence layer. These resources explain how privacy-by-design, metadata-first storage, and transparent controls protect your organization.",
+      topics: {
+        topic1: { title: "Data ownership", description: "Clear boundaries between customer operational data and platform intelligence." },
+        topic2: { title: "Privacy by design", description: "What Aipify collects, what it refuses to store, and why." },
+        topic3: { title: "License and continuity", description: "Grace periods, service continuity, and what happens during billing events." },
+        topic4: { title: "Trust architecture", description: "How read-only-first integrations and approval gates reduce risk." },
+      },
+      seo: { title: "Trust Center | Aipify Knowledge Center", description: "Transparency, data ownership, and trust controls for organizations evaluating Aipify." },
+      cta: { primary: "Book a demo", secondary: "Explore governance", primaryHref: "/book-demo", secondaryHref: "/knowledge/governance" },
+    },
+    security: {
+      name: "Security",
+      description: "Enterprise security baseline and privacy-by-design.",
+      headline: "Enterprise security baseline",
+      introduction:
+        "Security reviews expect visible controls — authentication, audit, tenant isolation, and responsible data handling. These resources outline Aipify's security posture for serious organizations.",
+      topics: {
+        topic1: { title: "Authentication", description: "Two-factor authentication, session management, and access recovery." },
+        topic2: { title: "Tenant isolation", description: "How customer data stays scoped to your organization." },
+        topic3: { title: "Audit and compliance", description: "Logging, retention, and transparency for security and procurement teams." },
+        topic4: { title: "Responsible AI limits", description: "Prohibited actions, approval requirements, and explainability standards." },
+      },
+      seo: { title: "Security | Aipify Knowledge Center", description: "Enterprise security baseline, privacy-by-design, and tenant isolation for Aipify." },
+      cta: { primary: "Book a demo", secondary: "Explore Trust Center", primaryHref: "/book-demo", secondaryHref: "/knowledge/trust-center" },
+    },
+    "business-packs": {
+      name: "Business Packs",
+      description: "Modular domain capabilities for specific industries and operations.",
+      headline: "Modular Business Packs for operational domains",
+      introduction:
+        "Activate only the capabilities your organization needs — hospitality, support, warehouse, finance, and more — without paying for unused complexity.",
+      topics: {
+        topic1: { title: "Pack model", description: "Platform sells, your organization purchases, activates, and grants access to teams." },
+        topic2: { title: "Domain capabilities", description: "Operational modules tailored to specific industries and workflows." },
+        topic3: { title: "Activation flow", description: "Select, review, activate, and customize — with human validation at each step." },
+        topic4: { title: "Licensing alignment", description: "How pack access follows subscription status and organizational roles." },
+      },
+      seo: { title: "Business Packs | Aipify Knowledge Center", description: "Modular Business Packs — domain capabilities for hospitality, support, warehouse, and finance operations." },
+      cta: { primary: "Explore Business Packs", secondary: "Book a demo", primaryHref: "/pricing#business-packs", secondaryHref: "/book-demo" },
+    },
+    integrations: {
+      name: "Integrations",
+      description: "Connect Aipify to systems your organization already uses.",
+      headline: "Connect Aipify to systems you already use",
+      introduction:
+        "Aipify installs into customer environments — WordPress, Shopify, custom admin panels, and future connectors — respecting native roles and read-only-first connection policies.",
+      topics: {
+        topic1: { title: "Install-first delivery", description: "Work where your teams already are — not another daily-login admin panel." },
+        topic2: { title: "Read-only first", description: "New integrations start read-only; expanded permissions require explicit approval." },
+        topic3: { title: "Role mapping", description: "Map Aipify permissions to customer-native roles — not a parallel permission system." },
+        topic4: { title: "Health monitoring", description: "Heartbeat, domain validation, and installation status for operational confidence." },
+      },
+      seo: { title: "Integrations | Aipify Knowledge Center", description: "Connect Aipify to existing systems — install-first integration, role mapping, and read-only-first policies." },
+      cta: { primary: "Book a demo", secondary: "Request early access", primaryHref: "/book-demo", secondaryHref: "/early-access" },
+    },
+    enterprise: {
+      name: "Enterprise",
+      description: "Procurement, security, and scale for serious organizations.",
+      headline: "Enterprise procurement and scale",
+      introduction:
+        "For organizations with formal procurement, security review, and multi-department rollout requirements — understand how Aipify meets enterprise expectations.",
+      topics: {
+        topic1: { title: "Procurement readiness", description: "Documentation, licensing clarity, and ownership messaging for buyer teams." },
+        topic2: { title: "Multi-department rollout", description: "Modular activation, role scoping, and phased adoption patterns." },
+        topic3: { title: "Security and compliance", description: "Controls expected in Fortune 500-influenced operational software." },
+        topic4: { title: "Dedicated support paths", description: "How enterprise customers engage Aipify for implementation and success." },
+        topic5: { title: "Commercial packages", description: "Starter through Enterprise tiers — feature gates enforced server-side." },
+      },
+      seo: { title: "Enterprise | Aipify Knowledge Center", description: "Enterprise procurement, security review, and scale for organizations evaluating Aipify." },
+      cta: { primary: "Book enterprise demo", secondary: "Contact Aipify", primaryHref: "/book-demo", secondaryHref: "/contact" },
+    },
+    "growth-partners": {
+      name: "Growth Partners",
+      description: "Professional partnership — not affiliate marketing.",
+      headline: "Growth Partners — professional go-to-market partnership",
+      introduction:
+        "Aipify Growth Partners help organizations discover and implement governed operational intelligence — with attribution, certification, and professional standards — never affiliate gimmicks.",
+      topics: {
+        topic1: { title: "Partner model", description: "Attribution without customer ownership transfer — customers belong to Platform." },
+        topic2: { title: "Certification", description: "Professional standards for partners representing Aipify in market." },
+        topic3: { title: "Co-selling support", description: "Resources and alignment for serious B2B partnership — not coupon codes." },
+        topic4: { title: "Apply to partner", description: "How agencies, consultants, and integrators begin the partnership journey." },
+      },
+      seo: { title: "Growth Partners | Aipify Knowledge Center", description: "Professional Growth Partner program — certification, attribution, and B2B partnership with Aipify." },
+      cta: { primary: "Become a Growth Partner", secondary: "Contact partnerships", primaryHref: "/growth-partners", secondaryHref: "/contact" },
+    },
+  },
+  no: {
+    "getting-started": {
+      name: "Kom i gang",
+      description: "Orientering for organisasjoner som vurderer Aipify.",
+      headline: "Start Aipify-evalueringen med tydelighet",
+      introduction:
+        "Enten dere utforsker et Business Operating System for første gang eller sammenligner plattformer, forklarer disse ressursene hvordan Aipify passer organisasjonen deres — uten hype eller fagspråk.",
+      topics: {
+        topic1: { title: "Plattformorientering", description: "Forstå hva Aipify er, hvem det er for, og hvordan install-first-leveranse fungerer i praksis." },
+        topic2: { title: "Evalueringsliste", description: "Spørsmål innkjøp, IT og driftsledere bør stille før valg av driftsprogramvare." },
+        topic3: { title: "Første steg", description: "Hvordan team går fra kartlegging til pilot — lisens, installasjon og initial konfigurasjon." },
+        topic4: { title: "Roller og eierskap", description: "Hvem eier godkjenninger, kunnskap og daglig koordinering i organisasjonen." },
+      },
+      seo: { title: "Kom i gang | Aipify Knowledge Center", description: "Orientingsguider for organisasjoner som vurderer Aipify — plattformgrunnlag, evalueringslister og første steg." },
+      cta: { primary: "Book demo", secondary: "Be om tidlig tilgang", primaryHref: "/book-demo", secondaryHref: "/early-access" },
+    },
+    companion: {
+      name: "Companion",
+      description: "Hvordan Aipifys Companion støtter ledere og team — ikke en chatbot.",
+      headline: "Aipify Companion — styrt intelligens for organisasjonen",
+      introduction:
+        "Companion er hvordan Aipify støtter ledere og team med kontekst, anbefalinger og forberedte neste steg. Den er designet for ansvarlighet — ikke åpen chat.",
+      topics: {
+        topic1: { title: "Companion vs. chatbot", description: "Hvorfor driftsprogramvare trenger styrt intelligens, ikke generisk samtale-AI." },
+        topic2: { title: "Ledelsesstøtte", description: "Briefinger, prioriteringer og beslutningsstøtte som respekterer menneskelig eierskap." },
+        topic3: { title: "Teamkoordinering", description: "Hvordan Companion hjelper team å handle på godkjent kunnskap og driftsignal." },
+        topic4: { title: "Menneskesentrert design", description: "Transparens, godkjenningsflyt og forklarbarhet innebygd i hver interaksjon." },
+        topic5: { title: "Enterprise-klarhet", description: "Hvordan Companion skalerer på tvers av roller, avdelinger og lisensierte moduler." },
+      },
+      seo: { title: "Companion | Aipify Knowledge Center", description: "Lær hvordan Aipify Companion støtter ledere og team med styrt driftsintelligens — ikke en chatbot." },
+      cta: { primary: "Book demo", secondary: "Les: Hva er en business Companion?", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/what-is-a-business-companion" },
+    },
+    "business-operating-system": {
+      name: "Business Operating System",
+      description: "Kategoridefinisjon og plattformstrategi for drift.",
+      headline: "Hva et Business Operating System betyr for moderne organisasjoner",
+      introduction:
+        "Et Business Operating System koordinerer kunnskap, drift, styring og intelligens over verktøyene dere allerede bruker — med mennesker alltid i kontroll.",
+      topics: {
+        topic1: { title: "Kategoridefinisjon", description: "Hvordan et BOS skiller seg fra ERP, CRM, helpdesk og punktautomatisering." },
+        topic2: { title: "Operasjonell synlighet", description: "Hvorfor ledere trenger signal på tvers av team — uten overvåking eller støy." },
+        topic3: { title: "Kunnskap som fordel", description: "Hvordan godkjent driftskunnskap gir raskere og mer konsistent utførelse." },
+        topic4: { title: "Fremtidens drift", description: "Gradvis tillit, styrt automatisering og menneskelig ansvar i skala." },
+      },
+      seo: { title: "Business Operating System | Aipify Knowledge Center", description: "Definer Business Operating System-kategorien — operasjonell synlighet, styrt intelligens og plattformstrategi." },
+      cta: { primary: "Book demo", secondary: "Les: Hva er et BOS?", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/what-is-a-business-operating-system" },
+    },
+    "knowledge-center": {
+      name: "Knowledge Center",
+      description: "Driftskunnskap, playbooks og institusjonelt minne.",
+      headline: "Driftskunnskap organisasjonen kan stole på",
+      introduction:
+        "Aipify Knowledge Center hjelper team å fange, godkjenne og gjenbruke driftskunnskap — playbooks, prosedyrer og institusjonelt minne — med rollebasert tilgang og full transparens.",
+      topics: {
+        topic1: { title: "Godkjente kilder", description: "Kunnskap kommer fra administrator-godkjente kilder — aldri skjult skraping." },
+        topic2: { title: "Rollebasert tilgang", description: "Team ser det de trenger; sensitive prosedyrer holdes passende avgrenset." },
+        topic3: { title: "Gap-deteksjon", description: "Når tilliten er lav, viser Aipify hull og anbefaler forbedringer." },
+        topic4: { title: "Veiledning for ansatte", description: "Steg-for-steg-veiledning for interne team uten å erstatte menneskelig skjønn." },
+      },
+      seo: { title: "Knowledge Center | Aipify Knowledge Center", description: "Enterprise kunnskapshåndtering — godkjente playbooks, institusjonelt minne og styrt driftskunnskap." },
+      cta: { primary: "Book demo", secondary: "Les: Enterprise kunnskapshåndtering", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/enterprise-knowledge-management" },
+    },
+    operations: {
+      name: "Drift",
+      description: "Daglig koordinering, synlighet og operasjonell intelligens.",
+      headline: "Operasjonell intelligens for daglig koordinering",
+      introduction:
+        "Fra gjesteoperasjoner og handel til support og lager — utforsk hvordan Aipify gir synlighet, koordinering og styrt intelligens til driftsteam.",
+      topics: {
+        topic1: { title: "Synlighet på tvers av team", description: "Se prioriteringer, blokkeringer og forberedte handlinger på tvers av driftsfunksjoner." },
+        topic2: { title: "Bransjeplaybooks", description: "Guider tilpasset gjestebransje, eiendom, handel, support, lager og profesjonelle tjenester." },
+        topic3: { title: "Business Pack-tilpasning", description: "Hvordan modulære pakker aktiverer domenekapabiliteter uten unødvendig kompleksitet." },
+        topic4: { title: "Ledelseskoordinering", description: "Koble frontlinjedrift til ledelsesbriefinger og beslutningsstøtte." },
+        topic5: { title: "Kontinuerlig forbedring", description: "Driftsignal mater læring og kunnskapshull — mennesker godkjenner endringer." },
+      },
+      seo: { title: "Drift | Aipify Knowledge Center", description: "Daglig operasjonell koordinering, bransjeguider og synlighet for moderne organisasjoner." },
+      cta: { primary: "Book demo", secondary: "Utforsk Business Packs", primaryHref: "/book-demo", secondaryHref: "/pricing#business-packs" },
+    },
+    governance: {
+      name: "Styring",
+      description: "Menneskelig godkjenning, retningslinjer og revisjonsbar automatisering.",
+      headline: "Styring og menneskelig godkjenning — by design",
+      introduction:
+        "Sensitive handlinger krever eksplisitt godkjenning. Retningslinjer definerer hva Aipify kan forberede versus utføre. Hvert viktig steg er revisjonsbart — tillit vokser gjennom transparens.",
+      topics: {
+        topic1: { title: "Godkjenningspolicyer", description: "Konfigurer hva som krever menneskelig sign-off før utførelse." },
+        topic2: { title: "Risikonivåer", description: "Fra informasjonsutkast til sensitive handlinger — kritiske operasjoner forblir menneskestyrt." },
+        topic3: { title: "Revisjonsspor", description: "Uforanderlige logger for compliance, sikkerhetsgjennomgang og operasjonelt ansvar." },
+        topic4: { title: "Nødkontroller", description: "Pause automatisering umiddelbart når omstendighetene krever menneskelig inngrep." },
+      },
+      seo: { title: "Styring | Aipify Knowledge Center", description: "Menneskelig godkjenning, revisjonsbar automatisering og styringspolicyer for operasjonell AI." },
+      cta: { primary: "Book demo", secondary: "Les: Styring og menneskelig godkjenning", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/governance-and-human-approval" },
+    },
+    "trust-center": {
+      name: "Trust Center",
+      description: "Transparens, dataeierskap og styringskontroller.",
+      headline: "Tillit, transparens og dataeierskap",
+      introduction:
+        "Kunder eier dataene sine. Aipify eier intelligenslaget. Disse ressursene forklarer hvordan privacy-by-design, metadata-først-lagring og transparente kontroller beskytter organisasjonen.",
+      topics: {
+        topic1: { title: "Dataeierskap", description: "Tydelige grenser mellom kundens driftsdata og plattformintelligens." },
+        topic2: { title: "Privacy by design", description: "Hva Aipify samler inn, hva den nekter å lagre, og hvorfor." },
+        topic3: { title: "Lisens og kontinuitet", description: "Grace period, tjenestekontinuitet og hva som skjer ved faktureringshendelser." },
+        topic4: { title: "Tillitsarkitektur", description: "Hvordan read-only-first-integrasjoner og godkjenningsporter reduserer risiko." },
+      },
+      seo: { title: "Trust Center | Aipify Knowledge Center", description: "Transparens, dataeierskap og tillitskontroller for organisasjoner som vurderer Aipify." },
+      cta: { primary: "Book demo", secondary: "Utforsk styring", primaryHref: "/book-demo", secondaryHref: "/knowledge/governance" },
+    },
+    security: {
+      name: "Sikkerhet",
+      description: "Enterprise sikkerhetsbaseline og privacy-by-design.",
+      headline: "Enterprise sikkerhetsbaseline",
+      introduction:
+        "Sikkerhetsgjennomganger forventer synlige kontroller — autentisering, revisjon, tenant-isolasjon og ansvarlig databehandling. Disse ressursene beskriver Aipifys sikkerhetsprofil for seriøse organisasjoner.",
+      topics: {
+        topic1: { title: "Autentisering", description: "Tofaktorautentisering, sesjonshåndtering og gjenoppretting av tilgang." },
+        topic2: { title: "Tenant-isolasjon", description: "Hvordan kundedata holdes avgrenset til organisasjonen deres." },
+        topic3: { title: "Revisjon og compliance", description: "Logging, oppbevaring og transparens for sikkerhets- og innkjøpsteam." },
+        topic4: { title: "Ansvarlige AI-grenser", description: "Forbudte handlinger, godkjenningskrav og forklarbarhetsstandarder." },
+      },
+      seo: { title: "Sikkerhet | Aipify Knowledge Center", description: "Enterprise sikkerhetsbaseline, privacy-by-design og tenant-isolasjon for Aipify." },
+      cta: { primary: "Book demo", secondary: "Utforsk Trust Center", primaryHref: "/book-demo", secondaryHref: "/knowledge/trust-center" },
+    },
+    "business-packs": {
+      name: "Business Packs",
+      description: "Modulære domenekapabiliteter for bransjer og drift.",
+      headline: "Modulære Business Packs for driftsdomener",
+      introduction:
+        "Aktiver kun kapabilitetene organisasjonen trenger — gjestebransje, support, lager, finans og mer — uten å betale for ubrukt kompleksitet.",
+      topics: {
+        topic1: { title: "Pakke-modell", description: "Plattform selger, organisasjonen kjøper, aktiverer og gir tilgang til team." },
+        topic2: { title: "Domenekapabiliteter", description: "Driftsmoduler tilpasset spesifikke bransjer og arbeidsflyter." },
+        topic3: { title: "Aktiveringsflyt", description: "Velg, gjennomgå, aktiver og tilpass — med menneskelig validering i hvert steg." },
+        topic4: { title: "Lisensjustering", description: "Hvordan pakke-tilgang følger abonnementsstatus og organisatoriske roller." },
+      },
+      seo: { title: "Business Packs | Aipify Knowledge Center", description: "Modulære Business Packs — domenekapabiliteter for gjestebransje, support, lager og finans." },
+      cta: { primary: "Utforsk Business Packs", secondary: "Book demo", primaryHref: "/pricing#business-packs", secondaryHref: "/book-demo" },
+    },
+    integrations: {
+      name: "Integrasjoner",
+      description: "Koble Aipify til systemer organisasjonen allerede bruker.",
+      headline: "Koble Aipify til systemer dere allerede bruker",
+      introduction:
+        "Aipify installeres i kundemiljøer — WordPress, Shopify, egne adminpaneler og fremtidige koblinger — med respekt for native roller og read-only-first-policies.",
+      topics: {
+        topic1: { title: "Install-first-leveranse", description: "Arbeid der teamene allerede er — ikke enda et daglig adminpanel." },
+        topic2: { title: "Read-only først", description: "Nye integrasjoner starter read-only; utvidet tilgang krever eksplisitt godkjenning." },
+        topic3: { title: "Rollekartlegging", description: "Kartlegg Aipify-tilganger til kundens native roller — ikke et parallelt tillatelsessystem." },
+        topic4: { title: "Helseovervåking", description: "Heartbeat, domenevalidering og installasjonsstatus for operasjonell trygghet." },
+      },
+      seo: { title: "Integrasjoner | Aipify Knowledge Center", description: "Koble Aipify til eksisterende systemer — install-first, rollekartlegging og read-only-first." },
+      cta: { primary: "Book demo", secondary: "Be om tidlig tilgang", primaryHref: "/book-demo", secondaryHref: "/early-access" },
+    },
+    enterprise: {
+      name: "Enterprise",
+      description: "Innkjøp, sikkerhet og skala for seriøse organisasjoner.",
+      headline: "Enterprise-innkjøp og skala",
+      introduction:
+        "For organisasjoner med formelt innkjøp, sikkerhetsgjennomgang og krav til utrulling på tvers av avdelinger — forstå hvordan Aipify møter enterprise-forventninger.",
+      topics: {
+        topic1: { title: "Innkjøpsklarhet", description: "Dokumentasjon, lisensklarhet og eierskapsmeldinger for innkjøpsteam." },
+        topic2: { title: "Utrulling på tvers av avdelinger", description: "Modulær aktivering, rolleavgrensning og faseinndelt adopsjon." },
+        topic3: { title: "Sikkerhet og compliance", description: "Kontroller forventet i Fortune 500-influert driftsprogramvare." },
+        topic4: { title: "Dedikerte supportløp", description: "Hvordan enterprise-kunder engasjerer Aipify for implementering og suksess." },
+        topic5: { title: "Kommersielle pakker", description: "Fra Starter til Enterprise — funksjonsporter håndheves serverside." },
+      },
+      seo: { title: "Enterprise | Aipify Knowledge Center", description: "Enterprise-innkjøp, sikkerhetsgjennomgang og skala for organisasjoner som vurderer Aipify." },
+      cta: { primary: "Book enterprise-demo", secondary: "Kontakt Aipify", primaryHref: "/book-demo", secondaryHref: "/contact" },
+    },
+    "growth-partners": {
+      name: "Growth Partners",
+      description: "Profesjonelt partnerskap — ikke affiliate-markedsføring.",
+      headline: "Growth Partners — profesjonelt go-to-market-partnerskap",
+      introduction:
+        "Aipify Growth Partners hjelper organisasjoner å oppdage og implementere styrt driftsintelligens — med attribusjon, sertifisering og profesjonelle standarder — aldri affiliate-gimmicks.",
+      topics: {
+        topic1: { title: "Partnermodell", description: "Attribusjon uten overføring av kundeeierskap — kunder tilhører plattformen." },
+        topic2: { title: "Sertifisering", description: "Profesjonelle standarder for partnere som representerer Aipify i markedet." },
+        topic3: { title: "Co-sell-støtte", description: "Ressurser og alignment for seriøst B2B-partnerskap — ikke rabattkoder." },
+        topic4: { title: "Søk partnerskap", description: "Hvordan byråer, konsulenter og integratører starter partnerskapsreisen." },
+      },
+      seo: { title: "Growth Partners | Aipify Knowledge Center", description: "Profesjonelt Growth Partner-program — sertifisering, attribusjon og B2B-partnerskap med Aipify." },
+      cta: { primary: "Bli Growth Partner", secondary: "Kontakt partnerskap", primaryHref: "/growth-partners", secondaryHref: "/contact" },
+    },
+  },
+};
+
+// Swedish and Danish: derive from English with professional translations
+categoriesByLocale.sv = {
+  "getting-started": {
+    name: "Kom igång",
+    description: "Orientering för organisationer som utvärderar Aipify.",
+    headline: "Starta Aipify-utvärderingen med tydlighet",
+    introduction: "Oavsett om ni utforskar ett Business Operating System för första gången eller jämför plattformar förklarar dessa resurser hur Aipify passar er organisation — utan hype eller fackspråk.",
+    topics: {
+      topic1: { title: "Plattformsorientering", description: "Förstå vad Aipify är, vem det är till för och hur install-first-leverans fungerar i praktiken." },
+      topic2: { title: "Utvärderingschecklista", description: "Frågor som inköp, IT och driftsledare bör ställa innan val av operativ programvara." },
+      topic3: { title: "Första steg", description: "Hur team går från kartläggning till pilot — licens, installation och initial konfiguration." },
+      topic4: { title: "Roller och ägarskap", description: "Vem äger godkännanden, kunskap och daglig koordinering i organisationen." },
+    },
+    seo: { title: "Kom igång | Aipify Knowledge Center", description: "Orientingsguider för organisationer som utvärderar Aipify — plattformsgrunder, utvärderingslistor och första steg." },
+    cta: { primary: "Boka demo", secondary: "Begär tidig åtkomst", primaryHref: "/book-demo", secondaryHref: "/early-access" },
+  },
+  companion: {
+    name: "Companion",
+    description: "Hur Aipifys Companion stödjer ledare och team — inte en chatbot.",
+    headline: "Aipify Companion — styrd intelligens för er organisation",
+    introduction: "Companion är hur Aipify stödjer ledare och team med kontext, rekommendationer och förberedda nästa steg. Den är utformad för ansvar — inte öppen chatt.",
+    topics: {
+      topic1: { title: "Companion vs. chatbot", description: "Varför operativ programvara behöver styrd intelligens, inte generisk konversations-AI." },
+      topic2: { title: "Ledningsstöd", description: "Briefingar, prioriteringar och beslutsstöd som respekterar mänskligt ägarskap." },
+      topic3: { title: "Teamkoordinering", description: "Hur Companion hjälper team att agera på godkänd kunskap och operativa signaler." },
+      topic4: { title: "Människocentrerad design", description: "Transparens, godkännandeflöden och förklarbarhet inbyggd i varje interaktion." },
+      topic5: { title: "Enterprise-redo", description: "Hur Companion skalar över roller, avdelningar och licensierade moduler." },
+    },
+    seo: { title: "Companion | Aipify Knowledge Center", description: "Lär dig hur Aipify Companion stödjer ledare och team med styrd operativ intelligens — inte en chatbot." },
+    cta: { primary: "Boka demo", secondary: "Läs: Vad är en business Companion?", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/what-is-a-business-companion" },
+  },
+  "business-operating-system": {
+    name: "Business Operating System",
+    description: "Kategoridefinition och operativ plattformsstrategi.",
+    headline: "Vad ett Business Operating System innebär för moderna organisationer",
+    introduction: "Ett Business Operating System koordinerar kunskap, drift, styrning och intelligens ovanpå verktygen ni redan använder — med människor alltid i kontroll.",
+    topics: {
+      topic1: { title: "Kategoridefinition", description: "Hur ett BOS skiljer sig från ERP, CRM, helpdesk och punktautomation." },
+      topic2: { title: "Operativ synlighet", description: "Varför ledare behöver signal över team — utan övervakning eller brus." },
+      topic3: { title: "Kunskap som fördel", description: "Hur godkänd operativ kunskap ger snabbare och mer konsekvent utförande." },
+      topic4: { title: "Framtidens drift", description: "Gradvis tillit, styrd automation och mänskligt ansvar i skala." },
+    },
+    seo: { title: "Business Operating System | Aipify Knowledge Center", description: "Definiera Business Operating System-kategorin — operativ synlighet, styrd intelligens och plattformsstrategi." },
+    cta: { primary: "Boka demo", secondary: "Läs: Vad är ett BOS?", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/what-is-a-business-operating-system" },
+  },
+  "knowledge-center": {
+    name: "Knowledge Center",
+    description: "Operativ kunskap, playbooks och institutionellt minne.",
+    headline: "Operativ kunskap er organisation kan lita på",
+    introduction: "Aipify Knowledge Center hjälper team att fånga, godkänna och återanvända operativ kunskap — playbooks, procedurer och institutionellt minne — med rollbaserad åtkomst och full transparens.",
+    topics: {
+      topic1: { title: "Godkända källor", description: "Kunskap kommer från administratörsgodkända källor — aldrig dold skrapning." },
+      topic2: { title: "Rollbaserad åtkomst", description: "Team ser det de behöver; känsliga procedurer hålls lämpligt avgränsade." },
+      topic3: { title: "Gapdetektering", description: "När tilliten är låg visar Aipify luckor och rekommenderar förbättringar." },
+      topic4: { title: "Medarbetarvägledning", description: "Steg-för-steg-vägledning för interna team utan att ersätta mänskligt omdöme." },
+    },
+    seo: { title: "Knowledge Center | Aipify Knowledge Center", description: "Enterprise kunskapshantering — godkända playbooks, institutionellt minne och styrd operativ kunskap." },
+    cta: { primary: "Boka demo", secondary: "Läs: Enterprise kunskapshantering", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/enterprise-knowledge-management" },
+  },
+  operations: {
+    name: "Drift",
+    description: "Daglig koordinering, synlighet och operativ intelligens.",
+    headline: "Operativ intelligens för daglig koordinering",
+    introduction: "Från gästoperativ verksamhet och handel till support och lager — utforska hur Aipify ger synlighet, koordinering och styrd intelligens till driftteam.",
+    topics: {
+      topic1: { title: "Synlighet över team", description: "Se prioriteringar, blockeringar och förberedda åtgärder över operativa funktioner." },
+      topic2: { title: "Branschplaybooks", description: "Guider anpassade till hospitality, fastigheter, handel, support, lager och professionella tjänster." },
+      topic3: { title: "Business Pack-anpassning", description: "Hur modulära paket aktiverar domänkapabiliteter utan onödig komplexitet." },
+      topic4: { title: "Ledningskoordinering", description: "Koppla frontlinjedrift till ledningsbriefingar och beslutsstöd." },
+      topic5: { title: "Kontinuerlig förbättring", description: "Operativa signaler matar lärande och kunskapsluckor — människor godkänner förändringar." },
+    },
+    seo: { title: "Drift | Aipify Knowledge Center", description: "Daglig operativ koordinering, branschguider och synlighet för moderna organisationer." },
+    cta: { primary: "Boka demo", secondary: "Utforska Business Packs", primaryHref: "/book-demo", secondaryHref: "/pricing#business-packs" },
+  },
+  governance: {
+    name: "Styrning",
+    description: "Mänskligt godkännande, policyer och reviderbar automation.",
+    headline: "Styrning och mänskligt godkännande — by design",
+    introduction: "Känsliga åtgärder kräver explicit godkännande. Policyer definierar vad Aipify får förbereda kontra utföra. Varje viktigt steg är reviderbart — tillit växer genom transparens.",
+    topics: {
+      topic1: { title: "Godkännandepolicyer", description: "Konfigurera vad som kräver mänsklig sign-off före utförande." },
+      topic2: { title: "Risknivåer", description: "Från informationsutkast till känsliga åtgärder — kritiska operationer förblir människostyrda." },
+      topic3: { title: "Revisionsspår", description: "Oföränderliga loggar för compliance, säkerhetsgranskning och operativt ansvar." },
+      topic4: { title: "Nödkontroller", description: "Pausa automation omedelbart när omständigheterna kräver mänsklig intervention." },
+    },
+    seo: { title: "Styrning | Aipify Knowledge Center", description: "Mänskligt godkännande, reviderbar automation och styrningspolicyer för operativ AI." },
+    cta: { primary: "Boka demo", secondary: "Läs: Styrning och mänskligt godkännande", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/governance-and-human-approval" },
+  },
+  "trust-center": {
+    name: "Trust Center",
+    description: "Transparens, dataägarskap och styrningskontroller.",
+    headline: "Tillit, transparens och dataägarskap",
+    introduction: "Kunder äger sina data. Aipify äger intelligenslagret. Dessa resurser förklarar hur privacy-by-design, metadata-först-lagring och transparenta kontroller skyddar er organisation.",
+    topics: {
+      topic1: { title: "Dataägarskap", description: "Tydliga gränser mellan kundens operativa data och plattformsintelligens." },
+      topic2: { title: "Privacy by design", description: "Vad Aipify samlar in, vad den vägrar lagra och varför." },
+      topic3: { title: "Licens och kontinuitet", description: "Grace period, tjänstekontinuitet och vad som händer vid faktureringshändelser." },
+      topic4: { title: "Tillitsarkitektur", description: "Hur read-only-first-integrationer och godkännandegrindar minskar risk." },
+    },
+    seo: { title: "Trust Center | Aipify Knowledge Center", description: "Transparens, dataägarskap och tillitskontroller för organisationer som utvärderar Aipify." },
+    cta: { primary: "Boka demo", secondary: "Utforska styrning", primaryHref: "/book-demo", secondaryHref: "/knowledge/governance" },
+  },
+  security: {
+    name: "Säkerhet",
+    description: "Enterprise-säkerhetsbaslinje och privacy-by-design.",
+    headline: "Enterprise-säkerhetsbaslinje",
+    introduction: "Säkerhetsgranskningar förväntar sig synliga kontroller — autentisering, revision, tenant-isolering och ansvarsfull databehandling. Dessa resurser beskriver Aipifys säkerhetsprofil för seriösa organisationer.",
+    topics: {
+      topic1: { title: "Autentisering", description: "Tvåfaktorsautentisering, sessionshantering och återställning av åtkomst." },
+      topic2: { title: "Tenant-isolering", description: "Hur kunddata hålls avgränsad till er organisation." },
+      topic3: { title: "Revision och compliance", description: "Loggning, retention och transparens för säkerhets- och inköpsteam." },
+      topic4: { title: "Ansvarsfulla AI-gränser", description: "Förbjudna åtgärder, godkännandekrav och förklarbarhetsstandarder." },
+    },
+    seo: { title: "Säkerhet | Aipify Knowledge Center", description: "Enterprise-säkerhetsbaslinje, privacy-by-design och tenant-isolering för Aipify." },
+    cta: { primary: "Boka demo", secondary: "Utforska Trust Center", primaryHref: "/book-demo", secondaryHref: "/knowledge/trust-center" },
+  },
+  "business-packs": {
+    name: "Business Packs",
+    description: "Modulära domänkapabiliteter för branscher och drift.",
+    headline: "Modulära Business Packs för operativa domäner",
+    introduction: "Aktivera endast kapabiliteterna er organisation behöver — hospitality, support, lager, finans med mera — utan att betala för oanvänd komplexitet.",
+    topics: {
+      topic1: { title: "Paketmodell", description: "Plattformen säljer, er organisation köper, aktiverar och ger åtkomst till team." },
+      topic2: { title: "Domänkapabiliteter", description: "Operativa moduler anpassade till specifika branscher och arbetsflöden." },
+      topic3: { title: "Aktiveringsflöde", description: "Välj, granska, aktivera och anpassa — med mänsklig validering i varje steg." },
+      topic4: { title: "Licensanpassning", description: "Hur paketåtkomst följer prenumerationsstatus och organisatoriska roller." },
+    },
+    seo: { title: "Business Packs | Aipify Knowledge Center", description: "Modulära Business Packs — domänkapabiliteter för hospitality, support, lager och finans." },
+    cta: { primary: "Utforska Business Packs", secondary: "Boka demo", primaryHref: "/pricing#business-packs", secondaryHref: "/book-demo" },
+  },
+  integrations: {
+    name: "Integrationer",
+    description: "Anslut Aipify till system er organisation redan använder.",
+    headline: "Anslut Aipify till system ni redan använder",
+    introduction: "Aipify installeras i kundmiljöer — WordPress, Shopify, egna adminpaneler och framtida kopplingar — med respekt för inbyggda roller och read-only-first-policyer.",
+    topics: {
+      topic1: { title: "Install-first-leverans", description: "Arbeta där era team redan finns — inte ännu en daglig inloggningspanel." },
+      topic2: { title: "Read-only först", description: "Nya integrationer börjar read-only; utökad behörighet kräver explicit godkännande." },
+      topic3: { title: "Rollkartläggning", description: "Kartlägg Aipify-behörigheter till kundens inbyggda roller — inte ett parallellt behörighetssystem." },
+      topic4: { title: "Hälsoövervakning", description: "Heartbeat, domänvalidering och installationsstatus för operativ trygghet." },
+    },
+    seo: { title: "Integrationer | Aipify Knowledge Center", description: "Anslut Aipify till befintliga system — install-first, rollkartläggning och read-only-first." },
+    cta: { primary: "Boka demo", secondary: "Begär tidig åtkomst", primaryHref: "/book-demo", secondaryHref: "/early-access" },
+  },
+  enterprise: {
+    name: "Enterprise",
+    description: "Upphandling, säkerhet och skala för seriösa organisationer.",
+    headline: "Enterprise-upphandling och skala",
+    introduction: "För organisationer med formell upphandling, säkerhetsgranskning och krav på utrullning över avdelningar — förstå hur Aipify möter enterprise-förväntningar.",
+    topics: {
+      topic1: { title: "Upphandlingsberedskap", description: "Dokumentation, licensklarhet och ägarskapsmeddelanden för inköpsteam." },
+      topic2: { title: "Utrullning över avdelningar", description: "Modulär aktivering, rollavgränsning och fasad adoption." },
+      topic3: { title: "Säkerhet och compliance", description: "Kontroller som förväntas i Fortune 500-influerad operativ programvara." },
+      topic4: { title: "Dedikerade supportvägar", description: "Hur enterprise-kunder engagerar Aipify för implementering och framgång." },
+      topic5: { title: "Kommersiella paket", description: "Från Starter till Enterprise — funktionsgrindar verkställs serverside." },
+    },
+    seo: { title: "Enterprise | Aipify Knowledge Center", description: "Enterprise-upphandling, säkerhetsgranskning och skala för organisationer som utvärderar Aipify." },
+    cta: { primary: "Boka enterprise-demo", secondary: "Kontakta Aipify", primaryHref: "/book-demo", secondaryHref: "/contact" },
+  },
+  "growth-partners": {
+    name: "Growth Partners",
+    description: "Professionellt partnerskap — inte affiliate-marknadsföring.",
+    headline: "Growth Partners — professionellt go-to-market-partnerskap",
+    introduction: "Aipify Growth Partners hjälper organisationer att upptäcka och implementera styrd operativ intelligens — med attribuering, certifiering och professionella standarder — aldrig affiliate-gimmicks.",
+    topics: {
+      topic1: { title: "Partnermodell", description: "Attribuering utan överföring av kundägarskap — kunder tillhör plattformen." },
+      topic2: { title: "Certifiering", description: "Professionella standarder för partners som representerar Aipify på marknaden." },
+      topic3: { title: "Co-sell-stöd", description: "Resurser och alignment för seriöst B2B-partnerskap — inte rabattkoder." },
+      topic4: { title: "Ansök om partnerskap", description: "Hur byråer, konsulter och integratörer påbörjar partnerskapsresan." },
+    },
+    seo: { title: "Growth Partners | Aipify Knowledge Center", description: "Professionellt Growth Partner-program — certifiering, attribuering och B2B-partnerskap med Aipify." },
+    cta: { primary: "Bli Growth Partner", secondary: "Kontakta partnerskap", primaryHref: "/growth-partners", secondaryHref: "/contact" },
+  },
+};
+
+categoriesByLocale.da = {
+  "getting-started": {
+    name: "Kom i gang",
+    description: "Orientering for organisationer, der vurderer Aipify.",
+    headline: "Start Aipify-evalueringen med klarhed",
+    introduction: "Uanset om I udforsker et Business Operating System for første gang eller sammenligner platforme, forklarer disse ressourcer, hvordan Aipify passer til jeres organisation — uden hype eller fagsprog.",
+    topics: {
+      topic1: { title: "Platformorientering", description: "Forstå hvad Aipify er, hvem det er til, og hvordan install-first-levering fungerer i praksis." },
+      topic2: { title: "Evalueringsliste", description: "Spørgsmål indkøb, IT og driftsledere bør stille før valg af driftsprogramvare." },
+      topic3: { title: "Første skridt", description: "Hvordan teams går fra kortlægning til pilot — licens, installation og initial konfiguration." },
+      topic4: { title: "Roller og ejerskab", description: "Hvem ejer godkendelser, viden og daglig koordinering i organisationen." },
+    },
+    seo: { title: "Kom i gang | Aipify Knowledge Center", description: "Orientingsguider for organisationer, der vurderer Aipify — platformgrundlag, evalueringslister og første skridt." },
+    cta: { primary: "Book demo", secondary: "Anmod om tidlig adgang", primaryHref: "/book-demo", secondaryHref: "/early-access" },
+  },
+  companion: {
+    name: "Companion",
+    description: "Hvordan Aipifys Companion støtter ledere og teams — ikke en chatbot.",
+    headline: "Aipify Companion — styret intelligens for jeres organisation",
+    introduction: "Companion er, hvordan Aipify støtter ledere og teams med kontekst, anbefalinger og forberedte næste skridt. Den er designet til ansvarlighed — ikke åben chat.",
+    topics: {
+      topic1: { title: "Companion vs. chatbot", description: "Hvorfor driftsprogramvare har brug for styret intelligens, ikke generisk samtale-AI." },
+      topic2: { title: "Ledelsesstøtte", description: "Briefinger, prioriteringer og beslutningsstøtte, der respekterer menneskeligt ejerskab." },
+      topic3: { title: "Teamkoordinering", description: "Hvordan Companion hjælper teams med at handle på godkendt viden og driftssignaler." },
+      topic4: { title: "Menneskecentreret design", description: "Transparens, godkendelsesflow og forklarbarhed indbygget i hver interaktion." },
+      topic5: { title: "Enterprise-klarhed", description: "Hvordan Companion skalerer på tværs af roller, afdelinger og licenserede moduler." },
+    },
+    seo: { title: "Companion | Aipify Knowledge Center", description: "Lær hvordan Aipify Companion støtter ledere og teams med styret driftsintelligens — ikke en chatbot." },
+    cta: { primary: "Book demo", secondary: "Læs: Hvad er en business Companion?", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/what-is-a-business-companion" },
+  },
+  "business-operating-system": {
+    name: "Business Operating System",
+    description: "Kategoridefinition og platformstrategi for drift.",
+    headline: "Hvad et Business Operating System betyder for moderne organisationer",
+    introduction: "Et Business Operating System koordinerer viden, drift, styring og intelligens over de værktøjer, I allerede bruger — med mennesker altid i kontrol.",
+    topics: {
+      topic1: { title: "Kategoridefinition", description: "Hvordan et BOS adskiller sig fra ERP, CRM, helpdesk og punktautomatisering." },
+      topic2: { title: "Operationel synlighed", description: "Hvorfor ledere har brug for signal på tværs af teams — uden overvågning eller støj." },
+      topic3: { title: "Viden som fordel", description: "Hvordan godkendt driftsviden giver hurtigere og mere konsistent udførelse." },
+      topic4: { title: "Fremtidens drift", description: "Gradvis tillid, styret automatisering og menneskeligt ansvar i skala." },
+    },
+    seo: { title: "Business Operating System | Aipify Knowledge Center", description: "Definer Business Operating System-kategorien — operationel synlighed, styret intelligens og platformstrategi." },
+    cta: { primary: "Book demo", secondary: "Læs: Hvad er et BOS?", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/what-is-a-business-operating-system" },
+  },
+  "knowledge-center": {
+    name: "Knowledge Center",
+    description: "Driftsviden, playbooks og institutionelt minde.",
+    headline: "Driftsviden jeres organisation kan stole på",
+    introduction: "Aipify Knowledge Center hjælper teams med at indfange, godkende og genbruge driftsviden — playbooks, procedurer og institutionelt minde — med rollebaseret adgang og fuld transparens.",
+    topics: {
+      topic1: { title: "Godkendte kilder", description: "Viden kommer fra administrator-godkendte kilder — aldrig skjult scraping." },
+      topic2: { title: "Rollebaseret adgang", description: "Teams ser det, de har brug for; følsomme procedurer holdes passende afgrænset." },
+      topic3: { title: "Gap-detektion", description: "Når tilliden er lav, viser Aipify huller og anbefaler forbedringer." },
+      topic4: { title: "Medarbejdervejledning", description: "Trin-for-trin-vejledning til interne teams uden at erstatte menneskelig dømmekraft." },
+    },
+    seo: { title: "Knowledge Center | Aipify Knowledge Center", description: "Enterprise videnshåndtering — godkendte playbooks, institutionelt minde og styret driftsviden." },
+    cta: { primary: "Book demo", secondary: "Læs: Enterprise videnshåndtering", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/enterprise-knowledge-management" },
+  },
+  operations: {
+    name: "Drift",
+    description: "Daglig koordinering, synlighed og operationel intelligens.",
+    headline: "Operationel intelligens til daglig koordinering",
+    introduction: "Fra gæsteoperationer og handel til support og lager — udforsk hvordan Aipify giver synlighed, koordinering og styret intelligens til driftsteams.",
+    topics: {
+      topic1: { title: "Synlighed på tværs af teams", description: "Se prioriteringer, blokeringer og forberedte handlinger på tværs af driftsfunktioner." },
+      topic2: { title: "Brancheplaybooks", description: "Guider tilpasset hospitality, ejendom, handel, support, lager og professionelle services." },
+      topic3: { title: "Business Pack-tilpasning", description: "Hvordan modulære pakker aktiverer domænekapabiliteter uden unødvendig kompleksitet." },
+      topic4: { title: "Ledelseskoordinering", description: "Forbind frontlinjedrift til ledelsesbriefinger og beslutningsstøtte." },
+      topic5: { title: "Kontinuerlig forbedring", description: "Driftssignaler feeder læring og videnshuller — mennesker godkender ændringer." },
+    },
+    seo: { title: "Drift | Aipify Knowledge Center", description: "Daglig operationel koordinering, brancheguider og synlighed for moderne organisationer." },
+    cta: { primary: "Book demo", secondary: "Udforsk Business Packs", primaryHref: "/book-demo", secondaryHref: "/pricing#business-packs" },
+  },
+  governance: {
+    name: "Styring",
+    description: "Menneskelig godkendelse, politikker og reviderbar automatisering.",
+    headline: "Styring og menneskelig godkendelse — by design",
+    introduction: "Følsomme handlinger kræver eksplicit godkendelse. Politikker definerer, hvad Aipify må forberede versus udføre. Hvert vigtigt trin er reviderbart — tillid vokser gennem transparens.",
+    topics: {
+      topic1: { title: "Godkendelsespolitikker", description: "Konfigurer hvad der kræver menneskelig sign-off før udførelse." },
+      topic2: { title: "Risikoniveauer", description: "Fra informationsudkast til følsomme handlinger — kritiske operationer forbliver menneskestyret." },
+      topic3: { title: "Revisionsspor", description: "Uforanderlige logs til compliance, sikkerhedsgennemgang og operationelt ansvar." },
+      topic4: { title: "Nødkontroller", description: "Pause automatisering øjeblikkeligt når omstændighederne kræver menneskelig indgriben." },
+    },
+    seo: { title: "Styring | Aipify Knowledge Center", description: "Menneskelig godkendelse, reviderbar automatisering og styringspolitikker for operationel AI." },
+    cta: { primary: "Book demo", secondary: "Læs: Styring og menneskelig godkendelse", primaryHref: "/book-demo", secondaryHref: "/knowledge/articles/governance-and-human-approval" },
+  },
+  "trust-center": {
+    name: "Trust Center",
+    description: "Transparens, dataejerskab og styringskontroller.",
+    headline: "Tillid, transparens og dataejerskab",
+    introduction: "Kunder ejer deres data. Aipify ejer intelligenslaget. Disse ressourcer forklarer hvordan privacy-by-design, metadata-først-lagring og transparente kontroller beskytter jeres organisation.",
+    topics: {
+      topic1: { title: "Dataejerskab", description: "Tydelige grænser mellem kundens driftsdata og platformintelligens." },
+      topic2: { title: "Privacy by design", description: "Hvad Aipify indsamler, hvad den nægter at lagre, og hvorfor." },
+      topic3: { title: "Licens og kontinuitet", description: "Grace period, tjenestekontinuitet og hvad der sker ved faktureringshændelser." },
+      topic4: { title: "Tillidsarkitektur", description: "Hvordan read-only-first-integrationer og godkendelsesporte reducerer risiko." },
+    },
+    seo: { title: "Trust Center | Aipify Knowledge Center", description: "Transparens, dataejerskab og tillidskontroller for organisationer, der vurderer Aipify." },
+    cta: { primary: "Book demo", secondary: "Udforsk styring", primaryHref: "/book-demo", secondaryHref: "/knowledge/governance" },
+  },
+  security: {
+    name: "Sikkerhed",
+    description: "Enterprise sikkerhedsbaseline og privacy-by-design.",
+    headline: "Enterprise sikkerhedsbaseline",
+    introduction: "Sikkerhedsgennemgange forventer synlige kontroller — autentificering, revision, tenant-isolation og ansvarlig databehandling. Disse ressourcer beskriver Aipifys sikkerhedsprofil for seriøse organisationer.",
+    topics: {
+      topic1: { title: "Autentificering", description: "To-faktor-autentificering, sessionshåndtering og gendannelse af adgang." },
+      topic2: { title: "Tenant-isolation", description: "Hvordan kundedata holdes afgrænset til jeres organisation." },
+      topic3: { title: "Revision og compliance", description: "Logging, opbevaring og transparens for sikkerheds- og indkøbsteams." },
+      topic4: { title: "Ansvarlige AI-grænser", description: "Forbudte handlinger, godkendelseskrav og forklarbarhedsstandarder." },
+    },
+    seo: { title: "Sikkerhed | Aipify Knowledge Center", description: "Enterprise sikkerhedsbaseline, privacy-by-design og tenant-isolation for Aipify." },
+    cta: { primary: "Book demo", secondary: "Udforsk Trust Center", primaryHref: "/book-demo", secondaryHref: "/knowledge/trust-center" },
+  },
+  "business-packs": {
+    name: "Business Packs",
+    description: "Modulære domænekapabiliteter til brancher og drift.",
+    headline: "Modulære Business Packs til driftsdomæner",
+    introduction: "Aktivér kun de kapabiliteter jeres organisation har brug for — hospitality, support, lager, finans med mere — uden at betale for ubrugt kompleksitet.",
+    topics: {
+      topic1: { title: "Pakke-model", description: "Platform sælger, organisationen køber, aktiverer og giver adgang til teams." },
+      topic2: { title: "Domænekapabiliteter", description: "Driftsmoduler tilpasset specifikke brancher og workflows." },
+      topic3: { title: "Aktiveringsflow", description: "Vælg, gennemgå, aktiver og tilpas — med menneskelig validering i hvert trin." },
+      topic4: { title: "Licensjustering", description: "Hvordan pakke-adgang følger abonnementsstatus og organisatoriske roller." },
+    },
+    seo: { title: "Business Packs | Aipify Knowledge Center", description: "Modulære Business Packs — domænekapabiliteter til hospitality, support, lager og finans." },
+    cta: { primary: "Udforsk Business Packs", secondary: "Book demo", primaryHref: "/pricing#business-packs", secondaryHref: "/book-demo" },
+  },
+  integrations: {
+    name: "Integrationer",
+    description: "Forbind Aipify til systemer jeres organisation allerede bruger.",
+    headline: "Forbind Aipify til systemer I allerede bruger",
+    introduction: "Aipify installeres i kundemiljøer — WordPress, Shopify, egne adminpaneler og fremtidige forbindelser — med respekt for native roller og read-only-first-politikker.",
+    topics: {
+      topic1: { title: "Install-first-levering", description: "Arbejd hvor jeres teams allerede er — ikke endnu et dagligt adminpanel." },
+      topic2: { title: "Read-only først", description: "Nye integrationer starter read-only; udvidet adgang kræver eksplicit godkendelse." },
+      topic3: { title: "Rollekortlægning", description: "Kortlæg Aipify-tilladelser til kundens native roller — ikke et parallelt tilladelsessystem." },
+      topic4: { title: "Helbredsovervågning", description: "Heartbeat, domænevalidering og installationsstatus for operationel tryghed." },
+    },
+    seo: { title: "Integrationer | Aipify Knowledge Center", description: "Forbind Aipify til eksisterende systemer — install-first, rollekortlægning og read-only-first." },
+    cta: { primary: "Book demo", secondary: "Anmod om tidlig adgang", primaryHref: "/book-demo", secondaryHref: "/early-access" },
+  },
+  enterprise: {
+    name: "Enterprise",
+    description: "Indkøb, sikkerhed og skala for seriøse organisationer.",
+    headline: "Enterprise-indkøb og skala",
+    introduction: "For organisationer med formelt indkøb, sikkerhedsgennemgang og krav til udrulning på tværs af afdelinger — forstå hvordan Aipify opfylder enterprise-forventninger.",
+    topics: {
+      topic1: { title: "Indkøbsklarhed", description: "Dokumentation, licensklarhed og ejerskabsbeskeder til indkøbsteams." },
+      topic2: { title: "Udrulning på tværs af afdelinger", description: "Modulær aktivering, rolleafgrænsning og faseopdelt adoption." },
+      topic3: { title: "Sikkerhed og compliance", description: "Kontroller forventet i Fortune 500-influeret driftsprogramvare." },
+      topic4: { title: "Dedikerede supportforløb", description: "Hvordan enterprise-kunder engagerer Aipify til implementering og succes." },
+      topic5: { title: "Kommercielle pakker", description: "Fra Starter til Enterprise — funktionsporte håndhæves serverside." },
+    },
+    seo: { title: "Enterprise | Aipify Knowledge Center", description: "Enterprise-indkøb, sikkerhedsgennemgang og skala for organisationer, der vurderer Aipify." },
+    cta: { primary: "Book enterprise-demo", secondary: "Kontakt Aipify", primaryHref: "/book-demo", secondaryHref: "/contact" },
+  },
+  "growth-partners": {
+    name: "Growth Partners",
+    description: "Professionelt partnerskab — ikke affiliate-marketing.",
+    headline: "Growth Partners — professionelt go-to-market-partnerskab",
+    introduction: "Aipify Growth Partners hjælper organisationer med at opdage og implementere styret driftsintelligens — med attribuering, certificering og professionelle standarder — aldrig affiliate-gimmicks.",
+    topics: {
+      topic1: { title: "Partnermodel", description: "Attribuering uden overførsel af kundeejerskab — kunder tilhører platformen." },
+      topic2: { title: "Certificering", description: "Professionelle standarder for partnere, der repræsenterer Aipify på markedet." },
+      topic3: { title: "Co-sell-støtte", description: "Ressourcer og alignment til seriøst B2B-partnerskab — ikke rabatkoder." },
+      topic4: { title: "Ansøg om partnerskab", description: "Hvordan bureauer, konsulenter og integratører starter partnerskabsrejsen." },
+    },
+    seo: { title: "Growth Partners | Aipify Knowledge Center", description: "Professionelt Growth Partner-program — certificering, attribuering og B2B-partnerskab med Aipify." },
+    cta: { primary: "Bliv Growth Partner", secondary: "Kontakt partnerskab", primaryHref: "/growth-partners", secondaryHref: "/contact" },
+  },
+};
+
+for (const locale of LOCALES) {
+  const path = join(ROOT, "locales", locale, "marketing.json");
+  const data = JSON.parse(readFileSync(path, "utf8"));
+  if (!data.publicKnowledge) data.publicKnowledge = {};
+
+  data.publicKnowledge.categoryPage = categoryPage[locale];
+  data.publicKnowledge.categories = {
+    ...data.publicKnowledge.categories,
+    ...categoriesByLocale[locale],
+  };
+  data.publicKnowledge.hub = {
+    ...data.publicKnowledge.hub,
+    viewCategory: categoryPage[locale].viewCategory,
+  };
+
+  writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, "utf8");
+  console.log(`Updated locales/${locale}/marketing.json`);
+}
+
+console.log("Phase 620 category i18n applied.");

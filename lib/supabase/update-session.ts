@@ -13,8 +13,17 @@ function isProtectedPath(pathname: string): boolean {
   return PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 }
 
+/** Forward pathname for server-side locale resolution (`lib/i18n/get-locale.ts`). */
+export function withPathnameRequestHeaders(request: NextRequest): Headers {
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-pathname", request.nextUrl.pathname);
+  return requestHeaders;
+}
+
 export async function updateSession(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({ request });
+  let supabaseResponse = NextResponse.next({
+    request: { headers: withPathnameRequestHeaders(request) },
+  });
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -32,7 +41,9 @@ export async function updateSession(request: NextRequest) {
         cookiesToSet.forEach(({ name, value }: { name: string; value: string }) => {
           request.cookies.set(name, value);
         });
-        supabaseResponse = NextResponse.next({ request });
+        supabaseResponse = NextResponse.next({
+          request: { headers: withPathnameRequestHeaders(request) },
+        });
         cookiesToSet.forEach(({ name, value, options }: { name: string; value: string; options?: Record<string, unknown> }) => {
           supabaseResponse.cookies.set(name, value, options);
         });

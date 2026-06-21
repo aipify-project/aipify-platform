@@ -1,157 +1,206 @@
-export type CustomerHealthStatus =
-  | "thriving"
-  | "healthy"
+import type { HealthState } from "@/lib/design/semantic-status-system";
+import type { RiskLevel } from "@/lib/app-portal/success-center/types";
+import type { CustomerHealthSortOption, CustomerHealthTrendPeriod } from "./config";
+
+export type CustomerHealthTrendState =
+  | "improving"
   | "stable"
-  | "requires_attention"
-  | "critical_support_needed";
+  | "declining"
+  | "rapid_decline"
+  | "insufficient_data";
 
-export type CustomerHealthTrend = "improving" | "stable" | "declining" | "insufficient_data";
+export type CustomerHealthDriverEffect =
+  | "positive"
+  | "neutral"
+  | "moderate_negative"
+  | "strong_negative"
+  | "critical_negative";
 
-export type CustomerHealthPriority = "informational" | "opportunity" | "important" | "high_priority";
+export type CustomerHealthMetrics = {
+  team_count: number;
+  active_users: number;
+  business_packs: number;
+  active_capabilities: number;
+  integrations: number;
+  operations_activity: number;
+};
 
-export type CustomerHealthRecommendation = {
-  id: string;
+export type CustomerHealthOverviewSection = {
+  health_score: number;
+  health_state: HealthState;
+  adoption_score: number;
+  engagement_score: number;
+  utilization_score: number;
+  learning_score: number;
+  risk_level: RiskLevel;
+  trend_state: CustomerHealthTrendState;
+  score_change: number;
+  explanation: string;
+  last_calculated_at?: string;
+};
+
+export type CustomerHealthRecommendedAction = {
   key: string;
-  priority: CustomerHealthPriority | string;
+  priority: string;
+  module?: string;
+};
+
+export type CustomerHealthDriver = {
+  key: string;
+  score: number;
+  effect: CustomerHealthDriverEffect;
+};
+
+export type CustomerHealthStrength = {
+  key: string;
+  value: number;
+  impact: string;
+  action_href?: string;
+};
+
+export type CustomerHealthNeedsAttentionItem = {
+  key: string;
+  severity: string;
+  impact: string;
+  action_href?: string;
+  value: number;
+};
+
+export type CustomerHealthTrendPoint = {
+  recorded_at: string;
+  score: number;
+  health_state?: string;
+};
+
+export type CustomerHealthRiskItem = {
+  key: string;
+  severity: string;
+  description: string;
   category: string;
 };
 
-export type CustomerHealthIndicators = {
-  platform_engagement: number;
-  training_participation: number;
-  support_interactions: number;
-  adoption_progress: number;
-  security_completion: number;
-  integration_activity: number;
-  recommendation_completion: number;
+export type CustomerHealthOperationalSignal = {
+  key: string;
+  category: string;
+  description: string;
+  trend?: string;
 };
 
-export type CustomerHealthEngagementInsights = {
-  active_teams: string[];
-  departments_requiring_support: string[];
-  underutilized_capabilities: string[];
-  positive_momentum: string[];
-  declining_activity: string[];
-};
-
-export type CustomerHealthSupportInsights = {
-  open_requests: number;
-  resolved_requests: number;
-  resolution_trend: string;
-  satisfaction_indicator: number;
-  self_service_sessions: number;
-  knowledge_engagement: number;
-};
-
-export type CustomerHealthTimelineEvent = {
+export type CustomerHealthHistoryEntry = {
   id: string;
   event_type: string;
   description: string;
-  created_at: string;
+  score?: number;
+  recorded_at: string;
 };
 
-export type CustomerHealthOverview = {
+export type CustomerHealthWorkspaceResponse = {
   found: boolean;
+  filtered_out?: boolean;
+  has_activity?: boolean;
   can_manage?: boolean;
   can_admin?: boolean;
-  review_started?: boolean;
-  overall_health_score?: number;
-  engagement_score?: number;
-  support_satisfaction_score?: number;
-  adoption_score?: number;
-  learning_completion_score?: number;
-  health_status?: CustomerHealthStatus;
-  relationship_trend?: CustomerHealthTrend;
-  open_recommendations_count?: number;
-  health_indicators?: CustomerHealthIndicators;
-  engagement_insights?: CustomerHealthEngagementInsights;
-  support_insights?: CustomerHealthSupportInsights;
-  recommendations?: CustomerHealthRecommendation[];
-  personal_recommendations?: Array<{ id: string; title: string; status: string; due_date?: string | null }>;
-  department_reporting?: { department: string; engagement_score: number; learning_participation: number } | null;
-  principle?: string;
+  organization_name?: string;
+  overview?: CustomerHealthOverviewSection;
+  metrics?: CustomerHealthMetrics;
+  recommended_action?: CustomerHealthRecommendedAction | null;
+  drivers?: CustomerHealthDriver[];
+  strengths?: CustomerHealthStrength[];
+  needs_attention?: CustomerHealthNeedsAttentionItem[];
+  trend_points?: CustomerHealthTrendPoint[];
+  trend_state?: CustomerHealthTrendState;
+  risks?: CustomerHealthRiskItem[];
+  operational_signals?: CustomerHealthOperationalSignal[];
+  health_history?: CustomerHealthHistoryEntry[];
 };
 
 export type CustomerHealthLabels = {
+  eyebrow: string;
   title: string;
   subtitle: string;
   loading: string;
-  principle: string;
+  breadcrumbSupport: string;
+  breadcrumbCustomerHealth: string;
+  backToSupport: string;
+  purposeSummary: Record<"healthy" | "moderate" | "poor" | "critical", string>;
   emptyTitle: string;
   emptyBody: string;
-  emptyCta: string;
-  accessDenied: string;
+  emptyAction: string;
+  errorTitle: string;
+  errorBody: string;
+  retry: string;
+  sections: {
+    overview: string;
+    recommendedAction: string;
+    drivers: string;
+    strengths: string;
+    needsAttention: string;
+    trend: string;
+    risks: string;
+    operationalSignals: string;
+    history: string;
+    understanding: string;
+  };
+  overview: {
+    healthScore: string;
+    healthState: string;
+    trend: string;
+    scoreChange: string;
+    riskLevel: string;
+    lastCalculated: string;
+    explanation: string;
+    advisory: string;
+  };
+  healthStates: Record<HealthState, string>;
+  trendStates: Record<CustomerHealthTrendState, string>;
+  riskLevels: Record<RiskLevel, string>;
+  driverEffects: Record<CustomerHealthDriverEffect, string>;
+  drivers: Record<string, string>;
+  strengths: Record<string, string>;
+  needsAttention: Record<string, string>;
+  risks: Record<string, string>;
+  operationalSignals: Record<string, string>;
+  trend: {
+    periodLabel: string;
+    empty: string;
+    insufficientData: string;
+    periods: Record<string, string>;
+  };
   filters: {
     search: string;
     category: string;
     priority: string;
     trend: string;
-    periodFrom: string;
-    department: string;
+    date: string;
+    sortBy: string;
     all: string;
+    categories: Record<string, string>;
+    sortOptions: Record<CustomerHealthSortOption, string>;
   };
-  dashboard: {
-    overallHealth: string;
-    engagement: string;
-    supportSatisfaction: string;
-    adoption: string;
-    learningCompletion: string;
-    relationshipTrend: string;
-    openRecommendations: string;
-    healthStatus: string;
+  history: {
+    score: string;
+    eventType: string;
+    empty: string;
   };
-  indicators: {
-    title: string;
-    platformEngagement: string;
-    trainingParticipation: string;
-    supportInteractions: string;
-    adoptionProgress: string;
-    securityCompletion: string;
-    integrationActivity: string;
-    recommendationCompletion: string;
+  understanding: {
+    q1: string;
+    a1: string;
+    q2: string;
+    a2: string;
+    q3: string;
+    a3: string;
+    q4: string;
+    a4: string;
   };
-  engagement: {
-    title: string;
-    activeTeams: string;
-    departmentsSupport: string;
-    underutilized: string;
-    positiveMomentum: string;
-    decliningActivity: string;
-  };
-  support: {
-    title: string;
-    openRequests: string;
-    resolvedRequests: string;
-    resolutionTrend: string;
-    satisfaction: string;
-    selfService: string;
-    knowledgeEngagement: string;
-  };
-  timeline: { title: string };
-  team: { title: string; engagement: string; learning: string };
-  statuses: Record<CustomerHealthStatus, string>;
-  trends: Record<CustomerHealthTrend, string>;
-  priorities: Record<string, string>;
-  recommendations: Record<string, string>;
-  faq: {
-    title: string;
-    whatIs: string;
-    whatIsAnswer: string;
-    goodCustomer: string;
-    goodCustomerAnswer: string;
-    improveOutcomes: string;
-    improveOutcomesAnswer: string;
-  };
+  recommendations: Record<string, { title: string; reason: string; action: string }>;
 };
 
-export const CUSTOMER_HEALTH_STATUSES: CustomerHealthStatus[] = [
-  "thriving", "healthy", "stable", "requires_attention", "critical_support_needed",
+export const CUSTOMER_HEALTH_TREND_STATES: CustomerHealthTrendState[] = [
+  "improving",
+  "stable",
+  "declining",
+  "rapid_decline",
+  "insufficient_data",
 ];
 
-export const CUSTOMER_HEALTH_TRENDS: CustomerHealthTrend[] = [
-  "improving", "stable", "declining", "insufficient_data",
-];
-
-export const CUSTOMER_HEALTH_PRIORITIES: CustomerHealthPriority[] = [
-  "informational", "opportunity", "important", "high_priority",
-];
+export const CUSTOMER_HEALTH_TREND_PERIODS_UI: CustomerHealthTrendPeriod[] = [7, 30, 90, 365];

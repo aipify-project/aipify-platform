@@ -52,6 +52,9 @@ export async function GET(request: Request) {
       p_success_status: searchParams.get("success_status") || null,
       p_period_from: searchParams.get("period_from") || null,
       p_search: searchParams.get("search") || null,
+      p_owner: searchParams.get("owner") || null,
+      p_due_date: searchParams.get("due_date") || null,
+      p_sort_by: searchParams.get("sort_by") || null,
     });
     if (error) {
       const access_state = classifyAppPortalError(error.message);

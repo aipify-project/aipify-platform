@@ -21,9 +21,28 @@
     "admin": "Admin",
     "support": "Support",
     "staff": "Staff",
-    "read_only": "Read Only"
+    "read_only": "Read Only",
+    "super_admin": "Super Admin",
+    "platform_support": "Platform Support",
+    "manager": "Manager",
+    "growth_partner": "Growth Partner",
+    "moderator": "Moderator",
+    "member": "Member"
   },
   "signOut": "Logg ut",
+  "languageSelector": {
+    "label": "Språk",
+    "activeLanguage": "Aktivt språk",
+    "changeLanguage": "Bytt språk",
+    "switchFailed": "Språket kunne ikke endres. Prøv igjen.",
+    "retry": "Prøv igjen",
+    "openMenu": "Språkvalg"
+  },
+  "mobile": {
+    "openMenu": "Åpne meny",
+    "closeMenu": "Lukk meny",
+    "navigation": "Mobilnavigasjon"
+  },
   "licenseSidebar": {
     "workspace": "Workspace:",
     "poweredBy": "Drevet av",

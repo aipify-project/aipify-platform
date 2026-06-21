@@ -160,6 +160,19 @@ export default async function AppLayout({
             label: t("shell.multiTenantArchitecture.organizationSwitcher"),
             switching: t("shell.multiTenantArchitecture.switchingOrganization"),
           }}
+          languageSelectorLabels={{
+            label: t("shell.languageSelector.label"),
+            activeLanguage: t("shell.languageSelector.activeLanguage"),
+            changeLanguage: t("shell.languageSelector.changeLanguage"),
+            switchFailed: t("shell.languageSelector.switchFailed"),
+            retry: t("shell.languageSelector.retry"),
+            openMenu: t("shell.languageSelector.openMenu"),
+          }}
+          shellUiLabels={{
+            openMenu: t("shell.mobile.openMenu"),
+            closeMenu: t("shell.mobile.closeMenu"),
+            mobileNavigation: t("shell.mobile.navigation"),
+          }}
           twoFactorBadgeLabels={{
             enabled: t("shell.twoFactor.badge.enabled"),
             required: t("shell.twoFactor.badge.required"),

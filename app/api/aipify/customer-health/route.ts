@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { parseCustomerHealthOverview } from "@/lib/app-portal/customer-health";
+import { parseCustomerHealthWorkspace } from "@/lib/app-portal/customer-health";
 import {
   appPortalAccessDeniedResponse,
   appPortalRpcErrorResponse,
@@ -46,7 +46,7 @@ export async function GET(request: Request) {
       }
       return appPortalRpcErrorResponse("[aipify/customer-health]", error.message);
     }
-    return NextResponse.json(parseCustomerHealthOverview(data));
+    return NextResponse.json(parseCustomerHealthWorkspace(data));
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to load customer health";
     const access_state = classifyAppPortalError(message);
@@ -91,7 +91,7 @@ export async function POST() {
       }
       return appPortalRpcErrorResponse("[aipify/customer-health]", error.message);
     }
-    return NextResponse.json(parseCustomerHealthOverview(data));
+    return NextResponse.json(parseCustomerHealthWorkspace(data));
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to start health review";
     const access_state = classifyAppPortalError(message);

@@ -1,4 +1,4 @@
-export const APP_PORTAL_HOME_ROUTE = "/app";
+export const APP_PORTAL_HOME_ROUTE = "/app/command-center";
 
 export const APP_ORGANIZATION_ROLES = [
   "organization_owner",
@@ -123,7 +123,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     labelKey: "customerApp.portalStructure.navGroups.home",
     defaultExpanded: true,
     items: [
-      { id: "appDashboard", href: "/app", labelKey: "customerApp.portalStructure.nav.dashboard" },
+      { id: "appDashboard", href: "/app/command-center", labelKey: "customerApp.portalStructure.nav.dashboard" },
       { id: "sinceLastLogin", href: "/app/since-last-login", labelKey: "customerApp.portalStructure.nav.sinceLastLogin" },
       { id: "appNotifications", href: "/app/notifications", labelKey: "customerApp.portalStructure.nav.notifications" },
     ],
@@ -250,7 +250,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
 export const APP_PORTAL_NAV: AppPortalNavItem[] = APP_PORTAL_NAV_GROUPS.flatMap((g) => g.items);
 
 export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
-  if (pathname === "/app") return "appDashboard";
+  if (pathname === "/app" || pathname === "/app/command-center") return "appDashboard";
   if (pathname.startsWith("/app/platform/integrations/connect")) return "connectIntegration";
   if (pathname.startsWith("/app/platform/integrations/connected")) return "connectedIntegrations";
   if (pathname.startsWith("/app/platform/integrations")) return "integrations";

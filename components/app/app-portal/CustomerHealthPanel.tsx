@@ -1,54 +1,109 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
 import {
-  CUSTOMER_HEALTH_PRIORITIES,
-  CUSTOMER_HEALTH_TRENDS,
-  parseCustomerHealthOverview,
-  parseCustomerHealthTimeline,
+  Activity,
+  AlertTriangle,
+  BarChart3,
+  HeartPulse,
+  HelpCircle,
+  History,
+  Lightbulb,
+  ShieldAlert,
+  Sparkles,
+  TrendingUp,
+  type LucideIcon,
+} from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  AppEmptyState,
+  AppErrorState,
+  AppLoadingState,
+  PriorityRecommendationCard,
+} from "@/components/app/design";
+import { ExecutiveMetricCard } from "@/components/app/design/ExecutiveMetricCard";
+import { MetricsLineChart } from "@/components/platform/metrics/MetricsCharts";
+import { SemanticBadge } from "@/components/ui/semantic-badge";
+import { AppPremiumShell } from "@/lib/design/app-premium-shell";
+import { getSeverityPresentation } from "@/lib/design/semantic-status-system";
+import { formatDateTime } from "@/lib/i18n/format-date";
+import {
+  CUSTOMER_HEALTH_SUPPORT_HREF,
+  CUSTOMER_HEALTH_TREND_PERIODS,
+  CUSTOMER_HEALTH_RECOMMENDATION_LINKS,
+  NEEDS_ATTENTION_ACTION_LINKS,
   type CustomerHealthLabels,
-  type CustomerHealthOverview,
-  type CustomerHealthStatus,
-  type CustomerHealthTimelineEvent,
-  type CustomerHealthTrend,
+  type CustomerHealthSortOption,
+  type CustomerHealthTrendPeriod,
+  type CustomerHealthWorkspaceResponse,
+  parseCustomerHealthWorkspace,
+  hasTrendChartData,
+  mapRiskLevelToSeverityValue,
+  resolveTrendIcon,
+  sortHistoryEntries,
+  sortNeedsAttention,
+  sortOperationalSignals,
+  sortRisks,
 } from "@/lib/app-portal/customer-health";
+import {
+  mapRecommendationPriorityToSeverity,
+  resolveOverviewHealthState,
+  resolvePurposeSummaryKey,
+} from "@/lib/app-portal/success-center/presentation";
+import { SUCCESS_RECOMMENDATION_LINKS } from "@/lib/app-portal/success-center/config";
 
-type Props = { labels: CustomerHealthLabels };
-
-const STATUS_STYLE: Record<CustomerHealthStatus, string> = {
-  thriving: "bg-emerald-100 text-emerald-900",
-  healthy: "bg-teal-100 text-teal-900",
-  stable: "bg-blue-100 text-blue-900",
-  requires_attention: "bg-amber-100 text-amber-950",
-  critical_support_needed: "bg-red-100 text-red-900",
+type Props = {
+  labels: CustomerHealthLabels;
+  locale: string;
 };
 
-const TREND_STYLE: Record<CustomerHealthTrend, string> = {
-  improving: "text-emerald-700",
-  stable: "text-slate-600",
-  declining: "text-red-700",
-  insufficient_data: "text-slate-500",
+const SECTION_ICONS: Record<string, LucideIcon> = {
+  overview: HeartPulse,
+  recommendedAction: Lightbulb,
+  drivers: Activity,
+  strengths: Sparkles,
+  needsAttention: AlertTriangle,
+  trend: BarChart3,
+  risks: ShieldAlert,
+  operationalSignals: TrendingUp,
+  history: History,
+  understanding: HelpCircle,
 };
 
-const PRIORITY_STYLE: Record<string, string> = {
-  informational: "bg-slate-100 text-slate-700",
-  opportunity: "bg-blue-100 text-blue-900",
-  important: "bg-amber-100 text-amber-950",
-  high_priority: "bg-red-100 text-red-900",
-};
+function SectionHeading({ id, title }: { id: string; title: string }) {
+  const Icon = SECTION_ICONS[id] ?? HeartPulse;
+  return (
+    <div className="flex items-center gap-3">
+      <span
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-50 text-violet-700 ring-1 ring-violet-100"
+        aria-hidden="true"
+      >
+        <Icon className="h-[18px] w-[18px] stroke-[1.75]" />
+      </span>
+      <h2 className={AppPremiumShell.sectionTitle}>{title}</h2>
+    </div>
+  );
+}
 
-export function CustomerHealthPanel({ labels }: Props) {
-  const [data, setData] = useState<CustomerHealthOverview | null>(null);
-  const [timeline, setTimeline] = useState<CustomerHealthTimelineEvent[]>([]);
+function driverEffectSemantic(effect: string): string {
+  if (effect === "positive") return "healthy";
+  if (effect === "critical_negative") return "critical_health";
+  if (effect === "strong_negative") return "poor";
+  if (effect === "moderate_negative") return "moderate";
+  return "unknown";
+}
+
+export function CustomerHealthPanel({ labels, locale }: Props) {
+  const [data, setData] = useState<CustomerHealthWorkspaceResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [priority, setPriority] = useState("");
-  const [trend, setTrend] = useState("");
+  const [trendFilter, setTrendFilter] = useState("");
   const [periodFrom, setPeriodFrom] = useState("");
-  const [search, setSearch] = useState("");
-  const [busy, setBusy] = useState(false);
+  const [sortBy, setSortBy] = useState<CustomerHealthSortOption>("date_desc");
+  const [trendPeriod, setTrendPeriod] = useState<CustomerHealthTrendPeriod>(30);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -56,251 +111,553 @@ export function CustomerHealthPanel({ labels }: Props) {
     const params = new URLSearchParams();
     if (category) params.set("category", category);
     if (priority) params.set("priority", priority);
-    if (trend) params.set("trend", trend);
+    if (trendFilter) params.set("trend", trendFilter);
     if (periodFrom) params.set("period_from", periodFrom);
     if (search.trim()) params.set("search", search.trim());
-    const [overviewRes, timelineRes] = await Promise.all([
-      fetch(`/api/aipify/customer-health?${params}`),
-      fetch(`/api/aipify/customer-health/timeline?${periodFrom ? `period_from=${periodFrom}` : ""}`),
-    ]);
-    if (overviewRes.ok) {
-      setData(parseCustomerHealthOverview(await overviewRes.json()));
+
+    if (periodFrom) {
+      params.set("period_from", periodFrom);
     } else {
-      const body = (await overviewRes.json()) as { error?: string };
-      setError(body.error ?? labels.accessDenied);
+      const trendFrom = new Date();
+      trendFrom.setDate(trendFrom.getDate() - trendPeriod);
+      params.set("period_from", trendFrom.toISOString().slice(0, 10));
+    }
+
+    const res = await fetch(`/api/aipify/customer-health?${params}`);
+    if (res.ok) {
+      setData(parseCustomerHealthWorkspace(await res.json()));
+    } else {
+      const body = (await res.json()) as { error?: string };
+      setError(body.error ?? labels.errorBody);
       setData(null);
     }
-    if (timelineRes.ok) {
-      const body = (await timelineRes.json()) as { timeline?: CustomerHealthTimelineEvent[] };
-      setTimeline(parseCustomerHealthTimeline(body));
-    }
     setLoading(false);
-  }, [category, priority, trend, periodFrom, search, labels.accessDenied]);
+  }, [category, priority, trendFilter, periodFrom, search, trendPeriod, labels.errorBody]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- data fetch
     void load();
   }, [load]);
 
-  async function startReview() {
-    setBusy(true);
-    const res = await fetch("/api/aipify/customer-health", { method: "POST" });
-    setBusy(false);
-    if (res.ok) void load();
-  }
+  const overview = data?.overview;
+  const healthState = overview
+    ? resolveOverviewHealthState(overview.health_score, overview.health_state)
+    : "unknown";
+  const purposeKey = resolvePurposeSummaryKey(healthState);
+  const trendState = overview?.trend_state ?? data?.trend_state ?? "insufficient_data";
 
-  if (loading && !data && !error) {
+  const sortedNeedsAttention = useMemo(
+    () => sortNeedsAttention(data?.needs_attention ?? []),
+    [data?.needs_attention]
+  );
+  const sortedRisks = useMemo(() => sortRisks(data?.risks ?? []), [data?.risks]);
+  const sortedSignals = useMemo(
+    () => sortOperationalSignals(data?.operational_signals ?? []),
+    [data?.operational_signals]
+  );
+  const sortedHistory = useMemo(
+    () => sortHistoryEntries(data?.health_history ?? [], sortBy),
+    [data?.health_history, sortBy]
+  );
+
+  const trendChart = useMemo(() => {
+    const points = data?.trend_points ?? [];
+    if (!hasTrendChartData(points)) return null;
+    return {
+      data: points.map((p) => p.score),
+      labels: points.map((p) =>
+        new Date(p.recorded_at).toLocaleDateString(locale, { month: "short", day: "numeric" })
+      ),
+    };
+  }, [data?.trend_points, locale]);
+
+  if (loading) {
     return (
-      <div className="flex min-h-[40vh] flex-col items-center justify-center text-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-indigo-200 border-t-indigo-600" aria-hidden />
-        <p className="mt-4 text-sm text-slate-600">{labels.loading}</p>
+      <div className={AppPremiumShell.page}>
+        <AppLoadingState message={labels.loading} />
       </div>
     );
   }
 
-  if (error && !data?.found) {
+  if (error || !data?.found) {
     return (
-      <div className="mx-auto max-w-5xl space-y-4">
-        <Link href="/app" className="text-sm font-medium text-indigo-700 hover:underline">← APP Dashboard</Link>
-        <p className="text-slate-600">{labels.accessDenied}</p>
+      <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
+        <AppErrorState
+          title={labels.errorTitle}
+          description={error || labels.errorBody}
+          onRetry={() => void load()}
+          retryLabel={labels.retry}
+          returnHref={CUSTOMER_HEALTH_SUPPORT_HREF}
+          returnLabel={labels.backToSupport}
+        />
       </div>
     );
   }
 
-  const empty = !data?.review_started;
-  const indicators = data?.health_indicators;
-  const engagement = data?.engagement_insights;
-  const support = data?.support_insights;
+  if (data.filtered_out) {
+    return (
+      <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
+        <header className="space-y-4 border-b border-aipify-border pb-6">
+          <PanelHeader labels={labels} />
+        </header>
+        <AppEmptyState
+          title={labels.emptyTitle}
+          description={labels.filters.all}
+          actionHref={CUSTOMER_HEALTH_SUPPORT_HREF}
+          actionLabel={labels.backToSupport}
+        />
+      </div>
+    );
+  }
+
+  const showEmpty = data.has_activity === false;
+  const riskSeverity = overview ? mapRiskLevelToSeverityValue(overview.risk_level) : "info";
+  const riskPresentation = getSeverityPresentation(riskSeverity);
+  const recommended = data.recommended_action;
+  const recCopy = recommended
+    ? labels.recommendations[recommended.key as keyof typeof labels.recommendations]
+    : undefined;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8">
-      <div>
-        <Link href="/app" className="text-sm font-medium text-indigo-700 hover:underline">← APP Dashboard</Link>
-        <h1 className="mt-4 text-2xl font-semibold text-slate-900">{labels.title}</h1>
-        <p className="mt-2 text-slate-600">{labels.subtitle}</p>
-        <p className="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50/60 px-5 py-4 text-sm text-slate-800">{labels.principle}</p>
-      </div>
+    <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
+      <header className="space-y-4 border-b border-aipify-border pb-6">
+        <PanelHeader labels={labels} />
+        {overview ? (
+          <p className="rounded-2xl border border-aipify-border bg-aipify-surface-muted/60 px-5 py-4 text-sm leading-relaxed text-aipify-text">
+            {labels.purposeSummary[purposeKey]}
+          </p>
+        ) : null}
+      </header>
 
-      {empty ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-900">{labels.emptyTitle}</h2>
-          <p className="mt-2 text-sm text-slate-600">{labels.emptyBody}</p>
-          <button type="button" disabled={busy} onClick={() => void startReview()} className="mt-6 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white disabled:opacity-60">{labels.emptyCta}</button>
-        </section>
-      ) : (
-        <>
-          <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Stat label={labels.dashboard.overallHealth} value={`${data?.overall_health_score ?? 0}/100`} />
-            <Stat label={labels.dashboard.engagement} value={`${data?.engagement_score ?? 0}/100`} />
-            <Stat label={labels.dashboard.supportSatisfaction} value={`${data?.support_satisfaction_score ?? 0}/100`} />
-            <Stat label={labels.dashboard.openRecommendations} value={String(data?.open_recommendations_count ?? 0)} />
-          </section>
+      {showEmpty ? (
+        <AppEmptyState
+          title={labels.emptyTitle}
+          description={labels.emptyBody}
+          actionHref="/app/support/getting-started"
+          actionLabel={labels.emptyAction}
+        />
+      ) : null}
 
-          <section className="grid gap-4 sm:grid-cols-3">
-            <Stat label={labels.dashboard.adoption} value={`${data?.adoption_score ?? 0}/100`} />
-            <Stat label={labels.dashboard.learningCompletion} value={`${data?.learning_completion_score ?? 0}/100`} />
-            {data?.health_status ? (
-              <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-                <p className="text-xs text-slate-500">{labels.dashboard.healthStatus}</p>
-                <span className={`mt-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS_STYLE[data.health_status]}`}>
-                  {labels.statuses[data.health_status]}
-                </span>
-                {data.relationship_trend ? (
-                  <p className={`mt-2 text-xs ${TREND_STYLE[data.relationship_trend]}`}>
-                    {labels.dashboard.relationshipTrend}: {labels.trends[data.relationship_trend]}
-                  </p>
-                ) : null}
+      {overview ? (
+        <section className="space-y-4">
+          <SectionHeading id="overview" title={labels.sections.overview} />
+          <div className="grid gap-4 lg:grid-cols-3">
+            <ExecutiveMetricCard
+              featured
+              icon={<HeartPulse className="h-5 w-5" aria-hidden="true" />}
+              label={labels.overview.healthScore}
+              value={overview.health_score}
+              description={overview.explanation}
+              semanticType="health"
+              semanticValue={healthState}
+              statusLabel={labels.healthStates[healthState]}
+              a11yLabel={`${labels.overview.healthState}: ${labels.healthStates[healthState]}`}
+            />
+            <ExecutiveMetricCard
+              icon={<TrendingUp className="h-5 w-5" aria-hidden="true" />}
+              label={labels.overview.trend}
+              value={`${resolveTrendIcon(trendState)} ${labels.trendStates[trendState]}`}
+              description={`${labels.overview.scoreChange}: ${overview.score_change >= 0 ? "+" : ""}${overview.score_change}`}
+              semanticType="health"
+              semanticValue={healthState}
+              statusLabel={labels.trendStates[trendState]}
+            />
+            <article
+              className={`${AppPremiumShell.elevatedCard} border-l-4 p-5 ${riskPresentation.borderClassName} ${riskPresentation.backgroundClassName}`}
+            >
+              <p className={AppPremiumShell.metricLabel}>{labels.overview.riskLevel}</p>
+              <div className="mt-3">
+                <SemanticBadge
+                  type="severity"
+                  value={riskSeverity}
+                  label={labels.riskLevels[overview.risk_level]}
+                />
               </div>
-            ) : null}
-          </section>
-        </>
-      )}
+              {overview.last_calculated_at ? (
+                <p className="mt-4 text-xs text-aipify-text-muted">
+                  {labels.overview.lastCalculated}:{" "}
+                  {formatDateTime(overview.last_calculated_at, locale)}
+                </p>
+              ) : null}
+              <p className={`mt-3 ${AppPremiumShell.metricDescription}`}>{labels.overview.advisory}</p>
+            </article>
+          </div>
+        </section>
+      ) : null}
 
-      <section className="flex flex-wrap gap-3">
-        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={labels.filters.search} className="min-w-[12rem] flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm" />
-        <select value={category} onChange={(e) => setCategory(e.target.value)} className="rounded-lg border border-slate-200 px-3 py-2 text-sm">
-          <option value="">{labels.filters.category}</option>
-          <option value="learning">Learning</option>
-          <option value="support">Support</option>
-          <option value="adoption">Adoption</option>
-          <option value="security">Security</option>
-          <option value="relationship">Relationship</option>
-        </select>
-        <select value={priority} onChange={(e) => setPriority(e.target.value)} className="rounded-lg border border-slate-200 px-3 py-2 text-sm">
-          <option value="">{labels.filters.priority}</option>
-          {CUSTOMER_HEALTH_PRIORITIES.map((p) => <option key={p} value={p}>{labels.priorities[p]}</option>)}
-        </select>
-        <select value={trend} onChange={(e) => setTrend(e.target.value)} className="rounded-lg border border-slate-200 px-3 py-2 text-sm">
-          <option value="">{labels.filters.trend}</option>
-          {CUSTOMER_HEALTH_TRENDS.map((t) => <option key={t} value={t}>{labels.trends[t]}</option>)}
-        </select>
-        <input type="date" value={periodFrom} onChange={(e) => setPeriodFrom(e.target.value)} aria-label={labels.filters.periodFrom} className="rounded-lg border border-slate-200 px-3 py-2 text-sm" />
+      {recommended && recCopy ? (
+        <section className="space-y-3">
+          <SectionHeading id="recommendedAction" title={labels.sections.recommendedAction} />
+          <PriorityRecommendationCard
+            category={labels.sections.recommendedAction}
+            title={recCopy.title}
+            description={recCopy.reason}
+            severityValue={mapRecommendationPriorityToSeverity(recommended.priority)}
+            severityLabel={recommended.priority}
+            workflowValue="open"
+            workflowLabel={labels.sections.recommendedAction}
+            actionHref={CUSTOMER_HEALTH_RECOMMENDATION_LINKS[recommended.key] ?? SUCCESS_RECOMMENDATION_LINKS[recommended.key]?.href}
+            actionLabel={recCopy.action}
+          />
+        </section>
+      ) : null}
+
+      {(data.drivers?.length ?? 0) > 0 ? (
+        <section className="space-y-4">
+          <SectionHeading id="drivers" title={labels.sections.drivers} />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {data.drivers!.map((driver) => (
+              <article key={driver.key} className={`${AppPremiumShell.elevatedCard} p-4`}>
+                <div className="flex items-start justify-between gap-2">
+                  <p className="font-medium text-aipify-text">
+                    {labels.drivers[driver.key as keyof typeof labels.drivers] ?? driver.key}
+                  </p>
+                  <SemanticBadge
+                    type="health"
+                    value={driverEffectSemantic(driver.effect)}
+                    label={labels.driverEffects[driver.effect]}
+                  />
+                </div>
+                <p className="mt-2 text-2xl font-semibold text-aipify-text">{driver.score}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {(data.strengths?.length ?? 0) > 0 ? (
+        <section className="space-y-4">
+          <SectionHeading id="strengths" title={labels.sections.strengths} />
+          <div className="grid gap-3 sm:grid-cols-2">
+            {data.strengths!.map((item) => (
+              <article
+                key={item.key}
+                className="rounded-xl border border-emerald-100 bg-emerald-50/40 p-4 ring-1 ring-emerald-100"
+              >
+                <p className="font-medium text-emerald-900">
+                  {labels.strengths[item.key as keyof typeof labels.strengths] ?? item.key}
+                </p>
+                <p className="mt-1 text-sm text-emerald-800">{item.value}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {sortedNeedsAttention.length > 0 ? (
+        <section className="space-y-4">
+          <SectionHeading id="needsAttention" title={labels.sections.needsAttention} />
+          <ul className="space-y-3">
+            {sortedNeedsAttention.map((item) => {
+              const href = item.action_href ?? NEEDS_ATTENTION_ACTION_LINKS[item.key];
+              return (
+                <li
+                  key={item.key}
+                  className={`${AppPremiumShell.elevatedCard} flex flex-wrap items-center justify-between gap-3 border-l-4 p-4 ${getSeverityPresentation(item.severity).borderClassName}`}
+                >
+                  <div>
+                    <p className="font-medium text-aipify-text">
+                      {labels.needsAttention[item.key as keyof typeof labels.needsAttention] ??
+                        item.key}
+                    </p>
+                    <p className="mt-1 text-sm text-aipify-text-secondary">{item.impact}</p>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <SemanticBadge
+                      type="severity"
+                      value={item.severity}
+                      label={item.severity}
+                    />
+                    {href ? (
+                      <Link
+                        href={href}
+                        className="text-sm font-medium text-aipify-companion hover:underline"
+                      >
+                        {labels.recommendations.reviewSupport.action}
+                      </Link>
+                    ) : null}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
+
+      <section className="space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <SectionHeading id="trend" title={labels.sections.trend} />
+          <div className="flex flex-wrap gap-2">
+            {CUSTOMER_HEALTH_TREND_PERIODS.map((days) => (
+              <button
+                key={days}
+                type="button"
+                onClick={() => setTrendPeriod(days)}
+                className={`rounded-lg px-3 py-1.5 text-sm font-medium ${
+                  trendPeriod === days
+                    ? "bg-violet-600 text-white"
+                    : "bg-aipify-surface-muted text-aipify-text-secondary ring-1 ring-aipify-border"
+                }`}
+              >
+                {labels.trend.periods[String(days)]}
+              </button>
+            ))}
+          </div>
+        </div>
+        {trendChart ? (
+          <div className={`${AppPremiumShell.elevatedCard} p-4`}>
+            <MetricsLineChart
+              data={trendChart.data}
+              labels={trendChart.labels}
+              ariaLabel={labels.sections.trend}
+            />
+          </div>
+        ) : (
+          <p className="text-sm text-aipify-text-secondary">
+            {trendState === "insufficient_data"
+              ? labels.trend.insufficientData
+              : labels.trend.empty}
+          </p>
+        )}
       </section>
 
-      {!empty && indicators ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="font-semibold">{labels.indicators.title}</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-sm">
-            <Indicator label={labels.indicators.platformEngagement} value={indicators.platform_engagement} />
-            <Indicator label={labels.indicators.trainingParticipation} value={indicators.training_participation} />
-            <Indicator label={labels.indicators.supportInteractions} value={indicators.support_interactions} />
-            <Indicator label={labels.indicators.adoptionProgress} value={indicators.adoption_progress} />
-            <Indicator label={labels.indicators.securityCompletion} value={indicators.security_completion} />
-            <Indicator label={labels.indicators.integrationActivity} value={indicators.integration_activity} />
-          </div>
-        </section>
-      ) : null}
+      <FilterBar
+        labels={labels}
+        search={search}
+        category={category}
+        priority={priority}
+        trend={trendFilter}
+        periodFrom={periodFrom}
+        sortBy={sortBy}
+        onSearchChange={setSearch}
+        onCategoryChange={setCategory}
+        onPriorityChange={setPriority}
+        onTrendChange={setTrendFilter}
+        onPeriodFromChange={setPeriodFrom}
+        onSortByChange={setSortBy}
+      />
 
-      {!empty && (data?.recommendations?.length ?? 0) > 0 ? (
-        <section className="rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5">
-          <h2 className="font-semibold">{labels.dashboard.openRecommendations}</h2>
-          <ul className="mt-3 space-y-2">
-            {data!.recommendations!.map((r) => (
-              <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 text-sm text-slate-800">
-                <span>{labels.recommendations[r.key as keyof typeof labels.recommendations] ?? r.key}</span>
-                <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${PRIORITY_STYLE[r.priority] ?? PRIORITY_STYLE.informational}`}>
-                  {labels.priorities[r.priority as keyof typeof labels.priorities] ?? r.priority}
-                </span>
+      {(sortedRisks.length > 0 || sortedSignals.length > 0) && (
+        <section className="space-y-6">
+          {sortedRisks.length > 0 ? (
+            <div className="space-y-3">
+              <SectionHeading id="risks" title={labels.sections.risks} />
+              <ul className="space-y-2">
+                {sortedRisks.map((risk) => (
+                  <li
+                    key={risk.key}
+                    className={`${AppPremiumShell.elevatedCard} flex flex-wrap items-center justify-between gap-2 border-l-4 p-4 ${getSeverityPresentation(risk.severity).borderClassName}`}
+                  >
+                    <div>
+                      <p className="font-medium text-aipify-text">
+                        {labels.risks[risk.key as keyof typeof labels.risks] ?? risk.description}
+                      </p>
+                      <p className="mt-1 text-sm text-aipify-text-secondary">{risk.description}</p>
+                    </div>
+                    <SemanticBadge type="severity" value={risk.severity} label={risk.severity} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {sortedSignals.length > 0 ? (
+            <div className="space-y-3">
+              <SectionHeading id="operationalSignals" title={labels.sections.operationalSignals} />
+              <ul className="space-y-2">
+                {sortedSignals.map((signal) => (
+                  <li key={signal.key} className={`${AppPremiumShell.elevatedCard} p-4`}>
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <p className="font-medium text-aipify-text">
+                        {labels.operationalSignals[
+                          signal.key as keyof typeof labels.operationalSignals
+                        ] ?? signal.key}
+                      </p>
+                      {signal.trend ? (
+                        <span className="text-sm text-aipify-text-muted">
+                          {labels.trendStates[signal.trend as keyof typeof labels.trendStates] ??
+                            signal.trend}
+                        </span>
+                      ) : null}
+                    </div>
+                    <p className="mt-1 text-sm text-aipify-text-secondary">{signal.description}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+        </section>
+      )}
+
+      <section className="space-y-4">
+        <SectionHeading id="history" title={labels.sections.history} />
+        {sortedHistory.length > 0 ? (
+          <ul className="space-y-2">
+            {sortedHistory.map((entry) => (
+              <li
+                key={entry.id}
+                className={`${AppPremiumShell.elevatedCard} flex flex-wrap items-center justify-between gap-2 p-4 text-sm`}
+              >
+                <div>
+                  <p className="font-medium text-aipify-text">{entry.description}</p>
+                  <p className="mt-1 text-aipify-text-muted">{entry.event_type}</p>
+                </div>
+                <div className="text-right text-aipify-text-secondary">
+                  {entry.score != null ? (
+                    <p>
+                      {labels.history.score}: {entry.score}
+                    </p>
+                  ) : null}
+                  <time dateTime={entry.recorded_at}>
+                    {formatDateTime(entry.recorded_at, locale)}
+                  </time>
+                </div>
               </li>
             ))}
           </ul>
-        </section>
-      ) : null}
+        ) : (
+          <p className="text-sm text-aipify-text-secondary">{labels.history.empty}</p>
+        )}
+      </section>
 
-      {!empty && engagement ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="font-semibold">{labels.engagement.title}</h2>
-          <div className="mt-3 grid gap-4 sm:grid-cols-2">
-            <InsightList title={labels.engagement.activeTeams} items={engagement.active_teams} />
-            <InsightList title={labels.engagement.departmentsSupport} items={engagement.departments_requiring_support} />
-            <InsightList title={labels.engagement.underutilized} items={engagement.underutilized_capabilities} />
-            <InsightList title={labels.engagement.positiveMomentum} items={engagement.positive_momentum} />
-            <InsightList title={labels.engagement.decliningActivity} items={engagement.declining_activity} />
-          </div>
-        </section>
-      ) : null}
-
-      {!empty && support ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="font-semibold">{labels.support.title}</h2>
-          <div className="mt-3 grid gap-2 sm:grid-cols-2 text-sm text-slate-700">
-            <p>{labels.support.openRequests}: {support.open_requests}</p>
-            <p>{labels.support.resolvedRequests}: {support.resolved_requests}</p>
-            <p>{labels.support.resolutionTrend}: {support.resolution_trend}</p>
-            <p>{labels.support.satisfaction}: {support.satisfaction_indicator}/100</p>
-            <p>{labels.support.selfService}: {support.self_service_sessions}</p>
-            <p>{labels.support.knowledgeEngagement}: {support.knowledge_engagement}</p>
-          </div>
-        </section>
-      ) : null}
-
-      {!empty && data?.can_manage && data.department_reporting ? (
-        <section className="rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5">
-          <h2 className="font-semibold">{labels.team.title}</h2>
-          <p className="mt-2 text-sm text-slate-700">{labels.team.engagement}: {data.department_reporting.engagement_score}/100</p>
-          <p className="text-sm text-slate-700">{labels.team.learning}: {data.department_reporting.learning_participation}/100</p>
-        </section>
-      ) : null}
-
-      {!empty && (data?.personal_recommendations?.length ?? 0) > 0 ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="font-semibold">{labels.dashboard.openRecommendations}</h2>
-          <ul className="mt-2 space-y-1 text-sm text-slate-700">
-            {data!.personal_recommendations!.map((p) => <li key={p.id}>{p.title} · {p.status}</li>)}
-          </ul>
-        </section>
-      ) : null}
-
-      {!empty && timeline.length > 0 ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="font-semibold">{labels.timeline.title}</h2>
-          <ul className="mt-3 space-y-2 text-sm">
-            {timeline.slice(0, 12).map((e) => (
-              <li key={e.id} className="flex justify-between gap-2 border-b border-slate-100 pb-2">
-                <span>{e.description}</span>
-                <span className="text-xs text-slate-500">{new Date(e.created_at).toLocaleDateString()}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="font-semibold">{labels.faq.title}</h2>
-        <dl className="mt-4 space-y-3 text-sm">
-          <div><dt className="font-medium">{labels.faq.whatIs}</dt><dd className="mt-1 text-slate-600">{labels.faq.whatIsAnswer}</dd></div>
-          <div><dt className="font-medium">{labels.faq.goodCustomer}</dt><dd className="mt-1 text-slate-600">{labels.faq.goodCustomerAnswer}</dd></div>
-          <div><dt className="font-medium">{labels.faq.improveOutcomes}</dt><dd className="mt-1 text-slate-600">{labels.faq.improveOutcomesAnswer}</dd></div>
+      <section className="space-y-4">
+        <SectionHeading id="understanding" title={labels.sections.understanding} />
+        <dl className={`${AppPremiumShell.elevatedCard} space-y-4 p-6`}>
+          {[1, 2, 3, 4].map((n) => (
+            <div key={n}>
+              <dt className="font-medium text-aipify-text">
+                {labels.understanding[`q${n}` as keyof typeof labels.understanding]}
+              </dt>
+              <dd className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">
+                {labels.understanding[`a${n}` as keyof typeof labels.understanding]}
+              </dd>
+            </div>
+          ))}
         </dl>
       </section>
     </div>
   );
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function PanelHeader({ labels }: { labels: CustomerHealthLabels }) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-      <p className="text-xs text-slate-500">{label}</p>
-      <p className="mt-1 text-lg font-semibold text-slate-900">{value}</p>
-    </div>
+    <>
+      <nav className="text-sm text-aipify-text-muted" aria-label="Breadcrumb">
+        <ol className="flex flex-wrap items-center gap-2">
+          <li>{labels.breadcrumbSupport}</li>
+          <li aria-hidden="true">→</li>
+          <li className="font-medium text-aipify-text">{labels.breadcrumbCustomerHealth}</li>
+        </ol>
+      </nav>
+      <Link
+        href={CUSTOMER_HEALTH_SUPPORT_HREF}
+        className={`inline-flex text-sm font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
+      >
+        ← {labels.backToSupport}
+      </Link>
+      <div className="space-y-2">
+        <p className={AppPremiumShell.eyebrow}>{labels.eyebrow}</p>
+        <h1 className={AppPremiumShell.pageTitle}>{labels.title}</h1>
+        <p className={AppPremiumShell.pageDescription}>{labels.subtitle}</p>
+      </div>
+    </>
   );
 }
 
-function Indicator({ label, value }: { label: string; value: number }) {
+function FilterBar({
+  labels,
+  search,
+  category,
+  priority,
+  trend,
+  periodFrom,
+  sortBy,
+  onSearchChange,
+  onCategoryChange,
+  onPriorityChange,
+  onTrendChange,
+  onPeriodFromChange,
+  onSortByChange,
+}: {
+  labels: CustomerHealthLabels;
+  search: string;
+  category: string;
+  priority: string;
+  trend: string;
+  periodFrom: string;
+  sortBy: CustomerHealthSortOption;
+  onSearchChange: (v: string) => void;
+  onCategoryChange: (v: string) => void;
+  onPriorityChange: (v: string) => void;
+  onTrendChange: (v: string) => void;
+  onPeriodFromChange: (v: string) => void;
+  onSortByChange: (v: CustomerHealthSortOption) => void;
+}) {
   return (
-    <div>
-      <div className="flex justify-between text-xs text-slate-600"><span>{label}</span><span>{value}</span></div>
-      <div className="mt-1 h-1.5 rounded-full bg-slate-100"><div className="h-1.5 rounded-full bg-indigo-600" style={{ width: `${Math.min(100, value)}%` }} /></div>
-    </div>
-  );
-}
-
-function InsightList({ title, items }: { title: string; items: string[] }) {
-  if (items.length === 0) return null;
-  return (
-    <div>
-      <p className="text-xs font-medium text-slate-500">{title}</p>
-      <ul className="mt-1 space-y-1 text-sm text-slate-700">{items.map((item) => <li key={item}>{item}</li>)}</ul>
-    </div>
+    <section className="rounded-2xl border border-aipify-border bg-aipify-surface-muted/30 p-4">
+      <div className="flex flex-wrap gap-3">
+        <input
+          value={search}
+          onChange={(e) => onSearchChange(e.target.value)}
+          placeholder={labels.filters.search}
+          className="min-w-[12rem] flex-1 rounded-lg border border-aipify-border bg-white px-3 py-2 text-sm"
+        />
+        <select
+          value={category}
+          onChange={(e) => onCategoryChange(e.target.value)}
+          className="rounded-lg border border-aipify-border bg-white px-3 py-2 text-sm"
+          aria-label={labels.filters.category}
+        >
+          <option value="">{labels.filters.category}</option>
+          {Object.entries(labels.filters.categories).map(([key, label]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
+        </select>
+        <select
+          value={priority}
+          onChange={(e) => onPriorityChange(e.target.value)}
+          className="rounded-lg border border-aipify-border bg-white px-3 py-2 text-sm"
+          aria-label={labels.filters.priority}
+        >
+          <option value="">{labels.filters.priority}</option>
+          <option value="high">high</option>
+          <option value="medium">medium</option>
+          <option value="low">low</option>
+        </select>
+        <select
+          value={trend}
+          onChange={(e) => onTrendChange(e.target.value)}
+          className="rounded-lg border border-aipify-border bg-white px-3 py-2 text-sm"
+          aria-label={labels.filters.trend}
+        >
+          <option value="">{labels.filters.trend}</option>
+          {Object.entries(labels.trendStates).map(([key, label]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
+        </select>
+        <input
+          type="date"
+          value={periodFrom}
+          onChange={(e) => onPeriodFromChange(e.target.value)}
+          aria-label={labels.filters.date}
+          className="rounded-lg border border-aipify-border bg-white px-3 py-2 text-sm"
+        />
+        <select
+          value={sortBy}
+          onChange={(e) => onSortByChange(e.target.value as CustomerHealthSortOption)}
+          className="rounded-lg border border-aipify-border bg-white px-3 py-2 text-sm"
+          aria-label={labels.filters.sortBy}
+        >
+          {Object.entries(labels.filters.sortOptions).map(([key, label]) => (
+            <option key={key} value={key}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </div>
+    </section>
   );
 }

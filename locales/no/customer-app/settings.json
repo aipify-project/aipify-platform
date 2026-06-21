@@ -15,6 +15,18 @@
     "categories": {
       "governanceSecurity": {
         "links": {
+          "1": {
+            "href": "/app/compliance",
+            "label": "Security & compliance"
+          },
+          "2": {
+            "href": "/app/approvals",
+            "label": "Approvals"
+          },
+          "3": {
+            "href": "/app/settings/two-factor",
+            "label": "Sign-in verification"
+          },
           "4": {
             "href": "/app/settings/absence",
             "label": "Fravær-policyer for administratorer"
@@ -23,13 +35,114 @@
             "href": "/app/profitability/policies",
             "label": "Lønnsomhet-policyer"
           }
+        },
+        "title": "Governance & Security",
+        "description": "Compliance, approvals, audit, and sign-in verification."
+      },
+      "companionPresence": {
+        "title": "Companion Presence",
+        "description": "Executive feed, desktop connection, and notification preferences.",
+        "links": {
+          "1": {
+            "href": "/app/presence",
+            "label": "Presence Center"
+          },
+          "2": {
+            "href": "/app/command-center",
+            "label": "Executive Center"
+          },
+          "3": {
+            "href": "/app/command-center/connect",
+            "label": "Desktop Companion"
+          }
+        }
+      },
+      "knowledgeLearning": {
+        "title": "Knowledge & Learning",
+        "description": "Knowledge Center, learning discovery, and Business DNA.",
+        "links": {
+          "1": {
+            "href": "/app/settings/knowledge",
+            "label": "Knowledge Center"
+          },
+          "2": {
+            "href": "/app/learning",
+            "label": "Learning discovery"
+          },
+          "3": {
+            "href": "/app/settings/business-dna",
+            "label": "Business DNA"
+          }
+        }
+      },
+      "automationActions": {
+        "title": "Automation & Actions",
+        "description": "Action permissions, adaptive automation, and trust controls.",
+        "links": {
+          "1": {
+            "href": "/app/settings/action-access",
+            "label": "Action permissions"
+          },
+          "2": {
+            "href": "/app/settings/automation",
+            "label": "Adaptive automation"
+          },
+          "3": {
+            "href": "/app/settings/governance",
+            "label": "Trust controls"
+          }
+        }
+      },
+      "billingGrowth": {
+        "title": "Billing & Growth",
+        "description": "Subscription, packages, and expansion planning.",
+        "links": {
+          "1": {
+            "href": "/app/settings/billing",
+            "label": "Subscription"
+          },
+          "2": {
+            "href": "/app/settings/modules",
+            "label": "Packages"
+          },
+          "3": {
+            "href": "/app/settings/business-packs",
+            "label": "Business Pack runtime"
+          }
+        }
+      },
+      "organizationIntelligence": {
+        "title": "Organization Intelligence",
+        "description": "Predictive intelligence, operational insights, and quality guardian.",
+        "links": {
+          "1": {
+            "href": "/app/settings/intelligence",
+            "label": "Predictive intelligence"
+          },
+          "2": {
+            "href": "/app/organizational-intelligence",
+            "label": "Operational insights"
+          },
+          "3": {
+            "href": "/app/settings/quality",
+            "label": "Quality guardian"
+          }
         }
       }
     },
     "timezone": "Tidssone",
     "timezoneHint": "Hilsener og briefinger bruker din lokale tidssone.",
     "save": "Lagre innstillinger",
-    "saved": "Saved",
+    "saved": "Lagret",
+    "accountPreferences": {
+      "back": "Tilbake til innstillinger",
+      "languageSection": "Språk",
+      "languageHint": "Velg hvordan Aipify vises i arbeidsområdet ditt. Valget synkroniseres med språkvelgeren i topplinjen.",
+      "timezoneSection": "Tidssone og stille timer",
+      "timezoneHint": "Tidssone og stille-timer-innstillinger administreres under Innstillinger.",
+      "notificationsSection": "Varslingsinnstillinger",
+      "notificationsLink": "Åpne varslingsinnstillinger"
+    },
     "links": {
       "developer": "Developer settings",
       "updates": "Update policies",
@@ -1431,7 +1544,8 @@
       "title": "Enterprise Procurement",
       "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
       "methods": "DNB Invoice · Purchase Orders · Bank Transfer · 30/60/90-Day Terms · Framework Agreements",
-      "manageLink": "Invoice details & enterprise procurement"
+      "manageLink": "Invoice details & enterprise procurement",
+      "providerInfrastructure": "Enterprise payment infrastructure"
     },
     "apiStatuses": {
       "connected": "Connected",
@@ -5616,5 +5730,40 @@
     "version": "Versjon",
     "upcoming": "Kommende",
     "completed": "Fullført"
+  },
+  "securityHub": {
+    "title": "Security",
+    "subtitle": "Manage sign-in verification, sessions, devices, and account protection for your workspace.",
+    "comingSoon": "Coming soon",
+    "planned": "Planned",
+    "items": {
+      "signInVerification": {
+        "title": "Sign-in verification",
+        "description": "Protect administrative access with authenticator-based verification.",
+        "status": "Available"
+      },
+      "sessionManagement": {
+        "title": "Session management",
+        "description": "Review active sessions and sign out remotely when needed."
+      },
+      "deviceHistory": {
+        "title": "Device history",
+        "description": "See trusted devices that have accessed this workspace."
+      },
+      "recoveryMethods": {
+        "title": "Recovery methods",
+        "description": "Manage recovery codes and backup sign-in options.",
+        "status": "Available"
+      },
+      "passkeys": {
+        "title": "Passkeys",
+        "description": "Future support for passwordless enterprise sign-in."
+      },
+      "loginActivity": {
+        "title": "Login activity",
+        "description": "Review security events and sign-in activity in the Security Center.",
+        "status": "Available"
+      }
+    }
   }
 }

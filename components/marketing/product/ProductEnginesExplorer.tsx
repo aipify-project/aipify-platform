@@ -3,16 +3,23 @@
 import { useState } from "react";
 import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 import { PublicMarketingClasses } from "@/lib/design/public-marketing-tokens";
-import type { ProductEngine } from "@/lib/marketing/parse-product-page";
+import type { ProductEngine, ProductPageContent } from "@/lib/marketing/parse-product-page";
 
 type ProductEnginesExplorerProps = {
   title: string;
   subtitle: string;
   secondaryTitle: string;
+  ui: ProductPageContent["engines"]["ui"];
   items: ProductEngine[];
 };
 
-export default function ProductEnginesExplorer({ title, subtitle, secondaryTitle, items }: ProductEnginesExplorerProps) {
+export default function ProductEnginesExplorer({
+  title,
+  subtitle,
+  secondaryTitle,
+  ui,
+  items,
+}: ProductEnginesExplorerProps) {
   const primary = items.filter((e) => e.primary);
   const secondary = items.filter((e) => !e.primary);
   const [activeId, setActiveId] = useState(primary[0]?.id ?? items[0]?.id ?? "");
@@ -31,7 +38,7 @@ export default function ProductEnginesExplorer({ title, subtitle, secondaryTitle
         <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
           <div className="space-y-6">
             <div>
-              <p className={PublicMarketingClasses.cardLabel}>Primary engines</p>
+              <p className={PublicMarketingClasses.cardLabel}>{ui.primaryLabel}</p>
               <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                 {primary.map((engine) => (
                   <li key={engine.id}>
@@ -84,31 +91,31 @@ export default function ProductEnginesExplorer({ title, subtitle, secondaryTitle
 
               <dl className="mt-6 space-y-4">
                 <div>
-                  <dt className={PublicMarketingClasses.cardLabel}>Signal</dt>
+                  <dt className={PublicMarketingClasses.cardLabel}>{ui.signalLabel}</dt>
                   <dd className="mt-1 text-sm text-aipify-text">{active.signal}</dd>
                 </div>
                 <div>
-                  <dt className={PublicMarketingClasses.cardLabel}>Recommended action</dt>
+                  <dt className={PublicMarketingClasses.cardLabel}>{ui.actionLabel}</dt>
                   <dd className="mt-1 text-sm text-aipify-text">{active.action}</dd>
                 </div>
                 <div>
-                  <dt className={PublicMarketingClasses.cardLabel}>Surface</dt>
+                  <dt className={PublicMarketingClasses.cardLabel}>{ui.surfaceLabel}</dt>
                   <dd className="mt-1 text-sm text-aipify-text-secondary">{active.surface}</dd>
                 </div>
               </dl>
 
               {active.detail ? (
                 <div className="mt-6 space-y-3 border-t border-aipify-border pt-6">
-                  <p className={PublicMarketingClasses.cardLabel}>Detail panel</p>
+                  <p className={PublicMarketingClasses.cardLabel}>{ui.detailPanelLabel}</p>
                   <dl className="space-y-3">
                     {(
                       [
-                        ["Context signal", active.detail.signal],
-                        ["Full context", active.detail.context],
-                        ["Recommendation", active.detail.recommendation],
-                        ["Approval rule", active.detail.approvalRule],
-                        ["Command Brief item", active.detail.briefItem],
-                        ["Audit event", active.detail.auditEvent],
+                        [ui.contextSignalLabel, active.detail.signal],
+                        [ui.fullContextLabel, active.detail.context],
+                        [ui.recommendationLabel, active.detail.recommendation],
+                        [ui.approvalRuleLabel, active.detail.approvalRule],
+                        [ui.briefItemLabel, active.detail.briefItem],
+                        [ui.auditEventLabel, active.detail.auditEvent],
                       ] as const
                     ).map(([label, value]) => (
                       <div key={label}>

@@ -18,6 +18,10 @@ import type { CompanionPresenceLabels } from "@/components/app/companion-presenc
 import { PresenceProvider, type PresenceLabels } from "@/components/presence/PresenceProvider";
 import Topbar from "./Topbar";
 import { OrganizationSwitcher } from "@/components/app/organization";
+import {
+  AppLanguageSelector,
+  coerceClientAppLocale,
+} from "@/components/app/AppLanguageSelector";
 import { CommandBarProvider, useOptionalCommandBar } from "@/components/command-bar";
 import type {
   CommandBarLabels,
@@ -31,6 +35,7 @@ import { getAppActiveNavId } from "@/lib/app/nav-config";
 import { getCustomerActiveNavId } from "@/lib/dashboard/nav-config";
 import { getPlatformActiveNavId } from "@/lib/platform/nav-config";
 import { getNavIcon } from "./nav-icons";
+import { coerceToAppLocale } from "@/lib/i18n/app-locales";
 
 type DashboardShellProps = {
   appName: string;
@@ -80,6 +85,19 @@ type DashboardShellProps = {
   presenceLabels?: PresenceLabels;
   companionPresenceLabels?: CompanionPresenceLabels;
   locale?: string;
+  languageSelectorLabels?: {
+    label: string;
+    activeLanguage: string;
+    changeLanguage: string;
+    switchFailed: string;
+    retry: string;
+    openMenu: string;
+  };
+  shellUiLabels?: {
+    openMenu: string;
+    closeMenu: string;
+    mobileNavigation: string;
+  };
   organizationSwitcherLabels?: {
     label: string;
     switching: string;
@@ -124,6 +142,8 @@ export default function DashboardShell({
   presenceLabels,
   companionPresenceLabels,
   locale = "en",
+  languageSelectorLabels,
+  shellUiLabels,
   organizationSwitcherLabels,
   twoFactorBadgeLabels,
   commandBar,
@@ -164,6 +184,10 @@ export default function DashboardShell({
           companionPresenceLabels={companionPresenceLabels}
           voiceOfCustomerLabels={voiceOfCustomerLabels}
           locale={locale}
+          languageSelectorLabels={
+            shellVariant === "customer" ? languageSelectorLabels : undefined
+          }
+          shellUiLabels={shellUiLabels}
           organizationSwitcherLabels={organizationSwitcherLabels}
           twoFactorBadgeLabels={twoFactorBadgeLabels}
           commandBarLabels={commandBar.labels}
@@ -202,6 +226,8 @@ export default function DashboardShell({
       companionPresenceLabels={companionPresenceLabels}
       voiceOfCustomerLabels={voiceOfCustomerLabels}
       locale={locale}
+      languageSelectorLabels={languageSelectorLabels}
+      shellUiLabels={shellUiLabels}
       organizationSwitcherLabels={organizationSwitcherLabels}
       twoFactorBadgeLabels={twoFactorBadgeLabels}
     >
@@ -240,6 +266,8 @@ function DashboardShellFrame({
   presenceLabels,
   companionPresenceLabels,
   locale = "en",
+  languageSelectorLabels,
+  shellUiLabels,
   organizationSwitcherLabels,
   twoFactorBadgeLabels,
   voiceOfCustomerLabels,
@@ -379,7 +407,7 @@ function DashboardShellFrame({
           <button
             type="button"
             className="absolute inset-0 bg-gray-900/40 backdrop-blur-[1px]"
-            aria-label="Close menu"
+            aria-label={shellUiLabels?.closeMenu ?? "Close menu"}
             onClick={() => setSidebarOpen(false)}
           />
           <aside className={`absolute left-0 top-0 flex h-full w-72 flex-col overflow-visible shadow-xl ${AipifyShellClasses.sidebar}`}>
@@ -389,7 +417,7 @@ function DashboardShellFrame({
                 type="button"
                 onClick={() => setSidebarOpen(false)}
                 className="absolute right-3 top-4 rounded-lg p-2 text-gray-600 hover:bg-gray-100"
-                aria-label="Close menu"
+                aria-label={shellUiLabels?.closeMenu ?? "Close menu"}
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -397,6 +425,15 @@ function DashboardShellFrame({
               </button>
             </div>
             <div className="flex-1 overflow-y-auto p-4">
+              {shellVariant === "customer" && languageSelectorLabels ? (
+                <div className="mb-4 lg:hidden">
+                  <AppLanguageSelector
+                    currentLocale={coerceClientAppLocale(locale)}
+                    labels={languageSelectorLabels}
+                    variant="settings"
+                  />
+                </div>
+              ) : null}
               {useGroupedSidebar ? (
                 <GroupedSidebar
                   groups={navGroups!}
@@ -463,6 +500,11 @@ function DashboardShellFrame({
           onCommandBarClick={commandBarContext ? commandBarContext.open : undefined}
           commandBarPlaceholder={commandBarLabels?.placeholder}
           commandBarOpenLabel={commandBarLabels?.openCommandBar}
+          openMenuLabel={shellUiLabels?.openMenu}
+          locale={coerceToAppLocale(locale)}
+          languageSelectorLabels={
+            shellVariant === "customer" ? languageSelectorLabels : undefined
+          }
         />
 
         <main className="flex-1 overflow-y-auto px-4 py-6 pb-24 sm:px-6 sm:py-8 lg:px-8 lg:pb-8">
@@ -471,7 +513,7 @@ function DashboardShellFrame({
 
         <nav
           className={`fixed bottom-0 left-0 right-0 z-30 px-2 py-2 backdrop-blur-sm lg:hidden ${AipifyShellClasses.topbar}`}
-          aria-label="Mobile navigation"
+          aria-label={shellUiLabels?.mobileNavigation ?? "Mobile navigation"}
         >
           <div className="flex items-center justify-around">
             {mobileNavItems.map((item) => {

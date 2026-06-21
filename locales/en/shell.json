@@ -30,6 +30,19 @@
     "member": "Member"
   },
   "signOut": "Sign out",
+  "languageSelector": {
+    "label": "Language",
+    "activeLanguage": "Active language",
+    "changeLanguage": "Change language",
+    "switchFailed": "Could not change language. Please try again.",
+    "retry": "Retry",
+    "openMenu": "Language options"
+  },
+  "mobile": {
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "navigation": "Mobile navigation"
+  },
   "licenseSidebar": {
     "workspace": "Workspace:",
     "poweredBy": "Powered by",

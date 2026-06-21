@@ -403,7 +403,8 @@
       "notMet": "○",
       "sinceSource": "Vinduskilde",
       "noSinceLastTime": "Since Last Time krever organisasjonskontekst — tellinger vises når tilgjengelig."
-    }
+    },
+    "memory": "Memory"
   },
   "assistantIdentity": {
     "loading": "Laster assistentidentitet…",
@@ -1424,7 +1425,10 @@
       "philosophy": "People First. Forvaltning gjennom ansvar. Beredskap, ikke kommando.",
       "notPrediction": "Beredskapsrefleksjon — IKKE kriseprognoser eller sentralisert kontroll.",
       "growthPartnerNotAffiliate": "Growth Partner-terminologi — aldri Affiliate."
-    }
+    },
+    "title": "Societal Resilience Center",
+    "subtitle": "Post-Enterprise & Civilizational Era (161–170) — cross-sector preparedness and collective learning. Shared readiness — NOT centralized control, dependency, or crisis prediction. Growth Partner — never Affiliate.",
+    "loading": "Preparing Cross-Sector Intelligence overview…"
   },
   "civilizationalMemoryEngine": {
     "title": "Civilizational Memory-senter",
@@ -1804,7 +1808,32 @@
     "community": "Community (Fase 117)",
     "growthPartnerOperations": "Growth Partner Ops (Fase 114)",
     "inclusionHumanityEngine": "Inclusion & Humanity (A.83)",
-    "aiEthicsEngine": "Responsible Use & Ethics (Blueprint 98)"
+    "aiEthicsEngine": "Responsible Use & Ethics (Blueprint 98)",
+    "globalKnowledgeExchangeEngine": "Global Knowledge Exchange (Phase 141)",
+    "innovationImpactEngine": "Innovation & Impact (A.28)",
+    "ecosystemGovernance": "Ecosystem Governance (Phase 119/146)",
+    "organizationalHealthEngine": "Employee Experience (Phase 96)",
+    "phase149": {
+      "blueprintTitle": "Global Impact & Social Responsibility (Phase 149)",
+      "communityInitiatives": "Community initiatives",
+      "wellbeingPrograms": "Wellbeing programs",
+      "impactReports": "Impact reports",
+      "executiveReviews": "Executive reviews",
+      "globalImpactCenter": "Global impact center",
+      "socialResponsibilityEngine": "Social responsibility engine",
+      "communityImpactEngine": "Community impact engine",
+      "impactReportingEngine": "Impact reporting engine",
+      "growthPartnerImpactProgram": "Growth Partner impact program",
+      "executiveImpactReviews": "Executive impact review dimensions",
+      "executiveReviewRecords": "Executive review records",
+      "objectives": "Phase 149 objectives",
+      "impactCompanion": "Impact Companion — awareness not morality",
+      "selfLoveConnection": "Self Love connection",
+      "securityRequirements": "Security requirements",
+      "companionLimitations": "Companion limitations — no social scores",
+      "successCriteria": "Phase 149 success criteria",
+      "visionPhrases": "Vision phrases"
+    }
   },
   "ecosystemOrchestration": {
     "title": "Ecosystem Orchestration",
@@ -3039,7 +3068,8 @@
     "operationsServiceTracking": "Tjenestesporing",
     "operationsForecastingSupport": "Prognosestøtte",
     "operationsRevenueIntelligenceLink": "Inntektsintelligens (Fase 39)",
-    "operationsSuccessCriteria": "Blueprint suksesskriterier (Fase 48)"
+    "operationsSuccessCriteria": "Blueprint suksesskriterier (Fase 48)",
+    "tabEngagement": "Engagement & Booking"
   },
   "strategicAlignmentEngine": {
     "title": "Strategisk justering",
@@ -6697,6 +6727,40 @@
       "respondResistanceAnswer": "With supportive engagement — address concerns, remove blockers, improve communication, and provide enablement. Signals are never punitive.",
       "readinessAssessments": "How are readiness assessments performed?",
       "readinessAssessmentsAnswer": "From leadership alignment, communication effectiveness, resource availability, training readiness, and governance patterns — as governance indicators, not surveillance."
+    }
+  },
+  "aipifyResourceCapacityWorkloadBalanceEngine": {
+    "title": "Resource Capacity Center",
+    "subtitle": "Global Command & Enterprise Operations Era (201–210). Capacity Companion supports trend summaries, planning insights, and review reminders. Supports humans — does NOT surveil individuals or auto-reassign resources. Growth Partner — never Affiliate.",
+    "loading": "Preparing Resource Capacity & Workload Balance overview…",
+    "engineTitle": "Aipify Resource Capacity & Workload Balance Engine (Phase 209)",
+    "scoreLabel": "Capacity score",
+    "modeLabel": "Mode",
+    "readinessLabel": "Capacity balance level",
+    "executiveReviews": "Executive capacity reviews",
+    "activeReflections": "Active reflections",
+    "humanOversightRequired": "Human oversight required — humans steward allocation decisions; Capacity Companion supports only",
+    "eraOpenerSummary": "Global Command Era — Phases 201–210",
+    "eraOpenerNote": "Cross-link only — do not duplicate operations orchestration or action center RPCs.",
+    "centerLabel": "Resource Capacity Center capabilities",
+    "engineLabel": "Capacity reflection engine — reflection prompts",
+    "frameworkLabel": "Capacity framework",
+    "reviewsLabel": "Executive capacity reviews",
+    "companionLabel": "Capacity Companion — supports, does not surveil",
+    "subEngineLabel": "Workload Balance Monitor",
+    "reflections": "Capacity reflection scaffolds",
+    "executiveReviewEntries": "Capacity review entries",
+    "scaffoldNotes": "Metadata scaffolds",
+    "crossLinks": "Related surfaces — cross-link only, do not duplicate",
+    "blueprintObjectives": "Blueprint objectives (Phase 209)",
+    "companionLimitations": "Capacity Companion limitations — does NOT surveil individuals or auto-reassign resources",
+    "successCriteria": "Blueprint success criteria",
+    "criterionMet": "Met",
+    "criterionPending": "In progress",
+    "phase209": {
+      "mission": "Capacity Companion supports capacity planning — humans retain allocation authority for resource decisions.",
+      "philosophy": "People First. Aggregate-only capacity scaffolds. Growth Partner terminology — never Affiliate.",
+      "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
     }
   }
 }

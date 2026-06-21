@@ -41,7 +41,11 @@
     "partnerSuccessEngine": "Partner Success (A.73)",
     "growthPartnerOperations": "Growth Partner Operations (Fase 114)",
     "aipifyAcademy": "Aipify Academy",
-    "knowledgeCenter": "Knowledge Center"
+    "knowledgeCenter": "Knowledge Center",
+    "tierSalesRepresentative": "Sales Representative",
+    "tierSalesExpert": "Sales Expert",
+    "tierCertifiedPartner": "Certified Partner",
+    "tierExpertPartner": "Expert Partner"
   },
   "growthPartnerOperations": {
     "title": "Growth Partner Operations Center",

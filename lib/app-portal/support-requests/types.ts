@@ -15,7 +15,9 @@ export type SupportRequestStatus =
   | "waiting_for_customer"
   | "waiting_for_aipify"
   | "resolved"
-  | "closed";
+  | "closed"
+  | "reopened"
+  | "archived";
 
 export type SupportRequestItem = {
   id: string;
@@ -30,6 +32,8 @@ export type SupportRequestItem = {
   assigned_support_owner_id?: string;
   assigned_support_owner: string;
   related_module?: string;
+  channel?: string;
+  resolved_at?: string;
   attachments?: unknown[];
   internal_notes?: string;
   internal_notes_full?: string;
@@ -58,9 +62,18 @@ export type SupportRequestAuditEntry = {
   performed_by: string;
 };
 
+export type SupportRequestResolution = {
+  status: string;
+  resolved_at?: string;
+  summary?: string;
+};
+
 export type SupportRequestDetail = {
   found: boolean;
   can_manage?: boolean;
+  can_reopen?: boolean;
+  is_historical?: boolean;
+  resolution?: SupportRequestResolution;
   request?: SupportRequestItem;
   status_history?: SupportRequestStatusHistoryEntry[];
   timeline?: SupportRequestAuditEntry[];

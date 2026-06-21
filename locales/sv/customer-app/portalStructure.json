@@ -874,7 +874,9 @@
         "waitingForCustomer": "Waiting for Customer",
         "waitingForAipify": "Waiting for Aipify",
         "resolved": "Resolved",
-        "closed": "Closed"
+        "closed": "Closed",
+        "reopened": "Reopened",
+        "archived": "Archived"
       },
       "form": {
         "title": "New support request",
@@ -894,6 +896,139 @@
         "canTrackAnswer": "Yes. Each support request includes status, priority, category, timestamps and related activity so your organization can follow progress.",
         "whoCanSee": "Who can see support requests?",
         "whoCanSeeAnswer": "Support request access depends on organization permissions. Owners and administrators can view organization support requests, while team members only see requests they are authorized to access."
+      }
+    },
+    "supportHistory": {
+      "eyebrow": "SUPPORT",
+      "title": "Supporthistorik",
+      "subtitle": "Granska lösta och stängda supportärenden för din organisation — med granskningsspår, filter och möjlighet att öppna igen vid behov.",
+      "loading": "Aipify läser in din supporthistorik…",
+      "breadcrumbSupport": "Support",
+      "breadcrumbHistory": "Supporthistorik",
+      "backToSupport": "Tillbaka till Support",
+      "createRequest": "Skapa supportförfrågan",
+      "principle": "Supporthistorik bevarar lösta ärenden för din organisation — transparenta granskningsspår, endast för din arbetsyta.",
+      "emptyTitle": "Inga historiska supportärenden ännu",
+      "emptyBody": "När ärenden är lösta, stängda eller arkiverade visas de här för din organisation.",
+      "emptyAction": "Skapa supportförfrågan",
+      "errorTitle": "Supporthistorik otillgänglig",
+      "errorBody": "Aipify kunde inte läsa in supporthistorik för din organisation. Bekräfta dina behörigheter och försök igen.",
+      "retry": "Försök igen",
+      "sections": {
+        "overview": "Översikt",
+        "filters": "Sök och filter",
+        "cases": "Historiska ärenden",
+        "insights": "Supportinsikter",
+        "understanding": "Förstå supporthistorik"
+      },
+      "overview": {
+        "totalHistorical": "Historiska ärenden",
+        "resolved": "Lösta",
+        "closed": "Stängda",
+        "reopened": "Öppnade igen",
+        "archived": "Arkiverade",
+        "avgResolutionDays": "Genomsnittlig lösningstid",
+        "daysUnit": "dagar"
+      },
+      "filters": {
+        "search": "Sök",
+        "searchPlaceholder": "Sök historiska ärenden…",
+        "status": "Status",
+        "category": "Kategori",
+        "priority": "Prioritet",
+        "channel": "Kanal",
+        "assigned": "Tilldelat ägar-ID",
+        "dateFrom": "Uppdaterad från",
+        "dateTo": "Uppdaterad till",
+        "sort": "Sortera efter",
+        "all": "Alla",
+        "apply": "Tillämpa filter",
+        "clear": "Rensa filter"
+      },
+      "sortOptions": {
+        "updatedDesc": "Senast uppdaterad (nyast)",
+        "updatedAsc": "Senast uppdaterad (äldst)",
+        "createdDesc": "Skapad (nyast)",
+        "createdAsc": "Skapad (äldst)",
+        "priorityDesc": "Prioritet (högst)",
+        "titleAsc": "Titel (A–Ö)"
+      },
+      "card": {
+        "viewCase": "Visa ärende",
+        "createdBy": "Skapad av",
+        "created": "Skapad",
+        "updated": "Senast uppdaterad",
+        "resolved": "Löst",
+        "status": "Status",
+        "priority": "Prioritet",
+        "category": "Kategori",
+        "channel": "Kanal",
+        "assignee": "Tilldelad supportansvarig",
+        "module": "Relaterad modul"
+      },
+      "pagination": {
+        "previous": "Föregående",
+        "next": "Nästa",
+        "page": "Sida {page} av {total}"
+      },
+      "insights": {
+        "topCategories": "Toppkategorier",
+        "reopenRate": "Andel återöppnade",
+        "recentResolution": "Senaste lösning",
+        "noInsights": "Insikter visas när organisationen har ackumulerat lösta supportärenden."
+      },
+      "understanding": {
+        "title": "Vad är supporthistorik?",
+        "body": "Supporthistorik visar lösta, stängda, återöppnade och arkiverade ärenden för din organisation. Aktiva öppna ärenden finns under Supportförfrågningar.",
+        "auditTitle": "Granskning och ansvar",
+        "auditBody": "Varje statusändring och återöppning registreras i granskningsspåret. Organisationsdata förblir avgränsad till din tenant.",
+        "reopenTitle": "Öppna ett ärende igen",
+        "reopenBody": "När ett problem återkommer kan behöriga användare öppna ett löst eller stängt ärende igen med en anledning. Aipify registrerar återöppningen i granskningsloggen."
+      },
+      "categories": {
+        "technical": "Tekniskt",
+        "billing": "Fakturering",
+        "integrations": "Integrationer",
+        "businessPacks": "Business Packs",
+        "account": "Konto",
+        "security": "Säkerhet",
+        "general": "Allmänt"
+      },
+      "priorities": {
+        "low": "Låg",
+        "medium": "Medel",
+        "high": "Hög",
+        "urgent": "Brådskande"
+      },
+      "statuses": {
+        "open": "Öppen",
+        "inReview": "Under granskning",
+        "waitingForCustomer": "Väntar på kund",
+        "waitingForAipify": "Väntar på Aipify",
+        "resolved": "Löst",
+        "closed": "Stängt",
+        "reopened": "Återöppnat",
+        "archived": "Arkiverat"
+      },
+      "channels": {
+        "appPortal": "APP-portal",
+        "email": "E-post",
+        "chat": "Chatt",
+        "phone": "Telefon",
+        "assistant": "Supportassistent"
+      },
+      "detail": {
+        "reopen": "Öppna ärende igen",
+        "reopenTitle": "Öppna supportärende igen",
+        "reopenReason": "Anledning till återöppning",
+        "reopenReasonPlaceholder": "Beskriv varför detta ärende behöver uppmärksamhet igen…",
+        "reopenConfirm": "Bekräfta återöppning",
+        "reopenCancel": "Avbryt",
+        "reopenSuccess": "Ärendet har öppnats igen. Organisationen kan följa förloppet under Supportförfrågningar.",
+        "resolution": "Lösning",
+        "resolutionSummary": "Detta ärende markerades som löst eller stängt. Detaljerna nedan återspeglar senaste kända lösningstillstånd.",
+        "backToHistory": "Tillbaka till supporthistorik",
+        "backToRequests": "Tillbaka till supportförfrågningar"
       }
     },
     "supportAssistant": {
@@ -1168,6 +1303,12 @@
         "utilizationTitle": "Utnyttjande",
         "utilizationBody": "Visar hur mycket av den aktiverade kapabilitetsytan som används i daglig drift — inte hur många moduler ni har rätt till.",
         "methodologyLink": "Visa poängmetodik"
+      },
+      "healthStatuses": {
+        "excellent": "Excellent",
+        "healthy": "Healthy",
+        "attentionNeeded": "Attention Needed",
+        "atRisk": "At Risk"
       }
     },
     "gettingStarted": {
@@ -1184,7 +1325,11 @@
         "recommendations": "Aipify Recommendations",
         "milestones": "Milestone Celebrations",
         "adoption": "Adoption Insights",
-        "completed": "Completed Milestones"
+        "completed": "Completed Milestones",
+        "progress": "Onboarding Progress",
+        "nextAction": "Recommended Next Action",
+        "remaining": "Remaining Setup",
+        "understanding": "Understanding Onboarding"
       },
       "overview": {
         "progress": "Setup completion",
@@ -1201,7 +1346,8 @@
         "notStarted": "Not Started",
         "inProgress": "In Progress",
         "completed": "Completed",
-        "optional": "Optional"
+        "optional": "Optional",
+        "blocked": "Blocked"
       },
       "categories": {
         "organization": "Organization Setup",
@@ -1247,7 +1393,11 @@
         "featuresExplored": "Features explored",
         "featuresNotDiscovered": "Features not yet discovered",
         "suggestedPacks": "Suggested Business Packs",
-        "nextActions": "Recommended next actions"
+        "nextActions": "Recommended next actions",
+        "explored": "Features explored",
+        "recommended": "Recommended to explore",
+        "noneExplored": "No adoption features recorded yet.",
+        "noneRecommended": "No additional features recommended right now."
       },
       "faq": {
         "title": "Getting Started FAQ",
@@ -1260,12 +1410,53 @@
       },
       "actions": {
         "markComplete": "Mark complete",
-        "dismissMilestone": "Dismiss"
+        "dismissMilestone": "Dismiss",
+        "open": "Open",
+        "hide": "Hide",
+        "startCourse": "Start"
       },
       "eyebrow": "KOM IGÅNG",
       "breadcrumbSupport": "Support",
       "breadcrumbGettingStarted": "Kom igång",
-      "backToSupport": "Tillbaka till Support"
+      "backToSupport": "Tillbaka till Support",
+      "progress": {
+        "percentComplete": "Setup completion",
+        "stepsCompleted": "Applicable steps",
+        "workflowState": "Workflow state",
+        "lastUpdated": "Last updated",
+        "continueSetup": "Continue setup",
+        "advisory": "Progress reflects required setup tasks for your organization. Optional steps help you explore additional value."
+      },
+      "workflowStates": {
+        "notStarted": "Not started",
+        "inProgress": "In progress",
+        "requiresAttention": "Requires attention",
+        "completed": "Completed",
+        "blocked": "Blocked"
+      },
+      "taskPriorities": {
+        "required": "Required",
+        "recommended": "Recommended",
+        "optional": "Optional"
+      },
+      "understanding": {
+        "revisit": "Can onboarding be revisited later?",
+        "revisitAnswer": "Yes. Organizations can return to Getting Started at any time to complete remaining setup tasks.",
+        "progressMeaning": "How is progress calculated?",
+        "progressMeaningAnswer": "Progress counts completed applicable setup steps against the total required for your organization plan and enabled capabilities.",
+        "permissions": "Who can update onboarding?",
+        "permissionsAnswer": "Organization owners and administrators can start onboarding, mark manual steps, and dismiss milestone celebrations."
+      },
+      "empty": {
+        "title": "Start your workspace setup",
+        "body": "Aipify will guide your organization through essential configuration so your team can begin creating value.",
+        "action": "Start onboarding"
+      },
+      "error": {
+        "title": "Getting Started unavailable",
+        "body": "Aipify could not load onboarding for your organization. Confirm your permissions and try again.",
+        "retry": "Try again"
+      }
     },
     "capabilityCenter": {
       "title": "Capability Center",
@@ -3419,7 +3610,14 @@
         "difficulty": "Difficulty level",
         "all": "All",
         "notStarted": "Not started",
-        "completed": "Completed"
+        "completed": "Completed",
+        "sortBy": "Sort by",
+        "sortTitle": "Title",
+        "sortDuration": "Duration",
+        "sortDifficulty": "Difficulty",
+        "sortSection": "Section",
+        "sortProgress": "Progress",
+        "inProgress": "In progress"
       },
       "dashboard": {
         "progress": "Learning progress",
@@ -3440,7 +3638,12 @@
         "teamTraining": "Team Training",
         "certifications": "Certifications",
         "knowledgeCenter": "Knowledge Center",
-        "teamReporting": "Team reporting"
+        "teamReporting": "Team reporting",
+        "continueLearning": "Continue Learning",
+        "recommended": "Recommended for You",
+        "teamLearning": "Team Learning",
+        "suggestedPaths": "Suggested Learning Paths",
+        "understanding": "Understanding Customer Academy"
       },
       "assign": {
         "title": "Assign training",
@@ -3453,7 +3656,8 @@
         "cancel": "Cancel",
         "supportTeam": "Support Team",
         "operationsTeam": "Operations Team",
-        "leadershipTeam": "Leadership Team"
+        "leadershipTeam": "Leadership Team",
+        "action": "Assign learning"
       },
       "course": {
         "complete": "Mark complete",
@@ -3467,13 +3671,18 @@
         "assigned": "Assigned training",
         "completionRate": "Completion rate",
         "overdue": "Overdue assignments",
-        "recommendedActions": "Recommended actions"
+        "recommendedActions": "Recommended actions",
+        "noAssignments": "No team learning assigned"
       },
       "certifications": {
         "certifiedUser": "Aipify Certified User",
         "operationsUser": "Aipify Operations User",
         "supportUser": "Aipify Support User",
-        "executiveUser": "Aipify Executive User"
+        "executiveUser": "Aipify Executive User",
+        "aipify_certified_user": "Aipify Certified User",
+        "aipify_operations_user": "Aipify Operations User",
+        "aipify_support_user": "Aipify Support User",
+        "aipify_executive_user": "Aipify Executive User"
       },
       "difficulties": {
         "beginner": "Beginner",
@@ -3484,7 +3693,8 @@
         "course": "Course",
         "faq": "FAQ",
         "article": "Article",
-        "video": "Video"
+        "video": "Video",
+        "guide": "Guide"
       },
       "faq": {
         "title": "Aipify Academy FAQ",
@@ -3498,204 +3708,426 @@
       "eyebrow": "AIPIFY ACADEMY",
       "breadcrumbSupport": "Support",
       "breadcrumbAcademy": "Kundakademi",
-      "backToSupport": "Tillbaka till Support"
-    },
-    "customerSuccess": {
-      "title": "Customer Success",
-      "subtitle": "Continuously improve adoption, platform utilization and return on investment from Aipify.",
-      "loading": "Aipify is reviewing your organization's success journey…",
-      "principle": "Aipify provides recommendations and insights — organizations remain responsible for implementation.",
-      "emptyTitle": "Your customer success journey has not started yet.",
-      "emptyBody": "Aipify helps organizations continuously improve and maximize business value.",
-      "emptyCta": "Begin Success Journey",
-      "accessDenied": "You do not have permission to access Customer Success.",
-      "filters": {
-        "search": "Search success insights…",
-        "category": "Adoption category",
-        "priority": "Priority",
-        "successStatus": "Success status",
-        "periodFrom": "Period from",
-        "department": "Department",
-        "all": "All"
+      "backToSupport": "Tillbaka till Support",
+      "overview": {
+        "available": "Available courses",
+        "assigned": "Assigned",
+        "started": "Started",
+        "inProgress": "In progress",
+        "completed": "Completed",
+        "overdue": "Overdue",
+        "personalCompletion": "Personal completion"
       },
-      "dashboard": {
-        "adoptionScore": "Adoption Score",
-        "utilizationScore": "Utilization Score",
-        "recommendedActions": "Recommended Actions",
-        "recentlyImproved": "Recently Improved Areas",
-        "areasAttention": "Areas Requiring Attention",
-        "milestonesAchieved": "Success Milestones Achieved",
-        "upcomingOpportunities": "Upcoming Success Opportunities",
-        "personalProgress": "Personal progress"
+      "courseStates": {
+        "notStarted": "Not started",
+        "inProgress": "In progress",
+        "completed": "Completed",
+        "locked": "Restricted",
+        "assigned": "Assigned",
+        "overdue": "Overdue"
       },
-      "scores": {
-        "learningCompletion": "Learning Completion",
-        "featureAdoption": "Feature Adoption",
-        "userEngagement": "User Engagement",
-        "operationalMaturity": "Operational Maturity",
-        "securityCompletion": "Security Completion",
-        "integrationUsage": "Integration Usage"
+      "courseActions": {
+        "start": "Start course",
+        "continue": "Continue",
+        "review": "Review",
+        "complete": "Mark complete"
       },
-      "statuses": {
-        "gettingStarted": "Getting Started",
-        "developing": "Developing",
-        "established": "Established",
-        "advanced": "Advanced",
-        "highPerforming": "High Performing"
-      },
-      "maturity": {
-        "title": "Maturity Model",
-        "stage": "Stage",
-        "gettingStarted": "Getting Started",
-        "operational": "Operational",
-        "optimized": "Optimized",
-        "strategic": "Strategic",
-        "transformational": "Transformational"
-      },
-      "insights": {
-        "title": "Adoption Insights",
-        "frequentlyUsed": "Features frequently used",
-        "rarelyUsed": "Features rarely used",
-        "highEngagement": "Teams with high engagement",
-        "requiringSupport": "Teams requiring support",
-        "trainingOpportunities": "Training opportunities",
-        "securityRecommendations": "Security recommendations"
-      },
-      "timeline": {
-        "title": "Success Timeline"
-      },
-      "team": {
-        "title": "Team adoption reporting",
-        "teamCount": "Team members",
-        "twoFaAdoption": "2FA adoption",
-        "learningCompletions": "Learning completions"
+      "certificationStates": {
+        "earned": "Certified",
+        "inProgress": "In progress",
+        "notStarted": "Not started",
+        "expired": "Expired"
       },
       "recommendations": {
-        "activate2faAllUsers": "Activate 2FA for all users.",
-        "completeOnboardingTraining": "Complete onboarding training.",
-        "exploreUnusedBusinessPacks": "Explore unused Business Packs.",
-        "connectIntegrations": "Connect recommended integrations.",
-        "reviewOperationalDashboards": "Review operational dashboards.",
-        "encourageCertification": "Encourage certification completion."
+        "onboarding": "Recommended to complete your workspace foundation.",
+        "security": "Strengthen security practices for your organization.",
+        "businessPacks": "Expand operational capabilities with Business Packs.",
+        "adoption": "Improve adoption across your organization."
       },
-      "priorities": {
-        "opportunity": "Opportunity",
-        "recommended": "Recommended",
-        "important": "Important",
-        "highImpact": "High Impact"
+      "understanding": {
+        "whatIs": "What is Customer Academy?",
+        "whatIsAnswer": "Customer Academy helps organizations educate employees, improve adoption, and maximize the value of Aipify through structured courses and certifications.",
+        "managersAssign": "Can managers assign learning?",
+        "managersAssignAnswer": "Yes. Managers can assign learning paths, monitor completion, and support employee development within your organization.",
+        "partnerAcademy": "Is this the Partner Academy?",
+        "partnerAcademyAnswer": "No. Customer Academy is for organizations using Aipify internally. Growth Partner training lives in the Partner Portal — not in the customer APP."
       },
-      "faq": {
-        "title": "Customer Success FAQ",
-        "whatIs": "What is the Customer Success Center?",
-        "whatIsAnswer": "The Customer Success Center helps organizations improve adoption, strengthen maturity and maximize the value they receive from Aipify.",
-        "autoImprove": "Can Aipify improve adoption automatically?",
-        "autoImproveAnswer": "No. Aipify provides recommendations and insights, while organizations remain responsible for implementation.",
-        "whyAdoption": "Why is adoption important?",
-        "whyAdoptionAnswer": "Organizations that successfully adopt technology typically realize greater operational efficiency, stronger engagement and higher long-term value."
+      "empty": {
+        "continueLearning": "No courses in progress. Start a course from Getting Started or Product Training.",
+        "teamLearning": "Assign learning to your team to track completion and overdue assignments."
       },
-      "organizationMissing": "Organisationskontext saknas. Välj eller konfigurera arbetsytan innan du använder Customer Success.",
+      "error": {
+        "title": "Customer Academy unavailable",
+        "body": "Aipify could not load academy data. Confirm your permissions and try again.",
+        "retry": "Try again"
+      }
+    },
+    "customerSuccess": {
+      "eyebrow": "KUNDFRAMGÅNG",
+      "title": "Arbetsområde för kundframgång",
+      "subtitle": "Planera adoptioninitiativ, följ upp målbar effekt och stärk långsiktigt värde från Aipify i organisationen.",
+      "loading": "Aipify granskar organisationens kundframgång-arbetsområde…",
+      "breadcrumbSupport": "Support",
+      "breadcrumbCustomerSuccess": "Kundframgång",
+      "backToSupport": "Tillbaka till Support",
+      "accessDenied": "Du har inte behörighet till Kundframgång.",
+      "organizationMissing": "Organisationskontext saknas. Välj eller konfigurera arbetsytan innan du använder Kundframgång.",
       "subscriptionRequired": "Detta område kräver en aktiv organisationsprenumeration.",
       "permissionMissing": "Du har inte behörighet till detta område. Kontakta organisationens administratör.",
-      "entitlementMissing": "Den här funktionen ingår inte i organisationens aktiva Business Packs eller abonnemang."
-    },
-    "customerHealth": {
-      "title": "Customer Health",
-      "subtitle": "Understand your relationship with Aipify, monitor engagement signals, and strengthen long-term success.",
-      "loading": "Aipify is reviewing your customer health indicators…",
-      "principle": "Health indicators are guidance tools — not judgments. Recommendations remain advisory.",
-      "emptyTitle": "No customer health insights are available yet.",
-      "emptyBody": "Aipify helps organizations strengthen engagement and maximize long-term success.",
-      "emptyCta": "Review Customer Health",
-      "accessDenied": "You do not have permission to access Customer Health.",
+      "entitlementMissing": "Den här funktionen ingår inte i organisationens aktiva Business Packs eller plan.",
+      "errorTitle": "Kundframgång otillgänglig",
+      "errorBody": "Aipify kunde inte ladda kundframgång-data för organisationen. Bekräfta behörigheter och försök igen.",
+      "retry": "Försök igen",
+      "sections": {
+        "overview": "Översikt kundframgång",
+        "nextAction": "Rekommenderad nästa åtgärd",
+        "successPlans": "Aktiva framgångsplaner",
+        "followUpsMilestones": "Uppföljningar och milstolpar",
+        "outcomes": "Kundresultat",
+        "risksAdoption": "Risk och adoption",
+        "activeRisks": "Aktiva risker",
+        "adoptionSignals": "Adoptionssignaler",
+        "recentActivity": "Senaste aktivitet",
+        "understanding": "Förstå kundframgång"
+      },
+      "overview": {
+        "organizationOverview": "Organisationens framgångsöversikt",
+        "healthScore": "Hälsopoäng för kundframgång",
+        "adoptionScore": "Adoptionspoäng",
+        "utilizationScore": "Utnyttjandepoäng",
+        "engagementScore": "Engagemangspoäng",
+        "healthStatus": "Hälsostatus",
+        "advisory": "Poäng och indikatorer är vägledande. Använd dem tillsammans med professionell bedömning när du planerar nästa steg.",
+        "lastUpdated": "Senast uppdaterad"
+      },
       "filters": {
-        "search": "Search health insights…",
-        "category": "Health category",
-        "priority": "Priority",
-        "trend": "Trend direction",
-        "periodFrom": "Period from",
-        "department": "Department",
-        "all": "All"
+        "search": "Sök i framgångsarbetsområde…",
+        "category": "Kategori",
+        "priority": "Prioritet",
+        "successStatus": "Framgångsstatus",
+        "owner": "Ansvarig",
+        "dueDate": "Förfallodatum",
+        "sortBy": "Sortera efter",
+        "all": "Alla",
+        "sortDueDate": "Förfallodatum",
+        "sortPriority": "Prioritet",
+        "sortTitle": "Titel",
+        "sortProgress": "Framsteg",
+        "sortUpdated": "Nyligen uppdaterad"
       },
-      "dashboard": {
-        "overallHealth": "Overall Health Score",
-        "engagement": "Engagement Score",
-        "supportSatisfaction": "Support Satisfaction Score",
-        "adoption": "Adoption Score",
-        "learningCompletion": "Learning Completion Score",
-        "relationshipTrend": "Relationship Trend",
-        "openRecommendations": "Open Recommendations",
-        "healthStatus": "Health Status"
+      "followUpTabs": {
+        "all": "Alla",
+        "followUps": "Uppföljningar",
+        "milestones": "Milstolpar",
+        "overdue": "Försenad",
+        "completed": "Slutförd"
       },
-      "indicators": {
-        "title": "Health Indicators",
-        "platformEngagement": "Platform engagement",
-        "trainingParticipation": "Training participation",
-        "supportInteractions": "Support interactions",
-        "adoptionProgress": "Adoption progress",
-        "securityCompletion": "Security completion",
-        "integrationActivity": "Integration activity",
-        "recommendationCompletion": "Recommendation completion"
-      },
-      "engagement": {
-        "title": "Engagement Insights",
-        "activeTeams": "Active teams",
-        "departmentsSupport": "Departments requiring support",
-        "underutilized": "Underutilized capabilities",
-        "positiveMomentum": "Positive momentum indicators",
-        "decliningActivity": "Areas with declining activity"
-      },
-      "support": {
-        "title": "Support Insights",
-        "openRequests": "Open support requests",
-        "resolvedRequests": "Resolved requests",
-        "resolutionTrend": "Average resolution trend",
-        "satisfaction": "Satisfaction feedback",
-        "selfService": "Self-service utilization",
-        "knowledgeEngagement": "Knowledge Center engagement"
-      },
-      "timeline": {
-        "title": "Relationship Timeline"
-      },
-      "team": {
-        "title": "Departmental health insights",
-        "engagement": "Engagement score",
-        "learning": "Learning participation"
+      "planStates": {
+        "draft": "Utkast",
+        "active": "Aktiv",
+        "in_progress": "Pågår",
+        "requires_attention": "Kräver uppföljning",
+        "at_risk": "I risk",
+        "blocked": "Blockerad",
+        "completed": "Slutförd",
+        "archived": "Arkiverad"
       },
       "statuses": {
-        "thriving": "Thriving",
-        "healthy": "Healthy",
-        "stable": "Stable",
-        "requiresAttention": "Requires Attention",
-        "criticalSupportNeeded": "Critical Support Needed"
+        "gettingStarted": "Kom igång",
+        "developing": "Under utveckling",
+        "established": "Etablerad",
+        "advanced": "Avancerad",
+        "highPerforming": "Hög prestanda"
       },
-      "trends": {
+      "scores": {
+        "learningCompletion": "Slutförd utbildning",
+        "featureAdoption": "Funktionsadoption",
+        "userEngagement": "Användarengagemang",
+        "operationalMaturity": "Operativ mognad",
+        "securityCompletion": "Säkerhetsslutförande",
+        "integrationUsage": "Integrationanvändning",
+        "teamCount": "Teammedlemmar",
+        "businessPacks": "Business Packs",
+        "integrationsConnected": "Anslutna integrationer",
+        "twoFaAdoption": "2FA-adoption"
+      },
+      "categories": {
+        "learning": "Utbildning",
+        "security": "Säkerhet",
+        "adoption": "Adoption",
+        "integration": "Integration",
+        "operations": "Verksamhet"
+      },
+      "priorities": {
+        "opportunity": "Möjlighet",
+        "recommended": "Rekommenderad",
+        "important": "Viktig",
+        "highImpact": "Hög effekt"
+      },
+      "recommendations": {
+        "activate2faAllUsers": {
+          "title": "Aktivera 2FA för alla användare",
+          "reason": "Säkerhetsslutförande stärker organisationens framgångsposition och minskar operativ risk.",
+          "action": "Gå till säkerhetsinställningar"
+        },
+        "completeOnboardingTraining": {
+          "title": "Slutför onboardingutbildning",
+          "reason": "Strukturerad onboarding ökar adoption och hjälper team använda Aipify tryggt.",
+          "action": "Öppna Kom igång"
+        },
+        "exploreUnusedBusinessPacks": {
+          "title": "Utforska oanvända Business Packs",
+          "reason": "Ytterligare Business Packs kan utöka operativt värde utan extra komplexitet.",
+          "action": "Utforska Business Packs"
+        },
+        "connectIntegrations": {
+          "title": "Anslut rekommenderade integrationer",
+          "reason": "Integrationer kopplar Aipify till system teamet redan använder.",
+          "action": "Öppna Integrationer"
+        },
+        "reviewOperationalDashboards": {
+          "title": "Granska operativa instrumentpaneler",
+          "reason": "Regelbunden granskning håller adoption i linje med daglig verksamhet.",
+          "action": "Öppna Command Center"
+        },
+        "encourageCertification": {
+          "title": "Encourage certifiering",
+          "reason": "Certifiering bygger operativ mognad i organisationen.",
+          "action": "Öppna Customer Academy"
+        }
+      },
+      "understanding": {
+        "q1": "Vad är arbetsområdet för kundframgång?",
+        "a1": "Arbetsområdet hjälper organisationen planera adoption, följa resultat och övervaka risk tillsammans med målbar adoption.",
+        "q2": "Implementerar Aipify framgångsplaner automatiskt?",
+        "a2": "Nej. Aipify ger rekommendationer och insikter — organisationen bestämmer vad implementeras och när.",
+        "q3": "Hur beräknas hälsa- och adoptionspoäng?",
+        "a3": "Poäng kombinerar utbildning, funktionsadoption, engagemang, säkerhet, integrationer och operativ aktivitet.",
+        "q4": "Vem bör använda detta arbetsområde?",
+        "a4": "Ägare, administratörer och operativa ledare som driver adoption, uppföljning och värde från Aipify."
+      },
+      "empty": {
+        "plans": "Inga aktiva framgångsplaner ännu.",
+        "followUps": "Inga uppföljningar eller milstolpar matchar filtren.",
+        "outcomes": "Inga målbara resultat registrerade ännu.",
+        "risks": "Inga aktiva risker flaggade för organisationen.",
+        "activity": "Ingen senaste kundframgång-aktivitet att visa."
+      },
+      "healthStates": {
+        "healthy": "Hälsosam",
+        "good": "Bra",
+        "moderate": "Måttlig",
+        "poor": "Svag",
+        "criticalHealth": "Kritisk",
+        "unknown": "Okänd"
+      },
+      "card": {
+        "owner": "Ansvarig",
+        "progress": "Framsteg",
+        "targetDate": "Måldatum",
+        "target": "Mål",
+        "current": "Nuvarande"
+      }
+    },
+    "customerHealth": {
+      "eyebrow": "ORGANISATIONSHÄLSA",
+      "title": "Kundhälsa",
+      "subtitle": "Övervaka organisationshälsa, adoption och engagemang — med tydlig vägledning om vad som bör förbättras härnäst.",
+      "loading": "…",
+      "breadcrumbSupport": "Support",
+      "breadcrumbCustomerHealth": "Kundhälsa",
+      "backToSupport": "Tillbaka till Support",
+      "purposeSummary": {
+        "healthy": "Er organisation visar stark hälsa inom adoption, engagemang och utnyttjande.",
+        "moderate": "Er organisation gör framsteg men kan stärka teamengagemang.",
+        "poor": "Flera hälsofaktorer behöver uppmärksamhet.",
+        "critical": "Hälsoindikatorer tyder på betydande adoptionsgap."
+      },
+      "emptyTitle": "Kundhälsa",
+      "emptyBody": "Övervaka organisationshälsa, adoption och engagemang — med tydlig vägledning om vad som bör förbättras härnäst.",
+      "emptyAction": "Getting Started",
+      "errorTitle": "Kundhälsa",
+      "errorBody": "Övervaka organisationshälsa, adoption och engagemang — med tydlig vägledning om vad som bör förbättras härnäst.",
+      "retry": "Retry",
+      "sections": {
+        "overview": "Overview",
+        "recommendedAction": "Next action",
+        "drivers": "Drivers",
+        "strengths": "Strengths",
+        "needsAttention": "Needs attention",
+        "trend": "Trend",
+        "risks": "Risks",
+        "operationalSignals": "Signals",
+        "history": "History",
+        "understanding": "Kundhälsa"
+      },
+      "overview": {
+        "healthScore": "Kundhälsa",
+        "healthState": "State",
+        "trend": "Trend",
+        "scoreChange": "Change",
+        "riskLevel": "Risk",
+        "lastCalculated": "Calculated",
+        "explanation": "Explanation",
+        "advisory": "Övervaka organisationshälsa, adoption och engagemang — med tydlig vägledning om vad som bör förbättras härnäst."
+      },
+      "healthStates": {
+        "healthy": "Healthy",
+        "good": "Good",
+        "moderate": "Moderate",
+        "poor": "Poor",
+        "criticalHealth": "Critical",
+        "unknown": "Unknown"
+      },
+      "trendStates": {
         "improving": "Improving",
         "stable": "Stable",
         "declining": "Declining",
-        "insufficientData": "Insufficient Data"
+        "rapidDecline": "Rapid decline",
+        "insufficientData": "Insufficient data"
       },
-      "priorities": {
-        "informational": "Informational",
-        "opportunity": "Opportunity",
-        "important": "Important",
-        "highPriority": "High Priority"
+      "riskLevels": {
+        "low": "Low",
+        "moderate": "Moderate",
+        "elevated": "Elevated",
+        "high": "High"
+      },
+      "driverEffects": {
+        "positive": "Positive",
+        "neutral": "Neutral",
+        "moderateNegative": "Moderate negative",
+        "strongNegative": "Strong negative",
+        "criticalNegative": "Critical negative"
+      },
+      "drivers": {
+        "adoption": "Adoption",
+        "engagement": "Engagement",
+        "utilization": "Utilization",
+        "learning": "Learning",
+        "security": "Security",
+        "integrations": "Integrations"
+      },
+      "strengths": {
+        "activeUsers": "Active users",
+        "teamSize": "Team size",
+        "businessPacks": "Business Packs",
+        "integrations": "Integrations",
+        "openSupport": "Support",
+        "pendingApprovals": "Approvals",
+        "openFollowUps": "Follow-ups"
+      },
+      "needsAttention": {
+        "activeUsers": "Active users",
+        "teamSize": "Team size",
+        "businessPacks": "Business Packs",
+        "integrations": "Integrations",
+        "openSupport": "Support",
+        "pendingApprovals": "Approvals",
+        "openFollowUps": "Follow-ups"
+      },
+      "risks": {
+        "openSupportBacklog": "Support backlog",
+        "pendingApprovals": "Approvals",
+        "securityNotConfigured": "Security",
+        "lowEngagement": "Engagement"
+      },
+      "operationalSignals": {
+        "teamActivity": "Team activity",
+        "businessPacksInstalled": "Business Packs",
+        "capabilitiesEnabled": "Capabilities",
+        "operationsActivity": "Operations"
+      },
+      "trend": {
+        "periodLabel": "Period",
+        "empty": "No trend data",
+        "insufficientData": "Insufficient data",
+        "periods": {
+          "d7": "7d",
+          "d30": "30d",
+          "d90": "90d",
+          "d365": "365d"
+        }
+      },
+      "filters": {
+        "search": "Search",
+        "category": "Category",
+        "priority": "Priority",
+        "trend": "Trend",
+        "date": "Date",
+        "sortBy": "Sort",
+        "all": "All",
+        "categories": {
+          "support": "Support",
+          "governance": "Governance",
+          "security": "Security",
+          "engagement": "Engagement",
+          "adoption": "Adoption",
+          "utilization": "Utilization",
+          "operations": "Operations"
+        },
+        "sortOptions": {
+          "impactDesc": "Impact",
+          "severityDesc": "Severity",
+          "dateDesc": "Newest",
+          "dateAsc": "Oldest"
+        }
+      },
+      "history": {
+        "score": "Score",
+        "eventType": "Event",
+        "empty": "Empty"
+      },
+      "understanding": {
+        "q1": "Vad är kundhälsa?",
+        "a1": "Kundhälsa sammanfattar adoption, engagemang, utnyttjande och operativa signaler för er organisation — med samma poängmetodik som Success Center.",
+        "q2": "Hur beräknas hälsopoängen?",
+        "a2": "Aipify kombinerar adoption, engagemang och utnyttjande och justerar för öppna supportärenden, godkännanden och uppföljningar. Trösklar: 85–100 frisk, 70–84 måttlig, 50–69 svag, under 50 kritisk.",
+        "q3": "Dömer Aipify vår organisation?",
+        "a3": "Nej. Hälsoindikatorer är vägledning. Ert team fattar beslut och implementerar.",
+        "q4": "Hur ska vi använda denna yta?",
+        "a4": "Granska översikt och drivkrafter, följ rekommenderat nästa steg och övervaka trenden över tid. Business Pack-räkningar visar kanoniska installerade paket — kapabiliteter listas separat."
       },
       "recommendations": {
-        "scheduleOnboardingRefresh": "Schedule onboarding refresh training.",
-        "reviewOpenSupportRequests": "Review open support requests.",
-        "exploreBusinessPacks": "Explore recommended Business Packs.",
-        "encourageAssignedLearning": "Encourage completion of assigned learning.",
-        "activateSecurityProtections": "Activate additional security protections.",
-        "conductQuarterlyReview": "Conduct quarterly success reviews."
-      },
-      "faq": {
-        "title": "Customer Health FAQ",
-        "whatIs": "What is Customer Health?",
-        "whatIsAnswer": "Customer Health provides organizations with visibility into adoption, engagement and support indicators that may influence long-term success.",
-        "goodCustomer": "Does Aipify decide whether we are a good customer?",
-        "goodCustomerAnswer": "No. Health indicators are designed to provide guidance and identify opportunities for improvement.",
-        "improveOutcomes": "Can Customer Health improve outcomes?",
-        "improveOutcomesAnswer": "Customer Health can highlight trends and recommendations that help organizations strengthen adoption and engagement over time."
+        "inviteTeam": {
+          "title": "Invite team",
+          "reason": "Reason",
+          "action": "Action"
+        },
+        "explorePacks": {
+          "title": "Business Packs",
+          "reason": "Reason",
+          "action": "Action"
+        },
+        "enableIntegrations": {
+          "title": "Integrations",
+          "reason": "Reason",
+          "action": "Action"
+        },
+        "reviewSupport": {
+          "title": "Support",
+          "reason": "Reason",
+          "action": "Action"
+        },
+        "reviewApprovals": {
+          "title": "Approvals",
+          "reason": "Reason",
+          "action": "Action"
+        },
+        "completeFollowUps": {
+          "title": "Follow-ups",
+          "reason": "Reason",
+          "action": "Action"
+        },
+        "completeOnboarding": {
+          "title": "Onboarding",
+          "reason": "Reason",
+          "action": "Action"
+        },
+        "configureSecurity": {
+          "title": "Security",
+          "reason": "Reason",
+          "action": "Action"
+        }
       }
     },
     "momentum": {
@@ -6750,6 +7182,125 @@
           "recommendedFor": "Process owners, operations staff, and administrators coordinating repeatable business work.",
           "planAccess": "Basic workflows are available from Growth plans. Advanced automation requires Business or Enterprise."
         }
+      }
+    },
+    "communications": {
+      "title": "Communications",
+      "subtitle": "Publish important updates, maintain transparency and ensure teams receive relevant information.",
+      "loading": "Aipify is preparing organizational communications…",
+      "principle": "Clear communication strengthens transparency — humans approve and own every message.",
+      "emptyTitle": "No communications have been published yet.",
+      "emptyBody": "Aipify helps organizations communicate clearly and consistently across teams.",
+      "emptyCta": "Create Communication",
+      "back": "Communications",
+      "notFound": "Communication not found.",
+      "filters": {
+        "search": "Search communications…",
+        "type": "Communication type",
+        "status": "Status",
+        "priority": "Priority",
+        "audience": "Audience",
+        "publishFrom": "Publish from",
+        "publishTo": "Publish to",
+        "all": "All"
+      },
+      "dashboard": {
+        "active": "Active communications",
+        "scheduled": "Scheduled announcements",
+        "critical": "Critical notices",
+        "expiring": "Expiring communications",
+        "recentlyPublished": "Recently published updates",
+        "drafts": "Draft communications"
+      },
+      "form": {
+        "createTitle": "Create communication",
+        "title": "Title",
+        "summary": "Summary",
+        "message": "Full message",
+        "type": "Communication type",
+        "audience": "Audience",
+        "priority": "Priority",
+        "publishDate": "Publish date",
+        "expirationDate": "Expiration date",
+        "requiresAck": "Requires acknowledgement",
+        "submit": "Save draft",
+        "cancel": "Cancel",
+        "publish": "Publish"
+      },
+      "card": {
+        "author": "Author",
+        "publishDate": "Publish date",
+        "priority": "Priority",
+        "audience": "Audience",
+        "acknowledged": "Acknowledged",
+        "pending": "Pending acknowledgement",
+        "view": "View"
+      },
+      "detail": {
+        "overview": "Communication overview",
+        "message": "Full message",
+        "audience": "Audience details",
+        "delivery": "Delivery status",
+        "acknowledgements": "Acknowledgements",
+        "acknowledge": "Acknowledge",
+        "acknowledged": "You have acknowledged this communication.",
+        "pendingAck": "Acknowledgement pending.",
+        "relatedPolicies": "Related policies",
+        "activity": "Related activity",
+        "audit": "Audit history",
+        "save": "Save updates",
+        "saved": "Communication updated.",
+        "recommendations": "Aipify recommendations",
+        "outstanding": "Audience-specific totals require manager review."
+      },
+      "types": {
+        "companyAnnouncement": "Company Announcement",
+        "operationalUpdate": "Operational Update",
+        "policyUpdate": "Policy Update",
+        "securityNotice": "Security Notice",
+        "executiveMessage": "Executive Message",
+        "teamUpdate": "Team Update",
+        "maintenanceNotification": "Maintenance Notification",
+        "celebrationRecognition": "Celebration & Recognition",
+        "emergencyCommunication": "Emergency Communication",
+        "customCommunication": "Custom Communication"
+      },
+      "statuses": {
+        "draft": "Draft",
+        "scheduled": "Scheduled",
+        "published": "Published",
+        "expired": "Expired",
+        "archived": "Archived"
+      },
+      "priorities": {
+        "informational": "Informational",
+        "important": "Important",
+        "highPriority": "High Priority",
+        "critical": "Critical"
+      },
+      "audiences": {
+        "entireOrganization": "Entire organization",
+        "specificDepartments": "Specific departments",
+        "administratorsOnly": "Administrators only",
+        "executivesOnly": "Executives only",
+        "customGroups": "Custom groups",
+        "individualUsers": "Individual users"
+      },
+      "recommendations": {
+        "remindAcknowledgement": "Remind users to acknowledge critical updates.",
+        "archiveOutdated": "Archive outdated communications.",
+        "scheduleRecurring": "Schedule recurring operational updates.",
+        "reviewAudience": "Review audience targeting before publishing.",
+        "publishSecurityPromptly": "Publish security-related announcements promptly."
+      },
+      "faq": {
+        "title": "Communications FAQ",
+        "whatIs": "What is the Communications Center?",
+        "whatIsAnswer": "The Communications Center helps organizations publish important updates, maintain transparency and improve internal awareness.",
+        "acknowledgements": "Why are acknowledgements useful?",
+        "acknowledgementsAnswer": "Acknowledgements help organizations understand whether important information has been reviewed by intended audiences.",
+        "autoCommunicate": "Can Aipify automatically communicate on behalf of leaders?",
+        "autoCommunicateAnswer": "No. Aipify supports preparation, delivery and tracking, but humans remain responsible for communication content and approvals."
       }
     }
   }

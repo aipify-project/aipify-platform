@@ -1,0 +1,69 @@
+{
+  "name": "Warehouse Operations Pack",
+  "label": "Warehouse Business Pack",
+  "audience": "Lager- och fulfillment-team",
+  "value": "Lagerkoordinering, uppgiftsöverlämningar och operativ synlighet.",
+  "metaTitle": "Warehouse Operations Pack | Fulfillment Business Pack",
+  "metaDescription": "Lagerkoordinering, uppgiftshantering och operativa överlämningar för lagerteam — med styrda arbetsflöden och ledningssynlighet.",
+  "headline": "Lagerverksamhet med koordinerad fulfillment",
+  "introduction": "Ge lagerteam delad synlighet, prioriterade uppgifter och avvikelsehantering med revisionsspår — i systemen de redan använder.",
+  "heroCapabilities": {
+    "1": "Plock/pack-avvikelsehantering",
+    "2": "Koordinering av skiftöverlämning",
+    "3": "Eskalering av lageravvikelser",
+    "4": "Operativ rapportering"
+  },
+  "outcomes": {
+    "1": {
+      "title": "Tydligare skiftöverlämningar",
+      "body": "Öppna avvikelser och prioriteringar bevaras över skift — mindre upprepad förklaring."
+    },
+    "2": {
+      "title": "Snabbare avvikelselösning",
+      "body": "Supervisors får kontext och rekommenderade vägar när SKU eller räkningar inte stämmer."
+    },
+    "3": {
+      "title": "Ledningssynlighet",
+      "body": "Ledningssammanfattningar förklarar genomströmning och backlog utan golvgenomgång."
+    },
+    "4": {
+      "title": "Styrda justeringar",
+      "body": "Lagerpåverkande ändringar kräver mänskligt godkännande med fullständiga revisionsspår."
+    }
+  },
+  "capabilities": {
+    "1": "Uppgifts- och uppföljningsmotor",
+    "2": "Operativa aviseringar med rekommenderade åtgärder",
+    "3": "Godkännandeflöden för avvikelser",
+    "4": "Sammanfattningar vid skiftöverlämning",
+    "5": "Eskalering av lageravvikelser",
+    "6": "Operativa ledningsbriefingar"
+  },
+  "steps": {
+    "1": {
+      "title": "Anslut lagerkontext",
+      "body": "Koppla WMS, ERP-lager och operativa arbetsflöden med lämpliga åtkomstnivåer."
+    },
+    "2": {
+      "title": "Aipify synliggör avvikelser",
+      "body": "Plockfel, räknavvikelser och blockeringar visas med förklarbar prioritet."
+    },
+    "3": {
+      "title": "Team granskar och godkänner",
+      "body": "Supervisors godkänner justeringar och lösningsvägar — inget sker i tysthet."
+    },
+    "4": {
+      "title": "Ledningen får sammanfattningar",
+      "body": "Operativa briefingar lyfter fram risker, backlog och rekommenderade fokusområden."
+    }
+  },
+  "governanceTitle": "Lageråtgärder förblir styrda",
+  "governanceBody": "Lagerjusteringar och fulfillment-påverkande åtgärder kräver explicit mänskligt godkännande. Aipify koordinerar operativ intelligens — det styr inte utrustning eller kringgår supervisors omdöme.",
+  "whoForTitle": "Byggt för lageroperatörer",
+  "whoForBody": "Distributionscenter, 3PL-operatörer, e-handels-fulfillment-team och produktionslager som behöver koordinerad synlighet utan att ersätta WMS-system.",
+  "planActivationTitle": "Aktivera på Professional",
+  "planActivationBody": "Lägg till Warehouse Operations Pack på Professional-plan eller högre. Köp paketet, aktivera för organisationen och ge lagerteam styrd åtkomst.",
+  "primaryCta": "Skaffa Warehouse Operations Pack",
+  "finalCtaTitle": "REDO ATT KOMMA IGÅNG?",
+  "finalCtaSubtitle": "Skaffa Warehouse Operations Pack på er plan — eller boka demo för att se fulfillment-koordinering i praktiken."
+}

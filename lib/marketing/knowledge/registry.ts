@@ -138,6 +138,15 @@ export const PUBLIC_KNOWLEDGE_ARTICLE_REGISTRY: PublicKnowledgeArticleMeta[] = [
   }),
 ];
 
+export const PUBLIC_KNOWLEDGE_INDUSTRY_PACK_MAP: Record<PublicKnowledgeIndustryId, PublicBusinessPackSlug[]> = {
+  hospitality: ["hosts"],
+  "property-management": ["hosts"],
+  commerce: ["support", "warehouse"],
+  "support-operations": ["support"],
+  "warehouse-operations": ["warehouse"],
+  "professional-services": ["finance", "support"],
+};
+
 export const PUBLIC_KNOWLEDGE_INDUSTRY_ARTICLE_MAP: Record<PublicKnowledgeIndustryId, string> = {
   hospitality: "hospitality-operations-with-aipify",
   "property-management": "property-management-operations-with-aipify",

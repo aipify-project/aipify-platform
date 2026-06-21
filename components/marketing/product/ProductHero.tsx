@@ -9,10 +9,11 @@ import { MARKETING_PRIMARY_CTA_HREFS } from "@/lib/marketing/primary-ctas";
 
 type ProductHeroProps = {
   hero: ProductPageContent["hero"];
+  breadcrumbs: ProductPageContent["breadcrumbs"];
   commandBrief: ProductPageContent["commandBriefHero"];
 };
 
-export default function ProductHero({ hero, commandBrief }: ProductHeroProps) {
+export default function ProductHero({ hero, breadcrumbs, commandBrief }: ProductHeroProps) {
   return (
     <section id="overview" className="relative scroll-mt-20 overflow-hidden">
       <div className={AipifyMarketingClasses.heroGradient} aria-hidden="true" />
@@ -22,7 +23,9 @@ export default function ProductHero({ hero, commandBrief }: ProductHeroProps) {
       </div>
 
       <div className={`relative ${PublicMarketingClasses.container} py-14 sm:py-16`}>
-        <PublicBreadcrumbs items={[{ label: "Home", href: "/" }, { label: "Platform" }]} />
+        <PublicBreadcrumbs
+          items={[{ label: breadcrumbs.home, href: "/" }, { label: breadcrumbs.platform }]}
+        />
 
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="max-w-xl">

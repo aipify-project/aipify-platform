@@ -20,7 +20,7 @@ export type AppNavGroupConfig = {
 function resolveNavHref(item: AppNavGroupItem): string {
   if (item.href) return resolveAppHref(item.href);
   const match = APP_PORTAL_NAV.find((entry) => entry.id === item.id);
-  return match ? resolveAppHref(match.href) : resolveAppHref("/app");
+  return match ? resolveAppHref(match.href) : resolveAppHref("/app/command-center");
 }
 
 export function buildAppNavConfig(t: Translator): AppNavLink[] {

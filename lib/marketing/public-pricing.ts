@@ -155,25 +155,15 @@ export function formatPublicPlanPrice(
   if (price.type === "custom") return labels.custom;
 
   const { amount } = price;
-  const monthLabel = labels.perMonthShort ?? labels.perMonth;
+  const monthLabel = labels.perMonth;
 
-  if (locale === "no") {
-    const formatted = new Intl.NumberFormat("nb-NO", { maximumFractionDigits: 0 }).format(amount).replace(/\u00a0/g, " ");
-    return `${formatted},- / ${monthLabel}`;
-  }
+  const intlLocale =
+    locale === "no" ? "nb-NO" : locale === "sv" ? "sv-SE" : locale === "da" ? "da-DK" : "en-US";
+  const formatted = new Intl.NumberFormat(intlLocale, { maximumFractionDigits: 0 })
+    .format(amount)
+    .replace(/\u00a0/g, " ");
 
-  if (locale === "sv") {
-    const formatted = new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(amount).replace(/\u00a0/g, " ");
-    return `${formatted} kr / ${monthLabel}`;
-  }
-
-  if (locale === "da") {
-    const formatted = new Intl.NumberFormat("da-DK", { maximumFractionDigits: 0 }).format(amount).replace(/\u00a0/g, " ");
-    return `${formatted} kr / ${monthLabel}`;
-  }
-
-  const formatted = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(amount);
-  return `NOK ${formatted} / ${labels.perMonth}`;
+  return `${formatted} kr / ${monthLabel}`;
 }
 
 export function formatPublicPlanComparisonPrices(

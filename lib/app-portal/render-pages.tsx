@@ -160,7 +160,7 @@ async function portalContext() {
 export async function renderAppPortalFoundationPage(pageKey: AppPortalPageKey) {
   const { t, labels } = await portalContext();
   const page = PAGE_KEYS[pageKey];
-  const comingSoonPages: AppPortalPageKey[] = ["profile", "preferences"];
+  const comingSoonPages: AppPortalPageKey[] = ["profile"];
 
   const panel = (
     <AppPortalFoundationPanel

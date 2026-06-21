@@ -5,6 +5,7 @@ export type PublicMarketingPlanKey = "starter" | "professional" | "business" | "
 export const MARKETING_BUSINESS_PACK_SLUGS = [
   "hosts",
   "support",
+  "warehouse",
   "commerce",
   "services",
   "projects",
@@ -43,9 +44,18 @@ export const MARKETING_BUSINESS_PACK_REGISTRY: MarketingBusinessPackRegistryEntr
     minPlan: "professional",
     commercialType: "addon",
     registrationMode: "early_access",
-    relatedSlugs: ["commerce", "services"],
+    relatedSlugs: ["warehouse", "commerce"],
     pricingStatus: "addon",
     detailHref: "/business-packs/support",
+  },
+  {
+    slug: "warehouse",
+    minPlan: "professional",
+    commercialType: "addon",
+    registrationMode: "early_access",
+    relatedSlugs: ["support", "commerce"],
+    pricingStatus: "addon",
+    detailHref: "/business-packs/warehouse",
   },
   {
     slug: "commerce",

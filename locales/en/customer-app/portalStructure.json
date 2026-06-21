@@ -701,7 +701,9 @@
         "waitingForCustomer": "Waiting for Customer",
         "waitingForAipify": "Waiting for Aipify",
         "resolved": "Resolved",
-        "closed": "Closed"
+        "closed": "Closed",
+        "reopened": "Reopened",
+        "archived": "Archived"
       },
       "form": {
         "title": "New support request",
@@ -721,6 +723,139 @@
         "canTrackAnswer": "Yes. Each support request includes status, priority, category, timestamps and related activity so your organization can follow progress.",
         "whoCanSee": "Who can see support requests?",
         "whoCanSeeAnswer": "Support request access depends on organization permissions. Owners and administrators can view organization support requests, while team members only see requests they are authorized to access."
+      }
+    },
+    "supportHistory": {
+      "eyebrow": "SUPPORT",
+      "title": "Support History",
+      "subtitle": "Review resolved and closed support cases for your organization — with audit trails, filters, and the option to reopen when needed.",
+      "loading": "Aipify is loading your support history…",
+      "breadcrumbSupport": "Support",
+      "breadcrumbHistory": "Support History",
+      "backToSupport": "Back to Support",
+      "createRequest": "Create Support Request",
+      "principle": "Support History preserves resolved cases for your organization — transparent audit trails scoped to your workspace only.",
+      "emptyTitle": "No historical support cases yet",
+      "emptyBody": "When cases are resolved, closed, or archived, they appear here for your organization to review.",
+      "emptyAction": "Create Support Request",
+      "errorTitle": "Support History unavailable",
+      "errorBody": "Aipify could not load support history for your organization. Confirm your permissions and try again.",
+      "retry": "Try again",
+      "sections": {
+        "overview": "Overview",
+        "filters": "Search & Filters",
+        "cases": "Historical Cases",
+        "insights": "Support Insights",
+        "understanding": "Understanding Support History"
+      },
+      "overview": {
+        "totalHistorical": "Historical cases",
+        "resolved": "Resolved",
+        "closed": "Closed",
+        "reopened": "Reopened",
+        "archived": "Archived",
+        "avgResolutionDays": "Avg. resolution time",
+        "daysUnit": "days"
+      },
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Search historical cases…",
+        "status": "Status",
+        "category": "Category",
+        "priority": "Priority",
+        "channel": "Channel",
+        "assigned": "Assigned owner ID",
+        "dateFrom": "Updated from",
+        "dateTo": "Updated to",
+        "sort": "Sort by",
+        "all": "All",
+        "apply": "Apply filters",
+        "clear": "Clear filters"
+      },
+      "sortOptions": {
+        "updatedDesc": "Last updated (newest)",
+        "updatedAsc": "Last updated (oldest)",
+        "createdDesc": "Created (newest)",
+        "createdAsc": "Created (oldest)",
+        "priorityDesc": "Priority (highest)",
+        "titleAsc": "Title (A–Z)"
+      },
+      "card": {
+        "viewCase": "View case",
+        "createdBy": "Created by",
+        "created": "Created",
+        "updated": "Last updated",
+        "resolved": "Resolved",
+        "status": "Status",
+        "priority": "Priority",
+        "category": "Category",
+        "channel": "Channel",
+        "assignee": "Assigned support owner",
+        "module": "Related module"
+      },
+      "pagination": {
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page {page} of {total}"
+      },
+      "insights": {
+        "topCategories": "Top categories",
+        "reopenRate": "Reopen rate",
+        "recentResolution": "Most recent resolution",
+        "noInsights": "Insights will appear as your organization accumulates resolved support cases."
+      },
+      "understanding": {
+        "title": "What is Support History?",
+        "body": "Support History shows resolved, closed, reopened, and archived cases for your organization. Active open cases remain in Support Requests.",
+        "auditTitle": "Audit and accountability",
+        "auditBody": "Every status change and reopen action is recorded in the audit trail. Your organization data stays tenant-scoped — never shared across customers.",
+        "reopenTitle": "Reopening a case",
+        "reopenBody": "When an issue returns, authorized users can reopen a resolved or closed case with a reason. Aipify records the reopen in the audit log."
+      },
+      "categories": {
+        "technical": "Technical",
+        "billing": "Billing",
+        "integrations": "Integrations",
+        "businessPacks": "Business Packs",
+        "account": "Account",
+        "security": "Security",
+        "general": "General"
+      },
+      "priorities": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "urgent": "Urgent"
+      },
+      "statuses": {
+        "open": "Open",
+        "inReview": "In Review",
+        "waitingForCustomer": "Waiting for Customer",
+        "waitingForAipify": "Waiting for Aipify",
+        "resolved": "Resolved",
+        "closed": "Closed",
+        "reopened": "Reopened",
+        "archived": "Archived"
+      },
+      "channels": {
+        "appPortal": "APP Portal",
+        "email": "Email",
+        "chat": "Chat",
+        "phone": "Phone",
+        "assistant": "Support Assistant"
+      },
+      "detail": {
+        "reopen": "Reopen case",
+        "reopenTitle": "Reopen support case",
+        "reopenReason": "Reason for reopening",
+        "reopenReasonPlaceholder": "Describe why this case needs attention again…",
+        "reopenConfirm": "Confirm reopen",
+        "reopenCancel": "Cancel",
+        "reopenSuccess": "Case reopened. Your organization can track progress in Support Requests.",
+        "resolution": "Resolution",
+        "resolutionSummary": "This case was marked resolved or closed. Details below reflect the last known resolution state.",
+        "backToHistory": "Back to Support History",
+        "backToRequests": "Back to Support Requests"
       }
     },
     "supportAssistant": {
@@ -3502,44 +3637,74 @@
       }
     },
     "customerSuccess": {
-      "title": "Customer Success",
-      "subtitle": "Continuously improve adoption, platform utilization and return on investment from Aipify.",
-      "loading": "Aipify is reviewing your organization's success journey…",
-      "principle": "Aipify provides recommendations and insights — organizations remain responsible for implementation.",
-      "emptyTitle": "Your customer success journey has not started yet.",
-      "emptyBody": "Aipify helps organizations continuously improve and maximize business value.",
-      "emptyCta": "Begin Success Journey",
+      "eyebrow": "CUSTOMER SUCCESS",
+      "title": "Customer Success Workspace",
+      "subtitle": "Plan adoption initiatives, track measurable outcomes, and strengthen long-term value from Aipify across your organization.",
+      "loading": "Aipify is reviewing your organization's customer success workspace…",
+      "breadcrumbSupport": "Support",
+      "breadcrumbCustomerSuccess": "Customer Success",
+      "backToSupport": "Back to Support",
       "accessDenied": "You do not have permission to access Customer Success.",
       "organizationMissing": "Organization context is missing. Select or configure your workspace before using Customer Success.",
       "subscriptionRequired": "This area requires an active organization subscription.",
       "permissionMissing": "You do not have permission to access this area. Contact your organization administrator.",
       "entitlementMissing": "This capability is not included in your organization's active Business Packs or plan.",
+      "errorTitle": "Customer Success unavailable",
+      "errorBody": "Aipify could not load customer success data for your organization. Confirm your permissions and try again.",
+      "retry": "Try again",
+      "sections": {
+        "overview": "Customer Success Overview",
+        "nextAction": "Recommended Next Action",
+        "successPlans": "Active Success Plans",
+        "followUpsMilestones": "Follow-ups and Milestones",
+        "outcomes": "Customer Outcomes",
+        "risksAdoption": "Risks and Adoption",
+        "activeRisks": "Active Risks",
+        "adoptionSignals": "Adoption Signals",
+        "recentActivity": "Recent Activity",
+        "understanding": "Understanding Customer Success"
+      },
+      "overview": {
+        "organizationOverview": "Organization success overview",
+        "healthScore": "Customer success health score",
+        "adoptionScore": "Adoption score",
+        "utilizationScore": "Utilization score",
+        "engagementScore": "Engagement score",
+        "healthStatus": "Health status",
+        "advisory": "Scores and indicators are advisory. Use them alongside human judgment when planning next steps.",
+        "lastUpdated": "Last updated"
+      },
       "filters": {
-        "search": "Search success insights…",
-        "category": "Adoption category",
+        "search": "Search success workspace…",
+        "category": "Category",
         "priority": "Priority",
         "successStatus": "Success status",
-        "periodFrom": "Period from",
-        "department": "Department",
-        "all": "All"
+        "owner": "Owner",
+        "dueDate": "Due date",
+        "sortBy": "Sort by",
+        "all": "All",
+        "sortDueDate": "Due date",
+        "sortPriority": "Priority",
+        "sortTitle": "Title",
+        "sortProgress": "Progress",
+        "sortUpdated": "Recently updated"
       },
-      "dashboard": {
-        "adoptionScore": "Adoption Score",
-        "utilizationScore": "Utilization Score",
-        "recommendedActions": "Recommended Actions",
-        "recentlyImproved": "Recently Improved Areas",
-        "areasAttention": "Areas Requiring Attention",
-        "milestonesAchieved": "Success Milestones Achieved",
-        "upcomingOpportunities": "Upcoming Success Opportunities",
-        "personalProgress": "Personal progress"
+      "followUpTabs": {
+        "all": "All",
+        "followUps": "Follow-ups",
+        "milestones": "Milestones",
+        "overdue": "Overdue",
+        "completed": "Completed"
       },
-      "scores": {
-        "learningCompletion": "Learning Completion",
-        "featureAdoption": "Feature Adoption",
-        "userEngagement": "User Engagement",
-        "operationalMaturity": "Operational Maturity",
-        "securityCompletion": "Security Completion",
-        "integrationUsage": "Integration Usage"
+      "planStates": {
+        "draft": "Draft",
+        "active": "Active",
+        "in_progress": "In progress",
+        "requires_attention": "Requires attention",
+        "at_risk": "At risk",
+        "blocked": "Blocked",
+        "completed": "Completed",
+        "archived": "Archived"
       },
       "statuses": {
         "gettingStarted": "Getting Started",
@@ -3548,155 +3713,295 @@
         "advanced": "Advanced",
         "highPerforming": "High Performing"
       },
-      "maturity": {
-        "title": "Maturity Model",
-        "stage": "Stage",
-        "gettingStarted": "Getting Started",
-        "operational": "Operational",
-        "optimized": "Optimized",
-        "strategic": "Strategic",
-        "transformational": "Transformational"
-      },
-      "insights": {
-        "title": "Adoption Insights",
-        "frequentlyUsed": "Features frequently used",
-        "rarelyUsed": "Features rarely used",
-        "highEngagement": "Teams with high engagement",
-        "requiringSupport": "Teams requiring support",
-        "trainingOpportunities": "Training opportunities",
-        "securityRecommendations": "Security recommendations"
-      },
-      "timeline": {
-        "title": "Success Timeline"
-      },
-      "team": {
-        "title": "Team adoption reporting",
+      "scores": {
+        "learningCompletion": "Learning completion",
+        "featureAdoption": "Feature adoption",
+        "userEngagement": "User engagement",
+        "operationalMaturity": "Operational maturity",
+        "securityCompletion": "Security completion",
+        "integrationUsage": "Integration usage",
         "teamCount": "Team members",
-        "twoFaAdoption": "2FA adoption",
-        "learningCompletions": "Learning completions"
+        "businessPacks": "Business Packs",
+        "integrationsConnected": "Connected integrations",
+        "twoFaAdoption": "2FA adoption"
       },
-      "recommendations": {
-        "activate2faAllUsers": "Activate 2FA for all users.",
-        "completeOnboardingTraining": "Complete onboarding training.",
-        "exploreUnusedBusinessPacks": "Explore unused Business Packs.",
-        "connectIntegrations": "Connect recommended integrations.",
-        "reviewOperationalDashboards": "Review operational dashboards.",
-        "encourageCertification": "Encourage certification completion."
+      "categories": {
+        "learning": "Learning",
+        "security": "Security",
+        "adoption": "Adoption",
+        "integration": "Integration",
+        "operations": "Operations"
       },
       "priorities": {
         "opportunity": "Opportunity",
         "recommended": "Recommended",
         "important": "Important",
-        "highImpact": "High Impact"
+        "highImpact": "High impact"
       },
-      "faq": {
-        "title": "Customer Success FAQ",
-        "whatIs": "What is the Customer Success Center?",
-        "whatIsAnswer": "The Customer Success Center helps organizations improve adoption, strengthen maturity and maximize the value they receive from Aipify.",
-        "autoImprove": "Can Aipify improve adoption automatically?",
-        "autoImproveAnswer": "No. Aipify provides recommendations and insights, while organizations remain responsible for implementation.",
-        "whyAdoption": "Why is adoption important?",
-        "whyAdoptionAnswer": "Organizations that successfully adopt technology typically realize greater operational efficiency, stronger engagement and higher long-term value."
+      "recommendations": {
+        "activate2faAllUsers": {
+          "title": "Activate 2FA for all users",
+          "reason": "Security completion strengthens your organization's success posture and reduces operational risk.",
+          "action": "Review security settings"
+        },
+        "completeOnboardingTraining": {
+          "title": "Complete onboarding training",
+          "reason": "Structured onboarding accelerates adoption and helps teams use Aipify confidently.",
+          "action": "Open Getting Started"
+        },
+        "exploreUnusedBusinessPacks": {
+          "title": "Explore unused Business Packs",
+          "reason": "Additional Business Packs can extend operational value without adding complexity.",
+          "action": "Browse Business Packs"
+        },
+        "connectIntegrations": {
+          "title": "Connect recommended integrations",
+          "reason": "Integrations connect Aipify with systems your team already uses every day.",
+          "action": "Open Integrations"
+        },
+        "reviewOperationalDashboards": {
+          "title": "Review operational dashboards",
+          "reason": "Regular review keeps adoption aligned with day-to-day operations.",
+          "action": "Open Command Center"
+        },
+        "encourageCertification": {
+          "title": "Encourage certification completion",
+          "reason": "Certifications build operational maturity across your organization.",
+          "action": "Open Customer Academy"
+        }
+      },
+      "understanding": {
+        "q1": "What is the Customer Success Workspace?",
+        "a1": "The Customer Success Workspace helps your organization plan adoption initiatives, track outcomes, and monitor risks alongside measurable adoption signals.",
+        "q2": "Does Aipify implement success plans automatically?",
+        "a2": "No. Aipify prepares recommendations and visibility — your organization decides what to implement and when.",
+        "q3": "How are health and adoption scores calculated?",
+        "a3": "Scores combine learning progress, feature adoption, engagement, security, integrations, and operational activity for your organization.",
+        "q4": "Who should use this workspace?",
+        "a4": "Owners, administrators, and operational leaders who guide adoption, follow through on commitments, and measure value from Aipify."
+      },
+      "empty": {
+        "plans": "No active success plans yet.",
+        "followUps": "No follow-ups or milestones match your filters.",
+        "outcomes": "No measurable outcomes have been recorded yet.",
+        "risks": "No active risks are flagged for your organization.",
+        "activity": "No recent customer success activity to display."
+      },
+      "healthStates": {
+        "healthy": "Healthy",
+        "good": "Good",
+        "moderate": "Moderate",
+        "poor": "Poor",
+        "criticalHealth": "Critical",
+        "unknown": "Unknown"
+      },
+      "card": {
+        "owner": "Owner",
+        "progress": "Progress",
+        "targetDate": "Target date",
+        "target": "Target",
+        "current": "Current"
       }
     },
     "customerHealth": {
+      "eyebrow": "ORGANIZATION HEALTH",
       "title": "Customer Health",
-      "subtitle": "Understand your relationship with Aipify, monitor engagement signals, and strengthen long-term success.",
-      "loading": "Aipify is reviewing your customer health indicators…",
-      "principle": "Health indicators are guidance tools — not judgments. Recommendations remain advisory.",
-      "emptyTitle": "No customer health insights are available yet.",
-      "emptyBody": "Aipify helps organizations strengthen engagement and maximize long-term success.",
-      "emptyCta": "Review Customer Health",
-      "accessDenied": "You do not have permission to access Customer Health.",
-      "filters": {
-        "search": "Search health insights…",
-        "category": "Health category",
-        "priority": "Priority",
-        "trend": "Trend direction",
-        "periodFrom": "Period from",
-        "department": "Department",
-        "all": "All"
+      "subtitle": "Monitor organization health, adoption, and engagement — with clear guidance on what to improve next.",
+      "loading": "Aipify is reviewing your organization health indicators…",
+      "breadcrumbSupport": "Support",
+      "breadcrumbCustomerHealth": "Customer Health",
+      "backToSupport": "Back to Support",
+      "purposeSummary": {
+        "healthy": "Your organization shows strong health across adoption, engagement, and utilization. Maintain momentum and address minor operational items as they arise.",
+        "moderate": "Your organization is progressing with room to strengthen team engagement and capability utilization. Review the recommendations below for high-impact next steps.",
+        "poor": "Several health drivers need attention. Focus on team adoption, integrations, and open operational items to improve your score.",
+        "critical": "Health indicators suggest significant adoption gaps. Prioritize onboarding, team participation, and resolving open support or approval items."
       },
-      "dashboard": {
-        "overallHealth": "Overall Health Score",
-        "engagement": "Engagement Score",
-        "supportSatisfaction": "Support Satisfaction Score",
-        "adoption": "Adoption Score",
-        "learningCompletion": "Learning Completion Score",
-        "relationshipTrend": "Relationship Trend",
-        "openRecommendations": "Open Recommendations",
-        "healthStatus": "Health Status"
+      "emptyTitle": "Organization health insights are building",
+      "emptyBody": "Aipify will surface organization health insights as your workspace becomes active. Start with Getting Started to establish your foundation.",
+      "emptyAction": "Open Getting Started",
+      "errorTitle": "Customer Health unavailable",
+      "errorBody": "Aipify could not load organization health for your workspace. Confirm your permissions and try again.",
+      "retry": "Try again",
+      "sections": {
+        "overview": "Health Overview",
+        "recommendedAction": "Recommended Next Action",
+        "drivers": "Health Drivers",
+        "strengths": "Strengths",
+        "needsAttention": "Needs Attention",
+        "trend": "Health Trend",
+        "risks": "Risks",
+        "operationalSignals": "Operational Signals",
+        "history": "Health History",
+        "understanding": "Understanding Customer Health"
       },
-      "indicators": {
-        "title": "Health Indicators",
-        "platformEngagement": "Platform engagement",
-        "trainingParticipation": "Training participation",
-        "supportInteractions": "Support interactions",
-        "adoptionProgress": "Adoption progress",
-        "securityCompletion": "Security completion",
-        "integrationActivity": "Integration activity",
-        "recommendationCompletion": "Recommendation completion"
+      "overview": {
+        "healthScore": "Organization health score",
+        "healthState": "Health state",
+        "trend": "Health trend",
+        "scoreChange": "Score change",
+        "riskLevel": "Risk level",
+        "lastCalculated": "Last calculated",
+        "explanation": "Score explanation",
+        "advisory": "Scores and indicators are advisory. Use them alongside human judgment when planning next steps."
       },
-      "engagement": {
-        "title": "Engagement Insights",
-        "activeTeams": "Active teams",
-        "departmentsSupport": "Departments requiring support",
-        "underutilized": "Underutilized capabilities",
-        "positiveMomentum": "Positive momentum indicators",
-        "decliningActivity": "Areas with declining activity"
-      },
-      "support": {
-        "title": "Support Insights",
-        "openRequests": "Open support requests",
-        "resolvedRequests": "Resolved requests",
-        "resolutionTrend": "Average resolution trend",
-        "satisfaction": "Satisfaction feedback",
-        "selfService": "Self-service utilization",
-        "knowledgeEngagement": "Knowledge Center engagement"
-      },
-      "timeline": {
-        "title": "Relationship Timeline"
-      },
-      "team": {
-        "title": "Departmental health insights",
-        "engagement": "Engagement score",
-        "learning": "Learning participation"
-      },
-      "statuses": {
-        "thriving": "Thriving",
+      "healthStates": {
         "healthy": "Healthy",
-        "stable": "Stable",
-        "requiresAttention": "Requires Attention",
-        "criticalSupportNeeded": "Critical Support Needed"
+        "good": "Good",
+        "moderate": "Moderate",
+        "poor": "Poor",
+        "criticalHealth": "Critical",
+        "unknown": "Unknown"
       },
-      "trends": {
+      "trendStates": {
         "improving": "Improving",
         "stable": "Stable",
         "declining": "Declining",
-        "insufficientData": "Insufficient Data"
+        "rapidDecline": "Rapid decline",
+        "insufficientData": "Insufficient data"
       },
-      "priorities": {
-        "informational": "Informational",
-        "opportunity": "Opportunity",
-        "important": "Important",
-        "highPriority": "High Priority"
+      "riskLevels": {
+        "low": "Low",
+        "moderate": "Moderate",
+        "elevated": "Elevated",
+        "high": "High"
+      },
+      "driverEffects": {
+        "positive": "Positive",
+        "neutral": "Neutral",
+        "moderateNegative": "Moderate negative",
+        "strongNegative": "Strong negative",
+        "criticalNegative": "Critical negative"
+      },
+      "drivers": {
+        "adoption": "Adoption",
+        "engagement": "Engagement",
+        "utilization": "Utilization",
+        "learning": "Learning",
+        "security": "Security",
+        "integrations": "Integrations"
+      },
+      "strengths": {
+        "activeUsers": "Active users",
+        "teamSize": "Team size",
+        "businessPacks": "Business Packs installed",
+        "integrations": "Integrations connected",
+        "openSupport": "Support resolved",
+        "pendingApprovals": "Approvals clear",
+        "openFollowUps": "Follow-ups managed"
+      },
+      "needsAttention": {
+        "activeUsers": "Low active user participation",
+        "teamSize": "Limited team breadth",
+        "businessPacks": "No Business Packs installed",
+        "integrations": "No integrations connected",
+        "openSupport": "Open support requests",
+        "pendingApprovals": "Pending approvals",
+        "openFollowUps": "Open follow-ups"
+      },
+      "risks": {
+        "openSupportBacklog": "Support backlog",
+        "pendingApprovals": "Approval delays",
+        "securityNotConfigured": "Security configuration gap",
+        "lowEngagement": "Low team engagement"
+      },
+      "operationalSignals": {
+        "teamActivity": "Team activity",
+        "businessPacksInstalled": "Business Packs",
+        "capabilitiesEnabled": "Active capabilities",
+        "operationsActivity": "Operations activity"
+      },
+      "trend": {
+        "periodLabel": "Trend period",
+        "empty": "Not enough verified score history to display a trend chart yet.",
+        "insufficientData": "Trend requires at least two verified health calculations.",
+        "periods": {
+          "d7": "7d",
+          "d30": "30d",
+          "d90": "90d",
+          "d365": "365d"
+        }
+      },
+      "filters": {
+        "search": "Search risks, signals, and history…",
+        "category": "Category",
+        "priority": "Priority",
+        "trend": "Trend",
+        "date": "Date from",
+        "sortBy": "Sort by",
+        "all": "All",
+        "categories": {
+          "support": "Support",
+          "governance": "Governance",
+          "security": "Security",
+          "engagement": "Engagement",
+          "adoption": "Adoption",
+          "utilization": "Utilization",
+          "operations": "Operations"
+        },
+        "sortOptions": {
+          "impactDesc": "Impact (high first)",
+          "severityDesc": "Severity (high first)",
+          "dateDesc": "Newest first",
+          "dateAsc": "Oldest first"
+        }
+      },
+      "history": {
+        "score": "Score",
+        "eventType": "Event",
+        "empty": "No verified health calculations recorded yet."
+      },
+      "understanding": {
+        "q1": "What is Customer Health?",
+        "a1": "Customer Health summarizes adoption, engagement, utilization, and operational signals for your organization — using the same score methodology as Success Center.",
+        "q2": "How is the health score calculated?",
+        "a2": "Aipify combines adoption, engagement, and utilization scores, then applies operational adjustments for open support, approvals, and follow-ups. Thresholds: 85–100 healthy, 70–84 moderate, 50–69 poor, below 50 critical.",
+        "q3": "Does Aipify judge our organization?",
+        "a3": "No. Health indicators are guidance tools. Your team remains responsible for decisions and implementation.",
+        "q4": "How should we use this workspace?",
+        "a4": "Review the overview and drivers, act on the recommended next step, and monitor trends over time. Business Pack counts reflect canonical installed packs — capabilities are listed separately."
       },
       "recommendations": {
-        "scheduleOnboardingRefresh": "Schedule onboarding refresh training.",
-        "reviewOpenSupportRequests": "Review open support requests.",
-        "exploreBusinessPacks": "Explore recommended Business Packs.",
-        "encourageAssignedLearning": "Encourage completion of assigned learning.",
-        "activateSecurityProtections": "Activate additional security protections.",
-        "conductQuarterlyReview": "Conduct quarterly success reviews."
-      },
-      "faq": {
-        "title": "Customer Health FAQ",
-        "whatIs": "What is Customer Health?",
-        "whatIsAnswer": "Customer Health provides organizations with visibility into adoption, engagement and support indicators that may influence long-term success.",
-        "goodCustomer": "Does Aipify decide whether we are a good customer?",
-        "goodCustomerAnswer": "No. Health indicators are designed to provide guidance and identify opportunities for improvement.",
-        "improveOutcomes": "Can Customer Health improve outcomes?",
-        "improveOutcomesAnswer": "Customer Health can highlight trends and recommendations that help organizations strengthen adoption and engagement over time."
+        "inviteTeam": {
+          "title": "Invite team members",
+          "reason": "Broader participation improves adoption and operational coverage.",
+          "action": "Open team management"
+        },
+        "explorePacks": {
+          "title": "Explore Business Packs",
+          "reason": "Installed packs unlock operational capabilities aligned to your goals.",
+          "action": "Browse available packs"
+        },
+        "enableIntegrations": {
+          "title": "Enable integrations",
+          "reason": "Connecting systems helps Aipify work where your team already operates.",
+          "action": "Open integrations"
+        },
+        "reviewSupport": {
+          "title": "Review support requests",
+          "reason": "Open support items can slow operational momentum.",
+          "action": "View support requests"
+        },
+        "reviewApprovals": {
+          "title": "Review pending approvals",
+          "reason": "Pending approvals delay actions that may require your decision.",
+          "action": "Open approvals"
+        },
+        "completeFollowUps": {
+          "title": "Complete follow-ups",
+          "reason": "Open follow-ups indicate unfinished operational commitments.",
+          "action": "View follow-ups"
+        },
+        "completeOnboarding": {
+          "title": "Complete onboarding",
+          "reason": "Remaining onboarding steps strengthen your organizational foundation.",
+          "action": "Continue onboarding"
+        },
+        "configureSecurity": {
+          "title": "Configure security",
+          "reason": "Security settings protect your workspace and team access.",
+          "action": "Open security settings"
+        }
       }
     },
     "momentum": {
@@ -5577,7 +5882,7 @@
       },
       "supportHistory": {
         "title": "Support History",
-        "subtitle": "Previous support requests and resolutions."
+        "subtitle": "Review resolved and closed support cases for your organization."
       },
       "profile": {
         "title": "Profile",

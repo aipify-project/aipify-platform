@@ -56,6 +56,10 @@ export type ProductPageContent = {
     ctaSecondary: string;
     explorePacks: string;
   };
+  breadcrumbs: {
+    home: string;
+    platform: string;
+  };
   commandBriefHero: HomepageRedesignContent["commandBrief"];
   commandBriefSection: {
     title: string;
@@ -104,6 +108,19 @@ export type ProductPageContent = {
     title: string;
     subtitle: string;
     secondaryTitle: string;
+    ui: {
+      primaryLabel: string;
+      signalLabel: string;
+      actionLabel: string;
+      surfaceLabel: string;
+      detailPanelLabel: string;
+      contextSignalLabel: string;
+      fullContextLabel: string;
+      recommendationLabel: string;
+      approvalRuleLabel: string;
+      briefItemLabel: string;
+      auditEventLabel: string;
+    };
     items: ProductEngine[];
   };
   businessPacks: {
@@ -312,6 +329,26 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
     ctaSecondary: hp.hero.ctaSecondary,
     explorePacks: hp.hero.explorePacks,
   };
+  const publicPages = getSection<{ breadcrumbs?: { home?: string } }>(marketing, "publicPages");
+  const nav = getSection<Record<string, string>>(marketing, "nav");
+  const breadcrumbs = (section.breadcrumbs as ProductPageContent["breadcrumbs"]) ?? {
+    home: publicPages.breadcrumbs?.home ?? "Home",
+    platform: nav.platform ?? "Platform",
+  };
+  const enginesSection = section.engines as Record<string, unknown> | undefined;
+  const enginesUi = (enginesSection?.ui as ProductPageContent["engines"]["ui"]) ?? {
+    primaryLabel: "Primary engines",
+    signalLabel: "Signal",
+    actionLabel: "Recommended action",
+    surfaceLabel: "Surface",
+    detailPanelLabel: "Detail panel",
+    contextSignalLabel: "Context signal",
+    fullContextLabel: "Full context",
+    recommendationLabel: "Recommendation",
+    approvalRuleLabel: "Approval rule",
+    briefItemLabel: "Command Brief item",
+    auditEventLabel: "Audit event",
+  };
 
   const cbSection = section.commandBrief as Record<string, unknown> | undefined;
   const cbPoints = parseCommandBriefPoints(cbSection);
@@ -334,6 +371,7 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
         "Explore how Aipify connects Command Brief, Companion, operational engines, Business Packs, governance and approved workflows in one coordinated platform.",
     },
     hero,
+    breadcrumbs,
     commandBriefHero: hp.commandBrief,
     commandBriefSection: {
       title: cbFromSection?.title ?? "Command Brief — your organization summarized before you start.",
@@ -420,6 +458,7 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
       title: String((section.engines as { title?: string })?.title ?? ""),
       subtitle: String((section.engines as { subtitle?: string })?.subtitle ?? ""),
       secondaryTitle: String((section.engines as { secondaryTitle?: string })?.secondaryTitle ?? "More engines"),
+      ui: enginesUi,
       items: parseEngines(section.engines as Record<string, unknown>),
     },
     businessPacks: {

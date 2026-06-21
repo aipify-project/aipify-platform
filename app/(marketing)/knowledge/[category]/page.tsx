@@ -4,7 +4,7 @@ import PublicKnowledgeCategoryPageContent from "@/components/marketing/PublicKno
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import {
   getPublicKnowledgeArticlesForCategory,
-  getPublicKnowledgeCategory,
+  getPublicKnowledgeCategoryDetail,
 } from "@/lib/marketing/knowledge/load";
 import { getKnowledgePageRedesignLabels } from "@/lib/marketing/parse-knowledge-page";
 import { PUBLIC_KNOWLEDGE_CATEGORIES, type PublicKnowledgeCategoryId } from "@/lib/marketing/knowledge/types";
@@ -18,15 +18,18 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { category } = await params;
   const { marketing } = await getMarketingContext();
-  const cat = getPublicKnowledgeCategory(marketing, category as PublicKnowledgeCategoryId);
-  if (!cat) return {};
-  return { title: cat.name, description: cat.description };
+  const detail = getPublicKnowledgeCategoryDetail(marketing, category as PublicKnowledgeCategoryId);
+  if (!detail) return {};
+  return {
+    title: detail.seo.title,
+    description: detail.seo.description,
+  };
 }
 
 export default async function KnowledgeCategoryPage({ params }: PageProps) {
   const { category: categoryId } = await params;
   const { marketing } = await getMarketingContext();
-  const category = getPublicKnowledgeCategory(marketing, categoryId as PublicKnowledgeCategoryId);
+  const category = getPublicKnowledgeCategoryDetail(marketing, categoryId as PublicKnowledgeCategoryId);
   if (!category) notFound();
 
   const articles = getPublicKnowledgeArticlesForCategory(marketing, category.id);
@@ -36,8 +39,14 @@ export default async function KnowledgeCategoryPage({ params }: PageProps) {
     <PublicKnowledgeCategoryPageContent
       category={category}
       nested={redesign.nested}
-      cta={redesign.cta}
-      articles={articles.map((a) => ({ slug: a.slug, title: a.title, metaDescription: a.metaDescription }))}
+      articles={articles.map((article) => ({
+        slug: article.slug,
+        title: article.title,
+        metaDescription: article.metaDescription,
+        categoryId: article.categoryId,
+        hubId: article.hubId,
+        industryId: article.industryId,
+      }))}
     />
   );
 }

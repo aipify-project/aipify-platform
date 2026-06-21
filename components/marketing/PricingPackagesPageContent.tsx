@@ -1,18 +1,18 @@
 import Link from "next/link";
 import { PublicPageHero, PublicCTA } from "./public";
-import PricingComparisonTable, { type ComparisonRow } from "./pricing/PricingComparisonTable";
+import PricingComparisonTable from "./pricing/PricingComparisonTable";
 import PricingFaqAccordion from "./pricing/PricingFaqAccordion";
 import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 import { PublicMarketingClasses } from "@/lib/design/public-marketing-tokens";
 import { MARKETING_PRIMARY_CTA_HREFS } from "@/lib/marketing/primary-ctas";
+import { resolvePricingComparison } from "@/lib/marketing/pricing-comparison/resolve";
+import type { PricingComparisonLabels } from "@/lib/marketing/pricing-comparison/types";
 import {
   formatLimitValue,
-  formatPublicPlanComparisonPrices,
   formatPublicPlanPrice,
   getPublicPlanCatalog,
   type PublicMarketingPlanKey,
 } from "@/lib/marketing/public-pricing";
-import { DEFAULT_MARKETING_PLAN_LABELS } from "@/lib/marketing/business-packs/plan-labels";
 import type { Locale } from "@/lib/i18n/config";
 
 type Package = {
@@ -34,6 +34,7 @@ type EnterpriseItem = { label: string; status: "available" | "custom" | "planned
 
 export type PricingPackagesPageLabels = {
   meta: { title: string; description: string };
+  breadcrumbs?: { home: string; pricing: string };
   hero: {
     eyebrow: string;
     headline: string;
@@ -83,7 +84,7 @@ export type PricingPackagesPageLabels = {
     cta: string;
   };
   included: { title: string; items: string[] };
-  planComparison: { title: string; rows: ComparisonRow[]; mobileHint: string };
+  planComparison: PricingComparisonLabels;
   outcomes: { title: string; items: Array<{ title: string; body: string }> };
   upgradeFlow: {
     title: string;
@@ -237,17 +238,19 @@ export default function PricingPackagesPageContent({ labels, locale, businessPac
     PublicMarketingPlanKey,
     (typeof catalog)[number]
   >;
-  const liveComparisonPrices = formatPublicPlanComparisonPrices(locale, labels.pricingLabels);
-  const comparisonRows = labels.planComparison.rows.map((row) =>
-    row.id === "monthly"
-      ? {
-          ...row,
-          starter: liveComparisonPrices.starter,
-          professional: liveComparisonPrices.professional,
-          business: liveComparisonPrices.business,
-          enterprise: liveComparisonPrices.enterprise,
-        }
-      : row,
+  const resolvedComparison = resolvePricingComparison(
+    locale,
+    labels.planComparison,
+    labels.pricingLabels,
+    labels.pricingLabels.supportLevels,
+    labels.packages.items.map((pkg) => ({
+      key: pkg.key,
+      name: pkg.name,
+      audience: pkg.audience,
+      cta: pkg.cta,
+      ctaHref: pkg.ctaHref,
+      statusKey: pkg.statusKey,
+    })),
   );
 
   return (
@@ -257,8 +260,8 @@ export default function PricingPackagesPageContent({ labels, locale, businessPac
         title={labels.hero.headline}
         subtitle={labels.hero.subheadline}
         breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Pricing" },
+          { label: labels.breadcrumbs?.home ?? "Home", href: "/" },
+          { label: labels.breadcrumbs?.pricing ?? "Pricing" },
         ]}
         primaryCta={{ label: labels.hero.ctaPrimary, href: "#plans", analyticsId: "pricing_hero_plans" }}
         secondaryCta={{ label: labels.hero.ctaSecondary, href: "/contact", analyticsId: "pricing_hero_contact" }}
@@ -418,16 +421,9 @@ export default function PricingPackagesPageContent({ labels, locale, businessPac
         </div>
       </section>
 
-      <section id="compare" className={`${SECTION} ${AipifyMarketingClasses.sectionAlt}`}>
+      <section className={`${SECTION} ${AipifyMarketingClasses.sectionAlt}`}>
         <div className={PublicMarketingClasses.container}>
-          <h2 className={PublicMarketingClasses.sectionHeading}>{labels.planComparison.title}</h2>
-          <div className="mt-8">
-            <PricingComparisonTable
-              rows={comparisonRows}
-              planLabels={DEFAULT_MARKETING_PLAN_LABELS}
-              mobileHint={labels.planComparison.mobileHint}
-            />
-          </div>
+          <PricingComparisonTable comparison={resolvedComparison} />
         </div>
       </section>
 

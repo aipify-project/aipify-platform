@@ -134,6 +134,15 @@
     "timezoneHint": "Greetings and briefings use your local timezone.",
     "save": "Save preferences",
     "saved": "Saved",
+    "accountPreferences": {
+      "back": "Back to Settings",
+      "languageSection": "Language",
+      "languageHint": "Choose how Aipify appears across your workspace. Your selection stays synchronized with the header selector.",
+      "timezoneSection": "Timezone & quiet hours",
+      "timezoneHint": "Timezone and quiet-hour preferences are managed in Settings.",
+      "notificationsSection": "Notification preferences",
+      "notificationsLink": "Open notification preferences"
+    },
     "links": {
       "developer": "Developer settings",
       "updates": "Update policies",

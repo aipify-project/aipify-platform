@@ -1,3 +1,6 @@
+import type { HealthState } from "@/lib/design/semantic-status-system";
+import type { SuccessPlanStatus } from "./config";
+
 export type CustomerSuccessStatus =
   | "getting_started"
   | "developing"
@@ -24,10 +27,13 @@ export type CategoryScores = {
 };
 
 export type SuccessMilestone = {
+  id?: string;
   key: string;
   title: string;
   achieved_at: string;
   auto_detected?: boolean;
+  item_type?: string;
+  status?: string;
 };
 
 export type CustomerSuccessRecommendation = {
@@ -37,76 +43,173 @@ export type CustomerSuccessRecommendation = {
   category: string;
 };
 
-export type TimelineEvent = {
-  id: string;
-  event_type: string;
-  description: string;
-  created_at: string;
+export type RecommendedNextAction = {
+  key: string;
+  priority: string;
+  category: string;
 };
 
-export type CustomerSuccessAdoptionInsights = {
-  features_frequently_used: string[];
-  features_rarely_used: string[];
-  teams_high_engagement: string[];
-  teams_requiring_support: string[];
-  training_opportunities: string[];
-  security_recommendations: string[];
+export type SuccessPlan = {
+  id: string;
+  title: string;
+  goal_summary: string;
+  owner_id?: string;
+  owner_label: string;
+  status: SuccessPlanStatus | string;
+  category: string;
+  priority: string;
+  progress_percent: number;
+  start_date?: string;
+  target_date?: string;
+  item_type?: string;
+};
+
+export type CustomerSuccessFollowUpItem = {
+  id: string;
+  title: string;
+  summary?: string;
+  category: string;
+  priority: string;
+  status: string;
+  owner_id?: string;
+  owner_label: string;
+  due_at?: string;
+  item_type: string;
+  href?: string;
+};
+
+export type CustomerOutcome = {
+  id: string;
+  title: string;
+  target_value: string;
+  current_value: string;
+  progress_percent: number;
+  category: string;
+  status: string;
+  item_type?: string;
+};
+
+export type ActiveRisk = {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  status: string;
+  likelihood: string;
+  impact: string;
+  owner_id?: string;
+  owner_label: string;
+  item_type?: string;
+  href?: string;
+};
+
+export type AdoptionSignal = {
+  key: string;
+  label_key: string;
+  value: number;
+  unit: "score" | "count" | "percent";
+};
+
+export type CustomerSuccessActivityEvent = {
+  id: string;
+  event_type: string;
+  title?: string;
+  description: string;
+  created_at: string;
+  item_type?: string;
 };
 
 export type CustomerSuccessOverview = {
   found: boolean;
+  filtered_out?: boolean;
   can_manage?: boolean;
   can_admin?: boolean;
   journey_started?: boolean;
   adoption_score?: number;
   utilization_score?: number;
+  engagement_score?: number;
+  health_score?: number;
+  health_state?: HealthState | string;
   success_status?: CustomerSuccessStatus;
   maturity?: { stage: number; key: MaturityKey | string };
   category_scores?: CategoryScores;
   milestones_achieved?: SuccessMilestone[];
-  recently_improved?: Array<{ id: string; text: string }>;
-  areas_requiring_attention?: Array<{ id: string; text: string }>;
-  upcoming_opportunities?: CustomerSuccessRecommendation[];
   recommendations?: CustomerSuccessRecommendation[];
-  timeline?: TimelineEvent[];
-  adoption_insights?: CustomerSuccessAdoptionInsights;
+  recommended_next_action?: RecommendedNextAction | null;
+  follow_ups?: CustomerSuccessFollowUpItem[];
+  success_plans?: SuccessPlan[];
+  outcomes?: CustomerOutcome[];
+  active_risks?: ActiveRisk[];
+  adoption_signals?: AdoptionSignal[];
+  timeline?: CustomerSuccessActivityEvent[];
+  owners?: string[];
   personal_progress?: { courses_completed?: number; certifications?: number };
   team_reporting?: { team_count?: string; two_fa_adoption_percent?: number; learning_completions?: string } | null;
-  principle?: string;
+  last_updated_at?: string;
 };
 
 export type CustomerSuccessLabels = {
+  eyebrow: string;
   title: string;
   subtitle: string;
   loading: string;
-  principle: string;
-  emptyTitle: string;
-  emptyBody: string;
-  emptyCta: string;
+  breadcrumbSupport: string;
+  breadcrumbCustomerSuccess: string;
+  backToSupport: string;
   accessDenied: string;
   organizationMissing: string;
   subscriptionRequired: string;
   permissionMissing: string;
   entitlementMissing: string;
+  errorTitle: string;
+  errorBody: string;
+  retry: string;
+  sections: {
+    overview: string;
+    nextAction: string;
+    successPlans: string;
+    followUpsMilestones: string;
+    outcomes: string;
+    risksAdoption: string;
+    activeRisks: string;
+    adoptionSignals: string;
+    recentActivity: string;
+    understanding: string;
+  };
+  overview: {
+    organizationOverview: string;
+    healthScore: string;
+    adoptionScore: string;
+    utilizationScore: string;
+    engagementScore: string;
+    healthStatus: string;
+    advisory: string;
+    lastUpdated: string;
+  };
   filters: {
     search: string;
     category: string;
     priority: string;
     successStatus: string;
-    periodFrom: string;
-    department: string;
+    owner: string;
+    dueDate: string;
+    sortBy: string;
     all: string;
+    sortDueDate: string;
+    sortPriority: string;
+    sortTitle: string;
+    sortProgress: string;
+    sortUpdated: string;
   };
-  dashboard: {
-    adoptionScore: string;
-    utilizationScore: string;
-    recommendedActions: string;
-    recentlyImproved: string;
-    areasAttention: string;
-    milestonesAchieved: string;
-    upcomingOpportunities: string;
-    personalProgress: string;
+  followUpTabs: {
+    all: string;
+    followUps: string;
+    milestones: string;
+    overdue: string;
+    completed: string;
   };
+  planStates: Record<SuccessPlanStatus, string>;
+  statuses: Record<CustomerSuccessStatus, string>;
   scores: {
     learningCompletion: string;
     featureAdoption: string;
@@ -114,50 +217,53 @@ export type CustomerSuccessLabels = {
     operationalMaturity: string;
     securityCompletion: string;
     integrationUsage: string;
-  };
-  statuses: Record<CustomerSuccessStatus, string>;
-  maturity: {
-    title: string;
-    stage: string;
-    gettingStarted: string;
-    operational: string;
-    optimized: string;
-    strategic: string;
-    transformational: string;
-  };
-  insights: {
-    title: string;
-    frequentlyUsed: string;
-    rarelyUsed: string;
-    highEngagement: string;
-    requiringSupport: string;
-    trainingOpportunities: string;
-    securityRecommendations: string;
-  };
-  timeline: { title: string };
-  team: {
-    title: string;
     teamCount: string;
+    businessPacks: string;
+    integrationsConnected: string;
     twoFaAdoption: string;
-    learningCompletions: string;
   };
-  recommendations: Record<string, string>;
+  adoptionSignals: Record<string, string>;
+  categories: Record<string, string>;
   priorities: Record<string, string>;
-  faq: {
-    title: string;
-    whatIs: string;
-    whatIsAnswer: string;
-    autoImprove: string;
-    autoImproveAnswer: string;
-    whyAdoption: string;
-    whyAdoptionAnswer: string;
+  recommendations: Record<string, { title: string; reason: string; action: string }>;
+  understanding: {
+    q1: string;
+    a1: string;
+    q2: string;
+    a2: string;
+    q3: string;
+    a3: string;
+    q4: string;
+    a4: string;
+  };
+  empty: {
+    plans: string;
+    followUps: string;
+    outcomes: string;
+    risks: string;
+    activity: string;
+  };
+  healthStates: Record<string, string>;
+  card: {
+    owner: string;
+    progress: string;
+    targetDate: string;
+    target: string;
+    current: string;
   };
 };
 
 export const CUSTOMER_SUCCESS_STATUSES: CustomerSuccessStatus[] = [
-  "getting_started", "developing", "established", "advanced", "high_performing",
+  "getting_started",
+  "developing",
+  "established",
+  "advanced",
+  "high_performing",
 ];
 
 export const RECOMMENDATION_PRIORITIES: RecommendationPriority[] = [
-  "opportunity", "recommended", "important", "high_impact",
+  "opportunity",
+  "recommended",
+  "important",
+  "high_impact",
 ];

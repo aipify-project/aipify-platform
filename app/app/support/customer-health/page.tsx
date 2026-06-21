@@ -6,11 +6,8 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function CustomerHealthPage() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure"]);
   const t = createTranslator(dict);
-  return (
-    <div className="p-6">
-      <CustomerHealthPanel labels={buildCustomerHealthLabels(t)} />
-    </div>
-  );
+
+  return <CustomerHealthPanel labels={buildCustomerHealthLabels(t)} locale={locale} />;
 }

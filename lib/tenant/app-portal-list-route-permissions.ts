@@ -30,6 +30,7 @@ export const APP_PORTAL_LIST_ROUTE_PERMISSIONS: Record<string, { view: string; m
   "intelligence-command-center": { view: "intelligence_command_center.view", manage: "intelligence_command_center.manage" },
   "future-state-planning": { view: "future_state_planning.view", manage: "future_state_planning.manage" },
   "command-center": { view: "operations_center.view", manage: "operations_center.manage" },
+  "support-history": { view: "support_requests.view", manage: "support_requests.manage" },
   "support-requests": { view: "support_requests.view", manage: "support_requests.manage" },
   "academy": { view: "customer_academy.view", manage: "customer_academy.manage" },
   "customer-health": { view: "customer_health.view", manage: "customer_health.manage" },

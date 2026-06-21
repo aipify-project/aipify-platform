@@ -1035,6 +1035,26 @@
         "eoccep130SuccessCriteria": "Blueprint suksesskriterier (Fase 130)",
         "eoccep130VisionPhrases": "Visjonsfraser (Fase 130)",
         "eoccep130SelfLoveConnection": "Self Love-kobling (Fase 130)"
+      },
+      "phase70": {
+        "blueprintObjectives": "Blueprint objectives",
+        "organizationalConnections": "Organizational connections",
+        "crossFunctionalObservations": "Cross-functional observations",
+        "informationFlowVisibility": "Information flow visibility",
+        "bottleneckIdentification": "Bottleneck identification",
+        "collaborationOpportunities": "Collaboration opportunities",
+        "leadershipInsights": "Leadership insights",
+        "privacyPrinciples": "Privacy principles",
+        "engagementSummary": "Engagement summary",
+        "moduleOverviewBlocks": "Module overview blocks",
+        "openOperationsEvents": "Open operations events",
+        "urgentOperationsEvents": "Urgent operations events",
+        "tasksOverdue": "Tasks overdue",
+        "knowledgeOpenGaps": "Knowledge open gaps",
+        "blueprintSuccessCriteria": "Blueprint success criteria (Phase 70)",
+        "visionPhrases": "Vision phrases",
+        "blueprintSelfLoveConnection": "Self Love connection (Phase 70)",
+        "blueprintTrustConnection": "Trust connection (Phase 70)"
       }
     }
   },

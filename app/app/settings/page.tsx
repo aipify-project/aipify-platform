@@ -6,15 +6,16 @@ import {
 import { QUIET_HOURS_MODES, type QuietHoursMode } from "@/lib/presence/quiet-hours";
 import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
+import { coerceToAppLocale } from "@/lib/i18n/app-locales";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function SettingsPage() {
   const locale = await getLocale();
   const dict = {
     ...(await getCustomerAppDictionaryForSplits(locale, ["settings"])),
-    ...(await getDictionary(locale, ["presence"])),
+    ...(await getDictionary(locale, ["presence", "shell"])),
   };
-  const t = createTranslator(dict);
+  const t = createTranslator(dict, { locale });
   const p = "customerApp.settings";
 
   const levelLabels = Object.fromEntries(
@@ -49,8 +50,10 @@ export default async function SettingsPage() {
           notifications: t(`${p}.sections.notifications`),
           quietHours: t(`${p}.sections.quietHours`),
           timezone: t(`${p}.timezone`),
+          language: t(`${p}.accountPreferences.languageSection`),
         },
         timezoneHint: t(`${p}.timezoneHint`),
+        languageHint: t(`${p}.accountPreferences.languageHint`),
         quietModes: modeLabels,
         levels: levelLabels,
         save: t(`${p}.save`),
@@ -75,6 +78,15 @@ export default async function SettingsPage() {
             })
             .filter((link): link is { href: string; label: string } => link !== null),
         })),
+      }}
+      currentLocale={coerceToAppLocale(locale)}
+      languageSelectorLabels={{
+        label: t("shell.languageSelector.label"),
+        activeLanguage: t("shell.languageSelector.activeLanguage"),
+        changeLanguage: t("shell.languageSelector.changeLanguage"),
+        switchFailed: t("shell.languageSelector.switchFailed"),
+        retry: t("shell.languageSelector.retry"),
+        openMenu: t("shell.languageSelector.openMenu"),
       }}
     />
   );

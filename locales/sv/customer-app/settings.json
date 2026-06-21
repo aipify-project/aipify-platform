@@ -15,6 +15,18 @@
     "categories": {
       "governanceSecurity": {
         "links": {
+          "1": {
+            "href": "/app/compliance",
+            "label": "Security & compliance"
+          },
+          "2": {
+            "href": "/app/approvals",
+            "label": "Approvals"
+          },
+          "3": {
+            "href": "/app/settings/two-factor",
+            "label": "Sign-in verification"
+          },
           "4": {
             "href": "/app/settings/absence",
             "label": "Frånvaropolicyer för administratörer"
@@ -23,13 +35,114 @@
             "href": "/app/profitability/policies",
             "label": "Lönsamhetspolicyer"
           }
+        },
+        "title": "Governance & Security",
+        "description": "Compliance, approvals, audit, and sign-in verification."
+      },
+      "companionPresence": {
+        "title": "Companion Presence",
+        "description": "Executive feed, desktop connection, and notification preferences.",
+        "links": {
+          "1": {
+            "href": "/app/presence",
+            "label": "Presence Center"
+          },
+          "2": {
+            "href": "/app/command-center",
+            "label": "Executive Center"
+          },
+          "3": {
+            "href": "/app/command-center/connect",
+            "label": "Desktop Companion"
+          }
+        }
+      },
+      "knowledgeLearning": {
+        "title": "Knowledge & Learning",
+        "description": "Knowledge Center, learning discovery, and Business DNA.",
+        "links": {
+          "1": {
+            "href": "/app/settings/knowledge",
+            "label": "Knowledge Center"
+          },
+          "2": {
+            "href": "/app/learning",
+            "label": "Learning discovery"
+          },
+          "3": {
+            "href": "/app/settings/business-dna",
+            "label": "Business DNA"
+          }
+        }
+      },
+      "automationActions": {
+        "title": "Automation & Actions",
+        "description": "Action permissions, adaptive automation, and trust controls.",
+        "links": {
+          "1": {
+            "href": "/app/settings/action-access",
+            "label": "Action permissions"
+          },
+          "2": {
+            "href": "/app/settings/automation",
+            "label": "Adaptive automation"
+          },
+          "3": {
+            "href": "/app/settings/governance",
+            "label": "Trust controls"
+          }
+        }
+      },
+      "billingGrowth": {
+        "title": "Billing & Growth",
+        "description": "Subscription, packages, and expansion planning.",
+        "links": {
+          "1": {
+            "href": "/app/settings/billing",
+            "label": "Subscription"
+          },
+          "2": {
+            "href": "/app/settings/modules",
+            "label": "Packages"
+          },
+          "3": {
+            "href": "/app/settings/business-packs",
+            "label": "Business Pack runtime"
+          }
+        }
+      },
+      "organizationIntelligence": {
+        "title": "Organization Intelligence",
+        "description": "Predictive intelligence, operational insights, and quality guardian.",
+        "links": {
+          "1": {
+            "href": "/app/settings/intelligence",
+            "label": "Predictive intelligence"
+          },
+          "2": {
+            "href": "/app/organizational-intelligence",
+            "label": "Operational insights"
+          },
+          "3": {
+            "href": "/app/settings/quality",
+            "label": "Quality guardian"
+          }
         }
       }
     },
     "timezone": "Tidszon",
     "timezoneHint": "Hälsningar och briefings använder din lokala tidszon.",
     "save": "Spara inställningar",
-    "saved": "Saved",
+    "saved": "Sparat",
+    "accountPreferences": {
+      "back": "Tillbaka till inställningar",
+      "languageSection": "Språk",
+      "languageHint": "Välj hur Aipify visas i din arbetsyta. Valet synkroniseras med språkväljaren i sidhuvudet.",
+      "timezoneSection": "Tidszon och tysta timmar",
+      "timezoneHint": "Tidszon och tysta-timmar-inställningar hanteras under Inställningar.",
+      "notificationsSection": "Aviseringsinställningar",
+      "notificationsLink": "Öppna aviseringsinställningar"
+    },
     "links": {
       "developer": "Developer settings",
       "updates": "Update policies",
@@ -62,7 +175,8 @@
       "companionIdentityRelationship": "Identitet och relation",
       "presenceContinuity": "Närvaro och kontinuitet",
       "companionActionMemory": "Åtgärdsminne",
-      "companionOrchestration": "Orkestrering"
+      "companionOrchestration": "Orkestrering",
+      "quality": "Quality Guardian"
     },
     "intelligence": {
       "title": "Organisatorisk intelligens",
@@ -764,7 +878,11 @@
       "notEnabled": "Inloggningsverifiering är inte aktiverad för detta konto.",
       "requiredByPolicy": "Din organisation kräver inloggningsverifiering. Den kan inte inaktiveras.",
       "configError": "Inloggningsverifiering är tillfälligt otillgänglig. Kontakta support om detta kvarstår."
-    }
+    },
+    "googleAuthenticatorHint": "In Google Authenticator: tap + → Scan QR code → select the Aipify entry to see your 6-digit code.",
+    "resetEnrollment": "Generate new QR code",
+    "invalidCodeHelp": "Delete any old Aipify entry in Google Authenticator, tap Generate new QR code, scan again, then enter the latest code before it expires.",
+    "disablePasswordHint": "Enter your current password to disable sign-in verification."
   },
   "personalityEngine": {
     "title": "Personality & Warmth",
@@ -1426,7 +1544,8 @@
       "title": "Enterprise Procurement",
       "description": "Built for organizations requiring purchase orders, invoicing, procurement approvals, and customized payment arrangements.",
       "methods": "DNB Invoice · Purchase Orders · Bank Transfer · 30/60/90-Day Terms · Framework Agreements",
-      "manageLink": "Invoice details & enterprise procurement"
+      "manageLink": "Invoice details & enterprise procurement",
+      "providerInfrastructure": "Enterprise payment infrastructure"
     },
     "apiStatuses": {
       "connected": "Connected",
@@ -5552,5 +5671,99 @@
     "version": "Version",
     "upcoming": "Kommande",
     "completed": "Slutförda"
+  },
+  "securityHub": {
+    "title": "Security",
+    "subtitle": "Manage sign-in verification, sessions, devices, and account protection for your workspace.",
+    "comingSoon": "Coming soon",
+    "planned": "Planned",
+    "items": {
+      "signInVerification": {
+        "title": "Sign-in verification",
+        "description": "Protect administrative access with authenticator-based verification.",
+        "status": "Available"
+      },
+      "sessionManagement": {
+        "title": "Session management",
+        "description": "Review active sessions and sign out remotely when needed."
+      },
+      "deviceHistory": {
+        "title": "Device history",
+        "description": "See trusted devices that have accessed this workspace."
+      },
+      "recoveryMethods": {
+        "title": "Recovery methods",
+        "description": "Manage recovery codes and backup sign-in options.",
+        "status": "Available"
+      },
+      "passkeys": {
+        "title": "Passkeys",
+        "description": "Future support for passwordless enterprise sign-in."
+      },
+      "loginActivity": {
+        "title": "Login activity",
+        "description": "Review security events and sign-in activity in the Security Center.",
+        "status": "Available"
+      }
+    }
+  },
+  "domainLicense": {
+    "title": "Domain Management",
+    "subtitle": "Connect domains, manage Domain Licenses, and install Business Packs per domain.",
+    "principle": "APP owns domains. Domains own Business Pack installations. Employees receive access through APP permissions.",
+    "overview": "Overview",
+    "activeDomains": "Active Domains",
+    "pendingDomains": "Pending Domains",
+    "domainLicenses": "Domain Licenses",
+    "installedPacks": "Installed Packs",
+    "usage": "Usage",
+    "domainSettings": "Domain Settings",
+    "purchased": "Total Domains Allowed",
+    "used": "Domains In Use",
+    "available": "Available Domain Licenses",
+    "addDomain": "Add Domain",
+    "purchaseLicense": "Purchase Additional Domain License",
+    "platform": "Platform",
+    "status": "Status",
+    "packs": "Installed Packs",
+    "primary": "Primary (included)",
+    "accessDenied": "Domain management requires owner or administrator role.",
+    "storeLink": "Browse Marketplace",
+    "back": "Back",
+    "domainPlaceholder": "example.no",
+    "selectPlatform": "Connected platform",
+    "save": "Add Domain"
+  },
+  "checkoutVat": {
+    "title": "Checkout",
+    "subtitle": "Confirm billing details and VAT before payment.",
+    "loading": "Preparing checkout",
+    "back": "Back",
+    "legalReviewBanner": "This checkout tax engine must be reviewed with accounting and legal before public launch.",
+    "customerType": "Customer type",
+    "privatePerson": "Private person",
+    "business": "Business",
+    "companyName": "Company name",
+    "organizationNumber": "Organization number / VAT number",
+    "country": "Country",
+    "billingAddress": "Billing address",
+    "billingEmail": "Billing email",
+    "reference": "Reference",
+    "purchaseOrder": "Purchase order number",
+    "subtotal": "Subtotal",
+    "vat": "VAT",
+    "total": "Total",
+    "reverseChargeNote": "Reverse charge. VAT to be accounted for by the customer.",
+    "confirmPurchase": "Confirm purchase",
+    "continueToPayment": "Continue to payment",
+    "validating": "Validating…",
+    "validationValid": "Business number verified.",
+    "invalidBusinessNumber": "Invalid business number. You will be charged standard VAT unless a valid number is provided.",
+    "invalidEuVatNumber": "Invalid VAT number. Standard VAT will be added unless a valid VAT number is provided.",
+    "validationUnavailable": "Validation service is temporarily unavailable. Standard VAT will be applied.",
+    "productType": "Product",
+    "paymentProvider": "Payment provider",
+    "requiredField": "Required field",
+    "businessNumberRequired": "Business number is required for business customers."
   }
 }

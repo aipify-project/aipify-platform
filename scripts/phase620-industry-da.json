@@ -1,0 +1,416 @@
+{
+  "hospitality": {
+    "metaDescription": "Operationel vejledning for gæstfører — gæstekoordinering, ejendomsworkflows og styret intelligens med Aipify Hosts.",
+    "headline": "Gæstefører med styret intelligens",
+    "intro": "Hoteller, serviced lejligheder og overnatningsoperatører koordinerer gæsteoplevelsen på tværs af kanaler, ejendomme og vagtskift. Aipify giver operationel synlighed og forberedte workflows — uden at erstatte jeres PMS eller receptionens skøn.",
+    "orgTypes": {
+      "1": "Hoteller og resorts",
+      "2": "Serviced lejligheder",
+      "3": "Boutique-overnatning",
+      "4": "Gæstegrupper med flere ejendomme"
+    },
+    "primaryCta": "Book gæstedemo",
+    "secondaryCta": "Kom i gang-guide",
+    "challengesTitle": "Udfordringer gæsteteams møder",
+    "challenges": {
+      "1": "Gæstehenvendelser spredt på tværs af bookingkanaler, e-mail og beskedapps",
+      "2": "Rengørings- og vedligeholdsoverleveringer går tabt mellem vagtskift",
+      "3": "Politikspørgsmål besvares inkonsistent uden godkendt viden",
+      "4": "Ledelsen mangler synlighed på tværs af ejendomme uden manuelle statusmøder"
+    },
+    "howAipifyHelpsTitle": "Sådan støtter Aipify gæstefører",
+    "howAipifyHelps": [
+      {
+        "heading": "Koordinering af gæstehenvendelser",
+        "body": "Aipify triagerer gæstebeskeder, tjekker politik- og tilgængelighedskontekst og forbereder svar til personalegodkendelse. Følsomme situationer eskaleres altid til mennesker med fuld kontekst."
+      },
+      {
+        "heading": "Synlighed i ejendomsworkflows",
+        "body": "Vedligehold, rengøring og operationelle tjeklister samles i ét koordineret lag. Companion-briefings fremhæver afvigelser der kræver opmærksomhed i dag."
+      },
+      {
+        "heading": "Vidensbaseret service",
+        "body": "Godkendte gæsteprocedurer — sen udtjekning, faciliteter, lokale politikker — er tilgængelige for de rette roller gennem styret viden."
+      }
+    ],
+    "workflowsTitle": "Typiske gæsteworkflows",
+    "workflows": [
+      {
+        "title": "Gæstebesked modtages",
+        "body": "Henvendelse kommer via tilsluttet kanal → Aipify henter politik → Forbereder svarudkast → Personale godkender → Logført."
+      },
+      {
+        "title": "Vedligehold rapporteret",
+        "body": "Problem markeret → Prioritet vurderet → Vagtvej foreslået → Leder godkender udsendelse → Status fulgt."
+      },
+      {
+        "title": "Ledelsens morgenbriefing",
+        "body": "Companion opsummerer ankomster, åbne sager og afventende godkendelser — hver med anbefalede næste skridt."
+      }
+    ],
+    "recommendedPackSlugs": ["hosts"],
+    "governanceTitle": "Styring for gæstepåvirkende arbejde",
+    "governanceBody": "Gæstepåvirkende handlinger kræver menneskelig godkendelse. Autonominiveauer, konfidensgrænser og revisionsspor holder gæstefører ansvarlig. Aipify orkestrerer intelligens oven på jeres PMS — det erstatter ikke receptionens skøn.",
+    "outcomesTitle": "Resultater gæstoperatører rapporterer",
+    "outcomes": [
+      {
+        "title": "Hurtigere forberedelse af gæstesvar",
+        "body": "Personalet bruger mindre tid på at søge politikker og mere tid på at levere service."
+      },
+      {
+        "title": "Tydeligere vagtskifteoverleveringer",
+        "body": "Operationel kontekst bevares på tværs af rengøring, vedligehold og reception."
+      },
+      {
+        "title": "Ledelsessynlighed",
+        "body": "Opsummeringer på tværs af ejendomme uden daglige statusmøder."
+      }
+    ],
+    "relatedArticleSlugs": ["hospitality-operations-with-aipify", "what-is-a-business-operating-system", "governance-and-human-approval"]
+  },
+  "property-management": {
+    "metaDescription": "Vejledning til ejendomsadministration — porteføljesynlighed, vedligeholdelseskoordinering og styrede workflows med Aipify.",
+    "headline": "Ejendomsadministration med porteføljesynlighed",
+    "intro": "Ejendomsadministratorer koordinerer enheder, leverandører, lejere og vedligehold på tværs af porteføljer. Aipify giver operationel intelligens og forberedte workflows — ikke endnu et frakoblet sagsystem.",
+    "orgTypes": {
+      "1": "Administratorer af boligejendomme",
+      "2": "Erhvervsejendomme",
+      "3": "Ejerforeninger og andelsboligforeninger",
+      "4": "Blandede porteføljer"
+    },
+    "primaryCta": "Book ejendomsdemo",
+    "secondaryCta": "Kom i gang-guide",
+    "challengesTitle": "Udfordringer i ejendomsadministration",
+    "challenges": {
+      "1": "Vedligeholdshenvendelser sporet i e-mail, regneark og leverandørsamtaler",
+      "2": "Lejerkommunikation mangler konsistente, politikbaserede svar",
+      "3": "Leverandørkoordinering uden delt operationel kontekst",
+      "4": "Porteføljeledere kan ikke se risikokoncentration på tværs af ejendomme"
+    },
+    "howAipifyHelpsTitle": "Sådan støtter Aipify ejendomsdrift",
+    "howAipifyHelps": [
+      {
+        "heading": "Porteføljesynlighed",
+        "body": "Åbne sager, vedligeholdsplaner og eskaleringer vises på tværs af ejendomme med forklarlige prioritetssignaler."
+      },
+      {
+        "heading": "Leverandør- og arbejdsordrekoordinering",
+        "body": "Aipify forbereder arbejdsordrer, opfølgninger og eskaleringer — mennesker godkender leverandørudsendelse og lejerkommunikation."
+      },
+      {
+        "heading": "Håndtering af lejerhenvendelser",
+        "body": "Godkendte politikker styrer svarforberedelse. Usikre sager eskaleres med fuld kontekst til ejendomsadministratorer."
+      }
+    ],
+    "workflowsTitle": "Workflows for ejendomsadministration",
+    "workflows": [
+      {
+        "title": "Akut vedligehold",
+        "body": "Lejer rapporterer lækage → Prioritet vurderet → Leverandørvej foreslået → Administrator godkender → Fulgt til løsning."
+      },
+      {
+        "title": "Spørgsmål om lejepolitik",
+        "body": "Lejerhenvendelse → Viden hentet → Udkast forberedt → Administrator gennemgår → Svar sendt med revision."
+      },
+      {
+        "title": "Porteføljebriefing",
+        "body": "Ugentlig opsummering af åbne sager, leverandørforsinkelser og afventende godkendelser på tværs af ejendomme."
+      }
+    ],
+    "recommendedPackSlugs": ["hosts"],
+    "governanceTitle": "Styring for lejer og leverandør",
+    "governanceBody": "Lejer- og leverandørpåvirkende handlinger kræver eksplicit godkendelse. Aipify forbereder koordinering — ejendomsadministratorer bestemmer udfald og opretholder revisionsspor.",
+    "outcomesTitle": "Forventede resultater",
+    "outcomes": [
+      {
+        "title": "Reduceret svarinkonsistens",
+        "body": "Godkendte politikker styrer lejerkommunikation."
+      },
+      {
+        "title": "Hurtigere vedligeholdelseseskalaering",
+        "body": "Akutte sager dirigeres med kontekst, ikke ad hoc telefonkæder."
+      },
+      {
+        "title": "Porteføljeniveau-klarhed",
+        "body": "Ledelsen ser risikokoncentration og backlog uden mikrostyring."
+      }
+    ],
+    "relatedArticleSlugs": ["property-management-operations-with-aipify", "hospitality-operations-with-aipify"]
+  },
+  "commerce": {
+    "metaDescription": "Vejledning til handelsdrift — ordresynlighed, fulfillment-koordinering og supportintegration med Aipify.",
+    "headline": "Handelsdrift med sammenkoblet fulfillment-intelligens",
+    "intro": "Detail- og e-handelsteams har brug for operationel intelligens på tværs af ordrer, lagersignaler og kundesupport — især i peak-perioder. Aipify forbinder handelsworkflows med styret automatisering.",
+    "orgTypes": {
+      "1": "E-handelsmærker",
+      "2": "Omnichannel-detailhandlere",
+      "3": "Markedspladsoperatører",
+      "4": "D2C-fulfillment-teams"
+    },
+    "primaryCta": "Book handelsdemo",
+    "secondaryCta": "Kom i gang-guide",
+    "challengesTitle": "Operationelle udfordringer i handel",
+    "challenges": {
+      "1": "Fulfillment-afvigelser opdages for sent til proaktiv kundekommunikation",
+      "2": "Supportagenter mangler ordrekontekst under højt volumen",
+      "3": "Lagersignaler frakoblet kundevendte teams",
+      "4": "Peak-koordinering bryder sammen mellem lager og support"
+    },
+    "howAipifyHelpsTitle": "Sådan støtter Aipify handelsteams",
+    "howAipifyHelps": [
+      {
+        "heading": "Synliggørelse af fulfillment-afvigelser",
+        "body": "Transportforsinkelser, lagerproblemer og ordreafvigelser vises tidligt med kundepåvirkningskontekst og anbefalet opfølgning."
+      },
+      {
+        "heading": "Support-handelskobling",
+        "body": "Support Operations Pack bringer ordrekontekst ind i triage og svarforberedelse — mindre frem og tilbage."
+      },
+      {
+        "heading": "Peak-koordinering",
+        "body": "Companion-briefings fremhæver flaskehalse på tværs af fulfillment og support, så ledere handler før SLA brydes."
+      }
+    ],
+    "workflowsTitle": "Handelsworkflows",
+    "workflows": [
+      {
+        "title": "Forsinket levering opdaget",
+        "body": "Transportafvigelse → Kundepåvirkning vurderet → Varseludkast forberedt → Support gennemgår → Proaktiv opfølgning."
+      },
+      {
+        "title": "Support-triage ved højt volumen",
+        "body": "Sag kommer med ordrekontekst → Viden matchet → Udkast forberedt → Agent godkender."
+      },
+      {
+        "title": "Lagerafvigelse",
+        "body": "Lagerafvigelse markeret → Lager underrettet → Løsningsvej foreslået → Leder godkender."
+      }
+    ],
+    "recommendedPackSlugs": ["support", "warehouse"],
+    "governanceTitle": "Kundepåvirkende handlingshandlinger",
+    "governanceBody": "Refusioner, ordreændringer og kundevarsler følger godkendelsespolitikker. Aipify forbereder arbejde — handelsledere og supportagenter bestemmer hvad der når kunder.",
+    "outcomesTitle": "Resultater i handel",
+    "outcomes": [
+      {
+        "title": "Proaktiv kundekommunikation",
+        "body": "Afvigelser synliggøres før kunder behøver at spørge."
+      },
+      {
+        "title": "Supporteffektivitet i peak",
+        "body": "Ordrekontekst reducerer behandlingstid og eskaleringer."
+      },
+      {
+        "title": "Tværfaglig alignment",
+        "body": "Fulfillment og support deler ét operationelt intelligenslag."
+      }
+    ],
+    "relatedArticleSlugs": ["commerce-operations-with-aipify", "warehouse-operations-with-aipify", "support-operations-with-aipify"]
+  },
+  "support-operations": {
+    "metaDescription": "Vejledning til supportdrift — styret triage, vidensbaserede svar og eskalering med Aipify Support.",
+    "headline": "Supportdrift med styret hastighed og konsistens",
+    "intro": "Kundesupportteams har brug for institutionel viden ved arbejdspunktet — med konfidensvurdering, eskaleringer og menneskelig kontrol. Aipify Support kombinerer Business DNA med styret automatisering.",
+    "orgTypes": {
+      "1": "Kundeserviceteams",
+      "2": "B2B-supportorganisationer",
+      "3": "Customer success-drift",
+      "4": "Shared service centers"
+    },
+    "primaryCta": "Book supportdemo",
+    "secondaryCta": "Kom i gang-guide",
+    "challengesTitle": "Udfordringer i supportdrift",
+    "challenges": {
+      "1": "Agenter søger i flere systemer efter politiksvar",
+      "2": "Inkonsistente svar skaber kundefrustation og compliance-risiko",
+      "3": "Lavkonfidens-sager skjult indtil de bliver eskaleringer",
+      "4": "Vidensforbedringer usynlige indtil kvalitetsrevisioner"
+    },
+    "howAipifyHelpsTitle": "Sådan støtter Aipify supportteams",
+    "howAipifyHelps": [
+      {
+        "heading": "Konfidensbaseret triage",
+        "body": "Høj konfidens og lav risiko kan auto-udkast inden for politik. Usikkerhed dirigeres altid til mennesker med forklarlig kontekst."
+      },
+      {
+        "heading": "Business DNA-integration",
+        "body": "Skabeloner, tone og eskaleringregler former hvert forberedt svar — i tråd med organisationens godkendte viden."
+      },
+      {
+        "heading": "Synlighed for videnshuller",
+        "body": "Gentagne lavkonfidens-svar skaber synlige huller til vidensforbedring — mennesker godkender indholdsændringer."
+      }
+    ],
+    "workflowsTitle": "Supportworkflows",
+    "workflows": [
+      {
+        "title": "Politikspørgsmål",
+        "body": "Kunde spørger om garanti → Vidensmatch → Udkast forberedt → Agent gennemgår → Sendt med revision."
+      },
+      {
+        "title": "Lavkonfidens-eskalering",
+        "body": "Intet godkendt svar → Sag eskaleret → Hul markeret → Videnshold underrettet."
+      },
+      {
+        "title": "Supportledelsesbriefing",
+        "body": "Køsundhed, SLA-risici og hultendenser opsummeret med anbefalede fokusområder."
+      }
+    ],
+    "recommendedPackSlugs": ["support"],
+    "governanceTitle": "Support forbliver under menneskelig kontrol",
+    "governanceBody": "Auto-svar er tilladt kun inden for godkendte autonomiindstillinger, konfidensgrænser og kategoripolitik. Følsomme sager kræver altid menneskelig beslutning. Hver handling er revisionsbar.",
+    "outcomesTitle": "Supportresultater",
+    "outcomes": [
+      {
+        "title": "Hurtigere førstesvar",
+        "body": "Forberedte udkast reducerer søgetid."
+      },
+      {
+        "title": "Politik-konsistens",
+        "body": "Godkendt viden former hver interaktion."
+      },
+      {
+        "title": "Synlig forbedringssløjfe",
+        "body": "Huller driver vidensopdateringer — ikke skjult kvalitetsforfald."
+      }
+    ],
+    "relatedArticleSlugs": ["support-operations-with-aipify", "enterprise-knowledge-management", "companion-vs-chatbot"]
+  },
+  "warehouse-operations": {
+    "metaDescription": "Vejledning til lagerdrift — opgavekoordinering, afviklingshåndtering og fulfillment-synlighed med Warehouse Operations Pack.",
+    "headline": "Lagerdrift med koordineret fulfillment",
+    "intro": "Lagerteams er afhængige af klare prioriteter, vagtskifteoverleveringer og afviklingsløsning — ikke dashboards ingen tjekker. Warehouse Operations Pack bringer styret operationel intelligens til fulfillment-teams.",
+    "orgTypes": {
+      "1": "Distributionscentre",
+      "2": "3PL-operatører",
+      "3": "E-handels-fulfillment",
+      "4": "Produktionslagre"
+    },
+    "primaryCta": "Book lagerdemo",
+    "secondaryCta": "Kom i gang-guide",
+    "challengesTitle": "Operationelle udfordringer i lager",
+    "challenges": {
+      "1": "Pluk/pak-afvigelser løses via uformelle supervisortelefoner",
+      "2": "Vagtskifteoverleveringer mister kontekst om åbne sager",
+      "3": "Lagerafvigelser opdages sent i fulfillment-cyklusen",
+      "4": "Driftsledere mangler forklarlige opsummeringer på tværs af vagtskift"
+    },
+    "howAipifyHelpsTitle": "Sådan støtter Aipify lagerteams",
+    "howAipifyHelps": [
+      {
+        "heading": "Opgave- og overleveringskoordinering",
+        "body": "Samlede opgaver, påmindelser og ansvar bevares på tværs af vagtskift — mindre gentagen forklaring."
+      },
+      {
+        "heading": "Afviklingshåndtering",
+        "body": "Lagerafvigelser og fulfillment-blokeringer synliggøres med anbefalede løsningsveje til supervisor-godkendelse."
+      },
+      {
+        "heading": "Operationel rapportering",
+        "body": "Ledelsesopsummeringer forklarer gennemstrømning, afvigelser og backlog — højt signal, lav støj."
+      }
+    ],
+    "workflowsTitle": "Lagerworkflows",
+    "workflows": [
+      {
+        "title": "Plukafvigelse",
+        "body": "SKU-afvigelse markeret → Supervisor underrettet → Løsning foreslået → Vagtleder godkender justering."
+      },
+      {
+        "title": "Vagtskifteoverlevering",
+        "body": "Åbne afvigelser opsummeret → Næste vagt bekræfter → Companion sporer forfaldne elementer."
+      },
+      {
+        "title": "Lagerafvigelse",
+        "body": "Tælleafvigelse opdaget → Eskaleringsvej forberedt → Leder godkender undersøgelse."
+      }
+    ],
+    "recommendedPackSlugs": ["warehouse"],
+    "governanceTitle": "Styring af lagerhandlinger",
+    "governanceBody": "Lagerjusteringer og fulfillment-påvirkende handlinger kræver menneskelig godkendelse. Aipify koordinerer intelligens — det styrer ikke lagerudstyr eller omgår supervisors skøn.",
+    "outcomesTitle": "Lagerresultater",
+    "outcomes": [
+      {
+        "title": "Tydeligere vagtskiftekontinuitet",
+        "body": "Overleveringer bevarer kontekst om åbne afvigelser."
+      },
+      {
+        "title": "Hurtigere afviklingsløsning",
+        "body": "Anbefalede veje reducerer ad hoc supervisorsøgninger."
+      },
+      {
+        "title": "Ledelsessynlighed",
+        "body": "Forklarlige operationelle opsummeringer uden gulvrunde."
+      }
+    ],
+    "relatedArticleSlugs": ["warehouse-operations-with-aipify", "commerce-operations-with-aipify", "why-organizations-need-operational-visibility"]
+  },
+  "professional-services": {
+    "metaDescription": "Vejledning til professionelle tjenester — kundeleverance, vidensgenbrug og ledelsessynlighed med Aipify.",
+    "headline": "Professionelle tjenester med genanvendelig leveranceintelligens",
+    "intro": "Konsulent- og servicevirksomheder sælger ekspertise — operationel viden og kundesynlighed afgør margin og kvalitet. Aipify understøtter leveranceplaybooks, ledelsesporteføljevyer og styrede kundedrift.",
+    "orgTypes": {
+      "1": "Konsulentfirmaer",
+      "2": "Bureauer og studier",
+      "3": "Juridiske og rådgivende praksisser",
+      "4": "Managed service providers"
+    },
+    "primaryCta": "Book servicedemo",
+    "secondaryCta": "Kom i gang-guide",
+    "challengesTitle": "Udfordringer i professionelle tjenester",
+    "challenges": {
+      "1": "Metodik fanget i senior konsulenters erfaring",
+      "2": "Kundesundhed synlig kun gennem partner-indbakkestøj",
+      "3": "Onboarding af nyt leverancepersonale langsom uden godkendte playbooks",
+      "4": "Fakturering og leverancekontekst frakoblet"
+    },
+    "howAipifyHelpsTitle": "Sådan støtter Aipify serviceorganisationer",
+    "howAipifyHelps": [
+      {
+        "heading": "Leveranceplaybooks",
+        "body": "Godkendte metodikker og skabeloner tilgængelige for leveranceteams — rolleafgrænsede og revisionsbare."
+      },
+      {
+        "heading": "Kundeporteføljesynlighed",
+        "body": "Partnere ser engagementsundhed, risici og milepælsstatus — ikke rå kommunikationsstøj."
+      },
+      {
+        "heading": "Finansbevidst drift",
+        "body": "Aipify Finance Business Pack understøtter faktureringskontekst og styrede finansielle workflows ved siden af leverance."
+      }
+    ],
+    "workflowsTitle": "Leveranceworkflows for tjenester",
+    "workflows": [
+      {
+        "title": "Kundeonboarding",
+        "body": "Engagement starter → Tjekliste aktiveret → Milepæle fulgt → Partnerbriefing forberedt."
+      },
+      {
+        "title": "Leveranceeskalering",
+        "body": "Risikosignal opdaget → Kontekst opsummeret → Partner underrettet med anbefalede alternativer."
+      },
+      {
+        "title": "Vidensgenbrug",
+        "body": "Teammedlem spørger om metodik → Godkendt playbook returneret → Hul markeret hvis forældet."
+      }
+    ],
+    "recommendedPackSlugs": ["finance", "support"],
+    "governanceTitle": "Styring for kundesensitive data",
+    "governanceBody": "Kundepåvirkende kommunikation og finansielle handlinger kræver eksplicit godkendelse. Aipify forbereder leveranceintelligens — partnere og leveranceledere beholder ansvar.",
+    "outcomesTitle": "Resultater for tjenester",
+    "outcomes": [
+      {
+        "title": "Hurtigere konsulent-onboarding",
+        "body": "Godkendte playbooks reducerer opstartstid."
+      },
+      {
+        "title": "Partnerniveau-klarhed",
+        "body": "Porteføljesundhed synlig uden statusmøder."
+      },
+      {
+        "title": "Marginbeskyttelse",
+        "body": "Konsistent leverancekvalitet gennem genanvendelig viden."
+      }
+    ],
+    "relatedArticleSlugs": ["professional-services-with-aipify", "enterprise-knowledge-management", "how-companion-supports-organizations"]
+  }
+}

@@ -6,7 +6,7 @@ import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function SupportRequestsPage() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure"]);
   const t = createTranslator(dict);
   return (
     <div className="p-6">

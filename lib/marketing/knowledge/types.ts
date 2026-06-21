@@ -65,6 +65,33 @@ export type PublicKnowledgeArticleContent = {
   introduction: string;
   sections: ArticleSection[];
   examples: ArticleExample[];
+  keyTakeaways: string[];
+  readingTime: string;
+  publishedDate: string;
+};
+
+export type PublicKnowledgeIndustryWorkflowStep = { title: string; body: string };
+export type PublicKnowledgeIndustryOutcome = { title: string; body: string };
+
+export type PublicKnowledgeIndustryDetail = {
+  metaDescription: string;
+  headline: string;
+  intro: string;
+  orgTypes: string[];
+  primaryCta: string;
+  secondaryCta: string;
+  challengesTitle: string;
+  challenges: string[];
+  howAipifyHelpsTitle: string;
+  howAipifyHelps: ArticleSection[];
+  workflowsTitle: string;
+  workflows: PublicKnowledgeIndustryWorkflowStep[];
+  recommendedPackSlugs: PublicBusinessPackSlug[];
+  governanceTitle: string;
+  governanceBody: string;
+  outcomesTitle: string;
+  outcomes: PublicKnowledgeIndustryOutcome[];
+  relatedArticleSlugs: string[];
 };
 
 export type PublicKnowledgeArticle = PublicKnowledgeArticleMeta & PublicKnowledgeArticleContent;
@@ -73,6 +100,59 @@ export type PublicKnowledgeCategory = {
   id: PublicKnowledgeCategoryId;
   name: string;
   description: string;
+};
+
+export type PublicKnowledgeCategoryTopic = {
+  id: string;
+  title: string;
+  description: string;
+};
+
+export type PublicKnowledgeCategoryPageLabels = {
+  topicsTitle: string;
+  featuredTitle: string;
+  featuredSubtitle: string;
+  allResourcesTitle: string;
+  relatedTitle: string;
+  resourceCount: string;
+  readArticle: string;
+  viewCategory: string;
+  emptyArticles: string;
+  searchPlaceholder: string;
+  searchAriaLabel: string;
+  typeLabel: string;
+  sortLabel: string;
+  allTypes: string;
+  sortTitleAsc: string;
+  sortTitleDesc: string;
+  resultsCount: string;
+  openFilters: string;
+  closeFilters: string;
+  resourceTypes: {
+    hub: string;
+    industry: string;
+    article: string;
+  };
+};
+
+export type PublicKnowledgeCategoryDetail = PublicKnowledgeCategory & {
+  headline: string;
+  introduction: string;
+  topics: PublicKnowledgeCategoryTopic[];
+  relatedCategories: PublicKnowledgeCategory[];
+  featuredArticleSlugs: string[];
+  cta: {
+    primary: string;
+    secondary: string;
+    primaryHref: string;
+    secondaryHref: string;
+  };
+  seo: {
+    title: string;
+    description: string;
+  };
+  resourceCount: number;
+  pageLabels: PublicKnowledgeCategoryPageLabels;
 };
 
 export type PublicKnowledgeIndustry = {
@@ -120,4 +200,17 @@ export type PublicKnowledgeHubLabels = {
   viewAllArticles: string;
   businessPackCta: string;
   localesNote: string;
+  readingTimeLabel: string;
+  publishedLabel: string;
+  keyTakeawaysTitle: string;
+  backToKnowledge: string;
+  exploreBusinessPack: string;
+  industryChallengesTitle: string;
+  industryHowAipifyHelpsTitle: string;
+  industryWorkflowsTitle: string;
+  industryRecommendedPacksTitle: string;
+  industryGovernanceTitle: string;
+  industryOutcomesTitle: string;
+  industryRelatedArticlesTitle: string;
+  industryOrgTypesTitle: string;
 };
