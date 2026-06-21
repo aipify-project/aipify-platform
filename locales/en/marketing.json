@@ -2022,6 +2022,587 @@
     "title": "The Aipify Business Operating System",
     "subtitle": "Platform map, operational engines, Business Packs, Companion intelligence, governance, and automation — one coordinated enterprise layer."
   },
+  "productPageRedesign": {
+    "meta": {
+      "title": "Aipify Business Operating System | Product Platform",
+      "description": "Explore Command Brief, Companion, operational engines, Business Packs, governance and approved workflows — one coordinated platform for modern organizations."
+    },
+    "hero": {
+      "eyebrow": "Aipify Business Operating System",
+      "title": "One platform for operational clarity, governed execution, and human control.",
+      "subtitle": "Aipify connects support, operations, knowledge, governance and approved workflows in one coordinated Business Operating System — installed where your teams already work.",
+      "ctaPrimary": "Book Demo",
+      "ctaSecondary": "See How Aipify Works",
+      "explorePacks": "Explore Business Packs"
+    },
+    "commandBrief": {
+      "title": "Command Brief — your organization summarized before you start.",
+      "subtitle": "Aipify brings the most important operational changes, completed work, and decisions to you — instead of making you search through disconnected systems.",
+      "panelTitle": "Command Brief",
+      "sinceLastLogin": "Since last login",
+      "aipifyCompleted": "Aipify completed",
+      "needsAttention": "Needs your attention",
+      "recommendedActions": "Recommended actions",
+      "organizationStatus": "Organization status",
+      "sinceItems": {
+        "1": "14 support cases updated · 3 escalations resolved",
+        "2": "2 approval requests completed · 1 pending review",
+        "3": "Knowledge Center: 4 articles approved"
+      },
+      "completedItems": {
+        "1": "Drafted 6 support responses for review",
+        "2": "Prepared executive summary for operations",
+        "3": "Flagged subscription renewal context for finance"
+      },
+      "attentionItems": {
+        "1": "1 high-priority approval awaiting owner decision",
+        "2": "Support queue spike in billing category",
+        "3": "Guest check-in workflow needs policy confirmation"
+      },
+      "actionItems": {
+        "1": "Review prepared support draft — Billing dispute",
+        "2": "Approve updated escalation policy",
+        "3": "Schedule follow-up with operations lead"
+      },
+      "statusItems": {
+        "1": "Support: Active",
+        "2": "Governance: 1 pending",
+        "3": "Hosts pack: Operational",
+        "4": "License: Healthy"
+      },
+      "points": {
+        "1": {
+          "title": "Since your last visit",
+          "body": "Meaningful operational changes surfaced across support, approvals, and Business Pack activity — without searching every module."
+        },
+        "2": {
+          "title": "What Aipify helped with",
+          "body": "Drafts, summaries, preparation and approved work completed by Aipify while you focused on decisions only humans should make."
+        },
+        "3": {
+          "title": "What needs attention",
+          "body": "Decisions, approvals, risks and exceptions clearly prioritized — never buried in notification noise."
+        },
+        "4": {
+          "title": "What should happen next",
+          "body": "Grounded recommended actions with direct paths to the relevant workflow, record, or approval queue."
+        }
+      }
+    },
+    "workflow": {
+      "title": "See how work moves through Aipify.",
+      "subtitle": "Realistic workflow examples — from support triage to governed execution — with human approval and audit at every sensitive step.",
+      "controls": {
+        "play": "Play",
+        "pause": "Pause",
+        "previous": "Previous",
+        "next": "Next"
+      },
+      "examples": {
+        "1": {
+          "id": "support",
+          "label": "Support response",
+          "disclaimer": "Illustrative workflow — your policies and approval rules apply.",
+          "steps": {
+            "1": { "title": "Support request arrives", "detail": "A customer inquiry enters from email, chat, or your admin.", "prepared": "Case created · Category detected", "approval": "None required yet", "audit": "Intake logged" },
+            "2": { "title": "Intent identified", "detail": "Aipify classifies category, urgency, and routing.", "prepared": "Routing recommendation ready", "approval": "Policy check passed", "audit": "Classification recorded" },
+            "3": { "title": "Knowledge Center search", "detail": "Approved knowledge sources are searched — metadata only.", "prepared": "3 relevant articles matched", "approval": "Sources approved", "audit": "Search scope logged" },
+            "4": { "title": "Response drafted", "detail": "A business-ready draft is prepared for review.", "prepared": "Draft ready for human review", "approval": "Required before send", "audit": "Draft version saved" },
+            "5": { "title": "Human approval", "detail": "Your team approves, edits, or delegates future handling.", "prepared": "Diff and context attached", "approval": "Owner or support lead", "audit": "Approver identity captured" },
+            "6": { "title": "Response sent", "detail": "Approved work is executed inside your workflow.", "prepared": "Channel selected", "approval": "Confirmed", "audit": "Send event logged" },
+            "7": { "title": "Audit log created", "detail": "Every step is recorded with explainability.", "prepared": "Trail complete", "approval": "N/A", "audit": "Immutable entry stored" },
+            "8": { "title": "Dashboard updated", "detail": "Operations view reflects the outcome in real time.", "prepared": "Command Brief refreshed", "approval": "N/A", "audit": "Metrics updated" },
+            "9": { "title": "Workflow learned", "detail": "Approved patterns improve future recommendations — reversibly.", "prepared": "Learning suggestion queued", "approval": "Customer controls learning mode", "audit": "Learning event metadata only" }
+          }
+        },
+        "2": {
+          "id": "approval",
+          "label": "Approval request",
+          "disclaimer": "Illustrative workflow — sensitivity levels enforced by your policies.",
+          "steps": {
+            "1": { "title": "Action prepared", "detail": "Aipify prepares a sensitive operational change with full context.", "prepared": "Explanation attached", "approval": "Pending", "audit": "Request opened" },
+            "2": { "title": "Risk classified", "detail": "Trust & Action Engine assigns risk level and required approver.", "prepared": "Level 3 — sensitive", "approval": "Admin required", "audit": "Classification logged" },
+            "3": { "title": "Reviewer notified", "detail": "Command Brief and Approval Center surface the decision clearly.", "prepared": "Notification sent", "approval": "Awaiting human", "audit": "Delivery logged" },
+            "4": { "title": "Human decision", "detail": "Approver reviews, edits, approves, or rejects with reason.", "prepared": "Context panel open", "approval": "Explicit decision", "audit": "Decision captured" },
+            "5": { "title": "Governed execution", "detail": "Approved action runs within policy boundaries.", "prepared": "Execution queued", "approval": "Confirmed", "audit": "Execution logged" },
+            "6": { "title": "Audit trail closed", "detail": "Full lifecycle recorded for procurement and compliance review.", "prepared": "Complete", "approval": "N/A", "audit": "Trail sealed" }
+          }
+        },
+        "3": {
+          "id": "follow-up",
+          "label": "Follow-up coordination",
+          "disclaimer": "Illustrative workflow — Companion prepares; people decide.",
+          "steps": {
+            "1": { "title": "Signal detected", "detail": "Aipify identifies an overdue follow-up from approved operational context.", "prepared": "Priority scored", "approval": "None", "audit": "Signal logged" },
+            "2": { "title": "Context assembled", "detail": "Related records, prior communications metadata, and policy notes combined.", "prepared": "Brief ready", "approval": "N/A", "audit": "Sources listed" },
+            "3": { "title": "Recommendation prepared", "detail": "Companion suggests next step with effort and impact explained.", "prepared": "Draft follow-up", "approval": "Review suggested", "audit": "Recommendation logged" },
+            "4": { "title": "Human confirms", "detail": "Owner approves timing, recipient, and message.", "prepared": "Editable draft", "approval": "Required", "audit": "Confirmation logged" },
+            "5": { "title": "Follow-up executed", "detail": "Approved action completes through your existing channels.", "prepared": "Sent", "approval": "Confirmed", "audit": "Outcome recorded" }
+          }
+        },
+        "4": {
+          "id": "knowledge",
+          "label": "Knowledge workflow",
+          "disclaimer": "Illustrative workflow — approved sources only.",
+          "steps": {
+            "1": { "title": "Gap identified", "detail": "Support or operations activity reveals missing approved knowledge.", "prepared": "Gap flagged", "approval": "N/A", "audit": "Gap logged" },
+            "2": { "title": "Draft article prepared", "detail": "Aipify prepares a knowledge article from approved patterns — not raw chat.", "prepared": "Draft ready", "approval": "Admin review", "audit": "Draft saved" },
+            "3": { "title": "Review queue", "detail": "Knowledge Approval Center surfaces the item for human review.", "prepared": "Context attached", "approval": "Required", "audit": "Queue event logged" },
+            "4": { "title": "Published to approved sources", "detail": "Once approved, knowledge becomes available to governed search.", "prepared": "Live", "approval": "Confirmed", "audit": "Publication logged" },
+            "5": { "title": "Future cases improved", "detail": "Next similar requests benefit from approved knowledge — with audit.", "prepared": "Search updated", "approval": "N/A", "audit": "Usage metadata only" }
+          }
+        }
+      }
+    },
+    "coordination": {
+      "title": "One coordinated layer across people, Aipify, and your systems.",
+      "subtitle": "Aipify does not replace your admin, store, or custom environment — it coordinates work above them with governance built in.",
+      "peopleTitle": "People",
+      "people": {
+        "1": "Owners & executives",
+        "2": "Operations & support teams",
+        "3": "Staff with role-scoped access"
+      },
+      "aipifyTitle": "Aipify Business Operating System",
+      "aipifyModules": {
+        "1": "Command Brief",
+        "2": "Companion",
+        "3": "Operational engines",
+        "4": "Business Packs",
+        "5": "Governance & audit"
+      },
+      "systemsTitle": "Existing systems",
+      "systems": {
+        "1": "WordPress / Shopify admin",
+        "2": "Email & chat channels",
+        "3": "CRM & finance tools",
+        "4": "Custom APIs & databases"
+      }
+    },
+    "companion": {
+      "title": "Companion works inside operational context — not beside it.",
+      "subtitle": "Companion observes approved sources, explains what matters, prepares recommendations, and coordinates next steps. Humans remain accountable.",
+      "distinction": "Companion is not a standalone chatbot. It is Aipify's executive intelligence layer — grounded in your tenant, policies, and approved workflows.",
+      "panel": {
+        "title": "Companion — Billing dispute context",
+        "contextLabel": "Operational context",
+        "contextItems": {
+          "1": "Support case #4821 · Billing category",
+          "2": "Customer tier: Business · License healthy",
+          "3": "Similar cases resolved with policy KB-014"
+        },
+        "recommendationLabel": "Companion recommendation",
+        "recommendation": "Review the prepared response draft. Approve send or edit before 14:00 to meet SLA. Escalate to finance if refund threshold applies.",
+        "actions": {
+          "1": "Open prepared draft",
+          "2": "View approval policy",
+          "3": "Schedule follow-up"
+        },
+        "status": "Awaiting human approval",
+        "explainLabel": "Why this recommendation?"
+      },
+      "capabilities": {
+        "1": {
+          "id": "briefings",
+          "title": "Executive briefings",
+          "meaning": "Summarize operational state with signal, not noise.",
+          "example": "Command Brief highlights approvals, risks, and completed work since last login.",
+          "boundary": "Never auto-executes sensitive decisions.",
+          "humanControl": "You choose briefing scope and notification preferences."
+        },
+        "2": {
+          "id": "recommendations",
+          "title": "Grounded recommendations",
+          "meaning": "Observation, impact, and next step — not bare counts.",
+          "example": "Billing queue spike with suggested triage path and draft responses prepared.",
+          "boundary": "Recommendations require context and explainability.",
+          "humanControl": "Approve, edit, or dismiss every recommendation."
+        },
+        "3": {
+          "id": "preparation",
+          "title": "Work preparation",
+          "meaning": "Drafts, summaries, and follow-ups prepared for review.",
+          "example": "Support response drafted from approved knowledge — awaiting your approval.",
+          "boundary": "No send without explicit human approval on sensitive actions.",
+          "humanControl": "Approval policies define what Aipify may prepare vs execute."
+        },
+        "4": {
+          "id": "coordination",
+          "title": "Cross-module coordination",
+          "meaning": "Connect support, finance, projects, and Business Packs in one view.",
+          "example": "Renewal context surfaced alongside support case and approval queue.",
+          "boundary": "Tenant-scoped only — no cross-customer data.",
+          "humanControl": "RBAC maps to your organizational roles."
+        }
+      }
+    },
+    "platform": {
+      "title": "One platform foundation. Modular operational capability.",
+      "subtitle": "Six coordinated layers — from organization and Business Packs to automation, insights, and governed execution.",
+      "layers": {
+        "1": {
+          "name": "Organization & tenant layer",
+          "items": {
+            "1": "Company, teams, and role-scoped access",
+            "2": "Tenant isolation and verified domains",
+            "3": "License and module entitlements"
+          }
+        },
+        "2": {
+          "name": "Business Packs layer",
+          "items": {
+            "1": "Hosts, Support, Commerce, Projects, Finance",
+            "2": "Activate only what your organization needs",
+            "3": "Pack-specific workflows and brief signals"
+          }
+        },
+        "3": {
+          "name": "Operational engines layer",
+          "items": {
+            "1": "Customer, finance, risk, project, inventory",
+            "2": "Knowledge, partner, scheduling, communications",
+            "3": "Strategic intelligence and executive center"
+          }
+        },
+        "4": {
+          "name": "Companion intelligence layer",
+          "items": {
+            "1": "Command Brief and executive visibility",
+            "2": "Contextual recommendations with explainability",
+            "3": "Preparation — never replacement of people"
+          }
+        },
+        "5": {
+          "name": "Automation & governance layer",
+          "items": {
+            "1": "Trust & Action Engine with risk levels",
+            "2": "Human approval on sensitive work",
+            "3": "Emergency stop and policy enforcement"
+          }
+        },
+        "6": {
+          "name": "Insights & audit layer",
+          "items": {
+            "1": "Immutable audit trails",
+            "2": "Health scores and operational clarity",
+            "3": "Anonymised impact proof for platform trust"
+          }
+        }
+      }
+    },
+    "engines": {
+      "title": "Operational engines — real platform depth.",
+      "subtitle": "Primary engines surface in Command Brief and Companion. Each engine connects signal, context, recommendation, and governed action.",
+      "secondaryTitle": "More engines",
+      "items": {
+        "1": {
+          "id": "customer",
+          "name": "Customer Engine",
+          "purpose": "Relationship health, renewals, and account context.",
+          "signal": "Renewal window approaching for 3 business accounts.",
+          "action": "Prepare account brief for customer success review.",
+          "surface": "Command Brief · Customer records",
+          "primary": true,
+          "detail": {
+            "signal": "Subscription renewal in 21 days · Usage stable · 1 open support case",
+            "context": "Account linked to billing pack · Prior renewal approved by owner",
+            "recommendation": "Schedule success check-in and review prepared renewal summary.",
+            "approvalRule": "Level 2 — reversible · Owner notified",
+            "briefItem": "Renewal context added to Command Brief",
+            "auditEvent": "customer_renewal_brief_prepared"
+          }
+        },
+        "2": {
+          "id": "support",
+          "name": "Support Operations",
+          "purpose": "Triage, knowledge search, draft responses, escalation.",
+          "signal": "Billing category queue 40% above weekly baseline.",
+          "action": "Review prepared triage summary and 4 draft responses.",
+          "surface": "Support Center · Command Brief",
+          "primary": true,
+          "detail": {
+            "signal": "12 open cases · 4 drafts awaiting approval · 1 escalation",
+            "context": "Approved knowledge KB-014 matches 6 cases",
+            "recommendation": "Approve batch drafts or assign senior reviewer for escalation.",
+            "approvalRule": "Level 2 — draft send requires support lead",
+            "briefItem": "Queue spike flagged in Needs attention",
+            "auditEvent": "support_triage_summary_prepared"
+          }
+        },
+        "3": {
+          "id": "knowledge",
+          "name": "Knowledge Engine",
+          "purpose": "Corporate memory, playbooks, and approved sources.",
+          "signal": "2 knowledge gaps detected from recent support patterns.",
+          "action": "Review prepared article drafts in Knowledge Approval Center.",
+          "surface": "Knowledge Center · Learning Review",
+          "primary": true,
+          "detail": {
+            "signal": "Gap: refund policy edge case · Gap: host check-in SLA",
+            "context": "Metadata-only pattern detection · No raw chat stored",
+            "recommendation": "Approve drafts or assign subject-matter owner.",
+            "approvalRule": "Level 1 — draft · Admin publish required",
+            "briefItem": "Knowledge gaps listed under Recommended actions",
+            "auditEvent": "knowledge_gap_flagged"
+          }
+        },
+        "4": {
+          "id": "finance",
+          "name": "Finance Engine",
+          "purpose": "Billing awareness, subscription context, license health.",
+          "signal": "Payment grace period ending in 2 days for 1 tenant.",
+          "action": "Review billing recovery path before service pause.",
+          "surface": "License Center · Finance alerts",
+          "primary": false,
+          "detail": {
+            "signal": "Invoice overdue · Grace day 2 of 3",
+            "context": "Full access during grace · Settings preserved after pause",
+            "recommendation": "Notify billing contact and open payment recovery.",
+            "approvalRule": "Level 3 — billing actions require owner",
+            "briefItem": "License status in Organization status",
+            "auditEvent": "finance_grace_alert_surfaced"
+          }
+        },
+        "5": {
+          "id": "risk",
+          "name": "Risk Engine",
+          "purpose": "Operational risk visibility and escalation.",
+          "signal": "1 policy exception requires owner confirmation.",
+          "action": "Review escalation policy update before activation.",
+          "surface": "Approval Center · Governance",
+          "primary": false,
+          "detail": {
+            "signal": "Exception: guest check-in without ID verification",
+            "context": "Hosts pack policy · 3 similar events this week",
+            "recommendation": "Approve policy clarification or temporary exception.",
+            "approvalRule": "Level 3 — sensitive policy change",
+            "briefItem": "Policy exception in Needs attention",
+            "auditEvent": "risk_exception_surfaced"
+          }
+        },
+        "6": {
+          "id": "automation",
+          "name": "Automation Engine",
+          "purpose": "Approved workflows with reversible execution.",
+          "signal": "2 automation rules ready for staged rollout.",
+          "action": "Review rules in assisted mode before adaptive consent.",
+          "surface": "Action Center · Automations",
+          "primary": false,
+          "detail": {
+            "signal": "Rules: support auto-triage · follow-up reminders",
+            "context": "Assisted learning mode default · Adaptive requires consent",
+            "recommendation": "Enable assisted mode and review first 30 days.",
+            "approvalRule": "Level 2 — reversible automation",
+            "briefItem": "Automation readiness in Recommended actions",
+            "auditEvent": "automation_rule_staged"
+          }
+        }
+      }
+    },
+    "businessPacks": {
+      "title": "Business Packs — modular capability for your domain.",
+      "subtitle": "Activate operational depth by industry and function without buying software you will never use.",
+      "modelTitle": "How Business Packs work",
+      "modelSteps": {
+        "1": "Platform sells the pack catalog",
+        "2": "Your organization purchases and activates packs",
+        "3": "Admins grant pack access to teams",
+        "4": "Employees use pack workflows inside their daily systems"
+      },
+      "modelNote": "Employees never purchase packs. Your organization is always the customer.",
+      "exploreAll": "Explore all Business Packs",
+      "packs": {
+        "1": {
+          "id": "hosts",
+          "name": "Hosts",
+          "audience": "Hospitality & property operators",
+          "challenge": "Guest workflows scattered across PMS, messaging, and manual checklists.",
+          "capabilities": {
+            "1": "Guest intelligence and check-in coordination",
+            "2": "Property operational briefings",
+            "3": "Policy-aware escalation to human staff"
+          },
+          "briefSignal": "3 arrivals today · 1 policy exception pending",
+          "cta": "View Hosts pack",
+          "href": "/business-packs/hosts"
+        },
+        "2": {
+          "id": "support",
+          "name": "Support",
+          "audience": "Support & customer success teams",
+          "challenge": "High volume, inconsistent responses, knowledge buried in tickets.",
+          "capabilities": {
+            "1": "Governed triage and draft responses",
+            "2": "Approved knowledge search",
+            "3": "Escalation with full audit context"
+          },
+          "briefSignal": "4 drafts ready · Queue within SLA",
+          "cta": "View Support pack",
+          "href": "/business-packs/support"
+        },
+        "3": {
+          "id": "commerce",
+          "name": "Commerce",
+          "audience": "Commerce & retail operations",
+          "challenge": "Orders, inventory signals, and customer context in separate tools.",
+          "capabilities": {
+            "1": "Order and fulfillment visibility",
+            "2": "Customer context in support workflows",
+            "3": "Operational alerts with recommended actions"
+          },
+          "briefSignal": "2 fulfillment delays · Customer context linked",
+          "cta": "View Commerce pack",
+          "href": "/business-packs/commerce"
+        }
+      }
+    },
+    "governance": {
+      "title": "Aipify recommends. Humans decide.",
+      "subtitle": "Every sensitive action passes through explicit trust levels, human approval, and immutable audit — designed for procurement review.",
+      "levels": {
+        "1": {
+          "level": "0",
+          "title": "Information",
+          "body": "Read-only context, summaries, and visibility.",
+          "example": "Command Brief surfaces queue status.",
+          "humanControl": "No action required.",
+          "audit": "View events optional.",
+          "reversible": "N/A"
+        },
+        "2": {
+          "level": "1",
+          "title": "Draft",
+          "body": "Aipify prepares content for human review.",
+          "example": "Support response draft awaiting edit.",
+          "humanControl": "Send blocked until approved.",
+          "audit": "Draft versions logged.",
+          "reversible": "Discard anytime."
+        },
+        "3": {
+          "level": "2",
+          "title": "Reversible action",
+          "body": "Approved work that can be undone.",
+          "example": "Assign case · Schedule follow-up.",
+          "humanControl": "Policy defines auto vs manual.",
+          "audit": "Full execution trail.",
+          "reversible": "Yes — within policy window."
+        },
+        "4": {
+          "level": "3",
+          "title": "Sensitive action",
+          "body": "High-impact changes requiring explicit approver.",
+          "example": "Policy update · Billing adjustment.",
+          "humanControl": "Named approver required.",
+          "audit": "Approver identity captured.",
+          "reversible": "Case-by-case rollback."
+        }
+      },
+      "workflowTitle": "Governed workflow lifecycle",
+      "workflowSteps": {
+        "1": "Observe approved operational context",
+        "2": "Prepare recommendation with explainability",
+        "3": "Route to human approval when required",
+        "4": "Execute within policy boundaries",
+        "5": "Log immutable audit trail",
+        "6": "Surface outcome in Command Brief"
+      }
+    },
+    "enterprise": {
+      "title": "Built for professional and enterprise organizations.",
+      "pillars": {
+        "1": {
+          "title": "Multi-tenant architecture",
+          "benefit": "Strict tenant isolation — your data stays scoped to your organization.",
+          "example": "RLS and tenant helpers on every customer query.",
+          "status": "available"
+        },
+        "2": {
+          "title": "Role-based access control",
+          "benefit": "Permissions mapped to owner, admin, support, staff, and read-only.",
+          "example": "Native role mapping for WordPress, Shopify, and custom installs.",
+          "status": "available"
+        },
+        "3": {
+          "title": "Audit logging & explainability",
+          "benefit": "Actions, approvals, and configuration changes logged immutably.",
+          "example": "Procurement-ready trails for sensitive workflows.",
+          "status": "available"
+        },
+        "4": {
+          "title": "SSO & enterprise identity",
+          "benefit": "Prepared for Entra ID, Google Workspace, and Okta.",
+          "example": "Enterprise identity integration scaffold.",
+          "status": "planned"
+        },
+        "5": {
+          "title": "Custom deployment & data residency",
+          "benefit": "Consultative enterprise rollout with extended controls.",
+          "example": "Dedicated review for regulated industries.",
+          "status": "enterprise_only"
+        },
+        "6": {
+          "title": "Dedicated success & governance review",
+          "benefit": "Onboarding aligned to your approval policies and pack activation.",
+          "example": "30-day supervised learning default for new installs.",
+          "status": "custom"
+        }
+      },
+      "trust": {
+        "1": {
+          "title": "Customer owns the data",
+          "body": "Operational records stay with you. Aipify stores metadata, governance, and approved configuration."
+        },
+        "2": {
+          "title": "No employee surveillance",
+          "body": "Aipify does not monitor screens, keystrokes, private files, or browsing history."
+        },
+        "3": {
+          "title": "Emergency stop",
+          "body": "Pause all pending autonomous actions instantly — settings and data preserved."
+        },
+        "4": {
+          "title": "Transparent governance",
+          "body": "Trust Center, License Center, and Security Dashboard show how Aipify works — honestly."
+        }
+      }
+    },
+    "expansion": {
+      "title": "Start focused. Grow with confidence. Scale with governance.",
+      "stages": {
+        "1": {
+          "name": "Start",
+          "items": {
+            "1": "Install into your existing admin or store",
+            "2": "Activate first Business Pack",
+            "3": "Command Brief and assisted workflows"
+          }
+        },
+        "2": {
+          "name": "Grow",
+          "items": {
+            "1": "Add packs and operational engines",
+            "2": "Expand approval policies with audit",
+            "3": "Companion briefings for leadership"
+          }
+        },
+        "3": {
+          "name": "Scale",
+          "items": {
+            "1": "Multi-location and multi-team coordination",
+            "2": "Enterprise identity and extended governance",
+            "3": "Governed automation with reversible trust"
+          }
+        }
+      }
+    },
+    "finalCta": {
+      "title": "See how Aipify could work inside your organization.",
+      "subtitle": "Book a demo to walk through Command Brief, Business Packs, and governed workflows — or explore packs at your own pace.",
+      "primary": "Book Demo",
+      "secondary": "Explore Business Packs",
+      "tertiary": "Request Early Access"
+    }
+  },
   "enterprisePage": {
     "title": "Built for serious organizations.",
     "subtitleLines": {
