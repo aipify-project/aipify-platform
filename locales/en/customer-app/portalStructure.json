@@ -142,9 +142,10 @@
       "contactSales": "Contact sales",
       "contactSupport": "Contact support",
       "currentPlan": "Current plan",
-      "requiredPlan": "Required plan",
-      "requiredPlanValue": "Business or Enterprise",
-      "capabilitySummary": "After upgrading, manage pack configuration, activation status, dependencies and organization-wide settings from one place.",
+      "requiredPlan": "Available from",
+      "requiredPlanValue": "Business",
+      "capabilitySummary": "Upgrade to centrally manage Business Pack configuration, activation, dependencies, access and validation.",
+      "whatYouUnlock": "What you unlock",
       "configure": "Configure",
       "openWorkspace": "Open workspace",
       "version": "Version",
@@ -156,7 +157,7 @@
       "states": {
         "planRequired": {
           "title": "Upgrade required",
-          "body": "Business Pack Settings is not included in your current subscription. Upgrade to manage pack configuration, activation status, dependencies and organization-wide settings from one place."
+          "body": "Business Pack Settings is available from the Business plan."
         },
         "pendingActivation": {
           "title": "Activation in progress",
@@ -229,6 +230,65 @@
         "title": "Business Pack Settings could not be loaded",
         "body": "Aipify could not retrieve the current pack configuration. Try again shortly.",
         "retry": "Retry"
+      }
+    },
+    "planLabels": {
+      "starter": "Starter",
+      "professional": "Professional",
+      "growth": "Growth",
+      "business": "Business",
+      "enterprise": "Enterprise",
+      "insights": "Insights"
+    },
+    "businessPackDetail": {
+      "breadcrumbBusinessPacks": "Business Packs",
+      "breadcrumbDetail": "Detail",
+      "backToAvailable": "Back to available Business Packs",
+      "backToRecommendations": "Back to recommendations",
+      "whatItHelpsWith": "What this pack helps with",
+      "coreCapabilities": "Core capabilities",
+      "recommendedFor": "Recommended for",
+      "planAndAccess": "Plan and access",
+      "relatedPacks": "Related Business Packs",
+      "comingLaterTitle": "Coming later",
+      "comingLaterBody": "This Business Pack is visible for planning. Contact Aipify when your organization is ready for enterprise rollout.",
+      "contactAipify": "Contact Aipify",
+      "unavailableTitle": "Business Pack unavailable",
+      "unavailableBody": "Aipify could not find this Business Pack in your catalog. Explore available packs or contact Aipify for guidance.",
+      "viewAvailable": "Back to available",
+      "viewRecommendations": "View recommendations",
+      "exploreAvailable": "Explore available Business Packs",
+      "capabilityNote": "Platform capability"
+    },
+    "businessPackResolver": {
+      "packs": {
+        "aipifyHosts": "Aipify Hosts",
+        "governance": "Governance",
+        "commerceIntelligence": "Commerce Intelligence",
+        "supportOperations": "Support Operations",
+        "executiveIntelligence": "Executive Intelligence",
+        "essentials": "Aipify Essentials",
+        "growth": "Aipify Growth"
+      },
+      "capabilities": {
+        "analytics": "Analytics",
+        "workflows": "Workflows"
+      },
+      "capabilityDetail": {
+        "analytics": {
+          "subtitle": "Operational metrics, trend dashboards, and reporting across your organization.",
+          "helpsWith": "Analytics helps teams monitor operational performance, spot trends early, and prepare clearer executive summaries without exporting data manually.",
+          "capabilities": "Operational metrics · Trend dashboards · Reporting · Executive-ready summaries",
+          "recommendedFor": "Operations managers, analysts, and team leads who need consistent visibility into day-to-day performance.",
+          "planAccess": "Included with Aipify Essentials and above. Advanced analytics modules may require Business or Enterprise plans."
+        },
+        "workflows": {
+          "subtitle": "Process automation, task routing, and operational consistency for everyday work.",
+          "helpsWith": "Workflows reduce manual handoffs by routing tasks, standardizing approvals, and keeping operational steps visible to the teams responsible for them.",
+          "capabilities": "Process automation · Task routing · Approval preparation · Operational consistency checks",
+          "recommendedFor": "Process owners, operations staff, and administrators coordinating repeatable business work.",
+          "planAccess": "Basic workflows are available from Growth plans. Advanced automation requires Business or Enterprise."
+        }
       }
     },
     "knowledge": {
@@ -733,28 +793,64 @@
       }
     },
     "successCenter": {
+      "eyebrow": "CUSTOMER SUCCESS",
       "title": "Success Center",
-      "subtitle": "Understand adoption, engagement, risk indicators, and opportunities to get more value from Aipify.",
-      "loading": "Aipify is analyzing your organization's success indicators…",
+      "subtitle": "Track adoption, engagement, and organizational health — with clear next steps to get more value from Aipify.",
+      "loading": "Aipify is reviewing your organization's success indicators…",
+      "breadcrumbSupport": "Support",
+      "breadcrumbSuccessCenter": "Success Center",
+      "backToSupport": "Back to Support",
+      "purposeSummary": {
+        "healthy": "Your organization shows strong adoption and engagement. Aipify recommends maintaining momentum and exploring additional Business Packs where they add value.",
+        "moderate": "Your organization is making progress with room to strengthen adoption and team engagement. Review the recommendations below for the highest-impact next steps.",
+        "poor": "Several success indicators need attention. Focus on team adoption, integrations, and open operational items to improve your health score.",
+        "critical": "Your success indicators suggest significant adoption gaps. Prioritize onboarding, team invitations, and resolving open support or approval items."
+      },
       "emptyTitle": "Success insights are building",
-      "emptyBody": "Aipify will begin generating success insights as your organization becomes active.",
-      "principle": "Aipify provides advisory success insights to help your organization grow — final decisions always remain with people.",
+      "emptyBody": "Aipify will begin generating success insights as your organization becomes active. Start with onboarding to establish your foundation.",
+      "emptyAction": "Open Getting Started",
+      "errorTitle": "Success Center unavailable",
+      "errorBody": "Aipify could not load success insights for your organization. Confirm your permissions and try again.",
+      "retry": "Try again",
       "sections": {
-        "overview": "Health Overview",
+        "overview": "Overview",
         "recommendations": "Recommendations",
-        "timeline": "Success Timeline",
+        "timeline": "Timeline",
         "growth": "Growth Opportunities",
-        "adoption": "Adoption Insights",
-        "factors": "Health Factors"
+        "adoption": "Adoption",
+        "factors": "Success Factors",
+        "understandingScore": "Understanding Your Score",
+        "completedRecommendations": "Completed recommendations"
       },
       "overview": {
-        "healthScore": "Customer Health Score",
-        "adoptionScore": "Adoption Score",
-        "engagementScore": "Team Engagement Score",
-        "utilizationScore": "Feature Utilization Score",
+        "organizationOverview": "Organization Success Overview",
+        "healthScore": "Organization health score",
+        "adoptionScore": "Adoption score",
+        "engagementScore": "Engagement score",
+        "utilizationScore": "Utilization score",
         "healthStatus": "Health status",
         "riskLevel": "Risk level",
-        "advisory": "Scores and indicators are advisory. Use them alongside human judgment when planning next steps."
+        "advisory": "Scores and indicators are advisory. Use them alongside human judgment when planning next steps.",
+        "lastUpdated": "Last updated",
+        "recommendedNextAction": "Recommended next action"
+      },
+      "scoreExplanations": {
+        "adoption": "Reflects team breadth, Business Pack adoption, and connected integrations — not entitlement alone.",
+        "engagement": "Based on the share of team members active in the last 14 days relative to team size.",
+        "utilization": "Based on operational activity against enabled capabilities — not licensed modules alone."
+      },
+      "healthStates": {
+        "healthy": "Healthy",
+        "good": "Good",
+        "moderate": "Moderate",
+        "poor": "Poor",
+        "criticalHealth": "Critical",
+        "unknown": "Unknown"
+      },
+      "timelineStatus": {
+        "completed": "Completed",
+        "open": "Open",
+        "inProgress": "In progress"
       },
       "healthStatuses": {
         "excellent": "Excellent",
@@ -768,79 +864,187 @@
         "elevated": "Elevated",
         "high": "High"
       },
+      "priorities": {
+        "high": "High priority",
+        "medium": "Medium priority",
+        "low": "Low priority"
+      },
+      "recommendationStatus": {
+        "open": "Open",
+        "inProgress": "In progress",
+        "completed": "Completed"
+      },
       "recommendations": {
-        "inviteTeam": "Invite additional team members to improve collaboration and adoption.",
-        "explorePacks": "Explore unused Business Packs to unlock more operational capabilities.",
-        "enableIntegrations": "Enable integrations to connect Aipify with your existing systems.",
-        "reviewSupport": "Review unresolved support requests to keep operations moving smoothly.",
-        "reviewApprovals": "Review pending approvals so important actions are not delayed.",
-        "completeFollowUps": "Complete open follow-ups to maintain operational momentum.",
-        "completeOnboarding": "Complete remaining onboarding steps to strengthen your foundation.",
-        "configureSecurity": "Configure security settings to protect your organization workspace."
+        "inviteTeam": {
+          "title": "Invite team members",
+          "reason": "Broader team participation improves adoption and operational coverage.",
+          "benefit": "More colleagues can collaborate inside Aipify from day one.",
+          "action": "Open team management"
+        },
+        "explorePacks": {
+          "title": "Explore Business Packs",
+          "reason": "Additional Business Packs unlock operational capabilities aligned to your goals.",
+          "benefit": "Expand what Aipify can prepare and recommend for your organization.",
+          "action": "Browse available packs"
+        },
+        "enableIntegrations": {
+          "title": "Enable integrations",
+          "reason": "Connecting existing systems helps Aipify work where your team already operates.",
+          "benefit": "Reduce context switching and improve data-informed recommendations.",
+          "action": "Open integrations"
+        },
+        "reviewSupport": {
+          "title": "Review support requests",
+          "reason": "Open support items can slow operational momentum.",
+          "benefit": "Resolve blockers so your team can move forward with confidence.",
+          "action": "View support requests"
+        },
+        "reviewApprovals": {
+          "title": "Review pending approvals",
+          "reason": "Pending approvals delay actions that may require your decision.",
+          "benefit": "Keep governance clear without unnecessary delays.",
+          "action": "Open approvals"
+        },
+        "completeFollowUps": {
+          "title": "Complete follow-ups",
+          "reason": "Open follow-ups indicate unfinished operational commitments.",
+          "benefit": "Maintain accountability and operational continuity.",
+          "action": "View follow-ups"
+        },
+        "completeOnboarding": {
+          "title": "Complete onboarding",
+          "reason": "Remaining onboarding steps strengthen your organizational foundation.",
+          "benefit": "Ensure Aipify is configured correctly before scaling usage.",
+          "action": "Continue onboarding"
+        },
+        "configureSecurity": {
+          "title": "Configure security",
+          "reason": "Security settings protect your organization workspace and team access.",
+          "benefit": "Establish trust and compliance-ready access controls.",
+          "action": "Open security settings"
+        }
       },
       "growth": {
-        "team_expansion": "Team expansion",
-        "business_packs": "Business Pack adoption",
-        "integrations": "Integration connections",
-        "plan_upgrade": "Plan upgrade opportunity"
+        "team_expansion": {
+          "title": "Expand your team",
+          "description": "Invite additional colleagues to improve collaboration and shared operational visibility.",
+          "action": "Manage team"
+        },
+        "business_packs": {
+          "title": "Adopt Business Packs",
+          "description": "Install Business Packs that match your operational priorities.",
+          "action": "Explore Business Packs"
+        },
+        "integrations": {
+          "title": "Connect integrations",
+          "description": "Link the systems your organization already uses every day.",
+          "action": "Open integrations hub"
+        },
+        "plan_upgrade": {
+          "title": "Review plan options",
+          "description": "Your usage patterns may benefit from additional capacity or modules.",
+          "action": "View upgrade options"
+        }
       },
       "adoption": {
         "activeUsers": "Active users (14 days)",
-        "packsUsed": "Business Packs in use",
+        "teamSize": "Team size",
+        "businessPacks": "Installed Business Packs",
+        "activeCapabilities": "Active capabilities",
         "integrationsUsed": "Integrations connected",
-        "unusedCapabilities": "Unused capability slots"
+        "unusedCapabilities": "Unused capabilities"
       },
       "factors": {
-        "activeUsers": "Active users",
-        "teamSize": "Team size",
-        "businessPacks": "Business Packs installed",
-        "integrations": "Integrations connected",
-        "openSupport": "Open support requests",
-        "pendingApprovals": "Pending approvals",
-        "openFollowUps": "Open follow-ups"
+        "active_users": {
+          "label": "Active users",
+          "impact": "Recent login activity across your team."
+        },
+        "team_size": {
+          "label": "Team size",
+          "impact": "Breadth of organization participation."
+        },
+        "business_packs": {
+          "label": "Business Packs installed",
+          "impact": "Canonical installed packs — not module entitlements."
+        },
+        "integrations": {
+          "label": "Integrations connected",
+          "impact": "Systems linked to your Aipify workspace."
+        },
+        "open_support": {
+          "label": "Open support requests",
+          "impact": "Unresolved items that may affect momentum."
+        },
+        "pending_approvals": {
+          "label": "Pending approvals",
+          "impact": "Actions awaiting human decision."
+        },
+        "open_follow_ups": {
+          "label": "Open follow-ups",
+          "impact": "Operational commitments still in progress."
+        }
       },
-      "faq": {
-        "title": "Success Center FAQ",
-        "whatIs": "What is the Success Center?",
-        "whatIsAnswer": "The Success Center helps organizations understand adoption, engagement and opportunities to get more value from Aipify.",
-        "healthScore": "How is the Health Score calculated?",
-        "healthScoreAnswer": "The Health Score is based on organizational activity, engagement, adoption patterns and operational indicators available within Aipify.",
-        "predictRisk": "Can Aipify predict organizational risk?",
-        "predictRiskAnswer": "Aipify provides recommendations and risk indicators based on available information, but final decisions should always involve human judgment."
+      "factorActions": {
+        "active_users": "Manage team",
+        "team_size": "Invite colleagues",
+        "business_packs": "View Business Packs",
+        "integrations": "Manage integrations",
+        "open_support": "Review support",
+        "pending_approvals": "Review approvals",
+        "open_follow_ups": "View follow-ups"
+      },
+      "understandingScore": {
+        "adoptionTitle": "Adoption",
+        "adoptionBody": "Measures how broadly your organization has set up Aipify — team participation, installed Business Packs, and connected integrations.",
+        "engagementTitle": "Engagement",
+        "engagementBody": "Reflects how actively your team uses Aipify, based on recent login activity relative to team size.",
+        "utilizationTitle": "Utilization",
+        "utilizationBody": "Shows how much of your enabled capability surface is used in daily operations — not how many modules you are entitled to.",
+        "methodologyLink": "View score methodology"
       }
     },
     "gettingStarted": {
-      "title": "Getting Started",
-      "subtitle": "Guided onboarding to configure Aipify correctly and accelerate adoption across your organization.",
+      "eyebrow": "GETTING STARTED",
+      "title": "Set up your Aipify workspace",
+      "subtitle": "Complete essential setup steps so your team can adopt Aipify with confidence — security, team access, integrations, and Business Packs.",
       "loading": "Aipify is preparing your onboarding experience…",
-      "emptyTitle": "Welcome to Aipify.",
-      "emptyBody": "We'll guide your organization through setup so you can begin creating value quickly.",
-      "emptyCta": "Start Onboarding",
-      "principle": "Aipify guides adoption — your team decides pace and priorities.",
+      "breadcrumbSupport": "Support",
+      "breadcrumbGettingStarted": "Getting Started",
+      "backToSupport": "Back to Support",
       "sections": {
-        "overview": "Onboarding Overview",
-        "checklist": "Onboarding Checklist",
-        "recommendations": "Aipify Recommendations",
-        "milestones": "Milestone Celebrations",
-        "adoption": "Adoption Insights",
-        "completed": "Completed Milestones"
+        "progress": "Onboarding Progress",
+        "nextAction": "Recommended Next Action",
+        "remaining": "Remaining Setup",
+        "completed": "Completed Milestones",
+        "adoption": "Feature Adoption",
+        "understanding": "Understanding Onboarding"
       },
-      "overview": {
-        "progress": "Setup completion",
-        "status": "Overall status",
-        "nextSteps": "Recommended next steps",
-        "advisory": "Progress reflects required setup tasks. Optional steps help you explore additional value."
+      "progress": {
+        "percentComplete": "Setup completion",
+        "stepsCompleted": "Applicable steps",
+        "workflowState": "Workflow state",
+        "lastUpdated": "Last updated",
+        "continueSetup": "Continue setup",
+        "advisory": "Progress reflects required setup tasks for your organization. Optional steps help you explore additional value."
       },
-      "statuses": {
-        "notStarted": "Not Started",
-        "inProgress": "In Progress",
-        "completed": "Completed"
+      "workflowStates": {
+        "notStarted": "Not started",
+        "inProgress": "In progress",
+        "requiresAttention": "Requires attention",
+        "completed": "Completed",
+        "blocked": "Blocked"
+      },
+      "taskPriorities": {
+        "required": "Required",
+        "recommended": "Recommended",
+        "optional": "Optional"
       },
       "taskStatuses": {
-        "notStarted": "Not Started",
-        "inProgress": "In Progress",
+        "notStarted": "Not started",
+        "inProgress": "In progress",
         "completed": "Completed",
-        "optional": "Optional"
+        "optional": "Optional",
+        "blocked": "Blocked"
       },
       "categories": {
         "organization": "Organization Setup",
@@ -860,7 +1064,7 @@
         "security2fa": "Enable two-factor authentication",
         "securityAccess": "Review access controls",
         "securityPreferences": "Configure security preferences",
-        "integrationConnect": "Connect first integration",
+        "integrationConnect": "Connect integration",
         "integrationHealth": "Validate integration health",
         "integrationSync": "Review synchronization status",
         "packInstall": "Install first Business Pack",
@@ -883,23 +1087,35 @@
         "onboardingComplete": "You've completed onboarding."
       },
       "adoption": {
-        "featuresExplored": "Features explored",
-        "featuresNotDiscovered": "Features not yet discovered",
+        "explored": "Features explored",
+        "recommended": "Recommended to explore",
         "suggestedPacks": "Suggested Business Packs",
-        "nextActions": "Recommended next actions"
+        "noneExplored": "No adoption features recorded yet.",
+        "noneRecommended": "No additional features recommended right now."
       },
-      "faq": {
-        "title": "Getting Started FAQ",
-        "whatIs": "What is Getting Started?",
-        "whatIsAnswer": "Getting Started helps organizations configure Aipify correctly and accelerate adoption through guided onboarding.",
-        "requiredSteps": "Do I need to complete every onboarding step?",
-        "requiredStepsAnswer": "Some onboarding steps are optional, while others help improve security, collaboration and long-term success.",
+      "understanding": {
         "revisit": "Can onboarding be revisited later?",
-        "revisitAnswer": "Yes. Organizations can return to Getting Started at any time to complete remaining setup tasks."
+        "revisitAnswer": "Yes. Organizations can return to Getting Started at any time to complete remaining setup tasks.",
+        "progressMeaning": "How is progress calculated?",
+        "progressMeaningAnswer": "Progress counts completed applicable setup steps against the total required for your organization plan and enabled capabilities.",
+        "permissions": "Who can update onboarding?",
+        "permissionsAnswer": "Organization owners and administrators can start onboarding, mark manual steps, and dismiss milestone celebrations."
+      },
+      "empty": {
+        "title": "Start your workspace setup",
+        "body": "Aipify will guide your organization through essential configuration so your team can begin creating value.",
+        "action": "Start onboarding"
+      },
+      "error": {
+        "title": "Getting Started unavailable",
+        "body": "Aipify could not load onboarding for your organization. Confirm your permissions and try again.",
+        "retry": "Try again"
       },
       "actions": {
+        "open": "Open",
         "markComplete": "Mark complete",
-        "dismissMilestone": "Dismiss"
+        "hide": "Hide",
+        "startCourse": "Start"
       }
     },
     "capabilityCenter": {
@@ -3156,45 +3372,69 @@
       }
     },
     "customerAcademy": {
-      "title": "Learning & Academy",
-      "subtitle": "Educate employees, improve adoption and build operational maturity with Aipify Academy.",
+      "eyebrow": "AIPIFY ACADEMY",
+      "title": "Customer Academy",
+      "subtitle": "Educate employees, improve adoption, and build operational maturity with structured learning paths.",
       "loading": "Aipify is preparing your learning experience…",
-      "principle": "Aipify helps customers become successful — product education, onboarding and continuous learning.",
-      "emptyTitle": "No learning activity has started yet.",
-      "emptyBody": "Help your organization succeed by building knowledge through Aipify Academy.",
-      "emptyCta": "Start Learning",
-      "accessDenied": "You do not have permission to access Aipify Academy.",
+      "breadcrumbSupport": "Support",
+      "breadcrumbAcademy": "Customer Academy",
+      "backToSupport": "Back to Support",
+      "accessDenied": "You do not have permission to access Customer Academy.",
       "filters": {
         "search": "Search learning…",
+        "sortBy": "Sort by",
+        "sortTitle": "Title",
+        "sortDuration": "Duration",
+        "sortDifficulty": "Difficulty",
+        "sortSection": "Section",
+        "sortProgress": "Progress",
         "category": "Category",
         "completionStatus": "Completion status",
-        "certificationType": "Certification type",
-        "department": "Department",
         "difficulty": "Difficulty level",
         "all": "All",
         "notStarted": "Not started",
+        "inProgress": "In progress",
         "completed": "Completed"
       },
-      "dashboard": {
-        "progress": "Learning progress",
-        "completionRate": "Completion percentage",
-        "recommended": "Recommended courses",
-        "assigned": "Assigned training",
-        "certifications": "Certifications earned",
-        "teamRate": "Team completion rate",
-        "recentlyReleased": "Recently released courses",
-        "suggestedPaths": "Suggested next learning paths",
-        "coursesStarted": "Courses started",
-        "coursesCompleted": "Courses completed",
-        "outstanding": "Outstanding assignments"
+      "overview": {
+        "available": "Available courses",
+        "assigned": "Assigned",
+        "started": "Started",
+        "inProgress": "In progress",
+        "completed": "Completed",
+        "overdue": "Overdue",
+        "personalCompletion": "Personal completion"
       },
       "sections": {
-        "gettingStarted": "Getting Started",
+        "continueLearning": "Continue Learning",
+        "recommended": "Recommended for You",
+        "gettingStarted": "Getting Started Courses",
         "productTraining": "Product Training",
-        "teamTraining": "Team Training",
         "certifications": "Certifications",
-        "knowledgeCenter": "Knowledge Center",
-        "teamReporting": "Team reporting"
+        "teamLearning": "Team Learning",
+        "suggestedPaths": "Suggested Learning Paths",
+        "knowledgeCenter": "Knowledge Center Resources",
+        "understanding": "Understanding Customer Academy"
+      },
+      "courseStates": {
+        "notStarted": "Not started",
+        "inProgress": "In progress",
+        "completed": "Completed",
+        "locked": "Restricted",
+        "assigned": "Assigned",
+        "overdue": "Overdue"
+      },
+      "courseActions": {
+        "start": "Start course",
+        "continue": "Continue",
+        "review": "Review",
+        "complete": "Mark complete"
+      },
+      "certificationStates": {
+        "earned": "Certified",
+        "inProgress": "In progress",
+        "notStarted": "Not started",
+        "expired": "Expired"
       },
       "assign": {
         "title": "Assign training",
@@ -3202,32 +3442,34 @@
         "department": "Department",
         "required": "Required training",
         "dueDate": "Due date",
-        "notes": "Notes",
         "submit": "Assign training",
         "cancel": "Cancel",
         "supportTeam": "Support Team",
         "operationsTeam": "Operations Team",
-        "leadershipTeam": "Leadership Team"
-      },
-      "course": {
-        "complete": "Mark complete",
-        "completed": "Completed",
-        "minutes": "min",
-        "required": "Required",
-        "optional": "Optional",
-        "overdue": "Overdue"
+        "leadershipTeam": "Leadership Team",
+        "action": "Assign learning"
       },
       "team": {
+        "noAssignments": "No team learning assigned",
         "assigned": "Assigned training",
         "completionRate": "Completion rate",
-        "overdue": "Overdue assignments",
-        "recommendedActions": "Recommended actions"
+        "overdue": "Overdue assignments"
+      },
+      "recommendations": {
+        "onboarding": "Recommended to complete your workspace foundation.",
+        "security": "Strengthen security practices for your organization.",
+        "businessPacks": "Expand operational capabilities with Business Packs.",
+        "adoption": "Improve adoption across your organization."
       },
       "certifications": {
         "certifiedUser": "Aipify Certified User",
         "operationsUser": "Aipify Operations User",
         "supportUser": "Aipify Support User",
-        "executiveUser": "Aipify Executive User"
+        "executiveUser": "Aipify Executive User",
+        "aipify_certified_user": "Aipify Certified User",
+        "aipify_operations_user": "Aipify Operations User",
+        "aipify_support_user": "Aipify Support User",
+        "aipify_executive_user": "Aipify Executive User"
       },
       "difficulties": {
         "beginner": "Beginner",
@@ -3238,16 +3480,25 @@
         "course": "Course",
         "faq": "FAQ",
         "article": "Article",
-        "video": "Video"
+        "video": "Video",
+        "guide": "Guide"
       },
-      "faq": {
-        "title": "Aipify Academy FAQ",
-        "whatIs": "What is Aipify Academy?",
-        "whatIsAnswer": "Aipify Academy helps organizations educate employees, improve adoption and maximize the value of Aipify.",
+      "understanding": {
+        "whatIs": "What is Customer Academy?",
+        "whatIsAnswer": "Customer Academy helps organizations educate employees, improve adoption, and maximize the value of Aipify through structured courses and certifications.",
         "managersAssign": "Can managers assign learning?",
-        "managersAssignAnswer": "Yes. Managers can assign learning paths, monitor completion and support employee development.",
-        "partnerAcademy": "Is Aipify Academy the same as the Partner Academy?",
-        "partnerAcademyAnswer": "No. Aipify Academy is designed for customers using Aipify internally. Growth Partner training is provided through the Partner Portal."
+        "managersAssignAnswer": "Yes. Managers can assign learning paths, monitor completion, and support employee development within your organization.",
+        "partnerAcademy": "Is this the Partner Academy?",
+        "partnerAcademyAnswer": "No. Customer Academy is for organizations using Aipify internally. Growth Partner training lives in the Partner Portal — not in the customer APP."
+      },
+      "empty": {
+        "continueLearning": "No courses in progress. Start a course from Getting Started or Product Training.",
+        "teamLearning": "Assign learning to your team to track completion and overdue assignments."
+      },
+      "error": {
+        "title": "Customer Academy unavailable",
+        "body": "Aipify could not load academy data. Confirm your permissions and try again.",
+        "retry": "Try again"
       }
     },
     "customerSuccess": {
@@ -4002,19 +4253,24 @@
         "savedRecommendations": "Saved Recommendations",
         "recentlyViewed": "Recently Viewed Recommendations",
         "operationalCategories": "Operational Categories Covered",
-        "comparePacks": "Compare"
+        "comparePacks": "Compare",
+        "compare": "Compare"
       },
       "card": {
         "confidenceScore": "Confidence score",
-        "reason": "Recommendation reason",
-        "benefits": "Potential benefits",
-        "complexity": "Estimated complexity",
+        "reason": "Why recommended",
+        "benefits": "Potential benefit",
+        "complexity": "Complexity",
         "suggestedUsers": "Suggested users",
         "relatedPacks": "Related Business Packs",
         "learnMore": "Learn more",
         "saveRecommendation": "Save recommendation",
         "dismiss": "Dismiss",
-        "saved": "Saved"
+        "saved": "Saved",
+        "matchBadge": "Recommended",
+        "accessInstalled": "Installed",
+        "accessAvailable": "Available to install",
+        "compare": "Compare"
       },
       "compare": {
         "title": "Compare Business Packs",

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   PACK_COMPLEXITY_LEVELS,
   PACK_CONFIDENCE_LEVELS,
@@ -14,8 +14,11 @@ import {
   type PackRecommendationLabels,
   type PackRecommendationOverview,
 } from "@/lib/app-portal/business-pack-recommendations";
+import { resolveRecommendationLearnMore } from "@/lib/app-portal/business-pack-resolver";
 
 type Props = { labels: PackRecommendationLabels };
+
+const RECOMMENDATIONS_STATE_KEY = "aipify:business-pack-recommendations-state";
 
 const CONFIDENCE_STYLE: Record<string, string> = {
   exploratory: "bg-slate-100 text-slate-700",
@@ -38,6 +41,80 @@ export function BusinessPackRecommendationsPanel({ labels }: Props) {
   const [installedStatus, setInstalledStatus] = useState("");
   const [search, setSearch] = useState("");
   const [busy, setBusy] = useState(false);
+  const restoredRef = useRef(false);
+  const scrollRestoredRef = useRef(false);
+
+  useEffect(() => {
+    if (restoredRef.current || typeof window === "undefined") return;
+    restoredRef.current = true;
+    try {
+      const raw = sessionStorage.getItem(RECOMMENDATIONS_STATE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as {
+        industry?: string;
+        category?: string;
+        complexity?: string;
+        businessImpact?: string;
+        confidenceLevel?: string;
+        installedStatus?: string;
+        search?: string;
+        scrollY?: number;
+      };
+      if (saved.industry) setIndustry(saved.industry);
+      if (saved.category) setCategory(saved.category);
+      if (saved.complexity) setComplexity(saved.complexity);
+      if (saved.businessImpact) setBusinessImpact(saved.businessImpact);
+      if (saved.confidenceLevel) setConfidenceLevel(saved.confidenceLevel);
+      if (saved.installedStatus) setInstalledStatus(saved.installedStatus);
+      if (saved.search) setSearch(saved.search);
+      if (typeof saved.scrollY === "number") {
+        requestAnimationFrame(() => {
+          window.scrollTo(0, saved.scrollY ?? 0);
+          scrollRestoredRef.current = true;
+        });
+      }
+    } catch {
+      // ignore corrupt session state
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || scrollRestoredRef.current) return;
+    const onScroll = () => {
+      sessionStorage.setItem(
+        RECOMMENDATIONS_STATE_KEY,
+        JSON.stringify({
+          industry,
+          category,
+          complexity,
+          businessImpact,
+          confidenceLevel,
+          installedStatus,
+          search,
+          scrollY: window.scrollY,
+        })
+      );
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [industry, category, complexity, businessImpact, confidenceLevel, installedStatus, search]);
+
+  function persistBeforeNavigate() {
+    if (typeof window === "undefined") return;
+    sessionStorage.setItem(
+      RECOMMENDATIONS_STATE_KEY,
+      JSON.stringify({
+        industry,
+        category,
+        complexity,
+        businessImpact,
+        confidenceLevel,
+        installedStatus,
+        search,
+        scrollY: window.scrollY,
+      })
+    );
+  }
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -198,6 +275,7 @@ export function BusinessPackRecommendationsPanel({ labels }: Props) {
                 onToggleSelect={() => toggleSelect(rec.pack_key)}
                 onSave={() => void saveRecommendation(rec.pack_key)}
                 onDismiss={() => void dismissRecommendation(rec.pack_key)}
+                onNavigate={persistBeforeNavigate}
               />
             ))}
           </div>
@@ -256,6 +334,7 @@ function RecommendationCard({
   onToggleSelect,
   onSave,
   onDismiss,
+  onNavigate,
 }: {
   rec: PackRecommendation;
   labels: PackRecommendationLabels;
@@ -266,39 +345,88 @@ function RecommendationCard({
   onToggleSelect: () => void;
   onSave: () => void;
   onDismiss: () => void;
+  onNavigate: () => void;
 }) {
+  const { href: learnMoreHref } = resolveRecommendationLearnMore(rec);
+  const confidenceLabel =
+    labels.confidenceLevels[rec.confidence_level as keyof typeof labels.confidenceLevels] ??
+    rec.confidence_level;
+
   return (
     <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h3 className="font-semibold text-slate-900">{rec.name}</h3>
-          <span className={`mt-2 inline-block rounded-full px-2 py-0.5 text-xs font-medium ${CONFIDENCE_STYLE[rec.confidence_level] ?? CONFIDENCE_STYLE.suggested}`}>
-            {labels.confidenceLevels[rec.confidence_level as keyof typeof labels.confidenceLevels] ?? rec.confidence_level}
-          </span>
+        <div className="space-y-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="font-semibold text-slate-900">{rec.name}</h3>
+            <span className="rounded-full bg-violet-100 px-2 py-0.5 text-xs font-medium text-violet-900">
+              {labels.card.matchBadge}
+            </span>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${CONFIDENCE_STYLE[rec.confidence_level] ?? CONFIDENCE_STYLE.suggested}`}>
+              {confidenceLabel}
+            </span>
+            <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${rec.installed ? "bg-emerald-100 text-emerald-900" : "bg-slate-100 text-slate-700"}`}>
+              {rec.installed ? labels.card.accessInstalled : labels.card.accessAvailable}
+            </span>
+          </div>
         </div>
-        {rec.confidence_score ? <p className="text-sm text-slate-500">{labels.card.confidenceScore}: {rec.confidence_score}/100</p> : null}
+        {rec.confidence_score ? (
+          <p className="text-sm text-slate-500">
+            {labels.card.confidenceScore}: {rec.confidence_score}/100
+          </p>
+        ) : null}
       </div>
-      <p className="mt-3 text-sm text-slate-700">{labels.card.reason}: {labels.reasons[rec.reason_key as keyof typeof labels.reasons] ?? rec.reason_key}</p>
-      <p className="mt-2 text-sm text-slate-600">{labels.card.benefits}: {labels.benefits[rec.benefits_key as keyof typeof labels.benefits] ?? rec.benefits_key}</p>
-      <dl className="mt-3 grid gap-1 text-sm text-slate-700 sm:grid-cols-2">
-        <div><dt className="text-xs text-slate-500">{labels.card.complexity}</dt><dd>{labels.complexityLevels[rec.complexity as keyof typeof labels.complexityLevels] ?? rec.complexity}</dd></div>
-        <div><dt className="text-xs text-slate-500">{labels.card.suggestedUsers}</dt><dd>{rec.suggested_users ?? "—"}</dd></div>
+      <p className="mt-3 text-sm text-slate-700">
+        <span className="font-medium text-slate-800">{labels.card.reason}:</span>{" "}
+        {labels.reasons[rec.reason_key as keyof typeof labels.reasons] ?? rec.reason_key}
+      </p>
+      <p className="mt-2 text-sm text-slate-600">
+        <span className="font-medium text-slate-800">{labels.card.benefits}:</span>{" "}
+        {labels.benefits[rec.benefits_key as keyof typeof labels.benefits] ?? rec.benefits_key}
+      </p>
+      <dl className="mt-3 grid gap-2 text-sm text-slate-700 sm:grid-cols-2">
+        <div>
+          <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">{labels.card.complexity}</dt>
+          <dd className="mt-0.5">{labels.complexityLevels[rec.complexity as keyof typeof labels.complexityLevels] ?? rec.complexity}</dd>
+        </div>
+        <div>
+          <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">{labels.card.suggestedUsers}</dt>
+          <dd className="mt-0.5">{rec.suggested_users ?? "—"}</dd>
+        </div>
       </dl>
       {(rec.related_packs?.length ?? 0) > 0 ? (
-        <p className="mt-2 text-xs text-slate-500">{labels.card.relatedPacks}: {rec.related_packs!.join(", ")}</p>
+        <p className="mt-3 text-xs text-slate-500">
+          <span className="font-medium text-slate-600">{labels.card.relatedPacks}:</span>{" "}
+          {rec.related_packs!.join(", ")}
+        </p>
       ) : null}
       <div className="mt-4 flex flex-wrap gap-2">
-        <Link href={`/app/business-packs/available?pack=${rec.pack_key}`} className="rounded-lg border border-indigo-200 px-3 py-1.5 text-sm font-medium text-indigo-700 hover:bg-indigo-50">{labels.card.learnMore}</Link>
+        {learnMoreHref ? (
+          <Link
+            href={learnMoreHref}
+            onClick={onNavigate}
+            className="rounded-lg border border-indigo-200 px-3 py-1.5 text-sm font-medium text-indigo-700 hover:bg-indigo-50"
+          >
+            {labels.card.learnMore}
+          </Link>
+        ) : (
+          <button
+            type="button"
+            disabled
+            className="cursor-not-allowed rounded-lg border border-slate-100 px-3 py-1.5 text-sm text-slate-400"
+          >
+            {labels.card.learnMore}
+          </button>
+        )}
         {canFull ? (
           <>
             <button type="button" disabled={busy || rec.saved} onClick={onSave} className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm disabled:opacity-60">
               {rec.saved ? labels.card.saved : labels.card.saveRecommendation}
             </button>
-            {canFull ? (
-              <button type="button" disabled={busy} onClick={onToggleSelect} className={`rounded-lg border px-3 py-1.5 text-sm ${selected ? "border-indigo-600 bg-indigo-50 text-indigo-800" : "border-slate-200"}`}>
-                {labels.dashboard.comparePacks}
-              </button>
-            ) : null}
+            <button type="button" disabled={busy} onClick={onToggleSelect} className={`rounded-lg border px-3 py-1.5 text-sm ${selected ? "border-indigo-600 bg-indigo-50 text-indigo-800" : "border-slate-200"}`}>
+              {labels.card.compare}
+            </button>
           </>
         ) : null}
         {canManage ? (

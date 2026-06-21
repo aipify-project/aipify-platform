@@ -1,4 +1,5 @@
 import type { Translator } from "@/lib/i18n/translate";
+import { buildSinceLastLoginUxLabels } from "@/lib/command-center/since-last-login-labels";
 
 export function buildExecutiveCommandCenterLabels(t: Translator) {
   const p = "customerApp.executiveCommandCenter";
@@ -106,7 +107,66 @@ export function buildExecutiveCommandCenterLabels(t: Translator) {
         healthStatusLow: t(`${p}.premium.metrics.healthStatusLow`),
         countActive: t(`${p}.premium.metrics.countActive`),
         countNone: t(`${p}.premium.metrics.countNone`),
+        sinceLastLoginUpdated: t(`${p}.premium.metrics.sinceLastLoginUpdated`),
+        noCriticalItems: t(`${p}.premium.metrics.noCriticalItems`),
+        workflowOpen: t("common.status.semantic.workflow.open"),
+        workflowPending: t("common.status.semantic.workflow.pending"),
+        severityCritical: t("common.status.semantic.severity.critical"),
       },
     },
+    sinceLastLoginUx: buildSinceLastLoginUxLabels(t),
+    tabs: {
+      insights: {
+        alerts: t(`${p}.tabs.insights.alerts`),
+        approvals: t(`${p}.tabs.insights.approvals`),
+        risks: t(`${p}.tabs.insights.risks`),
+        opportunities: t(`${p}.tabs.insights.opportunities`),
+        performance: t(`${p}.tabs.insights.performance`),
+        companionBriefing: t(`${p}.tabs.insights.companionBriefing`),
+      },
+      empty: {
+        alerts: t(`${p}.tabs.empty.alerts`),
+        approvals: t(`${p}.tabs.empty.approvals`),
+        risks: t(`${p}.tabs.empty.risks`),
+        opportunities: t(`${p}.tabs.empty.opportunities`),
+        performance: t(`${p}.tabs.empty.performance`),
+        companionBriefing: t(`${p}.tabs.empty.companionBriefing`),
+        activeRisks: t(`${p}.tabs.empty.activeRisks`),
+        operationalHealth: t(`${p}.tabs.empty.operationalHealth`),
+        executiveBriefing: t(`${p}.tabs.empty.executiveBriefing`),
+        dailyBriefing: t(`${p}.tabs.empty.dailyBriefing`),
+        boardReports: t(`${p}.tabs.empty.boardReports`),
+      },
+      sections: {
+        activeRisks: t(`${p}.tabs.sections.activeRisks`),
+        operationalHealth: t(`${p}.tabs.sections.operationalHealth`),
+        executiveBriefing: t(`${p}.tabs.sections.executiveBriefing`),
+        dailyBriefing: t(`${p}.tabs.sections.dailyBriefing`),
+        boardReports: t(`${p}.tabs.sections.boardReports`),
+        performanceHealth: t(`${p}.tabs.sections.performanceHealth`),
+      },
+      metrics: {
+        upToDate: t(`${p}.tabs.metrics.upToDate`),
+        noOpenAlerts: t(`${p}.tabs.metrics.noOpenAlerts`),
+        noPendingActions: t(`${p}.tabs.metrics.noPendingActions`),
+        noCriticalItems: t(`${p}.tabs.metrics.noCriticalItems`),
+      },
+      shared: {
+        open: t(`${p}.tabs.shared.open`),
+        type: t(`${p}.tabs.shared.type`),
+        timestamp: t(`${p}.tabs.shared.timestamp`),
+        items: t(`${p}.tabs.shared.items`),
+      },
+      approvals: {
+        requester: t(`${p}.tabs.approvals.requester`),
+        blocked: t(`${p}.tabs.approvals.blocked`),
+      },
+      opportunities: {
+        value: t(`${p}.tabs.opportunities.value`),
+        confidence: t(`${p}.tabs.opportunities.confidence`),
+        nextStep: t(`${p}.tabs.opportunities.nextStep`),
+      },
+    },
+    resolveLabel: t,
   };
 }

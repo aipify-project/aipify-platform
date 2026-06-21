@@ -172,5 +172,62 @@
       "square": "Välj kvadrat",
       "star": "Välj stjärna"
     }
+  },
+  "status": {
+    "completed": "Slutförd",
+    "notAllowed": "Inte tillåten",
+    "needsAttention": "Kräver uppmärksamhet",
+    "information": "Information",
+    "restricted": "Begränsad åtkomst",
+    "verified": "Verifierad",
+    "waiting": "Väntar",
+    "semantic": {
+      "lifecycle": {
+        "active": "Aktiv",
+        "inactive": "Inaktiv",
+        "enabled": "Aktiverad",
+        "disabled": "Inaktiverad",
+        "paused": "Pausad",
+        "archived": "Arkiverad"
+      },
+      "severity": {
+        "critical": "Kritisk",
+        "high": "Hög risk",
+        "medium": "Medel risk",
+        "low": "Låg risk",
+        "info": "Information"
+      },
+      "workflow": {
+        "open": "Öppna",
+        "pending": "Väntar",
+        "inProgress": "Pågår",
+        "awaitingApproval": "Väntar på godkännande",
+        "completed": "Slutförd",
+        "cancelled": "Avbruten",
+        "blocked": "Blockerad",
+        "overdue": "Försenad"
+      },
+      "health": {
+        "healthy": "Frisk",
+        "good": "Bra",
+        "moderate": "Måttlig",
+        "poor": "Dålig",
+        "criticalHealth": "Kritisk hälsa",
+        "unknown": "Okänd"
+      },
+      "access": {
+        "verified": "Verifierad",
+        "restricted": "Begränsad åtkomst",
+        "notAllowed": "Inte tillåten"
+      },
+      "a11y": {
+        "lifecycle": "Livscykelstatus: {{status}}",
+        "severity": "Risknivå: {{status}}",
+        "workflow": "Arbetsflödesstatus: {{status}}",
+        "health": "Hälsostatus: {{status}}",
+        "organizationalHealth": "Organisationshälsa: {{status}}",
+        "access": "Åtkomststatus: {{status}}"
+      }
+    }
   }
 }

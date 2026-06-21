@@ -142,9 +142,9 @@
       "contactSales": "Kontakt salg",
       "contactSupport": "Kontakt support",
       "currentPlan": "Nuværende plan",
-      "requiredPlan": "Påkrævet plan",
-      "requiredPlanValue": "Business eller Enterprise",
-      "capabilitySummary": "Efter opgradering kan du administrere pakkekonfiguration, aktiveringsstatus, afhængigheder og organisationsindstillinger ét sted.",
+      "requiredPlan": "Tilgængelig fra",
+      "requiredPlanValue": "Business",
+      "capabilitySummary": "Opgrader for centralt at administrere Business Pack-konfiguration, aktivering, afhængigheder, adgang og validering.",
       "configure": "Konfigurer",
       "openWorkspace": "Åbn arbejdsområde",
       "version": "Version",
@@ -156,7 +156,7 @@
       "states": {
         "planRequired": {
           "title": "Opgradering påkrævet",
-          "body": "Business Pack-indstillinger er ikke inkluderet i dit nuværende abonnement. Opgrader for at administrere pakkekonfiguration, aktiveringsstatus, afhængigheder og organisationsindstillinger ét sted."
+          "body": "Business Pack-indstillinger er tilgængelige fra Business-planen."
         },
         "pendingActivation": {
           "title": "Aktivering i gang",
@@ -196,11 +196,26 @@
         }
       },
       "valueCards": {
-        "packConfiguration": { "title": "Pakkekonfiguration", "description": "Administrer indstillinger for installerede Business Packs." },
-        "activationStatus": { "title": "Aktiveringsstatus", "description": "Se om pakker er aktive, valideres eller kræver opmærksomhed." },
-        "dependencies": { "title": "Afhængigheder", "description": "Gennemgå nødvendige integrationer, tilladelser og tjenester." },
-        "accessManagement": { "title": "Adgangsstyring", "description": "Kontroller hvilke organisationsroller der må bruge hver pakke." },
-        "healthValidation": { "title": "Sundhed og validering", "description": "Se resultater fra smoketests og aktiveringsproblemer." }
+        "packConfiguration": {
+          "title": "Pakkekonfiguration",
+          "description": "Administrer indstillinger for installerede Business Packs."
+        },
+        "activationStatus": {
+          "title": "Aktiveringsstatus",
+          "description": "Se om pakker er aktive, valideres eller kræver opmærksomhed."
+        },
+        "dependencies": {
+          "title": "Afhængigheder",
+          "description": "Gennemgå nødvendige integrationer, tilladelser og tjenester."
+        },
+        "accessManagement": {
+          "title": "Adgangsstyring",
+          "description": "Kontroller hvilke organisationsroller der må bruge hver pakke."
+        },
+        "healthValidation": {
+          "title": "Sundhed og validering",
+          "description": "Se resultater fra smoketests og aktiveringsproblemer."
+        }
       },
       "packStatus": {
         "active": "Aktiv",
@@ -214,7 +229,8 @@
         "title": "Business Pack-indstillinger kunne ikke indlæses",
         "body": "Aipify kunne ikke hente den aktuelle pakkekonfiguration. Prøv igen om lidt.",
         "retry": "Prøv igen"
-      }
+      },
+      "whatYouUnlock": "Det låser du op"
     },
     "knowledge": {
       "title": "Videnscenter",
@@ -950,85 +966,213 @@
       }
     },
     "successCenter": {
+      "eyebrow": "KUNDESUCCESS",
       "title": "Success Center",
-      "subtitle": "Understand adoption, engagement, risk indicators, and opportunities to get more value from Aipify.",
-      "loading": "Aipify is analyzing your organization's success indicators…",
-      "emptyTitle": "Success insights are building",
-      "emptyBody": "Aipify will begin generating success insights as your organization becomes active.",
-      "principle": "Aipify provides advisory success insights to help your organization grow — final decisions always remain with people.",
+      "subtitle": "Følg adoption, engagement og organisatorisk sundhed — med tydelige næste skridt for mere værdi fra Aipify.",
+      "loading": "Aipify gennemgår organisationens succesindikatorer…",
+      "breadcrumbSupport": "Support",
+      "breadcrumbSuccessCenter": "Success Center",
+      "backToSupport": "Tilbage til Support",
+      "purposeSummary": {
+        "healthy": "Organisationen viser stærk adoption og engagement. Aipify anbefaler at fastholde momentum og udforske flere Business Packs, hvor de tilfører værdi.",
+        "moderate": "Organisationen gør fremskridt, men adoption og teamengagement kan styrkes. Gennemgå anbefalingerne nedenfor for de vigtigste næste skridt.",
+        "poor": "Flere succesindikatorer kræver opmærksomhed. Fokuser på teamadoption, integrationer og åbne operative sager.",
+        "critical": "Succesindikatorerne tyder på betydelige adoptionshuller. Prioriter onboarding, teaminvitationer og løsning af åbne support- eller godkendelsessager."
+      },
+      "emptyTitle": "Succesindsigt opbygges",
+      "emptyBody": "Aipify begynder at generere succesindsigt, når organisationen bliver aktiv. Start med onboarding for at etablere fundamentet.",
+      "emptyAction": "Åbn Kom i gang",
+      "errorTitle": "Success Center utilgængeligt",
+      "errorBody": "Aipify kunne ikke indlæse succesindsigt for organisationen. Bekræft adgange og prøv igen.",
+      "retry": "Prøv igen",
       "sections": {
-        "overview": "Health Overview",
-        "recommendations": "Recommendations",
-        "timeline": "Success Timeline",
-        "growth": "Growth Opportunities",
-        "adoption": "Adoption Insights",
-        "factors": "Health Factors"
+        "overview": "Oversigt",
+        "recommendations": "Anbefalinger",
+        "timeline": "Tidslinje",
+        "growth": "Vækstmuligheder",
+        "adoption": "Adoption",
+        "factors": "Succesfaktorer",
+        "understandingScore": "Forstå din score",
+        "completedRecommendations": "Fuldførte anbefalinger"
       },
       "overview": {
-        "healthScore": "Customer Health Score",
-        "adoptionScore": "Adoption Score",
-        "engagementScore": "Team Engagement Score",
-        "utilizationScore": "Feature Utilization Score",
-        "healthStatus": "Health status",
-        "riskLevel": "Risk level",
-        "advisory": "Scores and indicators are advisory. Use them alongside human judgment when planning next steps."
+        "organizationOverview": "Organisationens succesoversigt",
+        "healthScore": "Organisationshelbredsscore",
+        "adoptionScore": "Adoptionsscore",
+        "engagementScore": "Engagementsscore",
+        "utilizationScore": "Udnyttelsesscore",
+        "healthStatus": "Helbredstilstand",
+        "riskLevel": "Risikoniveau",
+        "advisory": "Scorer og indikatorer er vejledende. Brug dem sammen med menneskelig dømmekraft.",
+        "lastUpdated": "Sidst opdateret",
+        "recommendedNextAction": "Anbefalet næste handling"
       },
-      "healthStatuses": {
-        "excellent": "Excellent",
-        "healthy": "Healthy",
-        "attentionNeeded": "Attention Needed",
-        "atRisk": "At Risk"
+      "scoreExplanations": {
+        "adoption": "Afspejler teambredde, Business Pack-adoption og tilsluttede integrationer — ikke rettigheder alene.",
+        "engagement": "Baseret på andelen af teammedlemmer aktive de seneste 14 dage i forhold til teamstørrelse.",
+        "utilization": "Baseret på operativ aktivitet mod aktiverede kapabiliteter — ikke licenserede moduler alene."
+      },
+      "healthStates": {
+        "healthy": "Sund",
+        "good": "God",
+        "moderate": "Moderat",
+        "poor": "Svag",
+        "criticalHealth": "Kritisk",
+        "unknown": "Ukendt"
       },
       "riskLevels": {
-        "low": "Low",
-        "moderate": "Moderate",
-        "elevated": "Elevated",
-        "high": "High"
+        "low": "Lav",
+        "moderate": "Moderat",
+        "elevated": "Forhøjet",
+        "high": "Høj"
+      },
+      "priorities": {
+        "high": "Høj prioritet",
+        "medium": "Medium prioritet",
+        "low": "Lav prioritet"
+      },
+      "recommendationStatus": {
+        "open": "Åben",
+        "inProgress": "I gang",
+        "completed": "Fuldført"
+      },
+      "timelineStatus": {
+        "completed": "Fuldført",
+        "open": "Åben",
+        "inProgress": "I gang"
       },
       "recommendations": {
-        "inviteTeam": "Invite additional team members to improve collaboration and adoption.",
-        "explorePacks": "Explore unused Business Packs to unlock more operational capabilities.",
-        "enableIntegrations": "Enable integrations to connect Aipify with your existing systems.",
-        "reviewSupport": "Review unresolved support requests to keep operations moving smoothly.",
-        "reviewApprovals": "Review pending approvals so important actions are not delayed.",
-        "completeFollowUps": "Complete open follow-ups to maintain operational momentum.",
-        "completeOnboarding": "Complete remaining onboarding steps to strengthen your foundation.",
-        "configureSecurity": "Configure security settings to protect your organization workspace."
+        "inviteTeam": {
+          "title": "Inviter teammedlemmer",
+          "reason": "Bredere teamdeltagelse forbedrer adoption og operativ dækning.",
+          "benefit": "Flere kolleger kan samarbejde i Aipify fra dag ét.",
+          "action": "Åbn teamadministration"
+        },
+        "explorePacks": {
+          "title": "Udforsk Business Packs",
+          "reason": "Flere Business Packs låser kapabiliteter op, der matcher jeres mål.",
+          "benefit": "Udvid hvad Aipify kan forberede og anbefale.",
+          "action": "Gennemse tilgængelige pakker"
+        },
+        "enableIntegrations": {
+          "title": "Aktiver integrationer",
+          "reason": "Tilslutning af eksisterende systemer hjælper Aipify dér, hvor teamet allerede arbejder.",
+          "benefit": "Reducer kontekstskift og forbedre datadrevne anbefalinger.",
+          "action": "Åbn integrationer"
+        },
+        "reviewSupport": {
+          "title": "Gennemgå supportanmodninger",
+          "reason": "Åbne supportsager kan bremse operativt momentum.",
+          "benefit": "Løs blokeringer, så teamet kan gå videre trygt.",
+          "action": "Se supportanmodninger"
+        },
+        "reviewApprovals": {
+          "title": "Gennemgå ventende godkendelser",
+          "reason": "Ventende godkendelser forsinker handlinger, der kræver beslutning.",
+          "benefit": "Hold styring tydelig uden unødvendige forsinkelser.",
+          "action": "Åbn godkendelser"
+        },
+        "completeFollowUps": {
+          "title": "Fuldfør opfølgninger",
+          "reason": "Åbne opfølgninger viser uafsluttede operative forpligtelser.",
+          "benefit": "Oprethold ansvarlighed og operativ kontinuitet.",
+          "action": "Se opfølgninger"
+        },
+        "completeOnboarding": {
+          "title": "Fuldfør onboarding",
+          "reason": "Resterende onboarding styrker det organisatoriske fundament.",
+          "benefit": "Sikre at Aipify er korrekt konfigureret før skalering.",
+          "action": "Fortsæt onboarding"
+        },
+        "configureSecurity": {
+          "title": "Konfigurer sikkerhed",
+          "reason": "Sikkerhedsindstillinger beskytter organisationens arbejdsområde og adgang.",
+          "benefit": "Etabler tillid og compliance-klare adgangskontroller.",
+          "action": "Åbn sikkerhedsindstillinger"
+        }
       },
       "growth": {
-        "team_expansion": "Team expansion",
-        "business_packs": "Business Pack adoption",
-        "integrations": "Integration connections",
-        "plan_upgrade": "Plan upgrade opportunity"
+        "team_expansion": {
+          "title": "Udvid teamet",
+          "description": "Inviter flere kolleger for bedre samarbejde og delt operativ indsigt.",
+          "action": "Administrer team"
+        },
+        "business_packs": {
+          "title": "Adopter Business Packs",
+          "description": "Installer Business Packs, der matcher operative prioriteringer.",
+          "action": "Udforsk Business Packs"
+        },
+        "integrations": {
+          "title": "Forbind integrationer",
+          "description": "Kobl systemerne organisationen allerede bruger dagligt.",
+          "action": "Åbn integrationshub"
+        },
+        "plan_upgrade": {
+          "title": "Gennemgå planmuligheder",
+          "description": "Brugsmønstre kan kræve mere kapacitet eller moduler.",
+          "action": "Se opgraderingsmuligheder"
+        }
       },
       "adoption": {
-        "activeUsers": "Active users (14 days)",
-        "packsUsed": "Business Packs in use",
-        "integrationsUsed": "Integrations connected",
-        "unusedCapabilities": "Unused capability slots"
+        "activeUsers": "Aktive brugere (14 dage)",
+        "teamSize": "Teamstørrelse",
+        "businessPacks": "Installerede Business Packs",
+        "activeCapabilities": "Aktive kapabiliteter",
+        "integrationsUsed": "Tilsluttede integrationer",
+        "unusedCapabilities": "Ubrugte kapabiliteter"
       },
       "factors": {
-        "activeUsers": "Active users",
-        "teamSize": "Team size",
-        "businessPacks": "Business Packs installed",
-        "integrations": "Integrations connected",
-        "openSupport": "Open support requests",
-        "pendingApprovals": "Pending approvals",
-        "openFollowUps": "Open follow-ups"
+        "active_users": {
+          "label": "Aktive brugere",
+          "impact": "Seneste loginaktivitet på tværs af teamet."
+        },
+        "team_size": {
+          "label": "Teamstørrelse",
+          "impact": "Bredde i organisationsdeltagelse."
+        },
+        "business_packs": {
+          "label": "Installerede Business Packs",
+          "impact": "Kanoniske installerede pakker — ikke modulrettigheder."
+        },
+        "integrations": {
+          "label": "Tilsluttede integrationer",
+          "impact": "Systemer koblet til Aipify-arbejdsområdet."
+        },
+        "open_support": {
+          "label": "Åbne supportanmodninger",
+          "impact": "Uløste sager, der kan påvirke momentum."
+        },
+        "pending_approvals": {
+          "label": "Ventende godkendelser",
+          "impact": "Handlinger, der afventer menneskelig beslutning."
+        },
+        "open_follow_ups": {
+          "label": "Åbne opfølgninger",
+          "impact": "Operative forpligtelser stadig i gang."
+        }
       },
-      "faq": {
-        "title": "Success Center FAQ",
-        "whatIs": "What is the Success Center?",
-        "whatIsAnswer": "The Success Center helps organizations understand adoption, engagement and opportunities to get more value from Aipify.",
-        "healthScore": "How is the Health Score calculated?",
-        "healthScoreAnswer": "The Health Score is based on organizational activity, engagement, adoption patterns and operational indicators available within Aipify.",
-        "predictRisk": "Can Aipify predict organizational risk?",
-        "predictRiskAnswer": "Aipify provides recommendations and risk indicators based on available information, but final decisions should always involve human judgment."
+      "factorActions": {
+        "active_users": "Administrer team",
+        "team_size": "Inviter kolleger",
+        "business_packs": "Se Business Packs",
+        "integrations": "Administrer integrationer",
+        "open_support": "Gennemgå support",
+        "pending_approvals": "Gennemgå godkendelser",
+        "open_follow_ups": "Se opfølgninger"
+      },
+      "understandingScore": {
+        "adoptionTitle": "Adoption",
+        "adoptionBody": "Måler hvor bredt organisationen har konfigureret Aipify — teamdeltagelse, installerede Business Packs og tilsluttede integrationer.",
+        "engagementTitle": "Engagement",
+        "engagementBody": "Afspejler hvor aktivt teamet bruger Aipify baseret på seneste login i forhold til teamstørrelse.",
+        "utilizationTitle": "Udnyttelse",
+        "utilizationBody": "Viser hvor meget af den aktiverede kapabilitetsflade der bruges i daglig drift — ikke hvor mange moduler I er berettiget til.",
+        "methodologyLink": "Se scoremetodik"
       }
     },
     "gettingStarted": {
-      "title": "Getting Started",
-      "subtitle": "Guided onboarding to configure Aipify correctly and accelerate adoption across your organization.",
+      "title": "Opsæt din Aipify-arbejdsplads",
+      "subtitle": "Gennemfør vigtige opsætningstrin, så dit team kan tage Aipify i brug med tillid.",
       "loading": "Aipify is preparing your onboarding experience…",
       "emptyTitle": "Welcome to Aipify.",
       "emptyBody": "We'll guide your organization through setup so you can begin creating value quickly.",
@@ -1117,7 +1261,11 @@
       "actions": {
         "markComplete": "Mark complete",
         "dismissMilestone": "Dismiss"
-      }
+      },
+      "eyebrow": "KOM I GANG",
+      "breadcrumbSupport": "Support",
+      "breadcrumbGettingStarted": "Kom i gang",
+      "backToSupport": "Tilbage til Support"
     },
     "capabilityCenter": {
       "title": "Capability Center",
@@ -3254,8 +3402,8 @@
       }
     },
     "customerAcademy": {
-      "title": "Learning & Academy",
-      "subtitle": "Educate employees, improve adoption and build operational maturity with Aipify Academy.",
+      "title": "Kundeakademi",
+      "subtitle": "Uddann medarbejdere, forbedre adoption og byg operationel modenhed med strukturerede læringsstier.",
       "loading": "Aipify is preparing your learning experience…",
       "principle": "Aipify helps customers become successful — product education, onboarding and continuous learning.",
       "emptyTitle": "No learning activity has started yet.",
@@ -3346,7 +3494,11 @@
         "managersAssignAnswer": "Yes. Managers can assign learning paths, monitor completion and support employee development.",
         "partnerAcademy": "Is Aipify Academy the same as the Partner Academy?",
         "partnerAcademyAnswer": "No. Aipify Academy is designed for customers using Aipify internally. Growth Partner training is provided through the Partner Portal."
-      }
+      },
+      "eyebrow": "AIPIFY ACADEMY",
+      "breadcrumbSupport": "Support",
+      "breadcrumbAcademy": "Kundeakademi",
+      "backToSupport": "Tilbage til Support"
     },
     "customerSuccess": {
       "title": "Customer Success",
@@ -4100,19 +4252,24 @@
         "savedRecommendations": "Saved Recommendations",
         "recentlyViewed": "Recently Viewed Recommendations",
         "operationalCategories": "Operational Categories Covered",
-        "comparePacks": "Compare"
+        "comparePacks": "Compare",
+        "compare": "Sammenlign"
       },
       "card": {
         "confidenceScore": "Confidence score",
-        "reason": "Recommendation reason",
-        "benefits": "Potential benefits",
+        "reason": "Hvorfor anbefalet",
+        "benefits": "Potentiel fordel",
         "complexity": "Estimated complexity",
         "suggestedUsers": "Suggested users",
         "relatedPacks": "Related Business Packs",
         "learnMore": "Learn more",
         "saveRecommendation": "Save recommendation",
         "dismiss": "Dismiss",
-        "saved": "Saved"
+        "saved": "Saved",
+        "matchBadge": "Anbefalet",
+        "accessInstalled": "Installeret",
+        "accessAvailable": "Tilgængelig til installation",
+        "compare": "Sammenlign"
       },
       "compare": {
         "title": "Compare Business Packs",
@@ -6534,6 +6691,65 @@
         "createsStrategyAnswer": "No. Leadership remains responsible for strategy. Aipify provides structure, visibility and planning support.",
         "whoShouldUse": "Who should use this module?",
         "whoShouldUseAnswer": "Owners, executives and authorized leaders responsible for organizational direction and long-term planning."
+      }
+    },
+    "planLabels": {
+      "starter": "Starter",
+      "professional": "Professional",
+      "growth": "Growth",
+      "business": "Business",
+      "enterprise": "Enterprise",
+      "insights": "Insights"
+    },
+    "businessPackDetail": {
+      "breadcrumbBusinessPacks": "Business Packs",
+      "breadcrumbDetail": "Detalje",
+      "backToAvailable": "Tilbage til tilgængelige Business Packs",
+      "backToRecommendations": "Tilbage til anbefalinger",
+      "whatItHelpsWith": "Hvad denne pakke hjælper med",
+      "coreCapabilities": "Kernefunktioner",
+      "recommendedFor": "Anbefalet til",
+      "planAndAccess": "Plan og adgang",
+      "relatedPacks": "Relaterede Business Packs",
+      "comingLaterTitle": "Kommer senere",
+      "comingLaterBody": "Dette Business Pack er synligt til planlægning. Kontakt Aipify, når organisationen er klar til enterprise-udrulning.",
+      "contactAipify": "Kontakt Aipify",
+      "unavailableTitle": "Business Pack utilgængelig",
+      "unavailableBody": "Aipify kunne ikke finde denne Business Pack i katalogen. Udforsk tilgængelige pakker, eller kontakt Aipify for vejledning.",
+      "viewAvailable": "Tilbage til tilgængelige",
+      "viewRecommendations": "Se anbefalinger",
+      "exploreAvailable": "Udforsk tilgængelige Business Packs",
+      "capabilityNote": "Platformfunktion"
+    },
+    "businessPackResolver": {
+      "packs": {
+        "aipifyHosts": "Aipify Hosts",
+        "governance": "Governance",
+        "commerceIntelligence": "Commerce Intelligence",
+        "supportOperations": "Support Operations",
+        "executiveIntelligence": "Executive Intelligence",
+        "essentials": "Aipify Essentials",
+        "growth": "Aipify Growth"
+      },
+      "capabilities": {
+        "analytics": "Analytics",
+        "workflows": "Workflows"
+      },
+      "capabilityDetail": {
+        "analytics": {
+          "subtitle": "Operational metrics, trend dashboards, and reporting across your organization.",
+          "helpsWith": "Analytics helps teams monitor operational performance, spot trends early, and prepare clearer executive summaries without exporting data manually.",
+          "capabilities": "Operational metrics · Trend dashboards · Reporting · Executive-ready summaries",
+          "recommendedFor": "Operations managers, analysts, and team leads who need consistent visibility into day-to-day performance.",
+          "planAccess": "Included with Aipify Essentials and above. Advanced analytics modules may require Business or Enterprise plans."
+        },
+        "workflows": {
+          "subtitle": "Process automation, task routing, and operational consistency for everyday work.",
+          "helpsWith": "Workflows reduce manual handoffs by routing tasks, standardizing approvals, and keeping operational steps visible to the teams responsible for them.",
+          "capabilities": "Process automation · Task routing · Approval preparation · Operational consistency checks",
+          "recommendedFor": "Process owners, operations staff, and administrators coordinating repeatable business work.",
+          "planAccess": "Basic workflows are available from Growth plans. Advanced automation requires Business or Enterprise."
+        }
       }
     }
   }

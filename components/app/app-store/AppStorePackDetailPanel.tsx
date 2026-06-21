@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { parseAppStorePackDetail, type AppStoreLabels, type AppStorePackDetail } from "@/lib/app-store";
+import type { BusinessPackDetailLabels } from "@/lib/app-portal/business-pack-detail-labels";
 
 export function AppStorePackDetailPanel({
   packKey,
@@ -14,6 +15,8 @@ export function AppStorePackDetailPanel({
   upgradeTitle,
   upgradeBody,
   upgradeCta,
+  detailLabels,
+  resolvedSlug: _resolvedSlug,
 }: {
   packKey: string;
   labels: AppStoreLabels;
@@ -22,6 +25,8 @@ export function AppStorePackDetailPanel({
   upgradeTitle?: string;
   upgradeBody?: string;
   upgradeCta?: string;
+  detailLabels?: BusinessPackDetailLabels;
+  resolvedSlug?: string;
 }) {
   const searchParams = useSearchParams();
   const installMode =
@@ -160,9 +165,23 @@ export function AppStorePackDetailPanel({
     !detail.listing?.installed &&
     !upgradeRequired &&
     detail.listing?.install_available !== false;
+  const isComingSoon = detail.listing?.status === "coming_soon" || detail.overview?.status === "coming_soon";
+  const overviewHeading = detailLabels?.whatItHelpsWith ?? labels.overview;
+  const modulesHeading = detailLabels?.coreCapabilities ?? labels.includedModules;
+  const audienceHeading = detailLabels?.recommendedFor ?? labels.whoIsItFor;
+  const planHeading = detailLabels?.planAndAccess ?? labels.licenseRequirements;
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 p-6">
+      {detailLabels ? (
+        <nav className="text-sm text-slate-500" aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-2">
+            <li>{detailLabels.breadcrumbBusinessPacks}</li>
+            <li aria-hidden="true">→</li>
+            <li className="font-medium text-slate-800">{detailLabels.breadcrumbDetail}</li>
+          </ol>
+        </nav>
+      ) : null}
       <div>
         <Link href={backHref} className="text-sm text-indigo-600 hover:underline">
           ← {backLabel ?? labels.back}
@@ -174,6 +193,13 @@ export function AppStorePackDetailPanel({
           {detail.overview?.category as string} · {labels.version} {detail.overview?.version as string}
         </p>
       </div>
+
+      {isComingSoon && detailLabels ? (
+        <section className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+          <h2 className="font-semibold text-slate-900">{detailLabels.comingLaterTitle}</h2>
+          <p className="mt-2 text-sm text-slate-600">{detailLabels.comingLaterBody}</p>
+        </section>
+      ) : null}
 
       {upgradeRequired ? (
         <section className="rounded-xl border border-amber-200 bg-amber-50 p-5">
@@ -297,14 +323,14 @@ export function AppStorePackDetailPanel({
       {step === "detail" ? (
         <>
           <section className="rounded-xl border border-gray-200 bg-white p-6">
-            <h2 className="font-semibold text-gray-900">{labels.overview}</h2>
+            <h2 className="font-semibold text-gray-900">{overviewHeading}</h2>
             <p className="mt-2 text-sm leading-relaxed text-gray-600">
               {String(detail.overview?.long_description ?? detail.listing?.short_description ?? "")}
             </p>
           </section>
 
           <section className="rounded-xl border border-gray-200 bg-white p-6">
-            <h2 className="font-semibold text-gray-900">{labels.includedModules}</h2>
+            <h2 className="font-semibold text-gray-900">{modulesHeading}</h2>
             <ul className="mt-3 space-y-2">
               {(detail.modules_included ?? []).map((m) => (
                 <li key={m.module_key} className="text-sm text-gray-700">
@@ -316,13 +342,13 @@ export function AppStorePackDetailPanel({
           </section>
 
           <section className="rounded-xl border border-gray-200 bg-white p-6">
-            <h2 className="font-semibold text-gray-900">{labels.licenseRequirements}</h2>
+            <h2 className="font-semibold text-gray-900">{planHeading}</h2>
             <p className="mt-2 text-sm text-gray-600">{detail.license_requirements}</p>
           </section>
 
           {detail.who_is_it_for ? (
             <section className="rounded-xl border border-gray-200 bg-white p-6">
-              <h2 className="font-semibold text-gray-900">{labels.whoIsItFor}</h2>
+              <h2 className="font-semibold text-gray-900">{audienceHeading}</h2>
               <p className="mt-2 text-sm text-gray-600">{detail.who_is_it_for}</p>
             </section>
           ) : null}

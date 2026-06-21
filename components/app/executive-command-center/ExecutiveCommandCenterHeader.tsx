@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { AppPageHeader } from "@/components/app/design";
-import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import { SemanticBadge } from "@/components/ui/semantic-badge";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import type { buildExecutiveCommandCenterLabels } from "@/lib/executive-command-center-engine/labels";
 import { EccTabIcons } from "./ecc-tab-icons";
@@ -42,8 +42,8 @@ export function ExecutiveCommandCenterHeader({ labels }: { labels: Labels }) {
       }
       contextRow={
         <>
-          <AipifyStatusBadge kind="completed" label={labels.premium.context.organizationActive} />
-          <AipifyStatusBadge kind="verified" label={labels.premium.context.executiveAccessVerified} />
+          <SemanticBadge type="lifecycle" value="active" label={labels.premium.context.organizationActive} />
+          <SemanticBadge type="access" value="verified" label={labels.premium.context.executiveAccessVerified} />
         </>
       }
     />

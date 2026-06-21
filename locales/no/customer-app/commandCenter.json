@@ -1543,7 +1543,155 @@
         "healthStatusModerate": "Moderat",
         "healthStatusLow": "Krever oppmerksomhet",
         "countActive": "Aktiv",
-        "countNone": "Klart"
+        "countNone": "Oppdatert",
+        "sinceLastLoginUpdated": "Oppdatert",
+        "noCriticalItems": "Ingen kritiske saker"
+      }
+    },
+    "tabs": {
+      "insights": {
+        "alerts": "Aipify har prioritert aktive varsler slik at ledelsen kan gå gjennom det viktigste først.",
+        "approvals": "Gjennomgå beslutninger som venter på ledergodkjenning før arbeid kan fortsette.",
+        "risks": "Aipify skiller aktive risikoer fra bredere organisasjonshelse slik at ledelsen kan fokusere på det som krever handling.",
+        "opportunities": "Aipify har organisert potensielle vekstmuligheter med status, verdi og anbefalte neste steg.",
+        "performance": "Aipify kombinerer operative målinger og helsesignaler for å vise om organisasjonen er på sporet.",
+        "companionBriefing": "Aipify gjør gjeldende operasjonsinformasjon om til lederbriefinger og styringsrapporter."
+      },
+      "empty": {
+        "alerts": "Ingen åpne varsler akkurat nå. Aipify overvåker og viser nye elementer her.",
+        "approvals": "Ingen godkjenninger venter på gjennomgang.",
+        "risks": "Ingen aktive risikoer oppdaget i denne visningen.",
+        "opportunities": "Ingen åpne muligheter i denne visningen.",
+        "performance": "Ingen ytelseshelsesignaler å vise ennå.",
+        "companionBriefing": "Ingen briefing- eller rapportelementer er tilgjengelige ennå.",
+        "activeRisks": "Ingen aktive risikoer krever ledergjennomgang.",
+        "operationalHealth": "Organisasjonshelsesignaler vises her når de er tilgjengelige.",
+        "executiveBriefing": "Ingen lederbriefing er tilgjengelig ennå.",
+        "dailyBriefing": "Ingen daglig briefing er tilgjengelig ennå.",
+        "boardReports": "Ingen styringsrapporter er tilgjengelige ennå."
+      },
+      "sections": {
+        "activeRisks": "Aktive risikoer",
+        "operationalHealth": "Operasjonell helse",
+        "executiveBriefing": "Lederbriefing",
+        "dailyBriefing": "Daglig briefing",
+        "boardReports": "Styringsrapporter",
+        "performanceHealth": "Ytelseshelse"
+      },
+      "metrics": {
+        "upToDate": "Oppdatert",
+        "noOpenAlerts": "Ingen åpne varsler",
+        "noPendingActions": "Ingen ventende handlinger",
+        "noCriticalItems": "Ingen kritiske saker"
+      },
+      "shared": {
+        "open": "Åpne",
+        "type": "Type",
+        "timestamp": "Oppdatert",
+        "items": "elementer"
+      },
+      "alerts": {
+        "actions": {
+          "reviewApproval": "Gjennomgå godkjenning",
+          "viewCustomerRisk": "Vis kunderisiko",
+          "openSecurityReview": "Åpne sikkerhetsgjennomgang",
+          "openInvoice": "Åpne faktura"
+        }
+      },
+      "approvals": {
+        "requester": "Forespurt av",
+        "blocked": "Blokkert til godkjent",
+        "actions": {
+          "review": "Gjennomgå godkjenning"
+        }
+      },
+      "risks": {
+        "actions": {
+          "reviewRisk": "Gjennomgå risiko"
+        }
+      },
+      "opportunities": {
+        "value": "Verdi",
+        "confidence": "Konfidens",
+        "nextStep": "Neste steg",
+        "actions": {
+          "review": "Gjennomgå mulighet"
+        }
+      },
+      "performance": {
+        "actions": {
+          "viewHealth": "Vis ytelseshelse"
+        }
+      },
+      "briefing": {
+        "actions": {
+          "openBriefing": "Åpne briefing",
+          "openReport": "Åpne rapport",
+          "generateReport": "Generer rapport",
+          "downloadPdf": "Last ned PDF",
+          "downloadWord": "Last ned Word"
+        }
+      },
+      "opportunityStatus": {
+        "identified": "Identifisert",
+        "recommended": "Anbefalt",
+        "reviewRequired": "Krever gjennomgang",
+        "qualified": "Kvalifisert",
+        "inProgress": "Under arbeid",
+        "won": "Vunnet",
+        "declined": "Avslått",
+        "expired": "Utløpt",
+        "a11y": "Mulighetsstatus"
+      },
+      "reportState": {
+        "generated": "Generert",
+        "generating": "Genererer",
+        "draft": "Utkast",
+        "template": "Mal",
+        "failed": "Mislyktes",
+        "outdated": "Utdatert",
+        "a11y": "Rapportstatus"
+      }
+    },
+    "sinceLastLoginUx": {
+      "activityHeading": "Aktivitet siden ditt siste besøk",
+      "insightLabel": "Aipify-innsikt",
+      "insight": "Aipify har organisert de siste endringene slik at du raskt ser hva som er fullført, og hva som fortsatt krever oppmerksomhet.",
+      "summaryRequiresAttention": "Krever oppmerksomhet: {{count}}",
+      "summaryCompleted": "Fullført av Aipify: {{count}}",
+      "summaryOtherChanges": "Andre endringer: {{count}}",
+      "groupRequiresAttention": "Krever din oppmerksomhet",
+      "groupCompleted": "Fullført av Aipify",
+      "groupOtherChanges": "Andre endringer",
+      "emptyAttention": "✅ Ingenting urgent krever din oppmerksomhet",
+      "emptyAll": "✅ Du er oppdatert",
+      "emptyAllDescription": "Aipify overvåker organisasjonen. Ny aktivitet vises her etter neste besøk.",
+      "errorTitle": "Aktivitet kunne ikke lastes",
+      "errorDescription": "Noe gikk galt under lasting av aktivitetssammendraget. Prøv igjen eller åpne aktivitetshistorikken.",
+      "refresh": "Oppdater",
+      "viewActivityHistory": "Vis aktivitetshistorikk",
+      "openAction": "Åpne",
+      "countItem": "1 element",
+      "countItems": "{{count}} elementer",
+      "countUpdate": "1 oppdatering",
+      "countUpdates": "{{count}} oppdateringer",
+      "countEscalation": "1 eskalering",
+      "countEscalations": "{{count}} eskaleringer",
+      "completedByAipify": "Fullført av Aipify",
+      "information": "Informasjon",
+      "severity": {
+        "critical": "Kritisk",
+        "high": "Høy risiko",
+        "medium": "Krever oppmerksomhet",
+        "low": "Lav risiko",
+        "info": "Informasjon"
+      },
+      "workflow": {
+        "open": "Åpen",
+        "pending": "Venter",
+        "awaitingApproval": "Venter på gjennomgang",
+        "inProgress": "Under arbeid",
+        "completed": "Fullført"
       }
     }
   }

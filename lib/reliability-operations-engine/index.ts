@@ -15,5 +15,5 @@ export {
   reliabilityStatusLabel,
   systemHealthStatusLabel,
 } from "./labels";
-export { mapReliabilityStatusToKind } from "./status-map";
+export { mapReliabilityStatusToKind, mapReliabilityStatusToSemantic } from "./status-map";
 export { detectReliabilityAdvisorIntent, getReliabilityAdvisorRoute } from "./advisor";

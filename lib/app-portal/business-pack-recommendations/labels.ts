@@ -31,6 +31,7 @@ export function buildPackRecommendationLabels(t: Translator): PackRecommendation
       recentlyViewed: t(`${p}.dashboard.recentlyViewed`),
       operationalCategories: t(`${p}.dashboard.operationalCategories`),
       comparePacks: t(`${p}.dashboard.comparePacks`),
+      compare: t(`${p}.dashboard.compare`),
     },
     card: {
       confidenceScore: t(`${p}.card.confidenceScore`),
@@ -43,6 +44,10 @@ export function buildPackRecommendationLabels(t: Translator): PackRecommendation
       saveRecommendation: t(`${p}.card.saveRecommendation`),
       dismiss: t(`${p}.card.dismiss`),
       saved: t(`${p}.card.saved`),
+      matchBadge: t(`${p}.card.matchBadge`),
+      accessInstalled: t(`${p}.card.accessInstalled`),
+      accessAvailable: t(`${p}.card.accessAvailable`),
+      compare: t(`${p}.card.compare`),
     },
     compare: {
       title: t(`${p}.compare.title`),

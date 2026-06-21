@@ -3,16 +3,30 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
-import {
-  parseBusinessPackSettingsCenter,
-  type BusinessPackSettingsAccessState,
-  type BusinessPackSettingsCenter,
-  type BusinessPackSettingsLabels,
-} from "@/lib/app-portal/business-pack-settings";
+import { formatBusinessPackSettingsPlanLabel, parseBusinessPackSettingsCenter, type BusinessPackSettingsAccessState, type BusinessPackSettingsCenter, type BusinessPackSettingsLabels } from "@/lib/app-portal/business-pack-settings";
 
 type Props = {
   labels: BusinessPackSettingsLabels;
 };
+
+function LockIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      aria-hidden="true"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M16 11V7a4 4 0 10-8 0v4M5 11h14v10H5V11z"
+      />
+    </svg>
+  );
+}
 
 function StatusBadge({
   statusKey,
@@ -151,51 +165,63 @@ function StatePanel({
     state === "plan_required" || state === "activation_failed" || state === "suspended";
   const showSupport = state === "activation_failed";
   const showRetry = state === "load_error";
+  const isPlanLocked = state === "plan_required" || state === "entitlement_missing";
 
-  const panelIcon =
-    state === "pending_activation"
-      ? "⏳"
-      : state === "activation_failed"
-        ? "⚠️"
-        : state === "suspended"
-          ? "🔒"
-          : state === "no_installed_packs"
-            ? "ℹ️"
-            : state === "load_error"
-              ? "⚠️"
-              : "🔒";
+  const panelIcon = isPlanLocked ? null : state === "pending_activation" ? "⏳" : state === "activation_failed" ? "⚠️" : state === "suspended" ? "🔒" : state === "no_installed_packs" ? "ℹ️" : state === "load_error" ? "⚠️" : "🔒";
+
+  const formattedCurrentPlan = center?.current_plan
+    ? formatBusinessPackSettingsPlanLabel(center.current_plan, labels)
+    : null;
 
   return (
     <div className="space-y-8">
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
         <div className="flex items-start gap-3">
-          <span className="text-2xl" aria-hidden="true">
-            {panelIcon}
-          </span>
+          {isPlanLocked ? (
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-violet-700">
+              <LockIcon className="h-5 w-5" />
+            </div>
+          ) : panelIcon ? (
+            <span className="text-2xl" aria-hidden="true">
+              {panelIcon}
+            </span>
+          ) : null}
           <div className="min-w-0 flex-1">
             <h2 className="text-xl font-semibold text-slate-900">{stateCopy.title}</h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">{stateCopy.body}</p>
-            {center?.current_plan ? (
+            {isPlanLocked && formattedCurrentPlan ? (
               <dl className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
                   <dt className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                     {labels.currentPlan}
                   </dt>
-                  <dd className="mt-1 text-sm font-medium text-slate-900">{center.current_plan}</dd>
+                  <dd className="mt-1 text-sm font-medium text-slate-900">{formattedCurrentPlan}</dd>
                 </div>
-                {center.required_plan ? (
-                  <div className="rounded-xl border border-amber-100 bg-amber-50 p-4">
-                    <dt className="text-xs font-semibold uppercase tracking-wide text-amber-800">
-                      {labels.requiredPlan}
-                    </dt>
-                    <dd className="mt-1 text-sm font-medium text-amber-950">
-                      {labels.requiredPlanValue}
-                    </dd>
-                  </div>
-                ) : null}
+                <div className="rounded-xl border border-amber-100 bg-amber-50 p-4">
+                  <dt className="text-xs font-semibold uppercase tracking-wide text-amber-800">
+                    {labels.requiredPlan}
+                  </dt>
+                  <dd className="mt-1 text-sm font-medium text-amber-950">
+                    {labels.requiredPlanValue}
+                  </dd>
+                </div>
               </dl>
             ) : null}
-            <p className="mt-4 text-sm text-slate-600">{labels.capabilitySummary}</p>
+            {isPlanLocked ? (
+              <p className="mt-4 text-sm text-slate-600">{labels.capabilitySummary}</p>
+            ) : null}
+            {!isPlanLocked && center?.current_plan ? (
+              <dl className="mt-6 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+                  <dt className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    {labels.currentPlan}
+                  </dt>
+                  <dd className="mt-1 text-sm font-medium text-slate-900">
+                    {formatBusinessPackSettingsPlanLabel(center.current_plan, labels)}
+                  </dd>
+                </div>
+              </dl>
+            ) : null}
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               {showUpgrade ? (
                 <Link
@@ -243,9 +269,9 @@ function StatePanel({
           </div>
         </div>
       </section>
-      {state === "plan_required" || state === "entitlement_missing" ? (
+      {isPlanLocked ? (
         <section className="space-y-4">
-          <h2 className="text-lg font-semibold text-slate-900">{labels.capabilitySummary}</h2>
+          <h2 className="text-lg font-semibold text-slate-900">{labels.whatYouUnlock}</h2>
           <ValueCards labels={labels} />
         </section>
       ) : null}

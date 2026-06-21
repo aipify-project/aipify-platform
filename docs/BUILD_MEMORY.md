@@ -143,6 +143,16 @@ Platform Admin: **Operations → Build Health Center** (`/platform/operations/bu
 `scripts/build-with-duration.mjs` runs `build-split.mjs --from 2` after validation (skips duplicate typecheck). Webpack **compile** and page-data **generate** run as separate Node processes to reduce peak RAM on Vercel Enhanced.
 
 ## Incidents
+### 2026-06-21 — Deployment blocked by route architecture violations
+
+| Field | Detail |
+|-------|--------|
+| **Issue** | Deployment blocked by route architecture violations |
+| **Root cause** | Circular import detected: lib/marketing/business-packs/registry.ts → lib/marketing/public-pricing.ts |
+| **Fix** | Resolve critical route governance issues before production deployment |
+| **Affected modules** | build-governance |
+| **Resolution** | Deployment halted until violations are cleared |
+
 
 ### 2026-06-18 — Vercel ENOENT marketing client-reference manifest
 

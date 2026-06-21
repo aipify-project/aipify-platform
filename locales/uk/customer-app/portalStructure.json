@@ -12,9 +12,9 @@
       "contactSales": "Зв’язатися з відділом продажів",
       "contactSupport": "Зв’язатися з підтримкою",
       "currentPlan": "Поточний план",
-      "requiredPlan": "Необхідний план",
-      "requiredPlanValue": "Business або Enterprise",
-      "capabilitySummary": "Після оновлення ви зможете керувати конфігурацією пакетів, статусом активації, залежностями та налаштуваннями організації в одному місці.",
+      "requiredPlan": "Доступно з",
+      "requiredPlanValue": "Business",
+      "capabilitySummary": "Оновіть план, щоб централізовано керувати конфігурацією Business Pack, активацією, залежностями, доступом і перевіркою.",
       "configure": "Налаштувати",
       "openWorkspace": "Відкрити робочий простір",
       "version": "Версія",
@@ -26,7 +26,7 @@
       "states": {
         "planRequired": {
           "title": "Потрібне оновлення",
-          "body": "Налаштування Business Pack не входять до вашої поточної підписки. Оновіть план, щоб керувати конфігурацією пакетів, статусом активації, залежностями та налаштуваннями організації."
+          "body": "Налаштування Business Pack доступні з плану Business."
         },
         "pendingActivation": {
           "title": "Активація триває",
@@ -66,11 +66,26 @@
         }
       },
       "valueCards": {
-        "packConfiguration": { "title": "Конфігурація пакета", "description": "Керуйте налаштуваннями встановлених Business Packs." },
-        "activationStatus": { "title": "Статус активації", "description": "Перевіряйте, чи пакети активні, проходять перевірку або потребують уваги." },
-        "dependencies": { "title": "Залежності", "description": "Переглядайте необхідні інтеграції, дозволи та сервіси." },
-        "accessManagement": { "title": "Керування доступом", "description": "Контролюйте, які ролі організації можуть використовувати кожен пакет." },
-        "healthValidation": { "title": "Стан і перевірка", "description": "Переглядайте результати перевірок і проблеми активації." }
+        "packConfiguration": {
+          "title": "Конфігурація пакета",
+          "description": "Керуйте налаштуваннями встановлених Business Packs."
+        },
+        "activationStatus": {
+          "title": "Статус активації",
+          "description": "Перевіряйте, чи пакети активні, проходять перевірку або потребують уваги."
+        },
+        "dependencies": {
+          "title": "Залежності",
+          "description": "Переглядайте необхідні інтеграції, дозволи та сервіси."
+        },
+        "accessManagement": {
+          "title": "Керування доступом",
+          "description": "Контролюйте, які ролі організації можуть використовувати кожен пакет."
+        },
+        "healthValidation": {
+          "title": "Стан і перевірка",
+          "description": "Переглядайте результати перевірок і проблеми активації."
+        }
       },
       "packStatus": {
         "active": "Активний",
@@ -84,7 +99,8 @@
         "title": "Не вдалося завантажити налаштування Business Pack",
         "body": "Aipify не зміг отримати поточну конфігурацію пакетів. Спробуйте ще раз незабаром.",
         "retry": "Повторити"
-      }
+      },
+      "whatYouUnlock": "Що ви отримуєте"
     },
     "executiveInsights": {
       "title": "Executive Insights",
@@ -3790,19 +3806,24 @@
         "savedRecommendations": "Saved Recommendations",
         "recentlyViewed": "Recently Viewed Recommendations",
         "operationalCategories": "Operational Categories Covered",
-        "comparePacks": "Compare"
+        "comparePacks": "Compare",
+        "compare": "Порівняти"
       },
       "card": {
         "confidenceScore": "Confidence score",
-        "reason": "Recommendation reason",
-        "benefits": "Potential benefits",
+        "reason": "Чому рекомендовано",
+        "benefits": "Потенційна користь",
         "complexity": "Estimated complexity",
         "suggestedUsers": "Suggested users",
         "relatedPacks": "Related Business Packs",
         "learnMore": "Learn more",
         "saveRecommendation": "Save recommendation",
         "dismiss": "Dismiss",
-        "saved": "Saved"
+        "saved": "Saved",
+        "matchBadge": "Рекомендовано",
+        "accessInstalled": "Встановлено",
+        "accessAvailable": "Доступно для встановлення",
+        "compare": "Порівняти"
       },
       "compare": {
         "title": "Compare Business Packs",
@@ -6224,6 +6245,65 @@
         "createsStrategyAnswer": "No. Leadership remains responsible for strategy. Aipify provides structure, visibility and planning support.",
         "whoShouldUse": "Who should use this module?",
         "whoShouldUseAnswer": "Owners, executives and authorized leaders responsible for organizational direction and long-term planning."
+      }
+    },
+    "planLabels": {
+      "starter": "Starter",
+      "professional": "Professional",
+      "growth": "Growth",
+      "business": "Business",
+      "enterprise": "Enterprise",
+      "insights": "Insights"
+    },
+    "businessPackDetail": {
+      "breadcrumbBusinessPacks": "Business Packs",
+      "breadcrumbDetail": "Деталі",
+      "backToAvailable": "Назад до доступних Business Packs",
+      "backToRecommendations": "Назад до рекомендацій",
+      "whatItHelpsWith": "Чим допомагає цей пакет",
+      "coreCapabilities": "Основні можливості",
+      "recommendedFor": "Рекомендовано для",
+      "planAndAccess": "План і доступ",
+      "relatedPacks": "Пов’язані Business Packs",
+      "comingLaterTitle": "Незабаром",
+      "comingLaterBody": "Цей Business Pack видимий для планування. Зверніться до Aipify, коли організація буде готова до enterprise-розгортання.",
+      "contactAipify": "Зв’язатися з Aipify",
+      "unavailableTitle": "Business Pack недоступний",
+      "unavailableBody": "Aipify не знайшло цей Business Pack у каталозі. Перегляньте доступні пакети або зверніться до Aipify.",
+      "viewAvailable": "Назад до доступних",
+      "viewRecommendations": "Переглянути рекомендації",
+      "exploreAvailable": "Переглянути доступні Business Packs",
+      "capabilityNote": "Можливість платформи"
+    },
+    "businessPackResolver": {
+      "packs": {
+        "aipifyHosts": "Aipify Hosts",
+        "governance": "Governance",
+        "commerceIntelligence": "Commerce Intelligence",
+        "supportOperations": "Support Operations",
+        "executiveIntelligence": "Executive Intelligence",
+        "essentials": "Aipify Essentials",
+        "growth": "Aipify Growth"
+      },
+      "capabilities": {
+        "analytics": "Analytics",
+        "workflows": "Workflows"
+      },
+      "capabilityDetail": {
+        "analytics": {
+          "subtitle": "Operational metrics, trend dashboards, and reporting across your organization.",
+          "helpsWith": "Analytics helps teams monitor operational performance, spot trends early, and prepare clearer executive summaries without exporting data manually.",
+          "capabilities": "Operational metrics · Trend dashboards · Reporting · Executive-ready summaries",
+          "recommendedFor": "Operations managers, analysts, and team leads who need consistent visibility into day-to-day performance.",
+          "planAccess": "Included with Aipify Essentials and above. Advanced analytics modules may require Business or Enterprise plans."
+        },
+        "workflows": {
+          "subtitle": "Process automation, task routing, and operational consistency for everyday work.",
+          "helpsWith": "Workflows reduce manual handoffs by routing tasks, standardizing approvals, and keeping operational steps visible to the teams responsible for them.",
+          "capabilities": "Process automation · Task routing · Approval preparation · Operational consistency checks",
+          "recommendedFor": "Process owners, operations staff, and administrators coordinating repeatable business work.",
+          "planAccess": "Basic workflows are available from Growth plans. Advanced automation requires Business or Enterprise."
+        }
       }
     }
   }

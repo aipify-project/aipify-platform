@@ -1,6 +1,6 @@
 import type { MarketingDictionary } from "@/lib/marketing/get-marketing-context";
 import { getSection } from "@/lib/marketing/parse-marketing";
-import { parseHomepageRedesign, type HomepageRedesignContent } from "@/lib/marketing/parse-homepage";
+import { parseHomepageRedesign, type CommandBriefDemoLabels, type HomepageRedesignContent } from "@/lib/marketing/parse-homepage";
 
 export type ProductWorkflowStep = {
   title: string;
@@ -56,8 +56,12 @@ export type ProductPageContent = {
     ctaSecondary: string;
     explorePacks: string;
   };
-  commandBrief: HomepageRedesignContent["commandBrief"] & {
+  commandBriefHero: HomepageRedesignContent["commandBrief"];
+  commandBriefSection: {
+    title: string;
+    subtitle: string;
     points: Array<{ title: string; body: string }>;
+    demo: CommandBriefDemoLabels;
   };
   workflow: {
     title: string;
@@ -177,6 +181,28 @@ function parseEngines(section: Record<string, unknown> | undefined): ProductEngi
     .map((k) => (raw as Record<string, ProductEngine>)[k]);
 }
 
+function parseCommandBriefDemo(section: Record<string, unknown> | undefined): CommandBriefDemoLabels | null {
+  if (!section) return null;
+  const sinceItems = parseStringListFromRecord(section, "sinceItems");
+  if (sinceItems.length === 0) return null;
+  return {
+    panelTitle: String(section.panelTitle ?? "Command Brief"),
+    panelOrganization: String(section.panelOrganization ?? ""),
+    panelContext: String(section.panelContext ?? ""),
+    headerBadge: String(section.headerBadge ?? ""),
+    sinceLastLogin: String(section.sinceLastLogin ?? "Since your last visit"),
+    aipifyCompleted: String(section.aipifyCompleted ?? "Aipify completed"),
+    needsAttention: String(section.needsAttention ?? "Needs your attention"),
+    recommendedActions: String(section.recommendedActions ?? "Recommended actions"),
+    organizationStatus: String(section.organizationStatus ?? "Organization status"),
+    sinceItems,
+    completedItems: parseStringListFromRecord(section, "completedItems"),
+    attentionItems: parseStringListFromRecord(section, "attentionItems"),
+    actionItems: parseStringListFromRecord(section, "actionItems"),
+    statusItems: parseStringListFromRecord(section, "statusItems"),
+  };
+}
+
 function parseCommandBriefPoints(section: Record<string, unknown> | undefined): Array<{ title: string; body: string }> {
   const raw = section?.points;
   if (!raw || typeof raw !== "object") return [];
@@ -289,16 +315,10 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
 
   const cbSection = section.commandBrief as Record<string, unknown> | undefined;
   const cbPoints = parseCommandBriefPoints(cbSection);
-  const cbFromSection = cbSection as {
-    title?: string;
-    subtitle?: string;
-    panelTitle?: string;
-    sinceLastLogin?: string;
-    aipifyCompleted?: string;
-    needsAttention?: string;
-    recommendedActions?: string;
-    organizationStatus?: string;
-  } | undefined;
+  const cbFromSection = cbSection as { title?: string; subtitle?: string } | undefined;
+  const servicesDemo =
+    parseCommandBriefDemo(section.servicesAndHospitalityDemo as Record<string, unknown> | undefined) ??
+    parseCommandBriefDemo(cbSection);
   const wfSection = section.workflow as Record<string, unknown> | undefined;
   const wfControls = (wfSection?.controls as { play?: string; pause?: string; previous?: string; next?: string }) ?? {};
   const coordSection = section.coordination as Record<string, unknown> | undefined;
@@ -314,37 +334,38 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
         "Explore how Aipify connects Command Brief, Companion, operational engines, Business Packs, governance and approved workflows in one coordinated platform.",
     },
     hero,
-    commandBrief: {
-      ...hp.commandBrief,
-      title: cbFromSection?.title ?? hp.commandBrief.title,
-      subtitle: cbFromSection?.subtitle ?? hp.commandBrief.subtitle,
-      panelTitle: cbFromSection?.panelTitle ?? hp.commandBrief.panelTitle,
-      sinceLastLogin: cbFromSection?.sinceLastLogin ?? hp.commandBrief.sinceLastLogin,
-      aipifyCompleted: cbFromSection?.aipifyCompleted ?? hp.commandBrief.aipifyCompleted,
-      needsAttention: cbFromSection?.needsAttention ?? hp.commandBrief.needsAttention,
-      recommendedActions: cbFromSection?.recommendedActions ?? hp.commandBrief.recommendedActions,
-      organizationStatus: cbFromSection?.organizationStatus ?? hp.commandBrief.organizationStatus,
-      sinceItems: parseStringListFromRecord(cbSection, "sinceItems").length
-        ? parseStringListFromRecord(cbSection, "sinceItems")
-        : hp.commandBrief.sinceItems,
-      completedItems: parseStringListFromRecord(cbSection, "completedItems").length
-        ? parseStringListFromRecord(cbSection, "completedItems")
-        : hp.commandBrief.completedItems,
-      attentionItems: parseStringListFromRecord(cbSection, "attentionItems").length
-        ? parseStringListFromRecord(cbSection, "attentionItems")
-        : hp.commandBrief.attentionItems,
-      actionItems: parseStringListFromRecord(cbSection, "actionItems").length
-        ? parseStringListFromRecord(cbSection, "actionItems")
-        : hp.commandBrief.actionItems,
-      statusItems: parseStringListFromRecord(cbSection, "statusItems").length
-        ? parseStringListFromRecord(cbSection, "statusItems")
-        : hp.commandBrief.statusItems,
-      points: cbPoints.length > 0 ? cbPoints : [
-        { title: "Since your last visit", body: "Meaningful operational changes without searching every module." },
-        { title: "What Aipify helped with", body: "Drafts, summaries, preparation and approved work completed by Aipify." },
-        { title: "What needs attention", body: "Decisions, approvals, risks and exceptions requiring human review." },
-        { title: "What should happen next", body: "Grounded recommended actions with paths to the relevant workflow." },
-      ],
+    commandBriefHero: hp.commandBrief,
+    commandBriefSection: {
+      title: cbFromSection?.title ?? "Command Brief — your organization summarized before you start.",
+      subtitle:
+        cbFromSection?.subtitle ??
+        "Aipify brings the most important operational changes, completed work, and decisions to you — instead of making you search through disconnected systems.",
+      points:
+        cbPoints.length > 0
+          ? cbPoints
+          : [
+              { title: "Since your last visit", body: "Meaningful operational changes without searching every module." },
+              { title: "What Aipify helped with", body: "Drafts, summaries, preparation and approved work completed by Aipify." },
+              { title: "What needs attention", body: "Decisions, approvals, risks and exceptions requiring human review." },
+              { title: "What should happen next", body: "Grounded recommended actions with paths to the relevant workflow." },
+            ],
+      demo:
+        servicesDemo ?? {
+          panelTitle: hp.commandBrief.panelTitle,
+          panelOrganization: "Unonight Operations",
+          panelContext: "Friday morning",
+          headerBadge: "All systems operational",
+          sinceLastLogin: hp.commandBrief.sinceLastLogin,
+          aipifyCompleted: hp.commandBrief.aipifyCompleted,
+          needsAttention: hp.commandBrief.needsAttention,
+          recommendedActions: hp.commandBrief.recommendedActions,
+          organizationStatus: hp.commandBrief.organizationStatus,
+          sinceItems: hp.commandBrief.sinceItems,
+          completedItems: hp.commandBrief.completedItems,
+          attentionItems: hp.commandBrief.attentionItems,
+          actionItems: hp.commandBrief.actionItems,
+          statusItems: hp.commandBrief.statusItems,
+        },
     },
     workflow: {
       title: String((section.workflow as { title?: string })?.title ?? "See how work moves through Aipify."),

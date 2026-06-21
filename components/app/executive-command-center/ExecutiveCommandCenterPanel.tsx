@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   AppEmptyState,
   AppErrorState,
@@ -11,9 +10,28 @@ import {
   ExecutiveMetricCard,
   PriorityRecommendationCard,
 } from "@/components/app/design";
-import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import { SemanticBadge } from "@/components/ui/semantic-badge";
 import type { AipifyStatusKind } from "@/lib/design/status-system";
+import {
+  getEccCriticalItemsMetricBadge,
+  getEccHealthMetricBadge,
+  mapExecutivePriorityToSeverity,
+  mapHealthScoreToHealthState,
+} from "@/lib/design/semantic-status-system";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
+import {
+  buildAlertsDataset,
+  buildApprovalsDataset,
+  buildCompanionBriefingDataset,
+  buildEccOverviewCounts,
+  buildOpportunitiesDataset,
+  buildPerformanceDataset,
+  buildRisksDataset,
+} from "@/lib/command-center/ecc-tab-datasets";
+import {
+  CommandCenterItemList,
+  CommandCenterSectionBlock,
+} from "@/components/shared/command-center/CommandCenterItemCard";
 import {
   parseExecutiveCommandCenter,
   type ExecutiveCommandCenter,
@@ -21,6 +39,7 @@ import {
 import type { Ecc590Section } from "@/lib/executive-command-center-engine/config";
 import { ecc590SectionToRpc } from "@/lib/executive-command-center-engine/config";
 import type { buildExecutiveCommandCenterLabels } from "@/lib/executive-command-center-engine/labels";
+import { SinceLastLoginPresentation } from "@/components/shared/since-last-login/SinceLastLoginPresentation";
 import { EccTabIcons } from "./ecc-tab-icons";
 import { useExecutiveCommandCenterRefresh } from "./ExecutiveCommandCenterRefreshContext";
 
@@ -31,23 +50,79 @@ function priorityLabel(labels: Labels, priority: unknown): string {
   return labels.priority[key] ?? String(priority);
 }
 
-function priorityToStatusKind(priority: unknown): AipifyStatusKind {
-  const value = String(priority ?? "information");
-  if (value === "critical") return "not_allowed";
-  if (value === "urgent" || value === "attention") return "needs_attention";
-  return "information";
+function healthMetricLabel(labels: Labels, score: number): string {
+  const state = mapHealthScoreToHealthState(score);
+  if (state === "healthy" || state === "good") return labels.premium.metrics.healthStatusGood;
+  if (state === "moderate") return labels.premium.metrics.healthStatusModerate;
+  return labels.premium.metrics.healthStatusLow;
 }
 
-function healthScoreStatus(score: number, labels: Labels): { statusKind: AipifyStatusKind; statusLabel: string } {
-  if (score >= 80) return { statusKind: "completed", statusLabel: labels.premium.metrics.healthStatusGood };
-  if (score >= 60) return { statusKind: "information", statusLabel: labels.premium.metrics.healthStatusModerate };
-  return { statusKind: "needs_attention", statusLabel: labels.premium.metrics.healthStatusLow };
+function resolveHealthMetricBadge(score: number, labels: Labels) {
+  const config = getEccHealthMetricBadge(score);
+  return {
+    semanticType: config.type,
+    semanticValue: config.value,
+    statusLabel: healthMetricLabel(labels, score),
+    a11yLabel: `${labels.overallHealthScore}: ${healthMetricLabel(labels, score)}`,
+  };
 }
 
-function countStatus(count: number, labels: Labels): { statusKind: AipifyStatusKind; statusLabel: string } {
-  return count > 0
-    ? { statusKind: "needs_attention", statusLabel: labels.premium.metrics.countActive }
-    : { statusKind: "completed", statusLabel: labels.premium.metrics.countNone };
+function resolveSinceLastLoginBadge(count: number, labels: Labels) {
+  if (count <= 0) return { hideBadge: true as const, statusLabel: "" };
+  return {
+    semanticType: "severity" as const,
+    semanticValue: "info",
+    statusLabel: labels.premium.metrics.sinceLastLoginUpdated,
+    a11yLabel: labels.premium.metrics.sinceLastLoginUpdated,
+  };
+}
+
+function resolveOpenAlertsBadge(count: number, labels: Labels) {
+  if (count <= 0) {
+    return {
+      semanticType: "workflow" as const,
+      semanticValue: "completed",
+      statusLabel: labels.tabs.metrics.noOpenAlerts,
+    };
+  }
+  return {
+    semanticType: "workflow" as const,
+    semanticValue: "open",
+    statusLabel: labels.resolveLabel("common.status.semantic.workflow.open"),
+  };
+}
+
+function resolvePendingActionsBadge(count: number, labels: Labels) {
+  if (count <= 0) {
+    return {
+      semanticType: "workflow" as const,
+      semanticValue: "completed",
+      statusLabel: labels.tabs.metrics.noPendingActions,
+    };
+  }
+  return {
+    semanticType: "workflow" as const,
+    semanticValue: "pending",
+    statusLabel: labels.resolveLabel("common.status.semantic.workflow.pending"),
+  };
+}
+
+function resolveCriticalItemsBadge(count: number, labels: Labels) {
+  if (count <= 0) {
+    return {
+      semanticType: "workflow" as const,
+      semanticValue: "completed",
+      statusLabel: labels.tabs.metrics.noCriticalItems,
+      a11yLabel: labels.tabs.metrics.noCriticalItems,
+    };
+  }
+  const config = getEccCriticalItemsMetricBadge(count);
+  return {
+    semanticType: config.type,
+    semanticValue: config.value,
+    statusLabel: labels.resolveLabel("common.status.semantic.severity.critical"),
+    a11yLabel: labels.resolveLabel("common.status.semantic.severity.critical"),
+  };
 }
 
 function PremiumItemCard({
@@ -107,6 +182,25 @@ function resolveAccessStateContent(
   }
 }
 
+function tabInsightForSection(labels: Labels, section: Ecc590Section): string | null {
+  switch (section) {
+    case "alerts":
+      return labels.tabs.insights.alerts;
+    case "approvals":
+      return labels.tabs.insights.approvals;
+    case "risks":
+      return labels.tabs.insights.risks;
+    case "opportunities":
+      return labels.tabs.insights.opportunities;
+    case "performance":
+      return labels.tabs.insights.performance;
+    case "companionBriefing":
+      return labels.tabs.insights.companionBriefing;
+    default:
+      return null;
+  }
+}
+
 export function ExecutiveCommandCenterPanel({
   labels,
   activeSection,
@@ -117,6 +211,7 @@ export function ExecutiveCommandCenterPanel({
   const [center, setCenter] = useState<ExecutiveCommandCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const { registerRefreshHandler } = useExecutiveCommandCenterRefresh();
+  const resolveLabel = labels.resolveLabel;
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -135,6 +230,19 @@ export function ExecutiveCommandCenterPanel({
     registerRefreshHandler(load);
     return () => registerRefreshHandler(null);
   }, [load, registerRefreshHandler]);
+
+  const datasets = useMemo(() => {
+    if (!center?.found) return null;
+    return {
+      alerts: buildAlertsDataset(center),
+      approvals: buildApprovalsDataset(center),
+      risks: buildRisksDataset(center),
+      opportunities: buildOpportunitiesDataset(center),
+      performance: buildPerformanceDataset(center),
+      companionBriefing: buildCompanionBriefingDataset(center),
+      counts: buildEccOverviewCounts(center),
+    };
+  }, [center]);
 
   if (loading && !center) {
     return <AppLoadingState message={labels.loading} />;
@@ -166,14 +274,10 @@ export function ExecutiveCommandCenterPanel({
     );
   }
 
-  const stats = center.stats ?? {};
-  const riskAlerts = (center.alerts ?? []).filter((a) =>
-    ["customer_risk", "revenue_decline", "security", "compliance"].includes(String(a.alert_type))
-  );
-  const approvalActions = (center.actions ?? []).filter((a) => String(a.action_type) === "approval");
-  const allActions = center.actions ?? [];
   const healthScore = center.overall_health_score ?? 0;
-  const healthStatus = healthScoreStatus(healthScore, labels);
+  const healthBadge = resolveHealthMetricBadge(healthScore, labels);
+  const counts = datasets?.counts ?? buildEccOverviewCounts(center);
+  const tabInsight = tabInsightForSection(labels, activeSection);
 
   const overviewMetrics =
     activeSection === "overview" || activeSection === "performance" ? (
@@ -187,36 +291,35 @@ export function ExecutiveCommandCenterPanel({
           label={labels.overallHealthScore}
           value={healthScore}
           description={labels.premium.metrics.healthDescription}
-          statusKind={healthStatus.statusKind}
-          statusLabel={healthStatus.statusLabel}
+          {...healthBadge}
         />
         <ExecutiveMetricCard
           icon={EccTabIcons.history}
           label={labels.stats.sinceLastLoginItems}
-          value={stats.since_last_login_items ?? 0}
+          value={counts.sinceLastLoginItems}
           description={labels.premium.metrics.sinceLastLoginDescription}
-          {...countStatus(Number(stats.since_last_login_items ?? 0), labels)}
+          {...resolveSinceLastLoginBadge(counts.sinceLastLoginItems, labels)}
         />
         <ExecutiveMetricCard
           icon={EccTabIcons.alerts}
           label={labels.stats.openAlerts}
-          value={stats.open_alerts ?? 0}
+          value={counts.openAlerts}
           description={labels.premium.metrics.openAlertsDescription}
-          {...countStatus(Number(stats.open_alerts ?? 0), labels)}
+          {...resolveOpenAlertsBadge(counts.openAlerts, labels)}
         />
         <ExecutiveMetricCard
           icon={EccTabIcons.action}
           label={labels.stats.pendingActions}
-          value={stats.pending_actions ?? 0}
+          value={counts.pendingActions}
           description={labels.premium.metrics.pendingActionsDescription}
-          {...countStatus(Number(stats.pending_actions ?? 0), labels)}
+          {...resolvePendingActionsBadge(counts.pendingActions, labels)}
         />
         <ExecutiveMetricCard
           icon={EccTabIcons.critical}
           label={labels.stats.criticalItems}
-          value={stats.critical_items ?? 0}
+          value={counts.criticalItems}
           description={labels.premium.metrics.criticalItemsDescription}
-          {...countStatus(Number(stats.critical_items ?? 0), labels)}
+          {...resolveCriticalItemsBadge(counts.criticalItems, labels)}
         />
       </section>
     ) : null;
@@ -231,14 +334,17 @@ export function ExecutiveCommandCenterPanel({
         <div className="grid gap-4 lg:grid-cols-2">
           {(center.companion_recommendations ?? []).map((rec, i) => {
             const priority = rec.priority ?? "attention";
+            const severity = mapExecutivePriorityToSeverity(priority);
             return (
               <PriorityRecommendationCard
                 key={i}
                 category={labels.premium.recommendationCategory}
                 title={String(rec.alert_title ?? labels.companionRecommendations)}
                 description={String(rec.recommendation ?? "")}
-                statusKind={priorityToStatusKind(priority)}
-                statusLabel={priorityLabel(labels, priority)}
+                severityValue={severity}
+                severityLabel={priorityLabel(labels, priority)}
+                workflowValue="open"
+                workflowLabel={labels.resolveLabel("common.status.semantic.workflow.open")}
               />
             );
           })}
@@ -258,8 +364,12 @@ export function ExecutiveCommandCenterPanel({
         }
       />
 
-      {center.principle ? (
+      {activeSection === "overview" && center.principle ? (
         <CompanionInsightBanner principle={center.principle} label={labels.premium.companionInsight} />
+      ) : null}
+
+      {activeSection !== "overview" && activeSection !== "sinceLastLogin" && tabInsight ? (
+        <CompanionInsightBanner principle={tabInsight} label={labels.premium.companionInsight} />
       ) : null}
 
       {activeSection === "overview" ? (
@@ -267,7 +377,7 @@ export function ExecutiveCommandCenterPanel({
           {needsAttentionSection}
           {overviewMetrics}
         </div>
-      ) : (
+      ) : activeSection === "sinceLastLogin" ? null : (
         overviewMetrics
       )}
 
@@ -288,113 +398,57 @@ export function ExecutiveCommandCenterPanel({
       )}
 
       {activeSection === "sinceLastLogin" && (
-        <section className="space-y-4">
-          <AppSectionHeader title={labels.sinceLastLogin} />
-          {(center.since_last_login ?? []).length === 0 ? (
-            <p className="text-sm text-aipify-text-secondary">{labels.noRecords}</p>
-          ) : (
-            <div className="grid gap-4">
-              {(center.since_last_login ?? []).map((item) => (
-                <PremiumItemCard
-                  key={String(item.item_key)}
-                  title={`${String(item.item_count ?? 1)} — ${String(item.item_title)}`}
-                  summary={String(item.summary ?? "")}
-                  badge={priorityLabel(labels, item.priority)}
-                />
-              ))}
-            </div>
-          )}
-          {(center.timeline ?? []).length > 0 && (
-            <>
-              <AppSectionHeader title={labels.organizationalTimeline} />
-              <div className="grid gap-4">
-                {(center.timeline ?? []).map((evt) => (
-                  <PremiumItemCard
-                    key={String(evt.event_key)}
-                    title={String(evt.event_title)}
-                    summary={String(evt.summary ?? "")}
-                    badge={String(evt.event_type ?? "")}
-                    extra={
-                      evt.occurred_at ? (
-                        <p className="mt-2 text-xs text-aipify-text-muted">{String(evt.occurred_at)}</p>
-                      ) : null
-                    }
-                  />
-                ))}
-              </div>
-            </>
-          )}
-        </section>
+        <SinceLastLoginPresentation
+          labels={labels.sinceLastLoginUx}
+          eccItems={center.since_last_login ?? []}
+          activitySinceLogin={center.activity_since_login}
+          timeline={center.timeline ?? []}
+          activityHistoryHref="/app/activity"
+        />
       )}
 
       {activeSection === "alerts" && (
         <section className="grid gap-4">
-          {(center.alerts ?? []).length === 0 ? (
-            <AppEmptyState title={labels.noRecords} description={labels.premium.emptySection} />
+          {(datasets?.alerts.length ?? 0) === 0 ? (
+            <AppEmptyState title={labels.noRecords} description={labels.tabs.empty.alerts} />
           ) : (
-            (center.alerts ?? []).map((a) => (
-              <PremiumItemCard
-                key={String(a.alert_key)}
-                title={String(a.alert_title)}
-                summary={String(a.companion_recommendation || a.summary || "")}
-                badge={priorityLabel(labels, a.priority)}
-              />
-            ))
+            <CommandCenterItemList items={datasets?.alerts ?? []} resolveLabel={resolveLabel} />
           )}
         </section>
       )}
 
       {activeSection === "approvals" && (
         <section className="grid gap-4">
-          {approvalActions.length === 0 && allActions.length === 0 ? (
-            <AppEmptyState title={labels.noRecords} description={labels.premium.emptySection} />
+          {(datasets?.approvals.length ?? 0) === 0 ? (
+            <AppEmptyState title={labels.noRecords} description={labels.tabs.empty.approvals} />
           ) : (
-            (approvalActions.length > 0 ? approvalActions : allActions).map((a) => (
-              <PremiumItemCard
-                key={String(a.action_key)}
-                title={String(a.action_title)}
-                summary={String(a.summary ?? "")}
-                badge={priorityLabel(labels, a.priority)}
-                extra={
-                  a.record_href ? (
-                    <Link
-                      href={String(a.record_href)}
-                      className={`mt-4 inline-flex min-h-10 items-center text-sm font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
-                    >
-                      {labels.premium.openRecord}
-                    </Link>
-                  ) : null
-                }
-              />
-            ))
+            <CommandCenterItemList items={datasets?.approvals ?? []} resolveLabel={resolveLabel} />
           )}
         </section>
       )}
 
       {activeSection === "risks" && (
-        <section className="grid gap-4">
-          {riskAlerts.length === 0 && (center.health ?? []).length === 0 ? (
-            <AppEmptyState title={labels.noRecords} description={labels.premium.emptySection} />
+        <section className="space-y-8">
+          {(datasets?.risks.activeRisks.length ?? 0) === 0 &&
+          (datasets?.risks.operationalHealth.length ?? 0) === 0 ? (
+            <AppEmptyState title={labels.noRecords} description={labels.tabs.empty.risks} />
           ) : (
             <>
-              {riskAlerts.map((a) => (
-                <PremiumItemCard
-                  key={String(a.alert_key)}
-                  title={String(a.alert_title)}
-                  summary={String(a.companion_recommendation || a.summary || "")}
-                  badge={priorityLabel(labels, a.priority)}
-                />
-              ))}
-              {(center.health ?? [])
-                .filter((h) => Number(h.health_score) < 80)
-                .map((h) => (
-                  <PremiumItemCard
-                    key={String(h.health_key)}
-                    title={String(h.health_title)}
-                    summary={String(h.summary ?? "")}
-                    badge={`${String(h.health_score ?? 0)} · ${String(h.health_status ?? "")}`}
-                  />
-                ))}
+              <CommandCenterSectionBlock
+                title={labels.tabs.sections.activeRisks}
+                items={datasets?.risks.activeRisks ?? []}
+                resolveLabel={resolveLabel}
+                emptyTitle={labels.tabs.empty.activeRisks}
+                emptyDescription={labels.tabs.empty.activeRisks}
+              />
+              <CommandCenterSectionBlock
+                title={labels.tabs.sections.operationalHealth}
+                items={datasets?.risks.operationalHealth ?? []}
+                resolveLabel={resolveLabel}
+                emptyTitle={labels.tabs.empty.operationalHealth}
+                emptyDescription={labels.tabs.empty.operationalHealth}
+                variant="health"
+              />
             </>
           )}
         </section>
@@ -402,103 +456,58 @@ export function ExecutiveCommandCenterPanel({
 
       {activeSection === "opportunities" && (
         <section className="grid gap-4">
-          {(center.opportunities ?? []).length === 0 ? (
-            <AppEmptyState title={labels.noRecords} description={labels.premium.emptySection} />
+          {(datasets?.opportunities.length ?? 0) === 0 ? (
+            <AppEmptyState title={labels.noRecords} description={labels.tabs.empty.opportunities} />
           ) : (
-            (center.opportunities ?? []).map((o) => (
-              <PremiumItemCard
-                key={String(o.opportunity_key)}
-                title={String(o.opportunity_title)}
-                summary={String(o.recommendation || o.summary || "")}
-                badge={priorityLabel(labels, o.priority)}
-              />
-            ))
+            <CommandCenterItemList items={datasets?.opportunities ?? []} resolveLabel={resolveLabel} />
           )}
         </section>
       )}
 
       {activeSection === "performance" && (
-        <section className="grid gap-4 sm:grid-cols-2">
-          {(center.health ?? []).length === 0 ? (
-            <AppEmptyState title={labels.noRecords} description={labels.premium.emptySection} />
-          ) : (
-            (center.health ?? []).map((h) => (
-              <PremiumItemCard
-                key={String(h.health_key)}
-                title={String(h.health_title)}
-                summary={String(h.summary ?? "")}
-                badge={`${String(h.health_score ?? 0)} · ${String(h.health_status ?? "")}`}
-              />
-            ))
-          )}
+        <section className="space-y-8">
+          {overviewMetrics}
+          <CommandCenterSectionBlock
+            title={labels.tabs.sections.performanceHealth}
+            items={datasets?.performance.healthItems ?? []}
+            resolveLabel={resolveLabel}
+            emptyTitle={labels.tabs.empty.performance}
+            emptyDescription={labels.tabs.empty.performance}
+            variant="health"
+          />
         </section>
       )}
 
       {activeSection === "companionBriefing" && (
-        <section className="space-y-6">
-          {(center.briefings ?? []).map((b) => (
-            <article
-              key={String(b.briefing_key)}
-              className={`${AppPremiumShell.elevatedCard} border-violet-200/60 p-6`}
-            >
-              <h3 className="text-lg font-semibold text-aipify-text">{String(b.briefing_title)}</h3>
-              <dl className="mt-4 grid gap-4 sm:grid-cols-2">
-                <div>
-                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
-                    {labels.briefing.revenue}
-                  </dt>
-                  <dd className="mt-1 text-sm text-aipify-text-secondary">{String(b.revenue_summary ?? "")}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
-                    {labels.briefing.customer}
-                  </dt>
-                  <dd className="mt-1 text-sm text-aipify-text-secondary">{String(b.customer_summary ?? "")}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
-                    {labels.briefing.risk}
-                  </dt>
-                  <dd className="mt-1 text-sm text-aipify-text-secondary">{String(b.risk_summary ?? "")}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
-                    {labels.briefing.operational}
-                  </dt>
-                  <dd className="mt-1 text-sm text-aipify-text-secondary">{String(b.operational_summary ?? "")}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
-                    {labels.briefing.growth}
-                  </dt>
-                  <dd className="mt-1 text-sm text-aipify-text-secondary">{String(b.growth_summary ?? "")}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
-                    {labels.briefing.companion}
-                  </dt>
-                  <dd className="mt-1 text-sm text-aipify-text-secondary">
-                    {String(b.companion_recommendations ?? "")}
-                  </dd>
-                </div>
-              </dl>
-            </article>
-          ))}
-
-          {(center.board_reports ?? []).length > 0 && (
-            <div className="space-y-4">
-              <AppSectionHeader title={labels.boardReadyReports} />
-              <div className="grid gap-4">
-                {(center.board_reports ?? []).map((r) => (
-                  <PremiumItemCard
-                    key={String(r.report_key)}
-                    title={String(r.report_title)}
-                    summary={String(r.summary ?? "")}
-                    badge={String(r.report_type ?? "")}
-                  />
-                ))}
-              </div>
-            </div>
+        <section className="space-y-8">
+          {(datasets?.companionBriefing.executiveBriefings.length ?? 0) === 0 &&
+          (datasets?.companionBriefing.dailyBriefings.length ?? 0) === 0 &&
+          (datasets?.companionBriefing.boardReports.length ?? 0) === 0 ? (
+            <AppEmptyState title={labels.noRecords} description={labels.tabs.empty.companionBriefing} />
+          ) : (
+            <>
+              <CommandCenterSectionBlock
+                title={labels.tabs.sections.executiveBriefing}
+                items={datasets?.companionBriefing.executiveBriefings ?? []}
+                resolveLabel={resolveLabel}
+                emptyTitle={labels.tabs.empty.executiveBriefing}
+                emptyDescription={labels.tabs.empty.executiveBriefing}
+              />
+              <CommandCenterSectionBlock
+                title={labels.tabs.sections.dailyBriefing}
+                items={datasets?.companionBriefing.dailyBriefings ?? []}
+                resolveLabel={resolveLabel}
+                emptyTitle={labels.tabs.empty.dailyBriefing}
+                emptyDescription={labels.tabs.empty.dailyBriefing}
+              />
+              <CommandCenterSectionBlock
+                title={labels.tabs.sections.boardReports}
+                items={datasets?.companionBriefing.boardReports ?? []}
+                resolveLabel={resolveLabel}
+                emptyTitle={labels.tabs.empty.boardReports}
+                emptyDescription={labels.tabs.empty.boardReports}
+              />
+            </>
           )}
 
           {(center.command_prompts ?? []).length > 0 && (
@@ -507,7 +516,7 @@ export function ExecutiveCommandCenterPanel({
               <ul className="flex flex-wrap gap-2">
                 {(center.command_prompts ?? []).map((prompt) => (
                   <li key={prompt}>
-                    <AipifyStatusBadge kind="information" label={prompt} />
+                    <SemanticBadge type="severity" value="info" label={prompt} />
                   </li>
                 ))}
               </ul>

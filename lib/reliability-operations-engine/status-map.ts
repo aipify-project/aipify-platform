@@ -33,3 +33,5 @@ export function mapReliabilityStatusToKind(status: unknown): AipifyStatusKind {
   const key = String(status ?? "information").toLowerCase().replace(/-/g, "_");
   return STATUS_MAP[key] ?? "information";
 }
+
+export { mapReliabilityStatusToSemantic } from "@/lib/design/semantic-status-system";

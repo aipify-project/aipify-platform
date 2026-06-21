@@ -15,6 +15,8 @@ import type {
   ActivityOperationsLabels,
   ActivityOperationsTab,
 } from "@/lib/activity-operations";
+import { SinceLastLoginPresentation } from "@/components/shared/since-last-login/SinceLastLoginPresentation";
+import type { SinceLastLoginUxLabels } from "@/lib/command-center/since-last-login-labels";
 import { parseActivityOperationsCenter } from "@/lib/activity-operations/parse";
 
 type Tab = ActivityOperationsTab;
@@ -39,6 +41,7 @@ const PRIORITY_ICON: Record<string, string> = {
 
 type Props = {
   labels: ActivityOperationsLabels;
+  sinceLastLoginUxLabels?: SinceLastLoginUxLabels;
   initialTab?: Tab;
   titleOverride?: string;
   subtitleOverride?: string;
@@ -148,6 +151,7 @@ function HighlightList({ highlights }: { highlights: ActivityHighlight[] }) {
 
 export function ActivityOperationsPanel({
   labels,
+  sinceLastLoginUxLabels,
   initialTab = "overview",
   titleOverride,
   subtitleOverride,
@@ -349,54 +353,24 @@ export function ActivityOperationsPanel({
       ) : null}
 
       {tab === "since_last_login" ? (
-        <div className="space-y-6">
-          {since?.headline ? (
-            <div className={`${AipifyShellClasses.surfaceCard} p-4`}>
-              <h2 className="text-lg font-semibold text-aipify-text">{since.headline}</h2>
-              {since.companion_summary ? <p className="mt-2 text-sm text-aipify-text-secondary">{since.companion_summary}</p> : null}
-              <ul className="mt-4 space-y-2">
-                {(since.summary_lines ?? []).map((line) => (
-                  <li key={line.text} className="flex items-start gap-2 text-sm text-aipify-text-secondary">
-                    <span>{PRIORITY_ICON[line.priority] ?? "ℹ️"}</span>
-                    <span>{line.text}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <button type="button" disabled={busy} onClick={() => void runAction("mark_login")} className={`${AipifyShellClasses.primaryButton} text-sm`}>
-                  {labels.markLogin}
-                </button>
-                <button type="button" disabled={busy} onClick={() => void runAction("generate_highlights")} className={`${AipifyShellClasses.secondaryButton} text-sm`}>
-                  {labels.generateHighlights}
-                </button>
-              </div>
-            </div>
-          ) : null}
-          <section>
-            <h2 className="mb-3 text-sm font-semibold text-aipify-text">{labels.topChanges}</h2>
-            <EventList events={since?.top_changes ?? []} labels={labels} emptyTitle={labels.noEvents} />
-          </section>
-          <section>
-            <h2 className="mb-3 text-sm font-semibold text-aipify-text">{labels.topRisks}</h2>
-            <EventList events={since?.top_risks ?? []} labels={labels} emptyTitle={labels.noEvents} />
-          </section>
-          <section>
-            <h2 className="mb-3 text-sm font-semibold text-aipify-text">{labels.recommendedActions}</h2>
-            {(since?.recommended_actions ?? []).length > 0 ? (
-              <ul className="space-y-2">
-                {(since?.recommended_actions ?? []).map((action) => (
-                  <li key={action.title}>
-                    <Link href={action.href} className="text-sm text-aipify-accent hover:underline">
-                      {action.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <PlatformEmptyState title={labels.noEvents} message={labels.emptyHint} />
-            )}
-          </section>
-        </div>
+        sinceLastLoginUxLabels ? (
+          <SinceLastLoginPresentation
+            labels={sinceLastLoginUxLabels}
+            activitySinceLogin={since as Record<string, unknown> | undefined}
+            activityEvents={[
+              ...(since?.top_changes ?? []),
+              ...(since?.top_risks ?? []),
+              ...(since?.top_opportunities ?? []),
+            ]}
+            activityHistoryHref={routes.activity ?? "/app/activity"}
+            showInsight
+            activityHeading={false}
+            error={center.error}
+            onRefresh={() => void load()}
+          />
+        ) : (
+          <PlatformEmptyState title={labels.loadError} message={labels.emptyHint} />
+        )
       ) : null}
 
       {tab === "organization" ? (

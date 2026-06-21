@@ -17,7 +17,9 @@
     "start": "next start",
     "lint": "eslint",
     "test:greeting": "npx --yes tsx lib/core/greeting.test.ts",
-    "test:intelligence": "npx --yes tsx lib/intelligence/router.test.ts",
+    "test:semantic-status": "npx --yes tsx lib/design/semantic-status-system.test.ts",
+    "test:since-last-login": "npx --yes tsx lib/command-center/since-last-login.test.ts",
+    "test:ecc-tab-datasets": "npx --yes tsx lib/command-center/ecc-tab-datasets.test.ts",
     "generate:customer-app-splits": "node scripts/generate-customer-app-split-locales.mjs",
     "generate:aipify-api-registry": "node scripts/generate-aipify-api-registry.mjs --apply",
     "supabase:link": "npx supabase link --project-ref qbcqoixhrvhnuwphefvw",
@@ -32,7 +34,8 @@
     "supabase:apply-pending": "node scripts/apply-all-migrations-mcp-style.mjs",
     "app:showcase:seed": "node scripts/seed-app-showcase-data.mjs",
     "app:showcase:verify": "node scripts/verify-app-showcase-data.mjs",
-    "app:showcase:remove": "node scripts/remove-app-showcase-data.mjs"
+    "app:showcase:remove": "node scripts/remove-app-showcase-data.mjs",
+    "generate:favicons": "node scripts/generate-favicon-assets.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
@@ -55,6 +58,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "gifenc": "^1.0.3",
+    "png-to-ico": "^2.1.8",
+    "sharp": "^0.34.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

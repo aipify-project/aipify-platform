@@ -9,7 +9,7 @@ import { MARKETING_PRIMARY_CTA_HREFS } from "@/lib/marketing/primary-ctas";
 
 type ProductHeroProps = {
   hero: ProductPageContent["hero"];
-  commandBrief: ProductPageContent["commandBrief"];
+  commandBrief: ProductPageContent["commandBriefHero"];
 };
 
 export default function ProductHero({ hero, commandBrief }: ProductHeroProps) {

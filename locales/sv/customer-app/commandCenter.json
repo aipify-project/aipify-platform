@@ -1543,7 +1543,155 @@
         "healthStatusModerate": "Måttlig",
         "healthStatusLow": "Kräver uppmärksamhet",
         "countActive": "Aktiv",
-        "countNone": "Klart"
+        "countNone": "Uppdaterad",
+        "sinceLastLoginUpdated": "Uppdaterad",
+        "noCriticalItems": "Inga kritiska ärenden"
+      }
+    },
+    "tabs": {
+      "insights": {
+        "alerts": "Aipify har prioriterat aktiva varningar så att ledningen kan granska det viktigaste först.",
+        "approvals": "Granska beslut som väntar på ledningsgodkännande innan arbetet kan fortsätta.",
+        "risks": "Aipify separerar aktiva risker från bredare organisatorisk hälsa så att ledningen kan fokusera på det som kräver åtgärd.",
+        "opportunities": "Aipify har organiserat potentiella tillväxtmöjligheter med status, värde och rekommenderade nästa steg.",
+        "performance": "Aipify kombinerar operativa mätvärden och hälsosignaler för att visa om organisationen är på rätt spår.",
+        "companionBriefing": "Aipify omvandlar aktuell operativ information till ledningsbriefingar och styrelserapporter."
+      },
+      "empty": {
+        "alerts": "Inga öppna varningar just nu. Aipify övervakar och visar nya poster här.",
+        "approvals": "Inga godkännanden väntar på granskning.",
+        "risks": "Inga aktiva risker upptäcktes i denna vy.",
+        "opportunities": "Inga öppna möjligheter i denna vy.",
+        "performance": "Inga prestandahälsosignaler att visa ännu.",
+        "companionBriefing": "Inga briefing- eller rapportposter är tillgängliga ännu.",
+        "activeRisks": "Inga aktiva risker kräver ledningsgranskning.",
+        "operationalHealth": "Organisatoriska hälsosignaler visas här när de finns tillgängliga.",
+        "executiveBriefing": "Ingen ledningsbriefing är tillgänglig ännu.",
+        "dailyBriefing": "Ingen daglig briefing är tillgänglig ännu.",
+        "boardReports": "Inga styrelserapporter är tillgängliga ännu."
+      },
+      "sections": {
+        "activeRisks": "Aktiva risker",
+        "operationalHealth": "Operativ hälsa",
+        "executiveBriefing": "Ledningsbriefing",
+        "dailyBriefing": "Daglig briefing",
+        "boardReports": "Styrelserapporter",
+        "performanceHealth": "Prestandahälsa"
+      },
+      "metrics": {
+        "upToDate": "Uppdaterad",
+        "noOpenAlerts": "Inga öppna varningar",
+        "noPendingActions": "Inga väntande åtgärder",
+        "noCriticalItems": "Inga kritiska ärenden"
+      },
+      "shared": {
+        "open": "Öppna",
+        "type": "Typ",
+        "timestamp": "Uppdaterad",
+        "items": "poster"
+      },
+      "alerts": {
+        "actions": {
+          "reviewApproval": "Granska godkännande",
+          "viewCustomerRisk": "Visa kundrisk",
+          "openSecurityReview": "Öppna säkerhetsgranskning",
+          "openInvoice": "Öppna faktura"
+        }
+      },
+      "approvals": {
+        "requester": "Begärt av",
+        "blocked": "Blockerat tills godkänt",
+        "actions": {
+          "review": "Granska godkännande"
+        }
+      },
+      "risks": {
+        "actions": {
+          "reviewRisk": "Granska risk"
+        }
+      },
+      "opportunities": {
+        "value": "Värde",
+        "confidence": "Konfidens",
+        "nextStep": "Nästa steg",
+        "actions": {
+          "review": "Granska möjlighet"
+        }
+      },
+      "performance": {
+        "actions": {
+          "viewHealth": "Visa prestandahälsa"
+        }
+      },
+      "briefing": {
+        "actions": {
+          "openBriefing": "Öppna briefing",
+          "openReport": "Öppna rapport",
+          "generateReport": "Generera rapport",
+          "downloadPdf": "Ladda ner PDF",
+          "downloadWord": "Ladda ner Word"
+        }
+      },
+      "opportunityStatus": {
+        "identified": "Identifierad",
+        "recommended": "Rekommenderad",
+        "reviewRequired": "Kräver granskning",
+        "qualified": "Kvalificerad",
+        "inProgress": "Pågår",
+        "won": "Vunnen",
+        "declined": "Avböjd",
+        "expired": "Utgången",
+        "a11y": "Möjlighetsstatus"
+      },
+      "reportState": {
+        "generated": "Genererad",
+        "generating": "Genererar",
+        "draft": "Utkast",
+        "template": "Mall",
+        "failed": "Misslyckades",
+        "outdated": "Föråldrad",
+        "a11y": "Rapportstatus"
+      }
+    },
+    "sinceLastLoginUx": {
+      "activityHeading": "Aktivitet sedan ditt senaste besök",
+      "insightLabel": "Aipify-insikt",
+      "insight": "Aipify har organiserat de senaste förändringarna så att du snabbt ser vad som är klart och vad som fortfarande kräver din uppmärksamhet.",
+      "summaryRequiresAttention": "Kräver uppmärksamhet: {{count}}",
+      "summaryCompleted": "Slutfört av Aipify: {{count}}",
+      "summaryOtherChanges": "Andra förändringar: {{count}}",
+      "groupRequiresAttention": "Kräver din uppmärksamhet",
+      "groupCompleted": "Slutfört av Aipify",
+      "groupOtherChanges": "Andra förändringar",
+      "emptyAttention": "✅ Inget brådskande kräver din uppmärksamhet",
+      "emptyAll": "✅ Du är uppdaterad",
+      "emptyAllDescription": "Aipify övervakar organisationen. Ny aktivitet visas här efter ditt nästa besök.",
+      "errorTitle": "Aktivitet kunde inte laddas",
+      "errorDescription": "Något gick fel när aktivitetssammanfattningen laddades. Försök igen eller öppna aktivitetshistoriken.",
+      "refresh": "Uppdatera",
+      "viewActivityHistory": "Visa aktivitetshistorik",
+      "openAction": "Öppna",
+      "countItem": "1 post",
+      "countItems": "{{count}} poster",
+      "countUpdate": "1 uppdatering",
+      "countUpdates": "{{count}} uppdateringar",
+      "countEscalation": "1 eskalering",
+      "countEscalations": "{{count}} eskaleringar",
+      "completedByAipify": "Slutfört av Aipify",
+      "information": "Information",
+      "severity": {
+        "critical": "Kritisk",
+        "high": "Hög risk",
+        "medium": "Kräver uppmärksamhet",
+        "low": "Låg risk",
+        "info": "Information"
+      },
+      "workflow": {
+        "open": "Öppen",
+        "pending": "Väntar",
+        "awaitingApproval": "Väntar på granskning",
+        "inProgress": "Pågår",
+        "completed": "Slutförd"
       }
     }
   }

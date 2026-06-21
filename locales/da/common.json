@@ -172,5 +172,62 @@
       "square": "Vælg kvadrat",
       "star": "Vælg stjerne"
     }
+  },
+  "status": {
+    "completed": "Fuldført",
+    "notAllowed": "Ikke tilladt",
+    "needsAttention": "Kræver opmærksomhed",
+    "information": "Information",
+    "restricted": "Begrænset adgang",
+    "verified": "Verificeret",
+    "waiting": "Venter",
+    "semantic": {
+      "lifecycle": {
+        "active": "Aktiv",
+        "inactive": "Inaktiv",
+        "enabled": "Aktiveret",
+        "disabled": "Deaktiveret",
+        "paused": "Pauset",
+        "archived": "Arkiveret"
+      },
+      "severity": {
+        "critical": "Kritisk",
+        "high": "Høj risiko",
+        "medium": "Middel risiko",
+        "low": "Lav risiko",
+        "info": "Information"
+      },
+      "workflow": {
+        "open": "Åbne",
+        "pending": "Venter",
+        "inProgress": "I gang",
+        "awaitingApproval": "Afventer godkendelse",
+        "completed": "Fuldført",
+        "cancelled": "Annulleret",
+        "blocked": "Blokeret",
+        "overdue": "Forfalden"
+      },
+      "health": {
+        "healthy": "Sund",
+        "good": "God",
+        "moderate": "Moderat",
+        "poor": "Dårlig",
+        "criticalHealth": "Kritisk helbred",
+        "unknown": "Ukendt"
+      },
+      "access": {
+        "verified": "Verificeret",
+        "restricted": "Begrænset adgang",
+        "notAllowed": "Ikke tilladt"
+      },
+      "a11y": {
+        "lifecycle": "Livscyklusstatus: {{status}}",
+        "severity": "Alvorlighedsgrad: {{status}}",
+        "workflow": "Arbejdsgangsstatus: {{status}}",
+        "health": "Helbredsstatus: {{status}}",
+        "organizationalHealth": "Organisationshelbred: {{status}}",
+        "access": "Adgangsstatus: {{status}}"
+      }
+    }
   }
 }

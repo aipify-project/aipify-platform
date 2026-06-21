@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SystemNoticeRootProvider } from "@/components/providers/SystemNoticeRootProvider";
+import { AIPIFY_GLOBAL_ICONS } from "@/lib/branding/favicon-metadata";
+import { getLocale } from "@/lib/i18n/get-locale";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,6 +20,7 @@ export const metadata: Metadata = {
   description:
     "Aipify helps organizations streamline operations, support teams, automate approved workflows and make smarter decisions through intelligent business assistance.",
   metadataBase: new URL("https://aipify.ai"),
+  icons: AIPIFY_GLOBAL_ICONS,
   openGraph: {
     title: "Aipify works for you",
     description:
@@ -39,14 +42,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
     <html
-      lang="en"
+      lang={locale}
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >

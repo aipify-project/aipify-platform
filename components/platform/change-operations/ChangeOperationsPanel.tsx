@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
-import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import { SemanticBadge } from "@/components/ui/semantic-badge";
 import {
   chg605SectionToRpc,
   parseChangeOperationsCenter,
@@ -10,7 +10,7 @@ import {
   type ChangeOperationsCenter,
 } from "@/lib/change-operations-engine";
 import type { buildChangeOperationsLabels } from "@/lib/change-operations-engine/labels";
-import type { AipifyStatusKind } from "@/lib/design/status-system";
+import { mapChangeOperationStatusToSemantic } from "@/lib/design/semantic-status-system";
 
 type Labels = ReturnType<typeof buildChangeOperationsLabels>;
 
@@ -24,7 +24,14 @@ function StatCard({ label, value }: { label: string; value: string | number }) {
 }
 
 function StatusBadge({ status, statusLabel }: { status: string; statusLabel: string }) {
-  return <AipifyStatusBadge kind={mapChangeStatus(status)} label={`${statusLabel}: ${formatStatus(status)}`} />;
+  const semantic = mapChangeOperationStatusToSemantic(status);
+  return (
+    <SemanticBadge
+      type={semantic.type}
+      value={semantic.value}
+      label={`${statusLabel}: ${formatStatus(status)}`}
+    />
+  );
 }
 
 function ItemCard({
@@ -313,23 +320,6 @@ export function ChangeOperationsPanel({
 
 function formatStatus(status: string): string {
   return status.replace(/_/g, " ");
-}
-
-function mapChangeStatus(status: string): AipifyStatusKind {
-  const s = status.toLowerCase();
-  if (["successfully_released", "approved", "passed", "complete", "recorded", "active", "linked", "not_required", "waived"].some((k) => s.includes(k))) {
-    return "completed";
-  }
-  if (["failed", "rolled_back", "cancelled", "rejected", "blocked"].some((k) => s.includes(k))) {
-    return "not_allowed";
-  }
-  if (["pending", "scheduled", "draft", "under_review", "approval_required", "testing", "preparing", "monitoring", "in_progress"].some((k) => s.includes(k))) {
-    return "waiting";
-  }
-  if (["emergency", "critical", "high", "collision", "detected", "freeze"].some((k) => s.includes(k))) {
-    return "needs_attention";
-  }
-  return "information";
 }
 
 function getSectionItems(

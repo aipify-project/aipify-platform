@@ -25,6 +25,8 @@ function parseRecommendations(raw: unknown): PackRecommendation[] {
     return {
       id: str(d.id || d.pack_key),
       pack_key: str(d.pack_key),
+      catalogSlug: str(d.catalog_slug || d.catalogSlug || d.pack_key) || undefined,
+      packId: str(d.pack_id || d.packId) || undefined,
       name: str(d.name),
       category: str(d.category),
       industry: str(d.industry) || undefined,

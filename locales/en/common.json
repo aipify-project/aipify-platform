@@ -172,5 +172,62 @@
       "square": "Select square",
       "star": "Select star"
     }
+  },
+  "status": {
+    "completed": "Completed",
+    "notAllowed": "Not allowed",
+    "needsAttention": "Needs attention",
+    "information": "Information",
+    "restricted": "Restricted access",
+    "verified": "Verified",
+    "waiting": "Waiting",
+    "semantic": {
+      "lifecycle": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "enabled": "Enabled",
+        "disabled": "Disabled",
+        "paused": "Paused",
+        "archived": "Archived"
+      },
+      "severity": {
+        "critical": "Critical",
+        "high": "High risk",
+        "medium": "Medium risk",
+        "low": "Low risk",
+        "info": "Information"
+      },
+      "workflow": {
+        "open": "Open",
+        "pending": "Pending",
+        "inProgress": "In progress",
+        "awaitingApproval": "Awaiting approval",
+        "completed": "Completed",
+        "cancelled": "Cancelled",
+        "blocked": "Blocked",
+        "overdue": "Overdue"
+      },
+      "health": {
+        "healthy": "Healthy",
+        "good": "Good",
+        "moderate": "Moderate",
+        "poor": "Poor",
+        "criticalHealth": "Critical health",
+        "unknown": "Unknown"
+      },
+      "access": {
+        "verified": "Verified",
+        "restricted": "Restricted access",
+        "notAllowed": "Not allowed"
+      },
+      "a11y": {
+        "lifecycle": "Lifecycle status: {{status}}",
+        "severity": "Risk severity: {{status}}",
+        "workflow": "Workflow state: {{status}}",
+        "health": "Health status: {{status}}",
+        "organizationalHealth": "Organizational health: {{status}}",
+        "access": "Access status: {{status}}"
+      }
+    }
   }
 }

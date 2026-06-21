@@ -1541,7 +1541,155 @@
         "healthStatusModerate": "Moderate",
         "healthStatusLow": "Needs attention",
         "countActive": "Active",
-        "countNone": "Clear"
+        "countNone": "Up to date",
+        "sinceLastLoginUpdated": "Updated",
+        "noCriticalItems": "No critical items"
+      }
+    },
+    "tabs": {
+      "insights": {
+        "alerts": "Aipify has prioritized active alerts so executives can review what requires attention first.",
+        "approvals": "Review decisions that are waiting for executive approval before work can continue.",
+        "risks": "Aipify separates active risks from broader organizational health so leadership can focus on what needs action.",
+        "opportunities": "Aipify has organized potential growth opportunities with status, value, and recommended next steps.",
+        "performance": "Aipify combines operational metrics and health signals to show whether the organization is on track.",
+        "companionBriefing": "Aipify turns current operational information into executive briefings and board-ready reports."
+      },
+      "empty": {
+        "alerts": "No open alerts right now. Aipify is monitoring and will surface new items here.",
+        "approvals": "No approvals waiting for review.",
+        "risks": "No active risks detected in this view.",
+        "opportunities": "No open opportunities in this view.",
+        "performance": "No performance health signals to display yet.",
+        "companionBriefing": "No briefing or report items are available yet.",
+        "activeRisks": "No active risks require executive review.",
+        "operationalHealth": "Organizational health signals will appear here when available.",
+        "executiveBriefing": "No executive briefing is available yet.",
+        "dailyBriefing": "No daily briefing is available yet.",
+        "boardReports": "No board-ready reports are available yet."
+      },
+      "sections": {
+        "activeRisks": "Active risks",
+        "operationalHealth": "Operational health",
+        "executiveBriefing": "Executive briefing",
+        "dailyBriefing": "Daily briefing",
+        "boardReports": "Board-ready reports",
+        "performanceHealth": "Performance health"
+      },
+      "metrics": {
+        "upToDate": "Up to date",
+        "noOpenAlerts": "No open alerts",
+        "noPendingActions": "No pending actions",
+        "noCriticalItems": "No critical items"
+      },
+      "shared": {
+        "open": "Open",
+        "type": "Type",
+        "timestamp": "Updated",
+        "items": "items"
+      },
+      "alerts": {
+        "actions": {
+          "reviewApproval": "Review approval",
+          "viewCustomerRisk": "View customer risk",
+          "openSecurityReview": "Open security review",
+          "openInvoice": "Open invoice"
+        }
+      },
+      "approvals": {
+        "requester": "Requester",
+        "blocked": "Blocked until approved",
+        "actions": {
+          "review": "Review approval"
+        }
+      },
+      "risks": {
+        "actions": {
+          "reviewRisk": "Review risk"
+        }
+      },
+      "opportunities": {
+        "value": "Value",
+        "confidence": "Confidence",
+        "nextStep": "Next step",
+        "actions": {
+          "review": "Review opportunity"
+        }
+      },
+      "performance": {
+        "actions": {
+          "viewHealth": "View performance health"
+        }
+      },
+      "briefing": {
+        "actions": {
+          "openBriefing": "Open briefing",
+          "openReport": "Open report",
+          "generateReport": "Generate report",
+          "downloadPdf": "Download PDF",
+          "downloadWord": "Download Word"
+        }
+      },
+      "opportunityStatus": {
+        "identified": "Identified",
+        "recommended": "Recommended",
+        "reviewRequired": "Review required",
+        "qualified": "Qualified",
+        "inProgress": "In progress",
+        "won": "Won",
+        "declined": "Declined",
+        "expired": "Expired",
+        "a11y": "Opportunity status"
+      },
+      "reportState": {
+        "generated": "Generated",
+        "generating": "Generating",
+        "draft": "Draft",
+        "template": "Template",
+        "failed": "Failed",
+        "outdated": "Outdated",
+        "a11y": "Report state"
+      }
+    },
+    "sinceLastLoginUx": {
+      "activityHeading": "Activity since your last visit",
+      "insightLabel": "Aipify insight",
+      "insight": "Aipify has organized the latest changes so you can quickly see what was completed and what still requires your attention.",
+      "summaryRequiresAttention": "Requires attention: {{count}}",
+      "summaryCompleted": "Completed by Aipify: {{count}}",
+      "summaryOtherChanges": "Other changes: {{count}}",
+      "groupRequiresAttention": "Requires your attention",
+      "groupCompleted": "Completed by Aipify",
+      "groupOtherChanges": "Other changes",
+      "emptyAttention": "✅ Nothing urgent requires your attention",
+      "emptyAll": "✅ You are up to date",
+      "emptyAllDescription": "Aipify is monitoring your organization. New activity will appear here after your next visit.",
+      "errorTitle": "Activity could not be loaded",
+      "errorDescription": "Something unexpected happened while loading your activity summary. Please try again or open the activity history.",
+      "refresh": "Refresh",
+      "viewActivityHistory": "View activity history",
+      "openAction": "Open",
+      "countItem": "1 item",
+      "countItems": "{{count}} items",
+      "countUpdate": "1 update",
+      "countUpdates": "{{count}} updates",
+      "countEscalation": "1 escalation",
+      "countEscalations": "{{count}} escalations",
+      "completedByAipify": "Completed by Aipify",
+      "information": "Information",
+      "severity": {
+        "critical": "Critical",
+        "high": "High risk",
+        "medium": "Requires attention",
+        "low": "Low risk",
+        "info": "Information"
+      },
+      "workflow": {
+        "open": "Open",
+        "pending": "Pending",
+        "awaitingApproval": "Awaiting review",
+        "inProgress": "In progress",
+        "completed": "Completed"
       }
     }
   }

@@ -14,6 +14,7 @@ import { TeamCenterPanel } from "@/components/app/team/TeamCenterPanel";
 import { buildAppPortalLabels, buildAppPortalFaqAnswerLabels } from "@/lib/app-portal/labels";
 import { buildAppStoreLabels } from "@/lib/app-store/labels";
 import { buildBusinessPackSettingsLabels } from "@/lib/app-portal/business-pack-settings";
+import { buildBusinessPackDetailLabels } from "@/lib/app-portal/business-pack-detail-labels";
 import {
   APP_PORTAL_INTEGRATIONS_FAQ_ARTICLES,
   buildAppPortalIntegrationsFaqAnswerLabels,
@@ -192,6 +193,7 @@ export async function renderAppPortalAvailableBusinessPacksPage() {
   const t = createTranslator({ ...portalDict, ...marketplaceDict });
   const portalLabels = buildAppPortalLabels(t);
   const storeLabels = buildAppStoreLabels(t);
+  const detailLabels = buildBusinessPackDetailLabels(t);
   const page = PAGE_KEYS.availableBusinessPacks;
   const backLabel = t("customerApp.portalStructure.nav.availableBusinessPacks");
 
@@ -212,6 +214,8 @@ export async function renderAppPortalAvailableBusinessPacksPage() {
       >
         <AvailableBusinessPacksPanel
           labels={storeLabels}
+          detailLabels={detailLabels}
+          t={t}
           locale={locale}
           backLabel={backLabel}
           upgradeTitle={portalLabels.license.upgradeTitle}

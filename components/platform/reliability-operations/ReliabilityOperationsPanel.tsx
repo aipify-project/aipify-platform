@@ -2,11 +2,11 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
-import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import { SemanticBadge } from "@/components/ui/semantic-badge";
 import {
   parseReliabilityCenter,
   rel604PlatformSectionToRpc,
-  mapReliabilityStatusToKind,
+  mapReliabilityStatusToSemantic,
   type Rel604PlatformSection,
   type ReliabilityCenter,
 } from "@/lib/reliability-operations-engine";
@@ -42,10 +42,16 @@ function ItemCard({
       <div className="flex flex-wrap items-start justify-between gap-2">
         <p className="font-semibold text-gray-900">{title}</p>
         {status ? (
-          <AipifyStatusBadge
-            kind={mapReliabilityStatusToKind(status)}
-            label={statusLabel ?? String(status).replace(/_/g, " ")}
-          />
+          (() => {
+            const semantic = mapReliabilityStatusToSemantic(status);
+            return (
+              <SemanticBadge
+                type={semantic.type}
+                value={semantic.value}
+                label={statusLabel ?? String(status).replace(/_/g, " ")}
+              />
+            );
+          })()
         ) : null}
       </div>
       {summary ? <p className="mt-2 text-sm text-gray-600">{summary}</p> : null}
@@ -181,10 +187,16 @@ export function ReliabilityOperationsPanel({
                 <tr key={i} className="border-b border-gray-100">
                   <td className="px-4 py-3 font-medium text-gray-900">{String(row.title ?? "—")}</td>
                   <td className="px-4 py-3">
-                    <AipifyStatusBadge
-                      kind={mapReliabilityStatusToKind(row.status)}
-                      label={reliabilityStatusLabel(labels.status, row.status)}
-                    />
+                    {(() => {
+                      const semantic = mapReliabilityStatusToSemantic(row.status);
+                      return (
+                        <SemanticBadge
+                          type={semantic.type}
+                          value={semantic.value}
+                          label={reliabilityStatusLabel(labels.status, row.status)}
+                        />
+                      );
+                    })()}
                   </td>
                 </tr>
               ))}

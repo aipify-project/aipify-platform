@@ -1,11 +1,22 @@
 /**
  * Canonical public pricing catalog for /pricing — single source for limits and published prices.
- * Prices align with `public.plans` seed (NOK, monthly). Do not duplicate amounts in components.
+ * Amounts must stay aligned with `public.plans.price_amount` for new checkout flows.
+ *
+ * BILLING NOTE: Updating these amounts does not change Stripe/Klarna product IDs or existing
+ * subscription rows. After changing published prices, apply a forward migration to
+ * `public.plans` and create new payment-provider price objects in each environment before
+ * routing live checkout to the new amounts. Never auto-reprice active subscriptions.
  */
 import { PRODUCT_PACKAGES, type ProductPackage } from "@/lib/core/plans";
 import type { PlanType } from "@/lib/platform/types";
+import type { Locale } from "@/lib/i18n/config";
+import {
+  MARKETING_BUSINESS_PACK_REGISTRY,
+  type MarketingBusinessPackCommercialType,
+  type PublicMarketingPlanKey,
+} from "@/lib/marketing/business-packs/registry";
 
-export type PublicMarketingPlanKey = "starter" | "professional" | "business" | "enterprise";
+export type { PublicMarketingPlanKey } from "@/lib/marketing/business-packs/registry";
 
 const PLAN_TO_CORE: Record<PublicMarketingPlanKey, PlanType> = {
   starter: "starter",
@@ -19,9 +30,9 @@ export const PUBLIC_PLAN_PRICES: Record<
   Exclude<PublicMarketingPlanKey, "enterprise">,
   { amount: number; currency: "NOK"; period: "monthly" }
 > = {
-  starter: { amount: 490, currency: "NOK", period: "monthly" },
-  professional: { amount: 1490, currency: "NOK", period: "monthly" },
-  business: { amount: 3990, currency: "NOK", period: "monthly" },
+  starter: { amount: 799, currency: "NOK", period: "monthly" },
+  professional: { amount: 2500, currency: "NOK", period: "monthly" },
+  business: { amount: 6999, currency: "NOK", period: "monthly" },
 };
 
 export type BusinessPackPricingModel =
@@ -38,72 +49,24 @@ export type PublicBusinessPackCatalogItem = {
   audience: string;
   value: string;
   pricingStatus: BusinessPackPricingModel;
+  commercialType: MarketingBusinessPackCommercialType;
   planRequirement: PublicMarketingPlanKey;
   detailHref: string;
 };
 
-export const PUBLIC_BUSINESS_PACK_CATALOG: PublicBusinessPackCatalogItem[] = [
-  {
-    id: "hosts",
-    slug: "hosts",
-    name: "Aipify Hosts",
-    audience: "Hospitality and property operators",
-    value: "Guest operations, property workflows, and occupancy visibility.",
-    pricingStatus: "addon",
-    planRequirement: "business",
-    detailHref: "/business-packs/hosts",
-  },
-  {
-    id: "support",
-    slug: "support",
-    name: "Aipify Support",
-    audience: "Customer service and support teams",
-    value: "Governed triage, knowledge-backed responses, and escalation.",
-    pricingStatus: "addon",
-    planRequirement: "professional",
-    detailHref: "/business-packs/support",
-  },
-  {
-    id: "commerce",
-    slug: "commerce",
-    name: "Aipify Commerce",
-    audience: "Retail and e-commerce operations",
-    value: "Order visibility, inventory coordination, and customer touchpoints.",
-    pricingStatus: "addon",
-    planRequirement: "professional",
-    detailHref: "/pricing#business-packs",
-  },
-  {
-    id: "services",
-    slug: "services",
-    name: "Aipify Services",
-    audience: "Professional services organizations",
-    value: "Client delivery, knowledge retention, and executive visibility.",
-    pricingStatus: "addon",
-    planRequirement: "professional",
-    detailHref: "/pricing#business-packs",
-  },
-  {
-    id: "projects",
-    slug: "projects",
-    name: "Aipify Projects",
-    audience: "Project-driven teams",
-    value: "Delivery coordination, approvals, and operational handoffs.",
-    pricingStatus: "contact",
-    planRequirement: "business",
-    detailHref: "/pricing#business-packs",
-  },
-  {
-    id: "finance",
-    slug: "finance",
-    name: "Aipify Finance",
-    audience: "Finance and operations leaders",
-    value: "Operational finance visibility with governance controls.",
-    pricingStatus: "addon",
-    planRequirement: "business",
-    detailHref: "/business-packs/finance",
-  },
-];
+/** Pricing card catalog — content keys resolved from `businessPackDetailPages` + `pricingPage.businessPacks.catalog`. */
+export const PUBLIC_BUSINESS_PACK_CATALOG: PublicBusinessPackCatalogItem[] =
+  MARKETING_BUSINESS_PACK_REGISTRY.map((entry) => ({
+    id: entry.slug,
+    slug: entry.slug,
+    name: entry.slug,
+    audience: entry.slug,
+    value: entry.slug,
+    pricingStatus: entry.pricingStatus,
+    commercialType: entry.commercialType,
+    planRequirement: entry.minPlan,
+    detailHref: entry.detailHref,
+  }));
 
 export type PublicPlanCatalogEntry = {
   key: PublicMarketingPlanKey;
@@ -178,17 +141,49 @@ export function getPublicPlanCatalog(): PublicPlanCatalogEntry[] {
   });
 }
 
+export type PublicPlanPriceFormatLabels = {
+  custom: string;
+  perMonth: string;
+  perMonthShort?: string;
+};
+
 export function formatPublicPlanPrice(
   price: PublicPlanCatalogEntry["price"],
-  labels: { custom: string; perMonth: string; currencySuffix: string },
+  locale: Locale | string,
+  labels: PublicPlanPriceFormatLabels,
 ): string {
   if (price.type === "custom") return labels.custom;
-  const formatted = new Intl.NumberFormat("nb-NO", {
-    style: "currency",
-    currency: price.currency,
-    maximumFractionDigits: 0,
-  }).format(price.amount);
-  return `${formatted}${labels.currencySuffix} ${labels.perMonth}`;
+
+  const { amount } = price;
+  const monthLabel = labels.perMonthShort ?? labels.perMonth;
+
+  if (locale === "no") {
+    const formatted = new Intl.NumberFormat("nb-NO", { maximumFractionDigits: 0 }).format(amount).replace(/\u00a0/g, " ");
+    return `${formatted},- / ${monthLabel}`;
+  }
+
+  if (locale === "sv") {
+    const formatted = new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(amount).replace(/\u00a0/g, " ");
+    return `${formatted} kr / ${monthLabel}`;
+  }
+
+  if (locale === "da") {
+    const formatted = new Intl.NumberFormat("da-DK", { maximumFractionDigits: 0 }).format(amount).replace(/\u00a0/g, " ");
+    return `${formatted} kr / ${monthLabel}`;
+  }
+
+  const formatted = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(amount);
+  return `NOK ${formatted} / ${labels.perMonth}`;
+}
+
+export function formatPublicPlanComparisonPrices(
+  locale: Locale | string,
+  labels: PublicPlanPriceFormatLabels,
+): Record<PublicMarketingPlanKey, string> {
+  const catalog = getPublicPlanCatalog();
+  return Object.fromEntries(
+    catalog.map((entry) => [entry.key, formatPublicPlanPrice(entry.price, locale, labels)]),
+  ) as Record<PublicMarketingPlanKey, string>;
 }
 
 export function formatLimitValue(value: number | "custom", labels: { custom: string }): string {

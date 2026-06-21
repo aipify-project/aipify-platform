@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { EarlyAccessForm, MarketingDifferentiationStrip, MarketingPageHeader, MarketingTrustSignalStrip } from "@/components/marketing";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
+import { parseMarketingBusinessPackFromSearchParam } from "@/lib/marketing/business-packs/registration-url";
 import { getSection, parseStringList } from "@/lib/marketing/parse-marketing";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -12,7 +13,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: meta.earlyAccessTitle, description: meta.earlyAccessDescription };
 }
 
-export default async function EarlyAccessPage() {
+type EarlyAccessPageProps = {
+  searchParams: Promise<{ businessPack?: string }>;
+};
+
+export default async function EarlyAccessPage({ searchParams }: EarlyAccessPageProps) {
+  const { businessPack: businessPackParam } = await searchParams;
+  const presetBusinessPack = parseMarketingBusinessPackFromSearchParam(businessPackParam);
   const { marketing, locale } = await getMarketingContext();
   const earlyAccess = getSection<Record<string, unknown>>(marketing, "earlyAccess");
   const trustSignals = parseStringList(marketing, "trustSignalStrip", "signals");
@@ -36,6 +43,7 @@ export default async function EarlyAccessPage() {
           labels={earlyAccess as Parameters<typeof EarlyAccessForm>[0]["labels"]}
           verificationLabels={buildHumanVerificationLabels(t)}
           variant="light"
+          presetBusinessPack={presetBusinessPack}
         />
       </div>
     </>

@@ -1,5 +1,6 @@
 import type { AppStorePackListing } from "@/lib/app-store/types";
 import type { BusinessPackActivationStatus } from "@/lib/business-pack-activation-gate";
+import { formatPlanLabel } from "@/lib/core/plan-labels";
 import type { Translator } from "@/lib/i18n/translate";
 
 export type BusinessPackSettingsAccessState =
@@ -64,6 +65,7 @@ export function buildBusinessPackSettingsLabels(t: Translator) {
     requiredPlan: t(`${P}.requiredPlan`),
     requiredPlanValue: t(`${P}.requiredPlanValue`),
     capabilitySummary: t(`${P}.capabilitySummary`),
+    whatYouUnlock: t(`${P}.whatYouUnlock`),
     configure: t(`${P}.configure`),
     openWorkspace: t(`${P}.openWorkspace`),
     version: t(`${P}.version`),
@@ -150,10 +152,29 @@ export function buildBusinessPackSettingsLabels(t: Translator) {
       body: t(`${P}.loadError.body`),
       retry: t(`${P}.loadError.retry`),
     },
+    planLabels: {
+      starter: t("customerApp.portalStructure.planLabels.starter"),
+      professional: t("customerApp.portalStructure.planLabels.professional"),
+      growth: t("customerApp.portalStructure.planLabels.growth"),
+      business: t("customerApp.portalStructure.planLabels.business"),
+      enterprise: t("customerApp.portalStructure.planLabels.enterprise"),
+      insights: t("customerApp.portalStructure.planLabels.insights"),
+    },
   };
 }
 
 export type BusinessPackSettingsLabels = ReturnType<typeof buildBusinessPackSettingsLabels>;
+
+export function formatBusinessPackSettingsPlanLabel(
+  planKey: string | undefined,
+  labels: BusinessPackSettingsLabels
+): string {
+  if (!planKey) return "";
+  const normalized = planKey.trim().toLowerCase();
+  const fromLabels = labels.planLabels[normalized as keyof typeof labels.planLabels];
+  if (fromLabels) return fromLabels;
+  return formatPlanLabel(planKey);
+}
 
 function asRecord(value: unknown): Record<string, unknown> | null {
   return value && typeof value === "object" ? (value as Record<string, unknown>) : null;

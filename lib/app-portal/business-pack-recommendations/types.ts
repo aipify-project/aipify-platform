@@ -25,6 +25,8 @@ export type PackBusinessImpact =
 export type PackRecommendation = {
   id: string;
   pack_key: string;
+  catalogSlug?: string;
+  packId?: string;
   name: string;
   category: string;
   industry?: string;
@@ -104,6 +106,7 @@ export type PackRecommendationLabels = {
     recentlyViewed: string;
     operationalCategories: string;
     comparePacks: string;
+    compare: string;
   };
   card: {
     confidenceScore: string;
@@ -116,6 +119,10 @@ export type PackRecommendationLabels = {
     saveRecommendation: string;
     dismiss: string;
     saved: string;
+    matchBadge: string;
+    accessInstalled: string;
+    accessAvailable: string;
+    compare: string;
   };
   compare: {
     title: string;

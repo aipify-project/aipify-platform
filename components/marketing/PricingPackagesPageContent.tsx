@@ -6,12 +6,14 @@ import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 import { PublicMarketingClasses } from "@/lib/design/public-marketing-tokens";
 import { MARKETING_PRIMARY_CTA_HREFS } from "@/lib/marketing/primary-ctas";
 import {
-  PUBLIC_BUSINESS_PACK_CATALOG,
   formatLimitValue,
+  formatPublicPlanComparisonPrices,
   formatPublicPlanPrice,
   getPublicPlanCatalog,
   type PublicMarketingPlanKey,
 } from "@/lib/marketing/public-pricing";
+import { DEFAULT_MARKETING_PLAN_LABELS } from "@/lib/marketing/business-packs/plan-labels";
+import type { Locale } from "@/lib/i18n/config";
 
 type Package = {
   key: PublicMarketingPlanKey;
@@ -46,6 +48,8 @@ export type PricingPackagesPageLabels = {
   pricingLabels: {
     custom: string;
     perMonth: string;
+    perMonthShort?: string;
+    currencyPrefix?: string;
     currencySuffix: string;
     notPubliclyPriced: string;
     includes: string;
@@ -106,15 +110,23 @@ export type PricingPackagesPageLabels = {
   };
 };
 
-type Props = { labels: PricingPackagesPageLabels };
+type BusinessPackPricingCard = {
+  slug: string;
+  name: string;
+  audience: string;
+  value: string;
+  commercialTypeLabel: string;
+  minPlanLabel: string;
+  detailHref: string;
+};
+
+type Props = {
+  labels: PricingPackagesPageLabels;
+  locale: Locale;
+  businessPackCards: BusinessPackPricingCard[];
+};
 
 const SECTION = "scroll-mt-24 py-12 sm:py-14";
-const PLAN_LABELS: Record<PublicMarketingPlanKey, string> = {
-  starter: "Starter",
-  professional: "Professional",
-  business: "Business",
-  enterprise: "Enterprise",
-};
 
 const STATUS_ICONS: Record<EnterpriseItem["status"], string> = {
   available: "✅",
@@ -127,15 +139,17 @@ function PlanCard({
   pkg,
   catalogEntry,
   pricingLabels,
+  locale,
   detailsLink,
 }: {
   pkg: Package;
   catalogEntry: ReturnType<typeof getPublicPlanCatalog>[number];
   pricingLabels: PricingPackagesPageLabels["pricingLabels"];
+  locale: Locale;
   detailsLink: string;
 }) {
   const isPopular = pkg.statusKey === "popular";
-  const priceDisplay = formatPublicPlanPrice(catalogEntry.price, pricingLabels);
+  const priceDisplay = formatPublicPlanPrice(catalogEntry.price, locale, pricingLabels);
   const users = formatLimitValue(catalogEntry.limits.users, pricingLabels);
   const domains = formatLimitValue(catalogEntry.limits.domains, pricingLabels);
 
@@ -217,12 +231,24 @@ function PlanCard({
   );
 }
 
-export default function PricingPackagesPageContent({ labels }: Props) {
+export default function PricingPackagesPageContent({ labels, locale, businessPackCards }: Props) {
   const catalog = getPublicPlanCatalog();
   const catalogByKey = Object.fromEntries(catalog.map((c) => [c.key, c])) as Record<
     PublicMarketingPlanKey,
     (typeof catalog)[number]
   >;
+  const liveComparisonPrices = formatPublicPlanComparisonPrices(locale, labels.pricingLabels);
+  const comparisonRows = labels.planComparison.rows.map((row) =>
+    row.id === "monthly"
+      ? {
+          ...row,
+          starter: liveComparisonPrices.starter,
+          professional: liveComparisonPrices.professional,
+          business: liveComparisonPrices.business,
+          enterprise: liveComparisonPrices.enterprise,
+        }
+      : row,
+  );
 
   return (
     <>
@@ -257,6 +283,7 @@ export default function PricingPackagesPageContent({ labels }: Props) {
                 pkg={pkg}
                 catalogEntry={catalogByKey[pkg.key]}
                 pricingLabels={labels.pricingLabels}
+                locale={locale}
                 detailsLink={labels.packages.detailsLink}
               />
             ))}
@@ -330,16 +357,16 @@ export default function PricingPackagesPageContent({ labels }: Props) {
           </div>
 
           <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {PUBLIC_BUSINESS_PACK_CATALOG.map((pack) => (
-              <li key={pack.id} className={PublicMarketingClasses.cardInteractive}>
+            {businessPackCards.map((pack) => (
+              <li key={pack.slug} className={PublicMarketingClasses.cardInteractive}>
                 <h3 className="text-lg font-semibold text-aipify-text">{pack.name}</h3>
                 <p className="mt-1 text-xs font-medium text-aipify-companion">{pack.audience}</p>
                 <p className="mt-3 text-sm leading-relaxed text-aipify-text-secondary">{pack.value}</p>
                 <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-aipify-text-secondary">
-                  {labels.businessPacks.pricingStatus[pack.pricingStatus]}
+                  {pack.commercialTypeLabel}
                 </p>
                 <p className="mt-1 text-xs text-aipify-text-muted">
-                  {labels.businessPacks.planRequirementPrefix} {PLAN_LABELS[pack.planRequirement]}+
+                  {labels.businessPacks.planRequirementPrefix} {pack.minPlanLabel}
                 </p>
                 <Link href={pack.detailHref} className={`mt-4 inline-block text-sm font-semibold ${PublicMarketingClasses.link}`}>
                   {labels.businessPacks.viewDetails} →
@@ -396,8 +423,8 @@ export default function PricingPackagesPageContent({ labels }: Props) {
           <h2 className={PublicMarketingClasses.sectionHeading}>{labels.planComparison.title}</h2>
           <div className="mt-8">
             <PricingComparisonTable
-              rows={labels.planComparison.rows}
-              planLabels={PLAN_LABELS}
+              rows={comparisonRows}
+              planLabels={DEFAULT_MARKETING_PLAN_LABELS}
               mobileHint={labels.planComparison.mobileHint}
             />
           </div>

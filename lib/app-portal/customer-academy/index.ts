@@ -1,3 +1,5 @@
 export * from "./types";
 export * from "./parse";
-export { buildCustomerAcademyLabels } from "./labels";
+export * from "./labels";
+export * from "./config";
+export * from "./presentation";

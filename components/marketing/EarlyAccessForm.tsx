@@ -30,9 +30,15 @@ type EarlyAccessFormProps = {
   labels: EarlyAccessLabels;
   verificationLabels: HumanVerificationLabels;
   variant?: "light" | "dark";
+  presetBusinessPack?: string | null;
 };
 
-export default function EarlyAccessForm({ labels, verificationLabels, variant = "light" }: EarlyAccessFormProps) {
+export default function EarlyAccessForm({
+  labels,
+  verificationLabels,
+  variant = "light",
+  presetBusinessPack = null,
+}: EarlyAccessFormProps) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const {
     requireVerification,
@@ -51,6 +57,9 @@ export default function EarlyAccessForm({ labels, verificationLabels, variant = 
     const form = e.currentTarget;
     const data = new FormData(form);
     const email = String(data.get("email") ?? "").trim();
+    const userMessage = String(data.get("message") ?? "").trim();
+    const packNote = presetBusinessPack ? `Business Pack interest: ${presetBusinessPack}` : "";
+    const combinedMessage = [packNote, userMessage].filter(Boolean).join("\n\n");
 
     try {
       const res = await fetch("/api/marketing/early-access", {
@@ -64,7 +73,7 @@ export default function EarlyAccessForm({ labels, verificationLabels, variant = 
             company_size: data.get("company_size"),
             industry: data.get("industry"),
             interest_area: data.get("interest_area"),
-            message: data.get("message"),
+            message: combinedMessage,
             _honeypot: data.get("_honeypot"),
           }),
         ),

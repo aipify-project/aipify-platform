@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import { SemanticBadge } from "@/components/ui/semantic-badge";
 import type { AipifyStatusKind } from "@/lib/design/status-system";
+import type { SemanticBadgeType } from "@/lib/design/semantic-status-system";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 
 type ExecutiveMetricCardProps = {
@@ -8,10 +10,16 @@ type ExecutiveMetricCardProps = {
   label: string;
   value: string | number;
   description: string;
-  statusKind: AipifyStatusKind;
   statusLabel: string;
+  /** Explicit semantic badge (preferred). */
+  semanticType?: SemanticBadgeType;
+  semanticValue?: string;
+  a11yLabel?: string;
+  /** Legacy fallback when semanticType is omitted. */
+  statusKind?: AipifyStatusKind;
   featured?: boolean;
   href?: string;
+  hideBadge?: boolean;
 };
 
 export function ExecutiveMetricCard({
@@ -19,9 +27,13 @@ export function ExecutiveMetricCard({
   label,
   value,
   description,
-  statusKind,
   statusLabel,
+  semanticType,
+  semanticValue,
+  a11yLabel,
+  statusKind = "information",
   featured = false,
+  hideBadge = false,
 }: ExecutiveMetricCardProps) {
   return (
     <article
@@ -33,7 +45,18 @@ export function ExecutiveMetricCard({
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-aipify-accent-soft text-aipify-companion">
           {icon}
         </div>
-        <AipifyStatusBadge kind={statusKind} label={statusLabel} />
+        {!hideBadge ? (
+          semanticType && semanticValue ? (
+            <SemanticBadge
+              type={semanticType}
+              value={semanticValue}
+              label={statusLabel}
+              a11yLabel={a11yLabel}
+            />
+          ) : (
+            <AipifyStatusBadge kind={statusKind} label={statusLabel} />
+          )
+        ) : null}
       </div>
       <p className={`mt-4 ${AppPremiumShell.metricLabel}`}>{label}</p>
       <p className={`mt-1 ${featured ? "text-4xl sm:text-5xl" : AppPremiumShell.metricValue}`}>{value}</p>

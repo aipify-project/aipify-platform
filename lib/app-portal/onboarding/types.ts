@@ -1,4 +1,4 @@
-export type OnboardingStatus = "not_started" | "in_progress" | "completed" | "optional";
+export type OnboardingStatus = "not_started" | "in_progress" | "completed" | "optional" | "blocked";
 export type OverviewStatus = "not_started" | "in_progress" | "completed";
 
 export type OnboardingTask = {
@@ -29,6 +29,7 @@ export type OnboardingOverview = {
   required_total: number;
   started_at?: string | null;
   completed_at?: string | null;
+  last_updated_at?: string | null;
 };
 
 export type AdoptionInsights = {
@@ -41,13 +42,13 @@ export type AdoptionInsights = {
 export type OnboardingResponse = {
   found: boolean;
   started?: boolean;
+  connected_integrations?: number;
   overview?: OnboardingOverview;
   checklist?: OnboardingTask[];
   milestones?: OnboardingMilestone[];
   recommendations?: OnboardingRecommendation[];
   adoption_insights?: AdoptionInsights;
   completed_milestones?: OnboardingTask[];
-  principle?: string;
 };
 
 export type OnboardingRecommendationsResponse = {
@@ -56,51 +57,77 @@ export type OnboardingRecommendationsResponse = {
   advisory_only?: boolean;
 };
 
+export type WorkflowPresentationState =
+  | "not_started"
+  | "in_progress"
+  | "requires_attention"
+  | "completed"
+  | "blocked";
+
 export type OnboardingLabels = {
+  eyebrow: string;
   title: string;
   subtitle: string;
   loading: string;
-  emptyTitle: string;
-  emptyBody: string;
-  emptyCta: string;
-  principle: string;
+  breadcrumbSupport: string;
+  breadcrumbGettingStarted: string;
+  backToSupport: string;
   sections: {
-    overview: string;
-    checklist: string;
-    recommendations: string;
-    milestones: string;
-    adoption: string;
-    completed: string;
-  };
-  overview: {
     progress: string;
-    status: string;
-    nextSteps: string;
+    nextAction: string;
+    remaining: string;
+    completed: string;
+    adoption: string;
+    understanding: string;
+  };
+  progress: {
+    percentComplete: string;
+    stepsCompleted: string;
+    workflowState: string;
+    lastUpdated: string;
+    continueSetup: string;
     advisory: string;
   };
-  statuses: Record<OverviewStatus, string>;
-  taskStatuses: Record<OnboardingStatus, string>;
+  workflowStates: Record<WorkflowPresentationState, string>;
+  taskPriorities: {
+    required: string;
+    recommended: string;
+    optional: string;
+  };
   categories: Record<string, string>;
   tasks: Record<string, string>;
   recommendations: Record<string, string>;
   milestones: Record<string, string>;
   adoption: {
-    featuresExplored: string;
-    featuresNotDiscovered: string;
+    explored: string;
+    recommended: string;
     suggestedPacks: string;
-    nextActions: string;
+    noneExplored: string;
+    noneRecommended: string;
   };
-  faq: {
-    title: string;
-    whatIs: string;
-    whatIsAnswer: string;
-    requiredSteps: string;
-    requiredStepsAnswer: string;
+  understanding: {
     revisit: string;
     revisitAnswer: string;
+    progressMeaning: string;
+    progressMeaningAnswer: string;
+    permissions: string;
+    permissionsAnswer: string;
+  };
+  empty: {
+    title: string;
+    body: string;
+    action: string;
+  };
+  error: {
+    title: string;
+    body: string;
+    retry: string;
   };
   actions: {
+    open: string;
     markComplete: string;
-    dismissMilestone: string;
+    hide: string;
+    startCourse: string;
   };
+  taskStatuses: Record<OnboardingStatus, string>;
 };

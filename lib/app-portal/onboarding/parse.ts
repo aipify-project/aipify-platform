@@ -6,8 +6,15 @@ import type {
   OnboardingTask,
   OverviewStatus,
 } from "./types";
+import { reconcileIntegrationTask } from "./presentation";
 
-const TASK_STATUS: Set<OnboardingStatus> = new Set(["not_started", "in_progress", "completed", "optional"]);
+const TASK_STATUS: Set<OnboardingStatus> = new Set([
+  "not_started",
+  "in_progress",
+  "completed",
+  "optional",
+  "blocked",
+]);
 const OVERVIEW_STATUS: Set<OverviewStatus> = new Set(["not_started", "in_progress", "completed"]);
 
 function str(v: unknown, fb = ""): string {
@@ -45,6 +52,7 @@ function parseOverview(ov: unknown): OnboardingOverview {
     required_total: num(o.required_total),
     started_at: str(o.started_at) || null,
     completed_at: str(o.completed_at) || null,
+    last_updated_at: str(o.last_updated_at) || null,
   };
 }
 
@@ -52,11 +60,17 @@ export function parseOnboarding(data: unknown): OnboardingResponse {
   if (!data || typeof data !== "object") return { found: false };
   const d = data as Record<string, unknown>;
   const adoption = (d.adoption_insights ?? {}) as Record<string, unknown>;
+  const connected = num(d.connected_integrations);
+  const checklist = Array.isArray(d.checklist)
+    ? reconcileIntegrationTask(d.checklist.map(parseTask), connected)
+    : [];
+
   return {
     found: d.found === true,
     started: d.started === true,
+    connected_integrations: connected,
     overview: parseOverview(d.overview),
-    checklist: Array.isArray(d.checklist) ? d.checklist.map(parseTask) : [],
+    checklist,
     milestones: Array.isArray(d.milestones)
       ? d.milestones.map((m) => {
           const row = m as Record<string, unknown>;
@@ -66,7 +80,12 @@ export function parseOnboarding(data: unknown): OnboardingResponse {
     recommendations: Array.isArray(d.recommendations)
       ? d.recommendations.map((r) => {
           const row = r as Record<string, unknown>;
-          return { id: str(row.id), key: str(row.key), priority: str(row.priority), module: str(row.module) || undefined };
+          return {
+            id: str(row.id),
+            key: str(row.key),
+            priority: str(row.priority),
+            module: str(row.module) || undefined,
+          };
         })
       : [],
     adoption_insights: {
@@ -80,12 +99,16 @@ export function parseOnboarding(data: unknown): OnboardingResponse {
       recommended_actions: Array.isArray(adoption.recommended_actions)
         ? adoption.recommended_actions.map((r) => {
             const row = r as Record<string, unknown>;
-            return { id: str(row.id), key: str(row.key), priority: str(row.priority), module: str(row.module) || undefined };
+            return {
+              id: str(row.id),
+              key: str(row.key),
+              priority: str(row.priority),
+              module: str(row.module) || undefined,
+            };
           })
         : [],
     },
     completed_milestones: Array.isArray(d.completed_milestones) ? d.completed_milestones.map(parseTask) : [],
-    principle: str(d.principle),
   };
 }
 
@@ -98,7 +121,12 @@ export function parseOnboardingRecommendations(data: unknown): OnboardingRecomme
     recommendations: Array.isArray(d.recommendations)
       ? d.recommendations.map((r) => {
           const row = r as Record<string, unknown>;
-          return { id: str(row.id), key: str(row.key), priority: str(row.priority), module: str(row.module) || undefined };
+          return {
+            id: str(row.id),
+            key: str(row.key),
+            priority: str(row.priority),
+            module: str(row.module) || undefined,
+          };
         })
       : [],
   };

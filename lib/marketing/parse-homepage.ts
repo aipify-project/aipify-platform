@@ -6,6 +6,25 @@ export type HomepageFlowStep = { title: string; description: string };
 export type HomepagePack = { id: string; name: string; audience: string; value: string; href: string };
 export type HomepageCompanionCapability = { title: string; description: string };
 
+export type CommandBriefMockupLabels = {
+  panelTitle: string;
+  sinceLastLogin: string;
+  aipifyCompleted: string;
+  needsAttention: string;
+  recommendedActions: string;
+  organizationStatus: string;
+  sinceItems: string[];
+  completedItems: string[];
+  attentionItems: string[];
+  actionItems: string[];
+  statusItems: string[];
+  panelOrganization?: string;
+  panelContext?: string;
+  headerBadge?: string;
+};
+
+export type CommandBriefDemoLabels = CommandBriefMockupLabels;
+
 export type HomepageRedesignContent = {
   hero: {
     badge: string;

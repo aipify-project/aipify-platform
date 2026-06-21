@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import type { ReactNode } from "react";
 import { AppSectionTabs, type AppSectionTabItem } from "@/components/app/design";
 import { ECC590_SECTIONS, getEcc590ActiveSection } from "@/lib/executive-command-center-engine/config";
@@ -22,11 +22,12 @@ const TAB_ICONS: Record<(typeof ECC590_SECTIONS)[number]["key"], ReactNode> = {
 
 export function ExecutiveCommandCenterNav({ labels }: { labels: Labels["sections"] }) {
   const pathname = usePathname();
-  const active = getEcc590ActiveSection(pathname);
+  const searchParams = useSearchParams();
+  const active = getEcc590ActiveSection(pathname, searchParams.get("tab"));
 
   const items: AppSectionTabItem[] = ECC590_SECTIONS.map((item) => ({
     key: item.key,
-    href: item.href,
+    href: item.key === "sinceLastLogin" ? "/app/command-center?tab=since-last-login" : item.href,
     label: labels[item.key],
     icon: TAB_ICONS[item.key],
   }));

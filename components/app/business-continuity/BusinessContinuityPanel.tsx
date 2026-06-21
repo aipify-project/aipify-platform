@@ -3,8 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
-import type { AipifyStatusKind } from "@/lib/design/status-system";
-import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import { SemanticBadge } from "@/components/ui/semantic-badge";
 import {
   bc607SectionToRpc,
   type Bc607Section,
@@ -14,6 +13,7 @@ import {
   type BusinessContinuityCenter,
 } from "@/lib/business-continuity-engine/parse";
 import type { buildBusinessContinuityLabels } from "@/lib/business-continuity-engine/labels";
+import { mapBusinessContinuityStatusToSemantic } from "@/lib/design/semantic-status-system";
 
 type Labels = ReturnType<typeof buildBusinessContinuityLabels>;
 
@@ -26,34 +26,10 @@ function StatCard({ label, value }: { label: string; value: string | number }) {
   );
 }
 
-function statusKeyToKind(statusKey?: string): AipifyStatusKind {
-  switch (statusKey) {
-    case "verified":
-    case "operational":
-    case "active":
-    case "completed":
-      return "verified";
-    case "restricted":
-    case "critical_unavailable":
-      return "restricted";
-    case "continuity_risk":
-    case "attention":
-    case "elevated":
-      return "needs_attention";
-    case "waiting":
-    case "pending":
-      return "waiting";
-    case "not_allowed":
-    case "failed":
-      return "not_allowed";
-    default:
-      return "information";
-  }
-}
-
 function StatusBadge({ statusKey, label }: { statusKey?: string; label?: string }) {
   if (!label) return null;
-  return <AipifyStatusBadge kind={statusKeyToKind(statusKey)} label={label} />;
+  const semantic = mapBusinessContinuityStatusToSemantic(statusKey);
+  return <SemanticBadge type={semantic.type} value={semantic.value} label={label} />;
 }
 
 function ItemCard({

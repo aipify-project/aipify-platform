@@ -13,6 +13,14 @@ export type CertificationType =
   | "aipify_support_user"
   | "aipify_executive_user";
 
+export type CourseDisplayState =
+  | "not_started"
+  | "in_progress"
+  | "completed"
+  | "locked"
+  | "assigned"
+  | "overdue";
+
 export type AcademyCourse = {
   slug: string;
   title: string;
@@ -24,6 +32,11 @@ export type AcademyCourse = {
   description: string;
   completed?: boolean;
   assigned?: boolean;
+  locked?: boolean;
+  assignment_status?: string;
+  progress_status?: CourseDisplayState | string;
+  recommendation_reason?: string;
+  href?: string;
 };
 
 export type AcademyAssignment = {
@@ -47,9 +60,24 @@ export type AcademyCertification = {
 };
 
 export type AcademyProgress = {
+  courses_available?: number;
   courses_total: number;
+  courses_assigned?: number;
   courses_completed: number;
   courses_started: number;
+  courses_in_progress?: number;
+  courses_overdue?: number;
+  completion_percent: number;
+  outstanding_assignments: number;
+};
+
+export type AcademyOverviewMetrics = {
+  available: number;
+  assigned: number;
+  started: number;
+  in_progress: number;
+  completed: number;
+  overdue: number;
   completion_percent: number;
   outstanding_assignments: number;
 };
@@ -62,6 +90,13 @@ export type TeamReport = {
   overdue_count: number;
 };
 
+export type AcademySuggestedPath = {
+  id: string;
+  title: string;
+  section: string;
+  href?: string;
+};
+
 export type AcademyOverviewResponse = {
   found: boolean;
   can_manage?: boolean;
@@ -72,10 +107,9 @@ export type AcademyOverviewResponse = {
   assigned_training: AcademyAssignment[];
   certifications: AcademyCertification[];
   recently_released: AcademyCourse[];
-  suggested_paths: Array<{ id: string; title: string; section: string }>;
+  suggested_paths: AcademySuggestedPath[];
   team_reporting: TeamReport[];
   team_completion_rate: number;
-  principle?: string;
 };
 
 export type AcademyProgressResponse = {
@@ -87,78 +121,87 @@ export type AcademyProgressResponse = {
 };
 
 export type CustomerAcademyLabels = {
+  eyebrow: string;
   title: string;
   subtitle: string;
   loading: string;
-  principle: string;
-  emptyTitle: string;
-  emptyBody: string;
-  emptyCta: string;
+  breadcrumbSupport: string;
+  breadcrumbAcademy: string;
+  backToSupport: string;
   accessDenied: string;
   filters: {
     search: string;
+    sortBy: string;
+    sortTitle: string;
+    sortDuration: string;
+    sortDifficulty: string;
+    sortSection: string;
+    sortProgress: string;
     category: string;
     completionStatus: string;
-    certificationType: string;
-    department: string;
     difficulty: string;
     all: string;
     notStarted: string;
+    inProgress: string;
     completed: string;
   };
-  dashboard: {
-    progress: string;
-    completionRate: string;
-    recommended: string;
+  overview: {
+    available: string;
     assigned: string;
-    certifications: string;
-    teamRate: string;
-    recentlyReleased: string;
-    suggestedPaths: string;
-    coursesStarted: string;
-    coursesCompleted: string;
-    outstanding: string;
+    started: string;
+    inProgress: string;
+    completed: string;
+    overdue: string;
+    personalCompletion: string;
   };
   sections: {
+    continueLearning: string;
+    recommended: string;
     gettingStarted: string;
     productTraining: string;
-    teamTraining: string;
     certifications: string;
+    teamLearning: string;
+    suggestedPaths: string;
     knowledgeCenter: string;
-    teamReporting: string;
+    understanding: string;
   };
+  courseStates: Record<CourseDisplayState, string>;
+  courseActions: {
+    start: string;
+    continue: string;
+    review: string;
+    complete: string;
+  };
+  certificationStates: Record<string, string>;
   assign: {
     title: string;
     course: string;
     department: string;
     required: string;
     dueDate: string;
-    notes: string;
     submit: string;
     cancel: string;
     supportTeam: string;
     operationsTeam: string;
     leadershipTeam: string;
-  };
-  course: {
-    complete: string;
-    completed: string;
-    minutes: string;
-    required: string;
-    optional: string;
-    overdue: string;
+    action: string;
   };
   team: {
+    noAssignments: string;
     assigned: string;
     completionRate: string;
     overdue: string;
-    recommendedActions: string;
   };
-  certifications: Record<string, string>;
+  recommendations: {
+    onboarding: string;
+    security: string;
+    businessPacks: string;
+    adoption: string;
+  };
   difficulties: Record<string, string>;
   contentTypes: Record<string, string>;
-  faq: {
-    title: string;
+  certifications: Record<string, string>;
+  understanding: {
     whatIs: string;
     whatIsAnswer: string;
     managersAssign: string;
@@ -166,12 +209,28 @@ export type CustomerAcademyLabels = {
     partnerAcademy: string;
     partnerAcademyAnswer: string;
   };
+  empty: {
+    continueLearning: string;
+    teamLearning: string;
+  };
+  error: {
+    title: string;
+    body: string;
+    retry: string;
+  };
 };
 
 export const ACADEMY_SECTIONS: AcademySection[] = [
-  "getting_started", "product_training", "team_training", "certifications", "knowledge_center",
+  "getting_started",
+  "product_training",
+  "team_training",
+  "certifications",
+  "knowledge_center",
 ];
 
 export const CERTIFICATION_TYPES: CertificationType[] = [
-  "aipify_certified_user", "aipify_operations_user", "aipify_support_user", "aipify_executive_user",
+  "aipify_certified_user",
+  "aipify_operations_user",
+  "aipify_support_user",
+  "aipify_executive_user",
 ];

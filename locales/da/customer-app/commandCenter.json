@@ -1543,7 +1543,155 @@
         "healthStatusModerate": "Moderat",
         "healthStatusLow": "Kræver opmærksomhed",
         "countActive": "Aktiv",
-        "countNone": "Klart"
+        "countNone": "Opdateret",
+        "sinceLastLoginUpdated": "Opdateret",
+        "noCriticalItems": "Ingen kritiske sager"
+      }
+    },
+    "tabs": {
+      "insights": {
+        "alerts": "Aipify har prioriteret aktive advarsler, så ledelsen kan gennemgå det vigtigste først.",
+        "approvals": "Gennemgå beslutninger, der venter på ledelsesgodkendelse, før arbejdet kan fortsætte.",
+        "risks": "Aipify adskiller aktive risici fra bredere organisatorisk sundhed, så ledelsen kan fokusere på det, der kræver handling.",
+        "opportunities": "Aipify har organiseret potentielle vækstmuligheder med status, værdi og anbefalede næste skridt.",
+        "performance": "Aipify kombinerer operationelle målinger og sundhedssignaler for at vise, om organisationen er på sporet.",
+        "companionBriefing": "Aipify omdanner aktuel driftsinformation til ledelsesbriefinger og bestyrelsesrapporter."
+      },
+      "empty": {
+        "alerts": "Ingen åbne advarsler lige nu. Aipify overvåger og viser nye elementer her.",
+        "approvals": "Ingen godkendelser venter på gennemgang.",
+        "risks": "Ingen aktive risici fundet i denne visning.",
+        "opportunities": "Ingen åbne muligheder i denne visning.",
+        "performance": "Ingen præstationssundhedssignaler at vise endnu.",
+        "companionBriefing": "Ingen briefing- eller rapportelementer er tilgængelige endnu.",
+        "activeRisks": "Ingen aktive risici kræver ledelsesgennemgang.",
+        "operationalHealth": "Organisatoriske sundhedssignaler vises her, når de er tilgængelige.",
+        "executiveBriefing": "Ingen ledelsesbriefing er tilgængelig endnu.",
+        "dailyBriefing": "Ingen daglig briefing er tilgængelig endnu.",
+        "boardReports": "Ingen bestyrelsesrapporter er tilgængelige endnu."
+      },
+      "sections": {
+        "activeRisks": "Aktive risici",
+        "operationalHealth": "Operationel sundhed",
+        "executiveBriefing": "Ledelsesbriefing",
+        "dailyBriefing": "Daglig briefing",
+        "boardReports": "Bestyrelsesrapporter",
+        "performanceHealth": "Præstationssundhed"
+      },
+      "metrics": {
+        "upToDate": "Opdateret",
+        "noOpenAlerts": "Ingen åbne advarsler",
+        "noPendingActions": "Ingen ventende handlinger",
+        "noCriticalItems": "Ingen kritiske sager"
+      },
+      "shared": {
+        "open": "Åbn",
+        "type": "Type",
+        "timestamp": "Opdateret",
+        "items": "elementer"
+      },
+      "alerts": {
+        "actions": {
+          "reviewApproval": "Gennemgå godkendelse",
+          "viewCustomerRisk": "Vis kunderisiko",
+          "openSecurityReview": "Åbn sikkerhedsgennemgang",
+          "openInvoice": "Åbn faktura"
+        }
+      },
+      "approvals": {
+        "requester": "Anmodet af",
+        "blocked": "Blokeret indtil godkendt",
+        "actions": {
+          "review": "Gennemgå godkendelse"
+        }
+      },
+      "risks": {
+        "actions": {
+          "reviewRisk": "Gennemgå risiko"
+        }
+      },
+      "opportunities": {
+        "value": "Værdi",
+        "confidence": "Konfidens",
+        "nextStep": "Næste skridt",
+        "actions": {
+          "review": "Gennemgå mulighed"
+        }
+      },
+      "performance": {
+        "actions": {
+          "viewHealth": "Vis præstationssundhed"
+        }
+      },
+      "briefing": {
+        "actions": {
+          "openBriefing": "Åbn briefing",
+          "openReport": "Åbn rapport",
+          "generateReport": "Generer rapport",
+          "downloadPdf": "Download PDF",
+          "downloadWord": "Download Word"
+        }
+      },
+      "opportunityStatus": {
+        "identified": "Identificeret",
+        "recommended": "Anbefalet",
+        "reviewRequired": "Kræver gennemgang",
+        "qualified": "Kvalificeret",
+        "inProgress": "I gang",
+        "won": "Vundet",
+        "declined": "Afvist",
+        "expired": "Udløbet",
+        "a11y": "Mulighedsstatus"
+      },
+      "reportState": {
+        "generated": "Genereret",
+        "generating": "Genererer",
+        "draft": "Kladde",
+        "template": "Skabelon",
+        "failed": "Mislykkedes",
+        "outdated": "Forældet",
+        "a11y": "Rapportstatus"
+      }
+    },
+    "sinceLastLoginUx": {
+      "activityHeading": "Aktivitet siden dit sidste besøg",
+      "insightLabel": "Aipify-indsigt",
+      "insight": "Aipify har organiseret de seneste ændringer, så du hurtigt kan se, hvad er fuldført og hvad stadig kræver din opmærksomhed.",
+      "summaryRequiresAttention": "Kræver opmærksomhed: {{count}}",
+      "summaryCompleted": "Fuldført af Aipify: {{count}}",
+      "summaryOtherChanges": "Andre ændringer: {{count}}",
+      "groupRequiresAttention": "Kræver din opmærksomhed",
+      "groupCompleted": "Fuldført af Aipify",
+      "groupOtherChanges": "Andre ændringer",
+      "emptyAttention": "✅ Intet presserende kræver din opmærksomhed",
+      "emptyAll": "✅ Du er opdateret",
+      "emptyAllDescription": "Aipify overvåger organisationen. Ny aktivitet vises her efter dit næste besøg.",
+      "errorTitle": "Aktivitet kunne ikke indlæses",
+      "errorDescription": "Noget gik galt under indlæsning af aktivitetsoversigten. Prøv igen eller åbn aktivitetshistorikken.",
+      "refresh": "Opdater",
+      "viewActivityHistory": "Vis aktivitetshistorik",
+      "openAction": "Åbn",
+      "countItem": "1 element",
+      "countItems": "{{count}} elementer",
+      "countUpdate": "1 opdatering",
+      "countUpdates": "{{count}} opdateringer",
+      "countEscalation": "1 eskalering",
+      "countEscalations": "{{count}} eskaleringer",
+      "completedByAipify": "Fuldført af Aipify",
+      "information": "Information",
+      "severity": {
+        "critical": "Kritisk",
+        "high": "Høj risiko",
+        "medium": "Kræver opmærksomhed",
+        "low": "Lav risiko",
+        "info": "Information"
+      },
+      "workflow": {
+        "open": "Åben",
+        "pending": "Afventer",
+        "awaitingApproval": "Afventer gennemgang",
+        "inProgress": "I gang",
+        "completed": "Fuldført"
       }
     }
   }

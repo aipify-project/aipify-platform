@@ -1,24 +1,84 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
 import {
+  Clock3,
+  GraduationCap,
+  LayoutDashboard,
+  Lightbulb,
+  Target,
+  TrendingUp,
+  Users,
+  type LucideIcon,
+} from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  AppEmptyState,
+  AppErrorState,
+  AppLoadingState,
+  PriorityRecommendationCard,
+} from "@/components/app/design";
+import { ExecutiveMetricCard } from "@/components/app/design/ExecutiveMetricCard";
+import { SemanticBadge } from "@/components/ui/semantic-badge";
+import { AppPremiumShell } from "@/lib/design/app-premium-shell";
+import {
+  getSeverityPresentation,
+  getWorkflowStatePresentation,
+} from "@/lib/design/semantic-status-system";
+import { formatDateTime } from "@/lib/i18n/format-date";
+import {
+  GROWTH_OPPORTUNITY_LINKS,
+  SUCCESS_CENTER_SUPPORT_HREF,
   parseSuccessCenter,
-  type HealthStatus,
+  partitionRecommendations,
+  resolveOverviewHealthState,
+  resolvePurposeSummaryKey,
+  resolveRecommendationHref,
+  mapRiskLevelToSeverity,
+  mapRecommendationPriorityToSeverity,
+  growthOpportunityAccent,
   type SuccessCenterLabels,
   type SuccessCenterResponse,
 } from "@/lib/app-portal/success-center";
 
-type Props = { labels: SuccessCenterLabels };
-
-const STATUS_STYLE: Record<HealthStatus, string> = {
-  excellent: "border-emerald-200 bg-emerald-50/60 text-emerald-900",
-  healthy: "border-sky-200 bg-sky-50/60 text-sky-900",
-  attention_needed: "border-amber-200 bg-amber-50/60 text-amber-950",
-  at_risk: "border-rose-200 bg-rose-50/60 text-rose-950",
+type Props = {
+  labels: SuccessCenterLabels;
+  locale: string;
+  methodologyHref?: string | null;
 };
 
-export function SuccessCenterPanel({ labels }: Props) {
+const SECTION_ICONS: Record<string, LucideIcon> = {
+  overview: LayoutDashboard,
+  recommendations: Lightbulb,
+  timeline: Clock3,
+  growth: TrendingUp,
+  adoption: Users,
+  factors: Target,
+  understandingScore: GraduationCap,
+};
+
+function SectionHeading({ id, title }: { id: string; title: string }) {
+  const Icon = SECTION_ICONS[id] ?? LayoutDashboard;
+  return (
+    <div className="flex items-center gap-3">
+      <span
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-50 text-violet-700 ring-1 ring-violet-100"
+        aria-hidden="true"
+      >
+        <Icon className="h-[18px] w-[18px] stroke-[1.75]" />
+      </span>
+      <h2 className={AppPremiumShell.sectionTitle}>{title}</h2>
+    </div>
+  );
+}
+
+function growthCardClasses(accent: ReturnType<typeof growthOpportunityAccent>): string {
+  if (accent === "teal") return "border-l-teal-400 bg-teal-50/20";
+  if (accent === "blue") return "border-l-sky-400 bg-sky-50/20";
+  return "border-l-violet-400 bg-violet-50/20";
+}
+
+export function SuccessCenterPanel({ labels, locale, methodologyHref }: Props) {
   const [data, setData] = useState<SuccessCenterResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -31,160 +91,352 @@ export function SuccessCenterPanel({ labels }: Props) {
       setData(parseSuccessCenter(await res.json()));
     } else {
       const body = (await res.json()) as { error?: string };
-      setError(body.error ?? "Access denied");
+      setError(body.error ?? labels.errorBody);
     }
     setLoading(false);
-  }, []);
+  }, [labels.errorBody]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- initial load
     void load();
   }, [load]);
 
+  const overview = data?.overview;
+  const healthState = overview
+    ? resolveOverviewHealthState(overview.customer_health_score, overview.health_state)
+    : "unknown";
+  const purposeKey = resolvePurposeSummaryKey(healthState);
+  const { open: openRecommendations, completed: completedRecommendations } = useMemo(
+    () => partitionRecommendations(data?.recommendations ?? []),
+    [data?.recommendations]
+  );
+  const topRecommendation = openRecommendations[0] ?? null;
+  const visibleRecommendations = openRecommendations.slice(0, 3);
+  const showEmpty = data?.found && !data?.has_activity;
+
   if (loading) {
     return (
-      <div className="flex min-h-[40vh] flex-col items-center justify-center text-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-indigo-200 border-t-indigo-600" aria-hidden />
-        <p className="mt-4 text-sm text-slate-600">{labels.loading}</p>
+      <div className={AppPremiumShell.page}>
+        <AppLoadingState message={labels.loading} />
       </div>
     );
   }
 
-  if (error) {
+  if (error || !data?.found) {
     return (
-      <div className="mx-auto max-w-3xl space-y-4 p-6">
-        <p className="text-sm text-slate-600">{error}</p>
-        <Link href="/app" className="text-sm text-indigo-700 hover:underline">← APP Dashboard</Link>
+      <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
+        <AppErrorState
+          title={labels.errorTitle}
+          description={error || labels.errorBody}
+          onRetry={() => void load()}
+          retryLabel={labels.retry}
+          returnHref={SUCCESS_CENTER_SUPPORT_HREF}
+          returnLabel={labels.backToSupport}
+        />
       </div>
     );
   }
 
-  const ov = data?.overview;
-  const showEmpty = !data?.has_activity;
+  const riskSeverity = overview ? mapRiskLevelToSeverity(overview.risk_level) : "info";
+  const riskPresentation = getSeverityPresentation(riskSeverity);
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8">
-      <div>
-        <Link href="/app" className="text-sm font-medium text-indigo-700 hover:underline">← APP Dashboard</Link>
-        <h1 className="mt-4 text-2xl font-semibold text-slate-900">{labels.title}</h1>
-        <p className="mt-2 text-slate-600">{labels.subtitle}</p>
-        <p className="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50/60 px-5 py-4 text-sm text-slate-800">{labels.principle}</p>
-      </div>
+    <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
+      <header className="space-y-4 border-b border-aipify-border pb-6">
+        <nav className="text-sm text-aipify-text-muted" aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-2">
+            <li>{labels.breadcrumbSupport}</li>
+            <li aria-hidden="true">→</li>
+            <li className="font-medium text-aipify-text">{labels.breadcrumbSuccessCenter}</li>
+          </ol>
+        </nav>
+        <Link
+          href={SUCCESS_CENTER_SUPPORT_HREF}
+          className={`inline-flex text-sm font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
+        >
+          ← {labels.backToSupport}
+        </Link>
+        <div className="space-y-2">
+          <p className={AppPremiumShell.eyebrow}>{labels.eyebrow}</p>
+          <h1 className={AppPremiumShell.pageTitle}>{labels.title}</h1>
+          <p className={AppPremiumShell.pageDescription}>{labels.subtitle}</p>
+        </div>
+        {overview ? (
+          <p className="rounded-2xl border border-aipify-border bg-aipify-surface-muted/60 px-5 py-4 text-sm leading-relaxed text-aipify-text">
+            {labels.purposeSummary[purposeKey]}
+          </p>
+        ) : null}
+      </header>
 
       {showEmpty ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-900">{labels.emptyTitle}</h2>
-          <p className="mt-2 text-sm text-slate-600">{labels.emptyBody}</p>
-        </section>
+        <AppEmptyState
+          title={labels.emptyTitle}
+          description={labels.emptyBody}
+          actionHref="/app/support/getting-started"
+          actionLabel={labels.emptyAction}
+        />
       ) : null}
 
-      {ov ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="font-semibold text-slate-900">{labels.sections.overview}</h2>
-          <div className={`mt-4 rounded-xl border p-4 ${STATUS_STYLE[ov.health_status]}`}>
-            <p className="text-sm font-medium">{labels.overview.healthStatus}: {labels.healthStatuses[ov.health_status]}</p>
-            <p className="mt-1 text-3xl font-semibold">{ov.customer_health_score}</p>
-            <p className="mt-1 text-sm">{labels.overview.healthScore}</p>
+      {overview ? (
+        <section className="space-y-4">
+          <SectionHeading id="overview" title={labels.sections.overview} />
+          <p className={AppPremiumShell.sectionSubtitle}>{labels.overview.organizationOverview}</p>
+          <div className="grid gap-4 lg:grid-cols-3">
+            <ExecutiveMetricCard
+              featured
+              icon={<LayoutDashboard className="h-5 w-5" aria-hidden="true" />}
+              label={labels.overview.healthScore}
+              value={overview.customer_health_score}
+              description={overview.explanation ?? labels.overview.advisory}
+              semanticType="health"
+              semanticValue={healthState}
+              statusLabel={labels.healthStates[healthState]}
+              a11yLabel={`${labels.overview.healthStatus}: ${labels.healthStates[healthState]}`}
+            />
+            <ExecutiveMetricCard
+              icon={<Users className="h-5 w-5" aria-hidden="true" />}
+              label={labels.overview.adoptionScore}
+              value={overview.adoption_score}
+              description={labels.scoreExplanations.adoption}
+              semanticType="health"
+              semanticValue={resolveOverviewHealthState(overview.adoption_score)}
+              statusLabel={labels.healthStates[resolveOverviewHealthState(overview.adoption_score)]}
+            />
+            <ExecutiveMetricCard
+              icon={<Target className="h-5 w-5" aria-hidden="true" />}
+              label={labels.overview.engagementScore}
+              value={overview.team_engagement_score}
+              description={labels.scoreExplanations.engagement}
+              semanticType="health"
+              semanticValue={resolveOverviewHealthState(overview.team_engagement_score)}
+              statusLabel={labels.healthStates[resolveOverviewHealthState(overview.team_engagement_score)]}
+            />
           </div>
-          <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <ScoreCard label={labels.overview.adoptionScore} value={ov.adoption_score} />
-            <ScoreCard label={labels.overview.engagementScore} value={ov.team_engagement_score} />
-            <ScoreCard label={labels.overview.utilizationScore} value={ov.feature_utilization_score} />
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-              <dt className="text-xs text-slate-500">{labels.overview.riskLevel}</dt>
-              <dd className="mt-1 text-lg font-semibold text-slate-900">{labels.riskLevels[ov.risk_level]}</dd>
-            </div>
-          </dl>
-          <p className="mt-4 text-xs text-slate-500">{labels.overview.advisory}</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <ExecutiveMetricCard
+              icon={<TrendingUp className="h-5 w-5" aria-hidden="true" />}
+              label={labels.overview.utilizationScore}
+              value={overview.feature_utilization_score}
+              description={labels.scoreExplanations.utilization}
+              semanticType="health"
+              semanticValue={resolveOverviewHealthState(overview.feature_utilization_score)}
+              statusLabel={labels.healthStates[resolveOverviewHealthState(overview.feature_utilization_score)]}
+            />
+            <article className={`${AppPremiumShell.elevatedCard} border-l-4 p-5 ${riskPresentation.borderClassName} ${riskPresentation.backgroundClassName}`}>
+              <p className={AppPremiumShell.metricLabel}>{labels.overview.riskLevel}</p>
+              <div className="mt-3">
+                <SemanticBadge
+                  type="severity"
+                  value={riskSeverity}
+                  label={labels.riskLevels[overview.risk_level]}
+                />
+              </div>
+              <p className={`mt-4 ${AppPremiumShell.metricDescription}`}>{labels.overview.advisory}</p>
+              {overview.last_updated_at ? (
+                <p className="mt-3 text-xs text-aipify-text-muted">
+                  {labels.overview.lastUpdated}: {formatDateTime(overview.last_updated_at, locale)}
+                </p>
+              ) : null}
+            </article>
+          </div>
         </section>
       ) : null}
 
-      {(data?.recommendations?.length ?? 0) > 0 ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="font-semibold text-slate-900">{labels.sections.recommendations}</h2>
-          <ul className="mt-4 space-y-3">
-            {data!.recommendations!.map((rec) => (
-              <li key={rec.id} className="rounded-xl border border-indigo-100 bg-indigo-50/40 px-4 py-3 text-sm text-slate-800">
-                {labels.recommendations[rec.key as keyof SuccessCenterLabels["recommendations"]] ?? rec.key}
-              </li>
-            ))}
+      {topRecommendation ? (
+        <section className="space-y-3">
+          <p className="text-sm font-medium text-aipify-text-secondary">{labels.overview.recommendedNextAction}</p>
+          <PriorityRecommendationCard
+            category={labels.sections.recommendations}
+            title={labels.recommendations[topRecommendation.key as keyof typeof labels.recommendations]?.title ?? topRecommendation.key}
+            description={labels.recommendations[topRecommendation.key as keyof typeof labels.recommendations]?.reason ?? ""}
+            severityValue={mapRecommendationPriorityToSeverity(topRecommendation.priority)}
+            severityLabel={labels.priorities[topRecommendation.priority] ?? topRecommendation.priority}
+            workflowValue={topRecommendation.status ?? "open"}
+            workflowLabel={labels.recommendationStatus[topRecommendation.status ?? "open"]}
+            actionHref={resolveRecommendationHref(topRecommendation.key)}
+            actionLabel={labels.recommendations[topRecommendation.key as keyof typeof labels.recommendations]?.action}
+          />
+        </section>
+      ) : null}
+
+      {visibleRecommendations.length > 0 ? (
+        <section className="space-y-4">
+          <SectionHeading id="recommendations" title={labels.sections.recommendations} />
+          <div className="grid gap-4 lg:grid-cols-2">
+            {visibleRecommendations.map((rec) => {
+              const copy = labels.recommendations[rec.key as keyof typeof labels.recommendations];
+              return (
+                <PriorityRecommendationCard
+                  key={rec.id}
+                  category={labels.priorities[rec.priority] ?? rec.priority}
+                  title={copy?.title ?? rec.key}
+                  description={[copy?.reason, copy?.benefit].filter(Boolean).join(" ")}
+                  severityValue={mapRecommendationPriorityToSeverity(rec.priority)}
+                  severityLabel={labels.priorities[rec.priority] ?? rec.priority}
+                  workflowValue={rec.status ?? "open"}
+                  workflowLabel={labels.recommendationStatus[rec.status ?? "open"]}
+                  actionHref={resolveRecommendationHref(rec.key)}
+                  actionLabel={copy?.action}
+                />
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
+
+      {completedRecommendations.length > 0 ? (
+        <section className="space-y-3">
+          <h3 className="text-sm font-semibold text-aipify-text-secondary">{labels.sections.completedRecommendations}</h3>
+          <ul className="space-y-2">
+            {completedRecommendations.map((rec) => {
+              const copy = labels.recommendations[rec.key as keyof typeof labels.recommendations];
+              return (
+                <li
+                  key={rec.id}
+                  className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-aipify-border bg-aipify-surface-muted/40 px-4 py-3 text-sm"
+                >
+                  <span className="text-aipify-text-secondary">{copy?.title ?? rec.key}</span>
+                  <SemanticBadge type="workflow" value="completed" label={labels.recommendationStatus.completed} />
+                </li>
+              );
+            })}
           </ul>
         </section>
       ) : null}
 
-      {(data?.timeline?.length ?? 0) > 0 ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="font-semibold text-slate-900">{labels.sections.timeline}</h2>
-          <ul className="mt-4 space-y-3 text-sm">
-            {data!.timeline!.map((e) => (
-              <li key={e.id} className="border-l-2 border-indigo-200 pl-4">
-                <p className="font-medium text-slate-900">{e.title}</p>
-                <p className="text-slate-600">{e.description}</p>
-                <p className="text-xs text-slate-500">{new Date(e.occurred_at).toLocaleString()}</p>
-              </li>
-            ))}
+      {(data.timeline?.length ?? 0) > 0 ? (
+        <section className="space-y-4">
+          <SectionHeading id="timeline" title={labels.sections.timeline} />
+          <ul className="space-y-3">
+            {data.timeline!.map((event) => {
+              const workflow = getWorkflowStatePresentation(event.status ?? "completed");
+              return (
+                <li
+                  key={event.id}
+                  className={`${AppPremiumShell.elevatedCard} border-l-4 p-4 ${workflow.borderClassName} ${workflow.backgroundClassName}`}
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="font-medium text-aipify-text">{event.title}</p>
+                      <p className="mt-1 text-sm text-aipify-text-secondary">{event.description}</p>
+                    </div>
+                    <time className="text-xs text-aipify-text-muted" dateTime={event.occurred_at}>
+                      {formatDateTime(event.occurred_at, locale)}
+                    </time>
+                  </div>
+                  {event.href ? (
+                    <Link href={event.href} className="mt-3 inline-flex text-sm font-medium text-aipify-companion hover:underline">
+                      {labels.overview.recommendedNextAction}
+                    </Link>
+                  ) : null}
+                </li>
+              );
+            })}
           </ul>
         </section>
       ) : null}
 
-      {(data?.growth_opportunities?.length ?? 0) > 0 ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="font-semibold text-slate-900">{labels.sections.growth}</h2>
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {data!.growth_opportunities!.filter((g) => g.available).map((g) => (
-              <li key={g.key} className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-900">
-                {labels.growth[g.key as keyof SuccessCenterLabels["growth"]] ?? g.key}
-              </li>
-            ))}
-          </ul>
+      {(data.growth_opportunities?.filter((g) => g.available).length ?? 0) > 0 ? (
+        <section className="space-y-4">
+          <SectionHeading id="growth" title={labels.sections.growth} />
+          <div className="grid gap-4 sm:grid-cols-2">
+            {data.growth_opportunities!
+              .filter((g) => g.available)
+              .map((g) => {
+                const copy = labels.growth[g.key as keyof typeof labels.growth];
+                const accent = growthOpportunityAccent(g.key);
+                return (
+                  <article
+                    key={g.key}
+                    className={`${AppPremiumShell.elevatedCard} border-l-4 p-5 ${growthCardClasses(accent)}`}
+                  >
+                    <h3 className="font-semibold text-aipify-text">{copy?.title ?? g.key}</h3>
+                    <p className="mt-2 text-sm text-aipify-text-secondary">{copy?.description}</p>
+                    <Link
+                      href={GROWTH_OPPORTUNITY_LINKS[g.key] ?? "/app/billing/upgrade"}
+                      className={`mt-4 inline-flex min-h-10 items-center rounded-lg border border-aipify-border bg-aipify-surface px-4 py-2 text-sm font-medium text-aipify-text transition hover:bg-aipify-surface-muted ${AppPremiumShell.focusRing}`}
+                    >
+                      {copy?.action}
+                    </Link>
+                  </article>
+                );
+              })}
+          </div>
         </section>
       ) : null}
 
-      {(data?.adoption_insights?.length ?? 0) > 0 ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="font-semibold text-slate-900">{labels.sections.adoption}</h2>
-          <dl className="mt-4 grid gap-3 sm:grid-cols-2">
-            {data!.adoption_insights!.map((a) => (
-              <div key={a.key} className="rounded-lg border border-slate-100 bg-slate-50 px-4 py-3">
-                <dt className="text-xs text-slate-500">{labels.adoption[a.label_key as keyof SuccessCenterLabels["adoption"]] ?? a.label_key}</dt>
-                <dd className="text-lg font-semibold text-slate-900">{a.value}</dd>
+      {(data.adoption_insights?.length ?? 0) > 0 ? (
+        <section className="space-y-4">
+          <SectionHeading id="adoption" title={labels.sections.adoption} />
+          <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {data.adoption_insights!.map((item) => (
+              <div key={item.key} className={`${AppPremiumShell.elevatedCard} p-4`}>
+                <dt className="text-xs font-medium text-aipify-text-muted">
+                  {labels.adoption[item.label_key as keyof typeof labels.adoption] ?? item.label_key}
+                </dt>
+                <dd className="mt-1 text-2xl font-semibold text-aipify-text">{item.value}</dd>
               </div>
             ))}
           </dl>
         </section>
       ) : null}
 
-      {(data?.health_factors?.length ?? 0) > 0 ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="font-semibold text-slate-900">{labels.sections.factors}</h2>
-          <dl className="mt-4 grid gap-2 sm:grid-cols-2 text-sm">
-            {data!.health_factors!.map((f) => (
-              <div key={f.key} className="flex justify-between rounded-lg border border-slate-100 px-3 py-2">
-                <dt className="text-slate-600">{labels.factors[f.key as keyof SuccessCenterLabels["factors"]] ?? f.key}</dt>
-                <dd className="font-medium">{f.value}</dd>
-              </div>
-            ))}
-          </dl>
+      {(data.health_factors?.length ?? 0) > 0 ? (
+        <section className="space-y-4">
+          <SectionHeading id="factors" title={labels.sections.factors} />
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {data.health_factors!.map((factor) => {
+              const copy = labels.factors[factor.key as keyof typeof labels.factors];
+              const impactPresentation = getSeverityPresentation(
+                factor.impact === "negative" ? "high" : factor.impact === "positive" ? "low" : "info"
+              );
+              return (
+                <li
+                  key={factor.key}
+                  className={`${AppPremiumShell.elevatedCard} flex flex-col gap-2 border-l-4 p-4 ${impactPresentation.borderClassName}`}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="font-medium text-aipify-text">{copy?.label ?? factor.key}</p>
+                      <p className="mt-1 text-xs text-aipify-text-muted">{copy?.impact}</p>
+                    </div>
+                    <span className="text-lg font-semibold text-aipify-text">{factor.value}</span>
+                  </div>
+                  {factor.action_href ? (
+                    <Link href={factor.action_href} className="text-sm font-medium text-aipify-companion hover:underline">
+                      {labels.factorActions[factor.key as keyof typeof labels.factorActions]}
+                    </Link>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
         </section>
       ) : null}
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="font-semibold">{labels.faq.title}</h2>
-        <dl className="mt-4 space-y-3 text-sm">
-          <div><dt className="font-medium">{labels.faq.whatIs}</dt><dd className="mt-1 text-slate-600">{labels.faq.whatIsAnswer}</dd></div>
-          <div><dt className="font-medium">{labels.faq.healthScore}</dt><dd className="mt-1 text-slate-600">{labels.faq.healthScoreAnswer}</dd></div>
-          <div><dt className="font-medium">{labels.faq.predictRisk}</dt><dd className="mt-1 text-slate-600">{labels.faq.predictRiskAnswer}</dd></div>
-        </dl>
+      <section className="space-y-4">
+        <SectionHeading id="understandingScore" title={labels.sections.understandingScore} />
+        <div className="grid gap-4 lg:grid-cols-3">
+          {(
+            [
+              ["adoptionTitle", "adoptionBody"],
+              ["engagementTitle", "engagementBody"],
+              ["utilizationTitle", "utilizationBody"],
+            ] as const
+          ).map(([titleKey, bodyKey]) => (
+            <article key={titleKey} className={`${AppPremiumShell.elevatedCard} p-5`}>
+              <h3 className="font-semibold text-aipify-text">{labels.understandingScore[titleKey]}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">
+                {labels.understandingScore[bodyKey]}
+              </p>
+            </article>
+          ))}
+        </div>
+        {methodologyHref ? (
+          <Link href={methodologyHref} className="inline-flex text-sm font-medium text-aipify-companion hover:underline">
+            {labels.understandingScore.methodologyLink}
+          </Link>
+        ) : null}
       </section>
-    </div>
-  );
-}
-
-function ScoreCard({ label, value }: { label: string; value: number }) {
-  return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4">
-      <dt className="text-xs text-slate-500">{label}</dt>
-      <dd className="mt-1 text-2xl font-semibold text-slate-900">{value}</dd>
     </div>
   );
 }

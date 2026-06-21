@@ -14,7 +14,7 @@ import {
 } from "@/lib/tenant/app-portal-route-access";
 import { createClient } from "@/lib/supabase/server";
 
-const REQUIRED_PLAN_LABEL = "business_or_enterprise";
+const REQUIRED_PLAN_LABEL = "business";
 
 function orgContextAccessState(state: string): BusinessPackSettingsAccessState {
   if (state === "subscription_inactive") return "subscription_inactive";

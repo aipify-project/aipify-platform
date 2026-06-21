@@ -1,42 +1,71 @@
 import Link from "next/link";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import { SemanticBadge } from "@/components/ui/semantic-badge";
 import type { AipifyStatusKind } from "@/lib/design/status-system";
+import {
+  getSeverityPresentation,
+  type SemanticBadgeType,
+} from "@/lib/design/semantic-status-system";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 
 type PriorityRecommendationCardProps = {
   category: string;
   title: string;
   description: string;
-  statusKind: AipifyStatusKind;
-  statusLabel: string;
+  /** Explicit severity badge (preferred). */
+  severityValue?: string;
+  severityLabel?: string;
+  /** Optional workflow badge — shown separately from severity. */
+  workflowValue?: string;
+  workflowLabel?: string;
+  /** Legacy single-badge fallback. */
+  statusKind?: AipifyStatusKind;
+  statusLabel?: string;
   actionHref?: string;
   actionLabel?: string;
 };
+
+function borderClassesForSeverity(severityValue: string | undefined, statusKind?: AipifyStatusKind): string {
+  if (severityValue) {
+    const presentation = getSeverityPresentation(severityValue);
+    return `${presentation.borderClassName} ${presentation.backgroundClassName}`;
+  }
+  if (statusKind === "needs_attention") return "border-l-amber-400 bg-amber-50/30";
+  if (statusKind === "not_allowed") return "border-l-red-400 bg-red-50/20";
+  return "border-l-aipify-companion bg-aipify-surface";
+}
 
 export function PriorityRecommendationCard({
   category,
   title,
   description,
+  severityValue,
+  severityLabel,
+  workflowValue,
+  workflowLabel,
   statusKind,
   statusLabel,
   actionHref,
   actionLabel,
 }: PriorityRecommendationCardProps) {
+  const borderClasses = borderClassesForSeverity(severityValue, statusKind);
+  const workflowType: SemanticBadgeType = "workflow";
+
   return (
-    <article
-      className={`${AppPremiumShell.elevatedCard} border-l-4 p-5 ${
-        statusKind === "needs_attention"
-          ? "border-l-amber-400 bg-amber-50/30"
-          : statusKind === "not_allowed"
-            ? "border-l-red-400 bg-red-50/20"
-            : "border-l-aipify-companion bg-aipify-surface"
-      }`}
-    >
+    <article className={`${AppPremiumShell.elevatedCard} border-l-4 p-5 ${borderClasses}`}>
       <div className="flex flex-wrap items-center gap-2">
         <span className="rounded-full bg-aipify-surface-muted px-2.5 py-0.5 text-xs font-medium text-aipify-text-secondary">
           {category}
         </span>
-        <AipifyStatusBadge kind={statusKind} label={statusLabel} />
+        {severityValue && severityLabel ? (
+          <SemanticBadge type="severity" value={severityValue} label={severityLabel} />
+        ) : null}
+        {workflowValue && workflowLabel ? (
+          <SemanticBadge type={workflowType} value={workflowValue} label={workflowLabel} />
+        ) : null}
+        {!severityValue && statusKind && statusLabel ? (
+          <AipifyStatusBadge kind={statusKind} label={statusLabel} />
+        ) : null}
       </div>
       <h3 className="mt-3 text-base font-semibold text-aipify-text">{title}</h3>
       {description ? <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{description}</p> : null}
