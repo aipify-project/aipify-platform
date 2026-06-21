@@ -6278,6 +6278,57 @@
         },
         "readingTime": "6 min lesing",
         "publishedDate": "2026-06-21"
+      },
+      "customer-feedback-and-product-improvement": {
+        "title": "Retningslinjer for kundetilbakemelding og produktforbedring",
+        "metaDescription": "Hvordan Aipify samler inn og bruker frivillige kundetilbakemeldinger for å forbedre produkter, arbeidsflyter og support — uten reklame eller videresalg.",
+        "introduction": "Det er alltid frivillig å sende tilbakemeldinger gjennom Aipify. Denne siden forklarer hvordan tilbakemeldinger brukes, hvilken informasjon som kan inkluderes, og hvordan Aipify beskytter personvernet ditt.",
+        "sections": [
+          {
+            "heading": "Frivillig deltakelse",
+            "body": "Du velger selv om du vil dele tilbakemeldinger. Aipify krever aldri tilbakemeldinger for å bruke arbeidsområdet, abonnementet eller Business Packs."
+          },
+          {
+            "heading": "Formål",
+            "body": "Tilbakemeldinger hjelper Aipify å forbedre produkter, arbeidsflyter, brukervennlighet, dokumentasjon og support. De kan avdekke feil, manglende funksjonalitet og kundebehov som styrer produktbeslutninger."
+          },
+          {
+            "heading": "Ingen reklame eller videresalg",
+            "body": "Aipify bruker ikke innsendte tilbakemeldinger til reklame og selger ikke tilbakemeldinger til annonsører eller tredjeparter."
+          },
+          {
+            "heading": "Informasjon du oppgir",
+            "body": "Du styrer hva du skriver i tittel, beskrivelse, tilbakemeldingstype, prioritet og om du ber om svar. Inkluder bare informasjon du er komfortabel med å dele."
+          },
+          {
+            "heading": "Side- og enhetskontekst",
+            "body": "Når du aktiverer Inkluder gjeldende side og enhetskontekst, kan Aipify legge ved begrenset teknisk metadata som gjeldende APP-rute, nettlesertype, enhetskategori, applikasjonsversjon, organisasjonsidentifikator der det kreves for support, tidsstempel og språk. Aipify inkluderer ikke passord, autentiseringstokens, fullstendige API-nøkler, betalingskortdata, private meldinger, private filer eller urelatert kundeinnhold."
+          },
+          {
+            "heading": "Kontaktforespørsel",
+            "body": "Når du velger Kontakt meg angående denne tilbakemeldingen, kan Aipify bruke kontoens godkjente kontaktinformasjon for oppfølging om nettopp den innsendingen."
+          },
+          {
+            "heading": "Anonymisert produktforbedring",
+            "body": "Aipify kan bruke aggregerte eller anonymiserte målinger for å identifisere gjentakende problemer, pålitelighetsutfordringer, bruksmønstre, funksjonsadopsjon og områder som trenger forbedring. Friteksttilbakemeldinger du sender er ikke automatisk anonyme."
+          },
+          {
+            "heading": "Oppbevaring",
+            "body": "Tilbakemeldinger oppbevares bare så lenge det kreves for produktforbedring, supportoppfølging, sikkerhet, dokumentasjon og juridiske eller revisjonsmessige forpliktelser etter Aipifys godkjente retningslinjer for oppbevaring."
+          },
+          {
+            "heading": "Dine rettigheter",
+            "body": "Du kan se innsendt tilbakemeldingshistorikk i tilbakemeldingsdialogen, be om retting der det støttes, kontakte Aipify Support med spørsmål om databehandling, og spørre hvordan innsendingen din brukes."
+          }
+        ],
+        "examples": [],
+        "keyTakeaways": {
+          "1": "Tilbakemeldinger er frivillige og brukes bare til å forbedre Aipify.",
+          "2": "Du styrer hva du skriver; valgfri kontekst utelater sensitive legitimasjonsdata.",
+          "3": "Aipify selger ikke tilbakemeldinger og bruker dem ikke til reklame."
+        },
+        "readingTime": "4 min",
+        "publishedDate": "2026-06-21"
       }
     },
     "businessPacks": {

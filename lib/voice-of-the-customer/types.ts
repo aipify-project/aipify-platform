@@ -182,6 +182,7 @@ export type VocWidgetLabels = {
   trustNote: string;
   transparencyNote: string;
   trustStatementLink: string;
+  trustStatementLinkAria: string;
 };
 
 export type VocGlobalInsightsLabels = {

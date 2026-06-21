@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { resolveAppHref } from "@/lib/app/route-aliases";
 import {
+  CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH,
   CUSTOMER_STATUS_BADGES,
   FEEDBACK_TYPES,
   parseCustomerFeedbackHistory,
@@ -122,7 +122,10 @@ export function ShareFeedbackWidget({ labels }: ShareFeedbackWidgetProps) {
                 <p className="mt-3 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2 text-xs text-slate-700">
                   {labels.trustNote}{" "}
                   <Link
-                    href={resolveAppHref("/app/license")}
+                    href={CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={labels.trustStatementLinkAria}
                     className="font-medium text-indigo-700 underline hover:text-indigo-900"
                   >
                     {labels.trustStatementLink}

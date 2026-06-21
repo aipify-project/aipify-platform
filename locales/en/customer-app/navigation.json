@@ -687,6 +687,7 @@
     },
     "trustNote": "Participation is always voluntary. We use feedback only to improve Aipify — never for advertising or resale.",
     "transparencyNote": "Information you share here is collected to improve Aipify products and services.",
-    "trustStatementLink": "Customer Feedback & Product Improvement Policy"
+    "trustStatementLink": "Customer Feedback and Product Improvement Guidelines",
+    "trustStatementLinkAria": "Open Customer Feedback and Product Improvement Guidelines"
   }
 }

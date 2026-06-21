@@ -90,6 +90,11 @@ export const PUBLIC_KNOWLEDGE_ARTICLE_REGISTRY: PublicKnowledgeArticleMeta[] = [
     relatedArticles: ["getting-started-with-aipify"],
     relatedFeatures: ["Install Engine", "Command Center"],
   }),
+  article("customer-feedback-and-product-improvement", "governance", {
+    searchIntents: ["Customer Feedback", "Product Improvement", "Privacy"],
+    relatedArticles: ["governance-and-human-approval", "getting-started-with-aipify"],
+    relatedFeatures: ["Voice of the Customer", "Trust Center"],
+  }),
   article("getting-started-with-aipify", "getting-started", {
     searchIntents: ["Business Operating System"],
     relatedArticles: ["what-is-a-business-operating-system", "what-is-a-business-companion"],

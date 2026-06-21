@@ -632,7 +632,8 @@
     },
     "trustNote": "Deltagelse er altid frivillig. Vi bruger feedback kun til at forbedre Aipify — aldrig til reklame eller videresalg.",
     "transparencyNote": "Oplysninger, du deler her, indsamles for at forbedre Aipify-produkter og -tjenester.",
-    "trustStatementLink": "Politik for kundefeedback og produktforbedring"
+    "trustStatementLink": "Retningslinjer for kundefeedback og produktforbedring",
+    "trustStatementLinkAria": "Åbn retningslinjer for kundefeedback og produktforbedring"
   },
   "navGroups": {
     "home": "Home",

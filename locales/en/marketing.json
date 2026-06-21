@@ -5789,6 +5789,57 @@
         },
         "readingTime": "6 min read",
         "publishedDate": "2026-06-21"
+      },
+      "customer-feedback-and-product-improvement": {
+        "title": "Customer Feedback and Product Improvement Guidelines",
+        "metaDescription": "How Aipify collects and uses voluntary customer feedback to improve products, workflows, and support — without advertising or resale.",
+        "introduction": "Submitting feedback through Aipify is always voluntary. This page explains how feedback is used, what information may be included, and how Aipify protects your privacy.",
+        "sections": [
+          {
+            "heading": "Voluntary participation",
+            "body": "You choose whether to share feedback. Aipify never requires feedback to use your workspace, subscription, or Business Packs."
+          },
+          {
+            "heading": "Purpose",
+            "body": "Feedback helps Aipify improve products, workflows, usability, documentation, and support. It may identify bugs, missing functionality, and customer needs that guide product decisions."
+          },
+          {
+            "heading": "No advertising or resale",
+            "body": "Aipify does not use submitted feedback for advertising and does not sell feedback to advertisers or third parties."
+          },
+          {
+            "heading": "Information you provide",
+            "body": "You control what you write in the title, description, feedback type, priority, and whether you request a response. Only include information you are comfortable sharing."
+          },
+          {
+            "heading": "Page and device context",
+            "body": "When you enable Include current page and device context, Aipify may attach limited technical metadata such as the current APP route, browser type, device category, application version, organization identifier where required for support, timestamp, and language. Aipify does not include passwords, authentication tokens, complete API keys, payment-card data, private messages, private files, or unrelated customer content."
+          },
+          {
+            "heading": "Contact request",
+            "body": "When you select Contact me regarding this feedback, Aipify may use your account’s approved contact information to follow up about that specific submission only."
+          },
+          {
+            "heading": "Anonymized product improvement",
+            "body": "Aipify may use aggregated or anonymized measurements to identify recurring problems, reliability issues, usability patterns, feature adoption, and areas requiring improvement. Free-text feedback you submit is not automatically anonymous."
+          },
+          {
+            "heading": "Retention",
+            "body": "Feedback is retained only as long as required for product improvement, support follow-up, security, documentation, and legal or audit obligations under Aipify’s approved retention policies."
+          },
+          {
+            "heading": "Your rights",
+            "body": "You can review submitted feedback history in the feedback dialog, request correction where supported, contact Aipify Support with questions about data handling, and ask how your submission is used."
+          }
+        ],
+        "examples": [],
+        "keyTakeaways": {
+          "1": "Feedback is voluntary and used only to improve Aipify.",
+          "2": "You control what you write; optional context excludes sensitive credentials.",
+          "3": "Aipify does not sell feedback or use it for advertising."
+        },
+        "readingTime": "4 min read",
+        "publishedDate": "2026-06-21"
       }
     },
     "businessPacks": {

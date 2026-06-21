@@ -46,6 +46,7 @@ export function buildVocWidgetLabels(t: Translator): VocWidgetLabels {
     trustNote: t(`${p}.trustNote`),
     transparencyNote: t(`${p}.transparencyNote`),
     trustStatementLink: t(`${p}.trustStatementLink`),
+    trustStatementLinkAria: t(`${p}.trustStatementLinkAria`),
   };
 }
 

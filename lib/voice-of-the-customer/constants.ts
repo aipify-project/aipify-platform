@@ -54,3 +54,8 @@ export const PRIORITY_BADGES: Record<FeedbackPriority, string> = {
   medium: "bg-blue-50 text-blue-800 ring-blue-200",
   high: "bg-red-50 text-red-800 ring-red-200",
 };
+
+/** Canonical Knowledge Center article for customer feedback policy. */
+export const CUSTOMER_FEEDBACK_POLICY_ARTICLE_SLUG = "customer-feedback-and-product-improvement";
+
+export const CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH = `/app/support/knowledge-center/articles/${CUSTOMER_FEEDBACK_POLICY_ARTICLE_SLUG}`;

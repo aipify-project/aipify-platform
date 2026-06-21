@@ -6278,6 +6278,57 @@
         },
         "readingTime": "6 min läsning",
         "publishedDate": "2026-06-21"
+      },
+      "customer-feedback-and-product-improvement": {
+        "title": "Riktlinjer för kundfeedback och produktförbättring",
+        "metaDescription": "Hur Aipify samlar in och använder frivillig kundfeedback för att förbättra produkter, arbetsflöden och support — utan reklam eller vidareförsäljning.",
+        "introduction": "Det är alltid frivilligt att skicka feedback via Aipify. Den här sidan förklarar hur feedback används, vilken information som kan ingå och hur Aipify skyddar din integritet.",
+        "sections": [
+          {
+            "heading": "Frivilligt deltagande",
+            "body": "Du väljer själv om du vill dela feedback. Aipify kräver aldrig feedback för att använda arbetsytan, prenumerationen eller Business Packs."
+          },
+          {
+            "heading": "Syfte",
+            "body": "Feedback hjälper Aipify att förbättra produkter, arbetsflöden, användbarhet, dokumentation och support. Den kan avslöja buggar, saknad funktionalitet och kundbehov som styr produktbeslut."
+          },
+          {
+            "heading": "Ingen reklam eller vidareförsäljning",
+            "body": "Aipify använder inte inskickad feedback för reklam och säljer inte feedback till annonsörer eller tredje parter."
+          },
+          {
+            "heading": "Information du anger",
+            "body": "Du styr vad du skriver i titel, beskrivning, feedbacktyp, prioritet och om du begär svar. Inkludera bara information du är bekväm med att dela."
+          },
+          {
+            "heading": "Sid- och enhetskontext",
+            "body": "När du aktiverar Inkludera aktuell sida och enhetskontext kan Aipify bifoga begränsad teknisk metadata såsom aktuell APP-rutt, webbläsartyp, enhetskategori, applikationsversion, organisationsidentifierare där det krävs för support, tidsstämpel och språk. Aipify inkluderar inte lösenord, autentiseringstokens, fullständiga API-nycklar, betalkortsdata, privata meddelanden, privata filer eller orelaterat kundinnehåll."
+          },
+          {
+            "heading": "Kontaktförfrågan",
+            "body": "När du väljer Kontakta mig angående denna feedback kan Aipify använda kontots godkända kontaktuppgifter för uppföljning om just den inlämningen."
+          },
+          {
+            "heading": "Anonymiserad produktförbättring",
+            "body": "Aipify kan använda aggregerade eller anonymiserade mätningar för att identifiera återkommande problem, tillförlitlighetsutmaningar, användningsmönster, funktionsadoption och områden som behöver förbättras. Fritextfeedback du skickar är inte automatiskt anonym."
+          },
+          {
+            "heading": "Lagring",
+            "body": "Feedback sparas endast så länge som krävs för produktförbättring, supportuppföljning, säkerhet, dokumentation och juridiska eller revisionsmässiga skyldigheter enligt Aipifys godkända lagringspolicyer."
+          },
+          {
+            "heading": "Dina rättigheter",
+            "body": "Du kan granska inskickad feedbackhistorik i feedbackdialogen, begära rättelse där det stöds, kontakta Aipify Support med frågor om databehandling och fråga hur din inlämning används."
+          }
+        ],
+        "examples": [],
+        "keyTakeaways": {
+          "1": "Feedback är frivillig och används endast för att förbättra Aipify.",
+          "2": "Du styr vad du skriver; valfri kontext utesluter känsliga autentiseringsuppgifter.",
+          "3": "Aipify säljer inte feedback och använder den inte för reklam."
+        },
+        "readingTime": "4 min",
+        "publishedDate": "2026-06-21"
       }
     },
     "businessPacks": {
