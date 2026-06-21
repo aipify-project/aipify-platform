@@ -148,7 +148,3 @@ export default function GlobalFooterLanguageSelector({ currentLocale, labels }: 
     </section>
   );
 }
-
-export function resolvePublicFooterLocale(locale: string): PublicFooterEnabledLocale {
-  return isPublicFooterEnabledLocale(locale) ? locale : "en";
-}

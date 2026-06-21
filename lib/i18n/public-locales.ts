@@ -54,6 +54,10 @@ export function isPublicMarketingLocale(value: string): value is PublicMarketing
   return isPublicFooterEnabledLocale(value);
 }
 
+export function resolvePublicFooterLocale(locale: string): PublicFooterEnabledLocale {
+  return isPublicFooterEnabledLocale(locale) ? locale : "en";
+}
+
 export type PublicFooterLocaleOption = {
   locale: PublicFooterEnabledLocale;
   label: string;

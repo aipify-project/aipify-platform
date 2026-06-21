@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import AipifyPulse from "@/components/branding/AipifyPulse";
-import GlobalFooterLanguageSelector, {
-  resolvePublicFooterLocale,
-} from "@/components/marketing/GlobalFooterLanguageSelector";
+import GlobalFooterLanguageSelector from "@/components/marketing/GlobalFooterLanguageSelector";
+import { resolvePublicFooterLocale } from "@/lib/i18n/public-locales";
 import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 import { parseFooterGovernanceLabels } from "@/lib/marketing/governance/labels";
 import type { MarketingDictionary } from "@/lib/marketing/get-marketing-context";
