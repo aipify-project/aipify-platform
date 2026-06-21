@@ -462,9 +462,9 @@ export default function GrowthPartnerApplicationForm({ labels, verificationLabel
           <AipifyHumanVerification
             labels={verificationLabels}
             variant="light"
+            compact
             onVerified={onVerified}
             onReset={onVerificationReset}
-            className="!px-4 !py-4 sm:!px-5 sm:!py-5"
           />
 
           {verificationRequired ? (

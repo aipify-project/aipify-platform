@@ -173,6 +173,7 @@ export default function EarlyAccessForm({ labels, verificationLabels, variant = 
       <AipifyHumanVerification
         labels={verificationLabels}
         variant={variant}
+        compact
         onVerified={onVerified}
         onReset={onVerificationReset}
       />

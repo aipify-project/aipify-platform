@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import CustomerStoriesPageContent, { type CustomerStoriesPageLabels } from "@/components/marketing/CustomerStoriesPageContent";
-import { PublicCTA, PublicPageHero } from "@/components/marketing/public";
+import { PublicPageHero } from "@/components/marketing/public";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import { getSection } from "@/lib/marketing/parse-marketing";
 import { MARKETING_PRIMARY_CTA_HREFS } from "@/lib/marketing/primary-ctas";
@@ -29,7 +29,7 @@ export default async function CustomerStoriesPage() {
           { label: "Solutions", href: "/customer-stories" },
           { label: "Customer Stories", href: "/customer-stories" },
         ]}
-        primaryCta={{ label: labels.hero.cta, href: "#featured-stories", analyticsId: "customer_stories_explore" }}
+        primaryCta={{ label: labels.hero.cta, href: "#industry-examples", analyticsId: "customer_stories_explore" }}
         secondaryCta={{
           label: labels.hero.ctaSecondary ?? "Book a Demo",
           href: MARKETING_PRIMARY_CTA_HREFS.bookDemo,
@@ -37,16 +37,6 @@ export default async function CustomerStoriesPage() {
         }}
       />
       <CustomerStoriesPageContent labels={labels} />
-      <PublicCTA
-        title={labels.finalCta.headline}
-        subtitle={labels.finalPrinciple}
-        primaryLabel={labels.finalCta.bookDemo}
-        primaryHref={MARKETING_PRIMARY_CTA_HREFS.bookDemo}
-        secondaryLabel={labels.finalCta.businessPacks}
-        secondaryHref="/pricing#business-packs"
-        analyticsPrimary="customer_stories_final_demo"
-        analyticsSecondary="customer_stories_final_packs"
-      />
     </>
   );
 }

@@ -1,5 +1,9 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import AipifyPulse from "@/components/branding/AipifyPulse";
+import GlobalFooterLanguageSelector, {
+  resolvePublicFooterLocale,
+} from "@/components/marketing/GlobalFooterLanguageSelector";
 import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 import { parseFooterGovernanceLabels } from "@/lib/marketing/governance/labels";
 import type { MarketingDictionary } from "@/lib/marketing/get-marketing-context";
@@ -7,10 +11,12 @@ import type { MarketingDictionary } from "@/lib/marketing/get-marketing-context"
 type MarketingFooterProps = {
   appName: string;
   marketing: MarketingDictionary;
+  locale: string;
 };
 
-export default function MarketingFooter({ appName, marketing }: MarketingFooterProps) {
+export default function MarketingFooter({ appName, marketing, locale }: MarketingFooterProps) {
   const labels = parseFooterGovernanceLabels(marketing);
+  const currentLocale = resolvePublicFooterLocale(locale);
 
   const productLinks = [
     { label: labels.product ?? labels.products ?? "Product", href: "/product" },
@@ -109,6 +115,20 @@ export default function MarketingFooter({ appName, marketing }: MarketingFooterP
             </div>
           </div>
         </div>
+
+        <Suspense fallback={null}>
+          <GlobalFooterLanguageSelector
+            currentLocale={currentLocale}
+            labels={{
+              title: labels.languageRegion ?? "Language & region",
+              hint: labels.languageRegionHint ?? "",
+              activeLanguage: labels.languageActive ?? "Active language",
+              changeLanguage: labels.languageChange ?? "Change language",
+              switchFailed: labels.languageSwitchFailed ?? "Language switch failed.",
+              retry: labels.languageRetry ?? "Retry",
+            }}
+          />
+        </Suspense>
 
         <div className="mt-12 border-t border-aipify-border pt-8 text-center text-xs text-aipify-text-muted">
           <p>{labels.copyright}</p>

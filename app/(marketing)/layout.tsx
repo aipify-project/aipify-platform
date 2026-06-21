@@ -15,7 +15,7 @@ import MarketingAnalyticsShell from "@/components/marketing/MarketingAnalyticsSh
 export default async function MarketingLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const { marketing, common } = await getMarketingContext();
+  const { marketing, common, locale } = await getMarketingContext();
   const nav = getSection<Record<string, string>>(marketing, "nav");
   const searchLabels = parseWebsiteSearchLabels(marketing);
   const companion = parseWebsiteCompanionLabels(marketing);
@@ -34,7 +34,7 @@ export default async function MarketingLayout({
         }}
       />
       <main className="flex-1">{children}</main>
-      <MarketingFooter appName={common.appName} marketing={marketing} />
+      <MarketingFooter appName={common.appName} marketing={marketing} locale={locale} />
       <WebsiteCompanionAssistant {...companion} />
     </div>
   );

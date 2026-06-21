@@ -250,6 +250,7 @@ export default function BookDemoRequestForm({ labels, verificationLabels, varian
       <AipifyHumanVerification
         labels={verificationLabels}
         variant={isLight ? "light" : "dark"}
+        compact
         onVerified={onVerified}
         onReset={onVerificationReset}
       />

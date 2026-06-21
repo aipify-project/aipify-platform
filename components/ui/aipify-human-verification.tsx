@@ -16,6 +16,7 @@ type Props = {
   onVerified: (payload: { token: string; answer: number }) => void;
   onReset?: () => void;
   variant?: "light" | "dark";
+  compact?: boolean;
   className?: string;
 };
 
@@ -23,13 +24,18 @@ function optionButtonClass({
   variant,
   selected,
   verified,
+  compact,
 }: {
   variant: "light" | "dark";
   selected: boolean;
   verified: boolean;
+  compact: boolean;
 }) {
+  const optionSizeClass = compact
+    ? "h-[48px] w-[58px] text-base sm:h-[52px] sm:w-[64px]"
+    : "h-[60px] w-[72px] sm:h-[64px] sm:w-[84px] sm:text-xl";
   const base =
-    "flex shrink-0 items-center justify-center rounded-[13px] border text-lg transition focus:outline-none focus:ring-2 focus:ring-aipify-focus focus:ring-offset-2 disabled:cursor-not-allowed h-[60px] w-[72px] sm:h-[64px] sm:w-[84px] sm:text-xl";
+    `flex shrink-0 items-center justify-center rounded-[13px] border text-lg transition focus:outline-none focus:ring-2 focus:ring-aipify-focus focus:ring-offset-2 disabled:cursor-not-allowed ${optionSizeClass}`;
 
   if (variant === "dark") {
     if (selected && verified) {
@@ -55,6 +61,7 @@ export function AipifyHumanVerification({
   onVerified,
   onReset,
   variant = "light",
+  compact = false,
   className = "",
 }: Props) {
   const [challenge, setChallenge] = useState<ChallengeResponse | null>(null);
@@ -84,8 +91,8 @@ export function AipifyHumanVerification({
 
   const cardClass =
     variant === "dark"
-      ? "rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-5 sm:px-7 sm:py-6"
-      : `${AipifyShellClasses.surfaceCard} px-5 py-5 sm:px-7 sm:py-6`;
+      ? `rounded-2xl border border-white/10 bg-white/[0.04] ${compact ? "px-4 py-4" : "px-5 py-5 sm:px-7 sm:py-6"}`
+      : `${AipifyShellClasses.surfaceCard} ${compact ? "px-4 py-4" : "px-5 py-5 sm:px-7 sm:py-6"}`;
 
   const targetLabel = useMemo(() => {
     if (!challenge) return "";
@@ -121,15 +128,19 @@ export function AipifyHumanVerification({
 
   return (
     <div className={`${cardClass} ${className}`} aria-live="polite">
-      <p className="text-sm font-medium text-aipify-text">{labels.title}</p>
-      <p className="mt-1.5 text-xs leading-relaxed text-aipify-text-secondary">{labels.description}</p>
+      <p className={`font-medium text-aipify-text ${compact ? "text-xs" : "text-sm"}`}>{labels.title}</p>
+      {!compact ? (
+        <p className="mt-1.5 text-xs leading-relaxed text-aipify-text-secondary">{labels.description}</p>
+      ) : null}
 
-      <div className="mt-5 flex flex-col items-center text-center">
+      <div className={`flex flex-col items-center text-center ${compact ? "mt-3" : "mt-5"}`}>
         <p id="verification-match-instruction" className="text-xs font-medium uppercase tracking-wide text-aipify-text-secondary">
           {labels.selectMatching}
         </p>
         <div
-          className="mt-3.5 flex h-[52px] w-[52px] items-center justify-center rounded-[13px] bg-aipify-companion text-lg text-white sm:h-14 sm:w-14 sm:text-xl"
+          className={`mt-3 flex items-center justify-center rounded-[13px] bg-aipify-companion text-white ${
+            compact ? "h-11 w-11 text-base" : "mt-3.5 h-[52px] w-[52px] text-lg sm:h-14 sm:w-14 sm:text-xl"
+          }`}
           aria-hidden="true"
         >
           {targetLabel}
@@ -137,7 +148,9 @@ export function AipifyHumanVerification({
       </div>
 
       <div
-        className="mt-4 grid grid-cols-2 justify-items-center gap-2.5 sm:flex sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3 md:gap-4"
+        className={`grid grid-cols-2 justify-items-center gap-2 sm:flex sm:flex-row sm:flex-wrap sm:justify-center ${
+          compact ? "mt-3 gap-2" : "mt-4 gap-2.5 sm:gap-3 md:gap-4"
+        }`}
         role="group"
         aria-labelledby="verification-match-instruction"
       >
@@ -151,7 +164,7 @@ export function AipifyHumanVerification({
               aria-pressed={isSelected}
               disabled={state === "verified" && !isSelected}
               onClick={() => handleSelect(index)}
-              className={optionButtonClass({ variant, selected: isSelected, verified: state === "verified" })}
+              className={optionButtonClass({ variant, selected: isSelected, verified: state === "verified", compact })}
             >
               <span style={{ transform: `rotate(${opt.rotation}deg)` }} aria-hidden="true">
                 {shapeGlyph(opt.shape)}

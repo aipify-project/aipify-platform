@@ -164,6 +164,20 @@ body {
   }
 }
 
+@keyframes aipify-lang-active-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(52, 211, 153, 0.35),
+      0 0 10px rgba(16, 185, 129, 0.12);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(52, 211, 153, 0.5),
+      0 0 16px rgba(16, 185, 129, 0.22);
+  }
+}
+
 @keyframes aipify-verify-flash {
   0%,
   72%,
@@ -277,6 +291,24 @@ body {
   animation: presence-analysing 4s ease-in-out infinite;
 }
 
+@keyframes marketing-companion-working {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.94);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.35);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.08);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+}
+
+.animate-marketing-companion-working {
+  animation: marketing-companion-working 2.8s ease-in-out infinite;
+}
+
 .animate-presence-working {
   animation: presence-working 3s ease-in-out infinite;
 }
@@ -303,6 +335,7 @@ body {
   .animate-aipify-orb-pulse-ring,
   .animate-presence-standby,
   .animate-presence-analysing,
+  .animate-marketing-companion-working,
   .animate-presence-working,
   .animate-presence-learning,
   .animate-presence-healing,

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24" role="img" aria-label="Sweden">
+  <rect width="36" height="24" fill="#006AA7"/>
+  <rect x="10" width="4" height="24" fill="#FECC00"/>
+  <rect y="10" width="36" height="4" fill="#FECC00"/>
+</svg>

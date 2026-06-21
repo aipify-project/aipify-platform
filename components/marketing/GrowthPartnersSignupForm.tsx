@@ -225,6 +225,7 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
       <AipifyHumanVerification
         labels={verificationLabels}
         variant="light"
+        compact
         onVerified={onVerified}
         onReset={onVerificationReset}
       />

@@ -2045,55 +2045,64 @@
     "commandBrief": {
       "title": "Command Brief — your organization summarized before you start.",
       "subtitle": "Aipify brings the most important operational changes, completed work, and decisions to you — instead of making you search through disconnected systems.",
+      "points": {
+        "1": {
+          "title": "Since your last visit",
+          "body": "New bookings were confirmed, guest requests were received, and operational schedules changed while you were away."
+        },
+        "2": {
+          "title": "What Aipify helped with",
+          "body": "Aipify prepared confirmations, coordinated calendars, updated cleaning tasks, and prevented conflicting bookings."
+        },
+        "3": {
+          "title": "What needs your attention",
+          "body": "Only decisions requiring your approval are surfaced — including staffing, refunds, and special guest requests."
+        },
+        "4": {
+          "title": "What happens next",
+          "body": "Approve the prepared actions and Aipify continues coordinating the remaining operational work."
+        }
+      }
+    },
+    "servicesAndHospitalityDemo": {
       "panelTitle": "Command Brief",
-      "sinceLastLogin": "Since last login",
+      "panelOrganization": "Nordic Stay & Studio",
+      "panelContext": "Service & hospitality operations · Monday morning",
+      "headerBadge": "Operations coordinated",
+      "sinceLastLogin": "Since your last visit",
       "aipifyCompleted": "Aipify completed",
       "needsAttention": "Needs your attention",
       "recommendedActions": "Recommended actions",
       "organizationStatus": "Organization status",
       "sinceItems": {
-        "1": "14 support cases updated · 3 escalations resolved",
-        "2": "2 approval requests completed · 1 pending review",
-        "3": "Knowledge Center: 4 articles approved"
+        "1": "6 salon appointments confirmed for this week",
+        "2": "3 Airbnb guest messages received and categorized",
+        "3": "1 cancelled appointment automatically offered to the waiting list",
+        "4": "Cleaning schedule updated for 2 arriving guests"
       },
       "completedItems": {
-        "1": "Drafted 6 support responses for review",
-        "2": "Prepared executive summary for operations",
-        "3": "Flagged subscription renewal context for finance"
+        "1": "Sent booking confirmations and appointment reminders",
+        "2": "Prepared check-in instructions for tomorrow's Airbnb arrival",
+        "3": "Assigned the correct cleaner after a checkout-time change",
+        "4": "Prevented a double booking in the salon calendar"
       },
       "attentionItems": {
-        "1": "1 high-priority approval awaiting owner decision",
-        "2": "Support queue spike in billing category",
-        "3": "Guest check-in workflow needs policy confirmation"
+        "1": "Approve a late checkout request for Apartment 2",
+        "2": "Confirm staff coverage for Saturday afternoon",
+        "3": "Review a guest refund request before 14:00"
       },
       "actionItems": {
-        "1": "Review prepared support draft — Billing dispute",
-        "2": "Approve updated escalation policy",
-        "3": "Schedule follow-up with operations lead"
+        "1": "Open two available salon appointments to the waiting list",
+        "2": "Approve the prepared guest response",
+        "3": "Add a 15-minute buffer after colour treatments",
+        "4": "Review next week's Airbnb occupancy forecast"
       },
       "statusItems": {
-        "1": "Support: Active",
-        "2": "Governance: 1 pending",
-        "3": "Hosts pack: Operational",
-        "4": "License: Healthy"
-      },
-      "points": {
-        "1": {
-          "title": "Since your last visit",
-          "body": "Meaningful operational changes surfaced across support, approvals, and Business Pack activity — without searching every module."
-        },
-        "2": {
-          "title": "What Aipify helped with",
-          "body": "Drafts, summaries, preparation and approved work completed by Aipify while you focused on decisions only humans should make."
-        },
-        "3": {
-          "title": "What needs attention",
-          "body": "Decisions, approvals, risks and exceptions clearly prioritized — never buried in notification noise."
-        },
-        "4": {
-          "title": "What should happen next",
-          "body": "Grounded recommended actions with direct paths to the relevant workflow, record, or approval queue."
-        }
+        "1": "✅ Salon bookings active",
+        "2": "✅ Hosts pack operational",
+        "3": "✅ Calendar sync healthy",
+        "4": "✅ Cleaning schedule updated",
+        "5": "⚠️ 2 approvals pending"
       }
     },
     "workflow": {

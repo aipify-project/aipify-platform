@@ -70,9 +70,21 @@ export function buildMarketingSearchFromDictionary(marketing: MarketingDictionar
 export function parseWebsiteCompanionLabels(marketing: MarketingDictionary) {
   const c = (marketing.websiteCompanion ?? {}) as Record<string, unknown>;
   const actions = (c.actions ?? {}) as Record<string, { label?: string; href?: string; description?: string }>;
+  const statesRaw = (c.states ?? {}) as Record<string, string>;
+  const states = {
+    READY: String(statesRaw.READY ?? "Ready"),
+    WORKING: String(statesRaw.WORKING ?? "Working"),
+    COMPLETED: String(statesRaw.COMPLETED ?? "Completed"),
+    APPROVAL_REQUIRED: String(statesRaw.APPROVAL_REQUIRED ?? "Approval required"),
+    CRITICAL: String(statesRaw.CRITICAL ?? "Critical alert"),
+    DISCONNECTED: String(statesRaw.DISCONNECTED ?? "Disconnected"),
+    QUIET_HOURS: String(statesRaw.QUIET_HOURS ?? "Quiet hours"),
+  };
   return {
     title: String(c.title ?? "Aipify"),
     prompt: String(c.prompt ?? ""),
+    presenceLabel: String(c.presenceLabel ?? "Companion status"),
+    states,
     actions: Object.entries(actions).map(([id, a]) => ({
       id,
       label: String(a.label ?? id),
@@ -142,5 +154,12 @@ export function parseFooterGovernanceLabels(marketing: MarketingDictionary) {
     copyright: footer.copyright ?? "",
     brandSignatureLine1: footer.brandSignatureLine1 ?? "Aipify Group AS",
     finalSignature: footer.finalSignature ?? "Bergen. Norway. For the world.",
+    languageRegion: footer.languageRegion ?? "Language & region",
+    languageRegionHint: footer.languageRegionHint ?? "Choose your preferred language.",
+    languageActive: footer.languageActive ?? "Active language",
+    languageChange: footer.languageChange ?? "Change language",
+    languageComingLater: footer.languageComingLater ?? "Coming later",
+    languageSwitchFailed: footer.languageSwitchFailed ?? "Language switch failed.",
+    languageRetry: footer.languageRetry ?? "Retry",
   };
 }
