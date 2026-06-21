@@ -5,9 +5,8 @@ import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import {
   getPublicKnowledgeArticlesForCategory,
   getPublicKnowledgeCategory,
-  getPublicKnowledgeHubLabels,
 } from "@/lib/marketing/knowledge/load";
-import { parseCtaBandLabels } from "@/lib/marketing/parse-marketing";
+import { getKnowledgePageRedesignLabels } from "@/lib/marketing/parse-knowledge-page";
 import { PUBLIC_KNOWLEDGE_CATEGORIES, type PublicKnowledgeCategoryId } from "@/lib/marketing/knowledge/types";
 
 type PageProps = { params: Promise<{ category: string }> };
@@ -31,14 +30,14 @@ export default async function KnowledgeCategoryPage({ params }: PageProps) {
   if (!category) notFound();
 
   const articles = getPublicKnowledgeArticlesForCategory(marketing, category.id);
-  const labels = getPublicKnowledgeHubLabels(marketing);
+  const redesign = getKnowledgePageRedesignLabels(marketing);
 
   return (
     <PublicKnowledgeCategoryPageContent
       category={category}
-      labels={labels}
+      nested={redesign.nested}
+      cta={redesign.cta}
       articles={articles.map((a) => ({ slug: a.slug, title: a.title, metaDescription: a.metaDescription }))}
-      ctaBand={parseCtaBandLabels(marketing)}
     />
   );
 }

@@ -1,42 +1,44 @@
 import type { Metadata } from "next";
-import PublicKnowledgeHubPageContent from "@/components/marketing/PublicKnowledgeHubPageContent";
+import KnowledgePageContent from "@/components/marketing/knowledge/KnowledgePageContent";
+import { getArticleMeta } from "@/lib/marketing/knowledge/registry";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import {
   getAllPublicBusinessPackPages,
   getPublicKnowledgeArticleSummaries,
   getPublicKnowledgeCategories,
-  getPublicKnowledgeHubLabels,
   getPublicKnowledgeIndustries,
-  getSeoSearchIntentLabels,
 } from "@/lib/marketing/knowledge/load";
-import { parseCtaBandLabels, parseStringList } from "@/lib/marketing/parse-marketing";
+import { getKnowledgePageRedesignLabels } from "@/lib/marketing/parse-knowledge-page";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { marketing } = await getMarketingContext();
-  const labels = getPublicKnowledgeHubLabels(marketing);
-  return { title: labels.title, description: labels.subtitle };
+  const labels = getKnowledgePageRedesignLabels(marketing);
+  return { title: labels.hero.title, description: labels.hero.subtitle };
 }
 
 export default async function KnowledgePage() {
   const { marketing } = await getMarketingContext();
-  const labels = getPublicKnowledgeHubLabels(marketing);
-  const ctaBand = parseCtaBandLabels(marketing);
+  const labels = getKnowledgePageRedesignLabels(marketing);
+  const articleSummaries = getPublicKnowledgeArticleSummaries(marketing).map((summary) => {
+    const meta = getArticleMeta(summary.slug);
+    return {
+      ...summary,
+      hubId: meta?.hubId,
+      industryId: meta?.industryId,
+    };
+  });
 
   return (
-    <PublicKnowledgeHubPageContent
+    <KnowledgePageContent
       labels={labels}
       categories={getPublicKnowledgeCategories(marketing)}
       industries={getPublicKnowledgeIndustries(marketing)}
-      businessPacks={getAllPublicBusinessPackPages(marketing).map((p) => ({
-        slug: p.slug,
-        name: p.name,
-        metaDescription: p.metaDescription,
+      businessPacks={getAllPublicBusinessPackPages(marketing).map((pack) => ({
+        slug: pack.slug,
+        name: pack.name,
+        metaDescription: pack.metaDescription,
       }))}
-      articleSummaries={getPublicKnowledgeArticleSummaries(marketing)}
-      searchIntents={getSeoSearchIntentLabels(marketing)}
-      ctaBand={ctaBand}
-      trustSignals={parseStringList(marketing, "trustSignalStrip", "signals")}
-      differentiationThemes={parseStringList(marketing, "differentiationStrip", "themes")}
+      articleSummaries={articleSummaries}
     />
   );
 }

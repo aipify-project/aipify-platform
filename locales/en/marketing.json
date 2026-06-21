@@ -88,7 +88,14 @@
     "bookDemo": "Book Demo",
     "growthPartners": "Growth Partners",
     "copyright": "Aipify Group AS. All rights reserved.",
-    "privacyNote": "Aipify assists employees. It does not monitor screens, keystrokes, private files, or browsing history."
+    "privacyNote": "Aipify assists employees. It does not monitor screens, keystrokes, private files, or browsing history.",
+    "languageRegion": "Language & region",
+    "languageRegionHint": "Choose your preferred language.",
+    "languageActive": "Active language",
+    "languageChange": "Change language",
+    "languageComingLater": "Coming later",
+    "languageSwitchFailed": "Language switch failed.",
+    "languageRetry": "Retry"
   },
   "hero": {
     "badge": "Aipify Business Operating System",
@@ -3928,274 +3935,167 @@
   "customerStoriesPage": {
     "meta": {
       "title": "Customer Stories — How Organizations Use Aipify",
-      "description": "Discover how teams use Aipify to improve operations, support customers, automate workflows, and grow — real outcomes for real organizations."
+      "description": "Illustrative operating workflows and verified pilot progress — outcomes and governance, not feature lists. Approved customer references publish here when ready."
     },
     "hero": {
       "eyebrow": "Customer Stories",
       "headline": "See how organizations operate with Aipify.",
       "subheadline": "Explore realistic workflows across support, operations, commerce, services and governance.",
-      "cta": "Explore stories",
+      "cta": "Explore examples",
       "ctaSecondary": "Book a Demo"
     },
-    "categories": {
-      "title": "Success categories",
-      "items": [
-        {
-          "title": "Operations",
-          "body": "Unified workflows, approvals, and day-to-day execution."
-        },
-        {
-          "title": "Customer Support",
-          "body": "Faster responses with human control and approved knowledge."
-        },
-        {
-          "title": "Commerce",
-          "body": "Operational visibility across orders, inventory, and customer touchpoints."
-        },
-        {
-          "title": "Hospitality",
-          "body": "Property operations, guest coordination, and occupancy insight."
-        },
-        {
-          "title": "Professional Services",
-          "body": "Client delivery, knowledge retention, and executive visibility."
-        },
-        {
-          "title": "Growth Partners",
-          "body": "Independent businesses built on recurring customer relationships."
-        }
-      ]
-    },
-    "featured": {
-      "title": "Featured story format",
-      "exampleLabel": "Illustrative scenario — approved customer references coming soon",
-      "challengeLabel": "Challenge",
-      "solutionLabel": "Solution",
-      "resultsLabel": "Results",
-      "stories": [
-        {
-          "organizationType": "Short-term rental operator",
-          "challenge": "Managing multiple properties manually across spreadsheets and email.",
-          "solution": "Aipify Hosts Business Pack with Companion for follow-up and operational visibility.",
-          "results": [
-            "Reduced manual administration",
-            "Better occupancy visibility",
-            "Faster day-to-day operations"
-          ],
-          "isExample": true
-        },
-        {
-          "organizationType": "Pilot program participant",
-          "challenge": "Validating install-first operations with real business workflows.",
-          "solution": "Aipify Core with supervised learning and human approval on sensitive actions.",
-          "results": [
-            "Operational proof in live environment",
-            "Governance and audit from day one",
-            "Foundation for expanded Business Packs"
-          ],
-          "isExample": true
-        }
-      ]
-    },
-    "beforeAfter": {
-      "beforeTitle": "Before Aipify",
-      "beforeItems": [
-        "Spreadsheets",
-        "Email chains",
-        "Manual approvals",
-        "Disconnected tools"
-      ],
-      "afterTitle": "After Aipify",
-      "afterItems": [
-        "Unified dashboard",
-        "Companion",
-        "Automation with approval",
-        "Centralized operations"
-      ]
-    },
-    "industries": {
-      "title": "Industry examples",
+    "sectionA": {
+      "title": "Industry operating examples",
+      "subtitle": "Illustrative workflows — not named customers. Each example shows how Aipify coordinates operations inside an industry context.",
+      "illustrativeLabel": "Illustrative workflows",
+      "featuredLabel": "Featured example",
       "challengeLabel": "Challenge",
       "solutionLabel": "Solution",
       "outcomeLabel": "Potential outcome",
-      "items": [
-        {
-          "industry": "Hospitality",
-          "challenge": "Fragmented property and guest coordination.",
-          "solution": "Aipify Hosts with operational Companion.",
-          "outcome": "Clearer occupancy, faster response, less manual admin."
-        },
+      "featured": {
+        "industry": "Hospitality",
+        "challenge": "Fragmented property, guest, and turnover coordination across channels and staff.",
+        "solution": "Aipify Hosts Business Pack with operational Companion, approvals, and occupancy visibility.",
+        "outcome": "Clearer occupancy insight, faster guest response, and less manual administration."
+      },
+      "industries": [
         {
           "industry": "Commerce",
-          "challenge": "Support and operations spread across channels.",
-          "solution": "Commerce Operations Business Pack.",
-          "outcome": "Unified customer view and workflow automation."
+          "challenge": "Support and operations spread across storefront, email, and back-office tools.",
+          "solution": "Commerce Operations Business Pack with unified customer context.",
+          "outcome": "Consistent operational visibility and workflow automation with human approval."
         },
         {
-          "industry": "Support",
-          "challenge": "Inconsistent responses and knowledge gaps.",
-          "solution": "Aipify Support with Business DNA and approvals.",
-          "outcome": "Consistent drafts, human review, audit trail."
+          "industry": "Customer Support",
+          "challenge": "Inconsistent responses and knowledge gaps across agents.",
+          "solution": "Aipify Support with Business DNA, Knowledge Center, and approval gates.",
+          "outcome": "Consistent drafts, human review, and a full audit trail."
         },
         {
           "industry": "Property Management",
-          "challenge": "Manual tenant and maintenance tracking.",
-          "solution": "Operations layer with knowledge and tasks.",
-          "outcome": "Centralized visibility and follow-through."
+          "challenge": "Manual tenant, maintenance, and vendor follow-through.",
+          "solution": "Operations layer with tasks, knowledge, and Companion follow-up.",
+          "outcome": "Centralized visibility and accountable execution."
+        },
+        {
+          "industry": "Professional Services",
+          "challenge": "Institutional knowledge and client context scattered across engagements.",
+          "solution": "Knowledge Center, executive briefings, and governed automations.",
+          "outcome": "Continuity across teams with explainable recommendations."
         },
         {
           "industry": "Consulting",
-          "challenge": "Institutional knowledge walks out the door.",
-          "solution": "Knowledge Center and Companion memory.",
-          "outcome": "Continuity across engagements and teams."
+          "challenge": "Delivery knowledge walks out the door between projects.",
+          "solution": "Organizational memory with approved learning and Companion context.",
+          "outcome": "Repeatable delivery patterns without replacing human judgment."
         },
         {
           "industry": "Education",
-          "challenge": "Administrative load on staff.",
-          "solution": "Workflow automation with governance.",
-          "outcome": "More time for people, less repetitive work."
+          "challenge": "Administrative load pulls staff away from people.",
+          "solution": "Workflow automation with governance and role-based access.",
+          "outcome": "More time for students and staff — less repetitive coordination."
         },
         {
-          "industry": "Healthcare",
-          "challenge": "Strict governance on sensitive operations.",
-          "solution": "Approvals, audit, and role-based access.",
-          "outcome": "Assisted operations without bypassing control."
+          "industry": "Healthcare Operations",
+          "challenge": "Strict governance on sensitive operational workflows.",
+          "solution": "Approvals, audit logging, and least-privilege access by default.",
+          "outcome": "Assisted operations without bypassing human control."
         },
         {
-          "industry": "Construction",
-          "challenge": "Field and office disconnected.",
-          "solution": "Operations and reporting in one layer.",
-          "outcome": "Better project visibility and accountability."
+          "industry": "Construction & Field Ops",
+          "challenge": "Field and office teams working from disconnected updates.",
+          "solution": "Operations reporting, task coordination, and executive visibility.",
+          "outcome": "Better project accountability and fewer status gaps."
         }
       ]
     },
-    "growthPartners": {
-      "headline": "Building businesses with Aipify",
-      "disclaimer": "Illustrative partner profiles — no guaranteed income. Growth Partners build customer portfolios over time through certified sales activity.",
-      "stories": [
+    "sectionB": {
+      "title": "Operational outcomes",
+      "subtitle": "What organizations typically pursue with Aipify — measured by clarity and control, not vanity metrics.",
+      "items": [
+        {
+          "title": "Operational efficiency",
+          "body": "Less time switching tools; more time improving how the business runs."
+        },
+        {
+          "title": "Customer experience",
+          "body": "Faster, consistent support with human approval on what gets sent."
+        },
+        {
+          "title": "Governed automation",
+          "body": "Repeatable workflows — never silent execution on sensitive actions."
+        },
+        {
+          "title": "Knowledge continuity",
+          "body": "Organizational memory that outlasts turnover and tool changes."
+        },
+        {
+          "title": "Executive visibility",
+          "body": "Signal over noise in briefings, dashboards, and prepared decisions."
+        },
+        {
+          "title": "Decision support",
+          "body": "Context, recommendations, and trade-offs — humans always decide."
+        }
+      ]
+    },
+    "sectionC": {
+      "headline": "Growth Partners building with Aipify",
+      "disclaimer": "Illustrative partner profiles — no guaranteed income. Certified Growth Partners build customer portfolios through professional sales activity.",
+      "linkLabel": "Explore Growth Partners",
+      "profiles": [
         {
           "profile": "Independent consultant",
           "focus": "Advises SMBs on operational readiness and Aipify adoption.",
-          "outcomes": [
-            "Recurring commission on qualified customers",
-            "Portfolio grows with customer retention",
-            "Training and certification before selling"
-          ]
+          "outcome": "Recurring commission on qualified customers with certification before selling."
         },
         {
-          "profile": "Small agency",
-          "focus": "Implements Aipify for clients in hospitality and commerce.",
-          "outcomes": [
-            "Combines services with licensed Aipify deployments",
-            "Long-term relationships over one-time referrals",
-            "Governance-first implementation approach"
-          ]
+          "profile": "Implementation agency",
+          "focus": "Deploys Aipify for clients in hospitality and commerce.",
+          "outcome": "Combines services with licensed deployments and long-term relationships."
         },
         {
           "profile": "Regional sales partner",
           "focus": "Builds a Nordic customer base across professional services.",
-          "outcomes": [
-            "Lead pipeline in Operations Center",
-            "Commission traceability and payout transparency",
-            "Business built on trust, not hype"
-          ]
-        },
-        {
-          "profile": "Technology advisor",
-          "focus": "Helps organizations evaluate ABOS fit before expansion.",
-          "outcomes": [
-            "Start-small upgrade path for clients",
-            "No pressure toward oversized packages",
-            "Partner attribution and audit on every sale"
-          ]
+          "outcome": "Lead pipeline transparency, commission traceability, trust-first selling."
         }
       ]
     },
-    "results": {
-      "title": "Results categories",
-      "items": [
-        {
-          "title": "Operational Efficiency",
-          "example": "Less time switching tools; more time improving the business."
-        },
-        {
-          "title": "Customer Experience",
-          "example": "Faster, consistent support with human approval."
-        },
-        {
-          "title": "Automation",
-          "example": "Repeatable workflows — never silent on sensitive actions."
-        },
-        {
-          "title": "Governance",
-          "example": "Audit, approvals, and explainability built in."
-        },
-        {
-          "title": "Knowledge Management",
-          "example": "Organizational memory that outlasts turnover."
-        },
-        {
-          "title": "Executive Visibility",
-          "example": "Signal over noise in briefings and dashboards."
-        },
-        {
-          "title": "Decision Making",
-          "example": "Context, recommendations, and trade-offs — humans decide."
-        }
-      ]
-    },
-    "videoTestimonials": {
-      "title": "Video testimonials",
-      "subtitle": "Structure prepared for customer, partner, and executive interviews — and implementation stories.",
-      "slots": [
-        {
-          "type": "Customer interview",
-          "description": "Operational outcomes in the customer's own words.",
-          "status": "Coming soon"
-        },
-        {
-          "type": "Partner interview",
-          "description": "Growth Partner business building perspective.",
-          "status": "Coming soon"
-        },
-        {
-          "type": "Executive interview",
-          "description": "Leadership view on governance and scale.",
-          "status": "Coming soon"
-        },
-        {
-          "type": "Implementation story",
-          "description": "From install to first approved automation.",
-          "status": "Coming soon"
-        }
+    "sectionD": {
+      "title": "Verified pilot program",
+      "subtitle": "Operational validation in live business environments — not theoretical demos.",
+      "description": "Aipify is validated in real operations under governance, audit, and human approval. The first pilot customer exercises support, knowledge, moderation, approvals, Business Packs, executive reporting, and operational monitoring.",
+      "validationLabel": "Pilot validation areas",
+      "highlights": [
+        "Support operations",
+        "Knowledge management",
+        "Moderation workflows",
+        "Approval workflows",
+        "Business Pack operations",
+        "Executive reporting",
+        "Governance processes",
+        "Operational monitoring"
       ],
-      "comingSoon": "Approved video references will appear here as pilot and customer programs publish stories."
+      "cta": "Learn about the pilot program",
+      "ctaHref": "/pilot",
+      "statusLabel": "Active validation",
+      "statusNote": "Approved customer references publish when pilot milestones complete."
     },
-    "logoWall": {
-      "title": "Organizations that trust Aipify",
-      "subtitle": "Customer, partner, and certification logos will appear here as approved references are published.",
-      "customerLabel": "Customers",
-      "partnerLabel": "Partners",
-      "certificationLabel": "Certifications",
-      "placeholder": "Coming soon"
+    "sectionE": {
+      "title": "Future verified customer stories",
+      "subtitle": "Named organizations, logos, and video references require explicit approval.",
+      "body": "When customers authorize public references, verified stories will appear here with full context — challenge, approach, governance, and outcomes.",
+      "emptyTitle": "Verified stories coming soon",
+      "emptyBody": "We publish only approved references. Illustrative workflows above show how Aipify operates until verified stories are ready.",
+      "notifyCta": "Join early access"
     },
-    "companionImpact": {
-      "headline": "What customers say about Companion",
-      "quotes": [
-        "\"It remembers things we forget.\"",
-        "\"It helps us stay organized.\"",
-        "\"It saves time every week.\"",
-        "\"It gives us visibility.\""
-      ],
-      "attributionNote": "Representative themes from early feedback — named customer quotes will be added with approval."
-    },
-    "finalCta": {
+    "sectionF": {
       "headline": "See how Aipify could fit your organization.",
+      "subtitle": "People trust real outcomes more than feature lists. Start with a conversation — not pressure.",
       "bookDemo": "Book a Demo",
       "businessPacks": "Explore Business Packs",
-      "talkToSales": "Talk to Sales"
-    },
-    "finalPrinciple": "People trust real outcomes more than feature lists. Imagine what Aipify could do for your organization."
+      "earlyAccess": "Request Early Access"
+    }
   },
   "bookDemoPage": {
     "meta": {
@@ -4559,6 +4459,16 @@
   "websiteCompanion": {
     "title": "Aipify",
     "prompt": "Find what you need — pricing, knowledge, Business Packs, or a demo.",
+    "presenceLabel": "Companion status",
+    "states": {
+      "READY": "Ready",
+      "WORKING": "Working",
+      "COMPLETED": "Completed",
+      "APPROVAL_REQUIRED": "Approval required",
+      "CRITICAL": "Critical alert",
+      "DISCONNECTED": "Disconnected",
+      "QUIET_HOURS": "Quiet hours"
+    },
     "actions": {
       "knowledge": {
         "label": "Browse Knowledge",
@@ -5872,5 +5782,150 @@
       ]
     },
     "footerNote": "Aipify Group AS · Bergen, Norway. For the world."
+  },
+  "knowledgePageRedesign": {
+    "hero": {
+      "breadcrumbHome": "Home",
+      "breadcrumbKnowledge": "Knowledge Center",
+      "eyebrow": "KNOWLEDGE CENTER",
+      "title": "Knowledge Center",
+      "subtitle": "Learn how Aipify helps organizations modernize operations — with governed intelligence, operational visibility, and human-centered design.",
+      "authorityNote": "Every article is written to help you understand, learn, improve, decide, and trust. We publish knowledge for people first — search visibility follows usefulness."
+    },
+    "search": {
+      "placeholder": "Search articles, topics, and guides…",
+      "ariaLabel": "Search Knowledge Center",
+      "noResults": "No articles match your search.",
+      "quickLinksTitle": "Popular topics",
+      "quickLinks": {
+        "1": { "label": "Getting Started", "href": "/knowledge/getting-started" },
+        "2": { "label": "Companion", "href": "/knowledge/companion" },
+        "3": { "label": "Business Packs", "href": "/knowledge#business-packs" },
+        "4": { "label": "Governance", "href": "/knowledge/governance" },
+        "5": { "label": "Integrations", "href": "/knowledge/integrations" },
+        "6": { "label": "Security", "href": "/knowledge/security" }
+      }
+    },
+    "featured": {
+      "title": "Featured guides",
+      "subtitle": "Start with foundational concepts for modern operations.",
+      "readArticle": "Read article",
+      "featuredSlugs": [
+        "what-is-a-business-operating-system",
+        "how-companion-supports-organizations",
+        "getting-started-with-aipify"
+      ]
+    },
+    "hubs": {
+      "title": "Content hubs",
+      "subtitle": "Deep-dive hubs for platform strategy and Companion.",
+      "exploreHub": "Explore hub",
+      "items": {
+        "business-operating-system": {
+          "title": "Business Operating System",
+          "description": "Category definition, operational visibility, and platform strategy for serious organizations."
+        },
+        "companion": {
+          "title": "Companion",
+          "description": "How Aipify's Companion supports leaders and teams — governed intelligence, not a chatbot."
+        }
+      }
+    },
+    "categories": {
+      "title": "Browse by category",
+      "subtitle": "Explore topics across the Aipify platform.",
+      "exploreCategory": "View category"
+    },
+    "industries": {
+      "title": "Industry guides",
+      "subtitle": "Operational knowledge tailored to your sector.",
+      "exploreIndustry": "View industry guide"
+    },
+    "businessPacks": {
+      "title": "Business Packs",
+      "subtitle": "Modular capabilities for specific operational domains.",
+      "explorePack": "Explore this Business Pack"
+    },
+    "filterBar": {
+      "categoryLabel": "Category",
+      "typeLabel": "Content type",
+      "sortLabel": "Sort",
+      "allCategories": "All categories",
+      "allTypes": "All types",
+      "sortTitleAsc": "Title A–Z",
+      "sortTitleDesc": "Title Z–A",
+      "resultsCount": "{count} articles",
+      "openFilters": "Filters",
+      "closeFilters": "Close filters",
+      "types": {
+        "hub": "Hub articles",
+        "industry": "Industry guides",
+        "article": "General articles"
+      }
+    },
+    "articleListing": {
+      "featured": "Featured",
+      "gettingStarted": "Getting started",
+      "latest": "More guides",
+      "all": "All articles",
+      "readArticle": "Read article",
+      "empty": "No articles match your filters."
+    },
+    "journey": {
+      "title": "Your knowledge journey",
+      "steps": {
+        "1": {
+          "title": "Understand the platform",
+          "description": "Learn what a Business Operating System means for your organization."
+        },
+        "2": {
+          "title": "Explore Companion",
+          "description": "See how Aipify supports leaders and teams with governed intelligence."
+        },
+        "3": {
+          "title": "Review your industry",
+          "description": "Find operational guides relevant to your sector and workflows."
+        },
+        "4": {
+          "title": "Take the next step",
+          "description": "Book a demo or explore Business Packs when you are ready."
+        }
+      }
+    },
+    "trust": {
+      "title": "Built for trust and clarity",
+      "subtitle": "Knowledge that helps you decide — not marketing noise.",
+      "principles": {
+        "1": {
+          "title": "People first",
+          "description": "Every article explains how humans stay in control of decisions and approvals."
+        },
+        "2": {
+          "title": "Governed by design",
+          "description": "Policies, audit trails, and transparency are part of the platform — not add-ons."
+        },
+        "3": {
+          "title": "Useful before searchable",
+          "description": "We publish knowledge to help you understand and decide — not to chase keywords."
+        },
+        "4": {
+          "title": "Honest scope",
+          "description": "We describe what Aipify does today and what requires your organization's approval."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to explore Aipify?",
+      "subtitle": "See how governed operational intelligence works in practice.",
+      "bookDemo": "Book Demo",
+      "explorePacks": "Explore Business Packs",
+      "earlyAccess": "Request early access"
+    },
+    "nested": {
+      "backToKnowledge": "Back to Knowledge Center",
+      "breadcrumbHome": "Home",
+      "breadcrumbKnowledge": "Knowledge Center"
+    },
+    "localesNote": "Available in English, Norwegian, Swedish, and Danish. German, Spanish, French, and Polish planned."
   }
 }

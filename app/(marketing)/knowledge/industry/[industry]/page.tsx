@@ -4,10 +4,9 @@ import PublicKnowledgeIndustryPageContent from "@/components/marketing/PublicKno
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import {
   getPublicKnowledgeArticlesForIndustry,
-  getPublicKnowledgeHubLabels,
   getPublicKnowledgeIndustry,
 } from "@/lib/marketing/knowledge/load";
-import { parseCtaBandLabels } from "@/lib/marketing/parse-marketing";
+import { getKnowledgePageRedesignLabels } from "@/lib/marketing/parse-knowledge-page";
 import { PUBLIC_KNOWLEDGE_INDUSTRIES, type PublicKnowledgeIndustryId } from "@/lib/marketing/knowledge/types";
 
 type PageProps = { params: Promise<{ industry: string }> };
@@ -31,14 +30,14 @@ export default async function KnowledgeIndustryPage({ params }: PageProps) {
   if (!industry) notFound();
 
   const articles = getPublicKnowledgeArticlesForIndustry(marketing, industry.id);
-  const labels = getPublicKnowledgeHubLabels(marketing);
+  const redesign = getKnowledgePageRedesignLabels(marketing);
 
   return (
     <PublicKnowledgeIndustryPageContent
       industry={industry}
-      labels={labels}
+      nested={redesign.nested}
+      cta={redesign.cta}
       articles={articles.map((a) => ({ slug: a.slug, title: a.title, metaDescription: a.metaDescription }))}
-      ctaBand={parseCtaBandLabels(marketing)}
     />
   );
 }

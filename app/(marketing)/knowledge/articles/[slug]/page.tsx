@@ -9,6 +9,7 @@ import {
   getPublicKnowledgeHubLabels,
 } from "@/lib/marketing/knowledge/load";
 import { getAllArticleSlugs } from "@/lib/marketing/knowledge/registry";
+import { getKnowledgePageRedesignLabels } from "@/lib/marketing/parse-knowledge-page";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -31,6 +32,7 @@ export default async function KnowledgeArticlePage({ params }: PageProps) {
   if (!article) notFound();
 
   const labels = getPublicKnowledgeHubLabels(marketing);
+  const redesign = getKnowledgePageRedesignLabels(marketing);
   const category = getPublicKnowledgeCategory(marketing, article.categoryId);
 
   const relatedArticleLinks = article.relatedArticles
@@ -49,6 +51,8 @@ export default async function KnowledgeArticlePage({ params }: PageProps) {
     <PublicKnowledgeArticlePageContent
       article={article}
       labels={labels}
+      nested={redesign.nested}
+      cta={redesign.cta}
       relatedArticleLinks={relatedArticleLinks}
       relatedBusinessPackLinks={relatedBusinessPackLinks}
       categoryName={category?.name ?? article.categoryId}
