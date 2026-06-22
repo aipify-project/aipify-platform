@@ -115,6 +115,55 @@
         "missing": "ikke bekreftet"
       }
     },
+    "actions": {
+      "sourceLabel": "Trust & Action-styring",
+      "explanationLead": "Aipify forberedte en styrt handlingsplan for {actionId} på {entity} via {provider}.",
+      "planExplanation": "Companion-runtime forberedte styrt handling {actionId} til godkjenningsgjennomgang.",
+      "riskLine": "Risikonivå: {risk}",
+      "approvalLine": "Godkjenningsstatus: {status}",
+      "reversibleYes": "Denne handlingen kan reverseres når policy tillater det.",
+      "reversibleNo": "Denne handlingen kan ikke reverseres — eksplisitt godkjenning kreves.",
+      "preparedLine": "Forberedt: {createdAt}",
+      "auditLine": "Revisjonsreferanse: {reference}",
+      "openApprovals": "Åpne godkjenningssenter",
+      "approvalRequiredLead": "Godkjenning kreves før Aipify kan utføre {actionId}.",
+      "approvalRequiredExplanation": "Aipify opprettet eller gjenbrukte en ventende godkjenningsforespørsel. Ingen provider-handling ble utført i denne fasen.",
+      "readyLead": "Aipify validerte {actionId} og den er klar for styrt utførelse etter din gjennomgang.",
+      "readyExplanation": "Utførelse utsettes med vilje — gjennomgå planen i godkjenningssenteret når du er klar.",
+      "blockedExplanation": "Denne handlingen ble blokkert av Trust & Action-policy og ble ikke utført.",
+      "unavailableExplanation": "Ingen styrt skrive-capability matchet denne forespørselen for organisasjonen din.",
+      "permissionDenied": "Rollen din kan ikke forberede denne handlingen med gjeldende tillatelser.",
+      "missingPolicy": "Ingen godkjent handlingspolicy dekker denne forespørselen.",
+      "unavailable": "Denne handlingen er ikke tilgjengelig via Companion for organisasjonen din.",
+      "appSuspended": "Handlinger er utilgjengelige mens organisasjonens abonnement er pauset eller suspendert.",
+      "emergencyStop": "Companion-handlinger er pauset mens nødstopp er aktivt.",
+      "riskLevel": {
+        "0": "informasjon",
+        "1": "utkast",
+        "2": "reversibel",
+        "3": "sensitiv",
+        "4": "kritisk"
+      },
+      "approvalStatus": {
+        "pending": "venter godkjenning",
+        "approved": "godkjent",
+        "not_required": "ikke påkrevd",
+        "blocked": "blokkert",
+        "prohibited": "forbudt"
+      },
+      "blockReason": {
+        "critical_prohibited": "Kritiske handlinger kan ikke utføres av Aipify.",
+        "irreversible_blocked": "Irreversible handlinger kan ikke auto-forberedes uten eksplisitt styring.",
+        "permission_denied": "Rollen din har ikke tillatelse til denne handlingen.",
+        "entitlement_blocked": "Business Pack-rettigheter blokkerer denne handlingen nå.",
+        "emergency_stop": "Nødstopp er aktiv — handlinger er pauset.",
+        "missing_policy": "Ingen handlingspolicy autoriserer denne forespørselen.",
+        "policy_prohibited": "Organisasjonspolicy forbyr denne handlingen.",
+        "provider_unverified": "Provider-tilkoblingen er ikke verifisert for skrivehandlinger.",
+        "schema_validation": "Input besto ikke schema-validering.",
+        "write_boundary": "Skrivegrenser blokkerte denne handlingen."
+      }
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

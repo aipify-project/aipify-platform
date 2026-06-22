@@ -24,6 +24,7 @@ import { loadCompanionToolRegistry } from "./load-companion-tool-registry";
 import { loadCompanionOperationalContext } from "./load-companion-operational-context";
 import { loadCompanionIdentityContext } from "./load-companion-identity-context";
 import { loadCompanionMemoryContext } from "./load-companion-memory-context";
+import { loadCompanionActionContext } from "./load-companion-action-context";
 
 export type { CompanionTenantContext } from "./companion-tenant-context";
 export {
@@ -180,6 +181,13 @@ export async function loadCompanionTenantContext(
     activeBusinessPacks,
   });
 
+  const actionLoad = await loadCompanionActionContext(supabase, {
+    schemaContext,
+    businessPackContext,
+    effectivePermissions,
+    subscriptionStatus,
+  });
+
   return createEmptyCompanionTenantContext({
     organizationId,
     companyId: orgContext.company_id,
@@ -209,5 +217,7 @@ export async function loadCompanionTenantContext(
     identityContext,
     memoryContext: memoryLoad.memoryContext,
     confirmedOrganizationKnowledgeAvailable: memoryLoad.confirmedOrganizationKnowledgeAvailable,
+    actionContext: actionLoad.actionContext,
+    writeActionsAvailable: actionLoad.writeActionsAvailable,
   });
 }

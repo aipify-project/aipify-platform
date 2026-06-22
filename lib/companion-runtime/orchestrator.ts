@@ -69,6 +69,22 @@ import {
   buildConfirmedMemoryAnswer,
   enrichAnswerWithMemoryContext,
 } from "./memory-answer";
+import {
+  hasCompanionActionIntent,
+  matchCompanionActionQuery,
+  shouldPreferReadPath,
+} from "./companion-action-query-match";
+import {
+  buildCompanionActionPlan,
+  prepareCompanionActionApproval,
+} from "./companion-action-plan";
+import { evaluateCompanionActionSafety } from "./companion-action-governance";
+import {
+  buildCompanionActionApprovalRequiredAnswer,
+  buildCompanionActionBlockedAnswer,
+  buildCompanionActionReadyAnswer,
+  buildCompanionActionUnavailableAnswer,
+} from "./action-answer";
 import { mapDispatchCodeToGapReason } from "./tool-answer";
 import {
   createEmptyCompanionTenantContext,
@@ -354,6 +370,106 @@ async function resolveApprovedOrganizationKnowledgeAnswer(
   return null;
 }
 
+async function resolveCompanionActionAnswer(
+  query: string,
+  options: PlatformSearchOptions,
+  activeLocale: CustomerActiveLocale,
+  tenantContext: CompanionTenantContext,
+): Promise<PlatformSearchResult | null> {
+  const { t, supabase } = options;
+  const actionMatch = matchCompanionActionQuery(query, tenantContext);
+
+  if (shouldPreferReadPath(query, actionMatch)) {
+    return null;
+  }
+
+  if (!actionMatch) {
+    if (hasCompanionActionIntent(query)) {
+      return {
+        answer: buildCompanionActionUnavailableAnswer(t, tenantContext.actionContext),
+      };
+    }
+    return null;
+  }
+
+  const { definition } = actionMatch;
+  const permission =
+    !definition.required_permission ||
+    tenantContext.effectivePermissions.includes(definition.required_permission);
+
+  const safety = evaluateCompanionActionSafety(definition, tenantContext.actionContext, {
+    hasPermission: permission,
+    schemaValid: true,
+    providerVerified:
+      definition.source === "companion_policy" ||
+      !definition.provider_key ||
+      definition.provider_key === "schema" ||
+      tenantContext.connectedProviders.includes(definition.provider_key),
+  });
+
+  if (safety.blocked && safety.reason) {
+    return {
+      answer: buildCompanionActionBlockedAnswer(
+        safety.reason,
+        definition,
+        tenantContext.actionContext,
+        t,
+      ),
+    };
+  }
+
+  let plan = buildCompanionActionPlan({
+    definition,
+    actionContext: tenantContext.actionContext,
+    organizationId: tenantContext.organizationId,
+    requestedBy: tenantContext.identityContext.preferred_name,
+    connectedProviders: tenantContext.connectedProviders,
+    effectivePermissions: tenantContext.effectivePermissions,
+  });
+
+  const explanation = t("customerApp.companionPlatformKnowledge.actions.planExplanation").replace(
+    "{actionId}",
+    definition.action_id,
+  );
+
+  if (supabase && plan.approval_status === "pending") {
+    plan = await prepareCompanionActionApproval(supabase, plan, definition, explanation);
+  }
+
+  if (plan.approval_status === "pending") {
+    return {
+      answer: buildCompanionActionApprovalRequiredAnswer(
+        definition,
+        plan,
+        tenantContext.actionContext,
+        t,
+        activeLocale,
+      ),
+    };
+  }
+
+  if (plan.approval_status === "not_required") {
+    return {
+      answer: buildCompanionActionReadyAnswer(
+        definition,
+        plan,
+        tenantContext.actionContext,
+        t,
+        activeLocale,
+      ),
+    };
+  }
+
+  return {
+    answer: buildCompanionActionBlockedAnswer(
+      safety.reason ?? "write_boundary",
+      definition,
+      tenantContext.actionContext,
+      t,
+    ),
+  };
+}
+
 async function resolveNavigationCorpusAnswer(
   query: string,
   options: PlatformSearchOptions,
@@ -494,6 +610,14 @@ export async function orchestrateCompanionSearch(
       }
     }
   }
+
+  const actionResult = await resolveCompanionActionAnswer(
+    query,
+    options,
+    activeLocale,
+    resolvedTenantContext,
+  );
+  if (actionResult) return finalize(actionResult, { skipMemoryEnrichment: true });
 
   const liveResult = await resolveLiveToolAnswer(
     query,

@@ -115,6 +115,49 @@
         "missing": "no confirmada"
       }
     },
+    "actions": {
+      "sourceLabel": "Gobernanza Trust & Action",
+      "explanationLead": "Aipify preparó un plan de acción gobernado para {actionId} en {entity} vía {provider}.",
+      "planExplanation": "El runtime de Companion preparó la acción gobernada {actionId} para revisión de aprobación.",
+      "riskLine": "Nivel de riesgo: {risk}",
+      "approvalLine": "Estado de aprobación: {status}",
+      "reversibleYes": "Esta acción es reversible cuando la política lo permite.",
+      "reversibleNo": "Esta acción no es reversible — se requiere aprobación explícita.",
+      "preparedLine": "Preparado: {createdAt}",
+      "auditLine": "Referencia de auditoría: {reference}",
+      "openApprovals": "Abrir centro de aprobaciones",
+      "approvalRequiredLead": "Se requiere aprobación antes de que Aipify pueda ejecutar {actionId}.",
+      "approvalRequiredExplanation": "Aipify creó o reutilizó una solicitud de aprobación pendiente. No se ejecutó ninguna acción del proveedor en esta fase.",
+      "readyLead": "Aipify validó {actionId} y está listo para ejecución gobernada tras su revisión.",
+      "readyExplanation": "La ejecución se aplaza intencionalmente — revise el plan en el centro de aprobaciones cuando esté listo.",
+      "blockedExplanation": "Esta acción fue bloqueada por la política Trust & Action y no se ejecutó.",
+      "unavailableExplanation": "Ninguna capacidad de escritura gobernada coincidió con esta solicitud para su organización.",
+      "permissionDenied": "Su rol no puede preparar esta acción con los permisos actuales.",
+      "missingPolicy": "Ninguna política de acción aprobada cubre esta solicitud.",
+      "unavailable": "Esta acción no está disponible a través de Companion para su organización.",
+      "appSuspended": "Las acciones no están disponibles mientras la suscripción de la organización esté pausada o suspendida.",
+      "emergencyStop": "Las acciones de Companion están pausadas mientras el paro de emergencia esté activo.",
+      "riskLevel": { "0": "información", "1": "borrador", "2": "reversible", "3": "sensible", "4": "crítico" },
+      "approvalStatus": {
+        "pending": "aprobación pendiente",
+        "approved": "aprobado",
+        "not_required": "no requerido",
+        "blocked": "bloqueado",
+        "prohibited": "prohibido"
+      },
+      "blockReason": {
+        "critical_prohibited": "Las acciones críticas no pueden ser ejecutadas por Aipify.",
+        "irreversible_blocked": "Las acciones irreversibles no pueden prepararse automáticamente sin gobernanza explícita.",
+        "permission_denied": "Su rol no tiene permiso para esta acción.",
+        "entitlement_blocked": "Los derechos de Business Pack bloquean esta acción ahora.",
+        "emergency_stop": "Paro de emergencia activo — acciones pausadas.",
+        "missing_policy": "Ninguna política de acción autoriza esta solicitud.",
+        "policy_prohibited": "La política de la organización prohíbe esta acción.",
+        "provider_unverified": "La conexión del proveedor no está verificada para acciones de escritura.",
+        "schema_validation": "La entrada no pasó la validación del esquema.",
+        "write_boundary": "Los límites de escritura bloquearon esta acción."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

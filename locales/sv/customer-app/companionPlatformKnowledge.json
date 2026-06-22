@@ -115,6 +115,49 @@
         "missing": "inte bekräftad"
       }
     },
+    "actions": {
+      "sourceLabel": "Trust & Action-styrning",
+      "explanationLead": "Aipify förberedde en styrdd åtgärdsplan för {actionId} på {entity} via {provider}.",
+      "planExplanation": "Companion-runtime förberedde styrd åtgärd {actionId} för godkännandegranskning.",
+      "riskLine": "Risknivå: {risk}",
+      "approvalLine": "Godkännandestatus: {status}",
+      "reversibleYes": "Denna åtgärd kan reverseras när policy tillåter det.",
+      "reversibleNo": "Denna åtgärd kan inte reverseras — explicit godkännande krävs.",
+      "preparedLine": "Förberedd: {createdAt}",
+      "auditLine": "Revisionsreferens: {reference}",
+      "openApprovals": "Öppna godkännandecenter",
+      "approvalRequiredLead": "Godkännande krävs innan Aipify kan utföra {actionId}.",
+      "approvalRequiredExplanation": "Aipify skapade eller återanvände en väntande godkännandebegäran. Ingen provider-åtgärd utfördes i denna fas.",
+      "readyLead": "Aipify validerade {actionId} och den är redo för styrd körning efter din granskning.",
+      "readyExplanation": "Körning skjuts upp medvetet — granska planen i godkännandecentret när du är redo.",
+      "blockedExplanation": "Denna åtgärd blockerades av Trust & Action-policy och utfördes inte.",
+      "unavailableExplanation": "Ingen styrd skrivfunktion matchade denna begäran för din organisation.",
+      "permissionDenied": "Din roll kan inte förbereda denna åtgärd med nuvarande behörigheter.",
+      "missingPolicy": "Ingen godkänd åtgärdspolicy täcker denna begäran.",
+      "unavailable": "Denna åtgärd är inte tillgänglig via Companion för din organisation.",
+      "appSuspended": "Åtgärder är otillgängliga medan organisationens prenumeration är pausad eller suspenderad.",
+      "emergencyStop": "Companion-åtgärder pausas medan nödstopp är aktivt.",
+      "riskLevel": { "0": "information", "1": "utkast", "2": "reversibel", "3": "känslig", "4": "kritisk" },
+      "approvalStatus": {
+        "pending": "väntar godkännande",
+        "approved": "godkänd",
+        "not_required": "krävs inte",
+        "blocked": "blockerad",
+        "prohibited": "förbjuden"
+      },
+      "blockReason": {
+        "critical_prohibited": "Kritiska åtgärder kan inte utföras av Aipify.",
+        "irreversible_blocked": "Irreversibla åtgärder kan inte auto-förberedas utan explicit styrning.",
+        "permission_denied": "Din roll har inte behörighet för denna åtgärd.",
+        "entitlement_blocked": "Business Pack-rättigheter blockerar denna åtgärd just nu.",
+        "emergency_stop": "Nödstopp är aktivt — åtgärder pausas.",
+        "missing_policy": "Ingen åtgärdspolicy auktoriserar denna begäran.",
+        "policy_prohibited": "Organisationspolicy förbjuder denna åtgärd.",
+        "provider_unverified": "Provider-anslutningen är inte verifierad för skrivåtgärder.",
+        "schema_validation": "Indata klarade inte schema-validering.",
+        "write_boundary": "Skrivgränser blockerade denna åtgärd."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

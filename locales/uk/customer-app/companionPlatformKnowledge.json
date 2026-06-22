@@ -115,6 +115,49 @@
         "missing": "не підтверджено"
       }
     },
+    "actions": {
+      "sourceLabel": "Управління Trust & Action",
+      "explanationLead": "Aipify підготував керований план дії для {actionId} на {entity} через {provider}.",
+      "planExplanation": "Companion runtime підготував керовану дію {actionId} для перевірки затвердження.",
+      "riskLine": "Рівень ризику: {risk}",
+      "approvalLine": "Статус затвердження: {status}",
+      "reversibleYes": "Цю дію можна скасувати, якщо політика це дозволяє.",
+      "reversibleNo": "Цю дію не можна скасувати — потрібне явне затвердження.",
+      "preparedLine": "Підготовлено: {createdAt}",
+      "auditLine": "Посилання аудиту: {reference}",
+      "openApprovals": "Відкрити центр затверджень",
+      "approvalRequiredLead": "Потрібне затвердження, перш ніж Aipify виконає {actionId}.",
+      "approvalRequiredExplanation": "Aipify створив або повторно використав запит на затвердження. У цій фазі дія провайдера не виконувалась.",
+      "readyLead": "Aipify перевірив {actionId}, і він готовий до керованого виконання після вашого перегляду.",
+      "readyExplanation": "Виконання навмисно відкладено — перегляньте план у центрі затверджень, коли будете готові.",
+      "blockedExplanation": "Цю дію заблоковано політикою Trust & Action, і вона не була виконана.",
+      "unavailableExplanation": "Жодна керована можливість запису не відповіла цьому запиту для вашої організації.",
+      "permissionDenied": "Ваша роль не може підготувати цю дію з поточними дозволами.",
+      "missingPolicy": "Жодна затверджена політика дій не покриває цей запит.",
+      "unavailable": "Ця дія недоступна через Companion для вашої організації.",
+      "appSuspended": "Дії недоступні, поки підписку організації призупинено або скасовано.",
+      "emergencyStop": "Дії Companion призупинено під час активної аварійної зупинки.",
+      "riskLevel": { "0": "інформація", "1": "чернетка", "2": "зворотна", "3": "чутлива", "4": "критична" },
+      "approvalStatus": {
+        "pending": "очікує затвердження",
+        "approved": "затверджено",
+        "not_required": "не потрібно",
+        "blocked": "заблоковано",
+        "prohibited": "заборонено"
+      },
+      "blockReason": {
+        "critical_prohibited": "Критичні дії не можуть виконуватись Aipify.",
+        "irreversible_blocked": "Незворотні дії не можна автоматично готувати без явного управління.",
+        "permission_denied": "Ваша роль не має дозволу на цю дію.",
+        "entitlement_blocked": "Права Business Pack зараз блокують цю дію.",
+        "emergency_stop": "Активна аварійна зупинка — дії призупинено.",
+        "missing_policy": "Жодна політика дій не авторизує цей запит.",
+        "policy_prohibited": "Політика організації забороняє цю дію.",
+        "provider_unverified": "З'єднання провайдера не верифіковано для дій запису.",
+        "schema_validation": "Вхідні дані не пройшли перевірку схеми.",
+        "write_boundary": "Межі запису заблокували цю дію."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

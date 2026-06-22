@@ -115,6 +115,55 @@
         "missing": "not confirmed"
       }
     },
+    "actions": {
+      "sourceLabel": "Trust & Action governance",
+      "explanationLead": "Aipify prepared a governed action plan for {actionId} on {entity} via {provider}.",
+      "planExplanation": "Companion runtime prepared governed action {actionId} for approval review.",
+      "riskLine": "Risk level: {risk}",
+      "approvalLine": "Approval status: {status}",
+      "reversibleYes": "This action is reversible when policy allows.",
+      "reversibleNo": "This action is not reversible — explicit approval is required.",
+      "preparedLine": "Prepared: {createdAt}",
+      "auditLine": "Audit reference: {reference}",
+      "openApprovals": "Open Approval Center",
+      "approvalRequiredLead": "Approval is required before Aipify can execute {actionId}.",
+      "approvalRequiredExplanation": "Aipify created or reused a pending approval request. No provider action was executed in this phase.",
+      "readyLead": "Aipify validated {actionId} and it is ready for governed execution after your review.",
+      "readyExplanation": "Execution is intentionally deferred — review the plan in Approval Center when you are ready.",
+      "blockedExplanation": "This action was blocked by Trust & Action policy and was not executed.",
+      "unavailableExplanation": "No governed write capability matched this request for your organization.",
+      "permissionDenied": "Your role cannot prepare this action under current permissions.",
+      "missingPolicy": "No approved action policy covers this request.",
+      "unavailable": "This action is not available through Companion for your organization.",
+      "appSuspended": "Actions are unavailable while the organization subscription is paused or suspended.",
+      "emergencyStop": "Companion actions are paused while emergency stop is active.",
+      "riskLevel": {
+        "0": "information",
+        "1": "draft",
+        "2": "reversible",
+        "3": "sensitive",
+        "4": "critical"
+      },
+      "approvalStatus": {
+        "pending": "pending approval",
+        "approved": "approved",
+        "not_required": "not required",
+        "blocked": "blocked",
+        "prohibited": "prohibited"
+      },
+      "blockReason": {
+        "critical_prohibited": "Critical actions cannot be executed by Aipify.",
+        "irreversible_blocked": "Irreversible actions cannot be auto-prepared without explicit governance.",
+        "permission_denied": "Your role does not have permission for this action.",
+        "entitlement_blocked": "Business Pack entitlements block this action right now.",
+        "emergency_stop": "Emergency stop is active — actions are paused.",
+        "missing_policy": "No action policy authorizes this request.",
+        "policy_prohibited": "Organization policy prohibits this action.",
+        "provider_unverified": "The provider connection is not verified for write actions.",
+        "schema_validation": "Input did not pass schema validation.",
+        "write_boundary": "Write boundary rules blocked this action."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

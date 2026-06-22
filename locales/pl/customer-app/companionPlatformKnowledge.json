@@ -115,6 +115,49 @@
         "missing": "niepotwierdzona"
       }
     },
+    "actions": {
+      "sourceLabel": "Zarządzanie Trust & Action",
+      "explanationLead": "Aipify przygotowało zarządzany plan działania dla {actionId} na {entity} przez {provider}.",
+      "planExplanation": "Runtime Companion przygotował zarządzane działanie {actionId} do przeglądu zatwierdzenia.",
+      "riskLine": "Poziom ryzyka: {risk}",
+      "approvalLine": "Status zatwierdzenia: {status}",
+      "reversibleYes": "To działanie jest odwracalne, gdy polityka na to pozwala.",
+      "reversibleNo": "To działanie nie jest odwracalne — wymagane jest wyraźne zatwierdzenie.",
+      "preparedLine": "Przygotowano: {createdAt}",
+      "auditLine": "Referencja audytu: {reference}",
+      "openApprovals": "Otwórz centrum zatwierdzeń",
+      "approvalRequiredLead": "Zatwierdzenie jest wymagane, zanim Aipify wykona {actionId}.",
+      "approvalRequiredExplanation": "Aipify utworzyło lub ponownie wykorzystało oczekujące żądanie zatwierdzenia. W tej fazie nie wykonano żadnej akcji dostawcy.",
+      "readyLead": "Aipify zweryfikowało {actionId} i jest gotowe do zarządzanego wykonania po Twoim przeglądzie.",
+      "readyExplanation": "Wykonanie jest celowo opóźnione — przejrzyj plan w centrum zatwierdzeń, gdy będziesz gotowy.",
+      "blockedExplanation": "To działanie zostało zablokowane przez politykę Trust & Action i nie zostało wykonane.",
+      "unavailableExplanation": "Żadna zarządzana możliwość zapisu nie pasowała do tego żądania dla Twojej organizacji.",
+      "permissionDenied": "Twoja rola nie może przygotować tego działania przy obecnych uprawnieniach.",
+      "missingPolicy": "Żadna zatwierdzona polityka działań nie obejmuje tego żądania.",
+      "unavailable": "To działanie nie jest dostępne przez Companion dla Twojej organizacji.",
+      "appSuspended": "Działania są niedostępne, gdy subskrypcja organizacji jest wstrzymana lub zawieszona.",
+      "emergencyStop": "Działania Companion są wstrzymane, gdy aktywne jest zatrzymanie awaryjne.",
+      "riskLevel": { "0": "informacja", "1": "szkic", "2": "odwracalne", "3": "wrażliwe", "4": "krytyczne" },
+      "approvalStatus": {
+        "pending": "oczekuje zatwierdzenia",
+        "approved": "zatwierdzone",
+        "not_required": "nie wymagane",
+        "blocked": "zablokowane",
+        "prohibited": "zabronione"
+      },
+      "blockReason": {
+        "critical_prohibited": "Działań krytycznych Aipify nie może wykonywać.",
+        "irreversible_blocked": "Działań nieodwracalnych nie można automatycznie przygotować bez wyraźnego zarządzania.",
+        "permission_denied": "Twoja rola nie ma uprawnień do tego działania.",
+        "entitlement_blocked": "Uprawnienia Business Pack blokują to działanie.",
+        "emergency_stop": "Aktywne zatrzymanie awaryjne — działania wstrzymane.",
+        "missing_policy": "Żadna polityka działań nie autoryzuje tego żądania.",
+        "policy_prohibited": "Polityka organizacji zabrania tego działania.",
+        "provider_unverified": "Połączenie dostawcy nie jest zweryfikowane do działań zapisu.",
+        "schema_validation": "Dane wejściowe nie przeszły walidacji schematu.",
+        "write_boundary": "Granice zapisu zablokowały to działanie."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
