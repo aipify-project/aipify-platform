@@ -17,6 +17,7 @@ import { detectPlatformQuestionIntent,
 import {
   enrichAnswerWithInstallDiscovery,
 } from "./discovery-answer";
+import { enrichAnswerWithBusinessPackContext } from "./pack-answer";
 import {
   buildIntegrationStatusFailureAnswer,
   buildPrivateDataDeniedAnswer,
@@ -460,6 +461,16 @@ export async function orchestrateCompanionSearch(
           answer: enrichAnswerWithInstallDiscovery(
             navResult.answer,
             resolvedTenantContext.discovery,
+            t,
+          ),
+        };
+      }
+      if (navResult.matchedArticleId === "business-packs") {
+        return {
+          ...navResult,
+          answer: enrichAnswerWithBusinessPackContext(
+            navResult.answer,
+            resolvedTenantContext.businessPackContext,
             t,
           ),
         };

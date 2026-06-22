@@ -31,6 +31,15 @@
       "stale": "Discovery-metadata kan vara inaktuell — granska Install-inställningar om något verkar fel.",
       "sourceLabel": "Godkänd install discovery"
     },
+    "packs": {
+      "accessDenied": "Business Pack-behörighetsdata är inte tillgänglig för din roll. Be en administratör om pack-detaljer.",
+      "empty": "Inga aktiva Business Pack-behörigheter hittades för denna organisation ännu.",
+      "entitlementBlocked": "Business Pack-funktioner är otillgängliga medan organisationens prenumeration är pausad eller suspenderad.",
+      "activeSummary": "Aktiva Business Packs för din organisation: {count}. {packs}.",
+      "capabilitiesSummary": "Berättigade capabilities: {count}.",
+      "missingEntitlement": "Vissa funktioner kräver en aktiv Business Pack-behörighet med slutförd aktivering.",
+      "sourceLabel": "Godkända Business Pack-behörigheter"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

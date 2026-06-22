@@ -31,6 +31,15 @@
       "stale": "Discovery-metadata kan være utdatert — se over Install-innstillinger hvis noe virker feil.",
       "sourceLabel": "Godkjent install discovery"
     },
+    "packs": {
+      "accessDenied": "Business Pack-rettighetsdata er ikke tilgjengelig for din rolle. Be en administrator om pack-detaljer.",
+      "empty": "Ingen aktive Business Pack-rettigheter ble funnet for denne organisasjonen ennå.",
+      "entitlementBlocked": "Business Pack-funksjoner er utilgjengelige mens organisasjonens abonnement er pauset eller suspendert.",
+      "activeSummary": "Aktive Business Packs for organisasjonen din: {count}. {packs}.",
+      "capabilitiesSummary": "Berettigede capabilities: {count}.",
+      "missingEntitlement": "Noen funksjoner krever en aktiv Business Pack-rettighet med fullført aktivering.",
+      "sourceLabel": "Godkjente Business Pack-rettigheter"
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

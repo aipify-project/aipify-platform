@@ -31,6 +31,15 @@
       "stale": "Discovery metadata may be outdated — review Install settings if something looks wrong.",
       "sourceLabel": "Approved install discovery"
     },
+    "packs": {
+      "accessDenied": "Business Pack entitlement data is not available for your role. Ask an administrator if you need pack details.",
+      "empty": "No active Business Pack entitlements were found for this organization yet.",
+      "entitlementBlocked": "Business Pack capabilities are unavailable while the organization subscription is paused or suspended.",
+      "activeSummary": "Active Business Packs for your organization: {count}. {packs}.",
+      "capabilitiesSummary": "Entitled capabilities: {count}.",
+      "missingEntitlement": "Some capabilities require an active Business Pack entitlement with completed activation.",
+      "sourceLabel": "Approved Business Pack entitlements"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

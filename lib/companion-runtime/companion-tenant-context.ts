@@ -1,6 +1,11 @@
 import type { AppOrganizationRole } from "@/lib/app-portal/nav-config";
 import { resolvePortalFeatureEnabled } from "@/lib/app-portal/feature-entitlements";
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import type {
+  CompanionBusinessPackCollection,
+  CompanionCapabilityRef,
+} from "./companion-business-pack-context";
+import { createEmptyCompanionBusinessPackCollection } from "./companion-business-pack-context";
 import type { CompanionDiscoveryContext } from "./companion-discovery-context";
 import { createEmptyCompanionDiscoveryContext } from "./companion-discovery-context";
 
@@ -28,6 +33,9 @@ export type CompanionTenantContext = {
   primaryVerifiedProvider: string | null;
   connectedProviders: string[];
   discovery: CompanionDiscoveryContext;
+  businessPackContext: CompanionBusinessPackCollection;
+  entitledCapabilities: CompanionCapabilityRef[];
+  enabledModules: string[];
 };
 
 export function createEmptyCompanionTenantContext(
@@ -49,6 +57,9 @@ export function createEmptyCompanionTenantContext(
     primaryVerifiedProvider: null,
     connectedProviders: [],
     discovery: createEmptyCompanionDiscoveryContext(),
+    businessPackContext: createEmptyCompanionBusinessPackCollection(),
+    entitledCapabilities: [],
+    enabledModules: [],
     ...overrides,
   };
 }

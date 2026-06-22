@@ -31,6 +31,15 @@
       "stale": "Los metadatos de discovery pueden estar desactualizados — revisa la configuración de Install si algo parece incorrecto.",
       "sourceLabel": "Install discovery aprobado"
     },
+    "packs": {
+      "accessDenied": "Los datos de derechos de Business Pack no están disponibles para tu rol. Pide detalles del pack a un administrador.",
+      "empty": "Aún no se encontraron derechos activos de Business Pack para esta organización.",
+      "entitlementBlocked": "Las capacidades de Business Pack no están disponibles mientras la suscripción de la organización esté pausada o suspendida.",
+      "activeSummary": "Business Packs activos para tu organización: {count}. {packs}.",
+      "capabilitiesSummary": "Capacidades con derecho: {count}.",
+      "missingEntitlement": "Algunas capacidades requieren un derecho activo de Business Pack con activación completada.",
+      "sourceLabel": "Derechos de Business Pack aprobados"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
