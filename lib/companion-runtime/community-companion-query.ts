@@ -46,7 +46,7 @@ export function resolveCommunityCompanionQuery(
     };
   }
 
-  const match = matchCommunityProviderQuery(query, tenantContext);
+  const match = matchCommunityProviderQuery(query, tenantContext, activeLocale);
   if (!match) {
     return {
       answer: buildCommunityProviderUnavailableAnswer(t, tenantContext.communityContext),

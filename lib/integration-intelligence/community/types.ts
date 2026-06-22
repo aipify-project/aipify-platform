@@ -50,6 +50,21 @@ export type CommunityCapabilityManifest = {
   entity: string;
   required_permission: string | null;
   privacy_sensitive: boolean;
+  /** Adapter-provided semantic contract — entity aliases and metrics stay out of Core matchers. */
+  semantic?: {
+    entity: string;
+    metrics?: readonly string[];
+    operations?: readonly (
+      | "count"
+      | "compare"
+      | "trend"
+      | "read"
+      | "list"
+      | "status"
+    )[];
+    time_scopes?: readonly ("current" | "since_last" | "period" | "historical")[];
+    entity_aliases?: Partial<Record<string, readonly string[]>>;
+  };
 };
 
 export type CommunityProviderSourceEngine =

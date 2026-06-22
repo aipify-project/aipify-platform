@@ -159,11 +159,16 @@ assert.equal(hasCommunityProviderIntent("Har vi verifiseringer som venter?"), tr
 const memberMatch = matchCommunityProviderQuery(
   "Hvor mange nye medlemmer har vi fått siden sist?",
   tenantA,
+  "no",
 );
 assert.equal(memberMatch?.provider_key, UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY);
 assert.equal(memberMatch?.capability_key, "member.read");
 
-const moderationMatch = matchCommunityProviderQuery("Er det noe som venter på moderering?", tenantA);
+const moderationMatch = matchCommunityProviderQuery(
+  "Er det noe som venter på moderering?",
+  tenantA,
+  "no",
+);
 assert.equal(moderationMatch?.capability_key, "moderation_queue.read");
 
 const t = (key: string) => {

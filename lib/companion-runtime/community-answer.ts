@@ -2,7 +2,14 @@ import {
   getCommunityProviderManifest,
   listCommunityProviderManifests,
 } from "@/lib/integration-intelligence/community/registry";
+import { normalizeIntegrationQuery } from "@/lib/integration-intelligence/normalize-text";
+import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import type { Translator } from "@/lib/i18n/translate";
+import {
+  collectSemanticDescriptorsFromManifest,
+  resolveCompanionSemanticIntent,
+  semanticDescriptorMatchesQuery,
+} from "./companion-semantic-query-match";
 import type { CompanionCommunityContext } from "./companion-community-context";
 import { filterCommunityCapabilitiesForPrivacy } from "./companion-community-context";
 import type { CompanionTenantContext } from "./companion-tenant-context";
@@ -13,19 +20,23 @@ export type CommunityProviderMatch = {
   operation: "read" | "write" | null;
 };
 
-function normalizeCommunityQuery(query: string): string {
-  return query.trim().toLowerCase().replace(/\s+/g, " ");
-}
+const GENERIC_COMMUNITY_DOMAIN_PATTERN =
+  /\b(community|membership|member|members|engagement|reward|points|leaderboard|referral|birthday|gift|moderation|moderate|listing|marketplace|activity|report|verification|since last)\b/i;
 
 export function hasCommunityProviderIntent(query: string): boolean {
-  const normalized = normalizeCommunityQuery(query);
-  return /\b(community|membership|member|members|medlem|medlemmer|engagement|reward|points|leaderboard|referral|birthday|gift|moderation|moderate|moderering\w*|modereringskø|listing|marketplace|markedsplass\w*|activity|aktivitet|report|rapporter\w*|verification|verifisering\w*|verifiering\w*|siden sist|since last|unonight)\b/i.test(
-    normalized,
-  );
+  const normalized = normalizeIntegrationQuery(query);
+  if (GENERIC_COMMUNITY_DOMAIN_PATTERN.test(normalized)) return true;
+
+  for (const manifest of listCommunityProviderManifests()) {
+    const descriptors = collectSemanticDescriptorsFromManifest(manifest);
+    if (semanticDescriptorMatchesQuery(query, descriptors)) return true;
+  }
+
+  return false;
 }
 
 export function hasBlockedCommunityOperationIntent(query: string): boolean {
-  const normalized = normalizeCommunityQuery(query);
+  const normalized = normalizeIntegrationQuery(query);
   return /\b(delete member|delete user|permanent ban|auto approve verification|irreversible points|financial transaction|publish without policy|permanent exclusion)\b/i.test(
     normalized,
   );
@@ -35,7 +46,7 @@ export function hasExternalCommunityAdapterIntent(
   query: string,
   communityContext?: CompanionCommunityContext,
 ): boolean {
-  const normalized = normalizeCommunityQuery(query);
+  const normalized = normalizeIntegrationQuery(query);
   const explicit = /\b(external community adapter|live forum sync|third.?party membership platform|external engagement adapter)\b/i.test(
     normalized,
   );
@@ -45,8 +56,9 @@ export function hasExternalCommunityAdapterIntent(
 }
 
 function resolveExternalAdapterProviderMatch(
-  normalized: string,
+  query: string,
   communityContext: CompanionCommunityContext,
+  locale: CustomerActiveLocale = "en",
 ): CommunityProviderMatch | null {
   const overlay =
     communityContext.external_provider_adapters?.find(
@@ -54,42 +66,35 @@ function resolveExternalAdapterProviderMatch(
     ) ?? null;
   if (!overlay) return null;
 
-  const provider_key = overlay.provider_key;
+  const manifest = getCommunityProviderManifest(overlay.provider_key);
+  const descriptors = collectSemanticDescriptorsFromManifest(manifest);
+  const intent = resolveCompanionSemanticIntent({ query, descriptors, locale });
 
-  if (/\b(verification|verifisering\w*|verifiering\w*)\b/.test(normalized)) {
-    return { provider_key, capability_key: "verification_status.read", operation: "read" };
-  }
-  if (/\b(moderation|moderate|moderering\w*|modereringskø)\b/.test(normalized)) {
-    return { provider_key, capability_key: "moderation_queue.read", operation: "read" };
-  }
-  if (/\b(report|reports|rapporter\w*)\b/.test(normalized)) {
-    return { provider_key, capability_key: "report.read", operation: "read" };
-  }
-  if (/\b(listing|marketplace|markedsplass\w*|annonse\w*)\b/.test(normalized)) {
-    return { provider_key, capability_key: "listing.read", operation: "read" };
-  }
-  if (/\b(member|members|medlem|medlemmer|new members|nye medlemmer)\b/.test(normalized)) {
-    return { provider_key, capability_key: "member.read", operation: "read" };
-  }
-  if (/\b(activity|aktivitet|siden sist|since last|happened)\b/.test(normalized)) {
-    return { provider_key, capability_key: "activity.read", operation: "read" };
+  if (intent.capability_candidates[0]) {
+    return {
+      provider_key: overlay.provider_key,
+      capability_key: intent.capability_candidates[0]!,
+      operation: "read",
+    };
   }
 
-  return { provider_key, capability_key: null, operation: "read" };
+  return { provider_key: overlay.provider_key, capability_key: null, operation: "read" };
 }
 
 export function matchCommunityProviderQuery(
   query: string,
   tenantContext: CompanionTenantContext,
+  locale: CustomerActiveLocale = "en",
 ): CommunityProviderMatch | null {
   if (!hasCommunityProviderIntent(query)) return null;
 
-  const normalized = normalizeCommunityQuery(query);
+  const normalized = normalizeIntegrationQuery(query);
   const manifests = listCommunityProviderManifests();
 
   const adapterMatch = resolveExternalAdapterProviderMatch(
-    normalized,
+    query,
     tenantContext.communityContext,
+    locale,
   );
   if (adapterMatch) {
     return adapterMatch;

@@ -4,6 +4,7 @@ import {
   UNONIGHT_PROVIDER_ADAPTER_BUSINESS_PACK,
   UNONIGHT_PROVIDER_ADAPTER_V1_CAPABILITIES,
 } from "./constants";
+import { unonightSemanticDescriptorForCapability } from "./semantic-descriptors";
 
 const COMMUNITY_VIEW = "customer_community.view";
 const MODERATION_VIEW = "moderation.view";
@@ -14,6 +15,7 @@ function readCapability(
   permission: string | null,
   privacy_sensitive = false,
 ) {
+  const semantic = unonightSemanticDescriptorForCapability(capability_key);
   return {
     capability_key,
     operation: "read" as const,
@@ -24,6 +26,15 @@ function readCapability(
     entity,
     required_permission: permission,
     privacy_sensitive,
+    semantic: semantic
+      ? {
+          entity: semantic.entity,
+          metrics: semantic.metrics,
+          operations: semantic.operations,
+          time_scopes: semantic.time_scopes,
+          entity_aliases: semantic.entity_aliases,
+        }
+      : undefined,
   };
 }
 
