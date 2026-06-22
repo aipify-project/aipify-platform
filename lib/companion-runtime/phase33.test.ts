@@ -295,5 +295,6 @@ execSync("npx tsx lib/companion-runtime/phase31.test.ts", { stdio: "inherit" });
 execSync("npx tsx lib/companion-runtime/phase32.test.ts", { stdio: "inherit" });
 execSync("npx tsx lib/companion-runtime/provider-layer-placement.test.ts", { stdio: "inherit" });
 execSync("npx tsx lib/companion-runtime/phase33c.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/companion-runtime/phase35.test.ts", { stdio: "inherit" });
 
 console.log("phase33.test.ts: all assertions passed");

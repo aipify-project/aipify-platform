@@ -83,6 +83,46 @@
         "supplier_directory": "supplier vendor search"
       }
     },
+    "verification": {
+      "sourceLabel": "Member verification",
+      "privacyNote": "Verification reads return metadata only. Identity documents, ID numbers, and private moderator notes are never shown in Companion.",
+      "outcomes": {
+        "exactMatch": "Aipify found the requested verification metadata.",
+        "multipleMatches": "Multiple verification cases matched — review the shortlist or provide a case ID.",
+        "noMatch": "No verification case matched that reference.",
+        "permissionDenied": "Your role cannot read verification queue or case metadata.",
+        "providerMissing": "No live verification provider is connected for this organization yet.",
+        "sourceMissing": "Verification metadata is not available from an approved source yet.",
+        "activationPending": "Verification reads are unavailable while organization activation or subscription is pending.",
+        "partialResult": "Aipify returned partial verification metadata — some queue fields are unavailable from the current source.",
+        "emptyQueue": "The verification queue is empty in the approved read-only sources."
+      },
+      "status": {
+        "pending": "Pending",
+        "in_review": "In review",
+        "needs_information": "Needs information",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "expired": "Expired",
+        "cancelled": "Cancelled"
+      },
+      "requirements": {
+        "identityMetadata": "Identity metadata or supporting information is still required."
+      },
+      "masking": {
+        "subject": "Subject reference is masked for privacy."
+      },
+      "warnings": {
+        "queuePartialSource": "Queue counts use approved community metadata until the dedicated Unonight verification queue source is connected.",
+        "casePartialSource": "Case lookup uses metadata-only proxy records until the dedicated verification case source is connected."
+      },
+      "commandBrief": {
+        "pendingVerification": "Pending member verifications require review.",
+        "needsInformation": "Verification cases are waiting for required information.",
+        "highPriority": "High-priority verification cases need attention.",
+        "oldestPending": "A verification case has been pending longer than others."
+      }
+    },
     "discovery": {
       "accessDenied": "Install discovery data is not available for your role. Ask an administrator if you need connection details.",
       "empty": "No approved connected systems or data sources were discovered for this organization yet.",

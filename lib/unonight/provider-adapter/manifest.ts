@@ -56,6 +56,8 @@ export const UNONIGHT_COMMUNITY_ADAPTER_MANIFEST: CommunityProviderManifest = {
     readCapability("moderation_queue.read", "moderation_queue", MODERATION_VIEW),
     readCapability("report.read", "report", MODERATION_VIEW, true),
     readCapability("verification_status.read", "verification_status", COMMUNITY_VIEW),
+    readCapability("verification_queue.read", "verification_queue", "verification.view", true),
+    readCapability("verification_case.read", "verification_case", "verification.view", true),
     readCapability("listing.read", "listing", COMMUNITY_VIEW),
   ],
 };

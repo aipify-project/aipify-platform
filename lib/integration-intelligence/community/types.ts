@@ -19,6 +19,8 @@ export type CommunityCapabilityKey =
   | "gift.read"
   | "listing.read"
   | "verification_status.read"
+  | "verification_queue.read"
+  | "verification_case.read"
   | "moderation_queue.read"
   | "report.read"
   | "moderation.assign"

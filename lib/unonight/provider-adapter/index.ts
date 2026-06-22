@@ -40,6 +40,18 @@ export {
   mapUnonightMemberDirectoryFields,
 } from "./directory-member-contract";
 export {
+  UNONIGHT_MEMBER_VERIFICATION_CONTRACT,
+  buildUnonightVerificationCasesFromProxy,
+  buildUnonightVerificationQueueSummary,
+  findUnonightVerificationCaseById,
+  mapUnonightVerificationProxyRow,
+} from "./verification-queue-contract";
+export {
+  UNONIGHT_VERIFICATION_SOURCE_MAP,
+  UNONIGHT_VERIFICATION_READINESS,
+  getUnonightVerificationSource,
+} from "./verification-source-map";
+export {
   runUnonightAuthenticatedLiveE2e,
   runUnonightLiveQuestion,
   buildCompanionPlatformKnowledgeTranslator,

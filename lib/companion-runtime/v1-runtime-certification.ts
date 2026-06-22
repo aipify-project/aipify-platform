@@ -90,6 +90,17 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "Phase 34",
   },
+  {
+    phase: 35,
+    required_test: "phase35.test.ts",
+    required_wiring: [
+      "companion-verification-policy.ts",
+      "verification-read-orchestrator.ts",
+      "verification-semantic-intent.ts",
+      "verification-audit.ts",
+    ],
+    commit_hint: "Phase 35",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

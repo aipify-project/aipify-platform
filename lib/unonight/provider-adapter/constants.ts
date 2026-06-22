@@ -12,6 +12,8 @@ export const UNONIGHT_PROVIDER_ADAPTER_V1_CAPABILITIES = [
   "moderation_queue.read",
   "report.read",
   "verification_status.read",
+  "verification_queue.read",
+  "verification_case.read",
   "listing.read",
 ] as const;
 

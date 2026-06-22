@@ -177,53 +177,34 @@
       }
     },
     "actions": {
-      "sourceLabel": "Trust & Action-styring",
-      "explanationLead": "Aipify forberedte en styrt handlingsplan for {actionId} på {entity} via {provider}.",
-      "planExplanation": "Companion-runtime forberedte styrt handling {actionId} til godkjenningsgjennomgang.",
-      "riskLine": "Risikonivå: {risk}",
-      "approvalLine": "Godkjenningsstatus: {status}",
-      "reversibleYes": "Denne handlingen kan reverseres når policy tillater det.",
-      "reversibleNo": "Denne handlingen kan ikke reverseres — eksplisitt godkjenning kreves.",
-      "preparedLine": "Forberedt: {createdAt}",
-      "auditLine": "Revisjonsreferanse: {reference}",
-      "openApprovals": "Åpne godkjenningssenter",
-      "approvalRequiredLead": "Godkjenning kreves før Aipify kan utføre {actionId}.",
-      "approvalRequiredExplanation": "Aipify opprettet eller gjenbrukte en ventende godkjenningsforespørsel. Ingen provider-handling ble utført i denne fasen.",
-      "readyLead": "Aipify validerte {actionId} og den er klar for styrt utførelse etter din gjennomgang.",
-      "readyExplanation": "Utførelse utsettes med vilje — gjennomgå planen i godkjenningssenteret når du er klar.",
-      "blockedExplanation": "Denne handlingen ble blokkert av Trust & Action-policy og ble ikke utført.",
-      "unavailableExplanation": "Ingen styrt skrive-capability matchet denne forespørselen for organisasjonen din.",
-      "permissionDenied": "Rollen din kan ikke forberede denne handlingen med gjeldende tillatelser.",
-      "missingPolicy": "Ingen godkjent handlingspolicy dekker denne forespørselen.",
-      "unavailable": "Denne handlingen er ikke tilgjengelig via Companion for organisasjonen din.",
-      "appSuspended": "Handlinger er utilgjengelige mens organisasjonens abonnement er pauset eller suspendert.",
-      "emergencyStop": "Companion-handlinger er pauset mens nødstopp er aktivt.",
-      "riskLevel": {
-        "0": "informasjon",
-        "1": "utkast",
-        "2": "reversibel",
-        "3": "sensitiv",
-        "4": "kritisk"
-      },
-      "approvalStatus": {
-        "pending": "venter godkjenning",
-        "approved": "godkjent",
-        "not_required": "ikke påkrevd",
-        "blocked": "blokkert",
-        "prohibited": "forbudt"
-      },
-      "blockReason": {
-        "critical_prohibited": "Kritiske handlinger kan ikke utføres av Aipify.",
-        "irreversible_blocked": "Irreversible handlinger kan ikke auto-forberedes uten eksplisitt styring.",
-        "permission_denied": "Rollen din har ikke tillatelse til denne handlingen.",
-        "entitlement_blocked": "Business Pack-rettigheter blokkerer denne handlingen nå.",
-        "emergency_stop": "Nødstopp er aktiv — handlinger er pauset.",
-        "missing_policy": "Ingen handlingspolicy autoriserer denne forespørselen.",
-        "policy_prohibited": "Organisasjonspolicy forbyr denne handlingen.",
-        "provider_unverified": "Provider-tilkoblingen er ikke verifisert for skrivehandlinger.",
-        "schema_validation": "Input besto ikke schema-validering.",
-        "write_boundary": "Skrivegrenser blokkerte denne handlingen."
-      }
+      "teamMembers": "Åpne Teammedlemmer",
+      "rolesPermissions": "Åpne Roller og tilganger",
+      "subscription": "Åpne Abonnement",
+      "upgradeOptions": "Se oppgraderingsalternativer",
+      "invoices": "Åpne Fakturaer",
+      "paymentHistory": "Åpne Betalingshistorikk",
+      "accountSecurity": "Åpne Sikkerhetsinnstillinger",
+      "connectIntegration": "Koble til integrasjon",
+      "integrations": "Se integrasjoner",
+      "connectedIntegrations": "Se tilkoblede integrasjoner",
+      "contactSupport": "Kontakt support",
+      "supportRequests": "Se supportforespørsler",
+      "knowledgeCenter": "Les om sikker tilkobling",
+      "gettingStarted": "Kom i gang",
+      "aipifyCompanion": "Åpne Aipify Companion",
+      "commandBrief": "Åpne Command Brief",
+      "sinceLastLogin": "Siden sist innlogging",
+      "appNotifications": "Varsler",
+      "appDashboard": "Åpne Dashboard",
+      "availableBusinessPacks": "Utforsk Business Packs",
+      "installedBusinessPacks": "Installerte Business Packs",
+      "preferences": "Åpne Preferanser",
+      "profile": "Åpne Profil",
+      "apiAccess": "API-tilgang",
+      "activityOverview": "Aktivitetsoversikt",
+      "viewIntegrations": "Se integrasjoner",
+      "retestUnonightConnection": "Test tilkoblingen på nytt",
+      "readSecureConnection": "Les om sikker tilkobling"
     },
     "execution": {
       "sourceLabel": "Styrt handlingsutførelse",
@@ -266,6 +247,18 @@
         "provider_failure": "Provider-adaptern rapporterte feil.",
         "validation_failed": "Provider input-validering mislyktes.",
         "invalid_output": "Provider-output besto ikke validering."
+      },
+      "blockReason": {
+        "critical_prohibited": "Kritiske handlinger kan ikke utføres av Aipify.",
+        "irreversible_blocked": "Irreversible handlinger kan ikke auto-forberedes uten eksplisitt styring.",
+        "permission_denied": "Rollen din har ikke tillatelse for denne handlingen.",
+        "entitlement_blocked": "Business Pack-rettigheter blokkerer denne handlingen akkurat nå.",
+        "emergency_stop": "Nødstopp er aktiv — handlinger er pauset.",
+        "missing_policy": "Ingen handlingspolicy autoriserer denne forespørselen.",
+        "policy_prohibited": "Organisasjonspolicy forbyr denne handlingen.",
+        "provider_unverified": "Provider-tilkoblingen er ikke verifisert for skrivehandlinger.",
+        "schema_validation": "Input besto ikke schema-validering.",
+        "write_boundary": "Skrivegrense-regler blokkerte denne handlingen."
       }
     },
     "synthesis": {
@@ -289,7 +282,10 @@
       "permissionDenied": "Rollen din har ikke tilgang til creative provider-katalogen.",
       "entitlementBlocked": "Creative capabilities er utilgjengelige mens abonnementet er pauset.",
       "openStudio": "Åpne Studio & Creative Center",
-      "operation": { "read": "les", "write": "skriv" },
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilkoblet",
         "implemented_disconnected": "implementert men frakoblet",
@@ -342,7 +338,10 @@
       "entitlementBlocked": "Media-capabilities er utilgjengelige mens abonnementet er pauset.",
       "policyNote": "Organisasjons-, provider- og konto-avspillingspolicy gjelder — Aipify antar aldri offentlig kommersiell avspilling uten eksplisitt godkjenning.",
       "openDeviceCenter": "Åpne enhets- og presence-senter",
-      "operation": { "read": "les", "write": "skriv" },
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilkoblet",
         "implemented_disconnected": "implementert men frakoblet",
@@ -375,7 +374,10 @@
       "privacyNote": "Kun sensitiv metadata — private meldingstekster, vedlegg og tverrorganisasjonelt innhold eksponeres aldri i Companion runtime.",
       "policyNote": "E-postutsending, kalenderendringer, dokumentdeling og utskrift krever eksplisitt godkjenning og korrekt organisasjonspolicy.",
       "openWorkspaceCenter": "Åpne workspace-senter",
-      "operation": { "read": "les", "write": "skriv" },
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilkoblet",
         "implemented_disconnected": "implementert men frakoblet",
@@ -474,7 +476,10 @@
       "vacationModeActive": "Vacation Mode-dekningsintegrasjon er aktiv for planlegging.",
       "vacationModeAvailable": "Vacation Mode-dekning er tilgjengelig via Absence Center-integrasjon.",
       "openServicesCenter": "Åpne services-senter",
-      "operation": { "read": "les", "write": "skriv" },
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilkoblet",
         "implemented_disconnected": "implementert men frakoblet",
@@ -524,7 +529,10 @@
       "knowledgeGapDetectionActive": "Kunnskapshull-deteksjon er aktiv for support-operasjonene dine.",
       "knowledgeGapDetectionAvailable": "Kunnskapshull-deteksjon er tilgjengelig via Support Operations-innstillinger.",
       "openSupportCenter": "Åpne support-senter",
-      "operation": { "read": "les", "write": "skriv" },
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilkoblet",
         "implemented_disconnected": "implementert men frakoblet",
@@ -575,7 +583,10 @@
       "postVacationBufferActive": "Post-ferie returbuffer er konfigurert for booking-kontinuitet.",
       "postVacationBufferAvailable": "Post-ferie returbuffer er tilgjengelig via appointment vacation-integrasjon.",
       "openIndustryCenter": "Åpne industry-senter",
-      "operation": { "read": "les", "write": "skriv" },
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilkoblet",
         "implemented_disconnected": "implementert men frakoblet",
@@ -626,7 +637,10 @@
       "commandBriefEventsAvailable": "Command Brief-hendelser er tilgjengelige når Aipify Hosts er aktivert.",
       "humanOversightRequired": "Menneskelig tilsyn kreves for Aipify Hosts-skrivinger.",
       "openHostsCenter": "Åpne Aipify Hosts",
-      "operation": { "read": "les", "write": "skriv" },
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
       "status": {
         "connected": "koblet",
         "implemented_disconnected": "implementert men frakoblet",
@@ -687,7 +701,10 @@
       "commandBriefEventsAvailable": "Command Brief HR-signaler er tilgjengelige når HR-motorer er aktivert.",
       "humanOversightRequired": "Menneskelig tilsyn kreves for HR-skrivinger.",
       "openHrCenter": "Åpne People Operations",
-      "operation": { "read": "les", "write": "skriv" },
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
       "status": {
         "connected": "koblet",
         "implemented_disconnected": "implementert men frakoblet",
@@ -958,7 +975,10 @@
       "commandBriefEventsLinked": "Command Brief fellesskapssignaler er koblet fra eksisterende medlem-, aktivitets-, modererings- og belønningskilder.",
       "commandBriefEventsAvailable": "Command Brief fellesskapssignaler er tilgjengelige når fellesskapsmotorer er aktivert.",
       "openCommunityCenter": "Åpne Community Center",
-      "operation": { "read": "les", "write": "skriv" },
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilkoblet",
         "implemented_disconnected": "implementert men frakoblet",
@@ -1058,8 +1078,16 @@
         "adapter_missing": "adapter mangler",
         "disabled": "deaktivert"
       },
-      "freshness": { "fresh": "fersk", "stale": "utdatert", "unknown": "ukjent" },
-      "completeness": { "complete": "fullstendig", "partial": "delvis", "empty": "tom" },
+      "freshness": {
+        "fresh": "fersk",
+        "stale": "utdatert",
+        "unknown": "ukjent"
+      },
+      "completeness": {
+        "complete": "fullstendig",
+        "partial": "delvis",
+        "empty": "tom"
+      },
       "warnings": {
         "memberCountProxy": "Medlemstall bruker fellesskapsnettverksoppsummering — ikke individuelle medlemsposter.",
         "activityPartial": "Aktivitetsoppsummering kan være ufullstendig når diskusjonsmålinger mangler.",
@@ -1126,7 +1154,10 @@
       "commandBriefEventsLinked": "Command Brief proaktive signaler er koblet fra eksisterende overvåkings-, anbefalings- og domenemotorkilder.",
       "commandBriefEventsAvailable": "Command Brief proaktive signaler er tilgjengelige når proaktive motorer er aktivert.",
       "openProactiveCenter": "Åpne Command Brief",
-      "operation": { "read": "les", "write": "skriv" },
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilkoblet",
         "implemented_disconnected": "implementert men frakoblet",
@@ -1186,7 +1217,10 @@
       "roleBasedAccessActive": "Rollebaserte tilganger håndheves for denne organisasjonen.",
       "openAnalyticsCenter": "Åpne analysesenter",
       "openExecutiveInsights": "Åpne executive insights",
-      "operation": { "read": "les", "write": "skriv" },
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilkoblet",
         "implemented_disconnected": "implementert men frakoblet",
@@ -1441,36 +1475,6 @@
       "step1": "Åpne Aipify Companion fra Intelligence-seksjonen, eller spør om et bestemt tema.",
       "step2": "Bruk de foreslåtte lenkene for å gå direkte til den relevante siden.",
       "subscriptionUnavailable": "Abonnementsdetaljene kunne ikke verifiseres akkurat nå. Åpne Abonnement for å se planen din."
-    },
-    "actions": {
-      "teamMembers": "Åpne Teammedlemmer",
-      "rolesPermissions": "Åpne Roller og tilganger",
-      "subscription": "Åpne Abonnement",
-      "upgradeOptions": "Se oppgraderingsalternativer",
-      "invoices": "Åpne Fakturaer",
-      "paymentHistory": "Åpne Betalingshistorikk",
-      "accountSecurity": "Åpne Sikkerhetsinnstillinger",
-      "connectIntegration": "Koble til integrasjon",
-      "integrations": "Se integrasjoner",
-      "connectedIntegrations": "Se tilkoblede integrasjoner",
-      "contactSupport": "Kontakt support",
-      "supportRequests": "Se supportforespørsler",
-      "knowledgeCenter": "Les om sikker tilkobling",
-      "gettingStarted": "Kom i gang",
-      "aipifyCompanion": "Åpne Aipify Companion",
-      "commandBrief": "Åpne Command Brief",
-      "sinceLastLogin": "Siden sist innlogging",
-      "appNotifications": "Varsler",
-      "appDashboard": "Åpne Dashboard",
-      "availableBusinessPacks": "Utforsk Business Packs",
-      "installedBusinessPacks": "Installerte Business Packs",
-      "preferences": "Åpne Preferanser",
-      "profile": "Åpne Profil",
-      "apiAccess": "API-tilgang",
-      "activityOverview": "Aktivitetsoversikt",
-      "viewIntegrations": "Se integrasjoner",
-      "retestUnonightConnection": "Test tilkoblingen på nytt",
-      "readSecureConnection": "Les om sikker tilkobling"
     },
     "routes": {
       "appDashboard": {
@@ -1788,6 +1792,46 @@
         "step1": "Gjennomgå tilkoblede integrasjoner under Platform → Integrations.",
         "step2": "Åpne Account → Security for tilgangs- og revisjonssynlighet.",
         "searchTerms": "hva får aipify tilgang|what does aipify access|data access|tilgang aipify|hva kan aipify se"
+      }
+    },
+    "verification": {
+      "sourceLabel": "Medlemsverifisering",
+      "privacyNote": "Verifiseringsoppslag returnerer kun metadata. Identitetsdokumenter, ID-nummer og private moderatornotater vises aldri i Companion.",
+      "outcomes": {
+        "exactMatch": "Aipify fant de forespurte verifiseringsmetadataene.",
+        "multipleMatches": "Flere verifiseringssaker matchet — gjennomgå listen eller oppgi en saks-ID.",
+        "noMatch": "Ingen verifiseringssak matchet den referansen.",
+        "permissionDenied": "Rollen din kan ikke lese verifiseringskø eller saksmetadata.",
+        "providerMissing": "Ingen live verifiseringsprovider er koblet til organisasjonen ennå.",
+        "sourceMissing": "Verifiseringsmetadata er ikke tilgjengelig fra en godkjent kilde ennå.",
+        "activationPending": "Verifiseringsoppslag er utilgjengelige mens aktivering eller abonnement venter.",
+        "partialResult": "Aipify returnerte delvis verifiseringsmetadata — noen køfelter er utilgjengelige fra gjeldende kilde.",
+        "emptyQueue": "Verifiseringskøen er tom i godkjente read-only kilder."
+      },
+      "status": {
+        "pending": "Venter",
+        "in_review": "Under behandling",
+        "needs_information": "Mangler informasjon",
+        "approved": "Godkjent",
+        "rejected": "Avvist",
+        "expired": "Utløpt",
+        "cancelled": "Kansellert"
+      },
+      "requirements": {
+        "identityMetadata": "Identitetsmetadata eller støtteinformasjon mangler fortsatt."
+      },
+      "masking": {
+        "subject": "Subjektreferanse er maskert for personvern."
+      },
+      "warnings": {
+        "queuePartialSource": "Køtellinger bruker godkjent community-metadata inntil dedikert Unonight-verifiseringskø er koblet.",
+        "casePartialSource": "Saksoppslag bruker metadata-only proxy-poster inntil dedikert verifiseringssak-kilde er koblet."
+      },
+      "commandBrief": {
+        "pendingVerification": "Ventende medlemsverifiseringer krever gjennomgang.",
+        "needsInformation": "Verifiseringssaker venter på nødvendig informasjon.",
+        "highPriority": "Høyprioriterte verifiseringssaker trenger oppmerksomhet.",
+        "oldestPending": "En verifiseringssak har ventet lengre enn andre."
       }
     }
   }

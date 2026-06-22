@@ -1,15 +1,15 @@
 # Companion Foundation Coverage Audit — Phase 34
 
-Generated: 2026-06-22T19:30:30.498Z
+Generated: 2026-06-22T19:45:09.883Z
 
 ## Summary
 
 | Metric | Count |
 |--------|------:|
 | Total modules | 153 |
-| Total II capabilities | 361 |
+| Total II capabilities | 363 |
 | Business packs (marketing) | 7 |
-| Providers | 141 |
+| Providers | 139 |
 | Skills | 58 |
 | Panels | 4 |
 
@@ -17,9 +17,9 @@ Generated: 2026-06-22T19:30:30.498Z
 
 - **production_ready_candidate**: 1
 - **connected**: 7
-- **connected_but_partial**: 14
+- **connected_but_partial**: 16
 - **adapter_missing**: 92
-- **source_missing**: 4
+- **source_missing**: 2
 - **manifest_only**: 8
 - **specification_only**: 27
 
@@ -27,8 +27,8 @@ Generated: 2026-06-22T19:30:30.498Z
 
 - `verification.unonight_adapter_status`: **connected_but_partial** — verification_status.read
 - `verification.trust_center`: **connected_but_partial** — verification.read, verification_status.read, verification.request
-- `verification.queue_read`: **source_missing** — verification_queue.read
-- `verification.case_read`: **source_missing** — verification_case.read
+- `verification.queue_read`: **connected_but_partial** — verification_queue.read
+- `verification.case_read`: **connected_but_partial** — verification_case.read
 - `verification.review_create`: **specification_only** — verification_review.create
 
 ## Appointment / salon / service coverage
@@ -49,8 +49,8 @@ Generated: 2026-06-22T19:30:30.498Z
 ## Gap priority counts
 
 - **P0**: 0
-- **P1**: 95
-- **P2**: 7
+- **P1**: 93
+- **P2**: 8
 - **P3**: 27
 
 ## Top gaps (first 50)

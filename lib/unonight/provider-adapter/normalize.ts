@@ -29,6 +29,8 @@ export type UnonightAdapterSignalCounts = {
   discussion_count: number | null;
   pending_moderation_count: number | null;
   pending_verification_count: number | null;
+  verification_needs_information_count?: number | null;
+  verification_high_priority_count?: number | null;
   reports_attention_count: number | null;
   listing_review_count: number | null;
   member_statistics: UnonightMemberStatisticsSnapshot | null;
@@ -163,6 +165,9 @@ export function normalizeUnonightProviderAdapterRecords(input: {
   const hasModerationView =
     input.effectivePermissions.includes("moderation.view") ||
     input.effectivePermissions.some((permission) => permission.startsWith("moderation."));
+  const hasVerificationView =
+    input.effectivePermissions.includes("verification.view") ||
+    input.effectivePermissions.includes("customer_community.view");
 
   const entries: Array<{
     capabilityKey: UnonightProviderAdapterV1Capability;
@@ -211,6 +216,22 @@ export function normalizeUnonightProviderAdapterRecords(input: {
       permissionScope: "customer_community.view",
       hasPermission: hasCommunityView,
       requestedMetric: "pending_verification",
+    },
+    {
+      capabilityKey: "verification_queue.read",
+      recordType: "verification_queue_summary",
+      sourceReference: "rpc:get_customer_community_network_center:best_practices",
+      permissionScope: "verification.view",
+      hasPermission: hasVerificationView,
+      requestedMetric: "pending_verifications",
+    },
+    {
+      capabilityKey: "verification_case.read",
+      recordType: "verification_case_summary",
+      sourceReference: "rpc:get_customer_community_network_center:best_practices",
+      permissionScope: "verification.view",
+      hasPermission: hasVerificationView,
+      requestedMetric: "verification_case",
     },
     {
       capabilityKey: "listing.read",
@@ -313,6 +334,10 @@ export function buildUnonightCommandBriefSignals(
     capabilityKey: "verification_status.read",
     counts,
   });
+  const verificationQueueBindings = buildUnonightMetricBindings({
+    capabilityKey: "verification_queue.read",
+    counts,
+  });
 
   return [
     ...exactSignals,
@@ -331,6 +356,16 @@ export function buildUnonightCommandBriefSignals(
         signal_key: "pending_verification",
         count: counts.pending_verification_count,
         semantic_match: verificationBindings[0]?.semantic_match ?? "incompatible",
+      },
+      {
+        signal_key: "verification_needs_information",
+        count: counts.verification_needs_information_count ?? null,
+        semantic_match: verificationQueueBindings[1]?.semantic_match ?? "incompatible",
+      },
+      {
+        signal_key: "verification_high_priority",
+        count: counts.verification_high_priority_count ?? null,
+        semantic_match: verificationQueueBindings[2]?.semantic_match ?? "incompatible",
       },
     ]),
   ];

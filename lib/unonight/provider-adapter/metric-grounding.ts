@@ -208,6 +208,62 @@ export function buildUnonightMetricBindings(input: {
     ];
   }
 
+  if (capabilityKey === "verification_queue.read") {
+    return [
+      binding({
+        source_field: "best_practices[].moderation_status",
+        source_metric: "pending_verifications",
+        requested_metric: "pending_verifications",
+        semantic_match: counts.pending_verification_count === null ? "incompatible" : "compatible",
+        period: "current",
+        value: counts.pending_verification_count,
+        completeness: counts.pending_verification_count === null ? "empty" : "partial",
+        confidence: "moderate",
+        warnings: [
+          "customerApp.companionPlatformKnowledge.verification.warnings.queuePartialSource",
+        ],
+      }),
+      binding({
+        source_field: "best_practices[].status_key",
+        source_metric: "needs_information",
+        requested_metric: "needs_information",
+        semantic_match: "compatible",
+        period: "current",
+        value: counts.verification_needs_information_count ?? null,
+        completeness: counts.verification_needs_information_count === null ? "empty" : "partial",
+        confidence: "moderate",
+      }),
+      binding({
+        source_field: "best_practices[].status_key",
+        source_metric: "high_priority",
+        requested_metric: "high_priority",
+        semantic_match: "compatible",
+        period: "current",
+        value: counts.verification_high_priority_count ?? null,
+        completeness: counts.verification_high_priority_count === null ? "empty" : "partial",
+        confidence: "moderate",
+      }),
+    ];
+  }
+
+  if (capabilityKey === "verification_case.read") {
+    return [
+      binding({
+        source_field: "best_practices[].practice_key",
+        source_metric: "verification_case",
+        requested_metric: "verification_case",
+        semantic_match: "compatible",
+        period: "current",
+        value: counts.pending_verification_count,
+        completeness: "partial",
+        confidence: "moderate",
+        warnings: [
+          "customerApp.companionPlatformKnowledge.verification.warnings.casePartialSource",
+        ],
+      }),
+    ];
+  }
+
   if (capabilityKey === "listing.read") {
     return [
       binding({

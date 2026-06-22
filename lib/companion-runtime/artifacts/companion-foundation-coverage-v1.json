@@ -1,20 +1,20 @@
 {
   "version": "companion-foundation-coverage-v1",
-  "generated_at": "2026-06-22T19:30:30.498Z",
+  "generated_at": "2026-06-22T19:45:09.883Z",
   "summary": {
     "total_modules": 153,
-    "total_capabilities": 361,
+    "total_capabilities": 363,
     "business_packs": 7,
-    "providers": 141,
+    "providers": 139,
     "skills": 58,
     "panels": 4,
     "readiness": {
       "production_ready": 0,
       "production_ready_candidate": 1,
       "connected": 7,
-      "connected_but_partial": 14,
+      "connected_but_partial": 16,
       "adapter_missing": 92,
-      "source_missing": 4,
+      "source_missing": 2,
       "manifest_only": 8,
       "specification_only": 27,
       "placeholder": 0,
@@ -3452,6 +3452,8 @@
         "moderation_queue.read.read",
         "report.read.read",
         "verification_status.read.read",
+        "verification_queue.read.read",
+        "verification_case.read.read",
         "listing.read.read"
       ],
       "source_type": "adapter",
@@ -3527,50 +3529,52 @@
       "module_id": "verification.queue_read",
       "domain": "member_verification",
       "business_pack_key": "community_pack",
-      "provider_key": "verification_queue",
+      "provider_key": "unonight_community_adapter",
       "capability_ids": [
         "verification_queue.read"
       ],
-      "source_type": "none",
-      "source_reference": null,
-      "runtime_loader": "load-companion-community-context.ts",
-      "schema_status": "missing",
+      "source_type": "rpc",
+      "source_reference": "rpc:get_customer_community_network_center:best_practices",
+      "runtime_loader": "verification-read-orchestrator.ts",
+      "schema_status": "partial",
       "permission_status": "defined",
-      "activation_status": "disabled",
-      "command_brief_status": "none",
+      "activation_status": "partial",
+      "command_brief_status": "linked",
       "action_status": "blocked",
-      "language_status": "partial",
-      "test_status": "missing",
-      "readiness": "source_missing",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
       "limitations": [
-        "Capability not registered in any provider manifest yet."
+        "Queue summary uses community metadata proxy until dedicated Unonight verification queue RPC is approved.",
+        "No document images, ID numbers, or moderator notes exposed to Companion."
       ],
-      "next_required_step": "Add verification_queue.read to provider manifest and Unonight read-only source.",
+      "next_required_step": "Connect dedicated read-only Unonight verification queue RPC and promote Command Brief to exact semantic match.",
       "panel": "app"
     },
     {
       "module_id": "verification.case_read",
       "domain": "member_verification",
       "business_pack_key": "community_pack",
-      "provider_key": "verification_case",
+      "provider_key": "unonight_community_adapter",
       "capability_ids": [
         "verification_case.read"
       ],
-      "source_type": "none",
-      "source_reference": null,
-      "runtime_loader": "load-companion-community-context.ts",
-      "schema_status": "missing",
-      "permission_status": "partial",
-      "activation_status": "disabled",
+      "source_type": "rpc",
+      "source_reference": "rpc:get_customer_community_network_center:best_practices",
+      "runtime_loader": "verification-read-orchestrator.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
       "command_brief_status": "none",
       "action_status": "blocked",
-      "language_status": "partial",
-      "test_status": "missing",
-      "readiness": "source_missing",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
       "limitations": [
-        "No verification case read capability in manifests."
+        "Case lookup uses metadata-only proxy records with masked subject references.",
+        "No identity documents or sensitive profile fields."
       ],
-      "next_required_step": "Define verification_case.read in provider manifest with audit-only metadata fields.",
+      "next_required_step": "Wire dedicated verification case RPC with audit-only metadata fields.",
       "panel": "app"
     },
     {
@@ -5079,26 +5083,6 @@
     },
     {
       "priority": "P1",
-      "module_id": "verification.queue_read",
-      "provider_key": "verification_queue",
-      "capability_ids": [
-        "verification_queue.read"
-      ],
-      "reason": "Member verification capability has no live read source.",
-      "next_required_step": "Add verification_queue.read to provider manifest and Unonight read-only source."
-    },
-    {
-      "priority": "P1",
-      "module_id": "verification.case_read",
-      "provider_key": "verification_case",
-      "capability_ids": [
-        "verification_case.read"
-      ],
-      "reason": "Member verification capability has no live read source.",
-      "next_required_step": "Define verification_case.read in provider manifest with audit-only metadata fields."
-    },
-    {
-      "priority": "P1",
       "module_id": "service.booking_write",
       "provider_key": "local_service_beauty",
       "capability_ids": [
@@ -5151,6 +5135,16 @@
         "verification.read",
         "verification_status.read",
         "verification.request"
+      ],
+      "reason": "Partial runtime without Command Brief linkage.",
+      "next_required_step": "Add Command Brief signals when live metrics are available."
+    },
+    {
+      "priority": "P2",
+      "module_id": "verification.case_read",
+      "provider_key": "unonight_community_adapter",
+      "capability_ids": [
+        "verification_case.read"
       ],
       "reason": "Partial runtime without Command Brief linkage.",
       "next_required_step": "Add Command Brief signals when live metrics are available."
