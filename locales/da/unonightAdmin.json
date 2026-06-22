@@ -1,0 +1,64 @@
+{
+  "aipifyConnection": {
+    "title": "Aipify skrivebeskyttet forbindelse",
+    "subtitle": "Opret og administrer dedikerede skrivebeskyttede nøgler, der lader Aipify verificere din Unonight-organisation — aldrig medlemmer, beskeder eller betalinger.",
+    "eyebrow": "Integrationer",
+    "loading": "Indlæser forbindelsesnøgler…",
+    "shell": {
+      "portalBadge": "Unonight Admin",
+      "portalTitle": "Integrationer · Aipify"
+    },
+    "help": {
+      "title": "Om denne forbindelsesnøgle",
+      "what": "Dette er et dedikeret skrivebeskyttet bearer-token til Aipify — ikke en Supabase service-nøgle eller databaselegitimation.",
+      "reads": "Aipify læser kun sikker metadata: organisationsidentitet, integrationsstatus og godkendte skrivebeskyttede omfang.",
+      "notSupabase": "Indsæt aldrig Supabase anon- eller service-role-nøgler her. Aipify accepterer kun Unonight-udstedte skrivebeskyttede forbindelsesnøgler.",
+      "revoke": "Tilbagekald en nøgle her med det samme, hvis den kan være blevet eksponeret. Fjern eller opdater derefter forbindelsen i Aipify Install.",
+      "connect": "Kopiér nøglen én gang, åbn Aipify Install → Integrationer → Unonight, indsæt bearer-tokenet og kør Test forbindelse."
+    },
+    "scopes": {
+      "title": "Skrivebeskyttede omfang",
+      "metadataRead": "Organisationsmetadata og miljøoversigt",
+      "organizationRead": "Organisationsidentitet til lejermatchning",
+      "integrationStatusRead": "Integrationsforbindelsesstatus (ingen operative poster)"
+    },
+    "form": {
+      "nameLabel": "Forbindelsesnavn",
+      "namePlaceholder": "Aipify produktion skrivebeskyttet",
+      "create": "Opret skrivebeskyttet nøgle",
+      "creating": "Opretter…"
+    },
+    "reveal": {
+      "title": "Kopiér din forbindelsesnøgle nu",
+      "warning": "Dette bearer-token vises kun én gang. Gem det sikkert og indsæt det i Aipify. Det kan ikke hentes igen.",
+      "copy": "Kopiér nøgle",
+      "copied": "Kopieret",
+      "dismiss": "Jeg har gemt nøglen"
+    },
+    "table": {
+      "name": "Forbindelsesnøgler",
+      "scopes": "Omfang",
+      "status": "Status",
+      "lastUsed": "Sidst brugt",
+      "created": "Oprettet",
+      "actions": "Handlinger",
+      "empty": "Ingen forbindelsesnøgler endnu. Opret en skrivebeskyttet nøgle for at forbinde Aipify.",
+      "never": "Aldrig"
+    },
+    "status": {
+      "active": "Aktiv",
+      "revoked": "Tilbagekaldt",
+      "rotated": "Roteret"
+    },
+    "actions": {
+      "revoke": "Tilbagekald",
+      "rotate": "Roter",
+      "revoking": "Tilbagekalder…",
+      "rotating": "Roterer…"
+    },
+    "errors": {
+      "generic": "Noget uventet skete. Prøv igen.",
+      "unauthorized": "Du har ikke tilladelse til at administrere Aipify-forbindelsesnøgler."
+    }
+  }
+}

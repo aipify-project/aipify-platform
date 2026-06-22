@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {
   answerToLegacyArticle,
+  resolveAnswerLocale,
   searchPlatformKnowledge,
   trackLowConfidenceQuery,
   COMPANION_PLATFORM_KNOWLEDGE_CORPUS_VERSION,
@@ -45,9 +46,14 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get("q") ?? "";
     const articleId = searchParams.get("article_id");
+    const requestedLocale = searchParams.get("locale");
 
-    const locale = await getLocale();
-    const dict = await getCustomerAppDictionaryForSplits(locale, [
+    const appLocale = await getLocale();
+    const answerLocale = query
+      ? resolveAnswerLocale(requestedLocale ?? appLocale, query)
+      : resolveAnswerLocale(requestedLocale ?? appLocale, articleId ?? "");
+
+    const dict = await getCustomerAppDictionaryForSplits(answerLocale, [
       "navigation",
       "portalStructure",
       "companionPlatformKnowledge",
@@ -70,8 +76,8 @@ export async function GET(request: Request) {
     if (articleId) {
       const platformResult = await searchPlatformKnowledge(articleId.replace(/_/g, "-"), {
         t,
-        locale,
-        ctx: { locale, userRole },
+        locale: answerLocale,
+        ctx: { locale: answerLocale, userRole },
         getSearchTermsArray: (key) => getSearchTermsArray(dict.customerApp as Record<string, unknown>, key),
         subscriptionRaw,
         supabase,
@@ -92,15 +98,15 @@ export async function GET(request: Request) {
 
     const result = await searchPlatformKnowledge(query, {
       t,
-      locale,
-      ctx: { locale, userRole },
+      locale: answerLocale,
+      ctx: { locale: answerLocale, userRole },
       getSearchTermsArray: (key) => getSearchTermsArray(dict.customerApp as Record<string, unknown>, key),
       subscriptionRaw,
       supabase,
     });
 
     if (result.answer.confidence === "low") {
-      void trackLowConfidenceQuery(supabase, query, locale, result.answer.confidence);
+      void trackLowConfidenceQuery(supabase, query, answerLocale, result.answer.confidence);
     }
 
     const legacyArticle = answerToLegacyArticle(result.answer);
@@ -115,6 +121,7 @@ export async function GET(request: Request) {
       corpus_version: COMPANION_PLATFORM_KNOWLEDGE_CORPUS_VERSION,
       source: result.answer.source,
       confidence: result.answer.confidence,
+      answer_locale: answerLocale,
     });
   } catch {
     return NextResponse.json({ error: "Failed to search knowledge" }, { status: 500 });

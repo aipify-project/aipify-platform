@@ -200,7 +200,7 @@ export function deduplicateCommandCenterItems(items: CommandCenterItem[]): Comma
   return [...byKey.values()];
 }
 
-function filterRealRecords<T extends Record<string, unknown>>(records: T[]): T[] {
+export function filterRealRecords<T extends Record<string, unknown>>(records: T[]): T[] {
   return records.filter((record) => !isSyntheticEccRecord(record));
 }
 

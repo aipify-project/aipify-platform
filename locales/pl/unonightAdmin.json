@@ -1,0 +1,64 @@
+{
+  "aipifyConnection": {
+    "title": "Połączenie tylko do odczytu z Aipify",
+    "subtitle": "Twórz i zarządzaj dedykowanymi kluczami tylko do odczytu, które pozwalają Aipify zweryfikować Twoją organizację Unonight — nigdy członków, wiadomości ani płatności.",
+    "eyebrow": "Integracje",
+    "loading": "Ładowanie kluczy połączenia…",
+    "shell": {
+      "portalBadge": "Unonight Admin",
+      "portalTitle": "Integracje · Aipify"
+    },
+    "help": {
+      "title": "O tym kluczu połączenia",
+      "what": "To dedykowany token bearer tylko do odczytu dla Aipify — nie klucz usługi Supabase ani poświadczenie bazy danych.",
+      "reads": "Aipify odczytuje tylko bezpieczne metadane: tożsamość organizacji, status integracji i zatwierdzone zakresy tylko do odczytu.",
+      "notSupabase": "Nigdy nie wklejaj tutaj kluczy Supabase anon ani service-role. Aipify akceptuje wyłącznie klucze połączenia tylko do odczytu wydane przez Unonight.",
+      "revoke": "Natychmiast unieważnij klucz tutaj, jeśli mógł zostać ujawniony. Następnie usuń lub zaktualizuj połączenie w Aipify Install.",
+      "connect": "Skopiuj klucz raz, otwórz Aipify Install → Integracje → Unonight, wklej token bearer i uruchom Test połączenia."
+    },
+    "scopes": {
+      "title": "Zakresy tylko do odczytu",
+      "metadataRead": "Metadane organizacji i podsumowanie środowiska",
+      "organizationRead": "Tożsamość organizacji do dopasowania najemcy",
+      "integrationStatusRead": "Status połączenia integracji (bez rekordów operacyjnych)"
+    },
+    "form": {
+      "nameLabel": "Nazwa połączenia",
+      "namePlaceholder": "Aipify produkcja tylko do odczytu",
+      "create": "Utwórz klucz tylko do odczytu",
+      "creating": "Tworzenie…"
+    },
+    "reveal": {
+      "title": "Skopiuj klucz połączenia teraz",
+      "warning": "Ten token bearer jest wyświetlany tylko raz. Przechowuj go bezpiecznie i wklej do Aipify. Nie można go pobrać ponownie.",
+      "copy": "Kopiuj klucz",
+      "copied": "Skopiowano",
+      "dismiss": "Zapisałem klucz"
+    },
+    "table": {
+      "name": "Klucze połączenia",
+      "scopes": "Zakresy",
+      "status": "Status",
+      "lastUsed": "Ostatnio użyty",
+      "created": "Utworzono",
+      "actions": "Akcje",
+      "empty": "Brak kluczy połączenia. Utwórz klucz tylko do odczytu, aby połączyć Aipify.",
+      "never": "Nigdy"
+    },
+    "status": {
+      "active": "Aktywny",
+      "revoked": "Unieważniony",
+      "rotated": "Zrotowany"
+    },
+    "actions": {
+      "revoke": "Unieważnij",
+      "rotate": "Rotuj",
+      "revoking": "Unieważnianie…",
+      "rotating": "Rotowanie…"
+    },
+    "errors": {
+      "generic": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie.",
+      "unauthorized": "Nie masz uprawnień do zarządzania kluczami połączenia Aipify."
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "aipifyConnection": {
+    "title": "Aipify read-only connection",
+    "subtitle": "Create and manage dedicated read-only keys that let Aipify verify your Unonight organization — never members, messages, or payments.",
+    "eyebrow": "Integrations",
+    "loading": "Loading connection keys…",
+    "shell": {
+      "portalBadge": "Unonight Admin",
+      "portalTitle": "Integrations · Aipify"
+    },
+    "help": {
+      "title": "About this connection key",
+      "what": "This is a dedicated read-only bearer token for Aipify — not a Supabase service key or database credential.",
+      "reads": "Aipify reads only safe metadata: organization identity, integration status, and approved read-only scopes.",
+      "notSupabase": "Never paste Supabase anon or service-role keys here. Aipify only accepts Unonight-issued read-only connection keys.",
+      "revoke": "Revoke a key here immediately if it may have been exposed. Then remove or update the connection in Aipify Install.",
+      "connect": "Copy the key once, open Aipify Install → Integrations → Unonight, paste the bearer token, and run Test the connection."
+    },
+    "scopes": {
+      "title": "Read-only scopes",
+      "metadataRead": "Organization metadata and environment summary",
+      "organizationRead": "Organization identity for tenant matching",
+      "integrationStatusRead": "Integration connection status (no operational records)"
+    },
+    "form": {
+      "nameLabel": "Connection name",
+      "namePlaceholder": "Aipify production read-only",
+      "create": "Create read-only key",
+      "creating": "Creating…"
+    },
+    "reveal": {
+      "title": "Copy your connection key now",
+      "warning": "This bearer token is shown only once. Store it securely and paste it into Aipify. It cannot be retrieved again.",
+      "copy": "Copy key",
+      "copied": "Copied",
+      "dismiss": "I have saved the key"
+    },
+    "table": {
+      "name": "Connection keys",
+      "scopes": "Scopes",
+      "status": "Status",
+      "lastUsed": "Last used",
+      "created": "Created",
+      "actions": "Actions",
+      "empty": "No connection keys yet. Create a read-only key to connect Aipify.",
+      "never": "Never"
+    },
+    "status": {
+      "active": "Active",
+      "revoked": "Revoked",
+      "rotated": "Rotated"
+    },
+    "actions": {
+      "revoke": "Revoke",
+      "rotate": "Rotate",
+      "revoking": "Revoking…",
+      "rotating": "Rotating…"
+    },
+    "errors": {
+      "generic": "Something unexpected happened. Please try again.",
+      "unauthorized": "You do not have permission to manage Aipify connection keys."
+    }
+  }
+}

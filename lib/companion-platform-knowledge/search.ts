@@ -11,6 +11,10 @@ import {
   buildPricingLabels,
   resolvePlatformCorpus,
 } from "./answer-builder";
+import {
+  detectPlatformQuestionIntent,
+  resolveArticleIdForIntent,
+} from "./intent-detection";
 import { buildPublishedPricingSummary, parseCustomerLicenseCenter } from "./pricing-bridge";
 import { canAccessArticle, type PermissionContext } from "./permission-gate";
 import { resolveRouteKeyFromQuery } from "./route-registry";
@@ -117,6 +121,25 @@ export async function searchPlatformKnowledge(
 
   const restrictedNote = t("customerApp.companionPlatformKnowledge.permissions.restrictedAction");
 
+  // 0. Explicit intent detection (API definition vs keys vs connection vs access)
+  const intent = detectPlatformQuestionIntent(query);
+  if (intent) {
+    const intentArticleId = resolveArticleIdForIntent(intent);
+    const intentArticle = corpus.find((a) => a.id === intentArticleId);
+    if (intentArticle) {
+      return {
+        matchedArticleId: intentArticle.id,
+        answer: buildPlatformAnswer(intentArticle, t, permissionCtx, {
+          source: "platform_corpus",
+          confidence: "high",
+          subscription,
+          pricingSummary,
+          restrictedNote,
+        }),
+      };
+    }
+  }
+
   // 1. Platform corpus match
   const corpusMatch = findBestCorpusMatch(query, corpus, ctx);
   if (corpusMatch && corpusMatch.score >= 10) {
@@ -159,15 +182,24 @@ export async function searchPlatformKnowledge(
       );
       if (kcResult.answered && kcResult.answer.trim()) {
         const fallbackArticle = corpus.find((a) => a.id === "knowledge-center") ?? corpus[0];
+        const built = buildPlatformAnswer(fallbackArticle, t, permissionCtx, {
+          source: "knowledge_center",
+          confidence: "moderate",
+        });
         return {
           answer: {
             directAnswer: kcResult.answer,
             explanation: t("customerApp.companionPlatformKnowledge.sources.knowledgeCenter"),
             steps: [],
-            actions: buildPlatformAnswer(fallbackArticle, t, permissionCtx, {
-              source: "knowledge_center",
-              confidence: "moderate",
-            }).actions,
+            actions: built.actions,
+            sources: [
+              {
+                id: kcResult.created_gap_id ?? "knowledge-center",
+                label: t("customerApp.companionPlatformKnowledge.sources.knowledgeCenter"),
+                kind: "knowledge_center",
+              },
+              ...built.sources,
+            ],
             sourceId: kcResult.created_gap_id ?? "knowledge-center",
             source: "knowledge_center",
             confidence: kcResult.confidence_score >= 0.65 ? "high" : "moderate",

@@ -47,9 +47,27 @@ export type PlatformCorpusArticleId =
   | "notifications-preferences"
   | "vacation-mode"
   | "api-access"
+  | "what-is-api"
+  | "find-api-key"
+  | "create-api-key"
+  | "connect-system"
+  | "aipify-data-access"
   | "approvals"
   | "audit-governance"
   | "language-settings";
+
+export type PlatformKnowledgeSourceKind =
+  | "platform_corpus"
+  | "route_registry"
+  | "knowledge_center"
+  | "customer_context"
+  | "org_knowledge";
+
+export type PlatformKnowledgeSourceRef = {
+  id: string;
+  label: string;
+  kind: PlatformKnowledgeSourceKind;
+};
 
 export type PlatformCorpusEntry = {
   id: PlatformCorpusArticleId;
@@ -92,10 +110,12 @@ export type PlatformKnowledgeAnswer = {
   status?: string;
   steps: string[];
   actions: PlatformKnowledgeAction[];
+  sources: PlatformKnowledgeSourceRef[];
   sourceId: string;
   source: PlatformKnowledgeSource;
   confidence: PlatformKnowledgeConfidence;
   title?: string;
+  showSupportEscalation?: boolean;
 };
 
 export type ResolvedPlatformArticle = {

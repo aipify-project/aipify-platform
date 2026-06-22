@@ -3,7 +3,6 @@
 import Link from "next/link";
 import {
   COMPANION_CAPABILITY_IDS,
-  COMPANION_CONVERSATIONS_STORAGE_KEY,
   COMPANION_EXPERIENCE_ROUTE,
   COMPANION_QUICK_ACTION_IDS,
   resolveCompanionPageLabelKey,
@@ -11,6 +10,13 @@ import {
   resolveQuickActionHref,
   type CompanionQuickActionId,
 } from "@/lib/app/companion";
+import {
+  buildConversationPreview,
+  createConversationId,
+  deleteRecentConversation,
+  loadRecentConversations,
+  saveRecentConversation,
+} from "@/lib/app/companion/conversations";
 import {
   parseSupportAssistantSearch,
   SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY,
@@ -42,24 +48,6 @@ type CompanionPanelProps = {
   onClose?: () => void;
   initialQuery?: string;
 };
-
-function loadRecentConversations(): CompanionConversationPreview[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(COMPANION_CONVERSATIONS_STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as CompanionConversationPreview[];
-    return Array.isArray(parsed) ? parsed.slice(0, 6) : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveRecentConversation(entry: CompanionConversationPreview) {
-  const existing = loadRecentConversations().filter((c) => c.id !== entry.id);
-  const next = [entry, ...existing].slice(0, 8);
-  localStorage.setItem(COMPANION_CONVERSATIONS_STORAGE_KEY, JSON.stringify(next));
-}
 
 function createMessageId() {
   return `msg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -130,6 +118,7 @@ export function CompanionPanel({
   const [recentConversations, setRecentConversations] = useState<CompanionConversationPreview[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [showSecondarySections, setShowSecondarySections] = useState(false);
+  const [activeConversationId, setActiveConversationId] = useState<string>(() => createConversationId());
   const chatEndRef = useRef<HTMLDivElement>(null);
   const initialQuerySubmittedRef = useRef(false);
 
@@ -138,6 +127,8 @@ export function CompanionPanel({
   const roleDisplay = profileCtx?.profile
     ? labels.roleLabel.replace("{role}", profileCtx.profile.user.role)
     : labels.roleFallback;
+  const userRole = profileCtx?.profile?.user.role ?? "staff";
+  const canConfirmOrg = userRole === "owner" || userRole === "admin";
   const pageLabelKey = resolveCompanionPageLabelKey(pathname);
   const pageLabel = labels.contextPages[pageLabelKey] ?? labels.contextPages.default;
   const routeSuggestions = useMemo(() => resolveCompanionSuggestions(pathname), [pathname]);
@@ -176,7 +167,7 @@ export function CompanionPanel({
       setLoading(true);
 
       try {
-        const params = new URLSearchParams({ q: trimmed });
+        const params = new URLSearchParams({ q: trimmed, locale });
         const res = await fetch(`/api/aipify/support-assistant/search?${params}`);
         if (!res.ok) throw new Error("search failed");
         const parsed = parseSupportAssistantSearch(await res.json());
@@ -184,27 +175,33 @@ export function CompanionPanel({
         const article = parsed.articles[0];
 
         const reply = answer
-          ? buildPlatformAnswerReply(answer, labels)
+          ? buildPlatformAnswerReply(answer, labels, trimmed)
           : article
-            ? buildArticleReply(article, labels)
-            : buildFallbackReply(labels);
+            ? buildArticleReply(article, labels, trimmed)
+            : buildFallbackReply(labels, trimmed);
 
-        setMessages((prev) => [...prev, reply]);
-        saveRecentConversation({
-          id: `conv-${Date.now()}`,
-          title: trimmed.length > 48 ? `${trimmed.slice(0, 48)}…` : trimmed,
-          preview: answer?.directAnswer ?? article?.summary ?? labels.noResults,
-          pinned: false,
-          updatedAt: Date.now(),
+        setMessages((prev) => {
+          const nextMessages = [...prev, reply];
+          const firstUser = nextMessages.find((m) => m.role === "user");
+          saveRecentConversation(
+            buildConversationPreview({
+              id: activeConversationId,
+              title: firstUser?.content ?? trimmed,
+              preview: answer?.directAnswer ?? article?.summary ?? labels.noResults,
+              locale,
+              messages: nextMessages,
+            }),
+          );
+          setRecentConversations(loadRecentConversations());
+          return nextMessages;
         });
-        setRecentConversations(loadRecentConversations());
       } catch {
         setError(true);
       } finally {
         setLoading(false);
       }
     },
-    [loading, labels]
+    [loading, labels, locale, activeConversationId]
   );
 
   useEffect(() => {
@@ -216,12 +213,9 @@ export function CompanionPanel({
 
   function buildPlatformAnswerReply(
     platformAnswer: NonNullable<ReturnType<typeof parseSupportAssistantSearch>["answer"]>,
-    lbls: CompanionExperienceLabels
+    lbls: CompanionExperienceLabels,
+    question: string,
   ): CompanionChatMessage {
-    const content = platformAnswer.explanation
-      ? `${platformAnswer.directAnswer}\n\n${platformAnswer.explanation}`
-      : platformAnswer.directAnswer;
-
     const ctas =
       platformAnswer.actions.length > 0
         ? platformAnswer.actions.map((action) => ({
@@ -230,29 +224,32 @@ export function CompanionPanel({
           }))
         : [{ label: lbls.viewSuggestions, href: "/app/support/knowledge" }];
 
-    if (platformAnswer.confidence === "low") {
-      ctas.push({
-        label: lbls.createSupportRequest,
-        href: "/app/support/requests?from=companion",
-      });
-    }
-
     return {
       id: createMessageId(),
       role: "aipify",
-      content,
+      content: platformAnswer.directAnswer,
+      directAnswer: platformAnswer.directAnswer,
+      explanation: platformAnswer.explanation,
+      question,
       steps: platformAnswer.steps,
       ctas,
+      sources: platformAnswer.sources,
+      sourceId: platformAnswer.sourceId,
+      confidence: platformAnswer.confidence,
+      showSupportEscalation: platformAnswer.showSupportEscalation ?? platformAnswer.confidence === "low",
       timestamp: Date.now(),
     };
   }
 
-  function buildFallbackReply(lbls: CompanionExperienceLabels): CompanionChatMessage {
+  function buildFallbackReply(lbls: CompanionExperienceLabels, question: string): CompanionChatMessage {
     return {
       id: createMessageId(),
       role: "aipify" as const,
       content: lbls.noResults,
+      directAnswer: lbls.noResults,
+      question,
       timestamp: Date.now(),
+      showSupportEscalation: true,
       ctas: [
         { label: lbls.createSupportRequest, href: "/app/support/requests?from=companion" },
         { label: lbls.contextPages.support, href: "/app/support/knowledge" },
@@ -263,11 +260,10 @@ export function CompanionPanel({
 
   function buildArticleReply(
     article: SupportAssistantArticle,
-    lbls: CompanionExperienceLabels
+    lbls: CompanionExperienceLabels,
+    question: string,
   ): CompanionChatMessage {
-    const ctas = [
-      { label: lbls.createSupportRequest, href: "/app/support/requests?from=companion" },
-    ];
+    const ctas = [{ label: lbls.createSupportRequest, href: "/app/support/requests?from=companion" }];
     if (article.related_module) {
       ctas.unshift({ label: lbls.viewSuggestions, href: `/app/support/knowledge` });
     }
@@ -275,8 +271,11 @@ export function CompanionPanel({
       id: createMessageId(),
       role: "aipify",
       content: article.summary,
+      directAnswer: article.summary,
+      question,
       steps: article.steps,
       ctas,
+      showSupportEscalation: true,
       timestamp: Date.now(),
     };
   }
@@ -287,8 +286,55 @@ export function CompanionPanel({
     setShowSuggestions(true);
     setShowSecondarySections(false);
     setError(false);
+    setActiveConversationId(createConversationId());
     initialQuerySubmittedRef.current = false;
   }
+
+  function loadConversation(conv: CompanionConversationPreview) {
+    if (conv.messages && conv.messages.length > 0) {
+      setMessages(conv.messages);
+      setActiveConversationId(conv.id);
+      setShowSuggestions(false);
+      setError(false);
+      return;
+    }
+    void askQuestion(conv.title);
+  }
+
+  function handleDeleteConversation(conversationId: string) {
+    setRecentConversations(deleteRecentConversation(conversationId));
+    if (conversationId === activeConversationId) {
+      startNewConversation();
+    }
+  }
+
+  function handleMessageFeedback(
+    messageId: string,
+    feedback: Exclude<CompanionChatMessage["feedback"], null | undefined>,
+  ) {
+    setMessages((prev) =>
+      prev.map((message) =>
+        message.id === messageId
+          ? {
+              ...message,
+              feedback,
+              showSupportEscalation:
+                feedback === "not_helpful" || message.showSupportEscalation,
+            }
+          : message,
+      ),
+    );
+  }
+
+  const shouldShowGlobalSupport =
+    error ||
+    messages.some(
+      (message) =>
+        message.role === "aipify" &&
+        (message.showSupportEscalation ||
+          message.confidence === "low" ||
+          message.feedback === "not_helpful"),
+    );
 
   async function escalateFromChat() {
     const lastUser = [...messages].reverse().find((m) => m.role === "user");
@@ -351,14 +397,33 @@ export function CompanionPanel({
           <h2 className="text-sm font-semibold text-aipify-text">{labels.recentConversationsTitle}</h2>
           <ul className="mt-3 space-y-2">
             {recentConversations.map((conv) => (
-              <li key={conv.id}>
+              <li key={conv.id} className="flex items-stretch gap-2">
                 <button
                   type="button"
-                  onClick={() => void askQuestion(conv.title)}
-                  className="w-full rounded-lg border border-aipify-border px-3 py-2 text-left hover:border-violet-200 hover:bg-violet-50"
+                  onClick={() => loadConversation(conv)}
+                  className={`min-w-0 flex-1 rounded-lg border px-3 py-2 text-left hover:border-violet-200 hover:bg-violet-50 ${
+                    conv.id === activeConversationId
+                      ? "border-violet-300 bg-violet-50"
+                      : "border-aipify-border"
+                  }`}
                 >
-                  <p className="text-sm font-medium text-aipify-text">{conv.title}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="truncate text-sm font-medium text-aipify-text">{conv.title}</p>
+                    {conv.id === activeConversationId ? (
+                      <span className="shrink-0 rounded-full bg-violet-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-violet-800">
+                        {labels.recentActive}
+                      </span>
+                    ) : null}
+                  </div>
                   <p className="mt-0.5 line-clamp-1 text-xs text-aipify-text-muted">{conv.preview}</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteConversation(conv.id)}
+                  className="shrink-0 rounded-lg border border-aipify-border px-2 text-xs text-aipify-text-muted hover:bg-aipify-surface-muted"
+                  aria-label={labels.recentDelete}
+                >
+                  ×
                 </button>
               </li>
             ))}
@@ -378,13 +443,13 @@ export function CompanionPanel({
         </ul>
       </section>
 
-      {messages.length > 0 ? (
-        <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50/60 p-4 text-center">
-          <p className="text-sm font-medium text-amber-950">{labels.stillNeedHelp}</p>
+      {shouldShowGlobalSupport ? (
+        <div className="mt-4 rounded-xl border border-amber-100 bg-amber-50/40 p-3">
+          <p className="text-xs text-amber-950">{labels.supportEscalationHint}</p>
           <button
             type="button"
             onClick={() => void escalateFromChat()}
-            className="mt-3 rounded-lg bg-aipify-companion px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
+            className="mt-2 text-xs font-medium text-aipify-companion hover:underline"
           >
             {labels.createSupportRequest}
           </button>
@@ -556,6 +621,12 @@ export function CompanionPanel({
               loading={loading}
               labels={labels}
               spacious={isActiveConversation}
+              conversationId={activeConversationId}
+              locale={locale}
+              pathname={pathname}
+              canConfirmOrg={canConfirmOrg}
+              onMessageFeedback={handleMessageFeedback}
+              onEscalate={() => void escalateFromChat()}
             />
 
             {isActiveConversation ? (

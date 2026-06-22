@@ -1563,6 +1563,7 @@
       "kpiAttentionDesc": "Items that may need your review.",
       "kpiApprovalDesc": "Decisions waiting for your approval before work can continue.",
       "kpiHealthDesc": "Composite health from verified signals.",
+      "kpiNextActionDesc": "Single verified next step from your organization.",
       "kpiNone": "Up to date",
       "kpiActive": "Active",
       "kpiHealthUnavailable": "Unavailable",
@@ -1579,11 +1580,29 @@
         "healthModerate": "Moderate",
         "healthLow": "Needs attention",
         "healthCritical": "Critical",
-        "healthUnavailable": "Unavailable"
+        "healthUnavailable": "Unavailable",
+        "nextActionZero": "All caught up",
+        "nextActionActive": "Action ready"
       },
       "attentionTitle": "Needs attention",
-      "attentionEmptyTitle": "No critical items need attention right now",
-      "attentionEmptyBody": "Aipify continues monitoring and will notify you if anything changes.",
+      "attentionEmptyTitle": "No open items",
+      "attentionEmptyBody": "No critical items require attention right now. Aipify continues monitoring and will notify you if anything changes.",
+      "attention": {
+        "viewAll": "View all items",
+        "viewDetails": "View details",
+        "moduleArea": "Area",
+        "responsible": "Responsible",
+        "updated": "Updated",
+        "severity": {
+          "critical": "Critical",
+          "attention": "Needs attention",
+          "waiting": "Waiting",
+          "info": "Information"
+        },
+        "actions": {
+          "reviewIntegration": "Review integration"
+        }
+      },
       "sinceLastLoginTitle": "Since last visit",
       "activityEmptyTitle": "No verified activity since your last visit",
       "activityEmptyBody": "Aipify shows organization activity here when verified signals are available.",
@@ -1597,11 +1616,16 @@
       "integrationSignalMeta": "{events} events · {alerts} alerts",
       "orgNameUnavailable": "Organization unavailable",
       "nextActionTitle": "Recommended next action",
-      "nextActionEmptyTitle": "No recommended action right now",
-      "nextActionEmptyBody": "Aipify will suggest a next step when verified signals require it.",
+      "nextActionEmptyTitle": "✅ Everything is up to date",
+      "nextActionEmptyBody": "You have no recommended actions right now.",
       "nextActionReason": "Reason",
       "nextActionValue": "Expected value",
       "nextActionArea": "Responsible area",
+      "nextAction": {
+        "actions": {
+          "continueSetup": "Continue setup →"
+        }
+      },
       "companionTitle": "Aipify Companion",
       "companionStatusReady": "Ready to help",
       "companionIntro": "I am ready to help with status, follow-ups, integrations, and next steps.",

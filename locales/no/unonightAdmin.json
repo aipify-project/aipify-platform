@@ -1,0 +1,64 @@
+{
+  "aipifyConnection": {
+    "title": "Aipify skrivebeskyttet tilkobling",
+    "subtitle": "Opprett og administrer dedikerte skrivebeskyttede nøkler som lar Aipify verifisere Unonight-organisasjonen din — aldri medlemmer, meldinger eller betalinger.",
+    "eyebrow": "Integrasjoner",
+    "loading": "Laster tilkoblingsnøkler…",
+    "shell": {
+      "portalBadge": "Unonight Admin",
+      "portalTitle": "Integrasjoner · Aipify"
+    },
+    "help": {
+      "title": "Om denne tilkoblingsnøkkelen",
+      "what": "Dette er et dedikert skrivebeskyttet bearer-token for Aipify — ikke en Supabase service-nøkkel eller databaselegitimasjon.",
+      "reads": "Aipify leser kun trygg metadata: organisasjonsidentitet, integrasjonsstatus og godkjente skrivebeskyttede omfang.",
+      "notSupabase": "Lim aldri inn Supabase anon- eller service-role-nøkler her. Aipify godtar kun Unonight-utstedte skrivebeskyttede tilkoblingsnøkler.",
+      "revoke": "Tilbakekall en nøkkel her umiddelbart hvis den kan ha blitt eksponert. Fjern eller oppdater deretter tilkoblingen i Aipify Install.",
+      "connect": "Kopier nøkkelen én gang, åpne Aipify Install → Integrasjoner → Unonight, lim inn bearer-tokenet og kjør Test tilkobling."
+    },
+    "scopes": {
+      "title": "Skrivebeskyttede omfang",
+      "metadataRead": "Organisasjonsmetadata og miljøsammendrag",
+      "organizationRead": "Organisasjonsidentitet for leietakermatching",
+      "integrationStatusRead": "Integrasjonstilkoblingsstatus (ingen operative poster)"
+    },
+    "form": {
+      "nameLabel": "Tilkoblingsnavn",
+      "namePlaceholder": "Aipify produksjon skrivebeskyttet",
+      "create": "Opprett skrivebeskyttet nøkkel",
+      "creating": "Oppretter…"
+    },
+    "reveal": {
+      "title": "Kopier tilkoblingsnøkkelen nå",
+      "warning": "Dette bearer-tokenet vises kun én gang. Lagre det sikkert og lim det inn i Aipify. Det kan ikke hentes igjen.",
+      "copy": "Kopier nøkkel",
+      "copied": "Kopiert",
+      "dismiss": "Jeg har lagret nøkkelen"
+    },
+    "table": {
+      "name": "Tilkoblingsnøkler",
+      "scopes": "Omfang",
+      "status": "Status",
+      "lastUsed": "Sist brukt",
+      "created": "Opprettet",
+      "actions": "Handlinger",
+      "empty": "Ingen tilkoblingsnøkler ennå. Opprett en skrivebeskyttet nøkkel for å koble til Aipify.",
+      "never": "Aldri"
+    },
+    "status": {
+      "active": "Aktiv",
+      "revoked": "Tilbakekalt",
+      "rotated": "Rotert"
+    },
+    "actions": {
+      "revoke": "Tilbakekall",
+      "rotate": "Roter",
+      "revoking": "Tilbakekaller…",
+      "rotating": "Roterer…"
+    },
+    "errors": {
+      "generic": "Noe uventet skjedde. Prøv igjen.",
+      "unauthorized": "Du har ikke tillatelse til å administrere Aipify-tilkoblingsnøkler."
+    }
+  }
+}

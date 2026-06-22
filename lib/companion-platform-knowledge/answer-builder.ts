@@ -12,6 +12,8 @@ import type {
   PlatformKnowledgeAction,
   PlatformKnowledgeAnswer,
   PlatformKnowledgeSource,
+  PlatformKnowledgeSourceKind,
+  PlatformKnowledgeSourceRef,
   ResolvedPlatformArticle,
 } from "./types";
 
@@ -67,6 +69,57 @@ export function buildActionsForArticle(
   return filterActionsByPermission(actions, ctx);
 }
 
+function mapSourceKind(source: PlatformKnowledgeSource): PlatformKnowledgeSourceKind {
+  switch (source) {
+    case "route_match":
+      return "route_registry";
+    case "knowledge_center":
+      return "knowledge_center";
+    case "customer_context":
+      return "customer_context";
+    default:
+      return "platform_corpus";
+  }
+}
+
+export function buildSourcesForAnswer(
+  article: ResolvedPlatformArticle,
+  source: PlatformKnowledgeSource,
+  t: Translator,
+): PlatformKnowledgeSourceRef[] {
+  const refs: PlatformKnowledgeSourceRef[] = [
+    {
+      id: article.id,
+      label: article.title,
+      kind: mapSourceKind(source),
+    },
+  ];
+
+  if (source === "knowledge_center") {
+    refs.push({
+      id: "knowledge-center",
+      label: t("customerApp.companionPlatformKnowledge.sources.knowledgeCenter"),
+      kind: "knowledge_center",
+    });
+  }
+
+  if (article.primaryRouteKey) {
+    const route = getPlatformRouteByKey(article.primaryRouteKey);
+    if (route) {
+      const routeLabel = t(route.titleKey);
+      if (!refs.some((ref) => ref.id === route.routeKey)) {
+        refs.push({
+          id: route.routeKey,
+          label: routeLabel,
+          kind: "route_registry",
+        });
+      }
+    }
+  }
+
+  return refs;
+}
+
 export function buildPlatformAnswer(
   article: ResolvedPlatformArticle,
   t: Translator,
@@ -110,9 +163,11 @@ export function buildPlatformAnswer(
     status,
     steps: article.steps,
     actions,
+    sources: buildSourcesForAnswer(article, options.source, t),
     sourceId: article.id,
     source: options.source,
     confidence: options.confidence,
+    showSupportEscalation: options.confidence === "low",
   };
 }
 
@@ -134,9 +189,17 @@ export function buildFallbackAnswer(t: Translator, ctx: PermissionContext): Plat
       t("customerApp.companionPlatformKnowledge.fallback.step2"),
     ].filter(Boolean),
     actions,
+    sources: [
+      {
+        id: "platform-fallback",
+        label: t("customerApp.companionPlatformKnowledge.sources.platformGuide"),
+        kind: "platform_corpus",
+      },
+    ],
     sourceId: "platform-fallback",
     source: "fallback",
     confidence: "moderate",
+    showSupportEscalation: true,
   };
 }
 

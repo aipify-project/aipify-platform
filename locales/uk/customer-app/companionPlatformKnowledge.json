@@ -13,7 +13,8 @@
       "restrictedAction": "Some actions require owner or admin access. Contact your organization administrator if you need help."
     },
     "sources": {
-      "knowledgeCenter": "Based on approved Knowledge Center documentation."
+      "knowledgeCenter": "Based on approved Knowledge Center documentation.",
+      "platformGuide": "Aipify platform knowledge guide"
     },
     "fallback": {
       "directAnswer": "Aipify can guide you through the APP portal — navigation, billing, team, security, integrations, and support.",
@@ -47,7 +48,9 @@
       "preferences": "Open Preferences",
       "profile": "Open Profile",
       "apiAccess": "API Access",
-      "activityOverview": "Activity Overview"
+      "activityOverview": "Activity Overview",
+      "viewIntegrations": "View integrations",
+      "readSecureConnection": "Read about secure connection"
     },
     "routes": {
       "appDashboard": {
@@ -303,7 +306,7 @@
         "explanation": "Treat API keys as secrets. Rotate keys through Developer settings when needed.",
         "step1": "Open Platform → API Access.",
         "step2": "Create or rotate keys following your security policy.",
-        "searchTerms": "api|api access|developer|api key"
+        "searchTerms": "api key|api access|developer access|api credentials|api-nøkkel admin"
       },
       "approvals": {
         "title": "Approvals",
@@ -325,6 +328,46 @@
         "explanation": "Language applies across the APP portal, Companion, and notifications.",
         "step1": "Open Account → Preferences and select your language.",
         "searchTerms": "language|språk|locale|change language"
+      },
+      "whatIsApi": {
+        "title": "What is an API?",
+        "directAnswer": "An API is a secure way for two systems to communicate with each other. Aipify can use an API to retrieve approved information from your website, online store, or administration system. Access is limited to what your organization has approved, and read-only access should be used first so Aipify can retrieve information without changing anything.",
+        "explanation": "APIs are the connection layer between systems — not the same as finding API keys in admin settings.",
+        "searchTerms": "hva er api|hva er et api|what is api|what is an api|define api|api meaning"
+      },
+      "findApiKey": {
+        "title": "Find your API key",
+        "directAnswer": "API keys are under Platform → API Access. Owners and admins can view and manage credentials there.",
+        "explanation": "Only share keys with approved systems and rotate them when access changes.",
+        "step1": "Open Platform → API Access.",
+        "step2": "Locate the active key or create a new one if permitted.",
+        "searchTerms": "find api key|hvor finner jeg api-nøkkel|where is api key|api key location"
+      },
+      "createApiKey": {
+        "title": "Create an API key",
+        "directAnswer": "Create or rotate API keys under Platform → API Access. Owners and admins can generate credentials following your security policy.",
+        "explanation": "Store keys securely and revoke unused keys promptly.",
+        "step1": "Open Platform → API Access.",
+        "step2": "Select Create key or Rotate key.",
+        "step3": "Copy the key once and store it in your approved secret manager.",
+        "searchTerms": "create api key|opprette api-nøkkel|generate api key|new api key"
+      },
+      "connectSystem": {
+        "title": "Connect a system to Aipify",
+        "directAnswer": "Connect customer systems from Platform → Connect Integration. Start with read-only access and approve expanded permissions when ready.",
+        "explanation": "Aipify learns approved metadata from connected systems — humans approve activation.",
+        "step1": "Open Platform → Connect Integration.",
+        "step2": "Choose your platform and complete authorization.",
+        "step3": "Review discovered capabilities before activating.",
+        "searchTerms": "connect system|koble system|integrate system|tilkoble system|connect to aipify"
+      },
+      "aipifyDataAccess": {
+        "title": "What Aipify can access",
+        "directAnswer": "Aipify accesses only approved metadata and operational context required for your licensed modules. Integrations start read-only, sensitive actions require approval, and your organization controls connected systems.",
+        "explanation": "Customer data stays with the customer. Aipify stores intelligence patterns — not raw private records unless explicitly approved.",
+        "step1": "Review connected integrations under Platform → Integrations.",
+        "step2": "Open Account → Security for access and audit visibility.",
+        "searchTerms": "hva får aipify tilgang|what does aipify access|data access|tilgang aipify|what can aipify see"
       }
     }
   }

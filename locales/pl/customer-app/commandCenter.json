@@ -949,7 +949,7 @@
       }
     },
     "commandBriefOverview": {
-      "title": "Command Brief",
+      "title": "Twój przegląd",
       "subtitle": "Co się wydarzyło, co wymaga uwagi i co Aipify rekomenduje dalej.",
       "contextVerified": "Zweryfikowany kontekst organizacji",
       "contextReadOnly": "Tryb obserwacji tylko do odczytu",
@@ -965,6 +965,7 @@
       "kpiAttentionDesc": "Elementy mogące wymagać Twojej oceny.",
       "kpiApprovalDesc": "Decyzje wymagają zatwierdzenia, zanim praca może być kontynuowana.",
       "kpiHealthDesc": "Łączna kondycja ze zweryfikowanych sygnałów.",
+      "kpiNextActionDesc": "Jeden zweryfikowany następny krok z Twojej organizacji.",
       "kpiNone": "Aktualne",
       "kpiActive": "Aktywne",
       "kpiHealthUnavailable": "Niedostępne",
@@ -981,11 +982,29 @@
         "healthModerate": "Umiarkowana",
         "healthLow": "Wymaga uwagi",
         "healthCritical": "Krytyczna",
-        "healthUnavailable": "Niedostępne"
+        "healthUnavailable": "Niedostępne",
+        "nextActionZero": "Wszystko na bieżąco",
+        "nextActionActive": "Działanie gotowe"
       },
       "attentionTitle": "Wymaga uwagi",
-      "attentionEmptyTitle": "Żadne krytyczne sprawy nie wymagają teraz uwagi",
-      "attentionEmptyBody": "Aipify nadal monitoruje i powiadomi Cię, gdy coś się zmieni.",
+      "attentionEmptyTitle": "Brak otwartych spraw",
+      "attentionEmptyBody": "Żadne krytyczne sprawy nie wymagają teraz uwagi. Aipify nadal monitoruje i powiadomi Cię, gdy coś się zmieni.",
+      "attention": {
+        "viewAll": "Zobacz wszystkie sprawy",
+        "viewDetails": "Zobacz szczegóły",
+        "moduleArea": "Obszar",
+        "responsible": "Odpowiedzialny",
+        "updated": "Zaktualizowano",
+        "severity": {
+          "critical": "Krytyczne",
+          "attention": "Wymaga uwagi",
+          "waiting": "Oczekuje",
+          "info": "Informacja"
+        },
+        "actions": {
+          "reviewIntegration": "Przejrzyj integrację"
+        }
+      },
       "sinceLastLoginTitle": "Od ostatniej wizyty",
       "activityEmptyTitle": "Brak zweryfikowanej aktywności od ostatniej wizyty",
       "activityEmptyBody": "Aipify pokaże tutaj aktywność organizacji, gdy dostępne będą zweryfikowane sygnały.",
@@ -999,11 +1018,16 @@
       "integrationSignalMeta": "{events} zdarzeń · {alerts} alertów",
       "orgNameUnavailable": "Organizacja niedostępna",
       "nextActionTitle": "Zalecane następne działanie",
-      "nextActionEmptyTitle": "Brak zalecanego działania",
-      "nextActionEmptyBody": "Aipify zaproponuje następny krok, gdy zweryfikowane sygnały tego wymagają.",
+      "nextActionEmptyTitle": "✅ Wszystko na bieżąco",
+      "nextActionEmptyBody": "Nie masz teraz żadnych zalecanych działań.",
       "nextActionReason": "Powód",
       "nextActionValue": "Oczekiwana wartość",
       "nextActionArea": "Obszar odpowiedzialności",
+      "nextAction": {
+        "actions": {
+          "continueSetup": "Kontynuuj konfigurację →"
+        }
+      },
       "companionTitle": "Aipify Companion",
       "companionStatusReady": "Gotowy do pomocy",
       "companionIntro": "Jestem gotowy pomóc ze statusem, działaniami, integracjami i kolejnymi krokami.",

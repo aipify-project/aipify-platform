@@ -1,0 +1,64 @@
+{
+  "aipifyConnection": {
+    "title": "Aipify skrivskyddad anslutning",
+    "subtitle": "Skapa och hantera dedikerade skrivskyddade nycklar som låter Aipify verifiera din Unonight-organisation — aldrig medlemmar, meddelanden eller betalningar.",
+    "eyebrow": "Integrationer",
+    "loading": "Laddar anslutningsnycklar…",
+    "shell": {
+      "portalBadge": "Unonight Admin",
+      "portalTitle": "Integrationer · Aipify"
+    },
+    "help": {
+      "title": "Om denna anslutningsnyckel",
+      "what": "Detta är en dedikerad skrivskyddad bearer-token för Aipify — inte en Supabase service-nyckel eller databaslegitimation.",
+      "reads": "Aipify läser endast säker metadata: organisationsidentitet, integrationsstatus och godkända skrivskyddade omfattningar.",
+      "notSupabase": "Klistra aldrig in Supabase anon- eller service-role-nycklar här. Aipify accepterar endast Unonight-utfärdade skrivskyddade anslutningsnycklar.",
+      "revoke": "Återkalla en nyckel här omedelbart om den kan ha exponerats. Ta sedan bort eller uppdatera anslutningen i Aipify Install.",
+      "connect": "Kopiera nyckeln en gång, öppna Aipify Install → Integrationer → Unonight, klistra in bearer-tokenet och kör Testa anslutning."
+    },
+    "scopes": {
+      "title": "Skrivskyddade omfattningar",
+      "metadataRead": "Organisationsmetadata och miljösammanfattning",
+      "organizationRead": "Organisationsidentitet för hyresgästmatchning",
+      "integrationStatusRead": "Integrationsanslutningsstatus (inga operativa poster)"
+    },
+    "form": {
+      "nameLabel": "Anslutningsnamn",
+      "namePlaceholder": "Aipify produktion skrivskyddad",
+      "create": "Skapa skrivskyddad nyckel",
+      "creating": "Skapar…"
+    },
+    "reveal": {
+      "title": "Kopiera din anslutningsnyckel nu",
+      "warning": "Denna bearer-token visas endast en gång. Spara den säkert och klistra in den i Aipify. Den kan inte hämtas igen.",
+      "copy": "Kopiera nyckel",
+      "copied": "Kopierad",
+      "dismiss": "Jag har sparat nyckeln"
+    },
+    "table": {
+      "name": "Anslutningsnycklar",
+      "scopes": "Omfattningar",
+      "status": "Status",
+      "lastUsed": "Senast använd",
+      "created": "Skapad",
+      "actions": "Åtgärder",
+      "empty": "Inga anslutningsnycklar ännu. Skapa en skrivskyddad nyckel för att ansluta Aipify.",
+      "never": "Aldrig"
+    },
+    "status": {
+      "active": "Aktiv",
+      "revoked": "Återkallad",
+      "rotated": "Roterad"
+    },
+    "actions": {
+      "revoke": "Återkalla",
+      "rotate": "Rotera",
+      "revoking": "Återkallar…",
+      "rotating": "Roterar…"
+    },
+    "errors": {
+      "generic": "Något oväntat inträffade. Försök igen.",
+      "unauthorized": "Du har inte behörighet att hantera Aipify-anslutningsnycklar."
+    }
+  }
+}

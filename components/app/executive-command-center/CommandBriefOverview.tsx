@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useOptionalCompanionExperience } from "@/components/app/companion-experience/CompanionExperienceProvider";
 import { CompanionIcon } from "@/components/app/companion-experience/CompanionIcon";
-import { ExecutiveMetricCard, PriorityRecommendationCard } from "@/components/app/design";
+import { ExecutiveMetricCard } from "@/components/app/design";
 import { SemanticBadge } from "@/components/ui/semantic-badge";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import { formatDateTime } from "@/lib/i18n/format-date";
@@ -13,9 +13,11 @@ import {
   resolveAttentionKpiStatus,
   resolveAwaitingApprovalKpiStatus,
   resolveHealthKpiStatus,
+  resolveNextActionKpiStatus,
   resolvePreparedKpiStatus,
   resolveSinceLastLoginKpiStatus,
 } from "@/lib/command-center/command-brief-kpi-status";
+import type { CommandBriefAttentionItem } from "@/lib/command-center/command-brief-attention";
 import type { CommandCenterItem } from "@/lib/command-center/ecc-tab-datasets";
 import type {
   CommandBriefIntegrationSignal,
@@ -25,6 +27,7 @@ import type { SinceLastLoginEvent } from "@/lib/command-center/since-last-login"
 import type { buildExecutiveCommandCenterLabels } from "@/lib/executive-command-center-engine/labels";
 import { mapUserRoleToOrganizationRole, roleHasPermission } from "@/lib/core/organization";
 import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardProfileProvider";
+import { CommandBriefAttentionCard } from "./CommandBriefAttentionCard";
 import { EccTabIcons } from "./ecc-tab-icons";
 
 type Labels = ReturnType<typeof buildExecutiveCommandCenterLabels>;
@@ -82,9 +85,10 @@ function CompactSummaryList({
 
 type CommandBriefCompanionCardProps = {
   labels: OverviewLabels;
+  className?: string;
 };
 
-export function CommandBriefCompanionCard({ labels }: CommandBriefCompanionCardProps) {
+export function CommandBriefCompanionCard({ labels, className = "" }: CommandBriefCompanionCardProps) {
   const companion = useOptionalCompanionExperience();
   const profile = useOptionalDashboardProfile();
   const [query, setQuery] = useState("");
@@ -109,7 +113,7 @@ export function CommandBriefCompanionCard({ labels }: CommandBriefCompanionCardP
 
   return (
     <article
-      className={`${AppPremiumShell.elevatedCard} relative h-full overflow-hidden border-violet-100 bg-gradient-to-br from-violet-50/70 to-white p-6 lg:p-7`}
+      className={`${AppPremiumShell.elevatedCard} relative flex h-full min-h-0 flex-col overflow-hidden border-violet-100 bg-gradient-to-br from-violet-50/70 to-white p-5 shadow-md ring-1 ring-violet-100/80 sm:p-6 lg:p-7 ${className}`}
     >
       <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-violet-100/60" aria-hidden="true" />
       <div className="relative flex items-start gap-4">
@@ -132,7 +136,7 @@ export function CommandBriefCompanionCard({ labels }: CommandBriefCompanionCardP
         </div>
       </div>
 
-      <div className="relative mt-6 space-y-4">
+      <div className="relative mt-5 flex min-h-0 flex-1 flex-col space-y-4 overflow-y-auto">
         <label className="block">
           <span className="sr-only">{labels.companionInputLabel}</span>
           <input
@@ -194,7 +198,9 @@ type CommandBriefOverviewProps = {
   labels: Labels;
   locale: string;
   kpis: CommandBriefKpiCounts;
-  attentionItems: CommandCenterItem[];
+  attentionItems: CommandBriefAttentionItem[];
+  attentionTotalCount: number;
+  attentionSeeAllHref: string;
   activityFeed: SinceLastLoginEvent[];
   nextAction: CommandCenterItem | null;
   alertSummary: CommandCenterItem[];
@@ -208,6 +214,8 @@ export function CommandBriefOverview({
   locale,
   kpis,
   attentionItems,
+  attentionTotalCount,
+  attentionSeeAllHref,
   activityFeed,
   nextAction,
   alertSummary,
@@ -233,14 +241,17 @@ export function CommandBriefOverview({
   const attentionStatus = resolveAttentionKpiStatus(kpis.requiresAttention, kpiStatus);
   const approvalStatus = resolveAwaitingApprovalKpiStatus(kpis.awaitingApproval, kpiStatus);
   const healthStatus = resolveHealthKpiStatus(healthScore, kpiStatus);
+  const nextActionStatus = resolveNextActionKpiStatus(nextAction != null, kpiStatus);
+  const nextActionValue = nextAction?.title ?? o.nextActionEmptyTitle;
+  const nextActionDescription = nextAction
+    ? nextAction.description?.trim() || o.kpiNextActionDesc
+    : o.nextActionEmptyBody;
+  const nextActionHref = nextAction?.href;
 
-  return (
-    <div className={`${AppPremiumShell.commandBriefGrid} w-full min-w-0`}>
-      {/* KPI row — 5 cards: 1 col mobile · 2 tablet · 3 lg · 5 xl */}
-      <section
-        aria-label={o.title}
-        className="col-span-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
-      >
+  const landingKpiCards = [
+    {
+      key: "since-last-login",
+      card: (
         <ExecutiveMetricCard
           icon={EccTabIcons.history}
           label={o.kpiSinceLastLogin}
@@ -250,6 +261,11 @@ export function CommandBriefOverview({
           descriptionClassName={metricDescriptionClass}
           {...sinceLastLoginStatus}
         />
+      ),
+    },
+    {
+      key: "prepared",
+      card: (
         <ExecutiveMetricCard
           icon={EccTabIcons.action}
           label={o.kpiPrepared}
@@ -259,6 +275,11 @@ export function CommandBriefOverview({
           descriptionClassName={metricDescriptionClass}
           {...preparedStatus}
         />
+      ),
+    },
+    {
+      key: "attention",
+      card: (
         <ExecutiveMetricCard
           icon={EccTabIcons.alerts}
           label={o.kpiAttention}
@@ -268,6 +289,11 @@ export function CommandBriefOverview({
           descriptionClassName={metricDescriptionClass}
           {...attentionStatus}
         />
+      ),
+    },
+    {
+      key: "approval",
+      card: (
         <ExecutiveMetricCard
           icon={EccTabIcons.approvals}
           label={o.kpiApproval}
@@ -278,6 +304,11 @@ export function CommandBriefOverview({
           href={approvalsHref}
           {...approvalStatus}
         />
+      ),
+    },
+    {
+      key: "health",
+      card: (
         <ExecutiveMetricCard
           icon={EccTabIcons.health}
           label={o.kpiHealth}
@@ -287,36 +318,99 @@ export function CommandBriefOverview({
           descriptionClassName={metricDescriptionClass}
           {...healthStatus}
         />
+      ),
+    },
+    {
+      key: "next-action",
+      card: (
+        <ExecutiveMetricCard
+          icon={EccTabIcons.action}
+          label={o.nextActionTitle}
+          value={nextActionValue}
+          description={nextActionDescription}
+          labelClassName={metricLabelClass}
+          descriptionClassName={metricDescriptionClass}
+          href={nextActionHref}
+          {...nextActionStatus}
+        />
+      ),
+    },
+  ] as const;
+
+  return (
+    <div className={`${AppPremiumShell.commandBriefGrid} w-full min-w-0`}>
+      <section
+        aria-label={o.title}
+        className="col-span-12 lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-6"
+      >
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3 lg:gap-4 lg:auto-rows-fr">
+          {landingKpiCards.slice(0, 3).map((item) => (
+            <div key={item.key} className="min-h-0">
+              {item.card}
+            </div>
+          ))}
+
+          <div className="lg:hidden">
+            <CommandBriefCompanionCard labels={o} className="min-h-[320px] max-h-[min(70vh,640px)]" />
+          </div>
+
+          {landingKpiCards.slice(3).map((item) => (
+            <div key={item.key} className="min-h-0">
+              {item.card}
+            </div>
+          ))}
+        </div>
+
+        <aside
+          aria-label={o.companionTitle}
+          className="pointer-coarse:static hidden lg:col-span-4 lg:col-start-9 lg:row-start-1 lg:flex lg:min-h-0 lg:flex-col xl:sticky xl:top-24 xl:max-h-[calc(100vh-6rem)] xl:self-start [@media(max-height:720px)]:static [@media(max-height:720px)]:max-h-none"
+        >
+          <CommandBriefCompanionCard labels={o} className="min-h-[320px] max-h-[inherit] flex-1" />
+        </aside>
       </section>
 
-      {/* Main 8 + sidebar 4 */}
-      <div className="col-span-12 grid grid-cols-12 gap-6 lg:gap-8">
-        <div className="col-span-12 space-y-6 lg:col-span-8 lg:space-y-8">
+      <div className="col-span-12 space-y-6 lg:space-y-8">
           <section id="ecc-attention" aria-labelledby="ecc-attention-title" className="space-y-4">
-            <h2 id="ecc-attention-title" className={AppPremiumShell.commandBriefSectionTitle}>
-              {o.attentionTitle}
-            </h2>
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <h2 id="ecc-attention-title" className={AppPremiumShell.commandBriefSectionTitle}>
+                {o.attentionTitle}
+              </h2>
+              {attentionTotalCount > attentionItems.length ? (
+                <Link
+                  href={attentionSeeAllHref}
+                  className={`text-base font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
+                >
+                  {o.attentionViewAll} →
+                </Link>
+              ) : null}
+            </div>
             {attentionItems.length === 0 ? (
               <div className={`${AppPremiumShell.elevatedCard} p-5 sm:p-6`}>
-                <p className="text-base font-medium text-aipify-text">{o.attentionEmptyTitle}</p>
-                <p className={`mt-2 ${AppPremiumShell.commandBriefBody}`}>{o.attentionEmptyBody}</p>
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 text-lg text-emerald-600" aria-hidden="true">
+                    ✓
+                  </span>
+                  <div>
+                    <p className="text-base font-medium text-aipify-text">{o.attentionEmptyTitle}</p>
+                    <p className={`mt-2 ${AppPremiumShell.commandBriefBody}`}>{o.attentionEmptyBody}</p>
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="space-y-4">
                 {attentionItems.map((item) => (
-                  <PriorityRecommendationCard
+                  <CommandBriefAttentionCard
                     key={item.dedupeKey}
-                    category={item.source ?? item.itemType ?? labels.premium.recommendationCategory}
-                    title={item.title}
-                    description={item.description}
-                    severityValue={item.primaryBadge.value}
-                    severityLabel={resolveLabel(item.primaryBadge.labelKey)}
-                    workflowValue={item.secondaryBadge?.value}
-                    workflowLabel={
-                      item.secondaryBadge ? resolveLabel(item.secondaryBadge.labelKey) : undefined
-                    }
-                    actionHref={item.href}
-                    actionLabel={resolveLabel(item.actionLabelKey)}
+                    item={item}
+                    locale={locale}
+                    labels={{
+                      moduleArea: o.attentionModuleArea,
+                      responsible: o.attentionResponsible,
+                      updated: o.attentionUpdated,
+                      viewDetails: o.attentionViewDetails,
+                    }}
+                    resolveLabel={resolveLabel}
+                    canAccessApprovals={canAccessApprovals}
                   />
                 ))}
               </div>
@@ -449,51 +543,6 @@ export function CommandBriefOverview({
             </section>
           ) : null}
 
-          <div className="lg:hidden">
-            <CommandBriefCompanionCard labels={o} />
-          </div>
-        </div>
-
-        <aside className="col-span-12 flex flex-col gap-6 lg:col-span-4 lg:sticky lg:top-6 lg:self-start">
-          <div className="hidden lg:block">
-            <CommandBriefCompanionCard labels={o} />
-          </div>
-
-          <section aria-labelledby="ecc-next-action-title" className="space-y-3">
-            <h2 id="ecc-next-action-title" className={AppPremiumShell.commandBriefSectionTitle}>
-              {o.nextActionTitle}
-            </h2>
-            {nextAction ? (
-              <article className={`${AppPremiumShell.elevatedCard} space-y-3 p-5 sm:p-6`}>
-                <h3 className="text-lg font-semibold text-aipify-text">{nextAction.title}</h3>
-                <p className={AppPremiumShell.commandBriefBody}>{nextAction.description}</p>
-                {nextAction.valueLabel ? (
-                  <p className={AppPremiumShell.commandBriefMeta}>
-                    <span className="font-medium text-aipify-text-secondary">{o.nextActionValue}:</span>{" "}
-                    {nextAction.valueLabel}
-                  </p>
-                ) : null}
-                {nextAction.source ? (
-                  <p className={AppPremiumShell.commandBriefMeta}>
-                    <span className="font-medium text-aipify-text-secondary">{o.nextActionArea}:</span>{" "}
-                    {nextAction.source}
-                  </p>
-                ) : null}
-                <Link
-                  href={nextAction.href}
-                  className={`inline-flex min-h-11 items-center rounded-lg bg-aipify-companion px-4 py-2 text-base font-medium text-white hover:bg-aipify-companion-hover ${AppPremiumShell.focusRing}`}
-                >
-                  {resolveLabel(nextAction.actionLabelKey)}
-                </Link>
-              </article>
-            ) : (
-              <div className={`${AppPremiumShell.elevatedCard} px-4 py-4 sm:px-5 sm:py-5`}>
-                <p className="text-base font-medium text-aipify-text sm:text-lg">{o.nextActionEmptyTitle}</p>
-                <p className={`mt-2 ${AppPremiumShell.commandBriefBody}`}>{o.nextActionEmptyBody}</p>
-              </div>
-            )}
-          </section>
-        </aside>
       </div>
     </div>
   );

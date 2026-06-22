@@ -37,6 +37,15 @@ const NORWEGIAN_ACCEPTANCE_QUESTIONS = [
   "Hvor holder Aipify Group AS til?",
   "Hva er et Business Pack?",
   "Hvordan ser jeg hva som har skjedd siden sist?",
+  "Hva er et API?",
+  "Hvor finner jeg API-nøkkelen?",
+  "Hvordan kan Aipify hjelpe meg?",
+  "Hvor finner jeg fakturaene mine?",
+  "Hvordan oppgraderer jeg abonnementet?",
+  "Hva får Aipify tilgang til?",
+  "Hvordan kobler jeg til en nettbutikk?",
+  "Hvordan oppretter jeg en API-nøkkel?",
+  "Hvordan kobler jeg et system til Aipify?",
 ] as const;
 
 const ENGLISH_ACCEPTANCE_QUESTIONS = [
@@ -88,7 +97,7 @@ async function runTests() {
 
   assert.equal(getCanonicalPricingSource(), "lib/marketing/public-pricing.ts");
   assert.ok(getPublishedPlanPrices().starter.amount > 0);
-  assert.equal(PLATFORM_KNOWLEDGE_CORPUS.length, 26);
+  assert.equal(PLATFORM_KNOWLEDGE_CORPUS.length, 31);
 
   for (const locale of LOCALES) {
     const split = loadSplit(locale);
@@ -111,6 +120,15 @@ async function runTests() {
     assert.ok(result.answer.directAnswer.length > 20, `empty answer for: ${question}`);
     assert.notEqual(result.answer.directAnswer.toLowerCase(), "no approved knowledge found");
     assert.ok(result.answer.actions.length > 0, `no actions for: ${question}`);
+    assert.ok(result.answer.sources.length > 0, `no sources for: ${question}`);
+
+    if (question.toLowerCase().includes("hva er et api")) {
+      assert.equal(result.matchedArticleId, "what-is-api", `wrong intent for: ${question}`);
+      assert.ok(
+        !result.answer.actions.some((a) => a.routeKey === "apiAccess"),
+        `definition should not route to API Access for: ${question}`,
+      );
+    }
 
     for (const action of result.answer.actions) {
       assert.ok(action.href.startsWith("/app/"), `invalid href ${action.href} for: ${question}`);

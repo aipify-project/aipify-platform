@@ -1569,7 +1569,7 @@
       }
     },
     "commandBriefOverview": {
-      "title": "Command Brief",
+      "title": "Din översikt",
       "subtitle": "Det som har hänt, det som kräver uppmärksamhet och vad Aipify rekommenderar härnäst.",
       "contextVerified": "Verifierad organisationskontext",
       "contextReadOnly": "Skrivskyddat observationsläge",
@@ -1585,6 +1585,7 @@
       "kpiAttentionDesc": "Poster som kan kräva din granskning.",
       "kpiApprovalDesc": "Beslut måste godkännas innan arbetet kan fortsätta.",
       "kpiHealthDesc": "Samlad hälsa baserad på verifierade signaler.",
+      "kpiNextActionDesc": "Ett verifierat nästa steg från din organisation.",
       "kpiNone": "Uppdaterad",
       "kpiActive": "Aktiv",
       "kpiHealthUnavailable": "Otillgänglig",
@@ -1601,11 +1602,29 @@
         "healthModerate": "Måttlig",
         "healthLow": "Kräver uppmärksamhet",
         "healthCritical": "Kritisk",
-        "healthUnavailable": "Otillgänglig"
+        "healthUnavailable": "Otillgänglig",
+        "nextActionZero": "Allt är uppdaterat",
+        "nextActionActive": "Åtgärd redo"
       },
       "attentionTitle": "Kräver uppmärksamhet",
-      "attentionEmptyTitle": "Inga kritiska ärenden kräver uppmärksamhet just nu",
-      "attentionEmptyBody": "Aipify fortsätter att övervaka och meddelar dig om något ändras.",
+      "attentionEmptyTitle": "Inga öppna ärenden",
+      "attentionEmptyBody": "Inga kritiska ärenden kräver uppmärksamhet just nu. Aipify fortsätter att övervaka och meddelar dig om något ändras.",
+      "attention": {
+        "viewAll": "Visa alla ärenden",
+        "viewDetails": "Visa detaljer",
+        "moduleArea": "Område",
+        "responsible": "Ansvarig",
+        "updated": "Uppdaterad",
+        "severity": {
+          "critical": "Kritisk",
+          "attention": "Kräver uppmärksamhet",
+          "waiting": "Väntar",
+          "info": "Information"
+        },
+        "actions": {
+          "reviewIntegration": "Granska integration"
+        }
+      },
       "sinceLastLoginTitle": "Sedan sist",
       "activityEmptyTitle": "Ingen verifierad aktivitet sedan senaste besöket",
       "activityEmptyBody": "Aipify visar organisationsaktivitet här när verifierade signaler finns tillgängliga.",
@@ -1619,11 +1638,16 @@
       "integrationSignalMeta": "{events} händelser · {alerts} varningar",
       "orgNameUnavailable": "Organisation otillgänglig",
       "nextActionTitle": "Rekommenderad nästa åtgärd",
-      "nextActionEmptyTitle": "Ingen rekommenderad åtgärd just nu",
-      "nextActionEmptyBody": "Aipify föreslår nästa steg när verifierade signaler kräver det.",
+      "nextActionEmptyTitle": "✅ Allt är uppdaterat",
+      "nextActionEmptyBody": "Du har inga rekommenderade åtgärder just nu.",
       "nextActionReason": "Orsak",
       "nextActionValue": "Förväntat värde",
       "nextActionArea": "Ansvarigt område",
+      "nextAction": {
+        "actions": {
+          "continueSetup": "Fortsätt installationen →"
+        }
+      },
       "companionTitle": "Aipify Companion",
       "companionStatusReady": "Redo att hjälpa",
       "companionIntro": "Jag är redo att hjälpa dig med status, uppföljning, integrationer och nästa steg.",

@@ -71,6 +71,7 @@ export const NAMESPACES = [
   "companionActionApproval",
   "desktopCompanion",
   "commandBar",
+  "unonightAdmin",
 ] as const;
 
 export type Namespace = (typeof NAMESPACES)[number];

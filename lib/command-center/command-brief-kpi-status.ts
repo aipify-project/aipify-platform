@@ -18,6 +18,8 @@ export type CommandBriefKpiStatusLabels = {
   healthLow: string;
   healthCritical: string;
   healthUnavailable: string;
+  nextActionZero: string;
+  nextActionActive: string;
 };
 
 export type CommandBriefKpiStatus = {
@@ -144,5 +146,25 @@ export function resolveHealthKpiStatus(
     semanticValue: badge.value,
     statusLabel,
     a11yLabel: statusLabel,
+  };
+}
+
+export function resolveNextActionKpiStatus(
+  hasAction: boolean,
+  labels: CommandBriefKpiStatusLabels
+): CommandBriefKpiStatus {
+  if (!hasAction) {
+    return {
+      semanticType: "workflow",
+      semanticValue: "completed",
+      statusLabel: labels.nextActionZero,
+      a11yLabel: labels.nextActionZero,
+    };
+  }
+  return {
+    semanticType: "workflow",
+    semanticValue: "in_progress",
+    statusLabel: labels.nextActionActive,
+    a11yLabel: labels.nextActionActive,
   };
 }

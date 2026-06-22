@@ -11,37 +11,61 @@ export type AppSectionTabItem = {
   icon: ReactNode;
 };
 
+export type AppSectionTabSize = "default" | "enterprise";
+
 type AppSectionTabsProps = {
   items: AppSectionTabItem[];
   activeKey: string;
   ariaLabel: string;
-  compact?: boolean;
+  size?: AppSectionTabSize;
 };
 
-export function AppSectionTabs({ items, activeKey, ariaLabel, compact = false }: AppSectionTabsProps) {
+const TAB_SIZE_CLASSES: Record<
+  AppSectionTabSize,
+  { link: string; icon: string; list: string }
+> = {
+  default: {
+    link: "min-h-10 gap-1.5 px-3 py-2 text-sm",
+    icon: "[&_svg]:size-4",
+    list: "gap-1 p-0.5 rounded-lg",
+  },
+  enterprise: {
+    link: "min-h-11 gap-2 px-3.5 py-2.5 text-sm",
+    icon: "[&_svg]:size-[1.125rem]",
+    list: "gap-1.5 p-1 rounded-xl",
+  },
+};
+
+export function AppSectionTabs({
+  items,
+  activeKey,
+  ariaLabel,
+  size = "default",
+}: AppSectionTabsProps) {
+  const sizing = TAB_SIZE_CLASSES[size];
+
   return (
     <nav aria-label={ariaLabel} className="-mx-1 overflow-x-auto px-1 pb-1">
       <ul
-        className={`flex min-w-max gap-1 rounded-lg border border-aipify-border bg-aipify-surface-muted p-0.5 sm:min-w-0 sm:flex-wrap ${
-          compact ? "shadow-none" : ""
-        }`}
+        className={`flex min-w-max flex-nowrap border border-aipify-border bg-aipify-surface-muted ${sizing.list}`}
       >
         {items.map((item) => {
           const active = item.key === activeKey;
           return (
-            <li key={item.key}>
+            <li key={item.key} className="shrink-0">
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`inline-flex items-center gap-1.5 rounded-md font-medium whitespace-nowrap transition-colors ${AppPremiumShell.focusRing} ${
-                  compact ? "min-h-9 px-2.5 py-1.5 text-xs" : "min-h-10 px-3 py-2 text-sm"
-                } ${
+                className={`inline-flex items-center rounded-lg font-medium whitespace-nowrap transition-colors ${sizing.link} ${AppPremiumShell.focusRing} ${
                   active
-                    ? "bg-aipify-companion text-white shadow-sm"
-                    : "text-aipify-text-secondary hover:bg-aipify-surface hover:text-aipify-text"
+                    ? "bg-aipify-companion font-semibold text-white shadow-sm"
+                    : "text-aipify-text-secondary hover:bg-aipify-surface hover:text-aipify-text focus-visible:bg-aipify-surface focus-visible:text-aipify-text"
                 }`}
               >
-                <span className={active ? "text-white" : "text-aipify-companion"} aria-hidden="true">
+                <span
+                  className={`shrink-0 ${active ? "text-white" : "text-aipify-companion"} ${sizing.icon}`}
+                  aria-hidden="true"
+                >
                   {item.icon}
                 </span>
                 {item.label}

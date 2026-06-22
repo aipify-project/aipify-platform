@@ -18,11 +18,27 @@ function parsePlatformAction(raw: unknown): PlatformKnowledgeAction | null {
   };
 }
 
+function parsePlatformSource(raw: unknown): PlatformKnowledgeAnswer["sources"][number] | null {
+  if (!raw || typeof raw !== "object") return null;
+  const row = raw as Record<string, unknown>;
+  const id = str(row.id);
+  const label = str(row.label);
+  if (!id || !label) return null;
+  return {
+    id,
+    label,
+    kind: str(row.kind, "platform_corpus") as PlatformKnowledgeAnswer["sources"][number]["kind"],
+  };
+}
+
 function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined {
   if (!raw || typeof raw !== "object") return undefined;
   const row = raw as Record<string, unknown>;
   const actions = Array.isArray(row.actions)
     ? row.actions.map(parsePlatformAction).filter((a): a is PlatformKnowledgeAction => a !== null)
+    : [];
+  const sources = Array.isArray(row.sources)
+    ? row.sources.map(parsePlatformSource).filter((s): s is NonNullable<ReturnType<typeof parsePlatformSource>> => s !== null)
     : [];
   return {
     directAnswer: str(row.directAnswer),
@@ -30,10 +46,12 @@ function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined 
     status: str(row.status) || undefined,
     steps: Array.isArray(row.steps) ? row.steps.map((s) => str(s)) : [],
     actions,
+    sources,
     sourceId: str(row.sourceId),
     source: str(row.source, "platform_corpus") as PlatformKnowledgeAnswer["source"],
     confidence: str(row.confidence, "moderate") as PlatformKnowledgeAnswer["confidence"],
     title: str(row.title) || undefined,
+    showSupportEscalation: row.showSupportEscalation === true,
   };
 }
 

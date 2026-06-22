@@ -1569,7 +1569,7 @@
       }
     },
     "commandBriefOverview": {
-      "title": "Command Brief",
+      "title": "Din oversikt",
       "subtitle": "Dette har skjedd, dette krever oppmerksomhet, og dette anbefaler Aipify videre.",
       "contextVerified": "Verifisert organisasjonskontekst",
       "contextReadOnly": "Skrivebeskyttet observasjonsmodus",
@@ -1585,6 +1585,7 @@
       "kpiAttentionDesc": "Elementer som kan kreve din vurdering.",
       "kpiApprovalDesc": "Beslutninger må godkjennes før arbeidet kan fortsette.",
       "kpiHealthDesc": "Samlet helse basert på verifiserte signaler.",
+      "kpiNextActionDesc": "Én verifisert neste handling fra organisasjonen din.",
       "kpiNone": "Oppdatert",
       "kpiActive": "Aktiv",
       "kpiHealthUnavailable": "Utilgjengelig",
@@ -1601,11 +1602,29 @@
         "healthModerate": "Moderat",
         "healthLow": "Krever oppmerksomhet",
         "healthCritical": "Kritisk",
-        "healthUnavailable": "Utilgjengelig"
+        "healthUnavailable": "Utilgjengelig",
+        "nextActionZero": "Alt er fulgt opp",
+        "nextActionActive": "Handling klar"
       },
       "attentionTitle": "Krever oppmerksomhet",
-      "attentionEmptyTitle": "Ingen kritiske saker krever oppmerksomhet akkurat nå",
-      "attentionEmptyBody": "Aipify følger fortsatt med og varsler deg dersom noe endrer seg.",
+      "attentionEmptyTitle": "Ingen åpne saker",
+      "attentionEmptyBody": "Ingen kritiske saker krever oppmerksomhet akkurat nå. Aipify følger fortsatt med og varsler deg dersom noe endrer seg.",
+      "attention": {
+        "viewAll": "Se alle saker",
+        "viewDetails": "Vis detaljer",
+        "moduleArea": "Område",
+        "responsible": "Ansvarlig",
+        "updated": "Oppdatert",
+        "severity": {
+          "critical": "Kritisk",
+          "attention": "Krever oppmerksomhet",
+          "waiting": "Venter",
+          "info": "Informasjon"
+        },
+        "actions": {
+          "reviewIntegration": "Gjennomgå integrasjon"
+        }
+      },
       "sinceLastLoginTitle": "Siden sist",
       "activityEmptyTitle": "Ingen verifisert aktivitet siden sist besøk",
       "activityEmptyBody": "Aipify viser organisasjonsaktivitet her når verifiserte signaler er tilgjengelige.",
@@ -1618,12 +1637,17 @@
       "integrationsSummaryTitle": "Integrasjonsstatus",
       "integrationSignalMeta": "{events} hendelser · {alerts} varsler",
       "orgNameUnavailable": "Organisasjon utilgjengelig",
-      "nextActionTitle": "Anbefalt neste handling",
-      "nextActionEmptyTitle": "Ingen anbefalt handling akkurat nå",
-      "nextActionEmptyBody": "Aipify foreslår neste steg når verifiserte signaler krever det.",
+      "nextActionTitle": "Neste anbefalte handling",
+      "nextActionEmptyTitle": "✅ Alt er fulgt opp",
+      "nextActionEmptyBody": "Du har ingen anbefalte handlinger akkurat nå.",
       "nextActionReason": "Årsak",
       "nextActionValue": "Forventet verdi",
       "nextActionArea": "Ansvarlig område",
+      "nextAction": {
+        "actions": {
+          "continueSetup": "Fortsett oppsettet →"
+        }
+      },
       "companionTitle": "Aipify Companion",
       "companionStatusReady": "Klar til å hjelpe",
       "companionIntro": "Jeg er klar til å hjelpe deg med status, oppfølginger, integrasjoner og neste steg.",

@@ -19,6 +19,7 @@ import {
   subscribeInstallPrompt,
 } from "@/lib/pwa/install-prompt-store";
 import {
+  createSsrWebAppInstallRuntimeSnapshot,
   readWebAppInstallRuntimeSnapshot,
   resolveWebAppInstallCardState,
   resolveWebAppInstallModalPhase,
@@ -47,7 +48,7 @@ type PwaInstallContextValue = {
 const PwaInstallContext = createContext<PwaInstallContextValue | null>(null);
 
 export function PwaInstallProvider({ children }: { children: ReactNode }) {
-  const [snapshot, setSnapshot] = useState(readWebAppInstallRuntimeSnapshot);
+  const [snapshot, setSnapshot] = useState(createSsrWebAppInstallRuntimeSnapshot);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalPhase, setModalPhase] = useState<WebAppInstallModalPhase>("benefits");
   const returnFocusRef = useRef<HTMLElement | null>(null);

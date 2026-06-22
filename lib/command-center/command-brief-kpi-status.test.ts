@@ -3,6 +3,7 @@ import {
   resolveAttentionKpiStatus,
   resolveAwaitingApprovalKpiStatus,
   resolveHealthKpiStatus,
+  resolveNextActionKpiStatus,
   resolvePreparedKpiStatus,
   resolveSinceLastLoginKpiStatus,
 } from "./command-brief-kpi-status";
@@ -21,6 +22,8 @@ const labels = {
   healthLow: "Needs attention",
   healthCritical: "Critical",
   healthUnavailable: "Unavailable",
+  nextActionZero: "All caught up",
+  nextActionActive: "Action ready",
 };
 
 assert.equal(resolveSinceLastLoginKpiStatus(0, labels).statusLabel, "No new events");
@@ -34,5 +37,7 @@ assert.equal(resolveAwaitingApprovalKpiStatus(2, labels).statusLabel, "2 awaitin
 assert.equal(resolveAwaitingApprovalKpiStatus(2, labels).semanticValue, "awaiting_approval");
 assert.equal(resolveHealthKpiStatus(76, labels).statusLabel, "Moderate");
 assert.equal(resolveHealthKpiStatus(null, labels).statusLabel, "Unavailable");
+assert.equal(resolveNextActionKpiStatus(false, labels).statusLabel, "All caught up");
+assert.equal(resolveNextActionKpiStatus(true, labels).statusLabel, "Action ready");
 
 console.log("command-brief-kpi-status.test.ts: all assertions passed");

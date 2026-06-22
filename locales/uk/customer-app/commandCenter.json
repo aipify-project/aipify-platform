@@ -949,7 +949,7 @@
       }
     },
     "commandBriefOverview": {
-      "title": "Command Brief",
+      "title": "Ваш огляд",
       "subtitle": "Що сталося, що потребує уваги та що Aipify рекомендує далі.",
       "contextVerified": "Перевірений контекст організації",
       "contextReadOnly": "Режим спостереження лише для читання",
@@ -965,6 +965,7 @@
       "kpiAttentionDesc": "Елементи, які можуть потребувати вашого перегляду.",
       "kpiApprovalDesc": "Рішення потрібно схвалити, перш ніж роботу можна продовжити.",
       "kpiHealthDesc": "Загальне здоров'я з перевірених сигналів.",
+      "kpiNextActionDesc": "Один перевірений наступний крок від вашої організації.",
       "kpiNone": "Актуально",
       "kpiActive": "Активно",
       "kpiHealthUnavailable": "Недоступно",
@@ -981,11 +982,29 @@
         "healthModerate": "Помірне",
         "healthLow": "Потребує уваги",
         "healthCritical": "Критичне",
-        "healthUnavailable": "Недоступно"
+        "healthUnavailable": "Недоступно",
+        "nextActionZero": "Усе виконано",
+        "nextActionActive": "Дія готова"
       },
       "attentionTitle": "Потребує уваги",
-      "attentionEmptyTitle": "Зараз немає критичних справ, що потребують уваги",
-      "attentionEmptyBody": "Aipify продовжує моніторинг і повідомить, якщо щось зміниться.",
+      "attentionEmptyTitle": "Немає відкритих справ",
+      "attentionEmptyBody": "Зараз немає критичних справ, що потребують уваги. Aipify продовжує моніторинг і повідомить, якщо щось зміниться.",
+      "attention": {
+        "viewAll": "Переглянути всі справи",
+        "viewDetails": "Переглянути деталі",
+        "moduleArea": "Область",
+        "responsible": "Відповідальний",
+        "updated": "Оновлено",
+        "severity": {
+          "critical": "Критично",
+          "attention": "Потребує уваги",
+          "waiting": "Очікує",
+          "info": "Інформація"
+        },
+        "actions": {
+          "reviewIntegration": "Переглянути інтеграцію"
+        }
+      },
       "sinceLastLoginTitle": "З останнього візиту",
       "activityEmptyTitle": "Немає перевіреної активності з останнього візиту",
       "activityEmptyBody": "Aipify покаже активність організації тут, коли будуть доступні перевірені сигнали.",
@@ -999,11 +1018,16 @@
       "integrationSignalMeta": "{events} подій · {alerts} сповіщень",
       "orgNameUnavailable": "Організація недоступна",
       "nextActionTitle": "Рекомендована наступна дія",
-      "nextActionEmptyTitle": "Зараз немає рекомендованої дії",
-      "nextActionEmptyBody": "Aipify запропонує наступний крок, коли перевірені сигнали цього вимагатимуть.",
+      "nextActionEmptyTitle": "✅ Усе виконано",
+      "nextActionEmptyBody": "У вас зараз немає рекомендованих дій.",
       "nextActionReason": "Причина",
       "nextActionValue": "Очікувана цінність",
       "nextActionArea": "Відповідальна область",
+      "nextAction": {
+        "actions": {
+          "continueSetup": "Продовжити налаштування →"
+        }
+      },
       "companionTitle": "Aipify Companion",
       "companionStatusReady": "Готовий допомогти",
       "companionIntro": "Я готовий допомогти зі статусом, подальшими діями, інтеграціями та наступними кроками.",

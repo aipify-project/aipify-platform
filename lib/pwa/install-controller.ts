@@ -22,13 +22,7 @@ export type WebAppInstallRuntimeSnapshot = {
 
 export function readWebAppInstallRuntimeSnapshot(): WebAppInstallRuntimeSnapshot {
   if (typeof window === "undefined") {
-    return {
-      userAgent: "",
-      standalone: false,
-      installed: false,
-      dismissed: false,
-      hasDeferredPrompt: false,
-    };
+    return createSsrWebAppInstallRuntimeSnapshot();
   }
 
   return {
@@ -37,6 +31,17 @@ export function readWebAppInstallRuntimeSnapshot(): WebAppInstallRuntimeSnapshot
     installed: isWebAppInstalled(),
     dismissed: wasInstallPromptDismissed(),
     hasDeferredPrompt: Boolean(getDeferredInstallPrompt()),
+  };
+}
+
+/** Stable SSR/first-paint snapshot — must match server render for hydration. */
+export function createSsrWebAppInstallRuntimeSnapshot(): WebAppInstallRuntimeSnapshot {
+  return {
+    userAgent: "",
+    standalone: false,
+    installed: false,
+    dismissed: false,
+    hasDeferredPrompt: false,
   };
 }
 

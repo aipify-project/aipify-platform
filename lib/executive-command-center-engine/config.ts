@@ -36,6 +36,6 @@ export function getEcc590ActiveSection(pathname: string, tabQuery?: string | nul
   return match?.key ?? "overview";
 }
 
-export function ecc590SectionToRpc(section: Ecc590Section): string {
-  return section === "overview" ? "overview" : "full";
+export function ecc590SectionToRpc(_section: Ecc590Section): string {
+  return "full";
 }

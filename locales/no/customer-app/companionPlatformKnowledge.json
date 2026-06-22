@@ -10,10 +10,11 @@
       "planEnterprise": "Enterprise"
     },
     "permissions": {
-      "restrictedAction": "Some actions require owner or admin access. Contact your organization administrator if you need help."
+      "restrictedAction": "Noen handlinger krever eier- eller admin-tilgang. Kontakt organisasjonens administrator hvis du trenger hjelp."
     },
     "sources": {
-      "knowledgeCenter": "Based on approved Knowledge Center documentation."
+      "knowledgeCenter": "Basert på godkjent Knowledge Center-dokumentasjon.",
+      "platformGuide": "Aipify plattformkunnskapsguide"
     },
     "fallback": {
       "directAnswer": "Aipify kan veilede deg gjennom APP-portalen — navigasjon, fakturering, team, sikkerhet, integrasjoner og support.",
@@ -23,31 +24,33 @@
       "subscriptionUnavailable": "Your current subscription details could not be verified right now. Open Subscription to review your plan."
     },
     "actions": {
-      "teamMembers": "Open Team Members",
-      "rolesPermissions": "Open Roles & Permissions",
-      "subscription": "Open Subscription",
-      "upgradeOptions": "View upgrade options",
-      "invoices": "Open Invoices",
-      "paymentHistory": "Open Payment History",
-      "accountSecurity": "Open Security settings",
-      "connectIntegration": "Connect integration",
-      "integrations": "Open Integrations",
-      "connectedIntegrations": "View connected integrations",
-      "contactSupport": "Contact Support",
-      "supportRequests": "View support requests",
-      "knowledgeCenter": "Open Knowledge Center",
-      "gettingStarted": "Getting Started",
-      "aipifyCompanion": "Open Aipify Companion",
-      "commandBrief": "Open Command Brief",
-      "sinceLastLogin": "Since Last Login",
-      "appNotifications": "Notifications",
-      "appDashboard": "Open Dashboard",
-      "availableBusinessPacks": "Browse Business Packs",
-      "installedBusinessPacks": "Installed Business Packs",
-      "preferences": "Open Preferences",
-      "profile": "Open Profile",
-      "apiAccess": "API Access",
-      "activityOverview": "Activity Overview"
+      "teamMembers": "Åpne Teammedlemmer",
+      "rolesPermissions": "Åpne Roller og tilganger",
+      "subscription": "Åpne Abonnement",
+      "upgradeOptions": "Se oppgraderingsalternativer",
+      "invoices": "Åpne Fakturaer",
+      "paymentHistory": "Åpne Betalingshistorikk",
+      "accountSecurity": "Åpne Sikkerhetsinnstillinger",
+      "connectIntegration": "Koble til integrasjon",
+      "integrations": "Se integrasjoner",
+      "connectedIntegrations": "Se tilkoblede integrasjoner",
+      "contactSupport": "Kontakt support",
+      "supportRequests": "Se supportforespørsler",
+      "knowledgeCenter": "Les om sikker tilkobling",
+      "gettingStarted": "Kom i gang",
+      "aipifyCompanion": "Åpne Aipify Companion",
+      "commandBrief": "Åpne Command Brief",
+      "sinceLastLogin": "Siden sist innlogging",
+      "appNotifications": "Varsler",
+      "appDashboard": "Åpne Dashboard",
+      "availableBusinessPacks": "Utforsk Business Packs",
+      "installedBusinessPacks": "Installerte Business Packs",
+      "preferences": "Åpne Preferanser",
+      "profile": "Åpne Profil",
+      "apiAccess": "API-tilgang",
+      "activityOverview": "Aktivitetsoversikt",
+      "viewIntegrations": "Se integrasjoner",
+      "readSecureConnection": "Les om sikker tilkobling"
     },
     "routes": {
       "appDashboard": {
@@ -303,7 +306,7 @@
         "explanation": "Treat API keys as secrets. Rotate keys through Developer settings when needed.",
         "step1": "Open Platform → API Access.",
         "step2": "Create or rotate keys following your security policy.",
-        "searchTerms": "api|api access|developer|api key"
+        "searchTerms": "api-nøkkel admin|api access|developer access|api credentials"
       },
       "approvals": {
         "title": "Approvals",
@@ -325,6 +328,46 @@
         "explanation": "Language applies across the APP portal, Companion, and notifications.",
         "step1": "Open Account → Preferences and select your language.",
         "searchTerms": "language|språk|locale|change language"
+      },
+      "whatIsApi": {
+        "title": "Hva er et API?",
+        "directAnswer": "Et API er en sikker måte to systemer kan kommunisere med hverandre på. Aipify kan for eksempel bruke et API til å hente godkjent informasjon fra nettsiden, nettbutikken eller administrasjonssystemet ditt. Tilgangen begrenses til det organisasjonen har godkjent, og lesetilgang bør brukes først slik at Aipify kan hente informasjon uten å endre noe.",
+        "explanation": "API-er er koblingslaget mellom systemer — ikke det samme som å finne API-nøkler i admin.",
+        "searchTerms": "hva er api|hva er et api|what is api|what is an api|definer api"
+      },
+      "findApiKey": {
+        "title": "Finn API-nøkkelen",
+        "directAnswer": "API-nøkler finner du under Platform → API Access. Eiere og administratorer kan se og administrere nøkler der.",
+        "explanation": "Del bare nøkler med godkjente systemer, og roter dem når tilgang endres.",
+        "step1": "Åpne Platform → API Access.",
+        "step2": "Finn aktiv nøkkel eller opprett en ny hvis du har tilgang.",
+        "searchTerms": "finn api-nøkkel|hvor finner jeg api-nøkkel|api key location|hvor er api-nøkkel"
+      },
+      "createApiKey": {
+        "title": "Opprett API-nøkkel",
+        "directAnswer": "Opprett eller roter API-nøkler under Platform → API Access. Eiere og administratorer kan generere nøkler i tråd med sikkerhetspolicyen.",
+        "explanation": "Lagre nøkler sikkert og trekk tilbake ubrukte nøkler raskt.",
+        "step1": "Åpne Platform → API Access.",
+        "step2": "Velg Opprett nøkkel eller Roter nøkkel.",
+        "step3": "Kopier nøkkelen én gang og lagre den i godkjent secret manager.",
+        "searchTerms": "opprette api-nøkkel|create api key|generate api key|ny api-nøkkel"
+      },
+      "connectSystem": {
+        "title": "Koble et system til Aipify",
+        "directAnswer": "Koble kundesystemer fra Platform → Connect Integration. Start med lesetilgang og godkjenn utvidet tilgang når du er klar.",
+        "explanation": "Aipify lærer godkjent metadata fra tilkoblede systemer — mennesker godkjenner aktivering.",
+        "step1": "Åpne Platform → Connect Integration.",
+        "step2": "Velg plattform og fullfør autorisering.",
+        "step3": "Gjennomgå oppdagede funksjoner før aktivering.",
+        "searchTerms": "koble system|connect system|tilkoble system|integrer system|koble til aipify"
+      },
+      "aipifyDataAccess": {
+        "title": "Hva får Aipify tilgang til?",
+        "directAnswer": "Aipify får kun tilgang til godkjent metadata og operasjonell kontekst som kreves for lisensierte moduler. Integrasjoner starter med lesetilgang, sensitive handlinger krever godkjenning, og organisasjonen styrer tilkoblede systemer.",
+        "explanation": "Kundedata blir hos kunden. Aipify lagrer intelligensmønstre — ikke rå private poster med mindre det er eksplisitt godkjent.",
+        "step1": "Gjennomgå tilkoblede integrasjoner under Platform → Integrations.",
+        "step2": "Åpne Account → Security for tilgangs- og revisjonssynlighet.",
+        "searchTerms": "hva får aipify tilgang|what does aipify access|data access|tilgang aipify|hva kan aipify se"
       }
     }
   }

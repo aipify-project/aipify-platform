@@ -5,6 +5,8 @@ export * from "./permission-gate";
 export * from "./pricing-bridge";
 export * from "./answer-builder";
 export * from "./search";
+export * from "./intent-detection";
+export * from "./language";
 export * from "./quality-tracking";
 
 /** Stable corpus IDs for platform governance — publish changes via companionPlatformKnowledge i18n split. */

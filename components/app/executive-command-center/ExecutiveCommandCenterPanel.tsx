@@ -31,11 +31,11 @@ import {
   buildCommandBriefActivityFeed,
   buildCommandBriefAlertSummary,
   buildCommandBriefApprovalSummary,
-  buildCommandBriefAttentionItems,
   buildCommandBriefIntegrationSignals,
   buildCommandBriefKpiCounts,
-  pickCommandBriefNextAction,
+  buildCommandBriefNextAction,
 } from "@/lib/command-center/command-brief-overview";
+import { buildCommandBriefAttentionItemsFromCenter } from "@/lib/command-center/command-brief-attention";
 import { CommandBriefOverview } from "./CommandBriefOverview";
 import {
   CommandCenterItemList,
@@ -289,10 +289,11 @@ export function ExecutiveCommandCenterPanel({
   const tabInsight = tabInsightForSection(labels, activeSection);
 
   if (activeSection === "overview" && center) {
-    const attentionItems = buildCommandBriefAttentionItems(center);
+    const attention = buildCommandBriefAttentionItemsFromCenter(center);
+    const attentionItems = attention.items;
     const activityFeed = buildCommandBriefActivityFeed(center);
     const kpis = buildCommandBriefKpiCounts(center);
-    const nextAction = pickCommandBriefNextAction(attentionItems);
+    const nextAction = buildCommandBriefNextAction(center);
     const alertSummary = buildCommandBriefAlertSummary(center, attentionItems);
     const approvalSummary = buildCommandBriefApprovalSummary(center, attentionItems);
     const integrationSignals = buildCommandBriefIntegrationSignals(center);
@@ -303,6 +304,8 @@ export function ExecutiveCommandCenterPanel({
         locale={locale}
         kpis={kpis}
         attentionItems={attentionItems}
+        attentionTotalCount={attention.totalCount}
+        attentionSeeAllHref={attention.seeAllHref}
         activityFeed={activityFeed}
         nextAction={nextAction}
         alertSummary={alertSummary}

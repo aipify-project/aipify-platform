@@ -7,12 +7,29 @@ export type CompanionChatCta = {
   href: string;
 };
 
+export type CompanionAnswerSource = {
+  id: string;
+  label: string;
+  kind: "platform_corpus" | "route_registry" | "knowledge_center" | "customer_context" | "org_knowledge";
+};
+
+export type CompanionAnswerFeedbackState = "helpful" | "not_helpful" | "org_confirm" | null;
+
 export type CompanionChatMessage = {
   id: string;
   role: CompanionChatMessageRole;
   content: string;
+  directAnswer?: string;
+  explanation?: string;
   steps?: string[];
   ctas?: CompanionChatCta[];
+  sources?: CompanionAnswerSource[];
+  question?: string;
+  sourceId?: string;
+  confidence?: "high" | "moderate" | "low";
+  showSupportEscalation?: boolean;
+  feedback?: CompanionAnswerFeedbackState;
+  negativeReason?: string;
   timestamp: number;
 };
 
@@ -22,6 +39,8 @@ export type CompanionConversationPreview = {
   preview: string;
   pinned: boolean;
   updatedAt: number;
+  locale?: string;
+  messages?: CompanionChatMessage[];
 };
 
 export type CompanionExperienceLabels = {
@@ -66,4 +85,28 @@ export type CompanionExperienceLabels = {
   ariaCompanionPanel: string;
   ariaOpenCompanion: string;
   ariaFloatingButton: string;
+  feedbackHelpful: string;
+  feedbackNotHelpful: string;
+  feedbackOrgConfirm: string;
+  feedbackThanks: string;
+  feedbackReasonTitle: string;
+  feedbackReasonWrongInfo: string;
+  feedbackReasonOutdated: string;
+  feedbackReasonMisunderstood: string;
+  feedbackReasonWrongLink: string;
+  feedbackReasonTooVague: string;
+  feedbackReasonOther: string;
+  feedbackSubmitReason: string;
+  feedbackOrgConfirmThanks: string;
+  sourcesTitle: string;
+  sourcesShow: string;
+  sourcesHide: string;
+  sourcePlatformCorpus: string;
+  sourceRouteRegistry: string;
+  sourceKnowledgeCenter: string;
+  sourceCustomerContext: string;
+  sourceOrgKnowledge: string;
+  recentDelete: string;
+  recentActive: string;
+  supportEscalationHint: string;
 };

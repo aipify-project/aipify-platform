@@ -1,4 +1,9 @@
 import {
+  buildCommandBriefAttentionItems,
+  buildCommandBriefAttentionItemsFromCenter,
+  filterRealCompanionRecommendations,
+} from "@/lib/command-center/command-brief-attention";
+import {
   buildAlertsDataset,
   buildApprovalsDataset,
   buildEccOverviewCounts,
@@ -21,18 +26,7 @@ export type CommandBriefKpiCounts = {
   organizationHealth: number | null;
 };
 
-export function filterRealCompanionRecommendations(
-  records: Record<string, unknown>[]
-): Record<string, unknown>[] {
-  return records.filter((record) => !isSyntheticEccRecord(record));
-}
-
-export function buildCommandBriefAttentionItems(center: ExecutiveCommandCenter): CommandCenterItem[] {
-  const alerts = buildAlertsDataset(center);
-  const approvals = buildApprovalsDataset(center);
-  const combined = crossTabSafeguardDedupe([...alerts, ...approvals]);
-  return combined.sort((a, b) => b.severityRank - a.severityRank).slice(0, 3);
-}
+export { buildCommandBriefAttentionItems, buildCommandBriefAttentionItemsFromCenter, filterRealCompanionRecommendations };
 
 export function buildCommandBriefActivityFeed(center: ExecutiveCommandCenter): SinceLastLoginEvent[] {
   const events = buildSinceLastLoginDataset({
@@ -58,12 +52,12 @@ export function buildCommandBriefKpiCounts(center: ExecutiveCommandCenter): Comm
     timeline: center.timeline,
   });
   const grouped = groupSinceLastLoginEvents(events);
-  const attentionItems = buildCommandBriefAttentionItems(center);
+  const attention = buildCommandBriefAttentionItemsFromCenter(center);
 
   return {
     sinceLastLogin: counts.sinceLastLoginItems,
     preparedByAipify: grouped.counts.completedByAipify,
-    requiresAttention: attentionItems.length > 0 ? attentionItems.length : counts.criticalItems + counts.openAlerts,
+    requiresAttention: attention.totalCount > 0 ? attention.totalCount : counts.criticalItems + counts.openAlerts,
     awaitingApproval: counts.pendingActions,
     organizationHealth:
       typeof center.overall_health_score === "number" ? center.overall_health_score : null,
@@ -116,9 +110,8 @@ export function buildCommandBriefApprovalSummary(
   return excludeAttentionItems(buildApprovalsDataset(center), attentionItems).slice(0, 3);
 }
 
-export function pickCommandBriefNextAction(
-  attentionItems: CommandCenterItem[]
-): CommandCenterItem | null {
-  if (attentionItems.length === 0) return null;
-  return attentionItems[0] ?? null;
-}
+export {
+  buildCommandBriefNextAction,
+  pickCommandBriefNextAction,
+} from "@/lib/command-center/command-brief-next-action";
+export type { CommandBriefNextActionCategory } from "@/lib/command-center/command-brief-next-action";
