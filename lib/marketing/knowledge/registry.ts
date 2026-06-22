@@ -87,8 +87,14 @@ export const PUBLIC_KNOWLEDGE_ARTICLE_REGISTRY: PublicKnowledgeArticleMeta[] = [
   // Getting started & topical
   article("installing-aipify-web-app", "getting-started", {
     searchIntents: ["Install Aipify", "Aipify Web App"],
-    relatedArticles: ["getting-started-with-aipify"],
+    relatedArticles: ["getting-started-with-aipify", "how-aipify-install-works"],
     relatedFeatures: ["Install Engine", "Command Center"],
+  }),
+  article("how-aipify-install-works", "getting-started", {
+    searchIntents: ["Aipify Install", "Connect Aipify", "Installation Wizard"],
+    relatedArticles: ["getting-started-with-aipify", "governance-and-human-approval"],
+    relatedFeatures: ["Install Engine", "Trust Center"],
+    relatedIntegrations: ["wordpress", "shopify", "woocommerce"],
   }),
   article("customer-feedback-and-product-improvement", "governance", {
     searchIntents: ["Customer Feedback", "Product Improvement", "Privacy"],

@@ -6279,6 +6279,66 @@
         "readingTime": "6 min läsning",
         "publishedDate": "2026-06-21"
       },
+      "how-aipify-install-works": {
+        "title": "Så fungerar Aipify Install",
+        "metaDescription": "Lär dig hur Aipify Install ansluter till webbplatsen, webbshoppen eller affärssystemen — med skrivskyddad åtkomst först, guidad konfiguration och full kontroll över behörigheter.",
+        "introduction": "Aipify Install är hur din organisation kopplar Aipify till systemen ni redan använder — till exempel webbplats, webbshop eller eget adminpanel. Du behåller kontrollen: Aipify lär sig från godkänd åtkomst, förbereder rekommendationer och kringgår aldrig inloggning eller godkännanderegler.",
+        "sections": [
+          {
+            "heading": "Vad är Aipify Install?",
+            "body": "Aipify Install är den guidade konfigurationen som länkar din organisation till Aipify Core. Det är inte en separat produkt eller webbläsartillägg. Efter anslutning arbetar Aipify i er befintliga miljö så att teamet får operativ hjälp där de redan jobbar."
+          },
+          {
+            "heading": "Vem är det till för?",
+            "body": "Install är för ägare, administratörer och tekniska kontakter som är behöriga att koppla affärssystem. Om du går med i en befintlig arbetsyta, be administratören bjuda in dig i stället för att starta en ny installation."
+          },
+          {
+            "heading": "Vad kan du ansluta?",
+            "body": "Vanliga startpunkter är WordPress, WooCommerce, Shopify och egna webbplatser eller adminpaneler. Guiden frågar vilken plattform ni använder och anpassar stegen. Om du är osäker kan du välja en guidad väg och bekräfta detaljer med teamet."
+          },
+          {
+            "heading": "Skrivskyddad åtkomst först",
+            "body": "Aipify börjar med skrivskyddad åtkomst så att den kan lära sig struktur, roller och operativa mönster utan att ändra era data. Skrivåtkomst eller känsliga åtgärder kräver uttryckligt godkännande enligt organisationens policy."
+          },
+          {
+            "heading": "Anslutningsnycklar i klart språk",
+            "body": "Vissa plattformar använder en anslutningsnyckel eller API-uppgifter så att Aipify kan nå ert system säkert. Installationsguiden visar exakt vad som behövs, var det ska klistras in och vilka behörigheter som begärs. Standardanvändare behöver inte hantera råa installationstoken — utvecklarinställningar finns för avancerad rotation vid behov."
+          },
+          {
+            "heading": "Säkerhet och förtroende",
+            "body": "Inloggning, tvåfaktorsautentisering och organisationsbehörigheter gäller fortfarande. Känsliga åtgärder kräver mänskligt godkännande. Anslutningsaktivitet kan granskas. Aipify lagrar operativ metadata — inte råa kundsamtal, betalningsuppgifter eller onödiga privata poster."
+          },
+          {
+            "heading": "Testa innan ni går live",
+            "body": "Efter anslutning går Aipify in i en övervakad inlärningsperiod. Granska upptäckta funktioner, godkänn eller justera rekommendationer och bekräfta beteende med ett pilotteam innan ni utökar automatisering."
+          },
+          {
+            "heading": "Återkalla åtkomst",
+            "body": "Du kan när som helst pausa eller koppla från en installation från Aipify-arbetsytan. Återkallning stoppar ny synkronisering och operativa åtgärder; konto, prenumeration och konfiguration förblir under er kontroll."
+          },
+          {
+            "heading": "Behöver du hjälp?",
+            "body": "Använd installationsassistenten i appen, Knowledge Center eller kontakta er Aipify-administratör. För nya organisationer slutför du registreringen först — guiden öppnas automatiskt när arbetsytan skapats."
+          }
+        ],
+        "examples": [
+          {
+            "title": "Webbshop",
+            "body": "Välj Shopify eller WooCommerce → Logga in på Aipify → Godkänn skrivskyddad anslutning → Granska vad Aipify upptäckte → Aktivera rekommenderade moduler med admin-godkännande."
+          },
+          {
+            "title": "Eget adminpanel",
+            "body": "Välj egen webbplats eller utvecklaruppsättning → Bekräfta domänägarskap → Ange anslutningsuppgifter som visas i guiden → Testa med ett pilotteam → Utöka behörigheter först när förtroende och policy tillåter."
+          }
+        ],
+        "keyTakeaways": {
+          "1": "Aipify Install ansluter till system ni redan använder — det ersätter dem inte.",
+          "2": "Skrivskyddad åtkomst kommer först; känsliga åtgärder kräver alltid mänskligt godkännande.",
+          "3": "Du kan pausa, testa och återkalla anslutningar från arbetsytan när som helst."
+        },
+        "readingTime": "8 min läsning",
+        "publishedDate": "2026-06-22"
+      },
       "customer-feedback-and-product-improvement": {
         "title": "Riktlinjer för kundfeedback och produktförbättring",
         "metaDescription": "Hur Aipify samlar in och använder frivillig kundfeedback för att förbättra produkter, arbetsflöden och support — utan reklam eller vidareförsäljning.",

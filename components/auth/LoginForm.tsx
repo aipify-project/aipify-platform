@@ -30,9 +30,18 @@ type LoginFormProps = {
     trustTwoFactor: string;
   };
   pwaLabels: PwaInstallLabels;
+  hideRegisterLink?: boolean;
+  postLoginNext?: string;
+  showInstallLinks?: boolean;
 };
 
-export default function LoginForm({ labels, pwaLabels }: LoginFormProps) {
+export default function LoginForm({
+  labels,
+  pwaLabels,
+  hideRegisterLink = false,
+  postLoginNext,
+  showInstallLinks = true,
+}: LoginFormProps) {
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -79,7 +88,7 @@ export default function LoginForm({ labels, pwaLabels }: LoginFormProps) {
 
       const destination = await getPostLoginPath(
         supabase,
-        searchParams.get("next"),
+        postLoginNext ?? searchParams.get("next"),
         typeof window !== "undefined" ? window.location.host : null
       );
 
@@ -194,26 +203,30 @@ export default function LoginForm({ labels, pwaLabels }: LoginFormProps) {
           <p>{labels.trustTwoFactor}</p>
         </div>
 
-        <p className="text-center text-sm text-gray-600">
-          {labels.noAccount}{" "}
-          <Link
-            href="/register"
-            className="font-semibold text-violet-600 hover:text-violet-700"
-          >
-            {labels.createAccount}
-          </Link>
-        </p>
+        {!hideRegisterLink ? (
+          <p className="text-center text-sm text-gray-600">
+            {labels.noAccount}{" "}
+            <Link
+              href="/register"
+              className="font-semibold text-violet-600 hover:text-violet-700"
+            >
+              {labels.createAccount}
+            </Link>
+          </p>
+        ) : null}
       </form>
 
-      <div className="border-t border-gray-100 pt-4 text-center">
-        <AipifyWebAppInstallAction labels={pwaLabels} variant="compact" showGuideLink={false} />
-        <Link
-          href="/install"
-          className="mt-2 inline-flex min-h-[44px] items-center text-xs font-medium text-gray-500 hover:text-violet-600"
-        >
-          {pwaLabels.learnMore}
-        </Link>
-      </div>
+      {showInstallLinks ? (
+        <div className="border-t border-gray-100 pt-4 text-center">
+          <AipifyWebAppInstallAction labels={pwaLabels} variant="compact" showGuideLink={false} />
+          <Link
+            href="/install"
+            className="mt-2 inline-flex min-h-[44px] items-center text-xs font-medium text-gray-500 hover:text-violet-600"
+          >
+            {pwaLabels.learnMore}
+          </Link>
+        </div>
+      ) : null}
     </div>
   );
 }

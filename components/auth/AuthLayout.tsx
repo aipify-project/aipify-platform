@@ -6,6 +6,8 @@ type AuthLayoutProps = {
   subtitle: string;
   children: React.ReactNode;
   wide?: boolean;
+  bare?: boolean;
+  alignTop?: boolean;
   trustNote?: string;
 };
 
@@ -15,6 +17,8 @@ export default function AuthLayout({
   subtitle,
   children,
   wide = false,
+  bare = false,
+  alignTop = false,
   trustNote,
 }: AuthLayoutProps) {
   return (
@@ -37,18 +41,30 @@ export default function AuthLayout({
         </div>
       </header>
 
-      <main className="relative z-10 flex flex-1 items-center justify-center px-4 py-12 sm:px-6">
-        <div className={`w-full ${wide ? "max-w-2xl" : "max-w-md"}`}>
-          <div className="mb-8 text-center">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              {title}
-            </h1>
-            <p className="mt-3 text-base text-gray-600 sm:text-lg">{subtitle}</p>
-          </div>
+      <main
+        className={`relative z-10 flex flex-1 justify-center px-4 sm:px-6 ${
+          alignTop ? "items-start pb-8 pt-6 sm:pt-8" : "items-center py-12"
+        }`}
+      >
+        <div className={`w-full ${wide ? "max-w-[68rem]" : "max-w-md"}`}>
+          {title || subtitle ? (
+            <div className="mb-8 text-center">
+              {title ? (
+                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{title}</h1>
+              ) : null}
+              {subtitle ? (
+                <p className="mt-3 text-base text-gray-600 sm:text-lg">{subtitle}</p>
+              ) : null}
+            </div>
+          ) : null}
 
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-xl shadow-gray-200/50 sm:p-8">
-            {children}
-          </div>
+          {bare ? (
+            children
+          ) : (
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-xl shadow-gray-200/50 sm:p-8">
+              {children}
+            </div>
+          )}
           {trustNote ? (
             <p className="mt-4 text-center text-sm text-gray-500">{trustNote}</p>
           ) : null}

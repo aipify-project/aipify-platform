@@ -1,0 +1,66 @@
+{
+  "publicKnowledge": {
+    "articles": {
+      "how-aipify-install-works": {
+        "title": "Jak działa Aipify Install",
+        "metaDescription": "Dowiedz się, jak Aipify Install łączy się z witryną, sklepem internetowym lub systemami biznesowymi — najpierw z dostępem tylko do odczytu, z przewodnikiem konfiguracji i pełną kontrolą uprawnień.",
+        "introduction": "Aipify Install to sposób, w jaki organizacja łączy Aipify z systemami, których już używa — takimi jak witryna, sklep internetowy lub własny panel administracyjny. Zachowujesz kontrolę: Aipify uczy się na podstawie zatwierdzonego dostępu, przygotowuje rekomendacje i nigdy nie omija logowania ani zasad zatwierdzania.",
+        "sections": [
+          {
+            "heading": "Czym jest Aipify Install?",
+            "body": "Aipify Install to przewodnik konfiguracji łączący organizację z Aipify Core. To nie osobny produkt ani rozszerzenie przeglądarki. Po połączeniu Aipify działa w istniejącym środowisku, aby zespół otrzymywał pomoc operacyjną tam, gdzie już pracuje."
+          },
+          {
+            "heading": "Dla kogo to jest?",
+            "body": "Install jest dla właścicieli, administratorów i kontaktów technicznych upoważnionych do łączenia systemów biznesowych. Jeśli dołączasz do istniejącego workspace, poproś administratora o zaproszenie zamiast rozpoczynać nową instalację."
+          },
+          {
+            "heading": "Co można połączyć?",
+            "body": "Typowe punkty startowe to WordPress, WooCommerce, Shopify oraz własne witryny lub panele administracyjne. Kreator pyta o używaną platformę i dostosowuje kroki. Jeśli nie masz pewności, wybierz ścieżkę z przewodnikiem i potwierdź szczegóły z zespołem."
+          },
+          {
+            "heading": "Najpierw dostęp tylko do odczytu",
+            "body": "Aipify zaczyna od dostępu tylko do odczytu, aby poznać strukturę, role i wzorce operacyjne bez zmiany danych. Dostęp zapisu lub wrażliwe działania wymagają wyraźnej zgody zgodnie z polityką organizacji."
+          },
+          {
+            "heading": "Klucze połączenia prostym językiem",
+            "body": "Niektóre platformy używają klucza połączenia lub poświadczeń API, aby Aipify mógł bezpiecznie dotrzeć do systemu. Kreator instalacji pokazuje dokładnie, co jest potrzebne, gdzie to wkleić i jakie uprawnienia są wymagane. Standardowi użytkownicy nie muszą zarządzać surowymi tokenami instalacji — ustawienia deweloperskie są dostępne do zaawansowanej rotacji, gdy jest to wymagane."
+          },
+          {
+            "heading": "Bezpieczeństwo i zaufanie",
+            "body": "Logowanie, uwierzytelnianie dwuskładnikowe i uprawnienia organizacji pozostają w mocy. Wrażliwe działania wymagają ludzkiej zgody. Aktywność połączeń podlega audytowi. Aipify przechowuje metadane operacyjne — nie surowe rozmowy z klientami, dane płatności ani niepotrzebne prywatne rekordy."
+          },
+          {
+            "heading": "Testowanie przed uruchomieniem",
+            "body": "Po połączeniu Aipify wchodzi w nadzorowany okres uczenia się. Przejrzyj wykryte możliwości, zatwierdź lub dostosuj rekomendacje i potwierdź zachowanie z zespołem pilotażowym przed rozszerzeniem automatyzacji."
+          },
+          {
+            "heading": "Cofanie dostępu",
+            "body": "Możesz w dowolnym momencie wstrzymać lub odłączyć instalację z workspace Aipify. Cofnięcie dostępu zatrzymuje nową synchronizację i działania operacyjne; konto, subskrypcja i konfiguracja pozostają pod Twoją kontrolą."
+          },
+          {
+            "heading": "Potrzebujesz pomocy?",
+            "body": "Użyj asystenta instalacji w aplikacji, Knowledge Center lub skontaktuj się z administratorem Aipify. W przypadku nowych organizacji najpierw ukończ rejestrację — kreator otworzy się automatycznie po utworzeniu workspace."
+          }
+        ],
+        "examples": [
+          {
+            "title": "Sklep internetowy",
+            "body": "Wybierz Shopify lub WooCommerce → Zaloguj się do Aipify → Zatwierdź połączenie tylko do odczytu → Przejrzyj wykryte elementy → Aktywuj zalecane moduły za zgodą administratora."
+          },
+          {
+            "title": "Własny panel administracyjny",
+            "body": "Wybierz własną witrynę lub konfigurację deweloperską → Potwierdź własność domeny → Podaj dane połączenia pokazane w kreatorze → Przetestuj z zespołem pilotażowym → Rozszerz uprawnienia dopiero gdy zaufanie i polityka na to pozwalają."
+          }
+        ],
+        "keyTakeaways": {
+          "1": "Aipify Install łączy się z systemami, których już używasz — nie zastępuje ich.",
+          "2": "Najpierw dostęp tylko do odczytu; wrażliwe działania zawsze wymagają ludzkiej zgody.",
+          "3": "Możesz wstrzymać, przetestować i cofnąć połączenia z workspace w dowolnym momencie."
+        },
+        "readingTime": "8 min czytania",
+        "publishedDate": "2026-06-22"
+      }
+    }
+  }
+}

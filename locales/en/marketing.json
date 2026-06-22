@@ -5790,6 +5790,66 @@
         "readingTime": "6 min read",
         "publishedDate": "2026-06-21"
       },
+      "how-aipify-install-works": {
+        "title": "How Aipify Install works",
+        "metaDescription": "Learn how Aipify Install connects to your website, store, or business systems — with read-only access first, guided setup, and full control over permissions.",
+        "introduction": "Aipify Install is how your organization connects Aipify to the systems you already use — such as a website, online store, or custom admin. You stay in control: Aipify learns from approved access, prepares recommendations, and never bypasses your sign-in or approval policies.",
+        "sections": [
+          {
+            "heading": "What is Aipify Install?",
+            "body": "Aipify Install is the guided setup that links your organization to Aipify Core. It is not a separate product or browser extension. After connection, Aipify works inside your existing environment so your team can get operational help where they already work."
+          },
+          {
+            "heading": "Who is it for?",
+            "body": "Install is for organization owners, administrators, and technical contacts who are authorized to connect business systems. If you are joining an existing workspace, ask your administrator to invite you instead of starting a new install."
+          },
+          {
+            "heading": "What can you connect?",
+            "body": "Common starting points include WordPress, WooCommerce, Shopify, and custom websites or admin panels. The wizard asks what platform you use and adapts the steps. If you are unsure, you can choose a guided path and confirm details with your team."
+          },
+          {
+            "heading": "Read-only access first",
+            "body": "Aipify begins with read-only access so it can learn structure, roles, and operational patterns without changing your data. Write access or sensitive actions require explicit approval under your organization's policies."
+          },
+          {
+            "heading": "Connection keys in plain language",
+            "body": "Some platforms use a connection key or API credential so Aipify can reach your system securely. The install wizard shows exactly what is needed, where to paste it, and which permissions are requested. Standard users do not need to manage raw install tokens — developer settings are available for advanced rotation when required."
+          },
+          {
+            "heading": "Security and trust",
+            "body": "Sign-in, two-factor authentication, and organization permissions remain enforced. Sensitive actions require human approval. Connection activity is auditable. Aipify stores operational metadata — not raw customer conversations, payment details, or unnecessary private records."
+          },
+          {
+            "heading": "Testing before you go live",
+            "body": "After connection, Aipify enters a supervised learning period. Review discovered capabilities, approve or adjust recommendations, and confirm behavior with a pilot team before expanding automation."
+          },
+          {
+            "heading": "Revoking access",
+            "body": "You can pause or disconnect an installation from your Aipify workspace at any time. Revoking access stops new sync and operational actions; your account, subscription, and configuration remain under your control."
+          },
+          {
+            "heading": "Need help?",
+            "body": "Use the in-app install assistant, Knowledge Center, or contact your Aipify administrator. For new organizations, complete registration first — the wizard opens automatically after your workspace is created."
+          }
+        ],
+        "examples": [
+          {
+            "title": "Online store",
+            "body": "Choose Shopify or WooCommerce → Sign in to Aipify → Approve read-only connection → Review what Aipify discovered → Activate recommended modules with admin approval."
+          },
+          {
+            "title": "Custom admin",
+            "body": "Choose custom website or developer setup → Confirm domain ownership → Provide connection details shown in the wizard → Test with a pilot team → Expand permissions only when trust and policy allow."
+          }
+        ],
+        "keyTakeaways": {
+          "1": "Aipify Install connects to systems you already use — it does not replace them.",
+          "2": "Read-only access comes first; sensitive actions always require human approval.",
+          "3": "You can pause, test, and revoke connections from your workspace at any time."
+        },
+        "readingTime": "8 min read",
+        "publishedDate": "2026-06-22"
+      },
       "customer-feedback-and-product-improvement": {
         "title": "Customer Feedback and Product Improvement Guidelines",
         "metaDescription": "How Aipify collects and uses voluntary customer feedback to improve products, workflows, and support — without advertising or resale.",

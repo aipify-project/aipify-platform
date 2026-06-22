@@ -34,6 +34,7 @@ const VALID_CTA_HREFS = new Set([
   "/knowledge/business-operating-system",
   "/knowledge/articles/getting-started-with-aipify",
   "/knowledge/articles/installing-aipify-web-app",
+  "/knowledge/articles/how-aipify-install-works",
   "/knowledge/articles/what-is-a-business-companion",
   "/knowledge/articles/what-is-a-business-operating-system",
   "/knowledge/articles/governance-and-human-approval",
