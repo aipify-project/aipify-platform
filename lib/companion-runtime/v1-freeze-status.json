@@ -1,0 +1,56 @@
+{
+  "version": "companion-runtime-v1",
+  "status": "PASS WITH KNOWN LIMITATIONS",
+  "certified_at": "2026-06-22T17:42:55.648Z",
+  "phases": "1-28",
+  "commit_phase_27": "01c77e51",
+  "commit_phase_28": "73aac82e",
+  "commercial_matrix_summary": {
+    "production_ready": 0,
+    "connected_but_partial": 0,
+    "manifest_only": 2,
+    "adapter_missing": 287,
+    "specification_only": 52,
+    "blocked_by_governance": 0,
+    "disabled": 0
+  },
+  "specification_only_providers": [
+    "analytics_pack_adapter",
+    "blender",
+    "canva",
+    "community_engagement_services",
+    "community_pack_adapter",
+    "figma",
+    "finance_pack_adapter",
+    "google_imagen",
+    "growth_partner_attribution",
+    "hosts_pack_adapter",
+    "hr_pack_adapter",
+    "indesign",
+    "industry_pack_adapter",
+    "premiere",
+    "proactive_pack_adapter",
+    "sales_pack_adapter",
+    "security_pack_adapter",
+    "shopify",
+    "support_adapter",
+    "warehouse_pack_adapter",
+    "woocommerce",
+    "wordpress"
+  ],
+  "known_limitations": [
+    "Domain provider runtime adapters are discovery-first — adapter_available is false across manifests except live integration tools.",
+    "Specification-only providers (e.g. canva, proactive_pack_adapter, analytics_pack_adapter) are governed discovery only.",
+    "Tenant context loads domain contexts sequentially after the initial parallel bootstrap — high RPC surface per request.",
+    "Model synthesis may fall back when the synthesis adapter fails; grounded facts and sources must remain unchanged.",
+    "Cross-module analytics views list compatible facts only — inferred correlation is blocked by governance.",
+    "Auto-execute recommendation, report generation, and insight apply remain blocked in Companion runtime V1.",
+    "Live read tools depend on registered integration adapters — not all connected providers expose live adapters."
+  ],
+  "rpc_profile": {
+    "rpc_calls_in_tenant_context": 5,
+    "rpc_calls_in_domain_loaders": 110,
+    "estimated_rpc_surface_per_full_load": 115,
+    "sequential_domain_loaders": true
+  }
+}
