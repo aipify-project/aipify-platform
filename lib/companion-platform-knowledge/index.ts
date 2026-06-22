@@ -10,6 +10,13 @@ export * from "./language";
 export * from "./quality-tracking";
 export { detectLiveIntegrationStatusIntent, isLiveIntegrationFollowUpQuery } from "./integration-status-intent";
 export type { LiveIntegrationQueryKind, LiveIntegrationStatusIntent } from "./integration-status-intent";
+export { detectLivePlatformSnapshotIntent } from "./platform-snapshot-intent";
+export type { LivePlatformSnapshotIntent, LivePlatformSnapshotQueryKind } from "./platform-snapshot-intent";
+export { getUnonightPlatformSnapshot } from "./platform-snapshot-tool";
+export type {
+  PlatformSnapshotFailureCode,
+  UnonightPlatformSnapshotMetadata,
+} from "./platform-snapshot-tool";
 export { getConnectedIntegrationStatus } from "./integration-status-tool";
 export type {
   ConnectedIntegrationStatusMetadata,

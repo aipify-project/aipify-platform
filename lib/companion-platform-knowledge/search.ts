@@ -24,6 +24,12 @@ import {
   buildRoleDisambiguationAnswer,
   buildVerifiedIntegrationStatusAnswer,
 } from "./integration-status-answer";
+import {
+  buildPlatformSnapshotFailureAnswer,
+  buildVerifiedPlatformSnapshotAnswer,
+} from "./platform-snapshot-answer";
+import { detectLivePlatformSnapshotIntent } from "./platform-snapshot-intent";
+import { getUnonightPlatformSnapshot } from "./platform-snapshot-tool";
 import { detectLiveIntegrationStatusIntent } from "./integration-status-intent";
 import { getConnectedIntegrationStatus } from "./integration-status-tool";
 import type {
@@ -131,6 +137,32 @@ export async function searchPlatformKnowledge(
 
   const restrictedNote = t("customerApp.companionPlatformKnowledge.permissions.restrictedAction");
 
+  const platformSnapshotIntent = detectLivePlatformSnapshotIntent(query, { integrationContext });
+  if (platformSnapshotIntent && supabase) {
+    const snapshotResult = await getUnonightPlatformSnapshot(supabase, {
+      providerKey: platformSnapshotIntent.providerKey,
+      refresh: true,
+    });
+
+    if (snapshotResult.ok) {
+      return {
+        answer: buildVerifiedPlatformSnapshotAnswer(
+          snapshotResult.data,
+          t,
+          locale,
+          permissionCtx,
+          platformSnapshotIntent.queryKind,
+        ),
+      };
+    }
+
+    if (platformSnapshotIntent.blocksKnowledgeCenter) {
+      return {
+        answer: buildPlatformSnapshotFailureAnswer(snapshotResult.code, t, permissionCtx),
+      };
+    }
+  }
+
   // 0. Live verified integration status — before corpus and Knowledge Center
   const liveIntegrationIntent = detectLiveIntegrationStatusIntent(query, { integrationContext });
   if (liveIntegrationIntent) {
@@ -222,7 +254,7 @@ export async function searchPlatformKnowledge(
   }
 
   // 3. Knowledge Center RPC (optional) — skip when user requested live integration data
-  if (supabase && !liveIntegrationIntent?.blocksKnowledgeCenter) {
+  if (supabase && !liveIntegrationIntent?.blocksKnowledgeCenter && !platformSnapshotIntent?.blocksKnowledgeCenter) {
     try {
       const kcResult = await retrieveKnowledgeAnswer(
         async (rpc, params) => {

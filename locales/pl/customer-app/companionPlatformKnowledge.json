@@ -112,6 +112,71 @@
         "responseInvalid": "Unonight returned a response that could not be validated safely."
       }
     },
+    "platformSnapshot": {
+      "title": "Metadane platformy Unonight na żywo",
+      "sourceVerifiedIntegration": "Zweryfikowana integracja Unonight",
+      "failureTitle": "Metadane platformy Unonight na żywo niedostępne",
+      "failureLead": "Aipify nie mogło pobrać metadanych platformy na żywo ze zweryfikowanej integracji Unonight.",
+      "failureRetryStep": "Sprawdź, czy token integracji zawiera platform.metadata.read, i zapytaj ponownie.",
+      "orgConfirmBlockedNoLiveData": "Potwierdzenie organizacji jest niedostępne, ponieważ odpowiedź nie wykorzystała metadanych platformy na żywo.",
+      "card": {
+        "title": "Migawka platformy Unonight na żywo",
+        "supporting": "Aipify pobrało te metadane platformy bezpośrednio ze zweryfikowanej integracji Unonight tylko do odczytu.",
+        "fieldEnvironment": "Środowisko",
+        "fieldPlatformVersion": "Wersja platformy",
+        "fieldAvailability": "Dostępność",
+        "fieldActiveModules": "Aktywne moduły",
+        "fieldSupportedLanguages": "Obsługiwane języki",
+        "fieldCheckedAt": "Sprawdzono",
+        "timestampUnavailable": "Niedostępne",
+        "languagesUnavailable": "Nie zgłoszono przez Unonight",
+        "availabilityAvailable": "Dostępna",
+        "availabilityDegraded": "Obniżona",
+        "availabilityMaintenance": "Konserwacja",
+        "sourceTitle": "Źródło danych",
+        "sourceMeta": "Metadane platformy na żywo · Tylko do odczytu · Sprawdzono teraz",
+        "ariaCard": "Zweryfikowana migawka platformy Unonight"
+      },
+      "modules": {
+        "chat": "Czat",
+        "marketplace": "Marketplace",
+        "wishlist": "Lista życzeń",
+        "gifts": "Prezenty",
+        "verification": "Weryfikacja",
+        "rewards": "Nagrody"
+      },
+      "variants": {
+        "activeModules": {
+          "intro": "Unonight zgłasza te aktywne moduły: {modules}. Sprawdzono {checkedAt} ze zweryfikowanej integracji tylko do odczytu."
+        },
+        "supportedLanguages": {
+          "intro": "Unonight zgłasza te obsługiwane języki: {languages}. Sprawdzono {checkedAt}."
+        },
+        "environmentStatus": {
+          "intro": "Unonight zgłasza środowisko {environment} ze statusem {status}. Sprawdzono {checkedAt}."
+        },
+        "platformVersion": {
+          "intro": "Unonight zgłasza wersję platformy {version}. Sprawdzono {checkedAt}."
+        },
+        "visibilitySummary": {
+          "intro": "Ze zweryfikowanej integracji tylko do odczytu Aipify widzi bezpieczne metadane platformy, np. aktywne moduły ({modules}). Sprawdzono {checkedAt}."
+        },
+        "fullSnapshot": {
+          "intro": "Migawka platformy Unonight na żywo sprawdzona {checkedAt}. Aktywne moduły: {modules}."
+        }
+      },
+      "failures": {
+        "integrationNotConnected": "Brak aktywnej integracji Unonight dla tej organizacji.",
+        "integrationNotVerified": "Integracja Unonight istnieje, ale nie jest jeszcze zweryfikowana.",
+        "credentialUnavailable": "Zapisane poświadczenie jest niedostępne do odczytu na żywo.",
+        "endpointUnreachable": "Unonight nie odpowiedział na żądanie migawki platformy.",
+        "providerMismatch": "Odpowiedź na żywo nie pasowała do oczekiwanego dostawcy Unonight.",
+        "organizationMismatch": "Organizacja w odpowiedzi na żywo nie pasowała do tego obszaru roboczego.",
+        "permissionDenied": "Twoja rola nie może odczytywać poświadczeń integracji na żywo.",
+        "responseInvalid": "Unonight zwrócił metadane platformy, których nie można było bezpiecznie zweryfikować.",
+        "missingPlatformScope": "Zweryfikowany token nie zawiera platform.metadata.read wymaganego do metadanych platformy na żywo."
+      }
+    },
     "fallback": {
       "directAnswer": "Aipify can guide you through the APP portal — navigation, billing, team, security, integrations, and support.",
       "explanation": "Ask a specific question about a page or task, and Aipify will provide the next step with a direct link inside your workspace.",

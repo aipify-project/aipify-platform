@@ -6,6 +6,7 @@ export const UNONIGHT_AIPIFY_DEFAULT_SCOPES = [
   "metadata.read",
   "organization.read",
   "integration.status.read",
+  "platform.metadata.read",
 ] as const;
 
 export type UnonightAipifyScope = (typeof UNONIGHT_AIPIFY_DEFAULT_SCOPES)[number];

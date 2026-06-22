@@ -155,10 +155,44 @@ export type IntegrationStatusCardPayload = {
   labels: IntegrationStatusCardLabels;
 };
 
+export type PlatformSnapshotCardLabels = {
+  cardTitle: string;
+  cardSupporting: string;
+  fieldEnvironment: string;
+  fieldPlatformVersion: string;
+  fieldAvailability: string;
+  fieldActiveModules: string;
+  fieldSupportedLanguages: string;
+  fieldCheckedAt: string;
+  timestampUnavailable: string;
+  availabilityAvailable: string;
+  availabilityDegraded: string;
+  availabilityMaintenance: string;
+  sourceTitle: string;
+  sourceLabel: string;
+  sourceMeta: string;
+  languagesUnavailable: string;
+  languageLabels: Record<string, string>;
+  moduleLabels: Record<string, string>;
+  ariaCard: string;
+};
+
+export type PlatformSnapshotCardPayload = {
+  provider: "unonight";
+  environment: string;
+  platformVersion: string;
+  availabilityStatus: "available" | "degraded" | "maintenance";
+  activeModules: string[];
+  supportedLocales: string[];
+  checkedAt: string;
+  labels: PlatformSnapshotCardLabels;
+};
+
 export type PlatformKnowledgeAnswer = {
   directAnswer: string;
   explanation?: string;
   integrationStatusCard?: IntegrationStatusCardPayload;
+  platformSnapshotCard?: PlatformSnapshotCardPayload;
   status?: string;
   steps: string[];
   actions: PlatformKnowledgeAction[];

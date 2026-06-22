@@ -105,6 +105,72 @@ function parseIntegrationStatusCard(raw: unknown): PlatformKnowledgeAnswer["inte
   };
 }
 
+function parsePlatformSnapshotCard(raw: unknown): PlatformKnowledgeAnswer["platformSnapshotCard"] {
+  if (!raw || typeof raw !== "object") return undefined;
+  const row = raw as Record<string, unknown>;
+  const labelsRaw = row.labels;
+  if (!labelsRaw || typeof labelsRaw !== "object") return undefined;
+  const labels = labelsRaw as Record<string, unknown>;
+  const languageLabels =
+    labels.languageLabels && typeof labels.languageLabels === "object"
+      ? Object.fromEntries(
+          Object.entries(labels.languageLabels as Record<string, unknown>).map(([key, value]) => [
+            key,
+            str(value),
+          ]),
+        )
+      : {};
+  const moduleLabels =
+    labels.moduleLabels && typeof labels.moduleLabels === "object"
+      ? Object.fromEntries(
+          Object.entries(labels.moduleLabels as Record<string, unknown>).map(([key, value]) => [
+            key,
+            str(value),
+          ]),
+        )
+      : {};
+
+  const availabilityStatus = str(row.availabilityStatus, "available") as
+    | "available"
+    | "degraded"
+    | "maintenance";
+
+  return {
+    provider: "unonight",
+    environment: str(row.environment),
+    platformVersion: str(row.platformVersion),
+    availabilityStatus,
+    activeModules: Array.isArray(row.activeModules)
+      ? row.activeModules.map((entry) => str(entry)).filter(Boolean)
+      : [],
+    supportedLocales: Array.isArray(row.supportedLocales)
+      ? row.supportedLocales.map((entry) => str(entry)).filter(Boolean)
+      : [],
+    checkedAt: str(row.checkedAt),
+    labels: {
+      cardTitle: str(labels.cardTitle),
+      cardSupporting: str(labels.cardSupporting),
+      fieldEnvironment: str(labels.fieldEnvironment),
+      fieldPlatformVersion: str(labels.fieldPlatformVersion),
+      fieldAvailability: str(labels.fieldAvailability),
+      fieldActiveModules: str(labels.fieldActiveModules),
+      fieldSupportedLanguages: str(labels.fieldSupportedLanguages),
+      fieldCheckedAt: str(labels.fieldCheckedAt),
+      timestampUnavailable: str(labels.timestampUnavailable),
+      availabilityAvailable: str(labels.availabilityAvailable),
+      availabilityDegraded: str(labels.availabilityDegraded),
+      availabilityMaintenance: str(labels.availabilityMaintenance),
+      sourceTitle: str(labels.sourceTitle),
+      sourceLabel: str(labels.sourceLabel),
+      sourceMeta: str(labels.sourceMeta),
+      languagesUnavailable: str(labels.languagesUnavailable),
+      languageLabels,
+      moduleLabels,
+      ariaCard: str(labels.ariaCard),
+    },
+  };
+}
+
 function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined {
   if (!raw || typeof raw !== "object") return undefined;
   const row = raw as Record<string, unknown>;
@@ -118,6 +184,7 @@ function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined 
     directAnswer: str(row.directAnswer),
     explanation: str(row.explanation) || undefined,
     integrationStatusCard: parseIntegrationStatusCard(row.integrationStatusCard),
+    platformSnapshotCard: parsePlatformSnapshotCard(row.platformSnapshotCard),
     status: str(row.status) || undefined,
     steps: Array.isArray(row.steps) ? row.steps.map((s) => str(s)) : [],
     actions,

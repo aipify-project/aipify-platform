@@ -170,7 +170,9 @@ export function CompanionPanel({
         const priorIntegrationContext = messages.some(
           (message) =>
             message.role === "aipify" &&
-            (message.liveIntegrationToolUsed === true || Boolean(message.integrationStatusCard)),
+            (message.liveIntegrationToolUsed === true ||
+              Boolean(message.integrationStatusCard) ||
+              Boolean(message.platformSnapshotCard)),
         );
         const params = new URLSearchParams({ q: trimmed, locale });
         if (priorIntegrationContext) {
@@ -240,6 +242,7 @@ export function CompanionPanel({
       directAnswer: platformAnswer.directAnswer,
       explanation: platformAnswer.explanation,
       integrationStatusCard: platformAnswer.integrationStatusCard,
+      platformSnapshotCard: platformAnswer.platformSnapshotCard,
       question,
       steps: platformAnswer.steps,
       ctas,

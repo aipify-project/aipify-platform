@@ -112,6 +112,71 @@
         "responseInvalid": "Unonight returnerte et svar som ikke kunne valideres trygt."
       }
     },
+    "platformSnapshot": {
+      "title": "Live Unonight-plattformmetadata",
+      "sourceVerifiedIntegration": "Verifisert Unonight-integrasjon",
+      "failureTitle": "Live Unonight-plattformmetadata utilgjengelig",
+      "failureLead": "Aipify klarte ikke å hente live plattformmetadata fra den verifiserte Unonight-integrasjonen akkurat nå.",
+      "failureRetryStep": "Verifiser at integrasjonstokenet inkluderer platform.metadata.read, og spør på nytt.",
+      "orgConfirmBlockedNoLiveData": "Organisasjonsbekreftelse er utilgjengelig fordi svaret ikke brukte live plattformmetadata.",
+      "card": {
+        "title": "Live Unonight-plattformøyeblikksbilde",
+        "supporting": "Aipify hentet denne plattformmetadataen direkte fra den verifiserte skrivebeskyttede Unonight-integrasjonen.",
+        "fieldEnvironment": "Miljø",
+        "fieldPlatformVersion": "Plattformversjon",
+        "fieldAvailability": "Tilgjengelighet",
+        "fieldActiveModules": "Aktive moduler",
+        "fieldSupportedLanguages": "Støttede språk",
+        "fieldCheckedAt": "Kontrollert",
+        "timestampUnavailable": "Ikke tilgjengelig",
+        "languagesUnavailable": "Ikke rapportert av Unonight",
+        "availabilityAvailable": "Tilgjengelig",
+        "availabilityDegraded": "Redusert",
+        "availabilityMaintenance": "Vedlikehold",
+        "sourceTitle": "Datakilde",
+        "sourceMeta": "Live plattformmetadata · Skrivebeskyttet · Kontrollert nå",
+        "ariaCard": "Verifisert Unonight-plattformøyeblikksbilde"
+      },
+      "modules": {
+        "chat": "Chat",
+        "marketplace": "Markedsplass",
+        "wishlist": "Ønskeliste",
+        "gifts": "Gaver",
+        "verification": "Verifisering",
+        "rewards": "Belønninger"
+      },
+      "variants": {
+        "activeModules": {
+          "intro": "Unonight rapporterer disse aktive modulene akkurat nå: {modules}. Kontrollert {checkedAt} fra den verifiserte skrivebeskyttede integrasjonen."
+        },
+        "supportedLanguages": {
+          "intro": "Unonight rapporterer disse støttede språkene: {languages}. Kontrollert {checkedAt} fra den verifiserte skrivebeskyttede integrasjonen."
+        },
+        "environmentStatus": {
+          "intro": "Unonight rapporterer miljø {environment} med status {status}. Kontrollert {checkedAt} fra den verifiserte skrivebeskyttede integrasjonen."
+        },
+        "platformVersion": {
+          "intro": "Unonight rapporterer plattformversjon {version}. Kontrollert {checkedAt} fra den verifiserte skrivebeskyttede integrasjonen."
+        },
+        "visibilitySummary": {
+          "intro": "Fra den verifiserte skrivebeskyttede integrasjonen kan Aipify nå se trygg plattformmetadata som aktive moduler ({modules}). Kontrollert {checkedAt}."
+        },
+        "fullSnapshot": {
+          "intro": "Unonight live plattformøyeblikksbilde kontrollert {checkedAt}. Aktive moduler: {modules}."
+        }
+      },
+      "failures": {
+        "integrationNotConnected": "Ingen aktiv Unonight-integrasjon er konfigurert for denne organisasjonen.",
+        "integrationNotVerified": "Unonight-integrasjonen finnes, men er ikke verifisert ennå.",
+        "credentialUnavailable": "Lagret tilkoblingsnøkkel er utilgjengelig for live lesing.",
+        "endpointUnreachable": "Unonight svarte ikke på forespørselen om plattformøyeblikksbilde.",
+        "providerMismatch": "Live-svaret matchet ikke forventet Unonight-leverandør.",
+        "organizationMismatch": "Organisasjonen i live-svaret matchet ikke dette arbeidsområdet.",
+        "permissionDenied": "Rollen din kan ikke lese live integrasjonsnøkler for denne organisasjonen.",
+        "responseInvalid": "Unonight returnerte plattformmetadata som ikke kunne valideres trygt.",
+        "missingPlatformScope": "Det verifiserte tokenet inkluderer ikke platform.metadata.read som kreves for live plattformmetadata."
+      }
+    },
     "fallback": {
       "directAnswer": "Aipify kan veilede deg gjennom APP-portalen — navigasjon, fakturering, team, sikkerhet, integrasjoner og support.",
       "explanation": "Still et konkret spørsmål om en side eller oppgave, så gir Aipify neste steg med direkte lenke i arbeidsområdet ditt.",

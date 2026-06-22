@@ -112,6 +112,71 @@
         "responseInvalid": "Unonight returned a response that could not be validated safely."
       }
     },
+    "platformSnapshot": {
+      "title": "Unonight live platform metadata",
+      "sourceVerifiedIntegration": "Verified Unonight integration",
+      "failureTitle": "Live Unonight platform metadata unavailable",
+      "failureLead": "Aipify could not retrieve live platform metadata from the verified Unonight integration right now.",
+      "failureRetryStep": "Verify the integration token includes platform.metadata.read, then ask again.",
+      "orgConfirmBlockedNoLiveData": "Organization confirmation is unavailable because this answer did not use live platform metadata.",
+      "card": {
+        "title": "Live Unonight platform snapshot",
+        "supporting": "Aipify retrieved this platform metadata directly from the verified read-only Unonight integration.",
+        "fieldEnvironment": "Environment",
+        "fieldPlatformVersion": "Platform version",
+        "fieldAvailability": "Availability",
+        "fieldActiveModules": "Active modules",
+        "fieldSupportedLanguages": "Supported languages",
+        "fieldCheckedAt": "Checked at",
+        "timestampUnavailable": "Not available",
+        "languagesUnavailable": "Not reported by Unonight",
+        "availabilityAvailable": "Available",
+        "availabilityDegraded": "Degraded",
+        "availabilityMaintenance": "Maintenance",
+        "sourceTitle": "Data source",
+        "sourceMeta": "Live platform metadata · Read-only · Checked now",
+        "ariaCard": "Verified Unonight platform snapshot"
+      },
+      "modules": {
+        "chat": "Chat",
+        "marketplace": "Marketplace",
+        "wishlist": "Wishlist",
+        "gifts": "Gifts",
+        "verification": "Verification",
+        "rewards": "Rewards"
+      },
+      "variants": {
+        "activeModules": {
+          "intro": "Unonight reports these active modules right now: {modules}. Checked at {checkedAt} from the verified read-only integration."
+        },
+        "supportedLanguages": {
+          "intro": "Unonight reports these supported languages: {languages}. Checked at {checkedAt} from the verified read-only integration."
+        },
+        "environmentStatus": {
+          "intro": "Unonight reports environment {environment} with status {status}. Checked at {checkedAt} from the verified read-only integration."
+        },
+        "platformVersion": {
+          "intro": "Unonight reports platform version {version}. Checked at {checkedAt} from the verified read-only integration."
+        },
+        "visibilitySummary": {
+          "intro": "From the verified read-only integration, Aipify can currently see safe platform metadata such as active modules ({modules}). Checked at {checkedAt}."
+        },
+        "fullSnapshot": {
+          "intro": "Unonight live platform snapshot checked at {checkedAt}. Active modules: {modules}."
+        }
+      },
+      "failures": {
+        "integrationNotConnected": "No active Unonight integration is configured for this organization.",
+        "integrationNotVerified": "The Unonight integration exists but is not verified yet.",
+        "credentialUnavailable": "The stored connection credential is unavailable for a live read.",
+        "endpointUnreachable": "Unonight did not respond to the platform snapshot request.",
+        "providerMismatch": "The live response did not match the expected Unonight provider.",
+        "organizationMismatch": "The live response organization did not match this workspace.",
+        "permissionDenied": "Your role cannot read live integration credentials for this organization.",
+        "responseInvalid": "Unonight returned platform metadata that could not be validated safely.",
+        "missingPlatformScope": "The verified token does not include the platform.metadata.read scope required for live platform metadata."
+      }
+    },
     "fallback": {
       "directAnswer": "Aipify can guide you through the APP portal — navigation, billing, team, security, integrations, and support.",
       "explanation": "Ask a specific question about a page or task, and Aipify will provide the next step with a direct link inside your workspace.",

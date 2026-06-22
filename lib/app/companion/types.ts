@@ -1,4 +1,4 @@
-import type { IntegrationStatusCardPayload } from "@/lib/companion-platform-knowledge/types";
+import type { IntegrationStatusCardPayload, PlatformSnapshotCardPayload } from "@/lib/companion-platform-knowledge/types";
 import type { CompanionCapabilityId, CompanionQuickActionId } from "./constants";
 
 export type CompanionChatMessageRole = "user" | "aipify";
@@ -31,6 +31,7 @@ export type CompanionChatMessage = {
   directAnswer?: string;
   explanation?: string;
   integrationStatusCard?: IntegrationStatusCardPayload;
+  platformSnapshotCard?: PlatformSnapshotCardPayload;
   steps?: string[];
   ctas?: CompanionChatCta[];
   sources?: CompanionAnswerSource[];

@@ -112,6 +112,71 @@
         "responseInvalid": "Unonight returned a response that could not be validated safely."
       }
     },
+    "platformSnapshot": {
+      "title": "Метадані платформи Unonight у реальному часі",
+      "sourceVerifiedIntegration": "Верифікована інтеграція Unonight",
+      "failureTitle": "Метадані платформи Unonight у реальному часі недоступні",
+      "failureLead": "Aipify не змогло отримати метадані платформи з верифікованої інтеграції Unonight.",
+      "failureRetryStep": "Перевірте, чи токен інтеграції містить platform.metadata.read, і запитайте знову.",
+      "orgConfirmBlockedNoLiveData": "Підтвердження організації недоступне, оскільки відповідь не використала метадані платформи в реальному часі.",
+      "card": {
+        "title": "Знімок платформи Unonight у реальному часі",
+        "supporting": "Aipify отримав ці метадані платформи безпосередньо з верифікованої інтеграції Unonight лише для читання.",
+        "fieldEnvironment": "Середовище",
+        "fieldPlatformVersion": "Версія платформи",
+        "fieldAvailability": "Доступність",
+        "fieldActiveModules": "Активні модулі",
+        "fieldSupportedLanguages": "Підтримувані мови",
+        "fieldCheckedAt": "Перевірено",
+        "timestampUnavailable": "Недоступно",
+        "languagesUnavailable": "Не повідомлено Unonight",
+        "availabilityAvailable": "Доступно",
+        "availabilityDegraded": "Погіршено",
+        "availabilityMaintenance": "Обслуговування",
+        "sourceTitle": "Джерело даних",
+        "sourceMeta": "Метадані платформи в реальному часі · Лише для читання · Перевірено зараз",
+        "ariaCard": "Верифікований знімок платформи Unonight"
+      },
+      "modules": {
+        "chat": "Чат",
+        "marketplace": "Маркетплейс",
+        "wishlist": "Список бажань",
+        "gifts": "Подарунки",
+        "verification": "Верифікація",
+        "rewards": "Нагороди"
+      },
+      "variants": {
+        "activeModules": {
+          "intro": "Unonight повідомляє про ці активні модулі: {modules}. Перевірено {checkedAt} з верифікованої інтеграції лише для читання."
+        },
+        "supportedLanguages": {
+          "intro": "Unonight повідомляє про ці підтримувані мови: {languages}. Перевірено {checkedAt}."
+        },
+        "environmentStatus": {
+          "intro": "Unonight повідомляє про середовище {environment} зі статусом {status}. Перевірено {checkedAt}."
+        },
+        "platformVersion": {
+          "intro": "Unonight повідомляє версію платформи {version}. Перевірено {checkedAt}."
+        },
+        "visibilitySummary": {
+          "intro": "З верифікованої інтеграції лише для читання Aipify бачить безпечні метадані платформи, зокрема активні модулі ({modules}). Перевірено {checkedAt}."
+        },
+        "fullSnapshot": {
+          "intro": "Знімок платформи Unonight у реальному часі перевірено {checkedAt}. Активні модулі: {modules}."
+        }
+      },
+      "failures": {
+        "integrationNotConnected": "Для цієї організації не налаштовано активну інтеграцію Unonight.",
+        "integrationNotVerified": "Інтеграція Unonight існує, але ще не верифікована.",
+        "credentialUnavailable": "Збережені облікові дані недоступні для читання в реальному часі.",
+        "endpointUnreachable": "Unonight не відповів на запит знімка платформи.",
+        "providerMismatch": "Відповідь у реальному часі не відповідає очікуваному постачальнику Unonight.",
+        "organizationMismatch": "Організація у відповіді не відповідає цьому робочому простору.",
+        "permissionDenied": "Ваша роль не може читати облікові дані інтеграції в реальному часі.",
+        "responseInvalid": "Unonight повернув метадані платформи, які не вдалося безпечно перевірити.",
+        "missingPlatformScope": "Верифікований токен не містить platform.metadata.read, необхідного для метаданих платформи."
+      }
+    },
     "fallback": {
       "directAnswer": "Aipify can guide you through the APP portal — navigation, billing, team, security, integrations, and support.",
       "explanation": "Ask a specific question about a page or task, and Aipify will provide the next step with a direct link inside your workspace.",

@@ -112,6 +112,71 @@
         "responseInvalid": "Unonight returned a response that could not be validated safely."
       }
     },
+    "platformSnapshot": {
+      "title": "Live Unonight-platformmetadata",
+      "sourceVerifiedIntegration": "Verificeret Unonight-integration",
+      "failureTitle": "Live Unonight-platformmetadata utilgængelig",
+      "failureLead": "Aipify kunne ikke hente live platformmetadata fra den verificerede Unonight-integration lige nu.",
+      "failureRetryStep": "Verificer at integrationstoken inkluderer platform.metadata.read, og spørg igen.",
+      "orgConfirmBlockedNoLiveData": "Organisationsbekræftelse er utilgængelig, fordi svaret ikke brugte live platformmetadata.",
+      "card": {
+        "title": "Live Unonight-platformsnapshot",
+        "supporting": "Aipify hentede disse platformmetadata direkte fra den verificerede skrivebeskyttede Unonight-integration.",
+        "fieldEnvironment": "Miljø",
+        "fieldPlatformVersion": "Platformversion",
+        "fieldAvailability": "Tilgængelighed",
+        "fieldActiveModules": "Aktive moduler",
+        "fieldSupportedLanguages": "Understøttede sprog",
+        "fieldCheckedAt": "Kontrolleret",
+        "timestampUnavailable": "Ikke tilgængelig",
+        "languagesUnavailable": "Ikke rapporteret af Unonight",
+        "availabilityAvailable": "Tilgængelig",
+        "availabilityDegraded": "Forringet",
+        "availabilityMaintenance": "Vedligeholdelse",
+        "sourceTitle": "Datakilde",
+        "sourceMeta": "Live platformmetadata · Skrivebeskyttet · Kontrolleret nu",
+        "ariaCard": "Verificeret Unonight-platformsnapshot"
+      },
+      "modules": {
+        "chat": "Chat",
+        "marketplace": "Markedsplads",
+        "wishlist": "Ønskeliste",
+        "gifts": "Gaver",
+        "verification": "Verificering",
+        "rewards": "Belønninger"
+      },
+      "variants": {
+        "activeModules": {
+          "intro": "Unonight rapporterer disse aktive moduler lige nu: {modules}. Kontrolleret {checkedAt} fra den verificerede skrivebeskyttede integration."
+        },
+        "supportedLanguages": {
+          "intro": "Unonight rapporterer disse understøttede sprog: {languages}. Kontrolleret {checkedAt}."
+        },
+        "environmentStatus": {
+          "intro": "Unonight rapporterer miljø {environment} med status {status}. Kontrolleret {checkedAt}."
+        },
+        "platformVersion": {
+          "intro": "Unonight rapporterer platformversion {version}. Kontrolleret {checkedAt}."
+        },
+        "visibilitySummary": {
+          "intro": "Fra den verificerede skrivebeskyttede integration kan Aipify se sikker platformmetadata som aktive moduler ({modules}). Kontrolleret {checkedAt}."
+        },
+        "fullSnapshot": {
+          "intro": "Unonight live platformsnapshot kontrolleret {checkedAt}. Aktive moduler: {modules}."
+        }
+      },
+      "failures": {
+        "integrationNotConnected": "Ingen aktiv Unonight-integration er konfigureret for denne organisation.",
+        "integrationNotVerified": "Unonight-integrationen findes, men er ikke verificeret endnu.",
+        "credentialUnavailable": "Lagret forbindelsesnøgle er utilgængelig for live læsning.",
+        "endpointUnreachable": "Unonight svarede ikke på platformsnapshot-forespørgslen.",
+        "providerMismatch": "Live-svaret matchede ikke forventet Unonight-udbyder.",
+        "organizationMismatch": "Organisationen i live-svaret matchede ikke dette arbejdsområde.",
+        "permissionDenied": "Din rolle kan ikke læse live integrationsnøgler for denne organisation.",
+        "responseInvalid": "Unonight returnerede platformmetadata, der ikke kunne valideres sikkert.",
+        "missingPlatformScope": "Det verificerede token inkluderer ikke platform.metadata.read, som kræves for live platformmetadata."
+      }
+    },
     "fallback": {
       "directAnswer": "Aipify can guide you through the APP portal — navigation, billing, team, security, integrations, and support.",
       "explanation": "Ask a specific question about a page or task, and Aipify will provide the next step with a direct link inside your workspace.",

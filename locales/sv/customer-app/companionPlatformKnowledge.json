@@ -112,6 +112,71 @@
         "responseInvalid": "Unonight returned a response that could not be validated safely."
       }
     },
+    "platformSnapshot": {
+      "title": "Live Unonight-plattformsmetadata",
+      "sourceVerifiedIntegration": "Verifierad Unonight-integration",
+      "failureTitle": "Live Unonight-plattformsmetadata otillgänglig",
+      "failureLead": "Aipify kunde inte hämta live plattformsmetadata från den verifierade Unonight-integrationen just nu.",
+      "failureRetryStep": "Verifiera att integrationstoken inkluderar platform.metadata.read och fråga igen.",
+      "orgConfirmBlockedNoLiveData": "Organisationsbekräftelse är otillgänglig eftersom svaret inte använde live plattformsmetadata.",
+      "card": {
+        "title": "Live Unonight-plattformsögonblicksbild",
+        "supporting": "Aipify hämtade denna plattformsmetadata direkt från den verifierade skrivskyddade Unonight-integrationen.",
+        "fieldEnvironment": "Miljö",
+        "fieldPlatformVersion": "Plattformsversion",
+        "fieldAvailability": "Tillgänglighet",
+        "fieldActiveModules": "Aktiva moduler",
+        "fieldSupportedLanguages": "Språk som stöds",
+        "fieldCheckedAt": "Kontrollerad",
+        "timestampUnavailable": "Inte tillgänglig",
+        "languagesUnavailable": "Rapporteras inte av Unonight",
+        "availabilityAvailable": "Tillgänglig",
+        "availabilityDegraded": "Försämrad",
+        "availabilityMaintenance": "Underhåll",
+        "sourceTitle": "Datakälla",
+        "sourceMeta": "Live plattformsmetadata · Skrivskyddad · Kontrollerad nu",
+        "ariaCard": "Verifierad Unonight-plattformsögonblicksbild"
+      },
+      "modules": {
+        "chat": "Chatt",
+        "marketplace": "Marknadsplats",
+        "wishlist": "Önskelista",
+        "gifts": "Presenter",
+        "verification": "Verifiering",
+        "rewards": "Belöningar"
+      },
+      "variants": {
+        "activeModules": {
+          "intro": "Unonight rapporterar dessa aktiva moduler just nu: {modules}. Kontrollerad {checkedAt} från den verifierade skrivskyddade integrationen."
+        },
+        "supportedLanguages": {
+          "intro": "Unonight rapporterar dessa språk: {languages}. Kontrollerad {checkedAt} från den verifierade skrivskyddade integrationen."
+        },
+        "environmentStatus": {
+          "intro": "Unonight rapporterar miljö {environment} med status {status}. Kontrollerad {checkedAt}."
+        },
+        "platformVersion": {
+          "intro": "Unonight rapporterar plattformsversion {version}. Kontrollerad {checkedAt}."
+        },
+        "visibilitySummary": {
+          "intro": "Från den verifierade skrivskyddade integrationen kan Aipify se säker plattformsmetadata som aktiva moduler ({modules}). Kontrollerad {checkedAt}."
+        },
+        "fullSnapshot": {
+          "intro": "Unonight live plattformsögonblicksbild kontrollerad {checkedAt}. Aktiva moduler: {modules}."
+        }
+      },
+      "failures": {
+        "integrationNotConnected": "Ingen aktiv Unonight-integration är konfigurerad för denna organisation.",
+        "integrationNotVerified": "Unonight-integrationen finns men är inte verifierad ännu.",
+        "credentialUnavailable": "Lagrad anslutningsnyckel är otillgänglig för live-läsning.",
+        "endpointUnreachable": "Unonight svarade inte på plattformsögonblicksbilden.",
+        "providerMismatch": "Live-svaret matchade inte förväntad Unonight-leverantör.",
+        "organizationMismatch": "Organisationen i live-svaret matchade inte denna arbetsyta.",
+        "permissionDenied": "Din roll kan inte läsa live integrationsnycklar för denna organisation.",
+        "responseInvalid": "Unonight returnerade plattformsmetadata som inte kunde valideras säkert.",
+        "missingPlatformScope": "Den verifierade token saknar platform.metadata.read som krävs för live plattformsmetadata."
+      }
+    },
     "fallback": {
       "directAnswer": "Aipify can guide you through the APP portal — navigation, billing, team, security, integrations, and support.",
       "explanation": "Ask a specific question about a page or task, and Aipify will provide the next step with a direct link inside your workspace.",

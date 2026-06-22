@@ -5,6 +5,7 @@ import Link from "next/link";
 import { CompanionIcon } from "./CompanionIcon";
 import { CompanionAnswerFeedback } from "./CompanionAnswerFeedback";
 import { CompanionIntegrationStatusCard } from "./CompanionIntegrationStatusCard";
+import { CompanionPlatformSnapshotCard } from "./CompanionPlatformSnapshotCard";
 
 function ctaClassName(variant?: "primary" | "secondary"): string {
   const base = "inline-flex items-center justify-center rounded-lg px-3 py-2 text-xs font-medium transition-colors";
@@ -66,13 +67,18 @@ export function CompanionChat({
             >
               {(() => {
                 const hideIntro =
-                  Boolean(msg.integrationStatusCard) &&
-                  msg.directAnswer === msg.integrationStatusCard?.labels.cardSupporting;
+                  Boolean(msg.integrationStatusCard || msg.platformSnapshotCard) &&
+                  msg.directAnswer ===
+                    (msg.integrationStatusCard?.labels.cardSupporting ??
+                      msg.platformSnapshotCard?.labels.cardSupporting);
                 if (hideIntro || !msg.directAnswer) return null;
                 return <p className="text-sm text-aipify-text">{msg.directAnswer}</p>;
               })()}
-              {!msg.directAnswer && !msg.integrationStatusCard ? (
+              {!msg.directAnswer && !msg.integrationStatusCard && !msg.platformSnapshotCard ? (
                 <p className="text-sm text-aipify-text">{msg.content}</p>
+              ) : null}
+              {msg.platformSnapshotCard ? (
+                <CompanionPlatformSnapshotCard card={msg.platformSnapshotCard} locale={locale} />
               ) : null}
               {msg.integrationStatusCard ? (
                 <CompanionIntegrationStatusCard card={msg.integrationStatusCard} locale={locale} />
@@ -114,7 +120,7 @@ export function CompanionChat({
                 orgConfirmBlockedReason={msg.orgConfirmBlockedReason}
                 initialFeedback={msg.feedback ?? null}
                 showSupportEscalation={msg.showSupportEscalation}
-                hideSourcesToggle={Boolean(msg.integrationStatusCard)}
+                hideSourcesToggle={Boolean(msg.integrationStatusCard || msg.platformSnapshotCard)}
                 onFeedback={(feedback) => {
                   if (feedback) onMessageFeedback?.(msg.id, feedback);
                 }}
