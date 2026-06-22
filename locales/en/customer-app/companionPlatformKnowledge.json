@@ -505,6 +505,56 @@
         "support_adapter": "external ticketing helpdesk zendesk intercom adapter"
       }
     },
+    "industryPack": {
+      "sourceLabel": "Industry pack catalog",
+      "discoveryLead": "Aipify mapped {provider} in your industry pack catalog — status: {status}.",
+      "discoveryExplanation": "Capabilities below come from registered industry pack manifests backed by Appointments & Services. Booking writes require approval and respect availability, duration, buffers, and Vacation Mode rules.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Industry pack source is prepared or verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No industry pack provider matched this request for your organization.",
+      "unavailableExplanation": "Industry pack capabilities are discovered from registered manifests — none matched this query.",
+      "externalUnavailableLead": "External industry scheduling adapters are not connected for your organization.",
+      "externalUnavailableExplanation": "No live external industry adapter is registered. Aipify does not execute payments, cancellations, or deletions in Companion runtime.",
+      "blockedOperationLead": "This industry pack operation is not available in Companion runtime.",
+      "blockedOperationExplanation": "Cancellations, deletions, payments, and irreversible changes are blocked in this phase. Aipify can prepare and recommend — you decide and approve reversible writes.",
+      "permissionDenied": "Your role cannot access the industry pack catalog.",
+      "entitlementBlocked": "Industry pack capabilities are unavailable while the organization subscription is paused.",
+      "privacyNote": "Metadata-first industry intelligence — private customer details are never exposed without permission.",
+      "policyNote": "Bookings, reminders, and follow-ups require explicit approval. Double-booking prevention and Vacation Mode integration apply.",
+      "doubleBookingPrevented": "Double-booking prevention is active for this organization.",
+      "doubleBookingReviewRequired": "Double-booking prevention requires review — overbooking is not enabled by default.",
+      "vacationModeActive": "Vacation Mode coverage integration is active for scheduling.",
+      "vacationModeAvailable": "Vacation Mode coverage is available via Absence Center integration.",
+      "postVacationBufferActive": "Post-vacation return buffer is configured for booking continuity.",
+      "postVacationBufferAvailable": "Post-vacation return buffer is available via appointment vacation integration.",
+      "openIndustryCenter": "Open industry center",
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "local_service_beauty": "Local Service & Personal Care",
+        "service_scheduling_staff": "Staff Scheduling",
+        "service_retail_inventory": "Retail & Inventory",
+        "client_engagement_follow_up": "Client Follow-Up & Reminders",
+        "industry_pack_adapter": "External Industry Adapter"
+      },
+      "searchTerms": {
+        "local_service_beauty": "appointments treatments services availability booking vacation mode",
+        "service_scheduling_staff": "staff scheduling shifts availability resources",
+        "service_retail_inventory": "products inventory stock retail consumables",
+        "client_engagement_follow_up": "reminders follow up rebook client engagement",
+        "industry_pack_adapter": "external scheduling adapter third party booking"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

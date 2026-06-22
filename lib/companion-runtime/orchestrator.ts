@@ -126,6 +126,16 @@ import {
   matchSupportProviderQuery,
 } from "./support-answer";
 import {
+  buildBlockedIndustryPackOperationAnswer,
+  buildExternalIndustryPackUnavailableAnswer,
+  buildIndustryPackProviderDiscoveryAnswer,
+  buildIndustryPackProviderUnavailableAnswer,
+  hasBlockedIndustryPackOperationIntent,
+  hasExternalIndustryPackAdapterIntent,
+  hasIndustryPackProviderIntent,
+  matchIndustryPackProviderQuery,
+} from "./industry-pack-answer";
+import {
   buildBlockedCommerceOperationAnswer,
   buildCommerceProviderDiscoveryAnswer,
   buildCommerceProviderUnavailableAnswer,
@@ -704,6 +714,45 @@ function resolveServicesProviderAnswer(
   };
 }
 
+function resolveIndustryPackProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (hasBlockedIndustryPackOperationIntent(query)) {
+    return {
+      answer: buildBlockedIndustryPackOperationAnswer(t),
+    };
+  }
+
+  if (!hasIndustryPackProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.industryPackContext.permission_denied) {
+    return {
+      answer: buildIndustryPackProviderUnavailableAnswer(t, tenantContext.industryPackContext),
+    };
+  }
+
+  if (hasExternalIndustryPackAdapterIntent(query)) {
+    return {
+      answer: buildExternalIndustryPackUnavailableAnswer(t),
+    };
+  }
+
+  const match = matchIndustryPackProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildIndustryPackProviderUnavailableAnswer(t, tenantContext.industryPackContext),
+    };
+  }
+
+  return {
+    answer: buildIndustryPackProviderDiscoveryAnswer(match, tenantContext.industryPackContext, t),
+  };
+}
+
 function resolveSupportProviderAnswer(
   query: string,
   t: Translator,
@@ -948,6 +997,9 @@ export async function orchestrateCompanionSearch(
 
   const servicesResult = resolveServicesProviderAnswer(query, t, resolvedTenantContext);
   if (servicesResult) return finalize(servicesResult);
+
+  const industryPackResult = resolveIndustryPackProviderAnswer(query, t, resolvedTenantContext);
+  if (industryPackResult) return finalize(industryPackResult);
 
   const supportResult = resolveSupportProviderAnswer(query, t, resolvedTenantContext);
   if (supportResult) return finalize(supportResult);

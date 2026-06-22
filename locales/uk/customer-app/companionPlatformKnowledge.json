@@ -481,6 +481,53 @@
         "support_adapter": "зовнішній ticketing helpdesk zendesk intercom adapter"
       }
     },
+    "industryPack": {
+      "sourceLabel": "Каталог industry pack",
+      "discoveryLead": "Aipify зіставив {provider} у каталозі industry pack — статус: {status}.",
+      "discoveryExplanation": "Можливості нижче походять із зареєстрованих manifest industry pack на базі Appointments & Services. Записи бронювання потребують схвалення та поважають доступність, тривалість, буфери та правила Vacation Mode.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Джерело industry pack підготовлене або перевірене для вашої організації.",
+      "disconnectedProvider": "Runtime-адаптер провайдера не підключений — лише кероване виявлення.",
+      "unavailableLead": "Жоден провайдер industry pack не відповів цьому запиту для вашої організації.",
+      "unavailableExplanation": "Можливості industry pack виявляються з зареєстрованих manifest — жоден не відповів цьому запиту.",
+      "externalUnavailableLead": "Зовнішні адаптери scheduling не підключені для вашої організації.",
+      "externalUnavailableExplanation": "Не зареєстровано активного зовнішнього industry-адаптера. Aipify не виконує платежі, скасування чи видалення в Companion runtime.",
+      "blockedOperationLead": "Ця операція industry pack недоступна в Companion runtime.",
+      "blockedOperationExplanation": "Скасування, видалення, платежі та незворотні зміни заблоковані на цій фазі. Aipify може підготувати та рекомендувати — ви вирішуєте та схвалюєте зворотні записи.",
+      "permissionDenied": "Ваша роль не має доступу до каталогу industry pack.",
+      "entitlementBlocked": "Можливості industry pack недоступні, поки підписку організації призупинено.",
+      "privacyNote": "Інтелект industry metadata-first — приватні дані клієнтів ніколи не розкриваються без дозволу.",
+      "policyNote": "Бронювання, нагадування та follow-up потребують явного схвалення. Запобігання подвійному бронюванню та Vacation Mode застосовуються.",
+      "doubleBookingPrevented": "Запобігання подвійному бронюванню активне для цієї організації.",
+      "doubleBookingReviewRequired": "Запобігання подвійному бронюванню потребує перевірки — overbooking не увімкнено за замовчуванням.",
+      "vacationModeActive": "Інтеграція Vacation Mode активна для планування.",
+      "vacationModeAvailable": "Vacation Mode доступний через інтеграцію Absence Center.",
+      "postVacationBufferActive": "Буфер після відпустки налаштовано для безперервності бронювань.",
+      "postVacationBufferAvailable": "Буфер після відпустки доступний через інтеграцію appointment vacation.",
+      "openIndustryCenter": "Відкрити industry center",
+      "operation": { "read": "читання", "write": "запис" },
+      "status": {
+        "connected": "підключено",
+        "implemented_disconnected": "реалізовано, але відключено",
+        "partial": "частково",
+        "specification_only": "лише специфікація",
+        "placeholder": "заглушка"
+      },
+      "providers": {
+        "local_service_beauty": "Local Service & Personal Care",
+        "service_scheduling_staff": "Staff Scheduling",
+        "service_retail_inventory": "Retail & Inventory",
+        "client_engagement_follow_up": "Client Follow-Up & Reminders",
+        "industry_pack_adapter": "External Industry Adapter"
+      },
+      "searchTerms": {
+        "local_service_beauty": "записи процедури послуги доступність бронювання vacation mode",
+        "service_scheduling_staff": "персонал планування зміни доступність ресурси",
+        "service_retail_inventory": "продукти інвентар stock retail consumables",
+        "client_engagement_follow_up": "нагадування follow up rebook залучення клієнта",
+        "industry_pack_adapter": "зовнішній adapter scheduling бронювання third party"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

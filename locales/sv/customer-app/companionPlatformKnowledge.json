@@ -481,6 +481,53 @@
         "support_adapter": "extern ticketing helpdesk zendesk intercom adapter"
       }
     },
+    "industryPack": {
+      "sourceLabel": "Industry pack-katalog",
+      "discoveryLead": "Aipify kartlade {provider} i industry pack-katalogen — status: {status}.",
+      "discoveryExplanation": "Capabilities nedan kommer från registrerade industry pack-manifest stödda av Appointments & Services. Bokningsskrivningar kräver godkännande och respekterar tillgänglighet, varaktighet, buffertar och Vacation Mode-regler.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Industry pack-källan är förberedd eller verifierad för din organisation.",
+      "disconnectedProvider": "Provider runtime-adapter är inte ansluten — endast styrd upptäckt.",
+      "unavailableLead": "Ingen industry pack provider matchade denna begäran för din organisation.",
+      "unavailableExplanation": "Industry pack-capabilities upptäcks från registrerade manifest — ingen matchade denna fråga.",
+      "externalUnavailableLead": "Externa industry scheduling-adapters är inte anslutna för din organisation.",
+      "externalUnavailableExplanation": "Ingen live extern industry-adapter är registrerad. Aipify utför inte betalning, avbokning eller radering i Companion runtime.",
+      "blockedOperationLead": "Denna industry pack-operation är inte tillgänglig i Companion runtime.",
+      "blockedOperationExplanation": "Avbokning, radering, betalning och irreversibla ändringar är blockerade i denna fas. Aipify kan förbereda och rekommendera — du bestämmer och godkänner reversibla skrivningar.",
+      "permissionDenied": "Din roll har inte åtkomst till industry pack-katalogen.",
+      "entitlementBlocked": "Industry pack-capabilities är otillgängliga medan organisationens prenumeration är pausad.",
+      "privacyNote": "Metadata-först industry-intelligens — privata kunddetaljer exponeras aldrig utan behörighet.",
+      "policyNote": "Bokningar, påminnelser och uppföljning kräver explicit godkännande. Dubblettbokningsförebyggande och Vacation Mode gäller.",
+      "doubleBookingPrevented": "Dubblettbokningsförebyggande är aktivt för denna organisation.",
+      "doubleBookingReviewRequired": "Dubblettbokningsförebyggande kräver granskning — overbooking är inte aktiverat som standard.",
+      "vacationModeActive": "Vacation Mode-täckningsintegration är aktiv för schemaläggning.",
+      "vacationModeAvailable": "Vacation Mode-täckning är tillgänglig via Absence Center-integration.",
+      "postVacationBufferActive": "Post-semester returbuffert är konfigurerad för bokningskontinuitet.",
+      "postVacationBufferAvailable": "Post-semester returbuffert är tillgänglig via appointment vacation-integration.",
+      "openIndustryCenter": "Öppna industry-center",
+      "operation": { "read": "läs", "write": "skriv" },
+      "status": {
+        "connected": "ansluten",
+        "implemented_disconnected": "implementerad men frånkopplad",
+        "partial": "delvis",
+        "specification_only": "endast specifikation",
+        "placeholder": "platshållare"
+      },
+      "providers": {
+        "local_service_beauty": "Local Service & Personal Care",
+        "service_scheduling_staff": "Staff Scheduling",
+        "service_retail_inventory": "Retail & Inventory",
+        "client_engagement_follow_up": "Client Follow-Up & Reminders",
+        "industry_pack_adapter": "External Industry Adapter"
+      },
+      "searchTerms": {
+        "local_service_beauty": "bokningar behandlingar tjänster tillgänglighet vacation mode",
+        "service_scheduling_staff": "personal schemaläggning skift tillgänglighet resurser",
+        "service_retail_inventory": "produkter lager inventory retail consumables",
+        "client_engagement_follow_up": "påminnelser uppföljning rebook kundengagemang",
+        "industry_pack_adapter": "extern scheduling adapter tredjeparts booking"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

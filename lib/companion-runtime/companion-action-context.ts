@@ -12,6 +12,7 @@ import {
   buildActionDefinitionFromCommerceCapability,
   buildActionDefinitionFromServicesCapability,
   buildActionDefinitionFromSupportCapability,
+  buildActionDefinitionFromIndustryPackCapability,
   buildActionDefinitionFromWorkspaceCapability,
   buildActionDefinitionFromPolicy,
   buildActionDefinitionFromSchemaEntity,
@@ -27,6 +28,7 @@ import type { CompanionWorkspaceContext } from "./companion-workspace-context";
 import type { CompanionCommerceContext } from "./companion-commerce-context";
 import type { CompanionServicesContext } from "./companion-services-context";
 import type { CompanionSupportContext } from "./companion-support-context";
+import type { CompanionIndustryPackContext } from "./companion-industry-pack-context";
 import {
   parseApprovedCompanionActionRequest,
   parseApprovedTrustActionRequest,
@@ -97,6 +99,7 @@ export type NormalizeCompanionActionContextInput = {
   commerceContext?: CompanionCommerceContext;
   servicesContext?: CompanionServicesContext;
   supportContext?: CompanionSupportContext;
+  industryPackContext?: CompanionIndustryPackContext;
 };
 
 function parseApprovedRecordsFromApprovalsCenter(raw: unknown): CompanionApprovedActionRecord[] {
@@ -253,6 +256,17 @@ export function normalizeCompanionActionContext(
   for (const capability of input.supportContext?.capabilities ?? []) {
     if (capability.operation !== "write") continue;
     const definition = buildActionDefinitionFromSupportCapability(capability, {
+      permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
+      appEntitlementBlocked: appSuspended,
+      emergencyStop,
+      maxRiskLevel,
+    });
+    if (definition) actions.push(definition);
+  }
+
+  for (const capability of input.industryPackContext?.capabilities ?? []) {
+    if (capability.operation !== "write") continue;
+    const definition = buildActionDefinitionFromIndustryPackCapability(capability, {
       permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
       appEntitlementBlocked: appSuspended,
       emergencyStop,

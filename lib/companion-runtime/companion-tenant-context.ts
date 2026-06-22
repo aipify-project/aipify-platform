@@ -23,6 +23,10 @@ import { createEmptyCompanionWorkspaceContext, type CompanionWorkspaceContext } 
 import { createEmptyCompanionCommerceContext, type CompanionCommerceContext } from "./companion-commerce-context";
 import { createEmptyCompanionServicesContext, type CompanionServicesContext } from "./companion-services-context";
 import { createEmptyCompanionSupportContext, type CompanionSupportContext } from "./companion-support-context";
+import {
+  createEmptyCompanionIndustryPackContext,
+  type CompanionIndustryPackContext,
+} from "./companion-industry-pack-context";
 
 const PORTAL_FEATURE_KEYS = [
   "team_management",
@@ -70,6 +74,7 @@ export type CompanionTenantContext = {
   commerceContext: CompanionCommerceContext;
   servicesContext: CompanionServicesContext;
   supportContext: CompanionSupportContext;
+  industryPackContext: CompanionIndustryPackContext;
 };
 
 export function createEmptyCompanionTenantContext(
@@ -113,6 +118,7 @@ export function createEmptyCompanionTenantContext(
     commerceContext: createEmptyCompanionCommerceContext(),
     servicesContext: createEmptyCompanionServicesContext(),
     supportContext: createEmptyCompanionSupportContext(),
+    industryPackContext: createEmptyCompanionIndustryPackContext(),
     ...overrides,
   };
 }

@@ -490,6 +490,53 @@
         "support_adapter": "ekstern ticketing helpdesk zendesk intercom adapter"
       }
     },
+    "industryPack": {
+      "sourceLabel": "Industry pack-katalog",
+      "discoveryLead": "Aipify kartla {provider} i industry pack-katalogen — status: {status}.",
+      "discoveryExplanation": "Capabilities nedenfor kommer fra registrerte industry pack-manifest støttet av Appointments & Services. Booking-skrivinger krever godkjenning og respekterer tilgjengelighet, varighet, buffere og Vacation Mode-regler.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Industry pack-kilden er forberedt eller verifisert for organisasjonen din.",
+      "disconnectedProvider": "Provider runtime-adapter er ikke tilkoblet — kun styrt oppdagelse.",
+      "unavailableLead": "Ingen industry pack provider matchet denne forespørselen for organisasjonen din.",
+      "unavailableExplanation": "Industry pack-capabilities oppdages fra registrerte manifest — ingen matchet dette spørsmålet.",
+      "externalUnavailableLead": "Eksterne industry scheduling-adaptere er ikke tilkoblet for organisasjonen din.",
+      "externalUnavailableExplanation": "Ingen live ekstern industry-adapter er registrert. Aipify utfører ikke betaling, avbestilling eller sletting i Companion runtime.",
+      "blockedOperationLead": "Denne industry pack-operasjonen er ikke tilgjengelig i Companion runtime.",
+      "blockedOperationExplanation": "Avbestilling, sletting, betaling og irreversible endringer er blokkert i denne fasen. Aipify kan forberede og anbefale — du bestemmer og godkjenner reversible skrivinger.",
+      "permissionDenied": "Rollen din har ikke tilgang til industry pack-katalogen.",
+      "entitlementBlocked": "Industry pack-capabilities er utilgjengelige mens organisasjonens abonnement er pauset.",
+      "privacyNote": "Metadata-først industry-intelligens — private kundedetaljer eksponeres aldri uten tillatelse.",
+      "policyNote": "Bookinger, påminnelser og oppfølging krever eksplisitt godkjenning. Dobbeltbooking-forebygging og Vacation Mode gjelder.",
+      "doubleBookingPrevented": "Dobbeltbooking-forebygging er aktiv for denne organisasjonen.",
+      "doubleBookingReviewRequired": "Dobbeltbooking-forebygging krever gjennomgang — overbooking er ikke aktivert som standard.",
+      "vacationModeActive": "Vacation Mode-dekningsintegrasjon er aktiv for planlegging.",
+      "vacationModeAvailable": "Vacation Mode-dekning er tilgjengelig via Absence Center-integrasjon.",
+      "postVacationBufferActive": "Post-ferie returbuffer er konfigurert for booking-kontinuitet.",
+      "postVacationBufferAvailable": "Post-ferie returbuffer er tilgjengelig via appointment vacation-integrasjon.",
+      "openIndustryCenter": "Åpne industry-senter",
+      "operation": { "read": "les", "write": "skriv" },
+      "status": {
+        "connected": "tilkoblet",
+        "implemented_disconnected": "implementert men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun spesifikasjon",
+        "placeholder": "plassholder"
+      },
+      "providers": {
+        "local_service_beauty": "Local Service & Personal Care",
+        "service_scheduling_staff": "Staff Scheduling",
+        "service_retail_inventory": "Retail & Inventory",
+        "client_engagement_follow_up": "Client Follow-Up & Reminders",
+        "industry_pack_adapter": "External Industry Adapter"
+      },
+      "searchTerms": {
+        "local_service_beauty": "avtaler behandlinger tjenester tilgjengelighet booking vacation mode",
+        "service_scheduling_staff": "personale planlegging skift tilgjengelighet ressurser",
+        "service_retail_inventory": "produkter lager beholdning retail consumables",
+        "client_engagement_follow_up": "påminnelser oppfølging rebook kundeengasjement",
+        "industry_pack_adapter": "ekstern scheduling adapter tredjeparts booking"
+      }
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

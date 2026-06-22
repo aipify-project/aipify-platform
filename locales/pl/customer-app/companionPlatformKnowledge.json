@@ -481,6 +481,53 @@
         "support_adapter": "zewnętrzny ticketing helpdesk zendesk intercom adapter"
       }
     },
+    "industryPack": {
+      "sourceLabel": "Katalog industry pack",
+      "discoveryLead": "Aipify zmapowało {provider} w katalogu industry pack — status: {status}.",
+      "discoveryExplanation": "Poniższe możliwości pochodzą z zarejestrowanych manifestów industry pack wspieranych przez Appointments & Services. Zapisy rezerwacji wymagają zatwierdzenia i respektują dostępność, czas trwania, bufory i reguły Vacation Mode.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Źródło industry pack jest przygotowane lub zweryfikowane dla Twojej organizacji.",
+      "disconnectedProvider": "Adapter runtime dostawcy nie jest podłączony — tylko kontrolowane wykrywanie.",
+      "unavailableLead": "Żaden dostawca industry pack nie pasował do tego żądania dla Twojej organizacji.",
+      "unavailableExplanation": "Możliwości industry pack są wykrywane z zarejestrowanych manifestów — żaden nie pasował do tego zapytania.",
+      "externalUnavailableLead": "Zewnętrzne adaptery scheduling nie są podłączone dla Twojej organizacji.",
+      "externalUnavailableExplanation": "Nie zarejestrowano aktywnego zewnętrznego adaptera industry. Aipify nie wykonuje płatności, anulowań ani usuwania w Companion runtime.",
+      "blockedOperationLead": "Ta operacja industry pack nie jest dostępna w Companion runtime.",
+      "blockedOperationExplanation": "Anulowania, usuwanie, płatności i nieodwracalne zmiany są zablokowane w tej fazie. Aipify może przygotować i rekomendować — Ty decydujesz i zatwierdzasz odwracalne zapisy.",
+      "permissionDenied": "Twoja rola nie ma dostępu do katalogu industry pack.",
+      "entitlementBlocked": "Możliwości industry pack są niedostępne, gdy subskrypcja organizacji jest wstrzymana.",
+      "privacyNote": "Inteligencja industry metadata-first — prywatne dane klientów nigdy nie są ujawniane bez uprawnień.",
+      "policyNote": "Rezerwacje, przypomnienia i follow-up wymagają wyraźnego zatwierdzenia. Zapobieganie podwójnej rezerwacji i Vacation Mode obowiązują.",
+      "doubleBookingPrevented": "Zapobieganie podwójnej rezerwacji jest aktywne dla tej organizacji.",
+      "doubleBookingReviewRequired": "Zapobieganie podwójnej rezerwacji wymaga przeglądu — overbooking nie jest domyślnie włączony.",
+      "vacationModeActive": "Integracja Vacation Mode jest aktywna dla planowania.",
+      "vacationModeAvailable": "Vacation Mode jest dostępny przez integrację Absence Center.",
+      "postVacationBufferActive": "Bufor po urlopie jest skonfigurowany dla ciągłości rezerwacji.",
+      "postVacationBufferAvailable": "Bufor po urlopie jest dostępny przez integrację appointment vacation.",
+      "openIndustryCenter": "Otwórz centrum industry",
+      "operation": { "read": "odczyt", "write": "zapis" },
+      "status": {
+        "connected": "połączony",
+        "implemented_disconnected": "zaimplementowany ale odłączony",
+        "partial": "częściowy",
+        "specification_only": "tylko specyfikacja",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "local_service_beauty": "Local Service & Personal Care",
+        "service_scheduling_staff": "Staff Scheduling",
+        "service_retail_inventory": "Retail & Inventory",
+        "client_engagement_follow_up": "Client Follow-Up & Reminders",
+        "industry_pack_adapter": "External Industry Adapter"
+      },
+      "searchTerms": {
+        "local_service_beauty": "wizyty zabiegi usługi dostępność rezerwacja vacation mode",
+        "service_scheduling_staff": "personel planowanie zmiany dostępność zasoby",
+        "service_retail_inventory": "produkty magazyn inventory retail consumables",
+        "client_engagement_follow_up": "przypomnienia follow up rebook zaangażowanie klienta",
+        "industry_pack_adapter": "zewnętrzny adapter scheduling rezerwacja third party"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

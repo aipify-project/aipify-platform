@@ -481,6 +481,53 @@
         "support_adapter": "externo ticketing helpdesk zendesk intercom adapter"
       }
     },
+    "industryPack": {
+      "sourceLabel": "Catálogo de industry pack",
+      "discoveryLead": "Aipify mapeó {provider} en su catálogo de industry pack — estado: {status}.",
+      "discoveryExplanation": "Las capacidades siguientes provienen de manifiestos registrados respaldados por Appointments & Services. Las escrituras de reserva requieren aprobación y respetan disponibilidad, duración, buffers y reglas de Vacation Mode.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "La fuente del industry pack está preparada o verificada para su organización.",
+      "disconnectedProvider": "El adaptador runtime del proveedor no está conectado — solo descubrimiento gobernado.",
+      "unavailableLead": "Ningún proveedor de industry pack coincidió con esta solicitud para su organización.",
+      "unavailableExplanation": "Las capacidades de industry pack se descubren desde manifiestos registrados — ninguno coincidió con esta consulta.",
+      "externalUnavailableLead": "Los adaptadores externos de scheduling no están conectados para su organización.",
+      "externalUnavailableExplanation": "No hay adaptador externo de industry en vivo registrado. Aipify no ejecuta pagos, cancelaciones ni eliminaciones en Companion runtime.",
+      "blockedOperationLead": "Esta operación de industry pack no está disponible en Companion runtime.",
+      "blockedOperationExplanation": "Cancelaciones, eliminaciones, pagos y cambios irreversibles están bloqueados en esta fase. Aipify puede preparar y recomendar — usted decide y aprueba escrituras reversibles.",
+      "permissionDenied": "Su rol no puede acceder al catálogo de industry pack.",
+      "entitlementBlocked": "Las capacidades de industry pack no están disponibles mientras la suscripción de la organización está pausada.",
+      "privacyNote": "Inteligencia de industry metadata-first — los detalles privados del cliente nunca se exponen sin permiso.",
+      "policyNote": "Reservas, recordatorios y seguimientos requieren aprobación explícita. Prevención de doble reserva e integración Vacation Mode aplican.",
+      "doubleBookingPrevented": "La prevención de doble reserva está activa para esta organización.",
+      "doubleBookingReviewRequired": "La prevención de doble reserva requiere revisión — overbooking no está habilitado por defecto.",
+      "vacationModeActive": "La integración de cobertura Vacation Mode está activa para la programación.",
+      "vacationModeAvailable": "La cobertura Vacation Mode está disponible vía integración Absence Center.",
+      "postVacationBufferActive": "El buffer post-vacaciones está configurado para continuidad de reservas.",
+      "postVacationBufferAvailable": "El buffer post-vacaciones está disponible vía integración appointment vacation.",
+      "openIndustryCenter": "Abrir centro de industry",
+      "operation": { "read": "lectura", "write": "escritura" },
+      "status": {
+        "connected": "conectado",
+        "implemented_disconnected": "implementado pero desconectado",
+        "partial": "parcial",
+        "specification_only": "solo especificación",
+        "placeholder": "marcador de posición"
+      },
+      "providers": {
+        "local_service_beauty": "Local Service & Personal Care",
+        "service_scheduling_staff": "Staff Scheduling",
+        "service_retail_inventory": "Retail & Inventory",
+        "client_engagement_follow_up": "Client Follow-Up & Reminders",
+        "industry_pack_adapter": "External Industry Adapter"
+      },
+      "searchTerms": {
+        "local_service_beauty": "citas tratamientos servicios disponibilidad reserva vacation mode",
+        "service_scheduling_staff": "personal programación turnos disponibilidad recursos",
+        "service_retail_inventory": "productos inventario stock retail consumables",
+        "client_engagement_follow_up": "recordatorios seguimiento rebook engagement cliente",
+        "industry_pack_adapter": "adaptador scheduling externo reserva terceros"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
