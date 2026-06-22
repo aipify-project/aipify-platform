@@ -2,19 +2,26 @@ import { isUnonightAipifyTokenFormat } from "@/lib/unonight-platform/constants";
 import {
   UNONIGHT_CONNECTION_TIMEOUT_MS,
   UNONIGHT_DEFAULT_SCOPES,
+  UNONIGHT_ORGANIZATION_SLUG,
   UNONIGHT_PROVIDER_KEY,
   buildUnonightConnectionUrl,
   resolveUnonightApiBaseUrl,
 } from "./constants";
 import {
+  organizationsMatchForUnonight,
+  parseUnonightConnectionContractDetailed,
+} from "./contract-parser";
+import type { UnonightContractParseFailureCode } from "./contract-parser";
+import {
   buildUnonightConnectionDiagnostics,
   extractSafeResponseCode,
+  extractSafeResponseShape,
 } from "./diagnostics";
 import { classifyUnonightHttpFailure, getUnonightFailureMessageKey } from "./failures";
 import { assertProductionUnonightToken } from "./placeholders";
 import type {
-  UnonightConnectionSuccess,
   UnonightConnectionTestResult,
+  UnonightConnectionFailureCode,
 } from "./types";
 import { normalizeUnonightFailureCode } from "./types";
 
@@ -23,76 +30,11 @@ export type UnonightLiveTestInput = {
   baseUrl?: string | null;
   requestedScopes?: readonly string[];
   expectedOrganizationId?: string | null;
+  expectedOrganizationSlug?: string | null;
   fetchImpl?: typeof fetch;
   timeoutMs?: number;
   credentialFound?: boolean;
 };
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null && !Array.isArray(value);
-}
-
-function parseScopes(value: unknown): string[] {
-  if (!Array.isArray(value)) return [];
-  return value.filter((entry): entry is string => typeof entry === "string");
-}
-
-function normalizeAccessMode(value: unknown): "read_only" | "read_write" | null {
-  if (value === "read_only" || value === "read_write") return value;
-  if (value === "readonly") return "read_only";
-  return null;
-}
-
-function readOrganizationFields(payload: Record<string, unknown>): {
-  organizationId: string;
-  organizationName: string;
-} {
-  const organization = payload.organization;
-  if (isRecord(organization)) {
-    const organizationId = String(
-      organization.id ?? organization.organization_id ?? ""
-    ).trim();
-    const organizationName = String(
-      organization.name ?? organization.organization_name ?? ""
-    ).trim();
-    if (organizationId || organizationName) {
-      return { organizationId, organizationName };
-    }
-  }
-
-  return {
-    organizationId: String(payload.organization_id ?? "").trim(),
-    organizationName: String(payload.organization_name ?? "").trim(),
-  };
-}
-
-export function parseUnonightConnectionContract(payload: unknown): UnonightConnectionSuccess | null {
-  if (!isRecord(payload)) return null;
-
-  const canonicalConnected = payload.connected === true;
-  const okConnected = payload.ok === true;
-  if (!canonicalConnected && !okConnected) return null;
-
-  const provider = String(payload.provider ?? UNONIGHT_PROVIDER_KEY).trim();
-  if (provider && provider !== UNONIGHT_PROVIDER_KEY) return null;
-
-  const { organizationId, organizationName } = readOrganizationFields(payload);
-  const apiVersion = String(payload.api_version ?? "v1").trim();
-  const accessMode = normalizeAccessMode(payload.access_mode);
-  const scopes = parseScopes(payload.scopes);
-
-  if (!organizationId || !organizationName || !accessMode) return null;
-
-  return {
-    connected: true,
-    provider: "unonight",
-    organization_id: organizationId,
-    organization_name: organizationName,
-    access_mode: accessMode,
-    scopes,
-    api_version: apiVersion,
-  };
-}
 
 function missingScopes(
   granted: readonly string[],
@@ -102,8 +44,29 @@ function missingScopes(
   return required.filter((scope) => !grantedSet.has(scope.toLowerCase()));
 }
 
+function mapContractParseFailure(code: UnonightContractParseFailureCode): UnonightConnectionFailureCode {
+  switch (code) {
+    case "provider_mismatch":
+      return "provider_mismatch";
+    case "malformed_organization":
+      return "malformed_organization";
+    case "read_only_flag_missing":
+      return "read_only_flag_missing";
+    case "malformed_scopes":
+      return "malformed_scopes";
+    case "unsupported_contract_version":
+      return "unsupported_contract_version";
+    case "response_not_json":
+      return "response_not_json";
+    case "connection_not_established":
+      return "connection_not_established";
+    default:
+      return "unsupported_response";
+  }
+}
+
 function buildFailure(
-  code: Parameters<typeof normalizeUnonightFailureCode>[0],
+  code: UnonightConnectionFailureCode,
   technicalReason: string,
   diagnostics: ReturnType<typeof buildUnonightConnectionDiagnostics>
 ): UnonightConnectionTestResult {
@@ -124,6 +87,8 @@ export async function testUnonightReadOnlyConnection(
   const tokenPrefixValid = isUnonightAipifyTokenFormat(input.bearerToken);
   const baseUrl = resolveUnonightApiBaseUrl(input.baseUrl);
   const url = buildUnonightConnectionUrl(baseUrl);
+  const expectedOrganizationSlug =
+    input.expectedOrganizationSlug?.trim() || UNONIGHT_ORGANIZATION_SLUG;
 
   const baseDiagnostics = (overrides: Partial<Parameters<typeof buildUnonightConnectionDiagnostics>[0]>) =>
     buildUnonightConnectionDiagnostics({
@@ -170,8 +135,8 @@ export async function testUnonightReadOnlyConnection(
       redirect: "manual",
       signal: AbortSignal.timeout(timeoutMs),
     });
-  } catch (error) {
-    const code = classifyUnonightHttpFailure({ error });
+  } catch {
+    const code = classifyUnonightHttpFailure({ error: new Error("fetch failed") });
     return buildFailure(
       code,
       "Live HTTP connection test failed",
@@ -200,7 +165,7 @@ export async function testUnonightReadOnlyConnection(
   } catch {
     const code = classifyUnonightHttpFailure({ status: response.status });
     return buildFailure(
-      code,
+      mapContractParseFailure("response_not_json"),
       `Non-JSON response (${response.status})`,
       baseDiagnostics({
         authorizationAttached: true,
@@ -211,6 +176,7 @@ export async function testUnonightReadOnlyConnection(
   }
 
   const safeResponseCode = extractSafeResponseCode(payload);
+  const safeResponseShape = extractSafeResponseShape(payload);
 
   if (!response.ok) {
     const code = classifyUnonightHttpFailure({ status: response.status, error: payload });
@@ -221,34 +187,49 @@ export async function testUnonightReadOnlyConnection(
         authorizationAttached: true,
         httpStatus: response.status,
         safeResponseCode,
+        responseShape: safeResponseShape,
       })
     );
   }
 
-  const contract = parseUnonightConnectionContract(payload);
-  if (!contract) {
+  const parsed = parseUnonightConnectionContractDetailed(payload);
+  if (!parsed.ok) {
+    const failureCode = mapContractParseFailure(parsed.code);
     return buildFailure(
-      "unsupported_response",
-      "Connection contract validation failed",
+      failureCode,
+      parsed.reason,
       baseDiagnostics({
         authorizationAttached: true,
         httpStatus: response.status,
         safeResponseCode,
+        responseShape: safeResponseShape,
         schemaMatched: false,
+        contractMismatchCode: parsed.code,
       })
+    );
+  }
+
+  const contract = parsed.contract;
+  if (parsed.compatibilityNotes.length > 0) {
+    // Safe server-side breadcrumb for operators — never includes secrets.
+    console.info(
+      "[unonight-connection] compatibility normalization",
+      parsed.compatibilityNotes.join(",")
     );
   }
 
   if (contract.access_mode !== "read_only") {
     return buildFailure(
-      "missing_required_scope",
+      "read_only_flag_missing",
       "Read-only access mode required",
       baseDiagnostics({
         authorizationAttached: true,
         httpStatus: response.status,
         safeResponseCode,
+        responseShape: safeResponseShape,
         schemaMatched: true,
         requiredScopesMatched: false,
+        contractMismatchCode: "read_only_flag_missing",
       })
     );
   }
@@ -262,15 +243,19 @@ export async function testUnonightReadOnlyConnection(
         authorizationAttached: true,
         httpStatus: response.status,
         safeResponseCode,
+        responseShape: safeResponseShape,
         schemaMatched: true,
         requiredScopesMatched: false,
+        contractMismatchCode: "malformed_scopes",
       })
     );
   }
 
-  const organizationMatched =
-    !input.expectedOrganizationId?.trim() ||
-    contract.organization_id === input.expectedOrganizationId.trim();
+  const organizationMatched = organizationsMatchForUnonight({
+    contract,
+    expectedOrganizationId: input.expectedOrganizationId,
+    expectedOrganizationSlug,
+  });
 
   if (!organizationMatched) {
     return buildFailure(
@@ -280,24 +265,28 @@ export async function testUnonightReadOnlyConnection(
         authorizationAttached: true,
         httpStatus: response.status,
         safeResponseCode,
+        responseShape: safeResponseShape,
         schemaMatched: true,
         organizationMatched: false,
         requiredScopesMatched: true,
+        contractMismatchCode: "malformed_organization",
       })
     );
   }
 
   if (!contract.api_version.startsWith("v")) {
     return buildFailure(
-      "unsupported_response",
+      "unsupported_contract_version",
       `Unsupported api_version ${contract.api_version}`,
       baseDiagnostics({
         authorizationAttached: true,
         httpStatus: response.status,
         safeResponseCode,
+        responseShape: safeResponseShape,
         schemaMatched: false,
         organizationMatched: true,
         requiredScopesMatched: true,
+        contractMismatchCode: "unsupported_contract_version",
       })
     );
   }
@@ -310,12 +299,16 @@ export async function testUnonightReadOnlyConnection(
       authorizationAttached: true,
       httpStatus: response.status,
       safeResponseCode,
+      responseShape: safeResponseShape,
       schemaMatched: true,
       organizationMatched: true,
       requiredScopesMatched: true,
+      compatibilityNotes: parsed.compatibilityNotes,
     }),
   };
 }
+
+export { parseUnonightConnectionContract } from "./contract-parser";
 
 export function requiresLiveHttpForSuccess(): true {
   return true;

@@ -38,6 +38,20 @@ const FAILURE_MESSAGE_KEYS: Record<UnonightConnectionFailureCode, string> = {
     "customerApp.portalStructure.integrations.unonightConnection.failures.invalidToken",
   placeholder_not_configured:
     "customerApp.portalStructure.integrations.unonightConnection.failures.placeholderNotConfigured",
+  response_not_json:
+    "customerApp.portalStructure.integrations.unonightConnection.failures.malformedResponse",
+  provider_mismatch:
+    "customerApp.portalStructure.integrations.unonightConnection.failures.malformedResponse",
+  read_only_flag_missing:
+    "customerApp.portalStructure.integrations.unonightConnection.failures.malformedResponse",
+  malformed_organization:
+    "customerApp.portalStructure.integrations.unonightConnection.failures.wrongOrg",
+  malformed_scopes:
+    "customerApp.portalStructure.integrations.unonightConnection.failures.missingScope",
+  unsupported_contract_version:
+    "customerApp.portalStructure.integrations.unonightConnection.failures.unsupportedApiVersion",
+  connection_not_established:
+    "customerApp.portalStructure.integrations.unonightConnection.failures.malformedResponse",
 };
 
 const ERROR_PANEL_PREFIX =

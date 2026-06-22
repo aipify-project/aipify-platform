@@ -2,6 +2,8 @@
 
 export const UNONIGHT_PROVIDER_KEY = "unonight";
 
+export const UNONIGHT_ORGANIZATION_SLUG = "unonight";
+
 export const UNONIGHT_DEFAULT_SCOPES = [
   "metadata.read",
   "organization.read",

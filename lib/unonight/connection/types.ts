@@ -8,6 +8,7 @@ export type UnonightConnectionSuccess = {
   provider: "unonight";
   organization_id: string;
   organization_name: string;
+  organization_slug?: string | null;
   access_mode: UnonightAccessMode;
   scopes: string[];
   api_version: string;
@@ -34,7 +35,14 @@ export type UnonightConnectionFailureCode =
   | "malformed_response"
   | "server_error"
   | "placeholder_required"
-  | "placeholder_not_configured";
+  | "placeholder_not_configured"
+  | "response_not_json"
+  | "provider_mismatch"
+  | "read_only_flag_missing"
+  | "malformed_organization"
+  | "malformed_scopes"
+  | "unsupported_contract_version"
+  | "connection_not_established";
 
 export type UnonightConnectionTestFailure = {
   ok: false;
@@ -73,6 +81,13 @@ export function normalizeUnonightFailureCode(
       return "endpoint_unreachable";
     case "malformed_response":
     case "unsupported_api_version":
+    case "response_not_json":
+    case "provider_mismatch":
+    case "read_only_flag_missing":
+    case "malformed_organization":
+    case "malformed_scopes":
+    case "unsupported_contract_version":
+    case "connection_not_established":
       return "unsupported_response";
     case "server_error":
       return "unexpected_http_status";

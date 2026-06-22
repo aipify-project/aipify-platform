@@ -1,6 +1,6 @@
 import { buildUnonightConnectionUrl, resolveUnonightApiBaseUrl } from "./constants";
+import { extractSafeResponseShape } from "./contract-parser";
 
-/** Safe connection-test diagnostics — never includes bearer tokens or Authorization values. */
 export type UnonightConnectionDiagnostics = {
   normalized_base_url: string;
   final_endpoint: string;
@@ -12,6 +12,12 @@ export type UnonightConnectionDiagnostics = {
   organization_matched: boolean | null;
   required_scopes_matched: boolean | null;
   schema_matched: boolean;
+  response_shape?: {
+    top_level_keys: string[];
+    nested_keys: Record<string, string[]>;
+  } | null;
+  contract_mismatch_code?: string | null;
+  compatibility_notes?: string[];
 };
 
 export function buildUnonightConnectionDiagnostics(input: {
@@ -24,6 +30,9 @@ export function buildUnonightConnectionDiagnostics(input: {
   organizationMatched?: boolean | null;
   requiredScopesMatched?: boolean | null;
   schemaMatched: boolean;
+  responseShape?: ReturnType<typeof extractSafeResponseShape>;
+  contractMismatchCode?: string | null;
+  compatibilityNotes?: string[];
 }): UnonightConnectionDiagnostics {
   const normalizedBaseUrl = resolveUnonightApiBaseUrl(input.baseUrl);
   return {
@@ -37,6 +46,9 @@ export function buildUnonightConnectionDiagnostics(input: {
     organization_matched: input.organizationMatched ?? null,
     required_scopes_matched: input.requiredScopesMatched ?? null,
     schema_matched: input.schemaMatched,
+    response_shape: input.responseShape ?? null,
+    contract_mismatch_code: input.contractMismatchCode ?? null,
+    compatibility_notes: input.compatibilityNotes ?? [],
   };
 }
 
@@ -47,5 +59,9 @@ export function extractSafeResponseCode(payload: unknown): string | null {
   if (typeof record.code === "string" && record.code.trim()) return record.code.trim();
   if (record.ok === true) return "ok";
   if (record.connected === true) return "connected";
+  const status = String(record.status ?? "").trim().toLowerCase();
+  if (status === "connected") return "connected";
   return null;
 }
+
+export { extractSafeResponseShape };

@@ -1,6 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { isUnonightAipifyTokenFormat } from "@/lib/unonight-platform/constants";
-import { UNONIGHT_PROVIDER_KEY } from "./constants";
+import { UNONIGHT_ORGANIZATION_SLUG, UNONIGHT_PROVIDER_KEY } from "./constants";
 import { decryptIntegrationCredential } from "./crypto";
 import { buildUnonightConnectionDiagnostics } from "./diagnostics";
 import type { UnonightConnectionDiagnostics } from "./diagnostics";
@@ -168,6 +168,7 @@ export async function runUnonightAppPortalConnectionTest(
     baseUrl,
     requestedScopes: material.approved_scopes,
     expectedOrganizationId: material.expected_organization_id,
+    expectedOrganizationSlug: UNONIGHT_ORGANIZATION_SLUG,
     credentialFound: true,
   });
 

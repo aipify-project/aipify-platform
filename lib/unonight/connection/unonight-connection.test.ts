@@ -53,6 +53,29 @@ async function runTests() {
   });
   assert.ok(nestedContract);
 
+  const productionContract = parseUnonightConnectionContract({
+    scopes: ["metadata.read", "organization.read"],
+    status: "connected",
+    read_only: true,
+    connection: {
+      endpoint: "/api/aipify/v1/connection",
+      token_hint: "uno_aipify_hint",
+      last_used_at: "2026-06-22T09:58:43.071129+00:00",
+    },
+    api_version: "v1",
+    organization: {
+      id: "unonight",
+      name: "Unonight",
+      base_url: "https://www.unonight.com",
+    },
+  });
+  assert.ok(productionContract);
+  assert.equal(productionContract?.access_mode, "read_only");
+  assert.equal(productionContract?.organization_slug, "unonight");
+  assert.ok(
+    productionContract?.scopes.some((scope) => scope.toLowerCase() === "integration.status.read")
+  );
+
   const invalidToken = await testUnonightReadOnlyConnection({
     bearerToken: VALID_TOKEN,
     baseUrl: "https://example.test",
@@ -165,6 +188,30 @@ async function runTests() {
     assert.equal(valid.contract.access_mode, "read_only");
     assert.equal(valid.diagnostics.http_status, 200);
     assert.equal(valid.diagnostics.schema_matched, true);
+  }
+
+  const productionLive = await testUnonightReadOnlyConnection({
+    bearerToken: VALID_TOKEN,
+    baseUrl: "https://example.test",
+    expectedOrganizationId: "32d748eb-9a66-4174-a416-18a813610d3e",
+    expectedOrganizationSlug: "unonight",
+    fetchImpl: async () =>
+      new Response(
+        JSON.stringify({
+          scopes: ["metadata.read", "organization.read"],
+          status: "connected",
+          read_only: true,
+          api_version: "v1",
+          organization: { id: "unonight", name: "Unonight" },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      ),
+  });
+  assert.equal(productionLive.ok, true);
+  if (productionLive.ok) {
+    assert.equal(productionLive.contract.organization_id, "unonight");
+    assert.equal(productionLive.diagnostics.organization_matched, true);
+    assert.ok(productionLive.diagnostics.compatibility_notes?.includes("status_connected"));
   }
 
   assert.equal(requiresLiveHttpForSuccess(), true);

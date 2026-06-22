@@ -40,7 +40,13 @@ export type {
   UnonightConnectionErrorPanelLabels,
   UnonightConnectionErrorPanelModel,
 } from "./error-panel";
-export { buildUnonightConnectionDiagnostics, extractSafeResponseCode } from "./diagnostics";
+export { buildUnonightConnectionDiagnostics, extractSafeResponseCode, extractSafeResponseShape } from "./diagnostics";
 export type { UnonightConnectionDiagnostics } from "./diagnostics";
+export {
+  parseUnonightConnectionContractDetailed,
+  organizationsMatchForUnonight,
+  unwrapUnonightConnectionPayload,
+} from "./contract-parser";
+export type { UnonightContractParseFailureCode, UnonightContractParseResult } from "./contract-parser";
 export { runUnonightAppPortalConnectionTest, loadAppPortalUnonightTestMaterial } from "./run-test";
 export type { UnonightAppPortalTestResponse } from "./run-test";
