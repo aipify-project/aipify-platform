@@ -23,15 +23,15 @@ import {
   COMPANION_CHAT_NEW_MESSAGE_AUTOSCROLL,
 } from "@/lib/app/companion/companion-chat-scroll-policy";
 import type { ProviderCapabilityReadinessStatus } from "@/lib/integration-intelligence/community/provider-adapter-types";
+import { evaluateUnonightProviderAdapterActivationGate } from "./activation-gate";
+import { clearUnonightProviderAdapterAuditTrailForTests } from "./audit-log";
 import {
-  applyUnonightProviderAdapterToCommunityContext,
-  buildUnonightMemberStatisticsSnapshot,
-  clearUnonightProviderAdapterAuditTrailForTests,
-  evaluateUnonightProviderAdapterActivationGate,
   UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES,
   UNONIGHT_COMMUNITY_ADAPTER_INTEGRATION_KEY,
   UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY,
-} from "@/lib/unonight/provider-adapter";
+} from "./constants";
+import { applyUnonightProviderAdapterToCommunityContext } from "./merge-community-context";
+import { buildUnonightMemberStatisticsSnapshot } from "./member-statistics";
 
 export const UNONIGHT_LIVE_E2E_API_ENTRY = "/api/aipify/support-assistant/search";
 

@@ -1,5 +1,6 @@
 import type { CommunityCapabilityKey } from "./types";
 import type { ProviderMetricBinding } from "./metric-contract";
+import type { ProviderCapabilityReadinessStatus } from "./provider-readiness";
 
 export type { ProviderMetricBinding, ProviderMetricSemanticMatch } from "./metric-contract";
 export {
@@ -18,14 +19,11 @@ export {
   classifyProviderCapabilityReadiness,
   selectExactCommandBriefSignals,
 } from "./provider-readiness";
-export type { CommandBriefSignalCandidate, ProviderSourceStatus } from "./provider-readiness";
-
-export type ProviderCapabilityReadinessStatus =
-  | "production_ready"
-  | "production_ready_candidate"
-  | "connected_but_partial"
-  | "adapter_missing"
-  | "disabled";
+export type {
+  CommandBriefSignalCandidate,
+  ProviderCapabilityReadinessStatus,
+  ProviderSourceStatus,
+} from "./provider-readiness";
 
 export type ProviderAdapterActivationStatus = "active" | "activating" | "disabled";
 

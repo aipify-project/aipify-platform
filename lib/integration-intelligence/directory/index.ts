@@ -1,5 +1,6 @@
 export * from "./types";
 export * from "./relationship-types";
+export * from "./relationship-capability-map";
 export * from "./normalization";
 export * from "./matching";
 export * from "./masking";

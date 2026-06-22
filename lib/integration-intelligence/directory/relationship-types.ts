@@ -49,12 +49,3 @@ export function normalizeDirectoryRelationshipType(
 export function isDirectoryRelationshipType(value: string): value is DirectoryRelationshipType {
   return (DIRECTORY_RELATIONSHIP_TYPES as readonly string[]).includes(value);
 }
-
-import type { DirectoryCapabilityKey } from "./types";
-
-export function capabilityKeyForRelationship(
-  relationshipType: DirectoryRelationshipType,
-): DirectoryCapabilityKey {
-  if (relationshipType === "custom_relationship") return "directory.search";
-  return `${relationshipType}.search` as DirectoryCapabilityKey;
-}

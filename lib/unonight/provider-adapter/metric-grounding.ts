@@ -1,6 +1,6 @@
 import type { ProviderMetricBinding } from "@/lib/integration-intelligence/community/provider-adapter-types";
 import type { UnonightProviderAdapterV1Capability } from "./constants";
-import type { UnonightAdapterSignalCounts } from "./normalize";
+import type { UnonightAdapterSignalCounts } from "./signal-counts";
 
 function binding(
   partial: Omit<ProviderMetricBinding, "warnings"> & { warnings?: string[] },

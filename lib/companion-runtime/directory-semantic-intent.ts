@@ -1,9 +1,9 @@
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import { normalizeIntegrationQuery } from "@/lib/integration-intelligence/normalize-text";
 import {
-  capabilityKeyForRelationship,
   type DirectoryRelationshipType,
 } from "@/lib/integration-intelligence/directory/relationship-types";
+import { capabilityKeyForRelationship } from "@/lib/integration-intelligence/directory/relationship-capability-map";
 import {
   detectDirectorySearchField,
   normalizeDirectorySearchValue,

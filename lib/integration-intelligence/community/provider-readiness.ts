@@ -1,6 +1,12 @@
-import type { ProviderCapabilityReadinessStatus } from "./provider-adapter-types";
 import type { ProviderMetricBinding, ProviderMetricSemanticMatch } from "./metric-contract";
 import { hasPresentableBinding } from "./metric-binding-resolution";
+
+export type ProviderCapabilityReadinessStatus =
+  | "production_ready"
+  | "production_ready_candidate"
+  | "connected_but_partial"
+  | "adapter_missing"
+  | "disabled";
 
 export type ProviderSourceStatus = "live" | "partial" | "placeholder" | "missing";
 

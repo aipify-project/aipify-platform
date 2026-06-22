@@ -20,21 +20,11 @@ import {
   UNONIGHT_PRODUCTION_READY_REQUIRES_E2E,
 } from "./constants";
 import { getUnonightAdapterSource } from "./source-map";
-import type { UnonightMemberStatisticsSnapshot } from "./member-statistics";
 import { buildUnonightMetricBindings } from "./metric-grounding";
 import { UNONIGHT_MEMBER_METRIC_ALIASES } from "./member-metric-aliases";
+import type { UnonightAdapterSignalCounts } from "./signal-counts";
 
-export type UnonightAdapterSignalCounts = {
-  group_count: number | null;
-  discussion_count: number | null;
-  pending_moderation_count: number | null;
-  pending_verification_count: number | null;
-  verification_needs_information_count?: number | null;
-  verification_high_priority_count?: number | null;
-  reports_attention_count: number | null;
-  listing_review_count: number | null;
-  member_statistics: UnonightMemberStatisticsSnapshot | null;
-};
+export type { UnonightAdapterSignalCounts } from "./signal-counts";
 
 function capabilityId(capabilityKey: UnonightProviderAdapterV1Capability): string {
   return buildCommunityCapabilityId(UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY, capabilityKey, "read");
