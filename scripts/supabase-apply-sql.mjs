@@ -31,6 +31,11 @@ const ROOT = path.join(__dirname, "..");
 const PROJECT_REF = "qbcqoixhrvhnuwphefvw";
 const MIGRATIONS_DIR = path.join(ROOT, "supabase", "migrations");
 
+/** Per-request timeout and retry policy for Management API calls. */
+const REQUEST_TIMEOUT_MS = 30_000;
+const MAX_FETCH_ATTEMPTS = 3;
+const RETRY_BACKOFF_BASE_MS = 2_000;
+
 const argv = process.argv.slice(2);
 const command = argv[0] || "list";
 const dryRun = argv.includes("--dry-run");
@@ -87,14 +92,76 @@ function escapeSqlLiteral(value) {
   return value.replace(/'/g, "''");
 }
 
+function isRetryableFetchStatus(status) {
+  return status === 408 || status === 429 || status === 502 || status === 503 || status === 504 || status === 544;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Management API fetch with timeout, exponential backoff, and no secret logging.
+ */
+async function fetchWithRetry(label, url, options = {}) {
+  let lastError;
+
+  for (let attempt = 1; attempt <= MAX_FETCH_ATTEMPTS; attempt += 1) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+    try {
+      const res = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(timer);
+
+      if (res.ok) {
+        return res;
+      }
+
+      const body = await res.text();
+      const summary = `${label} failed (HTTP ${res.status})`;
+      lastError = new Error(`${summary}: ${body}`);
+
+      if (!isRetryableFetchStatus(res.status) || attempt === MAX_FETCH_ATTEMPTS) {
+        throw lastError;
+      }
+
+      console.error(`${summary} — attempt ${attempt}/${MAX_FETCH_ATTEMPTS}; retrying...`);
+    } catch (error) {
+      clearTimeout(timer);
+
+      if (error instanceof Error && error.message.includes("failed (HTTP")) {
+        throw error;
+      }
+
+      const reason =
+        error instanceof Error && error.name === "AbortError"
+          ? "request timed out"
+          : error instanceof Error
+            ? error.message
+            : String(error);
+      lastError = new Error(`${label} ${reason} (attempt ${attempt}/${MAX_FETCH_ATTEMPTS})`);
+
+      if (attempt === MAX_FETCH_ATTEMPTS) {
+        throw lastError;
+      }
+
+      console.error(`${label}: ${reason} — attempt ${attempt}/${MAX_FETCH_ATTEMPTS}; retrying...`);
+    }
+
+    const delay = RETRY_BACKOFF_BASE_MS * 2 ** (attempt - 1);
+    await sleep(delay);
+  }
+
+  throw lastError ?? new Error(`${label} failed after ${MAX_FETCH_ATTEMPTS} attempts`);
+}
+
 async function fetchRemoteMigrations(token) {
-  const res = await fetch(
+  const res = await fetchWithRetry(
+    "List migrations",
     `https://api.supabase.com/v1/projects/${PROJECT_REF}/database/migrations`,
     { headers: { Authorization: `Bearer ${token}` } }
   );
-  if (!res.ok) {
-    throw new Error(`List migrations failed (${res.status}): ${await res.text()}`);
-  }
   const data = await res.json();
   const rows = Array.isArray(data) ? data : data.migrations || [];
   return {
@@ -105,7 +172,8 @@ async function fetchRemoteMigrations(token) {
 }
 
 async function executeQuery(token, query) {
-  const res = await fetch(
+  const res = await fetchWithRetry(
+    "Execute query",
     `https://api.supabase.com/v1/projects/${PROJECT_REF}/database/query`,
     {
       method: "POST",
@@ -117,9 +185,6 @@ async function executeQuery(token, query) {
     }
   );
   const text = await res.text();
-  if (!res.ok) {
-    throw new Error(text);
-  }
   return text;
 }
 
