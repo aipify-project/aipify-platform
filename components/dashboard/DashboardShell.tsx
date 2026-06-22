@@ -546,12 +546,13 @@ function DashboardShellFrame({
                 <Link
                   key={item.id}
                   href={item.href}
-                  className={`flex min-h-12 min-w-[4.5rem] flex-col items-center justify-center gap-1 rounded-lg px-3 py-2 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus ${
+                  className={`flex min-h-12 min-w-[4.5rem] flex-col items-center justify-center gap-1 rounded-lg px-2 py-2 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus ${
                     isActive
-                      ? `font-semibold text-aipify-companion ${AipifySidebarTypography.mobileNavItem}`
+                      ? `text-aipify-companion ${AipifySidebarTypography.mobileNavItem}`
                       : `text-aipify-text-secondary ${AipifySidebarTypography.mobileNavItem}`
                   }`}
                   aria-current={isActive ? "page" : undefined}
+                  title={item.label}
                 >
                   <span
                     className={`${AipifySidebarTypography.navIcon} ${
@@ -560,7 +561,7 @@ function DashboardShellFrame({
                   >
                     {item.icon}
                   </span>
-                  <span className="max-w-[5rem] truncate text-center">{item.label}</span>
+                  <span className={AipifySidebarTypography.mobileNavLabel}>{item.label}</span>
                 </Link>
               );
             })}

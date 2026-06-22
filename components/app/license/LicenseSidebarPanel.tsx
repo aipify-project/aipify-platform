@@ -180,21 +180,28 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
           className="mt-1 shrink-0 text-aipify-companion"
         />
         <div className={`min-w-0 space-y-1.5 ${AipifySidebarTypography.workspaceSummary}`}>
-          <p className="line-clamp-2" title={`${labels.workspace} ${workspaceDisplay}`}>
+          <p title={`${labels.workspace} ${workspaceDisplay}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.workspace}</span>{" "}
-            <span className={AipifySidebarTypography.workspaceSummaryValue}>{workspaceDisplay}</span>
+            <span
+              className={`${AipifySidebarTypography.workspaceSummaryValue} inline-block max-w-full truncate align-bottom`}
+              title={workspaceDisplay}
+            >
+              {workspaceDisplay}
+            </span>
           </p>
-          <p className="line-clamp-2" title={`${labels.licensedTo} ${licensedToDisplay}`}>
+          <p title={`${labels.licensedTo} ${licensedToDisplay}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.licensedTo}</span>{" "}
-            <span className={AipifySidebarTypography.workspaceSummaryValue}>{licensedToDisplay}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>
+              {licensedToDisplay}
+            </span>
           </p>
-          <p className="line-clamp-2" title={`${labels.plan} ${planDisplay}`}>
+          <p title={`${labels.plan} ${planDisplay}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.plan}</span>{" "}
-            <span className={AipifySidebarTypography.workspaceSummaryValue}>{planDisplay}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>{planDisplay}</span>
           </p>
           <p title={`${labels.status} ${statusLabel}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.status}</span>{" "}
-            <span className={AipifySidebarTypography.workspaceSummaryValue}>{statusLabel}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>{statusLabel}</span>
           </p>
           <p>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.version}</span>{" "}

@@ -141,7 +141,7 @@ function NavLinkRow({
       </span>
       {!compact ? (
         <span className="min-w-0 flex-1">
-          <span className="block truncate">
+          <span className={AipifySidebarTypography.navLabelWrap} title={item.label}>
             {item.locked ? <span aria-hidden="true">🔒 </span> : null}
             {item.label}
           </span>
@@ -202,16 +202,18 @@ function SearchResultRow({
       </span>
       <span className="min-w-0 flex-1">
         <span
-          className={`block truncate ${
+          className={`${AipifySidebarTypography.navLabelWrap} ${
             isActive ? AipifySidebarTypography.navigationItemActive : AipifySidebarTypography.searchMenuRow
           }`}
+          title={item.label}
         >
           {item.label}
         </span>
         <span
-          className={`mt-0.5 block truncate ${
-            isActive ? "text-base font-medium text-white/90" : AipifySidebarTypography.searchMenuGroup
+          className={`mt-0.5 ${AipifySidebarTypography.navLabelWrap} ${
+            isActive ? "text-base font-medium leading-[1.45] text-white/90" : AipifySidebarTypography.searchMenuGroup
           }`}
+          title={item.groupLabel}
         >
           {item.groupLabel}
         </span>
@@ -423,7 +425,7 @@ export default function GroupedSidebar({
                       className={`flex min-h-12 w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left ${AipifySidebarTypography.sectionLabelButton} focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2`}
                       aria-expanded={isExpanded}
                     >
-                      <span className="truncate" title={group.label}>
+                      <span className={`min-w-0 flex-1 ${AipifySidebarTypography.navLabelWrap}`} title={group.label}>
                         {group.label}
                       </span>
                       <ChevronIcon open={isExpanded} />
