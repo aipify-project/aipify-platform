@@ -19,3 +19,9 @@ export type UnonightProviderAdapterV1Capability =
   (typeof UNONIGHT_PROVIDER_ADAPTER_V1_CAPABILITIES)[number];
 
 export const UNONIGHT_PROVIDER_ADAPTER_BUSINESS_PACK = "community_pack";
+
+/** Capabilities that require authenticated live Companion E2E before production_ready. */
+export const UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES = [
+  "moderation_queue.read",
+  "report.read",
+] as const;

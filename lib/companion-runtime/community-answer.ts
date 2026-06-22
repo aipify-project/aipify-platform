@@ -19,7 +19,7 @@ function normalizeCommunityQuery(query: string): string {
 
 export function hasCommunityProviderIntent(query: string): boolean {
   const normalized = normalizeCommunityQuery(query);
-  return /\b(community|membership|member|members|medlem|medlemmer|engagement|reward|points|leaderboard|referral|birthday|gift|moderation|moderate|moderering|listing|marketplace|markedsplass|activity|aktivitet|report|rapporter|verification|verifisering|verifiering|verifiseringer|siden sist|since last)\b/i.test(
+  return /\b(community|membership|member|members|medlem|medlemmer|engagement|reward|points|leaderboard|referral|birthday|gift|moderation|moderate|moderering\w*|modereringskø|listing|marketplace|markedsplass\w*|activity|aktivitet|report|rapporter\w*|verification|verifisering\w*|verifiering\w*|siden sist|since last|unonight)\b/i.test(
     normalized,
   );
 }
@@ -56,16 +56,16 @@ function resolveExternalAdapterProviderMatch(
 
   const provider_key = overlay.provider_key;
 
-  if (/\b(verification|verifisering|verifiering)\b/.test(normalized)) {
+  if (/\b(verification|verifisering\w*|verifiering\w*)\b/.test(normalized)) {
     return { provider_key, capability_key: "verification_status.read", operation: "read" };
   }
-  if (/\b(moderation|moderate|moderering)\b/.test(normalized)) {
+  if (/\b(moderation|moderate|moderering\w*|modereringskø)\b/.test(normalized)) {
     return { provider_key, capability_key: "moderation_queue.read", operation: "read" };
   }
-  if (/\b(report|reports|rapporter)\b/.test(normalized)) {
+  if (/\b(report|reports|rapporter\w*)\b/.test(normalized)) {
     return { provider_key, capability_key: "report.read", operation: "read" };
   }
-  if (/\b(listing|marketplace|markedsplass|annonse)\b/.test(normalized)) {
+  if (/\b(listing|marketplace|markedsplass\w*|annonse\w*)\b/.test(normalized)) {
     return { provider_key, capability_key: "listing.read", operation: "read" };
   }
   if (/\b(member|members|medlem|medlemmer|new members|nye medlemmer)\b/.test(normalized)) {

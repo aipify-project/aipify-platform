@@ -2,6 +2,7 @@ import type { CommunityCapabilityKey } from "./types";
 
 export type ProviderCapabilityReadinessStatus =
   | "production_ready"
+  | "production_ready_candidate"
   | "connected_but_partial"
   | "adapter_missing"
   | "disabled";

@@ -26,6 +26,7 @@ export type ApplyUnonightProviderAdapterInput = {
   connectedProviders: readonly string[];
   activeBusinessPacks: readonly string[];
   effectivePermissions: readonly string[];
+  authenticatedE2eVerifiedCapabilities?: readonly string[];
 };
 
 function mergeCommandBriefSignals(
@@ -77,7 +78,10 @@ function buildAdapterCapabilities(
       adapterReady &&
       hasPermission &&
       overlay.activation.status === "active" &&
-      readiness?.status !== "disabled";
+      readiness?.status !== "disabled" &&
+      (readiness?.status === "production_ready" ||
+        readiness?.status === "production_ready_candidate" ||
+        readiness?.status === "connected_but_partial");
 
     capabilities.push({
       capability_id: capabilityId,
@@ -93,11 +97,13 @@ function buildAdapterCapabilities(
       runtime_status:
         readiness?.status === "production_ready"
           ? "connected"
-          : readiness?.status === "connected_but_partial"
+          : readiness?.status === "production_ready_candidate"
             ? "partial"
-            : overlay.activation.status === "activating"
+            : readiness?.status === "connected_but_partial"
               ? "partial"
-              : "implemented_disconnected",
+              : overlay.activation.status === "activating"
+                ? "partial"
+                : "implemented_disconnected",
       privacy_sensitive: capability.privacy_sensitive,
       enabled,
     });
@@ -146,6 +152,7 @@ export function applyUnonightProviderAdapterToCommunityContext(
     },
     effectivePermissions: input.effectivePermissions,
     gateActive,
+    authenticatedE2eVerifiedCapabilities: input.authenticatedE2eVerifiedCapabilities,
   });
 
   const adapterSignals =

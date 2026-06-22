@@ -2,6 +2,7 @@ export {
   UNONIGHT_COMMUNITY_ADAPTER_INTEGRATION_KEY,
   UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY,
   UNONIGHT_PROVIDER_ADAPTER_V1_CAPABILITIES,
+  UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES,
 } from "./constants";
 export { UNONIGHT_ADAPTER_SOURCE_MAP, getUnonightAdapterSource } from "./source-map";
 export { evaluateUnonightProviderAdapterActivationGate } from "./activation-gate";
@@ -19,3 +20,16 @@ export {
   listUnonightProviderAdapterAuditTrail,
   clearUnonightProviderAdapterAuditTrailForTests,
 } from "./audit-log";
+export {
+  runUnonightAuthenticatedLiveE2e,
+  runUnonightLiveQuestion,
+  buildCompanionPlatformKnowledgeTranslator,
+  UNONIGHT_LIVE_E2E_QUESTIONS,
+  UNONIGHT_E2E_ORGANIZATION_PROFILES,
+  UNONIGHT_LIVE_E2E_API_ENTRY,
+  UNONIGHT_LIVE_E2E_RUNTIME_CHAIN,
+} from "./live-e2e-validation";
+export type {
+  UnonightAuthenticatedLiveE2eReport,
+  UnonightLiveQuestionResult,
+} from "./live-e2e-validation";

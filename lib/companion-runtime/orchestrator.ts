@@ -195,17 +195,7 @@ import {
   hasSecurityProviderIntent,
   matchSecurityProviderQuery,
 } from "./security-answer";
-import {
-  buildBlockedCommunityOperationAnswer,
-  buildExternalCommunityUnavailableAnswer,
-  buildCommunityProviderDiscoveryAnswer,
-  buildCommunityProviderUnavailableAnswer,
-  hasBlockedCommunityOperationIntent,
-  hasExternalCommunityAdapterIntent,
-  hasCommunityProviderIntent,
-  matchCommunityProviderQuery,
-} from "./community-answer";
-import { resolveCommunityProviderAdapterGroundedAnswer } from "./community-provider-adapter-answer";
+import { resolveCommunityCompanionQuery } from "./community-companion-query";
 import {
   buildBlockedProactiveOperationAnswer,
   buildExternalProactiveUnavailableAnswer,
@@ -1088,51 +1078,7 @@ function resolveCommunityProviderAnswer(
   tenantContext: CompanionTenantContext,
   activeLocale: CustomerActiveLocale,
 ): PlatformSearchResult | null {
-  if (hasBlockedCommunityOperationIntent(query)) {
-    return {
-      answer: buildBlockedCommunityOperationAnswer(t),
-    };
-  }
-
-  if (!hasCommunityProviderIntent(query)) {
-    return null;
-  }
-
-  if (tenantContext.communityContext.permission_denied) {
-    return {
-      answer: buildCommunityProviderUnavailableAnswer(t, tenantContext.communityContext),
-    };
-  }
-
-  if (
-    hasExternalCommunityAdapterIntent(query, tenantContext.communityContext) &&
-    !tenantContext.communityContext.external_provider_adapters?.length
-  ) {
-    return {
-      answer: buildExternalCommunityUnavailableAnswer(t),
-    };
-  }
-
-  const match = matchCommunityProviderQuery(query, tenantContext);
-  if (!match) {
-    return {
-      answer: buildCommunityProviderUnavailableAnswer(t, tenantContext.communityContext),
-    };
-  }
-
-  const grounded = resolveCommunityProviderAdapterGroundedAnswer(
-    match,
-    tenantContext.communityContext,
-    t,
-    activeLocale,
-  );
-  if (grounded) {
-    return { answer: grounded };
-  }
-
-  return {
-    answer: buildCommunityProviderDiscoveryAnswer(match, tenantContext.communityContext, t),
-  };
+  return resolveCommunityCompanionQuery(query, t, tenantContext, activeLocale);
 }
 
 function resolveProactiveProviderAnswer(

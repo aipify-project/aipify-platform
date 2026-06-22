@@ -914,7 +914,7 @@
         "community_collective_intelligence": "kolektywna inteligencja wkład zaangażowanie aktywność raporty",
         "community_engagement_services": "ranking urodziny prezent zaangażowanie uznanie",
         "community_pack_adapter": "zewnętrzne forum członkostwo platforma zaangażowanie adapter trzecia strona sync",
-        "unonight_community_adapter": "Adapter dostawcy społeczności",
+        "unonight_community_adapter": "Adapter dostawcy społeczności"
       }
     },
     "unonightProviderAdapter": {
@@ -944,10 +944,12 @@
       "readiness": {
         "disabled": "Capability is disabled until activation completes.",
         "adapterMissing": "No live adapter source is available for this capability.",
-        "partial": "Source returned partial metadata only."
+        "partial": "Source returned partial metadata only.",
+        "productionReadyCandidate": "Authenticated live Companion E2E is required before production ready."
       },
       "readinessStatus": {
         "production_ready": "production ready",
+        "production_ready_candidate": "production ready candidate",
         "connected_but_partial": "connected but partial",
         "adapter_missing": "adapter missing",
         "disabled": "disabled"
@@ -975,7 +977,7 @@
         "verification_status_read": "Verification status",
         "listing_read": "Marketplace listings"
       }
-    },,
+    },
     "proactive": {
       "sourceLabel": "Proactive monitoring catalog",
       "discoveryLead": "Aipify mapped {provider} in your proactive monitoring catalog — status: {status}.",

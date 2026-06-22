@@ -121,7 +121,7 @@ assert.equal(moderationRecord?.permission_scope, "moderation.view");
 const moderationReadiness = merged.external_provider_adapters?.[0]?.capability_readiness.find(
   (entry) => entry.capability_key === "moderation_queue.read",
 );
-assert.equal(moderationReadiness?.status, "production_ready");
+assert.equal(moderationReadiness?.status, "production_ready_candidate");
 
 const memberReadiness = merged.external_provider_adapters?.[0]?.capability_readiness.find(
   (entry) => entry.capability_key === "member.read",

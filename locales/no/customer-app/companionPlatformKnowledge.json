@@ -950,10 +950,12 @@
       "readiness": {
         "disabled": "Funksjonen er deaktivert til aktivering er fullført.",
         "adapterMissing": "Ingen live adapterkilde er tilgjengelig for denne funksjonen.",
-        "partial": "Kilden returnerte kun delvis metadata."
+        "partial": "Kilden returnerte kun delvis metadata.",
+        "productionReadyCandidate": "Autentisert live Companion E2E kreves før produksjonsklar."
       },
       "readinessStatus": {
         "production_ready": "produksjonsklar",
+        "production_ready_candidate": "produksjonsklar kandidat",
         "connected_but_partial": "tilkoblet men delvis",
         "adapter_missing": "adapter mangler",
         "disabled": "deaktivert"

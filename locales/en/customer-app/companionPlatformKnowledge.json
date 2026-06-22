@@ -977,10 +977,12 @@
       "readiness": {
         "disabled": "Capability is disabled until activation completes.",
         "adapterMissing": "No live adapter source is available for this capability.",
-        "partial": "Source returned partial metadata only."
+        "partial": "Source returned partial metadata only.",
+        "productionReadyCandidate": "Live authenticated Companion E2E is required before production ready."
       },
       "readinessStatus": {
         "production_ready": "production ready",
+        "production_ready_candidate": "production ready candidate",
         "connected_but_partial": "connected but partial",
         "adapter_missing": "adapter missing",
         "disabled": "disabled"

@@ -5,7 +5,7 @@ import type {
 } from "@/lib/integration-intelligence/community/provider-adapter-types";
 import { buildCommunityCapabilityId } from "@/lib/integration-intelligence/community/types";
 import type { UnonightProviderAdapterV1Capability } from "./constants";
-import { UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY } from "./constants";
+import { UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES, UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY } from "./constants";
 import { getUnonightAdapterSource } from "./source-map";
 
 export type UnonightAdapterSignalCounts = {
@@ -50,6 +50,23 @@ function resolveReadiness(
   return "production_ready";
 }
 
+function finalizeAuthenticatedE2eReadiness(
+  capabilityKey: UnonightProviderAdapterV1Capability,
+  status: ProviderCapabilityReadinessStatus,
+  authenticatedE2eVerifiedCapabilities: readonly string[],
+): ProviderCapabilityReadinessStatus {
+  if (
+    status === "production_ready" &&
+    UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES.includes(
+      capabilityKey as (typeof UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES)[number],
+    ) &&
+    !authenticatedE2eVerifiedCapabilities.includes(capabilityKey)
+  ) {
+    return "production_ready_candidate";
+  }
+  return status;
+}
+
 function buildRecord(input: {
   capabilityKey: UnonightProviderAdapterV1Capability;
   recordType: string;
@@ -84,6 +101,8 @@ export function normalizeUnonightProviderAdapterRecords(input: {
   counts: UnonightAdapterSignalCounts;
   effectivePermissions: readonly string[];
   gateActive: boolean;
+  /** Capabilities promoted to production_ready after authenticated live Companion E2E. */
+  authenticatedE2eVerifiedCapabilities?: readonly string[];
 }): {
   records: CommunityProviderAdapterRecord[];
   capability_readiness: CommunityProviderCapabilityReadiness[];
@@ -179,11 +198,16 @@ export function normalizeUnonightProviderAdapterRecords(input: {
 
   for (const entry of entries) {
     const source = getUnonightAdapterSource(entry.capabilityKey);
-    const status = resolveReadiness(
+    const baseStatus = resolveReadiness(
       entry.count,
       source?.status ?? "missing",
       input.gateActive,
       entry.hasPermission,
+    );
+    const status = finalizeAuthenticatedE2eReadiness(
+      entry.capabilityKey,
+      baseStatus,
+      input.authenticatedE2eVerifiedCapabilities ?? [],
     );
 
     capability_readiness.push({
@@ -197,7 +221,9 @@ export function normalizeUnonightProviderAdapterRecords(input: {
             ? "customerApp.companionPlatformKnowledge.unonightProviderAdapter.readiness.adapterMissing"
             : status === "connected_but_partial"
               ? "customerApp.companionPlatformKnowledge.unonightProviderAdapter.readiness.partial"
-              : null,
+              : status === "production_ready_candidate"
+                ? "customerApp.companionPlatformKnowledge.unonightProviderAdapter.readiness.productionReadyCandidate"
+                : null,
     });
 
     if (status === "disabled" || status === "adapter_missing") {
