@@ -467,7 +467,7 @@
       }
     },
     "support": {
-      "sourceLabel": "Katalog dostawców wsparcia",
+      "sourceLabel": "Operacje wsparcia",
       "discoveryLead": "Aipify zmapowało {provider} w katalogu dostawców wsparcia — status: {status}.",
       "discoveryExplanation": "Poniższe możliwości pochodzą z zarejestrowanych manifestów Support Business Pack. Szkice odpowiedzi i eskalacje wymagają zatwierdzenia — Aipify nigdy nie wysyła automatycznie do klientów ani nie zamyka spraw w Companion runtime.",
       "capabilityLine": "{capabilityId} ({mode})",
@@ -481,7 +481,7 @@
       "blockedOperationExplanation": "Wysyłanie odpowiedzi do klientów, zamykanie spraw, usuwanie i wrażliwe zmiany konta są zablokowane w tej fazie. Aipify może przygotować szkice i plany eskalacji — Ty decydujesz i zatwierdzasz.",
       "permissionDenied": "Twoja rola nie ma dostępu do katalogu dostawców wsparcia.",
       "entitlementBlocked": "Możliwości wsparcia są niedostępne, gdy subskrypcja organizacji jest wstrzymana.",
-      "privacyNote": "Inteligencja wsparcia metadata-first — prywatne rozmowy i dane klientów nigdy nie są ujawniane bez uprawnień.",
+      "privacyNote": "Odczyty wsparcia zwracają tylko metadane. Dane kontaktowe, prywatne wiadomości i notatki wewnętrzne nigdy nie są pokazywane w Companion.",
       "policyNote": "Szkice, przypisania i eskalacje wymagają wyraźnego zatwierdzenia. Izolacja tenant i rejestrowanie audytu dotyczą wszystkich działań wsparcia.",
       "autoSendBlocked": "Automatyczne wysyłanie do klientów jest zablokowane — aktywny jest tryb tylko szkiców.",
       "caseCloseBlocked": "Zamykanie spraw jest zablokowane w Companion runtime — decydują ludzie.",
@@ -494,11 +494,17 @@
         "write": "zapis"
       },
       "status": {
-        "connected": "połączony",
-        "implemented_disconnected": "zaimplementowany ale odłączony",
-        "partial": "częściowy",
-        "specification_only": "tylko specyfikacja",
-        "placeholder": "placeholder"
+        "new": "Nowa",
+        "open": "Otwarta",
+        "assigned": "Przypisana",
+        "inProgress": "W toku",
+        "waitingForCustomer": "Oczekuje na klienta",
+        "waitingForSupport": "Oczekuje na wsparcie",
+        "escalated": "Eskalowana",
+        "resolved": "Rozwiązana",
+        "closed": "Zamknięta",
+        "reopened": "Ponownie otwarta",
+        "cancelled": "Anulowana"
       },
       "providers": {
         "support_ai_engine": "Support AI Engine",
@@ -517,7 +523,62 @@
         "proactive_organization_support": "proaktywny anticipatory support możliwości sygnały",
         "business_dna_knowledge": "business dna wiedza szablony szkice email grounding",
         "support_adapter": "zewnętrzny ticketing helpdesk zendesk intercom adapter"
-      }
+      },
+      "outcomes": {
+        "exactMatch": "Aipify znalazł żądane metadane wsparcia.",
+        "multipleMatches": "Dopasowano wiele spraw — przejrzyj listę lub podaj ID sprawy.",
+        "noMatch": "Żadna sprawa wsparcia nie pasuje do tej referencji.",
+        "permissionDenied": "Twoja rola nie może odczytywać kolejki ani metadanych spraw wsparcia.",
+        "providerMissing": "Brak podłączonego dostawcy wsparcia na żywo dla tej organizacji.",
+        "sourceMissing": "Metadane wsparcia nie są dostępne ze zatwierdzonego źródła.",
+        "activationPending": "Odczyty wsparcia są niedostępne podczas oczekiwania aktywacji lub subskrypcji.",
+        "partialResult": "Aipify zwrócił częściowe metadane — niektóre pola kolejki są niedostępne.",
+        "emptyQueue": "Kolejka wsparcia jest pusta w zatwierdzonych źródłach tylko do odczytu.",
+        "draftCreated": "Aipify przygotował szkic odpowiedzi — przejrzyj przed wysłaniem.",
+        "confirmationRequired": "Wymagane jest wyraźne potwierdzenie przed przygotowaniem tej akcji wsparcia.",
+        "executionSourceMissing": "Aipify zrozumiał prośbę i zapisał potwierdzenie. Akcja nie może zostać wykonana, ponieważ brakuje źródła zapisu. Status sprawy nie został zmieniony.",
+        "approvalRequired": "Ta akcja wsparcia wymaga zatwierdzenia przed wykonaniem przez dostawcę.",
+        "executed": "Akcja wsparcia została wykonana przez podłączonego dostawcę.",
+        "failed": "Akcja wsparcia nie mogła zostać ukończona — przejrzyj i spróbuj ponownie.",
+        "blockedByPolicy": "Ta operacja wsparcia jest zablokowana przez politykę zarządzania."
+      },
+      "sla": {
+        "onTrack": "W terminie",
+        "warning": "Ostrzeżenie",
+        "atRisk": "Zagrożone",
+        "breached": "Naruszone",
+        "unavailable": "Niedostępne"
+      },
+      "priority": {
+        "low": "Niski",
+        "normal": "Normalny",
+        "high": "Wysoki",
+        "urgent": "Pilny"
+      },
+      "warnings": {
+        "queuePartialSource": "Liczby kolejki używają metadanych panelu ASO — przypisanie i SLA mogą być częściowe.",
+        "casePartialSource": "Wyszukiwanie spraw używa tylko metadanych — prywatne wiadomości są wykluczone.",
+        "draftWithoutSources": "Szkic bez udokumentowanych źródeł — dokładnie przejrzyj przed zatwierdzeniem.",
+        "writeBlocked": "Zapis wsparcia wymaga wyraźnego potwierdzenia i podłączonego adaptera zapisu.",
+        "writeExecutionSourceMissing": "Potwierdzenie zostało zapisane, ale sprawa nie została zmieniona, ponieważ brakuje źródła zapisu.",
+        "partialSource": "Ten sygnał używa częściowych metadanych wsparcia — przejrzyj przed działaniem.",
+        "sourceMissing": "Brak podłączonego źródła wsparcia na żywo dla tego sygnału."
+      },
+      "commandBrief": {
+        "unresolvedSupportCase": "Nierozwiązane sprawy wsparcia wymagają uwagi.",
+        "unassignedSupportCase": "Sprawy wsparcia czekają bez przypisanej osoby.",
+        "urgentSupportCase": "Pilne sprawy wsparcia wymagają uwagi.",
+        "supportSlaWarning": "Sprawy zbliżają się do limitów SLA.",
+        "supportSlaBreached": "Terminy SLA wsparcia zostały naruszone.",
+        "supportEscalationRequired": "Sprawy wsparcia wymagają eskalacji.",
+        "supportWaitingForCustomer": "Sprawy czekają na odpowiedź klienta.",
+        "supportWaitingForAgent": "Sprawy czekają na zespół.",
+        "reopenedSupportCase": "Sprawa wsparcia została ponownie otwarta.",
+        "oldestSupportCase": "Jedna sprawa jest otwarta najdłużej.",
+        "supportResponseDraftReady": "Szkice odpowiedzi są gotowe do przeglądu."
+      },
+      "commandBriefEventsLinked": "Sygnały wsparcia Command Brief są połączone ze źródła operacji wsparcia.",
+      "commandBriefEventsAvailable": "Sygnały wsparcia są dostępne po aktywacji Support Operations."
     },
     "industryPack": {
       "sourceLabel": "Katalog industry pack",

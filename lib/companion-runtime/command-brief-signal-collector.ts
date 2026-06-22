@@ -5,6 +5,7 @@ import type { CompanionOperationalContext } from "./companion-operational-contex
 import type { CompanionProactiveContext } from "./companion-proactive-context";
 import type { CompanionSalesContext } from "./companion-sales-context";
 import type { CompanionSecurityContext } from "./companion-security-context";
+import type { CompanionSupportContext } from "./companion-support-context";
 import type { CompanionWarehouseContext } from "./companion-warehouse-context";
 import {
   collectDomainCommandBriefSignals,
@@ -12,6 +13,7 @@ import {
   type CommandBriefRawDomainSignal,
 } from "@/lib/integration-intelligence/command-brief";
 import { buildBookingCommandBriefSignals } from "./booking-read-orchestrator";
+import { buildSupportCommandBriefSignals } from "./support-read-orchestrator";
 import { buildVerificationCommandBriefSignals } from "./verification-read-orchestrator";
 
 export type CommandBriefDomainContexts = {
@@ -23,6 +25,7 @@ export type CommandBriefDomainContexts = {
   communityContext: CompanionCommunityContext;
   operationalContext: CompanionOperationalContext;
   proactiveContext: CompanionProactiveContext;
+  supportContext?: CompanionSupportContext;
 };
 
 function toRawSignals(
@@ -42,6 +45,7 @@ export function buildCommandBriefDomainSources(
     verification_queue?: Parameters<typeof buildVerificationCommandBriefSignals>[0]["queue"];
     verification_source_exact?: boolean;
     booking_candidates?: Parameters<typeof buildBookingCommandBriefSignals>[0];
+    supportContext?: CompanionSupportContext;
   },
 ): CommandBriefDomainSignalSource[] {
   const sources: CommandBriefDomainSignalSource[] = [
@@ -115,6 +119,27 @@ export function buildCommandBriefDomainSources(
     });
   }
 
+  if (
+    input?.supportContext?.support_source_exact &&
+    input.supportContext.queue_summary
+  ) {
+    sources.push({
+      source_module: "support",
+      source_provider: "autonomous_support_operations",
+      signals: toRawSignals(
+        buildSupportCommandBriefSignals({
+          queue: input.supportContext.queue_summary,
+          cases: input.supportContext.case_summaries,
+          pending_drafts_count: input.supportContext.pending_drafts_count,
+          source_exact: true,
+        }),
+        true,
+      ),
+      required_permission: "support.view",
+      related_capability: "support_queue.read",
+    });
+  }
+
   return sources;
 }
 
@@ -124,11 +149,13 @@ export function collectCommandBriefSignalsFromDomainContexts(input: {
   verification_queue?: Parameters<typeof buildVerificationCommandBriefSignals>[0]["queue"];
   verification_source_exact?: boolean;
   booking_candidates?: Parameters<typeof buildBookingCommandBriefSignals>[0];
+  supportContext?: CompanionSupportContext;
 }): ReturnType<typeof collectDomainCommandBriefSignals> {
   const sources = buildCommandBriefDomainSources(input.contexts, {
     verification_queue: input.verification_queue,
     verification_source_exact: input.verification_source_exact,
     booking_candidates: input.booking_candidates,
+    supportContext: input.supportContext ?? input.contexts.supportContext,
   });
 
   return collectDomainCommandBriefSignals({

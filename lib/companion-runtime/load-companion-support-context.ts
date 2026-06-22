@@ -1,8 +1,10 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { mapAsoDashboardToSupportBundle } from "@/lib/integration-intelligence/providers/support-operations/support-operations-contract";
 import { listSupportProviderManifests } from "@/lib/integration-intelligence/support/registry";
 import type { SupportProviderImplementationStatus } from "@/lib/integration-intelligence/support/types";
+import { buildSupportCommandBriefSignals } from "./support-read-orchestrator";
 import {
   buildSupportCapabilityRuntimeRef,
   createEmptyCompanionSupportContext,
@@ -218,6 +220,17 @@ export async function loadCompanionSupportContext(
 
   const asoSettings = extractAsoSettings(asoResult.data);
   const supportAiStats = extractSupportAiStats(supportAiResult.data);
+  const asoBundle = asoEnabled ? mapAsoDashboardToSupportBundle(asoResult.data) : null;
+  const pendingDraftsCount = asoSettings.pending_drafts_count ?? supportAiStats.pending_drafts_count;
+  const commandBriefSignals =
+    asoBundle && asoEnabled
+      ? buildSupportCommandBriefSignals({
+          queue: asoBundle.queue,
+          cases: asoBundle.cases,
+          pending_drafts_count: pendingDraftsCount,
+          source_exact: asoBundle.source_exact,
+        })
+      : [];
 
   const engineFlags = {
     supportAi: supportAiEnabled,
@@ -292,7 +305,12 @@ export async function loadCompanionSupportContext(
     self_healing_enabled: asoSettings.self_healing_enabled,
     knowledge_gap_detection_enabled: asoSettings.knowledge_gap_detection_enabled,
     open_cases_count: asoSettings.open_cases_count ?? supportAiStats.open_cases_count,
-    pending_drafts_count: asoSettings.pending_drafts_count ?? supportAiStats.pending_drafts_count,
+    pending_drafts_count: pendingDraftsCount,
+    queue_summary: asoBundle?.queue ?? null,
+    case_summaries: asoBundle?.cases ?? [],
+    command_brief_signals: commandBriefSignals,
+    command_brief_events_linked: asoEnabled && commandBriefSignals.length > 0,
+    support_source_exact: asoBundle?.source_exact ?? false,
     providers,
     capabilities,
     permission_denied: false,

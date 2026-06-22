@@ -467,7 +467,7 @@
       }
     },
     "support": {
-      "sourceLabel": "Support provider-katalog",
+      "sourceLabel": "Supportoperationer",
       "discoveryLead": "Aipify kartlade {provider} i support provider-katalogen — status: {status}.",
       "discoveryExplanation": "Capabilities nedan kommer från registrerade Support Business Pack-manifest. Svarsutkast och eskaleringar kräver godkännande — Aipify skickar aldrig automatiskt till kunder eller stänger ärenden i Companion runtime.",
       "capabilityLine": "{capabilityId} ({mode})",
@@ -481,7 +481,7 @@
       "blockedOperationExplanation": "Utskick av svar till kunder, stängning av ärenden, radering och känsliga kontoändringar är blockerade i denna fas. Aipify kan förbereda utkast och eskaleringsplaner — du bestämmer och godkänner.",
       "permissionDenied": "Din roll har inte åtkomst till support provider-katalogen.",
       "entitlementBlocked": "Support-capabilities är otillgängliga medan organisationens prenumeration är pausad.",
-      "privacyNote": "Metadata-först support-intelligens — privata konversationer och kunddetaljer exponeras aldrig utan behörighet.",
+      "privacyNote": "Supportläsning returnerar endast metadata. Kundkontakt, privata meddelanden och interna moderatoranteckningar visas aldrig i Companion.",
       "policyNote": "Utkast, tilldelningar och eskaleringar kräver explicit godkännande. Tenant-isolering och revisionsloggning gäller för alla support-åtgärder.",
       "autoSendBlocked": "Auto-utsändning till kunder är blockerad — endast utkast-läge är aktivt.",
       "caseCloseBlocked": "Ärendestängning är blockerad i Companion runtime — människor bestämmer.",
@@ -494,11 +494,17 @@
         "write": "skriv"
       },
       "status": {
-        "connected": "ansluten",
-        "implemented_disconnected": "implementerad men frånkopplad",
-        "partial": "delvis",
-        "specification_only": "endast specifikation",
-        "placeholder": "platshållare"
+        "new": "Ny",
+        "open": "Öppen",
+        "assigned": "Tilldelad",
+        "inProgress": "Pågår",
+        "waitingForCustomer": "Väntar på kund",
+        "waitingForSupport": "Väntar på support",
+        "escalated": "Eskalerad",
+        "resolved": "Löst",
+        "closed": "Stängd",
+        "reopened": "Återöppnad",
+        "cancelled": "Avbruten"
       },
       "providers": {
         "support_ai_engine": "Support AI Engine",
@@ -517,7 +523,62 @@
         "proactive_organization_support": "proaktiv anticipatory support möjligheter signaler",
         "business_dna_knowledge": "business dna kunskap mallar e-postutkast grounding",
         "support_adapter": "extern ticketing helpdesk zendesk intercom adapter"
-      }
+      },
+      "outcomes": {
+        "exactMatch": "Aipify hittade begärd supportmetadata.",
+        "multipleMatches": "Flera supportärenden matchade — granska listan eller ange ett ärende-ID.",
+        "noMatch": "Inget supportärende matchade den referensen.",
+        "permissionDenied": "Din roll kan inte läsa supportkö eller ärendemetadata.",
+        "providerMissing": "Ingen live supportleverantör är ansluten till denna organisation ännu.",
+        "sourceMissing": "Supportmetadata är inte tillgänglig från en godkänd källa ännu.",
+        "activationPending": "Supportläsning är otillgänglig medan aktivering eller abonnemang väntar.",
+        "partialResult": "Aipify returnerade delvis supportmetadata — vissa köfält saknas från aktuell källa.",
+        "emptyQueue": "Supportkön är tom i godkända skrivskyddade källor.",
+        "draftCreated": "Aipify förberedde ett svarsutkast — granska innan något skickas.",
+        "confirmationRequired": "Explicit bekräftelse krävs innan Aipify kan förbereda denna supportåtgärd.",
+        "executionSourceMissing": "Aipify förstod supportförfrågan och registrerade bekräftelsen. Åtgärden kan inte utföras eftersom skrivkällan inte är ansluten. Ingen ärendestatus ändrades.",
+        "approvalRequired": "Denna supportåtgärd kräver godkännande innan leverantören kan utföra den.",
+        "executed": "Supportåtgärden utfördes av den anslutna leverantören.",
+        "failed": "Supportåtgärden kunde inte slutföras — granska och försök igen.",
+        "blockedByPolicy": "Denna supportoperation är blockerad av styrningspolicy."
+      },
+      "sla": {
+        "onTrack": "I fas",
+        "warning": "Varning",
+        "atRisk": "I riskzon",
+        "breached": "Bruten",
+        "unavailable": "Otillgänglig"
+      },
+      "priority": {
+        "low": "Låg",
+        "normal": "Normal",
+        "high": "Hög",
+        "urgent": "Brådskande"
+      },
+      "warnings": {
+        "queuePartialSource": "Köantal använder ASO-dashboardmetadata — tilldelning och SLA-fält kan vara delvisa.",
+        "casePartialSource": "Ärendesökning använder endast metadata — privata meddelanden exkluderas.",
+        "draftWithoutSources": "Utkast utan dokumenterade källor — granska noggrant före godkännande.",
+        "writeBlocked": "Supportskrivning kräver explicit bekräftelse och ansluten skrivadapter.",
+        "writeExecutionSourceMissing": "Bekräftelsen registrerades, men ingen ändring gjordes eftersom skrivkällan saknas.",
+        "partialSource": "Denna signal använder delvis supportmetadata — granska före åtgärd.",
+        "sourceMissing": "Ingen live supportkälla är ansluten för denna signal."
+      },
+      "commandBrief": {
+        "unresolvedSupportCase": "Olösta supportärenden kräver uppmärksamhet.",
+        "unassignedSupportCase": "Supportärenden väntar utan ansvarig.",
+        "urgentSupportCase": "Brådskande supportärenden behöver uppmärksamhet.",
+        "supportSlaWarning": "Supportärenden närmar sig SLA-gränser.",
+        "supportSlaBreached": "Support-SLA har brutits.",
+        "supportEscalationRequired": "Supportärenden kräver eskalering.",
+        "supportWaitingForCustomer": "Supportärenden väntar på kundsvar.",
+        "supportWaitingForAgent": "Supportärenden väntar på ert team.",
+        "reopenedSupportCase": "Ett supportärende återöppnades.",
+        "oldestSupportCase": "Ett supportärende har varit öppet längst.",
+        "supportResponseDraftReady": "Svarsutkast är klara för granskning."
+      },
+      "commandBriefEventsLinked": "Command Brief-supportsignaler är länkade från supportoperationskällan.",
+      "commandBriefEventsAvailable": "Command Brief-supportsignaler är tillgängliga när Support Operations är aktiverat."
     },
     "industryPack": {
       "sourceLabel": "Industry pack-katalog",

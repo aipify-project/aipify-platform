@@ -591,7 +591,7 @@
       }
     },
     "support": {
-      "sourceLabel": "Support provider catalog",
+      "sourceLabel": "Support operations",
       "discoveryLead": "Aipify mapped {provider} in your support provider catalog — status: {status}.",
       "discoveryExplanation": "Capabilities below come from registered Support Business Pack manifests. Response drafts and escalations require approval — Aipify never auto-sends to customers or closes cases in Companion runtime.",
       "capabilityLine": "{capabilityId} ({mode})",
@@ -605,7 +605,7 @@
       "blockedOperationExplanation": "Sending responses to customers, closing cases, deletions, and sensitive account changes are blocked in this phase. Aipify can prepare drafts and escalation plans — you decide and approve.",
       "permissionDenied": "Your role cannot access the support provider catalog.",
       "entitlementBlocked": "Support capabilities are unavailable while the organization subscription is paused.",
-      "privacyNote": "Metadata-first support intelligence — private conversations and customer details are never exposed without permission.",
+      "privacyNote": "Support reads return metadata only. Customer contact details, private messages, and internal moderator notes are never shown in Companion.",
       "policyNote": "Drafts, assignments, and escalations require explicit approval. Tenant isolation and audit logging apply to all support actions.",
       "autoSendBlocked": "Auto-send to customers is blocked — draft-only mode is active.",
       "caseCloseBlocked": "Case closure is blocked in Companion runtime — humans decide.",
@@ -618,11 +618,17 @@
         "write": "write"
       },
       "status": {
-        "connected": "connected",
-        "implemented_disconnected": "implemented but disconnected",
-        "partial": "partial",
-        "specification_only": "specification only",
-        "placeholder": "placeholder"
+        "new": "New",
+        "open": "Open",
+        "assigned": "Assigned",
+        "inProgress": "In progress",
+        "waitingForCustomer": "Waiting for customer",
+        "waitingForSupport": "Waiting for support",
+        "escalated": "Escalated",
+        "resolved": "Resolved",
+        "closed": "Closed",
+        "reopened": "Reopened",
+        "cancelled": "Cancelled"
       },
       "providers": {
         "support_ai_engine": "Support AI Engine",
@@ -641,7 +647,62 @@
         "proactive_organization_support": "proactive anticipatory support opportunities signals",
         "business_dna_knowledge": "business dna knowledge templates email drafts grounding",
         "support_adapter": "external ticketing helpdesk zendesk intercom adapter"
-      }
+      },
+      "outcomes": {
+        "exactMatch": "Aipify found the requested support metadata.",
+        "multipleMatches": "Multiple support cases matched — review the list or provide a case ID.",
+        "noMatch": "No support case matched that reference.",
+        "permissionDenied": "Your role cannot read support queue or case metadata.",
+        "providerMissing": "No live support provider is connected for this organization yet.",
+        "sourceMissing": "Support metadata is not available from an approved source yet.",
+        "activationPending": "Support reads are unavailable while organization activation or subscription is pending.",
+        "partialResult": "Aipify returned partial support metadata — some queue fields are unavailable from the current source.",
+        "emptyQueue": "The support queue is empty in the approved read-only sources.",
+        "draftCreated": "Aipify prepared a support response draft — review before anything is sent.",
+        "confirmationRequired": "Explicit confirmation is required before Aipify can prepare this support action.",
+        "executionSourceMissing": "Aipify understood your support request and recorded your confirmation. The action cannot be executed because the provider write source is not connected yet. No case status was changed.",
+        "approvalRequired": "This support action requires approval before the connected provider can execute it.",
+        "executed": "The support action was executed successfully by the connected provider.",
+        "failed": "The support action could not be completed — review and try again.",
+        "blockedByPolicy": "This support operation is blocked by governance policy."
+      },
+      "sla": {
+        "onTrack": "On track",
+        "warning": "Warning",
+        "atRisk": "At risk",
+        "breached": "Breached",
+        "unavailable": "Unavailable"
+      },
+      "priority": {
+        "low": "Low",
+        "normal": "Normal",
+        "high": "High",
+        "urgent": "Urgent"
+      },
+      "warnings": {
+        "queuePartialSource": "Queue counts use ASO dashboard metadata — assignment and SLA fields may be partial.",
+        "casePartialSource": "Case lookup uses metadata-only records — private message bodies are excluded.",
+        "draftWithoutSources": "Draft prepared without grounded knowledge sources — review carefully before approval.",
+        "writeBlocked": "Support writes require explicit confirmation and a connected write adapter.",
+        "writeExecutionSourceMissing": "Your confirmation was recorded, but no case change was made because the provider write source is missing.",
+        "partialSource": "This signal uses partial support source metadata — review before acting.",
+        "sourceMissing": "No live support source is connected for this signal."
+      },
+      "commandBrief": {
+        "unresolvedSupportCase": "Unresolved support cases require attention.",
+        "unassignedSupportCase": "Support cases are waiting without an assignee.",
+        "urgentSupportCase": "Urgent support cases need attention.",
+        "supportSlaWarning": "Support cases are approaching SLA limits.",
+        "supportSlaBreached": "Support SLA deadlines have been breached.",
+        "supportEscalationRequired": "Support cases require escalation.",
+        "supportWaitingForCustomer": "Support cases are waiting for customer response.",
+        "supportWaitingForAgent": "Support cases are waiting for your team.",
+        "reopenedSupportCase": "A support case was reopened.",
+        "oldestSupportCase": "A support case has been open longer than others.",
+        "supportResponseDraftReady": "Support response drafts are ready for review."
+      },
+      "commandBriefEventsLinked": "Command Brief support signals are linked from your support operations source.",
+      "commandBriefEventsAvailable": "Command Brief support signals are available when Support Operations is activated."
     },
     "industryPack": {
       "sourceLabel": "Industry pack catalog",

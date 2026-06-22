@@ -467,7 +467,7 @@
       }
     },
     "support": {
-      "sourceLabel": "Catálogo de proveedores de soporte",
+      "sourceLabel": "Operaciones de soporte",
       "discoveryLead": "Aipify mapeó {provider} en su catálogo de proveedores de soporte — estado: {status}.",
       "discoveryExplanation": "Las capacidades siguientes provienen de manifiestos registrados del Support Business Pack. Los borradores de respuesta y las escalaciones requieren aprobación — Aipify nunca envía automáticamente a clientes ni cierra casos en Companion runtime.",
       "capabilityLine": "{capabilityId} ({mode})",
@@ -481,7 +481,7 @@
       "blockedOperationExplanation": "El envío de respuestas a clientes, el cierre de casos, las eliminaciones y los cambios sensibles de cuenta están bloqueados en esta fase. Aipify puede preparar borradores y planes de escalación — usted decide y aprueba.",
       "permissionDenied": "Su rol no puede acceder al catálogo de proveedores de soporte.",
       "entitlementBlocked": "Las capacidades de soporte no están disponibles mientras la suscripción de la organización está pausada.",
-      "privacyNote": "Inteligencia de soporte metadata-first — las conversaciones privadas y los detalles del cliente nunca se exponen sin permiso.",
+      "privacyNote": "Las lecturas de soporte devuelven solo metadatos. Los datos de contacto, mensajes privados y notas internas nunca se muestran en Companion.",
       "policyNote": "Los borradores, asignaciones y escalaciones requieren aprobación explícita. El aislamiento de tenant y el registro de auditoría se aplican a todas las acciones de soporte.",
       "autoSendBlocked": "El envío automático a clientes está bloqueado — el modo solo borrador está activo.",
       "caseCloseBlocked": "El cierre de casos está bloqueado en Companion runtime — las personas deciden.",
@@ -494,11 +494,17 @@
         "write": "escritura"
       },
       "status": {
-        "connected": "conectado",
-        "implemented_disconnected": "implementado pero desconectado",
-        "partial": "parcial",
-        "specification_only": "solo especificación",
-        "placeholder": "marcador de posición"
+        "new": "Nuevo",
+        "open": "Abierto",
+        "assigned": "Asignado",
+        "inProgress": "En progreso",
+        "waitingForCustomer": "Esperando al cliente",
+        "waitingForSupport": "Esperando soporte",
+        "escalated": "Escalado",
+        "resolved": "Resuelto",
+        "closed": "Cerrado",
+        "reopened": "Reabierto",
+        "cancelled": "Cancelado"
       },
       "providers": {
         "support_ai_engine": "Support AI Engine",
@@ -517,7 +523,62 @@
         "proactive_organization_support": "proactivo anticipatory support oportunidades señales",
         "business_dna_knowledge": "business dna conocimiento plantillas borradores email grounding",
         "support_adapter": "externo ticketing helpdesk zendesk intercom adapter"
-      }
+      },
+      "outcomes": {
+        "exactMatch": "Aipify encontró los metadatos de soporte solicitados.",
+        "multipleMatches": "Varios casos coincidieron — revise la lista o indique un ID de caso.",
+        "noMatch": "Ningún caso de soporte coincidió con esa referencia.",
+        "permissionDenied": "Su rol no puede leer la cola ni los metadatos de casos de soporte.",
+        "providerMissing": "Aún no hay un proveedor de soporte en vivo conectado para esta organización.",
+        "sourceMissing": "Los metadatos de soporte no están disponibles desde una fuente aprobada.",
+        "activationPending": "Las lecturas de soporte no están disponibles mientras la activación o suscripción está pendiente.",
+        "partialResult": "Aipify devolvió metadatos parciales — algunos campos de cola no están disponibles.",
+        "emptyQueue": "La cola de soporte está vacía en las fuentes de solo lectura aprobadas.",
+        "draftCreated": "Aipify preparó un borrador de respuesta — revíselo antes de enviar.",
+        "confirmationRequired": "Se requiere confirmación explícita antes de preparar esta acción de soporte.",
+        "executionSourceMissing": "Aipify entendió la solicitud y registró su confirmación. La acción no puede ejecutarse porque la fuente de escritura no está conectada. No se cambió el estado del caso.",
+        "approvalRequired": "Esta acción de soporte requiere aprobación antes de que el proveedor la ejecute.",
+        "executed": "La acción de soporte se ejecutó correctamente por el proveedor conectado.",
+        "failed": "La acción de soporte no pudo completarse — revise e intente de nuevo.",
+        "blockedByPolicy": "Esta operación de soporte está bloqueada por la política de gobernanza."
+      },
+      "sla": {
+        "onTrack": "En curso",
+        "warning": "Advertencia",
+        "atRisk": "En riesgo",
+        "breached": "Incumplido",
+        "unavailable": "No disponible"
+      },
+      "priority": {
+        "low": "Baja",
+        "normal": "Normal",
+        "high": "Alta",
+        "urgent": "Urgente"
+      },
+      "warnings": {
+        "queuePartialSource": "Los conteos usan metadatos del panel ASO — asignación y SLA pueden ser parciales.",
+        "casePartialSource": "La búsqueda de casos usa solo metadatos — se excluyen mensajes privados.",
+        "draftWithoutSources": "Borrador sin fuentes documentadas — revise cuidadosamente antes de aprobar.",
+        "writeBlocked": "Las escrituras de soporte requieren confirmación explícita y un adaptador conectado.",
+        "writeExecutionSourceMissing": "Se registró su confirmación, pero no se cambió el caso porque falta la fuente de escritura.",
+        "partialSource": "Esta señal usa metadatos parciales — revise antes de actuar.",
+        "sourceMissing": "No hay fuente de soporte en vivo conectada para esta señal."
+      },
+      "commandBrief": {
+        "unresolvedSupportCase": "Los casos de soporte sin resolver requieren atención.",
+        "unassignedSupportCase": "Hay casos de soporte sin responsable asignado.",
+        "urgentSupportCase": "Los casos urgentes de soporte necesitan atención.",
+        "supportSlaWarning": "Los casos se acercan a los límites de SLA.",
+        "supportSlaBreached": "Se han incumplido plazos de SLA de soporte.",
+        "supportEscalationRequired": "Los casos de soporte requieren escalación.",
+        "supportWaitingForCustomer": "Casos esperando respuesta del cliente.",
+        "supportWaitingForAgent": "Casos esperando a su equipo.",
+        "reopenedSupportCase": "Se reabrió un caso de soporte.",
+        "oldestSupportCase": "Un caso lleva más tiempo abierto que otros.",
+        "supportResponseDraftReady": "Hay borradores de respuesta listos para revisión."
+      },
+      "commandBriefEventsLinked": "Las señales de soporte de Command Brief están vinculadas desde operaciones de soporte.",
+      "commandBriefEventsAvailable": "Las señales de soporte están disponibles cuando Support Operations está activo."
     },
     "industryPack": {
       "sourceLabel": "Catálogo de industry pack",

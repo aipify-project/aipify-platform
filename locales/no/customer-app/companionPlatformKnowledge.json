@@ -507,7 +507,7 @@
       }
     },
     "support": {
-      "sourceLabel": "Support provider-katalog",
+      "sourceLabel": "Supportoperasjoner",
       "discoveryLead": "Aipify kartla {provider} i support provider-katalogen — status: {status}.",
       "discoveryExplanation": "Capabilities nedenfor kommer fra registrerte Support Business Pack-manifest. Svarutkast og eskaleringer krever godkjenning — Aipify sender aldri automatisk til kunder eller lukker saker i Companion runtime.",
       "capabilityLine": "{capabilityId} ({mode})",
@@ -521,7 +521,7 @@
       "blockedOperationExplanation": "Utsending av svar til kunder, lukking av saker, sletting og sensitive kontoendringer er blokkert i denne fasen. Aipify kan forberede utkast og eskaleringsplaner — du bestemmer og godkjenner.",
       "permissionDenied": "Rollen din har ikke tilgang til support provider-katalogen.",
       "entitlementBlocked": "Support-capabilities er utilgjengelige mens organisasjonens abonnement er pauset.",
-      "privacyNote": "Metadata-først support-intelligens — private samtaler og kundedetaljer eksponeres aldri uten tillatelse.",
+      "privacyNote": "Support-lesning returnerer kun metadata. Kundekontakt, private meldinger og interne moderatornotater vises aldri i Companion.",
       "policyNote": "Utkast, tildelinger og eskaleringer krever eksplisitt godkjenning. Tenant-isolasjon og revisjonslogging gjelder for alle support-handlinger.",
       "autoSendBlocked": "Auto-utsending til kunder er blokkert — kun utkast-modus er aktiv.",
       "caseCloseBlocked": "Sakslukking er blokkert i Companion runtime — mennesker bestemmer.",
@@ -534,11 +534,17 @@
         "write": "skriv"
       },
       "status": {
-        "connected": "tilkoblet",
-        "implemented_disconnected": "implementert men frakoblet",
-        "partial": "delvis",
-        "specification_only": "kun spesifikasjon",
-        "placeholder": "plassholder"
+        "new": "Ny",
+        "open": "Åpen",
+        "assigned": "Tildelt",
+        "inProgress": "Under arbeid",
+        "waitingForCustomer": "Venter på kunde",
+        "waitingForSupport": "Venter på support",
+        "escalated": "Eskalert",
+        "resolved": "Løst",
+        "closed": "Lukket",
+        "reopened": "Gjenåpnet",
+        "cancelled": "Kansellert"
       },
       "providers": {
         "support_ai_engine": "Support AI Engine",
@@ -557,7 +563,62 @@
         "proactive_organization_support": "proaktiv anticipatory support muligheter signaler",
         "business_dna_knowledge": "business dna kunnskap maler e-postutkast grounding",
         "support_adapter": "ekstern ticketing helpdesk zendesk intercom adapter"
-      }
+      },
+      "outcomes": {
+        "exactMatch": "Aipify fant forespurt supportmetadata.",
+        "multipleMatches": "Flere supportsaker matchet — gjennomgå listen eller oppgi en sak-ID.",
+        "noMatch": "Ingen supportsak matchet den referansen.",
+        "permissionDenied": "Rollen din kan ikke lese supportkø eller sakmetadata.",
+        "providerMissing": "Ingen live supportleverandør er koblet til denne organisasjonen ennå.",
+        "sourceMissing": "Supportmetadata er ikke tilgjengelig fra en godkjent kilde ennå.",
+        "activationPending": "Support-lesing er utilgjengelig mens aktivering eller abonnement venter.",
+        "partialResult": "Aipify returnerte delvis supportmetadata — noen køfelt mangler fra gjeldende kilde.",
+        "emptyQueue": "Supportkøen er tom i godkjente skrivebeskyttede kilder.",
+        "draftCreated": "Aipify forberedte et svarutkast — gjennomgå før noe sendes.",
+        "confirmationRequired": "Eksplisitt bekreftelse kreves før Aipify kan forberede denne supporthandlingen.",
+        "executionSourceMissing": "Aipify forsto supportforespørselen og registrerte bekreftelsen. Handlingen kan ikke utføres fordi skrivekilden ikke er koblet. Ingen saksstatus ble endret.",
+        "approvalRequired": "Denne supporthandlingen krever godkjenning før leverandøren kan utføre den.",
+        "executed": "Supporthandlingen ble utført av den tilkoblede leverandøren.",
+        "failed": "Supporthandlingen kunne ikke fullføres — gjennomgå og prøv igjen.",
+        "blockedByPolicy": "Denne supportoperasjonen er blokkert av styringspolicy."
+      },
+      "sla": {
+        "onTrack": "På sporet",
+        "warning": "Advarsel",
+        "atRisk": "I risiko",
+        "breached": "Brutt",
+        "unavailable": "Utilgjengelig"
+      },
+      "priority": {
+        "low": "Lav",
+        "normal": "Normal",
+        "high": "Høy",
+        "urgent": "Haster"
+      },
+      "warnings": {
+        "queuePartialSource": "Køtellinger bruker ASO-dashboardmetadata — tildeling og SLA-felt kan være delvise.",
+        "casePartialSource": "Saksoppslag bruker kun metadata — private meldinger er ekskludert.",
+        "draftWithoutSources": "Utkast uten dokumenterte kilder — gjennomgå nøye før godkjenning.",
+        "writeBlocked": "Support-skriving krever eksplisitt bekreftelse og tilkoblet skriveadapter.",
+        "writeExecutionSourceMissing": "Bekreftelsen ble registrert, men ingen saksendring ble gjort fordi skrivekilden mangler.",
+        "partialSource": "Dette signalet bruker delvis supportmetadata — gjennomgå før handling.",
+        "sourceMissing": "Ingen live supportkilde er koblet for dette signalet."
+      },
+      "commandBrief": {
+        "unresolvedSupportCase": "Uløste supportsaker krever oppmerksomhet.",
+        "unassignedSupportCase": "Supportsaker venter uten ansvarlig.",
+        "urgentSupportCase": "Hastende supportsaker trenger oppmerksomhet.",
+        "supportSlaWarning": "Supportsaker nærmer seg SLA-grenser.",
+        "supportSlaBreached": "Support-SLA er brutt.",
+        "supportEscalationRequired": "Supportsaker krever eskalering.",
+        "supportWaitingForCustomer": "Supportsaker venter på kundesvar.",
+        "supportWaitingForAgent": "Supportsaker venter på teamet ditt.",
+        "reopenedSupportCase": "En supportsak ble gjenåpnet.",
+        "oldestSupportCase": "En supportsak har vært åpen lengst.",
+        "supportResponseDraftReady": "Svarutkast er klare for gjennomgang."
+      },
+      "commandBriefEventsLinked": "Command Brief-supportsignaler er koblet fra supportoperasjonskilden.",
+      "commandBriefEventsAvailable": "Command Brief-supportsignaler er tilgjengelige når Support Operations er aktivert."
     },
     "industryPack": {
       "sourceLabel": "Industry pack-katalog",

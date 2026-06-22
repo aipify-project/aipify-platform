@@ -53,6 +53,11 @@ export type CompanionSupportContext = {
   knowledge_gap_detection_enabled: boolean;
   open_cases_count: number | null;
   pending_drafts_count: number | null;
+  queue_summary: import("@/lib/integration-intelligence/support/types").SupportQueueSummary | null;
+  case_summaries: readonly import("@/lib/integration-intelligence/support/types").SupportCaseSummary[];
+  command_brief_signals: readonly { signal_key: string; count: number | null }[];
+  command_brief_events_linked: boolean;
+  support_source_exact: boolean;
   providers: SupportProviderRuntimeStatus[];
   capabilities: SupportCapabilityRuntimeRef[];
   permission_denied: boolean;
@@ -86,6 +91,11 @@ export function createEmptyCompanionSupportContext(
     knowledge_gap_detection_enabled: false,
     open_cases_count: null,
     pending_drafts_count: null,
+    queue_summary: null,
+    case_summaries: [],
+    command_brief_signals: [],
+    command_brief_events_linked: false,
+    support_source_exact: false,
     providers: [],
     capabilities: [],
     permission_denied: false,
