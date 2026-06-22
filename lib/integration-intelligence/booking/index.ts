@@ -5,3 +5,4 @@ export * from "./outcomes";
 export * from "./masking";
 export * from "./availability-policy";
 export * from "./industry-metadata";
+export * from "./action-outcomes";

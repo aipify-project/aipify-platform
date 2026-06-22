@@ -5,6 +5,12 @@ import {
   canProposeBookingWrite,
   type BookingPermissionContext,
 } from "@/lib/integration-intelligence/booking/permissions";
+import {
+  bookingWriteProposalRequiresApproval,
+  resolveBookingWriteActionOutcome,
+  type BookingProviderWriteContext,
+  type BookingWriteExecutionResult,
+} from "@/lib/integration-intelligence/booking/action-outcomes";
 import { isBookingCapabilityBlocked } from "@/lib/integration-intelligence/booking/types";
 import type {
   BookingCapabilityKey,
@@ -46,11 +52,12 @@ export async function executeBookingWrite(input: {
   user_role: string;
   permission: BookingPermissionContext;
   provider_key: string;
-  provider_write_ready: boolean;
+  provider_write: BookingProviderWriteContext;
+  execute_write?: () => Promise<BookingWriteExecutionResult>;
   request: BookingWriteRequest;
 }): Promise<BookingWriteResult> {
   if (isBookingCapabilityBlocked(input.request.capability_key)) {
-    return emptyWriteResult("blocked_by_governance");
+    return emptyWriteResult("blocked_by_policy");
   }
 
   if (
@@ -69,52 +76,76 @@ export async function executeBookingWrite(input: {
     return emptyWriteResult("permission_denied");
   }
 
-  if (!input.provider_write_ready) {
-    const proposal: BookingWriteProposal = {
-      proposal_id: `booking-proposal-${Date.now()}`,
-      capability_key: input.request.capability_key,
-      service_id: input.request.service_id,
-      resource_id: input.request.resource_id,
-      customer_reference: input.request.customer_reference,
-      start_at: input.request.start_at,
-      end_at: input.request.end_at,
-      requires_confirmation: true,
-      requires_approval: true,
-      idempotency_key: input.request.idempotency_key,
-      limitations: [
-        "No live booking write RPC is connected — proposal only.",
-        "Availability recheck and idempotent create require provider write adapter.",
-      ],
-    };
+  let executionResult: BookingWriteExecutionResult | null = null;
 
-    const outcome: BookingWriteOutcome = input.request.confirmed
-      ? "approval_required"
-      : "confirmation_required";
-
-    const audit = createBookingAuditEvent({
-      organization_id: input.organization_id,
-      tenant_id: input.tenant_id,
-      user_role: input.user_role,
-      capability_key: input.request.capability_key,
-      outcome,
-      booking_id: input.request.booking_id,
-      provider_key: input.provider_key,
-      metadata: {
-        proposal_id: proposal.proposal_id,
-        confirmed: input.request.confirmed,
-        write_ready: false,
-      },
-    });
-
-    return {
-      outcome,
-      proposal,
-      booking: null,
-      outcome_key: bookingWriteOutcomeKey(outcome),
-      audit_id: audit.audit_id,
-      limitations: proposal.limitations,
-    };
+  if (
+    input.request.confirmed &&
+    input.provider_write.write_source_available &&
+    !input.provider_write.requires_approval_before_execution &&
+    input.execute_write
+  ) {
+    executionResult = await input.execute_write();
   }
 
-  return emptyWriteResult("source_missing", ["Provider write path not implemented in Phase 36 V1."]);
+  const outcome = resolveBookingWriteActionOutcome({
+    confirmed: input.request.confirmed,
+    provider_write: input.provider_write,
+    blocked_by_policy: false,
+    execution_result: executionResult,
+  });
+
+  const limitations =
+    outcome === "execution_source_missing"
+      ? [
+          "customerApp.companionPlatformKnowledge.booking.warnings.writeExecutionSourceMissing",
+        ]
+      : outcome === "confirmation_required"
+        ? ["customerApp.companionPlatformKnowledge.booking.warnings.writeBlocked"]
+        : [];
+
+  const proposal: BookingWriteProposal | null =
+    outcome === "confirmation_required" ||
+    outcome === "execution_source_missing" ||
+    outcome === "approval_required"
+      ? {
+          proposal_id: `booking-proposal-${Date.now()}`,
+          capability_key: input.request.capability_key,
+          service_id: input.request.service_id,
+          resource_id: input.request.resource_id,
+          customer_reference: input.request.customer_reference,
+          start_at: input.request.start_at,
+          end_at: input.request.end_at,
+          requires_confirmation: true,
+          requires_approval: bookingWriteProposalRequiresApproval({
+            provider_write: input.provider_write,
+          }),
+          idempotency_key: input.request.idempotency_key,
+          limitations,
+        }
+      : null;
+
+  const audit = createBookingAuditEvent({
+    organization_id: input.organization_id,
+    tenant_id: input.tenant_id,
+    user_role: input.user_role,
+    capability_key: input.request.capability_key,
+    outcome,
+    booking_id: null,
+    provider_key: input.provider_key,
+    metadata: {
+      proposal_id: proposal?.proposal_id ?? null,
+      confirmed: input.request.confirmed,
+      write_source_available: input.provider_write.write_source_available,
+      executed: executionResult?.executed ?? false,
+    },
+  });
+
+  return {
+    outcome,
+    proposal,
+    booking: null,
+    outcome_key: bookingWriteOutcomeKey(outcome),
+    audit_id: audit.audit_id,
+    limitations,
+  };
 }

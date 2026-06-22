@@ -1849,11 +1849,14 @@
         "noAvailability": "Ingen ledige tider ble rapportert av godkjente kilder for denne forespørselen.",
         "conflictDetected": "Den forespurte tiden er i konflikt med eksisterende booking eller blokkert tid.",
         "clarificationRequired": "Aipify trenger mer detaljer før en booking kan forberedes.",
+        "proposalCreated": "Aipify forberedte et bookingforslag — gjennomgå og bekreft før noe utføres.",
         "confirmationRequired": "Eksplisitt bekreftelse kreves før Aipify kan forberede denne bookingen.",
-        "approvalRequired": "Denne bookingen krever godkjenning før utførelse.",
-        "blockedByGovernance": "Denne booking-operasjonen er blokkert av styringspolicy.",
-        "availabilityChanged": "Tilgjengelighet endret siden tiden ble foreslått — gjennomgå på nytt før bekreftelse.",
-        "completed": "Booking-handlingen ble fullført."
+        "executionSourceMissing": "Aipify forstod bookingforespørselen og registrerte bekreftelsen din. Booking kan ikke utføres fordi providerens write-kilde ikke er koblet ennå. Ingen booking ble opprettet, ingen booking-ID ble utstedt, og ingen kalenderendringer ble gjort.",
+        "approvalRequired": "Denne bookingen krever godkjenning før den tilkoblede provideren kan utføre den.",
+        "executed": "Bookingen ble utført av den tilkoblede provideren.",
+        "failed": "Bookingen kunne ikke utføres — gjennomgå forslaget og prøv igjen.",
+        "blockedByPolicy": "Denne booking-operasjonen er blokkert av styringspolicy.",
+        "availabilityChanged": "Tilgjengelighet endret siden tiden ble foreslått — gjennomgå på nytt før bekreftelse."
       },
       "status": {
         "scheduled": "Planlagt",
@@ -1873,7 +1876,8 @@
         "invalidSlotTimestamp": "En rapportert tid hadde ugyldige tidsstempler og ble ekskludert.",
         "doubleBookingPrevented": "Dobbeltbooking-forebygging fjernet konfliktende tider.",
         "partialSource": "Booking-data bruker appointment center-metadata inntil live write-adapter er koblet.",
-        "writeBlocked": "Booking-skriving krever eksplisitt bekreftelse og tilkoblet write-RPC."
+        "writeBlocked": "Booking-skriving krever eksplisitt bekreftelse og tilkoblet write-RPC.",
+        "writeExecutionSourceMissing": "Bekreftelsen ble registrert, men ingen booking ble opprettet fordi providerens write-kilde mangler."
       },
       "commandBrief": {
         "upcomingBookings": "Kommende bookinger krever oppmerksomhet.",

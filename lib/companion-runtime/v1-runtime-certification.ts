@@ -15,7 +15,7 @@ export type CompanionRuntimeCertificationStatus =
   | "FAIL";
 
 export type CompanionPhaseChainEntry = {
-  phase: number;
+  phase: number | string;
   required_test: string;
   required_wiring: string[];
   commit_hint: string;
@@ -113,6 +113,16 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "Phase 36",
   },
+  {
+    phase: "36B",
+    required_test: "phase36b.test.ts",
+    required_wiring: [
+      "../integration-intelligence/booking/action-outcomes.ts",
+      "booking-write-orchestrator.ts",
+      "../integration-intelligence/booking/outcomes.ts",
+    ],
+    commit_hint: "Phase 36B",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [
@@ -179,7 +189,7 @@ const LOCALE_RUNTIME_KEYS = [
 ] as const;
 
 export type PhaseChainVerification = {
-  phase: number;
+  phase: number | string;
   test_present: boolean;
   wiring_present: boolean;
   commit_found: boolean;
@@ -203,7 +213,7 @@ export type TenantContextRpcProfile = {
 export type CompanionRuntimeV1CertificationReport = {
   status: CompanionRuntimeCertificationStatus;
   phase_chain: PhaseChainVerification[];
-  missing_phases: number[];
+  missing_phases: (number | string)[];
   integrity: RuntimeIntegrityReport;
   commercial_matrix_summary: ReturnType<typeof summarizeCommercialCapabilityMatrix>;
   specification_only_providers: string[];

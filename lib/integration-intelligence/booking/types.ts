@@ -130,16 +130,18 @@ export type BookingReadOutcome =
   | "clarification_required";
 
 export type BookingWriteOutcome =
+  | "proposal_created"
   | "confirmation_required"
+  | "execution_source_missing"
   | "approval_required"
-  | "blocked_by_governance"
-  | "source_missing"
+  | "executed"
+  | "failed"
+  | "blocked_by_policy"
   | "permission_denied"
   | "provider_missing"
   | "activation_pending"
   | "conflict_detected"
-  | "availability_changed"
-  | "completed";
+  | "availability_changed";
 
 export type BookingReadResult = {
   outcome: BookingReadOutcome;

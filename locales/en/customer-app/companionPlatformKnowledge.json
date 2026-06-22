@@ -138,11 +138,14 @@
         "noAvailability": "No available slots were reported by approved sources for this request.",
         "conflictDetected": "The requested slot conflicts with an existing booking or blocked time.",
         "clarificationRequired": "Aipify needs more detail before preparing a booking action.",
+        "proposalCreated": "Aipify prepared a booking proposal — review and confirm before anything is executed.",
         "confirmationRequired": "Explicit confirmation is required before Aipify can prepare this booking.",
-        "approvalRequired": "This booking requires approval before execution.",
-        "blockedByGovernance": "This booking operation is blocked by governance policy.",
-        "availabilityChanged": "Availability changed since the slot was proposed — review again before confirming.",
-        "completed": "The booking action completed successfully."
+        "executionSourceMissing": "Aipify understood your booking request and recorded your confirmation. The booking cannot be executed because the provider write source is not connected yet. No booking was created, no booking ID was issued, and no calendar changes were made.",
+        "approvalRequired": "This booking requires approval before the connected provider can execute it.",
+        "executed": "The booking was executed successfully by the connected provider.",
+        "failed": "The booking could not be executed — review the proposal and try again.",
+        "blockedByPolicy": "This booking operation is blocked by governance policy.",
+        "availabilityChanged": "Availability changed since the slot was proposed — review again before confirming."
       },
       "status": {
         "scheduled": "Scheduled",
@@ -162,7 +165,8 @@
         "invalidSlotTimestamp": "A reported slot had invalid timestamps and was excluded.",
         "doubleBookingPrevented": "Double-booking prevention removed conflicting slots.",
         "partialSource": "Booking data uses appointment center metadata until live write adapter is connected.",
-        "writeBlocked": "Booking writes require explicit confirmation and a connected write RPC."
+        "writeBlocked": "Booking writes require explicit confirmation and a connected write RPC.",
+        "writeExecutionSourceMissing": "Your confirmation was recorded, but no booking was created because the provider write source is missing."
       },
       "commandBrief": {
         "upcomingBookings": "Upcoming bookings need attention.",

@@ -331,7 +331,10 @@ const writeUnconfirmed = await executeBookingWrite({
   user_role: "admin",
   permission: permissionCtx,
   provider_key: "appointment_booking",
-  provider_write_ready: false,
+  provider_write: {
+    write_source_available: false,
+    requires_approval_before_execution: true,
+  },
   request: {
     capability_key: "booking.create",
     service_id: "svc_cut_color",
@@ -353,7 +356,10 @@ const writeConfirmed = await executeBookingWrite({
   user_role: "admin",
   permission: permissionCtx,
   provider_key: "appointment_booking",
-  provider_write_ready: false,
+  provider_write: {
+    write_source_available: false,
+    requires_approval_before_execution: true,
+  },
   request: {
     capability_key: "booking.create",
     service_id: "svc_cut_color",
@@ -366,8 +372,9 @@ const writeConfirmed = await executeBookingWrite({
     idempotency_key: "idem-1",
   },
 });
-assert.equal(writeConfirmed.outcome, "approval_required");
+assert.equal(writeConfirmed.outcome, "execution_source_missing");
 assert.equal(writeConfirmed.booking, null);
+assert.equal(writeConfirmed.proposal?.requires_approval, false);
 
 const writeRetry = await executeBookingWrite({
   organization_id: ORG_A,
@@ -375,7 +382,10 @@ const writeRetry = await executeBookingWrite({
   user_role: "admin",
   permission: permissionCtx,
   provider_key: "appointment_booking",
-  provider_write_ready: false,
+  provider_write: {
+    write_source_available: false,
+    requires_approval_before_execution: true,
+  },
   request: {
     capability_key: "booking.create",
     service_id: "svc_cut_color",
@@ -388,7 +398,7 @@ const writeRetry = await executeBookingWrite({
     idempotency_key: "idem-1",
   },
 });
-assert.equal(writeRetry.outcome, "approval_required");
+assert.equal(writeRetry.outcome, "execution_source_missing");
 
 assert.ok(listBookingAuditEvents(ORG_A).length >= 3);
 

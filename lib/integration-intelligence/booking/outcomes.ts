@@ -15,16 +15,18 @@ export const BOOKING_READ_OUTCOME_I18N_KEYS: Record<BookingReadOutcome, string> 
 };
 
 export const BOOKING_WRITE_OUTCOME_I18N_KEYS: Record<BookingWriteOutcome, string> = {
+  proposal_created: "customerApp.companionPlatformKnowledge.booking.outcomes.proposalCreated",
   confirmation_required: "customerApp.companionPlatformKnowledge.booking.outcomes.confirmationRequired",
+  execution_source_missing: "customerApp.companionPlatformKnowledge.booking.outcomes.executionSourceMissing",
   approval_required: "customerApp.companionPlatformKnowledge.booking.outcomes.approvalRequired",
-  blocked_by_governance: "customerApp.companionPlatformKnowledge.booking.outcomes.blockedByGovernance",
-  source_missing: "customerApp.companionPlatformKnowledge.booking.outcomes.sourceMissing",
+  executed: "customerApp.companionPlatformKnowledge.booking.outcomes.executed",
+  failed: "customerApp.companionPlatformKnowledge.booking.outcomes.failed",
+  blocked_by_policy: "customerApp.companionPlatformKnowledge.booking.outcomes.blockedByPolicy",
   permission_denied: "customerApp.companionPlatformKnowledge.booking.outcomes.permissionDenied",
   provider_missing: "customerApp.companionPlatformKnowledge.booking.outcomes.providerMissing",
   activation_pending: "customerApp.companionPlatformKnowledge.booking.outcomes.activationPending",
   conflict_detected: "customerApp.companionPlatformKnowledge.booking.outcomes.conflictDetected",
   availability_changed: "customerApp.companionPlatformKnowledge.booking.outcomes.availabilityChanged",
-  completed: "customerApp.companionPlatformKnowledge.booking.outcomes.completed",
 };
 
 export function bookingReadOutcomeKey(outcome: BookingReadOutcome): string {
