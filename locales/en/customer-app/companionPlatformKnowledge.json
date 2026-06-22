@@ -216,6 +216,58 @@
         "noFabrication": "Do not invent facts beyond supplied context."
       }
     },
+    "creative": {
+      "sourceLabel": "Creative provider catalog",
+      "discoveryLead": "Aipify mapped {provider} in your creative provider catalog — status: {status}.",
+      "discoveryExplanation": "Capabilities below come from registered provider manifests. Write actions require approval before execution.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Provider connection is verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No creative provider matched this request for your organization.",
+      "unavailableExplanation": "Creative capabilities are discovered from registered manifests — none matched this query.",
+      "permissionDenied": "Your role cannot access the creative provider catalog.",
+      "entitlementBlocked": "Creative capabilities are unavailable while the organization subscription is paused.",
+      "openStudio": "Open Studio & Creative Center",
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "canva": "Canva Pro (BYOL)",
+        "adobe_firefly": "Adobe Firefly (BYOL)",
+        "openai_images": "OpenAI Images (BYOL)",
+        "google_imagen": "Google Imagen (BYOL)",
+        "photoshop": "Adobe Photoshop",
+        "illustrator": "Adobe Illustrator",
+        "lightroom": "Adobe Lightroom",
+        "premiere": "Adobe Premiere Pro",
+        "indesign": "Adobe InDesign",
+        "figma": "Figma Desktop",
+        "blender": "Blender",
+        "studio_image_generation": "Studio image generation"
+      },
+      "searchTerms": {
+        "canva": "design templates brand kit",
+        "adobe_firefly": "generative image firefly",
+        "openai_images": "image generation openai",
+        "google_imagen": "image generation imagen",
+        "photoshop": "photo editing layers export",
+        "illustrator": "vector svg design export",
+        "lightroom": "photo batch enhancement export",
+        "premiere": "video editing timeline export",
+        "indesign": "layout publishing export",
+        "figma": "ui design collaboration",
+        "blender": "3d modeling render",
+        "studio_image_generation": "image generate edit export"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

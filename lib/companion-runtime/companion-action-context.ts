@@ -7,6 +7,7 @@ import type { CompanionBusinessPackCollection } from "./companion-business-pack-
 import type { CompanionSchemaCollection } from "./companion-schema-context";
 import {
   buildActionDefinitionFromCapability,
+  buildActionDefinitionFromCreativeCapability,
   buildActionDefinitionFromPolicy,
   buildActionDefinitionFromSchemaEntity,
   createEmptyCompanionActionRegistry,
@@ -15,6 +16,7 @@ import {
   type CompanionActionDefinition,
   type CompanionActionRegistry,
 } from "./companion-action-definition";
+import type { CompanionCreativeContext } from "./companion-creative-context";
 import {
   parseApprovedCompanionActionRequest,
   parseApprovedTrustActionRequest,
@@ -79,6 +81,7 @@ export type NormalizeCompanionActionContextInput = {
   effectivePermissions: string[];
   subscriptionStatus: string | null;
   permissionDenied?: boolean;
+  creativeContext?: CompanionCreativeContext;
 };
 
 function parseApprovedRecordsFromApprovalsCenter(raw: unknown): CompanionApprovedActionRecord[] {
@@ -170,6 +173,17 @@ export function normalizeCompanionActionContext(
   for (const entity of input.schemaContext.entities) {
     const definition = buildActionDefinitionFromSchemaEntity(entity, {
       permissionAllowed: governanceOptions.permissionAllowed(entity.required_permissions[0] ?? null),
+      appEntitlementBlocked: appSuspended,
+      emergencyStop,
+      maxRiskLevel,
+    });
+    if (definition) actions.push(definition);
+  }
+
+  for (const capability of input.creativeContext?.capabilities ?? []) {
+    if (capability.operation !== "write") continue;
+    const definition = buildActionDefinitionFromCreativeCapability(capability, {
+      permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
       appEntitlementBlocked: appSuspended,
       emergencyStop,
       maxRiskLevel,

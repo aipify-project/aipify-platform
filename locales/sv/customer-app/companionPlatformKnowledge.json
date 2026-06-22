@@ -210,6 +210,55 @@
         "noFabrication": "Hitta inte på fakta utöver tillhandahållen kontext."
       }
     },
+    "creative": {
+      "sourceLabel": "Creative provider-katalog",
+      "discoveryLead": "Aipify kartlade {provider} i creative provider-katalogen — status: {status}.",
+      "discoveryExplanation": "Capabilities nedan kommer från registrerade provider-manifest. Skrivåtgärder kräver godkännande före körning.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Provider-anslutningen är verifierad för din organisation.",
+      "disconnectedProvider": "Provider runtime-adapter är inte ansluten — endast styrd discovery.",
+      "unavailableLead": "Ingen creative provider matchade denna förfrågan för din organisation.",
+      "unavailableExplanation": "Creative capabilities upptäcks från registrerade manifest — ingen matchade denna fråga.",
+      "permissionDenied": "Din roll har inte åtkomst till creative provider-katalogen.",
+      "entitlementBlocked": "Creative capabilities är otillgängliga medan prenumerationen är pausad.",
+      "openStudio": "Öppna Studio & Creative Center",
+      "operation": { "read": "läs", "write": "skriv" },
+      "status": {
+        "connected": "ansluten",
+        "implemented_disconnected": "implementerad men frånkopplad",
+        "partial": "delvis",
+        "specification_only": "endast specifikation",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "canva": "Canva Pro (BYOL)",
+        "adobe_firefly": "Adobe Firefly (BYOL)",
+        "openai_images": "OpenAI Images (BYOL)",
+        "google_imagen": "Google Imagen (BYOL)",
+        "photoshop": "Adobe Photoshop",
+        "illustrator": "Adobe Illustrator",
+        "lightroom": "Adobe Lightroom",
+        "premiere": "Adobe Premiere Pro",
+        "indesign": "Adobe InDesign",
+        "figma": "Figma Desktop",
+        "blender": "Blender",
+        "studio_image_generation": "Studio bildgenerering"
+      },
+      "searchTerms": {
+        "canva": "designmallar brand kit",
+        "adobe_firefly": "generativ bild firefly",
+        "openai_images": "bildgenerering openai",
+        "google_imagen": "bildgenerering imagen",
+        "photoshop": "fotoredigering lager export",
+        "illustrator": "vektor svg design export",
+        "lightroom": "foto batch förbättring export",
+        "premiere": "videoredigering tidslinje export",
+        "indesign": "layout publicering export",
+        "figma": "ui design samarbete",
+        "blender": "3d modellering render",
+        "studio_image_generation": "bild generera redigera export"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

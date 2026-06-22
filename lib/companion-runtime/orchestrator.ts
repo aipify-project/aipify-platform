@@ -92,6 +92,12 @@ import {
 } from "./companion-action-execute";
 import { buildCompanionExecutionAnswer } from "./execution-answer";
 import { companionActionExecutionAllowedInPhase11 } from "./companion-action-governance";
+import {
+  buildCreativeProviderDiscoveryAnswer,
+  buildCreativeProviderUnavailableAnswer,
+  hasCreativeProviderIntent,
+  matchCreativeProviderQuery,
+} from "./creative-answer";
 import { mapDispatchCodeToGapReason } from "./tool-answer";
 import {
   createEmptyCompanionTenantContext,
@@ -567,6 +573,37 @@ async function resolveNavigationCorpusAnswer(
   return null;
 }
 
+function resolveCreativeProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (!hasCreativeProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.creativeContext.permission_denied) {
+    return {
+      answer: buildCreativeProviderUnavailableAnswer(t, tenantContext.creativeContext),
+    };
+  }
+
+  const match = matchCreativeProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildCreativeProviderUnavailableAnswer(t, tenantContext.creativeContext),
+    };
+  }
+
+  return {
+    answer: buildCreativeProviderDiscoveryAnswer(
+      match,
+      tenantContext.creativeContext,
+      t,
+    ),
+  };
+}
+
 export async function orchestrateCompanionSearch(
   query: string,
   options: PlatformSearchOptions,
@@ -663,6 +700,13 @@ export async function orchestrateCompanionSearch(
     resolvedTenantContext,
   );
   if (actionResult) return finalize(actionResult, { skipMemoryEnrichment: true });
+
+  const creativeResult = resolveCreativeProviderAnswer(
+    query,
+    t,
+    resolvedTenantContext,
+  );
+  if (creativeResult) return finalize(creativeResult);
 
   const liveResult = await resolveLiveToolAnswer(
     query,

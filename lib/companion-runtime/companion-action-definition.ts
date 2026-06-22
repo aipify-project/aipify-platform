@@ -8,7 +8,11 @@ import type { CompanionCapabilityRef } from "./companion-business-pack-context";
 import type { CompanionSchemaContext } from "./companion-schema-context";
 import type { CompanionToolSchema } from "./companion-tool-definition";
 
-export type CompanionActionSource = "companion_policy" | "schema_write" | "business_pack";
+export type CompanionActionSource =
+  | "companion_policy"
+  | "schema_write"
+  | "business_pack"
+  | "creative_provider";
 
 export type CompanionActionDefinition = {
   action_id: string;
@@ -167,6 +171,48 @@ export function buildActionDefinitionFromCapability(
     input_schema: buildWriteInputSchema(capability.capability_id),
     expected_result_schema: buildExpectedResultSchema(),
     source: "business_pack",
+    enabled,
+  };
+}
+
+export function buildActionDefinitionFromCreativeCapability(
+  capability: import("./companion-creative-context").CreativeCapabilityRuntimeRef,
+  options: {
+    permissionAllowed: boolean;
+    appEntitlementBlocked: boolean;
+    emergencyStop: boolean;
+    maxRiskLevel: ActionLevel;
+  },
+): CompanionActionDefinition | null {
+  if (capability.operation !== "write") return null;
+
+  const riskLevel = Math.min(capability.risk_level, 3) as ActionLevel;
+  const permissionOk = !capability.required_permission || options.permissionAllowed;
+
+  const enabled =
+    permissionOk &&
+    !options.appEntitlementBlocked &&
+    !options.emergencyStop &&
+    capability.approval_required &&
+    capability.reversible &&
+    riskLevel <= options.maxRiskLevel &&
+    riskLevel <= 2 &&
+    !aiExecutionProhibited(riskLevel) &&
+    capability.runtime_status !== "placeholder";
+
+  return {
+    action_id: capability.capability_id,
+    capability_id: `${capability.capability_id}.write`,
+    provider_key: capability.provider_key,
+    entity: capability.entity,
+    operation: "write",
+    risk_level: riskLevel,
+    required_permission: capability.required_permission,
+    approval_required: capability.approval_required || approvalRequiredForLevel(riskLevel),
+    reversible: capability.reversible,
+    input_schema: buildWriteInputSchema(capability.capability_id),
+    expected_result_schema: buildExpectedResultSchema(),
+    source: "creative_provider",
     enabled,
   };
 }

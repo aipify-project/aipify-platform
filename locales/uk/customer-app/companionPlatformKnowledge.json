@@ -210,6 +210,55 @@
         "noFabrication": "Не вигадуйте факти поза наданим контекстом."
       }
     },
+    "creative": {
+      "sourceLabel": "Каталог creative-провайдерів",
+      "discoveryLead": "Aipify знайшов {provider} у каталозі creative-провайдерів — статус: {status}.",
+      "discoveryExplanation": "Можливості нижче походять із зареєстрованих маніфестів провайдерів. Дії запису потребують схвалення перед виконанням.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "З'єднання провайдера перевірено для вашої організації.",
+      "disconnectedProvider": "Runtime-адаптер провайдера не підключено — лише кероване виявлення.",
+      "unavailableLead": "Жоден creative-провайдер не відповів цьому запиту для вашої організації.",
+      "unavailableExplanation": "Creative-можливості виявляються з зареєстрованих маніфестів — жоден не відповів цьому запиту.",
+      "permissionDenied": "Ваша роль не має доступу до каталогу creative-провайдерів.",
+      "entitlementBlocked": "Creative-можливості недоступні, поки підписку призупинено.",
+      "openStudio": "Відкрити Studio & Creative Center",
+      "operation": { "read": "читання", "write": "запис" },
+      "status": {
+        "connected": "підключено",
+        "implemented_disconnected": "реалізовано, але відключено",
+        "partial": "частково",
+        "specification_only": "лише специфікація",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "canva": "Canva Pro (BYOL)",
+        "adobe_firefly": "Adobe Firefly (BYOL)",
+        "openai_images": "OpenAI Images (BYOL)",
+        "google_imagen": "Google Imagen (BYOL)",
+        "photoshop": "Adobe Photoshop",
+        "lightroom": "Adobe Lightroom",
+        "illustrator": "Adobe Illustrator",
+        "premiere": "Adobe Premiere Pro",
+        "indesign": "Adobe InDesign",
+        "figma": "Figma Desktop",
+        "blender": "Blender",
+        "studio_image_generation": "Генерація зображень Studio"
+      },
+      "searchTerms": {
+        "canva": "шаблони дизайн brand kit",
+        "adobe_firefly": "генеративні зображення firefly",
+        "openai_images": "генерація зображень openai",
+        "google_imagen": "генерація зображень imagen",
+        "photoshop": "редагування фото шари export",
+        "illustrator": "вектор svg дизайн export",
+        "lightroom": "фото batch покращення export",
+        "premiere": "редагування відео таймлайн export",
+        "indesign": "макет публікація export",
+        "figma": "ui дизайн співпраця",
+        "blender": "3d моделювання render",
+        "studio_image_generation": "зображення генерувати редагувати export"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

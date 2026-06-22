@@ -210,6 +210,55 @@
         "noFabrication": "Nie wymyślaj faktów poza dostarczonym kontekstem."
       }
     },
+    "creative": {
+      "sourceLabel": "Katalog dostawców kreatywnych",
+      "discoveryLead": "Aipify zmapował {provider} w katalogu dostawców kreatywnych — status: {status}.",
+      "discoveryExplanation": "Poniższe możliwości pochodzą z zarejestrowanych manifestów dostawców. Akcje zapisu wymagają zatwierdzenia przed wykonaniem.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Połączenie dostawcy jest zweryfikowane dla Twojej organizacji.",
+      "disconnectedProvider": "Adapter runtime dostawcy nie jest podłączony — tylko kontrolowane odkrywanie.",
+      "unavailableLead": "Żaden dostawca kreatywny nie pasował do tego żądania dla Twojej organizacji.",
+      "unavailableExplanation": "Możliwości kreatywne są odkrywane z zarejestrowanych manifestów — żaden nie pasował do tego pytania.",
+      "permissionDenied": "Twoja rola nie ma dostępu do katalogu dostawców kreatywnych.",
+      "entitlementBlocked": "Możliwości kreatywne są niedostępne, gdy subskrypcja jest wstrzymana.",
+      "openStudio": "Otwórz Studio & Creative Center",
+      "operation": { "read": "odczyt", "write": "zapis" },
+      "status": {
+        "connected": "połączony",
+        "implemented_disconnected": "zaimplementowany ale odłączony",
+        "partial": "częściowy",
+        "specification_only": "tylko specyfikacja",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "canva": "Canva Pro (BYOL)",
+        "adobe_firefly": "Adobe Firefly (BYOL)",
+        "openai_images": "OpenAI Images (BYOL)",
+        "google_imagen": "Google Imagen (BYOL)",
+        "photoshop": "Adobe Photoshop",
+        "illustrator": "Adobe Illustrator",
+        "lightroom": "Adobe Lightroom",
+        "premiere": "Adobe Premiere Pro",
+        "indesign": "Adobe InDesign",
+        "figma": "Figma Desktop",
+        "blender": "Blender",
+        "studio_image_generation": "Generowanie obrazów Studio"
+      },
+      "searchTerms": {
+        "canva": "szablony design brand kit",
+        "adobe_firefly": "generatywne obrazy firefly",
+        "openai_images": "generowanie obrazów openai",
+        "google_imagen": "generowanie obrazów imagen",
+        "photoshop": "edycja zdjęć warstwy export",
+        "illustrator": "wektor svg design export",
+        "lightroom": "zdjęcia batch ulepszenie export",
+        "premiere": "edycja wideo oś czasu export",
+        "indesign": "layout publikacja export",
+        "figma": "ui design współpraca",
+        "blender": "3d modelowanie render",
+        "studio_image_generation": "obraz generuj edytuj export"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

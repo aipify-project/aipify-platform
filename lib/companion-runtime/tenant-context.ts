@@ -25,6 +25,12 @@ import { loadCompanionOperationalContext } from "./load-companion-operational-co
 import { loadCompanionIdentityContext } from "./load-companion-identity-context";
 import { loadCompanionMemoryContext } from "./load-companion-memory-context";
 import { loadCompanionActionContext } from "./load-companion-action-context";
+import { loadCompanionCreativeContext } from "./load-companion-creative-context";
+import {
+  mergeCreativeCapabilities,
+  mergeCreativeSchemaCollection,
+  mergeCreativeToolRegistry,
+} from "./merge-creative-runtime";
 
 export type { CompanionTenantContext } from "./companion-tenant-context";
 export {
@@ -158,21 +164,38 @@ export async function loadCompanionTenantContext(
     effectivePermissions,
   });
 
-  const schemaContext = loadCompanionSchemaContext({
+  const creativeContext = await loadCompanionCreativeContext(supabase, {
+    effectivePermissions,
+    subscriptionStatus,
+    connectedProviders,
+  });
+
+  const entitledCapabilities = mergeCreativeCapabilities(
+    businessPackContext.entitledCapabilities,
+    creativeContext,
+  );
+
+  let schemaContext = loadCompanionSchemaContext({
     discovery,
     businessPackContext,
     connectedProviders,
     effectivePermissions,
   });
+  schemaContext = mergeCreativeSchemaCollection(
+    schemaContext,
+    creativeContext,
+    effectivePermissions,
+  );
 
-  const toolRegistry = loadCompanionToolRegistry({
+  let toolRegistry = loadCompanionToolRegistry({
     discovery,
     businessPackContext,
     connectedProviders,
-    entitledCapabilities: businessPackContext.entitledCapabilities,
+    entitledCapabilities,
     schemaContext,
     effectivePermissions,
   });
+  toolRegistry = mergeCreativeToolRegistry(toolRegistry, creativeContext, effectivePermissions);
 
   const operationalLoad = await loadCompanionOperationalContext(supabase, {
     effectivePermissions,
@@ -183,9 +206,13 @@ export async function loadCompanionTenantContext(
 
   const actionLoad = await loadCompanionActionContext(supabase, {
     schemaContext,
-    businessPackContext,
+    businessPackContext: {
+      ...businessPackContext,
+      entitledCapabilities,
+    },
     effectivePermissions,
     subscriptionStatus,
+    creativeContext,
   });
 
   return createEmptyCompanionTenantContext({
@@ -205,7 +232,7 @@ export async function loadCompanionTenantContext(
     connectedProviders,
     discovery,
     businessPackContext,
-    entitledCapabilities: businessPackContext.entitledCapabilities,
+    entitledCapabilities,
     enabledModules: businessPackContext.enabledModules,
     schemaContext,
     availableEntities: schemaContext.availableEntities,
@@ -219,5 +246,6 @@ export async function loadCompanionTenantContext(
     confirmedOrganizationKnowledgeAvailable: memoryLoad.confirmedOrganizationKnowledgeAvailable,
     actionContext: actionLoad.actionContext,
     writeActionsAvailable: actionLoad.writeActionsAvailable,
+    creativeContext,
   });
 }

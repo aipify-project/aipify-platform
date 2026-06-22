@@ -210,6 +210,55 @@
         "noFabrication": "No invente hechos más allá del contexto proporcionado."
       }
     },
+    "creative": {
+      "sourceLabel": "Catálogo de proveedores creativos",
+      "discoveryLead": "Aipify mapeó {provider} en el catálogo de proveedores creativos — estado: {status}.",
+      "discoveryExplanation": "Las capacidades siguientes provienen de manifiestos de proveedor registrados. Las acciones de escritura requieren aprobación antes de ejecutarse.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "La conexión del proveedor está verificada para su organización.",
+      "disconnectedProvider": "El adaptador runtime del proveedor no está conectado — solo descubrimiento gobernado.",
+      "unavailableLead": "Ningún proveedor creativo coincidió con esta solicitud para su organización.",
+      "unavailableExplanation": "Las capacidades creativas se descubren desde manifiestos registrados — ninguno coincidió con esta pregunta.",
+      "permissionDenied": "Su rol no tiene acceso al catálogo de proveedores creativos.",
+      "entitlementBlocked": "Las capacidades creativas no están disponibles mientras la suscripción está pausada.",
+      "openStudio": "Abrir Studio & Creative Center",
+      "operation": { "read": "lectura", "write": "escritura" },
+      "status": {
+        "connected": "conectado",
+        "implemented_disconnected": "implementado pero desconectado",
+        "partial": "parcial",
+        "specification_only": "solo especificación",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "canva": "Canva Pro (BYOL)",
+        "adobe_firefly": "Adobe Firefly (BYOL)",
+        "openai_images": "OpenAI Images (BYOL)",
+        "google_imagen": "Google Imagen (BYOL)",
+        "photoshop": "Adobe Photoshop",
+        "illustrator": "Adobe Illustrator",
+        "lightroom": "Adobe Lightroom",
+        "premiere": "Adobe Premiere Pro",
+        "indesign": "Adobe InDesign",
+        "figma": "Figma Desktop",
+        "blender": "Blender",
+        "studio_image_generation": "Generación de imágenes Studio"
+      },
+      "searchTerms": {
+        "canva": "plantillas diseño brand kit",
+        "adobe_firefly": "imagen generativa firefly",
+        "openai_images": "generación imágenes openai",
+        "google_imagen": "generación imágenes imagen",
+        "photoshop": "edición fotos capas export",
+        "illustrator": "vector svg diseño export",
+        "lightroom": "foto batch mejora export",
+        "premiere": "edición video línea tiempo export",
+        "indesign": "layout publicación export",
+        "figma": "ui diseño colaboración",
+        "blender": "3d modelado render",
+        "studio_image_generation": "imagen generar editar export"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
