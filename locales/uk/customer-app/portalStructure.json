@@ -6696,7 +6696,55 @@
           "badCertificate": "Сертифікат API Unonight не вдалося перевірити. Зверніться до підтримки Unonight.",
           "unsupportedApiVersion": "Ця версія API Unonight ще не підтримується. Зверніться до Aipify Support.",
           "malformedResponse": "Unonight повернув неочікувану відповідь. Перевірте базовий URL і ключ.",
-          "serverError": "Unonight повернув помилку сервера під час тесту з’єднання. Спробуйте пізніше."
+          "serverError": "Unonight повернув помилку сервера під час тесту з’єднання. Спробуйте пізніше.",
+          "credentialUnavailable": "Aipify не змогла прочитати збережений ключ з’єднання. Збережіть ключ знову й перевірте з’єднання.",
+          "verificationRecordFailed": "Тест з’єднання пройшов, але Aipify не змогла зберегти результат перевірки. Спробуйте ще раз.",
+          "placeholderNotConfigured": "Налаштовано тимчасовий ключ-заповнювач. Замініть його справжнім ключем Unonight."
+        },
+        "errorPanels": {
+          "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
+          "actions": {
+            "retry": "Спробувати ще раз",
+            "updateKey": "Оновити ключ",
+            "openUnonightAdmin": "Відкрити Unonight Admin",
+            "backToIntegrations": "Назад до інтеграцій"
+          },
+          "invalidToken": {
+            "title": "Ключ відхилено",
+            "body": "Збережений ключ більше не дійсний. Створіть новий ключ у Unonight Admin і спробуйте ще раз."
+          },
+          "revokedToken": {
+            "title": "Ключ відкликано",
+            "body": "Ключ відкликано в Unonight. Створіть новий read-only ключ у Unonight Admin і спробуйте ще раз."
+          },
+          "credentialUnavailable": {
+            "title": "Збережений ключ недоступний",
+            "body": "Aipify не змогла прочитати збережений ключ. Вставте ключ знову, збережіть і перевірте з’єднання."
+          },
+          "unreachable": {
+            "title": "Unonight не відповів",
+            "body": "Aipify не змогла зв’язатися з Unonight зараз. Перевірте базовий URL і спробуйте ще раз."
+          },
+          "unexpectedHttpStatus": {
+            "title": "Неочікувана відповідь Unonight",
+            "body": "Тест з’єднання отримав неочікувану HTTP-відповідь від Unonight. Спробуйте ще раз незабаром."
+          },
+          "organizationMismatch": {
+            "title": "Організація не збігається",
+            "body": "Ключ належить іншій організації Unonight, ніж цей робочий простір Aipify."
+          },
+          "missingScope": {
+            "title": "Бракує необхідного доступу на читання",
+            "body": "Переконайтеся, що ключ має metadata.read і organization.read."
+          },
+          "unsupportedResponse": {
+            "title": "Неочікувана відповідь Unonight",
+            "body": "Unonight відповів, але відповідь не відповідає очікуваному read-only контракту."
+          },
+          "verificationRecordFailed": {
+            "title": "Не вдалося зберегти перевірку",
+            "body": "Живий тест пройшов, але Aipify не змогла зберегти результат перевірки. Спробуйте ще раз."
+          }
         }
       },
       "errorGuidance": {

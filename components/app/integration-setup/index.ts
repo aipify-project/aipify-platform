@@ -13,3 +13,4 @@ export {
   IntegrationSetupErrorPanel,
   buildIntegrationErrorPanelLabels,
 } from "./IntegrationSetupErrorPanel";
+export { UnonightConnectionErrorPanel } from "./UnonightConnectionErrorPanel";

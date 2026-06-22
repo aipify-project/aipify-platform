@@ -9,6 +9,7 @@ import {
   IntegrationConnectionStatusBadge,
   IntegrationSetupCompletionSummary,
   IntegrationSetupErrorPanel,
+  UnonightConnectionErrorPanel,
   buildIntegrationErrorPanelLabels,
   mapWizardConnectionPhase,
   type IntegrationSetupCompletionMode,
@@ -32,6 +33,11 @@ import {
   type AppPortalIntegrationsLabels,
   type IntegrationVerificationMetadata,
 } from "@/lib/app-portal/integrations";
+import {
+  buildUnonightConnectionErrorPanelLabels,
+  parseUnonightTestErrorFromResponse,
+  type UnonightConnectionErrorPanelModel,
+} from "@/lib/unonight/connection/error-panel";
 
 type AppPortalIntegrationSetupPanelProps = {
   providerKey: string;
@@ -98,6 +104,7 @@ export function AppPortalIntegrationSetupPanel({
   const [verification, setVerification] = useState<IntegrationVerificationMetadata | null>(null);
   const [lastVerifiedAt, setLastVerifiedAt] = useState<string | null>(null);
   const [testError, setTestError] = useState<IntegrationErrorGuidance | null>(null);
+  const [unonightTestError, setUnonightTestError] = useState<UnonightConnectionErrorPanelModel | null>(null);
   const [showRemoveDialog, setShowRemoveDialog] = useState(false);
   const resumeInitialized = useRef(false);
 
@@ -193,6 +200,7 @@ export function AppPortalIntegrationSetupPanel({
     if (!approvedScopes) return;
     setActing(true);
     setTestError(null);
+    setUnonightTestError(null);
     const res = await fetch("/api/app-portal/integrations/save", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -224,6 +232,7 @@ export function AppPortalIntegrationSetupPanel({
     const isActivation = options?.activation === true;
     setActing(true);
     setTestError(null);
+    setUnonightTestError(null);
     const res = await fetch("/api/app-portal/integrations/test", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -251,8 +260,12 @@ export function AppPortalIntegrationSetupPanel({
         setCompletionMode(null);
       }
     } else {
-      const guidance = await parseIntegrationErrorFromResponse(res);
-      setTestError(guidance);
+      if (isUnonight) {
+        setUnonightTestError(await parseUnonightTestErrorFromResponse(res));
+      } else {
+        const guidance = await parseIntegrationErrorFromResponse(res);
+        setTestError(guidance);
+      }
       if (isActivation) {
         setCompletionMode("verified");
       }
@@ -411,10 +424,15 @@ export function AppPortalIntegrationSetupPanel({
 
   const errorPanelLabels =
     testError &&
+    !isUnonight &&
     buildIntegrationErrorPanelLabels(testError, translate, {
       findKeyHref: labels.setup.errorGuidance.findKeyHref,
       contactSupportHref: labels.setup.errorGuidance.contactSupportHref,
     });
+
+  const unonightErrorPanelLabels =
+    unonightTestError &&
+    buildUnonightConnectionErrorPanelLabels(unonightTestError, translate);
 
   return (
     <>
@@ -593,6 +611,7 @@ export function AppPortalIntegrationSetupPanel({
                     </label>
                     <p className="mt-1 text-xs text-aipify-text-muted">{labels.setup.apiKeyLabel}</p>
                     <input
+                      id="api-key-input"
                       type="password"
                       value={apiKey}
                       onChange={(e) => setApiKey(e.target.value)}
@@ -632,6 +651,13 @@ export function AppPortalIntegrationSetupPanel({
                   <p className="rounded-xl border border-blue-100 bg-blue-50/70 px-4 py-3 text-sm text-aipify-text-secondary" role="status">
                     {labels.setup.statuses.credentialSaved}
                   </p>
+                ) : null}
+                {unonightTestError && unonightErrorPanelLabels ? (
+                  <UnonightConnectionErrorPanel
+                    labels={unonightErrorPanelLabels}
+                    onRetry={() => void testConnection()}
+                    retryDisabled={acting || !connectionId}
+                  />
                 ) : null}
                 {testError && errorPanelLabels ? (
                   <IntegrationSetupErrorPanel

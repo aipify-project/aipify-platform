@@ -6696,7 +6696,55 @@
           "badCertificate": "Nie udało się zweryfikować certyfikatu API Unonight. Skontaktuj wsparcie Unonight.",
           "unsupportedApiVersion": "Ta wersja API Unonight nie jest jeszcze obsługiwana. Skontaktuj Aipify Support.",
           "malformedResponse": "Unonight zwrócił nieoczekiwaną odpowiedź. Sprawdź bazowy URL i klucz.",
-          "serverError": "Unonight zwrócił błąd serwera podczas testu połączenia. Spróbuj później."
+          "serverError": "Unonight zwrócił błąd serwera podczas testu połączenia. Spróbuj później.",
+          "credentialUnavailable": "Aipify nie mogło odczytać zapisanego klucza połączenia. Zapisz klucz ponownie i przetestuj połączenie.",
+          "verificationRecordFailed": "Test połączenia się powiódł, ale Aipify nie mogło zapisać wyniku weryfikacji. Spróbuj ponownie.",
+          "placeholderNotConfigured": "Skonfigurowano tymczasowy klucz zastępczy. Zastąp go prawdziwym kluczem Unonight."
+        },
+        "errorPanels": {
+          "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
+          "actions": {
+            "retry": "Spróbuj ponownie",
+            "updateKey": "Zaktualizuj klucz",
+            "openUnonightAdmin": "Otwórz Unonight Admin",
+            "backToIntegrations": "Wróć do integracji"
+          },
+          "invalidToken": {
+            "title": "Klucz został odrzucony",
+            "body": "Zapisany klucz nie jest już ważny. Utwórz nowy klucz w Unonight Admin i spróbuj ponownie."
+          },
+          "revokedToken": {
+            "title": "Klucz został unieważniony",
+            "body": "Klucz został unieważniony w Unonight. Utwórz nowy klucz read-only w Unonight Admin i spróbuj ponownie."
+          },
+          "credentialUnavailable": {
+            "title": "Zapisany klucz niedostępny",
+            "body": "Aipify nie mogło odczytać zapisanego klucza. Wklej klucz ponownie, zapisz i przetestuj połączenie."
+          },
+          "unreachable": {
+            "title": "Unonight nie odpowiedział",
+            "body": "Aipify nie mogło teraz połączyć się z Unonight. Sprawdź bazowy URL i spróbuj ponownie."
+          },
+          "unexpectedHttpStatus": {
+            "title": "Nieoczekiwana odpowiedź Unonight",
+            "body": "Test połączenia otrzymał nieoczekiwaną odpowiedź HTTP z Unonight. Spróbuj ponownie za chwilę."
+          },
+          "organizationMismatch": {
+            "title": "Organizacja nie pasuje",
+            "body": "Klucz należy do innej organizacji Unonight niż ta przestrzeń Aipify."
+          },
+          "missingScope": {
+            "title": "Brakuje wymaganego dostępu do odczytu",
+            "body": "Sprawdź, czy klucz ma metadata.read i organization.read."
+          },
+          "unsupportedResponse": {
+            "title": "Nieoczekiwana odpowiedź Unonight",
+            "body": "Unonight odpowiedział, ale odpowiedź nie pasowała do oczekiwanego kontraktu read-only."
+          },
+          "verificationRecordFailed": {
+            "title": "Nie udało się zapisać weryfikacji",
+            "body": "Test na żywo się powiódł, ale Aipify nie mogło zapisać wyniku weryfikacji. Spróbuj ponownie."
+          }
         }
       },
       "errorGuidance": {

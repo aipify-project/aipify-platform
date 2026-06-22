@@ -773,7 +773,55 @@
           "badCertificate": "Unonight API-sertifikatet kunne ikke verifiseres. Kontakt Unonight support ved behov.",
           "unsupportedApiVersion": "Denne Unonight API-versjonen støttes ikke ennå. Kontakt Aipify Support.",
           "malformedResponse": "Unonight returnerte et uventet svar. Kontroller base-URL og nøkkel.",
-          "serverError": "Unonight returnerte en serverfeil under tilkoblingstesten. Prøv igjen senere."
+          "serverError": "Unonight returnerte en serverfeil under tilkoblingstesten. Prøv igjen senere.",
+          "credentialUnavailable": "Aipify fant ingen lagret nøkkel å teste med. Lim inn nøkkelen på nytt, lagre og test tilkoblingen.",
+          "verificationRecordFailed": "Tilkoblingstesten lyktes, men Aipify kunne ikke lagre verifiseringsresultatet. Prøv igjen.",
+          "placeholderNotConfigured": "En midlertidig plassholdernøkkel er konfigurert. Bytt den ut med en ekte Unonight-nøkkel."
+        },
+        "errorPanels": {
+          "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
+          "actions": {
+            "retry": "Prøv igjen",
+            "updateKey": "Oppdater nøkkelen",
+            "openUnonightAdmin": "Åpne Unonight Admin",
+            "backToIntegrations": "Tilbake til integrasjoner"
+          },
+          "invalidToken": {
+            "title": "Nøkkelen ble avvist",
+            "body": "Den lagrede nøkkelen er ikke lenger gyldig. Opprett en ny nøkkel i Unonight Admin og prøv igjen."
+          },
+          "revokedToken": {
+            "title": "Nøkkelen er tilbakekalt",
+            "body": "Nøkkelen er tilbakekalt i Unonight. Opprett en ny skrivebeskyttet nøkkel i Unonight Admin og prøv igjen."
+          },
+          "credentialUnavailable": {
+            "title": "Lagret nøkkel utilgjengelig",
+            "body": "Aipify kunne ikke lese den lagrede nøkkelen. Lim inn nøkkelen på nytt, lagre og test tilkoblingen."
+          },
+          "unreachable": {
+            "title": "Unonight svarte ikke",
+            "body": "Aipify fikk ikke kontakt med Unonight akkurat nå. Kontroller base-URL og prøv igjen."
+          },
+          "unexpectedHttpStatus": {
+            "title": "Uventet svar fra Unonight",
+            "body": "Tilkoblingstesten fikk et uventet HTTP-svar fra Unonight. Prøv igjen om litt."
+          },
+          "organizationMismatch": {
+            "title": "Organisasjonen stemmer ikke",
+            "body": "Nøkkelen tilhører en annen Unonight-organisasjon enn dette Aipify-arbeidsområdet."
+          },
+          "missingScope": {
+            "title": "Tilkoblingen mangler nødvendig lesetilgang",
+            "body": "Kontroller at nøkkelen har metadata.read og organization.read."
+          },
+          "unsupportedResponse": {
+            "title": "Uventet svar fra Unonight",
+            "body": "Unonight svarte, men svaret samsvarte ikke med forventet skrivebeskyttet tilkoblingskontrakt."
+          },
+          "verificationRecordFailed": {
+            "title": "Verifiseringen kunne ikke lagres",
+            "body": "Den live testen lyktes, men Aipify kunne ikke lagre verifiseringsresultatet. Prøv igjen."
+          }
         }
       },
       "errorGuidance": {

@@ -6535,7 +6535,55 @@
           "badCertificate": "The Unonight API certificate could not be verified. Contact Unonight support if this continues.",
           "unsupportedApiVersion": "This Unonight API version is not supported yet. Contact Aipify Support.",
           "malformedResponse": "Unonight returned an unexpected response. Verify the API base URL and key.",
-          "serverError": "Unonight returned a server error during the connection test. Try again later."
+          "serverError": "Unonight returned a server error during the connection test. Try again later.",
+          "credentialUnavailable": "Aipify could not read the saved connection key. Save the key again and run the test once more.",
+          "verificationRecordFailed": "The connection test succeeded but Aipify could not store the verification result. Try again.",
+          "placeholderNotConfigured": "A placeholder connection key is configured. Replace it with a live Unonight read-only key."
+        },
+        "errorPanels": {
+          "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
+          "actions": {
+            "retry": "Try again",
+            "updateKey": "Update key",
+            "openUnonightAdmin": "Open Unonight Admin",
+            "backToIntegrations": "Back to integrations"
+          },
+          "invalidToken": {
+            "title": "The connection key was rejected",
+            "body": "The saved key is no longer valid. Create a new read-only key in Unonight Admin and try again."
+          },
+          "revokedToken": {
+            "title": "The connection key was revoked",
+            "body": "This key was revoked in Unonight. Create a new read-only key in Unonight Admin and try again."
+          },
+          "credentialUnavailable": {
+            "title": "Saved key unavailable",
+            "body": "Aipify could not read the stored connection key. Paste the key again, save, and test the connection."
+          },
+          "unreachable": {
+            "title": "Unonight did not respond",
+            "body": "Aipify could not reach Unonight right now. Verify the base URL and try again."
+          },
+          "unexpectedHttpStatus": {
+            "title": "Unonight returned an unexpected response",
+            "body": "The connection test received an unexpected HTTP response from Unonight. Try again shortly."
+          },
+          "organizationMismatch": {
+            "title": "Organization does not match",
+            "body": "The key belongs to a different Unonight organization than this Aipify workspace."
+          },
+          "missingScope": {
+            "title": "Required read access is missing",
+            "body": "Confirm the key includes metadata.read, organization.read, and integration.status.read."
+          },
+          "unsupportedResponse": {
+            "title": "Unexpected Unonight response",
+            "body": "Unonight responded, but the payload did not match the expected read-only connection contract."
+          },
+          "verificationRecordFailed": {
+            "title": "Verification could not be saved",
+            "body": "The live test succeeded but Aipify could not store the verification result. Try again."
+          }
         }
       },
       "errorGuidance": {

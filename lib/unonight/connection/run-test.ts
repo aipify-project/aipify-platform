@@ -1,9 +1,13 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { isUnonightAipifyTokenFormat } from "@/lib/unonight-platform/constants";
 import {
   UNONIGHT_PROVIDER_KEY,
   decryptIntegrationCredential,
   testUnonightReadOnlyConnection,
 } from "@/lib/unonight/connection";
+import { buildUnonightConnectionDiagnostics } from "./diagnostics";
+import { getUnonightFailureMessageKey } from "./failures";
+import type { UnonightConnectionDiagnostics } from "./diagnostics";
 
 type IntegrationTestMaterial = {
   provider_key: string;
@@ -20,6 +24,17 @@ type RecordTestResultPayload = {
   customer_message_key?: string | null;
   technical_reason?: string | null;
   verification?: Record<string, unknown> | null;
+};
+
+export type UnonightAppPortalTestResponse = {
+  success: boolean;
+  status?: string;
+  error_code?: string;
+  message_key?: string;
+  technical_reason?: string;
+  diagnostics?: UnonightConnectionDiagnostics;
+  verification?: Record<string, unknown>;
+  error?: string;
 };
 
 export async function loadAppPortalUnonightTestMaterial(
@@ -62,50 +77,100 @@ export async function recordAppPortalIntegrationTestResult(
   return (data as Record<string, unknown>) ?? null;
 }
 
+function failureResponse(
+  payload: Omit<UnonightAppPortalTestResponse, "success"> & { success: false }
+): UnonightAppPortalTestResponse {
+  return payload;
+}
+
 export async function runUnonightAppPortalConnectionTest(
   supabase: SupabaseClient,
   connectionId: string
-): Promise<Record<string, unknown>> {
+): Promise<UnonightAppPortalTestResponse> {
   const material = await loadAppPortalUnonightTestMaterial(supabase, connectionId);
   if (!material) {
-    return { success: false, error: "Connection not found" };
+    return failureResponse({
+      success: false,
+      error: "Connection not found",
+      error_code: "credential_unavailable",
+      message_key: getUnonightFailureMessageKey("credential_unavailable"),
+    });
   }
   if (material.provider_key !== UNONIGHT_PROVIDER_KEY) {
-    return { success: false, error: "Unsupported provider for live test route" };
+    return failureResponse({
+      success: false,
+      error: "Unsupported provider for live test route",
+      error_code: "unsupported_response",
+      message_key: getUnonightFailureMessageKey("unsupported_response"),
+    });
   }
+
+  const baseUrl =
+    typeof material.access_summary.base_url === "string" ? material.access_summary.base_url : null;
+
   if (!material.encrypted_payload) {
+    const diagnostics = buildUnonightConnectionDiagnostics({
+      baseUrl,
+      credentialFound: false,
+      tokenPrefixValid: false,
+      authorizationAttached: false,
+      schemaMatched: false,
+      safeResponseCode: "credential_unavailable",
+    });
     const recorded = await recordAppPortalIntegrationTestResult(supabase, connectionId, {
       success: false,
-      error_code: "invalid_token",
-      customer_message_key:
-        "customerApp.portalStructure.integrations.unonightConnection.failures.invalidToken",
+      error_code: "credential_unavailable",
+      customer_message_key: getUnonightFailureMessageKey("credential_unavailable"),
       technical_reason: "Missing vaulted credential",
     });
-    return recorded ?? { success: false, status: "failed" };
+    return (
+      (recorded as UnonightAppPortalTestResponse | null) ?? {
+        success: false,
+        status: "failed",
+        error_code: "credential_unavailable",
+        message_key: getUnonightFailureMessageKey("credential_unavailable"),
+        diagnostics,
+      }
+    );
   }
 
   let bearerToken: string;
   try {
     bearerToken = decryptIntegrationCredential(material.encrypted_payload);
   } catch {
+    const diagnostics = buildUnonightConnectionDiagnostics({
+      baseUrl,
+      credentialFound: true,
+      tokenPrefixValid: false,
+      authorizationAttached: false,
+      schemaMatched: false,
+      safeResponseCode: "decrypt_failed",
+    });
     const recorded = await recordAppPortalIntegrationTestResult(supabase, connectionId, {
       success: false,
-      error_code: "invalid_token",
-      customer_message_key:
-        "customerApp.portalStructure.integrations.unonightConnection.failures.invalidToken",
+      error_code: "credential_unavailable",
+      customer_message_key: getUnonightFailureMessageKey("credential_unavailable"),
       technical_reason: "Credential decrypt failed",
     });
-    return recorded ?? { success: false, status: "failed" };
+    return (
+      (recorded as UnonightAppPortalTestResponse | null) ?? {
+        success: false,
+        status: "failed",
+        error_code: "credential_unavailable",
+        message_key: getUnonightFailureMessageKey("credential_unavailable"),
+        diagnostics,
+      }
+    );
   }
 
-  const baseUrl =
-    typeof material.access_summary.base_url === "string" ? material.access_summary.base_url : null;
+  const tokenPrefixValid = isUnonightAipifyTokenFormat(bearerToken);
 
   const result = await testUnonightReadOnlyConnection({
     bearerToken,
     baseUrl,
     requestedScopes: material.approved_scopes,
     expectedOrganizationId: material.expected_organization_id,
+    credentialFound: true,
   });
 
   if (!result.ok) {
@@ -115,25 +180,38 @@ export async function runUnonightAppPortalConnectionTest(
       customer_message_key: result.messageKey,
       technical_reason: result.technicalReason,
     });
-    return (
-      recorded ?? {
+    return {
+      ...((recorded as UnonightAppPortalTestResponse | null) ?? {
         success: false,
         status: "failed",
         error_code: result.code,
         message_key: result.messageKey,
-      }
-    );
+        technical_reason: result.technicalReason,
+      }),
+      diagnostics: result.diagnostics,
+    };
   }
 
   const recorded = await recordAppPortalIntegrationTestResult(supabase, connectionId, {
     success: true,
     verification: result.contract as unknown as Record<string, unknown>,
   });
-  return (
-    recorded ?? {
-      success: true,
-      status: "connected",
-      verification: result.contract,
-    }
-  );
+
+  if (!recorded) {
+    return failureResponse({
+      success: false,
+      status: "failed",
+      error_code: "verification_record_failed",
+      message_key: getUnonightFailureMessageKey("verification_record_failed"),
+      technical_reason: "Verification record could not be saved",
+      diagnostics: result.diagnostics,
+      verification: result.contract as unknown as Record<string, unknown>,
+    });
+  }
+
+  return {
+    ...(recorded as UnonightAppPortalTestResponse),
+    diagnostics: result.diagnostics,
+    verification: result.contract as unknown as Record<string, unknown>,
+  };
 }

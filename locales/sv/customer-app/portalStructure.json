@@ -769,7 +769,55 @@
           "badCertificate": "Unonight API-certifikatet kunde inte verifieras. Kontakta Unonight support vid behov.",
           "unsupportedApiVersion": "Denna Unonight API-version stöds inte ännu. Kontakta Aipify Support.",
           "malformedResponse": "Unonight returnerade ett oväntat svar. Kontrollera bas-URL och nyckel.",
-          "serverError": "Unonight returnerade ett serverfel under anslutningstesten. Försök igen senare."
+          "serverError": "Unonight returnerade ett serverfel under anslutningstesten. Försök igen senare.",
+          "credentialUnavailable": "Aipify kunde inte läsa den sparade anslutningsnyckeln. Spara nyckeln igen och testa anslutningen.",
+          "verificationRecordFailed": "Anslutningstestet lyckades men Aipify kunde inte spara verifieringsresultatet. Försök igen.",
+          "placeholderNotConfigured": "En tillfällig platshållarnyckel är konfigurerad. Byt ut den mot en riktig Unonight-nyckel."
+        },
+        "errorPanels": {
+          "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
+          "actions": {
+            "retry": "Försök igen",
+            "updateKey": "Uppdatera nyckeln",
+            "openUnonightAdmin": "Öppna Unonight Admin",
+            "backToIntegrations": "Tillbaka till integrationer"
+          },
+          "invalidToken": {
+            "title": "Nyckeln avvisades",
+            "body": "Den sparade nyckeln är inte längre giltig. Skapa en ny nyckel i Unonight Admin och försök igen."
+          },
+          "revokedToken": {
+            "title": "Nyckeln är återkallad",
+            "body": "Nyckeln är återkallad i Unonight. Skapa en ny skrivskyddad nyckel i Unonight Admin och försök igen."
+          },
+          "credentialUnavailable": {
+            "title": "Sparad nyckel otillgänglig",
+            "body": "Aipify kunde inte läsa den sparade nyckeln. Klistra in nyckeln igen, spara och testa anslutningen."
+          },
+          "unreachable": {
+            "title": "Unonight svarade inte",
+            "body": "Aipify kunde inte nå Unonight just nu. Kontrollera bas-URL och försök igen."
+          },
+          "unexpectedHttpStatus": {
+            "title": "Oväntat svar från Unonight",
+            "body": "Anslutningstestet fick ett oväntat HTTP-svar från Unonight. Försök igen om en stund."
+          },
+          "organizationMismatch": {
+            "title": "Organisationen matchar inte",
+            "body": "Nyckeln tillhör en annan Unonight-organisation än denna Aipify-arbetsyta."
+          },
+          "missingScope": {
+            "title": "Anslutningen saknar nödvändig läsåtkomst",
+            "body": "Kontrollera att nyckeln har metadata.read och organization.read."
+          },
+          "unsupportedResponse": {
+            "title": "Oväntat svar från Unonight",
+            "body": "Unonight svarade men svaret matchade inte det förväntade skrivskyddade kontraktet."
+          },
+          "verificationRecordFailed": {
+            "title": "Verifieringen kunde inte sparas",
+            "body": "Live-testet lyckades men Aipify kunde inte spara verifieringsresultatet. Försök igen."
+          }
         }
       },
       "errorGuidance": {

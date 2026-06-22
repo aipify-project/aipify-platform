@@ -25,3 +25,16 @@ export {
 } from "./test-connection";
 export type { UnonightLiveTestInput } from "./test-connection";
 export { classifyUnonightHttpFailure, getUnonightFailureMessageKey } from "./failures";
+export {
+  buildUnonightConnectionErrorPanelLabels,
+  buildUnonightConnectionErrorPanelModel,
+  parseUnonightTestErrorFromResponse,
+} from "./error-panel";
+export type {
+  UnonightConnectionErrorPanelLabels,
+  UnonightConnectionErrorPanelModel,
+} from "./error-panel";
+export { buildUnonightConnectionDiagnostics, extractSafeResponseCode } from "./diagnostics";
+export type { UnonightConnectionDiagnostics } from "./diagnostics";
+export { runUnonightAppPortalConnectionTest, loadAppPortalUnonightTestMaterial } from "./run-test";
+export type { UnonightAppPortalTestResponse } from "./run-test";
