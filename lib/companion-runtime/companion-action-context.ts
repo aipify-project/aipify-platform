@@ -14,6 +14,7 @@ import {
   buildActionDefinitionFromSupportCapability,
   buildActionDefinitionFromIndustryPackCapability,
   buildActionDefinitionFromHostsCapability,
+  buildActionDefinitionFromHrCapability,
   buildActionDefinitionFromWorkspaceCapability,
   buildActionDefinitionFromPolicy,
   buildActionDefinitionFromSchemaEntity,
@@ -31,6 +32,7 @@ import type { CompanionServicesContext } from "./companion-services-context";
 import type { CompanionSupportContext } from "./companion-support-context";
 import type { CompanionIndustryPackContext } from "./companion-industry-pack-context";
 import type { CompanionHostsContext } from "./companion-hosts-context";
+import type { CompanionHrContext } from "./companion-hr-context";
 import {
   parseApprovedCompanionActionRequest,
   parseApprovedTrustActionRequest,
@@ -103,6 +105,7 @@ export type NormalizeCompanionActionContextInput = {
   supportContext?: CompanionSupportContext;
   industryPackContext?: CompanionIndustryPackContext;
   hostsContext?: CompanionHostsContext;
+  hrContext?: CompanionHrContext;
 };
 
 function parseApprovedRecordsFromApprovalsCenter(raw: unknown): CompanionApprovedActionRecord[] {
@@ -281,6 +284,17 @@ export function normalizeCompanionActionContext(
   for (const capability of input.hostsContext?.capabilities ?? []) {
     if (capability.operation !== "write") continue;
     const definition = buildActionDefinitionFromHostsCapability(capability, {
+      permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
+      appEntitlementBlocked: appSuspended,
+      emergencyStop,
+      maxRiskLevel,
+    });
+    if (definition) actions.push(definition);
+  }
+
+  for (const capability of input.hrContext?.capabilities ?? []) {
+    if (capability.operation !== "write") continue;
+    const definition = buildActionDefinitionFromHrCapability(capability, {
       permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
       appEntitlementBlocked: appSuspended,
       emergencyStop,

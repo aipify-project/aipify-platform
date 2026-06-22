@@ -589,6 +589,66 @@
         "hosts_pack_adapter": "ekstern kanaladapter tredjeparts booking sync"
       }
     },
+    "hr": {
+      "sourceLabel": "HR-leverandørkatalog",
+      "discoveryLead": "Aipify kortlagde {provider} i HR-leverandørkataloget — status: {status}.",
+      "discoveryExplanation": "Capabilities nedenfor kommer fra registrerede HR / People Operations Business Pack-manifest. Onboarding, opgavetildeling og medarbejderopdateringer kræver godkendelse — Aipify ændrer aldrig løn, opsiger medarbejdere eller eksponerer følsomme helbredsoplysninger i Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "HR-kilden er forberedt eller verifisert for organisasjonen din.",
+      "disconnectedProvider": "Leverandøradapter er ikke koblet — kun styrt oppdagelse.",
+      "unavailableLead": "Ingen HR-leverandør matchet denne forespørselen for organisasjonen din.",
+      "unavailableExplanation": "HR-capabilities oppdages fra registrerte manifest — ingen matchet dette spørsmålet.",
+      "externalUnavailableLead": "Eksterne HRIS- eller lønnsadapters er ikke koblet for organisasjonen din.",
+      "externalUnavailableExplanation": "Ingen live ekstern HR-adapter er registrert. Aipify utfører ikke lønnsendringer, oppsigelser eller irreversible tilgangsendringer i Companion runtime.",
+      "blockedOperationLead": "Denne HR-operasjonen er ikke tilgjengelig i Companion runtime.",
+      "blockedOperationExplanation": "Lønnsendringer, oppsigelser, sletting av ansatte, helseopplysninger, juridiske beslutninger og irreversible kontendringer er blokkert i denne fasen. Aipify kan forberede reversible oppdateringer — du bestemmer og godkjenner.",
+      "permissionDenied": "Rollen din har ikke tilgang til HR-leverandørkatalogen.",
+      "entitlementBlocked": "HR-capabilities er utilgjengelige mens organisasjonens abonnement er pauset.",
+      "privacyNote": "Metadata-først people intelligence — sensitive ansatt- og helseopplysninger filtreres og eksponeres aldri uten tillatelse.",
+      "policyNote": "Onboarding, oppgavetildeling og ansattoppdateringer krever eksplisitt godkjenning. Rollefilter, avdelingsomfang og revisjonslogging gjelder for alle HR-handlinger.",
+      "salaryChangeBlocked": "Lønns- og kompensasjonsendringer er blokkert i Companion runtime.",
+      "terminationBlocked": "Oppsigelse og sletting av ansatte er blokkert — mennesker bestemmer.",
+      "healthDataBlocked": "Sensitive helseopplysninger er blokkert — aldri eksponert i Companion runtime.",
+      "leastPrivilegeEnforced": "Minste nødvendige tilgang håndheves for HR-lesing og -skriving.",
+      "departmentScopeActive": "Avdelingsavgrenset tilgang er aktiv for denne organisasjonen.",
+      "vacationModeActive": "Vacation Mode fraværsdekning er aktiv for workforce-planlegging.",
+      "vacationModeAvailable": "Vacation Mode fraværsdekning er tilgjengelig via Absence Center.",
+      "commandBriefEventsLinked": "Command Brief HR-signaler er koblet fra eksisterende onboarding-, fraværs-, sertifikat- og oppgavekilder.",
+      "commandBriefEventsAvailable": "Command Brief HR-signaler er tilgjengelige når HR-motorer er aktivert.",
+      "humanOversightRequired": "Menneskelig tilsyn kreves for HR-skrivinger.",
+      "openHrCenter": "Åbn People Operations",
+      "operation": {
+        "read": "læs",
+        "write": "skriv"
+      },
+      "status": {
+        "connected": "koblet",
+        "implemented_disconnected": "implementert men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun spesifikasjon",
+        "placeholder": "plassholder"
+      },
+      "providers": {
+        "workforce_employee_directory": "Ansattkatalog",
+        "workforce_team": "Team",
+        "workforce_lifecycle": "Onboarding og livssyklus",
+        "workforce_people_operations": "People Operations",
+        "workforce_scheduling_hr": "Workforce-planlegging",
+        "workforce_absence_hr": "Fravær og permisjon",
+        "workforce_knowledge": "Employee Knowledge",
+        "hr_pack_adapter": "Ekstern HR-adapter"
+      },
+      "searchTerms": {
+        "workforce_employee_directory": "ansatte katalog avdelinger roller profiler status",
+        "workforce_team": "team medlemmer workspace roller tillatelser",
+        "workforce_lifecycle": "onboarding offboarding invitasjoner livssyklus opplæring",
+        "workforce_people_operations": "people operations attendance permisjon performance mål oppgaver",
+        "workforce_scheduling_hr": "planlegging skift tilgjengelighet dekning vakt",
+        "workforce_absence_hr": "fravær permisjon vacation mode dekning kontinuitet",
+        "workforce_knowledge": "employee knowledge opplæring prosedyrer onboarding paths",
+        "hr_pack_adapter": "ekstern hris lønn adapter tredjeparts hr sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

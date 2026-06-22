@@ -146,6 +146,16 @@ import {
   matchHostsProviderQuery,
 } from "./hosts-answer";
 import {
+  buildBlockedHrOperationAnswer,
+  buildExternalHrUnavailableAnswer,
+  buildHrProviderDiscoveryAnswer,
+  buildHrProviderUnavailableAnswer,
+  hasBlockedHrOperationIntent,
+  hasExternalHrAdapterIntent,
+  hasHrProviderIntent,
+  matchHrProviderQuery,
+} from "./hr-answer";
+import {
   buildBlockedCommerceOperationAnswer,
   buildCommerceProviderDiscoveryAnswer,
   buildCommerceProviderUnavailableAnswer,
@@ -802,6 +812,45 @@ function resolveHostsProviderAnswer(
   };
 }
 
+function resolveHrProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (hasBlockedHrOperationIntent(query)) {
+    return {
+      answer: buildBlockedHrOperationAnswer(t),
+    };
+  }
+
+  if (!hasHrProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.hrContext.permission_denied) {
+    return {
+      answer: buildHrProviderUnavailableAnswer(t, tenantContext.hrContext),
+    };
+  }
+
+  if (hasExternalHrAdapterIntent(query)) {
+    return {
+      answer: buildExternalHrUnavailableAnswer(t),
+    };
+  }
+
+  const match = matchHrProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildHrProviderUnavailableAnswer(t, tenantContext.hrContext),
+    };
+  }
+
+  return {
+    answer: buildHrProviderDiscoveryAnswer(match, tenantContext.hrContext, t),
+  };
+}
+
 function resolveSupportProviderAnswer(
   query: string,
   t: Translator,
@@ -1052,6 +1101,9 @@ export async function orchestrateCompanionSearch(
 
   const hostsResult = resolveHostsProviderAnswer(query, t, resolvedTenantContext);
   if (hostsResult) return finalize(hostsResult);
+
+  const hrResult = resolveHrProviderAnswer(query, t, resolvedTenantContext);
+  if (hrResult) return finalize(hrResult);
 
   const supportResult = resolveSupportProviderAnswer(query, t, resolvedTenantContext);
   if (supportResult) return finalize(supportResult);

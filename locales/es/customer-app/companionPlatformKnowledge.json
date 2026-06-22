@@ -589,6 +589,66 @@
         "hosts_pack_adapter": "adaptador canal externo terceros booking sync"
       }
     },
+    "hr": {
+      "sourceLabel": "Catálogo de proveedores HR",
+      "discoveryLead": "Aipify mapeó {provider} en su catálogo de proveedores HR — estado: {status}.",
+      "discoveryExplanation": "Las capabilities siguientes provienen de manifiestos registrados del Business Pack HR / People Operations. Onboarding, asignación de tareas y actualizaciones de empleados requieren aprobación — Aipify nunca cambia salarios, despide empleados ni expone datos de salud sensibles en Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "HR source is prepared or verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No HR provider matched this request for your organization.",
+      "unavailableExplanation": "HR capabilities are discovered from registered manifests — none matched this query.",
+      "externalUnavailableLead": "External HRIS or payroll adapters are not connected for your organization.",
+      "externalUnavailableExplanation": "No live external HR adapter is registered. Aipify does not execute salary changes, terminations, or irreversible access changes in Companion runtime.",
+      "blockedOperationLead": "This HR operation is not available in Companion runtime.",
+      "blockedOperationExplanation": "Salary changes, terminations, employee deletion, health records, legal decisions, and irreversible account changes are blocked in this phase. Aipify can prepare reversible updates — you decide and approve.",
+      "permissionDenied": "Your role cannot access the HR provider catalog.",
+      "entitlementBlocked": "HR capabilities are unavailable while the organization subscription is paused.",
+      "privacyNote": "Metadata-first people intelligence — sensitive employee and health details are filtered and never exposed without permission.",
+      "policyNote": "Onboarding, task assignments, and employee updates require explicit approval. Role filtering, department scope, and audit logging apply to all HR actions.",
+      "salaryChangeBlocked": "Salary and compensation changes are blocked in Companion runtime.",
+      "terminationBlocked": "Employee termination and deletion are blocked — humans decide.",
+      "healthDataBlocked": "Sensitive health records are blocked — never exposed in Companion runtime.",
+      "leastPrivilegeEnforced": "Least-privilege access is enforced for HR reads and writes.",
+      "departmentScopeActive": "Department-scoped access is active for this organization.",
+      "vacationModeActive": "Vacation Mode absence coverage is active for workforce planning.",
+      "vacationModeAvailable": "Vacation Mode absence coverage is available via Absence Center.",
+      "commandBriefEventsLinked": "Command Brief HR signals are linked from existing onboarding, absence, certification, and task sources.",
+      "commandBriefEventsAvailable": "Command Brief HR signals are available when HR engines are activated.",
+      "humanOversightRequired": "Human oversight is required for HR writes.",
+      "openHrCenter": "Abrir People Operations",
+      "operation": {
+        "read": "lectura",
+        "write": "escritura"
+      },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "workforce_employee_directory": "Employee Directory",
+        "workforce_team": "Teams",
+        "workforce_lifecycle": "Onboarding & Lifecycle",
+        "workforce_people_operations": "People Operations",
+        "workforce_scheduling_hr": "Workforce Scheduling",
+        "workforce_absence_hr": "Absence & Leave",
+        "workforce_knowledge": "Employee Knowledge",
+        "hr_pack_adapter": "External HR Adapter"
+      },
+      "searchTerms": {
+        "workforce_employee_directory": "employees directory departments roles profiles status",
+        "workforce_team": "teams members workspace roles permissions",
+        "workforce_lifecycle": "onboarding offboarding invitations lifecycle training",
+        "workforce_people_operations": "people operations attendance leave performance goals tasks",
+        "workforce_scheduling_hr": "scheduling shifts availability coverage on call",
+        "workforce_absence_hr": "absence leave vacation mode coverage continuity",
+        "workforce_knowledge": "employee knowledge training procedures onboarding paths",
+        "hr_pack_adapter": "external hris payroll adapter third party hr sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
