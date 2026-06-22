@@ -38,6 +38,11 @@ export type CompanionDirectoryContext = {
   employee_candidate_count?: number;
   command_brief_signals?: readonly CompanionDirectoryCommandBriefSignal[];
   employee_directory_limitations?: readonly string[];
+  crm_adapter_connected?: boolean;
+  crm_source_exact?: boolean;
+  crm_candidate_count?: number;
+  crm_command_brief_signals?: readonly CompanionDirectoryCommandBriefSignal[];
+  crm_directory_limitations?: readonly string[];
 };
 
 export function createEmptyCompanionDirectoryContext(input: {

@@ -27,6 +27,14 @@ export type DirectoryCapabilityKey =
   | "team.read"
   | "department.read"
   | "lead.search"
+  | "lead.read"
+  | "prospect.search"
+  | "contact.read"
+  | "customer.read"
+  | "opportunity.read"
+  | "pipeline.read"
+  | "customer_owner.read"
+  | "attribution.read"
   | "partner.search"
   | "supplier.search"
   | "seller.search"
@@ -44,7 +52,12 @@ export type DirectorySearchField =
   | "team"
   | "status"
   | "relationship_type"
-  | "location";
+  | "location"
+  | "customer_id"
+  | "lead_id"
+  | "pipeline_stage"
+  | "owner"
+  | "lead_source";
 
 export type DirectorySearchFieldAccess =
   | "directory.search.basic"

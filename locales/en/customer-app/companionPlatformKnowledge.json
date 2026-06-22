@@ -120,6 +120,48 @@
           "roleNotPermission": "Role name does not guarantee module access — effective permissions are evaluated separately.",
           "writeBlocked": "Employee directory write-actions are disabled in Companion runtime."
         }
+      },
+      "crm": {
+        "customer": "Customer",
+        "lead": "Lead",
+        "prospect": "Prospect",
+        "contact": "Contact",
+        "company": "Company",
+        "owner": "Customer owner",
+        "assignedSeller": "Assigned seller",
+        "partnerAttribution": "Partner attribution",
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive",
+          "prospect": "Prospect",
+          "atRisk": "At risk",
+          "open": "Open"
+        },
+        "outcomes": {
+          "multipleMatches": "Multiple CRM records matched — review the shortlist or refine your search.",
+          "noMatch": "No customer, lead, or contact matched that search in your organization.",
+          "maskedContact": "Contact details are masked until your role allows directory contact reads.",
+          "permissionDenied": "Your role cannot search CRM customers or leads.",
+          "providerMissing": "No live CRM directory provider is connected for this organization.",
+          "partialResult": "Aipify returned partial CRM metadata — some fields are unavailable from the current source.",
+          "clarification": "More than one record may match — add an email, organization number, or choose from the list."
+        },
+        "commandBrief": {
+          "newLead": "New leads are available in your CRM pipeline.",
+          "leadWithoutFollowUp": "Leads are waiting for follow-up.",
+          "recommendedFollowUp": "Recommended follow-ups are ready for review.",
+          "customerHealthWarning": "Customers need health attention.",
+          "churnRisk": "Customers show elevated churn risk.",
+          "dealStatusChange": "Deal status changes may need review.",
+          "conversionDeviation": "Conversion metrics deviate from expected patterns.",
+          "unassignedCustomer": "Customers have no assigned owner.",
+          "duplicateCustomerCandidate": "Possible duplicate customer records were detected."
+        },
+        "warnings": {
+          "partnerNotOwner": "Partner attribution is metadata — the customer belongs to your organization on Aipify Platform.",
+          "writeBlocked": "CRM directory write-actions are disabled in Companion runtime.",
+          "leadNotCustomer": "Leads and customers are separate relationship types — no automatic merge."
+        }
       }
     },
     "verification": {

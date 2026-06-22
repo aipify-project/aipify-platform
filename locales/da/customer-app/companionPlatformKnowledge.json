@@ -1985,6 +1985,48 @@
           "roleNotPermission": "Rollenavn garanterer ikke moduladgang — effektive tilladelser vurderes separat.",
           "writeBlocked": "Skrivehandlinger for medarbejderkatalog er deaktiveret i Companion."
         }
+      },
+      "crm": {
+        "customer": "Kunde",
+        "lead": "Lead",
+        "prospect": "Prospekt",
+        "contact": "Kontakt",
+        "company": "Virksomhed",
+        "owner": "Kundeejer",
+        "assignedSeller": "Tildelt sælger",
+        "partnerAttribution": "Partnerattribution",
+        "status": {
+          "active": "Aktiv",
+          "inactive": "Inaktiv",
+          "prospect": "Prospekt",
+          "atRisk": "I risiko",
+          "open": "Åben"
+        },
+        "outcomes": {
+          "multipleMatches": "Flere CRM-poster matchede — gennemgå listen eller præcisér søgningen.",
+          "noMatch": "Ingen kunde, lead eller kontakt matchede søgningen.",
+          "maskedContact": "Kontaktoplysninger maskeres, indtil din rolle tillader kontaktoppslag.",
+          "permissionDenied": "Din rolle kan ikke søge CRM-kunder eller leads.",
+          "providerMissing": "Ingen live CRM-katalog er tilkoblet denne organisation endnu.",
+          "partialResult": "Aipify returnerede delvis CRM-metadata.",
+          "clarification": "Flere poster kan matche — tilføj e-mail, CVR eller vælg fra listen."
+        },
+        "commandBrief": {
+          "newLead": "Nye leads er tilgængelige i CRM-pipeline.",
+          "leadWithoutFollowUp": "Leads afventer opfølgning.",
+          "recommendedFollowUp": "Anbefalet opfølgning er klar til gennemgang.",
+          "customerHealthWarning": "Kunder kræver sundhedsopmærksomhed.",
+          "churnRisk": "Kunder viser forhøjet churn-risiko.",
+          "dealStatusChange": "Aftalestatusændringer kan kræve gennemgang.",
+          "conversionDeviation": "Konverteringsmålinger afviger fra forventet mønster.",
+          "unassignedCustomer": "Kunder har ingen tildelt ejer.",
+          "duplicateCustomerCandidate": "Mulige duplikerede kundeposter blev fundet."
+        },
+        "warnings": {
+          "partnerNotOwner": "Partnerattribution er metadata — kunden tilhører din organisation på Aipify Platform.",
+          "writeBlocked": "CRM-skrivehandlinger er deaktiveret i Companion.",
+          "leadNotCustomer": "Leads og kunder er separate relationstyper."
+        }
       }
     },
     "verification": {

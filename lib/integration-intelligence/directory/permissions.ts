@@ -23,6 +23,12 @@ const BASIC_FIELDS: readonly DirectorySearchField[] = [
   "relationship_type",
   "location",
   "organization_number",
+  "external_id",
+  "customer_id",
+  "lead_id",
+  "pipeline_stage",
+  "owner",
+  "lead_source",
 ];
 
 export function resolveDirectoryPermissionScope(

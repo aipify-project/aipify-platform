@@ -182,6 +182,20 @@ export function buildCommandBriefDomainSources(
     });
   }
 
+  if (
+    input?.directoryContext?.crm_source_exact &&
+    input.directoryContext.crm_command_brief_signals &&
+    input.directoryContext.crm_command_brief_signals.length > 0
+  ) {
+    sources.push({
+      source_module: "directory_crm",
+      source_provider: "crm_customer_directory",
+      signals: toRawSignals(input.directoryContext.crm_command_brief_signals, true),
+      required_permission: "customers.view",
+      related_capability: "customer.search",
+    });
+  }
+
   return sources;
 }
 

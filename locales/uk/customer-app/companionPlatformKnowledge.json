@@ -1985,6 +1985,48 @@
           "roleNotPermission": "Назва ролі не гарантує доступ до модуля — ефективні дозволи оцінюються окремо.",
           "writeBlocked": "Дії запису каталогу співробітників вимкнено в Companion."
         }
+      },
+      "crm": {
+        "customer": "Клієнт",
+        "lead": "Лід",
+        "prospect": "Проспект",
+        "contact": "Контакт",
+        "company": "Компанія",
+        "owner": "Власник клієнта",
+        "assignedSeller": "Призначений продавець",
+        "partnerAttribution": "Атрибуція партнера",
+        "status": {
+          "active": "Активний",
+          "inactive": "Неактивний",
+          "prospect": "Проспект",
+          "atRisk": "У ризику",
+          "open": "Відкритий"
+        },
+        "outcomes": {
+          "multipleMatches": "Знайдено кілька CRM-записів — перегляньте список або уточніть пошук.",
+          "noMatch": "Жоден клієнт, лід або контакт не відповідає цьому пошуку.",
+          "maskedContact": "Контактні дані маскуються, доки ваша роль не дозволить їх перегляд.",
+          "permissionDenied": "Ваша роль не може шукати CRM-клієнтів або лідів.",
+          "providerMissing": "Для цієї організації ще не підключено live CRM-кatalog.",
+          "partialResult": "Aipify повернув часткові CRM-метадані.",
+          "clarification": "Може підходити кілька записів — додайте email, ЄДРПОУ або оберіть зі списку."
+        },
+        "commandBrief": {
+          "newLead": "Нові ліди доступні в CRM-pipeline.",
+          "leadWithoutFollowUp": "Ліди очікують follow-up.",
+          "recommendedFollowUp": "Рекомендований follow-up готовий до перегляду.",
+          "customerHealthWarning": "Клієнти потребують уваги до здоров'я.",
+          "churnRisk": "Клієнти мають підвищений ризик відтоку.",
+          "dealStatusChange": "Зміни статусу угод можуть потребувати перегляду.",
+          "conversionDeviation": "Метрики конверсії відхиляються від очікуваного.",
+          "unassignedCustomer": "Клієнти без призначеного власника.",
+          "duplicateCustomerCandidate": "Виявлено можливі дублікати записів клієнтів."
+        },
+        "warnings": {
+          "partnerNotOwner": "Атрибуція партнера — це метадані; клієнт належить вашій організації на Aipify Platform.",
+          "writeBlocked": "Дії запису CRM вимкнено в Companion.",
+          "leadNotCustomer": "Ліди та клієнти — окремі типи відносин."
+        }
       }
     },
     "verification": {

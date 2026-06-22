@@ -12,6 +12,9 @@ export const COMPANION_FUZZY_IDENTITY_MATCH = "clarification_required_when_uncer
 export const COMPANION_PROVIDER_FIELD_MAPPING_IN_CORE = "forbidden" as const;
 export const COMPANION_DIRECTORY_EXPORT = "approval_or_disabled" as const;
 export const COMPANION_EMPLOYEE_DIRECTORY_WRITE_ACTIONS = "disabled" as const;
+export const COMPANION_CRM_DIRECTORY_WRITE_ACTIONS = "disabled" as const;
+export const COMPANION_CUSTOMER_OWNERSHIP = "platform" as const;
+export const COMPANION_PARTNER_ATTRIBUTION_IS_NOT_OWNERSHIP = true as const;
 
 export const COMPANION_DIRECTORY_POLICY_MODULES = {
   contracts: "lib/integration-intelligence/directory/types.ts",
@@ -31,5 +34,8 @@ export function companionDirectoryPolicyMetadata() {
     provider_field_mapping_in_core: COMPANION_PROVIDER_FIELD_MAPPING_IN_CORE,
     directory_export: COMPANION_DIRECTORY_EXPORT,
     employee_directory_write_actions: COMPANION_EMPLOYEE_DIRECTORY_WRITE_ACTIONS,
+    crm_directory_write_actions: COMPANION_CRM_DIRECTORY_WRITE_ACTIONS,
+    customer_ownership: COMPANION_CUSTOMER_OWNERSHIP,
+    partner_attribution_is_not_ownership: COMPANION_PARTNER_ATTRIBUTION_IS_NOT_OWNERSHIP,
   };
 }

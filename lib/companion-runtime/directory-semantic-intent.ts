@@ -79,6 +79,52 @@ function extractEmployeeSearchHints(normalized: string): {
   return { search_field: null, search_value: null, filters };
 }
 
+function extractCrmSearchHints(normalized: string): {
+  search_field: DirectorySearchField | null;
+  search_value: string | null;
+  filters: DirectorySearchFilters;
+} {
+  const filters: DirectorySearchFilters = {};
+
+  if (/leads?.*uten oppfolg|leads without follow|no follow-up|uten oppfolging/.test(normalized)) {
+    filters.status = "open";
+    return { search_field: "status", search_value: "open", filters };
+  }
+
+  if (/churn|hoy.*risiko|at risk|kunder.*risiko/.test(normalized)) {
+    filters.status = "at_risk";
+    return { search_field: "status", search_value: "at_risk", filters };
+  }
+
+  const sellerMatch = normalized.match(
+    /(?:hvilken selger|which seller|sales rep|selger).{0,20}(?:følger opp|follows up|assigned to)\s+(.{2,50})/i,
+  );
+  if (sellerMatch?.[1]) {
+    return { search_field: "owner", search_value: sellerMatch[1].trim(), filters };
+  }
+
+  const companyMatch = normalized.match(
+    /(?:har vi en kunde|do we have a customer|firmaet|company)\s+(?:som heter|called|named)?\s*(.{2,60})/i,
+  );
+  if (companyMatch?.[1]) {
+    return { search_field: "company_name", search_value: companyMatch[1].trim(), filters };
+  }
+
+  const contactMatch = normalized.match(
+    /(?:kontaktperson|contact person).{0,30}(?:hos|at|for)\s+(.{2,50})/i,
+  );
+  if (contactMatch?.[1]) {
+    return { search_field: "company_name", search_value: contactMatch[1].trim(), filters };
+  }
+
+  if (/finn lead|find lead|leadet med/.test(normalized)) {
+    const email = normalized.match(/[^\s@]+@[^\s@]+\.[^\s@]+/);
+    if (email?.[0]) return { search_field: "email", search_value: email[0], filters };
+  }
+
+  return { search_field: null, search_value: null, filters };
+}
+
 function extractSearchValueFromQuery(normalized: string): string | null {
   const quoted = normalized.match(/["“](.+?)["”]/);
   if (quoted?.[1]) return quoted[1].trim();
@@ -137,12 +183,14 @@ export function resolveDirectorySemanticIntent(input: {
   descriptors: readonly DirectoryRelationshipAliasDescriptor[];
 }): DirectorySemanticIntent {
   const normalized = normalizeIntegrationQuery(input.query);
+  const crmHints = extractCrmSearchHints(normalized);
   const employeeHints = extractEmployeeSearchHints(normalized);
+  const domainHints = crmHints.search_field ? crmHints : employeeHints;
   const search_value =
-    employeeHints.search_value ?? extractSearchValueFromQuery(normalized);
+    domainHints.search_value ?? extractSearchValueFromQuery(normalized);
   const search_field =
-    employeeHints.search_field ?? detectDirectorySearchField(search_value ?? normalized);
-  const filters = employeeHints.filters;
+    domainHints.search_field ?? detectDirectorySearchField(search_value ?? normalized);
+  const filters = domainHints.filters;
 
   const scored = input.descriptors
     .map((descriptor) => ({

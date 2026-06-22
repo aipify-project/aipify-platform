@@ -1985,6 +1985,48 @@
           "roleNotPermission": "El nombre del rol no garantiza acceso al módulo — los permisos efectivos se evalúan por separado.",
           "writeBlocked": "Las acciones de escritura del directorio de empleados están deshabilitadas en Companion."
         }
+      },
+      "crm": {
+        "customer": "Cliente",
+        "lead": "Lead",
+        "prospect": "Prospecto",
+        "contact": "Contacto",
+        "company": "Empresa",
+        "owner": "Propietario del cliente",
+        "assignedSeller": "Vendedor asignado",
+        "partnerAttribution": "Atribución de partner",
+        "status": {
+          "active": "Activo",
+          "inactive": "Inactivo",
+          "prospect": "Prospecto",
+          "atRisk": "En riesgo",
+          "open": "Abierto"
+        },
+        "outcomes": {
+          "multipleMatches": "Varios registros CRM coincidieron — revise la lista o refine la búsqueda.",
+          "noMatch": "Ningún cliente, lead o contacto coincidió con esa búsqueda.",
+          "maskedContact": "Los datos de contacto están enmascarados hasta que su rol lo permita.",
+          "permissionDenied": "Su rol no puede buscar clientes o leads de CRM.",
+          "providerMissing": "Aún no hay un proveedor CRM conectado para esta organización.",
+          "partialResult": "Aipify devolvió metadatos CRM parciales.",
+          "clarification": "Puede haber más de un registro — añada email, NIF o elija de la lista."
+        },
+        "commandBrief": {
+          "newLead": "Hay nuevos leads en el pipeline CRM.",
+          "leadWithoutFollowUp": "Leads esperan seguimiento.",
+          "recommendedFollowUp": "Seguimientos recomendados listos para revisión.",
+          "customerHealthWarning": "Clientes requieren atención de salud.",
+          "churnRisk": "Clientes muestran riesgo elevado de abandono.",
+          "dealStatusChange": "Cambios de estado de acuerdos pueden requerir revisión.",
+          "conversionDeviation": "Las métricas de conversión se desvían del patrón esperado.",
+          "unassignedCustomer": "Clientes sin propietario asignado.",
+          "duplicateCustomerCandidate": "Se detectaron posibles registros de clientes duplicados."
+        },
+        "warnings": {
+          "partnerNotOwner": "La atribución de partner es metadata — el cliente pertenece a su organización en Aipify Platform.",
+          "writeBlocked": "Las acciones de escritura CRM están deshabilitadas en Companion.",
+          "leadNotCustomer": "Leads y clientes son tipos de relación separados."
+        }
       }
     },
     "verification": {

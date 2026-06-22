@@ -24,6 +24,12 @@ export type DirectoryMatchCandidate = {
   email_raw?: string | null;
   phone_raw?: string | null;
   external_id?: string | null;
+  owner_reference?: string | null;
+  lead_source?: string | null;
+  pipeline_stage?: string | null;
+  customer_id?: string | null;
+  lead_id?: string | null;
+  attribution_reference?: string | null;
 };
 
 export type DirectoryMatchBaseRecord = {
@@ -134,7 +140,7 @@ export function matchDirectoryRecord(input: {
     };
   }
 
-  if (input.field === "role" || input.field === "department" || input.field === "team" || input.field === "status") {
+  if (input.field === "role" || input.field === "department" || input.field === "team" || input.field === "status" || input.field === "owner" || input.field === "lead_source" || input.field === "pipeline_stage") {
     const candidateValue =
       input.field === "role"
         ? input.candidate.role
@@ -142,7 +148,13 @@ export function matchDirectoryRecord(input: {
           ? input.candidate.department
           : input.field === "team"
             ? input.candidate.team
-            : input.candidate.status;
+            : input.field === "status"
+              ? input.candidate.status
+              : input.field === "owner"
+                ? input.candidate.owner_reference ?? input.candidate.role
+                : input.field === "lead_source"
+                  ? input.candidate.lead_source
+                  : input.candidate.pipeline_stage;
     if (!candidateValue) return null;
     const normalizedCandidate = normalizeDirectoryName(candidateValue);
     const normalizedQueryValue = normalizeDirectoryName(normalizedQuery);
@@ -158,6 +170,19 @@ export function matchDirectoryRecord(input: {
       };
     }
     return null;
+  }
+
+  if (input.field === "customer_id" || input.field === "lead_id") {
+    const candidateId =
+      input.field === "customer_id"
+        ? input.candidate.customer_id ?? input.candidate.entity_id
+        : input.candidate.lead_id ?? input.candidate.entity_id;
+    if (!candidateId || candidateId !== normalizedQuery) return null;
+    return {
+      record: { ...input.baseRecord, match_kind: "exact", match_confidence: "high" } as DirectoryRecord,
+      match_kind: "exact",
+      match_confidence: "high",
+    };
   }
 
   if (input.field === "company_name") {
