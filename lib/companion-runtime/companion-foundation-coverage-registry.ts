@@ -11,6 +11,7 @@ import {
   MEMBER_VERIFICATION_COVERAGE_MODULES,
   COMMAND_BRIEF_COVERAGE_MODULES,
   SUPPORT_COVERAGE_MODULES,
+  HOSTS_COVERAGE_MODULES,
   ORGANIZATION_DIRECTORY_COVERAGE_MODULES,
   UNONIGHT_ADAPTER_COVERAGE_OVERRIDES,
   UNONIGHT_CAPABILITY_READINESS_OVERRIDES,
@@ -570,6 +571,7 @@ export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEnt
     ...HAIRDRESSER_SERVICE_COVERAGE_MODULES.map((entry) => entry.module_id),
     ...COMMAND_BRIEF_COVERAGE_MODULES.map((entry) => entry.module_id),
     ...SUPPORT_COVERAGE_MODULES.map((entry) => entry.module_id),
+    ...HOSTS_COVERAGE_MODULES.map((entry) => entry.module_id),
     ...ORGANIZATION_DIRECTORY_COVERAGE_MODULES.map((entry) => entry.module_id),
   ]);
 
@@ -584,6 +586,7 @@ export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEnt
     ...HAIRDRESSER_SERVICE_COVERAGE_MODULES,
     ...COMMAND_BRIEF_COVERAGE_MODULES,
     ...SUPPORT_COVERAGE_MODULES,
+    ...HOSTS_COVERAGE_MODULES,
     ...ORGANIZATION_DIRECTORY_COVERAGE_MODULES,
     ...PANEL_COVERAGE_ENTRIES,
   ];

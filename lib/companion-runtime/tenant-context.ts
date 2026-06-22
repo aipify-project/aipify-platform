@@ -393,6 +393,8 @@ export async function loadCompanionTenantContext(
       operationalContext,
       proactiveContext,
     },
+    supportContext,
+    hostsContext,
     last_login_at: operationalContext.since,
   });
 

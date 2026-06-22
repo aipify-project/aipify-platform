@@ -57,6 +57,12 @@ export type CompanionHostsContext = {
   vacation_mode_active: boolean;
   property_count: number | null;
   active_reservations_count: number | null;
+  operations_summary: import("@/lib/integration-intelligence/hosts/types").HostOperationsSummary | null;
+  finance_summary: import("@/lib/integration-intelligence/hosts/types").HostFinanceSummary | null;
+  property_summaries: readonly import("@/lib/integration-intelligence/hosts/types").PropertySummary[];
+  reservation_summaries: readonly import("@/lib/integration-intelligence/hosts/types").ReservationSummary[];
+  command_brief_signals: readonly { signal_key: string; count: number | null }[];
+  hosts_source_exact: boolean;
   command_brief_events_linked: boolean;
   providers: HostsProviderRuntimeStatus[];
   capabilities: HostsCapabilityRuntimeRef[];
@@ -91,6 +97,12 @@ export function createEmptyCompanionHostsContext(
     vacation_mode_active: false,
     property_count: null,
     active_reservations_count: null,
+    operations_summary: null,
+    finance_summary: null,
+    property_summaries: [],
+    reservation_summaries: [],
+    command_brief_signals: [],
+    hosts_source_exact: false,
     command_brief_events_linked: false,
     providers: [],
     capabilities: [],

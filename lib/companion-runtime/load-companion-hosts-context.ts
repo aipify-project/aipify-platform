@@ -1,9 +1,11 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { mapHostsV1Bundle } from "@/lib/integration-intelligence/providers/aipify-hosts/hosts-v1-contract";
 import { listHostsProviderManifests } from "@/lib/integration-intelligence/hosts/registry";
 import type { HostsProviderImplementationStatus } from "@/lib/integration-intelligence/hosts/types";
 import { isHostsBusinessPackActive } from "@/lib/integration-intelligence/hosts/types";
+import { buildHostsCommandBriefSignals } from "./hosts-read-orchestrator";
 import {
   buildHostsCapabilityRuntimeRef,
   createEmptyCompanionHostsContext,
@@ -251,6 +253,23 @@ export async function loadCompanionHostsContext(
     bookingResult.data ?? foundationResult.data,
   );
 
+  const hostsBundle = mapHostsV1Bundle({
+    propertyData: propertyResult.data,
+    bookingData: bookingResult.data,
+    operationsData: operationsResult.data,
+    financeData: financeResult.data,
+  });
+
+  const commandBriefSignals =
+    foundationEnabled && businessPackActive && hostsBundle.source_exact
+      ? buildHostsCommandBriefSignals({
+          operations: hostsBundle.operations,
+          finance: hostsBundle.finance,
+          reservations: hostsBundle.reservations,
+          source_exact: true,
+        })
+      : [];
+
   const engineFlags = {
     foundation: foundationEnabled,
     property: propertyEnabled,
@@ -331,9 +350,17 @@ export async function loadCompanionHostsContext(
     reservation_delete_blocked: true,
     portfolio_isolation_enabled: portfolioPolicy.portfolio_isolation_enabled,
     vacation_mode_active: portfolioPolicy.vacation_mode_active,
-    property_count: portfolioPolicy.property_count,
-    active_reservations_count: portfolioPolicy.active_reservations_count,
-    command_brief_events_linked: foundationEnabled && businessPackActive,
+    property_count: portfolioPolicy.property_count ?? hostsBundle.properties.length,
+    active_reservations_count:
+      portfolioPolicy.active_reservations_count ?? hostsBundle.reservations.length,
+    operations_summary: hostsBundle.operations,
+    finance_summary: hostsBundle.finance,
+    property_summaries: hostsBundle.properties,
+    reservation_summaries: hostsBundle.reservations,
+    command_brief_signals: commandBriefSignals,
+    hosts_source_exact: hostsBundle.source_exact,
+    command_brief_events_linked:
+      foundationEnabled && businessPackActive && commandBriefSignals.length > 0,
     providers,
     capabilities,
     permission_denied: false,

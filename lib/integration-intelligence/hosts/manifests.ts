@@ -52,7 +52,10 @@ export const HOSTS_PROVIDER_MANIFESTS: readonly HostsProviderManifest[] = [
     business_pack_key: HOSTS_PACK,
     search_terms_key:
       "customerApp.companionPlatformKnowledge.hosts.searchTerms.short_term_property",
-    capabilities: [readCapability("property.read", "property")],
+    capabilities: [
+      readCapability("property.read", "property"),
+      readCapability("occupancy.read", "property"),
+    ],
   },
   {
     provider_key: "short_term_reservation",
@@ -65,7 +68,10 @@ export const HOSTS_PROVIDER_MANIFESTS: readonly HostsProviderManifest[] = [
       "customerApp.companionPlatformKnowledge.hosts.searchTerms.short_term_reservation",
     capabilities: [
       readCapability("reservation.read", "reservation"),
+      readCapability("arrival.read", "reservation"),
+      readCapability("departure.read", "reservation"),
       readCapability("availability.read", "availability"),
+      readCapability("occupancy.read", "reservation"),
     ],
   },
   {
@@ -100,6 +106,10 @@ export const HOSTS_PROVIDER_MANIFESTS: readonly HostsProviderManifest[] = [
     capabilities: [
       readCapability("cleaning.read", "cleaning"),
       readCapability("maintenance.read", "maintenance"),
+      readCapability("host_task.read", "task"),
+      writeCapability("cleaning_task.assign", "cleaning"),
+      writeCapability("maintenance_task.create", "maintenance"),
+      writeCapability("host_task.create", "task"),
     ],
   },
   {
@@ -112,6 +122,10 @@ export const HOSTS_PROVIDER_MANIFESTS: readonly HostsProviderManifest[] = [
     search_terms_key:
       "customerApp.companionPlatformKnowledge.hosts.searchTerms.short_term_finance",
     capabilities: [
+      readCapability("host_revenue.read", "revenue"),
+      readCapability("host_payout.read", "payout"),
+      readCapability("host_expense.read", "expense"),
+      readCapability("host_forecast.read", "forecast"),
       readCapability("payout.read", "payout"),
       readCapability("revenue.read", "revenue"),
       readCapability("expense.read", "expense"),
@@ -127,7 +141,10 @@ export const HOSTS_PROVIDER_MANIFESTS: readonly HostsProviderManifest[] = [
     business_pack_key: HOSTS_PACK,
     search_terms_key:
       "customerApp.companionPlatformKnowledge.hosts.searchTerms.short_term_communications",
-    capabilities: [writeCapability("message.draft", "message")],
+    capabilities: [
+      writeCapability("guest_response.draft", "message"),
+      writeCapability("message.draft", "message"),
+    ],
   },
   {
     provider_key: "short_term_reports",
@@ -138,7 +155,7 @@ export const HOSTS_PROVIDER_MANIFESTS: readonly HostsProviderManifest[] = [
     business_pack_key: HOSTS_PACK,
     search_terms_key:
       "customerApp.companionPlatformKnowledge.hosts.searchTerms.short_term_reports",
-    capabilities: [writeCapability("report.export", "report")],
+    capabilities: [readCapability("host_report.read", "report"), writeCapability("report.export", "report")],
   },
   {
     provider_key: "short_term_access",
@@ -162,5 +179,50 @@ export const HOSTS_PROVIDER_MANIFESTS: readonly HostsProviderManifest[] = [
       readCapability("property.read", "property"),
       readCapability("reservation.read", "reservation"),
     ],
+  },
+  {
+    provider_key: "hosts_v2_smart_scheduling",
+    display_name_key: "customerApp.companionPlatformKnowledge.hosts.providers.hosts_v2_smart_scheduling",
+    source_engine: "smart_scheduling_center",
+    implementation_status: "specification_only",
+    business_pack_key: HOSTS_PACK,
+    search_terms_key: "customerApp.companionPlatformKnowledge.hosts.searchTerms.hosts_v2_smart_scheduling",
+    capabilities: [],
+  },
+  {
+    provider_key: "hosts_v2_inventory_amenities",
+    display_name_key: "customerApp.companionPlatformKnowledge.hosts.providers.hosts_v2_inventory_amenities",
+    source_engine: "inventory_amenities_center",
+    implementation_status: "specification_only",
+    business_pack_key: HOSTS_PACK,
+    search_terms_key: "customerApp.companionPlatformKnowledge.hosts.searchTerms.hosts_v2_inventory_amenities",
+    capabilities: [],
+  },
+  {
+    provider_key: "hosts_v2_insurance_compliance",
+    display_name_key: "customerApp.companionPlatformKnowledge.hosts.providers.hosts_v2_insurance_compliance",
+    source_engine: "insurance_compliance_center",
+    implementation_status: "specification_only",
+    business_pack_key: HOSTS_PACK,
+    search_terms_key: "customerApp.companionPlatformKnowledge.hosts.searchTerms.hosts_v2_insurance_compliance",
+    capabilities: [],
+  },
+  {
+    provider_key: "hosts_v2_vendor_marketplace",
+    display_name_key: "customerApp.companionPlatformKnowledge.hosts.providers.hosts_v2_vendor_marketplace",
+    source_engine: "vendor_marketplace_center",
+    implementation_status: "specification_only",
+    business_pack_key: HOSTS_PACK,
+    search_terms_key: "customerApp.companionPlatformKnowledge.hosts.searchTerms.hosts_v2_vendor_marketplace",
+    capabilities: [],
+  },
+  {
+    provider_key: "hosts_v2_enterprise_portfolio",
+    display_name_key: "customerApp.companionPlatformKnowledge.hosts.providers.hosts_v2_enterprise_portfolio",
+    source_engine: "enterprise_portfolio_center",
+    implementation_status: "specification_only",
+    business_pack_key: HOSTS_PACK,
+    search_terms_key: "customerApp.companionPlatformKnowledge.hosts.searchTerms.hosts_v2_enterprise_portfolio",
+    capabilities: [],
   },
 ];

@@ -6,6 +6,7 @@ import type { CompanionProactiveContext } from "./companion-proactive-context";
 import type { CompanionSalesContext } from "./companion-sales-context";
 import type { CompanionSecurityContext } from "./companion-security-context";
 import type { CompanionSupportContext } from "./companion-support-context";
+import type { CompanionHostsContext } from "./companion-hosts-context";
 import type { CompanionWarehouseContext } from "./companion-warehouse-context";
 import {
   collectDomainCommandBriefSignals,
@@ -13,6 +14,7 @@ import {
   type CommandBriefRawDomainSignal,
 } from "@/lib/integration-intelligence/command-brief";
 import { buildBookingCommandBriefSignals } from "./booking-read-orchestrator";
+import { buildHostsCommandBriefSignals } from "./hosts-read-orchestrator";
 import { buildSupportCommandBriefSignals } from "./support-read-orchestrator";
 import { buildVerificationCommandBriefSignals } from "./verification-read-orchestrator";
 
@@ -26,6 +28,7 @@ export type CommandBriefDomainContexts = {
   operationalContext: CompanionOperationalContext;
   proactiveContext: CompanionProactiveContext;
   supportContext?: CompanionSupportContext;
+  hostsContext?: CompanionHostsContext;
 };
 
 function toRawSignals(
@@ -46,6 +49,7 @@ export function buildCommandBriefDomainSources(
     verification_source_exact?: boolean;
     booking_candidates?: Parameters<typeof buildBookingCommandBriefSignals>[0];
     supportContext?: CompanionSupportContext;
+    hostsContext?: CompanionHostsContext;
   },
 ): CommandBriefDomainSignalSource[] {
   const sources: CommandBriefDomainSignalSource[] = [
@@ -140,6 +144,27 @@ export function buildCommandBriefDomainSources(
     });
   }
 
+  if (
+    input?.hostsContext?.hosts_source_exact &&
+    input.hostsContext.operations_summary
+  ) {
+    sources.push({
+      source_module: "hosts",
+      source_provider: "short_term_operations",
+      signals: toRawSignals(
+        buildHostsCommandBriefSignals({
+          operations: input.hostsContext.operations_summary,
+          finance: input.hostsContext.finance_summary,
+          reservations: input.hostsContext.reservation_summaries,
+          source_exact: true,
+        }),
+        true,
+      ),
+      required_permission: "aipify_hosts.view",
+      related_capability: "property.read",
+    });
+  }
+
   return sources;
 }
 
@@ -150,12 +175,14 @@ export function collectCommandBriefSignalsFromDomainContexts(input: {
   verification_source_exact?: boolean;
   booking_candidates?: Parameters<typeof buildBookingCommandBriefSignals>[0];
   supportContext?: CompanionSupportContext;
+  hostsContext?: CompanionHostsContext;
 }): ReturnType<typeof collectDomainCommandBriefSignals> {
   const sources = buildCommandBriefDomainSources(input.contexts, {
     verification_queue: input.verification_queue,
     verification_source_exact: input.verification_source_exact,
     booking_candidates: input.booking_candidates,
     supportContext: input.supportContext ?? input.contexts.supportContext,
+    hostsContext: input.hostsContext ?? input.contexts.hostsContext,
   });
 
   return collectDomainCommandBriefSignals({

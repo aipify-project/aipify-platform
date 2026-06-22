@@ -679,7 +679,12 @@
         "short_term_communications": "Комунікація з гостями",
         "short_term_reports": "Звіти та експорт",
         "short_term_access": "Доступ до об'єкта",
-        "hosts_pack_adapter": "Зовнішній канальний адаптер"
+        "hosts_pack_adapter": "Зовнішній канальний адаптер",
+        "hosts_v2_smart_scheduling": "Smart Scheduling Center (V2 — лише специфікація)",
+        "hosts_v2_inventory_amenities": "Inventory & Amenities Center (V2 — лише специфікація)",
+        "hosts_v2_insurance_compliance": "Insurance & Compliance Center (V2 — лише специфікація)",
+        "hosts_v2_vendor_marketplace": "Vendor Marketplace (V2 — лише специфікація)",
+        "hosts_v2_enterprise_portfolio": "Enterprise Portfolio Center (V2 — лише специфікація)"
       },
       "searchTerms": {
         "short_term_property": "об'єкти портфель одиниці проживання",
@@ -691,7 +696,95 @@
         "short_term_communications": "повідомлення гостям комунікація чернетки",
         "short_term_reports": "звіти експорт executive insights",
         "short_term_access": "коди доступу check in інструкції об'єкт",
-        "hosts_pack_adapter": "зовнішній канальний адаптер third party booking sync"
+        "hosts_pack_adapter": "зовнішній канальний адаптер third party booking sync",
+        "hosts_v2_smart_scheduling": "smart scheduling персонал автоматизація v2 специфікація",
+        "hosts_v2_inventory_amenities": "інвентар зручності запаси v2 специфікація",
+        "hosts_v2_insurance_compliance": "страхування compliance policy v2 специфікація",
+        "hosts_v2_vendor_marketplace": "marketplace постачальників v2 специфікація",
+        "hosts_v2_enterprise_portfolio": "enterprise портфель кілька об’єктів v2 специфікація"
+      },
+      "outcomes": {
+        "exactMatch": "Aipify знайшло запитані метадані Hosts.",
+        "multipleMatches": "Збіглося кілька об’єктів або бронювань — перегляньте список або вкажіть ID.",
+        "noMatch": "Жоден об’єкт або бронювання не відповідає цій посилці.",
+        "permissionDenied": "Ваша роль не може читати метадані портфеля або фінансів Aipify Hosts.",
+        "providerMissing": "Для цієї організації ще не підключено live-постачальника Aipify Hosts.",
+        "sourceMissing": "Метадані Hosts недоступні з затвердженого джерела.",
+        "activationPending": "Читання Hosts недоступне під час очікування активації або підписки.",
+        "partialResult": "Aipify повернуло часткові метадані Hosts — деякі поля недоступні.",
+        "emptyPortfolio": "Портфель hospitality порожній у затверджених джерелах лише для читання.",
+        "draftCreated": "Aipify підготувало чернетку відповіді гостю — перегляньте перед надсиланням.",
+        "confirmationRequired": "Потрібне явне підтвердження перед підготовкою цієї дії Hosts.",
+        "executionSourceMissing": "Aipify зрозуміло ваш запит і зафіксувало підтвердження. Дію не можна виконати, бо джерело запису не підключено. Завдання не створено і повідомлення не надіслано.",
+        "approvalRequired": "Ця дія Hosts потребує схвалення перед виконанням постачальником.",
+        "executed": "Дію Hosts успішно виконано підключеним постачальником.",
+        "failed": "Дію Hosts не вдалося завершити — спробуйте ще раз.",
+        "blockedByPolicy": "Цю операцію Hosts заблоковано політикою governance."
+      },
+      "reservationStatus": {
+        "inquiry": "Запит",
+        "pending": "Очікує",
+        "confirmed": "Підтверджено",
+        "checkedIn": "Заселено",
+        "checkedOut": "Виселено",
+        "cancelled": "Скасовано"
+      },
+      "propertyStatus": {
+        "active": "Активний",
+        "inactive": "Неактивний",
+        "maintenance": "Обслуговування",
+        "archived": "Архівований"
+      },
+      "operations": {
+        "arrival": "Прибуття",
+        "departure": "Від’їзд",
+        "cleaningDue": "Прибирання до виконання",
+        "cleaningOverdue": "Прибирання прострочено",
+        "maintenanceOpen": "Відкрито обслуговування",
+        "maintenanceUrgent": "Термінове обслуговування",
+        "guestAttention": "Гість потребує уваги",
+        "propertyNotReady": "Об’єкт не готовий",
+        "hostTask": "Завдання хоста"
+      },
+      "finance": {
+        "revenue": "Визнаний дохід",
+        "forecast": "Прогноз (очікуваний)",
+        "payout": "Виплата",
+        "expense": "Витрата",
+        "reconciliationBalanced": "Звірка збалансована",
+        "reconciliationAttention": "Звірка потребує уваги",
+        "forecastNotActual": "Прогноз — очікуваний дохід, не проведений у облік."
+      },
+      "warnings": {
+        "operationsPartialSource": "Операційні лічильники з дошок Operations Center — деякі поля можуть бути частковими.",
+        "financePartialSource": "Фінансові суми з метаданих Finance Center — звірка може бути частковою.",
+        "forecastNotActualRevenue": "Значення прогнозу — очікуваний дохід, ніколи не показується як проведений.",
+        "propertyNotReady": "Один або кілька об’єктів не готові до заселення.",
+        "draftWithoutSources": "Чернетку підготовлено без grounded джерел — уважно перегляньте перед схваленням.",
+        "autoMessageSendBlocked": "Автонадсилання повідомлень гостю заблоковано — лише чернетка.",
+        "writeBlocked": "Записи Hosts потребують явного підтвердження та підключеного адаптера запису.",
+        "writeExecutionSourceMissing": "Підтвердження зафіксовано, але завдання не створено і повідомлення не надіслано через відсутність джерела запису.",
+        "partialSource": "Цей сигнал використовує часткове джерело Hosts — перегляньте перед дією.",
+        "sourceMissing": "Для цього сигналу немає live-джерела Hosts.",
+        "permissionDenied": "Ваша роль не має доступу до цих метаданих Hosts."
+      },
+      "commandBrief": {
+        "arrivalToday": "Сьогодні прибувають гості.",
+        "departureToday": "Сьогодні виїжджають гості.",
+        "propertyNotReady": "Об’єкти не готові до заселення.",
+        "cleaningDue": "Завдання прибирання до виконання.",
+        "cleaningOverdue": "Завдання прибирання прострочені.",
+        "maintenanceOpen": "Відкриті заявки на обслуговування.",
+        "maintenanceUrgent": "Термінове обслуговування потребує уваги.",
+        "guestAttentionRequired": "Запити гостей потребують уваги.",
+        "reservationChange": "Зміни бронювань потребують перегляду.",
+        "cancellationAttention": "Скасування потребують уваги.",
+        "payoutDue": "Наближається виплата.",
+        "payoutOverdue": "Виплата прострочена.",
+        "expenseAttention": "Витрати потребують уваги.",
+        "occupancyDeviation": "Завантаженість відрізняється від очікуваної.",
+        "forecastWarning": "Фінансовий прогноз потребує перегляду — це не проведений дохід.",
+        "unresolvedHostTask": "Залишилися невирішені завдання хоста."
       }
     },
     "hr": {

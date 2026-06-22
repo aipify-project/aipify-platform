@@ -679,7 +679,12 @@
         "short_term_communications": "Gästkommunikation",
         "short_term_reports": "Rapporter och exporter",
         "short_term_access": "Fastighetstillgång",
-        "hosts_pack_adapter": "Extern kanaladapter"
+        "hosts_pack_adapter": "Extern kanaladapter",
+        "hosts_v2_smart_scheduling": "Smart Scheduling Center (V2 — endast specifikation)",
+        "hosts_v2_inventory_amenities": "Inventory & Amenities Center (V2 — endast specifikation)",
+        "hosts_v2_insurance_compliance": "Insurance & Compliance Center (V2 — endast specifikation)",
+        "hosts_v2_vendor_marketplace": "Vendor Marketplace (V2 — endast specifikation)",
+        "hosts_v2_enterprise_portfolio": "Enterprise Portfolio Center (V2 — endast specifikation)"
       },
       "searchTerms": {
         "short_term_property": "fastigheter portfölj enheter boende",
@@ -691,7 +696,95 @@
         "short_term_communications": "gästmeddelanden kommunikation utkast inkorg",
         "short_term_reports": "rapporter export executive insikter",
         "short_term_access": "åtkomstkoder incheckning instruktioner fastighetstillgång",
-        "hosts_pack_adapter": "extern kanaladapter tredjeparts bokning sync"
+        "hosts_pack_adapter": "extern kanaladapter tredjeparts bokning sync",
+        "hosts_v2_smart_scheduling": "smart schemaläggning bemanning automatisering v2 specifikation",
+        "hosts_v2_inventory_amenities": "inventarie bekvämligheter lager v2 specifikation",
+        "hosts_v2_insurance_compliance": "försäkring compliance policy v2 specifikation",
+        "hosts_v2_vendor_marketplace": "leverantörsmarknadsplats v2 specifikation",
+        "hosts_v2_enterprise_portfolio": "enterprise portfölj flera fastigheter v2 specifikation"
+      },
+      "outcomes": {
+        "exactMatch": "Aipify hittade den begärda Hosts-metadata.",
+        "multipleMatches": "Flera fastigheter eller bokningar matchade — granska listan eller ange ett ID.",
+        "noMatch": "Ingen fastighet eller bokning matchade den referensen.",
+        "permissionDenied": "Din roll kan inte läsa Hosts-portfölj- eller finansmetadata.",
+        "providerMissing": "Ingen live Aipify Hosts-leverantör är ansluten till denna organisation ännu.",
+        "sourceMissing": "Hosts-metadata är inte tillgänglig från en godkänd källa ännu.",
+        "activationPending": "Hosts-läsning är otillgänglig medan aktivering eller abonnemang väntar.",
+        "partialResult": "Aipify returnerade delvis Hosts-metadata — vissa fält saknas från aktuell källa.",
+        "emptyPortfolio": "Hospitality-portföljen är tom i godkända skrivskyddade källor.",
+        "draftCreated": "Aipify förberedde ett gästsvarsutkast — granska innan något skickas.",
+        "confirmationRequired": "Explicit bekräftelse krävs innan Aipify kan förbereda denna Hosts-åtgärd.",
+        "executionSourceMissing": "Aipify förstod Hosts-begäran och registrerade bekräftelsen. Åtgärden kan inte utföras eftersom skrivkällan inte är ansluten. Ingen uppgift skapades och inget meddelande skickades.",
+        "approvalRequired": "Denna Hosts-åtgärd kräver godkännande innan leverantören kan utföra den.",
+        "executed": "Hosts-åtgärden utfördes av den anslutna leverantören.",
+        "failed": "Hosts-åtgärden kunde inte slutföras — försök igen.",
+        "blockedByPolicy": "Denna Hosts-operation blockeras av styrningspolicy."
+      },
+      "reservationStatus": {
+        "inquiry": "Förfrågan",
+        "pending": "Väntande",
+        "confirmed": "Bekräftad",
+        "checkedIn": "Incheckad",
+        "checkedOut": "Utcheckad",
+        "cancelled": "Avbokad"
+      },
+      "propertyStatus": {
+        "active": "Aktiv",
+        "inactive": "Inaktiv",
+        "maintenance": "Underhåll",
+        "archived": "Arkiverad"
+      },
+      "operations": {
+        "arrival": "Ankomst",
+        "departure": "Avresa",
+        "cleaningDue": "Städning förfaller",
+        "cleaningOverdue": "Städning försenad",
+        "maintenanceOpen": "Underhåll öppet",
+        "maintenanceUrgent": "Brådskande underhåll",
+        "guestAttention": "Gäst kräver uppmärksamhet",
+        "propertyNotReady": "Fastighet inte redo",
+        "hostTask": "Värduppgift"
+      },
+      "finance": {
+        "revenue": "Bokförd intäkt",
+        "forecast": "Prognos (förväntad)",
+        "payout": "Utbetalning",
+        "expense": "Kostnad",
+        "reconciliationBalanced": "Avstämning balanserad",
+        "reconciliationAttention": "Avstämning kräver uppmärksamhet",
+        "forecastNotActual": "Prognos är förväntad intäkt — inte bokförd omsättning."
+      },
+      "warnings": {
+        "operationsPartialSource": "Driftantal använder Operations Center-tavlor — vissa beredskapsfält kan vara delvisa.",
+        "financePartialSource": "Finanssiffror använder Finance Center-metadata — avstämning kan vara delvis.",
+        "forecastNotActualRevenue": "Prognosvärden är förväntad intäkt — aldrig presenterad som bokförd omsättning.",
+        "propertyNotReady": "En eller flera fastigheter är inte redo för incheckning.",
+        "draftWithoutSources": "Utkast förberett utan grounded källor — granska noggrant före godkännande.",
+        "autoMessageSendBlocked": "Automatiskt gästmeddelande blockeras — endast utkast.",
+        "writeBlocked": "Hosts-skrivning kräver explicit bekräftelse och ansluten skrivadapter.",
+        "writeExecutionSourceMissing": "Bekräftelsen registrerades, men ingen uppgift skapades och inget meddelande skickades eftersom skrivkällan saknas.",
+        "partialSource": "Denna signal använder delvis Hosts-källa — granska före åtgärd.",
+        "sourceMissing": "Ingen live Hosts-källa är ansluten för denna signal.",
+        "permissionDenied": "Din roll har inte åtkomst till denna Hosts-metadata."
+      },
+      "commandBrief": {
+        "arrivalToday": "Gäster anländer idag.",
+        "departureToday": "Gäster checkar ut idag.",
+        "propertyNotReady": "Fastigheter är inte redo för incheckning.",
+        "cleaningDue": "Städuppgifter förfaller.",
+        "cleaningOverdue": "Städuppgifter är försenade.",
+        "maintenanceOpen": "Underhållsärenden är öppna.",
+        "maintenanceUrgent": "Brådskande underhåll kräver uppmärksamhet.",
+        "guestAttentionRequired": "Gästförfrågningar kräver uppmärksamhet.",
+        "reservationChange": "Bokningsändringar behöver granskas.",
+        "cancellationAttention": "Avbokningar kräver uppmärksamhet.",
+        "payoutDue": "Utbetalning förfaller.",
+        "payoutOverdue": "Utbetalning är försenad.",
+        "expenseAttention": "Kostnader kräver uppmärksamhet.",
+        "occupancyDeviation": "Beläggning avviker från förväntad nivå.",
+        "forecastWarning": "Finansprognos bör granskas — prognos är inte bokförd intäkt.",
+        "unresolvedHostTask": "Värduppgifter återstår."
       }
     },
     "hr": {

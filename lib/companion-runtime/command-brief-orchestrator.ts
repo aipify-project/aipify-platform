@@ -28,6 +28,8 @@ export function buildCommandBriefBundle(input: {
   booking_candidates?: Parameters<
     typeof collectCommandBriefSignalsFromDomainContexts
   >[0]["booking_candidates"];
+  supportContext?: import("./companion-support-context").CompanionSupportContext;
+  hostsContext?: import("./companion-hosts-context").CompanionHostsContext;
 }): CommandBriefBundle {
   const panel =
     input.panel ??
@@ -68,6 +70,8 @@ export function buildCommandBriefBundle(input: {
     verification_queue: input.verification_queue,
     verification_source_exact: input.verification_source_exact,
     booking_candidates: input.booking_candidates,
+    supportContext: input.supportContext,
+    hostsContext: input.hostsContext,
   });
 
   const proactiveSignals = collectProactiveCommandBriefSignals({

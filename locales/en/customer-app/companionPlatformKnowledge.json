@@ -803,7 +803,12 @@
         "short_term_communications": "Guest Communications",
         "short_term_reports": "Reports & Exports",
         "short_term_access": "Property Access",
-        "hosts_pack_adapter": "External Channel Adapter"
+        "hosts_pack_adapter": "External Channel Adapter",
+        "hosts_v2_smart_scheduling": "Smart Scheduling Center (V2 — specification only)",
+        "hosts_v2_inventory_amenities": "Inventory & Amenities Center (V2 — specification only)",
+        "hosts_v2_insurance_compliance": "Insurance & Compliance Center (V2 — specification only)",
+        "hosts_v2_vendor_marketplace": "Vendor Marketplace (V2 — specification only)",
+        "hosts_v2_enterprise_portfolio": "Enterprise Portfolio Center (V2 — specification only)"
       },
       "searchTerms": {
         "short_term_property": "properties portfolio listings units accommodation",
@@ -815,7 +820,95 @@
         "short_term_communications": "guest messages communication drafts inbox",
         "short_term_reports": "reports export executive insights forecasts",
         "short_term_access": "access codes check in instructions property access",
-        "hosts_pack_adapter": "external channel adapter third party booking sync"
+        "hosts_pack_adapter": "external channel adapter third party booking sync",
+        "hosts_v2_smart_scheduling": "smart scheduling staff roster automation v2 specification",
+        "hosts_v2_inventory_amenities": "inventory amenities supplies stock v2 specification",
+        "hosts_v2_insurance_compliance": "insurance compliance policy v2 specification",
+        "hosts_v2_vendor_marketplace": "vendor marketplace suppliers v2 specification",
+        "hosts_v2_enterprise_portfolio": "enterprise portfolio multi property v2 specification"
+      },
+      "outcomes": {
+        "exactMatch": "Aipify found the requested Hosts metadata.",
+        "multipleMatches": "Multiple properties or reservations matched — review the list or provide an ID.",
+        "noMatch": "No property or reservation matched that reference.",
+        "permissionDenied": "Your role cannot read Aipify Hosts portfolio or finance metadata.",
+        "providerMissing": "No live Aipify Hosts provider is connected for this organization yet.",
+        "sourceMissing": "Hosts metadata is not available from an approved source yet.",
+        "activationPending": "Hosts reads are unavailable while organization activation or subscription is pending.",
+        "partialResult": "Aipify returned partial Hosts metadata — some fields are unavailable from the current source.",
+        "emptyPortfolio": "The hospitality portfolio is empty in the approved read-only sources.",
+        "draftCreated": "Aipify prepared a guest response draft — review before anything is sent.",
+        "confirmationRequired": "Explicit confirmation is required before Aipify can prepare this Hosts action.",
+        "executionSourceMissing": "Aipify understood your Hosts request and recorded your confirmation. The action cannot be executed because the provider write source is not connected yet. No task was created and no message was sent.",
+        "approvalRequired": "This Hosts action requires approval before the connected provider can execute it.",
+        "executed": "The Hosts action was executed successfully by the connected provider.",
+        "failed": "The Hosts action could not be completed — review and try again.",
+        "blockedByPolicy": "This Hosts operation is blocked by governance policy."
+      },
+      "reservationStatus": {
+        "inquiry": "Inquiry",
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "checkedIn": "Checked in",
+        "checkedOut": "Checked out",
+        "cancelled": "Cancelled"
+      },
+      "propertyStatus": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "maintenance": "Maintenance",
+        "archived": "Archived"
+      },
+      "operations": {
+        "arrival": "Arrival",
+        "departure": "Departure",
+        "cleaningDue": "Cleaning due",
+        "cleaningOverdue": "Cleaning overdue",
+        "maintenanceOpen": "Maintenance open",
+        "maintenanceUrgent": "Urgent maintenance",
+        "guestAttention": "Guest attention required",
+        "propertyNotReady": "Property not ready",
+        "hostTask": "Host task"
+      },
+      "finance": {
+        "revenue": "Recognized revenue",
+        "forecast": "Forecast (expected)",
+        "payout": "Payout",
+        "expense": "Expense",
+        "reconciliationBalanced": "Reconciliation balanced",
+        "reconciliationAttention": "Reconciliation needs attention",
+        "forecastNotActual": "Forecast is expected income — not booked revenue."
+      },
+      "warnings": {
+        "operationsPartialSource": "Operations counts use Operations Center boards — some readiness fields may be partial.",
+        "financePartialSource": "Finance totals use Finance Center metadata — reconciliation may be partial.",
+        "forecastNotActualRevenue": "Forecast values are expected income — never presented as booked revenue.",
+        "propertyNotReady": "One or more properties are not ready for check-in.",
+        "draftWithoutSources": "Draft prepared without grounded knowledge sources — review carefully before approval.",
+        "autoMessageSendBlocked": "Automated guest message send is blocked — draft-only mode is active.",
+        "writeBlocked": "Hosts writes require explicit confirmation and a connected write adapter.",
+        "writeExecutionSourceMissing": "Your confirmation was recorded, but no task was created and no message was sent because the provider write source is missing.",
+        "partialSource": "This signal uses partial Hosts source metadata — review before acting.",
+        "sourceMissing": "No live Hosts source is connected for this signal.",
+        "permissionDenied": "Your role cannot access this Hosts metadata."
+      },
+      "commandBrief": {
+        "arrivalToday": "Guests are arriving today.",
+        "departureToday": "Guests are departing today.",
+        "propertyNotReady": "Properties are not ready for check-in.",
+        "cleaningDue": "Cleaning tasks are due.",
+        "cleaningOverdue": "Cleaning tasks are overdue.",
+        "maintenanceOpen": "Maintenance cases are open.",
+        "maintenanceUrgent": "Urgent maintenance requires attention.",
+        "guestAttentionRequired": "Guest requests require your attention.",
+        "reservationChange": "Reservation changes need review.",
+        "cancellationAttention": "Cancellations require attention.",
+        "payoutDue": "A payout is due.",
+        "payoutOverdue": "A payout is overdue.",
+        "expenseAttention": "Expenses require attention.",
+        "occupancyDeviation": "Occupancy differs from expected levels.",
+        "forecastWarning": "Finance forecast requires review — forecast is not booked revenue.",
+        "unresolvedHostTask": "Host tasks remain unresolved."
       }
     },
     "hr": {

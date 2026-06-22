@@ -679,7 +679,12 @@
         "short_term_communications": "Comunicaciones con huéspedes",
         "short_term_reports": "Informes y exportaciones",
         "short_term_access": "Acceso a propiedad",
-        "hosts_pack_adapter": "Adaptador de canal externo"
+        "hosts_pack_adapter": "Adaptador de canal externo",
+        "hosts_v2_smart_scheduling": "Smart Scheduling Center (V2 — solo especificación)",
+        "hosts_v2_inventory_amenities": "Inventory & Amenities Center (V2 — solo especificación)",
+        "hosts_v2_insurance_compliance": "Insurance & Compliance Center (V2 — solo especificación)",
+        "hosts_v2_vendor_marketplace": "Vendor Marketplace (V2 — solo especificación)",
+        "hosts_v2_enterprise_portfolio": "Enterprise Portfolio Center (V2 — solo especificación)"
       },
       "searchTerms": {
         "short_term_property": "propiedades cartera unidades alojamiento",
@@ -691,7 +696,95 @@
         "short_term_communications": "mensajes huéspedes comunicación borradores",
         "short_term_reports": "informes exportación executive insights",
         "short_term_access": "códigos acceso check in instrucciones propiedad",
-        "hosts_pack_adapter": "adaptador canal externo terceros booking sync"
+        "hosts_pack_adapter": "adaptador canal externo terceros booking sync",
+        "hosts_v2_smart_scheduling": "programación inteligente personal automatización v2 especificación",
+        "hosts_v2_inventory_amenities": "inventario amenities suministros v2 especificación",
+        "hosts_v2_insurance_compliance": "seguro cumplimiento policy v2 especificación",
+        "hosts_v2_vendor_marketplace": "marketplace proveedores v2 especificación",
+        "hosts_v2_enterprise_portfolio": "cartera enterprise múltiples propiedades v2 especificación"
+      },
+      "outcomes": {
+        "exactMatch": "Aipify encontró los metadatos de Hosts solicitados.",
+        "multipleMatches": "Varias propiedades o reservas coincidieron — revise la lista o indique un ID.",
+        "noMatch": "Ninguna propiedad o reserva coincidió con esa referencia.",
+        "permissionDenied": "Su rol no puede leer metadatos de cartera o finanzas de Aipify Hosts.",
+        "providerMissing": "Aún no hay un proveedor live de Aipify Hosts conectado para esta organización.",
+        "sourceMissing": "Los metadatos de Hosts no están disponibles desde una fuente aprobada.",
+        "activationPending": "Las lecturas de Hosts no están disponibles mientras la activación o suscripción está pendiente.",
+        "partialResult": "Aipify devolvió metadatos parciales de Hosts — algunos campos no están disponibles.",
+        "emptyPortfolio": "La cartera de hospitality está vacía en las fuentes de solo lectura aprobadas.",
+        "draftCreated": "Aipify preparó un borrador de respuesta al huésped — revíselo antes de enviar.",
+        "confirmationRequired": "Se requiere confirmación explícita antes de preparar esta acción de Hosts.",
+        "executionSourceMissing": "Aipify entendió su solicitud y registró la confirmación. La acción no puede ejecutarse porque la fuente de escritura no está conectada. No se creó ninguna tarea ni se envió ningún mensaje.",
+        "approvalRequired": "Esta acción de Hosts requiere aprobación antes de que el proveedor la ejecute.",
+        "executed": "La acción de Hosts se ejecutó correctamente por el proveedor conectado.",
+        "failed": "La acción de Hosts no pudo completarse — inténtelo de nuevo.",
+        "blockedByPolicy": "Esta operación de Hosts está bloqueada por la política de gobernanza."
+      },
+      "reservationStatus": {
+        "inquiry": "Consulta",
+        "pending": "Pendiente",
+        "confirmed": "Confirmada",
+        "checkedIn": "Registrado",
+        "checkedOut": "Salida",
+        "cancelled": "Cancelada"
+      },
+      "propertyStatus": {
+        "active": "Activa",
+        "inactive": "Inactiva",
+        "maintenance": "Mantenimiento",
+        "archived": "Archivada"
+      },
+      "operations": {
+        "arrival": "Llegada",
+        "departure": "Salida",
+        "cleaningDue": "Limpieza pendiente",
+        "cleaningOverdue": "Limpieza atrasada",
+        "maintenanceOpen": "Mantenimiento abierto",
+        "maintenanceUrgent": "Mantenimiento urgente",
+        "guestAttention": "Huésped requiere atención",
+        "propertyNotReady": "Propiedad no lista",
+        "hostTask": "Tarea del anfitrión"
+      },
+      "finance": {
+        "revenue": "Ingresos reconocidos",
+        "forecast": "Previsión (esperada)",
+        "payout": "Pago",
+        "expense": "Gasto",
+        "reconciliationBalanced": "Conciliación equilibrada",
+        "reconciliationAttention": "La conciliación requiere atención",
+        "forecastNotActual": "La previsión es ingreso esperado — no ingresos contabilizados."
+      },
+      "warnings": {
+        "operationsPartialSource": "Los recuentos operativos usan tableros del Operations Center — algunos campos pueden ser parciales.",
+        "financePartialSource": "Los totales financieros usan metadatos del Finance Center — la conciliación puede ser parcial.",
+        "forecastNotActualRevenue": "Los valores de previsión son ingreso esperado — nunca se presentan como ingresos contabilizados.",
+        "propertyNotReady": "Una o más propiedades no están listas para el check-in.",
+        "draftWithoutSources": "Borrador preparado sin fuentes grounded — revíselo cuidadosamente antes de aprobar.",
+        "autoMessageSendBlocked": "El envío automático de mensajes al huésped está bloqueado — solo borrador.",
+        "writeBlocked": "Las escrituras de Hosts requieren confirmación explícita y un adaptador de escritura conectado.",
+        "writeExecutionSourceMissing": "Se registró su confirmación, pero no se creó ninguna tarea ni se envió ningún mensaje porque falta la fuente de escritura.",
+        "partialSource": "Esta señal usa metadatos parciales de Hosts — revise antes de actuar.",
+        "sourceMissing": "No hay fuente live de Hosts conectada para esta señal.",
+        "permissionDenied": "Su rol no puede acceder a estos metadatos de Hosts."
+      },
+      "commandBrief": {
+        "arrivalToday": "Huéspedes llegan hoy.",
+        "departureToday": "Huéspedes salen hoy.",
+        "propertyNotReady": "Propiedades no listas para el check-in.",
+        "cleaningDue": "Tareas de limpieza pendientes.",
+        "cleaningOverdue": "Tareas de limpieza atrasadas.",
+        "maintenanceOpen": "Casos de mantenimiento abiertos.",
+        "maintenanceUrgent": "Mantenimiento urgente requiere atención.",
+        "guestAttentionRequired": "Solicitudes de huéspedes requieren atención.",
+        "reservationChange": "Cambios de reserva requieren revisión.",
+        "cancellationAttention": "Cancelaciones requieren atención.",
+        "payoutDue": "Pago pendiente.",
+        "payoutOverdue": "Pago atrasado.",
+        "expenseAttention": "Gastos requieren atención.",
+        "occupancyDeviation": "La ocupación difiere de lo esperado.",
+        "forecastWarning": "La previsión financiera requiere revisión — no es ingreso contabilizado.",
+        "unresolvedHostTask": "Quedan tareas del anfitrión sin resolver."
       }
     },
     "hr": {

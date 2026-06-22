@@ -679,7 +679,12 @@
         "short_term_communications": "Gæstekommunikation",
         "short_term_reports": "Rapporter og eksporter",
         "short_term_access": "Ejendomsadgang",
-        "hosts_pack_adapter": "Ekstern kanaladapter"
+        "hosts_pack_adapter": "Ekstern kanaladapter",
+        "hosts_v2_smart_scheduling": "Smart Scheduling Center (V2 — kun specifikation)",
+        "hosts_v2_inventory_amenities": "Inventory & Amenities Center (V2 — kun specifikation)",
+        "hosts_v2_insurance_compliance": "Insurance & Compliance Center (V2 — kun specifikation)",
+        "hosts_v2_vendor_marketplace": "Vendor Marketplace (V2 — kun specifikation)",
+        "hosts_v2_enterprise_portfolio": "Enterprise Portfolio Center (V2 — kun specifikation)"
       },
       "searchTerms": {
         "short_term_property": "ejendomme portefølje enheder overnatning",
@@ -691,7 +696,95 @@
         "short_term_communications": "gæstebeskeder kommunikation udkast indbakke",
         "short_term_reports": "rapporter eksport executive indsigt",
         "short_term_access": "adgangskoder indtjekning instruktioner ejendomsadgang",
-        "hosts_pack_adapter": "ekstern kanaladapter tredjeparts booking sync"
+        "hosts_pack_adapter": "ekstern kanaladapter tredjeparts booking sync",
+        "hosts_v2_smart_scheduling": "smart planlægning bemanding automatisering v2 specifikation",
+        "hosts_v2_inventory_amenities": "inventar faciliteter forsyninger v2 specifikation",
+        "hosts_v2_insurance_compliance": "forsikring compliance policy v2 specifikation",
+        "hosts_v2_vendor_marketplace": "leverandørmarkedsplads v2 specifikation",
+        "hosts_v2_enterprise_portfolio": "enterprise portefølje flere ejendomme v2 specifikation"
+      },
+      "outcomes": {
+        "exactMatch": "Aipify fandt de anmodede Hosts-metadata.",
+        "multipleMatches": "Flere ejendomme eller reservationer matchede — gennemgå listen eller angiv et ID.",
+        "noMatch": "Ingen ejendom eller reservation matchede den reference.",
+        "permissionDenied": "Din rolle kan ikke læse Hosts-portefølje- eller finansmetadata.",
+        "providerMissing": "Ingen live Aipify Hosts-udbyder er tilkoblet denne organisation endnu.",
+        "sourceMissing": "Hosts-metadata er ikke tilgængelig fra en godkendt kilde endnu.",
+        "activationPending": "Hosts-læsning er utilgængelig mens aktivering eller abonnement afventer.",
+        "partialResult": "Aipify returnerede delvis Hosts-metadata — nogle felter er utilgængelige fra nuværende kilde.",
+        "emptyPortfolio": "Hospitality-porteføljen er tom i godkendte skrivebeskyttede kilder.",
+        "draftCreated": "Aipify forberedte et gæstesvarudkast — gennemgå før noget sendes.",
+        "confirmationRequired": "Eksplicit bekræftelse kræves før Aipify kan forberede denne Hosts-handling.",
+        "executionSourceMissing": "Aipify forstod Hosts-anmodningen og registrerede bekræftelsen. Handlingen kan ikke udføres, fordi skrivekilden ikke er tilkoblet. Ingen opgave blev oprettet, og ingen besked blev sendt.",
+        "approvalRequired": "Denne Hosts-handling kræver godkendelse før udbyderen kan udføre den.",
+        "executed": "Hosts-handlingen blev udført af den tilkoblede udbyder.",
+        "failed": "Hosts-handlingen kunne ikke fuldføres — prøv igen.",
+        "blockedByPolicy": "Denne Hosts-operation er blokeret af styringspolitik."
+      },
+      "reservationStatus": {
+        "inquiry": "Forespørgsel",
+        "pending": "Afventer",
+        "confirmed": "Bekræftet",
+        "checkedIn": "Indtjekket",
+        "checkedOut": "Udtjekket",
+        "cancelled": "Annulleret"
+      },
+      "propertyStatus": {
+        "active": "Aktiv",
+        "inactive": "Inaktiv",
+        "maintenance": "Vedligehold",
+        "archived": "Arkiveret"
+      },
+      "operations": {
+        "arrival": "Ankomst",
+        "departure": "Afrejse",
+        "cleaningDue": "Rengøring forfalder",
+        "cleaningOverdue": "Rengøring forsinket",
+        "maintenanceOpen": "Vedligehold åbent",
+        "maintenanceUrgent": "Haster vedligehold",
+        "guestAttention": "Gæst kræver opmærksomhed",
+        "propertyNotReady": "Ejendom ikke klar",
+        "hostTask": "Værtopgave"
+      },
+      "finance": {
+        "revenue": "Bogført indtægt",
+        "forecast": "Prognose (forventet)",
+        "payout": "Udbetaling",
+        "expense": "Udgift",
+        "reconciliationBalanced": "Afstemning balanceret",
+        "reconciliationAttention": "Afstemning kræver opmærksomhed",
+        "forecastNotActual": "Prognose er forventet indtægt — ikke bogført omsætning."
+      },
+      "warnings": {
+        "operationsPartialSource": "Driftsantal bruger Operations Center-tavler — nogle beredskabsfelter kan være delvise.",
+        "financePartialSource": "Finans tal bruger Finance Center-metadata — afstemning kan være delvis.",
+        "forecastNotActualRevenue": "Prognoseværdier er forventet indtægt — aldrig præsenteret som bogført omsætning.",
+        "propertyNotReady": "En eller flere ejendomme er ikke klar til indtjekning.",
+        "draftWithoutSources": "Udkast forberedt uden grounded kilder — gennemgå omhyggeligt før godkendelse.",
+        "autoMessageSendBlocked": "Automatisk gæstebesked er blokeret — kun udkast.",
+        "writeBlocked": "Hosts-skrivning kræver eksplicit bekræftelse og tilkoblet skriveadapter.",
+        "writeExecutionSourceMissing": "Bekræftelsen blev registreret, men ingen opgave blev oprettet, og ingen besked blev sendt, fordi skrivekilden mangler.",
+        "partialSource": "Dette signal bruger delvis Hosts-kilde — gennemgå før handling.",
+        "sourceMissing": "Ingen live Hosts-kilde er tilkoblet for dette signal.",
+        "permissionDenied": "Din rolle har ikke adgang til disse Hosts-metadata."
+      },
+      "commandBrief": {
+        "arrivalToday": "Gæster ankommer i dag.",
+        "departureToday": "Gæster tjekker ud i dag.",
+        "propertyNotReady": "Ejendomme er ikke klar til indtjekning.",
+        "cleaningDue": "Rengøringsopgaver forfalder.",
+        "cleaningOverdue": "Rengøringsopgaver er forsinkede.",
+        "maintenanceOpen": "Vedligeholdssager er åbne.",
+        "maintenanceUrgent": "Haster vedligehold kræver opmærksomhed.",
+        "guestAttentionRequired": "Gæsteanmodninger kræver opmærksomhed.",
+        "reservationChange": "Reservationsændringer skal gennemgås.",
+        "cancellationAttention": "Annulleringer kræver opmærksomhed.",
+        "payoutDue": "Udbetaling forfalder.",
+        "payoutOverdue": "Udbetaling er forsinket.",
+        "expenseAttention": "Udgifter kræver opmærksomhed.",
+        "occupancyDeviation": "Belægning afviger fra forventet niveau.",
+        "forecastWarning": "Finansprognose bør gennemgås — prognose er ikke bogført indtægt.",
+        "unresolvedHostTask": "Værtopgaver mangler opfølgning."
       }
     },
     "hr": {
