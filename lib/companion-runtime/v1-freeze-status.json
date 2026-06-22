@@ -1,7 +1,7 @@
 {
   "version": "companion-runtime-v1",
   "status": "PASS WITH KNOWN LIMITATIONS",
-  "certified_at": "2026-06-22T19:02:21.199Z",
+  "certified_at": "2026-06-22T19:05:51.285Z",
   "phases": "1-28",
   "commit_phase_27": "01c77e51",
   "commit_phase_28": "73aac82e",
