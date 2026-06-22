@@ -57,6 +57,7 @@ export const AipifyShellClasses = {
   surfaceMuted: "bg-aipify-surface-muted",
   topbar: "border-b border-aipify-border bg-aipify-surface/95 backdrop-blur-sm",
   sidebar: "border-r border-aipify-border bg-aipify-surface",
+  sidebarDesktopWidth: "w-[250px]",
   input:
     "rounded-xl border border-aipify-border bg-aipify-surface-muted text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-accent focus:bg-aipify-surface focus:outline-none focus:ring-2 focus:ring-aipify-focus",
   ghostButton:
@@ -104,26 +105,29 @@ export const AipifyNavClasses = {
  * Use these tokens instead of ad-hoc text-xs/text-sm on navigation surfaces.
  */
 export const AipifySidebarTypography = {
-  workspaceTitle: "text-xl font-bold leading-tight text-aipify-text",
-  workspaceDescription: "text-base font-medium leading-[1.45] text-aipify-text-secondary",
+  workspaceTitle: "text-xl font-bold leading-snug text-aipify-text line-clamp-2",
+  workspaceDescription:
+    "text-base font-medium leading-[1.5] text-aipify-text-secondary line-clamp-2",
   searchMenuRow: "text-base font-medium leading-[1.45] text-aipify-text",
   searchMenuGroup: "text-[15px] font-medium leading-[1.45] text-aipify-text-secondary",
   searchMenuDescription: "text-base leading-[1.45] text-aipify-text-secondary",
   sectionLabel:
-    "text-[15px] font-bold uppercase tracking-[0.06em] text-aipify-text-secondary",
+    "text-[15px] font-bold uppercase tracking-[0.06em] text-aipify-text/80",
   sectionLabelButton:
-    "text-[15px] font-bold uppercase tracking-[0.06em] text-aipify-text-secondary transition hover:bg-aipify-surface-muted hover:text-aipify-text",
+    "text-[15px] font-bold uppercase tracking-[0.06em] text-aipify-text/80 transition hover:bg-aipify-surface-muted hover:text-aipify-text",
   navigationItem:
     "text-base font-semibold leading-[1.45] text-aipify-text-secondary",
   navigationItemActive: "text-[17px] font-semibold leading-[1.45] text-white",
   subNavigationItem: "text-base font-medium leading-[1.45] text-aipify-text-secondary",
   accessHint: "text-[15px] font-normal leading-[1.45] text-amber-800",
-  workspaceSummary: "text-base leading-[1.45] text-aipify-text-secondary",
-  workspaceSummaryLabel: "font-semibold leading-[1.45] text-aipify-text-secondary",
-  workspaceSummaryValue: "font-medium leading-[1.45] text-aipify-text",
+  workspaceSummary: "text-base leading-[1.55] text-aipify-text-secondary",
+  workspaceSummaryLabel: "shrink-0 font-semibold leading-[1.55] text-aipify-text-secondary",
+  workspaceSummaryValue: "min-w-0 font-medium leading-[1.55] text-aipify-text",
+  workspaceSummaryRow: "flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5",
+  workspaceSummaryRowTight: "flex min-w-0 items-baseline gap-x-1.5",
   workspaceSummaryFooter: "text-base font-semibold leading-[1.45] text-aipify-text",
   workspaceSummaryCopyright: "text-base leading-[1.45] text-aipify-text-secondary",
-  feedbackButton: "text-[17px] font-semibold leading-none",
+  feedbackButton: "text-base font-medium leading-none",
   keyboardHint: "text-sm font-semibold uppercase tracking-wide text-aipify-text-secondary",
   searchInput: "text-base text-aipify-text placeholder:text-aipify-text-secondary",
   mobileNavItem: "text-base font-semibold leading-[1.45]",
@@ -132,7 +136,7 @@ export const AipifySidebarTypography = {
   navItemRow:
     "flex w-full min-h-12 items-center gap-3 rounded-xl px-3 py-3 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2",
   navIcon: "size-[21px] shrink-0",
-  chevron: "size-5 shrink-0 text-aipify-text-secondary",
+  chevron: "size-5 shrink-0 text-aipify-text/70",
   compactToggle: "rounded-lg p-2 text-aipify-text-secondary transition hover:bg-aipify-surface-muted hover:text-aipify-text focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus",
 } as const;
 

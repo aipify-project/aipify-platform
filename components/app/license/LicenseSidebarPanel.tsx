@@ -167,49 +167,49 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
   return (
     <Link
       href={licenseHref}
-      className="relative mx-4 mb-4 block shrink-0 rounded-xl border border-aipify-border bg-aipify-surface-muted px-4 py-4 transition hover:border-aipify-accent-muted hover:bg-aipify-accent-soft/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2"
+      className="relative mx-3 mb-4 block shrink-0 rounded-xl border border-aipify-border bg-aipify-surface-muted px-5 py-5 transition hover:border-aipify-accent-muted hover:bg-aipify-accent-soft/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2"
       aria-label={labels.poweredBy}
     >
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-3.5">
         <AipifyPulse
           size={sidebarMark.pulseSize}
           variant="mono"
           opacity={sidebarMark.pulseOpacity}
           title={labels.pulseLabel}
           aria-label={labels.pulseLabel}
-          className="mt-1 shrink-0 text-aipify-companion"
+          className="mt-0.5 shrink-0 text-aipify-companion"
         />
-        <div className={`min-w-0 space-y-1.5 ${AipifySidebarTypography.workspaceSummary}`}>
-          <p title={`${labels.workspace} ${workspaceDisplay}`}>
-            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.workspace}</span>{" "}
+        <div className={`min-w-0 flex-1 space-y-2.5 ${AipifySidebarTypography.workspaceSummary}`}>
+          <p className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.workspace} ${workspaceDisplay}`}>
+            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.workspace}</span>
             <span
-              className={`${AipifySidebarTypography.workspaceSummaryValue} inline-block max-w-full truncate align-bottom`}
+              className={`${AipifySidebarTypography.workspaceSummaryValue} line-clamp-2`}
               title={workspaceDisplay}
             >
               {workspaceDisplay}
             </span>
           </p>
-          <p title={`${labels.licensedTo} ${licensedToDisplay}`}>
-            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.licensedTo}</span>{" "}
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>
+          <p className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.licensedTo} ${licensedToDisplay}`}>
+            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.licensedTo}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} line-clamp-2`}>
               {licensedToDisplay}
             </span>
           </p>
-          <p title={`${labels.plan} ${planDisplay}`}>
-            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.plan}</span>{" "}
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>{planDisplay}</span>
+          <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.plan} ${planDisplay}`}>
+            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.plan}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} truncate`}>{planDisplay}</span>
           </p>
-          <p title={`${labels.status} ${statusLabel}`}>
-            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.status}</span>{" "}
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>{statusLabel}</span>
+          <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.status} ${statusLabel}`}>
+            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.status}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} truncate`}>{statusLabel}</span>
           </p>
-          <p>
-            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.version}</span>{" "}
-            <span className={AipifySidebarTypography.workspaceSummaryValue}>
+          <p className={AipifySidebarTypography.workspaceSummaryRowTight}>
+            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.version}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} whitespace-nowrap`}>
               {formatSoftwareVersion(summary?.software_version ?? "1.0.0")}
             </span>
           </p>
-          <p className={`pt-1 ${AipifySidebarTypography.workspaceSummaryFooter}`}>
+          <p className={`pt-1.5 ${AipifySidebarTypography.workspaceSummaryFooter}`}>
             {labels.poweredBy} Aipify™
           </p>
           <p className={AipifySidebarTypography.workspaceSummaryCopyright}>{labels.copyright}</p>

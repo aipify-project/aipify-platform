@@ -396,7 +396,7 @@ function DashboardShellFrame({
 
   const shell = (
     <div className={`flex min-h-screen ${AipifyShellClasses.canvas}`}>
-      <aside className={`hidden h-screen w-64 shrink-0 flex-col overflow-visible lg:flex ${AipifyShellClasses.sidebar}`}>
+      <aside className={`hidden h-screen ${AipifyShellClasses.sidebarDesktopWidth} shrink-0 flex-col overflow-visible lg:flex ${AipifyShellClasses.sidebar}`}>
         {brandBlock}
         <div className="flex-1 overflow-y-auto p-4">
           {sidebarNav}

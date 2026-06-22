@@ -96,10 +96,10 @@ export function ShareFeedbackWidget({ labels }: ShareFeedbackWidgetProps) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className={`fixed bottom-20 left-4 z-40 flex min-h-12 items-center gap-2.5 rounded-full border border-aipify-accent-muted bg-aipify-surface px-5 py-3 ${AipifySidebarTypography.feedbackButton} text-aipify-companion shadow-md transition hover:bg-aipify-accent-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2 lg:bottom-6`}
+        className={`fixed bottom-20 left-4 z-40 flex min-h-10 items-center gap-2 rounded-full border border-aipify-border bg-aipify-surface/95 px-4 py-2 ${AipifySidebarTypography.feedbackButton} text-aipify-text-secondary shadow-sm transition hover:border-aipify-accent-muted hover:bg-aipify-surface-muted hover:text-aipify-companion focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2 lg:bottom-6`}
         aria-label={labels.trigger}
       >
-        <span aria-hidden className="text-xl leading-none">
+        <span aria-hidden className="text-base leading-none opacity-80">
           💡
         </span>
         {labels.triggerShort}
