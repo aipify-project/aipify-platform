@@ -1619,6 +1619,19 @@
         "responseInvalid": "Unonight returnerte et svar som ikke kunne valideres trygt."
       }
     },
+    "organizationConnectionStatus": {
+      "title": "Organisasjonens tilkoblingsstatus",
+      "permissionDenied": "Du har ikke tilgang til å se organisasjonens tilkoblingsstatus.",
+      "permissionDeniedExplanation": "Organisasjonseiere og administratorer kan se integrasjonstilkobling. Be en administrator hvis du trenger denne informasjonen.",
+      "connectedLead": "Organisasjonen din er koblet til Aipify gjennom {provider}.",
+      "connectedVerified": "Tilkoblingen er verifisert og aktiv for organisasjonen din.",
+      "notConnectedLead": "Organisasjonen din har ingen verifisert ekstern integrasjon koblet til Aipify ennå.",
+      "notConnectedExplanation": "Åpne Plattform → Integrasjoner for å koble til og verifisere organisasjonens system.",
+      "providerCount": "Verifiserte integrasjoner: {count}",
+      "providerLine": "{provider}: tilkoblet og verifisert",
+      "unknownProvider": "verifisert integrasjon",
+      "summarySource": "Organisasjonens integrasjonshub"
+    },
     "platformSnapshot": {
       "title": "Live Unonight-plattformmetadata",
       "sourceVerifiedIntegration": "Verifisert Unonight-integrasjon",

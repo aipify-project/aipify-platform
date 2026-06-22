@@ -1703,6 +1703,19 @@
         "responseInvalid": "Unonight returned a response that could not be validated safely."
       }
     },
+    "organizationConnectionStatus": {
+      "title": "Organization connection status",
+      "permissionDenied": "You do not have access to view this organization's connection status.",
+      "permissionDeniedExplanation": "Organization owners and administrators can review integration connection status. Ask an administrator if you need this information.",
+      "connectedLead": "Your organization is connected to Aipify through {provider}.",
+      "connectedVerified": "The connection is verified and active for your organization.",
+      "notConnectedLead": "Your organization does not have a verified external integration connected to Aipify yet.",
+      "notConnectedExplanation": "Open Platform → Integrations to connect and verify your organization's system.",
+      "providerCount": "Verified integrations: {count}",
+      "providerLine": "{provider}: connected and verified",
+      "unknownProvider": "verified integration",
+      "summarySource": "Organization integration hub"
+    },
     "platformSnapshot": {
       "title": "Unonight live platform metadata",
       "sourceVerifiedIntegration": "Verified Unonight integration",

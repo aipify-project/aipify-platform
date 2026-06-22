@@ -56,4 +56,8 @@ const test8 = detectLiveIntegrationStatusIntent(
 assert.equal(test8?.queryKind, "role_disambiguation");
 assert.equal(test8?.blocksKnowledgeCenter, true);
 
+const orgConnection = detectLiveIntegrationStatusIntent("Er organisasjonen koblet til Aipify?");
+assert.equal(orgConnection?.queryKind, "status");
+assert.equal(orgConnection?.blocksKnowledgeCenter, true);
+
 console.log("companion integration status intent tests passed");

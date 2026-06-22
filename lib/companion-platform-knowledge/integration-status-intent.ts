@@ -1,5 +1,6 @@
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import { isCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import { isOrganizationConnectionStatusQuery } from "./organization-connection-status-intent";
 import { isPlatformOperationalQuery } from "./platform-snapshot-intent";
 
 export type LiveIntegrationQueryKind =
@@ -225,6 +226,15 @@ export function detectLiveIntegrationStatusIntent(
     ) &&
     (mentionsUnonight(q) || mentionsIntegration || mentionsLive)
   ) {
+    return {
+      providerKey,
+      requiresLive: true,
+      blocksKnowledgeCenter: true,
+      queryKind: "status",
+    };
+  }
+
+  if (isOrganizationConnectionStatusQuery(query) && !asksModuleActivation(q)) {
     return {
       providerKey,
       requiresLive: true,

@@ -1,4 +1,5 @@
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import { isOrganizationConnectionStatusQuery } from "@/lib/companion-platform-knowledge/organization-connection-status-intent";
 import { getIntegrationProviderManifest } from "./manifest-registry";
 import {
   hasProviderContext,
@@ -132,7 +133,11 @@ export function detectGenericIntegrationIntent(
   if (!manifest) return null;
 
   const q = normalizeIntegrationQuery(query);
-  const contextual = hasProviderContext(manifest, options) || mentionsProvider(q, manifest);
+  const organizationConnectionQuery = isOrganizationConnectionStatusQuery(query);
+  const contextual =
+    organizationConnectionQuery ||
+    hasProviderContext(manifest, options) ||
+    mentionsProvider(q, manifest);
   if (!contextual) return null;
 
   if (asksForbiddenData(q)) {

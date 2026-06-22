@@ -17,6 +17,7 @@ import {
 } from "./companion-semantic-resolver";
 import type { CompanionCommunityContext } from "./companion-community-context";
 import { filterCommunityCapabilitiesForPrivacy } from "./companion-community-context";
+import { isOrganizationConnectionStatusQuery } from "@/lib/companion-platform-knowledge/organization-connection-status-intent";
 import type { CompanionTenantContext } from "./companion-tenant-context";
 
 export type CommunityProviderMatch = {
@@ -33,6 +34,8 @@ const GENERIC_COMMUNITY_DOMAIN_PATTERN =
   /\b(community|membership|member|members|engagement|reward|points|leaderboard|referral|birthday|gift|moderation|moderate|listing|marketplace|activity|report|verification|since last)\b/i;
 
 export function hasCommunityProviderIntent(query: string): boolean {
+  if (isOrganizationConnectionStatusQuery(query)) return false;
+
   const normalized = normalizeIntegrationQuery(query);
   if (GENERIC_COMMUNITY_DOMAIN_PATTERN.test(normalized)) return true;
 

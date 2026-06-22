@@ -1457,6 +1457,19 @@
         "responseInvalid": "Unonight returned a response that could not be validated safely."
       }
     },
+    "organizationConnectionStatus": {
+      "title": "Статус підключення організації",
+      "permissionDenied": "У вас немає доступу до статусу підключення організації.",
+      "permissionDeniedExplanation": "Власники та адміністратори організації можуть переглядати статус інтеграції. Зверніться до адміністратора, якщо вам потрібна ця інформація.",
+      "connectedLead": "Ваша організація підключена до Aipify через {provider}.",
+      "connectedVerified": "Підключення перевірене та активне для вашої організації.",
+      "notConnectedLead": "Ваша організація ще не має перевіреної зовнішньої інтеграції, підключеної до Aipify.",
+      "notConnectedExplanation": "Відкрийте Платформа → Інтеграції, щоб підключити та перевірити систему організації.",
+      "providerCount": "Перевірені інтеграції: {count}",
+      "providerLine": "{provider}: підключено та перевірено",
+      "unknownProvider": "перевірена інтеграція",
+      "summarySource": "Центр інтеграцій організації"
+    },
     "platformSnapshot": {
       "title": "Метадані платформи Unonight у реальному часі",
       "sourceVerifiedIntegration": "Верифікована інтеграція Unonight",

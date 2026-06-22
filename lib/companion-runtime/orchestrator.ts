@@ -196,6 +196,7 @@ import {
   matchSecurityProviderQuery,
 } from "./security-answer";
 import { resolveCommunityCompanionQuery } from "./community-companion-query";
+import { resolveOrganizationConnectionStatusAnswer } from "./organization-connection-status";
 import {
   buildBlockedProactiveOperationAnswer,
   buildExternalProactiveUnavailableAnswer,
@@ -1452,6 +1453,18 @@ export async function orchestrateCompanionSearch(
 
   const securityResult = resolveSecurityProviderAnswer(query, t, resolvedTenantContext);
   if (securityResult) return finalize(securityResult);
+
+  const organizationConnectionResult = await resolveOrganizationConnectionStatusAnswer(query, {
+    t,
+    tenantContext: resolvedTenantContext,
+    supabase,
+    activeLocale,
+    permissionCtx,
+    integrationContext,
+  });
+  if (organizationConnectionResult) {
+    return finalize(organizationConnectionResult, { liveAnswer: true });
+  }
 
   const communityResult = resolveCommunityProviderAnswer(query, t, resolvedTenantContext, activeLocale);
   if (communityResult) return finalize(communityResult);
