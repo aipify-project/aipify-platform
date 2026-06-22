@@ -15,6 +15,8 @@ function parsePlatformAction(raw: unknown): PlatformKnowledgeAction | null {
     label: str(row.label),
     href,
     routeKey: str(row.routeKey),
+    variant:
+      row.variant === "primary" || row.variant === "secondary" ? row.variant : undefined,
   };
 }
 
@@ -32,6 +34,77 @@ function parsePlatformSource(raw: unknown): PlatformKnowledgeAnswer["sources"][n
   };
 }
 
+function parseIntegrationStatusCard(raw: unknown): PlatformKnowledgeAnswer["integrationStatusCard"] {
+  if (!raw || typeof raw !== "object") return undefined;
+  const row = raw as Record<string, unknown>;
+  const labelsRaw = row.labels;
+  if (!labelsRaw || typeof labelsRaw !== "object") return undefined;
+  const labels = labelsRaw as Record<string, unknown>;
+  const scopeItems = Array.isArray(labels.scopeItems)
+    ? labels.scopeItems
+        .map((item) => {
+          if (!item || typeof item !== "object") return null;
+          const scopeRow = item as Record<string, unknown>;
+          const scope = str(scopeRow.scope);
+          const description = str(scopeRow.description);
+          if (!scope) return null;
+          return { scope, description };
+        })
+        .filter((item): item is NonNullable<typeof item> => item !== null)
+    : [];
+  const languageLabels =
+    labels.languageLabels && typeof labels.languageLabels === "object"
+      ? Object.fromEntries(
+          Object.entries(labels.languageLabels as Record<string, unknown>).map(([key, value]) => [
+            key,
+            str(value),
+          ]),
+        )
+      : {};
+
+  return {
+    provider: "unonight",
+    organizationName: str(row.organizationName),
+    organizationId: str(row.organizationId),
+    apiVersion: str(row.apiVersion),
+    baseUrl: str(row.baseUrl),
+    scopes: Array.isArray(row.scopes) ? row.scopes.map((s) => str(s)).filter(Boolean) : [],
+    supportedLocales: Array.isArray(row.supportedLocales)
+      ? row.supportedLocales.map((s) => str(s)).filter(Boolean)
+      : [],
+    lastVerifiedAt: str(row.lastVerifiedAt) || null,
+    lastUsedAt: str(row.lastUsedAt) || null,
+    checkedAt: str(row.checkedAt),
+    labels: {
+      cardTitle: str(labels.cardTitle),
+      cardSupporting: str(labels.cardSupporting),
+      fieldOrganization: str(labels.fieldOrganization),
+      fieldOrganizationId: str(labels.fieldOrganizationId),
+      fieldApiVersion: str(labels.fieldApiVersion),
+      fieldAccessMode: str(labels.fieldAccessMode),
+      fieldConnectionStatus: str(labels.fieldConnectionStatus),
+      fieldBaseUrl: str(labels.fieldBaseUrl),
+      fieldLastVerified: str(labels.fieldLastVerified),
+      fieldLastUsed: str(labels.fieldLastUsed),
+      fieldScopes: str(labels.fieldScopes),
+      fieldSupportedLanguages: str(labels.fieldSupportedLanguages),
+      accessModeReadOnly: str(labels.accessModeReadOnly),
+      statusConnectedVerified: str(labels.statusConnectedVerified),
+      timestampUnavailable: str(labels.timestampUnavailable),
+      scopesExplainShow: str(labels.scopesExplainShow),
+      scopesExplainHide: str(labels.scopesExplainHide),
+      sourceTitle: str(labels.sourceTitle),
+      sourceLabel: str(labels.sourceLabel),
+      sourceMeta: str(labels.sourceMeta),
+      languagesUnavailable: str(labels.languagesUnavailable),
+      scopeItems,
+      languageLabels,
+      ariaCard: str(labels.ariaCard),
+      ariaScopesToggle: str(labels.ariaScopesToggle),
+    },
+  };
+}
+
 function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined {
   if (!raw || typeof raw !== "object") return undefined;
   const row = raw as Record<string, unknown>;
@@ -44,6 +117,7 @@ function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined 
   return {
     directAnswer: str(row.directAnswer),
     explanation: str(row.explanation) || undefined,
+    integrationStatusCard: parseIntegrationStatusCard(row.integrationStatusCard),
     status: str(row.status) || undefined,
     steps: Array.isArray(row.steps) ? row.steps.map((s) => str(s)) : [],
     actions,

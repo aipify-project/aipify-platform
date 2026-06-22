@@ -34,8 +34,35 @@
       "fieldSupportedLocales": "Supported languages",
       "fieldLastVerified": "Last verified",
       "fieldLastUsed": "Last used",
-      "fieldBaseUrl": "Base URL",
-      "localesUnavailable": "Not reported by Unonight",
+      "fieldBaseUrl": "Adres bazowy URL",
+      "localesUnavailable": "Nie zgłoszono przez Unonight",
+      "card": {
+        "title": "Unonight jest połączony i zweryfikowany",
+        "supporting": "Aipify pobrało te informacje bezpośrednio z aktywnej, tylko do odczytu integracji Unonight.",
+        "fieldOrganization": "Organizacja",
+        "fieldOrganizationId": "Identyfikator organizacji",
+        "fieldApiVersion": "Wersja API",
+        "fieldAccessMode": "Typ dostępu",
+        "fieldConnectionStatus": "Status połączenia",
+        "fieldBaseUrl": "Adres bazowy URL",
+        "fieldLastVerified": "Ostatnia weryfikacja",
+        "fieldLastUsed": "Ostatnie użycie",
+        "fieldScopes": "Uprawnienia",
+        "fieldSupportedLanguages": "Obsługiwane języki",
+        "timestampUnavailable": "Niedostępne",
+        "scopesExplainShow": "Co oznaczają te uprawnienia?",
+        "scopesExplainHide": "Ukryj wyjaśnienia uprawnień",
+        "sourceTitle": "Źródło danych",
+        "sourceMeta": "Tylko do odczytu · Sprawdzono teraz",
+        "ariaCard": "Status zweryfikowanej integracji Unonight",
+        "ariaScopesToggle": "Wyjaśnienia uprawnień",
+        "scopes": {
+          "metadataRead": "Odczytuje zatwierdzone metadane operacyjne",
+          "organizationRead": "Odczytuje tożsamość organizacji",
+          "integrationStatusRead": "Odczytuje status integracji",
+          "unknown": "Zatwierdzone uprawnienie odczytu dla tej integracji"
+        }
+      },
       "failureTitle": "Live Unonight integration data unavailable",
       "failureLead": "⚠️ Aipify could not retrieve live data from the Unonight integration right now.",
       "failureRetryStep": "Verify the integration under Platform → Integrations, then ask again.",
@@ -84,8 +111,9 @@
       "profile": "Open Profile",
       "apiAccess": "API Access",
       "activityOverview": "Activity Overview",
-      "viewIntegrations": "View integrations",
-      "readSecureConnection": "Read about secure connection"
+      "viewIntegrations": "Zobacz integracje",
+      "retestUnonightConnection": "Przetestuj połączenie ponownie",
+      "readSecureConnection": "Przeczytaj o bezpiecznym połączeniu"
     },
     "routes": {
       "appDashboard": {

@@ -4,6 +4,18 @@ import type { CompanionChatMessage, CompanionExperienceLabels } from "@/lib/app/
 import Link from "next/link";
 import { CompanionIcon } from "./CompanionIcon";
 import { CompanionAnswerFeedback } from "./CompanionAnswerFeedback";
+import { CompanionIntegrationStatusCard } from "./CompanionIntegrationStatusCard";
+
+function ctaClassName(variant?: "primary" | "secondary"): string {
+  const base = "inline-flex items-center justify-center rounded-lg px-3 py-2 text-xs font-medium transition-colors";
+  if (variant === "primary") {
+    return `${base} bg-aipify-companion text-white hover:bg-violet-700`;
+  }
+  if (variant === "secondary") {
+    return `${base} border border-aipify-border bg-white text-aipify-text hover:bg-aipify-surface-muted`;
+  }
+  return `${base} bg-violet-50 text-aipify-companion hover:bg-violet-100`;
+}
 
 type CompanionChatProps = {
   messages: CompanionChatMessage[];
@@ -52,8 +64,13 @@ export function CompanionChat({
                 spacious ? "px-5 py-4" : "px-4 py-3"
               }`}
             >
-              <p className="text-sm text-aipify-text">{msg.directAnswer ?? msg.content}</p>
-              {msg.explanation ? (
+              {msg.integrationStatusCard ? null : (
+                <p className="text-sm text-aipify-text">{msg.directAnswer ?? msg.content}</p>
+              )}
+              {msg.integrationStatusCard ? (
+                <CompanionIntegrationStatusCard card={msg.integrationStatusCard} locale={locale} />
+              ) : null}
+              {!msg.integrationStatusCard && msg.explanation ? (
                 <p className="mt-2 text-sm text-aipify-text-secondary">{msg.explanation}</p>
               ) : null}
               {msg.steps && msg.steps.length > 0 ? (
@@ -64,12 +81,12 @@ export function CompanionChat({
                 </ol>
               ) : null}
               {msg.ctas && msg.ctas.length > 0 ? (
-                <div className="mt-3 flex flex-wrap gap-2">
+                <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                   {msg.ctas.map((cta) => (
                     <Link
                       key={cta.href + cta.label}
                       href={cta.href}
-                      className="rounded-lg bg-violet-50 px-3 py-1.5 text-xs font-medium text-aipify-companion hover:bg-violet-100"
+                      className={`${ctaClassName(cta.variant)} w-full sm:w-auto`}
                     >
                       {cta.label}
                     </Link>
@@ -81,7 +98,11 @@ export function CompanionChat({
                 conversationId={conversationId}
                 messageId={msg.id}
                 question={msg.question ?? ""}
-                answerSummary={msg.directAnswer ?? msg.content}
+                answerSummary={
+                  msg.integrationStatusCard?.labels.cardSupporting ??
+                  msg.directAnswer ??
+                  msg.content
+                }
                 sources={msg.sources ?? []}
                 routeContext={pathname}
                 locale={locale}
@@ -90,6 +111,7 @@ export function CompanionChat({
                 orgConfirmBlockedReason={msg.orgConfirmBlockedReason}
                 initialFeedback={msg.feedback ?? null}
                 showSupportEscalation={msg.showSupportEscalation}
+                hideSourcesToggle={Boolean(msg.integrationStatusCard)}
                 onFeedback={(feedback) => {
                   if (feedback) onMessageFeedback?.(msg.id, feedback);
                 }}

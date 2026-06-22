@@ -1,71 +1,55 @@
 import type { Translator } from "@/lib/i18n/translate";
 import { buildActionForRoute } from "./answer-builder";
+import { buildIntegrationStatusCardPayload } from "./integration-status-card";
 import { filterActionsByPermission, type PermissionContext } from "./permission-gate";
 import type {
   ConnectedIntegrationStatusMetadata,
   IntegrationStatusFailureCode,
 } from "./integration-status-tool";
-import type { PlatformKnowledgeAnswer } from "./types";
+import type { PlatformKnowledgeAction, PlatformKnowledgeAnswer } from "./types";
 
 const BASE = "customerApp.companionPlatformKnowledge.integrationStatus";
+const ACTIONS_BASE = "customerApp.companionPlatformKnowledge.actions";
+const UNONIGHT_RETEST_HREF = "/app/platform/integrations/connect/unonight";
 
-function formatTimestamp(value: string | null | undefined, locale: string): string {
-  if (!value) return "—";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "—";
-  return new Intl.DateTimeFormat(locale, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(date);
+function buildRetestConnectionAction(t: Translator): PlatformKnowledgeAction {
+  return {
+    labelKey: `${ACTIONS_BASE}.retestUnonightConnection`,
+    label: t(`${ACTIONS_BASE}.retestUnonightConnection`),
+    href: UNONIGHT_RETEST_HREF,
+    routeKey: "connectIntegration",
+    variant: "secondary",
+  };
 }
 
-function formatScopes(scopes: string[]): string {
-  return scopes.length > 0 ? scopes.join(", ") : "—";
-}
-
-function formatLocales(locales: string[], t: Translator): string {
-  if (locales.length === 0) {
-    return t(`${BASE}.localesUnavailable`);
-  }
-  return locales.join(", ");
+function buildConnectedIntegrationsAction(
+  t: Translator,
+): PlatformKnowledgeAction | undefined {
+  const action = buildActionForRoute("connectedIntegrations", t);
+  if (!action) return undefined;
+  return { ...action, variant: "primary" };
 }
 
 export function buildVerifiedIntegrationStatusAnswer(
   metadata: ConnectedIntegrationStatusMetadata,
   t: Translator,
-  locale: string,
+  _locale: string,
   ctx: PermissionContext,
 ): PlatformKnowledgeAnswer {
   const sourceLabel = t(`${BASE}.sourceVerifiedIntegration`);
-  const directAnswer = [
-    t(`${BASE}.successIntro`),
-    "",
-    `${t(`${BASE}.fieldOrganizationName`)}: ${metadata.organization_name}`,
-    `${t(`${BASE}.fieldOrganizationId`)}: ${metadata.organization_id}`,
-    `${t(`${BASE}.fieldApiVersion`)}: ${metadata.api_version}`,
-    `${t(`${BASE}.fieldAccessMode`)}: ${t(`${BASE}.accessModeReadOnly`)}`,
-    `${t(`${BASE}.fieldConnectionStatus`)}: ${t(`${BASE}.statusConnectedVerified`)}`,
-    `${t(`${BASE}.fieldScopes`)}: ${formatScopes(metadata.scopes)}`,
-    `${t(`${BASE}.fieldSupportedLocales`)}: ${formatLocales(metadata.supported_locales, t)}`,
-    `${t(`${BASE}.fieldLastVerified`)}: ${formatTimestamp(metadata.last_verified_at, locale)}`,
-    `${t(`${BASE}.fieldLastUsed`)}: ${formatTimestamp(metadata.last_used_at, locale)}`,
-    `${t(`${BASE}.fieldBaseUrl`)}: ${metadata.base_url}`,
-    "",
-    `${t(`${BASE}.sourceLine`)}: ${sourceLabel}`,
-  ].join("\n");
+  const integrationStatusCard = buildIntegrationStatusCardPayload(metadata, t);
 
   const actions = filterActionsByPermission(
-    [
-      buildActionForRoute("connectedIntegrations", t),
-      buildActionForRoute("integrations", t),
-    ].filter((action): action is NonNullable<typeof action> => action !== undefined),
+    [buildConnectedIntegrationsAction(t), buildRetestConnectionAction(t)].filter(
+      (action): action is NonNullable<typeof action> => action !== undefined,
+    ),
     ctx,
   );
 
   return {
     title: t(`${BASE}.title`),
-    directAnswer,
-    explanation: t(`${BASE}.explanation`),
+    directAnswer: t(`${BASE}.card.supporting`),
+    integrationStatusCard,
     steps: [],
     actions,
     sources: [
@@ -73,7 +57,7 @@ export function buildVerifiedIntegrationStatusAnswer(
         id: "verified-unonight-integration",
         label: sourceLabel,
         kind: "verified_integration",
-        meta: `${t(`${BASE}.accessModeReadOnly`)} · ${formatTimestamp(metadata.checked_at, locale)}`,
+        meta: t(`${BASE}.card.sourceMeta`),
       },
     ],
     sourceId: "verified-unonight-integration",
@@ -105,8 +89,8 @@ export function buildIntegrationStatusFailureAnswer(
 ): PlatformKnowledgeAnswer {
   const actions = filterActionsByPermission(
     [
-      buildActionForRoute("connectedIntegrations", t),
-      buildActionForRoute("integrations", t),
+      buildConnectedIntegrationsAction(t),
+      buildRetestConnectionAction(t),
       buildActionForRoute("contactSupport", t),
     ].filter((action): action is NonNullable<typeof action> => action !== undefined),
     ctx,

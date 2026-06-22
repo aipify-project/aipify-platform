@@ -221,6 +221,7 @@ export function CompanionPanel({
         ? platformAnswer.actions.map((action) => ({
             label: action.label,
             href: action.href,
+            variant: action.variant,
           }))
         : [{ label: lbls.viewSuggestions, href: "/app/support/knowledge" }];
 
@@ -230,6 +231,7 @@ export function CompanionPanel({
       content: platformAnswer.directAnswer,
       directAnswer: platformAnswer.directAnswer,
       explanation: platformAnswer.explanation,
+      integrationStatusCard: platformAnswer.integrationStatusCard,
       question,
       steps: platformAnswer.steps,
       ctas,

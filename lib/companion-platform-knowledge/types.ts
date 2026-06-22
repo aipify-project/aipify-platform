@@ -105,11 +105,60 @@ export type PlatformKnowledgeAction = {
   label: string;
   href: string;
   routeKey: string;
+  variant?: "primary" | "secondary";
+};
+
+export type IntegrationStatusScopeItem = {
+  scope: string;
+  description: string;
+};
+
+export type IntegrationStatusCardLabels = {
+  cardTitle: string;
+  cardSupporting: string;
+  fieldOrganization: string;
+  fieldOrganizationId: string;
+  fieldApiVersion: string;
+  fieldAccessMode: string;
+  fieldConnectionStatus: string;
+  fieldBaseUrl: string;
+  fieldLastVerified: string;
+  fieldLastUsed: string;
+  fieldScopes: string;
+  fieldSupportedLanguages: string;
+  accessModeReadOnly: string;
+  statusConnectedVerified: string;
+  timestampUnavailable: string;
+  scopesExplainShow: string;
+  scopesExplainHide: string;
+  sourceTitle: string;
+  sourceLabel: string;
+  sourceMeta: string;
+  languagesUnavailable: string;
+  scopeItems: IntegrationStatusScopeItem[];
+  languageLabels: Record<string, string>;
+  ariaCard: string;
+  ariaScopesToggle: string;
+};
+
+export type IntegrationStatusCardPayload = {
+  provider: "unonight";
+  organizationName: string;
+  organizationId: string;
+  apiVersion: string;
+  baseUrl: string;
+  scopes: string[];
+  supportedLocales: string[];
+  lastVerifiedAt: string | null;
+  lastUsedAt: string | null;
+  checkedAt: string;
+  labels: IntegrationStatusCardLabels;
 };
 
 export type PlatformKnowledgeAnswer = {
   directAnswer: string;
   explanation?: string;
+  integrationStatusCard?: IntegrationStatusCardPayload;
   status?: string;
   steps: string[];
   actions: PlatformKnowledgeAction[];

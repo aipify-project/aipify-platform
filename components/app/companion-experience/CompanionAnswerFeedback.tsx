@@ -29,6 +29,7 @@ type CompanionAnswerFeedbackProps = {
   orgConfirmBlockedReason?: string;
   initialFeedback?: CompanionAnswerFeedbackState;
   showSupportEscalation?: boolean;
+  hideSourcesToggle?: boolean;
   onFeedback?: (feedback: CompanionAnswerFeedbackState, reason?: NegativeReason) => void;
   onEscalate?: () => void;
 };
@@ -56,6 +57,7 @@ export function CompanionAnswerFeedback({
   orgConfirmBlockedReason,
   initialFeedback = null,
   showSupportEscalation = false,
+  hideSourcesToggle = false,
   onFeedback,
   onEscalate,
 }: CompanionAnswerFeedbackProps) {
@@ -105,7 +107,7 @@ export function CompanionAnswerFeedback({
 
   return (
     <div className="mt-4 space-y-3 border-t border-aipify-border pt-3">
-      {sources.length > 0 ? (
+      {sources.length > 0 && !hideSourcesToggle ? (
         <div>
           <button
             type="button"

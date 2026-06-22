@@ -34,8 +34,35 @@
       "fieldSupportedLocales": "Supported languages",
       "fieldLastVerified": "Last verified",
       "fieldLastUsed": "Last used",
-      "fieldBaseUrl": "Base URL",
-      "localesUnavailable": "Not reported by Unonight",
+      "fieldBaseUrl": "Basis-URL",
+      "localesUnavailable": "Ikke rapporteret af Unonight",
+      "card": {
+        "title": "Unonight er forbundet og verificeret",
+        "supporting": "Aipify hentede disse oplysninger direkte fra den aktive skrivebeskyttede Unonight-integration.",
+        "fieldOrganization": "Organisation",
+        "fieldOrganizationId": "Organisations-ID",
+        "fieldApiVersion": "API-version",
+        "fieldAccessMode": "Adgangstype",
+        "fieldConnectionStatus": "Forbindelsesstatus",
+        "fieldBaseUrl": "Basis-URL",
+        "fieldLastVerified": "Sidst verificeret",
+        "fieldLastUsed": "Sidst brugt",
+        "fieldScopes": "Tilladelser",
+        "fieldSupportedLanguages": "Understøttede sprog",
+        "timestampUnavailable": "Ikke tilgængelig",
+        "scopesExplainShow": "Hvad betyder disse tilladelser?",
+        "scopesExplainHide": "Skjul tilladelsesforklaringer",
+        "sourceTitle": "Datakilde",
+        "sourceMeta": "Skrivebeskyttet · Kontrolleret nu",
+        "ariaCard": "Verificeret Unonight-integrationsstatus",
+        "ariaScopesToggle": "Tilladelsesforklaringer",
+        "scopes": {
+          "metadataRead": "Læser godkendt driftsmetadata",
+          "organizationRead": "Læser organisationsidentitet",
+          "integrationStatusRead": "Læser integrationsstatus",
+          "unknown": "Godkendt læsetilladelse for denne integration"
+        }
+      },
       "failureTitle": "Live Unonight integration data unavailable",
       "failureLead": "⚠️ Aipify could not retrieve live data from the Unonight integration right now.",
       "failureRetryStep": "Verify the integration under Platform → Integrations, then ask again.",
@@ -84,8 +111,9 @@
       "profile": "Open Profile",
       "apiAccess": "API Access",
       "activityOverview": "Activity Overview",
-      "viewIntegrations": "View integrations",
-      "readSecureConnection": "Read about secure connection"
+      "viewIntegrations": "Se integrationer",
+      "retestUnonightConnection": "Test forbindelsen igen",
+      "readSecureConnection": "Læs om sikker forbindelse"
     },
     "routes": {
       "appDashboard": {

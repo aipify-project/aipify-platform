@@ -34,8 +34,35 @@
       "fieldSupportedLocales": "Supported languages",
       "fieldLastVerified": "Last verified",
       "fieldLastUsed": "Last used",
-      "fieldBaseUrl": "Base URL",
-      "localesUnavailable": "Not reported by Unonight",
+      "fieldBaseUrl": "Базова URL-адреса",
+      "localesUnavailable": "Не повідомлено Unonight",
+      "card": {
+        "title": "Unonight підключено та верифіковано",
+        "supporting": "Aipify отримав цю інформацію безпосередньо з активної інтеграції Unonight лише для читання.",
+        "fieldOrganization": "Організація",
+        "fieldOrganizationId": "ID організації",
+        "fieldApiVersion": "Версія API",
+        "fieldAccessMode": "Тип доступу",
+        "fieldConnectionStatus": "Статус підключення",
+        "fieldBaseUrl": "Базова URL-адреса",
+        "fieldLastVerified": "Остання верифікація",
+        "fieldLastUsed": "Останнє використання",
+        "fieldScopes": "Дозволи",
+        "fieldSupportedLanguages": "Підтримувані мови",
+        "timestampUnavailable": "Недоступно",
+        "scopesExplainShow": "Що означають ці дозволи?",
+        "scopesExplainHide": "Приховати пояснення дозволів",
+        "sourceTitle": "Джерело даних",
+        "sourceMeta": "Лише для читання · Перевірено зараз",
+        "ariaCard": "Статус верифікованої інтеграції Unonight",
+        "ariaScopesToggle": "Пояснення дозволів",
+        "scopes": {
+          "metadataRead": "Читає затвержені операційні метадані",
+          "organizationRead": "Читає ідентичність організації",
+          "integrationStatusRead": "Читає статус інтеграції",
+          "unknown": "Затверджений дозвіл на читання для цієї інтеграції"
+        }
+      },
       "failureTitle": "Live Unonight integration data unavailable",
       "failureLead": "⚠️ Aipify could not retrieve live data from the Unonight integration right now.",
       "failureRetryStep": "Verify the integration under Platform → Integrations, then ask again.",
@@ -84,8 +111,9 @@
       "profile": "Open Profile",
       "apiAccess": "API Access",
       "activityOverview": "Activity Overview",
-      "viewIntegrations": "View integrations",
-      "readSecureConnection": "Read about secure connection"
+      "viewIntegrations": "Переглянути інтеграції",
+      "retestUnonightConnection": "Повторно перевірити підключення",
+      "readSecureConnection": "Докладніше про безпечне підключення"
     },
     "routes": {
       "appDashboard": {

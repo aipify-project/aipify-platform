@@ -36,6 +36,33 @@
       "fieldLastUsed": "Last used",
       "fieldBaseUrl": "Base URL",
       "localesUnavailable": "Not reported by Unonight",
+      "card": {
+        "title": "Unonight is connected and verified",
+        "supporting": "Aipify retrieved this information directly from your active, read-only Unonight integration.",
+        "fieldOrganization": "Organization",
+        "fieldOrganizationId": "Organization ID",
+        "fieldApiVersion": "API version",
+        "fieldAccessMode": "Access type",
+        "fieldConnectionStatus": "Connection status",
+        "fieldBaseUrl": "Base URL",
+        "fieldLastVerified": "Last verified",
+        "fieldLastUsed": "Last used",
+        "fieldScopes": "Scopes",
+        "fieldSupportedLanguages": "Supported languages",
+        "timestampUnavailable": "Not available",
+        "scopesExplainShow": "What do these scopes mean?",
+        "scopesExplainHide": "Hide scope explanations",
+        "sourceTitle": "Data source",
+        "sourceMeta": "Read-only · Checked now",
+        "ariaCard": "Verified Unonight integration status",
+        "ariaScopesToggle": "Scope explanations",
+        "scopes": {
+          "metadataRead": "Reads approved operational metadata",
+          "organizationRead": "Reads organization identity",
+          "integrationStatusRead": "Reads integration status",
+          "unknown": "Approved read scope for this integration"
+        }
+      },
       "failureTitle": "Live Unonight integration data unavailable",
       "failureLead": "⚠️ Aipify could not retrieve live data from the Unonight integration right now.",
       "failureRetryStep": "Verify the integration under Platform → Integrations, then ask again.",
@@ -85,6 +112,7 @@
       "apiAccess": "API Access",
       "activityOverview": "Activity Overview",
       "viewIntegrations": "View integrations",
+      "retestUnonightConnection": "Retest connection",
       "readSecureConnection": "Read about secure connection"
     },
     "routes": {

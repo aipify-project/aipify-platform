@@ -36,6 +36,33 @@
       "fieldLastUsed": "Sist brukt",
       "fieldBaseUrl": "Base-URL",
       "localesUnavailable": "Ikke rapportert av Unonight",
+      "card": {
+        "title": "Unonight er tilkoblet og verifisert",
+        "supporting": "Aipify hentet denne informasjonen direkte fra den aktive, skrivebeskyttede Unonight-integrasjonen.",
+        "fieldOrganization": "Organisasjon",
+        "fieldOrganizationId": "Organisasjons-ID",
+        "fieldApiVersion": "API-versjon",
+        "fieldAccessMode": "Tilgangstype",
+        "fieldConnectionStatus": "Tilkoblingsstatus",
+        "fieldBaseUrl": "Base-URL",
+        "fieldLastVerified": "Sist verifisert",
+        "fieldLastUsed": "Sist brukt",
+        "fieldScopes": "Tillatelser",
+        "fieldSupportedLanguages": "Støttede språk",
+        "timestampUnavailable": "Ikke tilgjengelig",
+        "scopesExplainShow": "Hva betyr disse tillatelsene?",
+        "scopesExplainHide": "Skjul forklaring av tillatelser",
+        "sourceTitle": "Datakilde",
+        "sourceMeta": "Skrivebeskyttet · Kontrollert nå",
+        "ariaCard": "Verifisert Unonight-integrasjonsstatus",
+        "ariaScopesToggle": "Forklaring av tillatelser",
+        "scopes": {
+          "metadataRead": "Leser godkjent driftsmetadata",
+          "organizationRead": "Leser organisasjonsidentitet",
+          "integrationStatusRead": "Leser integrasjonsstatus",
+          "unknown": "Godkjent lesetillatelse for denne integrasjonen"
+        }
+      },
       "failureTitle": "Live Unonight-integrasjonsdata utilgjengelig",
       "failureLead": "⚠️ Jeg klarte ikke å hente live data fra Unonight-integrasjonen akkurat nå.",
       "failureRetryStep": "Verifiser integrasjonen under Plattform → Integrasjoner, og spør på nytt.",
@@ -85,6 +112,7 @@
       "apiAccess": "API-tilgang",
       "activityOverview": "Aktivitetsoversikt",
       "viewIntegrations": "Se integrasjoner",
+      "retestUnonightConnection": "Test tilkoblingen på nytt",
       "readSecureConnection": "Les om sikker tilkobling"
     },
     "routes": {
