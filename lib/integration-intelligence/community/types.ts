@@ -18,6 +18,7 @@ export type CommunityCapabilityKey =
   | "birthday.read"
   | "gift.read"
   | "listing.read"
+  | "verification_status.read"
   | "moderation_queue.read"
   | "report.read"
   | "moderation.assign"

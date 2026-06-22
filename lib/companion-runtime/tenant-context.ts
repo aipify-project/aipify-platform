@@ -347,6 +347,7 @@ export async function loadCompanionTenantContext(
     subscriptionStatus,
     connectedProviders,
     activeBusinessPacks,
+    organizationId,
   });
 
   const operationalLoad = await loadCompanionOperationalContext(supabase, {

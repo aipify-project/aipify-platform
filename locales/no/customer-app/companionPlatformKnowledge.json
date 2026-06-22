@@ -919,7 +919,59 @@
         "client_relationship_loyalty": "belønning poeng henvisning lojalitet medlemskap nivå klient",
         "community_collective_intelligence": "kollektiv intelligens bidrag engasjement aktivitet rapporter",
         "community_engagement_services": "ledertavle bursdag gave engasjement anerkjennelse",
-        "community_pack_adapter": "ekstern forum medlemskap plattform engasjement adapter tredjeparts sync"
+        "community_pack_adapter": "ekstern forum medlemskap plattform engasjement adapter tredjeparts sync",
+        "unonight_community_adapter": "Fellesskapsprovider-adapter"
+      }
+    },
+    "unonightProviderAdapter": {
+      "providerDisplayName": "Fellesskapsprovider-adapter",
+      "searchTerms": "fellesskapsprovider adapter live les medlem moderering verifisering annonse aktivitet",
+      "sourceLabel": "Verifisert fellesskapsprovider-adapter",
+      "unavailableLead": "Fellesskapsprovider-adaptern er ikke tilgjengelig for organisasjonen din.",
+      "unavailableExplanation": "Aktiveringskravene er ikke oppfylt. Aipify estimerer ikke fellesskapstall uten en verifisert skrivebeskyttet kilde.",
+      "activatingLead": "Aktivering av fellesskapsprovider-adapter pågår.",
+      "activatingExplanation": "Plan, rettighet, providerkonfigurasjon, tillatelser og skrivebeskyttet tilkobling må fullføres før live fellesskapsdata vises.",
+      "emptyLead": "Ingen live fellesskapsdata matchet denne forespørselen akkurat nå.",
+      "emptyExplanation": "Adapteren er tilkoblet, men kilden returnerte ingen tellbar oppsummering for denne funksjonen. Aipify finner ikke opp tall.",
+      "groundedLead": "{capability}: {count} (skrivebeskyttet oppsummering fra verifisert kilde).",
+      "sourceLine": "Kilde: {source} · Hentet: {checkedAt} · Ferskhet: {freshness} · Fullstendighet: {completeness}",
+      "readinessLine": "Funksjonsstatus: {status}",
+      "privacyNote": "Kun metadata-første fellesskapslesning — ingen private meldinger, hemmeligheter eller fulle profilfelter returneres.",
+      "gate": {
+        "subscriptionBlocked": "Organisasjonens abonnement er pauset eller suspendert.",
+        "entitlementBlocked": "Fellesskaps-rettigheter er utilgjengelige for denne organisasjonen.",
+        "providerNotConnected": "Verifisert providertilkobling er ikke konfigurert.",
+        "schemaUnavailable": "Nødvendige fellesskaps-RPC-kilder er utilgjengelige.",
+        "permissionDenied": "Rollen din mangler tillatelse for fellesskapsprovider-lesning.",
+        "readOnlyConnectionMissing": "Skrivebeskyttet providertilkobling er ikke verifisert.",
+        "smokeTestPending": "Skrivebeskyttet røyktest er ikke fullført ennå.",
+        "activating": "Aktivering pågår fortsatt."
+      },
+      "readiness": {
+        "disabled": "Funksjonen er deaktivert til aktivering er fullført.",
+        "adapterMissing": "Ingen live adapterkilde er tilgjengelig for denne funksjonen.",
+        "partial": "Kilden returnerte kun delvis metadata."
+      },
+      "readinessStatus": {
+        "production_ready": "produksjonsklar",
+        "connected_but_partial": "tilkoblet men delvis",
+        "adapter_missing": "adapter mangler",
+        "disabled": "deaktivert"
+      },
+      "freshness": { "fresh": "fersk", "stale": "utdatert", "unknown": "ukjent" },
+      "completeness": { "complete": "fullstendig", "partial": "delvis", "empty": "tom" },
+      "warnings": {
+        "memberCountProxy": "Medlemstall bruker fellesskapsnettverksoppsummering — ikke individuelle medlemsposter.",
+        "activityPartial": "Aktivitetsoppsummering kan være ufullstendig når diskusjonsmålinger mangler.",
+        "verificationPartial": "Verifiseringskø bruker kun metadata fra fellesskaps best practice-status."
+      },
+      "capabilities": {
+        "member_read": "Medlemmer",
+        "activity_read": "Aktivitet",
+        "moderation_queue_read": "Modereringskø",
+        "report_read": "Rapporter",
+        "verification_status_read": "Verifiseringsstatus",
+        "listing_read": "Markedsplassannonser"
       }
     },
     "proactive": {

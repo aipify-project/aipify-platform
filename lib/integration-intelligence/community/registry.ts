@@ -6,7 +6,7 @@ const registry = new Map<string, CommunityProviderManifest>(
 );
 
 export function listCommunityProviderManifests(): readonly CommunityProviderManifest[] {
-  return COMMUNITY_PROVIDER_MANIFESTS;
+  return [...registry.values()];
 }
 
 export function getCommunityProviderManifest(providerKey: string): CommunityProviderManifest | null {

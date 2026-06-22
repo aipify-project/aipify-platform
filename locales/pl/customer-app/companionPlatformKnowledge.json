@@ -913,9 +913,69 @@
         "client_relationship_loyalty": "nagroda punkty polecenie lojalność członkostwo poziom klient",
         "community_collective_intelligence": "kolektywna inteligencja wkład zaangażowanie aktywność raporty",
         "community_engagement_services": "ranking urodziny prezent zaangażowanie uznanie",
-        "community_pack_adapter": "zewnętrzne forum członkostwo platforma zaangażowanie adapter trzecia strona sync"
+        "community_pack_adapter": "zewnętrzne forum członkostwo platforma zaangażowanie adapter trzecia strona sync",
+        "unonight_community_adapter": "Adapter dostawcy społeczności",
       }
     },
+    "unonightProviderAdapter": {
+      "providerDisplayName": "Adapter dostawcy społeczności",
+      "searchTerms": "community provider adapter live read member moderation verification listing activity",
+      "sourceLabel": "Zweryfikowany adapter dostawcy społeczności",
+      "unavailableLead": "Adapter dostawcy społeczności nie jest dostępny dla Twojej organizacji.",
+      "unavailableExplanation": "Activation requirements were not met. Aipify will not estimate community metrics without a verified read-only source.",
+      "activatingLead": "Trwa aktywacja adaptera dostawcy społeczności.",
+      "activatingExplanation": "Plan, entitlement, provider configuration, permissions, and read-only connection checks must complete before live community reads are shown.",
+      "emptyLead": "Brak danych społeczności na żywo pasujących do tego żądania.",
+      "emptyExplanation": "The adapter is connected, but the underlying source returned no countable summary for this capability. Aipify will not invent numbers.",
+      "groundedLead": "{capability}: {count} (podsumowanie tylko do odczytu ze zweryfikowanego źródła).",
+      "sourceLine": "Source: {source} · Fetched: {checkedAt} · Freshness: {freshness} · Completeness: {completeness}",
+      "readinessLine": "Capability readiness: {status}",
+      "privacyNote": "Metadata-first community reads only — no private messages, secrets, or full profile fields are returned.",
+      "gate": {
+        "subscriptionBlocked": "Organization subscription is paused or suspended.",
+        "entitlementBlocked": "Community entitlements are unavailable for this organization.",
+        "providerNotConnected": "Verified provider connection is not configured.",
+        "schemaUnavailable": "Required community RPC sources are unavailable.",
+        "permissionDenied": "Your role lacks permission for community provider reads.",
+        "readOnlyConnectionMissing": "Read-only provider connection is not verified.",
+        "smokeTestPending": "Read-only smoke test has not completed successfully yet.",
+        "activating": "Activation is still in progress."
+      },
+      "readiness": {
+        "disabled": "Capability is disabled until activation completes.",
+        "adapterMissing": "No live adapter source is available for this capability.",
+        "partial": "Source returned partial metadata only."
+      },
+      "readinessStatus": {
+        "production_ready": "production ready",
+        "connected_but_partial": "connected but partial",
+        "adapter_missing": "adapter missing",
+        "disabled": "disabled"
+      },
+      "freshness": {
+        "fresh": "fresh",
+        "stale": "stale",
+        "unknown": "unknown"
+      },
+      "completeness": {
+        "complete": "complete",
+        "partial": "partial",
+        "empty": "empty"
+      },
+      "warnings": {
+        "memberCountProxy": "Member count uses community network summary fields — not individual member records.",
+        "activityPartial": "Activity summary may be incomplete when discussion metrics are unavailable.",
+        "verificationPartial": "Verification queue uses community best-practice status metadata only."
+      },
+      "capabilities": {
+        "member_read": "Members",
+        "activity_read": "Activity",
+        "moderation_queue_read": "Moderation queue",
+        "report_read": "Reports",
+        "verification_status_read": "Verification status",
+        "listing_read": "Marketplace listings"
+      }
+    },,
     "proactive": {
       "sourceLabel": "Proactive monitoring catalog",
       "discoveryLead": "Aipify mapped {provider} in your proactive monitoring catalog — status: {status}.",

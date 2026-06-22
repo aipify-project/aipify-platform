@@ -2,6 +2,7 @@ import type {
   CommunityProviderImplementationStatus,
   CommunityProviderManifest,
 } from "@/lib/integration-intelligence/community/types";
+import type { CommunityExternalProviderAdapterOverlay } from "@/lib/integration-intelligence/community/provider-adapter-types";
 import {
   buildCommunityCapabilityId,
   isCommunityCapabilityBlocked,
@@ -65,6 +66,7 @@ export type CompanionCommunityContext = {
   listing_review_count: number | null;
   command_brief_signals: CommunityCommandBriefSignal[];
   command_brief_events_linked: boolean;
+  external_provider_adapters?: CommunityExternalProviderAdapterOverlay[];
   providers: CommunityProviderRuntimeStatus[];
   capabilities: CommunityCapabilityRuntimeRef[];
   permission_denied: boolean;
@@ -102,6 +104,7 @@ export function createEmptyCompanionCommunityContext(
     listing_review_count: null,
     command_brief_signals: [],
     command_brief_events_linked: false,
+    external_provider_adapters: [],
     providers: [],
     capabilities: [],
     permission_denied: false,

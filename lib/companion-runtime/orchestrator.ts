@@ -205,6 +205,7 @@ import {
   hasCommunityProviderIntent,
   matchCommunityProviderQuery,
 } from "./community-answer";
+import { resolveCommunityProviderAdapterGroundedAnswer } from "./community-provider-adapter-answer";
 import {
   buildBlockedProactiveOperationAnswer,
   buildExternalProactiveUnavailableAnswer,
@@ -1085,6 +1086,7 @@ function resolveCommunityProviderAnswer(
   query: string,
   t: Translator,
   tenantContext: CompanionTenantContext,
+  activeLocale: CustomerActiveLocale,
 ): PlatformSearchResult | null {
   if (hasBlockedCommunityOperationIntent(query)) {
     return {
@@ -1102,7 +1104,10 @@ function resolveCommunityProviderAnswer(
     };
   }
 
-  if (hasExternalCommunityAdapterIntent(query)) {
+  if (
+    hasExternalCommunityAdapterIntent(query, tenantContext.communityContext) &&
+    !tenantContext.communityContext.external_provider_adapters?.length
+  ) {
     return {
       answer: buildExternalCommunityUnavailableAnswer(t),
     };
@@ -1113,6 +1118,16 @@ function resolveCommunityProviderAnswer(
     return {
       answer: buildCommunityProviderUnavailableAnswer(t, tenantContext.communityContext),
     };
+  }
+
+  const grounded = resolveCommunityProviderAdapterGroundedAnswer(
+    match,
+    tenantContext.communityContext,
+    t,
+    activeLocale,
+  );
+  if (grounded) {
+    return { answer: grounded };
   }
 
   return {
@@ -1492,7 +1507,7 @@ export async function orchestrateCompanionSearch(
   const securityResult = resolveSecurityProviderAnswer(query, t, resolvedTenantContext);
   if (securityResult) return finalize(securityResult);
 
-  const communityResult = resolveCommunityProviderAnswer(query, t, resolvedTenantContext);
+  const communityResult = resolveCommunityProviderAnswer(query, t, resolvedTenantContext, activeLocale);
   if (communityResult) return finalize(communityResult);
 
   const proactiveResult = resolveProactiveProviderAnswer(query, t, resolvedTenantContext);

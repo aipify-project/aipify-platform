@@ -19,7 +19,7 @@ function normalizeCommunityQuery(query: string): string {
 
 export function hasCommunityProviderIntent(query: string): boolean {
   const normalized = normalizeCommunityQuery(query);
-  return /\b(community|membership|member|engagement|reward|points|leaderboard|referral|birthday|gift|moderation|moderate|listing|marketplace|activity|report)\b/i.test(
+  return /\b(community|membership|member|members|medlem|medlemmer|engagement|reward|points|leaderboard|referral|birthday|gift|moderation|moderate|moderering|listing|marketplace|markedsplass|activity|aktivitet|report|rapporter|verification|verifisering|verifiering|verifiseringer|siden sist|since last)\b/i.test(
     normalized,
   );
 }
@@ -31,11 +31,51 @@ export function hasBlockedCommunityOperationIntent(query: string): boolean {
   );
 }
 
-export function hasExternalCommunityAdapterIntent(query: string): boolean {
+export function hasExternalCommunityAdapterIntent(
+  query: string,
+  communityContext?: CompanionCommunityContext,
+): boolean {
   const normalized = normalizeCommunityQuery(query);
-  return /\b(external community adapter|live forum sync|third.?party membership platform|external engagement adapter)\b/i.test(
+  const explicit = /\b(external community adapter|live forum sync|third.?party membership platform|external engagement adapter)\b/i.test(
     normalized,
   );
+  if (explicit) return true;
+  if (!communityContext?.external_provider_adapters?.length) return false;
+  return /\b(provider adapter|community adapter|live community|external adapter)\b/i.test(normalized);
+}
+
+function resolveExternalAdapterProviderMatch(
+  normalized: string,
+  communityContext: CompanionCommunityContext,
+): CommunityProviderMatch | null {
+  const overlay =
+    communityContext.external_provider_adapters?.find(
+      (entry) => entry.activation.status === "active" || entry.activation.status === "activating",
+    ) ?? null;
+  if (!overlay) return null;
+
+  const provider_key = overlay.provider_key;
+
+  if (/\b(verification|verifisering|verifiering)\b/.test(normalized)) {
+    return { provider_key, capability_key: "verification_status.read", operation: "read" };
+  }
+  if (/\b(moderation|moderate|moderering)\b/.test(normalized)) {
+    return { provider_key, capability_key: "moderation_queue.read", operation: "read" };
+  }
+  if (/\b(report|reports|rapporter)\b/.test(normalized)) {
+    return { provider_key, capability_key: "report.read", operation: "read" };
+  }
+  if (/\b(listing|marketplace|markedsplass|annonse)\b/.test(normalized)) {
+    return { provider_key, capability_key: "listing.read", operation: "read" };
+  }
+  if (/\b(member|members|medlem|medlemmer|new members|nye medlemmer)\b/.test(normalized)) {
+    return { provider_key, capability_key: "member.read", operation: "read" };
+  }
+  if (/\b(activity|aktivitet|siden sist|since last|happened)\b/.test(normalized)) {
+    return { provider_key, capability_key: "activity.read", operation: "read" };
+  }
+
+  return { provider_key, capability_key: null, operation: "read" };
 }
 
 export function matchCommunityProviderQuery(
@@ -46,6 +86,14 @@ export function matchCommunityProviderQuery(
 
   const normalized = normalizeCommunityQuery(query);
   const manifests = listCommunityProviderManifests();
+
+  const adapterMatch = resolveExternalAdapterProviderMatch(
+    normalized,
+    tenantContext.communityContext,
+  );
+  if (adapterMatch) {
+    return adapterMatch;
+  }
 
   const mentionedProviders = manifests.filter((manifest) => {
     const provider = manifest.provider_key.toLowerCase();

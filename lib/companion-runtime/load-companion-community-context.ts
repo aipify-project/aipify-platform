@@ -1,6 +1,7 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { applyExternalCommunityProviderAdapters } from "@/lib/integration-intelligence/community/apply-external-provider-adapters";
 import { listCommunityProviderManifests } from "@/lib/integration-intelligence/community/registry";
 import type { CommunityProviderImplementationStatus } from "@/lib/integration-intelligence/community/types";
 import { isCommunityBusinessPackActive } from "@/lib/integration-intelligence/community/types";
@@ -215,6 +216,7 @@ export async function loadCompanionCommunityContext(
     subscriptionStatus: string | null;
     connectedProviders: string[];
     activeBusinessPacks: string[];
+    organizationId?: string | null;
   },
 ): Promise<CompanionCommunityContext> {
   const businessPackActive = isCommunityBusinessPackActive(input.activeBusinessPacks);
@@ -313,7 +315,7 @@ export async function loadCompanionCommunityContext(
     }
   }
 
-  return createEmptyCompanionCommunityContext({
+  const baseContext = createEmptyCompanionCommunityContext({
     community_network_center_enabled: communityNetworkEnabled,
     moderation_engine_enabled: engineFlags.moderationEngine,
     client_relationship_loyalty_enabled: clientRelationshipEnabled,
@@ -342,5 +344,13 @@ export async function loadCompanionCommunityContext(
     capabilities,
     permission_denied: false,
     app_entitlement_blocked: appEntitlementBlocked,
+  });
+
+  return applyExternalCommunityProviderAdapters(baseContext, {
+    organizationId: input.organizationId ?? null,
+    subscriptionStatus: input.subscriptionStatus,
+    connectedProviders: input.connectedProviders,
+    activeBusinessPacks: input.activeBusinessPacks,
+    effectivePermissions: input.effectivePermissions,
   });
 }
