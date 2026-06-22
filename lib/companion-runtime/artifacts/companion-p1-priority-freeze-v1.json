@@ -1,0 +1,232 @@
+{
+  "version": "companion-p1-priority-freeze-v1",
+  "frozen_at": "2026-06-22",
+  "max_packages": 10,
+  "packages": [
+    {
+      "priority_order": 1,
+      "package_id": "p1.01_live_app_e2e_certification",
+      "module_id": "certification.companion_runtime_v1",
+      "exact_gap": "No authenticated live APP E2E gate for production_ready_candidate promotion.",
+      "current_readiness": "connected_but_partial",
+      "verified_source": "phase tests + v1-runtime-certification.ts",
+      "required_work": "Ship repeatable authenticated APP session E2E harness covering directory, support, and hosts read paths.",
+      "read_write_scope": "read_certification",
+      "dependencies": [
+        "core.companion_orchestrator",
+        "panel.app"
+      ],
+      "security_considerations": [
+        "Tenant isolation and permission denial must be exercised in live E2E."
+      ],
+      "acceptance_criteria": [
+        "Authenticated APP session runs against staging or pilot tenant.",
+        "Directory, support, and hosts read orchestrators return tenant-scoped outcomes.",
+        "No production_ready without passing live E2E batch."
+      ],
+      "why_p1": "Blocks honest production_ready_candidate for Phase 38–42 modules and pilot/demo credibility.",
+      "estimated_complexity": "medium"
+    },
+    {
+      "priority_order": 2,
+      "package_id": "p1.02_directory_app_employee_e2e",
+      "module_id": "directory.app_employee",
+      "exact_gap": "APP employee directory connected_but_partial — missing live E2E certification.",
+      "current_readiness": "connected_but_partial",
+      "verified_source": "get_employee_directory",
+      "required_work": "Complete authenticated E2E and team/department enrichment from organization management RPC.",
+      "read_write_scope": "read_only",
+      "dependencies": [
+        "p1.01_live_app_e2e_certification"
+      ],
+      "security_considerations": [
+        "Mask contact fields without directory.search.contact permission."
+      ],
+      "acceptance_criteria": [
+        "Employee search by name, email, role returns exact tenant-scoped matches.",
+        "Cross-tenant and suspended APP cases fail closed.",
+        "Readiness may advance to production_ready_candidate after E2E pass."
+      ],
+      "why_p1": "Central organization directory — live source already wired in Phase 40.",
+      "estimated_complexity": "small"
+    },
+    {
+      "priority_order": 3,
+      "package_id": "p1.03_directory_crm_customer_close_partial",
+      "module_id": "directory.crm_customer",
+      "exact_gap": "CRM customer directory partial — pipeline/opportunity enrichment incomplete.",
+      "current_readiness": "connected_but_partial",
+      "verified_source": "get_customer_relationship_center + get_lead_management_center",
+      "required_work": "Document and wire remaining CRM fields; authenticated E2E for customer, lead, contact search.",
+      "read_write_scope": "read_only",
+      "dependencies": [
+        "p1.01_live_app_e2e_certification"
+      ],
+      "security_considerations": [
+        "Partner attribution is metadata — never customer ownership."
+      ],
+      "acceptance_criteria": [
+        "Customer, lead, contact, and organization searches pass Phase 41 regression under live session.",
+        "No CRM write-actions enabled in Companion."
+      ],
+      "why_p1": "High commercial value — sales/CRM directory is pilot-critical.",
+      "estimated_complexity": "medium"
+    },
+    {
+      "priority_order": 4,
+      "package_id": "p1.04_directory_supplier_vendor_close_partial",
+      "module_id": "directory.supplier",
+      "exact_gap": "Supplier directory partial — procurement vendor fields and E2E incomplete.",
+      "current_readiness": "connected_but_partial",
+      "verified_source": "get_procurement_operations_center",
+      "required_work": "Enrich assigned buyer and performance fields when RPC exposes them; live E2E certification.",
+      "read_write_scope": "read_only",
+      "dependencies": [
+        "p1.01_live_app_e2e_certification"
+      ],
+      "security_considerations": [
+        "Never expose bank or contract body in directory search."
+      ],
+      "acceptance_criteria": [
+        "Supplier search by company, org number, category works under live APP session.",
+        "Marketplace candidates excluded from active supplier results."
+      ],
+      "why_p1": "Procurement source is exact live — close partial gaps before new modules.",
+      "estimated_complexity": "small"
+    },
+    {
+      "priority_order": 5,
+      "package_id": "p1.05_support_sla_exact_source",
+      "module_id": "support.queue_read",
+      "exact_gap": "Support queue uses ASO aggregates — SLA and assignment fields are partial/proxy.",
+      "current_readiness": "connected_but_partial",
+      "verified_source": "get_customer_support_operations_center",
+      "required_work": "Connect dedicated SLA and assignment fields when ASO RPC exposes exact values.",
+      "read_write_scope": "read_only",
+      "dependencies": [],
+      "security_considerations": [
+        "No private message content in queue metadata."
+      ],
+      "acceptance_criteria": [
+        "SLA breach signals use source_exact fields only.",
+        "Partial proxy counts excluded from Command Brief exact signals."
+      ],
+      "why_p1": "Support queue is pilot-facing — partial SLA misrepresents operational truth.",
+      "estimated_complexity": "medium"
+    },
+    {
+      "priority_order": 6,
+      "package_id": "p1.06_support_case_write_adapter",
+      "module_id": "support.case_write",
+      "exact_gap": "assign/escalate RPCs exist — Companion write adapter not connected.",
+      "current_readiness": "adapter_missing",
+      "verified_source": "assign_support_case / escalate_support_case",
+      "required_work": "Enable reversible assign/escalate adapter with user confirmation and audit.",
+      "read_write_scope": "write_approval_required",
+      "dependencies": [
+        "support.case_read"
+      ],
+      "security_considerations": [
+        "All writes require explicit approval — no auto-assign."
+      ],
+      "acceptance_criteria": [
+        "Draft proposal flow returns approval_required outcome.",
+        "Executed writes audit without raw case content."
+      ],
+      "why_p1": "Write RPCs exist — adapter gap blocks safe support actions.",
+      "estimated_complexity": "medium"
+    },
+    {
+      "priority_order": 7,
+      "package_id": "p1.07_hosts_task_write_adapter",
+      "module_id": "hosts.task_write",
+      "exact_gap": "Hosts task/status write adapter missing.",
+      "current_readiness": "adapter_missing",
+      "verified_source": "hosts write orchestrator scaffold",
+      "required_work": "Connect reversible Hosts task write adapter with confirmation.",
+      "read_write_scope": "write_approval_required",
+      "dependencies": [
+        "hosts.operations_read"
+      ],
+      "security_considerations": [
+        "No guest PII in task write payloads."
+      ],
+      "acceptance_criteria": [
+        "Task write proposals require approval.",
+        "No production_ready until reversible write path is proven."
+      ],
+      "why_p1": "Hosts operations read is live — write is the next safe execution step.",
+      "estimated_complexity": "medium"
+    },
+    {
+      "priority_order": 8,
+      "package_id": "p1.08_member_verification_exact_source",
+      "module_id": "verification.trust_center",
+      "exact_gap": "Verification queue exact read source not fully connected.",
+      "current_readiness": "connected_but_partial",
+      "verified_source": "get_customer_trust_center / security dashboard RPCs",
+      "required_work": "Connect read-only verification queue with metadata-only audit fields.",
+      "read_write_scope": "read_only",
+      "dependencies": [],
+      "security_considerations": [
+        "No document images, ID numbers, or sensitive profile fields."
+      ],
+      "acceptance_criteria": [
+        "verification_status.read uses source_exact or source_compatible only.",
+        "Command Brief signals exclude partial proxy verification counts."
+      ],
+      "why_p1": "Trust verification is security-sensitive — partial sources risk false confidence.",
+      "estimated_complexity": "medium"
+    },
+    {
+      "priority_order": 9,
+      "package_id": "p1.09_unonight_member_directory_source",
+      "module_id": "directory.unonight_member",
+      "exact_gap": "Unonight member directory has contract only — no live searchable member source.",
+      "current_readiness": "source_missing",
+      "verified_source": "unonight_community_adapter (member.read partial)",
+      "required_work": "Approve and connect tenant-scoped member search source with masking and audit.",
+      "read_write_scope": "read_only",
+      "dependencies": [],
+      "security_considerations": [
+        "Community member PII masked by default."
+      ],
+      "acceptance_criteria": [
+        "Member search returns tenant-scoped masked records.",
+        "No member list without explicit entitlement."
+      ],
+      "why_p1": "Unonight pilot needs honest member directory — currently source_missing.",
+      "estimated_complexity": "large"
+    },
+    {
+      "priority_order": 10,
+      "package_id": "p1.10_service_booking_write_rpc",
+      "module_id": "service.booking_write",
+      "exact_gap": "Booking write RPC not connected — proposals only.",
+      "current_readiness": "source_missing",
+      "verified_source": "none — write orchestrator scaffold only",
+      "required_work": "Ship reversible booking create/update/cancel RPC with availability recheck.",
+      "read_write_scope": "write_approval_required",
+      "dependencies": [
+        "service.booking_read"
+      ],
+      "security_considerations": [
+        "Double-booking prevention and idempotency required."
+      ],
+      "acceptance_criteria": [
+        "booking.create returns proposal until user confirms.",
+        "Availability recheck runs before commit."
+      ],
+      "why_p1": "Services read is partial — write blocks appointment completion loop.",
+      "estimated_complexity": "large"
+    }
+  ],
+  "principles": [
+    "Close existing partial connections before speculative modules.",
+    "Connect live sources before manifest-only expansions.",
+    "Read before write.",
+    "Safe draft before execution.",
+    "Generic Core before provider-specific extension.",
+    "One module at a time."
+  ]
+}

@@ -1,23 +1,23 @@
 # Companion Foundation Coverage Audit — Phase 34
 
-Generated: 2026-06-22T19:58:03.568Z
+Generated: 2026-06-22T22:09:11.118Z
 
 ## Summary
 
 | Metric | Count |
 |--------|------:|
-| Total modules | 153 |
-| Total II capabilities | 381 |
+| Total modules | 178 |
+| Total II capabilities | 449 |
 | Business packs (marketing) | 7 |
-| Providers | 139 |
+| Providers | 142 |
 | Skills | 58 |
 | Panels | 4 |
 
 ## Readiness distribution
 
 - **production_ready_candidate**: 1
-- **connected**: 7
-- **connected_but_partial**: 16
+- **connected**: 8
+- **connected_but_partial**: 40
 - **adapter_missing**: 92
 - **source_missing**: 2
 - **manifest_only**: 8
@@ -49,9 +49,17 @@ Generated: 2026-06-22T19:58:03.568Z
 ## Gap priority counts
 
 - **P0**: 0
-- **P1**: 93
-- **P2**: 6
+- **P1**: 91
+- **P2**: 15
 - **P3**: 27
+
+## Phase 43 reconciliation
+
+- Reconciliation version: `companion-coverage-reconciliation-v1`
+- P1 freeze packages: 10
+- Deprecated/merge entries: 5
+- Duplicate capability IDs tracked: 127
+- False production_ready violations: 0
 
 ## Top gaps (first 50)
 

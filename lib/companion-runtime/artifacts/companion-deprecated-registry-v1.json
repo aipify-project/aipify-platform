@@ -1,0 +1,1040 @@
+{
+  "version": "companion-deprecated-registry-v1",
+  "entries": [
+    {
+      "entry_id": "provider.supplier_directory",
+      "kind": "merge_candidate",
+      "canonical_replacement": "directory.supplier / supplier_vendor_directory",
+      "reason": "Legacy commercial matrix provider superseded by Phase 42 supplier_vendor_directory explicit modules."
+    },
+    {
+      "entry_id": "provider.crm_customer_directory",
+      "kind": "merge_candidate",
+      "canonical_replacement": "directory.crm_customer / crm_customer_directory",
+      "reason": "Legacy commercial matrix provider superseded by Phase 41 explicit CRM directory modules."
+    },
+    {
+      "entry_id": "supplier_directory",
+      "kind": "deprecated",
+      "canonical_replacement": "supplier_vendor_directory",
+      "reason": "Legacy provider key in commercial matrix — use supplier_vendor_directory."
+    },
+    {
+      "entry_id": "readiness.placeholder",
+      "kind": "deprecated",
+      "canonical_replacement": "specification_only",
+      "reason": "Placeholder readiness removed from canonical registry terminology — Phase 43."
+    },
+    {
+      "entry_id": "hr_employee_directory",
+      "kind": "needs_migration",
+      "canonical_replacement": "app_employee_directory",
+      "reason": "APP organization members use app_employee_directory; HR pack adapter is separate scope."
+    }
+  ],
+  "duplicate_capabilities": [
+    {
+      "capability_id": "absence.read",
+      "module_ids": [
+        "core.vacation_mode",
+        "service.absence_vacation"
+      ]
+    },
+    {
+      "capability_id": "absence.read.read",
+      "module_ids": [
+        "provider.absence_vacation_coverage",
+        "provider.appointment_booking",
+        "provider.workforce_absence_hr"
+      ]
+    },
+    {
+      "capability_id": "activity.read.read",
+      "module_ids": [
+        "provider.community_collective_intelligence",
+        "provider.community_network_center",
+        "provider.unonight_community_adapter"
+      ]
+    },
+    {
+      "capability_id": "anomaly.read.read",
+      "module_ids": [
+        "provider.executive_insights_center",
+        "provider.proactive_insights_engine"
+      ]
+    },
+    {
+      "capability_id": "appointment.read",
+      "module_ids": [
+        "service.appointment_booking",
+        "service.local_service_beauty"
+      ]
+    },
+    {
+      "capability_id": "appointment.read.read",
+      "module_ids": [
+        "provider.appointment_booking",
+        "provider.companion_real_world_coordination",
+        "provider.industry_pack_adapter",
+        "provider.local_service_beauty"
+      ]
+    },
+    {
+      "capability_id": "assignment.read.read",
+      "module_ids": [
+        "provider.execution_operations",
+        "provider.workforce_scheduling"
+      ]
+    },
+    {
+      "capability_id": "attention_item.read.read",
+      "module_ids": [
+        "provider.command_brief_operational",
+        "provider.proactive_insights_engine",
+        "provider.proactive_organization_center"
+      ]
+    },
+    {
+      "capability_id": "attribution.read.read",
+      "module_ids": [
+        "provider.growth_partner_attribution",
+        "provider.revenue_intelligence"
+      ]
+    },
+    {
+      "capability_id": "audit_log.read.read",
+      "module_ids": [
+        "provider.audit_accountability",
+        "provider.security_pack_adapter"
+      ]
+    },
+    {
+      "capability_id": "availability.read",
+      "module_ids": [
+        "service.appointment_booking",
+        "service.local_service_beauty",
+        "service.workforce_scheduling"
+      ]
+    },
+    {
+      "capability_id": "availability.read.read",
+      "module_ids": [
+        "provider.absence_vacation_coverage",
+        "provider.appointment_booking",
+        "provider.local_service_beauty",
+        "provider.service_scheduling_staff",
+        "provider.short_term_calendar",
+        "provider.short_term_reservation",
+        "provider.workforce_scheduling"
+      ]
+    },
+    {
+      "capability_id": "billing_profile.read.read",
+      "module_ids": [
+        "provider.finance_operations_center",
+        "provider.unified_billing"
+      ]
+    },
+    {
+      "capability_id": "booking.read",
+      "module_ids": [
+        "service.appointment_booking",
+        "service.booking_write"
+      ]
+    },
+    {
+      "capability_id": "calendar.event.create.write",
+      "module_ids": [
+        "provider.context_engine_calendar",
+        "provider.organization_calendar"
+      ]
+    },
+    {
+      "capability_id": "calendar.read.read",
+      "module_ids": [
+        "provider.context_engine_calendar",
+        "provider.organization_calendar"
+      ]
+    },
+    {
+      "capability_id": "category.read.read",
+      "module_ids": [
+        "provider.commerce_intelligence",
+        "provider.commerce_retail_operations",
+        "provider.product_automation",
+        "provider.shopify",
+        "provider.woocommerce",
+        "provider.wordpress"
+      ]
+    },
+    {
+      "capability_id": "comparison.read.read",
+      "module_ids": [
+        "provider.analytics_center",
+        "provider.cross_module_insight_bus"
+      ]
+    },
+    {
+      "capability_id": "content.generate.write",
+      "module_ids": [
+        "provider.product_automation",
+        "provider.wordpress"
+      ]
+    },
+    {
+      "capability_id": "conversation.read.read",
+      "module_ids": [
+        "provider.app_portal_support",
+        "provider.self_support_engine",
+        "provider.support_adapter",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "conversion.read.read",
+      "module_ids": [
+        "provider.lead_management",
+        "provider.revenue_intelligence",
+        "provider.sales_revenue_pipeline"
+      ]
+    },
+    {
+      "capability_id": "customer_context.read.read",
+      "module_ids": [
+        "provider.support_adapter",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "customer.read",
+      "module_ids": [
+        "directory.crm_customer",
+        "service.appointment_booking"
+      ]
+    },
+    {
+      "capability_id": "customer.read.read",
+      "module_ids": [
+        "provider.appointment_booking",
+        "provider.commerce_retail_operations",
+        "provider.companion_real_world_coordination",
+        "provider.customer_relationship",
+        "provider.execution_operations",
+        "provider.industry_pack_adapter",
+        "provider.local_service_beauty",
+        "provider.sales_pack_adapter",
+        "provider.shopify",
+        "provider.woocommerce"
+      ]
+    },
+    {
+      "capability_id": "customer.search.search",
+      "module_ids": [
+        "provider.booking_customer_directory",
+        "provider.commerce_customer_directory"
+      ]
+    },
+    {
+      "capability_id": "dashboard.read.read",
+      "module_ids": [
+        "provider.analytics_center",
+        "provider.command_brief_analytics",
+        "provider.companion_analytics_context"
+      ]
+    },
+    {
+      "capability_id": "department.read.read",
+      "module_ids": [
+        "provider.app_employee_directory",
+        "provider.workforce_employee_directory"
+      ]
+    },
+    {
+      "capability_id": "design.read.read",
+      "module_ids": [
+        "provider.adobe_firefly",
+        "provider.blender",
+        "provider.canva",
+        "provider.figma",
+        "provider.illustrator",
+        "provider.indesign",
+        "provider.lightroom",
+        "provider.photoshop",
+        "provider.premiere"
+      ]
+    },
+    {
+      "capability_id": "device.read.read",
+      "module_ids": [
+        "provider.companion_device_ecosystem",
+        "provider.companion_presence_devices"
+      ]
+    },
+    {
+      "capability_id": "directory.search",
+      "module_ids": [
+        "directory.app_employee",
+        "directory.core_search"
+      ]
+    },
+    {
+      "capability_id": "directory.search.read",
+      "module_ids": [
+        "provider.app_employee_directory",
+        "provider.organization_directory_core",
+        "provider.supplier_vendor_directory"
+      ]
+    },
+    {
+      "capability_id": "document.read.read",
+      "module_ids": [
+        "provider.organization_documents",
+        "provider.print_output"
+      ]
+    },
+    {
+      "capability_id": "employee.read",
+      "module_ids": [
+        "directory.app_employee",
+        "service.workforce_scheduling"
+      ]
+    },
+    {
+      "capability_id": "employee.read.read",
+      "module_ids": [
+        "provider.absence_vacation_coverage",
+        "provider.app_employee_directory",
+        "provider.appointment_booking",
+        "provider.hr_pack_adapter",
+        "provider.workforce_employee_directory",
+        "provider.workforce_lifecycle",
+        "provider.workforce_scheduling"
+      ]
+    },
+    {
+      "capability_id": "employee.search",
+      "module_ids": [
+        "directory.app_employee",
+        "directory.hr_employee"
+      ]
+    },
+    {
+      "capability_id": "employee.search.search",
+      "module_ids": [
+        "provider.app_employee_directory",
+        "provider.hr_employee_directory"
+      ]
+    },
+    {
+      "capability_id": "engagement.read.read",
+      "module_ids": [
+        "provider.community_collective_intelligence",
+        "provider.community_network_center"
+      ]
+    },
+    {
+      "capability_id": "escalation.create.write",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.self_support_engine",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "executive_insight.read.read",
+      "module_ids": [
+        "provider.companion_executive_layer",
+        "provider.executive_insights_center"
+      ]
+    },
+    {
+      "capability_id": "expense.read.read",
+      "module_ids": [
+        "provider.finance_operations_center",
+        "provider.short_term_finance"
+      ]
+    },
+    {
+      "capability_id": "file.search.read",
+      "module_ids": [
+        "provider.organization_documents",
+        "provider.universal_search"
+      ]
+    },
+    {
+      "capability_id": "follow_up.create.write",
+      "module_ids": [
+        "provider.client_engagement_follow_up",
+        "provider.customer_relationship",
+        "provider.lead_management",
+        "provider.sales_revenue_pipeline"
+      ]
+    },
+    {
+      "capability_id": "follow_up.read.read",
+      "module_ids": [
+        "provider.customer_relationship",
+        "provider.domain_signal_bus",
+        "provider.proactive_organization_center"
+      ]
+    },
+    {
+      "capability_id": "forecast.read.read",
+      "module_ids": [
+        "provider.companion_executive_layer",
+        "provider.finance_operations_center",
+        "provider.revenue_operations",
+        "provider.short_term_finance"
+      ]
+    },
+    {
+      "capability_id": "health_score.read.read",
+      "module_ids": [
+        "provider.companion_recommendation_engine",
+        "provider.domain_signal_bus"
+      ]
+    },
+    {
+      "capability_id": "image.edit.write",
+      "module_ids": [
+        "provider.adobe_firefly",
+        "provider.illustrator",
+        "provider.lightroom",
+        "provider.openai_images",
+        "provider.photoshop",
+        "provider.studio_image_generation"
+      ]
+    },
+    {
+      "capability_id": "image.generate.write",
+      "module_ids": [
+        "provider.adobe_firefly",
+        "provider.google_imagen",
+        "provider.openai_images",
+        "provider.studio_image_generation"
+      ]
+    },
+    {
+      "capability_id": "inventory.read.read",
+      "module_ids": [
+        "provider.commerce_retail_operations",
+        "provider.inventory_stock_center",
+        "provider.service_retail_inventory",
+        "provider.shopify",
+        "provider.warehouse_control",
+        "provider.woocommerce"
+      ]
+    },
+    {
+      "capability_id": "invoice.read.read",
+      "module_ids": [
+        "provider.enterprise_invoicing",
+        "provider.finance_operations_center",
+        "provider.unified_billing"
+      ]
+    },
+    {
+      "capability_id": "item.read.read",
+      "module_ids": [
+        "provider.inventory_stock_center",
+        "provider.warehouse_control"
+      ]
+    },
+    {
+      "capability_id": "kpi.read.read",
+      "module_ids": [
+        "provider.analytics_center",
+        "provider.command_brief_analytics",
+        "provider.companion_analytics_context",
+        "provider.companion_executive_layer",
+        "provider.executive_insights_center"
+      ]
+    },
+    {
+      "capability_id": "listing.read.read",
+      "module_ids": [
+        "provider.community_network_center",
+        "provider.community_pack_adapter",
+        "provider.unonight_community_adapter"
+      ]
+    },
+    {
+      "capability_id": "location.read.read",
+      "module_ids": [
+        "provider.appointment_booking",
+        "provider.companion_real_world_coordination",
+        "provider.execution_operations",
+        "provider.inventory_stock_center",
+        "provider.service_network",
+        "provider.warehouse_control"
+      ]
+    },
+    {
+      "capability_id": "margin.read.read",
+      "module_ids": [
+        "provider.commerce_intelligence",
+        "provider.commerce_retail_operations"
+      ]
+    },
+    {
+      "capability_id": "media.export.write",
+      "module_ids": [
+        "provider.illustrator",
+        "provider.indesign",
+        "provider.lightroom",
+        "provider.photoshop",
+        "provider.premiere",
+        "provider.studio_image_generation"
+      ]
+    },
+    {
+      "capability_id": "member.read.read",
+      "module_ids": [
+        "provider.community_network_center",
+        "provider.community_pack_adapter",
+        "provider.unonight_community_adapter"
+      ]
+    },
+    {
+      "capability_id": "membership.read.read",
+      "module_ids": [
+        "provider.client_relationship_loyalty",
+        "provider.community_network_center"
+      ]
+    },
+    {
+      "capability_id": "metric.read.read",
+      "module_ids": [
+        "provider.analytics_center",
+        "provider.analytics_pack_adapter",
+        "provider.command_brief_analytics",
+        "provider.companion_analytics_context"
+      ]
+    },
+    {
+      "capability_id": "moderation_queue.read.read",
+      "module_ids": [
+        "provider.moderation_engine",
+        "provider.unonight_community_adapter"
+      ]
+    },
+    {
+      "capability_id": "occupancy.read.read",
+      "module_ids": [
+        "provider.short_term_property",
+        "provider.short_term_reservation"
+      ]
+    },
+    {
+      "capability_id": "onboarding.read.read",
+      "module_ids": [
+        "provider.hr_pack_adapter",
+        "provider.workforce_lifecycle"
+      ]
+    },
+    {
+      "capability_id": "opportunity.read.read",
+      "module_ids": [
+        "provider.companion_recommendation_engine",
+        "provider.customer_relationship",
+        "provider.domain_signal_bus",
+        "provider.sales_revenue_pipeline"
+      ]
+    },
+    {
+      "capability_id": "order.read.read",
+      "module_ids": [
+        "provider.commerce_retail_operations",
+        "provider.shopify",
+        "provider.woocommerce"
+      ]
+    },
+    {
+      "capability_id": "organization.read",
+      "module_ids": [
+        "directory.core_search",
+        "directory.crm_organization"
+      ]
+    },
+    {
+      "capability_id": "organization.read.read",
+      "module_ids": [
+        "provider.organization_directory_core",
+        "provider.supplier_vendor_directory"
+      ]
+    },
+    {
+      "capability_id": "payment.read.read",
+      "module_ids": [
+        "provider.finance_operations_center",
+        "provider.payment_providers",
+        "provider.unified_billing"
+      ]
+    },
+    {
+      "capability_id": "payout.read.read",
+      "module_ids": [
+        "provider.finance_operations_center",
+        "provider.short_term_finance"
+      ]
+    },
+    {
+      "capability_id": "performance.read.read",
+      "module_ids": [
+        "provider.analytics_center",
+        "provider.companion_executive_layer",
+        "provider.executive_insights_center",
+        "provider.workforce_people_operations"
+      ]
+    },
+    {
+      "capability_id": "person.read",
+      "module_ids": [
+        "directory.app_employee",
+        "directory.core_search"
+      ]
+    },
+    {
+      "capability_id": "person.read.read",
+      "module_ids": [
+        "provider.app_employee_directory",
+        "provider.organization_directory_core",
+        "provider.supplier_vendor_directory"
+      ]
+    },
+    {
+      "capability_id": "pipeline.read.read",
+      "module_ids": [
+        "provider.sales_pack_adapter",
+        "provider.sales_revenue_pipeline"
+      ]
+    },
+    {
+      "capability_id": "post_vacation_availability.read.read",
+      "module_ids": [
+        "provider.absence_vacation_coverage",
+        "provider.appointment_booking"
+      ]
+    },
+    {
+      "capability_id": "presentation.create.write",
+      "module_ids": [
+        "provider.canva",
+        "provider.indesign"
+      ]
+    },
+    {
+      "capability_id": "product.import.write",
+      "module_ids": [
+        "provider.commerce_retail_operations",
+        "provider.product_automation"
+      ]
+    },
+    {
+      "capability_id": "product.read.read",
+      "module_ids": [
+        "provider.commerce_intelligence",
+        "provider.commerce_retail_operations",
+        "provider.product_automation",
+        "provider.service_retail_inventory",
+        "provider.shopify",
+        "provider.woocommerce"
+      ]
+    },
+    {
+      "capability_id": "property.read",
+      "module_ids": [
+        "hosts.command_brief_signals",
+        "hosts.property_read"
+      ]
+    },
+    {
+      "capability_id": "property.read.read",
+      "module_ids": [
+        "provider.hosts_pack_adapter",
+        "provider.short_term_access",
+        "provider.short_term_property"
+      ]
+    },
+    {
+      "capability_id": "reconciliation.read.read",
+      "module_ids": [
+        "provider.enterprise_invoicing",
+        "provider.finance_operations_center",
+        "provider.finance_pack_adapter"
+      ]
+    },
+    {
+      "capability_id": "relationship.read",
+      "module_ids": [
+        "directory.app_employee",
+        "directory.core_search"
+      ]
+    },
+    {
+      "capability_id": "relationship.read.read",
+      "module_ids": [
+        "provider.app_employee_directory",
+        "provider.organization_directory_core",
+        "provider.supplier_vendor_directory"
+      ]
+    },
+    {
+      "capability_id": "report.export.write",
+      "module_ids": [
+        "provider.finance_operations_center",
+        "provider.short_term_reports"
+      ]
+    },
+    {
+      "capability_id": "report.read.read",
+      "module_ids": [
+        "provider.analytics_center",
+        "provider.community_collective_intelligence",
+        "provider.finance_operations_center",
+        "provider.finance_pack_adapter",
+        "provider.moderation_engine",
+        "provider.revenue_operations",
+        "provider.unonight_community_adapter"
+      ]
+    },
+    {
+      "capability_id": "reservation.read.read",
+      "module_ids": [
+        "provider.hosts_pack_adapter",
+        "provider.short_term_reservation"
+      ]
+    },
+    {
+      "capability_id": "resource.read",
+      "module_ids": [
+        "service.absence_vacation",
+        "service.appointment_booking",
+        "service.workforce_scheduling"
+      ]
+    },
+    {
+      "capability_id": "resource.read.read",
+      "module_ids": [
+        "provider.absence_vacation_coverage",
+        "provider.appointment_booking",
+        "provider.service_network",
+        "provider.workforce_scheduling"
+      ]
+    },
+    {
+      "capability_id": "response.draft.write",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.business_dna_knowledge",
+        "provider.customer_relationship",
+        "provider.sales_revenue_pipeline",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "revenue.read.read",
+      "module_ids": [
+        "provider.finance_operations_center",
+        "provider.revenue_operations",
+        "provider.short_term_finance"
+      ]
+    },
+    {
+      "capability_id": "risk_signal.read.read",
+      "module_ids": [
+        "provider.domain_signal_bus",
+        "provider.governance_management",
+        "provider.proactive_insights_engine"
+      ]
+    },
+    {
+      "capability_id": "role.read.read",
+      "module_ids": [
+        "provider.app_employee_directory",
+        "provider.identity_access_management",
+        "provider.workforce_employee_directory"
+      ]
+    },
+    {
+      "capability_id": "sales_forecast.read.read",
+      "module_ids": [
+        "provider.revenue_intelligence",
+        "provider.sales_revenue_pipeline"
+      ]
+    },
+    {
+      "capability_id": "sales_task.create.write",
+      "module_ids": [
+        "provider.customer_relationship",
+        "provider.sales_revenue_pipeline"
+      ]
+    },
+    {
+      "capability_id": "schedule.read.read",
+      "module_ids": [
+        "provider.appointment_booking",
+        "provider.workforce_scheduling",
+        "provider.workforce_scheduling_hr"
+      ]
+    },
+    {
+      "capability_id": "security_event.read.read",
+      "module_ids": [
+        "provider.security_compliance_center",
+        "provider.trust_center_verification"
+      ]
+    },
+    {
+      "capability_id": "service.availability.read",
+      "module_ids": [
+        "service.absence_vacation",
+        "service.appointment_booking",
+        "service.workforce_scheduling"
+      ]
+    },
+    {
+      "capability_id": "service.availability.read.read",
+      "module_ids": [
+        "provider.absence_vacation_coverage",
+        "provider.appointment_booking",
+        "provider.workforce_scheduling"
+      ]
+    },
+    {
+      "capability_id": "service.read",
+      "module_ids": [
+        "service.appointment_booking",
+        "service.local_service_beauty"
+      ]
+    },
+    {
+      "capability_id": "service.read.read",
+      "module_ids": [
+        "provider.appointment_booking",
+        "provider.companion_real_world_coordination",
+        "provider.local_service_beauty",
+        "provider.service_intake",
+        "provider.service_network"
+      ]
+    },
+    {
+      "capability_id": "signal.read",
+      "module_ids": [
+        "command_brief.domain_signal_bus",
+        "core.command_brief_signals"
+      ]
+    },
+    {
+      "capability_id": "signal.read.read",
+      "module_ids": [
+        "provider.command_brief_operational",
+        "provider.domain_signal_bus",
+        "provider.proactive_insights_engine",
+        "provider.proactive_organization_center",
+        "provider.proactive_pack_adapter"
+      ]
+    },
+    {
+      "capability_id": "stock.read.read",
+      "module_ids": [
+        "provider.inventory_stock_center",
+        "provider.warehouse_control"
+      ]
+    },
+    {
+      "capability_id": "store.read.read",
+      "module_ids": [
+        "provider.commerce_retail_operations",
+        "provider.multi_store_orchestration"
+      ]
+    },
+    {
+      "capability_id": "subscription.read.read",
+      "module_ids": [
+        "provider.finance_operations_center",
+        "provider.unified_billing"
+      ]
+    },
+    {
+      "capability_id": "supplier.read.read",
+      "module_ids": [
+        "provider.inventory_stock_center",
+        "provider.supplier_vendor_directory"
+      ]
+    },
+    {
+      "capability_id": "support_assignment.read.read",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "support_case_status.read.read",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "support_case.assign.write",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "support_case.escalate.write",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "support_case.read.read",
+      "module_ids": [
+        "provider.app_portal_support",
+        "provider.autonomous_support_operations",
+        "provider.support_adapter",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "support_case.search.read",
+      "module_ids": [
+        "provider.app_portal_support",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "support_escalation.read.read",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "support_insight.read.read",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.business_dna_knowledge",
+        "provider.proactive_organization_support",
+        "provider.self_support_engine",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "support_metrics.read.read",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "support_queue.read",
+      "module_ids": [
+        "support.command_brief_signals",
+        "support.queue_read"
+      ]
+    },
+    {
+      "capability_id": "support_queue.read.read",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "support_response.draft.write",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "support_sla.read.read",
+      "module_ids": [
+        "provider.autonomous_support_operations",
+        "provider.support_ai_engine"
+      ]
+    },
+    {
+      "capability_id": "team.read.read",
+      "module_ids": [
+        "provider.app_employee_directory",
+        "provider.workforce_team"
+      ]
+    },
+    {
+      "capability_id": "training.read.read",
+      "module_ids": [
+        "provider.workforce_knowledge",
+        "provider.workforce_people_operations"
+      ]
+    },
+    {
+      "capability_id": "trend.read.read",
+      "module_ids": [
+        "provider.analytics_center",
+        "provider.commerce_intelligence"
+      ]
+    },
+    {
+      "capability_id": "vacation_mode.read",
+      "module_ids": [
+        "core.vacation_mode",
+        "service.absence_vacation"
+      ]
+    },
+    {
+      "capability_id": "vacation_mode.read.read",
+      "module_ids": [
+        "provider.absence_vacation_coverage",
+        "provider.appointment_booking"
+      ]
+    },
+    {
+      "capability_id": "vendor.search",
+      "module_ids": [
+        "directory.supplier",
+        "directory.vendor"
+      ]
+    },
+    {
+      "capability_id": "verification_status.read",
+      "module_ids": [
+        "verification.trust_center",
+        "verification.unonight_adapter_status"
+      ]
+    },
+    {
+      "capability_id": "verification_status.read.read",
+      "module_ids": [
+        "provider.trust_center_verification",
+        "provider.unonight_community_adapter"
+      ]
+    },
+    {
+      "capability_id": "verification.read.read",
+      "module_ids": [
+        "provider.security_pack_adapter",
+        "provider.trust_center_verification"
+      ]
+    },
+    {
+      "capability_id": "warehouse.read.read",
+      "module_ids": [
+        "provider.warehouse_control",
+        "provider.warehouse_pack_adapter"
+      ]
+    },
+    {
+      "capability_id": "work_order.create.write",
+      "module_ids": [
+        "provider.companion_real_world_coordination",
+        "provider.execution_operations"
+      ]
+    }
+  ]
+}

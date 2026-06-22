@@ -22,6 +22,10 @@ import type {
   CompanionFoundationCoverageArtifact,
 } from "./companion-foundation-coverage-types";
 import { buildCompanionFoundationCoverageGaps } from "./companion-foundation-coverage-gaps";
+import {
+  attachReconciliationToArtifact,
+  SUPERSEDED_PROVIDER_MODULE_IDS,
+} from "./companion-foundation-coverage-reconciliation";
 
 const DOMAIN_RUNTIME_LOADERS: Record<string, string> = {
   proactive: "load-companion-proactive-context.ts",
@@ -575,7 +579,10 @@ export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEnt
     ...ORGANIZATION_DIRECTORY_COVERAGE_MODULES.map((entry) => entry.module_id),
   ]);
 
-  const filteredProviders = providerEntries.filter((entry) => !explicitModuleIds.has(entry.module_id));
+  const filteredProviders = providerEntries.filter(
+    (entry) =>
+      !explicitModuleIds.has(entry.module_id) && !SUPERSEDED_PROVIDER_MODULE_IDS.has(entry.module_id),
+  );
 
   return [
     ...CORE_COMPANION_MODULES,
@@ -636,7 +643,7 @@ export function buildCompanionFoundationCoverageArtifact(): CompanionFoundationC
   const gaps = buildCompanionFoundationCoverageGaps(entries);
   const commercial = mergeUnonightManifestIntoCommercial(buildCommercialCapabilityMatrix());
 
-  return {
+  const base: CompanionFoundationCoverageArtifact = {
     version: "companion-foundation-coverage-v1",
     generated_at: new Date().toISOString(),
     summary: {
@@ -652,6 +659,8 @@ export function buildCompanionFoundationCoverageArtifact(): CompanionFoundationC
     gaps,
     panel_coverage,
   };
+
+  return attachReconciliationToArtifact(base, entries);
 }
 
 export { DOMAIN_RUNTIME_LOADERS, PANEL_COVERAGE_ENTRIES, CORE_COMPANION_MODULES };

@@ -65,6 +65,14 @@ ${panelLines}
 - **P2**: ${gapCounts.P2}
 - **P3**: ${gapCounts.P3}
 
+## Phase 43 reconciliation
+
+- Reconciliation version: \`${artifact.reconciliation_version ?? "not_generated"}\`
+- P1 freeze packages: ${artifact.p1_priority_freeze?.packages.length ?? 0}
+- Deprecated/merge entries: ${artifact.deprecated_registry?.length ?? 0}
+- Duplicate capability IDs tracked: ${artifact.duplicate_capabilities?.length ?? 0}
+- False production_ready violations: ${artifact.reconciliation_summary?.false_production_ready_violations ?? 0}
+
 ## Top gaps (first 50)
 
 ${gapList}
@@ -88,15 +96,50 @@ export function writeCompanionFoundationCoverageArtifacts(
   repoRoot: string,
   fs: Pick<typeof import("node:fs"), "writeFileSync" | "mkdirSync">,
   path: Pick<typeof import("node:path"), "join">,
-): { jsonPath: string; markdownPath: string } {
+): {
+  jsonPath: string;
+  markdownPath: string;
+  p1Path: string;
+  knownGapsPath: string;
+  deprecatedPath: string;
+} {
   const artifactsDir = path.join(repoRoot, "lib/companion-runtime/artifacts");
   fs.mkdirSync(artifactsDir, { recursive: true });
 
   const jsonPath = path.join(artifactsDir, "companion-foundation-coverage-v1.json");
   fs.writeFileSync(jsonPath, `${JSON.stringify(artifact, null, 2)}\n`, "utf8");
 
+  const p1Path = path.join(artifactsDir, "companion-p1-priority-freeze-v1.json");
+  fs.writeFileSync(
+    p1Path,
+    `${JSON.stringify(artifact.p1_priority_freeze ?? { version: "companion-p1-priority-freeze-v1", packages: [] }, null, 2)}\n`,
+    "utf8",
+  );
+
+  const knownGapsPath = path.join(artifactsDir, "companion-known-gaps-v1.json");
+  fs.writeFileSync(
+    knownGapsPath,
+    `${JSON.stringify(artifact.known_gaps ?? { version: "companion-known-gaps-v1", gaps: [] }, null, 2)}\n`,
+    "utf8",
+  );
+
+  const deprecatedPath = path.join(artifactsDir, "companion-deprecated-registry-v1.json");
+  fs.writeFileSync(
+    deprecatedPath,
+    `${JSON.stringify(
+      {
+        version: "companion-deprecated-registry-v1",
+        entries: artifact.deprecated_registry ?? [],
+        duplicate_capabilities: artifact.duplicate_capabilities ?? [],
+      },
+      null,
+      2,
+    )}\n`,
+    "utf8",
+  );
+
   const markdownPath = path.join(repoRoot, "COMPANION_FOUNDATION_COVERAGE_AUDIT.md");
   fs.writeFileSync(markdownPath, buildCompanionFoundationCoverageAuditMarkdown(artifact), "utf8");
 
-  return { jsonPath, markdownPath };
+  return { jsonPath, markdownPath, p1Path, knownGapsPath, deprecatedPath };
 }

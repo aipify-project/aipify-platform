@@ -86,7 +86,11 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     required_wiring: [
       "companion-foundation-coverage-registry.ts",
       "companion-foundation-coverage-gaps.ts",
+      "companion-foundation-coverage-reconciliation.ts",
       "artifacts/companion-foundation-coverage-v1.json",
+      "artifacts/companion-p1-priority-freeze-v1.json",
+      "artifacts/companion-known-gaps-v1.json",
+      "artifacts/companion-deprecated-registry-v1.json",
     ],
     commit_hint: "Phase 34",
   },
@@ -184,6 +188,16 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
       "load-companion-directory-context.ts",
     ],
     commit_hint: "Phase 42",
+  },
+  {
+    phase: 43,
+    required_test: "phase43.test.ts",
+    required_wiring: [
+      "companion-foundation-coverage-reconciliation.ts",
+      "companion-foundation-coverage-registry.ts",
+      "artifacts/companion-p1-priority-freeze-v1.json",
+    ],
+    commit_hint: "Phase 43",
   },
 ];
 
