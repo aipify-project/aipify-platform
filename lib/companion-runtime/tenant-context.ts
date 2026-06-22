@@ -21,6 +21,7 @@ import { loadCompanionDiscoveryContext } from "./load-companion-discovery-contex
 import { loadCompanionBusinessPackContext } from "./load-companion-business-pack-context";
 import { loadCompanionSchemaContext } from "./load-companion-schema-context";
 import { loadCompanionToolRegistry } from "./load-companion-tool-registry";
+import { loadCompanionOperationalContext } from "./load-companion-operational-context";
 
 export type { CompanionTenantContext } from "./companion-tenant-context";
 export {
@@ -167,6 +168,13 @@ export async function loadCompanionTenantContext(
     effectivePermissions,
   });
 
+  const operationalLoad = await loadCompanionOperationalContext(supabase, {
+    effectivePermissions,
+    subscriptionStatus,
+    enabledModules: businessPackContext.enabledModules,
+    activeBusinessPacks,
+  });
+
   return createEmptyCompanionTenantContext({
     organizationId,
     companyId: orgContext.company_id,
@@ -190,5 +198,8 @@ export async function loadCompanionTenantContext(
     availableEntities: schemaContext.availableEntities,
     availableOperations: schemaContext.availableOperations,
     toolRegistry,
+    operationalContext: operationalLoad.operationalContext,
+    commandBriefAvailable: operationalLoad.commandBriefAvailable,
+    sinceLastLoginAvailable: operationalLoad.sinceLastLoginAvailable,
   });
 }

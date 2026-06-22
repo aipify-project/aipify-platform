@@ -58,6 +58,11 @@ import {
   buildGroundedLiveFailureAnswer,
   buildGroundedLiveGapAnswer,
 } from "./grounded-answer";
+import { matchOperationalQuery } from "./companion-operational-query-match";
+import {
+  buildGroundedOperationalAnswer,
+  buildOperationalGapAnswer,
+} from "./operational-answer";
 import { mapDispatchCodeToGapReason } from "./tool-answer";
 import {
   createEmptyCompanionTenantContext,
@@ -276,6 +281,42 @@ async function resolveLiveToolAnswer(
   return null;
 }
 
+function resolveOperationalAnswer(
+  query: string,
+  t: Translator,
+  activeLocale: CustomerActiveLocale,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  const operationalMatch = matchOperationalQuery(query, tenantContext);
+  if (!operationalMatch) return null;
+
+  const { operationalContext } = tenantContext;
+
+  if (operationalContext.warnings.includes("permission_denied")) {
+    return { answer: buildOperationalGapAnswer(t, "permission_denied") };
+  }
+
+  if (operationalContext.warnings.includes("app_suspended")) {
+    return { answer: buildOperationalGapAnswer(t, "unavailable") };
+  }
+
+  if (
+    operationalContext.completeness === "missing" &&
+    operationalContext.warnings.includes("empty")
+  ) {
+    return { answer: buildOperationalGapAnswer(t, "empty") };
+  }
+
+  return {
+    answer: buildGroundedOperationalAnswer(
+      operationalContext,
+      operationalMatch,
+      t,
+      activeLocale,
+    ),
+  };
+}
+
 async function resolveNavigationCorpusAnswer(
   query: string,
   options: PlatformSearchOptions,
@@ -407,6 +448,14 @@ export async function orchestrateCompanionSearch(
     resolvedTenantContext,
   );
   if (liveResult) return liveResult;
+
+  const operationalResult = resolveOperationalAnswer(
+    query,
+    t,
+    activeLocale,
+    resolvedTenantContext,
+  );
+  if (operationalResult) return operationalResult;
 
   if (navigationQuery || detectPlatformQuestionIntent(query)) {
     const navResult = await resolveNavigationCorpusAnswer(

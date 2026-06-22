@@ -12,6 +12,7 @@ import type { CompanionSchemaCollection } from "./companion-schema-context";
 import { createEmptyCompanionSchemaCollection } from "./companion-schema-context";
 import type { CompanionToolRegistry } from "./companion-tool-definition";
 import { createEmptyCompanionToolRegistry } from "./companion-tool-definition";
+import { createEmptyCompanionOperationalContext, type CompanionOperationalContext } from "./companion-operational-context";
 
 const PORTAL_FEATURE_KEYS = [
   "team_management",
@@ -44,6 +45,9 @@ export type CompanionTenantContext = {
   availableEntities: string[];
   availableOperations: ("read" | "write")[];
   toolRegistry: CompanionToolRegistry;
+  operationalContext: CompanionOperationalContext;
+  commandBriefAvailable: boolean;
+  sinceLastLoginAvailable: boolean;
 };
 
 export function createEmptyCompanionTenantContext(
@@ -72,6 +76,9 @@ export function createEmptyCompanionTenantContext(
     availableEntities: [],
     availableOperations: [],
     toolRegistry: createEmptyCompanionToolRegistry(),
+    operationalContext: createEmptyCompanionOperationalContext(),
+    commandBriefAvailable: false,
+    sinceLastLoginAvailable: false,
     ...overrides,
   };
 }
