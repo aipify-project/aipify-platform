@@ -143,6 +143,16 @@ Platform Admin: **Operations → Build Health Center** (`/platform/operations/bu
 `scripts/build-with-duration.mjs` runs `build-split.mjs --from 2` after validation (skips duplicate typecheck). Webpack **compile** and page-data **generate** run as separate Node processes to reduce peak RAM on Vercel Enhanced.
 
 ## Incidents
+### 2026-06-22 — Deployment blocked by route architecture violations
+
+| Field | Detail |
+|-------|--------|
+| **Issue** | Deployment blocked by route architecture violations |
+| **Root cause** | Circular import detected: lib/unonight/provider-adapter/normalize.ts → lib/unonight/provider-adapter/metric-grounding.ts; Circular import detected: lib/integration-intelligence/directory/types.ts → lib/integration-intelligence/directory/relationship-types.ts |
+| **Fix** | Broke circular import chains: moved readiness types, extracted signal-counts and relationship-capability-map, direct imports in live-e2e-validation |
+| **Affected modules** | community provider-readiness, directory, unonight provider-adapter |
+| **Resolution** | Fixed in `4af8058b`; `validate:deployment` passes with Critical 0 |
+
 ### 2026-06-21 — Deployment blocked by route architecture violations
 
 | Field | Detail |
