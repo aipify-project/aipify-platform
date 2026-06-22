@@ -158,6 +158,49 @@
         "write_boundary": "Skrivegrænser blokerede denne handling."
       }
     },
+    "execution": {
+      "sourceLabel": "Styret handlingsudførelse",
+      "lead": "Aipify udførte {actionId} — status: {status}.",
+      "completedLine": "Fuldført: {completedAt}",
+      "auditLine": "Revisionsreference: {reference}",
+      "rollbackAvailable": "Rollback-metadata er tilgængelig for denne handling.",
+      "partialWarning": "Handlingen blev delvist fuldført — gennemgå resultatet, før du fortsætter.",
+      "blockedExplanation": "Udførelse blev blokeret af Trust & Action-styring.",
+      "status": {
+        "planned": "planlagt",
+        "awaiting_approval": "afventer godkendelse",
+        "approved": "godkendt",
+        "executing": "udfører",
+        "completed": "fuldført",
+        "partially_completed": "delvist fuldført",
+        "failed": "mislykkedes",
+        "rollback_available": "rollback tilgængelig",
+        "blocked": "blokeret"
+      },
+      "gate": {
+        "app_suspended": "Handlinger er utilgængelige, mens organisationens abonnement er sat på pause.",
+        "entitlement_blocked": "Business Pack-rettigheder blokerer udførelse.",
+        "provider_unverified": "Provider-forbindelsen er ikke verificeret til skrivehandlinger.",
+        "capability_disabled": "Denne skrivefunktion er deaktiveret for din organisation.",
+        "schema_validation": "Input bestod ikke schema-validering.",
+        "permission_denied": "Din rolle har ikke tilladelse til at udføre denne handling.",
+        "missing_policy": "Ingen handlingspolitik autoriserer udførelse.",
+        "approval_missing": "Eksplicit godkendelse kræves før udførelse.",
+        "approval_expired": "Godkendelsen for denne handling er udløbet.",
+        "idempotency_invalid": "Idempotency-nøglen er ugyldig.",
+        "duplicate_idempotency": "Denne handling er allerede udført med samme idempotency-nøgle.",
+        "irreversible_blocked": "Irreversible handlinger kan ikke udføres i denne fase.",
+        "risk_too_high": "Denne handling overskrider tilladt risikoniveau for Companion-udførelse.",
+        "forbidden_action": "Denne handlingstype er ikke tilladt i Companion-runtime.",
+        "missing_adapter": "Ingen provider-adapter er registreret for denne handling.",
+        "emergency_stop": "Nødstop er aktiv — udførelse er sat på pause.",
+        "execution_disabled": "Companion-udførelse er deaktiveret for din organisation.",
+        "blocked": "Udførelse blev blokeret af styring.",
+        "provider_failure": "Provider-adaptern rapporterede fejl.",
+        "validation_failed": "Provider input-validering mislykkedes.",
+        "invalid_output": "Provider-output bestod ikke validering."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

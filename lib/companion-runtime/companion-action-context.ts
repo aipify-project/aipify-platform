@@ -15,6 +15,11 @@ import {
   type CompanionActionDefinition,
   type CompanionActionRegistry,
 } from "./companion-action-definition";
+import {
+  parseApprovedCompanionActionRequest,
+  parseApprovedTrustActionRequest,
+  type CompanionApprovedActionRecord,
+} from "./companion-action-approval-resolver";
 
 export type CompanionActionContext = {
   registry: CompanionActionRegistry;
@@ -27,6 +32,7 @@ export type CompanionActionContext = {
   pending_approval_count: number;
   latest_audit_reference: string | null;
   cross_link_approvals: string;
+  approved_records: import("./companion-action-approval-resolver").CompanionApprovedActionRecord[];
 };
 
 function permissionAllowed(permission: string | null, effectivePermissions: string[]): boolean {
@@ -59,6 +65,7 @@ export function createEmptyCompanionActionContext(
     pending_approval_count: 0,
     latest_audit_reference: null,
     cross_link_approvals: "/app/approvals",
+    approved_records: [],
     ...overrides,
   };
 }
@@ -66,12 +73,39 @@ export function createEmptyCompanionActionContext(
 export type NormalizeCompanionActionContextInput = {
   companionCenterRaw: unknown;
   trustCenterRaw: unknown;
+  approvalsCenterRaw?: unknown;
   schemaContext: CompanionSchemaCollection;
   businessPackContext: CompanionBusinessPackCollection;
   effectivePermissions: string[];
   subscriptionStatus: string | null;
   permissionDenied?: boolean;
 };
+
+function parseApprovedRecordsFromApprovalsCenter(raw: unknown): CompanionApprovedActionRecord[] {
+  if (!raw || typeof raw !== "object") return [];
+  const approvals = (raw as Record<string, unknown>).approvals;
+  if (!Array.isArray(approvals)) return [];
+
+  const records: CompanionApprovedActionRecord[] = [];
+  for (const entry of approvals) {
+    if (!entry || typeof entry !== "object") continue;
+    const row = entry as Record<string, unknown>;
+    if (String(row.status) !== "approved") continue;
+    if (String(row.category ?? "action") !== "action") continue;
+    const actionName = String(row.action_name ?? row.title ?? "");
+    if (!actionName) continue;
+    records.push({
+      request_id: String(row.id),
+      action_id: actionName,
+      risk_level: Number(row.risk_level ?? 2),
+      status: "approved",
+      reversible: Number(row.risk_level ?? 2) <= 2,
+      expires_at: null,
+      source: "trust_action",
+    });
+  }
+  return records;
+}
 
 export function normalizeCompanionActionContext(
   input: NormalizeCompanionActionContextInput,
@@ -159,6 +193,33 @@ export function normalizeCompanionActionContext(
     trustCenter?.recent_activity?.[0]?.id ??
     null;
 
+  const approvedRecords: CompanionApprovedActionRecord[] = [
+    ...parseApprovedRecordsFromApprovalsCenter(input.approvalsCenterRaw),
+  ];
+
+  for (const request of trustCenter?.pending_approvals ?? []) {
+    const parsed = parseApprovedTrustActionRequest(request);
+    if (parsed) approvedRecords.push(parsed);
+  }
+
+  for (const request of companionCenter?.pending_actions ?? []) {
+    const parsed = parseApprovedCompanionActionRequest(request);
+    if (parsed) approvedRecords.push(parsed);
+  }
+
+  for (const request of companionCenter?.action_history ?? []) {
+    if (!["approved", "completed"].includes(request.lifecycle_status)) continue;
+    approvedRecords.push({
+      request_id: request.id,
+      action_id: request.title,
+      risk_level: Number(request.risk_level ?? 2),
+      status: "approved",
+      reversible: Number(request.risk_level ?? 2) <= 2,
+      expires_at: null,
+      source: "companion_action",
+    });
+  }
+
   return createEmptyCompanionActionContext({
     registry,
     emergency_state: resolveEmergencyState(companionCenter, trustCenter),
@@ -170,6 +231,7 @@ export function normalizeCompanionActionContext(
     pending_approval_count: pendingCount,
     latest_audit_reference: latestAudit,
     cross_link_approvals: companionCenter?.cross_link_trust_approvals ?? "/app/approvals",
+    approved_records: approvedRecords,
   });
 }
 

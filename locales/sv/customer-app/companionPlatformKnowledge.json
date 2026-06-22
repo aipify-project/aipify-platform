@@ -158,6 +158,49 @@
         "write_boundary": "Skrivgränser blockerade denna åtgärd."
       }
     },
+    "execution": {
+      "sourceLabel": "Styrd åtgärdsutförande",
+      "lead": "Aipify utförde {actionId} — status: {status}.",
+      "completedLine": "Slutförd: {completedAt}",
+      "auditLine": "Revisionsreferens: {reference}",
+      "rollbackAvailable": "Rollback-metadata finns tillgänglig för denna åtgärd.",
+      "partialWarning": "Åtgärden slutfördes delvis — granska resultatet innan du fortsätter.",
+      "blockedExplanation": "Utförande blockerades av Trust & Action-styrning.",
+      "status": {
+        "planned": "planerad",
+        "awaiting_approval": "väntar godkännande",
+        "approved": "godkänd",
+        "executing": "utför",
+        "completed": "slutförd",
+        "partially_completed": "delvis slutförd",
+        "failed": "misslyckades",
+        "rollback_available": "rollback tillgänglig",
+        "blocked": "blockerad"
+      },
+      "gate": {
+        "app_suspended": "Åtgärder är otillgängliga medan organisationens prenumeration är pausad.",
+        "entitlement_blocked": "Business Pack-rättigheter blockerar utförande.",
+        "provider_unverified": "Provider-anslutningen är inte verifierad för skrivåtgärder.",
+        "capability_disabled": "Denna skrivfunktion är inaktiverad för din organisation.",
+        "schema_validation": "Indata klarade inte schema-validering.",
+        "permission_denied": "Din roll har inte behörighet att utföra denna åtgärd.",
+        "missing_policy": "Ingen åtgärdspolicy auktoriserar utförande.",
+        "approval_missing": "Explicit godkännande krävs före utförande.",
+        "approval_expired": "Godkännandet för denna åtgärd har gått ut.",
+        "idempotency_invalid": "Idempotency-nyckeln är ogiltig.",
+        "duplicate_idempotency": "Denna åtgärd har redan utförts med samma idempotency-nyckel.",
+        "irreversible_blocked": "Irreversibla åtgärder kan inte utföras i denna fas.",
+        "risk_too_high": "Denna åtgärd överskrider tillåten risknivå för Companion-utförande.",
+        "forbidden_action": "Denna åtgärdstyp är inte tillåten i Companion-runtime.",
+        "missing_adapter": "Ingen provider-adapter är registrerad för denna åtgärd.",
+        "emergency_stop": "Nödstopp är aktivt — utförande pausas.",
+        "execution_disabled": "Companion-utförande är inaktiverat för din organisation.",
+        "blocked": "Utförande blockerades av styrning.",
+        "provider_failure": "Provider-adaptern rapporterade fel.",
+        "validation_failed": "Provider input-validering misslyckades.",
+        "invalid_output": "Provider-output klarade inte validering."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

@@ -76,6 +76,10 @@ export function shouldAutoExecuteCompanionAction(): boolean {
   return false;
 }
 
+export function companionActionExecutionAllowedInPhase11(): boolean {
+  return true;
+}
+
 export function secretsAllowedInActionPayload(): boolean {
   return false;
 }

@@ -23,9 +23,10 @@ export async function loadCompanionActionContext(
     subscriptionStatus: string | null;
   },
 ): Promise<{ actionContext: CompanionActionContext; writeActionsAvailable: boolean }> {
-  const [companionResult, trustResult] = await Promise.all([
+  const [companionResult, trustResult, approvalsResult] = await Promise.all([
     supabase.rpc("get_companion_action_center"),
     supabase.rpc("get_customer_trust_actions_center"),
+    supabase.rpc("get_customer_approvals_center"),
   ]);
 
   let permissionDenied = false;
@@ -39,6 +40,7 @@ export async function loadCompanionActionContext(
   const actionContext = normalizeCompanionActionContext({
     companionCenterRaw: companionResult.data,
     trustCenterRaw: trustResult.data,
+    approvalsCenterRaw: approvalsResult.data,
     schemaContext: input.schemaContext,
     businessPackContext: input.businessPackContext,
     effectivePermissions: input.effectivePermissions,

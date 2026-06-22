@@ -85,6 +85,12 @@ import {
   buildCompanionActionReadyAnswer,
   buildCompanionActionUnavailableAnswer,
 } from "./action-answer";
+import {
+  executeCompanionAction,
+  shouldAttemptCompanionExecution,
+} from "./companion-action-execute";
+import { buildCompanionExecutionAnswer } from "./execution-answer";
+import { companionActionExecutionAllowedInPhase11 } from "./companion-action-governance";
 import { mapDispatchCodeToGapReason } from "./tool-answer";
 import {
   createEmptyCompanionTenantContext,
@@ -434,6 +440,36 @@ async function resolveCompanionActionAnswer(
 
   if (supabase && plan.approval_status === "pending") {
     plan = await prepareCompanionActionApproval(supabase, plan, definition, explanation);
+  }
+
+  if (
+    companionActionExecutionAllowedInPhase11() &&
+    shouldAttemptCompanionExecution(query, plan)
+  ) {
+    const execution = await executeCompanionAction({
+      query,
+      definition,
+      plan,
+      actionContext: tenantContext.actionContext,
+      hasPermission: permission,
+      schemaValid: true,
+      providerVerified:
+        definition.source === "companion_policy" ||
+        !definition.provider_key ||
+        definition.provider_key === "schema" ||
+        tenantContext.connectedProviders.includes(definition.provider_key),
+      supabase,
+    });
+
+    return {
+      answer: buildCompanionExecutionAnswer(
+        definition,
+        execution,
+        tenantContext.actionContext,
+        t,
+        activeLocale,
+      ),
+    };
   }
 
   if (plan.approval_status === "pending") {

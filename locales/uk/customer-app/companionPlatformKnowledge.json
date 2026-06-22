@@ -158,6 +158,49 @@
         "write_boundary": "Межі запису заблокували цю дію."
       }
     },
+    "execution": {
+      "sourceLabel": "Кероване виконання дії",
+      "lead": "Aipify виконала {actionId} — статус: {status}.",
+      "completedLine": "Завершено: {completedAt}",
+      "auditLine": "Посилання аудиту: {reference}",
+      "rollbackAvailable": "Метадані відкату доступні для цієї дії.",
+      "partialWarning": "Дію частково виконано — перегляньте результат перед продовженням.",
+      "blockedExplanation": "Виконання заблоковано governance Trust & Action.",
+      "status": {
+        "planned": "заплановано",
+        "awaiting_approval": "очікує схвалення",
+        "approved": "схвалено",
+        "executing": "виконується",
+        "completed": "завершено",
+        "partially_completed": "частково завершено",
+        "failed": "не вдалося",
+        "rollback_available": "відкат доступний",
+        "blocked": "заблоковано"
+      },
+      "gate": {
+        "app_suspended": "Дії недоступні, поки підписку організації призупинено.",
+        "entitlement_blocked": "Права Business Pack блокують виконання.",
+        "provider_unverified": "Підключення провайдера не верифіковано для дій запису.",
+        "capability_disabled": "Ця можливість запису вимкнена для вашої організації.",
+        "schema_validation": "Вхідні дані не пройшли валідацію схеми.",
+        "permission_denied": "Ваша роль не має дозволу виконувати цю дію.",
+        "missing_policy": "Жодна політика дій не дозволяє виконання.",
+        "approval_missing": "Перед виконанням потрібне явне схвалення.",
+        "approval_expired": "Схвалення для цієї дії прострочено.",
+        "idempotency_invalid": "Ключ ідемпотентності недійсний.",
+        "duplicate_idempotency": "Цю дію вже виконано з тим самим ключем ідемпотентності.",
+        "irreversible_blocked": "Незворотні дії не можна виконувати на цій фазі.",
+        "risk_too_high": "Ця дія перевищує дозволений рівень ризику для виконання Companion.",
+        "forbidden_action": "Цей тип дії заборонено в runtime Companion.",
+        "missing_adapter": "Для цієї дії не зареєстровано адаптер провайдера.",
+        "emergency_stop": "Активна аварійна зупинка — виконання призупинено.",
+        "execution_disabled": "Виконання Companion вимкнено для вашої організації.",
+        "blocked": "Виконання заблоковано governance.",
+        "provider_failure": "Адаптер провайдера повідомив про помилку.",
+        "validation_failed": "Валідація вхідних даних провайдера не вдалася.",
+        "invalid_output": "Вихідні дані провайдера не пройшли валідацію."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

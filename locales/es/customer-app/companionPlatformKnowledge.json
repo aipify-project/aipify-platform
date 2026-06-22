@@ -158,6 +158,49 @@
         "write_boundary": "Los límites de escritura bloquearon esta acción."
       }
     },
+    "execution": {
+      "sourceLabel": "Ejecución de acción gobernada",
+      "lead": "Aipify ejecutó {actionId} — estado: {status}.",
+      "completedLine": "Completado: {completedAt}",
+      "auditLine": "Referencia de auditoría: {reference}",
+      "rollbackAvailable": "Los metadatos de reversión están disponibles para esta acción.",
+      "partialWarning": "La acción se completó parcialmente — revise el resultado antes de continuar.",
+      "blockedExplanation": "La ejecución fue bloqueada por la gobernanza de Trust & Action.",
+      "status": {
+        "planned": "planificada",
+        "awaiting_approval": "pendiente de aprobación",
+        "approved": "aprobada",
+        "executing": "ejecutando",
+        "completed": "completada",
+        "partially_completed": "parcialmente completada",
+        "failed": "fallida",
+        "rollback_available": "reversión disponible",
+        "blocked": "bloqueada"
+      },
+      "gate": {
+        "app_suspended": "Las acciones no están disponibles mientras la suscripción de la organización está pausada.",
+        "entitlement_blocked": "Los derechos de Business Pack bloquean la ejecución.",
+        "provider_unverified": "La conexión del proveedor no está verificada para acciones de escritura.",
+        "capability_disabled": "Esta capacidad de escritura está deshabilitada para su organización.",
+        "schema_validation": "La entrada no pasó la validación del esquema.",
+        "permission_denied": "Su rol no tiene permiso para ejecutar esta acción.",
+        "missing_policy": "Ninguna política de acción autoriza la ejecución.",
+        "approval_missing": "Se requiere aprobación explícita antes de la ejecución.",
+        "approval_expired": "La aprobación para esta acción ha expirado.",
+        "idempotency_invalid": "La clave de idempotencia no es válida.",
+        "duplicate_idempotency": "Esta acción ya se ejecutó con la misma clave de idempotencia.",
+        "irreversible_blocked": "Las acciones irreversibles no pueden ejecutarse en esta fase.",
+        "risk_too_high": "Esta acción supera el nivel de riesgo permitido para la ejecución de Companion.",
+        "forbidden_action": "Este tipo de acción no está permitido en el runtime de Companion.",
+        "missing_adapter": "No hay adaptador de proveedor registrado para esta acción.",
+        "emergency_stop": "Parada de emergencia activa — la ejecución está pausada.",
+        "execution_disabled": "La ejecución de Companion está deshabilitada para su organización.",
+        "blocked": "La ejecución fue bloqueada por la gobernanza.",
+        "provider_failure": "El adaptador del proveedor informó un fallo.",
+        "validation_failed": "La validación de entrada del proveedor falló.",
+        "invalid_output": "La salida del proveedor no pasó la validación."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

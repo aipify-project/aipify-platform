@@ -164,6 +164,49 @@
         "write_boundary": "Write boundary rules blocked this action."
       }
     },
+    "execution": {
+      "sourceLabel": "Governed action execution",
+      "lead": "Aipify executed {actionId} — status: {status}.",
+      "completedLine": "Completed: {completedAt}",
+      "auditLine": "Audit reference: {reference}",
+      "rollbackAvailable": "Rollback metadata is available for this action.",
+      "partialWarning": "This action completed partially — review the result before continuing.",
+      "blockedExplanation": "Execution was blocked by Trust & Action governance.",
+      "status": {
+        "planned": "planned",
+        "awaiting_approval": "awaiting approval",
+        "approved": "approved",
+        "executing": "executing",
+        "completed": "completed",
+        "partially_completed": "partially completed",
+        "failed": "failed",
+        "rollback_available": "rollback available",
+        "blocked": "blocked"
+      },
+      "gate": {
+        "app_suspended": "Actions are unavailable while the organization subscription is paused.",
+        "entitlement_blocked": "Business Pack entitlements block execution.",
+        "provider_unverified": "The provider connection is not verified for write actions.",
+        "capability_disabled": "This write capability is disabled for your organization.",
+        "schema_validation": "Input did not pass schema validation.",
+        "permission_denied": "Your role does not have permission to execute this action.",
+        "missing_policy": "No action policy authorizes execution.",
+        "approval_missing": "Explicit approval is required before execution.",
+        "approval_expired": "The approval for this action has expired.",
+        "idempotency_invalid": "The idempotency key is invalid.",
+        "duplicate_idempotency": "This action was already executed with the same idempotency key.",
+        "irreversible_blocked": "Irreversible actions cannot be executed in this phase.",
+        "risk_too_high": "This action exceeds the allowed risk level for Companion execution.",
+        "forbidden_action": "This action type is not permitted in Companion runtime.",
+        "missing_adapter": "No provider adapter is registered for this action.",
+        "emergency_stop": "Emergency stop is active — execution is paused.",
+        "execution_disabled": "Companion execution is disabled for your organization.",
+        "blocked": "Execution was blocked by governance.",
+        "provider_failure": "The provider adapter reported a failure.",
+        "validation_failed": "Provider input validation failed.",
+        "invalid_output": "Provider output did not pass validation."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

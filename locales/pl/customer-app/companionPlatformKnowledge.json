@@ -158,6 +158,49 @@
         "write_boundary": "Granice zapisu zablokowały to działanie."
       }
     },
+    "execution": {
+      "sourceLabel": "Nadzorowane wykonanie działania",
+      "lead": "Aipify wykonało {actionId} — status: {status}.",
+      "completedLine": "Ukończono: {completedAt}",
+      "auditLine": "Referencja audytu: {reference}",
+      "rollbackAvailable": "Metadane wycofania są dostępne dla tego działania.",
+      "partialWarning": "Działanie zostało częściowo ukończone — przejrzyj wynik przed kontynuacją.",
+      "blockedExplanation": "Wykonanie zostało zablokowane przez governance Trust & Action.",
+      "status": {
+        "planned": "zaplanowane",
+        "awaiting_approval": "oczekuje na zatwierdzenie",
+        "approved": "zatwierdzone",
+        "executing": "wykonywanie",
+        "completed": "ukończone",
+        "partially_completed": "częściowo ukończone",
+        "failed": "niepowodzenie",
+        "rollback_available": "wycofanie dostępne",
+        "blocked": "zablokowane"
+      },
+      "gate": {
+        "app_suspended": "Działania są niedostępne, gdy subskrypcja organizacji jest wstrzymana.",
+        "entitlement_blocked": "Uprawnienia Business Pack blokują wykonanie.",
+        "provider_unverified": "Połączenie dostawcy nie jest zweryfikowane dla działań zapisu.",
+        "capability_disabled": "Ta możliwość zapisu jest wyłączona dla Twojej organizacji.",
+        "schema_validation": "Dane wejściowe nie przeszły walidacji schematu.",
+        "permission_denied": "Twoja rola nie ma uprawnień do wykonania tego działania.",
+        "missing_policy": "Żadna polityka działań nie autoryzuje wykonania.",
+        "approval_missing": "Wymagane jest wyraźne zatwierdzenie przed wykonaniem.",
+        "approval_expired": "Zatwierdzenie dla tego działania wygasło.",
+        "idempotency_invalid": "Klucz idempotencji jest nieprawidłowy.",
+        "duplicate_idempotency": "To działanie zostało już wykonane z tym samym kluczem idempotencji.",
+        "irreversible_blocked": "Działania nieodwracalne nie mogą być wykonywane w tej fazie.",
+        "risk_too_high": "To działanie przekracza dozwolony poziom ryzyka dla wykonania Companion.",
+        "forbidden_action": "Ten typ działania nie jest dozwolony w runtime Companion.",
+        "missing_adapter": "Brak zarejestrowanego adaptera dostawcy dla tego działania.",
+        "emergency_stop": "Aktywny tryb awaryjny — wykonanie wstrzymane.",
+        "execution_disabled": "Wykonanie Companion jest wyłączone dla Twojej organizacji.",
+        "blocked": "Wykonanie zostało zablokowane przez governance.",
+        "provider_failure": "Adapter dostawcy zgłosił błąd.",
+        "validation_failed": "Walidacja danych wejściowych dostawcy nie powiodła się.",
+        "invalid_output": "Wynik dostawcy nie przeszedł walidacji."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
