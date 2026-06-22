@@ -171,6 +171,25 @@ export function buildPlatformAnswer(
   };
 }
 
+export function buildHonestKnowledgeGapAnswer(t: Translator): PlatformKnowledgeAnswer {
+  return {
+    directAnswer: t("customerApp.companionPlatformKnowledge.gap.noGroundedAnswer"),
+    steps: [],
+    actions: [],
+    sources: [
+      {
+        id: "knowledge-gap",
+        label: t("customerApp.companionPlatformKnowledge.gap.sourceLabel"),
+        kind: "platform_corpus",
+      },
+    ],
+    sourceId: "knowledge-gap",
+    source: "fallback",
+    confidence: "low",
+    showSupportEscalation: false,
+  };
+}
+
 export function buildFallbackAnswer(t: Translator, ctx: PermissionContext): PlatformKnowledgeAnswer {
   const actions = filterActionsByPermission(
     [

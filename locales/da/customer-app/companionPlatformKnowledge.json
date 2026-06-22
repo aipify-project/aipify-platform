@@ -14,8 +14,13 @@
     },
     "sources": {
       "knowledgeCenter": "Based on approved Knowledge Center documentation.",
+      "organizationKnowledge": "Based on approved organization knowledge.",
       "platformGuide": "Aipify platform knowledge guide",
       "verifiedIntegration": "Verified Unonight integration"
+    },
+    "gap": {
+      "noGroundedAnswer": "Jeg fandt ikke en god nok forklaring i de tilgængelige, godkendte kilder.",
+      "sourceLabel": "Ingen god nok forklaring fundet"
     },
     "integrationStatus": {
       "title": "Verified Unonight integration",

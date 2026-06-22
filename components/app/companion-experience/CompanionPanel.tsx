@@ -261,17 +261,7 @@ export function CompanionPanel({
       setLoading(true);
 
       try {
-        const priorIntegrationContext = messages.some(
-          (message) =>
-            message.role === "aipify" &&
-            (message.liveIntegrationToolUsed === true ||
-              Boolean(message.integrationStatusCard) ||
-              Boolean(message.platformSnapshotCard)),
-        );
         const params = new URLSearchParams({ q: trimmed, locale });
-        if (priorIntegrationContext) {
-          params.set("integration_context", "unonight");
-        }
         const lastSnapshot = [...messages]
           .reverse()
           .find((message) => message.role === "aipify" && message.platformSnapshotCard);

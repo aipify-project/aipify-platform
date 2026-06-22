@@ -1,10 +1,13 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import type { AppOrganizationRole } from "@/lib/app-portal/nav-config";
+import type { Translator } from "@/lib/i18n/translate";
 import type { UserRole } from "@/lib/tenant/types";
 
 export type PlatformKnowledgeSource =
   | "platform_corpus"
   | "route_match"
   | "knowledge_center"
+  | "organization_knowledge"
   | "customer_context"
   | "verified_integration"
   | "fallback";
@@ -239,6 +242,17 @@ export type CustomerSubscriptionContext = {
   planLabel: string;
   status: string;
   renewalDate?: string;
+};
+
+export type PlatformSearchOptions = {
+  t: Translator;
+  locale: string;
+  ctx: PlatformSearchContext;
+  getSearchTermsArray: (key: string) => string[];
+  subscriptionRaw?: unknown;
+  supabase?: SupabaseClient;
+  integrationContext?: string | null;
+  snapshotContext?: { activeModules?: readonly string[] };
 };
 
 export type PlatformSearchResult = {

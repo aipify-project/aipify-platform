@@ -35,7 +35,7 @@ export type CompanionLiveRoutingResult = {
 };
 
 function resolveProviderKey(options?: CompanionLiveRoutingOptions): string {
-  return options?.integrationContext ?? "unonight";
+  return options?.integrationContext ?? "";
 }
 
 function resolveLocale(options?: CompanionLiveRoutingOptions): CustomerActiveLocale {
@@ -44,9 +44,9 @@ function resolveLocale(options?: CompanionLiveRoutingOptions): CustomerActiveLoc
 }
 
 function toIntelligenceContext(options?: CompanionLiveRoutingOptions): IntegrationIntelligenceContext {
-  const providerKey = resolveProviderKey(options);
+  const providerKey = options?.integrationContext ?? null;
   return {
-    activeProviderKey: options?.integrationContext ? providerKey : null,
+    activeProviderKey: providerKey,
     snapshotContext: options?.snapshotContext?.activeModules
       ? { activeModuleKeys: options.snapshotContext.activeModules }
       : undefined,

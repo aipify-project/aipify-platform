@@ -42,6 +42,55 @@ function parseFrontmatterBlock(block: string): Record<string, string | string[] 
   return result;
 }
 
+function inferCategoryFromSourcePath(sourcePath: string): string {
+  const segments = sourcePath.split("/");
+  const aipifyIndex = segments.indexOf("aipify");
+  if (aipifyIndex >= 0 && segments[aipifyIndex + 1]) {
+    return segments[aipifyIndex + 1];
+  }
+  return "faq";
+}
+
+function inferKeywordsFromTitle(title: string, body: string): string[] {
+  const keywords = new Set<string>();
+  const normalizedTitle = title.trim();
+  if (normalizedTitle) keywords.add(normalizedTitle.toLowerCase());
+  if (/self love/i.test(`${title}\n${body}`)) {
+    keywords.add("self love");
+    keywords.add("selflove");
+    keywords.add("Self Love");
+  }
+  return [...keywords];
+}
+
+function parsePlainMarkdownArticle(content: string, sourcePath: string): ParsedSeedArticle | null {
+  const trimmed = content.trim();
+  if (!trimmed || trimmed.startsWith("---")) return null;
+  const titleMatch = trimmed.match(/^#\s+(.+)$/m);
+  if (!titleMatch?.[1]) return null;
+
+  const title = titleMatch[1].trim();
+  const slug = path.basename(sourcePath, ".md");
+  const body = trimmed.replace(/^#\s+.+\n+/, "").trim();
+  const category = inferCategoryFromSourcePath(sourcePath);
+  const articleType = sourcePath.includes("/faq/") ? "faq" : "guide";
+
+  return {
+    title,
+    slug,
+    category,
+    language: "en",
+    visibility: "authenticated",
+    status: "published",
+    tags: category.includes("self-love") ? ["self-love", "abos", "aipify"] : ["aipify"],
+    keywords: inferKeywordsFromTitle(title, body),
+    priority: 0,
+    article_type: articleType,
+    body,
+    source_path: sourcePath,
+  };
+}
+
 function parseSeedFileContent(content: string, sourcePath: string): ParsedSeedArticle[] {
   const articles: ParsedSeedArticle[] = [];
   const parts = content.split(/\n---\n/).filter(Boolean);
@@ -66,6 +115,11 @@ function parseSeedFileContent(content: string, sourcePath: string): ParsedSeedAr
       body,
       source_path: sourcePath,
     });
+  }
+
+  if (articles.length === 0) {
+    const plain = parsePlainMarkdownArticle(content, sourcePath);
+    if (plain) articles.push(plain);
   }
 
   return articles;

@@ -17,6 +17,7 @@ import { createTranslator } from "@/lib/i18n/translate";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import type { UserRole } from "@/lib/tenant/types";
 import { createClient } from "@/lib/supabase/server";
+import { resolveCompanionIntegrationContext, loadCompanionTenantContext } from "@/lib/companion-runtime/tenant-context";
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   const parts = path.replace(/^customerApp\./, "").split(".");
@@ -47,8 +48,11 @@ export async function GET(request: Request) {
     const query = searchParams.get("q") ?? "";
     const articleId = searchParams.get("article_id");
     const requestedLocale = searchParams.get("locale");
+    const integrationContextParam = searchParams.get("integration_context");
     const integrationContext =
-      searchParams.get("integration_context") === "unonight" ? "unonight" : null;
+      integrationContextParam && integrationContextParam.trim().length > 0
+        ? integrationContextParam.trim()
+        : null;
     const platformActiveModules = searchParams.get("platform_active_modules");
     const snapshotContext = platformActiveModules
       ? {
@@ -76,6 +80,12 @@ export async function GET(request: Request) {
     const profile = await getDashboardProfile(supabase);
     const userRole = (profile?.user.role ?? "staff") as UserRole;
 
+    const tenantContext = await loadCompanionTenantContext(supabase);
+    const resolvedIntegrationContext = resolveCompanionIntegrationContext(
+      integrationContext,
+      tenantContext,
+    );
+
     let subscriptionRaw: unknown = null;
     try {
       const { data } = await supabase.rpc("get_customer_license_center");
@@ -92,7 +102,7 @@ export async function GET(request: Request) {
         getSearchTermsArray: (key) => getSearchTermsArray(dict.customerApp as Record<string, unknown>, key),
         subscriptionRaw,
         supabase,
-        integrationContext,
+        integrationContext: resolvedIntegrationContext,
         snapshotContext,
       });
       const legacy = getSupportAssistantArticleById(articleId, legacyCorpus);
