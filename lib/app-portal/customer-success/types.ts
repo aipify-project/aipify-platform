@@ -170,6 +170,11 @@ export type CustomerSuccessLabels = {
   entitlementMissing: string;
   errorTitle: string;
   errorBody: string;
+  pageLoadError: string;
+  noDataYet: string;
+  emptyTitle: string;
+  emptyBody: string;
+  emptyAction: string;
   retry: string;
   sections: {
     overview: string;

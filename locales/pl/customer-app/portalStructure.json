@@ -102,6 +102,13 @@
       },
       "whatYouUnlock": "Co odblokujesz"
     },
+    "license": {
+      "upgradeTitle": "Wymagana aktualizacja",
+      "upgradeBody": "Ta funkcja nie jest objęta bieżącą subskrypcją. Ulepsz plan, aby ją odblokować.",
+      "upgradeCta": "Zobacz opcje ulepszenia",
+      "unavailableTitle": "Funkcja niedostępna",
+      "pageLoadError": "Nie udało się załadować strony. Spróbuj ponownie za chwilę."
+    },
     "executiveInsights": {
       "title": "Executive Insights",
       "subtitle": "A concise overview of organizational health, priorities, risks, opportunities, and recommended next steps — decision support, not analytics.",
@@ -3056,10 +3063,16 @@
       "subtitle": "Continuously improve adoption, platform utilization and return on investment from Aipify.",
       "loading": "Aipify is reviewing your organization's success journey…",
       "principle": "Aipify provides recommendations and insights — organizations remain responsible for implementation.",
-      "emptyTitle": "Your customer success journey has not started yet.",
-      "emptyBody": "Aipify helps organizations continuously improve and maximize business value.",
+      "emptyTitle": "Brak danych o sukcesie klienta",
+      "emptyBody": "Aipify pokaże zweryfikowane sygnały sukcesu klienta, gdy dane staną się dostępne.",
+      "emptyAction": "Otwórz Wprowadzenie",
       "emptyCta": "Begin Success Journey",
       "accessDenied": "You do not have permission to access Customer Success.",
+      "errorTitle": "Sukces klienta niedostępny",
+      "errorBody": "Aipify nie mogło załadować danych sukcesu klienta dla organizacji. Sprawdź uprawnienia i spróbuj ponownie.",
+      "pageLoadError": "Nie udało się załadować strony. Spróbuj ponownie za chwilę.",
+      "noDataYet": "Brak danych o sukcesie klienta. Aipify pokaże zweryfikowane sygnały, gdy dane staną się dostępne.",
+      "retry": "Spróbuj ponownie",
       "filters": {
         "search": "Search success insights…",
         "category": "Adoption category",
@@ -3163,7 +3176,7 @@
       "permissionMissing": "Nie masz uprawnień do tego obszaru. Skontaktuj się z administratorem organizacji.",
       "entitlementLocked": "Ta funkcja nie jest objęta aktywnymi Business Packs ani planem organizacji.",
       "pageLoadError": "Nie udało się załadować strony. Spróbuj ponownie za chwilę.",
-      "noDataYet": "Brak danych o zdrowiu organizacji. Aipify pokaże wnioski, gdy obszar roboczy stanie się aktywny.",
+      "noDataYet": "Brak danych o zdrowiu klienta. Aipify pokaże zweryfikowane sygnały zdrowia klienta, gdy dane staną się dostępne.",
       "errorTitle": "Customer Health niedostępne",
       "errorBody": "Aipify nie mogło załadować danych o zdrowiu organizacji. Sprawdź uprawnienia i spróbuj ponownie.",
       "retry": "Spróbuj ponownie",

@@ -130,7 +130,8 @@
       "upgradeTitle": "Opgradering påkrævet",
       "upgradeBody": "Denne funktion er ikke inkluderet i dit nuværende abonnement. Opgrader planen for at låse den op.",
       "upgradeCta": "Se opgraderingsmuligheder",
-      "unavailableTitle": "Funktion utilgængelig"
+      "unavailableTitle": "Funktion utilgængelig",
+      "pageLoadError": "Siden kunne ikke indlæses. Prøv igen om lidt."
     },
     "businessPackSettings": {
       "eyebrow": "BUSINESS PACK-STYRING",
@@ -4197,6 +4198,11 @@
       "entitlementMissing": "Denne funktion er ikke inkluderet i organisationens aktive Business Packs eller plan.",
       "errorTitle": "Kundesucces utilgængelig",
       "errorBody": "Aipify kunne ikke indlæse kundesucces-data for organisationen. Bekræft tilladelser og prøv igen.",
+      "pageLoadError": "Siden kunne ikke indlæses. Prøv igen om lidt.",
+      "noDataYet": "Ingen kundesuccesdata endnu. Aipify viser verificerede signaler her, når data bliver tilgængelige.",
+      "emptyTitle": "Ingen kundesuccesdata endnu",
+      "emptyBody": "Aipify viser verificerede kundesucces-signaler her, når data bliver tilgængelige.",
+      "emptyAction": "Åbn Kom i gang",
       "retry": "Prøv igen",
       "sections": {
         "overview": "Kundesucces-overblik",
@@ -4432,7 +4438,7 @@
       "permissionMissing": "Du har ikke adgang til dette område. Kontakt organisationens administrator.",
       "entitlementLocked": "Denne funktion er ikke inkluderet i organisationens aktive Business Packs eller abonnement.",
       "pageLoadError": "Siden kunne ikke indlæses. Prøv igen om lidt.",
-      "noDataYet": "Ingen organisationshelsedata er tilgængelig endnu. Aipify viser indsigt, efterhånden som arbejdsområdet bliver aktivt.",
+      "noDataYet": "Ingen kundesundhedsdata endnu. Aipify viser verificerede kundesundhedssignaler her, når data bliver tilgængelige.",
       "purposeSummary": {
         "healthy": "Din organisation viser stærk helbred på tværs af adoption, engagement og udnyttelse.",
         "moderate": "Din organisation gør fremskridt, men kan styrke teamengagement.",

@@ -2,8 +2,8 @@
   "appStore": {
     "emptyTitle": "Brak Business Packs w tej sekcji",
     "emptyDescription": "Przeglądaj Marketplace, aby odkryć pakiety operacyjne dla organizacji.",
-    "catalogPendingTitle": "Brak dostępnych Business Packs",
-    "catalogPendingDescription": "Opublikowane oferty Business Packs pojawią się tutaj po aktywacji katalogu dla organizacji.",
+    "catalogPendingTitle": "Brak dostępnych Business Packs w tej chwili",
+    "catalogPendingDescription": "Aipify pokaże nowe Business Packs tutaj, gdy zostaną opublikowane dla Twojej organizacji.",
     "loadErrorTitle": "Nie udało się załadować strony",
     "loadErrorBody": "Aipify nie mogło teraz załadować dostępnych Business Packs. Spróbuj ponownie za chwilę.",
     "retry": "Spróbuj ponownie",

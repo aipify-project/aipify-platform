@@ -45,6 +45,7 @@ export function buildAppPortalLabels(t: Translator): AppPortalLabels {
       upgradeBody: t(`${l}.upgradeBody`),
       upgradeCta: t(`${l}.upgradeCta`),
       unavailableTitle: t(`${l}.unavailableTitle`),
+      pageLoadError: t(`${l}.pageLoadError`),
     },
     knowledge: {
       title: t(`${k}.title`),

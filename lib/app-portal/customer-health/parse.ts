@@ -262,8 +262,16 @@ export function parseCustomerHealthWorkspace(data: unknown): CustomerHealthWorks
   const trendRaw = str(d.trend_state, "") as CustomerHealthTrendState;
   const scores = parseCustomerSuccessScores(d.scores);
 
+  const explicitFound = d.found === true;
+  const implicitFound =
+    d.found !== false &&
+    (d.has_activity !== undefined ||
+      d.overview !== undefined ||
+      d.scores !== undefined ||
+      d.pilot_status !== undefined);
+
   return {
-    found: d.found === true,
+    found: explicitFound || implicitFound,
     has_activity: hasActivity,
     can_manage: d.can_manage === true,
     can_admin: d.can_admin === true,

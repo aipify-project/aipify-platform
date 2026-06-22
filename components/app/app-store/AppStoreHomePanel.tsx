@@ -204,7 +204,7 @@ export function AppStoreHomePanel({
   const load = useCallback(async () => {
     setLoading(true);
     setLoadError("");
-    const res = await fetch(`/api/app/store?locale=${encodeURIComponent(locale)}`);
+    const res = await fetch(`/api/app/store?locale=${encodeURIComponent(locale)}`, { cache: "no-store" });
     if (res.ok) {
       setHome(parseAppStoreHome(await res.json()));
       setAccessState(null);
@@ -281,9 +281,23 @@ export function AppStoreHomePanel({
   if (!home?.found) {
     return (
       <PlatformEmptyState
-        title={labels.emptyTitle}
-        message={labels.emptyDescription}
-        primaryAction={{ label: labels.browseMarketplace, href: "/app/store" }}
+        title={labels.catalogPendingTitle}
+        message={labels.catalogPendingDescription}
+      />
+    );
+  }
+
+  const catalogPending = home.catalog_pending === true;
+  const activeListings = home.sections?.[activeTab] ?? [];
+  const marketplaceEmpty =
+    catalogPending ||
+    (activeTab === "marketplace" && activeListings.length === 0 && (home.sections?.installed.length ?? 0) === 0);
+
+  if (marketplaceEmpty && hideHeader) {
+    return (
+      <PlatformEmptyState
+        title={labels.catalogPendingTitle}
+        message={labels.catalogPendingDescription}
       />
     );
   }
@@ -297,7 +311,7 @@ export function AppStoreHomePanel({
   ];
   const tabs = visibleTabs ? allTabs.filter((tab) => visibleTabs.includes(tab.key)) : allTabs;
 
-  const activeListings = home.sections?.[activeTab] ?? [];
+  const activeListingsForTab = home.sections?.[activeTab] ?? [];
 
   return (
     <div className={`mx-auto max-w-6xl space-y-8 ${hideHeader ? "" : "p-6"}`}>
@@ -359,16 +373,20 @@ export function AppStoreHomePanel({
         </div>
       ) : null}
 
-      {activeListings.length === 0 ? (
+      {activeListingsForTab.length === 0 ? (
         <PlatformEmptyState
-          title={labels.emptyTitle}
-          message={labels.emptyDescription}
-          primaryAction={{ label: labels.browseMarketplace, href: "/app/store" }}
+          title={catalogPending ? labels.catalogPendingTitle : labels.emptyTitle}
+          message={catalogPending ? labels.catalogPendingDescription : labels.emptyDescription}
+          primaryAction={
+            catalogPending
+              ? undefined
+              : { label: labels.browseMarketplace, href: "/app/store" }
+          }
         />
       ) : (
         <Section
           title={tabs.find((t) => t.key === activeTab)?.label ?? labels.marketplace}
-          listings={activeListings}
+          listings={activeListingsForTab}
           labels={labels}
           catalogRouting={catalogRouting}
           onInstall={handleInstall}

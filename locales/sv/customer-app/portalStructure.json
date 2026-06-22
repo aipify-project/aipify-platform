@@ -130,7 +130,8 @@
       "upgradeTitle": "Uppgradering krävs",
       "upgradeBody": "Denna funktion ingår inte i din nuvarande prenumeration. Uppgradera planen för att låsa upp den.",
       "upgradeCta": "Visa uppgraderingsalternativ",
-      "unavailableTitle": "Funktion otillgänglig"
+      "unavailableTitle": "Funktion otillgänglig",
+      "pageLoadError": "Sidan kunde inte laddas. Försök igen om en stund."
     },
     "businessPackSettings": {
       "eyebrow": "BUSINESS PACK-HANTERING",
@@ -4197,6 +4198,11 @@
       "entitlementMissing": "Den här funktionen ingår inte i organisationens aktiva Business Packs eller plan.",
       "errorTitle": "Kundframgång otillgänglig",
       "errorBody": "Aipify kunde inte ladda kundframgång-data för organisationen. Bekräfta behörigheter och försök igen.",
+      "pageLoadError": "Sidan kunde inte laddas. Försök igen om en stund.",
+      "noDataYet": "Ingen kundframgångsdata ännu. Aipify visar verifierade signaler här när data blir tillgänglig.",
+      "emptyTitle": "Ingen kundframgångsdata ännu",
+      "emptyBody": "Aipify visar verifierade kundframgångssignaler här när data blir tillgänglig.",
+      "emptyAction": "Öppna Kom igång",
       "retry": "Försök igen",
       "sections": {
         "overview": "Översikt kundframgång",
@@ -4432,7 +4438,7 @@
       "permissionMissing": "Du har inte behörighet till detta område. Kontakta organisationens administratör.",
       "entitlementLocked": "Den här funktionen ingår inte i organisationens aktiva Business Packs eller abonnemang.",
       "pageLoadError": "Sidan kunde inte laddas. Försök igen om en stund.",
-      "noDataYet": "Ingen organisationshälsodata finns ännu. Aipify visar insikter när arbetsytan blir aktiv.",
+      "noDataYet": "Ingen kundhälsodata ännu. Aipify visar verifierade kundhälsosignaler här när data blir tillgänglig.",
       "purposeSummary": {
         "healthy": "Er organisation visar stark hälsa inom adoption, engagemang och utnyttjande.",
         "moderate": "Er organisation gör framsteg men kan stärka teamengagemang.",

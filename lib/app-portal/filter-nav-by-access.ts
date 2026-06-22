@@ -2,7 +2,9 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { AppNavGroupConfig } from "@/lib/app/build-nav";
 import { APP_PORTAL_NAV_GROUPS } from "@/lib/app-portal/nav-config";
 import { APP_NAV_PERMISSION_KEYS } from "@/lib/app-portal/nav-route-access";
+import { resolvePortalFeatureEnabled } from "@/lib/app-portal/feature-entitlements";
 import { parseAppPortalFeatureAccess } from "@/lib/app-portal/parse";
+import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 
 const FEATURE_BY_NAV_ID = new Map(
   APP_PORTAL_NAV_GROUPS.flatMap((group) =>
@@ -17,12 +19,19 @@ async function loadFeatureAccess(
   featureKeys: string[]
 ): Promise<Map<string, boolean>> {
   const unique = [...new Set(featureKeys)];
+  const { data: contextData } = await supabase.rpc("get_app_organization_context");
+  const context = parseAppOrganizationContext(contextData);
+  const fallbackPlanKey =
+    context.state === "ready" ? context.plan_name?.toLowerCase() ?? null : null;
+
   const results = await Promise.all(
     unique.map(async (feature) => {
       const { data, error } = await supabase.rpc("get_app_portal_feature_access", {
         p_feature: feature,
       });
-      if (error) return [feature, true] as const;
+      if (error) {
+        return [feature, resolvePortalFeatureEnabled(feature, fallbackPlanKey)] as const;
+      }
       const parsed = parseAppPortalFeatureAccess(data);
       return [feature, parsed.enabled] as const;
     })

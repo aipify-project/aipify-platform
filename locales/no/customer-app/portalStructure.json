@@ -130,7 +130,8 @@
       "upgradeTitle": "Oppgradering kreves",
       "upgradeBody": "Denne funksjonen er ikke inkludert i ditt nåværende abonnement. Oppgrader planen for å låse den opp.",
       "upgradeCta": "Se oppgraderingsalternativer",
-      "unavailableTitle": "Funksjon utilgjengelig"
+      "unavailableTitle": "Funksjon utilgjengelig",
+      "pageLoadError": "Siden kunne ikke lastes. Prøv igjen om litt."
     },
     "businessPackSettings": {
       "eyebrow": "BUSINESS PACK-ADMINISTRASJON",
@@ -4196,6 +4197,11 @@
       "entitlementMissing": "Denne funksjonen er ikke inkludert i organisasjonens aktive Business Packs eller plan.",
       "errorTitle": "Kundesuksess utilgjengelig",
       "errorBody": "Aipify kunne ikke laste kundesuksess-data for organisasjonen. Bekreft tilganger og prøv igjen.",
+      "pageLoadError": "Siden kunne ikke lastes. Prøv igjen om litt.",
+      "noDataYet": "Ingen kundesuksessdata ennå. Aipify viser verifiserte kundesuksess-signaler her når data blir tilgjengelige.",
+      "emptyTitle": "Ingen kundesuksessdata ennå",
+      "emptyBody": "Aipify viser verifiserte kundesuksess-signaler her når data blir tilgjengelige.",
+      "emptyAction": "Åpne Kom i gang",
       "retry": "Prøv igjen",
       "sections": {
         "overview": "Kundesuksess-oversikt",
@@ -4431,7 +4437,7 @@
       "permissionMissing": "Du har ikke tilgang til dette området. Kontakt organisasjonens administrator.",
       "entitlementLocked": "Denne funksjonen er ikke inkludert i organisasjonens aktive Business Packs eller abonnement.",
       "pageLoadError": "Siden kunne ikke lastes. Prøv igjen om litt.",
-      "noDataYet": "Ingen organisasjonshelsedata er tilgjengelig ennå. Aipify viser innsikt etter hvert som arbeidsområdet blir aktivt.",
+      "noDataYet": "Ingen kundehelsedata ennå. Aipify viser verifiserte kundehelsesignaler her når data blir tilgjengelige.",
       "purposeSummary": {
         "healthy": "Organisasjonen viser sterk helse på tvers av adopsjon, engasjement og utnyttelse.",
         "moderate": "Organisasjonen gjør fremskritt, men kan styrke teamengasjement og utnyttelse.",

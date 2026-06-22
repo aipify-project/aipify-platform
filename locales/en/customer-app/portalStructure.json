@@ -130,7 +130,8 @@
       "upgradeTitle": "Upgrade required",
       "upgradeBody": "This capability is not included in your current subscription. Upgrade your plan to unlock it.",
       "upgradeCta": "View upgrade options",
-      "unavailableTitle": "Feature unavailable"
+      "unavailableTitle": "Feature unavailable",
+      "pageLoadError": "This page could not be loaded. Please try again shortly."
     },
     "businessPackSettings": {
       "eyebrow": "BUSINESS PACK MANAGEMENT",
@@ -3654,6 +3655,11 @@
       "entitlementMissing": "This capability is not included in your organization's active Business Packs or plan.",
       "errorTitle": "Customer Success unavailable",
       "errorBody": "Aipify could not load customer success data for your organization. Confirm your permissions and try again.",
+      "pageLoadError": "This page could not be loaded. Please try again shortly.",
+      "noDataYet": "No customer success data is available yet. Aipify will surface verified signals here when data becomes available.",
+      "emptyTitle": "No customer success data yet",
+      "emptyBody": "Aipify will surface verified customer success signals here when data becomes available.",
+      "emptyAction": "Open Getting Started",
       "retry": "Try again",
       "sections": {
         "overview": "Customer Success Overview",
@@ -3889,7 +3895,7 @@
       "permissionMissing": "You do not have permission to access this area. Contact your organization administrator.",
       "entitlementLocked": "This feature is not included in your organization's active Business Packs or plan.",
       "pageLoadError": "This page could not be loaded. Try again shortly.",
-      "noDataYet": "No organization health data is available yet. Aipify will surface insights as your workspace becomes active.",
+      "noDataYet": "No customer health data yet. Aipify will surface verified customer health signals here when data becomes available.",
       "purposeSummary": {
         "healthy": "Your organization shows strong health across adoption, engagement, and utilization. Maintain momentum and address minor operational items as they arise.",
         "moderate": "Your organization is progressing with room to strengthen team engagement and capability utilization. Review the recommendations below for high-impact next steps.",

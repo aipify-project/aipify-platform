@@ -13,7 +13,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { AppErrorState, AppLoadingState, PriorityRecommendationCard } from "@/components/app/design";
+import { AppEmptyState, AppErrorState, AppLoadingState, PriorityRecommendationCard } from "@/components/app/design";
 import { ExecutiveMetricCard } from "@/components/app/design/ExecutiveMetricCard";
 import { SemanticBadge } from "@/components/ui/semantic-badge";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
@@ -52,6 +52,7 @@ import {
 } from "@/lib/app-portal/customer-success/presentation";
 import type { PilotStatus, ScoreEntry } from "@/lib/app-portal/customer-success/score-availability";
 import type { AppOrganizationContextState } from "@/lib/tenant/resolve-app-organization-context";
+import { resolveAppPortalAccessMessageKey } from "@/lib/app-portal/access-state-messages";
 
 type Props = { labels: CustomerSuccessLabels; locale: string };
 
@@ -159,9 +160,11 @@ const ACCESS_MESSAGES: Record<
     | "subscriptionRequired"
     | "permissionMissing"
     | "entitlementMissing"
+    | "pageLoadError"
+    | "noDataYet"
   >
 > = {
-  ready: "accessDenied",
+  ready: "noDataYet",
   unauthenticated: "accessDenied",
   user_not_provisioned: "organizationMissing",
   organization_missing: "organizationMissing",
@@ -171,7 +174,7 @@ const ACCESS_MESSAGES: Record<
   entitlement_missing: "entitlementMissing",
   permission_missing: "permissionMissing",
   access_denied: "permissionMissing",
-  database_execution_error: "accessDenied",
+  database_execution_error: "pageLoadError",
 };
 
 export function CustomerSuccessPanel({ labels, locale }: Props) {
@@ -199,7 +202,7 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
     if (dueDate) params.set("due_date", dueDate);
     if (sortBy && isValidSortOption(sortBy)) params.set("sort_by", sortBy);
     if (search.trim()) params.set("search", search.trim());
-    const res = await fetch(`/api/aipify/customer-success?${params}`);
+    const res = await fetch(`/api/aipify/customer-success?${params}`, { cache: "no-store" });
     if (res.ok) {
       setData(parseCustomerSuccessOverview(await res.json()));
       setAccessState(null);
@@ -271,12 +274,17 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
   }
 
   if (error && !data?.found) {
-    const messageKey = accessState ? ACCESS_MESSAGES[accessState] : "accessDenied";
+    const messageKey = resolveAppPortalAccessMessageKey(accessState, error);
+    const labelKey = accessState ? ACCESS_MESSAGES[accessState] : "accessDenied";
+    const description =
+      messageKey === "pageLoadError"
+        ? labels.pageLoadError
+        : labels[labelKey];
     return (
       <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
         <AppErrorState
-          title={labels.errorTitle}
-          description={labels[messageKey]}
+          title={messageKey === "pageLoadError" ? labels.pageLoadError : labels.errorTitle}
+          description={description}
           onRetry={() => void load()}
           retryLabel={labels.retry}
           returnHref={CUSTOMER_SUCCESS_SUPPORT_HREF}
@@ -289,13 +297,47 @@ export function CustomerSuccessPanel({ labels, locale }: Props) {
   if (!data?.found) {
     return (
       <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
-        <AppErrorState
-          title={labels.errorTitle}
-          description={labels.errorBody}
-          onRetry={() => void load()}
-          retryLabel={labels.retry}
-          returnHref={CUSTOMER_SUCCESS_SUPPORT_HREF}
-          returnLabel={labels.backToSupport}
+        <AppEmptyState
+          title={labels.emptyTitle}
+          description={labels.noDataYet}
+          actionHref="/app/support/getting-started"
+          actionLabel={labels.emptyAction}
+        />
+      </div>
+    );
+  }
+
+  const showWorkspaceEmpty =
+    !data.journey_started &&
+    (data.success_plans?.length ?? 0) === 0 &&
+    (data.follow_ups?.length ?? 0) === 0 &&
+    (data.milestones_achieved?.length ?? 0) === 0 &&
+    (data.outcomes?.length ?? 0) === 0 &&
+    (data.active_risks?.length ?? 0) === 0 &&
+    (data.timeline?.length ?? 0) === 0;
+
+  if (showWorkspaceEmpty) {
+    return (
+      <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
+        <header className="space-y-4 border-b border-aipify-border pb-6">
+          <nav className="text-sm text-aipify-text-muted" aria-label="Breadcrumb">
+            <ol className="flex flex-wrap items-center gap-2">
+              <li>{labels.breadcrumbSupport}</li>
+              <li aria-hidden="true">→</li>
+              <li className="font-medium text-aipify-text">{labels.breadcrumbCustomerSuccess}</li>
+            </ol>
+          </nav>
+          <div className="space-y-2">
+            <p className={AppPremiumShell.eyebrow}>{labels.eyebrow}</p>
+            <h1 className={AppPremiumShell.pageTitle}>{labels.title}</h1>
+            <p className={AppPremiumShell.pageDescription}>{labels.subtitle}</p>
+          </div>
+        </header>
+        <AppEmptyState
+          title={labels.emptyTitle}
+          description={labels.noDataYet}
+          actionHref="/app/support/getting-started"
+          actionLabel={labels.emptyAction}
         />
       </div>
     );

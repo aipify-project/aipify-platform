@@ -192,7 +192,7 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
       params.set("period_from", trendFrom.toISOString().slice(0, 10));
     }
 
-    const res = await fetch(`/api/aipify/customer-health?${params}`);
+    const res = await fetch(`/api/aipify/customer-health?${params}`, { cache: "no-store" });
     if (res.ok) {
       setData(parseCustomerHealthWorkspace(await res.json()));
       setAccessState(null);
@@ -257,12 +257,19 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
   if (error && !data?.found) {
     const messageKey = resolveAppPortalAccessMessageKey(accessState, error);
     const description =
-      (labels[messageKey as keyof CustomerHealthLabels] as string | undefined) ??
-      labels.errorBody;
+      messageKey === "pageLoadError"
+        ? labels.pageLoadError
+        : messageKey === "entitlementLocked"
+          ? labels.entitlementLocked
+          : messageKey === "permissionMissing"
+            ? labels.permissionMissing
+            : messageKey === "noDataYet"
+              ? labels.noDataYet
+              : labels.errorBody;
     return (
       <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
         <AppErrorState
-          title={labels.errorTitle}
+          title={messageKey === "pageLoadError" ? labels.pageLoadError : labels.errorTitle}
           description={description}
           onRetry={() => void load()}
           retryLabel={labels.retry}
@@ -276,13 +283,14 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
   if (!data?.found) {
     return (
       <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
-        <AppErrorState
-          title={labels.errorTitle}
+        <header className="space-y-4 border-b border-aipify-border pb-6">
+          <PanelHeader labels={labels} />
+        </header>
+        <AppEmptyState
+          title={labels.emptyTitle}
           description={labels.noDataYet}
-          onRetry={() => void load()}
-          retryLabel={labels.retry}
-          returnHref={CUSTOMER_HEALTH_SUPPORT_HREF}
-          returnLabel={labels.backToSupport}
+          actionHref="/app/support/getting-started"
+          actionLabel={labels.emptyAction}
         />
       </div>
     );

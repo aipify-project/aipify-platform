@@ -11,11 +11,15 @@ import {
 import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
 
+const NO_STORE = { "Cache-Control": "no-store" };
+
 export async function GET(request: Request) {
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: NO_STORE });
+    }
 
     const access = await requireReadyAppPortalContext(supabase);
     if (!access.ok) return access.response;
@@ -40,14 +44,14 @@ export async function GET(request: Request) {
     if (error) {
       return appPortalRpcErrorResponse("[aipify/customer-health]", error.message);
     }
-    return NextResponse.json(parseCustomerHealthWorkspace(data));
+    return NextResponse.json(parseCustomerHealthWorkspace(data), { headers: NO_STORE });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to load customer health";
     const access_state = classifyAppPortalError(message);
     console.error("[aipify/customer-health]", message);
     return NextResponse.json(
       { error: appPortalStableErrorCode(access_state), access_state, found: false },
-      { status: rpcErrorStatus(message, access_state) }
+      { status: rpcErrorStatus(message, access_state), headers: NO_STORE }
     );
   }
 }
@@ -56,7 +60,9 @@ export async function POST() {
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: NO_STORE });
+    }
 
     const access = await requireReadyAppPortalContext(supabase);
     if (!access.ok) return access.response;
@@ -68,7 +74,7 @@ export async function POST() {
       const access_state = classifyAppPortalError(manageError.message);
       return NextResponse.json(
         { error: appPortalStableErrorCode(access_state), access_state, found: false },
-        { status: rpcErrorStatus(manageError.message, access_state) }
+        { status: rpcErrorStatus(manageError.message, access_state), headers: NO_STORE }
       );
     }
     if (!canManage) {
@@ -79,14 +85,14 @@ export async function POST() {
     if (error) {
       return appPortalRpcErrorResponse("[aipify/customer-health]", error.message);
     }
-    return NextResponse.json(parseCustomerHealthWorkspace(data));
+    return NextResponse.json(parseCustomerHealthWorkspace(data), { headers: NO_STORE });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to start health review";
     const access_state = classifyAppPortalError(message);
     console.error("[aipify/customer-health]", message);
     return NextResponse.json(
       { error: appPortalStableErrorCode(access_state), access_state, found: false },
-      { status: rpcErrorStatus(message, access_state) }
+      { status: rpcErrorStatus(message, access_state), headers: NO_STORE }
     );
   }
 }

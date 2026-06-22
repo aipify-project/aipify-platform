@@ -54,6 +54,7 @@ export function parseAppStoreHome(data: unknown): AppStoreHome | null {
   const sections = row.sections as Record<string, unknown> | undefined;
   return {
     found: true,
+    catalog_pending: row.catalog_pending === true,
     principle: typeof row.principle === "string" ? row.principle : undefined,
     locale: typeof row.locale === "string" ? row.locale : "en",
     categories: Array.isArray(row.categories) ? (row.categories as string[]) : [],

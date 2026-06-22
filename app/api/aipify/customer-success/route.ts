@@ -10,11 +10,15 @@ import {
 import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
 
+const NO_STORE = { "Cache-Control": "no-store" };
+
 export async function GET(request: Request) {
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: NO_STORE });
+    }
 
     const access = await requireReadyAppPortalContext(supabase);
     if (!access.ok) return access.response;
@@ -27,7 +31,7 @@ export async function GET(request: Request) {
       const access_state = classifyAppPortalError(permissionError.message);
       return NextResponse.json(
         { error: appPortalStableErrorCode(access_state), access_state, found: false },
-        { status: rpcErrorStatus(permissionError.message, access_state) }
+        { status: rpcErrorStatus(permissionError.message, access_state), headers: NO_STORE }
       );
     }
     if (!hasPermission) {
@@ -49,14 +53,14 @@ export async function GET(request: Request) {
     if (error) {
       return appPortalRpcErrorResponse("[aipify/customer-success]", error.message);
     }
-    return NextResponse.json(parseCustomerSuccessOverview(data));
+    return NextResponse.json(parseCustomerSuccessOverview(data), { headers: NO_STORE });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to load customer success";
     const access_state = classifyAppPortalError(message);
     console.error("[aipify/customer-success]", message);
     return NextResponse.json(
       { error: appPortalStableErrorCode(access_state), access_state, found: false },
-      { status: rpcErrorStatus(message, access_state) }
+      { status: rpcErrorStatus(message, access_state), headers: NO_STORE }
     );
   }
 }
@@ -65,7 +69,9 @@ export async function POST() {
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: NO_STORE });
+    }
 
     const access = await requireReadyAppPortalContext(supabase);
     if (!access.ok) return access.response;
@@ -78,7 +84,7 @@ export async function POST() {
       const access_state = classifyAppPortalError(permissionError.message);
       return NextResponse.json(
         { error: appPortalStableErrorCode(access_state), access_state, found: false },
-        { status: rpcErrorStatus(permissionError.message, access_state) }
+        { status: rpcErrorStatus(permissionError.message, access_state), headers: NO_STORE }
       );
     }
     if (!hasPermission) {
@@ -89,14 +95,14 @@ export async function POST() {
     if (error) {
       return appPortalRpcErrorResponse("[aipify/customer-success]", error.message);
     }
-    return NextResponse.json(parseCustomerSuccessOverview(data));
+    return NextResponse.json(parseCustomerSuccessOverview(data), { headers: NO_STORE });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to begin success journey";
     const access_state = classifyAppPortalError(message);
     console.error("[aipify/customer-success]", message);
     return NextResponse.json(
       { error: appPortalStableErrorCode(access_state), access_state, found: false },
-      { status: rpcErrorStatus(message, access_state) }
+      { status: rpcErrorStatus(message, access_state), headers: NO_STORE }
     );
   }
 }

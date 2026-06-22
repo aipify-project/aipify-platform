@@ -24,6 +24,7 @@ export type AppStorePackListing = {
 
 export type AppStoreHome = {
   found: boolean;
+  catalog_pending?: boolean;
   principle?: string;
   locale?: string;
   categories?: string[];

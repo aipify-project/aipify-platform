@@ -29,6 +29,11 @@ export function buildCustomerSuccessLabels(t: Translator): CustomerSuccessLabels
     entitlementMissing: t(`${p}.entitlementMissing`),
     errorTitle: t(`${p}.errorTitle`),
     errorBody: t(`${p}.errorBody`),
+    pageLoadError: t(`${p}.pageLoadError`),
+    noDataYet: t(`${p}.noDataYet`),
+    emptyTitle: t(`${p}.emptyTitle`),
+    emptyBody: t(`${p}.emptyBody`),
+    emptyAction: t(`${p}.emptyAction`),
     retry: t(`${p}.retry`),
     sections: {
       overview: t(`${p}.sections.overview`),

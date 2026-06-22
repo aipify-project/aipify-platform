@@ -215,8 +215,16 @@ export function parseCustomerSuccessOverview(data: unknown): CustomerSuccessOver
       journeyStarted
     );
 
+  const explicitFound = d.found === true;
+  const implicitFound =
+    d.found !== false &&
+    (d.success_status !== undefined ||
+      d.scores !== undefined ||
+      d.journey_started !== undefined ||
+      d.adoption_signals !== undefined);
+
   return {
-    found: d.found === true,
+    found: explicitFound || implicitFound,
     filtered_out: d.filtered_out === true,
     can_manage: d.can_manage === true,
     can_admin: d.can_admin === true,

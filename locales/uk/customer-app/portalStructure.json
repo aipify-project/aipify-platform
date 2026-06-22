@@ -102,6 +102,13 @@
       },
       "whatYouUnlock": "Що ви отримуєте"
     },
+    "license": {
+      "upgradeTitle": "Потрібне оновлення",
+      "upgradeBody": "Ця можливість не входить до вашої поточної підписки. Оновіть план, щоб відкрити доступ.",
+      "upgradeCta": "Переглянути варіанти оновлення",
+      "unavailableTitle": "Функція недоступна",
+      "pageLoadError": "Сторінку не вдалося завантажити. Спробуйте ще раз незабаром."
+    },
     "executiveInsights": {
       "title": "Executive Insights",
       "subtitle": "A concise overview of organizational health, priorities, risks, opportunities, and recommended next steps — decision support, not analytics.",
@@ -3056,10 +3063,16 @@
       "subtitle": "Continuously improve adoption, platform utilization and return on investment from Aipify.",
       "loading": "Aipify is reviewing your organization's success journey…",
       "principle": "Aipify provides recommendations and insights — organizations remain responsible for implementation.",
-      "emptyTitle": "Your customer success journey has not started yet.",
-      "emptyBody": "Aipify helps organizations continuously improve and maximize business value.",
+      "emptyTitle": "Дані про успіх клієнтів ще відсутні",
+      "emptyBody": "Aipify покаже перевірені сигнали успіху клієнтів тут, коли дані стануть доступними.",
+      "emptyAction": "Відкрити Початок роботи",
       "emptyCta": "Begin Success Journey",
       "accessDenied": "You do not have permission to access Customer Success.",
+      "errorTitle": "Успіх клієнтів недоступний",
+      "errorBody": "Aipify не вдалося завантажити дані успіху клієнтів для організації. Перевірте дозволи та спробуйте ще раз.",
+      "pageLoadError": "Сторінку не вдалося завантажити. Спробуйте ще раз незабаром.",
+      "noDataYet": "Дані про успіх клієнтів ще відсутні. Aipify покаже перевірені сигнали, коли дані стануть доступними.",
+      "retry": "Повторити",
       "filters": {
         "search": "Search success insights…",
         "category": "Adoption category",
@@ -3163,7 +3176,7 @@
       "permissionMissing": "У вас немає дозволу на доступ до цієї області. Зверніться до адміністратора організації.",
       "entitlementLocked": "Ця функція не входить до активних Business Packs або плану вашої організації.",
       "pageLoadError": "Сторінку не вдалося завантажити. Спробуйте ще раз незабаром.",
-      "noDataYet": "Дані про здоров'я організації ще недоступні. Aipify покаже інсайти, коли робочий простір стане активним.",
+      "noDataYet": "Дані про здоров'я клієнтів ще відсутні. Aipify покаже перевірені сигнали здоров'я клієнтів тут, коли дані стануть доступними.",
       "errorTitle": "Customer Health недоступний",
       "errorBody": "Aipify не вдалося завантажити дані про здоров'я організації. Перевірте дозволи та спробуйте знову.",
       "retry": "Спробувати знову",

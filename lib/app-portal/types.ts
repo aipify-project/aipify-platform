@@ -71,6 +71,7 @@ export type AppPortalLabels = {
     upgradeBody: string;
     upgradeCta: string;
     unavailableTitle: string;
+    pageLoadError: string;
   };
   knowledge: {
     title: string;
