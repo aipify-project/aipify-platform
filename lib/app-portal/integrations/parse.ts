@@ -3,6 +3,7 @@ import type {
   AppPortalIntegrationProvider,
   AppPortalIntegrationSetup,
   AppPortalIntegrationsHub,
+  IntegrationDuplicateWarning,
   IntegrationVerificationMetadata,
 } from "./types";
 
@@ -87,16 +88,34 @@ function parseConnection(raw: unknown): AppPortalIntegrationConnection {
     provider_key: asString(row.provider_key),
     setup_type: asString(row.setup_type, "manual") as AppPortalIntegrationConnection["setup_type"],
     status: asString(row.status),
+    canonical_status: row.canonical_status == null ? null : asString(row.canonical_status),
     permission_level: asString(row.permission_level),
     approved_scopes: asStringArray(row.approved_scopes),
     masked_credential_hint: row.masked_credential_hint == null ? null : asString(row.masked_credential_hint),
     last_test_success_at: row.last_test_success_at == null ? null : asString(row.last_test_success_at),
     last_test_failed_at: row.last_test_failed_at == null ? null : asString(row.last_test_failed_at),
     last_test_error: row.last_test_error == null ? null : asString(row.last_test_error),
+    activated_at: row.activated_at == null ? null : asString(row.activated_at),
+    deactivated_at: row.deactivated_at == null ? null : asString(row.deactivated_at),
+    removed_at: row.removed_at == null ? null : asString(row.removed_at),
+    updated_at: row.updated_at == null ? null : asString(row.updated_at),
     access_summary: accessSummary,
     last_verification: verificationFields.last_verification,
-    last_verified_at: verificationFields.last_verified_at,
+    last_verified_at:
+      row.last_verified_at == null
+        ? verificationFields.last_verified_at
+        : asString(row.last_verified_at),
     connection_name: verificationFields.connection_name,
+  };
+}
+
+function parseDuplicateWarning(raw: unknown): IntegrationDuplicateWarning {
+  const row = asRecord(raw) ?? {};
+  return {
+    normalized_base_url: asString(row.normalized_base_url),
+    connection_ids: asStringArray(row.connection_ids),
+    provider_keys: asStringArray(row.provider_keys),
+    preferred_provider_key: asString(row.preferred_provider_key),
   };
 }
 
@@ -107,12 +126,17 @@ export function parseAppPortalIntegrationsHub(raw: unknown): AppPortalIntegratio
   const providers = Array.isArray(row.providers) ? row.providers.map(parseProvider) : [];
   const connections = Array.isArray(row.connections) ? row.connections.map(parseConnection) : [];
 
+  const duplicateWarnings = Array.isArray(row.duplicate_warnings)
+    ? row.duplicate_warnings.map(parseDuplicateWarning)
+    : [];
+
   return {
     read_only_principle: asString(row.read_only_principle),
     can_manage: asBool(row.can_manage),
     setup_flow_steps: asStringArray(row.setup_flow_steps),
     providers,
     connections,
+    duplicate_warnings: duplicateWarnings,
     privacy_note: asString(row.privacy_note),
   };
 }

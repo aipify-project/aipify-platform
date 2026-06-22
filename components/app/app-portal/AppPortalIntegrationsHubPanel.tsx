@@ -60,6 +60,30 @@ export function AppPortalIntegrationsHubPanel({
         )}
       </div>
 
+      {hub.duplicate_warnings.length > 0 ? (
+        <section
+          className="rounded-2xl border border-amber-200 bg-amber-50/70 p-6 shadow-sm"
+          role="status"
+        >
+          <h2 className="font-semibold text-amber-950">{labels.hub.duplicateWarningTitle}</h2>
+          <p className="mt-2 text-sm text-amber-900">{labels.hub.duplicateWarningBody}</p>
+          <ul className="mt-4 space-y-3">
+            {hub.duplicate_warnings.map((warning) => (
+              <li key={warning.normalized_base_url} className="rounded-xl border border-amber-100 bg-white/80 p-4 text-sm">
+                <p className="font-medium text-slate-900">{warning.normalized_base_url}</p>
+                <p className="mt-1 text-slate-600">
+                  {labels.hub.duplicateWarningPreferred}:{" "}
+                  {labels.providerNames[warning.preferred_provider_key as keyof typeof labels.providerNames] ??
+                    warning.preferred_provider_key}
+                </p>
+                <p className="mt-1 text-slate-600">{warning.provider_keys.join(" · ")}</p>
+                <p className="mt-2 text-xs text-slate-500">{labels.hub.duplicateWarningCleanup}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex items-center justify-between gap-4">
           <h2 className="font-semibold text-slate-900">{labels.hub.connectedTitle}</h2>

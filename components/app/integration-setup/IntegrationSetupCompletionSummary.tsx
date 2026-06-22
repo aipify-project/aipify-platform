@@ -6,6 +6,7 @@ import type {
   AppPortalIntegrationsLabels,
   IntegrationVerificationMetadata,
 } from "@/lib/app-portal/integrations";
+import type { IntegrationCanonicalStatus } from "@/lib/app-portal/integrations/canonical-status";
 import { IntegrationConnectionStatusBadge } from "./IntegrationConnectionStatusBadge";
 
 export type IntegrationSetupCompletionMode = "credential_saved" | "verified" | "active";
@@ -20,10 +21,13 @@ type IntegrationSetupCompletionSummaryProps = {
   lastVerifiedAt: string | null;
   connectionName: string | null;
   wizardPhase: "credential_saved" | "verified_read_only" | "active" | "pending" | "failed";
+  canonicalStatus: IntegrationCanonicalStatus;
   statusLabel: string;
   onPrimaryAction: () => void;
   onSecondaryAction?: () => void;
   onActivate?: () => void;
+  onDeactivate?: () => void;
+  deactivateLabel?: string;
   acting?: boolean;
   primaryDisabled?: boolean;
 };
@@ -63,10 +67,13 @@ export function IntegrationSetupCompletionSummary({
   lastVerifiedAt,
   connectionName,
   wizardPhase,
+  canonicalStatus,
   statusLabel,
   onPrimaryAction,
   onSecondaryAction,
   onActivate,
+  onDeactivate,
+  deactivateLabel,
   acting = false,
   primaryDisabled = false,
 }: IntegrationSetupCompletionSummaryProps) {
@@ -81,9 +88,11 @@ export function IntegrationSetupCompletionSummary({
 
   const statusLines =
     mode === "active"
-      ? [completion.statusActive, completion.statusReadOnly]
+      ? canonicalStatus === "inactive"
+        ? [completion.statusInactive ?? completion.statusReadOnly]
+        : [completion.statusActive, completion.statusReadOnly]
       : mode === "verified"
-        ? [labels.setup.statuses.verifiedReadOnly, completion.statusReadOnly]
+        ? [completion.statusVerified ?? labels.setup.statuses.verifiedReadOnly]
         : [completion.statusAwaitingVerification];
 
   return (
@@ -109,12 +118,8 @@ export function IntegrationSetupCompletionSummary({
             </h1>
           </div>
           <IntegrationConnectionStatusBadge
-            status={mode === "active" ? "active" : mode === "verified" ? "connected" : "pending"}
             label={statusLabel}
-            permissionLevel={permissionLevel}
-            hasCredential
-            lastTestSuccessAt={mode === "credential_saved" ? null : lastVerifiedAt}
-            wizardPhase={wizardPhase}
+            canonicalStatus={canonicalStatus}
           />
         </div>
 
@@ -224,6 +229,16 @@ export function IntegrationSetupCompletionSummary({
                 className={`rounded-lg border border-violet-200 bg-violet-50 px-4 py-2 text-sm font-medium text-violet-900 disabled:opacity-50 ${AppPremiumShell.focusRing}`}
               >
                 {acting ? completion.activating : completion.activateCta}
+              </button>
+            ) : null}
+            {mode === "active" && onDeactivate && canonicalStatus === "active" ? (
+              <button
+                type="button"
+                disabled={acting}
+                onClick={onDeactivate}
+                className={`rounded-lg border border-aipify-border bg-white px-4 py-2 text-sm font-medium text-aipify-text disabled:opacity-50 ${AppPremiumShell.focusRing}`}
+              >
+                {deactivateLabel ?? completion.deactivateCta}
               </button>
             ) : null}
             <Link

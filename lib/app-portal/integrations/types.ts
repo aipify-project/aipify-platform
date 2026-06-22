@@ -23,16 +23,28 @@ export type AppPortalIntegrationConnection = {
   provider_key: string;
   setup_type: "oauth" | "manual";
   status: string;
+  canonical_status?: string | null;
   permission_level: string;
   approved_scopes: string[];
   masked_credential_hint: string | null;
   last_test_success_at: string | null;
   last_test_failed_at: string | null;
   last_test_error: string | null;
+  activated_at?: string | null;
+  deactivated_at?: string | null;
+  removed_at?: string | null;
+  updated_at?: string | null;
   access_summary?: Record<string, unknown>;
   last_verification?: IntegrationVerificationMetadata | null;
   last_verified_at?: string | null;
   connection_name?: string | null;
+};
+
+export type IntegrationDuplicateWarning = {
+  normalized_base_url: string;
+  connection_ids: string[];
+  provider_keys: string[];
+  preferred_provider_key: string;
 };
 
 export type AppPortalIntegrationsHub = {
@@ -41,6 +53,7 @@ export type AppPortalIntegrationsHub = {
   setup_flow_steps: string[];
   providers: AppPortalIntegrationProvider[];
   connections: AppPortalIntegrationConnection[];
+  duplicate_warnings: IntegrationDuplicateWarning[];
   privacy_note: string;
 };
 
@@ -74,6 +87,10 @@ export type IntegrationStatusLabels = {
   credentialSaved: string;
   verifiedReadOnly: string;
   active: string;
+  inactive: string;
+  revoked: string;
+  removed: string;
+  notConfigured: string;
   awaitingVerification: string;
 };
 
@@ -85,6 +102,9 @@ export type IntegrationCompletionLabels = {
   statusActive: string;
   statusReadOnly: string;
   statusAwaitingVerification: string;
+  statusVerified: string;
+  statusInactive: string;
+  deactivateCta: string;
   organizationLabel: string;
   accessTypeLabel: string;
   permissionsLabel: string;
@@ -214,6 +234,12 @@ export type AppPortalIntegrationsLabels = {
     removeDialog: IntegrationHubDialogLabels;
     disconnectDialog: IntegrationHubDialogLabels;
     feedback: IntegrationHubFeedbackLabels;
+    duplicateWarningTitle: string;
+    duplicateWarningBody: string;
+    duplicateWarningPreferred: string;
+    duplicateWarningCleanup: string;
+    activateIntegration: string;
+    deactivateIntegration: string;
   };
   providerNames: Record<string, string>;
   setup: {

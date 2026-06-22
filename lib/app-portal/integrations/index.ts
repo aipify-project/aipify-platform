@@ -4,3 +4,4 @@ export * from "./nav-config";
 export * from "./labels";
 export * from "./provider-display";
 export * from "./hub-actions";
+export * from "./canonical-status";

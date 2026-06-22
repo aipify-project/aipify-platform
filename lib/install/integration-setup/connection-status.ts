@@ -1,4 +1,9 @@
 import type { SemanticBadgeType } from "@/lib/design/semantic-status-system";
+import {
+  type IntegrationCanonicalStatus,
+  type IntegrationCanonicalStatusInput,
+  resolveIntegrationCanonicalStatus,
+} from "@/lib/app-portal/integrations/canonical-status";
 
 /** Customer-facing connection status for integration setup (list/hub). */
 export type IntegrationConnectionSemanticStatus =
@@ -85,13 +90,57 @@ function testFailedAfterLastSuccess(options: {
   lastTestFailedAt?: string | null;
   lastTestError?: string | null;
 }): boolean {
-  if (options.lastTestError && !options.lastTestSuccessAt) return true;
-  if (!options.lastTestFailedAt) return false;
-  if (!options.lastTestSuccessAt) return true;
   return (
-    new Date(options.lastTestFailedAt).getTime() >
-    new Date(options.lastTestSuccessAt).getTime()
+    resolveIntegrationCanonicalStatus({
+      status: "connected",
+      hasCredential: true,
+      last_test_success_at: options.lastTestSuccessAt,
+      last_test_failed_at: options.lastTestFailedAt,
+      last_test_error: options.lastTestError,
+    }) === "verification_failed"
   );
+}
+
+function toCanonicalInput(
+  status: string | null | undefined,
+  options?: {
+    permissionLevel?: string | null;
+    hasCredential?: boolean;
+    lastTestSuccessAt?: string | null;
+    lastTestFailedAt?: string | null;
+    lastTestError?: string | null;
+    activatedAt?: string | null;
+    deactivatedAt?: string | null;
+    removedAt?: string | null;
+    canonicalStatus?: string | null;
+  }
+): IntegrationCanonicalStatusInput {
+  return {
+    status,
+    canonical_status: options?.canonicalStatus,
+    hasCredential: options?.hasCredential,
+    last_test_success_at: options?.lastTestSuccessAt,
+    last_test_failed_at: options?.lastTestFailedAt,
+    last_test_error: options?.lastTestError,
+    activated_at: options?.activatedAt,
+    deactivated_at: options?.deactivatedAt,
+    removed_at: options?.removedAt,
+  };
+}
+
+function semanticFromCanonical(
+  canonical: IntegrationCanonicalStatus,
+  permissionLevel?: string | null
+): IntegrationConnectionSemanticStatus {
+  if (canonical === "verification_failed") return "failed";
+  if (canonical === "inactive") return "needs_review";
+  if (canonical === "revoked" || canonical === "removed") return "failed";
+  if (canonical === "not_configured") return "missing_info";
+  if (canonical === "credential_saved" || canonical === "verification_pending") return "pending";
+  if (canonical === "active" || canonical === "verified") {
+    return isReadOnlyPermission(permissionLevel) ? "read_only" : "connected";
+  }
+  return "pending";
 }
 
 export function mapConnectionStatusToSemantic(
@@ -102,33 +151,19 @@ export function mapConnectionStatusToSemantic(
     lastTestSuccessAt?: string | null;
     lastTestFailedAt?: string | null;
     lastTestError?: string | null;
+    activatedAt?: string | null;
+    deactivatedAt?: string | null;
+    removedAt?: string | null;
+    canonicalStatus?: string | null;
   }
 ): IntegrationConnectionSemanticStatus {
   const key = normalizeStatusKey(status);
-  const permission = (options?.permissionLevel ?? "").toLowerCase();
-
-  if (key === "connected" || key === "active" || key === "verified") {
-    if (testFailedAfterLastSuccess(options ?? {})) return "failed";
-    if (isReadOnlyPermission(permission)) return "read_only";
-    if (options?.lastTestSuccessAt) return "connected";
-    return "connected";
-  }
-
-  if (key === "failed" || key === "error" || key === "disconnected") return "failed";
   if (key === "needs_review" || key === "review" || key === "attention") return "needs_review";
   if (key === "missing_info" || key === "incomplete" || key === "draft") return "missing_info";
   if (key === "read_only" || key === "readonly") return "read_only";
 
-  if (!options?.hasCredential && (key === "pending" || key === "" || key === "new")) {
-    return "missing_info";
-  }
-
-  if (testFailedAfterLastSuccess(options ?? {})) return "failed";
-  if (options?.lastTestSuccessAt) {
-    return isReadOnlyPermission(permission) ? "read_only" : "connected";
-  }
-
-  return "pending";
+  const canonical = resolveIntegrationCanonicalStatus(toCanonicalInput(status, options));
+  return semanticFromCanonical(canonical, options?.permissionLevel);
 }
 
 export function mapWizardConnectionPhase(
@@ -140,30 +175,29 @@ export function mapWizardConnectionPhase(
     lastTestFailedAt?: string | null;
     lastTestError?: string | null;
     activationComplete?: boolean;
+    activatedAt?: string | null;
+    deactivatedAt?: string | null;
+    canonicalStatus?: string | null;
   }
 ): IntegrationWizardConnectionPhase {
-  const key = normalizeStatusKey(status);
+  const canonical = resolveIntegrationCanonicalStatus(
+    toCanonicalInput(status, {
+      ...options,
+      lastTestSuccessAt: options.lastTestSuccessAt,
+      lastTestFailedAt: options.lastTestFailedAt,
+      lastTestError: options.lastTestError,
+      activatedAt: options.activatedAt,
+      deactivatedAt: options.deactivatedAt,
+      canonicalStatus: options.canonicalStatus,
+    })
+  );
 
-  if (options.activationComplete || key === "active") {
-    if (options.lastTestSuccessAt && !testFailedAfterLastSuccess(options)) {
-      return "active";
-    }
+  if (canonical === "active" || (options.activationComplete && canonical === "verified")) {
+    return "active";
   }
-
-  if (testFailedAfterLastSuccess(options)) return "failed";
-  if (key === "failed" || key === "error") return "failed";
-
-  if (
-    options.lastTestSuccessAt &&
-    (key === "connected" || key === "verified" || key === "active")
-  ) {
-    return "verified_read_only";
-  }
-
-  if (options.hasCredential && !options.lastTestSuccessAt) {
-    return "credential_saved";
-  }
-
+  if (canonical === "verification_failed") return "failed";
+  if (canonical === "verified" || canonical === "inactive") return "verified_read_only";
+  if (canonical === "credential_saved") return "credential_saved";
   return "pending";
 }
 

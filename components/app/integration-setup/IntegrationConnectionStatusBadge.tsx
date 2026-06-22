@@ -2,6 +2,10 @@
 
 import { SemanticBadge } from "@/components/ui/semantic-badge";
 import {
+  getIntegrationCanonicalBadgeConfig,
+  type IntegrationCanonicalStatus,
+} from "@/lib/app-portal/integrations/canonical-status";
+import {
   getIntegrationConnectionBadgeConfig,
   getIntegrationWizardPhaseBadgeConfig,
   mapConnectionStatusToSemantic,
@@ -10,17 +14,16 @@ import {
 } from "@/lib/install/integration-setup";
 
 type IntegrationConnectionStatusBadgeProps = {
-  status: string | null | undefined;
+  status?: string | null | undefined;
   label: string;
   permissionLevel?: string | null;
   hasCredential?: boolean;
   lastTestSuccessAt?: string | null;
   lastTestFailedAt?: string | null;
   lastTestError?: string | null;
-  /** Override mapped semantic status when known. */
   semanticStatus?: IntegrationConnectionSemanticStatus;
-  /** Wizard-specific phase override (connect flow). */
   wizardPhase?: IntegrationWizardConnectionPhase;
+  canonicalStatus?: IntegrationCanonicalStatus;
   activationComplete?: boolean;
   className?: string;
 };
@@ -35,9 +38,21 @@ export function IntegrationConnectionStatusBadge({
   lastTestError,
   semanticStatus,
   wizardPhase,
-  activationComplete,
+  canonicalStatus,
   className,
 }: IntegrationConnectionStatusBadgeProps) {
+  if (canonicalStatus) {
+    const config = getIntegrationCanonicalBadgeConfig(canonicalStatus);
+    return (
+      <SemanticBadge
+        type={config.badgeType}
+        value={config.badgeValue}
+        label={label}
+        className={className}
+      />
+    );
+  }
+
   if (wizardPhase) {
     const config = getIntegrationWizardPhaseBadgeConfig(wizardPhase);
     return (

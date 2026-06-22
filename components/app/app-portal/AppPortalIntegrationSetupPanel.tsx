@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import {
@@ -11,7 +12,6 @@ import {
   buildIntegrationErrorPanelLabels,
   mapWizardConnectionPhase,
   type IntegrationSetupCompletionMode,
-  type IntegrationWizardConnectionPhase,
 } from "@/components/app/integration-setup";
 import { IntegrationRemoveDialog } from "@/components/app/app-portal/IntegrationRemoveDialog";
 import {
@@ -25,6 +25,9 @@ import {
   parseAppPortalIntegrationSetup,
   parseVerificationFromTestResponse,
   interpolateIntegrationLabel,
+  canonicalStatusLabelKey,
+  connectionToCanonicalInput,
+  resolveIntegrationCanonicalStatus,
   type AppPortalIntegrationSetup,
   type AppPortalIntegrationsLabels,
   type IntegrationVerificationMetadata,
@@ -37,38 +40,22 @@ type AppPortalIntegrationSetupPanelProps = {
 
 type SetupMode = "oauth" | "manual";
 
-const WIZARD_PHASE_LABEL_KEYS = {
-  pending: "pending",
-  credential_saved: "credentialSaved",
-  failed: "failed",
-  verified_read_only: "verifiedReadOnly",
-  active: "active",
-} as const;
-
 function maskCredential(value: string): string {
   if (value.length <= 4) return "••••";
   return `${"•".repeat(Math.min(12, value.length - 4))}${value.slice(-4)}`;
 }
 
 function resolveInitialCompletionMode(
-  setup: AppPortalIntegrationSetup,
-  activationComplete: boolean
+  setup: AppPortalIntegrationSetup
 ): IntegrationSetupCompletionMode | null {
   const connection = setup.connection;
   if (!connection) return null;
 
-  const phase = mapWizardConnectionPhase(connection.status, {
-    permissionLevel: connection.permission_level,
-    hasCredential: Boolean(connection.masked_credential_hint || connection.id),
-    lastTestSuccessAt: connection.last_test_success_at,
-    lastTestFailedAt: connection.last_test_failed_at,
-    lastTestError: connection.last_test_error ?? null,
-    activationComplete,
-  });
+  const canonical = resolveIntegrationCanonicalStatus(connectionToCanonicalInput(connection));
 
-  if (phase === "active") return "active";
-  if (phase === "verified_read_only") return "verified";
-  if (phase === "credential_saved") return "credential_saved";
+  if (canonical === "active" || canonical === "inactive") return "active";
+  if (canonical === "verified") return "verified";
+  if (canonical === "credential_saved") return "credential_saved";
   return null;
 }
 
@@ -76,19 +63,12 @@ function resolveInitialStepIndex(setup: AppPortalIntegrationSetup): number {
   const connection = setup.connection;
   if (!connection) return 0;
 
-  const phase = mapWizardConnectionPhase(connection.status, {
-    permissionLevel: connection.permission_level,
-    hasCredential: Boolean(connection.masked_credential_hint || connection.id),
-    lastTestSuccessAt: connection.last_test_success_at,
-    lastTestFailedAt: connection.last_test_failed_at,
-    lastTestError: connection.last_test_error ?? null,
-    activationComplete: false,
-  });
+  const canonical = resolveIntegrationCanonicalStatus(connectionToCanonicalInput(connection));
 
-  if (phase === "verified_read_only" || phase === "active") {
+  if (canonical === "verified" || canonical === "active" || canonical === "inactive") {
     return INTEGRATION_WIZARD_STEPS.indexOf("confirm_activation");
   }
-  if (phase === "credential_saved" || phase === "failed") {
+  if (canonical === "credential_saved" || canonical === "verification_failed") {
     return INTEGRATION_WIZARD_STEPS.indexOf("test_connection");
   }
   if (connection.masked_credential_hint) {
@@ -101,6 +81,7 @@ export function AppPortalIntegrationSetupPanel({
   providerKey,
   labels,
 }: AppPortalIntegrationSetupPanelProps) {
+  const router = useRouter();
   const [setup, setSetup] = useState<AppPortalIntegrationSetup | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadFailed, setLoadFailed] = useState(false);
@@ -113,7 +94,6 @@ export function AppPortalIntegrationSetupPanel({
   const [connectionName, setConnectionName] = useState("");
   const [connectionId, setConnectionId] = useState<string | null>(null);
   const [acting, setActing] = useState(false);
-  const [activationComplete, setActivationComplete] = useState(false);
   const [completionMode, setCompletionMode] = useState<IntegrationSetupCompletionMode | null>(null);
   const [verification, setVerification] = useState<IntegrationVerificationMetadata | null>(null);
   const [lastVerifiedAt, setLastVerifiedAt] = useState<string | null>(null);
@@ -171,15 +151,19 @@ export function AppPortalIntegrationSetupPanel({
     if (!setup || resumeInitialized.current) return;
     resumeInitialized.current = true;
 
-    const initialActivation =
-      setup.connection?.status === "active" || activationComplete;
-    const initialCompletion = resolveInitialCompletionMode(setup, initialActivation);
+    const initialCompletion = resolveInitialCompletionMode(setup);
     if (initialCompletion) {
       setCompletionMode(initialCompletion);
-      if (initialCompletion === "active") setActivationComplete(true);
     }
     setStepIndex(resolveInitialStepIndex(setup));
-  }, [setup, activationComplete]);
+  }, [setup]);
+
+  const canonicalStatus = useMemo(() => {
+    if (!setup?.connection) return "not_configured" as const;
+    return resolveIntegrationCanonicalStatus(connectionToCanonicalInput(setup.connection));
+  }, [setup]);
+
+  const activationComplete = canonicalStatus === "active";
 
   const hasCredential = Boolean(
     connectionId || setup?.connection?.masked_credential_hint || apiKey.length >= 8
@@ -193,13 +177,15 @@ export function AppPortalIntegrationSetupPanel({
       lastTestFailedAt: setup?.connection?.last_test_failed_at,
       lastTestError: setup?.connection?.last_test_error ?? null,
       activationComplete,
+      activatedAt: setup?.connection?.activated_at,
+      deactivatedAt: setup?.connection?.deactivated_at,
+      canonicalStatus: setup?.connection?.canonical_status,
     });
   }, [setup, permissionLevel, hasCredential, lastVerifiedAt, activationComplete]);
 
   const statusLabel =
-    labels.setup.statuses[
-      WIZARD_PHASE_LABEL_KEYS[wizardPhase as IntegrationWizardConnectionPhase]
-    ] ?? labels.setup.statuses.pending;
+    labels.setup.statuses[canonicalStatusLabelKey(canonicalStatus)] ??
+    labels.setup.statuses.pending;
 
   const isUnonight = providerKey === "unonight";
 
@@ -241,22 +227,28 @@ export function AppPortalIntegrationSetupPanel({
     const res = await fetch("/api/app-portal/integrations/test", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ connection_id: connectionId }),
+      body: JSON.stringify({ connection_id: connectionId, activation: isActivation }),
     });
     if (res.ok) {
-      const body = (await res.json()) as { verification?: unknown };
+      const body = (await res.json()) as { verification?: unknown; last_verified_at?: string };
       const parsedVerification = parseVerificationFromTestResponse(body.verification);
       if (parsedVerification) setVerification(parsedVerification);
-      const verifiedAt = new Date().toISOString();
-      setLastVerifiedAt(verifiedAt);
+      setLastVerifiedAt(body.last_verified_at ?? new Date().toISOString());
       await load();
+      const refreshed = parseAppPortalIntegrationSetup(
+        await (await fetch(`/api/app-portal/integrations/${encodeURIComponent(providerKey)}`)).json()
+      );
+      const refreshedCanonical = refreshed?.connection
+        ? resolveIntegrationCanonicalStatus(connectionToCanonicalInput(refreshed.connection))
+        : null;
 
-      if (isActivation) {
-        setActivationComplete(true);
+      if (isActivation && refreshedCanonical === "active") {
         setCompletionMode("active");
-      } else {
+      } else if (!isActivation && refreshedCanonical === "verified") {
         setStepIndex(flowSteps.indexOf("confirm_activation"));
         setCompletionMode("verified");
+      } else if (refreshedCanonical === "verification_failed") {
+        setCompletionMode(null);
       }
     } else {
       const guidance = await parseIntegrationErrorFromResponse(res);
@@ -282,7 +274,6 @@ export function AppPortalIntegrationSetupPanel({
       return;
     }
     setConnectionId(null);
-    setActivationComplete(false);
     setCompletionMode(null);
     setVerification(null);
     setLastVerifiedAt(null);
@@ -293,6 +284,22 @@ export function AppPortalIntegrationSetupPanel({
     resumeInitialized.current = false;
     await load();
     setActing(false);
+    router.push("/app/platform/integrations");
+  }
+
+  async function deactivateConnection() {
+    if (!connectionId) return;
+    setActing(true);
+    const res = await fetch("/api/app-portal/integrations/deactivate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ connection_id: connectionId }),
+    });
+    setActing(false);
+    if (res.ok) {
+      await load();
+      setCompletionMode("active");
+    }
   }
 
   const removeDialogTitle = setup
@@ -361,6 +368,7 @@ export function AppPortalIntegrationSetupPanel({
           lastVerifiedAt={lastVerifiedAt ?? setup.connection?.last_verified_at ?? setup.connection?.last_test_success_at ?? null}
           connectionName={connectionName || setup.connection?.connection_name || null}
           wizardPhase={wizardPhase}
+          canonicalStatus={canonicalStatus}
           statusLabel={statusLabel}
           acting={acting}
           onPrimaryAction={() => {
@@ -369,10 +377,16 @@ export function AppPortalIntegrationSetupPanel({
           }}
           onSecondaryAction={() => void testConnection()}
           onActivate={
-            completionMode === "verified" && !activationComplete
+            completionMode === "verified" && canonicalStatus === "verified"
               ? () => void testConnection({ activation: true })
               : undefined
           }
+          onDeactivate={
+            completionMode === "active" && canonicalStatus === "active"
+              ? () => void deactivateConnection()
+              : undefined
+          }
+          deactivateLabel={labels.hub.deactivateIntegration}
         />
         <ManageIntegrationSection
           labels={labels}
@@ -421,15 +435,8 @@ export function AppPortalIntegrationSetupPanel({
               </h1>
             </div>
             <IntegrationConnectionStatusBadge
-              status={setup.connection?.status}
               label={statusLabel}
-              permissionLevel={permissionLevel}
-              hasCredential={hasCredential}
-              lastTestSuccessAt={setup.connection?.last_test_success_at}
-              lastTestFailedAt={setup.connection?.last_test_failed_at}
-              lastTestError={setup.connection?.last_test_error ?? null}
-              wizardPhase={wizardPhase}
-              activationComplete={activationComplete}
+              canonicalStatus={canonicalStatus}
             />
           </div>
 

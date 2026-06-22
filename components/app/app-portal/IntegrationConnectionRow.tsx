@@ -5,23 +5,18 @@ import { useEffect, useId, useRef, useState } from "react";
 import { IntegrationConnectionStatusBadge } from "@/components/app/integration-setup";
 import { IntegrationRemoveDialog } from "@/components/app/app-portal/IntegrationRemoveDialog";
 import {
+  canonicalStatusLabelKey,
+  connectionToCanonicalInput,
   interpolateIntegrationLabel,
+  resolveIntegrationCanonicalStatus,
   resolveIntegrationHubActionTier,
   resolveIntegrationProviderDisplayName,
+  shouldShowLastTestFailed,
+  shouldShowLastTestSuccess,
   type AppPortalIntegrationConnection,
   type AppPortalIntegrationProvider,
   type AppPortalIntegrationsLabels,
 } from "@/lib/app-portal/integrations";
-import { mapConnectionStatusToSemantic, type IntegrationConnectionSemanticStatus } from "@/lib/install/integration-setup";
-
-const STATUS_LABEL_KEYS: Record<IntegrationConnectionSemanticStatus, keyof AppPortalIntegrationsLabels["setup"]["statuses"]> = {
-  pending: "pending",
-  missing_info: "missingInfo",
-  needs_review: "needsReview",
-  connected: "connected",
-  failed: "failed",
-  read_only: "readOnly",
-};
 
 type IntegrationConnectionRowProps = {
   connection: AppPortalIntegrationConnection;
@@ -45,21 +40,17 @@ export function IntegrationConnectionRow({
   const [actionError, setActionError] = useState<string | null>(null);
   const [dialogVariant, setDialogVariant] = useState<"remove" | "disconnect" | null>(null);
 
+  const canonicalInput = connectionToCanonicalInput(connection);
+  const canonicalStatus = resolveIntegrationCanonicalStatus(canonicalInput);
+  const statusLabelKey = canonicalStatusLabelKey(canonicalStatus);
+  const statusLabel = labels.setup.statuses[statusLabelKey] ?? connection.status;
+
   const providerName = resolveIntegrationProviderDisplayName(
     connection.provider_key,
     providers,
     labels.providerNames
   );
   const actionTier = resolveIntegrationHubActionTier(connection);
-  const semanticStatus = mapConnectionStatusToSemantic(connection.status, {
-    permissionLevel: connection.permission_level,
-    hasCredential: Boolean(connection.masked_credential_hint || connection.id),
-    lastTestSuccessAt: connection.last_test_success_at,
-    lastTestFailedAt: connection.last_test_failed_at,
-    lastTestError: connection.last_test_error,
-  });
-  const statusLabelKey = STATUS_LABEL_KEYS[semanticStatus];
-  const statusLabel = labels.setup.statuses[statusLabelKey] ?? connection.status;
   const setupHref = `/app/platform/integrations/connect/${encodeURIComponent(connection.provider_key)}`;
 
   useEffect(() => {
@@ -99,6 +90,27 @@ export function IntegrationConnectionRow({
     await onRefresh();
   }
 
+  async function toggleActivation(activate: boolean) {
+    setActing(true);
+    setActionError(null);
+    setMenuOpen(false);
+    const endpoint = activate
+      ? "/api/app-portal/integrations/activate"
+      : "/api/app-portal/integrations/deactivate";
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ connection_id: connection.id }),
+    });
+    if (!res.ok) {
+      setActionError(
+        activate ? labels.hub.feedback.testFailed : labels.hub.feedback.removeFailed
+      );
+    }
+    setActing(false);
+    await onRefresh();
+  }
+
   async function confirmRemoval() {
     setActing(true);
     setActionError(null);
@@ -123,10 +135,21 @@ export function IntegrationConnectionRow({
   const disconnectBody = interpolateIntegrationLabel(labels.hub.disconnectDialog.body, providerName);
 
   const menuItems =
-    actionTier === "connected"
+    actionTier === "active"
       ? [
           { key: "manage", href: setupHref, label: labels.hub.actions.manage, onClick: undefined },
           { key: "retryTest", label: labels.hub.actions.retryTest, onClick: () => void retryTest() },
+          canonicalStatus === "active"
+            ? {
+                key: "deactivate",
+                label: labels.hub.deactivateIntegration,
+                onClick: () => void toggleActivation(false),
+              }
+            : {
+                key: "activate",
+                label: labels.hub.activateIntegration,
+                onClick: () => void toggleActivation(true),
+              },
           {
             key: "disconnect",
             label: labels.hub.actions.disconnect,
@@ -136,10 +159,15 @@ export function IntegrationConnectionRow({
             },
           },
         ]
-      : actionTier === "failed"
+      : actionTier === "verified"
         ? [
-            { key: "retry", label: labels.hub.actions.retry, onClick: () => void retryTest() },
-            { key: "editSetup", href: setupHref, label: labels.hub.actions.editSetup, onClick: undefined },
+            { key: "manage", href: setupHref, label: labels.hub.actions.manage, onClick: undefined },
+            {
+              key: "activate",
+              label: labels.hub.activateIntegration,
+              onClick: () => void toggleActivation(true),
+            },
+            { key: "retryTest", label: labels.hub.actions.retryTest, onClick: () => void retryTest() },
             {
               key: "removeIntegration",
               label: labels.hub.actions.removeIntegration,
@@ -149,17 +177,30 @@ export function IntegrationConnectionRow({
               },
             },
           ]
-        : [
-            { key: "continueSetup", href: setupHref, label: labels.hub.actions.continueSetup, onClick: undefined },
-            {
-              key: "removeIntegration",
-              label: labels.hub.actions.removeIntegration,
-              onClick: () => {
-                setMenuOpen(false);
-                setDialogVariant("remove");
+        : actionTier === "failed"
+          ? [
+              { key: "retry", label: labels.hub.actions.retry, onClick: () => void retryTest() },
+              { key: "editSetup", href: setupHref, label: labels.hub.actions.editSetup, onClick: undefined },
+              {
+                key: "removeIntegration",
+                label: labels.hub.actions.removeIntegration,
+                onClick: () => {
+                  setMenuOpen(false);
+                  setDialogVariant("remove");
+                },
               },
-            },
-          ];
+            ]
+          : [
+              { key: "continueSetup", href: setupHref, label: labels.hub.actions.continueSetup, onClick: undefined },
+              {
+                key: "removeIntegration",
+                label: labels.hub.actions.removeIntegration,
+                onClick: () => {
+                  setMenuOpen(false);
+                  setDialogVariant("remove");
+                },
+              },
+            ];
 
   return (
     <li className="rounded-xl border border-slate-100 px-4 py-3 text-sm">
@@ -168,13 +209,8 @@ export function IntegrationConnectionRow({
           <div className="flex flex-wrap items-center gap-2">
             <span className="font-medium text-slate-900">{providerName}</span>
             <IntegrationConnectionStatusBadge
-              status={connection.status}
               label={statusLabel}
-              permissionLevel={connection.permission_level}
-              hasCredential={Boolean(connection.masked_credential_hint || connection.id)}
-              lastTestSuccessAt={connection.last_test_success_at}
-              lastTestFailedAt={connection.last_test_failed_at}
-              lastTestError={connection.last_test_error}
+              canonicalStatus={canonicalStatus}
             />
           </div>
           <p className="mt-1 text-slate-600">
@@ -183,10 +219,10 @@ export function IntegrationConnectionRow({
               : labels.hub.permissionReadWrite}
             {connection.masked_credential_hint ? ` · ${connection.masked_credential_hint}` : ""}
           </p>
-          {connection.last_test_success_at ? (
+          {shouldShowLastTestSuccess(connection) ? (
             <p className="mt-1 text-xs text-emerald-700">{labels.hub.lastTestSuccess}</p>
           ) : null}
-          {connection.last_test_failed_at ? (
+          {shouldShowLastTestFailed(connection) ? (
             <p className="mt-1 text-xs text-red-700">{labels.hub.lastTestFailed}</p>
           ) : null}
           {actionError ? (

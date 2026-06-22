@@ -11,26 +11,18 @@ export async function POST(request: Request) {
     }
 
     const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: NO_STORE });
-    }
-
-    const { data, error } = await supabase.rpc("remove_app_portal_integration_connection", {
+    const { data, error } = await supabase.rpc("activate_app_portal_integration_connection", {
       p_connection_id: body.connection_id,
     });
 
     if (error) {
       const message = error.message.toLowerCase();
       const status = message.includes("requires owner") || message.includes("permission") ? 403 : 400;
-      return NextResponse.json({ error: "Removal could not be completed" }, { status, headers: NO_STORE });
+      return NextResponse.json({ error: "Activation could not be completed" }, { status, headers: NO_STORE });
     }
 
     return NextResponse.json(data, { headers: NO_STORE });
   } catch {
-    return NextResponse.json({ error: "Removal could not be completed" }, { status: 500, headers: NO_STORE });
+    return NextResponse.json({ error: "Activation could not be completed" }, { status: 500, headers: NO_STORE });
   }
 }

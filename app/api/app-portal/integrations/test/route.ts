@@ -3,11 +3,13 @@ import { createClient } from "@/lib/supabase/server";
 import { runUnonightAppPortalConnectionTest } from "@/lib/unonight/connection/run-test";
 import { UNONIGHT_PROVIDER_KEY } from "@/lib/unonight/connection/constants";
 
+const NO_STORE = { "Cache-Control": "no-store" };
+
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as { connection_id?: string };
+    const body = (await request.json()) as { connection_id?: string; activation?: boolean };
     if (!body.connection_id) {
-      return NextResponse.json({ error: "connection_id required" }, { status: 400 });
+      return NextResponse.json({ error: "connection_id required" }, { status: 400, headers: NO_STORE });
     }
 
     const supabase = await createClient();
@@ -16,25 +18,40 @@ export async function POST(request: Request) {
     });
 
     if (materialRes.error) {
-      return NextResponse.json({ error: materialRes.error.message }, { status: 400 });
+      return NextResponse.json({ error: "Connection test could not be completed" }, { status: 400, headers: NO_STORE });
     }
 
     const material = materialRes.data as { provider_key?: string } | null;
+    let result: Record<string, unknown>;
+
     if (material?.provider_key === UNONIGHT_PROVIDER_KEY) {
-      const result = await runUnonightAppPortalConnectionTest(supabase, body.connection_id);
-      if (result.success === false && result.error) {
-        return NextResponse.json({ error: String(result.error) }, { status: 400 });
+      const testResult = await runUnonightAppPortalConnectionTest(supabase, body.connection_id);
+      if (testResult.success === false && testResult.error) {
+        return NextResponse.json({ error: String(testResult.error) }, { status: 400, headers: NO_STORE });
       }
-      return NextResponse.json(result);
+      result = testResult;
+    } else {
+      const { data, error } = await supabase.rpc("test_app_portal_integration_connection", {
+        p_connection_id: body.connection_id,
+      });
+      if (error) {
+        return NextResponse.json({ error: "Connection test could not be completed" }, { status: 400, headers: NO_STORE });
+      }
+      result = (data as Record<string, unknown>) ?? {};
     }
 
-    const { data, error } = await supabase.rpc("test_app_portal_integration_connection", {
-      p_connection_id: body.connection_id,
-    });
+    if (body.activation === true && result.success !== false) {
+      const activateRes = await supabase.rpc("activate_app_portal_integration_connection", {
+        p_connection_id: body.connection_id,
+      });
+      if (activateRes.error) {
+        return NextResponse.json({ error: "Activation could not be completed" }, { status: 400, headers: NO_STORE });
+      }
+      return NextResponse.json(activateRes.data, { headers: NO_STORE });
+    }
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-    return NextResponse.json(data);
+    return NextResponse.json(result, { headers: NO_STORE });
   } catch {
-    return NextResponse.json({ error: "Failed to test integration" }, { status: 500 });
+    return NextResponse.json({ error: "Connection test could not be completed" }, { status: 500, headers: NO_STORE });
   }
 }
