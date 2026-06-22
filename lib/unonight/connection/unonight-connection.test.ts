@@ -9,7 +9,9 @@ import {
   parseUnonightConnectionContract,
   requiresLiveHttpForSuccess,
   resolveUnonightApiBaseUrl,
+  resolveUnonightBaseUrlForForm,
   testUnonightReadOnlyConnection,
+  validateUnonightBaseUrlInput,
 } from "./index";
 
 const VALID_TOKEN = "uno_aipify_valid-looking-token-abcdef12";
@@ -176,6 +178,16 @@ async function runTests() {
     "invalid_token"
   );
   assert.equal(resolveUnonightApiBaseUrl("https://custom.example"), "https://custom.example");
+  assert.equal(resolveUnonightApiBaseUrl(null), "https://www.unonight.com");
+  assert.equal(resolveUnonightApiBaseUrl("https://www.unonight.com"), "https://www.unonight.com");
+  assert.equal(resolveUnonightApiBaseUrl("https://platform.unonight.com"), "https://www.unonight.com");
+
+  const emailValidation = validateUnonightBaseUrlInput("admin@unonight.com");
+  assert.equal(emailValidation.ok, false);
+  if (!emailValidation.ok) assert.equal(emailValidation.code, "email_not_allowed");
+
+  const formDefault = resolveUnonightBaseUrlForForm("admin@unonight.com");
+  assert.equal(formDefault, "https://www.unonight.com");
 
   console.log("unonight connection foundation tests passed");
 }

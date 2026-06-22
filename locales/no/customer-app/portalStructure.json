@@ -753,7 +753,7 @@
       "unonightConnection": {
         "baseUrlLabel": "Unonight-adresse",
         "baseUrlHint": "Bruk adressen Unonight ga deg for miljøet ditt. Aipify lagrer den sikkert sammen med nøkkelen.",
-        "baseUrlPlaceholder": "https://platform.unonight.com",
+        "baseUrlPlaceholder": "https://www.unonight.com",
         "connectionNameLabel": "Tilkoblingsnavn",
         "connectionNamePlaceholder": "Unonight skrivebeskyttet produksjon",
         "statuses": {
@@ -775,6 +775,9 @@
           "malformedResponse": "Unonight returnerte et uventet svar. Kontroller base-URL og nøkkel.",
           "serverError": "Unonight returnerte en serverfeil under tilkoblingstesten. Prøv igjen senere.",
           "credentialUnavailable": "Aipify fant ingen lagret nøkkel å teste med. Lim inn nøkkelen på nytt, lagre og test tilkoblingen.",
+          "invalidBaseUrl": "Oppgi en gyldig HTTPS-adresse for Unonight-miljøet ditt.",
+          "invalidBaseUrlHttps": "Unonight-adressen må starte med https://.",
+          "invalidBaseUrlEmail": "Unonight-adressen må være en URL, ikke en e-postadresse.",
           "verificationRecordFailed": "Tilkoblingstesten lyktes, men Aipify kunne ikke lagre verifiseringsresultatet. Prøv igjen.",
           "placeholderNotConfigured": "En midlertidig plassholdernøkkel er konfigurert. Bytt den ut med en ekte Unonight-nøkkel."
         },

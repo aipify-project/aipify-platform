@@ -13,6 +13,7 @@ export const UNONIGHT_PILOT_PRESET: PilotProvisionConfig = {
   timezone: "Europe/Oslo",
   pilot_status: "setup",
   pilot_stage: 1,
+  /** Tenant provisioning contact only — never used as Unonight API base URL. */
   contact_email: "admin@unonight.com",
   country: "NO",
   plan_name: "Enterprise",

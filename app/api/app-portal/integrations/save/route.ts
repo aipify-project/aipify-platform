@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import {
   UNONIGHT_DEFAULT_SCOPES,
+  UNONIGHT_PROVIDER_KEY,
   encryptIntegrationCredential,
-  resolveUnonightApiBaseUrl,
+  getUnonightBaseUrlValidationMessageKey,
+  validateUnonightBaseUrlInput,
 } from "@/lib/unonight/connection";
-import { UNONIGHT_PROVIDER_KEY } from "@/lib/unonight/connection/constants";
 
 export async function POST(request: Request) {
   try {
@@ -21,24 +22,37 @@ export async function POST(request: Request) {
 
     const supabase = await createClient();
     const providerKey = body.provider_key ?? "";
-    const apiKey = body.api_key?.trim() ?? null;
+    const apiKey = body.api_key?.trim() ?? "";
 
-    let storedSecret: string | null = apiKey;
-    if (providerKey === UNONIGHT_PROVIDER_KEY && apiKey) {
-      storedSecret = encryptIntegrationCredential(apiKey);
+    let accessSummary: Record<string, unknown> = {};
+
+    if (providerKey === UNONIGHT_PROVIDER_KEY) {
+      const baseValidation = validateUnonightBaseUrlInput(body.base_url);
+      if (!baseValidation.ok) {
+        return NextResponse.json(
+          {
+            error: "invalid_base_url",
+            error_code: baseValidation.code,
+            message_key: getUnonightBaseUrlValidationMessageKey(baseValidation.code),
+          },
+          { status: 400 }
+        );
+      }
+
+      accessSummary = {
+        provider: UNONIGHT_PROVIDER_KEY,
+        base_url: baseValidation.value,
+        connection_name: body.connection_name?.trim() || "Unonight read-only",
+        requested_scopes: body.approved_scopes?.length
+          ? body.approved_scopes
+          : [...UNONIGHT_DEFAULT_SCOPES],
+      };
     }
 
-    const accessSummary =
-      providerKey === UNONIGHT_PROVIDER_KEY
-        ? {
-            provider: UNONIGHT_PROVIDER_KEY,
-            base_url: resolveUnonightApiBaseUrl(body.base_url),
-            connection_name: body.connection_name?.trim() || "Unonight read-only",
-            requested_scopes: body.approved_scopes?.length
-              ? body.approved_scopes
-              : [...UNONIGHT_DEFAULT_SCOPES],
-          }
-        : {};
+    let storedSecret: string | null = apiKey.length > 0 ? apiKey : null;
+    if (providerKey === UNONIGHT_PROVIDER_KEY && storedSecret) {
+      storedSecret = encryptIntegrationCredential(storedSecret);
+    }
 
     const { data, error } = await supabase.rpc("save_app_portal_integration_connection", {
       p_provider_key: body.provider_key,
@@ -49,7 +63,21 @@ export async function POST(request: Request) {
       p_access_summary: accessSummary,
     });
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+    if (error) {
+      const message = error.message.toLowerCase();
+      if (message.includes("email") || message.includes("invalid unonight base url")) {
+        return NextResponse.json(
+          {
+            error: "invalid_base_url",
+            error_code: "email_not_allowed",
+            message_key: getUnonightBaseUrlValidationMessageKey("email_not_allowed"),
+          },
+          { status: 400 }
+        );
+      }
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
     return NextResponse.json(data);
   } catch {
     return NextResponse.json({ error: "Failed to save integration" }, { status: 500 });

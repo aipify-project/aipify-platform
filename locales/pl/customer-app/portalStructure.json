@@ -6676,7 +6676,7 @@
       "unonightConnection": {
         "baseUrlLabel": "Bazowy URL API Unonight",
         "baseUrlHint": "Użyj URL podanego przez Unonight dla Twojego środowiska. Aipify przechowuje go bezpiecznie z kluczem.",
-        "baseUrlPlaceholder": "https://platform.unonight.com",
+        "baseUrlPlaceholder": "https://www.unonight.com",
         "connectionNameLabel": "Nazwa połączenia",
         "connectionNamePlaceholder": "Unonight read-only produkcja",
         "statuses": {
@@ -6698,6 +6698,9 @@
           "malformedResponse": "Unonight zwrócił nieoczekiwaną odpowiedź. Sprawdź bazowy URL i klucz.",
           "serverError": "Unonight zwrócił błąd serwera podczas testu połączenia. Spróbuj później.",
           "credentialUnavailable": "Aipify nie mogło odczytać zapisanego klucza połączenia. Zapisz klucz ponownie i przetestuj połączenie.",
+          "invalidBaseUrl": "Podaj prawidłowy adres HTTPS środowiska Unonight.",
+          "invalidBaseUrlHttps": "Adres Unonight musi zaczynać się od https://.",
+          "invalidBaseUrlEmail": "Adres Unonight musi być adresem URL, a nie adresem e-mail.",
           "verificationRecordFailed": "Test połączenia się powiódł, ale Aipify nie mogło zapisać wyniku weryfikacji. Spróbuj ponownie.",
           "placeholderNotConfigured": "Skonfigurowano tymczasowy klucz zastępczy. Zastąp go prawdziwym kluczem Unonight."
         },

@@ -20,13 +20,20 @@ export const UNONIGHT_PLACEHOLDER_TOKENS = [
   "unonight-pilot-secret-placeholder",
 ] as const;
 
-export function resolveUnonightApiBaseUrl(override?: string | null): string {
-  const trimmed = override?.trim();
-  if (trimmed) return trimmed.replace(/\/+$/, "");
-  const fromEnv = process.env.UNONIGHT_API_BASE_URL?.trim();
-  if (fromEnv) return fromEnv.replace(/\/+$/, "");
-  return "https://platform.unonight.com";
-}
+export {
+  UNONIGHT_CANONICAL_BASE_URL,
+  getUnonightBaseUrlValidationMessageKey,
+  isUnonightEmailLike,
+  normalizeUnonightBaseUrlHost,
+  resolveUnonightApiBaseUrl,
+  resolveUnonightBaseUrlForForm,
+  sanitizePersistedUnonightBaseUrl,
+  validateUnonightBaseUrlInput,
+} from "./base-url";
+export type {
+  UnonightBaseUrlValidationCode,
+  UnonightBaseUrlValidationResult,
+} from "./base-url";
 
 export function buildUnonightConnectionUrl(baseUrl: string): string {
   return `${baseUrl.replace(/\/+$/, "")}${UNONIGHT_CONNECTION_PATH}`;

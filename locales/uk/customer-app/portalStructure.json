@@ -6676,7 +6676,7 @@
       "unonightConnection": {
         "baseUrlLabel": "Базовий URL API Unonight",
         "baseUrlHint": "Використайте URL від Unonight для вашого середовища. Aipify зберігає його безпечно разом із ключем.",
-        "baseUrlPlaceholder": "https://platform.unonight.com",
+        "baseUrlPlaceholder": "https://www.unonight.com",
         "connectionNameLabel": "Назва з’єднання",
         "connectionNamePlaceholder": "Unonight read-only production",
         "statuses": {
@@ -6698,6 +6698,9 @@
           "malformedResponse": "Unonight повернув неочікувану відповідь. Перевірте базовий URL і ключ.",
           "serverError": "Unonight повернув помилку сервера під час тесту з’єднання. Спробуйте пізніше.",
           "credentialUnavailable": "Aipify не змогла прочитати збережений ключ з’єднання. Збережіть ключ знову й перевірте з’єднання.",
+          "invalidBaseUrl": "Введіть дійсну HTTPS-адресу середовища Unonight.",
+          "invalidBaseUrlHttps": "Адреса Unonight має починатися з https://.",
+          "invalidBaseUrlEmail": "Адреса Unonight має бути URL, а не електронною поштою.",
           "verificationRecordFailed": "Тест з’єднання пройшов, але Aipify не змогла зберегти результат перевірки. Спробуйте ще раз.",
           "placeholderNotConfigured": "Налаштовано тимчасовий ключ-заповнювач. Замініть його справжнім ключем Unonight."
         },

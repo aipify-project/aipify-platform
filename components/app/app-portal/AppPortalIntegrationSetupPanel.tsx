@@ -38,6 +38,13 @@ import {
   parseUnonightTestErrorFromResponse,
   type UnonightConnectionErrorPanelModel,
 } from "@/lib/unonight/connection/error-panel";
+import {
+  UNONIGHT_CANONICAL_BASE_URL,
+  getUnonightBaseUrlValidationMessageKey,
+  resolveUnonightBaseUrlForForm,
+  validateUnonightBaseUrlInput,
+} from "@/lib/unonight/connection/base-url";
+import { UNONIGHT_PROVIDER_KEY } from "@/lib/unonight/connection/constants";
 
 type AppPortalIntegrationSetupPanelProps = {
   providerKey: string;
@@ -96,7 +103,9 @@ export function AppPortalIntegrationSetupPanel({
   const [permissionLevel, setPermissionLevel] = useState("read_only");
   const [approvedScopes, setApprovedScopes] = useState(false);
   const [apiKey, setApiKey] = useState("");
-  const [baseUrl, setBaseUrl] = useState("");
+  const [baseUrl, setBaseUrl] = useState(() =>
+    providerKey === UNONIGHT_PROVIDER_KEY ? UNONIGHT_CANONICAL_BASE_URL : ""
+  );
   const [connectionName, setConnectionName] = useState("");
   const [connectionId, setConnectionId] = useState<string | null>(null);
   const [acting, setActing] = useState(false);
@@ -138,6 +147,9 @@ export function AppPortalIntegrationSetupPanel({
         }
         if (parsed.connection?.connection_name) {
           setConnectionName(parsed.connection.connection_name);
+        }
+        if (providerKey === UNONIGHT_PROVIDER_KEY) {
+          applyUnonightBaseUrlFromSetup(parsed);
         }
       } else {
         setSetup(null);
@@ -194,37 +206,85 @@ export function AppPortalIntegrationSetupPanel({
     labels.setup.statuses[canonicalStatusLabelKey(canonicalStatus)] ??
     labels.setup.statuses.pending;
 
-  const isUnonight = providerKey === "unonight";
+  const isUnonight = providerKey === UNONIGHT_PROVIDER_KEY;
+
+  function applyUnonightBaseUrlFromSetup(parsed: AppPortalIntegrationSetup) {
+    const stored =
+      typeof parsed.connection?.access_summary?.base_url === "string"
+        ? parsed.connection.access_summary.base_url
+        : null;
+    setBaseUrl(resolveUnonightBaseUrlForForm(stored));
+  }
 
   async function saveConnection() {
     if (!approvedScopes) return;
     setActing(true);
     setTestError(null);
     setUnonightTestError(null);
-    const res = await fetch("/api/app-portal/integrations/save", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        provider_key: providerKey,
-        setup_type: mode,
-        permission_level: permissionLevel,
-        approved_scopes: setup?.recommended_scopes ?? [],
-        api_key: mode === "manual" ? apiKey : null,
-        base_url: isUnonight ? baseUrl || null : null,
-        connection_name: isUnonight ? connectionName || null : null,
-      }),
-    });
-    if (res.ok) {
-      const body = (await res.json()) as { connection_id?: string };
-      if (body.connection_id) setConnectionId(body.connection_id);
-      await load();
-      setStepIndex(flowSteps.indexOf("test_connection"));
-      setCompletionMode(null);
-    } else {
-      const guidance = await parseIntegrationErrorFromResponse(res);
-      setTestError(guidance);
+    try {
+      if (isUnonight) {
+        const baseValidation = validateUnonightBaseUrlInput(baseUrl);
+        if (!baseValidation.ok) {
+          setTestError({
+            category: "validation_pending",
+            titleKey: "customerApp.portalStructure.integrations.errorGuidance.validationPending.title",
+            bodyKey: getUnonightBaseUrlValidationMessageKey(baseValidation.code),
+            checklistKeys: [],
+            actions: {
+              retry: labels.setup.errorGuidance.actions.retry,
+              findKey: labels.setup.errorGuidance.actions.findKey,
+              contactSupport: labels.setup.errorGuidance.actions.contactSupport,
+            },
+          });
+          return;
+        }
+      }
+
+      const normalizedBaseUrl = isUnonight
+        ? (() => {
+            const validated = validateUnonightBaseUrlInput(baseUrl);
+            return validated.ok ? validated.value : null;
+          })()
+        : null;
+
+      const res = await fetch("/api/app-portal/integrations/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          provider_key: providerKey,
+          setup_type: mode,
+          permission_level: permissionLevel,
+          approved_scopes: setup?.recommended_scopes ?? [],
+          api_key: mode === "manual" && apiKey.trim().length > 0 ? apiKey.trim() : null,
+          base_url: normalizedBaseUrl,
+          connection_name: isUnonight ? connectionName || null : null,
+        }),
+      });
+      if (res.ok) {
+        const body = (await res.json()) as { connection_id?: string };
+        if (body.connection_id) setConnectionId(body.connection_id);
+        await load();
+        setStepIndex(flowSteps.indexOf("test_connection"));
+        setCompletionMode(null);
+      } else {
+        const guidance = await parseIntegrationErrorFromResponse(res);
+        setTestError(guidance);
+      }
+    } catch {
+      setTestError({
+        category: "unknown",
+        titleKey: "customerApp.portalStructure.integrations.errorGuidance.unknown.title",
+        bodyKey: "customerApp.portalStructure.integrations.errorGuidance.unknown.body",
+        checklistKeys: [],
+        actions: {
+          retry: labels.setup.errorGuidance.actions.retry,
+          findKey: labels.setup.errorGuidance.actions.findKey,
+          contactSupport: labels.setup.errorGuidance.actions.contactSupport,
+        },
+      });
+    } finally {
+      setActing(false);
     }
-    setActing(false);
   }
 
   async function testConnection(options?: { activation?: boolean }) {
@@ -233,44 +293,47 @@ export function AppPortalIntegrationSetupPanel({
     setActing(true);
     setTestError(null);
     setUnonightTestError(null);
-    const res = await fetch("/api/app-portal/integrations/test", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ connection_id: connectionId, activation: isActivation }),
-    });
-    if (res.ok) {
-      const body = (await res.json()) as { verification?: unknown; last_verified_at?: string };
-      const parsedVerification = parseVerificationFromTestResponse(body.verification);
-      if (parsedVerification) setVerification(parsedVerification);
-      setLastVerifiedAt(body.last_verified_at ?? new Date().toISOString());
-      await load();
-      const refreshed = parseAppPortalIntegrationSetup(
-        await (await fetch(`/api/app-portal/integrations/${encodeURIComponent(providerKey)}`)).json()
-      );
-      const refreshedCanonical = refreshed?.connection
-        ? resolveIntegrationCanonicalStatus(connectionToCanonicalInput(refreshed.connection))
-        : null;
+    try {
+      const res = await fetch("/api/app-portal/integrations/test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ connection_id: connectionId, activation: isActivation }),
+      });
+      if (res.ok) {
+        const body = (await res.json()) as { verification?: unknown; last_verified_at?: string };
+        const parsedVerification = parseVerificationFromTestResponse(body.verification);
+        if (parsedVerification) setVerification(parsedVerification);
+        setLastVerifiedAt(body.last_verified_at ?? new Date().toISOString());
+        await load();
+        const refreshed = parseAppPortalIntegrationSetup(
+          await (await fetch(`/api/app-portal/integrations/${encodeURIComponent(providerKey)}`)).json()
+        );
+        const refreshedCanonical = refreshed?.connection
+          ? resolveIntegrationCanonicalStatus(connectionToCanonicalInput(refreshed.connection))
+          : null;
 
-      if (isActivation && refreshedCanonical === "active") {
-        setCompletionMode("active");
-      } else if (!isActivation && refreshedCanonical === "verified") {
-        setStepIndex(flowSteps.indexOf("confirm_activation"));
-        setCompletionMode("verified");
-      } else if (refreshedCanonical === "verification_failed") {
-        setCompletionMode(null);
-      }
-    } else {
-      if (isUnonight) {
-        setUnonightTestError(await parseUnonightTestErrorFromResponse(res));
+        if (isActivation && refreshedCanonical === "active") {
+          setCompletionMode("active");
+        } else if (!isActivation && refreshedCanonical === "verified") {
+          setStepIndex(flowSteps.indexOf("confirm_activation"));
+          setCompletionMode("verified");
+        } else if (refreshedCanonical === "verification_failed") {
+          setCompletionMode(null);
+        }
       } else {
-        const guidance = await parseIntegrationErrorFromResponse(res);
-        setTestError(guidance);
+        if (isUnonight) {
+          setUnonightTestError(await parseUnonightTestErrorFromResponse(res));
+        } else {
+          const guidance = await parseIntegrationErrorFromResponse(res);
+          setTestError(guidance);
+        }
+        if (isActivation) {
+          setCompletionMode("verified");
+        }
       }
-      if (isActivation) {
-        setCompletionMode("verified");
-      }
+    } finally {
+      setActing(false);
     }
-    setActing(false);
   }
 
   async function removeConnection() {
@@ -599,6 +662,13 @@ export function AppPortalIntegrationSetupPanel({
                         </p>
                         <input
                           type="url"
+                          inputMode="url"
+                          name="unonight-base-url"
+                          autoComplete="off"
+                          autoCorrect="off"
+                          spellCheck={false}
+                          data-1p-ignore
+                          data-lpignore="true"
                           value={baseUrl}
                           onChange={(e) => setBaseUrl(e.target.value)}
                           placeholder={labels.setup.unonight?.baseUrlPlaceholder ?? ""}

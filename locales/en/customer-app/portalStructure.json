@@ -6515,7 +6515,7 @@
       "unonightConnection": {
         "baseUrlLabel": "Unonight API base URL",
         "baseUrlHint": "Use the URL provided by Unonight for your environment. Aipify stores it securely with your connection key.",
-        "baseUrlPlaceholder": "https://platform.unonight.com",
+        "baseUrlPlaceholder": "https://www.unonight.com",
         "connectionNameLabel": "Connection name",
         "connectionNamePlaceholder": "Unonight read-only production",
         "statuses": {
@@ -6537,6 +6537,9 @@
           "malformedResponse": "Unonight returned an unexpected response. Verify the API base URL and key.",
           "serverError": "Unonight returned a server error during the connection test. Try again later.",
           "credentialUnavailable": "Aipify could not read the saved connection key. Save the key again and run the test once more.",
+          "invalidBaseUrl": "Enter a valid HTTPS URL for your Unonight environment.",
+          "invalidBaseUrlHttps": "The Unonight address must begin with https://.",
+          "invalidBaseUrlEmail": "The Unonight address must be a URL, not an email address.",
           "verificationRecordFailed": "The connection test succeeded but Aipify could not store the verification result. Try again.",
           "placeholderNotConfigured": "A placeholder connection key is configured. Replace it with a live Unonight read-only key."
         },

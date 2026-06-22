@@ -749,7 +749,7 @@
       "unonightConnection": {
         "baseUrlLabel": "Unonight API-bas-URL",
         "baseUrlHint": "Använd URL:en Unonight gav dig för din miljö. Aipify lagrar den säkert tillsammans med nyckeln.",
-        "baseUrlPlaceholder": "https://platform.unonight.com",
+        "baseUrlPlaceholder": "https://www.unonight.com",
         "connectionNameLabel": "Anslutningsnamn",
         "connectionNamePlaceholder": "Unonight skrivskyddad produktion",
         "statuses": {
@@ -771,6 +771,9 @@
           "malformedResponse": "Unonight returnerade ett oväntat svar. Kontrollera bas-URL och nyckel.",
           "serverError": "Unonight returnerade ett serverfel under anslutningstesten. Försök igen senare.",
           "credentialUnavailable": "Aipify kunde inte läsa den sparade anslutningsnyckeln. Spara nyckeln igen och testa anslutningen.",
+          "invalidBaseUrl": "Ange en giltig HTTPS-adress för din Unonight-miljö.",
+          "invalidBaseUrlHttps": "Unonight-adressen måste börja med https://.",
+          "invalidBaseUrlEmail": "Unonight-adressen måste vara en URL, inte en e-postadress.",
           "verificationRecordFailed": "Anslutningstestet lyckades men Aipify kunde inte spara verifieringsresultatet. Försök igen.",
           "placeholderNotConfigured": "En tillfällig platshållarnyckel är konfigurerad. Byt ut den mot en riktig Unonight-nyckel."
         },

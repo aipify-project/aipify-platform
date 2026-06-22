@@ -749,7 +749,7 @@
       "unonightConnection": {
         "baseUrlLabel": "Unonight API-base-URL",
         "baseUrlHint": "Brug URL'en fra Unonight til dit miljø. Aipify gemmer den sikkert sammen med nøglen.",
-        "baseUrlPlaceholder": "https://platform.unonight.com",
+        "baseUrlPlaceholder": "https://www.unonight.com",
         "connectionNameLabel": "Forbindelsesnavn",
         "connectionNamePlaceholder": "Unonight skrivebeskyttet produktion",
         "statuses": {
@@ -771,6 +771,9 @@
           "malformedResponse": "Unonight returnerede et uventet svar. Tjek base-URL og nøgle.",
           "serverError": "Unonight returnerede en serverfejl under forbindelsestesten. Prøv igen senere.",
           "credentialUnavailable": "Aipify kunne ikke læse den gemte forbindelsesnøgle. Gem nøglen igen og test forbindelsen.",
+          "invalidBaseUrl": "Angiv en gyldig HTTPS-adresse til dit Unonight-miljø.",
+          "invalidBaseUrlHttps": "Unonight-adressen skal starte med https://.",
+          "invalidBaseUrlEmail": "Unonight-adressen skal være en URL, ikke en e-mailadresse.",
           "verificationRecordFailed": "Forbindelsestesten lykkedes, men Aipify kunne ikke gemme verifikationsresultatet. Prøv igen.",
           "placeholderNotConfigured": "En midlertidig pladsholdernøgle er konfigureret. Erstat den med en rigtig Unonight-nøgle."
         },
