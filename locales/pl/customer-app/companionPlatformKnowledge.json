@@ -382,6 +382,55 @@
         "wordpress": "wordpress cms treść kategorie publikacja"
       }
     },
+    "services": {
+      "sourceLabel": "Katalog dostawców services",
+      "discoveryLead": "Aipify zmapował {provider} w katalogu dostawców services — status: {status}.",
+      "discoveryExplanation": "Poniższe capabilities pochodzą z zarejestrowanych manifestów Services Business Pack. Rezerwacje i zlecenia wymagają akceptacji i respektują reguły dostępności.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Źródło services jest przygotowane lub zweryfikowane dla Twojej organizacji.",
+      "disconnectedProvider": "Adapter runtime dostawcy nie jest podłączony — tylko kontrolowane wykrywanie.",
+      "unavailableLead": "Żaden dostawca services nie pasował do tego żądania dla Twojej organizacji.",
+      "unavailableExplanation": "Capabilities services są wykrywane z zarejestrowanych manifestów — żaden nie pasował do tego zapytania.",
+      "externalUnavailableLead": "Zewnętrzne adaptery rezerwacji lub usług terenowych nie są podłączone dla Twojej organizacji.",
+      "externalUnavailableExplanation": "Nie zarejestrowano live zewnętrznego adaptera rezerwacji ani usług terenowych. Aipify nie wykonuje płatności, anulowań ani usuwania w Companion runtime.",
+      "blockedOperationLead": "Ta operacja services nie jest dostępna w Companion runtime.",
+      "blockedOperationExplanation": "Anulowania, usuwanie, płatności i nieodwracalne zmiany są zablokowane w tej fazie. Aipify może przygotować i rekomendować — Ty decydujesz i zatwierdzasz odwracalne zapisy.",
+      "permissionDenied": "Twoja rola nie ma dostępu do katalogu dostawców services.",
+      "entitlementBlocked": "Capabilities services są niedostępne, gdy subskrypcja organizacji jest wstrzymana.",
+      "privacyNote": "Inteligencja services metadata-first — prywatne tytuły kalendarza i dane klientów nigdy nie są ujawniane w Companion runtime.",
+      "policyNote": "Rezerwacje i przypisania muszą respektować dostępność, czas trwania, bufory, strefę czasową, Vacation Mode i zapobieganie podwójnej rezerwacji. Zapisy wymagają wyraźnej akceptacji.",
+      "doubleBookingPrevented": "Zapobieganie podwójnej rezerwacji jest aktywne dla tej organizacji.",
+      "doubleBookingReviewRequired": "Zapobieganie podwójnej rezerwacji wymaga przeglądu — overbooking nie jest domyślnie włączony.",
+      "vacationModeActive": "Integracja pokrycia Vacation Mode jest aktywna dla planowania.",
+      "vacationModeAvailable": "Pokrycie Vacation Mode jest dostępne przez integrację Absence Center.",
+      "openServicesCenter": "Otwórz centrum services",
+      "operation": { "read": "odczyt", "write": "zapis" },
+      "status": {
+        "connected": "połączony",
+        "implemented_disconnected": "zaimplementowany, lecz odłączony",
+        "partial": "częściowy",
+        "specification_only": "tylko specyfikacja",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "appointment_booking": "Appointment Booking",
+        "workforce_scheduling": "Workforce Scheduling",
+        "absence_vacation_coverage": "Absence & Vacation Coverage",
+        "execution_operations": "Execution Operations",
+        "companion_real_world_coordination": "Real-World Service Coordination",
+        "service_network": "Service Network",
+        "service_intake": "Service Intake"
+      },
+      "searchTerms": {
+        "appointment_booking": "wizyty rezerwacje kalendarz usługi dostępność terminy",
+        "workforce_scheduling": "planowanie workforce zmiany dostępność zasoby pokrycie",
+        "absence_vacation_coverage": "vacation mode nieobecność pokrycie delegacja ciągłość",
+        "execution_operations": "zlecenia praca terenowa przypisania wykonanie zadania",
+        "companion_real_world_coordination": "koordynacja usług real world rezerwacje dostawcy",
+        "service_network": "service network lokalizacje zasoby multi lokalizacja",
+        "service_intake": "service intake formularze zgoda dostawa readiness"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

@@ -400,6 +400,58 @@
         "wordpress": "wordpress cms content categories publishing"
       }
     },
+    "services": {
+      "sourceLabel": "Services provider catalog",
+      "discoveryLead": "Aipify mapped {provider} in your services provider catalog — status: {status}.",
+      "discoveryExplanation": "Capabilities below come from registered Services Business Pack manifests. Booking and work-order writes require approval and respect availability rules.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Services source is prepared or verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No services provider matched this request for your organization.",
+      "unavailableExplanation": "Services capabilities are discovered from registered manifests — none matched this query.",
+      "externalUnavailableLead": "External booking or field-service adapters are not connected for your organization.",
+      "externalUnavailableExplanation": "No live external booking or field-service adapter is registered. Aipify does not execute payments, cancellations, or deletions in Companion runtime.",
+      "blockedOperationLead": "This services operation is not available in Companion runtime.",
+      "blockedOperationExplanation": "Cancellations, deletions, payments, and irreversible changes are blocked in this phase. Aipify can prepare and recommend — you decide and approve reversible writes.",
+      "permissionDenied": "Your role cannot access the services provider catalog.",
+      "entitlementBlocked": "Services capabilities are unavailable while the organization subscription is paused.",
+      "privacyNote": "Metadata-first services intelligence — private calendar titles and customer details are never exposed in Companion runtime.",
+      "policyNote": "Bookings and assignments must respect availability, duration, buffers, timezone, Vacation Mode, and double-booking prevention. Writes require explicit approval.",
+      "doubleBookingPrevented": "Double-booking prevention is active for this organization.",
+      "doubleBookingReviewRequired": "Double-booking prevention requires review — overbooking is not enabled by default.",
+      "vacationModeActive": "Vacation Mode coverage integration is active for scheduling.",
+      "vacationModeAvailable": "Vacation Mode coverage is available via Absence Center integration.",
+      "openServicesCenter": "Open services center",
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "appointment_booking": "Appointment Booking",
+        "workforce_scheduling": "Workforce Scheduling",
+        "absence_vacation_coverage": "Absence & Vacation Coverage",
+        "execution_operations": "Execution Operations",
+        "companion_real_world_coordination": "Real-World Service Coordination",
+        "service_network": "Service Network",
+        "service_intake": "Service Intake"
+      },
+      "searchTerms": {
+        "appointment_booking": "appointments booking calendar services availability slots",
+        "workforce_scheduling": "workforce scheduling shifts availability resources coverage",
+        "absence_vacation_coverage": "vacation mode absence coverage delegation continuity",
+        "execution_operations": "work orders field operations assignments execution tasks",
+        "companion_real_world_coordination": "real world service coordination bookings providers",
+        "service_network": "service network locations resources multi location",
+        "service_intake": "service intake forms consent delivery readiness"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

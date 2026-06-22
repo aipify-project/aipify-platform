@@ -10,6 +10,7 @@ import {
   buildActionDefinitionFromCreativeCapability,
   buildActionDefinitionFromMediaCapability,
   buildActionDefinitionFromCommerceCapability,
+  buildActionDefinitionFromServicesCapability,
   buildActionDefinitionFromWorkspaceCapability,
   buildActionDefinitionFromPolicy,
   buildActionDefinitionFromSchemaEntity,
@@ -23,6 +24,7 @@ import type { CompanionCreativeContext } from "./companion-creative-context";
 import type { CompanionMediaContext } from "./companion-media-context";
 import type { CompanionWorkspaceContext } from "./companion-workspace-context";
 import type { CompanionCommerceContext } from "./companion-commerce-context";
+import type { CompanionServicesContext } from "./companion-services-context";
 import {
   parseApprovedCompanionActionRequest,
   parseApprovedTrustActionRequest,
@@ -91,6 +93,7 @@ export type NormalizeCompanionActionContextInput = {
   mediaContext?: CompanionMediaContext;
   workspaceContext?: CompanionWorkspaceContext;
   commerceContext?: CompanionCommerceContext;
+  servicesContext?: CompanionServicesContext;
 };
 
 function parseApprovedRecordsFromApprovalsCenter(raw: unknown): CompanionApprovedActionRecord[] {
@@ -225,6 +228,17 @@ export function normalizeCompanionActionContext(
   for (const capability of input.commerceContext?.capabilities ?? []) {
     if (capability.operation !== "write") continue;
     const definition = buildActionDefinitionFromCommerceCapability(capability, {
+      permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
+      appEntitlementBlocked: appSuspended,
+      emergencyStop,
+      maxRiskLevel,
+    });
+    if (definition) actions.push(definition);
+  }
+
+  for (const capability of input.servicesContext?.capabilities ?? []) {
+    if (capability.operation !== "write") continue;
+    const definition = buildActionDefinitionFromServicesCapability(capability, {
       permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
       appEntitlementBlocked: appSuspended,
       emergencyStop,

@@ -391,6 +391,55 @@
         "wordpress": "wordpress cms innhold kategorier publisering"
       }
     },
+    "services": {
+      "sourceLabel": "Services provider-katalog",
+      "discoveryLead": "Aipify kartla {provider} i services provider-katalogen — status: {status}.",
+      "discoveryExplanation": "Capabilities nedenfor kommer fra registrerte Services Business Pack-manifest. Booking og oppdrag krever godkjenning og respekterer tilgjengelighetsregler.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Services-kilden er forberedt eller verifisert for organisasjonen din.",
+      "disconnectedProvider": "Provider runtime-adapter er ikke tilkoblet — kun styrt oppdagelse.",
+      "unavailableLead": "Ingen services provider matchet denne forespørselen for organisasjonen din.",
+      "unavailableExplanation": "Services-capabilities oppdages fra registrerte manifest — ingen matchet dette spørsmålet.",
+      "externalUnavailableLead": "Eksterne booking- eller feltarbeids-adaptere er ikke tilkoblet for organisasjonen din.",
+      "externalUnavailableExplanation": "Ingen live ekstern booking- eller feltarbeids-adapter er registrert. Aipify utfører ikke betaling, avbestilling eller sletting i Companion runtime.",
+      "blockedOperationLead": "Denne services-operasjonen er ikke tilgjengelig i Companion runtime.",
+      "blockedOperationExplanation": "Avbestilling, sletting, betaling og irreversible endringer er blokkert i denne fasen. Aipify kan forberede og anbefale — du bestemmer og godkjenner reversible skrivinger.",
+      "permissionDenied": "Rollen din har ikke tilgang til services provider-katalogen.",
+      "entitlementBlocked": "Services-capabilities er utilgjengelige mens organisasjonens abonnement er pauset.",
+      "privacyNote": "Metadata-først services-intelligens — private kalendertitler og kundedetaljer eksponeres aldri i Companion runtime.",
+      "policyNote": "Bookinger og tildelinger må respektere tilgjengelighet, varighet, buffere, tidssone, Vacation Mode og dobbeltbooking-forebygging. Skrivinger krever eksplisitt godkjenning.",
+      "doubleBookingPrevented": "Dobbeltbooking-forebygging er aktiv for denne organisasjonen.",
+      "doubleBookingReviewRequired": "Dobbeltbooking-forebygging krever gjennomgang — overbooking er ikke aktivert som standard.",
+      "vacationModeActive": "Vacation Mode-dekningsintegrasjon er aktiv for planlegging.",
+      "vacationModeAvailable": "Vacation Mode-dekning er tilgjengelig via Absence Center-integrasjon.",
+      "openServicesCenter": "Åpne services-senter",
+      "operation": { "read": "les", "write": "skriv" },
+      "status": {
+        "connected": "tilkoblet",
+        "implemented_disconnected": "implementert men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun spesifikasjon",
+        "placeholder": "plassholder"
+      },
+      "providers": {
+        "appointment_booking": "Appointment Booking",
+        "workforce_scheduling": "Workforce Scheduling",
+        "absence_vacation_coverage": "Absence & Vacation Coverage",
+        "execution_operations": "Execution Operations",
+        "companion_real_world_coordination": "Real-World Service Coordination",
+        "service_network": "Service Network",
+        "service_intake": "Service Intake"
+      },
+      "searchTerms": {
+        "appointment_booking": "avtaler booking kalender tjenester tilgjengelighet tidsluker",
+        "workforce_scheduling": "arbeidskraft planlegging skift tilgjengelighet ressurser dekning",
+        "absence_vacation_coverage": "vacation mode fravær dekning delegering kontinuitet",
+        "execution_operations": "arbeidsordre feltoperasjoner tildelinger utførelse oppgaver",
+        "companion_real_world_coordination": "real world service koordinering bookinger leverandører",
+        "service_network": "service network lokasjoner ressurser multi lokasjon",
+        "service_intake": "service intake skjemaer samtykke leveranse readiness"
+      }
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

@@ -382,6 +382,55 @@
         "wordpress": "wordpress cms contenido categorías publicación"
       }
     },
+    "services": {
+      "sourceLabel": "Catálogo de proveedores services",
+      "discoveryLead": "Aipify mapeó {provider} en su catálogo de proveedores services — estado: {status}.",
+      "discoveryExplanation": "Las capabilities siguientes provienen de manifiestos registrados del Services Business Pack. Reservas y órdenes de trabajo requieren aprobación y respetan reglas de disponibilidad.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "La fuente services está preparada o verificada para su organización.",
+      "disconnectedProvider": "El adaptador runtime del proveedor no está conectado — solo descubrimiento gobernado.",
+      "unavailableLead": "Ningún proveedor services coincidió con esta solicitud para su organización.",
+      "unavailableExplanation": "Las capabilities services se descubren desde manifiestos registrados — ninguna coincidió con esta consulta.",
+      "externalUnavailableLead": "Los adaptadores externos de reservas o servicios de campo no están conectados para su organización.",
+      "externalUnavailableExplanation": "No hay adaptador live externo de reservas o servicios de campo registrado. Aipify no ejecuta pagos, cancelaciones ni eliminaciones en Companion runtime.",
+      "blockedOperationLead": "Esta operación services no está disponible en Companion runtime.",
+      "blockedOperationExplanation": "Cancelaciones, eliminaciones, pagos y cambios irreversibles están bloqueados en esta fase. Aipify puede preparar y recomendar — usted decide y aprueba escrituras reversibles.",
+      "permissionDenied": "Su rol no puede acceder al catálogo de proveedores services.",
+      "entitlementBlocked": "Las capabilities services no están disponibles mientras la suscripción de la organización esté pausada.",
+      "privacyNote": "Inteligencia services metadata-first — títulos privados de calendario y detalles de clientes nunca se exponen en Companion runtime.",
+      "policyNote": "Las reservas y asignaciones deben respetar disponibilidad, duración, buffers, zona horaria, Vacation Mode y prevención de doble reserva. Las escrituras requieren aprobación explícita.",
+      "doubleBookingPrevented": "La prevención de doble reserva está activa para esta organización.",
+      "doubleBookingReviewRequired": "La prevención de doble reserva requiere revisión — overbooking no está habilitado por defecto.",
+      "vacationModeActive": "La integración de cobertura Vacation Mode está activa para programación.",
+      "vacationModeAvailable": "La cobertura Vacation Mode está disponible vía integración Absence Center.",
+      "openServicesCenter": "Abrir centro services",
+      "operation": { "read": "lectura", "write": "escritura" },
+      "status": {
+        "connected": "conectado",
+        "implemented_disconnected": "implementado pero desconectado",
+        "partial": "parcial",
+        "specification_only": "solo especificación",
+        "placeholder": "marcador de posición"
+      },
+      "providers": {
+        "appointment_booking": "Appointment Booking",
+        "workforce_scheduling": "Workforce Scheduling",
+        "absence_vacation_coverage": "Absence & Vacation Coverage",
+        "execution_operations": "Execution Operations",
+        "companion_real_world_coordination": "Real-World Service Coordination",
+        "service_network": "Service Network",
+        "service_intake": "Service Intake"
+      },
+      "searchTerms": {
+        "appointment_booking": "citas reservas calendario servicios disponibilidad horarios",
+        "workforce_scheduling": "planificación workforce turnos disponibilidad recursos cobertura",
+        "absence_vacation_coverage": "vacation mode ausencia cobertura delegación continuidad",
+        "execution_operations": "órdenes de trabajo operaciones de campo asignaciones ejecución tareas",
+        "companion_real_world_coordination": "coordinación servicios real world reservas proveedores",
+        "service_network": "service network ubicaciones recursos multi ubicación",
+        "service_intake": "service intake formularios consentimiento entrega readiness"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

@@ -382,6 +382,55 @@
         "wordpress": "wordpress cms контент категорії публікація"
       }
     },
+    "services": {
+      "sourceLabel": "Каталог services-провайдерів",
+      "discoveryLead": "Aipify зіставив {provider} у каталозі services-провайдерів — статус: {status}.",
+      "discoveryExplanation": "Capabilities нижче походять із зареєстрованих manifest Services Business Pack. Бронювання та наряди потребують схвалення та поважають правила доступності.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Джерело services підготовлено або верифіковано для вашої організації.",
+      "disconnectedProvider": "Runtime-адаптер провайдера не підключено — лише кероване виявлення.",
+      "unavailableLead": "Жоден services-провайдер не відповів цьому запиту для вашої організації.",
+      "unavailableExplanation": "Services-capabilities виявляються з зареєстрованих manifest — жоден не відповів цьому запиту.",
+      "externalUnavailableLead": "Зовнішні адаптери бронювання або польових послуг не підключені для вашої організації.",
+      "externalUnavailableExplanation": "Live-адаптер зовнішнього бронювання або польових послуг не зареєстровано. Aipify не виконує платежі, скасування чи видалення в Companion runtime.",
+      "blockedOperationLead": "Ця services-операція недоступна в Companion runtime.",
+      "blockedOperationExplanation": "Скасування, видалення, платежі та незворотні зміни заблоковано в цій фазі. Aipify може підготувати й рекомендувати — ви вирішуєте та схвалюєте зворотні записи.",
+      "permissionDenied": "Ваша роль не має доступу до каталогу services-провайдерів.",
+      "entitlementBlocked": "Services-capabilities недоступні, поки підписку організації призупинено.",
+      "privacyNote": "Services-інтелект metadata-first — приватні назви календаря та дані клієнтів ніколи не розкриваються в Companion runtime.",
+      "policyNote": "Бронювання та призначення мають поважати доступність, тривалість, буфери, часовий пояс, Vacation Mode і запобігання подвійному бронюванню. Записи потребують явного схвалення.",
+      "doubleBookingPrevented": "Запобігання подвійному бронюванню активне для цієї організації.",
+      "doubleBookingReviewRequired": "Запобігання подвійному бронюванню потребує перевірки — overbooking не увімкнено за замовчуванням.",
+      "vacationModeActive": "Інтеграція покриття Vacation Mode активна для планування.",
+      "vacationModeAvailable": "Покриття Vacation Mode доступне через інтеграцію Absence Center.",
+      "openServicesCenter": "Відкрити services-центр",
+      "operation": { "read": "читання", "write": "запис" },
+      "status": {
+        "connected": "підключено",
+        "implemented_disconnected": "реалізовано, але відключено",
+        "partial": "частково",
+        "specification_only": "лише специфікація",
+        "placeholder": "заглушка"
+      },
+      "providers": {
+        "appointment_booking": "Appointment Booking",
+        "workforce_scheduling": "Workforce Scheduling",
+        "absence_vacation_coverage": "Absence & Vacation Coverage",
+        "execution_operations": "Execution Operations",
+        "companion_real_world_coordination": "Real-World Service Coordination",
+        "service_network": "Service Network",
+        "service_intake": "Service Intake"
+      },
+      "searchTerms": {
+        "appointment_booking": "записи бронювання календар послуги доступність слоти",
+        "workforce_scheduling": "планування workforce зміни доступність ресурси покриття",
+        "absence_vacation_coverage": "vacation mode відсутність покриття делегування безперервність",
+        "execution_operations": "наряди польові операції призначення виконання завдання",
+        "companion_real_world_coordination": "координація real world послуг бронювання провайдери",
+        "service_network": "service network локації ресурси multi локація",
+        "service_intake": "service intake форми згода доставка readiness"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
