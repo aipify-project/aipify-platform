@@ -1,11 +1,20 @@
 import assert from "node:assert/strict";
 import {
+  COMPANION_CHAT_INITIAL_SCROLL_BEHAVIOR,
+  COMPANION_CHAT_INITIAL_POSITION,
+  COMPANION_CHAT_NEW_MESSAGE_AUTOSCROLL,
+} from "./companion-chat-scroll-policy";
+import {
   COMPANION_CHAT_NEAR_BOTTOM_THRESHOLD_PX,
   isCompanionChatNearBottom,
   scrollCompanionChatToLatest,
   shouldAutoScrollCompanionChatOnUpdate,
   shouldRestoreCompanionChatScroll,
 } from "./chat-scroll";
+
+assert.equal(COMPANION_CHAT_INITIAL_POSITION, "latest_message");
+assert.equal(COMPANION_CHAT_INITIAL_SCROLL_BEHAVIOR, "instant");
+assert.equal(COMPANION_CHAT_NEW_MESSAGE_AUTOSCROLL, "only_when_near_bottom");
 
 function createScrollContainer(input: {
   scrollHeight: number;

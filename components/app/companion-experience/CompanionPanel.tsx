@@ -21,23 +21,19 @@ import {
   patchCompanionUiSession,
   readCompanionUiSession,
 } from "@/lib/app/companion/session-state";
-import {
-  isCompanionChatNearBottom,
-  scrollCompanionChatToLatest,
-  shouldAutoScrollCompanionChatOnUpdate,
-  shouldRestoreCompanionChatScroll,
-} from "@/lib/app/companion/chat-scroll";
+import { useCompanionChatScroll } from "@/lib/app/companion/use-companion-chat-scroll";
 import {
   parseSupportAssistantSearch,
   SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY,
   type SupportAssistantArticle,
 } from "@/lib/app-portal/support-assistant";
 import type { CompanionChatMessage, CompanionConversationPreview, CompanionExperienceLabels } from "@/lib/app/companion/types";
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardProfileProvider";
 import { CompanionIcon } from "./CompanionIcon";
 import { CompanionQuickActions } from "./CompanionQuickActions";
 import { CompanionChat } from "./CompanionChat";
+import { CompanionChatScrollViewport } from "./CompanionChatScrollViewport";
 
 const QUICK_ACTION_ICONS: Record<CompanionQuickActionId, string> = {
   orgStatus: "◉",
@@ -142,16 +138,35 @@ export function CompanionPanel({
     return readCompanionUiSession(organizationKey)?.activeConversationId ?? createConversationId();
   });
   const [restoreNotice, setRestoreNotice] = useState<string | null>(null);
-  const chatEndRef = useRef<HTMLDivElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const initialQuerySubmittedRef = useRef(false);
-  const isPageLoadRef = useRef(true);
-  const panelWasHiddenRef = useRef(!panelVisible);
-  const initialScrollAppliedRef = useRef(false);
-  const pendingConversationScrollRef = useRef<string | null>(null);
-  const userJustSentMessageRef = useRef(false);
-  const [showJumpToLatest, setShowJumpToLatest] = useState(false);
-  const [messagesViewportReady, setMessagesViewportReady] = useState(() => !panelVisible);
+
+  const contentSignature = useMemo(
+    () => `${messages.length}:${loading}:${messages.map((message) => message.id).join(",")}`,
+    [messages, loading],
+  );
+
+  const {
+    scrollContainerRef,
+    chatEndRef,
+    showJumpToLatest,
+    handleScroll,
+    jumpToLatestMessage,
+    notifyUserSentMessage,
+    resetForNewConversation,
+    prepareConversationChange,
+    viewportContentClassName,
+  } = useCompanionChatScroll({
+    messageCount: messages.length,
+    contentSignature,
+    conversationId: activeConversationId,
+    loading,
+    visible: panelVisible,
+    session: {
+      organizationKey,
+      pathname,
+      persistScroll: true,
+    },
+  });
 
   const orgName = profileCtx?.profile?.company.name ?? labels.orgNameFallback;
   const roleDisplay = profileCtx?.profile
@@ -221,149 +236,6 @@ export function CompanionPanel({
   }, [query, organizationKey, pathname, initialQuery]);
 
   useEffect(() => {
-    if (panelVisible) return;
-    panelWasHiddenRef.current = true;
-  }, [panelVisible]);
-
-  const applyInitialChatScroll = useCallback(() => {
-    const container = scrollContainerRef.current;
-    if (!container || !panelVisible) return;
-
-    const session = readCompanionUiSession(organizationKey);
-    const shouldRestore = shouldRestoreCompanionChatScroll({
-      isPageLoad: isPageLoadRef.current,
-      panelWasHidden: panelWasHiddenRef.current,
-      sessionScrollTop: session?.scrollTop ?? 0,
-      sessionConversationId: session?.activeConversationId ?? null,
-      activeConversationId,
-    });
-
-    if (shouldRestore && session) {
-      container.scrollTop = session.scrollTop;
-    } else {
-      scrollCompanionChatToLatest(container, "instant");
-    }
-
-    panelWasHiddenRef.current = false;
-    isPageLoadRef.current = false;
-    initialScrollAppliedRef.current = true;
-    pendingConversationScrollRef.current = null;
-    setShowJumpToLatest(false);
-    setMessagesViewportReady(true);
-  }, [activeConversationId, organizationKey, panelVisible]);
-
-  useLayoutEffect(() => {
-    if (!panelVisible) {
-      setMessagesViewportReady(false);
-      return;
-    }
-
-    if (messages.length === 0 && !loading) {
-      initialScrollAppliedRef.current = false;
-      setShowJumpToLatest(false);
-      setMessagesViewportReady(true);
-      isPageLoadRef.current = false;
-      return;
-    }
-
-    if (messages.length === 0 && loading) {
-      setMessagesViewportReady(true);
-      return;
-    }
-
-    const reopeningPanel = panelWasHiddenRef.current && initialScrollAppliedRef.current;
-    const needsInitialPosition =
-      reopeningPanel ||
-      !initialScrollAppliedRef.current ||
-      pendingConversationScrollRef.current === activeConversationId;
-
-    if (!needsInitialPosition) {
-      setMessagesViewportReady(true);
-      return;
-    }
-
-    setMessagesViewportReady(false);
-    let cancelled = false;
-
-    const positionViewport = () => {
-      if (cancelled) return;
-      applyInitialChatScroll();
-    };
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(positionViewport);
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [
-    activeConversationId,
-    applyInitialChatScroll,
-    loading,
-    messages.length,
-    panelVisible,
-  ]);
-
-  useLayoutEffect(() => {
-    if (!panelVisible || !initialScrollAppliedRef.current) return;
-
-    const container = scrollContainerRef.current;
-    if (!container) return;
-    if (messages.length === 0 && !loading) return;
-
-    const shouldAutoScroll = shouldAutoScrollCompanionChatOnUpdate({
-      isNearBottom: isCompanionChatNearBottom(container),
-      userJustSentMessage: userJustSentMessageRef.current,
-    });
-
-    userJustSentMessageRef.current = false;
-
-    if (shouldAutoScroll) {
-      scrollCompanionChatToLatest(container, "instant");
-      setShowJumpToLatest(false);
-      return;
-    }
-
-    if (loading || messages.length > 0) {
-      setShowJumpToLatest(true);
-    }
-  }, [loading, messages, panelVisible]);
-
-  const handleScroll = useCallback(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    patchCompanionUiSession(
-      {
-        scrollTop: container.scrollTop,
-        organizationKey,
-        pathname,
-        activeConversationId,
-      },
-      organizationKey,
-    );
-
-    setShowJumpToLatest(!isCompanionChatNearBottom(container));
-  }, [activeConversationId, organizationKey, pathname]);
-
-  const jumpToLatestMessage = useCallback(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-    scrollCompanionChatToLatest(container, "instant");
-    setShowJumpToLatest(false);
-    patchCompanionUiSession(
-      {
-        scrollTop: container.scrollTop,
-        organizationKey,
-        pathname,
-        activeConversationId,
-      },
-      organizationKey,
-    );
-  }, [activeConversationId, organizationKey, pathname]);
-
-  useEffect(() => {
     if (initialQuery) {
       setQuery(initialQuery);
       setShowSuggestions(false);
@@ -377,7 +249,7 @@ export function CompanionPanel({
 
       setError(false);
       setShowSuggestions(false);
-      userJustSentMessageRef.current = true;
+      notifyUserSentMessage();
       const userMessage: CompanionChatMessage = {
         id: createMessageId(),
         role: "user",
@@ -433,7 +305,7 @@ export function CompanionPanel({
         setLoading(false);
       }
     },
-    [loading, labels, locale, activeConversationId, messages, organizationKey, pathname]
+    [loading, labels, locale, activeConversationId, messages, organizationKey, pathname, notifyUserSentMessage]
   );
 
   useEffect(() => {
@@ -526,9 +398,7 @@ export function CompanionPanel({
     setShowSecondarySections(false);
     setError(false);
     setRestoreNotice(null);
-    initialScrollAppliedRef.current = false;
-    pendingConversationScrollRef.current = null;
-    setShowJumpToLatest(false);
+    resetForNewConversation();
     const nextId = createConversationId();
     setActiveConversationId(nextId);
     patchCompanionUiSession(
@@ -546,11 +416,7 @@ export function CompanionPanel({
 
   function loadConversation(conv: CompanionConversationPreview) {
     if (conv.messages && conv.messages.length > 0) {
-      initialScrollAppliedRef.current = false;
-      pendingConversationScrollRef.current = conv.id;
-      isPageLoadRef.current = false;
-      panelWasHiddenRef.current = false;
-      setShowJumpToLatest(false);
+      prepareConversationChange(conv.id);
       setMessages(conv.messages);
       setActiveConversationId(conv.id);
       setShowSuggestions(false);
@@ -857,113 +723,100 @@ export function CompanionPanel({
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-        <div
-          ref={scrollContainerRef}
+        <CompanionChatScrollViewport
+          scrollContainerRef={scrollContainerRef}
+          chatEndRef={chatEndRef}
           onScroll={handleScroll}
-          className={`flex min-h-0 flex-1 flex-col overflow-y-auto ${
+          containerClassName={`flex min-h-0 flex-1 flex-col overflow-y-auto ${
             isActiveConversation ? "px-4 py-6 sm:px-6" : "px-4 py-4 sm:px-6 lg:flex-row"
           }`}
+          viewportClassName={`flex min-h-0 flex-1 flex-col ${viewportContentClassName}`}
+          showJumpToLatest={showJumpToLatest}
+          onJumpToLatest={jumpToLatestMessage}
+          scrollToLatestLabel={labels.scrollToLatest}
+          scrollToLatestAriaLabel={labels.scrollToLatestAria}
+          beforeViewport={
+            restoreNotice ? (
+              <div
+                className="mb-4 rounded-xl border border-amber-200 bg-amber-50/80 px-4 py-3 text-sm text-amber-950"
+                role="status"
+              >
+                {restoreNotice}
+              </div>
+            ) : null
+          }
         >
-          {restoreNotice ? (
-            <div
-              className="mb-4 rounded-xl border border-amber-200 bg-amber-50/80 px-4 py-3 text-sm text-amber-950"
-              role="status"
-            >
-              {restoreNotice}
+          {messages.length === 0 && !loading ? (
+            <div className="rounded-xl border border-dashed border-aipify-border bg-white p-6 text-center">
+              <CompanionIcon size={56} availabilityRing ariaLabel={labels.ariaCompanionAvailable} className="mx-auto" />
+              <h2 className="mt-4 text-lg font-semibold text-aipify-text">{labels.emptyWelcomeTitle}</h2>
+              <p className="mt-2 text-sm text-aipify-text-secondary">{labels.emptyWelcomeBody}</p>
             </div>
           ) : null}
-          <div
-            className={`flex min-h-0 flex-1 flex-col ${
-              isActiveConversation && !messagesViewportReady ? "invisible" : ""
-            }`}
-          >
-            {messages.length === 0 && !loading ? (
-              <div className="rounded-xl border border-dashed border-aipify-border bg-white p-6 text-center">
-                <CompanionIcon size={56} availabilityRing ariaLabel={labels.ariaCompanionAvailable} className="mx-auto" />
-                <h2 className="mt-4 text-lg font-semibold text-aipify-text">{labels.emptyWelcomeTitle}</h2>
-                <p className="mt-2 text-sm text-aipify-text-secondary">{labels.emptyWelcomeBody}</p>
-              </div>
-            ) : null}
 
-            {error ? (
-              <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-4 text-center">
-                <p className="font-medium text-red-900">{labels.errorTitle}</p>
-                <p className="mt-1 text-sm text-red-700">{labels.errorBody}</p>
-                <button
-                  type="button"
-                  onClick={() => setError(false)}
-                  className="mt-3 rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800"
+          {error ? (
+            <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-4 text-center">
+              <p className="font-medium text-red-900">{labels.errorTitle}</p>
+              <p className="mt-1 text-sm text-red-700">{labels.errorBody}</p>
+              <button
+                type="button"
+                onClick={() => setError(false)}
+                className="mt-3 rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800"
+              >
+                {labels.retry}
+              </button>
+            </div>
+          ) : null}
+
+          <CompanionChat
+            messages={messages}
+            loading={loading}
+            labels={labels}
+            spacious={isActiveConversation}
+            conversationId={activeConversationId}
+            locale={locale}
+            pathname={pathname}
+            canConfirmOrg={canConfirmOrg}
+            onMessageFeedback={handleMessageFeedback}
+            onEscalate={() => void escalateFromChat()}
+          />
+
+          {isActiveConversation ? (
+            <div className="mt-6">
+              <button
+                type="button"
+                onClick={() => setShowSecondarySections((v) => !v)}
+                className="flex w-full items-center justify-between rounded-xl border border-aipify-border bg-white px-4 py-3 text-left text-sm font-medium text-aipify-companion hover:bg-violet-50"
+                aria-expanded={showSecondarySections}
+              >
+                <span>
+                  {showSecondarySections
+                    ? labels.secondarySectionsHide
+                    : labels.secondarySectionsToggle}
+                </span>
+                <svg
+                  className={`h-4 w-4 shrink-0 transition-transform ${
+                    showSecondarySections ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  aria-hidden="true"
                 >
-                  {labels.retry}
-                </button>
-              </div>
-            ) : null}
-
-            <CompanionChat
-              messages={messages}
-              loading={loading}
-              labels={labels}
-              spacious={isActiveConversation}
-              conversationId={activeConversationId}
-              locale={locale}
-              pathname={pathname}
-              canConfirmOrg={canConfirmOrg}
-              onMessageFeedback={handleMessageFeedback}
-              onEscalate={() => void escalateFromChat()}
-            />
-
-            {isActiveConversation ? (
-              <div className="mt-6">
-                <button
-                  type="button"
-                  onClick={() => setShowSecondarySections((v) => !v)}
-                  className="flex w-full items-center justify-between rounded-xl border border-aipify-border bg-white px-4 py-3 text-left text-sm font-medium text-aipify-companion hover:bg-violet-50"
-                  aria-expanded={showSecondarySections}
-                >
-                  <span>
-                    {showSecondarySections
-                      ? labels.secondarySectionsHide
-                      : labels.secondarySectionsToggle}
-                  </span>
-                  <svg
-                    className={`h-4 w-4 shrink-0 transition-transform ${
-                      showSecondarySections ? "rotate-180" : ""
-                    }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {showSecondarySections ? (
-                  <div className="mt-3 rounded-xl border border-aipify-border bg-white p-4">
-                    {secondarySections}
-                  </div>
-                ) : null}
-              </div>
-            ) : (
-              secondarySections
-            )}
-
-            {showJumpToLatest ? (
-              <div className="pointer-events-none sticky bottom-3 z-10 mt-4 flex justify-center">
-                <button
-                  type="button"
-                  onClick={jumpToLatestMessage}
-                  className="pointer-events-auto inline-flex min-h-10 items-center rounded-full border border-violet-200 bg-white px-4 py-2 text-sm font-medium text-aipify-companion shadow-sm hover:bg-violet-50"
-                  aria-label={labels.scrollToLatestAria}
-                >
-                  {labels.scrollToLatest}
-                </button>
-              </div>
-            ) : null}
-
-            <div ref={chatEndRef} aria-hidden="true" />
-          </div>
-        </div>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {showSecondarySections ? (
+                <div className="mt-3 rounded-xl border border-aipify-border bg-white p-4">
+                  {secondarySections}
+                </div>
+              ) : null}
+            </div>
+          ) : (
+            secondarySections
+          )}
+        </CompanionChatScrollViewport>
       </div>
 
       {isActiveConversation ? (

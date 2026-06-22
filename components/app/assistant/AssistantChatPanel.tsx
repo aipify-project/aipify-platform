@@ -1,11 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { AipifyOrb } from "@/components/branding";
+import { CompanionChatScrollViewport } from "@/components/app/companion-experience/CompanionChatScrollViewport";
+import {
+  COMPANION_CHAT_SCROLL_FALLBACK_LABELS,
+  useCompanionChatScroll,
+} from "@/lib/app/companion";
 import type { MemoryDraft } from "@/lib/assistant-memory/conversation";
 import type { EventDraft } from "@/lib/context-engine/types";
 import type { GoalDraft } from "@/lib/goals-dreams-engine/types";
+
+const ASSISTANT_CHAT_CONVERSATION_ID = "assistant-chat";
 
 type ChatMessage = {
   id: string;
@@ -55,27 +62,46 @@ export function AssistantChatPanel({
     ends_at_hint: string | null;
   } | null>(null);
   const [sending, setSending] = useState(false);
-  const endRef = useRef<HTMLDivElement>(null);
 
-  const scrollToEnd = useCallback(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  const contentSignature = useMemo(() => {
+    const pendingParts = [
+      pendingDraft?.title,
+      pendingEvent?.title,
+      pendingGoal?.title,
+      pendingFocus?.title,
+    ]
+      .filter(Boolean)
+      .join("|");
+    return `${messages.length}:${sending}:${pendingParts}:${messages.map((message) => message.id).join(",")}`;
+  }, [messages, pendingDraft, pendingEvent, pendingFocus, pendingGoal, sending]);
 
-  useEffect(() => {
-    scrollToEnd();
-  }, [messages, pendingDraft, pendingEvent, pendingGoal, pendingFocus, scrollToEnd]);
+  const {
+    scrollContainerRef,
+    chatEndRef,
+    showJumpToLatest,
+    handleScroll,
+    jumpToLatestMessage,
+    notifyUserSentMessage,
+    viewportContentClassName,
+  } = useCompanionChatScroll({
+    messageCount: messages.length,
+    contentSignature,
+    conversationId: ASSISTANT_CHAT_CONVERSATION_ID,
+    loading: sending,
+  });
 
   async function sendMessage(
     text: string,
     confirmMemory = false,
     confirmEvent = false,
     confirmGoal = false,
-    confirmFocus = false
+    confirmFocus = false,
   ) {
     if (!text.trim() && !confirmMemory && !confirmEvent && !confirmGoal && !confirmFocus) return;
     setSending(true);
 
     if (!confirmMemory && !confirmEvent && !confirmGoal && !confirmFocus) {
+      notifyUserSentMessage();
       setMessages((prev) => [
         ...prev,
         { id: crypto.randomUUID(), role: "user", content: text.trim() },
@@ -90,27 +116,27 @@ export function AssistantChatPanel({
         confirmFocus && pendingFocus
           ? { confirmFocus: true, focusProposal: pendingFocus }
           : confirmGoal && pendingGoal
-          ? { confirmGoal: true, goalDraft: pendingGoal }
-          : confirmEvent && pendingEvent
-          ? { confirmEvent: true, eventDraft: pendingEvent }
-          : confirmMemory && pendingDraft
-            ? {
-                confirmMemory: true,
-                memoryDraft: {
-                  category: pendingDraft.category,
-                  title: pendingDraft.title,
-                  summary: pendingDraft.summary,
-                  event_date: pendingDraft.event_date,
-                  intent_key: pendingDraft.intent,
-                  reminder_offsets: pendingDraft.reminder_offsets,
-                  recurrence: pendingDraft.recurrence,
-                  source: "explicit",
-                  confidence_level: pendingDraft.confidence_level,
-                  person_name: pendingDraft.person_name,
-                  relationship: pendingDraft.relationship,
-                },
-              }
-            : { message: text }
+            ? { confirmGoal: true, goalDraft: pendingGoal }
+            : confirmEvent && pendingEvent
+              ? { confirmEvent: true, eventDraft: pendingEvent }
+              : confirmMemory && pendingDraft
+                ? {
+                    confirmMemory: true,
+                    memoryDraft: {
+                      category: pendingDraft.category,
+                      title: pendingDraft.title,
+                      summary: pendingDraft.summary,
+                      event_date: pendingDraft.event_date,
+                      intent_key: pendingDraft.intent,
+                      reminder_offsets: pendingDraft.reminder_offsets,
+                      recurrence: pendingDraft.recurrence,
+                      source: "explicit",
+                      confidence_level: pendingDraft.confidence_level,
+                      person_name: pendingDraft.person_name,
+                      relationship: pendingDraft.relationship,
+                    },
+                  }
+                : { message: text },
       ),
     });
 
@@ -189,7 +215,17 @@ export function AssistantChatPanel({
       )}
 
       <div className="flex min-h-[320px] flex-col rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <div className="flex-1 space-y-3 overflow-y-auto p-4">
+        <CompanionChatScrollViewport
+          scrollContainerRef={scrollContainerRef}
+          chatEndRef={chatEndRef}
+          onScroll={handleScroll}
+          containerClassName="flex-1 overflow-y-auto p-4"
+          viewportClassName={`space-y-3 ${viewportContentClassName}`}
+          showJumpToLatest={showJumpToLatest}
+          onJumpToLatest={jumpToLatestMessage}
+          scrollToLatestLabel={COMPANION_CHAT_SCROLL_FALLBACK_LABELS.scrollToLatest}
+          scrollToLatestAriaLabel={COMPANION_CHAT_SCROLL_FALLBACK_LABELS.scrollToLatestAria}
+        >
           {messages.length === 0 && (
             <p className="text-sm text-gray-500">{labels.subtitle}</p>
           )}
@@ -298,8 +334,7 @@ export function AssistantChatPanel({
               </div>
             </div>
           )}
-          <div ref={endRef} />
-        </div>
+        </CompanionChatScrollViewport>
 
         <form
           className="flex gap-2 border-t border-gray-100 p-4"

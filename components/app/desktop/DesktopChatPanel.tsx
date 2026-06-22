@@ -1,8 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { parseDesktopChatHistory, type DesktopChatMessage } from "@/lib/aipify/desktop";
+import {
+  COMPANION_CHAT_SCROLL_FALLBACK_LABELS,
+  useCompanionChatScroll,
+} from "@/lib/app/companion";
+import { CompanionChatScrollViewport } from "@/components/app/companion-experience/CompanionChatScrollViewport";
+
+const DESKTOP_COMPANION_CONVERSATION_ID = "desktop-companion";
 
 type DesktopChatPanelProps = {
   labels: Record<string, string>;
@@ -13,7 +20,27 @@ export function DesktopChatPanel({ labels, enabled = true }: DesktopChatPanelPro
   const [messages, setMessages] = useState<DesktopChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
-  const endRef = useRef<HTMLDivElement>(null);
+
+  const contentSignature = useMemo(
+    () => `${messages.length}:${messages.map((message) => message.id).join(",")}`,
+    [messages],
+  );
+
+  const {
+    scrollContainerRef,
+    chatEndRef,
+    showJumpToLatest,
+    handleScroll,
+    jumpToLatestMessage,
+    notifyUserSentMessage,
+    viewportContentClassName,
+  } = useCompanionChatScroll({
+    messageCount: messages.length,
+    contentSignature,
+    conversationId: DESKTOP_COMPANION_CONVERSATION_ID,
+    loading: sending,
+    visible: enabled,
+  });
 
   const refresh = useCallback(async () => {
     const res = await fetch("/api/aipify/desktop/chat");
@@ -24,12 +51,9 @@ export function DesktopChatPanel({ labels, enabled = true }: DesktopChatPanelPro
     void refresh();
   }, [refresh]);
 
-  useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
   async function send() {
     if (!input.trim() || sending || !enabled) return;
+    notifyUserSentMessage();
     setSending(true);
     const res = await fetch("/api/aipify/desktop/chat", {
       method: "POST",
@@ -57,7 +81,19 @@ export function DesktopChatPanel({ labels, enabled = true }: DesktopChatPanelPro
         <h2 className="text-sm font-semibold">{labels.title}</h2>
         <p className="text-xs text-gray-500">{labels.hint}</p>
       </div>
-      <div className="max-h-80 space-y-3 overflow-y-auto p-4">
+      <CompanionChatScrollViewport
+        scrollContainerRef={scrollContainerRef}
+        chatEndRef={chatEndRef}
+        onScroll={handleScroll}
+        containerClassName="max-h-80 overflow-y-auto p-4"
+        viewportClassName={`space-y-3 ${viewportContentClassName}`}
+        showJumpToLatest={showJumpToLatest}
+        onJumpToLatest={jumpToLatestMessage}
+        scrollToLatestLabel={labels.scrollToLatest ?? COMPANION_CHAT_SCROLL_FALLBACK_LABELS.scrollToLatest}
+        scrollToLatestAriaLabel={
+          labels.scrollToLatestAria ?? COMPANION_CHAT_SCROLL_FALLBACK_LABELS.scrollToLatestAria
+        }
+      >
         {messages.length === 0 ? (
           <p className="text-sm text-gray-500">{labels.empty}</p>
         ) : (
@@ -81,8 +117,7 @@ export function DesktopChatPanel({ labels, enabled = true }: DesktopChatPanelPro
             </div>
           ))
         )}
-        <div ref={endRef} />
-      </div>
+      </CompanionChatScrollViewport>
       <div className="flex gap-2 border-t border-gray-100 p-3">
         <input
           type="text"

@@ -1,4 +1,5 @@
 export { CompanionChat } from "./CompanionChat";
+export { CompanionChatScrollViewport } from "./CompanionChatScrollViewport";
 export { CompanionDrawer } from "./CompanionDrawer";
 export { CompanionExperienceProvider, useCompanionExperience, useOptionalCompanionExperience } from "./CompanionExperienceProvider";
 export { CompanionFloatingButton } from "./CompanionFloatingButton";
