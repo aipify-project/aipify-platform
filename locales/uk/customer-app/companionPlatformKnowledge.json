@@ -49,6 +49,15 @@
       "readOnlyNote": "Операції запису потребують явного схвалення та відповідних прав.",
       "sourceLabel": "Затверджений schema discovery"
     },
+    "tools": {
+      "missingTool": "Зараз немає схваленого read-tool для цієї capability у вашій організації.",
+      "capabilityDenied": "Ця capability не увімкнена для вашої ролі або організації.",
+      "invalidInput": "Aipify не змогла безпечно перевірити запит інструмента.",
+      "invalidOutput": "Aipify отримала вивід інструмента, який не вдалося безпечно перевірити.",
+      "unavailable": "Запитаний read-tool тимчасово недоступний.",
+      "unknownCapability": "Ця capability не зареєстрована для ваших схвалених інтеграцій.",
+      "sourceLabel": "Реєстр інструментів Companion"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

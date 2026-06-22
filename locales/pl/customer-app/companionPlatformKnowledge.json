@@ -49,6 +49,15 @@
       "readOnlyNote": "Operacje zapisu wymagają wyraźnej zgody i pasujących uprawnień.",
       "sourceLabel": "Zatwierdzone schema discovery"
     },
+    "tools": {
+      "missingTool": "Brak zatwierdzonego narzędzia odczytu dla tej capability w Twojej organizacji.",
+      "capabilityDenied": "Ta capability nie jest włączona dla Twojej roli lub organizacji.",
+      "invalidInput": "Aipify nie mogło bezpiecznie zweryfikować żądania narzędzia.",
+      "invalidOutput": "Aipify otrzymało dane narzędzia, których nie można było bezpiecznie zweryfikować.",
+      "unavailable": "Żądane narzędzie odczytu jest tymczasowo niedostępne.",
+      "unknownCapability": "Ta capability nie jest zarejestrowana dla Twoich zatwierdzonych integracji.",
+      "sourceLabel": "Rejestr narzędzi Companion"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

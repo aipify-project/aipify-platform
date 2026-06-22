@@ -49,6 +49,15 @@
       "readOnlyNote": "Skriveoperasjoner krever eksplisitt godkjenning og matchende rettigheter.",
       "sourceLabel": "Godkjent schema discovery"
     },
+    "tools": {
+      "missingTool": "Ingen godkjent read-tool er tilgjengelig for den capability-en i organisasjonen din akkurat nå.",
+      "capabilityDenied": "Den capability-en er ikke aktivert for din rolle eller organisasjon.",
+      "invalidInput": "Aipify kunne ikke validere tool-forespørselen trygt.",
+      "invalidOutput": "Aipify mottok tool-output som ikke kunne valideres trygt.",
+      "unavailable": "Den forespurte read-toolen er midlertidig utilgjengelig.",
+      "unknownCapability": "Den capability-en er ikke registrert for dine godkjente integrasjoner.",
+      "sourceLabel": "Companion tool registry"
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

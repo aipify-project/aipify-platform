@@ -49,6 +49,15 @@
       "readOnlyNote": "Write operations require explicit approval and matching entitlements.",
       "sourceLabel": "Approved schema discovery"
     },
+    "tools": {
+      "missingTool": "No approved read tool is available for that capability in your organization right now.",
+      "capabilityDenied": "That capability is not enabled for your role or organization.",
+      "invalidInput": "Aipify could not validate the tool request safely.",
+      "invalidOutput": "Aipify received tool output that could not be validated safely.",
+      "unavailable": "The requested read tool is temporarily unavailable.",
+      "unknownCapability": "That capability is not registered for your approved integrations.",
+      "sourceLabel": "Companion tool registry"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

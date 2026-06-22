@@ -1,42 +1,48 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { getConnectedIntegrationStatus } from "@/lib/companion-platform-knowledge/integration-status-tool";
 import type { IntegrationStatusToolResult } from "@/lib/companion-platform-knowledge/integration-status-tool";
-import { getUnonightPlatformSnapshot } from "@/lib/companion-platform-knowledge/platform-snapshot-tool";
+import { getConnectedIntegrationStatus } from "@/lib/companion-platform-knowledge/integration-status-tool";
 import type { PlatformSnapshotToolResult } from "@/lib/companion-platform-knowledge/platform-snapshot-tool";
+import { getUnonightPlatformSnapshot } from "@/lib/companion-platform-knowledge/platform-snapshot-tool";
 import {
   getIntegrationProviderManifest,
   providerHasCapability,
 } from "@/lib/integration-intelligence/manifest-registry";
+import type { IntegrationCapabilityKey } from "@/lib/integration-intelligence/types";
+import { providerHasReadAdapter } from "./provider-tool-adapters-shared";
 
-export { isRegisteredLiveProvider } from "./provider-live-tools-shared";
+export { isRegisteredLiveProvider } from "./provider-tool-adapters-shared";
 
-type ProviderAdapter = {
-  platformSnapshot?: (
-    supabase: SupabaseClient,
-    options: { providerKey: string; refresh?: boolean },
-  ) => Promise<PlatformSnapshotToolResult>;
-  connectionStatus?: (
-    supabase: SupabaseClient,
-    options: { providerKey: string; refresh?: boolean },
-  ) => Promise<IntegrationStatusToolResult>;
-};
+type ReadToolInvoker = (
+  supabase: SupabaseClient,
+  options: { providerKey: string; refresh?: boolean },
+) => Promise<PlatformSnapshotToolResult | IntegrationStatusToolResult | null>;
 
-const PROVIDER_ADAPTERS: Record<string, ProviderAdapter> = {
+const READ_TOOL_INVOKERS: Partial<
+  Record<string, Partial<Record<IntegrationCapabilityKey, ReadToolInvoker>>>
+> = {
   unonight: {
-    platformSnapshot: (supabase, options) =>
+    platform_snapshot: (supabase, options) =>
       getUnonightPlatformSnapshot(supabase, {
         providerKey: "unonight",
         refresh: options.refresh,
       }),
-    connectionStatus: (supabase, options) =>
+    connection_status: (supabase, options) =>
       getConnectedIntegrationStatus(supabase, {
         providerKey: "unonight",
         refresh: options.refresh,
       }),
   },
 };
+
+export function resolveProviderReadToolInvoker(
+  providerKey: string,
+  capabilityKey: IntegrationCapabilityKey,
+): ReadToolInvoker | null {
+  if (!providerHasReadAdapter(providerKey, capabilityKey)) return null;
+  return READ_TOOL_INVOKERS[providerKey]?.[capabilityKey] ?? null;
+}
 
 export async function invokeProviderPlatformSnapshot(
   supabase: SupabaseClient,
@@ -48,10 +54,12 @@ export async function invokeProviderPlatformSnapshot(
     return null;
   }
 
-  const adapter = PROVIDER_ADAPTERS[providerKey]?.platformSnapshot;
+  const adapter = resolveProviderReadToolInvoker(providerKey, "platform_snapshot");
   if (!adapter) return null;
 
-  return adapter(supabase, { providerKey, refresh: options?.refresh });
+  return adapter(supabase, { providerKey, refresh: options?.refresh }) as Promise<
+    PlatformSnapshotToolResult | null
+  >;
 }
 
 export async function invokeProviderConnectionStatus(
@@ -64,8 +72,10 @@ export async function invokeProviderConnectionStatus(
     return null;
   }
 
-  const adapter = PROVIDER_ADAPTERS[providerKey]?.connectionStatus;
+  const adapter = resolveProviderReadToolInvoker(providerKey, "connection_status");
   if (!adapter) return null;
 
-  return adapter(supabase, { providerKey, refresh: options?.refresh });
+  return adapter(supabase, { providerKey, refresh: options?.refresh }) as Promise<
+    IntegrationStatusToolResult | null
+  >;
 }

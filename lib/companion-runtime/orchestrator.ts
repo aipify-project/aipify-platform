@@ -51,10 +51,12 @@ import {
 } from "./knowledge-sources";
 import { isAppNavigationQuery, isProductConceptQuery } from "./product-concept";
 import type { OrganizationKnowledgeHit } from "./organization-knowledge";
+import { dispatchCompanionReadTool } from "./companion-tool-dispatch";
 import {
-  invokeProviderConnectionStatus,
-  invokeProviderPlatformSnapshot,
-} from "./provider-live-tools";
+  capabilityIdForCompanionLiveTool,
+  selectToolByCapabilityId,
+} from "./companion-tool-definition";
+import { buildHonestToolGapAnswer, mapDispatchCodeToGapReason } from "./tool-answer";
 import {
   createEmptyCompanionTenantContext,
   loadCompanionTenantContext,
@@ -195,12 +197,49 @@ function buildOrganizationKnowledgeResult(
 
 const CORPUS_NAV_MIN_SCORE = 50;
 
+async function runRegisteredReadTool(
+  supabase: SupabaseClient,
+  tenantContext: CompanionTenantContext,
+  providerKey: string,
+  toolName: "get_platform_snapshot" | "get_connection_status",
+  t: Translator,
+) {
+  const capabilityId = capabilityIdForCompanionLiveTool(providerKey, toolName);
+  const tool = selectToolByCapabilityId(tenantContext.toolRegistry, capabilityId);
+  if (!tool) {
+    return { kind: "gap" as const, answer: buildHonestToolGapAnswer(t, "missing_tool") };
+  }
+
+  const dispatchResult = await dispatchCompanionReadTool(supabase, tool, {
+    providerKey,
+    refresh: true,
+  });
+
+  if (!dispatchResult.ok && dispatchResult.gap) {
+    return {
+      kind: "gap" as const,
+      answer: buildHonestToolGapAnswer(t, mapDispatchCodeToGapReason(dispatchResult.code)),
+    };
+  }
+
+  if (dispatchResult.platformSnapshot) {
+    return { kind: "snapshot" as const, result: dispatchResult.platformSnapshot };
+  }
+
+  if (dispatchResult.connectionStatus) {
+    return { kind: "status" as const, result: dispatchResult.connectionStatus };
+  }
+
+  return null;
+}
+
 async function resolveLiveToolAnswer(
   query: string,
   options: PlatformSearchOptions,
   permissionCtx: PermissionContext,
   integrationContext: string | null,
   activeLocale: CustomerActiveLocale,
+  tenantContext: CompanionTenantContext,
 ): Promise<PlatformSearchResult | null> {
   const { t, locale, supabase, snapshotContext } = options;
   const routingOptions = { integrationContext, snapshotContext, locale: activeLocale };
@@ -220,11 +259,18 @@ async function resolveLiveToolAnswer(
     const snapshotProvider = integrationContext ?? snapshotIntent.providerKey;
     if (!snapshotProvider) return null;
 
-    const snapshotResult = await invokeProviderPlatformSnapshot(supabase, snapshotProvider, {
-      refresh: true,
-    });
-    if (!snapshotResult) return null;
+    const toolOutcome = await runRegisteredReadTool(
+      supabase,
+      tenantContext,
+      snapshotProvider,
+      "get_platform_snapshot",
+      t,
+    );
+    if (!toolOutcome) return null;
+    if (toolOutcome.kind === "gap") return { answer: toolOutcome.answer };
+    if (toolOutcome.kind !== "snapshot") return null;
 
+    const snapshotResult = toolOutcome.result;
     if (snapshotResult.ok) {
       return {
         answer: buildVerifiedPlatformSnapshotAnswer(
@@ -263,11 +309,18 @@ async function resolveLiveToolAnswer(
       const statusProvider = integrationContext ?? liveIntegrationIntent.providerKey;
       if (!statusProvider) return null;
 
-      const toolResult = await invokeProviderConnectionStatus(supabase, statusProvider, {
-        refresh: true,
-      });
-      if (!toolResult) return null;
+      const toolOutcome = await runRegisteredReadTool(
+        supabase,
+        tenantContext,
+        statusProvider,
+        "get_connection_status",
+        t,
+      );
+      if (!toolOutcome) return null;
+      if (toolOutcome.kind === "gap") return { answer: toolOutcome.answer };
+      if (toolOutcome.kind !== "status") return null;
 
+      const toolResult = toolOutcome.result;
       if (toolResult.ok) {
         return {
           answer: buildVerifiedIntegrationStatusAnswer(
@@ -292,11 +345,18 @@ async function resolveLiveToolAnswer(
     const statusProvider = integrationContext ?? liveRouting.genericIntent.providerKey;
     if (!statusProvider) return null;
 
-    const toolResult = await invokeProviderConnectionStatus(supabase, statusProvider, {
-      refresh: true,
-    });
-    if (!toolResult) return null;
+    const toolOutcome = await runRegisteredReadTool(
+      supabase,
+      tenantContext,
+      statusProvider,
+      "get_connection_status",
+      t,
+    );
+    if (!toolOutcome) return null;
+    if (toolOutcome.kind === "gap") return { answer: toolOutcome.answer };
+    if (toolOutcome.kind !== "status") return null;
 
+    const toolResult = toolOutcome.result;
     if (toolResult.ok) {
       return {
         answer: buildVerifiedIntegrationStatusAnswer(
@@ -441,6 +501,7 @@ export async function orchestrateCompanionSearch(
     permissionCtx,
     integrationContext,
     activeLocale,
+    resolvedTenantContext,
   );
   if (liveResult) return liveResult;
 

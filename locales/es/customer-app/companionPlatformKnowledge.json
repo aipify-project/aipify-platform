@@ -49,6 +49,15 @@
       "readOnlyNote": "Las operaciones de escritura requieren aprobación explícita y derechos coincidentes.",
       "sourceLabel": "Schema discovery aprobado"
     },
+    "tools": {
+      "missingTool": "No hay ninguna herramienta de lectura aprobada disponible para esa capability en tu organización ahora mismo.",
+      "capabilityDenied": "Esa capability no está habilitada para tu rol u organización.",
+      "invalidInput": "Aipify no pudo validar la solicitud de herramienta de forma segura.",
+      "invalidOutput": "Aipify recibió una salida de herramienta que no pudo validarse de forma segura.",
+      "unavailable": "La herramienta de lectura solicitada no está disponible temporalmente.",
+      "unknownCapability": "Esa capability no está registrada para tus integraciones aprobadas.",
+      "sourceLabel": "Registro de herramientas Companion"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
