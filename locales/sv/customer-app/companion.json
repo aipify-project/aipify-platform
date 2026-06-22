@@ -2154,6 +2154,8 @@
     "recentActive": "Aktiv",
     "supportEscalationHint": "Om du fortfarande behöver mänsklig hjälp kan du skapa en supportförfrågan med denna kontext.",
     "scrollToLatest": "Gå till senaste meddelandet",
-    "scrollToLatestAria": "Gå till senaste meddelandet i den här konversationen"
+    "scrollToLatestAria": "Gå till senaste meddelandet i den här konversationen",
+    "ariaUserMessage": "Ditt meddelande",
+    "ariaUserMessageIdentity": "Din fråga"
   }
 }

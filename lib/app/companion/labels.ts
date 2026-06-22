@@ -146,5 +146,7 @@ export function buildCompanionExperienceLabels(t: Translator): CompanionExperien
     supportEscalationHint: t(`${p}.supportEscalationHint`),
     scrollToLatest: t(`${p}.scrollToLatest`),
     scrollToLatestAria: t(`${p}.scrollToLatestAria`),
+    ariaUserMessage: t(`${p}.ariaUserMessage`),
+    ariaUserMessageIdentity: t(`${p}.ariaUserMessageIdentity`),
   };
 }

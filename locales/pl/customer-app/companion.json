@@ -1268,7 +1268,9 @@
     "recentActive": "Aktywna",
     "supportEscalationHint": "Jeśli nadal potrzebujesz pomocy człowieka, utwórz zgłoszenie do wsparcia z tym kontekstem.",
     "scrollToLatest": "Przejdź do najnowszej wiadomości",
-    "scrollToLatestAria": "Przejdź do najnowszej wiadomości w tej rozmowie"
+    "scrollToLatestAria": "Przejdź do najnowszej wiadomości w tej rozmowie",
+    "ariaUserMessage": "Twoja wiadomość",
+    "ariaUserMessageIdentity": "Twoje pytanie"
   },
   "companionRelationshipEngine": {
     "title": "Relacja z Companion",

@@ -132,4 +132,6 @@ export type CompanionExperienceLabels = {
   supportEscalationHint: string;
   scrollToLatest: string;
   scrollToLatestAria: string;
+  ariaUserMessage: string;
+  ariaUserMessageIdentity: string;
 };

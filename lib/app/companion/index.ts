@@ -4,6 +4,7 @@ export * from "./labels";
 export * from "./types";
 export * from "./chat-scroll";
 export * from "./companion-chat-scroll-policy";
+export * from "./companion-user-message-policy";
 export { useCompanionChatScroll } from "./use-companion-chat-scroll";
 export type {
   CompanionChatScrollSessionOptions,

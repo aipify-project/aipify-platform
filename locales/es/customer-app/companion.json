@@ -1116,5 +1116,9 @@
       "whyUse": "Why use Executive Companion?",
       "whyUseAnswer": "Executive Companion reduces information overload and helps leaders focus on what matters most."
     }
+  },
+  "companionExperience": {
+    "ariaUserMessage": "Tu mensaje",
+    "ariaUserMessageIdentity": "Tu pregunta"
   }
 }

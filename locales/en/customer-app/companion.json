@@ -2073,6 +2073,8 @@
     "supportEscalationHint": "If you still need human help, you can create a support request with this context.",
     "scrollToLatest": "Go to latest message",
     "scrollToLatestAria": "Go to latest message in this conversation",
+    "ariaUserMessage": "Your message",
+    "ariaUserMessageIdentity": "Your question",
     "quickActions": {
       "orgStatus": {
         "title": "Organization status",

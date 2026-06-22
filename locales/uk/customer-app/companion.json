@@ -1268,7 +1268,9 @@
     "recentActive": "Активна",
     "supportEscalationHint": "Якщо вам все ще потрібна допомога людини, створіть запит у підтримку з цим контекстом.",
     "scrollToLatest": "Перейти до останнього повідомлення",
-    "scrollToLatestAria": "Перейти до останнього повідомлення в цій розмові"
+    "scrollToLatestAria": "Перейти до останнього повідомлення в цій розмові",
+    "ariaUserMessage": "Ваше повідомлення",
+    "ariaUserMessageIdentity": "Ваше запитання"
   },
   "companionRelationshipEngine": {
     "title": "Стосунки з Companion",

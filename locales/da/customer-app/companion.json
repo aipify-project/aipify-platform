@@ -2154,6 +2154,8 @@
     "recentActive": "Aktiv",
     "supportEscalationHint": "Hvis du stadig har brug for menneskelig hjælp, kan du oprette en supportanmodning med denne kontekst.",
     "scrollToLatest": "Gå til nyeste besked",
-    "scrollToLatestAria": "Gå til nyeste besked i denne samtale"
+    "scrollToLatestAria": "Gå til nyeste besked i denne samtale",
+    "ariaUserMessage": "Din besked",
+    "ariaUserMessageIdentity": "Dit spørgsmål"
   }
 }
