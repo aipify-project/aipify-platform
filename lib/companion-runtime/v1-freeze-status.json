@@ -1,7 +1,7 @@
 {
   "version": "companion-runtime-v1",
   "status": "PASS WITH KNOWN LIMITATIONS",
-  "certified_at": "2026-06-22T19:45:26.329Z",
+  "certified_at": "2026-06-22T19:58:19.606Z",
   "phases": "1-28",
   "commit_phase_27": "01c77e51",
   "commit_phase_28": "73aac82e",
@@ -9,7 +9,7 @@
     "production_ready": 0,
     "connected_but_partial": 0,
     "manifest_only": 2,
-    "adapter_missing": 297,
+    "adapter_missing": 315,
     "specification_only": 56,
     "blocked_by_governance": 0,
     "disabled": 0

@@ -101,6 +101,18 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "Phase 35",
   },
+  {
+    phase: 36,
+    required_test: "phase36.test.ts",
+    required_wiring: [
+      "companion-booking-policy.ts",
+      "booking-read-orchestrator.ts",
+      "booking-write-orchestrator.ts",
+      "booking-semantic-intent.ts",
+      "booking-audit.ts",
+    ],
+    commit_hint: "Phase 36",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

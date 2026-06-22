@@ -1,13 +1,13 @@
 # Companion Foundation Coverage Audit — Phase 34
 
-Generated: 2026-06-22T19:45:09.883Z
+Generated: 2026-06-22T19:58:03.568Z
 
 ## Summary
 
 | Metric | Count |
 |--------|------:|
 | Total modules | 153 |
-| Total II capabilities | 363 |
+| Total II capabilities | 381 |
 | Business packs (marketing) | 7 |
 | Providers | 139 |
 | Skills | 58 |
@@ -50,7 +50,7 @@ Generated: 2026-06-22T19:45:09.883Z
 
 - **P0**: 0
 - **P1**: 93
-- **P2**: 8
+- **P2**: 6
 - **P3**: 27
 
 ## Top gaps (first 50)

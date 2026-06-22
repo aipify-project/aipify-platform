@@ -1833,6 +1833,58 @@
         "highPriority": "Høyprioriterte verifiseringssaker trenger oppmerksomhet.",
         "oldestPending": "En verifiseringssak har ventet lengre enn andre."
       }
+    },
+    "booking": {
+      "sourceLabel": "Tjenester og timebestilling",
+      "privacyNote": "Booking-oppslag returnerer kun metadata. Kundekontakt og private kalendertitler vises aldri i Companion.",
+      "outcomes": {
+        "exactMatch": "Aipify fant de forespurte booking-metadataene.",
+        "multipleMatches": "Flere bookinger eller tjenester matchet — gjennomgå listen eller oppgi en booking-ID.",
+        "noMatch": "Ingen booking matchet den referansen.",
+        "permissionDenied": "Rollen din kan ikke lese tjenester, tilgjengelighet eller booking-metadata.",
+        "providerMissing": "Ingen live booking-provider er koblet til organisasjonen ennå.",
+        "sourceMissing": "Booking-metadata er ikke tilgjengelig fra en godkjent kilde ennå.",
+        "activationPending": "Booking-oppslag er utilgjengelige mens aktivering eller abonnement venter.",
+        "partialResult": "Aipify returnerte delvis booking-metadata — noen tilgjengelighetsfelter mangler fra gjeldende kilde.",
+        "noAvailability": "Ingen ledige tider ble rapportert av godkjente kilder for denne forespørselen.",
+        "conflictDetected": "Den forespurte tiden er i konflikt med eksisterende booking eller blokkert tid.",
+        "clarificationRequired": "Aipify trenger mer detaljer før en booking kan forberedes.",
+        "confirmationRequired": "Eksplisitt bekreftelse kreves før Aipify kan forberede denne bookingen.",
+        "approvalRequired": "Denne bookingen krever godkjenning før utførelse.",
+        "blockedByGovernance": "Denne booking-operasjonen er blokkert av styringspolicy.",
+        "availabilityChanged": "Tilgjengelighet endret siden tiden ble foreslått — gjennomgå på nytt før bekreftelse.",
+        "completed": "Booking-handlingen ble fullført."
+      },
+      "status": {
+        "scheduled": "Planlagt",
+        "confirmed": "Bekreftet",
+        "in_progress": "Pågår",
+        "completed": "Fullført",
+        "cancelled": "Kansellert",
+        "no_show": "Uteblitt",
+        "pending": "Venter",
+        "blocked": "Blokkert",
+        "available": "Ledig",
+        "busy": "Opptatt"
+      },
+      "warnings": {
+        "noReportedSlots": "Ingen tilgjengelige tider ble rapportert — Aipify finner ikke opp ledige tider.",
+        "resourceUnavailable": "Ressursen er utilgjengelig på grunn av fravær eller feriemodus.",
+        "invalidSlotTimestamp": "En rapportert tid hadde ugyldige tidsstempler og ble ekskludert.",
+        "doubleBookingPrevented": "Dobbeltbooking-forebygging fjernet konfliktende tider.",
+        "partialSource": "Booking-data bruker appointment center-metadata inntil live write-adapter er koblet.",
+        "writeBlocked": "Booking-skriving krever eksplisitt bekreftelse og tilkoblet write-RPC."
+      },
+      "commandBrief": {
+        "upcomingBookings": "Kommende bookinger krever oppmerksomhet.",
+        "unassignedBooking": "En booking venter på tildeling av ansatt.",
+        "bookingConflict": "En booking-konflikt ble oppdaget.",
+        "availabilityGap": "Et hull i tilgjengeligheten ble oppdaget i timeplanen.",
+        "absenceCoverageNeeded": "Fraværsdekning trengs for planlagte tjenester.",
+        "vacationReturnSchedule": "Retur fra ferie påvirker kommende tilgjengelighet.",
+        "bookingRequiringAttention": "En booking krever gjennomgang.",
+        "cancellationChange": "En avbestilling eller timeendring ble rapportert."
+      }
     }
   }
 }

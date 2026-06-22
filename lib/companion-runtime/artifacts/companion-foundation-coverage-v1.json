@@ -1,9 +1,9 @@
 {
   "version": "companion-foundation-coverage-v1",
-  "generated_at": "2026-06-22T19:45:09.883Z",
+  "generated_at": "2026-06-22T19:58:03.568Z",
   "summary": {
     "total_modules": 153,
-    "total_capabilities": 363,
+    "total_capabilities": 381,
     "business_packs": 7,
     "providers": 139,
     "skills": 58,
@@ -2355,10 +2355,20 @@
       "capability_ids": [
         "service.read.read",
         "service.availability.read.read",
+        "employee.read.read",
+        "availability.read.read",
+        "schedule.read.read",
         "appointment.read.read",
+        "booking.read.read",
+        "absence.read.read",
+        "vacation_mode.read.read",
+        "post_vacation_availability.read.read",
         "resource.read.read",
         "customer.read.read",
-        "location.read.read"
+        "location.read.read",
+        "booking.create.write",
+        "booking.update.write",
+        "booking.cancel.write"
       ],
       "source_type": "rpc",
       "source_reference": "lib/integration-intelligence/services/manifests.ts",
@@ -2367,7 +2377,7 @@
       "permission_status": "defined",
       "activation_status": "partial",
       "command_brief_status": "none",
-      "action_status": "none",
+      "action_status": "approval_required",
       "language_status": "complete",
       "test_status": "partial",
       "readiness": "adapter_missing",
@@ -2382,7 +2392,10 @@
       "provider_key": "workforce_scheduling",
       "capability_ids": [
         "resource.read.read",
+        "employee.read.read",
         "service.availability.read.read",
+        "availability.read.read",
+        "schedule.read.read",
         "assignment.read.read"
       ],
       "source_type": "rpc",
@@ -2407,7 +2420,12 @@
       "provider_key": "absence_vacation_coverage",
       "capability_ids": [
         "service.availability.read.read",
-        "resource.read.read"
+        "availability.read.read",
+        "resource.read.read",
+        "employee.read.read",
+        "absence.read.read",
+        "vacation_mode.read.read",
+        "post_vacation_availability.read.read"
       ],
       "source_type": "manifest",
       "source_reference": null,
@@ -3618,21 +3636,21 @@
         "location.read"
       ],
       "source_type": "rpc",
-      "source_reference": "rpc:get_organization_appointment_booking_center / service experience RPCs",
-      "runtime_loader": "load-companion-services-context.ts",
+      "source_reference": "rpc:get_organization_appointment_center",
+      "runtime_loader": "booking-read-orchestrator.ts",
       "schema_status": "partial",
       "permission_status": "defined",
       "activation_status": "partial",
-      "command_brief_status": "none",
+      "command_brief_status": "partial",
       "action_status": "none",
       "language_status": "complete",
       "test_status": "phase_tested",
       "readiness": "connected_but_partial",
       "limitations": [
-        "Discovery-first — adapter_available false in manifest.",
-        "No live booking.create in Companion yet."
+        "Read bundle uses appointment center metadata — adapter_available false until authenticated E2E.",
+        "No invented availability slots — partial proxy only."
       ],
-      "next_required_step": "Connect appointment provider adapter with availability and buffer rules.",
+      "next_required_step": "Connect live booking write RPC with availability recheck and idempotent create.",
       "panel": "app"
     },
     {
@@ -3681,8 +3699,8 @@
         "schedule.read"
       ],
       "source_type": "rpc",
-      "source_reference": "rpc:workforce scheduling / staff availability RPCs",
-      "runtime_loader": "load-companion-services-context.ts",
+      "source_reference": "rpc:get_organization_workforce_scheduling_center",
+      "runtime_loader": "booking-read-orchestrator.ts",
       "schema_status": "partial",
       "permission_status": "defined",
       "activation_status": "partial",
@@ -3710,20 +3728,21 @@
         "post_vacation_availability.read"
       ],
       "source_type": "rpc",
-      "source_reference": "rpc:absence_vacation_coverage / vacation mode engine",
-      "runtime_loader": "load-companion-services-context.ts",
+      "source_reference": "rpc:get_organization_absence_center",
+      "runtime_loader": "booking-read-orchestrator.ts",
       "schema_status": "partial",
       "permission_status": "defined",
       "activation_status": "partial",
-      "command_brief_status": "none",
+      "command_brief_status": "partial",
       "action_status": "none",
       "language_status": "complete",
       "test_status": "phase_tested",
       "readiness": "connected_but_partial",
       "limitations": [
-        "vacation_mode.read and post_vacation_availability.read are loader flags — not separate manifest capabilities."
+        "vacation_mode.read and post_vacation_availability.read registered in services manifest — Phase 36.",
+        "Post-vacation availability uses integration metadata, not computed slots."
       ],
-      "next_required_step": "Register vacation_mode.read and post_vacation_availability.read in services manifest.",
+      "next_required_step": "Wire exact Command Brief signals when live absence integration reports return dates.",
       "panel": "app"
     },
     {
@@ -3739,19 +3758,20 @@
       ],
       "source_type": "none",
       "source_reference": null,
-      "runtime_loader": "load-companion-industry-pack-context.ts",
+      "runtime_loader": "booking-write-orchestrator.ts",
       "schema_status": "missing",
       "permission_status": "partial",
       "activation_status": "disabled",
       "command_brief_status": "none",
       "action_status": "approval_required",
-      "language_status": "partial",
-      "test_status": "missing",
+      "language_status": "complete",
+      "test_status": "phase_tested",
       "readiness": "source_missing",
       "limitations": [
-        "Manifest uses appointment.create/update — booking.* capability IDs not registered."
+        "Write proposals require explicit confirmation — no auto-book.",
+        "No live booking.create/update/cancel RPC connected in Phase 36 V1."
       ],
-      "next_required_step": "Align booking.* capability IDs with appointment.* in services manifest or add aliases.",
+      "next_required_step": "Ship reversible booking write RPC with availability recheck and idempotency before enabling writes.",
       "panel": "app"
     },
     {
@@ -4706,10 +4726,20 @@
       "capability_ids": [
         "service.read.read",
         "service.availability.read.read",
+        "employee.read.read",
+        "availability.read.read",
+        "schedule.read.read",
         "appointment.read.read",
+        "booking.read.read",
+        "absence.read.read",
+        "vacation_mode.read.read",
+        "post_vacation_availability.read.read",
         "resource.read.read",
         "customer.read.read",
-        "location.read.read"
+        "location.read.read",
+        "booking.create.write",
+        "booking.update.write",
+        "booking.cancel.write"
       ],
       "reason": "Connected manifest without live provider adapter.",
       "next_required_step": "Implement live provider adapter for appointment_booking."
@@ -4720,7 +4750,10 @@
       "provider_key": "workforce_scheduling",
       "capability_ids": [
         "resource.read.read",
+        "employee.read.read",
         "service.availability.read.read",
+        "availability.read.read",
+        "schedule.read.read",
         "assignment.read.read"
       ],
       "reason": "Connected manifest without live provider adapter.",
@@ -4732,7 +4765,12 @@
       "provider_key": "absence_vacation_coverage",
       "capability_ids": [
         "service.availability.read.read",
-        "resource.read.read"
+        "availability.read.read",
+        "resource.read.read",
+        "employee.read.read",
+        "absence.read.read",
+        "vacation_mode.read.read",
+        "post_vacation_availability.read.read"
       ],
       "reason": "Connected manifest without live provider adapter.",
       "next_required_step": "Implement live provider adapter for absence_vacation_coverage."
@@ -5092,7 +5130,7 @@
         "cancellation.read"
       ],
       "reason": "Appointment/service booking capability missing live adapter.",
-      "next_required_step": "Align booking.* capability IDs with appointment.* in services manifest or add aliases."
+      "next_required_step": "Ship reversible booking write RPC with availability recheck and idempotency before enabling writes."
     },
     {
       "priority": "P1",
@@ -5151,23 +5189,6 @@
     },
     {
       "priority": "P2",
-      "module_id": "service.appointment_booking",
-      "provider_key": "appointment_booking",
-      "capability_ids": [
-        "service.read",
-        "service.availability.read",
-        "availability.read",
-        "appointment.read",
-        "booking.read",
-        "resource.read",
-        "customer.read",
-        "location.read"
-      ],
-      "reason": "Partial runtime without Command Brief linkage.",
-      "next_required_step": "Add Command Brief signals when live metrics are available."
-    },
-    {
-      "priority": "P2",
       "module_id": "service.local_service_beauty",
       "provider_key": "local_service_beauty",
       "capability_ids": [
@@ -5193,20 +5214,6 @@
         "assignment.read",
         "staff.read",
         "schedule.read"
-      ],
-      "reason": "Partial runtime without Command Brief linkage.",
-      "next_required_step": "Add Command Brief signals when live metrics are available."
-    },
-    {
-      "priority": "P2",
-      "module_id": "service.absence_vacation",
-      "provider_key": "absence_vacation_coverage",
-      "capability_ids": [
-        "service.availability.read",
-        "resource.read",
-        "vacation_mode.read",
-        "absence.read",
-        "post_vacation_availability.read"
       ],
       "reason": "Partial runtime without Command Brief linkage.",
       "next_required_step": "Add Command Brief signals when live metrics are available."

@@ -1833,6 +1833,58 @@
         "highPriority": "High-priority verification cases need attention.",
         "oldestPending": "A verification case has been pending longer than others."
       }
+    },
+    "booking": {
+      "sourceLabel": "Services & appointment booking",
+      "privacyNote": "Booking reads return metadata only. Customer contact details and private calendar titles are never shown in Companion.",
+      "outcomes": {
+        "exactMatch": "Aipify found the requested booking metadata.",
+        "multipleMatches": "Multiple bookings or services matched — review the list or provide a booking ID.",
+        "noMatch": "No booking matched that reference.",
+        "permissionDenied": "Your role cannot read services, availability, or booking metadata.",
+        "providerMissing": "No live booking provider is connected for this organization yet.",
+        "sourceMissing": "Booking metadata is not available from an approved source yet.",
+        "activationPending": "Booking reads are unavailable while organization activation or subscription is pending.",
+        "partialResult": "Aipify returned partial booking metadata — some availability fields are unavailable from the current source.",
+        "noAvailability": "No available slots were reported by approved sources for this request.",
+        "conflictDetected": "The requested slot conflicts with an existing booking or blocked time.",
+        "clarificationRequired": "Aipify needs more detail before preparing a booking action.",
+        "confirmationRequired": "Explicit confirmation is required before Aipify can prepare this booking.",
+        "approvalRequired": "This booking requires approval before execution.",
+        "blockedByGovernance": "This booking operation is blocked by governance policy.",
+        "availabilityChanged": "Availability changed since the slot was proposed — review again before confirming.",
+        "completed": "The booking action completed successfully."
+      },
+      "status": {
+        "scheduled": "Scheduled",
+        "confirmed": "Confirmed",
+        "in_progress": "In progress",
+        "completed": "Completed",
+        "cancelled": "Cancelled",
+        "no_show": "No show",
+        "pending": "Pending",
+        "blocked": "Blocked",
+        "available": "Available",
+        "busy": "Busy"
+      },
+      "warnings": {
+        "noReportedSlots": "No availability slots were reported — Aipify will not invent open times.",
+        "resourceUnavailable": "The requested resource is unavailable due to absence or vacation mode.",
+        "invalidSlotTimestamp": "A reported slot had invalid timestamps and was excluded.",
+        "doubleBookingPrevented": "Double-booking prevention removed conflicting slots.",
+        "partialSource": "Booking data uses appointment center metadata until live write adapter is connected.",
+        "writeBlocked": "Booking writes require explicit confirmation and a connected write RPC."
+      },
+      "commandBrief": {
+        "upcomingBookings": "Upcoming bookings need attention.",
+        "unassignedBooking": "A booking is waiting for staff assignment.",
+        "bookingConflict": "A booking conflict was detected.",
+        "availabilityGap": "An availability gap was detected in the schedule.",
+        "absenceCoverageNeeded": "Absence coverage is needed for scheduled services.",
+        "vacationReturnSchedule": "Staff return from vacation affects upcoming availability.",
+        "bookingRequiringAttention": "A booking requires review.",
+        "cancellationChange": "A cancellation or schedule change was reported."
+      }
     }
   }
 }
