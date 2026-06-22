@@ -90,7 +90,7 @@ export function AppLanguageSelector({
   const triggerClasses =
     variant === "settings"
       ? "flex min-h-[44px] w-full max-w-md items-center justify-between gap-3 rounded-xl border border-aipify-border bg-aipify-surface px-4 py-3 text-sm font-medium text-aipify-text transition hover:border-aipify-companion/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus"
-      : "inline-flex min-h-[44px] max-w-[11rem] items-center gap-2 rounded-xl border border-aipify-border bg-aipify-surface px-2.5 py-2 text-sm font-medium text-aipify-text transition hover:border-aipify-companion/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus sm:px-3";
+      : "inline-flex min-h-[44px] max-w-[14rem] items-center gap-2 rounded-xl border border-aipify-border bg-aipify-surface px-2.5 py-2 text-sm font-medium text-aipify-text transition hover:border-aipify-companion/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus sm:max-w-[15rem] sm:px-3";
 
   return (
     <div ref={rootRef} className="relative shrink-0" aria-busy={pending}>
@@ -119,7 +119,7 @@ export function AppLanguageSelector({
         <ul
           role="listbox"
           aria-label={labels.openMenu}
-          className={`absolute z-50 mt-2 min-w-[12rem] overflow-hidden rounded-xl border border-aipify-border bg-aipify-surface py-1 shadow-lg ${
+          className={`absolute z-50 mt-2 min-w-[13rem] max-w-[min(100vw-2rem,16rem)] overflow-hidden rounded-xl border border-aipify-border bg-aipify-surface py-1 shadow-lg ${
             variant === "settings" ? "left-0" : "right-0"
           }`}
         >

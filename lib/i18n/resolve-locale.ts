@@ -1,11 +1,14 @@
 import { DEFAULT_LOCALE, LOCALE_COOKIE, type Locale } from "./config";
 import {
-  coerceToAppLocale,
-  isAppLocale,
-  resolveAppLocale,
-  type AppLocale,
-} from "./app-locales";
+  BROWSER_LOCALE_PREFIXES,
+  coerceToCustomerActiveLocale,
+  isCustomerActiveLocale,
+  resolveCustomerActiveLocale,
+  type CustomerActiveLocale,
+} from "./customer-active-locale-registry";
 import { isPublicFooterEnabledLocale } from "./public-locales";
+
+export type AppLocale = CustomerActiveLocale;
 
 export type LocaleResolutionSource =
   | "cookie"
@@ -20,14 +23,7 @@ export type ResolvedLocale = {
   source: LocaleResolutionSource;
 };
 
-const NORDIC_BROWSER_PREFIXES: Record<string, AppLocale> = {
-  no: "no",
-  nb: "no",
-  nn: "no",
-  sv: "sv",
-  da: "da",
-  en: "en",
-};
+const NORDIC_BROWSER_PREFIXES = BROWSER_LOCALE_PREFIXES;
 
 export function parseAcceptLanguageHeader(header: string | null | undefined): AppLocale | null {
   if (!header) return null;
@@ -54,7 +50,7 @@ export function resolvePublicLocale(input: {
   if (cookie && isPublicFooterEnabledLocale(cookie)) {
     return {
       locale: cookie,
-      appLocale: coerceToAppLocale(cookie),
+      appLocale: coerceToCustomerActiveLocale(cookie),
       source: "cookie",
     };
   }
@@ -78,17 +74,17 @@ export function resolveAppUiLocale(input: {
   acceptLanguage?: string | null;
 }): ResolvedLocale {
   const cookie = input.cookieLocale?.trim();
-  if (cookie && isAppLocale(cookie)) {
+  if (cookie && isCustomerActiveLocale(cookie)) {
     return { locale: cookie, appLocale: cookie, source: "cookie" };
   }
 
-  const userPref = coerceToAppLocale(input.userPreferredLocale);
-  if (input.userPreferredLocale && isAppLocale(userPref)) {
+  const userPref = coerceToCustomerActiveLocale(input.userPreferredLocale);
+  if (input.userPreferredLocale && isCustomerActiveLocale(userPref)) {
     return { locale: userPref, appLocale: userPref, source: "user_preference" };
   }
 
-  const orgDefault = coerceToAppLocale(input.organizationDefaultLanguage);
-  if (input.organizationDefaultLanguage && isAppLocale(orgDefault)) {
+  const orgDefault = coerceToCustomerActiveLocale(input.organizationDefaultLanguage);
+  if (input.organizationDefaultLanguage && isCustomerActiveLocale(orgDefault)) {
     return {
       locale: orgDefault,
       appLocale: orgDefault,
@@ -103,7 +99,7 @@ export function resolveAppUiLocale(input: {
 
   return {
     locale: DEFAULT_LOCALE,
-    appLocale: resolveAppLocale(DEFAULT_LOCALE),
+    appLocale: resolveCustomerActiveLocale(DEFAULT_LOCALE),
     source: "default",
   };
 }

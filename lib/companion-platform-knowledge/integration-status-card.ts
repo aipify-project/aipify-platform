@@ -9,6 +9,7 @@ const KNOWN_SCOPE_DESCRIPTION_KEYS: Record<string, string> = {
   "metadata.read": `${BASE}.card.scopes.metadataRead`,
   "organization.read": `${BASE}.card.scopes.organizationRead`,
   "integration.status.read": `${BASE}.card.scopes.integrationStatusRead`,
+  "platform.metadata.read": `${BASE}.card.scopes.platformMetadataRead`,
 };
 
 function resolveLanguageLabel(code: string, t: Translator): string {

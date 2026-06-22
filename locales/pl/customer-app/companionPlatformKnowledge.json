@@ -60,6 +60,7 @@
           "metadataRead": "Odczytuje zatwierdzone metadane operacyjne",
           "organizationRead": "Odczytuje tożsamość organizacji",
           "integrationStatusRead": "Odczytuje status integracji",
+          "platformMetadataRead": "Odczytuje zatwierdzone metadane platformy",
           "unknown": "Zatwierdzone uprawnienie odczytu dla tej integracji"
         }
       },

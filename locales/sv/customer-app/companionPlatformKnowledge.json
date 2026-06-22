@@ -60,6 +60,7 @@
           "metadataRead": "Läser godkänd driftsmetadata",
           "organizationRead": "Läser organisationsidentitet",
           "integrationStatusRead": "Läser integrationsstatus",
+          "platformMetadataRead": "Läser godkänd plattformsmetadata",
           "unknown": "Godkänd läsbehörighet för denna integration"
         }
       },

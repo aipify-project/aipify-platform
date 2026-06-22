@@ -60,6 +60,7 @@
           "metadataRead": "Reads approved operational metadata",
           "organizationRead": "Reads organization identity",
           "integrationStatusRead": "Reads integration status",
+          "platformMetadataRead": "Reads approved platform metadata",
           "unknown": "Approved read scope for this integration"
         }
       },

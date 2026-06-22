@@ -60,6 +60,7 @@
           "metadataRead": "Leser godkjent driftsmetadata",
           "organizationRead": "Leser organisasjonsidentitet",
           "integrationStatusRead": "Leser integrasjonsstatus",
+          "platformMetadataRead": "Leser godkjent plattformmetadata",
           "unknown": "Godkjent lesetillatelse for denne integrasjonen"
         }
       },
