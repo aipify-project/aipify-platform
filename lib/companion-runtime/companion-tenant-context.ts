@@ -49,6 +49,10 @@ import {
   createEmptyCompanionCommunityContext,
   type CompanionCommunityContext,
 } from "./companion-community-context";
+import {
+  createEmptyCompanionProactiveContext,
+  type CompanionProactiveContext,
+} from "./companion-proactive-context";
 
 const PORTAL_FEATURE_KEYS = [
   "team_management",
@@ -104,6 +108,7 @@ export type CompanionTenantContext = {
   salesContext: CompanionSalesContext;
   securityContext: CompanionSecurityContext;
   communityContext: CompanionCommunityContext;
+  proactiveContext: CompanionProactiveContext;
 };
 
 export function createEmptyCompanionTenantContext(
@@ -155,6 +160,7 @@ export function createEmptyCompanionTenantContext(
     salesContext: createEmptyCompanionSalesContext(),
     securityContext: createEmptyCompanionSecurityContext(),
     communityContext: createEmptyCompanionCommunityContext(),
+    proactiveContext: createEmptyCompanionProactiveContext(),
     ...overrides,
   };
 }

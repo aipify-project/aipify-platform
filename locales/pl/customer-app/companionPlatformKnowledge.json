@@ -916,6 +916,61 @@
         "community_pack_adapter": "zewnętrzne forum członkostwo platforma zaangażowanie adapter trzecia strona sync"
       }
     },
+    "proactive": {
+      "sourceLabel": "Proactive monitoring catalog",
+      "discoveryLead": "Aipify mapped {provider} in your proactive monitoring catalog — status: {status}.",
+      "discoveryExplanation": "Capabilities below come from registered proactive organization engines, advisor bundles, and Command Brief sources. Recommendations prepare and inform — Aipify never auto-executes recommended actions in Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "signalLine": "{title} — {severity} ({sourceModule})",
+      "signalSummaryLead": "Aipify prioritized {count} proactive signals for your organization.",
+      "signalSummaryExplanation": "Signals are sorted by severity, freshness, confidence, business impact, and unresolved status — only items with verified source data are shown.",
+      "verifiedProvider": "Proactive source is prepared or verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No proactive provider matched this request for your organization.",
+      "unavailableExplanation": "Proactive capabilities are discovered from registered manifests — none matched this query.",
+      "emptySignalBasisLead": "No proactive signals with verified source data matched this request.",
+      "emptySignalBasisExplanation": "Aipify only surfaces alerts, recommendations, and attention items when underlying engines report source metadata — no synthetic signals are generated.",
+      "externalUnavailableLead": "External proactive monitoring adapters are not connected for your organization.",
+      "externalUnavailableExplanation": "No live external proactive adapter is registered. Aipify does not auto-execute recommendations or dismiss alerts in Companion runtime.",
+      "blockedOperationLead": "This proactive operation is not available in Companion runtime.",
+      "blockedOperationExplanation": "Auto-executing recommendations, auto-dismissing alerts, and auto-resolving signals are blocked in this phase. Aipify prepares governed actions — you decide and approve via Approval Center.",
+      "permissionDenied": "Your role cannot access the proactive monitoring catalog.",
+      "entitlementBlocked": "Proactive capabilities are unavailable while the organization subscription is paused.",
+      "privacyNote": "Metadata-first proactive intelligence — sensitive data is sanitized and private content is never exposed in Companion runtime.",
+      "policyNote": "Recommendations require explicit approval before any action. Role-based permissions, tenant isolation, and audit logging apply to all proactive signals.",
+      "recommendationAutoExecuteBlocked": "Auto-executing recommendations is blocked — humans decide and approve.",
+      "noRecommendationWithoutSource": "No recommendation is surfaced without verified source data.",
+      "noFalseAlerts": "No false alerts — signals require underlying engine source metadata.",
+      "sensitiveDataSanitized": "Sensitive fields are sanitized from proactive signal summaries.",
+      "roleBasedAccessActive": "Role-based access permissions are enforced for this organization.",
+      "commandBriefEventsLinked": "Command Brief proactive signals are linked from existing monitoring, recommendation, and domain engine sources.",
+      "commandBriefEventsAvailable": "Command Brief proactive signals are available when proactive engines are activated.",
+      "openProactiveCenter": "Open Command Brief",
+      "operation": { "read": "read", "write": "write" },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "proactive_insights_engine": "Proactive Insights Engine",
+        "companion_recommendation_engine": "Companion Recommendation Engine",
+        "proactive_organization_center": "Proactive Organization Center",
+        "command_brief_operational": "Command Brief Operational",
+        "domain_signal_bus": "Domain Signal Bus",
+        "proactive_pack_adapter": "External Proactive Adapter"
+      },
+      "searchTerms": {
+        "proactive_insights_engine": "proactive insight alert anomaly monitoring pattern detection risk",
+        "companion_recommendation_engine": "recommendation opportunity suggestion next step advisor",
+        "proactive_organization_center": "proactive organization center follow up attention unresolved",
+        "command_brief_operational": "command brief attention opportunity risk anomaly recommended action",
+        "domain_signal_bus": "cross module signal hr finance sales security community warehouse",
+        "proactive_pack_adapter": "external monitoring alert adapter third party proactive sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

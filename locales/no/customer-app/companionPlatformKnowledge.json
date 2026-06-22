@@ -922,6 +922,61 @@
         "community_pack_adapter": "ekstern forum medlemskap plattform engasjement adapter tredjeparts sync"
       }
     },
+    "proactive": {
+      "sourceLabel": "Proaktiv overvåkingskatalog",
+      "discoveryLead": "Aipify kartla {provider} i den proaktive overvåkingskatalogen — status: {status}.",
+      "discoveryExplanation": "Funksjonene nedenfor kommer fra registrerte proaktive organisasjonsmotorer, advisor-bundles og Command Brief-kilder. Anbefalinger forbereder og informerer — Aipify utfører aldri anbefalte handlinger automatisk i Companion-runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "signalLine": "{title} — {severity} ({sourceModule})",
+      "signalSummaryLead": "Aipify prioriterte {count} proaktive signaler for organisasjonen din.",
+      "signalSummaryExplanation": "Signaler sorteres etter alvorlighetsgrad, ferskhet, confidence, forretningspåvirkning og uløst status — kun elementer med verifisert kildedata vises.",
+      "verifiedProvider": "Proaktiv kilde er klargjort eller verifisert for organisasjonen din.",
+      "disconnectedProvider": "Leverandørens runtime-adapter er ikke tilkoblet — kun styrt oppdagelse.",
+      "unavailableLead": "Ingen proaktiv leverandør matchet denne forespørselen for organisasjonen din.",
+      "unavailableExplanation": "Proaktive funksjoner oppdages fra registrerte manifest — ingen matchet dette spørsmålet.",
+      "emptySignalBasisLead": "Ingen proaktive signaler med verifisert kildedata matchet denne forespørselen.",
+      "emptySignalBasisExplanation": "Aipify viser kun varsler, anbefalinger og oppmerksomhetspunkter når underliggende motorer rapporterer kildemetadata — ingen syntetiske signaler genereres.",
+      "externalUnavailableLead": "Eksterne proaktive overvåkingsadaptere er ikke tilkoblet for organisasjonen din.",
+      "externalUnavailableExplanation": "Ingen live ekstern proaktiv adapter er registrert. Aipify utfører ikke anbefalinger automatisk eller avviser varsler i Companion-runtime.",
+      "blockedOperationLead": "Denne proaktive operasjonen er ikke tilgjengelig i Companion-runtime.",
+      "blockedOperationExplanation": "Automatisk utførelse av anbefalinger, automatisk avvisning av varsler og automatisk løsing av signaler er blokkert i denne fasen. Aipify forbereder styrte handlinger — du bestemmer og godkjenner via godkjenningssenteret.",
+      "permissionDenied": "Rollen din har ikke tilgang til den proaktive overvåkingskatalogen.",
+      "entitlementBlocked": "Proaktive funksjoner er utilgjengelige mens organisasjonens abonnement er pauset.",
+      "privacyNote": "Metadata-først proaktiv intelligens — sensitive data sanitizes og privat innhold eksponeres aldri i Companion-runtime.",
+      "policyNote": "Anbefalinger krever eksplisitt godkjenning før handling. Rollebaserte tilganger, tenant-isolasjon og revisjonslogging gjelder for alle proaktive signaler.",
+      "recommendationAutoExecuteBlocked": "Automatisk utførelse av anbefalinger er blokkert — mennesker bestemmer og godkjenner.",
+      "noRecommendationWithoutSource": "Ingen anbefaling vises uten verifisert kildedata.",
+      "noFalseAlerts": "Ingen falske varsler — signaler krever kildemetadata fra underliggende motor.",
+      "sensitiveDataSanitized": "Sensitive felt sanitizes fra proaktive signalsammendrag.",
+      "roleBasedAccessActive": "Rollebaserte tilganger håndheves for denne organisasjonen.",
+      "commandBriefEventsLinked": "Command Brief proaktive signaler er koblet fra eksisterende overvåkings-, anbefalings- og domenemotorkilder.",
+      "commandBriefEventsAvailable": "Command Brief proaktive signaler er tilgjengelige når proaktive motorer er aktivert.",
+      "openProactiveCenter": "Åpne Command Brief",
+      "operation": { "read": "les", "write": "skriv" },
+      "status": {
+        "connected": "tilkoblet",
+        "implemented_disconnected": "implementert men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun spesifikasjon",
+        "placeholder": "plassholder"
+      },
+      "providers": {
+        "proactive_insights_engine": "Proactive Insights Engine",
+        "companion_recommendation_engine": "Companion Recommendation Engine",
+        "proactive_organization_center": "Proactive Organization Center",
+        "command_brief_operational": "Command Brief Operational",
+        "domain_signal_bus": "Domain Signal Bus",
+        "proactive_pack_adapter": "Ekstern proaktiv adapter"
+      },
+      "searchTerms": {
+        "proactive_insights_engine": "proaktiv innsikt varsel avvik overvåking mønster deteksjon risiko",
+        "companion_recommendation_engine": "anbefaling mulighet forslag neste steg advisor",
+        "proactive_organization_center": "proaktiv organisasjonssenter oppfølging oppmerksomhet uløst",
+        "command_brief_operational": "command brief oppmerksomhet mulighet risiko avvik anbefalt handling",
+        "domain_signal_bus": "tverrmodul signal hr finance sales security community warehouse",
+        "proactive_pack_adapter": "ekstern overvåking varsel adapter tredjepart proaktiv sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

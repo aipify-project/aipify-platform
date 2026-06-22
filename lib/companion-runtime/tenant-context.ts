@@ -109,6 +109,13 @@ import {
   mergeCommunitySchemaCollection,
   mergeCommunityToolRegistry,
 } from "./merge-community-runtime";
+import { loadCompanionProactiveContext } from "./load-companion-proactive-context";
+import {
+  mergeProactiveCapabilities,
+  mergeProactiveSchemaCollection,
+  mergeProactiveToolRegistry,
+} from "./merge-proactive-runtime";
+import { mergeProactiveSignalsIntoOperationalContext } from "./normalize-proactive-signals";
 
 export type { CompanionTenantContext } from "./companion-tenant-context";
 export {
@@ -336,7 +343,36 @@ export async function loadCompanionTenantContext(
     activeBusinessPacks,
   });
 
-  const entitledCapabilities = mergeCommunityCapabilities(
+  const operationalLoad = await loadCompanionOperationalContext(supabase, {
+    effectivePermissions,
+    subscriptionStatus,
+    enabledModules: businessPackContext.enabledModules,
+    activeBusinessPacks,
+  });
+
+  const proactiveContext = await loadCompanionProactiveContext(supabase, {
+    effectivePermissions,
+    subscriptionStatus,
+    connectedProviders,
+    activeBusinessPacks,
+    domainContexts: {
+      hrContext,
+      warehouseContext,
+      financeContext,
+      salesContext,
+      securityContext,
+      communityContext,
+      operationalContext: operationalLoad.operationalContext,
+    },
+  });
+
+  const operationalContext = mergeProactiveSignalsIntoOperationalContext(
+    operationalLoad.operationalContext,
+    proactiveContext.prioritized_signals,
+  );
+
+  const entitledCapabilities = mergeProactiveCapabilities(
+    mergeCommunityCapabilities(
     mergeSecurityCapabilities(
     mergeSalesCapabilities(
     mergeFinanceCapabilities(
@@ -375,6 +411,8 @@ export async function loadCompanionTenantContext(
     securityContext,
     ),
     communityContext,
+    ),
+    proactiveContext,
   );
 
   let schemaContext = loadCompanionSchemaContext({
@@ -429,6 +467,7 @@ export async function loadCompanionTenantContext(
   schemaContext = mergeSalesSchemaCollection(schemaContext, salesContext, effectivePermissions);
   schemaContext = mergeSecuritySchemaCollection(schemaContext, securityContext, effectivePermissions);
   schemaContext = mergeCommunitySchemaCollection(schemaContext, communityContext, effectivePermissions);
+  schemaContext = mergeProactiveSchemaCollection(schemaContext, proactiveContext, effectivePermissions);
 
   let toolRegistry = loadCompanionToolRegistry({
     discovery,
@@ -456,13 +495,7 @@ export async function loadCompanionTenantContext(
   toolRegistry = mergeSalesToolRegistry(toolRegistry, salesContext, effectivePermissions);
   toolRegistry = mergeSecurityToolRegistry(toolRegistry, securityContext, effectivePermissions);
   toolRegistry = mergeCommunityToolRegistry(toolRegistry, communityContext, effectivePermissions);
-
-  const operationalLoad = await loadCompanionOperationalContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    enabledModules: businessPackContext.enabledModules,
-    activeBusinessPacks,
-  });
+  toolRegistry = mergeProactiveToolRegistry(toolRegistry, proactiveContext, effectivePermissions);
 
   const actionLoad = await loadCompanionActionContext(supabase, {
     schemaContext,
@@ -511,7 +544,7 @@ export async function loadCompanionTenantContext(
     availableEntities: schemaContext.availableEntities,
     availableOperations: schemaContext.availableOperations,
     toolRegistry,
-    operationalContext: operationalLoad.operationalContext,
+    operationalContext,
     commandBriefAvailable: operationalLoad.commandBriefAvailable,
     sinceLastLoginAvailable: operationalLoad.sinceLastLoginAvailable,
     identityContext,
@@ -533,5 +566,6 @@ export async function loadCompanionTenantContext(
     salesContext,
     securityContext,
     communityContext,
+    proactiveContext,
   });
 }

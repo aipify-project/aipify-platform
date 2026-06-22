@@ -206,6 +206,16 @@ import {
   matchCommunityProviderQuery,
 } from "./community-answer";
 import {
+  buildBlockedProactiveOperationAnswer,
+  buildExternalProactiveUnavailableAnswer,
+  buildProactiveProviderDiscoveryAnswer,
+  buildProactiveProviderUnavailableAnswer,
+  hasBlockedProactiveOperationIntent,
+  hasExternalProactiveAdapterIntent,
+  hasProactiveProviderIntent,
+  matchProactiveProviderQuery,
+} from "./proactive-answer";
+import {
   buildBlockedCommerceOperationAnswer,
   buildCommerceProviderDiscoveryAnswer,
   buildCommerceProviderUnavailableAnswer,
@@ -1096,6 +1106,51 @@ function resolveCommunityProviderAnswer(
   };
 }
 
+function resolveProactiveProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (hasBlockedProactiveOperationIntent(query)) {
+    return {
+      answer: buildBlockedProactiveOperationAnswer(t),
+    };
+  }
+
+  if (!hasProactiveProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.proactiveContext.permission_denied) {
+    return {
+      answer: buildProactiveProviderUnavailableAnswer(t, tenantContext.proactiveContext),
+    };
+  }
+
+  if (hasExternalProactiveAdapterIntent(query)) {
+    return {
+      answer: buildExternalProactiveUnavailableAnswer(t),
+    };
+  }
+
+  const match = matchProactiveProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildProactiveProviderUnavailableAnswer(t, tenantContext.proactiveContext),
+    };
+  }
+
+  if (tenantContext.proactiveContext.empty_signal_basis) {
+    return {
+      answer: buildProactiveProviderUnavailableAnswer(t, tenantContext.proactiveContext),
+    };
+  }
+
+  return {
+    answer: buildProactiveProviderDiscoveryAnswer(match, tenantContext.proactiveContext, t),
+  };
+}
+
 function resolveSupportProviderAnswer(
   query: string,
   t: Translator,
@@ -1364,6 +1419,9 @@ export async function orchestrateCompanionSearch(
 
   const communityResult = resolveCommunityProviderAnswer(query, t, resolvedTenantContext);
   if (communityResult) return finalize(communityResult);
+
+  const proactiveResult = resolveProactiveProviderAnswer(query, t, resolvedTenantContext);
+  if (proactiveResult) return finalize(proactiveResult);
 
   const supportResult = resolveSupportProviderAnswer(query, t, resolvedTenantContext);
   if (supportResult) return finalize(supportResult);
