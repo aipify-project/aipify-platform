@@ -1155,6 +1155,9 @@
     "ariaCompanionPanel": "Panel Aipify Companion",
     "ariaOpenCompanion": "Otwórz Aipify Companion",
     "ariaFloatingButton": "Zapytaj Aipify — otwórz Companion",
+    "companionAvailable": "Aipify jest dostępny",
+    "ariaCompanionAvailable": "Aipify jest dostępny — otwórz Companion",
+    "sessionConversationUnavailable": "Nie udało się przywrócić poprzedniej rozmowy. Możesz rozpocząć nową poniżej.",
     "quickActions": {
       "orgStatus": {
         "title": "Status organizacji",

@@ -6,6 +6,9 @@ export const LEGACY_SUPPORT_ASSISTANT_ROUTE = "/app/support/assistant";
 
 export const COMPANION_CONVERSATIONS_STORAGE_KEY = "aipify.companion.recentConversations.v1";
 
+/** Tab-scoped Companion panel UI — open state, draft, active conversation, scroll. */
+export const COMPANION_UI_SESSION_STORAGE_KEY = "aipify.companion.ui.v1";
+
 export const COMPANION_QUICK_ACTION_IDS = [
   "orgStatus",
   "recentEvents",

@@ -18,6 +18,10 @@ import {
   saveRecentConversation,
 } from "@/lib/app/companion/conversations";
 import {
+  patchCompanionUiSession,
+  readCompanionUiSession,
+} from "@/lib/app/companion/session-state";
+import {
   parseSupportAssistantSearch,
   SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY,
   type SupportAssistantArticle,
@@ -47,6 +51,8 @@ type CompanionPanelProps = {
   mode: "drawer" | "fullpage";
   onClose?: () => void;
   initialQuery?: string;
+  /** When false the drawer is hidden but kept mounted — skip focus-only side effects. */
+  panelVisible?: boolean;
 };
 
 function createMessageId() {
@@ -110,19 +116,31 @@ export function CompanionPanel({
   mode,
   onClose,
   initialQuery,
+  panelVisible = true,
 }: CompanionPanelProps) {
-  const [query, setQuery] = useState(initialQuery ?? "");
+  const profileCtx = useOptionalDashboardProfile();
+  const organizationKey = profileCtx?.profile?.company.id ?? null;
+  const restoredSessionRef = useRef(false);
+
+  const [query, setQuery] = useState(() => {
+    if (initialQuery?.trim()) return initialQuery;
+    return readCompanionUiSession(organizationKey)?.draftText ?? "";
+  });
   const [messages, setMessages] = useState<CompanionChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [recentConversations, setRecentConversations] = useState<CompanionConversationPreview[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [showSecondarySections, setShowSecondarySections] = useState(false);
-  const [activeConversationId, setActiveConversationId] = useState<string>(() => createConversationId());
+  const [activeConversationId, setActiveConversationId] = useState<string>(() => {
+    return readCompanionUiSession(organizationKey)?.activeConversationId ?? createConversationId();
+  });
+  const [restoreNotice, setRestoreNotice] = useState<string | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const initialQuerySubmittedRef = useRef(false);
+  const scrollRestoredRef = useRef(false);
 
-  const profileCtx = useOptionalDashboardProfile();
   const orgName = profileCtx?.profile?.company.name ?? labels.orgNameFallback;
   const roleDisplay = profileCtx?.profile
     ? labels.roleLabel.replace("{role}", profileCtx.profile.user.role)
@@ -139,6 +157,80 @@ export function CompanionPanel({
   }, []);
 
   useEffect(() => {
+    if (restoredSessionRef.current && organizationKey) return;
+    if (!organizationKey && !readCompanionUiSession()) return;
+
+    const session = readCompanionUiSession(organizationKey);
+    if (!session) {
+      restoredSessionRef.current = true;
+      return;
+    }
+
+    restoredSessionRef.current = true;
+
+    if (session.activeConversationId) {
+      const conv = loadRecentConversations().find((entry) => entry.id === session.activeConversationId);
+      if (conv?.messages && conv.messages.length > 0) {
+        setMessages(conv.messages);
+        setActiveConversationId(conv.id);
+        setShowSuggestions(false);
+      } else if (conv) {
+        setActiveConversationId(conv.id);
+      } else {
+        setRestoreNotice(labels.sessionConversationUnavailable);
+      }
+    }
+  }, [organizationKey, labels.sessionConversationUnavailable]);
+
+  useEffect(() => {
+    patchCompanionUiSession(
+      {
+        activeConversationId,
+        organizationKey,
+        pathname,
+      },
+      organizationKey,
+    );
+  }, [activeConversationId, organizationKey, pathname]);
+
+  useEffect(() => {
+    if (initialQuery?.trim()) return;
+    const timeoutId = window.setTimeout(() => {
+      patchCompanionUiSession(
+        {
+          draftText: query,
+          organizationKey,
+          pathname,
+        },
+        organizationKey,
+      );
+    }, 250);
+    return () => window.clearTimeout(timeoutId);
+  }, [query, organizationKey, pathname, initialQuery]);
+
+  useEffect(() => {
+    if (scrollRestoredRef.current || messages.length === 0) return;
+    const session = readCompanionUiSession(organizationKey);
+    const container = scrollContainerRef.current;
+    if (!session?.scrollTop || !container) return;
+    scrollRestoredRef.current = true;
+    container.scrollTop = session.scrollTop;
+  }, [messages.length, organizationKey]);
+
+  const handleScroll = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    patchCompanionUiSession(
+      {
+        scrollTop: container.scrollTop,
+        organizationKey,
+        pathname,
+      },
+      organizationKey,
+    );
+  }, [organizationKey, pathname]);
+
+  useEffect(() => {
     if (initialQuery) {
       setQuery(initialQuery);
       setShowSuggestions(false);
@@ -146,8 +238,9 @@ export function CompanionPanel({
   }, [initialQuery]);
 
   useEffect(() => {
+    if (!panelVisible) return;
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, loading]);
+  }, [messages, loading, panelVisible]);
 
   const askQuestion = useCallback(
     async (question: string) => {
@@ -164,6 +257,7 @@ export function CompanionPanel({
       };
       setMessages((prev) => [...prev, userMessage]);
       setQuery("");
+      patchCompanionUiSession({ draftText: "", organizationKey, pathname }, organizationKey);
       setLoading(true);
 
       try {
@@ -211,7 +305,7 @@ export function CompanionPanel({
         setLoading(false);
       }
     },
-    [loading, labels, locale, activeConversationId]
+    [loading, labels, locale, activeConversationId, messages, organizationKey, pathname]
   );
 
   useEffect(() => {
@@ -303,7 +397,20 @@ export function CompanionPanel({
     setShowSuggestions(true);
     setShowSecondarySections(false);
     setError(false);
-    setActiveConversationId(createConversationId());
+    setRestoreNotice(null);
+    scrollRestoredRef.current = false;
+    const nextId = createConversationId();
+    setActiveConversationId(nextId);
+    patchCompanionUiSession(
+      {
+        activeConversationId: nextId,
+        draftText: "",
+        scrollTop: 0,
+        organizationKey,
+        pathname,
+      },
+      organizationKey,
+    );
     initialQuerySubmittedRef.current = false;
   }
 
@@ -606,10 +713,20 @@ export function CompanionPanel({
 
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
         <div
+          ref={scrollContainerRef}
+          onScroll={handleScroll}
           className={`flex min-h-0 flex-1 flex-col overflow-y-auto ${
             isActiveConversation ? "px-4 py-6 sm:px-6" : "px-4 py-4 sm:px-6 lg:flex-row"
           }`}
         >
+          {restoreNotice ? (
+            <div
+              className="mb-4 rounded-xl border border-amber-200 bg-amber-50/80 px-4 py-3 text-sm text-amber-950"
+              role="status"
+            >
+              {restoreNotice}
+            </div>
+          ) : null}
           <div className="flex min-h-0 flex-1 flex-col">
             {messages.length === 0 && !loading ? (
               <div className="rounded-xl border border-dashed border-aipify-border bg-white p-6 text-center">

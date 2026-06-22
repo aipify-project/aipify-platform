@@ -2041,6 +2041,9 @@
     "ariaCompanionPanel": "Aipify Companion-panel",
     "ariaOpenCompanion": "Åpne Aipify Companion",
     "ariaFloatingButton": "Spør Aipify — åpne Companion",
+    "companionAvailable": "Aipify er tilgjengelig",
+    "ariaCompanionAvailable": "Aipify er tilgjengelig — åpne Companion",
+    "sessionConversationUnavailable": "Den forrige samtalen kunne ikke gjenopprettes. Du kan starte en ny nedenfor.",
     "quickActions": {
       "orgStatus": {
         "title": "Organisasjonsstatus",

@@ -3,6 +3,12 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
+import {
+  clearPortalSessionMarks,
+  hasPortalSessionActive,
+  markPortalSessionActive,
+} from "@/lib/auth/portal-session-bridge";
+import { clearCompanionUiSession } from "@/lib/app/companion/session-state";
 import { getBrowserSupabaseClient } from "@/lib/supabase/browser-client";
 
 type UsePortalAuthGuardOptions = {
@@ -27,8 +33,8 @@ export function usePortalAuthGuard(
   const router = useRouter();
   const loginPath = options.loginPath ?? "/login";
   const nextPath = options.nextPath ?? "/app/command-center";
-  const [checking, setChecking] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
+  const [checking, setChecking] = useState(() => !hasPortalSessionActive());
+  const [authenticated, setAuthenticated] = useState(() => hasPortalSessionActive());
 
   useEffect(() => {
     const supabase = getBrowserSupabaseClient();
@@ -52,12 +58,15 @@ export function usePortalAuthGuard(
       if (!mounted) return;
 
       if (error || !user) {
+        clearPortalSessionMarks();
+        clearCompanionUiSession();
         setAuthenticated(false);
         setChecking(false);
         redirectToLogin();
         return;
       }
 
+      markPortalSessionActive();
       setAuthenticated(true);
       setChecking(false);
     }
@@ -70,6 +79,8 @@ export function usePortalAuthGuard(
       if (!mounted) return;
 
       if (SIGN_OUT_EVENTS.has(event)) {
+        clearPortalSessionMarks();
+        clearCompanionUiSession();
         setAuthenticated(false);
         redirectToLogin();
         return;
@@ -82,6 +93,7 @@ export function usePortalAuthGuard(
           event === "INITIAL_SESSION" ||
           event === "USER_UPDATED")
       ) {
+        markPortalSessionActive();
         setAuthenticated(true);
         setChecking(false);
       }

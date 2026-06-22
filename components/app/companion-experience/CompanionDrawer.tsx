@@ -1,11 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import { useCompanionExperience } from "./CompanionExperienceProvider";
+import {
+  useCompanionExperience,
+  useCompanionPanelKeepMounted,
+} from "./CompanionExperienceProvider";
 import { CompanionPanel } from "./CompanionPanel";
 
 export function CompanionDrawer() {
   const { open, closeDrawer, labels, locale, pathname, drawerQuery } = useCompanionExperience();
+  const keepMounted = useCompanionPanelKeepMounted();
 
   useEffect(() => {
     if (!open) return;
@@ -30,19 +34,29 @@ export function CompanionDrawer() {
     };
   }, [open]);
 
-  if (!open) return null;
+  if (!keepMounted) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end" role="presentation">
+    <div
+      className={`fixed inset-0 z-50 flex justify-end ${
+        open ? "" : "pointer-events-none invisible"
+      }`}
+      role="presentation"
+      aria-hidden={!open}
+    >
       <button
         type="button"
-        className="absolute inset-0 bg-slate-900/25 backdrop-blur-[1px] sm:bg-slate-900/20"
+        tabIndex={open ? 0 : -1}
+        className={`absolute inset-0 bg-slate-900/25 backdrop-blur-[1px] sm:bg-slate-900/20 ${
+          open ? "" : "pointer-events-none"
+        }`}
         aria-label={labels.closeDrawer}
         onClick={closeDrawer}
       />
       <div
         role="dialog"
-        aria-modal="true"
+        aria-modal={open}
+        aria-hidden={!open}
         aria-label={labels.ariaCompanionPanel}
         className="relative flex h-full w-full max-w-[100vw] flex-col bg-aipify-canvas shadow-2xl sm:w-[min(760px,100vw)]"
       >
@@ -53,6 +67,7 @@ export function CompanionDrawer() {
           mode="drawer"
           onClose={closeDrawer}
           initialQuery={drawerQuery ?? undefined}
+          panelVisible={open}
         />
       </div>
     </div>

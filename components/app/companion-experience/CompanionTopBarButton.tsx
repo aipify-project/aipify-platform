@@ -10,12 +10,13 @@ export function CompanionTopBarButton() {
     <button
       type="button"
       onClick={openDrawer}
-      title={labels.openCompanion}
-      aria-label={labels.ariaOpenCompanion}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-aipify-border bg-white text-aipify-companion transition hover:border-violet-200 hover:bg-violet-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-companion"
+      title={labels.companionAvailable}
+      aria-label={labels.ariaCompanionAvailable}
+      className="inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-aipify-border bg-white px-2 text-aipify-companion transition hover:border-emerald-200 hover:bg-emerald-50/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-companion"
       data-companion-topbar
     >
-      <CompanionIcon size={28} />
+      <CompanionIcon size={28} availabilityRing ariaLabel={labels.ariaCompanionAvailable} />
+      <span className="hidden text-xs font-medium text-emerald-800 lg:inline">{labels.companionAvailable}</span>
     </button>
   );
 }

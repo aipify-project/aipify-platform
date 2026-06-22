@@ -8,6 +8,11 @@ import {
   twoFactorRedirectPath,
   type TwoFactorStatus,
 } from "@/lib/auth/two-factor";
+import {
+  clearPortalSessionMarks,
+  hasTwoFactorPassed,
+  markTwoFactorPassed,
+} from "@/lib/auth/portal-session-bridge";
 import type { AuthChangeEvent } from "@supabase/supabase-js";
 import { getBrowserSupabaseClient } from "@/lib/supabase/browser-client";
 
@@ -37,7 +42,7 @@ export function useTwoFactorSessionGate(options: TwoFactorGateOptions = {}) {
   const pathnameRef = useRef(pathname);
   const passedRef = useRef(false);
   const optionsRef = useRef(options);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(() => hasTwoFactorPassed());
   const [blockedReason, setBlockedReason] = useState<string | null>(null);
 
   pathnameRef.current = pathname;
@@ -53,11 +58,13 @@ export function useTwoFactorSessionGate(options: TwoFactorGateOptions = {}) {
 
       if (isTwoFactorExemptPath(currentPath)) {
         passedRef.current = true;
+        markTwoFactorPassed();
         setReady(true);
         return;
       }
 
-      if (passedRef.current) {
+      if (passedRef.current || hasTwoFactorPassed()) {
+        passedRef.current = true;
         setReady(true);
         return;
       }
@@ -68,6 +75,7 @@ export function useTwoFactorSessionGate(options: TwoFactorGateOptions = {}) {
 
         if (!status) {
           passedRef.current = true;
+          markTwoFactorPassed();
           setReady(true);
           return;
         }
@@ -92,10 +100,12 @@ export function useTwoFactorSessionGate(options: TwoFactorGateOptions = {}) {
         }
 
         passedRef.current = true;
+        markTwoFactorPassed();
         setReady(true);
       } catch {
         if (!cancelled) {
           passedRef.current = true;
+          markTwoFactorPassed();
           setReady(true);
         }
       }
@@ -108,6 +118,7 @@ export function useTwoFactorSessionGate(options: TwoFactorGateOptions = {}) {
     } = supabase.auth.onAuthStateChange((event: AuthChangeEvent) => {
       if (event === "SIGNED_OUT") {
         passedRef.current = false;
+        clearPortalSessionMarks();
         setReady(false);
         setBlockedReason(null);
         invalidateTwoFactorStatusCache();
@@ -117,6 +128,7 @@ export function useTwoFactorSessionGate(options: TwoFactorGateOptions = {}) {
 
       if (event === "SIGNED_IN") {
         passedRef.current = false;
+        clearPortalSessionMarks();
         setReady(false);
         setBlockedReason(null);
         invalidateTwoFactorStatusCache();
@@ -126,7 +138,7 @@ export function useTwoFactorSessionGate(options: TwoFactorGateOptions = {}) {
 
       if (event === "TOKEN_REFRESHED") {
         invalidateTwoFactorStatusCache();
-        if (!passedRef.current) {
+        if (!passedRef.current && !hasTwoFactorPassed()) {
           void evaluate();
         }
       }

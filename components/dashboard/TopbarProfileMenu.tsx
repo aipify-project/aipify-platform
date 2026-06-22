@@ -6,6 +6,8 @@ import { AipifyWebAppInstallAction } from "@/components/pwa/AipifyWebAppInstallA
 import { createClient } from "@/lib/supabase/client";
 import { clearAllPollingState } from "@/lib/polling";
 import { invalidateTwoFactorStatusCache } from "@/lib/auth/two-factor";
+import { clearPortalSessionMarks } from "@/lib/auth/portal-session-bridge";
+import { clearCompanionUiSession } from "@/lib/app/companion/session-state";
 import { resolveProfileHeaderDisplay } from "@/lib/app/profile-display";
 import { RoleBadge } from "@/components/ui/RoleBadge";
 import type { PwaInstallLabels } from "@/lib/pwa/types";
@@ -86,6 +88,8 @@ export default function TopbarProfileMenu({
     try {
       clearAllPollingState();
       invalidateTwoFactorStatusCache();
+      clearPortalSessionMarks();
+      clearCompanionUiSession();
       const supabase = createClient();
       await supabase.auth.signOut();
       window.location.assign("/login");

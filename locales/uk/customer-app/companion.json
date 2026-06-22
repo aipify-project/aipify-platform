@@ -1155,6 +1155,9 @@
     "ariaCompanionPanel": "Панель Aipify Companion",
     "ariaOpenCompanion": "Відкрити Aipify Companion",
     "ariaFloatingButton": "Запитати Aipify — відкрити Companion",
+    "companionAvailable": "Aipify доступний",
+    "ariaCompanionAvailable": "Aipify доступний — відкрити Companion",
+    "sessionConversationUnavailable": "Попередню розмову не вдалося відновити. Ви можете почати нову нижче.",
     "quickActions": {
       "orgStatus": {
         "title": "Статус організації",

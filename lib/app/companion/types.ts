@@ -100,6 +100,9 @@ export type CompanionExperienceLabels = {
   ariaCompanionPanel: string;
   ariaOpenCompanion: string;
   ariaFloatingButton: string;
+  companionAvailable: string;
+  ariaCompanionAvailable: string;
+  sessionConversationUnavailable: string;
   feedbackHelpful: string;
   feedbackNotHelpful: string;
   feedbackOrgConfirm: string;
