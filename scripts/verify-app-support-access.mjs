@@ -9,7 +9,7 @@ import {
   parseAppOrganizationContext,
 } from "../lib/tenant/resolve-app-organization-context.ts";
 
-assert.equal(classifyAppPortalError("column s.company_id does not exist"), "access_denied");
+assert.equal(classifyAppPortalError("column s.company_id does not exist"), "database_execution_error");
 assert.equal(
   classifyAppPortalError("Organization context required"),
   "organization_missing"

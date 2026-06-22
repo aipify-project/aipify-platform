@@ -1546,6 +1546,58 @@
         "noCriticalItems": "No critical items"
       }
     },
+    "commandBriefOverview": {
+      "title": "Command Brief",
+      "subtitle": "What happened, what needs attention, and what Aipify recommends next.",
+      "contextVerified": "Verified organization context",
+      "contextReadOnly": "Read-only observation mode",
+      "organizationActive": "Organization active",
+      "accessVerified": "Access verified",
+      "kpiSinceLastLogin": "Since last visit",
+      "kpiPrepared": "Prepared by Aipify",
+      "kpiAttention": "Needs attention",
+      "kpiHealth": "Organization health",
+      "kpiSinceLastLoginDesc": "Updates since your last visit.",
+      "kpiPreparedDesc": "Work Aipify completed or prepared for you.",
+      "kpiAttentionDesc": "Items that may need your review.",
+      "kpiHealthDesc": "Composite health from verified signals.",
+      "kpiNone": "Up to date",
+      "kpiActive": "Active",
+      "kpiHealthUnavailable": "Unavailable",
+      "attentionTitle": "Needs attention",
+      "attentionEmptyTitle": "No critical items need attention right now",
+      "attentionEmptyBody": "Aipify continues monitoring and will notify you if anything changes.",
+      "sinceLastLoginTitle": "Since last visit",
+      "viewAllActivity": "View all activity",
+      "nextActionTitle": "Recommended next action",
+      "nextActionEmptyTitle": "No recommended action right now",
+      "nextActionEmptyBody": "Aipify will suggest a next step when verified signals require it.",
+      "nextActionReason": "Reason",
+      "nextActionValue": "Expected value",
+      "nextActionArea": "Responsible area",
+      "companionTitle": "Aipify Companion",
+      "companionIntro": "I am ready to help with status, follow-ups, integrations, and next steps.",
+      "companionActiveOrg": "Active organization",
+      "companionInputLabel": "Ask Aipify",
+      "companionInputPlaceholder": "Ask Aipify…",
+      "companionAsk": "Ask Aipify",
+      "companionSuggestions": {
+        "prioritizeToday": "What should I prioritize today?",
+        "sinceLastVisit": "What happened since my last visit?",
+        "connected": "Is my organization connected to Aipify?",
+        "explainHealth": "Explain organization health"
+      },
+      "activityCategories": {
+        "completed_by_aipify": "Completed by Aipify",
+        "observed_by_aipify": "Observed by Aipify",
+        "requires_attention": "Needs attention",
+        "information": "Information",
+        "changed": "Changed",
+        "awaiting_review": "Awaiting review",
+        "integration": "Integration",
+        "support": "Support"
+      }
+    },
     "tabs": {
       "insights": {
         "alerts": "Aipify has prioritized active alerts so executives can review what requires attention first.",

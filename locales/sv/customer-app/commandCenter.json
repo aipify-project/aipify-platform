@@ -1568,6 +1568,58 @@
         "noCriticalItems": "Inga kritiska ärenden"
       }
     },
+    "commandBriefOverview": {
+      "title": "Command Brief",
+      "subtitle": "Det som har hänt, det som kräver uppmärksamhet och vad Aipify rekommenderar härnäst.",
+      "contextVerified": "Verifierad organisationskontext",
+      "contextReadOnly": "Skrivskyddat observationsläge",
+      "organizationActive": "Organisation aktiv",
+      "accessVerified": "Åtkomst verifierad",
+      "kpiSinceLastLogin": "Sedan sist",
+      "kpiPrepared": "Aipify har förberett",
+      "kpiAttention": "Kräver uppmärksamhet",
+      "kpiHealth": "Organisationshälsa",
+      "kpiSinceLastLoginDesc": "Uppdateringar sedan ditt senaste besök.",
+      "kpiPreparedDesc": "Arbete som Aipify har slutfört eller förberett åt dig.",
+      "kpiAttentionDesc": "Poster som kan kräva din granskning.",
+      "kpiHealthDesc": "Samlad hälsa baserad på verifierade signaler.",
+      "kpiNone": "Uppdaterad",
+      "kpiActive": "Aktiv",
+      "kpiHealthUnavailable": "Otillgänglig",
+      "attentionTitle": "Kräver uppmärksamhet",
+      "attentionEmptyTitle": "Inga kritiska ärenden kräver uppmärksamhet just nu",
+      "attentionEmptyBody": "Aipify fortsätter att övervaka och meddelar dig om något ändras.",
+      "sinceLastLoginTitle": "Sedan sist",
+      "viewAllActivity": "Visa all aktivitet",
+      "nextActionTitle": "Rekommenderad nästa åtgärd",
+      "nextActionEmptyTitle": "Ingen rekommenderad åtgärd just nu",
+      "nextActionEmptyBody": "Aipify föreslår nästa steg när verifierade signaler kräver det.",
+      "nextActionReason": "Orsak",
+      "nextActionValue": "Förväntat värde",
+      "nextActionArea": "Ansvarigt område",
+      "companionTitle": "Aipify Companion",
+      "companionIntro": "Jag är redo att hjälpa dig med status, uppföljning, integrationer och nästa steg.",
+      "companionActiveOrg": "Aktiv organisation",
+      "companionInputLabel": "Fråga Aipify",
+      "companionInputPlaceholder": "Fråga Aipify …",
+      "companionAsk": "Fråga Aipify",
+      "companionSuggestions": {
+        "prioritizeToday": "Vad bör jag prioritera idag?",
+        "sinceLastVisit": "Vad har hänt sedan sist?",
+        "connected": "Är organisationen ansluten till Aipify?",
+        "explainHealth": "Förklara organisationshälsan"
+      },
+      "activityCategories": {
+        "completed_by_aipify": "Slutfört av Aipify",
+        "observed_by_aipify": "Observerat av Aipify",
+        "requires_attention": "Kräver uppmärksamhet",
+        "information": "Information",
+        "changed": "Ändrat",
+        "awaiting_review": "Väntar granskning",
+        "integration": "Integration",
+        "support": "Support"
+      }
+    },
     "tabs": {
       "insights": {
         "alerts": "Aipify har prioriterat aktiva varningar så att ledningen kan granska det viktigaste först.",
@@ -1720,13 +1772,23 @@
     "readOnlyActive": "Skrivskyddad upptäckt aktiv",
     "shadowModeActive": "Skuggläge aktivt",
     "observedByAipify": "Observerad av Aipify",
-    "shadowRecommendationPrepared": "Recommendation prepared by Aipify",
+    "shadowRecommendationPrepared": "Aipify har förberett en rekommendation",
     "dataSourceFreshness": "Datakällans färskhet",
     "freshnessFresh": "Färsk",
     "freshnessStale": "Inaktuell",
     "freshnessOutdated": "Föråldrad",
     "freshnessUnknown": "Okänd",
     "sourceFailure": "Källa otillgänglig — synkronisering pausad för denna källa.",
+    "healthStates": {
+      "disabled": "Inaktiverad",
+      "discovery": "Upptäckt",
+      "syncing": "Synkroniserar",
+      "read_only_active": "Skrivskyddad aktiv",
+      "shadow_mode_active": "Skuggläge aktivt",
+      "degraded": "Degraderad",
+      "paused": "Pausad",
+      "failed": "Misslyckades"
+    },
     "principle": "Unonight-piloten arbetar i skrivskyddad upptäckt — Aipify observerar metadata och förbereder rekommendationer utan att genomföra ändringar."
   }
 }

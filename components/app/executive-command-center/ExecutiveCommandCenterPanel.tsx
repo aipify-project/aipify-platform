@@ -9,14 +9,12 @@ import {
   AppSectionHeader,
   CompanionInsightBanner,
   ExecutiveMetricCard,
-  PriorityRecommendationCard,
 } from "@/components/app/design";
 import { SemanticBadge } from "@/components/ui/semantic-badge";
 import type { AipifyStatusKind } from "@/lib/design/status-system";
 import {
   getEccCriticalItemsMetricBadge,
   getEccHealthMetricBadge,
-  mapExecutivePriorityToSeverity,
   mapHealthScoreToHealthState,
 } from "@/lib/design/semantic-status-system";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
@@ -29,6 +27,13 @@ import {
   buildPerformanceDataset,
   buildRisksDataset,
 } from "@/lib/command-center/ecc-tab-datasets";
+import {
+  buildCommandBriefActivityFeed,
+  buildCommandBriefAttentionItems,
+  buildCommandBriefKpiCounts,
+  pickCommandBriefNextAction,
+} from "@/lib/command-center/command-brief-overview";
+import { CommandBriefOverview } from "./CommandBriefOverview";
 import {
   CommandCenterItemList,
   CommandCenterSectionBlock,
@@ -45,11 +50,6 @@ import { EccTabIcons } from "./ecc-tab-icons";
 import { useExecutiveCommandCenterRefresh } from "./ExecutiveCommandCenterRefreshContext";
 
 type Labels = ReturnType<typeof buildExecutiveCommandCenterLabels>;
-
-function priorityLabel(labels: Labels, priority: unknown): string {
-  const key = String(priority ?? "information") as keyof Labels["priority"];
-  return labels.priority[key] ?? String(priority);
-}
 
 function healthMetricLabel(labels: Labels, score: number): string {
   const state = mapHealthScoreToHealthState(score);
@@ -283,8 +283,26 @@ export function ExecutiveCommandCenterPanel({
   const counts = datasets?.counts ?? buildEccOverviewCounts(center);
   const tabInsight = tabInsightForSection(labels, activeSection);
 
+  if (activeSection === "overview" && center) {
+    const attentionItems = buildCommandBriefAttentionItems(center);
+    const activityFeed = buildCommandBriefActivityFeed(center);
+    const kpis = buildCommandBriefKpiCounts(center);
+    const nextAction = pickCommandBriefNextAction(attentionItems);
+
+    return (
+      <CommandBriefOverview
+        labels={labels}
+        kpis={kpis}
+        attentionItems={attentionItems}
+        activityFeed={activityFeed}
+        nextAction={nextAction}
+        resolveLabel={resolveLabel}
+      />
+    );
+  }
+
   const overviewMetrics =
-    activeSection === "overview" || activeSection === "performance" ? (
+    activeSection === "performance" ? (
       <section
         aria-label={labels.overallHealthScore}
         className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"
@@ -328,34 +346,6 @@ export function ExecutiveCommandCenterPanel({
       </section>
     ) : null;
 
-  const needsAttentionSection =
-    activeSection === "overview" && (center.companion_recommendations?.length ?? 0) > 0 ? (
-      <section aria-labelledby="ecc-needs-attention" className="space-y-4">
-        <AppSectionHeader
-          title={labels.premium.needsAttention}
-          subtitle={labels.premium.needsAttentionSubtitle}
-        />
-        <div className="grid gap-4 lg:grid-cols-2">
-          {(center.companion_recommendations ?? []).map((rec, i) => {
-            const priority = rec.priority ?? "attention";
-            const severity = mapExecutivePriorityToSeverity(priority);
-            return (
-              <PriorityRecommendationCard
-                key={i}
-                category={labels.premium.recommendationCategory}
-                title={String(rec.alert_title ?? labels.companionRecommendations)}
-                description={String(rec.recommendation ?? "")}
-                severityValue={severity}
-                severityLabel={priorityLabel(labels, priority)}
-                workflowValue="open"
-                workflowLabel={labels.premium.metrics.workflowOpen}
-              />
-            );
-          })}
-        </div>
-      </section>
-    ) : null;
-
   return (
     <div className={AppPremiumShell.sectionGap}>
       <AppSectionHeader
@@ -368,37 +358,14 @@ export function ExecutiveCommandCenterPanel({
         }
       />
 
-      {activeSection === "overview" && center.principle ? (
-        <CompanionInsightBanner principle={center.principle} label={labels.premium.companionInsight} />
-      ) : null}
-
       {activeSection !== "overview" && activeSection !== "sinceLastLogin" && tabInsight ? (
         <CompanionInsightBanner principle={tabInsight} label={labels.premium.companionInsight} />
       ) : null}
 
-      {activeSection === "overview" ? (
-        <div className="flex flex-col-reverse gap-8 lg:flex-col">
-          {needsAttentionSection}
-          {overviewMetrics}
-        </div>
+      {activeSection === "performance" ? (
+        overviewMetrics
       ) : activeSection === "sinceLastLogin" ? null : (
         overviewMetrics
-      )}
-
-      {activeSection === "overview" && (center.business_packs?.length ?? 0) > 0 && (
-        <section className="space-y-4">
-          <AppSectionHeader title={labels.businessPackSignals} />
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {(center.business_packs ?? []).map((pack) => (
-              <PremiumItemCard
-                key={String(pack.pack_key)}
-                title={String(pack.pack_title)}
-                summary={String(pack.summary ?? "")}
-                badge={`${String(pack.events_count ?? 0)} events · ${String(pack.alerts_count ?? 0)} alerts`}
-              />
-            ))}
-          </div>
-        </section>
       )}
 
       {activeSection === "sinceLastLogin" && (

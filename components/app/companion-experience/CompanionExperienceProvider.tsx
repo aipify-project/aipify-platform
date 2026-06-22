@@ -17,6 +17,8 @@ type CompanionExperienceContextValue = {
   labels: CompanionExperienceLabels;
   locale: string;
   openDrawer: () => void;
+  openDrawerWithQuery: (query: string) => void;
+  drawerQuery: string | null;
   closeDrawer: () => void;
   toggleDrawer: () => void;
   pathname: string;
@@ -37,9 +39,20 @@ export function CompanionExperienceProvider({
 }: CompanionExperienceProviderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [drawerQuery, setDrawerQuery] = useState<string | null>(null);
 
-  const openDrawer = useCallback(() => setOpen(true), []);
-  const closeDrawer = useCallback(() => setOpen(false), []);
+  const openDrawer = useCallback(() => {
+    setDrawerQuery(null);
+    setOpen(true);
+  }, []);
+  const openDrawerWithQuery = useCallback((query: string) => {
+    setDrawerQuery(query.trim());
+    setOpen(true);
+  }, []);
+  const closeDrawer = useCallback(() => {
+    setOpen(false);
+    setDrawerQuery(null);
+  }, []);
   const toggleDrawer = useCallback(() => setOpen((v) => !v), []);
 
   const value = useMemo(
@@ -49,11 +62,13 @@ export function CompanionExperienceProvider({
       labels,
       locale,
       openDrawer,
+      openDrawerWithQuery,
+      drawerQuery,
       closeDrawer,
       toggleDrawer,
       pathname,
     }),
-    [open, labels, locale, openDrawer, closeDrawer, toggleDrawer, pathname]
+    [open, labels, locale, openDrawer, openDrawerWithQuery, drawerQuery, closeDrawer, toggleDrawer, pathname]
   );
 
   return (

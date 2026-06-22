@@ -41,6 +41,7 @@ type CompanionPanelProps = {
   pathname: string;
   mode: "drawer" | "fullpage";
   onClose?: () => void;
+  initialQuery?: string;
 };
 
 function loadRecentConversations(): CompanionConversationPreview[] {
@@ -71,8 +72,9 @@ export function CompanionPanel({
   pathname,
   mode,
   onClose,
+  initialQuery,
 }: CompanionPanelProps) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery ?? "");
   const [messages, setMessages] = useState<CompanionChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -92,6 +94,13 @@ export function CompanionPanel({
   useEffect(() => {
     setRecentConversations(loadRecentConversations());
   }, []);
+
+  useEffect(() => {
+    if (initialQuery) {
+      setQuery(initialQuery);
+      setShowSuggestions(false);
+    }
+  }, [initialQuery]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });

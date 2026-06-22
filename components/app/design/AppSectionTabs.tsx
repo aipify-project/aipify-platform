@@ -15,12 +15,17 @@ type AppSectionTabsProps = {
   items: AppSectionTabItem[];
   activeKey: string;
   ariaLabel: string;
+  compact?: boolean;
 };
 
-export function AppSectionTabs({ items, activeKey, ariaLabel }: AppSectionTabsProps) {
+export function AppSectionTabs({ items, activeKey, ariaLabel, compact = false }: AppSectionTabsProps) {
   return (
     <nav aria-label={ariaLabel} className="-mx-1 overflow-x-auto px-1 pb-1">
-      <ul className="flex min-w-max gap-1 rounded-xl border border-aipify-border bg-aipify-surface-muted p-1 sm:min-w-0 sm:flex-wrap">
+      <ul
+        className={`flex min-w-max gap-1 rounded-lg border border-aipify-border bg-aipify-surface-muted p-0.5 sm:min-w-0 sm:flex-wrap ${
+          compact ? "shadow-none" : ""
+        }`}
+      >
         {items.map((item) => {
           const active = item.key === activeKey;
           return (
@@ -28,7 +33,9 @@ export function AppSectionTabs({ items, activeKey, ariaLabel }: AppSectionTabsPr
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`inline-flex min-h-10 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors ${AppPremiumShell.focusRing} ${
+                className={`inline-flex items-center gap-1.5 rounded-md font-medium whitespace-nowrap transition-colors ${AppPremiumShell.focusRing} ${
+                  compact ? "min-h-9 px-2.5 py-1.5 text-xs" : "min-h-10 px-3 py-2 text-sm"
+                } ${
                   active
                     ? "bg-aipify-companion text-white shadow-sm"
                     : "text-aipify-text-secondary hover:bg-aipify-surface hover:text-aipify-text"

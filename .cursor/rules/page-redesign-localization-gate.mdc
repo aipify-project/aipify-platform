@@ -1,0 +1,57 @@
+---
+description: Mandatory full localization gate before any APP page redesign is locked
+alwaysApply: true
+---
+
+# Page Redesign — Mandatory Localization Gate
+
+Every **page redesign** (Customer App `/app/*`, portals, embedded customer surfaces) ships **design + function + UX + full localization in one round**.
+
+A page is **not complete** and **must not be locked** until localization passes.
+
+## Scope — audit every customer-facing string
+
+- Page titles, subtitles, eyebrows
+- Navigation labels and tabs active on the page
+- Buttons, links, CTAs
+- Status labels (icon + text)
+- Filters, forms, placeholders, tooltips
+- Dialogs, confirmations
+- Success / warning / error / empty / loading states
+- Accessibility labels (`aria-*`, `sr-only`)
+- Dynamic status mappings (enums → translated labels, never raw values)
+- Date and number formatting via locale-aware formatters
+
+## Languages — complete all active locales
+
+Use the existing canonical architecture:
+
+- Splits: `locales/{locale}/customer-app/*.json` via `getCustomerAppDictionaryForModule` / `getCustomerAppDictionaryForSplits`
+- Label builders: `lib/**/labels.ts` — never hardcode copy in components
+- **Core locales (mandatory):** `en`, `no`, `sv`, `da`, `pl`, `uk` — see [global-language-foundation.mdc](./global-language-foundation.mdc)
+- English is fallback baseline; **other locales must not show English fallback text** in production UI
+
+## Forbidden in production UI
+
+- Hardcoded customer-facing strings in TSX
+- Mixed-language pages (e.g. Norwegian nav + English panel headings)
+- Visible translation keys (`customerApp.*`, raw key paths)
+- Raw backend enums (`in_progress`, `critical_health`) shown to users
+- Duplicate translation namespaces for the same page copy
+- Norwegian-only fixes when other core locales are supported
+
+## Verification before lock
+
+1. `npm run validate:app-i18n` passes
+2. No missing keys in any core locale for touched namespaces
+3. Language switch works without reload/hydration errors
+4. Desktop and mobile show the selected language consistently
+5. Dynamic values use label lookup / semantic status system — not string concat of raw IDs
+
+## Workflow
+
+**Design → implement → i18n all locales → validate → then review/lock.**
+
+Do not defer localization to a follow-up phase. Do not mark a page done after Norwegian-only pass.
+
+See also [i18n-required.mdc](./i18n-required.mdc) and [global-language-foundation.mdc](./global-language-foundation.mdc).

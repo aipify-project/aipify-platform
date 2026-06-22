@@ -5,7 +5,7 @@ import { useCompanionExperience } from "./CompanionExperienceProvider";
 import { CompanionPanel } from "./CompanionPanel";
 
 export function CompanionDrawer() {
-  const { open, closeDrawer, labels, locale, pathname } = useCompanionExperience();
+  const { open, closeDrawer, labels, locale, pathname, drawerQuery } = useCompanionExperience();
 
   useEffect(() => {
     if (!open) return;
@@ -49,6 +49,7 @@ export function CompanionDrawer() {
           pathname={pathname}
           mode="drawer"
           onClose={closeDrawer}
+          initialQuery={drawerQuery ?? undefined}
         />
       </div>
     </div>

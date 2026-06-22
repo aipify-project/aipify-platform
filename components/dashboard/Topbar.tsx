@@ -9,6 +9,7 @@ import {
   type AppLanguageSelectorLabels,
 } from "@/components/app/AppLanguageSelector";
 import type { AppLocale } from "@/lib/i18n/app-locales";
+import type { PwaInstallLabels } from "@/lib/pwa/types";
 import type { ReactNode } from "react";
 
 type TopbarProps = {

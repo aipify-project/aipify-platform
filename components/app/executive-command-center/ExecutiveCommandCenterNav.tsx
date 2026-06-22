@@ -32,5 +32,5 @@ export function ExecutiveCommandCenterNav({ labels }: { labels: Labels["sections
     icon: TAB_ICONS[item.key],
   }));
 
-  return <AppSectionTabs items={items} activeKey={active} ariaLabel="Executive Command Center" />;
+  return <AppSectionTabs items={items} activeKey={active} ariaLabel="Executive Command Center" compact />;
 }

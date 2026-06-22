@@ -1568,6 +1568,58 @@
         "noCriticalItems": "Ingen kritiske saker"
       }
     },
+    "commandBriefOverview": {
+      "title": "Command Brief",
+      "subtitle": "Dette har skjedd, dette krever oppmerksomhet, og dette anbefaler Aipify videre.",
+      "contextVerified": "Verifisert organisasjonskontekst",
+      "contextReadOnly": "Skrivebeskyttet observasjonsmodus",
+      "organizationActive": "Organisasjon aktiv",
+      "accessVerified": "Tilgang verifisert",
+      "kpiSinceLastLogin": "Siden sist",
+      "kpiPrepared": "Aipify har klargjort",
+      "kpiAttention": "Krever oppmerksomhet",
+      "kpiHealth": "Organisasjonshelse",
+      "kpiSinceLastLoginDesc": "Oppdateringer siden sist besøk.",
+      "kpiPreparedDesc": "Arbeid Aipify har fullført eller klargjort for deg.",
+      "kpiAttentionDesc": "Elementer som kan kreve din vurdering.",
+      "kpiHealthDesc": "Samlet helse basert på verifiserte signaler.",
+      "kpiNone": "Oppdatert",
+      "kpiActive": "Aktiv",
+      "kpiHealthUnavailable": "Utilgjengelig",
+      "attentionTitle": "Krever oppmerksomhet",
+      "attentionEmptyTitle": "Ingen kritiske saker krever oppmerksomhet akkurat nå",
+      "attentionEmptyBody": "Aipify følger fortsatt med og varsler deg dersom noe endrer seg.",
+      "sinceLastLoginTitle": "Siden sist",
+      "viewAllActivity": "Se all aktivitet",
+      "nextActionTitle": "Anbefalt neste handling",
+      "nextActionEmptyTitle": "Ingen anbefalt handling akkurat nå",
+      "nextActionEmptyBody": "Aipify foreslår neste steg når verifiserte signaler krever det.",
+      "nextActionReason": "Årsak",
+      "nextActionValue": "Forventet verdi",
+      "nextActionArea": "Ansvarlig område",
+      "companionTitle": "Aipify Companion",
+      "companionIntro": "Jeg er klar til å hjelpe deg med status, oppfølginger, integrasjoner og neste steg.",
+      "companionActiveOrg": "Aktiv organisasjon",
+      "companionInputLabel": "Spør Aipify",
+      "companionInputPlaceholder": "Spør Aipify …",
+      "companionAsk": "Spør Aipify",
+      "companionSuggestions": {
+        "prioritizeToday": "Hva bør jeg prioritere i dag?",
+        "sinceLastVisit": "Hva har skjedd siden sist?",
+        "connected": "Er Unonight koblet til Aipify?",
+        "explainHealth": "Forklar organisasjonshelsen"
+      },
+      "activityCategories": {
+        "completed_by_aipify": "Fullført av Aipify",
+        "observed_by_aipify": "Observert av Aipify",
+        "requires_attention": "Krever oppmerksomhet",
+        "information": "Informasjon",
+        "changed": "Endret",
+        "awaiting_review": "Venter gjennomgang",
+        "integration": "Integrasjon",
+        "support": "Support"
+      }
+    },
     "tabs": {
       "insights": {
         "alerts": "Aipify har prioritert aktive varsler slik at ledelsen kan gå gjennom det viktigste først.",
@@ -1720,13 +1772,23 @@
     "readOnlyActive": "Skrivebeskyttet oppdagelse aktiv",
     "shadowModeActive": "Skygge-modus aktiv",
     "observedByAipify": "Observert av Aipify",
-    "shadowRecommendationPrepared": "Aipify has prepared a recommendation",
+    "shadowRecommendationPrepared": "Aipify har forberedt en anbefaling",
     "dataSourceFreshness": "Datakildeferskhet",
     "freshnessFresh": "Fersk",
     "freshnessStale": "Utdatert",
     "freshnessOutdated": "Foreldet",
     "freshnessUnknown": "Ukjent",
     "sourceFailure": "Kilde utilgjengelig — synkronisering satt på pause for denne kilden.",
+    "healthStates": {
+      "disabled": "Deaktivert",
+      "discovery": "Oppdagelse",
+      "syncing": "Synkroniserer",
+      "read_only_active": "Skrivebeskyttet aktiv",
+      "shadow_mode_active": "Skygge-modus aktiv",
+      "degraded": "Degradert",
+      "paused": "Pauset",
+      "failed": "Mislyktes"
+    },
     "principle": "Unonight-piloten opererer i skrivebeskyttet oppdagelse — Aipify observerer metadata og forbereder anbefalinger uten å utføre endringer."
   }
 }

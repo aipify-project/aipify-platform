@@ -8,7 +8,8 @@ import type {
 } from "@/lib/app-portal/customer-success/score-availability";
 import type { CustomerHealthSortOption, CustomerHealthTrendPeriod } from "./config";
 
-export type { CustomerSuccessScores as CustomerHealthScores, PilotStatus, ScoreAvailability, SourceFreshness };
+export type CustomerHealthScores = CustomerSuccessScores;
+export type { PilotStatus, ScoreAvailability, SourceFreshness };
 
 export type CustomerHealthTrendState =
   | "improving"

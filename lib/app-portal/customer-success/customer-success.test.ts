@@ -168,7 +168,7 @@ const labelFixture = {
   scoreAvailability: { insufficient_data: "Utilstrekkelig datagrunnlag" },
   scoreAvailabilityDescriptions: { insufficientData: "Mer data kreves." },
   overview: { advisory: "Veiledende." },
-} as import("./types").CustomerSuccessLabels;
+} as unknown as import("./types").CustomerSuccessLabels;
 assert.equal(resolveWorkflowStatusLabel("in_progress", labelFixture), "Pågår");
 assert.equal(resolveRiskImpactLabel("major", labelFixture), "Høy risiko");
 assert.equal(resolveRiskImpactLabel("moderate", labelFixture), "Krever oppmerksomhet");
