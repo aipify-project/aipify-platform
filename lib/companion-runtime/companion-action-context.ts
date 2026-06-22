@@ -17,6 +17,7 @@ import {
   buildActionDefinitionFromHrCapability,
   buildActionDefinitionFromWarehouseCapability,
   buildActionDefinitionFromFinanceCapability,
+  buildActionDefinitionFromSalesCapability,
   buildActionDefinitionFromWorkspaceCapability,
   buildActionDefinitionFromPolicy,
   buildActionDefinitionFromSchemaEntity,
@@ -37,6 +38,7 @@ import type { CompanionHostsContext } from "./companion-hosts-context";
 import type { CompanionHrContext } from "./companion-hr-context";
 import type { CompanionWarehouseContext } from "./companion-warehouse-context";
 import type { CompanionFinanceContext } from "./companion-finance-context";
+import type { CompanionSalesContext } from "./companion-sales-context";
 import {
   parseApprovedCompanionActionRequest,
   parseApprovedTrustActionRequest,
@@ -112,6 +114,7 @@ export type NormalizeCompanionActionContextInput = {
   hrContext?: CompanionHrContext;
   warehouseContext?: CompanionWarehouseContext;
   financeContext?: CompanionFinanceContext;
+  salesContext?: CompanionSalesContext;
 };
 
 function parseApprovedRecordsFromApprovalsCenter(raw: unknown): CompanionApprovedActionRecord[] {
@@ -323,6 +326,17 @@ export function normalizeCompanionActionContext(
   for (const capability of input.financeContext?.capabilities ?? []) {
     if (capability.operation !== "write") continue;
     const definition = buildActionDefinitionFromFinanceCapability(capability, {
+      permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
+      appEntitlementBlocked: appSuspended,
+      emergencyStop,
+      maxRiskLevel,
+    });
+    if (definition) actions.push(definition);
+  }
+
+  for (const capability of input.salesContext?.capabilities ?? []) {
+    if (capability.operation !== "write") continue;
+    const definition = buildActionDefinitionFromSalesCapability(capability, {
       permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
       appEntitlementBlocked: appSuspended,
       emergencyStop,

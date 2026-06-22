@@ -37,6 +37,10 @@ import {
   createEmptyCompanionFinanceContext,
   type CompanionFinanceContext,
 } from "./companion-finance-context";
+import {
+  createEmptyCompanionSalesContext,
+  type CompanionSalesContext,
+} from "./companion-sales-context";
 
 const PORTAL_FEATURE_KEYS = [
   "team_management",
@@ -89,6 +93,7 @@ export type CompanionTenantContext = {
   hrContext: CompanionHrContext;
   warehouseContext: CompanionWarehouseContext;
   financeContext: CompanionFinanceContext;
+  salesContext: CompanionSalesContext;
 };
 
 export function createEmptyCompanionTenantContext(
@@ -137,6 +142,7 @@ export function createEmptyCompanionTenantContext(
     hrContext: createEmptyCompanionHrContext(),
     warehouseContext: createEmptyCompanionWarehouseContext(),
     financeContext: createEmptyCompanionFinanceContext(),
+    salesContext: createEmptyCompanionSalesContext(),
     ...overrides,
   };
 }

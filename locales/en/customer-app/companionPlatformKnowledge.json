@@ -785,6 +785,59 @@
         "finance_pack_adapter": "external accounting fiken erp adapter third party finance sync"
       }
     },
+    "sales": {
+      "sourceLabel": "Sales provider catalog",
+      "discoveryLead": "Aipify mapped {provider} in your sales provider catalog — status: {status}.",
+      "discoveryExplanation": "Capabilities below come from registered Sales / CRM Business Pack manifests. Follow-ups, sales tasks, and response drafts require approval — Aipify never auto-sends messages, deletes customers, approves contracts, or executes irreversible pipeline changes in Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Sales source is prepared or verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No sales provider matched this request for your organization.",
+      "unavailableExplanation": "Sales capabilities are discovered from registered manifests — none matched this query.",
+      "externalUnavailableLead": "External CRM or sales adapters are not connected for your organization.",
+      "externalUnavailableExplanation": "No live external CRM adapter is registered. Aipify does not auto-send messages, delete customers, approve contracts, or execute irreversible pipeline changes in Companion runtime.",
+      "blockedOperationLead": "This sales operation is not available in Companion runtime.",
+      "blockedOperationExplanation": "Auto-send, customer deletion, contract approval, price or discount changes, payment execution, refunds, and irreversible pipeline or deal changes are blocked in this phase. Aipify can prepare follow-ups, sales tasks, and response drafts — you decide and approve.",
+      "permissionDenied": "Your role cannot access the sales provider catalog.",
+      "entitlementBlocked": "Sales capabilities are unavailable while the organization subscription is paused.",
+      "privacyNote": "Metadata-first sales intelligence — sensitive contact and customer data is filtered and partner attribution never transfers customer ownership.",
+      "policyNote": "Follow-ups, sales tasks, and response drafts require explicit approval. Sales-role permissions, tenant isolation, and audit logging apply to all sales actions.",
+      "autoSendBlocked": "Automatic message sending is blocked in Companion runtime.",
+      "customerDeletionBlocked": "Customer deletion is blocked — humans decide outside Companion runtime.",
+      "contractApprovalBlocked": "Contract approval is blocked — Aipify prepares context only.",
+      "partnerAttributionMetadataOnly": "Growth Partner attribution is metadata-only — partners do not own customers.",
+      "salesRoleFilterActive": "Sales-role permissions are enforced for this organization.",
+      "commandBriefEventsLinked": "Command Brief sales signals are linked from existing lead, pipeline, customer health, and revenue sources.",
+      "commandBriefEventsAvailable": "Command Brief sales signals are available when sales engines are activated.",
+      "openSalesCenter": "Open Sales Center",
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "sales_revenue_pipeline": "Sales Revenue Pipeline",
+        "customer_relationship": "Customer Relationship",
+        "lead_management": "Lead Management",
+        "revenue_intelligence": "Revenue Intelligence",
+        "growth_partner_attribution": "Growth Partner Attribution",
+        "sales_pack_adapter": "External Sales Adapter"
+      },
+      "searchTerms": {
+        "sales_revenue_pipeline": "sales pipeline opportunities deals conversion forecast follow up tasks",
+        "customer_relationship": "customer contact crm health follow up opportunities",
+        "lead_management": "lead prospect conversion follow up",
+        "revenue_intelligence": "revenue attribution churn forecast conversion risk",
+        "growth_partner_attribution": "growth partner attribution referral channel partner",
+        "sales_pack_adapter": "external crm salesforce hubspot adapter third party pipeline sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

@@ -761,6 +761,59 @@
         "finance_pack_adapter": "ekstern regnskap fiken erp adapter tredjeparts finans sync"
       }
     },
+    "sales": {
+      "sourceLabel": "Salgsleverandørkatalog",
+      "discoveryLead": "Aipify kartla {provider} i salgsleverandørkatalogen — status: {status}.",
+      "discoveryExplanation": "Funksjonene nedenfor kommer fra registrerte Sales / CRM Business Pack-manifest. Oppfølginger, salgsoppgaver og svarutkast krever godkjenning — Aipify sender aldri meldinger automatisk, sletter kunder, godkjenner kontrakter eller utfører irreversible pipeline-endringer i Companion-runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Salgskilden er klargjort eller verifisert for organisasjonen din.",
+      "disconnectedProvider": "Leverandørens runtime-adapter er ikke tilkoblet — kun styrt oppdagelse.",
+      "unavailableLead": "Ingen salgsleverandør matchet denne forespørselen for organisasjonen din.",
+      "unavailableExplanation": "Salgsfunksjoner oppdages fra registrerte manifest — ingen matchet dette spørsmålet.",
+      "externalUnavailableLead": "Eksterne CRM- eller salgsadaptere er ikke tilkoblet for organisasjonen din.",
+      "externalUnavailableExplanation": "Ingen live ekstern CRM-adapter er registrert. Aipify sender ikke meldinger automatisk, sletter ikke kunder, godkjenner ikke kontrakter og utfører ikke irreversible pipeline-endringer i Companion-runtime.",
+      "blockedOperationLead": "Denne salgsoperasjonen er ikke tilgjengelig i Companion-runtime.",
+      "blockedOperationExplanation": "Autosending, kundesletting, kontraktsgodkjenning, pris- eller rabattendringer, betaling, refusjon og irreversible pipeline- eller avtaleendringer er blokkert i denne fasen. Aipify kan forberede oppfølginger, salgsoppgaver og svarutkast — du bestemmer og godkjenner.",
+      "permissionDenied": "Rollen din har ikke tilgang til salgsleverandørkatalogen.",
+      "entitlementBlocked": "Salgsfunksjoner er utilgjengelige mens organisasjonens abonnement er pauset.",
+      "privacyNote": "Metadata-først salgsintelligens — sensitive kontakt- og kundedata filtreres, og partnerattribusjon gir aldri partner eierskap til kunden.",
+      "policyNote": "Oppfølginger, salgsoppgaver og svarutkast krever eksplisitt godkjenning. Salgsrolle-tilganger, tenant-isolasjon og revisjonslogging gjelder for alle salgs handlinger.",
+      "autoSendBlocked": "Automatisk meldingsutsending er blokkert i Companion-runtime.",
+      "customerDeletionBlocked": "Kundesletting er blokkert — mennesker bestemmer utenfor Companion-runtime.",
+      "contractApprovalBlocked": "Kontraktsgodkjenning er blokkert — Aipify forbereder kun kontekst.",
+      "partnerAttributionMetadataOnly": "Growth Partner-attribusjon er kun metadata — partnere eier ikke kunder.",
+      "salesRoleFilterActive": "Salgsrolle-tilganger håndheves for denne organisasjonen.",
+      "commandBriefEventsLinked": "Command Brief salgssignaler er koblet fra eksisterende lead-, pipeline-, kundehelse- og inntektskilder.",
+      "commandBriefEventsAvailable": "Command Brief salgssignaler er tilgjengelige når salgsmotorer er aktivert.",
+      "openSalesCenter": "Åpne Sales Center",
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
+      "status": {
+        "connected": "tilkoblet",
+        "implemented_disconnected": "implementert men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun spesifikasjon",
+        "placeholder": "plassholder"
+      },
+      "providers": {
+        "sales_revenue_pipeline": "Salgs- og inntektspipeline",
+        "customer_relationship": "Kunderelasjoner",
+        "lead_management": "Lead-håndtering",
+        "revenue_intelligence": "Inntektsintelligens",
+        "growth_partner_attribution": "Growth Partner-attribusjon",
+        "sales_pack_adapter": "Ekstern salgsadapter"
+      },
+      "searchTerms": {
+        "sales_revenue_pipeline": "salg pipeline muligheter avtaler konvertering prognose oppfølging oppgaver",
+        "customer_relationship": "kunde kontakt crm helse oppfølging muligheter",
+        "lead_management": "lead prospekt konvertering oppfølging",
+        "revenue_intelligence": "inntekt attribusjon churn prognose konvertering risiko",
+        "growth_partner_attribution": "growth partner attribusjon henvisning kanal partner",
+        "sales_pack_adapter": "ekstern crm salesforce hubspot adapter tredjeparts pipeline sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

@@ -755,6 +755,59 @@
         "finance_pack_adapter": "зовнішня бухгалтерія fiken erp адаптер синхронізація фінансів третьої сторони"
       }
     },
+    "sales": {
+      "sourceLabel": "Каталог постачальників продажів",
+      "discoveryLead": "Aipify зіставив {provider} у каталозі постачальників продажів — статус: {status}.",
+      "discoveryExplanation": "Можливості нижче походять із зареєстрованих маніфестів Sales / CRM Business Pack. Нагадування, задачі продажів і чернетки відповідей потребують схвалення — Aipify ніколи не надсилає повідомлення автоматично, не видаляє клієнтів, не затверджує контракти та не виконує незворотні зміни pipeline у Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Джерело продажів підготовлено або перевірено для вашої організації.",
+      "disconnectedProvider": "Runtime-адаптер постачальника не підключено — лише кероване виявлення.",
+      "unavailableLead": "Жоден постачальник продажів не відповів цьому запиту для вашої організації.",
+      "unavailableExplanation": "Можливості продажів виявляються з зареєстрованих маніфестів — жоден не відповів цьому запиту.",
+      "externalUnavailableLead": "Зовнішні CRM- або sales-адаптери не підключені для вашої організації.",
+      "externalUnavailableExplanation": "Не зареєстровано активний зовнішній CRM-адаптер. Aipify не надсилає повідомлення автоматично, не видаляє клієнтів, не затверджує контракти та не виконує незворотні зміни pipeline у Companion runtime.",
+      "blockedOperationLead": "Ця операція продажів недоступна в Companion runtime.",
+      "blockedOperationExplanation": "Автовідправлення, видалення клієнтів, затвердження контрактів, зміни цін або знижок, платежі, повернення та незворотні зміни pipeline або угод заблоковано на цій фазі. Aipify може підготувати нагадування, задачі продажів і чернетки відповідей — ви вирішуєте та схвалюєте.",
+      "permissionDenied": "Ваша роль не має доступу до каталогу постачальників продажів.",
+      "entitlementBlocked": "Можливості продажів недоступні, поки підписку організації призупинено.",
+      "privacyNote": "Інтелект продажів metadata-first — чутливі контактні та клієнтські дані фільтруються, а атрибуція партнера ніколи не передає власність на клієнта.",
+      "policyNote": "Нагадування, задачі продажів і чернетки відповідей потребують явного схвалення. Дозволи ролі продажів, ізоляція tenant і аудит застосовуються до всіх дій продажів.",
+      "autoSendBlocked": "Автоматичне надсилання повідомлень заблоковано в Companion runtime.",
+      "customerDeletionBlocked": "Видалення клієнтів заблоковано — рішення приймають люди поза Companion runtime.",
+      "contractApprovalBlocked": "Затвердження контрактів заблоковано — Aipify лише готує контекст.",
+      "partnerAttributionMetadataOnly": "Атрибуція Growth Partner — лише метадані; партнери не володіють клієнтами.",
+      "salesRoleFilterActive": "Дозволи ролі продажів застосовуються для цієї організації.",
+      "commandBriefEventsLinked": "Сигнали продажів Command Brief пов’язані з існуючими джерелами лідів, pipeline, здоров’я клієнтів і доходів.",
+      "commandBriefEventsAvailable": "Сигнали продажів Command Brief доступні, коли активовано sales-движки.",
+      "openSalesCenter": "Відкрити Sales Center",
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
+      "status": {
+        "connected": "підключено",
+        "implemented_disconnected": "реалізовано, але відключено",
+        "partial": "частково",
+        "specification_only": "лише специфікація",
+        "placeholder": "заглушка"
+      },
+      "providers": {
+        "sales_revenue_pipeline": "Pipeline продажів і доходів",
+        "customer_relationship": "Відносини з клієнтами",
+        "lead_management": "Керування лідами",
+        "revenue_intelligence": "Інтелект доходів",
+        "growth_partner_attribution": "Атрибуція Growth Partner",
+        "sales_pack_adapter": "Зовнішній sales-адаптер"
+      },
+      "searchTerms": {
+        "sales_revenue_pipeline": "продажі pipeline можливості угоди конверсія прогноз нагадування задачі",
+        "customer_relationship": "клієнт контакт crm здоров’я нагадування можливості",
+        "lead_management": "лід проспект конверсія нагадування",
+        "revenue_intelligence": "дохід атрибуція churn прогноз конверсія ризик",
+        "growth_partner_attribution": "growth partner атрибуція реферал канал partner",
+        "sales_pack_adapter": "зовнішній crm salesforce hubspot адаптер третя сторона pipeline sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

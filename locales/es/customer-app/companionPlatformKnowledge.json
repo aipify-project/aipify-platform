@@ -755,6 +755,59 @@
         "finance_pack_adapter": "contabilidad externa fiken erp adaptador sincronización financiera de terceros"
       }
     },
+    "sales": {
+      "sourceLabel": "Catálogo de proveedores de ventas",
+      "discoveryLead": "Aipify mapeó {provider} en su catálogo de proveedores de ventas — estado: {status}.",
+      "discoveryExplanation": "Las capacidades siguientes provienen de manifiestos registrados de Sales / CRM Business Pack. Seguimientos, tareas de ventas y borradores de respuesta requieren aprobación — Aipify nunca envía mensajes automáticamente, elimina clientes, aprueba contratos ni ejecuta cambios irreversibles de pipeline en Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "La fuente de ventas está preparada o verificada para su organización.",
+      "disconnectedProvider": "El adaptador runtime del proveedor no está conectado — solo descubrimiento gobernado.",
+      "unavailableLead": "Ningún proveedor de ventas coincidió con esta solicitud para su organización.",
+      "unavailableExplanation": "Las capacidades de ventas se descubren desde manifiestos registrados — ninguno coincidió con esta consulta.",
+      "externalUnavailableLead": "Los adaptadores externos de CRM o ventas no están conectados para su organización.",
+      "externalUnavailableExplanation": "No hay adaptador CRM externo en vivo registrado. Aipify no envía mensajes automáticamente, no elimina clientes, no aprueba contratos ni ejecuta cambios irreversibles de pipeline en Companion runtime.",
+      "blockedOperationLead": "Esta operación de ventas no está disponible en Companion runtime.",
+      "blockedOperationExplanation": "Envío automático, eliminación de clientes, aprobación de contratos, cambios de precio o descuento, pagos, reembolsos y cambios irreversibles de pipeline o acuerdos están bloqueados en esta fase. Aipify puede preparar seguimientos, tareas de ventas y borradores de respuesta — usted decide y aprueba.",
+      "permissionDenied": "Su rol no puede acceder al catálogo de proveedores de ventas.",
+      "entitlementBlocked": "Las capacidades de ventas no están disponibles mientras la suscripción de la organización esté pausada.",
+      "privacyNote": "Inteligencia de ventas metadata-first — los datos sensibles de contacto y cliente se filtran y la atribución de partners nunca transfiere la propiedad del cliente.",
+      "policyNote": "Seguimientos, tareas de ventas y borradores de respuesta requieren aprobación explícita. Permisos de rol de ventas, aislamiento de tenant y registro de auditoría se aplican a todas las acciones de ventas.",
+      "autoSendBlocked": "El envío automático de mensajes está bloqueado en Companion runtime.",
+      "customerDeletionBlocked": "La eliminación de clientes está bloqueada — las personas deciden fuera de Companion runtime.",
+      "contractApprovalBlocked": "La aprobación de contratos está bloqueada — Aipify solo prepara contexto.",
+      "partnerAttributionMetadataOnly": "La atribución de Growth Partner es solo metadata — los partners no poseen clientes.",
+      "salesRoleFilterActive": "Los permisos de rol de ventas se aplican para esta organización.",
+      "commandBriefEventsLinked": "Las señales de ventas de Command Brief están vinculadas desde fuentes existentes de leads, pipeline, salud del cliente e ingresos.",
+      "commandBriefEventsAvailable": "Las señales de ventas de Command Brief están disponibles cuando los motores de ventas están activados.",
+      "openSalesCenter": "Abrir Sales Center",
+      "operation": {
+        "read": "lectura",
+        "write": "escritura"
+      },
+      "status": {
+        "connected": "conectado",
+        "implemented_disconnected": "implementado pero desconectado",
+        "partial": "parcial",
+        "specification_only": "solo especificación",
+        "placeholder": "marcador de posición"
+      },
+      "providers": {
+        "sales_revenue_pipeline": "Pipeline de ventas e ingresos",
+        "customer_relationship": "Relación con clientes",
+        "lead_management": "Gestión de leads",
+        "revenue_intelligence": "Inteligencia de ingresos",
+        "growth_partner_attribution": "Atribución de Growth Partner",
+        "sales_pack_adapter": "Adaptador de ventas externo"
+      },
+      "searchTerms": {
+        "sales_revenue_pipeline": "ventas pipeline oportunidades acuerdos conversión pronóstico seguimiento tareas",
+        "customer_relationship": "cliente contacto crm salud seguimiento oportunidades",
+        "lead_management": "lead prospecto conversión seguimiento",
+        "revenue_intelligence": "ingresos atribución churn pronóstico conversión riesgo",
+        "growth_partner_attribution": "growth partner atribución referencia canal partner",
+        "sales_pack_adapter": "crm externo salesforce hubspot adaptador terceros pipeline sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

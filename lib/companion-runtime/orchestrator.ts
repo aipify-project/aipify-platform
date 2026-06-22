@@ -176,6 +176,16 @@ import {
   matchFinanceProviderQuery,
 } from "./finance-answer";
 import {
+  buildBlockedSalesOperationAnswer,
+  buildExternalSalesUnavailableAnswer,
+  buildSalesProviderDiscoveryAnswer,
+  buildSalesProviderUnavailableAnswer,
+  hasBlockedSalesOperationIntent,
+  hasExternalSalesAdapterIntent,
+  hasSalesProviderIntent,
+  matchSalesProviderQuery,
+} from "./sales-answer";
+import {
   buildBlockedCommerceOperationAnswer,
   buildCommerceProviderDiscoveryAnswer,
   buildCommerceProviderUnavailableAnswer,
@@ -949,6 +959,45 @@ function resolveFinanceProviderAnswer(
   };
 }
 
+function resolveSalesProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (hasBlockedSalesOperationIntent(query)) {
+    return {
+      answer: buildBlockedSalesOperationAnswer(t),
+    };
+  }
+
+  if (!hasSalesProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.salesContext.permission_denied) {
+    return {
+      answer: buildSalesProviderUnavailableAnswer(t, tenantContext.salesContext),
+    };
+  }
+
+  if (hasExternalSalesAdapterIntent(query)) {
+    return {
+      answer: buildExternalSalesUnavailableAnswer(t),
+    };
+  }
+
+  const match = matchSalesProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildSalesProviderUnavailableAnswer(t, tenantContext.salesContext),
+    };
+  }
+
+  return {
+    answer: buildSalesProviderDiscoveryAnswer(match, tenantContext.salesContext, t),
+  };
+}
+
 function resolveSupportProviderAnswer(
   query: string,
   t: Translator,
@@ -1208,6 +1257,9 @@ export async function orchestrateCompanionSearch(
 
   const financeResult = resolveFinanceProviderAnswer(query, t, resolvedTenantContext);
   if (financeResult) return finalize(financeResult);
+
+  const salesResult = resolveSalesProviderAnswer(query, t, resolvedTenantContext);
+  if (salesResult) return finalize(salesResult);
 
   const supportResult = resolveSupportProviderAnswer(query, t, resolvedTenantContext);
   if (supportResult) return finalize(supportResult);
