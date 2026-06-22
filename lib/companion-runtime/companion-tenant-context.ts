@@ -8,6 +8,8 @@ import type {
 import { createEmptyCompanionBusinessPackCollection } from "./companion-business-pack-context";
 import type { CompanionDiscoveryContext } from "./companion-discovery-context";
 import { createEmptyCompanionDiscoveryContext } from "./companion-discovery-context";
+import type { CompanionSchemaCollection } from "./companion-schema-context";
+import { createEmptyCompanionSchemaCollection } from "./companion-schema-context";
 
 const PORTAL_FEATURE_KEYS = [
   "team_management",
@@ -36,6 +38,9 @@ export type CompanionTenantContext = {
   businessPackContext: CompanionBusinessPackCollection;
   entitledCapabilities: CompanionCapabilityRef[];
   enabledModules: string[];
+  schemaContext: CompanionSchemaCollection;
+  availableEntities: string[];
+  availableOperations: ("read" | "write")[];
 };
 
 export function createEmptyCompanionTenantContext(
@@ -60,6 +65,9 @@ export function createEmptyCompanionTenantContext(
     businessPackContext: createEmptyCompanionBusinessPackCollection(),
     entitledCapabilities: [],
     enabledModules: [],
+    schemaContext: createEmptyCompanionSchemaCollection(),
+    availableEntities: [],
+    availableOperations: [],
     ...overrides,
   };
 }

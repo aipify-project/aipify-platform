@@ -40,6 +40,15 @@
       "missingEntitlement": "Деякі можливості потребують активного права Business Pack із завершеною активацією.",
       "sourceLabel": "Затверджені права Business Pack"
     },
+    "schema": {
+      "accessDenied": "Дані schema discovery недоступні для вашої ролі. Зверніться до адміністратора за деталями доступу до сутностей.",
+      "empty": "Для цієї організації ще не виявлено затверджених сутностей даних або метаданих schema.",
+      "entitlementBlocked": "Видимість schema недоступна, поки підписку організації призупинено або скасовано.",
+      "entitiesSummary": "Затверджені сутності даних, доступні Aipify: {count}. Приклади: {entities}.",
+      "operationsSummary": "Підтримувані операції: {operations}.",
+      "readOnlyNote": "Операції запису потребують явного схвалення та відповідних прав.",
+      "sourceLabel": "Затверджений schema discovery"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

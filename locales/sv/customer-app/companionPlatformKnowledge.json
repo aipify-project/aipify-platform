@@ -40,6 +40,15 @@
       "missingEntitlement": "Vissa funktioner kräver en aktiv Business Pack-behörighet med slutförd aktivering.",
       "sourceLabel": "Godkända Business Pack-behörigheter"
     },
+    "schema": {
+      "accessDenied": "Schema discovery-data är inte tillgänglig för din roll. Be en administratör om entitetsåtkomst.",
+      "empty": "Inga godkända dataentiteter eller schema-metadata upptäcktes för denna organisation ännu.",
+      "entitlementBlocked": "Schemasynlighet är otillgänglig medan organisationens prenumeration är pausad eller suspenderad.",
+      "entitiesSummary": "Godkända dataentiteter tillgängliga för Aipify: {count}. Exempel: {entities}.",
+      "operationsSummary": "Stödda operationer: {operations}.",
+      "readOnlyNote": "Skrivoperationer kräver explicit godkännande och matchande behörigheter.",
+      "sourceLabel": "Godkänd schema discovery"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

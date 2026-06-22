@@ -18,6 +18,7 @@ import {
   enrichAnswerWithInstallDiscovery,
 } from "./discovery-answer";
 import { enrichAnswerWithBusinessPackContext } from "./pack-answer";
+import { enrichAnswerWithSchemaContext } from "./schema-answer";
 import {
   buildIntegrationStatusFailureAnswer,
   buildPrivateDataDeniedAnswer,
@@ -471,6 +472,16 @@ export async function orchestrateCompanionSearch(
           answer: enrichAnswerWithBusinessPackContext(
             navResult.answer,
             resolvedTenantContext.businessPackContext,
+            t,
+          ),
+        };
+      }
+      if (navResult.matchedArticleId === "aipify-data-access") {
+        return {
+          ...navResult,
+          answer: enrichAnswerWithSchemaContext(
+            navResult.answer,
+            resolvedTenantContext.schemaContext,
             t,
           ),
         };

@@ -40,6 +40,15 @@
       "missingEntitlement": "Niektóre możliwości wymagają aktywnego uprawnienia Business Pack z ukończoną aktywacją.",
       "sourceLabel": "Zatwierdzone uprawnienia Business Pack"
     },
+    "schema": {
+      "accessDenied": "Dane schema discovery nie są dostępne dla Twojej roli. Poproś administratora o szczegóły dostępu do encji.",
+      "empty": "Nie wykryto jeszcze zatwierdzonych encji danych ani metadanych schema dla tej organizacji.",
+      "entitlementBlocked": "Widoczność schema jest niedostępna, gdy subskrypcja organizacji jest wstrzymana lub zawieszona.",
+      "entitiesSummary": "Zatwierdzone encje danych dostępne dla Aipify: {count}. Przykłady: {entities}.",
+      "operationsSummary": "Obsługiwane operacje: {operations}.",
+      "readOnlyNote": "Operacje zapisu wymagają wyraźnej zgody i pasujących uprawnień.",
+      "sourceLabel": "Zatwierdzone schema discovery"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

@@ -40,6 +40,15 @@
       "missingEntitlement": "Some capabilities require an active Business Pack entitlement with completed activation.",
       "sourceLabel": "Approved Business Pack entitlements"
     },
+    "schema": {
+      "accessDenied": "Schema discovery data is not available for your role. Ask an administrator if you need entity access details.",
+      "empty": "No approved data entities or schema metadata were discovered for this organization yet.",
+      "entitlementBlocked": "Schema visibility is unavailable while the organization subscription is paused or suspended.",
+      "entitiesSummary": "Approved data entities available to Aipify: {count}. Examples: {entities}.",
+      "operationsSummary": "Supported operations: {operations}.",
+      "readOnlyNote": "Write operations require explicit approval and matching entitlements.",
+      "sourceLabel": "Approved schema discovery"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

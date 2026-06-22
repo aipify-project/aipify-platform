@@ -40,6 +40,15 @@
       "missingEntitlement": "Algunas capacidades requieren un derecho activo de Business Pack con activación completada.",
       "sourceLabel": "Derechos de Business Pack aprobados"
     },
+    "schema": {
+      "accessDenied": "Los datos de schema discovery no están disponibles para tu rol. Pide detalles de acceso a entidades a un administrador.",
+      "empty": "Aún no se descubrieron entidades de datos o metadatos de schema aprobados para esta organización.",
+      "entitlementBlocked": "La visibilidad del schema no está disponible mientras la suscripción de la organización esté pausada o suspendida.",
+      "entitiesSummary": "Entidades de datos aprobadas disponibles para Aipify: {count}. Ejemplos: {entities}.",
+      "operationsSummary": "Operaciones admitidas: {operations}.",
+      "readOnlyNote": "Las operaciones de escritura requieren aprobación explícita y derechos coincidentes.",
+      "sourceLabel": "Schema discovery aprobado"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

@@ -19,6 +19,7 @@ import {
 } from "./companion-tenant-context";
 import { loadCompanionDiscoveryContext } from "./load-companion-discovery-context";
 import { loadCompanionBusinessPackContext } from "./load-companion-business-pack-context";
+import { loadCompanionSchemaContext } from "./load-companion-schema-context";
 
 export type { CompanionTenantContext } from "./companion-tenant-context";
 export {
@@ -149,6 +150,13 @@ export async function loadCompanionTenantContext(
     effectivePermissions,
   });
 
+  const schemaContext = loadCompanionSchemaContext({
+    discovery,
+    businessPackContext,
+    connectedProviders,
+    effectivePermissions,
+  });
+
   return createEmptyCompanionTenantContext({
     organizationId,
     companyId: orgContext.company_id,
@@ -168,5 +176,8 @@ export async function loadCompanionTenantContext(
     businessPackContext,
     entitledCapabilities: businessPackContext.entitledCapabilities,
     enabledModules: businessPackContext.enabledModules,
+    schemaContext,
+    availableEntities: schemaContext.availableEntities,
+    availableOperations: schemaContext.availableOperations,
   });
 }

@@ -32,6 +32,10 @@ export type DiscoveryEntityRef = {
   discoveryType: string;
   approvalStatus: "approved";
   sourceRef: string;
+  fields?: string[];
+  fieldTypes?: Record<string, string>;
+  relations?: string[];
+  schemaVersion?: string;
 };
 
 export type DiscoveryDataDomainRef = {
@@ -156,6 +160,26 @@ function mapDiscoveryResult(row: Record<string, unknown>): {
   const sourceRef = str(row.id) || `${discoveryType}:${entityKey}`;
   if (!entityKey) return null;
 
+  const metadata =
+    row.metadata && typeof row.metadata === "object"
+      ? (row.metadata as Record<string, unknown>)
+      : {};
+  const fields = Array.isArray(metadata.fields)
+    ? metadata.fields.map((field) => str(field)).filter(Boolean)
+    : [];
+  const fieldTypes =
+    metadata.field_types && typeof metadata.field_types === "object"
+      ? Object.fromEntries(
+          Object.entries(metadata.field_types as Record<string, unknown>)
+            .map(([key, value]) => [key, str(value)])
+            .filter(([, value]) => value),
+        )
+      : {};
+  const relations = Array.isArray(metadata.relations)
+    ? metadata.relations.map((relation) => str(relation)).filter(Boolean)
+    : [];
+  const schemaVersion = str(metadata.schema_version) || undefined;
+
   if (discoveryType === "capability") {
     return {
       capability: {
@@ -175,6 +199,10 @@ function mapDiscoveryResult(row: Record<string, unknown>): {
       discoveryType,
       approvalStatus: "approved",
       sourceRef,
+      fields: fields.length > 0 ? fields : undefined,
+      fieldTypes: Object.keys(fieldTypes).length > 0 ? fieldTypes : undefined,
+      relations: relations.length > 0 ? relations : undefined,
+      schemaVersion,
     },
   };
 }
