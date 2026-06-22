@@ -555,6 +555,70 @@
         "industry_pack_adapter": "external scheduling adapter third party booking"
       }
     },
+    "hosts": {
+      "sourceLabel": "Aipify Hosts provider catalog",
+      "discoveryLead": "Aipify mapped {provider} in your Aipify Hosts provider catalog — status: {status}.",
+      "discoveryExplanation": "Capabilities below come from registered Aipify Hosts Business Pack manifests. Message drafts and report exports require approval — Aipify never auto-sends guest messages, executes payments, or deletes reservations in Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Aipify Hosts source is prepared or verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No Aipify Hosts provider matched this request for your organization.",
+      "unavailableExplanation": "Aipify Hosts capabilities are discovered from registered manifests — none matched this query.",
+      "externalUnavailableLead": "External channel booking adapters are not connected for your organization.",
+      "externalUnavailableExplanation": "No live external channel adapter is registered. Aipify does not execute payments, refunds, reservation deletions, or automated guest messages in Companion runtime.",
+      "blockedOperationLead": "This Aipify Hosts operation is not available in Companion runtime.",
+      "blockedOperationExplanation": "Payments, refunds, reservation deletions, automated guest messages, and irreversible changes are blocked in this phase. Aipify can prepare drafts and exports — you decide and approve.",
+      "permissionDenied": "Your role cannot access the Aipify Hosts provider catalog.",
+      "entitlementBlocked": "Aipify Hosts capabilities are unavailable while the organization subscription is paused.",
+      "privacyNote": "Metadata-first hospitality intelligence — private guest details are sanitized and never exposed without permission.",
+      "policyNote": "Message drafts and report exports require explicit approval. Portfolio isolation, property scoping, and audit logging apply to all Hosts actions.",
+      "autoMessageSendBlocked": "Automated guest message send is blocked — draft-only mode is active.",
+      "paymentExecutionBlocked": "Payment and refund execution is blocked in Companion runtime.",
+      "reservationDeleteBlocked": "Reservation deletion and cancellation is blocked — humans decide.",
+      "portfolioIsolationActive": "Portfolio isolation is active — properties do not cross between portfolios.",
+      "portfolioIsolationRequired": "Portfolio isolation is required — property-scoped access applies.",
+      "vacationModeActive": "Vacation Mode is active for this hospitality portfolio.",
+      "vacationModeAvailable": "Vacation Mode is available via Aipify Hosts operations settings.",
+      "commandBriefEventsLinked": "Command Brief events are linked to your Aipify Hosts pack.",
+      "commandBriefEventsAvailable": "Command Brief events are available when Aipify Hosts is activated.",
+      "humanOversightRequired": "Human oversight is required for Aipify Hosts writes.",
+      "openHostsCenter": "Open Aipify Hosts",
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "short_term_property": "Property Portfolio",
+        "short_term_reservation": "Reservations & Availability",
+        "short_term_guest": "Guest Profiles",
+        "short_term_calendar": "Calendar & Availability",
+        "short_term_operations": "Cleaning & Maintenance",
+        "short_term_finance": "Finance & Forecasts",
+        "short_term_communications": "Guest Communications",
+        "short_term_reports": "Reports & Exports",
+        "short_term_access": "Property Access",
+        "hosts_pack_adapter": "External Channel Adapter"
+      },
+      "searchTerms": {
+        "short_term_property": "properties portfolio listings units accommodation",
+        "short_term_reservation": "reservations bookings availability calendar turnover",
+        "short_term_guest": "guest profiles guest data check in check out",
+        "short_term_calendar": "calendar availability blocks sync scheduling",
+        "short_term_operations": "cleaning maintenance turnover tasks operations",
+        "short_term_finance": "payout revenue expense forecast finance reports",
+        "short_term_communications": "guest messages communication drafts inbox",
+        "short_term_reports": "reports export executive insights forecasts",
+        "short_term_access": "access codes check in instructions property access",
+        "hosts_pack_adapter": "external channel adapter third party booking sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

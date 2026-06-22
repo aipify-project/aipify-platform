@@ -136,6 +136,16 @@ import {
   matchIndustryPackProviderQuery,
 } from "./industry-pack-answer";
 import {
+  buildBlockedHostsOperationAnswer,
+  buildExternalHostsUnavailableAnswer,
+  buildHostsProviderDiscoveryAnswer,
+  buildHostsProviderUnavailableAnswer,
+  hasBlockedHostsOperationIntent,
+  hasExternalHostsAdapterIntent,
+  hasHostsProviderIntent,
+  matchHostsProviderQuery,
+} from "./hosts-answer";
+import {
   buildBlockedCommerceOperationAnswer,
   buildCommerceProviderDiscoveryAnswer,
   buildCommerceProviderUnavailableAnswer,
@@ -753,6 +763,45 @@ function resolveIndustryPackProviderAnswer(
   };
 }
 
+function resolveHostsProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (hasBlockedHostsOperationIntent(query)) {
+    return {
+      answer: buildBlockedHostsOperationAnswer(t),
+    };
+  }
+
+  if (!hasHostsProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.hostsContext.permission_denied) {
+    return {
+      answer: buildHostsProviderUnavailableAnswer(t, tenantContext.hostsContext),
+    };
+  }
+
+  if (hasExternalHostsAdapterIntent(query)) {
+    return {
+      answer: buildExternalHostsUnavailableAnswer(t),
+    };
+  }
+
+  const match = matchHostsProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildHostsProviderUnavailableAnswer(t, tenantContext.hostsContext),
+    };
+  }
+
+  return {
+    answer: buildHostsProviderDiscoveryAnswer(match, tenantContext.hostsContext, t),
+  };
+}
+
 function resolveSupportProviderAnswer(
   query: string,
   t: Translator,
@@ -1000,6 +1049,9 @@ export async function orchestrateCompanionSearch(
 
   const industryPackResult = resolveIndustryPackProviderAnswer(query, t, resolvedTenantContext);
   if (industryPackResult) return finalize(industryPackResult);
+
+  const hostsResult = resolveHostsProviderAnswer(query, t, resolvedTenantContext);
+  if (hostsResult) return finalize(hostsResult);
 
   const supportResult = resolveSupportProviderAnswer(query, t, resolvedTenantContext);
   if (supportResult) return finalize(supportResult);
