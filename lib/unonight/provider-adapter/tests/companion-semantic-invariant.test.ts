@@ -5,9 +5,9 @@ import {
   COMPANION_SEMANTIC_LITERAL_TEXT_MATCH_ROLE,
   COMPANION_SEMANTIC_PRIMARY_MECHANISM,
   COMPANION_SEMANTIC_QUERY_MATCH_MODULE,
-} from "./companion-semantic-policy";
+} from "@/lib/companion-runtime/companion-semantic-policy";
 
-const repoRoot = join(import.meta.dirname, "..", "..");
+const repoRoot = join(import.meta.dirname, "..", "..", "..", "..");
 
 assert.equal(COMPANION_SEMANTIC_PRIMARY_MECHANISM, "manifest_schema_driven");
 assert.equal(COMPANION_SEMANTIC_LITERAL_TEXT_MATCH_ROLE, "fallback_only");

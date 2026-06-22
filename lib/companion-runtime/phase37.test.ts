@@ -1,3 +1,4 @@
+import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -227,7 +228,7 @@ for (const file of [
   "lib/integration-intelligence/command-brief/since-last.ts",
 ]) {
   const source = fs.readFileSync(path.join(repoRoot, file), "utf8");
-  assert.equal(/unonight|get_organization_appointment|frisør/i.test(source), false, file);
+  assertCoreSourceFreeOfCustomerPilotNames(source, file);
 }
 
 assert.ok(

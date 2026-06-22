@@ -3,8 +3,8 @@ import {
   COMPANION_SEMANTIC_FALLBACK_ORDER,
   COMPANION_SEMANTIC_LITERAL_TEXT_MATCH_ROLE,
   COMPANION_SEMANTIC_PRIMARY_MECHANISM,
-} from "./companion-semantic-policy";
-import { resolveCompanionSemanticIntent } from "./companion-semantic-query-match";
+} from "@/lib/companion-runtime/companion-semantic-policy";
+import { resolveCompanionSemanticIntent } from "@/lib/companion-runtime/companion-semantic-query-match";
 import { UNONIGHT_COMMUNITY_SEMANTIC_DESCRIPTORS } from "@/lib/unonight/provider-adapter/semantic-descriptors";
 
 assert.equal(COMPANION_SEMANTIC_PRIMARY_MECHANISM, "manifest_schema_driven");

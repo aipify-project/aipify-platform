@@ -1,3 +1,4 @@
+import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -242,7 +243,7 @@ const phase12Files = [
 ];
 for (const file of phase12Files) {
   const source = fs.readFileSync(path.join(process.cwd(), "lib/companion-runtime", file), "utf8");
-  assert.equal(/unonight|canva|spotify/i.test(source), false, file);
+  assertCoreSourceFreeOfCustomerPilotNames(source, file);
 }
 
 const locales = ["no", "en", "sv", "da", "es", "pl", "uk"] as const;

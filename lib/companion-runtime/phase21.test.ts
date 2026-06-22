@@ -1,3 +1,4 @@
+import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -237,7 +238,7 @@ const orchestratorSource = fs.readFileSync(
 );
 assert.ok(orchestratorSource.includes("resolveHrProviderAnswer"));
 
-const forbiddenTerms = ["unonight", "airbnb", "frisør", "salon"];
+const forbiddenTerms = [PILOT_INTEGRATION_PROVIDER_KEY, "airbnb", "frisør", "salon"];
 for (const term of forbiddenTerms) {
   assert.equal(new RegExp(`\\b${term}\\b`, "i").test(orchestratorSource), false, term);
 }

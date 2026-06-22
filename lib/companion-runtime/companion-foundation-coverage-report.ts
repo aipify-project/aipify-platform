@@ -7,10 +7,27 @@ export function buildCompanionFoundationCoverageAuditMarkdown(
 ): string {
   const { summary, gaps, panel_coverage } = artifact;
   const gapCounts = countGapsByPriority(gaps);
-  const readinessLines = Object.entries(summary.readiness)
+  const canonical = artifact.canonical_summary;
+  const moduleReadinessLines = Object.entries(artifact.summary.readiness)
     .filter(([, count]) => count > 0)
     .map(([status, count]) => `- **${status}**: ${count}`)
     .join("\n");
+
+  const capabilityStatusLines = canonical
+    ? Object.entries(canonical.capability_status)
+        .filter(([, count]) => count > 0)
+        .map(([status, count]) => `- **${status}**: ${count}`)
+        .join("\n")
+    : "_not generated_";
+
+  const scopeReadLines = canonical
+    ? Object.entries(canonical.readiness_scope.read)
+        .filter(([, count]) => count > 0)
+        .map(([status, count]) => `- **${status}**: ${count}`)
+        .join("\n")
+    : "_not generated_";
+
+  const readinessLines = moduleReadinessLines;
 
   const verificationModules = artifact.entries.filter((e) => e.domain === "member_verification");
   const serviceModules = artifact.entries.filter((e) => e.domain === "appointment_service");
@@ -42,9 +59,49 @@ Generated: ${artifact.generated_at}
 | Skills | ${summary.skills} |
 | Panels | ${summary.panels} |
 
-## Readiness distribution
+## Readiness distribution (modules)
 
 ${readinessLines}
+
+_Module readiness sums to **${summary.total_modules}** registry modules._
+
+## Commercial capability status (II matrix)
+
+${capabilityStatusLines}
+
+_Commercial capability rows sum to **${summary.total_capabilities}** — do not mix with module readiness above._
+
+## Canonical counting model (Phase 43C)
+
+- Model: \`${canonical?.counting_model ?? "not_generated"}\`
+- Modules source: \`${canonical?.source_of_truth.modules ?? "n/a"}\`
+- Capabilities source: \`${canonical?.source_of_truth.capabilities ?? "n/a"}\`
+- Reconciled entries: ${canonical?.totals.reconciled_entries ?? 0}
+- Unique capability IDs in modules: ${canonical?.totals.unique_capability_ids_in_modules ?? 0}
+
+### Readiness scope — read (reconciled modules)
+
+${scopeReadLines}
+
+### Source classification (reconciled modules)
+
+${
+  canonical
+    ? Object.entries(canonical.source_classification)
+        .filter(([, count]) => count > 0)
+        .map(([status, count]) => `- **${status}**: ${count}`)
+        .join("\n")
+    : "_not generated_"
+}
+
+### Gap priority
+
+- **P0**: ${canonical?.gap_priority.P0 ?? gapCounts.P0}
+- **P1**: ${canonical?.gap_priority.P1 ?? gapCounts.P1}
+- **P2**: ${canonical?.gap_priority.P2 ?? gapCounts.P2}
+- **P3**: ${canonical?.gap_priority.P3 ?? gapCounts.P3}
+
+${canonical ? `### Reconciliation notes\n\n${canonical.reconciliation_notes.map((note) => `- ${note}`).join("\n")}` : ""}
 
 ## Member verification coverage
 
@@ -64,6 +121,8 @@ ${panelLines}
 - **P1**: ${gapCounts.P1}
 - **P2**: ${gapCounts.P2}
 - **P3**: ${gapCounts.P3}
+
+_(Canonical gap totals also appear under Phase 43C counting model.)_
 
 ## Phase 43 reconciliation
 

@@ -42,7 +42,7 @@ import {
 } from "@/lib/unonight/provider-adapter/verification-queue-contract";
 import { UNONIGHT_VERIFICATION_SOURCE_MAP } from "@/lib/unonight/provider-adapter/verification-source-map";
 
-const repoRoot = path.join(import.meta.dirname, "..", "..");
+const repoRoot = path.join(import.meta.dirname, "..", "..", "..", "..");
 const ORG_A = "org-verification-a";
 const ORG_B = "org-verification-b";
 

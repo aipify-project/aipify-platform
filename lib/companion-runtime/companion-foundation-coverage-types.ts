@@ -1,5 +1,7 @@
 /** Canonical Companion Foundation Coverage Registry types — Phase 34 · reconciliation Phase 43. */
 
+import type { CommercialCapabilityStatus } from "./v1-commercial-capability-matrix";
+
 export type CompanionCoverageReadiness =
   | "production_ready"
   | "production_ready_candidate"
@@ -183,6 +185,7 @@ export type CompanionFoundationCoverageArtifact = {
     panels: number;
     readiness: Record<CompanionCoverageReadiness, number>;
   };
+  canonical_summary?: CompanionCanonicalCoverageSummary;
   entries: CompanionCoverageEntry[];
   gaps: CompanionCoverageGap[];
   panel_coverage: CompanionCoverageEntry[];
@@ -199,4 +202,34 @@ export type CompanionFoundationCoverageArtifact = {
   };
   deprecated_registry?: CompanionDeprecatedRegistryEntry[];
   duplicate_capabilities?: Array<{ capability_id: string; module_ids: string[] }>;
+};
+
+
+/** Canonical counting model — Phase 43C. Module and capability totals are separate. */
+export type CompanionCanonicalCoverageSummary = {
+  counting_model: "companion-canonical-coverage-summary-v1";
+  source_of_truth: {
+    modules: string;
+    capabilities: string;
+    reconciled_entries: string;
+    gaps: string;
+  };
+  totals: {
+    modules: number;
+    commercial_capabilities: number;
+    reconciled_entries: number;
+    unique_capability_ids_in_modules: number;
+    providers: number;
+  };
+  module_readiness: Record<CompanionCoverageReadiness, number>;
+  capability_status: Record<CommercialCapabilityStatus, number>;
+  source_classification: Record<CompanionCoverageSourceClassification, number>;
+  readiness_scope: {
+    read: Record<CompanionCoverageReadiness, number>;
+    draft: Record<CompanionCoverageReadiness, number>;
+    write: Record<CompanionCoverageReadiness, number>;
+    approval: Record<CompanionCoverageReadiness, number>;
+  };
+  gap_priority: Record<"P0" | "P1" | "P2" | "P3", number>;
+  reconciliation_notes: readonly string[];
 };

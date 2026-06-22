@@ -1,3 +1,5 @@
+import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
+import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 import assert from "node:assert/strict";
 import {
   classifyDiscoveryLoadError,
@@ -82,9 +84,9 @@ const centerOrgB = {
   found: true,
   connected_systems: [
     {
-      id: "sys-unonight",
-      system_key: "unonight",
-      system_name: "Unonight",
+      id: "sys-pilot-integration",
+      system_key: PILOT_INTEGRATION_PROVIDER_KEY,
+      system_name: "Pilot Integration",
       connection_method: "official_integration",
       auth_status: "authorized",
       sync_mode: "scheduled",
@@ -118,7 +120,7 @@ assert.equal(discoveryA.discoveryStatus, "partial");
 assert.equal(discoveryA.unavailableDomains.includes("customers"), true);
 assert.ok(hasApprovedInstallDiscovery(discoveryA));
 
-assert.equal(discoveryB.discoveredSystems[0]?.systemKey, "unonight");
+assert.equal(discoveryB.discoveredSystems[0]?.systemKey, PILOT_INTEGRATION_PROVIDER_KEY);
 assert.deepEqual(
   discoveryA.discoveredSystems.map((system) => system.systemKey),
   ["shopify"],
@@ -150,7 +152,7 @@ const tenant = createEmptyCompanionTenantContext({
 });
 assert.equal(tenant.discovery.discoveredSystems.length, 1);
 assert.equal(resolveCompanionIntegrationContext(null, tenant), null);
-assert.equal(isRegisteredLiveProvider("unonight"), true);
+assert.equal(isRegisteredLiveProvider(PILOT_INTEGRATION_PROVIDER_KEY), true);
 assert.equal(tenant.primaryVerifiedProvider, null, "no default provider in tenant context");
 
 assert.equal(createEmptyCompanionTenantContext().discovery.discoveryStatus, "empty");

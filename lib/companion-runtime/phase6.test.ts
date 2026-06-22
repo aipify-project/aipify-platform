@@ -1,3 +1,5 @@
+import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
+import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -28,8 +30,8 @@ const discovery = normalizeCompanionDiscoveryContext(
     connected_systems: [
       {
         id: "sys-1",
-        system_key: "unonight",
-        system_name: "Unonight",
+        system_key: PILOT_INTEGRATION_PROVIDER_KEY,
+        system_name: "Pilot Integration",
         connection_method: "oauth",
         auth_status: "authorized",
         sync_mode: "scheduled",
@@ -56,16 +58,16 @@ const businessPackContext = createEmptyCompanionBusinessPackCollection();
 const schemaContext = buildCompanionSchemaCollection({
   discovery,
   businessPackContext,
-  connectedProviders: ["unonight"],
+  connectedProviders: [PILOT_INTEGRATION_PROVIDER_KEY],
   effectivePermissions: [],
 });
 
 const tenantContext = createEmptyCompanionTenantContext({
-  connectedProviders: ["unonight"],
+  connectedProviders: [PILOT_INTEGRATION_PROVIDER_KEY],
   discovery,
   schemaContext,
   toolRegistry: resolveCompanionToolRegistry({
-    connectedProviders: ["unonight"],
+    connectedProviders: [PILOT_INTEGRATION_PROVIDER_KEY],
     entitledCapabilities: [],
     schemaContext,
     businessPackContext,
@@ -77,12 +79,12 @@ const tenantContext = createEmptyCompanionTenantContext({
 const liveMatch = matchLiveQuery({
   query: "what is the registration status",
   tenantContext,
-  integrationContext: "unonight",
+  integrationContext: PILOT_INTEGRATION_PROVIDER_KEY,
   locale: "en",
   liveRouting: {
     tool: "get_platform_snapshot",
     platformSnapshotIntent: {
-      providerKey: "unonight",
+      providerKey: PILOT_INTEGRATION_PROVIDER_KEY,
       requiresLive: true,
       blocksKnowledgeCenter: true,
       queryKind: "full_snapshot",
@@ -94,13 +96,13 @@ const liveMatch = matchLiveQuery({
 });
 
 assert.ok(liveMatch);
-assert.equal(liveMatch?.capability_id, "unonight.platform_snapshot.read");
+assert.equal(liveMatch?.capability_id, `${PILOT_INTEGRATION_PROVIDER_KEY}.platform_snapshot.read`);
 assert.equal(liveMatch?.entity, "registration");
 
 const sampleTool: CompanionToolDefinition = {
-  tool_id: "unonight:platform_snapshot",
-  capability_id: "unonight.platform_snapshot.read",
-  provider_key: "unonight",
+  tool_id: `${PILOT_INTEGRATION_PROVIDER_KEY}:platform_snapshot`,
+  capability_id: `${PILOT_INTEGRATION_PROVIDER_KEY}.platform_snapshot.read`,
+  provider_key: PILOT_INTEGRATION_PROVIDER_KEY,
   operation: "read",
   access_mode: "read",
   required_permission: null,
@@ -112,7 +114,7 @@ const sampleTool: CompanionToolDefinition = {
       { name: "checked_at", type: "string" },
     ],
   },
-  source_label: "provider:unonight",
+  source_label: `provider:${PILOT_INTEGRATION_PROVIDER_KEY}`,
   freshness: "fresh",
   approval_required: false,
   enabled: true,
@@ -183,7 +185,7 @@ const coreFiles = [
 ];
 for (const file of coreFiles) {
   const source = fs.readFileSync(path.join(process.cwd(), "lib/companion-runtime", file), "utf8");
-  assert.equal(/unonight/i.test(source), false, file);
+  assertCoreSourceFreeOfCustomerPilotNames(source, file);
 }
 
 const locales = ["en", "no", "sv", "da", "es", "pl", "uk"];

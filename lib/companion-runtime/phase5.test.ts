@@ -1,3 +1,5 @@
+import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
+import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -32,8 +34,8 @@ const discovery = normalizeCompanionDiscoveryContext(
     connected_systems: [
       {
         id: "sys-1",
-        system_key: "unonight",
-        system_name: "Unonight",
+        system_key: PILOT_INTEGRATION_PROVIDER_KEY,
+        system_name: "Pilot Integration",
         connection_method: "oauth",
         auth_status: "authorized",
         sync_mode: "scheduled",
@@ -59,12 +61,12 @@ const discovery = normalizeCompanionDiscoveryContext(
 const schemaContext = buildCompanionSchemaCollection({
   discovery,
   businessPackContext: createEmptyCompanionBusinessPackCollection(),
-  connectedProviders: ["unonight"],
+  connectedProviders: [PILOT_INTEGRATION_PROVIDER_KEY],
   effectivePermissions: [],
 });
 
 const registry = resolveCompanionToolRegistry({
-  connectedProviders: ["unonight"],
+  connectedProviders: [PILOT_INTEGRATION_PROVIDER_KEY],
   entitledCapabilities: [],
   schemaContext,
   businessPackContext: createEmptyCompanionBusinessPackCollection(),
@@ -74,7 +76,7 @@ const registry = resolveCompanionToolRegistry({
 
 assert.ok(registry.enabledTools.length >= 1);
 const snapshotCapability = capabilityIdForCompanionLiveTool(
-  "unonight",
+  PILOT_INTEGRATION_PROVIDER_KEY,
   "get_platform_snapshot",
 );
 const snapshotTool = selectToolByCapabilityId(registry, snapshotCapability);
@@ -84,7 +86,7 @@ assert.equal(snapshotTool?.operation, "read");
 assert.equal(snapshotTool?.approval_required, false);
 
 const blockedRegistry = resolveCompanionToolRegistry({
-  connectedProviders: ["unonight"],
+  connectedProviders: [PILOT_INTEGRATION_PROVIDER_KEY],
   entitledCapabilities: [],
   schemaContext,
   businessPackContext: createEmptyCompanionBusinessPackCollection({ appEntitlementBlocked: true }),
@@ -100,8 +102,8 @@ const revokedDiscovery = normalizeCompanionDiscoveryContext(
     connected_systems: [
       {
         id: "sys-revoked",
-        system_key: "unonight",
-        system_name: "Unonight",
+        system_key: PILOT_INTEGRATION_PROVIDER_KEY,
+        system_name: "Pilot Integration",
         connection_method: "oauth",
         auth_status: "revoked",
         sync_mode: "scheduled",
@@ -117,12 +119,12 @@ const revokedDiscovery = normalizeCompanionDiscoveryContext(
 );
 
 const revokedRegistry = resolveCompanionToolRegistry({
-  connectedProviders: ["unonight"],
+  connectedProviders: [PILOT_INTEGRATION_PROVIDER_KEY],
   entitledCapabilities: [],
   schemaContext: buildCompanionSchemaCollection({
     discovery: revokedDiscovery,
     businessPackContext: createEmptyCompanionBusinessPackCollection(),
-    connectedProviders: ["unonight"],
+    connectedProviders: [PILOT_INTEGRATION_PROVIDER_KEY],
     effectivePermissions: [],
   }),
   businessPackContext: createEmptyCompanionBusinessPackCollection(),
@@ -177,7 +179,7 @@ assert.equal(emptyRegistry.enabledTools.length, 0);
 const tenantDefaults = createEmptyCompanionTenantContext();
 assert.ok(Array.isArray(tenantDefaults.toolRegistry.tools));
 
-assert.equal(isRegisteredLiveProvider("unonight"), true);
+assert.equal(isRegisteredLiveProvider(PILOT_INTEGRATION_PROVIDER_KEY), true);
 assert.equal(isRegisteredLiveProvider("demo_booking_provider"), false);
 
 const coreRegistrySource = fs.readFileSync(
@@ -188,8 +190,8 @@ const coreDefinitionSource = fs.readFileSync(
   path.join(process.cwd(), "lib/companion-runtime/companion-tool-definition.ts"),
   "utf8",
 );
-assert.equal(/unonight/i.test(coreRegistrySource), false);
-assert.equal(/unonight/i.test(coreDefinitionSource), false);
+assertCoreSourceFreeOfCustomerPilotNames(coreRegistrySource, "core registry");
+assertCoreSourceFreeOfCustomerPilotNames(coreDefinitionSource, "core definition");
 
 const locales = ["en", "no", "sv", "da", "es", "pl", "uk"];
 for (const locale of locales) {

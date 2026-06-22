@@ -1,3 +1,5 @@
+import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
+import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -158,7 +160,7 @@ const noVerifiedProvider = buildCompanionSchemaCollection({
   effectivePermissions: ["inventory.read"],
 });
 assert.equal(
-  noVerifiedProvider.entities.some((entity) => entity.source_provider === "unonight"),
+  noVerifiedProvider.entities.some((entity) => entity.source_provider === PILOT_INTEGRATION_PROVIDER_KEY),
   false,
 );
 
@@ -174,7 +176,7 @@ const schemaSource = fs.readFileSync(
   path.join(process.cwd(), "lib/companion-runtime/companion-schema-context.ts"),
   "utf8",
 );
-assert.equal(/unonight/i.test(schemaSource), false);
+assertCoreSourceFreeOfCustomerPilotNames(schemaSource, "schema source");
 
 const locales = ["en", "no", "sv", "da", "es", "pl", "uk"];
 for (const locale of locales) {

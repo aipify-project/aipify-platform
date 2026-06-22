@@ -1,6 +1,6 @@
 # Companion Foundation Coverage Audit — Phase 34
 
-Generated: 2026-06-22T22:26:35.161Z
+Generated: 2026-06-22T22:50:00.005Z
 
 ## Summary
 
@@ -13,7 +13,7 @@ Generated: 2026-06-22T22:26:35.161Z
 | Skills | 58 |
 | Panels | 4 |
 
-## Readiness distribution
+## Readiness distribution (modules)
 
 - **production_ready_candidate**: 1
 - **connected**: 8
@@ -22,6 +22,57 @@ Generated: 2026-06-22T22:26:35.161Z
 - **source_missing**: 2
 - **manifest_only**: 8
 - **specification_only**: 27
+
+_Module readiness sums to **178** registry modules._
+
+## Commercial capability status (II matrix)
+
+- **connected_but_partial**: 41
+- **manifest_only**: 2
+- **adapter_missing**: 351
+- **specification_only**: 55
+
+_Commercial capability rows sum to **449** — do not mix with module readiness above._
+
+## Canonical counting model (Phase 43C)
+
+- Model: `companion-canonical-coverage-summary-v1`
+- Modules source: `buildCompanionFoundationCoverageRegistry()`
+- Capabilities source: `mergeCommunityExternalAdapterIntoCommercial(buildCommercialCapabilityMatrix())`
+- Reconciled entries: 178
+- Unique capability IDs in modules: 394
+
+### Readiness scope — read (reconciled modules)
+
+- **production_ready_candidate**: 1
+- **connected**: 8
+- **connected_but_partial**: 40
+- **adapter_missing**: 92
+- **source_missing**: 2
+- **manifest_only**: 8
+- **specification_only**: 27
+
+### Source classification (reconciled modules)
+
+- **source_compatible**: 6
+- **source_partial**: 34
+- **source_proxy**: 3
+- **source_missing**: 78
+- **source_unknown**: 57
+
+### Gap priority
+
+- **P0**: 0
+- **P1**: 91
+- **P2**: 15
+- **P3**: 27
+
+### Reconciliation notes
+
+- module_readiness counts registry modules — sum equals total_modules
+- capability_status counts II commercial matrix rows — sum equals total_commercial_capabilities
+- readiness_scope.read mirrors module readiness for reconciled entries in Phase 43C
+- Do not mix module_readiness and capability_status in one readiness table
 
 ## Member verification coverage
 
@@ -52,6 +103,8 @@ Generated: 2026-06-22T22:26:35.161Z
 - **P1**: 91
 - **P2**: 15
 - **P3**: 27
+
+_(Canonical gap totals also appear under Phase 43C counting model.)_
 
 ## Phase 43 reconciliation
 

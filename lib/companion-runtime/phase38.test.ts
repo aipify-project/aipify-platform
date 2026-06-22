@@ -1,3 +1,4 @@
+import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -302,7 +303,7 @@ runPhase38AsyncTests()
       "lib/integration-intelligence/support/types.ts",
     ].map((file) => fs.readFileSync(path.join(repoRoot, file), "utf8"));
     for (const source of coreSources) {
-      assert.doesNotMatch(source, /unonight/i);
+      assertCoreSourceFreeOfCustomerPilotNames(source, "source");
       assert.doesNotMatch(source, /triage_action/i);
       assert.doesNotMatch(source, /customer_identifier/i);
     }

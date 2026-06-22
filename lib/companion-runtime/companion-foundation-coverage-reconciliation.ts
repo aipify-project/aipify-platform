@@ -12,6 +12,8 @@ import type {
   CompanionReconciliationSummary,
 } from "./companion-foundation-coverage-types";
 import { buildCompanionFoundationCoverageGaps } from "./companion-foundation-coverage-gaps";
+import { buildCanonicalCoverageSummaryFromParts } from "./companion-foundation-coverage-summary";
+import type { CommercialCapabilityEntry } from "./v1-commercial-capability-matrix";
 
 /** Canonical readiness definitions — Phase 43. No other terminology in registry reports. */
 export const CANONICAL_READINESS_DEFINITIONS: Readonly<
@@ -689,15 +691,25 @@ export function buildKnownGapsSnapshot(
 export function attachReconciliationToArtifact(
   artifact: CompanionFoundationCoverageArtifact,
   entries: readonly CompanionCoverageEntry[],
+  commercial: readonly CommercialCapabilityEntry[],
 ): CompanionFoundationCoverageArtifact {
   const reconciled = reconcileCoverageRegistry(entries);
   const gaps = buildCompanionFoundationCoverageGaps(entries);
+  const reconciliationSummary = buildReconciliationSummary(reconciled);
 
   return {
     ...artifact,
     reconciliation_version: "companion-coverage-reconciliation-v1",
+    canonical_summary: buildCanonicalCoverageSummaryFromParts({
+      modules: entries,
+      reconciled,
+      commercial,
+      gaps,
+      uniqueCapabilityIdsInModules: reconciliationSummary.total_capabilities,
+      sourceClassification: reconciliationSummary.source_classification,
+    }),
     reconciled_entries: reconciled,
-    reconciliation_summary: buildReconciliationSummary(reconciled),
+    reconciliation_summary: reconciliationSummary,
     p1_priority_freeze: buildP1PriorityFreeze(reconciled),
     known_gaps: buildKnownGapsSnapshot(entries, gaps),
     deprecated_registry: [...DEPRECATED_REGISTRY_ENTRIES],

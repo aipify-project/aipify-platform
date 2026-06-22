@@ -223,8 +223,8 @@ assert.equal(
   "total_members",
 );
 
-execSync("npx tsx lib/companion-runtime/phase31b.test.ts", { stdio: "inherit" });
-execSync("npx tsx lib/companion-runtime/companion-semantic-invariant.test.ts", { stdio: "inherit" });
-execSync("npx tsx lib/companion-runtime/companion-semantic-policy.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/unonight/provider-adapter/tests/phase31b.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/unonight/provider-adapter/tests/companion-semantic-invariant.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/unonight/provider-adapter/tests/companion-semantic-policy.test.ts", { stdio: "inherit" });
 
 console.log("phase32.test.ts: all assertions passed");

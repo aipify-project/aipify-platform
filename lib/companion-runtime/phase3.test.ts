@@ -1,3 +1,5 @@
+import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
+import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -141,14 +143,14 @@ assert.ok(Array.isArray(tenantDefaults.enabledModules));
 assert.ok(tenantDefaults.discovery);
 
 assert.equal(ORG_KNOWLEDGE_MIN_RANK, 0.08);
-assert.equal(isRegisteredLiveProvider("unonight"), true);
+assert.equal(isRegisteredLiveProvider(PILOT_INTEGRATION_PROVIDER_KEY), true);
 assert.equal(hasApprovedInstallDiscovery(createEmptyCompanionTenantContext().discovery), false);
 
 const packContextSource = fs.readFileSync(
   path.join(process.cwd(), "lib/companion-runtime/companion-business-pack-context.ts"),
   "utf8",
 );
-assert.equal(/unonight/i.test(packContextSource), false);
+assertCoreSourceFreeOfCustomerPilotNames(packContextSource, "pack context");
 
 const locales = ["en", "no", "sv", "da", "es", "pl", "uk"];
 for (const locale of locales) {

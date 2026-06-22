@@ -115,7 +115,7 @@ const communityQuerySource = fs.readFileSync(
 );
 assert.doesNotMatch(communityQuerySource, /unonight/i);
 
-execSync("npx tsx lib/companion-runtime/phase30.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/unonight/provider-adapter/tests/phase30.test.ts", { stdio: "inherit" });
 execSync("npx tsx lib/companion-runtime/phase29.test.ts", { stdio: "inherit" });
 
 const routeSource = fs.readFileSync(

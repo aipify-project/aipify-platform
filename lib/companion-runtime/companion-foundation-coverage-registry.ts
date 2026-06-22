@@ -16,16 +16,17 @@ import {
   COMMUNITY_EXTERNAL_ADAPTER_COVERAGE_OVERRIDES,
   COMMUNITY_EXTERNAL_ADAPTER_READINESS_OVERRIDES,
 } from "./companion-foundation-coverage-overrides";
-import type {
-  CompanionCoverageEntry,
-  CompanionCoverageReadiness,
-  CompanionFoundationCoverageArtifact,
-} from "./companion-foundation-coverage-types";
+import { summarizeCoverageReadiness } from "./companion-foundation-coverage-readiness";
 import { buildCompanionFoundationCoverageGaps } from "./companion-foundation-coverage-gaps";
 import {
   attachReconciliationToArtifact,
   SUPERSEDED_PROVIDER_MODULE_IDS,
 } from "./companion-foundation-coverage-reconciliation";
+import type {
+  CompanionCoverageEntry,
+  CompanionCoverageReadiness,
+  CompanionFoundationCoverageArtifact,
+} from "./companion-foundation-coverage-types";
 
 const DOMAIN_RUNTIME_LOADERS: Record<string, string> = {
   proactive: "load-companion-proactive-context.ts",
@@ -580,29 +581,7 @@ export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEnt
   ];
 }
 
-export function summarizeCoverageReadiness(
-  entries: readonly CompanionCoverageEntry[],
-): Record<CompanionCoverageReadiness, number> {
-  const summary: Record<CompanionCoverageReadiness, number> = {
-    production_ready: 0,
-    production_ready_candidate: 0,
-    connected: 0,
-    connected_but_partial: 0,
-    adapter_missing: 0,
-    source_missing: 0,
-    manifest_only: 0,
-    specification_only: 0,
-    placeholder: 0,
-    disabled: 0,
-    blocked_by_governance: 0,
-  };
-
-  for (const entry of entries) {
-    summary[entry.readiness] += 1;
-  }
-
-  return summary;
-}
+export { summarizeCoverageReadiness } from "./companion-foundation-coverage-readiness";
 
 export function listAllRegisteredCapabilityIds(entries: readonly CompanionCoverageEntry[]): string[] {
   const ids = new Set<string>();
@@ -641,7 +620,7 @@ export function buildCompanionFoundationCoverageArtifact(): CompanionFoundationC
     panel_coverage,
   };
 
-  return attachReconciliationToArtifact(base, entries);
+  return attachReconciliationToArtifact(base, entries, commercial);
 }
 
 export { DOMAIN_RUNTIME_LOADERS, PANEL_COVERAGE_ENTRIES, CORE_COMPANION_MODULES };

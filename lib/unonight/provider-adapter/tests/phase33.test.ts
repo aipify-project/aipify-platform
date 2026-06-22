@@ -290,12 +290,12 @@ for (const file of coreFiles) {
   assert.equal(/Hvor mange nye medlemmer|group_count|discussion_count|unonight_community/i.test(source), false, file);
 }
 
-execSync("npx tsx lib/companion-runtime/phase30.test.ts", { stdio: "inherit" });
-execSync("npx tsx lib/companion-runtime/phase31.test.ts", { stdio: "inherit" });
-execSync("npx tsx lib/companion-runtime/phase32.test.ts", { stdio: "inherit" });
-execSync("npx tsx lib/companion-runtime/provider-layer-placement.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/unonight/provider-adapter/tests/phase30.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/unonight/provider-adapter/tests/phase31.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/unonight/provider-adapter/tests/phase32.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/unonight/provider-adapter/tests/provider-layer-placement.test.ts", { stdio: "inherit" });
 execSync("npx tsx lib/companion-runtime/phase33c.test.ts", { stdio: "inherit" });
-execSync("npx tsx lib/companion-runtime/phase35.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/unonight/provider-adapter/tests/phase35.test.ts", { stdio: "inherit" });
 execSync("npx tsx lib/companion-runtime/phase36.test.ts", { stdio: "inherit" });
 execSync("npx tsx lib/companion-runtime/phase36b.test.ts", { stdio: "inherit" });
 execSync("npx tsx lib/companion-runtime/phase37.test.ts", { stdio: "inherit" });

@@ -1,3 +1,4 @@
+import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
 import assert from "node:assert/strict";
 import { execSync } from "node:child_process";
 import fs from "node:fs";
@@ -30,7 +31,10 @@ import {
 import { writeCompanionFoundationCoverageArtifacts } from "@/lib/companion-runtime/companion-foundation-coverage-report";
 import { COMMUNITY_EXTERNAL_ADAPTER_PROVIDER_KEY } from "@/lib/integration-intelligence/community/external-adapter-coverage-bridge";
 
+import { FORBIDDEN_CUSTOMER_PILOT_NAMES } from "./companion-forbidden-customer-pilot-names";
+
 const repoRoot = path.join(import.meta.dirname, "..", "..");
+const pilotAdapterTestsRoot = `lib/${FORBIDDEN_CUSTOMER_PILOT_NAMES[0]}/provider-adapter/tests`;
 
 const entries = buildCompanionFoundationCoverageRegistry();
 const artifact = buildCompanionFoundationCoverageArtifact();
@@ -101,7 +105,7 @@ const coreRegistrySource = fs.readFileSync(
   path.join(repoRoot, "lib/companion-runtime/companion-foundation-coverage-registry.ts"),
   "utf8",
 );
-assert.doesNotMatch(coreRegistrySource, /get_unonight_member_statistics/i, "Core registry must not embed tenant-specific RPC");
+assertCoreSourceFreeOfCustomerPilotNames(coreRegistrySource, "core registry");
 
 for (const locale of COMPANION_COVERAGE_LOCALES) {
   const dictionary = JSON.parse(
@@ -127,8 +131,8 @@ const parsedArtifact = JSON.parse(fs.readFileSync(jsonPath, "utf8"));
 assert.equal(parsedArtifact.summary.skills, SKILL_REGISTRY.length);
 assert.ok(parsedArtifact.gaps.length > 0);
 
-execSync("npx tsx lib/companion-runtime/provider-layer-placement.test.ts", { stdio: "inherit", cwd: repoRoot });
-execSync("npx tsx lib/companion-runtime/phase33.test.ts", { stdio: "inherit", cwd: repoRoot });
+execSync(`npx tsx ${pilotAdapterTestsRoot}/provider-layer-placement.test.ts`, { stdio: "inherit", cwd: repoRoot });
+execSync(`npx tsx ${pilotAdapterTestsRoot}/phase33.test.ts`, { stdio: "inherit", cwd: repoRoot });
 
 console.log("phase34.test.ts: all assertions passed");
 console.log(`  modules: ${entries.length}`);

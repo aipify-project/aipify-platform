@@ -1,6 +1,6 @@
 {
   "version": "companion-foundation-coverage-v1",
-  "generated_at": "2026-06-22T22:26:35.161Z",
+  "generated_at": "2026-06-22T22:50:00.005Z",
   "summary": {
     "total_modules": 178,
     "total_capabilities": 449,
@@ -6494,6 +6494,120 @@
     }
   ],
   "reconciliation_version": "companion-coverage-reconciliation-v1",
+  "canonical_summary": {
+    "counting_model": "companion-canonical-coverage-summary-v1",
+    "source_of_truth": {
+      "modules": "buildCompanionFoundationCoverageRegistry()",
+      "capabilities": "mergeCommunityExternalAdapterIntoCommercial(buildCommercialCapabilityMatrix())",
+      "reconciled_entries": "reconcileCoverageRegistry(modules)",
+      "gaps": "buildCompanionFoundationCoverageGaps(modules)"
+    },
+    "totals": {
+      "modules": 178,
+      "commercial_capabilities": 449,
+      "reconciled_entries": 178,
+      "unique_capability_ids_in_modules": 394,
+      "providers": 141
+    },
+    "module_readiness": {
+      "production_ready": 0,
+      "production_ready_candidate": 1,
+      "connected": 8,
+      "connected_but_partial": 40,
+      "adapter_missing": 92,
+      "source_missing": 2,
+      "manifest_only": 8,
+      "specification_only": 27,
+      "placeholder": 0,
+      "disabled": 0,
+      "blocked_by_governance": 0
+    },
+    "capability_status": {
+      "production_ready": 0,
+      "connected_but_partial": 41,
+      "manifest_only": 2,
+      "adapter_missing": 351,
+      "specification_only": 55,
+      "blocked_by_governance": 0,
+      "disabled": 0
+    },
+    "source_classification": {
+      "source_exact": 0,
+      "source_compatible": 6,
+      "source_partial": 34,
+      "source_proxy": 3,
+      "source_seeded": 0,
+      "source_simulated": 0,
+      "source_missing": 78,
+      "source_unknown": 57
+    },
+    "readiness_scope": {
+      "read": {
+        "production_ready": 0,
+        "production_ready_candidate": 1,
+        "connected": 8,
+        "connected_but_partial": 40,
+        "adapter_missing": 92,
+        "source_missing": 2,
+        "manifest_only": 8,
+        "specification_only": 27,
+        "placeholder": 0,
+        "disabled": 0,
+        "blocked_by_governance": 0
+      },
+      "draft": {
+        "production_ready": 0,
+        "production_ready_candidate": 0,
+        "connected": 0,
+        "connected_but_partial": 2,
+        "adapter_missing": 8,
+        "source_missing": 0,
+        "manifest_only": 0,
+        "specification_only": 0,
+        "placeholder": 0,
+        "disabled": 0,
+        "blocked_by_governance": 0
+      },
+      "write": {
+        "production_ready": 0,
+        "production_ready_candidate": 0,
+        "connected": 0,
+        "connected_but_partial": 1,
+        "adapter_missing": 41,
+        "source_missing": 1,
+        "manifest_only": 1,
+        "specification_only": 7,
+        "placeholder": 0,
+        "disabled": 0,
+        "blocked_by_governance": 0
+      },
+      "approval": {
+        "production_ready": 0,
+        "production_ready_candidate": 0,
+        "connected": 0,
+        "connected_but_partial": 0,
+        "adapter_missing": 0,
+        "source_missing": 0,
+        "manifest_only": 0,
+        "specification_only": 0,
+        "placeholder": 0,
+        "disabled": 0,
+        "blocked_by_governance": 80
+      }
+    },
+    "gap_priority": {
+      "P0": 0,
+      "P1": 91,
+      "P2": 15,
+      "P3": 27
+    },
+    "reconciliation_notes": [
+      "module_readiness counts registry modules — sum equals total_modules",
+      "capability_status counts II commercial matrix rows — sum equals total_commercial_capabilities",
+      "readiness_scope.read mirrors module readiness for reconciled entries in Phase 43C",
+      "Do not mix module_readiness and capability_status in one readiness table"
+    ]
+  },
   "reconciled_entries": [
     {
       "module_id": "core.companion_orchestrator",

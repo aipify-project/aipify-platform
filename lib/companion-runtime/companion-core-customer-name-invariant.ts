@@ -1,20 +1,24 @@
 import fs from "node:fs";
 import path from "node:path";
+import { FORBIDDEN_CUSTOMER_PILOT_NAMES } from "./companion-forbidden-customer-pilot-names";
 
 /** Frozen invariant — customer/pilot names are forbidden in Companion Core and generated artifacts. */
 export const COMPANION_CORE_CUSTOMER_SPECIFIC_NAMES = "forbidden" as const;
 
-export const FORBIDDEN_CUSTOMER_PILOT_NAMES = [
-  "unonight",
-  "unonatt",
-  "xentora",
-] as const;
+export { FORBIDDEN_CUSTOMER_PILOT_NAMES };
 
 const ALLOWED_PLATFORM_TERMS = /\baipify(?:\s+group\s+as)?\b/gi;
+
+/** Files excluded from content scan — they define the forbidden list only. */
+const CONTENT_SCAN_EXCLUDED_BASENAMES = new Set([
+  "companion-forbidden-customer-pilot-names.ts",
+  "companion-core-customer-name-invariant.ts",
+]);
 
 export type CompanionCoreNameViolation = {
   file: string;
   forbidden_term: string;
+  kind: "content" | "path";
 };
 
 function stripAllowedPlatformTerms(text: string): string {
@@ -43,34 +47,59 @@ function walkFiles(dir: string, matcher: (name: string) => boolean, results: str
   return results;
 }
 
-/** Production Companion Core sources — phase adapter tests may reference tenant adapters separately. */
-export function listCompanionCoreSourceFiles(repoRoot: string): string[] {
+function scanPathComponents(relativePath: string): string[] {
+  const normalized = relativePath.replace(/\\/g, "/").toLowerCase();
+  const found = new Set<string>();
+  for (const term of FORBIDDEN_CUSTOMER_PILOT_NAMES) {
+    if (normalized.includes(term)) found.add(term);
+  }
+  return [...found];
+}
+
+/** All Companion Core TypeScript sources including tests and fixtures. */
+export function listCompanionCoreTypeScriptFiles(repoRoot: string): string[] {
   const runtimeRoot = path.join(repoRoot, "lib/companion-runtime");
-  return walkFiles(runtimeRoot, (name) => name.endsWith(".ts") && !name.endsWith(".test.ts")).sort();
+  return walkFiles(runtimeRoot, (name) => name.endsWith(".ts")).sort();
 }
 
 export function listCompanionCoreArtifactFiles(repoRoot: string): string[] {
   const artifactsRoot = path.join(repoRoot, "lib/companion-runtime/artifacts");
-  return walkFiles(
+  const auditRoot = path.join(repoRoot, "COMPANION_FOUNDATION_COVERAGE_AUDIT.md");
+  const files = walkFiles(
     artifactsRoot,
     (name) => name.endsWith(".json") || name.endsWith(".md"),
-  ).sort();
+  );
+  if (fs.existsSync(auditRoot)) files.push(auditRoot);
+  return files.sort();
 }
 
 export function scanCompanionCoreForForbiddenCustomerNames(repoRoot: string): CompanionCoreNameViolation[] {
   const violations: CompanionCoreNameViolation[] = [];
-  const files = [...listCompanionCoreSourceFiles(repoRoot), ...listCompanionCoreArtifactFiles(repoRoot)];
 
-  for (const file of files) {
-    if (
-      file.endsWith("companion-core-customer-name-invariant.ts") ||
-      file.endsWith("v1-runtime-certification.ts")
-    ) {
-      continue;
+  for (const file of listCompanionCoreTypeScriptFiles(repoRoot)) {
+    const relative = path.relative(repoRoot, file);
+    const basename = path.basename(file);
+
+    for (const term of scanPathComponents(relative)) {
+      violations.push({ file: relative, forbidden_term: term, kind: "path" });
+    }
+
+    if (CONTENT_SCAN_EXCLUDED_BASENAMES.has(basename)) continue;
+
+    const text = fs.readFileSync(file, "utf8");
+    for (const term of findForbiddenCustomerNamesInText(text)) {
+      violations.push({ file: relative, forbidden_term: term, kind: "content" });
+    }
+  }
+
+  for (const file of listCompanionCoreArtifactFiles(repoRoot)) {
+    const relative = path.relative(repoRoot, file);
+    for (const term of scanPathComponents(relative)) {
+      violations.push({ file: relative, forbidden_term: term, kind: "path" });
     }
     const text = fs.readFileSync(file, "utf8");
     for (const term of findForbiddenCustomerNamesInText(text)) {
-      violations.push({ file, forbidden_term: term });
+      violations.push({ file: relative, forbidden_term: term, kind: "content" });
     }
   }
 
@@ -81,8 +110,8 @@ export function assertCompanionCoreCustomerNamesForbidden(repoRoot: string): tru
   const violations = scanCompanionCoreForForbiddenCustomerNames(repoRoot);
   if (violations.length > 0) {
     const sample = violations
-      .slice(0, 12)
-      .map((v) => `${path.relative(repoRoot, v.file)} (${v.forbidden_term})`)
+      .slice(0, 16)
+      .map((v) => `${v.file} [${v.kind}] (${v.forbidden_term})`)
       .join("\n  - ");
     throw new Error(
       `COMPANION_CORE_CUSTOMER_SPECIFIC_NAMES=${COMPANION_CORE_CUSTOMER_SPECIFIC_NAMES} — ` +
@@ -90,4 +119,9 @@ export function assertCompanionCoreCustomerNamesForbidden(repoRoot: string): tru
     );
   }
   return true;
+}
+
+/** @deprecated use listCompanionCoreTypeScriptFiles */
+export function listCompanionCoreSourceFiles(repoRoot: string): string[] {
+  return listCompanionCoreTypeScriptFiles(repoRoot).filter((file) => !file.endsWith(".test.ts"));
 }

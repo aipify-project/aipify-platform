@@ -1,3 +1,4 @@
+import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -51,9 +52,9 @@ import { DIRECTORY_OUTCOME_I18N_KEYS } from "@/lib/integration-intelligence/dire
 import { DIRECTORY_PROVIDER_MANIFESTS } from "@/lib/integration-intelligence/directory/manifests";
 import { DIRECTORY_RELATIONSHIP_TYPES, normalizeDirectoryRelationshipType } from "@/lib/integration-intelligence/directory/relationship-types";
 import {
-  UNONIGHT_DIRECTORY_MEMBER_CONTRACT,
-  mapUnonightMemberDirectoryFields,
-} from "@/lib/unonight/provider-adapter/directory-member-contract";
+  COMMUNITY_MEMBER_DIRECTORY_CONTRACT,
+  mapCommunityMemberDirectoryFields,
+} from "@/lib/integration-intelligence/directory/community-member-directory-contract";
 
 const repoRoot = path.join(import.meta.dirname, "..", "..");
 const ORG_A = "org-tenant-a";
@@ -472,9 +473,9 @@ assert.equal(directoryContext.export_blocked, true);
 const coverage = buildCompanionFoundationCoverageRegistry();
 assert.ok(coverage.some((entry) => entry.module_id === "directory.core_search"));
 assert.ok(coverage.some((entry) => entry.module_id === "directory.community_member"));
-assert.notEqual(UNONIGHT_DIRECTORY_MEMBER_CONTRACT.readiness, "production_ready");
-assert.equal(UNONIGHT_DIRECTORY_MEMBER_CONTRACT.exposes_member_list, false);
-assert.equal(mapUnonightMemberDirectoryFields({
+assert.notEqual(COMMUNITY_MEMBER_DIRECTORY_CONTRACT.readiness, "production_ready");
+assert.equal(COMMUNITY_MEMBER_DIRECTORY_CONTRACT.exposes_member_list, false);
+assert.equal(mapCommunityMemberDirectoryFields({
   member_id: "m1",
   display_name: "Member One",
   membership_status: "active",
@@ -487,15 +488,10 @@ const coreSources = [
   "lib/integration-intelligence/directory/matching.ts",
 ].map((file) => fs.readFileSync(path.join(repoRoot, file), "utf8"));
 for (const source of coreSources) {
-  assert.doesNotMatch(source, /unonight_member_id/i);
-  assert.doesNotMatch(source, /get_unonight_/i);
+  assertCoreSourceFreeOfCustomerPilotNames(source, "core source");
 }
 
-const unonightContract = fs.readFileSync(
-  path.join(repoRoot, "lib/unonight/provider-adapter/directory-member-contract.ts"),
-  "utf8",
-);
-assert.match(unonightContract, /mapUnonightMemberDirectoryFields/);
+assert.equal(COMMUNITY_MEMBER_DIRECTORY_CONTRACT.provider_key, "community_member_directory");
 
 for (const locale of COMPANION_COVERAGE_LOCALES) {
   const dict = JSON.parse(

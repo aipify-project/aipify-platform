@@ -176,7 +176,7 @@ for (const file of coreFiles) {
   assert.equal(/Hvor mange nye medlemmer|group_count|discussion_count|unonight_community/i.test(source), false, file);
 }
 
-execSync("npx tsx lib/companion-runtime/phase30.test.ts", { stdio: "inherit" });
-execSync("npx tsx lib/companion-runtime/phase31.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/unonight/provider-adapter/tests/phase30.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/unonight/provider-adapter/tests/phase31.test.ts", { stdio: "inherit" });
 
 console.log("phase31b.test.ts: all assertions passed");

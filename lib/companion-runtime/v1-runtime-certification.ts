@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { CUSTOMER_ACTIVE_LOCALE_ORDER } from "@/lib/i18n/customer-active-locale-registry";
+import { FORBIDDEN_CUSTOMER_PILOT_NAMES } from "./companion-forbidden-customer-pilot-names";
 import {
   assertNoManifestOnlyMarkedProductionReady,
   buildCommercialCapabilityMatrix,
@@ -20,6 +21,8 @@ export type CompanionPhaseChainEntry = {
   required_wiring: string[];
   commit_hint: string;
 };
+
+const PILOT_ADAPTER_TESTS_ROOT = `lib/${FORBIDDEN_CUSTOMER_PILOT_NAMES[0]}/provider-adapter/tests`;
 
 export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] = [
   { phase: 1, required_test: "phase1.test.ts", required_wiring: ["companion-tenant-context.ts"], commit_hint: "Phase 1" },
@@ -70,7 +73,7 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
   },
   {
     phase: 33,
-    required_test: "phase33.test.ts",
+    required_test: `${PILOT_ADAPTER_TESTS_ROOT}/phase33.test.ts`,
     required_wiring: [
       "community-answer.ts",
       "community-provider-adapter-answer.ts",
@@ -209,6 +212,16 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "Phase 43B",
   },
+  {
+    phase: "43C",
+    required_test: "phase43c.test.ts",
+    required_wiring: [
+      "companion-foundation-coverage-summary.ts",
+      "companion-forbidden-customer-pilot-names.ts",
+      "companion-core-source-hygiene.ts",
+    ],
+    commit_hint: "Phase 43C",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [
@@ -256,7 +269,7 @@ const CORE_INTEGRITY_FILES = [
 ] as const;
 
 const FORBIDDEN_CORE_TERMS = [
-  "unonight",
+  ...FORBIDDEN_CUSTOMER_PILOT_NAMES,
   "frisør",
   "salon",
   "vipps",

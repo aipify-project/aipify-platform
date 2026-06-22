@@ -1,3 +1,4 @@
+import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 import assert from "node:assert/strict";
 import {
   CUSTOMER_ACTIVE_LOCALE_ORDER,
@@ -78,19 +79,19 @@ const tenantA = createEmptyCompanionTenantContext({
   primaryVerifiedProvider: "shopify",
 });
 const tenantB = createEmptyCompanionTenantContext({
-  connectedProviders: ["unonight"],
-  primaryVerifiedProvider: "unonight",
+  connectedProviders: [PILOT_INTEGRATION_PROVIDER_KEY],
+  primaryVerifiedProvider: PILOT_INTEGRATION_PROVIDER_KEY,
 });
 
 assert.equal(resolveCompanionIntegrationContext(null, tenantA), "shopify");
-assert.equal(resolveCompanionIntegrationContext("unonight", tenantA), "shopify");
+assert.equal(resolveCompanionIntegrationContext(PILOT_INTEGRATION_PROVIDER_KEY, tenantA), "shopify");
 assert.equal(resolveCompanionIntegrationContext("shopify", tenantA), "shopify");
-assert.equal(resolveCompanionIntegrationContext("unonight", tenantB), "unonight");
+assert.equal(resolveCompanionIntegrationContext(PILOT_INTEGRATION_PROVIDER_KEY, tenantB), PILOT_INTEGRATION_PROVIDER_KEY);
 
 const emptyTenant = createEmptyCompanionTenantContext();
 assert.equal(emptyTenant.primaryVerifiedProvider, null);
 assert.equal(resolveCompanionIntegrationContext(null, emptyTenant), null);
-assert.equal(resolveCompanionIntegrationContext("unonight", emptyTenant), null);
+assert.equal(resolveCompanionIntegrationContext(PILOT_INTEGRATION_PROVIDER_KEY, emptyTenant), null);
 
 assert.deepEqual(parseInstalledPackKeys({
   installed_packs: [
@@ -114,7 +115,7 @@ assert.equal(CUSTOMER_ACTIVE_LOCALE_ORDER.length, 7);
 
 assert.equal(isRegisteredLiveProvider(null), false);
 assert.equal(isRegisteredLiveProvider("unknown-provider"), false);
-assert.equal(isRegisteredLiveProvider("unonight"), true);
-assert.ok(listRegisteredIntegrationProviders().includes("unonight"));
+assert.equal(isRegisteredLiveProvider(PILOT_INTEGRATION_PROVIDER_KEY), true);
+assert.ok(listRegisteredIntegrationProviders().includes(PILOT_INTEGRATION_PROVIDER_KEY));
 
 console.log("companion-runtime phase 1 tests passed");

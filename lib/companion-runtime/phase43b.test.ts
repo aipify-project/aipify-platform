@@ -1,3 +1,5 @@
+import { FORBIDDEN_CUSTOMER_PILOT_NAMES } from "@/lib/companion-runtime/companion-forbidden-customer-pilot-names";
+import { assertCoreSourceFreeOfCustomerPilotNames } from "@/lib/companion-runtime/companion-core-source-hygiene";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -27,10 +29,11 @@ const capabilitiesBefore = artifactBefore.summary.total_capabilities;
 const communityMember = entriesBefore.find((entry) => entry.module_id === "directory.community_member");
 assert.ok(communityMember, "directory.community_member must exist in Core coverage");
 assert.equal(communityMember!.provider_key, "community_member_directory");
+const legacyDirectoryModuleId = `directory.${FORBIDDEN_CUSTOMER_PILOT_NAMES[0]}_member`;
 assert.equal(
-  entriesBefore.some((entry) => entry.module_id === "directory.unonight_member"),
+  entriesBefore.some((entry) => entry.module_id === legacyDirectoryModuleId),
   false,
-  "legacy directory.unonight_member must not appear in Core registry",
+  "legacy customer-specific directory module must not appear in Core registry",
 );
 
 const reconciled = reconcileCoverageRegistry(entriesBefore);
@@ -40,8 +43,8 @@ assert.ok(p1Community, "P1 package 9 must exist");
 assert.equal(p1Community!.package_id, "p1.09_community_member_directory_source");
 assert.equal(p1Community!.module_id, "directory.community_member");
 assert.match(p1Community!.exact_gap, /community member directory/i);
-assert.doesNotMatch(p1Community!.exact_gap, /unonight/i);
-assert.doesNotMatch(p1Community!.why_p1, /unonight/i);
+assertCoreSourceFreeOfCustomerPilotNames(p1Community!.exact_gap, "source");
+assertCoreSourceFreeOfCustomerPilotNames(p1Community!.why_p1, "source");
 
 const artifact = buildCompanionFoundationCoverageArtifact();
 const paths = writeCompanionFoundationCoverageArtifacts(artifact, repoRoot, fs, path);

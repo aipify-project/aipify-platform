@@ -1,3 +1,4 @@
+import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 import assert from "node:assert/strict";
 import { isProductConceptQuery, isAppNavigationQuery } from "./product-concept";
 import {
@@ -21,6 +22,6 @@ assert.equal(resolveCompanionIntegrationContext("demo-booking", tenantContext), 
 assert.equal(resolveCompanionIntegrationContext("shopify", tenantContext), "demo-booking");
 
 const emptyTenant = createEmptyCompanionTenantContext();
-assert.equal(resolveCompanionIntegrationContext("unonight", emptyTenant), null);
+assert.equal(resolveCompanionIntegrationContext(PILOT_INTEGRATION_PROVIDER_KEY, emptyTenant), null);
 
 console.log("companion-runtime tests passed");

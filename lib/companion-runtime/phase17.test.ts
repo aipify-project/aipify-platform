@@ -1,3 +1,4 @@
+import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -190,7 +191,7 @@ const forbiddenIndustryTerms = [
   "rørlegger",
   "frisør",
   "klinikk",
-  "unonight",
+  PILOT_INTEGRATION_PROVIDER_KEY,
   "plumber",
   "salon",
   "healthcare_clinic",
