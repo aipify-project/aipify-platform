@@ -171,6 +171,13 @@ export type CustomerHealthLabels = {
   emptyAction: string;
   errorTitle: string;
   errorBody: string;
+  accessDenied: string;
+  organizationMissing: string;
+  subscriptionRequired: string;
+  permissionMissing: string;
+  entitlementLocked: string;
+  pageLoadError: string;
+  noDataYet: string;
   retry: string;
   sections: {
     overview: string;

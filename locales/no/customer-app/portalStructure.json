@@ -400,7 +400,13 @@
         "feedback": {
           "removeFailed": "Integrasjonen kunne ikke fjernes. Prøv igjen.",
           "testFailed": "Tilkoblingstest mislyktes. Kontroller oppsettet og prøv igjen."
-        }
+        },
+        "duplicateWarningTitle": "Duplisert tilkobling oppdaget",
+        "duplicateWarningBody": "Flere integrasjoner ser ut til å peke mot samme eksterne endepunkt. Aipify anbefaler én kanonisk tilkobling.",
+        "duplicateWarningPreferred": "Foretrukket tilkobling",
+        "duplicateWarningCleanup": "Gå gjennom hver tilkobling og fjern duplikater etter at du har bekreftet hvilken leverandør som skal beholdes.",
+        "activateIntegration": "Aktiver integrasjonen",
+        "deactivateIntegration": "Deaktiver integrasjonen"
       },
       "providerNames": {
         "custom_api": "Egendefinert API",
@@ -487,6 +493,9 @@
           "statusActive": "✅ Aktiv",
           "statusReadOnly": "🔒 Lesetilgang",
           "statusAwaitingVerification": "⏳ Venter på verifisering",
+          "statusVerified": "🛡️ Tilkoblet og verifisert",
+          "statusInactive": "ℹ️ Deaktivert",
+          "deactivateCta": "Deaktiver integrasjonen",
           "organizationLabel": "Organisasjon",
           "accessTypeLabel": "Tilgangstype",
           "permissionsLabel": "Tillatelser",
@@ -585,6 +594,10 @@
         "credentialSaved": "ℹ️ Tilkoblingsnøkkelen er lagret sikkert",
         "verifiedReadOnly": "✅ Tilkoblet og verifisert",
         "active": "✅ Integrasjonen er aktiv",
+        "inactive": "ℹ️ Deaktivert",
+        "revoked": "❌ Tilbakekalt",
+        "removed": "Fjernet",
+        "notConfigured": "ℹ️ Ikke konfigurert",
         "awaitingVerification": "⏳ Venter på verifisering"
       },
       "wizard7Steps": {
@@ -4361,6 +4374,13 @@
       "breadcrumbSupport": "Support",
       "breadcrumbCustomerHealth": "Kundehelse",
       "backToSupport": "Tilbake til Support",
+      "accessDenied": "Du har ikke tilgang til Kundehelse.",
+      "organizationMissing": "Organisasjonskontekst mangler. Velg eller konfigurer arbeidsområdet før du bruker Kundehelse.",
+      "subscriptionRequired": "Dette området krever et aktivt organisasjonsabonnement.",
+      "permissionMissing": "Du har ikke tilgang til dette området. Kontakt organisasjonens administrator.",
+      "entitlementLocked": "Denne funksjonen er ikke inkludert i organisasjonens aktive Business Packs eller abonnement.",
+      "pageLoadError": "Siden kunne ikke lastes. Prøv igjen om litt.",
+      "noDataYet": "Ingen organisasjonshelsedata er tilgjengelig ennå. Aipify viser innsikt etter hvert som arbeidsområdet blir aktivt.",
       "purposeSummary": {
         "healthy": "Organisasjonen viser sterk helse på tvers av adopsjon, engasjement og utnyttelse.",
         "moderate": "Organisasjonen gjør fremskritt, men kan styrke teamengasjement og utnyttelse.",
@@ -4985,7 +5005,15 @@
       "emptyTitle": "No command center insights are available yet.",
       "emptyBody": "Aipify brings your organization together in one unified executive experience.",
       "emptyCta": "Generate Executive Briefing",
-      "accessDenied": "Command Center requires leadership authorization.",
+      "accessDenied": "Command Center krever lederautorisasjon.",
+      "errorTitle": "Command Center utilgjengelig",
+      "retry": "Prøv igjen",
+      "backToApp": "Tilbake til APP",
+      "organizationMissing": "Organisasjonskontekst mangler. Velg eller konfigurer arbeidsområdet før du bruker Command Center.",
+      "subscriptionRequired": "Dette området krever et aktivt organisasjonsabonnement.",
+      "permissionMissing": "Du har ikke tilgang til Command Center.",
+      "entitlementLocked": "Denne funksjonen er ikke inkludert i organisasjonens aktive Business Packs eller abonnement.",
+      "pageLoadError": "Siden kunne ikke lastes. Prøv igjen om litt.",
       "filters": {
         "search": "Search command center insights…",
         "priority": "Priority",

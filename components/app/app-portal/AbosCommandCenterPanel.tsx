@@ -13,6 +13,9 @@ import {
   type AbosCommandCenterTimelineEvent,
   type AbosCompanionBriefing,
 } from "@/lib/app-portal/abos-command-center";
+import { resolveAppPortalAccessMessageKey } from "@/lib/app-portal/access-state-messages";
+import type { AppOrganizationContextState } from "@/lib/tenant/resolve-app-organization-context";
+import { AppErrorState } from "@/components/app/design";
 
 type Props = { labels: AbosCommandCenterLabels };
 
@@ -69,6 +72,7 @@ export function AbosCommandCenterPanel({ labels }: Props) {
   const [timeline, setTimeline] = useState<AbosCommandCenterTimelineEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [accessState, setAccessState] = useState<AppOrganizationContextState | null>(null);
   const [priority, setPriority] = useState("");
   const [recommendationType, setRecommendationType] = useState("");
   const [focusCategory, setFocusCategory] = useState("");
@@ -94,8 +98,13 @@ export function AbosCommandCenterPanel({ labels }: Props) {
     ]);
     if (overviewRes.ok) {
       setData(parseAbosCommandCenterOverview(await overviewRes.json()));
+      setAccessState(null);
     } else {
-      const body = (await overviewRes.json()) as { error?: string };
+      const body = (await overviewRes.json()) as {
+        error?: string;
+        access_state?: AppOrganizationContextState;
+      };
+      setAccessState(body.access_state ?? "access_denied");
       setError(body.error ?? labels.accessDenied);
       setData(null);
     }
@@ -128,10 +137,21 @@ export function AbosCommandCenterPanel({ labels }: Props) {
   }
 
   if (error && !data?.found) {
+    const messageKey = resolveAppPortalAccessMessageKey(accessState, error);
+    const description =
+      (labels[messageKey as keyof AbosCommandCenterLabels] as string | undefined) ??
+      labels.accessDenied;
     return (
       <div className="mx-auto max-w-6xl space-y-4">
-        <Link href="/app" className="text-sm font-medium text-indigo-700 hover:underline">← APP Dashboard</Link>
-        <p className="text-slate-600">{labels.accessDenied}</p>
+        <Link href="/app" className="text-sm font-medium text-indigo-700 hover:underline">
+          ← {labels.backToApp}
+        </Link>
+        <AppErrorState
+          title={labels.errorTitle}
+          description={description}
+          onRetry={() => void load()}
+          retryLabel={labels.retry}
+        />
       </div>
     );
   }

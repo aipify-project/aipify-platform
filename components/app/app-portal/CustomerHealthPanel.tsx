@@ -62,6 +62,8 @@ import {
 } from "@/lib/app-portal/success-center/presentation";
 import { SUCCESS_RECOMMENDATION_LINKS } from "@/lib/app-portal/success-center/config";
 import type { PilotStatus } from "@/lib/app-portal/customer-success/score-availability";
+import { resolveAppPortalAccessMessageKey } from "@/lib/app-portal/access-state-messages";
+import type { AppOrganizationContextState } from "@/lib/tenant/resolve-app-organization-context";
 
 type Props = {
   labels: CustomerHealthLabels;
@@ -164,6 +166,7 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
   const [data, setData] = useState<CustomerHealthWorkspaceResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [accessState, setAccessState] = useState<AppOrganizationContextState | null>(null);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [priority, setPriority] = useState("");
@@ -192,13 +195,18 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
     const res = await fetch(`/api/aipify/customer-health?${params}`);
     if (res.ok) {
       setData(parseCustomerHealthWorkspace(await res.json()));
+      setAccessState(null);
     } else {
-      const body = (await res.json()) as { error?: string };
-      setError(body.error ?? labels.errorBody);
+      const body = (await res.json()) as {
+        error?: string;
+        access_state?: AppOrganizationContextState;
+      };
+      setAccessState(body.access_state ?? "access_denied");
+      setError(body.error ?? labels.accessDenied);
       setData(null);
     }
     setLoading(false);
-  }, [category, priority, trendFilter, periodFrom, search, trendPeriod, labels.errorBody]);
+  }, [category, priority, trendFilter, periodFrom, search, trendPeriod, labels.accessDenied]);
 
   useEffect(() => {
     void load();
@@ -246,12 +254,31 @@ export function CustomerHealthPanel({ labels, locale }: Props) {
     );
   }
 
-  if (error || !data?.found) {
+  if (error && !data?.found) {
+    const messageKey = resolveAppPortalAccessMessageKey(accessState, error);
+    const description =
+      (labels[messageKey as keyof CustomerHealthLabels] as string | undefined) ??
+      labels.errorBody;
     return (
       <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
         <AppErrorState
           title={labels.errorTitle}
-          description={error || labels.errorBody}
+          description={description}
+          onRetry={() => void load()}
+          retryLabel={labels.retry}
+          returnHref={CUSTOMER_HEALTH_SUPPORT_HREF}
+          returnLabel={labels.backToSupport}
+        />
+      </div>
+    );
+  }
+
+  if (!data?.found) {
+    return (
+      <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
+        <AppErrorState
+          title={labels.errorTitle}
+          description={labels.noDataYet}
           onRetry={() => void load()}
           retryLabel={labels.retry}
           returnHref={CUSTOMER_HEALTH_SUPPORT_HREF}

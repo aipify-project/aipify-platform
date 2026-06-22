@@ -3,7 +3,10 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { AppErrorState } from "@/components/app/design";
 import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
+import { resolveAppPortalAccessMessageKey } from "@/lib/app-portal/access-state-messages";
+import type { AppOrganizationContextState } from "@/lib/tenant/resolve-app-organization-context";
 import {
   APP_STORE_CARD_STATUS_STYLE,
   parseAppStoreHome,
@@ -193,14 +196,27 @@ export function AppStoreHomePanel({
   const [home, setHome] = useState<AppStoreHome | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
+  const [loadError, setLoadError] = useState("");
+  const [accessState, setAccessState] = useState<AppOrganizationContextState | null>(null);
   const [activeTab, setActiveTab] = useState<SectionKey>(initialTab);
   const [removeTarget, setRemoveTarget] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
+    setLoadError("");
     const res = await fetch(`/api/app/store?locale=${encodeURIComponent(locale)}`);
-    if (res.ok) setHome(parseAppStoreHome(await res.json()));
-    else setHome(null);
+    if (res.ok) {
+      setHome(parseAppStoreHome(await res.json()));
+      setAccessState(null);
+    } else {
+      const body = (await res.json()) as {
+        error?: string;
+        access_state?: AppOrganizationContextState;
+      };
+      setAccessState(body.access_state ?? "access_denied");
+      setLoadError(body.error ?? "access_denied");
+      setHome(null);
+    }
     setLoading(false);
   }, [locale]);
 
@@ -239,6 +255,26 @@ export function AppStoreHomePanel({
       <div className="flex min-h-[320px] items-center justify-center">
         <AipifyLoader centered />
       </div>
+    );
+  }
+
+  if (loadError && !home) {
+    const messageKey = resolveAppPortalAccessMessageKey(accessState, loadError);
+    const description =
+      messageKey === "pageLoadError"
+        ? labels.loadErrorBody
+        : messageKey === "entitlementLocked"
+          ? labels.entitlementLocked
+          : messageKey === "permissionMissing"
+            ? labels.permissionMissing
+            : labels.loadErrorBody;
+    return (
+      <AppErrorState
+        title={labels.loadErrorTitle}
+        description={description}
+        onRetry={() => void load()}
+        retryLabel={labels.retry}
+      />
     );
   }
 

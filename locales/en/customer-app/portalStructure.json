@@ -3883,6 +3883,13 @@
       "breadcrumbSupport": "Support",
       "breadcrumbCustomerHealth": "Customer Health",
       "backToSupport": "Back to Support",
+      "accessDenied": "You do not have permission to access Customer Health.",
+      "organizationMissing": "Organization context is missing. Select or configure your workspace before using Customer Health.",
+      "subscriptionRequired": "This area requires an active organization subscription.",
+      "permissionMissing": "You do not have permission to access this area. Contact your organization administrator.",
+      "entitlementLocked": "This feature is not included in your organization's active Business Packs or plan.",
+      "pageLoadError": "This page could not be loaded. Try again shortly.",
+      "noDataYet": "No organization health data is available yet. Aipify will surface insights as your workspace becomes active.",
       "purposeSummary": {
         "healthy": "Your organization shows strong health across adoption, engagement, and utilization. Maintain momentum and address minor operational items as they arise.",
         "moderate": "Your organization is progressing with room to strengthen team engagement and capability utilization. Review the recommendations below for high-impact next steps.",
@@ -4508,6 +4515,14 @@
       "emptyBody": "Aipify brings your organization together in one unified executive experience.",
       "emptyCta": "Generate Executive Briefing",
       "accessDenied": "Command Center requires leadership authorization.",
+      "errorTitle": "Command Center unavailable",
+      "retry": "Try again",
+      "backToApp": "Back to APP",
+      "organizationMissing": "Organization context is missing. Select or configure your workspace before using Command Center.",
+      "subscriptionRequired": "This area requires an active organization subscription.",
+      "permissionMissing": "You do not have permission to access Command Center.",
+      "entitlementLocked": "This feature is not included in your organization's active Business Packs or plan.",
+      "pageLoadError": "This page could not be loaded. Try again shortly.",
       "filters": {
         "search": "Search command center insights…",
         "priority": "Priority",
@@ -6156,7 +6171,13 @@
         "feedback": {
           "removeFailed": "Could not remove integration. Try again.",
           "testFailed": "Connection test failed. Review setup and try again."
-        }
+        },
+        "duplicateWarningTitle": "Duplicate connection detected",
+        "duplicateWarningBody": "Multiple integrations appear to point to the same external endpoint. Aipify recommends keeping one canonical connection.",
+        "duplicateWarningPreferred": "Preferred connection",
+        "duplicateWarningCleanup": "Review each connection and remove duplicates after confirming which provider should remain.",
+        "activateIntegration": "Activate integration",
+        "deactivateIntegration": "Deactivate integration"
       },
       "providerNames": {
         "custom_api": "Custom API",
@@ -6243,6 +6264,9 @@
           "statusActive": "✅ Active",
           "statusReadOnly": "🔒 Read-only access",
           "statusAwaitingVerification": "⏳ Awaiting verification",
+          "statusVerified": "🛡️ Connected and verified",
+          "statusInactive": "ℹ️ Deactivated",
+          "deactivateCta": "Deactivate integration",
           "organizationLabel": "Organization",
           "accessTypeLabel": "Access type",
           "permissionsLabel": "Permissions",
@@ -6336,6 +6360,10 @@
         "credentialSaved": "ℹ️ Connection key saved securely",
         "verifiedReadOnly": "✅ Connected and verified",
         "active": "✅ Integration is active",
+        "inactive": "ℹ️ Deactivated",
+        "revoked": "❌ Revoked",
+        "removed": "Removed",
+        "notConfigured": "ℹ️ Not configured",
         "awaitingVerification": "⏳ Awaiting verification"
       },
       "wizard7Steps": {

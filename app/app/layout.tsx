@@ -6,6 +6,10 @@ import {
   getOrganizationBusinessPackActivationGates,
 } from "@/lib/business-pack-activation-gate";
 import { parseAppPortalFeatureAccess } from "@/lib/app-portal/parse";
+import {
+  filterFlatNavByAccess,
+  filterNavGroupsByAccess,
+} from "@/lib/app-portal/filter-nav-by-access";
 import type { AppNavGroupConfig } from "@/lib/app/build-nav";
 import DashboardShell from "@/components/dashboard/DashboardShell";
 import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfileProvider";
@@ -122,6 +126,11 @@ export default async function AppLayout({
           : item
       );
     }
+
+    navGroups = await filterNavGroupsByAccess(supabase, navGroups);
+    navConfig = filterFlatNavByAccess(navConfig, navGroups);
+    navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
+    mobileNavIds = mobileNavIds.filter((id) => navConfig.some((item) => item.id === id));
   } catch {
     // Fallback to static navigation when dynamic engine unavailable
   }

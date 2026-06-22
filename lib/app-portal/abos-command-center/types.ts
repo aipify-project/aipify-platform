@@ -113,6 +113,14 @@ export type AbosCommandCenterLabels = {
   emptyBody: string;
   emptyCta: string;
   accessDenied: string;
+  errorTitle: string;
+  retry: string;
+  backToApp: string;
+  organizationMissing: string;
+  subscriptionRequired: string;
+  permissionMissing: string;
+  entitlementLocked: string;
+  pageLoadError: string;
   filters: {
     search: string;
     priority: string;

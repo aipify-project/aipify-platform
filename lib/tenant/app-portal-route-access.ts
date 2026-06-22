@@ -77,7 +77,11 @@ export async function requireOrganizationViewPermission(
     return {
       ok: false,
       response: NextResponse.json(
-        { error: viewError.message, access_state, found: false },
+        {
+          error: appPortalStableErrorCode(access_state),
+          access_state,
+          found: false,
+        },
         { status: rpcErrorStatus(viewError.message, access_state) }
       ),
     };
@@ -94,7 +98,11 @@ export async function requireOrganizationViewPermission(
       return {
         ok: false,
         response: NextResponse.json(
-          { error: manageError.message, access_state, found: false },
+          {
+            error: appPortalStableErrorCode(access_state),
+            access_state,
+            found: false,
+          },
           { status: rpcErrorStatus(manageError.message, access_state) }
         ),
       };

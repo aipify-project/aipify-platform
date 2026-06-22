@@ -3158,6 +3158,16 @@
       "emptyBody": "Aipify helps organizations strengthen engagement and maximize long-term success.",
       "emptyCta": "Review Customer Health",
       "accessDenied": "You do not have permission to access Customer Health.",
+      "organizationMissing": "Brak kontekstu organizacji. Wybierz lub skonfiguruj obszar roboczy przed użyciem Customer Health.",
+      "subscriptionRequired": "Ten obszar wymaga aktywnej subskrypcji organizacji.",
+      "permissionMissing": "Nie masz uprawnień do tego obszaru. Skontaktuj się z administratorem organizacji.",
+      "entitlementLocked": "Ta funkcja nie jest objęta aktywnymi Business Packs ani planem organizacji.",
+      "pageLoadError": "Nie udało się załadować strony. Spróbuj ponownie za chwilę.",
+      "noDataYet": "Brak danych o zdrowiu organizacji. Aipify pokaże wnioski, gdy obszar roboczy stanie się aktywny.",
+      "errorTitle": "Customer Health niedostępne",
+      "errorBody": "Aipify nie mogło załadować danych o zdrowiu organizacji. Sprawdź uprawnienia i spróbuj ponownie.",
+      "retry": "Spróbuj ponownie",
+      "backToSupport": "Wróć do Support",
       "filters": {
         "search": "Search health insights…",
         "category": "Health category",
@@ -3577,6 +3587,14 @@
       "emptyBody": "Aipify brings your organization together in one unified executive experience.",
       "emptyCta": "Generate Executive Briefing",
       "accessDenied": "Command Center requires leadership authorization.",
+      "errorTitle": "Command Center niedostępne",
+      "retry": "Spróbuj ponownie",
+      "backToApp": "Wróć do APP",
+      "organizationMissing": "Brak kontekstu organizacji. Wybierz lub skonfiguruj obszar roboczy przed użyciem Command Center.",
+      "subscriptionRequired": "Ten obszar wymaga aktywnej subskrypcji organizacji.",
+      "permissionMissing": "Nie masz uprawnień do Command Center.",
+      "entitlementLocked": "Ta funkcja nie jest objęta aktywnymi Business Packs ani planem organizacji.",
+      "pageLoadError": "Nie udało się załadować strony. Spróbuj ponownie za chwilę.",
       "filters": {
         "search": "Search command center insights…",
         "priority": "Priority",
@@ -6346,7 +6364,13 @@
         "feedback": {
           "removeFailed": "Nie udało się usunąć integracji. Spróbuj ponownie.",
           "testFailed": "Test połączenia nie powiódł się. Sprawdź konfigurację i spróbuj ponownie."
-        }
+        },
+        "duplicateWarningTitle": "Wykryto zduplikowane połączenie",
+        "duplicateWarningBody": "Kilka integracji wskazuje na ten sam zewnętrzny endpoint. Aipify zaleca jedno kanoniczne połączenie.",
+        "duplicateWarningPreferred": "Preferowane połączenie",
+        "duplicateWarningCleanup": "Przejrzyj każde połączenie i usuń duplikaty po potwierdzeniu, który dostawca ma pozostać.",
+        "activateIntegration": "Aktywuj integrację",
+        "deactivateIntegration": "Dezaktywuj integrację"
       },
       "providerNames": {
         "custom_api": "Niestandardowe API",
@@ -6418,6 +6442,9 @@
           "statusActive": "✅ Aktywny",
           "statusReadOnly": "🔒 Dostęp tylko do odczytu",
           "statusAwaitingVerification": "⏳ Oczekuje na weryfikację",
+          "statusVerified": "🛡️ Połączono i zweryfikowano",
+          "statusInactive": "ℹ️ Dezaktywowana",
+          "deactivateCta": "Dezaktywuj integrację",
           "organizationLabel": "Organizacja",
           "accessTypeLabel": "Typ dostępu",
           "permissionsLabel": "Uprawnienia",
@@ -6490,6 +6517,10 @@
         "credentialSaved": "ℹ️ Klucz połączenia został bezpiecznie zapisany",
         "verifiedReadOnly": "✅ Połączono i zweryfikowano",
         "active": "✅ Integracja jest aktywna",
+        "inactive": "ℹ️ Dezaktywowana",
+        "revoked": "❌ Cofnięta",
+        "removed": "Usunięta",
+        "notConfigured": "ℹ️ Nie skonfigurowana",
         "awaitingVerification": "⏳ Oczekuje na weryfikację"
       },
       "wizard7Steps": {

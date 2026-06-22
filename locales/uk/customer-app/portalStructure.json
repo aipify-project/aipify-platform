@@ -3158,6 +3158,16 @@
       "emptyBody": "Aipify helps organizations strengthen engagement and maximize long-term success.",
       "emptyCta": "Review Customer Health",
       "accessDenied": "You do not have permission to access Customer Health.",
+      "organizationMissing": "Відсутній контекст організації. Оберіть або налаштуйте робочий простір перед використанням Customer Health.",
+      "subscriptionRequired": "Ця область потребує активної підписки організації.",
+      "permissionMissing": "У вас немає дозволу на доступ до цієї області. Зверніться до адміністратора організації.",
+      "entitlementLocked": "Ця функція не входить до активних Business Packs або плану вашої організації.",
+      "pageLoadError": "Сторінку не вдалося завантажити. Спробуйте ще раз незабаром.",
+      "noDataYet": "Дані про здоров'я організації ще недоступні. Aipify покаже інсайти, коли робочий простір стане активним.",
+      "errorTitle": "Customer Health недоступний",
+      "errorBody": "Aipify не вдалося завантажити дані про здоров'я організації. Перевірте дозволи та спробуйте знову.",
+      "retry": "Спробувати знову",
+      "backToSupport": "Назад до Support",
       "filters": {
         "search": "Search health insights…",
         "category": "Health category",
@@ -3577,6 +3587,14 @@
       "emptyBody": "Aipify brings your organization together in one unified executive experience.",
       "emptyCta": "Generate Executive Briefing",
       "accessDenied": "Command Center requires leadership authorization.",
+      "errorTitle": "Command Center недоступний",
+      "retry": "Спробувати знову",
+      "backToApp": "Назад до APP",
+      "organizationMissing": "Відсутній контекст організації. Оберіть або налаштуйте робочий простір перед використанням Command Center.",
+      "subscriptionRequired": "Ця область потребує активної підписки організації.",
+      "permissionMissing": "У вас немає дозволу на доступ до Command Center.",
+      "entitlementLocked": "Ця функція не входить до активних Business Packs або плану вашої організації.",
+      "pageLoadError": "Сторінку не вдалося завантажити. Спробуйте ще раз незабаром.",
       "filters": {
         "search": "Search command center insights…",
         "priority": "Priority",
@@ -6346,7 +6364,13 @@
         "feedback": {
           "removeFailed": "Не вдалося видалити інтеграцію. Спробуйте ще раз.",
           "testFailed": "Тест підключення не вдався. Перевірте налаштування та спробуйте знову."
-        }
+        },
+        "duplicateWarningTitle": "Виявлено дубльоване підключення",
+        "duplicateWarningBody": "Кілька інтеграцій, схоже, вказують на ту саму зовнішню кінцеву точку. Aipify рекомендує одне канонічне підключення.",
+        "duplicateWarningPreferred": "Рекомендоване підключення",
+        "duplicateWarningCleanup": "Перегляньте кожне підключення та видаліть дублікати після підтвердження, який постачальник має залишитися.",
+        "activateIntegration": "Активувати інтеграцію",
+        "deactivateIntegration": "Деактивувати інтеграцію"
       },
       "providerNames": {
         "custom_api": "Користувацьке API",
@@ -6418,6 +6442,9 @@
           "statusActive": "✅ Активно",
           "statusReadOnly": "🔒 Доступ лише для читання",
           "statusAwaitingVerification": "⏳ Очікує перевірки",
+          "statusVerified": "🛡️ Підключено та перевірено",
+          "statusInactive": "ℹ️ Деактивовано",
+          "deactivateCta": "Деактивувати інтеграцію",
           "organizationLabel": "Організація",
           "accessTypeLabel": "Тип доступу",
           "permissionsLabel": "Дозволи",
@@ -6490,6 +6517,10 @@
         "credentialSaved": "ℹ️ Ключ підключення збережено безпечно",
         "verifiedReadOnly": "✅ Підключено та перевірено",
         "active": "✅ Інтеграція активна",
+        "inactive": "ℹ️ Деактивовано",
+        "revoked": "❌ Відкликано",
+        "removed": "Видалено",
+        "notConfigured": "ℹ️ Не налаштовано",
         "awaitingVerification": "⏳ Очікує перевірки"
       },
       "wizard7Steps": {

@@ -400,7 +400,13 @@
         "feedback": {
           "removeFailed": "Integrationen kunde inte tas bort. Försök igen.",
           "testFailed": "Anslutningstestet misslyckades. Granska inställningen och försök igen."
-        }
+        },
+        "duplicateWarningTitle": "Dubbel anslutning upptäckt",
+        "duplicateWarningBody": "Flera integrationer verkar peka mot samma externa slutpunkt. Aipify rekommenderar en kanonisk anslutning.",
+        "duplicateWarningPreferred": "Föredragen anslutning",
+        "duplicateWarningCleanup": "Granska varje anslutning och ta bort dubbletter efter att du bekräftat vilken leverantör som ska behållas.",
+        "activateIntegration": "Aktivera integrationen",
+        "deactivateIntegration": "Inaktivera integrationen"
       },
       "providerNames": {
         "custom_api": "Anpassat API",
@@ -487,6 +493,9 @@
           "statusActive": "✅ Aktiv",
           "statusReadOnly": "🔒 Skrivskyddad åtkomst",
           "statusAwaitingVerification": "⏳ Väntar på verifiering",
+          "statusVerified": "🛡️ Ansluten och verifierad",
+          "statusInactive": "ℹ️ Inaktiverad",
+          "deactivateCta": "Inaktivera integrationen",
           "organizationLabel": "Organisation",
           "accessTypeLabel": "Åtkomsttyp",
           "permissionsLabel": "Behörigheter",
@@ -581,6 +590,10 @@
         "credentialSaved": "ℹ️ Anslutningsnyckeln har sparats säkert",
         "verifiedReadOnly": "✅ Ansluten och verifierad",
         "active": "✅ Integrationen är aktiv",
+        "inactive": "ℹ️ Inaktiverad",
+        "revoked": "❌ Återkallad",
+        "removed": "Borttagen",
+        "notConfigured": "ℹ️ Inte konfigurerad",
         "awaitingVerification": "⏳ Väntar på verifiering"
       },
       "wizard7Steps": {
@@ -4362,6 +4375,13 @@
       "breadcrumbSupport": "Support",
       "breadcrumbCustomerHealth": "Kundhälsa",
       "backToSupport": "Tillbaka till Support",
+      "accessDenied": "Du har inte behörighet att öppna Kundhälsa.",
+      "organizationMissing": "Organisationskontext saknas. Välj eller konfigurera arbetsytan innan du använder Kundhälsa.",
+      "subscriptionRequired": "Detta område kräver en aktiv organisationsprenumeration.",
+      "permissionMissing": "Du har inte behörighet till detta område. Kontakta organisationens administratör.",
+      "entitlementLocked": "Den här funktionen ingår inte i organisationens aktiva Business Packs eller abonnemang.",
+      "pageLoadError": "Sidan kunde inte laddas. Försök igen om en stund.",
+      "noDataYet": "Ingen organisationshälsodata finns ännu. Aipify visar insikter när arbetsytan blir aktiv.",
       "purposeSummary": {
         "healthy": "Er organisation visar stark hälsa inom adoption, engagemang och utnyttjande.",
         "moderate": "Er organisation gör framsteg men kan stärka teamengagemang.",
@@ -4986,7 +5006,15 @@
       "emptyTitle": "No command center insights are available yet.",
       "emptyBody": "Aipify brings your organization together in one unified executive experience.",
       "emptyCta": "Generate Executive Briefing",
-      "accessDenied": "Command Center requires leadership authorization.",
+      "accessDenied": "Command Center kräver ledningsbehörighet.",
+      "errorTitle": "Command Center är inte tillgängligt",
+      "retry": "Försök igen",
+      "backToApp": "Tillbaka till APP",
+      "organizationMissing": "Organisationskontext saknas. Välj eller konfigurera arbetsytan innan du använder Command Center.",
+      "subscriptionRequired": "Detta område kräver en aktiv organisationsprenumeration.",
+      "permissionMissing": "Du har inte behörighet till Command Center.",
+      "entitlementLocked": "Den här funktionen ingår inte i organisationens aktiva Business Packs eller abonnemang.",
+      "pageLoadError": "Sidan kunde inte laddas. Försök igen om en stund.",
       "filters": {
         "search": "Search command center insights…",
         "priority": "Priority",

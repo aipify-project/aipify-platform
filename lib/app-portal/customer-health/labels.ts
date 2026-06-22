@@ -29,6 +29,13 @@ export function buildCustomerHealthLabels(t: Translator): CustomerHealthLabels {
     emptyAction: t(`${p}.emptyAction`),
     errorTitle: t(`${p}.errorTitle`),
     errorBody: t(`${p}.errorBody`),
+    accessDenied: t(`${p}.accessDenied`),
+    organizationMissing: t(`${p}.organizationMissing`),
+    subscriptionRequired: t(`${p}.subscriptionRequired`),
+    permissionMissing: t(`${p}.permissionMissing`),
+    entitlementLocked: t(`${p}.entitlementLocked`),
+    pageLoadError: t(`${p}.pageLoadError`),
+    noDataYet: t(`${p}.noDataYet`),
     retry: t(`${p}.retry`),
     sections: {
       overview: t(`${p}.sections.overview`),

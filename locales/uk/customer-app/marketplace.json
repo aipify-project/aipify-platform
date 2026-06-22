@@ -1,1 +1,13 @@
-{}
+{
+  "appStore": {
+    "emptyTitle": "У цьому розділі немає Business Packs",
+    "emptyDescription": "Перегляньте Marketplace, щоб знайти операційні пакети для вашої організації.",
+    "catalogPendingTitle": "Business Packs ще недоступні",
+    "catalogPendingDescription": "Опубліковані пропозиції Business Packs з’являться тут після активації каталогу для вашої організації.",
+    "loadErrorTitle": "Сторінку не вдалося завантажити",
+    "loadErrorBody": "Aipify не вдалося завантажити доступні Business Packs. Спробуйте ще раз незабаром.",
+    "retry": "Спробувати знову",
+    "entitlementLocked": "Ця функція не входить до вашої підписки.",
+    "permissionMissing": "У вас немає дозволу на перегляд доступних Business Packs."
+  }
+}
