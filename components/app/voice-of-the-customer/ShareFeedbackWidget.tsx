@@ -1,5 +1,6 @@
 "use client";
 
+import { AipifySidebarTypography } from "@/lib/design";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
@@ -95,10 +96,10 @@ export function ShareFeedbackWidget({ labels }: ShareFeedbackWidgetProps) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="fixed bottom-20 left-4 z-40 flex items-center gap-2 rounded-full border border-indigo-200 bg-white px-4 py-2.5 text-sm font-medium text-indigo-700 shadow-md transition hover:bg-indigo-50 lg:bottom-6"
+        className={`fixed bottom-20 left-4 z-40 flex min-h-12 items-center gap-2.5 rounded-full border border-aipify-accent-muted bg-aipify-surface px-5 py-3 ${AipifySidebarTypography.feedbackButton} text-aipify-companion shadow-md transition hover:bg-aipify-accent-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2 lg:bottom-6`}
         aria-label={labels.trigger}
       >
-        <span aria-hidden className="text-base">
+        <span aria-hidden className="text-xl leading-none">
           💡
         </span>
         {labels.triggerShort}

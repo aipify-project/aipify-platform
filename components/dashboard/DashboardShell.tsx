@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AipifyShellClasses } from "@/lib/design";
+import { AipifyShellClasses, AipifySidebarTypography } from "@/lib/design";
 import { useEffect, useMemo, useState } from "react";
 import { usePlatformProfile } from "@/components/platform/PlatformProfileProvider";
 import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
@@ -546,15 +546,21 @@ function DashboardShellFrame({
                 <Link
                   key={item.id}
                   href={item.href}
-                  className={`flex flex-col items-center gap-1 rounded-lg px-3 py-2 text-xs font-medium transition ${
-                    isActive ? "text-aipify-companion" : "text-aipify-text-secondary"
+                  className={`flex min-h-12 min-w-[4.5rem] flex-col items-center justify-center gap-1 rounded-lg px-3 py-2 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus ${
+                    isActive
+                      ? `font-semibold text-aipify-companion ${AipifySidebarTypography.mobileNavItem}`
+                      : `text-aipify-text-secondary ${AipifySidebarTypography.mobileNavItem}`
                   }`}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  <span className={isActive ? "text-aipify-companion" : "text-aipify-text-muted"}>
+                  <span
+                    className={`${AipifySidebarTypography.navIcon} ${
+                      isActive ? "text-aipify-companion" : "text-aipify-text-secondary"
+                    }`}
+                  >
                     {item.icon}
                   </span>
-                  <span className="max-w-[4.5rem] truncate">{item.label}</span>
+                  <span className="max-w-[5rem] truncate text-center">{item.label}</span>
                 </Link>
               );
             })}

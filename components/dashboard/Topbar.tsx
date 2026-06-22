@@ -1,4 +1,4 @@
-import { AipifyShellClasses } from "@/lib/design";
+import { AipifyShellClasses, AipifySidebarTypography } from "@/lib/design";
 import TopbarPresenceSlot from "./TopbarPresenceSlot";
 import TopbarProfileMenu from "./TopbarProfileMenu";
 import TopbarNotificationButton from "./TopbarNotificationButton";
@@ -95,10 +95,10 @@ export default function Topbar({
               type="button"
               onClick={onCommandBarClick}
               aria-label={commandBarOpenLabel ?? commandBarPlaceholder ?? "Open command bar"}
-              className={`flex w-full items-center gap-2 rounded-xl border border-aipify-border bg-aipify-surface-muted py-2.5 pl-10 pr-3 text-left text-sm text-aipify-text-muted transition hover:border-aipify-accent-muted hover:bg-aipify-surface focus:border-aipify-accent focus:bg-aipify-surface focus:outline-none focus:ring-2 focus:ring-aipify-focus`}
+              className={`flex w-full min-h-12 items-center gap-2 rounded-xl border border-aipify-border bg-aipify-surface-muted py-3 pl-10 pr-3 text-left ${AipifySidebarTypography.searchInput} transition hover:border-aipify-accent-muted hover:bg-aipify-surface focus:border-aipify-accent focus:bg-aipify-surface focus:outline-none focus:ring-2 focus:ring-aipify-focus`}
             >
               <svg
-                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+                className="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2 text-aipify-text-secondary"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
@@ -119,7 +119,7 @@ export default function Topbar({
           ) : (
             <>
               <svg
-                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
+                className="pointer-events-none absolute left-3 top-1/2 size-5 -translate-y-1/2 text-aipify-text-secondary"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
@@ -138,7 +138,7 @@ export default function Topbar({
                 value={searchQuery}
                 onChange={(event) => onSearchChange?.(event.target.value)}
                 placeholder={searchPlaceholder}
-                className={`w-full rounded-xl border border-aipify-border bg-aipify-surface-muted py-2.5 pl-10 pr-4 text-sm text-aipify-text placeholder:text-aipify-text-muted transition focus:border-aipify-accent focus:bg-aipify-surface focus:outline-none focus:ring-2 focus:ring-aipify-focus`}
+                className={`w-full min-h-12 rounded-xl border border-aipify-border bg-aipify-surface-muted py-3 pl-10 pr-4 ${AipifySidebarTypography.searchInput} transition focus:border-aipify-accent focus:bg-aipify-surface focus:outline-none focus:ring-2 focus:ring-aipify-focus`}
               />
             </>
           )}

@@ -18,7 +18,7 @@ type SidebarProps = {
   activeAccent?: "default" | "soft";
 };
 
-import { AipifyNavClasses } from "@/lib/design";
+import { AipifyNavClasses, AipifySidebarTypography } from "@/lib/design";
 
 const ACTIVE_ACCENT_CLASSES = {
   default: AipifyNavClasses.itemActive,
@@ -41,14 +41,18 @@ export default function Sidebar({
             key={item.id}
             href={item.href}
             onClick={onNavigate}
-            className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition ${
+            className={`${AipifySidebarTypography.navItemRow} ${
               isActive
-                ? ACTIVE_ACCENT_CLASSES[activeAccent]
-                : AipifyNavClasses.item
+                ? `${ACTIVE_ACCENT_CLASSES[activeAccent]} ${AipifySidebarTypography.navigationItemActive}`
+                : `${AipifyNavClasses.item} ${AipifySidebarTypography.navigationItem}`
             }`}
             aria-current={isActive ? "page" : undefined}
           >
-            <span className={isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon}>
+            <span
+              className={`${AipifySidebarTypography.navIcon} ${
+                isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon
+              }`}
+            >
               {item.icon}
             </span>
             {item.label}

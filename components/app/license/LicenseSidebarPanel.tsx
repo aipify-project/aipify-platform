@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { AipifySidebarTypography } from "@/lib/design";
 import { AipifyPulse } from "@/components/branding";
 import { AIPIFY_BRAND } from "@/lib/branding/tokens";
 import { formatSoftwareVersion } from "@/lib/license";
@@ -166,39 +167,45 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
   return (
     <Link
       href={licenseHref}
-      className="relative mx-4 mb-4 block shrink-0 rounded-xl border border-gray-100 bg-gray-50/80 px-3 py-3 transition hover:border-violet-200 hover:bg-violet-50/40"
+      className="relative mx-4 mb-4 block shrink-0 rounded-xl border border-aipify-border bg-aipify-surface-muted px-4 py-4 transition hover:border-aipify-accent-muted hover:bg-aipify-accent-soft/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2"
       aria-label={labels.poweredBy}
     >
-      <div className="flex items-start gap-2.5">
+      <div className="flex items-start gap-3">
         <AipifyPulse
           size={sidebarMark.pulseSize}
           variant="mono"
           opacity={sidebarMark.pulseOpacity}
           title={labels.pulseLabel}
           aria-label={labels.pulseLabel}
-          className="mt-0.5 shrink-0 text-violet-600/80"
+          className="mt-1 shrink-0 text-aipify-companion"
         />
-        <div className="min-w-0 text-[11px] leading-snug text-gray-600">
-          <p className="truncate" title={`${labels.workspace} ${workspaceDisplay}`}>
-            <span className="text-gray-500">{labels.workspace}</span> {workspaceDisplay}
+        <div className={`min-w-0 space-y-1.5 ${AipifySidebarTypography.workspaceSummary}`}>
+          <p className="line-clamp-2" title={`${labels.workspace} ${workspaceDisplay}`}>
+            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.workspace}</span>{" "}
+            <span className={AipifySidebarTypography.workspaceSummaryValue}>{workspaceDisplay}</span>
           </p>
-          <p className="mt-1 truncate" title={`${labels.licensedTo} ${licensedToDisplay}`}>
-            <span className="text-gray-500">{labels.licensedTo}</span> {licensedToDisplay}
+          <p className="line-clamp-2" title={`${labels.licensedTo} ${licensedToDisplay}`}>
+            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.licensedTo}</span>{" "}
+            <span className={AipifySidebarTypography.workspaceSummaryValue}>{licensedToDisplay}</span>
           </p>
-          <p className="truncate" title={`${labels.plan} ${planDisplay}`}>
-            <span className="text-gray-500">{labels.plan}</span> {planDisplay}
+          <p className="line-clamp-2" title={`${labels.plan} ${planDisplay}`}>
+            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.plan}</span>{" "}
+            <span className={AipifySidebarTypography.workspaceSummaryValue}>{planDisplay}</span>
           </p>
           <p title={`${labels.status} ${statusLabel}`}>
-            <span className="text-gray-500">{labels.status}</span> {statusLabel}
+            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.status}</span>{" "}
+            <span className={AipifySidebarTypography.workspaceSummaryValue}>{statusLabel}</span>
           </p>
           <p>
-            <span className="text-gray-500">{labels.version}</span>{" "}
-            {formatSoftwareVersion(summary?.software_version ?? "1.0.0")}
+            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.version}</span>{" "}
+            <span className={AipifySidebarTypography.workspaceSummaryValue}>
+              {formatSoftwareVersion(summary?.software_version ?? "1.0.0")}
+            </span>
           </p>
-          <p className="mt-2 font-medium text-gray-700">
+          <p className={`pt-1 ${AipifySidebarTypography.workspaceSummaryFooter}`}>
             {labels.poweredBy} Aipify™
           </p>
-          <p className="mt-1 text-[10px] text-gray-400">{labels.copyright}</p>
+          <p className={AipifySidebarTypography.workspaceSummaryCopyright}>{labels.copyright}</p>
         </div>
       </div>
     </Link>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { AipifyNavClasses } from "@/lib/design";
+import { AipifyNavClasses, AipifySidebarTypography } from "@/lib/design";
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   APP_NAV_COMPACT_STORAGE_KEY,
@@ -88,7 +88,7 @@ function createStorageHelpers(mode: "customer" | "platform") {
 function ChevronIcon({ open }: { open: boolean }) {
   return (
     <svg
-      className="h-3 w-3 shrink-0 text-gray-400"
+      className={AipifySidebarTypography.chevron}
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={2}
@@ -125,14 +125,18 @@ function NavLinkRow({
       prefetch={prefetch}
       onClick={onNavigate}
       title={item.accessHint ? `${item.label} — ${item.accessHint}` : item.label}
-      className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium transition ${
+      className={`${AipifySidebarTypography.navItemRow} ${
         isActive
-          ? ACTIVE_ACCENT_CLASSES[activeAccent]
-          : AipifyNavClasses.item
+          ? `${ACTIVE_ACCENT_CLASSES[activeAccent]} ${AipifySidebarTypography.navigationItemActive}`
+          : `${AipifyNavClasses.item} ${AipifySidebarTypography.navigationItem}`
       } ${compact ? "justify-center px-2" : ""}`}
       aria-current={isActive ? "page" : undefined}
     >
-      <span className={isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon}>
+      <span
+        className={`${AipifySidebarTypography.navIcon} ${
+          isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon
+        }`}
+      >
         {item.icon}
       </span>
       {!compact ? (
@@ -142,7 +146,7 @@ function NavLinkRow({
             {item.label}
           </span>
           {item.accessHint ? (
-            <span className="mt-0.5 block truncate text-[11px] font-normal text-amber-700">
+            <span className={`mt-0.5 block truncate ${AipifySidebarTypography.accessHint}`}>
               {item.accessHint}
             </span>
           ) : null}
@@ -182,28 +186,38 @@ function SearchResultRow({
       href={item.href}
       onClick={onNavigate}
       title={item.label}
-      className={`flex w-full items-start gap-3 rounded-xl px-3 py-2.5 text-left transition ${
+      className={`${AipifySidebarTypography.navItemRow} items-start ${
         isActive
-          ? AipifyNavClasses.itemActive
-          : `${AipifyNavClasses.item} text-aipify-text`
+          ? `${AipifyNavClasses.itemActive} ${AipifySidebarTypography.navigationItemActive}`
+          : `${AipifyNavClasses.item} ${AipifySidebarTypography.navigationItem}`
       }`}
       aria-current={isActive ? "page" : undefined}
     >
-      <span className={`mt-0.5 shrink-0 ${isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon}`}>
+      <span
+        className={`mt-0.5 ${AipifySidebarTypography.navIcon} ${
+          isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon
+        }`}
+      >
         {icon}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-sm font-medium">{item.label}</span>
         <span
-          className={`mt-0.5 block truncate text-[11px] ${
-            isActive ? "text-white/80" : "text-gray-400"
+          className={`block truncate ${
+            isActive ? AipifySidebarTypography.navigationItemActive : AipifySidebarTypography.searchMenuRow
+          }`}
+        >
+          {item.label}
+        </span>
+        <span
+          className={`mt-0.5 block truncate ${
+            isActive ? "text-base font-medium text-white/90" : AipifySidebarTypography.searchMenuGroup
           }`}
         >
           {item.groupLabel}
         </span>
         <span
-          className={`mt-1 block text-xs leading-snug ${
-            isActive ? "text-white/90" : "text-gray-500"
+          className={`mt-1 block ${
+            isActive ? "text-base leading-[1.4] text-white/90" : AipifySidebarTypography.searchMenuDescription
           }`}
         >
           {item.description}
@@ -345,18 +359,18 @@ export default function GroupedSidebar({
     <div className={`flex flex-col gap-2 ${className}`}>
       <div className={`flex items-center ${compact ? "justify-center" : "justify-between"} gap-2 px-1`}>
         {!compact && keyboardHint ? (
-          <p className="truncate text-[10px] font-medium uppercase tracking-wide text-gray-400" title={keyboardHint}>
+          <p className={`truncate ${AipifySidebarTypography.keyboardHint}`} title={keyboardHint}>
             {keyboardHint}
           </p>
         ) : null}
         <button
           type="button"
           onClick={toggleCompact}
-          className="rounded-lg p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-gray-600"
+          className={AipifySidebarTypography.compactToggle}
           aria-label={compactToggleLabel}
           title={compactToggleLabel}
         >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+          <svg className="size-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
             {compact ? (
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H16.5" />
             ) : (
@@ -370,12 +384,14 @@ export default function GroupedSidebar({
         {isSearching ? (
           <div className="space-y-1">
             {!compact ? (
-              <p className="px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-gray-400">
+              <p className={`px-3 py-1 ${AipifySidebarTypography.sectionLabel}`}>
                 {searchResultsLabel}
               </p>
             ) : null}
             {searchResults.length === 0 ? (
-              <p className="px-3 py-2 text-sm text-gray-500">{noSearchResultsLabel}</p>
+              <p className={`px-3 py-2 ${AipifySidebarTypography.subNavigationItem}`}>
+                {noSearchResultsLabel}
+              </p>
             ) : (
               searchResults.map((item) => (
                 <SearchResultRow
@@ -397,17 +413,14 @@ export default function GroupedSidebar({
               <div key={group.id} className="space-y-1">
                 {!compact ? (
                   isFixed ? (
-                    <p
-                      className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-gray-400"
-                      title={group.label}
-                    >
+                    <p className={`px-3 py-2 ${AipifySidebarTypography.sectionLabel}`} title={group.label}>
                       {group.label}
                     </p>
                   ) : (
                     <button
                       type="button"
                       onClick={() => toggleGroup(group.id)}
-                      className="flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-[11px] font-semibold uppercase tracking-wide text-gray-400 transition hover:bg-gray-50 hover:text-gray-600"
+                      className={`flex min-h-12 w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left ${AipifySidebarTypography.sectionLabelButton} focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2`}
                       aria-expanded={isExpanded}
                     >
                       <span className="truncate" title={group.label}>

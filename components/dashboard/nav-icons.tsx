@@ -1,5 +1,5 @@
 export function getNavIcon(id: string) {
-  const className = "h-5 w-5";
+  const className = "h-[21px] w-[21px]";
 
   switch (id) {
     case "executive":

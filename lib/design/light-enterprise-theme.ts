@@ -93,10 +93,45 @@ export const AipifyMarketingClasses = {
 
 export const AipifyNavClasses = {
   item: "text-aipify-text-secondary hover:bg-aipify-surface-muted hover:text-aipify-text",
-  itemIcon: "text-aipify-text-muted",
+  itemIcon: "text-aipify-text-secondary",
   itemActive: "bg-aipify-companion text-white shadow-sm",
   itemActiveIcon: "text-white",
-  groupLabel: "text-aipify-text-muted hover:bg-aipify-surface-muted hover:text-aipify-text-secondary",
+  groupLabel: "text-aipify-text-secondary hover:bg-aipify-surface-muted hover:text-aipify-text",
+} as const;
+
+/**
+ * APP sidebar typography — shared accessibility scale for all customer workspaces.
+ * Use these tokens instead of ad-hoc text-xs/text-sm on navigation surfaces.
+ */
+export const AipifySidebarTypography = {
+  workspaceTitle: "text-xl font-bold leading-tight text-aipify-text",
+  workspaceDescription: "text-base font-medium leading-[1.4] text-aipify-text-secondary line-clamp-2",
+  searchMenuRow: "text-base font-medium leading-snug text-aipify-text",
+  searchMenuGroup: "text-[15px] font-medium leading-snug text-aipify-text-secondary",
+  searchMenuDescription: "text-base leading-[1.4] text-aipify-text-secondary",
+  sectionLabel:
+    "text-[15px] font-bold uppercase tracking-[0.06em] text-aipify-text-secondary",
+  sectionLabelButton:
+    "text-[15px] font-bold uppercase tracking-[0.06em] text-aipify-text-secondary transition hover:bg-aipify-surface-muted hover:text-aipify-text",
+  navigationItem:
+    "text-base font-semibold leading-[1.4] text-aipify-text-secondary",
+  navigationItemActive: "text-[17px] font-semibold leading-[1.4] text-white",
+  subNavigationItem: "text-base font-medium leading-[1.4] text-aipify-text-secondary",
+  accessHint: "text-[15px] font-normal leading-[1.4] text-amber-800",
+  workspaceSummary: "text-base leading-[1.5] text-aipify-text-secondary",
+  workspaceSummaryLabel: "font-semibold text-aipify-text-secondary",
+  workspaceSummaryValue: "font-medium text-aipify-text",
+  workspaceSummaryFooter: "text-base font-semibold leading-[1.45] text-aipify-text",
+  workspaceSummaryCopyright: "text-sm leading-[1.45] text-aipify-text-secondary",
+  feedbackButton: "text-[17px] font-semibold leading-none",
+  keyboardHint: "text-sm font-semibold uppercase tracking-wide text-aipify-text-secondary",
+  searchInput: "text-base text-aipify-text placeholder:text-aipify-text-secondary",
+  mobileNavItem: "text-sm font-semibold leading-tight sm:text-base",
+  navItemRow:
+    "flex w-full min-h-12 items-center gap-3 rounded-xl px-3 py-3 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2",
+  navIcon: "size-[21px] shrink-0",
+  chevron: "size-5 shrink-0 text-aipify-text-secondary",
+  compactToggle: "rounded-lg p-2 text-aipify-text-secondary transition hover:bg-aipify-surface-muted hover:text-aipify-text focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus",
 } as const;
 
 /** Surfaces that must NOT use pure #FFFFFF as page background */
