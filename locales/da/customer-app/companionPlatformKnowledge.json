@@ -337,6 +337,51 @@
         "print_output": "print printere jobs"
       }
     },
+    "commerce": {
+      "sourceLabel": "Commerce provider-katalog",
+      "discoveryLead": "Aipify kortlagde {provider} i commerce provider-kataloget — status: {status}.",
+      "discoveryExplanation": "Capabilities nedenfor kommer fra registrerede provider-manifest. Import, publicering og prisændringer kræver eksplicit godkendelse.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Platformforbindelse er forberedt eller verificeret for din organisation.",
+      "disconnectedProvider": "Provider runtime-adapter er ikke tilsluttet — kun styret opdagelse.",
+      "unavailableLead": "Ingen commerce provider matchede denne anmodning for din organisation.",
+      "unavailableExplanation": "Commerce-capabilities opdages fra registrerede manifest — ingen matchede dette spørgsmål.",
+      "externalUnavailableLead": "Eksterne commerce-adaptere er ikke tilsluttet for din organisation.",
+      "externalUnavailableExplanation": "Ingen live Shopify-, WooCommerce- eller WordPress-adapter er registreret. Aipify udfører ikke betaling, refusion eller sletning i Companion runtime.",
+      "blockedOperationLead": "Denne commerce-handling er ikke tilgængelig i Companion runtime.",
+      "blockedOperationExplanation": "Betaling, refusion, ordreannullering og sletning er blokeret i denne fase. Aipify kan forberede og anbefale — du beslutter og godkender reversible skrivninger.",
+      "permissionDenied": "Din rolle kan ikke få adgang til commerce provider-kataloget.",
+      "entitlementBlocked": "Commerce-capabilities er utilgængelige mens organisationens abonnement er sat på pause.",
+      "privacyNote": "Metadata-først commerce-intelligens — kunde-PII og betalingsdata eksponeres aldrig i Companion runtime.",
+      "policyNote": "Produktimport, publicering, oversættelse, SEO-generering og prisændringer kræver eksplicit godkendelse og commerce.manage-tilladelse.",
+      "openCommerceCenter": "Åbn commerce-center",
+      "operation": { "read": "læs", "write": "skriv" },
+      "status": {
+        "connected": "tilsluttet",
+        "implemented_disconnected": "implementeret men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun specifikation",
+        "placeholder": "pladsholder"
+      },
+      "providers": {
+        "commerce_retail_operations": "Commerce & Retail Operations",
+        "commerce_intelligence": "Commerce Intelligence",
+        "product_automation": "Product Automation",
+        "multi_store_orchestration": "Multi-Store Orchestration",
+        "shopify": "Shopify",
+        "woocommerce": "WooCommerce",
+        "wordpress": "WordPress"
+      },
+      "searchTerms": {
+        "commerce_retail_operations": "commerce retail butikker produkter ordrer kunder leverandører",
+        "commerce_intelligence": "produktintelligens margin trends muligheder opdagelse",
+        "product_automation": "produktimport oversættelse seo indhold publicering automatisering",
+        "multi_store_orchestration": "multi store portefølje orkestrering storefront",
+        "shopify": "shopify butik produkter ordrer lager",
+        "woocommerce": "woocommerce butik produkter ordrer lager",
+        "wordpress": "wordpress cms indhold kategorier publicering"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

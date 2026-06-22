@@ -343,6 +343,54 @@
         "print_output": "skriv ut skrivere jobber output"
       }
     },
+    "commerce": {
+      "sourceLabel": "Commerce provider-katalog",
+      "discoveryLead": "Aipify kartla {provider} i commerce provider-katalogen — status: {status}.",
+      "discoveryExplanation": "Capabilities nedenfor kommer fra registrerte provider-manifest. Import, publisering og prisendringer krever eksplisitt godkjenning.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Plattformtilkobling er forberedt eller verifisert for organisasjonen din.",
+      "disconnectedProvider": "Provider runtime-adapter er ikke tilkoblet — kun styrt oppdagelse.",
+      "unavailableLead": "Ingen commerce provider matchet denne forespørselen for organisasjonen din.",
+      "unavailableExplanation": "Commerce-capabilities oppdages fra registrerte manifest — ingen matchet dette spørsmålet.",
+      "externalUnavailableLead": "Eksterne commerce-adaptere er ikke tilkoblet for organisasjonen din.",
+      "externalUnavailableExplanation": "Ingen live Shopify-, WooCommerce- eller WordPress-adapter er registrert. Aipify utfører ikke betaling, refusjon eller sletting i Companion runtime.",
+      "blockedOperationLead": "Denne commerce-operasjonen er ikke tilgjengelig i Companion runtime.",
+      "blockedOperationExplanation": "Betaling, refusjon, ordreannullering og sletting er blokkert i denne fasen. Aipify kan forberede og anbefale — du bestemmer og godkjenner reversible skrivinger.",
+      "permissionDenied": "Rollen din har ikke tilgang til commerce provider-katalogen.",
+      "entitlementBlocked": "Commerce-capabilities er utilgjengelige mens organisasjonens abonnement er pauset.",
+      "privacyNote": "Metadata-først commerce-intelligens — kunde-PII og betalingsdata eksponeres aldri i Companion runtime.",
+      "policyNote": "Produktimport, publisering, oversettelse, SEO-generering og prisendringer krever eksplisitt godkjenning og commerce.manage-tillatelse.",
+      "openCommerceCenter": "Åpne commerce-senter",
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
+      "status": {
+        "connected": "tilkoblet",
+        "implemented_disconnected": "implementert men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun spesifikasjon",
+        "placeholder": "plassholder"
+      },
+      "providers": {
+        "commerce_retail_operations": "Commerce & Retail Operations",
+        "commerce_intelligence": "Commerce Intelligence",
+        "product_automation": "Product Automation",
+        "multi_store_orchestration": "Multi-Store Orchestration",
+        "shopify": "Shopify",
+        "woocommerce": "WooCommerce",
+        "wordpress": "WordPress"
+      },
+      "searchTerms": {
+        "commerce_retail_operations": "commerce retail butikker produkter ordre kunder leverandører",
+        "commerce_intelligence": "produktintelligens margin trender muligheter oppdagelse",
+        "product_automation": "produktimport oversettelse seo innhold publisering automatisering",
+        "multi_store_orchestration": "multi store portefølje orkestrering storefront",
+        "shopify": "shopify butikk produkter ordre lager",
+        "woocommerce": "woocommerce butikk produkter ordre lager",
+        "wordpress": "wordpress cms innhold kategorier publisering"
+      }
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

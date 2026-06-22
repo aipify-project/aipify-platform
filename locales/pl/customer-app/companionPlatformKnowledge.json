@@ -337,6 +337,51 @@
         "print_output": "druk drukarki zadania"
       }
     },
+    "commerce": {
+      "sourceLabel": "Katalog dostawców commerce",
+      "discoveryLead": "Aipify zmapował {provider} w katalogu dostawców commerce — status: {status}.",
+      "discoveryExplanation": "Poniższe capabilities pochodzą z zarejestrowanych manifestów. Import, publikacja i zmiany cen wymagają wyraźnej akceptacji.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Połączenie platformy jest przygotowane lub zweryfikowane dla Twojej organizacji.",
+      "disconnectedProvider": "Adapter runtime dostawcy nie jest podłączony — tylko kontrolowane wykrywanie.",
+      "unavailableLead": "Żaden dostawca commerce nie pasował do tego żądania dla Twojej organizacji.",
+      "unavailableExplanation": "Capabilities commerce są wykrywane z zarejestrowanych manifestów — żaden nie pasował do tego zapytania.",
+      "externalUnavailableLead": "Zewnętrzne adaptery commerce nie są podłączone dla Twojej organizacji.",
+      "externalUnavailableExplanation": "Nie zarejestrowano live adaptera Shopify, WooCommerce ani WordPress. Aipify nie wykonuje płatności, zwrotów ani usuwania w Companion runtime.",
+      "blockedOperationLead": "Ta operacja commerce nie jest dostępna w Companion runtime.",
+      "blockedOperationExplanation": "Płatności, zwroty, anulowanie zamówień i usuwanie są zablokowane w tej fazie. Aipify może przygotować i rekomendować — Ty decydujesz i zatwierdzasz odwracalne zapisy.",
+      "permissionDenied": "Twoja rola nie ma dostępu do katalogu dostawców commerce.",
+      "entitlementBlocked": "Capabilities commerce są niedostępne, gdy subskrypcja organizacji jest wstrzymana.",
+      "privacyNote": "Inteligencja commerce metadata-first — PII klientów i dane płatności nigdy nie są ujawniane w Companion runtime.",
+      "policyNote": "Import produktów, publikacja, tłumaczenie, generowanie SEO i zmiany cen wymagają wyraźnej akceptacji i uprawnienia commerce.manage.",
+      "openCommerceCenter": "Otwórz centrum commerce",
+      "operation": { "read": "odczyt", "write": "zapis" },
+      "status": {
+        "connected": "połączony",
+        "implemented_disconnected": "zaimplementowany, lecz odłączony",
+        "partial": "częściowy",
+        "specification_only": "tylko specyfikacja",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "commerce_retail_operations": "Commerce & Retail Operations",
+        "commerce_intelligence": "Commerce Intelligence",
+        "product_automation": "Product Automation",
+        "multi_store_orchestration": "Multi-Store Orchestration",
+        "shopify": "Shopify",
+        "woocommerce": "WooCommerce",
+        "wordpress": "WordPress"
+      },
+      "searchTerms": {
+        "commerce_retail_operations": "commerce retail sklepy produkty zamówienia klienci dostawcy",
+        "commerce_intelligence": "inteligencja produktowa marża trendy możliwości odkrywanie",
+        "product_automation": "import produktu tłumaczenie seo treść publikacja automatyzacja",
+        "multi_store_orchestration": "multi store portfolio orkiestracja storefront",
+        "shopify": "shopify sklep produkty zamówienia magazyn",
+        "woocommerce": "woocommerce sklep produkty zamówienia magazyn",
+        "wordpress": "wordpress cms treść kategorie publikacja"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

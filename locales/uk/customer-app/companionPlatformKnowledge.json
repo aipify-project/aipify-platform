@@ -337,6 +337,51 @@
         "print_output": "друк принтери завдання"
       }
     },
+    "commerce": {
+      "sourceLabel": "Каталог commerce-провайдерів",
+      "discoveryLead": "Aipify зіставив {provider} у каталозі commerce-провайдерів — статус: {status}.",
+      "discoveryExplanation": "Capabilities нижче походять із зареєстрованих manifest. Імпорт, публікація та зміни цін потребують явного схвалення.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Підключення платформи підготовлено або верифіковано для вашої організації.",
+      "disconnectedProvider": "Runtime-адаптер провайдера не підключено — лише кероване виявлення.",
+      "unavailableLead": "Жоден commerce-провайдер не відповів цьому запиту для вашої організації.",
+      "unavailableExplanation": "Commerce-capabilities виявляються з зареєстрованих manifest — жоден не відповів цьому запиту.",
+      "externalUnavailableLead": "Зовнішні commerce-адаптери не підключені для вашої організації.",
+      "externalUnavailableExplanation": "Live-адаптер Shopify, WooCommerce або WordPress не зареєстровано. Aipify не виконує платежі, повернення чи видалення в Companion runtime.",
+      "blockedOperationLead": "Ця commerce-операція недоступна в Companion runtime.",
+      "blockedOperationExplanation": "Платежі, повернення, скасування замовлень і видалення заблоковано в цій фазі. Aipify може підготувати й рекомендувати — ви вирішуєте та схвалюєте зворотні записи.",
+      "permissionDenied": "Ваша роль не має доступу до каталогу commerce-провайдерів.",
+      "entitlementBlocked": "Commerce-capabilities недоступні, поки підписку організації призупинено.",
+      "privacyNote": "Commerce-інтелект metadata-first — PII клієнтів і платіжні записи ніколи не розкриваються в Companion runtime.",
+      "policyNote": "Імпорт продуктів, публікація, переклад, генерація SEO та зміни цін потребують явного схвалення та дозволу commerce.manage.",
+      "openCommerceCenter": "Відкрити commerce-центр",
+      "operation": { "read": "читання", "write": "запис" },
+      "status": {
+        "connected": "підключено",
+        "implemented_disconnected": "реалізовано, але відключено",
+        "partial": "частково",
+        "specification_only": "лише специфікація",
+        "placeholder": "заглушка"
+      },
+      "providers": {
+        "commerce_retail_operations": "Commerce & Retail Operations",
+        "commerce_intelligence": "Commerce Intelligence",
+        "product_automation": "Product Automation",
+        "multi_store_orchestration": "Multi-Store Orchestration",
+        "shopify": "Shopify",
+        "woocommerce": "WooCommerce",
+        "wordpress": "WordPress"
+      },
+      "searchTerms": {
+        "commerce_retail_operations": "commerce retail магазини продукти замовлення клієнти постачальники",
+        "commerce_intelligence": "продуктова інтелігенція маржа тренди можливості виявлення",
+        "product_automation": "імпорт продукту переклад seo контент публікація автоматизація",
+        "multi_store_orchestration": "multi store портфель оркестрація storefront",
+        "shopify": "shopify магазин продукти замовлення запас",
+        "woocommerce": "woocommerce магазин продукти замовлення запас",
+        "wordpress": "wordpress cms контент категорії публікація"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

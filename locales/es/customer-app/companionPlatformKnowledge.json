@@ -337,6 +337,51 @@
         "print_output": "imprimir impresoras trabajos"
       }
     },
+    "commerce": {
+      "sourceLabel": "Catálogo de proveedores commerce",
+      "discoveryLead": "Aipify mapeó {provider} en su catálogo de proveedores commerce — estado: {status}.",
+      "discoveryExplanation": "Las capabilities siguientes provienen de manifiestos registrados. Importación, publicación y cambios de precio requieren aprobación explícita.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "La conexión de plataforma está preparada o verificada para su organización.",
+      "disconnectedProvider": "El adaptador runtime del proveedor no está conectado — solo descubrimiento gobernado.",
+      "unavailableLead": "Ningún proveedor commerce coincidió con esta solicitud para su organización.",
+      "unavailableExplanation": "Las capabilities commerce se descubren desde manifiestos registrados — ninguna coincidió con esta consulta.",
+      "externalUnavailableLead": "Los adaptadores commerce externos no están conectados para su organización.",
+      "externalUnavailableExplanation": "No hay adaptador live de Shopify, WooCommerce o WordPress registrado. Aipify no ejecuta pagos, reembolsos ni eliminaciones en Companion runtime.",
+      "blockedOperationLead": "Esta operación commerce no está disponible en Companion runtime.",
+      "blockedOperationExplanation": "Pagos, reembolsos, cancelación de pedidos y eliminación están bloqueados en esta fase. Aipify puede preparar y recomendar — usted decide y aprueba escrituras reversibles.",
+      "permissionDenied": "Su rol no puede acceder al catálogo de proveedores commerce.",
+      "entitlementBlocked": "Las capabilities commerce no están disponibles mientras la suscripción de la organización esté pausada.",
+      "privacyNote": "Inteligencia commerce metadata-first — PII de clientes y registros de pago nunca se exponen en Companion runtime.",
+      "policyNote": "Importación de productos, publicación, traducción, generación SEO y cambios de precio requieren aprobación explícita y permiso commerce.manage.",
+      "openCommerceCenter": "Abrir centro commerce",
+      "operation": { "read": "lectura", "write": "escritura" },
+      "status": {
+        "connected": "conectado",
+        "implemented_disconnected": "implementado pero desconectado",
+        "partial": "parcial",
+        "specification_only": "solo especificación",
+        "placeholder": "marcador de posición"
+      },
+      "providers": {
+        "commerce_retail_operations": "Commerce & Retail Operations",
+        "commerce_intelligence": "Commerce Intelligence",
+        "product_automation": "Product Automation",
+        "multi_store_orchestration": "Multi-Store Orchestration",
+        "shopify": "Shopify",
+        "woocommerce": "WooCommerce",
+        "wordpress": "WordPress"
+      },
+      "searchTerms": {
+        "commerce_retail_operations": "commerce retail tiendas productos pedidos clientes proveedores",
+        "commerce_intelligence": "inteligencia producto margen tendencias oportunidades descubrimiento",
+        "product_automation": "importación producto traducción seo contenido publicación automatización",
+        "multi_store_orchestration": "multi tienda cartera orquestación storefront",
+        "shopify": "shopify tienda productos pedidos inventario",
+        "woocommerce": "woocommerce tienda productos pedidos inventario",
+        "wordpress": "wordpress cms contenido categorías publicación"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

@@ -337,6 +337,51 @@
         "print_output": "skriv ut skrivare jobb"
       }
     },
+    "commerce": {
+      "sourceLabel": "Commerce provider-katalog",
+      "discoveryLead": "Aipify kartlade {provider} i commerce provider-katalogen — status: {status}.",
+      "discoveryExplanation": "Capabilities nedan kommer från registrerade provider-manifest. Import, publicering och prisändringar kräver explicit godkännande.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Plattformsanslutningen är förberedd eller verifierad för din organisation.",
+      "disconnectedProvider": "Provider runtime-adapter är inte ansluten — endast styrd upptäckt.",
+      "unavailableLead": "Ingen commerce provider matchade denna förfrågan för din organisation.",
+      "unavailableExplanation": "Commerce-capabilities upptäcks från registrerade manifest — inget matchade denna fråga.",
+      "externalUnavailableLead": "Externa commerce-adaptrar är inte anslutna för din organisation.",
+      "externalUnavailableExplanation": "Ingen live Shopify-, WooCommerce- eller WordPress-adapter är registrerad. Aipify utför inte betalning, återbetalning eller radering i Companion runtime.",
+      "blockedOperationLead": "Denna commerce-operation är inte tillgänglig i Companion runtime.",
+      "blockedOperationExplanation": "Betalning, återbetalning, orderannullering och radering är blockerade i denna fas. Aipify kan förbereda och rekommendera — du bestämmer och godkänner reversibla skrivningar.",
+      "permissionDenied": "Din roll kan inte komma åt commerce provider-katalogen.",
+      "entitlementBlocked": "Commerce-capabilities är otillgängliga medan organisationens prenumeration är pausad.",
+      "privacyNote": "Metadata-först commerce-intelligens — kund-PII och betalningsdata exponeras aldrig i Companion runtime.",
+      "policyNote": "Produktimport, publicering, översättning, SEO-generering och prisändringar kräver explicit godkännande och commerce.manage-behörighet.",
+      "openCommerceCenter": "Öppna commerce-center",
+      "operation": { "read": "läs", "write": "skriv" },
+      "status": {
+        "connected": "ansluten",
+        "implemented_disconnected": "implementerad men frånkopplad",
+        "partial": "delvis",
+        "specification_only": "endast specifikation",
+        "placeholder": "platshållare"
+      },
+      "providers": {
+        "commerce_retail_operations": "Commerce & Retail Operations",
+        "commerce_intelligence": "Commerce Intelligence",
+        "product_automation": "Product Automation",
+        "multi_store_orchestration": "Multi-Store Orchestration",
+        "shopify": "Shopify",
+        "woocommerce": "WooCommerce",
+        "wordpress": "WordPress"
+      },
+      "searchTerms": {
+        "commerce_retail_operations": "commerce retail butiker produkter order kunder leverantörer",
+        "commerce_intelligence": "produktintelligens marginal trender möjligheter upptäckt",
+        "product_automation": "produktimport översättning seo innehåll publicering automatisering",
+        "multi_store_orchestration": "multi store portfölj orkestrering storefront",
+        "shopify": "shopify butik produkter order lager",
+        "woocommerce": "woocommerce butik produkter order lager",
+        "wordpress": "wordpress cms innehåll kategorier publicering"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

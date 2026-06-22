@@ -106,6 +106,16 @@ import {
   matchMediaProviderQuery,
 } from "./media-answer";
 import {
+  buildBlockedCommerceOperationAnswer,
+  buildCommerceProviderDiscoveryAnswer,
+  buildCommerceProviderUnavailableAnswer,
+  buildExternalCommerceUnavailableAnswer,
+  hasBlockedCommerceOperationIntent,
+  hasCommerceProviderIntent,
+  hasExternalCommerceAdapterIntent,
+  matchCommerceProviderQuery,
+} from "./commerce-answer";
+import {
   buildExternalWorkspaceUnavailableAnswer,
   buildWorkspaceProviderDiscoveryAnswer,
   buildWorkspaceProviderUnavailableAnswer,
@@ -635,6 +645,45 @@ function resolveMediaProviderAnswer(
   };
 }
 
+function resolveCommerceProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (hasBlockedCommerceOperationIntent(query)) {
+    return {
+      answer: buildBlockedCommerceOperationAnswer(t),
+    };
+  }
+
+  if (!hasCommerceProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.commerceContext.permission_denied) {
+    return {
+      answer: buildCommerceProviderUnavailableAnswer(t, tenantContext.commerceContext),
+    };
+  }
+
+  if (hasExternalCommerceAdapterIntent(query)) {
+    return {
+      answer: buildExternalCommerceUnavailableAnswer(t),
+    };
+  }
+
+  const match = matchCommerceProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildCommerceProviderUnavailableAnswer(t, tenantContext.commerceContext),
+    };
+  }
+
+  return {
+    answer: buildCommerceProviderDiscoveryAnswer(match, tenantContext.commerceContext, t),
+  };
+}
+
 function resolveWorkspaceProviderAnswer(
   query: string,
   t: Translator,
@@ -798,6 +847,9 @@ export async function orchestrateCompanionSearch(
 
   const mediaResult = resolveMediaProviderAnswer(query, t, resolvedTenantContext);
   if (mediaResult) return finalize(mediaResult);
+
+  const commerceResult = resolveCommerceProviderAnswer(query, t, resolvedTenantContext);
+  if (commerceResult) return finalize(commerceResult);
 
   const workspaceResult = resolveWorkspaceProviderAnswer(query, t, resolvedTenantContext);
   if (workspaceResult) return finalize(workspaceResult);
