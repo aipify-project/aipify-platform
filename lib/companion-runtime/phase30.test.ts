@@ -6,6 +6,7 @@ import {
   UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY,
   UNONIGHT_PROVIDER_ADAPTER_V1_CAPABILITIES,
   applyUnonightProviderAdapterToCommunityContext,
+  buildUnonightMemberStatisticsSnapshot,
   clearUnonightProviderAdapterAuditTrailForTests,
   evaluateUnonightProviderAdapterActivationGate,
   getUnonightAdapterSource,
@@ -134,20 +135,42 @@ const memberRecord = merged.external_provider_adapters?.[0]?.records.find(
 );
 assert.ok(memberRecord);
 assert.equal(memberRecord?.count, null);
-assert.ok(
-  memberRecord?.metric_bindings?.some(
-    (binding) =>
-      binding.source_metric === "group_count" &&
-      binding.requested_metric === "total_members" &&
-      binding.semantic_match === "incompatible",
-  ),
+assert.equal(memberRecord?.metric_bindings?.length, 0);
+assert.equal(memberRecord?.source_reference, "rpc:get_unonight_member_statistics");
+
+const mergedWithStats = applyUnonightProviderAdapterToCommunityContext(baseContext, {
+  organizationId: "org-unonight",
+  subscriptionStatus: "active",
+  connectedProviders: ["unonight"],
+  activeBusinessPacks: ["community_pack"],
+  effectivePermissions: ["customer_community.view", "moderation.view"],
+  memberStatistics: buildUnonightMemberStatisticsSnapshot({
+    total_members: 2847,
+    active_members: 1923,
+    new_members_today: 14,
+    new_members_7d: 87,
+    new_members_30d: 312,
+    new_members_since: 42,
+    since_boundary_source: "since_last_login",
+  }),
+});
+
+const memberReadinessWithStats = mergedWithStats.external_provider_adapters?.[0]?.capability_readiness.find(
+  (entry) => entry.capability_key === "member.read",
 );
+assert.equal(memberReadinessWithStats?.status, "production_ready_candidate");
+
+const memberRecordWithStats = mergedWithStats.external_provider_adapters?.[0]?.records.find(
+  (record) => record.capability_key === "member.read",
+);
+assert.ok(memberRecordWithStats);
+assert.equal(memberRecordWithStats?.count, 2847);
 assert.ok(
-  memberRecord?.metric_bindings?.some(
+  memberRecordWithStats?.metric_bindings?.some(
     (binding) =>
-      binding.source_metric === "discussion_count" &&
-      binding.requested_metric === "new_members" &&
-      binding.semantic_match === "incompatible",
+      binding.source_metric === "total_members" &&
+      binding.requested_metric === "total_members" &&
+      binding.semantic_match === "exact",
   ),
 );
 
@@ -262,6 +285,7 @@ const normalized = normalizeUnonightProviderAdapterRecords({
     pending_verification_count: 0,
     reports_attention_count: 0,
     listing_review_count: 0,
+    member_statistics: null,
   },
   effectivePermissions: ["customer_community.view", "moderation.view"],
   gateActive: true,

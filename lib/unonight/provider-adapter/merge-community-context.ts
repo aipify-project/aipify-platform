@@ -20,6 +20,8 @@ import {
 
 registerCommunityProviderManifest(UNONIGHT_COMMUNITY_ADAPTER_MANIFEST);
 
+import type { UnonightMemberStatisticsSnapshot } from "./member-statistics";
+
 export type ApplyUnonightProviderAdapterInput = {
   organizationId: string | null;
   subscriptionStatus: string | null;
@@ -27,6 +29,7 @@ export type ApplyUnonightProviderAdapterInput = {
   activeBusinessPacks: readonly string[];
   effectivePermissions: readonly string[];
   authenticatedE2eVerifiedCapabilities?: readonly string[];
+  memberStatistics?: UnonightMemberStatisticsSnapshot | null;
 };
 
 function mergeCommandBriefSignals(
@@ -149,6 +152,7 @@ export function applyUnonightProviderAdapterToCommunityContext(
       pending_verification_count: context.pending_verification_count,
       reports_attention_count: context.reports_attention_count,
       listing_review_count: context.listing_review_count,
+      member_statistics: input.memberStatistics ?? null,
     },
     effectivePermissions: input.effectivePermissions,
     gateActive,
@@ -164,6 +168,7 @@ export function applyUnonightProviderAdapterToCommunityContext(
           pending_verification_count: context.pending_verification_count,
           reports_attention_count: context.reports_attention_count,
           listing_review_count: context.listing_review_count,
+          member_statistics: input.memberStatistics ?? null,
         })
       : [];
 

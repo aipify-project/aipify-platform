@@ -1008,10 +1008,12 @@
         "groupCountNotTotalMembers": "Liczba grup odzwierciedla grupy społeczności — nie łączną liczbę członków.",
         "discussionCountNotNewMembers": "Liczba dyskusji odzwierciedla aktywność forum — nie nowe rejestracje członków.",
         "activityNotMembersSinceLast": "Aktywność dyskusji to nie to samo co członkowie od ostatniego logowania.",
-        "listingPrepNotPendingFilter": "Metadane przygotowania marketplace nie są zweryfikowanym filtrem oczekujących ogłoszeń."
+        "listingPrepNotPendingFilter": "Metadane przygotowania marketplace nie są zweryfikowanym filtrem oczekujących ogłoszeń.",
+        "sinceLastRequiresLogin": "Liczba członków od ostatniej wizyty wymaga znacznika ostatniego logowania lub jawnej daty początkowej."
       },
       "requestedMetrics": {
         "total_members": "łączna liczba członków",
+        "active_members": "aktywni członkowie",
         "new_members": "nowi członkowie",
         "members_today": "członkowie dziś",
         "members_last_7_days": "członkowie w ostatnich 7 dniach",

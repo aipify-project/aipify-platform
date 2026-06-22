@@ -1008,10 +1008,12 @@
         "groupCountNotTotalMembers": "El recuento de grupos refleja grupos comunitarios — no el total de miembros.",
         "discussionCountNotNewMembers": "El recuento de discusiones refleja actividad del foro — no nuevos registros de miembros.",
         "activityNotMembersSinceLast": "La actividad de discusión no es lo mismo que miembros desde el último inicio de sesión.",
-        "listingPrepNotPendingFilter": "Los metadatos de preparación del marketplace no son un filtro verificado de anuncios pendientes."
+        "listingPrepNotPendingFilter": "Los metadatos de preparación del marketplace no son un filtro verificado de anuncios pendientes.",
+        "sinceLastRequiresLogin": "Los recuentos de miembros desde la última visita requieren la hora del último inicio de sesión o una fecha de inicio explícita."
       },
       "requestedMetrics": {
         "total_members": "total de miembros",
+        "active_members": "miembros activos",
         "new_members": "nuevos miembros",
         "members_today": "miembros hoy",
         "members_last_7_days": "miembros en los últimos 7 días",

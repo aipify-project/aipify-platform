@@ -1,7 +1,7 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { applyExternalCommunityProviderAdapters } from "@/lib/integration-intelligence/community/apply-external-provider-adapters";
+import { applyExternalCommunityProviderAdaptersAsync } from "@/lib/integration-intelligence/community/apply-external-provider-adapters";
 import { listCommunityProviderManifests } from "@/lib/integration-intelligence/community/registry";
 import type { CommunityProviderImplementationStatus } from "@/lib/integration-intelligence/community/types";
 import { isCommunityBusinessPackActive } from "@/lib/integration-intelligence/community/types";
@@ -350,7 +350,7 @@ export async function loadCompanionCommunityContext(
     app_entitlement_blocked: appEntitlementBlocked,
   });
 
-  return applyExternalCommunityProviderAdapters(baseContext, {
+  return applyExternalCommunityProviderAdaptersAsync(supabase, baseContext, {
     organizationId: input.organizationId ?? null,
     subscriptionStatus: input.subscriptionStatus,
     connectedProviders: input.connectedProviders,

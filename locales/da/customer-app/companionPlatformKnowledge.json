@@ -1008,10 +1008,12 @@
         "groupCountNotTotalMembers": "Gruppetal afspejler community-grupper — ikke samlet medlemstal.",
         "discussionCountNotNewMembers": "Diskussionstal afspejler forumaktivitet — ikke nye medlemsregistreringer.",
         "activityNotMembersSinceLast": "Diskussionsaktivitet er ikke det samme som medlemmer siden sidste login.",
-        "listingPrepNotPendingFilter": "Markedspladsforberedelses-metadata er ikke et verificeret filter for ventende annoncer."
+        "listingPrepNotPendingFilter": "Markedspladsforberedelses-metadata er ikke et verificeret filter for ventende annoncer.",
+        "sinceLastRequiresLogin": "Medlemstal siden sidst kræver tidspunktet for sidste login eller en eksplicit startdato."
       },
       "requestedMetrics": {
         "total_members": "samlet antal medlemmer",
+        "active_members": "aktive medlemmer",
         "new_members": "nye medlemmer",
         "members_today": "medlemmer i dag",
         "members_last_7_days": "medlemmer seneste 7 dage",

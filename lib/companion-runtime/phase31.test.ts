@@ -52,11 +52,18 @@ assert.equal(moderation?.promoted_to_production_ready, false);
 assert.equal(reports?.promoted_to_production_ready, false);
 assert.equal(listing?.promoted_to_production_ready, false);
 
+const memberRead = report.capability_readiness_after_e2e.find(
+  (entry) => entry.capability_key === "member.read",
+);
+assert.equal(memberRead?.readiness, "production_ready_candidate");
+assert.equal(memberRead?.promoted_to_production_ready, false);
+
 const newMembers = report.question_results.find(
   (entry) => entry.question_id === "new_members" && entry.organization_key === "unonight",
 );
 assert.ok(newMembers);
-assert.equal(newMembers.answer_status, "metric_gap");
+assert.equal(newMembers.answer_status, "grounded");
+assert.match(newMembers.direct_answer, /\b42\b/);
 assert.equal(newMembers.direct_answer.includes("12"), false);
 
 for (const capability of ["moderation_queue.read", "report.read"] as const) {

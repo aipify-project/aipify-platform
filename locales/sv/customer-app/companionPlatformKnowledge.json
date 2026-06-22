@@ -1008,10 +1008,12 @@
         "groupCountNotTotalMembers": "Grupptal avser community-grupper — inte totalt antal medlemmar.",
         "discussionCountNotNewMembers": "Diskussionstal avser forumaktivitet — inte nya medlemsregistreringar.",
         "activityNotMembersSinceLast": "Diskussionsaktivitet är inte samma sak som medlemmar sedan senaste inloggning.",
-        "listingPrepNotPendingFilter": "Marknadsplatsförberedelse-metadata är inte ett verifierat filter för väntande annonser."
+        "listingPrepNotPendingFilter": "Marknadsplatsförberedelse-metadata är inte ett verifierat filter för väntande annonser.",
+        "sinceLastRequiresLogin": "Medlemssiffror sedan sist kräver tidpunkten för senaste inloggning eller ett explicit startdatum."
       },
       "requestedMetrics": {
         "total_members": "totalt antal medlemmar",
+        "active_members": "aktiva medlemmar",
         "new_members": "nya medlemmar",
         "members_today": "medlemmar idag",
         "members_last_7_days": "medlemmar senaste 7 dagarna",

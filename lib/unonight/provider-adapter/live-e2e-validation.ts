@@ -25,6 +25,7 @@ import {
 import type { ProviderCapabilityReadinessStatus } from "@/lib/integration-intelligence/community/provider-adapter-types";
 import {
   applyUnonightProviderAdapterToCommunityContext,
+  buildUnonightMemberStatisticsSnapshot,
   clearUnonightProviderAdapterAuditTrailForTests,
   evaluateUnonightProviderAdapterActivationGate,
   UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES,
@@ -100,7 +101,10 @@ export type UnonightE2eOrganizationProfile = {
   source_control_counts?: {
     pending_moderation_count: number | null;
     reports_attention_count: number | null;
+    new_members_since?: number | null;
+    total_members?: number | null;
   };
+  member_statistics?: ReturnType<typeof buildUnonightMemberStatisticsSnapshot> | null;
 };
 
 export type UnonightLiveQuestionSpec = {
@@ -181,7 +185,27 @@ export const UNONIGHT_E2E_ORGANIZATION_PROFILES: Record<
     source_control_counts: {
       pending_moderation_count: 3,
       reports_attention_count: 1,
+      new_members_since: 42,
+      total_members: 2847,
     },
+    member_statistics: buildUnonightMemberStatisticsSnapshot({
+      total_members: 2847,
+      active_members: 1923,
+      new_members_today: 14,
+      new_members_7d: 87,
+      new_members_30d: 312,
+      new_members_since: 42,
+      since_boundary_source: "since_last_login",
+      member_growth: [
+        {
+          period_key: "current_week",
+          period_start: "2026-06-16",
+          period_end: "2026-06-22",
+          new_members: 87,
+          net_growth: 87,
+        },
+      ],
+    }),
   },
   empty: {
     key: "empty",
@@ -327,6 +351,7 @@ function buildTenantContextFromProfile(
       activeBusinessPacks: profile.activeBusinessPacks,
       effectivePermissions: profile.effectivePermissions,
       authenticatedE2eVerifiedCapabilities,
+      memberStatistics: profile.member_statistics ?? null,
     });
   }
 
@@ -394,6 +419,10 @@ function countMatchesControl(input: {
   }
   if (input.capability === "report.read") {
     const expected = input.profile.source_control_counts.reports_attention_count;
+    return expected === null || input.directAnswer.includes(String(expected));
+  }
+  if (input.capability === "member.read") {
+    const expected = input.profile.source_control_counts.new_members_since;
     return expected === null || input.directAnswer.includes(String(expected));
   }
   return true;

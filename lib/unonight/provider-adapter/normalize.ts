@@ -15,8 +15,10 @@ import {
   UNONIGHT_PRODUCTION_READY_REQUIRES_E2E,
 } from "./constants";
 import { getUnonightAdapterSource } from "./source-map";
+import type { UnonightMemberStatisticsSnapshot } from "./member-statistics";
 import {
   buildUnonightMetricBindings,
+  hasUnonightExactMemberSource,
   resolveUnonightPresentableBinding,
 } from "./metric-grounding";
 
@@ -27,6 +29,7 @@ export type UnonightAdapterSignalCounts = {
   pending_verification_count: number | null;
   reports_attention_count: number | null;
   listing_review_count: number | null;
+  member_statistics: UnonightMemberStatisticsSnapshot | null;
 };
 
 function capabilityId(capabilityKey: UnonightProviderAdapterV1Capability): string {
@@ -73,12 +76,16 @@ function resolveBaseReadiness(input: {
   gateActive: boolean;
   hasPermission: boolean;
   sourceStatus: "live" | "partial" | "placeholder" | "missing";
+  counts: UnonightAdapterSignalCounts;
 }): ProviderCapabilityReadinessStatus {
   if (!input.gateActive || !input.hasPermission) return "disabled";
   if (input.sourceStatus === "missing") return "adapter_missing";
 
   if (input.capabilityKey === "member.read") {
-    return "connected_but_partial";
+    if (!hasUnonightExactMemberSource(input.counts)) {
+      return "connected_but_partial";
+    }
+    return "production_ready_candidate";
   }
 
   if (input.capabilityKey === "listing.read") {
@@ -184,7 +191,7 @@ export function normalizeUnonightProviderAdapterRecords(input: {
     {
       capabilityKey: "member.read",
       recordType: "member_summary",
-      sourceReference: "rpc:get_customer_community_network_center:statistics",
+      sourceReference: "rpc:get_unonight_member_statistics",
       permissionScope: "customer_community.view",
       hasPermission: hasCommunityView,
       requestedMetric: null,
@@ -244,6 +251,7 @@ export function normalizeUnonightProviderAdapterRecords(input: {
       gateActive: input.gateActive,
       hasPermission: entry.hasPermission,
       sourceStatus: source?.status ?? "missing",
+      counts: input.counts,
     });
     const status = finalizeAuthenticatedE2eReadiness(
       entry.capabilityKey,
@@ -292,10 +300,21 @@ export function buildUnonightCommandBriefSignals(
   counts: UnonightAdapterSignalCounts,
 ): Array<{ signal_key: string; count: number | null }> {
   const signals: Array<{ signal_key: string; count: number | null }> = [];
+  const stats = counts.member_statistics;
 
-  if (counts.discussion_count !== null && counts.discussion_count > 0) {
-    signals.push({ signal_key: "activity_change", count: counts.discussion_count });
+  if (stats?.found) {
+    if (stats.new_members_today !== null && stats.new_members_today > 0) {
+      signals.push({ signal_key: "new_members", count: stats.new_members_today });
+    }
+    const growthTotal =
+      stats.member_growth.length > 0
+        ? stats.member_growth.reduce((sum, entry) => sum + entry.net_growth, 0)
+        : null;
+    if (growthTotal !== null && growthTotal > 0) {
+      signals.push({ signal_key: "member_growth", count: growthTotal });
+    }
   }
+
   if (counts.pending_moderation_count !== null && counts.pending_moderation_count > 0) {
     signals.push({ signal_key: "pending_moderation", count: counts.pending_moderation_count });
   }

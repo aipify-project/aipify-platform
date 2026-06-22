@@ -14,6 +14,7 @@ export {
 export {
   buildUnonightMetricBindings,
   resolveUnonightPresentableBinding,
+  hasUnonightExactMemberSource,
 } from "./metric-grounding";
 export {
   applyUnonightProviderAdapterToCommunityContext,
@@ -24,6 +25,18 @@ export {
   listUnonightProviderAdapterAuditTrail,
   clearUnonightProviderAdapterAuditTrailForTests,
 } from "./audit-log";
+export {
+  fetchUnonightMemberStatistics,
+  parseUnonightMemberStatisticsPayload,
+  buildUnonightMemberStatisticsSnapshot,
+  UNONIGHT_MEMBER_STATISTICS_RPC,
+  UNONIGHT_MEMBER_METRIC_DEFINITIONS,
+} from "./member-statistics";
+export type {
+  UnonightMemberStatisticsSnapshot,
+  UnonightMemberGrowthPeriod,
+  UnonightMemberStatisticsPeriod,
+} from "./member-statistics";
 export {
   runUnonightAuthenticatedLiveE2e,
   runUnonightLiveQuestion,

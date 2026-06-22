@@ -1041,10 +1041,12 @@
         "groupCountNotTotalMembers": "Group count reflects community groups — not total member headcount.",
         "discussionCountNotNewMembers": "Discussion count reflects forum activity — not new member registrations.",
         "activityNotMembersSinceLast": "Discussion activity is not the same as members since your last login.",
-        "listingPrepNotPendingFilter": "Marketplace prep metadata is not a verified pending-listing filter."
+        "listingPrepNotPendingFilter": "Marketplace prep metadata is not a verified pending-listing filter.",
+        "sinceLastRequiresLogin": "Since-last member counts require your last login timestamp or an explicit start date."
       },
       "requestedMetrics": {
         "total_members": "total members",
+        "active_members": "active members",
         "new_members": "new members",
         "members_today": "members today",
         "members_last_7_days": "members in the last 7 days",
