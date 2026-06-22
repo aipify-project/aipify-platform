@@ -3,7 +3,7 @@ import { isUnonightAipifyTokenFormat } from "@/lib/unonight-platform/constants";
 import { UNONIGHT_ORGANIZATION_SLUG, UNONIGHT_PROVIDER_KEY } from "./constants";
 import { decryptIntegrationCredential } from "./crypto";
 import { buildUnonightConnectionDiagnostics } from "./diagnostics";
-import type { UnonightConnectionDiagnostics } from "./diagnostics";
+import type { UnonightConnectionDiagnostics } from "./types";
 import { getUnonightFailureMessageKey } from "./failures";
 import { testUnonightReadOnlyConnection } from "./test-connection";
 

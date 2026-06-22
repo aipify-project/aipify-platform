@@ -1,7 +1,28 @@
 import type { UnonightConnectionScope } from "./constants";
-import type { UnonightConnectionDiagnostics } from "./diagnostics";
 
 export type UnonightAccessMode = "read_only" | "read_write";
+
+export type UnonightSafeResponseShape = {
+  top_level_keys: string[];
+  nested_keys: Record<string, string[]>;
+};
+
+/** Safe connection-test diagnostics — never includes bearer tokens or Authorization values. */
+export type UnonightConnectionDiagnostics = {
+  normalized_base_url: string;
+  final_endpoint: string;
+  http_status: number | null;
+  safe_response_code: string | null;
+  credential_found: boolean;
+  token_prefix_valid: boolean;
+  authorization_attached: boolean;
+  organization_matched: boolean | null;
+  required_scopes_matched: boolean | null;
+  schema_matched: boolean;
+  response_shape?: UnonightSafeResponseShape | null;
+  contract_mismatch_code?: string | null;
+  compatibility_notes?: string[];
+};
 
 export type UnonightConnectionSuccess = {
   connected: true;

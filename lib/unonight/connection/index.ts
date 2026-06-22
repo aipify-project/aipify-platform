@@ -16,6 +16,8 @@ export type {
   UnonightConnectionConfig,
   UnonightConnectionFailureCode,
   UnonightConnectionSuccess,
+  UnonightConnectionDiagnostics,
+  UnonightSafeResponseShape,
   UnonightConnectionTestResult,
 } from "./types";
 export {
@@ -41,7 +43,6 @@ export type {
   UnonightConnectionErrorPanelModel,
 } from "./error-panel";
 export { buildUnonightConnectionDiagnostics, extractSafeResponseCode, extractSafeResponseShape } from "./diagnostics";
-export type { UnonightConnectionDiagnostics } from "./diagnostics";
 export {
   parseUnonightConnectionContractDetailed,
   organizationsMatchForUnonight,

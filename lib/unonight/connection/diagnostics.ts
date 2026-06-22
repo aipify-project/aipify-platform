@@ -1,24 +1,31 @@
 import { buildUnonightConnectionUrl, resolveUnonightApiBaseUrl } from "./constants";
-import { extractSafeResponseShape } from "./contract-parser";
+import type { UnonightConnectionDiagnostics, UnonightSafeResponseShape } from "./types";
 
-export type UnonightConnectionDiagnostics = {
-  normalized_base_url: string;
-  final_endpoint: string;
-  http_status: number | null;
-  safe_response_code: string | null;
-  credential_found: boolean;
-  token_prefix_valid: boolean;
-  authorization_attached: boolean;
-  organization_matched: boolean | null;
-  required_scopes_matched: boolean | null;
-  schema_matched: boolean;
-  response_shape?: {
-    top_level_keys: string[];
-    nested_keys: Record<string, string[]>;
-  } | null;
-  contract_mismatch_code?: string | null;
-  compatibility_notes?: string[];
-};
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function unwrapPayload(payload: unknown): Record<string, unknown> | null {
+  if (!isRecord(payload)) return null;
+  const data = payload.data;
+  if (isRecord(data)) return data;
+  return payload;
+}
+
+export function extractSafeResponseShape(payload: unknown): UnonightSafeResponseShape | null {
+  const record = unwrapPayload(payload);
+  if (!record) return null;
+
+  const nested_keys: Record<string, string[]> = {};
+  for (const [key, value] of Object.entries(record)) {
+    if (isRecord(value)) nested_keys[key] = Object.keys(value);
+    if (Array.isArray(value) && value.length > 0 && isRecord(value[0])) {
+      nested_keys[key] = Object.keys(value[0]);
+    }
+  }
+
+  return { top_level_keys: Object.keys(record), nested_keys };
+}
 
 export function buildUnonightConnectionDiagnostics(input: {
   baseUrl?: string | null;
@@ -30,7 +37,7 @@ export function buildUnonightConnectionDiagnostics(input: {
   organizationMatched?: boolean | null;
   requiredScopesMatched?: boolean | null;
   schemaMatched: boolean;
-  responseShape?: ReturnType<typeof extractSafeResponseShape>;
+  responseShape?: UnonightSafeResponseShape | null;
   contractMismatchCode?: string | null;
   compatibilityNotes?: string[];
 }): UnonightConnectionDiagnostics {
@@ -63,5 +70,3 @@ export function extractSafeResponseCode(payload: unknown): string | null {
   if (status === "connected") return "connected";
   return null;
 }
-
-export { extractSafeResponseShape };

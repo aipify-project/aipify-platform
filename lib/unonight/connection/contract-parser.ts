@@ -157,24 +157,6 @@ export function normalizeUnonightGrantedScopes(
   return { scopes: [...new Set(normalized)], compatibilityNotes: notes };
 }
 
-export function extractSafeResponseShape(payload: unknown): {
-  top_level_keys: string[];
-  nested_keys: Record<string, string[]>;
-} | null {
-  const record = unwrapUnonightConnectionPayload(payload);
-  if (!record) return null;
-
-  const nested_keys: Record<string, string[]> = {};
-  for (const [key, value] of Object.entries(record)) {
-    if (isRecord(value)) nested_keys[key] = Object.keys(value);
-    if (Array.isArray(value) && value.length > 0 && isRecord(value[0])) {
-      nested_keys[key] = Object.keys(value[0]);
-    }
-  }
-
-  return { top_level_keys: Object.keys(record), nested_keys };
-}
-
 export function parseUnonightConnectionContractDetailed(
   payload: unknown
 ): UnonightContractParseResult {
