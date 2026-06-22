@@ -16,6 +16,7 @@ import {
   groupSinceLastLoginEvents,
   type SinceLastLoginEvent,
 } from "@/lib/command-center/since-last-login";
+import { buildCommandBriefIntegrationStatus } from "@/lib/command-center/command-brief-integration-status";
 import type { ExecutiveCommandCenter } from "@/lib/executive-command-center-engine/parse";
 
 export type CommandBriefKpiCounts = {
@@ -28,20 +29,33 @@ export type CommandBriefKpiCounts = {
 
 export { buildCommandBriefAttentionItems, buildCommandBriefAttentionItemsFromCenter, filterRealCompanionRecommendations };
 
-export function buildCommandBriefActivityFeed(center: ExecutiveCommandCenter): SinceLastLoginEvent[] {
-  const events = buildSinceLastLoginDataset({
-    eccItems: (center.since_last_login ?? []).filter((item) => !isSyntheticEccRecord(item)),
-    activitySinceLogin: center.activity_since_login,
-    timeline: center.timeline,
+export const COMMAND_BRIEF_ACTIVITY_LIMIT = 5;
+export const COMMAND_BRIEF_ALERTS_LIMIT = 3;
+export const COMMAND_BRIEF_INTEGRATIONS_LIMIT = 6;
+
+function sortActivityEvents(events: SinceLastLoginEvent[]): SinceLastLoginEvent[] {
+  return events.slice().sort((a, b) => {
+    const aTime = a.occurredAt ? Date.parse(a.occurredAt) : 0;
+    const bTime = b.occurredAt ? Date.parse(b.occurredAt) : 0;
+    return bTime - aTime;
   });
-  return events
-    .slice()
-    .sort((a, b) => {
-      const aTime = a.occurredAt ? Date.parse(a.occurredAt) : 0;
-      const bTime = b.occurredAt ? Date.parse(b.occurredAt) : 0;
-      return bTime - aTime;
+}
+
+export function buildCommandBriefActivityFeed(center: ExecutiveCommandCenter): {
+  items: SinceLastLoginEvent[];
+  totalCount: number;
+} {
+  const events = sortActivityEvents(
+    buildSinceLastLoginDataset({
+      eccItems: (center.since_last_login ?? []).filter((item) => !isSyntheticEccRecord(item)),
+      activitySinceLogin: center.activity_since_login,
+      timeline: center.timeline,
     })
-    .slice(0, 5);
+  );
+  return {
+    items: events.slice(0, COMMAND_BRIEF_ACTIVITY_LIMIT),
+    totalCount: events.length,
+  };
 }
 
 export function buildCommandBriefKpiCounts(center: ExecutiveCommandCenter): CommandBriefKpiCounts {
@@ -64,6 +78,13 @@ export function buildCommandBriefKpiCounts(center: ExecutiveCommandCenter): Comm
   };
 }
 
+export {
+  buildCommandBriefIntegrationStatus,
+  type CommandBriefIntegrationStatusItem,
+  type CommandBriefIntegrationStatusKey,
+} from "@/lib/command-center/command-brief-integration-status";
+
+/** @deprecated Use buildCommandBriefIntegrationStatus */
 export type CommandBriefIntegrationSignal = {
   id: string;
   title: string;
@@ -72,20 +93,16 @@ export type CommandBriefIntegrationSignal = {
   alertsCount: number;
 };
 
-export function buildCommandBriefIntegrationSignals(
-  center: ExecutiveCommandCenter
-): CommandBriefIntegrationSignal[] {
-  return (center.business_packs ?? [])
-    .filter((pack) => !isSyntheticEccRecord(pack))
-    .slice(0, 3)
-    .map((pack) => ({
-      id: String(pack.pack_key ?? pack.pack_title),
-      title: String(pack.pack_title ?? ""),
-      summary: String(pack.summary ?? ""),
-      eventsCount: Number(pack.events_count ?? 0),
-      alertsCount: Number(pack.alerts_count ?? 0),
-    }))
-    .filter((item) => item.title.length > 0);
+/** @deprecated Use buildCommandBriefIntegrationStatus */
+export function buildCommandBriefIntegrationSignals(center: ExecutiveCommandCenter) {
+  const { items } = buildCommandBriefIntegrationStatus(center);
+  return items.map((item) => ({
+    id: item.id,
+    title: item.title,
+    summary: item.summary,
+    eventsCount: item.eventsCount,
+    alertsCount: item.alertsCount,
+  }));
 }
 
 function excludeAttentionItems(
@@ -99,8 +116,12 @@ function excludeAttentionItems(
 export function buildCommandBriefAlertSummary(
   center: ExecutiveCommandCenter,
   attentionItems: CommandCenterItem[]
-): CommandCenterItem[] {
-  return excludeAttentionItems(buildAlertsDataset(center), attentionItems).slice(0, 3);
+): { items: CommandCenterItem[]; totalCount: number } {
+  const all = excludeAttentionItems(buildAlertsDataset(center), attentionItems);
+  return {
+    items: all.slice(0, COMMAND_BRIEF_ALERTS_LIMIT),
+    totalCount: all.length,
+  };
 }
 
 export function buildCommandBriefApprovalSummary(

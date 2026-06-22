@@ -94,6 +94,7 @@ export type SupportHistoryLabels = {
   errorTitle: string;
   errorBody: string;
   retry: string;
+  backToOverview: string;
   sections: {
     overview: string;
     filters: string;

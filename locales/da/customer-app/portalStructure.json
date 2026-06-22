@@ -378,41 +378,71 @@
         "lastTestFailed": "Last connection test failed",
         "permissionReadOnly": "Read-only access",
         "permissionReadWrite": "Read & write access",
-        "helpTitle": "Integration help"
+        "helpTitle": "Integrationshjælp",
+        "actionsMenuLabel": "Handlinger",
+        "actions": {
+          "manage": "Administrer",
+          "retryTest": "Test igen",
+          "disconnect": "Afbryd forbindelse",
+          "retry": "Prøv igen",
+          "editSetup": "Rediger opsætning",
+          "removeIntegration": "Fjern integration",
+          "continueSetup": "Fortsæt opsætning"
+        },
+        "removeDialog": {
+          "title": "Fjerne {provider}-integrationen?",
+          "body": "Den mislykkede forbindelse og den gemte forbindelsesnøgle fjernes. Historiske aktivitetslogfiler bevares."
+        },
+        "disconnectDialog": {
+          "title": "Afbryd {provider}?",
+          "body": "Dette afbryder Aipify fra den eksterne platform for denne organisation."
+        },
+        "feedback": {
+          "removeFailed": "Integrationen kunne ikke fjernes. Prøv igen.",
+          "testFailed": "Forbindelsestest mislykkedes. Gennemgå opsætningen og prøv igen."
+        }
+      },
+      "providerNames": {
+        "custom_api": "Brugerdefineret API",
+        "unonight": "Unonight",
+        "shopify": "Shopify",
+        "wordpress": "WordPress",
+        "stripe": "Stripe",
+        "woocommerce": "WooCommerce"
       },
       "setup": {
-        "title": "Connect",
-        "loading": "Loading setup…",
-        "back": "Back to Integrations",
-        "selectSetupType": "Choose connection method",
-        "oauthOption": "Automatic connection (OAuth / official app)",
-        "manualOption": "Manual API key",
-        "permissionPreview": "Review permissions before approving",
-        "approveScopes": "I approve these permission scopes and understand what Aipify can access",
-        "approveScopesRequired": "Scope approval is required before saving",
+        "title": "Forbind til",
+        "loading": "Indlæser opsætning…",
+        "back": "Tilbage til integrationer",
+        "selectSetupType": "Vælg forbindelsesmetode",
+        "oauthOption": "Automatisk forbindelse (OAuth / officiel app)",
+        "manualOption": "Manuel forbindelsesnøgle",
+        "permissionPreview": "Gennemgå tilladelser, før du godkender",
+        "approveScopes": "Jeg godkender disse adgangstilladelser og forstår, hvad Aipify kan læse",
+        "approveScopesRequired": "Godkendelse af tilladelser kræves før gemning",
         "apiKeyLabel": "Sikker forbindelsesnøgle",
-        "apiKeyPlaceholder": "Paste your read-only API key",
-        "apiKeyMaskedNote": "Saved key (masked)",
-        "accessSummaryTitle": "Access summary",
-        "whatAipifyReads": "Aipify can read operational metadata required for the approved scopes only.",
-        "whatAipifyCannotDo": "Aipify cannot change data in your external system with read-only access.",
-        "credentialStorage": "Credentials are encrypted at rest and never displayed in full after saving.",
-        "revokeAccess": "You can revoke access by removing the integration at any time.",
-        "rotateKey": "Replace credentials by saving a new API key and revoking the old one in your external platform.",
-        "connectionFailed": "Connection test failed — review permissions and try again.",
-        "save": "Save securely",
-        "test": "Test connection",
-        "remove": "Remove integration",
-        "replace": "Replace credentials",
-        "connectOAuth": "Connect with provider",
+        "apiKeyPlaceholder": "Indsæt skrivebeskyttet forbindelsesnøgle",
+        "apiKeyMaskedNote": "Gemt nøgle (maskeret)",
+        "accessSummaryTitle": "Adgangsoversigt",
+        "whatAipifyReads": "Aipify kan læse driftsmetadata, der kræves for godkendte tilladelser — ikke mere.",
+        "whatAipifyCannotDo": "Aipify kan ikke ændre data i dit eksterne system med skrivebeskyttet adgang.",
+        "credentialStorage": "Forbindelsesnøglen krypteres i hvile og vises aldrig i fuld længde efter gemning.",
+        "revokeAccess": "Du kan til enhver tid tilbagekalde adgangen ved at fjerne integrationen.",
+        "rotateKey": "Skift nøgle ved at gemme en ny forbindelsesnøgle og tilbagekalde den gamle i det eksterne system.",
+        "connectionFailed": "Forbindelsestest mislykkedes — kontroller tilladelser og prøv igen.",
+        "save": "Gem sikkert",
+        "test": "Test forbindelsen",
+        "remove": "Fjern integration",
+        "replace": "Skift forbindelsesnøgle",
+        "connectOAuth": "Forbind med udbyder",
         "saving": "Saving…",
         "testing": "Testing…",
-        "successTitle": "Integration saved",
-        "successBody": "Your connection was saved and logged. Full secrets are never shown again.",
-        "whyAccess": "Aipify needs limited access to deliver value inside your workspace — scoped to what you approve.",
-        "whatNotToEnable": "Do not enable admin-wide, destructive, or write permissions unless explicitly required.",
-        "backStep": "Back",
-        "continueStep": "Continue",
+        "successTitle": "Integration gemt",
+        "successBody": "Forbindelsen blev gemt og logført. Hele nøglen vises aldrig igen.",
+        "whyAccess": "Aipify har brug for begrænset adgang for at skabe værdi i dit arbejdsområde — kun det, du godkender.",
+        "whatNotToEnable": "Aktiver ikke admin-, slette- eller skrivetilladelser, medmindre det udtrykkeligt kræves.",
+        "backStep": "Tilbage",
+        "continueStep": "Fortsæt",
         "steps": {
           "select_platform": "Select platform",
           "explain_needs": "What Aipify needs",
@@ -424,14 +454,14 @@
           "log_action": "Complete & log"
         },
         "manualSteps": {
-          "login": "Log in to your external platform admin",
-          "open_menu": "Open Settings or Developer / API section",
-          "locate_keys": "Locate API keys or access tokens",
-          "choose_permissions": "Select read-only or minimum required scopes",
-          "avoid_permissions": "Do not enable admin, delete, or write scopes unless required",
-          "copy_key": "Copy the API key",
-          "paste_in_aipify": "Paste the key into Aipify (shown once during setup)",
-          "test_connection": "Run Test connection in Aipify"
+          "login": "Log ind i Unonight Admin.",
+          "open_menu": "Åbn Integrationer → Aipify.",
+          "locate_keys": "Opret en ny sikker forbindelsesnøgle.",
+          "choose_permissions": "Vælg kun skrivebeskyttet adgang.",
+          "avoid_permissions": "Kontroller at tilladelserne inkluderer metadata.read og organization.read.",
+          "copy_key": "Kopier nøglen, når den vises.",
+          "paste_in_aipify": "Indsæt nøglen i Aipify.",
+          "test_connection": "Test forbindelsen."
         },
         "oauthSteps": {
           "connect_button": "Click Connect with provider",
@@ -450,16 +480,55 @@
         "loadErrorTitle": "Forbindelsesopsætningen kunne ikke indlæses",
         "loadErrorBody": "Aipify kunne ikke hente integrationsopsætningen lige nu. Prøv igen, eller gå tilbage til integrationer.",
         "retryLoad": "Prøv igen",
-        "backToIntegrations": "Tilbage til integrationer"
+        "backToIntegrations": "Tilbage til integrationer",
+        "completion": {
+          "verifiedHeading": "Unonight er forbundet og verificeret",
+          "credentialSavedHeading": "Forbindelsesnøglen er gemt",
+          "statusActive": "✅ Aktiv",
+          "statusReadOnly": "🔒 Skrivebeskyttet adgang",
+          "statusAwaitingVerification": "⏳ Afventer verificering",
+          "organizationLabel": "Organisation",
+          "accessTypeLabel": "Adgangstype",
+          "permissionsLabel": "Tilladelser",
+          "lastVerifiedLabel": "Sidst verificeret",
+          "apiVersionLabel": "API-version",
+          "technicalDetailsLabel": "Tekniske detaljer",
+          "technicalScopeLabel": "Tekniske scope-identifikatorer",
+          "verifiedBody": "Aipify har verificeret din skrivebeskyttede forbindelse til Unonight. Du kan administrere integrationen under Platform → Integrationer.",
+          "credentialSavedBody": "Din forbindelsesnøgle gemmes sikkert. Kør en forbindelsestest for at verificere adgang før aktivering.",
+          "primaryIntegrations": "Gå til tilsluttede integrationer",
+          "secondaryRetest": "Test forbindelsen igen",
+          "tertiaryOverview": "Tilbage til din oversigt",
+          "primaryTest": "Test forbindelsen",
+          "secondaryIntegrations": "Tilbage til integrationer",
+          "activateCta": "Aktiver integration",
+          "activating": "Aktiverer…",
+          "overviewHref": "/app"
+        },
+        "removeDialog": {
+          "title": "Fjern integration?",
+          "body": "Dette afbryder Aipify fra din eksterne platform for denne organisation.",
+          "disconnectWhat": "Den live forbindelse til din eksterne platform afbrydes.",
+          "syncStops": "Baggrundssynkronisering og indhentning for denne integration stopper.",
+          "credentialsRemoved": "Gemte legitimationsoplysninger fjernes fra Aipify.",
+          "auditRemains": "Revisionslogge for opsætning og fjernelse bevares.",
+          "confirm": "❌ Fjern integration",
+          "confirmDisconnect": "❌ Afbryd forbindelse",
+          "cancel": "Annuller",
+          "titleNamed": "Fjerne {provider}-integrationen?",
+          "bodyFailed": "Den mislykkede forbindelse og den gemte forbindelsesnøgle fjernes. Historiske aktivitetslogfiler bevares.",
+          "confirmDisconnect": "❌ Afbryd forbindelse"
+        },
+        "manageIntegration": "Administrer integration"
       },
       "guidance": {
-        "whyAccess": "Why Aipify needs access",
-        "whatCanRead": "Aipify reads only metadata and operational signals covered by approved scopes — not private conversations or payment card data.",
-        "whatCannotDo": "Aipify cannot modify your external system with read-only access and never executes destructive actions.",
-        "howStored": "Credentials are encrypted at rest. Masked hints may display; full secrets never appear after save.",
-        "howRevoke": "Remove the integration from Platform → Integrations to revoke access immediately.",
-        "howRotate": "Generate a new read-only key externally, replace credentials in Aipify, test, then revoke the old key.",
-        "ifFails": "If connection fails, verify read-only scopes, key validity, and run Test connection again."
+        "whyAccess": "Hvorfor Aipify har brug for adgang",
+        "whatCanRead": "Aipify læser kun metadata og operationelle signaler inden for godkendte scopes — ikke private samtaler eller betalingskortdata.",
+        "whatCannotDo": "Aipify kan ikke ændre dit eksterne system med skrivebeskyttet adgang og udfører aldrig destruktive handlinger.",
+        "howStored": "Legitimationsoplysninger krypteres i hvile. Maskerede hints kan vises; fulde hemmeligheder vises aldrig efter lagring.",
+        "howRevoke": "Fjern integrationen under Platform → Integrationer for at tilbagekalde adgang med det samme.",
+        "howRotate": "Generer en ny skrivebeskyttet nøgle eksternt, erstat i Aipify, test og tilbagekald den gamle nøgle.",
+        "ifFails": "Hvis forbindelsen mislykkes, verificer scopes, nøglens gyldighed og kør Test forbindelsen igen."
       },
       "faq": {
         "connectExternalPlatform": "How do I connect an external platform to Aipify?",
@@ -508,7 +577,11 @@
         "needsReview": "👀 Forbindelsen skal gennemgås",
         "connected": "✅ Forbundet og verificeret",
         "failed": "❌ Forbindelsen mislykkedes",
-        "readOnly": "🔒 Begrænset til skrivebeskyttet adgang"
+        "readOnly": "🔒 Begrænset til skrivebeskyttet adgang",
+        "credentialSaved": "ℹ️ Forbindelsesnøglen er gemt sikkert",
+        "verifiedReadOnly": "✅ Forbundet og verificeret",
+        "active": "✅ Integrationen er aktiv",
+        "awaitingVerification": "⏳ Afventer verificering"
       },
       "wizard7Steps": {
         "choose_system": "Vælg system",
@@ -542,18 +615,22 @@
       },
       "authHelp": {
         "sectionTitles": {
-          "what": "What is this?",
-          "why": "Why Aipify needs it",
-          "where": "Where to find it",
-          "project": "Which project or store",
-          "permissions": "Which permissions to choose",
-          "canChange": "Can I change this later?",
-          "revoke": "How to revoke access"
+          "what": "Hvad er dette?",
+          "why": "Hvorfor Aipify har brug for det",
+          "where": "Hvor finder du det",
+          "project": "Hvilket projekt eller hvilken butik",
+          "permissions": "Hvilke tilladelser du bør vælge",
+          "canChange": "Kan jeg ændre dette senere?",
+          "revoke": "Sådan tilbagekalder du adgang",
+          "stepsTitle": "Trin for trin",
+          "technicalDetailsTitle": "Tekniske detaljer",
+          "technicalDetailsToggleShow": "Vis tekniske detaljer",
+          "technicalDetailsToggleHide": "Skjul tekniske detaljer"
         },
-        "stepsTitle": "Step-by-step",
-        "technicalDetailsTitle": "Technical details",
-        "technicalDetailsToggleShow": "Show technical details",
-        "technicalDetailsToggleHide": "Hide technical details",
+        "stepsTitle": "Trin for trin",
+        "technicalDetailsTitle": "Tekniske detaljer",
+        "technicalDetailsToggleShow": "Vis tekniske detaljer",
+        "technicalDetailsToggleHide": "Skjul tekniske detaljer",
         "shopify": {
           "what": "A Shopify Admin API access token lets Aipify read store data you approve — orders, products, and customers metadata.",
           "why": "Aipify uses read-only store signals to surface operational insights in your workspace.",
@@ -646,9 +723,12 @@
           "steps": {
             "1": "Log ind i Unonight Admin.",
             "2": "Åbn Integrationer → Aipify.",
-            "3": "Opret skrivebeskyttet nøgle med scopes fra Aipify.",
-            "4": "Kopiér bearer-token (vises én gang).",
-            "5": "Indsæt i Aipify, bekræft API-base-URL og kør Test forbindelse."
+            "3": "Opret en ny sikker forbindelsesnøgle.",
+            "4": "Vælg kun skrivebeskyttet adgang.",
+            "5": "Kontroller at tilladelserne inkluderer metadata.read og organization.read.",
+            "6": "Kopier nøglen, når den vises.",
+            "7": "Indsæt nøglen i Aipify.",
+            "8": "Test forbindelsen."
           },
           "technicalDetails": "Bruger GET /api/aipify/v1/connection med Authorization: Bearer. Live HTTP-verifikation kræves før aktivering."
         }
@@ -739,6 +819,11 @@
             "retryTest": "Run Test the connection again after verifying your key."
           }
         }
+      },
+      "scopeDescriptions": {
+        "metadata_read": "Læse godkendt driftsmetadata om din organisation",
+        "organization_read": "Læse organisationsnavn og identitet til verificering",
+        "integration_status_read": "Læse integrationstilstand og forbindelsesstatus"
       }
     },
     "executiveInsights": {
@@ -1184,6 +1269,7 @@
       "errorTitle": "Supporthistorik utilgængelig",
       "errorBody": "Aipify kunne ikke indlæse supporthistorik for din organisation. Bekræft dine tilladelser og prøv igen.",
       "retry": "Prøv igen",
+      "backToOverview": "Tilbage til Din oversigt",
       "sections": {
         "overview": "Oversigt",
         "filters": "Søg og filtre",

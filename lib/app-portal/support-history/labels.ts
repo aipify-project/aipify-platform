@@ -19,6 +19,7 @@ export function buildSupportHistoryLabels(t: Translator): SupportHistoryLabels {
     errorTitle: t(`${p}.errorTitle`),
     errorBody: t(`${p}.errorBody`),
     retry: t(`${p}.retry`),
+    backToOverview: t(`${p}.backToOverview`),
     sections: {
       overview: t(`${p}.sections.overview`),
       filters: t(`${p}.sections.filters`),

@@ -743,6 +743,7 @@
       "errorTitle": "Support History unavailable",
       "errorBody": "Aipify could not load support history for your organization. Confirm your permissions and try again.",
       "retry": "Try again",
+      "backToOverview": "Back to Home",
       "sections": {
         "overview": "Overview",
         "filters": "Search & Filters",
@@ -6133,20 +6134,50 @@
         "lastTestFailed": "Last connection test failed",
         "permissionReadOnly": "Read-only access",
         "permissionReadWrite": "Read & write access",
-        "helpTitle": "Integration help"
+        "helpTitle": "Integration help",
+        "actionsMenuLabel": "Actions",
+        "actions": {
+          "manage": "Manage",
+          "retryTest": "Retry test",
+          "disconnect": "Disconnect",
+          "retry": "Try again",
+          "editSetup": "Edit setup",
+          "removeIntegration": "Remove integration",
+          "continueSetup": "Continue setup"
+        },
+        "removeDialog": {
+          "title": "Remove {provider} integration?",
+          "body": "The failed connection and stored connection key will be removed. Historical activity logs are preserved."
+        },
+        "disconnectDialog": {
+          "title": "Disconnect {provider}?",
+          "body": "This disconnects Aipify from the external platform for this organization."
+        },
+        "feedback": {
+          "removeFailed": "Could not remove integration. Try again.",
+          "testFailed": "Connection test failed. Review setup and try again."
+        }
+      },
+      "providerNames": {
+        "custom_api": "Custom API",
+        "unonight": "Unonight",
+        "shopify": "Shopify",
+        "wordpress": "WordPress",
+        "stripe": "Stripe",
+        "woocommerce": "WooCommerce"
       },
       "setup": {
-        "title": "Connect",
+        "title": "Connect to",
         "loading": "Loading setup…",
-        "back": "Back to Integrations",
+        "back": "Back to integrations",
         "selectSetupType": "Choose connection method",
         "oauthOption": "Automatic connection (OAuth / official app)",
-        "manualOption": "Manual API key",
+        "manualOption": "Manual connection key",
         "permissionPreview": "Review permissions before approving",
-        "approveScopes": "I approve these permission scopes and understand what Aipify can access",
+        "approveScopes": "I approve these access permissions and understand what Aipify can read",
         "approveScopesRequired": "Scope approval is required before saving",
         "apiKeyLabel": "Secure connection key",
-        "apiKeyPlaceholder": "Paste your read-only API key",
+        "apiKeyPlaceholder": "Paste your read-only connection key",
         "apiKeyMaskedNote": "Saved key (masked)",
         "accessSummaryTitle": "Access summary",
         "whatAipifyReads": "Aipify can read operational metadata required for the approved scopes only.",
@@ -6179,14 +6210,14 @@
           "log_action": "Complete & log"
         },
         "manualSteps": {
-          "login": "Log in to your external platform admin",
-          "open_menu": "Open Settings or Developer / API section",
-          "locate_keys": "Locate API keys or access tokens",
-          "choose_permissions": "Select read-only or minimum required scopes",
-          "avoid_permissions": "Do not enable admin, delete, or write scopes unless required",
-          "copy_key": "Copy the API key",
-          "paste_in_aipify": "Paste the key into Aipify (shown once during setup)",
-          "test_connection": "Run Test connection in Aipify"
+          "login": "Log in to Unonight Admin.",
+          "open_menu": "Open Integrations → Aipify.",
+          "locate_keys": "Create a new secure connection key.",
+          "choose_permissions": "Choose read-only access only.",
+          "avoid_permissions": "Confirm access includes metadata.read and organization.read.",
+          "copy_key": "Copy the key when it is shown.",
+          "paste_in_aipify": "Paste the key into Aipify.",
+          "test_connection": "Test the connection."
         },
         "oauthSteps": {
           "connect_button": "Click Connect with provider",
@@ -6205,7 +6236,45 @@
         "loadErrorTitle": "Connection setup could not be loaded",
         "loadErrorBody": "Aipify could not load the integration setup right now. Try again or return to integrations.",
         "retryLoad": "Try again",
-        "backToIntegrations": "Back to integrations"
+        "backToIntegrations": "Back to integrations",
+        "completion": {
+          "verifiedHeading": "Unonight is connected and verified",
+          "credentialSavedHeading": "Connection key saved",
+          "statusActive": "✅ Active",
+          "statusReadOnly": "🔒 Read-only access",
+          "statusAwaitingVerification": "⏳ Awaiting verification",
+          "organizationLabel": "Organization",
+          "accessTypeLabel": "Access type",
+          "permissionsLabel": "Permissions",
+          "lastVerifiedLabel": "Last verified",
+          "apiVersionLabel": "API version",
+          "technicalDetailsLabel": "Technical details",
+          "technicalScopeLabel": "Technical scope identifiers",
+          "verifiedBody": "Aipify verified your read-only connection with Unonight. You can manage the integration from Platform → Integrations.",
+          "credentialSavedBody": "Your connection key is stored securely. Run a connection test to verify access before activation.",
+          "primaryIntegrations": "Go to connected integrations",
+          "secondaryRetest": "Test connection again",
+          "tertiaryOverview": "Back to your overview",
+          "primaryTest": "Test connection",
+          "secondaryIntegrations": "Back to integrations",
+          "activateCta": "Activate integration",
+          "activating": "Activating…",
+          "overviewHref": "/app"
+        },
+        "removeDialog": {
+          "title": "Remove integration?",
+          "body": "This disconnects Aipify from your external platform for this organization.",
+          "disconnectWhat": "The live connection to your external platform will be disconnected.",
+          "syncStops": "Background sync and ingestion for this integration will stop.",
+          "credentialsRemoved": "Stored credentials will be removed from Aipify.",
+          "auditRemains": "Audit records of setup and removal actions will remain.",
+          "confirm": "❌ Remove integration",
+          "confirmDisconnect": "❌ Disconnect",
+          "cancel": "Cancel",
+          "titleNamed": "Remove {provider} integration?",
+          "bodyFailed": "The failed connection and stored connection key will be removed. Historical activity logs are preserved."
+        },
+        "manageIntegration": "Manage integration"
       },
       "guidance": {
         "whyAccess": "Why Aipify needs access",
@@ -6263,7 +6332,11 @@
         "needsReview": "👀 Connection needs review",
         "connected": "✅ Connected and verified",
         "failed": "❌ Connection failed",
-        "readOnly": "🔒 Limited to read-only access"
+        "readOnly": "🔒 Limited to read-only access",
+        "credentialSaved": "ℹ️ Connection key saved securely",
+        "verifiedReadOnly": "✅ Connected and verified",
+        "active": "✅ Integration is active",
+        "awaitingVerification": "⏳ Awaiting verification"
       },
       "wizard7Steps": {
         "choose_system": "Choose your system",
@@ -6299,11 +6372,11 @@
         "sectionTitles": {
           "what": "What is this?",
           "why": "Why Aipify needs it",
-          "where": "Where to find it",
-          "project": "Which project or store",
-          "permissions": "Which permissions to choose",
+          "where": "Where to find the key",
+          "project": "Which project or business should I choose?",
+          "permissions": "Which access permissions should I choose?",
           "canChange": "Can I change this later?",
-          "revoke": "How to revoke access"
+          "revoke": "How do I revoke access?"
         },
         "stepsTitle": "Step-by-step",
         "technicalDetailsTitle": "Technical details",
@@ -6401,9 +6474,12 @@
           "steps": {
             "1": "Log in to Unonight Admin.",
             "2": "Open Integrations → Aipify.",
-            "3": "Create a read-only connection key with the scopes listed in Aipify.",
-            "4": "Copy the bearer token (shown once).",
-            "5": "Paste into Aipify, confirm the API base URL, and run Test the connection."
+            "3": "Create a new secure connection key.",
+            "4": "Choose read-only access only.",
+            "5": "Confirm access includes metadata.read and organization.read.",
+            "6": "Copy the key when it is shown.",
+            "7": "Paste the key into Aipify.",
+            "8": "Test the connection."
           },
           "technicalDetails": "Uses GET /api/aipify/v1/connection with Authorization: Bearer. Live HTTP verification is required before activation."
         }
@@ -6494,6 +6570,11 @@
             "retryTest": "Run Test the connection again after verifying your key."
           }
         }
+      },
+      "scopeDescriptions": {
+        "metadata_read": "Read approved operational metadata about your organization",
+        "organization_read": "Read your organization name and identity for verification",
+        "integration_status_read": "Read integration health and connection status"
       }
     },
     "scenarioPlanning": {

@@ -6324,42 +6324,81 @@
         "lastTestFailed": "Last connection test failed",
         "permissionReadOnly": "Aipify może odczytywać informacje, ale nic nie zmienia",
         "permissionReadWrite": "Read & write access",
-        "helpTitle": "Integration help"
+        "helpTitle": "Pomoc integracji",
+        "actionsMenuLabel": "Działania",
+        "actions": {
+          "manage": "Zarządzaj",
+          "retryTest": "Testuj ponownie",
+          "disconnect": "Rozłącz",
+          "retry": "Spróbuj ponownie",
+          "editSetup": "Edytuj konfigurację",
+          "removeIntegration": "Usuń integrację",
+          "continueSetup": "Kontynuuj konfigurację"
+        },
+        "removeDialog": {
+          "title": "Usunąć integrację {provider}?",
+          "body": "Nieudane połączenie i zapisany klucz połączenia zostaną usunięte. Historyczne dzienniki aktywności zostaną zachowane."
+        },
+        "disconnectDialog": {
+          "title": "Rozłączyć {provider}?",
+          "body": "Spowoduje to rozłączenie Aipify z zewnętrzną platformą dla tej organizacji."
+        },
+        "feedback": {
+          "removeFailed": "Nie udało się usunąć integracji. Spróbuj ponownie.",
+          "testFailed": "Test połączenia nie powiódł się. Sprawdź konfigurację i spróbuj ponownie."
+        }
+      },
+      "providerNames": {
+        "custom_api": "Niestandardowe API",
+        "unonight": "Unonight",
+        "shopify": "Shopify",
+        "wordpress": "WordPress",
+        "stripe": "Stripe",
+        "woocommerce": "WooCommerce"
       },
       "setup": {
-        "title": "Connect",
-        "loading": "Loading setup…",
-        "back": "Back to Integrations",
-        "selectSetupType": "Choose connection method",
-        "oauthOption": "Automatic connection (OAuth / official app)",
-        "manualOption": "Manual connection key",
-        "permissionPreview": "Review permissions before approving",
-        "approveScopes": "I approve these permission scopes and understand what Aipify can access",
-        "approveScopesRequired": "Scope approval is required before saving",
-        "apiKeyPlaceholder": "Paste your read-only connection key",
-        "apiKeyMaskedNote": "Saved key (masked)",
-        "accessSummaryTitle": "Access summary",
-        "whatAipifyReads": "Aipify can read operational metadata required for the approved scopes only.",
-        "whatAipifyCannotDo": "Aipify cannot change data in your external system with read-only access.",
-        "credentialStorage": "Klucz połączenia jest szyfrowany w spoczynku i nigdy nie jest wyświetlany w całości po zapisaniu.",
+        "title": "Połącz z",
+        "loading": "Ładowanie konfiguracji…",
+        "back": "Wróć do integracji",
+        "selectSetupType": "Wybierz metodę połączenia",
+        "oauthOption": "Połączenie automatyczne (OAuth / oficjalna aplikacja)",
+        "manualOption": "Ręczny klucz połączenia",
+        "permissionPreview": "Przejrzyj uprawnienia przed zatwierdzeniem",
+        "approveScopes": "Zatwierdzam te uprawnienia dostępu i rozumiem, co Aipify może odczytać",
+        "approveScopesRequired": "Zatwierdzenie uprawnień jest wymagane przed zapisem",
+        "apiKeyPlaceholder": "Wklej klucz połączenia tylko do odczytu",
+        "apiKeyMaskedNote": "Zapisany klucz (zamaskowany)",
+        "accessSummaryTitle": "Podsumowanie dostępu",
+        "whatAipifyReads": "Aipify może odczytywać metadane operacyjne wymagane dla zatwierdzonych uprawnień — nic więcej.",
+        "whatAipifyCannotDo": "Aipify nie może zmieniać danych w Twoim systemie zewnętrznym przy dostępie tylko do odczytu.",
+        "credentialStorage": "Klucz połączenia jest szyfrowany w spoczynku i nigdy nie jest wyświetlany w całości po zapisie.",
         "revokeAccess": "Możesz w każdej chwili cofnąć dostęp, usuwając integrację.",
-        "rotateKey": "Replace credentials by saving a new key and revoking the old one externally.",
-        "connectionFailed": "Connection test failed — review permissions and try again.",
-        "save": "Save securely",
+        "rotateKey": "Wymień klucz, zapisując nowy klucz połączenia i cofając stary w systemie zewnętrznym.",
+        "connectionFailed": "Test połączenia nie powiódł się — sprawdź uprawnienia i spróbuj ponownie.",
+        "save": "Zapisz bezpiecznie",
         "test": "Przetestuj połączenie",
-        "remove": "Remove integration",
-        "replace": "Replace credentials",
-        "connectOAuth": "Connect with provider",
+        "remove": "Usuń integrację",
+        "replace": "Wymień klucz połączenia",
+        "connectOAuth": "Połącz z dostawcą",
         "saving": "Saving…",
         "testing": "Testing…",
-        "successTitle": "Integration saved",
-        "successBody": "Your connection was saved and logged. Full secrets are never shown again.",
-        "whyAccess": "Aipify needs limited access to deliver value inside your workspace.",
-        "whatNotToEnable": "Do not enable admin-wide, destructive, or write permissions unless explicitly required.",
-        "backStep": "Back",
-        "continueStep": "Continue",
+        "successTitle": "Integracja zapisana",
+        "successBody": "Połączenie zostało zapisane i zarejestrowane. Pełny klucz nie jest już wyświetlany.",
+        "whyAccess": "Aipify potrzebuje ograniczonego dostępu, aby dostarczać wartość w Twojej przestrzeni roboczej — tylko to, co zatwierdzisz.",
+        "whatNotToEnable": "Nie włączaj uprawnień administracyjnych, usuwania ani zapisu, chyba że jest to wyraźnie wymagane.",
+        "backStep": "Wstecz",
+        "continueStep": "Kontynuuj",
         "steps": {},
-        "manualSteps": {},
+        "manualSteps": {
+          "login": "Zaloguj się do Unonight Admin.",
+          "open_menu": "Otwórz Integracje → Aipify.",
+          "locate_keys": "Utwórz nowy bezpieczny klucz połączenia.",
+          "choose_permissions": "Wybierz tylko dostęp do odczytu.",
+          "avoid_permissions": "Sprawdź, czy uprawnienia obejmują metadata.read i organization.read.",
+          "copy_key": "Skopiuj klucz, gdy zostanie wyświetlony.",
+          "paste_in_aipify": "Wklej klucz w Aipify.",
+          "test_connection": "Przetestuj połączenie."
+        },
         "oauthSteps": {},
         "confirmActivation": "Potwierdź aktywację",
         "confirmActivationBody": "Połączenie zostało bezpiecznie zapisane. Uruchom ostatni test, aby aktywować integrację w workspace.",
@@ -6372,16 +6411,55 @@
         "loadErrorBody": "Aipify nie mogło teraz wczytać konfiguracji integracji. Spróbuj ponownie lub wróć do integracji.",
         "retryLoad": "Spróbuj ponownie",
         "backToIntegrations": "Wróć do integracji",
-        "apiKeyLabel": "Bezpieczny klucz połączenia"
+        "apiKeyLabel": "Bezpieczny klucz połączenia",
+        "completion": {
+          "verifiedHeading": "Unonight jest połączony i zweryfikowany",
+          "credentialSavedHeading": "Klucz połączenia został zapisany",
+          "statusActive": "✅ Aktywny",
+          "statusReadOnly": "🔒 Dostęp tylko do odczytu",
+          "statusAwaitingVerification": "⏳ Oczekuje na weryfikację",
+          "organizationLabel": "Organizacja",
+          "accessTypeLabel": "Typ dostępu",
+          "permissionsLabel": "Uprawnienia",
+          "lastVerifiedLabel": "Ostatnia weryfikacja",
+          "apiVersionLabel": "Wersja API",
+          "technicalDetailsLabel": "Szczegóły techniczne",
+          "technicalScopeLabel": "Techniczne identyfikatory zakresów",
+          "verifiedBody": "Aipify zweryfikowało połączenie tylko do odczytu z Unonight. Możesz zarządzać integracją w Platforma → Integracje.",
+          "credentialSavedBody": "Klucz połączenia jest bezpiecznie przechowywany. Uruchom test połączenia, aby zweryfikować dostęp przed aktywacją.",
+          "primaryIntegrations": "Przejdź do połączonych integracji",
+          "secondaryRetest": "Przetestuj połączenie ponownie",
+          "tertiaryOverview": "Wróć do przeglądu",
+          "primaryTest": "Przetestuj połączenie",
+          "secondaryIntegrations": "Wróć do integracji",
+          "activateCta": "Aktywuj integrację",
+          "activating": "Aktywowanie…",
+          "overviewHref": "/app"
+        },
+        "removeDialog": {
+          "title": "Usunąć integrację?",
+          "body": "Spowoduje to odłączenie Aipify od zewnętrznej platformy dla tej organizacji.",
+          "disconnectWhat": "Aktywne połączenie z zewnętrzną platformą zostanie rozłączone.",
+          "syncStops": "Synchronizacja w tle i pobieranie danych dla tej integracji zostanie zatrzymane.",
+          "credentialsRemoved": "Zapisane dane uwierzytelniające zostaną usunięte z Aipify.",
+          "auditRemains": "Rejestry audytu konfiguracji i usunięcia pozostaną.",
+          "confirm": "❌ Usuń integrację",
+          "confirmDisconnect": "❌ Rozłącz",
+          "cancel": "Anuluj",
+          "titleNamed": "Usunąć integrację {provider}?",
+          "bodyFailed": "Nieudane połączenie i zapisany klucz połączenia zostaną usunięte. Historyczne dzienniki aktywności zostaną zachowane.",
+          "confirmDisconnect": "❌ Rozłącz"
+        },
+        "manageIntegration": "Zarządzaj integracją"
       },
       "guidance": {
-        "whyAccess": "Why Aipify needs access",
-        "whatCanRead": "Aipify reads only metadata covered by approved scopes.",
-        "whatCannotDo": "Aipify może odczytywać informacje, ale nic nie zmienia",
-        "howStored": "Klucz połączenia jest szyfrowany w spoczynku i nigdy nie jest wyświetlany w całości po zapisaniu.",
-        "howRevoke": "Możesz w każdej chwili cofnąć dostęp, usuwając integrację.",
-        "howRotate": "Generate a new read-only key externally, replace in Aipify, test, then revoke the old key.",
-        "ifFails": "Verify read-only scopes, key validity, and run Test the connection again."
+        "whyAccess": "Dlaczego Aipify potrzebuje dostępu",
+        "whatCanRead": "Aipify odczytuje tylko metadane i sygnały operacyjne objęte zatwierdzonymi zakresami — nie prywatne rozmowy ani dane kart.",
+        "whatCannotDo": "Aipify nie może modyfikować systemu zewnętrznego z dostępem tylko do odczytu i nigdy nie wykonuje destrukcyjnych działań.",
+        "howStored": "Dane uwierzytelniające są szyfrowane w spoczynku. Mogą być widoczne maskowane podpowiedzi; pełne sekrety nigdy nie są pokazywane po zapisaniu.",
+        "howRevoke": "Usuń integrację w Platforma → Integracje, aby natychmiast cofnąć dostęp.",
+        "howRotate": "Wygeneruj nowy klucz tylko do odczytu zewnętrznie, zastąp w Aipify, przetestuj, a następnie unieważnij stary klucz.",
+        "ifFails": "Jeśli połączenie nie powiedzie się, sprawdź zakresy, ważność klucza i uruchom ponownie test połączenia."
       },
       "faq": {
         "whatIsSecureConnectionKey": "Czym jest bezpieczny klucz połączenia?",
@@ -6408,7 +6486,11 @@
         "needsReview": "👀 Połączenie wymaga weryfikacji",
         "connected": "✅ Połączono i zweryfikowano",
         "failed": "❌ Połączenie nie powiodło się",
-        "readOnly": "🔒 Ograniczone do dostępu tylko do odczytu"
+        "readOnly": "🔒 Ograniczone do dostępu tylko do odczytu",
+        "credentialSaved": "ℹ️ Klucz połączenia został bezpiecznie zapisany",
+        "verifiedReadOnly": "✅ Połączono i zweryfikowano",
+        "active": "✅ Integracja jest aktywna",
+        "awaitingVerification": "⏳ Oczekuje na weryfikację"
       },
       "wizard7Steps": {
         "choose_system": "Wybierz system",
@@ -6442,18 +6524,22 @@
       },
       "authHelp": {
         "sectionTitles": {
-          "what": "What is this?",
-          "why": "Why Aipify needs it",
-          "where": "Where to find it",
-          "project": "Which project or store",
-          "permissions": "Which permissions to choose",
-          "canChange": "Can I change this later?",
-          "revoke": "How to revoke access"
+          "what": "Co to jest?",
+          "why": "Dlaczego Aipify tego potrzebuje",
+          "where": "Gdzie to znaleźć",
+          "project": "Który projekt lub sklep",
+          "permissions": "Jakie uprawnienia wybrać",
+          "canChange": "Czy mogę to później zmienić?",
+          "revoke": "Jak cofnąć dostęp",
+          "stepsTitle": "Krok po kroku",
+          "technicalDetailsTitle": "Szczegóły techniczne",
+          "technicalDetailsToggleShow": "Pokaż szczegóły techniczne",
+          "technicalDetailsToggleHide": "Ukryj szczegóły techniczne"
         },
-        "stepsTitle": "Step-by-step",
-        "technicalDetailsTitle": "Technical details",
-        "technicalDetailsToggleShow": "Show technical details",
-        "technicalDetailsToggleHide": "Hide technical details",
+        "stepsTitle": "Krok po kroku",
+        "technicalDetailsTitle": "Szczegóły techniczne",
+        "technicalDetailsToggleShow": "Pokaż szczegóły techniczne",
+        "technicalDetailsToggleHide": "Ukryj szczegóły techniczne",
         "shopify": {
           "what": "A Shopify Admin API access token lets Aipify read store data you approve — orders, products, and customers metadata.",
           "why": "Aipify uses read-only store signals to surface operational insights in your workspace.",
@@ -6546,9 +6632,12 @@
           "steps": {
             "1": "Zaloguj się do Unonight Admin.",
             "2": "Otwórz Integracje → Aipify.",
-            "3": "Utwórz klucz read-only z zakresami wymienionymi w Aipify.",
-            "4": "Skopiuj token Bearer (pokazywany raz).",
-            "5": "Wklej w Aipify, potwierdź bazowy URL API i uruchom Test połączenia."
+            "3": "Utwórz nowy bezpieczny klucz połączenia.",
+            "4": "Wybierz tylko dostęp do odczytu.",
+            "5": "Sprawdź, czy uprawnienia obejmują metadata.read i organization.read.",
+            "6": "Skopiuj klucz, gdy zostanie wyświetlony.",
+            "7": "Wklej klucz w Aipify.",
+            "8": "Przetestuj połączenie."
           },
           "technicalDetails": "Używa GET /api/aipify/v1/connection z Authorization: Bearer. Weryfikacja HTTP na żywo jest wymagana przed aktywacją."
         }
@@ -6639,6 +6728,11 @@
             "retryTest": "Run Test the connection again after verifying your key."
           }
         }
+      },
+      "scopeDescriptions": {
+        "metadata_read": "Odczyt zatwierdzonych metadanych operacyjnych organizacji",
+        "organization_read": "Odczyt nazwy i tożsamości organizacji w celu weryfikacji",
+        "integration_status_read": "Odczyt stanu integracji i statusu połączenia"
       }
     }
   }

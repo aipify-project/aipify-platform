@@ -9,9 +9,9 @@ import {
 } from "./command-brief-attention";
 import {
   buildCommandBriefAlertSummary,
-  buildCommandBriefApprovalSummary,
   buildCommandBriefActivityFeed,
   buildCommandBriefIntegrationSignals,
+  buildCommandBriefIntegrationStatus,
   buildCommandBriefKpiCounts,
   buildCommandBriefNextAction,
   filterRealCompanionRecommendations,
@@ -88,7 +88,7 @@ const syntheticCenter: ExecutiveCommandCenter = {
 
 assert.equal(filterRealCompanionRecommendations(syntheticCenter.companion_recommendations ?? []).length, 0);
 assert.equal(buildCommandBriefAttentionItemsFromCenter(syntheticCenter).items.length, 0);
-assert.equal(buildCommandBriefActivityFeed(syntheticCenter).length, 0);
+assert.equal(buildCommandBriefActivityFeed(syntheticCenter).items.length, 0);
 
 const syntheticTimelineCenter: ExecutiveCommandCenter = {
   found: true,
@@ -102,7 +102,7 @@ const syntheticTimelineCenter: ExecutiveCommandCenter = {
   ],
 };
 
-assert.equal(buildCommandBriefActivityFeed(syntheticTimelineCenter).length, 0);
+assert.equal(buildCommandBriefActivityFeed(syntheticTimelineCenter).items.length, 0);
 
 const realCenter: ExecutiveCommandCenter = {
   found: true,
@@ -189,24 +189,32 @@ assert.equal(kpis.awaitingApproval, 2);
 assert.ok(kpis.sinceLastLogin >= 0);
 
 const alertSummary = buildCommandBriefAlertSummary(realCenter, attention.items);
-assert.ok(alertSummary.length >= 0);
-assert.ok(alertSummary.length <= 3);
-for (const item of alertSummary) {
+assert.ok(alertSummary.items.length >= 0);
+assert.ok(alertSummary.items.length <= 3);
+for (const item of alertSummary.items) {
   assert.ok(!attention.items.some((a) => a.dedupeKey === item.dedupeKey), "alert summary excludes attention items");
 }
 
-const approvalSummary = buildCommandBriefApprovalSummary(realCenter, attention.items);
-assert.ok(approvalSummary.length >= 0);
-assert.ok(approvalSummary.length <= 3);
-for (const item of approvalSummary) {
-  assert.ok(!attention.items.some((a) => a.dedupeKey === item.dedupeKey), "approval summary excludes attention items");
-}
+const integrationStatus = buildCommandBriefIntegrationStatus(realCenter);
+assert.equal(integrationStatus.items.length, 1);
+assert.equal(integrationStatus.items[0]?.title, "Aipify Hosts");
+assert.equal(integrationStatus.items[0]?.eventsCount, 4);
+assert.equal(integrationStatus.items[0]?.alertsCount, 1);
 
-const integrationSignals = buildCommandBriefIntegrationSignals(realCenter);
-assert.equal(integrationSignals.length, 1);
-assert.equal(integrationSignals[0]?.title, "Aipify Hosts");
-assert.equal(integrationSignals[0]?.eventsCount, 4);
-assert.equal(integrationSignals[0]?.alertsCount, 1);
+const demoSeedCenter: ExecutiveCommandCenter = {
+  found: true,
+  business_packs: [
+    {
+      pack_key: "support",
+      pack_title: "Support Pack",
+      summary: "Support Pack → Customer Events.",
+      events_count: 12,
+      alerts_count: 1,
+    },
+  ],
+};
+assert.equal(buildCommandBriefIntegrationStatus(demoSeedCenter).items.length, 0);
+assert.equal(buildCommandBriefIntegrationSignals(demoSeedCenter).length, 0);
 
 assert.equal(buildCommandBriefNextAction({ found: true, alerts: [], actions: [] }), null);
 assert.equal(

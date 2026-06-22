@@ -30,8 +30,7 @@ import {
 import {
   buildCommandBriefActivityFeed,
   buildCommandBriefAlertSummary,
-  buildCommandBriefApprovalSummary,
-  buildCommandBriefIntegrationSignals,
+  buildCommandBriefIntegrationStatus,
   buildCommandBriefKpiCounts,
   buildCommandBriefNextAction,
 } from "@/lib/command-center/command-brief-overview";
@@ -295,8 +294,7 @@ export function ExecutiveCommandCenterPanel({
     const kpis = buildCommandBriefKpiCounts(center);
     const nextAction = buildCommandBriefNextAction(center);
     const alertSummary = buildCommandBriefAlertSummary(center, attentionItems);
-    const approvalSummary = buildCommandBriefApprovalSummary(center, attentionItems);
-    const integrationSignals = buildCommandBriefIntegrationSignals(center);
+    const integrationStatus = buildCommandBriefIntegrationStatus(center);
 
     return (
       <CommandBriefOverview
@@ -306,11 +304,13 @@ export function ExecutiveCommandCenterPanel({
         attentionItems={attentionItems}
         attentionTotalCount={attention.totalCount}
         attentionSeeAllHref={attention.seeAllHref}
-        activityFeed={activityFeed}
+        activityItems={activityFeed.items}
+        activityTotalCount={activityFeed.totalCount}
         nextAction={nextAction}
-        alertSummary={alertSummary}
-        approvalSummary={approvalSummary}
-        integrationSignals={integrationSignals}
+        alertItems={alertSummary.items}
+        alertTotalCount={alertSummary.totalCount}
+        integrationItems={integrationStatus.items}
+        integrationTotalCount={integrationStatus.totalCount}
         resolveLabel={resolveLabel}
       />
     );

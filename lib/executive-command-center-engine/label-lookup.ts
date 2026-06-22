@@ -72,5 +72,91 @@ export function buildCommandCenterLabelLookup(t: Translator): Record<string, str
     lookup[key] = t(key);
   }
 
+  const commandBriefPrefix = "customerApp.executiveCommandCenter.commandBriefOverview";
+  const attentionSeverity = ["critical", "attention", "waiting", "info"] as const;
+  for (const tier of attentionSeverity) {
+    const key = `${commandBriefPrefix}.attention.severity.${tier}`;
+    lookup[key] = t(key);
+  }
+
+  const eventTypes = [
+    "customer",
+    "contract",
+    "approval",
+    "knowledge",
+    "partner",
+    "risk",
+    "revenue",
+    "integration",
+    "operational",
+    "businessPack",
+    "support",
+    "timeline",
+    "alert",
+    "opportunity",
+    "briefing",
+    "security",
+    "billing",
+    "task",
+  ] as const;
+  for (const eventType of eventTypes) {
+    const key = `${commandBriefPrefix}.eventTypes.${eventType}`;
+    lookup[key] = t(key);
+  }
+
+  const moduleAreas = [
+    "integration",
+    "approval",
+    "approvalDelay",
+    "alerts",
+    "customerRisk",
+    "revenue",
+    "security",
+    "compliance",
+    "billing",
+    "license",
+    "dataQuality",
+    "organizationalHealth",
+    "businessPack",
+    "tasks",
+    "support",
+  ] as const;
+  for (const area of moduleAreas) {
+    const key = `${commandBriefPrefix}.moduleAreas.${area}`;
+    lookup[key] = t(key);
+  }
+
+  const integrationStatuses = [
+    "connectedVerified",
+    "readOnly",
+    "needsReview",
+    "awaitingSetup",
+    "disconnected",
+    "notActivated",
+  ] as const;
+  for (const status of integrationStatuses) {
+    const key = `${commandBriefPrefix}.integrationStatuses.${status}`;
+    lookup[key] = t(key);
+  }
+
+  for (const mode of ["read_only", "full"] as const) {
+    const key = `${commandBriefPrefix}.accessModes.${mode}`;
+    lookup[key] = t(key);
+  }
+
+  for (const action of ["review", "manage"] as const) {
+    const key = `${commandBriefPrefix}.integrationActions.${action}`;
+    lookup[key] = t(key);
+  }
+
+  for (const pack of ["hosts", "support", "finance", "warehouse"] as const) {
+    const key = `${commandBriefPrefix}.packNames.${pack}`;
+    lookup[key] = t(key);
+  }
+
+  lookup[`${commandBriefPrefix}.attention.actions.reviewIntegration`] = t(
+    `${commandBriefPrefix}.attention.actions.reviewIntegration`
+  );
+
   return lookup;
 }

@@ -2,14 +2,31 @@ import { NextResponse } from "next/server";
 import { parseActivityOperationsCenter } from "@/lib/activity-operations";
 import {
   appPortalAccessDeniedResponse,
-  appPortalRpcErrorResponse,
+  appPortalStableErrorCode,
   isDatabaseExecutionError,
   requireOrganizationViewPermission,
   requireReadyAppPortalContext,
   rpcErrorStatus,
 } from "@/lib/tenant/app-portal-route-access";
-import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
+import {
+  classifyAppPortalError,
+  type AppOrganizationContextState,
+} from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
+
+const LOG_TAG = "[app/activity-operations]";
+
+function activityOperationsErrorResponse(message: string, accessState: AppOrganizationContextState) {
+  console.error(LOG_TAG, message);
+  return NextResponse.json(
+    {
+      error: appPortalStableErrorCode(accessState),
+      access_state: accessState,
+      found: false,
+    },
+    { status: rpcErrorStatus(message, accessState) }
+  );
+}
 
 export async function GET(request: Request) {
   try {
@@ -17,7 +34,12 @@ export async function GET(request: Request) {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!user) {
+      return NextResponse.json(
+        { error: "unauthenticated", access_state: "unauthenticated", found: false },
+        { status: 401 }
+      );
+    }
 
     const access = await requireReadyAppPortalContext(supabase);
     if (!access.ok) return access.response;
@@ -35,45 +57,33 @@ export async function GET(request: Request) {
     });
 
     if (error) {
-      if (isDatabaseExecutionError(error.message)) {
-        return NextResponse.json(
-          { error: error.message, access_state: "database_execution_error", found: false },
-          { status: 500 }
-        );
+      const accessState = isDatabaseExecutionError(error.message)
+        ? "database_execution_error"
+        : classifyAppPortalError(error.message);
+      if (accessState === "permission_missing") {
+        return appPortalAccessDeniedResponse("permission_missing", "permission_missing");
       }
-      const access_state = classifyAppPortalError(error.message);
-      if (access_state === "permission_missing") {
-        return appPortalAccessDeniedResponse("permission_missing", error.message);
-      }
-      return appPortalRpcErrorResponse("[app/activity-operations]", error.message);
+      return activityOperationsErrorResponse(error.message, accessState);
     }
 
     const parsed = parseActivityOperationsCenter((data as Record<string, unknown>) ?? {});
     if (parsed.found !== true && parsed.error) {
-      const access_state = classifyAppPortalError(parsed.error);
-      return NextResponse.json(
-        { error: parsed.error, access_state, found: false },
-        { status: rpcErrorStatus(parsed.error, access_state) }
-      );
+      const accessState = classifyAppPortalError(parsed.error);
+      if (accessState === "permission_missing") {
+        return appPortalAccessDeniedResponse("permission_missing", "permission_missing");
+      }
+      return activityOperationsErrorResponse(parsed.error, accessState);
     }
 
     return NextResponse.json(parsed);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to load activity center";
-    if (isDatabaseExecutionError(message)) {
-      return NextResponse.json(
-        { error: message, access_state: "database_execution_error", found: false },
-        { status: 500 }
-      );
+    const accessState = isDatabaseExecutionError(message)
+      ? "database_execution_error"
+      : classifyAppPortalError(message);
+    if (accessState === "permission_missing") {
+      return appPortalAccessDeniedResponse("permission_missing", "permission_missing");
     }
-    const access_state = classifyAppPortalError(message);
-    if (access_state === "permission_missing") {
-      return appPortalAccessDeniedResponse("permission_missing", message);
-    }
-    console.error("[app/activity-operations]", message);
-    return NextResponse.json(
-      { error: message, access_state, found: false },
-      { status: rpcErrorStatus(message, access_state) }
-    );
+    return activityOperationsErrorResponse(message, accessState);
   }
 }

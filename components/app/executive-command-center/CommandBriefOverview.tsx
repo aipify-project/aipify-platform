@@ -7,8 +7,6 @@ import { CompanionIcon } from "@/components/app/companion-experience/CompanionIc
 import { ExecutiveMetricCard } from "@/components/app/design";
 import { SemanticBadge } from "@/components/ui/semantic-badge";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
-import { formatDateTime } from "@/lib/i18n/format-date";
-import { formatRelativeTime } from "@/lib/i18n/format-relative-time";
 import {
   resolveAttentionKpiStatus,
   resolveAwaitingApprovalKpiStatus,
@@ -19,69 +17,17 @@ import {
 } from "@/lib/command-center/command-brief-kpi-status";
 import type { CommandBriefAttentionItem } from "@/lib/command-center/command-brief-attention";
 import type { CommandCenterItem } from "@/lib/command-center/ecc-tab-datasets";
-import type {
-  CommandBriefIntegrationSignal,
-  CommandBriefKpiCounts,
-} from "@/lib/command-center/command-brief-overview";
+import type { CommandBriefIntegrationStatusItem } from "@/lib/command-center/command-brief-integration-status";
+import type { CommandBriefKpiCounts } from "@/lib/command-center/command-brief-overview";
 import type { SinceLastLoginEvent } from "@/lib/command-center/since-last-login";
 import type { buildExecutiveCommandCenterLabels } from "@/lib/executive-command-center-engine/labels";
 import { mapUserRoleToOrganizationRole, roleHasPermission } from "@/lib/core/organization";
 import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardProfileProvider";
-import { CommandBriefAttentionCard } from "./CommandBriefAttentionCard";
+import { CommandBriefOverviewLower } from "./CommandBriefOverviewLower";
 import { EccTabIcons } from "./ecc-tab-icons";
 
 type Labels = ReturnType<typeof buildExecutiveCommandCenterLabels>;
 type OverviewLabels = Labels["commandBriefOverview"];
-
-function CompactSummaryList({
-  items,
-  resolveLabel,
-  emptyLabel,
-}: {
-  items: CommandCenterItem[];
-  resolveLabel: (key: string) => string;
-  emptyLabel?: string;
-}) {
-  if (items.length === 0) {
-    return emptyLabel ? (
-      <p className={`${AppPremiumShell.commandBriefBody} text-aipify-text-muted`}>{emptyLabel}</p>
-    ) : null;
-  }
-
-  return (
-    <ul className="divide-y divide-aipify-border rounded-xl border border-aipify-border bg-aipify-surface">
-      {items.map((item) => (
-        <li key={item.dedupeKey}>
-          <Link
-            href={item.href}
-            className={`flex flex-col gap-2 px-4 py-4 transition hover:bg-aipify-surface-muted sm:flex-row sm:items-center sm:justify-between ${AppPremiumShell.focusRing}`}
-          >
-            <div className="min-w-0 flex-1">
-              <p className="text-base font-medium text-aipify-text">{item.title}</p>
-              {item.description ? (
-                <p className={`mt-1 line-clamp-2 ${AppPremiumShell.commandBriefBody}`}>{item.description}</p>
-              ) : null}
-            </div>
-            <div className="flex shrink-0 flex-wrap items-center gap-2">
-              <SemanticBadge
-                type={item.primaryBadge.type}
-                value={item.primaryBadge.value}
-                label={resolveLabel(item.primaryBadge.labelKey)}
-              />
-              {item.secondaryBadge ? (
-                <SemanticBadge
-                  type={item.secondaryBadge.type}
-                  value={item.secondaryBadge.value}
-                  label={resolveLabel(item.secondaryBadge.labelKey)}
-                />
-              ) : null}
-            </div>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
-}
 
 type CommandBriefCompanionCardProps = {
   labels: OverviewLabels;
@@ -176,24 +122,6 @@ export function CommandBriefCompanionCard({ labels, className = "" }: CommandBri
   );
 }
 
-function activityCategoryLabel(labels: OverviewLabels, event: SinceLastLoginEvent): string {
-  if (event.workflowState === "awaiting_approval") return labels.activityCategories.awaiting_review;
-  return labels.activityCategories[event.category] ?? labels.activityCategories.information;
-}
-
-function formatActivityTimestamp(isoDate: string | undefined, locale: string): string | null {
-  if (!isoDate) return null;
-  return formatRelativeTime(isoDate, locale) ?? formatDateTime(isoDate, locale);
-}
-
-function activityIcon(event: SinceLastLoginEvent) {
-  if (event.category === "completed_by_aipify" || event.category === "observed_by_aipify") {
-    return EccTabIcons.action;
-  }
-  if (event.category === "requires_attention") return EccTabIcons.alerts;
-  return EccTabIcons.history;
-}
-
 type CommandBriefOverviewProps = {
   labels: Labels;
   locale: string;
@@ -201,11 +129,13 @@ type CommandBriefOverviewProps = {
   attentionItems: CommandBriefAttentionItem[];
   attentionTotalCount: number;
   attentionSeeAllHref: string;
-  activityFeed: SinceLastLoginEvent[];
+  activityItems: SinceLastLoginEvent[];
+  activityTotalCount: number;
   nextAction: CommandCenterItem | null;
-  alertSummary: CommandCenterItem[];
-  approvalSummary: CommandCenterItem[];
-  integrationSignals: CommandBriefIntegrationSignal[];
+  alertItems: CommandCenterItem[];
+  alertTotalCount: number;
+  integrationItems: CommandBriefIntegrationStatusItem[];
+  integrationTotalCount: number;
   resolveLabel: (key: string) => string;
 };
 
@@ -216,11 +146,13 @@ export function CommandBriefOverview({
   attentionItems,
   attentionTotalCount,
   attentionSeeAllHref,
-  activityFeed,
+  activityItems,
+  activityTotalCount,
   nextAction,
-  alertSummary,
-  approvalSummary,
-  integrationSignals,
+  alertItems,
+  alertTotalCount,
+  integrationItems,
+  integrationTotalCount,
   resolveLabel,
 }: CommandBriefOverviewProps) {
   const profile = useOptionalDashboardProfile();
@@ -369,180 +301,22 @@ export function CommandBriefOverview({
         </aside>
       </section>
 
-      <div className="col-span-12 space-y-6 lg:space-y-8">
-          <section id="ecc-attention" aria-labelledby="ecc-attention-title" className="space-y-4">
-            <div className="flex flex-wrap items-end justify-between gap-3">
-              <h2 id="ecc-attention-title" className={AppPremiumShell.commandBriefSectionTitle}>
-                {o.attentionTitle}
-              </h2>
-              {attentionTotalCount > attentionItems.length ? (
-                <Link
-                  href={attentionSeeAllHref}
-                  className={`text-base font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
-                >
-                  {o.attentionViewAll} →
-                </Link>
-              ) : null}
-            </div>
-            {attentionItems.length === 0 ? (
-              <div className={`${AppPremiumShell.elevatedCard} p-5 sm:p-6`}>
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 text-lg text-emerald-600" aria-hidden="true">
-                    ✓
-                  </span>
-                  <div>
-                    <p className="text-base font-medium text-aipify-text">{o.attentionEmptyTitle}</p>
-                    <p className={`mt-2 ${AppPremiumShell.commandBriefBody}`}>{o.attentionEmptyBody}</p>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {attentionItems.map((item) => (
-                  <CommandBriefAttentionCard
-                    key={item.dedupeKey}
-                    item={item}
-                    locale={locale}
-                    labels={{
-                      moduleArea: o.attentionModuleArea,
-                      responsible: o.attentionResponsible,
-                      updated: o.attentionUpdated,
-                      viewDetails: o.attentionViewDetails,
-                    }}
-                    resolveLabel={resolveLabel}
-                    canAccessApprovals={canAccessApprovals}
-                  />
-                ))}
-              </div>
-            )}
-          </section>
-
-          <section aria-labelledby="ecc-activity-title" className="space-y-4">
-            <div className="flex flex-wrap items-end justify-between gap-3">
-              <h2 id="ecc-activity-title" className={AppPremiumShell.commandBriefSectionTitle}>
-                {o.sinceLastLoginTitle}
-              </h2>
-              <Link
-                href="/app/command-center?tab=since-last-login"
-                className={`text-base font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
-              >
-                {o.viewAllActivity} →
-              </Link>
-            </div>
-            {activityFeed.length === 0 ? (
-              <div className={`${AppPremiumShell.elevatedCard} px-4 py-3.5 sm:px-5`}>
-                <p className="text-base font-medium text-aipify-text">{o.activityEmptyTitle}</p>
-                <p className={`mt-1.5 ${AppPremiumShell.commandBriefBody}`}>{o.activityEmptyBody}</p>
-              </div>
-            ) : (
-              <ul className="space-y-2">
-                {activityFeed.map((event) => {
-                  const timestamp = formatActivityTimestamp(event.occurredAt, locale);
-                  return (
-                    <li key={event.dedupeKey}>
-                      <article className={`${AppPremiumShell.elevatedCard} flex items-start gap-3 px-3.5 py-3 sm:px-4`}>
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-aipify-accent-soft text-aipify-companion">
-                          {activityIcon(event)}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                            <h3 className="text-base font-semibold text-aipify-text">{event.title}</h3>
-                            <SemanticBadge
-                              type="severity"
-                              value={event.severity ?? "info"}
-                              label={activityCategoryLabel(o, event)}
-                            />
-                            {timestamp ? (
-                              <time
-                                dateTime={event.occurredAt}
-                                className={`ml-auto shrink-0 ${AppPremiumShell.commandBriefMeta}`}
-                              >
-                                {timestamp}
-                              </time>
-                            ) : null}
-                          </div>
-                          {event.explanation ? (
-                            <p className={`mt-1 line-clamp-2 ${AppPremiumShell.commandBriefBody}`}>{event.explanation}</p>
-                          ) : null}
-                        </div>
-                      </article>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </section>
-
-          {(alertSummary.length > 0 || approvalSummary.length > 0) && (
-            <div className="grid grid-cols-12 gap-6">
-              {alertSummary.length > 0 ? (
-                <section aria-labelledby="ecc-alerts-summary" className="col-span-12 space-y-3 md:col-span-6">
-                  <div className="flex items-end justify-between gap-3">
-                    <h2 id="ecc-alerts-summary" className="text-lg font-semibold text-aipify-text">
-                      {o.alertsSummaryTitle}
-                    </h2>
-                    <Link
-                      href="/app/command-center/alerts"
-                      className={`text-sm font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
-                    >
-                      {o.viewAllAlerts} →
-                    </Link>
-                  </div>
-                  <CompactSummaryList items={alertSummary} resolveLabel={resolveLabel} />
-                </section>
-              ) : null}
-              {approvalSummary.length > 0 ? (
-                <section aria-labelledby="ecc-approvals-summary" className="col-span-12 space-y-3 md:col-span-6">
-                  <div className="flex items-end justify-between gap-3">
-                    <h2 id="ecc-approvals-summary" className="text-lg font-semibold text-aipify-text">
-                      {o.approvalsSummaryTitle}
-                    </h2>
-                    <Link
-                      href="/app/command-center/approvals"
-                      className={`text-sm font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
-                    >
-                      {o.viewAllApprovals} →
-                    </Link>
-                  </div>
-                  <CompactSummaryList items={approvalSummary} resolveLabel={resolveLabel} />
-                </section>
-              ) : null}
-            </div>
-          )}
-
-          {integrationSignals.length > 0 ? (
-            <section aria-labelledby="ecc-integrations-summary" className="space-y-3">
-              <div className="flex items-end justify-between gap-3">
-                <h2 id="ecc-integrations-summary" className="text-lg font-semibold text-aipify-text">
-                  {o.integrationsSummaryTitle}
-                </h2>
-                <Link
-                  href="/app/platform/integrations"
-                  className={`text-sm font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
-                >
-                  {o.viewAllIntegrations} →
-                </Link>
-              </div>
-              <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {integrationSignals.map((signal) => (
-                  <li key={signal.id}>
-                    <article className={`${AppPremiumShell.elevatedCard} h-full p-4 sm:p-5`}>
-                      <h3 className="text-base font-semibold text-aipify-text">{signal.title}</h3>
-                      {signal.summary ? (
-                        <p className={`mt-2 ${AppPremiumShell.commandBriefBody}`}>{signal.summary}</p>
-                      ) : null}
-                      <p className={`mt-3 ${AppPremiumShell.commandBriefMeta}`}>
-                        {o.integrationSignalMeta
-                          .replace("{events}", String(signal.eventsCount))
-                          .replace("{alerts}", String(signal.alertsCount))}
-                      </p>
-                    </article>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
-
+      <div className="col-span-12">
+        <CommandBriefOverviewLower
+          labels={o}
+          locale={locale}
+          attentionItems={attentionItems}
+          attentionTotalCount={attentionTotalCount}
+          attentionSeeAllHref={attentionSeeAllHref}
+          activityItems={activityItems}
+          activityTotalCount={activityTotalCount}
+          alertItems={alertItems}
+          alertTotalCount={alertTotalCount}
+          integrationItems={integrationItems}
+          integrationTotalCount={integrationTotalCount}
+          canAccessApprovals={canAccessApprovals}
+          resolveLabel={resolveLabel}
+        />
       </div>
     </div>
   );

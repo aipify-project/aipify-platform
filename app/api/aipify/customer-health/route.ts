@@ -3,7 +3,7 @@ import { parseCustomerHealthWorkspace } from "@/lib/app-portal/customer-health";
 import {
   appPortalAccessDeniedResponse,
   appPortalRpcErrorResponse,
-  isDatabaseExecutionError,
+  appPortalStableErrorCode,
   requireOrganizationViewPermission,
   requireReadyAppPortalContext,
   rpcErrorStatus,
@@ -38,12 +38,6 @@ export async function GET(request: Request) {
       p_search: searchParams.get("search") || null,
     });
     if (error) {
-      if (isDatabaseExecutionError(error.message)) {
-        return NextResponse.json(
-          { error: error.message, access_state: "database_execution_error", found: false },
-          { status: 500 }
-        );
-      }
       return appPortalRpcErrorResponse("[aipify/customer-health]", error.message);
     }
     return NextResponse.json(parseCustomerHealthWorkspace(data));
@@ -52,7 +46,7 @@ export async function GET(request: Request) {
     const access_state = classifyAppPortalError(message);
     console.error("[aipify/customer-health]", message);
     return NextResponse.json(
-      { error: message, access_state, found: false },
+      { error: appPortalStableErrorCode(access_state), access_state, found: false },
       { status: rpcErrorStatus(message, access_state) }
     );
   }
@@ -73,7 +67,7 @@ export async function POST() {
     if (manageError) {
       const access_state = classifyAppPortalError(manageError.message);
       return NextResponse.json(
-        { error: manageError.message, access_state, found: false },
+        { error: appPortalStableErrorCode(access_state), access_state, found: false },
         { status: rpcErrorStatus(manageError.message, access_state) }
       );
     }
@@ -83,12 +77,6 @@ export async function POST() {
 
     const { data, error } = await supabase.rpc("begin_app_portal_customer_health_review");
     if (error) {
-      if (isDatabaseExecutionError(error.message)) {
-        return NextResponse.json(
-          { error: error.message, access_state: "database_execution_error", found: false },
-          { status: 500 }
-        );
-      }
       return appPortalRpcErrorResponse("[aipify/customer-health]", error.message);
     }
     return NextResponse.json(parseCustomerHealthWorkspace(data));
@@ -97,7 +85,7 @@ export async function POST() {
     const access_state = classifyAppPortalError(message);
     console.error("[aipify/customer-health]", message);
     return NextResponse.json(
-      { error: message, access_state, found: false },
+      { error: appPortalStableErrorCode(access_state), access_state, found: false },
       { status: rpcErrorStatus(message, access_state) }
     );
   }

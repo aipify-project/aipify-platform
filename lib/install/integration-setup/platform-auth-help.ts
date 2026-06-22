@@ -25,7 +25,7 @@ const PROVIDER_STEP_COUNTS: Record<IntegrationAuthHelpProvider, number> = {
   woocommerce: 5,
   custom_api: 4,
   stripe: 5,
-  unonight: 5,
+  unonight: 8,
 };
 
 const PROVIDER_FIELDS: Record<IntegrationAuthHelpProvider, IntegrationAuthHelpField[]> = {

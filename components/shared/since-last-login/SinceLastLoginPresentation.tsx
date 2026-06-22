@@ -86,7 +86,9 @@ function SinceLastLoginEventCard({
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0 flex-1 space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">{event.eventType}</span>
+            <span className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
+              {event.eventType || labels.unknownEventType}
+            </span>
             {event.category === "completed_by_aipify" ? (
               <SemanticBadge type="workflow" value="completed" label={labels.completedByAipify} />
             ) : event.severity ? (

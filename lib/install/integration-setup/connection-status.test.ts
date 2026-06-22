@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import {
   getIntegrationConnectionBadgeConfig,
+  getIntegrationWizardPhaseBadgeConfig,
   mapConnectionStatusToSemantic,
+  mapWizardConnectionPhase,
 } from "./connection-status";
 import { getSemanticPresentation } from "@/lib/design/semantic-status-system";
 
@@ -54,5 +56,32 @@ assert.doesNotThrow(() =>
 
 // 8. Label keys are defined
 assert.ok(failedBadge.labelKey.includes("integrations.statuses.failed"));
+
+// 9. Wizard phases
+assert.equal(
+  mapWizardConnectionPhase("pending", { hasCredential: true }),
+  "credential_saved"
+);
+assert.equal(
+  mapWizardConnectionPhase("connected", {
+    hasCredential: true,
+    lastTestSuccessAt: "2026-01-01T00:00:00Z",
+    permissionLevel: "read_only",
+  }),
+  "verified_read_only"
+);
+assert.equal(
+  mapWizardConnectionPhase("active", {
+    hasCredential: true,
+    lastTestSuccessAt: "2026-01-01T00:00:00Z",
+    activationComplete: true,
+  }),
+  "active"
+);
+
+const wizardBadge = getIntegrationWizardPhaseBadgeConfig("credential_saved");
+assert.doesNotThrow(() =>
+  getSemanticPresentation(wizardBadge.badgeType, wizardBadge.badgeValue)
+);
 
 console.log("connection-status.test.ts: all assertions passed");

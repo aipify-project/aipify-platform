@@ -3,8 +3,10 @@
 import { SemanticBadge } from "@/components/ui/semantic-badge";
 import {
   getIntegrationConnectionBadgeConfig,
+  getIntegrationWizardPhaseBadgeConfig,
   mapConnectionStatusToSemantic,
   type IntegrationConnectionSemanticStatus,
+  type IntegrationWizardConnectionPhase,
 } from "@/lib/install/integration-setup";
 
 type IntegrationConnectionStatusBadgeProps = {
@@ -17,6 +19,9 @@ type IntegrationConnectionStatusBadgeProps = {
   lastTestError?: string | null;
   /** Override mapped semantic status when known. */
   semanticStatus?: IntegrationConnectionSemanticStatus;
+  /** Wizard-specific phase override (connect flow). */
+  wizardPhase?: IntegrationWizardConnectionPhase;
+  activationComplete?: boolean;
   className?: string;
 };
 
@@ -29,8 +34,22 @@ export function IntegrationConnectionStatusBadge({
   lastTestFailedAt,
   lastTestError,
   semanticStatus,
+  wizardPhase,
+  activationComplete,
   className,
 }: IntegrationConnectionStatusBadgeProps) {
+  if (wizardPhase) {
+    const config = getIntegrationWizardPhaseBadgeConfig(wizardPhase);
+    return (
+      <SemanticBadge
+        type={config.badgeType}
+        value={config.badgeValue}
+        label={label}
+        className={className}
+      />
+    );
+  }
+
   const resolved =
     semanticStatus ??
     mapConnectionStatusToSemantic(status, {

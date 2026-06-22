@@ -11,7 +11,7 @@ import {
 import { getSeverityPresentation, mapExecutivePriorityToSeverity } from "@/lib/design/semantic-status-system";
 import type { ExecutiveCommandCenter } from "@/lib/executive-command-center-engine/parse";
 
-export const COMMAND_BRIEF_ATTENTION_LIMIT = 5;
+export const COMMAND_BRIEF_ATTENTION_LIMIT = 3;
 export const COMMAND_BRIEF_ATTENTION_SEE_ALL_HREF = "/app/command-center/alerts";
 export const COMMAND_BRIEF_RETURN_PATH = "/app/command-center";
 

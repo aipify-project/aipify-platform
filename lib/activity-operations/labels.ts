@@ -33,6 +33,7 @@ export function buildActivityOperationsLabels(t: Translator) {
     generateHighlights: t(`${p}.generateHighlights`),
     noEvents: t(`${p}.noEvents`),
     emptyHint: t(`${p}.emptyHint`),
+    unknownEventType: t(`${p}.unknownEventType`),
     topChanges: t(`${p}.topChanges`),
     topRisks: t(`${p}.topRisks`),
     topOpportunities: t(`${p}.topOpportunities`),

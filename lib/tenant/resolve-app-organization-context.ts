@@ -101,8 +101,15 @@ export function classifyAppPortalError(message: string): AppOrganizationContextS
   if (lower.includes("access denied for organization")) {
     return "membership_missing";
   }
-  if (lower.includes("permission denied") || lower.includes("permission missing")) {
+  if (
+    lower.includes("permission denied") ||
+    lower.includes("permission missing") ||
+    lower.includes("leadership authorization")
+  ) {
     return "permission_missing";
+  }
+  if (lower.includes("pgrst202") || lower.includes("could not find the function")) {
+    return "database_execution_error";
   }
   if (
     lower.includes("entitlement") ||

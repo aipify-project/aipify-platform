@@ -40,6 +40,7 @@ export type SinceLastLoginUxLabels = {
   };
   completedByAipify: string;
   information: string;
+  unknownEventType: string;
 };
 
 export function buildSinceLastLoginUxLabels(t: Translator): SinceLastLoginUxLabels {
@@ -84,6 +85,7 @@ export function buildSinceLastLoginUxLabels(t: Translator): SinceLastLoginUxLabe
     },
     completedByAipify: t(`${p}.completedByAipify`),
     information: t(`${p}.information`),
+    unknownEventType: t(`${p}.unknownEventType`),
   };
 }
 

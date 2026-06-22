@@ -203,7 +203,7 @@ export function classifyActivityEvent(event: ActivityEvent): SinceLastLoginEvent
 
   return {
     id: event.id,
-    eventType: event.category.replace(/_/g, " "),
+    eventType: event.category ? event.category.replace(/_/g, " ") : "activity",
     title: event.title,
     explanation: event.summary ?? event.impact_note ?? event.recommendation ?? "",
     count: 1,

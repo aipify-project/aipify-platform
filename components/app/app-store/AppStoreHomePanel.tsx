@@ -180,16 +180,20 @@ export function AppStoreHomePanel({
   locale = "en",
   catalogRouting,
   hideHeader = false,
+  initialTab = "marketplace",
+  visibleTabs,
 }: {
   labels: AppStoreLabels;
   locale?: string;
   catalogRouting?: AppStoreCatalogRouting;
   hideHeader?: boolean;
+  initialTab?: SectionKey;
+  visibleTabs?: SectionKey[];
 }) {
   const [home, setHome] = useState<AppStoreHome | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
-  const [activeTab, setActiveTab] = useState<SectionKey>("marketplace");
+  const [activeTab, setActiveTab] = useState<SectionKey>(initialTab);
   const [removeTarget, setRemoveTarget] = useState<string | null>(null);
 
   const load = useCallback(async () => {
@@ -248,13 +252,14 @@ export function AppStoreHomePanel({
     );
   }
 
-  const tabs: { key: SectionKey; label: string; count: number }[] = [
+  const allTabs: { key: SectionKey; label: string; count: number }[] = [
     { key: "installed", label: labels.installed, count: home.sections?.installed.length ?? 0 },
     { key: "marketplace", label: labels.marketplace, count: home.sections?.marketplace.length ?? 0 },
     { key: "recommended", label: labels.recommended, count: home.sections?.recommended.length ?? 0 },
     { key: "popular", label: labels.popular, count: home.sections?.popular.length ?? 0 },
     { key: "recently_added", label: labels.recentlyAdded, count: home.sections?.recently_added.length ?? 0 },
   ];
+  const tabs = visibleTabs ? allTabs.filter((tab) => visibleTabs.includes(tab.key)) : allTabs;
 
   const activeListings = home.sections?.[activeTab] ?? [];
 

@@ -8,6 +8,16 @@ export type AppPortalIntegrationProvider = {
   recommended_scopes: string[];
 };
 
+export type IntegrationVerificationMetadata = {
+  organization_id?: string | null;
+  organization_name?: string | null;
+  access_mode?: string | null;
+  scopes?: string[];
+  api_version?: string | null;
+  connected?: boolean;
+  provider?: string | null;
+};
+
 export type AppPortalIntegrationConnection = {
   id: string;
   provider_key: string;
@@ -19,6 +29,10 @@ export type AppPortalIntegrationConnection = {
   last_test_success_at: string | null;
   last_test_failed_at: string | null;
   last_test_error: string | null;
+  access_summary?: Record<string, unknown>;
+  last_verification?: IntegrationVerificationMetadata | null;
+  last_verified_at?: string | null;
+  connection_name?: string | null;
 };
 
 export type AppPortalIntegrationsHub = {
@@ -37,16 +51,7 @@ export type AppPortalIntegrationSetup = {
   oauth_available: boolean;
   default_permission_level: string;
   recommended_scopes: string[];
-  connection: {
-    id: string;
-    status: string;
-    permission_level: string;
-    approved_scopes: string[];
-    masked_credential_hint: string | null;
-    last_test_success_at: string | null;
-    last_test_failed_at: string | null;
-    last_test_error?: string | null;
-  } | null;
+  connection: AppPortalIntegrationConnection | null;
   manual_steps: string[];
   oauth_steps: string[];
 };
@@ -66,6 +71,71 @@ export type IntegrationStatusLabels = {
   connected: string;
   failed: string;
   readOnly: string;
+  credentialSaved: string;
+  verifiedReadOnly: string;
+  active: string;
+  awaitingVerification: string;
+};
+
+export type IntegrationScopeDescriptionLabels = Record<string, string>;
+
+export type IntegrationCompletionLabels = {
+  verifiedHeading: string;
+  credentialSavedHeading: string;
+  statusActive: string;
+  statusReadOnly: string;
+  statusAwaitingVerification: string;
+  organizationLabel: string;
+  accessTypeLabel: string;
+  permissionsLabel: string;
+  lastVerifiedLabel: string;
+  apiVersionLabel: string;
+  technicalDetailsLabel: string;
+  technicalScopeLabel: string;
+  verifiedBody: string;
+  credentialSavedBody: string;
+  primaryIntegrations: string;
+  secondaryRetest: string;
+  tertiaryOverview: string;
+  primaryTest: string;
+  secondaryIntegrations: string;
+  activateCta: string;
+  activating: string;
+  overviewHref: string;
+};
+
+export type IntegrationRemoveDialogLabels = {
+  title: string;
+  titleNamed: string;
+  body: string;
+  bodyFailed: string;
+  disconnectWhat: string;
+  syncStops: string;
+  credentialsRemoved: string;
+  auditRemains: string;
+  confirm: string;
+  confirmDisconnect: string;
+  cancel: string;
+};
+
+export type IntegrationHubDialogLabels = {
+  title: string;
+  body: string;
+};
+
+export type IntegrationHubActionLabels = {
+  manage: string;
+  retryTest: string;
+  disconnect: string;
+  retry: string;
+  editSetup: string;
+  removeIntegration: string;
+  continueSetup: string;
+};
+
+export type IntegrationHubFeedbackLabels = {
+  removeFailed: string;
+  testFailed: string;
 };
 
 export type IntegrationAuthHelpProviderLabels = Record<string, string> & {
@@ -139,7 +209,13 @@ export type AppPortalIntegrationsLabels = {
     permissionReadOnly: string;
     permissionReadWrite: string;
     helpTitle: string;
+    actionsMenuLabel: string;
+    actions: IntegrationHubActionLabels;
+    removeDialog: IntegrationHubDialogLabels;
+    disconnectDialog: IntegrationHubDialogLabels;
+    feedback: IntegrationHubFeedbackLabels;
   };
+  providerNames: Record<string, string>;
   setup: {
     title: string;
     loading: string;
@@ -204,6 +280,10 @@ export type AppPortalIntegrationsLabels = {
     backToIntegrations: string;
     /** Pre-resolved i18n strings for client-side error panels (no server functions in client). */
     messageCatalog: Record<string, string>;
+    completion: IntegrationCompletionLabels;
+    removeDialog: IntegrationRemoveDialogLabels;
+    manageIntegration: string;
+    scopeDescriptions: IntegrationScopeDescriptionLabels;
   };
   guidance: {
     whyAccess: string;

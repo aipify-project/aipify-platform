@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { parseAbosCommandCenterOverview } from "@/lib/app-portal/abos-command-center";
 import {
   appPortalRpcErrorResponse,
+  requireOrganizationViewPermission,
   requireReadyAppPortalContext,
 } from "@/lib/tenant/app-portal-route-access";
 import { createClient } from "@/lib/supabase/server";
@@ -14,6 +15,13 @@ export async function GET(request: Request) {
 
     const access = await requireReadyAppPortalContext(supabase);
     if (!access.ok) return access.response;
+
+    const permission = await requireOrganizationViewPermission(
+      supabase,
+      "operations_center.view",
+      "operations_center.manage"
+    );
+    if (!permission.ok) return permission.response;
 
     const { searchParams } = new URL(request.url);
     const { data, error } = await supabase.rpc("list_app_portal_command_center", {

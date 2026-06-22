@@ -85,6 +85,13 @@ function resolveActivityAccessCopy(
         statusKind: "needs_attention",
         statusLabel: labels.organizationMissing,
       };
+    case "database_execution_error":
+      return {
+        title: labels.loadError,
+        description: labels.accessDenied,
+        statusKind: "needs_attention",
+        statusLabel: labels.loadError,
+      };
     default:
       return {
         title: labels.loadError,
@@ -118,7 +125,7 @@ function EventList({ events, labels, emptyTitle }: { events: ActivityEvent[]; la
                 <p className="mt-2 text-xs font-medium text-aipify-text-secondary">{event.recommendation}</p>
               ) : null}
               <p className="mt-2 text-xs uppercase text-aipify-text-muted">
-                {event.category.replace(/_/g, " ")}
+                {event.category ? event.category.replace(/_/g, " ") : labels.unknownEventType}
                 {event.occurred_at ? ` · ${new Date(event.occurred_at).toLocaleString()}` : ""}
               </p>
             </div>
@@ -174,7 +181,10 @@ export function ActivityOperationsPanel({
       setAccessState(null);
     } else {
       setCenter(null);
-      setAccessState((body.access_state as AppOrganizationContextState | undefined) ?? "access_denied");
+      const access =
+        (body.access_state as AppOrganizationContextState | undefined) ??
+        (body.error === "load_error" ? "database_execution_error" : "access_denied");
+      setAccessState(access);
     }
     setLoading(false);
   }, []);

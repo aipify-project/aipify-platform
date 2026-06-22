@@ -1,14 +1,52 @@
 import { NextResponse } from "next/server";
 import { parseSupportHistory } from "@/lib/app-portal/support-history";
 import {
-  appPortalRpcErrorResponse,
+  appPortalAccessDeniedResponse,
   isDatabaseExecutionError,
   requireOrganizationViewPermission,
   requireReadyAppPortalContext,
   rpcErrorStatus,
 } from "@/lib/tenant/app-portal-route-access";
-import { classifyAppPortalError } from "@/lib/tenant/resolve-app-organization-context";
+import {
+  classifyAppPortalError,
+  type AppOrganizationContextState,
+} from "@/lib/tenant/resolve-app-organization-context";
 import { createClient } from "@/lib/supabase/server";
+
+const LOG_TAG = "[aipify/support-history]";
+
+function stableSupportHistoryErrorCode(accessState: AppOrganizationContextState): string {
+  switch (accessState) {
+    case "permission_missing":
+      return "permission_missing";
+    case "organization_missing":
+    case "membership_missing":
+      return "organization_context_required";
+    case "subscription_inactive":
+    case "license_inactive":
+      return "subscription_inactive";
+    case "entitlement_missing":
+      return "entitlement_missing";
+    case "unauthenticated":
+      return "unauthenticated";
+    case "database_execution_error":
+      return "load_error";
+    default:
+      return "access_denied";
+  }
+}
+
+function supportHistoryErrorResponse(message: string, accessState: AppOrganizationContextState) {
+  console.error(LOG_TAG, message);
+  return NextResponse.json(
+    {
+      error: stableSupportHistoryErrorCode(accessState),
+      access_state: accessState,
+      found: false,
+    },
+    { status: rpcErrorStatus(message, accessState) }
+  );
+}
 
 export async function GET(request: Request) {
   try {
@@ -52,23 +90,24 @@ export async function GET(request: Request) {
     });
 
     if (error) {
-      if (isDatabaseExecutionError(error.message)) {
-        return NextResponse.json(
-          { error: error.message, access_state: "database_execution_error", found: false },
-          { status: 500 }
-        );
+      const accessState = isDatabaseExecutionError(error.message)
+        ? "database_execution_error"
+        : classifyAppPortalError(error.message);
+      if (accessState === "permission_missing") {
+        return appPortalAccessDeniedResponse("permission_missing", "permission_missing");
       }
-      return appPortalRpcErrorResponse("[aipify/support-history]", error.message);
+      return supportHistoryErrorResponse(error.message, accessState);
     }
 
     return NextResponse.json(parseSupportHistory(data));
   } catch (err) {
     const message = err instanceof Error ? err.message : "Failed to load support history";
-    const access_state = classifyAppPortalError(message);
-    console.error("[aipify/support-history]", message);
-    return NextResponse.json(
-      { error: message, access_state, found: false },
-      { status: rpcErrorStatus(message, access_state) }
-    );
+    const accessState = isDatabaseExecutionError(message)
+      ? "database_execution_error"
+      : classifyAppPortalError(message);
+    if (accessState === "permission_missing") {
+      return appPortalAccessDeniedResponse("permission_missing", "permission_missing");
+    }
+    return supportHistoryErrorResponse(message, accessState);
   }
 }

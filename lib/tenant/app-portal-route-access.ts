@@ -18,10 +18,35 @@ export function isDatabaseExecutionError(message: string): boolean {
     lower.includes("update is not allowed in a non-volatile function") ||
     lower.includes("delete is not allowed in a non-volatile function") ||
     lower.includes("greatest types") ||
+    lower.includes("pgrst202") ||
     lower.includes("could not find the function") ||
-    lower.includes("function") && lower.includes("does not exist") ||
+    lower.includes("could not find the function") ||
+    (lower.includes("function") && lower.includes("does not exist")) ||
     (lower.includes("column") && lower.includes("does not exist"))
   );
+}
+
+/** Stable client-facing error code — never expose raw Postgres/PostgREST text. */
+export function appPortalStableErrorCode(accessState: AppOrganizationContextState): string {
+  switch (accessState) {
+    case "permission_missing":
+      return "permission_missing";
+    case "organization_missing":
+    case "membership_missing":
+    case "user_not_provisioned":
+      return "organization_context_required";
+    case "subscription_inactive":
+    case "license_inactive":
+      return "subscription_inactive";
+    case "entitlement_missing":
+      return "entitlement_missing";
+    case "unauthenticated":
+      return "unauthenticated";
+    case "database_execution_error":
+      return "load_error";
+    default:
+      return "access_denied";
+  }
 }
 
 export function rpcErrorStatus(message: string, accessState: string): number {
@@ -87,17 +112,16 @@ export function appPortalRpcErrorResponse(
   logTag: string,
   message: string
 ): NextResponse {
-  if (isDatabaseExecutionError(message)) {
-    console.error(logTag, message);
-    return NextResponse.json(
-      { error: message, access_state: "database_execution_error", found: false },
-      { status: 500 }
-    );
-  }
-  const access_state = classifyAppPortalError(message);
+  const access_state = isDatabaseExecutionError(message)
+    ? "database_execution_error"
+    : classifyAppPortalError(message);
   console.error(logTag, message);
   return NextResponse.json(
-    { error: message, access_state, found: false },
+    {
+      error: appPortalStableErrorCode(access_state),
+      access_state,
+      found: false,
+    },
     { status: rpcErrorStatus(message, access_state) }
   );
 }

@@ -6324,42 +6324,81 @@
         "lastTestFailed": "Last connection test failed",
         "permissionReadOnly": "Aipify може читати інформацію, але нічого не змінює",
         "permissionReadWrite": "Read & write access",
-        "helpTitle": "Integration help"
+        "helpTitle": "Довідка з інтеграцій",
+        "actionsMenuLabel": "Дії",
+        "actions": {
+          "manage": "Керувати",
+          "retryTest": "Повторити тест",
+          "disconnect": "Відключити",
+          "retry": "Спробувати знову",
+          "editSetup": "Редагувати налаштування",
+          "removeIntegration": "Видалити інтеграцію",
+          "continueSetup": "Продовжити налаштування"
+        },
+        "removeDialog": {
+          "title": "Видалити інтеграцію {provider}?",
+          "body": "Невдале підключення та збережений ключ підключення будуть видалені. Історичні журнали активності збережуться."
+        },
+        "disconnectDialog": {
+          "title": "Відключити {provider}?",
+          "body": "Це відключить Aipify від зовнішньої платформи для цієї організації."
+        },
+        "feedback": {
+          "removeFailed": "Не вдалося видалити інтеграцію. Спробуйте ще раз.",
+          "testFailed": "Тест підключення не вдався. Перевірте налаштування та спробуйте знову."
+        }
+      },
+      "providerNames": {
+        "custom_api": "Користувацьке API",
+        "unonight": "Unonight",
+        "shopify": "Shopify",
+        "wordpress": "WordPress",
+        "stripe": "Stripe",
+        "woocommerce": "WooCommerce"
       },
       "setup": {
-        "title": "Connect",
-        "loading": "Loading setup…",
-        "back": "Back to Integrations",
-        "selectSetupType": "Choose connection method",
-        "oauthOption": "Automatic connection (OAuth / official app)",
-        "manualOption": "Manual connection key",
-        "permissionPreview": "Review permissions before approving",
-        "approveScopes": "I approve these permission scopes and understand what Aipify can access",
-        "approveScopesRequired": "Scope approval is required before saving",
-        "apiKeyPlaceholder": "Paste your read-only connection key",
-        "apiKeyMaskedNote": "Saved key (masked)",
-        "accessSummaryTitle": "Access summary",
-        "whatAipifyReads": "Aipify can read operational metadata required for the approved scopes only.",
-        "whatAipifyCannotDo": "Aipify cannot change data in your external system with read-only access.",
+        "title": "Підключити",
+        "loading": "Завантаження налаштування…",
+        "back": "Назад до інтеграцій",
+        "selectSetupType": "Оберіть спосіб підключення",
+        "oauthOption": "Автоматичне підключення (OAuth / офіційний застосунок)",
+        "manualOption": "Ручний ключ підключення",
+        "permissionPreview": "Перегляньте дозволи перед підтвердженням",
+        "approveScopes": "Я підтверджую ці дозволи доступу та розумію, що Aipify може читати",
+        "approveScopesRequired": "Підтвердження дозволів потрібне перед збереженням",
+        "apiKeyPlaceholder": "Вставте ключ підключення лише для читання",
+        "apiKeyMaskedNote": "Збережений ключ (прихований)",
+        "accessSummaryTitle": "Підсумок доступу",
+        "whatAipifyReads": "Aipify може читати операційні метадані, потрібні для затверджених дозволів — не більше.",
+        "whatAipifyCannotDo": "Aipify не може змінювати дані у вашій зовнішній системі з доступом лише для читання.",
         "credentialStorage": "Ключ підключення шифрується в спокої та ніколи не показується повністю після збереження.",
         "revokeAccess": "Ви можете будь-коли скасувати доступ, видаливши інтеграцію.",
-        "rotateKey": "Replace credentials by saving a new key and revoking the old one externally.",
-        "connectionFailed": "Connection test failed — review permissions and try again.",
-        "save": "Save securely",
+        "rotateKey": "Замініть ключ, зберегши новий ключ підключення та скасувавши старий у зовнішній системі.",
+        "connectionFailed": "Тест підключення не вдався — перевірте дозволи та спробуйте знову.",
+        "save": "Зберегти безпечно",
         "test": "Перевірити підключення",
-        "remove": "Remove integration",
-        "replace": "Replace credentials",
-        "connectOAuth": "Connect with provider",
+        "remove": "Видалити інтеграцію",
+        "replace": "Замінити ключ підключення",
+        "connectOAuth": "Підключити через постачальника",
         "saving": "Saving…",
         "testing": "Testing…",
-        "successTitle": "Integration saved",
-        "successBody": "Your connection was saved and logged. Full secrets are never shown again.",
-        "whyAccess": "Aipify needs limited access to deliver value inside your workspace.",
-        "whatNotToEnable": "Do not enable admin-wide, destructive, or write permissions unless explicitly required.",
-        "backStep": "Back",
-        "continueStep": "Continue",
+        "successTitle": "Інтеграцію збережено",
+        "successBody": "Підключення збережено та зареєстровано. Повний ключ більше не показується.",
+        "whyAccess": "Aipify потребує обмеженого доступу, щоб приносити користь у вашому робочому просторі — лише те, що ви затвердите.",
+        "whatNotToEnable": "Не вмикайте адміністративні, видалення чи запис дозволів, якщо це явно не потрібно.",
+        "backStep": "Назад",
+        "continueStep": "Продовжити",
         "steps": {},
-        "manualSteps": {},
+        "manualSteps": {
+          "login": "Увійдіть до Unonight Admin.",
+          "open_menu": "Відкрийте Інтеграції → Aipify.",
+          "locate_keys": "Створіть новий безпечний ключ підключення.",
+          "choose_permissions": "Оберіть лише доступ для читання.",
+          "avoid_permissions": "Переконайтеся, що дозволи включають metadata.read та organization.read.",
+          "copy_key": "Скопіюйте ключ, коли він з’явиться.",
+          "paste_in_aipify": "Вставте ключ у Aipify.",
+          "test_connection": "Перевірте підключення."
+        },
         "oauthSteps": {},
         "confirmActivation": "Підтвердити активацію",
         "confirmActivationBody": "Підключення збережено безпечно. Запустіть фінальну перевірку, щоб активувати інтеграцію у workspace.",
@@ -6372,16 +6411,55 @@
         "loadErrorBody": "Aipify не змогла завантажити налаштування інтеграції зараз. Спробуйте ще раз або поверніться до інтеграцій.",
         "retryLoad": "Спробувати ще раз",
         "backToIntegrations": "Назад до інтеграцій",
-        "apiKeyLabel": "Безпечний ключ підключення"
+        "apiKeyLabel": "Безпечний ключ підключення",
+        "completion": {
+          "verifiedHeading": "Unonight підключено та перевірено",
+          "credentialSavedHeading": "Ключ підключення збережено",
+          "statusActive": "✅ Активно",
+          "statusReadOnly": "🔒 Доступ лише для читання",
+          "statusAwaitingVerification": "⏳ Очікує перевірки",
+          "organizationLabel": "Організація",
+          "accessTypeLabel": "Тип доступу",
+          "permissionsLabel": "Дозволи",
+          "lastVerifiedLabel": "Остання перевірка",
+          "apiVersionLabel": "Версія API",
+          "technicalDetailsLabel": "Технічні деталі",
+          "technicalScopeLabel": "Технічні ідентифікатори областей",
+          "verifiedBody": "Aipify перевірило ваше підключення лише для читання до Unonight. Керуйте інтеграцією в Платформа → Інтеграції.",
+          "credentialSavedBody": "Ключ підключення збережено безпечно. Запустіть перевірку підключення перед активацією.",
+          "primaryIntegrations": "Перейти до підключених інтеграцій",
+          "secondaryRetest": "Перевірити підключення знову",
+          "tertiaryOverview": "Назад до огляду",
+          "primaryTest": "Перевірити підключення",
+          "secondaryIntegrations": "Назад до інтеграцій",
+          "activateCta": "Активувати інтеграцію",
+          "activating": "Активація…",
+          "overviewHref": "/app"
+        },
+        "removeDialog": {
+          "title": "Видалити інтеграцію?",
+          "body": "Це відключить Aipify від вашої зовнішньої платформи для цієї організації.",
+          "disconnectWhat": "Активне підключення до зовнішньої платформи буде розірвано.",
+          "syncStops": "Фонова синхронізація та отримання даних для цієї інтеграції зупиняться.",
+          "credentialsRemoved": "Збережені облікові дані будуть видалені з Aipify.",
+          "auditRemains": "Журнали аудиту налаштування та видалення залишаться.",
+          "confirm": "❌ Видалити інтеграцію",
+          "confirmDisconnect": "❌ Відключити",
+          "cancel": "Скасувати",
+          "titleNamed": "Видалити інтеграцію {provider}?",
+          "bodyFailed": "Невдале підключення та збережений ключ підключення будуть видалені. Історичні журнали активності збережуться.",
+          "confirmDisconnect": "❌ Відключити"
+        },
+        "manageIntegration": "Керувати інтеграцією"
       },
       "guidance": {
-        "whyAccess": "Why Aipify needs access",
-        "whatCanRead": "Aipify reads only metadata covered by approved scopes.",
-        "whatCannotDo": "Aipify може читати інформацію, але нічого не змінює",
-        "howStored": "Ключ підключення шифрується в спокої та ніколи не показується повністю після збереження.",
-        "howRevoke": "Ви можете будь-коли скасувати доступ, видаливши інтеграцію.",
-        "howRotate": "Generate a new read-only key externally, replace in Aipify, test, then revoke the old key.",
-        "ifFails": "Verify read-only scopes, key validity, and run Test the connection again."
+        "whyAccess": "Навіщо Aipify потрібен доступ",
+        "whatCanRead": "Aipify читає лише метадані та операційні сигнали в межах схвалених областей — не приватні розмови чи платіжні дані.",
+        "whatCannotDo": "Aipify не може змінювати зовнішню систему з доступом лише для читання і ніколи не виконує руйнівних дій.",
+        "howStored": "Облікові дані шифруються в спокої. Можуть відображатися масковані підказки; повні секрети ніколи не показуються після збереження.",
+        "howRevoke": "Видаліть інтеграцію в Платформа → Інтеграції, щоб негайно скасувати доступ.",
+        "howRotate": "Створіть новий ключ лише для читання зовні, замініть у Aipify, перевірте, потім відкличте старий ключ.",
+        "ifFails": "Якщо підключення не вдалося, перевірте області, дійсність ключа та запустіть перевірку підключення знову."
       },
       "faq": {
         "whatIsSecureConnectionKey": "Що таке безпечний ключ підключення?",
@@ -6408,7 +6486,11 @@
         "needsReview": "👀 Підключення потребує перевірки",
         "connected": "✅ Підключено та перевірено",
         "failed": "❌ Підключення не вдалося",
-        "readOnly": "🔒 Обмежено доступом лише для читання"
+        "readOnly": "🔒 Обмежено доступом лише для читання",
+        "credentialSaved": "ℹ️ Ключ підключення збережено безпечно",
+        "verifiedReadOnly": "✅ Підключено та перевірено",
+        "active": "✅ Інтеграція активна",
+        "awaitingVerification": "⏳ Очікує перевірки"
       },
       "wizard7Steps": {
         "choose_system": "Оберіть систему",
@@ -6442,18 +6524,22 @@
       },
       "authHelp": {
         "sectionTitles": {
-          "what": "What is this?",
-          "why": "Why Aipify needs it",
-          "where": "Where to find it",
-          "project": "Which project or store",
-          "permissions": "Which permissions to choose",
-          "canChange": "Can I change this later?",
-          "revoke": "How to revoke access"
+          "what": "Що це?",
+          "why": "Навіщо це потрібно Aipify",
+          "where": "Де це знайти",
+          "project": "Який проєкт або магазин",
+          "permissions": "Які дозволи обрати",
+          "canChange": "Чи можу я змінити це пізніше?",
+          "revoke": "Як скасувати доступ",
+          "stepsTitle": "Покроково",
+          "technicalDetailsTitle": "Технічні деталі",
+          "technicalDetailsToggleShow": "Показати технічні деталі",
+          "technicalDetailsToggleHide": "Приховати технічні деталі"
         },
-        "stepsTitle": "Step-by-step",
-        "technicalDetailsTitle": "Technical details",
-        "technicalDetailsToggleShow": "Show technical details",
-        "technicalDetailsToggleHide": "Hide technical details",
+        "stepsTitle": "Покроково",
+        "technicalDetailsTitle": "Технічні деталі",
+        "technicalDetailsToggleShow": "Показати технічні деталі",
+        "technicalDetailsToggleHide": "Приховати технічні деталі",
         "shopify": {
           "what": "A Shopify Admin API access token lets Aipify read store data you approve — orders, products, and customers metadata.",
           "why": "Aipify uses read-only store signals to surface operational insights in your workspace.",
@@ -6546,9 +6632,12 @@
           "steps": {
             "1": "Увійдіть до Unonight Admin.",
             "2": "Відкрийте Інтеграції → Aipify.",
-            "3": "Створіть read-only ключ із scopes з Aipify.",
-            "4": "Скопіюйте bearer token (показується один раз).",
-            "5": "Вставте в Aipify, підтвердьте базовий URL API та натисніть Test the connection."
+            "3": "Створіть новий безпечний ключ підключення.",
+            "4": "Оберіть лише доступ для читання.",
+            "5": "Переконайтеся, що дозволи включають metadata.read та organization.read.",
+            "6": "Скопіюйте ключ, коли він з’явиться.",
+            "7": "Вставте ключ у Aipify.",
+            "8": "Перевірте підключення."
           },
           "technicalDetails": "Використовує GET /api/aipify/v1/connection з Authorization: Bearer. Жива HTTP-перевірка обов’язкова перед активацією."
         }
@@ -6639,6 +6728,11 @@
             "retryTest": "Run Test the connection again after verifying your key."
           }
         }
+      },
+      "scopeDescriptions": {
+        "metadata_read": "Читання схвалених операційних метаданих організації",
+        "organization_read": "Читання назви та ідентичності організації для перевірки",
+        "integration_status_read": "Читання стану інтеграції та статусу підключення"
       }
     }
   }

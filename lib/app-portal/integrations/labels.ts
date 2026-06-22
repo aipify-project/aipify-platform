@@ -46,12 +46,23 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
   const s = `${base}.setup`;
   const g = `${base}.guidance`;
   const pl = `${base}.plainLanguage`;
+  const sd = `${base}.scopeDescriptions`;
   const st = `${base}.statuses`;
   const ah = `${base}.authHelp`;
   const sw = `${base}.securityWarnings`;
   const kc = `${base}.kcLinks`;
   const cp = `${base}.companionPrompts`;
   const eg = `${base}.errorGuidance`;
+  const sc = `${base}.scopeDescriptions`;
+  const comp = `${s}.completion`;
+  const rd = `${s}.removeDialog`;
+  const hd = `${h}.removeDialog`;
+  const hdd = `${h}.disconnectDialog`;
+  const ha = `${h}.actions`;
+  const hf = `${h}.feedback`;
+  const pn = `${base}.providerNames`;
+
+  const scopeKeys = ["metadata.read", "organization.read", "integration.status.read"] as const;
 
   const stepKeys = [
     "select_platform",
@@ -130,6 +141,36 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
       permissionReadOnly: t(`${h}.permissionReadOnly`),
       permissionReadWrite: t(`${h}.permissionReadWrite`),
       helpTitle: t(`${h}.helpTitle`),
+      actionsMenuLabel: t(`${h}.actionsMenuLabel`),
+      actions: {
+        manage: t(`${ha}.manage`),
+        retryTest: t(`${ha}.retryTest`),
+        disconnect: t(`${ha}.disconnect`),
+        retry: t(`${ha}.retry`),
+        editSetup: t(`${ha}.editSetup`),
+        removeIntegration: t(`${ha}.removeIntegration`),
+        continueSetup: t(`${ha}.continueSetup`),
+      },
+      removeDialog: {
+        title: t(`${hd}.title`),
+        body: t(`${hd}.body`),
+      },
+      disconnectDialog: {
+        title: t(`${hdd}.title`),
+        body: t(`${hdd}.body`),
+      },
+      feedback: {
+        removeFailed: t(`${hf}.removeFailed`),
+        testFailed: t(`${hf}.testFailed`),
+      },
+    },
+    providerNames: {
+      custom_api: t(`${pn}.custom_api`),
+      unonight: t(`${pn}.unonight`),
+      shopify: t(`${pn}.shopify`),
+      wordpress: t(`${pn}.wordpress`),
+      stripe: t(`${pn}.stripe`),
+      woocommerce: t(`${pn}.woocommerce`),
     },
     setup: {
       title: t(`${s}.title`),
@@ -155,6 +196,10 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
         connected: t(`${st}.connected`),
         failed: t(`${st}.failed`),
         readOnly: t(`${st}.readOnly`),
+        credentialSaved: t(`${st}.credentialSaved`),
+        verifiedReadOnly: t(`${st}.verifiedReadOnly`),
+        active: t(`${st}.active`),
+        awaitingVerification: t(`${st}.awaitingVerification`),
       },
       authHelp: {
         sectionTitles: Object.fromEntries(
@@ -249,6 +294,47 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
       retryLoad: t(`${s}.retryLoad`),
       backToIntegrations: t(`${s}.backToIntegrations`),
       messageCatalog: buildIntegrationMessageCatalog(t),
+      completion: {
+        verifiedHeading: t(`${comp}.verifiedHeading`),
+        credentialSavedHeading: t(`${comp}.credentialSavedHeading`),
+        statusActive: t(`${comp}.statusActive`),
+        statusReadOnly: t(`${comp}.statusReadOnly`),
+        statusAwaitingVerification: t(`${comp}.statusAwaitingVerification`),
+        organizationLabel: t(`${comp}.organizationLabel`),
+        accessTypeLabel: t(`${comp}.accessTypeLabel`),
+        permissionsLabel: t(`${comp}.permissionsLabel`),
+        lastVerifiedLabel: t(`${comp}.lastVerifiedLabel`),
+        apiVersionLabel: t(`${comp}.apiVersionLabel`),
+        technicalDetailsLabel: t(`${comp}.technicalDetailsLabel`),
+        technicalScopeLabel: t(`${comp}.technicalScopeLabel`),
+        verifiedBody: t(`${comp}.verifiedBody`),
+        credentialSavedBody: t(`${comp}.credentialSavedBody`),
+        primaryIntegrations: t(`${comp}.primaryIntegrations`),
+        secondaryRetest: t(`${comp}.secondaryRetest`),
+        tertiaryOverview: t(`${comp}.tertiaryOverview`),
+        primaryTest: t(`${comp}.primaryTest`),
+        secondaryIntegrations: t(`${comp}.secondaryIntegrations`),
+        activateCta: t(`${comp}.activateCta`),
+        activating: t(`${comp}.activating`),
+        overviewHref: t(`${comp}.overviewHref`),
+      },
+      removeDialog: {
+        title: t(`${rd}.title`),
+        titleNamed: t(`${rd}.titleNamed`),
+        body: t(`${rd}.body`),
+        bodyFailed: t(`${rd}.bodyFailed`),
+        disconnectWhat: t(`${rd}.disconnectWhat`),
+        syncStops: t(`${rd}.syncStops`),
+        credentialsRemoved: t(`${rd}.credentialsRemoved`),
+        auditRemains: t(`${rd}.auditRemains`),
+        confirm: t(`${rd}.confirm`),
+        confirmDisconnect: t(`${rd}.confirmDisconnect`),
+        cancel: t(`${rd}.cancel`),
+      },
+      manageIntegration: t(`${s}.manageIntegration`),
+      scopeDescriptions: Object.fromEntries(
+        scopeKeys.map((key) => [key, t(`${sc}.${key.replace(/\./g, "_")}`)])
+      ),
     },
     guidance: {
       whyAccess: t(`${g}.whyAccess`),

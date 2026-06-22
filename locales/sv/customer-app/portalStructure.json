@@ -378,41 +378,71 @@
         "lastTestFailed": "Last connection test failed",
         "permissionReadOnly": "Read-only access",
         "permissionReadWrite": "Read & write access",
-        "helpTitle": "Integration help"
+        "helpTitle": "Integrationshjälp",
+        "actionsMenuLabel": "Åtgärder",
+        "actions": {
+          "manage": "Hantera",
+          "retryTest": "Testa igen",
+          "disconnect": "Koppla från",
+          "retry": "Försök igen",
+          "editSetup": "Redigera inställning",
+          "removeIntegration": "Ta bort integration",
+          "continueSetup": "Fortsätt installation"
+        },
+        "removeDialog": {
+          "title": "Ta bort {provider}-integrationen?",
+          "body": "Den misslyckade anslutningen och den lagrade anslutningsnyckeln tas bort. Historiska aktivitetsloggar behålls."
+        },
+        "disconnectDialog": {
+          "title": "Koppla från {provider}?",
+          "body": "Detta kopplar bort Aipify från den externa plattformen för den här organisationen."
+        },
+        "feedback": {
+          "removeFailed": "Integrationen kunde inte tas bort. Försök igen.",
+          "testFailed": "Anslutningstestet misslyckades. Granska inställningen och försök igen."
+        }
+      },
+      "providerNames": {
+        "custom_api": "Anpassat API",
+        "unonight": "Unonight",
+        "shopify": "Shopify",
+        "wordpress": "WordPress",
+        "stripe": "Stripe",
+        "woocommerce": "WooCommerce"
       },
       "setup": {
-        "title": "Connect",
-        "loading": "Loading setup…",
-        "back": "Back to Integrations",
-        "selectSetupType": "Choose connection method",
-        "oauthOption": "Automatic connection (OAuth / official app)",
-        "manualOption": "Manual API key",
-        "permissionPreview": "Review permissions before approving",
-        "approveScopes": "I approve these permission scopes and understand what Aipify can access",
-        "approveScopesRequired": "Scope approval is required before saving",
+        "title": "Anslut till",
+        "loading": "Laddar konfiguration…",
+        "back": "Tillbaka till integrationer",
+        "selectSetupType": "Välj anslutningsmetod",
+        "oauthOption": "Automatisk anslutning (OAuth / officiell app)",
+        "manualOption": "Manuell anslutningsnyckel",
+        "permissionPreview": "Granska behörigheter innan du godkänner",
+        "approveScopes": "Jag godkänner dessa åtkomstbehörigheter och förstår vad Aipify kan läsa",
+        "approveScopesRequired": "Godkännande av behörigheter krävs innan sparning",
         "apiKeyLabel": "Säker anslutningsnyckel",
-        "apiKeyPlaceholder": "Paste your read-only API key",
-        "apiKeyMaskedNote": "Saved key (masked)",
-        "accessSummaryTitle": "Access summary",
-        "whatAipifyReads": "Aipify can read operational metadata required for the approved scopes only.",
-        "whatAipifyCannotDo": "Aipify cannot change data in your external system with read-only access.",
-        "credentialStorage": "Credentials are encrypted at rest and never displayed in full after saving.",
-        "revokeAccess": "You can revoke access by removing the integration at any time.",
-        "rotateKey": "Replace credentials by saving a new API key and revoking the old one in your external platform.",
-        "connectionFailed": "Connection test failed — review permissions and try again.",
-        "save": "Save securely",
-        "test": "Test connection",
-        "remove": "Remove integration",
-        "replace": "Replace credentials",
-        "connectOAuth": "Connect with provider",
+        "apiKeyPlaceholder": "Klistra in skrivskyddad anslutningsnyckel",
+        "apiKeyMaskedNote": "Sparad nyckel (maskerad)",
+        "accessSummaryTitle": "Åtkomstsammanfattning",
+        "whatAipifyReads": "Aipify kan läsa driftsmetadata som krävs för godkända behörigheter — inte mer.",
+        "whatAipifyCannotDo": "Aipify kan inte ändra data i ditt externa system med skrivskyddad åtkomst.",
+        "credentialStorage": "Anslutningsnyckeln krypteras i vila och visas aldrig i full längd efter sparning.",
+        "revokeAccess": "Du kan när som helst återkalla åtkomsten genom att ta bort integrationen.",
+        "rotateKey": "Byt nyckel genom att spara en ny anslutningsnyckel och återkalla den gamla i det externa systemet.",
+        "connectionFailed": "Anslutningstestet misslyckades — kontrollera behörigheter och försök igen.",
+        "save": "Spara säkert",
+        "test": "Testa anslutningen",
+        "remove": "Ta bort integration",
+        "replace": "Byt anslutningsnyckel",
+        "connectOAuth": "Anslut med leverantör",
         "saving": "Saving…",
         "testing": "Testing…",
-        "successTitle": "Integration saved",
-        "successBody": "Your connection was saved and logged. Full secrets are never shown again.",
-        "whyAccess": "Aipify needs limited access to deliver value inside your workspace — scoped to what you approve.",
-        "whatNotToEnable": "Do not enable admin-wide, destructive, or write permissions unless explicitly required.",
-        "backStep": "Back",
-        "continueStep": "Continue",
+        "successTitle": "Integration sparad",
+        "successBody": "Anslutningen sparades och loggades. Hela nyckeln visas aldrig igen.",
+        "whyAccess": "Aipify behöver begränsad åtkomst för att ge värde i din arbetsyta — endast det du godkänner.",
+        "whatNotToEnable": "Aktivera inte admin-, raderings- eller skrivbehörigheter om det inte uttryckligen krävs.",
+        "backStep": "Tillbaka",
+        "continueStep": "Fortsätt",
         "steps": {
           "select_platform": "Select platform",
           "explain_needs": "What Aipify needs",
@@ -424,14 +454,14 @@
           "log_action": "Complete & log"
         },
         "manualSteps": {
-          "login": "Log in to your external platform admin",
-          "open_menu": "Open Settings or Developer / API section",
-          "locate_keys": "Locate API keys or access tokens",
-          "choose_permissions": "Select read-only or minimum required scopes",
-          "avoid_permissions": "Do not enable admin, delete, or write scopes unless required",
-          "copy_key": "Copy the API key",
-          "paste_in_aipify": "Paste the key into Aipify (shown once during setup)",
-          "test_connection": "Run Test connection in Aipify"
+          "login": "Logga in i Unonight Admin.",
+          "open_menu": "Öppna Integrationer → Aipify.",
+          "locate_keys": "Skapa en ny säker anslutningsnyckel.",
+          "choose_permissions": "Välj endast skrivskyddad åtkomst.",
+          "avoid_permissions": "Kontrollera att behörigheterna inkluderar metadata.read och organization.read.",
+          "copy_key": "Kopiera nyckeln när den visas.",
+          "paste_in_aipify": "Klistra in nyckeln i Aipify.",
+          "test_connection": "Testa anslutningen."
         },
         "oauthSteps": {
           "connect_button": "Click Connect with provider",
@@ -450,16 +480,55 @@
         "loadErrorTitle": "Anslutningsinställningen kunde inte laddas",
         "loadErrorBody": "Aipify kunde inte hämta integrationsinställningen just nu. Försök igen eller gå tillbaka till integrationer.",
         "retryLoad": "Försök igen",
-        "backToIntegrations": "Tillbaka till integrationer"
+        "backToIntegrations": "Tillbaka till integrationer",
+        "completion": {
+          "verifiedHeading": "Unonight är ansluten och verifierad",
+          "credentialSavedHeading": "Anslutningsnyckeln har sparats",
+          "statusActive": "✅ Aktiv",
+          "statusReadOnly": "🔒 Skrivskyddad åtkomst",
+          "statusAwaitingVerification": "⏳ Väntar på verifiering",
+          "organizationLabel": "Organisation",
+          "accessTypeLabel": "Åtkomsttyp",
+          "permissionsLabel": "Behörigheter",
+          "lastVerifiedLabel": "Senast verifierad",
+          "apiVersionLabel": "API-version",
+          "technicalDetailsLabel": "Tekniska detaljer",
+          "technicalScopeLabel": "Tekniska scope-identifierare",
+          "verifiedBody": "Aipify har verifierat din skrivskyddade anslutning till Unonight. Du kan hantera integrationen under Plattform → Integrationer.",
+          "credentialSavedBody": "Din anslutningsnyckel lagras säkert. Kör ett anslutningstest för att verifiera åtkomst före aktivering.",
+          "primaryIntegrations": "Gå till anslutna integrationer",
+          "secondaryRetest": "Testa anslutningen igen",
+          "tertiaryOverview": "Tillbaka till din översikt",
+          "primaryTest": "Testa anslutningen",
+          "secondaryIntegrations": "Tillbaka till integrationer",
+          "activateCta": "Aktivera integration",
+          "activating": "Aktiverar…",
+          "overviewHref": "/app"
+        },
+        "removeDialog": {
+          "title": "Ta bort integration?",
+          "body": "Detta kopplar bort Aipify från din externa plattform för denna organisation.",
+          "disconnectWhat": "Den live-anslutningen till din externa plattform kopplas bort.",
+          "syncStops": "Bakgrundssynkronisering och inhämtning för denna integration stoppas.",
+          "credentialsRemoved": "Lagrad autentisering tas bort från Aipify.",
+          "auditRemains": "Granskningsloggar för konfiguration och borttagning behålls.",
+          "confirm": "❌ Ta bort integration",
+          "confirmDisconnect": "❌ Koppla från",
+          "cancel": "Avbryt",
+          "titleNamed": "Ta bort {provider}-integrationen?",
+          "bodyFailed": "Den misslyckade anslutningen och den lagrade anslutningsnyckeln tas bort. Historiska aktivitetsloggar behålls.",
+          "confirmDisconnect": "❌ Koppla från"
+        },
+        "manageIntegration": "Hantera integration"
       },
       "guidance": {
-        "whyAccess": "Why Aipify needs access",
-        "whatCanRead": "Aipify reads only metadata and operational signals covered by approved scopes — not private conversations or payment card data.",
-        "whatCannotDo": "Aipify cannot modify your external system with read-only access and never executes destructive actions.",
-        "howStored": "Credentials are encrypted at rest. Masked hints may display; full secrets never appear after save.",
-        "howRevoke": "Remove the integration from Platform → Integrations to revoke access immediately.",
-        "howRotate": "Generate a new read-only key externally, replace credentials in Aipify, test, then revoke the old key.",
-        "ifFails": "If connection fails, verify read-only scopes, key validity, and run Test connection again."
+        "whyAccess": "Varför Aipify behöver åtkomst",
+        "whatCanRead": "Aipify läser endast metadata och operativa signaler inom godkända scopes — inte privata konversationer eller betalkortsdata.",
+        "whatCannotDo": "Aipify kan inte ändra ditt externa system med skrivskyddad åtkomst och utför aldrig destruktiva åtgärder.",
+        "howStored": "Autentisering krypteras i vila. Maskerade ledtrådar kan visas; fullständiga hemligheter visas aldrig efter sparning.",
+        "howRevoke": "Ta bort integrationen under Plattform → Integrationer för att återkalla åtkomst omedelbart.",
+        "howRotate": "Generera en ny skrivskyddad nyckel externt, ersätt i Aipify, testa och återkalla den gamla nyckeln.",
+        "ifFails": "Om anslutningen misslyckas, verifiera scopes, nyckelns giltighet och kör Testa anslutningen igen."
       },
       "faq": {
         "connectExternalPlatform": "How do I connect an external platform to Aipify?",
@@ -508,7 +577,11 @@
         "needsReview": "👀 Anslutningen måste granskas",
         "connected": "✅ Ansluten och verifierad",
         "failed": "❌ Anslutningen misslyckades",
-        "readOnly": "🔒 Begränsad till skrivskyddad åtkomst"
+        "readOnly": "🔒 Begränsad till skrivskyddad åtkomst",
+        "credentialSaved": "ℹ️ Anslutningsnyckeln har sparats säkert",
+        "verifiedReadOnly": "✅ Ansluten och verifierad",
+        "active": "✅ Integrationen är aktiv",
+        "awaitingVerification": "⏳ Väntar på verifiering"
       },
       "wizard7Steps": {
         "choose_system": "Välj system",
@@ -542,18 +615,22 @@
       },
       "authHelp": {
         "sectionTitles": {
-          "what": "What is this?",
-          "why": "Why Aipify needs it",
-          "where": "Where to find it",
-          "project": "Which project or store",
-          "permissions": "Which permissions to choose",
-          "canChange": "Can I change this later?",
-          "revoke": "How to revoke access"
+          "what": "Vad är detta?",
+          "why": "Varför Aipify behöver det",
+          "where": "Var hittar du det",
+          "project": "Vilket projekt eller vilken butik",
+          "permissions": "Vilka behörigheter du bör välja",
+          "canChange": "Kan jag ändra detta senare?",
+          "revoke": "Så återkallar du åtkomst",
+          "stepsTitle": "Steg för steg",
+          "technicalDetailsTitle": "Tekniska detaljer",
+          "technicalDetailsToggleShow": "Visa tekniska detaljer",
+          "technicalDetailsToggleHide": "Dölj tekniska detaljer"
         },
-        "stepsTitle": "Step-by-step",
-        "technicalDetailsTitle": "Technical details",
-        "technicalDetailsToggleShow": "Show technical details",
-        "technicalDetailsToggleHide": "Hide technical details",
+        "stepsTitle": "Steg för steg",
+        "technicalDetailsTitle": "Tekniska detaljer",
+        "technicalDetailsToggleShow": "Visa tekniska detaljer",
+        "technicalDetailsToggleHide": "Dölj tekniska detaljer",
         "shopify": {
           "what": "A Shopify Admin API access token lets Aipify read store data you approve — orders, products, and customers metadata.",
           "why": "Aipify uses read-only store signals to surface operational insights in your workspace.",
@@ -646,9 +723,12 @@
           "steps": {
             "1": "Logga in i Unonight Admin.",
             "2": "Öppna Integrationer → Aipify.",
-            "3": "Skapa skrivskyddad nyckel med scop som listas i Aipify.",
-            "4": "Kopiera bearer-token (visas en gång).",
-            "5": "Klistra in i Aipify, bekräfta API-bas-URL och kör Testa anslutning."
+            "3": "Skapa en ny säker anslutningsnyckel.",
+            "4": "Välj endast skrivskyddad åtkomst.",
+            "5": "Kontrollera att behörigheterna inkluderar metadata.read och organization.read.",
+            "6": "Kopiera nyckeln när den visas.",
+            "7": "Klistra in nyckeln i Aipify.",
+            "8": "Testa anslutningen."
           },
           "technicalDetails": "Använder GET /api/aipify/v1/connection med Authorization: Bearer. Live HTTP-verifiering krävs före aktivering."
         }
@@ -739,6 +819,11 @@
             "retryTest": "Run Test the connection again after verifying your key."
           }
         }
+      },
+      "scopeDescriptions": {
+        "metadata_read": "Läsa godkänd operativ metadata om din organisation",
+        "organization_read": "Läsa organisationsnamn och identitet för verifiering",
+        "integration_status_read": "Läsa integrationshälsa och anslutningsstatus"
       }
     },
     "executiveInsights": {
@@ -1184,6 +1269,7 @@
       "errorTitle": "Supporthistorik otillgänglig",
       "errorBody": "Aipify kunde inte läsa in supporthistorik för din organisation. Bekräfta dina behörigheter och försök igen.",
       "retry": "Försök igen",
+      "backToOverview": "Tillbaka till Din översikt",
       "sections": {
         "overview": "Översikt",
         "filters": "Sök och filter",

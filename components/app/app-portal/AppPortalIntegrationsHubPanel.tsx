@@ -8,6 +8,7 @@ import {
   type AppPortalIntegrationsHub,
   type AppPortalIntegrationsLabels,
 } from "@/lib/app-portal/integrations";
+import { IntegrationConnectionRow } from "@/components/app/app-portal/IntegrationConnectionRow";
 
 type AppPortalIntegrationsHubPanelProps = {
   labels: AppPortalIntegrationsLabels;
@@ -76,34 +77,14 @@ export function AppPortalIntegrationsHubPanel({
         ) : (
           <ul className="mt-4 space-y-3">
             {hub.connections.map((conn) => (
-              <li key={conn.id} className="rounded-xl border border-slate-100 px-4 py-3 text-sm">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-medium text-slate-900">{conn.provider_key}</span>
-                  <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs capitalize text-slate-700">
-                    {conn.status}
-                  </span>
-                </div>
-                <p className="mt-1 text-slate-600">
-                  {conn.permission_level === "read_only"
-                    ? labels.hub.permissionReadOnly
-                    : labels.hub.permissionReadWrite}
-                  {conn.masked_credential_hint ? ` · ${conn.masked_credential_hint}` : ""}
-                </p>
-                {conn.last_test_success_at ? (
-                  <p className="mt-1 text-xs text-emerald-700">{labels.hub.lastTestSuccess}</p>
-                ) : null}
-                {conn.last_test_failed_at ? (
-                  <p className="mt-1 text-xs text-red-700">{labels.hub.lastTestFailed}</p>
-                ) : null}
-                {hub.can_manage ? (
-                  <Link
-                    href={`/app/platform/integrations/connect/${conn.provider_key}`}
-                    className="mt-2 inline-block text-indigo-700 hover:text-indigo-800"
-                  >
-                    {labels.hub.manageCta}
-                  </Link>
-                ) : null}
-              </li>
+              <IntegrationConnectionRow
+                key={conn.id}
+                connection={conn}
+                providers={hub.providers}
+                labels={labels}
+                canManage={hub.can_manage}
+                onRefresh={load}
+              />
             ))}
           </ul>
         )}

@@ -9,6 +9,7 @@ import {
   AvailableBusinessPacksPanel,
   BusinessPackSettingsPanel,
 } from "@/components/app/app-portal";
+import { AppStoreHomePanel } from "@/components/app/app-store/AppStoreHomePanel";
 import SinceLastLoginSummaryPanel from "@/components/shared/since-last-login/SinceLastLoginSummaryPanel";
 import { TeamCenterPanel } from "@/components/app/team/TeamCenterPanel";
 import { buildAppPortalLabels, buildAppPortalFaqAnswerLabels } from "@/lib/app-portal/labels";
@@ -178,6 +179,51 @@ export async function renderAppPortalFoundationPage(pageKey: AppPortalPageKey) {
 
   return (
     <AppPortalLicenseGate feature={page.featureKey} labels={labels.license}>
+      {panel}
+    </AppPortalLicenseGate>
+  );
+}
+
+export async function renderAppPortalInstalledBusinessPacksPage() {
+  const locale = await getLocale();
+  const portalDict = await getCustomerAppDictionaryForSplits(locale, [
+    "portalStructure",
+    "navigation",
+  ]);
+  const marketplaceDict = await getCustomerAppDictionaryForSplits(locale, ["marketplace"]);
+  const t = createTranslator({ ...portalDict, ...marketplaceDict });
+  const portalLabels = buildAppPortalLabels(t);
+  const storeLabels = buildAppStoreLabels(t);
+  const page = PAGE_KEYS.installedBusinessPacks;
+
+  const panel = (
+    <div className="mx-auto max-w-6xl space-y-6 p-6">
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
+          {t(page.titleKey)}
+        </h1>
+        <p className="mt-2 text-slate-600">{t(page.subtitleKey)}</p>
+      </div>
+      <Suspense
+        fallback={
+          <div className="flex min-h-[320px] items-center justify-center">
+            <AipifyLoader centered />
+          </div>
+        }
+      >
+        <AppStoreHomePanel
+          labels={storeLabels}
+          locale={locale}
+          initialTab="installed"
+          visibleTabs={["installed"]}
+          hideHeader
+        />
+      </Suspense>
+    </div>
+  );
+
+  return (
+    <AppPortalLicenseGate feature="business_packs" labels={portalLabels.license}>
       {panel}
     </AppPortalLicenseGate>
   );

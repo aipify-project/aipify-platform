@@ -128,8 +128,15 @@ function SupportHistoryPanelInner({ labels, locale }: Props) {
     if (res.ok) {
       setData(parseSupportHistory(await res.json()));
     } else {
-      const body = (await res.json()) as { error?: string };
-      setError(body.error ?? labels.errorBody);
+      const body = (await res.json()) as { error?: string; access_state?: string };
+      const code = body.error ?? "";
+      const mapped =
+        code === "load_error" || body.access_state === "database_execution_error"
+          ? labels.errorBody
+          : code === "permission_missing"
+            ? labels.errorBody
+            : labels.errorBody;
+      setError(mapped);
     }
     setLoading(false);
   }, [filters, labels.errorBody]);
@@ -182,7 +189,14 @@ function SupportHistoryPanelInner({ labels, locale }: Props) {
   if (error && !data?.found) {
     return (
       <div className={AppPremiumShell.page}>
-        <AppErrorState title={labels.errorTitle} description={error} retryLabel={labels.retry} onRetry={() => void load()} />
+        <AppErrorState
+          title={labels.errorTitle}
+          description={labels.errorBody}
+          retryLabel={labels.retry}
+          onRetry={() => void load()}
+          returnHref="/app"
+          returnLabel={labels.backToOverview}
+        />
       </div>
     );
   }
