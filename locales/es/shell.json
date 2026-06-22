@@ -1,0 +1,220 @@
+{
+  "sidebar": {
+    "plan": "Business Plan",
+    "workspaceControlCenter": "Workspace Control Center"
+  },
+  "topbar": {
+    "notifications": "Notifications",
+    "companySelector": "Select company",
+    "profileFallback": "User",
+    "companyFallback": "Company"
+  },
+  "search": "Search modules, settings and actions...",
+  "navSearch": {
+    "hint": "⌘K search menu",
+    "compactToggle": "Compact navigation",
+    "results": "Search results",
+    "noResults": "No matching modules"
+  },
+  "roles": {
+    "owner": "Owner",
+    "admin": "Admin",
+    "support": "Support",
+    "staff": "Staff",
+    "read_only": "Read Only",
+    "super_admin": "Super Admin",
+    "platform_support": "Platform Support",
+    "manager": "Manager",
+    "growth_partner": "Growth Partner",
+    "moderator": "Moderator",
+    "member": "Member"
+  },
+  "signOut": "Sign out",
+  "languageSelector": {
+    "label": "Idioma",
+    "activeLanguage": "Idioma activo",
+    "changeLanguage": "Cambiar idioma",
+    "switchFailed": "No se pudo cambiar el idioma. Inténtelo de nuevo.",
+    "retry": "Reintentar",
+    "openMenu": "Opciones de idioma"
+  },
+  "mobile": {
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "navigation": "Mobile navigation"
+  },
+  "licenseSidebar": {
+    "workspace": "Workspace:",
+    "poweredBy": "Powered by",
+    "licensedTo": "Licensed to:",
+    "plan": "Plan:",
+    "subscription": "Subscription:",
+    "status": "Status:",
+    "version": "Version:",
+    "copyright": "© Aipify Group AS",
+    "statusActive": "Active",
+    "statusGrace": "Grace period",
+    "statusPaused": "Paused",
+    "statusUnknown": "Unknown",
+    "notConfigured": "Not configured",
+    "notAssigned": "Not assigned",
+    "organizationMissing": "Organization not linked"
+  },
+  "branding": {
+    "pulseLabel": "Aipify platform symbol"
+  },
+  "commandBar": {
+    "placeholder": "Search anything...",
+    "close": "Close command bar",
+    "noResults": "No matching commands or destinations.",
+    "sections": {
+      "navigation": "Navigation",
+      "action": "Actions",
+      "search": "Search results",
+      "recommendation": "Recommendations",
+      "recent": "Recent"
+    },
+    "shortcuts": {
+      "title": "Keyboard",
+      "navigate": "↑↓ Navigate",
+      "select": "↵ Select",
+      "close": "Esc Close",
+      "open": "⌘K / Ctrl+K Open"
+    },
+    "recommendations": {
+      "pendingApprovals": "Review pending approvals",
+      "failedAutomations": "Review failed automations",
+      "growthPartnerApplications": "Growth Partner applications require attention",
+      "executiveSummary": "Ask Aipify for an executive summary"
+    },
+    "openCommandBar": "Open command bar",
+    "actions": {
+      "createAutomation": "Create automation",
+      "exportAuditLogs": "Export audit logs",
+      "viewFailedWorkflows": "View failed workflows",
+      "launchInstallWizard": "Launch installation wizard",
+      "generateExecutiveReport": "Generate executive report",
+      "findGrowthPartners": "Find Growth Partners",
+      "superAdminAudit": "Open Super Admin audit",
+      "searchKnowledgeCenter": "Search Knowledge Center",
+      "inviteGrowthPartner": "Invite Growth Partner",
+      "openCustomerProfile": "Open customer profile",
+      "restartFailedWorkflow": "Restart failed workflow"
+    },
+    "categories": {
+      "customers": "Customers",
+      "support": "Support",
+      "knowledge": "Knowledge",
+      "skills": "Skills",
+      "actions": "Actions",
+      "growthPartners": "Growth Partners",
+      "automations": "Automations",
+      "users": "Users",
+      "subscriptions": "Subscriptions",
+      "modules": "Modules"
+    }
+  },
+  "twoFactor": {
+    "badge": {
+      "enabled": "Sign-in verification enabled",
+      "required": "Verification required for your role"
+    }
+  },
+  "multiTenantArchitecture": {
+    "title": "Multi-Tenant Architecture",
+    "subtitle": "Secure organization isolation — each customer has its own users, modules, Knowledge Center, integrations, and audit logs.",
+    "loading": "Preparing tenant architecture overview…",
+    "aipifyCore": "Aipify Core",
+    "knowledgeCenter": "Knowledge Center",
+    "team": "Team",
+    "unonightPilot": "Unonight Pilot Tenant",
+    "unonightNote": "Unonight is the first connected pilot customer. Aipify remains an independent SaaS platform.",
+    "selectedOrganization": "Selected Organization",
+    "role": "Role",
+    "modulesEnabled": "Modules Enabled",
+    "pendingTasks": "Pending Tasks",
+    "activeAlerts": "Active Alerts",
+    "faqs": "FAQs",
+    "yourOrganizations": "Your Organizations",
+    "enabledModules": "Module Activation",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "integrations": "Integrations",
+    "rolePermissions": "Role Permissions",
+    "dataIsolation": "Tenant Data Isolation",
+    "auditLogging": "Audit Logging",
+    "aiInvolved": "Aipify involved",
+    "organizationSwitcher": "Switch organization",
+    "switchingOrganization": "Switching…"
+  },
+  "companionPresence": {
+    "ariaIndicator": "Aipify companion presence",
+    "ariaPanel": "Companion presence panel",
+    "ariaClose": "Close companion panel",
+    "ariaCollapse": "Collapse companion indicator",
+    "ariaExpand": "Expand companion indicator",
+    "sinceLastLogin": "Since last login",
+    "tasks": "Open tasks",
+    "approvals": "Pending approvals",
+    "notifications": "Unread notifications",
+    "askAipify": "Ask Aipify",
+    "privacyNote": "System presence only — not employee monitoring.",
+    "quietMode": "Quiet mode",
+    "quietModeOff": "Exit quiet mode",
+    "acknowledgeCritical": "Acknowledge critical alert",
+    "loading": "Updating business activity status…",
+    "newSinceLogin": "{count} new support cases",
+    "unresolvedApprovals": "{count} unresolved approvals",
+    "states": {
+      "idle": "Online",
+      "working": "Working",
+      "attention_needed": "Attention needed",
+      "critical_alert": "Critical alert",
+      "disconnected": "Disconnected",
+      "quiet_mode": "Quiet mode"
+    }
+  },
+  "voiceOfCustomer": {
+    "trigger": "Share Feedback",
+    "triggerShort": "Share Feedback",
+    "title": "Share Feedback",
+    "subtitle": "Your voice helps us improve Aipify — never forced, always welcome.",
+    "type": "Feedback type",
+    "feedbackTitle": "Title",
+    "description": "Description",
+    "priority": "Priority",
+    "wantsResponse": "Would you like a response?",
+    "noResponse": "No response needed",
+    "contactMe": "Contact me regarding this feedback",
+    "includeContext": "Include current page and device context (optional)",
+    "submit": "Submit feedback",
+    "submitting": "Submitting…",
+    "acknowledgementTitle": "Thank you for helping improve Aipify.",
+    "acknowledgementBody": "Every suggestion helps us build a better experience.",
+    "historyTitle": "Your feedback history",
+    "historyEmpty": "You have not submitted feedback yet.",
+    "close": "Close",
+    "feedbackTypes": {
+      "bug_report": "Bug report",
+      "improvement_suggestion": "Improvement suggestion",
+      "feature_request": "New feature request",
+      "compliment": "Compliment",
+      "usability_issue": "Usability issue",
+      "general_feedback": "General feedback"
+    },
+    "priorities": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "customerStatuses": {
+      "received": "Received",
+      "under_review": "Under review",
+      "planned": "Planned",
+      "implemented": "Implemented"
+    },
+    "trustNote": "Participation is always voluntary. We use feedback only to improve Aipify — never for advertising or resale.",
+    "transparencyNote": "Information you share here is collected to improve Aipify products and services.",
+    "trustStatementLink": "Customer Feedback & Product Improvement Policy"
+  }
+}

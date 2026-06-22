@@ -1,28 +1,14 @@
-import { LOCALE_LABELS, type Locale } from "@/lib/i18n/config";
 import type { Translator } from "@/lib/i18n/translate";
+import {
+  buildLocalizedModuleLabelMap,
+  buildReportedLocaleLabelMap,
+  resolveEnvironmentLabel,
+  resolvePlatformVersionDisplay,
+} from "@/lib/live-platform-snapshot/presentation-registry";
 import type { UnonightPlatformSnapshotMetadata } from "./platform-snapshot-tool";
 import type { PlatformSnapshotCardLabels, PlatformSnapshotCardPayload } from "./types";
 
 const BASE = "customerApp.companionPlatformKnowledge.platformSnapshot";
-
-const MODULE_LABEL_KEYS: Record<string, string> = {
-  chat: `${BASE}.modules.chat`,
-  marketplace: `${BASE}.modules.marketplace`,
-  wishlist: `${BASE}.modules.wishlist`,
-  gifts: `${BASE}.modules.gifts`,
-  verification: `${BASE}.modules.verification`,
-  rewards: `${BASE}.modules.rewards`,
-};
-
-function resolveLanguageLabel(code: string): string {
-  const normalized = code.toLowerCase().split("-")[0];
-  return LOCALE_LABELS[normalized as Locale] ?? code.toUpperCase();
-}
-
-function resolveModuleLabel(moduleKey: string, t: Translator): string {
-  const key = MODULE_LABEL_KEYS[moduleKey];
-  return key ? t(key) : moduleKey;
-}
 
 function availabilityLabel(
   status: UnonightPlatformSnapshotMetadata["status"],
@@ -37,12 +23,8 @@ export function buildPlatformSnapshotCardPayload(
   metadata: UnonightPlatformSnapshotMetadata,
   t: Translator,
 ): PlatformSnapshotCardPayload {
-  const languageLabels = Object.fromEntries(
-    metadata.supported_locales.map((code) => [code, resolveLanguageLabel(code)]),
-  );
-  const moduleLabels = Object.fromEntries(
-    metadata.active_modules.map((moduleKey) => [moduleKey, resolveModuleLabel(moduleKey, t)]),
-  );
+  const languageLabels = buildReportedLocaleLabelMap(metadata.supported_locales, t);
+  const moduleLabels = buildLocalizedModuleLabelMap(metadata.active_modules, t, "unonight");
 
   const labels: PlatformSnapshotCardLabels = {
     cardTitle: t(`${BASE}.card.title`),
@@ -64,6 +46,8 @@ export function buildPlatformSnapshotCardPayload(
     languageLabels,
     moduleLabels,
     ariaCard: t(`${BASE}.card.ariaCard`),
+    environmentDisplay: resolveEnvironmentLabel(metadata.environment, t),
+    platformVersionDisplay: resolvePlatformVersionDisplay(metadata.platform_version, t),
   };
 
   return {

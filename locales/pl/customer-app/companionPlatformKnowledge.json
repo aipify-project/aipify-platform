@@ -134,24 +134,45 @@
         "fieldCheckedAt": "Sprawdzono",
         "timestampUnavailable": "Niedostępne",
         "languagesUnavailable": "Nie zgłoszono przez Unonight",
-        "availabilityAvailable": "Dostępna",
-        "availabilityDegraded": "Obniżona",
-        "availabilityMaintenance": "Konserwacja",
+        "platformVersionUnavailable": "Nie podano przez platformę",
+        "availabilityAvailable": "✅ Dostępna",
+        "availabilityDegraded": "⚠️ Ograniczona dostępność",
+        "availabilityMaintenance": "🛠️ Konserwacja",
         "sourceTitle": "Źródło danych",
         "sourceMeta": "Metadane platformy na żywo · Tylko do odczytu · Sprawdzono teraz",
         "ariaCard": "Zweryfikowana migawka platformy Unonight"
       },
+      "environments": {
+        "production": "Produkcja",
+        "staging": "Środowisko testowe",
+        "maintenance": "Konserwacja"
+      },
+      "reportedLocales": {
+        "no": "Norweski",
+        "en": "Angielski",
+        "sv": "Szwedzki",
+        "da": "Duński",
+        "es": "Hiszpański",
+        "pl": "Polski",
+        "uk": "Ukraiński"
+      },
       "modules": {
-        "chat": "Czat",
+        "registration": "Rejestracja",
         "marketplace": "Marketplace",
-        "wishlist": "Lista życzeń",
+        "chat": "Czat",
+        "public_chat": "Czat publiczny",
+        "private_chat": "Czat prywatny",
+        "referrals": "Program poleceń",
         "gifts": "Prezenty",
+        "birthday_rewards": "Nagrody urodzinowe",
+        "mobile_api": "Mobilne API",
+        "wishlist": "Lista życzeń",
         "verification": "Weryfikacja",
         "rewards": "Nagrody"
       },
       "variants": {
         "activeModules": {
-          "intro": "Unonight zgłasza te aktywne moduły: {modules}. Sprawdzono {checkedAt} ze zweryfikowanej integracji tylko do odczytu."
+          "intro": "Unonight zgłasza aktywne moduły ze zweryfikowanej integracji na żywo. Szczegóły są w karcie poniżej."
         },
         "supportedLanguages": {
           "intro": "Unonight zgłasza te obsługiwane języki: {languages}. Sprawdzono {checkedAt}."
@@ -163,10 +184,10 @@
           "intro": "Unonight zgłasza wersję platformy {version}. Sprawdzono {checkedAt}."
         },
         "visibilitySummary": {
-          "intro": "Ze zweryfikowanej integracji tylko do odczytu Aipify widzi bezpieczne metadane platformy, np. aktywne moduły ({modules}). Sprawdzono {checkedAt}."
+          "intro": "Unonight zgłasza następujący status platformy w tej chwili."
         },
         "fullSnapshot": {
-          "intro": "Migawka platformy Unonight na żywo sprawdzona {checkedAt}. Aktywne moduły: {modules}."
+          "intro": "Unonight zgłasza następujący status platformy w tej chwili."
         }
       },
       "failures": {

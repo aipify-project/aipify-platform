@@ -51,11 +51,11 @@ export function CompanionPlatformSnapshotCard({ card, locale }: CompanionPlatfor
         <dl className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
           <div>
             <dt className="text-xs font-medium text-aipify-text-muted">{labels.fieldEnvironment}</dt>
-            <dd className="mt-0.5 text-sm font-medium capitalize text-aipify-text">{card.environment}</dd>
+            <dd className="mt-0.5 text-sm font-medium text-aipify-text">{labels.environmentDisplay}</dd>
           </div>
           <div>
             <dt className="text-xs font-medium text-aipify-text-muted">{labels.fieldPlatformVersion}</dt>
-            <dd className="mt-0.5 text-sm font-medium text-aipify-text">{card.platformVersion}</dd>
+            <dd className="mt-0.5 text-sm font-medium text-aipify-text">{labels.platformVersionDisplay}</dd>
           </div>
           <div>
             <dt className="text-xs font-medium text-aipify-text-muted">{labels.fieldAvailability}</dt>

@@ -175,6 +175,8 @@ export type PlatformSnapshotCardLabels = {
   languageLabels: Record<string, string>;
   moduleLabels: Record<string, string>;
   ariaCard: string;
+  environmentDisplay: string;
+  platformVersionDisplay: string;
 };
 
 export type PlatformSnapshotCardPayload = {

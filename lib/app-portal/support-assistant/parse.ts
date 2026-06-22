@@ -164,6 +164,8 @@ function parsePlatformSnapshotCard(raw: unknown): PlatformKnowledgeAnswer["platf
       sourceLabel: str(labels.sourceLabel),
       sourceMeta: str(labels.sourceMeta),
       languagesUnavailable: str(labels.languagesUnavailable),
+      environmentDisplay: str(labels.environmentDisplay, str(row.environment)),
+      platformVersionDisplay: str(labels.platformVersionDisplay, str(row.platformVersion)),
       languageLabels,
       moduleLabels,
       ariaCard: str(labels.ariaCard),

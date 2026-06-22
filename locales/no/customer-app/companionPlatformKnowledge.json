@@ -134,39 +134,60 @@
         "fieldCheckedAt": "Kontrollert",
         "timestampUnavailable": "Ikke tilgjengelig",
         "languagesUnavailable": "Ikke rapportert av Unonight",
-        "availabilityAvailable": "Tilgjengelig",
-        "availabilityDegraded": "Redusert",
-        "availabilityMaintenance": "Vedlikehold",
+        "platformVersionUnavailable": "Ikke oppgitt av plattformen",
+        "availabilityAvailable": "✅ Tilgjengelig",
+        "availabilityDegraded": "⚠️ Redusert tilgjengelighet",
+        "availabilityMaintenance": "🛠️ Vedlikehold",
         "sourceTitle": "Datakilde",
         "sourceMeta": "Live plattformmetadata · Skrivebeskyttet · Kontrollert nå",
         "ariaCard": "Verifisert Unonight-plattformøyeblikksbilde"
       },
+      "environments": {
+        "production": "Produksjon",
+        "staging": "Testmiljø",
+        "maintenance": "Vedlikehold"
+      },
+      "reportedLocales": {
+        "no": "Norsk",
+        "en": "Engelsk",
+        "sv": "Svensk",
+        "da": "Dansk",
+        "es": "Spansk",
+        "pl": "Polsk",
+        "uk": "Ukrainsk"
+      },
       "modules": {
-        "chat": "Chat",
+        "registration": "Registrering",
         "marketplace": "Markedsplass",
-        "wishlist": "Ønskeliste",
+        "chat": "Chat",
+        "public_chat": "Offentlig chat",
+        "private_chat": "Privat chat",
+        "referrals": "Verveprogram",
         "gifts": "Gaver",
+        "birthday_rewards": "Bursdagsbelønninger",
+        "mobile_api": "Mobil-API",
+        "wishlist": "Ønskeliste",
         "verification": "Verifisering",
         "rewards": "Belønninger"
       },
       "variants": {
         "activeModules": {
-          "intro": "Unonight rapporterer disse aktive modulene akkurat nå: {modules}. Kontrollert {checkedAt} fra den verifiserte skrivebeskyttede integrasjonen."
+          "intro": "Unonight rapporterer aktive moduler fra den verifiserte live-integrasjonen. Detaljene vises i kortet nedenfor."
         },
         "supportedLanguages": {
-          "intro": "Unonight rapporterer disse støttede språkene: {languages}. Kontrollert {checkedAt} fra den verifiserte skrivebeskyttede integrasjonen."
+          "intro": "Unonight rapporterer disse støttede språkene: {languages}. Kontrollert {checkedAt}."
         },
         "environmentStatus": {
-          "intro": "Unonight rapporterer miljø {environment} med status {status}. Kontrollert {checkedAt} fra den verifiserte skrivebeskyttede integrasjonen."
+          "intro": "Unonight rapporterer miljø {environment} med status {status}. Kontrollert {checkedAt}."
         },
         "platformVersion": {
-          "intro": "Unonight rapporterer plattformversjon {version}. Kontrollert {checkedAt} fra den verifiserte skrivebeskyttede integrasjonen."
+          "intro": "Unonight rapporterer plattformversjon {version}. Kontrollert {checkedAt}."
         },
         "visibilitySummary": {
-          "intro": "Fra den verifiserte skrivebeskyttede integrasjonen kan Aipify nå se trygg plattformmetadata som aktive moduler ({modules}). Kontrollert {checkedAt}."
+          "intro": "Unonight rapporterer følgende plattformstatus akkurat nå."
         },
         "fullSnapshot": {
-          "intro": "Unonight live plattformøyeblikksbilde kontrollert {checkedAt}. Aktive moduler: {modules}."
+          "intro": "Unonight rapporterer følgende plattformstatus akkurat nå."
         }
       },
       "failures": {

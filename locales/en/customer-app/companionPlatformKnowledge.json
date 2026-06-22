@@ -134,39 +134,60 @@
         "fieldCheckedAt": "Checked at",
         "timestampUnavailable": "Not available",
         "languagesUnavailable": "Not reported by Unonight",
-        "availabilityAvailable": "Available",
-        "availabilityDegraded": "Degraded",
-        "availabilityMaintenance": "Maintenance",
+        "platformVersionUnavailable": "Not reported by the platform",
+        "availabilityAvailable": "✅ Available",
+        "availabilityDegraded": "⚠️ Reduced availability",
+        "availabilityMaintenance": "🛠️ Maintenance",
         "sourceTitle": "Data source",
         "sourceMeta": "Live platform metadata · Read-only · Checked now",
         "ariaCard": "Verified Unonight platform snapshot"
       },
+      "environments": {
+        "production": "Production",
+        "staging": "Staging",
+        "maintenance": "Maintenance"
+      },
+      "reportedLocales": {
+        "no": "Norwegian",
+        "en": "English",
+        "sv": "Swedish",
+        "da": "Danish",
+        "es": "Spanish",
+        "pl": "Polish",
+        "uk": "Ukrainian"
+      },
       "modules": {
-        "chat": "Chat",
+        "registration": "Registration",
         "marketplace": "Marketplace",
-        "wishlist": "Wishlist",
+        "chat": "Chat",
+        "public_chat": "Public chat",
+        "private_chat": "Private chat",
+        "referrals": "Referrals",
         "gifts": "Gifts",
+        "birthday_rewards": "Birthday rewards",
+        "mobile_api": "Mobile API",
+        "wishlist": "Wishlist",
         "verification": "Verification",
         "rewards": "Rewards"
       },
       "variants": {
         "activeModules": {
-          "intro": "Unonight reports these active modules right now: {modules}. Checked at {checkedAt} from the verified read-only integration."
+          "intro": "Unonight reports active modules from the verified live integration. Details are shown in the card below."
         },
         "supportedLanguages": {
-          "intro": "Unonight reports these supported languages: {languages}. Checked at {checkedAt} from the verified read-only integration."
+          "intro": "Unonight reports these supported languages: {languages}. Checked at {checkedAt}."
         },
         "environmentStatus": {
-          "intro": "Unonight reports environment {environment} with status {status}. Checked at {checkedAt} from the verified read-only integration."
+          "intro": "Unonight reports environment {environment} with status {status}. Checked at {checkedAt}."
         },
         "platformVersion": {
-          "intro": "Unonight reports platform version {version}. Checked at {checkedAt} from the verified read-only integration."
+          "intro": "Unonight reports platform version {version}. Checked at {checkedAt}."
         },
         "visibilitySummary": {
-          "intro": "From the verified read-only integration, Aipify can currently see safe platform metadata such as active modules ({modules}). Checked at {checkedAt}."
+          "intro": "Unonight reports the following platform status right now."
         },
         "fullSnapshot": {
-          "intro": "Unonight live platform snapshot checked at {checkedAt}. Active modules: {modules}."
+          "intro": "Unonight reports the following platform status right now."
         }
       },
       "failures": {

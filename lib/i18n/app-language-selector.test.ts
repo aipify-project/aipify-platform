@@ -22,12 +22,12 @@ function test(name: string, fn: () => void) {
   console.log(`✓ ${name}`);
 }
 
-test("APP locale order lists Nordic languages before English, then pl and uk", () => {
-  assert.deepEqual([...APP_LOCALE_ORDER], ["no", "sv", "da", "en", "pl", "uk"]);
+test("APP locale order lists Nordic languages before English, then es, pl and uk", () => {
+  assert.deepEqual([...APP_LOCALE_ORDER], ["no", "sv", "da", "en", "es", "pl", "uk"]);
 });
 
-test("appLocaleOptions exposes all six active customer locales", () => {
-  assert.equal(appLocaleOptions().length, 6);
+test("appLocaleOptions exposes all seven active customer locales", () => {
+  assert.equal(appLocaleOptions().length, 7);
 });
 
 test("coerceToAppLocale maps nb/nn to no", () => {
@@ -40,25 +40,33 @@ test("coerceToAppLocale maps ua to uk", () => {
 });
 
 test("coerceToAppLocale falls back to en for unsupported locales", () => {
-  assert.equal(coerceToAppLocale("es"), "en");
+  assert.equal(coerceToAppLocale("fr"), "en");
   assert.equal(coerceToAppLocale(undefined), "en");
+});
+
+test("coerceToAppLocale accepts Spanish as active APP locale", () => {
+  assert.equal(coerceToAppLocale("es"), "es");
+  assert.equal(coerceToAppLocale("es-ES"), "es");
 });
 
 test("resolveAppLocale accepts all active APP locales", () => {
   assert.equal(resolveAppLocale("sv"), "sv");
+  assert.equal(resolveAppLocale("es"), "es");
   assert.equal(resolveAppLocale("pl"), "pl");
   assert.equal(resolveAppLocale("uk"), "uk");
 });
 
 test("isAppLocale guards APP locale codes", () => {
   assert.equal(isAppLocale("da"), true);
+  assert.equal(isAppLocale("es"), true);
   assert.equal(isAppLocale("uk"), true);
-  assert.equal(isAppLocale("es"), false);
+  assert.equal(isAppLocale("fr"), false);
 });
 
 test("parseAcceptLanguageHeader prefers first supported language", () => {
   assert.equal(parseAcceptLanguageHeader("da-DK, en;q=0.8"), "da");
   assert.equal(parseAcceptLanguageHeader("nb-NO, en;q=0.5"), "no");
+  assert.equal(parseAcceptLanguageHeader("es-ES, en;q=0.5"), "es");
   assert.equal(parseAcceptLanguageHeader("pl-PL, en;q=0.5"), "pl");
   assert.equal(parseAcceptLanguageHeader("uk-UA, en;q=0.5"), "uk");
 });
@@ -109,11 +117,20 @@ test("resolveAppUiLocale defaults to English", () => {
 
 test("resolveAppUiLocale ignores non-app cookie values", () => {
   const resolved = resolveAppUiLocale({
-    cookieLocale: "es",
+    cookieLocale: "fr",
     acceptLanguage: "no-NO",
   });
   assert.equal(resolved.locale, "no");
   assert.equal(resolved.source, "browser");
+});
+
+test("resolveAppUiLocale accepts Spanish APP cookie", () => {
+  const resolved = resolveAppUiLocale({
+    cookieLocale: "es",
+    acceptLanguage: "no-NO",
+  });
+  assert.equal(resolved.locale, "es");
+  assert.equal(resolved.source, "cookie");
 });
 
 test("resolvePublicLocale keeps marketing locales in cookie", () => {
@@ -153,8 +170,9 @@ test("header and settings share APP locale source via /api/locale scope", () => 
   assert.equal(isAppLocale(payload.locale), true);
 });
 
-test("completeness validator checks six APP locales", () => {
-  assert.equal(CUSTOMER_ACTIVE_LOCALE_ORDER.length, 6);
+test("completeness validator checks seven APP locales", () => {
+  assert.equal(CUSTOMER_ACTIVE_LOCALE_ORDER.length, 7);
+  assert.ok(CUSTOMER_ACTIVE_LOCALE_ORDER.includes("es"));
 });
 
 test("no raw translation keys should be used as visible labels", () => {
@@ -223,9 +241,10 @@ test("selector options include native labels and flags", () => {
   assert.ok(option.flagSrc.startsWith("/flags/"));
 });
 
-test("selector includes Polski and Ukrainian labels", () => {
+test("selector includes Polski, Español and Ukrainian labels", () => {
   const labels = appLocaleOptions().map((option) => option.nativeLabel);
   assert.ok(labels.includes("Polski"));
+  assert.ok(labels.includes("Español"));
   assert.ok(labels.includes("Українська"));
 });
 
@@ -233,10 +252,16 @@ test("locale cookie name remains aipify-locale", () => {
   assert.equal(LOCALE_COOKIE, "aipify-locale");
 });
 
-test("non-app marketing locale coerces app locale separately", () => {
+test("disabled public footer locale falls back to English app locale", () => {
+  const publicResolved = resolvePublicLocale({ cookieLocale: "de" });
+  assert.equal(publicResolved.locale, "en");
+  assert.equal(publicResolved.appLocale, "en");
+});
+
+test("Spanish resolves as both public and APP locale", () => {
   const publicResolved = resolvePublicLocale({ cookieLocale: "es" });
   assert.equal(publicResolved.locale, "es");
-  assert.equal(publicResolved.appLocale, "en");
+  assert.equal(publicResolved.appLocale, "es");
 });
 
 test("accept-language q-values do not break parsing", () => {

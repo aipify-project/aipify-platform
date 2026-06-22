@@ -1,23 +1,24 @@
 import {
-  CORE_LOCALE_LABELS,
-  CORE_LOCALES,
+  LOCALE_LABELS,
+  LOCALES,
   DEFAULT_LOCALE,
-  type CoreLocale,
+  type Locale,
 } from "./config";
 import { LOCALE_FLAGS, PUBLIC_FOOTER_FLAG_FILES } from "./public-locales";
 
 /**
  * Canonical active customer locales for APP, Companion, and shared selectors.
- * Subset of CORE_LOCALES — only locales with complete APP translation coverage.
+ * Only locales with complete APP translation coverage for customer surfaces.
  */
 export const CUSTOMER_ACTIVE_LOCALE_ORDER = [
   "no",
   "sv",
   "da",
   "en",
+  "es",
   "pl",
   "uk",
-] as const satisfies readonly CoreLocale[];
+] as const satisfies readonly Locale[];
 
 export type CustomerActiveLocale = (typeof CUSTOMER_ACTIVE_LOCALE_ORDER)[number];
 
@@ -32,15 +33,15 @@ export type CustomerActiveLocaleDefinition = {
   fallbackLocale: typeof DEFAULT_LOCALE;
 };
 
-function assertActiveLocalesMatchCore(): void {
+function assertActiveLocalesRegistered(): void {
   for (const locale of CUSTOMER_ACTIVE_LOCALE_ORDER) {
-    if (!CORE_LOCALES.includes(locale)) {
-      throw new Error(`Customer active locale ${locale} is not in CORE_LOCALES`);
+    if (!LOCALES.includes(locale)) {
+      throw new Error(`Customer active locale ${locale} is not registered in LOCALES`);
     }
   }
 }
 
-assertActiveLocalesMatchCore();
+assertActiveLocalesRegistered();
 
 export function isCustomerActiveLocale(value: string): value is CustomerActiveLocale {
   return CUSTOMER_ACTIVE_LOCALE_ORDER.includes(value as CustomerActiveLocale);
@@ -67,10 +68,10 @@ export function resolveCustomerActiveLocale(
 export function getCustomerActiveLocaleDefinitions(): CustomerActiveLocaleDefinition[] {
   return CUSTOMER_ACTIVE_LOCALE_ORDER.map((locale) => ({
     locale,
-    label: CORE_LOCALE_LABELS[locale],
-    nativeLabel: CORE_LOCALE_LABELS[locale],
-    flagEmoji: LOCALE_FLAGS[locale],
-    flagSrc: PUBLIC_FOOTER_FLAG_FILES[locale],
+    label: LOCALE_LABELS[locale],
+    nativeLabel: LOCALE_LABELS[locale],
+    flagEmoji: LOCALE_FLAGS[locale as keyof typeof LOCALE_FLAGS],
+    flagSrc: PUBLIC_FOOTER_FLAG_FILES[locale as keyof typeof PUBLIC_FOOTER_FLAG_FILES],
     enabled: true as const,
     direction: "ltr" as const,
     fallbackLocale: DEFAULT_LOCALE,
@@ -85,6 +86,7 @@ export const BROWSER_LOCALE_PREFIXES: Record<string, CustomerActiveLocale> = {
   sv: "sv",
   da: "da",
   en: "en",
+  es: "es",
   pl: "pl",
   uk: "uk",
   ua: "uk",

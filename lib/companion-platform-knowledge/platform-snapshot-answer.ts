@@ -1,7 +1,7 @@
 import type { Translator } from "@/lib/i18n/translate";
-import { LOCALE_LABELS, type Locale } from "@/lib/i18n/config";
+import { buildReportedLocaleLabelMap, resolvePlatformVersionDisplay } from "@/lib/live-platform-snapshot/presentation-registry";
 import { buildActionForRoute } from "./answer-builder";
-import { buildPlatformSnapshotCardPayload } from "./platform-snapshot-card";
+import { buildPlatformSnapshotCardPayload, getPlatformSnapshotAvailabilityLabel } from "./platform-snapshot-card";
 import type { LivePlatformSnapshotQueryKind } from "./platform-snapshot-intent";
 import { filterActionsByPermission, type PermissionContext } from "./permission-gate";
 import type { PlatformSnapshotFailureCode, UnonightPlatformSnapshotMetadata } from "./platform-snapshot-tool";
@@ -17,16 +17,6 @@ function interpolate(template: string, values: Record<string, string>): string {
     (result, [key, value]) => result.replaceAll(`{${key}}`, value),
     template,
   );
-}
-
-function formatLanguageList(locales: string[]): string {
-  return locales
-    .map((code) => LOCALE_LABELS[code.toLowerCase().split("-")[0] as Locale] ?? code.toUpperCase())
-    .join(", ");
-}
-
-function formatModuleList(modules: string[]): string {
-  return modules.join(", ");
 }
 
 function formatTimestamp(value: string, locale: string, unavailable: string): string {
@@ -88,37 +78,40 @@ export function buildVerifiedPlatformSnapshotAnswer(
 ): PlatformKnowledgeAnswer {
   const unavailable = t(`${BASE}.card.timestampUnavailable`);
   const checkedAt = formatTimestamp(metadata.checked_at, locale, unavailable);
-  const modules = formatModuleList(metadata.active_modules);
-  const languages = formatLanguageList(metadata.supported_locales);
+  const languageLabels = buildReportedLocaleLabelMap(metadata.supported_locales, t);
+  const languages = metadata.supported_locales
+    .map((code) => languageLabels[code.toLowerCase().split("-")[0]] ?? code)
+    .join(", ");
+  const version = resolvePlatformVersionDisplay(metadata.platform_version, t);
   const { sources, sourceId, source } = buildVerifiedSourceRef(t);
   const platformSnapshotCard = buildPlatformSnapshotCardPayload(metadata, t);
 
-  let directAnswer = t(`${BASE}.card.supporting`);
+  let directAnswer = t(`${VARIANTS}.fullSnapshot.intro`);
   switch (queryKind) {
     case "active_modules":
-      directAnswer = interpolate(t(`${VARIANTS}.activeModules.intro`), { modules, checkedAt });
+      directAnswer = t(`${VARIANTS}.activeModules.intro`);
       break;
     case "supported_languages":
       directAnswer = interpolate(t(`${VARIANTS}.supportedLanguages.intro`), { languages, checkedAt });
       break;
     case "environment_status":
       directAnswer = interpolate(t(`${VARIANTS}.environmentStatus.intro`), {
-        environment: metadata.environment,
-        status: metadata.status,
+        environment: platformSnapshotCard.labels.environmentDisplay,
+        status: getPlatformSnapshotAvailabilityLabel(platformSnapshotCard),
         checkedAt,
       });
       break;
     case "platform_version":
       directAnswer = interpolate(t(`${VARIANTS}.platformVersion.intro`), {
-        version: metadata.platform_version,
+        version,
         checkedAt,
       });
       break;
     case "visibility_summary":
-      directAnswer = interpolate(t(`${VARIANTS}.visibilitySummary.intro`), { modules, checkedAt });
+      directAnswer = t(`${VARIANTS}.visibilitySummary.intro`);
       break;
     default:
-      directAnswer = interpolate(t(`${VARIANTS}.fullSnapshot.intro`), { modules, checkedAt });
+      directAnswer = t(`${VARIANTS}.fullSnapshot.intro`);
   }
 
   return {

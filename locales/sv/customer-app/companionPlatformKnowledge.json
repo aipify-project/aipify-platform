@@ -134,27 +134,48 @@
         "fieldCheckedAt": "Kontrollerad",
         "timestampUnavailable": "Inte tillgänglig",
         "languagesUnavailable": "Rapporteras inte av Unonight",
-        "availabilityAvailable": "Tillgänglig",
-        "availabilityDegraded": "Försämrad",
-        "availabilityMaintenance": "Underhåll",
+        "platformVersionUnavailable": "Rapporteras inte av plattformen",
+        "availabilityAvailable": "✅ Tillgänglig",
+        "availabilityDegraded": "⚠️ Begränsad tillgänglighet",
+        "availabilityMaintenance": "🛠️ Underhåll",
         "sourceTitle": "Datakälla",
         "sourceMeta": "Live plattformsmetadata · Skrivskyddad · Kontrollerad nu",
         "ariaCard": "Verifierad Unonight-plattformsögonblicksbild"
       },
+      "environments": {
+        "production": "Produktion",
+        "staging": "Testmiljö",
+        "maintenance": "Underhåll"
+      },
+      "reportedLocales": {
+        "no": "Norska",
+        "en": "Engelska",
+        "sv": "Svenska",
+        "da": "Danska",
+        "es": "Spanska",
+        "pl": "Polska",
+        "uk": "Ukrainska"
+      },
       "modules": {
-        "chat": "Chatt",
+        "registration": "Registrering",
         "marketplace": "Marknadsplats",
+        "chat": "Chatt",
+        "public_chat": "Offentlig chatt",
+        "private_chat": "Privat chatt",
+        "referrals": "Värvningsprogram",
+        "gifts": "Gåvor",
+        "birthday_rewards": "Födelsedagsbelöningar",
+        "mobile_api": "Mobil-API",
         "wishlist": "Önskelista",
-        "gifts": "Presenter",
         "verification": "Verifiering",
         "rewards": "Belöningar"
       },
       "variants": {
         "activeModules": {
-          "intro": "Unonight rapporterar dessa aktiva moduler just nu: {modules}. Kontrollerad {checkedAt} från den verifierade skrivskyddade integrationen."
+          "intro": "Unonight rapporterar aktiva moduler från den verifierade live-integrationen. Detaljerna visas i kortet nedan."
         },
         "supportedLanguages": {
-          "intro": "Unonight rapporterar dessa språk: {languages}. Kontrollerad {checkedAt} från den verifierade skrivskyddade integrationen."
+          "intro": "Unonight rapporterar dessa språk: {languages}. Kontrollerad {checkedAt}."
         },
         "environmentStatus": {
           "intro": "Unonight rapporterar miljö {environment} med status {status}. Kontrollerad {checkedAt}."
@@ -163,10 +184,10 @@
           "intro": "Unonight rapporterar plattformsversion {version}. Kontrollerad {checkedAt}."
         },
         "visibilitySummary": {
-          "intro": "Från den verifierade skrivskyddade integrationen kan Aipify se säker plattformsmetadata som aktiva moduler ({modules}). Kontrollerad {checkedAt}."
+          "intro": "Unonight rapporterar följande plattformsstatus just nu."
         },
         "fullSnapshot": {
-          "intro": "Unonight live plattformsögonblicksbild kontrollerad {checkedAt}. Aktiva moduler: {modules}."
+          "intro": "Unonight rapporterar följande plattformsstatus just nu."
         }
       },
       "failures": {

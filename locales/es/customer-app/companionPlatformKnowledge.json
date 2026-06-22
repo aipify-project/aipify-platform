@@ -34,72 +34,72 @@
       "fieldSupportedLocales": "Supported languages",
       "fieldLastVerified": "Last verified",
       "fieldLastUsed": "Last used",
-      "fieldBaseUrl": "Базова URL-адреса",
-      "localesUnavailable": "Не повідомлено Unonight",
+      "fieldBaseUrl": "Base URL",
+      "localesUnavailable": "Not reported by Unonight",
       "card": {
-        "title": "Unonight підключено та верифіковано",
-        "supporting": "Aipify отримав цю інформацію безпосередньо з активної інтеграції Unonight лише для читання.",
-        "fieldOrganization": "Організація",
-        "fieldOrganizationId": "ID організації",
-        "fieldApiVersion": "Версія API",
-        "fieldAccessMode": "Тип доступу",
-        "fieldConnectionStatus": "Статус підключення",
-        "fieldBaseUrl": "Базова URL-адреса",
-        "fieldLastVerified": "Остання верифікація",
-        "fieldLastUsed": "Останнє використання",
-        "fieldScopes": "Дозволи",
-        "fieldSupportedLanguages": "Підтримувані мови",
-        "timestampUnavailable": "Недоступно",
-        "scopesExplainShow": "Що означають ці дозволи?",
-        "scopesExplainHide": "Приховати пояснення дозволів",
-        "sourceTitle": "Джерело даних",
-        "sourceMeta": "Лише для читання · Перевірено зараз",
-        "ariaCard": "Статус верифікованої інтеграції Unonight",
-        "ariaScopesToggle": "Пояснення дозволів",
+        "title": "Unonight is connected and verified",
+        "supporting": "Aipify retrieved this information directly from your active, read-only Unonight integration.",
+        "fieldOrganization": "Organization",
+        "fieldOrganizationId": "Organization ID",
+        "fieldApiVersion": "API version",
+        "fieldAccessMode": "Access type",
+        "fieldConnectionStatus": "Connection status",
+        "fieldBaseUrl": "Base URL",
+        "fieldLastVerified": "Last verified",
+        "fieldLastUsed": "Last used",
+        "fieldScopes": "Scopes",
+        "fieldSupportedLanguages": "Supported languages",
+        "timestampUnavailable": "Not available",
+        "scopesExplainShow": "What do these scopes mean?",
+        "scopesExplainHide": "Hide scope explanations",
+        "sourceTitle": "Data source",
+        "sourceMeta": "Read-only · Checked now",
+        "ariaCard": "Verified Unonight integration status",
+        "ariaScopesToggle": "Scope explanations",
         "scopes": {
-          "metadataRead": "Читає затвержені операційні метадані",
-          "organizationRead": "Читає ідентичність організації",
-          "integrationStatusRead": "Читає статус інтеграції",
-          "platformMetadataRead": "Читає схвалені метадані платформи",
-          "unknown": "Затверджений дозвіл на читання для цієї інтеграції"
+          "metadataRead": "Reads approved operational metadata",
+          "organizationRead": "Reads organization identity",
+          "integrationStatusRead": "Reads integration status",
+          "platformMetadataRead": "Reads approved platform metadata",
+          "unknown": "Approved read scope for this integration"
         }
       },
       "failureTitle": "Live Unonight integration data unavailable",
       "failureLead": "⚠️ Aipify could not retrieve live data from the Unonight integration right now.",
       "failureRetryStep": "Verify the integration under Platform → Integrations, then ask again.",
-      "orgConfirmBlockedNoLiveData": "Підтвердження організації недоступне, оскільки відповідь не використала дані інтеграції в реальному часі.",
+      "orgConfirmBlockedNoLiveData": "Organization confirmation is unavailable because this answer did not use live integration data.",
       "variants": {
         "lastUsed": {
-          "intro": "Верифіковану інтеграцію Unonight востаннє використано {timestamp}. Aipify прочитав цей час із активного підключення лише для читання."
+          "intro": "The verified Unonight integration was last used at {timestamp}. Aipify read this timestamp from the active read-only connection."
         },
         "scopes": {
-          "intro": "Верифікована інтеграція Unonight лише для читання дозволяє Aipify читати лише затверджені операційні метадані.",
-          "allowedMetadata": "Читає затверджені операційні метадані",
-          "allowedOrganization": "Читає ідентичність організації",
-          "allowedStatus": "Читає статус інтеграції",
-          "notAllowedPrivateMessages": "Не може читати приватні повідомлення або розмови",
-          "notAllowedPayments": "Не може читати платежі, замовлення або дані виставлення рахунків",
-          "notAllowedWrite": "Не може змінювати або записувати дані в Unonight"
+          "intro": "The verified read-only Unonight integration allows Aipify to read approved operational metadata only.",
+          "allowedMetadata": "Read approved operational metadata",
+          "allowedOrganization": "Read organization identity",
+          "allowedStatus": "Read integration status",
+          "notAllowedPrivateMessages": "Cannot read private messages or conversations",
+          "notAllowedPayments": "Cannot read payments, orders, or billing records",
+          "notAllowedWrite": "Cannot change or write data in Unonight"
         },
         "languages": {
-          "intro": "Верифікована інтеграція Unonight повідомляє про ці підтримувані мови: {languages}."
+          "intro": "The verified Unonight integration reports these supported languages: {languages}."
         },
         "sourceTrust": {
-          "intro": "Aipify щойно перевірив верифіковану інтеграцію Unonight лише для читання ({checkedAt}). Остання верифікація: {lastVerified}. Останнє використання: {lastUsed}. Доступ лише для читання, а джерелом є жива інтеграція — не статті Knowledge Center."
+          "intro": "Aipify checked the verified read-only Unonight integration just now ({checkedAt}). Last verified: {lastVerified}. Last used: {lastUsed}. Access is read-only and the data source is the live integration — not Knowledge Center articles."
         },
         "unsupported": {
-          "title": "Кількість учасників недоступна з інтеграції",
-          "intro": "Поточна верифікована інтеграція Unonight лише для читання не надає кількість учасників у реальному часі. Aipify не вгадує числа поза затвердженими дозволами."
+          "title": "Member count not available from integration",
+          "intro": "The current verified read-only Unonight integration does not expose live member counts. Aipify will not guess numbers that are outside the approved scopes."
         },
         "privateDenied": {
-          "title": "Приватні повідомлення поза затвердженим доступом",
-          "intro": "Верифікована інтеграція Unonight лише для читання не включає доступ до приватних повідомлень або розмов. Aipify не може отримати або показати такі дані."
+          "title": "Private messages are outside approved access",
+          "intro": "The verified read-only Unonight integration does not include access to private messages or conversations. Aipify cannot retrieve or display that data."
         },
         "roleDisambiguation": {
-          "title": "Ролі Aipify vs ролі учасників Unonight",
-          "intro": "Зміна ролі учасника команди в Unonight відрізняється від керування ролями в організації Aipify.",
-          "aipifySection": "Для ролей і дозволів у робочому просторі Aipify відкрийте Організація → Ролі та дозволи в порталі APP.",
-          "unonightSection": "Ролі учасників платформи Unonight керуються в Unonight. Верифікована інтеграція лише для читання не дозволяє Aipify змінювати ролі учасників Unonight."
+          "title": "Aipify roles vs Unonight member roles",
+          "intro": "Changing a team member role in Unonight is different from managing roles inside your Aipify organization workspace.",
+          "aipifySection": "For Aipify workspace roles and permissions, open Organization → Roles & Permissions in your APP portal.",
+          "unonightSection": "Unonight platform member roles are managed inside Unonight itself. The verified read-only integration does not let Aipify change Unonight membership roles."
         }
       },
       "failures": {
@@ -114,101 +114,101 @@
       }
     },
     "platformSnapshot": {
-      "title": "Метадані платформи Unonight у реальному часі",
-      "sourceVerifiedIntegration": "Верифікована інтеграція Unonight",
-      "failureTitle": "Метадані платформи Unonight у реальному часі недоступні",
-      "failureLead": "Aipify не змогло отримати метадані платформи з верифікованої інтеграції Unonight.",
-      "failureRetryStep": "Перевірте, чи токен інтеграції містить platform.metadata.read, і запитайте знову.",
-      "failureRetryStepScopeMissing": "Перевірте, чи токен інтеграції містить platform.metadata.read, і запитайте знову.",
-      "failureRetryStepStatusContract": "Aipify отримав дані платформи, але не зміг інтерпретувати операційний статус. Спробуйте знову після виправлення контракту.",
-      "failureRetryStepGeneric": "Повторіть запит після підтвердження, що перевірена інтеграція Unonight досі підключена.",
-      "orgConfirmBlockedNoLiveData": "Підтвердження організації недоступне, оскільки відповідь не використала метадані платформи в реальному часі.",
+      "title": "Metadatos de plataforma Unonight en vivo",
+      "sourceVerifiedIntegration": "Integración de Unonight verificada",
+      "failureTitle": "Metadatos de plataforma Unonight en vivo no disponibles",
+      "failureLead": "Aipify no pudo obtener metadatos de plataforma en vivo de la integración verificada de Unonight en este momento.",
+      "failureRetryStep": "Verifique que el token de integración incluya platform.metadata.read y vuelva a preguntar.",
+      "failureRetryStepScopeMissing": "Verifique que el token de integración incluya platform.metadata.read y vuelva a preguntar.",
+      "failureRetryStepStatusContract": "Aipify recibió datos de la plataforma pero no pudo interpretar el estado operativo. Inténtelo de nuevo cuando se repare el contrato.",
+      "failureRetryStepGeneric": "Vuelva a intentar la pregunta después de confirmar que la integración verificada de Unonight sigue conectada.",
+      "orgConfirmBlockedNoLiveData": "La confirmación de organización no está disponible porque esta respuesta no utilizó metadatos de plataforma en vivo.",
       "card": {
-        "title": "Знімок платформи Unonight у реальному часі",
-        "supporting": "Aipify отримав ці метадані платформи безпосередньо з верифікованої інтеграції Unonight лише для читання.",
-        "fieldEnvironment": "Середовище",
-        "fieldPlatformVersion": "Версія платформи",
-        "fieldAvailability": "Доступність",
-        "fieldActiveModules": "Активні модулі",
-        "fieldSupportedLanguages": "Підтримувані мови",
-        "fieldCheckedAt": "Перевірено",
-        "timestampUnavailable": "Недоступно",
-        "languagesUnavailable": "Не повідомлено Unonight",
-        "platformVersionUnavailable": "Не вказано платформою",
-        "availabilityAvailable": "✅ Доступна",
-        "availabilityDegraded": "⚠️ Обмежена доступність",
-        "availabilityMaintenance": "🛠️ Технічне обслуговування",
-        "sourceTitle": "Джерело даних",
-        "sourceMeta": "Актуальні метадані платформи · Лише для читання · Перевірено зараз",
-        "ariaCard": "Верифікований знімок платформи Unonight"
+        "title": "Instantánea de plataforma Unonight en vivo",
+        "supporting": "Aipify obtuvo estos metadatos de plataforma directamente de la integración verificada de Unonight de solo lectura.",
+        "fieldEnvironment": "Entorno",
+        "fieldPlatformVersion": "Versión de plataforma",
+        "fieldAvailability": "Disponibilidad",
+        "fieldActiveModules": "Módulos activos",
+        "fieldSupportedLanguages": "Idiomas compatibles",
+        "fieldCheckedAt": "Comprobado",
+        "timestampUnavailable": "No disponible",
+        "languagesUnavailable": "No informado por Unonight",
+        "platformVersionUnavailable": "No informado por la plataforma",
+        "availabilityAvailable": "✅ Disponible",
+        "availabilityDegraded": "⚠️ Disponibilidad reducida",
+        "availabilityMaintenance": "🛠️ Mantenimiento",
+        "sourceTitle": "Fuente de datos",
+        "sourceMeta": "Metadatos de plataforma en vivo · Solo lectura · Comprobado ahora",
+        "ariaCard": "Instantánea verificada de plataforma Unonight"
       },
       "environments": {
-        "production": "Робоче середовище",
-        "staging": "Тестове середовище",
-        "maintenance": "Технічне обслуговування"
+        "production": "Producción",
+        "staging": "Entorno de pruebas",
+        "maintenance": "Mantenimiento"
       },
       "reportedLocales": {
-        "no": "Норвезька",
-        "en": "Англійська",
-        "sv": "Шведська",
-        "da": "Данська",
-        "es": "Іспанська",
-        "pl": "Польська",
-        "uk": "Українська"
+        "no": "Noruego",
+        "en": "Inglés",
+        "sv": "Sueco",
+        "da": "Danés",
+        "es": "Español",
+        "pl": "Polaco",
+        "uk": "Ucraniano"
       },
       "modules": {
-        "registration": "Реєстрація",
-        "marketplace": "Маркетплейс",
-        "chat": "Чат",
-        "public_chat": "Публічний чат",
-        "private_chat": "Приватний чат",
-        "referrals": "Реферальна програма",
-        "gifts": "Подарунки",
-        "birthday_rewards": "Нагороди до дня народження",
-        "mobile_api": "Мобільний API",
-        "wishlist": "Список бажань",
-        "verification": "Верифікація",
-        "rewards": "Нагороди"
+        "registration": "Registro",
+        "marketplace": "Mercado",
+        "chat": "Chat",
+        "public_chat": "Chat público",
+        "private_chat": "Chat privado",
+        "referrals": "Programa de referidos",
+        "gifts": "Regalos",
+        "birthday_rewards": "Recompensas de cumpleaños",
+        "mobile_api": "API móvil",
+        "wishlist": "Lista de deseos",
+        "verification": "Verificación",
+        "rewards": "Recompensas"
       },
       "variants": {
         "activeModules": {
-          "intro": "Unonight повідомляє про активні модулі з верифікованої live-інтеграції. Деталі показано в картці нижче."
+          "intro": "Unonight informa de módulos activos desde la integración verificada en vivo. Los detalles se muestran en la tarjeta siguiente."
         },
         "supportedLanguages": {
-          "intro": "Unonight повідомляє про ці підтримувані мови: {languages}. Перевірено {checkedAt}."
+          "intro": "Unonight informa de estos idiomas compatibles: {languages}. Comprobado {checkedAt}."
         },
         "environmentStatus": {
-          "intro": "Unonight повідомляє про середовище {environment} зі статусом {status}. Перевірено {checkedAt}."
+          "intro": "Unonight informa del entorno {environment} con estado {status}. Comprobado {checkedAt}."
         },
         "platformVersion": {
-          "intro": "Unonight повідомляє версію платформи {version}. Перевірено {checkedAt}."
+          "intro": "Unonight informa de la versión de plataforma {version}. Comprobado {checkedAt}."
         },
         "visibilitySummary": {
-          "intro": "Unonight повідомляє про такий статус платформи зараз."
+          "intro": "Unonight informa del siguiente estado de la plataforma en este momento."
         },
         "fullSnapshot": {
-          "intro": "Unonight повідомляє про такий статус платформи зараз."
+          "intro": "Unonight informa del siguiente estado de la plataforma en este momento."
         }
       },
       "failures": {
-        "integrationNotConnected": "Для цієї організації не налаштовано активну інтеграцію Unonight.",
-        "integrationNotVerified": "Інтеграція Unonight існує, але ще не верифікована.",
-        "credentialUnavailable": "Збережені облікові дані недоступні для читання в реальному часі.",
-        "endpointUnreachable": "Unonight не відповів на запит знімка платформи.",
-        "providerMismatch": "Відповідь у реальному часі не відповідає очікуваному постачальнику Unonight.",
-        "organizationMismatch": "Організація у відповіді не відповідає цьому робочому простору.",
-        "permissionDenied": "Ваша роль не може читати облікові дані інтеграції в реальному часі.",
-        "responseInvalid": "Unonight повернув метадані платформи, які не вдалося безпечно перевірити.",
-        "liveScopeMissing": "Unonight відхилив live snapshot платформи, оскільки активний токен не містить platform.metadata.read.",
-        "platformSnapshotForbidden": "Unonight відхилив запит live snapshot платформи для цього токена.",
-        "credentialMismatch": "Збережене посилання на облікові дані не відповідає активному токену Unonight, використаному в цьому запиті.",
-        "malformedModules": "Unonight повернув метадані платформи без розпізнаваного списку активних публічних модулів.",
-        "malformedLocales": "Unonight повернув метадані платформи без розпізнаваних кодів мов.",
-        "malformedEnvironment": "Unonight повернув метадані платформи з нерозпізнаним значенням середовища.",
-        "malformedOrganization": "Unonight повернув метадані платформи з неповним блоком організації.",
-        "statusUnavailable": "Unonight повернув метадані платформи без розпізнаваного статусу доступності.",
-        "unsupportedContractVersion": "Unonight повернув непідтримувану версію API знімка платформи.",
-        "unsafePayload": "Unonight повернув метадані платформи з полями, забороненими в цьому snapshot лише для читання."
+        "integrationNotConnected": "No hay una integración activa de Unonight configurada para esta organización.",
+        "integrationNotVerified": "La integración de Unonight existe pero aún no está verificada.",
+        "credentialUnavailable": "La credencial de conexión almacenada no está disponible para lectura en vivo.",
+        "endpointUnreachable": "Unonight no respondió a la solicitud de instantánea de plataforma.",
+        "providerMismatch": "La respuesta en vivo no coincidió con el proveedor Unonight esperado.",
+        "organizationMismatch": "La organización en la respuesta en vivo no coincidió con este espacio de trabajo.",
+        "permissionDenied": "Su rol no puede leer credenciales de integración en vivo para esta organización.",
+        "responseInvalid": "Unonight devolvió metadatos de plataforma que no pudieron validarse de forma segura.",
+        "liveScopeMissing": "Unonight rechazó la instantánea en vivo porque al token activo le falta el scope platform.metadata.read.",
+        "platformSnapshotForbidden": "Unonight rechazó la solicitud de instantánea en vivo de plataforma para este token.",
+        "credentialMismatch": "La referencia de credencial almacenada no coincide con el token activo de Unonight usado en esta solicitud.",
+        "malformedModules": "Unonight devolvió metadatos de plataforma sin una lista reconocible de módulos públicos activos.",
+        "malformedLocales": "Unonight devolvió metadatos de plataforma sin códigos de idioma compatibles reconocibles.",
+        "malformedEnvironment": "Unonight devolvió metadatos de plataforma con un valor de entorno no reconocido.",
+        "malformedOrganization": "Unonight devolvió metadatos de plataforma con un bloque de organización incompleto.",
+        "statusUnavailable": "Unonight devolvió metadatos de plataforma sin un estado de disponibilidad reconocible.",
+        "unsupportedContractVersion": "Unonight devolvió una versión de API de instantánea de plataforma no compatible.",
+        "unsafePayload": "Unonight devolvió metadatos de plataforma con campos no permitidos en esta instantánea de solo lectura."
       }
     },
     "fallback": {
@@ -244,9 +244,9 @@
       "profile": "Open Profile",
       "apiAccess": "API Access",
       "activityOverview": "Activity Overview",
-      "viewIntegrations": "Переглянути інтеграції",
-      "retestUnonightConnection": "Повторно перевірити підключення",
-      "readSecureConnection": "Докладніше про безпечне підключення"
+      "viewIntegrations": "View integrations",
+      "retestUnonightConnection": "Retest connection",
+      "readSecureConnection": "Read about secure connection"
     },
     "routes": {
       "appDashboard": {
@@ -504,27 +504,6 @@
         "step2": "Create or rotate keys following your security policy.",
         "searchTerms": "api key|api access|developer access|api credentials|api-nøkkel admin"
       },
-      "approvals": {
-        "title": "Approvals",
-        "directAnswer": "Sensitive actions require your approval. Review pending items in your workspace approval center when notified.",
-        "explanation": "Aipify prepares actions — humans approve. Critical actions are never executed without explicit approval.",
-        "step1": "Check notifications for pending approval requests.",
-        "searchTerms": "approval|godkjenning|approve|pending approval"
-      },
-      "auditGovernance": {
-        "title": "Audit and governance",
-        "directAnswer": "Organization activity and security events are visible under Organization → Activity Overview and Account → Security.",
-        "explanation": "Aipify maintains audit trails for trust and compliance. Platform admins see aggregates only.",
-        "step1": "Open Organization → Activity Overview.",
-        "searchTerms": "audit|governance|activity log|revisjon"
-      },
-      "languageSettings": {
-        "title": "Language settings",
-        "directAnswer": "Change your language under Account → Preferences. Aipify supports English, Norwegian, Swedish, Danish, Polish, and Ukrainian.",
-        "explanation": "Language applies across the APP portal, Companion, and notifications.",
-        "step1": "Open Account → Preferences and select your language.",
-        "searchTerms": "language|språk|locale|change language"
-      },
       "whatIsApi": {
         "title": "What is an API?",
         "directAnswer": "An API is a secure way for two systems to communicate with each other. Aipify can use an API to retrieve approved information from your website, online store, or administration system. Access is limited to what your organization has approved, and read-only access should be used first so Aipify can retrieve information without changing anything.",
@@ -564,6 +543,27 @@
         "step1": "Review connected integrations under Platform → Integrations.",
         "step2": "Open Account → Security for access and audit visibility.",
         "searchTerms": "hva får aipify tilgang|what does aipify access|data access|tilgang aipify|what can aipify see"
+      },
+      "approvals": {
+        "title": "Approvals",
+        "directAnswer": "Sensitive actions require your approval. Review pending items in your workspace approval center when notified.",
+        "explanation": "Aipify prepares actions — humans approve. Critical actions are never executed without explicit approval.",
+        "step1": "Check notifications for pending approval requests.",
+        "searchTerms": "approval|godkjenning|approve|pending approval"
+      },
+      "auditGovernance": {
+        "title": "Audit and governance",
+        "directAnswer": "Organization activity and security events are visible under Organization → Activity Overview and Account → Security.",
+        "explanation": "Aipify maintains audit trails for trust and compliance. Platform admins see aggregates only.",
+        "step1": "Open Organization → Activity Overview.",
+        "searchTerms": "audit|governance|activity log|revisjon"
+      },
+      "languageSettings": {
+        "title": "Language settings",
+        "directAnswer": "Change your language under Account → Preferences. Aipify supports English, Norwegian, Swedish, Danish, Polish, and Ukrainian.",
+        "explanation": "Language applies across the APP portal, Companion, and notifications.",
+        "step1": "Open Account → Preferences and select your language.",
+        "searchTerms": "language|språk|locale|change language"
       }
     }
   }
