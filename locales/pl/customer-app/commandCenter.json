@@ -970,6 +970,8 @@
       "attentionEmptyTitle": "Żadne krytyczne sprawy nie wymagają teraz uwagi",
       "attentionEmptyBody": "Aipify nadal monitoruje i powiadomi Cię, gdy coś się zmieni.",
       "sinceLastLoginTitle": "Od ostatniej wizyty",
+      "activityEmptyTitle": "Brak zweryfikowanej aktywności od ostatniej wizyty",
+      "activityEmptyBody": "Aipify pokaże tutaj aktywność organizacji, gdy dostępne będą zweryfikowane sygnały.",
       "viewAllActivity": "Zobacz całą aktywność",
       "viewAllAlerts": "Zobacz wszystkie alerty",
       "viewAllApprovals": "Zobacz wszystkie zatwierdzenia",

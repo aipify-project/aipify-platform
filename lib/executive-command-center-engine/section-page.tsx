@@ -32,7 +32,11 @@ export async function ExecutiveCommandCenterSectionPage({ activeSection }: { act
             }}
           />
       ) : null}
-      <ExecutiveCommandCenterPanel labels={buildExecutiveCommandCenterLabels(t)} activeSection={activeSection} />
+      <ExecutiveCommandCenterPanel
+        labels={buildExecutiveCommandCenterLabels(t)}
+        activeSection={activeSection}
+        locale={locale}
+      />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import type { ActivityEvent } from "@/lib/activity-operations/types";
+import { containsSyntheticEccText, isSyntheticEccRecord } from "@/lib/command-center/ecc-tab-datasets";
 import {
   mapExecutivePriorityToSeverity,
   type SeverityLevel,
@@ -351,6 +352,16 @@ function resolveTimelineHref(eventType: string): string {
   return "/app/activity";
 }
 
+function isSyntheticSinceLastLoginEvent(event: SinceLastLoginEvent): boolean {
+  return containsSyntheticEccText(
+    event.id,
+    event.title,
+    event.explanation,
+    event.eventType,
+    event.dedupeKey
+  );
+}
+
 export function buildSinceLastLoginDataset(input: {
   eccItems?: Record<string, unknown>[];
   activitySinceLogin?: Record<string, unknown>;
@@ -360,6 +371,7 @@ export function buildSinceLastLoginDataset(input: {
   const rawEvents: SinceLastLoginEvent[] = [];
 
   for (const item of input.eccItems ?? []) {
+    if (isSyntheticEccRecord(item)) continue;
     rawEvents.push(classifyEccSummaryItem(item));
   }
 
@@ -369,18 +381,26 @@ export function buildSinceLastLoginDataset(input: {
   const opportunityEvents = [...(Array.isArray(since.top_opportunities) ? since.top_opportunities : [])];
 
   for (const raw of [...changeEvents, ...riskEvents, ...opportunityEvents]) {
-    if (raw && typeof raw === "object") rawEvents.push(classifyRawEvent(raw as Record<string, unknown>));
+    if (raw && typeof raw === "object" && !isSyntheticEccRecord(raw as Record<string, unknown>)) {
+      rawEvents.push(classifyRawEvent(raw as Record<string, unknown>));
+    }
   }
 
   for (const evt of input.timeline ?? []) {
+    if (isSyntheticEccRecord(evt)) continue;
     rawEvents.push(classifyTimelineEvent(evt));
   }
 
   for (const event of input.activityEvents ?? []) {
+    if (
+      containsSyntheticEccText(event.id, event.title, event.summary ?? "", event.category)
+    ) {
+      continue;
+    }
     rawEvents.push(classifyActivityEvent(event));
   }
 
-  return mergeSinceLastLoginEvents(rawEvents);
+  return mergeSinceLastLoginEvents(rawEvents).filter((event) => !isSyntheticSinceLastLoginEvent(event));
 }
 
 /** Read-only pilot: "Observed by Aipify" instead of "Completed by Aipify". */

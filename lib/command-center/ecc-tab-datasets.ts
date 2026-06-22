@@ -46,7 +46,7 @@ export type EccOverviewCounts = {
 };
 
 const SYNTHETIC_TEXT_PATTERN =
-  /\b(synthetic|layout testing|layout test|mock data|mock record|demo dataset|design validation|test description|lorem ipsum)\b/i;
+  /\b(synthetic|layout testing|layout test|mock data|mock record|demo dataset|design validation|test description|lorem ipsum|validation dataset|since last login validation|synthetic activity)\b/i;
 const SYNTHETIC_KEY_PREFIX = /^ps620:/i;
 
 const RISK_ALERT_TYPES = new Set([
@@ -70,6 +70,13 @@ const REPORT_TITLE_OVERRIDES: Record<string, string> = {
 
 export function isEccDemoModeEnabled(): boolean {
   return process.env.NEXT_PUBLIC_ECC_DEMO_MODE === "true";
+}
+
+export function containsSyntheticEccText(...fields: string[]): boolean {
+  const text = fields.filter(Boolean).join(" ");
+  if (!text.trim()) return false;
+  if (SYNTHETIC_TEXT_PATTERN.test(text)) return true;
+  return SYNTHETIC_KEY_PREFIX.test(text);
 }
 
 export function isSyntheticEccRecord(record: Record<string, unknown>): boolean {

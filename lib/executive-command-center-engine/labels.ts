@@ -191,6 +191,8 @@ export function buildExecutiveCommandCenterLabels(t: Translator) {
       attentionEmptyTitle: t(`${p}.commandBriefOverview.attentionEmptyTitle`),
       attentionEmptyBody: t(`${p}.commandBriefOverview.attentionEmptyBody`),
       sinceLastLoginTitle: t(`${p}.commandBriefOverview.sinceLastLoginTitle`),
+      activityEmptyTitle: t(`${p}.commandBriefOverview.activityEmptyTitle`),
+      activityEmptyBody: t(`${p}.commandBriefOverview.activityEmptyBody`),
       viewAllActivity: t(`${p}.commandBriefOverview.viewAllActivity`),
       viewAllAlerts: t(`${p}.commandBriefOverview.viewAllAlerts`),
       viewAllApprovals: t(`${p}.commandBriefOverview.viewAllApprovals`),

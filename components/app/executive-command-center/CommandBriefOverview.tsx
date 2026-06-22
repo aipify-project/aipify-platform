@@ -7,6 +7,8 @@ import { CompanionIcon } from "@/components/app/companion-experience/CompanionIc
 import { ExecutiveMetricCard, PriorityRecommendationCard } from "@/components/app/design";
 import { SemanticBadge } from "@/components/ui/semantic-badge";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
+import { formatDateTime } from "@/lib/i18n/format-date";
+import { formatRelativeTime } from "@/lib/i18n/format-relative-time";
 import {
   getEccHealthMetricBadge,
   mapHealthScoreToHealthState,
@@ -103,12 +105,12 @@ export function CommandBriefCompanionCard({ labels }: CommandBriefCompanionCardP
 
   return (
     <article
-      className={`${AppPremiumShell.elevatedCard} relative overflow-hidden border-violet-100 bg-gradient-to-br from-violet-50/70 to-white p-5 sm:p-6`}
+      className={`${AppPremiumShell.elevatedCard} relative h-full overflow-hidden border-violet-100 bg-gradient-to-br from-violet-50/70 to-white p-6 lg:p-7`}
     >
-      <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-violet-100/60" aria-hidden="true" />
-      <div className="relative flex items-start gap-3">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-violet-100">
-          <CompanionIcon className="h-8 w-8" />
+      <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-violet-100/60" aria-hidden="true" />
+      <div className="relative flex items-start gap-4">
+        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-violet-100">
+          <CompanionIcon className="h-9 w-9" />
         </div>
         <div className="min-w-0 flex-1">
           <h2 className={AppPremiumShell.commandBriefSectionTitle}>{labels.companionTitle}</h2>
@@ -119,7 +121,7 @@ export function CommandBriefCompanionCard({ labels }: CommandBriefCompanionCardP
         </div>
       </div>
 
-      <div className="relative mt-5 space-y-3">
+      <div className="relative mt-6 space-y-4">
         <label className="block">
           <span className="sr-only">{labels.companionInputLabel}</span>
           <input
@@ -130,16 +132,16 @@ export function CommandBriefCompanionCard({ labels }: CommandBriefCompanionCardP
               if (e.key === "Enter") handleAsk();
             }}
             placeholder={labels.companionInputPlaceholder}
-            className={`min-h-12 w-full rounded-xl border border-aipify-border bg-white px-4 py-3 text-base text-aipify-text shadow-sm placeholder:text-aipify-text-muted ${AppPremiumShell.focusRing}`}
+            className={`min-h-14 w-full rounded-xl border border-aipify-border bg-white px-4 py-3.5 text-base text-aipify-text shadow-sm placeholder:text-aipify-text-muted ${AppPremiumShell.focusRing}`}
           />
         </label>
-        <ul className="flex flex-wrap gap-2">
+        <ul className="flex flex-col gap-2.5">
           {suggestions.map((suggestion) => (
             <li key={suggestion}>
               <button
                 type="button"
                 onClick={() => openWith(suggestion)}
-                className={`min-h-11 rounded-full border border-violet-200 bg-white px-3 py-2 text-left text-sm font-medium text-violet-800 transition hover:border-violet-300 hover:bg-violet-50 ${AppPremiumShell.focusRing}`}
+                className={`min-h-12 w-full rounded-xl border border-violet-200 bg-white px-4 py-2.5 text-left text-base font-medium text-violet-800 transition hover:border-violet-300 hover:bg-violet-50 ${AppPremiumShell.focusRing}`}
               >
                 {suggestion}
               </button>
@@ -150,7 +152,7 @@ export function CommandBriefCompanionCard({ labels }: CommandBriefCompanionCardP
           type="button"
           onClick={handleAsk}
           disabled={!query.trim()}
-          className={`inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-aipify-companion px-4 py-2.5 text-base font-semibold text-white transition hover:bg-aipify-companion-hover disabled:cursor-not-allowed disabled:opacity-50 ${AppPremiumShell.focusRing}`}
+          className={`inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-aipify-companion px-4 py-3 text-base font-semibold text-white transition hover:bg-aipify-companion-hover disabled:cursor-not-allowed disabled:opacity-50 ${AppPremiumShell.focusRing}`}
         >
           {labels.companionAsk}
         </button>
@@ -160,11 +162,13 @@ export function CommandBriefCompanionCard({ labels }: CommandBriefCompanionCardP
 }
 
 function activityCategoryLabel(labels: OverviewLabels, event: SinceLastLoginEvent): string {
-  const type = event.eventType.toLowerCase();
-  if (type.includes("integration")) return labels.activityCategories.integration;
-  if (type.includes("support")) return labels.activityCategories.support;
   if (event.workflowState === "awaiting_approval") return labels.activityCategories.awaiting_review;
   return labels.activityCategories[event.category] ?? labels.activityCategories.information;
+}
+
+function formatActivityTimestamp(isoDate: string | undefined, locale: string): string | null {
+  if (!isoDate) return null;
+  return formatRelativeTime(isoDate, locale) ?? formatDateTime(isoDate, locale);
 }
 
 function activityIcon(event: SinceLastLoginEvent) {
@@ -184,6 +188,7 @@ function healthMetricLabel(labels: Labels, score: number): string {
 
 type CommandBriefOverviewProps = {
   labels: Labels;
+  locale: string;
   kpis: CommandBriefKpiCounts;
   attentionItems: CommandCenterItem[];
   activityFeed: SinceLastLoginEvent[];
@@ -196,6 +201,7 @@ type CommandBriefOverviewProps = {
 
 export function CommandBriefOverview({
   labels,
+  locale,
   kpis,
   attentionItems,
   activityFeed,
@@ -321,39 +327,45 @@ export function CommandBriefOverview({
               </Link>
             </div>
             {activityFeed.length === 0 ? (
-              <div className={`${AppPremiumShell.elevatedCard} p-5 ${AppPremiumShell.commandBriefBody}`}>
-                {labels.premium.emptySection}
+              <div className={`${AppPremiumShell.elevatedCard} px-4 py-3.5 sm:px-5`}>
+                <p className="text-base font-medium text-aipify-text">{o.activityEmptyTitle}</p>
+                <p className={`mt-1.5 ${AppPremiumShell.commandBriefBody}`}>{o.activityEmptyBody}</p>
               </div>
             ) : (
-              <ul className="space-y-3">
-                {activityFeed.map((event) => (
-                  <li key={event.dedupeKey}>
-                    <article className={`${AppPremiumShell.elevatedCard} flex gap-4 p-4 sm:p-5`}>
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-aipify-accent-soft text-aipify-companion">
-                        {activityIcon(event)}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <h3 className="text-base font-semibold text-aipify-text">{event.title}</h3>
-                          <SemanticBadge
-                            type="severity"
-                            value={event.severity ?? "info"}
-                            label={activityCategoryLabel(o, event)}
-                          />
+              <ul className="space-y-2">
+                {activityFeed.map((event) => {
+                  const timestamp = formatActivityTimestamp(event.occurredAt, locale);
+                  return (
+                    <li key={event.dedupeKey}>
+                      <article className={`${AppPremiumShell.elevatedCard} flex items-start gap-3 px-3.5 py-3 sm:px-4`}>
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-aipify-accent-soft text-aipify-companion">
+                          {activityIcon(event)}
                         </div>
-                        {event.explanation ? (
-                          <p className={`mt-1.5 ${AppPremiumShell.commandBriefBody}`}>{event.explanation}</p>
-                        ) : null}
-                        <div className={`mt-2 flex flex-wrap gap-x-4 gap-y-1 ${AppPremiumShell.commandBriefMeta}`}>
-                          <span>{event.eventType}</span>
-                          {event.occurredAt ? (
-                            <time dateTime={event.occurredAt}>{event.occurredAt}</time>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                            <h3 className="text-base font-semibold text-aipify-text">{event.title}</h3>
+                            <SemanticBadge
+                              type="severity"
+                              value={event.severity ?? "info"}
+                              label={activityCategoryLabel(o, event)}
+                            />
+                            {timestamp ? (
+                              <time
+                                dateTime={event.occurredAt}
+                                className={`ml-auto shrink-0 ${AppPremiumShell.commandBriefMeta}`}
+                              >
+                                {timestamp}
+                              </time>
+                            ) : null}
+                          </div>
+                          {event.explanation ? (
+                            <p className={`mt-1 line-clamp-2 ${AppPremiumShell.commandBriefBody}`}>{event.explanation}</p>
                           ) : null}
                         </div>
-                      </div>
-                    </article>
-                  </li>
-                ))}
+                      </article>
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </section>
@@ -433,7 +445,7 @@ export function CommandBriefOverview({
           </div>
         </div>
 
-        <aside className="col-span-12 space-y-6 lg:col-span-4">
+        <aside className="col-span-12 space-y-6 lg:col-span-4 lg:sticky lg:top-6 lg:self-start">
           <div className="hidden lg:block">
             <CommandBriefCompanionCard labels={o} />
           </div>

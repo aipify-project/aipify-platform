@@ -1568,6 +1568,8 @@
       "attentionEmptyTitle": "No critical items need attention right now",
       "attentionEmptyBody": "Aipify continues monitoring and will notify you if anything changes.",
       "sinceLastLoginTitle": "Since last visit",
+      "activityEmptyTitle": "No verified activity since your last visit",
+      "activityEmptyBody": "Aipify shows organization activity here when verified signals are available.",
       "viewAllActivity": "View all activity",
       "viewAllAlerts": "View all alerts",
       "viewAllApprovals": "View all approvals",

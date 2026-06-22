@@ -208,9 +208,11 @@ function tabInsightForSection(labels: Labels, section: Ecc590Section): string | 
 export function ExecutiveCommandCenterPanel({
   labels,
   activeSection,
+  locale,
 }: {
   labels: Labels;
   activeSection: Ecc590Section;
+  locale: string;
 }) {
   const [center, setCenter] = useState<ExecutiveCommandCenter | null>(null);
   const [loading, setLoading] = useState(true);
@@ -298,6 +300,7 @@ export function ExecutiveCommandCenterPanel({
     return (
       <CommandBriefOverview
         labels={labels}
+        locale={locale}
         kpis={kpis}
         attentionItems={attentionItems}
         activityFeed={activityFeed}

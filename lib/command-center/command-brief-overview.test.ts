@@ -21,9 +21,20 @@ const LOCALES = ["en", "no", "sv", "da", "pl", "uk"] as const;
 for (const locale of LOCALES) {
   const dict = JSON.parse(
     fs.readFileSync(path.join(ROOT, `locales/${locale}/customer-app/commandCenter.json`), "utf8")
-  ) as { executiveCommandCenter?: { commandBriefOverview?: { title?: string; companionAsk?: string } } };
+  ) as {
+    executiveCommandCenter?: {
+      commandBriefOverview?: {
+        title?: string;
+        companionAsk?: string;
+        activityEmptyTitle?: string;
+        activityEmptyBody?: string;
+      };
+    };
+  };
   assert.ok(dict.executiveCommandCenter?.commandBriefOverview?.title, `${locale}: commandBriefOverview.title`);
   assert.ok(dict.executiveCommandCenter?.commandBriefOverview?.companionAsk, `${locale}: companionAsk`);
+  assert.ok(dict.executiveCommandCenter?.commandBriefOverview?.activityEmptyTitle, `${locale}: activityEmptyTitle`);
+  assert.ok(dict.executiveCommandCenter?.commandBriefOverview?.activityEmptyBody, `${locale}: activityEmptyBody`);
 }
 
 const syntheticCenter: ExecutiveCommandCenter = {
@@ -52,6 +63,20 @@ const syntheticCenter: ExecutiveCommandCenter = {
 assert.equal(filterRealCompanionRecommendations(syntheticCenter.companion_recommendations ?? []).length, 0);
 assert.equal(buildCommandBriefAttentionItems(syntheticCenter).length, 0);
 assert.equal(buildCommandBriefActivityFeed(syntheticCenter).length, 0);
+
+const syntheticTimelineCenter: ExecutiveCommandCenter = {
+  found: true,
+  timeline: [
+    {
+      event_key: "timeline:synthetic",
+      event_title: "Synthetic activity timeline event",
+      summary: "Synthetic activity timeline event for Since Last Login validation.",
+      priority: "information",
+    },
+  ],
+};
+
+assert.equal(buildCommandBriefActivityFeed(syntheticTimelineCenter).length, 0);
 
 const realCenter: ExecutiveCommandCenter = {
   found: true,

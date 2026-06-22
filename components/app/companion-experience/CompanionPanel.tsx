@@ -95,8 +95,8 @@ function ComposerForm({
         placeholder={labels.inputPlaceholder}
         className={
           compact
-            ? "min-h-11 flex-1 rounded-xl border border-aipify-border bg-white px-3 py-2 text-sm text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-companion focus:outline-none focus:ring-2 focus:ring-violet-200"
-            : "min-h-12 flex-1 rounded-xl border border-aipify-border bg-white px-4 py-3 text-sm text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-companion focus:outline-none focus:ring-2 focus:ring-violet-200"
+            ? "min-h-12 flex-1 rounded-xl border border-aipify-border bg-white px-4 py-3 text-base text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-companion focus:outline-none focus:ring-2 focus:ring-violet-200"
+            : "min-h-12 flex-1 rounded-xl border border-aipify-border bg-white px-4 py-3 text-base text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-companion focus:outline-none focus:ring-2 focus:ring-violet-200"
         }
         aria-label={labels.inputPlaceholder}
       />
@@ -105,8 +105,8 @@ function ComposerForm({
         disabled={loading || !query.trim()}
         className={
           compact
-            ? "inline-flex min-h-11 shrink-0 items-center rounded-xl bg-aipify-companion px-4 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-60"
-            : "inline-flex min-h-12 items-center justify-center rounded-xl bg-aipify-companion px-4 py-2 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-60"
+            ? "inline-flex min-h-12 shrink-0 items-center rounded-xl bg-aipify-companion px-5 text-base font-medium text-white hover:bg-violet-700 disabled:opacity-60"
+            : "inline-flex min-h-12 items-center justify-center rounded-xl bg-aipify-companion px-5 py-2.5 text-base font-medium text-white hover:bg-violet-700 disabled:opacity-60"
         }
       >
         {labels.askAipifyButton}
@@ -487,7 +487,7 @@ export function CompanionPanel({
             isActiveConversation ? "px-4 py-6 sm:px-6" : "px-4 py-4 sm:px-6 lg:flex-row"
           }`}
         >
-          <div className={`flex min-h-0 flex-1 flex-col ${isActiveConversation ? "max-w-3xl" : ""}`}>
+          <div className="flex min-h-0 flex-1 flex-col">
             {messages.length === 0 && !loading ? (
               <div className="rounded-xl border border-dashed border-aipify-border bg-white p-6 text-center">
                 <CompanionIcon size={56} withRing className="mx-auto" />
@@ -559,7 +559,7 @@ export function CompanionPanel({
       </div>
 
       {isActiveConversation ? (
-        <div className="shrink-0 border-t border-aipify-border bg-white p-3 sm:px-6">
+        <div className="shrink-0 border-t border-aipify-border bg-white p-4 sm:px-6">
           <ComposerForm
             query={query}
             setQuery={setQuery}

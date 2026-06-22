@@ -1590,6 +1590,8 @@
       "attentionEmptyTitle": "Ingen kritiske sager kræver opmærksomhed lige nu",
       "attentionEmptyBody": "Aipify følger med og varsler dig, hvis noget ændrer sig.",
       "sinceLastLoginTitle": "Siden sidst",
+      "activityEmptyTitle": "Ingen verificeret aktivitet siden sidste besøg",
+      "activityEmptyBody": "Aipify viser organisationsaktivitet her, når verificerede signaler er tilgængelige.",
       "viewAllActivity": "Se al aktivitet",
       "viewAllAlerts": "Se alle advarsler",
       "viewAllApprovals": "Se alle godkendelser",

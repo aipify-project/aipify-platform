@@ -44,7 +44,7 @@ export function CompanionDrawer() {
         role="dialog"
         aria-modal="true"
         aria-label={labels.ariaCompanionPanel}
-        className="relative flex h-full w-full max-w-[100vw] flex-col bg-aipify-canvas shadow-2xl sm:w-[min(640px,100vw)]"
+        className="relative flex h-full w-full max-w-[100vw] flex-col bg-aipify-canvas shadow-2xl sm:w-[min(760px,100vw)]"
       >
         <CompanionPanel
           labels={labels}
