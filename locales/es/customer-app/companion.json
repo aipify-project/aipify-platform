@@ -1119,6 +1119,8 @@
   },
   "companionExperience": {
     "ariaUserMessage": "Tu mensaje",
-    "ariaUserMessageIdentity": "Tu pregunta"
+    "ariaUserMessageIdentity": "Tu pregunta",
+    "scrollToLatest": "Ir al último mensaje",
+    "scrollToLatestAria": "Ir al último mensaje de esta conversación"
   }
 }

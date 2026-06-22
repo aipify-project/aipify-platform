@@ -1,3 +1,4 @@
+/** Companion Core scroll primitives — consume via companion-chat-scroll-policy in UI surfaces. */
 export const COMPANION_CHAT_NEAR_BOTTOM_THRESHOLD_PX = 120;
 
 export type CompanionChatScrollBehavior = "instant" | "smooth";

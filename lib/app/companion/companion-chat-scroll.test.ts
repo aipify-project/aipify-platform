@@ -2,34 +2,45 @@ import assert from "node:assert/strict";
 import {
   COMPANION_CHAT_INITIAL_SCROLL_BEHAVIOR,
   COMPANION_CHAT_INITIAL_POSITION,
-  COMPANION_CHAT_NEW_MESSAGE_AUTOSCROLL,
-} from "./companion-chat-scroll-policy";
-import {
   COMPANION_CHAT_NEAR_BOTTOM_THRESHOLD_PX,
+  COMPANION_CHAT_NEW_MESSAGE_AUTOSCROLL,
   isCompanionChatNearBottom,
+  resolveCompanionChatScrollBehavior,
   scrollCompanionChatToLatest,
   shouldAutoScrollCompanionChatOnUpdate,
   shouldRestoreCompanionChatScroll,
-} from "./chat-scroll";
+} from "./companion-chat-scroll-policy";
 
 assert.equal(COMPANION_CHAT_INITIAL_POSITION, "latest_message");
 assert.equal(COMPANION_CHAT_INITIAL_SCROLL_BEHAVIOR, "instant");
 assert.equal(COMPANION_CHAT_NEW_MESSAGE_AUTOSCROLL, "only_when_near_bottom");
+
+function createTrackableScrollContainer(input: {
+  scrollHeight: number;
+  clientHeight: number;
+  scrollTop?: number;
+}): HTMLElement & { scrollToCalls: Array<{ top: number; behavior?: string }> } {
+  const element = {
+    scrollHeight: input.scrollHeight,
+    clientHeight: input.clientHeight,
+    scrollTop: input.scrollTop ?? 0,
+    scrollToCalls: [] as Array<{ top: number; behavior?: string }>,
+    scrollTo(options: { top: number; behavior?: string }) {
+      this.scrollToCalls.push(options);
+      this.scrollTop = options.top;
+    },
+  };
+  return element as unknown as HTMLElement & {
+    scrollToCalls: Array<{ top: number; behavior?: string }>;
+  };
+}
 
 function createScrollContainer(input: {
   scrollHeight: number;
   clientHeight: number;
   scrollTop?: number;
 }): HTMLElement {
-  const element = {
-    scrollHeight: input.scrollHeight,
-    clientHeight: input.clientHeight,
-    scrollTop: input.scrollTop ?? 0,
-    scrollTo(options: { top: number; behavior?: string }) {
-      this.scrollTop = options.top;
-    },
-  };
-  return element as unknown as HTMLElement;
+  return createTrackableScrollContainer(input);
 }
 
 assert.equal(
@@ -109,12 +120,16 @@ assert.equal(
   false,
 );
 
-const container = createScrollContainer({
+const container = createTrackableScrollContainer({
   scrollHeight: 2400,
   clientHeight: 600,
   scrollTop: 0,
 });
 scrollCompanionChatToLatest(container, "instant");
 assert.equal(container.scrollTop, 2400);
+assert.equal(container.scrollToCalls.length, 0);
+
+assert.equal(resolveCompanionChatScrollBehavior("smooth"), "smooth");
+assert.equal(resolveCompanionChatScrollBehavior("instant"), "instant");
 
 console.log("companion-chat-scroll.test.ts: all assertions passed");
