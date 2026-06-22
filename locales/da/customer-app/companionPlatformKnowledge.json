@@ -431,6 +431,56 @@
         "service_intake": "service intake formularer samtykke leverance readiness"
       }
     },
+    "support": {
+      "sourceLabel": "Support provider-katalog",
+      "discoveryLead": "Aipify kortlagde {provider} i support provider-kataloget — status: {status}.",
+      "discoveryExplanation": "Capabilities nedenfor kommer fra registrerede Support Business Pack-manifest. Svarudkast og eskaleringer kræver godkendelse — Aipify sender aldrig automatisk til kunder eller lukker sager i Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Support-kilden er forberedt eller verificeret for din organisation.",
+      "disconnectedProvider": "Provider runtime-adapter er ikke tilsluttet — kun styret opdagelse.",
+      "unavailableLead": "Ingen support provider matchede denne anmodning for din organisation.",
+      "unavailableExplanation": "Support-capabilities opdages fra registrerede manifest — ingen matchede dette spørgsmål.",
+      "externalUnavailableLead": "Eksterne ticketing- eller helpdesk-adapters er ikke tilsluttet for din organisation.",
+      "externalUnavailableExplanation": "Ingen live ekstern support-adapter er registreret. Aipify sender ikke svar automatisk, lukker ikke sager eller udfører følsomme kontoændringer i Companion runtime.",
+      "blockedOperationLead": "Denne support-operation er ikke tilgængelig i Companion runtime.",
+      "blockedOperationExplanation": "Udsendelse af svar til kunder, lukning af sager, sletning og følsomme kontoændringer er blokeret i denne fase. Aipify kan forberede udkast og eskaleringsplaner — du beslutter og godkender.",
+      "permissionDenied": "Din rolle har ikke adgang til support provider-kataloget.",
+      "entitlementBlocked": "Support-capabilities er utilgængelige mens organisationens abonnement er sat på pause.",
+      "privacyNote": "Metadata-først support-intelligens — private samtaler og kundedetaljer eksponeres aldrig uden tilladelse.",
+      "policyNote": "Udkast, tildelinger og eskaleringer kræver eksplicit godkendelse. Tenant-isolation og revisionslogning gælder for alle support-handlinger.",
+      "autoSendBlocked": "Auto-udsendelse til kunder er blokeret — kun udkast-tilstand er aktiv.",
+      "caseCloseBlocked": "Sagslukning er blokeret i Companion runtime — mennesker beslutter.",
+      "humanOversightRequired": "Menneskelig tilsyn kræves for support-skrivninger.",
+      "knowledgeGapDetectionActive": "Videnshul-detektion er aktiv for dine support-operationer.",
+      "knowledgeGapDetectionAvailable": "Videnshul-detektion er tilgængelig via Support Operations-indstillinger.",
+      "openSupportCenter": "Åbn supportcenter",
+      "operation": { "read": "læs", "write": "skriv" },
+      "status": {
+        "connected": "tilsluttet",
+        "implemented_disconnected": "implementeret men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun specifikation",
+        "placeholder": "pladsholder"
+      },
+      "providers": {
+        "support_ai_engine": "Support AI Engine",
+        "autonomous_support_operations": "Autonomous Support Operations",
+        "self_support_engine": "Self-Support Engine",
+        "app_portal_support": "App Portal Support",
+        "proactive_organization_support": "Proactive Organization Support",
+        "business_dna_knowledge": "Business DNA Knowledge",
+        "support_adapter": "External Support Adapter"
+      },
+      "searchTerms": {
+        "support_ai_engine": "support ai sager indbakke udkast eskalering sla metrikker",
+        "autonomous_support_operations": "autonomous support triage proaktiv self healing",
+        "self_support_engine": "self support samtaler eskalering viden widget",
+        "app_portal_support": "app portal support anmodninger indbakke historik sager",
+        "proactive_organization_support": "proaktiv anticipatory support muligheder signaler",
+        "business_dna_knowledge": "business dna viden skabeloner e-mailudkast grounding",
+        "support_adapter": "ekstern ticketing helpdesk zendesk intercom adapter"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

@@ -431,6 +431,56 @@
         "service_intake": "service intake formulär samtycke leverans readiness"
       }
     },
+    "support": {
+      "sourceLabel": "Support provider-katalog",
+      "discoveryLead": "Aipify kartlade {provider} i support provider-katalogen — status: {status}.",
+      "discoveryExplanation": "Capabilities nedan kommer från registrerade Support Business Pack-manifest. Svarsutkast och eskaleringar kräver godkännande — Aipify skickar aldrig automatiskt till kunder eller stänger ärenden i Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Support-källan är förberedd eller verifierad för din organisation.",
+      "disconnectedProvider": "Provider runtime-adapter är inte ansluten — endast styrd upptäckt.",
+      "unavailableLead": "Ingen support provider matchade denna begäran för din organisation.",
+      "unavailableExplanation": "Support-capabilities upptäcks från registrerade manifest — ingen matchade denna fråga.",
+      "externalUnavailableLead": "Externa ticketing- eller helpdesk-adapters är inte anslutna för din organisation.",
+      "externalUnavailableExplanation": "Ingen live extern support-adapter är registrerad. Aipify skickar inte svar automatiskt, stänger inte ärenden eller utför känsliga kontoändringar i Companion runtime.",
+      "blockedOperationLead": "Denna support-operation är inte tillgänglig i Companion runtime.",
+      "blockedOperationExplanation": "Utskick av svar till kunder, stängning av ärenden, radering och känsliga kontoändringar är blockerade i denna fas. Aipify kan förbereda utkast och eskaleringsplaner — du bestämmer och godkänner.",
+      "permissionDenied": "Din roll har inte åtkomst till support provider-katalogen.",
+      "entitlementBlocked": "Support-capabilities är otillgängliga medan organisationens prenumeration är pausad.",
+      "privacyNote": "Metadata-först support-intelligens — privata konversationer och kunddetaljer exponeras aldrig utan behörighet.",
+      "policyNote": "Utkast, tilldelningar och eskaleringar kräver explicit godkännande. Tenant-isolering och revisionsloggning gäller för alla support-åtgärder.",
+      "autoSendBlocked": "Auto-utsändning till kunder är blockerad — endast utkast-läge är aktivt.",
+      "caseCloseBlocked": "Ärendestängning är blockerad i Companion runtime — människor bestämmer.",
+      "humanOversightRequired": "Mänsklig tillsyn krävs för support-skrivningar.",
+      "knowledgeGapDetectionActive": "Kunskapsgap-detektering är aktiv för dina support-operationer.",
+      "knowledgeGapDetectionAvailable": "Kunskapsgap-detektering är tillgänglig via Support Operations-inställningar.",
+      "openSupportCenter": "Öppna supportcenter",
+      "operation": { "read": "läs", "write": "skriv" },
+      "status": {
+        "connected": "ansluten",
+        "implemented_disconnected": "implementerad men frånkopplad",
+        "partial": "delvis",
+        "specification_only": "endast specifikation",
+        "placeholder": "platshållare"
+      },
+      "providers": {
+        "support_ai_engine": "Support AI Engine",
+        "autonomous_support_operations": "Autonomous Support Operations",
+        "self_support_engine": "Self-Support Engine",
+        "app_portal_support": "App Portal Support",
+        "proactive_organization_support": "Proactive Organization Support",
+        "business_dna_knowledge": "Business DNA Knowledge",
+        "support_adapter": "External Support Adapter"
+      },
+      "searchTerms": {
+        "support_ai_engine": "support ai ärenden inkorg utkast eskalering sla mätvärden",
+        "autonomous_support_operations": "autonomous support triage proaktiv self healing",
+        "self_support_engine": "self support konversationer eskalering kunskap widget",
+        "app_portal_support": "app portal support förfrågningar inkorg historik ärenden",
+        "proactive_organization_support": "proaktiv anticipatory support möjligheter signaler",
+        "business_dna_knowledge": "business dna kunskap mallar e-postutkast grounding",
+        "support_adapter": "extern ticketing helpdesk zendesk intercom adapter"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

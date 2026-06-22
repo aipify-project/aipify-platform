@@ -116,6 +116,16 @@ import {
   matchServicesProviderQuery,
 } from "./services-answer";
 import {
+  buildBlockedSupportOperationAnswer,
+  buildExternalSupportUnavailableAnswer,
+  buildSupportProviderDiscoveryAnswer,
+  buildSupportProviderUnavailableAnswer,
+  hasBlockedSupportOperationIntent,
+  hasExternalSupportAdapterIntent,
+  hasSupportProviderIntent,
+  matchSupportProviderQuery,
+} from "./support-answer";
+import {
   buildBlockedCommerceOperationAnswer,
   buildCommerceProviderDiscoveryAnswer,
   buildCommerceProviderUnavailableAnswer,
@@ -694,6 +704,45 @@ function resolveServicesProviderAnswer(
   };
 }
 
+function resolveSupportProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (hasBlockedSupportOperationIntent(query)) {
+    return {
+      answer: buildBlockedSupportOperationAnswer(t),
+    };
+  }
+
+  if (!hasSupportProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.supportContext.permission_denied) {
+    return {
+      answer: buildSupportProviderUnavailableAnswer(t, tenantContext.supportContext),
+    };
+  }
+
+  if (hasExternalSupportAdapterIntent(query)) {
+    return {
+      answer: buildExternalSupportUnavailableAnswer(t),
+    };
+  }
+
+  const match = matchSupportProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildSupportProviderUnavailableAnswer(t, tenantContext.supportContext),
+    };
+  }
+
+  return {
+    answer: buildSupportProviderDiscoveryAnswer(match, tenantContext.supportContext, t),
+  };
+}
+
 function resolveCommerceProviderAnswer(
   query: string,
   t: Translator,
@@ -899,6 +948,9 @@ export async function orchestrateCompanionSearch(
 
   const servicesResult = resolveServicesProviderAnswer(query, t, resolvedTenantContext);
   if (servicesResult) return finalize(servicesResult);
+
+  const supportResult = resolveSupportProviderAnswer(query, t, resolvedTenantContext);
+  if (supportResult) return finalize(supportResult);
 
   const commerceResult = resolveCommerceProviderAnswer(query, t, resolvedTenantContext);
   if (commerceResult) return finalize(commerceResult);
