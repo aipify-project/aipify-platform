@@ -22,6 +22,10 @@ export type DirectoryCapabilityKey =
   | "customer.search"
   | "member.search"
   | "employee.search"
+  | "employee.read"
+  | "role.read"
+  | "team.read"
+  | "department.read"
   | "lead.search"
   | "partner.search"
   | "supplier.search"
@@ -36,6 +40,8 @@ export type DirectorySearchField =
   | "organization_number"
   | "external_id"
   | "role"
+  | "department"
+  | "team"
   | "status"
   | "relationship_type"
   | "location";
@@ -99,6 +105,8 @@ export type DirectoryPerson = {
   email_masked: string | null;
   phone_masked: string | null;
   organization_number: string | null;
+  department: string | null;
+  team: string | null;
   relationship_type: DirectoryRelationshipType;
   source_provider: string;
   source_reference: string;
@@ -120,6 +128,8 @@ export type DirectoryOrganization = {
   email_masked: string | null;
   phone_masked: string | null;
   organization_number: string | null;
+  department: string | null;
+  team: string | null;
   relationship_type: DirectoryRelationshipType;
   source_provider: string;
   source_reference: string;
@@ -191,7 +201,7 @@ export type DirectoryCapabilityManifest = {
     entity: string;
     relationship_type: DirectoryRelationshipType;
     entity_type: DirectoryEntityType;
-    operations?: readonly ("search" | "read")[];
+    operations?: readonly ("search" | "read" | "find" | "list" | "count" | "inspect")[];
     entity_aliases?: Partial<Record<CustomerActiveLocale | "en", readonly string[]>>;
     search_field_aliases?: Partial<Record<DirectorySearchField, readonly string[]>>;
   };

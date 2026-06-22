@@ -155,6 +155,16 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "Phase 39",
   },
+  {
+    phase: 40,
+    required_test: "phase40.test.ts",
+    required_wiring: [
+      "../integration-intelligence/providers/app-employee-directory/app-employee-directory-contract.ts",
+      "app-employee-read-orchestrator.ts",
+      "load-companion-directory-context.ts",
+    ],
+    commit_hint: "Phase 40",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

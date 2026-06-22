@@ -1935,7 +1935,8 @@
         "partner_directory": "Partnerzy i sprzedawcy",
         "commerce_customer_directory": "Klienci commerce",
         "booking_customer_directory": "Klienci rezerwacji",
-        "supplier_directory": "Dostawcy"
+        "supplier_directory": "Dostawcy",
+        "app_employee_directory": "Pracownicy"
       },
       "searchTerms": {
         "organization_directory_core": "directory person organization relationship search",
@@ -1945,7 +1946,45 @@
         "partner_directory": "partner seller growth partner search",
         "commerce_customer_directory": "shopify woocommerce customer search",
         "booking_customer_directory": "appointment booking customer search",
-        "supplier_directory": "supplier vendor search"
+        "supplier_directory": "supplier vendor search",
+        "app_employee_directory": "Pracownik Pracownicy"
+      },
+      "appEmployee": {
+        "employee": "Pracownik",
+        "employees": "Pracownicy",
+        "role": "Rola",
+        "team": "Zespół",
+        "department": "Dział",
+        "status": {
+          "active": "Aktywny",
+          "inactive": "Nieaktywny",
+          "pendingInvitation": "Oczekuje zaproszenia",
+          "suspended": "Zawieszony",
+          "disabled": "Wyłączony",
+          "offboarded": "Zakończony"
+        },
+        "outcomes": {
+          "multipleMatches": "Dopasowano wielu pracowników — przejrzyj listę lub doprecyzuj wyszukiwanie.",
+          "noMatch": "Żaden pracownik nie pasuje do tego wyszukiwania w Twojej organizacji.",
+          "maskedContact": "Dane kontaktowe są maskowane, dopóki Twoja rola nie zezwala na odczyt kontaktu.",
+          "permissionDenied": "Twoja rola nie może przeszukiwać pracowników organizacji.",
+          "providerMissing": "Brak podłączonego live katalogu pracowników APP dla tej organizacji.",
+          "unsupportedField": "To pole wyszukiwania nie jest obsługiwane przez podłączonego dostawcę.",
+          "clarification": "Może pasować więcej niż jeden pracownik — dodaj e-mail lub wybierz z listy."
+        },
+        "commandBrief": {
+          "newEmployee": "Do organizacji dodano nowych pracowników.",
+          "pendingInvitation": "Zaproszenia pracownicze oczekują na akceptację.",
+          "inactiveEmployee": "Nieaktywni pracownicy mogą wymagać przeglądu.",
+          "accessReviewRequired": "Uprawnienia pracowników powinny zostać sprawdzone.",
+          "missingTeamAssignment": "Niektórzy aktywni pracownicy nie mają przypisanego zespołu ani działu.",
+          "roleChange": "Ostatnie zmiany ról mogą wymagać przeglądu."
+        },
+        "warnings": {
+          "teamPartialSource": "Przypisanie zespołu korzysta z Organization Center — część pracowników może nie mieć metadanych zespołu.",
+          "roleNotPermission": "Nazwa roli nie gwarantuje dostępu do modułu — skuteczne uprawnienia są oceniane osobno.",
+          "writeBlocked": "Akcje zapisu katalogu pracowników są wyłączone w Companion."
+        }
       }
     },
     "verification": {

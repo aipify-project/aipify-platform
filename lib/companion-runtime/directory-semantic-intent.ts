@@ -36,6 +36,49 @@ export type DirectorySemanticIntent = {
   ambiguous: boolean;
 };
 
+function extractEmployeeSearchHints(normalized: string): {
+  search_field: DirectorySearchField | null;
+  search_value: string | null;
+  filters: DirectorySearchFilters;
+} {
+  const filters: DirectorySearchFilters = {};
+
+  if (
+    /venter.*invitasjon|pending invitation|invitation pending|invitasjon.*venter/.test(normalized)
+  ) {
+    filters.status = "pending_invitation";
+    return { search_field: "status", search_value: "pending_invitation", filters };
+  }
+
+  if (/aktive?\s+ansatte|active employees|how many employees|hvor mange ansatte/.test(normalized)) {
+    filters.status = "active";
+    return { search_field: "status", search_value: "active", filters };
+  }
+
+  const adminMatch = /(?:hvem er|who is)\s+(?:administrator|admin)/.test(normalized);
+  if (adminMatch) {
+    filters.role = "administrator";
+    return { search_field: "role", search_value: "administrator", filters };
+  }
+
+  const deptMatch = normalized.match(
+    /(?:jobber i|works in|avdeling|department|team)\s+([a-zæøåäöéíóúłćęśźżа-я0-9][\w\sæøåäöéíóúłćęśźż-]{1,40})/i,
+  );
+  if (deptMatch?.[1]) {
+    const field: DirectorySearchField = /team/.test(normalized) ? "team" : "department";
+    return { search_field: field, search_value: deptMatch[1].trim(), filters };
+  }
+
+  const accessMatch = normalized.match(
+    /(?:tilgang til|access to|har tilgang)\s+([a-zæøå0-9][\w\s-]{1,40})/i,
+  );
+  if (accessMatch?.[1]) {
+    return { search_field: "role", search_value: accessMatch[1].trim(), filters };
+  }
+
+  return { search_field: null, search_value: null, filters };
+}
+
 function extractSearchValueFromQuery(normalized: string): string | null {
   const quoted = normalized.match(/["“](.+?)["”]/);
   if (quoted?.[1]) return quoted[1].trim();
@@ -94,8 +137,12 @@ export function resolveDirectorySemanticIntent(input: {
   descriptors: readonly DirectoryRelationshipAliasDescriptor[];
 }): DirectorySemanticIntent {
   const normalized = normalizeIntegrationQuery(input.query);
-  const search_value = extractSearchValueFromQuery(normalized);
-  const search_field = detectDirectorySearchField(search_value ?? normalized);
+  const employeeHints = extractEmployeeSearchHints(normalized);
+  const search_value =
+    employeeHints.search_value ?? extractSearchValueFromQuery(normalized);
+  const search_field =
+    employeeHints.search_field ?? detectDirectorySearchField(search_value ?? normalized);
+  const filters = employeeHints.filters;
 
   const scored = input.descriptors
     .map((descriptor) => ({
@@ -128,7 +175,7 @@ export function resolveDirectorySemanticIntent(input: {
     relationship_type,
     search_field,
     search_value,
-    filters: {},
+    filters,
     requested_fields: search_field ? [search_field] : ["name"],
     requested_detail_level: "summary",
     capability_candidates,

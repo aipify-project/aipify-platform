@@ -11,6 +11,7 @@ export const COMPANION_CROSS_TENANT_SEARCH = "forbidden" as const;
 export const COMPANION_FUZZY_IDENTITY_MATCH = "clarification_required_when_uncertain" as const;
 export const COMPANION_PROVIDER_FIELD_MAPPING_IN_CORE = "forbidden" as const;
 export const COMPANION_DIRECTORY_EXPORT = "approval_or_disabled" as const;
+export const COMPANION_EMPLOYEE_DIRECTORY_WRITE_ACTIONS = "disabled" as const;
 
 export const COMPANION_DIRECTORY_POLICY_MODULES = {
   contracts: "lib/integration-intelligence/directory/types.ts",
@@ -29,5 +30,6 @@ export function companionDirectoryPolicyMetadata() {
     fuzzy_identity_match: COMPANION_FUZZY_IDENTITY_MATCH,
     provider_field_mapping_in_core: COMPANION_PROVIDER_FIELD_MAPPING_IN_CORE,
     directory_export: COMPANION_DIRECTORY_EXPORT,
+    employee_directory_write_actions: COMPANION_EMPLOYEE_DIRECTORY_WRITE_ACTIONS,
   };
 }

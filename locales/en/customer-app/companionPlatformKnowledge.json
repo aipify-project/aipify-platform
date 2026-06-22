@@ -70,7 +70,8 @@
         "partner_directory": "Partners and sellers",
         "commerce_customer_directory": "Commerce customers",
         "booking_customer_directory": "Booking customers",
-        "supplier_directory": "Suppliers"
+        "supplier_directory": "Suppliers",
+        "app_employee_directory": "APP organization employees"
       },
       "searchTerms": {
         "organization_directory_core": "directory person organization relationship search",
@@ -80,7 +81,45 @@
         "partner_directory": "partner seller growth partner search",
         "commerce_customer_directory": "shopify woocommerce customer search",
         "booking_customer_directory": "appointment booking customer search",
-        "supplier_directory": "supplier vendor search"
+        "supplier_directory": "supplier vendor search",
+        "app_employee_directory": "employee staff colleague organization member search"
+      },
+      "appEmployee": {
+        "employee": "Employee",
+        "employees": "Employees",
+        "role": "Role",
+        "team": "Team",
+        "department": "Department",
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive",
+          "pendingInvitation": "Invitation pending",
+          "suspended": "Suspended",
+          "disabled": "Disabled",
+          "offboarded": "Offboarded"
+        },
+        "outcomes": {
+          "multipleMatches": "Multiple employees matched — review the shortlist or refine your search.",
+          "noMatch": "No employee matched that search in your organization.",
+          "maskedContact": "Contact details are masked until your role allows directory contact reads.",
+          "permissionDenied": "Your role cannot search organization employees.",
+          "providerMissing": "No live APP employee directory provider is connected for this organization.",
+          "unsupportedField": "That employee search field is not supported by the connected provider.",
+          "clarification": "More than one employee may match — add an email or choose from the shortlist."
+        },
+        "commandBrief": {
+          "newEmployee": "New employees were added to the organization.",
+          "pendingInvitation": "Employee invitations are waiting to be accepted.",
+          "inactiveEmployee": "Inactive employees may need review.",
+          "accessReviewRequired": "Employee access grants should be reviewed.",
+          "missingTeamAssignment": "Some active employees have no team or department assignment.",
+          "roleChange": "Recent employee role changes may need review."
+        },
+        "warnings": {
+          "teamPartialSource": "Team assignment uses Organization Center enrichment — some employees may lack team metadata.",
+          "roleNotPermission": "Role name does not guarantee module access — effective permissions are evaluated separately.",
+          "writeBlocked": "Employee directory write-actions are disabled in Companion runtime."
+        }
       }
     },
     "verification": {

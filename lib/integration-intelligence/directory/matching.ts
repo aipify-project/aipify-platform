@@ -14,11 +14,16 @@ export type DirectoryMatchCandidate = {
   entity_type: DirectoryEntityType;
   display_name: string | null;
   company_name: string | null;
+  role?: string | null;
+  department?: string | null;
+  team?: string | null;
+  status?: string | null;
   email_masked?: string | null;
   phone_masked?: string | null;
   organization_number?: string | null;
   email_raw?: string | null;
   phone_raw?: string | null;
+  external_id?: string | null;
 };
 
 export type DirectoryMatchBaseRecord = {
@@ -28,6 +33,8 @@ export type DirectoryMatchBaseRecord = {
   company_name: string | null;
   role: string | null;
   status: string | null;
+  department: string | null;
+  team: string | null;
   email_masked: string | null;
   phone_masked: string | null;
   organization_number: string | null;
@@ -113,6 +120,44 @@ export function matchDirectoryRecord(input: {
       match_kind: "exact",
       match_confidence: "high",
     };
+  }
+
+  if (input.field === "external_id") {
+    const candidateExternal = input.candidate.external_id
+      ? normalizeDirectorySearchFieldValue("external_id", input.candidate.external_id)
+      : null;
+    if (!candidateExternal || candidateExternal !== normalizedQuery) return null;
+    return {
+      record: { ...input.baseRecord, match_kind: "exact", match_confidence: "high" } as DirectoryRecord,
+      match_kind: "exact",
+      match_confidence: "high",
+    };
+  }
+
+  if (input.field === "role" || input.field === "department" || input.field === "team" || input.field === "status") {
+    const candidateValue =
+      input.field === "role"
+        ? input.candidate.role
+        : input.field === "department"
+          ? input.candidate.department
+          : input.field === "team"
+            ? input.candidate.team
+            : input.candidate.status;
+    if (!candidateValue) return null;
+    const normalizedCandidate = normalizeDirectoryName(candidateValue);
+    const normalizedQueryValue = normalizeDirectoryName(normalizedQuery);
+    if (
+      normalizedCandidate === normalizedQueryValue ||
+      normalizedCandidate.includes(normalizedQueryValue) ||
+      normalizedQueryValue.includes(normalizedCandidate)
+    ) {
+      return {
+        record: { ...input.baseRecord, match_kind: "normalized", match_confidence: "high" } as DirectoryRecord,
+        match_kind: "normalized",
+        match_confidence: "high",
+      };
+    }
+    return null;
   }
 
   if (input.field === "company_name") {

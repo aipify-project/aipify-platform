@@ -1935,7 +1935,8 @@
         "partner_directory": "Socios y vendedores",
         "commerce_customer_directory": "Clientes de commerce",
         "booking_customer_directory": "Clientes de reservas",
-        "supplier_directory": "Proveedores"
+        "supplier_directory": "Proveedores",
+        "app_employee_directory": "Empleados"
       },
       "searchTerms": {
         "organization_directory_core": "directory person organization relationship search",
@@ -1945,7 +1946,45 @@
         "partner_directory": "partner seller growth partner search",
         "commerce_customer_directory": "shopify woocommerce customer search",
         "booking_customer_directory": "appointment booking customer search",
-        "supplier_directory": "supplier vendor search"
+        "supplier_directory": "supplier vendor search",
+        "app_employee_directory": "Empleado Empleados"
+      },
+      "appEmployee": {
+        "employee": "Empleado",
+        "employees": "Empleados",
+        "role": "Rol",
+        "team": "Equipo",
+        "department": "Departamento",
+        "status": {
+          "active": "Activo",
+          "inactive": "Inactivo",
+          "pendingInvitation": "Invitación pendiente",
+          "suspended": "Suspendido",
+          "disabled": "Desactivado",
+          "offboarded": "Dado de baja"
+        },
+        "outcomes": {
+          "multipleMatches": "Varios empleados coincidieron — revise la lista o refine la búsqueda.",
+          "noMatch": "Ningún empleado coincidió con esa búsqueda en su organización.",
+          "maskedContact": "Los datos de contacto están enmascarados hasta que su rol permita lecturas de contacto.",
+          "permissionDenied": "Su rol no puede buscar empleados de la organización.",
+          "providerMissing": "Aún no hay un proveedor de directorio de empleados APP conectado para esta organización.",
+          "unsupportedField": "Ese campo de búsqueda no es compatible con el proveedor conectado.",
+          "clarification": "Puede haber más de un empleado — añada un correo o elija de la lista."
+        },
+        "commandBrief": {
+          "newEmployee": "Se añadieron nuevos empleados a la organización.",
+          "pendingInvitation": "Hay invitaciones de empleados pendientes de aceptación.",
+          "inactiveEmployee": "Los empleados inactivos pueden necesitar revisión.",
+          "accessReviewRequired": "Las concesiones de acceso de empleados deben revisarse.",
+          "missingTeamAssignment": "Algunos empleados activos no tienen equipo o departamento asignado.",
+          "roleChange": "Los cambios recientes de rol pueden necesitar revisión."
+        },
+        "warnings": {
+          "teamPartialSource": "La asignación de equipo usa Organization Center — algunos empleados pueden carecer de metadatos de equipo.",
+          "roleNotPermission": "El nombre del rol no garantiza acceso al módulo — los permisos efectivos se evalúan por separado.",
+          "writeBlocked": "Las acciones de escritura del directorio de empleados están deshabilitadas en Companion."
+        }
       }
     },
     "verification": {

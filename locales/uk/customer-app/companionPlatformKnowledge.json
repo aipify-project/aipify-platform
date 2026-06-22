@@ -1935,7 +1935,8 @@
         "partner_directory": "Партнери та продавці",
         "commerce_customer_directory": "Commerce-клієнти",
         "booking_customer_directory": "Клієнти бронювань",
-        "supplier_directory": "Постачальники"
+        "supplier_directory": "Постачальники",
+        "app_employee_directory": "Співробітники"
       },
       "searchTerms": {
         "organization_directory_core": "directory person organization relationship search",
@@ -1945,7 +1946,45 @@
         "partner_directory": "partner seller growth partner search",
         "commerce_customer_directory": "shopify woocommerce customer search",
         "booking_customer_directory": "appointment booking customer search",
-        "supplier_directory": "supplier vendor search"
+        "supplier_directory": "supplier vendor search",
+        "app_employee_directory": "Співробітник Співробітники"
+      },
+      "appEmployee": {
+        "employee": "Співробітник",
+        "employees": "Співробітники",
+        "role": "Роль",
+        "team": "Команда",
+        "department": "Відділ",
+        "status": {
+          "active": "Активний",
+          "inactive": "Неактивний",
+          "pendingInvitation": "Запрошення очікує",
+          "suspended": "Призупинений",
+          "disabled": "Вимкнений",
+          "offboarded": "Звільнений"
+        },
+        "outcomes": {
+          "multipleMatches": "Знайдено кілька співробітників — перегляньте список або уточніть пошук.",
+          "noMatch": "Жоден співробітник не відповідає цьому пошуку у вашій організації.",
+          "maskedContact": "Контактні дані маскуються, доки ваша роль не дозволить читання контактів.",
+          "permissionDenied": "Ваша роль не може шукати співробітників організації.",
+          "providerMissing": "Для цієї організації ще не підключено live каталог співробітників APP.",
+          "unsupportedField": "Це поле пошуку не підтримується підключеним провайдером.",
+          "clarification": "Може підходити кілька співробітників — додайте email або оберіть зі списку."
+        },
+        "commandBrief": {
+          "newEmployee": "До організації додано нових співробітників.",
+          "pendingInvitation": "Запрошення співробітників очікують прийняття.",
+          "inactiveEmployee": "Неактивні співробітники можуть потребувати перегляду.",
+          "accessReviewRequired": "Доступи співробітників слід перевірити.",
+          "missingTeamAssignment": "Деякі активні співробітники не мають команди чи відділу.",
+          "roleChange": "Нещодавні зміни ролей можуть потребувати перегляду."
+        },
+        "warnings": {
+          "teamPartialSource": "Призначення команди використовує Organization Center — у частини співробітників може не бути метаданих команди.",
+          "roleNotPermission": "Назва ролі не гарантує доступ до модуля — ефективні дозволи оцінюються окремо.",
+          "writeBlocked": "Дії запису каталогу співробітників вимкнено в Companion."
+        }
       }
     },
     "verification": {

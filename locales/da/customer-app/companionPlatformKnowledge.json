@@ -1935,7 +1935,8 @@
         "partner_directory": "Partnere og sælgere",
         "commerce_customer_directory": "Commerce-kunder",
         "booking_customer_directory": "Bookingkunder",
-        "supplier_directory": "Leverandører"
+        "supplier_directory": "Leverandører",
+        "app_employee_directory": "Medarbejdere"
       },
       "searchTerms": {
         "organization_directory_core": "directory person organization relationship search",
@@ -1945,7 +1946,45 @@
         "partner_directory": "partner seller growth partner search",
         "commerce_customer_directory": "shopify woocommerce customer search",
         "booking_customer_directory": "appointment booking customer search",
-        "supplier_directory": "supplier vendor search"
+        "supplier_directory": "supplier vendor search",
+        "app_employee_directory": "Medarbejder Medarbejdere"
+      },
+      "appEmployee": {
+        "employee": "Medarbejder",
+        "employees": "Medarbejdere",
+        "role": "Rolle",
+        "team": "Team",
+        "department": "Afdeling",
+        "status": {
+          "active": "Aktiv",
+          "inactive": "Inaktiv",
+          "pendingInvitation": "Invitation afventer",
+          "suspended": "Suspenderet",
+          "disabled": "Deaktiveret",
+          "offboarded": "Fratrådt"
+        },
+        "outcomes": {
+          "multipleMatches": "Flere medarbejdere matchede — gennemgå listen eller præcisér søgningen.",
+          "noMatch": "Ingen medarbejder matchede søgningen i din organisation.",
+          "maskedContact": "Kontaktoplysninger maskeres, indtil din rolle tillader kontaktoppslag.",
+          "permissionDenied": "Din rolle kan ikke søge i organisationens medarbejdere.",
+          "providerMissing": "Ingen live APP-medarbejderkatalog er tilkoblet denne organisation endnu.",
+          "unsupportedField": "Det søgefelt understøttes ikke af den tilkoblede udbyder.",
+          "clarification": "Flere medarbejdere kan matche — tilføj e-mail eller vælg fra listen."
+        },
+        "commandBrief": {
+          "newEmployee": "Nye medarbejdere er tilføjet organisationen.",
+          "pendingInvitation": "Medarbejderinvitationer afventer accept.",
+          "inactiveEmployee": "Inaktive medarbejdere kan kræve gennemgang.",
+          "accessReviewRequired": "Medarbejderadgange bør gennemgås.",
+          "missingTeamAssignment": "Nogle aktive medarbejdere mangler team- eller afdelingstilhørighed.",
+          "roleChange": "Nylige rolleændringer kan kræve gennemgang."
+        },
+        "warnings": {
+          "teamPartialSource": "Teamtilknytning beriges fra Organization Center — nogle medarbejdere kan mangle teammetadata.",
+          "roleNotPermission": "Rollenavn garanterer ikke moduladgang — effektive tilladelser vurderes separat.",
+          "writeBlocked": "Skrivehandlinger for medarbejderkatalog er deaktiveret i Companion."
+        }
       }
     },
     "verification": {

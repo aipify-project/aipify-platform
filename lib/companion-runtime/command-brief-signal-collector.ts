@@ -14,6 +14,7 @@ import {
   type CommandBriefRawDomainSignal,
 } from "@/lib/integration-intelligence/command-brief";
 import { buildBookingCommandBriefSignals } from "./booking-read-orchestrator";
+import type { CompanionDirectoryContext } from "./companion-directory-context";
 import { buildHostsCommandBriefSignals } from "./hosts-read-orchestrator";
 import { buildSupportCommandBriefSignals } from "./support-read-orchestrator";
 import { buildVerificationCommandBriefSignals } from "./verification-read-orchestrator";
@@ -29,6 +30,7 @@ export type CommandBriefDomainContexts = {
   proactiveContext: CompanionProactiveContext;
   supportContext?: CompanionSupportContext;
   hostsContext?: CompanionHostsContext;
+  directoryContext?: CompanionDirectoryContext;
 };
 
 function toRawSignals(
@@ -50,6 +52,7 @@ export function buildCommandBriefDomainSources(
     booking_candidates?: Parameters<typeof buildBookingCommandBriefSignals>[0];
     supportContext?: CompanionSupportContext;
     hostsContext?: CompanionHostsContext;
+    directoryContext?: CompanionDirectoryContext;
   },
 ): CommandBriefDomainSignalSource[] {
   const sources: CommandBriefDomainSignalSource[] = [
@@ -165,6 +168,20 @@ export function buildCommandBriefDomainSources(
     });
   }
 
+  if (
+    input?.directoryContext?.app_employee_source_exact &&
+    input.directoryContext.command_brief_signals &&
+    input.directoryContext.command_brief_signals.length > 0
+  ) {
+    sources.push({
+      source_module: "directory_employee",
+      source_provider: "app_employee_directory",
+      signals: toRawSignals(input.directoryContext.command_brief_signals, true),
+      required_permission: "employees.view",
+      related_capability: "employee.search",
+    });
+  }
+
   return sources;
 }
 
@@ -176,6 +193,7 @@ export function collectCommandBriefSignalsFromDomainContexts(input: {
   booking_candidates?: Parameters<typeof buildBookingCommandBriefSignals>[0];
   supportContext?: CompanionSupportContext;
   hostsContext?: CompanionHostsContext;
+  directoryContext?: CompanionDirectoryContext;
 }): ReturnType<typeof collectDomainCommandBriefSignals> {
   const sources = buildCommandBriefDomainSources(input.contexts, {
     verification_queue: input.verification_queue,
@@ -183,6 +201,7 @@ export function collectCommandBriefSignalsFromDomainContexts(input: {
     booking_candidates: input.booking_candidates,
     supportContext: input.supportContext ?? input.contexts.supportContext,
     hostsContext: input.hostsContext ?? input.contexts.hostsContext,
+    directoryContext: input.directoryContext,
   });
 
   return collectDomainCommandBriefSignals({

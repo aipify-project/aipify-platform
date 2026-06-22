@@ -13,6 +13,17 @@ export type DirectoryPermissionContext = {
 
 const SENSITIVE_FIELDS: readonly DirectorySearchField[] = ["email", "phone"];
 const CONTACT_FIELDS: readonly DirectorySearchField[] = ["email", "phone", "external_id"];
+const BASIC_FIELDS: readonly DirectorySearchField[] = [
+  "name",
+  "company_name",
+  "role",
+  "department",
+  "team",
+  "status",
+  "relationship_type",
+  "location",
+  "organization_number",
+];
 
 export function resolveDirectoryPermissionScope(
   fieldAccess: DirectorySearchFieldAccess,
@@ -48,8 +59,8 @@ export function isDirectorySearchFieldAllowed(
 ): boolean {
   if (scope === "sensitive" || scope === "export") return true;
   if (scope === "contact") return true;
-  if (SENSITIVE_FIELDS.includes(field)) return false;
-  if (CONTACT_FIELDS.includes(field) && scope === "basic") return field === "name" || field === "company_name";
+  if (SENSITIVE_FIELDS.includes(field) && scope === "basic") return false;
+  if (scope === "basic") return BASIC_FIELDS.includes(field);
   return true;
 }
 

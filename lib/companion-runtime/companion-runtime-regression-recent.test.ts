@@ -1,5 +1,5 @@
 /**
- * Recent-phase Companion regression aggregator (Phase 36B → 39).
+ * Recent-phase Companion regression aggregator (Phase 36B → 40).
  * Does not chain into older phase test files (e.g. phase33.test.ts).
  */
 import assert from "node:assert/strict";
@@ -13,6 +13,7 @@ const recentPhaseTests = [
   "phase37.test.ts",
   "phase38.test.ts",
   "phase39.test.ts",
+  "phase40.test.ts",
 ] as const;
 
 for (const testFile of recentPhaseTests) {
@@ -28,5 +29,5 @@ for (const testFile of recentPhaseTests) {
   }
 }
 
-assert.ok(recentPhaseTests.length >= 4);
+assert.ok(recentPhaseTests.length >= 5);
 console.log("companion-runtime-regression-recent.test.ts passed");

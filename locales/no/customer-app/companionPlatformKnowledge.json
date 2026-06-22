@@ -70,7 +70,8 @@
         "partner_directory": "Partnere og selgere",
         "commerce_customer_directory": "Commerce-kunder",
         "booking_customer_directory": "Bookingkunder",
-        "supplier_directory": "Leverandører"
+        "supplier_directory": "Leverandører",
+        "app_employee_directory": "Ansatte"
       },
       "searchTerms": {
         "organization_directory_core": "katalog person organisasjon relasjon søk",
@@ -80,7 +81,45 @@
         "partner_directory": "partner selger growth partner søk",
         "commerce_customer_directory": "commerce kunde søk",
         "booking_customer_directory": "booking avtale kunde søk",
-        "supplier_directory": "leverandør vendor søk"
+        "supplier_directory": "leverandør vendor søk",
+        "app_employee_directory": "Ansatt Ansatte"
+      },
+      "appEmployee": {
+        "employee": "Ansatt",
+        "employees": "Ansatte",
+        "role": "Rolle",
+        "team": "Team",
+        "department": "Avdeling",
+        "status": {
+          "active": "Aktiv",
+          "inactive": "Inaktiv",
+          "pendingInvitation": "Invitasjon venter",
+          "suspended": "Suspendert",
+          "disabled": "Deaktivert",
+          "offboarded": "Avsluttet"
+        },
+        "outcomes": {
+          "multipleMatches": "Flere ansatte passet — se listen eller presiser søket.",
+          "noMatch": "Ingen ansatt passet søket i organisasjonen din.",
+          "maskedContact": "Kontaktinformasjon er maskert til rollen din tillater kontaktoppslag.",
+          "permissionDenied": "Rollen din kan ikke søke i organisasjonens ansatte.",
+          "providerMissing": "Ingen live APP-ansattkatalog er koblet til denne organisasjonen ennå.",
+          "unsupportedField": "Det søkefeltet støttes ikke av den tilkoblede leverandøren.",
+          "clarification": "Flere ansatte kan passe — legg til e-post eller velg fra listen."
+        },
+        "commandBrief": {
+          "newEmployee": "Nye ansatte er lagt til i organisasjonen.",
+          "pendingInvitation": "Ansattinvitasjoner venter på aksept.",
+          "inactiveEmployee": "Inaktive ansatte kan trenge gjennomgang.",
+          "accessReviewRequired": "Ansattes tilganger bør gjennomgås.",
+          "missingTeamAssignment": "Noen aktive ansatte mangler team- eller avdelingstilhørighet.",
+          "roleChange": "Nylige rolleendringer kan trenge gjennomgang."
+        },
+        "warnings": {
+          "teamPartialSource": "Teamtilhørighet berikes fra Organization Center — noen ansatte kan mangle teammetadata.",
+          "roleNotPermission": "Rollenavn garanterer ikke modultilgang — effektive tillatelser vurderes separat.",
+          "writeBlocked": "Skrivehandlinger for ansattkatalog er deaktivert i Companion."
+        }
       }
     },
     "discovery": {

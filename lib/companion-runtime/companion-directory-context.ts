@@ -19,6 +19,11 @@ export type CompanionDirectoryCapabilityRef = {
   supported_search_fields: readonly string[];
 };
 
+export type CompanionDirectoryCommandBriefSignal = {
+  signal_key: string;
+  count: number | null;
+};
+
 export type CompanionDirectoryContext = {
   organization_id: string;
   tenant_id: string;
@@ -28,6 +33,11 @@ export type CompanionDirectoryContext = {
   app_entitlement_blocked: boolean;
   audit_required: boolean;
   export_blocked: boolean;
+  app_employee_adapter_connected?: boolean;
+  app_employee_source_exact?: boolean;
+  employee_candidate_count?: number;
+  command_brief_signals?: readonly CompanionDirectoryCommandBriefSignal[];
+  employee_directory_limitations?: readonly string[];
 };
 
 export function createEmptyCompanionDirectoryContext(input: {

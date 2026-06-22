@@ -13,11 +13,17 @@ function searchCapability(
   permission: string | null = DIRECTORY_SEARCH,
   privacy_sensitive = true,
   supported_search_fields?: DirectoryCapabilityManifest["supported_search_fields"],
+  adapter_available = false,
+  entity_aliases?: DirectoryCapabilityManifest["semantic"] extends infer S
+    ? S extends { entity_aliases?: infer A }
+      ? A
+      : never
+    : never,
 ): DirectoryCapabilityManifest {
   return {
     capability_key,
     operation: "search",
-    adapter_available: false,
+    adapter_available,
     approval_required: false,
     reversible: true,
     risk_level: 2,
@@ -31,7 +37,12 @@ function searchCapability(
       entity,
       relationship_type,
       entity_type,
-      operations: ["search"],
+      operations: ["search", "find", "list", "count", "inspect"],
+      entity_aliases: entity_aliases as DirectoryCapabilityManifest["semantic"] extends infer S
+        ? S extends { entity_aliases?: infer A }
+          ? A
+          : undefined
+        : undefined,
     },
   };
 }
@@ -41,11 +52,12 @@ function readCapability(
   entity: string,
   permission: string | null = DIRECTORY_VIEW,
   privacy_sensitive = true,
+  adapter_available = false,
 ): DirectoryCapabilityManifest {
   return {
     capability_key,
     operation: "read",
-    adapter_available: false,
+    adapter_available,
     approval_required: false,
     reversible: true,
     risk_level: 1,
@@ -55,6 +67,9 @@ function readCapability(
     field_access: "directory.search.basic",
   };
 }
+
+const EMPLOYEES_VIEW = "employees.view";
+const ROLES_VIEW = "roles.view";
 
 /** Organization Directory provider manifests — discovery-first, no false production_ready. */
 export const DIRECTORY_PROVIDER_MANIFESTS: readonly DirectoryProviderManifest[] = [
@@ -102,6 +117,42 @@ export const DIRECTORY_PROVIDER_MANIFESTS: readonly DirectoryProviderManifest[] 
         "phone",
         "role",
       ]),
+    ],
+  },
+  {
+    provider_key: "app_employee_directory",
+    display_name_key: "customerApp.companionPlatformKnowledge.directory.providers.app_employee_directory",
+    source_engine: "app_organization_employee_directory",
+    implementation_status: "partial",
+    business_pack_key: null,
+    search_terms_key: "customerApp.companionPlatformKnowledge.directory.searchTerms.app_employee_directory",
+    capabilities: [
+      readCapability("directory.search", "directory_record", DIRECTORY_SEARCH, false, true),
+      readCapability("person.read", "person", EMPLOYEES_VIEW, true, true),
+      readCapability("relationship.read", "relationship", EMPLOYEES_VIEW, false, true),
+      searchCapability(
+        "employee.search",
+        "employee",
+        "employee",
+        "person",
+        EMPLOYEES_VIEW,
+        true,
+        ["name", "email", "phone", "role", "department", "team", "status", "external_id"],
+        true,
+        {
+          en: ["employee", "employees", "staff", "team member", "colleague"],
+          no: ["ansatt", "ansatte", "medarbeider", "kollega"],
+          sv: ["anställd", "anställda", "medarbetare"],
+          da: ["medarbejder", "medarbejdere", "ansat"],
+          es: ["empleado", "empleados", "personal"],
+          pl: ["pracownik", "pracownicy", "zespół"],
+          uk: ["співробітник", "співробітники", "працівник"],
+        },
+      ),
+      readCapability("employee.read", "employee", EMPLOYEES_VIEW, true, true),
+      readCapability("role.read", "role", ROLES_VIEW, false, true),
+      readCapability("team.read", "team", EMPLOYEES_VIEW, false, true),
+      readCapability("department.read", "department", EMPLOYEES_VIEW, false, true),
     ],
   },
   {

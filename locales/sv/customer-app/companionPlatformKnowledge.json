@@ -1935,7 +1935,8 @@
         "partner_directory": "Partners och säljare",
         "commerce_customer_directory": "Commerce-kunder",
         "booking_customer_directory": "Bokningskunder",
-        "supplier_directory": "Leverantörer"
+        "supplier_directory": "Leverantörer",
+        "app_employee_directory": "Anställda"
       },
       "searchTerms": {
         "organization_directory_core": "directory person organization relationship search",
@@ -1945,7 +1946,45 @@
         "partner_directory": "partner seller growth partner search",
         "commerce_customer_directory": "shopify woocommerce customer search",
         "booking_customer_directory": "appointment booking customer search",
-        "supplier_directory": "supplier vendor search"
+        "supplier_directory": "supplier vendor search",
+        "app_employee_directory": "Anställd Anställda"
+      },
+      "appEmployee": {
+        "employee": "Anställd",
+        "employees": "Anställda",
+        "role": "Roll",
+        "team": "Team",
+        "department": "Avdelning",
+        "status": {
+          "active": "Aktiv",
+          "inactive": "Inaktiv",
+          "pendingInvitation": "Inbjudan väntar",
+          "suspended": "Suspenderad",
+          "disabled": "Inaktiverad",
+          "offboarded": "Avslutad"
+        },
+        "outcomes": {
+          "multipleMatches": "Flera anställda matchade — granska listan eller förfina sökningen.",
+          "noMatch": "Ingen anställd matchade sökningen i din organisation.",
+          "maskedContact": "Kontaktuppgifter maskeras tills din roll tillåter kontaktuppslag.",
+          "permissionDenied": "Din roll kan inte söka bland organisationens anställda.",
+          "providerMissing": "Ingen live APP-personalkatalog är ansluten till denna organisation ännu.",
+          "unsupportedField": "Det sökfältet stöds inte av den anslutna leverantören.",
+          "clarification": "Flera anställda kan matcha — lägg till e-post eller välj från listan."
+        },
+        "commandBrief": {
+          "newEmployee": "Nya anställda har lagts till i organisationen.",
+          "pendingInvitation": "Inbjudningar till anställda väntar på accept.",
+          "inactiveEmployee": "Inaktiva anställda kan behöva granskas.",
+          "accessReviewRequired": "Anställdas åtkomst bör granskas.",
+          "missingTeamAssignment": "Vissa aktiva anställda saknar team- eller avdelningstillhörighet.",
+          "roleChange": "Nyliga rolländringar kan behöva granskas."
+        },
+        "warnings": {
+          "teamPartialSource": "Teamtillhörighet berikas från Organization Center — vissa anställda kan sakna teammetadata.",
+          "roleNotPermission": "Rollnamn garanterar inte modulåtkomst — effektiva behörigheter bedöms separat.",
+          "writeBlocked": "Skrivåtgärder för personalkatalogen är inaktiverade i Companion."
+        }
       }
     },
     "verification": {
