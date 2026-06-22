@@ -917,6 +917,41 @@
         "unonight_community_adapter": "Adaptador de proveedor comunitario"
       }
     },
+    "semanticRouting": {
+      "sourceLabel": "Enrutamiento semántico",
+      "genericMetric": "esta información",
+      "clarification": {
+        "bareCount": "¿Qué área debo contar — miembros, moderación, informes u otra?",
+        "multipleCandidates": "Esto puede interpretarse de varias formas. ¿Puede precisar qué desea comprobar?",
+        "contextHint": "Una breve precisión ayuda a Aipify a elegir la capability correcta."
+      },
+      "outcomes": {
+        "intent_resolved_metric_missing": {
+          "lead": "Entendí su pregunta sobre {metric}.",
+          "explanation": "El proveedor está conectado, pero Aipify aún no tiene una lectura exacta de {metric} para este periodo."
+        },
+        "intent_resolved_provider_missing": {
+          "lead": "Entendí el tema, pero no hay un proveedor conectado disponible para esto.",
+          "explanation": "Instale o active la capability del Business Pack relevante antes de que Aipify pueda leer datos en vivo."
+        },
+        "intent_resolved_permission_denied": {
+          "lead": "Entendí la solicitud, pero su rol no puede acceder a esta capability.",
+          "explanation": "Pida a un administrador que revise los permisos de la capability comunitaria o de moderación relevante."
+        },
+        "intent_resolved_activation_pending": {
+          "lead": "Entendí la solicitud, pero el adaptador del proveedor aún se está activando.",
+          "explanation": "Las comprobaciones de activación deben completarse antes de mostrar lecturas en vivo."
+        },
+        "intent_ambiguous": {
+          "lead": "Necesito un poco más de contexto para responder con precisión.",
+          "explanation": "Varias capabilities pueden coincidir con esta pregunta. Precise miembros, cola de moderación, informes u otra área."
+        },
+        "intent_unresolved": {
+          "lead": "Aún no pude vincular esta pregunta a una capability registrada.",
+          "explanation": "Intente nombrar el área que desea comprobar — por ejemplo miembros, cola de moderación o informes."
+        }
+      }
+    },
     "unonightProviderAdapter": {
       "providerDisplayName": "Adaptador de proveedor comunitario",
       "searchTerms": "community provider adapter live read member moderation verification listing activity",

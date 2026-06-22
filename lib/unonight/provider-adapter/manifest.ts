@@ -29,10 +29,12 @@ function readCapability(
     semantic: semantic
       ? {
           entity: semantic.entity,
+          domain: semantic.domain,
           metrics: semantic.metrics,
           operations: semantic.operations,
           time_scopes: semantic.time_scopes,
           entity_aliases: semantic.entity_aliases,
+          metric_mappings: semantic.metric_mappings,
         }
       : undefined,
   };

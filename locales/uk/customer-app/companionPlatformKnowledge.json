@@ -917,6 +917,41 @@
         "unonight_community_adapter": "Адаптер провайдера спільноти"
       }
     },
+    "semanticRouting": {
+      "sourceLabel": "Семантична маршрутизація",
+      "genericMetric": "цю інформацію",
+      "clarification": {
+        "bareCount": "Яку область мені порахувати — учасників, модерацію, звіти чи щось інше?",
+        "multipleCandidates": "Це можна зрозуміти по-різному. Уточніть, будь ласка, що саме перевірити?",
+        "contextHint": "Коротке уточнення допомагає Aipify обрати правильну capability."
+      },
+      "outcomes": {
+        "intent_resolved_metric_missing": {
+          "lead": "Я зрозумів ваше запитання про {metric}.",
+          "explanation": "Постачальник підключений, але Aipify ще не має точного показника {metric} за цей період."
+        },
+        "intent_resolved_provider_missing": {
+          "lead": "Я зрозумів тему, але для цього немає підключеного постачальника.",
+          "explanation": "Встановіть або активуйте відповідну capability Business Pack, перш ніж Aipify зможе читати live data."
+        },
+        "intent_resolved_permission_denied": {
+          "lead": "Я зрозумів запит, але ваша роль не має доступу до цієї capability.",
+          "explanation": "Попросіть адміністратора переглянути дозволи для відповідної community- або moderation-capability."
+        },
+        "intent_resolved_activation_pending": {
+          "lead": "Я зрозумів запит, але адаптер постачальника ще активується.",
+          "explanation": "Перевірки активації мають завершитися перед показом live reads."
+        },
+        "intent_ambiguous": {
+          "lead": "Мені потрібно трохи більше контексту для точної відповіді.",
+          "explanation": "Кілька capabilities можуть відповідати цьому запитанню. Уточніть учасників, чергу модерації, звіти або іншу область."
+        },
+        "intent_unresolved": {
+          "lead": "Я ще не зміг пов’язати це запитання з зареєстрованою capability.",
+          "explanation": "Спробуйте назвати область, яку хочете перевірити — наприклад учасників, чергу модерації або звіти."
+        }
+      }
+    },
     "unonightProviderAdapter": {
       "providerDisplayName": "Адаптер провайдера спільноти",
       "searchTerms": "community provider adapter live read member moderation verification listing activity",

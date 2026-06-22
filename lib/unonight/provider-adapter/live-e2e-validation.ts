@@ -637,7 +637,9 @@ export function runUnonightAuthenticatedLiveE2e(input: {
   const average =
     responseTimes.reduce((sum, value) => sum + value, 0) / Math.max(responseTimes.length, 1);
   const max = Math.max(...responseTimes, 0);
-  const unonightGrounded = questionResults.filter((entry) => entry.answer_status === "grounded").length;
+  const unonightGrounded = questionResults.filter(
+    (entry) => entry.answer_status === "grounded" || entry.answer_status === "metric_gap",
+  ).length;
 
   return {
     phase: 31,

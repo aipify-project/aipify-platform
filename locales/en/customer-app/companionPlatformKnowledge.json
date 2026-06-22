@@ -950,6 +950,41 @@
         "community_pack_adapter": "external forum membership platform engagement adapter third party sync"
       }
     },
+    "semanticRouting": {
+      "sourceLabel": "Semantic routing",
+      "genericMetric": "this information",
+      "clarification": {
+        "bareCount": "Which area should I count — members, moderation, reports, or something else?",
+        "multipleCandidates": "I may be reading this in more than one way. Could you clarify what you want to check?",
+        "contextHint": "A short clarification helps Aipify choose the right capability."
+      },
+      "outcomes": {
+        "intent_resolved_metric_missing": {
+          "lead": "I understood your question about {metric}.",
+          "explanation": "The provider is connected, but Aipify does not have an exact {metric} read for this period yet."
+        },
+        "intent_resolved_provider_missing": {
+          "lead": "I understood the topic, but no connected provider is available for this request.",
+          "explanation": "Install or activate the relevant Business Pack capability before Aipify can read live data."
+        },
+        "intent_resolved_permission_denied": {
+          "lead": "I understood your request, but your role cannot access this capability.",
+          "explanation": "Ask an administrator to review permissions for the relevant community or moderation capability."
+        },
+        "intent_resolved_activation_pending": {
+          "lead": "I understood your request, but the provider adapter is still activating.",
+          "explanation": "Activation checks must complete before live reads are shown."
+        },
+        "intent_ambiguous": {
+          "lead": "I need a little more context to answer precisely.",
+          "explanation": "Several capabilities could match this question. Please specify members, moderation, reports, or another area."
+        },
+        "intent_unresolved": {
+          "lead": "I could not map this question to a registered capability yet.",
+          "explanation": "Try naming the area you want to check — for example members, moderation queue, or reports."
+        }
+      }
+    },
     "unonightProviderAdapter": {
       "providerDisplayName": "Community Provider Adapter",
       "searchTerms": "community provider adapter live read member moderation verification listing activity",

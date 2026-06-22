@@ -25,6 +25,7 @@ const unonightSemanticSource = readFileSync(
   "utf8",
 );
 
+assert.match(communityAnswerSource, /resolveCompanionSemanticQuery/);
 assert.match(communityAnswerSource, /resolveCompanionSemanticIntent/);
 assert.match(communityAnswerSource, /collectSemanticDescriptorsFromManifest/);
 assert.doesNotMatch(communityAnswerSource, /\bunonight\b/i);

@@ -53,6 +53,7 @@ export type CommunityCapabilityManifest = {
   /** Adapter-provided semantic contract — entity aliases and metrics stay out of Core matchers. */
   semantic?: {
     entity: string;
+    domain?: string;
     metrics?: readonly string[];
     operations?: readonly (
       | "count"
@@ -64,6 +65,15 @@ export type CommunityCapabilityManifest = {
     )[];
     time_scopes?: readonly ("current" | "since_last" | "period" | "historical")[];
     entity_aliases?: Partial<Record<string, readonly string[]>>;
+    metric_mappings?: readonly {
+      requested_metric: string;
+      when: {
+        metric?: string | null;
+        operation?: string | null;
+        time_scope?: string | null;
+      };
+      period?: string | null;
+    }[];
   };
 };
 

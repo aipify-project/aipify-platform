@@ -923,6 +923,41 @@
         "unonight_community_adapter": "Fellesskapsprovider-adapter"
       }
     },
+    "semanticRouting": {
+      "sourceLabel": "Semantisk routing",
+      "genericMetric": "denne informasjonen",
+      "clarification": {
+        "bareCount": "Hvilket område skal jeg telle — medlemmer, moderering, rapporter eller noe annet?",
+        "multipleCandidates": "Dette kan forstås på flere måter. Kan du presisere hva du vil sjekke?",
+        "contextHint": "En kort presisering hjelper Aipify å velge riktig capability."
+      },
+      "outcomes": {
+        "intent_resolved_metric_missing": {
+          "lead": "Jeg forsto spørsmålet ditt om {metric}.",
+          "explanation": "Leverandøren er tilkoblet, men Aipify har ikke et eksakt {metric}-måltall for denne perioden ennå."
+        },
+        "intent_resolved_provider_missing": {
+          "lead": "Jeg forsto temaet, men ingen tilkoblet leverandør er tilgjengelig for dette.",
+          "explanation": "Installer eller aktiver relevant Business Pack-capability før Aipify kan lese live data."
+        },
+        "intent_resolved_permission_denied": {
+          "lead": "Jeg forsto forespørselen, men rollen din har ikke tilgang til denne capabilityen.",
+          "explanation": "Be en administrator gjennomgå tilganger for relevant fellesskaps- eller modereringscapability."
+        },
+        "intent_resolved_activation_pending": {
+          "lead": "Jeg forsto forespørselen, men provider-adaptern aktiveres fortsatt.",
+          "explanation": "Aktiveringssjekker må fullføres før live reads vises."
+        },
+        "intent_ambiguous": {
+          "lead": "Jeg trenger litt mer kontekst for å svare presist.",
+          "explanation": "Flere capabilities kan matche dette spørsmålet. Presiser medlemmer, modereringskø, rapporter eller et annet område."
+        },
+        "intent_unresolved": {
+          "lead": "Jeg klarte ikke å knytte dette spørsmålet til en registrert capability ennå.",
+          "explanation": "Prøv å navngi området du vil sjekke — for eksempel medlemmer, modereringskø eller rapporter."
+        }
+      }
+    },
     "unonightProviderAdapter": {
       "providerDisplayName": "Fellesskapsprovider-adapter",
       "searchTerms": "fellesskapsprovider adapter live les medlem moderering verifisering annonse aktivitet",

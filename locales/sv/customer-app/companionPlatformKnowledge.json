@@ -917,6 +917,41 @@
         "unonight_community_adapter": "Community-provideradapter"
       }
     },
+    "semanticRouting": {
+      "sourceLabel": "Semantisk routing",
+      "genericMetric": "denna information",
+      "clarification": {
+        "bareCount": "Vilket område ska jag räkna — medlemmar, moderering, rapporter eller något annat?",
+        "multipleCandidates": "Detta kan tolkas på flera sätt. Kan du precisera vad du vill kontrollera?",
+        "contextHint": "En kort precisering hjälper Aipify att välja rätt capability."
+      },
+      "outcomes": {
+        "intent_resolved_metric_missing": {
+          "lead": "Jag förstod din fråga om {metric}.",
+          "explanation": "Leverantören är ansluten, men Aipify har ännu ingen exakt {metric}-mätning för denna period."
+        },
+        "intent_resolved_provider_missing": {
+          "lead": "Jag förstod ämnet, men ingen ansluten leverantör är tillgänglig för detta.",
+          "explanation": "Installera eller aktivera relevant Business Pack-capability innan Aipify kan läsa live data."
+        },
+        "intent_resolved_permission_denied": {
+          "lead": "Jag förstod förfrågan, men din roll har inte åtkomst till denna capability.",
+          "explanation": "Be en administratör granska behörigheter för relevant community- eller modereringscapability."
+        },
+        "intent_resolved_activation_pending": {
+          "lead": "Jag förstod förfrågan, men provider-adaptern aktiveras fortfarande.",
+          "explanation": "Aktiveringskontroller måste slutföras innan live reads visas."
+        },
+        "intent_ambiguous": {
+          "lead": "Jag behöver lite mer kontext för att svara exakt.",
+          "explanation": "Flera capabilities kan matcha denna fråga. Precisera medlemmar, modereringskö, rapporter eller ett annat område."
+        },
+        "intent_unresolved": {
+          "lead": "Jag kunde inte koppla denna fråga till en registrerad capability ännu.",
+          "explanation": "Försök namnge området du vill kontrollera — till exempel medlemmar, modereringskö eller rapporter."
+        }
+      }
+    },
     "unonightProviderAdapter": {
       "providerDisplayName": "Community-provideradapter",
       "searchTerms": "community provider adapter live read member moderation verification listing activity",

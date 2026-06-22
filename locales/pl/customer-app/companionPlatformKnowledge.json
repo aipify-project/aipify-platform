@@ -917,6 +917,41 @@
         "unonight_community_adapter": "Adapter dostawcy społeczności"
       }
     },
+    "semanticRouting": {
+      "sourceLabel": "Routing semantyczny",
+      "genericMetric": "te informacje",
+      "clarification": {
+        "bareCount": "Który obszar mam policzyć — członków, moderację, zgłoszenia czy coś innego?",
+        "multipleCandidates": "To można zrozumieć na kilka sposobów. Czy możesz doprecyzować, co chcesz sprawdzić?",
+        "contextHint": "Krótkie doprecyzowanie pomaga Aipify wybrać właściwą capability."
+      },
+      "outcomes": {
+        "intent_resolved_metric_missing": {
+          "lead": "Zrozumiałem Twoje pytanie o {metric}.",
+          "explanation": "Dostawca jest podłączony, ale Aipify nie ma jeszcze dokładnego odczytu {metric} dla tego okresu."
+        },
+        "intent_resolved_provider_missing": {
+          "lead": "Zrozumiałem temat, ale brak podłączonego dostawcy dla tego żądania.",
+          "explanation": "Zainstaluj lub aktywuj odpowiednią capability Business Pack, zanim Aipify odczyta dane na żywo."
+        },
+        "intent_resolved_permission_denied": {
+          "lead": "Zrozumiałem prośbę, ale Twoja rola nie ma dostępu do tej capability.",
+          "explanation": "Poproś administratora o przegląd uprawnień dla odpowiedniej capability społeczności lub moderacji."
+        },
+        "intent_resolved_activation_pending": {
+          "lead": "Zrozumiałem prośbę, ale adapter dostawcy jest nadal aktywowany.",
+          "explanation": "Kontrole aktywacji muszą się zakończyć, zanim pokażemy odczyty na żywo."
+        },
+        "intent_ambiguous": {
+          "lead": "Potrzebuję trochę więcej kontekstu, aby odpowiedzieć precyzyjnie.",
+          "explanation": "Kilka capabilities może pasować do tego pytania. Doprecyzuj członków, kolejkę moderacji, zgłoszenia lub inny obszar."
+        },
+        "intent_unresolved": {
+          "lead": "Nie udało mi się jeszcze powiązać tego pytania z zarejestrowaną capability.",
+          "explanation": "Spróbuj nazwać obszar, który chcesz sprawdzić — na przykład członków, kolejkę moderacji lub zgłoszenia."
+        }
+      }
+    },
     "unonightProviderAdapter": {
       "providerDisplayName": "Adapter dostawcy społeczności",
       "searchTerms": "community provider adapter live read member moderation verification listing activity",

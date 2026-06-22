@@ -4,13 +4,17 @@ import {
 } from "@/lib/integration-intelligence/community/registry";
 import { normalizeIntegrationQuery } from "@/lib/integration-intelligence/normalize-text";
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import type { CompanionConversationSemanticContext } from "@/lib/integration-intelligence/semantic/types";
 import type { Translator } from "@/lib/i18n/translate";
 import {
   collectSemanticDescriptorsFromManifest,
-  mapSemanticIntentToRequestedMetric,
   resolveCompanionSemanticIntent,
   semanticDescriptorMatchesQuery,
 } from "./companion-semantic-query-match";
+import {
+  resolveCompanionSemanticQuery,
+  resolvedIntentToProviderMatch,
+} from "./companion-semantic-resolver";
 import type { CompanionCommunityContext } from "./companion-community-context";
 import { filterCommunityCapabilitiesForPrivacy } from "./companion-community-context";
 import type { CompanionTenantContext } from "./companion-tenant-context";
@@ -21,6 +25,8 @@ export type CommunityProviderMatch = {
   operation: "read" | "write" | null;
   requested_metric?: string | null;
   requested_period?: string | null;
+  resolved_intent_id?: string | null;
+  outcome?: import("@/lib/integration-intelligence/semantic/types").CompanionSemanticOutcomeType | null;
 };
 
 const GENERIC_COMMUNITY_DOMAIN_PATTERN =
@@ -58,158 +64,73 @@ export function hasExternalCommunityAdapterIntent(
   return /\b(provider adapter|community adapter|live community|external adapter)\b/i.test(normalized);
 }
 
-function resolveExternalAdapterProviderMatch(
-  query: string,
-  communityContext: CompanionCommunityContext,
-  locale: CustomerActiveLocale = "en",
-): CommunityProviderMatch | null {
-  const overlay =
-    communityContext.external_provider_adapters?.find(
-      (entry) => entry.activation.status === "active" || entry.activation.status === "activating",
-    ) ?? null;
-  if (!overlay) return null;
+function preferredCommunityProviderKeys(communityContext: CompanionCommunityContext): string[] {
+  const adapterKeys =
+    communityContext.external_provider_adapters
+      ?.filter((entry) => entry.activation.status === "active" || entry.activation.status === "activating")
+      .map((entry) => entry.provider_key) ?? [];
+  const providerKeys = communityContext.providers.map((provider) => provider.provider_key);
+  return [...new Set([...adapterKeys, ...providerKeys])];
+}
 
-  const manifest = getCommunityProviderManifest(overlay.provider_key);
-  const descriptors = collectSemanticDescriptorsFromManifest(manifest);
-  const intent = resolveCompanionSemanticIntent({ query, descriptors, locale });
-
-  if (intent.capability_candidates[0]) {
-    const { requested_metric, period } = mapSemanticIntentToRequestedMetric({
-      entity: intent.entity,
-      metric: intent.metric,
-      timeScope: intent.time_scope,
-    });
-    return {
-      provider_key: overlay.provider_key,
-      capability_key: intent.capability_candidates[0]!,
-      operation: "read",
-      requested_metric,
-      requested_period: period,
-    };
+function manifestsForTenant(
+  tenantContext: CompanionTenantContext,
+  manifests: ReturnType<typeof listCommunityProviderManifests>,
+) {
+  const preferred = preferredCommunityProviderKeys(tenantContext.communityContext);
+  if (preferred.length > 0) {
+    return manifests.filter((manifest) => preferred.includes(manifest.provider_key));
   }
 
-  return { provider_key: overlay.provider_key, capability_key: null, operation: "read" };
+  const activeBusinessPacks = tenantContext.activeBusinessPacks ?? [];
+  const connectedProviders = tenantContext.connectedProviders ?? [];
+  if (activeBusinessPacks.length === 0 && connectedProviders.length === 0) {
+    return [];
+  }
+
+  return manifests.filter(
+    (manifest) =>
+      manifest.business_pack_key == null ||
+      activeBusinessPacks.includes(manifest.business_pack_key),
+  );
 }
 
 export function matchCommunityProviderQuery(
   query: string,
   tenantContext: CompanionTenantContext,
   locale: CustomerActiveLocale = "en",
+  conversation?: CompanionConversationSemanticContext | null,
 ): CommunityProviderMatch | null {
   if (!hasCommunityProviderIntent(query)) return null;
 
-  const normalized = normalizeIntegrationQuery(query);
-  const manifests = listCommunityProviderManifests();
+  const manifests = manifestsForTenant(tenantContext, listCommunityProviderManifests());
+  if (manifests.length === 0) {
+    return null;
+  }
 
-  const adapterMatch = resolveExternalAdapterProviderMatch(
+  const resolved = resolveCompanionSemanticQuery({
     query,
-    tenantContext.communityContext,
     locale,
-  );
-  if (adapterMatch) {
-    return adapterMatch;
-  }
-
-  const mentionedProviders = manifests.filter((manifest) => {
-    const provider = manifest.provider_key.toLowerCase();
-    const providerSpaced = provider.replace(/_/g, " ");
-    return normalized.includes(providerSpaced) || normalized.includes(provider);
+    manifests,
+    conversation,
+    preferredProviderKeys: preferredCommunityProviderKeys(tenantContext.communityContext),
   });
 
-  if (mentionedProviders.length > 0) {
-    for (const manifest of mentionedProviders) {
-      for (const capability of manifest.capabilities) {
-        const capabilityPhrase = capability.capability_key.replace(/\./g, " ");
-        if (normalized.includes(capabilityPhrase)) {
-          return {
-            provider_key: manifest.provider_key,
-            capability_key: capability.capability_key,
-            operation: capability.operation,
-          };
-        }
-      }
-    }
-
+  const semanticMatch = resolvedIntentToProviderMatch(resolved);
+  if (semanticMatch) {
     return {
-      provider_key: mentionedProviders[0]!.provider_key,
-      capability_key: null,
-      operation: null,
+      ...semanticMatch,
+      resolved_intent_id: resolved.intent_id,
+      outcome: resolved.outcome,
     };
   }
 
-  for (const manifest of manifests) {
-    for (const capability of manifest.capabilities) {
-      const capabilityPhrase = capability.capability_key.replace(/\./g, " ");
-      if (normalized.includes(capabilityPhrase)) {
-        return {
-          provider_key: manifest.provider_key,
-          capability_key: capability.capability_key,
-          operation: capability.operation,
-        };
-      }
-    }
-  }
-
-  const keywordMatch = manifests.find((manifest) => {
-    if (normalized.includes("moderation") || normalized.includes("moderate")) {
-      return manifest.provider_key === "moderation_engine";
-    }
-    if (normalized.includes("reward") || normalized.includes("points") || normalized.includes("loyalty")) {
-      return manifest.provider_key === "client_relationship_loyalty";
-    }
-    if (normalized.includes("referral")) {
-      return manifest.capabilities.some(
-        (capability) => capability.capability_key === "referral.read",
-      );
-    }
-    if (normalized.includes("leaderboard")) {
-      return manifest.provider_key === "community_engagement_services";
-    }
-    if (normalized.includes("birthday")) {
-      return manifest.capabilities.some(
-        (capability) => capability.capability_key === "birthday.read",
-      );
-    }
-    if (normalized.includes("gift")) {
-      return manifest.capabilities.some((capability) => capability.capability_key === "gift.read");
-    }
-    if (normalized.includes("listing") || normalized.includes("marketplace")) {
-      return manifest.capabilities.some(
-        (capability) => capability.capability_key === "listing.read",
-      );
-    }
-    if (normalized.includes("report")) {
-      return manifest.capabilities.some(
-        (capability) => capability.capability_key === "report.read",
-      );
-    }
-    if (normalized.includes("member") || normalized.includes("membership")) {
-      return manifest.provider_key === "community_network_center";
-    }
-    if (normalized.includes("activity") || normalized.includes("engagement")) {
-      return (
-        manifest.provider_key === "community_network_center" ||
-        manifest.provider_key === "community_collective_intelligence"
-      );
-    }
-    return false;
-  });
-
-  if (keywordMatch) {
-    return {
-      provider_key: keywordMatch.provider_key,
-      capability_key: null,
-      operation: null,
-    };
-  }
-
-  const writeIntent = /\b(create|request|start|initiate|review)\b/i.test(normalized);
-  const readIntent = /\b(read|show|list|status|what|which|find|summary|who)\b/i.test(normalized);
-  const operation = writeIntent ? "write" : readIntent ? "read" : null;
-
-  const firstProvider = tenantContext.communityContext.providers[0];
-  if (firstProvider) {
-    return { provider_key: firstProvider.provider_key, capability_key: null, operation };
+  if (
+    resolved.outcome === "intent_ambiguous" ||
+    resolved.outcome === "intent_unresolved" ||
+    resolved.outcome === "intent_resolved_provider_missing"
+  ) {
+    return null;
   }
 
   return null;

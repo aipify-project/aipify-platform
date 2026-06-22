@@ -917,6 +917,41 @@
         "unonight_community_adapter": "Community-provideradapter"
       }
     },
+    "semanticRouting": {
+      "sourceLabel": "Semantisk routing",
+      "genericMetric": "denne information",
+      "clarification": {
+        "bareCount": "Hvilket område skal jeg tælle — medlemmer, moderation, rapporter eller noget andet?",
+        "multipleCandidates": "Dette kan forstås på flere måder. Kan du præcisere, hvad du vil tjekke?",
+        "contextHint": "En kort præcisering hjælper Aipify med at vælge den rigtige capability."
+      },
+      "outcomes": {
+        "intent_resolved_metric_missing": {
+          "lead": "Jeg forstod dit spørgsmål om {metric}.",
+          "explanation": "Udbyderen er tilsluttet, men Aipify har endnu ikke et præcist {metric}-måltal for denne periode."
+        },
+        "intent_resolved_provider_missing": {
+          "lead": "Jeg forstod emnet, men ingen tilsluttet udbyder er tilgængelig for dette.",
+          "explanation": "Installer eller aktiver relevant Business Pack-capability, før Aipify kan læse live data."
+        },
+        "intent_resolved_permission_denied": {
+          "lead": "Jeg forstod anmodningen, men din rolle har ikke adgang til denne capability.",
+          "explanation": "Bed en administrator gennemgå tilladelser for relevant community- eller moderationscapability."
+        },
+        "intent_resolved_activation_pending": {
+          "lead": "Jeg forstod anmodningen, men provider-adapteren aktiveres stadig.",
+          "explanation": "Aktiveringskontroller skal fuldføres, før live reads vises."
+        },
+        "intent_ambiguous": {
+          "lead": "Jeg har brug for lidt mere kontekst for at svare præcist.",
+          "explanation": "Flere capabilities kan matche dette spørgsmål. Præciser medlemmer, moderationskø, rapporter eller et andet område."
+        },
+        "intent_unresolved": {
+          "lead": "Jeg kunne ikke knytte dette spørgsmål til en registreret capability endnu.",
+          "explanation": "Prøv at navngive området, du vil tjekke — for eksempel medlemmer, moderationskø eller rapporter."
+        }
+      }
+    },
     "unonightProviderAdapter": {
       "providerDisplayName": "Community-provideradapter",
       "searchTerms": "community provider adapter live read member moderation verification listing activity",
