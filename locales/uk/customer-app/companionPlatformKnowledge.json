@@ -292,6 +292,51 @@
         "companion_presence_devices": "зареєстровані пристрої desktop mobile tablet presence"
       }
     },
+    "workspace": {
+      "sourceLabel": "Каталог workspace-провайдерів",
+      "discoveryLead": "Aipify знайшов {provider} у каталозі workspace-провайдерів — статус: {status}.",
+      "discoveryExplanation": "Можливості нижче походять із зареєстрованих маніфестів. Дії запису потребують схвалення та поважають політику комунікації організації.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "З'єднання провайдера перевірено для вашої організації.",
+      "disconnectedProvider": "Runtime-адаптер провайдера не підключено — лише кероване виявлення.",
+      "unavailableLead": "Жоден workspace-провайдер не відповів цьому запиту для вашої організації.",
+      "unavailableExplanation": "Workspace-можливості виявляються з зареєстрованих маніфестів — жоден не відповів цьому запиту.",
+      "externalUnavailableLead": "Зовнішні workspace-конектори не підключено для вашої організації.",
+      "externalUnavailableExplanation": "Зовнішній адаптер поштової скриньки, календаря або хмарного сховища не зареєстровано. Aipify не отримує доступ до приватних повідомлень, вкладень або вмісту документів без явного дозволу та політики.",
+      "permissionDenied": "Ваша роль не має доступу до каталогу workspace-провайдерів.",
+      "entitlementBlocked": "Workspace-можливості недоступні, поки підписку призупинено.",
+      "privacyNote": "Лише чутливі метадані — тексти приватних повідомлень, вкладення та міжорганізаційний вміст ніколи не розкриваються в Companion runtime.",
+      "policyNote": "Надсилання e-mail, зміни календаря, обмін документами та друк потребують явного схвалення та правильної політики організації.",
+      "openWorkspaceCenter": "Відкрити центр workspace",
+      "operation": { "read": "читання", "write": "запис" },
+      "status": {
+        "connected": "підключено",
+        "implemented_disconnected": "реалізовано, але відключено",
+        "partial": "частково",
+        "specification_only": "лише специфікація",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "organization_calendar": "Календар організації",
+        "context_engine_calendar": "Календар Context Engine",
+        "organization_tasks": "Завдання організації",
+        "support_email_drafts": "Чернетки e-mail підтримки",
+        "organization_documents": "Документи організації",
+        "universal_search": "Універсальний пошук",
+        "organization_notifications": "Сповіщення організації",
+        "print_output": "Друк"
+      },
+      "searchTerms": {
+        "organization_calendar": "календар зустрічі планування ресурси",
+        "context_engine_calendar": "особистий календар context планування",
+        "organization_tasks": "завдання призначення управління роботою",
+        "support_email_drafts": "підтримка e-mail чернетка відповідь",
+        "organization_documents": "документи знання файли пошук",
+        "universal_search": "пошук файли документи знання",
+        "organization_notifications": "сповіщення тривоги стрічка активності",
+        "print_output": "друк принтери завдання"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

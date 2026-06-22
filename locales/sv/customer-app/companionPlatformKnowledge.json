@@ -292,6 +292,51 @@
         "companion_presence_devices": "registrerade enheter desktop mobil surfplatta presence"
       }
     },
+    "workspace": {
+      "sourceLabel": "Workspace provider-katalog",
+      "discoveryLead": "Aipify kartlade {provider} i workspace provider-katalogen — status: {status}.",
+      "discoveryExplanation": "Capabilities nedan kommer från registrerade provider-manifest. Skrivåtgärder kräver godkännande och respekterar organisationens kommunikationspolicy.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Provider-anslutningen är verifierad för din organisation.",
+      "disconnectedProvider": "Provider runtime-adapter är inte ansluten — endast styrd discovery.",
+      "unavailableLead": "Ingen workspace provider matchade denna förfrågan för din organisation.",
+      "unavailableExplanation": "Workspace-capabilities upptäcks från registrerade manifest — ingen matchade denna fråga.",
+      "externalUnavailableLead": "Externa workspace-anslutningar är inte anslutna för din organisation.",
+      "externalUnavailableExplanation": "Ingen extern mailbox-, kalender- eller molnlagringsadapter är registrerad. Aipify får inte åtkomst till privata meddelanden, bilagor eller dokumentinnehåll utan explicit tillstånd och policy.",
+      "permissionDenied": "Din roll har inte åtkomst till workspace provider-katalogen.",
+      "entitlementBlocked": "Workspace-capabilities är otillgängliga medan prenumerationen är pausad.",
+      "privacyNote": "Endast känslig metadata — privata meddelandetext, bilagor och tvärsorganisationsinnehåll exponeras aldrig i Companion runtime.",
+      "policyNote": "E-postutskick, kalenderändringar, dokumentdelning och utskrift kräver explicit godkännande och korrekt organisationspolicy.",
+      "openWorkspaceCenter": "Öppna workspace-center",
+      "operation": { "read": "läs", "write": "skriv" },
+      "status": {
+        "connected": "ansluten",
+        "implemented_disconnected": "implementerad men frånkopplad",
+        "partial": "delvis",
+        "specification_only": "endast specifikation",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "organization_calendar": "Organisationskalender",
+        "context_engine_calendar": "Context Engine-kalender",
+        "organization_tasks": "Organisationsuppgifter",
+        "support_email_drafts": "Support e-postutkast",
+        "organization_documents": "Organisationsdokument",
+        "universal_search": "Universell sökning",
+        "organization_notifications": "Organisationsaviseringar",
+        "print_output": "Utskrift"
+      },
+      "searchTerms": {
+        "organization_calendar": "kalender möten schemaläggning resurser",
+        "context_engine_calendar": "personlig kalender context schemaläggning",
+        "organization_tasks": "uppgifter tilldelningar arbetsstyrning",
+        "support_email_drafts": "support e-post utkast svar",
+        "organization_documents": "dokument kunskap filer sök",
+        "universal_search": "sök filer dokument kunskap",
+        "organization_notifications": "aviseringar larm aktivitetsflöde",
+        "print_output": "skriv ut skrivare jobb"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

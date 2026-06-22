@@ -8,6 +8,7 @@ import {
 } from "./companion-action-context";
 import type { CompanionCreativeContext } from "./companion-creative-context";
 import type { CompanionMediaContext } from "./companion-media-context";
+import type { CompanionWorkspaceContext } from "./companion-workspace-context";
 import type { CompanionBusinessPackCollection } from "./companion-business-pack-context";
 import type { CompanionSchemaCollection } from "./companion-schema-context";
 
@@ -25,6 +26,7 @@ export async function loadCompanionActionContext(
     subscriptionStatus: string | null;
     creativeContext?: CompanionCreativeContext;
     mediaContext?: CompanionMediaContext;
+    workspaceContext?: CompanionWorkspaceContext;
   },
 ): Promise<{ actionContext: CompanionActionContext; writeActionsAvailable: boolean }> {
   const [companionResult, trustResult, approvalsResult] = await Promise.all([
@@ -52,6 +54,7 @@ export async function loadCompanionActionContext(
     permissionDenied,
     creativeContext: input.creativeContext,
     mediaContext: input.mediaContext,
+    workspaceContext: input.workspaceContext,
   });
 
   const writeActionsAvailable =

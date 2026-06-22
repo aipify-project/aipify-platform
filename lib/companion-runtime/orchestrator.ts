@@ -105,6 +105,14 @@ import {
   hasMediaProviderIntent,
   matchMediaProviderQuery,
 } from "./media-answer";
+import {
+  buildExternalWorkspaceUnavailableAnswer,
+  buildWorkspaceProviderDiscoveryAnswer,
+  buildWorkspaceProviderUnavailableAnswer,
+  hasExternalWorkspaceConnectorIntent,
+  hasWorkspaceProviderIntent,
+  matchWorkspaceProviderQuery,
+} from "./workspace-answer";
 import { mapDispatchCodeToGapReason } from "./tool-answer";
 import {
   createEmptyCompanionTenantContext,
@@ -627,6 +635,39 @@ function resolveMediaProviderAnswer(
   };
 }
 
+function resolveWorkspaceProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (!hasWorkspaceProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.workspaceContext.permission_denied) {
+    return {
+      answer: buildWorkspaceProviderUnavailableAnswer(t, tenantContext.workspaceContext),
+    };
+  }
+
+  if (hasExternalWorkspaceConnectorIntent(query)) {
+    return {
+      answer: buildExternalWorkspaceUnavailableAnswer(t),
+    };
+  }
+
+  const match = matchWorkspaceProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildWorkspaceProviderUnavailableAnswer(t, tenantContext.workspaceContext),
+    };
+  }
+
+  return {
+    answer: buildWorkspaceProviderDiscoveryAnswer(match, tenantContext.workspaceContext, t),
+  };
+}
+
 function resolveCreativeProviderAnswer(
   query: string,
   t: Translator,
@@ -757,6 +798,9 @@ export async function orchestrateCompanionSearch(
 
   const mediaResult = resolveMediaProviderAnswer(query, t, resolvedTenantContext);
   if (mediaResult) return finalize(mediaResult);
+
+  const workspaceResult = resolveWorkspaceProviderAnswer(query, t, resolvedTenantContext);
+  if (workspaceResult) return finalize(workspaceResult);
 
   const creativeResult = resolveCreativeProviderAnswer(
     query,

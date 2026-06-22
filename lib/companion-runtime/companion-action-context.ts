@@ -9,6 +9,7 @@ import {
   buildActionDefinitionFromCapability,
   buildActionDefinitionFromCreativeCapability,
   buildActionDefinitionFromMediaCapability,
+  buildActionDefinitionFromWorkspaceCapability,
   buildActionDefinitionFromPolicy,
   buildActionDefinitionFromSchemaEntity,
   createEmptyCompanionActionRegistry,
@@ -19,6 +20,7 @@ import {
 } from "./companion-action-definition";
 import type { CompanionCreativeContext } from "./companion-creative-context";
 import type { CompanionMediaContext } from "./companion-media-context";
+import type { CompanionWorkspaceContext } from "./companion-workspace-context";
 import {
   parseApprovedCompanionActionRequest,
   parseApprovedTrustActionRequest,
@@ -85,6 +87,7 @@ export type NormalizeCompanionActionContextInput = {
   permissionDenied?: boolean;
   creativeContext?: CompanionCreativeContext;
   mediaContext?: CompanionMediaContext;
+  workspaceContext?: CompanionWorkspaceContext;
 };
 
 function parseApprovedRecordsFromApprovalsCenter(raw: unknown): CompanionApprovedActionRecord[] {
@@ -197,6 +200,17 @@ export function normalizeCompanionActionContext(
   for (const capability of input.mediaContext?.capabilities ?? []) {
     if (capability.operation !== "write") continue;
     const definition = buildActionDefinitionFromMediaCapability(capability, {
+      permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
+      appEntitlementBlocked: appSuspended,
+      emergencyStop,
+      maxRiskLevel,
+    });
+    if (definition) actions.push(definition);
+  }
+
+  for (const capability of input.workspaceContext?.capabilities ?? []) {
+    if (capability.operation !== "write") continue;
+    const definition = buildActionDefinitionFromWorkspaceCapability(capability, {
       permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
       appEntitlementBlocked: appSuspended,
       emergencyStop,

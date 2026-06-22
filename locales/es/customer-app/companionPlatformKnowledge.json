@@ -292,6 +292,51 @@
         "companion_presence_devices": "dispositivos registrados desktop móvil tablet presencia"
       }
     },
+    "workspace": {
+      "sourceLabel": "Catálogo de proveedores workspace",
+      "discoveryLead": "Aipify mapeó {provider} en su catálogo de proveedores workspace — estado: {status}.",
+      "discoveryExplanation": "Las capacidades siguientes provienen de manifiestos registrados. Las acciones de escritura requieren aprobación y respetan la política de comunicación de la organización.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "La conexión del proveedor está verificada para su organización.",
+      "disconnectedProvider": "El adaptador runtime del proveedor no está conectado — solo descubrimiento gobernado.",
+      "unavailableLead": "Ningún proveedor workspace coincidió con esta solicitud para su organización.",
+      "unavailableExplanation": "Las capacidades workspace se descubren desde manifiestos registrados — ninguno coincidió con esta pregunta.",
+      "externalUnavailableLead": "Los conectores workspace externos no están conectados para su organización.",
+      "externalUnavailableExplanation": "No hay adaptador externo de buzón, calendario o almacenamiento en la nube registrado. Aipify no accede a mensajes privados, adjuntos o contenido de documentos sin permiso y política explícitos.",
+      "permissionDenied": "Su rol no tiene acceso al catálogo de proveedores workspace.",
+      "entitlementBlocked": "Las capacidades workspace no están disponibles mientras la suscripción está pausada.",
+      "privacyNote": "Solo metadatos sensibles — textos de mensajes privados, adjuntos y contenido entre organizaciones nunca se exponen en Companion runtime.",
+      "policyNote": "El envío de correo, cambios de calendario, compartir documentos e impresión requieren aprobación explícita y política organizacional correcta.",
+      "openWorkspaceCenter": "Abrir centro workspace",
+      "operation": { "read": "lectura", "write": "escritura" },
+      "status": {
+        "connected": "conectado",
+        "implemented_disconnected": "implementado pero desconectado",
+        "partial": "parcial",
+        "specification_only": "solo especificación",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "organization_calendar": "Calendario organizacional",
+        "context_engine_calendar": "Calendario Context Engine",
+        "organization_tasks": "Tareas organizacionales",
+        "support_email_drafts": "Borradores de correo de soporte",
+        "organization_documents": "Documentos organizacionales",
+        "universal_search": "Búsqueda universal",
+        "organization_notifications": "Notificaciones organizacionales",
+        "print_output": "Impresión"
+      },
+      "searchTerms": {
+        "organization_calendar": "calendario citas programación reuniones",
+        "context_engine_calendar": "calendario personal context programación",
+        "organization_tasks": "tareas asignaciones gestión trabajo",
+        "support_email_drafts": "soporte correo borrador respuesta",
+        "organization_documents": "documentos conocimiento archivos búsqueda",
+        "universal_search": "buscar archivos documentos conocimiento",
+        "organization_notifications": "notificaciones alertas feed actividad",
+        "print_output": "imprimir impresoras trabajos"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

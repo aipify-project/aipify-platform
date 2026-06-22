@@ -27,6 +27,7 @@ import { loadCompanionMemoryContext } from "./load-companion-memory-context";
 import { loadCompanionActionContext } from "./load-companion-action-context";
 import { loadCompanionCreativeContext } from "./load-companion-creative-context";
 import { loadCompanionMediaContext } from "./load-companion-media-context";
+import { loadCompanionWorkspaceContext } from "./load-companion-workspace-context";
 import {
   mergeCreativeCapabilities,
   mergeCreativeSchemaCollection,
@@ -37,6 +38,11 @@ import {
   mergeMediaSchemaCollection,
   mergeMediaToolRegistry,
 } from "./merge-media-runtime";
+import {
+  mergeWorkspaceCapabilities,
+  mergeWorkspaceSchemaCollection,
+  mergeWorkspaceToolRegistry,
+} from "./merge-workspace-runtime";
 
 export type { CompanionTenantContext } from "./companion-tenant-context";
 export {
@@ -182,9 +188,18 @@ export async function loadCompanionTenantContext(
     connectedProviders,
   });
 
-  const entitledCapabilities = mergeMediaCapabilities(
-    mergeCreativeCapabilities(businessPackContext.entitledCapabilities, creativeContext),
-    mediaContext,
+  const workspaceContext = await loadCompanionWorkspaceContext(supabase, {
+    effectivePermissions,
+    subscriptionStatus,
+    connectedProviders,
+  });
+
+  const entitledCapabilities = mergeWorkspaceCapabilities(
+    mergeMediaCapabilities(
+      mergeCreativeCapabilities(businessPackContext.entitledCapabilities, creativeContext),
+      mediaContext,
+    ),
+    workspaceContext,
   );
 
   let schemaContext = loadCompanionSchemaContext({
@@ -199,6 +214,11 @@ export async function loadCompanionTenantContext(
     effectivePermissions,
   );
   schemaContext = mergeMediaSchemaCollection(schemaContext, mediaContext, effectivePermissions);
+  schemaContext = mergeWorkspaceSchemaCollection(
+    schemaContext,
+    workspaceContext,
+    effectivePermissions,
+  );
 
   let toolRegistry = loadCompanionToolRegistry({
     discovery,
@@ -210,6 +230,7 @@ export async function loadCompanionTenantContext(
   });
   toolRegistry = mergeCreativeToolRegistry(toolRegistry, creativeContext, effectivePermissions);
   toolRegistry = mergeMediaToolRegistry(toolRegistry, mediaContext, effectivePermissions);
+  toolRegistry = mergeWorkspaceToolRegistry(toolRegistry, workspaceContext, effectivePermissions);
 
   const operationalLoad = await loadCompanionOperationalContext(supabase, {
     effectivePermissions,
@@ -228,6 +249,7 @@ export async function loadCompanionTenantContext(
     subscriptionStatus,
     creativeContext,
     mediaContext,
+    workspaceContext,
   });
 
   return createEmptyCompanionTenantContext({
@@ -263,5 +285,6 @@ export async function loadCompanionTenantContext(
     writeActionsAvailable: actionLoad.writeActionsAvailable,
     creativeContext,
     mediaContext,
+    workspaceContext,
   });
 }

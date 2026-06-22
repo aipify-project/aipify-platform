@@ -304,6 +304,54 @@
         "companion_presence_devices": "registered devices desktop mobile tablet presence"
       }
     },
+    "workspace": {
+      "sourceLabel": "Workspace provider catalog",
+      "discoveryLead": "Aipify mapped {provider} in your workspace provider catalog — status: {status}.",
+      "discoveryExplanation": "Capabilities below come from registered provider manifests. Write actions require approval and respect organization communication policy.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Provider connection is verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No workspace provider matched this request for your organization.",
+      "unavailableExplanation": "Workspace capabilities are discovered from registered manifests — none matched this query.",
+      "externalUnavailableLead": "External workspace connectors are not connected for your organization.",
+      "externalUnavailableExplanation": "No external mailbox, calendar, or cloud storage adapter is registered. Aipify does not access private messages, attachments, or document content without explicit permission and policy.",
+      "permissionDenied": "Your role cannot access the workspace provider catalog.",
+      "entitlementBlocked": "Workspace capabilities are unavailable while the organization subscription is paused.",
+      "privacyNote": "Sensitive metadata only — private message bodies, attachments, and cross-organization content are never exposed in Companion runtime.",
+      "policyNote": "Email sending, calendar changes, document sharing, and printing require explicit approval and correct organization policy.",
+      "openWorkspaceCenter": "Open workspace center",
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "organization_calendar": "Organization calendar",
+        "context_engine_calendar": "Context Engine calendar",
+        "organization_tasks": "Organization tasks",
+        "support_email_drafts": "Support email drafts",
+        "organization_documents": "Organization documents",
+        "universal_search": "Universal search",
+        "organization_notifications": "Organization notifications",
+        "print_output": "Print output"
+      },
+      "searchTerms": {
+        "organization_calendar": "calendar appointments scheduling meetings resources",
+        "context_engine_calendar": "personal calendar context scheduling availability",
+        "organization_tasks": "tasks assignments work management",
+        "support_email_drafts": "support email draft reply analyze",
+        "organization_documents": "documents knowledge files search",
+        "universal_search": "search files documents knowledge discovery",
+        "organization_notifications": "notifications alerts activity feed",
+        "print_output": "print printers jobs output"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

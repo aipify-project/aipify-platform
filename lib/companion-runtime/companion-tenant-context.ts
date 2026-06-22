@@ -19,6 +19,7 @@ import { createEmptyCompanionMemoryContext, type CompanionMemoryContext } from "
 import { createEmptyCompanionActionContext, type CompanionActionContext } from "./companion-action-context";
 import { createEmptyCompanionCreativeContext, type CompanionCreativeContext } from "./companion-creative-context";
 import { createEmptyCompanionMediaContext, type CompanionMediaContext } from "./companion-media-context";
+import { createEmptyCompanionWorkspaceContext, type CompanionWorkspaceContext } from "./companion-workspace-context";
 
 const PORTAL_FEATURE_KEYS = [
   "team_management",
@@ -62,6 +63,7 @@ export type CompanionTenantContext = {
   modelPolicy: TenantModelPolicy | null;
   creativeContext: CompanionCreativeContext;
   mediaContext: CompanionMediaContext;
+  workspaceContext: CompanionWorkspaceContext;
 };
 
 export function createEmptyCompanionTenantContext(
@@ -101,6 +103,7 @@ export function createEmptyCompanionTenantContext(
     modelPolicy: { mode: "aipify_managed" },
     creativeContext: createEmptyCompanionCreativeContext(),
     mediaContext: createEmptyCompanionMediaContext(),
+    workspaceContext: createEmptyCompanionWorkspaceContext(),
     ...overrides,
   };
 }
