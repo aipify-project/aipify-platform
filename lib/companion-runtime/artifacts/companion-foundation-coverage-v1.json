@@ -1,0 +1,5232 @@
+{
+  "version": "companion-foundation-coverage-v1",
+  "generated_at": "2026-06-22T19:13:08.347Z",
+  "summary": {
+    "total_modules": 141,
+    "total_capabilities": 347,
+    "business_packs": 7,
+    "providers": 132,
+    "skills": 58,
+    "panels": 4,
+    "readiness": {
+      "production_ready": 0,
+      "production_ready_candidate": 1,
+      "connected": 7,
+      "connected_but_partial": 13,
+      "adapter_missing": 85,
+      "source_missing": 3,
+      "manifest_only": 8,
+      "specification_only": 24,
+      "placeholder": 0,
+      "disabled": 0,
+      "blocked_by_governance": 0
+    }
+  },
+  "entries": [
+    {
+      "module_id": "core.companion_orchestrator",
+      "domain": "companion_core",
+      "business_pack_key": null,
+      "provider_key": "companion_runtime",
+      "capability_ids": [
+        "companion.query",
+        "companion.ground",
+        "companion.synthesize"
+      ],
+      "source_type": "api",
+      "source_reference": "lib/companion-runtime/companion-semantic-resolver.ts",
+      "runtime_loader": "companion-tenant-context.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "linked",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected",
+      "limitations": [
+        "Generic orchestration only — domain data via provider loaders."
+      ],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "core.discovery",
+      "domain": "install_discovery",
+      "business_pack_key": null,
+      "provider_key": "install_discovery",
+      "capability_ids": [
+        "discovery.read",
+        "connection.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "load-companion-discovery-context.ts",
+      "runtime_loader": "load-companion-discovery-context.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "partial",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "core.business_packs",
+      "domain": "business_packs",
+      "business_pack_key": null,
+      "provider_key": "business_pack_entitlements",
+      "capability_ids": [
+        "pack.read",
+        "entitlement.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "load-companion-business-pack-context.ts",
+      "runtime_loader": "load-companion-business-pack-context.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "core.schema",
+      "domain": "schemas",
+      "business_pack_key": null,
+      "provider_key": "schema_discovery",
+      "capability_ids": [
+        "schema.read",
+        "entity.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "load-companion-schema-context.ts",
+      "runtime_loader": "load-companion-schema-context.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "core.tools",
+      "domain": "tools",
+      "business_pack_key": null,
+      "provider_key": "companion_tool_registry",
+      "capability_ids": [
+        "tool.read",
+        "tool.invoke.read"
+      ],
+      "source_type": "api",
+      "source_reference": "load-companion-tool-registry.ts",
+      "runtime_loader": "load-companion-tool-registry.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "none",
+      "action_status": "blocked",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected",
+      "limitations": [
+        "Read tools only in Companion runtime."
+      ],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "core.memory",
+      "domain": "knowledge_organization_memory",
+      "business_pack_key": null,
+      "provider_key": "pame_memory",
+      "capability_ids": [
+        "memory.read",
+        "reminder.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "load-companion-memory-context.ts",
+      "runtime_loader": "load-companion-memory-context.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "partial",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Metadata-only memory — no raw chat transcripts."
+      ],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "core.actions",
+      "domain": "actions",
+      "business_pack_key": null,
+      "provider_key": "trust_actions",
+      "capability_ids": [
+        "action.prepare",
+        "action.approve"
+      ],
+      "source_type": "rpc",
+      "source_reference": "load-companion-action-context.ts",
+      "runtime_loader": "load-companion-action-context.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "linked",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected",
+      "limitations": [
+        "Level 4 critical actions prohibited for Aipify."
+      ],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "core.desktop_companion",
+      "domain": "desktop_companion",
+      "business_pack_key": null,
+      "provider_key": "desktop_command_center",
+      "capability_ids": [
+        "desktop.session",
+        "command_center.read"
+      ],
+      "source_type": "api",
+      "source_reference": "apps/command-center/ + /api/desktop/*",
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "gated",
+      "command_brief_status": "linked",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Business+ plan gate for desktop pairing."
+      ],
+      "next_required_step": "Extend Companion runtime loader for desktop session context.",
+      "panel": "app"
+    },
+    {
+      "module_id": "core.mobile_access",
+      "domain": "mobile_access",
+      "business_pack_key": null,
+      "provider_key": "mobile_companion",
+      "capability_ids": [
+        "mobile.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": "specification: mobile companion scaffold",
+      "runtime_loader": null,
+      "schema_status": "missing",
+      "permission_status": "partial",
+      "activation_status": "disabled",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "partial",
+      "test_status": "missing",
+      "readiness": "specification_only",
+      "limitations": [
+        "Mobile client not shipped — specification only."
+      ],
+      "next_required_step": "Ship mobile thin client consuming same Core bundle.",
+      "panel": "app"
+    },
+    {
+      "module_id": "core.vacation_mode",
+      "domain": "vacation_mode",
+      "business_pack_key": null,
+      "provider_key": "absence_vacation_coverage",
+      "capability_ids": [
+        "vacation_mode.read",
+        "absence.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "services domain loader + absence RPCs",
+      "runtime_loader": "load-companion-services-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Vacation mode flags in services loader — not standalone provider."
+      ],
+      "next_required_step": "Register vacation_mode.read in services manifest.",
+      "panel": "app"
+    },
+    {
+      "module_id": "business_pack.hosts",
+      "domain": "business_packs",
+      "business_pack_key": "hosts",
+      "provider_key": "marketing_pack_hosts",
+      "capability_ids": [
+        "pack.hosts.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": "lib/marketing/business-packs/registry.ts:hosts",
+      "runtime_loader": "load-companion-business-pack-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "gated",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "manifest_only",
+      "limitations": [
+        "Min plan: business. Registration: early_access."
+      ],
+      "next_required_step": "Map marketing pack slug to II provider manifests and entitlements.",
+      "panel": "app"
+    },
+    {
+      "module_id": "business_pack.support",
+      "domain": "business_packs",
+      "business_pack_key": "support",
+      "provider_key": "marketing_pack_support",
+      "capability_ids": [
+        "pack.support.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": "lib/marketing/business-packs/registry.ts:support",
+      "runtime_loader": "load-companion-business-pack-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "gated",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "manifest_only",
+      "limitations": [
+        "Min plan: professional. Registration: early_access."
+      ],
+      "next_required_step": "Map marketing pack slug to II provider manifests and entitlements.",
+      "panel": "app"
+    },
+    {
+      "module_id": "business_pack.warehouse",
+      "domain": "business_packs",
+      "business_pack_key": "warehouse",
+      "provider_key": "marketing_pack_warehouse",
+      "capability_ids": [
+        "pack.warehouse.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": "lib/marketing/business-packs/registry.ts:warehouse",
+      "runtime_loader": "load-companion-business-pack-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "gated",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "manifest_only",
+      "limitations": [
+        "Min plan: professional. Registration: early_access."
+      ],
+      "next_required_step": "Map marketing pack slug to II provider manifests and entitlements.",
+      "panel": "app"
+    },
+    {
+      "module_id": "business_pack.commerce",
+      "domain": "business_packs",
+      "business_pack_key": "commerce",
+      "provider_key": "marketing_pack_commerce",
+      "capability_ids": [
+        "pack.commerce.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": "lib/marketing/business-packs/registry.ts:commerce",
+      "runtime_loader": "load-companion-business-pack-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "gated",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "manifest_only",
+      "limitations": [
+        "Min plan: professional. Registration: early_access."
+      ],
+      "next_required_step": "Map marketing pack slug to II provider manifests and entitlements.",
+      "panel": "app"
+    },
+    {
+      "module_id": "business_pack.services",
+      "domain": "business_packs",
+      "business_pack_key": "services",
+      "provider_key": "marketing_pack_services",
+      "capability_ids": [
+        "pack.services.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": "lib/marketing/business-packs/registry.ts:services",
+      "runtime_loader": "load-companion-business-pack-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "gated",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "manifest_only",
+      "limitations": [
+        "Min plan: professional. Registration: early_access."
+      ],
+      "next_required_step": "Map marketing pack slug to II provider manifests and entitlements.",
+      "panel": "app"
+    },
+    {
+      "module_id": "business_pack.projects",
+      "domain": "business_packs",
+      "business_pack_key": "projects",
+      "provider_key": "marketing_pack_projects",
+      "capability_ids": [
+        "pack.projects.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": "lib/marketing/business-packs/registry.ts:projects",
+      "runtime_loader": "load-companion-business-pack-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "gated",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "manifest_only",
+      "limitations": [
+        "Min plan: business. Registration: contact."
+      ],
+      "next_required_step": "Map marketing pack slug to II provider manifests and entitlements.",
+      "panel": "app"
+    },
+    {
+      "module_id": "business_pack.finance",
+      "domain": "business_packs",
+      "business_pack_key": "finance",
+      "provider_key": "marketing_pack_finance",
+      "capability_ids": [
+        "pack.finance.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": "lib/marketing/business-packs/registry.ts:finance",
+      "runtime_loader": "load-companion-business-pack-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "gated",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "manifest_only",
+      "limitations": [
+        "Min plan: business. Registration: early_access."
+      ],
+      "next_required_step": "Map marketing pack slug to II provider manifests and entitlements.",
+      "panel": "app"
+    },
+    {
+      "module_id": "registry.skills",
+      "domain": "skill_engine",
+      "business_pack_key": null,
+      "provider_key": "skill_registry",
+      "capability_ids": [
+        "support-assistant",
+        "presence-engine",
+        "executive-briefings",
+        "knowledge-assistant",
+        "health-monitoring",
+        "recommendations-engine",
+        "action-engine",
+        "self-healing-engine",
+        "billing-monitoring",
+        "installation-monitoring",
+        "faq-assistant",
+        "onboarding-assistant",
+        "invoice-explanation-assistant",
+        "escalation-assistant",
+        "customer-support-assistant",
+        "installation-guide-assistant",
+        "priority-recommendations",
+        "risk-identification",
+        "opportunity-detection",
+        "weekly-executive-summaries",
+        "monthly-executive-reports",
+        "approval-insights",
+        "workflow-discovery",
+        "integration-detection",
+        "domain-validation",
+        "health-scanning",
+        "system-mapping",
+        "configuration-assessment",
+        "improvement-recommendations",
+        "companion",
+        "marketing-assistant",
+        "commerce-assistant",
+        "recruitment-assistant",
+        "match-companion",
+        "family-companion",
+        "parenting-companion",
+        "wellness-companion",
+        "education-companion",
+        "elder-care-companion",
+        "pet-companion",
+        "home-companion",
+        "community-companion",
+        "travel-companion",
+        "finance-companion",
+        "legal-companion",
+        "entrepreneur-companion",
+        "retirement-companion",
+        "purpose-companion",
+        "philanthropy-companion",
+        "spiritual-reflection-companion",
+        "life-transitions-companion",
+        "volunteer-service-companion",
+        "sustainability-companion",
+        "grief-healing-companion",
+        "legacy-business-companion",
+        "childhood-memory-companion",
+        "life-journey-companion",
+        "creator-companion"
+      ],
+      "source_type": "skill",
+      "source_reference": "lib/core/skills/registry.ts",
+      "runtime_loader": "load-companion-tool-registry.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "partial",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "58 skills registered — Companion uses subset via tool registry."
+      ],
+      "next_required_step": "Ensure every operational skill maps to a coverage provider or core module.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.proactive_insights_engine",
+      "domain": "proactive",
+      "business_pack_key": "proactive_pack",
+      "provider_key": "proactive_insights_engine",
+      "capability_ids": [
+        "signal.read.read",
+        "alert.read.read",
+        "anomaly.read.read",
+        "risk_signal.read.read",
+        "attention_item.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/proactive/manifests.ts",
+      "runtime_loader": "load-companion-proactive-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for proactive_insights_engine.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.companion_recommendation_engine",
+      "domain": "integration_intelligence",
+      "business_pack_key": "recommendations_pack",
+      "provider_key": "companion_recommendation_engine",
+      "capability_ids": [
+        "recommendation.read.read",
+        "opportunity.read.read",
+        "health_score.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for companion_recommendation_engine.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.proactive_organization_center",
+      "domain": "proactive",
+      "business_pack_key": "proactive_pack",
+      "provider_key": "proactive_organization_center",
+      "capability_ids": [
+        "signal.read.read",
+        "follow_up.read.read",
+        "attention_item.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/proactive/manifests.ts",
+      "runtime_loader": "load-companion-proactive-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for proactive_organization_center.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.command_brief_operational",
+      "domain": "integration_intelligence",
+      "business_pack_key": "command_center",
+      "provider_key": "command_brief_operational",
+      "capability_ids": [
+        "signal.read.read",
+        "attention_item.read.read",
+        "forecast_warning.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for command_brief_operational.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.domain_signal_bus",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "domain_signal_bus",
+      "capability_ids": [
+        "signal.read.read",
+        "risk_signal.read.read",
+        "opportunity.read.read",
+        "health_score.read.read",
+        "follow_up.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for domain_signal_bus.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.proactive_pack_adapter",
+      "domain": "proactive",
+      "business_pack_key": "proactive_pack",
+      "provider_key": "proactive_pack_adapter",
+      "capability_ids": [
+        "signal.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/proactive/manifests.ts",
+      "runtime_loader": "load-companion-proactive-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.analytics_center",
+      "domain": "analytics",
+      "business_pack_key": "analytics",
+      "provider_key": "analytics_center",
+      "capability_ids": [
+        "kpi.read.read",
+        "metric.read.read",
+        "trend.read.read",
+        "comparison.read.read",
+        "dashboard.read.read",
+        "report.read.read",
+        "performance.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/analytics/manifests.ts",
+      "runtime_loader": "load-companion-analytics-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for analytics_center.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.executive_insights_center",
+      "domain": "integration_intelligence",
+      "business_pack_key": "executive_intelligence",
+      "provider_key": "executive_insights_center",
+      "capability_ids": [
+        "executive_insight.read.read",
+        "kpi.read.read",
+        "anomaly.read.read",
+        "performance.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for executive_insights_center.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.companion_analytics_context",
+      "domain": "analytics",
+      "business_pack_key": "analytics",
+      "provider_key": "companion_analytics_context",
+      "capability_ids": [
+        "kpi.read.read",
+        "metric.read.read",
+        "dashboard.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/analytics/manifests.ts",
+      "runtime_loader": "load-companion-analytics-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for companion_analytics_context.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.companion_executive_layer",
+      "domain": "integration_intelligence",
+      "business_pack_key": "executive_intelligence",
+      "provider_key": "companion_executive_layer",
+      "capability_ids": [
+        "executive_insight.read.read",
+        "forecast.read.read",
+        "performance.read.read",
+        "kpi.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for companion_executive_layer.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.command_brief_analytics",
+      "domain": "analytics",
+      "business_pack_key": "command_center",
+      "provider_key": "command_brief_analytics",
+      "capability_ids": [
+        "kpi.read.read",
+        "metric.read.read",
+        "dashboard.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/analytics/manifests.ts",
+      "runtime_loader": "load-companion-analytics-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for command_brief_analytics.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.cross_module_insight_bus",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "cross_module_insight_bus",
+      "capability_ids": [
+        "cross_module.read.read",
+        "comparison.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for cross_module_insight_bus.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.analytics_pack_adapter",
+      "domain": "analytics",
+      "business_pack_key": "analytics",
+      "provider_key": "analytics_pack_adapter",
+      "capability_ids": [
+        "metric.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/analytics/manifests.ts",
+      "runtime_loader": "load-companion-analytics-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.community_network_center",
+      "domain": "community",
+      "business_pack_key": "community_pack",
+      "provider_key": "community_network_center",
+      "capability_ids": [
+        "member.read.read",
+        "membership.read.read",
+        "activity.read.read",
+        "engagement.read.read",
+        "listing.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/community/manifests.ts",
+      "runtime_loader": "load-companion-community-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for community_network_center.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.moderation_engine",
+      "domain": "community",
+      "business_pack_key": "community_pack",
+      "provider_key": "moderation_engine",
+      "capability_ids": [
+        "moderation_queue.read.read",
+        "report.read.read",
+        "moderation.assign.write",
+        "moderation.update.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/community/manifests.ts",
+      "runtime_loader": "load-companion-community-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for moderation_engine.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.client_relationship_loyalty",
+      "domain": "integration_intelligence",
+      "business_pack_key": "membership_pack",
+      "provider_key": "client_relationship_loyalty",
+      "capability_ids": [
+        "reward.read.read",
+        "referral.read.read",
+        "membership.read.read",
+        "reward.adjust.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for client_relationship_loyalty.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.community_collective_intelligence",
+      "domain": "community",
+      "business_pack_key": "community_pack",
+      "provider_key": "community_collective_intelligence",
+      "capability_ids": [
+        "activity.read.read",
+        "engagement.read.read",
+        "report.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/community/manifests.ts",
+      "runtime_loader": "load-companion-community-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for community_collective_intelligence.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.community_engagement_services",
+      "domain": "community",
+      "business_pack_key": "engagement_pack",
+      "provider_key": "community_engagement_services",
+      "capability_ids": [
+        "leaderboard.read.read",
+        "birthday.read.read",
+        "gift.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/community/manifests.ts",
+      "runtime_loader": "load-companion-community-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.community_pack_adapter",
+      "domain": "community",
+      "business_pack_key": null,
+      "provider_key": "community_pack_adapter",
+      "capability_ids": [
+        "member.read.read",
+        "listing.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/community/manifests.ts",
+      "runtime_loader": "load-companion-community-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.trust_center_verification",
+      "domain": "security",
+      "business_pack_key": "trust_center",
+      "provider_key": "trust_center_verification",
+      "capability_ids": [
+        "verification.read.read",
+        "verification_status.read.read",
+        "security_event.read.read",
+        "verification.request.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/security/manifests.ts",
+      "runtime_loader": "load-companion-security-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for trust_center_verification.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.identity_access_management",
+      "domain": "integration_intelligence",
+      "business_pack_key": "governance_pack",
+      "provider_key": "identity_access_management",
+      "capability_ids": [
+        "access.read.read",
+        "role.read.read",
+        "permission.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for identity_access_management.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.security_compliance_center",
+      "domain": "security",
+      "business_pack_key": "security_pack",
+      "provider_key": "security_compliance_center",
+      "capability_ids": [
+        "security_event.read.read",
+        "compliance_status.read.read",
+        "incident.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/security/manifests.ts",
+      "runtime_loader": "load-companion-security-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for security_compliance_center.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.audit_accountability",
+      "domain": "integration_intelligence",
+      "business_pack_key": "governance_pack",
+      "provider_key": "audit_accountability",
+      "capability_ids": [
+        "audit_log.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for audit_accountability.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.governance_management",
+      "domain": "integration_intelligence",
+      "business_pack_key": "governance_pack",
+      "provider_key": "governance_management",
+      "capability_ids": [
+        "policy_violation.read.read",
+        "risk_signal.read.read",
+        "access_review.read.read",
+        "access_review.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for governance_management.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.security_pack_adapter",
+      "domain": "security",
+      "business_pack_key": null,
+      "provider_key": "security_pack_adapter",
+      "capability_ids": [
+        "verification.read.read",
+        "audit_log.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/security/manifests.ts",
+      "runtime_loader": "load-companion-security-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.sales_revenue_pipeline",
+      "domain": "sales",
+      "business_pack_key": "revenue_pack",
+      "provider_key": "sales_revenue_pipeline",
+      "capability_ids": [
+        "pipeline.read.read",
+        "opportunity.read.read",
+        "deal.read.read",
+        "conversion.read.read",
+        "sales_forecast.read.read",
+        "follow_up.create.write",
+        "sales_task.create.write",
+        "response.draft.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/sales/manifests.ts",
+      "runtime_loader": "load-companion-sales-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for sales_revenue_pipeline.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.customer_relationship",
+      "domain": "integration_intelligence",
+      "business_pack_key": "revenue_pack",
+      "provider_key": "customer_relationship",
+      "capability_ids": [
+        "customer.read.read",
+        "contact.read.read",
+        "opportunity.read.read",
+        "customer_health.read.read",
+        "follow_up.read.read",
+        "follow_up.create.write",
+        "sales_task.create.write",
+        "response.draft.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for customer_relationship.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.lead_management",
+      "domain": "integration_intelligence",
+      "business_pack_key": "revenue_pack",
+      "provider_key": "lead_management",
+      "capability_ids": [
+        "lead.read.read",
+        "prospect.read.read",
+        "conversion.read.read",
+        "follow_up.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for lead_management.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.revenue_intelligence",
+      "domain": "integration_intelligence",
+      "business_pack_key": "revenue_pack",
+      "provider_key": "revenue_intelligence",
+      "capability_ids": [
+        "attribution.read.read",
+        "churn_risk.read.read",
+        "sales_forecast.read.read",
+        "conversion.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for revenue_intelligence.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.growth_partner_attribution",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "growth_partner_attribution",
+      "capability_ids": [
+        "attribution.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.sales_pack_adapter",
+      "domain": "sales",
+      "business_pack_key": null,
+      "provider_key": "sales_pack_adapter",
+      "capability_ids": [
+        "pipeline.read.read",
+        "customer.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/sales/manifests.ts",
+      "runtime_loader": "load-companion-sales-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.finance_operations_center",
+      "domain": "finance",
+      "business_pack_key": "finance_pack",
+      "provider_key": "finance_operations_center",
+      "capability_ids": [
+        "revenue.read.read",
+        "expense.read.read",
+        "invoice.read.read",
+        "subscription.read.read",
+        "payment.read.read",
+        "payout.read.read",
+        "billing_profile.read.read",
+        "forecast.read.read",
+        "report.read.read",
+        "reconciliation.read.read",
+        "invoice.draft.write",
+        "report.export.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/finance/manifests.ts",
+      "runtime_loader": "load-companion-finance-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for finance_operations_center.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.revenue_operations",
+      "domain": "integration_intelligence",
+      "business_pack_key": "finance_pack",
+      "provider_key": "revenue_operations",
+      "capability_ids": [
+        "revenue.read.read",
+        "forecast.read.read",
+        "report.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for revenue_operations.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.unified_billing",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "unified_billing",
+      "capability_ids": [
+        "subscription.read.read",
+        "billing_profile.read.read",
+        "invoice.read.read",
+        "payment.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for unified_billing.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.payment_providers",
+      "domain": "integration_intelligence",
+      "business_pack_key": "finance_pack",
+      "provider_key": "payment_providers",
+      "capability_ids": [
+        "payment.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for payment_providers.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.enterprise_invoicing",
+      "domain": "integration_intelligence",
+      "business_pack_key": "finance_pack",
+      "provider_key": "enterprise_invoicing",
+      "capability_ids": [
+        "invoice.read.read",
+        "reconciliation.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for enterprise_invoicing.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.finance_pack_adapter",
+      "domain": "finance",
+      "business_pack_key": null,
+      "provider_key": "finance_pack_adapter",
+      "capability_ids": [
+        "reconciliation.read.read",
+        "report.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/finance/manifests.ts",
+      "runtime_loader": "load-companion-finance-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.inventory_stock_center",
+      "domain": "integration_intelligence",
+      "business_pack_key": "warehouse_pack",
+      "provider_key": "inventory_stock_center",
+      "capability_ids": [
+        "inventory.read.read",
+        "stock.read.read",
+        "location.read.read",
+        "item.read.read",
+        "supplier.read.read",
+        "purchase_order.read.read",
+        "goods_receipt.read.read",
+        "transfer.read.read",
+        "replenishment.read.read",
+        "stock_alert.read.read",
+        "inventory_adjustment.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for inventory_stock_center.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.warehouse_control",
+      "domain": "warehouse",
+      "business_pack_key": "warehouse_pack",
+      "provider_key": "warehouse_control",
+      "capability_ids": [
+        "warehouse.read.read",
+        "inventory.read.read",
+        "stock.read.read",
+        "location.read.read",
+        "item.read.read",
+        "transfer.create.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/warehouse/manifests.ts",
+      "runtime_loader": "load-companion-warehouse-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for warehouse_control.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.warehouse_fulfillment",
+      "domain": "warehouse",
+      "business_pack_key": "warehouse_pack",
+      "provider_key": "warehouse_fulfillment",
+      "capability_ids": [
+        "pick_order.read.read",
+        "pick_order.create.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/warehouse/manifests.ts",
+      "runtime_loader": "load-companion-warehouse-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "manifest_only",
+      "limitations": [],
+      "next_required_step": "Connect live source for warehouse_fulfillment.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.warehouse_logistics",
+      "domain": "warehouse",
+      "business_pack_key": "warehouse_pack",
+      "provider_key": "warehouse_logistics",
+      "capability_ids": [
+        "shipment.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/warehouse/manifests.ts",
+      "runtime_loader": "load-companion-warehouse-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for warehouse_logistics.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.warehouse_pack_adapter",
+      "domain": "warehouse",
+      "business_pack_key": null,
+      "provider_key": "warehouse_pack_adapter",
+      "capability_ids": [
+        "warehouse.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/warehouse/manifests.ts",
+      "runtime_loader": "load-companion-warehouse-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.workforce_employee_directory",
+      "domain": "integration_intelligence",
+      "business_pack_key": "hr_pack",
+      "provider_key": "workforce_employee_directory",
+      "capability_ids": [
+        "employee.read.read",
+        "department.read.read",
+        "role.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for workforce_employee_directory.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.workforce_team",
+      "domain": "integration_intelligence",
+      "business_pack_key": "hr_pack",
+      "provider_key": "workforce_team",
+      "capability_ids": [
+        "team.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for workforce_team.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.workforce_lifecycle",
+      "domain": "integration_intelligence",
+      "business_pack_key": "hr_pack",
+      "provider_key": "workforce_lifecycle",
+      "capability_ids": [
+        "onboarding.read.read",
+        "employee.read.read",
+        "onboarding.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for workforce_lifecycle.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.workforce_people_operations",
+      "domain": "integration_intelligence",
+      "business_pack_key": "hr_pack",
+      "provider_key": "workforce_people_operations",
+      "capability_ids": [
+        "training.read.read",
+        "certification.read.read",
+        "performance.read.read",
+        "task.assign.write",
+        "employee.update.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for workforce_people_operations.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.workforce_scheduling_hr",
+      "domain": "hr",
+      "business_pack_key": "hr_pack",
+      "provider_key": "workforce_scheduling_hr",
+      "capability_ids": [
+        "schedule.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/hr/manifests.ts",
+      "runtime_loader": "load-companion-hr-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for workforce_scheduling_hr.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.workforce_absence_hr",
+      "domain": "hr",
+      "business_pack_key": "hr_pack",
+      "provider_key": "workforce_absence_hr",
+      "capability_ids": [
+        "absence.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/hr/manifests.ts",
+      "runtime_loader": "load-companion-hr-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for workforce_absence_hr.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.workforce_knowledge",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "workforce_knowledge",
+      "capability_ids": [
+        "training.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for workforce_knowledge.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.hr_pack_adapter",
+      "domain": "hr",
+      "business_pack_key": null,
+      "provider_key": "hr_pack_adapter",
+      "capability_ids": [
+        "employee.read.read",
+        "onboarding.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/hr/manifests.ts",
+      "runtime_loader": "load-companion-hr-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.short_term_property",
+      "domain": "integration_intelligence",
+      "business_pack_key": "aipify_hosts",
+      "provider_key": "short_term_property",
+      "capability_ids": [
+        "property.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for short_term_property.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.short_term_reservation",
+      "domain": "integration_intelligence",
+      "business_pack_key": "aipify_hosts",
+      "provider_key": "short_term_reservation",
+      "capability_ids": [
+        "reservation.read.read",
+        "availability.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for short_term_reservation.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.short_term_guest",
+      "domain": "integration_intelligence",
+      "business_pack_key": "aipify_hosts",
+      "provider_key": "short_term_guest",
+      "capability_ids": [
+        "guest.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for short_term_guest.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.short_term_calendar",
+      "domain": "integration_intelligence",
+      "business_pack_key": "aipify_hosts",
+      "provider_key": "short_term_calendar",
+      "capability_ids": [
+        "availability.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for short_term_calendar.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.short_term_operations",
+      "domain": "integration_intelligence",
+      "business_pack_key": "aipify_hosts",
+      "provider_key": "short_term_operations",
+      "capability_ids": [
+        "cleaning.read.read",
+        "maintenance.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for short_term_operations.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.short_term_finance",
+      "domain": "finance",
+      "business_pack_key": "aipify_hosts",
+      "provider_key": "short_term_finance",
+      "capability_ids": [
+        "payout.read.read",
+        "revenue.read.read",
+        "expense.read.read",
+        "forecast.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/finance/manifests.ts",
+      "runtime_loader": "load-companion-finance-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for short_term_finance.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.short_term_communications",
+      "domain": "integration_intelligence",
+      "business_pack_key": "aipify_hosts",
+      "provider_key": "short_term_communications",
+      "capability_ids": [
+        "message.draft.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for short_term_communications.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.short_term_reports",
+      "domain": "integration_intelligence",
+      "business_pack_key": "aipify_hosts",
+      "provider_key": "short_term_reports",
+      "capability_ids": [
+        "report.export.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for short_term_reports.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.short_term_access",
+      "domain": "integration_intelligence",
+      "business_pack_key": "aipify_hosts",
+      "provider_key": "short_term_access",
+      "capability_ids": [
+        "property.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for short_term_access.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.hosts_pack_adapter",
+      "domain": "hosts",
+      "business_pack_key": null,
+      "provider_key": "hosts_pack_adapter",
+      "capability_ids": [
+        "property.read.read",
+        "reservation.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/hosts/manifests.ts",
+      "runtime_loader": "load-companion-hosts-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.local_service_beauty",
+      "domain": "industry_packs",
+      "business_pack_key": "appointments_services",
+      "provider_key": "local_service_beauty",
+      "capability_ids": [
+        "service.read.read",
+        "treatment.read.read",
+        "availability.read.read",
+        "appointment.read.read",
+        "customer.read.read",
+        "appointment.create.write",
+        "appointment.update.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/industry_packs/manifests.ts",
+      "runtime_loader": "load-companion-industry-pack-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for local_service_beauty.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.service_scheduling_staff",
+      "domain": "integration_intelligence",
+      "business_pack_key": "appointments_services",
+      "provider_key": "service_scheduling_staff",
+      "capability_ids": [
+        "staff.read.read",
+        "availability.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for service_scheduling_staff.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.service_retail_inventory",
+      "domain": "integration_intelligence",
+      "business_pack_key": "appointments_services",
+      "provider_key": "service_retail_inventory",
+      "capability_ids": [
+        "product.read.read",
+        "inventory.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for service_retail_inventory.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.client_engagement_follow_up",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "client_engagement_follow_up",
+      "capability_ids": [
+        "reminder.create.write",
+        "follow_up.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for client_engagement_follow_up.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.industry_pack_adapter",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "industry_pack_adapter",
+      "capability_ids": [
+        "appointment.read.read",
+        "customer.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.support_ai_engine",
+      "domain": "support",
+      "business_pack_key": "support_operations",
+      "provider_key": "support_ai_engine",
+      "capability_ids": [
+        "support_case.read.read",
+        "support_case.search.read",
+        "conversation.read.read",
+        "sla.read.read",
+        "customer_context.read.read",
+        "support_insight.read.read",
+        "support_case.create.write",
+        "support_case.assign.write",
+        "support_case.update.write",
+        "response.draft.write",
+        "escalation.create.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/support/manifests.ts",
+      "runtime_loader": "load-companion-support-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for support_ai_engine.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.autonomous_support_operations",
+      "domain": "support",
+      "business_pack_key": "support_operations",
+      "provider_key": "autonomous_support_operations",
+      "capability_ids": [
+        "support_case.read.read",
+        "support_insight.read.read",
+        "response.draft.write",
+        "escalation.create.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/support/manifests.ts",
+      "runtime_loader": "load-companion-support-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for autonomous_support_operations.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.self_support_engine",
+      "domain": "support",
+      "business_pack_key": null,
+      "provider_key": "self_support_engine",
+      "capability_ids": [
+        "conversation.read.read",
+        "support_insight.read.read",
+        "escalation.create.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/support/manifests.ts",
+      "runtime_loader": "load-companion-support-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for self_support_engine.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.app_portal_support",
+      "domain": "support",
+      "business_pack_key": null,
+      "provider_key": "app_portal_support",
+      "capability_ids": [
+        "support_case.read.read",
+        "support_case.search.read",
+        "conversation.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/support/manifests.ts",
+      "runtime_loader": "load-companion-support-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for app_portal_support.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.proactive_organization_support",
+      "domain": "proactive",
+      "business_pack_key": null,
+      "provider_key": "proactive_organization_support",
+      "capability_ids": [
+        "support_insight.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/proactive/manifests.ts",
+      "runtime_loader": "load-companion-proactive-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for proactive_organization_support.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.business_dna_knowledge",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "business_dna_knowledge",
+      "capability_ids": [
+        "support_insight.read.read",
+        "response.draft.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for business_dna_knowledge.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.support_adapter",
+      "domain": "support",
+      "business_pack_key": null,
+      "provider_key": "support_adapter",
+      "capability_ids": [
+        "support_case.read.read",
+        "conversation.read.read",
+        "customer_context.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/support/manifests.ts",
+      "runtime_loader": "load-companion-support-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.appointment_booking",
+      "domain": "services",
+      "business_pack_key": "appointments_services",
+      "provider_key": "appointment_booking",
+      "capability_ids": [
+        "service.read.read",
+        "service.availability.read.read",
+        "appointment.read.read",
+        "resource.read.read",
+        "customer.read.read",
+        "location.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/services/manifests.ts",
+      "runtime_loader": "load-companion-services-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for appointment_booking.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.workforce_scheduling",
+      "domain": "services",
+      "business_pack_key": "appointments_services",
+      "provider_key": "workforce_scheduling",
+      "capability_ids": [
+        "resource.read.read",
+        "service.availability.read.read",
+        "assignment.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/services/manifests.ts",
+      "runtime_loader": "load-companion-services-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for workforce_scheduling.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.absence_vacation_coverage",
+      "domain": "services",
+      "business_pack_key": null,
+      "provider_key": "absence_vacation_coverage",
+      "capability_ids": [
+        "service.availability.read.read",
+        "resource.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/services/manifests.ts",
+      "runtime_loader": "load-companion-services-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for absence_vacation_coverage.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.execution_operations",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "execution_operations",
+      "capability_ids": [
+        "work_order.read.read",
+        "assignment.read.read",
+        "location.read.read",
+        "customer.read.read",
+        "work_order.create.write",
+        "work_order.assign.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for execution_operations.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.companion_real_world_coordination",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "companion_real_world_coordination",
+      "capability_ids": [
+        "service.read.read",
+        "appointment.read.read",
+        "location.read.read",
+        "customer.read.read",
+        "work_order.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for companion_real_world_coordination.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.service_network",
+      "domain": "integration_intelligence",
+      "business_pack_key": "appointments_services",
+      "provider_key": "service_network",
+      "capability_ids": [
+        "location.read.read",
+        "resource.read.read",
+        "service.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for service_network.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.service_intake",
+      "domain": "integration_intelligence",
+      "business_pack_key": "appointments_services",
+      "provider_key": "service_intake",
+      "capability_ids": [
+        "service.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for service_intake.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.commerce_retail_operations",
+      "domain": "commerce",
+      "business_pack_key": null,
+      "provider_key": "commerce_retail_operations",
+      "capability_ids": [
+        "product.read.read",
+        "order.read.read",
+        "customer.read.read",
+        "inventory.read.read",
+        "category.read.read",
+        "store.read.read",
+        "margin.read.read",
+        "product.create.write",
+        "product.import.write",
+        "store.create.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/commerce/manifests.ts",
+      "runtime_loader": "load-companion-commerce-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for commerce_retail_operations.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.commerce_intelligence",
+      "domain": "commerce",
+      "business_pack_key": null,
+      "provider_key": "commerce_intelligence",
+      "capability_ids": [
+        "product.read.read",
+        "category.read.read",
+        "margin.read.read",
+        "trend.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/commerce/manifests.ts",
+      "runtime_loader": "load-companion-commerce-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for commerce_intelligence.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.product_automation",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "product_automation",
+      "capability_ids": [
+        "product.read.read",
+        "category.read.read",
+        "content.generate.write",
+        "translation.generate.write",
+        "seo.generate.write",
+        "product.import.write",
+        "storefront.publish.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for product_automation.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.multi_store_orchestration",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "multi_store_orchestration",
+      "capability_ids": [
+        "store.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for multi_store_orchestration.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.shopify",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "shopify",
+      "capability_ids": [
+        "product.read.read",
+        "order.read.read",
+        "customer.read.read",
+        "inventory.read.read",
+        "category.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.woocommerce",
+      "domain": "commerce",
+      "business_pack_key": null,
+      "provider_key": "woocommerce",
+      "capability_ids": [
+        "product.read.read",
+        "order.read.read",
+        "customer.read.read",
+        "inventory.read.read",
+        "category.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/commerce/manifests.ts",
+      "runtime_loader": "load-companion-commerce-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.wordpress",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "wordpress",
+      "capability_ids": [
+        "content.read.read",
+        "category.read.read",
+        "content.generate.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.organization_calendar",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "organization_calendar",
+      "capability_ids": [
+        "calendar.read.read",
+        "calendar.event.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for organization_calendar.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.context_engine_calendar",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "context_engine_calendar",
+      "capability_ids": [
+        "calendar.read.read",
+        "calendar.event.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for context_engine_calendar.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.organization_tasks",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "organization_tasks",
+      "capability_ids": [
+        "task.read.read",
+        "task.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for organization_tasks.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.support_email_drafts",
+      "domain": "support",
+      "business_pack_key": null,
+      "provider_key": "support_email_drafts",
+      "capability_ids": [
+        "email.read.read",
+        "email.draft.write",
+        "email.send.write"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/support/manifests.ts",
+      "runtime_loader": "load-companion-support-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for support_email_drafts.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.organization_documents",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "organization_documents",
+      "capability_ids": [
+        "document.read.read",
+        "file.search.read",
+        "document.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for organization_documents.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.universal_search",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "universal_search",
+      "capability_ids": [
+        "file.search.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for universal_search.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.organization_notifications",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "organization_notifications",
+      "capability_ids": [
+        "notification.read.read",
+        "notification.send.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for organization_notifications.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.print_output",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "print_output",
+      "capability_ids": [
+        "document.read.read",
+        "print.execute.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for print_output.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.companion_device_ecosystem",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "companion_device_ecosystem",
+      "capability_ids": [
+        "device.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for companion_device_ecosystem.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.companion_presence_devices",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "companion_presence_devices",
+      "capability_ids": [
+        "device.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for companion_presence_devices.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.canva",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "canva",
+      "capability_ids": [
+        "design.read.read",
+        "brand_kit.read.read",
+        "design.from_template.write",
+        "presentation.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.adobe_firefly",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "adobe_firefly",
+      "capability_ids": [
+        "design.read.read",
+        "image.generate.write",
+        "image.edit.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for adobe_firefly.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.openai_images",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "openai_images",
+      "capability_ids": [
+        "image.generate.write",
+        "image.edit.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for openai_images.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.google_imagen",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "google_imagen",
+      "capability_ids": [
+        "image.generate.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.photoshop",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "photoshop",
+      "capability_ids": [
+        "design.read.read",
+        "image.edit.write",
+        "media.export.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for photoshop.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.illustrator",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "illustrator",
+      "capability_ids": [
+        "design.read.read",
+        "image.edit.write",
+        "media.export.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for illustrator.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.lightroom",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "lightroom",
+      "capability_ids": [
+        "design.read.read",
+        "image.edit.write",
+        "media.export.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for lightroom.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.premiere",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "premiere",
+      "capability_ids": [
+        "design.read.read",
+        "video.create.write",
+        "video.edit.write",
+        "media.export.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.indesign",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "indesign",
+      "capability_ids": [
+        "design.read.read",
+        "presentation.create.write",
+        "media.export.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.figma",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "figma",
+      "capability_ids": [
+        "design.read.read",
+        "design.create.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.blender",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "blender",
+      "capability_ids": [
+        "design.read.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.studio_image_generation",
+      "domain": "integration_intelligence",
+      "business_pack_key": null,
+      "provider_key": "studio_image_generation",
+      "capability_ids": [
+        "image.generate.write",
+        "image.edit.write",
+        "media.export.write"
+      ],
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for studio_image_generation.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.unonight_community_adapter",
+      "domain": "community",
+      "business_pack_key": "community_pack",
+      "provider_key": "unonight_community_adapter",
+      "capability_ids": [
+        "member.read.read",
+        "activity.read.read",
+        "moderation_queue.read.read",
+        "report.read.read",
+        "verification_status.read.read",
+        "listing.read.read"
+      ],
+      "source_type": "adapter",
+      "source_reference": "lib/unonight/provider-adapter/",
+      "runtime_loader": "load-companion-community-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "linked",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "production_ready_candidate",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "verification.unonight_adapter_status",
+      "domain": "member_verification",
+      "business_pack_key": "community_pack",
+      "provider_key": "unonight_community_adapter",
+      "capability_ids": [
+        "verification_status.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "rpc:get_customer_community_network_center:best_practices",
+      "runtime_loader": "load-companion-community-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "linked",
+      "action_status": "blocked",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Uses community best-practice moderation_status metadata — not full verification queue.",
+        "No document images, ID data, or sensitive profile fields exposed to Companion."
+      ],
+      "next_required_step": "Connect dedicated verification_queue.read source when Unonight verification RPC is approved.",
+      "panel": "app"
+    },
+    {
+      "module_id": "verification.trust_center",
+      "domain": "member_verification",
+      "business_pack_key": "trust_center",
+      "provider_key": "trust_center_verification",
+      "capability_ids": [
+        "verification.read",
+        "verification_status.read",
+        "verification.request"
+      ],
+      "source_type": "rpc",
+      "source_reference": "rpc:get_customer_trust_center / security dashboard RPCs",
+      "runtime_loader": "load-companion-security-context.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "verification.request requires explicit approval — no auto-approve.",
+        "Privacy-sensitive verification metadata only."
+      ],
+      "next_required_step": "Wire verification queue pending counts to Command Brief when live adapter exists.",
+      "panel": "app"
+    },
+    {
+      "module_id": "verification.queue_read",
+      "domain": "member_verification",
+      "business_pack_key": "community_pack",
+      "provider_key": "verification_queue",
+      "capability_ids": [
+        "verification_queue.read"
+      ],
+      "source_type": "none",
+      "source_reference": null,
+      "runtime_loader": "load-companion-community-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "disabled",
+      "command_brief_status": "none",
+      "action_status": "blocked",
+      "language_status": "partial",
+      "test_status": "missing",
+      "readiness": "source_missing",
+      "limitations": [
+        "Capability not registered in any provider manifest yet."
+      ],
+      "next_required_step": "Add verification_queue.read to provider manifest and Unonight read-only source.",
+      "panel": "app"
+    },
+    {
+      "module_id": "verification.case_read",
+      "domain": "member_verification",
+      "business_pack_key": "community_pack",
+      "provider_key": "verification_case",
+      "capability_ids": [
+        "verification_case.read"
+      ],
+      "source_type": "none",
+      "source_reference": null,
+      "runtime_loader": "load-companion-community-context.ts",
+      "schema_status": "missing",
+      "permission_status": "partial",
+      "activation_status": "disabled",
+      "command_brief_status": "none",
+      "action_status": "blocked",
+      "language_status": "partial",
+      "test_status": "missing",
+      "readiness": "source_missing",
+      "limitations": [
+        "No verification case read capability in manifests."
+      ],
+      "next_required_step": "Define verification_case.read in provider manifest with audit-only metadata fields.",
+      "panel": "app"
+    },
+    {
+      "module_id": "verification.review_create",
+      "domain": "member_verification",
+      "business_pack_key": "trust_center",
+      "provider_key": "trust_center_verification",
+      "capability_ids": [
+        "verification_review.create"
+      ],
+      "source_type": "none",
+      "source_reference": null,
+      "runtime_loader": "load-companion-security-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "disabled",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "partial",
+      "test_status": "missing",
+      "readiness": "specification_only",
+      "limitations": [
+        "No reversible verification_review.create registered — verification.request exists instead."
+      ],
+      "next_required_step": "Register reversible review action only if existing Trust Center RPC supports it.",
+      "panel": "app"
+    },
+    {
+      "module_id": "service.appointment_booking",
+      "domain": "appointment_service",
+      "business_pack_key": "appointments_services",
+      "provider_key": "appointment_booking",
+      "capability_ids": [
+        "service.read",
+        "service.availability.read",
+        "availability.read",
+        "appointment.read",
+        "booking.read",
+        "resource.read",
+        "customer.read",
+        "location.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "rpc:get_organization_appointment_booking_center / service experience RPCs",
+      "runtime_loader": "load-companion-services-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Discovery-first — adapter_available false in manifest.",
+        "No live booking.create in Companion yet."
+      ],
+      "next_required_step": "Connect appointment provider adapter with availability and buffer rules.",
+      "panel": "app"
+    },
+    {
+      "module_id": "service.local_service_beauty",
+      "domain": "appointment_service",
+      "business_pack_key": "appointments_services",
+      "provider_key": "local_service_beauty",
+      "capability_ids": [
+        "service.read",
+        "treatment.read",
+        "availability.read",
+        "appointment.read",
+        "appointment.create",
+        "appointment.update"
+      ],
+      "source_type": "rpc",
+      "source_reference": "industry_blueprint:local-service-business",
+      "runtime_loader": "load-companion-industry-pack-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Generic Services/Appointment provider — no salon-specific Core logic.",
+        "Double-booking prevention depends on industry pack loader flags."
+      ],
+      "next_required_step": "Provider adapter for natural-language booking with employee match and buffer enforcement.",
+      "panel": "app"
+    },
+    {
+      "module_id": "service.workforce_scheduling",
+      "domain": "appointment_service",
+      "business_pack_key": "appointments_services",
+      "provider_key": "workforce_scheduling",
+      "capability_ids": [
+        "resource.read",
+        "employee.read",
+        "service.availability.read",
+        "availability.read",
+        "assignment.read",
+        "staff.read",
+        "schedule.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "rpc:workforce scheduling / staff availability RPCs",
+      "runtime_loader": "load-companion-services-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Employee.read mapped via resource/staff capabilities — not standalone adapter."
+      ],
+      "next_required_step": "Wire employee.read capability alias in services provider manifest.",
+      "panel": "app"
+    },
+    {
+      "module_id": "service.absence_vacation",
+      "domain": "appointment_service",
+      "business_pack_key": null,
+      "provider_key": "absence_vacation_coverage",
+      "capability_ids": [
+        "service.availability.read",
+        "resource.read",
+        "vacation_mode.read",
+        "absence.read",
+        "post_vacation_availability.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "rpc:absence_vacation_coverage / vacation mode engine",
+      "runtime_loader": "load-companion-services-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "vacation_mode.read and post_vacation_availability.read are loader flags — not separate manifest capabilities."
+      ],
+      "next_required_step": "Register vacation_mode.read and post_vacation_availability.read in services manifest.",
+      "panel": "app"
+    },
+    {
+      "module_id": "service.booking_write",
+      "domain": "appointment_service",
+      "business_pack_key": "appointments_services",
+      "provider_key": "local_service_beauty",
+      "capability_ids": [
+        "booking.create",
+        "booking.update",
+        "booking.read",
+        "cancellation.read"
+      ],
+      "source_type": "none",
+      "source_reference": null,
+      "runtime_loader": "load-companion-industry-pack-context.ts",
+      "schema_status": "missing",
+      "permission_status": "partial",
+      "activation_status": "disabled",
+      "command_brief_status": "none",
+      "action_status": "approval_required",
+      "language_status": "partial",
+      "test_status": "missing",
+      "readiness": "source_missing",
+      "limitations": [
+        "Manifest uses appointment.create/update — booking.* capability IDs not registered."
+      ],
+      "next_required_step": "Align booking.* capability IDs with appointment.* in services manifest or add aliases.",
+      "panel": "app"
+    },
+    {
+      "module_id": "panel.super_admin",
+      "domain": "platform_governance",
+      "business_pack_key": null,
+      "provider_key": "super_admin_panel",
+      "capability_ids": [
+        "platform_governance.read",
+        "global_audit.read",
+        "executive_oversight.read"
+      ],
+      "source_type": "api",
+      "source_reference": "lib/super-admin/nav-config.ts",
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "none",
+      "action_status": "blocked",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Executive oversight only — no customer operational data.",
+        "Companion wiring partial on super routes."
+      ],
+      "next_required_step": "Link super-admin aggregate RPCs to read-only Companion governance context.",
+      "panel": "super_admin"
+    },
+    {
+      "module_id": "panel.platform",
+      "domain": "platform_admin",
+      "business_pack_key": null,
+      "provider_key": "platform_admin_panel",
+      "capability_ids": [
+        "platform.customers.read",
+        "platform.subscriptions.read",
+        "platform.trust.read",
+        "platform.skills.read",
+        "platform.impact.read"
+      ],
+      "source_type": "api",
+      "source_reference": "lib/platform/nav-config.ts",
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "partial",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Aggregates only — never customer operational records in Companion."
+      ],
+      "next_required_step": "Wire verified provider registry to platform Companion knowledge surface.",
+      "panel": "platform"
+    },
+    {
+      "module_id": "panel.partners",
+      "domain": "growth_partner",
+      "business_pack_key": null,
+      "provider_key": "partners_portal",
+      "capability_ids": [
+        "partner.attribution.read",
+        "partner.pipeline.read"
+      ],
+      "source_type": "api",
+      "source_reference": "lib/partners-portal/nav-config.ts",
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Attribution only — partners do not own customers."
+      ],
+      "next_required_step": "Connect partner growth metrics to read-only Companion briefing.",
+      "panel": "partners"
+    },
+    {
+      "module_id": "panel.app",
+      "domain": "app_organization",
+      "business_pack_key": null,
+      "provider_key": "customer_app_panel",
+      "capability_ids": [
+        "app.executive.read",
+        "app.support.read",
+        "app.approvals.read",
+        "app.command_center.read",
+        "app.assistant.read"
+      ],
+      "source_type": "api",
+      "source_reference": "lib/app/nav-config.ts",
+      "runtime_loader": "companion-tenant-context.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "linked",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected",
+      "limitations": [
+        "Primary Companion surface — tenant-scoped only."
+      ],
+      "next_required_step": null,
+      "panel": "app"
+    }
+  ],
+  "gaps": [
+    {
+      "priority": "P1",
+      "module_id": "provider.proactive_insights_engine",
+      "provider_key": "proactive_insights_engine",
+      "capability_ids": [
+        "signal.read.read",
+        "alert.read.read",
+        "anomaly.read.read",
+        "risk_signal.read.read",
+        "attention_item.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for proactive_insights_engine."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.companion_recommendation_engine",
+      "provider_key": "companion_recommendation_engine",
+      "capability_ids": [
+        "recommendation.read.read",
+        "opportunity.read.read",
+        "health_score.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for companion_recommendation_engine."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.proactive_organization_center",
+      "provider_key": "proactive_organization_center",
+      "capability_ids": [
+        "signal.read.read",
+        "follow_up.read.read",
+        "attention_item.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for proactive_organization_center."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.command_brief_operational",
+      "provider_key": "command_brief_operational",
+      "capability_ids": [
+        "signal.read.read",
+        "attention_item.read.read",
+        "forecast_warning.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for command_brief_operational."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.domain_signal_bus",
+      "provider_key": "domain_signal_bus",
+      "capability_ids": [
+        "signal.read.read",
+        "risk_signal.read.read",
+        "opportunity.read.read",
+        "health_score.read.read",
+        "follow_up.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for domain_signal_bus."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.analytics_center",
+      "provider_key": "analytics_center",
+      "capability_ids": [
+        "kpi.read.read",
+        "metric.read.read",
+        "trend.read.read",
+        "comparison.read.read",
+        "dashboard.read.read",
+        "report.read.read",
+        "performance.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for analytics_center."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.executive_insights_center",
+      "provider_key": "executive_insights_center",
+      "capability_ids": [
+        "executive_insight.read.read",
+        "kpi.read.read",
+        "anomaly.read.read",
+        "performance.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for executive_insights_center."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.companion_analytics_context",
+      "provider_key": "companion_analytics_context",
+      "capability_ids": [
+        "kpi.read.read",
+        "metric.read.read",
+        "dashboard.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for companion_analytics_context."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.companion_executive_layer",
+      "provider_key": "companion_executive_layer",
+      "capability_ids": [
+        "executive_insight.read.read",
+        "forecast.read.read",
+        "performance.read.read",
+        "kpi.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for companion_executive_layer."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.command_brief_analytics",
+      "provider_key": "command_brief_analytics",
+      "capability_ids": [
+        "kpi.read.read",
+        "metric.read.read",
+        "dashboard.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for command_brief_analytics."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.cross_module_insight_bus",
+      "provider_key": "cross_module_insight_bus",
+      "capability_ids": [
+        "cross_module.read.read",
+        "comparison.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for cross_module_insight_bus."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.community_network_center",
+      "provider_key": "community_network_center",
+      "capability_ids": [
+        "member.read.read",
+        "membership.read.read",
+        "activity.read.read",
+        "engagement.read.read",
+        "listing.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for community_network_center."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.moderation_engine",
+      "provider_key": "moderation_engine",
+      "capability_ids": [
+        "moderation_queue.read.read",
+        "report.read.read",
+        "moderation.assign.write",
+        "moderation.update.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for moderation_engine."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.client_relationship_loyalty",
+      "provider_key": "client_relationship_loyalty",
+      "capability_ids": [
+        "reward.read.read",
+        "referral.read.read",
+        "membership.read.read",
+        "reward.adjust.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for client_relationship_loyalty."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.community_collective_intelligence",
+      "provider_key": "community_collective_intelligence",
+      "capability_ids": [
+        "activity.read.read",
+        "engagement.read.read",
+        "report.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for community_collective_intelligence."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.trust_center_verification",
+      "provider_key": "trust_center_verification",
+      "capability_ids": [
+        "verification.read.read",
+        "verification_status.read.read",
+        "security_event.read.read",
+        "verification.request.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for trust_center_verification."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.identity_access_management",
+      "provider_key": "identity_access_management",
+      "capability_ids": [
+        "access.read.read",
+        "role.read.read",
+        "permission.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for identity_access_management."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.security_compliance_center",
+      "provider_key": "security_compliance_center",
+      "capability_ids": [
+        "security_event.read.read",
+        "compliance_status.read.read",
+        "incident.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for security_compliance_center."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.audit_accountability",
+      "provider_key": "audit_accountability",
+      "capability_ids": [
+        "audit_log.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for audit_accountability."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.governance_management",
+      "provider_key": "governance_management",
+      "capability_ids": [
+        "policy_violation.read.read",
+        "risk_signal.read.read",
+        "access_review.read.read",
+        "access_review.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for governance_management."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.sales_revenue_pipeline",
+      "provider_key": "sales_revenue_pipeline",
+      "capability_ids": [
+        "pipeline.read.read",
+        "opportunity.read.read",
+        "deal.read.read",
+        "conversion.read.read",
+        "sales_forecast.read.read",
+        "follow_up.create.write",
+        "sales_task.create.write",
+        "response.draft.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for sales_revenue_pipeline."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.customer_relationship",
+      "provider_key": "customer_relationship",
+      "capability_ids": [
+        "customer.read.read",
+        "contact.read.read",
+        "opportunity.read.read",
+        "customer_health.read.read",
+        "follow_up.read.read",
+        "follow_up.create.write",
+        "sales_task.create.write",
+        "response.draft.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for customer_relationship."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.lead_management",
+      "provider_key": "lead_management",
+      "capability_ids": [
+        "lead.read.read",
+        "prospect.read.read",
+        "conversion.read.read",
+        "follow_up.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for lead_management."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.revenue_intelligence",
+      "provider_key": "revenue_intelligence",
+      "capability_ids": [
+        "attribution.read.read",
+        "churn_risk.read.read",
+        "sales_forecast.read.read",
+        "conversion.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for revenue_intelligence."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.finance_operations_center",
+      "provider_key": "finance_operations_center",
+      "capability_ids": [
+        "revenue.read.read",
+        "expense.read.read",
+        "invoice.read.read",
+        "subscription.read.read",
+        "payment.read.read",
+        "payout.read.read",
+        "billing_profile.read.read",
+        "forecast.read.read",
+        "report.read.read",
+        "reconciliation.read.read",
+        "invoice.draft.write",
+        "report.export.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for finance_operations_center."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.revenue_operations",
+      "provider_key": "revenue_operations",
+      "capability_ids": [
+        "revenue.read.read",
+        "forecast.read.read",
+        "report.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for revenue_operations."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.unified_billing",
+      "provider_key": "unified_billing",
+      "capability_ids": [
+        "subscription.read.read",
+        "billing_profile.read.read",
+        "invoice.read.read",
+        "payment.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for unified_billing."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.payment_providers",
+      "provider_key": "payment_providers",
+      "capability_ids": [
+        "payment.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for payment_providers."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.enterprise_invoicing",
+      "provider_key": "enterprise_invoicing",
+      "capability_ids": [
+        "invoice.read.read",
+        "reconciliation.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for enterprise_invoicing."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.inventory_stock_center",
+      "provider_key": "inventory_stock_center",
+      "capability_ids": [
+        "inventory.read.read",
+        "stock.read.read",
+        "location.read.read",
+        "item.read.read",
+        "supplier.read.read",
+        "purchase_order.read.read",
+        "goods_receipt.read.read",
+        "transfer.read.read",
+        "replenishment.read.read",
+        "stock_alert.read.read",
+        "inventory_adjustment.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for inventory_stock_center."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.warehouse_control",
+      "provider_key": "warehouse_control",
+      "capability_ids": [
+        "warehouse.read.read",
+        "inventory.read.read",
+        "stock.read.read",
+        "location.read.read",
+        "item.read.read",
+        "transfer.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for warehouse_control."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.warehouse_logistics",
+      "provider_key": "warehouse_logistics",
+      "capability_ids": [
+        "shipment.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for warehouse_logistics."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.workforce_employee_directory",
+      "provider_key": "workforce_employee_directory",
+      "capability_ids": [
+        "employee.read.read",
+        "department.read.read",
+        "role.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for workforce_employee_directory."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.workforce_team",
+      "provider_key": "workforce_team",
+      "capability_ids": [
+        "team.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for workforce_team."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.workforce_lifecycle",
+      "provider_key": "workforce_lifecycle",
+      "capability_ids": [
+        "onboarding.read.read",
+        "employee.read.read",
+        "onboarding.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for workforce_lifecycle."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.workforce_people_operations",
+      "provider_key": "workforce_people_operations",
+      "capability_ids": [
+        "training.read.read",
+        "certification.read.read",
+        "performance.read.read",
+        "task.assign.write",
+        "employee.update.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for workforce_people_operations."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.workforce_scheduling_hr",
+      "provider_key": "workforce_scheduling_hr",
+      "capability_ids": [
+        "schedule.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for workforce_scheduling_hr."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.workforce_absence_hr",
+      "provider_key": "workforce_absence_hr",
+      "capability_ids": [
+        "absence.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for workforce_absence_hr."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.workforce_knowledge",
+      "provider_key": "workforce_knowledge",
+      "capability_ids": [
+        "training.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for workforce_knowledge."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.short_term_property",
+      "provider_key": "short_term_property",
+      "capability_ids": [
+        "property.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for short_term_property."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.short_term_reservation",
+      "provider_key": "short_term_reservation",
+      "capability_ids": [
+        "reservation.read.read",
+        "availability.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for short_term_reservation."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.short_term_guest",
+      "provider_key": "short_term_guest",
+      "capability_ids": [
+        "guest.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for short_term_guest."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.short_term_calendar",
+      "provider_key": "short_term_calendar",
+      "capability_ids": [
+        "availability.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for short_term_calendar."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.short_term_operations",
+      "provider_key": "short_term_operations",
+      "capability_ids": [
+        "cleaning.read.read",
+        "maintenance.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for short_term_operations."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.short_term_finance",
+      "provider_key": "short_term_finance",
+      "capability_ids": [
+        "payout.read.read",
+        "revenue.read.read",
+        "expense.read.read",
+        "forecast.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for short_term_finance."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.short_term_communications",
+      "provider_key": "short_term_communications",
+      "capability_ids": [
+        "message.draft.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for short_term_communications."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.short_term_reports",
+      "provider_key": "short_term_reports",
+      "capability_ids": [
+        "report.export.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for short_term_reports."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.short_term_access",
+      "provider_key": "short_term_access",
+      "capability_ids": [
+        "property.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for short_term_access."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.local_service_beauty",
+      "provider_key": "local_service_beauty",
+      "capability_ids": [
+        "service.read.read",
+        "treatment.read.read",
+        "availability.read.read",
+        "appointment.read.read",
+        "customer.read.read",
+        "appointment.create.write",
+        "appointment.update.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for local_service_beauty."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.service_scheduling_staff",
+      "provider_key": "service_scheduling_staff",
+      "capability_ids": [
+        "staff.read.read",
+        "availability.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for service_scheduling_staff."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.service_retail_inventory",
+      "provider_key": "service_retail_inventory",
+      "capability_ids": [
+        "product.read.read",
+        "inventory.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for service_retail_inventory."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.client_engagement_follow_up",
+      "provider_key": "client_engagement_follow_up",
+      "capability_ids": [
+        "reminder.create.write",
+        "follow_up.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for client_engagement_follow_up."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.support_ai_engine",
+      "provider_key": "support_ai_engine",
+      "capability_ids": [
+        "support_case.read.read",
+        "support_case.search.read",
+        "conversation.read.read",
+        "sla.read.read",
+        "customer_context.read.read",
+        "support_insight.read.read",
+        "support_case.create.write",
+        "support_case.assign.write",
+        "support_case.update.write",
+        "response.draft.write",
+        "escalation.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for support_ai_engine."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.autonomous_support_operations",
+      "provider_key": "autonomous_support_operations",
+      "capability_ids": [
+        "support_case.read.read",
+        "support_insight.read.read",
+        "response.draft.write",
+        "escalation.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for autonomous_support_operations."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.self_support_engine",
+      "provider_key": "self_support_engine",
+      "capability_ids": [
+        "conversation.read.read",
+        "support_insight.read.read",
+        "escalation.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for self_support_engine."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.app_portal_support",
+      "provider_key": "app_portal_support",
+      "capability_ids": [
+        "support_case.read.read",
+        "support_case.search.read",
+        "conversation.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for app_portal_support."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.proactive_organization_support",
+      "provider_key": "proactive_organization_support",
+      "capability_ids": [
+        "support_insight.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for proactive_organization_support."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.business_dna_knowledge",
+      "provider_key": "business_dna_knowledge",
+      "capability_ids": [
+        "support_insight.read.read",
+        "response.draft.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for business_dna_knowledge."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.appointment_booking",
+      "provider_key": "appointment_booking",
+      "capability_ids": [
+        "service.read.read",
+        "service.availability.read.read",
+        "appointment.read.read",
+        "resource.read.read",
+        "customer.read.read",
+        "location.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for appointment_booking."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.workforce_scheduling",
+      "provider_key": "workforce_scheduling",
+      "capability_ids": [
+        "resource.read.read",
+        "service.availability.read.read",
+        "assignment.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for workforce_scheduling."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.absence_vacation_coverage",
+      "provider_key": "absence_vacation_coverage",
+      "capability_ids": [
+        "service.availability.read.read",
+        "resource.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for absence_vacation_coverage."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.execution_operations",
+      "provider_key": "execution_operations",
+      "capability_ids": [
+        "work_order.read.read",
+        "assignment.read.read",
+        "location.read.read",
+        "customer.read.read",
+        "work_order.create.write",
+        "work_order.assign.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for execution_operations."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.companion_real_world_coordination",
+      "provider_key": "companion_real_world_coordination",
+      "capability_ids": [
+        "service.read.read",
+        "appointment.read.read",
+        "location.read.read",
+        "customer.read.read",
+        "work_order.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for companion_real_world_coordination."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.service_network",
+      "provider_key": "service_network",
+      "capability_ids": [
+        "location.read.read",
+        "resource.read.read",
+        "service.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for service_network."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.service_intake",
+      "provider_key": "service_intake",
+      "capability_ids": [
+        "service.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for service_intake."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.commerce_retail_operations",
+      "provider_key": "commerce_retail_operations",
+      "capability_ids": [
+        "product.read.read",
+        "order.read.read",
+        "customer.read.read",
+        "inventory.read.read",
+        "category.read.read",
+        "store.read.read",
+        "margin.read.read",
+        "product.create.write",
+        "product.import.write",
+        "store.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for commerce_retail_operations."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.commerce_intelligence",
+      "provider_key": "commerce_intelligence",
+      "capability_ids": [
+        "product.read.read",
+        "category.read.read",
+        "margin.read.read",
+        "trend.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for commerce_intelligence."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.product_automation",
+      "provider_key": "product_automation",
+      "capability_ids": [
+        "product.read.read",
+        "category.read.read",
+        "content.generate.write",
+        "translation.generate.write",
+        "seo.generate.write",
+        "product.import.write",
+        "storefront.publish.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for product_automation."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.multi_store_orchestration",
+      "provider_key": "multi_store_orchestration",
+      "capability_ids": [
+        "store.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for multi_store_orchestration."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.organization_calendar",
+      "provider_key": "organization_calendar",
+      "capability_ids": [
+        "calendar.read.read",
+        "calendar.event.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for organization_calendar."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.context_engine_calendar",
+      "provider_key": "context_engine_calendar",
+      "capability_ids": [
+        "calendar.read.read",
+        "calendar.event.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for context_engine_calendar."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.organization_tasks",
+      "provider_key": "organization_tasks",
+      "capability_ids": [
+        "task.read.read",
+        "task.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for organization_tasks."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.support_email_drafts",
+      "provider_key": "support_email_drafts",
+      "capability_ids": [
+        "email.read.read",
+        "email.draft.write",
+        "email.send.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for support_email_drafts."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.organization_documents",
+      "provider_key": "organization_documents",
+      "capability_ids": [
+        "document.read.read",
+        "file.search.read",
+        "document.create.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for organization_documents."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.universal_search",
+      "provider_key": "universal_search",
+      "capability_ids": [
+        "file.search.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for universal_search."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.organization_notifications",
+      "provider_key": "organization_notifications",
+      "capability_ids": [
+        "notification.read.read",
+        "notification.send.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for organization_notifications."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.print_output",
+      "provider_key": "print_output",
+      "capability_ids": [
+        "document.read.read",
+        "print.execute.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for print_output."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.companion_device_ecosystem",
+      "provider_key": "companion_device_ecosystem",
+      "capability_ids": [
+        "device.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for companion_device_ecosystem."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.companion_presence_devices",
+      "provider_key": "companion_presence_devices",
+      "capability_ids": [
+        "device.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for companion_presence_devices."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.adobe_firefly",
+      "provider_key": "adobe_firefly",
+      "capability_ids": [
+        "design.read.read",
+        "image.generate.write",
+        "image.edit.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for adobe_firefly."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.openai_images",
+      "provider_key": "openai_images",
+      "capability_ids": [
+        "image.generate.write",
+        "image.edit.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for openai_images."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.photoshop",
+      "provider_key": "photoshop",
+      "capability_ids": [
+        "design.read.read",
+        "image.edit.write",
+        "media.export.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for photoshop."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.illustrator",
+      "provider_key": "illustrator",
+      "capability_ids": [
+        "design.read.read",
+        "image.edit.write",
+        "media.export.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for illustrator."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.lightroom",
+      "provider_key": "lightroom",
+      "capability_ids": [
+        "design.read.read",
+        "image.edit.write",
+        "media.export.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for lightroom."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.studio_image_generation",
+      "provider_key": "studio_image_generation",
+      "capability_ids": [
+        "image.generate.write",
+        "image.edit.write",
+        "media.export.write"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for studio_image_generation."
+    },
+    {
+      "priority": "P1",
+      "module_id": "verification.queue_read",
+      "provider_key": "verification_queue",
+      "capability_ids": [
+        "verification_queue.read"
+      ],
+      "reason": "Member verification capability has no live read source.",
+      "next_required_step": "Add verification_queue.read to provider manifest and Unonight read-only source."
+    },
+    {
+      "priority": "P1",
+      "module_id": "verification.case_read",
+      "provider_key": "verification_case",
+      "capability_ids": [
+        "verification_case.read"
+      ],
+      "reason": "Member verification capability has no live read source.",
+      "next_required_step": "Define verification_case.read in provider manifest with audit-only metadata fields."
+    },
+    {
+      "priority": "P1",
+      "module_id": "service.booking_write",
+      "provider_key": "local_service_beauty",
+      "capability_ids": [
+        "booking.create",
+        "booking.update",
+        "booking.read",
+        "cancellation.read"
+      ],
+      "reason": "Appointment/service booking capability missing live adapter.",
+      "next_required_step": "Align booking.* capability IDs with appointment.* in services manifest or add aliases."
+    },
+    {
+      "priority": "P2",
+      "module_id": "core.vacation_mode",
+      "provider_key": "absence_vacation_coverage",
+      "capability_ids": [
+        "vacation_mode.read",
+        "absence.read"
+      ],
+      "reason": "Partial runtime without Command Brief linkage.",
+      "next_required_step": "Add Command Brief signals when live metrics are available."
+    },
+    {
+      "priority": "P2",
+      "module_id": "verification.trust_center",
+      "provider_key": "trust_center_verification",
+      "capability_ids": [
+        "verification.read",
+        "verification_status.read",
+        "verification.request"
+      ],
+      "reason": "Partial runtime without Command Brief linkage.",
+      "next_required_step": "Add Command Brief signals when live metrics are available."
+    },
+    {
+      "priority": "P2",
+      "module_id": "service.appointment_booking",
+      "provider_key": "appointment_booking",
+      "capability_ids": [
+        "service.read",
+        "service.availability.read",
+        "availability.read",
+        "appointment.read",
+        "booking.read",
+        "resource.read",
+        "customer.read",
+        "location.read"
+      ],
+      "reason": "Partial runtime without Command Brief linkage.",
+      "next_required_step": "Add Command Brief signals when live metrics are available."
+    },
+    {
+      "priority": "P2",
+      "module_id": "service.local_service_beauty",
+      "provider_key": "local_service_beauty",
+      "capability_ids": [
+        "service.read",
+        "treatment.read",
+        "availability.read",
+        "appointment.read",
+        "appointment.create",
+        "appointment.update"
+      ],
+      "reason": "Partial runtime without Command Brief linkage.",
+      "next_required_step": "Add Command Brief signals when live metrics are available."
+    },
+    {
+      "priority": "P2",
+      "module_id": "service.workforce_scheduling",
+      "provider_key": "workforce_scheduling",
+      "capability_ids": [
+        "resource.read",
+        "employee.read",
+        "service.availability.read",
+        "availability.read",
+        "assignment.read",
+        "staff.read",
+        "schedule.read"
+      ],
+      "reason": "Partial runtime without Command Brief linkage.",
+      "next_required_step": "Add Command Brief signals when live metrics are available."
+    },
+    {
+      "priority": "P2",
+      "module_id": "service.absence_vacation",
+      "provider_key": "absence_vacation_coverage",
+      "capability_ids": [
+        "service.availability.read",
+        "resource.read",
+        "vacation_mode.read",
+        "absence.read",
+        "post_vacation_availability.read"
+      ],
+      "reason": "Partial runtime without Command Brief linkage.",
+      "next_required_step": "Add Command Brief signals when live metrics are available."
+    },
+    {
+      "priority": "P3",
+      "module_id": "core.mobile_access",
+      "provider_key": "mobile_companion",
+      "capability_ids": [
+        "mobile.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Ship mobile thin client consuming same Core bundle."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.proactive_pack_adapter",
+      "provider_key": "proactive_pack_adapter",
+      "capability_ids": [
+        "signal.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.analytics_pack_adapter",
+      "provider_key": "analytics_pack_adapter",
+      "capability_ids": [
+        "metric.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.community_engagement_services",
+      "provider_key": "community_engagement_services",
+      "capability_ids": [
+        "leaderboard.read.read",
+        "birthday.read.read",
+        "gift.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.community_pack_adapter",
+      "provider_key": "community_pack_adapter",
+      "capability_ids": [
+        "member.read.read",
+        "listing.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.security_pack_adapter",
+      "provider_key": "security_pack_adapter",
+      "capability_ids": [
+        "verification.read.read",
+        "audit_log.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.growth_partner_attribution",
+      "provider_key": "growth_partner_attribution",
+      "capability_ids": [
+        "attribution.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.sales_pack_adapter",
+      "provider_key": "sales_pack_adapter",
+      "capability_ids": [
+        "pipeline.read.read",
+        "customer.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.finance_pack_adapter",
+      "provider_key": "finance_pack_adapter",
+      "capability_ids": [
+        "reconciliation.read.read",
+        "report.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.warehouse_pack_adapter",
+      "provider_key": "warehouse_pack_adapter",
+      "capability_ids": [
+        "warehouse.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.hr_pack_adapter",
+      "provider_key": "hr_pack_adapter",
+      "capability_ids": [
+        "employee.read.read",
+        "onboarding.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.hosts_pack_adapter",
+      "provider_key": "hosts_pack_adapter",
+      "capability_ids": [
+        "property.read.read",
+        "reservation.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.industry_pack_adapter",
+      "provider_key": "industry_pack_adapter",
+      "capability_ids": [
+        "appointment.read.read",
+        "customer.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.support_adapter",
+      "provider_key": "support_adapter",
+      "capability_ids": [
+        "support_case.read.read",
+        "conversation.read.read",
+        "customer_context.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.shopify",
+      "provider_key": "shopify",
+      "capability_ids": [
+        "product.read.read",
+        "order.read.read",
+        "customer.read.read",
+        "inventory.read.read",
+        "category.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.woocommerce",
+      "provider_key": "woocommerce",
+      "capability_ids": [
+        "product.read.read",
+        "order.read.read",
+        "customer.read.read",
+        "inventory.read.read",
+        "category.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.wordpress",
+      "provider_key": "wordpress",
+      "capability_ids": [
+        "content.read.read",
+        "category.read.read",
+        "content.generate.write"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.canva",
+      "provider_key": "canva",
+      "capability_ids": [
+        "design.read.read",
+        "brand_kit.read.read",
+        "design.from_template.write",
+        "presentation.create.write"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.google_imagen",
+      "provider_key": "google_imagen",
+      "capability_ids": [
+        "image.generate.write"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.premiere",
+      "provider_key": "premiere",
+      "capability_ids": [
+        "design.read.read",
+        "video.create.write",
+        "video.edit.write",
+        "media.export.write"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.indesign",
+      "provider_key": "indesign",
+      "capability_ids": [
+        "design.read.read",
+        "presentation.create.write",
+        "media.export.write"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.figma",
+      "provider_key": "figma",
+      "capability_ids": [
+        "design.read.read",
+        "design.create.write"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.blender",
+      "provider_key": "blender",
+      "capability_ids": [
+        "design.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "verification.review_create",
+      "provider_key": "trust_center_verification",
+      "capability_ids": [
+        "verification_review.create"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Register reversible review action only if existing Trust Center RPC supports it."
+    }
+  ],
+  "panel_coverage": [
+    {
+      "module_id": "panel.super_admin",
+      "domain": "platform_governance",
+      "business_pack_key": null,
+      "provider_key": "super_admin_panel",
+      "capability_ids": [
+        "platform_governance.read",
+        "global_audit.read",
+        "executive_oversight.read"
+      ],
+      "source_type": "api",
+      "source_reference": "lib/super-admin/nav-config.ts",
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "none",
+      "action_status": "blocked",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Executive oversight only — no customer operational data.",
+        "Companion wiring partial on super routes."
+      ],
+      "next_required_step": "Link super-admin aggregate RPCs to read-only Companion governance context.",
+      "panel": "super_admin"
+    },
+    {
+      "module_id": "panel.platform",
+      "domain": "platform_admin",
+      "business_pack_key": null,
+      "provider_key": "platform_admin_panel",
+      "capability_ids": [
+        "platform.customers.read",
+        "platform.subscriptions.read",
+        "platform.trust.read",
+        "platform.skills.read",
+        "platform.impact.read"
+      ],
+      "source_type": "api",
+      "source_reference": "lib/platform/nav-config.ts",
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "partial",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Aggregates only — never customer operational records in Companion."
+      ],
+      "next_required_step": "Wire verified provider registry to platform Companion knowledge surface.",
+      "panel": "platform"
+    },
+    {
+      "module_id": "panel.partners",
+      "domain": "growth_partner",
+      "business_pack_key": null,
+      "provider_key": "partners_portal",
+      "capability_ids": [
+        "partner.attribution.read",
+        "partner.pipeline.read"
+      ],
+      "source_type": "api",
+      "source_reference": "lib/partners-portal/nav-config.ts",
+      "runtime_loader": null,
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Attribution only — partners do not own customers."
+      ],
+      "next_required_step": "Connect partner growth metrics to read-only Companion briefing.",
+      "panel": "partners"
+    },
+    {
+      "module_id": "panel.app",
+      "domain": "app_organization",
+      "business_pack_key": null,
+      "provider_key": "customer_app_panel",
+      "capability_ids": [
+        "app.executive.read",
+        "app.support.read",
+        "app.approvals.read",
+        "app.command_center.read",
+        "app.assistant.read"
+      ],
+      "source_type": "api",
+      "source_reference": "lib/app/nav-config.ts",
+      "runtime_loader": "companion-tenant-context.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "active",
+      "command_brief_status": "linked",
+      "action_status": "approval_required",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected",
+      "limitations": [
+        "Primary Companion surface — tenant-scoped only."
+      ],
+      "next_required_step": null,
+      "panel": "app"
+    }
+  ]
+}

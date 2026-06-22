@@ -22,6 +22,27 @@
       "noGroundedAnswer": "I could not find a good enough explanation in the available approved sources.",
       "sourceLabel": "No grounded answer found"
     },
+    "coverage": {
+      "readiness": {
+        "productionReady": "Production ready — live source verified.",
+        "productionReadyCandidate": "Production ready candidate — authenticated E2E still required.",
+        "connected": "Connected to Companion runtime.",
+        "connectedButPartial": "Connected with partial data or adapter gaps.",
+        "adapterMissing": "Manifest registered — live adapter not connected yet.",
+        "sourceMissing": "Capability defined — approved live source not connected yet.",
+        "manifestOnly": "Manifest only — discovery metadata without live reads.",
+        "specificationOnly": "Specification only — not wired to runtime.",
+        "placeholder": "Placeholder — awaiting implementation.",
+        "disabled": "Disabled until activation or entitlement completes.",
+        "blockedByGovernance": "Blocked by governance or privacy policy."
+      },
+      "gapPriority": {
+        "p0": "Critical — incorrect readiness or missing safety source.",
+        "p1": "High — live data exists but adapter or APP wiring missing.",
+        "p2": "Medium — partial capability or panel integration.",
+        "p3": "Low — specification or future adapter work."
+      }
+    },
     "discovery": {
       "accessDenied": "Install discovery data is not available for your role. Ask an administrator if you need connection details.",
       "empty": "No approved connected systems or data sources were discovered for this organization yet.",

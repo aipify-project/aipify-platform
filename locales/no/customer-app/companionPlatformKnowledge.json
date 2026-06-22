@@ -22,6 +22,27 @@
       "noGroundedAnswer": "Jeg fant ikke en god nok forklaring i de tilgjengelige, godkjente kildene.",
       "sourceLabel": "Ingen god nok forklaring funnet"
     },
+    "coverage": {
+      "readiness": {
+        "productionReady": "Produksjonsklar — live kilde verifisert.",
+        "productionReadyCandidate": "Produksjonsklar kandidat — autentisert E2E gjenstår.",
+        "connected": "Koblet til Companion-runtime.",
+        "connectedButPartial": "Koblet med delvis data eller adapterhull.",
+        "adapterMissing": "Manifest registrert — live adapter er ikke koblet ennå.",
+        "sourceMissing": "Capability definert — godkjent live kilde er ikke koblet ennå.",
+        "manifestOnly": "Kun manifest — oppdagelsesmetadata uten live lesing.",
+        "specificationOnly": "Kun spesifikasjon — ikke koblet til runtime.",
+        "placeholder": "Plassholder — venter på implementering.",
+        "disabled": "Deaktivert til aktivering eller rettighet er fullført.",
+        "blockedByGovernance": "Blokkert av styring eller personvernregler."
+      },
+      "gapPriority": {
+        "p0": "Kritisk — feil readiness eller manglende sikkerhetskilde.",
+        "p1": "Høy — live data finnes, men adapter eller APP-kobling mangler.",
+        "p2": "Middels — delvis capability eller panelintegrasjon.",
+        "p3": "Lav — spesifikasjon eller fremtidig adapterarbeid."
+      }
+    },
     "discovery": {
       "accessDenied": "Install Discovery-data er ikke tilgjengelig for din rolle. Be en administrator om tilkoblingsdetaljer.",
       "empty": "Ingen godkjente tilkoblede systemer eller datakilder er oppdaget for denne organisasjonen ennå.",

@@ -22,6 +22,27 @@
       "noGroundedAnswer": "No encontré una explicación suficientemente buena en las fuentes aprobadas disponibles.",
       "sourceLabel": "No se encontró una respuesta fundamentada"
     },
+    "coverage": {
+      "readiness": {
+        "productionReady": "Listo para producción — fuente en vivo verificada.",
+        "productionReadyCandidate": "Candidato a producción — falta E2E autenticado.",
+        "connected": "Conectado al runtime de Companion.",
+        "connectedButPartial": "Conectado con datos parciales o lagunas de adaptador.",
+        "adapterMissing": "Manifiesto registrado — adaptador en vivo aún no conectado.",
+        "sourceMissing": "Capability definida — fuente en vivo aprobada aún no conectada.",
+        "manifestOnly": "Solo manifiesto — metadatos de descubrimiento sin lecturas en vivo.",
+        "specificationOnly": "Solo especificación — no conectado al runtime.",
+        "placeholder": "Marcador de posición — pendiente de implementación.",
+        "disabled": "Desactivado hasta completar activación o derechos.",
+        "blockedByGovernance": "Bloqueado por gobernanza o política de privacidad."
+      },
+      "gapPriority": {
+        "p0": "Crítico — readiness incorrecto o fuente de seguridad faltante.",
+        "p1": "Alto — existen datos en vivo pero falta adaptador o conexión APP.",
+        "p2": "Medio — capability parcial o integración de panel.",
+        "p3": "Bajo — especificación o trabajo futuro de adaptador."
+      }
+    },
     "discovery": {
       "accessDenied": "Los datos de Install Discovery no están disponibles para tu rol. Pide detalles de conexión a un administrador.",
       "empty": "Aún no se han descubierto sistemas conectados ni fuentes de datos aprobadas para esta organización.",

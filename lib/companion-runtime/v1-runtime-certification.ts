@@ -68,6 +68,16 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "Phase 28",
   },
+  {
+    phase: 34,
+    required_test: "phase34.test.ts",
+    required_wiring: [
+      "companion-foundation-coverage-registry.ts",
+      "companion-foundation-coverage-gaps.ts",
+      "artifacts/companion-foundation-coverage-v1.json",
+    ],
+    commit_hint: "Phase 34",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

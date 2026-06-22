@@ -22,6 +22,27 @@
       "noGroundedAnswer": "Nie znalazłem wystarczająco dobrej odpowiedzi w dostępnych, zatwierdzonych źródłach.",
       "sourceLabel": "Nie znaleziono wystarczająco uzasadnionej odpowiedzi"
     },
+    "coverage": {
+      "readiness": {
+        "productionReady": "Gotowe do produkcji — źródło na żywo zweryfikowane.",
+        "productionReadyCandidate": "Kandydat do produkcji — wymagane uwierzytelnione E2E.",
+        "connected": "Połączone z runtime Companion.",
+        "connectedButPartial": "Połączone z częściowymi danymi lub lukami adaptera.",
+        "adapterMissing": "Manifest zarejestrowany — adapter na żywo nie jest jeszcze podłączony.",
+        "sourceMissing": "Capability zdefiniowane — zatwierdzone źródło na żywo nie jest podłączone.",
+        "manifestOnly": "Tylko manifest — metadane odkrywania bez odczytów na żywo.",
+        "specificationOnly": "Tylko specyfikacja — nie podłączone do runtime.",
+        "placeholder": "Placeholder — oczekuje na implementację.",
+        "disabled": "Wyłączone do czasu aktywacji lub uprawnień.",
+        "blockedByGovernance": "Zablokowane przez governance lub politykę prywatności."
+      },
+      "gapPriority": {
+        "p0": "Krytyczne — błędny readiness lub brakujące źródło bezpieczeństwa.",
+        "p1": "Wysokie — dane na żywo istnieją, brakuje adaptera lub połączenia APP.",
+        "p2": "Średnie — częściowa capability lub integracja panelu.",
+        "p3": "Niskie — specyfikacja lub przyszła praca nad adapterem."
+      }
+    },
     "discovery": {
       "accessDenied": "Dane Install Discovery nie są dostępne dla Twojej roli. Poproś administratora o szczegóły połączenia.",
       "empty": "Nie wykryto jeszcze zatwierdzonych połączonych systemów ani źródeł danych dla tej organizacji.",
