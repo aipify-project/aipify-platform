@@ -2042,14 +2042,38 @@
     "ariaOpenCompanion": "Åbn Aipify Companion",
     "ariaFloatingButton": "Spørg Aipify — åbn Companion",
     "quickActions": {
-      "orgStatus": { "title": "Organisationsstatus", "description": "Oversigt over arbejdsområdets sundhed, aktivitet og elementer, der kræver opmærksomhed." },
-      "recentEvents": { "title": "Seneste hændelser", "description": "Hvad der ændrede sig siden sidste login — godkendelser, support og opdateringer." },
-      "integrations": { "title": "Integrationer", "description": "Tilknyttede systemer, synkstatus og opsætningsvejledning." },
-      "supportCases": { "title": "Support og sager", "description": "Åbne supportanmodninger og hvordan du eskalerer med kontekst." },
-      "customerSuccess": { "title": "Kundesucces", "description": "Adoption, sundhedssignaler og anbefalede næste skridt." },
-      "knowledgeFaq": { "title": "Viden og FAQ", "description": "Godkendte svar og procedurer fra Knowledge Center." },
-      "securityAccess": { "title": "Sikkerhed og adgang", "description": "Tilladelser, sikkerhedsindstillinger og tillidskontroller." },
-      "whatNow": { "title": "Hvad bør jeg gøre nu?", "description": "Prioriterede anbefalinger baseret på din nuværende kontekst." }
+      "orgStatus": {
+        "title": "Organisationsstatus",
+        "description": "Oversigt over arbejdsområdets sundhed, aktivitet og elementer, der kræver opmærksomhed."
+      },
+      "recentEvents": {
+        "title": "Seneste hændelser",
+        "description": "Hvad der ændrede sig siden sidste login — godkendelser, support og opdateringer."
+      },
+      "integrations": {
+        "title": "Integrationer",
+        "description": "Tilknyttede systemer, synkstatus og opsætningsvejledning."
+      },
+      "supportCases": {
+        "title": "Support og sager",
+        "description": "Åbne supportanmodninger og hvordan du eskalerer med kontekst."
+      },
+      "customerSuccess": {
+        "title": "Kundesucces",
+        "description": "Adoption, sundhedssignaler og anbefalede næste skridt."
+      },
+      "knowledgeFaq": {
+        "title": "Viden og FAQ",
+        "description": "Godkendte svar og procedurer fra Knowledge Center."
+      },
+      "securityAccess": {
+        "title": "Sikkerhed og adgang",
+        "description": "Tilladelser, sikkerhedsindstillinger og tillidskontroller."
+      },
+      "whatNow": {
+        "title": "Hvad bør jeg gøre nu?",
+        "description": "Prioriterede anbefalinger baseret på din nuværende kontekst."
+      }
     },
     "capabilities": {
       "guidance": "Operativ vejledning med kontekst og anbefalede næste skridt",
@@ -2069,7 +2093,8 @@
       "integrations": "Integrationer",
       "organization": "Organisation",
       "billing": "Fakturering",
-      "operations": "Drift"
+      "operations": "Drift",
+      "integrationSetup": "Integrationsopsætning"
     },
     "contextSuggestions": {
       "commandBriefSummary": "Opsummer mine Command Brief-prioriteter for i dag",
@@ -2091,7 +2116,12 @@
       "operationsPriority": "Hvilke operative opgaver bør jeg prioritere i dag?",
       "operationsEvents": "Opsummer nylige operative hændelser, jeg bør kende til",
       "defaultOrgStatus": "Hvad er min organisationsstatus lige nu?",
-      "defaultWhatNow": "Hvad bør jeg fokusere på næste i mit arbejdsområde?"
+      "defaultWhatNow": "Hvad bør jeg fokusere på næste i mit arbejdsområde?",
+      "whereFindKey": "Hvor finder jeg forbindelsesnøglen til denne integration?",
+      "whichProject": "Hvilket projekt eller hvilken butik skal jeg forbinde?",
+      "isAccessSafe": "Er det sikkert at give Aipify skrivebeskyttet adgang?",
+      "whyConnectionFails": "Hvorfor mislykkedes forbindelsestesten?",
+      "checkMySetup": "Kan du tjekke om min integrationsopsætning ser korrekt ud?"
     }
   }
 }

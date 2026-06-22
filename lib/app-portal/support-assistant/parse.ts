@@ -1,10 +1,51 @@
 import type { SupportAssistantContextResponse, SupportAssistantSearchResult } from "./types";
+import type { PlatformKnowledgeAction, PlatformKnowledgeAnswer } from "@/lib/companion-platform-knowledge";
 
 function str(v: unknown, fb = ""): string {
   return typeof v === "string" ? v : fb;
 }
 
-export function parseSupportAssistantSearch(data: unknown): SupportAssistantSearchResult {
+function parsePlatformAction(raw: unknown): PlatformKnowledgeAction | null {
+  if (!raw || typeof raw !== "object") return null;
+  const row = raw as Record<string, unknown>;
+  const href = str(row.href);
+  if (!href) return null;
+  return {
+    labelKey: str(row.labelKey),
+    label: str(row.label),
+    href,
+    routeKey: str(row.routeKey),
+  };
+}
+
+function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined {
+  if (!raw || typeof raw !== "object") return undefined;
+  const row = raw as Record<string, unknown>;
+  const actions = Array.isArray(row.actions)
+    ? row.actions.map(parsePlatformAction).filter((a): a is PlatformKnowledgeAction => a !== null)
+    : [];
+  return {
+    directAnswer: str(row.directAnswer),
+    explanation: str(row.explanation) || undefined,
+    status: str(row.status) || undefined,
+    steps: Array.isArray(row.steps) ? row.steps.map((s) => str(s)) : [],
+    actions,
+    sourceId: str(row.sourceId),
+    source: str(row.source, "platform_corpus") as PlatformKnowledgeAnswer["source"],
+    confidence: str(row.confidence, "moderate") as PlatformKnowledgeAnswer["confidence"],
+    title: str(row.title) || undefined,
+  };
+}
+
+export type EnrichedSupportAssistantSearchResult = SupportAssistantSearchResult & {
+  answer?: PlatformKnowledgeAnswer;
+  source?: string;
+  confidence?: string;
+  matched_article_id?: string;
+  corpus_version?: string;
+};
+
+export function parseSupportAssistantSearch(data: unknown): EnrichedSupportAssistantSearchResult {
   if (!data || typeof data !== "object") {
     return { found: false, query: "", articles: [] };
   }
@@ -12,6 +53,11 @@ export function parseSupportAssistantSearch(data: unknown): SupportAssistantSear
   return {
     found: d.found === true,
     query: str(d.query),
+    answer: parsePlatformAnswer(d.answer),
+    source: str(d.source) || undefined,
+    confidence: str(d.confidence) || undefined,
+    matched_article_id: str(d.matched_article_id) || undefined,
+    corpus_version: str(d.corpus_version) || undefined,
     articles: Array.isArray(d.articles)
       ? d.articles.map((a) => {
           const row = a as Record<string, unknown>;

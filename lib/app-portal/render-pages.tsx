@@ -335,7 +335,11 @@ export async function renderAppPortalIntegrationSetupPage(providerKey: string) {
 
   return (
     <AppPortalLicenseGate feature="integrations" labels={labels.license}>
-      <AppPortalIntegrationSetupPanel providerKey={providerKey} labels={integrationLabels} />
+      <AppPortalIntegrationSetupPanel
+        providerKey={providerKey}
+        labels={integrationLabels}
+        t={t}
+      />
     </AppPortalLicenseGate>
   );
 }

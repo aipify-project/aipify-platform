@@ -1,12 +1,47 @@
 import type { Translator } from "@/lib/i18n/translate";
+import {
+  INTEGRATION_AUTH_HELP_PROVIDERS,
+  INTEGRATION_WIZARD_STEPS,
+  authHelpFieldKey,
+  authHelpStepKey,
+  authHelpTechnicalDetailsKey,
+  getAuthHelpFieldKeys,
+  getAuthHelpStepCount,
+} from "@/lib/install/integration-setup";
 import type { AppPortalIntegrationsLabels } from "./types";
 
 const base = "customerApp.portalStructure.integrations";
+
+function buildAuthHelpProviderLabels(
+  t: Translator,
+  provider: (typeof INTEGRATION_AUTH_HELP_PROVIDERS)[number]
+) {
+  const fields = getAuthHelpFieldKeys(provider);
+  const stepCount = getAuthHelpStepCount(provider);
+  const entries: Record<string, string> = {};
+
+  for (const field of fields) {
+    entries[field] = t(authHelpFieldKey(provider, field));
+  }
+  for (let i = 0; i < stepCount; i++) {
+    entries[`step${i + 1}`] = t(authHelpStepKey(provider, i));
+  }
+  entries.technicalDetails = t(authHelpTechnicalDetailsKey(provider));
+
+  return entries;
+}
 
 export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegrationsLabels {
   const h = `${base}.hub`;
   const s = `${base}.setup`;
   const g = `${base}.guidance`;
+  const pl = `${base}.plainLanguage`;
+  const st = `${base}.statuses`;
+  const ah = `${base}.authHelp`;
+  const sw = `${base}.securityWarnings`;
+  const kc = `${base}.kcLinks`;
+  const cp = `${base}.companionPrompts`;
+  const eg = `${base}.errorGuidance`;
 
   const stepKeys = [
     "select_platform",
@@ -38,6 +73,34 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
     "connected_summary",
   ] as const;
 
+  const faqSlugs = [
+    "connectExternalPlatform",
+    "whatIsReadOnlyAccess",
+    "whyApiAccess",
+    "whereFindApiKey",
+    "whichPermissionsToChoose",
+    "canAipifyChangeData",
+    "removeIntegration",
+    "rotateApiKey",
+    "integrationFails",
+    "oauthVsApiKeys",
+    "isItSafeToConnect",
+    "whatIsSecureConnectionKey",
+    "howToTestConnection",
+    "canChangePermissionsLater",
+    "whoCanManageIntegrations",
+  ] as const;
+
+  const authHelpSectionFields = [
+    "what",
+    "why",
+    "where",
+    "project",
+    "permissions",
+    "canChange",
+    "revoke",
+  ] as const;
+
   return {
     hub: {
       title: t(`${h}.title`),
@@ -63,8 +126,71 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
       loading: t(`${s}.loading`),
       back: t(`${s}.back`),
       stepLabels: Object.fromEntries(stepKeys.map((key) => [key, t(`${s}.steps.${key}`)])),
+      wizard7StepLabels: Object.fromEntries(
+        INTEGRATION_WIZARD_STEPS.map((key) => [key, t(`${base}.wizard7Steps.${key}`)])
+      ),
       manualStepLabels: Object.fromEntries(manualKeys.map((key) => [key, t(`${s}.manualSteps.${key}`)])),
       oauthStepLabels: Object.fromEntries(oauthKeys.map((key) => [key, t(`${s}.oauthSteps.${key}`)])),
+      plainLanguage: {
+        apiKey: t(`${pl}.apiKey`),
+        accessScope: t(`${pl}.accessScope`),
+        readOnly: t(`${pl}.readOnly`),
+        connectionTest: t(`${pl}.connectionTest`),
+        secureConnectionKey: t(`${pl}.secureConnectionKey`),
+      },
+      statuses: {
+        pending: t(`${st}.pending`),
+        missingInfo: t(`${st}.missingInfo`),
+        needsReview: t(`${st}.needsReview`),
+        connected: t(`${st}.connected`),
+        failed: t(`${st}.failed`),
+        readOnly: t(`${st}.readOnly`),
+      },
+      authHelp: {
+        sectionTitles: Object.fromEntries(
+          authHelpSectionFields.map((field) => [field, t(`${ah}.sectionTitles.${field}`)])
+        ),
+        stepsTitle: t(`${ah}.stepsTitle`),
+        technicalDetailsTitle: t(`${ah}.technicalDetailsTitle`),
+        technicalDetailsToggleShow: t(`${ah}.technicalDetailsToggleShow`),
+        technicalDetailsToggleHide: t(`${ah}.technicalDetailsToggleHide`),
+        provider: Object.fromEntries(
+          INTEGRATION_AUTH_HELP_PROVIDERS.map((provider) => [
+            provider,
+            buildAuthHelpProviderLabels(t, provider),
+          ])
+        ),
+      },
+      securityWarnings: {
+        readOnlyDefault: t(`${sw}.readOnlyDefault`),
+        noWriteWithoutApproval: t(`${sw}.noWriteWithoutApproval`),
+        credentialsEncrypted: t(`${sw}.credentialsEncrypted`),
+        revokeAnytime: t(`${sw}.revokeAnytime`),
+      },
+      kcLinks: {
+        setupGuide: t(`${kc}.setupGuide`),
+        setupGuideHref: t(`${kc}.setupGuideHref`),
+        faq: t(`${kc}.faq`),
+        faqHref: t(`${kc}.faqHref`),
+        findApiKey: t(`${kc}.findApiKey`),
+        findApiKeyHref: t(`${kc}.findApiKeyHref`),
+      },
+      companionPrompts: {
+        whereFindKey: t(`${cp}.whereFindKey`),
+        whichProject: t(`${cp}.whichProject`),
+        isAccessSafe: t(`${cp}.isAccessSafe`),
+        whyConnectionFails: t(`${cp}.whyConnectionFails`),
+        checkMySetup: t(`${cp}.checkMySetup`),
+      },
+      errorGuidance: {
+        actions: {
+          retry: t(`${eg}.actions.retry`),
+          findKey: t(`${eg}.actions.findKey`),
+          contactSupport: t(`${eg}.actions.contactSupport`),
+        },
+        findKeyHref: t(`${eg}.findKeyHref`),
+        contactSupportHref: t(`${eg}.contactSupportHref`),
+      },
       selectSetupType: t(`${s}.selectSetupType`),
       oauthOption: t(`${s}.oauthOption`),
       manualOption: t(`${s}.manualOption`),
@@ -94,6 +220,20 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
       whatNotToEnable: t(`${s}.whatNotToEnable`),
       backStep: t(`${s}.backStep`),
       continueStep: t(`${s}.continueStep`),
+      confirmActivation: t(`${s}.confirmActivation`),
+      confirmActivationBody: t(`${s}.confirmActivationBody`),
+      connectionStatusLabel: t(`${s}.connectionStatusLabel`),
+      unonight: {
+        baseUrlLabel: t(`${base}.unonightConnection.baseUrlLabel`),
+        baseUrlHint: t(`${base}.unonightConnection.baseUrlHint`),
+        baseUrlPlaceholder: t(`${base}.unonightConnection.baseUrlPlaceholder`),
+        connectionNameLabel: t(`${base}.unonightConnection.connectionNameLabel`),
+        connectionNamePlaceholder: t(`${base}.unonightConnection.connectionNamePlaceholder`),
+      },
+      authHelpAsideTitle: t(`${s}.authHelpAsideTitle`),
+      testFailedTitle: t(`${s}.testFailedTitle`),
+      activateCta: t(`${s}.activateCta`),
+      activating: t(`${s}.activating`),
     },
     guidance: {
       whyAccess: t(`${g}.whyAccess`),
@@ -104,6 +244,7 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
       howRotate: t(`${g}.howRotate`),
       ifFails: t(`${g}.ifFails`),
     },
+    faq: Object.fromEntries(faqSlugs.map((slug) => [slug, t(`${base}.faq.${slug}`)])),
   };
 }
 
@@ -120,6 +261,10 @@ export function buildAppPortalIntegrationsFaqAnswerLabels(t: Translator): Record
     "integration-fails",
     "oauth-vs-api-keys",
     "is-it-safe-to-connect",
+    "what-is-secure-connection-key",
+    "how-to-test-connection",
+    "can-change-permissions-later",
+    "who-can-manage-integrations",
   ] as const;
 
   return Object.fromEntries(

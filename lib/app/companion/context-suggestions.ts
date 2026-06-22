@@ -64,11 +64,26 @@ export const COMPANION_ROUTE_RULES: RouteRule[] = [
     ],
   },
   {
-    match: (p) => p.startsWith("/app/platform/integrations") || p.startsWith("/app/settings"),
+    match: (p) =>
+      p.startsWith("/app/platform/integrations/connect/") &&
+      p !== "/app/platform/integrations/connect",
+    pageLabelKey: "integrationSetup",
+    suggestions: [
+      { id: "int-where-key", promptKey: "whereFindKey" },
+      { id: "int-safe", promptKey: "isAccessSafe" },
+      { id: "int-why-fails", promptKey: "whyConnectionFails" },
+      { id: "int-check-setup", promptKey: "checkMySetup", quickActionId: "integrations" },
+    ],
+  },
+  {
+    match: (p) =>
+      p.startsWith("/app/platform/integrations") || p.startsWith("/app/settings"),
     pageLabelKey: "integrations",
     suggestions: [
       { id: "int-status", promptKey: "integrationStatus", quickActionId: "integrations" },
       { id: "int-security", promptKey: "integrationSecurity", quickActionId: "securityAccess" },
+      { id: "int-where-key", promptKey: "whereFindKey" },
+      { id: "int-check-setup", promptKey: "checkMySetup" },
     ],
   },
   {

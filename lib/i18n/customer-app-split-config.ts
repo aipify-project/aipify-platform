@@ -3,6 +3,7 @@ export const CUSTOMER_APP_SPLIT_NAMES = [
   "navigation",
   "portalStructure",
   "companion",
+  "companionPlatformKnowledge",
   "workforce",
   "warehouse",
   "growthPartners",
@@ -28,7 +29,7 @@ const NAVIGATION_KEYS = new Set([
 const PORTAL_STRUCTURE_KEYS = new Set(["portalStructure"]);
 
 const COMPANION_PATTERN =
-  /^(companionExperience|companion|companionBriefing|companionWorkforce|companionMarketplace|companionIdentity|companionOrchestration|companionAction|companionContext|companionMemory|companionMemoryCenter|companionRecommendation|companionProactive|companionPersonalization|companionDaily|companionWorkPrioritization|companionFollowUp|companionRelationship|companionExecutive|lifeEvents|presenceContinuity|trustAdoption|aipifyDesktopCompanion|proactiveCompanion|personalProductivity|workspaceProductivity)/;
+  /^(companionExperience|companion|companionBriefing|companionWorkforce|companionMarketplace|companionIdentity|companionOrchestration|companionAction|companionContext|companionMemory|companionMemoryCenter|companionRecommendation|companionProactive|companionPersonalization|companionDaily|companionWorkPrioritization|companionFollowUp|companionRelationship|companionExecutive|lifeEvents|presenceContinuity|trustAdoption|aipifyDesktopCompanion|proactiveCompanion|personalProductivity|workspaceProductivity|companionPlatformKnowledge)/;
 
 const WORKFORCE_PATTERN =
   /^(digitalWorkforce|workforceScheduling|serviceCheckout|aipifyTalent|aipifyTranslateMultilingual|aipifyPerformanceGoal|aipifyOrganizationalHealthWorkforce|aipifyMentorship|aipifySuccession|aipifyEmployee|enterpriseOrganizationalMemory)/;

@@ -180,26 +180,20 @@ export function CompanionPanel({
         const res = await fetch(`/api/aipify/support-assistant/search?${params}`);
         if (!res.ok) throw new Error("search failed");
         const parsed = parseSupportAssistantSearch(await res.json());
+        const answer = parsed.answer;
         const article = parsed.articles[0];
 
-        const reply = article
-          ? buildArticleReply(article, labels)
-          : {
-              id: createMessageId(),
-              role: "aipify" as const,
-              content: labels.noResults,
-              timestamp: Date.now(),
-              ctas: [
-                { label: labels.createSupportRequest, href: "/app/support/requests?from=companion" },
-                { label: labels.contextPages.support, href: "/app/support/knowledge" },
-              ],
-            };
+        const reply = answer
+          ? buildPlatformAnswerReply(answer, labels)
+          : article
+            ? buildArticleReply(article, labels)
+            : buildFallbackReply(labels);
 
         setMessages((prev) => [...prev, reply]);
         saveRecentConversation({
           id: `conv-${Date.now()}`,
           title: trimmed.length > 48 ? `${trimmed.slice(0, 48)}…` : trimmed,
-          preview: article?.summary ?? labels.noResults,
+          preview: answer?.directAnswer ?? article?.summary ?? labels.noResults,
           pinned: false,
           updatedAt: Date.now(),
         });
@@ -219,6 +213,53 @@ export function CompanionPanel({
     initialQuerySubmittedRef.current = true;
     void askQuestion(trimmed);
   }, [initialQuery, askQuestion]);
+
+  function buildPlatformAnswerReply(
+    platformAnswer: NonNullable<ReturnType<typeof parseSupportAssistantSearch>["answer"]>,
+    lbls: CompanionExperienceLabels
+  ): CompanionChatMessage {
+    const content = platformAnswer.explanation
+      ? `${platformAnswer.directAnswer}\n\n${platformAnswer.explanation}`
+      : platformAnswer.directAnswer;
+
+    const ctas =
+      platformAnswer.actions.length > 0
+        ? platformAnswer.actions.map((action) => ({
+            label: action.label,
+            href: action.href,
+          }))
+        : [{ label: lbls.viewSuggestions, href: "/app/support/knowledge" }];
+
+    if (platformAnswer.confidence === "low") {
+      ctas.push({
+        label: lbls.createSupportRequest,
+        href: "/app/support/requests?from=companion",
+      });
+    }
+
+    return {
+      id: createMessageId(),
+      role: "aipify",
+      content,
+      steps: platformAnswer.steps,
+      ctas,
+      timestamp: Date.now(),
+    };
+  }
+
+  function buildFallbackReply(lbls: CompanionExperienceLabels): CompanionChatMessage {
+    return {
+      id: createMessageId(),
+      role: "aipify" as const,
+      content: lbls.noResults,
+      timestamp: Date.now(),
+      ctas: [
+        { label: lbls.createSupportRequest, href: "/app/support/requests?from=companion" },
+        { label: lbls.contextPages.support, href: "/app/support/knowledge" },
+        { label: lbls.openCompanion, href: "/app/companion" },
+      ],
+    };
+  }
 
   function buildArticleReply(
     article: SupportAssistantArticle,

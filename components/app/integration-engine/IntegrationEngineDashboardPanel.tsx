@@ -71,13 +71,6 @@ export function IntegrationEngineDashboardPanel({ labels }: IntegrationEngineDas
     setActionId(null);
   }
 
-  async function connectUnonight() {
-    setActionId("unonight");
-    await fetch("/api/integrations/unonight/connect", { method: "POST", body: "{}" });
-    await load();
-    setActionId(null);
-  }
-
   if (loading) return <AipifyLoadingState message={labels.loading} centered />;
   if (!dashboard?.has_organization) return null;
 
@@ -399,14 +392,12 @@ export function IntegrationEngineDashboardPanel({ labels }: IntegrationEngineDas
             </p>
           </div>
           {!pilot?.connected ? (
-            <button
-              type="button"
-              disabled={actionId === "unonight"}
-              onClick={() => void connectUnonight()}
-              className="rounded-lg bg-violet-600 px-3 py-1.5 text-sm text-white disabled:opacity-50"
+            <Link
+              href="/app/platform/integrations/connect/unonight"
+              className="rounded-lg bg-violet-600 px-3 py-1.5 text-sm text-white"
             >
               {labels.connectUnonight}
-            </button>
+            </Link>
           ) : null}
         </div>
       </section>

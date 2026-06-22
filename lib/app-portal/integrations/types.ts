@@ -45,9 +45,79 @@ export type AppPortalIntegrationSetup = {
     masked_credential_hint: string | null;
     last_test_success_at: string | null;
     last_test_failed_at: string | null;
+    last_test_error?: string | null;
   } | null;
   manual_steps: string[];
   oauth_steps: string[];
+};
+
+export type IntegrationPlainLanguageLabels = {
+  apiKey: string;
+  accessScope: string;
+  readOnly: string;
+  connectionTest: string;
+  secureConnectionKey: string;
+};
+
+export type IntegrationStatusLabels = {
+  pending: string;
+  missingInfo: string;
+  needsReview: string;
+  connected: string;
+  failed: string;
+  readOnly: string;
+};
+
+export type IntegrationAuthHelpProviderLabels = Record<string, string> & {
+  step1?: string;
+  step2?: string;
+  step3?: string;
+  step4?: string;
+  step5?: string;
+  technicalDetails?: string;
+};
+
+export type IntegrationAuthHelpLabels = {
+  sectionTitles: Record<string, string>;
+  stepsTitle: string;
+  technicalDetailsTitle: string;
+  technicalDetailsToggleShow: string;
+  technicalDetailsToggleHide: string;
+  provider: Record<string, IntegrationAuthHelpProviderLabels>;
+};
+
+export type IntegrationSecurityWarningLabels = {
+  readOnlyDefault: string;
+  noWriteWithoutApproval: string;
+  credentialsEncrypted: string;
+  revokeAnytime: string;
+};
+
+export type IntegrationKcLinkLabels = {
+  setupGuide: string;
+  setupGuideHref: string;
+  faq: string;
+  faqHref: string;
+  findApiKey: string;
+  findApiKeyHref: string;
+};
+
+export type IntegrationCompanionPromptLabels = {
+  whereFindKey: string;
+  whichProject: string;
+  isAccessSafe: string;
+  whyConnectionFails: string;
+  checkMySetup: string;
+};
+
+export type IntegrationErrorGuidanceLabels = {
+  actions: {
+    retry: string;
+    findKey: string;
+    contactSupport: string;
+  };
+  findKeyHref: string;
+  contactSupportHref: string;
 };
 
 export type AppPortalIntegrationsLabels = {
@@ -75,8 +145,16 @@ export type AppPortalIntegrationsLabels = {
     loading: string;
     back: string;
     stepLabels: Record<string, string>;
+    wizard7StepLabels: Record<string, string>;
     manualStepLabels: Record<string, string>;
     oauthStepLabels: Record<string, string>;
+    plainLanguage: IntegrationPlainLanguageLabels;
+    statuses: IntegrationStatusLabels;
+    authHelp: IntegrationAuthHelpLabels;
+    securityWarnings: IntegrationSecurityWarningLabels;
+    kcLinks: IntegrationKcLinkLabels;
+    companionPrompts: IntegrationCompanionPromptLabels;
+    errorGuidance: IntegrationErrorGuidanceLabels;
     selectSetupType: string;
     oauthOption: string;
     manualOption: string;
@@ -106,6 +184,20 @@ export type AppPortalIntegrationsLabels = {
     whatNotToEnable: string;
     backStep: string;
     continueStep: string;
+    confirmActivation: string;
+    confirmActivationBody: string;
+    connectionStatusLabel: string;
+    unonight?: {
+      baseUrlLabel: string;
+      baseUrlHint: string;
+      baseUrlPlaceholder: string;
+      connectionNameLabel: string;
+      connectionNamePlaceholder: string;
+    };
+    authHelpAsideTitle: string;
+    testFailedTitle: string;
+    activateCta: string;
+    activating: string;
   };
   guidance: {
     whyAccess: string;
@@ -116,4 +208,5 @@ export type AppPortalIntegrationsLabels = {
     howRotate: string;
     ifFails: string;
   };
+  faq: Record<string, string>;
 };

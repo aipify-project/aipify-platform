@@ -17,6 +17,7 @@ export type CommandBriefKpiCounts = {
   sinceLastLogin: number;
   preparedByAipify: number;
   requiresAttention: number;
+  awaitingApproval: number;
   organizationHealth: number | null;
 };
 
@@ -63,6 +64,7 @@ export function buildCommandBriefKpiCounts(center: ExecutiveCommandCenter): Comm
     sinceLastLogin: counts.sinceLastLoginItems,
     preparedByAipify: grouped.counts.completedByAipify,
     requiresAttention: attentionItems.length > 0 ? attentionItems.length : counts.criticalItems + counts.openAlerts,
+    awaitingApproval: counts.pendingActions,
     organizationHealth:
       typeof center.overall_health_score === "number" ? center.overall_health_score : null,
   };

@@ -28,6 +28,8 @@ for (const locale of LOCALES) {
         companionAsk?: string;
         activityEmptyTitle?: string;
         activityEmptyBody?: string;
+        kpiStatus?: { sinceLastLoginZero?: string; approvalZero?: string };
+        companionStatusReady?: string;
       };
     };
   };
@@ -35,6 +37,9 @@ for (const locale of LOCALES) {
   assert.ok(dict.executiveCommandCenter?.commandBriefOverview?.companionAsk, `${locale}: companionAsk`);
   assert.ok(dict.executiveCommandCenter?.commandBriefOverview?.activityEmptyTitle, `${locale}: activityEmptyTitle`);
   assert.ok(dict.executiveCommandCenter?.commandBriefOverview?.activityEmptyBody, `${locale}: activityEmptyBody`);
+  assert.ok(dict.executiveCommandCenter?.commandBriefOverview?.kpiStatus?.sinceLastLoginZero, `${locale}: kpiStatus.sinceLastLoginZero`);
+  assert.ok(dict.executiveCommandCenter?.commandBriefOverview?.kpiStatus?.approvalZero, `${locale}: kpiStatus.approvalZero`);
+  assert.ok(dict.executiveCommandCenter?.commandBriefOverview?.companionStatusReady, `${locale}: companionStatusReady`);
 }
 
 const syntheticCenter: ExecutiveCommandCenter = {
@@ -110,9 +115,10 @@ const realCenter: ExecutiveCommandCenter = {
     {
       action_key: "action:pending-1",
       action_title: "Approve refund policy",
+      action_type: "approval",
       summary: "Refund policy update awaits approval.",
       priority: "attention",
-      status: "pending",
+      action_status: "pending",
     },
   ],
   business_packs: [
@@ -132,6 +138,7 @@ assert.ok(attention.length <= 3);
 
 const kpis = buildCommandBriefKpiCounts(realCenter);
 assert.equal(kpis.organizationHealth, 85);
+assert.equal(kpis.awaitingApproval, 1);
 assert.ok(kpis.sinceLastLogin >= 0);
 
 const alertSummary = buildCommandBriefAlertSummary(realCenter, attention);

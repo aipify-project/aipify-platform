@@ -54,6 +54,12 @@ assert.equal(resolveCompanionPageLabelKey("/app/command-center"), "commandCenter
 const defaultSuggestions = resolveCompanionSuggestions("/app/billing/invoices");
 assert.ok(defaultSuggestions.length >= 1);
 
+const integrationSetupSuggestions = resolveCompanionSuggestions(
+  "/app/platform/integrations/connect/shopify"
+);
+assert.ok(integrationSetupSuggestions.some((s) => s.promptKey === "whereFindKey"));
+assert.equal(resolveCompanionPageLabelKey("/app/platform/integrations/connect/shopify"), "integrationSetup");
+
 // 5. i18n keys exist for en/no/sv/da — no placeholder strings.
 for (const locale of LOCALES) {
   const nav = loadPortalNav(locale);

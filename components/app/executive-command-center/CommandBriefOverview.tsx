@@ -10,9 +10,12 @@ import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import { formatDateTime } from "@/lib/i18n/format-date";
 import { formatRelativeTime } from "@/lib/i18n/format-relative-time";
 import {
-  getEccHealthMetricBadge,
-  mapHealthScoreToHealthState,
-} from "@/lib/design/semantic-status-system";
+  resolveAttentionKpiStatus,
+  resolveAwaitingApprovalKpiStatus,
+  resolveHealthKpiStatus,
+  resolvePreparedKpiStatus,
+  resolveSinceLastLoginKpiStatus,
+} from "@/lib/command-center/command-brief-kpi-status";
 import type { CommandCenterItem } from "@/lib/command-center/ecc-tab-datasets";
 import type {
   CommandBriefIntegrationSignal,
@@ -20,6 +23,7 @@ import type {
 } from "@/lib/command-center/command-brief-overview";
 import type { SinceLastLoginEvent } from "@/lib/command-center/since-last-login";
 import type { buildExecutiveCommandCenterLabels } from "@/lib/executive-command-center-engine/labels";
+import { mapUserRoleToOrganizationRole, roleHasPermission } from "@/lib/core/organization";
 import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardProfileProvider";
 import { EccTabIcons } from "./ecc-tab-icons";
 
@@ -110,11 +114,18 @@ export function CommandBriefCompanionCard({ labels }: CommandBriefCompanionCardP
       <div className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-violet-100/60" aria-hidden="true" />
       <div className="relative flex items-start gap-4">
         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-violet-100">
-          <CompanionIcon className="h-9 w-9" />
+          <CompanionIcon className="h-9 w-9" withRing />
         </div>
         <div className="min-w-0 flex-1">
           <h2 className={AppPremiumShell.commandBriefSectionTitle}>{labels.companionTitle}</h2>
-          <p className={`mt-2 ${AppPremiumShell.commandBriefBody}`}>{labels.companionIntro}</p>
+          <div className="mt-2">
+            <SemanticBadge
+              type="workflow"
+              value="completed"
+              label={labels.companionStatusReady}
+            />
+          </div>
+          <p className={`mt-3 ${AppPremiumShell.commandBriefBody}`}>{labels.companionIntro}</p>
           <p className={`mt-3 ${AppPremiumShell.commandBriefMeta}`}>
             {labels.companionActiveOrg}: <span className="font-medium text-aipify-text">{orgName}</span>
           </p>
@@ -179,13 +190,6 @@ function activityIcon(event: SinceLastLoginEvent) {
   return EccTabIcons.history;
 }
 
-function healthMetricLabel(labels: Labels, score: number): string {
-  const state = mapHealthScoreToHealthState(score);
-  if (state === "healthy" || state === "good") return labels.premium.metrics.healthStatusGood;
-  if (state === "moderate") return labels.premium.metrics.healthStatusModerate;
-  return labels.premium.metrics.healthStatusLow;
-}
-
 type CommandBriefOverviewProps = {
   labels: Labels;
   locale: string;
@@ -211,73 +215,78 @@ export function CommandBriefOverview({
   integrationSignals,
   resolveLabel,
 }: CommandBriefOverviewProps) {
+  const profile = useOptionalDashboardProfile();
   const o = labels.commandBriefOverview;
   const healthScore = kpis.organizationHealth;
+  const kpiStatus = o.kpiStatus;
+  const metricLabelClass = AppPremiumShell.commandBriefMetricLabel;
+  const metricDescriptionClass = AppPremiumShell.commandBriefMetricDescription;
 
-  const healthBadge =
-    healthScore != null
-      ? (() => {
-          const config = getEccHealthMetricBadge(healthScore);
-          return {
-            semanticType: config.type,
-            semanticValue: config.value,
-            statusLabel: healthMetricLabel(labels, healthScore),
-            a11yLabel: `${o.kpiHealth}: ${healthMetricLabel(labels, healthScore)}`,
-          };
-        })()
-      : {
-          semanticType: "access" as const,
-          semanticValue: "restricted",
-          statusLabel: o.kpiHealthUnavailable,
-          a11yLabel: o.kpiHealthUnavailable,
-        };
+  const userRole = profile?.profile?.user.role;
+  const canAccessApprovals =
+    userRole != null &&
+    roleHasPermission(mapUserRoleToOrganizationRole(userRole), "approve_ai_actions");
+  const approvalsHref = canAccessApprovals ? "/app/approvals" : undefined;
+
+  const sinceLastLoginStatus = resolveSinceLastLoginKpiStatus(kpis.sinceLastLogin, kpiStatus);
+  const preparedStatus = resolvePreparedKpiStatus(kpis.preparedByAipify, kpiStatus);
+  const attentionStatus = resolveAttentionKpiStatus(kpis.requiresAttention, kpiStatus);
+  const approvalStatus = resolveAwaitingApprovalKpiStatus(kpis.awaitingApproval, kpiStatus);
+  const healthStatus = resolveHealthKpiStatus(healthScore, kpiStatus);
 
   return (
     <div className={`${AppPremiumShell.commandBriefGrid} w-full min-w-0`}>
-      {/* KPI row — 4 × col-3 on xl */}
-      <section aria-label={o.title} className="col-span-12 grid grid-cols-12 gap-4 lg:gap-6">
-        <div className="col-span-12 sm:col-span-6 xl:col-span-3">
-          <ExecutiveMetricCard
-            icon={EccTabIcons.history}
-            label={o.kpiSinceLastLogin}
-            value={kpis.sinceLastLogin}
-            description={o.kpiSinceLastLoginDesc}
-            semanticType="severity"
-            semanticValue="info"
-            statusLabel={kpis.sinceLastLogin > 0 ? o.kpiActive : o.kpiNone}
-          />
-        </div>
-        <div className="col-span-12 sm:col-span-6 xl:col-span-3">
-          <ExecutiveMetricCard
-            icon={EccTabIcons.action}
-            label={o.kpiPrepared}
-            value={kpis.preparedByAipify}
-            description={o.kpiPreparedDesc}
-            semanticType="workflow"
-            semanticValue="completed"
-            statusLabel={kpis.preparedByAipify > 0 ? o.kpiActive : o.kpiNone}
-          />
-        </div>
-        <div className="col-span-12 sm:col-span-6 xl:col-span-3">
-          <ExecutiveMetricCard
-            icon={EccTabIcons.alerts}
-            label={o.kpiAttention}
-            value={kpis.requiresAttention}
-            description={o.kpiAttentionDesc}
-            semanticType="severity"
-            semanticValue={kpis.requiresAttention > 0 ? "high" : "info"}
-            statusLabel={kpis.requiresAttention > 0 ? o.kpiActive : o.kpiNone}
-          />
-        </div>
-        <div className="col-span-12 sm:col-span-6 xl:col-span-3">
-          <ExecutiveMetricCard
-            icon={EccTabIcons.health}
-            label={o.kpiHealth}
-            value={healthScore ?? "—"}
-            description={o.kpiHealthDesc}
-            {...healthBadge}
-          />
-        </div>
+      {/* KPI row — 5 cards: 1 col mobile · 2 tablet · 3 lg · 5 xl */}
+      <section
+        aria-label={o.title}
+        className="col-span-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+      >
+        <ExecutiveMetricCard
+          icon={EccTabIcons.history}
+          label={o.kpiSinceLastLogin}
+          value={kpis.sinceLastLogin}
+          description={o.kpiSinceLastLoginDesc}
+          labelClassName={metricLabelClass}
+          descriptionClassName={metricDescriptionClass}
+          {...sinceLastLoginStatus}
+        />
+        <ExecutiveMetricCard
+          icon={EccTabIcons.action}
+          label={o.kpiPrepared}
+          value={kpis.preparedByAipify}
+          description={o.kpiPreparedDesc}
+          labelClassName={metricLabelClass}
+          descriptionClassName={metricDescriptionClass}
+          {...preparedStatus}
+        />
+        <ExecutiveMetricCard
+          icon={EccTabIcons.alerts}
+          label={o.kpiAttention}
+          value={kpis.requiresAttention}
+          description={o.kpiAttentionDesc}
+          labelClassName={metricLabelClass}
+          descriptionClassName={metricDescriptionClass}
+          {...attentionStatus}
+        />
+        <ExecutiveMetricCard
+          icon={EccTabIcons.approvals}
+          label={o.kpiApproval}
+          value={kpis.awaitingApproval}
+          description={o.kpiApprovalDesc}
+          labelClassName={metricLabelClass}
+          descriptionClassName={metricDescriptionClass}
+          href={approvalsHref}
+          {...approvalStatus}
+        />
+        <ExecutiveMetricCard
+          icon={EccTabIcons.health}
+          label={o.kpiHealth}
+          value={healthScore ?? "—"}
+          description={o.kpiHealthDesc}
+          labelClassName={metricLabelClass}
+          descriptionClassName={metricDescriptionClass}
+          {...healthStatus}
+        />
       </section>
 
       {/* Main 8 + sidebar 4 */}
@@ -445,18 +454,18 @@ export function CommandBriefOverview({
           </div>
         </div>
 
-        <aside className="col-span-12 space-y-6 lg:col-span-4 lg:sticky lg:top-6 lg:self-start">
+        <aside className="col-span-12 flex flex-col gap-6 lg:col-span-4 lg:sticky lg:top-6 lg:self-start">
           <div className="hidden lg:block">
             <CommandBriefCompanionCard labels={o} />
           </div>
 
           <section aria-labelledby="ecc-next-action-title" className="space-y-3">
-            <h2 id="ecc-next-action-title" className="text-lg font-semibold text-aipify-text">
+            <h2 id="ecc-next-action-title" className={AppPremiumShell.commandBriefSectionTitle}>
               {o.nextActionTitle}
             </h2>
             {nextAction ? (
               <article className={`${AppPremiumShell.elevatedCard} space-y-3 p-5 sm:p-6`}>
-                <h3 className="text-base font-semibold text-aipify-text">{nextAction.title}</h3>
+                <h3 className="text-lg font-semibold text-aipify-text">{nextAction.title}</h3>
                 <p className={AppPremiumShell.commandBriefBody}>{nextAction.description}</p>
                 {nextAction.valueLabel ? (
                   <p className={AppPremiumShell.commandBriefMeta}>
@@ -478,8 +487,8 @@ export function CommandBriefOverview({
                 </Link>
               </article>
             ) : (
-              <div className={`${AppPremiumShell.elevatedCard} p-5 sm:p-6`}>
-                <p className="text-base font-medium text-aipify-text">{o.nextActionEmptyTitle}</p>
+              <div className={`${AppPremiumShell.elevatedCard} px-4 py-4 sm:px-5 sm:py-5`}>
+                <p className="text-base font-medium text-aipify-text sm:text-lg">{o.nextActionEmptyTitle}</p>
                 <p className={`mt-2 ${AppPremiumShell.commandBriefBody}`}>{o.nextActionEmptyBody}</p>
               </div>
             )}

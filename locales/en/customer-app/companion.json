@@ -2042,14 +2042,38 @@
     "ariaOpenCompanion": "Open Aipify Companion",
     "ariaFloatingButton": "Ask Aipify — open Companion",
     "quickActions": {
-      "orgStatus": { "title": "Organization status", "description": "Overview of workspace health, activity, and items requiring attention." },
-      "recentEvents": { "title": "Recent events", "description": "What changed since your last login — approvals, support, and updates." },
-      "integrations": { "title": "Integrations", "description": "Connected systems, sync status, and setup guidance." },
-      "supportCases": { "title": "Support & cases", "description": "Open support requests and how to escalate with context." },
-      "customerSuccess": { "title": "Customer success", "description": "Adoption, health signals, and recommended next steps." },
-      "knowledgeFaq": { "title": "Knowledge & FAQ", "description": "Approved Knowledge Center answers and procedures." },
-      "securityAccess": { "title": "Security & access", "description": "Permissions, security settings, and trust controls." },
-      "whatNow": { "title": "What should I do now?", "description": "Prioritized recommendations based on your current context." }
+      "orgStatus": {
+        "title": "Organization status",
+        "description": "Overview of workspace health, activity, and items requiring attention."
+      },
+      "recentEvents": {
+        "title": "Recent events",
+        "description": "What changed since your last login — approvals, support, and updates."
+      },
+      "integrations": {
+        "title": "Integrations",
+        "description": "Connected systems, sync status, and setup guidance."
+      },
+      "supportCases": {
+        "title": "Support & cases",
+        "description": "Open support requests and how to escalate with context."
+      },
+      "customerSuccess": {
+        "title": "Customer success",
+        "description": "Adoption, health signals, and recommended next steps."
+      },
+      "knowledgeFaq": {
+        "title": "Knowledge & FAQ",
+        "description": "Approved Knowledge Center answers and procedures."
+      },
+      "securityAccess": {
+        "title": "Security & access",
+        "description": "Permissions, security settings, and trust controls."
+      },
+      "whatNow": {
+        "title": "What should I do now?",
+        "description": "Prioritized recommendations based on your current context."
+      }
     },
     "capabilities": {
       "guidance": "Operational guidance with context and recommended next steps",
@@ -2069,7 +2093,8 @@
       "integrations": "Integrations",
       "organization": "Organization",
       "billing": "Billing",
-      "operations": "Operations"
+      "operations": "Operations",
+      "integrationSetup": "Integration setup"
     },
     "contextSuggestions": {
       "commandBriefSummary": "Summarize my Command Brief priorities for today",
@@ -2091,7 +2116,12 @@
       "operationsPriority": "What operational tasks should I prioritize today?",
       "operationsEvents": "Summarize recent operational events I should know about",
       "defaultOrgStatus": "What is my organization status right now?",
-      "defaultWhatNow": "What should I focus on next in my workspace?"
+      "defaultWhatNow": "What should I focus on next in my workspace?",
+      "whereFindKey": "Where do I find my connection key for this integration?",
+      "whichProject": "Which project or store should I connect?",
+      "isAccessSafe": "Is it safe to give Aipify read-only access?",
+      "whyConnectionFails": "Why did my connection test fail?",
+      "checkMySetup": "Can you check if my integration setup looks correct?"
     }
   }
 }

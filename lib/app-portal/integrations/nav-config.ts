@@ -43,4 +43,20 @@ export const APP_PORTAL_INTEGRATIONS_FAQ_ARTICLES = [
     slug: "is-it-safe-to-connect",
     titleKey: "customerApp.portalStructure.integrations.faq.isItSafeToConnect",
   },
+  {
+    slug: "what-is-secure-connection-key",
+    titleKey: "customerApp.portalStructure.integrations.faq.whatIsSecureConnectionKey",
+  },
+  {
+    slug: "how-to-test-connection",
+    titleKey: "customerApp.portalStructure.integrations.faq.howToTestConnection",
+  },
+  {
+    slug: "can-change-permissions-later",
+    titleKey: "customerApp.portalStructure.integrations.faq.canChangePermissionsLater",
+  },
+  {
+    slug: "who-can-manage-integrations",
+    titleKey: "customerApp.portalStructure.integrations.faq.whoCanManageIntegrations",
+  },
 ] as const;

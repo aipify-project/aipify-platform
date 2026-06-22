@@ -8,6 +8,7 @@ export type PilotSyncSchedulerInput = {
   sources: Array<{ source_key: string; allowed: boolean }>;
   existingDedupKeys?: Set<string>;
   configuredViewUrl?: string | null;
+  liveConnectionVerified?: boolean;
 };
 
 export type PilotSyncSchedulerResult = {
@@ -49,6 +50,7 @@ export async function runPilotSyncScheduler(
       sourceKey: source.source_key,
       allowed: source.allowed,
       configuredViewUrl: input.configuredViewUrl,
+      liveConnectionVerified: input.liveConnectionVerified,
     });
 
     if (result.skippedSources.includes(source.source_key)) {

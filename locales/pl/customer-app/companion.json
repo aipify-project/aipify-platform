@@ -1156,14 +1156,38 @@
     "ariaOpenCompanion": "Otwórz Aipify Companion",
     "ariaFloatingButton": "Zapytaj Aipify — otwórz Companion",
     "quickActions": {
-      "orgStatus": { "title": "Status organizacji", "description": "Przegląd kondycji obszaru roboczego, aktywności i elementów wymagających uwagi." },
-      "recentEvents": { "title": "Ostatnie zdarzenia", "description": "Co zmieniło się od ostatniego logowania — zatwierdzenia, wsparcie i aktualizacje." },
-      "integrations": { "title": "Integracje", "description": "Połączone systemy, status synchronizacji i wskazówki konfiguracji." },
-      "supportCases": { "title": "Wsparcie i zgłoszenia", "description": "Otwarte zgłoszenia wsparcia i jak eskalować z kontekstem." },
-      "customerSuccess": { "title": "Sukces klienta", "description": "Adopcja, sygnały kondycji i zalecane kolejne kroki." },
-      "knowledgeFaq": { "title": "Wiedza i FAQ", "description": "Zatwierdzone odpowiedzi i procedury z Knowledge Center." },
-      "securityAccess": { "title": "Bezpieczeństwo i dostęp", "description": "Uprawnienia, ustawienia bezpieczeństwa i kontrola zaufania." },
-      "whatNow": { "title": "Co powinienem teraz zrobić?", "description": "Priorytetowe rekomendacje na podstawie bieżącego kontekstu." }
+      "orgStatus": {
+        "title": "Status organizacji",
+        "description": "Przegląd kondycji obszaru roboczego, aktywności i elementów wymagających uwagi."
+      },
+      "recentEvents": {
+        "title": "Ostatnie zdarzenia",
+        "description": "Co zmieniło się od ostatniego logowania — zatwierdzenia, wsparcie i aktualizacje."
+      },
+      "integrations": {
+        "title": "Integracje",
+        "description": "Połączone systemy, status synchronizacji i wskazówki konfiguracji."
+      },
+      "supportCases": {
+        "title": "Wsparcie i zgłoszenia",
+        "description": "Otwarte zgłoszenia wsparcia i jak eskalować z kontekstem."
+      },
+      "customerSuccess": {
+        "title": "Sukces klienta",
+        "description": "Adopcja, sygnały kondycji i zalecane kolejne kroki."
+      },
+      "knowledgeFaq": {
+        "title": "Wiedza i FAQ",
+        "description": "Zatwierdzone odpowiedzi i procedury z Knowledge Center."
+      },
+      "securityAccess": {
+        "title": "Bezpieczeństwo i dostęp",
+        "description": "Uprawnienia, ustawienia bezpieczeństwa i kontrola zaufania."
+      },
+      "whatNow": {
+        "title": "Co powinienem teraz zrobić?",
+        "description": "Priorytetowe rekomendacje na podstawie bieżącego kontekstu."
+      }
     },
     "capabilities": {
       "guidance": "Operacyjne wskazówki z kontekstem i zalecanymi kolejnymi krokami",
@@ -1183,7 +1207,8 @@
       "integrations": "Integracje",
       "organization": "Organizacja",
       "billing": "Rozliczenia",
-      "operations": "Operacje"
+      "operations": "Operacje",
+      "integrationSetup": "Konfiguracja integracji"
     },
     "contextSuggestions": {
       "commandBriefSummary": "Podsumuj moje priorytety Command Brief na dziś",
@@ -1205,7 +1230,12 @@
       "operationsPriority": "Jakie zadania operacyjne powinienem dziś priorytetyzować?",
       "operationsEvents": "Podsumuj ostatnie zdarzenia operacyjne, o których powinienem wiedzieć",
       "defaultOrgStatus": "Jaki jest teraz status mojej organizacji?",
-      "defaultWhatNow": "Na czym powinienem się skupić dalej w obszarze roboczym?"
+      "defaultWhatNow": "Na czym powinienem się skupić dalej w obszarze roboczym?",
+      "whereFindKey": "Gdzie znajdę klucz połączenia dla tej integracji?",
+      "whichProject": "Który projekt lub sklep powinienem połączyć?",
+      "isAccessSafe": "Czy bezpieczne jest udzielenie Aipify dostępu tylko do odczytu?",
+      "whyConnectionFails": "Dlaczego test połączenia nie powiódł się?",
+      "checkMySetup": "Czy możesz sprawdzić, czy moja konfiguracja integracji wygląda poprawnie?"
     }
   },
   "companionRelationshipEngine": {
