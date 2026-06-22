@@ -4,9 +4,14 @@ import type {
   ProviderCapabilityReadinessStatus,
 } from "@/lib/integration-intelligence/community/provider-adapter-types";
 import {
+  applyAuthenticatedE2eReadinessGate,
   canPresentMetricBindingAsDirectAnswer,
+  classifyProviderCapabilityReadiness,
+  resolveMetricBindingForRequestWithAliases,
+  resolveProviderRecordFreshness,
+  selectExactCommandBriefSignals,
   selectPresentableMetricBinding,
-} from "@/lib/integration-intelligence/community/metric-contract";
+} from "@/lib/integration-intelligence/community/provider-adapter-types";
 import { buildCommunityCapabilityId } from "@/lib/integration-intelligence/community/types";
 import type { UnonightProviderAdapterV1Capability } from "./constants";
 import {
@@ -16,11 +21,8 @@ import {
 } from "./constants";
 import { getUnonightAdapterSource } from "./source-map";
 import type { UnonightMemberStatisticsSnapshot } from "./member-statistics";
-import {
-  buildUnonightMetricBindings,
-  hasUnonightExactMemberSource,
-  resolveUnonightPresentableBinding,
-} from "./metric-grounding";
+import { buildUnonightMetricBindings } from "./metric-grounding";
+import { UNONIGHT_MEMBER_METRIC_ALIASES } from "./member-metric-aliases";
 
 export type UnonightAdapterSignalCounts = {
   group_count: number | null;
@@ -36,69 +38,51 @@ function capabilityId(capabilityKey: UnonightProviderAdapterV1Capability): strin
   return buildCommunityCapabilityId(UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY, capabilityKey, "read");
 }
 
-function resolveFreshness(fetchedAt: string): CommunityProviderAdapterRecord["freshness"] {
-  const parsed = Date.parse(fetchedAt);
-  if (!Number.isFinite(parsed)) return "unknown";
-  const ageMs = Date.now() - parsed;
-  if (ageMs <= 15 * 60 * 1000) return "fresh";
-  return "stale";
-}
-
-function finalizeAuthenticatedE2eReadiness(
-  capabilityKey: UnonightProviderAdapterV1Capability,
-  status: ProviderCapabilityReadinessStatus,
-  authenticatedE2eVerifiedCapabilities: readonly string[],
-): ProviderCapabilityReadinessStatus {
-  if (
-    UNONIGHT_PRODUCTION_READY_REQUIRES_E2E &&
-    status === "production_ready" &&
-    !authenticatedE2eVerifiedCapabilities.includes(capabilityKey)
-  ) {
-    return "production_ready_candidate";
-  }
-
-  if (
-    status === "production_ready" &&
-    UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES.includes(
-      capabilityKey as (typeof UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES)[number],
-    ) &&
-    !authenticatedE2eVerifiedCapabilities.includes(capabilityKey)
-  ) {
-    return "production_ready_candidate";
-  }
-
-  return status;
-}
-
-function resolveBaseReadiness(input: {
+function resolvePresentableBinding(input: {
   capabilityKey: UnonightProviderAdapterV1Capability;
-  presentableBinding: ReturnType<typeof resolveUnonightPresentableBinding>;
+  counts: UnonightAdapterSignalCounts;
+  requestedMetric: string | null;
+}) {
+  const bindings = buildUnonightMetricBindings({
+    capabilityKey: input.capabilityKey,
+    counts: input.counts,
+  });
+
+  if (input.capabilityKey === "member.read") {
+    return resolveMetricBindingForRequestWithAliases({
+      bindings,
+      requested_metric: input.requestedMetric,
+      metric_aliases: UNONIGHT_MEMBER_METRIC_ALIASES,
+    });
+  }
+
+  return resolveMetricBindingForRequestWithAliases({
+    bindings,
+    requested_metric: input.requestedMetric,
+  });
+}
+
+function resolveCapabilityReadiness(input: {
+  capabilityKey: UnonightProviderAdapterV1Capability;
+  counts: UnonightAdapterSignalCounts;
   gateActive: boolean;
   hasPermission: boolean;
   sourceStatus: "live" | "partial" | "placeholder" | "missing";
-  counts: UnonightAdapterSignalCounts;
 }): ProviderCapabilityReadinessStatus {
-  if (!input.gateActive || !input.hasPermission) return "disabled";
-  if (input.sourceStatus === "missing") return "adapter_missing";
+  const metricBindings = buildUnonightMetricBindings({
+    capabilityKey: input.capabilityKey,
+    counts: input.counts,
+  });
 
-  if (input.capabilityKey === "member.read") {
-    if (!hasUnonightExactMemberSource(input.counts)) {
-      return "connected_but_partial";
-    }
-    return "production_ready_candidate";
-  }
-
-  if (input.capabilityKey === "listing.read") {
-    return "production_ready";
-  }
-
-  const binding = input.presentableBinding;
-  if (!binding || !canPresentMetricBindingAsDirectAnswer(binding)) {
-    return "connected_but_partial";
-  }
-
-  if (input.sourceStatus === "partial") return "connected_but_partial";
-  return "production_ready";
+  return classifyProviderCapabilityReadiness({
+    gateActive: input.gateActive,
+    hasPermission: input.hasPermission,
+    sourceStatus: input.sourceStatus,
+    metricBindings,
+    readinessOverride: input.capabilityKey === "listing.read" ? "production_ready" : null,
+    exactLiveReadiness:
+      input.capabilityKey === "member.read" ? "production_ready_candidate" : undefined,
+  });
 }
 
 function buildRecord(input: {
@@ -115,7 +99,7 @@ function buildRecord(input: {
     capabilityKey: input.capabilityKey,
     counts: input.counts,
   });
-  const presentable = resolveUnonightPresentableBinding({
+  const presentable = resolvePresentableBinding({
     capabilityKey: input.capabilityKey,
     counts: input.counts,
     requestedMetric: input.requestedMetric,
@@ -153,7 +137,7 @@ function buildRecord(input: {
     summary: null,
     source_reference: input.sourceReference,
     fetched_at: input.fetchedAt,
-    freshness: resolveFreshness(input.fetchedAt),
+    freshness: resolveProviderRecordFreshness(input.fetchedAt),
     completeness,
     permission_scope: input.permissionScope,
     warnings,
@@ -240,24 +224,20 @@ export function normalizeUnonightProviderAdapterRecords(input: {
 
   for (const entry of entries) {
     const source = getUnonightAdapterSource(entry.capabilityKey);
-    const presentableBinding = resolveUnonightPresentableBinding({
+    const baseStatus = resolveCapabilityReadiness({
       capabilityKey: entry.capabilityKey,
       counts: input.counts,
-      requestedMetric: entry.requestedMetric,
-    });
-    const baseStatus = resolveBaseReadiness({
-      capabilityKey: entry.capabilityKey,
-      presentableBinding,
       gateActive: input.gateActive,
       hasPermission: entry.hasPermission,
       sourceStatus: source?.status ?? "missing",
-      counts: input.counts,
     });
-    const status = finalizeAuthenticatedE2eReadiness(
-      entry.capabilityKey,
-      baseStatus,
-      input.authenticatedE2eVerifiedCapabilities ?? [],
-    );
+    const status = applyAuthenticatedE2eReadinessGate({
+      status: baseStatus,
+      capabilityKey: entry.capabilityKey,
+      authenticatedE2eVerifiedCapabilities: input.authenticatedE2eVerifiedCapabilities ?? [],
+      e2eGatedCapabilities: UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES,
+      productionReadyRequiresE2e: UNONIGHT_PRODUCTION_READY_REQUIRES_E2E,
+    });
 
     capability_readiness.push({
       capability_id: capabilityId(entry.capabilityKey),
@@ -299,37 +279,59 @@ export function normalizeUnonightProviderAdapterRecords(input: {
 export function buildUnonightCommandBriefSignals(
   counts: UnonightAdapterSignalCounts,
 ): Array<{ signal_key: string; count: number | null }> {
-  const signals: Array<{ signal_key: string; count: number | null }> = [];
   const stats = counts.member_statistics;
+  const memberBindings =
+    stats?.found && stats.completeness !== "empty"
+      ? buildUnonightMetricBindings({ capabilityKey: "member.read", counts })
+      : [];
 
-  if (stats?.found) {
-    if (stats.new_members_today !== null && stats.new_members_today > 0) {
-      signals.push({ signal_key: "new_members", count: stats.new_members_today });
-    }
-    const growthTotal =
-      stats.member_growth.length > 0
-        ? stats.member_growth.reduce((sum, entry) => sum + entry.net_growth, 0)
-        : null;
-    if (growthTotal !== null && growthTotal > 0) {
-      signals.push({ signal_key: "member_growth", count: growthTotal });
-    }
-  }
+  const growthBinding = memberBindings.find((entry) => entry.source_metric === "member_growth");
+  const todayBinding = memberBindings.find((entry) => entry.source_metric === "new_members_today");
 
-  if (counts.pending_moderation_count !== null && counts.pending_moderation_count > 0) {
-    signals.push({ signal_key: "pending_moderation", count: counts.pending_moderation_count });
-  }
-  if (counts.reports_attention_count !== null && counts.reports_attention_count > 0) {
-    signals.push({
-      signal_key: "reports_requiring_attention",
-      count: counts.reports_attention_count,
-    });
-  }
-  if (counts.pending_verification_count !== null && counts.pending_verification_count > 0) {
-    signals.push({ signal_key: "pending_verification", count: counts.pending_verification_count });
-  }
-  if (counts.listing_review_count !== null && counts.listing_review_count > 0) {
-    signals.push({ signal_key: "listing_review", count: counts.listing_review_count });
-  }
+  const exactSignals = selectExactCommandBriefSignals([
+    {
+      signal_key: "new_members",
+      count: stats?.new_members_today ?? null,
+      semantic_match: todayBinding?.semantic_match ?? "incompatible",
+    },
+    {
+      signal_key: "member_growth",
+      count: growthBinding?.value ?? null,
+      semantic_match: growthBinding?.semantic_match ?? "incompatible",
+    },
+  ]);
 
-  return signals;
+  const moderationBindings = buildUnonightMetricBindings({
+    capabilityKey: "moderation_queue.read",
+    counts,
+  });
+  const reportBindings = buildUnonightMetricBindings({
+    capabilityKey: "report.read",
+    counts,
+  });
+  const verificationBindings = buildUnonightMetricBindings({
+    capabilityKey: "verification_status.read",
+    counts,
+  });
+
+  return [
+    ...exactSignals,
+    ...selectExactCommandBriefSignals([
+      {
+        signal_key: "pending_moderation",
+        count: counts.pending_moderation_count,
+        semantic_match: moderationBindings[0]?.semantic_match ?? "incompatible",
+      },
+      {
+        signal_key: "reports_requiring_attention",
+        count: counts.reports_attention_count,
+        semantic_match: reportBindings[0]?.semantic_match ?? "incompatible",
+      },
+      {
+        signal_key: "pending_verification",
+        count: counts.pending_verification_count,
+        semantic_match: verificationBindings[0]?.semantic_match ?? "incompatible",
+      },
+    ]),
+  ];
 }

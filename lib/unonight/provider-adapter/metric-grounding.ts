@@ -2,32 +2,6 @@ import type { ProviderMetricBinding } from "@/lib/integration-intelligence/commu
 import type { UnonightProviderAdapterV1Capability } from "./constants";
 import type { UnonightAdapterSignalCounts } from "./normalize";
 
-export type UnonightRequestedMemberMetric =
-  | "total_members"
-  | "new_members"
-  | "members_today"
-  | "members_last_7_days"
-  | "members_last_30_days"
-  | "members_since_last"
-  | "member_growth"
-  | "active_members";
-
-export function mapSemanticMetricToRequested(input: {
-  entity: string | null;
-  metric: string | null;
-  timeScope: string | null;
-}): string | null {
-  if (!input.entity || input.entity !== "member") return null;
-  if (input.metric === "new" || input.timeScope === "since_last") return "new_members";
-  if (input.metric === "growth") return "member_growth";
-  if (input.metric === "active") return "active_members";
-  if (input.metric === "total" || input.metric === "count") return "total_members";
-  if (input.timeScope === "period") {
-    return "members_last_30_days";
-  }
-  return "total_members";
-}
-
 function binding(
   partial: Omit<ProviderMetricBinding, "warnings"> & { warnings?: string[] },
 ): ProviderMetricBinding {
@@ -102,12 +76,7 @@ function memberReadBindings(counts: UnonightAdapterSignalCounts): ProviderMetric
       source_field: "member_statistics.new_members_since",
       source_metric: "new_members_since",
       requested_metric: "new_members",
-      semantic_match:
-        stats.new_members_since === null
-          ? stats.period.kind === "since_last" && stats.since_boundary_source === "none"
-            ? "incompatible"
-            : "incompatible"
-          : "exact",
+      semantic_match: stats.new_members_since === null ? "incompatible" : "exact",
       period: stats.period.kind === "since_last" ? "since_last" : "explicit",
       value: stats.new_members_since,
       completeness:
@@ -147,7 +116,7 @@ function memberReadBindings(counts: UnonightAdapterSignalCounts): ProviderMetric
   return bindings;
 }
 
-/** Documented Unonight member statistics source — exact metrics only, no proxy counts. */
+/** Maps Unonight RPC fields to generic ProviderMetricBinding records — no Core logic here. */
 export function buildUnonightMetricBindings(input: {
   capabilityKey: UnonightProviderAdapterV1Capability;
   counts: UnonightAdapterSignalCounts;
@@ -258,86 +227,4 @@ export function buildUnonightMetricBindings(input: {
   }
 
   return [];
-}
-
-export function resolveUnonightPresentableBinding(input: {
-  capabilityKey: UnonightProviderAdapterV1Capability;
-  counts: UnonightAdapterSignalCounts;
-  requestedMetric: string | null;
-  period?: string | null;
-}): ProviderMetricBinding | null {
-  const bindings = buildUnonightMetricBindings({
-    capabilityKey: input.capabilityKey,
-    counts: input.counts,
-  });
-
-  if (input.requestedMetric) {
-    const metricAliases: Record<string, string[]> = {
-      new_members: ["new_members", "members_since_last", "members_today", "members_last_7_days", "members_last_30_days"],
-      members_today: ["members_today", "new_members"],
-      members_last_7_days: ["members_last_7_days", "new_members"],
-      members_last_30_days: ["members_last_30_days", "new_members"],
-    };
-    const aliases = metricAliases[input.requestedMetric] ?? [input.requestedMetric];
-
-    for (const alias of aliases) {
-      const match =
-        bindings.find(
-          (entry) =>
-            entry.requested_metric === alias &&
-            (entry.semantic_match === "exact" || entry.semantic_match === "compatible"),
-        ) ?? bindings.find((entry) => entry.requested_metric === alias);
-      if (match) return match;
-    }
-    return null;
-  }
-
-  return bindings.find((entry) => entry.semantic_match === "exact" || entry.semantic_match === "compatible") ?? null;
-}
-
-export function resolveUnonightMemberReadinessStatus(input: {
-  capabilityKey: UnonightProviderAdapterV1Capability;
-  counts: UnonightAdapterSignalCounts;
-  requestedMetric: string | null;
-  gateActive: boolean;
-  hasPermission: boolean;
-  sourceStatus: "live" | "partial" | "placeholder" | "missing";
-}): "connected_but_partial" | "production_ready_candidate" | "adapter_missing" | "disabled" {
-  if (!input.gateActive || !input.hasPermission) return "disabled";
-  if (input.sourceStatus === "missing") return "adapter_missing";
-
-  if (input.capabilityKey === "member.read") {
-    const bindings = buildUnonightMetricBindings({
-      capabilityKey: "member.read",
-      counts: input.counts,
-    });
-    const hasExact = bindings.some(
-      (entry) => entry.semantic_match === "exact" && entry.value !== null,
-    );
-    if (hasExact && input.sourceStatus === "live") {
-      return "production_ready_candidate";
-    }
-    return "connected_but_partial";
-  }
-
-  const binding = resolveUnonightPresentableBinding({
-    capabilityKey: input.capabilityKey,
-    counts: input.counts,
-    requestedMetric: input.requestedMetric,
-  });
-
-  if (!binding) return "connected_but_partial";
-  if (binding.semantic_match === "exact" || binding.semantic_match === "compatible") {
-    return binding.value === null ? "connected_but_partial" : "connected_but_partial";
-  }
-  return "connected_but_partial";
-}
-
-export function hasUnonightExactMemberSource(counts: UnonightAdapterSignalCounts): boolean {
-  const stats = counts.member_statistics;
-  return Boolean(
-    stats?.found &&
-      stats.completeness !== "empty" &&
-      stats.total_members !== null,
-  );
 }

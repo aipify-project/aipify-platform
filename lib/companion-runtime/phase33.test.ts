@@ -5,7 +5,8 @@ import path from "node:path";
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import {
   canPresentMetricBindingAsDirectAnswer,
-} from "@/lib/integration-intelligence/community/metric-contract";
+  hasExactPresentableBinding,
+} from "@/lib/integration-intelligence/community/provider-adapter-types";
 import { COMPANION_QUERY_ROUTING } from "@/lib/companion-runtime/companion-semantic-policy";
 import {
   mapSemanticIntentToRequestedMetric,
@@ -30,7 +31,6 @@ import {
   UNONIGHT_MEMBER_METRIC_DEFINITIONS,
   UNONIGHT_MEMBER_STATISTICS_RPC,
   runUnonightAuthenticatedLiveE2e,
-  hasUnonightExactMemberSource,
 } from "@/lib/unonight/provider-adapter";
 import { collectSemanticDescriptorsFromManifest } from "@/lib/companion-runtime/companion-semantic-query-match";
 import { getCommunityProviderManifest } from "@/lib/integration-intelligence/community/registry";
@@ -160,15 +160,20 @@ const merged = applyUnonightProviderAdapterToCommunityContext(baseContext, {
 });
 
 assert.equal(
-  hasUnonightExactMemberSource({
-    group_count: 12,
-    discussion_count: 8,
-    pending_moderation_count: null,
-    pending_verification_count: null,
-    reports_attention_count: null,
-    listing_review_count: null,
-    member_statistics: memberStats,
-  }),
+  hasExactPresentableBinding(
+    buildUnonightMetricBindings({
+      capabilityKey: "member.read",
+      counts: {
+        group_count: 12,
+        discussion_count: 8,
+        pending_moderation_count: null,
+        pending_verification_count: null,
+        reports_attention_count: null,
+        listing_review_count: null,
+        member_statistics: memberStats,
+      },
+    }),
+  ),
   true,
 );
 
@@ -288,5 +293,6 @@ for (const file of coreFiles) {
 execSync("npx tsx lib/companion-runtime/phase30.test.ts", { stdio: "inherit" });
 execSync("npx tsx lib/companion-runtime/phase31.test.ts", { stdio: "inherit" });
 execSync("npx tsx lib/companion-runtime/phase32.test.ts", { stdio: "inherit" });
+execSync("npx tsx lib/companion-runtime/provider-layer-placement.test.ts", { stdio: "inherit" });
 
 console.log("phase33.test.ts: all assertions passed");

@@ -7,6 +7,18 @@ export {
   resolveMetricBindingForRequest,
   selectPresentableMetricBinding,
 } from "./metric-contract";
+export {
+  resolveMetricBindingForRequestWithAliases,
+  hasExactPresentableBinding,
+  hasPresentableBinding,
+} from "./metric-binding-resolution";
+export {
+  resolveProviderRecordFreshness,
+  applyAuthenticatedE2eReadinessGate,
+  classifyProviderCapabilityReadiness,
+  selectExactCommandBriefSignals,
+} from "./provider-readiness";
+export type { CommandBriefSignalCandidate, ProviderSourceStatus } from "./provider-readiness";
 
 export type ProviderCapabilityReadinessStatus =
   | "production_ready"

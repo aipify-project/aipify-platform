@@ -13,8 +13,6 @@ export {
 } from "./normalize";
 export {
   buildUnonightMetricBindings,
-  resolveUnonightPresentableBinding,
-  hasUnonightExactMemberSource,
 } from "./metric-grounding";
 export {
   applyUnonightProviderAdapterToCommunityContext,
