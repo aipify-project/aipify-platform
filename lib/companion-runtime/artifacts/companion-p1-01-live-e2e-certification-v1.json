@@ -1,0 +1,31 @@
+{
+  "version": "companion-p1-01-live-e2e-certification-v1",
+  "generated_at": "2026-06-22T23:10:29.336Z",
+  "environment": "unknown",
+  "commit_hash": "fb705d6f8071dc86fd9243cf0bd27eab80b182e3",
+  "organization_reference": null,
+  "session_mode": "blocked",
+  "overall_status": "blocked",
+  "blockers": [
+    {
+      "code": "live_e2e_not_enabled",
+      "message": "Set APP_LIVE_E2E_ENABLED=1 to run authenticated live APP E2E certification.",
+      "required_variable": "APP_LIVE_E2E_ENABLED"
+    },
+    {
+      "code": "primary_credentials_missing",
+      "message": "APP_LIVE_E2E_EMAIL is required for authenticated APP organization access.",
+      "required_variable": "APP_LIVE_E2E_EMAIL"
+    },
+    {
+      "code": "primary_credentials_missing",
+      "message": "APP_LIVE_E2E_PASSWORD is required for authenticated APP organization access.",
+      "required_variable": "APP_LIVE_E2E_PASSWORD"
+    }
+  ],
+  "flows": [],
+  "tenant_isolation": [],
+  "capabilities_passed": [],
+  "capabilities_failed": [],
+  "coverage_updates_applied": []
+}

@@ -22,6 +22,8 @@ import {
   attachReconciliationToArtifact,
   SUPERSEDED_PROVIDER_MODULE_IDS,
 } from "./companion-foundation-coverage-reconciliation";
+import { applyP1LiveE2eCoverageOverrides } from "./p1-01-live-app-e2e-coverage";
+import { readP1LiveE2eCertificationArtifact } from "./p1-01-live-app-e2e-certification";
 import type {
   CompanionCoverageEntry,
   CompanionCoverageReadiness,
@@ -566,19 +568,22 @@ export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEnt
       !explicitModuleIds.has(entry.module_id) && !SUPERSEDED_PROVIDER_MODULE_IDS.has(entry.module_id),
   );
 
-  return [
-    ...CORE_COMPANION_MODULES,
-    ...buildMarketingBusinessPackEntries(),
-    buildSkillRegistryEntry(),
-    ...filteredProviders,
-    ...MEMBER_VERIFICATION_COVERAGE_MODULES,
-    ...HAIRDRESSER_SERVICE_COVERAGE_MODULES,
-    ...COMMAND_BRIEF_COVERAGE_MODULES,
-    ...SUPPORT_COVERAGE_MODULES,
-    ...HOSTS_COVERAGE_MODULES,
-    ...ORGANIZATION_DIRECTORY_COVERAGE_MODULES,
-    ...PANEL_COVERAGE_ENTRIES,
-  ];
+  return applyP1LiveE2eCoverageOverrides(
+    [
+      ...CORE_COMPANION_MODULES,
+      ...buildMarketingBusinessPackEntries(),
+      buildSkillRegistryEntry(),
+      ...filteredProviders,
+      ...MEMBER_VERIFICATION_COVERAGE_MODULES,
+      ...HAIRDRESSER_SERVICE_COVERAGE_MODULES,
+      ...COMMAND_BRIEF_COVERAGE_MODULES,
+      ...SUPPORT_COVERAGE_MODULES,
+      ...HOSTS_COVERAGE_MODULES,
+      ...ORGANIZATION_DIRECTORY_COVERAGE_MODULES,
+      ...PANEL_COVERAGE_ENTRIES,
+    ],
+    readP1LiveE2eCertificationArtifact(process.cwd()),
+  );
 }
 
 export { summarizeCoverageReadiness } from "./companion-foundation-coverage-readiness";
