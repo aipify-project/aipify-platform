@@ -17,6 +17,7 @@ import {
   resolveCompanionIntegrationContext,
   type CompanionTenantContext,
 } from "./companion-tenant-context";
+import { loadCompanionDiscoveryContext } from "./load-companion-discovery-context";
 
 export type { CompanionTenantContext } from "./companion-tenant-context";
 export {
@@ -134,8 +135,12 @@ export async function loadCompanionTenantContext(
 
   const { primaryVerifiedProvider, connectedProviders } = parseVerifiedProviders(hubResult.data);
   const organizationId = orgContext.organization_id;
-  const organizationDefaultLocale = await loadOrganizationDefaultLocale(supabase, organizationId);
-  const activeBusinessPacks = await loadActiveBusinessPacks(supabase);
+
+  const [organizationDefaultLocale, activeBusinessPacks, discovery] = await Promise.all([
+    loadOrganizationDefaultLocale(supabase, organizationId),
+    loadActiveBusinessPacks(supabase),
+    loadCompanionDiscoveryContext(supabase, organizationId),
+  ]);
 
   return createEmptyCompanionTenantContext({
     organizationId,
@@ -152,5 +157,6 @@ export async function loadCompanionTenantContext(
     organizationDefaultLocale,
     primaryVerifiedProvider,
     connectedProviders,
+    discovery,
   });
 }

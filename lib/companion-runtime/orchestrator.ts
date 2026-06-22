@@ -11,10 +11,12 @@ import {
   buildPricingLabels,
   resolvePlatformCorpus,
 } from "@/lib/companion-platform-knowledge/answer-builder";
-import {
-  detectPlatformQuestionIntent,
+import { detectPlatformQuestionIntent,
   resolveArticleIdForIntent,
 } from "@/lib/companion-platform-knowledge/intent-detection";
+import {
+  enrichAnswerWithInstallDiscovery,
+} from "./discovery-answer";
 import {
   buildIntegrationStatusFailureAnswer,
   buildPrivateDataDeniedAnswer,
@@ -450,7 +452,20 @@ export async function orchestrateCompanionSearch(
       pricingSummary,
       restrictedNote,
     );
-    if (navResult) return navResult;
+    if (navResult) {
+      const intent = detectPlatformQuestionIntent(query);
+      if (intent === "connect-system" || navResult.matchedArticleId === "connect-system") {
+        return {
+          ...navResult,
+          answer: enrichAnswerWithInstallDiscovery(
+            navResult.answer,
+            resolvedTenantContext.discovery,
+            t,
+          ),
+        };
+      }
+      return navResult;
+    }
   }
 
   if (

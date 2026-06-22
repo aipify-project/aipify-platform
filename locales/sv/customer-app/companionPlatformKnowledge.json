@@ -22,6 +22,15 @@
       "noGroundedAnswer": "Jag hittade inte en tillräckligt bra förklaring i de tillgängliga, godkända källorna.",
       "sourceLabel": "Ingen tillräckligt grounded förklaring hittades"
     },
+    "discovery": {
+      "accessDenied": "Install Discovery-data är inte tillgänglig för din roll. Be en administratör om anslutningsdetaljer.",
+      "empty": "Inga godkända anslutna system eller datakällor har upptäckts för den här organisationen ännu.",
+      "connectedSummary": "Godkända anslutna system för din organisation: {count}. Exempel: {systems}.",
+      "domainsSummary": "Godkända datadomäner konfigurerade: {count}.",
+      "missingDomains": "Datadomäner utan godkända källor ännu: {domains}.",
+      "stale": "Discovery-metadata kan vara inaktuell — granska Install-inställningar om något verkar fel.",
+      "sourceLabel": "Godkänd install discovery"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

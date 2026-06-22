@@ -22,6 +22,15 @@
       "noGroundedAnswer": "I could not find a good enough explanation in the available approved sources.",
       "sourceLabel": "No grounded answer found"
     },
+    "discovery": {
+      "accessDenied": "Install discovery data is not available for your role. Ask an administrator if you need connection details.",
+      "empty": "No approved connected systems or data sources were discovered for this organization yet.",
+      "connectedSummary": "Approved connected systems for your organization: {count}. Examples: {systems}.",
+      "domainsSummary": "Approved data domains configured: {count}.",
+      "missingDomains": "Data domains without approved sources yet: {domains}.",
+      "stale": "Discovery metadata may be outdated — review Install settings if something looks wrong.",
+      "sourceLabel": "Approved install discovery"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

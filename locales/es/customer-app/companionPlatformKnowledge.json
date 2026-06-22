@@ -22,6 +22,15 @@
       "noGroundedAnswer": "No encontré una explicación suficientemente buena en las fuentes aprobadas disponibles.",
       "sourceLabel": "No se encontró una respuesta fundamentada"
     },
+    "discovery": {
+      "accessDenied": "Los datos de Install Discovery no están disponibles para tu rol. Pide detalles de conexión a un administrador.",
+      "empty": "Aún no se han descubierto sistemas conectados ni fuentes de datos aprobadas para esta organización.",
+      "connectedSummary": "Sistemas conectados aprobados para tu organización: {count}. Ejemplos: {systems}.",
+      "domainsSummary": "Dominios de datos aprobados configurados: {count}.",
+      "missingDomains": "Dominios de datos sin fuentes aprobadas todavía: {domains}.",
+      "stale": "Los metadatos de discovery pueden estar desactualizados — revisa la configuración de Install si algo parece incorrecto.",
+      "sourceLabel": "Install discovery aprobado"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

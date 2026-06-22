@@ -22,6 +22,15 @@
       "noGroundedAnswer": "Nie znalazłem wystarczająco dobrej odpowiedzi w dostępnych, zatwierdzonych źródłach.",
       "sourceLabel": "Nie znaleziono wystarczająco uzasadnionej odpowiedzi"
     },
+    "discovery": {
+      "accessDenied": "Dane Install Discovery nie są dostępne dla Twojej roli. Poproś administratora o szczegóły połączenia.",
+      "empty": "Nie wykryto jeszcze zatwierdzonych połączonych systemów ani źródeł danych dla tej organizacji.",
+      "connectedSummary": "Zatwierdzone połączone systemy dla Twojej organizacji: {count}. Przykłady: {systems}.",
+      "domainsSummary": "Skonfigurowane zatwierdzone domeny danych: {count}.",
+      "missingDomains": "Domeny danych bez zatwierdzonych źródeł: {domains}.",
+      "stale": "Metadane discovery mogą być nieaktualne — sprawdź ustawienia Install, jeśli coś wygląda nieprawidłowo.",
+      "sourceLabel": "Zatwierdzone install discovery"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

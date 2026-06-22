@@ -1,6 +1,8 @@
 import type { AppOrganizationRole } from "@/lib/app-portal/nav-config";
 import { resolvePortalFeatureEnabled } from "@/lib/app-portal/feature-entitlements";
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import type { CompanionDiscoveryContext } from "./companion-discovery-context";
+import { createEmptyCompanionDiscoveryContext } from "./companion-discovery-context";
 
 const PORTAL_FEATURE_KEYS = [
   "team_management",
@@ -25,6 +27,7 @@ export type CompanionTenantContext = {
   organizationDefaultLocale: CustomerActiveLocale;
   primaryVerifiedProvider: string | null;
   connectedProviders: string[];
+  discovery: CompanionDiscoveryContext;
 };
 
 export function createEmptyCompanionTenantContext(
@@ -45,6 +48,7 @@ export function createEmptyCompanionTenantContext(
     organizationDefaultLocale: "en",
     primaryVerifiedProvider: null,
     connectedProviders: [],
+    discovery: createEmptyCompanionDiscoveryContext(),
     ...overrides,
   };
 }

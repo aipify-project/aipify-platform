@@ -22,6 +22,15 @@
       "noGroundedAnswer": "Jeg fant ikke en god nok forklaring i de tilgjengelige, godkjente kildene.",
       "sourceLabel": "Ingen god nok forklaring funnet"
     },
+    "discovery": {
+      "accessDenied": "Install Discovery-data er ikke tilgjengelig for din rolle. Be en administrator om tilkoblingsdetaljer.",
+      "empty": "Ingen godkjente tilkoblede systemer eller datakilder er oppdaget for denne organisasjonen ennå.",
+      "connectedSummary": "Godkjente tilkoblede systemer for organisasjonen din: {count}. Eksempler: {systems}.",
+      "domainsSummary": "Godkjente datadomener konfigurert: {count}.",
+      "missingDomains": "Datadomener uten godkjente kilder ennå: {domains}.",
+      "stale": "Discovery-metadata kan være utdatert — se over Install-innstillinger hvis noe virker feil.",
+      "sourceLabel": "Godkjent install discovery"
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

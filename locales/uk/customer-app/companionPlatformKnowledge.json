@@ -22,6 +22,15 @@
       "noGroundedAnswer": "Я не знайшов достатньо хорошого пояснення в доступних затверджених джерелах.",
       "sourceLabel": "Достатньо обґрунтовану відповідь не знайдено"
     },
+    "discovery": {
+      "accessDenied": "Дані Install Discovery недоступні для вашої ролі. Зверніться до адміністратора за деталями підключення.",
+      "empty": "Для цієї організації ще не виявлено затверджених підключених систем або джерел даних.",
+      "connectedSummary": "Затверджені підключені системи для вашої організації: {count}. Приклади: {systems}.",
+      "domainsSummary": "Налаштовано затверджених доменів даних: {count}.",
+      "missingDomains": "Домени даних без затверджених джерел: {domains}.",
+      "stale": "Метадані discovery можуть бути застарілими — перевірте налаштування Install, якщо щось виглядає неправильно.",
+      "sourceLabel": "Затверджений install discovery"
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
