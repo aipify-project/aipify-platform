@@ -1,13 +1,11 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { isUnonightAipifyTokenFormat } from "@/lib/unonight-platform/constants";
-import {
-  UNONIGHT_PROVIDER_KEY,
-  decryptIntegrationCredential,
-  testUnonightReadOnlyConnection,
-} from "@/lib/unonight/connection";
+import { UNONIGHT_PROVIDER_KEY } from "./constants";
+import { decryptIntegrationCredential } from "./crypto";
 import { buildUnonightConnectionDiagnostics } from "./diagnostics";
-import { getUnonightFailureMessageKey } from "./failures";
 import type { UnonightConnectionDiagnostics } from "./diagnostics";
+import { getUnonightFailureMessageKey } from "./failures";
+import { testUnonightReadOnlyConnection } from "./test-connection";
 
 type IntegrationTestMaterial = {
   provider_key: string;
