@@ -259,6 +259,39 @@
         "studio_image_generation": "imagen generar editar export"
       }
     },
+    "media": {
+      "sourceLabel": "Catálogo de proveedores de media y dispositivos",
+      "discoveryLead": "Aipify mapeó {provider} en su catálogo de media y dispositivos — estado: {status}.",
+      "discoveryExplanation": "Las capacidades siguientes provienen de manifiestos de proveedor registrados. Las acciones de escritura requieren aprobación y respetan la política de reproducción de la organización.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "deviceSummary": "Dispositivos conectados: {connected} · En línea: {online}",
+      "verifiedProvider": "La conexión del proveedor está verificada para su organización.",
+      "disconnectedProvider": "El adaptador runtime del proveedor no está conectado — solo descubrimiento gobernado.",
+      "unavailableLead": "Ningún proveedor de media o dispositivos coincidió con esta solicitud para su organización.",
+      "unavailableExplanation": "Las capacidades de media se descubren desde manifiestos registrados — ninguno coincidió con esta pregunta.",
+      "playbackUnavailableLead": "Los controles de reproducción y streaming no están conectados para su organización.",
+      "playbackUnavailableExplanation": "No hay adaptador de proveedor de media externo registrado. Aipify no asume reproducción pública comercial sin aprobación explícita. Los metadatos de dispositivos siguen disponibles donde estén configurados.",
+      "permissionDenied": "Su rol no tiene acceso al catálogo de proveedores de media y dispositivos.",
+      "entitlementBlocked": "Las capacidades de media no están disponibles mientras la suscripción está pausada.",
+      "policyNote": "Se aplican las políticas de reproducción de la organización, el proveedor y la cuenta — Aipify nunca asume reproducción comercial pública sin aprobación explícita.",
+      "openDeviceCenter": "Abrir centro de dispositivos y presencia",
+      "operation": { "read": "lectura", "write": "escritura" },
+      "status": {
+        "connected": "conectado",
+        "implemented_disconnected": "implementado pero desconectado",
+        "partial": "parcial",
+        "specification_only": "solo especificación",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "companion_device_ecosystem": "Ecosistema de dispositivos Companion",
+        "companion_presence_devices": "Dispositivos de presencia Companion"
+      },
+      "searchTerms": {
+        "companion_device_ecosystem": "dispositivos conectados ecosistema continuidad entre dispositivos",
+        "companion_presence_devices": "dispositivos registrados desktop móvil tablet presencia"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

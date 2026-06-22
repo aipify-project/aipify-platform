@@ -259,6 +259,39 @@
         "studio_image_generation": "зображення генерувати редагувати export"
       }
     },
+    "media": {
+      "sourceLabel": "Каталог media- та device-провайдерів",
+      "discoveryLead": "Aipify знайшов {provider} у каталозі media та пристроїв — статус: {status}.",
+      "discoveryExplanation": "Можливості нижче походять із зареєстрованих маніфестів провайдерів. Дії запису потребують схвалення та поважають політику відтворення організації.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "deviceSummary": "Підключені пристрої: {connected} · Онлайн: {online}",
+      "verifiedProvider": "З'єднання провайдера перевірено для вашої організації.",
+      "disconnectedProvider": "Runtime-адаптер провайдера не підключено — лише кероване виявлення.",
+      "unavailableLead": "Жоден media- або device-провайдер не відповів цьому запиту для вашої організації.",
+      "unavailableExplanation": "Media-можливості виявляються з зареєстрованих маніфестів — жоден не відповів цьому запиту.",
+      "playbackUnavailableLead": "Керування відтворенням і стримінгом не підключено для вашої організації.",
+      "playbackUnavailableExplanation": "Зовнішній media-адаптер не зареєстровано. Aipify не припускає публічне комерційне відтворення без явного схвалення. Метадані пристроїв доступні там, де налаштовано.",
+      "permissionDenied": "Ваша роль не має доступу до каталогу media- та device-провайдерів.",
+      "entitlementBlocked": "Media-можливості недоступні, поки підписку призупинено.",
+      "policyNote": "Застосовуються політики відтворення організації, провайдера та облікового запису — Aipify ніколи не припускає публічне комерційне відтворення без явного схвалення.",
+      "openDeviceCenter": "Відкрити центр пристроїв і presence",
+      "operation": { "read": "читання", "write": "запис" },
+      "status": {
+        "connected": "підключено",
+        "implemented_disconnected": "реалізовано, але відключено",
+        "partial": "частково",
+        "specification_only": "лише специфікація",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "companion_device_ecosystem": "Екосистема пристроїв Companion",
+        "companion_presence_devices": "Пристрої presence Companion"
+      },
+      "searchTerms": {
+        "companion_device_ecosystem": "підключені пристрої екосистема continuity між пристроями",
+        "companion_presence_devices": "зареєстровані пристрої desktop mobile tablet presence"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

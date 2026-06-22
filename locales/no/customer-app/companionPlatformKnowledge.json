@@ -265,6 +265,39 @@
         "studio_image_generation": "bilde generer rediger export"
       }
     },
+    "media": {
+      "sourceLabel": "Media- og enhetsprovider-katalog",
+      "discoveryLead": "Aipify kartla {provider} i media- og enhetskatalogen — status: {status}.",
+      "discoveryExplanation": "Capabilities nedenfor kommer fra registrerte provider-manifest. Skrivehandlinger krever godkjenning og respekterer organisasjonens avspillingspolicy.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "deviceSummary": "Tilkoblede enheter: {connected} · Online: {online}",
+      "verifiedProvider": "Provider-tilkoblingen er verifisert for organisasjonen din.",
+      "disconnectedProvider": "Provider runtime-adapter er ikke koblet — kun styrt discovery.",
+      "unavailableLead": "Ingen media- eller enhetsprovider matchet denne forespørselen for organisasjonen din.",
+      "unavailableExplanation": "Media-capabilities oppdages fra registrerte manifest — ingen matchet dette spørsmålet.",
+      "playbackUnavailableLead": "Avspillings- og strømmekontroller er ikke koblet for organisasjonen din.",
+      "playbackUnavailableExplanation": "Ingen ekstern media-provider-adapter er registrert. Aipify antar ikke kommersiell offentlig avspilling uten eksplisitt godkjenning. Enhetsmetadata er tilgjengelig der det er konfigurert.",
+      "permissionDenied": "Rollen din har ikke tilgang til media- og enhetsprovider-katalogen.",
+      "entitlementBlocked": "Media-capabilities er utilgjengelige mens abonnementet er pauset.",
+      "policyNote": "Organisasjons-, provider- og konto-avspillingspolicy gjelder — Aipify antar aldri offentlig kommersiell avspilling uten eksplisitt godkjenning.",
+      "openDeviceCenter": "Åpne enhets- og presence-senter",
+      "operation": { "read": "les", "write": "skriv" },
+      "status": {
+        "connected": "tilkoblet",
+        "implemented_disconnected": "implementert men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun spesifikasjon",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "companion_device_ecosystem": "Companion device ecosystem",
+        "companion_presence_devices": "Companion presence-enheter"
+      },
+      "searchTerms": {
+        "companion_device_ecosystem": "tilkoblede enheter ecosystem continuity tverr enhet",
+        "companion_presence_devices": "registrerte enheter desktop mobil nettbrett presence"
+      }
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

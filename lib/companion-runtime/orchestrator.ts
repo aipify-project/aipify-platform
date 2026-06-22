@@ -98,6 +98,13 @@ import {
   hasCreativeProviderIntent,
   matchCreativeProviderQuery,
 } from "./creative-answer";
+import {
+  buildMediaPlaybackUnavailableAnswer,
+  buildMediaProviderDiscoveryAnswer,
+  buildMediaProviderUnavailableAnswer,
+  hasMediaProviderIntent,
+  matchMediaProviderQuery,
+} from "./media-answer";
 import { mapDispatchCodeToGapReason } from "./tool-answer";
 import {
   createEmptyCompanionTenantContext,
@@ -573,6 +580,53 @@ async function resolveNavigationCorpusAnswer(
   return null;
 }
 
+function hasRegisteredPlaybackCapabilities(tenantContext: CompanionTenantContext): boolean {
+  return tenantContext.mediaContext.capabilities.some(
+    (capability) =>
+      capability.capability_key.startsWith("playback.") ||
+      capability.capability_key.startsWith("playlist."),
+  );
+}
+
+function resolveMediaProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (!hasMediaProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.mediaContext.permission_denied) {
+    return {
+      answer: buildMediaProviderUnavailableAnswer(t, tenantContext.mediaContext),
+    };
+  }
+
+  const normalized = query.trim().toLowerCase();
+  const playbackIntent = /\b(playback|playlist|play|pause|skip|volume|speaker|audio)\b/i.test(
+    normalized,
+  );
+  const deviceIntent = /\b(device|devices|connected)\b/i.test(normalized);
+
+  if (playbackIntent && !deviceIntent && !hasRegisteredPlaybackCapabilities(tenantContext)) {
+    return {
+      answer: buildMediaPlaybackUnavailableAnswer(t),
+    };
+  }
+
+  const match = matchMediaProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildMediaProviderUnavailableAnswer(t, tenantContext.mediaContext),
+    };
+  }
+
+  return {
+    answer: buildMediaProviderDiscoveryAnswer(match, tenantContext.mediaContext, t),
+  };
+}
+
 function resolveCreativeProviderAnswer(
   query: string,
   t: Translator,
@@ -700,6 +754,9 @@ export async function orchestrateCompanionSearch(
     resolvedTenantContext,
   );
   if (actionResult) return finalize(actionResult, { skipMemoryEnrichment: true });
+
+  const mediaResult = resolveMediaProviderAnswer(query, t, resolvedTenantContext);
+  if (mediaResult) return finalize(mediaResult);
 
   const creativeResult = resolveCreativeProviderAnswer(
     query,
