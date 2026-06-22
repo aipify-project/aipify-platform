@@ -43,6 +43,46 @@
         "p3": "Low — specification or future adapter work."
       }
     },
+    "directory": {
+      "sourceLabel": "Organization directory",
+      "privacyNote": "Directory search returns the minimum fields needed for your task. Email, phone, and private identifiers are masked unless your role explicitly allows contact or sensitive reads.",
+      "outcomes": {
+        "exactMatch": "Aipify found one matching record in your organization directory.",
+        "multipleMatches": "Aipify found multiple possible matches. Review the shortlist or refine your search.",
+        "noMatch": "No matching person or organization was found in the approved directory sources.",
+        "permissionDenied": "Your role cannot perform this directory search.",
+        "providerMissing": "No live directory provider is connected for this relationship type yet.",
+        "unsupportedSearchField": "That search field is not supported by the connected directory providers.",
+        "activationPending": "Directory search is unavailable while organization activation or subscription is pending.",
+        "partialResult": "Aipify returned partial directory metadata — some fields are unavailable from the provider.",
+        "ambiguousQuery": "Aipify needs a clearer search before it can identify a person or organization safely.",
+        "clarificationRequired": "More than one possible match exists — choose the correct record or add an email, phone, or organization number."
+      },
+      "masking": {
+        "email": "Email is masked for privacy.",
+        "phone": "Phone number is masked for privacy."
+      },
+      "providers": {
+        "organization_directory_core": "Organization directory",
+        "crm_customer_directory": "CRM customers and leads",
+        "hr_employee_directory": "Employees",
+        "community_member_directory": "Community members",
+        "partner_directory": "Partners and sellers",
+        "commerce_customer_directory": "Commerce customers",
+        "booking_customer_directory": "Booking customers",
+        "supplier_directory": "Suppliers"
+      },
+      "searchTerms": {
+        "organization_directory_core": "directory person organization relationship search",
+        "crm_customer_directory": "customer lead contact CRM search",
+        "hr_employee_directory": "employee staff people search",
+        "community_member_directory": "member membership search",
+        "partner_directory": "partner seller growth partner search",
+        "commerce_customer_directory": "shopify woocommerce customer search",
+        "booking_customer_directory": "appointment booking customer search",
+        "supplier_directory": "supplier vendor search"
+      }
+    },
     "discovery": {
       "accessDenied": "Install discovery data is not available for your role. Ask an administrator if you need connection details.",
       "empty": "No approved connected systems or data sources were discovered for this organization yet.",

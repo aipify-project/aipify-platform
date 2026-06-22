@@ -69,6 +69,18 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     commit_hint: "Phase 28",
   },
   {
+    phase: 33,
+    required_test: "phase33.test.ts",
+    required_wiring: [
+      "community-answer.ts",
+      "community-provider-adapter-answer.ts",
+      "companion-directory-policy.ts",
+      "directory-search-orchestrator.ts",
+      "directory-semantic-intent.ts",
+    ],
+    commit_hint: "Phase 33C",
+  },
+  {
     phase: 34,
     required_test: "phase34.test.ts",
     required_wiring: [

@@ -16,6 +16,7 @@ import { COMMERCE_PROVIDER_MANIFESTS } from "@/lib/integration-intelligence/comm
 import { WORKSPACE_PROVIDER_MANIFESTS } from "@/lib/integration-intelligence/workspace/manifests";
 import { MEDIA_PROVIDER_MANIFESTS } from "@/lib/integration-intelligence/media/manifests";
 import { CREATIVE_PROVIDER_MANIFESTS } from "@/lib/integration-intelligence/creative/manifests";
+import { DIRECTORY_PROVIDER_MANIFESTS } from "@/lib/integration-intelligence/directory/manifests";
 
 export type CommercialCapabilityTier =
   | "core"
@@ -80,6 +81,7 @@ const PROVIDER_MANIFEST_GROUPS: readonly { domain: string; manifests: readonly G
     { domain: "workspace", manifests: WORKSPACE_PROVIDER_MANIFESTS },
     { domain: "media", manifests: MEDIA_PROVIDER_MANIFESTS },
     { domain: "creative", manifests: CREATIVE_PROVIDER_MANIFESTS },
+    { domain: "directory", manifests: DIRECTORY_PROVIDER_MANIFESTS },
   ];
 
 function resolveCapabilityTier(manifest: GenericManifest): CommercialCapabilityTier {

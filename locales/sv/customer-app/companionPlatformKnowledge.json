@@ -137,47 +137,34 @@
       }
     },
     "actions": {
-      "sourceLabel": "Trust & Action-styrning",
-      "explanationLead": "Aipify förberedde en styrdd åtgärdsplan för {actionId} på {entity} via {provider}.",
-      "planExplanation": "Companion-runtime förberedde styrd åtgärd {actionId} för godkännandegranskning.",
-      "riskLine": "Risknivå: {risk}",
-      "approvalLine": "Godkännandestatus: {status}",
-      "reversibleYes": "Denna åtgärd kan reverseras när policy tillåter det.",
-      "reversibleNo": "Denna åtgärd kan inte reverseras — explicit godkännande krävs.",
-      "preparedLine": "Förberedd: {createdAt}",
-      "auditLine": "Revisionsreferens: {reference}",
-      "openApprovals": "Öppna godkännandecenter",
-      "approvalRequiredLead": "Godkännande krävs innan Aipify kan utföra {actionId}.",
-      "approvalRequiredExplanation": "Aipify skapade eller återanvände en väntande godkännandebegäran. Ingen provider-åtgärd utfördes i denna fas.",
-      "readyLead": "Aipify validerade {actionId} och den är redo för styrd körning efter din granskning.",
-      "readyExplanation": "Körning skjuts upp medvetet — granska planen i godkännandecentret när du är redo.",
-      "blockedExplanation": "Denna åtgärd blockerades av Trust & Action-policy och utfördes inte.",
-      "unavailableExplanation": "Ingen styrd skrivfunktion matchade denna begäran för din organisation.",
-      "permissionDenied": "Din roll kan inte förbereda denna åtgärd med nuvarande behörigheter.",
-      "missingPolicy": "Ingen godkänd åtgärdspolicy täcker denna begäran.",
-      "unavailable": "Denna åtgärd är inte tillgänglig via Companion för din organisation.",
-      "appSuspended": "Åtgärder är otillgängliga medan organisationens prenumeration är pausad eller suspenderad.",
-      "emergencyStop": "Companion-åtgärder pausas medan nödstopp är aktivt.",
-      "riskLevel": { "0": "information", "1": "utkast", "2": "reversibel", "3": "känslig", "4": "kritisk" },
-      "approvalStatus": {
-        "pending": "väntar godkännande",
-        "approved": "godkänd",
-        "not_required": "krävs inte",
-        "blocked": "blockerad",
-        "prohibited": "förbjuden"
-      },
-      "blockReason": {
-        "critical_prohibited": "Kritiska åtgärder kan inte utföras av Aipify.",
-        "irreversible_blocked": "Irreversibla åtgärder kan inte auto-förberedas utan explicit styrning.",
-        "permission_denied": "Din roll har inte behörighet för denna åtgärd.",
-        "entitlement_blocked": "Business Pack-rättigheter blockerar denna åtgärd just nu.",
-        "emergency_stop": "Nödstopp är aktivt — åtgärder pausas.",
-        "missing_policy": "Ingen åtgärdspolicy auktoriserar denna begäran.",
-        "policy_prohibited": "Organisationspolicy förbjuder denna åtgärd.",
-        "provider_unverified": "Provider-anslutningen är inte verifierad för skrivåtgärder.",
-        "schema_validation": "Indata klarade inte schema-validering.",
-        "write_boundary": "Skrivgränser blockerade denna åtgärd."
-      }
+      "teamMembers": "Open Team Members",
+      "rolesPermissions": "Open Roles & Permissions",
+      "subscription": "Open Subscription",
+      "upgradeOptions": "View upgrade options",
+      "invoices": "Open Invoices",
+      "paymentHistory": "Open Payment History",
+      "accountSecurity": "Open Security settings",
+      "connectIntegration": "Connect integration",
+      "integrations": "Open Integrations",
+      "connectedIntegrations": "View connected integrations",
+      "contactSupport": "Kontakta support",
+      "supportRequests": "Visa supportförfrågningar",
+      "knowledgeCenter": "Läs om säker anslutning",
+      "gettingStarted": "Kom igång",
+      "aipifyCompanion": "Öppna Aipify Companion",
+      "commandBrief": "Open Command Brief",
+      "sinceLastLogin": "Since Last Login",
+      "appNotifications": "Notifications",
+      "appDashboard": "Open Dashboard",
+      "availableBusinessPacks": "Browse Business Packs",
+      "installedBusinessPacks": "Installed Business Packs",
+      "preferences": "Open Preferences",
+      "profile": "Open Profile",
+      "apiAccess": "API Access",
+      "activityOverview": "Activity Overview",
+      "viewIntegrations": "Visa integrationer",
+      "retestUnonightConnection": "Testa anslutningen igen",
+      "readSecureConnection": "Läs om säker anslutning"
     },
     "execution": {
       "sourceLabel": "Styrd åtgärdsutförande",
@@ -220,6 +207,18 @@
         "provider_failure": "Provider-adaptern rapporterade fel.",
         "validation_failed": "Provider input-validering misslyckades.",
         "invalid_output": "Provider-output klarade inte validering."
+      },
+      "blockReason": {
+        "critical_prohibited": "Kritiska åtgärder kan inte utföras av Aipify.",
+        "irreversible_blocked": "Irreversibla åtgärder kan inte auto-förberedas utan explicit styrning.",
+        "permission_denied": "Din roll har inte behörighet för denna åtgärd.",
+        "entitlement_blocked": "Business Pack-rättigheter blockerar denna åtgärd just nu.",
+        "emergency_stop": "Nödstopp är aktivt — åtgärder pausas.",
+        "missing_policy": "Ingen åtgärdspolicy auktoriserar denna begäran.",
+        "policy_prohibited": "Organisationspolicy förbjuder denna åtgärd.",
+        "provider_unverified": "Provider-anslutningen är inte verifierad för skrivåtgärder.",
+        "schema_validation": "Indata klarade inte schema-validering.",
+        "write_boundary": "Skrivgränsregler blockerade denna åtgärd."
       }
     },
     "synthesis": {
@@ -243,7 +242,10 @@
       "permissionDenied": "Din roll har inte åtkomst till creative provider-katalogen.",
       "entitlementBlocked": "Creative capabilities är otillgängliga medan prenumerationen är pausad.",
       "openStudio": "Öppna Studio & Creative Center",
-      "operation": { "read": "läs", "write": "skriv" },
+      "operation": {
+        "read": "läs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "ansluten",
         "implemented_disconnected": "implementerad men frånkopplad",
@@ -296,7 +298,10 @@
       "entitlementBlocked": "Media-capabilities är otillgängliga medan prenumerationen är pausad.",
       "policyNote": "Organisations-, provider- och konto-uppspelningspolicy gäller — Aipify antar aldrig offentlig kommersiell uppspelning utan explicit godkännande.",
       "openDeviceCenter": "Öppna enhets- och presence-center",
-      "operation": { "read": "läs", "write": "skriv" },
+      "operation": {
+        "read": "läs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "ansluten",
         "implemented_disconnected": "implementerad men frånkopplad",
@@ -329,7 +334,10 @@
       "privacyNote": "Endast känslig metadata — privata meddelandetext, bilagor och tvärsorganisationsinnehåll exponeras aldrig i Companion runtime.",
       "policyNote": "E-postutskick, kalenderändringar, dokumentdelning och utskrift kräver explicit godkännande och korrekt organisationspolicy.",
       "openWorkspaceCenter": "Öppna workspace-center",
-      "operation": { "read": "läs", "write": "skriv" },
+      "operation": {
+        "read": "läs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "ansluten",
         "implemented_disconnected": "implementerad men frånkopplad",
@@ -376,7 +384,10 @@
       "privacyNote": "Metadata-först commerce-intelligens — kund-PII och betalningsdata exponeras aldrig i Companion runtime.",
       "policyNote": "Produktimport, publicering, översättning, SEO-generering och prisändringar kräver explicit godkännande och commerce.manage-behörighet.",
       "openCommerceCenter": "Öppna commerce-center",
-      "operation": { "read": "läs", "write": "skriv" },
+      "operation": {
+        "read": "läs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "ansluten",
         "implemented_disconnected": "implementerad men frånkopplad",
@@ -425,7 +436,10 @@
       "vacationModeActive": "Vacation Mode-täckningsintegration är aktiv för schemaläggning.",
       "vacationModeAvailable": "Vacation Mode-täckning är tillgänglig via Absence Center-integration.",
       "openServicesCenter": "Öppna services-center",
-      "operation": { "read": "läs", "write": "skriv" },
+      "operation": {
+        "read": "läs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "ansluten",
         "implemented_disconnected": "implementerad men frånkopplad",
@@ -475,7 +489,10 @@
       "knowledgeGapDetectionActive": "Kunskapsgap-detektering är aktiv för dina support-operationer.",
       "knowledgeGapDetectionAvailable": "Kunskapsgap-detektering är tillgänglig via Support Operations-inställningar.",
       "openSupportCenter": "Öppna supportcenter",
-      "operation": { "read": "läs", "write": "skriv" },
+      "operation": {
+        "read": "läs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "ansluten",
         "implemented_disconnected": "implementerad men frånkopplad",
@@ -526,7 +543,10 @@
       "postVacationBufferActive": "Post-semester returbuffert är konfigurerad för bokningskontinuitet.",
       "postVacationBufferAvailable": "Post-semester returbuffert är tillgänglig via appointment vacation-integration.",
       "openIndustryCenter": "Öppna industry-center",
-      "operation": { "read": "läs", "write": "skriv" },
+      "operation": {
+        "read": "läs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "ansluten",
         "implemented_disconnected": "implementerad men frånkopplad",
@@ -577,7 +597,10 @@
       "commandBriefEventsAvailable": "Command Brief-händelser är tillgängliga när Aipify Hosts är aktiverat.",
       "humanOversightRequired": "Mänsklig tillsyn krävs för Aipify Hosts-skrivningar.",
       "openHostsCenter": "Öppna Aipify Hosts",
-      "operation": { "read": "läs", "write": "skriv" },
+      "operation": {
+        "read": "läs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "ansluten",
         "implemented_disconnected": "implementerad men frånkopplad",
@@ -912,7 +935,10 @@
       "commandBriefEventsLinked": "Command Brief community-signaler är länkade från befintliga medlems-, aktivitets-, modererings- och belöningskällor.",
       "commandBriefEventsAvailable": "Command Brief community-signaler är tillgängliga när community-motorer är aktiverade.",
       "openCommunityCenter": "Öppna Community Center",
-      "operation": { "read": "läs", "write": "skriv" },
+      "operation": {
+        "read": "läs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "ansluten",
         "implemented_disconnected": "implementerad men frånkopplad",
@@ -1088,7 +1114,10 @@
       "commandBriefEventsLinked": "Command Brief proactive signals are linked from existing monitoring, recommendation, and domain engine sources.",
       "commandBriefEventsAvailable": "Command Brief proactive signals are available when proactive engines are activated.",
       "openProactiveCenter": "Open Command Brief",
-      "operation": { "read": "read", "write": "write" },
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
       "status": {
         "connected": "connected",
         "implemented_disconnected": "implemented but disconnected",
@@ -1148,7 +1177,10 @@
       "roleBasedAccessActive": "Role-based access permissions are enforced for this organization.",
       "openAnalyticsCenter": "Open Analytics Center",
       "openExecutiveInsights": "Open Executive Insights",
-      "operation": { "read": "read", "write": "write" },
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
       "status": {
         "connected": "connected",
         "implemented_disconnected": "implemented but disconnected",
@@ -1387,36 +1419,6 @@
       "step1": "Öppna Aipify Companion från Intelligence-sektionen, eller fråga om ett specifikt ämne.",
       "step2": "Använd de föreslagna länkarna för att gå direkt till relevant sida.",
       "subscriptionUnavailable": "Dina abonnemangsuppgifter kunde inte verifieras just nu. Öppna Abonnemang för att granska din plan."
-    },
-    "actions": {
-      "teamMembers": "Open Team Members",
-      "rolesPermissions": "Open Roles & Permissions",
-      "subscription": "Open Subscription",
-      "upgradeOptions": "View upgrade options",
-      "invoices": "Open Invoices",
-      "paymentHistory": "Open Payment History",
-      "accountSecurity": "Open Security settings",
-      "connectIntegration": "Connect integration",
-      "integrations": "Open Integrations",
-      "connectedIntegrations": "View connected integrations",
-      "contactSupport": "Kontakta support",
-      "supportRequests": "Visa supportförfrågningar",
-      "knowledgeCenter": "Läs om säker anslutning",
-      "gettingStarted": "Kom igång",
-      "aipifyCompanion": "Öppna Aipify Companion",
-      "commandBrief": "Open Command Brief",
-      "sinceLastLogin": "Since Last Login",
-      "appNotifications": "Notifications",
-      "appDashboard": "Open Dashboard",
-      "availableBusinessPacks": "Browse Business Packs",
-      "installedBusinessPacks": "Installed Business Packs",
-      "preferences": "Open Preferences",
-      "profile": "Open Profile",
-      "apiAccess": "API Access",
-      "activityOverview": "Activity Overview",
-      "viewIntegrations": "Visa integrationer",
-      "retestUnonightConnection": "Testa anslutningen igen",
-      "readSecureConnection": "Läs om säker anslutning"
     },
     "routes": {
       "appDashboard": {
@@ -1750,6 +1752,46 @@
         "title": "Live-mått är inte tillgängligt",
         "directAnswer": "Den anslutna integrationen tillhandahåller inte detta operativa mått.",
         "explanation": "Aipify svarar endast från verifierad skrivskyddad integrationsdata. Den kan inte gissa medlemsantal eller andra känsliga mått."
+      }
+    },
+    "directory": {
+      "sourceLabel": "Organisationskatalog",
+      "privacyNote": "Katalogsökning returnerar minimalt med fält för uppgiften. E-post, telefon och privata identifierare maskeras om inte din roll uttryckligen tillåter kontakt- eller känsliga läsningar.",
+      "outcomes": {
+        "exactMatch": "Aipify hittade en matchning i organisationens katalog.",
+        "multipleMatches": "Aipify hittade flera möjliga matchningar. Granska listan eller förfina sökningen.",
+        "noMatch": "Ingen matchande person eller organisation hittades i godkända katalogkällor.",
+        "permissionDenied": "Din roll kan inte utföra denna katalogsökning.",
+        "providerMissing": "Ingen live katalogprovider är ansluten för denna relationstyp ännu.",
+        "unsupportedSearchField": "Det sökfältet stöds inte av de anslutna katalogproviderna.",
+        "activationPending": "Katalogsökning är otillgänglig medan organisationsaktivering eller abonnemang väntar.",
+        "partialResult": "Aipify returnerade partiell katalogmetadata — vissa fält saknas från providern.",
+        "ambiguousQuery": "Aipify behöver en tydligare sökning innan en person eller organisation kan identifieras säkert.",
+        "clarificationRequired": "Flera möjliga träffar — välj rätt post eller lägg till e-post, telefon eller organisationsnummer."
+      },
+      "masking": {
+        "email": "E-post maskeras av integritetsskäl.",
+        "phone": "Telefonnummer maskeras av integritetsskäl."
+      },
+      "providers": {
+        "organization_directory_core": "Organisationskatalog",
+        "crm_customer_directory": "CRM-kunder och leads",
+        "hr_employee_directory": "Anställda",
+        "community_member_directory": "Medlemmar",
+        "partner_directory": "Partners och säljare",
+        "commerce_customer_directory": "Commerce-kunder",
+        "booking_customer_directory": "Bokningskunder",
+        "supplier_directory": "Leverantörer"
+      },
+      "searchTerms": {
+        "organization_directory_core": "directory person organization relationship search",
+        "crm_customer_directory": "customer lead contact CRM search",
+        "hr_employee_directory": "employee staff people search",
+        "community_member_directory": "member membership search",
+        "partner_directory": "partner seller growth partner search",
+        "commerce_customer_directory": "shopify woocommerce customer search",
+        "booking_customer_directory": "appointment booking customer search",
+        "supplier_directory": "supplier vendor search"
       }
     }
   }

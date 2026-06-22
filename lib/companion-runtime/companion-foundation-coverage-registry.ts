@@ -9,6 +9,7 @@ import {
 import {
   HAIRDRESSER_SERVICE_COVERAGE_MODULES,
   MEMBER_VERIFICATION_COVERAGE_MODULES,
+  ORGANIZATION_DIRECTORY_COVERAGE_MODULES,
   UNONIGHT_ADAPTER_COVERAGE_OVERRIDES,
   UNONIGHT_CAPABILITY_READINESS_OVERRIDES,
 } from "./companion-foundation-coverage-overrides";
@@ -36,6 +37,7 @@ const DOMAIN_RUNTIME_LOADERS: Record<string, string> = {
   workspace: "load-companion-workspace-context.ts",
   media: "load-companion-media-context.ts",
   creative: "load-companion-creative-context.ts",
+  directory: "companion-directory-context.ts",
 };
 
 const CORE_COMPANION_MODULES: readonly CompanionCoverageEntry[] = [
@@ -465,7 +467,14 @@ function inferDomainFromCapabilities(caps: readonly CommercialCapabilityEntry[])
     appointment_booking: "services",
     local_service_beauty: "industry_packs",
     workforce_scheduling: "services",
-    absence_vacation_coverage: "services",
+    booking_customer_directory: "services",
+    supplier_directory: "warehouse",
+    organization_directory_core: "directory",
+    crm_customer_directory: "sales",
+    hr_employee_directory: "hr",
+    community_member_directory: "community",
+    partner_directory: "sales",
+    commerce_customer_directory: "commerce",
   };
   if (domainHints[providerKey]) return domainHints[providerKey];
 
@@ -557,6 +566,7 @@ export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEnt
   const explicitModuleIds = new Set([
     ...MEMBER_VERIFICATION_COVERAGE_MODULES.map((entry) => entry.module_id),
     ...HAIRDRESSER_SERVICE_COVERAGE_MODULES.map((entry) => entry.module_id),
+    ...ORGANIZATION_DIRECTORY_COVERAGE_MODULES.map((entry) => entry.module_id),
   ]);
 
   const filteredProviders = providerEntries.filter((entry) => !explicitModuleIds.has(entry.module_id));
@@ -568,6 +578,7 @@ export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEnt
     ...filteredProviders,
     ...MEMBER_VERIFICATION_COVERAGE_MODULES,
     ...HAIRDRESSER_SERVICE_COVERAGE_MODULES,
+    ...ORGANIZATION_DIRECTORY_COVERAGE_MODULES,
     ...PANEL_COVERAGE_ENTRIES,
   ];
 }

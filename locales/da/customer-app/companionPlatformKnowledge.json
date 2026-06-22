@@ -137,47 +137,34 @@
       }
     },
     "actions": {
-      "sourceLabel": "Trust & Action-styring",
-      "explanationLead": "Aipify forberedte en styret handlingsplan for {actionId} på {entity} via {provider}.",
-      "planExplanation": "Companion-runtime forberedte styret handling {actionId} til godkendelsesgennemgang.",
-      "riskLine": "Risikoniveau: {risk}",
-      "approvalLine": "Godkendelsesstatus: {status}",
-      "reversibleYes": "Denne handling kan reverseres, når policy tillader det.",
-      "reversibleNo": "Denne handling kan ikke reverseres — eksplicit godkendelse kræves.",
-      "preparedLine": "Forberedt: {createdAt}",
-      "auditLine": "Revisionsreference: {reference}",
-      "openApprovals": "Åbn godkendelsescenter",
-      "approvalRequiredLead": "Godkendelse kræves, før Aipify kan udføre {actionId}.",
-      "approvalRequiredExplanation": "Aipify oprettede eller genbrugte en afventende godkendelsesanmodning. Ingen provider-handling blev udført i denne fase.",
-      "readyLead": "Aipify validerede {actionId}, og den er klar til styret udførelse efter din gennemgang.",
-      "readyExplanation": "Udførelse udsættes bevidst — gennemgå planen i godkendelsescenteret, når du er klar.",
-      "blockedExplanation": "Denne handling blev blokeret af Trust & Action-policy og blev ikke udført.",
-      "unavailableExplanation": "Ingen styret skrivefunktion matchede denne anmodning for din organisation.",
-      "permissionDenied": "Din rolle kan ikke forberede denne handling med nuværende tilladelser.",
-      "missingPolicy": "Ingen godkendt handlingspolicy dækker denne anmodning.",
-      "unavailable": "Denne handling er ikke tilgængelig via Companion for din organisation.",
-      "appSuspended": "Handlinger er utilgængelige, mens organisationens abonnement er pauset eller suspenderet.",
-      "emergencyStop": "Companion-handlinger er pauset, mens nødstop er aktivt.",
-      "riskLevel": { "0": "information", "1": "kladde", "2": "reversibel", "3": "følsom", "4": "kritisk" },
-      "approvalStatus": {
-        "pending": "afventer godkendelse",
-        "approved": "godkendt",
-        "not_required": "ikke påkrævet",
-        "blocked": "blokeret",
-        "prohibited": "forbudt"
-      },
-      "blockReason": {
-        "critical_prohibited": "Kritiske handlinger kan ikke udføres af Aipify.",
-        "irreversible_blocked": "Irreversible handlinger kan ikke auto-forberedes uden eksplicit styring.",
-        "permission_denied": "Din rolle har ikke tilladelse til denne handling.",
-        "entitlement_blocked": "Business Pack-rettigheder blokerer denne handling lige nu.",
-        "emergency_stop": "Nødstop er aktivt — handlinger er pauset.",
-        "missing_policy": "Ingen handlingspolicy autoriserer denne anmodning.",
-        "policy_prohibited": "Organisationspolicy forbyder denne handling.",
-        "provider_unverified": "Provider-forbindelsen er ikke verificeret til skrivehandlinger.",
-        "schema_validation": "Input bestod ikke schema-validering.",
-        "write_boundary": "Skrivegrænser blokerede denne handling."
-      }
+      "teamMembers": "Open Team Members",
+      "rolesPermissions": "Open Roles & Permissions",
+      "subscription": "Open Subscription",
+      "upgradeOptions": "View upgrade options",
+      "invoices": "Open Invoices",
+      "paymentHistory": "Open Payment History",
+      "accountSecurity": "Open Security settings",
+      "connectIntegration": "Connect integration",
+      "integrations": "Open Integrations",
+      "connectedIntegrations": "View connected integrations",
+      "contactSupport": "Kontakt support",
+      "supportRequests": "Se supportforespørgsler",
+      "knowledgeCenter": "Læs om sikker forbindelse",
+      "gettingStarted": "Kom i gang",
+      "aipifyCompanion": "Åbn Aipify Companion",
+      "commandBrief": "Open Command Brief",
+      "sinceLastLogin": "Since Last Login",
+      "appNotifications": "Notifications",
+      "appDashboard": "Open Dashboard",
+      "availableBusinessPacks": "Browse Business Packs",
+      "installedBusinessPacks": "Installed Business Packs",
+      "preferences": "Open Preferences",
+      "profile": "Open Profile",
+      "apiAccess": "API Access",
+      "activityOverview": "Activity Overview",
+      "viewIntegrations": "Se integrationer",
+      "retestUnonightConnection": "Test forbindelsen igen",
+      "readSecureConnection": "Læs om sikker forbindelse"
     },
     "execution": {
       "sourceLabel": "Styret handlingsudførelse",
@@ -220,6 +207,18 @@
         "provider_failure": "Provider-adaptern rapporterede fejl.",
         "validation_failed": "Provider input-validering mislykkedes.",
         "invalid_output": "Provider-output bestod ikke validering."
+      },
+      "blockReason": {
+        "critical_prohibited": "Kritiske handlinger kan ikke udføres af Aipify.",
+        "irreversible_blocked": "Irreversible handlinger kan ikke auto-forberedes uden eksplicit styring.",
+        "permission_denied": "Din rolle har ikke tilladelse til denne handling.",
+        "entitlement_blocked": "Business Pack-rettigheder blokerer denne handling lige nu.",
+        "emergency_stop": "Nødstop er aktivt — handlinger pauses.",
+        "missing_policy": "Ingen handlingspolitik autoriserer denne anmodning.",
+        "policy_prohibited": "Organisationspolitik forbyder denne handling.",
+        "provider_unverified": "Provider-forbindelsen er ikke verificeret til skrivehandlinger.",
+        "schema_validation": "Input bestod ikke schema-validering.",
+        "write_boundary": "Skrivegrænseregler blokerede denne handling."
       }
     },
     "synthesis": {
@@ -243,7 +242,10 @@
       "permissionDenied": "Din rolle har ikke adgang til creative provider-kataloget.",
       "entitlementBlocked": "Creative capabilities er utilgængelige mens abonnementet er sat på pause.",
       "openStudio": "Åbn Studio & Creative Center",
-      "operation": { "read": "læs", "write": "skriv" },
+      "operation": {
+        "read": "læs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilsluttet",
         "implemented_disconnected": "implementeret men frakoblet",
@@ -296,7 +298,10 @@
       "entitlementBlocked": "Media-capabilities er utilgængelige, mens abonnementet er sat på pause.",
       "policyNote": "Organisations-, provider- og konto-afspilningspolitik gælder — Aipify antager aldrig offentlig kommerciel afspilning uden eksplicit godkendelse.",
       "openDeviceCenter": "Åbn enheds- og presence-center",
-      "operation": { "read": "læs", "write": "skriv" },
+      "operation": {
+        "read": "læs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilsluttet",
         "implemented_disconnected": "implementeret men frakoblet",
@@ -329,7 +334,10 @@
       "privacyNote": "Kun følsom metadata — private beskedtekster, vedhæftninger og tværsorganisationsindhold eksponeres aldrig i Companion runtime.",
       "policyNote": "E-mailafsendelse, kalenderændringer, dokumentdeling og udskrivning kræver eksplicit godkendelse og korrekt organisationspolitik.",
       "openWorkspaceCenter": "Åbn workspace-center",
-      "operation": { "read": "læs", "write": "skriv" },
+      "operation": {
+        "read": "læs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilsluttet",
         "implemented_disconnected": "implementeret men frakoblet",
@@ -376,7 +384,10 @@
       "privacyNote": "Metadata-først commerce-intelligens — kunde-PII og betalingsdata eksponeres aldrig i Companion runtime.",
       "policyNote": "Produktimport, publicering, oversættelse, SEO-generering og prisændringer kræver eksplicit godkendelse og commerce.manage-tilladelse.",
       "openCommerceCenter": "Åbn commerce-center",
-      "operation": { "read": "læs", "write": "skriv" },
+      "operation": {
+        "read": "læs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilsluttet",
         "implemented_disconnected": "implementeret men frakoblet",
@@ -425,7 +436,10 @@
       "vacationModeActive": "Vacation Mode-dækningsintegration er aktiv for planlægning.",
       "vacationModeAvailable": "Vacation Mode-dækning er tilgængelig via Absence Center-integration.",
       "openServicesCenter": "Åbn services-center",
-      "operation": { "read": "læs", "write": "skriv" },
+      "operation": {
+        "read": "læs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilsluttet",
         "implemented_disconnected": "implementeret men frakoblet",
@@ -475,7 +489,10 @@
       "knowledgeGapDetectionActive": "Videnshul-detektion er aktiv for dine support-operationer.",
       "knowledgeGapDetectionAvailable": "Videnshul-detektion er tilgængelig via Support Operations-indstillinger.",
       "openSupportCenter": "Åbn supportcenter",
-      "operation": { "read": "læs", "write": "skriv" },
+      "operation": {
+        "read": "læs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilsluttet",
         "implemented_disconnected": "implementeret men frakoblet",
@@ -526,7 +543,10 @@
       "postVacationBufferActive": "Post-ferie returbuffer er konfigureret for booking-kontinuitet.",
       "postVacationBufferAvailable": "Post-ferie returbuffer er tilgængelig via appointment vacation-integration.",
       "openIndustryCenter": "Åbn industry-center",
-      "operation": { "read": "læs", "write": "skriv" },
+      "operation": {
+        "read": "læs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilsluttet",
         "implemented_disconnected": "implementeret men frakoblet",
@@ -577,7 +597,10 @@
       "commandBriefEventsAvailable": "Command Brief-begivenheder er tilgængelige, når Aipify Hosts er aktiveret.",
       "humanOversightRequired": "Menneskelig tilsyn kræves for Aipify Hosts-skrivninger.",
       "openHostsCenter": "Åbn Aipify Hosts",
-      "operation": { "read": "læs", "write": "skriv" },
+      "operation": {
+        "read": "læs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilsluttet",
         "implemented_disconnected": "implementeret men frakoblet",
@@ -912,7 +935,10 @@
       "commandBriefEventsLinked": "Command Brief community-signaler er koblet fra eksisterende medlems-, aktivitets-, modererings- og belønningskilder.",
       "commandBriefEventsAvailable": "Command Brief community-signaler er tilgængelige, når community-motorer er aktiveret.",
       "openCommunityCenter": "Åbn Community Center",
-      "operation": { "read": "læs", "write": "skriv" },
+      "operation": {
+        "read": "læs",
+        "write": "skriv"
+      },
       "status": {
         "connected": "tilsluttet",
         "implemented_disconnected": "implementeret men frakoblet",
@@ -1088,7 +1114,10 @@
       "commandBriefEventsLinked": "Command Brief proactive signals are linked from existing monitoring, recommendation, and domain engine sources.",
       "commandBriefEventsAvailable": "Command Brief proactive signals are available when proactive engines are activated.",
       "openProactiveCenter": "Open Command Brief",
-      "operation": { "read": "read", "write": "write" },
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
       "status": {
         "connected": "connected",
         "implemented_disconnected": "implemented but disconnected",
@@ -1148,7 +1177,10 @@
       "roleBasedAccessActive": "Role-based access permissions are enforced for this organization.",
       "openAnalyticsCenter": "Open Analytics Center",
       "openExecutiveInsights": "Open Executive Insights",
-      "operation": { "read": "read", "write": "write" },
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
       "status": {
         "connected": "connected",
         "implemented_disconnected": "implemented but disconnected",
@@ -1387,36 +1419,6 @@
       "step1": "Åbn Aipify Companion fra Intelligence-sektionen, eller spørg om et bestemt emne.",
       "step2": "Brug de foreslåede links for at gå direkte til den relevante side.",
       "subscriptionUnavailable": "Dine abonnementsoplysninger kunne ikke verificeres lige nu. Åbn Abonnement for at gennemgå din plan."
-    },
-    "actions": {
-      "teamMembers": "Open Team Members",
-      "rolesPermissions": "Open Roles & Permissions",
-      "subscription": "Open Subscription",
-      "upgradeOptions": "View upgrade options",
-      "invoices": "Open Invoices",
-      "paymentHistory": "Open Payment History",
-      "accountSecurity": "Open Security settings",
-      "connectIntegration": "Connect integration",
-      "integrations": "Open Integrations",
-      "connectedIntegrations": "View connected integrations",
-      "contactSupport": "Kontakt support",
-      "supportRequests": "Se supportforespørgsler",
-      "knowledgeCenter": "Læs om sikker forbindelse",
-      "gettingStarted": "Kom i gang",
-      "aipifyCompanion": "Åbn Aipify Companion",
-      "commandBrief": "Open Command Brief",
-      "sinceLastLogin": "Since Last Login",
-      "appNotifications": "Notifications",
-      "appDashboard": "Open Dashboard",
-      "availableBusinessPacks": "Browse Business Packs",
-      "installedBusinessPacks": "Installed Business Packs",
-      "preferences": "Open Preferences",
-      "profile": "Open Profile",
-      "apiAccess": "API Access",
-      "activityOverview": "Activity Overview",
-      "viewIntegrations": "Se integrationer",
-      "retestUnonightConnection": "Test forbindelsen igen",
-      "readSecureConnection": "Læs om sikker forbindelse"
     },
     "routes": {
       "appDashboard": {
@@ -1750,6 +1752,46 @@
         "title": "Live-metric er ikke tilgængelig",
         "directAnswer": "Den tilsluttede integration leverer ikke denne operative metric.",
         "explanation": "Aipify svarer kun ud fra verificerede skrivebeskyttede integrationsdata. Den kan ikke gætte medlemstal eller andre følsomme målinger."
+      }
+    },
+    "directory": {
+      "sourceLabel": "Organisationskatalog",
+      "privacyNote": "Katalogsøgning returnerer de minimale felter til opgaven. E-mail, telefon og private identifikatorer maskeres, medmindre din rolle udtrykkeligt tillader kontakt- eller følsomme læsninger.",
+      "outcomes": {
+        "exactMatch": "Aipify fandt én match i organisationens katalog.",
+        "multipleMatches": "Aipify fandt flere mulige match. Gennemgå listen eller præcisér søgningen.",
+        "noMatch": "Ingen matchende person eller virksomhed blev fundet i godkendte katalogkilder.",
+        "permissionDenied": "Din rolle kan ikke udføre denne katalogsøgning.",
+        "providerMissing": "Ingen live katalogprovider er tilkoblet for denne relationstype endnu.",
+        "unsupportedSearchField": "Det søgefelt understøttes ikke af de tilkoblede katalogproviders.",
+        "activationPending": "Katalogsøgning er utilgængelig, mens organisationsaktivering eller abonnement afventer.",
+        "partialResult": "Aipify returnerede delvis katalogmetadata — nogle felter er utilgængelige fra provideren.",
+        "ambiguousQuery": "Aipify har brug for en tydeligere søgning, før en person eller virksomhed kan identificeres sikkert.",
+        "clarificationRequired": "Flere mulige match — vælg den rigtige post, eller tilføj e-mail, telefon eller CVR-nummer."
+      },
+      "masking": {
+        "email": "E-mail er maskeret af hensyn til privatliv.",
+        "phone": "Telefonnummer er maskeret af hensyn til privatliv."
+      },
+      "providers": {
+        "organization_directory_core": "Organisationskatalog",
+        "crm_customer_directory": "CRM-kunder og leads",
+        "hr_employee_directory": "Medarbejdere",
+        "community_member_directory": "Medlemmer",
+        "partner_directory": "Partnere og sælgere",
+        "commerce_customer_directory": "Commerce-kunder",
+        "booking_customer_directory": "Bookingkunder",
+        "supplier_directory": "Leverandører"
+      },
+      "searchTerms": {
+        "organization_directory_core": "directory person organization relationship search",
+        "crm_customer_directory": "customer lead contact CRM search",
+        "hr_employee_directory": "employee staff people search",
+        "community_member_directory": "member membership search",
+        "partner_directory": "partner seller growth partner search",
+        "commerce_customer_directory": "shopify woocommerce customer search",
+        "booking_customer_directory": "appointment booking customer search",
+        "supplier_directory": "supplier vendor search"
       }
     }
   }

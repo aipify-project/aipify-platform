@@ -36,6 +36,10 @@ export type {
   UnonightMemberStatisticsPeriod,
 } from "./member-statistics";
 export {
+  UNONIGHT_DIRECTORY_MEMBER_CONTRACT,
+  mapUnonightMemberDirectoryFields,
+} from "./directory-member-contract";
+export {
   runUnonightAuthenticatedLiveE2e,
   runUnonightLiveQuestion,
   buildCompanionPlatformKnowledgeTranslator,

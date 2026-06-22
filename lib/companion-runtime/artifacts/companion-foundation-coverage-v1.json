@@ -1,22 +1,22 @@
 {
   "version": "companion-foundation-coverage-v1",
-  "generated_at": "2026-06-22T19:13:08.347Z",
+  "generated_at": "2026-06-22T19:30:30.498Z",
   "summary": {
-    "total_modules": 141,
-    "total_capabilities": 347,
+    "total_modules": 153,
+    "total_capabilities": 361,
     "business_packs": 7,
-    "providers": 132,
+    "providers": 141,
     "skills": 58,
     "panels": 4,
     "readiness": {
       "production_ready": 0,
       "production_ready_candidate": 1,
       "connected": 7,
-      "connected_but_partial": 13,
-      "adapter_missing": 85,
-      "source_missing": 3,
+      "connected_but_partial": 14,
+      "adapter_missing": 92,
+      "source_missing": 4,
       "manifest_only": 8,
-      "specification_only": 24,
+      "specification_only": 27,
       "placeholder": 0,
       "disabled": 0,
       "blocked_by_governance": 0
@@ -1614,7 +1614,7 @@
     },
     {
       "module_id": "provider.workforce_employee_directory",
-      "domain": "integration_intelligence",
+      "domain": "directory",
       "business_pack_key": "hr_pack",
       "provider_key": "workforce_employee_directory",
       "capability_ids": [
@@ -1622,9 +1622,9 @@
         "department.read.read",
         "role.read.read"
       ],
-      "source_type": "manifest",
-      "source_reference": null,
-      "runtime_loader": null,
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/directory/manifests.ts",
+      "runtime_loader": "companion-directory-context.ts",
       "schema_status": "partial",
       "permission_status": "defined",
       "activation_status": "partial",
@@ -2402,16 +2402,16 @@
     },
     {
       "module_id": "provider.absence_vacation_coverage",
-      "domain": "services",
+      "domain": "integration_intelligence",
       "business_pack_key": null,
       "provider_key": "absence_vacation_coverage",
       "capability_ids": [
         "service.availability.read.read",
         "resource.read.read"
       ],
-      "source_type": "rpc",
-      "source_reference": "lib/integration-intelligence/services/manifests.ts",
-      "runtime_loader": "load-companion-services-context.ts",
+      "source_type": "manifest",
+      "source_reference": null,
+      "runtime_loader": null,
       "schema_status": "partial",
       "permission_status": "defined",
       "activation_status": "partial",
@@ -3252,6 +3252,196 @@
       "panel": "app"
     },
     {
+      "module_id": "provider.organization_directory_core",
+      "domain": "directory",
+      "business_pack_key": null,
+      "provider_key": "organization_directory_core",
+      "capability_ids": [
+        "directory.search.read",
+        "person.read.read",
+        "organization.read.read",
+        "relationship.read.read"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/directory/manifests.ts",
+      "runtime_loader": "companion-directory-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for organization_directory_core.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.crm_customer_directory",
+      "domain": "sales",
+      "business_pack_key": "sales_pack",
+      "provider_key": "crm_customer_directory",
+      "capability_ids": [
+        "customer.search.search",
+        "lead.search.search",
+        "contact.search.search"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/sales/manifests.ts",
+      "runtime_loader": "load-companion-sales-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for crm_customer_directory.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.hr_employee_directory",
+      "domain": "hr",
+      "business_pack_key": "hr_pack",
+      "provider_key": "hr_employee_directory",
+      "capability_ids": [
+        "employee.search.search"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/hr/manifests.ts",
+      "runtime_loader": "load-companion-hr-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for hr_employee_directory.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.community_member_directory",
+      "domain": "community",
+      "business_pack_key": "community_pack",
+      "provider_key": "community_member_directory",
+      "capability_ids": [
+        "member.search.search"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/community/manifests.ts",
+      "runtime_loader": "load-companion-community-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.partner_directory",
+      "domain": "sales",
+      "business_pack_key": null,
+      "provider_key": "partner_directory",
+      "capability_ids": [
+        "partner.search.search",
+        "seller.search.search"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/sales/manifests.ts",
+      "runtime_loader": "load-companion-sales-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.commerce_customer_directory",
+      "domain": "commerce",
+      "business_pack_key": "commerce_pack",
+      "provider_key": "commerce_customer_directory",
+      "capability_ids": [
+        "customer.search.search"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/commerce/manifests.ts",
+      "runtime_loader": "load-companion-commerce-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for commerce_customer_directory.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.booking_customer_directory",
+      "domain": "services",
+      "business_pack_key": "appointments_services",
+      "provider_key": "booking_customer_directory",
+      "capability_ids": [
+        "customer.search.search"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/services/manifests.ts",
+      "runtime_loader": "load-companion-services-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [],
+      "next_required_step": "Implement live provider adapter for booking_customer_directory.",
+      "panel": "app"
+    },
+    {
+      "module_id": "provider.supplier_directory",
+      "domain": "warehouse",
+      "business_pack_key": null,
+      "provider_key": "supplier_directory",
+      "capability_ids": [
+        "supplier.search.search"
+      ],
+      "source_type": "rpc",
+      "source_reference": "lib/integration-intelligence/warehouse/manifests.ts",
+      "runtime_loader": "load-companion-warehouse-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "none",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "specification_only",
+      "limitations": [],
+      "next_required_step": null,
+      "panel": "app"
+    },
+    {
       "module_id": "provider.unonight_community_adapter",
       "domain": "community",
       "business_pack_key": "community_pack",
@@ -3558,6 +3748,112 @@
         "Manifest uses appointment.create/update — booking.* capability IDs not registered."
       ],
       "next_required_step": "Align booking.* capability IDs with appointment.* in services manifest or add aliases.",
+      "panel": "app"
+    },
+    {
+      "module_id": "directory.core_search",
+      "domain": "organization_directory",
+      "business_pack_key": null,
+      "provider_key": "organization_directory_core",
+      "capability_ids": [
+        "directory.search",
+        "person.read",
+        "organization.read",
+        "relationship.read"
+      ],
+      "source_type": "manifest",
+      "source_reference": "lib/integration-intelligence/directory/manifests.ts",
+      "runtime_loader": "companion-directory-context.ts",
+      "schema_status": "wired",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "blocked",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "connected_but_partial",
+      "limitations": [
+        "Generic Core contracts only — provider adapters supply live records."
+      ],
+      "next_required_step": "Connect provider adapters per relationship type with audit logging.",
+      "panel": "app"
+    },
+    {
+      "module_id": "directory.unonight_member",
+      "domain": "organization_directory",
+      "business_pack_key": "community_pack",
+      "provider_key": "unonight_community_member_directory",
+      "capability_ids": [
+        "member.search"
+      ],
+      "source_type": "none",
+      "source_reference": null,
+      "runtime_loader": "companion-directory-context.ts",
+      "schema_status": "missing",
+      "permission_status": "defined",
+      "activation_status": "disabled",
+      "command_brief_status": "none",
+      "action_status": "blocked",
+      "language_status": "complete",
+      "test_status": "phase_tested",
+      "readiness": "source_missing",
+      "limitations": [
+        "No member list exposed in Phase 33C — contract only.",
+        "No raw email/phone — masked fields require explicit permission when source exists."
+      ],
+      "next_required_step": "Connect read-only Unonight member directory search RPC with masked contact fields and audit logging.",
+      "panel": "app"
+    },
+    {
+      "module_id": "directory.hr_employee",
+      "domain": "organization_directory",
+      "business_pack_key": "hr_pack",
+      "provider_key": "hr_employee_directory",
+      "capability_ids": [
+        "employee.search"
+      ],
+      "source_type": "rpc",
+      "source_reference": "rpc:workforce_employee_directory",
+      "runtime_loader": "load-companion-hr-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "blocked",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [
+        "HR employee directory manifest registered — live search adapter missing."
+      ],
+      "next_required_step": "Implement hr_employee_directory search adapter with role scoping.",
+      "panel": "app"
+    },
+    {
+      "module_id": "directory.crm_customer",
+      "domain": "organization_directory",
+      "business_pack_key": "sales_pack",
+      "provider_key": "crm_customer_directory",
+      "capability_ids": [
+        "customer.search",
+        "lead.search",
+        "contact.search"
+      ],
+      "source_type": "rpc",
+      "source_reference": "rpc:customer_relationship / lead_management",
+      "runtime_loader": "load-companion-sales-context.ts",
+      "schema_status": "partial",
+      "permission_status": "defined",
+      "activation_status": "partial",
+      "command_brief_status": "none",
+      "action_status": "blocked",
+      "language_status": "complete",
+      "test_status": "partial",
+      "readiness": "adapter_missing",
+      "limitations": [
+        "CRM directory capabilities discovered — no live search adapter yet."
+      ],
+      "next_required_step": "Wire CRM customer/lead search adapter with masked contact fields.",
       "panel": "app"
     },
     {
@@ -4728,6 +5024,61 @@
     },
     {
       "priority": "P1",
+      "module_id": "provider.organization_directory_core",
+      "provider_key": "organization_directory_core",
+      "capability_ids": [
+        "directory.search.read",
+        "person.read.read",
+        "organization.read.read",
+        "relationship.read.read"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for organization_directory_core."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.crm_customer_directory",
+      "provider_key": "crm_customer_directory",
+      "capability_ids": [
+        "customer.search.search",
+        "lead.search.search",
+        "contact.search.search"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for crm_customer_directory."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.hr_employee_directory",
+      "provider_key": "hr_employee_directory",
+      "capability_ids": [
+        "employee.search.search"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for hr_employee_directory."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.commerce_customer_directory",
+      "provider_key": "commerce_customer_directory",
+      "capability_ids": [
+        "customer.search.search"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for commerce_customer_directory."
+    },
+    {
+      "priority": "P1",
+      "module_id": "provider.booking_customer_directory",
+      "provider_key": "booking_customer_directory",
+      "capability_ids": [
+        "customer.search.search"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for booking_customer_directory."
+    },
+    {
+      "priority": "P1",
       "module_id": "verification.queue_read",
       "provider_key": "verification_queue",
       "capability_ids": [
@@ -4758,6 +5109,28 @@
       ],
       "reason": "Appointment/service booking capability missing live adapter.",
       "next_required_step": "Align booking.* capability IDs with appointment.* in services manifest or add aliases."
+    },
+    {
+      "priority": "P1",
+      "module_id": "directory.hr_employee",
+      "provider_key": "hr_employee_directory",
+      "capability_ids": [
+        "employee.search"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement hr_employee_directory search adapter with role scoping."
+    },
+    {
+      "priority": "P1",
+      "module_id": "directory.crm_customer",
+      "provider_key": "crm_customer_directory",
+      "capability_ids": [
+        "customer.search",
+        "lead.search",
+        "contact.search"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Wire CRM customer/lead search adapter with masked contact fields."
     },
     {
       "priority": "P2",
@@ -4840,6 +5213,19 @@
         "vacation_mode.read",
         "absence.read",
         "post_vacation_availability.read"
+      ],
+      "reason": "Partial runtime without Command Brief linkage.",
+      "next_required_step": "Add Command Brief signals when live metrics are available."
+    },
+    {
+      "priority": "P2",
+      "module_id": "directory.core_search",
+      "provider_key": "organization_directory_core",
+      "capability_ids": [
+        "directory.search",
+        "person.read",
+        "organization.read",
+        "relationship.read"
       ],
       "reason": "Partial runtime without Command Brief linkage.",
       "next_required_step": "Add Command Brief signals when live metrics are available."
@@ -5100,6 +5486,37 @@
       "provider_key": "blender",
       "capability_ids": [
         "design.read.read"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.community_member_directory",
+      "provider_key": "community_member_directory",
+      "capability_ids": [
+        "member.search.search"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.partner_directory",
+      "provider_key": "partner_directory",
+      "capability_ids": [
+        "partner.search.search",
+        "seller.search.search"
+      ],
+      "reason": "Specification-only — no runtime wiring.",
+      "next_required_step": "Implement provider manifest and loader wiring."
+    },
+    {
+      "priority": "P3",
+      "module_id": "provider.supplier_directory",
+      "provider_key": "supplier_directory",
+      "capability_ids": [
+        "supplier.search.search"
       ],
       "reason": "Specification-only — no runtime wiring.",
       "next_required_step": "Implement provider manifest and loader wiring."

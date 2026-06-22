@@ -43,6 +43,46 @@
         "p3": "Lav — spesifikasjon eller fremtidig adapterarbeid."
       }
     },
+    "directory": {
+      "sourceLabel": "Organisasjonskatalog",
+      "privacyNote": "Katalogsøk returnerer minimum felter for oppgaven. E-post, telefon og private identifikatorer maskeres med mindre rollen din eksplisitt tillater kontakt- eller sensitive lesninger.",
+      "outcomes": {
+        "exactMatch": "Aipify fant én treff i organisasjonens katalog.",
+        "multipleMatches": "Aipify fant flere mulige treff. Gjennomgå listen eller presiser søket.",
+        "noMatch": "Ingen matchende person eller virksomhet ble funnet i godkjente katalogkilder.",
+        "permissionDenied": "Rollen din kan ikke utføre dette katalogsøket.",
+        "providerMissing": "Ingen live katalogprovider er koblet for denne relasjonstypen ennå.",
+        "unsupportedSearchField": "Det søkefeltet støttes ikke av de tilkoblede katalogproviderne.",
+        "activationPending": "Katalogsøk er utilgjengelig mens organisasjonsaktivering eller abonnement venter.",
+        "partialResult": "Aipify returnerte delvis katalogmetadata — noen felt er utilgjengelige fra provideren.",
+        "ambiguousQuery": "Aipify trenger et tydeligere søk før en person eller virksomhet kan identifiseres trygt.",
+        "clarificationRequired": "Flere mulige treff — velg riktig post eller legg til e-post, telefon eller organisasjonsnummer."
+      },
+      "masking": {
+        "email": "E-post er maskert av hensyn til personvern.",
+        "phone": "Telefonnummer er maskert av hensyn til personvern."
+      },
+      "providers": {
+        "organization_directory_core": "Organisasjonskatalog",
+        "crm_customer_directory": "CRM-kunder og leads",
+        "hr_employee_directory": "Ansatte",
+        "community_member_directory": "Medlemmer",
+        "partner_directory": "Partnere og selgere",
+        "commerce_customer_directory": "Commerce-kunder",
+        "booking_customer_directory": "Bookingkunder",
+        "supplier_directory": "Leverandører"
+      },
+      "searchTerms": {
+        "organization_directory_core": "katalog person organisasjon relasjon søk",
+        "crm_customer_directory": "kunde lead kontakt CRM søk",
+        "hr_employee_directory": "ansatt medarbeider people søk",
+        "community_member_directory": "medlem medlemskap søk",
+        "partner_directory": "partner selger growth partner søk",
+        "commerce_customer_directory": "commerce kunde søk",
+        "booking_customer_directory": "booking avtale kunde søk",
+        "supplier_directory": "leverandør vendor søk"
+      }
+    },
     "discovery": {
       "accessDenied": "Install Discovery-data er ikke tilgjengelig for din rolle. Be en administrator om tilkoblingsdetaljer.",
       "empty": "Ingen godkjente tilkoblede systemer eller datakilder er oppdaget for denne organisasjonen ennå.",

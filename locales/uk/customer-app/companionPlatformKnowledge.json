@@ -137,47 +137,34 @@
       }
     },
     "actions": {
-      "sourceLabel": "Управління Trust & Action",
-      "explanationLead": "Aipify підготував керований план дії для {actionId} на {entity} через {provider}.",
-      "planExplanation": "Companion runtime підготував керовану дію {actionId} для перевірки затвердження.",
-      "riskLine": "Рівень ризику: {risk}",
-      "approvalLine": "Статус затвердження: {status}",
-      "reversibleYes": "Цю дію можна скасувати, якщо політика це дозволяє.",
-      "reversibleNo": "Цю дію не можна скасувати — потрібне явне затвердження.",
-      "preparedLine": "Підготовлено: {createdAt}",
-      "auditLine": "Посилання аудиту: {reference}",
-      "openApprovals": "Відкрити центр затверджень",
-      "approvalRequiredLead": "Потрібне затвердження, перш ніж Aipify виконає {actionId}.",
-      "approvalRequiredExplanation": "Aipify створив або повторно використав запит на затвердження. У цій фазі дія провайдера не виконувалась.",
-      "readyLead": "Aipify перевірив {actionId}, і він готовий до керованого виконання після вашого перегляду.",
-      "readyExplanation": "Виконання навмисно відкладено — перегляньте план у центрі затверджень, коли будете готові.",
-      "blockedExplanation": "Цю дію заблоковано політикою Trust & Action, і вона не була виконана.",
-      "unavailableExplanation": "Жодна керована можливість запису не відповіла цьому запиту для вашої організації.",
-      "permissionDenied": "Ваша роль не може підготувати цю дію з поточними дозволами.",
-      "missingPolicy": "Жодна затверджена політика дій не покриває цей запит.",
-      "unavailable": "Ця дія недоступна через Companion для вашої організації.",
-      "appSuspended": "Дії недоступні, поки підписку організації призупинено або скасовано.",
-      "emergencyStop": "Дії Companion призупинено під час активної аварійної зупинки.",
-      "riskLevel": { "0": "інформація", "1": "чернетка", "2": "зворотна", "3": "чутлива", "4": "критична" },
-      "approvalStatus": {
-        "pending": "очікує затвердження",
-        "approved": "затверджено",
-        "not_required": "не потрібно",
-        "blocked": "заблоковано",
-        "prohibited": "заборонено"
-      },
-      "blockReason": {
-        "critical_prohibited": "Критичні дії не можуть виконуватись Aipify.",
-        "irreversible_blocked": "Незворотні дії не можна автоматично готувати без явного управління.",
-        "permission_denied": "Ваша роль не має дозволу на цю дію.",
-        "entitlement_blocked": "Права Business Pack зараз блокують цю дію.",
-        "emergency_stop": "Активна аварійна зупинка — дії призупинено.",
-        "missing_policy": "Жодна політика дій не авторизує цей запит.",
-        "policy_prohibited": "Політика організації забороняє цю дію.",
-        "provider_unverified": "З'єднання провайдера не верифіковано для дій запису.",
-        "schema_validation": "Вхідні дані не пройшли перевірку схеми.",
-        "write_boundary": "Межі запису заблокували цю дію."
-      }
+      "teamMembers": "Open Team Members",
+      "rolesPermissions": "Open Roles & Permissions",
+      "subscription": "Open Subscription",
+      "upgradeOptions": "View upgrade options",
+      "invoices": "Open Invoices",
+      "paymentHistory": "Open Payment History",
+      "accountSecurity": "Open Security settings",
+      "connectIntegration": "Connect integration",
+      "integrations": "Open Integrations",
+      "connectedIntegrations": "View connected integrations",
+      "contactSupport": "Зв’язатися з підтримкою",
+      "supportRequests": "Переглянути запити до підтримки",
+      "knowledgeCenter": "Дізнатися про безпечне підключення",
+      "gettingStarted": "Початок роботи",
+      "aipifyCompanion": "Відкрити Aipify Companion",
+      "commandBrief": "Open Command Brief",
+      "sinceLastLogin": "Since Last Login",
+      "appNotifications": "Notifications",
+      "appDashboard": "Open Dashboard",
+      "availableBusinessPacks": "Browse Business Packs",
+      "installedBusinessPacks": "Installed Business Packs",
+      "preferences": "Open Preferences",
+      "profile": "Open Profile",
+      "apiAccess": "API Access",
+      "activityOverview": "Activity Overview",
+      "viewIntegrations": "Переглянути інтеграції",
+      "retestUnonightConnection": "Повторно перевірити підключення",
+      "readSecureConnection": "Докладніше про безпечне підключення"
     },
     "execution": {
       "sourceLabel": "Кероване виконання дії",
@@ -220,6 +207,18 @@
         "provider_failure": "Адаптер провайдера повідомив про помилку.",
         "validation_failed": "Валідація вхідних даних провайдера не вдалася.",
         "invalid_output": "Вихідні дані провайдера не пройшли валідацію."
+      },
+      "blockReason": {
+        "critical_prohibited": "Aipify не може виконувати критичні дії.",
+        "irreversible_blocked": "Незворотні дії не можна автоматично готувати без явного управління.",
+        "permission_denied": "Ваша роль не має дозволу на цю дію.",
+        "entitlement_blocked": "Права Business Pack зараз блокують цю дію.",
+        "emergency_stop": "Активна аварійна зупинка — дії призупинено.",
+        "missing_policy": "Жодна політика дій не авторизує цей запит.",
+        "policy_prohibited": "Політика організації забороняє цю дію.",
+        "provider_unverified": "З'єднання провайдера не перевірено для дій запису.",
+        "schema_validation": "Вхідні дані не пройшли перевірку схеми.",
+        "write_boundary": "Правила меж запису заблокували цю дію."
       }
     },
     "synthesis": {
@@ -243,7 +242,10 @@
       "permissionDenied": "Ваша роль не має доступу до каталогу creative-провайдерів.",
       "entitlementBlocked": "Creative-можливості недоступні, поки підписку призупинено.",
       "openStudio": "Відкрити Studio & Creative Center",
-      "operation": { "read": "читання", "write": "запис" },
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
       "status": {
         "connected": "підключено",
         "implemented_disconnected": "реалізовано, але відключено",
@@ -296,7 +298,10 @@
       "entitlementBlocked": "Media-можливості недоступні, поки підписку призупинено.",
       "policyNote": "Застосовуються політики відтворення організації, провайдера та облікового запису — Aipify ніколи не припускає публічне комерційне відтворення без явного схвалення.",
       "openDeviceCenter": "Відкрити центр пристроїв і presence",
-      "operation": { "read": "читання", "write": "запис" },
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
       "status": {
         "connected": "підключено",
         "implemented_disconnected": "реалізовано, але відключено",
@@ -329,7 +334,10 @@
       "privacyNote": "Лише чутливі метадані — тексти приватних повідомлень, вкладення та міжорганізаційний вміст ніколи не розкриваються в Companion runtime.",
       "policyNote": "Надсилання e-mail, зміни календаря, обмін документами та друк потребують явного схвалення та правильної політики організації.",
       "openWorkspaceCenter": "Відкрити центр workspace",
-      "operation": { "read": "читання", "write": "запис" },
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
       "status": {
         "connected": "підключено",
         "implemented_disconnected": "реалізовано, але відключено",
@@ -376,7 +384,10 @@
       "privacyNote": "Commerce-інтелект metadata-first — PII клієнтів і платіжні записи ніколи не розкриваються в Companion runtime.",
       "policyNote": "Імпорт продуктів, публікація, переклад, генерація SEO та зміни цін потребують явного схвалення та дозволу commerce.manage.",
       "openCommerceCenter": "Відкрити commerce-центр",
-      "operation": { "read": "читання", "write": "запис" },
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
       "status": {
         "connected": "підключено",
         "implemented_disconnected": "реалізовано, але відключено",
@@ -425,7 +436,10 @@
       "vacationModeActive": "Інтеграція покриття Vacation Mode активна для планування.",
       "vacationModeAvailable": "Покриття Vacation Mode доступне через інтеграцію Absence Center.",
       "openServicesCenter": "Відкрити services-центр",
-      "operation": { "read": "читання", "write": "запис" },
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
       "status": {
         "connected": "підключено",
         "implemented_disconnected": "реалізовано, але відключено",
@@ -475,7 +489,10 @@
       "knowledgeGapDetectionActive": "Виявлення прогалин у знаннях активне для ваших операцій підтримки.",
       "knowledgeGapDetectionAvailable": "Виявлення прогалин у знаннях доступне в налаштуваннях Support Operations.",
       "openSupportCenter": "Відкрити центр підтримки",
-      "operation": { "read": "читання", "write": "запис" },
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
       "status": {
         "connected": "підключено",
         "implemented_disconnected": "реалізовано, але відключено",
@@ -526,7 +543,10 @@
       "postVacationBufferActive": "Буфер після відпустки налаштовано для безперервності бронювань.",
       "postVacationBufferAvailable": "Буфер після відпустки доступний через інтеграцію appointment vacation.",
       "openIndustryCenter": "Відкрити industry center",
-      "operation": { "read": "читання", "write": "запис" },
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
       "status": {
         "connected": "підключено",
         "implemented_disconnected": "реалізовано, але відключено",
@@ -577,7 +597,10 @@
       "commandBriefEventsAvailable": "Події Command Brief доступні після активації Aipify Hosts.",
       "humanOversightRequired": "Людський нагляд потрібен для записів Aipify Hosts.",
       "openHostsCenter": "Відкрити Aipify Hosts",
-      "operation": { "read": "читання", "write": "запис" },
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
       "status": {
         "connected": "підключено",
         "implemented_disconnected": "реалізовано, але відключено",
@@ -912,7 +935,10 @@
       "commandBriefEventsLinked": "Сигнали спільноти Command Brief пов’язані з існуючими джерелами учасників, активності, модерації та винагород.",
       "commandBriefEventsAvailable": "Сигнали спільноти Command Brief доступні, коли активовано двигуни спільноти.",
       "openCommunityCenter": "Відкрити Community Center",
-      "operation": { "read": "читання", "write": "запис" },
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
       "status": {
         "connected": "підключено",
         "implemented_disconnected": "реалізовано, але відключено",
@@ -1088,7 +1114,10 @@
       "commandBriefEventsLinked": "Command Brief proactive signals are linked from existing monitoring, recommendation, and domain engine sources.",
       "commandBriefEventsAvailable": "Command Brief proactive signals are available when proactive engines are activated.",
       "openProactiveCenter": "Open Command Brief",
-      "operation": { "read": "read", "write": "write" },
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
       "status": {
         "connected": "connected",
         "implemented_disconnected": "implemented but disconnected",
@@ -1148,7 +1177,10 @@
       "roleBasedAccessActive": "Role-based access permissions are enforced for this organization.",
       "openAnalyticsCenter": "Open Analytics Center",
       "openExecutiveInsights": "Open Executive Insights",
-      "operation": { "read": "read", "write": "write" },
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
       "status": {
         "connected": "connected",
         "implemented_disconnected": "implemented but disconnected",
@@ -1387,36 +1419,6 @@
       "step1": "Відкрийте Aipify Companion з розділу Intelligence або запитайте про конкретну тему.",
       "step2": "Скористайтеся запропонованими посиланнями, щоб перейти безпосередньо на потрібну сторінку.",
       "subscriptionUnavailable": "Зараз не вдалося перевірити деталі вашої підписки. Відкрийте Підписку, щоб переглянути свій план."
-    },
-    "actions": {
-      "teamMembers": "Open Team Members",
-      "rolesPermissions": "Open Roles & Permissions",
-      "subscription": "Open Subscription",
-      "upgradeOptions": "View upgrade options",
-      "invoices": "Open Invoices",
-      "paymentHistory": "Open Payment History",
-      "accountSecurity": "Open Security settings",
-      "connectIntegration": "Connect integration",
-      "integrations": "Open Integrations",
-      "connectedIntegrations": "View connected integrations",
-      "contactSupport": "Зв’язатися з підтримкою",
-      "supportRequests": "Переглянути запити до підтримки",
-      "knowledgeCenter": "Дізнатися про безпечне підключення",
-      "gettingStarted": "Початок роботи",
-      "aipifyCompanion": "Відкрити Aipify Companion",
-      "commandBrief": "Open Command Brief",
-      "sinceLastLogin": "Since Last Login",
-      "appNotifications": "Notifications",
-      "appDashboard": "Open Dashboard",
-      "availableBusinessPacks": "Browse Business Packs",
-      "installedBusinessPacks": "Installed Business Packs",
-      "preferences": "Open Preferences",
-      "profile": "Open Profile",
-      "apiAccess": "API Access",
-      "activityOverview": "Activity Overview",
-      "viewIntegrations": "Переглянути інтеграції",
-      "retestUnonightConnection": "Повторно перевірити підключення",
-      "readSecureConnection": "Докладніше про безпечне підключення"
     },
     "routes": {
       "appDashboard": {
@@ -1750,6 +1752,46 @@
         "title": "Live-метрика недоступна",
         "directAnswer": "Підключена інтеграція наразі не надає цю операційну метрику.",
         "explanation": "Aipify відповідає лише на основі перевірених даних інтеграції лише для читання. Вона не може вгадувати кількість учасників чи інші чутливі метрики."
+      }
+    },
+    "directory": {
+      "sourceLabel": "Каталог організації",
+      "privacyNote": "Пошук у каталозі повертає мінімум полів для задачі. Email, телефон і приватні ідентифікатори маскуються, якщо роль не дозволяє контактне або чутливе читання.",
+      "outcomes": {
+        "exactMatch": "Aipify знайшов один запис у каталозі вашої організації.",
+        "multipleMatches": "Aipify знайшов кілька можливих збігів. Перегляньте список або уточніть пошук.",
+        "noMatch": "У схвалених джерелах каталогу не знайдено відповідної особи чи організації.",
+        "permissionDenied": "Ваша роль не може виконати цей пошук у каталозі.",
+        "providerMissing": "Для цього типу зв’язку ще не підключено live-провайдера каталогу.",
+        "unsupportedSearchField": "Це поле пошуку не підтримується підключеними провайдерами.",
+        "activationPending": "Пошук у каталозі недоступний, поки очікується активація організації або підписка.",
+        "partialResult": "Aipify повернув часткові метадані каталогу — деякі поля недоступні у провайдера.",
+        "ambiguousQuery": "Aipify потребує чіткішого пошуку, перш ніж безпечно ідентифікувати особу чи організацію.",
+        "clarificationRequired": "Є кілька можливих збігів — оберіть правильний запис або додайте email, телефон чи номер організації."
+      },
+      "masking": {
+        "email": "Email маскується з міркувань конфіденційності.",
+        "phone": "Номер телефону маскується з міркувань конфіденційності."
+      },
+      "providers": {
+        "organization_directory_core": "Каталог організації",
+        "crm_customer_directory": "Клієнти та ліди CRM",
+        "hr_employee_directory": "Співробітники",
+        "community_member_directory": "Учасники",
+        "partner_directory": "Партнери та продавці",
+        "commerce_customer_directory": "Commerce-клієнти",
+        "booking_customer_directory": "Клієнти бронювань",
+        "supplier_directory": "Постачальники"
+      },
+      "searchTerms": {
+        "organization_directory_core": "directory person organization relationship search",
+        "crm_customer_directory": "customer lead contact CRM search",
+        "hr_employee_directory": "employee staff people search",
+        "community_member_directory": "member membership search",
+        "partner_directory": "partner seller growth partner search",
+        "commerce_customer_directory": "shopify woocommerce customer search",
+        "booking_customer_directory": "appointment booking customer search",
+        "supplier_directory": "supplier vendor search"
       }
     }
   }

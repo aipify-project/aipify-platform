@@ -137,47 +137,34 @@
       }
     },
     "actions": {
-      "sourceLabel": "Zarządzanie Trust & Action",
-      "explanationLead": "Aipify przygotowało zarządzany plan działania dla {actionId} na {entity} przez {provider}.",
-      "planExplanation": "Runtime Companion przygotował zarządzane działanie {actionId} do przeglądu zatwierdzenia.",
-      "riskLine": "Poziom ryzyka: {risk}",
-      "approvalLine": "Status zatwierdzenia: {status}",
-      "reversibleYes": "To działanie jest odwracalne, gdy polityka na to pozwala.",
-      "reversibleNo": "To działanie nie jest odwracalne — wymagane jest wyraźne zatwierdzenie.",
-      "preparedLine": "Przygotowano: {createdAt}",
-      "auditLine": "Referencja audytu: {reference}",
-      "openApprovals": "Otwórz centrum zatwierdzeń",
-      "approvalRequiredLead": "Zatwierdzenie jest wymagane, zanim Aipify wykona {actionId}.",
-      "approvalRequiredExplanation": "Aipify utworzyło lub ponownie wykorzystało oczekujące żądanie zatwierdzenia. W tej fazie nie wykonano żadnej akcji dostawcy.",
-      "readyLead": "Aipify zweryfikowało {actionId} i jest gotowe do zarządzanego wykonania po Twoim przeglądzie.",
-      "readyExplanation": "Wykonanie jest celowo opóźnione — przejrzyj plan w centrum zatwierdzeń, gdy będziesz gotowy.",
-      "blockedExplanation": "To działanie zostało zablokowane przez politykę Trust & Action i nie zostało wykonane.",
-      "unavailableExplanation": "Żadna zarządzana możliwość zapisu nie pasowała do tego żądania dla Twojej organizacji.",
-      "permissionDenied": "Twoja rola nie może przygotować tego działania przy obecnych uprawnieniach.",
-      "missingPolicy": "Żadna zatwierdzona polityka działań nie obejmuje tego żądania.",
-      "unavailable": "To działanie nie jest dostępne przez Companion dla Twojej organizacji.",
-      "appSuspended": "Działania są niedostępne, gdy subskrypcja organizacji jest wstrzymana lub zawieszona.",
-      "emergencyStop": "Działania Companion są wstrzymane, gdy aktywne jest zatrzymanie awaryjne.",
-      "riskLevel": { "0": "informacja", "1": "szkic", "2": "odwracalne", "3": "wrażliwe", "4": "krytyczne" },
-      "approvalStatus": {
-        "pending": "oczekuje zatwierdzenia",
-        "approved": "zatwierdzone",
-        "not_required": "nie wymagane",
-        "blocked": "zablokowane",
-        "prohibited": "zabronione"
-      },
-      "blockReason": {
-        "critical_prohibited": "Działań krytycznych Aipify nie może wykonywać.",
-        "irreversible_blocked": "Działań nieodwracalnych nie można automatycznie przygotować bez wyraźnego zarządzania.",
-        "permission_denied": "Twoja rola nie ma uprawnień do tego działania.",
-        "entitlement_blocked": "Uprawnienia Business Pack blokują to działanie.",
-        "emergency_stop": "Aktywne zatrzymanie awaryjne — działania wstrzymane.",
-        "missing_policy": "Żadna polityka działań nie autoryzuje tego żądania.",
-        "policy_prohibited": "Polityka organizacji zabrania tego działania.",
-        "provider_unverified": "Połączenie dostawcy nie jest zweryfikowane do działań zapisu.",
-        "schema_validation": "Dane wejściowe nie przeszły walidacji schematu.",
-        "write_boundary": "Granice zapisu zablokowały to działanie."
-      }
+      "teamMembers": "Open Team Members",
+      "rolesPermissions": "Open Roles & Permissions",
+      "subscription": "Open Subscription",
+      "upgradeOptions": "View upgrade options",
+      "invoices": "Open Invoices",
+      "paymentHistory": "Open Payment History",
+      "accountSecurity": "Open Security settings",
+      "connectIntegration": "Connect integration",
+      "integrations": "Open Integrations",
+      "connectedIntegrations": "View connected integrations",
+      "contactSupport": "Skontaktuj się z pomocą",
+      "supportRequests": "Zobacz zgłoszenia do pomocy",
+      "knowledgeCenter": "Przeczytaj o bezpiecznym połączeniu",
+      "gettingStarted": "Pierwsze kroki",
+      "aipifyCompanion": "Otwórz Aipify Companion",
+      "commandBrief": "Open Command Brief",
+      "sinceLastLogin": "Since Last Login",
+      "appNotifications": "Notifications",
+      "appDashboard": "Open Dashboard",
+      "availableBusinessPacks": "Browse Business Packs",
+      "installedBusinessPacks": "Installed Business Packs",
+      "preferences": "Open Preferences",
+      "profile": "Open Profile",
+      "apiAccess": "API Access",
+      "activityOverview": "Activity Overview",
+      "viewIntegrations": "Zobacz integracje",
+      "retestUnonightConnection": "Przetestuj połączenie ponownie",
+      "readSecureConnection": "Przeczytaj o bezpiecznym połączeniu"
     },
     "execution": {
       "sourceLabel": "Nadzorowane wykonanie działania",
@@ -220,6 +207,18 @@
         "provider_failure": "Adapter dostawcy zgłosił błąd.",
         "validation_failed": "Walidacja danych wejściowych dostawcy nie powiodła się.",
         "invalid_output": "Wynik dostawcy nie przeszedł walidacji."
+      },
+      "blockReason": {
+        "critical_prohibited": "Aipify nie może wykonywać działań krytycznych.",
+        "irreversible_blocked": "Działań nieodwracalnych nie można automatycznie przygotować bez jawnej kontroli.",
+        "permission_denied": "Twoja rola nie ma uprawnień do tego działania.",
+        "entitlement_blocked": "Uprawnienia Business Pack blokują to działanie.",
+        "emergency_stop": "Aktywny jest tryb awaryjny — działania są wstrzymane.",
+        "missing_policy": "Żadna polityka działań nie autoryzuje tego żądania.",
+        "policy_prohibited": "Polityka organizacji zabrania tego działania.",
+        "provider_unverified": "Połączenie dostawcy nie jest zweryfikowane do działań zapisu.",
+        "schema_validation": "Dane wejściowe nie przeszły walidacji schematu.",
+        "write_boundary": "Reguły granicy zapisu zablokowały to działanie."
       }
     },
     "synthesis": {
@@ -243,7 +242,10 @@
       "permissionDenied": "Twoja rola nie ma dostępu do katalogu dostawców kreatywnych.",
       "entitlementBlocked": "Możliwości kreatywne są niedostępne, gdy subskrypcja jest wstrzymana.",
       "openStudio": "Otwórz Studio & Creative Center",
-      "operation": { "read": "odczyt", "write": "zapis" },
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
       "status": {
         "connected": "połączony",
         "implemented_disconnected": "zaimplementowany ale odłączony",
@@ -296,7 +298,10 @@
       "entitlementBlocked": "Możliwości mediów są niedostępne, gdy subskrypcja jest wstrzymana.",
       "policyNote": "Obowiązują polityki odtwarzania organizacji, dostawcy i konta — Aipify nigdy nie zakłada publicznego odtwarzania komercyjnego bez wyraźnej zgody.",
       "openDeviceCenter": "Otwórz centrum urządzeń i obecności",
-      "operation": { "read": "odczyt", "write": "zapis" },
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
       "status": {
         "connected": "połączony",
         "implemented_disconnected": "zaimplementowany ale odłączony",
@@ -329,7 +334,10 @@
       "privacyNote": "Tylko wrażliwe metadane — treści prywatnych wiadomości, załączniki i zawartość między organizacjami nigdy nie są ujawniane w Companion runtime.",
       "policyNote": "Wysyłanie e-maili, zmiany kalendarza, udostępnianie dokumentów i drukowanie wymagają wyraźnej zgody i właściwej polityki organizacji.",
       "openWorkspaceCenter": "Otwórz centrum workspace",
-      "operation": { "read": "odczyt", "write": "zapis" },
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
       "status": {
         "connected": "połączony",
         "implemented_disconnected": "zaimplementowany ale odłączony",
@@ -376,7 +384,10 @@
       "privacyNote": "Inteligencja commerce metadata-first — PII klientów i dane płatności nigdy nie są ujawniane w Companion runtime.",
       "policyNote": "Import produktów, publikacja, tłumaczenie, generowanie SEO i zmiany cen wymagają wyraźnej akceptacji i uprawnienia commerce.manage.",
       "openCommerceCenter": "Otwórz centrum commerce",
-      "operation": { "read": "odczyt", "write": "zapis" },
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
       "status": {
         "connected": "połączony",
         "implemented_disconnected": "zaimplementowany, lecz odłączony",
@@ -425,7 +436,10 @@
       "vacationModeActive": "Integracja pokrycia Vacation Mode jest aktywna dla planowania.",
       "vacationModeAvailable": "Pokrycie Vacation Mode jest dostępne przez integrację Absence Center.",
       "openServicesCenter": "Otwórz centrum services",
-      "operation": { "read": "odczyt", "write": "zapis" },
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
       "status": {
         "connected": "połączony",
         "implemented_disconnected": "zaimplementowany, lecz odłączony",
@@ -475,7 +489,10 @@
       "knowledgeGapDetectionActive": "Wykrywanie luk w wiedzy jest aktywne dla operacji wsparcia.",
       "knowledgeGapDetectionAvailable": "Wykrywanie luk w wiedzy jest dostępne w ustawieniach Support Operations.",
       "openSupportCenter": "Otwórz centrum wsparcia",
-      "operation": { "read": "odczyt", "write": "zapis" },
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
       "status": {
         "connected": "połączony",
         "implemented_disconnected": "zaimplementowany ale odłączony",
@@ -526,7 +543,10 @@
       "postVacationBufferActive": "Bufor po urlopie jest skonfigurowany dla ciągłości rezerwacji.",
       "postVacationBufferAvailable": "Bufor po urlopie jest dostępny przez integrację appointment vacation.",
       "openIndustryCenter": "Otwórz centrum industry",
-      "operation": { "read": "odczyt", "write": "zapis" },
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
       "status": {
         "connected": "połączony",
         "implemented_disconnected": "zaimplementowany ale odłączony",
@@ -577,7 +597,10 @@
       "commandBriefEventsAvailable": "Zdarzenia Command Brief są dostępne po aktywacji Aipify Hosts.",
       "humanOversightRequired": "Nadzór człowieka jest wymagany dla zapisów Aipify Hosts.",
       "openHostsCenter": "Otwórz Aipify Hosts",
-      "operation": { "read": "odczyt", "write": "zapis" },
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
       "status": {
         "connected": "połączony",
         "implemented_disconnected": "zaimplementowany, ale odłączony",
@@ -912,7 +935,10 @@
       "commandBriefEventsLinked": "Sygnały społeczności Command Brief są powiązane z istniejącymi źródłami członków, aktywności, moderacji i nagród.",
       "commandBriefEventsAvailable": "Sygnały społeczności Command Brief są dostępne, gdy silniki społeczności są aktywowane.",
       "openCommunityCenter": "Otwórz Community Center",
-      "operation": { "read": "odczyt", "write": "zapis" },
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
       "status": {
         "connected": "połączony",
         "implemented_disconnected": "zaimplementowany, ale odłączony",
@@ -1088,7 +1114,10 @@
       "commandBriefEventsLinked": "Command Brief proactive signals are linked from existing monitoring, recommendation, and domain engine sources.",
       "commandBriefEventsAvailable": "Command Brief proactive signals are available when proactive engines are activated.",
       "openProactiveCenter": "Open Command Brief",
-      "operation": { "read": "read", "write": "write" },
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
       "status": {
         "connected": "connected",
         "implemented_disconnected": "implemented but disconnected",
@@ -1148,7 +1177,10 @@
       "roleBasedAccessActive": "Role-based access permissions are enforced for this organization.",
       "openAnalyticsCenter": "Open Analytics Center",
       "openExecutiveInsights": "Open Executive Insights",
-      "operation": { "read": "read", "write": "write" },
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
       "status": {
         "connected": "connected",
         "implemented_disconnected": "implemented but disconnected",
@@ -1387,36 +1419,6 @@
       "step1": "Otwórz Aipify Companion z sekcji Intelligence lub zapytaj o konkretny temat.",
       "step2": "Użyj sugerowanych linków, aby przejść bezpośrednio do odpowiedniej strony.",
       "subscriptionUnavailable": "Nie udało się teraz zweryfikować szczegółów subskrypcji. Otwórz Subskrypcję, aby sprawdzić swój plan."
-    },
-    "actions": {
-      "teamMembers": "Open Team Members",
-      "rolesPermissions": "Open Roles & Permissions",
-      "subscription": "Open Subscription",
-      "upgradeOptions": "View upgrade options",
-      "invoices": "Open Invoices",
-      "paymentHistory": "Open Payment History",
-      "accountSecurity": "Open Security settings",
-      "connectIntegration": "Connect integration",
-      "integrations": "Open Integrations",
-      "connectedIntegrations": "View connected integrations",
-      "contactSupport": "Skontaktuj się z pomocą",
-      "supportRequests": "Zobacz zgłoszenia do pomocy",
-      "knowledgeCenter": "Przeczytaj o bezpiecznym połączeniu",
-      "gettingStarted": "Pierwsze kroki",
-      "aipifyCompanion": "Otwórz Aipify Companion",
-      "commandBrief": "Open Command Brief",
-      "sinceLastLogin": "Since Last Login",
-      "appNotifications": "Notifications",
-      "appDashboard": "Open Dashboard",
-      "availableBusinessPacks": "Browse Business Packs",
-      "installedBusinessPacks": "Installed Business Packs",
-      "preferences": "Open Preferences",
-      "profile": "Open Profile",
-      "apiAccess": "API Access",
-      "activityOverview": "Activity Overview",
-      "viewIntegrations": "Zobacz integracje",
-      "retestUnonightConnection": "Przetestuj połączenie ponownie",
-      "readSecureConnection": "Przeczytaj o bezpiecznym połączeniu"
     },
     "routes": {
       "appDashboard": {
@@ -1750,6 +1752,46 @@
         "title": "Metryka na żywo niedostępna",
         "directAnswer": "Połączona integracja nie udostępnia obecnie tej metryki operacyjnej.",
         "explanation": "Aipify odpowiada wyłącznie na podstawie zweryfikowanych danych integracji tylko do odczytu. Nie może zgadywać liczby członków ani innych wrażliwych metryk."
+      }
+    },
+    "directory": {
+      "sourceLabel": "Katalog organizacji",
+      "privacyNote": "Wyszukiwanie w katalogu zwraca minimalny zestaw pól. E-mail, telefon i prywatne identyfikatory są maskowane, chyba że rola pozwala na odczyt kontaktowy lub wrażliwy.",
+      "outcomes": {
+        "exactMatch": "Aipify znalazło jeden pasujący rekord w katalogu organizacji.",
+        "multipleMatches": "Aipify znalazło kilka możliwych dopasowań. Przejrzyj listę lub doprecyzuj wyszukiwanie.",
+        "noMatch": "Nie znaleziono pasującej osoby ani organizacji w zatwierdzonych źródłach katalogu.",
+        "permissionDenied": "Twoja rola nie może wykonać tego wyszukiwania w katalogu.",
+        "providerMissing": "Brak podłączonego dostawcy katalogu na żywo dla tego typu relacji.",
+        "unsupportedSearchField": "To pole wyszukiwania nie jest obsługiwane przez podłączonych dostawców.",
+        "activationPending": "Wyszukiwanie w katalogu jest niedostępne, dopóki aktywacja organizacji lub subskrypcja oczekują.",
+        "partialResult": "Aipify zwróciło częściowe metadane katalogu — niektóre pola są niedostępne u dostawcy.",
+        "ambiguousQuery": "Aipify potrzebuje jaśniejszego wyszukiwania, zanim bezpiecznie zidentyfikuje osobę lub organizację.",
+        "clarificationRequired": "Istnieje kilka możliwych dopasowań — wybierz właściwy rekord lub dodaj e-mail, telefon albo numer organizacji."
+      },
+      "masking": {
+        "email": "E-mail jest maskowany ze względu na prywatność.",
+        "phone": "Numer telefonu jest maskowany ze względu na prywatność."
+      },
+      "providers": {
+        "organization_directory_core": "Katalog organizacji",
+        "crm_customer_directory": "Klienci i leady CRM",
+        "hr_employee_directory": "Pracownicy",
+        "community_member_directory": "Członkowie",
+        "partner_directory": "Partnerzy i sprzedawcy",
+        "commerce_customer_directory": "Klienci commerce",
+        "booking_customer_directory": "Klienci rezerwacji",
+        "supplier_directory": "Dostawcy"
+      },
+      "searchTerms": {
+        "organization_directory_core": "directory person organization relationship search",
+        "crm_customer_directory": "customer lead contact CRM search",
+        "hr_employee_directory": "employee staff people search",
+        "community_member_directory": "member membership search",
+        "partner_directory": "partner seller growth partner search",
+        "commerce_customer_directory": "shopify woocommerce customer search",
+        "booking_customer_directory": "appointment booking customer search",
+        "supplier_directory": "supplier vendor search"
       }
     }
   }

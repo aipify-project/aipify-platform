@@ -1,4 +1,5 @@
 import type { CompanionCoverageEntry, CompanionCoverageReadiness } from "./companion-foundation-coverage-types";
+import { UNONIGHT_DIRECTORY_MEMBER_CONTRACT } from "@/lib/unonight/provider-adapter/directory-member-contract";
 
 /** Provider-specific live-source overrides — not generic Core logic. */
 export type CoverageProviderOverride = Partial<
@@ -149,7 +150,102 @@ export const MEMBER_VERIFICATION_COVERAGE_MODULES: readonly CompanionCoverageEnt
   },
 ];
 
-/** Explicit appointment-based service / salon coverage — Phase 34 audit. */
+/** Explicit organization directory coverage — Phase 33C audit. */
+export const ORGANIZATION_DIRECTORY_COVERAGE_MODULES: readonly CompanionCoverageEntry[] = [
+  {
+    module_id: "directory.core_search",
+    domain: "organization_directory",
+    business_pack_key: null,
+    provider_key: "organization_directory_core",
+    capability_ids: [
+      "directory.search",
+      "person.read",
+      "organization.read",
+      "relationship.read",
+    ],
+    source_type: "manifest",
+    source_reference: "lib/integration-intelligence/directory/manifests.ts",
+    runtime_loader: "companion-directory-context.ts",
+    schema_status: "wired",
+    permission_status: "defined",
+    activation_status: "partial",
+    command_brief_status: "none",
+    action_status: "blocked",
+    language_status: "complete",
+    test_status: "phase_tested",
+    readiness: "connected_but_partial",
+    limitations: ["Generic Core contracts only — provider adapters supply live records."],
+    next_required_step: "Connect provider adapters per relationship type with audit logging.",
+    panel: "app",
+  },
+  {
+    module_id: "directory.unonight_member",
+    domain: "organization_directory",
+    business_pack_key: "community_pack",
+    provider_key: "unonight_community_member_directory",
+    capability_ids: ["member.search"],
+    source_type: "none",
+    source_reference: null,
+    runtime_loader: "companion-directory-context.ts",
+    schema_status: "missing",
+    permission_status: "defined",
+    activation_status: "disabled",
+    command_brief_status: "none",
+    action_status: "blocked",
+    language_status: "complete",
+    test_status: "phase_tested",
+    readiness: "source_missing",
+    limitations: [
+      "No member list exposed in Phase 33C — contract only.",
+      "No raw email/phone — masked fields require explicit permission when source exists.",
+    ],
+    next_required_step: UNONIGHT_DIRECTORY_MEMBER_CONTRACT.next_required_step,
+    panel: "app",
+  },
+  {
+    module_id: "directory.hr_employee",
+    domain: "organization_directory",
+    business_pack_key: "hr_pack",
+    provider_key: "hr_employee_directory",
+    capability_ids: ["employee.search"],
+    source_type: "rpc",
+    source_reference: "rpc:workforce_employee_directory",
+    runtime_loader: "load-companion-hr-context.ts",
+    schema_status: "partial",
+    permission_status: "defined",
+    activation_status: "partial",
+    command_brief_status: "none",
+    action_status: "blocked",
+    language_status: "complete",
+    test_status: "partial",
+    readiness: "adapter_missing",
+    limitations: ["HR employee directory manifest registered — live search adapter missing."],
+    next_required_step: "Implement hr_employee_directory search adapter with role scoping.",
+    panel: "app",
+  },
+  {
+    module_id: "directory.crm_customer",
+    domain: "organization_directory",
+    business_pack_key: "sales_pack",
+    provider_key: "crm_customer_directory",
+    capability_ids: ["customer.search", "lead.search", "contact.search"],
+    source_type: "rpc",
+    source_reference: "rpc:customer_relationship / lead_management",
+    runtime_loader: "load-companion-sales-context.ts",
+    schema_status: "partial",
+    permission_status: "defined",
+    activation_status: "partial",
+    command_brief_status: "none",
+    action_status: "blocked",
+    language_status: "complete",
+    test_status: "partial",
+    readiness: "adapter_missing",
+    limitations: ["CRM directory capabilities discovered — no live search adapter yet."],
+    next_required_step: "Wire CRM customer/lead search adapter with masked contact fields.",
+    panel: "app",
+  },
+];
+
 export const HAIRDRESSER_SERVICE_COVERAGE_MODULES: readonly CompanionCoverageEntry[] = [
   {
     module_id: "service.appointment_booking",
