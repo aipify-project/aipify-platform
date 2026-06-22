@@ -30,6 +30,7 @@ export type Vendor = {
   country?: string | null;
   address?: string | null;
   website?: string | null;
+  organization_number?: string | null;
   category_key?: string | null;
   services?: string | null;
   status: string;

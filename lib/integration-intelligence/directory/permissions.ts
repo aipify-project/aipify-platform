@@ -29,6 +29,17 @@ const BASIC_FIELDS: readonly DirectorySearchField[] = [
   "pipeline_stage",
   "owner",
   "lead_source",
+  "supplier_id",
+  "category",
+  "product",
+  "service",
+  "country",
+  "preferred_supplier",
+  "assigned_buyer",
+  "contract_status",
+  "manufacturer",
+  "distributor",
+  "contact_name",
 ];
 
 export function resolveDirectoryPermissionScope(

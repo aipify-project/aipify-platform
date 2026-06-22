@@ -43,6 +43,7 @@ function parseVendor(row: Record<string, unknown>): Vendor {
     country: typeof row.country === "string" ? row.country : null,
     address: typeof row.address === "string" ? row.address : null,
     website: typeof row.website === "string" ? row.website : null,
+    organization_number: typeof row.organization_number === "string" ? row.organization_number : null,
     category_key: typeof row.category_key === "string" ? row.category_key : null,
     services: typeof row.services === "string" ? row.services : null,
     status: String(row.status ?? "active"),

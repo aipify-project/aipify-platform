@@ -10,6 +10,7 @@ import {
   getEmployeeDirectory,
   getEmployeeManagementInvitations,
 } from "@/lib/employee-management";
+import { getProcurementOperationsCenter } from "@/lib/procurement-operations";
 import { getOrganizationManagementCenter } from "@/lib/organization-management";
 import { DIRECTORY_PROVIDER_MANIFESTS } from "@/lib/integration-intelligence/directory/manifests";
 import {
@@ -24,6 +25,12 @@ import {
 import { buildCrmDirectoryPermissionContext } from "@/lib/integration-intelligence/providers/crm-customer-directory/permissions";
 import { buildAppEmployeeCommandBriefSignals } from "./app-employee-read-orchestrator";
 import { buildCrmDirectoryCommandBriefSignals } from "./crm-customer-read-orchestrator";
+import { buildSupplierDirectoryCommandBriefSignals } from "./supplier-vendor-read-orchestrator";
+import {
+  SUPPLIER_VENDOR_DIRECTORY_PROVIDER_KEY,
+  mapSupplierDirectoryBundle,
+} from "@/lib/integration-intelligence/providers/supplier-vendor-directory/supplier-vendor-directory-contract";
+import { buildSupplierDirectoryPermissionContext } from "@/lib/integration-intelligence/providers/supplier-vendor-directory/permissions";
 import {
   buildCompanionDirectoryContextFromManifests,
   type CompanionDirectoryContext,
@@ -46,11 +53,13 @@ export async function loadCompanionDirectoryContext(input: {
   user_role: string;
   has_organization_membership?: boolean;
   has_crm_entitlement?: boolean;
+  has_procurement_entitlement?: boolean;
   subscription_status?: string | null;
 }): Promise<CompanionDirectoryContext> {
   const appSuspended = isAppEntitlementBlocked(input.subscription_status ?? null);
   const hasMembership = input.has_organization_membership ?? true;
   const hasCrmEntitlement = input.has_crm_entitlement ?? true;
+  const hasProcurementEntitlement = input.has_procurement_entitlement ?? true;
 
   let directoryData: unknown = null;
   let invitationsData: unknown = null;
@@ -58,14 +67,16 @@ export async function loadCompanionDirectoryContext(input: {
   let accessControlData: unknown = null;
   let relationshipCenterData: unknown = null;
   let leadCenterData: unknown = null;
+  let procurementCenterData: unknown = null;
 
   let employeeAdapterConnected = false;
   let crmAdapterConnected = false;
+  let supplierAdapterConnected = false;
   let permissionDenied = false;
 
   if (!appSuspended && hasMembership) {
     try {
-      const [directory, invitations, orgCenter, accessControl, relationshipCenter, leadCenter] =
+      const [directory, invitations, orgCenter, accessControl, relationshipCenter, leadCenter, procurementCenter] =
         await Promise.all([
           getEmployeeDirectory(input.supabase),
           getEmployeeManagementInvitations(input.supabase),
@@ -77,6 +88,9 @@ export async function loadCompanionDirectoryContext(input: {
           hasCrmEntitlement
             ? getLeadManagementCenter(input.supabase).catch(() => null)
             : Promise.resolve(null),
+          hasProcurementEntitlement
+            ? getProcurementOperationsCenter(input.supabase).catch(() => null)
+            : Promise.resolve(null),
         ]);
       directoryData = directory;
       invitationsData = invitations;
@@ -84,6 +98,7 @@ export async function loadCompanionDirectoryContext(input: {
       accessControlData = accessControl;
       relationshipCenterData = relationshipCenter;
       leadCenterData = leadCenter;
+      procurementCenterData = procurementCenter;
       employeeAdapterConnected =
         directory &&
         typeof directory === "object" &&
@@ -95,6 +110,11 @@ export async function loadCompanionDirectoryContext(input: {
           (leadCenter &&
             typeof leadCenter === "object" &&
             (leadCenter as Record<string, unknown>).found !== false),
+      );
+      supplierAdapterConnected = Boolean(
+        procurementCenter &&
+          typeof procurementCenter === "object" &&
+          (procurementCenter as Record<string, unknown>).found !== false,
       );
     } catch (error) {
       if (error instanceof Error && isPermissionDeniedMessage(error.message)) {
@@ -117,6 +137,11 @@ export async function loadCompanionDirectoryContext(input: {
     leadCenterData,
   });
 
+  const supplierBundle = mapSupplierDirectoryBundle({
+    organizationId: input.organization_id,
+    procurementCenterData,
+  });
+
   const employeePermission = buildAppEmployeePermissionContext({
     organization_id: input.organization_id,
     tenant_id: input.tenant_id,
@@ -135,9 +160,19 @@ export async function loadCompanionDirectoryContext(input: {
     has_crm_entitlement: hasCrmEntitlement,
   });
 
+  const supplierPermission = buildSupplierDirectoryPermissionContext({
+    organization_id: input.organization_id,
+    tenant_id: input.tenant_id,
+    user_role: input.user_role,
+    app_suspended: appSuspended,
+    provider_active: supplierAdapterConnected,
+    has_procurement_entitlement: hasProcurementEntitlement,
+  });
+
   const connectedProviders = [
     ...(employeeAdapterConnected ? [APP_EMPLOYEE_DIRECTORY_PROVIDER_KEY] : []),
     ...(crmAdapterConnected ? [CRM_CUSTOMER_DIRECTORY_PROVIDER_KEY] : []),
+    ...(supplierAdapterConnected ? [SUPPLIER_VENDOR_DIRECTORY_PROVIDER_KEY] : []),
   ];
 
   const context = buildCompanionDirectoryContextFromManifests({
@@ -155,11 +190,18 @@ export async function loadCompanionDirectoryContext(input: {
     bundle: crmBundle,
     source_exact: crmBundle.source_exact,
   });
+  const supplierBriefSignals = buildSupplierDirectoryCommandBriefSignals({
+    bundle: supplierBundle,
+    source_exact: supplierBundle.source_exact,
+  });
 
   return {
     ...context,
     permission_denied:
-      permissionDenied || (!employeePermission.can_view_employees && !crmPermission.can_view_customers),
+      permissionDenied ||
+      (!employeePermission.can_view_employees &&
+        !crmPermission.can_view_customers &&
+        !supplierPermission.can_view_suppliers),
     app_entitlement_blocked: appSuspended,
     app_employee_adapter_connected: employeeAdapterConnected,
     app_employee_source_exact: employeeBundle.source_exact,
@@ -171,5 +213,10 @@ export async function loadCompanionDirectoryContext(input: {
     crm_candidate_count: crmBundle.candidates.length,
     crm_command_brief_signals: crmBriefSignals,
     crm_directory_limitations: crmBundle.limitations,
+    supplier_adapter_connected: supplierAdapterConnected,
+    supplier_source_exact: supplierBundle.source_exact,
+    supplier_candidate_count: supplierBundle.candidates.length,
+    supplier_command_brief_signals: supplierBriefSignals,
+    supplier_directory_limitations: supplierBundle.limitations,
   };
 }

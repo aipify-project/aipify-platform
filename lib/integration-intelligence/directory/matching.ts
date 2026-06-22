@@ -30,6 +30,14 @@ export type DirectoryMatchCandidate = {
   customer_id?: string | null;
   lead_id?: string | null;
   attribution_reference?: string | null;
+  supplier_id?: string | null;
+  category?: string | null;
+  services?: string | null;
+  country?: string | null;
+  is_preferred?: boolean | null;
+  assigned_buyer?: string | null;
+  contract_status?: string | null;
+  supplier_subtype?: string | null;
 };
 
 export type DirectoryMatchBaseRecord = {
@@ -172,17 +180,95 @@ export function matchDirectoryRecord(input: {
     return null;
   }
 
-  if (input.field === "customer_id" || input.field === "lead_id") {
+  if (input.field === "customer_id" || input.field === "lead_id" || input.field === "supplier_id") {
     const candidateId =
       input.field === "customer_id"
         ? input.candidate.customer_id ?? input.candidate.entity_id
-        : input.candidate.lead_id ?? input.candidate.entity_id;
+        : input.field === "lead_id"
+          ? input.candidate.lead_id ?? input.candidate.entity_id
+          : input.candidate.supplier_id ?? input.candidate.entity_id;
     if (!candidateId || candidateId !== normalizedQuery) return null;
     return {
       record: { ...input.baseRecord, match_kind: "exact", match_confidence: "high" } as DirectoryRecord,
       match_kind: "exact",
       match_confidence: "high",
     };
+  }
+
+  if (
+    input.field === "category" ||
+    input.field === "product" ||
+    input.field === "service" ||
+    input.field === "country" ||
+    input.field === "assigned_buyer" ||
+    input.field === "contract_status" ||
+    input.field === "manufacturer" ||
+    input.field === "distributor"
+  ) {
+    const candidateValue =
+      input.field === "category"
+        ? input.candidate.category
+        : input.field === "product" || input.field === "service"
+          ? input.candidate.services
+          : input.field === "country"
+            ? input.candidate.country
+            : input.field === "assigned_buyer"
+              ? input.candidate.assigned_buyer ?? input.candidate.owner_reference
+              : input.field === "contract_status"
+                ? input.candidate.contract_status
+                : input.field === "manufacturer" || input.field === "distributor"
+                  ? input.candidate.supplier_subtype ?? input.candidate.category
+                  : null;
+    if (!candidateValue) return null;
+    const normalizedCandidate = normalizeDirectoryName(String(candidateValue));
+    const normalizedQueryValue = normalizeDirectoryName(normalizedQuery);
+    if (
+      normalizedCandidate === normalizedQueryValue ||
+      normalizedCandidate.includes(normalizedQueryValue) ||
+      normalizedQueryValue.includes(normalizedCandidate)
+    ) {
+      return {
+        record: { ...input.baseRecord, match_kind: "normalized", match_confidence: "high" } as DirectoryRecord,
+        match_kind: "normalized",
+        match_confidence: "high",
+      };
+    }
+    return null;
+  }
+
+  if (input.field === "preferred_supplier") {
+    const wantsPreferred = ["true", "yes", "1", "preferred", "foretrukket", "godkjent", "approved", "active"].includes(
+      normalizedQuery.toLowerCase(),
+    );
+    if (wantsPreferred !== Boolean(input.candidate.is_preferred)) return null;
+    return {
+      record: { ...input.baseRecord, match_kind: "exact", match_confidence: "high" } as DirectoryRecord,
+      match_kind: "exact",
+      match_confidence: "high",
+    };
+  }
+
+  if (input.field === "contact_name") {
+    const candidateName = input.candidate.display_name;
+    if (!candidateName) return null;
+    const normalizedCandidate = normalizeDirectoryName(candidateName);
+    const normalizedQueryName = normalizeDirectoryName(normalizedQuery);
+    if (normalizedCandidate === normalizedQueryName) {
+      return {
+        record: { ...input.baseRecord, match_kind: "exact", match_confidence: "high" } as DirectoryRecord,
+        match_kind: "exact",
+        match_confidence: "high",
+      };
+    }
+    const score = fuzzyNameScore(normalizedQuery, candidateName);
+    if (score >= 82) {
+      return {
+        record: { ...input.baseRecord, match_kind: "fuzzy", match_confidence: "moderate" } as DirectoryRecord,
+        match_kind: "fuzzy",
+        match_confidence: "moderate",
+      };
+    }
+    return null;
   }
 
   if (input.field === "company_name") {

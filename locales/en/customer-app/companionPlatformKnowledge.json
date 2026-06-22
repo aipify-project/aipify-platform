@@ -71,7 +71,8 @@
         "commerce_customer_directory": "Commerce customers",
         "booking_customer_directory": "Booking customers",
         "supplier_directory": "Suppliers",
-        "app_employee_directory": "APP organization employees"
+        "app_employee_directory": "APP organization employees",
+        "supplier_vendor_directory": "Suppliers & vendors"
       },
       "searchTerms": {
         "organization_directory_core": "directory person organization relationship search",
@@ -82,7 +83,8 @@
         "commerce_customer_directory": "shopify woocommerce customer search",
         "booking_customer_directory": "appointment booking customer search",
         "supplier_directory": "supplier vendor search",
-        "app_employee_directory": "employee staff colleague organization member search"
+        "app_employee_directory": "employee staff colleague organization member search",
+        "supplier_vendor_directory": "supplier vendor procurement"
       },
       "appEmployee": {
         "employee": "Employee",
@@ -161,6 +163,45 @@
           "partnerNotOwner": "Partner attribution is metadata — the customer belongs to your organization on Aipify Platform.",
           "writeBlocked": "CRM directory write-actions are disabled in Companion runtime.",
           "leadNotCustomer": "Leads and customers are separate relationship types — no automatic merge."
+        }
+      },
+      "supplier": {
+        "supplier": "Supplier",
+        "vendor": "Vendor",
+        "manufacturer": "Manufacturer",
+        "distributor": "Distributor",
+        "subcontractor": "Subcontractor",
+        "serviceProvider": "Service provider",
+        "supplierContact": "Supplier contact",
+        "preferredSupplier": "Preferred supplier",
+        "contractStatus": "Contract status",
+        "deliveryWarning": "Delivery delay",
+        "outcomes": {
+          "multipleMatches": "Multiple supplier records matched — review the shortlist or refine your search.",
+          "noMatch": "No supplier or vendor matched that search in your organization.",
+          "maskedContact": "Contact details are masked until your role allows directory contact reads.",
+          "permissionDenied": "Your role cannot search suppliers or vendors.",
+          "providerMissing": "No live supplier directory provider is connected for this organization.",
+          "partialResult": "Aipify returned partial supplier metadata — some fields are unavailable from the current source.",
+          "clarification": "More than one supplier may match — add an organization number, email, or choose from the list."
+        },
+        "commandBrief": {
+          "supplierContractExpiring": "Supplier contracts are expiring soon.",
+          "supplierContractExpired": "Supplier contracts have expired.",
+          "supplierDeliveryDelay": "Supplier deliveries need attention.",
+          "supplierPerformanceWarning": "Supplier performance needs review.",
+          "supplierRiskAttention": "Suppliers require risk attention.",
+          "supplierContactMissing": "Suppliers are missing contact details.",
+          "supplierWithoutCategory": "Suppliers are missing category metadata.",
+          "duplicateSupplierCandidate": "Possible duplicate supplier records were detected.",
+          "preferredSupplierUnavailable": "A preferred supplier is unavailable or at risk.",
+          "purchaseOrderAttention": "Purchase orders need attention."
+        },
+        "warnings": {
+          "supplierNotCustomer": "Suppliers are distinct from customers — no automatic merge.",
+          "supplierNotPartner": "Aipify Partners are not organization suppliers.",
+          "marketplaceNotSupplier": "Marketplace or product candidates are not active suppliers without explicit source.",
+          "writeBlocked": "Supplier directory write-actions are disabled in Companion runtime."
         }
       }
     },

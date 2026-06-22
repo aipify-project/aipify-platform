@@ -1,5 +1,5 @@
 /**
- * Recent-phase Companion regression aggregator (Phase 36B → 41).
+ * Recent-phase Companion regression aggregator (Phase 36B → 42).
  * Does not chain into older phase test files (e.g. phase33.test.ts).
  */
 import assert from "node:assert/strict";
@@ -15,6 +15,7 @@ const recentPhaseTests = [
   "phase39.test.ts",
   "phase40.test.ts",
   "phase41.test.ts",
+  "phase42.test.ts",
 ] as const;
 
 for (const testFile of recentPhaseTests) {

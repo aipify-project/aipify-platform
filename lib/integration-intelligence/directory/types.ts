@@ -37,6 +37,19 @@ export type DirectoryCapabilityKey =
   | "attribution.read"
   | "partner.search"
   | "supplier.search"
+  | "supplier.read"
+  | "vendor.search"
+  | "vendor.read"
+  | "supplier_contact.search"
+  | "supplier_contact.read"
+  | "manufacturer.search"
+  | "distributor.search"
+  | "subcontractor.search"
+  | "supplier_category.read"
+  | "supplier_status.read"
+  | "supplier_performance.read"
+  | "supplier_contract_status.read"
+  | "assigned_buyer.read"
   | "seller.search"
   | "contact.search";
 
@@ -57,7 +70,18 @@ export type DirectorySearchField =
   | "lead_id"
   | "pipeline_stage"
   | "owner"
-  | "lead_source";
+  | "lead_source"
+  | "supplier_id"
+  | "category"
+  | "product"
+  | "service"
+  | "country"
+  | "preferred_supplier"
+  | "assigned_buyer"
+  | "contract_status"
+  | "manufacturer"
+  | "distributor"
+  | "contact_name";
 
 export type DirectorySearchFieldAccess =
   | "directory.search.basic"

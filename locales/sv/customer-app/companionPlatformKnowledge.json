@@ -1936,7 +1936,8 @@
         "commerce_customer_directory": "Commerce-kunder",
         "booking_customer_directory": "Bokningskunder",
         "supplier_directory": "Leverantörer",
-        "app_employee_directory": "Anställda"
+        "app_employee_directory": "Anställda",
+        "supplier_vendor_directory": "Leverantörer och vendors"
       },
       "searchTerms": {
         "organization_directory_core": "directory person organization relationship search",
@@ -1947,7 +1948,8 @@
         "commerce_customer_directory": "shopify woocommerce customer search",
         "booking_customer_directory": "appointment booking customer search",
         "supplier_directory": "supplier vendor search",
-        "app_employee_directory": "Anställd Anställda"
+        "app_employee_directory": "Anställd Anställda",
+        "supplier_vendor_directory": "supplier vendor procurement"
       },
       "appEmployee": {
         "employee": "Anställd",
@@ -2026,6 +2028,45 @@
           "partnerNotOwner": "Partnerattribution är metadata — kunden tillhör din organisation på Aipify Platform.",
           "writeBlocked": "CRM-skrivåtgärder är inaktiverade i Companion.",
           "leadNotCustomer": "Leads och kunder är separata relationstyper."
+        }
+      },
+      "supplier": {
+        "supplier": "Leverantör",
+        "vendor": "Vendor",
+        "manufacturer": "Tillverkare",
+        "distributor": "Distributör",
+        "subcontractor": "Underleverantör",
+        "serviceProvider": "Tjänsteleverantör",
+        "supplierContact": "Leverantörskontakt",
+        "preferredSupplier": "Föredragen leverantör",
+        "contractStatus": "Avtalsstatus",
+        "deliveryWarning": "Leveransförsening",
+        "outcomes": {
+          "multipleMatches": "Flera leverantörsposter matchade — granska listan eller förfina sökningen.",
+          "noMatch": "Ingen leverantör matchade sökningen.",
+          "maskedContact": "Kontaktuppgifter maskeras tills din roll tillåter kontaktuppslag.",
+          "permissionDenied": "Din roll kan inte söka leverantörer.",
+          "providerMissing": "Ingen live leverantörskatalog är ansluten till denna organisation ännu.",
+          "partialResult": "Aipify returnerade partiell leverantörsmetadata.",
+          "clarification": "Flera leverantörer kan matcha — lägg till org.nr eller e-post."
+        },
+        "commandBrief": {
+          "supplierContractExpiring": "Leverantörsavtal löper snart ut.",
+          "supplierContractExpired": "Leverantörsavtal har löpt ut.",
+          "supplierDeliveryDelay": "Leverantörleveranser behöver uppmärksamhet.",
+          "supplierPerformanceWarning": "Leverantörsprestanda bör granskas.",
+          "supplierRiskAttention": "Leverantörer kräver riskuppmärksamhet.",
+          "supplierContactMissing": "Leverantörer saknar kontaktuppgifter.",
+          "supplierWithoutCategory": "Leverantörer saknar kategori.",
+          "duplicateSupplierCandidate": "Möjliga dubbletter av leverantörsposter upptäcktes.",
+          "preferredSupplierUnavailable": "En föredragen leverantör är otillgänglig eller i risk.",
+          "purchaseOrderAttention": "Inköpsorder behöver uppmärksamhet."
+        },
+        "warnings": {
+          "supplierNotCustomer": "Leverantörer är inte kunder — ingen automatisk sammanslagning.",
+          "supplierNotPartner": "Aipify-partners är inte organisationens leverantörer.",
+          "marketplaceNotSupplier": "Marknadsplats- eller produktkandidater är inte aktiva leverantörer utan explicit källa.",
+          "writeBlocked": "Skrivåtgärder för leverantörskatalog är inaktiverade i Companion."
         }
       }
     },

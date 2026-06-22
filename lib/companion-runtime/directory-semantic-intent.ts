@@ -125,6 +125,57 @@ function extractCrmSearchHints(normalized: string): {
   return { search_field: null, search_value: null, filters };
 }
 
+function extractSupplierSearchHints(normalized: string): {
+  search_field: DirectorySearchField | null;
+  search_value: string | null;
+  filters: DirectorySearchFilters;
+} {
+  const filters: DirectorySearchFilters = {};
+
+  if (/aktiv kontrakt|active contract|leverandor.*kontrakt|supplier.*contract/.test(normalized)) {
+    filters.status = "active";
+    return { search_field: "contract_status", search_value: "active", filters };
+  }
+
+  if (/godkjent|approved supplier|aktive leverand/.test(normalized)) {
+    return { search_field: "status", search_value: "approved", filters };
+  }
+
+  if (/foretrukket|preferred supplier|foretrukne leverand/.test(normalized)) {
+    return { search_field: "preferred_supplier", search_value: "preferred", filters };
+  }
+
+  if (/rengjoring|cleaning service|vedlikehold|service provider/.test(normalized)) {
+    return { search_field: "service", search_value: "cleaning", filters };
+  }
+
+  if (/produsent|manufacturer/.test(normalized)) {
+    const countryMatch = normalized.match(/\b(norge|sverige|sweden|danmark|norway)\b/);
+    if (countryMatch?.[1]) {
+      return { search_field: "country", search_value: countryMatch[1], filters };
+    }
+    return { search_field: "manufacturer", search_value: "manufacturer", filters };
+  }
+
+  if (/distribut|grossist|wholesaler/.test(normalized)) {
+    return { search_field: "distributor", search_value: "distributor", filters };
+  }
+
+  const contactMatch = normalized.match(
+    /(?:kontaktperson|contact person).{0,30}(?:hos|at|for)\s+(.{2,50})/i,
+  );
+  if (contactMatch?.[1]) {
+    return { search_field: "company_name", search_value: contactMatch[1].trim(), filters };
+  }
+
+  if (/finn leverand|find supplier|leverandor med/.test(normalized)) {
+    const email = normalized.match(/[^\s@]+@[^\s@]+\.[^\s@]+/);
+    if (email?.[0]) return { search_field: "email", search_value: email[0], filters };
+  }
+
+  return { search_field: null, search_value: null, filters };
+}
+
 function extractSearchValueFromQuery(normalized: string): string | null {
   const quoted = normalized.match(/["“](.+?)["”]/);
   if (quoted?.[1]) return quoted[1].trim();
@@ -152,7 +203,7 @@ function scoreRelationshipAlias(
   ];
   let score = 0;
   for (const alias of aliasGroups) {
-    const token = alias.trim().toLowerCase();
+    const token = normalizeIntegrationQuery(alias);
     if (!token) continue;
     if (normalized.includes(token)) score += 25;
   }
@@ -183,9 +234,14 @@ export function resolveDirectorySemanticIntent(input: {
   descriptors: readonly DirectoryRelationshipAliasDescriptor[];
 }): DirectorySemanticIntent {
   const normalized = normalizeIntegrationQuery(input.query);
+  const supplierHints = extractSupplierSearchHints(normalized);
   const crmHints = extractCrmSearchHints(normalized);
   const employeeHints = extractEmployeeSearchHints(normalized);
-  const domainHints = crmHints.search_field ? crmHints : employeeHints;
+  const domainHints = supplierHints.search_field
+    ? supplierHints
+    : crmHints.search_field
+      ? crmHints
+      : employeeHints;
   const search_value =
     domainHints.search_value ?? extractSearchValueFromQuery(normalized);
   const search_field =
@@ -193,10 +249,24 @@ export function resolveDirectorySemanticIntent(input: {
   const filters = domainHints.filters;
 
   const scored = input.descriptors
-    .map((descriptor) => ({
-      descriptor,
-      score: scoreRelationshipAlias(normalized, descriptor, input.locale),
-    }))
+    .map((descriptor) => {
+      let score = scoreRelationshipAlias(normalized, descriptor, input.locale);
+      if (
+        descriptor.relationship_type === "supplier_contact" &&
+        /leverandor|supplier|vendor/.test(normalized) &&
+        /kontakt|contact/.test(normalized)
+      ) {
+        score += 40;
+      }
+      if (
+        (descriptor.relationship_type === "supplier" || descriptor.relationship_type === "vendor") &&
+        /leverandor|supplier|vendor/.test(normalized) &&
+        !/kunde|customer|lead/.test(normalized)
+      ) {
+        score += 15;
+      }
+      return { descriptor, score };
+    })
     .filter((entry) => entry.score > 0)
     .sort((a, b) => b.score - a.score);
 

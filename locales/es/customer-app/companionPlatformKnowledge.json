@@ -1936,7 +1936,8 @@
         "commerce_customer_directory": "Clientes de commerce",
         "booking_customer_directory": "Clientes de reservas",
         "supplier_directory": "Proveedores",
-        "app_employee_directory": "Empleados"
+        "app_employee_directory": "Empleados",
+        "supplier_vendor_directory": "Proveedores y vendors"
       },
       "searchTerms": {
         "organization_directory_core": "directory person organization relationship search",
@@ -1947,7 +1948,8 @@
         "commerce_customer_directory": "shopify woocommerce customer search",
         "booking_customer_directory": "appointment booking customer search",
         "supplier_directory": "supplier vendor search",
-        "app_employee_directory": "Empleado Empleados"
+        "app_employee_directory": "Empleado Empleados",
+        "supplier_vendor_directory": "supplier vendor procurement"
       },
       "appEmployee": {
         "employee": "Empleado",
@@ -2026,6 +2028,45 @@
           "partnerNotOwner": "La atribución de partner es metadata — el cliente pertenece a su organización en Aipify Platform.",
           "writeBlocked": "Las acciones de escritura CRM están deshabilitadas en Companion.",
           "leadNotCustomer": "Leads y clientes son tipos de relación separados."
+        }
+      },
+      "supplier": {
+        "supplier": "Proveedor",
+        "vendor": "Vendor",
+        "manufacturer": "Fabricante",
+        "distributor": "Distribuidor",
+        "subcontractor": "Subcontratista",
+        "serviceProvider": "Proveedor de servicios",
+        "supplierContact": "Contacto del proveedor",
+        "preferredSupplier": "Proveedor preferido",
+        "contractStatus": "Estado del contrato",
+        "deliveryWarning": "Retraso de entrega",
+        "outcomes": {
+          "multipleMatches": "Varios registros de proveedores coincidieron — revise la lista o refine la búsqueda.",
+          "noMatch": "Ningún proveedor coincidió con esa búsqueda.",
+          "maskedContact": "Los datos de contacto están enmascarados hasta que su rol lo permita.",
+          "permissionDenied": "Su rol no puede buscar proveedores.",
+          "providerMissing": "No hay un proveedor de directorio activo conectado para esta organización.",
+          "partialResult": "Aipify devolvió metadatos parciales del proveedor.",
+          "clarification": "Pueden coincidir varios proveedores — añada NIF, correo o elija de la lista."
+        },
+        "commandBrief": {
+          "supplierContractExpiring": "Los contratos de proveedores expiran pronto.",
+          "supplierContractExpired": "Los contratos de proveedores han expirado.",
+          "supplierDeliveryDelay": "Las entregas de proveedores requieren atención.",
+          "supplierPerformanceWarning": "El rendimiento del proveedor debe revisarse.",
+          "supplierRiskAttention": "Los proveedores requieren atención de riesgo.",
+          "supplierContactMissing": "Faltan datos de contacto del proveedor.",
+          "supplierWithoutCategory": "Faltan categorías de proveedor.",
+          "duplicateSupplierCandidate": "Se detectaron posibles registros duplicados de proveedores.",
+          "preferredSupplierUnavailable": "Un proveedor preferido no está disponible o está en riesgo.",
+          "purchaseOrderAttention": "Los pedidos de compra requieren atención."
+        },
+        "warnings": {
+          "supplierNotCustomer": "Los proveedores no son clientes — sin fusión automática.",
+          "supplierNotPartner": "Los socios de Aipify no son proveedores de la organización.",
+          "marketplaceNotSupplier": "Candidatos de marketplace o producto no son proveedores activos sin fuente explícita.",
+          "writeBlocked": "Las acciones de escritura del directorio de proveedores están deshabilitadas."
         }
       }
     },

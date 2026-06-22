@@ -1936,7 +1936,8 @@
         "commerce_customer_directory": "Commerce-клієнти",
         "booking_customer_directory": "Клієнти бронювань",
         "supplier_directory": "Постачальники",
-        "app_employee_directory": "Співробітники"
+        "app_employee_directory": "Співробітники",
+        "supplier_vendor_directory": "Постачальники та vendors"
       },
       "searchTerms": {
         "organization_directory_core": "directory person organization relationship search",
@@ -1947,7 +1948,8 @@
         "commerce_customer_directory": "shopify woocommerce customer search",
         "booking_customer_directory": "appointment booking customer search",
         "supplier_directory": "supplier vendor search",
-        "app_employee_directory": "Співробітник Співробітники"
+        "app_employee_directory": "Співробітник Співробітники",
+        "supplier_vendor_directory": "supplier vendor procurement"
       },
       "appEmployee": {
         "employee": "Співробітник",
@@ -2026,6 +2028,45 @@
           "partnerNotOwner": "Атрибуція партнера — це метадані; клієнт належить вашій організації на Aipify Platform.",
           "writeBlocked": "Дії запису CRM вимкнено в Companion.",
           "leadNotCustomer": "Ліди та клієнти — окремі типи відносин."
+        }
+      },
+      "supplier": {
+        "supplier": "Постачальник",
+        "vendor": "Vendor",
+        "manufacturer": "Виробник",
+        "distributor": "Дистриб'ютор",
+        "subcontractor": "Субпідрядник",
+        "serviceProvider": "Постачальник послуг",
+        "supplierContact": "Контакт постачальника",
+        "preferredSupplier": "Переважний постачальник",
+        "contractStatus": "Статус контракту",
+        "deliveryWarning": "Затримка доставки",
+        "outcomes": {
+          "multipleMatches": "Знайдено кілька записів постачальників — перегляньте список або уточніть пошук.",
+          "noMatch": "Жоден постачальник не відповідає цьому пошуку.",
+          "maskedContact": "Контактні дані маскуються, доки ваша роль не дозволить їх перегляд.",
+          "permissionDenied": "Ваша роль не може шукати постачальників.",
+          "providerMissing": "Для цієї організації ще не підключено live-каталог постачальників.",
+          "partialResult": "Aipify повернув часткові метадані постачальника.",
+          "clarification": "Може підходити кілька постачальників — додайте ЄДРПОУ, email або оберіть зі списку."
+        },
+        "commandBrief": {
+          "supplierContractExpiring": "Контракти з постачальниками незабаром закінчуються.",
+          "supplierContractExpired": "Контракти з постачальниками закінчилися.",
+          "supplierDeliveryDelay": "Поставки постачальників потребують уваги.",
+          "supplierPerformanceWarning": "Продуктивність постачальника потребує перегляду.",
+          "supplierRiskAttention": "Постачальники потребують уваги до ризику.",
+          "supplierContactMissing": "У постачальників відсутні контактні дані.",
+          "supplierWithoutCategory": "У постачальників відсутня категорія.",
+          "duplicateSupplierCandidate": "Виявлено можливі дублікати записів постачальників.",
+          "preferredSupplierUnavailable": "Переважний постачальник недоступний або у ризику.",
+          "purchaseOrderAttention": "Замовлення на закупівлю потребують уваги."
+        },
+        "warnings": {
+          "supplierNotCustomer": "Постачальники — не клієнти; автоматичне об'єднання заборонено.",
+          "supplierNotPartner": "Партнери Aipify — не постачальники організації.",
+          "marketplaceNotSupplier": "Кандидати marketplace або продукту не є активними постачальниками без явного джерела.",
+          "writeBlocked": "Дії запису каталогу постачальників вимкнено в Companion."
         }
       }
     },

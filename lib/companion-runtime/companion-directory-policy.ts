@@ -13,8 +13,12 @@ export const COMPANION_PROVIDER_FIELD_MAPPING_IN_CORE = "forbidden" as const;
 export const COMPANION_DIRECTORY_EXPORT = "approval_or_disabled" as const;
 export const COMPANION_EMPLOYEE_DIRECTORY_WRITE_ACTIONS = "disabled" as const;
 export const COMPANION_CRM_DIRECTORY_WRITE_ACTIONS = "disabled" as const;
+export const COMPANION_SUPPLIER_DIRECTORY_WRITE_ACTIONS = "disabled" as const;
 export const COMPANION_CUSTOMER_OWNERSHIP = "platform" as const;
 export const COMPANION_PARTNER_ATTRIBUTION_IS_NOT_OWNERSHIP = true as const;
+export const COMPANION_SUPPLIER_IS_NOT_CUSTOMER = true as const;
+export const COMPANION_SUPPLIER_IS_NOT_PARTNER = true as const;
+export const COMPANION_MARKETPLACE_RESULT_IS_NOT_ACTIVE_SUPPLIER = true as const;
 
 export const COMPANION_DIRECTORY_POLICY_MODULES = {
   contracts: "lib/integration-intelligence/directory/types.ts",
@@ -35,7 +39,11 @@ export function companionDirectoryPolicyMetadata() {
     directory_export: COMPANION_DIRECTORY_EXPORT,
     employee_directory_write_actions: COMPANION_EMPLOYEE_DIRECTORY_WRITE_ACTIONS,
     crm_directory_write_actions: COMPANION_CRM_DIRECTORY_WRITE_ACTIONS,
+    supplier_directory_write_actions: COMPANION_SUPPLIER_DIRECTORY_WRITE_ACTIONS,
     customer_ownership: COMPANION_CUSTOMER_OWNERSHIP,
     partner_attribution_is_not_ownership: COMPANION_PARTNER_ATTRIBUTION_IS_NOT_OWNERSHIP,
+    supplier_is_not_customer: COMPANION_SUPPLIER_IS_NOT_CUSTOMER,
+    supplier_is_not_partner: COMPANION_SUPPLIER_IS_NOT_PARTNER,
+    marketplace_result_is_not_active_supplier: COMPANION_MARKETPLACE_RESULT_IS_NOT_ACTIVE_SUPPLIER,
   };
 }

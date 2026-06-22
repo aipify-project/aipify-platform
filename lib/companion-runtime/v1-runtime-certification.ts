@@ -175,6 +175,16 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "Phase 41",
   },
+  {
+    phase: 42,
+    required_test: "phase42.test.ts",
+    required_wiring: [
+      "../integration-intelligence/providers/supplier-vendor-directory/supplier-vendor-directory-contract.ts",
+      "supplier-vendor-read-orchestrator.ts",
+      "load-companion-directory-context.ts",
+    ],
+    commit_hint: "Phase 42",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

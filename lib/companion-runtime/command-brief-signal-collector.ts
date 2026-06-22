@@ -196,6 +196,20 @@ export function buildCommandBriefDomainSources(
     });
   }
 
+  if (
+    input?.directoryContext?.supplier_source_exact &&
+    input.directoryContext.supplier_command_brief_signals &&
+    input.directoryContext.supplier_command_brief_signals.length > 0
+  ) {
+    sources.push({
+      source_module: "directory_supplier",
+      source_provider: "supplier_vendor_directory",
+      signals: toRawSignals(input.directoryContext.supplier_command_brief_signals, true),
+      required_permission: "suppliers.view",
+      related_capability: "supplier.search",
+    });
+  }
+
   return sources;
 }
 

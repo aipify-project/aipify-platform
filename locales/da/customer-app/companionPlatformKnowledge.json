@@ -1936,7 +1936,8 @@
         "commerce_customer_directory": "Commerce-kunder",
         "booking_customer_directory": "Bookingkunder",
         "supplier_directory": "Leverandører",
-        "app_employee_directory": "Medarbejdere"
+        "app_employee_directory": "Medarbejdere",
+        "supplier_vendor_directory": "Leverandører og vendors"
       },
       "searchTerms": {
         "organization_directory_core": "directory person organization relationship search",
@@ -1947,7 +1948,8 @@
         "commerce_customer_directory": "shopify woocommerce customer search",
         "booking_customer_directory": "appointment booking customer search",
         "supplier_directory": "supplier vendor search",
-        "app_employee_directory": "Medarbejder Medarbejdere"
+        "app_employee_directory": "Medarbejder Medarbejdere",
+        "supplier_vendor_directory": "supplier vendor procurement"
       },
       "appEmployee": {
         "employee": "Medarbejder",
@@ -2026,6 +2028,45 @@
           "partnerNotOwner": "Partnerattribution er metadata — kunden tilhører din organisation på Aipify Platform.",
           "writeBlocked": "CRM-skrivehandlinger er deaktiveret i Companion.",
           "leadNotCustomer": "Leads og kunder er separate relationstyper."
+        }
+      },
+      "supplier": {
+        "supplier": "Leverandør",
+        "vendor": "Vendor",
+        "manufacturer": "Producent",
+        "distributor": "Distributør",
+        "subcontractor": "Underleverandør",
+        "serviceProvider": "Serviceleverandør",
+        "supplierContact": "Leverandørkontakt",
+        "preferredSupplier": "Foretrukken leverandør",
+        "contractStatus": "Kontraktstatus",
+        "deliveryWarning": "Leveringsforsinkelse",
+        "outcomes": {
+          "multipleMatches": "Flere leverandørposter matchede — gennemgå listen eller præciser søgningen.",
+          "noMatch": "Ingen leverandør matchede søgningen.",
+          "maskedContact": "Kontaktoplysninger maskeres, indtil din rolle tillader kontaktoppslag.",
+          "permissionDenied": "Din rolle kan ikke søge leverandører.",
+          "providerMissing": "Ingen live leverandørkatalog er tilkoblet denne organisation endnu.",
+          "partialResult": "Aipify returnerede delvis leverandørmetadata.",
+          "clarification": "Flere leverandører kan matche — tilføj CVR, e-mail eller vælg fra listen."
+        },
+        "commandBrief": {
+          "supplierContractExpiring": "Leverandørkontrakter udløber snart.",
+          "supplierContractExpired": "Leverandørkontrakter er udløbet.",
+          "supplierDeliveryDelay": "Leverandørleverancer kræver opmærksomhed.",
+          "supplierPerformanceWarning": "Leverandørydelse bør gennemgås.",
+          "supplierRiskAttention": "Leverandører kræver risikooppmærksomhed.",
+          "supplierContactMissing": "Leverandører mangler kontaktoplysninger.",
+          "supplierWithoutCategory": "Leverandører mangler kategori.",
+          "duplicateSupplierCandidate": "Mulige duplikerede leverandørposter blev fundet.",
+          "preferredSupplierUnavailable": "En foretrukken leverandør er utilgængelig eller i risiko.",
+          "purchaseOrderAttention": "Indkøbsordrer kræver opmærksomhed."
+        },
+        "warnings": {
+          "supplierNotCustomer": "Leverandører er ikke kunder — ingen automatisk sammenlægning.",
+          "supplierNotPartner": "Aipify-partnere er ikke organisationens leverandører.",
+          "marketplaceNotSupplier": "Markedsplads- eller produktkandidater er ikke aktive leverandører uden eksplicit kilde.",
+          "writeBlocked": "Skrivehandlinger for leverandørkatalog er deaktiveret i Companion."
         }
       }
     },
