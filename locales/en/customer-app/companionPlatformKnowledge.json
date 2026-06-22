@@ -67,6 +67,40 @@
       "failureLead": "⚠️ Aipify could not retrieve live data from the Unonight integration right now.",
       "failureRetryStep": "Verify the integration under Platform → Integrations, then ask again.",
       "orgConfirmBlockedNoLiveData": "Organization confirmation is unavailable because this answer did not use live integration data.",
+      "variants": {
+        "lastUsed": {
+          "intro": "The verified Unonight integration was last used at {timestamp}. Aipify read this timestamp from the active read-only connection."
+        },
+        "scopes": {
+          "intro": "The verified read-only Unonight integration allows Aipify to read approved operational metadata only.",
+          "allowedMetadata": "Read approved operational metadata",
+          "allowedOrganization": "Read organization identity",
+          "allowedStatus": "Read integration status",
+          "notAllowedPrivateMessages": "Cannot read private messages or conversations",
+          "notAllowedPayments": "Cannot read payments, orders, or billing records",
+          "notAllowedWrite": "Cannot change or write data in Unonight"
+        },
+        "languages": {
+          "intro": "The verified Unonight integration reports these supported languages: {languages}."
+        },
+        "sourceTrust": {
+          "intro": "Aipify checked the verified read-only Unonight integration just now ({checkedAt}). Last verified: {lastVerified}. Last used: {lastUsed}. Access is read-only and the data source is the live integration — not Knowledge Center articles."
+        },
+        "unsupported": {
+          "title": "Member count not available from integration",
+          "intro": "The current verified read-only Unonight integration does not expose live member counts. Aipify will not guess numbers that are outside the approved scopes."
+        },
+        "privateDenied": {
+          "title": "Private messages are outside approved access",
+          "intro": "The verified read-only Unonight integration does not include access to private messages or conversations. Aipify cannot retrieve or display that data."
+        },
+        "roleDisambiguation": {
+          "title": "Aipify roles vs Unonight member roles",
+          "intro": "Changing a team member role in Unonight is different from managing roles inside your Aipify organization workspace.",
+          "aipifySection": "For Aipify workspace roles and permissions, open Organization → Roles & Permissions in your APP portal.",
+          "unonightSection": "Unonight platform member roles are managed inside Unonight itself. The verified read-only integration does not let Aipify change Unonight membership roles."
+        }
+      },
       "failures": {
         "integrationNotConnected": "No active Unonight integration is configured for this organization.",
         "integrationNotVerified": "The Unonight integration exists but is not verified yet.",

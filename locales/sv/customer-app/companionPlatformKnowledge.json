@@ -66,7 +66,41 @@
       "failureTitle": "Live Unonight integration data unavailable",
       "failureLead": "⚠️ Aipify could not retrieve live data from the Unonight integration right now.",
       "failureRetryStep": "Verify the integration under Platform → Integrations, then ask again.",
-      "orgConfirmBlockedNoLiveData": "Organization confirmation is unavailable because this answer did not use live integration data.",
+      "orgConfirmBlockedNoLiveData": "Organisationsbekräftelse är inte tillgänglig eftersom svaret inte använde live integrationsdata.",
+      "variants": {
+        "lastUsed": {
+          "intro": "Den verifierade Unonight-integrationen användes senast {timestamp}. Aipify läste tidpunkten från den aktiva skrivskyddade anslutningen."
+        },
+        "scopes": {
+          "intro": "Den verifierade skrivskyddade Unonight-integrationen ger Aipify åtkomst endast till godkänd driftsmetadata.",
+          "allowedMetadata": "Läser godkänd driftsmetadata",
+          "allowedOrganization": "Läser organisationsidentitet",
+          "allowedStatus": "Läser integrationsstatus",
+          "notAllowedPrivateMessages": "Kan inte läsa privata meddelanden eller konversationer",
+          "notAllowedPayments": "Kan inte läsa betalningar, beställningar eller fakturadata",
+          "notAllowedWrite": "Kan inte ändra eller skriva data i Unonight"
+        },
+        "languages": {
+          "intro": "Den verifierade Unonight-integrationen rapporterar dessa språk: {languages}."
+        },
+        "sourceTrust": {
+          "intro": "Aipify kontrollerade den verifierade skrivskyddade Unonight-integrationen nu ({checkedAt}). Senast verifierad: {lastVerified}. Senast använd: {lastUsed}. Åtkomsten är skrivskyddad och källan är live integration — inte Knowledge Center-artiklar."
+        },
+        "unsupported": {
+          "title": "Medlemsantal finns inte i integrationen",
+          "intro": "Den nuvarande verifierade skrivskyddade Unonight-integrationen exponerar inte live medlemsantal. Aipify gissar inte siffror utanför godkända scopes."
+        },
+        "privateDenied": {
+          "title": "Privata meddelanden ligger utanför godkänd åtkomst",
+          "intro": "Den verifierade skrivskyddade Unonight-integrationen inkluderar inte åtkomst till privata meddelanden eller konversationer. Aipify kan inte hämta eller visa sådan data."
+        },
+        "roleDisambiguation": {
+          "title": "Aipify-roller vs Unonight-medlemsroller",
+          "intro": "Att ändra en teammedlems roll i Unonight skiljer sig från att hantera roller i din Aipify-organisation.",
+          "aipifySection": "För roller och behörigheter i Aipify-arbetsytan, öppna Organisation → Roller och behörigheter i APP-portalen.",
+          "unonightSection": "Medlemsroller på Unonight-plattformen hanteras i Unonight. Den verifierade skrivskyddade integrationen låter inte Aipify ändra Unonight-medlemsroller."
+        }
+      },
       "failures": {
         "integrationNotConnected": "No active Unonight integration is configured for this organization.",
         "integrationNotVerified": "The Unonight integration exists but is not verified yet.",

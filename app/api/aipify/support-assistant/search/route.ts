@@ -47,6 +47,8 @@ export async function GET(request: Request) {
     const query = searchParams.get("q") ?? "";
     const articleId = searchParams.get("article_id");
     const requestedLocale = searchParams.get("locale");
+    const integrationContext =
+      searchParams.get("integration_context") === "unonight" ? "unonight" : null;
 
     const appLocale = await getLocale();
     const answerLocale = query
@@ -81,6 +83,7 @@ export async function GET(request: Request) {
         getSearchTermsArray: (key) => getSearchTermsArray(dict.customerApp as Record<string, unknown>, key),
         subscriptionRaw,
         supabase,
+        integrationContext,
       });
       const legacy = getSupportAssistantArticleById(articleId, legacyCorpus);
       const article = legacy ?? answerToLegacyArticle(platformResult.answer);
@@ -103,6 +106,7 @@ export async function GET(request: Request) {
       getSearchTermsArray: (key) => getSearchTermsArray(dict.customerApp as Record<string, unknown>, key),
       subscriptionRaw,
       supabase,
+      integrationContext,
     });
 
     if (result.answer.confidence === "low") {

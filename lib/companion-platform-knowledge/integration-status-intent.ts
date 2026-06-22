@@ -1,24 +1,150 @@
+export type LiveIntegrationQueryKind =
+  | "status"
+  | "last_used"
+  | "scopes"
+  | "languages"
+  | "source_trust"
+  | "unsupported_data"
+  | "private_data"
+  | "role_disambiguation";
+
 export type LiveIntegrationStatusIntent = {
   providerKey: "unonight";
   requiresLive: boolean;
   blocksKnowledgeCenter: boolean;
+  queryKind: LiveIntegrationQueryKind;
+};
+
+export type LiveIntegrationIntentOptions = {
+  integrationContext?: "unonight" | null;
 };
 
 function normalizeQuery(query: string): string {
   return query.trim().toLowerCase().replace(/\s+/g, " ").replace(/[?!.]+$/, "");
 }
 
-/** Detect when Companion must use live verified integration data instead of Knowledge Center. */
-export function detectLiveIntegrationStatusIntent(query: string): LiveIntegrationStatusIntent | null {
-  const q = normalizeQuery(query);
+function mentionsUnonight(q: string): boolean {
+  return /\bunonight\b/.test(q);
+}
 
-  const mentionsUnonight = /\bunonight\b/.test(q);
+function hasIntegrationContext(options?: LiveIntegrationIntentOptions): boolean {
+  return options?.integrationContext === "unonight";
+}
+
+function isComprehensiveStatusQuery(q: string): boolean {
+  const signals = [
+    /organisasjon|organization/.test(q),
+    /api.?versjon|api version/.test(q),
+    /scope|tillatel|permission/.test(q),
+    /språk|locale|language/.test(q),
+    /tilgang|access|tilkoblingsinformasjon|connection metadata|live tilkoblingsinformasjon/.test(q),
+  ].filter(Boolean).length;
+
+  return signals >= 2;
+}
+
+function detectQueryKind(q: string, contextual: boolean): LiveIntegrationQueryKind | null {
+  const contextualUnonight = mentionsUnonight(q) || contextual;
+
+  if (
+    contextualUnonight &&
+    /(private|melding|message|chat|dm|innboks|inbox|samtale|conversation)/.test(q) &&
+    /(vis|show|hent|get|siste|last|recent|latest)/.test(q)
+  ) {
+    return "private_data";
+  }
+
+  if (
+    mentionsUnonight(q) &&
+    /(rolle|role|teammedlem|team member|medlem)/.test(q) &&
+    /(endre|change|oppdat|update|tildele|assign)/.test(q)
+  ) {
+    return "role_disambiguation";
+  }
+
+  if (
+    mentionsUnonight(q) &&
+    /(medlem|medlemmer|member|members|bruker|users|subscriber|abonnent|antall|how many|count|tall)/.test(q) &&
+    !/(scope|integrasjon|tilkobling|status|språk|language|locale|tilgang|access|rolle|role|endre|change)/.test(q)
+  ) {
+    return "unsupported_data";
+  }
+
+  if (contextualUnonight && isComprehensiveStatusQuery(q)) {
+    return "status";
+  }
+
+  if (
+    contextualUnonight &&
+    (/(sist brukt|last used)/.test(q) ||
+      (/(når|when)/.test(q) && /(sist|last)/.test(q) && /(brukt|used)/.test(q)) ||
+      (contextual && /\b(den|denne|integrasjonen|it)\b/.test(q) && /(brukt|used|sist|last|når|when)/.test(q)))
+  ) {
+    return "last_used";
+  }
+
+  if (mentionsUnonight(q) && /(språk|language|locale|støtt)/.test(q)) {
+    return "languages";
+  }
+
+  if (
+    mentionsUnonight(q) &&
+    /(oppdatert|updated|fresh|vite|know|trust|verifis|verified|siste kontroll|last check|datakilde|source|how do you know|hvordan vet)/.test(
+      q,
+    )
+  ) {
+    return "source_trust";
+  }
+
+  if (
+    mentionsUnonight(q) &&
+    /(lov til|allowed|permission|scope|tillatel|lese fra|read from|hva har .* lov|what.*allowed| ikke lov|not allowed|cannot|can't|ikke.*(gjøre|do|endre|write|skrive))/.test(
+      q,
+    )
+  ) {
+    return "scopes";
+  }
+
+  if (
+    contextualUnonight &&
+    /(koblet|connected|tilkoblet|tilgang|access|status|skrivebeskytt|read.?only|verifis|integrasjon|integration|tilkobling|connection|nå|now)/.test(
+      q,
+    )
+  ) {
+    return "status";
+  }
+
+  return null;
+}
+
+function requiresLiveForKind(kind: LiveIntegrationQueryKind): boolean {
+  return kind !== "private_data" && kind !== "role_disambiguation";
+}
+
+/** Detect when Companion must use live verified integration data instead of Knowledge Center. */
+export function detectLiveIntegrationStatusIntent(
+  query: string,
+  options?: LiveIntegrationIntentOptions,
+): LiveIntegrationStatusIntent | null {
+  const q = normalizeQuery(query);
+  const contextual = hasIntegrationContext(options);
+  const queryKind = detectQueryKind(q, contextual);
+
+  if (queryKind) {
+    return {
+      providerKey: "unonight",
+      requiresLive: requiresLiveForKind(queryKind),
+      blocksKnowledgeCenter: true,
+      queryKind,
+    };
+  }
+
   const mentionsIntegration =
-    /(integrasjon|integration|tilkobling|connection|connector)/.test(q);
+    /(integrasjon|integration|tilkobling|connection|connector|koblet)/.test(q);
   const mentionsLive =
-    /(live|nå|now|hent|fetch|bruk den aktive|use the active|akti(v|ve)|current)/.test(q);
+    /(live|nå|now|akkurat nå|hent|fetch|bruk den aktive|use the active|akti(v|ve)|current)/.test(q);
   const mentionsStatusFields =
-    /(status|scope|scopes|tillatel|permission|api.?versjon|api version|read.?only|skrivebeskytt|språk|locale|sist.*brukt|last.?used|verifis|verified|organisasjon|organization)/.test(
+    /(status|scope|scopes|tillatel|permission|api.?versjon|api version|read.?only|skrivebeskytt|språk|locale|sist.*brukt|last.?used|verifis|verified|organisasjon|organization|tilgang|access)/.test(
       q,
     );
   const excludesKnowledgeCenter =
@@ -26,31 +152,30 @@ export function detectLiveIntegrationStatusIntent(query: string): LiveIntegratio
       q,
     );
 
-  if (excludesKnowledgeCenter && (mentionsUnonight || mentionsIntegration)) {
+  if (excludesKnowledgeCenter && (mentionsUnonight(q) || mentionsIntegration)) {
     return {
       providerKey: "unonight",
       requiresLive: true,
       blocksKnowledgeCenter: true,
+      queryKind: "status",
     };
   }
 
-  if (mentionsUnonight && (mentionsLive || mentionsStatusFields)) {
-    return {
-      providerKey: "unonight",
-      requiresLive: mentionsLive || mentionsStatusFields,
-      blocksKnowledgeCenter: true,
-    };
-  }
-
-  if (
-    mentionsIntegration &&
-    mentionsLive &&
-    (mentionsStatusFields || /unonight/.test(q))
-  ) {
+  if (mentionsUnonight(q) && (mentionsLive || mentionsStatusFields)) {
     return {
       providerKey: "unonight",
       requiresLive: true,
       blocksKnowledgeCenter: true,
+      queryKind: "status",
+    };
+  }
+
+  if (mentionsIntegration && mentionsLive && (mentionsStatusFields || mentionsUnonight(q))) {
+    return {
+      providerKey: "unonight",
+      requiresLive: true,
+      blocksKnowledgeCenter: true,
+      queryKind: "status",
     };
   }
 
@@ -58,14 +183,23 @@ export function detectLiveIntegrationStatusIntent(query: string): LiveIntegratio
     /(connected integration|tilkoblet integrasjon|tilkoblingsinformasjon|connection metadata|integration metadata)/.test(
       q,
     ) &&
-    (mentionsUnonight || mentionsLive)
+    (mentionsUnonight(q) || mentionsLive)
   ) {
     return {
       providerKey: "unonight",
       requiresLive: true,
       blocksKnowledgeCenter: true,
+      queryKind: "status",
     };
   }
 
   return null;
+}
+
+export function isLiveIntegrationFollowUpQuery(
+  query: string,
+  options?: LiveIntegrationIntentOptions,
+): boolean {
+  const intent = detectLiveIntegrationStatusIntent(query, options);
+  return intent !== null && (intent.queryKind === "last_used" || hasIntegrationContext(options));
 }

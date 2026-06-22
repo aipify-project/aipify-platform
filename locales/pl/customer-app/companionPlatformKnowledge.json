@@ -66,7 +66,41 @@
       "failureTitle": "Live Unonight integration data unavailable",
       "failureLead": "⚠️ Aipify could not retrieve live data from the Unonight integration right now.",
       "failureRetryStep": "Verify the integration under Platform → Integrations, then ask again.",
-      "orgConfirmBlockedNoLiveData": "Organization confirmation is unavailable because this answer did not use live integration data.",
+      "orgConfirmBlockedNoLiveData": "Potwierdzenie organizacji jest niedostępne, ponieważ odpowiedź nie wykorzystała danych integracji na żywo.",
+      "variants": {
+        "lastUsed": {
+          "intro": "Zweryfikowana integracja Unonight była ostatnio używana {timestamp}. Aipify odczytało ten czas z aktywnego połączenia tylko do odczytu."
+        },
+        "scopes": {
+          "intro": "Zweryfikowana integracja Unonight tylko do odczytu pozwala Aipify czytać zatwierdzone metadane operacyjne — nic więcej.",
+          "allowedMetadata": "Czyta zatwierdzone metadane operacyjne",
+          "allowedOrganization": "Czyta tożsamość organizacji",
+          "allowedStatus": "Czyta status integracji",
+          "notAllowedPrivateMessages": "Nie może czytać prywatnych wiadomości ani rozmów",
+          "notAllowedPayments": "Nie może czytać płatności, zamówień ani danych rozliczeniowych",
+          "notAllowedWrite": "Nie może zmieniać ani zapisywać danych w Unonight"
+        },
+        "languages": {
+          "intro": "Zweryfikowana integracja Unonight raportuje te obsługiwane języki: {languages}."
+        },
+        "sourceTrust": {
+          "intro": "Aipify właśnie sprawdziło zweryfikowaną integrację Unonight tylko do odczytu ({checkedAt}). Ostatnia weryfikacja: {lastVerified}. Ostatnie użycie: {lastUsed}. Dostęp jest tylko do odczytu, a źródłem są dane integracji — nie artykuły Knowledge Center."
+        },
+        "unsupported": {
+          "title": "Liczba członków nie jest dostępna z integracji",
+          "intro": "Obecna zweryfikowana integracja Unonight tylko do odczytu nie udostępnia liczby członków na żywo. Aipify nie zgaduje liczb spoza zatwierdzonych uprawnień."
+        },
+        "privateDenied": {
+          "title": "Prywatne wiadomości są poza zatwierdzonym dostępem",
+          "intro": "Zweryfikowana integracja Unonight tylko do odczytu nie obejmuje dostępu do prywatnych wiadomości ani rozmów. Aipify nie może pobrać ani wyświetlić takich danych."
+        },
+        "roleDisambiguation": {
+          "title": "Role Aipify vs role członków Unonight",
+          "intro": "Zmiana roli członka zespołu w Unonight różni się od zarządzania rolami w organizacji Aipify.",
+          "aipifySection": "Aby zarządzać rolami i uprawnieniami w obszarze roboczym Aipify, otwórz Organizacja → Role i uprawnienia w portalu APP.",
+          "unonightSection": "Role członków platformy Unonight są zarządzane w Unonight. Zweryfikowana integracja tylko do odczytu nie pozwala Aipify zmieniać ról członków Unonight."
+        }
+      },
       "failures": {
         "integrationNotConnected": "No active Unonight integration is configured for this organization.",
         "integrationNotVerified": "The Unonight integration exists but is not verified yet.",

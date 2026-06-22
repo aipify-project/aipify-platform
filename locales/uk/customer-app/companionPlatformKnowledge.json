@@ -66,7 +66,41 @@
       "failureTitle": "Live Unonight integration data unavailable",
       "failureLead": "⚠️ Aipify could not retrieve live data from the Unonight integration right now.",
       "failureRetryStep": "Verify the integration under Platform → Integrations, then ask again.",
-      "orgConfirmBlockedNoLiveData": "Organization confirmation is unavailable because this answer did not use live integration data.",
+      "orgConfirmBlockedNoLiveData": "Підтвердження організації недоступне, оскільки відповідь не використала дані інтеграції в реальному часі.",
+      "variants": {
+        "lastUsed": {
+          "intro": "Верифіковану інтеграцію Unonight востаннє використано {timestamp}. Aipify прочитав цей час із активного підключення лише для читання."
+        },
+        "scopes": {
+          "intro": "Верифікована інтеграція Unonight лише для читання дозволяє Aipify читати лише затверджені операційні метадані.",
+          "allowedMetadata": "Читає затверджені операційні метадані",
+          "allowedOrganization": "Читає ідентичність організації",
+          "allowedStatus": "Читає статус інтеграції",
+          "notAllowedPrivateMessages": "Не може читати приватні повідомлення або розмови",
+          "notAllowedPayments": "Не може читати платежі, замовлення або дані виставлення рахунків",
+          "notAllowedWrite": "Не може змінювати або записувати дані в Unonight"
+        },
+        "languages": {
+          "intro": "Верифікована інтеграція Unonight повідомляє про ці підтримувані мови: {languages}."
+        },
+        "sourceTrust": {
+          "intro": "Aipify щойно перевірив верифіковану інтеграцію Unonight лише для читання ({checkedAt}). Остання верифікація: {lastVerified}. Останнє використання: {lastUsed}. Доступ лише для читання, а джерелом є жива інтеграція — не статті Knowledge Center."
+        },
+        "unsupported": {
+          "title": "Кількість учасників недоступна з інтеграції",
+          "intro": "Поточна верифікована інтеграція Unonight лише для читання не надає кількість учасників у реальному часі. Aipify не вгадує числа поза затвердженими дозволами."
+        },
+        "privateDenied": {
+          "title": "Приватні повідомлення поза затвердженим доступом",
+          "intro": "Верифікована інтеграція Unonight лише для читання не включає доступ до приватних повідомлень або розмов. Aipify не може отримати або показати такі дані."
+        },
+        "roleDisambiguation": {
+          "title": "Ролі Aipify vs ролі учасників Unonight",
+          "intro": "Зміна ролі учасника команди в Unonight відрізняється від керування ролями в організації Aipify.",
+          "aipifySection": "Для ролей і дозволів у робочому просторі Aipify відкрийте Організація → Ролі та дозволи в порталі APP.",
+          "unonightSection": "Ролі учасників платформи Unonight керуються в Unonight. Верифікована інтеграція лише для читання не дозволяє Aipify змінювати ролі учасників Unonight."
+        }
+      },
       "failures": {
         "integrationNotConnected": "No active Unonight integration is configured for this organization.",
         "integrationNotVerified": "The Unonight integration exists but is not verified yet.",

@@ -167,7 +167,15 @@ export function CompanionPanel({
       setLoading(true);
 
       try {
+        const priorIntegrationContext = messages.some(
+          (message) =>
+            message.role === "aipify" &&
+            (message.liveIntegrationToolUsed === true || Boolean(message.integrationStatusCard)),
+        );
         const params = new URLSearchParams({ q: trimmed, locale });
+        if (priorIntegrationContext) {
+          params.set("integration_context", "unonight");
+        }
         const res = await fetch(`/api/aipify/support-assistant/search?${params}`);
         if (!res.ok) throw new Error("search failed");
         const parsed = parseSupportAssistantSearch(await res.json());

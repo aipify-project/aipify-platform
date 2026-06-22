@@ -64,13 +64,20 @@ export function CompanionChat({
                 spacious ? "px-5 py-4" : "px-4 py-3"
               }`}
             >
-              {msg.integrationStatusCard ? null : (
-                <p className="text-sm text-aipify-text">{msg.directAnswer ?? msg.content}</p>
-              )}
+              {(() => {
+                const hideIntro =
+                  Boolean(msg.integrationStatusCard) &&
+                  msg.directAnswer === msg.integrationStatusCard?.labels.cardSupporting;
+                if (hideIntro || !msg.directAnswer) return null;
+                return <p className="text-sm text-aipify-text">{msg.directAnswer}</p>;
+              })()}
+              {!msg.directAnswer && !msg.integrationStatusCard ? (
+                <p className="text-sm text-aipify-text">{msg.content}</p>
+              ) : null}
               {msg.integrationStatusCard ? (
                 <CompanionIntegrationStatusCard card={msg.integrationStatusCard} locale={locale} />
               ) : null}
-              {!msg.integrationStatusCard && msg.explanation ? (
+              {msg.explanation ? (
                 <p className="mt-2 text-sm text-aipify-text-secondary">{msg.explanation}</p>
               ) : null}
               {msg.steps && msg.steps.length > 0 ? (
@@ -98,11 +105,7 @@ export function CompanionChat({
                 conversationId={conversationId}
                 messageId={msg.id}
                 question={msg.question ?? ""}
-                answerSummary={
-                  msg.integrationStatusCard?.labels.cardSupporting ??
-                  msg.directAnswer ??
-                  msg.content
-                }
+                answerSummary={msg.directAnswer ?? msg.integrationStatusCard?.labels.cardSupporting ?? msg.content}
                 sources={msg.sources ?? []}
                 routeContext={pathname}
                 locale={locale}

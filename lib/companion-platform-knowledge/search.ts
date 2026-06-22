@@ -20,6 +20,8 @@ import { canAccessArticle, type PermissionContext } from "./permission-gate";
 import { resolveRouteKeyFromQuery } from "./route-registry";
 import {
   buildIntegrationStatusFailureAnswer,
+  buildPrivateDataDeniedAnswer,
+  buildRoleDisambiguationAnswer,
   buildVerifiedIntegrationStatusAnswer,
 } from "./integration-status-answer";
 import { detectLiveIntegrationStatusIntent } from "./integration-status-intent";
@@ -38,6 +40,7 @@ export type PlatformSearchOptions = {
   getSearchTermsArray: (key: string) => string[];
   subscriptionRaw?: unknown;
   supabase?: SupabaseClient;
+  integrationContext?: "unonight" | null;
 };
 
 function normalizeQuery(query: string): string {
@@ -109,7 +112,8 @@ export async function searchPlatformKnowledge(
   query: string,
   options: PlatformSearchOptions,
 ): Promise<PlatformSearchResult> {
-  const { t, locale, ctx, getSearchTermsArray, subscriptionRaw, supabase } = options;
+  const { t, locale, ctx, getSearchTermsArray, subscriptionRaw, supabase, integrationContext } =
+    options;
   const permissionCtx: PermissionContext = {
     userRole: ctx.userRole,
     enabledFeatures: ctx.enabledFeatures,
@@ -128,28 +132,43 @@ export async function searchPlatformKnowledge(
   const restrictedNote = t("customerApp.companionPlatformKnowledge.permissions.restrictedAction");
 
   // 0. Live verified integration status — before corpus and Knowledge Center
-  const liveIntegrationIntent = detectLiveIntegrationStatusIntent(query);
-  if (liveIntegrationIntent && supabase) {
-    const toolResult = await getConnectedIntegrationStatus(supabase, {
-      providerKey: liveIntegrationIntent.providerKey,
-      refresh: true,
-    });
-
-    if (toolResult.ok) {
+  const liveIntegrationIntent = detectLiveIntegrationStatusIntent(query, { integrationContext });
+  if (liveIntegrationIntent) {
+    if (liveIntegrationIntent.queryKind === "private_data") {
       return {
-        answer: buildVerifiedIntegrationStatusAnswer(
-          toolResult.data,
-          t,
-          locale,
-          permissionCtx,
-        ),
+        answer: buildPrivateDataDeniedAnswer(t, permissionCtx),
       };
     }
 
-    if (liveIntegrationIntent.blocksKnowledgeCenter) {
+    if (liveIntegrationIntent.queryKind === "role_disambiguation") {
       return {
-        answer: buildIntegrationStatusFailureAnswer(toolResult.code, t, permissionCtx),
+        answer: buildRoleDisambiguationAnswer(t, permissionCtx),
       };
+    }
+
+    if (supabase && liveIntegrationIntent.requiresLive) {
+      const toolResult = await getConnectedIntegrationStatus(supabase, {
+        providerKey: liveIntegrationIntent.providerKey,
+        refresh: true,
+      });
+
+      if (toolResult.ok) {
+        return {
+          answer: buildVerifiedIntegrationStatusAnswer(
+            toolResult.data,
+            t,
+            locale,
+            permissionCtx,
+            liveIntegrationIntent.queryKind,
+          ),
+        };
+      }
+
+      if (liveIntegrationIntent.blocksKnowledgeCenter) {
+        return {
+          answer: buildIntegrationStatusFailureAnswer(toolResult.code, t, permissionCtx),
+        };
+      }
     }
   }
 

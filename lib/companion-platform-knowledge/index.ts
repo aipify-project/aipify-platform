@@ -8,7 +8,8 @@ export * from "./search";
 export * from "./intent-detection";
 export * from "./language";
 export * from "./quality-tracking";
-export { detectLiveIntegrationStatusIntent } from "./integration-status-intent";
+export { detectLiveIntegrationStatusIntent, isLiveIntegrationFollowUpQuery } from "./integration-status-intent";
+export type { LiveIntegrationQueryKind, LiveIntegrationStatusIntent } from "./integration-status-intent";
 export { getConnectedIntegrationStatus } from "./integration-status-tool";
 export type {
   ConnectedIntegrationStatusMetadata,

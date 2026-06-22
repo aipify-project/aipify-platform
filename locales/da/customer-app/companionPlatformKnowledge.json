@@ -66,7 +66,41 @@
       "failureTitle": "Live Unonight integration data unavailable",
       "failureLead": "⚠️ Aipify could not retrieve live data from the Unonight integration right now.",
       "failureRetryStep": "Verify the integration under Platform → Integrations, then ask again.",
-      "orgConfirmBlockedNoLiveData": "Organization confirmation is unavailable because this answer did not use live integration data.",
+      "orgConfirmBlockedNoLiveData": "Organisationsbekræftelse er ikke tilgængelig, fordi svaret ikke brugte live integrationsdata.",
+      "variants": {
+        "lastUsed": {
+          "intro": "Den verificerede Unonight-integration blev sidst brugt {timestamp}. Aipify læste tidspunktet fra den aktive skrivebeskyttede forbindelse."
+        },
+        "scopes": {
+          "intro": "Den verificerede skrivebeskyttede Unonight-integration giver Aipify adgang til godkendt driftsmetadata — ikke mere.",
+          "allowedMetadata": "Læser godkendt driftsmetadata",
+          "allowedOrganization": "Læser organisationsidentitet",
+          "allowedStatus": "Læser integrationsstatus",
+          "notAllowedPrivateMessages": "Kan ikke læse private beskeder eller samtaler",
+          "notAllowedPayments": "Kan ikke læse betalinger, ordrer eller fakturadata",
+          "notAllowedWrite": "Kan ikke ændre eller skrive data i Unonight"
+        },
+        "languages": {
+          "intro": "Den verificerede Unonight-integration rapporterer disse understøttede sprog: {languages}."
+        },
+        "sourceTrust": {
+          "intro": "Aipify kontrollerede den verificerede skrivebeskyttede Unonight-integration nu ({checkedAt}). Sidst verificeret: {lastVerified}. Sidst brugt: {lastUsed}. Adgangen er skrivebeskyttet, og kilden er live integration — ikke Knowledge Center-artikler."
+        },
+        "unsupported": {
+          "title": "Medlemstal er ikke tilgængeligt fra integrationen",
+          "intro": "Den nuværende verificerede skrivebeskyttede Unonight-integration eksponerer ikke live medlemstal. Aipify gætter ikke tal uden for godkendte scopes."
+        },
+        "privateDenied": {
+          "title": "Private beskeder ligger uden for godkendt adgang",
+          "intro": "Den verificerede skrivebeskyttede Unonight-integration inkluderer ikke adgang til private beskeder eller samtaler. Aipify kan ikke hente eller vise sådanne data."
+        },
+        "roleDisambiguation": {
+          "title": "Aipify-roller vs Unonight-medlemsroller",
+          "intro": "At ændre en teammedlems rolle i Unonight er anderledes end at administrere roller i din Aipify-organisation.",
+          "aipifySection": "For roller og tilladelser i Aipify-arbejdsområdet, åbn Organisation → Roller og tilladelser i APP-portalen.",
+          "unonightSection": "Medlemsroller på Unonight-platformen administreres i Unonight. Den verificerede skrivebeskyttede integration lader ikke Aipify ændre Unonight-medlemsroller."
+        }
+      },
       "failures": {
         "integrationNotConnected": "No active Unonight integration is configured for this organization.",
         "integrationNotVerified": "The Unonight integration exists but is not verified yet.",
