@@ -119,6 +119,9 @@
       "failureTitle": "Metadane platformy Unonight na żywo niedostępne",
       "failureLead": "Aipify nie mogło pobrać metadanych platformy na żywo ze zweryfikowanej integracji Unonight.",
       "failureRetryStep": "Sprawdź, czy token integracji zawiera platform.metadata.read, i zapytaj ponownie.",
+      "failureRetryStepScopeMissing": "Sprawdź, czy token integracji zawiera platform.metadata.read, i zapytaj ponownie.",
+      "failureRetryStepStatusContract": "Aipify odebrało dane platformy, ale nie mogło zinterpretować statusu operacyjnego. Spróbuj ponownie po naprawie kontraktu.",
+      "failureRetryStepGeneric": "Spróbuj ponownie po potwierdzeniu, że zweryfikowana integracja Unonight jest nadal połączona.",
       "orgConfirmBlockedNoLiveData": "Potwierdzenie organizacji jest niedostępne, ponieważ odpowiedź nie wykorzystała metadanych platformy na żywo.",
       "card": {
         "title": "Migawka platformy Unonight na żywo",

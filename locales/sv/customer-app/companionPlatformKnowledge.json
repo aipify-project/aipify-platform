@@ -119,6 +119,9 @@
       "failureTitle": "Live Unonight-plattformsmetadata otillgänglig",
       "failureLead": "Aipify kunde inte hämta live plattformsmetadata från den verifierade Unonight-integrationen just nu.",
       "failureRetryStep": "Verifiera att integrationstoken inkluderar platform.metadata.read och fråga igen.",
+      "failureRetryStepScopeMissing": "Verifiera att integrationstoken inkluderar platform.metadata.read och fråga igen.",
+      "failureRetryStepStatusContract": "Aipify tog emot plattformsdata men kunde inte tolka driftsstatusen. Försök igen när kontraktet är reparerat.",
+      "failureRetryStepGeneric": "Försök fråga igen efter att du bekräftat att den verifierade Unonight-integrationen fortfarande är ansluten.",
       "orgConfirmBlockedNoLiveData": "Organisationsbekräftelse är otillgänglig eftersom svaret inte använde live plattformsmetadata.",
       "card": {
         "title": "Live Unonight-plattformsögonblicksbild",

@@ -119,6 +119,9 @@
       "failureTitle": "Live Unonight platform metadata unavailable",
       "failureLead": "Aipify could not retrieve live platform metadata from the verified Unonight integration right now.",
       "failureRetryStep": "Verify the integration token includes platform.metadata.read, then ask again.",
+      "failureRetryStepScopeMissing": "Verify the integration token includes platform.metadata.read, then ask again.",
+      "failureRetryStepStatusContract": "Aipify received platform data but could not interpret the operational status. Try again after the contract is repaired.",
+      "failureRetryStepGeneric": "Retry the question after confirming the verified Unonight integration is still connected.",
       "orgConfirmBlockedNoLiveData": "Organization confirmation is unavailable because this answer did not use live platform metadata.",
       "card": {
         "title": "Live Unonight platform snapshot",

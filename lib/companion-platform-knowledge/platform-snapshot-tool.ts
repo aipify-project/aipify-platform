@@ -36,6 +36,9 @@ export type PlatformSnapshotFailureCode =
   | "malformed_modules"
   | "malformed_locales"
   | "invalid_checked_at"
+  | "availability_status_missing"
+  | "availability_status_unknown"
+  | "availability_status_invalid_type"
   | "status_unavailable"
   | "unsafe_payload";
 
@@ -103,6 +106,9 @@ function mapLiveSnapshotFailure(
     case "malformed_modules":
     case "malformed_locales":
     case "invalid_checked_at":
+    case "availability_status_missing":
+    case "availability_status_unknown":
+    case "availability_status_invalid_type":
     case "status_unavailable":
     case "unsafe_payload":
       return code;

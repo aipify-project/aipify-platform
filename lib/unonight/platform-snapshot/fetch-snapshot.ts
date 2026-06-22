@@ -23,6 +23,9 @@ export type UnonightPlatformSnapshotFailureCode =
   | "endpoint_unreachable"
   | "response_invalid"
   | "organization_mismatch"
+  | "availability_status_missing"
+  | "availability_status_unknown"
+  | "availability_status_invalid_type"
   | UnonightPlatformSnapshotParseFailureCode;
 
 function mapParseFailureCode(

@@ -16,6 +16,9 @@ export type UnonightPlatformSnapshotParseFailureCode =
   | "malformed_modules"
   | "malformed_locales"
   | "invalid_checked_at"
+  | "availability_status_missing"
+  | "availability_status_unknown"
+  | "availability_status_invalid_type"
   | "status_unavailable"
   | "unsafe_payload"
   | "organization_mismatch";
@@ -88,12 +91,16 @@ export function unwrapUnonightPlatformSnapshotPayload(payload: unknown): Record<
 }
 
 function normalizeAvailabilityStatus(raw: unknown): UnonightPlatformSnapshotSuccess["status"] | null {
+  if (typeof raw === "boolean") {
+    return raw ? "available" : "degraded";
+  }
+
   const value = String(raw ?? "")
     .trim()
     .toLowerCase();
   if (!value) return null;
 
-  if (value === "available" || value === "online" || value === "operational" || value === "healthy") {
+  if (value === "available" || value === "online" || value === "operational" || value === "healthy" || value === "active") {
     return "available";
   }
   if (value === "degraded" || value === "partial" || value === "limited") {
@@ -103,6 +110,25 @@ function normalizeAvailabilityStatus(raw: unknown): UnonightPlatformSnapshotSucc
     return "maintenance";
   }
   return null;
+}
+
+function resolveAvailabilityStatusRaw(
+  record: Record<string, unknown>,
+  platformRaw: Record<string, unknown>,
+): unknown {
+  if (typeof record.is_available === "boolean") return record.is_available;
+  if (typeof platformRaw.is_available === "boolean") return platformRaw.is_available;
+
+  return (
+    record.status ??
+    record.availability_status ??
+    record.production_status ??
+    record.availability ??
+    platformRaw.status ??
+    platformRaw.availability ??
+    platformRaw.platform_status ??
+    platformRaw.operational_status
+  );
 }
 
 function resolveApiVersion(record: Record<string, unknown>, platformRaw: Record<string, unknown> | null): string {
@@ -311,14 +337,41 @@ export function parseUnonightPlatformSnapshotDetailed(payload: unknown): Unonigh
   if (isRecord((payload as Record<string, unknown>)?.data)) compatibilityNotes.push("data_wrapper");
   if (isRecord((payload as Record<string, unknown>)?.snapshot)) compatibilityNotes.push("snapshot_wrapper");
 
-  const status = normalizeAvailabilityStatus(
-    record.status ?? record.availability_status ?? record.production_status,
-  );
-  if (!status) {
-    return { ok: false, code: "status_unavailable", reason: "Missing or invalid availability status" };
+  const platformRaw = resolvePlatformBlock(record);
+  const availabilityRaw = resolveAvailabilityStatusRaw(record, platformRaw);
+
+  if (availabilityRaw === undefined || availabilityRaw === null) {
+    return {
+      ok: false,
+      code: "availability_status_missing",
+      reason: "Missing availability status field",
+    };
   }
 
-  const platformRaw = resolvePlatformBlock(record);
+  if (
+    typeof availabilityRaw !== "string" &&
+    typeof availabilityRaw !== "boolean" &&
+    typeof availabilityRaw !== "number"
+  ) {
+    return {
+      ok: false,
+      code: "availability_status_invalid_type",
+      reason: "Availability status field has invalid type",
+    };
+  }
+
+  const status = normalizeAvailabilityStatus(availabilityRaw);
+  if (!status) {
+    return {
+      ok: false,
+      code: "availability_status_unknown",
+      reason: "Unrecognized availability status value",
+    };
+  }
+  if (!record.status && (record.availability || platformRaw.availability)) {
+    compatibilityNotes.push("availability_alias");
+  }
+
   const apiVersion = resolveApiVersion(record, isRecord(record.platform) ? record.platform : null);
   if (!apiVersion.startsWith("v")) {
     return {

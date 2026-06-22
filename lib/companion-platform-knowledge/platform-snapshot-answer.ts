@@ -155,10 +155,39 @@ const FAILURE_MESSAGE_KEYS: Partial<Record<PlatformSnapshotFailureCode, string>>
   malformed_locales: `${BASE}.failures.malformedLocales`,
   malformed_environment: `${BASE}.failures.malformedEnvironment`,
   malformed_organization: `${BASE}.failures.malformedOrganization`,
+  availability_status_missing: `${BASE}.failures.statusUnavailable`,
+  availability_status_unknown: `${BASE}.failures.statusUnavailable`,
+  availability_status_invalid_type: `${BASE}.failures.statusUnavailable`,
   status_unavailable: `${BASE}.failures.statusUnavailable`,
   unsupported_contract_version: `${BASE}.failures.unsupportedContractVersion`,
   unsafe_payload: `${BASE}.failures.unsafePayload`,
 };
+
+const CONTRACT_FAILURE_CODES = new Set<PlatformSnapshotFailureCode>([
+  "availability_status_missing",
+  "availability_status_unknown",
+  "availability_status_invalid_type",
+  "status_unavailable",
+  "malformed_modules",
+  "malformed_locales",
+  "malformed_environment",
+  "malformed_organization",
+  "unsupported_contract_version",
+  "response_not_json",
+  "malformed_platform",
+  "invalid_checked_at",
+  "unsafe_payload",
+]);
+
+function buildFailureRetryStep(code: PlatformSnapshotFailureCode, t: Translator): string {
+  if (code === "live_scope_missing") {
+    return t(`${BASE}.failureRetryStepScopeMissing`);
+  }
+  if (CONTRACT_FAILURE_CODES.has(code)) {
+    return t(`${BASE}.failureRetryStepStatusContract`);
+  }
+  return t(`${BASE}.failureRetryStepGeneric`);
+}
 
 export function buildPlatformSnapshotFailureAnswer(
   code: PlatformSnapshotFailureCode,
@@ -169,7 +198,7 @@ export function buildPlatformSnapshotFailureAnswer(
     title: t(`${BASE}.failureTitle`),
     directAnswer: t(`${BASE}.failureLead`),
     explanation: t(FAILURE_MESSAGE_KEYS[code] ?? `${BASE}.failures.responseInvalid`),
-    steps: [t(`${BASE}.failureRetryStep`)].filter(Boolean),
+    steps: [buildFailureRetryStep(code, t)].filter(Boolean),
     actions: filterActionsByPermission(
       [
         buildConnectedIntegrationsAction(t),
