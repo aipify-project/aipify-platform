@@ -216,6 +216,20 @@ import {
   matchProactiveProviderQuery,
 } from "./proactive-answer";
 import {
+  buildAnalyticsExecutiveSummaryAnswer,
+  buildAnalyticsProviderDiscoveryAnswer,
+  buildAnalyticsProviderUnavailableAnswer,
+  buildBlockedAnalyticsOperationAnswer,
+  buildExternalAnalyticsUnavailableAnswer,
+  buildUnsupportedCorrelationAnswer,
+  hasAnalyticsProviderIntent,
+  hasBlockedAnalyticsOperationIntent,
+  hasExternalAnalyticsAdapterIntent,
+  hasUnsupportedCorrelationIntent,
+  matchAnalyticsProviderQuery,
+  resolveAnalyticsCorrelationBlocked,
+} from "./analytics-answer";
+import {
   buildBlockedCommerceOperationAnswer,
   buildCommerceProviderDiscoveryAnswer,
   buildCommerceProviderUnavailableAnswer,
@@ -1151,6 +1165,67 @@ function resolveProactiveProviderAnswer(
   };
 }
 
+function resolveAnalyticsProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (hasBlockedAnalyticsOperationIntent(query)) {
+    return {
+      answer: buildBlockedAnalyticsOperationAnswer(t),
+    };
+  }
+
+  if (!hasAnalyticsProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.analyticsContext.permission_denied) {
+    return {
+      answer: buildAnalyticsProviderUnavailableAnswer(t, tenantContext.analyticsContext),
+    };
+  }
+
+  if (hasExternalAnalyticsAdapterIntent(query)) {
+    return {
+      answer: buildExternalAnalyticsUnavailableAnswer(t),
+    };
+  }
+
+  if (
+    hasUnsupportedCorrelationIntent(query) &&
+    resolveAnalyticsCorrelationBlocked(query, tenantContext.analyticsContext)
+  ) {
+    return {
+      answer: buildUnsupportedCorrelationAnswer(tenantContext.analyticsContext, t),
+    };
+  }
+
+  const normalized = query.trim().toLowerCase();
+  if (/\b(top kpi|key metric|executive summary|most important metric)\b/i.test(normalized)) {
+    return {
+      answer: buildAnalyticsExecutiveSummaryAnswer(tenantContext.analyticsContext, t),
+    };
+  }
+
+  const match = matchAnalyticsProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildAnalyticsProviderUnavailableAnswer(t, tenantContext.analyticsContext),
+    };
+  }
+
+  if (tenantContext.analyticsContext.empty_metric_basis) {
+    return {
+      answer: buildAnalyticsProviderUnavailableAnswer(t, tenantContext.analyticsContext),
+    };
+  }
+
+  return {
+    answer: buildAnalyticsProviderDiscoveryAnswer(match, tenantContext.analyticsContext, t),
+  };
+}
+
 function resolveSupportProviderAnswer(
   query: string,
   t: Translator,
@@ -1422,6 +1497,9 @@ export async function orchestrateCompanionSearch(
 
   const proactiveResult = resolveProactiveProviderAnswer(query, t, resolvedTenantContext);
   if (proactiveResult) return finalize(proactiveResult);
+
+  const analyticsResult = resolveAnalyticsProviderAnswer(query, t, resolvedTenantContext);
+  if (analyticsResult) return finalize(analyticsResult);
 
   const supportResult = resolveSupportProviderAnswer(query, t, resolvedTenantContext);
   if (supportResult) return finalize(supportResult);
