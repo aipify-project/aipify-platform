@@ -471,7 +471,7 @@ assert.equal(directoryContext.export_blocked, true);
 
 const coverage = buildCompanionFoundationCoverageRegistry();
 assert.ok(coverage.some((entry) => entry.module_id === "directory.core_search"));
-assert.ok(coverage.some((entry) => entry.module_id === "directory.unonight_member"));
+assert.ok(coverage.some((entry) => entry.module_id === "directory.community_member"));
 assert.notEqual(UNONIGHT_DIRECTORY_MEMBER_CONTRACT.readiness, "production_ready");
 assert.equal(UNONIGHT_DIRECTORY_MEMBER_CONTRACT.exposes_member_list, false);
 assert.equal(mapUnonightMemberDirectoryFields({

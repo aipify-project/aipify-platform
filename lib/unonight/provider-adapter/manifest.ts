@@ -44,12 +44,12 @@ function readCapability(
 export const UNONIGHT_COMMUNITY_ADAPTER_MANIFEST: CommunityProviderManifest = {
   provider_key: UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY,
   display_name_key:
-    "customerApp.companionPlatformKnowledge.unonightProviderAdapter.providerDisplayName",
+    "customerApp.companionPlatformKnowledge.communityProviderAdapter.providerDisplayName",
   source_engine: "community_pack_adapter",
   implementation_status: "partial",
   business_pack_key: UNONIGHT_PROVIDER_ADAPTER_BUSINESS_PACK,
   search_terms_key:
-    "customerApp.companionPlatformKnowledge.unonightProviderAdapter.searchTerms",
+    "customerApp.companionPlatformKnowledge.communityProviderAdapter.searchTerms",
   capabilities: [
     readCapability("member.read", "member", COMMUNITY_VIEW, true),
     readCapability("activity.read", "activity", COMMUNITY_VIEW),

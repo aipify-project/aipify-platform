@@ -1,25 +1,26 @@
 import type { IntegrationCapabilityKey } from "@/lib/integration-intelligence/types";
+import {
+  integrationProviderHasReadAdapter,
+  listIntegrationProviderReadAdapterCapabilities,
+  listIntegrationProvidersWithReadAdapters,
+} from "@/lib/integration-intelligence/provider-read-adapter-registry";
 
-/** Adapter capability registry — providers register implemented read drivers here. */
-const PROVIDER_READ_ADAPTER_CAPABILITIES: Record<string, readonly IntegrationCapabilityKey[]> = {
-  unonight: ["platform_snapshot", "connection_status"],
-};
-
+/** Adapter capability registry — Core delegates tenant wiring to Integration Intelligence. */
 export function listProviderReadAdapterCapabilities(
   providerKey: string,
 ): readonly IntegrationCapabilityKey[] {
-  return PROVIDER_READ_ADAPTER_CAPABILITIES[providerKey] ?? [];
+  return listIntegrationProviderReadAdapterCapabilities(providerKey);
 }
 
 export function providerHasReadAdapter(
   providerKey: string,
   capabilityKey: IntegrationCapabilityKey,
 ): boolean {
-  return listProviderReadAdapterCapabilities(providerKey).includes(capabilityKey);
+  return integrationProviderHasReadAdapter(providerKey, capabilityKey);
 }
 
 export function listProvidersWithReadAdapters(): string[] {
-  return Object.keys(PROVIDER_READ_ADAPTER_CAPABILITIES);
+  return listIntegrationProvidersWithReadAdapters();
 }
 
 export function isRegisteredLiveProvider(providerKey: string | null | undefined): boolean {

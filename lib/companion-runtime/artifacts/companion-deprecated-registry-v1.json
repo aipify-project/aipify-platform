@@ -26,6 +26,30 @@
       "reason": "Placeholder readiness removed from canonical registry terminology — Phase 43."
     },
     {
+      "entry_id": "legacy_community_external_adapter_key",
+      "kind": "deprecated",
+      "canonical_replacement": "community_external_adapter",
+      "reason": "Legacy community adapter provider key removed from Core — use community_external_adapter."
+    },
+    {
+      "entry_id": "legacy_community_member_directory_key",
+      "kind": "deprecated",
+      "canonical_replacement": "community_member_directory",
+      "reason": "Legacy community member directory provider key removed from Core — use community_member_directory."
+    },
+    {
+      "entry_id": "legacy_community_member_directory_module",
+      "kind": "deprecated",
+      "canonical_replacement": "directory.community_member",
+      "reason": "Legacy community member directory module removed from Core — use directory.community_member."
+    },
+    {
+      "entry_id": "legacy_community_adapter_status_module",
+      "kind": "deprecated",
+      "canonical_replacement": "verification.community_adapter_status",
+      "reason": "Legacy community adapter status module removed from Core — use verification.community_adapter_status."
+    },
+    {
       "entry_id": "hr_employee_directory",
       "kind": "needs_migration",
       "canonical_replacement": "app_employee_directory",
@@ -52,8 +76,8 @@
       "capability_id": "activity.read.read",
       "module_ids": [
         "provider.community_collective_intelligence",
-        "provider.community_network_center",
-        "provider.unonight_community_adapter"
+        "provider.community_external_adapter",
+        "provider.community_network_center"
       ]
     },
     {
@@ -453,9 +477,9 @@
     {
       "capability_id": "listing.read.read",
       "module_ids": [
+        "provider.community_external_adapter",
         "provider.community_network_center",
-        "provider.community_pack_adapter",
-        "provider.unonight_community_adapter"
+        "provider.community_pack_adapter"
       ]
     },
     {
@@ -490,9 +514,9 @@
     {
       "capability_id": "member.read.read",
       "module_ids": [
+        "provider.community_external_adapter",
         "provider.community_network_center",
-        "provider.community_pack_adapter",
-        "provider.unonight_community_adapter"
+        "provider.community_pack_adapter"
       ]
     },
     {
@@ -514,8 +538,8 @@
     {
       "capability_id": "moderation_queue.read.read",
       "module_ids": [
-        "provider.moderation_engine",
-        "provider.unonight_community_adapter"
+        "provider.community_external_adapter",
+        "provider.moderation_engine"
       ]
     },
     {
@@ -691,11 +715,11 @@
       "module_ids": [
         "provider.analytics_center",
         "provider.community_collective_intelligence",
+        "provider.community_external_adapter",
         "provider.finance_operations_center",
         "provider.finance_pack_adapter",
         "provider.moderation_engine",
-        "provider.revenue_operations",
-        "provider.unonight_community_adapter"
+        "provider.revenue_operations"
       ]
     },
     {
@@ -1004,15 +1028,15 @@
     {
       "capability_id": "verification_status.read",
       "module_ids": [
-        "verification.trust_center",
-        "verification.unonight_adapter_status"
+        "verification.community_adapter_status",
+        "verification.trust_center"
       ]
     },
     {
       "capability_id": "verification_status.read.read",
       "module_ids": [
-        "provider.trust_center_verification",
-        "provider.unonight_community_adapter"
+        "provider.community_external_adapter",
+        "provider.trust_center_verification"
       ]
     },
     {

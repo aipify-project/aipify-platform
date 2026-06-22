@@ -1245,7 +1245,7 @@
     {
       "priority": "P2",
       "module_id": "verification.case_read",
-      "provider_key": "unonight_community_adapter",
+      "provider_key": "community_external_adapter",
       "capability_ids": [
         "verification_case.read"
       ],
@@ -1781,6 +1781,7 @@
     "provider.commerce_customer_directory",
     "provider.booking_customer_directory",
     "provider.supplier_vendor_directory",
+    "provider.community_external_adapter",
     "service.local_service_beauty",
     "service.booking_write",
     "core.command_brief_signals",
@@ -1792,7 +1793,7 @@
     "hosts.task_write",
     "hosts.command_brief_signals",
     "directory.core_search",
-    "directory.unonight_member",
+    "directory.community_member",
     "panel.super_admin",
     "panel.platform",
     "panel.partners",

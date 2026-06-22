@@ -1153,7 +1153,7 @@
         }
       }
     },
-    "unonightProviderAdapter": {
+    "communityProviderAdapter": {
       "providerDisplayName": "Community-provideradapter",
       "searchTerms": "community provider adapter live read member moderation verification listing activity",
       "sourceLabel": "Verifierad community-provideradapter",

@@ -60,11 +60,11 @@ function selectRecordForMatch(
 }
 
 function capabilityLabelKey(capabilityKey: string): string {
-  return `customerApp.companionPlatformKnowledge.unonightProviderAdapter.capabilities.${capabilityKey.replace(/\./g, "_")}`;
+  return `customerApp.companionPlatformKnowledge.communityProviderAdapter.capabilities.${capabilityKey.replace(/\./g, "_")}`;
 }
 
 function requestedMetricLabelKey(requestedMetric: string): string {
-  return `customerApp.companionPlatformKnowledge.unonightProviderAdapter.requestedMetrics.${requestedMetric}`;
+  return `customerApp.companionPlatformKnowledge.communityProviderAdapter.requestedMetrics.${requestedMetric}`;
 }
 
 function resolveBindingForMatch(
@@ -97,24 +97,24 @@ function buildMetricGapAnswer(input: {
   const metricLabel = input.t(requestedMetricLabelKey(metricKey));
 
   const directAnswer = input
-    .t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.metricGapLead")
+    .t("customerApp.companionPlatformKnowledge.communityProviderAdapter.metricGapLead")
     .replace("{capability}", capabilityLabel)
     .replace("{metric}", metricLabel);
 
   const freshnessLine = input
-    .t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.sourceLine")
+    .t("customerApp.companionPlatformKnowledge.communityProviderAdapter.sourceLine")
     .replace("{source}", input.record.source_reference)
     .replace("{checkedAt}", formatTimestamp(input.record.fetched_at, input.locale))
     .replace(
       "{freshness}",
       input.t(
-        `customerApp.companionPlatformKnowledge.unonightProviderAdapter.freshness.${input.record.freshness}`,
+        `customerApp.companionPlatformKnowledge.communityProviderAdapter.freshness.${input.record.freshness}`,
       ),
     )
     .replace(
       "{completeness}",
       input.t(
-        `customerApp.companionPlatformKnowledge.unonightProviderAdapter.completeness.${input.record.completeness}`,
+        `customerApp.companionPlatformKnowledge.communityProviderAdapter.completeness.${input.record.completeness}`,
       ),
     );
 
@@ -123,11 +123,11 @@ function buildMetricGapAnswer(input: {
   );
   const readinessLine = readiness
     ? input
-        .t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.readinessLine")
+        .t("customerApp.companionPlatformKnowledge.communityProviderAdapter.readinessLine")
         .replace(
           "{status}",
           input.t(
-            `customerApp.companionPlatformKnowledge.unonightProviderAdapter.readinessStatus.${readiness.status}`,
+            `customerApp.companionPlatformKnowledge.communityProviderAdapter.readinessStatus.${readiness.status}`,
           ),
         )
     : "";
@@ -139,12 +139,12 @@ function buildMetricGapAnswer(input: {
 
   const explanation = [
     input
-      .t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.metricGapExplanation")
+      .t("customerApp.companionPlatformKnowledge.communityProviderAdapter.metricGapExplanation")
       .replace("{metric}", metricLabel),
     freshnessLine,
     readinessLine,
     ...proxyWarnings,
-    input.t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.privacyNote"),
+    input.t("customerApp.companionPlatformKnowledge.communityProviderAdapter.privacyNote"),
   ]
     .filter(Boolean)
     .join("\n");
@@ -164,7 +164,7 @@ function buildMetricGapAnswer(input: {
     sources: [
       {
         id: input.record.source_reference,
-        label: input.t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.sourceLabel"),
+        label: input.t("customerApp.companionPlatformKnowledge.communityProviderAdapter.sourceLabel"),
         kind: "customer_context",
         meta: input.record.freshness,
       },
@@ -186,16 +186,16 @@ export function buildCommunityProviderAdapterGroundedAnswer(
 
   if (overlay.activation.status === "disabled") {
     return {
-      directAnswer: t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.unavailableLead"),
+      directAnswer: t("customerApp.companionPlatformKnowledge.communityProviderAdapter.unavailableLead"),
       explanation: overlay.activation.reason_key
         ? t(overlay.activation.reason_key)
-        : t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.unavailableExplanation"),
+        : t("customerApp.companionPlatformKnowledge.communityProviderAdapter.unavailableExplanation"),
       steps: [],
       actions: [],
       sources: [
         {
           id: overlay.provider_key,
-          label: t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.sourceLabel"),
+          label: t("customerApp.companionPlatformKnowledge.communityProviderAdapter.sourceLabel"),
           kind: "customer_context",
           meta: overlay.activation.status,
         },
@@ -208,14 +208,14 @@ export function buildCommunityProviderAdapterGroundedAnswer(
 
   if (overlay.activation.status === "activating") {
     return {
-      directAnswer: t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.activatingLead"),
-      explanation: t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.activatingExplanation"),
+      directAnswer: t("customerApp.companionPlatformKnowledge.communityProviderAdapter.activatingLead"),
+      explanation: t("customerApp.companionPlatformKnowledge.communityProviderAdapter.activatingExplanation"),
       steps: [],
       actions: [],
       sources: [
         {
           id: overlay.provider_key,
-          label: t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.sourceLabel"),
+          label: t("customerApp.companionPlatformKnowledge.communityProviderAdapter.sourceLabel"),
           kind: "customer_context",
           meta: "activating",
         },
@@ -229,14 +229,14 @@ export function buildCommunityProviderAdapterGroundedAnswer(
   const record = selectRecordForMatch(overlay, match);
   if (!record) {
     return {
-      directAnswer: t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.emptyLead"),
-      explanation: t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.emptyExplanation"),
+      directAnswer: t("customerApp.companionPlatformKnowledge.communityProviderAdapter.emptyLead"),
+      explanation: t("customerApp.companionPlatformKnowledge.communityProviderAdapter.emptyExplanation"),
       steps: [],
       actions: [],
       sources: [
         {
           id: overlay.provider_key,
-          label: t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.sourceLabel"),
+          label: t("customerApp.companionPlatformKnowledge.communityProviderAdapter.sourceLabel"),
           kind: "customer_context",
         },
       ],
@@ -252,7 +252,7 @@ export function buildCommunityProviderAdapterGroundedAnswer(
     const capabilityLabel = t(capabilityLabelKey(String(record.capability_key)));
     const countValue = String(presentable.value);
 
-    const directAnswer = t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.groundedLead")
+    const directAnswer = t("customerApp.companionPlatformKnowledge.communityProviderAdapter.groundedLead")
       .replace("{capability}", capabilityLabel)
       .replace("{count}", countValue);
 
@@ -273,31 +273,31 @@ export function buildCommunityProviderAdapterGroundedAnswer(
       ]),
     ].join("\n");
 
-    const freshnessLine = t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.sourceLine")
+    const freshnessLine = t("customerApp.companionPlatformKnowledge.communityProviderAdapter.sourceLine")
       .replace("{source}", record.source_reference)
       .replace("{checkedAt}", formatTimestamp(record.fetched_at, locale))
       .replace(
         "{freshness}",
-        t(`customerApp.companionPlatformKnowledge.unonightProviderAdapter.freshness.${record.freshness}`),
+        t(`customerApp.companionPlatformKnowledge.communityProviderAdapter.freshness.${record.freshness}`),
       )
       .replace(
         "{completeness}",
-        t(`customerApp.companionPlatformKnowledge.unonightProviderAdapter.completeness.${record.completeness}`),
+        t(`customerApp.companionPlatformKnowledge.communityProviderAdapter.completeness.${record.completeness}`),
       );
 
     const readiness = overlay.capability_readiness.find(
       (entry) => entry.capability_id === record.capability_id,
     );
     const readinessLine = readiness
-      ? t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.readinessLine").replace(
+      ? t("customerApp.companionPlatformKnowledge.communityProviderAdapter.readinessLine").replace(
           "{status}",
-          t(`customerApp.companionPlatformKnowledge.unonightProviderAdapter.readinessStatus.${readiness.status}`),
+          t(`customerApp.companionPlatformKnowledge.communityProviderAdapter.readinessStatus.${readiness.status}`),
         )
       : "";
 
     return {
       directAnswer,
-      explanation: [freshnessLine, readinessLine, warningLines, t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.privacyNote")]
+      explanation: [freshnessLine, readinessLine, warningLines, t("customerApp.companionPlatformKnowledge.communityProviderAdapter.privacyNote")]
         .filter(Boolean)
         .join("\n"),
       steps: [],
@@ -312,7 +312,7 @@ export function buildCommunityProviderAdapterGroundedAnswer(
       sources: [
         {
           id: record.source_reference,
-          label: t("customerApp.companionPlatformKnowledge.unonightProviderAdapter.sourceLabel"),
+          label: t("customerApp.companionPlatformKnowledge.communityProviderAdapter.sourceLabel"),
           kind: "customer_context",
           meta: record.freshness,
         },

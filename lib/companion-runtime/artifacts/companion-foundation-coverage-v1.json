@@ -1,11 +1,11 @@
 {
   "version": "companion-foundation-coverage-v1",
-  "generated_at": "2026-06-22T22:09:11.118Z",
+  "generated_at": "2026-06-22T22:26:35.161Z",
   "summary": {
     "total_modules": 178,
     "total_capabilities": 449,
     "business_packs": 7,
-    "providers": 142,
+    "providers": 141,
     "skills": 58,
     "panels": 4,
     "readiness": {
@@ -3513,10 +3513,10 @@
       "panel": "app"
     },
     {
-      "module_id": "provider.unonight_community_adapter",
+      "module_id": "provider.community_external_adapter",
       "domain": "community",
       "business_pack_key": "community_pack",
-      "provider_key": "unonight_community_adapter",
+      "provider_key": "community_external_adapter",
       "capability_ids": [
         "member.read.read",
         "activity.read.read",
@@ -3528,7 +3528,7 @@
         "listing.read.read"
       ],
       "source_type": "adapter",
-      "source_reference": "lib/unonight/provider-adapter/",
+      "source_reference": "lib/integration-intelligence/community/apply-external-provider-adapters.ts",
       "runtime_loader": "load-companion-community-context.ts",
       "schema_status": "partial",
       "permission_status": "defined",
@@ -3543,10 +3543,10 @@
       "panel": "app"
     },
     {
-      "module_id": "verification.unonight_adapter_status",
+      "module_id": "verification.community_adapter_status",
       "domain": "member_verification",
       "business_pack_key": "community_pack",
-      "provider_key": "unonight_community_adapter",
+      "provider_key": "community_external_adapter",
       "capability_ids": [
         "verification_status.read"
       ],
@@ -3565,7 +3565,7 @@
         "Uses community best-practice moderation_status metadata — not full verification queue.",
         "No document images, ID data, or sensitive profile fields exposed to Companion."
       ],
-      "next_required_step": "Connect dedicated verification_queue.read source when Unonight verification RPC is approved.",
+      "next_required_step": "Connect dedicated verification_queue.read source when community verification RPC is approved.",
       "panel": "app"
     },
     {
@@ -3600,7 +3600,7 @@
       "module_id": "verification.queue_read",
       "domain": "member_verification",
       "business_pack_key": "community_pack",
-      "provider_key": "unonight_community_adapter",
+      "provider_key": "community_external_adapter",
       "capability_ids": [
         "verification_queue.read"
       ],
@@ -3616,17 +3616,17 @@
       "test_status": "phase_tested",
       "readiness": "connected_but_partial",
       "limitations": [
-        "Queue summary uses community metadata proxy until dedicated Unonight verification queue RPC is approved.",
+        "Queue summary uses community metadata proxy until dedicated verification queue RPC is approved.",
         "No document images, ID numbers, or moderator notes exposed to Companion."
       ],
-      "next_required_step": "Connect dedicated read-only Unonight verification queue RPC and promote Command Brief to exact semantic match.",
+      "next_required_step": "Connect dedicated read-only verification queue RPC and promote Command Brief to exact semantic match.",
       "panel": "app"
     },
     {
       "module_id": "verification.case_read",
       "domain": "member_verification",
       "business_pack_key": "community_pack",
-      "provider_key": "unonight_community_adapter",
+      "provider_key": "community_external_adapter",
       "capability_ids": [
         "verification_case.read"
       ],
@@ -4252,10 +4252,10 @@
       "panel": "app"
     },
     {
-      "module_id": "directory.unonight_member",
+      "module_id": "directory.community_member",
       "domain": "organization_directory",
       "business_pack_key": "community_pack",
-      "provider_key": "unonight_community_member_directory",
+      "provider_key": "community_member_directory",
       "capability_ids": [
         "member.search"
       ],
@@ -4274,7 +4274,7 @@
         "No member list exposed in Phase 33C — contract only.",
         "No raw email/phone — masked fields require explicit permission when source exists."
       ],
-      "next_required_step": "Connect read-only Unonight member directory search RPC with masked contact fields and audit logging.",
+      "next_required_step": "Connect read-only community member directory search RPC with masked contact fields and audit logging.",
       "panel": "app"
     },
     {
@@ -5953,7 +5953,7 @@
     {
       "priority": "P2",
       "module_id": "verification.case_read",
-      "provider_key": "unonight_community_adapter",
+      "provider_key": "community_external_adapter",
       "capability_ids": [
         "verification_case.read"
       ],
@@ -17519,10 +17519,10 @@
       "reconciliation_notes": []
     },
     {
-      "module_id": "provider.unonight_community_adapter",
+      "module_id": "provider.community_external_adapter",
       "domain": "community",
       "business_pack_key": "community_pack",
-      "provider_key": "unonight_community_adapter",
+      "provider_key": "community_external_adapter",
       "capability_ids": [
         "member.read.read",
         "activity.read.read",
@@ -17534,7 +17534,7 @@
         "listing.read.read"
       ],
       "source_type": "adapter",
-      "source_reference": "lib/unonight/provider-adapter/",
+      "source_reference": "lib/integration-intelligence/community/apply-external-provider-adapters.ts",
       "runtime_loader": "load-companion-community-context.ts",
       "schema_status": "partial",
       "permission_status": "defined",
@@ -17605,10 +17605,10 @@
       "reconciliation_notes": []
     },
     {
-      "module_id": "verification.unonight_adapter_status",
+      "module_id": "verification.community_adapter_status",
       "domain": "member_verification",
       "business_pack_key": "community_pack",
-      "provider_key": "unonight_community_adapter",
+      "provider_key": "community_external_adapter",
       "capability_ids": [
         "verification_status.read"
       ],
@@ -17627,7 +17627,7 @@
         "Uses community best-practice moderation_status metadata — not full verification queue.",
         "No document images, ID data, or sensitive profile fields exposed to Companion."
       ],
-      "next_required_step": "Connect dedicated verification_queue.read source when Unonight verification RPC is approved.",
+      "next_required_step": "Connect dedicated verification_queue.read source when community verification RPC is approved.",
       "panel": "app",
       "source_classification": "source_proxy",
       "readiness_scope": {
@@ -17780,7 +17780,7 @@
       "module_id": "verification.queue_read",
       "domain": "member_verification",
       "business_pack_key": "community_pack",
-      "provider_key": "unonight_community_adapter",
+      "provider_key": "community_external_adapter",
       "capability_ids": [
         "verification_queue.read"
       ],
@@ -17796,10 +17796,10 @@
       "test_status": "phase_tested",
       "readiness": "connected_but_partial",
       "limitations": [
-        "Queue summary uses community metadata proxy until dedicated Unonight verification queue RPC is approved.",
+        "Queue summary uses community metadata proxy until dedicated verification queue RPC is approved.",
         "No document images, ID numbers, or moderator notes exposed to Companion."
       ],
-      "next_required_step": "Connect dedicated read-only Unonight verification queue RPC and promote Command Brief to exact semantic match.",
+      "next_required_step": "Connect dedicated read-only verification queue RPC and promote Command Brief to exact semantic match.",
       "panel": "app",
       "source_classification": "source_proxy",
       "readiness_scope": {
@@ -17827,7 +17827,7 @@
           "ui_surface": true,
           "actions": true,
           "limitations": [
-            "Queue summary uses community metadata proxy until dedicated Unonight verification queue RPC is approved.",
+            "Queue summary uses community metadata proxy until dedicated verification queue RPC is approved.",
             "No document images, ID numbers, or moderator notes exposed to Companion."
           ]
         },
@@ -17865,7 +17865,7 @@
       "module_id": "verification.case_read",
       "domain": "member_verification",
       "business_pack_key": "community_pack",
-      "provider_key": "unonight_community_adapter",
+      "provider_key": "community_external_adapter",
       "capability_ids": [
         "verification_case.read"
       ],
@@ -19839,10 +19839,10 @@
       "reconciliation_notes": []
     },
     {
-      "module_id": "directory.unonight_member",
+      "module_id": "directory.community_member",
       "domain": "organization_directory",
       "business_pack_key": "community_pack",
-      "provider_key": "unonight_community_member_directory",
+      "provider_key": "community_member_directory",
       "capability_ids": [
         "member.search"
       ],
@@ -19861,7 +19861,7 @@
         "No member list exposed in Phase 33C — contract only.",
         "No raw email/phone — masked fields require explicit permission when source exists."
       ],
-      "next_required_step": "Connect read-only Unonight member directory search RPC with masked contact fields and audit logging.",
+      "next_required_step": "Connect read-only community member directory search RPC with masked contact fields and audit logging.",
       "panel": "app",
       "source_classification": "source_missing",
       "readiness_scope": {
@@ -21583,11 +21583,11 @@
       },
       {
         "priority_order": 9,
-        "package_id": "p1.09_unonight_member_directory_source",
-        "module_id": "directory.unonight_member",
-        "exact_gap": "Unonight member directory has contract only — no live searchable member source.",
+        "package_id": "p1.09_community_member_directory_source",
+        "module_id": "directory.community_member",
+        "exact_gap": "Community member directory has contract only — no live searchable member source.",
         "current_readiness": "source_missing",
-        "verified_source": "unonight_community_adapter (member.read partial)",
+        "verified_source": "community_external_adapter (member.read partial)",
         "required_work": "Approve and connect tenant-scoped member search source with masking and audit.",
         "read_write_scope": "read_only",
         "dependencies": [],
@@ -21598,7 +21598,7 @@
           "Member search returns tenant-scoped masked records.",
           "No member list without explicit entitlement."
         ],
-        "why_p1": "Unonight pilot needs honest member directory — currently source_missing.",
+        "why_p1": "Community member directory needs honest source connection — currently source_missing.",
         "estimated_complexity": "large"
       },
       {
@@ -22880,7 +22880,7 @@
       {
         "priority": "P2",
         "module_id": "verification.case_read",
-        "provider_key": "unonight_community_adapter",
+        "provider_key": "community_external_adapter",
         "capability_ids": [
           "verification_case.read"
         ],
@@ -23416,6 +23416,7 @@
       "provider.commerce_customer_directory",
       "provider.booking_customer_directory",
       "provider.supplier_vendor_directory",
+      "provider.community_external_adapter",
       "service.local_service_beauty",
       "service.booking_write",
       "core.command_brief_signals",
@@ -23427,7 +23428,7 @@
       "hosts.task_write",
       "hosts.command_brief_signals",
       "directory.core_search",
-      "directory.unonight_member",
+      "directory.community_member",
       "panel.super_admin",
       "panel.platform",
       "panel.partners",
@@ -23460,6 +23461,30 @@
       "reason": "Placeholder readiness removed from canonical registry terminology — Phase 43."
     },
     {
+      "entry_id": "legacy_community_external_adapter_key",
+      "kind": "deprecated",
+      "canonical_replacement": "community_external_adapter",
+      "reason": "Legacy community adapter provider key removed from Core — use community_external_adapter."
+    },
+    {
+      "entry_id": "legacy_community_member_directory_key",
+      "kind": "deprecated",
+      "canonical_replacement": "community_member_directory",
+      "reason": "Legacy community member directory provider key removed from Core — use community_member_directory."
+    },
+    {
+      "entry_id": "legacy_community_member_directory_module",
+      "kind": "deprecated",
+      "canonical_replacement": "directory.community_member",
+      "reason": "Legacy community member directory module removed from Core — use directory.community_member."
+    },
+    {
+      "entry_id": "legacy_community_adapter_status_module",
+      "kind": "deprecated",
+      "canonical_replacement": "verification.community_adapter_status",
+      "reason": "Legacy community adapter status module removed from Core — use verification.community_adapter_status."
+    },
+    {
       "entry_id": "hr_employee_directory",
       "kind": "needs_migration",
       "canonical_replacement": "app_employee_directory",
@@ -23486,8 +23511,8 @@
       "capability_id": "activity.read.read",
       "module_ids": [
         "provider.community_collective_intelligence",
-        "provider.community_network_center",
-        "provider.unonight_community_adapter"
+        "provider.community_external_adapter",
+        "provider.community_network_center"
       ]
     },
     {
@@ -23887,9 +23912,9 @@
     {
       "capability_id": "listing.read.read",
       "module_ids": [
+        "provider.community_external_adapter",
         "provider.community_network_center",
-        "provider.community_pack_adapter",
-        "provider.unonight_community_adapter"
+        "provider.community_pack_adapter"
       ]
     },
     {
@@ -23924,9 +23949,9 @@
     {
       "capability_id": "member.read.read",
       "module_ids": [
+        "provider.community_external_adapter",
         "provider.community_network_center",
-        "provider.community_pack_adapter",
-        "provider.unonight_community_adapter"
+        "provider.community_pack_adapter"
       ]
     },
     {
@@ -23948,8 +23973,8 @@
     {
       "capability_id": "moderation_queue.read.read",
       "module_ids": [
-        "provider.moderation_engine",
-        "provider.unonight_community_adapter"
+        "provider.community_external_adapter",
+        "provider.moderation_engine"
       ]
     },
     {
@@ -24125,11 +24150,11 @@
       "module_ids": [
         "provider.analytics_center",
         "provider.community_collective_intelligence",
+        "provider.community_external_adapter",
         "provider.finance_operations_center",
         "provider.finance_pack_adapter",
         "provider.moderation_engine",
-        "provider.revenue_operations",
-        "provider.unonight_community_adapter"
+        "provider.revenue_operations"
       ]
     },
     {
@@ -24438,15 +24463,15 @@
     {
       "capability_id": "verification_status.read",
       "module_ids": [
-        "verification.trust_center",
-        "verification.unonight_adapter_status"
+        "verification.community_adapter_status",
+        "verification.trust_center"
       ]
     },
     {
       "capability_id": "verification_status.read.read",
       "module_ids": [
-        "provider.trust_center_verification",
-        "provider.unonight_community_adapter"
+        "provider.community_external_adapter",
+        "provider.trust_center_verification"
       ]
     },
     {

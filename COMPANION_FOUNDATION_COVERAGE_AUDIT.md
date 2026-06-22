@@ -1,6 +1,6 @@
 # Companion Foundation Coverage Audit — Phase 34
 
-Generated: 2026-06-22T22:09:11.118Z
+Generated: 2026-06-22T22:26:35.161Z
 
 ## Summary
 
@@ -9,7 +9,7 @@ Generated: 2026-06-22T22:09:11.118Z
 | Total modules | 178 |
 | Total II capabilities | 449 |
 | Business packs (marketing) | 7 |
-| Providers | 142 |
+| Providers | 141 |
 | Skills | 58 |
 | Panels | 4 |
 
@@ -25,7 +25,7 @@ Generated: 2026-06-22T22:09:11.118Z
 
 ## Member verification coverage
 
-- `verification.unonight_adapter_status`: **connected_but_partial** — verification_status.read
+- `verification.community_adapter_status`: **connected_but_partial** — verification_status.read
 - `verification.trust_center`: **connected_but_partial** — verification.read, verification_status.read, verification.request
 - `verification.queue_read`: **connected_but_partial** — verification_queue.read
 - `verification.case_read`: **connected_but_partial** — verification_case.read
@@ -57,7 +57,7 @@ Generated: 2026-06-22T22:09:11.118Z
 
 - Reconciliation version: `companion-coverage-reconciliation-v1`
 - P1 freeze packages: 10
-- Deprecated/merge entries: 5
+- Deprecated/merge entries: 9
 - Duplicate capability IDs tracked: 127
 - False production_ready violations: 0
 

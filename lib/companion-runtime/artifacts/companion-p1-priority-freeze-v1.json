@@ -180,11 +180,11 @@
     },
     {
       "priority_order": 9,
-      "package_id": "p1.09_unonight_member_directory_source",
-      "module_id": "directory.unonight_member",
-      "exact_gap": "Unonight member directory has contract only — no live searchable member source.",
+      "package_id": "p1.09_community_member_directory_source",
+      "module_id": "directory.community_member",
+      "exact_gap": "Community member directory has contract only — no live searchable member source.",
       "current_readiness": "source_missing",
-      "verified_source": "unonight_community_adapter (member.read partial)",
+      "verified_source": "community_external_adapter (member.read partial)",
       "required_work": "Approve and connect tenant-scoped member search source with masking and audit.",
       "read_write_scope": "read_only",
       "dependencies": [],
@@ -195,7 +195,7 @@
         "Member search returns tenant-scoped masked records.",
         "No member list without explicit entitlement."
       ],
-      "why_p1": "Unonight pilot needs honest member directory — currently source_missing.",
+      "why_p1": "Community member directory needs honest source connection — currently source_missing.",
       "estimated_complexity": "large"
     },
     {

@@ -1399,7 +1399,7 @@
         }
       }
     },
-    "unonightProviderAdapter": {
+    "communityProviderAdapter": {
       "providerDisplayName": "Community Provider Adapter",
       "searchTerms": "community provider adapter live read member moderation verification listing activity",
       "sourceLabel": "Verified community provider adapter",

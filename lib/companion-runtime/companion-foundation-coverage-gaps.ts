@@ -5,7 +5,7 @@ import type {
   CompanionCoverageReadiness,
 } from "./companion-foundation-coverage-types";
 
-const LIVE_SOURCE_MARKERS = ["rpc:", "lib/unonight/", "get_", "live", "adapter"];
+const LIVE_SOURCE_MARKERS = ["rpc:", "get_", "live", "adapter", "apply-external-provider"];
 
 function hasLiveSourceReference(entry: CompanionCoverageEntry): boolean {
   if (!entry.source_reference) return false;

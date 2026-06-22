@@ -1153,7 +1153,7 @@
         }
       }
     },
-    "unonightProviderAdapter": {
+    "communityProviderAdapter": {
       "providerDisplayName": "Adaptador de proveedor comunitario",
       "searchTerms": "community provider adapter live read member moderation verification listing activity",
       "sourceLabel": "Adaptador de proveedor comunitario verificado",

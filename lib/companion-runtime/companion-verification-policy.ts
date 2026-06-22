@@ -1,6 +1,6 @@
 /**
  * Frozen Companion Member Verification invariants — Phase 35.
- * Generic Core contracts only; Unonight field mapping belongs in adapters.
+ * Generic Core contracts only; tenant field mapping belongs in adapters.
  */
 
 export const COMPANION_VERIFICATION_READ_ONLY = "required" as const;

@@ -1,6 +1,6 @@
 import { SKILL_REGISTRY } from "@/lib/core/skills/registry";
 import { MARKETING_BUSINESS_PACK_REGISTRY } from "@/lib/marketing/business-packs/registry";
-import { UNONIGHT_COMMUNITY_ADAPTER_MANIFEST } from "@/lib/unonight/provider-adapter/manifest";
+import { mergeCommunityExternalAdapterIntoCommercial } from "@/lib/integration-intelligence/community/external-adapter-coverage-bridge";
 import {
   buildCommercialCapabilityMatrix,
   type CommercialCapabilityEntry,
@@ -13,8 +13,8 @@ import {
   SUPPORT_COVERAGE_MODULES,
   HOSTS_COVERAGE_MODULES,
   ORGANIZATION_DIRECTORY_COVERAGE_MODULES,
-  UNONIGHT_ADAPTER_COVERAGE_OVERRIDES,
-  UNONIGHT_CAPABILITY_READINESS_OVERRIDES,
+  COMMUNITY_EXTERNAL_ADAPTER_COVERAGE_OVERRIDES,
+  COMMUNITY_EXTERNAL_ADAPTER_READINESS_OVERRIDES,
 } from "./companion-foundation-coverage-overrides";
 import type {
   CompanionCoverageEntry,
@@ -385,7 +385,7 @@ function resolveProviderReadiness(
   capabilities: readonly CommercialCapabilityEntry[],
 ): CompanionCoverageReadiness {
   const statuses = capabilities.map((entry) => {
-    const override = UNONIGHT_CAPABILITY_READINESS_OVERRIDES[entry.capability_id];
+    const override = COMMUNITY_EXTERNAL_ADAPTER_READINESS_OVERRIDES[entry.capability_id];
     return override ?? mapCommercialStatusToReadiness(entry.status);
   });
 
@@ -424,7 +424,7 @@ function buildProviderEntriesFromCommercialMatrix(
     const runtimeLoader = DOMAIN_RUNTIME_LOADERS[domain] ?? null;
     const readiness = resolveProviderReadiness(providerKey, caps);
     const hasWrite = caps.some((cap) => cap.operation === "write");
-    const providerOverride = UNONIGHT_ADAPTER_COVERAGE_OVERRIDES[providerKey];
+    const providerOverride = COMMUNITY_EXTERNAL_ADAPTER_COVERAGE_OVERRIDES[providerKey];
 
     entries.push({
       module_id: `provider.${providerKey}`,
@@ -445,7 +445,7 @@ function buildProviderEntriesFromCommercialMatrix(
       command_brief_status: providerOverride?.command_brief_status ?? "none",
       action_status: hasWrite ? "approval_required" : "none",
       language_status: "complete",
-      test_status: providerOverride?.test_status ?? (providerKey === "unonight_community_adapter" ? "phase_tested" : "partial"),
+      test_status: providerOverride?.test_status ?? (providerKey === "community_external_adapter" ? "phase_tested" : "partial"),
       readiness,
       limitations: providerOverride?.limitations ?? [],
       next_required_step:
@@ -469,7 +469,7 @@ function inferDomainFromCapabilities(caps: readonly CommercialCapabilityEntry[])
     moderation_engine: "community",
     marketplace_listings: "community",
     membership_rewards: "community",
-    unonight_community_adapter: "community",
+    community_external_adapter: "community",
     trust_center_verification: "security",
     appointment_booking: "services",
     local_service_beauty: "industry_packs",
@@ -540,34 +540,15 @@ function buildSkillRegistryEntry(): CompanionCoverageEntry {
   };
 }
 
-function mergeUnonightManifestIntoCommercial(
+function mergeExternalCommunityAdapterIntoCommercial(
   commercial: CommercialCapabilityEntry[],
 ): CommercialCapabilityEntry[] {
-  const existingKeys = new Set(commercial.map((entry) => entry.capability_id));
-  const extra: CommercialCapabilityEntry[] = [];
-
-  for (const capability of UNONIGHT_COMMUNITY_ADAPTER_MANIFEST.capabilities) {
-    const capability_id = `${UNONIGHT_COMMUNITY_ADAPTER_MANIFEST.provider_key}.${capability.capability_key}.${capability.operation}`;
-    if (existingKeys.has(capability_id)) continue;
-    extra.push({
-      capability_id,
-      provider_key: UNONIGHT_COMMUNITY_ADAPTER_MANIFEST.provider_key,
-      capability_key: capability.capability_key,
-      operation: capability.operation,
-      tier: "provider",
-      status: capability.adapter_available ? "connected_but_partial" : "adapter_missing",
-      implementation_status: UNONIGHT_COMMUNITY_ADAPTER_MANIFEST.implementation_status,
-      adapter_available: capability.adapter_available,
-      business_pack_key: UNONIGHT_COMMUNITY_ADAPTER_MANIFEST.business_pack_key ?? null,
-    });
-  }
-
-  return [...commercial, ...extra];
+  return mergeCommunityExternalAdapterIntoCommercial(commercial);
 }
 
 /** Canonical Companion Foundation Coverage Registry — Phase 34. */
 export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEntry[] {
-  const commercial = mergeUnonightManifestIntoCommercial(buildCommercialCapabilityMatrix());
+  const commercial = mergeExternalCommunityAdapterIntoCommercial(buildCommercialCapabilityMatrix());
   const providerEntries = buildProviderEntriesFromCommercialMatrix(commercial);
 
   const explicitModuleIds = new Set([
@@ -641,7 +622,7 @@ export function buildCompanionFoundationCoverageArtifact(): CompanionFoundationC
   const entries = buildCompanionFoundationCoverageRegistry();
   const panel_coverage = entries.filter((entry) => entry.panel !== null && entry.module_id.startsWith("panel."));
   const gaps = buildCompanionFoundationCoverageGaps(entries);
-  const commercial = mergeUnonightManifestIntoCommercial(buildCommercialCapabilityMatrix());
+  const commercial = mergeExternalCommunityAdapterIntoCommercial(buildCommercialCapabilityMatrix());
 
   const base: CompanionFoundationCoverageArtifact = {
     version: "companion-foundation-coverage-v1",

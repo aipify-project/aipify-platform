@@ -28,7 +28,7 @@ import {
   COMPANION_COVERAGE_READINESS_I18N_KEYS,
 } from "@/lib/companion-runtime/companion-foundation-coverage-i18n";
 import { writeCompanionFoundationCoverageArtifacts } from "@/lib/companion-runtime/companion-foundation-coverage-report";
-import { UNONIGHT_COMMUNITY_ADAPTER_MANIFEST } from "@/lib/unonight/provider-adapter/manifest";
+import { COMMUNITY_EXTERNAL_ADAPTER_PROVIDER_KEY } from "@/lib/integration-intelligence/community/external-adapter-coverage-bridge";
 
 const repoRoot = path.join(import.meta.dirname, "..", "..");
 
@@ -56,20 +56,24 @@ for (const slug of MARKETING_BUSINESS_PACK_SLUGS) {
 }
 
 const providerKeys = listAllProviderKeys(entries);
-for (const manifest of [...commercial.map((c) => c.provider_key), UNONIGHT_COMMUNITY_ADAPTER_MANIFEST.provider_key]) {
+for (const manifest of [...commercial.map((c) => c.provider_key), COMMUNITY_EXTERNAL_ADAPTER_PROVIDER_KEY]) {
   assert.ok(providerKeys.includes(manifest), `provider ${manifest} must appear in coverage registry`);
 }
 
-const unonightEntry = entries.find((entry) => entry.provider_key === "unonight_community_adapter");
-assert.ok(unonightEntry, "unonight_community_adapter coverage entry");
+const communityAdapterEntry = entries.find((entry) => entry.provider_key === "community_external_adapter");
+assert.ok(communityAdapterEntry, "community_external_adapter coverage entry");
 assert.ok(
-  unonightEntry!.capability_ids.includes("member.read.read") ||
-    unonightEntry!.capability_ids.includes("member.read"),
-  "unonight member.read capability tracked",
+  communityAdapterEntry!.capability_ids.includes("member.read.read") ||
+    communityAdapterEntry!.capability_ids.includes("member.read"),
+  "community member.read capability tracked",
 );
-assert.notEqual(unonightEntry!.readiness, "production_ready", "unonight adapter must not be false production_ready");
+assert.notEqual(
+  communityAdapterEntry!.readiness,
+  "production_ready",
+  "community external adapter must not be false production_ready",
+);
 
-const verificationEntry = entries.find((entry) => entry.module_id === "verification.unonight_adapter_status");
+const verificationEntry = entries.find((entry) => entry.module_id === "verification.community_adapter_status");
 assert.ok(verificationEntry);
 assert.equal(verificationEntry!.action_status, "blocked");
 assert.ok(
@@ -97,7 +101,7 @@ const coreRegistrySource = fs.readFileSync(
   path.join(repoRoot, "lib/companion-runtime/companion-foundation-coverage-registry.ts"),
   "utf8",
 );
-assert.doesNotMatch(coreRegistrySource, /get_unonight_member_statistics/i, "Core registry must not embed Unonight RPC");
+assert.doesNotMatch(coreRegistrySource, /get_unonight_member_statistics/i, "Core registry must not embed tenant-specific RPC");
 
 for (const locale of COMPANION_COVERAGE_LOCALES) {
   const dictionary = JSON.parse(

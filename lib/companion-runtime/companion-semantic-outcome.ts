@@ -41,7 +41,7 @@ export function buildSemanticOutcomeAnswer(
 
   const metricLabel = resolved.requested_metric
     ? t(
-        `customerApp.companionPlatformKnowledge.unonightProviderAdapter.requestedMetrics.${resolved.requested_metric}`,
+        `customerApp.companionPlatformKnowledge.communityProviderAdapter.requestedMetrics.${resolved.requested_metric}`,
       )
     : t("customerApp.companionPlatformKnowledge.semanticRouting.genericMetric");
 

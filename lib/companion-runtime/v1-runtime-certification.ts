@@ -199,6 +199,16 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "Phase 43",
   },
+  {
+    phase: "43B",
+    required_test: "phase43b.test.ts",
+    required_wiring: [
+      "companion-core-customer-name-invariant.ts",
+      "../integration-intelligence/community/external-adapter-coverage-bridge.ts",
+      "../integration-intelligence/directory/community-member-directory-contract.ts",
+    ],
+    commit_hint: "Phase 43B",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

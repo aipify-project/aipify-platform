@@ -1315,7 +1315,7 @@
         }
       }
     },
-    "unonightProviderAdapter": {
+    "communityProviderAdapter": {
       "providerDisplayName": "Fellesskapsprovider-adapter",
       "searchTerms": "fellesskapsprovider adapter live les medlem moderering verifisering annonse aktivitet",
       "sourceLabel": "Verifisert fellesskapsprovider-adapter",

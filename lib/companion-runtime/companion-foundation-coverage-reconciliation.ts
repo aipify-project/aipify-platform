@@ -77,6 +77,30 @@ export const DEPRECATED_REGISTRY_ENTRIES: readonly CompanionDeprecatedRegistryEn
     reason: "Placeholder readiness removed from canonical registry terminology — Phase 43.",
   },
   {
+    entry_id: "legacy_community_external_adapter_key",
+    kind: "deprecated",
+    canonical_replacement: "community_external_adapter",
+    reason: "Legacy community adapter provider key removed from Core — use community_external_adapter.",
+  },
+  {
+    entry_id: "legacy_community_member_directory_key",
+    kind: "deprecated",
+    canonical_replacement: "community_member_directory",
+    reason: "Legacy community member directory provider key removed from Core — use community_member_directory.",
+  },
+  {
+    entry_id: "legacy_community_member_directory_module",
+    kind: "deprecated",
+    canonical_replacement: "directory.community_member",
+    reason: "Legacy community member directory module removed from Core — use directory.community_member.",
+  },
+  {
+    entry_id: "legacy_community_adapter_status_module",
+    kind: "deprecated",
+    canonical_replacement: "verification.community_adapter_status",
+    reason: "Legacy community adapter status module removed from Core — use verification.community_adapter_status.",
+  },
+  {
     entry_id: "hr_employee_directory",
     kind: "needs_migration",
     canonical_replacement: "app_employee_directory",
@@ -97,7 +121,7 @@ const DIRECTORY_PROVIDER_MODULE_IDS = [
   "directory.manufacturer",
   "directory.distributor",
   "directory.subcontractor",
-  "directory.unonight_member",
+  "directory.community_member",
   "directory.core_search",
 ] as const;
 
@@ -120,7 +144,7 @@ const PHASE_38_42_MODULE_IDS = [
 
 function hasLiveRpcReference(entry: CompanionCoverageEntry): boolean {
   const ref = String(entry.source_reference ?? "").toLowerCase();
-  return ref.startsWith("rpc:") || ref.includes("get_") || ref.startsWith("lib/unonight/");
+  return ref.startsWith("rpc:") || ref.includes("get_");
 }
 
 function inferSourceClassification(entry: CompanionCoverageEntry): CompanionCoverageSourceClassification {
@@ -546,11 +570,11 @@ export function buildP1PriorityFreeze(
     },
     {
       priority_order: 9,
-      package_id: "p1.09_unonight_member_directory_source",
-      module_id: "directory.unonight_member",
-      exact_gap: "Unonight member directory has contract only — no live searchable member source.",
-      current_readiness: entryByModule(reconciled, "directory.unonight_member")?.readiness ?? "source_missing",
-      verified_source: "unonight_community_adapter (member.read partial)",
+      package_id: "p1.09_community_member_directory_source",
+      module_id: "directory.community_member",
+      exact_gap: "Community member directory has contract only — no live searchable member source.",
+      current_readiness: entryByModule(reconciled, "directory.community_member")?.readiness ?? "source_missing",
+      verified_source: "community_external_adapter (member.read partial)",
       required_work: "Approve and connect tenant-scoped member search source with masking and audit.",
       read_write_scope: "read_only",
       dependencies: [],
@@ -559,7 +583,7 @@ export function buildP1PriorityFreeze(
         "Member search returns tenant-scoped masked records.",
         "No member list without explicit entitlement.",
       ],
-      why_p1: "Unonight pilot needs honest member directory — currently source_missing.",
+      why_p1: "Community member directory needs honest source connection — currently source_missing.",
       estimated_complexity: "large",
     },
     {

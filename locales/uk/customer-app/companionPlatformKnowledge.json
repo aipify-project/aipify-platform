@@ -1153,7 +1153,7 @@
         }
       }
     },
-    "unonightProviderAdapter": {
+    "communityProviderAdapter": {
       "providerDisplayName": "Адаптер провайдера спільноти",
       "searchTerms": "community provider adapter live read member moderation verification listing activity",
       "sourceLabel": "Перевірений адаптер провайдера спільноти",

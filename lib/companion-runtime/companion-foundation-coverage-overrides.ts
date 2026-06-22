@@ -1,5 +1,5 @@
 import type { CompanionCoverageEntry, CompanionCoverageReadiness } from "./companion-foundation-coverage-types";
-import { UNONIGHT_DIRECTORY_MEMBER_CONTRACT } from "@/lib/unonight/provider-adapter/directory-member-contract";
+import { COMMUNITY_MEMBER_DIRECTORY_CONTRACT } from "@/lib/integration-intelligence/directory/community-member-directory-contract";
 
 /** Provider-specific live-source overrides — not generic Core logic. */
 export type CoverageProviderOverride = Partial<
@@ -16,34 +16,34 @@ export type CoverageProviderOverride = Partial<
   >
 >;
 
-export const UNONIGHT_ADAPTER_COVERAGE_OVERRIDES: Record<string, CoverageProviderOverride> = {
-  unonight_community_adapter: {
+export const COMMUNITY_EXTERNAL_ADAPTER_COVERAGE_OVERRIDES: Record<string, CoverageProviderOverride> = {
+  community_external_adapter: {
     source_type: "adapter",
-    source_reference: "lib/unonight/provider-adapter/",
+    source_reference: "lib/integration-intelligence/community/apply-external-provider-adapters.ts",
     activation_status: "active",
     command_brief_status: "linked",
     test_status: "phase_tested",
   },
 };
 
-export const UNONIGHT_CAPABILITY_READINESS_OVERRIDES: Record<string, CompanionCoverageReadiness> = {
-  "unonight_community_adapter.member.read.read": "production_ready_candidate",
-  "unonight_community_adapter.moderation_queue.read.read": "production_ready_candidate",
-  "unonight_community_adapter.report.read.read": "production_ready_candidate",
-  "unonight_community_adapter.listing.read.read": "connected_but_partial",
-  "unonight_community_adapter.verification_status.read.read": "connected_but_partial",
-  "unonight_community_adapter.verification_queue.read.read": "connected_but_partial",
-  "unonight_community_adapter.verification_case.read.read": "connected_but_partial",
-  "unonight_community_adapter.activity.read.read": "connected_but_partial",
+export const COMMUNITY_EXTERNAL_ADAPTER_READINESS_OVERRIDES: Record<string, CompanionCoverageReadiness> = {
+  "community_external_adapter.member.read.read": "production_ready_candidate",
+  "community_external_adapter.moderation_queue.read.read": "production_ready_candidate",
+  "community_external_adapter.report.read.read": "production_ready_candidate",
+  "community_external_adapter.listing.read.read": "connected_but_partial",
+  "community_external_adapter.verification_status.read.read": "connected_but_partial",
+  "community_external_adapter.verification_queue.read.read": "connected_but_partial",
+  "community_external_adapter.verification_case.read.read": "connected_but_partial",
+  "community_external_adapter.activity.read.read": "connected_but_partial",
 };
 
 /** Explicit member verification coverage modules — Phase 34 audit. */
 export const MEMBER_VERIFICATION_COVERAGE_MODULES: readonly CompanionCoverageEntry[] = [
   {
-    module_id: "verification.unonight_adapter_status",
+    module_id: "verification.community_adapter_status",
     domain: "member_verification",
     business_pack_key: "community_pack",
-    provider_key: "unonight_community_adapter",
+    provider_key: "community_external_adapter",
     capability_ids: ["verification_status.read"],
     source_type: "rpc",
     source_reference: "rpc:get_customer_community_network_center:best_practices",
@@ -60,7 +60,7 @@ export const MEMBER_VERIFICATION_COVERAGE_MODULES: readonly CompanionCoverageEnt
       "Uses community best-practice moderation_status metadata — not full verification queue.",
       "No document images, ID data, or sensitive profile fields exposed to Companion.",
     ],
-    next_required_step: "Connect dedicated verification_queue.read source when Unonight verification RPC is approved.",
+    next_required_step: "Connect dedicated verification_queue.read source when community verification RPC is approved.",
     panel: "app",
   },
   {
@@ -91,7 +91,7 @@ export const MEMBER_VERIFICATION_COVERAGE_MODULES: readonly CompanionCoverageEnt
     module_id: "verification.queue_read",
     domain: "member_verification",
     business_pack_key: "community_pack",
-    provider_key: "unonight_community_adapter",
+    provider_key: "community_external_adapter",
     capability_ids: ["verification_queue.read"],
     source_type: "rpc",
     source_reference: "rpc:get_customer_community_network_center:best_practices",
@@ -105,17 +105,17 @@ export const MEMBER_VERIFICATION_COVERAGE_MODULES: readonly CompanionCoverageEnt
     test_status: "phase_tested",
     readiness: "connected_but_partial",
     limitations: [
-      "Queue summary uses community metadata proxy until dedicated Unonight verification queue RPC is approved.",
+      "Queue summary uses community metadata proxy until dedicated verification queue RPC is approved.",
       "No document images, ID numbers, or moderator notes exposed to Companion.",
     ],
-    next_required_step: "Connect dedicated read-only Unonight verification queue RPC and promote Command Brief to exact semantic match.",
+    next_required_step: "Connect dedicated read-only verification queue RPC and promote Command Brief to exact semantic match.",
     panel: "app",
   },
   {
     module_id: "verification.case_read",
     domain: "member_verification",
     business_pack_key: "community_pack",
-    provider_key: "unonight_community_adapter",
+    provider_key: "community_external_adapter",
     capability_ids: ["verification_case.read"],
     source_type: "rpc",
     source_reference: "rpc:get_customer_community_network_center:best_practices",
@@ -187,10 +187,10 @@ export const ORGANIZATION_DIRECTORY_COVERAGE_MODULES: readonly CompanionCoverage
     panel: "app",
   },
   {
-    module_id: "directory.unonight_member",
+    module_id: "directory.community_member",
     domain: "organization_directory",
     business_pack_key: "community_pack",
-    provider_key: "unonight_community_member_directory",
+    provider_key: "community_member_directory",
     capability_ids: ["member.search"],
     source_type: "none",
     source_reference: null,
@@ -207,7 +207,7 @@ export const ORGANIZATION_DIRECTORY_COVERAGE_MODULES: readonly CompanionCoverage
       "No member list exposed in Phase 33C — contract only.",
       "No raw email/phone — masked fields require explicit permission when source exists.",
     ],
-    next_required_step: UNONIGHT_DIRECTORY_MEMBER_CONTRACT.next_required_step,
+    next_required_step: COMMUNITY_MEMBER_DIRECTORY_CONTRACT.next_required_step,
     panel: "app",
   },
   {
