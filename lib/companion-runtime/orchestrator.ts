@@ -64,6 +64,11 @@ import {
   buildOperationalGapAnswer,
 } from "./operational-answer";
 import { finalizeCompanionSearchResult } from "./companion-output-pipeline";
+import { matchConfirmedMemoryQuery } from "./companion-memory-query-match";
+import {
+  buildConfirmedMemoryAnswer,
+  enrichAnswerWithMemoryContext,
+} from "./memory-answer";
 import { mapDispatchCodeToGapReason } from "./tool-answer";
 import {
   createEmptyCompanionTenantContext,
@@ -318,6 +323,37 @@ function resolveOperationalAnswer(
   };
 }
 
+function resolveConfirmedMemoryAnswer(
+  query: string,
+  t: Translator,
+  activeLocale: CustomerActiveLocale,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (tenantContext.memoryContext.permission_status === "denied") return null;
+
+  const memoryMatch = matchConfirmedMemoryQuery(query, tenantContext);
+  if (!memoryMatch) return null;
+
+  return {
+    answer: buildConfirmedMemoryAnswer(memoryMatch, tenantContext.memoryContext, t, activeLocale),
+  };
+}
+
+async function resolveApprovedOrganizationKnowledgeAnswer(
+  query: string,
+  supabase: SupabaseClient,
+  t: Translator,
+  navigationQuery: boolean,
+): Promise<PlatformSearchResult | null> {
+  if (navigationQuery) return null;
+
+  const orgOutcome = await searchApprovedOrganizationKnowledge(supabase, query);
+  if (orgOutcome.kind === "hit") {
+    return buildOrganizationKnowledgeResult(orgOutcome.hit, t);
+  }
+  return null;
+}
+
 async function resolveNavigationCorpusAnswer(
   query: string,
   options: PlatformSearchOptions,
@@ -415,12 +451,31 @@ export async function orchestrateCompanionSearch(
   const restrictedNote = t("customerApp.companionPlatformKnowledge.permissions.restrictedAction");
   const productConcept = isProductConceptQuery(query);
   const navigationQuery = isAppNavigationQuery(query);
-  const finalize = (result: PlatformSearchResult) =>
-    finalizeCompanionSearchResult(result, resolvedTenantContext.identityContext, {
-      locale: activeLocale,
-      userName: resolvedTenantContext.identityContext.preferred_name,
-      context: result.answer.source,
-    });
+  const finalize = (
+    result: PlatformSearchResult,
+    options?: { liveAnswer?: boolean; skipMemoryEnrichment?: boolean },
+  ) => {
+    const enrichedAnswer =
+      options?.skipMemoryEnrichment
+        ? result.answer
+        : enrichAnswerWithMemoryContext(
+            result.answer,
+            query,
+            resolvedTenantContext.memoryContext,
+            t,
+            { liveAnswer: options?.liveAnswer },
+          );
+
+    return finalizeCompanionSearchResult(
+      { ...result, answer: enrichedAnswer },
+      resolvedTenantContext.identityContext,
+      {
+        locale: activeLocale,
+        userName: resolvedTenantContext.identityContext.preferred_name,
+        context: result.answer.source,
+      },
+    );
+  };
 
   if (supabase && productConcept) {
     const kcArticle = await searchCanonicalKnowledgeCenter(supabase, query, activeLocale);
@@ -440,14 +495,6 @@ export async function orchestrateCompanionSearch(
     }
   }
 
-  if (supabase && !navigationQuery) {
-    const orgOutcome = await searchApprovedOrganizationKnowledge(supabase, query);
-    if (orgOutcome.kind === "hit") {
-      const orgResult = buildOrganizationKnowledgeResult(orgOutcome.hit, t);
-      if (orgResult) return finalize(orgResult);
-    }
-  }
-
   const liveResult = await resolveLiveToolAnswer(
     query,
     { ...options, integrationContext },
@@ -456,7 +503,25 @@ export async function orchestrateCompanionSearch(
     activeLocale,
     resolvedTenantContext,
   );
-  if (liveResult) return finalize(liveResult);
+  if (liveResult) return finalize(liveResult, { liveAnswer: true });
+
+  const confirmedMemoryResult = resolveConfirmedMemoryAnswer(
+    query,
+    t,
+    activeLocale,
+    resolvedTenantContext,
+  );
+  if (confirmedMemoryResult) return finalize(confirmedMemoryResult);
+
+  if (supabase && !navigationQuery) {
+    const approvedOrgResult = await resolveApprovedOrganizationKnowledgeAnswer(
+      query,
+      supabase,
+      t,
+      navigationQuery,
+    );
+    if (approvedOrgResult) return finalize(approvedOrgResult);
+  }
 
   const operationalResult = resolveOperationalAnswer(
     query,

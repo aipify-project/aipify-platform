@@ -100,6 +100,21 @@
       "itemLine": "• {title} ({category})",
       "nextActionLine": "• {title}"
     },
+    "memory": {
+      "sourceLabel": "Potwierdzona pamięć organizacji",
+      "sourceLine": "Źródło: {source} · Obowiązuje od: {effectiveFrom} · Przegląd: {reviewStatus}",
+      "staleWarning": "Potwierdzona pamięć organizacji może wymagać przeglądu — zweryfikuj ją przed podjęciem decyzji.",
+      "terminologyLine": "Preferencja terminologiczna organizacji: {value}",
+      "workflowLine": "Zatwierdzona preferencja przepływu pracy: {value}",
+      "permissionDenied": "Twoja rola nie może odczytać potwierdzonej pamięci organizacji dla tej odpowiedzi.",
+      "emptyConfirmed": "Żadna potwierdzona pamięć organizacji nie pasowała do tego pytania.",
+      "reviewStatus": {
+        "confirmed": "potwierdzona",
+        "published": "opublikowana",
+        "reviewed": "przejrzana",
+        "missing": "niepotwierdzona"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

@@ -100,6 +100,21 @@
       "itemLine": "• {title} ({category})",
       "nextActionLine": "• {title}"
     },
+    "memory": {
+      "sourceLabel": "Підтверджена організаційна пам'ять",
+      "sourceLine": "Джерело: {source} · Чинне з: {effectiveFrom} · Перевірка: {reviewStatus}",
+      "staleWarning": "Підтверджена організаційна пам'ять може потребувати перегляду — перевірте перед прийняттям рішень.",
+      "terminologyLine": "Термінологічна перевага організації: {value}",
+      "workflowLine": "Затверджена перевага робочого процесу: {value}",
+      "permissionDenied": "Ваша роль не може читати підтверджену організаційну пам'ять для цієї відповіді.",
+      "emptyConfirmed": "Жодна підтверджена організаційна пам'ять не відповідає цьому запиту.",
+      "reviewStatus": {
+        "confirmed": "підтверджено",
+        "published": "опубліковано",
+        "reviewed": "переглянуто",
+        "missing": "не підтверджено"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

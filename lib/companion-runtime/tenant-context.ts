@@ -23,6 +23,7 @@ import { loadCompanionSchemaContext } from "./load-companion-schema-context";
 import { loadCompanionToolRegistry } from "./load-companion-tool-registry";
 import { loadCompanionOperationalContext } from "./load-companion-operational-context";
 import { loadCompanionIdentityContext } from "./load-companion-identity-context";
+import { loadCompanionMemoryContext } from "./load-companion-memory-context";
 
 export type { CompanionTenantContext } from "./companion-tenant-context";
 export {
@@ -141,12 +142,14 @@ export async function loadCompanionTenantContext(
   const { primaryVerifiedProvider, connectedProviders } = parseVerifiedProviders(hubResult.data);
   const organizationId = orgContext.organization_id;
 
-  const [organizationDefaultLocale, activeBusinessPacks, discovery, identityContext] = await Promise.all([
-    loadOrganizationDefaultLocale(supabase, organizationId),
-    loadActiveBusinessPacks(supabase),
-    loadCompanionDiscoveryContext(supabase, organizationId),
-    loadCompanionIdentityContext(supabase, locale),
-  ]);
+  const [organizationDefaultLocale, activeBusinessPacks, discovery, identityContext, memoryLoad] =
+    await Promise.all([
+      loadOrganizationDefaultLocale(supabase, organizationId),
+      loadActiveBusinessPacks(supabase),
+      loadCompanionDiscoveryContext(supabase, organizationId),
+      loadCompanionIdentityContext(supabase, locale),
+      loadCompanionMemoryContext(supabase, { locale }),
+    ]);
 
   const businessPackContext = await loadCompanionBusinessPackContext(supabase, {
     activeBusinessPacks,
@@ -204,5 +207,7 @@ export async function loadCompanionTenantContext(
     commandBriefAvailable: operationalLoad.commandBriefAvailable,
     sinceLastLoginAvailable: operationalLoad.sinceLastLoginAvailable,
     identityContext,
+    memoryContext: memoryLoad.memoryContext,
+    confirmedOrganizationKnowledgeAvailable: memoryLoad.confirmedOrganizationKnowledgeAvailable,
   });
 }

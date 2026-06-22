@@ -14,6 +14,7 @@ import type { CompanionToolRegistry } from "./companion-tool-definition";
 import { createEmptyCompanionToolRegistry } from "./companion-tool-definition";
 import { createEmptyCompanionOperationalContext, type CompanionOperationalContext } from "./companion-operational-context";
 import { createEmptyCompanionIdentityContext, type CompanionIdentityContext } from "./companion-identity-context";
+import { createEmptyCompanionMemoryContext, type CompanionMemoryContext } from "./companion-memory-context";
 
 const PORTAL_FEATURE_KEYS = [
   "team_management",
@@ -50,6 +51,8 @@ export type CompanionTenantContext = {
   commandBriefAvailable: boolean;
   sinceLastLoginAvailable: boolean;
   identityContext: CompanionIdentityContext;
+  memoryContext: CompanionMemoryContext;
+  confirmedOrganizationKnowledgeAvailable: boolean;
 };
 
 export function createEmptyCompanionTenantContext(
@@ -82,6 +85,8 @@ export function createEmptyCompanionTenantContext(
     commandBriefAvailable: false,
     sinceLastLoginAvailable: false,
     identityContext: createEmptyCompanionIdentityContext(),
+    memoryContext: createEmptyCompanionMemoryContext(),
+    confirmedOrganizationKnowledgeAvailable: false,
     ...overrides,
   };
 }

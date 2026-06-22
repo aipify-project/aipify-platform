@@ -100,6 +100,21 @@
       "itemLine": "• {title} ({category})",
       "nextActionLine": "• {title}"
     },
+    "memory": {
+      "sourceLabel": "Memoria organizacional confirmada",
+      "sourceLine": "Fuente: {source} · Vigente desde: {effectiveFrom} · Revisión: {reviewStatus}",
+      "staleWarning": "La memoria organizacional confirmada puede necesitar revisión — verifíquela antes de usarla en decisiones.",
+      "terminologyLine": "Preferencia terminológica de la organización: {value}",
+      "workflowLine": "Preferencia de flujo de trabajo aprobada: {value}",
+      "permissionDenied": "Su rol no puede leer memoria organizacional confirmada para esta respuesta.",
+      "emptyConfirmed": "Ninguna memoria organizacional confirmada coincidió con esta pregunta.",
+      "reviewStatus": {
+        "confirmed": "confirmada",
+        "published": "publicada",
+        "reviewed": "revisada",
+        "missing": "no confirmada"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

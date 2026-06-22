@@ -100,6 +100,21 @@
       "itemLine": "• {title} ({category})",
       "nextActionLine": "• {title}"
     },
+    "memory": {
+      "sourceLabel": "Confirmed organization memory",
+      "sourceLine": "Source: {source} · Effective from: {effectiveFrom} · Review: {reviewStatus}",
+      "staleWarning": "Confirmed organization memory may be due for review — verify before relying on it for decisions.",
+      "terminologyLine": "Organization terminology preference: {value}",
+      "workflowLine": "Approved workflow preference: {value}",
+      "permissionDenied": "Your role cannot read confirmed organization memory for this answer.",
+      "emptyConfirmed": "No confirmed organization memory matched this question.",
+      "reviewStatus": {
+        "confirmed": "confirmed",
+        "published": "published",
+        "reviewed": "reviewed",
+        "missing": "not confirmed"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

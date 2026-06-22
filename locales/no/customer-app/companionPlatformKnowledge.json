@@ -100,6 +100,21 @@
       "itemLine": "• {title} ({category})",
       "nextActionLine": "• {title}"
     },
+    "memory": {
+      "sourceLabel": "Bekreftet organisasjonsminne",
+      "sourceLine": "Kilde: {source} · Gyldig fra: {effectiveFrom} · Gjennomgang: {reviewStatus}",
+      "staleWarning": "Bekreftet organisasjonsminne kan trenge gjennomgang — verifiser før du stoler på det i beslutninger.",
+      "terminologyLine": "Organisasjonens terminologipreferanse: {value}",
+      "workflowLine": "Godkjent arbeidsflytpreferanse: {value}",
+      "permissionDenied": "Rollen din kan ikke lese bekreftet organisasjonsminne for dette svaret.",
+      "emptyConfirmed": "Ingen bekreftet organisasjonsminne matchet dette spørsmålet.",
+      "reviewStatus": {
+        "confirmed": "bekreftet",
+        "published": "publisert",
+        "reviewed": "gjennomgått",
+        "missing": "ikke bekreftet"
+      }
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

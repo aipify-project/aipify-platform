@@ -100,6 +100,21 @@
       "itemLine": "• {title} ({category})",
       "nextActionLine": "• {title}"
     },
+    "memory": {
+      "sourceLabel": "Bekræftet organisationshukommelse",
+      "sourceLine": "Kilde: {source} · Gældende fra: {effectiveFrom} · Gennemgang: {reviewStatus}",
+      "staleWarning": "Bekræftet organisationshukommelse kan trænge til gennemgang — verificer før du stoler på den i beslutninger.",
+      "terminologyLine": "Organisationens terminologipræference: {value}",
+      "workflowLine": "Godkendt arbejdsgangspræference: {value}",
+      "permissionDenied": "Din rolle kan ikke læse bekræftet organisationshukommelse for dette svar.",
+      "emptyConfirmed": "Ingen bekræftet organisationshukommelse matchede dette spørgsmål.",
+      "reviewStatus": {
+        "confirmed": "bekræftet",
+        "published": "publiceret",
+        "reviewed": "gennemgået",
+        "missing": "ikke bekræftet"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

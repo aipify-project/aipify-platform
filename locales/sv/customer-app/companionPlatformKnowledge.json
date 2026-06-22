@@ -100,6 +100,21 @@
       "itemLine": "• {title} ({category})",
       "nextActionLine": "• {title}"
     },
+    "memory": {
+      "sourceLabel": "Bekräftat organisationsminne",
+      "sourceLine": "Källa: {source} · Gäller från: {effectiveFrom} · Granskning: {reviewStatus}",
+      "staleWarning": "Bekräftat organisationsminne kan behöva granskas — verifiera innan du fattar beslut.",
+      "terminologyLine": "Organisationens terminologipreferens: {value}",
+      "workflowLine": "Godkänd arbetsflödespreferens: {value}",
+      "permissionDenied": "Din roll kan inte läsa bekräftat organisationsminne för detta svar.",
+      "emptyConfirmed": "Inget bekräftat organisationsminne matchade denna fråga.",
+      "reviewStatus": {
+        "confirmed": "bekräftad",
+        "published": "publicerad",
+        "reviewed": "granskad",
+        "missing": "inte bekräftad"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
