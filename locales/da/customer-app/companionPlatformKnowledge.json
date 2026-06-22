@@ -58,6 +58,23 @@
       "unknownCapability": "Den capability er ikke registreret for dine godkendte integrationer.",
       "sourceLabel": "Companion tool registry"
     },
+    "grounded": {
+      "defaultLead": "Aipify forberedte et read-only svar fra verificerede live-data.",
+      "sourceLine": "Kilde: {source} · Tjekket: {checkedAt}",
+      "sourceLabel": "Verificerede live-data",
+      "timestampUnavailable": "Ikke tilgængelig",
+      "staleWarning": "Live-metadata kan være forældet — verificer integrationen hvis noget ser forkert ud.",
+      "partialWarning": "Live-værktøjet returnerede kun delvis metadata.",
+      "valueMissing": "Ikke rapporteret af live-værktøjet",
+      "valueNull": "Rapporteret som tom af live-værktøjet",
+      "valueZero": "Rapporteret som nul af live-værktøjet",
+      "metricLine": "{label}: {value}",
+      "metricList": "{label}: {items}",
+      "metricGrouped": "{label}: {items}",
+      "permissionDenied": "Din rolle kan ikke læse live-data for den capability.",
+      "unknownEntity": "Entiteten findes ikke i din godkendte schema-kontekst.",
+      "providerFailure": "Den verificerede integration returnerede ikke brugbare read-only data."
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

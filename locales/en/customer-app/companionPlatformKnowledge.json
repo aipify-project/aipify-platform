@@ -58,6 +58,23 @@
       "unknownCapability": "That capability is not registered for your approved integrations.",
       "sourceLabel": "Companion tool registry"
     },
+    "grounded": {
+      "defaultLead": "Aipify prepared a read-only answer from verified live data.",
+      "sourceLine": "Source: {source} · Checked: {checkedAt}",
+      "sourceLabel": "Verified live data",
+      "timestampUnavailable": "Not available",
+      "staleWarning": "Live metadata may be stale — verify the integration if something looks wrong.",
+      "partialWarning": "The live tool returned partial metadata only.",
+      "valueMissing": "Not reported by the live tool",
+      "valueNull": "Reported as empty by the live tool",
+      "valueZero": "Reported as zero by the live tool",
+      "metricLine": "{label}: {value}",
+      "metricList": "{label}: {items}",
+      "metricGrouped": "{label}: {items}",
+      "permissionDenied": "Your role cannot read live data for that capability.",
+      "unknownEntity": "That entity is not available in your approved schema context.",
+      "providerFailure": "The verified integration did not return usable read-only data."
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

@@ -58,6 +58,23 @@
       "unknownCapability": "Ця capability не зареєстрована для ваших схвалених інтеграцій.",
       "sourceLabel": "Реєстр інструментів Companion"
     },
+    "grounded": {
+      "defaultLead": "Aipify підготувала read-only відповідь із перевірених live-даних.",
+      "sourceLine": "Джерело: {source} · Перевірено: {checkedAt}",
+      "sourceLabel": "Перевірені live-дані",
+      "timestampUnavailable": "Недоступно",
+      "staleWarning": "Live-метадані можуть бути застарілими — перевірте інтеграцію, якщо щось виглядає неправильно.",
+      "partialWarning": "Live-інструмент повернув лише часткові метадані.",
+      "valueMissing": "Не повідомлено live-інструментом",
+      "valueNull": "Повідомлено як порожнє live-інструментом",
+      "valueZero": "Повідомлено як нуль live-інструментом",
+      "metricLine": "{label}: {value}",
+      "metricList": "{label}: {items}",
+      "metricGrouped": "{label}: {items}",
+      "permissionDenied": "Ваша роль не може читати live-дані для цієї capability.",
+      "unknownEntity": "Ця сутність недоступна у вашому затвердженому schema-контексті.",
+      "providerFailure": "Перевірена інтеграція не повернула придатні read-only дані."
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

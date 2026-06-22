@@ -20,16 +20,12 @@ import {
 import { enrichAnswerWithBusinessPackContext } from "./pack-answer";
 import { enrichAnswerWithSchemaContext } from "./schema-answer";
 import {
-  buildIntegrationStatusFailureAnswer,
   buildPrivateDataDeniedAnswer,
   buildRoleDisambiguationAnswer,
-  buildVerifiedIntegrationStatusAnswer,
 } from "@/lib/companion-platform-knowledge/integration-status-answer";
 import { resolveCompanionLiveToolRouting } from "@/lib/companion-platform-knowledge/live-routing";
 import {
-  buildPlatformSnapshotFailureAnswer,
   buildUnsupportedLiveMetricAnswer,
-  buildVerifiedPlatformSnapshotAnswer,
 } from "@/lib/companion-platform-knowledge/platform-snapshot-answer";
 import {
   ACCEPTANCE_QUESTION_ARTICLE_MAP,
@@ -53,10 +49,16 @@ import { isAppNavigationQuery, isProductConceptQuery } from "./product-concept";
 import type { OrganizationKnowledgeHit } from "./organization-knowledge";
 import { dispatchCompanionReadTool } from "./companion-tool-dispatch";
 import {
-  capabilityIdForCompanionLiveTool,
   selectToolByCapabilityId,
 } from "./companion-tool-definition";
-import { buildHonestToolGapAnswer, mapDispatchCodeToGapReason } from "./tool-answer";
+import { normalizeCompanionLiveResult } from "./companion-live-result";
+import { matchLiveQuery } from "./companion-query-match";
+import {
+  buildGroundedLiveAnswer,
+  buildGroundedLiveFailureAnswer,
+  buildGroundedLiveGapAnswer,
+} from "./grounded-answer";
+import { mapDispatchCodeToGapReason } from "./tool-answer";
 import {
   createEmptyCompanionTenantContext,
   loadCompanionTenantContext,
@@ -197,40 +199,37 @@ function buildOrganizationKnowledgeResult(
 
 const CORPUS_NAV_MIN_SCORE = 50;
 
-async function runRegisteredReadTool(
+async function executeGroundedLiveRead(
   supabase: SupabaseClient,
   tenantContext: CompanionTenantContext,
-  providerKey: string,
-  toolName: "get_platform_snapshot" | "get_connection_status",
+  liveMatch: import("./companion-query-match").CompanionLiveQueryMatch,
   t: Translator,
-) {
-  const capabilityId = capabilityIdForCompanionLiveTool(providerKey, toolName);
-  const tool = selectToolByCapabilityId(tenantContext.toolRegistry, capabilityId);
+  locale: CustomerActiveLocale,
+): Promise<PlatformSearchResult> {
+  const tool = selectToolByCapabilityId(tenantContext.toolRegistry, liveMatch.capability_id);
   if (!tool) {
-    return { kind: "gap" as const, answer: buildHonestToolGapAnswer(t, "missing_tool") };
+    return { answer: buildGroundedLiveGapAnswer(t, "missing_tool") };
   }
 
   const dispatchResult = await dispatchCompanionReadTool(supabase, tool, {
-    providerKey,
+    providerKey: liveMatch.provider_key,
     refresh: true,
   });
 
   if (!dispatchResult.ok && dispatchResult.gap) {
     return {
-      kind: "gap" as const,
-      answer: buildHonestToolGapAnswer(t, mapDispatchCodeToGapReason(dispatchResult.code)),
+      answer: buildGroundedLiveGapAnswer(t, mapDispatchCodeToGapReason(dispatchResult.code)),
     };
   }
 
-  if (dispatchResult.platformSnapshot) {
-    return { kind: "snapshot" as const, result: dispatchResult.platformSnapshot };
+  if (!dispatchResult.ok) {
+    return { answer: buildGroundedLiveFailureAnswer(t, dispatchResult.code) };
   }
 
-  if (dispatchResult.connectionStatus) {
-    return { kind: "status" as const, result: dispatchResult.connectionStatus };
-  }
-
-  return null;
+  const liveResult = normalizeCompanionLiveResult(dispatchResult, liveMatch);
+  return {
+    answer: buildGroundedLiveAnswer(liveResult, liveMatch, t, locale),
+  };
 }
 
 async function resolveLiveToolAnswer(
@@ -254,120 +253,24 @@ async function resolveLiveToolAnswer(
     return { answer: buildUnsupportedLiveMetricAnswer(t, permissionCtx, providerKey) };
   }
 
-  if (liveRouting.tool === "get_platform_snapshot" && liveRouting.platformSnapshotIntent && supabase) {
-    const snapshotIntent = liveRouting.platformSnapshotIntent;
-    const snapshotProvider = integrationContext ?? snapshotIntent.providerKey;
-    if (!snapshotProvider) return null;
-
-    const toolOutcome = await runRegisteredReadTool(
-      supabase,
-      tenantContext,
-      snapshotProvider,
-      "get_platform_snapshot",
-      t,
-    );
-    if (!toolOutcome) return null;
-    if (toolOutcome.kind === "gap") return { answer: toolOutcome.answer };
-    if (toolOutcome.kind !== "snapshot") return null;
-
-    const snapshotResult = toolOutcome.result;
-    if (snapshotResult.ok) {
-      return {
-        answer: buildVerifiedPlatformSnapshotAnswer(
-          snapshotResult.data,
-          t,
-          locale,
-          permissionCtx,
-          snapshotIntent,
-        ),
-      };
-    }
-
-    if (snapshotIntent.blocksKnowledgeCenter) {
-      return {
-        answer: buildPlatformSnapshotFailureAnswer(
-          snapshotResult.code,
-          t,
-          permissionCtx,
-          snapshotIntent.providerKey,
-        ),
-      };
-    }
-  }
-
   const liveIntegrationIntent = liveRouting.integrationStatusIntent;
-  if (liveIntegrationIntent) {
-    if (liveIntegrationIntent.queryKind === "private_data") {
-      return { answer: buildPrivateDataDeniedAnswer(t, permissionCtx) };
-    }
-
-    if (liveIntegrationIntent.queryKind === "role_disambiguation") {
-      return { answer: buildRoleDisambiguationAnswer(t, permissionCtx) };
-    }
-
-    if (supabase && liveIntegrationIntent.requiresLive) {
-      const statusProvider = integrationContext ?? liveIntegrationIntent.providerKey;
-      if (!statusProvider) return null;
-
-      const toolOutcome = await runRegisteredReadTool(
-        supabase,
-        tenantContext,
-        statusProvider,
-        "get_connection_status",
-        t,
-      );
-      if (!toolOutcome) return null;
-      if (toolOutcome.kind === "gap") return { answer: toolOutcome.answer };
-      if (toolOutcome.kind !== "status") return null;
-
-      const toolResult = toolOutcome.result;
-      if (toolResult.ok) {
-        return {
-          answer: buildVerifiedIntegrationStatusAnswer(
-            toolResult.data,
-            t,
-            locale,
-            permissionCtx,
-            liveIntegrationIntent.queryKind,
-          ),
-        };
-      }
-
-      if (liveIntegrationIntent.blocksKnowledgeCenter) {
-        return {
-          answer: buildIntegrationStatusFailureAnswer(toolResult.code, t, permissionCtx),
-        };
-      }
-    }
+  if (liveIntegrationIntent?.queryKind === "private_data") {
+    return { answer: buildPrivateDataDeniedAnswer(t, permissionCtx) };
+  }
+  if (liveIntegrationIntent?.queryKind === "role_disambiguation") {
+    return { answer: buildRoleDisambiguationAnswer(t, permissionCtx) };
   }
 
-  if (liveRouting.tool === "get_connection_status" && liveRouting.genericIntent && supabase) {
-    const statusProvider = integrationContext ?? liveRouting.genericIntent.providerKey;
-    if (!statusProvider) return null;
+  const liveMatch = matchLiveQuery({
+    query,
+    tenantContext,
+    integrationContext,
+    locale: activeLocale,
+    liveRouting,
+  });
 
-    const toolOutcome = await runRegisteredReadTool(
-      supabase,
-      tenantContext,
-      statusProvider,
-      "get_connection_status",
-      t,
-    );
-    if (!toolOutcome) return null;
-    if (toolOutcome.kind === "gap") return { answer: toolOutcome.answer };
-    if (toolOutcome.kind !== "status") return null;
-
-    const toolResult = toolOutcome.result;
-    if (toolResult.ok) {
-      return {
-        answer: buildVerifiedIntegrationStatusAnswer(
-          toolResult.data,
-          t,
-          locale,
-          permissionCtx,
-          "status",
-        ),
-      };
-    }
+  if (liveMatch && supabase) {
+    return executeGroundedLiveRead(supabase, tenantContext, liveMatch, t, activeLocale);
   }
 
   return null;
