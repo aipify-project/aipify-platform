@@ -58,7 +58,6 @@ type DashboardShellProps = {
   shellVariant: "platform" | "customer";
   mobileNavIds: string[];
   navSearchHint?: string;
-  navCompactToggleLabel?: string;
   navSearchResultsLabel?: string;
   companyNameOverride?: string;
   platformBrandMark?: {
@@ -139,7 +138,6 @@ export default function DashboardShell({
   shellVariant,
   mobileNavIds,
   navSearchHint,
-  navCompactToggleLabel,
   navSearchResultsLabel,
   companyNameOverride,
   platformBrandMark,
@@ -182,7 +180,6 @@ export default function DashboardShell({
           shellVariant={shellVariant}
           mobileNavIds={mobileNavIds}
           navSearchHint={navSearchHint}
-          navCompactToggleLabel={navCompactToggleLabel}
           navSearchResultsLabel={navSearchResultsLabel}
           companyNameOverride={companyNameOverride}
           platformBrandMark={platformBrandMark}
@@ -226,7 +223,6 @@ export default function DashboardShell({
       shellVariant={shellVariant}
       mobileNavIds={mobileNavIds}
       navSearchHint={navSearchHint}
-      navCompactToggleLabel={navCompactToggleLabel}
       navSearchResultsLabel={navSearchResultsLabel}
       companyNameOverride={companyNameOverride}
       platformBrandMark={platformBrandMark}
@@ -269,7 +265,6 @@ function DashboardShellFrame({
   shellVariant,
   mobileNavIds,
   navSearchHint,
-  navCompactToggleLabel,
   navSearchResultsLabel,
   companyNameOverride,
   platformBrandMark,
@@ -356,7 +351,6 @@ function DashboardShellFrame({
       searchIndex={navSearchIndex!}
       activeId={activeNav}
       searchQuery={navSearchQuery}
-      compactToggleLabel={navCompactToggleLabel}
       searchResultsLabel={navSearchResultsLabel}
       keyboardHint={navSearchHint}
       noSearchResultsLabel={navSearchNoResultsLabel}
@@ -459,7 +453,6 @@ function DashboardShellFrame({
                   activeId={activeNav}
                   searchQuery={navSearchQuery}
                   onNavigate={() => setSidebarOpen(false)}
-                  compactToggleLabel={navCompactToggleLabel}
                   searchResultsLabel={navSearchResultsLabel}
                   keyboardHint={navSearchHint}
                   noSearchResultsLabel={navSearchNoResultsLabel}

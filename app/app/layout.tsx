@@ -167,7 +167,6 @@ export default async function AppLayout({
           navSearchIndex={navSearchIndex}
           navSearchNoResultsLabel={t("shell.navSearch.noResults")}
           navSearchHint={t("shell.navSearch.hint")}
-          navCompactToggleLabel={t("shell.navSearch.compactToggle")}
           navSearchResultsLabel={t("shell.navSearch.results")}
           shellVariant="customer"
           mobileNavIds={mobileNavIds}

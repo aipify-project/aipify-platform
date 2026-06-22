@@ -11,7 +11,7 @@
   },
   "search": "Sök moduler, inställningar och åtgärder...",
   "navSearch": {
-    "hint": "⌘K search menu",
+    "hint": "Sök i menyn",
     "compactToggle": "Compact navigation",
     "results": "Search results",
     "noResults": "Inga träffar"

@@ -11,7 +11,7 @@
   },
   "search": "Search modules, settings and actions...",
   "navSearch": {
-    "hint": "⌘K search menu",
+    "hint": "Buscar en el menú",
     "compactToggle": "Compact navigation",
     "results": "Search results",
     "noResults": "No matching modules"

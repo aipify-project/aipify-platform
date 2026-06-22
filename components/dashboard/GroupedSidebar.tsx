@@ -11,7 +11,7 @@ import {
   APP_COLLAPSIBLE_GROUPS,
 } from "@/lib/app/nav-groups";
 import { getGroupIdForNavItem, filterAppNavSearchEntries } from "@/lib/app/nav-search";
-import type { AppNavGroupConfig, AppNavLink } from "@/lib/app/build-nav";
+import type { AppNavGroupConfig } from "@/lib/app/build-nav";
 import type { NavSearchEntry } from "@/lib/nav/search-entry";
 import {
   PLATFORM_NAV_COMPACT_STORAGE_KEY,
@@ -43,7 +43,6 @@ type GroupedSidebarProps = {
   onNavigate?: () => void;
   className?: string;
   activeAccent?: "default" | "soft";
-  compactToggleLabel?: string;
   searchResultsLabel?: string;
   keyboardHint?: string;
   noSearchResultsLabel?: string;
@@ -58,7 +57,7 @@ const ACTIVE_ACCENT_CLASSES = {
 function createStorageHelpers(mode: "customer" | "platform") {
   const openGroupKey =
     mode === "platform" ? PLATFORM_NAV_OPEN_GROUP_STORAGE_KEY : APP_NAV_OPEN_GROUP_STORAGE_KEY;
-  const compactKey =
+  const legacyCompactKey =
     mode === "platform" ? PLATFORM_NAV_COMPACT_STORAGE_KEY : APP_NAV_COMPACT_STORAGE_KEY;
   const initializedKey =
     mode === "platform" ? PLATFORM_NAV_INITIALIZED_STORAGE_KEY : APP_NAV_INITIALIZED_STORAGE_KEY;
@@ -74,7 +73,7 @@ function createStorageHelpers(mode: "customer" | "platform") {
 
   return {
     openGroupKey,
-    compactKey,
+    legacyCompactKey,
     initializedKey,
     lastItemKey,
     collapsibleGroups,
@@ -108,14 +107,12 @@ function NavLinkRow({
   item,
   isActive,
   activeAccent,
-  compact,
   onNavigate,
   prefetch,
 }: {
   item: NavItem;
   isActive: boolean;
   activeAccent: "default" | "soft";
-  compact: boolean;
   onNavigate?: () => void;
   prefetch?: boolean;
 }) {
@@ -129,7 +126,7 @@ function NavLinkRow({
         isActive
           ? `${ACTIVE_ACCENT_CLASSES[activeAccent]} ${AipifySidebarTypography.navigationItemActive}`
           : `${AipifyNavClasses.item} ${AipifySidebarTypography.navigationItem}`
-      } ${compact ? "justify-center px-2" : ""}`}
+      }`}
       aria-current={isActive ? "page" : undefined}
     >
       <span
@@ -139,19 +136,17 @@ function NavLinkRow({
       >
         {item.icon}
       </span>
-      {!compact ? (
-        <span className="min-w-0 flex-1">
-          <span className={AipifySidebarTypography.navLabelWrap} title={item.label}>
-            {item.locked ? <span aria-hidden="true">🔒 </span> : null}
-            {item.label}
-          </span>
-          {item.accessHint ? (
-            <span className={`mt-0.5 block truncate ${AipifySidebarTypography.accessHint}`}>
-              {item.accessHint}
-            </span>
-          ) : null}
+      <span className="min-w-0 flex-1">
+        <span className={AipifySidebarTypography.navLabelWrap} title={item.label}>
+          {item.locked ? <span aria-hidden="true">🔒 </span> : null}
+          {item.label}
         </span>
-      ) : null}
+        {item.accessHint ? (
+          <span className={`mt-0.5 block truncate ${AipifySidebarTypography.accessHint}`}>
+            {item.accessHint}
+          </span>
+        ) : null}
+      </span>
     </Link>
   );
 }
@@ -159,27 +154,13 @@ function NavLinkRow({
 function SearchResultRow({
   item,
   isActive,
-  compact,
   onNavigate,
 }: {
   item: NavSearchEntry;
   isActive: boolean;
-  compact: boolean;
   onNavigate?: () => void;
 }) {
   const icon = getNavIcon(item.id);
-
-  if (compact) {
-    return (
-      <NavLinkRow
-        item={{ ...item, icon }}
-        isActive={isActive}
-        activeAccent="soft"
-        compact
-        onNavigate={onNavigate}
-      />
-    );
-  }
 
   return (
     <Link
@@ -237,7 +218,6 @@ export default function GroupedSidebar({
   onNavigate,
   className = "",
   activeAccent = "soft",
-  compactToggleLabel = "Compact navigation",
   searchResultsLabel = "Search results",
   keyboardHint,
   noSearchResultsLabel = "No matching modules",
@@ -245,7 +225,6 @@ export default function GroupedSidebar({
 }: GroupedSidebarProps) {
   const storage = useMemo(() => createStorageHelpers(sidebarMode), [sidebarMode]);
   const [openGroupId, setOpenGroupId] = useState<string | null>(null);
-  const [compact, setCompact] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
   const activeGroupId = useMemo(() => storage.resolveGroupId(activeId), [activeId, storage]);
@@ -260,14 +239,14 @@ export default function GroupedSidebar({
         window.localStorage.removeItem(storage.openGroupKey);
       }
     },
-    [storage.openGroupKey]
+    [storage.openGroupKey],
   );
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    setCompact(window.localStorage.getItem(storage.compactKey) === "1");
+    window.localStorage.removeItem(storage.legacyCompactKey);
     setHydrated(true);
-  }, [storage.compactKey]);
+  }, [storage.legacyCompactKey]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -321,7 +300,7 @@ export default function GroupedSidebar({
       const next = openGroupId === groupId ? null : groupId;
       applyOpenGroup(next);
     },
-    [openGroupId, applyOpenGroup, storage.fixedGroupIds]
+    [openGroupId, applyOpenGroup, storage.fixedGroupIds],
   );
 
   const handleNavigate = useCallback(
@@ -335,20 +314,12 @@ export default function GroupedSidebar({
       }
       onNavigate?.();
     },
-    [applyOpenGroup, onNavigate, storage]
+    [applyOpenGroup, onNavigate, storage],
   );
-
-  const toggleCompact = useCallback(() => {
-    const next = !compact;
-    setCompact(next);
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(storage.compactKey, next ? "1" : "0");
-    }
-  }, [compact, storage.compactKey]);
 
   const searchResults = useMemo(
     () => storage.filterSearch(searchIndex, searchQuery),
-    [searchIndex, searchQuery, storage]
+    [searchIndex, searchQuery, storage],
   );
 
   const isSearching = searchQuery.trim().length > 0;
@@ -359,37 +330,16 @@ export default function GroupedSidebar({
 
   return (
     <div className={`flex flex-col gap-2 ${className}`}>
-      <div className={`flex items-center ${compact ? "justify-center" : "justify-between"} gap-2 px-1`}>
-        {!compact && keyboardHint ? (
-          <p className={`truncate ${AipifySidebarTypography.keyboardHint}`} title={keyboardHint}>
-            {keyboardHint}
-          </p>
-        ) : null}
-        <button
-          type="button"
-          onClick={toggleCompact}
-          className={AipifySidebarTypography.compactToggle}
-          aria-label={compactToggleLabel}
-          title={compactToggleLabel}
-        >
-          <svg className="size-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
-            {compact ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H16.5" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.0075M3.75 12h.0075M3.75 17.25h.0075" />
-            )}
-          </svg>
-        </button>
-      </div>
+      {keyboardHint ? (
+        <p className={`truncate px-1 ${AipifySidebarTypography.keyboardHint}`} title={keyboardHint}>
+          {keyboardHint}
+        </p>
+      ) : null}
 
       <nav className="flex flex-col gap-1" aria-label="Dashboard">
         {isSearching ? (
           <div className="space-y-1">
-            {!compact ? (
-              <p className={`px-3 py-1 ${AipifySidebarTypography.sectionLabel}`}>
-                {searchResultsLabel}
-              </p>
-            ) : null}
+            <p className={`px-3 py-1 ${AipifySidebarTypography.sectionLabel}`}>{searchResultsLabel}</p>
             {searchResults.length === 0 ? (
               <p className={`px-3 py-2 ${AipifySidebarTypography.subNavigationItem}`}>
                 {noSearchResultsLabel}
@@ -400,7 +350,6 @@ export default function GroupedSidebar({
                   key={item.id}
                   item={item}
                   isActive={item.id === activeId}
-                  compact={compact}
                   onNavigate={() => handleNavigate(item.id)}
                 />
               ))
@@ -409,29 +358,27 @@ export default function GroupedSidebar({
         ) : (
           groups.map((group) => {
             const isFixed = storage.fixedGroupIds.includes(group.id);
-            const isExpanded = isFixed || compact || openGroupId === group.id;
+            const isExpanded = isFixed || openGroupId === group.id;
 
             return (
               <div key={group.id} className="space-y-1">
-                {!compact ? (
-                  isFixed ? (
-                    <p className={`px-3 py-2 ${AipifySidebarTypography.sectionLabel}`} title={group.label}>
+                {isFixed ? (
+                  <p className={`px-3 py-2 ${AipifySidebarTypography.sectionLabel}`} title={group.label}>
+                    {group.label}
+                  </p>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => toggleGroup(group.id)}
+                    className={`flex min-h-12 w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left ${AipifySidebarTypography.sectionLabelButton} focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2`}
+                    aria-expanded={isExpanded}
+                  >
+                    <span className={`min-w-0 flex-1 ${AipifySidebarTypography.navLabelWrap}`} title={group.label}>
                       {group.label}
-                    </p>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => toggleGroup(group.id)}
-                      className={`flex min-h-12 w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left ${AipifySidebarTypography.sectionLabelButton} focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2`}
-                      aria-expanded={isExpanded}
-                    >
-                      <span className={`min-w-0 flex-1 ${AipifySidebarTypography.navLabelWrap}`} title={group.label}>
-                        {group.label}
-                      </span>
-                      <ChevronIcon open={isExpanded} />
-                    </button>
-                  )
-                ) : null}
+                    </span>
+                    <ChevronIcon open={isExpanded} />
+                  </button>
+                )}
                 {isExpanded &&
                   group.items.map((item) => (
                     <NavLinkRow
@@ -439,7 +386,6 @@ export default function GroupedSidebar({
                       item={{ ...item, icon: getNavIcon(item.id) }}
                       isActive={item.id === activeId}
                       activeAccent={activeAccent}
-                      compact={compact}
                       prefetch={group.id !== "support"}
                       onNavigate={() => handleNavigate(item.id)}
                     />

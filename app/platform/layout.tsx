@@ -57,7 +57,6 @@ export default async function PlatformLayout({
           navSearchIndex={navSearchIndex}
           navSearchNoResultsLabel={t("platform.navSearch.noResults")}
           navSearchHint={t("platform.navSearch.hint")}
-          navCompactToggleLabel={t("platform.navSearch.compactToggle")}
           navSearchResultsLabel={t("platform.navSearch.results")}
           shellVariant="platform"
           mobileNavIds={PLATFORM_MOBILE_NAV_IDS}

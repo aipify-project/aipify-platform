@@ -79,7 +79,7 @@
   },
   "search": "Search customers...",
   "navSearch": {
-    "hint": "⌘K search menu",
+    "hint": "Search menu",
     "compactToggle": "Compact navigation",
     "results": "Search results",
     "noResults": "No matching modules"
