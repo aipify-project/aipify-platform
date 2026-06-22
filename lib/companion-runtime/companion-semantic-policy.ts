@@ -27,3 +27,6 @@ export type CompanionSemanticFallbackStage = (typeof COMPANION_SEMANTIC_FALLBACK
 /** Core semantic query matcher — manifest/schema driven resolution lives here. */
 export const COMPANION_SEMANTIC_QUERY_MATCH_MODULE =
   "lib/companion-runtime/companion-semantic-query-match.ts" as const;
+
+/** Frozen Companion query routing — semantic intent resolves before literal phrase fallback. */
+export const COMPANION_QUERY_ROUTING = "semantic_intent_first" as const;

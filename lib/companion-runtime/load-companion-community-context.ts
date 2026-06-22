@@ -126,6 +126,8 @@ function extractCommunityOperationalSignals(input: {
   collectiveIntelligenceAdmin: unknown;
 }): {
   new_members_count: number | null;
+  group_count: number | null;
+  discussion_count: number | null;
   pending_moderation_count: number | null;
   pending_verification_count: number | null;
   reports_attention_count: number | null;
@@ -155,7 +157,6 @@ function extractCommunityOperationalSignals(input: {
 
   const groupCount = readCount(statistics.group_count);
   const discussionCount = readCount(statistics.discussion_count);
-  const newMembers = groupCount ?? discussionCount;
 
   const pendingModeration =
     readCount(moderationMetrics.pending_review) ??
@@ -179,9 +180,8 @@ function extractCommunityOperationalSignals(input: {
   const rewardMilestones = readCount(crm.loyalty_accounts_count);
 
   const signals: CommunityCommandBriefSignal[] = [];
-  if (newMembers !== null && newMembers > 0) {
-    signals.push({ signal_key: "new_members", count: newMembers });
-    signals.push({ signal_key: "activity_change", count: discussionCount ?? newMembers });
+  if (discussionCount !== null && discussionCount > 0) {
+    signals.push({ signal_key: "activity_change", count: discussionCount });
   }
   if (rewardMilestones !== null && rewardMilestones > 0) {
     signals.push({ signal_key: "reward_milestone", count: rewardMilestones });
@@ -200,7 +200,9 @@ function extractCommunityOperationalSignals(input: {
   }
 
   return {
-    new_members_count: newMembers,
+    new_members_count: null,
+    group_count: groupCount,
+    discussion_count: discussionCount,
     pending_moderation_count: pendingModeration,
     pending_verification_count: pendingVerification,
     reports_attention_count: reportsAttention,
@@ -332,6 +334,8 @@ export async function loadCompanionCommunityContext(
     moderation_data_permission_gated: true,
     least_privilege_enforced: true,
     new_members_count: operationalSignals.new_members_count,
+    group_count: operationalSignals.group_count,
+    discussion_count: operationalSignals.discussion_count,
     pending_moderation_count: operationalSignals.pending_moderation_count,
     pending_verification_count: operationalSignals.pending_verification_count,
     reports_attention_count: operationalSignals.reports_attention_count,

@@ -934,6 +934,8 @@
       "emptyLead": "Ingen live fellesskapsdata matchet denne forespørselen akkurat nå.",
       "emptyExplanation": "Adapteren er tilkoblet, men kilden returnerte ingen tellbar oppsummering for denne funksjonen. Aipify finner ikke opp tall.",
       "groundedLead": "{capability}: {count} (skrivebeskyttet oppsummering fra verifisert kilde).",
+      "metricGapLead": "Du spør om {metric} via {capability}.",
+      "metricGapExplanation": "Fellesskapsleverandøren er tilkoblet, men Aipify har ikke et eksakt {metric}-måltall for denne perioden ennå. Aipify gjetter ikke og bruker ikke urelaterte tall som erstatning.",
       "sourceLine": "Kilde: {source} · Hentet: {checkedAt} · Ferskhet: {freshness} · Fullstendighet: {completeness}",
       "readinessLine": "Funksjonsstatus: {status}",
       "privacyNote": "Kun metadata-første fellesskapslesning — ingen private meldinger, hemmeligheter eller fulle profilfelter returneres.",
@@ -965,7 +967,27 @@
       "warnings": {
         "memberCountProxy": "Medlemstall bruker fellesskapsnettverksoppsummering — ikke individuelle medlemsposter.",
         "activityPartial": "Aktivitetsoppsummering kan være ufullstendig når diskusjonsmålinger mangler.",
-        "verificationPartial": "Verifiseringskø bruker kun metadata fra fellesskaps best practice-status."
+        "verificationPartial": "Verifiseringskø bruker kun metadata fra fellesskaps best practice-status.",
+        "groupCountNotTotalMembers": "Gruppetall gjenspeiler fellesskapsgrupper — ikke totalt antall medlemmer.",
+        "discussionCountNotNewMembers": "Diskusjonstall gjenspeiler forumaktivitet — ikke nye medlemsregistreringer.",
+        "activityNotMembersSinceLast": "Diskusjonsaktivitet er ikke det samme som medlemmer siden sist innlogging.",
+        "listingPrepNotPendingFilter": "Markedsplassforberedelse-metadata er ikke et verifisert filter for ventende annonser."
+      },
+      "requestedMetrics": {
+        "total_members": "totalt antall medlemmer",
+        "new_members": "nye medlemmer",
+        "members_today": "medlemmer i dag",
+        "members_last_7_days": "medlemmer siste 7 dager",
+        "members_last_30_days": "medlemmer siste 30 dager",
+        "members_since_last": "medlemmer siden sist besøk",
+        "member_growth": "medlemsutvikling",
+        "pending_moderation": "saker i modereringskøen",
+        "reports_attention": "rapporter som krever oppmerksomhet",
+        "pending_verification": "ventende verifiseringer",
+        "pending_listing_count": "markedsplassannonser som venter på kontroll",
+        "recent_activity": "nylig fellesskapsaktivitet",
+        "activity_since_last": "aktivitet siden sist besøk",
+        "unknown_metric": "dette måltallet"
       },
       "capabilities": {
         "member_read": "Medlemmer",

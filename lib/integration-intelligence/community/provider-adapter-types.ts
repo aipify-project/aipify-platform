@@ -1,4 +1,12 @@
 import type { CommunityCapabilityKey } from "./types";
+import type { ProviderMetricBinding } from "./metric-contract";
+
+export type { ProviderMetricBinding, ProviderMetricSemanticMatch } from "./metric-contract";
+export {
+  canPresentMetricBindingAsDirectAnswer,
+  resolveMetricBindingForRequest,
+  selectPresentableMetricBinding,
+} from "./metric-contract";
 
 export type ProviderCapabilityReadinessStatus =
   | "production_ready"
@@ -42,6 +50,7 @@ export type CommunityProviderAdapterRecord = {
   completeness: "complete" | "partial" | "empty";
   permission_scope: string | null;
   warnings: string[];
+  metric_bindings?: ProviderMetricBinding[];
 };
 
 export type CommunityProviderCapabilityReadiness = {

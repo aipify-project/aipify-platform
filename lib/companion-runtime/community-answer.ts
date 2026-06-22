@@ -7,6 +7,7 @@ import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-reg
 import type { Translator } from "@/lib/i18n/translate";
 import {
   collectSemanticDescriptorsFromManifest,
+  mapSemanticIntentToRequestedMetric,
   resolveCompanionSemanticIntent,
   semanticDescriptorMatchesQuery,
 } from "./companion-semantic-query-match";
@@ -18,6 +19,8 @@ export type CommunityProviderMatch = {
   provider_key: string;
   capability_key: string | null;
   operation: "read" | "write" | null;
+  requested_metric?: string | null;
+  requested_period?: string | null;
 };
 
 const GENERIC_COMMUNITY_DOMAIN_PATTERN =
@@ -71,10 +74,17 @@ function resolveExternalAdapterProviderMatch(
   const intent = resolveCompanionSemanticIntent({ query, descriptors, locale });
 
   if (intent.capability_candidates[0]) {
+    const { requested_metric, period } = mapSemanticIntentToRequestedMetric({
+      entity: intent.entity,
+      metric: intent.metric,
+      timeScope: intent.time_scope,
+    });
     return {
       provider_key: overlay.provider_key,
       capability_key: intent.capability_candidates[0]!,
       operation: "read",
+      requested_metric,
+      requested_period: period,
     };
   }
 

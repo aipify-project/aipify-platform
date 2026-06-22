@@ -89,12 +89,13 @@ assert.equal(gateOtherTenant.status, "disabled");
 const baseContext = createEmptyCompanionCommunityContext({
   community_network_center_enabled: true,
   moderation_engine_enabled: true,
-  new_members_count: 12,
+  group_count: 12,
+  discussion_count: 8,
   pending_moderation_count: 3,
   pending_verification_count: 2,
   reports_attention_count: 1,
   listing_review_count: 4,
-  command_brief_signals: [{ signal_key: "new_members", count: 12 }],
+  command_brief_signals: [{ signal_key: "activity_change", count: 8 }],
 });
 
 const merged = applyUnonightProviderAdapterToCommunityContext(baseContext, {
@@ -127,6 +128,33 @@ const memberReadiness = merged.external_provider_adapters?.[0]?.capability_readi
   (entry) => entry.capability_key === "member.read",
 );
 assert.equal(memberReadiness?.status, "connected_but_partial");
+
+const memberRecord = merged.external_provider_adapters?.[0]?.records.find(
+  (record) => record.capability_key === "member.read",
+);
+assert.ok(memberRecord);
+assert.equal(memberRecord?.count, null);
+assert.ok(
+  memberRecord?.metric_bindings?.some(
+    (binding) =>
+      binding.source_metric === "group_count" &&
+      binding.requested_metric === "total_members" &&
+      binding.semantic_match === "incompatible",
+  ),
+);
+assert.ok(
+  memberRecord?.metric_bindings?.some(
+    (binding) =>
+      binding.source_metric === "discussion_count" &&
+      binding.requested_metric === "new_members" &&
+      binding.semantic_match === "incompatible",
+  ),
+);
+
+const listingReadiness = merged.external_provider_adapters?.[0]?.capability_readiness.find(
+  (entry) => entry.capability_key === "listing.read",
+);
+assert.equal(listingReadiness?.status, "production_ready_candidate");
 
 const tenantA = createEmptyCompanionTenantContext({
   communityContext: merged,
@@ -188,6 +216,21 @@ const grounded = resolveCommunityProviderAdapterGroundedAnswer(
 );
 assert.ok(grounded?.directAnswer.includes("3"));
 
+const memberGrounded = resolveCommunityProviderAdapterGroundedAnswer(
+  memberMatch!,
+  tenantA.communityContext,
+  (key: string) => {
+    if (key.endsWith(".metricGapLead")) return "gap:{metric}";
+    if (key.endsWith(".metricGapExplanation")) return "no exact {metric}";
+    if (key.endsWith(".requestedMetrics.new_members")) return "new members";
+    if (key.endsWith(".capabilities.member_read")) return "Members";
+    return key;
+  },
+  "no",
+);
+assert.ok(memberGrounded?.directAnswer.includes("gap:new members"));
+assert.equal(/\b12\b/.test(memberGrounded?.directAnswer ?? ""), false);
+
 const emptyContext = applyUnonightProviderAdapterToCommunityContext(
   createEmptyCompanionCommunityContext({
     community_network_center_enabled: true,
@@ -213,12 +256,12 @@ const normalized = normalizeUnonightProviderAdapterRecords({
   organizationId: "org-1",
   fetchedAt: new Date().toISOString(),
   counts: {
-    new_members_count: 5,
+    group_count: 5,
+    discussion_count: 3,
     pending_moderation_count: 1,
     pending_verification_count: 0,
     reports_attention_count: 0,
     listing_review_count: 0,
-    activity_count: 5,
   },
   effectivePermissions: ["customer_community.view", "moderation.view"],
   gateActive: true,

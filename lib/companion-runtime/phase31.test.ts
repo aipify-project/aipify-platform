@@ -42,12 +42,24 @@ const moderation = report.capability_readiness_after_e2e.find(
 const reports = report.capability_readiness_after_e2e.find(
   (entry) => entry.capability_key === "report.read",
 );
+const listing = report.capability_readiness_after_e2e.find(
+  (entry) => entry.capability_key === "listing.read",
+);
 assert.equal(moderation?.readiness, "production_ready_candidate");
 assert.equal(reports?.readiness, "production_ready_candidate");
+assert.equal(listing?.readiness, "production_ready_candidate");
 assert.equal(moderation?.promoted_to_production_ready, false);
 assert.equal(reports?.promoted_to_production_ready, false);
+assert.equal(listing?.promoted_to_production_ready, false);
 
-for (const capability of UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES) {
+const newMembers = report.question_results.find(
+  (entry) => entry.question_id === "new_members" && entry.organization_key === "unonight",
+);
+assert.ok(newMembers);
+assert.equal(newMembers.answer_status, "metric_gap");
+assert.equal(newMembers.direct_answer.includes("12"), false);
+
+for (const capability of ["moderation_queue.read", "report.read"] as const) {
   const control = report.question_results.find(
     (entry) =>
       entry.organization_key === "unonight" &&
@@ -62,6 +74,15 @@ for (const capability of UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES) {
     assert.ok(control.direct_answer.includes("1"));
   }
 }
+
+const listingQuestion = report.question_results.find(
+  (entry) =>
+    entry.organization_key === "unonight" &&
+    entry.question_id === "listing_review",
+);
+assert.ok(listingQuestion);
+assert.equal(listingQuestion.answer_status, "metric_gap");
+assert.equal(listingQuestion.direct_answer.includes("4"), false);
 
 assert.equal(report.tenant_isolation.unonight_reads_own_data, true);
 assert.equal(report.tenant_isolation.empty_org_honest_unavailable, true);

@@ -928,6 +928,8 @@
       "emptyLead": "Brak danych społeczności na żywo pasujących do tego żądania.",
       "emptyExplanation": "The adapter is connected, but the underlying source returned no countable summary for this capability. Aipify will not invent numbers.",
       "groundedLead": "{capability}: {count} (podsumowanie tylko do odczytu ze zweryfikowanego źródła).",
+      "metricGapLead": "Pytasz o {metric} przez {capability}.",
+      "metricGapExplanation": "Dostawca społeczności jest podłączony, ale Aipify nie ma jeszcze dokładnego odczytu {metric} dla tego okresu. Aipify nie zgaduje ani nie zastępuje niepowiązanymi liczbami.",
       "sourceLine": "Source: {source} · Fetched: {checkedAt} · Freshness: {freshness} · Completeness: {completeness}",
       "readinessLine": "Capability readiness: {status}",
       "privacyNote": "Metadata-first community reads only — no private messages, secrets, or full profile fields are returned.",
@@ -965,9 +967,29 @@
         "empty": "empty"
       },
       "warnings": {
-        "memberCountProxy": "Member count uses community network summary fields — not individual member records.",
-        "activityPartial": "Activity summary may be incomplete when discussion metrics are unavailable.",
-        "verificationPartial": "Verification queue uses community best-practice status metadata only."
+        "memberCountProxy": "Liczba członków korzysta z podsumowania sieci społeczności — nie z indywidualnych rekordów.",
+        "activityPartial": "Podsumowanie aktywności może być niepełne, gdy brakuje metryk dyskusji.",
+        "verificationPartial": "Kolejka weryfikacji używa wyłącznie metadanych statusu best practice społeczności.",
+        "groupCountNotTotalMembers": "Liczba grup odzwierciedla grupy społeczności — nie łączną liczbę członków.",
+        "discussionCountNotNewMembers": "Liczba dyskusji odzwierciedla aktywność forum — nie nowe rejestracje członków.",
+        "activityNotMembersSinceLast": "Aktywność dyskusji to nie to samo co członkowie od ostatniego logowania.",
+        "listingPrepNotPendingFilter": "Metadane przygotowania marketplace nie są zweryfikowanym filtrem oczekujących ogłoszeń."
+      },
+      "requestedMetrics": {
+        "total_members": "łączna liczba członków",
+        "new_members": "nowi członkowie",
+        "members_today": "członkowie dziś",
+        "members_last_7_days": "członkowie w ostatnich 7 dniach",
+        "members_last_30_days": "członkowie w ostatnich 30 dniach",
+        "members_since_last": "członkowie od ostatniej wizyty",
+        "member_growth": "wzrost liczby członków",
+        "pending_moderation": "elementy w kolejce moderacji",
+        "reports_attention": "zgłoszenia wymagające uwagi",
+        "pending_verification": "oczekujące weryfikacje",
+        "pending_listing_count": "ogłoszenia marketplace oczekujące na przegląd",
+        "recent_activity": "ostatnia aktywność społeczności",
+        "activity_since_last": "aktywność od ostatniej wizyty",
+        "unknown_metric": "tę metrykę"
       },
       "capabilities": {
         "member_read": "Members",

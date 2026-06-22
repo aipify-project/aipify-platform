@@ -24,4 +24,8 @@ export const UNONIGHT_PROVIDER_ADAPTER_BUSINESS_PACK = "community_pack";
 export const UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES = [
   "moderation_queue.read",
   "report.read",
+  "listing.read",
 ] as const;
+
+/** All V1 capabilities remain production_ready_candidate until live authenticated E2E promotes them. */
+export const UNONIGHT_PRODUCTION_READY_REQUIRES_E2E = true;

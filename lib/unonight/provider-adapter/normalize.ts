@@ -3,18 +3,30 @@ import type {
   CommunityProviderCapabilityReadiness,
   ProviderCapabilityReadinessStatus,
 } from "@/lib/integration-intelligence/community/provider-adapter-types";
+import {
+  canPresentMetricBindingAsDirectAnswer,
+  selectPresentableMetricBinding,
+} from "@/lib/integration-intelligence/community/metric-contract";
 import { buildCommunityCapabilityId } from "@/lib/integration-intelligence/community/types";
 import type { UnonightProviderAdapterV1Capability } from "./constants";
-import { UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES, UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY } from "./constants";
+import {
+  UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES,
+  UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY,
+  UNONIGHT_PRODUCTION_READY_REQUIRES_E2E,
+} from "./constants";
 import { getUnonightAdapterSource } from "./source-map";
+import {
+  buildUnonightMetricBindings,
+  resolveUnonightPresentableBinding,
+} from "./metric-grounding";
 
 export type UnonightAdapterSignalCounts = {
-  new_members_count: number | null;
+  group_count: number | null;
+  discussion_count: number | null;
   pending_moderation_count: number | null;
   pending_verification_count: number | null;
   reports_attention_count: number | null;
   listing_review_count: number | null;
-  activity_count: number | null;
 };
 
 function capabilityId(capabilityKey: UnonightProviderAdapterV1Capability): string {
@@ -26,28 +38,7 @@ function resolveFreshness(fetchedAt: string): CommunityProviderAdapterRecord["fr
   if (!Number.isFinite(parsed)) return "unknown";
   const ageMs = Date.now() - parsed;
   if (ageMs <= 15 * 60 * 1000) return "fresh";
-  if (ageMs <= 6 * 60 * 60 * 1000) return "stale";
   return "stale";
-}
-
-function resolveCompleteness(count: number | null): CommunityProviderAdapterRecord["completeness"] {
-  if (count === null) return "empty";
-  if (count === 0) return "complete";
-  return "complete";
-}
-
-function resolveReadiness(
-  count: number | null,
-  sourceStatus: "live" | "partial" | "placeholder" | "missing",
-  gateActive: boolean,
-  hasPermission: boolean,
-): ProviderCapabilityReadinessStatus {
-  if (!gateActive) return "disabled";
-  if (!hasPermission) return "disabled";
-  if (sourceStatus === "missing") return "adapter_missing";
-  if (count === null) return sourceStatus === "live" ? "connected_but_partial" : "adapter_missing";
-  if (sourceStatus === "partial") return "connected_but_partial";
-  return "production_ready";
 }
 
 function finalizeAuthenticatedE2eReadiness(
@@ -55,6 +46,14 @@ function finalizeAuthenticatedE2eReadiness(
   status: ProviderCapabilityReadinessStatus,
   authenticatedE2eVerifiedCapabilities: readonly string[],
 ): ProviderCapabilityReadinessStatus {
+  if (
+    UNONIGHT_PRODUCTION_READY_REQUIRES_E2E &&
+    status === "production_ready" &&
+    !authenticatedE2eVerifiedCapabilities.includes(capabilityKey)
+  ) {
+    return "production_ready_candidate";
+  }
+
   if (
     status === "production_ready" &&
     UNONIGHT_AUTHENTICATED_E2E_GATED_CAPABILITIES.includes(
@@ -64,34 +63,94 @@ function finalizeAuthenticatedE2eReadiness(
   ) {
     return "production_ready_candidate";
   }
+
   return status;
+}
+
+function resolveBaseReadiness(input: {
+  capabilityKey: UnonightProviderAdapterV1Capability;
+  presentableBinding: ReturnType<typeof resolveUnonightPresentableBinding>;
+  gateActive: boolean;
+  hasPermission: boolean;
+  sourceStatus: "live" | "partial" | "placeholder" | "missing";
+}): ProviderCapabilityReadinessStatus {
+  if (!input.gateActive || !input.hasPermission) return "disabled";
+  if (input.sourceStatus === "missing") return "adapter_missing";
+
+  if (input.capabilityKey === "member.read") {
+    return "connected_but_partial";
+  }
+
+  if (input.capabilityKey === "listing.read") {
+    return "production_ready";
+  }
+
+  const binding = input.presentableBinding;
+  if (!binding || !canPresentMetricBindingAsDirectAnswer(binding)) {
+    return "connected_but_partial";
+  }
+
+  if (input.sourceStatus === "partial") return "connected_but_partial";
+  return "production_ready";
 }
 
 function buildRecord(input: {
   capabilityKey: UnonightProviderAdapterV1Capability;
   recordType: string;
-  count: number | null;
-  summary: string | null;
+  counts: UnonightAdapterSignalCounts;
+  requestedMetric: string | null;
   sourceReference: string;
   fetchedAt: string;
   permissionScope: string | null;
-  warnings: string[];
   organizationId: string | null;
 }): CommunityProviderAdapterRecord {
+  const metric_bindings = buildUnonightMetricBindings({
+    capabilityKey: input.capabilityKey,
+    counts: input.counts,
+  });
+  const presentable = resolveUnonightPresentableBinding({
+    capabilityKey: input.capabilityKey,
+    counts: input.counts,
+    requestedMetric: input.requestedMetric,
+  });
+  const bindingForRecord =
+    presentable && canPresentMetricBindingAsDirectAnswer(presentable)
+      ? presentable
+      : selectPresentableMetricBinding(metric_bindings);
+
+  const count =
+    bindingForRecord && canPresentMetricBindingAsDirectAnswer(bindingForRecord)
+      ? bindingForRecord.value
+      : null;
+
+  const completeness =
+    bindingForRecord && canPresentMetricBindingAsDirectAnswer(bindingForRecord)
+      ? bindingForRecord.completeness
+      : metric_bindings.some((entry) => entry.value !== null)
+        ? "partial"
+        : "empty";
+
+  const warnings = [
+    ...new Set(
+      metric_bindings.flatMap((entry) => entry.warnings).filter(Boolean),
+    ),
+  ];
+
   return {
     provider: UNONIGHT_COMMUNITY_ADAPTER_PROVIDER_KEY,
     organization_id: input.organizationId,
     capability_id: capabilityId(input.capabilityKey),
     capability_key: input.capabilityKey,
     record_type: input.recordType,
-    count: input.count,
-    summary: input.summary,
+    count,
+    summary: null,
     source_reference: input.sourceReference,
     fetched_at: input.fetchedAt,
     freshness: resolveFreshness(input.fetchedAt),
-    completeness: resolveCompleteness(input.count),
+    completeness,
     permission_scope: input.permissionScope,
-    warnings: input.warnings,
+    warnings,
+    metric_bindings,
   };
 }
 
@@ -101,7 +160,6 @@ export function normalizeUnonightProviderAdapterRecords(input: {
   counts: UnonightAdapterSignalCounts;
   effectivePermissions: readonly string[];
   gateActive: boolean;
-  /** Capabilities promoted to production_ready after authenticated live Companion E2E. */
   authenticatedE2eVerifiedCapabilities?: readonly string[];
 }): {
   records: CommunityProviderAdapterRecord[];
@@ -118,92 +176,75 @@ export function normalizeUnonightProviderAdapterRecords(input: {
   const entries: Array<{
     capabilityKey: UnonightProviderAdapterV1Capability;
     recordType: string;
-    count: number | null;
-    summary: string | null;
     sourceReference: string;
     permissionScope: string | null;
     hasPermission: boolean;
-    warnings: string[];
+    requestedMetric: string | null;
   }> = [
     {
       capabilityKey: "member.read",
       recordType: "member_summary",
-      count: input.counts.new_members_count,
-      summary: null,
       sourceReference: "rpc:get_customer_community_network_center:statistics",
       permissionScope: "customer_community.view",
       hasPermission: hasCommunityView,
-      warnings:
-        input.counts.new_members_count !== null
-          ? ["customerApp.companionPlatformKnowledge.unonightProviderAdapter.warnings.memberCountProxy"]
-          : [],
+      requestedMetric: null,
     },
     {
       capabilityKey: "activity.read",
       recordType: "activity_summary",
-      count: input.counts.activity_count ?? input.counts.new_members_count,
-      summary: null,
       sourceReference: "rpc:get_customer_community_network_center:statistics",
       permissionScope: "customer_community.view",
       hasPermission: hasCommunityView,
-      warnings:
-        input.counts.activity_count === null
-          ? ["customerApp.companionPlatformKnowledge.unonightProviderAdapter.warnings.activityPartial"]
-          : [],
+      requestedMetric: "recent_activity",
     },
     {
       capabilityKey: "moderation_queue.read",
       recordType: "moderation_queue_summary",
-      count: input.counts.pending_moderation_count,
-      summary: null,
       sourceReference: "rpc:get_aipify_moderation_dashboard:metrics.pending_review",
       permissionScope: "moderation.view",
       hasPermission: hasModerationView,
-      warnings: [],
+      requestedMetric: "pending_moderation",
     },
     {
       capabilityKey: "report.read",
       recordType: "report_summary",
-      count: input.counts.reports_attention_count,
-      summary: null,
       sourceReference: "rpc:get_aipify_moderation_dashboard:metrics.high_risk_pending",
       permissionScope: "moderation.view",
       hasPermission: hasModerationView,
-      warnings: [],
+      requestedMetric: "reports_attention",
     },
     {
       capabilityKey: "verification_status.read",
       recordType: "verification_summary",
-      count: input.counts.pending_verification_count,
-      summary: null,
       sourceReference: "rpc:get_customer_community_network_center:best_practices",
       permissionScope: "customer_community.view",
       hasPermission: hasCommunityView,
-      warnings:
-        input.counts.pending_verification_count === null
-          ? ["customerApp.companionPlatformKnowledge.unonightProviderAdapter.warnings.verificationPartial"]
-          : [],
+      requestedMetric: "pending_verification",
     },
     {
       capabilityKey: "listing.read",
       recordType: "listing_review_summary",
-      count: input.counts.listing_review_count,
-      summary: null,
       sourceReference: "rpc:get_customer_community_network_center:marketplace_prep",
       permissionScope: "customer_community.view",
       hasPermission: hasCommunityView,
-      warnings: [],
+      requestedMetric: "pending_listing_count",
     },
   ];
 
   for (const entry of entries) {
     const source = getUnonightAdapterSource(entry.capabilityKey);
-    const baseStatus = resolveReadiness(
-      entry.count,
-      source?.status ?? "missing",
-      input.gateActive,
-      entry.hasPermission,
-    );
+    const presentableBinding = resolveUnonightPresentableBinding({
+      capabilityKey: entry.capabilityKey,
+      counts: input.counts,
+      requestedMetric: entry.requestedMetric,
+    });
+    const baseStatus = resolveBaseReadiness({
+      capabilityKey: entry.capabilityKey,
+      presentableBinding,
+      gateActive: input.gateActive,
+      hasPermission: entry.hasPermission,
+      sourceStatus: source?.status ?? "missing",
+    });
     const status = finalizeAuthenticatedE2eReadiness(
       entry.capabilityKey,
       baseStatus,
@@ -234,12 +275,11 @@ export function normalizeUnonightProviderAdapterRecords(input: {
       buildRecord({
         capabilityKey: entry.capabilityKey,
         recordType: entry.recordType,
-        count: entry.count,
-        summary: entry.summary,
+        counts: input.counts,
+        requestedMetric: entry.requestedMetric,
         sourceReference: entry.sourceReference,
         fetchedAt: input.fetchedAt,
         permissionScope: entry.permissionScope,
-        warnings: entry.warnings,
         organizationId: input.organizationId,
       }),
     );
@@ -253,12 +293,8 @@ export function buildUnonightCommandBriefSignals(
 ): Array<{ signal_key: string; count: number | null }> {
   const signals: Array<{ signal_key: string; count: number | null }> = [];
 
-  if (counts.new_members_count !== null && counts.new_members_count > 0) {
-    signals.push({ signal_key: "new_members", count: counts.new_members_count });
-    signals.push({
-      signal_key: "activity_change",
-      count: counts.activity_count ?? counts.new_members_count,
-    });
+  if (counts.discussion_count !== null && counts.discussion_count > 0) {
+    signals.push({ signal_key: "activity_change", count: counts.discussion_count });
   }
   if (counts.pending_moderation_count !== null && counts.pending_moderation_count > 0) {
     signals.push({ signal_key: "pending_moderation", count: counts.pending_moderation_count });

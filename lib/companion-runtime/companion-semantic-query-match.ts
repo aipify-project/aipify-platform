@@ -233,10 +233,50 @@ export function resolveSemanticCapabilityFromManifests(input: {
   return intent.capability_candidates[0] ?? null;
 }
 
-export function companionSemanticPolicyMetadata() {
-  return {
-    primary_mechanism: COMPANION_SEMANTIC_PRIMARY_MECHANISM,
-    literal_text_match_role: COMPANION_SEMANTIC_LITERAL_TEXT_MATCH_ROLE,
-    fallback_order: COMPANION_SEMANTIC_FALLBACK_ORDER,
-  };
+export function mapSemanticIntentToRequestedMetric(input: {
+  entity: string | null;
+  metric: import("@/lib/integration-intelligence/semantic/types").CompanionSemanticMetric | null;
+  timeScope: import("@/lib/integration-intelligence/semantic/types").CompanionSemanticTimeScope | null;
+}): { requested_metric: string | null; period: string | null } {
+  if (!input.entity) {
+    return { requested_metric: null, period: input.timeScope };
+  }
+
+  if (input.entity === "member") {
+    if (input.metric === "new" || input.timeScope === "since_last") {
+      return { requested_metric: "new_members", period: input.timeScope ?? "since_last" };
+    }
+    if (input.metric === "growth") {
+      return { requested_metric: "member_growth", period: input.timeScope ?? "current" };
+    }
+    if (input.timeScope === "period") {
+      return { requested_metric: "members_last_30_days", period: "period" };
+    }
+    return { requested_metric: "total_members", period: input.timeScope ?? "current" };
+  }
+
+  if (input.entity === "moderation_queue") {
+    return { requested_metric: "pending_moderation", period: "current" };
+  }
+
+  if (input.entity === "report") {
+    return { requested_metric: "reports_attention", period: "current" };
+  }
+
+  if (input.entity === "verification_status") {
+    return { requested_metric: "pending_verification", period: "current" };
+  }
+
+  if (input.entity === "listing") {
+    return { requested_metric: "pending_listing_count", period: "current" };
+  }
+
+  if (input.entity === "activity") {
+    return {
+      requested_metric: input.timeScope === "since_last" ? "activity_since_last" : "recent_activity",
+      period: input.timeScope ?? "current",
+    };
+  }
+
+  return { requested_metric: null, period: input.timeScope };
 }

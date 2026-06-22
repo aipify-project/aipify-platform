@@ -928,6 +928,8 @@
       "emptyLead": "Ingen live community-data matchade denna begäran just nu.",
       "emptyExplanation": "The adapter is connected, but the underlying source returned no countable summary for this capability. Aipify will not invent numbers.",
       "groundedLead": "{capability}: {count} (skrivskyddad sammanfattning från verifierad källa).",
+      "metricGapLead": "Du frågar om {metric} via {capability}.",
+      "metricGapExplanation": "Community-leverantören är ansluten, men Aipify har ännu ingen exakt {metric}-mätning för den här perioden. Aipify gissar inte och ersätter inte med orelaterade siffror.",
       "sourceLine": "Source: {source} · Fetched: {checkedAt} · Freshness: {freshness} · Completeness: {completeness}",
       "readinessLine": "Capability readiness: {status}",
       "privacyNote": "Metadata-first community reads only — no private messages, secrets, or full profile fields are returned.",
@@ -965,9 +967,29 @@
         "empty": "empty"
       },
       "warnings": {
-        "memberCountProxy": "Member count uses community network summary fields — not individual member records.",
-        "activityPartial": "Activity summary may be incomplete when discussion metrics are unavailable.",
-        "verificationPartial": "Verification queue uses community best-practice status metadata only."
+        "memberCountProxy": "Medlemstal använder sammanfattning från community-nätverk — inte individuella medlemsposter.",
+        "activityPartial": "Aktivitetssammanfattning kan vara ofullständig när diskussionsmått saknas.",
+        "verificationPartial": "Verifieringskö använder endast metadata från community best practice-status.",
+        "groupCountNotTotalMembers": "Grupptal avser community-grupper — inte totalt antal medlemmar.",
+        "discussionCountNotNewMembers": "Diskussionstal avser forumaktivitet — inte nya medlemsregistreringar.",
+        "activityNotMembersSinceLast": "Diskussionsaktivitet är inte samma sak som medlemmar sedan senaste inloggning.",
+        "listingPrepNotPendingFilter": "Marknadsplatsförberedelse-metadata är inte ett verifierat filter för väntande annonser."
+      },
+      "requestedMetrics": {
+        "total_members": "totalt antal medlemmar",
+        "new_members": "nya medlemmar",
+        "members_today": "medlemmar idag",
+        "members_last_7_days": "medlemmar senaste 7 dagarna",
+        "members_last_30_days": "medlemmar senaste 30 dagarna",
+        "members_since_last": "medlemmar sedan senaste besök",
+        "member_growth": "medlemstillväxt",
+        "pending_moderation": "ärenden i modereringskön",
+        "reports_attention": "rapporter som kräver uppmärksamhet",
+        "pending_verification": "väntande verifieringar",
+        "pending_listing_count": "marknadsplatsannonser som väntar på granskning",
+        "recent_activity": "senaste community-aktivitet",
+        "activity_since_last": "aktivitet sedan senaste besök",
+        "unknown_metric": "detta mått"
       },
       "capabilities": {
         "member_read": "Members",

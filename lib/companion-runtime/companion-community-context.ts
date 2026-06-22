@@ -60,6 +60,8 @@ export type CompanionCommunityContext = {
   moderation_data_permission_gated: boolean;
   least_privilege_enforced: boolean;
   new_members_count: number | null;
+  group_count: number | null;
+  discussion_count: number | null;
   pending_moderation_count: number | null;
   pending_verification_count: number | null;
   reports_attention_count: number | null;
@@ -98,6 +100,8 @@ export function createEmptyCompanionCommunityContext(
     moderation_data_permission_gated: true,
     least_privilege_enforced: true,
     new_members_count: null,
+    group_count: null,
+    discussion_count: null,
     pending_moderation_count: null,
     pending_verification_count: null,
     reports_attention_count: null,

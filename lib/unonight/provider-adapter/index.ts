@@ -12,6 +12,10 @@ export {
   buildUnonightCommandBriefSignals,
 } from "./normalize";
 export {
+  buildUnonightMetricBindings,
+  resolveUnonightPresentableBinding,
+} from "./metric-grounding";
+export {
   applyUnonightProviderAdapterToCommunityContext,
   type ApplyUnonightProviderAdapterInput,
 } from "./merge-community-context";

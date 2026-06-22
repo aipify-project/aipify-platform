@@ -961,6 +961,8 @@
       "emptyLead": "No live community data matched this request right now.",
       "emptyExplanation": "The adapter is connected, but the underlying source returned no countable summary for this capability. Aipify will not invent numbers.",
       "groundedLead": "{capability}: {count} (read-only summary from verified source).",
+      "metricGapLead": "You're asking about {metric} through {capability}.",
+      "metricGapExplanation": "The community provider is connected, but Aipify does not have an exact {metric} read for this period yet. Aipify will not guess or substitute unrelated counts.",
       "sourceLine": "Source: {source} · Fetched: {checkedAt} · Freshness: {freshness} · Completeness: {completeness}",
       "readinessLine": "Capability readiness: {status}",
       "privacyNote": "Metadata-first community reads only — no private messages, secrets, or full profile fields are returned.",
@@ -1000,7 +1002,27 @@
       "warnings": {
         "memberCountProxy": "Member count uses community network summary fields — not individual member records.",
         "activityPartial": "Activity summary may be incomplete when discussion metrics are unavailable.",
-        "verificationPartial": "Verification queue uses community best-practice status metadata only."
+        "verificationPartial": "Verification queue uses community best-practice status metadata only.",
+        "groupCountNotTotalMembers": "Group count reflects community groups — not total member headcount.",
+        "discussionCountNotNewMembers": "Discussion count reflects forum activity — not new member registrations.",
+        "activityNotMembersSinceLast": "Discussion activity is not the same as members since your last login.",
+        "listingPrepNotPendingFilter": "Marketplace prep metadata is not a verified pending-listing filter."
+      },
+      "requestedMetrics": {
+        "total_members": "total members",
+        "new_members": "new members",
+        "members_today": "members today",
+        "members_last_7_days": "members in the last 7 days",
+        "members_last_30_days": "members in the last 30 days",
+        "members_since_last": "members since your last visit",
+        "member_growth": "member growth",
+        "pending_moderation": "items in the moderation queue",
+        "reports_attention": "reports requiring attention",
+        "pending_verification": "pending verifications",
+        "pending_listing_count": "marketplace listings awaiting review",
+        "recent_activity": "recent community activity",
+        "activity_since_last": "activity since your last visit",
+        "unknown_metric": "this metric"
       },
       "capabilities": {
         "member_read": "Members",

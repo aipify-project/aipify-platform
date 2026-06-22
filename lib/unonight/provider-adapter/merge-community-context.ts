@@ -143,12 +143,12 @@ export function applyUnonightProviderAdapterToCommunityContext(
     organizationId: input.organizationId,
     fetchedAt,
     counts: {
-      new_members_count: context.new_members_count,
+      group_count: context.group_count,
+      discussion_count: context.discussion_count,
       pending_moderation_count: context.pending_moderation_count,
       pending_verification_count: context.pending_verification_count,
       reports_attention_count: context.reports_attention_count,
       listing_review_count: context.listing_review_count,
-      activity_count: context.new_members_count,
     },
     effectivePermissions: input.effectivePermissions,
     gateActive,
@@ -158,12 +158,12 @@ export function applyUnonightProviderAdapterToCommunityContext(
   const adapterSignals =
     gateActive && records.length > 0
       ? buildUnonightCommandBriefSignals({
-          new_members_count: context.new_members_count,
+          group_count: context.group_count,
+          discussion_count: context.discussion_count,
           pending_moderation_count: context.pending_moderation_count,
           pending_verification_count: context.pending_verification_count,
           reports_attention_count: context.reports_attention_count,
           listing_review_count: context.listing_review_count,
-          activity_count: context.new_members_count,
         })
       : [];
 

@@ -928,6 +928,8 @@
       "emptyLead": "Ningún dato comunitario en vivo coincide con esta solicitud ahora mismo.",
       "emptyExplanation": "The adapter is connected, but the underlying source returned no countable summary for this capability. Aipify will not invent numbers.",
       "groundedLead": "{capability}: {count} (resumen de solo lectura de fuente verificada).",
+      "metricGapLead": "Preguntas por {metric} a través de {capability}.",
+      "metricGapExplanation": "El proveedor comunitario está conectado, pero Aipify aún no tiene una lectura exacta de {metric} para este periodo. Aipify no adivina ni sustituye cifras no relacionadas.",
       "sourceLine": "Source: {source} · Fetched: {checkedAt} · Freshness: {freshness} · Completeness: {completeness}",
       "readinessLine": "Capability readiness: {status}",
       "privacyNote": "Metadata-first community reads only — no private messages, secrets, or full profile fields are returned.",
@@ -965,9 +967,29 @@
         "empty": "empty"
       },
       "warnings": {
-        "memberCountProxy": "Member count uses community network summary fields — not individual member records.",
-        "activityPartial": "Activity summary may be incomplete when discussion metrics are unavailable.",
-        "verificationPartial": "Verification queue uses community best-practice status metadata only."
+        "memberCountProxy": "El recuento de miembros usa campos de resumen de la red comunitaria — no registros individuales.",
+        "activityPartial": "El resumen de actividad puede estar incompleto cuando faltan métricas de discusión.",
+        "verificationPartial": "La cola de verificación usa solo metadatos de estado de buenas prácticas comunitarias.",
+        "groupCountNotTotalMembers": "El recuento de grupos refleja grupos comunitarios — no el total de miembros.",
+        "discussionCountNotNewMembers": "El recuento de discusiones refleja actividad del foro — no nuevos registros de miembros.",
+        "activityNotMembersSinceLast": "La actividad de discusión no es lo mismo que miembros desde el último inicio de sesión.",
+        "listingPrepNotPendingFilter": "Los metadatos de preparación del marketplace no son un filtro verificado de anuncios pendientes."
+      },
+      "requestedMetrics": {
+        "total_members": "total de miembros",
+        "new_members": "nuevos miembros",
+        "members_today": "miembros hoy",
+        "members_last_7_days": "miembros en los últimos 7 días",
+        "members_last_30_days": "miembros en los últimos 30 días",
+        "members_since_last": "miembros desde la última visita",
+        "member_growth": "crecimiento de miembros",
+        "pending_moderation": "elementos en la cola de moderación",
+        "reports_attention": "informes que requieren atención",
+        "pending_verification": "verificaciones pendientes",
+        "pending_listing_count": "anuncios del marketplace en espera de revisión",
+        "recent_activity": "actividad comunitaria reciente",
+        "activity_since_last": "actividad desde la última visita",
+        "unknown_metric": "esta métrica"
       },
       "capabilities": {
         "member_read": "Members",

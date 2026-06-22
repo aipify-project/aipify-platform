@@ -928,6 +928,8 @@
       "emptyLead": "Немає live-даних спільноти для цього запиту зараз.",
       "emptyExplanation": "The adapter is connected, but the underlying source returned no countable summary for this capability. Aipify will not invent numbers.",
       "groundedLead": "{capability}: {count} (резюме лише для читання з перевіреного джерела).",
+      "metricGapLead": "Ви запитуєте про {metric} через {capability}.",
+      "metricGapExplanation": "Постачальник спільноти підключений, але Aipify ще не має точного показника {metric} за цей період. Aipify не вгадує і не підміняє непов’язаними числами.",
       "sourceLine": "Source: {source} · Fetched: {checkedAt} · Freshness: {freshness} · Completeness: {completeness}",
       "readinessLine": "Capability readiness: {status}",
       "privacyNote": "Metadata-first community reads only — no private messages, secrets, or full profile fields are returned.",
@@ -965,9 +967,29 @@
         "empty": "empty"
       },
       "warnings": {
-        "memberCountProxy": "Member count uses community network summary fields — not individual member records.",
-        "activityPartial": "Activity summary may be incomplete when discussion metrics are unavailable.",
-        "verificationPartial": "Verification queue uses community best-practice status metadata only."
+        "memberCountProxy": "Кількість учасників використовує зведення мережі спільноти — не окремі записи учасників.",
+        "activityPartial": "Зведення активності може бути неповним, коли метрики обговорень недоступні.",
+        "verificationPartial": "Черга верифікації використовує лише метадані статусу best practice спільноти.",
+        "groupCountNotTotalMembers": "Кількість груп відображає групи спільноти — не загальну кількість учасників.",
+        "discussionCountNotNewMembers": "Кількість обговорень відображає активність форуму — не нові реєстрації учасників.",
+        "activityNotMembersSinceLast": "Активність обговорень — це не те саме, що учасники з останнього входу.",
+        "listingPrepNotPendingFilter": "Метадані підготовки marketplace не є перевіреним фільтром очікуваних оголошень."
+      },
+      "requestedMetrics": {
+        "total_members": "загальна кількість учасників",
+        "new_members": "нові учасники",
+        "members_today": "учасники сьогодні",
+        "members_last_7_days": "учасники за останні 7 днів",
+        "members_last_30_days": "учасники за останні 30 днів",
+        "members_since_last": "учасники з останнього візиту",
+        "member_growth": "зростання учасників",
+        "pending_moderation": "елементи в черзі модерації",
+        "reports_attention": "звіти, що потребують уваги",
+        "pending_verification": "очікувані верифікації",
+        "pending_listing_count": "оголошення marketplace, що очікують перевірки",
+        "recent_activity": "недавня активність спільноти",
+        "activity_since_last": "активність з останнього візиту",
+        "unknown_metric": "цей показник"
       },
       "capabilities": {
         "member_read": "Members",

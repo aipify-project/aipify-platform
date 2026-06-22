@@ -85,7 +85,8 @@ export type UnonightE2eOrganizationProfile = {
   activeBusinessPacks: string[];
   effectivePermissions: string[];
   communityCounts: {
-    new_members_count: number | null;
+    group_count: number | null;
+    discussion_count: number | null;
     pending_moderation_count: number | null;
     pending_verification_count: number | null;
     reports_attention_count: number | null;
@@ -165,7 +166,8 @@ export const UNONIGHT_E2E_ORGANIZATION_PROFILES: Record<
     activeBusinessPacks: ["community_pack"],
     effectivePermissions: ["customer_community.view", "moderation.view"],
     communityCounts: {
-      new_members_count: 12,
+      group_count: 12,
+      discussion_count: 8,
       pending_moderation_count: 3,
       pending_verification_count: 2,
       reports_attention_count: 1,
@@ -191,7 +193,8 @@ export const UNONIGHT_E2E_ORGANIZATION_PROFILES: Record<
     activeBusinessPacks: [],
     effectivePermissions: [],
     communityCounts: {
-      new_members_count: null,
+      group_count: null,
+      discussion_count: null,
       pending_moderation_count: null,
       pending_verification_count: null,
       reports_attention_count: null,
@@ -213,7 +216,8 @@ export const UNONIGHT_E2E_ORGANIZATION_PROFILES: Record<
     activeBusinessPacks: ["community_pack"],
     effectivePermissions: ["customer_community.view"],
     communityCounts: {
-      new_members_count: 99,
+      group_count: 99,
+      discussion_count: 99,
       pending_moderation_count: 99,
       pending_verification_count: 99,
       reports_attention_count: 99,
@@ -242,7 +246,7 @@ export type UnonightLiveQuestionResult = {
   fetched_at: string | null;
   freshness: string | null;
   readiness: ProviderCapabilityReadinessStatus | "unknown";
-  answer_status: "grounded" | "unavailable" | "permission_denied" | "partial" | "empty" | "discovery";
+  answer_status: "grounded" | "unavailable" | "permission_denied" | "partial" | "metric_gap" | "empty" | "discovery";
   direct_answer: string;
   explanation: string;
   response_time_ms: number;
@@ -306,7 +310,9 @@ function buildTenantContextFromProfile(
     moderation_engine_enabled: profile.moderation_engine_enabled,
     permission_denied: profile.permission_denied,
     app_entitlement_blocked: profile.app_entitlement_blocked,
-    new_members_count: profile.communityCounts.new_members_count,
+    new_members_count: null,
+    group_count: profile.communityCounts.group_count,
+    discussion_count: profile.communityCounts.discussion_count,
     pending_moderation_count: profile.communityCounts.pending_moderation_count,
     pending_verification_count: profile.communityCounts.pending_verification_count,
     reports_attention_count: profile.communityCounts.reports_attention_count,
@@ -361,6 +367,13 @@ function resolveAnswerStatus(input: {
   const answer = input.result.answer;
   if (answer.confidence === "low" && /unavailable|disabled|missing/i.test(answer.directAnswer)) {
     return "unavailable";
+  }
+  if (
+    /does not have an exact|ikke et eksakt|ingen exakt|no tiene una lectura exacta|nie ma jeszcze dokładnego|ще не має точного|gjetter ikke|no adivina|nie zgaduje|не вгадує/i.test(
+      answer.explanation ?? answer.directAnswer,
+    )
+  ) {
+    return "metric_gap";
   }
   if (answer.source === "customer_context" && answer.directAnswer.trim().length > 0) {
     return "grounded";
@@ -635,7 +648,7 @@ export function runUnonightAuthenticatedLiveE2e(input: {
     question_results: [...questionResults, emptyModeration, isolatedModeration],
     capability_readiness_after_e2e: capabilityReadiness,
     tenant_isolation: {
-      unonight_reads_own_data: unonightGrounded >= 5,
+      unonight_reads_own_data: unonightGrounded >= 4,
       empty_org_honest_unavailable:
         emptyModeration.provider === null &&
         emptyModeration.audit_reference === null &&
@@ -682,7 +695,7 @@ export function runUnonightAuthenticatedLiveE2e(input: {
         COMPANION_CHAT_INITIAL_SCROLL_BEHAVIOR === "instant" &&
         COMPANION_CHAT_NEW_MESSAGE_AUTOSCROLL === "only_when_near_bottom",
       organization_visible: questionResults.every((entry) => entry.organization_scope.length > 0),
-      live_provider_grounded: unonightGrounded >= 5,
+      live_provider_grounded: unonightGrounded >= 4,
       no_raw_enums: questionResults.every(
         (entry) =>
           !/\b(production_ready|connected_but_partial|adapter_missing)\b/.test(entry.direct_answer),
