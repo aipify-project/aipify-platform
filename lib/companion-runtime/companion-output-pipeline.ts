@@ -33,7 +33,7 @@ const SERIOUS_SOURCE_MARKERS = [
 const NUMERIC_TOKEN_PATTERN = /\b\d+(?:[.,]\d+)?%?\b/g;
 const FIELD_VALUE_PATTERN = /^[\w\s.-]+:\s*.+$/;
 
-function extractPreservedTokens(text: string): string[] {
+export function extractPreservedTokens(text: string): string[] {
   const tokens = new Set<string>();
   for (const match of text.match(NUMERIC_TOKEN_PATTERN) ?? []) {
     tokens.add(match);

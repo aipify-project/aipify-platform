@@ -201,6 +201,15 @@
         "invalid_output": "Вихідні дані провайдера не пройшли валідацію."
       }
     },
+    "synthesis": {
+      "naturalLead": "Aipify підготувала цю відповідь з {sourceCount} верифікованих джерел для вашого workspace.",
+      "constraints": {
+        "preserveFacts": "Зберігайте grounded факти точно.",
+        "preserveSources": "Зберігайте метадані джерел без змін.",
+        "noActions": "Не виконуйте та не пропонуйте дії.",
+        "noFabrication": "Не вигадуйте факти поза наданим контекстом."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

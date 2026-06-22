@@ -207,6 +207,15 @@
         "invalid_output": "Provider-output besto ikke validering."
       }
     },
+    "synthesis": {
+      "naturalLead": "Aipify forberedte dette svaret fra {sourceCount} verifiserte kilde(r) for arbeidsområdet ditt.",
+      "constraints": {
+        "preserveFacts": "Bevar grounded fakta nøyaktig.",
+        "preserveSources": "Behold kildemetadata uendret.",
+        "noActions": "Ikke utfør eller foreslå handlinger.",
+        "noFabrication": "Ikke finn opp fakta utover levert kontekst."
+      }
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

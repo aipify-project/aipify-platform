@@ -201,6 +201,15 @@
         "invalid_output": "La salida del proveedor no pasó la validación."
       }
     },
+    "synthesis": {
+      "naturalLead": "Aipify preparó esta respuesta a partir de {sourceCount} fuente(s) verificada(s) para su espacio de trabajo.",
+      "constraints": {
+        "preserveFacts": "Preserve los hechos grounded exactamente.",
+        "preserveSources": "Mantenga los metadatos de fuente sin cambios.",
+        "noActions": "No ejecute ni proponga acciones.",
+        "noFabrication": "No invente hechos más allá del contexto proporcionado."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

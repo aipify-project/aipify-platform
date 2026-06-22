@@ -64,6 +64,7 @@ import {
   buildOperationalGapAnswer,
 } from "./operational-answer";
 import { finalizeCompanionSearchResult } from "./companion-output-pipeline";
+import { applyCompanionModelSynthesis } from "./companion-model-synthesis";
 import { matchConfirmedMemoryQuery } from "./companion-memory-query-match";
 import {
   buildConfirmedMemoryAnswer,
@@ -619,7 +620,15 @@ export async function orchestrateCompanionSearch(
           );
 
     return finalizeCompanionSearchResult(
-      { ...result, answer: enrichedAnswer },
+      applyCompanionModelSynthesis({
+        result: { ...result, answer: enrichedAnswer },
+        query,
+        tenantContext: resolvedTenantContext,
+        locale: activeLocale,
+        t,
+        skipSynthesis: options?.skipMemoryEnrichment,
+        liveAnswer: options?.liveAnswer,
+      }),
       resolvedTenantContext.identityContext,
       {
         locale: activeLocale,

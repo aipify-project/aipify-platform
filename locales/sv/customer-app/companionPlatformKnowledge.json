@@ -201,6 +201,15 @@
         "invalid_output": "Provider-output klarade inte validering."
       }
     },
+    "synthesis": {
+      "naturalLead": "Aipify förberedde detta svar från {sourceCount} verifierad(a) källa(or) för din arbetsyta.",
+      "constraints": {
+        "preserveFacts": "Bevara grounded fakta exakt.",
+        "preserveSources": "Behåll källmetadata oförändrad.",
+        "noActions": "Utför eller föreslå inte åtgärder.",
+        "noFabrication": "Hitta inte på fakta utöver tillhandahållen kontext."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

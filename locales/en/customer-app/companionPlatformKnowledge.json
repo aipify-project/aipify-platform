@@ -207,6 +207,15 @@
         "invalid_output": "Provider output did not pass validation."
       }
     },
+    "synthesis": {
+      "naturalLead": "Aipify prepared this answer from {sourceCount} verified source(s) for your workspace.",
+      "constraints": {
+        "preserveFacts": "Preserve grounded facts exactly.",
+        "preserveSources": "Keep source metadata unchanged.",
+        "noActions": "Do not execute or propose actions.",
+        "noFabrication": "Do not invent facts beyond supplied context."
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

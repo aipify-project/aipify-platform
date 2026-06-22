@@ -1,6 +1,7 @@
 import type { AppOrganizationRole } from "@/lib/app-portal/nav-config";
 import { resolvePortalFeatureEnabled } from "@/lib/app-portal/feature-entitlements";
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import type { TenantModelPolicy } from "@/lib/intelligence/types";
 import type {
   CompanionBusinessPackCollection,
   CompanionCapabilityRef,
@@ -56,6 +57,7 @@ export type CompanionTenantContext = {
   confirmedOrganizationKnowledgeAvailable: boolean;
   actionContext: CompanionActionContext;
   writeActionsAvailable: boolean;
+  modelPolicy: TenantModelPolicy | null;
 };
 
 export function createEmptyCompanionTenantContext(
@@ -92,6 +94,7 @@ export function createEmptyCompanionTenantContext(
     confirmedOrganizationKnowledgeAvailable: false,
     actionContext: createEmptyCompanionActionContext(),
     writeActionsAvailable: false,
+    modelPolicy: { mode: "aipify_managed" },
     ...overrides,
   };
 }
