@@ -18,6 +18,7 @@ import {
 export type UnonightPlatformSnapshotFailureCode =
   | "invalid_token"
   | "missing_required_scope"
+  | "platform_snapshot_forbidden"
   | "endpoint_unreachable"
   | "response_invalid"
   | "organization_mismatch";
@@ -34,19 +35,25 @@ export type UnonightPlatformSnapshotTestResult =
 export type UnonightPlatformSnapshotTestInput = {
   bearerToken: string;
   baseUrl?: string | null;
-  requestedScopes?: readonly string[];
   expectedOrganizationSlug?: string | null;
   fetchImpl?: typeof fetch;
   timeoutMs?: number;
 };
 
-function missingScopes(granted: readonly string[], required: readonly string[]): string[] {
-  const grantedSet = new Set(granted.map((scope) => scope.toLowerCase()));
-  return required.filter((scope) => !grantedSet.has(scope.toLowerCase()));
+function extractSafeErrorCode(payload: unknown): string | null {
+  if (typeof payload !== "object" || payload === null) return null;
+  const error = (payload as Record<string, unknown>).error;
+  return typeof error === "string" ? error : null;
 }
 
-function mapHttpError(status: number): UnonightPlatformSnapshotFailureCode {
-  if (status === 401 || status === 403) return "invalid_token";
+function mapHttpFailure(
+  status: number,
+  payload: unknown,
+): UnonightPlatformSnapshotFailureCode {
+  const errorCode = extractSafeErrorCode(payload);
+  if (status === 403 && errorCode === "missing_scope") return "missing_required_scope";
+  if (status === 403) return "platform_snapshot_forbidden";
+  if (status === 401) return "invalid_token";
   return "endpoint_unreachable";
 }
 
@@ -68,18 +75,6 @@ export async function testUnonightPlatformSnapshot(
       ok: false,
       code: "invalid_token",
       technicalReason: "Invalid token format",
-    };
-  }
-
-  const requiredScopes = input.requestedScopes?.length
-    ? input.requestedScopes
-    : [UNONIGHT_PLATFORM_METADATA_SCOPE];
-  const scopeGaps = missingScopes(requiredScopes, [UNONIGHT_PLATFORM_METADATA_SCOPE]);
-  if (scopeGaps.length > 0) {
-    return {
-      ok: false,
-      code: "missing_required_scope",
-      technicalReason: `Missing scope: ${UNONIGHT_PLATFORM_METADATA_SCOPE}`,
     };
   }
 
@@ -128,23 +123,17 @@ export async function testUnonightPlatformSnapshot(
   }
 
   if (!response.ok) {
-    const errorCode =
-      typeof payload === "object" &&
-      payload !== null &&
-      typeof (payload as Record<string, unknown>).error === "string"
-        ? String((payload as Record<string, unknown>).error)
-        : null;
-    if (errorCode === "missing_scope") {
-      return {
-        ok: false,
-        code: "missing_required_scope",
-        technicalReason: "Token missing platform.metadata.read",
-      };
-    }
+    const code = mapHttpFailure(response.status, payload);
+    const errorCode = extractSafeErrorCode(payload);
     return {
       ok: false,
-      code: mapHttpError(response.status),
-      technicalReason: `HTTP ${response.status}`,
+      code,
+      technicalReason:
+        code === "missing_required_scope"
+          ? `Unonight rejected platform snapshot: missing ${UNONIGHT_PLATFORM_METADATA_SCOPE}`
+          : errorCode
+            ? `HTTP ${response.status} (${errorCode})`
+            : `HTTP ${response.status}`,
     };
   }
 

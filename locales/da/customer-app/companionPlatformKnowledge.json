@@ -175,7 +175,9 @@
         "organizationMismatch": "Organisationen i live-svaret matchede ikke dette arbejdsområde.",
         "permissionDenied": "Din rolle kan ikke læse live integrationsnøgler for denne organisation.",
         "responseInvalid": "Unonight returnerede platformmetadata, der ikke kunne valideres sikkert.",
-        "missingPlatformScope": "Det verificerede token inkluderer ikke platform.metadata.read, som kræves for live platformmetadata."
+        "liveScopeMissing": "Unonight afviste live platformssnapshot, fordi det aktive token mangler platform.metadata.read.",
+        "platformSnapshotForbidden": "Unonight afviste live platformssnapshot-anmodningen for dette token.",
+        "credentialMismatch": "Den gemte credential-reference matcher ikke det aktive Unonight-token, der blev brugt."
       }
     },
     "fallback": {

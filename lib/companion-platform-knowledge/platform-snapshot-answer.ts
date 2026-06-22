@@ -139,16 +139,18 @@ export function buildVerifiedPlatformSnapshotAnswer(
   };
 }
 
-const FAILURE_MESSAGE_KEYS: Record<PlatformSnapshotFailureCode, string> = {
+const FAILURE_MESSAGE_KEYS: Partial<Record<PlatformSnapshotFailureCode, string>> = {
   integration_not_connected: `${BASE}.failures.integrationNotConnected`,
   integration_not_verified: `${BASE}.failures.integrationNotVerified`,
   credential_unavailable: `${BASE}.failures.credentialUnavailable`,
+  credential_mismatch: `${BASE}.failures.credentialMismatch`,
   endpoint_unreachable: `${BASE}.failures.endpointUnreachable`,
   provider_mismatch: `${BASE}.failures.providerMismatch`,
   organization_mismatch: `${BASE}.failures.organizationMismatch`,
   permission_denied: `${BASE}.failures.permissionDenied`,
   response_invalid: `${BASE}.failures.responseInvalid`,
-  missing_platform_scope: `${BASE}.failures.missingPlatformScope`,
+  live_scope_missing: `${BASE}.failures.liveScopeMissing`,
+  platform_snapshot_forbidden: `${BASE}.failures.platformSnapshotForbidden`,
 };
 
 export function buildPlatformSnapshotFailureAnswer(
@@ -159,7 +161,7 @@ export function buildPlatformSnapshotFailureAnswer(
   return {
     title: t(`${BASE}.failureTitle`),
     directAnswer: t(`${BASE}.failureLead`),
-    explanation: t(FAILURE_MESSAGE_KEYS[code]),
+    explanation: t(FAILURE_MESSAGE_KEYS[code] ?? `${BASE}.failures.responseInvalid`),
     steps: [t(`${BASE}.failureRetryStep`)].filter(Boolean),
     actions: filterActionsByPermission(
       [

@@ -1,7 +1,14 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { decryptIntegrationCredential } from "@/lib/unonight/connection/crypto";
 import { UNONIGHT_ORGANIZATION_SLUG, UNONIGHT_PROVIDER_KEY } from "@/lib/unonight/connection/constants";
-import { loadAppPortalUnonightTestMaterial } from "@/lib/unonight/connection/run-test";
+import {
+  fetchUnonightLiveGrantedScopes,
+  mergeUnonightScopeLists,
+} from "@/lib/unonight/connection/live-scopes";
+import {
+  loadAppPortalUnonightTestMaterial,
+  refreshAppPortalIntegrationLiveScopes,
+} from "@/lib/unonight/connection/run-test";
 import {
   UNONIGHT_PLATFORM_METADATA_SCOPE,
   parseUnonightPlatformSnapshotDetailed,
@@ -13,12 +20,14 @@ export type PlatformSnapshotFailureCode =
   | "integration_not_connected"
   | "integration_not_verified"
   | "credential_unavailable"
+  | "credential_mismatch"
   | "endpoint_unreachable"
   | "provider_mismatch"
   | "organization_mismatch"
   | "permission_denied"
   | "response_invalid"
-  | "missing_platform_scope";
+  | "live_scope_missing"
+  | "platform_snapshot_forbidden";
 
 export type UnonightPlatformSnapshotMetadata = {
   provider: "unonight";
@@ -46,6 +55,9 @@ export type PlatformSnapshotAuditEvent = {
   ok: boolean;
   code?: PlatformSnapshotFailureCode;
   connection_id?: string | null;
+  credential_reference_id?: string | null;
+  scope_source?: "live_unonight" | "stored_approved_scopes";
+  stored_scopes?: string[];
   checked_at: string;
 };
 
@@ -56,7 +68,33 @@ type HubConnection = {
   status?: string;
   last_test_success_at?: string | null;
   access_summary?: Record<string, unknown>;
+  masked_credential_hint?: string | null;
 };
+
+function mapLiveSnapshotFailure(
+  code:
+    | "invalid_token"
+    | "missing_required_scope"
+    | "platform_snapshot_forbidden"
+    | "endpoint_unreachable"
+    | "response_invalid"
+    | "organization_mismatch",
+): PlatformSnapshotFailureCode {
+  switch (code) {
+    case "missing_required_scope":
+      return "live_scope_missing";
+    case "platform_snapshot_forbidden":
+      return "platform_snapshot_forbidden";
+    case "organization_mismatch":
+      return "organization_mismatch";
+    case "invalid_token":
+      return "credential_unavailable";
+    case "endpoint_unreachable":
+      return "endpoint_unreachable";
+    default:
+      return "response_invalid";
+  }
+}
 
 function isVerifiedConnection(connection: HubConnection): boolean {
   const canonical = String(connection.canonical_status ?? "").toLowerCase();
@@ -64,10 +102,6 @@ function isVerifiedConnection(connection: HubConnection): boolean {
   if (connection.last_test_success_at) return true;
   const status = String(connection.status ?? "").toLowerCase();
   return status === "connected" || status === "verified";
-}
-
-function hasPlatformScope(scopes: string[]): boolean {
-  return scopes.some((scope) => scope.toLowerCase() === UNONIGHT_PLATFORM_METADATA_SCOPE);
 }
 
 export async function getUnonightPlatformSnapshot(
@@ -137,19 +171,8 @@ export async function getUnonightPlatformSnapshot(
         ok: false,
         code: "credential_unavailable",
         connection_id: connection.id,
-      },
-    };
-  }
-
-  if (!hasPlatformScope(material.approved_scopes)) {
-    return {
-      ok: false,
-      code: "missing_platform_scope",
-      audit: {
-        ...baseAudit,
-        ok: false,
-        code: "missing_platform_scope",
-        connection_id: connection.id,
+        scope_source: "stored_approved_scopes",
+        stored_scopes: material?.approved_scopes ?? [],
       },
     };
   }
@@ -180,28 +203,47 @@ export async function getUnonightPlatformSnapshot(
   const liveResult = await testUnonightPlatformSnapshot({
     bearerToken,
     baseUrl,
-    requestedScopes: material.approved_scopes,
     expectedOrganizationSlug: UNONIGHT_ORGANIZATION_SLUG,
   });
 
   if (!liveResult.ok) {
-    const code: PlatformSnapshotFailureCode =
-      liveResult.code === "organization_mismatch"
-        ? "organization_mismatch"
-        : liveResult.code === "missing_required_scope"
-          ? "missing_platform_scope"
-          : liveResult.code === "invalid_token"
-            ? "credential_unavailable"
-            : liveResult.code === "endpoint_unreachable"
-              ? "endpoint_unreachable"
-              : "response_invalid";
+    const code = mapLiveSnapshotFailure(liveResult.code);
+
+    console.info("[companion-platform-snapshot]", {
+      ok: false,
+      code,
+      connection_id: connection.id,
+      scope_source: "live_unonight",
+      stored_scopes: material.approved_scopes,
+      credential_hint: connection.masked_credential_hint ?? null,
+      technical_reason: liveResult.technicalReason,
+    });
 
     return {
       ok: false,
       code,
-      audit: { ...baseAudit, ok: false, code, connection_id: connection.id },
+      audit: {
+        ...baseAudit,
+        ok: false,
+        code,
+        connection_id: connection.id,
+        scope_source: "live_unonight",
+        stored_scopes: material.approved_scopes,
+      },
     };
   }
+
+  const liveGrantedScopes = await fetchUnonightLiveGrantedScopes({ bearerToken, baseUrl });
+  const scopesToPersist = mergeUnonightScopeLists(
+    material.approved_scopes,
+    liveGrantedScopes ?? [UNONIGHT_PLATFORM_METADATA_SCOPE],
+  );
+
+  await refreshAppPortalIntegrationLiveScopes(supabase, connection.id, scopesToPersist, {
+    source: "platform_snapshot",
+    checked_at: checkedAt,
+    live_granted_scopes: liveGrantedScopes,
+  });
 
   const snapshot = liveResult.snapshot;
   const metadata: UnonightPlatformSnapshotMetadata = {
@@ -225,12 +267,22 @@ export async function getUnonightPlatformSnapshot(
     provider: metadata.provider,
     module_count: metadata.active_modules.length,
     checked_at: metadata.checked_at,
+    connection_id: connection.id,
+    scope_source: "live_unonight",
+    refreshed_scopes: scopesToPersist,
+    credential_hint: connection.masked_credential_hint ?? null,
   });
 
   return {
     ok: true,
     data: metadata,
-    audit: { ...baseAudit, ok: true, connection_id: connection.id },
+    audit: {
+      ...baseAudit,
+      ok: true,
+      connection_id: connection.id,
+      scope_source: "live_unonight",
+      stored_scopes: scopesToPersist,
+    },
   };
 }
 

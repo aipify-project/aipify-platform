@@ -58,6 +58,19 @@ export async function loadAppPortalUnonightTestMaterial(
   };
 }
 
+export async function refreshAppPortalIntegrationLiveScopes(
+  supabase: SupabaseClient,
+  connectionId: string,
+  liveScopes: string[],
+  context: Record<string, unknown> = {},
+): Promise<void> {
+  await supabase.rpc("refresh_app_portal_integration_live_scopes", {
+    p_connection_id: connectionId,
+    p_live_scopes: liveScopes,
+    p_context: context,
+  });
+}
+
 export async function recordAppPortalIntegrationTestResult(
   supabase: SupabaseClient,
   connectionId: string,

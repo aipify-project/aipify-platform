@@ -175,7 +175,9 @@
         "organizationMismatch": "Organizacja w odpowiedzi na żywo nie pasowała do tego obszaru roboczego.",
         "permissionDenied": "Twoja rola nie może odczytywać poświadczeń integracji na żywo.",
         "responseInvalid": "Unonight zwrócił metadane platformy, których nie można było bezpiecznie zweryfikować.",
-        "missingPlatformScope": "Zweryfikowany token nie zawiera platform.metadata.read wymaganego do metadanych platformy na żywo."
+        "liveScopeMissing": "Unonight odrzucił live snapshot platformy, ponieważ aktywny token nie zawiera platform.metadata.read.",
+        "platformSnapshotForbidden": "Unonight odrzucił żądanie live snapshot platformy dla tego tokena.",
+        "credentialMismatch": "Zapisane odniesienie poświadczeń nie pasuje do aktywnego tokena Unonight użytego w tym żądaniu."
       }
     },
     "fallback": {

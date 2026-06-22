@@ -175,7 +175,9 @@
         "organizationMismatch": "The live response organization did not match this workspace.",
         "permissionDenied": "Your role cannot read live integration credentials for this organization.",
         "responseInvalid": "Unonight returned platform metadata that could not be validated safely.",
-        "missingPlatformScope": "The verified token does not include the platform.metadata.read scope required for live platform metadata."
+        "liveScopeMissing": "Unonight rejected the live platform snapshot because the active token is missing the platform.metadata.read scope.",
+        "platformSnapshotForbidden": "Unonight rejected the live platform snapshot request for this token.",
+        "credentialMismatch": "The stored credential reference does not match the active Unonight token used for this request."
       }
     },
     "fallback": {
