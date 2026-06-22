@@ -3,16 +3,20 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  buildCommandBriefAlertSummary,
+  buildCommandBriefApprovalSummary,
   buildCommandBriefAttentionItems,
   buildCommandBriefActivityFeed,
+  buildCommandBriefIntegrationSignals,
   buildCommandBriefKpiCounts,
   filterRealCompanionRecommendations,
+  pickCommandBriefNextAction,
 } from "./command-brief-overview";
 import type { ExecutiveCommandCenter } from "@/lib/executive-command-center-engine/parse";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "../..");
-const LOCALES = ["en", "no", "sv", "da"] as const;
+const LOCALES = ["en", "no", "sv", "da", "pl", "uk"] as const;
 
 for (const locale of LOCALES) {
   const dict = JSON.parse(
@@ -69,8 +73,32 @@ const realCenter: ExecutiveCommandCenter = {
       priority: "attention",
       status: "open",
     },
+    {
+      alert_key: "alert:open-2",
+      alert_title: "Inventory sync delay",
+      summary: "Sync is behind schedule.",
+      priority: "information",
+      status: "open",
+    },
   ],
-  actions: [],
+  actions: [
+    {
+      action_key: "action:pending-1",
+      action_title: "Approve refund policy",
+      summary: "Refund policy update awaits approval.",
+      priority: "attention",
+      status: "pending",
+    },
+  ],
+  business_packs: [
+    {
+      pack_key: "hosts",
+      pack_title: "Aipify Hosts",
+      summary: "Guest operations pack is active.",
+      events_count: 4,
+      alerts_count: 1,
+    },
+  ],
 };
 
 const attention = buildCommandBriefAttentionItems(realCenter);
@@ -80,5 +108,28 @@ assert.ok(attention.length <= 3);
 const kpis = buildCommandBriefKpiCounts(realCenter);
 assert.equal(kpis.organizationHealth, 85);
 assert.ok(kpis.sinceLastLogin >= 0);
+
+const alertSummary = buildCommandBriefAlertSummary(realCenter, attention);
+assert.ok(alertSummary.length >= 0);
+assert.ok(alertSummary.length <= 3);
+for (const item of alertSummary) {
+  assert.ok(!attention.some((a) => a.dedupeKey === item.dedupeKey), "alert summary excludes attention items");
+}
+
+const approvalSummary = buildCommandBriefApprovalSummary(realCenter, attention);
+assert.ok(approvalSummary.length >= 0);
+assert.ok(approvalSummary.length <= 3);
+for (const item of approvalSummary) {
+  assert.ok(!attention.some((a) => a.dedupeKey === item.dedupeKey), "approval summary excludes attention items");
+}
+
+const integrationSignals = buildCommandBriefIntegrationSignals(realCenter);
+assert.equal(integrationSignals.length, 1);
+assert.equal(integrationSignals[0]?.title, "Aipify Hosts");
+assert.equal(integrationSignals[0]?.eventsCount, 4);
+assert.equal(integrationSignals[0]?.alertsCount, 1);
+
+assert.equal(pickCommandBriefNextAction([]), null);
+assert.equal(pickCommandBriefNextAction(attention)?.dedupeKey, attention[0]?.dedupeKey);
 
 console.log("command-brief-overview.test.ts: all assertions passed");

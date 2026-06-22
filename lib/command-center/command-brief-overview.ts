@@ -68,6 +68,52 @@ export function buildCommandBriefKpiCounts(center: ExecutiveCommandCenter): Comm
   };
 }
 
+export type CommandBriefIntegrationSignal = {
+  id: string;
+  title: string;
+  summary: string;
+  eventsCount: number;
+  alertsCount: number;
+};
+
+export function buildCommandBriefIntegrationSignals(
+  center: ExecutiveCommandCenter
+): CommandBriefIntegrationSignal[] {
+  return (center.business_packs ?? [])
+    .filter((pack) => !isSyntheticEccRecord(pack))
+    .slice(0, 3)
+    .map((pack) => ({
+      id: String(pack.pack_key ?? pack.pack_title),
+      title: String(pack.pack_title ?? ""),
+      summary: String(pack.summary ?? ""),
+      eventsCount: Number(pack.events_count ?? 0),
+      alertsCount: Number(pack.alerts_count ?? 0),
+    }))
+    .filter((item) => item.title.length > 0);
+}
+
+function excludeAttentionItems(
+  items: CommandCenterItem[],
+  attentionItems: CommandCenterItem[]
+): CommandCenterItem[] {
+  const keys = new Set(attentionItems.map((item) => item.dedupeKey));
+  return items.filter((item) => !keys.has(item.dedupeKey));
+}
+
+export function buildCommandBriefAlertSummary(
+  center: ExecutiveCommandCenter,
+  attentionItems: CommandCenterItem[]
+): CommandCenterItem[] {
+  return excludeAttentionItems(buildAlertsDataset(center), attentionItems).slice(0, 3);
+}
+
+export function buildCommandBriefApprovalSummary(
+  center: ExecutiveCommandCenter,
+  attentionItems: CommandCenterItem[]
+): CommandCenterItem[] {
+  return excludeAttentionItems(buildApprovalsDataset(center), attentionItems).slice(0, 3);
+}
+
 export function pickCommandBriefNextAction(
   attentionItems: CommandCenterItem[]
 ): CommandCenterItem | null {

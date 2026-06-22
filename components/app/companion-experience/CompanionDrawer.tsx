@@ -17,12 +17,15 @@ export function CompanionDrawer() {
   }, [open, closeDrawer]);
 
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    if (!open) return;
+    const mobile = window.matchMedia("(max-width: 639px)");
+    function applyLock() {
+      document.body.style.overflow = mobile.matches ? "hidden" : "";
     }
+    applyLock();
+    mobile.addEventListener("change", applyLock);
     return () => {
+      mobile.removeEventListener("change", applyLock);
       document.body.style.overflow = "";
     };
   }, [open]);
@@ -33,7 +36,7 @@ export function CompanionDrawer() {
     <div className="fixed inset-0 z-50 flex justify-end" role="presentation">
       <button
         type="button"
-        className="absolute inset-0 bg-slate-900/30 backdrop-blur-[2px]"
+        className="absolute inset-0 bg-slate-900/25 backdrop-blur-[1px] sm:bg-slate-900/20"
         aria-label={labels.closeDrawer}
         onClick={closeDrawer}
       />
@@ -41,7 +44,7 @@ export function CompanionDrawer() {
         role="dialog"
         aria-modal="true"
         aria-label={labels.ariaCompanionPanel}
-        className="relative flex h-full w-full max-w-2xl flex-col bg-aipify-canvas shadow-2xl sm:max-w-xl lg:max-w-3xl motion-safe:translate-x-0"
+        className="relative flex h-full w-full max-w-[100vw] flex-col bg-aipify-canvas shadow-2xl sm:w-[min(640px,100vw)]"
       >
         <CompanionPanel
           labels={labels}

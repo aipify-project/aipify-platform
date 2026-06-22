@@ -74,6 +74,8 @@ export function buildCompanionExperienceLabels(t: Translator): CompanionExperien
     askAipifyButton: t(`${p}.askAipifyButton`),
     newConversation: t(`${p}.newConversation`),
     viewSuggestions: t(`${p}.viewSuggestions`),
+    secondarySectionsToggle: t(`${p}.secondarySectionsToggle`),
+    secondarySectionsHide: t(`${p}.secondarySectionsHide`),
     inputPlaceholder: t(`${p}.inputPlaceholder`),
     activePage: t(`${p}.activePage`),
     activeOrganization: t(`${p}.activeOrganization`),

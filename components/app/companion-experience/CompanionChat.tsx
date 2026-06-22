@@ -8,13 +8,17 @@ type CompanionChatProps = {
   messages: CompanionChatMessage[];
   loading: boolean;
   labels: CompanionExperienceLabels;
+  spacious?: boolean;
 };
 
-export function CompanionChat({ messages, loading, labels }: CompanionChatProps) {
+export function CompanionChat({ messages, loading, labels, spacious }: CompanionChatProps) {
   if (messages.length === 0 && !loading) return null;
 
   return (
-    <section className="mt-6 space-y-4" aria-live="polite">
+    <section
+      className={spacious ? "space-y-6" : "mt-6 space-y-4"}
+      aria-live="polite"
+    >
       {messages.map((msg) =>
         msg.role === "user" ? (
           <div key={msg.id} className="flex justify-end">
@@ -25,7 +29,9 @@ export function CompanionChat({ messages, loading, labels }: CompanionChatProps)
         ) : (
           <div key={msg.id} className="flex items-start gap-3">
             <CompanionIcon size={32} className="mt-1 shrink-0" />
-            <div className="max-w-[85%] rounded-2xl rounded-bl-md border border-violet-100 bg-white px-4 py-3 shadow-sm">
+            <div className={`max-w-[90%] rounded-2xl rounded-bl-md border border-violet-100 bg-white shadow-sm ${
+              spacious ? "px-5 py-4" : "px-4 py-3"
+            }`}>
               <p className="text-sm text-aipify-text">{msg.content}</p>
               {msg.steps && msg.steps.length > 0 ? (
                 <ol className="mt-3 list-inside list-decimal space-y-1 text-sm text-aipify-text-secondary">

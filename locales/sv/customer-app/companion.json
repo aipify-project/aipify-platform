@@ -2011,6 +2011,8 @@
     "askAipifyButton": "Fråga Aipify",
     "newConversation": "Ny konversation",
     "viewSuggestions": "Visa förslag",
+    "secondarySectionsToggle": "Visa mer kontext",
+    "secondarySectionsHide": "Dölj kontext",
     "inputPlaceholder": "Vad kan Aipify hjälpa dig med idag?",
     "activePage": "Aktiv sida: {page}",
     "activeOrganization": "Aktiv organisation",

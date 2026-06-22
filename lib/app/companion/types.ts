@@ -32,6 +32,8 @@ export type CompanionExperienceLabels = {
   askAipifyButton: string;
   newConversation: string;
   viewSuggestions: string;
+  secondarySectionsToggle: string;
+  secondarySectionsHide: string;
   inputPlaceholder: string;
   activePage: string;
   activeOrganization: string;

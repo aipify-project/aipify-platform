@@ -29,7 +29,10 @@ import {
 } from "@/lib/command-center/ecc-tab-datasets";
 import {
   buildCommandBriefActivityFeed,
+  buildCommandBriefAlertSummary,
+  buildCommandBriefApprovalSummary,
   buildCommandBriefAttentionItems,
+  buildCommandBriefIntegrationSignals,
   buildCommandBriefKpiCounts,
   pickCommandBriefNextAction,
 } from "@/lib/command-center/command-brief-overview";
@@ -288,6 +291,9 @@ export function ExecutiveCommandCenterPanel({
     const activityFeed = buildCommandBriefActivityFeed(center);
     const kpis = buildCommandBriefKpiCounts(center);
     const nextAction = pickCommandBriefNextAction(attentionItems);
+    const alertSummary = buildCommandBriefAlertSummary(center, attentionItems);
+    const approvalSummary = buildCommandBriefApprovalSummary(center, attentionItems);
+    const integrationSignals = buildCommandBriefIntegrationSignals(center);
 
     return (
       <CommandBriefOverview
@@ -296,6 +302,9 @@ export function ExecutiveCommandCenterPanel({
         attentionItems={attentionItems}
         activityFeed={activityFeed}
         nextAction={nextAction}
+        alertSummary={alertSummary}
+        approvalSummary={approvalSummary}
+        integrationSignals={integrationSignals}
         resolveLabel={resolveLabel}
       />
     );

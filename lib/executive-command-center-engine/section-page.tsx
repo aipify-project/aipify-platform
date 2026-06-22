@@ -16,8 +16,7 @@ export async function ExecutiveCommandCenterSectionPage({ activeSection }: { act
   return (
     <div className="space-y-6">
       {activeSection === "overview" ? (
-        <div className="px-4 sm:px-6">
-          <PilotCommandBriefStrip
+        <PilotCommandBriefStrip
             labels={{
               title: tp(`${pilotNs}.title`),
               readOnlyActive: tp(`${pilotNs}.readOnlyActive`),
@@ -32,7 +31,6 @@ export async function ExecutiveCommandCenterSectionPage({ activeSection }: { act
               principle: tp(`${pilotNs}.principle`),
             }}
           />
-        </div>
       ) : null}
       <ExecutiveCommandCenterPanel labels={buildExecutiveCommandCenterLabels(t)} activeSection={activeSection} />
     </div>

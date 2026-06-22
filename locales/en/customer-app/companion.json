@@ -2011,6 +2011,8 @@
     "askAipifyButton": "Ask Aipify",
     "newConversation": "New conversation",
     "viewSuggestions": "View suggestions",
+    "secondarySectionsToggle": "Show more context",
+    "secondarySectionsHide": "Hide context",
     "inputPlaceholder": "What would you like help with today?",
     "activePage": "Active page: {page}",
     "activeOrganization": "Organization",

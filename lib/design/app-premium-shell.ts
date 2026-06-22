@@ -3,6 +3,12 @@ import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
 /** Shared APP premium surface tokens — Design Pilot 01 / Light Enterprise */
 export const AppPremiumShell = {
   page: "mx-auto w-full max-w-[1440px] px-4 pb-10 pt-6 sm:px-6 lg:px-8",
+  /** Command Brief overview — full APP workspace width */
+  commandBriefPage: "mx-auto w-full max-w-[1680px] px-6 pb-10 pt-6 sm:px-8",
+  commandBriefGrid: "grid grid-cols-12 gap-4 lg:gap-6 xl:gap-8",
+  commandBriefSectionTitle: "text-xl font-semibold tracking-tight text-aipify-text",
+  commandBriefBody: "text-base leading-relaxed text-aipify-text-secondary",
+  commandBriefMeta: "text-sm text-aipify-text-muted",
   canvas: "min-h-full bg-aipify-canvas",
   elevatedCard:
     "rounded-2xl border border-aipify-border bg-aipify-surface shadow-sm transition-shadow",
