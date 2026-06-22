@@ -23,7 +23,8 @@ export type CompanionActionSource =
   | "hr_provider"
   | "warehouse_provider"
   | "finance_provider"
-  | "sales_provider";
+  | "sales_provider"
+  | "security_provider";
 
 export type CompanionActionDefinition = {
   action_id: string;
@@ -686,6 +687,48 @@ export function buildActionDefinitionFromSalesCapability(
     input_schema: buildWriteInputSchema(capability.capability_id),
     expected_result_schema: buildExpectedResultSchema(),
     source: "sales_provider",
+    enabled,
+  };
+}
+
+export function buildActionDefinitionFromSecurityCapability(
+  capability: import("./companion-security-context").SecurityCapabilityRuntimeRef,
+  options: {
+    permissionAllowed: boolean;
+    appEntitlementBlocked: boolean;
+    emergencyStop: boolean;
+    maxRiskLevel: ActionLevel;
+  },
+): CompanionActionDefinition | null {
+  if (capability.operation !== "write") return null;
+
+  const riskLevel = Math.min(capability.risk_level, 3) as ActionLevel;
+  const permissionOk = !capability.required_permission || options.permissionAllowed;
+
+  const enabled =
+    permissionOk &&
+    !options.appEntitlementBlocked &&
+    !options.emergencyStop &&
+    capability.approval_required &&
+    capability.reversible &&
+    riskLevel <= options.maxRiskLevel &&
+    riskLevel <= 2 &&
+    !aiExecutionProhibited(riskLevel) &&
+    capability.runtime_status !== "placeholder";
+
+  return {
+    action_id: capability.capability_id,
+    capability_id: `${capability.capability_id}.write`,
+    provider_key: capability.provider_key,
+    entity: capability.entity,
+    operation: "write",
+    risk_level: riskLevel,
+    required_permission: capability.required_permission,
+    approval_required: capability.approval_required || approvalRequiredForLevel(riskLevel),
+    reversible: capability.reversible,
+    input_schema: buildWriteInputSchema(capability.capability_id),
+    expected_result_schema: buildExpectedResultSchema(),
+    source: "security_provider",
     enabled,
   };
 }

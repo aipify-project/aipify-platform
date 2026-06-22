@@ -186,6 +186,16 @@ import {
   matchSalesProviderQuery,
 } from "./sales-answer";
 import {
+  buildBlockedSecurityOperationAnswer,
+  buildExternalSecurityUnavailableAnswer,
+  buildSecurityProviderDiscoveryAnswer,
+  buildSecurityProviderUnavailableAnswer,
+  hasBlockedSecurityOperationIntent,
+  hasExternalSecurityAdapterIntent,
+  hasSecurityProviderIntent,
+  matchSecurityProviderQuery,
+} from "./security-answer";
+import {
   buildBlockedCommerceOperationAnswer,
   buildCommerceProviderDiscoveryAnswer,
   buildCommerceProviderUnavailableAnswer,
@@ -998,6 +1008,45 @@ function resolveSalesProviderAnswer(
   };
 }
 
+function resolveSecurityProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (hasBlockedSecurityOperationIntent(query)) {
+    return {
+      answer: buildBlockedSecurityOperationAnswer(t),
+    };
+  }
+
+  if (!hasSecurityProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.securityContext.permission_denied) {
+    return {
+      answer: buildSecurityProviderUnavailableAnswer(t, tenantContext.securityContext),
+    };
+  }
+
+  if (hasExternalSecurityAdapterIntent(query)) {
+    return {
+      answer: buildExternalSecurityUnavailableAnswer(t),
+    };
+  }
+
+  const match = matchSecurityProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildSecurityProviderUnavailableAnswer(t, tenantContext.securityContext),
+    };
+  }
+
+  return {
+    answer: buildSecurityProviderDiscoveryAnswer(match, tenantContext.securityContext, t),
+  };
+}
+
 function resolveSupportProviderAnswer(
   query: string,
   t: Translator,
@@ -1260,6 +1309,9 @@ export async function orchestrateCompanionSearch(
 
   const salesResult = resolveSalesProviderAnswer(query, t, resolvedTenantContext);
   if (salesResult) return finalize(salesResult);
+
+  const securityResult = resolveSecurityProviderAnswer(query, t, resolvedTenantContext);
+  if (securityResult) return finalize(securityResult);
 
   const supportResult = resolveSupportProviderAnswer(query, t, resolvedTenantContext);
   if (supportResult) return finalize(supportResult);

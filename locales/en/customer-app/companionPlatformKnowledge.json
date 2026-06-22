@@ -838,6 +838,61 @@
         "sales_pack_adapter": "external crm salesforce hubspot adapter third party pipeline sync"
       }
     },
+    "security": {
+      "sourceLabel": "Security provider catalog",
+      "discoveryLead": "Aipify mapped {provider} in your security provider catalog — status: {status}.",
+      "discoveryExplanation": "Capabilities below come from registered Security / Verification Business Pack manifests. Verification requests and access reviews require approval — Aipify never auto-approves identity, revokes access permanently, deletes audit logs, disables 2FA, or executes irreversible security actions in Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Security source is prepared or verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No security provider matched this request for your organization.",
+      "unavailableExplanation": "Security capabilities are discovered from registered manifests — none matched this query.",
+      "externalUnavailableLead": "External security or compliance adapters are not connected for your organization.",
+      "externalUnavailableExplanation": "No live external security adapter is registered. Aipify does not auto-approve identity, delete audit logs, disable 2FA, or execute irreversible security changes in Companion runtime.",
+      "blockedOperationLead": "This security operation is not available in Companion runtime.",
+      "blockedOperationExplanation": "Identity auto-approval, permanent access revocation, audit log deletion, 2FA deactivation, sensitive account changes, compliance decisions, and irreversible security actions are blocked in this phase. Aipify can prepare verification requests and access reviews — you decide and approve.",
+      "permissionDenied": "Your role cannot access the security provider catalog.",
+      "entitlementBlocked": "Security capabilities are unavailable while the organization subscription is paused.",
+      "privacyNote": "Metadata-first security intelligence — sensitive documents are masked and raw identity documents, secrets, and auth data are never exposed in Companion runtime.",
+      "policyNote": "Verification requests and access reviews require explicit approval. Role-based permissions, tenant isolation, and audit logging apply to all security actions.",
+      "identityAutoApproveBlocked": "Automatic identity approval is blocked in Companion runtime.",
+      "permanentAccessRevocationBlocked": "Permanent access revocation is blocked — humans decide outside Companion runtime.",
+      "auditLogDeletionBlocked": "Audit log deletion is blocked — audit history is immutable.",
+      "tfaDisableBlocked": "2FA deactivation is blocked in Companion runtime.",
+      "sensitiveDocumentsMasked": "Sensitive documents and identity data are masked for security reads.",
+      "secretsAndAuthDataFiltered": "Secrets and authentication data are filtered and never exposed.",
+      "roleBasedAccessActive": "Role-based access permissions are enforced for this organization.",
+      "commandBriefEventsLinked": "Command Brief security signals are linked from existing verification, access review, incident, and compliance sources.",
+      "commandBriefEventsAvailable": "Command Brief security signals are available when security engines are activated.",
+      "openSecurityCenter": "Open Security Center",
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "trust_center_verification": "Trust Center Verification",
+        "identity_access_management": "Identity & Access Management",
+        "security_compliance_center": "Security & Compliance Center",
+        "audit_accountability": "Audit & Accountability",
+        "governance_management": "Governance Management",
+        "security_pack_adapter": "External Security Adapter"
+      },
+      "searchTerms": {
+        "trust_center_verification": "verification identity organization 2fa security events trust center certificate",
+        "identity_access_management": "access role permission identity user management",
+        "security_compliance_center": "security incident compliance status events policies",
+        "audit_accountability": "audit log history accountability trail",
+        "governance_management": "governance access review policy violation risk signal compliance control",
+        "security_pack_adapter": "external siem identity provider compliance adapter third party security sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

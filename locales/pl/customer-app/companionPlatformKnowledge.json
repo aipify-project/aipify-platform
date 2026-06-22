@@ -808,6 +808,61 @@
         "sales_pack_adapter": "zewnętrzny crm salesforce hubspot adapter trzecia strona pipeline sync"
       }
     },
+    "security": {
+      "sourceLabel": "Katalog dostawców bezpieczeństwa",
+      "discoveryLead": "Aipify zmapowało {provider} w katalogu dostawców bezpieczeństwa — status: {status}.",
+      "discoveryExplanation": "Poniższe możliwości pochodzą z zarejestrowanych manifestów Security / Verification Business Pack. Żądania weryfikacji i przeglądy dostępu wymagają zatwierdzenia — Aipify nigdy nie zatwierdza tożsamości automatycznie, nie cofa dostępu trwale, nie usuwa dzienników audytu, nie wyłącza 2FA ani nie wykonuje nieodwracalnych działań bezpieczeństwa w Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Źródło bezpieczeństwa jest przygotowane lub zweryfikowane dla Twojej organizacji.",
+      "disconnectedProvider": "Adapter runtime dostawcy nie jest podłączony — tylko kontrolowane wykrywanie.",
+      "unavailableLead": "Żaden dostawca bezpieczeństwa nie pasował do tego żądania dla Twojej organizacji.",
+      "unavailableExplanation": "Możliwości bezpieczeństwa są wykrywane z zarejestrowanych manifestów — żaden nie pasował do tego zapytania.",
+      "externalUnavailableLead": "Zewnętrzne adaptery bezpieczeństwa lub zgodności nie są podłączone dla Twojej organizacji.",
+      "externalUnavailableExplanation": "Nie zarejestrowano aktywnego zewnętrznego adaptera bezpieczeństwa. Aipify nie zatwierdza tożsamości automatycznie, nie usuwa dzienników audytu, nie wyłącza 2FA ani nie wykonuje nieodwracalnych zmian bezpieczeństwa w Companion runtime.",
+      "blockedOperationLead": "Ta operacja bezpieczeństwa nie jest dostępna w Companion runtime.",
+      "blockedOperationExplanation": "Automatyczne zatwierdzanie tożsamości, trwałe cofnięcie dostępu, usuwanie dzienników audytu, wyłączenie 2FA, wrażliwe zmiany konta, decyzje zgodności i nieodwracalne działania bezpieczeństwa są zablokowane w tej fazie. Aipify może przygotować żądania weryfikacji i przeglądy dostępu — Ty decydujesz i zatwierdzasz.",
+      "permissionDenied": "Twoja rola nie ma dostępu do katalogu dostawców bezpieczeństwa.",
+      "entitlementBlocked": "Możliwości bezpieczeństwa są niedostępne, gdy subskrypcja organizacji jest wstrzymana.",
+      "privacyNote": "Inteligencja bezpieczeństwa metadata-first — wrażliwe dokumenty są maskowane, a surowe dokumenty tożsamości, sekrety i dane uwierzytelniające nigdy nie są ujawniane w Companion runtime.",
+      "policyNote": "Żądania weryfikacji i przeglądy dostępu wymagają wyraźnego zatwierdzenia. Uprawnienia oparte na rolach, izolacja tenant i rejestrowanie audytu dotyczą wszystkich działań bezpieczeństwa.",
+      "identityAutoApproveBlocked": "Automatyczne zatwierdzanie tożsamości jest zablokowane w Companion runtime.",
+      "permanentAccessRevocationBlocked": "Trwałe cofnięcie dostępu jest zablokowane — decyzje podejmują ludzie poza Companion runtime.",
+      "auditLogDeletionBlocked": "Usuwanie dzienników audytu jest zablokowane — historia audytu jest niezmienna.",
+      "tfaDisableBlocked": "Wyłączenie 2FA jest zablokowane w Companion runtime.",
+      "sensitiveDocumentsMasked": "Wrażliwe dokumenty i dane tożsamości są maskowane dla odczytów bezpieczeństwa.",
+      "secretsAndAuthDataFiltered": "Sekrety i dane uwierzytelniające są filtrowane i nigdy nie są ujawniane.",
+      "roleBasedAccessActive": "Uprawnienia oparte na rolach są egzekwowane dla tej organizacji.",
+      "commandBriefEventsLinked": "Sygnały bezpieczeństwa Command Brief są powiązane z istniejącymi źródłami weryfikacji, przeglądu dostępu, incydentów i zgodności.",
+      "commandBriefEventsAvailable": "Sygnały bezpieczeństwa Command Brief są dostępne, gdy silniki bezpieczeństwa są aktywowane.",
+      "openSecurityCenter": "Otwórz Security Center",
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
+      "status": {
+        "connected": "połączony",
+        "implemented_disconnected": "zaimplementowany, ale odłączony",
+        "partial": "częściowy",
+        "specification_only": "tylko specyfikacja",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "trust_center_verification": "Weryfikacja Trust Center",
+        "identity_access_management": "Zarządzanie tożsamością i dostępem",
+        "security_compliance_center": "Centrum bezpieczeństwa i zgodności",
+        "audit_accountability": "Audyt i odpowiedzialność",
+        "governance_management": "Zarządzanie governance",
+        "security_pack_adapter": "Zewnętrzny adapter bezpieczeństwa"
+      },
+      "searchTerms": {
+        "trust_center_verification": "weryfikacja tożsamość organizacja 2fa zdarzenia bezpieczeństwa trust center certyfikat",
+        "identity_access_management": "dostęp rola uprawnienie tożsamość zarządzanie użytkownikami",
+        "security_compliance_center": "bezpieczeństwo incydent zgodność status policy",
+        "audit_accountability": "dziennik audytu historia odpowiedzialność ślad",
+        "governance_management": "governance przegląd dostępu naruszenie policy sygnał ryzyka zgodność kontrola",
+        "security_pack_adapter": "zewnętrzny siem dostawca tożsamości adapter zgodności strona trzecia bezpieczeństwo sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

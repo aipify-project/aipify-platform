@@ -814,6 +814,61 @@
         "sales_pack_adapter": "ekstern crm salesforce hubspot adapter tredjeparts pipeline sync"
       }
     },
+    "security": {
+      "sourceLabel": "Sikkerhetsleverandørkatalog",
+      "discoveryLead": "Aipify kartla {provider} i sikkerhetsleverandørkatalogen — status: {status}.",
+      "discoveryExplanation": "Funksjonene nedenfor kommer fra registrerte Security / Verification Business Pack-manifest. Verifiseringsforespørsler og tilgangsrevisjoner krever godkjenning — Aipify godkjenner aldri identitet automatisk, fjerner ikke tilgang permanent, sletter ikke revisjonslogger, deaktiverer ikke 2FA eller utfører irreversible sikkerhetshandlinger i Companion-runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Sikkerhetskilden er klargjort eller verifisert for organisasjonen din.",
+      "disconnectedProvider": "Leverandørens runtime-adapter er ikke tilkoblet — kun styrt oppdagelse.",
+      "unavailableLead": "Ingen sikkerhetsleverandør matchet denne forespørselen for organisasjonen din.",
+      "unavailableExplanation": "Sikkerhetsfunksjoner oppdages fra registrerte manifest — ingen matchet dette spørsmålet.",
+      "externalUnavailableLead": "Eksterne sikkerhets- eller compliance-adaptere er ikke tilkoblet for organisasjonen din.",
+      "externalUnavailableExplanation": "Ingen live ekstern sikkerhetsadapter er registrert. Aipify godkjenner ikke identitet automatisk, sletter ikke revisjonslogger, deaktiverer ikke 2FA og utfører ikke irreversible sikkerhetsendringer i Companion-runtime.",
+      "blockedOperationLead": "Denne sikkerhetsoperasjonen er ikke tilgjengelig i Companion-runtime.",
+      "blockedOperationExplanation": "Autogodkjenning av identitet, permanent tilgangsfratakelse, sletting av revisjonslogger, 2FA-deaktivering, sensitive kontoendringer, compliance-beslutninger og irreversible sikkerhetshandlinger er blokkert i denne fasen. Aipify kan forberede verifiseringsforespørsler og tilgangsrevisjoner — du bestemmer og godkjenner.",
+      "permissionDenied": "Rollen din har ikke tilgang til sikkerhetsleverandørkatalogen.",
+      "entitlementBlocked": "Sikkerhetsfunksjoner er utilgjengelige mens organisasjonens abonnement er pauset.",
+      "privacyNote": "Metadata-først sikkerhetsintelligens — sensitive dokumenter maskeres, og rå identitetsdokumenter, hemmeligheter og autentiseringsdata eksponeres aldri i Companion-runtime.",
+      "policyNote": "Verifiseringsforespørsler og tilgangsrevisjoner krever eksplisitt godkjenning. Rollebaserte tilganger, tenant-isolasjon og revisjonslogging gjelder for alle sikkerhetshandlinger.",
+      "identityAutoApproveBlocked": "Automatisk identitetsgodkjenning er blokkert i Companion-runtime.",
+      "permanentAccessRevocationBlocked": "Permanent tilgangsfratakelse er blokkert — mennesker bestemmer utenfor Companion-runtime.",
+      "auditLogDeletionBlocked": "Sletting av revisjonslogger er blokkert — revisjonshistorikk er uforanderlig.",
+      "tfaDisableBlocked": "2FA-deaktivering er blokkert i Companion-runtime.",
+      "sensitiveDocumentsMasked": "Sensitive dokumenter og identitetsdata maskeres for sikkerhetslesning.",
+      "secretsAndAuthDataFiltered": "Hemmeligheter og autentiseringsdata filtreres og eksponeres aldri.",
+      "roleBasedAccessActive": "Rollebaserte tilganger håndheves for denne organisasjonen.",
+      "commandBriefEventsLinked": "Command Brief sikkerhetssignaler er koblet fra eksisterende verifiserings-, tilgangsrevisjons-, hendelses- og compliance-kilder.",
+      "commandBriefEventsAvailable": "Command Brief sikkerhetssignaler er tilgjengelige når sikkerhetsmotorer er aktivert.",
+      "openSecurityCenter": "Åpne Security Center",
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
+      "status": {
+        "connected": "tilkoblet",
+        "implemented_disconnected": "implementert men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun spesifikasjon",
+        "placeholder": "plassholder"
+      },
+      "providers": {
+        "trust_center_verification": "Trust Center-verifisering",
+        "identity_access_management": "Identitet og tilgangsstyring",
+        "security_compliance_center": "Sikkerhets- og compliance-senter",
+        "audit_accountability": "Revisjon og ansvarlighet",
+        "governance_management": "Styringsstyring",
+        "security_pack_adapter": "Ekstern sikkerhetsadapter"
+      },
+      "searchTerms": {
+        "trust_center_verification": "verifisering identitet organisasjon 2fa sikkerhetshendelser trust center sertifikat",
+        "identity_access_management": "tilgang rolle tillatelse identitet brukerstyring",
+        "security_compliance_center": "sikkerhet hendelse compliance status policy",
+        "audit_accountability": "revisjonslogg historikk ansvarlighet spor",
+        "governance_management": "styring tilgangsrevisjon policybrudd risikosignal compliance kontroll",
+        "security_pack_adapter": "ekstern siem identitetsleverandør compliance adapter tredjeparts sikkerhet sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

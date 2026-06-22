@@ -808,6 +808,61 @@
         "sales_pack_adapter": "зовнішній crm salesforce hubspot адаптер третя сторона pipeline sync"
       }
     },
+    "security": {
+      "sourceLabel": "Каталог постачальників безпеки",
+      "discoveryLead": "Aipify зіставив {provider} у каталозі постачальників безпеки — статус: {status}.",
+      "discoveryExplanation": "Можливості нижче походять із зареєстрованих маніфестів Security / Verification Business Pack. Запити на верифікацію та огляди доступу потребують схвалення — Aipify ніколи не схвалює ідентичність автоматично, не відкликає доступ назавжди, не видаляє журнали аудиту, не вимикає 2FA та не виконує незворотні дії безпеки в Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Джерело безпеки підготовлено або перевірено для вашої організації.",
+      "disconnectedProvider": "Runtime-адаптер постачальника не підключено — лише кероване виявлення.",
+      "unavailableLead": "Жоден постачальник безпеки не відповів цьому запиту для вашої організації.",
+      "unavailableExplanation": "Можливості безпеки виявляються з зареєстрованих маніфестів — жоден не відповів цьому запиту.",
+      "externalUnavailableLead": "Зовнішні адаптери безпеки або відповідності не підключені для вашої організації.",
+      "externalUnavailableExplanation": "Не зареєстровано активний зовнішній адаптер безпеки. Aipify не схвалює ідентичність автоматично, не видаляє журнали аудиту, не вимикає 2FA та не виконує незворотні зміни безпеки в Companion runtime.",
+      "blockedOperationLead": "Ця операція безпеки недоступна в Companion runtime.",
+      "blockedOperationExplanation": "Автосхвалення ідентичності, постійне відкликання доступу, видалення журналів аудиту, вимкнення 2FA, чутливі зміни облікового запису, рішення з відповідності та незворотні дії безпеки заблоковано на цій фазі. Aipify може підготувати запити на верифікацію та огляди доступу — ви вирішуєте та схвалюєте.",
+      "permissionDenied": "Ваша роль не має доступу до каталогу постачальників безпеки.",
+      "entitlementBlocked": "Можливості безпеки недоступні, поки підписку організації призупинено.",
+      "privacyNote": "Інтелект безпеки metadata-first — чутливі документи маскуються, а сирі документи ідентичності, секрети та дані автентифікації ніколи не розкриваються в Companion runtime.",
+      "policyNote": "Запити на верифікацію та огляди доступу потребують явного схвалення. Дозволи на основі ролей, ізоляція tenant і аудит застосовуються до всіх дій безпеки.",
+      "identityAutoApproveBlocked": "Автоматичне схвалення ідентичності заблоковано в Companion runtime.",
+      "permanentAccessRevocationBlocked": "Постійне відкликання доступу заблоковано — рішення приймають люди поза Companion runtime.",
+      "auditLogDeletionBlocked": "Видалення журналів аудиту заблоковано — історія аудиту незмінна.",
+      "tfaDisableBlocked": "Вимкнення 2FA заблоковано в Companion runtime.",
+      "sensitiveDocumentsMasked": "Чутливі документи та дані ідентичності маскуються для читання безпеки.",
+      "secretsAndAuthDataFiltered": "Секрети та дані автентифікації фільтруються і ніколи не розкриваються.",
+      "roleBasedAccessActive": "Дозволи на основі ролей застосовуються для цієї організації.",
+      "commandBriefEventsLinked": "Сигнали безпеки Command Brief пов’язані з існуючими джерелами верифікації, огляду доступу, інцидентів і відповідності.",
+      "commandBriefEventsAvailable": "Сигнали безпеки Command Brief доступні, коли активовано рушії безпеки.",
+      "openSecurityCenter": "Відкрити Security Center",
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
+      "status": {
+        "connected": "підключено",
+        "implemented_disconnected": "реалізовано, але відключено",
+        "partial": "частково",
+        "specification_only": "лише специфікація",
+        "placeholder": "заглушка"
+      },
+      "providers": {
+        "trust_center_verification": "Верифікація Trust Center",
+        "identity_access_management": "Керування ідентичністю та доступом",
+        "security_compliance_center": "Центр безпеки та відповідності",
+        "audit_accountability": "Аудит і підзвітність",
+        "governance_management": "Керування governance",
+        "security_pack_adapter": "Зовнішній адаптер безпеки"
+      },
+      "searchTerms": {
+        "trust_center_verification": "верифікація ідентичність організація 2fa події безпеки trust center сертифікат",
+        "identity_access_management": "доступ роль дозвіл ідентичність керування користувачами",
+        "security_compliance_center": "безпека інцидент відповідність статус policy",
+        "audit_accountability": "журнал аудиту історія підзвітність слід",
+        "governance_management": "governance огляд доступу порушення policy сигнал ризику відповідність контроль",
+        "security_pack_adapter": "зовнішній siem постачальник ідентичності адаптер відповідності третя сторона безпека sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

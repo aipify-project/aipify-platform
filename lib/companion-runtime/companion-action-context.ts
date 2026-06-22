@@ -18,6 +18,7 @@ import {
   buildActionDefinitionFromWarehouseCapability,
   buildActionDefinitionFromFinanceCapability,
   buildActionDefinitionFromSalesCapability,
+  buildActionDefinitionFromSecurityCapability,
   buildActionDefinitionFromWorkspaceCapability,
   buildActionDefinitionFromPolicy,
   buildActionDefinitionFromSchemaEntity,
@@ -39,6 +40,7 @@ import type { CompanionHrContext } from "./companion-hr-context";
 import type { CompanionWarehouseContext } from "./companion-warehouse-context";
 import type { CompanionFinanceContext } from "./companion-finance-context";
 import type { CompanionSalesContext } from "./companion-sales-context";
+import type { CompanionSecurityContext } from "./companion-security-context";
 import {
   parseApprovedCompanionActionRequest,
   parseApprovedTrustActionRequest,
@@ -115,6 +117,7 @@ export type NormalizeCompanionActionContextInput = {
   warehouseContext?: CompanionWarehouseContext;
   financeContext?: CompanionFinanceContext;
   salesContext?: CompanionSalesContext;
+  securityContext?: CompanionSecurityContext;
 };
 
 function parseApprovedRecordsFromApprovalsCenter(raw: unknown): CompanionApprovedActionRecord[] {
@@ -337,6 +340,17 @@ export function normalizeCompanionActionContext(
   for (const capability of input.salesContext?.capabilities ?? []) {
     if (capability.operation !== "write") continue;
     const definition = buildActionDefinitionFromSalesCapability(capability, {
+      permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
+      appEntitlementBlocked: appSuspended,
+      emergencyStop,
+      maxRiskLevel,
+    });
+    if (definition) actions.push(definition);
+  }
+
+  for (const capability of input.securityContext?.capabilities ?? []) {
+    if (capability.operation !== "write") continue;
+    const definition = buildActionDefinitionFromSecurityCapability(capability, {
       permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
       appEntitlementBlocked: appSuspended,
       emergencyStop,

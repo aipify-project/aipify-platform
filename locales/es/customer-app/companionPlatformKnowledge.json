@@ -808,6 +808,61 @@
         "sales_pack_adapter": "crm externo salesforce hubspot adaptador terceros pipeline sync"
       }
     },
+    "security": {
+      "sourceLabel": "Catálogo de proveedores de seguridad",
+      "discoveryLead": "Aipify mapeó {provider} en su catálogo de proveedores de seguridad — estado: {status}.",
+      "discoveryExplanation": "Las capacidades siguientes provienen de manifiestos registrados de Security / Verification Business Pack. Las solicitudes de verificación y revisiones de acceso requieren aprobación — Aipify nunca aprueba identidad automáticamente, revoca acceso permanentemente, elimina registros de auditoría, desactiva 2FA ni ejecuta acciones de seguridad irreversibles en Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "La fuente de seguridad está preparada o verificada para su organización.",
+      "disconnectedProvider": "El adaptador runtime del proveedor no está conectado — solo descubrimiento gobernado.",
+      "unavailableLead": "Ningún proveedor de seguridad coincidió con esta solicitud para su organización.",
+      "unavailableExplanation": "Las capacidades de seguridad se descubren desde manifiestos registrados — ninguno coincidió con esta consulta.",
+      "externalUnavailableLead": "Los adaptadores externos de seguridad o cumplimiento no están conectados para su organización.",
+      "externalUnavailableExplanation": "No hay adaptador de seguridad externo en vivo registrado. Aipify no aprueba identidad automáticamente, no elimina registros de auditoría, no desactiva 2FA ni ejecuta cambios de seguridad irreversibles en Companion runtime.",
+      "blockedOperationLead": "Esta operación de seguridad no está disponible en Companion runtime.",
+      "blockedOperationExplanation": "Aprobación automática de identidad, revocación permanente de acceso, eliminación de registros de auditoría, desactivación de 2FA, cambios sensibles de cuenta, decisiones de cumplimiento y acciones de seguridad irreversibles están bloqueadas en esta fase. Aipify puede preparar solicitudes de verificación y revisiones de acceso — usted decide y aprueba.",
+      "permissionDenied": "Su rol no puede acceder al catálogo de proveedores de seguridad.",
+      "entitlementBlocked": "Las capacidades de seguridad no están disponibles mientras la suscripción de la organización esté pausada.",
+      "privacyNote": "Inteligencia de seguridad metadata-first — los documentos sensibles se enmascaran y los documentos de identidad en bruto, secretos y datos de autenticación nunca se exponen en Companion runtime.",
+      "policyNote": "Las solicitudes de verificación y revisiones de acceso requieren aprobación explícita. Permisos basados en roles, aislamiento de tenant y registro de auditoría se aplican a todas las acciones de seguridad.",
+      "identityAutoApproveBlocked": "La aprobación automática de identidad está bloqueada en Companion runtime.",
+      "permanentAccessRevocationBlocked": "La revocación permanente de acceso está bloqueada — las personas deciden fuera de Companion runtime.",
+      "auditLogDeletionBlocked": "La eliminación de registros de auditoría está bloqueada — el historial de auditoría es inmutable.",
+      "tfaDisableBlocked": "La desactivación de 2FA está bloqueada en Companion runtime.",
+      "sensitiveDocumentsMasked": "Los documentos sensibles y datos de identidad se enmascaran para lecturas de seguridad.",
+      "secretsAndAuthDataFiltered": "Los secretos y datos de autenticación se filtran y nunca se exponen.",
+      "roleBasedAccessActive": "Los permisos basados en roles se aplican para esta organización.",
+      "commandBriefEventsLinked": "Las señales de seguridad de Command Brief están vinculadas desde fuentes existentes de verificación, revisión de acceso, incidentes y cumplimiento.",
+      "commandBriefEventsAvailable": "Las señales de seguridad de Command Brief están disponibles cuando los motores de seguridad están activados.",
+      "openSecurityCenter": "Abrir Security Center",
+      "operation": {
+        "read": "lectura",
+        "write": "escritura"
+      },
+      "status": {
+        "connected": "conectado",
+        "implemented_disconnected": "implementado pero desconectado",
+        "partial": "parcial",
+        "specification_only": "solo especificación",
+        "placeholder": "marcador de posición"
+      },
+      "providers": {
+        "trust_center_verification": "Verificación Trust Center",
+        "identity_access_management": "Gestión de identidad y acceso",
+        "security_compliance_center": "Centro de seguridad y cumplimiento",
+        "audit_accountability": "Auditoría y responsabilidad",
+        "governance_management": "Gestión de gobernanza",
+        "security_pack_adapter": "Adaptador de seguridad externo"
+      },
+      "searchTerms": {
+        "trust_center_verification": "verificación identidad organización 2fa eventos seguridad trust center certificado",
+        "identity_access_management": "acceso rol permiso identidad gestión usuarios",
+        "security_compliance_center": "seguridad incidente cumplimiento estado policy",
+        "audit_accountability": "registro auditoría historial responsabilidad trazabilidad",
+        "governance_management": "gobernanza revisión acceso violación policy señal riesgo cumplimiento control",
+        "security_pack_adapter": "siem externo proveedor identidad adaptador cumplimiento terceros seguridad sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

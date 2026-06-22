@@ -808,6 +808,61 @@
         "sales_pack_adapter": "extern crm salesforce hubspot adapter tredjepart pipeline sync"
       }
     },
+    "security": {
+      "sourceLabel": "Säkerhetsleverantörskatalog",
+      "discoveryLead": "Aipify kartlade {provider} i säkerhetsleverantörskatalogen — status: {status}.",
+      "discoveryExplanation": "Funktionerna nedan kommer från registrerade Security / Verification Business Pack-manifest. Verifieringsförfrågningar och åtkomstgranskningar kräver godkännande — Aipify godkänner aldrig identitet automatiskt, återkallar inte åtkomst permanent, raderar inte revisionsloggar, inaktiverar inte 2FA eller utför irreversibla säkerhetsåtgärder i Companion-runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Säkerhetskällan är förberedd eller verifierad för din organisation.",
+      "disconnectedProvider": "Leverantörens runtime-adapter är inte ansluten — endast styrd upptäckt.",
+      "unavailableLead": "Ingen säkerhetsleverantör matchade denna begäran för din organisation.",
+      "unavailableExplanation": "Säkerhetsfunktioner upptäcks från registrerade manifest — inget matchade denna fråga.",
+      "externalUnavailableLead": "Externa säkerhets- eller compliance-adaptrar är inte anslutna för din organisation.",
+      "externalUnavailableExplanation": "Ingen live extern säkerhetsadapter är registrerad. Aipify godkänner inte identitet automatiskt, raderar inte revisionsloggar, inaktiverar inte 2FA och utför inte irreversibla säkerhetsändringar i Companion-runtime.",
+      "blockedOperationLead": "Denna säkerhetsoperation är inte tillgänglig i Companion-runtime.",
+      "blockedOperationExplanation": "Automatisk identitetsgodkännande, permanent åtkomståterkallelse, radering av revisionsloggar, 2FA-inaktivering, känsliga kontoförändringar, compliance-beslut och irreversibla säkerhetsåtgärder är blockerade i denna fas. Aipify kan förbereda verifieringsförfrågningar och åtkomstgranskningar — du bestämmer och godkänner.",
+      "permissionDenied": "Din roll har inte åtkomst till säkerhetsleverantörskatalogen.",
+      "entitlementBlocked": "Säkerhetsfunktioner är otillgängliga medan organisationens prenumeration är pausad.",
+      "privacyNote": "Metadata-först säkerhetsintelligens — känsliga dokument maskeras och rå identitetsdokument, hemligheter och autentiseringsdata exponeras aldrig i Companion-runtime.",
+      "policyNote": "Verifieringsförfrågningar och åtkomstgranskningar kräver explicit godkännande. Rollbaserade behörigheter, tenant-isolering och revisionsloggning gäller för alla säkerhetsåtgärder.",
+      "identityAutoApproveBlocked": "Automatisk identitetsgodkännande är blockerad i Companion-runtime.",
+      "permanentAccessRevocationBlocked": "Permanent åtkomståterkallelse är blockerad — människor bestämmer utanför Companion-runtime.",
+      "auditLogDeletionBlocked": "Radering av revisionsloggar är blockerad — revisionshistorik är oföränderlig.",
+      "tfaDisableBlocked": "2FA-inaktivering är blockerad i Companion-runtime.",
+      "sensitiveDocumentsMasked": "Känsliga dokument och identitetsdata maskeras för säkerhetsläsning.",
+      "secretsAndAuthDataFiltered": "Hemligheter och autentiseringsdata filtreras och exponeras aldrig.",
+      "roleBasedAccessActive": "Rollbaserade behörigheter tillämpas för denna organisation.",
+      "commandBriefEventsLinked": "Command Brief säkerhetssignaler är kopplade från befintliga verifierings-, åtkomstgransknings-, incident- och compliance-källor.",
+      "commandBriefEventsAvailable": "Command Brief säkerhetssignaler är tillgängliga när säkerhetsmotorer är aktiverade.",
+      "openSecurityCenter": "Öppna Security Center",
+      "operation": {
+        "read": "läs",
+        "write": "skriv"
+      },
+      "status": {
+        "connected": "ansluten",
+        "implemented_disconnected": "implementerad men frånkopplad",
+        "partial": "delvis",
+        "specification_only": "endast specifikation",
+        "placeholder": "platshållare"
+      },
+      "providers": {
+        "trust_center_verification": "Trust Center-verifiering",
+        "identity_access_management": "Identitets- och åtkomsthantering",
+        "security_compliance_center": "Säkerhets- och compliance-center",
+        "audit_accountability": "Revision och ansvarsskyldighet",
+        "governance_management": "Styrningshantering",
+        "security_pack_adapter": "Extern säkerhetsadapter"
+      },
+      "searchTerms": {
+        "trust_center_verification": "verifiering identitet organisation 2fa säkerhetshändelser trust center certifikat",
+        "identity_access_management": "åtkomst roll behörighet identitet användarhantering",
+        "security_compliance_center": "säkerhet incident compliance status policy",
+        "audit_accountability": "revisionslogg historik ansvarsskyldighet spår",
+        "governance_management": "styrning åtkomstgranskning policybrott risksignal compliance kontroll",
+        "security_pack_adapter": "extern siem identitetsleverantör compliance adapter tredjepart säkerhet sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
