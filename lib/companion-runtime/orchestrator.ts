@@ -63,6 +63,7 @@ import {
   buildGroundedOperationalAnswer,
   buildOperationalGapAnswer,
 } from "./operational-answer";
+import { finalizeCompanionSearchResult } from "./companion-output-pipeline";
 import { mapDispatchCodeToGapReason } from "./tool-answer";
 import {
   createEmptyCompanionTenantContext,
@@ -414,18 +415,26 @@ export async function orchestrateCompanionSearch(
   const restrictedNote = t("customerApp.companionPlatformKnowledge.permissions.restrictedAction");
   const productConcept = isProductConceptQuery(query);
   const navigationQuery = isAppNavigationQuery(query);
+  const finalize = (result: PlatformSearchResult) =>
+    finalizeCompanionSearchResult(result, resolvedTenantContext.identityContext, {
+      locale: activeLocale,
+      userName: resolvedTenantContext.identityContext.preferred_name,
+      context: result.answer.source,
+    });
 
   if (supabase && productConcept) {
     const kcArticle = await searchCanonicalKnowledgeCenter(supabase, query, activeLocale);
     if (kcArticle) {
       const directAnswer = formatKnowledgeCenterAnswerBody(kcArticle);
       if (directAnswer) {
-        return buildKnowledgeCenterResult(
-          directAnswer,
-          kcArticle.title,
-          kcArticle.slug,
-          kcArticle.score,
-          t,
+        return finalize(
+          buildKnowledgeCenterResult(
+            directAnswer,
+            kcArticle.title,
+            kcArticle.slug,
+            kcArticle.score,
+            t,
+          ),
         );
       }
     }
@@ -435,7 +444,7 @@ export async function orchestrateCompanionSearch(
     const orgOutcome = await searchApprovedOrganizationKnowledge(supabase, query);
     if (orgOutcome.kind === "hit") {
       const orgResult = buildOrganizationKnowledgeResult(orgOutcome.hit, t);
-      if (orgResult) return orgResult;
+      if (orgResult) return finalize(orgResult);
     }
   }
 
@@ -447,7 +456,7 @@ export async function orchestrateCompanionSearch(
     activeLocale,
     resolvedTenantContext,
   );
-  if (liveResult) return liveResult;
+  if (liveResult) return finalize(liveResult);
 
   const operationalResult = resolveOperationalAnswer(
     query,
@@ -455,7 +464,7 @@ export async function orchestrateCompanionSearch(
     activeLocale,
     resolvedTenantContext,
   );
-  if (operationalResult) return operationalResult;
+  if (operationalResult) return finalize(operationalResult);
 
   if (navigationQuery || detectPlatformQuestionIntent(query)) {
     const navResult = await resolveNavigationCorpusAnswer(
@@ -470,36 +479,36 @@ export async function orchestrateCompanionSearch(
     if (navResult) {
       const intent = detectPlatformQuestionIntent(query);
       if (intent === "connect-system" || navResult.matchedArticleId === "connect-system") {
-        return {
+        return finalize({
           ...navResult,
           answer: enrichAnswerWithInstallDiscovery(
             navResult.answer,
             resolvedTenantContext.discovery,
             t,
           ),
-        };
+        });
       }
       if (navResult.matchedArticleId === "business-packs") {
-        return {
+        return finalize({
           ...navResult,
           answer: enrichAnswerWithBusinessPackContext(
             navResult.answer,
             resolvedTenantContext.businessPackContext,
             t,
           ),
-        };
+        });
       }
       if (navResult.matchedArticleId === "aipify-data-access") {
-        return {
+        return finalize({
           ...navResult,
           answer: enrichAnswerWithSchemaContext(
             navResult.answer,
             resolvedTenantContext.schemaContext,
             t,
           ),
-        };
+        });
       }
-      return navResult;
+      return finalize(navResult);
     }
   }
 
@@ -511,7 +520,7 @@ export async function orchestrateCompanionSearch(
   ) {
     const mySub = corpus.find((a) => a.id === "my-subscription");
     if (mySub) {
-      return {
+      return finalize({
         matchedArticleId: "my-subscription",
         answer: buildPlatformAnswer(mySub, t, permissionCtx, {
           source: "customer_context",
@@ -519,13 +528,13 @@ export async function orchestrateCompanionSearch(
           subscription,
           restrictedNote,
         }),
-      };
+      });
     }
   }
 
   if (productConcept || navigationQuery || normalized.includes("aipify")) {
-    return { answer: buildHonestKnowledgeGapAnswer(t) };
+    return finalize({ answer: buildHonestKnowledgeGapAnswer(t) });
   }
 
-  return { answer: buildFallbackAnswer(t, permissionCtx) };
+  return finalize({ answer: buildFallbackAnswer(t, permissionCtx) });
 }

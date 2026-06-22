@@ -13,6 +13,7 @@ import { createEmptyCompanionSchemaCollection } from "./companion-schema-context
 import type { CompanionToolRegistry } from "./companion-tool-definition";
 import { createEmptyCompanionToolRegistry } from "./companion-tool-definition";
 import { createEmptyCompanionOperationalContext, type CompanionOperationalContext } from "./companion-operational-context";
+import { createEmptyCompanionIdentityContext, type CompanionIdentityContext } from "./companion-identity-context";
 
 const PORTAL_FEATURE_KEYS = [
   "team_management",
@@ -48,6 +49,7 @@ export type CompanionTenantContext = {
   operationalContext: CompanionOperationalContext;
   commandBriefAvailable: boolean;
   sinceLastLoginAvailable: boolean;
+  identityContext: CompanionIdentityContext;
 };
 
 export function createEmptyCompanionTenantContext(
@@ -79,6 +81,7 @@ export function createEmptyCompanionTenantContext(
     operationalContext: createEmptyCompanionOperationalContext(),
     commandBriefAvailable: false,
     sinceLastLoginAvailable: false,
+    identityContext: createEmptyCompanionIdentityContext(),
     ...overrides,
   };
 }
