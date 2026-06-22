@@ -446,7 +446,11 @@
         "authHelpAsideTitle": "Forbindelseshjælp",
         "testFailedTitle": "Forbindelsestest mislykkedes",
         "activateCta": "Aktiver integration",
-        "activating": "Aktiverer…"
+        "activating": "Aktiverer…",
+        "loadErrorTitle": "Forbindelsesopsætningen kunne ikke indlæses",
+        "loadErrorBody": "Aipify kunne ikke hente integrationsopsætningen lige nu. Prøv igen, eller gå tilbage til integrationer.",
+        "retryLoad": "Prøv igen",
+        "backToIntegrations": "Tilbage til integrationer"
       },
       "guidance": {
         "whyAccess": "Why Aipify needs access",

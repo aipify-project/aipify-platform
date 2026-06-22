@@ -446,7 +446,11 @@
         "authHelpAsideTitle": "Hjelp til tilkobling",
         "testFailedTitle": "Tilkoblingstest mislyktes",
         "activateCta": "Aktiver integrasjon",
-        "activating": "Aktiverer…"
+        "activating": "Aktiverer…",
+        "loadErrorTitle": "Tilkoblingsoppsettet kunne ikke lastes",
+        "loadErrorBody": "Aipify kunne ikke hente integrasjonsoppsettet akkurat nå. Prøv igjen, eller gå tilbake til integrasjoner.",
+        "retryLoad": "Prøv igjen",
+        "backToIntegrations": "Tilbake til integrasjoner"
       },
       "guidance": {
         "whyAccess": "Why Aipify needs access",

@@ -6201,7 +6201,11 @@
         "authHelpAsideTitle": "Connection help",
         "testFailedTitle": "Connection test failed",
         "activateCta": "Activate integration",
-        "activating": "Activating…"
+        "activating": "Activating…",
+        "loadErrorTitle": "Connection setup could not be loaded",
+        "loadErrorBody": "Aipify could not load the integration setup right now. Try again or return to integrations.",
+        "retryLoad": "Try again",
+        "backToIntegrations": "Back to integrations"
       },
       "guidance": {
         "whyAccess": "Why Aipify needs access",

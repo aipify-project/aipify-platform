@@ -22,13 +22,10 @@ import {
   type AppPortalIntegrationSetup,
   type AppPortalIntegrationsLabels,
 } from "@/lib/app-portal/integrations";
-import type { Translator } from "@/lib/i18n/translate";
 
 type AppPortalIntegrationSetupPanelProps = {
   providerKey: string;
   labels: AppPortalIntegrationsLabels;
-  /** Optional translator for error guidance keys (server passes via closure). */
-  t?: Translator;
 };
 
 type SetupMode = "oauth" | "manual";
@@ -41,10 +38,10 @@ function maskCredential(value: string): string {
 export function AppPortalIntegrationSetupPanel({
   providerKey,
   labels,
-  t,
 }: AppPortalIntegrationSetupPanelProps) {
   const [setup, setSetup] = useState<AppPortalIntegrationSetup | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const [mode, setMode] = useState<SetupMode>("manual");
   const [permissionLevel, setPermissionLevel] = useState("read_only");
@@ -60,21 +57,30 @@ export function AppPortalIntegrationSetupPanel({
   const currentStep = wizardStepAt(stepIndex);
   const flowSteps = INTEGRATION_WIZARD_STEPS;
 
-  const translate = useMemo(() => {
-    if (t) return t;
-    return (key: string) => key;
-  }, [t]);
+  const translate = useMemo(
+    () => (key: string) => labels.setup.messageCatalog[key] ?? key,
+    [labels.setup.messageCatalog],
+  );
 
   const load = useCallback(async () => {
     setLoading(true);
+    setLoadFailed(false);
     const res = await fetch(`/api/app-portal/integrations/${encodeURIComponent(providerKey)}`);
     if (res.ok) {
       const parsed = parseAppPortalIntegrationSetup(await res.json());
-      setSetup(parsed);
-      if (parsed?.oauth_available) setMode("oauth");
-      else setMode("manual");
-      if (parsed?.connection?.id) setConnectionId(parsed.connection.id);
-      setPermissionLevel(parsed?.default_permission_level ?? "read_only");
+      if (parsed) {
+        setSetup(parsed);
+        if (parsed.oauth_available) setMode("oauth");
+        else setMode("manual");
+        if (parsed.connection?.id) setConnectionId(parsed.connection.id);
+        setPermissionLevel(parsed.default_permission_level ?? "read_only");
+      } else {
+        setSetup(null);
+        setLoadFailed(true);
+      }
+    } else {
+      setSetup(null);
+      setLoadFailed(true);
     }
     setLoading(false);
   }, [providerKey]);
@@ -171,7 +177,7 @@ export function AppPortalIntegrationSetupPanel({
     setActing(false);
   }
 
-  if (loading && !setup) {
+  if (loading && !setup && !loadFailed) {
     return (
       <div className={`${AppPremiumShell.page} ${AppPremiumShell.canvas}`}>
         <p className="text-sm text-aipify-text-secondary">{labels.setup.loading}</p>
@@ -179,10 +185,40 @@ export function AppPortalIntegrationSetupPanel({
     );
   }
 
-  if (!setup) {
+  if (loadFailed || !setup) {
     return (
-      <div className={`${AppPremiumShell.page} ${AppPremiumShell.canvas}`}>
-        <p className="text-sm text-red-600">{labels.setup.loading}</p>
+      <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
+        <Link
+          href="/app/platform/integrations"
+          className={`text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
+        >
+          ← {labels.setup.back}
+        </Link>
+        <div
+          className="rounded-2xl border border-amber-200 bg-amber-50/80 p-6"
+          role="alert"
+          aria-labelledby="integration-load-error-title"
+        >
+          <h1 id="integration-load-error-title" className={AppPremiumShell.pageTitle}>
+            {labels.setup.loadErrorTitle}
+          </h1>
+          <p className={`mt-2 ${AppPremiumShell.pageDescription}`}>{labels.setup.loadErrorBody}</p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => void load()}
+              className={`rounded-lg bg-violet-700 px-4 py-2 text-sm font-medium text-white ${AppPremiumShell.focusRing}`}
+            >
+              {labels.setup.retryLoad}
+            </button>
+            <Link
+              href="/app/platform/integrations"
+              className={`inline-flex items-center rounded-lg border border-aipify-border bg-white px-4 py-2 text-sm font-medium text-aipify-text ${AppPremiumShell.focusRing}`}
+            >
+              {labels.setup.backToIntegrations}
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }

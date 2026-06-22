@@ -198,6 +198,12 @@ export type AppPortalIntegrationsLabels = {
     testFailedTitle: string;
     activateCta: string;
     activating: string;
+    loadErrorTitle: string;
+    loadErrorBody: string;
+    retryLoad: string;
+    backToIntegrations: string;
+    /** Pre-resolved i18n strings for client-side error panels (no server functions in client). */
+    messageCatalog: Record<string, string>;
   };
   guidance: {
     whyAccess: string;

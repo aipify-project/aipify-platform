@@ -183,6 +183,18 @@ export function getIntegrationErrorGuidance(category: IntegrationErrorCategory):
   return GUIDANCE_BY_CATEGORY[category];
 }
 
+/** i18n keys used by integration error panels — resolve on the server for client components. */
+export function listIntegrationErrorTranslationKeys(): string[] {
+  const keys = new Set<string>();
+  for (const guidance of Object.values(GUIDANCE_BY_CATEGORY)) {
+    keys.add(guidance.titleKey);
+    keys.add(guidance.bodyKey);
+    for (const checklistKey of guidance.checklistKeys) keys.add(checklistKey);
+    for (const actionKey of Object.values(guidance.actions)) keys.add(actionKey);
+  }
+  return [...keys];
+}
+
 /** Parse an API response or thrown error into customer-facing guidance. */
 export function parseIntegrationError(error: unknown): IntegrationErrorGuidance {
   return getIntegrationErrorGuidance(classifyIntegrationError(error));

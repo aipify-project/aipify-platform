@@ -21,6 +21,10 @@ export function getUnonightFailureMessageKey(code: UnonightConnectionFailureCode
   return FAILURE_MESSAGE_KEYS[code];
 }
 
+export function listUnonightFailureTranslationKeys(): string[] {
+  return [...new Set(Object.values(FAILURE_MESSAGE_KEYS))];
+}
+
 export function classifyUnonightHttpFailure(input: {
   status?: number;
   error?: unknown;

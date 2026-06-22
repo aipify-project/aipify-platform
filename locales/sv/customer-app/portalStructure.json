@@ -446,7 +446,11 @@
         "authHelpAsideTitle": "Anslutningshjälp",
         "testFailedTitle": "Anslutningstest misslyckades",
         "activateCta": "Aktivera integration",
-        "activating": "Aktiverar…"
+        "activating": "Aktiverar…",
+        "loadErrorTitle": "Anslutningsinställningen kunde inte laddas",
+        "loadErrorBody": "Aipify kunde inte hämta integrationsinställningen just nu. Försök igen eller gå tillbaka till integrationer.",
+        "retryLoad": "Försök igen",
+        "backToIntegrations": "Tillbaka till integrationer"
       },
       "guidance": {
         "whyAccess": "Why Aipify needs access",

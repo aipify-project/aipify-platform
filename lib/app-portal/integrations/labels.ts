@@ -7,7 +7,9 @@ import {
   authHelpTechnicalDetailsKey,
   getAuthHelpFieldKeys,
   getAuthHelpStepCount,
+  listIntegrationErrorTranslationKeys,
 } from "@/lib/install/integration-setup";
+import { listUnonightFailureTranslationKeys } from "@/lib/unonight/connection/failures";
 import type { AppPortalIntegrationsLabels } from "./types";
 
 const base = "customerApp.portalStructure.integrations";
@@ -29,6 +31,14 @@ function buildAuthHelpProviderLabels(
   entries.technicalDetails = t(authHelpTechnicalDetailsKey(provider));
 
   return entries;
+}
+
+function buildIntegrationMessageCatalog(t: Translator): Record<string, string> {
+  const keys = [
+    ...listIntegrationErrorTranslationKeys(),
+    ...listUnonightFailureTranslationKeys(),
+  ];
+  return Object.fromEntries(keys.map((key) => [key, t(key)]));
 }
 
 export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegrationsLabels {
@@ -234,6 +244,11 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
       testFailedTitle: t(`${s}.testFailedTitle`),
       activateCta: t(`${s}.activateCta`),
       activating: t(`${s}.activating`),
+      loadErrorTitle: t(`${s}.loadErrorTitle`),
+      loadErrorBody: t(`${s}.loadErrorBody`),
+      retryLoad: t(`${s}.retryLoad`),
+      backToIntegrations: t(`${s}.backToIntegrations`),
+      messageCatalog: buildIntegrationMessageCatalog(t),
     },
     guidance: {
       whyAccess: t(`${g}.whyAccess`),

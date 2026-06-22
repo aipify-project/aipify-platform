@@ -6368,6 +6368,10 @@
         "testFailedTitle": "Test połączenia nie powiódł się",
         "activateCta": "Aktywuj integrację",
         "activating": "Aktywowanie…",
+        "loadErrorTitle": "Nie udało się wczytać konfiguracji połączenia",
+        "loadErrorBody": "Aipify nie mogło teraz wczytać konfiguracji integracji. Spróbuj ponownie lub wróć do integracji.",
+        "retryLoad": "Spróbuj ponownie",
+        "backToIntegrations": "Wróć do integracji",
         "apiKeyLabel": "Bezpieczny klucz połączenia"
       },
       "guidance": {
