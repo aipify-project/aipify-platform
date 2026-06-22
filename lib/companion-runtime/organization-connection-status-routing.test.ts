@@ -9,8 +9,10 @@ import {
 import { detectLiveIntegrationStatusIntent } from "@/lib/companion-platform-knowledge/integration-status-intent";
 import { resolveCompanionLiveToolRouting } from "@/lib/companion-platform-knowledge/live-routing";
 import { detectGenericIntegrationIntent } from "@/lib/integration-intelligence/intent-detection";
+import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 
 const ACCEPTANCE_QUERY = "Er organisasjonen koblet til Aipify?";
+const pilotProvider = PILOT_INTEGRATION_PROVIDER_KEY;
 
 assert.equal(isOrganizationConnectionStatusQuery(ACCEPTANCE_QUERY), true);
 assert.equal(shouldBypassCommunityForOrganizationConnection(ACCEPTANCE_QUERY), true);
@@ -22,14 +24,14 @@ assert.equal(
 );
 assert.equal(
   resolveCompanionLiveToolRouting(ACCEPTANCE_QUERY, {
-    integrationContext: "unonight",
+    integrationContext: pilotProvider,
     locale: "no",
   }).tool,
   "get_connection_status",
 );
 assert.equal(
-  detectGenericIntegrationIntent(ACCEPTANCE_QUERY, "unonight", "no", {
-    activeProviderKey: "unonight",
+  detectGenericIntegrationIntent(ACCEPTANCE_QUERY, pilotProvider, "no", {
+    activeProviderKey: pilotProvider,
   })?.capability,
   "connection_status",
 );
@@ -37,24 +39,24 @@ assert.equal(
 const ownerTenant = createEmptyCompanionTenantContext({
   organizationId: "org-1",
   organizationRole: "organization_owner",
-  connectedProviders: ["unonight"],
-  primaryVerifiedProvider: "unonight",
+  connectedProviders: [pilotProvider],
+  primaryVerifiedProvider: pilotProvider,
 });
 assert.equal(canViewOrganizationConnectionStatus(ownerTenant), true);
 
 const adminTenant = createEmptyCompanionTenantContext({
   organizationId: "org-1",
   organizationRole: "organization_admin",
-  connectedProviders: ["unonight"],
-  primaryVerifiedProvider: "unonight",
+  connectedProviders: [pilotProvider],
+  primaryVerifiedProvider: pilotProvider,
 });
 assert.equal(canViewOrganizationConnectionStatus(adminTenant), true);
 
 const memberTenant = createEmptyCompanionTenantContext({
   organizationId: "org-1",
   organizationRole: "organization_member",
-  connectedProviders: ["unonight"],
-  primaryVerifiedProvider: "unonight",
+  connectedProviders: [pilotProvider],
+  primaryVerifiedProvider: pilotProvider,
 });
 assert.equal(canViewOrganizationConnectionStatus(memberTenant), false);
 

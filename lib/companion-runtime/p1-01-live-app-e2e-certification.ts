@@ -9,7 +9,7 @@ import {
 import { deriveP1LiveE2eCoverageUpdates } from "./p1-01-live-app-e2e-coverage";
 import {
   assertArtifactContainsNoSecrets,
-  createP1LiveAuthenticatedSession,
+  attemptP1LiveAuthenticatedSession,
 } from "./p1-01-live-app-e2e-session";
 import {
   P1_01_LIVE_E2E_CERTIFICATION_VERSION,
@@ -26,8 +26,10 @@ function resolveCommitHash(): string | null {
   }
 }
 
-export function buildBlockedP1LiveE2eArtifact(): P1LiveE2eCertificationArtifact {
-  const blockers = resolveP1LiveE2eBlockers();
+export function buildBlockedP1LiveE2eArtifact(
+  extraBlockers: P1LiveE2eCertificationArtifact["blockers"] = [],
+): P1LiveE2eCertificationArtifact {
+  const blockers = [...resolveP1LiveE2eBlockers(), ...extraBlockers];
   return {
     version: P1_01_LIVE_E2E_CERTIFICATION_VERSION,
     generated_at: new Date().toISOString(),
@@ -51,7 +53,17 @@ export async function runP1LiveAppE2eCertification(): Promise<P1LiveE2eCertifica
     return buildBlockedP1LiveE2eArtifact();
   }
 
-  const session = await createP1LiveAuthenticatedSession(config);
+  const authResult = await attemptP1LiveAuthenticatedSession(config);
+  if (!authResult.ok) {
+    return buildBlockedP1LiveE2eArtifact([
+      {
+        code: authResult.blocker_code,
+        message: authResult.message,
+      },
+    ]);
+  }
+
+  const session = authResult.session;
   const { flows, tenantIsolation } = await runP1LiveAppE2eFlows({ config, session });
   const capabilityOutcomes = collectP1CapabilityOutcomes(flows);
 

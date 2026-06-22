@@ -35,26 +35,60 @@ export type P1LiveE2eEnvBlocker = {
   required_variable?: string;
 };
 
+const P1_LIVE_E2E_PRIORITY_ENV_KEYS = [
+  P1_01_LIVE_E2E_ENV.enabled,
+  P1_01_LIVE_E2E_ENV.environment,
+  P1_01_LIVE_E2E_ENV.email,
+  P1_01_LIVE_E2E_ENV.password,
+  P1_01_LIVE_E2E_ENV.isolationEmail,
+  P1_01_LIVE_E2E_ENV.isolationPassword,
+  P1_01_LIVE_E2E_ENV.baseUrl,
+  P1_01_LIVE_E2E_ENV.organizationRef,
+  P1_01_LIVE_E2E_ENV.supabaseUrl,
+  P1_01_LIVE_E2E_ENV.supabaseAnonKey,
+] as const;
+
 function readEnv(name: string): string | null {
   const value = process.env[name]?.trim();
   return value ? value : null;
 }
 
+function parseEnvFile(envPath: string): Record<string, string> {
+  if (!fs.existsSync(envPath)) return {};
+  const parsed: Record<string, string> = {};
+  for (const line of fs.readFileSync(envPath, "utf8").split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eq = trimmed.indexOf("=");
+    if (eq === -1) continue;
+    const key = trimmed.slice(0, eq).trim();
+    const value = trimmed.slice(eq + 1).trim().replace(/^['"]|['"]$/g, "");
+    if (key) parsed[key] = value;
+  }
+  return parsed;
+}
+
+/** Load APP + Supabase env from `.env.local` first, then `.env` — same vars the APP uses at runtime. */
 export function loadP1LiveE2eEnvFiles(repoRoot = process.cwd()): void {
-  const candidates = [".env.local", ".env"];
-  for (const filename of candidates) {
-    const envPath = path.join(repoRoot, filename);
-    if (!fs.existsSync(envPath)) continue;
-    for (const line of fs.readFileSync(envPath, "utf8").split("\n")) {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith("#")) continue;
-      const eq = trimmed.indexOf("=");
-      if (eq === -1) continue;
-      const key = trimmed.slice(0, eq).trim();
-      const value = trimmed.slice(eq + 1).trim().replace(/^['"]|['"]$/g, "");
-      if (!process.env[key]) process.env[key] = value;
+  const localEnv = parseEnvFile(path.join(repoRoot, ".env.local"));
+  const sharedEnv = parseEnvFile(path.join(repoRoot, ".env"));
+
+  for (const key of P1_LIVE_E2E_PRIORITY_ENV_KEYS) {
+    const value = localEnv[key] ?? sharedEnv[key];
+    if (value?.trim()) {
+      process.env[key] = value.trim();
     }
   }
+
+  for (const [key, value] of Object.entries(sharedEnv)) {
+    if (!process.env[key]?.trim() && value.trim()) {
+      process.env[key] = value.trim();
+    }
+  }
+}
+
+export function normalizeP1LiveE2eEmail(email: string): string {
+  return email.trim().toLowerCase();
 }
 
 function parseEnvironmentName(raw: string | null): P1LiveE2eEnvironmentName {
@@ -122,13 +156,15 @@ export function resolveP1LiveE2eConfig(): { config: P1LiveE2eEnvConfig | null; b
     return { config: null, blockers };
   }
 
+  const isolationEmail = readEnv(P1_01_LIVE_E2E_ENV.isolationEmail);
+
   return {
     config: {
       enabled: true,
       environment: parseEnvironmentName(readEnv(P1_01_LIVE_E2E_ENV.environment)),
-      email: readEnv(P1_01_LIVE_E2E_ENV.email)!,
+      email: normalizeP1LiveE2eEmail(readEnv(P1_01_LIVE_E2E_ENV.email)!),
       password: readEnv(P1_01_LIVE_E2E_ENV.password)!,
-      isolationEmail: readEnv(P1_01_LIVE_E2E_ENV.isolationEmail),
+      isolationEmail: isolationEmail ? normalizeP1LiveE2eEmail(isolationEmail) : null,
       isolationPassword: readEnv(P1_01_LIVE_E2E_ENV.isolationPassword),
       baseUrl: readEnv(P1_01_LIVE_E2E_ENV.baseUrl),
       organizationRef: readEnv(P1_01_LIVE_E2E_ENV.organizationRef),
