@@ -863,6 +863,59 @@
         "security_pack_adapter": "zewnętrzny siem dostawca tożsamości adapter zgodności strona trzecia bezpieczeństwo sync"
       }
     },
+    "community": {
+      "sourceLabel": "Katalog dostawców społeczności",
+      "discoveryLead": "Aipify zmapowało {provider} w katalogu dostawców społeczności — status: {status}.",
+      "discoveryExplanation": "Poniższe możliwości pochodzą z zarejestrowanych manifestów Community / Membership Business Pack. Przypisania moderacji i korekty nagród wymagają zatwierdzenia — Aipify nigdy nie usuwa członków, nie banuje na stałe, nie zatwierdza weryfikacji automatycznie, nie wykonuje nieodwracalnych zmian punktów ani transakcji finansowych w Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Źródło społeczności jest przygotowane lub zweryfikowane dla Twojej organizacji.",
+      "disconnectedProvider": "Adapter runtime dostawcy nie jest podłączony — tylko kontrolowane wykrywanie.",
+      "unavailableLead": "Żaden dostawca społeczności nie pasował do tego żądania dla Twojej organizacji.",
+      "unavailableExplanation": "Możliwości społeczności są wykrywane z zarejestrowanych manifestów — żaden nie pasował do tego zapytania.",
+      "externalUnavailableLead": "Zewnętrzne adaptery społeczności lub zaangażowania nie są podłączone dla Twojej organizacji.",
+      "externalUnavailableExplanation": "Nie zarejestrowano aktywnego zewnętrznego adaptera społeczności. Aipify nie usuwa członków, nie banuje na stałe, nie zatwierdza weryfikacji automatycznie i nie wykonuje nieodwracalnych zmian nagród w Companion runtime.",
+      "blockedOperationLead": "Ta operacja społeczności nie jest dostępna w Companion runtime.",
+      "blockedOperationExplanation": "Usuwanie członków, stałe bany, automatyczne zatwierdzanie weryfikacji, nieodwracalne zmiany punktów, transakcje finansowe oraz decyzje publikacji lub moderacji bez polityki są zablokowane w tej fazie. Aipify może przygotować przypisania moderacji i korekty nagród — Ty decydujesz i zatwierdzasz.",
+      "permissionDenied": "Twoja rola nie ma dostępu do katalogu dostawców społeczności.",
+      "entitlementBlocked": "Możliwości społeczności są niedostępne, gdy subskrypcja organizacji jest wstrzymana.",
+      "privacyNote": "Inteligencja społeczności metadata-first — prywatne dane profilu i wiadomości są filtrowane, data urodzenia ograniczona do niezbędnego użycia, a dane moderacji wymagają uprawnienia.",
+      "policyNote": "Przypisania moderacji i korekty nagród wymagają wyraźnego zatwierdzenia. Uprawnienia oparte na rolach, izolacja tenantów i rejestrowanie audytu dotyczą wszystkich działań społeczności.",
+      "memberDeletionBlocked": "Usuwanie członków jest zablokowane w Companion runtime.",
+      "permanentBanBlocked": "Stałe bany są zablokowane — decyzje podejmują ludzie poza Companion runtime.",
+      "verificationAutoApproveBlocked": "Automatyczne zatwierdzanie weryfikacji jest zablokowane w Companion runtime.",
+      "irreversiblePointsBlocked": "Nieodwracalne zmiany punktów lub nagród są zablokowane — korekty wymagają zatwierdzenia.",
+      "privateProfileDataFiltered": "Prywatne dane profilu i wiadomości są filtrowane przy odczycie społeczności.",
+      "birthdayDataLimited": "Data urodzenia jest ograniczona do niezbędnego użycia companion.",
+      "moderationDataPermissionGated": "Kolejka moderacji i dane raportów wymagają uprawnień moderatora.",
+      "roleBasedAccessActive": "Uprawnienia oparte na rolach są egzekwowane dla tej organizacji.",
+      "commandBriefEventsLinked": "Sygnały społeczności Command Brief są powiązane z istniejącymi źródłami członków, aktywności, moderacji i nagród.",
+      "commandBriefEventsAvailable": "Sygnały społeczności Command Brief są dostępne, gdy silniki społeczności są aktywowane.",
+      "openCommunityCenter": "Otwórz Community Center",
+      "operation": { "read": "odczyt", "write": "zapis" },
+      "status": {
+        "connected": "połączony",
+        "implemented_disconnected": "zaimplementowany, ale odłączony",
+        "partial": "częściowy",
+        "specification_only": "tylko specyfikacja",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "community_network_center": "Community Network Center",
+        "moderation_engine": "Silnik moderacji",
+        "client_relationship_loyalty": "Lojalność relacji z klientami",
+        "community_collective_intelligence": "Kolektywna inteligencja społeczności",
+        "community_engagement_services": "Usługi zaangażowania społeczności",
+        "community_pack_adapter": "Zewnętrzny adapter społeczności"
+      },
+      "searchTerms": {
+        "community_network_center": "społeczność członek członkostwo aktywność zaangażowanie dyskusje wydarzenia reputacja marketplace",
+        "moderation_engine": "moderacja kolejka raport przegląd przypisanie bezpieczeństwo treści",
+        "client_relationship_loyalty": "nagroda punkty polecenie lojalność członkostwo poziom klient",
+        "community_collective_intelligence": "kolektywna inteligencja wkład zaangażowanie aktywność raporty",
+        "community_engagement_services": "ranking urodziny prezent zaangażowanie uznanie",
+        "community_pack_adapter": "zewnętrzne forum członkostwo platforma zaangażowanie adapter trzecia strona sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

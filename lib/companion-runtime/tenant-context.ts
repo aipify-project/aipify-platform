@@ -38,6 +38,7 @@ import { loadCompanionWarehouseContext } from "./load-companion-warehouse-contex
 import { loadCompanionFinanceContext } from "./load-companion-finance-context";
 import { loadCompanionSalesContext } from "./load-companion-sales-context";
 import { loadCompanionSecurityContext } from "./load-companion-security-context";
+import { loadCompanionCommunityContext } from "./load-companion-community-context";
 import {
   mergeCreativeCapabilities,
   mergeCreativeSchemaCollection,
@@ -103,6 +104,11 @@ import {
   mergeSecuritySchemaCollection,
   mergeSecurityToolRegistry,
 } from "./merge-security-runtime";
+import {
+  mergeCommunityCapabilities,
+  mergeCommunitySchemaCollection,
+  mergeCommunityToolRegistry,
+} from "./merge-community-runtime";
 
 export type { CompanionTenantContext } from "./companion-tenant-context";
 export {
@@ -323,7 +329,15 @@ export async function loadCompanionTenantContext(
     activeBusinessPacks,
   });
 
-  const entitledCapabilities = mergeSecurityCapabilities(
+  const communityContext = await loadCompanionCommunityContext(supabase, {
+    effectivePermissions,
+    subscriptionStatus,
+    connectedProviders,
+    activeBusinessPacks,
+  });
+
+  const entitledCapabilities = mergeCommunityCapabilities(
+    mergeSecurityCapabilities(
     mergeSalesCapabilities(
     mergeFinanceCapabilities(
     mergeWarehouseCapabilities(
@@ -359,6 +373,8 @@ export async function loadCompanionTenantContext(
     salesContext,
     ),
     securityContext,
+    ),
+    communityContext,
   );
 
   let schemaContext = loadCompanionSchemaContext({
@@ -412,6 +428,7 @@ export async function loadCompanionTenantContext(
   schemaContext = mergeFinanceSchemaCollection(schemaContext, financeContext, effectivePermissions);
   schemaContext = mergeSalesSchemaCollection(schemaContext, salesContext, effectivePermissions);
   schemaContext = mergeSecuritySchemaCollection(schemaContext, securityContext, effectivePermissions);
+  schemaContext = mergeCommunitySchemaCollection(schemaContext, communityContext, effectivePermissions);
 
   let toolRegistry = loadCompanionToolRegistry({
     discovery,
@@ -438,6 +455,7 @@ export async function loadCompanionTenantContext(
   toolRegistry = mergeFinanceToolRegistry(toolRegistry, financeContext, effectivePermissions);
   toolRegistry = mergeSalesToolRegistry(toolRegistry, salesContext, effectivePermissions);
   toolRegistry = mergeSecurityToolRegistry(toolRegistry, securityContext, effectivePermissions);
+  toolRegistry = mergeCommunityToolRegistry(toolRegistry, communityContext, effectivePermissions);
 
   const operationalLoad = await loadCompanionOperationalContext(supabase, {
     effectivePermissions,
@@ -467,6 +485,7 @@ export async function loadCompanionTenantContext(
     financeContext,
     salesContext,
     securityContext,
+    communityContext,
   });
 
   return createEmptyCompanionTenantContext({
@@ -513,5 +532,6 @@ export async function loadCompanionTenantContext(
     financeContext,
     salesContext,
     securityContext,
+    communityContext,
   });
 }

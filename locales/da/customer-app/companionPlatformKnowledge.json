@@ -863,6 +863,59 @@
         "security_pack_adapter": "ekstern siem identitetsleverandør compliance adapter tredjeparts sikkerhed sync"
       }
     },
+    "community": {
+      "sourceLabel": "Community-leverandørkatalog",
+      "discoveryLead": "Aipify kortlagde {provider} i community-leverandørkataloget — status: {status}.",
+      "discoveryExplanation": "Funktionerne nedenfor kommer fra registrerede Community / Membership Business Pack-manifest. Modereringsopgaver og belønningsjusteringer kræver godkendelse — Aipify sletter aldrig medlemmer, udelukker ikke permanent, godkender ikke verificering automatisk, udfører ikke irreversible pointændringer eller økonomiske transaktioner i Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Community-kilden er forberedt eller verificeret for din organisation.",
+      "disconnectedProvider": "Leverandørens runtime-adapter er ikke tilsluttet — kun styret opdagelse.",
+      "unavailableLead": "Ingen community-leverandør matchede denne anmodning for din organisation.",
+      "unavailableExplanation": "Community-funktioner opdages fra registrerede manifest — ingen matchede dette spørgsmål.",
+      "externalUnavailableLead": "Eksterne community- eller engagement-adapters er ikke tilsluttet for din organisation.",
+      "externalUnavailableExplanation": "Ingen live ekstern community-adapter er registreret. Aipify sletter ikke medlemmer, udelukker ikke permanent, godkender ikke verificering automatisk og udfører ikke irreversible belønningsændringer i Companion runtime.",
+      "blockedOperationLead": "Denne community-operation er ikke tilgængelig i Companion runtime.",
+      "blockedOperationExplanation": "Medlemssletning, permanent udelukkelse, automatisk verificeringsgodkendelse, irreversible pointændringer, økonomiske transaktioner og publicering eller modereringsbeslutninger uden policy er blokeret i denne fase. Aipify kan forberede modereringsopgaver og belønningsjusteringer — du bestemmer og godkender.",
+      "permissionDenied": "Din rolle kan ikke få adgang til community-leverandørkataloget.",
+      "entitlementBlocked": "Community-funktioner er utilgængelige, mens organisationens abonnement er sat på pause.",
+      "privacyNote": "Metadata-først community-intelligens — private profil- og beskeddata filtreres, fødselsdato begrænses til nødvendig brug, og modereringsdata kræver tilladelse.",
+      "policyNote": "Modereringsopgaver og belønningsjusteringer kræver eksplicit godkendelse. Rollebaserede tilladelser, tenant-isolation og revisionslogning gælder for alle community-handlinger.",
+      "memberDeletionBlocked": "Medlemssletning er blokeret i Companion runtime.",
+      "permanentBanBlocked": "Permanent udelukkelse er blokeret — mennesker bestemmer uden for Companion runtime.",
+      "verificationAutoApproveBlocked": "Automatisk verificeringsgodkendelse er blokeret i Companion runtime.",
+      "irreversiblePointsBlocked": "Irreversible point- eller belønningsændringer er blokeret — justeringer kræver godkendelse.",
+      "privateProfileDataFiltered": "Private profil- og beskeddata filtreres for community-læsning.",
+      "birthdayDataLimited": "Fødselsdato begrænses til nødvendig companion-brug.",
+      "moderationDataPermissionGated": "Modereringskø og rapportdata kræver moderatortilladelse.",
+      "roleBasedAccessActive": "Rollebaserede tilladelser håndhæves for denne organisation.",
+      "commandBriefEventsLinked": "Command Brief community-signaler er koblet fra eksisterende medlems-, aktivitets-, modererings- og belønningskilder.",
+      "commandBriefEventsAvailable": "Command Brief community-signaler er tilgængelige, når community-motorer er aktiveret.",
+      "openCommunityCenter": "Åbn Community Center",
+      "operation": { "read": "læs", "write": "skriv" },
+      "status": {
+        "connected": "tilsluttet",
+        "implemented_disconnected": "implementeret men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun specifikation",
+        "placeholder": "pladsholder"
+      },
+      "providers": {
+        "community_network_center": "Community Network Center",
+        "moderation_engine": "Modereringsmotor",
+        "client_relationship_loyalty": "Kunderelation loyalitet",
+        "community_collective_intelligence": "Community kollektiv intelligens",
+        "community_engagement_services": "Community engagement-tjenester",
+        "community_pack_adapter": "Ekstern community-adapter"
+      },
+      "searchTerms": {
+        "community_network_center": "community medlem medlemskab aktivitet engagement diskussioner begivenheder omdømme markedsplads",
+        "moderation_engine": "moderering kø rapport gennemgang tildeling indholdssikkerhed",
+        "client_relationship_loyalty": "belønning point henvisning loyalitet medlemskab niveau klient",
+        "community_collective_intelligence": "kollektiv intelligens bidrag engagement aktivitet rapporter",
+        "community_engagement_services": "leaderboard fødselsdag gave engagement anerkendelse",
+        "community_pack_adapter": "ekstern forum medlemskab platform engagement adapter tredjepart sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

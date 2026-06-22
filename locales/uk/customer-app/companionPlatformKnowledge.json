@@ -863,6 +863,59 @@
         "security_pack_adapter": "зовнішній siem постачальник ідентичності адаптер відповідності третя сторона безпека sync"
       }
     },
+    "community": {
+      "sourceLabel": "Каталог постачальників спільноти",
+      "discoveryLead": "Aipify зіставило {provider} у каталозі постачальників спільноти — статус: {status}.",
+      "discoveryExplanation": "Можливості нижче походять із зареєстрованих маніфестів Community / Membership Business Pack. Призначення модерації та коригування винагород потребують схвалення — Aipify ніколи не видаляє учасників, не банить назавжди, не схвалює верифікацію автоматично, не виконує незворотні зміни балів і не здійснює фінансові транзакції в Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Джерело спільноти підготовлено або верифіковано для вашої організації.",
+      "disconnectedProvider": "Runtime-адаптер постачальника не підключено — лише кероване виявлення.",
+      "unavailableLead": "Жоден постачальник спільноти не відповів цьому запиту для вашої організації.",
+      "unavailableExplanation": "Можливості спільноти виявляються з зареєстрованих маніфестів — жоден не відповів цьому запиту.",
+      "externalUnavailableLead": "Зовнішні адаптери спільноти або залучення не підключені для вашої організації.",
+      "externalUnavailableExplanation": "Не зареєстровано активного зовнішнього адаптера спільноти. Aipify не видаляє учасників, не банить назавжди, не схвалює верифікацію автоматично і не виконує незворотні зміни винагород у Companion runtime.",
+      "blockedOperationLead": "Ця операція спільноти недоступна в Companion runtime.",
+      "blockedOperationExplanation": "Видалення учасників, постійні бани, автоматичне схвалення верифікації, незворотні зміни балів, фінансові транзакції та рішення про публікацію чи модерацію без політики заблоковані на цій фазі. Aipify може підготувати призначення модерації та коригування винагород — ви вирішуєте та схвалюєте.",
+      "permissionDenied": "Ваша роль не має доступу до каталогу постачальників спільноти.",
+      "entitlementBlocked": "Можливості спільноти недоступні, поки підписку організації призупинено.",
+      "privacyNote": "Інтелект спільноти metadata-first — приватні дані профілю та повідомлень фільтруються, дата народження обмежена необхідним використанням, а дані модерації потребують дозволу.",
+      "policyNote": "Призначення модерації та коригування винагород потребують явного схвалення. Доступ на основі ролей, ізоляція tenant і аудит застосовуються до всіх дій спільноти.",
+      "memberDeletionBlocked": "Видалення учасників заблоковано в Companion runtime.",
+      "permanentBanBlocked": "Постійні бани заблоковані — люди вирішують поза Companion runtime.",
+      "verificationAutoApproveBlocked": "Автоматичне схвалення верифікації заблоковано в Companion runtime.",
+      "irreversiblePointsBlocked": "Незворотні зміни балів або винагород заблоковані — коригування потребують схвалення.",
+      "privateProfileDataFiltered": "Приватні дані профілю та повідомлень фільтруються для читання спільноти.",
+      "birthdayDataLimited": "Дата народження обмежена необхідним використанням companion.",
+      "moderationDataPermissionGated": "Черга модерації та дані звітів потребують дозволу модератора.",
+      "roleBasedAccessActive": "Доступ на основі ролей застосовується для цієї організації.",
+      "commandBriefEventsLinked": "Сигнали спільноти Command Brief пов’язані з існуючими джерелами учасників, активності, модерації та винагород.",
+      "commandBriefEventsAvailable": "Сигнали спільноти Command Brief доступні, коли активовано двигуни спільноти.",
+      "openCommunityCenter": "Відкрити Community Center",
+      "operation": { "read": "читання", "write": "запис" },
+      "status": {
+        "connected": "підключено",
+        "implemented_disconnected": "реалізовано, але відключено",
+        "partial": "частково",
+        "specification_only": "лише специфікація",
+        "placeholder": "заглушка"
+      },
+      "providers": {
+        "community_network_center": "Community Network Center",
+        "moderation_engine": "Двигун модерації",
+        "client_relationship_loyalty": "Лояльність клієнтських відносин",
+        "community_collective_intelligence": "Колективний інтелект спільноти",
+        "community_engagement_services": "Сервіси залучення спільноти",
+        "community_pack_adapter": "Зовнішній адаптер спільноти"
+      },
+      "searchTerms": {
+        "community_network_center": "спільнота учасник членство активність залучення обговорення події репутація marketplace",
+        "moderation_engine": "модерація черга звіт перевірка призначення безпека контенту",
+        "client_relationship_loyalty": "винагорода бали реферал лояльність членство рівень клієнт",
+        "community_collective_intelligence": "колективний інтелект внесок залучення активність звіти",
+        "community_engagement_services": "таблиця лідерів день народження подарунок залучення визнання",
+        "community_pack_adapter": "зовнішній форум членство платформа залучення адаптер третя сторона sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

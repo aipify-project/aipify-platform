@@ -19,6 +19,7 @@ import type { CompanionWarehouseContext } from "./companion-warehouse-context";
 import type { CompanionFinanceContext } from "./companion-finance-context";
 import type { CompanionSalesContext } from "./companion-sales-context";
 import type { CompanionSecurityContext } from "./companion-security-context";
+import type { CompanionCommunityContext } from "./companion-community-context";
 import type { CompanionBusinessPackCollection } from "./companion-business-pack-context";
 import type { CompanionSchemaCollection } from "./companion-schema-context";
 
@@ -47,6 +48,7 @@ export async function loadCompanionActionContext(
     financeContext?: CompanionFinanceContext;
     salesContext?: CompanionSalesContext;
     securityContext?: CompanionSecurityContext;
+    communityContext?: CompanionCommunityContext;
   },
 ): Promise<{ actionContext: CompanionActionContext; writeActionsAvailable: boolean }> {
   const [companionResult, trustResult, approvalsResult] = await Promise.all([
@@ -85,6 +87,7 @@ export async function loadCompanionActionContext(
     financeContext: input.financeContext,
     salesContext: input.salesContext,
     securityContext: input.securityContext,
+    communityContext: input.communityContext,
   });
 
   const writeActionsAvailable =

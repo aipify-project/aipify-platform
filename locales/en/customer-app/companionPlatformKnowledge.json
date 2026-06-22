@@ -893,6 +893,62 @@
         "security_pack_adapter": "external siem identity provider compliance adapter third party security sync"
       }
     },
+    "community": {
+      "sourceLabel": "Community provider catalog",
+      "discoveryLead": "Aipify mapped {provider} in your community provider catalog — status: {status}.",
+      "discoveryExplanation": "Capabilities below come from registered Community / Membership Business Pack manifests. Moderation assignments, updates, and reward adjustments require approval — Aipify never deletes members, permanently bans users, auto-approves verification, executes irreversible point changes, or performs financial transactions in Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Community source is prepared or verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No community provider matched this request for your organization.",
+      "unavailableExplanation": "Community capabilities are discovered from registered manifests — none matched this query.",
+      "externalUnavailableLead": "External community or engagement adapters are not connected for your organization.",
+      "externalUnavailableExplanation": "No live external community adapter is registered. Aipify does not delete members, permanently ban users, auto-approve verification, or execute irreversible reward changes in Companion runtime.",
+      "blockedOperationLead": "This community operation is not available in Companion runtime.",
+      "blockedOperationExplanation": "Member deletion, permanent bans, automatic verification approval, irreversible point changes, financial transactions, and publishing or moderation decisions without policy are blocked in this phase. Aipify can prepare moderation assignments and reward adjustments — you decide and approve.",
+      "permissionDenied": "Your role cannot access the community provider catalog.",
+      "entitlementBlocked": "Community capabilities are unavailable while the organization subscription is paused.",
+      "privacyNote": "Metadata-first community intelligence — private profile and message data is filtered, birthday data is limited to necessary use, and moderation data requires permission.",
+      "policyNote": "Moderation assignments, updates, and reward adjustments require explicit approval. Role-based permissions, tenant isolation, and audit logging apply to all community actions.",
+      "memberDeletionBlocked": "Member deletion is blocked in Companion runtime.",
+      "permanentBanBlocked": "Permanent bans are blocked — humans decide outside Companion runtime.",
+      "verificationAutoApproveBlocked": "Automatic verification approval is blocked in Companion runtime.",
+      "irreversiblePointsBlocked": "Irreversible point or reward changes are blocked — adjustments require approval.",
+      "privateProfileDataFiltered": "Private profile and message data is filtered for community reads.",
+      "birthdayDataLimited": "Birthday data is limited to necessary companion use only.",
+      "moderationDataPermissionGated": "Moderation queue and report data requires moderator permission.",
+      "roleBasedAccessActive": "Role-based access permissions are enforced for this organization.",
+      "commandBriefEventsLinked": "Command Brief community signals are linked from existing member, activity, moderation, and reward sources.",
+      "commandBriefEventsAvailable": "Command Brief community signals are available when community engines are activated.",
+      "openCommunityCenter": "Open Community Center",
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "community_network_center": "Community Network Center",
+        "moderation_engine": "Moderation Engine",
+        "client_relationship_loyalty": "Client Relationship Loyalty",
+        "community_collective_intelligence": "Community Collective Intelligence",
+        "community_engagement_services": "Community Engagement Services",
+        "community_pack_adapter": "External Community Adapter"
+      },
+      "searchTerms": {
+        "community_network_center": "community member membership activity engagement discussions events reputation marketplace",
+        "moderation_engine": "moderation queue report review assign content safety",
+        "client_relationship_loyalty": "reward points referral loyalty membership tier client",
+        "community_collective_intelligence": "collective intelligence contributions engagement activity reports",
+        "community_engagement_services": "leaderboard birthday gift engagement recognition",
+        "community_pack_adapter": "external forum membership platform engagement adapter third party sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

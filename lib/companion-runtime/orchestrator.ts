@@ -196,6 +196,16 @@ import {
   matchSecurityProviderQuery,
 } from "./security-answer";
 import {
+  buildBlockedCommunityOperationAnswer,
+  buildExternalCommunityUnavailableAnswer,
+  buildCommunityProviderDiscoveryAnswer,
+  buildCommunityProviderUnavailableAnswer,
+  hasBlockedCommunityOperationIntent,
+  hasExternalCommunityAdapterIntent,
+  hasCommunityProviderIntent,
+  matchCommunityProviderQuery,
+} from "./community-answer";
+import {
   buildBlockedCommerceOperationAnswer,
   buildCommerceProviderDiscoveryAnswer,
   buildCommerceProviderUnavailableAnswer,
@@ -1047,6 +1057,45 @@ function resolveSecurityProviderAnswer(
   };
 }
 
+function resolveCommunityProviderAnswer(
+  query: string,
+  t: Translator,
+  tenantContext: CompanionTenantContext,
+): PlatformSearchResult | null {
+  if (hasBlockedCommunityOperationIntent(query)) {
+    return {
+      answer: buildBlockedCommunityOperationAnswer(t),
+    };
+  }
+
+  if (!hasCommunityProviderIntent(query)) {
+    return null;
+  }
+
+  if (tenantContext.communityContext.permission_denied) {
+    return {
+      answer: buildCommunityProviderUnavailableAnswer(t, tenantContext.communityContext),
+    };
+  }
+
+  if (hasExternalCommunityAdapterIntent(query)) {
+    return {
+      answer: buildExternalCommunityUnavailableAnswer(t),
+    };
+  }
+
+  const match = matchCommunityProviderQuery(query, tenantContext);
+  if (!match) {
+    return {
+      answer: buildCommunityProviderUnavailableAnswer(t, tenantContext.communityContext),
+    };
+  }
+
+  return {
+    answer: buildCommunityProviderDiscoveryAnswer(match, tenantContext.communityContext, t),
+  };
+}
+
 function resolveSupportProviderAnswer(
   query: string,
   t: Translator,
@@ -1312,6 +1361,9 @@ export async function orchestrateCompanionSearch(
 
   const securityResult = resolveSecurityProviderAnswer(query, t, resolvedTenantContext);
   if (securityResult) return finalize(securityResult);
+
+  const communityResult = resolveCommunityProviderAnswer(query, t, resolvedTenantContext);
+  if (communityResult) return finalize(communityResult);
 
   const supportResult = resolveSupportProviderAnswer(query, t, resolvedTenantContext);
   if (supportResult) return finalize(supportResult);
