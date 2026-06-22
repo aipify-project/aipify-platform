@@ -1,3 +1,7 @@
+import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import { isCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import { isPlatformOperationalQuery } from "./platform-snapshot-intent";
+
 export type LiveIntegrationQueryKind =
   | "status"
   | "last_used"
@@ -9,18 +13,35 @@ export type LiveIntegrationQueryKind =
   | "role_disambiguation";
 
 export type LiveIntegrationStatusIntent = {
-  providerKey: "unonight";
+  providerKey: string;
   requiresLive: boolean;
   blocksKnowledgeCenter: boolean;
   queryKind: LiveIntegrationQueryKind;
 };
 
 export type LiveIntegrationIntentOptions = {
-  integrationContext?: "unonight" | null;
+  integrationContext?: string | null;
+  snapshotContext?: { activeModules?: readonly string[] };
+  locale?: CustomerActiveLocale;
 };
 
+function resolveProviderKey(options?: LiveIntegrationIntentOptions): string {
+  return options?.integrationContext ?? "unonight";
+}
+
+function resolveLocale(options?: LiveIntegrationIntentOptions): CustomerActiveLocale {
+  if (options?.locale && isCustomerActiveLocale(options.locale)) return options.locale;
+  return "no";
+}
+
 function normalizeQuery(query: string): string {
-  return query.trim().toLowerCase().replace(/\s+/g, " ").replace(/[?!.]+$/, "");
+  return query
+    .trim()
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/[?!.]+$/, "");
 }
 
 function mentionsUnonight(q: string): boolean {
@@ -28,7 +49,11 @@ function mentionsUnonight(q: string): boolean {
 }
 
 function hasIntegrationContext(options?: LiveIntegrationIntentOptions): boolean {
-  return options?.integrationContext === "unonight";
+  return Boolean(options?.integrationContext);
+}
+
+function asksModuleActivation(q: string): boolean {
+  return /(aktiv|active|aktivert|enabled|slatt pa|turned on|rapporter|report|reported)/.test(q);
 }
 
 function isComprehensiveStatusQuery(q: string): boolean {
@@ -36,21 +61,29 @@ function isComprehensiveStatusQuery(q: string): boolean {
     /organisasjon|organization/.test(q),
     /api.?versjon|api version/.test(q),
     /scope|tillatel|permission/.test(q),
-    /språk|locale|language/.test(q),
+    /sprak|locale|language/.test(q),
     /tilgang|access|tilkoblingsinformasjon|connection metadata|live tilkoblingsinformasjon/.test(q),
   ].filter(Boolean).length;
 
   return signals >= 2;
 }
 
+function isIntegrationLanguageQuery(q: string): boolean {
+  return (
+    /(sprak|language|locale|stott|support)/.test(q) &&
+    /(integrasjon|integration|tilkobling|connection)/.test(q)
+  );
+}
+
 function detectQueryKind(q: string, contextual: boolean): LiveIntegrationQueryKind | null {
   const contextualUnonight = mentionsUnonight(q) || contextual;
 
-  if (
-    contextualUnonight &&
-    /(private|melding|message|chat|dm|innboks|inbox|samtale|conversation)/.test(q) &&
-    /(vis|show|hent|get|siste|last|recent|latest)/.test(q)
-  ) {
+  const asksToShowPrivateContent = /(vis|show|hent|get|siste|last|recent|latest|read|les|open|apne)/.test(q);
+  const mentionsPrivateMessages =
+    /(private melding|private message|private chat|dm|innboks|inbox|samtale|conversation)/.test(q) &&
+    !asksModuleActivation(q);
+
+  if (contextualUnonight && asksToShowPrivateContent && mentionsPrivateMessages) {
     return "private_data";
   }
 
@@ -83,7 +116,7 @@ function detectQueryKind(q: string, contextual: boolean): LiveIntegrationQueryKi
     return "last_used";
   }
 
-  if (mentionsUnonight(q) && /(språk|language|locale|støtt)/.test(q)) {
+  if (isIntegrationLanguageQuery(q)) {
     return "languages";
   }
 
@@ -98,7 +131,7 @@ function detectQueryKind(q: string, contextual: boolean): LiveIntegrationQueryKi
 
   if (
     mentionsUnonight(q) &&
-    /(lov til|allowed|permission|scope|tillatel|lese fra|read from|hva har .* lov|what.*allowed| ikke lov|not allowed|cannot|can't|ikke.*(gjøre|do|endre|write|skrive))/.test(
+    /(lov til|allowed|permission|scope|tillatel|lese fra|read from|hva har .* lov|what.*allowed| ikke lov|not allowed|cannot|can't|ikke.*(gjore|do|endre|write|skrive))/.test(
       q,
     )
   ) {
@@ -107,9 +140,10 @@ function detectQueryKind(q: string, contextual: boolean): LiveIntegrationQueryKi
 
   if (
     contextualUnonight &&
-    /(koblet|connected|tilkoblet|tilgang|access|status|skrivebeskytt|read.?only|verifis|integrasjon|integration|tilkobling|connection|nå|now)/.test(
+    /(koblet|connected|tilkoblet|skrivebeskytt|read.?only|verifis|integrasjon|integration|tilkobling|connection)/.test(
       q,
-    )
+    ) &&
+    !asksModuleActivation(q)
   ) {
     return "status";
   }
@@ -126,13 +160,19 @@ export function detectLiveIntegrationStatusIntent(
   query: string,
   options?: LiveIntegrationIntentOptions,
 ): LiveIntegrationStatusIntent | null {
+  if (isPlatformOperationalQuery(query, options)) {
+    return null;
+  }
+
+  const providerKey = resolveProviderKey(options);
+  void resolveLocale(options);
   const q = normalizeQuery(query);
   const contextual = hasIntegrationContext(options);
   const queryKind = detectQueryKind(q, contextual);
 
   if (queryKind) {
     return {
-      providerKey: "unonight",
+      providerKey,
       requiresLive: requiresLiveForKind(queryKind),
       blocksKnowledgeCenter: true,
       queryKind,
@@ -154,16 +194,16 @@ export function detectLiveIntegrationStatusIntent(
 
   if (excludesKnowledgeCenter && (mentionsUnonight(q) || mentionsIntegration)) {
     return {
-      providerKey: "unonight",
+      providerKey,
       requiresLive: true,
       blocksKnowledgeCenter: true,
       queryKind: "status",
     };
   }
 
-  if (mentionsUnonight(q) && (mentionsLive || mentionsStatusFields)) {
+  if (mentionsUnonight(q) && (mentionsLive || mentionsStatusFields) && !asksModuleActivation(q)) {
     return {
-      providerKey: "unonight",
+      providerKey,
       requiresLive: true,
       blocksKnowledgeCenter: true,
       queryKind: "status",
@@ -172,7 +212,7 @@ export function detectLiveIntegrationStatusIntent(
 
   if (mentionsIntegration && mentionsLive && (mentionsStatusFields || mentionsUnonight(q))) {
     return {
-      providerKey: "unonight",
+      providerKey,
       requiresLive: true,
       blocksKnowledgeCenter: true,
       queryKind: "status",
@@ -183,10 +223,10 @@ export function detectLiveIntegrationStatusIntent(
     /(connected integration|tilkoblet integrasjon|tilkoblingsinformasjon|connection metadata|integration metadata)/.test(
       q,
     ) &&
-    (mentionsUnonight(q) || mentionsLive)
+    (mentionsUnonight(q) || mentionsIntegration || mentionsLive)
   ) {
     return {
-      providerKey: "unonight",
+      providerKey,
       requiresLive: true,
       blocksKnowledgeCenter: true,
       queryKind: "status",

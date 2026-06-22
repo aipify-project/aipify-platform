@@ -1,38 +1,35 @@
 import type { Translator } from "@/lib/i18n/translate";
-import { buildReportedLocaleLabelMap, resolvePlatformVersionDisplay } from "@/lib/live-platform-snapshot/presentation-registry";
+import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import { isCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import {
+  buildGenericPlatformAnswer,
+  buildNormalizedCardLocales,
+  buildNormalizedCardModules,
+  resolveNormalizedVersionDisplay,
+  shouldIncludePlatformCard,
+} from "@/lib/integration-intelligence/answer-builder";
+import { normalizeUnonightPlatformSnapshot } from "@/lib/integration-intelligence/adapters/unonight-normalizer";
+import { resolveEnvironmentLabel } from "@/lib/live-platform-snapshot/presentation-registry";
 import { buildActionForRoute } from "./answer-builder";
-import { buildPlatformSnapshotCardPayload, getPlatformSnapshotAvailabilityLabel } from "./platform-snapshot-card";
-import type { LivePlatformSnapshotQueryKind } from "./platform-snapshot-intent";
+import { getPlatformSnapshotAvailabilityLabel } from "./platform-snapshot-card";
+import type {
+  LivePlatformSnapshotIntent,
+} from "./platform-snapshot-intent";
+import { mapLiveIntentToGeneric } from "./platform-snapshot-intent";
 import { filterActionsByPermission, type PermissionContext } from "./permission-gate";
 import type { PlatformSnapshotFailureCode, UnonightPlatformSnapshotMetadata } from "./platform-snapshot-tool";
-import type { PlatformKnowledgeAction, PlatformKnowledgeAnswer } from "./types";
+import type { PlatformKnowledgeAction, PlatformKnowledgeAnswer, PlatformSnapshotCardLabels } from "./types";
 
 const BASE = "customerApp.companionPlatformKnowledge.platformSnapshot";
-const VARIANTS = `${BASE}.variants`;
+const INTELLIGENCE_BASE = "customerApp.companionPlatformKnowledge.integrationIntelligence";
 const ACTIONS_BASE = "customerApp.companionPlatformKnowledge.actions";
-const UNONIGHT_RETEST_HREF = "/app/platform/integrations/connect/unonight";
 
-function interpolate(template: string, values: Record<string, string>): string {
-  return Object.entries(values).reduce(
-    (result, [key, value]) => result.replaceAll(`{${key}}`, value),
-    template,
-  );
-}
-
-function formatTimestamp(value: string, locale: string, unavailable: string): string {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return unavailable;
-  return new Intl.DateTimeFormat(locale, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(date);
-}
-
-function buildRetestConnectionAction(t: Translator): PlatformKnowledgeAction {
+function buildRetestConnectionAction(t: Translator, providerKey: string): PlatformKnowledgeAction {
+  const providerSlug = providerKey.replace(/_/g, "-");
   return {
     labelKey: `${ACTIONS_BASE}.retestUnonightConnection`,
     label: t(`${ACTIONS_BASE}.retestUnonightConnection`),
-    href: UNONIGHT_RETEST_HREF,
+    href: `/app/platform/integrations/connect/${providerSlug}`,
     routeKey: "connectIntegration",
     variant: "secondary",
   };
@@ -44,28 +41,67 @@ function buildConnectedIntegrationsAction(t: Translator): PlatformKnowledgeActio
   return { ...action, variant: "primary" };
 }
 
-function buildStandardActions(t: Translator, ctx: PermissionContext): PlatformKnowledgeAction[] {
+function buildStandardActions(
+  t: Translator,
+  ctx: PermissionContext,
+  providerKey: string,
+): PlatformKnowledgeAction[] {
   return filterActionsByPermission(
-    [buildConnectedIntegrationsAction(t), buildRetestConnectionAction(t)].filter(
+    [buildConnectedIntegrationsAction(t), buildRetestConnectionAction(t, providerKey)].filter(
       (action): action is NonNullable<typeof action> => action !== undefined,
     ),
     ctx,
   );
 }
 
-function buildVerifiedSourceRef(t: Translator) {
+function buildVerifiedSourceRef(t: Translator, providerKey: string) {
   const sourceLabel = t(`${BASE}.sourceVerifiedIntegration`);
   return {
     sources: [
       {
-        id: "verified-unonight-platform-snapshot",
+        id: `verified-${providerKey}-platform-snapshot`,
         label: sourceLabel,
         kind: "verified_integration" as const,
-        meta: t(`${BASE}.card.sourceMeta`),
+        meta: t(`${INTELLIGENCE_BASE}.directAnswers.sourceFooterVerified`),
       },
     ],
-    sourceId: "verified-unonight-platform-snapshot",
+    sourceId: `verified-${providerKey}-platform-snapshot`,
     source: "verified_integration" as const,
+  };
+}
+
+function buildCardLabels(
+  metadata: UnonightPlatformSnapshotMetadata,
+  providerKey: string,
+  locale: CustomerActiveLocale,
+  t: Translator,
+): PlatformSnapshotCardLabels {
+  const normalized = normalizeUnonightPlatformSnapshot(metadata);
+  const moduleLabels = buildNormalizedCardModules(normalized, providerKey, locale, t);
+  const languageLabels = buildNormalizedCardLocales(normalized, t);
+
+  return {
+    cardTitle: t(`${BASE}.card.title`),
+    cardSupporting: t(`${BASE}.card.supporting`),
+    fieldEnvironment: t(`${BASE}.card.fieldEnvironment`),
+    fieldPlatformVersion: t(`${BASE}.card.fieldPlatformVersion`),
+    fieldAvailability: t(`${BASE}.card.fieldAvailability`),
+    fieldActiveModules: t(`${BASE}.card.fieldActiveModules`),
+    fieldSupportedLanguages: t(`${BASE}.card.fieldSupportedLanguages`),
+    fieldCheckedAt: t(`${BASE}.card.fieldCheckedAt`),
+    timestampUnavailable: t(`${BASE}.card.timestampUnavailable`),
+    availabilityAvailable: t(`${BASE}.card.availabilityAvailable`),
+    availabilityDegraded: t(`${BASE}.card.availabilityDegraded`),
+    availabilityMaintenance: t(`${BASE}.card.availabilityMaintenance`),
+    sourceTitle: t(`${BASE}.card.sourceTitle`),
+    sourceLabel: t(`${BASE}.sourceVerifiedIntegration`),
+    sourceMeta: t(`${BASE}.card.sourceMeta`),
+    languagesUnavailable: t(`${BASE}.card.languagesUnavailable`),
+    languageLabels,
+    moduleLabels,
+    ariaCard: t(`${BASE}.card.ariaCard`),
+    environmentDisplay: resolveEnvironmentLabel(metadata.environment, t),
+    platformVersionDisplay: resolveNormalizedVersionDisplay(normalized.version, t),
   };
 }
 
@@ -74,52 +110,53 @@ export function buildVerifiedPlatformSnapshotAnswer(
   t: Translator,
   locale: string,
   ctx: PermissionContext,
-  queryKind: LivePlatformSnapshotQueryKind = "full_snapshot",
+  intent: Pick<
+    LivePlatformSnapshotIntent,
+    "queryKind" | "presentationMode" | "targetModules"
+  > = {
+    queryKind: "full_snapshot",
+    presentationMode: "full_snapshot",
+  },
 ): PlatformKnowledgeAnswer {
-  const unavailable = t(`${BASE}.card.timestampUnavailable`);
-  const checkedAt = formatTimestamp(metadata.checked_at, locale, unavailable);
-  const languageLabels = buildReportedLocaleLabelMap(metadata.supported_locales, t);
-  const languages = metadata.supported_locales
-    .map((code) => languageLabels[code.toLowerCase().split("-")[0]] ?? code)
-    .join(", ");
-  const version = resolvePlatformVersionDisplay(metadata.platform_version, t);
-  const { sources, sourceId, source } = buildVerifiedSourceRef(t);
-  const platformSnapshotCard = buildPlatformSnapshotCardPayload(metadata, t);
+  const providerKey = metadata.provider;
+  const activeLocale: CustomerActiveLocale = isCustomerActiveLocale(locale) ? locale : "en";
+  const normalized = normalizeUnonightPlatformSnapshot(metadata);
+  const genericIntent = mapLiveIntentToGeneric(intent);
+  const { directAnswer, explanation } = buildGenericPlatformAnswer(
+    normalized,
+    providerKey,
+    activeLocale,
+    locale,
+    t,
+    genericIntent,
+  );
+  const labels = buildCardLabels(metadata, providerKey, activeLocale, t);
+  const { sources, sourceId, source } = buildVerifiedSourceRef(t, providerKey);
 
-  let directAnswer = t(`${VARIANTS}.fullSnapshot.intro`);
-  switch (queryKind) {
-    case "active_modules":
-      directAnswer = t(`${VARIANTS}.activeModules.intro`);
-      break;
-    case "supported_languages":
-      directAnswer = interpolate(t(`${VARIANTS}.supportedLanguages.intro`), { languages, checkedAt });
-      break;
-    case "environment_status":
-      directAnswer = interpolate(t(`${VARIANTS}.environmentStatus.intro`), {
-        environment: platformSnapshotCard.labels.environmentDisplay,
-        status: getPlatformSnapshotAvailabilityLabel(platformSnapshotCard),
-        checkedAt,
-      });
-      break;
-    case "platform_version":
-      directAnswer = interpolate(t(`${VARIANTS}.platformVersion.intro`), {
-        version,
-        checkedAt,
-      });
-      break;
-    case "visibility_summary":
-      directAnswer = t(`${VARIANTS}.visibilitySummary.intro`);
-      break;
-    default:
-      directAnswer = t(`${VARIANTS}.fullSnapshot.intro`);
-  }
+  const activeModuleKeys = normalized.activeModules
+    .filter((entry) => entry.active)
+    .map((entry) => entry.key);
+
+  const platformSnapshotCard = shouldIncludePlatformCard(intent.presentationMode)
+    ? {
+        provider: metadata.provider,
+        environment: metadata.environment,
+        platformVersion: metadata.platform_version,
+        availabilityStatus: metadata.status,
+        activeModules: activeModuleKeys,
+        supportedLocales: metadata.supported_locales,
+        checkedAt: metadata.checked_at,
+        labels,
+      }
+    : undefined;
 
   return {
     title: t(`${BASE}.title`),
     directAnswer,
+    explanation,
     platformSnapshotCard,
     steps: [],
-    actions: buildStandardActions(t, ctx),
+    actions: buildStandardActions(t, ctx, providerKey),
     sources,
     sourceId,
     source,
@@ -131,6 +168,8 @@ export function buildVerifiedPlatformSnapshotAnswer(
     integrationToolName: metadata.tool,
   };
 }
+
+export { getPlatformSnapshotAvailabilityLabel };
 
 const FAILURE_MESSAGE_KEYS: Partial<Record<PlatformSnapshotFailureCode, string>> = {
   integration_not_connected: `${BASE}.failures.integrationNotConnected`,
@@ -186,6 +225,7 @@ export function buildPlatformSnapshotFailureAnswer(
   code: PlatformSnapshotFailureCode,
   t: Translator,
   ctx: PermissionContext,
+  providerKey = "unonight",
 ): PlatformKnowledgeAnswer {
   return {
     title: t(`${BASE}.failureTitle`),
@@ -195,9 +235,10 @@ export function buildPlatformSnapshotFailureAnswer(
     actions: filterActionsByPermission(
       [
         buildConnectedIntegrationsAction(t),
-        buildRetestConnectionAction(t),
+        buildRetestConnectionAction(t, providerKey),
         buildActionForRoute("contactSupport", t),
-      ].filter((action): action is NonNullable<typeof action> => action !== undefined),
+      ].filter((action): action is NonNullable<typeof action> => action !== undefined,
+      ),
       ctx,
     ),
     sources: [],
@@ -210,5 +251,27 @@ export function buildPlatformSnapshotFailureAnswer(
     requestedLiveIntegration: true,
     orgConfirmBlockedReason: t(`${BASE}.orgConfirmBlockedNoLiveData`),
     integrationToolName: "get_unonight_platform_snapshot",
+  };
+}
+
+export function buildUnsupportedLiveMetricAnswer(
+  t: Translator,
+  ctx: PermissionContext,
+  providerKey: string,
+): PlatformKnowledgeAnswer {
+  return {
+    title: t(`${INTELLIGENCE_BASE}.unsupportedMetric.title`),
+    directAnswer: t(`${INTELLIGENCE_BASE}.unsupportedMetric.directAnswer`),
+    explanation: t(`${INTELLIGENCE_BASE}.unsupportedMetric.explanation`),
+    steps: [],
+    actions: buildStandardActions(t, ctx, providerKey),
+    sources: [],
+    sourceId: "unsupported-live-metric",
+    source: "verified_integration",
+    confidence: "high",
+    showSupportEscalation: false,
+    liveIntegrationToolUsed: false,
+    orgConfirmEligible: false,
+    requestedLiveIntegration: true,
   };
 }

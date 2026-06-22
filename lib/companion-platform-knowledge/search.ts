@@ -1,5 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { retrieveKnowledgeAnswer } from "@/lib/aipify/knowledge/retrieve";
+import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import { isCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import type { Translator } from "@/lib/i18n/translate";
 import {
   ACCEPTANCE_QUESTION_ARTICLE_MAP,
@@ -19,18 +21,18 @@ import { buildPublishedPricingSummary, parseCustomerLicenseCenter } from "./pric
 import { canAccessArticle, type PermissionContext } from "./permission-gate";
 import { resolveRouteKeyFromQuery } from "./route-registry";
 import {
+  buildPlatformSnapshotFailureAnswer,
+  buildUnsupportedLiveMetricAnswer,
+  buildVerifiedPlatformSnapshotAnswer,
+} from "./platform-snapshot-answer";
+import {
   buildIntegrationStatusFailureAnswer,
   buildPrivateDataDeniedAnswer,
   buildRoleDisambiguationAnswer,
   buildVerifiedIntegrationStatusAnswer,
 } from "./integration-status-answer";
-import {
-  buildPlatformSnapshotFailureAnswer,
-  buildVerifiedPlatformSnapshotAnswer,
-} from "./platform-snapshot-answer";
-import { detectLivePlatformSnapshotIntent } from "./platform-snapshot-intent";
+import { resolveCompanionLiveToolRouting } from "./live-routing";
 import { getUnonightPlatformSnapshot } from "./platform-snapshot-tool";
-import { detectLiveIntegrationStatusIntent } from "./integration-status-intent";
 import { getConnectedIntegrationStatus } from "./integration-status-tool";
 import type {
   PlatformCorpusArticleId,
@@ -46,7 +48,8 @@ export type PlatformSearchOptions = {
   getSearchTermsArray: (key: string) => string[];
   subscriptionRaw?: unknown;
   supabase?: SupabaseClient;
-  integrationContext?: "unonight" | null;
+  integrationContext?: string | null;
+  snapshotContext?: { activeModules?: readonly string[] };
 };
 
 function normalizeQuery(query: string): string {
@@ -118,7 +121,7 @@ export async function searchPlatformKnowledge(
   query: string,
   options: PlatformSearchOptions,
 ): Promise<PlatformSearchResult> {
-  const { t, locale, ctx, getSearchTermsArray, subscriptionRaw, supabase, integrationContext } =
+  const { t, locale, ctx, getSearchTermsArray, subscriptionRaw, supabase, integrationContext, snapshotContext } =
     options;
   const permissionCtx: PermissionContext = {
     userRole: ctx.userRole,
@@ -137,10 +140,27 @@ export async function searchPlatformKnowledge(
 
   const restrictedNote = t("customerApp.companionPlatformKnowledge.permissions.restrictedAction");
 
-  const platformSnapshotIntent = detectLivePlatformSnapshotIntent(query, { integrationContext });
-  if (platformSnapshotIntent && supabase) {
+  const activeLocale: CustomerActiveLocale = isCustomerActiveLocale(locale) ? locale : "en";
+  const providerKey = integrationContext ?? "unonight";
+  const routingOptions = { integrationContext, snapshotContext, locale: activeLocale };
+  const liveRouting = resolveCompanionLiveToolRouting(query, routingOptions);
+
+  if (liveRouting.tool === "forbidden_data_denied") {
+    return {
+      answer: buildPrivateDataDeniedAnswer(t, permissionCtx),
+    };
+  }
+
+  if (liveRouting.tool === "unsupported_live_metric") {
+    return {
+      answer: buildUnsupportedLiveMetricAnswer(t, permissionCtx, providerKey),
+    };
+  }
+
+  if (liveRouting.tool === "get_platform_snapshot" && liveRouting.platformSnapshotIntent && supabase) {
+    const snapshotIntent = liveRouting.platformSnapshotIntent;
     const snapshotResult = await getUnonightPlatformSnapshot(supabase, {
-      providerKey: platformSnapshotIntent.providerKey,
+      providerKey: snapshotIntent.providerKey as "unonight",
       refresh: true,
     });
 
@@ -151,20 +171,24 @@ export async function searchPlatformKnowledge(
           t,
           locale,
           permissionCtx,
-          platformSnapshotIntent.queryKind,
+          snapshotIntent,
         ),
       };
     }
 
-    if (platformSnapshotIntent.blocksKnowledgeCenter) {
+    if (snapshotIntent.blocksKnowledgeCenter) {
       return {
-        answer: buildPlatformSnapshotFailureAnswer(snapshotResult.code, t, permissionCtx),
+        answer: buildPlatformSnapshotFailureAnswer(
+          snapshotResult.code,
+          t,
+          permissionCtx,
+          snapshotIntent.providerKey,
+        ),
       };
     }
   }
 
-  // 0. Live verified integration status — before corpus and Knowledge Center
-  const liveIntegrationIntent = detectLiveIntegrationStatusIntent(query, { integrationContext });
+  const liveIntegrationIntent = liveRouting.integrationStatusIntent;
   if (liveIntegrationIntent) {
     if (liveIntegrationIntent.queryKind === "private_data") {
       return {
@@ -180,7 +204,7 @@ export async function searchPlatformKnowledge(
 
     if (supabase && liveIntegrationIntent.requiresLive) {
       const toolResult = await getConnectedIntegrationStatus(supabase, {
-        providerKey: liveIntegrationIntent.providerKey,
+        providerKey: liveIntegrationIntent.providerKey as "unonight",
         refresh: true,
       });
 
@@ -254,7 +278,7 @@ export async function searchPlatformKnowledge(
   }
 
   // 3. Knowledge Center RPC (optional) — skip when user requested live integration data
-  if (supabase && !liveIntegrationIntent?.blocksKnowledgeCenter && !platformSnapshotIntent?.blocksKnowledgeCenter) {
+  if (supabase && !liveIntegrationIntent?.blocksKnowledgeCenter && !liveRouting.platformSnapshotIntent?.blocksKnowledgeCenter) {
     try {
       const kcResult = await retrieveKnowledgeAnswer(
         async (rpc, params) => {

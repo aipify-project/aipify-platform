@@ -190,6 +190,18 @@
           "intro": "Unonight reports the following platform status right now."
         }
       },
+      "directAnswers": {
+        "moduleActiveLine": "✅ {module} is active.",
+        "moduleInactiveLine": "ℹ️ {module} is not active.",
+        "availabilityYes": "✅ Yes. {provider} reports status {status} in {environment}.",
+        "languagesIntro": "{provider} reports the following languages:",
+        "versionReported": "{provider} reports platform version {version}.",
+        "versionMissing": "ℹ️ {provider} does not report a platform version in the live data right now.",
+        "checkedAtDirect": "The live {provider} platform metadata was checked {checkedAt}.",
+        "activeModulesIntro": "{provider} reports these active modules:",
+        "checkedAtFooter": "Checked: {checkedAt}",
+        "sourceFooter": "Data source: Verified integration"
+      },
       "failures": {
         "integrationNotConnected": "No active Unonight integration is configured for this organization.",
         "integrationNotVerified": "The Unonight integration exists but is not verified yet.",
@@ -209,6 +221,22 @@
         "statusUnavailable": "Unonight returned platform metadata without a recognizable availability status.",
         "unsupportedContractVersion": "Unonight returned an unsupported platform snapshot API version.",
         "unsafePayload": "Unonight returned platform metadata containing fields that are not allowed in this read-only snapshot."
+      }
+    },
+    "integrationIntelligence": {
+      "providers": {
+        "unonight": {
+          "displayName": "Unonight"
+        }
+      },
+      "directAnswers": {
+        "sourceFooterVerified": "Data source: Verified {provider} integration",
+        "fullSummaryIntro": "{provider} reports the following platform status right now."
+      },
+      "unsupportedMetric": {
+        "title": "Live metric not available",
+        "directAnswer": "The connected integration does not currently provide that operational metric.",
+        "explanation": "Aipify only answers from verified read-only integration data. It cannot guess member counts or other sensitive metrics."
       }
     },
     "fallback": {

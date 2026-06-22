@@ -190,6 +190,18 @@
           "intro": "Unonight rapporterar följande plattformsstatus just nu."
         }
       },
+      "directAnswers": {
+        "moduleActiveLine": "✅ {module} är aktiv.",
+        "moduleInactiveLine": "ℹ️ {module} är inte aktiv.",
+        "availabilityYes": "✅ Ja. {provider} rapporterar statusen {status} i {environment}.",
+        "languagesIntro": "{provider} rapporterar följande språk:",
+        "versionReported": "{provider} rapporterar plattformsversion {version}.",
+        "versionMissing": "ℹ️ {provider} anger ingen plattformsversion i live-data just nu.",
+        "checkedAtDirect": "Live plattformsmetadata för {provider} kontrollerades {checkedAt}.",
+        "activeModulesIntro": "{provider} rapporterar dessa aktiva moduler:",
+        "checkedAtFooter": "Kontrollerad: {checkedAt}",
+        "sourceFooter": "Datakälla: Verifierad integration"
+      },
       "failures": {
         "integrationNotConnected": "Ingen aktiv Unonight-integration är konfigurerad för denna organisation.",
         "integrationNotVerified": "Unonight-integrationen finns men är inte verifierad ännu.",
@@ -564,6 +576,22 @@
         "step1": "Review connected integrations under Platform → Integrations.",
         "step2": "Open Account → Security for access and audit visibility.",
         "searchTerms": "hva får aipify tilgang|what does aipify access|data access|tilgang aipify|what can aipify see"
+      }
+    },
+    "integrationIntelligence": {
+      "providers": {
+        "unonight": {
+          "displayName": "Unonight"
+        }
+      },
+      "directAnswers": {
+        "sourceFooterVerified": "Datakälla: Verifierad {provider}-integration",
+        "fullSummaryIntro": "{provider} rapporterar följande plattformsstatus just nu."
+      },
+      "unsupportedMetric": {
+        "title": "Live-mått är inte tillgängligt",
+        "directAnswer": "Den anslutna integrationen tillhandahåller inte detta operativa mått.",
+        "explanation": "Aipify svarar endast från verifierad skrivskyddad integrationsdata. Den kan inte gissa medlemsantal eller andra känsliga mått."
       }
     }
   }

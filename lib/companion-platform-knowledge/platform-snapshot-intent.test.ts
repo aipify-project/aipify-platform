@@ -5,10 +5,10 @@ import { detectLivePlatformSnapshotIntent } from "./platform-snapshot-intent";
 const acceptanceQuery =
   "Hvilke moduler rapporterer Unonight som aktive akkurat nå? Hent svaret direkte fra den verifiserte Unonight-integrasjonen.";
 
-const intent = detectLivePlatformSnapshotIntent(acceptanceQuery);
+const intent = detectLivePlatformSnapshotIntent(acceptanceQuery, { locale: "no" });
 assert.ok(intent);
 assert.equal(intent?.providerKey, "unonight");
-assert.equal(intent?.queryKind, "active_modules");
+assert.equal(intent?.queryKind, "platform_active_modules");
 assert.equal(intent?.blocksKnowledgeCenter, true);
 
 const parsed = parseUnonightPlatformSnapshotDetailed({

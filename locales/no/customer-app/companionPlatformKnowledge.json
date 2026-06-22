@@ -190,6 +190,18 @@
           "intro": "Unonight rapporterer følgende plattformstatus akkurat nå."
         }
       },
+      "directAnswers": {
+        "moduleActiveLine": "✅ {module} er aktiv.",
+        "moduleInactiveLine": "ℹ️ {module} er ikke aktiv.",
+        "availabilityYes": "✅ Ja. {provider} rapporterer statusen {status} i {environment}.",
+        "languagesIntro": "{provider} rapporterer følgende språk:",
+        "versionReported": "{provider} rapporterer plattformversjon {version}.",
+        "versionMissing": "ℹ️ {provider} oppgir ikke en plattformversjon i live-dataene akkurat nå.",
+        "checkedAtDirect": "Live plattformmetadata for {provider} ble kontrollert {checkedAt}.",
+        "activeModulesIntro": "{provider} rapporterer disse aktive modulene:",
+        "checkedAtFooter": "Kontrollert: {checkedAt}",
+        "sourceFooter": "Datakilde: Verifisert integrasjon"
+      },
       "failures": {
         "integrationNotConnected": "Ingen aktiv Unonight-integrasjon er konfigurert for denne organisasjonen.",
         "integrationNotVerified": "Unonight-integrasjonen finnes, men er ikke verifisert ennå.",
@@ -209,6 +221,22 @@
         "statusUnavailable": "Unonight returnerte plattformmetadata uten gjenkjennelig tilgjengelighetsstatus.",
         "unsupportedContractVersion": "Unonight returnerte en ustøttet API-versjon for plattformsnapshot.",
         "unsafePayload": "Unonight returnerte plattformmetadata med felt som ikke er tillatt i dette skrivebeskyttede snapshotet."
+      }
+    },
+    "integrationIntelligence": {
+      "providers": {
+        "unonight": {
+          "displayName": "Unonight"
+        }
+      },
+      "directAnswers": {
+        "sourceFooterVerified": "Datakilde: Verifisert {provider}-integrasjon",
+        "fullSummaryIntro": "{provider} rapporterer følgende plattformstatus akkurat nå."
+      },
+      "unsupportedMetric": {
+        "title": "Live måltall er ikke tilgjengelig",
+        "directAnswer": "Den tilkoblede integrasjonen leverer ikke dette operative måltallet.",
+        "explanation": "Aipify svarer kun ut fra verifiserte skrivebeskyttede integrasjonsdata. Den kan ikke gjette medlemstall eller andre sensitive måltall."
       }
     },
     "fallback": {

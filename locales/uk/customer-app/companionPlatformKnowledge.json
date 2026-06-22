@@ -190,6 +190,18 @@
           "intro": "Unonight повідомляє про такий статус платформи зараз."
         }
       },
+      "directAnswers": {
+        "moduleActiveLine": "✅ {module} активний.",
+        "moduleInactiveLine": "ℹ️ {module} не активний.",
+        "availabilityYes": "✅ Так. {provider} повідомляє про статус {status} у {environment}.",
+        "languagesIntro": "{provider} повідомляє про такі мови:",
+        "versionReported": "{provider} повідомляє версію платформи {version}.",
+        "versionMissing": "ℹ️ {provider} не вказує версію платформи в актуальних live-даних.",
+        "checkedAtDirect": "Метадані платформи {provider} перевірено {checkedAt}.",
+        "activeModulesIntro": "{provider} повідомляє про ці активні модулі:",
+        "checkedAtFooter": "Перевірено: {checkedAt}",
+        "sourceFooter": "Джерело даних: Перевірена інтеграція"
+      },
       "failures": {
         "integrationNotConnected": "Для цієї організації не налаштовано активну інтеграцію Unonight.",
         "integrationNotVerified": "Інтеграція Unonight існує, але ще не верифікована.",
@@ -564,6 +576,22 @@
         "step1": "Review connected integrations under Platform → Integrations.",
         "step2": "Open Account → Security for access and audit visibility.",
         "searchTerms": "hva får aipify tilgang|what does aipify access|data access|tilgang aipify|what can aipify see"
+      }
+    },
+    "integrationIntelligence": {
+      "providers": {
+        "unonight": {
+          "displayName": "Unonight"
+        }
+      },
+      "directAnswers": {
+        "sourceFooterVerified": "Джерело даних: Перевірена інтеграція {provider}",
+        "fullSummaryIntro": "{provider} повідомляє такий статус платформи зараз."
+      },
+      "unsupportedMetric": {
+        "title": "Live-метрика недоступна",
+        "directAnswer": "Підключена інтеграція наразі не надає цю операційну метрику.",
+        "explanation": "Aipify відповідає лише на основі перевірених даних інтеграції лише для читання. Вона не може вгадувати кількість учасників чи інші чутливі метрики."
       }
     }
   }

@@ -190,6 +190,18 @@
           "intro": "Unonight informa del siguiente estado de la plataforma en este momento."
         }
       },
+      "directAnswers": {
+        "moduleActiveLine": "✅ {module} está activo.",
+        "moduleInactiveLine": "ℹ️ {module} no está activo.",
+        "availabilityYes": "✅ Sí. {provider} informa del estado {status} en {environment}.",
+        "languagesIntro": "{provider} informa de los siguientes idiomas:",
+        "versionReported": "{provider} informa de la versión de plataforma {version}.",
+        "versionMissing": "ℹ️ {provider} no informa de una versión de plataforma en los datos en vivo ahora mismo.",
+        "checkedAtDirect": "Los metadatos de plataforma en vivo de {provider} se comprobaron {checkedAt}.",
+        "activeModulesIntro": "{provider} informa de estos módulos activos:",
+        "checkedAtFooter": "Comprobado: {checkedAt}",
+        "sourceFooter": "Fuente de datos: Integración verificada"
+      },
       "failures": {
         "integrationNotConnected": "No hay una integración activa de Unonight configurada para esta organización.",
         "integrationNotVerified": "La integración de Unonight existe pero aún no está verificada.",
@@ -564,6 +576,22 @@
         "explanation": "Language applies across the APP portal, Companion, and notifications.",
         "step1": "Open Account → Preferences and select your language.",
         "searchTerms": "language|språk|locale|change language"
+      }
+    },
+    "integrationIntelligence": {
+      "providers": {
+        "unonight": {
+          "displayName": "Unonight"
+        }
+      },
+      "directAnswers": {
+        "sourceFooterVerified": "Fuente de datos: Integración verificada de {provider}",
+        "fullSummaryIntro": "{provider} informa del siguiente estado de la plataforma ahora."
+      },
+      "unsupportedMetric": {
+        "title": "Métrica en vivo no disponible",
+        "directAnswer": "La integración conectada no proporciona actualmente esa métrica operativa.",
+        "explanation": "Aipify responde solo con datos de integración verificados de solo lectura. No puede adivinar recuentos de miembros u otras métricas sensibles."
       }
     }
   }

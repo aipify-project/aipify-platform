@@ -72,7 +72,7 @@ export function CompanionChat({
                     (msg.integrationStatusCard?.labels.cardSupporting ??
                       msg.platformSnapshotCard?.labels.cardSupporting);
                 if (hideIntro || !msg.directAnswer) return null;
-                return <p className="text-sm text-aipify-text">{msg.directAnswer}</p>;
+                return <p className="whitespace-pre-line text-sm text-aipify-text">{msg.directAnswer}</p>;
               })()}
               {!msg.directAnswer && !msg.integrationStatusCard && !msg.platformSnapshotCard ? (
                 <p className="text-sm text-aipify-text">{msg.content}</p>
@@ -84,7 +84,7 @@ export function CompanionChat({
                 <CompanionIntegrationStatusCard card={msg.integrationStatusCard} locale={locale} />
               ) : null}
               {msg.explanation ? (
-                <p className="mt-2 text-sm text-aipify-text-secondary">{msg.explanation}</p>
+                <p className="mt-2 whitespace-pre-line text-sm text-aipify-text-secondary">{msg.explanation}</p>
               ) : null}
               {msg.steps && msg.steps.length > 0 ? (
                 <ol className="mt-3 list-inside list-decimal space-y-1 text-sm text-aipify-text-secondary">

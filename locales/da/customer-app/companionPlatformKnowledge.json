@@ -190,6 +190,18 @@
           "intro": "Unonight rapporterer følgende platformstatus lige nu."
         }
       },
+      "directAnswers": {
+        "moduleActiveLine": "✅ {module} er aktiv.",
+        "moduleInactiveLine": "ℹ️ {module} er ikke aktiv.",
+        "availabilityYes": "✅ Ja. {provider} rapporterer statusen {status} i {environment}.",
+        "languagesIntro": "{provider} rapporterer følgende sprog:",
+        "versionReported": "{provider} rapporterer platformversion {version}.",
+        "versionMissing": "ℹ️ {provider} angiver ikke en platformversion i live-data lige nu.",
+        "checkedAtDirect": "Live platformmetadata for {provider} blev kontrolleret {checkedAt}.",
+        "activeModulesIntro": "{provider} rapporterer disse aktive moduler:",
+        "checkedAtFooter": "Kontrolleret: {checkedAt}",
+        "sourceFooter": "Datakilde: Verificeret integration"
+      },
       "failures": {
         "integrationNotConnected": "Ingen aktiv Unonight-integration er konfigureret for denne organisation.",
         "integrationNotVerified": "Unonight-integrationen findes, men er ikke verificeret endnu.",
@@ -564,6 +576,22 @@
         "step1": "Review connected integrations under Platform → Integrations.",
         "step2": "Open Account → Security for access and audit visibility.",
         "searchTerms": "hva får aipify tilgang|what does aipify access|data access|tilgang aipify|what can aipify see"
+      }
+    },
+    "integrationIntelligence": {
+      "providers": {
+        "unonight": {
+          "displayName": "Unonight"
+        }
+      },
+      "directAnswers": {
+        "sourceFooterVerified": "Datakilde: Verificeret {provider}-integration",
+        "fullSummaryIntro": "{provider} rapporterer følgende platformstatus lige nu."
+      },
+      "unsupportedMetric": {
+        "title": "Live-metric er ikke tilgængelig",
+        "directAnswer": "Den tilsluttede integration leverer ikke denne operative metric.",
+        "explanation": "Aipify svarer kun ud fra verificerede skrivebeskyttede integrationsdata. Den kan ikke gætte medlemstal eller andre følsomme målinger."
       }
     }
   }

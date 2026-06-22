@@ -49,6 +49,15 @@ export async function GET(request: Request) {
     const requestedLocale = searchParams.get("locale");
     const integrationContext =
       searchParams.get("integration_context") === "unonight" ? "unonight" : null;
+    const platformActiveModules = searchParams.get("platform_active_modules");
+    const snapshotContext = platformActiveModules
+      ? {
+          activeModules: platformActiveModules
+            .split(",")
+            .map((entry) => entry.trim())
+            .filter(Boolean),
+        }
+      : undefined;
 
     const appLocale = await getLocale();
     const answerLocale = query
@@ -84,6 +93,7 @@ export async function GET(request: Request) {
         subscriptionRaw,
         supabase,
         integrationContext,
+        snapshotContext,
       });
       const legacy = getSupportAssistantArticleById(articleId, legacyCorpus);
       const article = legacy ?? answerToLegacyArticle(platformResult.answer);
@@ -107,6 +117,7 @@ export async function GET(request: Request) {
       subscriptionRaw,
       supabase,
       integrationContext,
+      snapshotContext,
     });
 
     if (result.answer.confidence === "low") {

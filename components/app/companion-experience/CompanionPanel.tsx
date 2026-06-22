@@ -272,6 +272,15 @@ export function CompanionPanel({
         if (priorIntegrationContext) {
           params.set("integration_context", "unonight");
         }
+        const lastSnapshot = [...messages]
+          .reverse()
+          .find((message) => message.role === "aipify" && message.platformSnapshotCard);
+        if (lastSnapshot?.platformSnapshotCard?.activeModules?.length) {
+          params.set(
+            "platform_active_modules",
+            lastSnapshot.platformSnapshotCard.activeModules.join(","),
+          );
+        }
         const res = await fetch(`/api/aipify/support-assistant/search?${params}`);
         if (!res.ok) throw new Error("search failed");
         const parsed = parseSupportAssistantSearch(await res.json());

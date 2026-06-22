@@ -190,6 +190,18 @@
           "intro": "Unonight zgłasza następujący status platformy w tej chwili."
         }
       },
+      "directAnswers": {
+        "moduleActiveLine": "✅ {module} jest aktywny.",
+        "moduleInactiveLine": "ℹ️ {module} nie jest aktywny.",
+        "availabilityYes": "✅ Tak. {provider} zgłasza status {status} w {environment}.",
+        "languagesIntro": "{provider} zgłasza następujące języki:",
+        "versionReported": "{provider} zgłasza wersję platformy {version}.",
+        "versionMissing": "ℹ️ {provider} nie podaje wersji platformy w danych na żywo.",
+        "checkedAtDirect": "Metadane platformy {provider} na żywo sprawdzono {checkedAt}.",
+        "activeModulesIntro": "{provider} zgłasza te aktywne moduły:",
+        "checkedAtFooter": "Sprawdzono: {checkedAt}",
+        "sourceFooter": "Źródło danych: Zweryfikowana integracja"
+      },
       "failures": {
         "integrationNotConnected": "Brak aktywnej integracji Unonight dla tej organizacji.",
         "integrationNotVerified": "Integracja Unonight istnieje, ale nie jest jeszcze zweryfikowana.",
@@ -564,6 +576,22 @@
         "step1": "Review connected integrations under Platform → Integrations.",
         "step2": "Open Account → Security for access and audit visibility.",
         "searchTerms": "hva får aipify tilgang|what does aipify access|data access|tilgang aipify|what can aipify see"
+      }
+    },
+    "integrationIntelligence": {
+      "providers": {
+        "unonight": {
+          "displayName": "Unonight"
+        }
+      },
+      "directAnswers": {
+        "sourceFooterVerified": "Źródło danych: Zweryfikowana integracja {provider}",
+        "fullSummaryIntro": "{provider} raportuje obecnie następujący status platformy."
+      },
+      "unsupportedMetric": {
+        "title": "Metryka na żywo niedostępna",
+        "directAnswer": "Połączona integracja nie udostępnia obecnie tej metryki operacyjnej.",
+        "explanation": "Aipify odpowiada wyłącznie na podstawie zweryfikowanych danych integracji tylko do odczytu. Nie może zgadywać liczby członków ani innych wrażliwych metryk."
       }
     }
   }
