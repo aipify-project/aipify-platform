@@ -10,6 +10,7 @@ import {
   buildUnonightPlatformSnapshotUrl,
 } from "./constants";
 import {
+  organizationMatchesUnonightSnapshot,
   parseUnonightPlatformSnapshotDetailed,
   type UnonightPlatformSnapshotParseFailureCode,
   type UnonightPlatformSnapshotSuccess,
@@ -21,7 +22,14 @@ export type UnonightPlatformSnapshotFailureCode =
   | "platform_snapshot_forbidden"
   | "endpoint_unreachable"
   | "response_invalid"
-  | "organization_mismatch";
+  | "organization_mismatch"
+  | UnonightPlatformSnapshotParseFailureCode;
+
+function mapParseFailureCode(
+  code: UnonightPlatformSnapshotParseFailureCode,
+): UnonightPlatformSnapshotFailureCode {
+  return code;
+}
 
 export type UnonightPlatformSnapshotTestResult =
   | { ok: true; snapshot: UnonightPlatformSnapshotSuccess; verifiedAt: string }
@@ -141,13 +149,18 @@ export async function testUnonightPlatformSnapshot(
   if (!parsed.ok) {
     return {
       ok: false,
-      code: "response_invalid",
+      code: mapParseFailureCode(parsed.code),
       technicalReason: parsed.reason,
       parseCode: parsed.code,
     };
   }
 
-  if (parsed.snapshot.organization.id.toLowerCase() !== expectedSlug.toLowerCase()) {
+  if (
+    !organizationMatchesUnonightSnapshot({
+      organizationId: parsed.snapshot.organization.id,
+      expectedOrganizationSlug: expectedSlug,
+    })
+  ) {
     return {
       ok: false,
       code: "organization_mismatch",

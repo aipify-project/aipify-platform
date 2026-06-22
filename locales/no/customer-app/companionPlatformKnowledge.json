@@ -177,7 +177,14 @@
         "responseInvalid": "Unonight returnerte plattformmetadata som ikke kunne valideres trygt.",
         "liveScopeMissing": "Unonight avviste live plattformsnapshot fordi det aktive tokenet mangler platform.metadata.read.",
         "platformSnapshotForbidden": "Unonight avviste live plattformsnapshot-forespørselen for dette tokenet.",
-        "credentialMismatch": "Den lagrede credential-referansen samsvarer ikke med det aktive Unonight-tokenet som ble brukt."
+        "credentialMismatch": "Den lagrede credential-referansen samsvarer ikke med det aktive Unonight-tokenet som ble brukt.",
+        "malformedModules": "Unonight returnerte plattformmetadata uten en gjenkjennelig liste over aktive offentlige moduler.",
+        "malformedLocales": "Unonight returnerte plattformmetadata uten gjenkjennelige støttede språkkoder.",
+        "malformedEnvironment": "Unonight returnerte plattformmetadata med en ugjenkjennelig miljøverdi.",
+        "malformedOrganization": "Unonight returnerte plattformmetadata med en ufullstendig organisasjonsblokk.",
+        "statusUnavailable": "Unonight returnerte plattformmetadata uten gjenkjennelig tilgjengelighetsstatus.",
+        "unsupportedContractVersion": "Unonight returnerte en ustøttet API-versjon for plattformsnapshot.",
+        "unsafePayload": "Unonight returnerte plattformmetadata med felt som ikke er tillatt i dette skrivebeskyttede snapshotet."
       }
     },
     "fallback": {

@@ -151,6 +151,13 @@ const FAILURE_MESSAGE_KEYS: Partial<Record<PlatformSnapshotFailureCode, string>>
   response_invalid: `${BASE}.failures.responseInvalid`,
   live_scope_missing: `${BASE}.failures.liveScopeMissing`,
   platform_snapshot_forbidden: `${BASE}.failures.platformSnapshotForbidden`,
+  malformed_modules: `${BASE}.failures.malformedModules`,
+  malformed_locales: `${BASE}.failures.malformedLocales`,
+  malformed_environment: `${BASE}.failures.malformedEnvironment`,
+  malformed_organization: `${BASE}.failures.malformedOrganization`,
+  status_unavailable: `${BASE}.failures.statusUnavailable`,
+  unsupported_contract_version: `${BASE}.failures.unsupportedContractVersion`,
+  unsafe_payload: `${BASE}.failures.unsafePayload`,
 };
 
 export function buildPlatformSnapshotFailureAnswer(

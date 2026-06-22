@@ -177,7 +177,14 @@
         "responseInvalid": "Unonight повернув метадані платформи, які не вдалося безпечно перевірити.",
         "liveScopeMissing": "Unonight відхилив live snapshot платформи, оскільки активний токен не містить platform.metadata.read.",
         "platformSnapshotForbidden": "Unonight відхилив запит live snapshot платформи для цього токена.",
-        "credentialMismatch": "Збережене посилання на облікові дані не відповідає активному токену Unonight, використаному в цьому запиті."
+        "credentialMismatch": "Збережене посилання на облікові дані не відповідає активному токену Unonight, використаному в цьому запиті.",
+        "malformedModules": "Unonight повернув метадані платформи без розпізнаваного списку активних публічних модулів.",
+        "malformedLocales": "Unonight повернув метадані платформи без розпізнаваних кодів мов.",
+        "malformedEnvironment": "Unonight повернув метадані платформи з нерозпізнаним значенням середовища.",
+        "malformedOrganization": "Unonight повернув метадані платформи з неповним блоком організації.",
+        "statusUnavailable": "Unonight повернув метадані платформи без розпізнаваного статусу доступності.",
+        "unsupportedContractVersion": "Unonight повернув непідтримувану версію API знімка платформи.",
+        "unsafePayload": "Unonight повернув метадані платформи з полями, забороненими в цьому snapshot лише для читання."
       }
     },
     "fallback": {

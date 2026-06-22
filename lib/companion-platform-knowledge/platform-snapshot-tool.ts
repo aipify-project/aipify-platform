@@ -27,7 +27,17 @@ export type PlatformSnapshotFailureCode =
   | "permission_denied"
   | "response_invalid"
   | "live_scope_missing"
-  | "platform_snapshot_forbidden";
+  | "platform_snapshot_forbidden"
+  | "response_not_json"
+  | "unsupported_contract_version"
+  | "malformed_organization"
+  | "malformed_environment"
+  | "malformed_platform"
+  | "malformed_modules"
+  | "malformed_locales"
+  | "invalid_checked_at"
+  | "status_unavailable"
+  | "unsafe_payload";
 
 export type UnonightPlatformSnapshotMetadata = {
   provider: "unonight";
@@ -72,25 +82,30 @@ type HubConnection = {
 };
 
 function mapLiveSnapshotFailure(
-  code:
-    | "invalid_token"
-    | "missing_required_scope"
-    | "platform_snapshot_forbidden"
-    | "endpoint_unreachable"
-    | "response_invalid"
-    | "organization_mismatch",
+  code: import("@/lib/unonight/platform-snapshot/fetch-snapshot").UnonightPlatformSnapshotFailureCode,
 ): PlatformSnapshotFailureCode {
   switch (code) {
     case "missing_required_scope":
       return "live_scope_missing";
     case "platform_snapshot_forbidden":
       return "platform_snapshot_forbidden";
-    case "organization_mismatch":
-      return "organization_mismatch";
     case "invalid_token":
       return "credential_unavailable";
     case "endpoint_unreachable":
       return "endpoint_unreachable";
+    case "organization_mismatch":
+      return "organization_mismatch";
+    case "response_not_json":
+    case "unsupported_contract_version":
+    case "malformed_organization":
+    case "malformed_environment":
+    case "malformed_platform":
+    case "malformed_modules":
+    case "malformed_locales":
+    case "invalid_checked_at":
+    case "status_unavailable":
+    case "unsafe_payload":
+      return code;
     default:
       return "response_invalid";
   }
@@ -212,6 +227,7 @@ export async function getUnonightPlatformSnapshot(
     console.info("[companion-platform-snapshot]", {
       ok: false,
       code,
+      parse_code: liveResult.parseCode ?? null,
       connection_id: connection.id,
       scope_source: "live_unonight",
       stored_scopes: material.approved_scopes,
@@ -271,6 +287,7 @@ export async function getUnonightPlatformSnapshot(
     scope_source: "live_unonight",
     refreshed_scopes: scopesToPersist,
     credential_hint: connection.masked_credential_hint ?? null,
+    compatibility_notes: liveResult.snapshot.compatibilityNotes,
   });
 
   return {

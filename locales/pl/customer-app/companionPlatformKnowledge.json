@@ -177,7 +177,14 @@
         "responseInvalid": "Unonight zwrócił metadane platformy, których nie można było bezpiecznie zweryfikować.",
         "liveScopeMissing": "Unonight odrzucił live snapshot platformy, ponieważ aktywny token nie zawiera platform.metadata.read.",
         "platformSnapshotForbidden": "Unonight odrzucił żądanie live snapshot platformy dla tego tokena.",
-        "credentialMismatch": "Zapisane odniesienie poświadczeń nie pasuje do aktywnego tokena Unonight użytego w tym żądaniu."
+        "credentialMismatch": "Zapisane odniesienie poświadczeń nie pasuje do aktywnego tokena Unonight użytego w tym żądaniu.",
+        "malformedModules": "Unonight zwrócił metadane platformy bez rozpoznawalnej listy aktywnych modułów publicznych.",
+        "malformedLocales": "Unonight zwrócił metadane platformy bez rozpoznawalnych kodów języków.",
+        "malformedEnvironment": "Unonight zwrócił metadane platformy z nierozpoznanym środowiskiem.",
+        "malformedOrganization": "Unonight zwrócił metadane platformy z niekompletnym blokiem organizacji.",
+        "statusUnavailable": "Unonight zwrócił metadane platformy bez rozpoznawalnego statusu dostępności.",
+        "unsupportedContractVersion": "Unonight zwrócił nieobsługiwaną wersję API snapshotu platformy.",
+        "unsafePayload": "Unonight zwrócił metadane platformy z polami niedozwolonymi w tym snapshotcie tylko do odczytu."
       }
     },
     "fallback": {

@@ -177,7 +177,14 @@
         "responseInvalid": "Unonight returned platform metadata that could not be validated safely.",
         "liveScopeMissing": "Unonight rejected the live platform snapshot because the active token is missing the platform.metadata.read scope.",
         "platformSnapshotForbidden": "Unonight rejected the live platform snapshot request for this token.",
-        "credentialMismatch": "The stored credential reference does not match the active Unonight token used for this request."
+        "credentialMismatch": "The stored credential reference does not match the active Unonight token used for this request.",
+        "malformedModules": "Unonight returned platform metadata without a recognizable list of active public modules.",
+        "malformedLocales": "Unonight returned platform metadata without recognizable supported language codes.",
+        "malformedEnvironment": "Unonight returned platform metadata with an unrecognized environment value.",
+        "malformedOrganization": "Unonight returned platform metadata with an incomplete organization block.",
+        "statusUnavailable": "Unonight returned platform metadata without a recognizable availability status.",
+        "unsupportedContractVersion": "Unonight returned an unsupported platform snapshot API version.",
+        "unsafePayload": "Unonight returned platform metadata containing fields that are not allowed in this read-only snapshot."
       }
     },
     "fallback": {
