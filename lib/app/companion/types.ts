@@ -130,4 +130,6 @@ export type CompanionExperienceLabels = {
   recentDelete: string;
   recentActive: string;
   supportEscalationHint: string;
+  scrollToLatest: string;
+  scrollToLatestAria: string;
 };

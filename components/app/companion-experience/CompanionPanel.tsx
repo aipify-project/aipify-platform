@@ -22,12 +22,18 @@ import {
   readCompanionUiSession,
 } from "@/lib/app/companion/session-state";
 import {
+  isCompanionChatNearBottom,
+  scrollCompanionChatToLatest,
+  shouldAutoScrollCompanionChatOnUpdate,
+  shouldRestoreCompanionChatScroll,
+} from "@/lib/app/companion/chat-scroll";
+import {
   parseSupportAssistantSearch,
   SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY,
   type SupportAssistantArticle,
 } from "@/lib/app-portal/support-assistant";
 import type { CompanionChatMessage, CompanionConversationPreview, CompanionExperienceLabels } from "@/lib/app/companion/types";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardProfileProvider";
 import { CompanionIcon } from "./CompanionIcon";
 import { CompanionQuickActions } from "./CompanionQuickActions";
@@ -139,7 +145,13 @@ export function CompanionPanel({
   const chatEndRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const initialQuerySubmittedRef = useRef(false);
-  const scrollRestoredRef = useRef(false);
+  const isPageLoadRef = useRef(true);
+  const panelWasHiddenRef = useRef(!panelVisible);
+  const initialScrollAppliedRef = useRef(false);
+  const pendingConversationScrollRef = useRef<string | null>(null);
+  const userJustSentMessageRef = useRef(false);
+  const [showJumpToLatest, setShowJumpToLatest] = useState(false);
+  const [messagesViewportReady, setMessagesViewportReady] = useState(() => !panelVisible);
 
   const orgName = profileCtx?.profile?.company.name ?? labels.orgNameFallback;
   const roleDisplay = profileCtx?.profile
@@ -209,26 +221,147 @@ export function CompanionPanel({
   }, [query, organizationKey, pathname, initialQuery]);
 
   useEffect(() => {
-    if (scrollRestoredRef.current || messages.length === 0) return;
-    const session = readCompanionUiSession(organizationKey);
+    if (panelVisible) return;
+    panelWasHiddenRef.current = true;
+  }, [panelVisible]);
+
+  const applyInitialChatScroll = useCallback(() => {
     const container = scrollContainerRef.current;
-    if (!session?.scrollTop || !container) return;
-    scrollRestoredRef.current = true;
-    container.scrollTop = session.scrollTop;
-  }, [messages.length, organizationKey]);
+    if (!container || !panelVisible) return;
+
+    const session = readCompanionUiSession(organizationKey);
+    const shouldRestore = shouldRestoreCompanionChatScroll({
+      isPageLoad: isPageLoadRef.current,
+      panelWasHidden: panelWasHiddenRef.current,
+      sessionScrollTop: session?.scrollTop ?? 0,
+      sessionConversationId: session?.activeConversationId ?? null,
+      activeConversationId,
+    });
+
+    if (shouldRestore && session) {
+      container.scrollTop = session.scrollTop;
+    } else {
+      scrollCompanionChatToLatest(container, "instant");
+    }
+
+    panelWasHiddenRef.current = false;
+    isPageLoadRef.current = false;
+    initialScrollAppliedRef.current = true;
+    pendingConversationScrollRef.current = null;
+    setShowJumpToLatest(false);
+    setMessagesViewportReady(true);
+  }, [activeConversationId, organizationKey, panelVisible]);
+
+  useLayoutEffect(() => {
+    if (!panelVisible) {
+      setMessagesViewportReady(false);
+      return;
+    }
+
+    if (messages.length === 0 && !loading) {
+      initialScrollAppliedRef.current = false;
+      setShowJumpToLatest(false);
+      setMessagesViewportReady(true);
+      isPageLoadRef.current = false;
+      return;
+    }
+
+    if (messages.length === 0 && loading) {
+      setMessagesViewportReady(true);
+      return;
+    }
+
+    const reopeningPanel = panelWasHiddenRef.current && initialScrollAppliedRef.current;
+    const needsInitialPosition =
+      reopeningPanel ||
+      !initialScrollAppliedRef.current ||
+      pendingConversationScrollRef.current === activeConversationId;
+
+    if (!needsInitialPosition) {
+      setMessagesViewportReady(true);
+      return;
+    }
+
+    setMessagesViewportReady(false);
+    let cancelled = false;
+
+    const positionViewport = () => {
+      if (cancelled) return;
+      applyInitialChatScroll();
+    };
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(positionViewport);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    activeConversationId,
+    applyInitialChatScroll,
+    loading,
+    messages.length,
+    panelVisible,
+  ]);
+
+  useLayoutEffect(() => {
+    if (!panelVisible || !initialScrollAppliedRef.current) return;
+
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    if (messages.length === 0 && !loading) return;
+
+    const shouldAutoScroll = shouldAutoScrollCompanionChatOnUpdate({
+      isNearBottom: isCompanionChatNearBottom(container),
+      userJustSentMessage: userJustSentMessageRef.current,
+    });
+
+    userJustSentMessageRef.current = false;
+
+    if (shouldAutoScroll) {
+      scrollCompanionChatToLatest(container, "instant");
+      setShowJumpToLatest(false);
+      return;
+    }
+
+    if (loading || messages.length > 0) {
+      setShowJumpToLatest(true);
+    }
+  }, [loading, messages, panelVisible]);
 
   const handleScroll = useCallback(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
+
     patchCompanionUiSession(
       {
         scrollTop: container.scrollTop,
         organizationKey,
         pathname,
+        activeConversationId,
       },
       organizationKey,
     );
-  }, [organizationKey, pathname]);
+
+    setShowJumpToLatest(!isCompanionChatNearBottom(container));
+  }, [activeConversationId, organizationKey, pathname]);
+
+  const jumpToLatestMessage = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    scrollCompanionChatToLatest(container, "instant");
+    setShowJumpToLatest(false);
+    patchCompanionUiSession(
+      {
+        scrollTop: container.scrollTop,
+        organizationKey,
+        pathname,
+        activeConversationId,
+      },
+      organizationKey,
+    );
+  }, [activeConversationId, organizationKey, pathname]);
 
   useEffect(() => {
     if (initialQuery) {
@@ -237,11 +370,6 @@ export function CompanionPanel({
     }
   }, [initialQuery]);
 
-  useEffect(() => {
-    if (!panelVisible) return;
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, loading, panelVisible]);
-
   const askQuestion = useCallback(
     async (question: string) => {
       const trimmed = question.trim();
@@ -249,6 +377,7 @@ export function CompanionPanel({
 
       setError(false);
       setShowSuggestions(false);
+      userJustSentMessageRef.current = true;
       const userMessage: CompanionChatMessage = {
         id: createMessageId(),
         role: "user",
@@ -397,7 +526,9 @@ export function CompanionPanel({
     setShowSecondarySections(false);
     setError(false);
     setRestoreNotice(null);
-    scrollRestoredRef.current = false;
+    initialScrollAppliedRef.current = false;
+    pendingConversationScrollRef.current = null;
+    setShowJumpToLatest(false);
     const nextId = createConversationId();
     setActiveConversationId(nextId);
     patchCompanionUiSession(
@@ -415,6 +546,11 @@ export function CompanionPanel({
 
   function loadConversation(conv: CompanionConversationPreview) {
     if (conv.messages && conv.messages.length > 0) {
+      initialScrollAppliedRef.current = false;
+      pendingConversationScrollRef.current = conv.id;
+      isPageLoadRef.current = false;
+      panelWasHiddenRef.current = false;
+      setShowJumpToLatest(false);
       setMessages(conv.messages);
       setActiveConversationId(conv.id);
       setShowSuggestions(false);
@@ -736,7 +872,11 @@ export function CompanionPanel({
               {restoreNotice}
             </div>
           ) : null}
-          <div className="flex min-h-0 flex-1 flex-col">
+          <div
+            className={`flex min-h-0 flex-1 flex-col ${
+              isActiveConversation && !messagesViewportReady ? "invisible" : ""
+            }`}
+          >
             {messages.length === 0 && !loading ? (
               <div className="rounded-xl border border-dashed border-aipify-border bg-white p-6 text-center">
                 <CompanionIcon size={56} availabilityRing ariaLabel={labels.ariaCompanionAvailable} className="mx-auto" />
@@ -808,7 +948,20 @@ export function CompanionPanel({
               secondarySections
             )}
 
-            <div ref={chatEndRef} />
+            {showJumpToLatest ? (
+              <div className="pointer-events-none sticky bottom-3 z-10 mt-4 flex justify-center">
+                <button
+                  type="button"
+                  onClick={jumpToLatestMessage}
+                  className="pointer-events-auto inline-flex min-h-10 items-center rounded-full border border-violet-200 bg-white px-4 py-2 text-sm font-medium text-aipify-companion shadow-sm hover:bg-violet-50"
+                  aria-label={labels.scrollToLatestAria}
+                >
+                  {labels.scrollToLatest}
+                </button>
+              </div>
+            ) : null}
+
+            <div ref={chatEndRef} aria-hidden="true" />
           </div>
         </div>
       </div>

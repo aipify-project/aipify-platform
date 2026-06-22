@@ -2152,6 +2152,8 @@
     "sourceOrgKnowledge": "Godkänd organisationskunskap",
     "recentDelete": "Ta bort konversation",
     "recentActive": "Aktiv",
-    "supportEscalationHint": "Om du fortfarande behöver mänsklig hjälp kan du skapa en supportförfrågan med denna kontext."
+    "supportEscalationHint": "Om du fortfarande behöver mänsklig hjälp kan du skapa en supportförfrågan med denna kontext.",
+    "scrollToLatest": "Gå till senaste meddelandet",
+    "scrollToLatestAria": "Gå till senaste meddelandet i den här konversationen"
   }
 }

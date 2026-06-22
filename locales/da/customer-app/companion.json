@@ -2152,6 +2152,8 @@
     "sourceOrgKnowledge": "Godkendt organisationsviden",
     "recentDelete": "Slet samtale",
     "recentActive": "Aktiv",
-    "supportEscalationHint": "Hvis du stadig har brug for menneskelig hjælp, kan du oprette en supportanmodning med denne kontekst."
+    "supportEscalationHint": "Hvis du stadig har brug for menneskelig hjælp, kan du oprette en supportanmodning med denne kontekst.",
+    "scrollToLatest": "Gå til nyeste besked",
+    "scrollToLatestAria": "Gå til nyeste besked i denne samtale"
   }
 }

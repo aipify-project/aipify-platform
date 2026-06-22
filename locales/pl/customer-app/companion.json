@@ -1266,7 +1266,9 @@
     "sourceOrgKnowledge": "Zatwierdzona wiedza organizacji",
     "recentDelete": "Usuń rozmowę",
     "recentActive": "Aktywna",
-    "supportEscalationHint": "Jeśli nadal potrzebujesz pomocy człowieka, utwórz zgłoszenie do wsparcia z tym kontekstem."
+    "supportEscalationHint": "Jeśli nadal potrzebujesz pomocy człowieka, utwórz zgłoszenie do wsparcia z tym kontekstem.",
+    "scrollToLatest": "Przejdź do najnowszej wiadomości",
+    "scrollToLatestAria": "Przejdź do najnowszej wiadomości w tej rozmowie"
   },
   "companionRelationshipEngine": {
     "title": "Relacja z Companion",

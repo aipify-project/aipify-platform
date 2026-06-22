@@ -77,6 +77,8 @@ for (const locale of LOCALES) {
   const labels = buildCompanionExperienceLabels(createTranslator(dict));
   assert.ok(labels.quickActions.orgStatus.title.length > 0);
   assert.ok(labels.contextSuggestions.defaultWhatNow.length > 0);
+  assert.ok(labels.scrollToLatest.length > 0);
+  assert.ok(labels.scrollToLatestAria.length > 0);
 }
 
 // 6. Drawer opens without navigation — provider exposes open state API (unit-level contract).

@@ -144,5 +144,7 @@ export function buildCompanionExperienceLabels(t: Translator): CompanionExperien
     recentDelete: t(`${p}.recentDelete`),
     recentActive: t(`${p}.recentActive`),
     supportEscalationHint: t(`${p}.supportEscalationHint`),
+    scrollToLatest: t(`${p}.scrollToLatest`),
+    scrollToLatestAria: t(`${p}.scrollToLatestAria`),
   };
 }

@@ -1266,7 +1266,9 @@
     "sourceOrgKnowledge": "Затверджені знання організації",
     "recentDelete": "Видалити розмову",
     "recentActive": "Активна",
-    "supportEscalationHint": "Якщо вам все ще потрібна допомога людини, створіть запит у підтримку з цим контекстом."
+    "supportEscalationHint": "Якщо вам все ще потрібна допомога людини, створіть запит у підтримку з цим контекстом.",
+    "scrollToLatest": "Перейти до останнього повідомлення",
+    "scrollToLatestAria": "Перейти до останнього повідомлення в цій розмові"
   },
   "companionRelationshipEngine": {
     "title": "Стосунки з Companion",
