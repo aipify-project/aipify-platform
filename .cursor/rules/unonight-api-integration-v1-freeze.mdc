@@ -1,0 +1,44 @@
+---
+description: Freeze Unonight API Integration V1 — production-verified read-only connection; defect-only changes
+globs:
+  - lib/unonight/connection/**
+  - app/api/app-portal/integrations/test/**
+  - app/api/app-portal/integrations/save/**
+  - app/api/app-portal/integrations/activate/**
+  - app/api/app-portal/integrations/deactivate/**
+  - app/api/app-portal/integrations/remove/**
+  - app/api/integrations/unonight/**
+  - components/app/integration-setup/UnonightConnectionErrorPanel.tsx
+  - components/app/app-portal/AppPortalIntegrationSetupPanel.tsx
+  - supabase/migrations/**unonight**
+  - supabase/migrations/**app_portal_integration**
+alwaysApply: false
+---
+
+# Unonight API Integration V1 — FROZEN
+
+See [UNONIGHT_API_INTEGRATION_V1.md](../../UNONIGHT_API_INTEGRATION_V1.md).
+
+| Marker | Value |
+|--------|-------|
+| `UNONIGHT_API_INTEGRATION_V1` | `PRODUCTION_VERIFIED` · `FROZEN` |
+| Change policy | `DEFECT_OR_APPROVED_REQUIREMENT_ONLY` |
+
+## Rules
+
+1. **Do not redesign** the verified Unonight read-only integration unless a production defect or approved requirement is documented.
+2. **Do not change** endpoint, provider key, credential storage, connection test contract, compatibility parser, org matching, scope validation, status flows, or verification persistence without change-control checklist in the freeze doc.
+3. **Do not tighten** the parser to reject the current valid Unonight response (`status: connected`, `read_only: true`, org slug `unonight`, implicit `integration.status.read`).
+4. **Secrets** — never expose API keys client-side, in logs, migrations, fixtures, or tests. Masked hint only after save.
+5. **No opportunistic refactors** — exclude this integration from unrelated APP page redesigns.
+6. **Regression tests** — run `npx tsx lib/unonight/connection/unonight-connection.test.ts` before any allowed change.
+
+## Before any allowed change
+
+- [ ] Production defect or approved requirement documented
+- [ ] Backward compatibility analysis
+- [ ] Security review
+- [ ] Unit tests updated
+- [ ] `npm run typecheck` passes
+- [ ] Authenticated production verification
+- [ ] Rollback plan

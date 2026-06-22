@@ -7,6 +7,7 @@ import {
   classifyUnonightHttpFailure,
   isUnonightPlaceholderToken,
   parseUnonightConnectionContract,
+  parseUnonightConnectionContractDetailed,
   requiresLiveHttpForSuccess,
   resolveUnonightApiBaseUrl,
   resolveUnonightBaseUrlForForm,
@@ -15,6 +16,8 @@ import {
 } from "./index";
 
 const VALID_TOKEN = "uno_aipify_valid-looking-token-abcdef12";
+
+/** UNONIGHT_API_INTEGRATION_V1 regression suite — no live API keys. See UNONIGHT_API_INTEGRATION_V1.md */
 
 async function runTests() {
   for (const token of UNONIGHT_PLACEHOLDER_TOKENS) {
@@ -75,6 +78,63 @@ async function runTests() {
   assert.ok(
     productionContract?.scopes.some((scope) => scope.toLowerCase() === "integration.status.read")
   );
+
+  const wrappedProductionContract = parseUnonightConnectionContract({
+    data: {
+      scopes: ["metadata.read", "organization.read"],
+      status: "connected",
+      read_only: true,
+      api_version: "v1",
+      organization: { id: "unonight", name: "Unonight" },
+    },
+  });
+  assert.ok(wrappedProductionContract);
+
+  const providerMismatch = parseUnonightConnectionContractDetailed({
+    status: "connected",
+    read_only: true,
+    provider: "other_provider",
+    organization: { id: "unonight", name: "Unonight" },
+    scopes: UNONIGHT_DEFAULT_SCOPES,
+    api_version: "v1",
+  });
+  assert.equal(providerMismatch.ok, false);
+  if (!providerMismatch.ok) assert.equal(providerMismatch.code, "provider_mismatch");
+
+  const unsupportedVersion = parseUnonightConnectionContractDetailed({
+    status: "connected",
+    read_only: true,
+    organization: { id: "unonight", name: "Unonight" },
+    scopes: ["metadata.read", "organization.read"],
+    api_version: "beta",
+  });
+  assert.equal(unsupportedVersion.ok, false);
+  if (!unsupportedVersion.ok) {
+    assert.equal(unsupportedVersion.code, "unsupported_contract_version");
+  }
+
+  const connectionNotEstablished = parseUnonightConnectionContractDetailed({
+    read_only: true,
+    organization: { id: "unonight", name: "Unonight" },
+    scopes: UNONIGHT_DEFAULT_SCOPES,
+    api_version: "v1",
+  });
+  assert.equal(connectionNotEstablished.ok, false);
+  if (!connectionNotEstablished.ok) {
+    assert.equal(connectionNotEstablished.code, "connection_not_established");
+  }
+
+  const malformedJson = await testUnonightReadOnlyConnection({
+    bearerToken: VALID_TOKEN,
+    baseUrl: "https://example.test",
+    fetchImpl: async () =>
+      new Response("not-json", {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+  });
+  assert.equal(malformedJson.ok, false);
+  if (!malformedJson.ok) assert.equal(malformedJson.code, "unsupported_response");
 
   const invalidToken = await testUnonightReadOnlyConnection({
     bearerToken: VALID_TOKEN,

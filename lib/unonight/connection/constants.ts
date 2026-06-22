@@ -1,4 +1,5 @@
-/** Unonight read-only connection foundation — scopes and endpoint contract. */
+/** Unonight read-only connection foundation — scopes and endpoint contract.
+ * UNONIGHT_API_INTEGRATION_V1 — FROZEN. See UNONIGHT_API_INTEGRATION_V1.md */
 
 export const UNONIGHT_PROVIDER_KEY = "unonight";
 
