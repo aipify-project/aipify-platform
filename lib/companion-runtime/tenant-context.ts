@@ -34,6 +34,7 @@ import { loadCompanionSupportContext } from "./load-companion-support-context";
 import { loadCompanionIndustryPackContext } from "./load-companion-industry-pack-context";
 import { loadCompanionHostsContext } from "./load-companion-hosts-context";
 import { loadCompanionHrContext } from "./load-companion-hr-context";
+import { loadCompanionWarehouseContext } from "./load-companion-warehouse-context";
 import {
   mergeCreativeCapabilities,
   mergeCreativeSchemaCollection,
@@ -79,6 +80,11 @@ import {
   mergeHrSchemaCollection,
   mergeHrToolRegistry,
 } from "./merge-hr-runtime";
+import {
+  mergeWarehouseCapabilities,
+  mergeWarehouseSchemaCollection,
+  mergeWarehouseToolRegistry,
+} from "./merge-warehouse-runtime";
 
 export type { CompanionTenantContext } from "./companion-tenant-context";
 export {
@@ -271,30 +277,40 @@ export async function loadCompanionTenantContext(
     activeBusinessPacks,
   });
 
-  const entitledCapabilities = mergeHrCapabilities(
-    mergeHostsCapabilities(
-      mergeIndustryPackCapabilities(
-        mergeSupportCapabilities(
-          mergeServicesCapabilities(
-            mergeCommerceCapabilities(
-              mergeWorkspaceCapabilities(
-                mergeMediaCapabilities(
-                  mergeCreativeCapabilities(businessPackContext.entitledCapabilities, creativeContext),
-                  mediaContext,
+  const warehouseContext = await loadCompanionWarehouseContext(supabase, {
+    effectivePermissions,
+    subscriptionStatus,
+    connectedProviders,
+    activeBusinessPacks,
+  });
+
+  const entitledCapabilities = mergeWarehouseCapabilities(
+    mergeHrCapabilities(
+      mergeHostsCapabilities(
+        mergeIndustryPackCapabilities(
+          mergeSupportCapabilities(
+            mergeServicesCapabilities(
+              mergeCommerceCapabilities(
+                mergeWorkspaceCapabilities(
+                  mergeMediaCapabilities(
+                    mergeCreativeCapabilities(businessPackContext.entitledCapabilities, creativeContext),
+                    mediaContext,
+                  ),
+                  workspaceContext,
                 ),
-                workspaceContext,
+                commerceContext,
               ),
-              commerceContext,
+              servicesContext,
             ),
-            servicesContext,
+            supportContext,
           ),
-          supportContext,
+          industryPackContext,
         ),
-        industryPackContext,
+        hostsContext,
       ),
-      hostsContext,
+      hrContext,
     ),
-    hrContext,
+    warehouseContext,
   );
 
   let schemaContext = loadCompanionSchemaContext({
@@ -340,6 +356,11 @@ export async function loadCompanionTenantContext(
     effectivePermissions,
   );
   schemaContext = mergeHrSchemaCollection(schemaContext, hrContext, effectivePermissions);
+  schemaContext = mergeWarehouseSchemaCollection(
+    schemaContext,
+    warehouseContext,
+    effectivePermissions,
+  );
 
   let toolRegistry = loadCompanionToolRegistry({
     discovery,
@@ -362,6 +383,7 @@ export async function loadCompanionTenantContext(
   );
   toolRegistry = mergeHostsToolRegistry(toolRegistry, hostsContext, effectivePermissions);
   toolRegistry = mergeHrToolRegistry(toolRegistry, hrContext, effectivePermissions);
+  toolRegistry = mergeWarehouseToolRegistry(toolRegistry, warehouseContext, effectivePermissions);
 
   const operationalLoad = await loadCompanionOperationalContext(supabase, {
     effectivePermissions,
@@ -387,6 +409,7 @@ export async function loadCompanionTenantContext(
     industryPackContext,
     hostsContext,
     hrContext,
+    warehouseContext,
   });
 
   return createEmptyCompanionTenantContext({
@@ -429,5 +452,6 @@ export async function loadCompanionTenantContext(
     industryPackContext,
     hostsContext,
     hrContext,
+    warehouseContext,
   });
 }

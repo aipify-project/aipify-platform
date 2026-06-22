@@ -649,6 +649,58 @@
         "hr_pack_adapter": "external hris payroll adapter third party hr sync"
       }
     },
+    "warehouse": {
+      "sourceLabel": "Katalog dostawców magazynowych",
+      "discoveryLead": "Aipify zmapowało {provider} w katalogu dostawców magazynowych — status: {status}.",
+      "discoveryExplanation": "Poniższe możliwości pochodzą z zarejestrowanych manifestów Warehouse / Inventory Business Pack. Korekty magazynowe, transfery i zlecenia kompletacji wymagają zatwierdzenia — Aipify nigdy nie usuwa stanu trwale, nie płaci dostawcom ani nie anuluje wysyłek w Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Źródło magazynowe jest przygotowane lub zweryfikowane dla Twojej organizacji.",
+      "disconnectedProvider": "Adapter runtime dostawcy nie jest podłączony — tylko kontrolowane wykrywanie.",
+      "unavailableLead": "Żaden dostawca magazynowy nie pasował do tego żądania dla Twojej organizacji.",
+      "unavailableExplanation": "Możliwości magazynowe są wykrywane z zarejestrowanych manifestów — żaden nie pasował do tego zapytania.",
+      "externalUnavailableLead": "Zewnętrzne adaptery WMS lub logistyczne nie są podłączone dla Twojej organizacji.",
+      "externalUnavailableExplanation": "Nie zarejestrowano aktywnego zewnętrznego adaptera magazynowego. Aipify nie wykonuje płatności dostawcom, anulowań wysyłek ani nieodwracalnych zmian magazynowych w Companion runtime.",
+      "blockedOperationLead": "Ta operacja magazynowa nie jest dostępna w Companion runtime.",
+      "blockedOperationExplanation": "Trwałe usuwanie stanu, nieodwracalne korekty, płatności dostawcom, anulowanie wysyłek, destrukcyjne działania masowe i księgowanie finansowe bez zatwierdzenia są zablokowane w tej fazie. Aipify może przygotować odwracalne korekty i transfery — Ty decydujesz i zatwierdzasz.",
+      "permissionDenied": "Twoja rola nie ma dostępu do katalogu dostawców magazynowych.",
+      "entitlementBlocked": "Możliwości magazynowe są niedostępne, gdy subskrypcja organizacji jest wstrzymana.",
+      "privacyNote": "Inteligencja magazynowa oparta na metadanych — wrażliwe dane dostawców są filtrowane i nigdy nie są ujawniane bez uprawnień.",
+      "policyNote": "Korekty magazynowe, transfery i zlecenia kompletacji wymagają wyraźnego zatwierdzenia. Zakres magazynu, lokalizacji, filtrowanie ról i rejestrowanie audytu dotyczą wszystkich działań magazynowych.",
+      "stockDeletionBlocked": "Trwałe usuwanie stanu jest zablokowane w Companion runtime.",
+      "irreversibleAdjustmentBlocked": "Nieodwracalne korekty magazynowe są zablokowane — decydują ludzie.",
+      "supplierPaymentBlocked": "Płatności dostawcom są zablokowane — nigdy nie są wykonywane w Companion runtime.",
+      "leastPrivilegeEnforced": "Zasada minimalnych uprawnień obowiązuje dla odczytu i zapisu magazynowego.",
+      "warehouseScopeActive": "Zakres magazynu jest aktywny dla tej organizacji.",
+      "locationScopeActive": "Zakres lokalizacji jest aktywny dla tej organizacji.",
+      "commandBriefEventsLinked": "Sygnały magazynowe Command Brief są powiązane z istniejącymi źródłami stanu, przyjęć, transferów i uzupełnień.",
+      "commandBriefEventsAvailable": "Sygnały magazynowe Command Brief są dostępne po aktywacji silników magazynowych.",
+      "openInventoryCenter": "Otwórz centrum magazynowe",
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
+      "status": {
+        "connected": "połączony",
+        "implemented_disconnected": "zaimplementowany, ale odłączony",
+        "partial": "częściowy",
+        "specification_only": "tylko specyfikacja",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "inventory_stock_center": "Centrum magazynu i stanów",
+        "warehouse_control": "Kontrola magazynu",
+        "warehouse_fulfillment": "Kompletacja i pakowanie",
+        "warehouse_logistics": "Logistyka i wysyłki",
+        "warehouse_pack_adapter": "Zewnętrzny adapter magazynowy"
+      },
+      "searchTerms": {
+        "inventory_stock_center": "magazyn stan lokalizacje pozycje dostawcy zamówienia zakupu przyjęcie transfery uzupełnienie alerty",
+        "warehouse_control": "operacje magazynowe kontrola stanu lokalizacje transfery ruchy",
+        "warehouse_fulfillment": "kompletacja pakowanie zlecenia kompletacji realizacja zadania magazynowe",
+        "warehouse_logistics": "wysyłki logistyka flota transport dostawa",
+        "warehouse_pack_adapter": "zewnętrzny adapter wms erp synchronizacja magazynu strony trzeciej"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

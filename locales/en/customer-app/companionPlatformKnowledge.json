@@ -679,6 +679,58 @@
         "hr_pack_adapter": "external hris payroll adapter third party hr sync"
       }
     },
+    "warehouse": {
+      "sourceLabel": "Warehouse provider catalog",
+      "discoveryLead": "Aipify mapped {provider} in your warehouse provider catalog — status: {status}.",
+      "discoveryExplanation": "Capabilities below come from registered Warehouse / Inventory Business Pack manifests. Inventory adjustments, transfers, and pick orders require approval — Aipify never deletes stock permanently, pays suppliers, or cancels shipments in Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Warehouse source is prepared or verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No warehouse provider matched this request for your organization.",
+      "unavailableExplanation": "Warehouse capabilities are discovered from registered manifests — none matched this query.",
+      "externalUnavailableLead": "External WMS or logistics adapters are not connected for your organization.",
+      "externalUnavailableExplanation": "No live external warehouse adapter is registered. Aipify does not execute supplier payments, shipment cancellations, or irreversible inventory changes in Companion runtime.",
+      "blockedOperationLead": "This warehouse operation is not available in Companion runtime.",
+      "blockedOperationExplanation": "Permanent stock deletion, irreversible adjustments, supplier payments, shipment cancellations, destructive bulk actions, and financial posting without approval are blocked in this phase. Aipify can prepare reversible adjustments and transfers — you decide and approve.",
+      "permissionDenied": "Your role cannot access the warehouse provider catalog.",
+      "entitlementBlocked": "Warehouse capabilities are unavailable while the organization subscription is paused.",
+      "privacyNote": "Metadata-first inventory intelligence — sensitive supplier details are filtered and never exposed without permission.",
+      "policyNote": "Inventory adjustments, transfers, and pick orders require explicit approval. Warehouse scope, location scope, role filtering, and audit logging apply to all warehouse actions.",
+      "stockDeletionBlocked": "Permanent stock deletion is blocked in Companion runtime.",
+      "irreversibleAdjustmentBlocked": "Irreversible inventory adjustments are blocked — humans decide.",
+      "supplierPaymentBlocked": "Supplier payments are blocked — never executed in Companion runtime.",
+      "leastPrivilegeEnforced": "Least-privilege access is enforced for warehouse reads and writes.",
+      "warehouseScopeActive": "Warehouse-scoped access is active for this organization.",
+      "locationScopeActive": "Location-scoped access is active for this organization.",
+      "commandBriefEventsLinked": "Command Brief warehouse signals are linked from existing stock, receiving, transfer, and replenishment sources.",
+      "commandBriefEventsAvailable": "Command Brief warehouse signals are available when inventory engines are activated.",
+      "openInventoryCenter": "Open Inventory Center",
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "inventory_stock_center": "Inventory & Stock Center",
+        "warehouse_control": "Warehouse Control",
+        "warehouse_fulfillment": "Fulfillment & Picking",
+        "warehouse_logistics": "Logistics & Shipments",
+        "warehouse_pack_adapter": "External Warehouse Adapter"
+      },
+      "searchTerms": {
+        "inventory_stock_center": "inventory stock levels locations items suppliers purchase orders receiving transfers replenishment alerts",
+        "warehouse_control": "warehouse operations stock control locations transfers movements",
+        "warehouse_fulfillment": "picking packing pick orders fulfillment warehouse tasks",
+        "warehouse_logistics": "shipments logistics fleet transportation delivery",
+        "warehouse_pack_adapter": "external wms erp adapter third party warehouse sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

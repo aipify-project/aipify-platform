@@ -649,6 +649,58 @@
         "hr_pack_adapter": "ekstern hris lønn adapter tredjeparts hr sync"
       }
     },
+    "warehouse": {
+      "sourceLabel": "Lagerleverandørkatalog",
+      "discoveryLead": "Aipify kortlagde {provider} i lagerleverandørkataloget — status: {status}.",
+      "discoveryExplanation": "Kapabiliteterne nedenfor kommer fra registrerede Warehouse / Inventory Business Pack-manifester. Lagerjusteringer, overførsler og plukordrer kræver godkendelse — Aipify sletter aldrig lager permanent, betaler leverandører eller annullerer forsendelser i Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Lagerkilden er forberedt eller verificeret for din organisation.",
+      "disconnectedProvider": "Leverandørens runtime-adapter er ikke tilsluttet — kun styret opdagelse.",
+      "unavailableLead": "Ingen lagerleverandør matchede denne anmodning for din organisation.",
+      "unavailableExplanation": "Lagerkapabiliteter opdages fra registrerede manifester — ingen matchede dette spørgsmål.",
+      "externalUnavailableLead": "Eksterne WMS- eller logistikadaptere er ikke tilsluttet for din organisation.",
+      "externalUnavailableExplanation": "Ingen live ekstern lageradapter er registreret. Aipify udfører ikke leverandørbetalinger, forsendelsesannulleringer eller irreversible lagerændringer i Companion runtime.",
+      "blockedOperationLead": "Denne lageroperation er ikke tilgængelig i Companion runtime.",
+      "blockedOperationExplanation": "Permanent lagersletning, irreversible justeringer, leverandørbetalinger, forsendelsesannulleringer, destruktive bulkhandlinger og finanspostering uden godkendelse er blokeret i denne fase. Aipify kan forberede reversible justeringer og overførsler — du beslutter og godkender.",
+      "permissionDenied": "Din rolle har ikke adgang til lagerleverandørkataloget.",
+      "entitlementBlocked": "Lagerkapabiliteter er utilgængelige, mens organisationens abonnement er sat på pause.",
+      "privacyNote": "Metadata-først lagerintelligens — følsomme leverandørdetaljer filtreres og eksponeres aldrig uden tilladelse.",
+      "policyNote": "Lagerjusteringer, overførsler og plukordrer kræver eksplicit godkendelse. Lageromfang, lokationsomfang, rollefiltrering og revisionslogning gælder for alle lagerhandlinger.",
+      "stockDeletionBlocked": "Permanent lagersletning er blokeret i Companion runtime.",
+      "irreversibleAdjustmentBlocked": "Irreversible lagerjusteringer er blokeret — mennesker beslutter.",
+      "supplierPaymentBlocked": "Leverandørbetalinger er blokeret — udføres aldrig i Companion runtime.",
+      "leastPrivilegeEnforced": "Mindste privilegium håndhæves for lagerlæsning og -skrivning.",
+      "warehouseScopeActive": "Lageromfang er aktivt for denne organisation.",
+      "locationScopeActive": "Lokationsomfang er aktivt for denne organisation.",
+      "commandBriefEventsLinked": "Command Brief-lagersignaler er koblet fra eksisterende lager-, modtagelses-, overførsels- og genopfyldningskilder.",
+      "commandBriefEventsAvailable": "Command Brief-lagersignaler er tilgængelige, når lagermotorer er aktiveret.",
+      "openInventoryCenter": "Åbn lagercenter",
+      "operation": {
+        "read": "læs",
+        "write": "skriv"
+      },
+      "status": {
+        "connected": "tilsluttet",
+        "implemented_disconnected": "implementeret men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun specifikation",
+        "placeholder": "pladsholder"
+      },
+      "providers": {
+        "inventory_stock_center": "Lager- og beholdningsscenter",
+        "warehouse_control": "Lagerkontrol",
+        "warehouse_fulfillment": "Pluk og pakning",
+        "warehouse_logistics": "Logistik og forsendelser",
+        "warehouse_pack_adapter": "Ekstern lageradapter"
+      },
+      "searchTerms": {
+        "inventory_stock_center": "lager beholdning lokationer varer leverandører indkøbsordrer modtagelse overførsler genopfyldning advarsler",
+        "warehouse_control": "lageroperationer beholdningskontrol lokationer overførsler bevægelser",
+        "warehouse_fulfillment": "plukning pakning plukordrer opfyldelse lageropgaver",
+        "warehouse_logistics": "forsendelser logistik flåde transport levering",
+        "warehouse_pack_adapter": "ekstern wms erp adapter tredjeparts lager sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

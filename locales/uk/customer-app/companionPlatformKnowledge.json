@@ -649,6 +649,58 @@
         "hr_pack_adapter": "external hris payroll adapter third party hr sync"
       }
     },
+    "warehouse": {
+      "sourceLabel": "Каталог постачальників складу",
+      "discoveryLead": "Aipify зіставив {provider} у вашому каталозі постачальників складу — статус: {status}.",
+      "discoveryExplanation": "Можливості нижче походять із зареєстрованих маніфестів Warehouse / Inventory Business Pack. Коригування запасів, передачі та замовлення на комплектацію потребують схвалення — Aipify ніколи не видаляє запаси назавжди, не платить постачальникам і не скасовує відправлення в Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Джерело складу підготовлено або перевірено для вашої організації.",
+      "disconnectedProvider": "Runtime-адаптер постачальника не підключено — лише кероване виявлення.",
+      "unavailableLead": "Жоден постачальник складу не відповів цьому запиту для вашої організації.",
+      "unavailableExplanation": "Можливості складу виявляються з зареєстрованих маніфестів — жоден не відповів цьому запиту.",
+      "externalUnavailableLead": "Зовнішні WMS- або логістичні адаптери не підключені для вашої організації.",
+      "externalUnavailableExplanation": "Не зареєстровано активного зовнішнього складського адаптера. Aipify не виконує платежі постачальникам, скасування відправлень або незворотні зміни запасів у Companion runtime.",
+      "blockedOperationLead": "Ця складська операція недоступна в Companion runtime.",
+      "blockedOperationExplanation": "Постійне видалення запасів, незворотні коригування, платежі постачальникам, скасування відправлень, руйнівні масові дії та фінансове проведення без схвалення заблоковані на цій фазі. Aipify може підготувати зворотні коригування та передачі — ви вирішуєте та схвалюєте.",
+      "permissionDenied": "Ваша роль не має доступу до каталогу постачальників складу.",
+      "entitlementBlocked": "Можливості складу недоступні, поки підписку організації призупинено.",
+      "privacyNote": "Складська аналітика на основі метаданих — чутливі дані постачальників фільтруються і ніколи не розкриваються без дозволу.",
+      "policyNote": "Коригування запасів, передачі та замовлення на комплектацію потребують явного схвалення. Обсяг складу, локації, фільтрація ролей і аудит застосовуються до всіх складських дій.",
+      "stockDeletionBlocked": "Постійне видалення запасів заблоковано в Companion runtime.",
+      "irreversibleAdjustmentBlocked": "Незворотні коригування запасів заблоковано — рішення приймають люди.",
+      "supplierPaymentBlocked": "Платежі постачальникам заблоковано — ніколи не виконуються в Companion runtime.",
+      "leastPrivilegeEnforced": "Мінімальні привілеї застосовуються для читання та запису складу.",
+      "warehouseScopeActive": "Обсяг складу активний для цієї організації.",
+      "locationScopeActive": "Обсяг локацій активний для цієї організації.",
+      "commandBriefEventsLinked": "Сигнали складу Command Brief пов’язані з наявними джерелами запасів, приймання, передач і поповнення.",
+      "commandBriefEventsAvailable": "Сигнали складу Command Brief доступні після активації складських двигунів.",
+      "openInventoryCenter": "Відкрити центр запасів",
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
+      "status": {
+        "connected": "підключено",
+        "implemented_disconnected": "реалізовано, але відключено",
+        "partial": "частково",
+        "specification_only": "лише специфікація",
+        "placeholder": "заглушка"
+      },
+      "providers": {
+        "inventory_stock_center": "Центр запасів і складу",
+        "warehouse_control": "Контроль складу",
+        "warehouse_fulfillment": "Комплектація та пакування",
+        "warehouse_logistics": "Логістика та відправлення",
+        "warehouse_pack_adapter": "Зовнішній складський адаптер"
+      },
+      "searchTerms": {
+        "inventory_stock_center": "запаси склад локації позиції постачальники замовлення на закупівлю приймання передачі поповнення сповіщення",
+        "warehouse_control": "складські операції контроль запасів локації передачі рухи",
+        "warehouse_fulfillment": "комплектація пакування замовлення комплектації виконання складські завдання",
+        "warehouse_logistics": "відправлення логістика автопарк транспорт доставка",
+        "warehouse_pack_adapter": "зовнішній wms erp адаптер синхронізація складу третьої сторони"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

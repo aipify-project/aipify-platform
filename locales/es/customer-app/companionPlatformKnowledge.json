@@ -649,6 +649,58 @@
         "hr_pack_adapter": "external hris payroll adapter third party hr sync"
       }
     },
+    "warehouse": {
+      "sourceLabel": "Catálogo de proveedores de almacén",
+      "discoveryLead": "Aipify mapeó {provider} en su catálogo de proveedores de almacén — estado: {status}.",
+      "discoveryExplanation": "Las capacidades siguientes provienen de manifiestos registrados del Warehouse / Inventory Business Pack. Los ajustes de inventario, transferencias y órdenes de picking requieren aprobación — Aipify nunca elimina stock de forma permanente, paga proveedores ni cancela envíos en Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "La fuente de almacén está preparada o verificada para su organización.",
+      "disconnectedProvider": "El adaptador runtime del proveedor no está conectado — solo descubrimiento gobernado.",
+      "unavailableLead": "Ningún proveedor de almacén coincidió con esta solicitud para su organización.",
+      "unavailableExplanation": "Las capacidades de almacén se descubren desde manifiestos registrados — ninguno coincidió con esta consulta.",
+      "externalUnavailableLead": "Los adaptadores WMS o logísticos externos no están conectados para su organización.",
+      "externalUnavailableExplanation": "No hay adaptador de almacén externo en vivo registrado. Aipify no ejecuta pagos a proveedores, cancelaciones de envíos ni cambios irreversibles de inventario en Companion runtime.",
+      "blockedOperationLead": "Esta operación de almacén no está disponible en Companion runtime.",
+      "blockedOperationExplanation": "La eliminación permanente de stock, ajustes irreversibles, pagos a proveedores, cancelaciones de envíos, acciones masivas destructivas y contabilización financiera sin aprobación están bloqueados en esta fase. Aipify puede preparar ajustes y transferencias reversibles — usted decide y aprueba.",
+      "permissionDenied": "Su rol no puede acceder al catálogo de proveedores de almacén.",
+      "entitlementBlocked": "Las capacidades de almacén no están disponibles mientras la suscripción de la organización esté pausada.",
+      "privacyNote": "Inteligencia de inventario con metadatos primero — los detalles sensibles de proveedores se filtran y nunca se exponen sin permiso.",
+      "policyNote": "Los ajustes de inventario, transferencias y órdenes de picking requieren aprobación explícita. El alcance de almacén, ubicación, filtrado por rol y registro de auditoría se aplican a todas las acciones de almacén.",
+      "stockDeletionBlocked": "La eliminación permanente de stock está bloqueada en Companion runtime.",
+      "irreversibleAdjustmentBlocked": "Los ajustes irreversibles de inventario están bloqueados — las personas deciden.",
+      "supplierPaymentBlocked": "Los pagos a proveedores están bloqueados — nunca se ejecutan en Companion runtime.",
+      "leastPrivilegeEnforced": "Se aplica el mínimo privilegio para lecturas y escrituras de almacén.",
+      "warehouseScopeActive": "El alcance de almacén está activo para esta organización.",
+      "locationScopeActive": "El alcance de ubicación está activo para esta organización.",
+      "commandBriefEventsLinked": "Las señales de almacén de Command Brief están vinculadas desde fuentes existentes de stock, recepción, transferencia y reposición.",
+      "commandBriefEventsAvailable": "Las señales de almacén de Command Brief están disponibles cuando los motores de inventario están activados.",
+      "openInventoryCenter": "Abrir centro de inventario",
+      "operation": {
+        "read": "lectura",
+        "write": "escritura"
+      },
+      "status": {
+        "connected": "conectado",
+        "implemented_disconnected": "implementado pero desconectado",
+        "partial": "parcial",
+        "specification_only": "solo especificación",
+        "placeholder": "marcador de posición"
+      },
+      "providers": {
+        "inventory_stock_center": "Centro de inventario y stock",
+        "warehouse_control": "Control de almacén",
+        "warehouse_fulfillment": "Cumplimiento y picking",
+        "warehouse_logistics": "Logística y envíos",
+        "warehouse_pack_adapter": "Adaptador de almacén externo"
+      },
+      "searchTerms": {
+        "inventory_stock_center": "inventario stock ubicaciones artículos proveedores órdenes de compra recepción transferencias reposición alertas",
+        "warehouse_control": "operaciones de almacén control de stock ubicaciones transferencias movimientos",
+        "warehouse_fulfillment": "picking empaquetado órdenes de picking cumplimiento tareas de almacén",
+        "warehouse_logistics": "envíos logística flota transporte entrega",
+        "warehouse_pack_adapter": "adaptador wms erp externo sincronización de almacén de terceros"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
