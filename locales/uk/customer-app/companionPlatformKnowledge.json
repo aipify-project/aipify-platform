@@ -701,6 +701,60 @@
         "warehouse_pack_adapter": "зовнішній wms erp адаптер синхронізація складу третьої сторони"
       }
     },
+    "finance": {
+      "sourceLabel": "Каталог фінансових постачальників",
+      "discoveryLead": "Aipify зіставив {provider} у вашому каталозі фінансових постачальників — статус: {status}.",
+      "discoveryExplanation": "Можливості нижче походять із зареєстрованих маніфестів Finance Business Pack. Чернетки рахунків і експорт звітів потребують схвалення — Aipify ніколи не виконує платежі, повернення, банківські перекази або незворотні проводки в Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Фінансове джерело підготовлено або перевірено для вашої організації.",
+      "disconnectedProvider": "Runtime-адаптер постачальника не підключено — лише кероване виявлення.",
+      "unavailableLead": "Жоден фінансовий постачальник не відповів цьому запиту для вашої організації.",
+      "unavailableExplanation": "Фінансові можливості виявляються з зареєстрованих маніфестів — жоден не відповів цьому запиту.",
+      "externalUnavailableLead": "Зовнішні бухгалтерські або платіжні адаптери не підключені для вашої організації.",
+      "externalUnavailableExplanation": "Не зареєстровано активного зовнішнього фінансового адаптера. Aipify не виконує платежі, повернення, банківські перекази або незворотні бухгалтерські зміни в Companion runtime.",
+      "blockedOperationLead": "Ця фінансова операція недоступна в Companion runtime.",
+      "blockedOperationExplanation": "Виконання платежів, виплат, повернень, банківських переказів, надсилання рахунків, скасування підписок, руйнівних корекцій і незворотних проводок заблоковано на цій фазі. Aipify може підготувати чернетки рахунків і експорт звітів — ви вирішуєте та схвалюєте.",
+      "permissionDenied": "Ваша роль не має доступу до каталогу фінансових постачальників.",
+      "entitlementBlocked": "Фінансові можливості недоступні, поки підписку організації призупинено.",
+      "privacyNote": "Фінансова аналітика на основі метаданих — чутливі дані рахунків і платежів маскуються і ніколи не розкривають сирі дані карток або банків.",
+      "policyNote": "Чернетки рахунків і експорт звітів потребують явного схвалення. Дозволи фінансової ролі, ізоляція tenant і аудит застосовуються до всіх фінансових дій.",
+      "paymentExecutionBlocked": "Виконання платежів заблоковано в Companion runtime.",
+      "refundExecutionBlocked": "Повернення заблоковано — люди вирішують і схвалюють поза Companion runtime.",
+      "invoiceSendBlocked": "Надсилання рахунків заблоковано — Aipify готує лише чернетки.",
+      "sensitiveDataMasked": "Чутливі дані рахунків маскуються для фінансового читання.",
+      "noRawCardOrBankDetails": "Сирі дані карток і банків ніколи не розкриваються в Companion runtime.",
+      "financeRoleFilterActive": "Дозволи фінансової ролі застосовуються для цієї організації.",
+      "commandBriefEventsLinked": "Фінансові сигнали Command Brief пов’язані з наявними джерелами рахунків, підписок, прогнозів і доходів.",
+      "commandBriefEventsAvailable": "Фінансові сигнали Command Brief доступні після активації фінансових двигунів.",
+      "openFinanceCenter": "Відкрити фінансовий центр",
+      "operation": {
+        "read": "читання",
+        "write": "запис"
+      },
+      "status": {
+        "connected": "підключено",
+        "implemented_disconnected": "реалізовано, але відключено",
+        "partial": "частково",
+        "specification_only": "лише специфікація",
+        "placeholder": "заглушка"
+      },
+      "providers": {
+        "finance_operations_center": "Центр фінансових операцій",
+        "revenue_operations": "Операції з доходами",
+        "unified_billing": "Єдине виставлення рахунків",
+        "payment_providers": "Платіжні постачальники",
+        "enterprise_invoicing": "Корпоративне виставлення рахунків",
+        "finance_pack_adapter": "Зовнішній фінансовий адаптер"
+      },
+      "searchTerms": {
+        "finance_operations_center": "фінанси доходи витрати рахунки підписки платежі виплати виставлення рахунків прогнози звіти звірка",
+        "revenue_operations": "доходи зростання прогнози комерційна аналітика відтік поновлення",
+        "unified_billing": "виставлення рахунків підписка профіль рахунок платіж ліцензія",
+        "payment_providers": "платіжний постачальник stripe vipps klarna облікові дані стан",
+        "enterprise_invoicing": "корпоративний рахунок dnb виставлення рахунків звірка",
+        "finance_pack_adapter": "зовнішня бухгалтерія fiken erp адаптер синхронізація фінансів третьої сторони"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

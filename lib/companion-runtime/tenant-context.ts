@@ -35,6 +35,7 @@ import { loadCompanionIndustryPackContext } from "./load-companion-industry-pack
 import { loadCompanionHostsContext } from "./load-companion-hosts-context";
 import { loadCompanionHrContext } from "./load-companion-hr-context";
 import { loadCompanionWarehouseContext } from "./load-companion-warehouse-context";
+import { loadCompanionFinanceContext } from "./load-companion-finance-context";
 import {
   mergeCreativeCapabilities,
   mergeCreativeSchemaCollection,
@@ -85,6 +86,11 @@ import {
   mergeWarehouseSchemaCollection,
   mergeWarehouseToolRegistry,
 } from "./merge-warehouse-runtime";
+import {
+  mergeFinanceCapabilities,
+  mergeFinanceSchemaCollection,
+  mergeFinanceToolRegistry,
+} from "./merge-finance-runtime";
 
 export type { CompanionTenantContext } from "./companion-tenant-context";
 export {
@@ -284,33 +290,43 @@ export async function loadCompanionTenantContext(
     activeBusinessPacks,
   });
 
-  const entitledCapabilities = mergeWarehouseCapabilities(
-    mergeHrCapabilities(
-      mergeHostsCapabilities(
-        mergeIndustryPackCapabilities(
-          mergeSupportCapabilities(
-            mergeServicesCapabilities(
-              mergeCommerceCapabilities(
-                mergeWorkspaceCapabilities(
-                  mergeMediaCapabilities(
-                    mergeCreativeCapabilities(businessPackContext.entitledCapabilities, creativeContext),
-                    mediaContext,
+  const financeContext = await loadCompanionFinanceContext(supabase, {
+    effectivePermissions,
+    subscriptionStatus,
+    connectedProviders,
+    activeBusinessPacks,
+  });
+
+  const entitledCapabilities = mergeFinanceCapabilities(
+    mergeWarehouseCapabilities(
+      mergeHrCapabilities(
+        mergeHostsCapabilities(
+          mergeIndustryPackCapabilities(
+            mergeSupportCapabilities(
+              mergeServicesCapabilities(
+                mergeCommerceCapabilities(
+                  mergeWorkspaceCapabilities(
+                    mergeMediaCapabilities(
+                      mergeCreativeCapabilities(businessPackContext.entitledCapabilities, creativeContext),
+                      mediaContext,
+                    ),
+                    workspaceContext,
                   ),
-                  workspaceContext,
+                  commerceContext,
                 ),
-                commerceContext,
+                servicesContext,
               ),
-              servicesContext,
+              supportContext,
             ),
-            supportContext,
+            industryPackContext,
           ),
-          industryPackContext,
+          hostsContext,
         ),
-        hostsContext,
+        hrContext,
       ),
-      hrContext,
+      warehouseContext,
     ),
-    warehouseContext,
+    financeContext,
   );
 
   let schemaContext = loadCompanionSchemaContext({
@@ -361,6 +377,7 @@ export async function loadCompanionTenantContext(
     warehouseContext,
     effectivePermissions,
   );
+  schemaContext = mergeFinanceSchemaCollection(schemaContext, financeContext, effectivePermissions);
 
   let toolRegistry = loadCompanionToolRegistry({
     discovery,
@@ -384,6 +401,7 @@ export async function loadCompanionTenantContext(
   toolRegistry = mergeHostsToolRegistry(toolRegistry, hostsContext, effectivePermissions);
   toolRegistry = mergeHrToolRegistry(toolRegistry, hrContext, effectivePermissions);
   toolRegistry = mergeWarehouseToolRegistry(toolRegistry, warehouseContext, effectivePermissions);
+  toolRegistry = mergeFinanceToolRegistry(toolRegistry, financeContext, effectivePermissions);
 
   const operationalLoad = await loadCompanionOperationalContext(supabase, {
     effectivePermissions,
@@ -410,6 +428,7 @@ export async function loadCompanionTenantContext(
     hostsContext,
     hrContext,
     warehouseContext,
+    financeContext,
   });
 
   return createEmptyCompanionTenantContext({
@@ -453,5 +472,6 @@ export async function loadCompanionTenantContext(
     hostsContext,
     hrContext,
     warehouseContext,
+    financeContext,
   });
 }

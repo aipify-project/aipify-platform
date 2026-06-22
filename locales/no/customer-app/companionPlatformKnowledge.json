@@ -707,6 +707,60 @@
         "warehouse_pack_adapter": "ekstern wms erp adapter tredjeparts lager sync"
       }
     },
+    "finance": {
+      "sourceLabel": "Finansleverandørkatalog",
+      "discoveryLead": "Aipify kartla {provider} i finansleverandørkatalogen — status: {status}.",
+      "discoveryExplanation": "Kapabilitetene nedenfor kommer fra registrerte Finance Business Pack-manifester. Fakturautkast og rapporteksporter krever godkjenning — Aipify utfører aldri betalinger, refusjoner, bankoverføringer eller irreversible regnskapsposteringer i Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Finanskilden er klargjort eller verifisert for organisasjonen din.",
+      "disconnectedProvider": "Leverandørens runtime-adapter er ikke tilkoblet — kun styrt oppdagelse.",
+      "unavailableLead": "Ingen finansleverandør matchet denne forespørselen for organisasjonen din.",
+      "unavailableExplanation": "Finanskapabiliteter oppdages fra registrerte manifester — ingen matchet dette spørsmålet.",
+      "externalUnavailableLead": "Eksterne regnskaps- eller betalingsadaptere er ikke tilkoblet for organisasjonen din.",
+      "externalUnavailableExplanation": "Ingen live ekstern finansadapter er registrert. Aipify utfører ikke betalinger, refusjoner, bankoverføringer eller irreversible regnskapsendringer i Companion runtime.",
+      "blockedOperationLead": "Denne finansoperasjonen er ikke tilgjengelig i Companion runtime.",
+      "blockedOperationExplanation": "Betalinger, utbetalinger, refusjoner, bankoverføringer, fakturautsendelse, abonnementskansellering, destruktive korreksjoner og irreversible regnskapsposteringer er blokkert i denne fasen. Aipify kan forberede fakturautkast og rapporteksporter — du bestemmer og godkjenner.",
+      "permissionDenied": "Rollen din har ikke tilgang til finansleverandørkatalogen.",
+      "entitlementBlocked": "Finanskapabiliteter er utilgjengelige mens organisasjonens abonnement er satt på pause.",
+      "privacyNote": "Metadata-først finansintelligens — sensitive konto- og betalingsdetaljer maskeres og eksponerer aldri rå kort- eller bankdata.",
+      "policyNote": "Fakturautkast og rapporteksporter krever eksplisitt godkjenning. Finansrolletillatelser, tenant-isolasjon og revisjonslogging gjelder for alle finanshandlinger.",
+      "paymentExecutionBlocked": "Betalinger er blokkert i Companion runtime.",
+      "refundExecutionBlocked": "Refusjoner er blokkert — mennesker bestemmer og godkjenner utenfor Companion runtime.",
+      "invoiceSendBlocked": "Fakturautsendelse er blokkert — Aipify forbereder kun utkast.",
+      "sensitiveDataMasked": "Sensitive kontodata maskeres for finanslesing.",
+      "noRawCardOrBankDetails": "Rå kort- og bankdetaljer eksponeres aldri i Companion runtime.",
+      "financeRoleFilterActive": "Finansrolletillatelser håndheves for denne organisasjonen.",
+      "commandBriefEventsLinked": "Command Brief-finanssignaler er koblet fra eksisterende faktura-, abonnements-, prognose- og inntektskilder.",
+      "commandBriefEventsAvailable": "Command Brief-finanssignaler er tilgjengelige når finansmotorer er aktivert.",
+      "openFinanceCenter": "Åpne finanssenter",
+      "operation": {
+        "read": "les",
+        "write": "skriv"
+      },
+      "status": {
+        "connected": "tilkoblet",
+        "implemented_disconnected": "implementert men frakoblet",
+        "partial": "delvis",
+        "specification_only": "kun spesifikasjon",
+        "placeholder": "plassholder"
+      },
+      "providers": {
+        "finance_operations_center": "Finansoperasjonssenter",
+        "revenue_operations": "Inntektsoperasjoner",
+        "unified_billing": "Samlet fakturering",
+        "payment_providers": "Betalingsleverandører",
+        "enterprise_invoicing": "Enterprise-fakturering",
+        "finance_pack_adapter": "Ekstern finansadapter"
+      },
+      "searchTerms": {
+        "finance_operations_center": "finans inntekter utgifter fakturaer abonnement betalinger utbetalinger fakturering prognoser rapporter avstemming",
+        "revenue_operations": "inntekter vekst prognoser kommersiell intelligens churn fornyelse",
+        "unified_billing": "fakturering abonnement profil faktura betaling lisens",
+        "payment_providers": "betalingsleverandør stripe vipps klarna legitimasjon helse",
+        "enterprise_invoicing": "enterprise faktura dnb fakturering avstemming",
+        "finance_pack_adapter": "ekstern regnskap fiken erp adapter tredjeparts finans sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verifisert Unonight-integrasjon",
       "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",

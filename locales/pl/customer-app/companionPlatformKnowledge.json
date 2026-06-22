@@ -701,6 +701,60 @@
         "warehouse_pack_adapter": "zewnętrzny adapter wms erp synchronizacja magazynu strony trzeciej"
       }
     },
+    "finance": {
+      "sourceLabel": "Katalog dostawców finansowych",
+      "discoveryLead": "Aipify zmapowało {provider} w katalogu dostawców finansowych — status: {status}.",
+      "discoveryExplanation": "Poniższe możliwości pochodzą z zarejestrowanych manifestów Finance Business Pack. Szkice faktur i eksporty raportów wymagają zatwierdzenia — Aipify nigdy nie wykonuje płatności, zwrotów, przelewów bankowych ani nieodwracalnych księgowań w Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Źródło finansowe jest przygotowane lub zweryfikowane dla Twojej organizacji.",
+      "disconnectedProvider": "Adapter runtime dostawcy nie jest podłączony — tylko kontrolowane wykrywanie.",
+      "unavailableLead": "Żaden dostawca finansowy nie pasował do tego żądania dla Twojej organizacji.",
+      "unavailableExplanation": "Możliwości finansowe są wykrywane z zarejestrowanych manifestów — żaden nie pasował do tego zapytania.",
+      "externalUnavailableLead": "Zewnętrzne adaptery księgowe lub płatnicze nie są podłączone dla Twojej organizacji.",
+      "externalUnavailableExplanation": "Nie zarejestrowano aktywnego zewnętrznego adaptera finansowego. Aipify nie wykonuje płatności, zwrotów, przelewów bankowych ani nieodwracalnych zmian księgowych w Companion runtime.",
+      "blockedOperationLead": "Ta operacja finansowa nie jest dostępna w Companion runtime.",
+      "blockedOperationExplanation": "Wykonywanie płatności, wypłat, zwrotów, przelewów bankowych, wysyłki faktur, anulowania subskrypcji, destrukcyjnych korekt i nieodwracalnych księgowań jest zablokowane w tej fazie. Aipify może przygotować szkice faktur i eksporty raportów — Ty decydujesz i zatwierdzasz.",
+      "permissionDenied": "Twoja rola nie ma dostępu do katalogu dostawców finansowych.",
+      "entitlementBlocked": "Możliwości finansowe są niedostępne, gdy subskrypcja organizacji jest wstrzymana.",
+      "privacyNote": "Inteligencja finansowa oparta na metadanych — wrażliwe dane kont i płatności są maskowane i nigdy nie ujawniają surowych danych kart lub banków.",
+      "policyNote": "Szkice faktur i eksporty raportów wymagają wyraźnego zatwierdzenia. Uprawnienia roli finansowej, izolacja tenantów i rejestrowanie audytu dotyczą wszystkich działań finansowych.",
+      "paymentExecutionBlocked": "Wykonywanie płatności jest zablokowane w Companion runtime.",
+      "refundExecutionBlocked": "Zwroty są zablokowane — decydują i zatwierdzają ludzie poza Companion runtime.",
+      "invoiceSendBlocked": "Wysyłka faktur jest zablokowana — Aipify przygotowuje tylko szkice.",
+      "sensitiveDataMasked": "Wrażliwe dane kont są maskowane dla odczytu finansowego.",
+      "noRawCardOrBankDetails": "Surowe dane kart i banków nigdy nie są ujawniane w Companion runtime.",
+      "financeRoleFilterActive": "Uprawnienia roli finansowej są egzekwowane dla tej organizacji.",
+      "commandBriefEventsLinked": "Sygnały finansowe Command Brief są powiązane z istniejącymi źródłami faktur, subskrypcji, prognoz i przychodów.",
+      "commandBriefEventsAvailable": "Sygnały finansowe Command Brief są dostępne po aktywacji silników finansowych.",
+      "openFinanceCenter": "Otwórz centrum finansowe",
+      "operation": {
+        "read": "odczyt",
+        "write": "zapis"
+      },
+      "status": {
+        "connected": "połączony",
+        "implemented_disconnected": "zaimplementowany, ale odłączony",
+        "partial": "częściowy",
+        "specification_only": "tylko specyfikacja",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "finance_operations_center": "Centrum operacji finansowych",
+        "revenue_operations": "Operacje przychodów",
+        "unified_billing": "Ujednolicone rozliczenia",
+        "payment_providers": "Dostawcy płatności",
+        "enterprise_invoicing": "Fakturowanie enterprise",
+        "finance_pack_adapter": "Zewnętrzny adapter finansowy"
+      },
+      "searchTerms": {
+        "finance_operations_center": "finanse przychody wydatki faktury subskrypcje płatności wypłaty rozliczenia prognozy raporty uzgodnienie",
+        "revenue_operations": "przychody wzrost prognozy inteligencja komercyjna churn odnowienie",
+        "unified_billing": "rozliczenia subskrypcja profil faktura płatność licencja",
+        "payment_providers": "dostawca płatności stripe vipps klarna poświadczenia zdrowie",
+        "enterprise_invoicing": "faktura enterprise dnb rozliczenia uzgodnienie",
+        "finance_pack_adapter": "zewnętrzna księgowość fiken erp adapter synchronizacja finansów strony trzeciej"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

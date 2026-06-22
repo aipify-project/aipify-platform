@@ -731,6 +731,60 @@
         "warehouse_pack_adapter": "external wms erp adapter third party warehouse sync"
       }
     },
+    "finance": {
+      "sourceLabel": "Finance provider catalog",
+      "discoveryLead": "Aipify mapped {provider} in your finance provider catalog — status: {status}.",
+      "discoveryExplanation": "Capabilities below come from registered Finance Business Pack manifests. Invoice drafts and report exports require approval — Aipify never executes payments, refunds, bank transfers, or irreversible accounting postings in Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "Finance source is prepared or verified for your organization.",
+      "disconnectedProvider": "Provider runtime adapter is not connected — governed discovery only.",
+      "unavailableLead": "No finance provider matched this request for your organization.",
+      "unavailableExplanation": "Finance capabilities are discovered from registered manifests — none matched this query.",
+      "externalUnavailableLead": "External accounting or payment adapters are not connected for your organization.",
+      "externalUnavailableExplanation": "No live external finance adapter is registered. Aipify does not execute payments, refunds, bank transfers, or irreversible accounting changes in Companion runtime.",
+      "blockedOperationLead": "This finance operation is not available in Companion runtime.",
+      "blockedOperationExplanation": "Payment execution, payouts, refunds, bank transfers, invoice sending, subscription cancellation, destructive corrections, and irreversible accounting postings are blocked in this phase. Aipify can prepare invoice drafts and report exports — you decide and approve.",
+      "permissionDenied": "Your role cannot access the finance provider catalog.",
+      "entitlementBlocked": "Finance capabilities are unavailable while the organization subscription is paused.",
+      "privacyNote": "Metadata-first finance intelligence — sensitive account and payment details are masked and never expose raw card or bank data.",
+      "policyNote": "Invoice drafts and report exports require explicit approval. Finance-role permissions, tenant isolation, and audit logging apply to all finance actions.",
+      "paymentExecutionBlocked": "Payment execution is blocked in Companion runtime.",
+      "refundExecutionBlocked": "Refunds are blocked — humans decide and approve outside Companion runtime.",
+      "invoiceSendBlocked": "Sending invoices is blocked — Aipify prepares drafts only.",
+      "sensitiveDataMasked": "Sensitive account data is masked for finance reads.",
+      "noRawCardOrBankDetails": "Raw card and bank details are never exposed in Companion runtime.",
+      "financeRoleFilterActive": "Finance-role permissions are enforced for this organization.",
+      "commandBriefEventsLinked": "Command Brief finance signals are linked from existing invoice, subscription, forecast, and revenue sources.",
+      "commandBriefEventsAvailable": "Command Brief finance signals are available when finance engines are activated.",
+      "openFinanceCenter": "Open Finance Center",
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
+      "status": {
+        "connected": "connected",
+        "implemented_disconnected": "implemented but disconnected",
+        "partial": "partial",
+        "specification_only": "specification only",
+        "placeholder": "placeholder"
+      },
+      "providers": {
+        "finance_operations_center": "Finance Operations Center",
+        "revenue_operations": "Revenue Operations",
+        "unified_billing": "Unified Billing",
+        "payment_providers": "Payment Providers",
+        "enterprise_invoicing": "Enterprise Invoicing",
+        "finance_pack_adapter": "External Finance Adapter"
+      },
+      "searchTerms": {
+        "finance_operations_center": "finance revenue expenses invoices subscriptions payments payouts billing forecasts reports reconciliation",
+        "revenue_operations": "revenue growth forecasts commercial intelligence churn renewal",
+        "unified_billing": "billing subscription profile invoice payment license",
+        "payment_providers": "payment provider stripe vipps klarna credentials health",
+        "enterprise_invoicing": "enterprise invoice dnb billing reconciliation",
+        "finance_pack_adapter": "external accounting fiken erp adapter third party finance sync"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

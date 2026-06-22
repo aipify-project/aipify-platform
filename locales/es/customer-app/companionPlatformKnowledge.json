@@ -701,6 +701,60 @@
         "warehouse_pack_adapter": "adaptador wms erp externo sincronización de almacén de terceros"
       }
     },
+    "finance": {
+      "sourceLabel": "Catálogo de proveedores financieros",
+      "discoveryLead": "Aipify mapeó {provider} en su catálogo de proveedores financieros — estado: {status}.",
+      "discoveryExplanation": "Las capacidades siguientes provienen de manifiestos registrados del Finance Business Pack. Los borradores de facturas y exportaciones de informes requieren aprobación — Aipify nunca ejecuta pagos, reembolsos, transferencias bancarias ni contabilizaciones irreversibles en Companion runtime.",
+      "capabilityLine": "{capabilityId} ({mode})",
+      "verifiedProvider": "La fuente financiera está preparada o verificada para su organización.",
+      "disconnectedProvider": "El adaptador runtime del proveedor no está conectado — solo descubrimiento gobernado.",
+      "unavailableLead": "Ningún proveedor financiero coincidió con esta solicitud para su organización.",
+      "unavailableExplanation": "Las capacidades financieras se descubren desde manifiestos registrados — ninguno coincidió con esta consulta.",
+      "externalUnavailableLead": "Los adaptadores contables o de pago externos no están conectados para su organización.",
+      "externalUnavailableExplanation": "No hay adaptador financiero externo en vivo registrado. Aipify no ejecuta pagos, reembolsos, transferencias bancarias ni cambios contables irreversibles en Companion runtime.",
+      "blockedOperationLead": "Esta operación financiera no está disponible en Companion runtime.",
+      "blockedOperationExplanation": "La ejecución de pagos, desembolsos, reembolsos, transferencias bancarias, envío de facturas, cancelación de suscripciones, correcciones destructivas y contabilizaciones irreversibles están bloqueados en esta fase. Aipify puede preparar borradores de facturas y exportaciones de informes — usted decide y aprueba.",
+      "permissionDenied": "Su rol no puede acceder al catálogo de proveedores financieros.",
+      "entitlementBlocked": "Las capacidades financieras no están disponibles mientras la suscripción de la organización esté pausada.",
+      "privacyNote": "Inteligencia financiera con metadatos primero — los datos sensibles de cuentas y pagos se enmascaran y nunca exponen datos crudos de tarjetas o bancos.",
+      "policyNote": "Los borradores de facturas y exportaciones de informes requieren aprobación explícita. Los permisos de rol financiero, el aislamiento de tenant y el registro de auditoría se aplican a todas las acciones financieras.",
+      "paymentExecutionBlocked": "La ejecución de pagos está bloqueada en Companion runtime.",
+      "refundExecutionBlocked": "Los reembolsos están bloqueados — las personas deciden y aprueban fuera de Companion runtime.",
+      "invoiceSendBlocked": "El envío de facturas está bloqueado — Aipify solo prepara borradores.",
+      "sensitiveDataMasked": "Los datos sensibles de cuentas se enmascaran para lecturas financieras.",
+      "noRawCardOrBankDetails": "Los datos crudos de tarjetas y bancos nunca se exponen en Companion runtime.",
+      "financeRoleFilterActive": "Los permisos de rol financiero se aplican para esta organización.",
+      "commandBriefEventsLinked": "Las señales financieras de Command Brief están vinculadas desde fuentes existentes de facturas, suscripciones, pronósticos e ingresos.",
+      "commandBriefEventsAvailable": "Las señales financieras de Command Brief están disponibles cuando los motores financieros están activados.",
+      "openFinanceCenter": "Abrir centro financiero",
+      "operation": {
+        "read": "lectura",
+        "write": "escritura"
+      },
+      "status": {
+        "connected": "conectado",
+        "implemented_disconnected": "implementado pero desconectado",
+        "partial": "parcial",
+        "specification_only": "solo especificación",
+        "placeholder": "marcador de posición"
+      },
+      "providers": {
+        "finance_operations_center": "Centro de operaciones financieras",
+        "revenue_operations": "Operaciones de ingresos",
+        "unified_billing": "Facturación unificada",
+        "payment_providers": "Proveedores de pago",
+        "enterprise_invoicing": "Facturación empresarial",
+        "finance_pack_adapter": "Adaptador financiero externo"
+      },
+      "searchTerms": {
+        "finance_operations_center": "finanzas ingresos gastos facturas suscripciones pagos desembolsos facturación pronósticos informes conciliación",
+        "revenue_operations": "ingresos crecimiento pronósticos inteligencia comercial churn renovación",
+        "unified_billing": "facturación suscripción perfil factura pago licencia",
+        "payment_providers": "proveedor de pago stripe vipps klarna credenciales salud",
+        "enterprise_invoicing": "factura empresarial dnb facturación conciliación",
+        "finance_pack_adapter": "contabilidad externa fiken erp adaptador sincronización financiera de terceros"
+      }
+    },
     "integrationStatus": {
       "title": "Verified Unonight integration",
       "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",

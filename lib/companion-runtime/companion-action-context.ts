@@ -16,6 +16,7 @@ import {
   buildActionDefinitionFromHostsCapability,
   buildActionDefinitionFromHrCapability,
   buildActionDefinitionFromWarehouseCapability,
+  buildActionDefinitionFromFinanceCapability,
   buildActionDefinitionFromWorkspaceCapability,
   buildActionDefinitionFromPolicy,
   buildActionDefinitionFromSchemaEntity,
@@ -35,6 +36,7 @@ import type { CompanionIndustryPackContext } from "./companion-industry-pack-con
 import type { CompanionHostsContext } from "./companion-hosts-context";
 import type { CompanionHrContext } from "./companion-hr-context";
 import type { CompanionWarehouseContext } from "./companion-warehouse-context";
+import type { CompanionFinanceContext } from "./companion-finance-context";
 import {
   parseApprovedCompanionActionRequest,
   parseApprovedTrustActionRequest,
@@ -109,6 +111,7 @@ export type NormalizeCompanionActionContextInput = {
   hostsContext?: CompanionHostsContext;
   hrContext?: CompanionHrContext;
   warehouseContext?: CompanionWarehouseContext;
+  financeContext?: CompanionFinanceContext;
 };
 
 function parseApprovedRecordsFromApprovalsCenter(raw: unknown): CompanionApprovedActionRecord[] {
@@ -309,6 +312,17 @@ export function normalizeCompanionActionContext(
   for (const capability of input.warehouseContext?.capabilities ?? []) {
     if (capability.operation !== "write") continue;
     const definition = buildActionDefinitionFromWarehouseCapability(capability, {
+      permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
+      appEntitlementBlocked: appSuspended,
+      emergencyStop,
+      maxRiskLevel,
+    });
+    if (definition) actions.push(definition);
+  }
+
+  for (const capability of input.financeContext?.capabilities ?? []) {
+    if (capability.operation !== "write") continue;
+    const definition = buildActionDefinitionFromFinanceCapability(capability, {
       permissionAllowed: governanceOptions.permissionAllowed(capability.required_permission),
       appEntitlementBlocked: appSuspended,
       emergencyStop,

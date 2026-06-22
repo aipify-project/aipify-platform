@@ -16,6 +16,7 @@ import type { CompanionIndustryPackContext } from "./companion-industry-pack-con
 import type { CompanionHostsContext } from "./companion-hosts-context";
 import type { CompanionHrContext } from "./companion-hr-context";
 import type { CompanionWarehouseContext } from "./companion-warehouse-context";
+import type { CompanionFinanceContext } from "./companion-finance-context";
 import type { CompanionBusinessPackCollection } from "./companion-business-pack-context";
 import type { CompanionSchemaCollection } from "./companion-schema-context";
 
@@ -41,6 +42,7 @@ export async function loadCompanionActionContext(
     hostsContext?: CompanionHostsContext;
     hrContext?: CompanionHrContext;
     warehouseContext?: CompanionWarehouseContext;
+    financeContext?: CompanionFinanceContext;
   },
 ): Promise<{ actionContext: CompanionActionContext; writeActionsAvailable: boolean }> {
   const [companionResult, trustResult, approvalsResult] = await Promise.all([
@@ -76,6 +78,7 @@ export async function loadCompanionActionContext(
     hostsContext: input.hostsContext,
     hrContext: input.hrContext,
     warehouseContext: input.warehouseContext,
+    financeContext: input.financeContext,
   });
 
   const writeActionsAvailable =
