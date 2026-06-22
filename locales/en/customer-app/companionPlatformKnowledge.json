@@ -273,53 +273,34 @@
       }
     },
     "actions": {
-      "sourceLabel": "Trust & Action governance",
-      "explanationLead": "Aipify prepared a governed action plan for {actionId} on {entity} via {provider}.",
-      "planExplanation": "Companion runtime prepared governed action {actionId} for approval review.",
-      "riskLine": "Risk level: {risk}",
-      "approvalLine": "Approval status: {status}",
-      "reversibleYes": "This action is reversible when policy allows.",
-      "reversibleNo": "This action is not reversible — explicit approval is required.",
-      "preparedLine": "Prepared: {createdAt}",
-      "auditLine": "Audit reference: {reference}",
-      "openApprovals": "Open Approval Center",
-      "approvalRequiredLead": "Approval is required before Aipify can execute {actionId}.",
-      "approvalRequiredExplanation": "Aipify created or reused a pending approval request. No provider action was executed in this phase.",
-      "readyLead": "Aipify validated {actionId} and it is ready for governed execution after your review.",
-      "readyExplanation": "Execution is intentionally deferred — review the plan in Approval Center when you are ready.",
-      "blockedExplanation": "This action was blocked by Trust & Action policy and was not executed.",
-      "unavailableExplanation": "No governed write capability matched this request for your organization.",
-      "permissionDenied": "Your role cannot prepare this action under current permissions.",
-      "missingPolicy": "No approved action policy covers this request.",
-      "unavailable": "This action is not available through Companion for your organization.",
-      "appSuspended": "Actions are unavailable while the organization subscription is paused or suspended.",
-      "emergencyStop": "Companion actions are paused while emergency stop is active.",
-      "riskLevel": {
-        "0": "information",
-        "1": "draft",
-        "2": "reversible",
-        "3": "sensitive",
-        "4": "critical"
-      },
-      "approvalStatus": {
-        "pending": "pending approval",
-        "approved": "approved",
-        "not_required": "not required",
-        "blocked": "blocked",
-        "prohibited": "prohibited"
-      },
-      "blockReason": {
-        "critical_prohibited": "Critical actions cannot be executed by Aipify.",
-        "irreversible_blocked": "Irreversible actions cannot be auto-prepared without explicit governance.",
-        "permission_denied": "Your role does not have permission for this action.",
-        "entitlement_blocked": "Business Pack entitlements block this action right now.",
-        "emergency_stop": "Emergency stop is active — actions are paused.",
-        "missing_policy": "No action policy authorizes this request.",
-        "policy_prohibited": "Organization policy prohibits this action.",
-        "provider_unverified": "The provider connection is not verified for write actions.",
-        "schema_validation": "Input did not pass schema validation.",
-        "write_boundary": "Write boundary rules blocked this action."
-      }
+      "teamMembers": "Open Team Members",
+      "rolesPermissions": "Open Roles & Permissions",
+      "subscription": "Open Subscription",
+      "upgradeOptions": "View upgrade options",
+      "invoices": "Open Invoices",
+      "paymentHistory": "Open Payment History",
+      "accountSecurity": "Open Security settings",
+      "connectIntegration": "Connect integration",
+      "integrations": "Open Integrations",
+      "connectedIntegrations": "View connected integrations",
+      "contactSupport": "Contact Support",
+      "supportRequests": "View support requests",
+      "knowledgeCenter": "Open Knowledge Center",
+      "gettingStarted": "Getting Started",
+      "aipifyCompanion": "Open Aipify Companion",
+      "commandBrief": "Open Command Brief",
+      "sinceLastLogin": "Since Last Login",
+      "appNotifications": "Notifications",
+      "appDashboard": "Open Dashboard",
+      "availableBusinessPacks": "Browse Business Packs",
+      "installedBusinessPacks": "Installed Business Packs",
+      "preferences": "Open Preferences",
+      "profile": "Open Profile",
+      "apiAccess": "API Access",
+      "activityOverview": "Activity Overview",
+      "viewIntegrations": "View integrations",
+      "retestUnonightConnection": "Retest connection",
+      "readSecureConnection": "Read about secure connection"
     },
     "execution": {
       "sourceLabel": "Governed action execution",
@@ -1257,7 +1238,10 @@
       "commandBriefEventsLinked": "Command Brief proactive signals are linked from existing monitoring, recommendation, and domain engine sources.",
       "commandBriefEventsAvailable": "Command Brief proactive signals are available when proactive engines are activated.",
       "openProactiveCenter": "Open Command Brief",
-      "operation": { "read": "read", "write": "write" },
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
       "status": {
         "connected": "connected",
         "implemented_disconnected": "implemented but disconnected",
@@ -1317,7 +1301,10 @@
       "roleBasedAccessActive": "Role-based access permissions are enforced for this organization.",
       "openAnalyticsCenter": "Open Analytics Center",
       "openExecutiveInsights": "Open Executive Insights",
-      "operation": { "read": "read", "write": "write" },
+      "operation": {
+        "read": "read",
+        "write": "write"
+      },
       "status": {
         "connected": "connected",
         "implemented_disconnected": "implemented but disconnected",
@@ -1572,36 +1559,6 @@
       "step1": "Open Aipify Companion from the Intelligence section or ask about a specific topic.",
       "step2": "Use the suggested links to go directly to the relevant page.",
       "subscriptionUnavailable": "Your current subscription details could not be verified right now. Open Subscription to review your plan."
-    },
-    "actions": {
-      "teamMembers": "Open Team Members",
-      "rolesPermissions": "Open Roles & Permissions",
-      "subscription": "Open Subscription",
-      "upgradeOptions": "View upgrade options",
-      "invoices": "Open Invoices",
-      "paymentHistory": "Open Payment History",
-      "accountSecurity": "Open Security settings",
-      "connectIntegration": "Connect integration",
-      "integrations": "Open Integrations",
-      "connectedIntegrations": "View connected integrations",
-      "contactSupport": "Contact Support",
-      "supportRequests": "View support requests",
-      "knowledgeCenter": "Open Knowledge Center",
-      "gettingStarted": "Getting Started",
-      "aipifyCompanion": "Open Aipify Companion",
-      "commandBrief": "Open Command Brief",
-      "sinceLastLogin": "Since Last Login",
-      "appNotifications": "Notifications",
-      "appDashboard": "Open Dashboard",
-      "availableBusinessPacks": "Browse Business Packs",
-      "installedBusinessPacks": "Installed Business Packs",
-      "preferences": "Open Preferences",
-      "profile": "Open Profile",
-      "apiAccess": "API Access",
-      "activityOverview": "Activity Overview",
-      "viewIntegrations": "View integrations",
-      "retestUnonightConnection": "Retest connection",
-      "readSecureConnection": "Read about secure connection"
     },
     "routes": {
       "appDashboard": {
@@ -1919,6 +1876,236 @@
         "explanation": "Language applies across the APP portal, Companion, and notifications.",
         "step1": "Open Account → Preferences and select your language.",
         "searchTerms": "language|språk|locale|change language"
+      }
+    },
+    "commandBriefCore": {
+      "sections": {
+        "requiresAttention": {
+          "title": "Requires attention",
+          "emptyTitle": "Nothing requires attention right now",
+          "emptyExplanation": "Aipify found no unresolved operational signals from connected sources.",
+          "emptyAction": "Review Command Brief later"
+        },
+        "sinceLast": {
+          "title": "Since last visit",
+          "emptyTitle": "No new events since your last visit",
+          "emptyExplanation": "Connected sources reported no new Command Brief events since your last login or brief view.",
+          "emptyAction": "Open activity overview"
+        },
+        "completedByAipify": {
+          "title": "Aipify completed",
+          "emptyTitle": "No recent Aipify completions",
+          "emptyExplanation": "Aipify has not recorded completed brief actions since your last visit.",
+          "emptyAction": "View recommendations"
+        },
+        "opportunities": {
+          "title": "Opportunities",
+          "emptyTitle": "No new opportunities",
+          "emptyExplanation": "Connected sources have not reported new growth or opportunity signals.",
+          "emptyAction": "Explore analytics"
+        },
+        "recommendedNextSteps": {
+          "title": "Recommended next steps",
+          "emptyTitle": "No recommended next steps",
+          "emptyExplanation": "Aipify has no additional recommended actions from connected sources right now.",
+          "emptyAction": "Ask Aipify Companion"
+        }
+      },
+      "actions": {
+        "openDetails": "Open details",
+        "viewDetails": "View details",
+        "createTask": "Create task"
+      },
+      "warnings": {
+        "partialSource": "This signal uses partial source metadata — review before acting.",
+        "sourceMissing": "No live source is connected for this signal."
+      },
+      "freshness": {
+        "fresh": "Fresh",
+        "stale": "May be outdated",
+        "unknown": "Unknown freshness"
+      },
+      "sinceLast": {
+        "labelLastLogin": "Since your last login",
+        "labelLastView": "Since your last Command Brief visit"
+      },
+      "signals": {
+        "generic": {
+          "title": "Operational signal detected",
+          "summary": "Aipify detected an event from a connected source."
+        },
+        "activity_change": {
+          "title": "Activity Change needs review",
+          "summary": "Connected sources reported activity change activity."
+        },
+        "new_members": {
+          "title": "New Members needs review",
+          "summary": "Connected sources reported new members activity."
+        },
+        "reward_milestone": {
+          "title": "Reward Milestone needs review",
+          "summary": "Connected sources reported reward milestone activity."
+        },
+        "pending_moderation": {
+          "title": "Pending Moderation needs review",
+          "summary": "Connected sources reported pending moderation activity."
+        },
+        "reports_requiring_attention": {
+          "title": "Reports Requiring Attention needs review",
+          "summary": "Connected sources reported reports requiring attention activity."
+        },
+        "listing_review": {
+          "title": "Listing Review needs review",
+          "summary": "Connected sources reported listing review activity."
+        },
+        "new_lead": {
+          "title": "New Lead needs review",
+          "summary": "Connected sources reported new lead activity."
+        },
+        "lead_without_follow_up": {
+          "title": "Lead Without Follow Up needs review",
+          "summary": "Connected sources reported lead without follow up activity."
+        },
+        "recommended_follow_up": {
+          "title": "Recommended Follow Up needs review",
+          "summary": "Connected sources reported recommended follow up activity."
+        },
+        "deal_status_change": {
+          "title": "Deal Status Change needs review",
+          "summary": "Connected sources reported deal status change activity."
+        },
+        "sales_target_deviation": {
+          "title": "Sales Target Deviation needs review",
+          "summary": "Connected sources reported sales target deviation activity."
+        },
+        "customer_health_warning": {
+          "title": "Customer Health Warning needs review",
+          "summary": "Connected sources reported customer health warning activity."
+        },
+        "churn_risk": {
+          "title": "Churn Risk needs review",
+          "summary": "Connected sources reported churn risk activity."
+        },
+        "conversion_deviation": {
+          "title": "Conversion Deviation needs review",
+          "summary": "Connected sources reported conversion deviation activity."
+        },
+        "overdue_invoice": {
+          "title": "Overdue Invoice needs review",
+          "summary": "Connected sources reported overdue invoice activity."
+        },
+        "subscription_change": {
+          "title": "Subscription Change needs review",
+          "summary": "Connected sources reported subscription change activity."
+        },
+        "forecast_warning": {
+          "title": "Forecast Warning needs review",
+          "summary": "Connected sources reported forecast warning activity."
+        },
+        "revenue_deviation": {
+          "title": "Revenue Deviation needs review",
+          "summary": "Connected sources reported revenue deviation activity."
+        },
+        "payment_failure": {
+          "title": "Payment Failure needs review",
+          "summary": "Connected sources reported payment failure activity."
+        },
+        "payout_attention": {
+          "title": "Payout Attention needs review",
+          "summary": "Connected sources reported payout attention activity."
+        },
+        "reconciliation_issue": {
+          "title": "Reconciliation Issue needs review",
+          "summary": "Connected sources reported reconciliation issue activity."
+        },
+        "verification_pending": {
+          "title": "Verification Pending needs review",
+          "summary": "Connected sources reported verification pending activity."
+        },
+        "access_review_required": {
+          "title": "Access Review Required needs review",
+          "summary": "Connected sources reported access review required activity."
+        },
+        "security_incident": {
+          "title": "Security Incident needs review",
+          "summary": "Connected sources reported security incident activity."
+        },
+        "failed_login_2fa_issue": {
+          "title": "Failed Login 2fa Issue needs review",
+          "summary": "Connected sources reported failed login 2fa issue activity."
+        },
+        "expiring_certificate": {
+          "title": "Expiring Certificate needs review",
+          "summary": "Connected sources reported expiring certificate activity."
+        },
+        "compliance_attention": {
+          "title": "Compliance Attention needs review",
+          "summary": "Connected sources reported compliance attention activity."
+        },
+        "unresolved_risk_signal": {
+          "title": "Unresolved Risk Signal needs review",
+          "summary": "Connected sources reported unresolved risk signal activity."
+        },
+        "permission_anomaly": {
+          "title": "Permission Anomaly needs review",
+          "summary": "Connected sources reported permission anomaly activity."
+        },
+        "onboarding_in_progress": {
+          "title": "Onboarding In Progress needs review",
+          "summary": "Connected sources reported onboarding in progress activity."
+        },
+        "absence_upcoming": {
+          "title": "Absence Upcoming needs review",
+          "summary": "Connected sources reported absence upcoming activity."
+        },
+        "expiring_certifications": {
+          "title": "Expiring Certifications needs review",
+          "summary": "Connected sources reported expiring certifications activity."
+        },
+        "training_pending": {
+          "title": "Training Pending needs review",
+          "summary": "Connected sources reported training pending activity."
+        },
+        "pending_invitations": {
+          "title": "Pending Invitations needs review",
+          "summary": "Connected sources reported pending invitations activity."
+        },
+        "performance_reviews": {
+          "title": "Performance Reviews needs review",
+          "summary": "Connected sources reported performance reviews activity."
+        },
+        "low_stock": {
+          "title": "Low Stock needs review",
+          "summary": "Connected sources reported low stock activity."
+        },
+        "delayed_receipt": {
+          "title": "Delayed Receipt needs review",
+          "summary": "Connected sources reported delayed receipt activity."
+        },
+        "transfer_in_progress": {
+          "title": "Transfer In Progress needs review",
+          "summary": "Connected sources reported transfer in progress activity."
+        },
+        "inventory_discrepancy": {
+          "title": "Inventory Discrepancy needs review",
+          "summary": "Connected sources reported inventory discrepancy activity."
+        },
+        "replenishment_required": {
+          "title": "Replenishment Required needs review",
+          "summary": "Connected sources reported replenishment required activity."
+        },
+        "unresolved_support_case": {
+          "title": "Unresolved Support Case needs review",
+          "summary": "Connected sources reported unresolved support case activity."
+        },
+        "sla_risk": {
+          "title": "Sla Risk needs review",
+          "summary": "Connected sources reported sla risk activity."
+        },
+        "escalation_required": {
+          "title": "Escalation Required needs review",
+          "summary": "Connected sources reported escalation required activity."
+        }
       }
     }
   }

@@ -1889,6 +1889,236 @@
         "bookingRequiringAttention": "En bokning kräver granskning.",
         "cancellationChange": "En avbokning eller schemaändring rapporterades."
       }
+    },
+    "commandBriefCore": {
+      "sections": {
+        "requiresAttention": {
+          "title": "Kräver uppmärksamhet",
+          "emptyTitle": "Inget kräver uppmärksamhet just nu",
+          "emptyExplanation": "Aipify hittade inga olösta operativa signaler från anslutna källor.",
+          "emptyAction": "Granska Command Brief senare"
+        },
+        "sinceLast": {
+          "title": "Sedan senast",
+          "emptyTitle": "Inga nya händelser sedan senaste besöket",
+          "emptyExplanation": "Anslutna källor rapporterade inga nya Command Brief-händelser sedan senaste inloggning eller brief-visning.",
+          "emptyAction": "Öppna aktivitetsöversikt"
+        },
+        "completedByAipify": {
+          "title": "Aipify har slutfört",
+          "emptyTitle": "Inga nyliga Aipify-slutföranden",
+          "emptyExplanation": "Aipify har inte registrerat slutförda brief-åtgärder sedan senaste besöket.",
+          "emptyAction": "Visa rekommendationer"
+        },
+        "opportunities": {
+          "title": "Möjligheter",
+          "emptyTitle": "Inga nya möjligheter",
+          "emptyExplanation": "Anslutna källor har inte rapporterat nya tillväxt- eller möjlighetssignaler.",
+          "emptyAction": "Utforska analys"
+        },
+        "recommendedNextSteps": {
+          "title": "Rekommenderade nästa steg",
+          "emptyTitle": "Inga rekommenderade nästa steg",
+          "emptyExplanation": "Aipify har inga ytterligare rekommenderade åtgärder från anslutna källor just nu.",
+          "emptyAction": "Fråga Aipify Companion"
+        }
+      },
+      "actions": {
+        "openDetails": "Öppna detaljer",
+        "viewDetails": "Visa detaljer",
+        "createTask": "Skapa uppgift"
+      },
+      "warnings": {
+        "partialSource": "Denna signal använder partiell källmetadata — granska före åtgärd.",
+        "sourceMissing": "Ingen live-källa är ansluten för denna signal."
+      },
+      "freshness": {
+        "fresh": "Färsk",
+        "stale": "Kan vara inaktuell",
+        "unknown": "Okänd färskhet"
+      },
+      "sinceLast": {
+        "labelLastLogin": "Sedan senaste inloggning",
+        "labelLastView": "Sedan senaste Command Brief-besök"
+      },
+      "signals": {
+        "generic": {
+          "title": "Operativ signal upptäckt",
+          "summary": "Aipify upptäckte en händelse från en ansluten källa."
+        },
+        "activity_change": {
+          "title": "activity change kräver granskning",
+          "summary": "Anslutna källor rapporterade activity change."
+        },
+        "new_members": {
+          "title": "new members kräver granskning",
+          "summary": "Anslutna källor rapporterade new members."
+        },
+        "reward_milestone": {
+          "title": "reward milestone kräver granskning",
+          "summary": "Anslutna källor rapporterade reward milestone."
+        },
+        "pending_moderation": {
+          "title": "pending moderation kräver granskning",
+          "summary": "Anslutna källor rapporterade pending moderation."
+        },
+        "reports_requiring_attention": {
+          "title": "reports requiring attention kräver granskning",
+          "summary": "Anslutna källor rapporterade reports requiring attention."
+        },
+        "listing_review": {
+          "title": "listing review kräver granskning",
+          "summary": "Anslutna källor rapporterade listing review."
+        },
+        "new_lead": {
+          "title": "new lead kräver granskning",
+          "summary": "Anslutna källor rapporterade new lead."
+        },
+        "lead_without_follow_up": {
+          "title": "lead without follow up kräver granskning",
+          "summary": "Anslutna källor rapporterade lead without follow up."
+        },
+        "recommended_follow_up": {
+          "title": "recommended follow up kräver granskning",
+          "summary": "Anslutna källor rapporterade recommended follow up."
+        },
+        "deal_status_change": {
+          "title": "deal status change kräver granskning",
+          "summary": "Anslutna källor rapporterade deal status change."
+        },
+        "sales_target_deviation": {
+          "title": "sales target deviation kräver granskning",
+          "summary": "Anslutna källor rapporterade sales target deviation."
+        },
+        "customer_health_warning": {
+          "title": "customer health warning kräver granskning",
+          "summary": "Anslutna källor rapporterade customer health warning."
+        },
+        "churn_risk": {
+          "title": "churn risk kräver granskning",
+          "summary": "Anslutna källor rapporterade churn risk."
+        },
+        "conversion_deviation": {
+          "title": "conversion deviation kräver granskning",
+          "summary": "Anslutna källor rapporterade conversion deviation."
+        },
+        "overdue_invoice": {
+          "title": "overdue invoice kräver granskning",
+          "summary": "Anslutna källor rapporterade overdue invoice."
+        },
+        "subscription_change": {
+          "title": "subscription change kräver granskning",
+          "summary": "Anslutna källor rapporterade subscription change."
+        },
+        "forecast_warning": {
+          "title": "forecast warning kräver granskning",
+          "summary": "Anslutna källor rapporterade forecast warning."
+        },
+        "revenue_deviation": {
+          "title": "revenue deviation kräver granskning",
+          "summary": "Anslutna källor rapporterade revenue deviation."
+        },
+        "payment_failure": {
+          "title": "payment failure kräver granskning",
+          "summary": "Anslutna källor rapporterade payment failure."
+        },
+        "payout_attention": {
+          "title": "payout attention kräver granskning",
+          "summary": "Anslutna källor rapporterade payout attention."
+        },
+        "reconciliation_issue": {
+          "title": "reconciliation issue kräver granskning",
+          "summary": "Anslutna källor rapporterade reconciliation issue."
+        },
+        "verification_pending": {
+          "title": "verification pending kräver granskning",
+          "summary": "Anslutna källor rapporterade verification pending."
+        },
+        "access_review_required": {
+          "title": "access review required kräver granskning",
+          "summary": "Anslutna källor rapporterade access review required."
+        },
+        "security_incident": {
+          "title": "security incident kräver granskning",
+          "summary": "Anslutna källor rapporterade security incident."
+        },
+        "failed_login_2fa_issue": {
+          "title": "failed login 2fa issue kräver granskning",
+          "summary": "Anslutna källor rapporterade failed login 2fa issue."
+        },
+        "expiring_certificate": {
+          "title": "expiring certificate kräver granskning",
+          "summary": "Anslutna källor rapporterade expiring certificate."
+        },
+        "compliance_attention": {
+          "title": "compliance attention kräver granskning",
+          "summary": "Anslutna källor rapporterade compliance attention."
+        },
+        "unresolved_risk_signal": {
+          "title": "unresolved risk signal kräver granskning",
+          "summary": "Anslutna källor rapporterade unresolved risk signal."
+        },
+        "permission_anomaly": {
+          "title": "permission anomaly kräver granskning",
+          "summary": "Anslutna källor rapporterade permission anomaly."
+        },
+        "onboarding_in_progress": {
+          "title": "onboarding in progress kräver granskning",
+          "summary": "Anslutna källor rapporterade onboarding in progress."
+        },
+        "absence_upcoming": {
+          "title": "absence upcoming kräver granskning",
+          "summary": "Anslutna källor rapporterade absence upcoming."
+        },
+        "expiring_certifications": {
+          "title": "expiring certifications kräver granskning",
+          "summary": "Anslutna källor rapporterade expiring certifications."
+        },
+        "training_pending": {
+          "title": "training pending kräver granskning",
+          "summary": "Anslutna källor rapporterade training pending."
+        },
+        "pending_invitations": {
+          "title": "pending invitations kräver granskning",
+          "summary": "Anslutna källor rapporterade pending invitations."
+        },
+        "performance_reviews": {
+          "title": "performance reviews kräver granskning",
+          "summary": "Anslutna källor rapporterade performance reviews."
+        },
+        "low_stock": {
+          "title": "low stock kräver granskning",
+          "summary": "Anslutna källor rapporterade low stock."
+        },
+        "delayed_receipt": {
+          "title": "delayed receipt kräver granskning",
+          "summary": "Anslutna källor rapporterade delayed receipt."
+        },
+        "transfer_in_progress": {
+          "title": "transfer in progress kräver granskning",
+          "summary": "Anslutna källor rapporterade transfer in progress."
+        },
+        "inventory_discrepancy": {
+          "title": "inventory discrepancy kräver granskning",
+          "summary": "Anslutna källor rapporterade inventory discrepancy."
+        },
+        "replenishment_required": {
+          "title": "replenishment required kräver granskning",
+          "summary": "Anslutna källor rapporterade replenishment required."
+        },
+        "unresolved_support_case": {
+          "title": "unresolved support case kräver granskning",
+          "summary": "Anslutna källor rapporterade unresolved support case."
+        },
+        "sla_risk": {
+          "title": "sla risk kräver granskning",
+          "summary": "Anslutna källor rapporterade sla risk."
+        },
+        "escalation_required": {
+          "title": "escalation required kräver granskning",
+          "summary": "Anslutna källor rapporterade escalation required."
+        }
+      }
     }
   }
 }

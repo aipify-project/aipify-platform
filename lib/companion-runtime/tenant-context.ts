@@ -110,6 +110,7 @@ import {
   mergeCommunityToolRegistry,
 } from "./merge-community-runtime";
 import { loadCompanionProactiveContext } from "./load-companion-proactive-context";
+import { buildCommandBriefBundle } from "./command-brief-orchestrator";
 import {
   mergeProactiveCapabilities,
   mergeProactiveSchemaCollection,
@@ -378,6 +379,23 @@ export async function loadCompanionTenantContext(
     proactiveContext.prioritized_signals,
   );
 
+  const commandBriefBundle = buildCommandBriefBundle({
+    organization_id: organizationId ?? "",
+    effectivePermissions,
+    subscriptionStatus,
+    contexts: {
+      hrContext,
+      warehouseContext,
+      financeContext,
+      salesContext,
+      securityContext,
+      communityContext,
+      operationalContext,
+      proactiveContext,
+    },
+    last_login_at: operationalContext.since,
+  });
+
   const analyticsContext = await loadCompanionAnalyticsContext(supabase, {
     effectivePermissions,
     subscriptionStatus,
@@ -591,5 +609,6 @@ export async function loadCompanionTenantContext(
     communityContext,
     proactiveContext,
     analyticsContext,
+    commandBriefBundle,
   });
 }

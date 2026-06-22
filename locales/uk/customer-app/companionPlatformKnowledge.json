@@ -1889,6 +1889,236 @@
         "bookingRequiringAttention": "Бронювання потребує перегляду.",
         "cancellationChange": "Повідомлено про скасування або зміну розкладу."
       }
+    },
+    "commandBriefCore": {
+      "sections": {
+        "requiresAttention": {
+          "title": "Потребує уваги",
+          "emptyTitle": "Зараз нічого не потребує уваги",
+          "emptyExplanation": "Aipify не знайшов нерозв'язаних операційних сигналів із підключених джерел.",
+          "emptyAction": "Переглянути Command Brief пізніше"
+        },
+        "sinceLast": {
+          "title": "З моменту останнього візиту",
+          "emptyTitle": "Немає нових подій з моменту останнього візиту",
+          "emptyExplanation": "Підключені джерела не повідомили нових подій Command Brief з моменту останнього входу або перегляду brief.",
+          "emptyAction": "Відкрити огляд активності"
+        },
+        "completedByAipify": {
+          "title": "Aipify завершив",
+          "emptyTitle": "Немає недавніх завершень Aipify",
+          "emptyExplanation": "Aipify не зафіксував завершених дій brief з моменту останнього візиту.",
+          "emptyAction": "Переглянути рекомендації"
+        },
+        "opportunities": {
+          "title": "Можливості",
+          "emptyTitle": "Немає нових можливостей",
+          "emptyExplanation": "Підключені джерела не повідомили нових сигналів зростання чи можливостей.",
+          "emptyAction": "Дослідити аналітику"
+        },
+        "recommendedNextSteps": {
+          "title": "Рекомендовані наступні кроки",
+          "emptyTitle": "Немає рекомендованих наступних кроків",
+          "emptyExplanation": "Aipify не має додаткових рекомендованих дій із підключених джерел зараз.",
+          "emptyAction": "Запитати Aipify Companion"
+        }
+      },
+      "actions": {
+        "openDetails": "Відкрити деталі",
+        "viewDetails": "Переглянути деталі",
+        "createTask": "Створити завдання"
+      },
+      "warnings": {
+        "partialSource": "Цей сигнал використовує часткові метадані джерела — перегляньте перед дією.",
+        "sourceMissing": "Для цього сигналу не підключено live-джерело."
+      },
+      "freshness": {
+        "fresh": "Свіжий",
+        "stale": "Може бути застарілим",
+        "unknown": "Невідома свіжість"
+      },
+      "sinceLast": {
+        "labelLastLogin": "З моменту останнього входу",
+        "labelLastView": "З моменту останнього перегляду Command Brief"
+      },
+      "signals": {
+        "generic": {
+          "title": "Виявлено операційний сигнал",
+          "summary": "Aipify виявив подію з підключеного джерела."
+        },
+        "activity_change": {
+          "title": "activity change потребує перегляду",
+          "summary": "Підключені джерела повідомили про activity change."
+        },
+        "new_members": {
+          "title": "new members потребує перегляду",
+          "summary": "Підключені джерела повідомили про new members."
+        },
+        "reward_milestone": {
+          "title": "reward milestone потребує перегляду",
+          "summary": "Підключені джерела повідомили про reward milestone."
+        },
+        "pending_moderation": {
+          "title": "pending moderation потребує перегляду",
+          "summary": "Підключені джерела повідомили про pending moderation."
+        },
+        "reports_requiring_attention": {
+          "title": "reports requiring attention потребує перегляду",
+          "summary": "Підключені джерела повідомили про reports requiring attention."
+        },
+        "listing_review": {
+          "title": "listing review потребує перегляду",
+          "summary": "Підключені джерела повідомили про listing review."
+        },
+        "new_lead": {
+          "title": "new lead потребує перегляду",
+          "summary": "Підключені джерела повідомили про new lead."
+        },
+        "lead_without_follow_up": {
+          "title": "lead without follow up потребує перегляду",
+          "summary": "Підключені джерела повідомили про lead without follow up."
+        },
+        "recommended_follow_up": {
+          "title": "recommended follow up потребує перегляду",
+          "summary": "Підключені джерела повідомили про recommended follow up."
+        },
+        "deal_status_change": {
+          "title": "deal status change потребує перегляду",
+          "summary": "Підключені джерела повідомили про deal status change."
+        },
+        "sales_target_deviation": {
+          "title": "sales target deviation потребує перегляду",
+          "summary": "Підключені джерела повідомили про sales target deviation."
+        },
+        "customer_health_warning": {
+          "title": "customer health warning потребує перегляду",
+          "summary": "Підключені джерела повідомили про customer health warning."
+        },
+        "churn_risk": {
+          "title": "churn risk потребує перегляду",
+          "summary": "Підключені джерела повідомили про churn risk."
+        },
+        "conversion_deviation": {
+          "title": "conversion deviation потребує перегляду",
+          "summary": "Підключені джерела повідомили про conversion deviation."
+        },
+        "overdue_invoice": {
+          "title": "overdue invoice потребує перегляду",
+          "summary": "Підключені джерела повідомили про overdue invoice."
+        },
+        "subscription_change": {
+          "title": "subscription change потребує перегляду",
+          "summary": "Підключені джерела повідомили про subscription change."
+        },
+        "forecast_warning": {
+          "title": "forecast warning потребує перегляду",
+          "summary": "Підключені джерела повідомили про forecast warning."
+        },
+        "revenue_deviation": {
+          "title": "revenue deviation потребує перегляду",
+          "summary": "Підключені джерела повідомили про revenue deviation."
+        },
+        "payment_failure": {
+          "title": "payment failure потребує перегляду",
+          "summary": "Підключені джерела повідомили про payment failure."
+        },
+        "payout_attention": {
+          "title": "payout attention потребує перегляду",
+          "summary": "Підключені джерела повідомили про payout attention."
+        },
+        "reconciliation_issue": {
+          "title": "reconciliation issue потребує перегляду",
+          "summary": "Підключені джерела повідомили про reconciliation issue."
+        },
+        "verification_pending": {
+          "title": "verification pending потребує перегляду",
+          "summary": "Підключені джерела повідомили про verification pending."
+        },
+        "access_review_required": {
+          "title": "access review required потребує перегляду",
+          "summary": "Підключені джерела повідомили про access review required."
+        },
+        "security_incident": {
+          "title": "security incident потребує перегляду",
+          "summary": "Підключені джерела повідомили про security incident."
+        },
+        "failed_login_2fa_issue": {
+          "title": "failed login 2fa issue потребує перегляду",
+          "summary": "Підключені джерела повідомили про failed login 2fa issue."
+        },
+        "expiring_certificate": {
+          "title": "expiring certificate потребує перегляду",
+          "summary": "Підключені джерела повідомили про expiring certificate."
+        },
+        "compliance_attention": {
+          "title": "compliance attention потребує перегляду",
+          "summary": "Підключені джерела повідомили про compliance attention."
+        },
+        "unresolved_risk_signal": {
+          "title": "unresolved risk signal потребує перегляду",
+          "summary": "Підключені джерела повідомили про unresolved risk signal."
+        },
+        "permission_anomaly": {
+          "title": "permission anomaly потребує перегляду",
+          "summary": "Підключені джерела повідомили про permission anomaly."
+        },
+        "onboarding_in_progress": {
+          "title": "onboarding in progress потребує перегляду",
+          "summary": "Підключені джерела повідомили про onboarding in progress."
+        },
+        "absence_upcoming": {
+          "title": "absence upcoming потребує перегляду",
+          "summary": "Підключені джерела повідомили про absence upcoming."
+        },
+        "expiring_certifications": {
+          "title": "expiring certifications потребує перегляду",
+          "summary": "Підключені джерела повідомили про expiring certifications."
+        },
+        "training_pending": {
+          "title": "training pending потребує перегляду",
+          "summary": "Підключені джерела повідомили про training pending."
+        },
+        "pending_invitations": {
+          "title": "pending invitations потребує перегляду",
+          "summary": "Підключені джерела повідомили про pending invitations."
+        },
+        "performance_reviews": {
+          "title": "performance reviews потребує перегляду",
+          "summary": "Підключені джерела повідомили про performance reviews."
+        },
+        "low_stock": {
+          "title": "low stock потребує перегляду",
+          "summary": "Підключені джерела повідомили про low stock."
+        },
+        "delayed_receipt": {
+          "title": "delayed receipt потребує перегляду",
+          "summary": "Підключені джерела повідомили про delayed receipt."
+        },
+        "transfer_in_progress": {
+          "title": "transfer in progress потребує перегляду",
+          "summary": "Підключені джерела повідомили про transfer in progress."
+        },
+        "inventory_discrepancy": {
+          "title": "inventory discrepancy потребує перегляду",
+          "summary": "Підключені джерела повідомили про inventory discrepancy."
+        },
+        "replenishment_required": {
+          "title": "replenishment required потребує перегляду",
+          "summary": "Підключені джерела повідомили про replenishment required."
+        },
+        "unresolved_support_case": {
+          "title": "unresolved support case потребує перегляду",
+          "summary": "Підключені джерела повідомили про unresolved support case."
+        },
+        "sla_risk": {
+          "title": "sla risk потребує перегляду",
+          "summary": "Підключені джерела повідомили про sla risk."
+        },
+        "escalation_required": {
+          "title": "escalation required потребує перегляду",
+          "summary": "Підключені джерела повідомили про escalation required."
+        }
+      }
     }
   }
 }

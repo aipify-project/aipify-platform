@@ -1889,6 +1889,236 @@
         "bookingRequiringAttention": "En booking krever gjennomgang.",
         "cancellationChange": "En avbestilling eller timeendring ble rapportert."
       }
+    },
+    "commandBriefCore": {
+      "sections": {
+        "requiresAttention": {
+          "title": "Krever oppmerksomhet",
+          "emptyTitle": "Ingenting krever oppmerksomhet akkurat nå",
+          "emptyExplanation": "Aipify fant ingen uløste operative signaler fra tilkoblede kilder.",
+          "emptyAction": "Se Command Brief senere"
+        },
+        "sinceLast": {
+          "title": "Siden sist",
+          "emptyTitle": "Ingen nye hendelser siden sist besøk",
+          "emptyExplanation": "Tilkoblede kilder rapporterte ingen nye Command Brief-hendelser siden siste innlogging eller brief-visning.",
+          "emptyAction": "Åpne aktivitetsoversikt"
+        },
+        "completedByAipify": {
+          "title": "Aipify har fullført",
+          "emptyTitle": "Ingen nylige Aipify-fullføringer",
+          "emptyExplanation": "Aipify har ikke registrert fullførte brief-handlinger siden sist besøk.",
+          "emptyAction": "Se anbefalinger"
+        },
+        "opportunities": {
+          "title": "Muligheter",
+          "emptyTitle": "Ingen nye muligheter",
+          "emptyExplanation": "Tilkoblede kilder har ikke rapportert nye vekst- eller mulighetssignaler.",
+          "emptyAction": "Utforsk analyse"
+        },
+        "recommendedNextSteps": {
+          "title": "Anbefalte neste steg",
+          "emptyTitle": "Ingen anbefalte neste steg",
+          "emptyExplanation": "Aipify har ingen ytterligere anbefalte handlinger fra tilkoblede kilder akkurat nå.",
+          "emptyAction": "Spør Aipify Companion"
+        }
+      },
+      "actions": {
+        "openDetails": "Åpne detaljer",
+        "viewDetails": "Vis detaljer",
+        "createTask": "Opprett oppgave"
+      },
+      "warnings": {
+        "partialSource": "Dette signalet bruker delvis kilde-metadata — gjennomgå før handling.",
+        "sourceMissing": "Ingen live-kilde er koblet for dette signalet."
+      },
+      "freshness": {
+        "fresh": "Fersk",
+        "stale": "Kan være utdatert",
+        "unknown": "Ukjent ferskhet"
+      },
+      "sinceLast": {
+        "labelLastLogin": "Siden siste innlogging",
+        "labelLastView": "Siden siste Command Brief-besøk"
+      },
+      "signals": {
+        "generic": {
+          "title": "Operativt signal oppdaget",
+          "summary": "Aipify oppdaget en hendelse fra en tilkoblet kilde."
+        },
+        "activity_change": {
+          "title": "activity change krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte activity change."
+        },
+        "new_members": {
+          "title": "new members krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte new members."
+        },
+        "reward_milestone": {
+          "title": "reward milestone krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte reward milestone."
+        },
+        "pending_moderation": {
+          "title": "pending moderation krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte pending moderation."
+        },
+        "reports_requiring_attention": {
+          "title": "reports requiring attention krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte reports requiring attention."
+        },
+        "listing_review": {
+          "title": "listing review krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte listing review."
+        },
+        "new_lead": {
+          "title": "new lead krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte new lead."
+        },
+        "lead_without_follow_up": {
+          "title": "lead without follow up krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte lead without follow up."
+        },
+        "recommended_follow_up": {
+          "title": "recommended follow up krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte recommended follow up."
+        },
+        "deal_status_change": {
+          "title": "deal status change krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte deal status change."
+        },
+        "sales_target_deviation": {
+          "title": "sales target deviation krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte sales target deviation."
+        },
+        "customer_health_warning": {
+          "title": "customer health warning krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte customer health warning."
+        },
+        "churn_risk": {
+          "title": "churn risk krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte churn risk."
+        },
+        "conversion_deviation": {
+          "title": "conversion deviation krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte conversion deviation."
+        },
+        "overdue_invoice": {
+          "title": "overdue invoice krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte overdue invoice."
+        },
+        "subscription_change": {
+          "title": "subscription change krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte subscription change."
+        },
+        "forecast_warning": {
+          "title": "forecast warning krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte forecast warning."
+        },
+        "revenue_deviation": {
+          "title": "revenue deviation krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte revenue deviation."
+        },
+        "payment_failure": {
+          "title": "payment failure krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte payment failure."
+        },
+        "payout_attention": {
+          "title": "payout attention krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte payout attention."
+        },
+        "reconciliation_issue": {
+          "title": "reconciliation issue krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte reconciliation issue."
+        },
+        "verification_pending": {
+          "title": "verification pending krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte verification pending."
+        },
+        "access_review_required": {
+          "title": "access review required krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte access review required."
+        },
+        "security_incident": {
+          "title": "security incident krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte security incident."
+        },
+        "failed_login_2fa_issue": {
+          "title": "failed login 2fa issue krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte failed login 2fa issue."
+        },
+        "expiring_certificate": {
+          "title": "expiring certificate krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte expiring certificate."
+        },
+        "compliance_attention": {
+          "title": "compliance attention krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte compliance attention."
+        },
+        "unresolved_risk_signal": {
+          "title": "unresolved risk signal krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte unresolved risk signal."
+        },
+        "permission_anomaly": {
+          "title": "permission anomaly krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte permission anomaly."
+        },
+        "onboarding_in_progress": {
+          "title": "onboarding in progress krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte onboarding in progress."
+        },
+        "absence_upcoming": {
+          "title": "absence upcoming krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte absence upcoming."
+        },
+        "expiring_certifications": {
+          "title": "expiring certifications krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte expiring certifications."
+        },
+        "training_pending": {
+          "title": "training pending krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte training pending."
+        },
+        "pending_invitations": {
+          "title": "pending invitations krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte pending invitations."
+        },
+        "performance_reviews": {
+          "title": "performance reviews krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte performance reviews."
+        },
+        "low_stock": {
+          "title": "low stock krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte low stock."
+        },
+        "delayed_receipt": {
+          "title": "delayed receipt krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte delayed receipt."
+        },
+        "transfer_in_progress": {
+          "title": "transfer in progress krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte transfer in progress."
+        },
+        "inventory_discrepancy": {
+          "title": "inventory discrepancy krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte inventory discrepancy."
+        },
+        "replenishment_required": {
+          "title": "replenishment required krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte replenishment required."
+        },
+        "unresolved_support_case": {
+          "title": "unresolved support case krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte unresolved support case."
+        },
+        "sla_risk": {
+          "title": "sla risk krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte sla risk."
+        },
+        "escalation_required": {
+          "title": "escalation required krever gjennomgang",
+          "summary": "Tilkoblede kilder rapporterte escalation required."
+        }
+      }
     }
   }
 }

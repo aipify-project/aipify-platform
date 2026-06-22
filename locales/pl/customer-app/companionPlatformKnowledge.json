@@ -1889,6 +1889,236 @@
         "bookingRequiringAttention": "Rezerwacja wymaga przeglądu.",
         "cancellationChange": "Zgłoszono anulowanie lub zmianę harmonogramu."
       }
+    },
+    "commandBriefCore": {
+      "sections": {
+        "requiresAttention": {
+          "title": "Wymaga uwagi",
+          "emptyTitle": "Nic nie wymaga uwagi teraz",
+          "emptyExplanation": "Aipify nie znalazł nierozwiązanych sygnałów operacyjnych z podłączonych źródeł.",
+          "emptyAction": "Przejrzyj Command Brief później"
+        },
+        "sinceLast": {
+          "title": "Od ostatniej wizyty",
+          "emptyTitle": "Brak nowych zdarzeń od ostatniej wizyty",
+          "emptyExplanation": "Podłączone źródła nie zgłosiły nowych zdarzeń Command Brief od ostatniego logowania lub wyświetlenia briefu.",
+          "emptyAction": "Otwórz przegląd aktywności"
+        },
+        "completedByAipify": {
+          "title": "Aipify ukończył",
+          "emptyTitle": "Brak ostatnich ukończeń Aipify",
+          "emptyExplanation": "Aipify nie zarejestrował ukończonych działań briefu od ostatniej wizyty.",
+          "emptyAction": "Zobacz rekomendacje"
+        },
+        "opportunities": {
+          "title": "Możliwości",
+          "emptyTitle": "Brak nowych możliwości",
+          "emptyExplanation": "Podłączone źródła nie zgłosiły nowych sygnałów wzrostu lub możliwości.",
+          "emptyAction": "Eksploruj analitykę"
+        },
+        "recommendedNextSteps": {
+          "title": "Zalecane następne kroki",
+          "emptyTitle": "Brak zalecanych następnych kroków",
+          "emptyExplanation": "Aipify nie ma dodatkowych zalecanych działań z podłączonych źródeł.",
+          "emptyAction": "Zapytaj Aipify Companion"
+        }
+      },
+      "actions": {
+        "openDetails": "Otwórz szczegóły",
+        "viewDetails": "Zobacz szczegóły",
+        "createTask": "Utwórz zadanie"
+      },
+      "warnings": {
+        "partialSource": "Ten sygnał używa częściowych metadanych źródła — przejrzyj przed działaniem.",
+        "sourceMissing": "Brak podłączonego live źródła dla tego sygnału."
+      },
+      "freshness": {
+        "fresh": "Świeży",
+        "stale": "Może być nieaktualny",
+        "unknown": "Nieznana świeżość"
+      },
+      "sinceLast": {
+        "labelLastLogin": "Od ostatniego logowania",
+        "labelLastView": "Od ostatniej wizyty w Command Brief"
+      },
+      "signals": {
+        "generic": {
+          "title": "Wykryto sygnał operacyjny",
+          "summary": "Aipify wykrył zdarzenie z podłączonego źródła."
+        },
+        "activity_change": {
+          "title": "activity change wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły activity change."
+        },
+        "new_members": {
+          "title": "new members wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły new members."
+        },
+        "reward_milestone": {
+          "title": "reward milestone wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły reward milestone."
+        },
+        "pending_moderation": {
+          "title": "pending moderation wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły pending moderation."
+        },
+        "reports_requiring_attention": {
+          "title": "reports requiring attention wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły reports requiring attention."
+        },
+        "listing_review": {
+          "title": "listing review wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły listing review."
+        },
+        "new_lead": {
+          "title": "new lead wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły new lead."
+        },
+        "lead_without_follow_up": {
+          "title": "lead without follow up wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły lead without follow up."
+        },
+        "recommended_follow_up": {
+          "title": "recommended follow up wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły recommended follow up."
+        },
+        "deal_status_change": {
+          "title": "deal status change wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły deal status change."
+        },
+        "sales_target_deviation": {
+          "title": "sales target deviation wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły sales target deviation."
+        },
+        "customer_health_warning": {
+          "title": "customer health warning wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły customer health warning."
+        },
+        "churn_risk": {
+          "title": "churn risk wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły churn risk."
+        },
+        "conversion_deviation": {
+          "title": "conversion deviation wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły conversion deviation."
+        },
+        "overdue_invoice": {
+          "title": "overdue invoice wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły overdue invoice."
+        },
+        "subscription_change": {
+          "title": "subscription change wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły subscription change."
+        },
+        "forecast_warning": {
+          "title": "forecast warning wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły forecast warning."
+        },
+        "revenue_deviation": {
+          "title": "revenue deviation wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły revenue deviation."
+        },
+        "payment_failure": {
+          "title": "payment failure wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły payment failure."
+        },
+        "payout_attention": {
+          "title": "payout attention wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły payout attention."
+        },
+        "reconciliation_issue": {
+          "title": "reconciliation issue wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły reconciliation issue."
+        },
+        "verification_pending": {
+          "title": "verification pending wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły verification pending."
+        },
+        "access_review_required": {
+          "title": "access review required wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły access review required."
+        },
+        "security_incident": {
+          "title": "security incident wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły security incident."
+        },
+        "failed_login_2fa_issue": {
+          "title": "failed login 2fa issue wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły failed login 2fa issue."
+        },
+        "expiring_certificate": {
+          "title": "expiring certificate wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły expiring certificate."
+        },
+        "compliance_attention": {
+          "title": "compliance attention wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły compliance attention."
+        },
+        "unresolved_risk_signal": {
+          "title": "unresolved risk signal wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły unresolved risk signal."
+        },
+        "permission_anomaly": {
+          "title": "permission anomaly wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły permission anomaly."
+        },
+        "onboarding_in_progress": {
+          "title": "onboarding in progress wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły onboarding in progress."
+        },
+        "absence_upcoming": {
+          "title": "absence upcoming wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły absence upcoming."
+        },
+        "expiring_certifications": {
+          "title": "expiring certifications wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły expiring certifications."
+        },
+        "training_pending": {
+          "title": "training pending wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły training pending."
+        },
+        "pending_invitations": {
+          "title": "pending invitations wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły pending invitations."
+        },
+        "performance_reviews": {
+          "title": "performance reviews wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły performance reviews."
+        },
+        "low_stock": {
+          "title": "low stock wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły low stock."
+        },
+        "delayed_receipt": {
+          "title": "delayed receipt wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły delayed receipt."
+        },
+        "transfer_in_progress": {
+          "title": "transfer in progress wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły transfer in progress."
+        },
+        "inventory_discrepancy": {
+          "title": "inventory discrepancy wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły inventory discrepancy."
+        },
+        "replenishment_required": {
+          "title": "replenishment required wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły replenishment required."
+        },
+        "unresolved_support_case": {
+          "title": "unresolved support case wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły unresolved support case."
+        },
+        "sla_risk": {
+          "title": "sla risk wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły sla risk."
+        },
+        "escalation_required": {
+          "title": "escalation required wymaga przeglądu",
+          "summary": "Podłączone źródła zgłosiły escalation required."
+        }
+      }
     }
   }
 }

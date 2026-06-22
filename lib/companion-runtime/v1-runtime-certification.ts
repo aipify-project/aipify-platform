@@ -123,6 +123,16 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "Phase 36B",
   },
+  {
+    phase: 37,
+    required_test: "phase37.test.ts",
+    required_wiring: [
+      "../integration-intelligence/command-brief/types.ts",
+      "command-brief-orchestrator.ts",
+      "command-brief-signal-collector.ts",
+    ],
+    commit_hint: "Phase 37",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

@@ -1889,6 +1889,236 @@
         "bookingRequiringAttention": "Una reserva requiere revisión.",
         "cancellationChange": "Se informó una cancelación o cambio de horario."
       }
+    },
+    "commandBriefCore": {
+      "sections": {
+        "requiresAttention": {
+          "title": "Requiere atención",
+          "emptyTitle": "Nada requiere atención ahora",
+          "emptyExplanation": "Aipify no encontró señales operativas sin resolver de fuentes conectadas.",
+          "emptyAction": "Revisar Command Brief más tarde"
+        },
+        "sinceLast": {
+          "title": "Desde la última visita",
+          "emptyTitle": "No hay eventos nuevos desde su última visita",
+          "emptyExplanation": "Las fuentes conectadas no reportaron nuevos eventos de Command Brief desde su último inicio de sesión o vista del brief.",
+          "emptyAction": "Abrir resumen de actividad"
+        },
+        "completedByAipify": {
+          "title": "Aipify completó",
+          "emptyTitle": "No hay finalizaciones recientes de Aipify",
+          "emptyExplanation": "Aipify no ha registrado acciones completadas del brief desde su última visita.",
+          "emptyAction": "Ver recomendaciones"
+        },
+        "opportunities": {
+          "title": "Oportunidades",
+          "emptyTitle": "No hay nuevas oportunidades",
+          "emptyExplanation": "Las fuentes conectadas no han reportado nuevas señales de crecimiento u oportunidad.",
+          "emptyAction": "Explorar analítica"
+        },
+        "recommendedNextSteps": {
+          "title": "Próximos pasos recomendados",
+          "emptyTitle": "No hay próximos pasos recomendados",
+          "emptyExplanation": "Aipify no tiene acciones recomendadas adicionales de fuentes conectadas en este momento.",
+          "emptyAction": "Preguntar a Aipify Companion"
+        }
+      },
+      "actions": {
+        "openDetails": "Abrir detalles",
+        "viewDetails": "Ver detalles",
+        "createTask": "Crear tarea"
+      },
+      "warnings": {
+        "partialSource": "Esta señal usa metadatos parciales de la fuente — revísela antes de actuar.",
+        "sourceMissing": "No hay una fuente live conectada para esta señal."
+      },
+      "freshness": {
+        "fresh": "Reciente",
+        "stale": "Puede estar desactualizada",
+        "unknown": "Frescura desconocida"
+      },
+      "sinceLast": {
+        "labelLastLogin": "Desde su último inicio de sesión",
+        "labelLastView": "Desde su última visita a Command Brief"
+      },
+      "signals": {
+        "generic": {
+          "title": "Señal operativa detectada",
+          "summary": "Aipify detectó un evento de una fuente conectada."
+        },
+        "activity_change": {
+          "title": "activity change requiere revisión",
+          "summary": "Las fuentes conectadas reportaron activity change."
+        },
+        "new_members": {
+          "title": "new members requiere revisión",
+          "summary": "Las fuentes conectadas reportaron new members."
+        },
+        "reward_milestone": {
+          "title": "reward milestone requiere revisión",
+          "summary": "Las fuentes conectadas reportaron reward milestone."
+        },
+        "pending_moderation": {
+          "title": "pending moderation requiere revisión",
+          "summary": "Las fuentes conectadas reportaron pending moderation."
+        },
+        "reports_requiring_attention": {
+          "title": "reports requiring attention requiere revisión",
+          "summary": "Las fuentes conectadas reportaron reports requiring attention."
+        },
+        "listing_review": {
+          "title": "listing review requiere revisión",
+          "summary": "Las fuentes conectadas reportaron listing review."
+        },
+        "new_lead": {
+          "title": "new lead requiere revisión",
+          "summary": "Las fuentes conectadas reportaron new lead."
+        },
+        "lead_without_follow_up": {
+          "title": "lead without follow up requiere revisión",
+          "summary": "Las fuentes conectadas reportaron lead without follow up."
+        },
+        "recommended_follow_up": {
+          "title": "recommended follow up requiere revisión",
+          "summary": "Las fuentes conectadas reportaron recommended follow up."
+        },
+        "deal_status_change": {
+          "title": "deal status change requiere revisión",
+          "summary": "Las fuentes conectadas reportaron deal status change."
+        },
+        "sales_target_deviation": {
+          "title": "sales target deviation requiere revisión",
+          "summary": "Las fuentes conectadas reportaron sales target deviation."
+        },
+        "customer_health_warning": {
+          "title": "customer health warning requiere revisión",
+          "summary": "Las fuentes conectadas reportaron customer health warning."
+        },
+        "churn_risk": {
+          "title": "churn risk requiere revisión",
+          "summary": "Las fuentes conectadas reportaron churn risk."
+        },
+        "conversion_deviation": {
+          "title": "conversion deviation requiere revisión",
+          "summary": "Las fuentes conectadas reportaron conversion deviation."
+        },
+        "overdue_invoice": {
+          "title": "overdue invoice requiere revisión",
+          "summary": "Las fuentes conectadas reportaron overdue invoice."
+        },
+        "subscription_change": {
+          "title": "subscription change requiere revisión",
+          "summary": "Las fuentes conectadas reportaron subscription change."
+        },
+        "forecast_warning": {
+          "title": "forecast warning requiere revisión",
+          "summary": "Las fuentes conectadas reportaron forecast warning."
+        },
+        "revenue_deviation": {
+          "title": "revenue deviation requiere revisión",
+          "summary": "Las fuentes conectadas reportaron revenue deviation."
+        },
+        "payment_failure": {
+          "title": "payment failure requiere revisión",
+          "summary": "Las fuentes conectadas reportaron payment failure."
+        },
+        "payout_attention": {
+          "title": "payout attention requiere revisión",
+          "summary": "Las fuentes conectadas reportaron payout attention."
+        },
+        "reconciliation_issue": {
+          "title": "reconciliation issue requiere revisión",
+          "summary": "Las fuentes conectadas reportaron reconciliation issue."
+        },
+        "verification_pending": {
+          "title": "verification pending requiere revisión",
+          "summary": "Las fuentes conectadas reportaron verification pending."
+        },
+        "access_review_required": {
+          "title": "access review required requiere revisión",
+          "summary": "Las fuentes conectadas reportaron access review required."
+        },
+        "security_incident": {
+          "title": "security incident requiere revisión",
+          "summary": "Las fuentes conectadas reportaron security incident."
+        },
+        "failed_login_2fa_issue": {
+          "title": "failed login 2fa issue requiere revisión",
+          "summary": "Las fuentes conectadas reportaron failed login 2fa issue."
+        },
+        "expiring_certificate": {
+          "title": "expiring certificate requiere revisión",
+          "summary": "Las fuentes conectadas reportaron expiring certificate."
+        },
+        "compliance_attention": {
+          "title": "compliance attention requiere revisión",
+          "summary": "Las fuentes conectadas reportaron compliance attention."
+        },
+        "unresolved_risk_signal": {
+          "title": "unresolved risk signal requiere revisión",
+          "summary": "Las fuentes conectadas reportaron unresolved risk signal."
+        },
+        "permission_anomaly": {
+          "title": "permission anomaly requiere revisión",
+          "summary": "Las fuentes conectadas reportaron permission anomaly."
+        },
+        "onboarding_in_progress": {
+          "title": "onboarding in progress requiere revisión",
+          "summary": "Las fuentes conectadas reportaron onboarding in progress."
+        },
+        "absence_upcoming": {
+          "title": "absence upcoming requiere revisión",
+          "summary": "Las fuentes conectadas reportaron absence upcoming."
+        },
+        "expiring_certifications": {
+          "title": "expiring certifications requiere revisión",
+          "summary": "Las fuentes conectadas reportaron expiring certifications."
+        },
+        "training_pending": {
+          "title": "training pending requiere revisión",
+          "summary": "Las fuentes conectadas reportaron training pending."
+        },
+        "pending_invitations": {
+          "title": "pending invitations requiere revisión",
+          "summary": "Las fuentes conectadas reportaron pending invitations."
+        },
+        "performance_reviews": {
+          "title": "performance reviews requiere revisión",
+          "summary": "Las fuentes conectadas reportaron performance reviews."
+        },
+        "low_stock": {
+          "title": "low stock requiere revisión",
+          "summary": "Las fuentes conectadas reportaron low stock."
+        },
+        "delayed_receipt": {
+          "title": "delayed receipt requiere revisión",
+          "summary": "Las fuentes conectadas reportaron delayed receipt."
+        },
+        "transfer_in_progress": {
+          "title": "transfer in progress requiere revisión",
+          "summary": "Las fuentes conectadas reportaron transfer in progress."
+        },
+        "inventory_discrepancy": {
+          "title": "inventory discrepancy requiere revisión",
+          "summary": "Las fuentes conectadas reportaron inventory discrepancy."
+        },
+        "replenishment_required": {
+          "title": "replenishment required requiere revisión",
+          "summary": "Las fuentes conectadas reportaron replenishment required."
+        },
+        "unresolved_support_case": {
+          "title": "unresolved support case requiere revisión",
+          "summary": "Las fuentes conectadas reportaron unresolved support case."
+        },
+        "sla_risk": {
+          "title": "sla risk requiere revisión",
+          "summary": "Las fuentes conectadas reportaron sla risk."
+        },
+        "escalation_required": {
+          "title": "escalation required requiere revisión",
+          "summary": "Las fuentes conectadas reportaron escalation required."
+        }
+      }
     }
   }
 }

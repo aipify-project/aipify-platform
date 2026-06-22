@@ -57,6 +57,8 @@ import {
   createEmptyCompanionAnalyticsContext,
   type CompanionAnalyticsContext,
 } from "./companion-analytics-context";
+import type { CommandBriefBundle } from "@/lib/integration-intelligence/command-brief";
+import { createEmptyCommandBriefBundle } from "./command-brief-orchestrator";
 
 const PORTAL_FEATURE_KEYS = [
   "team_management",
@@ -114,6 +116,7 @@ export type CompanionTenantContext = {
   communityContext: CompanionCommunityContext;
   proactiveContext: CompanionProactiveContext;
   analyticsContext: CompanionAnalyticsContext;
+  commandBriefBundle: CommandBriefBundle;
 };
 
 export function createEmptyCompanionTenantContext(
@@ -167,6 +170,7 @@ export function createEmptyCompanionTenantContext(
     communityContext: createEmptyCompanionCommunityContext(),
     proactiveContext: createEmptyCompanionProactiveContext(),
     analyticsContext: createEmptyCompanionAnalyticsContext(),
+    commandBriefBundle: createEmptyCommandBriefBundle(""),
     ...overrides,
   };
 }
