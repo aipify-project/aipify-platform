@@ -11,13 +11,17 @@ import {
   buildSupportAssistantLabels,
   getSupportAssistantArticleById,
 } from "@/lib/app-portal/support-assistant";
+import {
+  buildPlatformSearchContextFromTenant,
+  loadCompanionTenantContext,
+  resolveCompanionIntegrationContext,
+} from "@/lib/companion-runtime/tenant-context";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import type { UserRole } from "@/lib/tenant/types";
 import { createClient } from "@/lib/supabase/server";
-import { resolveCompanionIntegrationContext, loadCompanionTenantContext } from "@/lib/companion-runtime/tenant-context";
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   const parts = path.replace(/^customerApp\./, "").split(".");
@@ -80,11 +84,12 @@ export async function GET(request: Request) {
     const profile = await getDashboardProfile(supabase);
     const userRole = (profile?.user.role ?? "staff") as UserRole;
 
-    const tenantContext = await loadCompanionTenantContext(supabase);
+    const tenantContext = await loadCompanionTenantContext(supabase, { locale: answerLocale });
     const resolvedIntegrationContext = resolveCompanionIntegrationContext(
       integrationContext,
       tenantContext,
     );
+    const searchContext = buildPlatformSearchContextFromTenant(tenantContext, userRole);
 
     let subscriptionRaw: unknown = null;
     try {
@@ -94,17 +99,21 @@ export async function GET(request: Request) {
       subscriptionRaw = null;
     }
 
+    const searchOptions = {
+      t,
+      locale: answerLocale,
+      ctx: searchContext,
+      getSearchTermsArray: (key: string) =>
+        getSearchTermsArray(dict.customerApp as Record<string, unknown>, key),
+      subscriptionRaw,
+      supabase,
+      integrationContext: resolvedIntegrationContext,
+      snapshotContext,
+      tenantContext,
+    };
+
     if (articleId) {
-      const platformResult = await searchPlatformKnowledge(articleId.replace(/_/g, "-"), {
-        t,
-        locale: answerLocale,
-        ctx: { locale: answerLocale, userRole },
-        getSearchTermsArray: (key) => getSearchTermsArray(dict.customerApp as Record<string, unknown>, key),
-        subscriptionRaw,
-        supabase,
-        integrationContext: resolvedIntegrationContext,
-        snapshotContext,
-      });
+      const platformResult = await searchPlatformKnowledge(articleId.replace(/_/g, "-"), searchOptions);
       const legacy = getSupportAssistantArticleById(articleId, legacyCorpus);
       const article = legacy ?? answerToLegacyArticle(platformResult.answer);
       if (!article && !platformResult.answer.directAnswer) {
@@ -119,16 +128,7 @@ export async function GET(request: Request) {
       });
     }
 
-    const result = await searchPlatformKnowledge(query, {
-      t,
-      locale: answerLocale,
-      ctx: { locale: answerLocale, userRole },
-      getSearchTermsArray: (key) => getSearchTermsArray(dict.customerApp as Record<string, unknown>, key),
-      subscriptionRaw,
-      supabase,
-      integrationContext,
-      snapshotContext,
-    });
+    const result = await searchPlatformKnowledge(query, searchOptions);
 
     if (result.answer.confidence === "low") {
       void trackLowConfidenceQuery(supabase, query, answerLocale, result.answer.confidence);

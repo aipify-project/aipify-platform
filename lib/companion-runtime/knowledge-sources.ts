@@ -3,9 +3,21 @@ import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { parseKnowledgeSearchResult } from "@/lib/aipify/knowledge/parse";
 import type { KnowledgeSearchResult } from "@/lib/aipify/knowledge/types";
+import {
+  classifyOrganizationKnowledgeError,
+  KC_MIN_ARTICLE_SCORE,
+  parseOrganizationKnowledgeRow,
+  type OrganizationKnowledgeHit,
+  type OrganizationKnowledgeSearchOutcome,
+} from "./organization-knowledge";
 
-export const KC_MIN_ARTICLE_SCORE = 55;
-export const ORG_KNOWLEDGE_MIN_SCORE = 40;
+export {
+  KC_MIN_ARTICLE_SCORE,
+  ORG_KNOWLEDGE_MIN_RANK,
+  parseOrganizationKnowledgeRow,
+  type OrganizationKnowledgeHit,
+  type OrganizationKnowledgeSearchOutcome,
+} from "./organization-knowledge";
 
 type RawSearchRow = Record<string, unknown>;
 
@@ -42,42 +54,28 @@ export async function searchCanonicalKnowledgeCenter(
   return null;
 }
 
-export type OrganizationKnowledgeHit = {
-  id: string;
-  title: string;
-  slug: string;
-  category_slug: string | null;
-  score: number;
-  body?: string;
-  summary?: string | null;
-};
-
 export async function searchApprovedOrganizationKnowledge(
   supabase: SupabaseClient,
   query: string,
-): Promise<OrganizationKnowledgeHit | null> {
+): Promise<OrganizationKnowledgeSearchOutcome> {
   const { data, error } = await supabase.rpc("search_organization_knowledge", {
     p_filters: { query, limit: 5, status: "published" },
   });
-  if (error || !Array.isArray(data) || data.length === 0) return null;
 
-  const row = asRecord(data[0]);
-  const score = Number(row.score ?? row.relevance ?? 0);
-  if (score > 0 && score < ORG_KNOWLEDGE_MIN_SCORE) return null;
+  if (error) {
+    return classifyOrganizationKnowledgeError(error.message);
+  }
 
-  const title = String(row.title ?? row.slug ?? "");
-  const slug = String(row.slug ?? "");
-  if (!title && !slug) return null;
+  if (!Array.isArray(data) || data.length === 0) {
+    return { kind: "miss" };
+  }
 
-  return {
-    id: String(row.id ?? slug),
-    title: title || slug,
-    slug,
-    category_slug: row.category_slug ? String(row.category_slug) : null,
-    score,
-    body: row.body ? String(row.body) : undefined,
-    summary: row.summary ? String(row.summary) : null,
-  };
+  for (const entry of data) {
+    const hit = parseOrganizationKnowledgeRow(asRecord(entry));
+    if (hit) return { kind: "hit", hit };
+  }
+
+  return { kind: "miss" };
 }
 
 export function formatKnowledgeCenterAnswerBody(article: KnowledgeSearchResult): string {

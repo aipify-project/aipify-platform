@@ -253,6 +253,7 @@ export type PlatformSearchOptions = {
   supabase?: SupabaseClient;
   integrationContext?: string | null;
   snapshotContext?: { activeModules?: readonly string[] };
+  tenantContext?: import("@/lib/companion-runtime/companion-tenant-context").CompanionTenantContext;
 };
 
 export type PlatformSearchResult = {

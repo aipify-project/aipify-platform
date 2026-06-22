@@ -21,14 +21,12 @@ import {
   buildRoleDisambiguationAnswer,
   buildVerifiedIntegrationStatusAnswer,
 } from "@/lib/companion-platform-knowledge/integration-status-answer";
-import { getConnectedIntegrationStatus } from "@/lib/companion-platform-knowledge/integration-status-tool";
 import { resolveCompanionLiveToolRouting } from "@/lib/companion-platform-knowledge/live-routing";
 import {
   buildPlatformSnapshotFailureAnswer,
   buildUnsupportedLiveMetricAnswer,
   buildVerifiedPlatformSnapshotAnswer,
 } from "@/lib/companion-platform-knowledge/platform-snapshot-answer";
-import { getUnonightPlatformSnapshot } from "@/lib/companion-platform-knowledge/platform-snapshot-tool";
 import {
   ACCEPTANCE_QUESTION_ARTICLE_MAP,
   PLATFORM_KNOWLEDGE_CORPUS,
@@ -48,11 +46,17 @@ import {
   searchCanonicalKnowledgeCenter,
 } from "./knowledge-sources";
 import { isAppNavigationQuery, isProductConceptQuery } from "./product-concept";
+import type { OrganizationKnowledgeHit } from "./organization-knowledge";
 import {
+  invokeProviderConnectionStatus,
+  invokeProviderPlatformSnapshot,
+} from "./provider-live-tools";
+import {
+  createEmptyCompanionTenantContext,
   loadCompanionTenantContext,
   resolveCompanionIntegrationContext,
-  type CompanionTenantContext,
 } from "./tenant-context";
+import type { CompanionTenantContext } from "./companion-tenant-context";
 
 function normalizeQuery(query: string): string {
   return query.trim().toLowerCase().replace(/\s+/g, " ").replace(/[?!.]+$/, "");
@@ -148,12 +152,19 @@ function buildKnowledgeCenterResult(
 }
 
 function buildOrganizationKnowledgeResult(
-  hit: Awaited<ReturnType<typeof searchApprovedOrganizationKnowledge>>,
+  hit: OrganizationKnowledgeHit,
   t: Translator,
 ): PlatformSearchResult | null {
-  if (!hit) return null;
   const body = hit.body?.trim() || hit.summary?.trim() || "";
   if (!body) return null;
+
+  const sourceMeta = [
+    hit.source_type,
+    hit.category_slug,
+    hit.published_at ? new Date(hit.published_at).toISOString().slice(0, 10) : null,
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
   return {
     answer: {
@@ -167,12 +178,12 @@ function buildOrganizationKnowledgeResult(
           id: hit.slug || hit.id,
           label: hit.title,
           kind: "org_knowledge",
-          meta: hit.category_slug ?? undefined,
+          meta: sourceMeta || hit.category_slug || undefined,
         },
       ],
       sourceId: hit.slug || hit.id,
       source: "organization_knowledge",
-      confidence: "moderate",
+      confidence: hit.score >= 0.25 ? "high" : "moderate",
       showSupportEscalation: false,
     },
   };
@@ -202,14 +213,13 @@ async function resolveLiveToolAnswer(
 
   if (liveRouting.tool === "get_platform_snapshot" && liveRouting.platformSnapshotIntent && supabase) {
     const snapshotIntent = liveRouting.platformSnapshotIntent;
-    if (snapshotIntent.providerKey !== "unonight") {
-      return null;
-    }
+    const snapshotProvider = integrationContext ?? snapshotIntent.providerKey;
+    if (!snapshotProvider) return null;
 
-    const snapshotResult = await getUnonightPlatformSnapshot(supabase, {
-      providerKey: "unonight",
+    const snapshotResult = await invokeProviderPlatformSnapshot(supabase, snapshotProvider, {
       refresh: true,
     });
+    if (!snapshotResult) return null;
 
     if (snapshotResult.ok) {
       return {
@@ -246,14 +256,13 @@ async function resolveLiveToolAnswer(
     }
 
     if (supabase && liveIntegrationIntent.requiresLive) {
-      if (liveIntegrationIntent.providerKey !== "unonight") {
-        return null;
-      }
+      const statusProvider = integrationContext ?? liveIntegrationIntent.providerKey;
+      if (!statusProvider) return null;
 
-      const toolResult = await getConnectedIntegrationStatus(supabase, {
-        providerKey: "unonight",
+      const toolResult = await invokeProviderConnectionStatus(supabase, statusProvider, {
         refresh: true,
       });
+      if (!toolResult) return null;
 
       if (toolResult.ok) {
         return {
@@ -276,14 +285,13 @@ async function resolveLiveToolAnswer(
   }
 
   if (liveRouting.tool === "get_connection_status" && liveRouting.genericIntent && supabase) {
-    if (liveRouting.genericIntent.providerKey !== "unonight") {
-      return null;
-    }
+    const statusProvider = integrationContext ?? liveRouting.genericIntent.providerKey;
+    if (!statusProvider) return null;
 
-    const toolResult = await getConnectedIntegrationStatus(supabase, {
-      providerKey: "unonight",
+    const toolResult = await invokeProviderConnectionStatus(supabase, statusProvider, {
       refresh: true,
     });
+    if (!toolResult) return null;
 
     if (toolResult.ok) {
       return {
@@ -367,17 +375,21 @@ export async function orchestrateCompanionSearch(
   tenantContext?: CompanionTenantContext,
 ): Promise<PlatformSearchResult> {
   const { t, locale, ctx, getSearchTermsArray, subscriptionRaw, supabase } = options;
+  const activeLocale: CustomerActiveLocale = isCustomerActiveLocale(locale) ? locale : "en";
+  const resolvedTenantContext =
+    tenantContext ??
+    options.tenantContext ??
+    (supabase
+      ? await loadCompanionTenantContext(supabase, { locale: activeLocale })
+      : createEmptyCompanionTenantContext({ locale: activeLocale }));
+
   const permissionCtx: PermissionContext = {
     userRole: ctx.userRole,
-    enabledFeatures: ctx.enabledFeatures,
-    planKey: ctx.planKey,
+    enabledFeatures: resolvedTenantContext.enabledFeatures.length
+      ? resolvedTenantContext.enabledFeatures
+      : ctx.enabledFeatures,
+    planKey: resolvedTenantContext.planKey ?? ctx.planKey,
   };
-
-  const resolvedTenantContext =
-    tenantContext ?? (supabase ? await loadCompanionTenantContext(supabase) : {
-      primaryVerifiedProvider: null,
-      connectedProviders: [],
-    });
 
   const integrationContext = resolveCompanionIntegrationContext(
     options.integrationContext,
@@ -392,7 +404,6 @@ export async function orchestrateCompanionSearch(
       ? buildPublishedPricingSummary(locale, buildPricingLabels(t))
       : undefined;
   const restrictedNote = t("customerApp.companionPlatformKnowledge.permissions.restrictedAction");
-  const activeLocale: CustomerActiveLocale = isCustomerActiveLocale(locale) ? locale : "en";
   const productConcept = isProductConceptQuery(query);
   const navigationQuery = isAppNavigationQuery(query);
 
@@ -413,9 +424,11 @@ export async function orchestrateCompanionSearch(
   }
 
   if (supabase && !navigationQuery) {
-    const orgHit = await searchApprovedOrganizationKnowledge(supabase, query);
-    const orgResult = buildOrganizationKnowledgeResult(orgHit, t);
-    if (orgResult) return orgResult;
+    const orgOutcome = await searchApprovedOrganizationKnowledge(supabase, query);
+    if (orgOutcome.kind === "hit") {
+      const orgResult = buildOrganizationKnowledgeResult(orgOutcome.hit, t);
+      if (orgResult) return orgResult;
+    }
   }
 
   const liveResult = await resolveLiveToolAnswer(

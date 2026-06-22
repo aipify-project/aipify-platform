@@ -1,11 +1,32 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { parseCustomerLicenseCenter } from "@/lib/companion-platform-knowledge/pricing-bridge";
+import {
+  coerceToCustomerActiveLocale,
+  type CustomerActiveLocale,
+} from "@/lib/i18n/customer-active-locale-registry";
+import { parseIdentityPermissionsDashboard } from "@/lib/aipify/identity-permissions/parse";
+import { resolveAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
+import {
+  buildPlatformSearchContextFromTenant,
+  createEmptyCompanionTenantContext,
+  deriveEnabledPortalFeatures,
+  parseInstalledPackKeys,
+  parseLicenseSubscriptionPackKeys,
+  resolveCompanionIntegrationContext,
+  type CompanionTenantContext,
+} from "./companion-tenant-context";
 
-export type CompanionTenantContext = {
-  primaryVerifiedProvider: string | null;
-  connectedProviders: string[];
-};
+export type { CompanionTenantContext } from "./companion-tenant-context";
+export {
+  buildPlatformSearchContextFromTenant,
+  createEmptyCompanionTenantContext,
+  deriveEnabledPortalFeatures,
+  parseInstalledPackKeys,
+  parseLicenseSubscriptionPackKeys,
+  resolveCompanionIntegrationContext,
+} from "./companion-tenant-context";
 
 type HubConnection = {
   provider_key?: string;
@@ -22,19 +43,61 @@ function isVerifiedConnection(connection: HubConnection): boolean {
   return status === "connected" || status === "verified";
 }
 
-export async function loadCompanionTenantContext(
+function normalizePlanKey(value: string | null | undefined): string | null {
+  if (!value) return null;
+  const normalized = value.trim().toLowerCase().replace(/\s+/g, "_");
+  return normalized || null;
+}
+
+async function loadOrganizationDefaultLocale(
   supabase: SupabaseClient,
-): Promise<CompanionTenantContext> {
-  const { data, error } = await supabase.rpc("get_app_portal_integrations_hub");
-  if (error || !data || typeof data !== "object") {
+  organizationId: string | null,
+): Promise<CustomerActiveLocale> {
+  if (!organizationId) return "en";
+  const { data } = await supabase
+    .from("organizations")
+    .select("default_language")
+    .eq("id", organizationId)
+    .maybeSingle();
+  return coerceToCustomerActiveLocale(
+    typeof data?.default_language === "string" ? data.default_language : null,
+  );
+}
+
+async function loadActiveBusinessPacks(supabase: SupabaseClient): Promise<string[]> {
+  try {
+    const { data, error } = await supabase.rpc("get_my_marketplace_summary");
+    if (!error && data) {
+      const packs = parseInstalledPackKeys(data);
+      if (packs.length > 0) return packs;
+    }
+  } catch {
+    // Permission or RPC unavailable — fall through.
+  }
+
+  try {
+    const { data, error } = await supabase.rpc("get_license_subscription_center");
+    if (!error && data && (data as Record<string, unknown>).found !== false) {
+      return parseLicenseSubscriptionPackKeys(data);
+    }
+  } catch {
+    // Permission or RPC unavailable.
+  }
+
+  return [];
+}
+
+function parseVerifiedProviders(hubRaw: unknown): {
+  primaryVerifiedProvider: string | null;
+  connectedProviders: string[];
+} {
+  if (!hubRaw || typeof hubRaw !== "object") {
     return { primaryVerifiedProvider: null, connectedProviders: [] };
   }
 
-  const connections = (data as { connections?: HubConnection[] }).connections ?? [];
-  const verified = connections.filter(
-    (entry) => entry.provider_key && isVerifiedConnection(entry),
-  );
-  const connectedProviders = verified
+  const connections = (hubRaw as { connections?: HubConnection[] }).connections ?? [];
+  const connectedProviders = connections
+    .filter((entry) => entry.provider_key && isVerifiedConnection(entry))
     .map((entry) => String(entry.provider_key))
     .filter(Boolean);
 
@@ -44,12 +107,50 @@ export async function loadCompanionTenantContext(
   };
 }
 
-export function resolveCompanionIntegrationContext(
-  requested: string | null | undefined,
-  tenantContext: CompanionTenantContext,
-): string | null {
-  if (requested && tenantContext.connectedProviders.includes(requested)) {
-    return requested;
-  }
-  return tenantContext.primaryVerifiedProvider;
+export async function loadCompanionTenantContext(
+  supabase: SupabaseClient,
+  options?: { locale?: string },
+): Promise<CompanionTenantContext> {
+  const locale = coerceToCustomerActiveLocale(options?.locale);
+
+  const [orgContext, hubResult, permissionsResult, licenseResult] = await Promise.all([
+    resolveAppOrganizationContext(supabase),
+    supabase.rpc("get_app_portal_integrations_hub"),
+    supabase.rpc("get_identity_permissions_dashboard"),
+    supabase.rpc("get_customer_license_center"),
+  ]);
+
+  const subscription = parseCustomerLicenseCenter(licenseResult.data);
+  const planKey =
+    normalizePlanKey(subscription?.planKey) ??
+    normalizePlanKey(orgContext.plan_name?.replace(/\s+/g, "_"));
+  const subscriptionStatus =
+    subscription?.status ?? orgContext.license_status ?? null;
+
+  const permissionsDashboard = permissionsResult.error
+    ? null
+    : parseIdentityPermissionsDashboard(permissionsResult.data);
+  const effectivePermissions = permissionsDashboard?.user_permissions ?? [];
+
+  const { primaryVerifiedProvider, connectedProviders } = parseVerifiedProviders(hubResult.data);
+  const organizationId = orgContext.organization_id;
+  const organizationDefaultLocale = await loadOrganizationDefaultLocale(supabase, organizationId);
+  const activeBusinessPacks = await loadActiveBusinessPacks(supabase);
+
+  return createEmptyCompanionTenantContext({
+    organizationId,
+    companyId: orgContext.company_id,
+    organizationName: orgContext.workspace_name ?? orgContext.licensed_to,
+    organizationRole: (orgContext.organization_role as CompanionTenantContext["organizationRole"]) ?? null,
+    planKey,
+    subscriptionStatus,
+    activeBusinessPacks,
+    verifiedIntegrations: connectedProviders,
+    enabledFeatures: deriveEnabledPortalFeatures(planKey),
+    effectivePermissions,
+    locale,
+    organizationDefaultLocale,
+    primaryVerifiedProvider,
+    connectedProviders,
+  });
 }
