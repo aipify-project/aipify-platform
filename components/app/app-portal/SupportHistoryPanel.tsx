@@ -194,7 +194,7 @@ function SupportHistoryPanelInner({ labels, locale }: Props) {
           description={labels.errorBody}
           retryLabel={labels.retry}
           onRetry={() => void load()}
-          returnHref="/app"
+          returnHref="/app/command-center"
           returnLabel={labels.backToOverview}
         />
       </div>

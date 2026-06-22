@@ -508,12 +508,12 @@
           "credentialSavedBody": "Tilkoblingsnøkkelen er lagret sikkert. Kjør en tilkoblingstest for å verifisere tilgang før aktivering.",
           "primaryIntegrations": "Gå til tilkoblede integrasjoner",
           "secondaryRetest": "Test tilkoblingen på nytt",
-          "tertiaryOverview": "Tilbake til din oversikt",
+          "tertiaryOverview": "Tilbake til oversikten",
           "primaryTest": "Test tilkoblingen",
           "secondaryIntegrations": "Tilbake til integrasjoner",
           "activateCta": "Aktiver integrasjon",
           "activating": "Aktiverer…",
-          "overviewHref": "/app"
+          "overviewHref": "/app/command-center"
         },
         "removeDialog": {
           "title": "Fjerne integrasjon?",

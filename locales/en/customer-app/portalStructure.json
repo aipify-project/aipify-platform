@@ -6284,12 +6284,12 @@
           "credentialSavedBody": "Your connection key is stored securely. Run a connection test to verify access before activation.",
           "primaryIntegrations": "Go to connected integrations",
           "secondaryRetest": "Test connection again",
-          "tertiaryOverview": "Back to your overview",
+          "tertiaryOverview": "Back to overview",
           "primaryTest": "Test connection",
           "secondaryIntegrations": "Back to integrations",
           "activateCta": "Activate integration",
           "activating": "Activating…",
-          "overviewHref": "/app"
+          "overviewHref": "/app/command-center"
         },
         "removeDialog": {
           "title": "Remove integration?",

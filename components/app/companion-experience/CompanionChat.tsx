@@ -59,7 +59,7 @@ export function CompanionChat({
           </div>
         ) : (
           <div key={msg.id} className="flex items-start gap-3">
-            <CompanionIcon size={32} className="mt-1 shrink-0" />
+            <CompanionIcon size={32} availabilityRing ariaLabel={labels.ariaCompanionAvailable} className="mt-1 shrink-0" />
             <div
               className={`max-w-[90%] rounded-2xl rounded-bl-md border border-violet-100 bg-white shadow-sm ${
                 spacious ? "px-5 py-4" : "px-4 py-3"
@@ -133,7 +133,7 @@ export function CompanionChat({
 
       {loading ? (
         <div className="flex items-start gap-3">
-          <CompanionIcon size={32} withRing className="mt-1 shrink-0 motion-safe:animate-pulse" />
+          <CompanionIcon size={32} availabilityRing ariaLabel={labels.ariaCompanionAvailable} className="mt-1 shrink-0" />
           <div className="rounded-2xl border border-violet-100 bg-white px-4 py-3">
             <span className="sr-only">{labels.verifiedContext}</span>
             <div className="flex gap-1" aria-hidden="true">

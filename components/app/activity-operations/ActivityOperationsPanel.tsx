@@ -243,7 +243,7 @@ export function ActivityOperationsPanel({
           statusLabel={accessCopy.statusLabel}
           onRetry={() => void load()}
           retryLabel={labels.retry}
-          returnHref="/app"
+          returnHref="/app/command-center"
           returnLabel={labels.returnToDashboard}
         />
       </div>

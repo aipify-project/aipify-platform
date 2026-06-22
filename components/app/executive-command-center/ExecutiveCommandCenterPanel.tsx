@@ -276,7 +276,7 @@ export function ExecutiveCommandCenterPanel({
         statusLabel={access.title}
         onRetry={() => void load()}
         retryLabel={labels.premium.retry}
-        returnHref="/app"
+        returnHref="/app/command-center"
         returnLabel={labels.premium.returnToDashboard}
       />
     );

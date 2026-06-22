@@ -14,7 +14,7 @@ type CompanionIconProps = {
   ariaLabel?: string;
 };
 
-/** Companion icon V1 — Aipify pulse mark with optional subtle ring. */
+/** Companion icon V1 — Aipify connected-node symbol with optional presence ring. */
 export function CompanionIcon({
   size = 40,
   className = "",
@@ -24,6 +24,7 @@ export function CompanionIcon({
   ariaLabel = "Aipify Companion",
 }: CompanionIconProps) {
   const showRing = availabilityRing || withRing;
+  const symbolSize = Math.max(showRing ? size - 8 : size, 16);
 
   return (
     <span
@@ -33,27 +34,27 @@ export function CompanionIcon({
       {showRing ? (
         <>
           <span
-            className={`pointer-events-none absolute inset-0 rounded-full border motion-safe:animate-[aipify-presence-ring_2.8s_ease-in-out_infinite] ${
+            className={`pointer-events-none absolute inset-0 rounded-full border-2 ${
               availabilityRing
-                ? "border-emerald-400/70"
-                : "border-violet-300/50"
+                ? "border-emerald-400/80"
+                : "border-violet-300/50 motion-safe:animate-[aipify-presence-ring_2.8s_ease-in-out_infinite]"
             }`}
             aria-hidden="true"
           />
           <span
             className={`pointer-events-none absolute inset-1 rounded-full ${
-              availabilityRing ? "bg-emerald-400/15" : "bg-violet-400/10"
+              availabilityRing ? "bg-emerald-400/12" : "bg-violet-400/10"
             }`}
             aria-hidden="true"
           />
         </>
       ) : null}
       <AipifyPulse
-        size={size - (showRing ? 8 : 0)}
+        size={symbolSize}
         variant="gradient"
         title={title}
         aria-label={ariaLabel}
-        className="relative z-10 text-aipify-companion"
+        className="relative z-10 block shrink-0 text-aipify-companion"
       />
     </span>
   );

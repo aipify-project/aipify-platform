@@ -11,6 +11,7 @@ import {
 } from "@/lib/install/integration-setup";
 import { listUnonightFailureTranslationKeys } from "@/lib/unonight/connection/failures";
 import type { AppPortalIntegrationsLabels } from "./types";
+import { APP_PORTAL_HOME_ROUTE } from "@/lib/app-portal/nav-config";
 
 const base = "customerApp.portalStructure.integrations";
 
@@ -329,7 +330,7 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
         secondaryIntegrations: t(`${comp}.secondaryIntegrations`),
         activateCta: t(`${comp}.activateCta`),
         activating: t(`${comp}.activating`),
-        overviewHref: t(`${comp}.overviewHref`),
+        overviewHref: APP_PORTAL_HOME_ROUTE,
       },
       removeDialog: {
         title: t(`${rd}.title`),

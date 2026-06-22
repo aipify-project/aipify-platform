@@ -8,7 +8,11 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   async redirects() {
-    return [...LEGACY_DASHBOARD_REDIRECTS, ...MARKETING_PUBLIC_REDIRECTS];
+    return [
+      { source: "/app", destination: "/app/command-center", permanent: false },
+      ...LEGACY_DASHBOARD_REDIRECTS,
+      ...MARKETING_PUBLIC_REDIRECTS,
+    ];
   },
   // validate:deployment runs `tsc --noEmit` before `next build`. Skipping the duplicate
   // Next.js typecheck avoids OOM on Vercel Enhanced (16 GB) during "Running TypeScript …".

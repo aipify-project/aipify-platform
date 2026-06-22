@@ -508,12 +508,12 @@
           "credentialSavedBody": "Din anslutningsnyckel lagras säkert. Kör ett anslutningstest för att verifiera åtkomst före aktivering.",
           "primaryIntegrations": "Gå till anslutna integrationer",
           "secondaryRetest": "Testa anslutningen igen",
-          "tertiaryOverview": "Tillbaka till din översikt",
+          "tertiaryOverview": "Tillbaka till översikten",
           "primaryTest": "Testa anslutningen",
           "secondaryIntegrations": "Tillbaka till integrationer",
           "activateCta": "Aktivera integration",
           "activating": "Aktiverar…",
-          "overviewHref": "/app"
+          "overviewHref": "/app/command-center"
         },
         "removeDialog": {
           "title": "Ta bort integration?",

@@ -1,3 +1,6 @@
+"use client";
+
+import { useId } from "react";
 import { AIPIFY_BRAND, type AipifyPulseSize } from "@/lib/branding/tokens";
 
 type AipifyPulseProps = {
@@ -21,8 +24,9 @@ export default function AipifyPulse({
   title,
   "aria-label": ariaLabel,
 }: AipifyPulseProps) {
+  const instanceId = useId().replace(/:/g, "");
   const dimension = resolveSize(size);
-  const gradientId = `aipify-pulse-gradient-${dimension}-${variant}`;
+  const gradientId = `aipify-pulse-gradient-${instanceId}-${dimension}-${variant}`;
 
   return (
     <svg

@@ -6474,7 +6474,7 @@
           "secondaryIntegrations": "Wróć do integracji",
           "activateCta": "Aktywuj integrację",
           "activating": "Aktywowanie…",
-          "overviewHref": "/app"
+          "overviewHref": "/app/command-center"
         },
         "removeDialog": {
           "title": "Usunąć integrację?",

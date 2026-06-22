@@ -508,12 +508,12 @@
           "credentialSavedBody": "Din forbindelsesnøgle gemmes sikkert. Kør en forbindelsestest for at verificere adgang før aktivering.",
           "primaryIntegrations": "Gå til tilsluttede integrationer",
           "secondaryRetest": "Test forbindelsen igen",
-          "tertiaryOverview": "Tilbage til din oversigt",
+          "tertiaryOverview": "Tilbage til oversigten",
           "primaryTest": "Test forbindelsen",
           "secondaryIntegrations": "Tilbage til integrationer",
           "activateCta": "Aktiver integration",
           "activating": "Aktiverer…",
-          "overviewHref": "/app"
+          "overviewHref": "/app/command-center"
         },
         "removeDialog": {
           "title": "Fjern integration?",

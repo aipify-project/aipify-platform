@@ -1,4 +1,7 @@
 import type { SystemNoticePreset, SystemNoticeStatus } from "./types";
+import { APP_PORTAL_HOME_ROUTE } from "@/lib/app-portal/nav-config";
+
+const APP_OVERVIEW = APP_PORTAL_HOME_ROUTE;
 
 export const SYSTEM_NOTICE_PRESETS: Record<SystemNoticeStatus, SystemNoticePreset> = {
   forbidden: {
@@ -27,9 +30,9 @@ export const SYSTEM_NOTICE_PRESETS: Record<SystemNoticeStatus, SystemNoticePrese
     titleKey: "unauthorizedPanel.title",
     messageKey: "unauthorizedPanel.message",
     primaryLabelKey: "returnToDashboard",
-    primaryHref: "/app",
+    primaryHref: APP_OVERVIEW,
     secondaryLabelKey: "returnToDashboard",
-    secondaryHref: "/app",
+    secondaryHref: APP_OVERVIEW,
     layout: { hideSecondary: true, ghostDashboard: false },
   },
   growth_partner_required: {
@@ -40,8 +43,8 @@ export const SYSTEM_NOTICE_PRESETS: Record<SystemNoticeStatus, SystemNoticePrese
     primaryLabelKey: "registerGrowthPartnerAccount",
     primaryHref: "/growth-partners",
     secondaryLabelKey: "returnToDashboard",
-    secondaryHref: "/app",
-    layout: { hideSecondary: true, ghostDashboard: true, dashboardHref: "/app" },
+    secondaryHref: APP_OVERVIEW,
+    layout: { hideSecondary: true, ghostDashboard: true, dashboardHref: APP_OVERVIEW },
   },
   business_pack_required: {
     status: "business_pack_required",
@@ -51,8 +54,8 @@ export const SYSTEM_NOTICE_PRESETS: Record<SystemNoticeStatus, SystemNoticePrese
     primaryLabelKey: "viewBusinessPacks",
     primaryHref: "/app/settings/modules",
     secondaryLabelKey: "returnToDashboard",
-    secondaryHref: "/app",
-    layout: { hideSecondary: true, ghostDashboard: true, dashboardHref: "/app" },
+    secondaryHref: APP_OVERVIEW,
+    layout: { hideSecondary: true, ghostDashboard: true, dashboardHref: APP_OVERVIEW },
   },
   professional_plan_required: {
     status: "professional_plan_required",
@@ -62,8 +65,8 @@ export const SYSTEM_NOTICE_PRESETS: Record<SystemNoticeStatus, SystemNoticePrese
     primaryLabelKey: "upgradePlan",
     primaryHref: "/app/settings/billing",
     secondaryLabelKey: "returnToDashboard",
-    secondaryHref: "/app",
-    layout: { hideSecondary: true, ghostDashboard: true, dashboardHref: "/app" },
+    secondaryHref: APP_OVERVIEW,
+    layout: { hideSecondary: true, ghostDashboard: true, dashboardHref: APP_OVERVIEW },
   },
   enterprise_access_required: {
     status: "enterprise_access_required",
@@ -73,8 +76,8 @@ export const SYSTEM_NOTICE_PRESETS: Record<SystemNoticeStatus, SystemNoticePrese
     primaryLabelKey: "upgradeToEnterprise",
     primaryHref: "/app/settings/billing",
     secondaryLabelKey: "returnToDashboard",
-    secondaryHref: "/app",
-    layout: { hideSecondary: true, ghostDashboard: true, dashboardHref: "/app" },
+    secondaryHref: APP_OVERVIEW,
+    layout: { hideSecondary: true, ghostDashboard: true, dashboardHref: APP_OVERVIEW },
   },
   administrator_access_required: {
     status: "administrator_access_required",
@@ -82,9 +85,9 @@ export const SYSTEM_NOTICE_PRESETS: Record<SystemNoticeStatus, SystemNoticePrese
     titleKey: "administratorAccess.title",
     messageKey: "administratorAccess.message",
     primaryLabelKey: "returnToDashboard",
-    primaryHref: "/app",
+    primaryHref: APP_OVERVIEW,
     secondaryLabelKey: "returnToDashboard",
-    secondaryHref: "/app",
+    secondaryHref: APP_OVERVIEW,
     layout: { hideSecondary: true, ghostDashboard: false },
   },
   executive_access_required: {
@@ -93,9 +96,9 @@ export const SYSTEM_NOTICE_PRESETS: Record<SystemNoticeStatus, SystemNoticePrese
     titleKey: "executiveAccess.title",
     messageKey: "executiveAccess.message",
     primaryLabelKey: "returnToDashboard",
-    primaryHref: "/app",
+    primaryHref: APP_OVERVIEW,
     secondaryLabelKey: "returnToDashboard",
-    secondaryHref: "/app",
+    secondaryHref: APP_OVERVIEW,
     layout: { hideSecondary: true, ghostDashboard: false },
   },
   platform_required: {

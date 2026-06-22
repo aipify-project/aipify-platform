@@ -3,6 +3,7 @@
 import Link from "next/link";
 import AipifyPulse from "@/components/branding/AipifyPulse";
 import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
+import { APP_PORTAL_HOME_ROUTE } from "@/lib/app-portal/nav-config";
 import { SYSTEM_NOTICE_PRESETS } from "@/lib/system-notice/presets";
 import type { SystemNoticeLabels, SystemNoticeStatus } from "@/lib/system-notice/types";
 import { useSystemNoticeLabels } from "@/components/providers/SystemNoticeProvider";
@@ -54,7 +55,7 @@ export function AipifySystemNotice({
   const resolvedSecondaryLabel = secondaryLabel ?? copy.secondaryLabel;
   const resolvedSecondaryHref = secondaryHref ?? preset.secondaryHref;
   const resolvedIcon = icon ?? preset.icon;
-  const resolvedDashboardHref = dashboardHref ?? layout?.dashboardHref ?? "/app";
+  const resolvedDashboardHref = dashboardHref ?? layout?.dashboardHref ?? APP_PORTAL_HOME_ROUTE;
   const resolvedDashboardLabel = dashboardLabel ?? labels.returnToDashboard;
   const showSecondary = !layout?.hideSecondary && Boolean(resolvedSecondaryLabel);
   const showGhostDashboard = layout?.ghostDashboard === true || Boolean(tertiaryLabel && tertiaryHref);

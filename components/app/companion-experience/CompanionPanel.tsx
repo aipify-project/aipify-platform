@@ -597,15 +597,25 @@ export function CompanionPanel({
       >
         <div className="flex items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-3">
-            <CompanionIcon size={isActiveConversation ? 36 : 48} withRing={!isActiveConversation} />
+            <CompanionIcon
+              size={isActiveConversation ? 36 : 48}
+              availabilityRing
+              ariaLabel={labels.ariaCompanionAvailable}
+            />
             <div className="min-w-0">
-              <h1
-                className={`font-semibold text-aipify-text ${
-                  isActiveConversation ? "text-base" : "text-xl"
-                }`}
-              >
-                {labels.title}
-              </h1>
+              <div className="flex flex-wrap items-center gap-2">
+                <h1
+                  className={`font-semibold text-aipify-text ${
+                    isActiveConversation ? "text-base" : "text-xl"
+                  }`}
+                >
+                  {labels.title}
+                </h1>
+                <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-800">
+                  <span aria-hidden="true">✓</span>
+                  <span>{labels.companionAvailable}</span>
+                </span>
+              </div>
               {isActiveConversation ? (
                 <p className="mt-0.5 truncate text-xs text-aipify-text-secondary">
                   {labels.activePage.replace("{page}", pageLabel)}
@@ -730,7 +740,7 @@ export function CompanionPanel({
           <div className="flex min-h-0 flex-1 flex-col">
             {messages.length === 0 && !loading ? (
               <div className="rounded-xl border border-dashed border-aipify-border bg-white p-6 text-center">
-                <CompanionIcon size={56} withRing className="mx-auto" />
+                <CompanionIcon size={56} availabilityRing ariaLabel={labels.ariaCompanionAvailable} className="mx-auto" />
                 <h2 className="mt-4 text-lg font-semibold text-aipify-text">{labels.emptyWelcomeTitle}</h2>
                 <p className="mt-2 text-sm text-aipify-text-secondary">{labels.emptyWelcomeBody}</p>
               </div>
