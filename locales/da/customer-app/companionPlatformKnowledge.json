@@ -15,7 +15,7 @@
     "sources": {
       "knowledgeCenter": "Based on approved Knowledge Center documentation.",
       "organizationKnowledge": "Based on approved organization knowledge.",
-      "platformGuide": "Aipify platform knowledge guide",
+      "platformGuide": "Aipify platformsvidensguide",
       "verifiedIntegration": "Verified Unonight integration"
     },
     "gap": {
@@ -1382,11 +1382,11 @@
       }
     },
     "fallback": {
-      "directAnswer": "Aipify can guide you through the APP portal — navigation, billing, team, security, integrations, and support.",
-      "explanation": "Ask a specific question about a page or task, and Aipify will provide the next step with a direct link inside your workspace.",
-      "step1": "Open Aipify Companion from the Intelligence section or ask about a specific topic.",
-      "step2": "Use the suggested links to go directly to the relevant page.",
-      "subscriptionUnavailable": "Your current subscription details could not be verified right now. Open Subscription to review your plan."
+      "directAnswer": "Aipify kan guide dig gennem APP-portalen — navigation, fakturering, team, sikkerhed, integrationer og support.",
+      "explanation": "Stil et konkret spørgsmål om en side eller opgave, så giver Aipify næste trin med direkte link i dit arbejdsområde.",
+      "step1": "Åbn Aipify Companion fra Intelligence-sektionen, eller spørg om et bestemt emne.",
+      "step2": "Brug de foreslåede links for at gå direkte til den relevante side.",
+      "subscriptionUnavailable": "Dine abonnementsoplysninger kunne ikke verificeres lige nu. Åbn Abonnement for at gennemgå din plan."
     },
     "actions": {
       "teamMembers": "Open Team Members",
@@ -1399,11 +1399,11 @@
       "connectIntegration": "Connect integration",
       "integrations": "Open Integrations",
       "connectedIntegrations": "View connected integrations",
-      "contactSupport": "Contact Support",
-      "supportRequests": "View support requests",
-      "knowledgeCenter": "Open Knowledge Center",
-      "gettingStarted": "Getting Started",
-      "aipifyCompanion": "Open Aipify Companion",
+      "contactSupport": "Kontakt support",
+      "supportRequests": "Se supportforespørgsler",
+      "knowledgeCenter": "Læs om sikker forbindelse",
+      "gettingStarted": "Kom i gang",
+      "aipifyCompanion": "Åbn Aipify Companion",
       "commandBrief": "Open Command Brief",
       "sinceLastLogin": "Since Last Login",
       "appNotifications": "Notifications",

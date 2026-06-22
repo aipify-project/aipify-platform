@@ -1398,9 +1398,9 @@
     "fallback": {
       "directAnswer": "Aipify kan veilede deg gjennom APP-portalen — navigasjon, fakturering, team, sikkerhet, integrasjoner og support.",
       "explanation": "Still et konkret spørsmål om en side eller oppgave, så gir Aipify neste steg med direkte lenke i arbeidsområdet ditt.",
-      "step1": "Open Aipify Companion from the Intelligence section or ask about a specific topic.",
-      "step2": "Use the suggested links to go directly to the relevant page.",
-      "subscriptionUnavailable": "Your current subscription details could not be verified right now. Open Subscription to review your plan."
+      "step1": "Åpne Aipify Companion fra Intelligence-seksjonen, eller spør om et bestemt tema.",
+      "step2": "Bruk de foreslåtte lenkene for å gå direkte til den relevante siden.",
+      "subscriptionUnavailable": "Abonnementsdetaljene kunne ikke verifiseres akkurat nå. Åpne Abonnement for å se planen din."
     },
     "actions": {
       "teamMembers": "Åpne Teammedlemmer",

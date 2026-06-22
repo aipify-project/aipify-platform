@@ -15,7 +15,7 @@
     "sources": {
       "knowledgeCenter": "Based on approved Knowledge Center documentation.",
       "organizationKnowledge": "Based on approved organization knowledge.",
-      "platformGuide": "Aipify platform knowledge guide",
+      "platformGuide": "Посібник зі знань платформи Aipify",
       "verifiedIntegration": "Verified Unonight integration"
     },
     "gap": {
@@ -1382,11 +1382,11 @@
       }
     },
     "fallback": {
-      "directAnswer": "Aipify can guide you through the APP portal — navigation, billing, team, security, integrations, and support.",
-      "explanation": "Ask a specific question about a page or task, and Aipify will provide the next step with a direct link inside your workspace.",
-      "step1": "Open Aipify Companion from the Intelligence section or ask about a specific topic.",
-      "step2": "Use the suggested links to go directly to the relevant page.",
-      "subscriptionUnavailable": "Your current subscription details could not be verified right now. Open Subscription to review your plan."
+      "directAnswer": "Aipify може провести вас порталом APP — навігація, білінг, команда, безпека, інтеграції та підтримка.",
+      "explanation": "Поставте конкретне питання про сторінку або завдання, і Aipify надасть наступний крок із прямим посиланням у вашому робочому просторі.",
+      "step1": "Відкрийте Aipify Companion з розділу Intelligence або запитайте про конкретну тему.",
+      "step2": "Скористайтеся запропонованими посиланнями, щоб перейти безпосередньо на потрібну сторінку.",
+      "subscriptionUnavailable": "Зараз не вдалося перевірити деталі вашої підписки. Відкрийте Підписку, щоб переглянути свій план."
     },
     "actions": {
       "teamMembers": "Open Team Members",
@@ -1399,11 +1399,11 @@
       "connectIntegration": "Connect integration",
       "integrations": "Open Integrations",
       "connectedIntegrations": "View connected integrations",
-      "contactSupport": "Contact Support",
-      "supportRequests": "View support requests",
-      "knowledgeCenter": "Open Knowledge Center",
-      "gettingStarted": "Getting Started",
-      "aipifyCompanion": "Open Aipify Companion",
+      "contactSupport": "Зв’язатися з підтримкою",
+      "supportRequests": "Переглянути запити до підтримки",
+      "knowledgeCenter": "Дізнатися про безпечне підключення",
+      "gettingStarted": "Початок роботи",
+      "aipifyCompanion": "Відкрити Aipify Companion",
       "commandBrief": "Open Command Brief",
       "sinceLastLogin": "Since Last Login",
       "appNotifications": "Notifications",

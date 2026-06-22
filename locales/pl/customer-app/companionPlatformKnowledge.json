@@ -15,7 +15,7 @@
     "sources": {
       "knowledgeCenter": "Based on approved Knowledge Center documentation.",
       "organizationKnowledge": "Based on approved organization knowledge.",
-      "platformGuide": "Aipify platform knowledge guide",
+      "platformGuide": "Przewodnik wiedzy platformy Aipify",
       "verifiedIntegration": "Verified Unonight integration"
     },
     "gap": {
@@ -1382,11 +1382,11 @@
       }
     },
     "fallback": {
-      "directAnswer": "Aipify can guide you through the APP portal — navigation, billing, team, security, integrations, and support.",
-      "explanation": "Ask a specific question about a page or task, and Aipify will provide the next step with a direct link inside your workspace.",
-      "step1": "Open Aipify Companion from the Intelligence section or ask about a specific topic.",
-      "step2": "Use the suggested links to go directly to the relevant page.",
-      "subscriptionUnavailable": "Your current subscription details could not be verified right now. Open Subscription to review your plan."
+      "directAnswer": "Aipify może poprowadzić Cię przez portal APP — nawigacja, rozliczenia, zespół, bezpieczeństwo, integracje i wsparcie.",
+      "explanation": "Zadaj konkretne pytanie o stronę lub zadanie, a Aipify poda następny krok z bezpośrednim linkiem w Twoim obszarze roboczym.",
+      "step1": "Otwórz Aipify Companion z sekcji Intelligence lub zapytaj o konkretny temat.",
+      "step2": "Użyj sugerowanych linków, aby przejść bezpośrednio do odpowiedniej strony.",
+      "subscriptionUnavailable": "Nie udało się teraz zweryfikować szczegółów subskrypcji. Otwórz Subskrypcję, aby sprawdzić swój plan."
     },
     "actions": {
       "teamMembers": "Open Team Members",
@@ -1399,11 +1399,11 @@
       "connectIntegration": "Connect integration",
       "integrations": "Open Integrations",
       "connectedIntegrations": "View connected integrations",
-      "contactSupport": "Contact Support",
-      "supportRequests": "View support requests",
-      "knowledgeCenter": "Open Knowledge Center",
-      "gettingStarted": "Getting Started",
-      "aipifyCompanion": "Open Aipify Companion",
+      "contactSupport": "Skontaktuj się z pomocą",
+      "supportRequests": "Zobacz zgłoszenia do pomocy",
+      "knowledgeCenter": "Przeczytaj o bezpiecznym połączeniu",
+      "gettingStarted": "Pierwsze kroki",
+      "aipifyCompanion": "Otwórz Aipify Companion",
       "commandBrief": "Open Command Brief",
       "sinceLastLogin": "Since Last Login",
       "appNotifications": "Notifications",
