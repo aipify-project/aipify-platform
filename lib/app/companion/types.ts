@@ -10,7 +10,14 @@ export type CompanionChatCta = {
 export type CompanionAnswerSource = {
   id: string;
   label: string;
-  kind: "platform_corpus" | "route_registry" | "knowledge_center" | "customer_context" | "org_knowledge";
+  kind:
+    | "platform_corpus"
+    | "route_registry"
+    | "knowledge_center"
+    | "customer_context"
+    | "org_knowledge"
+    | "verified_integration";
+  meta?: string;
 };
 
 export type CompanionAnswerFeedbackState = "helpful" | "not_helpful" | "org_confirm" | null;
@@ -30,6 +37,10 @@ export type CompanionChatMessage = {
   showSupportEscalation?: boolean;
   feedback?: CompanionAnswerFeedbackState;
   negativeReason?: string;
+  orgConfirmEligible?: boolean;
+  orgConfirmBlockedReason?: string;
+  liveIntegrationToolUsed?: boolean;
+  requestedLiveIntegration?: boolean;
   timestamp: number;
 };
 
@@ -98,6 +109,8 @@ export type CompanionExperienceLabels = {
   feedbackReasonOther: string;
   feedbackSubmitReason: string;
   feedbackOrgConfirmThanks: string;
+  feedbackOrgConfirmBlocked: string;
+  feedbackOrgConfirmBlockedHint: string;
   sourcesTitle: string;
   sourcesShow: string;
   sourcesHide: string;
@@ -106,6 +119,7 @@ export type CompanionExperienceLabels = {
   sourceKnowledgeCenter: string;
   sourceCustomerContext: string;
   sourceOrgKnowledge: string;
+  sourceVerifiedIntegration: string;
   recentDelete: string;
   recentActive: string;
   supportEscalationHint: string;

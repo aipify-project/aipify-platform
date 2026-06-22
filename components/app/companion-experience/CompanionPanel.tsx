@@ -237,6 +237,10 @@ export function CompanionPanel({
       sourceId: platformAnswer.sourceId,
       confidence: platformAnswer.confidence,
       showSupportEscalation: platformAnswer.showSupportEscalation ?? platformAnswer.confidence === "low",
+      orgConfirmEligible: platformAnswer.orgConfirmEligible !== false,
+      orgConfirmBlockedReason: platformAnswer.orgConfirmBlockedReason,
+      liveIntegrationToolUsed: platformAnswer.liveIntegrationToolUsed === true,
+      requestedLiveIntegration: platformAnswer.requestedLiveIntegration === true,
       timestamp: Date.now(),
     };
   }

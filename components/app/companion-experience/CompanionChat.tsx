@@ -86,6 +86,8 @@ export function CompanionChat({
                 routeContext={pathname}
                 locale={locale}
                 canConfirmOrg={canConfirmOrg}
+                orgConfirmEligible={msg.orgConfirmEligible}
+                orgConfirmBlockedReason={msg.orgConfirmBlockedReason}
                 initialFeedback={msg.feedback ?? null}
                 showSupportEscalation={msg.showSupportEscalation}
                 onFeedback={(feedback) => {

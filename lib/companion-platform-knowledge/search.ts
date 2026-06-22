@@ -18,6 +18,12 @@ import {
 import { buildPublishedPricingSummary, parseCustomerLicenseCenter } from "./pricing-bridge";
 import { canAccessArticle, type PermissionContext } from "./permission-gate";
 import { resolveRouteKeyFromQuery } from "./route-registry";
+import {
+  buildIntegrationStatusFailureAnswer,
+  buildVerifiedIntegrationStatusAnswer,
+} from "./integration-status-answer";
+import { detectLiveIntegrationStatusIntent } from "./integration-status-intent";
+import { getConnectedIntegrationStatus } from "./integration-status-tool";
 import type {
   PlatformCorpusArticleId,
   PlatformSearchContext,
@@ -121,7 +127,33 @@ export async function searchPlatformKnowledge(
 
   const restrictedNote = t("customerApp.companionPlatformKnowledge.permissions.restrictedAction");
 
-  // 0. Explicit intent detection (API definition vs keys vs connection vs access)
+  // 0. Live verified integration status — before corpus and Knowledge Center
+  const liveIntegrationIntent = detectLiveIntegrationStatusIntent(query);
+  if (liveIntegrationIntent && supabase) {
+    const toolResult = await getConnectedIntegrationStatus(supabase, {
+      providerKey: liveIntegrationIntent.providerKey,
+      refresh: true,
+    });
+
+    if (toolResult.ok) {
+      return {
+        answer: buildVerifiedIntegrationStatusAnswer(
+          toolResult.data,
+          t,
+          locale,
+          permissionCtx,
+        ),
+      };
+    }
+
+    if (liveIntegrationIntent.blocksKnowledgeCenter) {
+      return {
+        answer: buildIntegrationStatusFailureAnswer(toolResult.code, t, permissionCtx),
+      };
+    }
+  }
+
+  // 1. Explicit intent detection (API definition vs keys vs connection vs access)
   const intent = detectPlatformQuestionIntent(query);
   if (intent) {
     const intentArticleId = resolveArticleIdForIntent(intent);
@@ -170,8 +202,8 @@ export async function searchPlatformKnowledge(
     };
   }
 
-  // 3. Knowledge Center RPC (optional)
-  if (supabase) {
+  // 3. Knowledge Center RPC (optional) — skip when user requested live integration data
+  if (supabase && !liveIntegrationIntent?.blocksKnowledgeCenter) {
     try {
       const kcResult = await retrieveKnowledgeAnswer(
         async (rpc, params) => {

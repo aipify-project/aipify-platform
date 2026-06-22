@@ -28,6 +28,7 @@ function parsePlatformSource(raw: unknown): PlatformKnowledgeAnswer["sources"][n
     id,
     label,
     kind: str(row.kind, "platform_corpus") as PlatformKnowledgeAnswer["sources"][number]["kind"],
+    meta: str(row.meta) || undefined,
   };
 }
 
@@ -52,6 +53,11 @@ function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined 
     confidence: str(row.confidence, "moderate") as PlatformKnowledgeAnswer["confidence"],
     title: str(row.title) || undefined,
     showSupportEscalation: row.showSupportEscalation === true,
+    liveIntegrationToolUsed: row.liveIntegrationToolUsed === true,
+    orgConfirmEligible: row.orgConfirmEligible !== false,
+    requestedLiveIntegration: row.requestedLiveIntegration === true,
+    orgConfirmBlockedReason: str(row.orgConfirmBlockedReason) || undefined,
+    integrationToolName: str(row.integrationToolName) || undefined,
   };
 }
 

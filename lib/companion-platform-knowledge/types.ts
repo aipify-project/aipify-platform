@@ -6,6 +6,7 @@ export type PlatformKnowledgeSource =
   | "route_match"
   | "knowledge_center"
   | "customer_context"
+  | "verified_integration"
   | "fallback";
 
 export type PlatformKnowledgeConfidence = "high" | "moderate" | "low";
@@ -61,12 +62,14 @@ export type PlatformKnowledgeSourceKind =
   | "route_registry"
   | "knowledge_center"
   | "customer_context"
-  | "org_knowledge";
+  | "org_knowledge"
+  | "verified_integration";
 
 export type PlatformKnowledgeSourceRef = {
   id: string;
   label: string;
   kind: PlatformKnowledgeSourceKind;
+  meta?: string;
 };
 
 export type PlatformCorpusEntry = {
@@ -116,6 +119,11 @@ export type PlatformKnowledgeAnswer = {
   confidence: PlatformKnowledgeConfidence;
   title?: string;
   showSupportEscalation?: boolean;
+  liveIntegrationToolUsed?: boolean;
+  orgConfirmEligible?: boolean;
+  requestedLiveIntegration?: boolean;
+  orgConfirmBlockedReason?: string;
+  integrationToolName?: string;
 };
 
 export type ResolvedPlatformArticle = {

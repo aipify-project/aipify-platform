@@ -14,7 +14,42 @@
     },
     "sources": {
       "knowledgeCenter": "Basert på godkjent Knowledge Center-dokumentasjon.",
-      "platformGuide": "Aipify plattformkunnskapsguide"
+      "platformGuide": "Aipify plattformkunnskapsguide",
+      "verifiedIntegration": "Verifisert Unonight-integrasjon"
+    },
+    "integrationStatus": {
+      "title": "Verifisert Unonight-integrasjon",
+      "successIntro": "Aipify hentet live tilkoblingsmetadata fra den verifiserte Unonight-integrasjonen.",
+      "explanation": "Dette svaret bruker den aktive skrivebeskyttede Unonight-tilkoblingen for organisasjonen din — ikke generelle Knowledge Center-artikler.",
+      "sourceVerifiedIntegration": "Verifisert Unonight-integrasjon",
+      "sourceLine": "Datakilde",
+      "accessModeReadOnly": "Skrivebeskyttet tilgang",
+      "statusConnectedVerified": "Tilkoblet og verifisert",
+      "fieldOrganizationName": "Organisasjonsnavn",
+      "fieldOrganizationId": "Organisasjons-ID",
+      "fieldApiVersion": "API-versjon",
+      "fieldAccessMode": "Tilgangstype",
+      "fieldConnectionStatus": "Tilkoblingsstatus",
+      "fieldScopes": "Aktive tillatelser/scopes",
+      "fieldSupportedLocales": "Støttede språk",
+      "fieldLastVerified": "Sist verifisert",
+      "fieldLastUsed": "Sist brukt",
+      "fieldBaseUrl": "Base-URL",
+      "localesUnavailable": "Ikke rapportert av Unonight",
+      "failureTitle": "Live Unonight-integrasjonsdata utilgjengelig",
+      "failureLead": "⚠️ Jeg klarte ikke å hente live data fra Unonight-integrasjonen akkurat nå.",
+      "failureRetryStep": "Verifiser integrasjonen under Plattform → Integrasjoner, og spør på nytt.",
+      "orgConfirmBlockedNoLiveData": "Organisasjonsbekreftelse er ikke tilgjengelig fordi svaret ikke brukte live integrasjonsdata.",
+      "failures": {
+        "integrationNotConnected": "Ingen aktiv Unonight-integrasjon er konfigurert for denne organisasjonen.",
+        "integrationNotVerified": "Unonight-integrasjonen finnes, men er ikke verifisert ennå.",
+        "credentialUnavailable": "Lagret tilkoblingsnøkkel er utilgjengelig for live lesing.",
+        "endpointUnreachable": "Unonight svarte ikke på live tilkoblingssjekken.",
+        "providerMismatch": "Live-svaret matchet ikke forventet Unonight-leverandør.",
+        "organizationMismatch": "Organisasjonen i live-svaret matchet ikke dette arbeidsområdet.",
+        "permissionDenied": "Rollen din kan ikke lese live integrasjonsnøkler for denne organisasjonen.",
+        "responseInvalid": "Unonight returnerte et svar som ikke kunne valideres trygt."
+      }
     },
     "fallback": {
       "directAnswer": "Aipify kan veilede deg gjennom APP-portalen — navigasjon, fakturering, team, sikkerhet, integrasjoner og support.",

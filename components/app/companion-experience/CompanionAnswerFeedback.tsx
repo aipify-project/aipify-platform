@@ -25,6 +25,8 @@ type CompanionAnswerFeedbackProps = {
   routeContext: string;
   locale: string;
   canConfirmOrg: boolean;
+  orgConfirmEligible?: boolean;
+  orgConfirmBlockedReason?: string;
   initialFeedback?: CompanionAnswerFeedbackState;
   showSupportEscalation?: boolean;
   onFeedback?: (feedback: CompanionAnswerFeedbackState, reason?: NegativeReason) => void;
@@ -50,6 +52,8 @@ export function CompanionAnswerFeedback({
   routeContext,
   locale,
   canConfirmOrg,
+  orgConfirmEligible = true,
+  orgConfirmBlockedReason,
   initialFeedback = null,
   showSupportEscalation = false,
   onFeedback,
@@ -97,6 +101,8 @@ export function CompanionAnswerFeedback({
     }
   }
 
+  const orgConfirmAllowed = canConfirmOrg && orgConfirmEligible;
+
   return (
     <div className="mt-4 space-y-3 border-t border-aipify-border pt-3">
       {sources.length > 0 ? (
@@ -112,7 +118,12 @@ export function CompanionAnswerFeedback({
           {showSources ? (
             <ul className="mt-2 space-y-1 rounded-lg bg-aipify-surface-muted/60 px-3 py-2 text-xs text-aipify-text-secondary">
               {sources.map((source) => (
-                <li key={source.id}>{source.label}</li>
+                <li key={source.id}>
+                  <span>{source.label}</span>
+                  {source.meta ? (
+                    <span className="mt-0.5 block text-[11px] text-aipify-text-muted">{source.meta}</span>
+                  ) : null}
+                </li>
               ))}
             </ul>
           ) : null}
@@ -139,7 +150,7 @@ export function CompanionAnswerFeedback({
           >
             👎 {labels.feedbackNotHelpful}
           </button>
-          {canConfirmOrg ? (
+          {orgConfirmAllowed ? (
             <button
               type="button"
               disabled={submitting}
@@ -148,6 +159,8 @@ export function CompanionAnswerFeedback({
             >
               ✅ {labels.feedbackOrgConfirm}
             </button>
+          ) : canConfirmOrg && orgConfirmBlockedReason ? (
+            <p className="text-xs text-amber-800">{orgConfirmBlockedReason}</p>
           ) : null}
         </div>
       )}

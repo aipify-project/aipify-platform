@@ -14,7 +14,42 @@
     },
     "sources": {
       "knowledgeCenter": "Based on approved Knowledge Center documentation.",
-      "platformGuide": "Aipify platform knowledge guide"
+      "platformGuide": "Aipify platform knowledge guide",
+      "verifiedIntegration": "Verified Unonight integration"
+    },
+    "integrationStatus": {
+      "title": "Verified Unonight integration",
+      "successIntro": "Aipify retrieved live connection metadata from your verified Unonight integration.",
+      "explanation": "This answer uses the active read-only Unonight connection for your organization — not general Knowledge Center articles.",
+      "sourceVerifiedIntegration": "Verified Unonight integration",
+      "sourceLine": "Data source",
+      "accessModeReadOnly": "Read-only access",
+      "statusConnectedVerified": "Connected and verified",
+      "fieldOrganizationName": "Organization name",
+      "fieldOrganizationId": "Organization ID",
+      "fieldApiVersion": "API version",
+      "fieldAccessMode": "Access type",
+      "fieldConnectionStatus": "Connection status",
+      "fieldScopes": "Active scopes",
+      "fieldSupportedLocales": "Supported languages",
+      "fieldLastVerified": "Last verified",
+      "fieldLastUsed": "Last used",
+      "fieldBaseUrl": "Base URL",
+      "localesUnavailable": "Not reported by Unonight",
+      "failureTitle": "Live Unonight integration data unavailable",
+      "failureLead": "⚠️ Aipify could not retrieve live data from the Unonight integration right now.",
+      "failureRetryStep": "Verify the integration under Platform → Integrations, then ask again.",
+      "orgConfirmBlockedNoLiveData": "Organization confirmation is unavailable because this answer did not use live integration data.",
+      "failures": {
+        "integrationNotConnected": "No active Unonight integration is configured for this organization.",
+        "integrationNotVerified": "The Unonight integration exists but is not verified yet.",
+        "credentialUnavailable": "The stored connection credential is unavailable for a live read.",
+        "endpointUnreachable": "Unonight did not respond to the live connection check.",
+        "providerMismatch": "The live response did not match the expected Unonight provider.",
+        "organizationMismatch": "The live response organization did not match this workspace.",
+        "permissionDenied": "Your role cannot read live integration credentials for this organization.",
+        "responseInvalid": "Unonight returned a response that could not be validated safely."
+      }
     },
     "fallback": {
       "directAnswer": "Aipify can guide you through the APP portal — navigation, billing, team, security, integrations, and support.",
