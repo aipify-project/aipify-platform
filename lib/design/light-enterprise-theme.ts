@@ -57,7 +57,8 @@ export const AipifyShellClasses = {
   surfaceMuted: "bg-aipify-surface-muted",
   topbar: "border-b border-aipify-border bg-aipify-surface/95 backdrop-blur-sm",
   sidebar: "border-r border-aipify-border bg-aipify-surface",
-  sidebarDesktopWidth: "w-[250px]",
+  /** Shared APP sidebar desktop width — keep feedback offset in sync. */
+  sidebarDesktopWidth: "w-[280px]",
   input:
     "rounded-xl border border-aipify-border bg-aipify-surface-muted text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-accent focus:bg-aipify-surface focus:outline-none focus:ring-2 focus:ring-aipify-focus",
   ghostButton:
@@ -124,20 +125,31 @@ export const AipifySidebarTypography = {
   workspaceSummaryLabel: "shrink-0 font-semibold leading-[1.55] text-aipify-text-secondary",
   workspaceSummaryValue: "min-w-0 font-medium leading-[1.55] text-aipify-text",
   workspaceSummaryRow: "flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5",
-  workspaceSummaryRowTight: "flex min-w-0 items-baseline gap-x-1.5",
+  workspaceSummaryRowTight: "flex min-w-0 flex-wrap items-baseline gap-x-1.5 gap-y-0.5",
   workspaceSummaryFooter: "text-base font-semibold leading-[1.45] text-aipify-text",
   workspaceSummaryCopyright: "text-base leading-[1.45] text-aipify-text-secondary",
   feedbackButton: "text-base font-medium leading-none",
   keyboardHint: "text-sm font-semibold uppercase tracking-wide text-aipify-text-secondary",
   searchInput: "text-base text-aipify-text placeholder:text-aipify-text-secondary",
   mobileNavItem: "text-base font-semibold leading-[1.45]",
-  mobileNavLabel: "min-w-0 max-w-[5.25rem] break-words text-center leading-[1.45]",
-  navLabelWrap: "block break-words leading-[1.45]",
+  mobileNavLabel: "min-w-0 max-w-[5.25rem] break-words text-center leading-[1.45] line-clamp-2",
+  navLabelWrap: "block break-words leading-[1.45] line-clamp-2",
   navItemRow:
-    "flex w-full min-h-12 items-center gap-3 rounded-xl px-3 py-3 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2",
+    "flex w-full min-h-12 items-start gap-3 rounded-xl px-3 py-3 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2",
   navIcon: "size-[21px] shrink-0",
   chevron: "size-5 shrink-0 text-aipify-text/70",
   compactToggle: "rounded-lg p-2 text-aipify-text-secondary transition hover:bg-aipify-surface-muted hover:text-aipify-text focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus",
+} as const;
+
+/** APP sidebar layout tokens — desktop shell + feedback positioning */
+export const AipifySidebarLayout = {
+  desktopWidthPx: 280,
+  navScrollRegion: "min-h-0 flex-1 overflow-y-auto overscroll-contain",
+  footerRegion: "shrink-0",
+  brandRegion: "shrink-0",
+  asideDesktop:
+    "hidden h-screen shrink-0 flex-col overflow-hidden lg:flex",
+  feedbackDesktopPosition: "lg:left-[calc(280px+1rem)] lg:bottom-6",
 } as const;
 
 /** Surfaces that must NOT use pure #FFFFFF as page background */

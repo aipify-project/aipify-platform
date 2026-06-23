@@ -49,13 +49,17 @@ export default function Sidebar({
             aria-current={isActive ? "page" : undefined}
           >
             <span
-              className={`${AipifySidebarTypography.navIcon} ${
+              className={`mt-0.5 ${AipifySidebarTypography.navIcon} ${
                 isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon
               }`}
             >
               {item.icon}
             </span>
-            {item.label}
+            <span className="min-w-0 flex-1">
+              <span className={AipifySidebarTypography.navLabelWrap} title={item.label}>
+                {item.label}
+              </span>
+            </span>
           </Link>
         );
       })}

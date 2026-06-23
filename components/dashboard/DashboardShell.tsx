@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AipifyShellClasses, AipifySidebarTypography } from "@/lib/design";
+import { AipifyShellClasses, AipifySidebarTypography, AipifySidebarLayout } from "@/lib/design";
 import { useEffect, useMemo, useState } from "react";
 import { usePlatformProfile } from "@/components/platform/PlatformProfileProvider";
 import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
@@ -390,22 +390,26 @@ function DashboardShellFrame({
 
   const shell = (
     <div className={`flex min-h-screen ${AipifyShellClasses.canvas}`}>
-      <aside className={`hidden h-screen ${AipifyShellClasses.sidebarDesktopWidth} shrink-0 flex-col overflow-visible lg:flex ${AipifyShellClasses.sidebar}`}>
-        {brandBlock}
-        <div className="flex-1 overflow-y-auto p-4">
+      <aside className={`${AipifySidebarLayout.asideDesktop} ${AipifyShellClasses.sidebarDesktopWidth} ${AipifyShellClasses.sidebar}`}>
+        <div className={AipifySidebarLayout.brandRegion}>{brandBlock}</div>
+        <div className={`${AipifySidebarLayout.navScrollRegion} p-4`}>
           {sidebarNav}
         </div>
         {shellVariant === "customer" && licensePanelLabels ? (
-          <LicenseSidebarPanel labels={licensePanelLabels} />
+          <div className={AipifySidebarLayout.footerRegion}>
+            <LicenseSidebarPanel labels={licensePanelLabels} />
+          </div>
         ) : platformBrandMark ? (
-          <AipifyPlatformBrandMark
-            appName={appName}
-            poweredBy={platformBrandMark.poweredBy}
-            tooltipTitle={platformBrandMark.tooltipTitle}
-            tooltipTagline={platformBrandMark.tooltipTagline}
-            versionLabel={platformBrandMark.versionLabel}
-            pulseLabel={platformBrandMark.pulseLabel}
-          />
+          <div className={AipifySidebarLayout.footerRegion}>
+            <AipifyPlatformBrandMark
+              appName={appName}
+              poweredBy={platformBrandMark.poweredBy}
+              tooltipTitle={platformBrandMark.tooltipTitle}
+              tooltipTagline={platformBrandMark.tooltipTagline}
+              versionLabel={platformBrandMark.versionLabel}
+              pulseLabel={platformBrandMark.pulseLabel}
+            />
+          </div>
         ) : null}
       </aside>
 
@@ -417,8 +421,8 @@ function DashboardShellFrame({
             aria-label={shellUiLabels?.closeMenu ?? "Close menu"}
             onClick={() => setSidebarOpen(false)}
           />
-          <aside className={`absolute left-0 top-0 flex h-full w-72 flex-col overflow-visible shadow-xl ${AipifyShellClasses.sidebar}`}>
-            <div className="relative border-b border-aipify-border">
+          <aside className={`absolute left-0 top-0 flex h-full ${AipifyShellClasses.sidebarDesktopWidth} flex-col overflow-hidden shadow-xl ${AipifyShellClasses.sidebar}`}>
+            <div className={`relative border-b border-aipify-border ${AipifySidebarLayout.brandRegion}`}>
               {brandBlock}
               <button
                 type="button"
@@ -431,7 +435,7 @@ function DashboardShellFrame({
                 </svg>
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto p-4">
+            <div className={`${AipifySidebarLayout.navScrollRegion} p-4`}>
               {shellVariant === "customer" && languageSelectorLabels ? (
                 <div className="mb-4 lg:hidden">
                   <AppLanguageSelector
@@ -469,16 +473,20 @@ function DashboardShellFrame({
               )}
             </div>
             {shellVariant === "customer" && licensePanelLabels ? (
-              <LicenseSidebarPanel labels={licensePanelLabels} />
+              <div className={AipifySidebarLayout.footerRegion}>
+                <LicenseSidebarPanel labels={licensePanelLabels} />
+              </div>
             ) : platformBrandMark ? (
-              <AipifyPlatformBrandMark
-                appName={appName}
-                poweredBy={platformBrandMark.poweredBy}
-                tooltipTitle={platformBrandMark.tooltipTitle}
-                tooltipTagline={platformBrandMark.tooltipTagline}
-                versionLabel={platformBrandMark.versionLabel}
-                pulseLabel={platformBrandMark.pulseLabel}
-              />
+              <div className={AipifySidebarLayout.footerRegion}>
+                <AipifyPlatformBrandMark
+                  appName={appName}
+                  poweredBy={platformBrandMark.poweredBy}
+                  tooltipTitle={platformBrandMark.tooltipTitle}
+                  tooltipTagline={platformBrandMark.tooltipTagline}
+                  versionLabel={platformBrandMark.versionLabel}
+                  pulseLabel={platformBrandMark.pulseLabel}
+                />
+              </div>
             ) : null}
           </aside>
         </div>

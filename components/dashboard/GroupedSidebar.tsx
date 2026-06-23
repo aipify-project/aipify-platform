@@ -130,7 +130,7 @@ function NavLinkRow({
       aria-current={isActive ? "page" : undefined}
     >
       <span
-        className={`${AipifySidebarTypography.navIcon} ${
+        className={`mt-0.5 ${AipifySidebarTypography.navIcon} ${
           isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon
         }`}
       >

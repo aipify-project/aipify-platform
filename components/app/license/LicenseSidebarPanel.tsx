@@ -197,15 +197,15 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
           </p>
           <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.plan} ${planDisplay}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.plan}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} truncate`}>{planDisplay}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>{planDisplay}</span>
           </p>
           <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.status} ${statusLabel}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.status}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} truncate`}>{statusLabel}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>{statusLabel}</span>
           </p>
-          <p className={AipifySidebarTypography.workspaceSummaryRowTight}>
+          <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.version} ${formatSoftwareVersion(summary?.software_version ?? "1.0.0")}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.version}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} whitespace-nowrap`}>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>
               {formatSoftwareVersion(summary?.software_version ?? "1.0.0")}
             </span>
           </p>

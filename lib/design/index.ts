@@ -4,6 +4,7 @@ export {
   AipifyMarketingClasses,
   AipifyNavClasses,
   AipifyShellClasses,
+  AipifySidebarLayout,
   AipifySidebarTypography,
   DESIGN_STANDARD_AVOID,
   DESIGN_STANDARD_WANT,
