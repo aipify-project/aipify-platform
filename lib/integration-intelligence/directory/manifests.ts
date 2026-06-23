@@ -246,8 +246,8 @@ export const DIRECTORY_PROVIDER_MANIFESTS: readonly DirectoryProviderManifest[] 
   {
     provider_key: "community_member_directory",
     display_name_key: "customerApp.companionPlatformKnowledge.directory.providers.community_member_directory",
-    source_engine: "community_network_center",
-    implementation_status: "specification_only",
+    source_engine: "customer_member_directory_center",
+    implementation_status: "partial",
     business_pack_key: "community_pack",
     search_terms_key: "customerApp.companionPlatformKnowledge.directory.searchTerms.community_member_directory",
     capabilities: [

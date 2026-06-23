@@ -3,9 +3,9 @@
   "generated_from": "buildCompanionFoundationCoverageGaps",
   "total_gaps": 132,
   "by_priority": {
-    "P1": 91,
+    "P1": 92,
     "P2": 14,
-    "P3": 27
+    "P3": 26
   },
   "gaps": [
     {
@@ -1134,6 +1134,16 @@
     },
     {
       "priority": "P1",
+      "module_id": "provider.community_member_directory",
+      "provider_key": "community_member_directory",
+      "capability_ids": [
+        "member.search.search"
+      ],
+      "reason": "Connected manifest without live provider adapter.",
+      "next_required_step": "Implement live provider adapter for community_member_directory."
+    },
+    {
+      "priority": "P1",
       "module_id": "provider.commerce_customer_directory",
       "provider_key": "commerce_customer_directory",
       "capability_ids": [
@@ -1623,16 +1633,6 @@
     },
     {
       "priority": "P3",
-      "module_id": "provider.community_member_directory",
-      "provider_key": "community_member_directory",
-      "capability_ids": [
-        "member.search.search"
-      ],
-      "reason": "Specification-only — no runtime wiring.",
-      "next_required_step": "Implement provider manifest and loader wiring."
-    },
-    {
-      "priority": "P3",
       "module_id": "provider.partner_directory",
       "provider_key": "partner_directory",
       "capability_ids": [
@@ -1768,6 +1768,7 @@
     "provider.organization_directory_core",
     "provider.app_employee_directory",
     "provider.hr_employee_directory",
+    "provider.community_member_directory",
     "provider.commerce_customer_directory",
     "provider.booking_customer_directory",
     "provider.supplier_vendor_directory",
@@ -1783,7 +1784,6 @@
     "hosts.task_write",
     "hosts.command_brief_signals",
     "directory.core_search",
-    "directory.community_member",
     "panel.super_admin",
     "panel.platform",
     "panel.partners",

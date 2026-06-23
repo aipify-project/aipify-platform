@@ -316,6 +316,19 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "P1.08",
   },
+  {
+    phase: "P1.09",
+    required_test: "phase-p1-09.test.ts",
+    required_wiring: [
+      "p1-09-live-app-community-member-directory-e2e-certification.ts",
+      "p1-09-live-app-community-member-directory-e2e-flows.ts",
+      "p1-09-live-app-community-member-directory-e2e-coverage.ts",
+      "community-member-directory-read-provider-adapter.ts",
+      "community-member-directory-read-provider-bridge.ts",
+      "artifacts/companion-p1-09-live-app-community-member-directory-e2e-certification-v1.json",
+    ],
+    commit_hint: "P1.09",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

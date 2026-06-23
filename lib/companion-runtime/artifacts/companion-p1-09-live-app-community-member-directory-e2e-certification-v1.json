@@ -1,131 +1,138 @@
 {
-  "version": "companion-p1-08-live-app-member-verification-e2e-certification-v1",
-  "generated_at": "2026-06-23T12:21:30.610Z",
+  "version": "companion-p1-09-live-app-community-member-directory-e2e-certification-v1",
+  "generated_at": "2026-06-23T12:21:32.892Z",
   "environment": "staging",
   "commit_hash": "872ab1135dc1deffb76200fd24bc60fa254643c2",
   "organization_reference": "org_a710a43a6d8c",
   "session_mode": "live_authenticated",
   "p1_01_prerequisite": "pass",
-  "authoritative_verification_source": "get_customer_member_verification_center",
-  "live_pending_count": 3,
+  "authoritative_directory_source": "get_customer_member_directory_center",
+  "live_member_count": 3,
   "overall_status": "pass",
   "blockers": [],
   "flows": [
     {
       "flow_id": "provider_connected",
-      "capability": "verification.provider.connected",
+      "capability": "member.provider.connected",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "live_verification_source_available",
-      "capability": "verification.queue.live",
+      "flow_id": "live_directory_source_available",
+      "capability": "member.search.live",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "case_status_mapping",
-      "capability": "verification.case.status",
+      "flow_id": "exact_member_count",
+      "capability": "member.search.count",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "queue_status_fields",
-      "capability": "verification.queue.status",
+      "flow_id": "search_by_name",
+      "capability": "member.search.live",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "queue_priority_fields",
-      "capability": "verification.queue.priority",
+      "flow_id": "membership_status_present",
+      "capability": "member.search.status",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "needs_information_count",
-      "capability": "verification.queue.needs_information",
+      "flow_id": "membership_level_present",
+      "capability": "member.search.level",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "no_fabricated_cases",
-      "capability": "verification.queue.no_fabrication",
+      "flow_id": "verification_status_present",
+      "capability": "member.search.verification",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "empty_source_exact_empty",
-      "capability": "verification.queue.empty_source",
+      "flow_id": "profile_reference_present",
+      "capability": "member.search.profile",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "command_brief_verification_signals_exact_only",
-      "capability": "verification.command_brief.exact_only",
+      "flow_id": "search_by_username",
+      "capability": "member.search.live",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "verification_status_exact",
-      "capability": "verification.status.exact",
+      "flow_id": "exclude_admin_system_users",
+      "capability": "member.search.no_admin",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "orchestrator_queue_read",
-      "capability": "verification.queue.live",
+      "flow_id": "masked_contact_fields",
+      "capability": "member.search.masked_contact",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "orchestrator_case_read",
-      "capability": "verification.case.live",
+      "flow_id": "unknown_member_no_match",
+      "capability": "member.search.no_match",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "case_no_documents",
-      "capability": "verification.case.no_documents",
+      "flow_id": "no_proxy_as_exact",
+      "capability": "member.search.no_proxy",
       "source_classification": "source_exact",
       "status": "pass",
-      "failure_reason": "Case metadata must not expose documents or identity numbers."
+      "failure_reason": null
     },
     {
-      "flow_id": "permission_denied_read",
-      "capability": "verification.queue.access",
+      "flow_id": "command_brief_member_signals_exact_only",
+      "capability": "member.command_brief.exact_only",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "orchestrator_member_search",
+      "capability": "member.search.live",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "permission_denied_search",
+      "capability": "member.search.access",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
       "flow_id": "suspended_app_denied",
-      "capability": "verification.queue.access",
+      "capability": "member.search.access",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "blocked_capabilities",
-      "capability": "verification.blocked",
-      "source_classification": "source_exact",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "audit_without_pii",
-      "capability": "verification.audit",
+      "flow_id": "tenant_isolation_checks",
+      "capability": "member.search.isolation",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
@@ -149,27 +156,23 @@
     }
   ],
   "capabilities_passed": [
-    "verification.audit",
-    "verification.blocked",
-    "verification.case.live",
-    "verification.case.no_documents",
-    "verification.case.status",
-    "verification.command_brief.exact_only",
-    "verification.provider.connected",
-    "verification.queue.access",
-    "verification.queue.empty_source",
-    "verification.queue.isolation",
-    "verification.queue.live",
-    "verification.queue.needs_information",
-    "verification.queue.no_fabrication",
-    "verification.queue.priority",
-    "verification.queue.status",
-    "verification.status.exact"
+    "member.command_brief.exact_only",
+    "member.provider.connected",
+    "member.search.access",
+    "member.search.count",
+    "member.search.isolation",
+    "member.search.level",
+    "member.search.live",
+    "member.search.masked_contact",
+    "member.search.no_admin",
+    "member.search.no_match",
+    "member.search.no_proxy",
+    "member.search.profile",
+    "member.search.status",
+    "member.search.verification"
   ],
   "capabilities_failed": [],
   "coverage_updates_applied": [
-    "verification.case_read",
-    "verification.community_adapter_status",
-    "verification.queue_read"
+    "directory.community_member"
   ]
 }

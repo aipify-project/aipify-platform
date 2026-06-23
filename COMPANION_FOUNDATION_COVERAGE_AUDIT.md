@@ -1,6 +1,6 @@
 # Companion Foundation Coverage Audit — Phase 34
 
-Generated: 2026-06-23T03:22:00.530Z
+Generated: 2026-06-23T12:21:11.015Z
 
 ## Summary
 
@@ -15,13 +15,13 @@ Generated: 2026-06-23T03:22:00.530Z
 
 ## Readiness distribution (modules)
 
-- **production_ready_candidate**: 12
+- **production_ready_candidate**: 13
 - **connected**: 7
 - **connected_but_partial**: 32
-- **adapter_missing**: 90
-- **source_missing**: 2
+- **adapter_missing**: 91
+- **source_missing**: 1
 - **manifest_only**: 8
-- **specification_only**: 27
+- **specification_only**: 26
 
 _Module readiness sums to **178** registry modules._
 
@@ -29,8 +29,8 @@ _Module readiness sums to **178** registry modules._
 
 - **connected_but_partial**: 41
 - **manifest_only**: 2
-- **adapter_missing**: 351
-- **specification_only**: 55
+- **adapter_missing**: 352
+- **specification_only**: 54
 
 _Commercial capability rows sum to **449** — do not mix with module readiness above._
 
@@ -44,28 +44,28 @@ _Commercial capability rows sum to **449** — do not mix with module readiness 
 
 ### Readiness scope — read (reconciled modules)
 
-- **production_ready_candidate**: 12
+- **production_ready_candidate**: 13
 - **connected**: 7
 - **connected_but_partial**: 32
-- **adapter_missing**: 90
-- **source_missing**: 2
+- **adapter_missing**: 91
+- **source_missing**: 1
 - **manifest_only**: 8
-- **specification_only**: 27
+- **specification_only**: 26
 
 ### Source classification (reconciled modules)
 
-- **source_exact**: 7
+- **source_exact**: 8
 - **source_compatible**: 6
 - **source_partial**: 30
-- **source_missing**: 78
+- **source_missing**: 77
 - **source_unknown**: 57
 
 ### Gap priority
 
 - **P0**: 0
-- **P1**: 91
+- **P1**: 92
 - **P2**: 14
-- **P3**: 27
+- **P3**: 26
 
 ### Reconciliation notes
 
@@ -100,9 +100,9 @@ _Commercial capability rows sum to **449** — do not mix with module readiness 
 ## Gap priority counts
 
 - **P0**: 0
-- **P1**: 91
+- **P1**: 92
 - **P2**: 14
-- **P3**: 27
+- **P3**: 26
 
 _(Canonical gap totals also appear under Phase 43C counting model.)_
 

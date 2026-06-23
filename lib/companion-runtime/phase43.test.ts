@@ -125,6 +125,11 @@ assert.ok(verificationQueue);
 assert.equal(verificationQueue!.readiness, "production_ready_candidate");
 assert.ok(verificationQueue!.capability_ids.includes("verification_queue.read"));
 
+const communityMemberDirectory = reconciled.find((row) => row.module_id === "directory.community_member");
+assert.ok(communityMemberDirectory);
+assert.equal(communityMemberDirectory!.readiness, "production_ready_candidate");
+assert.ok(communityMemberDirectory!.capability_ids.includes("member.search"));
+
 const summary = artifact.reconciliation_summary!;
 assert.equal(summary.total_modules, entries.length);
 assert.equal(

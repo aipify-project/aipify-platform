@@ -183,7 +183,7 @@
       "package_id": "p1.09_community_member_directory_source",
       "module_id": "directory.community_member",
       "exact_gap": "Community member directory has contract only — no live searchable member source.",
-      "current_readiness": "source_missing",
+      "current_readiness": "production_ready_candidate",
       "verified_source": "community_external_adapter (member.read partial)",
       "required_work": "Approve and connect tenant-scoped member search source with masking and audit.",
       "read_write_scope": "read_only",
