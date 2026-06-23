@@ -120,6 +120,11 @@ assert.equal(hostsWrite!.readiness, "production_ready_candidate");
 assert.equal(hostsWrite!.readiness_scope.write, "production_ready_candidate");
 assert.ok(hostsWrite!.capability_ids.some((id) => id.includes("host_task")));
 
+const verificationQueue = reconciled.find((row) => row.module_id === "verification.queue_read");
+assert.ok(verificationQueue);
+assert.equal(verificationQueue!.readiness, "production_ready_candidate");
+assert.ok(verificationQueue!.capability_ids.includes("verification_queue.read"));
+
 const summary = artifact.reconciliation_summary!;
 assert.equal(summary.total_modules, entries.length);
 assert.equal(

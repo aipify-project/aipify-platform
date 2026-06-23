@@ -303,6 +303,19 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "P1.07",
   },
+  {
+    phase: "P1.08",
+    required_test: "phase-p1-08.test.ts",
+    required_wiring: [
+      "p1-08-live-app-member-verification-e2e-certification.ts",
+      "p1-08-live-app-member-verification-e2e-flows.ts",
+      "p1-08-live-app-member-verification-e2e-coverage.ts",
+      "member-verification-read-provider-adapter.ts",
+      "verification-read-provider-bridge.ts",
+      "artifacts/companion-p1-08-live-app-member-verification-e2e-certification-v1.json",
+    ],
+    commit_hint: "P1.08",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

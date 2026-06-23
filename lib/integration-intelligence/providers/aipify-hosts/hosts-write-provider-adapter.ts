@@ -112,7 +112,11 @@ export async function resolveCleaningAssignTargets(client: HostsWriteProviderRpc
         (row) =>
           !row.cleaner_id &&
           !["completed", "cancelled"].includes(String(row.cleaning_status ?? "")),
-      ) ?? null;
+      ) ??
+      tasks.find(
+        (row) => !["completed", "cancelled"].includes(String(row.cleaning_status ?? "")),
+      ) ??
+      null;
 
     if (task?.id) {
       cleaningTaskId = String(task.id);

@@ -1,0 +1,23 @@
+{
+  "version": "companion-p1-08-live-app-member-verification-e2e-certification-v1",
+  "generated_at": "2026-06-23T03:23:19.342Z",
+  "environment": "staging",
+  "commit_hash": "476c7877348fb6224b1b071b55f3257a46f0ba7d",
+  "organization_reference": null,
+  "session_mode": "blocked",
+  "p1_01_prerequisite": "pass",
+  "authoritative_verification_source": "get_customer_member_verification_center",
+  "live_pending_count": 0,
+  "overall_status": "blocked",
+  "blockers": [
+    {
+      "code": "auth_failed",
+      "message": "Could not query the database for the schema cache. Retrying."
+    }
+  ],
+  "flows": [],
+  "tenant_isolation": [],
+  "capabilities_passed": [],
+  "capabilities_failed": [],
+  "coverage_updates_applied": []
+}

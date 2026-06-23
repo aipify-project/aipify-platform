@@ -1,6 +1,6 @@
 # Companion Foundation Coverage Audit — Phase 34
 
-Generated: 2026-06-23T03:05:58.066Z
+Generated: 2026-06-23T03:22:00.530Z
 
 ## Summary
 
@@ -15,9 +15,9 @@ Generated: 2026-06-23T03:05:58.066Z
 
 ## Readiness distribution (modules)
 
-- **production_ready_candidate**: 9
+- **production_ready_candidate**: 12
 - **connected**: 7
-- **connected_but_partial**: 35
+- **connected_but_partial**: 32
 - **adapter_missing**: 90
 - **source_missing**: 2
 - **manifest_only**: 8
@@ -44,9 +44,9 @@ _Commercial capability rows sum to **449** — do not mix with module readiness 
 
 ### Readiness scope — read (reconciled modules)
 
-- **production_ready_candidate**: 9
+- **production_ready_candidate**: 12
 - **connected**: 7
-- **connected_but_partial**: 35
+- **connected_but_partial**: 32
 - **adapter_missing**: 90
 - **source_missing**: 2
 - **manifest_only**: 8
@@ -54,10 +54,9 @@ _Commercial capability rows sum to **449** — do not mix with module readiness 
 
 ### Source classification (reconciled modules)
 
-- **source_exact**: 4
+- **source_exact**: 7
 - **source_compatible**: 6
 - **source_partial**: 30
-- **source_proxy**: 3
 - **source_missing**: 78
 - **source_unknown**: 57
 
@@ -65,7 +64,7 @@ _Commercial capability rows sum to **449** — do not mix with module readiness 
 
 - **P0**: 0
 - **P1**: 91
-- **P2**: 15
+- **P2**: 14
 - **P3**: 27
 
 ### Reconciliation notes
@@ -77,10 +76,10 @@ _Commercial capability rows sum to **449** — do not mix with module readiness 
 
 ## Member verification coverage
 
-- `verification.community_adapter_status`: **connected_but_partial** — verification_status.read
+- `verification.community_adapter_status`: **production_ready_candidate** — verification_status.read
 - `verification.trust_center`: **connected_but_partial** — verification.read, verification_status.read, verification.request
-- `verification.queue_read`: **connected_but_partial** — verification_queue.read
-- `verification.case_read`: **connected_but_partial** — verification_case.read
+- `verification.queue_read`: **production_ready_candidate** — verification_queue.read
+- `verification.case_read`: **production_ready_candidate** — verification_case.read
 - `verification.review_create`: **specification_only** — verification_review.create
 
 ## Appointment / salon / service coverage
@@ -102,7 +101,7 @@ _Commercial capability rows sum to **449** — do not mix with module readiness 
 
 - **P0**: 0
 - **P1**: 91
-- **P2**: 15
+- **P2**: 14
 - **P3**: 27
 
 _(Canonical gap totals also appear under Phase 43C counting model.)_

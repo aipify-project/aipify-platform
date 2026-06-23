@@ -32,6 +32,8 @@ import { applyP1_04LiveAppSupplierVendorE2eCoverageOverrides } from "./p1-04-liv
 import { readP1_04LiveAppSupplierVendorE2eCertificationArtifact } from "./p1-04-live-app-supplier-vendor-e2e-certification";
 import { applyP1_05LiveAppSupportSlaE2eCoverageOverrides } from "./p1-05-live-app-support-sla-e2e-coverage";
 import { readP1_05LiveAppSupportSlaE2eCertificationArtifact } from "./p1-05-live-app-support-sla-e2e-certification";
+import { applyP1_08LiveAppMemberVerificationE2eCoverageOverrides } from "./p1-08-live-app-member-verification-e2e-coverage";
+import { readP1_08LiveAppMemberVerificationE2eCertificationArtifact } from "./p1-08-live-app-member-verification-e2e-certification";
 import { applyP1_07LiveAppHostsTaskWriteE2eCoverageOverrides } from "./p1-07-live-app-hosts-task-write-e2e-coverage";
 import { readP1_07LiveAppHostsTaskWriteE2eCertificationArtifact } from "./p1-07-live-app-hosts-task-write-e2e-certification";
 import { applyP1_06LiveAppSupportCaseWriteE2eCoverageOverrides } from "./p1-06-live-app-support-case-write-e2e-coverage";
@@ -580,7 +582,8 @@ export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEnt
       !explicitModuleIds.has(entry.module_id) && !SUPERSEDED_PROVIDER_MODULE_IDS.has(entry.module_id),
   );
 
-  return applyP1_07LiveAppHostsTaskWriteE2eCoverageOverrides(
+  return applyP1_08LiveAppMemberVerificationE2eCoverageOverrides(
+    applyP1_07LiveAppHostsTaskWriteE2eCoverageOverrides(
     applyP1_06LiveAppSupportCaseWriteE2eCoverageOverrides(
       applyP1_05LiveAppSupportSlaE2eCoverageOverrides(
         applyP1_04LiveAppSupplierVendorE2eCoverageOverrides(
@@ -613,6 +616,8 @@ export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEnt
       readP1_06LiveAppSupportCaseWriteE2eCertificationArtifact(process.cwd()),
     ),
     readP1_07LiveAppHostsTaskWriteE2eCertificationArtifact(process.cwd()),
+    ),
+    readP1_08LiveAppMemberVerificationE2eCertificationArtifact(process.cwd()),
   );
 }
 

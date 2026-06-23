@@ -1,10 +1,10 @@
 {
   "version": "companion-known-gaps-v1",
   "generated_from": "buildCompanionFoundationCoverageGaps",
-  "total_gaps": 133,
+  "total_gaps": 132,
   "by_priority": {
     "P1": 91,
-    "P2": 15,
+    "P2": 14,
     "P3": 27
   },
   "gaps": [
@@ -1238,16 +1238,6 @@
         "verification.read",
         "verification_status.read",
         "verification.request"
-      ],
-      "reason": "Partial runtime without Command Brief linkage.",
-      "next_required_step": "Add Command Brief signals when live metrics are available."
-    },
-    {
-      "priority": "P2",
-      "module_id": "verification.case_read",
-      "provider_key": "community_external_adapter",
-      "capability_ids": [
-        "verification_case.read"
       ],
       "reason": "Partial runtime without Command Brief linkage.",
       "next_required_step": "Add Command Brief signals when live metrics are available."

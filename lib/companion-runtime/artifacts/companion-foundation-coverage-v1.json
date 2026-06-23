@@ -1,6 +1,6 @@
 {
   "version": "companion-foundation-coverage-v1",
-  "generated_at": "2026-06-23T03:05:58.066Z",
+  "generated_at": "2026-06-23T03:22:00.530Z",
   "summary": {
     "total_modules": 178,
     "total_capabilities": 449,
@@ -10,9 +10,9 @@
     "panels": 4,
     "readiness": {
       "production_ready": 0,
-      "production_ready_candidate": 9,
+      "production_ready_candidate": 12,
       "connected": 7,
-      "connected_but_partial": 35,
+      "connected_but_partial": 32,
       "adapter_missing": 90,
       "source_missing": 2,
       "manifest_only": 8,
@@ -3551,21 +3551,21 @@
         "verification_status.read"
       ],
       "source_type": "rpc",
-      "source_reference": "rpc:get_customer_community_network_center:best_practices",
+      "source_reference": "get_customer_member_verification_center",
       "runtime_loader": "load-companion-community-context.ts",
-      "schema_status": "partial",
+      "schema_status": "wired",
       "permission_status": "defined",
-      "activation_status": "partial",
+      "activation_status": "active",
       "command_brief_status": "linked",
       "action_status": "blocked",
       "language_status": "complete",
       "test_status": "phase_tested",
-      "readiness": "connected_but_partial",
+      "readiness": "production_ready_candidate",
       "limitations": [
-        "Uses community best-practice moderation_status metadata — not full verification queue.",
-        "No document images, ID data, or sensitive profile fields exposed to Companion."
+        "No document images, ID data, or sensitive profile fields exposed to Companion.",
+        "Member verification exact source live E2E certification passed — production_ready requires final operator sign-off."
       ],
-      "next_required_step": "Connect dedicated verification_queue.read source when community verification RPC is approved.",
+      "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app"
     },
     {
@@ -3605,21 +3605,21 @@
         "verification_queue.read"
       ],
       "source_type": "rpc",
-      "source_reference": "rpc:get_customer_community_network_center:best_practices",
+      "source_reference": "get_customer_member_verification_center",
       "runtime_loader": "verification-read-orchestrator.ts",
-      "schema_status": "partial",
+      "schema_status": "wired",
       "permission_status": "defined",
-      "activation_status": "partial",
+      "activation_status": "active",
       "command_brief_status": "linked",
       "action_status": "blocked",
       "language_status": "complete",
       "test_status": "phase_tested",
-      "readiness": "connected_but_partial",
+      "readiness": "production_ready_candidate",
       "limitations": [
-        "Queue summary uses community metadata proxy until dedicated verification queue RPC is approved.",
-        "No document images, ID numbers, or moderator notes exposed to Companion."
+        "No document images, ID numbers, or moderator notes exposed to Companion.",
+        "Member verification exact source live E2E certification passed — production_ready requires final operator sign-off."
       ],
-      "next_required_step": "Connect dedicated read-only verification queue RPC and promote Command Brief to exact semantic match.",
+      "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app"
     },
     {
@@ -3631,21 +3631,21 @@
         "verification_case.read"
       ],
       "source_type": "rpc",
-      "source_reference": "rpc:get_customer_community_network_center:best_practices",
+      "source_reference": "get_customer_member_verification_center",
       "runtime_loader": "verification-read-orchestrator.ts",
-      "schema_status": "partial",
+      "schema_status": "wired",
       "permission_status": "defined",
-      "activation_status": "partial",
+      "activation_status": "active",
       "command_brief_status": "none",
       "action_status": "blocked",
       "language_status": "complete",
       "test_status": "phase_tested",
-      "readiness": "connected_but_partial",
+      "readiness": "production_ready_candidate",
       "limitations": [
-        "Case lookup uses metadata-only proxy records with masked subject references.",
-        "No identity documents or sensitive profile fields."
+        "No identity documents or sensitive profile fields.",
+        "Member verification exact source live E2E certification passed — production_ready requires final operator sign-off."
       ],
-      "next_required_step": "Wire dedicated verification case RPC with audit-only metadata fields.",
+      "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app"
     },
     {
@@ -5956,16 +5956,6 @@
     },
     {
       "priority": "P2",
-      "module_id": "verification.case_read",
-      "provider_key": "community_external_adapter",
-      "capability_ids": [
-        "verification_case.read"
-      ],
-      "reason": "Partial runtime without Command Brief linkage.",
-      "next_required_step": "Add Command Brief signals when live metrics are available."
-    },
-    {
-      "priority": "P2",
       "module_id": "service.local_service_beauty",
       "provider_key": "local_service_beauty",
       "capability_ids": [
@@ -6515,9 +6505,9 @@
     },
     "module_readiness": {
       "production_ready": 0,
-      "production_ready_candidate": 9,
+      "production_ready_candidate": 12,
       "connected": 7,
-      "connected_but_partial": 35,
+      "connected_but_partial": 32,
       "adapter_missing": 90,
       "source_missing": 2,
       "manifest_only": 8,
@@ -6536,10 +6526,10 @@
       "disabled": 0
     },
     "source_classification": {
-      "source_exact": 4,
+      "source_exact": 7,
       "source_compatible": 6,
       "source_partial": 30,
-      "source_proxy": 3,
+      "source_proxy": 0,
       "source_seeded": 0,
       "source_simulated": 0,
       "source_missing": 78,
@@ -6548,9 +6538,9 @@
     "readiness_scope": {
       "read": {
         "production_ready": 0,
-        "production_ready_candidate": 9,
+        "production_ready_candidate": 12,
         "connected": 7,
-        "connected_but_partial": 35,
+        "connected_but_partial": 32,
         "adapter_missing": 90,
         "source_missing": 2,
         "manifest_only": 8,
@@ -6602,7 +6592,7 @@
     "gap_priority": {
       "P0": 0,
       "P1": 91,
-      "P2": 15,
+      "P2": 14,
       "P3": 27
     },
     "reconciliation_notes": [
@@ -17731,25 +17721,25 @@
         "verification_status.read"
       ],
       "source_type": "rpc",
-      "source_reference": "rpc:get_customer_community_network_center:best_practices",
+      "source_reference": "get_customer_member_verification_center",
       "runtime_loader": "load-companion-community-context.ts",
-      "schema_status": "partial",
+      "schema_status": "wired",
       "permission_status": "defined",
-      "activation_status": "partial",
+      "activation_status": "active",
       "command_brief_status": "linked",
       "action_status": "blocked",
       "language_status": "complete",
       "test_status": "phase_tested",
-      "readiness": "connected_but_partial",
+      "readiness": "production_ready_candidate",
       "limitations": [
-        "Uses community best-practice moderation_status metadata — not full verification queue.",
-        "No document images, ID data, or sensitive profile fields exposed to Companion."
+        "No document images, ID data, or sensitive profile fields exposed to Companion.",
+        "Member verification exact source live E2E certification passed — production_ready requires final operator sign-off."
       ],
-      "next_required_step": "Connect dedicated verification_queue.read source when community verification RPC is approved.",
+      "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app",
-      "source_classification": "source_proxy",
+      "source_classification": "source_exact",
       "readiness_scope": {
-        "read": "connected_but_partial",
+        "read": "production_ready_candidate",
         "draft": null,
         "write": null,
         "approval": "blocked_by_governance"
@@ -17758,7 +17748,7 @@
         "catalog_registered": true,
         "builder_exists": false,
         "runtime_collector_connected": true,
-        "signal_source": "signal_source_partial",
+        "signal_source": "signal_source_exact",
         "deduplication_connected": true,
         "action_connected": false,
         "panel_visibility": true,
@@ -17773,8 +17763,8 @@
           "ui_surface": true,
           "actions": true,
           "limitations": [
-            "Uses community best-practice moderation_status metadata — not full verification queue.",
-            "No document images, ID data, or sensitive profile fields exposed to Companion."
+            "No document images, ID data, or sensitive profile fields exposed to Companion.",
+            "Member verification exact source live E2E certification passed — production_ready requires final operator sign-off."
           ]
         },
         "platform": {
@@ -17903,25 +17893,25 @@
         "verification_queue.read"
       ],
       "source_type": "rpc",
-      "source_reference": "rpc:get_customer_community_network_center:best_practices",
+      "source_reference": "get_customer_member_verification_center",
       "runtime_loader": "verification-read-orchestrator.ts",
-      "schema_status": "partial",
+      "schema_status": "wired",
       "permission_status": "defined",
-      "activation_status": "partial",
+      "activation_status": "active",
       "command_brief_status": "linked",
       "action_status": "blocked",
       "language_status": "complete",
       "test_status": "phase_tested",
-      "readiness": "connected_but_partial",
+      "readiness": "production_ready_candidate",
       "limitations": [
-        "Queue summary uses community metadata proxy until dedicated verification queue RPC is approved.",
-        "No document images, ID numbers, or moderator notes exposed to Companion."
+        "No document images, ID numbers, or moderator notes exposed to Companion.",
+        "Member verification exact source live E2E certification passed — production_ready requires final operator sign-off."
       ],
-      "next_required_step": "Connect dedicated read-only verification queue RPC and promote Command Brief to exact semantic match.",
+      "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app",
-      "source_classification": "source_proxy",
+      "source_classification": "source_exact",
       "readiness_scope": {
-        "read": "connected_but_partial",
+        "read": "production_ready_candidate",
         "draft": null,
         "write": null,
         "approval": "blocked_by_governance"
@@ -17930,7 +17920,7 @@
         "catalog_registered": true,
         "builder_exists": true,
         "runtime_collector_connected": true,
-        "signal_source": "signal_source_partial",
+        "signal_source": "signal_source_exact",
         "deduplication_connected": true,
         "action_connected": false,
         "panel_visibility": true,
@@ -17945,8 +17935,8 @@
           "ui_surface": true,
           "actions": true,
           "limitations": [
-            "Queue summary uses community metadata proxy until dedicated verification queue RPC is approved.",
-            "No document images, ID numbers, or moderator notes exposed to Companion."
+            "No document images, ID numbers, or moderator notes exposed to Companion.",
+            "Member verification exact source live E2E certification passed — production_ready requires final operator sign-off."
           ]
         },
         "platform": {
@@ -17988,25 +17978,25 @@
         "verification_case.read"
       ],
       "source_type": "rpc",
-      "source_reference": "rpc:get_customer_community_network_center:best_practices",
+      "source_reference": "get_customer_member_verification_center",
       "runtime_loader": "verification-read-orchestrator.ts",
-      "schema_status": "partial",
+      "schema_status": "wired",
       "permission_status": "defined",
-      "activation_status": "partial",
+      "activation_status": "active",
       "command_brief_status": "none",
       "action_status": "blocked",
       "language_status": "complete",
       "test_status": "phase_tested",
-      "readiness": "connected_but_partial",
+      "readiness": "production_ready_candidate",
       "limitations": [
-        "Case lookup uses metadata-only proxy records with masked subject references.",
-        "No identity documents or sensitive profile fields."
+        "No identity documents or sensitive profile fields.",
+        "Member verification exact source live E2E certification passed — production_ready requires final operator sign-off."
       ],
-      "next_required_step": "Wire dedicated verification case RPC with audit-only metadata fields.",
+      "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app",
-      "source_classification": "source_proxy",
+      "source_classification": "source_exact",
       "readiness_scope": {
-        "read": "connected_but_partial",
+        "read": "production_ready_candidate",
         "draft": null,
         "write": null,
         "approval": "blocked_by_governance"
@@ -18030,8 +18020,8 @@
           "ui_surface": true,
           "actions": true,
           "limitations": [
-            "Case lookup uses metadata-only proxy records with masked subject references.",
-            "No identity documents or sensitive profile fields."
+            "No identity documents or sensitive profile fields.",
+            "Member verification exact source live E2E certification passed — production_ready requires final operator sign-off."
           ]
         },
         "platform": {
@@ -21427,9 +21417,9 @@
     "total_capabilities": 394,
     "readiness": {
       "production_ready": 0,
-      "production_ready_candidate": 9,
+      "production_ready_candidate": 12,
       "connected": 7,
-      "connected_but_partial": 35,
+      "connected_but_partial": 32,
       "adapter_missing": 90,
       "source_missing": 2,
       "manifest_only": 8,
@@ -21439,10 +21429,10 @@
       "blocked_by_governance": 0
     },
     "source_classification": {
-      "source_exact": 4,
+      "source_exact": 7,
       "source_compatible": 6,
       "source_partial": 30,
-      "source_proxy": 3,
+      "source_proxy": 0,
       "source_seeded": 0,
       "source_simulated": 0,
       "source_missing": 78,
@@ -21463,9 +21453,9 @@
         "modules": 175,
         "readiness": {
           "production_ready": 0,
-          "production_ready_candidate": 9,
+          "production_ready_candidate": 12,
           "connected": 7,
-          "connected_but_partial": 32,
+          "connected_but_partial": 29,
           "adapter_missing": 90,
           "source_missing": 2,
           "manifest_only": 8,
@@ -21762,10 +21752,10 @@
   "known_gaps": {
     "version": "companion-known-gaps-v1",
     "generated_from": "buildCompanionFoundationCoverageGaps",
-    "total_gaps": 133,
+    "total_gaps": 132,
     "by_priority": {
       "P1": 91,
-      "P2": 15,
+      "P2": 14,
       "P3": 27
     },
     "gaps": [
@@ -22999,16 +22989,6 @@
           "verification.read",
           "verification_status.read",
           "verification.request"
-        ],
-        "reason": "Partial runtime without Command Brief linkage.",
-        "next_required_step": "Add Command Brief signals when live metrics are available."
-      },
-      {
-        "priority": "P2",
-        "module_id": "verification.case_read",
-        "provider_key": "community_external_adapter",
-        "capability_ids": [
-          "verification_case.read"
         ],
         "reason": "Partial runtime without Command Brief linkage.",
         "next_required_step": "Add Command Brief signals when live metrics are available."

@@ -26,6 +26,7 @@ const recentPhaseTests = [
   "phase-p1-05.test.ts",
   "phase-p1-06.test.ts",
   "phase-p1-07.test.ts",
+  "phase-p1-08.test.ts",
 ] as const;
 
 for (const testFile of recentPhaseTests) {
