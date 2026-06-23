@@ -129,8 +129,8 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     labelKey: "customerApp.portalStructure.navGroups.home",
     defaultExpanded: true,
     items: [
-      { id: "commandBrief", href: "/app/command-center/companion-briefing", labelKey: "customerApp.portalStructure.nav.commandBrief" },
       { id: "appDashboard", href: "/app", labelKey: "customerApp.portalStructure.nav.dashboard" },
+      { id: "commandBrief", href: "/app/command-center/companion-briefing", labelKey: "customerApp.portalStructure.nav.commandBrief" },
       { id: "sinceLastLogin", href: "/app/since-last-login", labelKey: "customerApp.portalStructure.nav.sinceLastLogin" },
       { id: "appNotifications", href: "/app/notifications", labelKey: "customerApp.portalStructure.nav.notifications" },
     ],

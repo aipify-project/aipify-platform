@@ -36,7 +36,7 @@ export function AipifyLoadingState({
   preset = "workspace",
   status = "waiting",
   showActivePulse = true,
-  showStatusIndicator = true,
+  showStatusIndicator = false,
   statusLabel,
   size = "md",
   centered = true,
@@ -95,7 +95,9 @@ export function AipifyLoadingState({
         </p>
       ) : null}
 
-      <p className="mt-2 max-w-sm text-sm font-medium text-aipify-text">{resolvedMessage}</p>
+      <p className="mt-5 max-w-xs text-xs font-normal tracking-wide text-aipify-text-secondary">
+        {resolvedMessage}
+      </p>
     </div>
   );
 }

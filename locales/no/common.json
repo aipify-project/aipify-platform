@@ -40,6 +40,7 @@
     "workspace": "Aipify forbereder arbeidsområdet ditt…",
     "loading": "Laster Aipify…",
     "working": "Aipify jobber…",
+    "preparingContent": "Aipify gjør klart innholdet",
     "status": {
       "waiting": "Venter",
       "complete": "Fullført",

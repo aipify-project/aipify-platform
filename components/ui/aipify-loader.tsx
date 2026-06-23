@@ -24,7 +24,7 @@ export function AipifyLoader({
   fullPage = false,
   className = "",
   showActivePulse = true,
-  showStatusIndicator = true,
+  showStatusIndicator = false,
   preset = "workspace",
 }: AipifyLoaderProps) {
   return (

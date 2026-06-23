@@ -1,6 +1,7 @@
 "use client";
 
 import { type ReactNode } from "react";
+import { AppGlobalLoadingShell } from "@/components/app/AppGlobalLoadingShell";
 import { usePortalAuthGuard } from "@/lib/auth/use-portal-auth-guard";
 
 type CustomerPortalGuardProps = {
@@ -18,14 +19,7 @@ export default function CustomerPortalGuard({
   });
 
   if (checking) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-aipify-canvas">
-        <div className="flex flex-col items-center gap-3">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-violet-200 border-t-violet-600" />
-          <p className="text-sm font-medium text-gray-500">{loadingLabel}</p>
-        </div>
-      </div>
-    );
+    return <AppGlobalLoadingShell message={loadingLabel} />;
   }
 
   if (!authenticated) {

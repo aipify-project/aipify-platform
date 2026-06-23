@@ -5,7 +5,7 @@ export const AIPIFY_LOADER_ASSETS = {
   gif: "/loaders/aipify-loader.gif",
 } as const;
 
-export const AIPIFY_LOADER_DEFAULT_LABEL = "Aipify is preparing your workspace…";
+export const AIPIFY_LOADER_DEFAULT_LABEL = "Aipify is preparing your content";
 
 export type AipifyLoaderAnimationMode = "lottie" | "webm" | "gif" | "static";
 

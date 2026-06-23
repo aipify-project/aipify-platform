@@ -136,8 +136,8 @@ export default async function AppLayout({
   }
 
   return (
-    <CustomerPortalGuard loadingLabel={t("common.loading")}>
-      <TwoFactorSessionGate loadingLabel={t("common.loading")}>
+    <CustomerPortalGuard loadingLabel={t("common.loadingState.preparingContent")}>
+      <TwoFactorSessionGate loadingLabel={t("common.loadingState.preparingContent")}>
       <DashboardProfileProvider>
         <DashboardShell
           appName={t("common.appName")}

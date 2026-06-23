@@ -35,5 +35,17 @@
       "performance": "Reviewing performance indicators…",
       "marketInsights": "Synchronizing market insights…"
     }
+  },
+  "loadingState": {
+    "workspace": "Aipify está preparando tu espacio de trabajo…",
+    "loading": "Cargando Aipify…",
+    "working": "Aipify está trabajando…",
+    "preparingContent": "Aipify está preparando el contenido",
+    "status": {
+      "waiting": "Esperando",
+      "complete": "Completado",
+      "attention": "Requiere atención",
+      "info": "Información"
+    }
   }
 }

@@ -40,6 +40,7 @@
     "workspace": "Aipify förbereder din arbetsyta…",
     "loading": "Laddar Aipify…",
     "working": "Aipify arbetar…",
+    "preparingContent": "Aipify förbereder innehållet",
     "status": {
       "waiting": "Väntar",
       "complete": "Slutförd",

@@ -40,6 +40,7 @@
     "workspace": "Aipify is preparing your workspace…",
     "loading": "Loading Aipify…",
     "working": "Aipify is working…",
+    "preparingContent": "Aipify is preparing your content",
     "status": {
       "waiting": "Waiting",
       "complete": "Complete",

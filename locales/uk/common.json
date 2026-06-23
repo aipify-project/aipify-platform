@@ -40,6 +40,7 @@
     "workspace": "Aipify готує ваш робочий простір…",
     "loading": "Завантаження Aipify…",
     "working": "Aipify працює…",
+    "preparingContent": "Aipify готує ваш вміст",
     "status": {
       "waiting": "Очікування",
       "complete": "Завершено",
