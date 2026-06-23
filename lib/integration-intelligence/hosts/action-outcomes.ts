@@ -8,6 +8,9 @@ export type HostsProviderWriteContext = {
 export type HostsWriteExecutionResult = {
   executed: boolean;
   failure_reason: string | null;
+  idempotent_replay?: boolean;
+  verified_after_reread?: boolean;
+  entity_id?: string | null;
 };
 
 export function resolveHostsWriteActionOutcome(input: {
@@ -36,6 +39,15 @@ export function resolveHostsWriteActionOutcome(input: {
   }
 
   return "execution_source_missing";
+}
+
+export function hostsWriteProposalRequiresApproval(input: {
+  provider_write: HostsProviderWriteContext;
+}): boolean {
+  return (
+    input.provider_write.write_source_available &&
+    input.provider_write.requires_approval_before_execution
+  );
 }
 
 export function resolveHostsDraftOutcome(input: { draft_text: string | null }): HostsWriteOutcome {

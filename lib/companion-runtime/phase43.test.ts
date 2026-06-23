@@ -114,6 +114,12 @@ assert.equal(supportWrite!.readiness, "production_ready_candidate");
 assert.equal(supportWrite!.readiness_scope.write, "production_ready_candidate");
 assert.ok(supportWrite!.capability_ids.some((id) => id.includes("assign")));
 
+const hostsWrite = reconciled.find((row) => row.module_id === "hosts.task_write");
+assert.ok(hostsWrite);
+assert.equal(hostsWrite!.readiness, "production_ready_candidate");
+assert.equal(hostsWrite!.readiness_scope.write, "production_ready_candidate");
+assert.ok(hostsWrite!.capability_ids.some((id) => id.includes("host_task")));
+
 const summary = artifact.reconciliation_summary!;
 assert.equal(summary.total_modules, entries.length);
 assert.equal(

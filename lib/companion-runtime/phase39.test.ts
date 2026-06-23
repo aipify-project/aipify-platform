@@ -226,6 +226,7 @@ async function runPhase39AsyncTests() {
       assignee_reference: null,
       grounded_sources: ["business_dna_knowledge"],
       confirmed: false,
+      approved: false,
       idempotency_key: "draft-1",
     },
   });
@@ -248,6 +249,7 @@ async function runPhase39AsyncTests() {
       assignee_reference: "cleaner-team",
       grounded_sources: [],
       confirmed: true,
+      approved: false,
       idempotency_key: "task-1",
     },
   });

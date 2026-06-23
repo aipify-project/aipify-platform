@@ -1,0 +1,162 @@
+{
+  "version": "companion-p1-07-live-app-hosts-task-write-e2e-certification-v1",
+  "generated_at": "2026-06-23T03:06:15.489Z",
+  "environment": "staging",
+  "commit_hash": "5a9d58b08bb1722b92da4ae23843e3892de2a7fb",
+  "organization_reference": "org_a710a43a6d8c",
+  "session_mode": "live_authenticated",
+  "p1_01_prerequisite": "pass",
+  "host_task_write_source": "create_aipify_hosts_task",
+  "cleaning_assign_write_source": "perform_aipify_hosts_cleaning_action",
+  "maintenance_create_write_source": "perform_aipify_hosts_maintenance_action",
+  "controlled_probe_tasks_created": 2,
+  "cleanup_completed": true,
+  "overall_status": "pass",
+  "blockers": [],
+  "flows": [
+    {
+      "flow_id": "write_source_host_task_live",
+      "capability": "hosts.write.host_task",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "write_source_cleaning_assign_live",
+      "capability": "hosts.write.cleaning_assign",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "write_source_maintenance_create_live",
+      "capability": "hosts.write.maintenance_create",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "blocked_capabilities",
+      "capability": "hosts.write.blocked",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "confirmation_gate",
+      "capability": "hosts.write.confirmation",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "approval_gate",
+      "capability": "hosts.write.approval",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "create_host_task_live",
+      "capability": "hosts.write.host_task",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "assign_cleaning_live",
+      "capability": "hosts.write.cleaning_assign",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "create_maintenance_live",
+      "capability": "hosts.write.maintenance_create",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "permission_denied_create",
+      "capability": "hosts.write.access",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "suspended_app_denied",
+      "capability": "hosts.write.access",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "audit_without_pii",
+      "capability": "hosts.write.audit",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "probe_cleanup_completed",
+      "capability": "hosts.write.cleanup",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "tenant_isolation": [
+    {
+      "check_id": "manipulated_organization_id_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "missing_entitlement_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "suspended_app_no_write",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "idempotency": [
+    {
+      "check_id": "duplicate_host_task_retry",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "cleanup": [
+    {
+      "check_id": "host_task_probe_cancelled",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "maintenance_probe_closed",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "capabilities_passed": [
+    "hosts.write.access",
+    "hosts.write.approval",
+    "hosts.write.audit",
+    "hosts.write.blocked",
+    "hosts.write.cleaning_assign",
+    "hosts.write.cleanup",
+    "hosts.write.confirmation",
+    "hosts.write.host_task",
+    "hosts.write.idempotency",
+    "hosts.write.isolation",
+    "hosts.write.maintenance_create"
+  ],
+  "capabilities_failed": [],
+  "coverage_updates_applied": [
+    "hosts.task_write"
+  ]
+}

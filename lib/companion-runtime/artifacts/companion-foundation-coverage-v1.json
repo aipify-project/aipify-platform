@@ -1,6 +1,6 @@
 {
   "version": "companion-foundation-coverage-v1",
-  "generated_at": "2026-06-23T02:49:46.570Z",
+  "generated_at": "2026-06-23T03:05:58.066Z",
   "summary": {
     "total_modules": 178,
     "total_capabilities": 449,
@@ -10,10 +10,10 @@
     "panels": 4,
     "readiness": {
       "production_ready": 0,
-      "production_ready_candidate": 8,
+      "production_ready_candidate": 9,
       "connected": 7,
       "connected_but_partial": 35,
-      "adapter_missing": 91,
+      "adapter_missing": 90,
       "source_missing": 2,
       "manifest_only": 8,
       "specification_only": 27,
@@ -4161,18 +4161,18 @@
       "source_type": "rpc",
       "source_reference": "record_aipify_hosts_operations_action",
       "runtime_loader": "hosts-write-orchestrator.ts",
-      "schema_status": "partial",
+      "schema_status": "wired",
       "permission_status": "defined",
-      "activation_status": "disabled",
+      "activation_status": "partial",
       "command_brief_status": "none",
       "action_status": "approval_required",
       "language_status": "complete",
       "test_status": "phase_tested",
-      "readiness": "adapter_missing",
+      "readiness": "production_ready_candidate",
       "limitations": [
-        "Write RPC exists but Companion runtime adapter is not connected — execution_source_missing."
+        "Hosts task write live E2E certification passed — production_ready requires final operator sign-off."
       ],
-      "next_required_step": "Enable reversible task assign/create adapter with user confirmation and audit.",
+      "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app"
     },
     {
@@ -6515,10 +6515,10 @@
     },
     "module_readiness": {
       "production_ready": 0,
-      "production_ready_candidate": 8,
+      "production_ready_candidate": 9,
       "connected": 7,
       "connected_but_partial": 35,
-      "adapter_missing": 91,
+      "adapter_missing": 90,
       "source_missing": 2,
       "manifest_only": 8,
       "specification_only": 27,
@@ -6548,10 +6548,10 @@
     "readiness_scope": {
       "read": {
         "production_ready": 0,
-        "production_ready_candidate": 8,
+        "production_ready_candidate": 9,
         "connected": 7,
         "connected_but_partial": 35,
-        "adapter_missing": 91,
+        "adapter_missing": 90,
         "source_missing": 2,
         "manifest_only": 8,
         "specification_only": 27,
@@ -6574,10 +6574,10 @@
       },
       "write": {
         "production_ready": 0,
-        "production_ready_candidate": 1,
+        "production_ready_candidate": 2,
         "connected": 0,
         "connected_but_partial": 1,
-        "adapter_missing": 40,
+        "adapter_missing": 39,
         "source_missing": 1,
         "manifest_only": 1,
         "specification_only": 7,
@@ -19634,24 +19634,24 @@
       "source_type": "rpc",
       "source_reference": "record_aipify_hosts_operations_action",
       "runtime_loader": "hosts-write-orchestrator.ts",
-      "schema_status": "partial",
+      "schema_status": "wired",
       "permission_status": "defined",
-      "activation_status": "disabled",
+      "activation_status": "partial",
       "command_brief_status": "none",
       "action_status": "approval_required",
       "language_status": "complete",
       "test_status": "phase_tested",
-      "readiness": "adapter_missing",
+      "readiness": "production_ready_candidate",
       "limitations": [
-        "Write RPC exists but Companion runtime adapter is not connected — execution_source_missing."
+        "Hosts task write live E2E certification passed — production_ready requires final operator sign-off."
       ],
-      "next_required_step": "Enable reversible task assign/create adapter with user confirmation and audit.",
+      "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app",
       "source_classification": "source_unknown",
       "readiness_scope": {
-        "read": "adapter_missing",
+        "read": "production_ready_candidate",
         "draft": null,
-        "write": "adapter_missing",
+        "write": "production_ready_candidate",
         "approval": "blocked_by_governance"
       },
       "command_brief": {
@@ -19667,13 +19667,13 @@
       "panel_coverage": {
         "app": {
           "data_source": true,
-          "runtime_connection": false,
+          "runtime_connection": true,
           "permissions": true,
           "command_brief": false,
           "ui_surface": true,
           "actions": true,
           "limitations": [
-            "Write RPC exists but Companion runtime adapter is not connected — execution_source_missing."
+            "Hosts task write live E2E certification passed — production_ready requires final operator sign-off."
           ]
         },
         "platform": {
@@ -21427,10 +21427,10 @@
     "total_capabilities": 394,
     "readiness": {
       "production_ready": 0,
-      "production_ready_candidate": 8,
+      "production_ready_candidate": 9,
       "connected": 7,
       "connected_but_partial": 35,
-      "adapter_missing": 91,
+      "adapter_missing": 90,
       "source_missing": 2,
       "manifest_only": 8,
       "specification_only": 27,
@@ -21463,10 +21463,10 @@
         "modules": 175,
         "readiness": {
           "production_ready": 0,
-          "production_ready_candidate": 8,
+          "production_ready_candidate": 9,
           "connected": 7,
           "connected_but_partial": 32,
-          "adapter_missing": 91,
+          "adapter_missing": 90,
           "source_missing": 2,
           "manifest_only": 8,
           "specification_only": 27,
@@ -21670,7 +21670,7 @@
         "package_id": "p1.07_hosts_task_write_adapter",
         "module_id": "hosts.task_write",
         "exact_gap": "Hosts task/status write adapter missing.",
-        "current_readiness": "adapter_missing",
+        "current_readiness": "production_ready_candidate",
         "verified_source": "hosts write orchestrator scaffold",
         "required_work": "Connect reversible Hosts task write adapter with confirmation.",
         "read_write_scope": "write_approval_required",
