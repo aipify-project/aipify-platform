@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { isCompanionWorkerConfigured } from "@/lib/app/companion/chat-queue/dispatch-worker";
 import { scheduleCompanionQueueProcessing } from "@/lib/app/companion/chat-queue/process-queue";
 
+export const maxDuration = 300;
+
 export async function POST(request: Request) {
   try {
     const supabase = await createClient();

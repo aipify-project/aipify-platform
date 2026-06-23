@@ -1,7 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import type { CompanionExperienceLabels } from "@/lib/app/companion/types";
 import type { CompanionQueueItem, CompanionQueueStatus } from "@/lib/app/companion/chat-queue/types";
+import {
+  resolveCompanionQueueWaitPhase,
+  type CompanionQueueWaitPhase,
+} from "@/lib/app/companion/chat-queue/queue-wait-phase";
 
 type CompanionQueueBarProps = {
   queue: CompanionQueueItem[];
@@ -10,7 +15,7 @@ type CompanionQueueBarProps = {
   onRetry: (queueId: string) => void;
 };
 
-function statusLabel(
+function baseStatusLabel(
   status: CompanionQueueStatus,
   labels: CompanionExperienceLabels["queue"],
 ): string {
@@ -27,6 +32,22 @@ function statusLabel(
       return labels.statusCancelled;
     default:
       return status;
+  }
+}
+
+function waitPhaseDetail(
+  phase: CompanionQueueWaitPhase,
+  labels: CompanionExperienceLabels["queue"],
+): string | null {
+  switch (phase) {
+    case "working":
+      return labels.statusWorking;
+    case "long_wait":
+      return labels.statusLongWait;
+    case "timeout":
+      return labels.statusTimedOut;
+    default:
+      return null;
   }
 }
 
@@ -48,9 +69,20 @@ function statusIcon(status: CompanionQueueStatus): string {
 }
 
 export function CompanionQueueBar({ queue, labels, onCancel, onRetry }: CompanionQueueBarProps) {
+  const [now, setNow] = useState(() => Date.now());
   const active = queue.filter(
     (item) => item.status === "waiting" || item.status === "processing" || item.status === "failed",
   );
+
+  const hasActiveWait = active.some(
+    (item) => item.status === "waiting" || item.status === "processing",
+  );
+
+  useEffect(() => {
+    if (!hasActiveWait) return;
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, [hasActiveWait]);
 
   if (active.length === 0) return null;
 
@@ -71,45 +103,62 @@ export function CompanionQueueBar({ queue, labels, onCancel, onRetry }: Companio
         </span>
       </div>
       <ul className="mt-2 space-y-2">
-        {active.map((item) => (
-          <li
-            key={item.id}
-            className="flex items-start justify-between gap-3 rounded-lg border border-violet-100 bg-white px-3 py-2"
-          >
-            <div className="min-w-0 flex-1">
-              <p className="flex items-center gap-1.5 text-xs font-medium text-aipify-text">
-                <span aria-hidden="true">{statusIcon(item.status)}</span>
-                <span>{statusLabel(item.status, q)}</span>
-              </p>
-              <p className="mt-0.5 line-clamp-2 text-xs text-aipify-text-secondary">
-                {item.question_text}
-              </p>
-              {item.status === "failed" && item.error_message ? (
-                <p className="mt-1 text-xs text-amber-900">{item.error_message}</p>
-              ) : null}
-            </div>
-            <div className="flex shrink-0 flex-col gap-1">
-              {item.status === "waiting" ? (
-                <button
-                  type="button"
-                  onClick={() => onCancel(item.id)}
-                  className="rounded-md border border-aipify-border px-2 py-1 text-[11px] font-medium text-aipify-text-muted hover:bg-aipify-surface-muted"
-                >
-                  {q.cancel}
-                </button>
-              ) : null}
-              {item.status === "failed" ? (
-                <button
-                  type="button"
-                  onClick={() => onRetry(item.id)}
-                  className="rounded-md border border-violet-200 bg-violet-50 px-2 py-1 text-[11px] font-medium text-violet-900 hover:bg-violet-100"
-                >
-                  {q.retry}
-                </button>
-              ) : null}
-            </div>
-          </li>
-        ))}
+        {active.map((item) => {
+          const waitPhase =
+            item.status === "waiting" || item.status === "processing"
+              ? resolveCompanionQueueWaitPhase({
+                  status: item.status,
+                  createdAt: item.created_at ?? null,
+                  startedAt: item.started_at ?? null,
+                  now,
+                })
+              : "initial";
+          const phaseDetail = waitPhaseDetail(waitPhase, q);
+          const showTimeoutRetry = waitPhase === "timeout" && item.status !== "failed";
+
+          return (
+            <li
+              key={item.id}
+              className="flex items-start justify-between gap-3 rounded-lg border border-violet-100 bg-white px-3 py-2"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="flex items-center gap-1.5 text-xs font-medium text-aipify-text">
+                  <span aria-hidden="true">{statusIcon(item.status)}</span>
+                  <span>{baseStatusLabel(item.status, q)}</span>
+                </p>
+                {phaseDetail ? (
+                  <p className="mt-1 text-xs text-violet-900">{phaseDetail}</p>
+                ) : null}
+                <p className="mt-0.5 line-clamp-2 text-xs text-aipify-text-secondary">
+                  {item.question_text}
+                </p>
+                {item.status === "failed" && item.error_message ? (
+                  <p className="mt-1 text-xs text-amber-900">{item.error_message}</p>
+                ) : null}
+              </div>
+              <div className="flex shrink-0 flex-col gap-1">
+                {item.status === "waiting" ? (
+                  <button
+                    type="button"
+                    onClick={() => onCancel(item.id)}
+                    className="rounded-md border border-aipify-border px-2 py-1 text-[11px] font-medium text-aipify-text-muted hover:bg-aipify-surface-muted"
+                  >
+                    {q.cancel}
+                  </button>
+                ) : null}
+                {item.status === "failed" || showTimeoutRetry ? (
+                  <button
+                    type="button"
+                    onClick={() => onRetry(item.id)}
+                    className="rounded-md border border-violet-200 bg-violet-50 px-2 py-1 text-[11px] font-medium text-violet-900 hover:bg-violet-100"
+                  >
+                    {q.retry}
+                  </button>
+                ) : null}
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

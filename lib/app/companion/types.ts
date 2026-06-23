@@ -166,6 +166,9 @@ export type CompanionExperienceLabels = {
     statusCompleted: string;
     statusFailed: string;
     statusCancelled: string;
+    statusWorking: string;
+    statusLongWait: string;
+    statusTimedOut: string;
     cancel: string;
     retry: string;
     notificationTitle: string;

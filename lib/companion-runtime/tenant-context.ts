@@ -256,100 +256,47 @@ export async function loadCompanionTenantContext(
     effectivePermissions,
   });
 
-  const creativeContext = await loadCompanionCreativeContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-  });
-
-  const mediaContext = await loadCompanionMediaContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-  });
-
-  const workspaceContext = await loadCompanionWorkspaceContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-  });
-
-  const commerceContext = await loadCompanionCommerceContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-  });
-
-  const servicesContext = await loadCompanionServicesContext(supabase, {
+  const packLoadBase = {
     effectivePermissions,
     subscriptionStatus,
     connectedProviders,
     activeBusinessPacks,
-  });
+  };
 
-  const supportContext = await loadCompanionSupportContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-    activeBusinessPacks,
-  });
-
-  const industryPackContext = await loadCompanionIndustryPackContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-    activeBusinessPacks,
-  });
-
-  const hostsContext = await loadCompanionHostsContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-    activeBusinessPacks,
-  });
-
-  const hrContext = await loadCompanionHrContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-    activeBusinessPacks,
-  });
-
-  const warehouseContext = await loadCompanionWarehouseContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-    activeBusinessPacks,
-  });
-
-  const financeContext = await loadCompanionFinanceContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-    activeBusinessPacks,
-  });
-
-  const salesContext = await loadCompanionSalesContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-    activeBusinessPacks,
-  });
-
-  const securityContext = await loadCompanionSecurityContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-    activeBusinessPacks,
-  });
-
-  const communityContext = await loadCompanionCommunityContext(supabase, {
-    effectivePermissions,
-    subscriptionStatus,
-    connectedProviders,
-    activeBusinessPacks,
-    organizationId,
-  });
+  const [
+    creativeContext,
+    mediaContext,
+    workspaceContext,
+    commerceContext,
+    servicesContext,
+    supportContext,
+    industryPackContext,
+    hostsContext,
+    hrContext,
+    warehouseContext,
+    financeContext,
+    salesContext,
+    securityContext,
+    communityContext,
+  ] = await Promise.all([
+    loadCompanionCreativeContext(supabase, packLoadBase),
+    loadCompanionMediaContext(supabase, packLoadBase),
+    loadCompanionWorkspaceContext(supabase, packLoadBase),
+    loadCompanionCommerceContext(supabase, packLoadBase),
+    loadCompanionServicesContext(supabase, packLoadBase),
+    loadCompanionSupportContext(supabase, packLoadBase),
+    loadCompanionIndustryPackContext(supabase, packLoadBase),
+    loadCompanionHostsContext(supabase, packLoadBase),
+    loadCompanionHrContext(supabase, packLoadBase),
+    loadCompanionWarehouseContext(supabase, packLoadBase),
+    loadCompanionFinanceContext(supabase, packLoadBase),
+    loadCompanionSalesContext(supabase, packLoadBase),
+    loadCompanionSecurityContext(supabase, packLoadBase),
+    loadCompanionCommunityContext(supabase, {
+      ...packLoadBase,
+      organizationId,
+    }),
+  ]);
 
   const operationalLoad = await loadCompanionOperationalContext(supabase, {
     effectivePermissions,

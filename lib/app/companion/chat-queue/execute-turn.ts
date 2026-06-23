@@ -197,11 +197,13 @@ export async function executeCompanionTurn(
   }
 
   let subscriptionRaw: unknown = null;
-  try {
-    const { data } = await runtimeSupabase.rpc("get_customer_license_center");
-    subscriptionRaw = data;
-  } catch {
-    subscriptionRaw = null;
+  if (!workerRuntime) {
+    try {
+      const { data } = await runtimeSupabase.rpc("get_customer_license_center");
+      subscriptionRaw = data;
+    } catch {
+      subscriptionRaw = null;
+    }
   }
 
   const searchOptions = {

@@ -1,4 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { AsyncTimeoutError, withAsyncTimeout } from "@/lib/core/async-with-timeout";
+import { COMPANION_QUEUE_RPC_TIMEOUT_MS } from "@/lib/app/companion/chat-queue/worker-config";
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import type { Translator } from "@/lib/i18n/translate";
 import type { PlatformSearchResult } from "@/lib/companion-platform-knowledge/types";
@@ -154,7 +156,24 @@ async function resolveMemberDirectoryAnswer(
   }
 
   const bridge = createCommunityMemberDirectoryReadProviderBridge(input.supabase);
-  const bundle = await bridge.fetchDirectory();
+  let bundle;
+  try {
+    bundle = await withAsyncTimeout(
+      bridge.fetchDirectory(),
+      COMPANION_QUEUE_RPC_TIMEOUT_MS,
+      "member_directory_fetch",
+    );
+  } catch (error) {
+    if (error instanceof AsyncTimeoutError) {
+      return {
+        answer: buildOrganizationIntelligenceGapAnswer(input.t, "source_unavailable", {
+          sourceReference: readiness.source_reference,
+          capabilityKey: intent.capability_key,
+        }),
+      };
+    }
+    throw error;
+  }
 
   if (!bundle.source_exact && intent.kind !== "member_count") {
     if (intent.kind === "member_verification_status" && !intent.member_reference) {

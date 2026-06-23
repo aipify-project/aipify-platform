@@ -6,6 +6,7 @@ import {
   sanitizeBootstrapErrorMessage,
   type WorkerBootstrapFailure,
 } from "@/lib/companion-runtime/companion-worker-bootstrap-errors";
+import { AsyncTimeoutError, withAsyncTimeout } from "@/lib/core/async-with-timeout";
 import { loadCompanionTenantContext, type CompanionTenantContext } from "@/lib/companion-runtime/tenant-context";
 import {
   createWorkerScopedCompanionSupabase,
@@ -14,6 +15,7 @@ import {
 import type { CompanionWorkerRuntimeScope } from "@/lib/companion-runtime/companion-worker-runtime-scope";
 import { coerceToCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import type { WorkerExecutionProfile } from "./load-worker-profile";
+import { COMPANION_QUEUE_BOOTSTRAP_TIMEOUT_MS } from "./worker-config";
 import { logCompanionWorkerEvent } from "./worker-log";
 
 export type CompanionWorkerTenantRuntime = {
@@ -53,13 +55,33 @@ export async function bootstrapCompanionWorkerTenantRuntime(
     queueId: context.queueId,
   };
 
-  const bootstrapResult = await fetchCompanionWorkerRuntimeBootstrap(
-    supabase,
-    profile.customerId,
-    profile.user.id,
-    activeLocale,
-    context,
-  );
+  const bootstrapResult = await withAsyncTimeout(
+    fetchCompanionWorkerRuntimeBootstrap(
+      supabase,
+      profile.customerId,
+      profile.user.id,
+      activeLocale,
+      context,
+    ),
+    COMPANION_QUEUE_BOOTSTRAP_TIMEOUT_MS,
+    "worker_bootstrap",
+  ).catch((error) => {
+    if (error instanceof AsyncTimeoutError) {
+      return {
+        ok: false as const,
+        failure: {
+          step: "rpc_call" as const,
+          rpc: "companion_worker_get_runtime_bootstrap",
+          message: "worker_bootstrap_timeout",
+          durationMs: Date.now() - started,
+          tenantId: profile.customerId,
+          userId: profile.user.id,
+          queueId: context.queueId,
+        },
+      };
+    }
+    throw error;
+  });
 
   if (!bootstrapResult.ok) {
     logWorkerBootstrapFailure(bootstrapResult.failure);
@@ -93,6 +115,12 @@ export async function bootstrapCompanionWorkerTenantRuntime(
   try {
     const tenantContext = await loadCompanionTenantContext(scopedSupabase, {
       locale: activeLocale,
+    });
+
+    logCompanionWorkerEvent("bootstrap_complete", {
+      queueId: context.queueId,
+      tenantId: profile.customerId,
+      durationMs: Date.now() - started,
     });
 
     return {

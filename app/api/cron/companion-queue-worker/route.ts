@@ -3,6 +3,8 @@ import { runCompanionQueueWorker } from "@/lib/app/companion/chat-queue/worker-r
 import { logCompanionWorkerEvent } from "@/lib/app/companion/chat-queue/worker-log";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
 
+export const maxDuration = 300;
+
 function authorizeCron(request: Request): boolean {
   const secret = process.env.CRON_SECRET;
   if (!secret) return false;

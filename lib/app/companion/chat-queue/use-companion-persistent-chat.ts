@@ -132,7 +132,7 @@ export function useCompanionPersistentChat({
     pollRef.current = setInterval(() => {
       void refreshState();
       void triggerCompanionQueueProcess(conversationId, panelVisible);
-    }, 2500);
+    }, 1500);
 
     return () => {
       if (pollRef.current) {

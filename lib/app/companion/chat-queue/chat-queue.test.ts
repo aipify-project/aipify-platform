@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { mapServerMessagesToChat, deserializeAssistantMessage } from "./message-payload";
 import { createClientMessageId, createIdempotencyKey } from "./client";
+import { resolveCompanionQueueWaitPhase } from "./queue-wait-phase";
 
 function testIdempotencyKeyStable() {
   const conversationId = "conv-123";
@@ -56,9 +57,41 @@ function testClientMessageIdUnique() {
   assert.notEqual(a, b);
 }
 
+function testQueueWaitPhaseProgression() {
+  const createdAt = new Date("2026-01-01T00:00:00.000Z").toISOString();
+  const base = new Date("2026-01-01T00:00:00.000Z").getTime();
+  assert.equal(
+    resolveCompanionQueueWaitPhase({
+      status: "processing",
+      createdAt,
+      startedAt: createdAt,
+      now: base + 5_000,
+    }),
+    "initial",
+  );
+  assert.equal(
+    resolveCompanionQueueWaitPhase({
+      status: "processing",
+      createdAt,
+      startedAt: createdAt,
+      now: base + 15_000,
+    }),
+    "working",
+  );
+  assert.equal(
+    resolveCompanionQueueWaitPhase({
+      status: "waiting",
+      createdAt,
+      now: base + 35_000,
+    }),
+    "long_wait",
+  );
+}
+
 testIdempotencyKeyStable();
 testDeserializeAssistantRoundTrip();
 testMapServerMessagesOrder();
 testClientMessageIdUnique();
+testQueueWaitPhaseProgression();
 
 console.log("chat-queue.test.ts: all assertions passed");

@@ -1,7 +1,10 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { AsyncTimeoutError, withAsyncTimeout } from "@/lib/core/async-with-timeout";
+import { COMPANION_QUEUE_RPC_TIMEOUT_MS } from "@/lib/app/companion/chat-queue/worker-config";
 import { executeCompanionTurnToPayload } from "./execute-turn";
 import {
   COMPANION_QUEUE_HEARTBEAT_INTERVAL_MS,
+  COMPANION_QUEUE_JOB_TIMEOUT_MS,
   COMPANION_QUEUE_LEASE_SECONDS,
   resolveCompanionQueueRetry,
   shouldNotifyCompanionReply,
@@ -84,15 +87,28 @@ export async function processWorkerQueueJob(
     : undefined;
 
   try {
-    const turn = await executeCompanionTurnToPayload(supabase, {
-      query: job.question_text,
-      locale: job.locale ?? "en",
-      conversationId: job.conversation_id,
-      activeArtifactId: job.active_artifact_id,
-      attachmentIds: parseAttachmentIds(job.attachment_ids),
-      platformActiveModules: platformModules,
-      workerProfile: profile,
-      workerQueueId: job.id,
+    const turn = await withAsyncTimeout(
+      executeCompanionTurnToPayload(supabase, {
+        query: job.question_text,
+        locale: job.locale ?? "en",
+        conversationId: job.conversation_id,
+        activeArtifactId: job.active_artifact_id,
+        attachmentIds: parseAttachmentIds(job.attachment_ids),
+        platformActiveModules: platformModules,
+        workerProfile: profile,
+        workerQueueId: job.id,
+      }),
+      COMPANION_QUEUE_JOB_TIMEOUT_MS,
+      "execute_turn",
+    ).catch((error) => {
+      if (error instanceof AsyncTimeoutError) {
+        return {
+          ok: false as const,
+          error: "Companion turn exceeded the production time budget.",
+          code: "turn_timeout",
+        };
+      }
+      throw error;
     });
 
     if (!turn.ok) {
@@ -142,9 +158,15 @@ export async function processWorkerQueueJob(
       completeRaw.deduplicated !== true &&
       shouldNotifyCompanionReply(job.companion_active_at_enqueue)
     ) {
-      await supabase.rpc("companion_queue_worker_notify_reply_ready", {
-        p_queue_id: job.id,
-      });
+      void (async () => {
+        try {
+          await supabase.rpc("companion_queue_worker_notify_reply_ready", {
+            p_queue_id: job.id,
+          });
+        } catch {
+          // Notification must not block queue completion.
+        }
+      })();
     }
 
     await supabase.rpc("companion_queue_worker_audit_event", {
