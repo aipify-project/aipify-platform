@@ -197,6 +197,7 @@ import {
 } from "./security-answer";
 import { resolveCommunityCompanionQuery } from "./community-companion-query";
 import { resolveOrganizationConnectionStatusAnswer } from "./organization-connection-status";
+import { resolveOrganizationIntelligenceAnswer } from "./organization-intelligence-routing";
 import {
   buildBlockedProactiveOperationAnswer,
   buildExternalProactiveUnavailableAnswer,
@@ -1464,6 +1465,17 @@ export async function orchestrateCompanionSearch(
   });
   if (organizationConnectionResult) {
     return finalize(organizationConnectionResult, { liveAnswer: true });
+  }
+
+  const organizationIntelligenceResult = await resolveOrganizationIntelligenceAnswer(query, {
+    t,
+    tenantContext: resolvedTenantContext,
+    supabase,
+    activeLocale,
+    companionSurface: options?.companionSurface,
+  });
+  if (organizationIntelligenceResult) {
+    return finalize(organizationIntelligenceResult, { liveAnswer: true });
   }
 
   const communityResult = resolveCommunityProviderAnswer(query, t, resolvedTenantContext, activeLocale);

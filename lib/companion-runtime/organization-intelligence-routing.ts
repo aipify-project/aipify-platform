@@ -1,0 +1,429 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import type { Translator } from "@/lib/i18n/translate";
+import type { PlatformSearchResult } from "@/lib/companion-platform-knowledge/types";
+import { isCommunityMemberDirectoryReadSourceConnected } from "@/lib/integration-intelligence/providers/community-member-directory/community-member-directory-source-map";
+import { buildCommunityMemberDirectoryPermissionContext } from "@/lib/integration-intelligence/providers/community-member-directory/permissions";
+import { isMemberVerificationReadSourceConnected } from "@/lib/integration-intelligence/providers/member-verification/member-verification-source-map";
+import { mapAsoDashboardToSupportBundle } from "@/lib/integration-intelligence/providers/support-operations/support-operations-contract";
+import type { SupportPermissionContext } from "@/lib/integration-intelligence/support/permissions";
+import type { VerificationPermissionContext } from "@/lib/integration-intelligence/verification/permissions";
+import { createCommunityMemberDirectoryReadProviderBridge } from "./community-member-directory-read-provider-bridge";
+import { executeCommunityMemberDirectorySearch } from "./community-member-directory-read-orchestrator";
+import {
+  buildMemberActiveListAnswer,
+  buildMemberCountAnswer,
+  buildMemberPendingVerificationAnswer,
+  buildMemberVerificationStatusAnswer,
+  buildOrganizationIntelligenceGapAnswer,
+  buildPrioritizeTodayAnswer,
+  buildSupportSlaAnswer,
+} from "./organization-intelligence-answer";
+import {
+  resolveOrganizationIntelligenceIntent,
+  type OrganizationIntelligenceIntent,
+} from "./organization-intelligence-intent";
+import { executeSupportQueueRead, type SupportProviderReader } from "./support-read-orchestrator";
+import { executeVerificationQueueRead } from "./verification-read-orchestrator";
+import { createVerificationReadProviderBridge } from "./verification-read-provider-bridge";
+import type { CompanionTenantContext } from "./companion-tenant-context";
+
+const PENDING_VERIFICATION_STATUSES = new Set([
+  "pending",
+  "in_review",
+  "needs_information",
+]);
+
+function isAppSuspended(subscriptionStatus: string | null): boolean {
+  if (!subscriptionStatus) return false;
+  return ["paused", "cancelled", "suspended", "inactive"].includes(subscriptionStatus.toLowerCase());
+}
+
+function buildMemberDirectoryPermission(
+  tenantContext: CompanionTenantContext,
+  providerActive: boolean,
+) {
+  return buildCommunityMemberDirectoryPermissionContext({
+    organization_id: tenantContext.organizationId!,
+    tenant_id: tenantContext.companyId ?? tenantContext.organizationId!,
+    user_role: tenantContext.organizationRole ?? "staff",
+    app_suspended: isAppSuspended(tenantContext.subscriptionStatus),
+    provider_active: providerActive,
+    can_view_community: tenantContext.effectivePermissions.includes("customer_community.view"),
+  });
+}
+
+function buildVerificationPermission(
+  tenantContext: CompanionTenantContext,
+  providerActive: boolean,
+): VerificationPermissionContext {
+  return {
+    organization_id: tenantContext.organizationId!,
+    tenant_id: tenantContext.companyId ?? tenantContext.organizationId!,
+    user_role: tenantContext.organizationRole ?? "staff",
+    app_suspended: isAppSuspended(tenantContext.subscriptionStatus),
+    provider_active: providerActive,
+    can_view_queue: true,
+    can_view_case: true,
+    rate_limit_ok: true,
+  };
+}
+
+function buildSupportPermission(
+  tenantContext: CompanionTenantContext,
+  providerActive: boolean,
+): SupportPermissionContext {
+  return {
+    organization_id: tenantContext.organizationId!,
+    tenant_id: tenantContext.companyId ?? tenantContext.organizationId!,
+    user_role: tenantContext.organizationRole ?? "staff",
+    app_suspended: isAppSuspended(tenantContext.subscriptionStatus),
+    provider_active: providerActive,
+    can_read_queue: true,
+    can_read_cases: true,
+    can_read_sla: true,
+    can_draft_response: false,
+    can_assign_case: false,
+    can_escalate_case: false,
+    rate_limit_ok: true,
+  };
+}
+
+function buildSupportProviderFromContext(
+  tenantContext: CompanionTenantContext,
+): SupportProviderReader | null {
+  const { supportContext } = tenantContext;
+  if (!supportContext.autonomous_support_enabled && !supportContext.support_source_exact) {
+    return null;
+  }
+
+  return {
+    provider_key: "autonomous_support_operations",
+    active: supportContext.support_source_exact || supportContext.autonomous_support_enabled,
+    read_queue: async () => ({
+      queue: supportContext.queue_summary,
+      cases: supportContext.case_summaries,
+      source_exact: supportContext.support_source_exact,
+      limitations: [],
+    }),
+    read_case: async () => ({
+      case_detail: null,
+      limitations: [],
+    }),
+  };
+}
+
+async function fetchSupportBundleFromRpc(supabase: SupabaseClient) {
+  const { data, error } = await supabase.rpc("get_customer_support_operations_center");
+  if (error || !data) return null;
+  return mapAsoDashboardToSupportBundle(data);
+}
+
+async function resolveMemberDirectoryAnswer(
+  intent: OrganizationIntelligenceIntent,
+  input: {
+    supabase: SupabaseClient;
+    tenantContext: CompanionTenantContext;
+    t: Translator;
+    locale: CustomerActiveLocale;
+  },
+): Promise<PlatformSearchResult | null> {
+  if (!isCommunityMemberDirectoryReadSourceConnected("member.search")) {
+    return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "provider_missing") };
+  }
+
+  const permission = buildMemberDirectoryPermission(input.tenantContext, true);
+  if (!permission.can_view_community) {
+    return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "permission_denied") };
+  }
+
+  const bridge = createCommunityMemberDirectoryReadProviderBridge(input.supabase);
+  const bundle = await bridge.fetchDirectory();
+
+  if (!bundle.source_exact && intent.kind !== "member_count") {
+    if (intent.kind === "member_verification_status" && !intent.member_reference) {
+      return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data") };
+    }
+  }
+
+  switch (intent.kind) {
+    case "member_count":
+      return {
+        answer: buildMemberCountAnswer({ intent, bundle, t: input.t, locale: input.locale }),
+      };
+    case "member_active_list":
+      return {
+        answer: buildMemberActiveListAnswer({ bundle, t: input.t, locale: input.locale }),
+      };
+    case "member_pending_verification": {
+      const pendingFromDirectory = bundle.members
+        .filter((member) => PENDING_VERIFICATION_STATUSES.has(String(member.verification_status).toLowerCase()))
+        .map((member) => member.display_name || member.username);
+
+      if (pendingFromDirectory.length > 0) {
+        return {
+          answer: buildMemberPendingVerificationAnswer({
+            bundle,
+            pendingReferences: pendingFromDirectory,
+            t: input.t,
+            locale: input.locale,
+          }),
+        };
+      }
+
+      if (isMemberVerificationReadSourceConnected("verification_queue.read")) {
+        const verificationBridge = createVerificationReadProviderBridge(input.supabase);
+        const queueBundle = await verificationBridge.fetchQueue();
+        const provider = verificationBridge.buildProviderReader(queueBundle);
+        const queueResult = await executeVerificationQueueRead({
+          organization_id: input.tenantContext.organizationId!,
+          tenant_id: input.tenantContext.companyId ?? input.tenantContext.organizationId!,
+          user_role: input.tenantContext.organizationRole ?? "staff",
+          permission: buildVerificationPermission(input.tenantContext, queueBundle.source_exact),
+          providers: [provider],
+        });
+
+        const pendingReferences = queueResult.cases
+          .filter((entry) => PENDING_VERIFICATION_STATUSES.has(entry.status))
+          .map((entry) => entry.subject_reference);
+
+        return {
+          answer: buildMemberPendingVerificationAnswer({
+            bundle,
+            pendingReferences,
+            t: input.t,
+            locale: input.locale,
+          }),
+        };
+      }
+
+      return {
+        answer: buildMemberPendingVerificationAnswer({
+          bundle,
+          pendingReferences: [],
+          t: input.t,
+          locale: input.locale,
+        }),
+      };
+    }
+    case "member_verification_status": {
+      const reference = intent.member_reference?.trim();
+      if (!reference) {
+        return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data") };
+      }
+
+      const searchResult = await executeCommunityMemberDirectorySearch({
+        query: {
+          organization_id: input.tenantContext.organizationId!,
+          tenant_id: input.tenantContext.companyId ?? input.tenantContext.organizationId!,
+          entity_type: "person",
+          relationship_type: "member",
+          search_field: "name",
+          search_value: reference,
+          filters: {},
+          requested_fields: ["name", "status"],
+          requested_detail_level: "summary",
+          permission_scope: "basic",
+          capability_candidates: ["member.search"],
+          locale: input.locale,
+        },
+        permission,
+        user_role: input.tenantContext.organizationRole ?? "staff",
+        bundle,
+      });
+
+      const matchedMember = bundle.members.find((member) => {
+        const haystack = [member.display_name, member.username]
+          .filter(Boolean)
+          .map((value) => String(value).toLowerCase());
+        const needle = reference.toLowerCase();
+        return haystack.some((value) => value.includes(needle));
+      });
+
+      const record = matchedMember ?? null;
+      if (!record && searchResult.records.length === 0) {
+        return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data") };
+      }
+
+      const verificationStatus =
+        record?.verification_status ??
+        bundle.members.find((member) => member.member_id === searchResult.records[0]?.entity_id)
+          ?.verification_status ??
+        null;
+
+      return {
+        answer: buildMemberVerificationStatusAnswer({
+          reference,
+          verificationStatus,
+          sourceReference: bundle.source_reference,
+          sourceExact: bundle.source_exact,
+          freshness: bundle.freshness,
+          t: input.t,
+          locale: input.locale,
+        }),
+      };
+    }
+    default:
+      return null;
+  }
+}
+
+async function resolveSupportSlaAnswer(
+  input: {
+    supabase: SupabaseClient;
+    tenantContext: CompanionTenantContext;
+    t: Translator;
+    locale: CustomerActiveLocale;
+  },
+): Promise<PlatformSearchResult> {
+  const rpcBundle = await fetchSupportBundleFromRpc(input.supabase);
+  const contextProvider = buildSupportProviderFromContext(input.tenantContext);
+
+  const bundle = rpcBundle ?? {
+    queue: input.tenantContext.supportContext.queue_summary,
+    cases: input.tenantContext.supportContext.case_summaries,
+    source_exact: input.tenantContext.supportContext.support_source_exact,
+    sla_source_exact: false,
+    limitations: [] as readonly string[],
+  };
+
+  const provider: SupportProviderReader | null = rpcBundle
+    ? {
+        provider_key: "autonomous_support_operations",
+        active: rpcBundle.source_exact,
+        read_queue: async () => ({
+          queue: rpcBundle.queue,
+          cases: rpcBundle.cases,
+          source_exact: rpcBundle.source_exact,
+          limitations: rpcBundle.limitations,
+        }),
+        read_case: async () => ({
+          case_detail: null,
+          limitations: rpcBundle.limitations,
+        }),
+      }
+    : contextProvider;
+
+  if (!provider || !bundle.source_exact) {
+    return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "provider_missing") };
+  }
+
+  const queueResult = await executeSupportQueueRead({
+    organization_id: input.tenantContext.organizationId!,
+    tenant_id: input.tenantContext.companyId ?? input.tenantContext.organizationId!,
+    user_role: input.tenantContext.organizationRole ?? "staff",
+    permission: buildSupportPermission(input.tenantContext, bundle.source_exact),
+    providers: [provider],
+  });
+
+  return {
+    answer: buildSupportSlaAnswer({
+      cases: queueResult.cases,
+      sourceReference: bundle.queue?.source_reference ?? "get_customer_support_operations_center",
+      sourceExact: bundle.source_exact,
+      slaSourceExact: rpcBundle?.sla_source_exact ?? false,
+      generatedAt: bundle.queue?.generated_at ?? null,
+      t: input.t,
+      locale: input.locale,
+    }),
+  };
+}
+
+function resolvePrioritizeTodayAnswer(input: {
+  tenantContext: CompanionTenantContext;
+  t: Translator;
+  locale: CustomerActiveLocale;
+}): PlatformSearchResult {
+  const bundle = input.tenantContext.commandBriefBundle;
+  const attentionFromOperational = input.tenantContext.operationalContext.attention_items.map(
+    (item, index) => ({
+      signal_id: `operational-attention-${item.id}`,
+      signal_type: "attention" as const,
+      category: item.category,
+      title_key: item.title,
+      summary_key: item.summary ?? item.title,
+      severity: "high" as const,
+      priority: 100 - index,
+      status: "unresolved" as const,
+      source_module: item.source_module ?? "operational",
+      source_provider: "command_brief",
+      source_reference: item.id,
+      source_tier: "exact_live" as const,
+      detected_at: item.occurred_at ?? null,
+      relevant_since: item.occurred_at ?? null,
+      freshness: input.tenantContext.operationalContext.freshness,
+      completeness: input.tenantContext.operationalContext.completeness === "complete" ? "complete" as const : "partial" as const,
+      confidence: "high" as const,
+      required_permission: null,
+      required_entitlement: null,
+      related_capability: null,
+      related_action: null,
+      organization_id: input.tenantContext.organizationId ?? "",
+      dedupe_key: `operational:${item.id}`,
+      warnings: [],
+      count: null,
+      panel: "app" as const,
+      since_last_bucket: "none" as const,
+    }),
+  );
+
+  const mergedSignals = [...bundle.prioritized_signals, ...attentionFromOperational]
+    .filter((signal) => signal.source_tier === "exact_live" || signal.source_tier === "compatible_live")
+    .sort((left, right) => right.priority - left.priority);
+
+  return {
+    answer: buildPrioritizeTodayAnswer({
+      signals: mergedSignals,
+      generatedAt: bundle.generated_at ?? input.tenantContext.operationalContext.generated_at,
+      t: input.t,
+      locale: input.locale,
+    }),
+  };
+}
+
+/** Routes organization-specific Companion questions to exact live sources before generic fallbacks. */
+export async function resolveOrganizationIntelligenceAnswer(
+  query: string,
+  input: {
+    t: Translator;
+    tenantContext: CompanionTenantContext;
+    supabase: SupabaseClient | null | undefined;
+    activeLocale: CustomerActiveLocale;
+    companionSurface?: boolean;
+  },
+): Promise<PlatformSearchResult | null> {
+  const intent = resolveOrganizationIntelligenceIntent(query);
+  if (!intent) return null;
+
+  if (!input.tenantContext.organizationId || !input.supabase) {
+    return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data") };
+  }
+
+  if (intent.kind === "prioritize_today") {
+    return resolvePrioritizeTodayAnswer({
+      tenantContext: input.tenantContext,
+      t: input.t,
+      locale: input.activeLocale,
+    });
+  }
+
+  if (intent.kind === "support_sla") {
+    return resolveSupportSlaAnswer({
+      supabase: input.supabase,
+      tenantContext: input.tenantContext,
+      t: input.t,
+      locale: input.activeLocale,
+    });
+  }
+
+  return resolveMemberDirectoryAnswer(intent, {
+    supabase: input.supabase,
+    tenantContext: input.tenantContext,
+    t: input.t,
+    locale: input.activeLocale,
+  });
+}
+
+export function shouldBypassGenericNavigationForOrganizationQuery(query: string): boolean {
+  return resolveOrganizationIntelligenceIntent(query) !== null;
+}

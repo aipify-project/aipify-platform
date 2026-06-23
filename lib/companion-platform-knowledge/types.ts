@@ -259,6 +259,8 @@ export type PlatformSearchOptions = {
   snapshotContext?: { activeModules?: readonly string[] };
   artifactContext?: CompanionArtifactContextPayload;
   tenantContext?: import("@/lib/companion-runtime/companion-tenant-context").CompanionTenantContext;
+  /** True when the user is already inside the Companion chat surface. */
+  companionSurface?: boolean;
 };
 
 export type PlatformSearchResult = {

@@ -190,6 +190,7 @@ export async function executeCompanionTurn(
         }
       : undefined,
     tenantContext,
+    companionSurface: true,
   };
 
   const searchQuery = query || companionLabels.attachments.activeBadge;
