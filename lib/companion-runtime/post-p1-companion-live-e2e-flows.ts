@@ -229,6 +229,53 @@ export async function runPostP1CompanionLiveE2eFlows(input: {
     return { flows, tenantIsolation };
   }
 
+  const cancelConversationId = `post-p1-cancel-${randomUUID().slice(0, 8)}`;
+  const cancelEnqueue = await enqueueQuestion(session, {
+    conversationId: cancelConversationId,
+    idempotencyKey: `${cancelConversationId}:cancel`,
+    question: "Cancel certification queue item",
+    pathname: SURFACE_PATHS.fullpage,
+    companionActive: true,
+  });
+  if (cancelEnqueue.ok) {
+    const cancelState = await fetchChatState(session, cancelConversationId);
+    const queue = cancelState.ok && Array.isArray(cancelState.data?.queue) ? cancelState.data.queue : [];
+    const waiting = queue.find((item) => {
+      const row = item as Record<string, unknown>;
+      return row.status === "waiting" || row.status === "processing";
+    }) as Record<string, unknown> | undefined;
+
+    if (waiting?.id) {
+      const { data: cancelRaw, error: cancelError } = await session.supabase.rpc(
+        "cancel_companion_queue_item",
+        { p_queue_id: waiting.id },
+      );
+      flows.push(
+        flow(
+          "cancel_queue_item",
+          "companion.queue.cancel",
+          !cancelError && cancelRaw?.ok === true ? "pass" : "fail",
+          {
+            failure_reason: cancelError
+              ? redactSecretsFromMessage(cancelError.message)
+              : cancelRaw?.ok === true
+                ? null
+                : String(cancelRaw?.error ?? "cancel_failed"),
+          },
+        ),
+      );
+    } else {
+      flows.push(
+        flow(
+          "cancel_queue_item",
+          "companion.queue.cancel",
+          "skipped",
+          { failure_reason: "No waiting queue item to cancel" },
+        ),
+      );
+    }
+  }
+
   for (const [surface, pathname] of Object.entries(SURFACE_PATHS) as [
     PostP1FlowResult["surface"],
     string,
@@ -299,29 +346,40 @@ export async function runPostP1CompanionLiveE2eFlows(input: {
     );
   }
 
-  try {
-    const supabase = createServiceRoleClient();
-    await supabase.rpc("companion_queue_worker_recover_stale", {
-      p_lease_seconds: 300,
-    });
+  if (process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()) {
+    try {
+      const supabase = createServiceRoleClient();
+      await supabase.rpc("companion_queue_worker_recover_stale", {
+        p_lease_seconds: 300,
+      });
+      flows.push(
+        flow(
+          "worker_stale_recovery",
+          "companion.queue.lease_recovery",
+          "pass",
+        ),
+      );
+    } catch (error) {
+      flows.push(
+        flow(
+          "worker_stale_recovery",
+          "companion.queue.lease_recovery",
+          "fail",
+          {
+            failure_reason: redactSecretsFromMessage(
+              error instanceof Error ? error.message : "recover_stale unavailable",
+            ),
+          },
+        ),
+      );
+    }
+  } else {
     flows.push(
       flow(
         "worker_stale_recovery",
         "companion.queue.lease_recovery",
-        "pass",
-      ),
-    );
-  } catch (error) {
-    flows.push(
-      flow(
-        "worker_stale_recovery",
-        "companion.queue.lease_recovery",
-        "fail",
-        {
-          failure_reason: redactSecretsFromMessage(
-            error instanceof Error ? error.message : "recover_stale unavailable",
-          ),
-        },
+        "skipped",
+        { failure_reason: "SUPABASE_SERVICE_ROLE_KEY not configured" },
       ),
     );
   }

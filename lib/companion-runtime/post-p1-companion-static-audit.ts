@@ -40,8 +40,12 @@ export function runPostP1StaticAudits(repoRoot: string): PostP1AuditCheck[] {
     "supabase/migrations/20261914000000_companion_conversation_lifecycle.sql",
     "app/api/cron/companion-queue-worker/route.ts",
     "app/api/aipify/companion/chat/enqueue/route.ts",
+    "app/api/aipify/companion/chat/cancel/route.ts",
+    "app/api/aipify/companion/chat/retry/route.ts",
+    "app/api/aipify/companion/chat/read/route.ts",
     "app/api/aipify/companion/chat/archive/route.ts",
     "app/api/aipify/companion/chat/delete/route.ts",
+    "app/api/aipify/companion/attachments/route.ts",
     "components/app/companion-experience/CompanionReplyReadyToast.tsx",
     "components/app/companion-experience/CompanionUnifiedSurface.tsx",
   ];
@@ -106,6 +110,52 @@ export function runPostP1StaticAudits(repoRoot: string): PostP1AuditCheck[] {
         `lifecycle_rpc:${rpc}`,
         lifecycleSql.includes(rpc) ? "pass" : "fail",
         lifecycleSql.includes(rpc) ? null : `Missing ${rpc} in lifecycle migration`,
+      ),
+    );
+  }
+
+  const queueSql = fs.readFileSync(
+    path.join(repoRoot, "supabase/migrations/20261912000000_companion_chat_queue_persistent.sql"),
+    "utf8",
+  );
+  for (const rpc of ["cancel_companion_queue_item", "retry_companion_queue_item", "enqueue_companion_chat_message"]) {
+    checks.push(
+      audit(
+        `queue_rpc:${rpc}`,
+        queueSql.includes(rpc) ? "pass" : "fail",
+        queueSql.includes(rpc) ? null : `Missing ${rpc} in queue migration`,
+      ),
+    );
+  }
+
+  const attachmentSql = fs.readFileSync(
+    path.join(repoRoot, "supabase/migrations/20261910000000_companion_conversation_attachments_post_p1_01.sql"),
+    "utf8",
+  );
+  for (const rpc of ["set_companion_active_artifact", "companion_conversation_attachments"]) {
+    checks.push(
+      audit(
+        `attachment_rpc:${rpc}`,
+        attachmentSql.includes(rpc) ? "pass" : "fail",
+        attachmentSql.includes(rpc) ? null : `Missing ${rpc} in attachment migration`,
+      ),
+    );
+  }
+
+  const workerSql = fs.readFileSync(
+    path.join(repoRoot, "supabase/migrations/20261913000000_companion_queue_worker.sql"),
+    "utf8",
+  );
+  for (const rpc of [
+    "companion_queue_worker_claim_batch",
+    "companion_queue_worker_recover_stale",
+    "companion_queue_worker_complete",
+  ]) {
+    checks.push(
+      audit(
+        `worker_rpc:${rpc}`,
+        workerSql.includes(rpc) ? "pass" : "fail",
+        workerSql.includes(rpc) ? null : `Missing ${rpc} in worker migration`,
       ),
     );
   }

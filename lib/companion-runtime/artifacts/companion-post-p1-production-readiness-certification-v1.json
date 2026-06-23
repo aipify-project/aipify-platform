@@ -1,7 +1,7 @@
 {
   "version": "companion-post-p1-production-readiness-certification-v1",
-  "generated_at": "2026-06-23T15:42:20.142Z",
-  "commit_hash": "696ff3616ac4b976e175010bcaea0ec7eb70b307",
+  "generated_at": "2026-06-23T15:45:49.634Z",
+  "commit_hash": "13e7674c8ca92af14bbf7d567515d00026f90533",
   "overall_status": "partial",
   "max_readiness_certified": "partial",
   "live_e2e_status": "blocked",
@@ -109,12 +109,32 @@
       "failure_reason": null
     },
     {
+      "check_id": "path_exists:app/api/aipify/companion/chat/cancel/route.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:app/api/aipify/companion/chat/retry/route.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:app/api/aipify/companion/chat/read/route.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
       "check_id": "path_exists:app/api/aipify/companion/chat/archive/route.ts",
       "status": "pass",
       "failure_reason": null
     },
     {
       "check_id": "path_exists:app/api/aipify/companion/chat/delete/route.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:app/api/aipify/companion/attachments/route.ts",
       "status": "pass",
       "failure_reason": null
     },
@@ -155,6 +175,46 @@
     },
     {
       "check_id": "lifecycle_rpc:companion_conversation_audit_logs",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "queue_rpc:cancel_companion_queue_item",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "queue_rpc:retry_companion_queue_item",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "queue_rpc:enqueue_companion_chat_message",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "attachment_rpc:set_companion_active_artifact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "attachment_rpc:companion_conversation_attachments",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "worker_rpc:companion_queue_worker_claim_batch",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "worker_rpc:companion_queue_worker_recover_stale",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "worker_rpc:companion_queue_worker_complete",
       "status": "pass",
       "failure_reason": null
     }
