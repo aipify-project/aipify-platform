@@ -1,17 +1,22 @@
 import { NextResponse } from "next/server";
 import {
   AUTH_REDIRECT_PATHS,
-  getAuthAppOrigin,
+  readRequestHostFromHeaders,
+  resolveAuthAppOrigin,
 } from "@/lib/auth/auth-redirect-urls";
 import { sanitizeNextPath } from "@/lib/auth/safe-next-path";
 import { createClient } from "@/lib/supabase/server";
+import { headers } from "next/headers";
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
   const nextParam = requestUrl.searchParams.get("next");
   const type = requestUrl.searchParams.get("type");
-  const origin = getAuthAppOrigin();
+  const headerStore = await headers();
+  const origin = resolveAuthAppOrigin({
+    requestHost: readRequestHostFromHeaders(headerStore) ?? requestUrl.host,
+  });
 
   const defaultNext =
     type === "recovery" ? AUTH_REDIRECT_PATHS.updatePassword : AUTH_REDIRECT_PATHS.login;

@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { buildPasswordResetRedirectUrl } from "@/lib/auth/auth-redirect-urls";
+import { headers } from "next/headers";
+import {
+  buildPasswordResetRedirectUrl,
+  readRequestHostFromHeaders,
+} from "@/lib/auth/auth-redirect-urls";
 import { createClient } from "@/lib/supabase/server";
 
 function normalizeEmail(raw: unknown): string | null {
@@ -18,7 +22,10 @@ export async function POST(request: Request) {
     }
 
     const supabase = await createClient();
-    const redirectTo = buildPasswordResetRedirectUrl();
+    const headerStore = await headers();
+    const redirectTo = buildPasswordResetRedirectUrl({
+      requestHost: readRequestHostFromHeaders(headerStore),
+    });
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
 
