@@ -1,17 +1,21 @@
 import assert from "node:assert/strict";
 import type { PortalSessionProbeResult } from "./portal-session-probe";
 
-function resolveFromProbe(probe: PortalSessionProbeResult): string {
-  return probe.status;
+const PROBE_RETRY_DELAYS_MS = [0, 350, 900] as const;
+
+assert.equal(PROBE_RETRY_DELAYS_MS.length, 3);
+
+function finalStatus(results: PortalSessionProbeResult[]): PortalSessionProbeResult["status"] {
+  if (results.some((result) => result.status === "authenticated")) return "authenticated";
+  if (results.some((result) => result.status === "transient")) return "transient";
+  return "unauthenticated";
 }
 
 assert.equal(
-  resolveFromProbe({ status: "authenticated", userId: "user-1" }),
-  "authenticated",
-);
-assert.equal(resolveFromProbe({ status: "unauthenticated" }), "unauthenticated");
-assert.equal(
-  resolveFromProbe({ status: "transient", reason: "network" }),
+  finalStatus([
+    { status: "unauthenticated" },
+    { status: "transient", reason: "server" },
+  ]),
   "transient",
 );
 

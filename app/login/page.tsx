@@ -76,6 +76,8 @@ export default async function LoginPage() {
             noAccount: t("auth.login.noAccount"),
             invalidCredentials: t("auth.errors.invalidCredentials"),
             emailNotConfirmed: t("auth.errors.emailNotConfirmed"),
+            sessionExpired: t("auth.errors.sessionExpired"),
+            rateLimited: t("auth.errors.rateLimited"),
             requiredFields: t("auth.errors.requiredFields"),
             generic: t("auth.errors.generic"),
             networkTitle: t("auth.errors.networkTitle"),

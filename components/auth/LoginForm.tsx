@@ -28,9 +28,9 @@ function mapSignInFailure(
     case "email_not_confirmed":
       return { message: labels.emailNotConfirmed, networkError: false };
     case "session_expired":
-      return { message: labels.generic, networkError: false };
+      return { message: labels.sessionExpired, networkError: false };
     case "rate_limited":
-      return { message: labels.networkTitle, networkError: true };
+      return { message: labels.rateLimited, networkError: true };
     case "network":
       return { message: labels.networkTitle, networkError: true };
     default:
@@ -96,6 +96,8 @@ type LoginFormProps = {
     noAccount: string;
     invalidCredentials: string;
     emailNotConfirmed: string;
+    sessionExpired: string;
+    rateLimited: string;
     requiredFields: string;
     generic: string;
     networkTitle: string;

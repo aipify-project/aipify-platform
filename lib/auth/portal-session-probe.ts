@@ -3,25 +3,53 @@ export type PortalSessionProbeResult =
   | { status: "unauthenticated" }
   | { status: "transient"; reason: "network" | "server" };
 
-/** Server-backed session probe — middleware refreshes cookies; never calls client refreshSession. */
-export async function probePortalSession(): Promise<PortalSessionProbeResult> {
+const PROBE_RETRY_DELAYS_MS = [0, 350, 900] as const;
+
+async function fetchPortalSessionProbe(): Promise<PortalSessionProbeResult> {
+  const response = await fetch("/api/auth/session", {
+    method: "GET",
+    credentials: "same-origin",
+    cache: "no-store",
+  });
+
+  const payload = (await response.json().catch(() => null)) as
+    | { authenticated?: boolean; userId?: string; transient?: boolean }
+    | null;
+
+  if (response.ok && payload?.authenticated && payload.userId) {
+    return { status: "authenticated", userId: payload.userId };
+  }
+
+  if (response.status === 503 || payload?.transient) {
+    return { status: "transient", reason: "server" };
+  }
+
+  return { status: "unauthenticated" };
+}
+
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
+}
+
+/** Server-backed session probe — proxy owns refresh; retries recover refresh-token rotation races. */
+export async function probePortalSession(
+  options: { attempts?: number } = {},
+): Promise<PortalSessionProbeResult> {
+  const attempts = options.attempts ?? PROBE_RETRY_DELAYS_MS.length;
+
   try {
-    const response = await fetch("/api/auth/session", {
-      method: "GET",
-      credentials: "same-origin",
-      cache: "no-store",
-    });
+    for (let index = 0; index < attempts; index += 1) {
+      const delay = PROBE_RETRY_DELAYS_MS[index] ?? PROBE_RETRY_DELAYS_MS.at(-1)!;
+      if (delay > 0) {
+        await wait(delay);
+      }
 
-    const payload = (await response.json().catch(() => null)) as
-      | { authenticated?: boolean; userId?: string; transient?: boolean }
-      | null;
-
-    if (response.ok && payload?.authenticated && payload.userId) {
-      return { status: "authenticated", userId: payload.userId };
-    }
-
-    if (response.status === 503 || payload?.transient) {
-      return { status: "transient", reason: "server" };
+      const result = await fetchPortalSessionProbe();
+      if (result.status === "authenticated" || result.status === "transient") {
+        return result;
+      }
     }
 
     return { status: "unauthenticated" };

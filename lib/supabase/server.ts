@@ -1,6 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies, headers } from "next/headers";
 import { mergeAuthCookieOptions } from "@/lib/supabase/auth-cookies";
+import {
+  getAuthenticatedUserFromSession,
+  SERVER_SUPABASE_AUTH_OPTIONS,
+} from "@/lib/supabase/session-auth";
 
 export async function createClient() {
   const cookieStore = await cookies();
@@ -15,6 +19,7 @@ export async function createClient() {
   }
 
   return createServerClient(url, anonKey, {
+    auth: SERVER_SUPABASE_AUTH_OPTIONS,
     cookies: {
       getAll() {
         return cookieStore.getAll();
@@ -30,4 +35,10 @@ export async function createClient() {
       },
     },
   });
+}
+
+/** Prefer this in route handlers after proxy refresh — avoids competing token rotation. */
+export async function getAuthenticatedUser() {
+  const supabase = await createClient();
+  return getAuthenticatedUserFromSession(supabase);
 }

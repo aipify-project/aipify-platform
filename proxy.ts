@@ -2,10 +2,6 @@ import { NextResponse, type NextRequest } from "next/server";
 import { updateSession, withPathnameRequestHeaders } from "@/lib/supabase/update-session";
 
 function requiresSessionProxy(pathname: string): boolean {
-  if (pathname.startsWith("/api/")) {
-    return false;
-  }
-
   return (
     pathname === "/" ||
     pathname.startsWith("/dashboard") ||

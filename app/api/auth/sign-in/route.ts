@@ -29,12 +29,20 @@ export async function POST(request: Request) {
 
     if (error) {
       const failure = classifyPasswordSignInFailure(error.message);
+      const status =
+        failure === "invalid_credentials" || failure === "email_not_confirmed" || failure === "session_expired"
+          ? 401
+          : failure === "network"
+            ? 503
+            : failure === "rate_limited"
+              ? 429
+              : 500;
       return NextResponse.json(
         {
           error: failure,
           message: error.message,
         },
-        { status: failure === "invalid_credentials" || failure === "email_not_confirmed" ? 401 : failure === "network" ? 503 : 500 },
+        { status },
       );
     }
 

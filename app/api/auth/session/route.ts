@@ -2,14 +2,15 @@ import { NextResponse } from "next/server";
 import { buildSafeSessionMetadata } from "@/lib/auth/session-diagnostics";
 import { isFetchNetworkError } from "@/lib/pwa/manifest-audit";
 import { createRouteHandlerSupabaseClient } from "@/lib/supabase/route-handler";
+import {
+  getAuthenticatedUserFromSession,
+  isSessionAccessValid,
+} from "@/lib/supabase/session-auth";
 
 export async function GET() {
   try {
     const { supabase, applyCookies } = await createRouteHandlerSupabaseClient();
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
+    const user = await getAuthenticatedUserFromSession(supabase);
 
     if (user?.id) {
       const {
@@ -25,8 +26,11 @@ export async function GET() {
       );
     }
 
-    const message = userError?.message ?? "";
-    if (isFetchNetworkError(message)) {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session?.refresh_token && !isSessionAccessValid(session)) {
       return applyCookies(
         NextResponse.json({ authenticated: false, transient: true }, { status: 503 }),
       );

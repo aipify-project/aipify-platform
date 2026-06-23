@@ -76,7 +76,7 @@ export function usePortalAuthGuard(
     };
 
     async function verifySession() {
-      const probe = await probePortalSession();
+      const probe = await probePortalSession({ attempts: 3 });
       if (!mounted) return;
       applyProbe(probe);
     }
@@ -102,7 +102,7 @@ export function usePortalAuthGuard(
       if (!mounted) return;
 
       if (SIGN_OUT_EVENTS.has(event)) {
-        void probePortalSession().then((probe) => {
+        void probePortalSession({ attempts: 3 }).then((probe) => {
           if (!mounted) return;
           if (probe.status === "authenticated") {
             markPortalSessionActive();

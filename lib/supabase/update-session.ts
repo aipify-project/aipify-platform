@@ -14,6 +14,7 @@ import {
   shouldCanonicalizeToCustomerPortal,
 } from "@/lib/portals";
 import { mergeAuthCookieOptions } from "@/lib/supabase/auth-cookies";
+import { isSessionAccessValid } from "@/lib/supabase/session-auth";
 import { withSupabaseAuthCookies } from "@/lib/supabase/session-cookies";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/app", "/platform", "/super"];
@@ -88,8 +89,17 @@ export async function updateSession(request: NextRequest) {
   });
 
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  let user = isSessionAccessValid(session) ? (session?.user ?? null) : null;
+
+  if (!user) {
+    const {
+      data: { user: resolvedUser },
+    } = await supabase.auth.getUser();
+    user = resolvedUser;
+  }
 
   const finish = (response: NextResponse) => withSupabaseAuthCookies(supabaseResponse, response);
 

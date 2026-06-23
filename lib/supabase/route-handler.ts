@@ -3,6 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { mergeAuthCookieOptions } from "@/lib/supabase/auth-cookies";
+import { SERVER_SUPABASE_AUTH_OPTIONS } from "@/lib/supabase/session-auth";
 
 type RouteHandlerSupabase = {
   supabase: SupabaseClient;
@@ -26,6 +27,7 @@ export async function createRouteHandlerSupabaseClient(): Promise<RouteHandlerSu
   let cookieCarrier = NextResponse.next();
 
   const supabase = createServerClient(url, anonKey, {
+    auth: SERVER_SUPABASE_AUTH_OPTIONS,
     cookies: {
       getAll() {
         return cookieStore.getAll();
