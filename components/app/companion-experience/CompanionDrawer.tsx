@@ -8,7 +8,8 @@ import {
 import { CompanionPanel } from "./CompanionPanel";
 
 export function CompanionDrawer() {
-  const { open, closeDrawer, labels, locale, pathname, drawerQuery } = useCompanionExperience();
+  const { open, closeDrawer, labels, locale, pathname, drawerQuery, drawerConversationId } =
+    useCompanionExperience();
   const keepMounted = useCompanionPanelKeepMounted();
 
   useEffect(() => {
@@ -67,6 +68,7 @@ export function CompanionDrawer() {
           mode="drawer"
           onClose={closeDrawer}
           initialQuery={drawerQuery ?? undefined}
+          initialConversationId={drawerConversationId ?? undefined}
           panelVisible={open}
         />
       </div>

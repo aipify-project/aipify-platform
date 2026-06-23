@@ -25,7 +25,9 @@ type CompanionExperienceContextValue = {
   locale: string;
   openDrawer: () => void;
   openDrawerWithQuery: (query: string) => void;
+  openDrawerWithConversation: (conversationId: string) => void;
   drawerQuery: string | null;
+  drawerConversationId: string | null;
   closeDrawer: () => void;
   toggleDrawer: () => void;
   pathname: string;
@@ -51,6 +53,7 @@ export function CompanionExperienceProvider({
 
   const [open, setOpen] = useState(() => readCompanionUiSession()?.panelOpen ?? false);
   const [drawerQuery, setDrawerQuery] = useState<string | null>(null);
+  const [drawerConversationId, setDrawerConversationId] = useState<string | null>(null);
   const [panelEverOpened, setPanelEverOpened] = useState(
     () => readCompanionUiSession()?.panelOpen ?? false,
   );
@@ -71,12 +74,21 @@ export function CompanionExperienceProvider({
 
   const openDrawer = useCallback(() => {
     setDrawerQuery(null);
+    setDrawerConversationId(null);
     setOpen(true);
     setPanelEverOpened(true);
   }, []);
 
   const openDrawerWithQuery = useCallback((query: string) => {
     setDrawerQuery(query.trim());
+    setDrawerConversationId(null);
+    setOpen(true);
+    setPanelEverOpened(true);
+  }, []);
+
+  const openDrawerWithConversation = useCallback((conversationId: string) => {
+    setDrawerConversationId(conversationId.trim());
+    setDrawerQuery(null);
     setOpen(true);
     setPanelEverOpened(true);
   }, []);
@@ -84,6 +96,7 @@ export function CompanionExperienceProvider({
   const closeDrawer = useCallback(() => {
     setOpen(false);
     setDrawerQuery(null);
+    setDrawerConversationId(null);
   }, []);
 
   const toggleDrawer = useCallback(() => {
@@ -104,7 +117,9 @@ export function CompanionExperienceProvider({
       locale,
       openDrawer,
       openDrawerWithQuery,
+      openDrawerWithConversation,
       drawerQuery,
+      drawerConversationId,
       closeDrawer,
       toggleDrawer,
       pathname,
@@ -117,7 +132,9 @@ export function CompanionExperienceProvider({
       locale,
       openDrawer,
       openDrawerWithQuery,
+      openDrawerWithConversation,
       drawerQuery,
+      drawerConversationId,
       closeDrawer,
       toggleDrawer,
       pathname,

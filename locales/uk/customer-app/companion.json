@@ -1264,11 +1264,24 @@
     "sourceKnowledgeCenter": "Центр знань",
     "sourceCustomerContext": "Перевірений контекст підписки",
     "sourceOrgKnowledge": "Затверджені знання організації",
+    "recentArchive": "Архівувати розмову",
     "recentDelete": "Видалити розмову",
     "recentActive": "Активна",
     "supportEscalationHint": "Якщо вам все ще потрібна допомога людини, створіть запит у підтримку з цим контекстом.",
     "scrollToLatest": "Перейти до останнього повідомлення",
     "scrollToLatestAria": "Перейти до останнього повідомлення в цій розмові",
+    "conversations": {
+      "confirmDelete": "Видалити цю розмову назавжди? Цю дію не можна скасувати.",
+      "confirmArchive": "Архівувати цю розмову? Вона зникне зі списку недавніх розмов.",
+      "deleteFailed": "Aipify не вдалося видалити розмову. Спробуйте ще раз.",
+      "archiveFailed": "Aipify не вдалося архівувати розмову. Спробуйте ще раз.",
+      "cancel": "Скасувати"
+    },
+    "replyToast": {
+      "viewReply": "Переглянути відповідь",
+      "dismiss": "Закрити",
+      "openConversation": "Відкрити розмову"
+    },
     "ariaUserMessage": "Ваше повідомлення",
     "ariaUserMessageIdentity": "Ваше запитання",
     "attachments": {

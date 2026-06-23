@@ -221,6 +221,14 @@ export function DesktopPresenceFoundationPanel({
                     {notification.body && (
                       <p className="mt-1 text-sm text-gray-600">{notification.body}</p>
                     )}
+                    {notification.action_href ? (
+                      <Link
+                        href={notification.action_href}
+                        className="mt-2 inline-block text-sm font-medium text-indigo-600 hover:underline"
+                      >
+                        {labels.notifications.actions.open_dashboard ?? "Open"}
+                      </Link>
+                    ) : null}
                   </div>
                 </div>
                 {Array.isArray(notification.actions) && notification.actions.length > 0 && (

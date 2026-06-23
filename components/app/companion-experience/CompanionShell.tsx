@@ -4,6 +4,7 @@ import type { CompanionExperienceLabels } from "@/lib/app/companion/types";
 import { CompanionDrawer } from "./CompanionDrawer";
 import { CompanionExperienceProvider } from "./CompanionExperienceProvider";
 import { CompanionFloatingButton } from "./CompanionFloatingButton";
+import { CompanionReplyReadyToast } from "./CompanionReplyReadyToast";
 
 type CompanionShellProps = {
   labels: CompanionExperienceLabels;
@@ -18,6 +19,7 @@ export function CompanionShell({ labels, locale, children }: CompanionShellProps
       {children}
       <CompanionDrawer />
       <CompanionFloatingButton />
+      <CompanionReplyReadyToast />
     </CompanionExperienceProvider>
   );
 }

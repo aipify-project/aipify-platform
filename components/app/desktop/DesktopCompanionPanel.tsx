@@ -10,6 +10,7 @@ import {
   type DesktopNotification,
 } from "@/lib/aipify/desktop";
 import { DesktopChatPanel } from "./DesktopChatPanel";
+import type { CompanionExperienceLabels } from "@/lib/app/companion/types";
 
 export type DesktopCompanionLabels = {
   title: string;
@@ -40,9 +41,16 @@ export type DesktopCompanionLabels = {
 type DesktopCompanionPanelProps = {
   labels: DesktopCompanionLabels;
   mode?: "full" | "history" | "reminders";
+  companionLabels?: CompanionExperienceLabels;
+  locale?: string;
 };
 
-export function DesktopCompanionPanel({ labels, mode = "full" }: DesktopCompanionPanelProps) {
+export function DesktopCompanionPanel({
+  labels,
+  mode = "full",
+  companionLabels,
+  locale = "en",
+}: DesktopCompanionPanelProps) {
   const [card, setCard] = useState<DesktopCompanionCard | null>(null);
   const [history, setHistory] = useState<DesktopNotification[]>([]);
   const [loading, setLoading] = useState(true);
@@ -200,11 +208,13 @@ export function DesktopCompanionPanel({ labels, mode = "full" }: DesktopCompanio
         )}
       </section>
 
-      {card?.mini_chat_enabled ? (
-        <DesktopChatPanel labels={labels.chat} enabled />
-      ) : (
-        <DesktopChatPanel labels={labels.chat} enabled={false} />
-      )}
+      {companionLabels ? (
+        card?.mini_chat_enabled ? (
+          <DesktopChatPanel labels={companionLabels} locale={locale} enabled />
+        ) : (
+          <DesktopChatPanel labels={companionLabels} locale={locale} enabled={false} />
+        )
+      ) : null}
 
       <p className="text-xs text-gray-500">{card?.privacy_note ?? labels.privacy}</p>
     </div>

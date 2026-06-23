@@ -1142,6 +1142,21 @@
     "ariaUserMessageIdentity": "Tu pregunta",
     "scrollToLatest": "Ir al último mensaje",
     "scrollToLatestAria": "Ir al último mensaje de esta conversación",
+    "recentArchive": "Archivar conversación",
+    "recentDelete": "Eliminar conversación",
+    "recentActive": "Activa",
+    "conversations": {
+      "confirmDelete": "¿Eliminar esta conversación permanentemente? Esta acción no se puede deshacer.",
+      "confirmArchive": "¿Archivar esta conversación? Se eliminará de la lista de conversaciones recientes.",
+      "deleteFailed": "Aipify no pudo eliminar la conversación. Inténtalo de nuevo.",
+      "archiveFailed": "Aipify no pudo archivar la conversación. Inténtalo de nuevo.",
+      "cancel": "Cancelar"
+    },
+    "replyToast": {
+      "viewReply": "Ver respuesta",
+      "dismiss": "Cerrar",
+      "openConversation": "Abrir conversación"
+    },
     "roleHeading": "Rol",
     "roles": {
       "owner": "Propietario",

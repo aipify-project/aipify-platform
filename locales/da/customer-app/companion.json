@@ -2150,11 +2150,24 @@
     "sourceKnowledgeCenter": "Knowledge Center",
     "sourceCustomerContext": "Verificeret abonnementskontekst",
     "sourceOrgKnowledge": "Godkendt organisationsviden",
+    "recentArchive": "Arkiver samtale",
     "recentDelete": "Slet samtale",
     "recentActive": "Aktiv",
     "supportEscalationHint": "Hvis du stadig har brug for menneskelig hjælp, kan du oprette en supportanmodning med denne kontekst.",
     "scrollToLatest": "Gå til nyeste besked",
     "scrollToLatestAria": "Gå til nyeste besked i denne samtale",
+    "conversations": {
+      "confirmDelete": "Slette denne samtale permanent? Dette kan ikke fortrydes.",
+      "confirmArchive": "Arkivere denne samtale? Den fjernes fra listen over seneste samtaler.",
+      "deleteFailed": "Aipify kunne ikke slette samtalen. Prøv igen.",
+      "archiveFailed": "Aipify kunne ikke arkivere samtalen. Prøv igen.",
+      "cancel": "Annuller"
+    },
+    "replyToast": {
+      "viewReply": "Se svar",
+      "dismiss": "Luk",
+      "openConversation": "Åbn samtale"
+    },
     "ariaUserMessage": "Din besked",
     "ariaUserMessageIdentity": "Dit spørgsmål",
     "attachments": {

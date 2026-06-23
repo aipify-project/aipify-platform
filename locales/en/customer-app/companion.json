@@ -2068,11 +2068,24 @@
     "sourceKnowledgeCenter": "Knowledge Center",
     "sourceCustomerContext": "Verified subscription context",
     "sourceOrgKnowledge": "Approved organization knowledge",
+    "recentArchive": "Archive conversation",
     "recentDelete": "Delete conversation",
     "recentActive": "Active",
     "supportEscalationHint": "If you still need human help, you can create a support request with this context.",
     "scrollToLatest": "Go to latest message",
     "scrollToLatestAria": "Go to latest message in this conversation",
+    "conversations": {
+      "confirmDelete": "Delete this conversation permanently? This cannot be undone.",
+      "confirmArchive": "Archive this conversation? It will be removed from your recent list.",
+      "deleteFailed": "Aipify could not delete that conversation. Please try again.",
+      "archiveFailed": "Aipify could not archive that conversation. Please try again.",
+      "cancel": "Cancel"
+    },
+    "replyToast": {
+      "viewReply": "View reply",
+      "dismiss": "Dismiss",
+      "openConversation": "Open conversation"
+    },
     "ariaUserMessage": "Your message",
     "ariaUserMessageIdentity": "Your question",
     "attachments": {

@@ -22,6 +22,7 @@ export type PresenceNotification = {
   status: string;
   channels: PresenceNotificationChannel[];
   actions: PresenceNotificationAction[];
+  action_href?: string | null;
   created_at: string;
   read_at: string | null;
 };

@@ -53,6 +53,10 @@ export const PRESENCE_MESSAGE_TEMPLATES: Record<
     title: "New opportunity",
     body: "Aipify identified a new operational opportunity for your review.",
   },
+  companion_reply_ready: {
+    title: "Aipify has a reply ready",
+    body: "Your Companion answer is ready to review.",
+  },
 };
 
 export const PRESENCE_PERSONALITY_RULES = [

@@ -141,7 +141,20 @@ export type CompanionExperienceLabels = {
   sourceOrgKnowledge: string;
   sourceVerifiedIntegration: string;
   recentDelete: string;
+  recentArchive: string;
   recentActive: string;
+  conversations: {
+    confirmDelete: string;
+    confirmArchive: string;
+    deleteFailed: string;
+    archiveFailed: string;
+    cancel: string;
+  };
+  replyToast: {
+    viewReply: string;
+    dismiss: string;
+    openConversation: string;
+  };
   supportEscalationHint: string;
   scrollToLatest: string;
   scrollToLatestAria: string;

@@ -17,6 +17,10 @@ import {
 } from "@/lib/app/companion/session-state";
 import { useCompanionChatScroll } from "@/lib/app/companion/use-companion-chat-scroll";
 import { useCompanionPersistentChat } from "@/lib/app/companion/chat-queue/use-companion-persistent-chat";
+import {
+  archiveCompanionConversation,
+  deleteCompanionConversation,
+} from "@/lib/app/companion/chat-queue/client";
 import { SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY } from "@/lib/app-portal/support-assistant";
 import type { CompanionChatMessage, CompanionConversationPreview, CompanionExperienceLabels } from "@/lib/app/companion/types";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -48,6 +52,7 @@ type CompanionPanelProps = {
   mode: "drawer" | "fullpage";
   onClose?: () => void;
   initialQuery?: string;
+  initialConversationId?: string;
   /** When false the drawer is hidden but kept mounted — skip focus-only side effects. */
   panelVisible?: boolean;
 };
@@ -59,6 +64,7 @@ export function CompanionPanel({
   mode,
   onClose,
   initialQuery,
+  initialConversationId,
   panelVisible = true,
 }: CompanionPanelProps) {
   const profileCtx = useOptionalDashboardProfile();
@@ -72,8 +78,10 @@ export function CompanionPanel({
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [showSecondarySections, setShowSecondarySections] = useState(false);
   const [activeConversationId, setActiveConversationId] = useState<string>(() => {
+    if (initialConversationId?.trim()) return initialConversationId.trim();
     return readCompanionUiSession(organizationKey)?.activeConversationId ?? createConversationId();
   });
+  const initialConversationAppliedRef = useRef(false);
   const initialQuerySubmittedRef = useRef(false);
 
   const {
@@ -164,6 +172,15 @@ export function CompanionPanel({
       organizationKey,
     );
   }, [activeConversationId, organizationKey, pathname]);
+
+  useEffect(() => {
+    if (!initialConversationId?.trim() || initialConversationAppliedRef.current) return;
+    initialConversationAppliedRef.current = true;
+    prepareConversationChange(initialConversationId.trim());
+    setActiveConversationId(initialConversationId.trim());
+    setShowSuggestions(false);
+    setSyncError(false);
+  }, [initialConversationId, prepareConversationChange, setSyncError]);
 
   useEffect(() => {
     if (initialQuery?.trim()) return;
@@ -274,11 +291,32 @@ export function CompanionPanel({
     }
   }
 
-  function handleDeleteConversation(conversationId: string) {
+  async function handleDeleteConversation(conversationId: string) {
+    if (!window.confirm(labels.conversations.confirmDelete)) return;
+    const ok = await deleteCompanionConversation(conversationId);
+    if (!ok) {
+      window.alert(labels.conversations.deleteFailed);
+      return;
+    }
     setRecentConversations((prev) => prev.filter((entry) => entry.id !== conversationId));
     if (conversationId === activeConversationId) {
       startNewConversation();
     }
+    void refreshRecentConversations();
+  }
+
+  async function handleArchiveConversation(conversationId: string) {
+    if (!window.confirm(labels.conversations.confirmArchive)) return;
+    const ok = await archiveCompanionConversation(conversationId);
+    if (!ok) {
+      window.alert(labels.conversations.archiveFailed);
+      return;
+    }
+    setRecentConversations((prev) => prev.filter((entry) => entry.id !== conversationId));
+    if (conversationId === activeConversationId) {
+      startNewConversation();
+    }
+    void refreshRecentConversations();
   }
 
   function handleMessageFeedback(
@@ -392,9 +430,19 @@ export function CompanionPanel({
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleDeleteConversation(conv.id)}
+                  onClick={() => void handleArchiveConversation(conv.id)}
+                  className="shrink-0 rounded-lg border border-aipify-border px-2 text-xs text-aipify-text-muted hover:bg-aipify-surface-muted"
+                  aria-label={labels.recentArchive}
+                  title={labels.recentArchive}
+                >
+                  ↓
+                </button>
+                <button
+                  type="button"
+                  onClick={() => void handleDeleteConversation(conv.id)}
                   className="shrink-0 rounded-lg border border-aipify-border px-2 text-xs text-aipify-text-muted hover:bg-aipify-surface-muted"
                   aria-label={labels.recentDelete}
+                  title={labels.recentDelete}
                 >
                   ×
                 </button>

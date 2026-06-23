@@ -93,6 +93,28 @@ export async function markCompanionConversationRead(conversationId: string): Pro
   });
 }
 
+export async function deleteCompanionConversation(conversationId: string): Promise<boolean> {
+  const res = await fetch("/api/aipify/companion/chat/delete", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ conversation_id: conversationId }),
+  });
+  if (!res.ok) return false;
+  const data = (await res.json()) as { ok?: boolean };
+  return data.ok === true;
+}
+
+export async function archiveCompanionConversation(conversationId: string): Promise<boolean> {
+  const res = await fetch("/api/aipify/companion/chat/archive", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ conversation_id: conversationId }),
+  });
+  if (!res.ok) return false;
+  const data = (await res.json()) as { ok?: boolean };
+  return data.ok === true;
+}
+
 export async function listCompanionConversations(): Promise<
   Array<{
     id: string;

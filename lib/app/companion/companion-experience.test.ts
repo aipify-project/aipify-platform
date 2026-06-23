@@ -11,7 +11,7 @@ import { buildCompanionExperienceLabels } from "@/lib/app/companion/labels";
 import { createTranslator } from "@/lib/i18n/translate";
 
 const ROOT = process.cwd();
-const LOCALES = ["en", "no", "sv", "da"] as const;
+const LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
 
 function loadCompanionSplit(locale: string) {
   const file = path.join(ROOT, "locales", locale, "customer-app", "companion.json");
@@ -79,6 +79,8 @@ for (const locale of LOCALES) {
   assert.ok(labels.contextSuggestions.defaultWhatNow.length > 0);
   assert.ok(labels.scrollToLatest.length > 0);
   assert.ok(labels.scrollToLatestAria.length > 0);
+  assert.ok(labels.conversations.confirmDelete.length > 0);
+  assert.ok(labels.replyToast.viewReply.length > 0);
 }
 
 // 6. Drawer opens without navigation — provider exposes open state API (unit-level contract).

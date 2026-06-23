@@ -1,28 +1,20 @@
 import { DesktopChatPanel } from "@/components/app/desktop";
 import { DesktopCompanionFoundationShell } from "@/components/app/desktop";
+import { buildCompanionExperienceLabels } from "@/lib/app/companion/labels";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { getDesktopCompanionPageLabels } from "@/lib/desktop-companion-foundation/page-labels";
 
 export default async function DesktopCompanionChatPage() {
-  const labels = await getDesktopCompanionPageLabels();
-  const dict = await getCustomerAppDictionaryForSplits(await getLocale(), ["core"]);
-  const t = createTranslator(dict);
+  const locale = await getLocale();
+  const shellLabels = await getDesktopCompanionPageLabels();
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["companion"]);
+  const companionLabels = buildCompanionExperienceLabels(createTranslator(dict));
 
   return (
-    <DesktopCompanionFoundationShell labels={labels}>
-      <DesktopChatPanel
-        labels={{
-          title: t("customerApp.desktop.chat.title"),
-          hint: t("customerApp.desktop.chat.hint"),
-          empty: t("customerApp.desktop.chat.empty"),
-          placeholder: t("customerApp.desktop.chat.placeholder"),
-          send: t("customerApp.desktop.chat.send"),
-          openLink: t("customerApp.desktop.chat.openLink"),
-          disabled: t("customerApp.desktop.chat.disabled"),
-        }}
-      />
+    <DesktopCompanionFoundationShell labels={shellLabels}>
+      <DesktopChatPanel labels={companionLabels} locale={locale} />
     </DesktopCompanionFoundationShell>
   );
 }

@@ -1264,11 +1264,24 @@
     "sourceKnowledgeCenter": "Centrum wiedzy",
     "sourceCustomerContext": "Zweryfikowany kontekst subskrypcji",
     "sourceOrgKnowledge": "Zatwierdzona wiedza organizacji",
+    "recentArchive": "Archiwizuj rozmowę",
     "recentDelete": "Usuń rozmowę",
     "recentActive": "Aktywna",
     "supportEscalationHint": "Jeśli nadal potrzebujesz pomocy człowieka, utwórz zgłoszenie do wsparcia z tym kontekstem.",
     "scrollToLatest": "Przejdź do najnowszej wiadomości",
     "scrollToLatestAria": "Przejdź do najnowszej wiadomości w tej rozmowie",
+    "conversations": {
+      "confirmDelete": "Trwale usunąć tę rozmowę? Tej operacji nie można cofnąć.",
+      "confirmArchive": "Zarchiwizować tę rozmowę? Zostanie usunięta z listy ostatnich rozmów.",
+      "deleteFailed": "Aipify nie mogło usunąć rozmowy. Spróbuj ponownie.",
+      "archiveFailed": "Aipify nie mogło zarchiwizować rozmowy. Spróbuj ponownie.",
+      "cancel": "Anuluj"
+    },
+    "replyToast": {
+      "viewReply": "Zobacz odpowiedź",
+      "dismiss": "Zamknij",
+      "openConversation": "Otwórz rozmowę"
+    },
     "ariaUserMessage": "Twoja wiadomość",
     "ariaUserMessageIdentity": "Twoje pytanie",
     "attachments": {

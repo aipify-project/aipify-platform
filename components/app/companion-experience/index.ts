@@ -5,6 +5,9 @@ export { CompanionExperienceProvider, useCompanionExperience, useOptionalCompani
 export { CompanionFloatingButton } from "./CompanionFloatingButton";
 export { CompanionIcon, CompanionIconButton } from "./CompanionIcon";
 export { CompanionPanel } from "./CompanionPanel";
+export { CompanionUnifiedSurface } from "./CompanionUnifiedSurface";
+export { CompanionPageClient } from "./CompanionPageClient";
+export { CompanionReplyReadyToast } from "./CompanionReplyReadyToast";
 export { CompanionQuickActions } from "./CompanionQuickActions";
 export { CompanionShell } from "./CompanionShell";
 export { CompanionTopBarButton } from "./CompanionTopBarButton";
