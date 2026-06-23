@@ -27,6 +27,7 @@ export function resolveCompanionQueueRetry(errorCode: string): CompanionQueueRet
     "unauthorized",
     "no_profile",
     "tenant_mismatch",
+    "worker_bootstrap_failed",
     "turn_failed",
   ]);
 

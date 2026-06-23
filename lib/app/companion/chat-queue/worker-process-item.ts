@@ -92,6 +92,7 @@ export async function processWorkerQueueJob(
       attachmentIds: parseAttachmentIds(job.attachment_ids),
       platformActiveModules: platformModules,
       workerProfile: profile,
+      workerQueueId: job.id,
     });
 
     if (!turn.ok) {

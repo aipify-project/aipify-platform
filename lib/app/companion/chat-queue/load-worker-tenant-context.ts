@@ -1,6 +1,11 @@
 import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
+import {
+  formatBootstrapErrorMessage,
+  sanitizeBootstrapErrorMessage,
+  type WorkerBootstrapFailure,
+} from "@/lib/companion-runtime/companion-worker-bootstrap-errors";
 import { loadCompanionTenantContext, type CompanionTenantContext } from "@/lib/companion-runtime/tenant-context";
 import {
   createWorkerScopedCompanionSupabase,
@@ -9,6 +14,7 @@ import {
 import type { CompanionWorkerRuntimeScope } from "@/lib/companion-runtime/companion-worker-runtime-scope";
 import { coerceToCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import type { WorkerExecutionProfile } from "./load-worker-profile";
+import { logCompanionWorkerEvent } from "./worker-log";
 
 export type CompanionWorkerTenantRuntime = {
   tenantContext: CompanionTenantContext;
@@ -16,27 +22,66 @@ export type CompanionWorkerTenantRuntime = {
   scope: CompanionWorkerRuntimeScope;
 };
 
+export type BootstrapCompanionWorkerTenantRuntimeResult =
+  | { ok: true; runtime: CompanionWorkerTenantRuntime }
+  | { ok: false; failure: WorkerBootstrapFailure };
+
+function logWorkerBootstrapFailure(failure: WorkerBootstrapFailure): void {
+  logCompanionWorkerEvent("bootstrap_failed", {
+    step: failure.step,
+    rpc: failure.rpc,
+    sqlState: failure.sqlState,
+    errorMessage: failure.message,
+    durationMs: failure.durationMs,
+    tenantId: failure.tenantId,
+    userId: failure.userId,
+    queueId: failure.queueId,
+  });
+}
+
 export async function bootstrapCompanionWorkerTenantRuntime(
   supabase: SupabaseClient,
   profile: WorkerExecutionProfile,
   locale?: string | null,
-): Promise<CompanionWorkerTenantRuntime | null> {
+  context: { queueId?: string } = {},
+): Promise<BootstrapCompanionWorkerTenantRuntimeResult> {
+  const started = Date.now();
   const activeLocale = coerceToCustomerActiveLocale(locale ?? undefined);
+  const baseContext = {
+    tenantId: profile.customerId,
+    userId: profile.user.id,
+    queueId: context.queueId,
+  };
 
-  const bootstrap = await fetchCompanionWorkerRuntimeBootstrap(
+  const bootstrapResult = await fetchCompanionWorkerRuntimeBootstrap(
     supabase,
     profile.customerId,
     profile.user.id,
     activeLocale,
+    context,
   );
-  if (!bootstrap) return null;
+
+  if (!bootstrapResult.ok) {
+    logWorkerBootstrapFailure(bootstrapResult.failure);
+    return bootstrapResult;
+  }
+
+  const bootstrap = bootstrapResult.bootstrap;
 
   if (
     bootstrap.scope.tenantId !== profile.customerId ||
     bootstrap.scope.userId !== profile.user.id ||
     bootstrap.scope.companyId !== profile.company.id
   ) {
-    return null;
+    const failure: WorkerBootstrapFailure = {
+      step: "scope_mismatch",
+      rpc: "companion_worker_get_runtime_bootstrap",
+      message: "bootstrap_scope_mismatch",
+      durationMs: Date.now() - started,
+      ...baseContext,
+    };
+    logWorkerBootstrapFailure(failure);
+    return { ok: false, failure };
   }
 
   const scopedSupabase = createWorkerScopedCompanionSupabase(
@@ -45,15 +90,31 @@ export async function bootstrapCompanionWorkerTenantRuntime(
     bootstrap,
   );
 
-  const tenantContext = await loadCompanionTenantContext(scopedSupabase, {
-    locale: activeLocale,
-  });
+  try {
+    const tenantContext = await loadCompanionTenantContext(scopedSupabase, {
+      locale: activeLocale,
+    });
 
-  return {
-    tenantContext,
-    scopedSupabase,
-    scope: bootstrap.scope,
-  };
+    return {
+      ok: true,
+      runtime: {
+        tenantContext,
+        scopedSupabase,
+        scope: bootstrap.scope,
+      },
+    };
+  } catch (error) {
+    const failure: WorkerBootstrapFailure = {
+      step: "tenant_context",
+      message: sanitizeBootstrapErrorMessage(
+        error instanceof Error ? error.message : "tenant_context_load_failed",
+      ),
+      durationMs: Date.now() - started,
+      ...baseContext,
+    };
+    logWorkerBootstrapFailure(failure);
+    return { ok: false, failure };
+  }
 }
 
 /** @deprecated Use bootstrapCompanionWorkerTenantRuntime — kept for call-site compatibility. */
@@ -63,8 +124,8 @@ export async function loadCompanionTenantContextForWorker(
   locale?: string | null,
 ): Promise<CompanionTenantContext> {
   const runtime = await bootstrapCompanionWorkerTenantRuntime(supabase, profile, locale);
-  if (!runtime) {
-    throw new Error("worker_bootstrap_failed");
+  if (!runtime.ok) {
+    throw new Error(formatBootstrapErrorMessage(runtime.failure));
   }
-  return runtime.tenantContext;
+  return runtime.runtime.tenantContext;
 }

@@ -28,6 +28,10 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { buildReplyFromSearchJson } from "./build-reply";
 import type { CompanionExperienceLabels } from "../types";
 import type { WorkerExecutionProfile } from "./load-worker-profile";
+import {
+  formatBootstrapErrorMessage,
+  type WorkerBootstrapFailure,
+} from "@/lib/companion-runtime/companion-worker-bootstrap-errors";
 import { bootstrapCompanionWorkerTenantRuntime } from "./load-worker-tenant-context";
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
@@ -61,6 +65,8 @@ export type ExecuteCompanionTurnInput = {
   externalConsent?: boolean;
   /** Background worker execution — uses queue tenant/user instead of auth session. */
   workerProfile?: WorkerExecutionProfile;
+  /** Queue job ID — used for bootstrap failure diagnostics only. */
+  workerQueueId?: string;
 };
 
 export type ExecuteCompanionTurnResult =
@@ -106,13 +112,31 @@ export async function executeCompanionTurn(
   const companionLabels = buildCompanionExperienceLabels(t);
   const legacyCorpus = buildSupportAssistantCorpus(labels, t);
 
-  const workerRuntime = input.workerProfile
-    ? await bootstrapCompanionWorkerTenantRuntime(supabase, input.workerProfile, answerLocale)
+  const workerBootstrap = input.workerProfile
+    ? await bootstrapCompanionWorkerTenantRuntime(supabase, input.workerProfile, answerLocale, {
+        queueId: input.workerQueueId,
+      })
     : null;
 
-  if (input.workerProfile && !workerRuntime) {
-    return { ok: false, error: "worker_bootstrap_failed", code: "tenant_mismatch" };
+  if (input.workerProfile && (!workerBootstrap || !workerBootstrap.ok)) {
+    const failure =
+      workerBootstrap && !workerBootstrap.ok
+        ? workerBootstrap.failure
+        : ({
+            step: "rpc_call",
+            message: "worker_bootstrap_failed",
+            tenantId: input.workerProfile.customerId,
+            userId: input.workerProfile.user.id,
+            queueId: input.workerQueueId,
+          } satisfies WorkerBootstrapFailure);
+    return {
+      ok: false,
+      error: formatBootstrapErrorMessage(failure),
+      code: "worker_bootstrap_failed",
+    };
   }
+
+  const workerRuntime = workerBootstrap?.ok ? workerBootstrap.runtime : null;
 
   const runtimeSupabase = workerRuntime?.scopedSupabase ?? supabase;
   const tenantContext = workerRuntime

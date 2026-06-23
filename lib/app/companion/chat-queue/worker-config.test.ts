@@ -16,7 +16,14 @@ function testWorkerConfigDefaults() {
 }
 
 function testPermanentRetryCodes() {
-  for (const code of ["empty_query", "unauthorized", "no_profile", "tenant_mismatch", "turn_failed"]) {
+  for (const code of [
+    "empty_query",
+    "unauthorized",
+    "no_profile",
+    "tenant_mismatch",
+    "worker_bootstrap_failed",
+    "turn_failed",
+  ]) {
     const decision = resolveCompanionQueueRetry(code);
     assert.equal(decision.retryable, false, `${code} should not retry`);
     assert.equal(decision.permanent, true);

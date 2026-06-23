@@ -1,9 +1,17 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import {
+  extractPostgresRpcError,
+  type WorkerBootstrapFailure,
+} from "./companion-worker-bootstrap-errors";
 import type {
   CompanionWorkerRuntimeBootstrap,
   CompanionWorkerRuntimeScope,
 } from "./companion-worker-runtime-scope";
 import { parseCompanionWorkerRuntimeBootstrap } from "./companion-worker-runtime-scope";
+
+export type FetchCompanionWorkerRuntimeBootstrapResult =
+  | { ok: true; bootstrap: CompanionWorkerRuntimeBootstrap }
+  | { ok: false; failure: WorkerBootstrapFailure };
 
 const BOOTSTRAP_RPC_MAP: Record<string, keyof CompanionWorkerRuntimeBootstrap> = {
   get_app_organization_context: "organization_context",
@@ -102,15 +110,68 @@ export async function fetchCompanionWorkerRuntimeBootstrap(
   tenantId: string,
   userId: string,
   locale: string,
-): Promise<CompanionWorkerRuntimeBootstrap | null> {
-  const { data, error } = await supabase.rpc("companion_worker_get_runtime_bootstrap", {
+  context: { queueId?: string } = {},
+): Promise<FetchCompanionWorkerRuntimeBootstrapResult> {
+  const started = Date.now();
+  const rpc = "companion_worker_get_runtime_bootstrap";
+  const baseFailure = {
+    rpc,
+    tenantId,
+    userId,
+    queueId: context.queueId,
+  };
+
+  const { data, error } = await supabase.rpc(rpc, {
     p_tenant_id: tenantId,
     p_user_id: userId,
     p_locale: locale,
   });
 
-  if (error) return null;
-  return parseCompanionWorkerRuntimeBootstrap(data);
+  if (error) {
+    const pg = extractPostgresRpcError(error);
+    return {
+      ok: false,
+      failure: {
+        step: "rpc_call",
+        ...baseFailure,
+        sqlState: pg.sqlState,
+        message: pg.message,
+        durationMs: Date.now() - started,
+      },
+    };
+  }
+
+  const record = data && typeof data === "object" ? (data as Record<string, unknown>) : null;
+  if (!record || record.ok !== true) {
+    const errMsg =
+      typeof record?.error === "string" && record.error.trim()
+        ? record.error.trim()
+        : "bootstrap_not_ok";
+    return {
+      ok: false,
+      failure: {
+        step: "rpc_call",
+        ...baseFailure,
+        message: errMsg,
+        durationMs: Date.now() - started,
+      },
+    };
+  }
+
+  const bootstrap = parseCompanionWorkerRuntimeBootstrap(data);
+  if (!bootstrap) {
+    return {
+      ok: false,
+      failure: {
+        step: "parse",
+        ...baseFailure,
+        message: "bootstrap_parse_failed",
+        durationMs: Date.now() - started,
+      },
+    };
+  }
+
+  return { ok: true, bootstrap };
 }
 
 export { parseCompanionWorkerRuntimeBootstrap } from "./companion-worker-runtime-scope";
