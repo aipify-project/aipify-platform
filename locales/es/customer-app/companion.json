@@ -1141,6 +1141,32 @@
     "ariaUserMessage": "Tu mensaje",
     "ariaUserMessageIdentity": "Tu pregunta",
     "scrollToLatest": "Ir al último mensaje",
-    "scrollToLatestAria": "Ir al último mensaje de esta conversación"
+    "scrollToLatestAria": "Ir al último mensaje de esta conversación",
+    "roleHeading": "Rol",
+    "roles": {
+      "owner": "Propietario",
+      "admin": "Administrador",
+      "support": "Soporte",
+      "staff": "Personal",
+      "read_only": "Solo lectura",
+      "manager": "Gerente",
+      "moderator": "Moderador",
+      "growth_partner": "Socio de crecimiento"
+    },
+    "queue": {
+      "title": "Cola de mensajes",
+      "summary": "{count} en espera",
+      "statusWaiting": "En espera",
+      "statusProcessing": "Procesando",
+      "statusCompleted": "Completado",
+      "statusFailed": "No se pudo completar",
+      "statusCancelled": "Cancelado",
+      "cancel": "Cancelar",
+      "retry": "Reintentar",
+      "notificationTitle": "Aipify tiene una respuesta lista",
+      "notificationBody": "Tu respuesta de Companion para «{question}» está lista.",
+      "restoreError": "No se pudo restaurar la conversación anterior. Puedes iniciar una nueva abajo.",
+      "syncError": "Aipify no pudo poner el mensaje en cola. Inténtalo de nuevo."
+    }
   }
 }

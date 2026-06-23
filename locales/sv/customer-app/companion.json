@@ -2238,6 +2238,32 @@
         "microsoft_powerpoint": "Microsoft PowerPoint",
         "adobe_premiere": "Adobe Premiere Pro"
       }
+    },
+    "roleHeading": "Roll",
+    "roles": {
+      "owner": "Ägare",
+      "admin": "Administratör",
+      "support": "Support",
+      "staff": "Medarbetare",
+      "read_only": "Endast läsning",
+      "manager": "Chef",
+      "moderator": "Moderator",
+      "growth_partner": "Tillväxtpartner"
+    },
+    "queue": {
+      "title": "Meddelandekö",
+      "summary": "{count} väntar",
+      "statusWaiting": "Väntar",
+      "statusProcessing": "Bearbetas",
+      "statusCompleted": "Slutförd",
+      "statusFailed": "Kunde inte slutföras",
+      "statusCancelled": "Avbruten",
+      "cancel": "Avbryt",
+      "retry": "Försök igen",
+      "notificationTitle": "Aipify har ett svar klart",
+      "notificationBody": "Ditt Companion-svar för ”{question}” är klart.",
+      "restoreError": "Din tidigare konversation kunde inte återställas. Du kan starta en ny nedan.",
+      "syncError": "Aipify kunde inte köa meddelandet. Försök igen."
     }
   }
 }

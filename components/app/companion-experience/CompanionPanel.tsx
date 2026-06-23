@@ -10,23 +10,14 @@ import {
   resolveQuickActionHref,
   type CompanionQuickActionId,
 } from "@/lib/app/companion";
-import {
-  buildConversationPreview,
-  createConversationId,
-  deleteRecentConversation,
-  loadRecentConversations,
-  saveRecentConversation,
-} from "@/lib/app/companion/conversations";
+import { createConversationId } from "@/lib/app/companion/conversations";
 import {
   patchCompanionUiSession,
   readCompanionUiSession,
 } from "@/lib/app/companion/session-state";
 import { useCompanionChatScroll } from "@/lib/app/companion/use-companion-chat-scroll";
-import {
-  parseSupportAssistantSearch,
-  SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY,
-  type SupportAssistantArticle,
-} from "@/lib/app-portal/support-assistant";
+import { useCompanionPersistentChat } from "@/lib/app/companion/chat-queue/use-companion-persistent-chat";
+import { SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY } from "@/lib/app-portal/support-assistant";
 import type { CompanionChatMessage, CompanionConversationPreview, CompanionExperienceLabels } from "@/lib/app/companion/types";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardProfileProvider";
@@ -35,6 +26,8 @@ import { CompanionQuickActions } from "./CompanionQuickActions";
 import { CompanionChat } from "./CompanionChat";
 import { CompanionChatScrollViewport } from "./CompanionChatScrollViewport";
 import { CompanionAttachmentComposer } from "./CompanionAttachmentComposer";
+import { CompanionContextStrip } from "./CompanionContextStrip";
+import { CompanionQueueBar } from "./CompanionQueueBar";
 import type { CompanionChatAttachmentSummary } from "@/lib/app/companion/types";
 
 const QUICK_ACTION_ICONS: Record<CompanionQuickActionId, string> = {
@@ -59,10 +52,6 @@ type CompanionPanelProps = {
   panelVisible?: boolean;
 };
 
-function createMessageId() {
-  return `msg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-}
-
 export function CompanionPanel({
   labels,
   locale,
@@ -74,23 +63,39 @@ export function CompanionPanel({
 }: CompanionPanelProps) {
   const profileCtx = useOptionalDashboardProfile();
   const organizationKey = profileCtx?.profile?.company.id ?? null;
-  const restoredSessionRef = useRef(false);
 
   const [query, setQuery] = useState(() => {
     if (initialQuery?.trim()) return initialQuery;
     return readCompanionUiSession(organizationKey)?.draftText ?? "";
   });
-  const [messages, setMessages] = useState<CompanionChatMessage[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [recentConversations, setRecentConversations] = useState<CompanionConversationPreview[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [showSecondarySections, setShowSecondarySections] = useState(false);
   const [activeConversationId, setActiveConversationId] = useState<string>(() => {
     return readCompanionUiSession(organizationKey)?.activeConversationId ?? createConversationId();
   });
-  const [restoreNotice, setRestoreNotice] = useState<string | null>(null);
   const initialQuerySubmittedRef = useRef(false);
+
+  const {
+    messages,
+    setMessages,
+    queue,
+    loading,
+    hydrated,
+    restoreFailed,
+    syncError,
+    setSyncError,
+    enqueueQuestion,
+    cancelQueueItem,
+    retryQueueItem,
+    loadServerConversations,
+  } = useCompanionPersistentChat({
+    conversationId: activeConversationId,
+    locale,
+    pathname,
+    panelVisible,
+    organizationKey,
+  });
 
   const contentSignature = useMemo(
     () => `${messages.length}:${loading}:${messages.map((message) => message.id).join(",")}`,
@@ -121,45 +126,33 @@ export function CompanionPanel({
   });
 
   const orgName = profileCtx?.profile?.company.name ?? labels.orgNameFallback;
-  const roleDisplay = profileCtx?.profile
-    ? labels.roleLabel.replace("{role}", profileCtx.profile.user.role)
-    : labels.roleFallback;
   const userRole = profileCtx?.profile?.user.role ?? "staff";
+  const roleName = labels.roles[userRole] ?? labels.roleFallback;
   const canConfirmOrg = userRole === "owner" || userRole === "admin";
   const pageLabelKey = resolveCompanionPageLabelKey(pathname);
   const pageLabel = labels.contextPages[pageLabelKey] ?? labels.contextPages.default;
   const routeSuggestions = useMemo(() => resolveCompanionSuggestions(pathname), [pathname]);
-  const isActiveConversation = messages.length > 0 || loading;
+  const isActiveConversation = messages.length > 0 || loading || queue.length > 0;
+  const restoreNotice =
+    restoreFailed && hydrated && messages.length === 0 ? labels.queue.restoreError : null;
+  const error = syncError;
+
+  const refreshRecentConversations = useCallback(async () => {
+    const list = await loadServerConversations();
+    setRecentConversations(
+      list.map((entry) => ({
+        id: entry.id,
+        title: entry.title ?? entry.preview ?? labels.newConversation,
+        preview: entry.preview ?? "",
+        pinned: false,
+        updatedAt: entry.updated_at ? new Date(entry.updated_at).getTime() : Date.now(),
+      })),
+    );
+  }, [loadServerConversations, labels.newConversation]);
 
   useEffect(() => {
-    setRecentConversations(loadRecentConversations());
-  }, []);
-
-  useEffect(() => {
-    if (restoredSessionRef.current && organizationKey) return;
-    if (!organizationKey && !readCompanionUiSession()) return;
-
-    const session = readCompanionUiSession(organizationKey);
-    if (!session) {
-      restoredSessionRef.current = true;
-      return;
-    }
-
-    restoredSessionRef.current = true;
-
-    if (session.activeConversationId) {
-      const conv = loadRecentConversations().find((entry) => entry.id === session.activeConversationId);
-      if (conv?.messages && conv.messages.length > 0) {
-        setMessages(conv.messages);
-        setActiveConversationId(conv.id);
-        setShowSuggestions(false);
-      } else if (conv) {
-        setActiveConversationId(conv.id);
-      } else {
-        setRestoreNotice(labels.sessionConversationUnavailable);
-      }
-    }
-  }, [organizationKey, labels.sessionConversationUnavailable]);
+    void refreshRecentConversations();
+  }, [refreshRecentConversations, organizationKey, messages.length]);
 
   useEffect(() => {
     patchCompanionUiSession(
@@ -194,7 +187,7 @@ export function CompanionPanel({
     }
   }, [initialQuery]);
 
-  const askQuestion = useCallback(
+  const submitQuestion = useCallback(
     async (input: {
       question: string;
       attachmentIds?: string[];
@@ -203,174 +196,58 @@ export function CompanionPanel({
     }) => {
       const trimmed = input.question.trim();
       const hasAttachments = (input.attachmentIds?.length ?? 0) > 0;
-      if ((!trimmed && !hasAttachments) || loading) return;
+      if (!trimmed && !hasAttachments) return;
 
-      setError(false);
+      setSyncError(false);
       setShowSuggestions(false);
       notifyUserSentMessage();
-      const displayContent =
-        trimmed ||
-        labels.attachments.stagedTitle;
-      const userMessage: CompanionChatMessage = {
-        id: createMessageId(),
-        role: "user",
-        content: displayContent,
-        attachments: input.attachmentSummaries,
-        activeArtifactId: input.activeArtifactId ?? null,
-        timestamp: Date.now(),
-      };
-      setMessages((prev) => [...prev, userMessage]);
       setQuery("");
       patchCompanionUiSession({ draftText: "", organizationKey, pathname }, organizationKey);
-      setLoading(true);
 
-      try {
-        const params = new URLSearchParams({
-          q: trimmed || labels.attachments.activeBadge,
-          locale,
-          conversation_id: activeConversationId,
-        });
-        if (input.activeArtifactId) {
-          params.set("active_artifact_id", input.activeArtifactId);
-        }
-        if (input.attachmentIds?.length) {
-          params.set("attachment_ids", input.attachmentIds.join(","));
-        }
-        const lastSnapshot = [...messages]
-          .reverse()
-          .find((message) => message.role === "aipify" && message.platformSnapshotCard);
-        if (lastSnapshot?.platformSnapshotCard?.activeModules?.length) {
-          params.set(
-            "platform_active_modules",
-            lastSnapshot.platformSnapshotCard.activeModules.join(","),
-          );
-        }
-        const res = await fetch(`/api/aipify/support-assistant/search?${params}`);
-        if (!res.ok) throw new Error("search failed");
-        const parsed = parseSupportAssistantSearch(await res.json());
-        const answer = parsed.answer;
-        const article = parsed.articles[0];
+      const lastSnapshot = [...messages]
+        .reverse()
+        .find((message) => message.role === "aipify" && message.platformSnapshotCard);
 
-        const reply = answer
-          ? buildPlatformAnswerReply(answer, labels, trimmed || displayContent)
-          : article
-            ? buildArticleReply(article, labels, trimmed || displayContent)
-            : buildFallbackReply(labels, trimmed || displayContent);
+      const ok = await enqueueQuestion({
+        question: trimmed || (hasAttachments ? labels.attachments.activeBadge : ""),
+        attachmentIds: input.attachmentIds,
+        activeArtifactId: input.activeArtifactId,
+        attachmentSummaries: input.attachmentSummaries,
+        title: trimmed || labels.attachments.stagedTitle,
+        platformActiveModules: lastSnapshot?.platformSnapshotCard?.activeModules,
+      });
 
-        setMessages((prev) => {
-          const nextMessages = [...prev, reply];
-          const firstUser = nextMessages.find((m) => m.role === "user");
-          saveRecentConversation(
-            buildConversationPreview({
-              id: activeConversationId,
-              title: firstUser?.content ?? trimmed ?? displayContent,
-              preview: answer?.directAnswer ?? article?.summary ?? labels.noResults,
-              locale,
-              messages: nextMessages,
-            }),
-          );
-          setRecentConversations(loadRecentConversations());
-          return nextMessages;
-        });
-      } catch {
-        setError(true);
-      } finally {
-        setLoading(false);
+      if (!ok) {
+        setSyncError(true);
+      } else {
+        void refreshRecentConversations();
       }
     },
-    [loading, labels, locale, activeConversationId, messages, organizationKey, pathname, notifyUserSentMessage]
+    [
+      messages,
+      labels.attachments.stagedTitle,
+      enqueueQuestion,
+      notifyUserSentMessage,
+      organizationKey,
+      pathname,
+      refreshRecentConversations,
+      setSyncError,
+    ],
   );
 
   useEffect(() => {
     const trimmed = initialQuery?.trim();
-    if (!trimmed || initialQuerySubmittedRef.current) return;
+    if (!trimmed || initialQuerySubmittedRef.current || !hydrated) return;
     initialQuerySubmittedRef.current = true;
-    void askQuestion({ question: trimmed });
-  }, [initialQuery, askQuestion]);
-
-  function buildPlatformAnswerReply(
-    platformAnswer: NonNullable<ReturnType<typeof parseSupportAssistantSearch>["answer"]>,
-    lbls: CompanionExperienceLabels,
-    question: string,
-  ): CompanionChatMessage {
-    const ctas =
-      platformAnswer.actions.length > 0
-        ? platformAnswer.actions.map((action) => ({
-            label: action.label,
-            href: action.href,
-            variant: action.variant,
-          }))
-        : [{ label: lbls.viewSuggestions, href: "/app/support/knowledge" }];
-
-    return {
-      id: createMessageId(),
-      role: "aipify",
-      content: platformAnswer.directAnswer,
-      directAnswer: platformAnswer.directAnswer,
-      explanation: platformAnswer.explanation,
-      integrationStatusCard: platformAnswer.integrationStatusCard,
-      platformSnapshotCard: platformAnswer.platformSnapshotCard,
-      question,
-      steps: platformAnswer.steps,
-      ctas,
-      sources: platformAnswer.sources,
-      sourceId: platformAnswer.sourceId,
-      confidence: platformAnswer.confidence,
-      showSupportEscalation: platformAnswer.showSupportEscalation ?? platformAnswer.confidence === "low",
-      orgConfirmEligible: platformAnswer.orgConfirmEligible !== false,
-      orgConfirmBlockedReason: platformAnswer.orgConfirmBlockedReason,
-      liveIntegrationToolUsed: platformAnswer.liveIntegrationToolUsed === true,
-      requestedLiveIntegration: platformAnswer.requestedLiveIntegration === true,
-      timestamp: Date.now(),
-    };
-  }
-
-  function buildFallbackReply(lbls: CompanionExperienceLabels, question: string): CompanionChatMessage {
-    return {
-      id: createMessageId(),
-      role: "aipify" as const,
-      content: lbls.noResults,
-      directAnswer: lbls.noResults,
-      question,
-      timestamp: Date.now(),
-      showSupportEscalation: true,
-      ctas: [
-        { label: lbls.createSupportRequest, href: "/app/support/requests?from=companion" },
-        { label: lbls.contextPages.support, href: "/app/support/knowledge" },
-        { label: lbls.openCompanion, href: "/app/companion" },
-      ],
-    };
-  }
-
-  function buildArticleReply(
-    article: SupportAssistantArticle,
-    lbls: CompanionExperienceLabels,
-    question: string,
-  ): CompanionChatMessage {
-    const ctas = [{ label: lbls.createSupportRequest, href: "/app/support/requests?from=companion" }];
-    if (article.related_module) {
-      ctas.unshift({ label: lbls.viewSuggestions, href: `/app/support/knowledge` });
-    }
-    return {
-      id: createMessageId(),
-      role: "aipify",
-      content: article.summary,
-      directAnswer: article.summary,
-      question,
-      steps: article.steps,
-      ctas,
-      showSupportEscalation: true,
-      timestamp: Date.now(),
-    };
-  }
+    void submitQuestion({ question: trimmed });
+  }, [initialQuery, submitQuestion, hydrated]);
 
   function startNewConversation() {
     setMessages([]);
     setQuery("");
     setShowSuggestions(true);
     setShowSecondarySections(false);
-    setError(false);
-    setRestoreNotice(null);
+    setSyncError(false);
     resetForNewConversation();
     const nextId = createConversationId();
     setActiveConversationId(nextId);
@@ -388,19 +265,17 @@ export function CompanionPanel({
   }
 
   function loadConversation(conv: CompanionConversationPreview) {
+    prepareConversationChange(conv.id);
+    setActiveConversationId(conv.id);
+    setShowSuggestions(false);
+    setSyncError(false);
     if (conv.messages && conv.messages.length > 0) {
-      prepareConversationChange(conv.id);
       setMessages(conv.messages);
-      setActiveConversationId(conv.id);
-      setShowSuggestions(false);
-      setError(false);
-      return;
     }
-    void askQuestion({ question: conv.title });
   }
 
   function handleDeleteConversation(conversationId: string) {
-    setRecentConversations(deleteRecentConversation(conversationId));
+    setRecentConversations((prev) => prev.filter((entry) => entry.id !== conversationId));
     if (conversationId === activeConversationId) {
       startNewConversation();
     }
@@ -463,7 +338,7 @@ export function CompanionPanel({
           icons={QUICK_ACTION_ICONS}
           onSelect={(id) => {
             const action = labels.quickActions[id];
-            void askQuestion({ question: action.title });
+            void submitQuestion({ question: action.title });
           }}
           onNavigate={(id) => {
             window.location.href = resolveQuickActionHref(id);
@@ -476,11 +351,11 @@ export function CompanionPanel({
           <h2 className="text-sm font-semibold text-aipify-text">{labels.suggestedQuestionsTitle}</h2>
           <ul className="mt-3 flex flex-wrap gap-2">
             {suggestedPrompts.map((s) => (
-              <li key={s.id}>
+              <li key={s.id} className="min-w-[min(100%,12rem)] flex-1 sm:flex-none">
                 <button
                   type="button"
-                  onClick={() => void askQuestion({ question: s.text })}
-                  className="rounded-full border border-violet-200 bg-violet-50 px-3 py-2 text-sm text-violet-900 hover:border-aipify-companion hover:bg-violet-100"
+                  onClick={() => void submitQuestion({ question: s.text })}
+                  className="w-full rounded-full border border-violet-200 bg-violet-50 px-3 py-2 text-left text-sm text-violet-900 hover:border-aipify-companion hover:bg-violet-100"
                 >
                   {s.text}
                 </button>
@@ -653,9 +528,9 @@ export function CompanionPanel({
                 </div>
                 <div>
                   <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
-                    {labels.roleLabel.split("{role}")[0]?.trim() || labels.roleLabel}
+                    {labels.roleHeading}
                   </dt>
-                  <dd className="font-medium text-aipify-text">{roleDisplay}</dd>
+                  <dd className="font-medium text-aipify-text">{roleName}</dd>
                 </div>
                 <div>
                   <dt className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">
@@ -686,11 +561,11 @@ export function CompanionPanel({
               <CompanionAttachmentComposer
                 query={query}
                 setQuery={setQuery}
-                loading={loading}
+                loading={false}
                 labels={labels}
                 conversationId={activeConversationId}
                 onSubmit={(payload) =>
-                  void askQuestion({
+                  void submitQuestion({
                     question: payload.question,
                     attachmentIds: payload.attachmentIds,
                     activeArtifactId: payload.activeArtifactId,
@@ -711,7 +586,9 @@ export function CompanionPanel({
           containerClassName={`flex min-h-0 flex-1 flex-col overflow-y-auto ${
             isActiveConversation ? "px-4 py-6 sm:px-6" : "px-4 py-4 sm:px-6 lg:flex-row"
           }`}
-          viewportClassName={`flex min-h-0 flex-1 flex-col ${viewportContentClassName}`}
+          viewportClassName={`flex min-h-0 flex-1 flex-col ${
+            isActiveConversation ? "min-h-full justify-end" : ""
+          } ${viewportContentClassName}`}
           showJumpToLatest={showJumpToLatest}
           onJumpToLatest={jumpToLatestMessage}
           scrollToLatestLabel={labels.scrollToLatest}
@@ -738,10 +615,10 @@ export function CompanionPanel({
           {error ? (
             <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-4 text-center">
               <p className="font-medium text-red-900">{labels.errorTitle}</p>
-              <p className="mt-1 text-sm text-red-700">{labels.errorBody}</p>
+              <p className="mt-1 text-sm text-red-700">{labels.queue.syncError}</p>
               <button
                 type="button"
-                onClick={() => setError(false)}
+                onClick={() => setSyncError(false)}
                 className="mt-3 rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800"
               >
                 {labels.retry}
@@ -762,63 +639,48 @@ export function CompanionPanel({
             onEscalate={() => void escalateFromChat()}
           />
 
-          {isActiveConversation ? (
-            <div className="mt-6">
-              <button
-                type="button"
-                onClick={() => setShowSecondarySections((v) => !v)}
-                className="flex w-full items-center justify-between rounded-xl border border-aipify-border bg-white px-4 py-3 text-left text-sm font-medium text-aipify-companion hover:bg-violet-50"
-                aria-expanded={showSecondarySections}
-              >
-                <span>
-                  {showSecondarySections
-                    ? labels.secondarySectionsHide
-                    : labels.secondarySectionsToggle}
-                </span>
-                <svg
-                  className={`h-4 w-4 shrink-0 transition-transform ${
-                    showSecondarySections ? "rotate-180" : ""
-                  }`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2}
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {showSecondarySections ? (
-                <div className="mt-3 rounded-xl border border-aipify-border bg-white p-4">
-                  {secondarySections}
-                </div>
-              ) : null}
-            </div>
-          ) : (
-            secondarySections
-          )}
+          {!isActiveConversation ? secondarySections : null}
         </CompanionChatScrollViewport>
       </div>
 
       {isActiveConversation ? (
-        <div className="shrink-0 border-t border-aipify-border bg-white p-4 sm:px-6">
-          <CompanionAttachmentComposer
-            query={query}
-            setQuery={setQuery}
-            loading={loading}
+        <>
+          <CompanionContextStrip
             labels={labels}
-            conversationId={activeConversationId}
-            compact
-            onSubmit={(payload) =>
-              void askQuestion({
-                question: payload.question,
-                attachmentIds: payload.attachmentIds,
-                activeArtifactId: payload.activeArtifactId,
-                attachmentSummaries: payload.attachmentSummaries,
-              })
-            }
+            orgName={orgName}
+            roleName={roleName}
+            locale={locale}
+            pageLabel={pageLabel}
+            expanded={showSecondarySections}
+            onToggle={() => setShowSecondarySections((v) => !v)}
+          >
+            {secondarySections}
+          </CompanionContextStrip>
+          <CompanionQueueBar
+            queue={queue}
+            labels={labels}
+            onCancel={(queueId) => void cancelQueueItem(queueId)}
+            onRetry={(queueId) => void retryQueueItem(queueId)}
           />
-        </div>
+          <div className="shrink-0 border-t border-aipify-border bg-white p-3 sm:px-6 sm:py-4">
+            <CompanionAttachmentComposer
+              query={query}
+              setQuery={setQuery}
+              loading={false}
+              labels={labels}
+              conversationId={activeConversationId}
+              compact
+              onSubmit={(payload) =>
+                void submitQuestion({
+                  question: payload.question,
+                  attachmentIds: payload.attachmentIds,
+                  activeArtifactId: payload.activeArtifactId,
+                  attachmentSummaries: payload.attachmentSummaries,
+                })
+              }
+            />
+          </div>
+        </>
       ) : null}
     </div>
   );

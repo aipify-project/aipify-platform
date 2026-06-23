@@ -2238,6 +2238,32 @@
       "isAccessSafe": "Is it safe to give Aipify read-only access?",
       "whyConnectionFails": "Why did my connection test fail?",
       "checkMySetup": "Can you check if my integration setup looks correct?"
+    },
+    "roleHeading": "Role",
+    "roles": {
+      "owner": "Owner",
+      "admin": "Admin",
+      "support": "Support",
+      "staff": "Staff",
+      "read_only": "Read only",
+      "manager": "Manager",
+      "moderator": "Moderator",
+      "growth_partner": "Growth Partner"
+    },
+    "queue": {
+      "title": "Message queue",
+      "summary": "{count} waiting",
+      "statusWaiting": "Waiting",
+      "statusProcessing": "Processing",
+      "statusCompleted": "Completed",
+      "statusFailed": "Could not complete",
+      "statusCancelled": "Cancelled",
+      "cancel": "Cancel",
+      "retry": "Try again",
+      "notificationTitle": "Aipify has a reply ready",
+      "notificationBody": "Your Companion answer for “{question}” is ready.",
+      "restoreError": "Your previous conversation could not be restored. You can start a new one below.",
+      "syncError": "Aipify could not queue that message. Please try again."
     }
   }
 }

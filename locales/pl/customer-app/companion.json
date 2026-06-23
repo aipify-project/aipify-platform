@@ -1352,6 +1352,32 @@
         "microsoft_powerpoint": "Microsoft PowerPoint",
         "adobe_premiere": "Adobe Premiere Pro"
       }
+    },
+    "roleHeading": "Rola",
+    "roles": {
+      "owner": "Właściciel",
+      "admin": "Administrator",
+      "support": "Wsparcie",
+      "staff": "Pracownik",
+      "read_only": "Tylko odczyt",
+      "manager": "Menedżer",
+      "moderator": "Moderator",
+      "growth_partner": "Partner wzrostu"
+    },
+    "queue": {
+      "title": "Kolejka wiadomości",
+      "summary": "{count} oczekuje",
+      "statusWaiting": "Oczekuje",
+      "statusProcessing": "Przetwarzanie",
+      "statusCompleted": "Ukończono",
+      "statusFailed": "Nie udało się ukończyć",
+      "statusCancelled": "Anulowano",
+      "cancel": "Anuluj",
+      "retry": "Spróbuj ponownie",
+      "notificationTitle": "Aipify ma gotową odpowiedź",
+      "notificationBody": "Odpowiedź Companion dla „{question}” jest gotowa.",
+      "restoreError": "Nie udało się przywrócić poprzedniej rozmowy. Możesz rozpocząć nową poniżej.",
+      "syncError": "Aipify nie mogło dodać wiadomości do kolejki. Spróbuj ponownie."
     }
   },
   "companionRelationshipEngine": {

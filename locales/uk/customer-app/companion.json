@@ -1352,6 +1352,32 @@
         "microsoft_powerpoint": "Microsoft PowerPoint",
         "adobe_premiere": "Adobe Premiere Pro"
       }
+    },
+    "roleHeading": "Роль",
+    "roles": {
+      "owner": "Власник",
+      "admin": "Адміністратор",
+      "support": "Підтримка",
+      "staff": "Співробітник",
+      "read_only": "Лише перегляд",
+      "manager": "Керівник",
+      "moderator": "Модератор",
+      "growth_partner": "Партнер зі зростання"
+    },
+    "queue": {
+      "title": "Черга повідомлень",
+      "summary": "{count} очікує",
+      "statusWaiting": "Очікує",
+      "statusProcessing": "Обробляється",
+      "statusCompleted": "Завершено",
+      "statusFailed": "Не вдалося завершити",
+      "statusCancelled": "Скасовано",
+      "cancel": "Скасувати",
+      "retry": "Спробувати знову",
+      "notificationTitle": "Aipify має готову відповідь",
+      "notificationBody": "Ваша відповідь Companion для «{question}» готова.",
+      "restoreError": "Попередню розмову не вдалося відновити. Ви можете почати нову нижче.",
+      "syncError": "Aipify не вдалося поставити повідомлення в чергу. Спробуйте ще раз."
     }
   },
   "companionRelationshipEngine": {

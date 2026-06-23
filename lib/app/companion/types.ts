@@ -86,7 +86,9 @@ export type CompanionExperienceLabels = {
   contextPending: string;
   orgNameFallback: string;
   roleLabel: string;
+  roleHeading: string;
   roleFallback: string;
+  roles: Record<string, string>;
   languageLabel: string;
   modeLabel: string;
   modeAssisted: string;
@@ -143,6 +145,21 @@ export type CompanionExperienceLabels = {
   supportEscalationHint: string;
   scrollToLatest: string;
   scrollToLatestAria: string;
+  queue: {
+    title: string;
+    summary: string;
+    statusWaiting: string;
+    statusProcessing: string;
+    statusCompleted: string;
+    statusFailed: string;
+    statusCancelled: string;
+    cancel: string;
+    retry: string;
+    notificationTitle: string;
+    notificationBody: string;
+    restoreError: string;
+    syncError: string;
+  };
   ariaUserMessage: string;
   ariaUserMessageIdentity: string;
   attachments: {

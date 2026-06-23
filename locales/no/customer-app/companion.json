@@ -2238,6 +2238,32 @@
         "microsoft_powerpoint": "Microsoft PowerPoint",
         "adobe_premiere": "Adobe Premiere Pro"
       }
+    },
+    "roleHeading": "Rolle",
+    "roles": {
+      "owner": "Eier",
+      "admin": "Administrator",
+      "support": "Support",
+      "staff": "Ansatt",
+      "read_only": "Kun lesing",
+      "manager": "Leder",
+      "moderator": "Moderator",
+      "growth_partner": "Vekstpartner"
+    },
+    "queue": {
+      "title": "Meldingskø",
+      "summary": "{count} venter",
+      "statusWaiting": "Venter",
+      "statusProcessing": "Behandles",
+      "statusCompleted": "Fullført",
+      "statusFailed": "Kunne ikke fullføres",
+      "statusCancelled": "Avbrutt",
+      "cancel": "Avbryt",
+      "retry": "Prøv igjen",
+      "notificationTitle": "Aipify har et svar klart",
+      "notificationBody": "Companion-svaret ditt for «{question}» er klart.",
+      "restoreError": "Den forrige samtalen kunne ikke gjenopprettes. Du kan starte en ny nedenfor.",
+      "syncError": "Aipify kunne ikke legge meldingen i kø. Prøv igjen."
     }
   }
 }
