@@ -48,6 +48,9 @@ const P1_LIVE_E2E_PRIORITY_ENV_KEYS = [
   P1_01_LIVE_E2E_ENV.supabaseAnonKey,
 ] as const;
 
+/** Server-only vars used by live certification — loaded from `.env.local` / `.env`, never committed. */
+const P1_LIVE_E2E_SERVER_ENV_KEYS = ["CRON_SECRET", "SUPABASE_SERVICE_ROLE_KEY"] as const;
+
 function readEnv(name: string): string | null {
   const value = process.env[name]?.trim();
   return value ? value : null;
@@ -75,7 +78,20 @@ export function loadP1LiveE2eEnvFiles(repoRoot = process.cwd()): void {
 
   for (const key of P1_LIVE_E2E_PRIORITY_ENV_KEYS) {
     const value = localEnv[key] ?? sharedEnv[key];
+    if (value?.trim() && !process.env[key]?.trim()) {
+      process.env[key] = value.trim();
+    }
+  }
+
+  for (const key of P1_LIVE_E2E_SERVER_ENV_KEYS) {
+    const value = localEnv[key] ?? sharedEnv[key];
     if (value?.trim()) {
+      process.env[key] = value.trim();
+    }
+  }
+
+  for (const [key, value] of Object.entries(localEnv)) {
+    if (!process.env[key]?.trim() && value.trim()) {
       process.env[key] = value.trim();
     }
   }

@@ -160,15 +160,19 @@ async function pollUntilAssistantReply(
   config: P1LiveE2eEnvConfig,
   conversationId: string,
   maxMs = 120_000,
+  options: { cronOnly?: boolean } = {},
 ): Promise<{ ok: boolean; reason: string | null }> {
   const started = Date.now();
   const baseUrl = config.baseUrl?.trim() ?? process.env.NEXT_PUBLIC_APP_URL?.trim() ?? null;
+  const cronOnly = options.cronOnly === true;
 
   while (Date.now() - started < maxMs) {
-    if (baseUrl) {
+    if (baseUrl && process.env.CRON_SECRET?.trim()) {
       await triggerCronWorker(baseUrl);
     }
-    await triggerConversationProcess(config, session, conversationId);
+    if (!cronOnly) {
+      await triggerConversationProcess(config, session, conversationId);
+    }
 
     const state = await fetchChatState(session, conversationId);
     if (!state.ok || !state.data) {
@@ -276,29 +280,6 @@ export async function runPostP1CompanionLiveE2eFlows(input: {
     }
   }
 
-  for (const [surface, pathname] of Object.entries(SURFACE_PATHS) as [
-    PostP1FlowResult["surface"],
-    string,
-  ][]) {
-    const state = await fetchChatState(session, conversationId);
-    const messages = state.ok && Array.isArray(state.data?.messages) ? state.data.messages : [];
-    flows.push(
-      flow(
-        `shared_history_${surface}`,
-        "companion.chat.shared_state",
-        state.ok && messages.length > 0 ? "pass" : "fail",
-        {
-          surface,
-          failure_reason: state.ok
-            ? messages.length > 0
-              ? null
-              : `No messages visible for ${pathname}`
-            : state.reason,
-        },
-      ),
-    );
-  }
-
   const duplicate = await enqueueQuestion(session, {
     conversationId,
     idempotencyKey,
@@ -315,6 +296,45 @@ export async function runPostP1CompanionLiveE2eFlows(input: {
     ),
   );
 
+  const closedBrowserConversationId = `post-p1-closed-${randomUUID().slice(0, 8)}`;
+  const closedBrowserEnqueue = await enqueueQuestion(session, {
+    conversationId: closedBrowserConversationId,
+    idempotencyKey: `${closedBrowserConversationId}:closed-browser`,
+    question: "Closed browser certification — cron worker only",
+    pathname: SURFACE_PATHS.fullpage,
+    companionActive: false,
+  });
+  if (closedBrowserEnqueue.ok && baseUrl && process.env.CRON_SECRET?.trim()) {
+    const closedBrowserCompletion = await pollUntilAssistantReply(
+      session,
+      config,
+      closedBrowserConversationId,
+      180_000,
+      { cronOnly: true },
+    );
+    flows.push(
+      flow(
+        "cron_worker_closed_browser",
+        "companion.queue.cron_worker",
+        closedBrowserCompletion.ok ? "pass" : "fail",
+        { failure_reason: closedBrowserCompletion.reason },
+      ),
+    );
+  } else {
+    flows.push(
+      flow(
+        "cron_worker_closed_browser",
+        "companion.queue.cron_worker",
+        "skipped",
+        {
+          failure_reason: closedBrowserEnqueue.ok
+            ? "CRON_SECRET or APP_LIVE_E2E_BASE_URL not configured"
+            : closedBrowserEnqueue.reason,
+        },
+      ),
+    );
+  }
+
   const completion = await pollUntilAssistantReply(session, config, conversationId);
   flows.push(
     flow(
@@ -325,23 +345,108 @@ export async function runPostP1CompanionLiveE2eFlows(input: {
     ),
   );
 
+  for (const [surface, pathname] of Object.entries(SURFACE_PATHS) as [
+    PostP1FlowResult["surface"],
+    string,
+  ][]) {
+    const state = await fetchChatState(session, conversationId);
+    const messages = state.ok && Array.isArray(state.data?.messages) ? state.data.messages : [];
+    const hasAssistant = messages.some((item) => {
+      const row = item as Record<string, unknown>;
+      return row.role === "assistant" || row.role === "aipify";
+    });
+    flows.push(
+      flow(
+        `shared_history_${surface}`,
+        "companion.chat.shared_state",
+        state.ok && hasAssistant ? "pass" : "fail",
+        {
+          surface,
+          failure_reason: state.ok
+            ? hasAssistant
+              ? null
+              : `No assistant message visible for ${pathname}`
+            : state.reason,
+        },
+      ),
+    );
+  }
+
   if (baseUrl && process.env.CRON_SECRET?.trim()) {
     const cron = await triggerCronWorker(baseUrl);
     flows.push(
       flow(
-        "cron_worker_closed_browser",
-        "companion.queue.cron_worker",
+        "cron_worker_endpoint",
+        "companion.queue.cron_endpoint",
         cron.ok ? "pass" : "fail",
         { failure_reason: cron.reason },
       ),
     );
+  }
+
+  const retryConversationId = `post-p1-retry-${randomUUID().slice(0, 8)}`;
+  const retryEnqueue = await enqueueQuestion(session, {
+    conversationId: retryConversationId,
+    idempotencyKey: `${retryConversationId}:retry`,
+    question: "Retry certification queue item",
+    pathname: SURFACE_PATHS.fullpage,
+    companionActive: true,
+  });
+  if (retryEnqueue.ok && process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()) {
+    const retryState = await fetchChatState(session, retryConversationId);
+    const retryQueue =
+      retryState.ok && Array.isArray(retryState.data?.queue) ? retryState.data.queue : [];
+    const retryItem = retryQueue[0] as Record<string, unknown> | undefined;
+    if (retryItem?.id) {
+      const admin = createServiceRoleClient();
+      await admin
+        .from("companion_message_queue")
+        .update({
+          status: "failed",
+          error_code: "certification_retry",
+          error_message: "Certification forced failure",
+        })
+        .eq("id", retryItem.id);
+
+      const { data: retryRaw, error: retryError } = await session.supabase.rpc(
+        "retry_companion_queue_item",
+        { p_queue_id: retryItem.id },
+      );
+      flows.push(
+        flow(
+          "retry_queue_item",
+          "companion.queue.retry",
+          !retryError && retryRaw?.ok === true ? "pass" : "fail",
+          {
+            failure_reason: retryError
+              ? redactSecretsFromMessage(retryError.message)
+              : retryRaw?.ok === true
+                ? null
+                : String(retryRaw?.error ?? "retry_failed"),
+          },
+        ),
+      );
+    } else {
+      flows.push(
+        flow(
+          "retry_queue_item",
+          "companion.queue.retry",
+          "skipped",
+          { failure_reason: "No queue item available for retry certification" },
+        ),
+      );
+    }
   } else {
     flows.push(
       flow(
-        "cron_worker_closed_browser",
-        "companion.queue.cron_worker",
+        "retry_queue_item",
+        "companion.queue.retry",
         "skipped",
-        { failure_reason: "CRON_SECRET or APP_LIVE_E2E_BASE_URL not configured" },
+        {
+          failure_reason: retryEnqueue.ok
+            ? "SUPABASE_SERVICE_ROLE_KEY not configured"
+            : retryEnqueue.reason,
+        },
       ),
     );
   }

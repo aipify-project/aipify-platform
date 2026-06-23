@@ -127,17 +127,32 @@ export async function runPostP1CompanionProductionReadinessCertification(
   });
 
   const liveFlowsPassed = flows.every((entry) => entry.status === "pass" || entry.status === "skipped");
-  const isolationPassed = tenantIsolation.every(
-    (check) => check.status === "pass" || check.status === "skipped",
-  );
+  const isolationConfigured = Boolean(config.isolationEmail?.trim() && config.isolationPassword?.trim());
+  const isolationPassed = tenantIsolation.every((check) => {
+    if (check.status === "pass") return true;
+    if (!isolationConfigured && check.status === "skipped") return true;
+    return false;
+  });
   const envReady =
-    environment.cron_secret_configured && environment.supabase_service_role_key_configured;
+    environment.cron_secret_configured &&
+    environment.supabase_service_role_key_configured &&
+    environment.live_e2e_base_url_configured;
 
-  const livePassed = liveFlowsPassed && isolationPassed;
+  const criticalFlowsPassed = flows.every((entry) => {
+    if (entry.status === "skipped") {
+      return entry.flow_id !== "cron_worker_closed_browser" && entry.flow_id !== "retry_queue_item";
+    }
+    return entry.status === "pass";
+  });
+
+  const livePassed = criticalFlowsPassed && isolationPassed;
   const overall_status = livePassed && envReady ? "pass" : livePassed ? "partial" : "fail";
   const max_readiness_certified =
     livePassed && envReady ? "production_ready_candidate" : livePassed ? "partial" : "partial";
 
+  if (!environment.live_e2e_base_url_configured) {
+    openLimitations.push("APP_LIVE_E2E_BASE_URL not configured — staging origin not certified.");
+  }
   if (!environment.cron_secret_configured) {
     openLimitations.push("CRON_SECRET not configured — closed-browser worker path not fully certified.");
   }
