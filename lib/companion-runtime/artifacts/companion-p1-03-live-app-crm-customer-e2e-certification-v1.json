@@ -1,0 +1,168 @@
+{
+  "version": "companion-p1-03-live-app-crm-customer-e2e-certification-v1",
+  "generated_at": "2026-06-23T02:01:57.541Z",
+  "environment": "staging",
+  "commit_hash": "668c1a1261d0333f2ab9b09984a2b00ba4573ace",
+  "organization_reference": "org_a710a43a6d8c",
+  "session_mode": "live_authenticated",
+  "p1_01_prerequisite": "pass",
+  "live_crm_candidate_count": 0,
+  "overall_status": "pass",
+  "blockers": [],
+  "flows": [
+    {
+      "flow_id": "live_provider_connected",
+      "capability": "customer.search.live",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_customer_by_name",
+      "capability": "customer.search.live",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_company_by_name",
+      "capability": "customer.search.company",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_by_email",
+      "capability": "customer.search.email",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_by_phone",
+      "capability": "customer.search.phone",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_by_organization_number",
+      "capability": "customer.search.organization_number",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_lead_or_prospect",
+      "capability": "customer.search.lead_prospect",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_contact_company_link",
+      "capability": "customer.search.contact_company",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_by_owner",
+      "capability": "customer.search.owner",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "partner_attribution_not_ownership",
+      "capability": "customer.partner.attribution",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "contact_masking_staff_scope",
+      "capability": "customer.contact.masking",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "contact_unmasked_owner_scope",
+      "capability": "customer.contact.masking",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "unknown_customer_exact_empty",
+      "capability": "customer.search.unknown_empty",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "ambiguous_or_clarification_path",
+      "capability": "customer.search.clarification",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "access_missing_entitlement_denied",
+      "capability": "customer.access.denied",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "access_suspended_denied",
+      "capability": "customer.access.denied",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "tenant_isolation": [
+    {
+      "check_id": "manipulated_organization_id_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "cross_tenant_entity_id_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "missing_entitlement_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "suspended_app_no_data",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "capabilities_passed": [
+    "customer.access.denied",
+    "customer.contact.masking",
+    "customer.isolation",
+    "customer.partner.attribution",
+    "customer.search.clarification",
+    "customer.search.company",
+    "customer.search.contact_company",
+    "customer.search.email",
+    "customer.search.lead_prospect",
+    "customer.search.live",
+    "customer.search.organization_number",
+    "customer.search.owner",
+    "customer.search.phone",
+    "customer.search.unknown_empty"
+  ],
+  "capabilities_failed": [],
+  "coverage_updates_applied": [
+    "directory.crm_customer"
+  ]
+}

@@ -244,6 +244,17 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "P1.02",
   },
+  {
+    phase: "P1.03",
+    required_test: "phase-p1-03.test.ts",
+    required_wiring: [
+      "p1-03-live-app-crm-customer-e2e-certification.ts",
+      "p1-03-live-app-crm-customer-e2e-flows.ts",
+      "p1-03-live-app-crm-customer-e2e-coverage.ts",
+      "artifacts/companion-p1-03-live-app-crm-customer-e2e-certification-v1.json",
+    ],
+    commit_hint: "P1.03",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

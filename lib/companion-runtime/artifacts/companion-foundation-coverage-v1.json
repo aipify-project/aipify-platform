@@ -1,6 +1,6 @@
 {
   "version": "companion-foundation-coverage-v1",
-  "generated_at": "2026-06-23T01:39:43.801Z",
+  "generated_at": "2026-06-23T02:01:50.474Z",
   "summary": {
     "total_modules": 178,
     "total_capabilities": 449,
@@ -4363,7 +4363,7 @@
       "limitations": [
         "Customer records from relationship center — platform owns customer, partner attribution is metadata only.",
         "No CRM write-actions in Companion runtime.",
-        "Authenticated live APP E2E certification passed — production_ready requires final operator sign-off."
+        "CRM Customer Directory live E2E certification passed — production_ready requires final operator sign-off."
       ],
       "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app"
@@ -20248,7 +20248,7 @@
       "limitations": [
         "Customer records from relationship center — platform owns customer, partner attribution is metadata only.",
         "No CRM write-actions in Companion runtime.",
-        "Authenticated live APP E2E certification passed — production_ready requires final operator sign-off."
+        "CRM Customer Directory live E2E certification passed — production_ready requires final operator sign-off."
       ],
       "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app",
@@ -20280,7 +20280,7 @@
           "limitations": [
             "Customer records from relationship center — platform owns customer, partner attribution is metadata only.",
             "No CRM write-actions in Companion runtime.",
-            "Authenticated live APP E2E certification passed — production_ready requires final operator sign-off."
+            "CRM Customer Directory live E2E certification passed — production_ready requires final operator sign-off."
           ]
         },
         "platform": {
