@@ -1,0 +1,125 @@
+{
+  "version": "companion-p1-06-live-app-support-case-write-e2e-certification-v1",
+  "generated_at": "2026-06-23T02:50:00.844Z",
+  "environment": "staging",
+  "commit_hash": "6ba6d4b20da04ca35da5fb70f09595abc084c392",
+  "organization_reference": "org_a710a43a6d8c",
+  "session_mode": "live_authenticated",
+  "p1_01_prerequisite": "pass",
+  "assign_write_source": "assign_support_case",
+  "escalate_write_source": "escalate_support_case",
+  "controlled_probe_case_created": true,
+  "overall_status": "pass",
+  "blockers": [],
+  "flows": [
+    {
+      "flow_id": "write_source_assign_live",
+      "capability": "support.write.assign",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "write_source_escalate_live",
+      "capability": "support.write.escalate",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "blocked_capabilities",
+      "capability": "support.write.blocked",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "confirmation_gate",
+      "capability": "support.write.confirmation",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "approval_gate",
+      "capability": "support.write.approval",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "assign_live",
+      "capability": "support.write.assign",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "escalate_live",
+      "capability": "support.write.escalate",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "permission_denied_assign",
+      "capability": "support.write.access",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "suspended_app_denied",
+      "capability": "support.write.access",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "audit_without_pii",
+      "capability": "support.write.audit",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "tenant_isolation": [
+    {
+      "check_id": "manipulated_organization_id_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "missing_entitlement_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "suspended_app_no_write",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "idempotency": [
+    {
+      "check_id": "duplicate_assign_retry",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "capabilities_passed": [
+    "support.write.access",
+    "support.write.approval",
+    "support.write.assign",
+    "support.write.audit",
+    "support.write.blocked",
+    "support.write.confirmation",
+    "support.write.escalate",
+    "support.write.idempotency",
+    "support.write.isolation"
+  ],
+  "capabilities_failed": [],
+  "coverage_updates_applied": [
+    "support.case_write"
+  ]
+}

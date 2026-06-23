@@ -8,6 +8,8 @@ export type SupportProviderWriteContext = {
 export type SupportWriteExecutionResult = {
   executed: boolean;
   failure_reason: string | null;
+  idempotent_replay?: boolean;
+  verified_after_reread?: boolean;
 };
 
 export function resolveSupportWriteActionOutcome(input: {
@@ -36,6 +38,15 @@ export function resolveSupportWriteActionOutcome(input: {
   }
 
   return "execution_source_missing";
+}
+
+export function supportWriteProposalRequiresApproval(input: {
+  provider_write: SupportProviderWriteContext;
+}): boolean {
+  return (
+    input.provider_write.write_source_available &&
+    input.provider_write.requires_approval_before_execution
+  );
 }
 
 export function resolveSupportDraftOutcome(input: {

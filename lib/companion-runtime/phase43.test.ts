@@ -110,7 +110,8 @@ for (const moduleId of phase3842Modules) {
 
 const supportWrite = reconciled.find((row) => row.module_id === "support.case_write");
 assert.ok(supportWrite);
-assert.equal(supportWrite!.readiness_scope.write, "adapter_missing");
+assert.equal(supportWrite!.readiness, "production_ready_candidate");
+assert.equal(supportWrite!.readiness_scope.write, "production_ready_candidate");
 assert.ok(supportWrite!.capability_ids.some((id) => id.includes("assign")));
 
 const summary = artifact.reconciliation_summary!;

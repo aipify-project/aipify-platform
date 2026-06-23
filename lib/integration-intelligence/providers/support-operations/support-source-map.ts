@@ -114,9 +114,11 @@ export const SUPPORT_OPERATIONS_SOURCE_MAP: readonly SupportOperationsSourceDefi
     tenant_filter: "_mta_require_organization()",
     available_fields: ["case_id", "assignee_user_id"],
     required_permission: "support.assign",
-    status: "missing",
+    status: "live",
     read_only: false,
-    limitations: ["Assignment write RPC exists but Companion runtime adapter is not connected."],
+    limitations: [
+      "Reversible assignment write — requires user confirmation, approval, and provider re-read before executed outcome.",
+    ],
   },
   {
     capability_key: "support_case.escalate",
@@ -127,9 +129,11 @@ export const SUPPORT_OPERATIONS_SOURCE_MAP: readonly SupportOperationsSourceDefi
     tenant_filter: "_mta_require_organization()",
     available_fields: ["case_id", "escalation_reason"],
     required_permission: "support.escalate",
-    status: "missing",
+    status: "live",
     read_only: false,
-    limitations: ["Escalation write RPC exists but Companion runtime adapter is not connected."],
+    limitations: [
+      "Reversible escalation write — requires user confirmation, approval, and provider re-read before executed outcome.",
+    ],
   },
 ];
 

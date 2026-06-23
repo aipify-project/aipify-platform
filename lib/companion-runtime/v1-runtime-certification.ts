@@ -277,6 +277,19 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "P1.05",
   },
+  {
+    phase: "P1.06",
+    required_test: "phase-p1-06.test.ts",
+    required_wiring: [
+      "p1-06-live-app-support-case-write-e2e-certification.ts",
+      "p1-06-live-app-support-case-write-e2e-flows.ts",
+      "p1-06-live-app-support-case-write-e2e-coverage.ts",
+      "support-write-provider-adapter.ts",
+      "support-write-provider-bridge.ts",
+      "artifacts/companion-p1-06-live-app-support-case-write-e2e-certification-v1.json",
+    ],
+    commit_hint: "P1.06",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

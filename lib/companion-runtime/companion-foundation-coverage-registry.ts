@@ -32,6 +32,8 @@ import { applyP1_04LiveAppSupplierVendorE2eCoverageOverrides } from "./p1-04-liv
 import { readP1_04LiveAppSupplierVendorE2eCertificationArtifact } from "./p1-04-live-app-supplier-vendor-e2e-certification";
 import { applyP1_05LiveAppSupportSlaE2eCoverageOverrides } from "./p1-05-live-app-support-sla-e2e-coverage";
 import { readP1_05LiveAppSupportSlaE2eCertificationArtifact } from "./p1-05-live-app-support-sla-e2e-certification";
+import { applyP1_06LiveAppSupportCaseWriteE2eCoverageOverrides } from "./p1-06-live-app-support-case-write-e2e-coverage";
+import { readP1_06LiveAppSupportCaseWriteE2eCertificationArtifact } from "./p1-06-live-app-support-case-write-e2e-certification";
 import type {
   CompanionCoverageEntry,
   CompanionCoverageReadiness,
@@ -576,33 +578,36 @@ export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEnt
       !explicitModuleIds.has(entry.module_id) && !SUPERSEDED_PROVIDER_MODULE_IDS.has(entry.module_id),
   );
 
-  return applyP1_05LiveAppSupportSlaE2eCoverageOverrides(
-    applyP1_04LiveAppSupplierVendorE2eCoverageOverrides(
-      applyP1_03LiveAppCrmCustomerE2eCoverageOverrides(
-        applyP1_02LiveAppEmployeeE2eCoverageOverrides(
-          applyP1LiveE2eCoverageOverrides(
-            [
-              ...CORE_COMPANION_MODULES,
-              ...buildMarketingBusinessPackEntries(),
-              buildSkillRegistryEntry(),
-              ...filteredProviders,
-              ...MEMBER_VERIFICATION_COVERAGE_MODULES,
-              ...HAIRDRESSER_SERVICE_COVERAGE_MODULES,
-              ...COMMAND_BRIEF_COVERAGE_MODULES,
-              ...SUPPORT_COVERAGE_MODULES,
-              ...HOSTS_COVERAGE_MODULES,
-              ...ORGANIZATION_DIRECTORY_COVERAGE_MODULES,
-              ...PANEL_COVERAGE_ENTRIES,
-            ],
-            readP1LiveE2eCertificationArtifact(process.cwd()),
+  return applyP1_06LiveAppSupportCaseWriteE2eCoverageOverrides(
+    applyP1_05LiveAppSupportSlaE2eCoverageOverrides(
+      applyP1_04LiveAppSupplierVendorE2eCoverageOverrides(
+        applyP1_03LiveAppCrmCustomerE2eCoverageOverrides(
+          applyP1_02LiveAppEmployeeE2eCoverageOverrides(
+            applyP1LiveE2eCoverageOverrides(
+              [
+                ...CORE_COMPANION_MODULES,
+                ...buildMarketingBusinessPackEntries(),
+                buildSkillRegistryEntry(),
+                ...filteredProviders,
+                ...MEMBER_VERIFICATION_COVERAGE_MODULES,
+                ...HAIRDRESSER_SERVICE_COVERAGE_MODULES,
+                ...COMMAND_BRIEF_COVERAGE_MODULES,
+                ...SUPPORT_COVERAGE_MODULES,
+                ...HOSTS_COVERAGE_MODULES,
+                ...ORGANIZATION_DIRECTORY_COVERAGE_MODULES,
+                ...PANEL_COVERAGE_ENTRIES,
+              ],
+              readP1LiveE2eCertificationArtifact(process.cwd()),
+            ),
+            readP1_02LiveAppEmployeeE2eCertificationArtifact(process.cwd()),
           ),
-          readP1_02LiveAppEmployeeE2eCertificationArtifact(process.cwd()),
+          readP1_03LiveAppCrmCustomerE2eCertificationArtifact(process.cwd()),
         ),
-        readP1_03LiveAppCrmCustomerE2eCertificationArtifact(process.cwd()),
+        readP1_04LiveAppSupplierVendorE2eCertificationArtifact(process.cwd()),
       ),
-      readP1_04LiveAppSupplierVendorE2eCertificationArtifact(process.cwd()),
+      readP1_05LiveAppSupportSlaE2eCertificationArtifact(process.cwd()),
     ),
-    readP1_05LiveAppSupportSlaE2eCertificationArtifact(process.cwd()),
+    readP1_06LiveAppSupportCaseWriteE2eCertificationArtifact(process.cwd()),
   );
 }
 

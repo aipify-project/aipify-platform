@@ -182,6 +182,7 @@ async function runPhase38AsyncTests() {
       escalation_reason: null,
       grounded_sources: ["business_dna_knowledge"],
       confirmed: false,
+      approved: false,
       idempotency_key: null,
     } satisfies SupportWriteRequest,
   });
@@ -204,6 +205,7 @@ async function runPhase38AsyncTests() {
       escalation_reason: null,
       grounded_sources: [],
       confirmed: true,
+      approved: false,
       idempotency_key: "assign-1",
     },
   });
