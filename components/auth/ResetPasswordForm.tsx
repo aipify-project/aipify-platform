@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
+import type { AuthRecoveryErrorCode } from "@/lib/auth/auth-recovery-log";
 import { createClient } from "@/lib/supabase/client";
 
 type ResetPasswordFormProps = {
@@ -15,38 +16,79 @@ type ResetPasswordFormProps = {
     requestNewLink: string;
     verifying: string;
     invalidLink: string;
+    linkExpired: string;
+    linkInvalid: string;
+    callbackFailed: string;
     passwordMismatch: string;
     passwordTooShort: string;
     requiredFields: string;
     generic: string;
   };
+  initialSessionReady?: boolean;
+  recoveryError?: AuthRecoveryErrorCode | null;
 };
 
-function isRecoveryLink() {
+function hasImplicitRecoveryTokens(): boolean {
   if (typeof window === "undefined") return false;
 
   const hash = window.location.hash.substring(1);
-  const hashParams = new URLSearchParams(hash);
-  const searchParams = new URLSearchParams(window.location.search);
+  if (!hash) return false;
 
+  const hashParams = new URLSearchParams(hash);
   return (
     hashParams.get("type") === "recovery" ||
-    searchParams.get("type") === "recovery" ||
-    hash.includes("access_token")
+    hashParams.has("access_token") ||
+    hashParams.has("refresh_token")
   );
 }
 
-export default function ResetPasswordForm({ labels }: ResetPasswordFormProps) {
+function resolveRecoveryErrorMessage(
+  code: AuthRecoveryErrorCode | null | undefined,
+  labels: ResetPasswordFormProps["labels"],
+): string | null {
+  if (!code) return null;
+  switch (code) {
+    case "otp_expired":
+      return labels.linkExpired;
+    case "invalid_code":
+    case "missing_code":
+      return labels.linkInvalid;
+    case "exchange_failed":
+      return labels.callbackFailed;
+    default:
+      return labels.invalidLink;
+  }
+}
+
+export default function ResetPasswordForm({
+  labels,
+  initialSessionReady = false,
+  recoveryError = null,
+}: ResetPasswordFormProps) {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(
+    resolveRecoveryErrorMessage(recoveryError, labels),
+  );
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [verifying, setVerifying] = useState(true);
-  const [canReset, setCanReset] = useState(false);
+  const [verifying, setVerifying] = useState(!recoveryError && !initialSessionReady);
+  const [canReset, setCanReset] = useState(initialSessionReady && !recoveryError);
 
   useEffect(() => {
+    if (recoveryError) {
+      setVerifying(false);
+      setCanReset(false);
+      return;
+    }
+
+    if (initialSessionReady) {
+      setCanReset(true);
+      setVerifying(false);
+      return;
+    }
+
     const supabase = createClient();
     let resolved = false;
 
@@ -55,49 +97,75 @@ export default function ResetPasswordForm({ labels }: ResetPasswordFormProps) {
         resolved = true;
         setCanReset(true);
         setVerifying(false);
+        setError(null);
       }
     }
 
-    function markInvalid() {
+    function markInvalid(message?: string) {
       if (!resolved) {
         resolved = true;
+        setCanReset(false);
         setVerifying(false);
+        if (message) setError(message);
+      }
+    }
+
+    async function verifyFromUrl() {
+      const searchParams = new URLSearchParams(window.location.search);
+      const tokenHash = searchParams.get("token_hash");
+      const type = searchParams.get("type");
+
+      if (tokenHash && type === "recovery") {
+        const { error: verifyError } = await supabase.auth.verifyOtp({
+          token_hash: tokenHash,
+          type: "recovery",
+        });
+        if (verifyError) {
+          markInvalid(resolveRecoveryErrorMessage("invalid_code", labels) ?? labels.invalidLink);
+          return;
+        }
+        markReady();
       }
     }
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "PASSWORD_RECOVERY" || (session && isRecoveryLink())) {
+      if (event === "PASSWORD_RECOVERY" || (session && (initialSessionReady || hasImplicitRecoveryTokens()))) {
+        markReady();
+        return;
+      }
+      if (session && (event === "SIGNED_IN" || event === "INITIAL_SESSION")) {
         markReady();
       }
     });
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session && isRecoveryLink()) {
+    void verifyFromUrl();
+
+    void supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
         markReady();
       }
     });
 
     const timeout = window.setTimeout(() => {
-      if (!resolved && !isRecoveryLink()) {
-        markInvalid();
-      } else if (!resolved) {
-        supabase.auth.getSession().then(({ data: { session } }) => {
-          if (session) {
-            markReady();
-          } else {
-            markInvalid();
-          }
-        });
-      }
-    }, 2500);
+      if (resolved) return;
+      void supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          markReady();
+        } else if (hasImplicitRecoveryTokens()) {
+          markInvalid(labels.invalidLink);
+        } else {
+          markInvalid(labels.invalidLink);
+        }
+      });
+    }, 4000);
 
     return () => {
       subscription.unsubscribe();
       window.clearTimeout(timeout);
     };
-  }, []);
+  }, [initialSessionReady, labels, recoveryError]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -161,7 +229,7 @@ export default function ResetPasswordForm({ labels }: ResetPasswordFormProps) {
           role="alert"
           className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
         >
-          {labels.invalidLink}
+          {error ?? labels.invalidLink}
         </div>
         <div className="flex flex-col gap-3">
           <Link
