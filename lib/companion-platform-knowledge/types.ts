@@ -261,6 +261,8 @@ export type PlatformSearchOptions = {
   tenantContext?: import("@/lib/companion-runtime/companion-tenant-context").CompanionTenantContext;
   /** True when the user is already inside the Companion chat surface. */
   companionSurface?: boolean;
+  /** Active conversation — used for deduplicated playful bell events. */
+  conversationId?: string | null;
 };
 
 export type PlatformSearchResult = {

@@ -198,6 +198,7 @@ import {
 import { resolveCommunityCompanionQuery } from "./community-companion-query";
 import { resolveOrganizationConnectionStatusAnswer } from "./organization-connection-status";
 import { resolveOrganizationIntelligenceAnswer } from "./organization-intelligence-routing";
+import { resolvePlatformFoundationAnswer } from "./platform-foundation-routing";
 import {
   buildBlockedProactiveOperationAnswer,
   buildExternalProactiveUnavailableAnswer,
@@ -1427,6 +1428,18 @@ export async function orchestrateCompanionSearch(
     resolvedTenantContext,
   );
   if (actionResult) return finalize(actionResult, { skipMemoryEnrichment: true });
+
+  const platformFoundationResult = await resolvePlatformFoundationAnswer(query, {
+    t,
+    activeLocale,
+    supabase,
+    tenantContext: resolvedTenantContext,
+    companionSurface: options?.companionSurface,
+    conversationId: options?.conversationId,
+  });
+  if (platformFoundationResult) {
+    return finalize(platformFoundationResult);
+  }
 
   const mediaResult = resolveMediaProviderAnswer(query, t, resolvedTenantContext);
   if (mediaResult) return finalize(mediaResult);

@@ -214,7 +214,7 @@ export function resolveOrganizationCapabilityRoute(
 
   const moduleId =
     executionKind === "prioritize_today"
-      ? "command_brief.prioritization"
+      ? "organization.priority_signals"
       : executionKind === "support_sla"
         ? "support.sla"
         : executionKind === "member_verification_status" || executionKind === "member_pending_verification"
@@ -223,7 +223,7 @@ export function resolveOrganizationCapabilityRoute(
 
   const resolvedCapability =
     findOrganizationCapabilityByKey(
-      moduleId === "command_brief.prioritization"
+      moduleId === "organization.priority_signals"
         ? "command_brief.prioritize"
         : moduleId === "support.sla"
           ? "support_sla.read"
@@ -299,7 +299,7 @@ export function assessOrganizationCapabilityReadiness(route: OrganizationCapabil
         provider_active: Boolean(connected),
       };
     }
-    case "command_brief.prioritization":
+    case "organization.priority_signals":
       return {
         status: "production_ready_candidate",
         source_reference: "command_brief_bundle",

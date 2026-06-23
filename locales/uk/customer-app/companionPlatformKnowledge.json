@@ -159,6 +159,29 @@
         "missing_data": "missing_data"
       }
     },
+    "foundation": {
+      "sourceLine": "Джерело: {source} · Перевірено: {checkedAt} · Свіжість: {freshness}",
+      "selfLoveSourceLabel": "Знання платформи Aipify",
+      "foxSourceLabel": "Фундамент особистості Aipify",
+      "platformSpecLabel": "Фундамент платформи Aipify",
+      "selfLoveLead": "Self Love — це принцип і цінність у Aipify Business Operating System (ABOS), а не зареєстрована назва продукту.",
+      "selfLoveBoundariesLead": "Self Love інформує та готує; рішення приймають люди. Межі:",
+      "foxFollowUp": "Грайливий момент — готовий продовжити, коли ви будете готові.",
+      "foxBellTitle": "Грайливий дзвінок",
+      "foxBellBody": "Ring-ding-ding-ding-dingeringeding — грайливий момент зафіксовано.",
+      "foundationUnavailable": "Фундамент платформи Aipify зараз недоступний для цього запитання.",
+      "adapterMissing": "Для цієї теми фундаменту не підключено adapter provider.",
+      "permissionRequired": "Ваша роль не має доступу до цієї теми фундаменту.",
+      "sourceUnavailable": "Джерело фундаменту не повернуло читабельний вміст.",
+      "gapStatusLine": "Статус: {status}",
+      "gapTopicLine": "Тема: {topic}",
+      "gapStatus": {
+        "foundation_unavailable": "foundation_unavailable",
+        "adapter_missing": "adapter_missing",
+        "permission_required": "permission_required",
+        "source_unavailable": "source_unavailable"
+      }
+    },
     "memory": {
       "sourceLabel": "Підтверджена організаційна пам'ять",
       "sourceLine": "Джерело: {source} · Чинне з: {effectiveFrom} · Перевірка: {reviewStatus}",

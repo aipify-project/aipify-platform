@@ -159,6 +159,29 @@
         "missing_data": "missing_data"
       }
     },
+    "foundation": {
+      "sourceLine": "Källa: {source} · Kontrollerad: {checkedAt} · Färskhet: {freshness}",
+      "selfLoveSourceLabel": "Aipify plattformskunskap",
+      "foxSourceLabel": "Aipify lekfull personlighetsgrund",
+      "platformSpecLabel": "Aipify plattformsgrund",
+      "selfLoveLead": "Self Love är ett principp och ett värde inom Aipify Business Operating System (ABOS) — inte ett varumärkt produktnamn.",
+      "selfLoveBoundariesLead": "Self Love informerar och förbereder; människor bestämmer. Gränser:",
+      "foxFollowUp": "Ett lekfullt ögonblick — redo när du vill fortsätta.",
+      "foxBellTitle": "Lekfull bjällermoment",
+      "foxBellBody": "Ring-ding-ding-ding-dingeringeding — lekfullt ögonblick registrerat.",
+      "foundationUnavailable": "Aipify plattformsgrund är inte tillgänglig för denna fråga just nu.",
+      "adapterMissing": "Ingen provider-adapter är ansluten för detta plattformsämne.",
+      "permissionRequired": "Din roll har inte åtkomst till detta plattformsämne.",
+      "sourceUnavailable": "Plattformsgrunden returnerade inte läsbart innehåll.",
+      "gapStatusLine": "Status: {status}",
+      "gapTopicLine": "Ämne: {topic}",
+      "gapStatus": {
+        "foundation_unavailable": "foundation_unavailable",
+        "adapter_missing": "adapter_missing",
+        "permission_required": "permission_required",
+        "source_unavailable": "source_unavailable"
+      }
+    },
     "memory": {
       "sourceLabel": "Bekräftat organisationsminne",
       "sourceLine": "Källa: {source} · Gäller från: {effectiveFrom} · Granskning: {reviewStatus}",

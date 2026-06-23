@@ -417,6 +417,29 @@
         "missing_data": "missing_data"
       }
     },
+    "foundation": {
+      "sourceLine": "Source: {source} · Checked: {checkedAt} · Freshness: {freshness}",
+      "selfLoveSourceLabel": "Aipify platform knowledge",
+      "foxSourceLabel": "Aipify playful personality foundation",
+      "platformSpecLabel": "Aipify platform foundation",
+      "selfLoveLead": "Self Love is a principle and value within the Aipify Business Operating System (ABOS) — not a trademarked product name.",
+      "selfLoveBoundariesLead": "Self Love informs and prepares; humans decide. Boundaries:",
+      "foxFollowUp": "A playful moment — ready when you are to continue.",
+      "foxBellTitle": "Playful bell moment",
+      "foxBellBody": "Ring-ding-ding-ding-dingeringeding — playful moment acknowledged.",
+      "foundationUnavailable": "Aipify platform foundation content is not available for this question right now.",
+      "adapterMissing": "No provider adapter is connected for this platform foundation topic.",
+      "permissionRequired": "Your role cannot access this platform foundation topic.",
+      "sourceUnavailable": "The platform foundation source did not return readable content.",
+      "gapStatusLine": "Status: {status}",
+      "gapTopicLine": "Topic: {topic}",
+      "gapStatus": {
+        "foundation_unavailable": "foundation_unavailable",
+        "adapter_missing": "adapter_missing",
+        "permission_required": "permission_required",
+        "source_unavailable": "source_unavailable"
+      }
+    },
     "memory": {
       "sourceLabel": "Confirmed organization memory",
       "sourceLine": "Source: {source} · Effective from: {effectiveFrom} · Review: {reviewStatus}",

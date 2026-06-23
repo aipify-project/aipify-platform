@@ -159,6 +159,29 @@
         "missing_data": "missing_data"
       }
     },
+    "foundation": {
+      "sourceLine": "Kilde: {source} · Tjekket: {checkedAt} · Friskhed: {freshness}",
+      "selfLoveSourceLabel": "Aipify platformsviden",
+      "foxSourceLabel": "Aipify legesyg personlighedsgrund",
+      "platformSpecLabel": "Aipify platformsfundament",
+      "selfLoveLead": "Self Love er et princip og en værdi i Aipify Business Operating System (ABOS) — ikke et varemærket produktnavn.",
+      "selfLoveBoundariesLead": "Self Love informerer og forbereder; mennesker beslutter. Grænser:",
+      "foxFollowUp": "Et legende øjeblik — klar når du er klar til at fortsætte.",
+      "foxBellTitle": "Legende klokkeøjeblik",
+      "foxBellBody": "Ring-ding-ding-ding-dingeringeding — legende øjeblik registreret.",
+      "foundationUnavailable": "Aipify platformsfundament er ikke tilgængeligt for dette spørgsmål lige nu.",
+      "adapterMissing": "Ingen provider-adapter er tilsluttet dette platformsfundament-emne.",
+      "permissionRequired": "Din rolle har ikke adgang til dette platformsfundament-emne.",
+      "sourceUnavailable": "Platformsfundamentet returnerede ikke læsbart indhold.",
+      "gapStatusLine": "Status: {status}",
+      "gapTopicLine": "Emne: {topic}",
+      "gapStatus": {
+        "foundation_unavailable": "foundation_unavailable",
+        "adapter_missing": "adapter_missing",
+        "permission_required": "permission_required",
+        "source_unavailable": "source_unavailable"
+      }
+    },
     "memory": {
       "sourceLabel": "Bekræftet organisationshukommelse",
       "sourceLine": "Kilde: {source} · Gældende fra: {effectiveFrom} · Gennemgang: {reviewStatus}",

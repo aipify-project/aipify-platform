@@ -6,6 +6,7 @@ import {
   type P1LiveE2eAuthenticatedSession,
 } from "./p1-01-live-app-e2e-session";
 import { resolveOrganizationCapabilityRoute } from "./organization-capability-resolution";
+import { resolvePlatformFoundationTopicId } from "./platform-foundation-intent";
 
 export type PostP109OrganizationLiveFlowResult = {
   flow_id: string;
@@ -196,6 +197,19 @@ async function resolveLiveMemberReference(session: P1LiveE2eAuthenticatedSession
   return first?.username ?? first?.display_name ?? null;
 }
 
+const FOUNDATION_QUESTIONS = [
+  {
+    flow_id: "self_love_foundation",
+    question: "Hva er Self Love?",
+    expected_topic: "self_love_principle",
+  },
+  {
+    flow_id: "fox_foundation",
+    question: "Hva sier reven?",
+    expected_topic: "playful_fox_exchange",
+  },
+] as const;
+
 const BASE_QUESTIONS = [
   {
     flow_id: "active_members",
@@ -234,6 +248,94 @@ export async function runPostP109OrganizationIntelligenceLiveE2eFlows(input: {
   session: P1LiveE2eAuthenticatedSession;
 }): Promise<{ flows: PostP109OrganizationLiveFlowResult[] }> {
   const flows: PostP109OrganizationLiveFlowResult[] = [];
+
+  for (const question of FOUNDATION_QUESTIONS) {
+    const topic = resolvePlatformFoundationTopicId(question.question);
+    if (topic !== question.expected_topic) {
+      flows.push(
+        flowResult({
+          flow_id: question.flow_id,
+          question: question.question,
+          expected_capability: question.expected_topic,
+          expected_execution_kind: question.expected_topic,
+          status: "fail",
+          capability_resolved: false,
+          reply_excerpt: null,
+          failure_reason: `Expected foundation topic ${question.expected_topic}, got ${topic ?? "null"}`,
+        }),
+      );
+      continue;
+    }
+
+    const conversationId = `post-p109-foundation-${question.flow_id}-${randomUUID().slice(0, 8)}`;
+    const enqueue = await enqueueQuestion(input.session, {
+      conversationId,
+      question: question.question,
+    });
+    if (!enqueue.ok) {
+      flows.push(
+        flowResult({
+          flow_id: question.flow_id,
+          question: question.question,
+          expected_capability: question.expected_topic,
+          expected_execution_kind: question.expected_topic,
+          status: "fail",
+          capability_resolved: true,
+          reply_excerpt: null,
+          failure_reason: enqueue.reason,
+        }),
+      );
+      continue;
+    }
+
+    const completion = await pollAssistantReply(input.session, input.config, conversationId);
+    const generic = completion.reply ? isGenericFallbackReply(completion.reply.text) : "no reply";
+    const grounded = completion.reply
+      ? hasGroundedSourceSignal(completion.reply.text, completion.reply.sourcesCount)
+      : false;
+
+    let bellVerified = question.flow_id !== "fox_foundation";
+    if (question.flow_id === "fox_foundation" && completion.ok) {
+      const { data } = await input.session.supabase.rpc("list_presence_notifications", {
+        p_limit: 20,
+        p_unread_only: false,
+      });
+      const notifications = Array.isArray((data as Record<string, unknown>)?.notifications)
+        ? ((data as Record<string, unknown>).notifications as unknown[])
+        : [];
+      bellVerified = notifications.some((entry) => {
+        const row = entry as Record<string, unknown>;
+        const metadata =
+          row.metadata && typeof row.metadata === "object"
+            ? (row.metadata as Record<string, unknown>)
+            : null;
+        return row.event_type === "playful_bell_moment" && metadata?.context === "fox_spoken";
+      });
+    }
+
+    const pass = Boolean(completion.ok && completion.reply && !generic && grounded && bellVerified);
+    flows.push(
+      flowResult({
+        flow_id: question.flow_id,
+        question: question.question,
+        expected_capability: question.expected_topic,
+        expected_execution_kind: question.expected_topic,
+        status: pass ? "pass" : "fail",
+        capability_resolved: true,
+        reply_excerpt: completion.reply?.text.slice(0, 240) ?? null,
+        failure_reason: pass
+          ? null
+          : typeof generic === "string"
+            ? generic
+            : !grounded
+              ? "Reply missing grounded source signal"
+              : !bellVerified
+                ? "Fox bell notification not recorded"
+                : completion.reason,
+      }),
+    );
+  }
+
   const memberReference = await resolveLiveMemberReference(input.session);
 
   const questions = [

@@ -191,6 +191,7 @@ export async function executeCompanionTurn(
       : undefined,
     tenantContext,
     companionSurface: true,
+    conversationId: input.conversationId,
   };
 
   const searchQuery = query || companionLabels.attachments.activeBadge;

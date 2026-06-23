@@ -12,7 +12,7 @@ export type OrganizationCapabilityModuleId =
   | "verification.member"
   | "support.case"
   | "support.sla"
-  | "command_brief.prioritization";
+  | "organization.priority_signals";
 
 export type OrganizationCapabilityDefinition = {
   module_id: OrganizationCapabilityModuleId;
@@ -152,7 +152,7 @@ export const ORGANIZATION_CAPABILITY_REGISTRY: readonly OrganizationCapabilityDe
     ),
   },
   {
-    module_id: "command_brief.prioritization",
+    module_id: "organization.priority_signals",
     capability_key: "command_brief.prioritize",
     provider_key: "command_brief",
     semantic: PRIORITIZATION_SEMANTIC,

@@ -159,6 +159,29 @@
         "missing_data": "missing_data"
       }
     },
+    "foundation": {
+      "sourceLine": "Fuente: {source} · Comprobado: {checkedAt} · Frescura: {freshness}",
+      "selfLoveSourceLabel": "Conocimiento de plataforma Aipify",
+      "foxSourceLabel": "Fundamento de personalidad Aipify",
+      "platformSpecLabel": "Fundamento de plataforma Aipify",
+      "selfLoveLead": "Self Love es un principio y un valor dentro de Aipify Business Operating System (ABOS) — no un nombre de producto registrado.",
+      "selfLoveBoundariesLead": "Self Love informa y prepara; las personas deciden. Límites:",
+      "foxFollowUp": "Un momento lúdico — listo cuando quieras continuar.",
+      "foxBellTitle": "Momento de campana lúdico",
+      "foxBellBody": "Ring-ding-ding-ding-dingeringeding — momento lúdico registrado.",
+      "foundationUnavailable": "El fundamento de plataforma Aipify no está disponible para esta pregunta ahora.",
+      "adapterMissing": "No hay adaptador de proveedor conectado para este tema de fundamento.",
+      "permissionRequired": "Tu rol no tiene acceso a este tema de fundamento.",
+      "sourceUnavailable": "La fuente de fundamento no devolvió contenido legible.",
+      "gapStatusLine": "Estado: {status}",
+      "gapTopicLine": "Tema: {topic}",
+      "gapStatus": {
+        "foundation_unavailable": "foundation_unavailable",
+        "adapter_missing": "adapter_missing",
+        "permission_required": "permission_required",
+        "source_unavailable": "source_unavailable"
+      }
+    },
     "memory": {
       "sourceLabel": "Memoria organizacional confirmada",
       "sourceLine": "Fuente: {source} · Vigente desde: {effectiveFrom} · Revisión: {reviewStatus}",
