@@ -7,6 +7,8 @@ import {
 assert.equal(classifyPasswordSignInFailure("Invalid login credentials"), "invalid_credentials");
 assert.equal(classifyPasswordSignInFailure("Email not confirmed"), "email_not_confirmed");
 assert.equal(classifyPasswordSignInFailure("Failed to fetch"), "network");
+assert.equal(classifyPasswordSignInFailure("Invalid Refresh Token: Already Used"), "session_expired");
+assert.equal(classifyPasswordSignInFailure("Too many requests"), "rate_limited");
 assert.equal(classifyPasswordSignInFailure("Unexpected auth error"), "auth_failed");
 
 assert.deepEqual(parsePasswordSignInPayload({ email: "  owner@example.com ", password: "secret" }), {

@@ -14,6 +14,7 @@ import {
   shouldCanonicalizeToCustomerPortal,
 } from "@/lib/portals";
 import { mergeAuthCookieOptions } from "@/lib/supabase/auth-cookies";
+import { withSupabaseAuthCookies } from "@/lib/supabase/session-cookies";
 
 const PROTECTED_PREFIXES = ["/dashboard", "/app", "/platform", "/super"];
 
@@ -90,16 +91,18 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const finish = (response: NextResponse) => withSupabaseAuthCookies(supabaseResponse, response);
+
   if (!user && isProtectedPath(pathname)) {
     if (shouldCanonicalizeToCustomerPortal(host, pathname)) {
-      return NextResponse.redirect(resolveCustomerPortalLoginUrl(request, pathname));
+      return finish(NextResponse.redirect(resolveCustomerPortalLoginUrl(request, pathname)));
     }
 
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
     const safeNext = sanitizeNextPath(pathname);
     loginUrl.searchParams.set("next", safeNext ?? pathname);
-    return NextResponse.redirect(loginUrl);
+    return finish(NextResponse.redirect(loginUrl));
   }
 
   if (user) {
@@ -110,13 +113,13 @@ export async function updateSession(request: NextRequest) {
       const redirectUrl = request.nextUrl.clone();
       redirectUrl.pathname = decision.pathname;
       redirectUrl.search = "";
-      return NextResponse.redirect(redirectUrl);
+      return finish(NextResponse.redirect(redirectUrl));
     }
 
     if (decision.action === "rewrite") {
       const rewriteUrl = request.nextUrl.clone();
       rewriteUrl.pathname = decision.pathname;
-      return NextResponse.rewrite(rewriteUrl);
+      return finish(NextResponse.rewrite(rewriteUrl));
     }
 
     if (pathname === "/login" || pathname === "/register") {
@@ -124,7 +127,7 @@ export async function updateSession(request: NextRequest) {
       const redirectUrl = request.nextUrl.clone();
       redirectUrl.pathname = resolvePostLoginPath(host, access.role, next);
       redirectUrl.search = "";
-      return NextResponse.redirect(redirectUrl);
+      return finish(NextResponse.redirect(redirectUrl));
     }
 
     if (
@@ -139,7 +142,7 @@ export async function updateSession(request: NextRequest) {
   if (isSuperAdminHost(host) && (pathname === "/" || pathname === "")) {
     const rewriteUrl = request.nextUrl.clone();
     rewriteUrl.pathname = "/super";
-    return NextResponse.rewrite(rewriteUrl);
+    return finish(NextResponse.rewrite(rewriteUrl));
   }
 
   return supabaseResponse;

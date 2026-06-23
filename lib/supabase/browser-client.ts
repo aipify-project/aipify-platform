@@ -16,6 +16,10 @@ export function getBrowserSupabaseClient(): SupabaseClient {
   if (!browserClient) {
     browserClient = createBrowserClient(url, anonKey, {
       cookieOptions: getBrowserAuthCookieOptions(),
+      auth: {
+        // Middleware/proxy owns refresh + Set-Cookie propagation to avoid refresh-token rotation races.
+        autoRefreshToken: false,
+      },
     });
   }
 

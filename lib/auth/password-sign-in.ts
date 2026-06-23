@@ -5,6 +5,8 @@ export type PasswordSignInFailureCode =
   | "invalid_credentials"
   | "email_not_confirmed"
   | "network"
+  | "session_expired"
+  | "rate_limited"
   | "auth_failed";
 
 export function classifyPasswordSignInFailure(message: string): PasswordSignInFailureCode {
@@ -12,6 +14,24 @@ export function classifyPasswordSignInFailure(message: string): PasswordSignInFa
 
   if (isFetchNetworkError(message)) {
     return "network";
+  }
+
+  if (
+    normalized.includes("rate limit") ||
+    normalized.includes("too many requests") ||
+    normalized.includes("429")
+  ) {
+    return "rate_limited";
+  }
+
+  if (
+    normalized.includes("refresh token") ||
+    normalized.includes("session expired") ||
+    normalized.includes("session missing") ||
+    normalized.includes("invalid jwt") ||
+    normalized.includes("token has expired")
+  ) {
+    return "session_expired";
   }
 
   if (normalized.includes("email not confirmed")) {

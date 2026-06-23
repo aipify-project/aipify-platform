@@ -42,7 +42,7 @@ export function useTwoFactorSessionGate(options: TwoFactorGateOptions = {}) {
   const pathnameRef = useRef(pathname);
   const passedRef = useRef(false);
   const optionsRef = useRef(options);
-  const [ready, setReady] = useState(() => hasTwoFactorPassed());
+  const [ready, setReady] = useState(false);
   const [blockedReason, setBlockedReason] = useState<string | null>(null);
 
   pathnameRef.current = pathname;
@@ -51,6 +51,11 @@ export function useTwoFactorSessionGate(options: TwoFactorGateOptions = {}) {
   useEffect(() => {
     const supabase = getBrowserSupabaseClient();
     let cancelled = false;
+
+    if (hasTwoFactorPassed()) {
+      passedRef.current = true;
+      setReady(true);
+    }
 
     async function evaluate() {
       const currentPath = pathnameRef.current;

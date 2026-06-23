@@ -8,10 +8,16 @@ export async function getTwoFactorStatusForSession(
   supabase: SupabaseClient
 ): Promise<TwoFactorStatus | null> {
   const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return null;
+
+  const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session?.user) return null;
+  if (!session?.access_token) return null;
 
   const fingerprint = deriveSessionFingerprint(session.access_token);
   const { data, error } = await supabase.rpc("get_two_factor_status", {

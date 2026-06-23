@@ -30,6 +30,10 @@ function mapSignInFailure(
       return { message: labels.invalidCredentials, networkError: false };
     case "email_not_confirmed":
       return { message: labels.emailNotConfirmed, networkError: false };
+    case "session_expired":
+      return { message: labels.generic, networkError: false };
+    case "rate_limited":
+      return { message: labels.networkTitle, networkError: true };
     case "network":
       return { message: labels.networkTitle, networkError: true };
     default:

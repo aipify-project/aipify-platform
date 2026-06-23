@@ -8,6 +8,7 @@ import {
   hasPortalSessionActive,
   markPortalSessionActive,
 } from "@/lib/auth/portal-session-bridge";
+import { resolvePortalSessionResolution } from "@/lib/auth/session-diagnostics";
 import { clearCompanionUiSession } from "@/lib/app/companion/session-state";
 import { getBrowserSupabaseClient } from "@/lib/supabase/browser-client";
 
@@ -24,8 +25,8 @@ type UsePortalAuthGuardResult = {
 const SIGN_OUT_EVENTS = new Set<string>(["SIGNED_OUT"]);
 
 /**
- * Client portal auth guard — only redirects on explicit sign-out.
- * Avoids spurious /login redirects during Supabase token refresh.
+ * Client portal auth guard — redirects only after refresh is attempted or on explicit sign-out.
+ * Avoids spurious /login redirects while Supabase access tokens expire and middleware refreshes.
  */
 export function usePortalAuthGuard(
   options: UsePortalAuthGuardOptions = {}
@@ -33,12 +34,17 @@ export function usePortalAuthGuard(
   const router = useRouter();
   const loginPath = options.loginPath ?? "/login";
   const nextPath = options.nextPath ?? "/app/command-center";
-  const [checking, setChecking] = useState(() => !hasPortalSessionActive());
-  const [authenticated, setAuthenticated] = useState(() => hasPortalSessionActive());
+  const [checking, setChecking] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
     const supabase = getBrowserSupabaseClient();
     let mounted = true;
+
+    if (hasPortalSessionActive()) {
+      setAuthenticated(true);
+      setChecking(false);
+    }
 
     const redirectToLogin = () => {
       const params = new URLSearchParams();
@@ -52,26 +58,56 @@ export function usePortalAuthGuard(
     async function verifySession() {
       const {
         data: { user },
-        error,
+        error: getUserError,
       } = await supabase.auth.getUser();
 
       if (!mounted) return;
 
-      if (error || !user) {
-        clearPortalSessionMarks();
-        clearCompanionUiSession();
-        setAuthenticated(false);
+      let refreshUser = null;
+      let refreshErrorMessage: string | null = null;
+
+      if (!user) {
+        const { data: refreshData, error: refreshError } = await supabase.auth.refreshSession();
+        refreshUser = refreshData.user ?? refreshData.session?.user ?? null;
+        refreshErrorMessage = refreshError?.message ?? null;
+      }
+
+      if (!mounted) return;
+
+      const resolution = resolvePortalSessionResolution({
+        user,
+        refreshUser,
+        getUserErrorMessage: getUserError?.message ?? null,
+        refreshErrorMessage,
+      });
+
+      if (resolution.status === "authenticated") {
+        markPortalSessionActive();
+        setAuthenticated(true);
         setChecking(false);
-        redirectToLogin();
         return;
       }
 
-      markPortalSessionActive();
-      setAuthenticated(true);
+      if (resolution.status === "transient") {
+        setChecking(false);
+        return;
+      }
+
+      clearPortalSessionMarks();
+      clearCompanionUiSession();
+      setAuthenticated(false);
       setChecking(false);
+      redirectToLogin();
     }
 
     void verifySession();
+
+    const onVisible = () => {
+      if (document.visibilityState === "visible") {
+        void supabase.auth.refreshSession();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisible);
 
     const {
       data: { subscription },
@@ -101,6 +137,7 @@ export function usePortalAuthGuard(
 
     return () => {
       mounted = false;
+      document.removeEventListener("visibilitychange", onVisible);
       subscription.unsubscribe();
     };
   }, [loginPath, nextPath, router]);
