@@ -68,6 +68,7 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
   const [contextState, setContextState] = useState<OrganizationContextState | null>(
     cached?.contextState ?? null
   );
+  const [resolved, setResolved] = useState(Boolean(cached));
   const licenseHref = resolveAppHref("/app/license");
   const { sidebarMark } = AIPIFY_BRAND;
 
@@ -123,6 +124,7 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
       setWorkspaceName(nextWorkspace);
       setSummary(nextSummary);
       setContextState(nextContextState);
+      setResolved(true);
       return true;
     });
   }, []);
@@ -154,15 +156,19 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
     ? workspaceName
     : isOrganizationMissing
       ? labels.organizationMissing
-      : labels.notConfigured;
+      : resolved
+        ? labels.notConfigured
+        : workspaceName ?? "";
   const licensedToDisplay = summary?.licensed_to?.trim()
     ? summary.licensed_to
     : isOrganizationMissing
       ? labels.organizationMissing
-      : summary?.software_owner?.trim() || labels.notConfigured;
+      : resolved
+        ? summary?.software_owner?.trim() || labels.notConfigured
+        : summary?.licensed_to ?? "";
   const planDisplay = isOrganizationMissing
     ? labels.notAssigned
-    : summary?.plan_name?.trim() || labels.notAssigned;
+    : summary?.plan_name?.trim() || (resolved ? labels.notAssigned : "");
 
   return (
     <Link

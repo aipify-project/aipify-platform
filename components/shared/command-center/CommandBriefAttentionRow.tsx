@@ -2,6 +2,7 @@
 
 import { CommandBriefItemRow } from "@/components/shared/command-center/CommandBriefItemRow";
 import type { CommandBriefAttentionItem } from "@/lib/command-center/command-brief-attention";
+import { resolveCommandBriefModuleAreaLabelKey } from "@/lib/command-center/command-brief-module-labels";
 import { EccTabIcons } from "@/components/app/executive-command-center/ecc-tab-icons";
 
 const ATTENTION_ICONS = {
@@ -43,8 +44,10 @@ export function CommandBriefAttentionRow({
 }: CommandBriefAttentionRowProps) {
   const icon = ATTENTION_ICONS[item.iconKey] ?? EccTabIcons.alerts;
   const actionHref = resolveActionHref(item, canAccessApprovals);
+  const moduleAreaLabelKey = resolveCommandBriefModuleAreaLabelKey(item.moduleArea);
+  const moduleAreaLabel = moduleAreaLabelKey ? resolveLabel(moduleAreaLabelKey) : item.moduleArea;
   const sourceParts = [
-    `${labels.moduleArea}: ${item.moduleArea}`,
+    `${labels.moduleArea}: ${moduleAreaLabel}`,
     item.responsiblePerson ? `${labels.responsible}: ${item.responsiblePerson}` : null,
   ].filter(Boolean);
 
