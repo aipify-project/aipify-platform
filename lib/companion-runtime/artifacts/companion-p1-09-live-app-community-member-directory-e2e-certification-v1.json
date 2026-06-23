@@ -1,8 +1,8 @@
 {
   "version": "companion-p1-09-live-app-community-member-directory-e2e-certification-v1",
-  "generated_at": "2026-06-23T12:21:32.892Z",
+  "generated_at": "2026-06-23T12:46:54.576Z",
   "environment": "staging",
-  "commit_hash": "872ab1135dc1deffb76200fd24bc60fa254643c2",
+  "commit_hash": "0408f9bb612d77b4b5171bcc533106020119025b",
   "organization_reference": "org_a710a43a6d8c",
   "session_mode": "live_authenticated",
   "p1_01_prerequisite": "pass",
