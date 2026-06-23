@@ -1,7 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { scheduleCompanionQueueWorkerDispatch } from "./dispatch-worker";
 import { executeCompanionTurnToPayload } from "./execute-turn";
 import { notifyCompanionReplyReady } from "./notify-complete";
-import { triggerCompanionQueueWorker } from "./worker-run";
 
 export type ProcessCompanionQueueOptions = {
   maxItems?: number;
@@ -118,10 +118,10 @@ export async function processCompanionQueueForConversation(
   return { processed, hasMore };
 }
 
-/** Fast inline trigger — cron worker remains authoritative. */
+/** Fast inline trigger — cron worker remains authoritative fallback. */
 export function scheduleCompanionQueueProcessing(
   _conversationId: string,
   options: ProcessCompanionQueueOptions = {},
 ): void {
-  triggerCompanionQueueWorker(options.origin);
+  scheduleCompanionQueueWorkerDispatch({ origin: options.origin });
 }

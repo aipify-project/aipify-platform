@@ -2276,7 +2276,9 @@
       "notificationTitle": "Aipify har ett svar klart",
       "notificationBody": "Ditt Companion-svar för ”{question}” är klart.",
       "restoreError": "Din tidigare konversation kunde inte återställas. Du kan starta en ny nedan.",
-      "syncError": "Aipify kunde inte köa meddelandet. Försök igen."
+      "syncError": "Aipify kunde inte köa meddelandet. Försök igen.",
+      "workerUnavailable": "Aipify kunde inte starta bakgrundsarbetaren för det här meddelandet. Frågan är sparad — Aipify försöker igen när arbetaren är tillgänglig, eller så kan du försöka igen snart.",
+      "dispatchStalled": "Meddelandet har väntat för länge utan bearbetning. Aipify försöker igen i bakgrunden — du kan också avbryta och skicka igen."
     }
   }
 }

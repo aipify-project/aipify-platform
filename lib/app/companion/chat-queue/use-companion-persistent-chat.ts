@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CompanionChatAttachmentSummary, CompanionChatMessage } from "../types";
 import type { CompanionQueueItem } from "./types";
+import { COMPANION_QUEUE_DISPATCH_STALL_MS } from "./worker-config";
 import { mapServerMessagesToChat } from "./message-payload";
 import {
   cancelCompanionQueueItem,
@@ -38,9 +39,20 @@ export function useCompanionPersistentChat({
   const [hydrated, setHydrated] = useState(false);
   const [restoreFailed, setRestoreFailed] = useState(false);
   const [syncError, setSyncError] = useState(false);
+  const [workerDispatchError, setWorkerDispatchError] = useState<"unavailable" | "stalled" | false>(
+    false,
+  );
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const loading = queue.some((item) => item.status === "processing");
+
+  const detectDispatchStall = useCallback((items: CompanionQueueItem[]) => {
+    const now = Date.now();
+    return items.some((item) => {
+      if (item.status !== "waiting" || !item.created_at) return false;
+      return now - new Date(item.created_at).getTime() > COMPANION_QUEUE_DISPATCH_STALL_MS;
+    });
+  }, []);
 
   const applyState = useCallback((state: Awaited<ReturnType<typeof fetchCompanionChatState>>) => {
     if (!state.ok) {
@@ -61,7 +73,10 @@ export function useCompanionPersistentChat({
     setHydrated(true);
     setRestoreFailed(false);
     setSyncError(false);
-  }, [onRestoreError]);
+    if (!detectDispatchStall(state.queue)) {
+      setWorkerDispatchError(false);
+    }
+  }, [detectDispatchStall, onRestoreError]);
 
   const refreshState = useCallback(async () => {
     const state = await fetchCompanionChatState(conversationId);
@@ -102,6 +117,10 @@ export function useCompanionPersistentChat({
       (item) => item.status === "waiting" || item.status === "processing",
     );
 
+    if (detectDispatchStall(queue)) {
+      setWorkerDispatchError("stalled");
+    }
+
     if (!needsPoll) {
       if (pollRef.current) {
         clearInterval(pollRef.current);
@@ -121,7 +140,7 @@ export function useCompanionPersistentChat({
         pollRef.current = null;
       }
     };
-  }, [queue, conversationId, panelVisible, refreshState]);
+  }, [queue, conversationId, panelVisible, refreshState, detectDispatchStall]);
 
   const enqueueQuestion = useCallback(
     async (input: {
@@ -137,6 +156,7 @@ export function useCompanionPersistentChat({
       if (!trimmed && !hasAttachments) return false;
 
       setSyncError(false);
+      setWorkerDispatchError(false);
       const clientMessageId = createClientMessageId();
       const idempotencyKey = createIdempotencyKey(conversationId, clientMessageId);
 
@@ -157,6 +177,10 @@ export function useCompanionPersistentChat({
       if (!result.ok) {
         setSyncError(true);
         return false;
+      }
+
+      if (result.worker_dispatch === "unavailable") {
+        setWorkerDispatchError("unavailable");
       }
 
       await refreshState();
@@ -195,6 +219,7 @@ export function useCompanionPersistentChat({
     hydrated,
     restoreFailed,
     syncError,
+    workerDispatchError,
     setSyncError,
     enqueueQuestion,
     refreshState,

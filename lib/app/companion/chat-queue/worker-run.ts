@@ -100,12 +100,15 @@ export async function runCompanionQueueWorker(
   };
 }
 
-/** Fast inline trigger — worker cron remains authoritative. */
+/** HTTP cron fallback — primary dispatch is inline via dispatch-worker. */
 export function triggerCompanionQueueWorker(origin?: string): void {
   const base = origin ?? process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
   const secret = process.env.CRON_SECRET;
 
-  if (!secret) return;
+  if (!secret) {
+    logCompanionWorkerEvent("cron_trigger_skipped", { errorCode: "cron_secret_missing" });
+    return;
+  }
 
   void fetch(`${base.replace(/\/$/, "")}/api/cron/companion-queue-worker`, {
     method: "GET",
@@ -113,6 +116,6 @@ export function triggerCompanionQueueWorker(origin?: string): void {
       authorization: `Bearer ${secret}`,
     },
   }).catch(() => {
-    /* cron is authoritative */
+    logCompanionWorkerEvent("cron_trigger_failed", { errorCode: "cron_fetch_failed" });
   });
 }

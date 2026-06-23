@@ -184,6 +184,8 @@ export function buildCompanionExperienceLabels(t: Translator): CompanionExperien
       notificationBody: t(`${p}.queue.notificationBody`),
       restoreError: t(`${p}.queue.restoreError`),
       syncError: t(`${p}.queue.syncError`),
+      workerUnavailable: t(`${p}.queue.workerUnavailable`),
+      dispatchStalled: t(`${p}.queue.dispatchStalled`),
     },
     ariaUserMessage: t(`${p}.ariaUserMessage`),
     ariaUserMessageIdentity: t(`${p}.ariaUserMessageIdentity`),

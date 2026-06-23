@@ -172,6 +172,8 @@ export type CompanionExperienceLabels = {
     notificationBody: string;
     restoreError: string;
     syncError: string;
+    workerUnavailable: string;
+    dispatchStalled: string;
   };
   ariaUserMessage: string;
   ariaUserMessageIdentity: string;

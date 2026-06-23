@@ -92,6 +92,7 @@ export function CompanionPanel({
     hydrated,
     restoreFailed,
     syncError,
+    workerDispatchError,
     setSyncError,
     enqueueQuestion,
     cancelQueueItem,
@@ -143,6 +144,11 @@ export function CompanionPanel({
   const isActiveConversation = messages.length > 0 || loading || queue.length > 0;
   const restoreNotice =
     restoreFailed && hydrated && messages.length === 0 ? labels.queue.restoreError : null;
+  const queueDispatchError = workerDispatchError
+    ? workerDispatchError === "stalled"
+      ? labels.queue.dispatchStalled
+      : labels.queue.workerUnavailable
+    : null;
   const error = syncError;
 
   const refreshRecentConversations = useCallback(async () => {
@@ -657,6 +663,13 @@ export function CompanionPanel({
               <CompanionIcon size={56} availabilityRing ariaLabel={labels.ariaCompanionAvailable} className="mx-auto" />
               <h2 className="mt-4 text-lg font-semibold text-aipify-text">{labels.emptyWelcomeTitle}</h2>
               <p className="mt-2 text-sm text-aipify-text-secondary">{labels.emptyWelcomeBody}</p>
+            </div>
+          ) : null}
+
+          {queueDispatchError ? (
+            <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-center">
+              <p className="font-medium text-amber-950">{labels.errorTitle}</p>
+              <p className="mt-1 text-sm text-amber-900">{queueDispatchError}</p>
             </div>
           ) : null}
 

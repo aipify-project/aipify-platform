@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { isCompanionWorkerConfigured } from "@/lib/app/companion/chat-queue/dispatch-worker";
 import { scheduleCompanionQueueProcessing } from "@/lib/app/companion/chat-queue/process-queue";
 
 export async function POST(request: Request) {
@@ -61,7 +62,15 @@ export async function POST(request: Request) {
       origin: new URL(request.url).origin,
     });
 
-    return NextResponse.json(data);
+    const payload =
+      data && typeof data === "object" && !Array.isArray(data)
+        ? { ...(data as Record<string, unknown>) }
+        : { ok: true };
+
+    return NextResponse.json({
+      ...payload,
+      worker_dispatch: isCompanionWorkerConfigured() ? "scheduled" : "unavailable",
+    });
   } catch {
     return NextResponse.json({ ok: false, error: "enqueue_failed" }, { status: 500 });
   }

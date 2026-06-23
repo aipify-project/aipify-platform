@@ -2276,7 +2276,9 @@
       "notificationTitle": "Aipify has a reply ready",
       "notificationBody": "Your Companion answer for “{question}” is ready.",
       "restoreError": "Your previous conversation could not be restored. You can start a new one below.",
-      "syncError": "Aipify could not queue that message. Please try again."
+      "syncError": "Aipify could not queue that message. Please try again.",
+      "workerUnavailable": "Aipify could not start the background worker for this message. Your question is saved — Aipify will retry when the worker is available, or you can try again shortly.",
+      "dispatchStalled": "This message has waited too long without processing. Aipify is retrying in the background — you can also cancel and send again."
     }
   }
 }

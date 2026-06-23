@@ -2276,7 +2276,9 @@
       "notificationTitle": "Aipify har et svar klar",
       "notificationBody": "Dit Companion-svar for ”{question}” er klar.",
       "restoreError": "Din tidligere samtale kunne ikke gendannes. Du kan starte en ny nedenfor.",
-      "syncError": "Aipify kunne ikke sætte beskeden i kø. Prøv igen."
+      "syncError": "Aipify kunne ikke sætte beskeden i kø. Prøv igen.",
+      "workerUnavailable": "Aipify kunne ikke starte baggrundsarbejderen for denne besked. Spørgsmålet er gemt — Aipify prøver igen, når arbejderen er tilgængelig, eller du kan prøve igen om lidt.",
+      "dispatchStalled": "Beskeden har ventet for længe uden behandling. Aipify prøver igen i baggrunden — du kan også annullere og sende igen."
     }
   }
 }

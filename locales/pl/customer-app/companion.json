@@ -1390,7 +1390,9 @@
       "notificationTitle": "Aipify ma gotową odpowiedź",
       "notificationBody": "Odpowiedź Companion dla „{question}” jest gotowa.",
       "restoreError": "Nie udało się przywrócić poprzedniej rozmowy. Możesz rozpocząć nową poniżej.",
-      "syncError": "Aipify nie mogło dodać wiadomości do kolejki. Spróbuj ponownie."
+      "syncError": "Aipify nie mogło dodać wiadomości do kolejki. Spróbuj ponownie.",
+      "workerUnavailable": "Aipify nie mogło uruchomić procesu w tle dla tej wiadomości. Pytanie jest zapisane — Aipify spróbuje ponownie, gdy proces będzie dostępny, lub możesz spróbować ponownie za chwilę.",
+      "dispatchStalled": "Ta wiadomość czeka zbyt długo bez przetwarzania. Aipify ponawia próbę w tle — możesz też anulować i wysłać ponownie."
     }
   },
   "companionRelationshipEngine": {

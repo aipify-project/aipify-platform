@@ -2276,7 +2276,9 @@
       "notificationTitle": "Aipify har et svar klart",
       "notificationBody": "Companion-svaret ditt for «{question}» er klart.",
       "restoreError": "Den forrige samtalen kunne ikke gjenopprettes. Du kan starte en ny nedenfor.",
-      "syncError": "Aipify kunne ikke legge meldingen i kø. Prøv igjen."
+      "syncError": "Aipify kunne ikke legge meldingen i kø. Prøv igjen.",
+      "workerUnavailable": "Aipify kunne ikke starte bakgrunnsarbeideren for denne meldingen. Spørsmålet er lagret — Aipify prøver igjen når arbeideren er tilgjengelig, eller du kan prøve på nytt om litt.",
+      "dispatchStalled": "Meldingen har ventet for lenge uten behandling. Aipify prøver igjen i bakgrunnen — du kan også avbryte og sende på nytt."
     }
   }
 }

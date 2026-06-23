@@ -63,6 +63,7 @@ export type EnqueueCompanionMessageResult = {
   queue_id?: string;
   queue_position?: number;
   deduplicated?: boolean;
+  worker_dispatch?: "scheduled" | "unavailable";
   error?: string;
 };
 
