@@ -669,7 +669,6 @@ export function CompanionPanel({
               loading={false}
               labels={labels}
               conversationId={activeConversationId}
-              compact
               onSubmit={(payload) =>
                 void submitQuestion({
                   question: payload.question,

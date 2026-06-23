@@ -25,6 +25,10 @@ assert.match(composerSource, /onPaste/);
 assert.match(composerSource, /deleteCompanionAttachment/);
 assert.match(composerSource, /setCompanionActiveArtifact/);
 assert.match(userCardSource, /attachments\.map/);
+assert.match(composerSource, /grid-cols-\[3rem_minmax\(0,1fr\)_auto\]/);
+assert.match(composerSource, /companion-attachment-drop-hint/);
+assert.match(composerSource, /att\.dropHint/);
+assert.doesNotMatch(composerSource, /compact \? "flex gap-2"/);
 assert.match(composerSource, /fetchExternalApplicationDiscovery/);
 assert.match(composerSource, /apps\.useInApplication/);
 

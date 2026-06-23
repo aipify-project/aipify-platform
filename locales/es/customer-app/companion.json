@@ -1167,6 +1167,9 @@
       "notificationBody": "Tu respuesta de Companion para «{question}» está lista.",
       "restoreError": "No se pudo restaurar la conversación anterior. Puedes iniciar una nueva abajo.",
       "syncError": "Aipify no pudo poner el mensaje en cola. Inténtalo de nuevo."
+    },
+    "attachments": {
+      "dropHint": "Suelta archivos aquí o pega una imagen del portapapeles. Máx. 10 MB por archivo."
     }
   }
 }

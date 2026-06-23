@@ -23,7 +23,6 @@ type CompanionAttachmentComposerProps = {
   loading: boolean;
   labels: CompanionExperienceLabels;
   conversationId: string;
-  compact?: boolean;
   onSubmit: (input: {
     question: string;
     attachmentIds: string[];
@@ -44,7 +43,6 @@ export function CompanionAttachmentComposer({
   loading,
   labels,
   conversationId,
-  compact,
   onSubmit,
 }: CompanionAttachmentComposerProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -369,7 +367,7 @@ export function CompanionAttachmentComposer({
       ) : null}
 
       <form
-        className={compact ? "flex gap-2" : "flex flex-col gap-2 sm:flex-row"}
+        className="flex flex-col gap-1.5"
         onSubmit={(event) => {
           event.preventDefault();
           if (!canSubmit) return;
@@ -417,57 +415,69 @@ export function CompanionAttachmentComposer({
             }
           }}
         />
-        <div className={`flex min-w-0 flex-1 gap-2 ${compact ? "" : "flex-col sm:flex-row"}`}>
-          <div className="flex min-w-0 flex-1 items-center gap-2">
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={loading || attachments.length >= COMPANION_ATTACHMENT_MAX_COUNT}
-              className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-aipify-border bg-white text-aipify-companion hover:bg-violet-50 disabled:opacity-60"
-              aria-label={att.addAttachment}
-              title={att.addAttachment}
-            >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.961-1.01a2.25 2.25 0 1 1-3.183-3.183l3.183 3.183Z" />
-              </svg>
-            </button>
-            <input
-              type="text"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              onPaste={(event) => {
-                const items = event.clipboardData?.items;
-                if (!items) return;
-                const files: File[] = [];
-                for (const item of items) {
-                  if (item.kind === "file") {
-                    const file = item.getAsFile();
-                    if (file) files.push(file);
-                  }
+        <div className="grid w-full grid-cols-[3rem_minmax(0,1fr)_auto] items-center gap-x-2 gap-y-1.5">
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={loading || attachments.length >= COMPANION_ATTACHMENT_MAX_COUNT}
+            className="col-start-1 row-start-1 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-aipify-border bg-white text-aipify-companion hover:bg-violet-50 disabled:opacity-60"
+            aria-label={att.addAttachment}
+            title={att.addAttachment}
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.961-1.01a2.25 2.25 0 1 1-3.183-3.183l3.183 3.183Z" />
+            </svg>
+          </button>
+          <input
+            type="text"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            onPaste={(event) => {
+              const items = event.clipboardData?.items;
+              if (!items) return;
+              const files: File[] = [];
+              for (const item of items) {
+                if (item.kind === "file") {
+                  const file = item.getAsFile();
+                  if (file) files.push(file);
                 }
-                if (files.length > 0) {
-                  event.preventDefault();
-                  void queueUpload(files, "paste");
-                }
-              }}
-              placeholder={labels.inputPlaceholder}
-              className="min-h-12 flex-1 rounded-xl border border-aipify-border bg-white px-4 py-3 text-base text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-companion focus:outline-none focus:ring-2 focus:ring-violet-200"
-              aria-label={labels.inputPlaceholder}
-            />
-          </div>
+              }
+              if (files.length > 0) {
+                event.preventDefault();
+                void queueUpload(files, "paste");
+              }
+            }}
+            placeholder={labels.inputPlaceholder}
+            className="col-start-2 row-start-1 min-h-12 min-w-0 rounded-xl border border-aipify-border bg-white px-4 py-3 text-base text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-companion focus:outline-none focus:ring-2 focus:ring-violet-200"
+            aria-label={labels.inputPlaceholder}
+            aria-describedby="companion-attachment-drop-hint"
+          />
           <button
             type="submit"
             disabled={!canSubmit}
-            className={
-              compact
-                ? "inline-flex min-h-12 shrink-0 items-center rounded-xl bg-aipify-companion px-5 text-base font-medium text-white hover:bg-violet-700 disabled:opacity-60"
-                : "inline-flex min-h-12 items-center justify-center rounded-xl bg-aipify-companion px-5 py-2.5 text-base font-medium text-white hover:bg-violet-700 disabled:opacity-60"
-            }
+            className="col-start-3 row-start-1 inline-flex h-12 shrink-0 items-center justify-center self-center rounded-xl bg-aipify-companion px-5 text-base font-medium text-white hover:bg-violet-700 disabled:opacity-60"
           >
             {labels.askAipifyButton}
           </button>
+          <div className="col-start-2 row-start-2 min-w-0">
+            <p
+              id="companion-attachment-drop-hint"
+              className="hidden text-[11px] leading-snug text-aipify-text-muted sm:block"
+            >
+              {att.dropHint}
+            </p>
+            <button
+              type="button"
+              className="inline-flex h-6 w-6 items-center justify-center rounded-full text-aipify-text-muted hover:bg-aipify-surface-muted hover:text-aipify-text-secondary sm:hidden"
+              title={att.dropHint}
+              aria-label={att.dropHint}
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+              </svg>
+            </button>
+          </div>
         </div>
-        <p className="text-[11px] text-aipify-text-muted">{att.dropHint}</p>
       </form>
     </div>
   );
