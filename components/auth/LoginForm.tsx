@@ -4,16 +4,13 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { AipifyWebAppInstallAction } from "@/components/pwa/AipifyWebAppInstallAction";
-import { getPostLoginPath } from "@/lib/auth/get-post-login-path";
 import {
-  classifyPasswordSignInFailure,
   normalizeSignInEmail,
   type PasswordSignInFailureCode,
 } from "@/lib/auth/password-sign-in";
 import { twoFactorRedirectPath, type TwoFactorStatus } from "@/lib/auth/two-factor";
 import { isFetchNetworkError } from "@/lib/pwa/manifest-audit";
 import type { PwaInstallLabels } from "@/lib/pwa/types";
-import { createClient } from "@/lib/supabase/client";
 
 type SignInAttemptResult =
   | { ok: true; destination: string }
@@ -39,41 +36,6 @@ function mapSignInFailure(
     default:
       return { message: labels.generic, networkError: false };
   }
-}
-
-async function signInViaBrowser(
-  email: string,
-  password: string,
-  nextPath: string | null,
-): Promise<SignInAttemptResult> {
-  const supabase = createClient();
-  await supabase.auth.signOut({ scope: "local" });
-
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: normalizeSignInEmail(email),
-    password,
-  });
-
-  if (error) {
-    return {
-      ok: false,
-      error: classifyPasswordSignInFailure(error.message),
-      message: error.message,
-      networkError: isFetchNetworkError(error.message),
-    };
-  }
-
-  if (!data.session) {
-    return { ok: false, error: "auth_failed", networkError: false };
-  }
-
-  const destination = await getPostLoginPath(
-    supabase,
-    nextPath,
-    typeof window !== "undefined" ? window.location.host : null,
-  );
-
-  return { ok: true, destination };
 }
 
 async function signInViaServerRoute(
@@ -121,23 +83,6 @@ async function signInWithFallback(
   password: string,
   nextPath: string | null,
 ): Promise<SignInAttemptResult> {
-  try {
-    const browserResult = await signInViaBrowser(email, password, nextPath);
-    if (browserResult.ok || !browserResult.networkError) {
-      return browserResult;
-    }
-  } catch (caught) {
-    const message = caught instanceof Error ? caught.message : "";
-    if (!isFetchNetworkError(message)) {
-      return {
-        ok: false,
-        error: "auth_failed",
-        message,
-        networkError: false,
-      };
-    }
-  }
-
   return signInViaServerRoute(email, password, nextPath);
 }
 

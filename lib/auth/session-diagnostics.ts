@@ -79,6 +79,10 @@ export function resolvePortalSessionResolution(input: {
     return { status: "transient", reason: "network" };
   }
 
+  if (combined.includes("already used")) {
+    return { status: "transient", reason: "refresh_in_progress" };
+  }
+
   if (
     combined.includes("refresh token") ||
     combined.includes("session missing") ||

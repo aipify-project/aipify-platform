@@ -39,6 +39,15 @@ assert.equal(
     refreshUser: null,
     refreshErrorMessage: "Invalid Refresh Token: Already Used",
   }).status,
+  "transient",
+);
+
+assert.equal(
+  resolvePortalSessionResolution({
+    user: null,
+    refreshUser: null,
+    refreshErrorMessage: "Invalid Refresh Token: Refresh Token Not Found",
+  }).status,
   "unauthenticated",
 );
 

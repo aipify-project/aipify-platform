@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     }
 
     const { supabase, applyCookies } = await createRouteHandlerSupabaseClient();
-    await supabase.auth.signOut({ scope: "local" });
+    await supabase.auth.signOut();
 
     const { data, error } = await supabase.auth.signInWithPassword(credentials);
 
