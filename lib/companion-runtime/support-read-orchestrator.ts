@@ -216,9 +216,11 @@ export function buildSupportCommandBriefSignals(input: {
   cases: readonly SupportCaseSummary[];
   pending_drafts_count: number | null;
   source_exact: boolean;
+  sla_source_exact?: boolean;
 }): Array<{ signal_key: string; count: number | null }> {
   if (!input.source_exact || !input.queue) return [];
 
+  const slaExact = input.sla_source_exact === true;
   const signals: Array<{ signal_key: string; count: number | null }> = [];
 
   if (input.queue.total_open > 0) {
@@ -230,10 +232,10 @@ export function buildSupportCommandBriefSignals(input: {
   if (input.queue.urgent > 0) {
     signals.push({ signal_key: "urgent_support_case", count: input.queue.urgent });
   }
-  if (input.queue.sla_at_risk > 0) {
+  if (slaExact && input.queue.sla_at_risk > 0) {
     signals.push({ signal_key: "support_sla_warning", count: input.queue.sla_at_risk });
   }
-  if (input.queue.overdue > 0) {
+  if (slaExact && input.queue.overdue > 0) {
     signals.push({ signal_key: "support_sla_breached", count: input.queue.overdue });
   }
 
@@ -275,15 +277,6 @@ export function buildSupportCommandBriefSignals(input: {
     });
   }
 
-  const legacySlaRisk =
-    input.cases.filter(
-      (supportCase) =>
-        supportCase.sla_status === "at_risk" || supportCase.sla_status === "warning",
-    ).length;
-  if (legacySlaRisk > 0) {
-    signals.push({ signal_key: "sla_risk", count: legacySlaRisk });
-  }
-
   return signals;
 }
 
@@ -292,10 +285,13 @@ export function buildSupportCommandBriefCandidates(input: {
   cases: readonly SupportCaseSummary[];
   pending_drafts_count: number | null;
   source_exact: boolean;
+  sla_source_exact?: boolean;
 }): SupportCommandBriefSignalCandidate[] {
   return buildSupportCommandBriefSignals(input).map((signal) => ({
     ...signal,
-    source_exact: input.source_exact,
+    source_exact: input.sla_source_exact === true && signal.signal_key.startsWith("support_sla")
+      ? true
+      : input.source_exact,
   }));
 }
 

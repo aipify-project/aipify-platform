@@ -266,6 +266,17 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "P1.04",
   },
+  {
+    phase: "P1.05",
+    required_test: "phase-p1-05.test.ts",
+    required_wiring: [
+      "p1-05-live-app-support-sla-e2e-certification.ts",
+      "p1-05-live-app-support-sla-e2e-flows.ts",
+      "p1-05-live-app-support-sla-e2e-coverage.ts",
+      "artifacts/companion-p1-05-live-app-support-sla-e2e-certification-v1.json",
+    ],
+    commit_hint: "P1.05",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

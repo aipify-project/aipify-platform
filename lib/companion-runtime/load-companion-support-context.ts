@@ -229,6 +229,7 @@ export async function loadCompanionSupportContext(
           cases: asoBundle.cases,
           pending_drafts_count: pendingDraftsCount,
           source_exact: asoBundle.source_exact,
+          sla_source_exact: asoBundle.sla_source_exact,
         })
       : [];
 

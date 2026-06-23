@@ -18,11 +18,48 @@ function asArray(value: unknown): RawSupportCaseRow[] {
   return Array.isArray(value) ? (value as RawSupportCaseRow[]) : [];
 }
 
-function mapAsoCaseRow(row: RawSupportCaseRow, sourceReference: string): SupportCaseSummary {
+function parseSlaBlock(data: Record<string, unknown>): {
+  sla_source_exact: boolean;
+  policy_configured: boolean;
+  sla_at_risk: number;
+  breached: number;
+} {
+  const sla =
+    data.sla && typeof data.sla === "object" ? (data.sla as Record<string, unknown>) : null;
+
+  if (!sla) {
+    return {
+      sla_source_exact: false,
+      policy_configured: false,
+      sla_at_risk: 0,
+      breached: 0,
+    };
+  }
+
+  const policyConfigured = sla.policy_configured === true || sla.source_exact === true;
+  const sourceExact = sla.source_exact === true;
+
+  return {
+    sla_source_exact: sourceExact,
+    policy_configured: policyConfigured,
+    sla_at_risk: sourceExact && typeof sla.sla_at_risk === "number" ? sla.sla_at_risk : 0,
+    breached: sourceExact && typeof sla.breached === "number" ? sla.breached : 0,
+  };
+}
+
+function mapAsoCaseRow(
+  row: RawSupportCaseRow,
+  sourceReference: string,
+  slaSourceExact: boolean,
+): SupportCaseSummary {
   const caseId = String(row.id ?? row.case_number ?? "").trim();
   const status = normalizeSupportStatus(String(row.status ?? "open"));
   const riskLevel = String(row.risk_level ?? row.priority ?? "").toLowerCase();
   const priority = normalizeSupportPriority(riskLevel || String(row.priority ?? ""));
+
+  const slaStatus = slaSourceExact
+    ? inferSlaStatusFromCase({ sla_status: row.sla_status ? String(row.sla_status) : null })
+    : "unavailable";
 
   return {
     case_id: caseId,
@@ -37,9 +74,11 @@ function mapAsoCaseRow(row: RawSupportCaseRow, sourceReference: string): Support
     assigned_user_reference: null,
     created_at: row.created_at ? String(row.created_at) : null,
     updated_at: row.updated_at ? String(row.updated_at) : null,
-    first_response_due_at: null,
-    resolution_due_at: null,
-    sla_status: inferSlaStatusFromCase({ sla_status: row.sla_status ? String(row.sla_status) : null }),
+    first_response_due_at:
+      slaSourceExact && row.first_response_due_at ? String(row.first_response_due_at) : null,
+    resolution_due_at:
+      slaSourceExact && row.resolution_due_at ? String(row.resolution_due_at) : null,
+    sla_status: slaStatus,
     escalation_status:
       status === "escalated" || row.escalated_at
         ? "escalated"
@@ -48,8 +87,13 @@ function mapAsoCaseRow(row: RawSupportCaseRow, sourceReference: string): Support
           : "none",
     source_reference: sourceReference,
     freshness: "fresh",
-    completeness: "partial",
-    warnings: ["customerApp.companionPlatformKnowledge.support.warnings.casePartialSource"],
+    completeness: slaSourceExact ? "complete" : "partial",
+    warnings: slaSourceExact
+      ? ["customerApp.companionPlatformKnowledge.support.warnings.casePartialSource"]
+      : [
+          "customerApp.companionPlatformKnowledge.support.warnings.casePartialSource",
+          "customerApp.companionPlatformKnowledge.support.warnings.slaUnavailable",
+        ],
   };
 }
 
@@ -57,6 +101,8 @@ export function mapAsoDashboardToSupportBundle(data: unknown): {
   queue: SupportQueueSummary | null;
   cases: SupportCaseSummary[];
   source_exact: boolean;
+  sla_source_exact: boolean;
+  sla_policy_configured: boolean;
   limitations: readonly string[];
 } {
   if (!data || typeof data !== "object") {
@@ -64,6 +110,8 @@ export function mapAsoDashboardToSupportBundle(data: unknown): {
       queue: null,
       cases: [],
       source_exact: false,
+      sla_source_exact: false,
+      sla_policy_configured: false,
       limitations: ["ASO dashboard payload missing."],
     };
   }
@@ -74,10 +122,13 @@ export function mapAsoDashboardToSupportBundle(data: unknown): {
       queue: null,
       cases: [],
       source_exact: false,
+      sla_source_exact: false,
+      sla_policy_configured: false,
       limitations: ["Organization has no ASO customer context."],
     };
   }
 
+  const slaMeta = parseSlaBlock(record);
   const performance =
     record.performance && typeof record.performance === "object"
       ? (record.performance as Record<string, unknown>)
@@ -87,11 +138,15 @@ export function mapAsoDashboardToSupportBundle(data: unknown): {
   const approvalQueue = asArray(record.approval_queue);
 
   const cases = openCases.map((row) =>
-    mapAsoCaseRow(row, "autonomous_support_operations:get_customer_support_operations_center"),
+    mapAsoCaseRow(
+      row,
+      "autonomous_support_operations:get_customer_support_operations_center",
+      slaMeta.sla_source_exact,
+    ),
   );
 
   for (const row of highRiskCases) {
-    const mapped = mapAsoCaseRow(row, "autonomous_support_operations:high_risk_cases");
+    const mapped = mapAsoCaseRow(row, "autonomous_support_operations:high_risk_cases", slaMeta.sla_source_exact);
     if (!cases.some((entry) => entry.case_id === mapped.case_id)) {
       cases.push(mapped);
     }
@@ -121,29 +176,55 @@ export function mapAsoDashboardToSupportBundle(data: unknown): {
     }
   }
 
+  const slaAtRisk = slaMeta.sla_source_exact
+    ? slaMeta.sla_at_risk ||
+      (typeof performance.sla_at_risk === "number" ? performance.sla_at_risk : 0)
+    : 0;
+  const slaBreached = slaMeta.sla_source_exact
+    ? slaMeta.breached ||
+      (typeof performance.sla_breached === "number" ? performance.sla_breached : 0)
+    : 0;
+
   const queue: SupportQueueSummary = {
     total_open: totalOpen,
     unassigned: 0,
     urgent,
-    overdue: 0,
-    sla_at_risk: 0,
+    overdue: slaBreached,
+    sla_at_risk: slaAtRisk,
     waiting_for_customer: waitingForCustomer,
     waiting_for_support: waitingForSupport,
     oldest_open_at: oldestOpenAt,
     generated_at: new Date().toISOString(),
     source_reference: "autonomous_support_operations:get_customer_support_operations_center",
     freshness: "fresh" as SupportFreshness,
-    completeness: "partial" as SupportCompleteness,
+    completeness: slaMeta.sla_source_exact ? ("complete" as SupportCompleteness) : ("partial" as SupportCompleteness),
   };
+
+  const limitations: string[] = [
+    "customerApp.companionPlatformKnowledge.support.warnings.queuePartialSource",
+  ];
+
+  if (!slaMeta.policy_configured) {
+    limitations.push(
+      "customerApp.companionPlatformKnowledge.support.warnings.slaPolicyMissing",
+    );
+  } else if (!slaMeta.sla_source_exact) {
+    limitations.push(
+      "customerApp.companionPlatformKnowledge.support.warnings.slaSourcePartial",
+    );
+  }
+
+  if (!slaMeta.sla_source_exact) {
+    limitations.push("Assignment fields remain unavailable from the current ASO read source.");
+  }
 
   return {
     queue,
     cases,
-    source_exact: totalOpen > 0 || openCases.length > 0,
-    limitations: [
-      "customerApp.companionPlatformKnowledge.support.warnings.queuePartialSource",
-      "Assignment and SLA fields are unavailable from the current ASO read source.",
-    ],
+    source_exact: totalOpen > 0 || openCases.length > 0 || record.has_customer === true,
+    sla_source_exact: slaMeta.sla_source_exact,
+    sla_policy_configured: slaMeta.policy_configured,
+    limitations,
   };
 }
 
@@ -154,7 +235,7 @@ export function mapSupportAiDashboardCases(data: unknown): SupportCaseSummary[] 
 
   const openCases = asArray(record.open_cases);
   return openCases.map((row) => {
-    const mapped = mapAsoCaseRow(row, "support_ai_engine:get_support_ai_engine_dashboard");
+    const mapped = mapAsoCaseRow(row, "support_ai_engine:get_support_ai_engine_dashboard", false);
     mapped.completeness = "partial";
     mapped.warnings = [
       "customerApp.companionPlatformKnowledge.support.warnings.casePartialSource",

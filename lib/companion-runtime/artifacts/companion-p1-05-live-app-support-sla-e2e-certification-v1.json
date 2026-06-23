@@ -1,0 +1,119 @@
+{
+  "version": "companion-p1-05-live-app-support-sla-e2e-certification-v1",
+  "generated_at": "2026-06-23T02:37:37.695Z",
+  "environment": "staging",
+  "commit_hash": "47b47c03a2b5e29f6377a87a398dfdb2729f289e",
+  "organization_reference": "org_a710a43a6d8c",
+  "session_mode": "live_authenticated",
+  "p1_01_prerequisite": "pass",
+  "authoritative_sla_source": "get_customer_support_operations_center",
+  "sla_policy_configured": false,
+  "live_open_case_count": 0,
+  "overall_status": "pass",
+  "blockers": [],
+  "flows": [
+    {
+      "flow_id": "live_sla_source_available",
+      "capability": "support.sla.live",
+      "source_classification": "source_unknown",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "sla_policy_from_stored_org",
+      "capability": "support.sla.policy",
+      "source_classification": "source_unknown",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "case_sla_status_mapping",
+      "capability": "support.sla.status_mapping",
+      "source_classification": "source_unknown",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "missing_policy_unavailable",
+      "capability": "support.sla.unavailable",
+      "source_classification": "source_unknown",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "no_fabricated_deadlines",
+      "capability": "support.sla.no_fabrication",
+      "source_classification": "source_unknown",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "empty_source_exact_empty",
+      "capability": "support.sla.empty_source",
+      "source_classification": "source_unknown",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "command_brief_sla_signals_exact_only",
+      "capability": "support.sla.command_brief",
+      "source_classification": "source_unknown",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "queue_read_integrated",
+      "capability": "support.sla.live",
+      "source_classification": "source_unknown",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "access_missing_entitlement_denied",
+      "capability": "support.sla.access",
+      "source_classification": "source_unknown",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "access_suspended_denied",
+      "capability": "support.sla.access",
+      "source_classification": "source_unknown",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "tenant_isolation": [
+    {
+      "check_id": "manipulated_organization_id_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "missing_entitlement_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "suspended_app_no_data",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "capabilities_passed": [
+    "support.sla.access",
+    "support.sla.command_brief",
+    "support.sla.empty_source",
+    "support.sla.isolation",
+    "support.sla.live",
+    "support.sla.no_fabrication",
+    "support.sla.policy",
+    "support.sla.status_mapping",
+    "support.sla.unavailable"
+  ],
+  "capabilities_failed": [],
+  "coverage_updates_applied": [
+    "support.command_brief_signals",
+    "support.queue_read"
+  ]
+}
