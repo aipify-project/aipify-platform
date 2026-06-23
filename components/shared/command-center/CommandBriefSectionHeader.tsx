@@ -18,7 +18,10 @@ export function CommandBriefSectionHeader({
 }: CommandBriefSectionHeaderProps) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-2">
-      <h2 id={id} className={AppPremiumShell.commandBriefSectionTitle}>
+      <h2
+        id={id}
+        className="text-[13px] font-semibold leading-snug tracking-tight text-aipify-text sm:text-sm"
+      >
         {title}
       </h2>
       {seeAllHref && seeAllLabel ? (
