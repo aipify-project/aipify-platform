@@ -57,7 +57,7 @@ function OverviewSection({
   children: ReactNode;
 }) {
   return (
-    <section aria-labelledby={id} className="space-y-3">
+    <section aria-labelledby={id} className="min-w-0 space-y-3">
       <CommandBriefSectionHeader id={id} title={title} seeAllHref={seeAllHref} seeAllLabel={seeAllLabel} />
       {hasItems ? children : <CommandBriefCompactEmpty icon={empty.icon} title={empty.title} body={empty.body} />}
     </section>
@@ -94,150 +94,155 @@ export function CommandBriefOverviewLower({
     integrationEventsCount: o.integrationEventsCount,
     integrationAlertsCount: o.integrationAlertsCount,
   };
+  const attentionRowLabels = {
+    moduleArea: o.attentionModuleArea,
+    responsible: o.attentionResponsible,
+    updated: o.attentionUpdated,
+    viewDetails: o.attentionViewDetails,
+  };
 
   return (
-    <div className="space-y-4 lg:space-y-5">
-      <OverviewSection
-        id="ecc-attention-title"
-        title={o.attentionTitle}
-        seeAllHref={attentionTotalCount > attentionItems.length ? attentionSeeAllHref : undefined}
-        seeAllLabel={o.attentionViewAll}
-        hasItems={attentionItems.length > 0}
-        empty={{
-          icon: "✅",
-          title: o.attentionEmptyTitleCompact ?? o.attentionEmptyTitle,
-          body: o.attentionEmptyBody,
-        }}
-      >
-        <CommandBriefListGroup labelledBy="ecc-attention-title">
-          {attentionItems.map((item) => (
-            <CommandBriefAttentionRow
-              key={item.dedupeKey}
-              item={item}
-              locale={locale}
-              labels={{
-                moduleArea: o.attentionModuleArea,
-                responsible: o.attentionResponsible,
-                updated: o.attentionUpdated,
-                viewDetails: o.attentionViewDetails,
-              }}
-              resolveLabel={resolveLabel}
-              canAccessApprovals={canAccessApprovals}
-            />
-          ))}
-        </CommandBriefListGroup>
-      </OverviewSection>
+    <div className="grid min-w-0 grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+      <div className="min-w-0 space-y-6">
+        <OverviewSection
+          id="ecc-attention-title"
+          title={o.attentionTitle}
+          seeAllHref={attentionTotalCount > attentionItems.length ? attentionSeeAllHref : undefined}
+          seeAllLabel={o.attentionViewAll}
+          hasItems={attentionItems.length > 0}
+          empty={{
+            icon: "✅",
+            title: o.attentionEmptyTitleCompact ?? o.attentionEmptyTitle,
+            body: o.attentionEmptyBody,
+          }}
+        >
+          <CommandBriefListGroup labelledBy="ecc-attention-title">
+            {attentionItems.map((item) => (
+              <CommandBriefAttentionRow
+                key={item.dedupeKey}
+                item={item}
+                locale={locale}
+                labels={attentionRowLabels}
+                resolveLabel={resolveLabel}
+                canAccessApprovals={canAccessApprovals}
+              />
+            ))}
+          </CommandBriefListGroup>
+        </OverviewSection>
 
-      <OverviewSection
-        id="ecc-activity-title"
-        title={o.sinceLastLoginTitle}
-        seeAllHref={
-          activityTotalCount > activityItems.length ? "/app/command-center/since-last-login" : undefined
-        }
-        seeAllLabel={o.viewAllActivity}
-        hasItems={activityItems.length > 0}
-        empty={{
-          icon: "ℹ️",
-          title: o.activityEmptyTitleCompact ?? o.activityEmptyTitle,
-          body: o.activityEmptyBody,
-        }}
-      >
-        <CommandBriefListGroup labelledBy="ecc-activity-title">
-          {activityItems.map((event) => (
-            <CommandBriefActivityRow
-              key={event.dedupeKey}
-              event={event}
-              locale={locale}
-              labels={activityLabels}
-              resolveLabel={resolveLabel}
-            />
-          ))}
-        </CommandBriefListGroup>
-      </OverviewSection>
+        <OverviewSection
+          id="ecc-activity-title"
+          title={o.sinceLastLoginTitle}
+          seeAllHref={
+            activityTotalCount > activityItems.length ? "/app/command-center/since-last-login" : undefined
+          }
+          seeAllLabel={o.viewAllActivity}
+          hasItems={activityItems.length > 0}
+          empty={{
+            icon: "ℹ️",
+            title: o.activityEmptyTitleCompact ?? o.activityEmptyTitle,
+            body: o.activityEmptyBody,
+          }}
+        >
+          <CommandBriefListGroup labelledBy="ecc-activity-title">
+            {activityItems.map((event) => (
+              <CommandBriefActivityRow
+                key={event.dedupeKey}
+                event={event}
+                locale={locale}
+                labels={activityLabels}
+                resolveLabel={resolveLabel}
+              />
+            ))}
+          </CommandBriefListGroup>
+        </OverviewSection>
 
-      <OverviewSection
-        id="ecc-alerts-summary"
-        title={o.alertsSummaryTitle}
-        seeAllHref={alertTotalCount > alertItems.length ? "/app/command-center/alerts" : undefined}
-        seeAllLabel={o.viewAllAlerts}
-        hasItems={alertItems.length > 0}
-        empty={{
-          icon: "✅",
-          title: o.alertsEmptyTitle,
-          body: o.alertsEmptyBody,
-        }}
-      >
-        <CommandBriefListGroup labelledBy="ecc-alerts-summary">
-          {alertItems.map((item) => (
-            <CommandBriefAlertRow
-              key={item.dedupeKey}
-              item={item}
-              locale={locale}
-              labels={{
-                alertImpact: o.alertImpact,
-                activityAction: o.activityAction,
-              }}
-              resolveLabel={resolveLabel}
-            />
-          ))}
-        </CommandBriefListGroup>
-      </OverviewSection>
+        <OverviewSection
+          id="ecc-alerts-summary"
+          title={o.alertsSummaryTitle}
+          seeAllHref={alertTotalCount > alertItems.length ? "/app/command-center/alerts" : undefined}
+          seeAllLabel={o.viewAllAlerts}
+          hasItems={alertItems.length > 0}
+          empty={{
+            icon: "✅",
+            title: o.alertsEmptyTitle,
+            body: o.alertsEmptyBody,
+          }}
+        >
+          <CommandBriefListGroup labelledBy="ecc-alerts-summary">
+            {alertItems.map((item) => (
+              <CommandBriefAlertRow
+                key={item.dedupeKey}
+                item={item}
+                locale={locale}
+                labels={{
+                  alertImpact: o.alertImpact,
+                  activityAction: o.activityAction,
+                }}
+                resolveLabel={resolveLabel}
+              />
+            ))}
+          </CommandBriefListGroup>
+        </OverviewSection>
+      </div>
 
-      <OverviewSection
-        id="ecc-approvals-summary"
-        title={o.approvalsSummaryTitle}
-        seeAllHref={
-          approvalTotalCount > approvalItems.length ? "/app/command-center/approvals" : undefined
-        }
-        seeAllLabel={o.viewAllApprovals}
-        hasItems={approvalItems.length > 0}
-        empty={{
-          icon: "✅",
-          title: o.approvalsEmptyTitle,
-          body: o.approvalsEmptyBody,
-        }}
-      >
-        <CommandBriefListGroup labelledBy="ecc-approvals-summary">
-          {approvalItems.map((item) => (
-            <CommandBriefItemRow
-              key={item.dedupeKey}
-              item={item}
-              locale={locale}
-              icon={EccTabIcons.approvals}
-              sourcePrefix={o.activitySource}
-              resolveLabel={resolveLabel}
-              asLink
-            />
-          ))}
-        </CommandBriefListGroup>
-      </OverviewSection>
+      <div className="min-w-0 space-y-6">
+        <OverviewSection
+          id="ecc-approvals-summary"
+          title={o.approvalsSummaryTitle}
+          seeAllHref={
+            approvalTotalCount > approvalItems.length ? "/app/command-center/approvals" : undefined
+          }
+          seeAllLabel={o.viewAllApprovals}
+          hasItems={approvalItems.length > 0}
+          empty={{
+            icon: "✅",
+            title: o.approvalsEmptyTitle,
+            body: o.approvalsEmptyBody,
+          }}
+        >
+          <CommandBriefListGroup labelledBy="ecc-approvals-summary">
+            {approvalItems.map((item) => (
+              <CommandBriefItemRow
+                key={item.dedupeKey}
+                item={item}
+                locale={locale}
+                icon={EccTabIcons.approvals}
+                sourcePrefix={o.activitySource}
+                resolveLabel={resolveLabel}
+                asLink
+              />
+            ))}
+          </CommandBriefListGroup>
+        </OverviewSection>
 
-      <OverviewSection
-        id="ecc-integrations-summary"
-        title={o.integrationsSummaryTitle}
-        seeAllHref={
-          integrationTotalCount > visibleIntegrations.length ? "/app/platform/integrations" : undefined
-        }
-        seeAllLabel={o.viewAllIntegrations}
-        hasItems={visibleIntegrations.length > 0}
-        empty={{
-          icon: "ℹ️",
-          title: o.integrationsEmptyTitle,
-          body: o.integrationsEmptyBody,
-        }}
-      >
-        <CommandBriefListGroup labelledBy="ecc-integrations-summary">
-          {visibleIntegrations.map((item) => (
-            <CommandBriefIntegrationRow
-              key={item.id}
-              item={item}
-              locale={locale}
-              labels={integrationLabels}
-              resolveLabel={resolveLabel}
-            />
-          ))}
-        </CommandBriefListGroup>
-      </OverviewSection>
+        <OverviewSection
+          id="ecc-integrations-summary"
+          title={o.integrationsSummaryTitle}
+          seeAllHref={
+            integrationTotalCount > visibleIntegrations.length ? "/app/platform/integrations" : undefined
+          }
+          seeAllLabel={o.viewAllIntegrations}
+          hasItems={visibleIntegrations.length > 0}
+          empty={{
+            icon: "ℹ️",
+            title: o.integrationsEmptyTitle,
+            body: o.integrationsEmptyBody,
+          }}
+        >
+          <CommandBriefListGroup labelledBy="ecc-integrations-summary">
+            {visibleIntegrations.map((item) => (
+              <CommandBriefIntegrationRow
+                key={item.id}
+                item={item}
+                locale={locale}
+                labels={integrationLabels}
+                resolveLabel={resolveLabel}
+              />
+            ))}
+          </CommandBriefListGroup>
+        </OverviewSection>
+      </div>
     </div>
   );
 }
