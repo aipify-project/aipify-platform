@@ -167,19 +167,19 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
   return (
     <Link
       href={licenseHref}
-      className="relative mx-3 mb-4 block shrink-0 rounded-xl border border-aipify-border bg-aipify-surface-muted px-5 py-5 transition hover:border-aipify-accent-muted hover:bg-aipify-accent-soft/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2"
+      className="relative mx-3 mb-3 block shrink-0 rounded-xl border border-aipify-border bg-aipify-surface-muted px-3 py-2.5 transition hover:border-aipify-accent-muted hover:bg-aipify-accent-soft/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2"
       aria-label={labels.poweredBy}
     >
-      <div className="flex items-start gap-3.5">
+      <div className="flex items-start gap-2.5">
         <AipifyPulse
           size={sidebarMark.pulseSize}
           variant="mono"
           opacity={sidebarMark.pulseOpacity}
           title={labels.pulseLabel}
           aria-label={labels.pulseLabel}
-          className="mt-0.5 shrink-0 text-aipify-companion"
+          className="mt-px shrink-0 text-aipify-companion"
         />
-        <div className={`min-w-0 flex-1 space-y-2.5 ${AipifySidebarTypography.workspaceSummary}`}>
+        <div className={`min-w-0 flex-1 space-y-1 ${AipifySidebarTypography.workspaceSummary}`}>
           <p className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.workspace} ${workspaceDisplay}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.workspace}</span>
             <span
@@ -197,19 +197,19 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
           </p>
           <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.plan} ${planDisplay}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.plan}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>{planDisplay}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{planDisplay}</span>
           </p>
           <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.status} ${statusLabel}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.status}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>{statusLabel}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{statusLabel}</span>
           </p>
           <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.version} ${formatSoftwareVersion(summary?.software_version ?? "1.0.0")}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.version}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} break-words`}>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>
               {formatSoftwareVersion(summary?.software_version ?? "1.0.0")}
             </span>
           </p>
-          <p className={`pt-1.5 ${AipifySidebarTypography.workspaceSummaryFooter}`}>
+          <p className={`pt-0.5 ${AipifySidebarTypography.workspaceSummaryFooter}`}>
             {labels.poweredBy} Aipify™
           </p>
           <p className={AipifySidebarTypography.workspaceSummaryCopyright}>{labels.copyright}</p>
