@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
 
 type ForgotPasswordFormProps = {
   labels: {
@@ -34,16 +33,16 @@ export default function ForgotPasswordForm({ labels }: ForgotPasswordFormProps) 
     setLoading(true);
 
     try {
-      const supabase = createClient();
-      const redirectTo = `${window.location.origin}/reset-password`;
+      const response = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
-      const { error: resetError } = await supabase.auth.resetPasswordForEmail(
-        email,
-        { redirectTo }
-      );
+      const payload = (await response.json()) as { error?: string };
 
-      if (resetError) {
-        setError(resetError.message);
+      if (!response.ok) {
+        setError(payload.error ?? labels.generic);
         return;
       }
 

@@ -10,6 +10,7 @@ function requiresSessionProxy(pathname: string): boolean {
     pathname.startsWith("/super") ||
     pathname.startsWith("/login") ||
     pathname.startsWith("/register") ||
+    pathname.startsWith("/auth/") ||
     pathname.startsWith("/api/")
   );
 }

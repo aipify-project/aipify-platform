@@ -11,6 +11,7 @@ import {
   resolvePostLoginRedirectUrl,
   shouldCanonicalizeToCustomerPortal,
 } from "@/lib/portals/customer-portal-url";
+import { isPortalAuthPath } from "@/lib/portals/routes";
 
 function test(name: string, fn: () => void) {
   try {
@@ -85,6 +86,13 @@ test("resolvePostLoginPath ignores unsafe next values", () => {
     resolvePostLoginPath("app.aipify.ai", null, "/app/command-center"),
     "/app/command-center"
   );
+});
+
+test("portal auth paths include password recovery routes", () => {
+  assert.equal(isPortalAuthPath("/auth/callback"), true);
+  assert.equal(isPortalAuthPath("/auth/reset-password"), true);
+  assert.equal(isPortalAuthPath("/auth/update-password"), true);
+  assert.equal(isPortalAuthPath("/forgot-password"), true);
 });
 
 test("auth cookies use shared production domain on aipify hosts", () => {

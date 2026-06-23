@@ -39,6 +39,11 @@ export function isPortalAuthPath(pathname: string): boolean {
     pathname === "/" ||
     pathname.startsWith("/login") ||
     pathname.startsWith("/register") ||
+    pathname.startsWith("/forgot-password") ||
+    pathname.startsWith("/reset-password") ||
+    pathname.startsWith("/auth/callback") ||
+    pathname.startsWith("/auth/reset-password") ||
+    pathname.startsWith("/auth/update-password") ||
     pathname.startsWith("/verify-2fa") ||
     pathname.startsWith("/app/settings/two-factor")
   );

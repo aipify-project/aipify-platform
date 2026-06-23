@@ -23,6 +23,10 @@ import {
 import { SmartBillingRoutingPanel } from "@/components/shared/billing-experience";
 import type { BillingExperienceLabels } from "@/lib/billing-experience";
 import type { PaymentProviderLabels } from "@/lib/payment-providers";
+import {
+  AUTH_REDIRECT_PATHS,
+  buildClientAuthCallbackRedirectUrl,
+} from "@/lib/auth/auth-redirect-urls";
 import { createClient } from "@/lib/supabase/client";
 
 const TOTAL_STEPS = 5;
@@ -151,7 +155,7 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
     if (draft.accountCreated) return true;
 
     const supabase = createClient();
-    const emailRedirectTo = `${window.location.origin}/login`;
+    const emailRedirectTo = buildClientAuthCallbackRedirectUrl(AUTH_REDIRECT_PATHS.login);
 
     const { data, error: signUpError } = await supabase.auth.signUp({
       email: draft.owner.businessEmail.trim(),

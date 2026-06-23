@@ -11,6 +11,10 @@ import {
   dialForCountry,
   parseGrowthPartnerSignupResult,
 } from "@/lib/growth-partner-signup";
+import {
+  AUTH_REDIRECT_PATHS,
+  buildClientAuthCallbackRedirectUrl,
+} from "@/lib/auth/auth-redirect-urls";
 import { createClient } from "@/lib/supabase/client";
 import { trackEvent } from "@/lib/marketing/analytics";
 import { usePublicFormGuard } from "@/lib/public-forms/use-public-form-guard";
@@ -111,7 +115,10 @@ export default function GrowthPartnersSignupForm({ labels, verificationLabels, i
       const { error: signUpError } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { full_name: payload.full_name } },
+        options: {
+          emailRedirectTo: buildClientAuthCallbackRedirectUrl(AUTH_REDIRECT_PATHS.login),
+          data: { full_name: payload.full_name },
+        },
       });
       if (signUpError) throw signUpError;
 

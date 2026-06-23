@@ -126,6 +126,14 @@ export async function updateSession(request: NextRequest) {
       redirectUrl.search = "";
       return NextResponse.redirect(redirectUrl);
     }
+
+    if (
+      pathname.startsWith("/auth/update-password") ||
+      pathname.startsWith("/auth/reset-password") ||
+      pathname.startsWith("/forgot-password")
+    ) {
+      return supabaseResponse;
+    }
   }
 
   if (isSuperAdminHost(host) && (pathname === "/" || pathname === "")) {
