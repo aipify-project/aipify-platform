@@ -192,7 +192,7 @@ function SearchResultRow({
         </span>
         <span
           className={`mt-0.5 ${AipifySidebarTypography.navLabelWrap} ${
-            isActive ? "text-base font-medium leading-[1.45] text-white/90" : AipifySidebarTypography.searchMenuGroup
+            isActive ? "text-[13px] font-medium leading-snug text-white/90" : AipifySidebarTypography.searchMenuGroup
           }`}
           title={item.groupLabel}
         >
@@ -200,7 +200,7 @@ function SearchResultRow({
         </span>
         <span
           className={`mt-1 block ${
-            isActive ? "text-base leading-[1.4] text-white/90" : AipifySidebarTypography.searchMenuDescription
+            isActive ? "text-[13px] leading-snug text-white/90" : AipifySidebarTypography.searchMenuDescription
           }`}
         >
           {item.description}

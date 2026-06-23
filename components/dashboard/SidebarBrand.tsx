@@ -7,9 +7,9 @@ type SidebarBrandProps = {
 
 export default function SidebarBrand({ companyName, shellLabel }: SidebarBrandProps) {
   return (
-    <div className="border-b border-aipify-border px-5 py-5">
+    <div className="border-b border-aipify-border px-5 py-4">
       <div className="flex items-start gap-3">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-violet-600 text-base font-bold text-white shadow-sm">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-violet-600 text-sm font-bold text-white shadow-sm">
           A
         </span>
         <div className="min-w-0 flex-1">

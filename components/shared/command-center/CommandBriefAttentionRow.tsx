@@ -55,7 +55,7 @@ export function CommandBriefAttentionRow({
 
   return (
     <li className="group">
-      <article className="flex flex-col gap-3 px-4 py-3.5 sm:flex-row sm:items-start sm:gap-4">
+      <article className="flex flex-col gap-2.5 px-4 py-3 sm:flex-row sm:items-start sm:gap-3">
         <div
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-aipify-accent-soft text-aipify-companion"
           aria-hidden="true"
@@ -81,9 +81,9 @@ export function CommandBriefAttentionRow({
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-aipify-text sm:text-base">{item.title}</h3>
+            <h3 className={AppPremiumShell.commandBriefListTitle}>{item.title}</h3>
             {item.description ? (
-              <p className={`mt-1 line-clamp-2 ${AppPremiumShell.commandBriefBody}`}>{item.description}</p>
+              <p className={`mt-1 line-clamp-2 ${AppPremiumShell.commandBriefListBody}`}>{item.description}</p>
             ) : null}
           </div>
 

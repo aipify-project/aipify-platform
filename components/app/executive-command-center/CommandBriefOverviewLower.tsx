@@ -62,7 +62,7 @@ export function CommandBriefOverviewLower({
   };
 
   return (
-    <div className="space-y-5 lg:space-y-6">
+    <div className="space-y-4 lg:space-y-5">
       <section id="ecc-attention" aria-labelledby="ecc-attention-title" className="space-y-3">
         <CommandBriefSectionHeader
           id="ecc-attention-title"

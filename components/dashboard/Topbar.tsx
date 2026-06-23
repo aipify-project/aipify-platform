@@ -112,7 +112,7 @@ export default function Topbar({
                 />
               </svg>
               <span className="truncate">{commandBarPlaceholder}</span>
-              <span className="ml-auto hidden shrink-0 rounded-md border border-gray-200 bg-white px-1.5 py-0.5 text-[10px] font-medium text-gray-500 sm:inline">
+              <span className="ml-auto hidden shrink-0 rounded-md border border-gray-200 bg-white px-1.5 py-0.5 text-[11px] font-medium text-gray-500 sm:inline">
                 ⌘K
               </span>
             </button>

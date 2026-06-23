@@ -24,7 +24,7 @@ export function CommandBriefSectionHeader({
       {seeAllHref && seeAllLabel ? (
         <Link
           href={seeAllHref}
-          className={`shrink-0 text-sm font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
+          className={`shrink-0 text-[13px] font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
         >
           {seeAllLabel} →
         </Link>

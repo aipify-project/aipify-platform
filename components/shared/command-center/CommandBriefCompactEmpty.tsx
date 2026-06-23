@@ -10,8 +10,8 @@ type CommandBriefCompactEmptyProps = {
 
 export function CommandBriefCompactEmpty({ title, body, icon }: CommandBriefCompactEmptyProps) {
   return (
-    <div className="rounded-xl border border-aipify-border bg-aipify-surface px-4 py-3 sm:px-5">
-      <p className="text-sm font-medium text-aipify-text">
+    <div className="rounded-xl border border-aipify-border bg-aipify-surface px-4 py-2.5 sm:px-4">
+      <p className={AppPremiumShell.commandBriefListTitle}>
         {icon ? (
           <>
             <span aria-hidden="true">{icon} </span>
@@ -21,7 +21,7 @@ export function CommandBriefCompactEmpty({ title, body, icon }: CommandBriefComp
           title
         )}
       </p>
-      {body ? <p className={`mt-1 ${AppPremiumShell.commandBriefBody}`}>{body}</p> : null}
+      {body ? <p className={`mt-1 ${AppPremiumShell.commandBriefListBody}`}>{body}</p> : null}
     </div>
   );
 }

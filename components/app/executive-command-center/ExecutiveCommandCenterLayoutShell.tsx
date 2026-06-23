@@ -25,7 +25,7 @@ export function ExecutiveCommandCenterLayoutShell({
   return (
     <ExecutiveCommandCenterRefreshProvider>
       <div className={`${AppPremiumShell.canvas} ${isOverview ? AppPremiumShell.commandBriefPage : AppPremiumShell.page}`}>
-        <div className={AppPremiumShell.sectionGap}>
+        <div className={isOverview ? "space-y-5" : AppPremiumShell.sectionGap}>
           <ExecutiveCommandCenterHeader labels={labels} />
           <ExecutiveCommandCenterNav labels={labels.sections} />
           <main id="executive-command-center-content" className="w-full min-w-0">

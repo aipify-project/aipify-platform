@@ -22,6 +22,7 @@ type ExecutiveMetricCardProps = {
   href?: string;
   hideBadge?: boolean;
   labelClassName?: string;
+  valueClassName?: string;
   descriptionClassName?: string;
 };
 
@@ -39,16 +40,17 @@ export function ExecutiveMetricCard({
   href,
   hideBadge = false,
   labelClassName,
+  valueClassName,
   descriptionClassName,
 }: ExecutiveMetricCardProps) {
   const card = (
     <article
-      className={`${AppPremiumShell.elevatedCard} flex h-full min-h-[132px] flex-col p-4 ${
+      className={`${AppPremiumShell.elevatedCard} flex h-full min-h-[108px] flex-col p-3.5 ${
         featured ? "border-aipify-accent-muted bg-gradient-to-br from-violet-50/80 to-aipify-surface lg:col-span-2 lg:row-span-1" : ""
       } ${href ? `${AppPremiumShell.elevatedCardHover} transition ${AppPremiumShell.focusRing}` : ""}`}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-aipify-accent-soft text-aipify-companion">
+      <div className="flex items-start justify-between gap-2.5">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-aipify-accent-soft text-aipify-companion">
           {icon}
         </div>
         {!hideBadge ? (
@@ -64,9 +66,13 @@ export function ExecutiveMetricCard({
           )
         ) : null}
       </div>
-      <p className={`mt-3 ${labelClassName ?? AppPremiumShell.metricLabel}`}>{label}</p>
-      <p className={`mt-1 ${featured ? "text-4xl sm:text-5xl" : AppPremiumShell.metricValue}`}>{value}</p>
-      <p className={descriptionClassName ?? `mt-auto pt-2 ${AppPremiumShell.metricDescription}`}>{description}</p>
+      <p className={`mt-2 ${labelClassName ?? AppPremiumShell.metricLabel}`}>{label}</p>
+      <p
+        className={`mt-0.5 line-clamp-2 ${valueClassName ?? (featured ? "text-4xl sm:text-5xl" : AppPremiumShell.metricValue)}`}
+      >
+        {value}
+      </p>
+      <p className={descriptionClassName ?? `mt-auto pt-1.5 ${AppPremiumShell.metricDescription}`}>{description}</p>
     </article>
   );
 

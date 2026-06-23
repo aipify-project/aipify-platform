@@ -41,8 +41,8 @@ export function CommandBriefIntegrationCard({
 
   return (
     <li>
-      <article className={`${AppPremiumShell.elevatedCard} flex h-full flex-col p-4`}>
-        <div className="flex items-start gap-3">
+      <article className={`${AppPremiumShell.elevatedCard} flex h-full flex-col p-3.5`}>
+        <div className="flex items-start gap-2.5">
           <div
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-aipify-accent-soft text-aipify-companion"
             aria-hidden="true"
@@ -51,7 +51,7 @@ export function CommandBriefIntegrationCard({
           </div>
           <div className="min-w-0 flex-1 space-y-2">
             <div className="flex flex-wrap items-center gap-2">
-              <h3 className="text-sm font-semibold text-aipify-text">{title}</h3>
+              <h3 className={AppPremiumShell.commandBriefListTitle}>{title}</h3>
               <SemanticBadge
                 type={item.badgeType}
                 value={item.badgeValue}
@@ -59,7 +59,7 @@ export function CommandBriefIntegrationCard({
               />
             </div>
             {item.summary ? (
-              <p className={`line-clamp-2 ${AppPremiumShell.commandBriefBody}`}>{item.summary}</p>
+              <p className={`line-clamp-2 ${AppPremiumShell.commandBriefListBody}`}>{item.summary}</p>
             ) : null}
             <dl className={`space-y-1 ${AppPremiumShell.commandBriefMeta}`}>
               <div className="flex flex-wrap gap-x-3 gap-y-0.5">
@@ -87,10 +87,10 @@ export function CommandBriefIntegrationCard({
             </dl>
           </div>
         </div>
-        <div className="mt-3 pt-2">
+        <div className="mt-2 pt-1">
           <Link
             href={item.href}
-            className={`text-sm font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
+            className={`text-[13px] font-medium text-aipify-companion hover:text-aipify-companion-hover ${AppPremiumShell.focusRing}`}
           >
             {resolveLabel(item.actionLabelKey)} →
           </Link>

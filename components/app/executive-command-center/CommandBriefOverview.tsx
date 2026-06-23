@@ -160,6 +160,7 @@ export function CommandBriefOverview({
   const healthScore = kpis.organizationHealth;
   const kpiStatus = o.kpiStatus;
   const metricLabelClass = AppPremiumShell.commandBriefMetricLabel;
+  const metricValueClass = AppPremiumShell.commandBriefMetricValue;
   const metricDescriptionClass = AppPremiumShell.commandBriefMetricDescription;
 
   const userRole = profile?.profile?.user.role;
@@ -190,6 +191,7 @@ export function CommandBriefOverview({
           value={kpis.sinceLastLogin}
           description={o.kpiSinceLastLoginDesc}
           labelClassName={metricLabelClass}
+          valueClassName={metricValueClass}
           descriptionClassName={metricDescriptionClass}
           {...sinceLastLoginStatus}
         />
@@ -204,6 +206,7 @@ export function CommandBriefOverview({
           value={kpis.preparedByAipify}
           description={o.kpiPreparedDesc}
           labelClassName={metricLabelClass}
+          valueClassName={metricValueClass}
           descriptionClassName={metricDescriptionClass}
           {...preparedStatus}
         />
@@ -218,6 +221,7 @@ export function CommandBriefOverview({
           value={kpis.requiresAttention}
           description={o.kpiAttentionDesc}
           labelClassName={metricLabelClass}
+          valueClassName={metricValueClass}
           descriptionClassName={metricDescriptionClass}
           {...attentionStatus}
         />
@@ -232,6 +236,7 @@ export function CommandBriefOverview({
           value={kpis.awaitingApproval}
           description={o.kpiApprovalDesc}
           labelClassName={metricLabelClass}
+          valueClassName={metricValueClass}
           descriptionClassName={metricDescriptionClass}
           href={approvalsHref}
           {...approvalStatus}
@@ -247,6 +252,7 @@ export function CommandBriefOverview({
           value={healthScore ?? "—"}
           description={o.kpiHealthDesc}
           labelClassName={metricLabelClass}
+          valueClassName={metricValueClass}
           descriptionClassName={metricDescriptionClass}
           {...healthStatus}
         />
@@ -261,6 +267,7 @@ export function CommandBriefOverview({
           value={nextActionValue}
           description={nextActionDescription}
           labelClassName={metricLabelClass}
+          valueClassName={metricValueClass}
           descriptionClassName={metricDescriptionClass}
           href={nextActionHref}
           {...nextActionStatus}
@@ -273,9 +280,9 @@ export function CommandBriefOverview({
     <div className={`${AppPremiumShell.commandBriefGrid} w-full min-w-0`}>
       <section
         aria-label={o.title}
-        className="col-span-12 lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-6"
+        className="col-span-12 lg:grid lg:grid-cols-12 lg:items-stretch lg:gap-4"
       >
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3 lg:gap-4 lg:auto-rows-fr">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3 lg:gap-3 lg:auto-rows-fr">
           {landingKpiCards.slice(0, 3).map((item) => (
             <div key={item.key} className="min-h-0">
               {item.card}

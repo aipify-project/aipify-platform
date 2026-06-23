@@ -35,7 +35,7 @@ export function CommandBriefAlertRow({
     <li>
       <Link
         href={item.href}
-        className={`group flex items-start gap-3 px-4 py-3 transition hover:bg-aipify-surface-muted ${AppPremiumShell.focusRing}`}
+        className={`group flex items-start gap-3 px-4 py-2.5 transition hover:bg-aipify-surface-muted ${AppPremiumShell.focusRing}`}
       >
         <div
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-amber-50 text-amber-700"
@@ -63,9 +63,9 @@ export function CommandBriefAlertRow({
               </time>
             ) : null}
           </div>
-          <p className="text-sm font-semibold text-aipify-text group-hover:text-aipify-companion">{item.title}</p>
+          <p className={`${AppPremiumShell.commandBriefListTitle} group-hover:text-aipify-companion`}>{item.title}</p>
           {item.description ? (
-            <p className={`line-clamp-2 ${AppPremiumShell.commandBriefBody}`}>{item.description}</p>
+            <p className={`line-clamp-2 ${AppPremiumShell.commandBriefListBody}`}>{item.description}</p>
           ) : null}
           {item.blockedSummary ? (
             <p className={AppPremiumShell.commandBriefMeta}>
@@ -73,7 +73,7 @@ export function CommandBriefAlertRow({
             </p>
           ) : null}
         </div>
-        <span className="hidden shrink-0 self-center text-sm font-medium text-aipify-companion sm:inline">
+        <span className="hidden shrink-0 self-center text-[13px] font-medium text-aipify-companion sm:inline">
           {resolveLabel(item.actionLabelKey)} →
         </span>
       </Link>

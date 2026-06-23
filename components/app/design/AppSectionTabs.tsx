@@ -30,9 +30,9 @@ const TAB_SIZE_CLASSES: Record<
     list: "gap-1 p-0.5 rounded-lg",
   },
   enterprise: {
-    link: "min-h-11 gap-2 px-3.5 py-2.5 text-sm",
-    icon: "[&_svg]:size-[1.125rem]",
-    list: "gap-1.5 p-1 rounded-xl",
+    link: "min-h-10 gap-1.5 px-3 py-2 text-[13px]",
+    icon: "[&_svg]:size-4",
+    list: "gap-1 p-0.5 rounded-xl",
   },
 };
 
@@ -59,7 +59,7 @@ export function AppSectionTabs({
                 className={`inline-flex items-center rounded-lg font-medium whitespace-nowrap transition-colors ${sizing.link} ${AppPremiumShell.focusRing} ${
                   active
                     ? "bg-aipify-companion font-semibold text-white shadow-sm"
-                    : "text-aipify-text-secondary hover:bg-aipify-surface hover:text-aipify-text focus-visible:bg-aipify-surface focus-visible:text-aipify-text"
+                    : "text-aipify-text/80 hover:bg-aipify-surface hover:text-aipify-text focus-visible:bg-aipify-surface focus-visible:text-aipify-text"
                 }`}
               >
                 <span

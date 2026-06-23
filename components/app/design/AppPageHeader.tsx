@@ -19,9 +19,9 @@ export function AppPageHeader({
   contextRow,
 }: AppPageHeaderProps) {
   return (
-    <header className="space-y-4 border-b border-aipify-border pb-6">
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="min-w-0 flex-1 space-y-2">
+    <header className="space-y-3 border-b border-aipify-border pb-4">
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+        <div className="min-w-0 flex-1 space-y-1.5">
           {eyebrow ? <p className={AppPremiumShell.eyebrow}>{eyebrow}</p> : null}
           <h1 className={AppPremiumShell.pageTitle}>{title}</h1>
           {description ? <p className={AppPremiumShell.pageDescription}>{description}</p> : null}

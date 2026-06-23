@@ -73,7 +73,7 @@ export function CommandBriefActivityRow({
     <li>
       <Link
         href={event.href}
-        className={`group flex items-start gap-3 px-4 py-3 transition hover:bg-aipify-surface-muted ${AppPremiumShell.focusRing}`}
+        className={`group flex items-start gap-3 px-4 py-2.5 transition hover:bg-aipify-surface-muted ${AppPremiumShell.focusRing}`}
       >
         <div
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-aipify-accent-soft text-aipify-companion"
@@ -83,7 +83,7 @@ export function CommandBriefActivityRow({
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <span className="text-sm font-semibold text-aipify-text group-hover:text-aipify-companion">
+            <span className={`${AppPremiumShell.commandBriefListTitle} group-hover:text-aipify-companion`}>
               {title}
             </span>
             <SemanticBadge
@@ -98,13 +98,13 @@ export function CommandBriefActivityRow({
             ) : null}
           </div>
           {event.explanation ? (
-            <p className={`mt-0.5 line-clamp-1 ${AppPremiumShell.commandBriefBody}`}>{event.explanation}</p>
+            <p className={`mt-0.5 line-clamp-1 ${AppPremiumShell.commandBriefListBody}`}>{event.explanation}</p>
           ) : null}
           <p className={`mt-1 ${AppPremiumShell.commandBriefMeta}`}>
             {labels.activitySource}: {source}
           </p>
         </div>
-        <span className="hidden shrink-0 self-center text-sm font-medium text-aipify-companion sm:inline">
+        <span className="hidden shrink-0 self-center text-[13px] font-medium text-aipify-companion sm:inline">
           {labels.activityAction} →
         </span>
       </Link>
