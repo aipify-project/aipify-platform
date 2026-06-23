@@ -7,7 +7,10 @@ import {
   isMarketingApexHost,
 } from "@/lib/portals/hosts";
 import { resolvePostLoginPath } from "@/lib/portals/separation";
-import { resolvePostLoginRedirectUrl } from "@/lib/portals/customer-portal-url";
+import {
+  resolvePostLoginRedirectUrl,
+  shouldCanonicalizeToCustomerPortal,
+} from "@/lib/portals/customer-portal-url";
 
 function test(name: string, fn: () => void) {
   try {
@@ -37,6 +40,15 @@ test("isCustomerPortalPath covers app and legacy dashboard routes", () => {
   assert.equal(isCustomerPortalPath("/app/command-center"), true);
   assert.equal(isCustomerPortalPath("/dashboard"), true);
   assert.equal(isCustomerPortalPath("/platform"), false);
+});
+
+test("dev does not canonicalize customer routes off localhost", () => {
+  if (process.env.NODE_ENV !== "production") {
+    assert.equal(
+      shouldCanonicalizeToCustomerPortal("localhost", "/app/command-center"),
+      false
+    );
+  }
 });
 
 test("marketing apex host detection excludes customer portal host", () => {

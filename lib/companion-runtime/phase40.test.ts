@@ -459,7 +459,10 @@ async function runPhase40AsyncTests() {
   const coverage = buildCompanionFoundationCoverageRegistry();
   const appEmployeeModule = coverage.find((entry) => entry.module_id === "directory.app_employee");
   assert.ok(appEmployeeModule);
-  assert.equal(appEmployeeModule?.readiness, "connected_but_partial");
+  assert.ok(
+    ["connected_but_partial", "production_ready_candidate"].includes(appEmployeeModule!.readiness),
+    `directory.app_employee readiness should reflect live E2E state, received ${appEmployeeModule!.readiness}`,
+  );
   assert.equal(appEmployeeModule?.provider_key, "app_employee_directory");
   assert.notEqual(appEmployeeModule?.readiness, "production_ready");
 

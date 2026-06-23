@@ -41,6 +41,7 @@ export type P1LiveE2eAuthDiagnostics = {
   live_e2e_enabled: boolean;
   email_configured: boolean;
   password_configured: boolean;
+  password_length: number;
   auth_outcome: P1LiveE2eAuthOutcome;
   auth_message_redacted: string | null;
 };
@@ -73,6 +74,7 @@ export function buildP1LiveE2eAuthDiagnostics(input?: {
     live_e2e_enabled: process.env.APP_LIVE_E2E_ENABLED?.trim() === "1",
     email_configured: readEnvFlag(P1_01_LIVE_E2E_ENV.email),
     password_configured: readEnvFlag(P1_01_LIVE_E2E_ENV.password),
+    password_length: (config?.password ?? process.env.APP_LIVE_E2E_PASSWORD ?? "").trim().length,
     auth_outcome: input?.auth_outcome ?? "not_attempted",
     auth_message_redacted: input?.auth_message
       ? redactSecretsFromMessage(input.auth_message)
@@ -89,6 +91,7 @@ export function formatP1LiveE2eAuthDiagnostics(diagnostics: P1LiveE2eAuthDiagnos
     `live_e2e_enabled: ${diagnostics.live_e2e_enabled}`,
     `email_configured: ${diagnostics.email_configured}`,
     `password_configured: ${diagnostics.password_configured}`,
+    `password_length: ${diagnostics.password_length}`,
     `auth_outcome: ${diagnostics.auth_outcome}`,
     diagnostics.auth_message_redacted
       ? `auth_message: ${diagnostics.auth_message_redacted}`

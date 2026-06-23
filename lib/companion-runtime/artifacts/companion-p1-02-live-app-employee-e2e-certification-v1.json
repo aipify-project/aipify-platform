@@ -1,79 +1,80 @@
 {
-  "version": "companion-p1-01-live-e2e-certification-v1",
-  "generated_at": "2026-06-23T01:39:46.261Z",
+  "version": "companion-p1-02-live-app-employee-e2e-certification-v1",
+  "generated_at": "2026-06-23T01:39:48.297Z",
   "environment": "staging",
   "commit_hash": "017d7f572f127dc37f8546b58e21dd3574201890",
   "organization_reference": "org_a710a43a6d8c",
   "session_mode": "live_authenticated",
+  "p1_01_prerequisite": "pass",
   "overall_status": "pass",
   "blockers": [],
   "flows": [
     {
-      "flow_id": "auth_login",
-      "capability": "core.session",
+      "flow_id": "live_provider_connected",
+      "capability": "employee.search.live",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "organization_context",
-      "capability": "core.organization_context",
+      "flow_id": "search_by_name",
+      "capability": "employee.search.live",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "entitlement_permissions",
-      "capability": "core.entitlement",
+      "flow_id": "search_by_role_or_status",
+      "capability": "employee.search.role_status",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "companion_context",
-      "capability": "companion.context_briefing",
+      "flow_id": "search_by_team_or_department",
+      "capability": "employee.search.role_status",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "command_brief",
-      "capability": "command_brief.read",
+      "flow_id": "contact_masking_staff_scope",
+      "capability": "employee.contact.masking",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "employee_directory_search",
-      "capability": "employee.search",
+      "flow_id": "contact_unmasked_owner_scope",
+      "capability": "employee.contact.masking",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "crm_directory_search",
-      "capability": "customer.search",
+      "flow_id": "owner_admin_permission",
+      "capability": "employee.permission.owner_admin",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "supplier_directory_search",
-      "capability": "supplier.search",
+      "flow_id": "unknown_employee_exact_empty",
+      "capability": "employee.search.unknown_empty",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "exact_compatible_live_read",
-      "capability": "directory.read",
+      "flow_id": "access_missing_membership_denied",
+      "capability": "employee.access.denied",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
     },
     {
-      "flow_id": "source_freshness",
-      "capability": "directory.freshness",
+      "flow_id": "access_suspended_denied",
+      "capability": "employee.access.denied",
       "source_classification": "source_exact",
       "status": "pass",
       "failure_reason": null
@@ -102,22 +103,16 @@
     }
   ],
   "capabilities_passed": [
-    "command_brief.read",
-    "companion.context_briefing",
-    "core.entitlement",
-    "core.organization_context",
-    "core.session",
-    "customer.search",
-    "directory.freshness",
-    "directory.read",
-    "employee.search",
-    "supplier.search"
+    "employee.access.denied",
+    "employee.contact.masking",
+    "employee.isolation",
+    "employee.permission.owner_admin",
+    "employee.search.live",
+    "employee.search.role_status",
+    "employee.search.unknown_empty"
   ],
   "capabilities_failed": [],
   "coverage_updates_applied": [
-    "core.command_brief_signals",
-    "directory.app_employee",
-    "directory.crm_customer",
-    "directory.supplier"
+    "directory.app_employee"
   ]
 }

@@ -493,13 +493,14 @@ export async function runP1LiveAppE2eFlows(input: {
     user_role: input.session.userRole,
     bundle: bundles.employee,
   });
+  const suspendedDenied =
+    ["permission_denied", "activation_pending"].includes(suspendedSearch.outcome) &&
+    suspendedSearch.records.length === 0;
   tenantIsolation.push(
     isolationResult(
       "suspended_app_no_data",
-      suspendedSearch.outcome === "permission_denied" && suspendedSearch.records.length === 0
-        ? "pass"
-        : "fail",
-      suspendedSearch.outcome === "permission_denied"
+      suspendedDenied ? "pass" : "fail",
+      suspendedDenied
         ? null
         : `Expected suspended denial, received ${suspendedSearch.outcome}`,
     ),

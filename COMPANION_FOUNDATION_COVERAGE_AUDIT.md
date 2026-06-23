@@ -1,6 +1,6 @@
 # Companion Foundation Coverage Audit — Phase 34
 
-Generated: 2026-06-22T23:09:23.389Z
+Generated: 2026-06-23T01:39:43.801Z
 
 ## Summary
 
@@ -15,9 +15,9 @@ Generated: 2026-06-22T23:09:23.389Z
 
 ## Readiness distribution (modules)
 
-- **production_ready_candidate**: 1
-- **connected**: 8
-- **connected_but_partial**: 40
+- **production_ready_candidate**: 5
+- **connected**: 7
+- **connected_but_partial**: 37
 - **adapter_missing**: 92
 - **source_missing**: 2
 - **manifest_only**: 8
@@ -44,9 +44,9 @@ _Commercial capability rows sum to **449** — do not mix with module readiness 
 
 ### Readiness scope — read (reconciled modules)
 
-- **production_ready_candidate**: 1
-- **connected**: 8
-- **connected_but_partial**: 40
+- **production_ready_candidate**: 5
+- **connected**: 7
+- **connected_but_partial**: 37
 - **adapter_missing**: 92
 - **source_missing**: 2
 - **manifest_only**: 8
@@ -54,8 +54,9 @@ _Commercial capability rows sum to **449** — do not mix with module readiness 
 
 ### Source classification (reconciled modules)
 
+- **source_exact**: 3
 - **source_compatible**: 6
-- **source_partial**: 34
+- **source_partial**: 31
 - **source_proxy**: 3
 - **source_missing**: 78
 - **source_unknown**: 57

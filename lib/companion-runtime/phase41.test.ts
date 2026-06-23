@@ -504,7 +504,10 @@ async function runPhase41AsyncTests() {
   ]) {
     const entry = coverage.find((row) => row.module_id === moduleId);
     assert.ok(entry, moduleId);
-    assert.equal(entry?.readiness, "connected_but_partial");
+    assert.ok(
+      ["connected_but_partial", "production_ready_candidate"].includes(entry!.readiness),
+      `${moduleId} readiness should reflect live E2E state, received ${entry!.readiness}`,
+    );
     assert.notEqual(entry?.readiness, "production_ready");
   }
 

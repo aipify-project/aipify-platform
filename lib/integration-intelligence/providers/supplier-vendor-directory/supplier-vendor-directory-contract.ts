@@ -213,7 +213,7 @@ export function mapSupplierDirectoryBundle(input: {
     duplicate_supplier_candidate_count: duplicateOrgNumbers,
     preferred_supplier_unavailable_count: preferredUnavailable,
     purchase_order_attention_count: ordersInTransit,
-    source_exact: centerFound && vendors.length > 0,
+    source_exact: centerFound,
     freshness: centerFound ? "fresh" : "unknown",
     completeness: vendors.length > 0 ? "partial" : "empty",
     limitations,

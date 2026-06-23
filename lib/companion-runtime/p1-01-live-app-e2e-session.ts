@@ -197,10 +197,15 @@ export async function attemptP1LiveAuthenticatedSession(
   if (error || !data.session) {
     const authError = error ?? ({ message: "Authenticated login failed.", code: "auth_failed" } as AuthError);
     const classified = classifyPasswordLoginError(authError);
+    const passwordLength = config.password.trim().length;
     const message =
       classified.blocker_code === "password_login_not_available"
         ? "This account does not support email/password login. Use an APP owner/admin account with password auth enabled."
-        : redactSecretsFromMessage(authError.message);
+        : classified.blocker_code === "invalid_credentials" && passwordLength === 0
+          ? "APP_LIVE_E2E_PASSWORD is empty after loading .env.local. Add the line and save the file before re-running."
+          : classified.blocker_code === "invalid_credentials"
+            ? "Supabase rejected the email/password pair for this project. Confirm the same credentials work in APP login at target_host, and that the account uses password auth (not OAuth-only)."
+            : redactSecretsFromMessage(authError.message);
 
     return {
       ok: false,

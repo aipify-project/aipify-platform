@@ -8,6 +8,11 @@ import {
 
 export { CUSTOMER_PORTAL_DOMAIN };
 
+/** Production uses app.aipify.ai; dev allows plain localhost when subdomain DNS is unavailable. */
+function shouldUseCustomerPortalSubdomain(): boolean {
+  return process.env.NODE_ENV === "production";
+}
+
 function resolveCustomerPortalOrigin(request: NextRequest): string {
   const host = request.headers.get("host") ?? "";
   const portMatch = host.match(/:(\d+)$/);
@@ -34,6 +39,7 @@ export function shouldCanonicalizeToCustomerPortal(
   host: string | null | undefined,
   pathname: string
 ): boolean {
+  if (!shouldUseCustomerPortalSubdomain()) return false;
   if (!isCustomerPortalPath(pathname)) return false;
   if (isCustomerPortalHost(host)) return false;
   return isMarketingApexHost(host);
@@ -53,6 +59,7 @@ export function resolveLoginPageCanonicalRedirect(
   host: string | null | undefined,
   nextParam: string | null
 ): URL | null {
+  if (!shouldUseCustomerPortalSubdomain()) return null;
   if (!isMarketingApexHost(host)) return null;
 
   const nextPath = sanitizeNextPath(nextParam);
