@@ -2183,9 +2183,38 @@
       },
       "externalHandoff": {
         "adapterMissing": "Ingen godkänd provider-adapter är registrerad för den åtgärden ännu. Aipify kan inte överföra filen förrän integration finns och du ger uttryckligt samtycke.",
+        "partial": "Provider-adaptern är registrerad men inte helt redo — anslut integrationen eller välj en filtyp som stöds innan överföring.",
         "consentRequired": "Överföring av filen till en extern app kräver ditt uttryckliga samtycke först.",
         "permissionDenied": "Du har inte behörighet att överföra den här filen.",
         "ready": "Den aktiva filen är redo för godkänd provider-överföring efter att du bekräftar."
+      },
+      "canvaHandoff": {
+        "title": "Skicka fil till Canva",
+        "subtitle": "Granska vad Aipify skickar innan du godkänner. Aipify överför aldrig filer utan ditt uttryckliga samtycke.",
+        "fileLabel": "Fil",
+        "typeLabel": "Typ och storlek",
+        "recipientLabel": "Mottagare",
+        "recipient": "Ditt anslutna Canva-konto (via Canva Connect)",
+        "accessLabel": "Beviljad åtkomst",
+        "accessScope": "Uppladdning till ditt Canva-bibliotek eller import som redigerbar design — endast inom godkända OAuth-behörigheter.",
+        "actionLabel": "Förväntad åtgärd",
+        "expectedUpload": "Ladda upp bild till ditt Canva-resursbibliotek",
+        "expectedImport": "Importera fil som en ny Canva-design du kan öppna och redigera",
+        "expectedUnsupported": "Den här filtypen stöds inte av den nuvarande Canva-överföringsadaptern",
+        "connectRequired": "Anslut Canva i Integrationer innan Aipify kan skicka den här filen.",
+        "connectCanva": "Anslut Canva",
+        "approveSend": "Godkänn och skicka",
+        "cancel": "Avbryt",
+        "sendToCanva": "Skicka till Canva",
+        "loadingPreview": "Förbereder förhandsgranskning av överföring…",
+        "successOpen": "Öppna i Canva",
+        "errors": {
+          "previewFailed": "Aipify kunde inte förbereda förhandsgranskningen av överföringen.",
+          "connectFailed": "Kunde inte starta Canva-anslutning.",
+          "notConnected": "Canva är inte anslutet. Anslut Canva innan du skickar den här filen.",
+          "unsupportedType": "Den här filtypen stöds inte för Canva-överföring.",
+          "handoffFailed": "Canva accepterade inte filen. Inget rapporterades som lyckat."
+        }
       }
     }
   }

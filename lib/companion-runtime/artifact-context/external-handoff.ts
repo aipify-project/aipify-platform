@@ -1,14 +1,14 @@
 import type { CompanionExternalProviderHandoff } from "./types";
-
-/** Registered external creative providers — adapters live outside Core. */
-const REGISTERED_EXTERNAL_PROVIDER_ADAPTERS = new Set<string>([
-  // No production adapters registered yet — honest adapter_missing until wired.
-]);
+import {
+  getExternalArtifactHandoffProviderReadiness,
+  isExternalArtifactHandoffProviderRegistered,
+} from "@/lib/integration-intelligence/external-artifact-handoff/registry";
 
 export function classifyExternalProviderHandoff(input: {
   provider_key: string;
   consent_granted: boolean;
   permission_granted: boolean;
+  connection_connected?: boolean;
 }): CompanionExternalProviderHandoff {
   const providerKey = input.provider_key.trim().toLowerCase();
   if (!providerKey) {
@@ -29,12 +29,26 @@ export function classifyExternalProviderHandoff(input: {
     };
   }
 
-  if (!REGISTERED_EXTERNAL_PROVIDER_ADAPTERS.has(providerKey)) {
+  if (!isExternalArtifactHandoffProviderRegistered(providerKey)) {
     return {
       provider_key: providerKey,
       status: "adapter_missing",
       requires_explicit_consent: true,
       message_key: "attachments.externalHandoff.adapterMissing",
+    };
+  }
+
+  const readiness = getExternalArtifactHandoffProviderReadiness(
+    providerKey,
+    input.connection_connected === true,
+  );
+
+  if (readiness === "partial") {
+    return {
+      provider_key: providerKey,
+      status: "partial",
+      requires_explicit_consent: true,
+      message_key: "attachments.externalHandoff.partial",
     };
   }
 

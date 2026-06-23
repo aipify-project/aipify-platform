@@ -14,6 +14,7 @@ import {
   type CompanionPendingAttachment,
 } from "@/lib/app/companion/attachments";
 import type { CompanionExperienceLabels, CompanionChatAttachmentSummary } from "@/lib/app/companion/types";
+import { CompanionArtifactHandoffConsentDialog } from "@/components/app/companion-experience/CompanionArtifactHandoffConsentDialog";
 
 type CompanionAttachmentComposerProps = {
   query: string;
@@ -49,6 +50,11 @@ export function CompanionAttachmentComposer({
   const [attachments, setAttachments] = useState<CompanionPendingAttachment[]>([]);
   const [activeArtifactId, setActiveArtifactId] = useState<string | null>(null);
   const [composerError, setComposerError] = useState<string | null>(null);
+  const [handoffTarget, setHandoffTarget] = useState<{
+    attachmentId: string;
+    filename: string;
+  } | null>(null);
+  const [handoffSuccessUrl, setHandoffSuccessUrl] = useState<string | null>(null);
 
   const att = labels.attachments;
 
@@ -210,14 +216,30 @@ export function CompanionAttachmentComposer({
                     {row.attachmentId === activeArtifactId ? ` · ${att.activeBadge}` : null}
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => void removeAttachment(row.localId)}
-                  className="rounded-md px-2 py-1 text-xs text-aipify-text-muted hover:bg-aipify-surface-muted"
-                  aria-label={att.removeAttachment.replace("{filename}", row.filename)}
-                >
-                  {att.remove}
-                </button>
+                <div className="flex shrink-0 flex-col items-end gap-1">
+                  {row.status === "ready" && row.attachmentId ? (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setHandoffTarget({
+                          attachmentId: row.attachmentId!,
+                          filename: row.filename,
+                        })
+                      }
+                      className="rounded-md px-2 py-1 text-xs font-medium text-aipify-companion hover:bg-violet-50"
+                    >
+                      {att.canvaHandoff.sendToCanva}
+                    </button>
+                  ) : null}
+                  <button
+                    type="button"
+                    onClick={() => void removeAttachment(row.localId)}
+                    className="rounded-md px-2 py-1 text-xs text-aipify-text-muted hover:bg-aipify-surface-muted"
+                    aria-label={att.removeAttachment.replace("{filename}", row.filename)}
+                  >
+                    {att.remove}
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
@@ -228,6 +250,36 @@ export function CompanionAttachmentComposer({
         <p role="alert" className="text-xs text-red-700">
           {composerError}
         </p>
+      ) : null}
+
+      {handoffSuccessUrl ? (
+        <p className="text-xs text-aipify-text-secondary">
+          <a
+            href={handoffSuccessUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-aipify-companion underline"
+          >
+            {att.canvaHandoff.successOpen}
+          </a>
+        </p>
+      ) : null}
+
+      {handoffTarget ? (
+        <CompanionArtifactHandoffConsentDialog
+          open
+          onClose={() => setHandoffTarget(null)}
+          labels={labels}
+          providerKey="canva"
+          attachmentId={handoffTarget.attachmentId}
+          conversationId={conversationId}
+          filename={handoffTarget.filename}
+          onCompleted={(result) => {
+            if (result.ok && result.open_url) {
+              setHandoffSuccessUrl(result.open_url);
+            }
+          }}
+        />
       ) : null}
 
       <form

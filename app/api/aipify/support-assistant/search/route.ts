@@ -17,6 +17,8 @@ import {
   resolveCompanionIntegrationContext,
 } from "@/lib/companion-runtime/tenant-context";
 import { loadCompanionArtifactContext } from "@/lib/companion-runtime/artifact-context/server";
+import { loadCanvaHandoffConnectionMaterial } from "@/lib/integration-intelligence/external-artifact-handoff/server";
+import { assertCanvaHandoffPermissionForRole } from "@/lib/integration-intelligence/providers/canva/permissions";
 import { enrichAnswerWithArtifactContext } from "@/lib/companion-runtime/artifact-context/enrich-answer";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -104,6 +106,13 @@ export async function GET(request: Request) {
       | null = null;
 
     if (conversationId && query.trim()) {
+      const externalProviderKey = externalProvider?.trim().toLowerCase() ?? null;
+      let externalConnectionConnected = false;
+      if (externalProviderKey === "canva") {
+        const connection = await loadCanvaHandoffConnectionMaterial(supabase);
+        externalConnectionConnected = connection.connected;
+      }
+
       artifactContextBundle = await loadCompanionArtifactContext(supabase, {
         conversation_id: conversationId,
         query,
@@ -116,6 +125,10 @@ export async function GET(request: Request) {
           : undefined,
         external_provider: externalProvider,
         external_consent: externalConsent,
+        external_connection_connected: externalConnectionConnected,
+        external_permission_granted: externalProviderKey
+          ? assertCanvaHandoffPermissionForRole(userRole)
+          : undefined,
       });
     }
 
@@ -197,9 +210,11 @@ export async function GET(request: Request) {
             ? att.externalHandoff.consentRequired
             : handoff.status === "permission_denied"
               ? att.externalHandoff.permissionDenied
-              : handoff.status === "adapter_available"
-                ? att.externalHandoff.ready
-                : att.externalHandoff.adapterMissing;
+              : handoff.status === "partial"
+                ? att.externalHandoff.partial
+                : handoff.status === "adapter_available"
+                  ? att.externalHandoff.ready
+                  : att.externalHandoff.adapterMissing;
         answer = {
           ...answer,
           explanation: [answer.explanation, handoffCopy].filter(Boolean).join("\n\n"),

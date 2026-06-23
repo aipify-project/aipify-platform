@@ -171,9 +171,38 @@ export type CompanionExperienceLabels = {
     };
     externalHandoff: {
       adapterMissing: string;
+      partial: string;
       consentRequired: string;
       permissionDenied: string;
       ready: string;
+    };
+    canvaHandoff: {
+      title: string;
+      subtitle: string;
+      fileLabel: string;
+      typeLabel: string;
+      recipientLabel: string;
+      recipient: string;
+      accessLabel: string;
+      accessScope: string;
+      actionLabel: string;
+      expectedUpload: string;
+      expectedImport: string;
+      expectedUnsupported: string;
+      connectRequired: string;
+      connectCanva: string;
+      approveSend: string;
+      cancel: string;
+      sendToCanva: string;
+      loadingPreview: string;
+      successOpen: string;
+      errors: {
+        previewFailed: string;
+        connectFailed: string;
+        notConnected: string;
+        unsupportedType: string;
+        handoffFailed: string;
+      };
     };
   };
 };

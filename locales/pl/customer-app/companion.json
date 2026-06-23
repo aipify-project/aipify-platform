@@ -1297,9 +1297,38 @@
       },
       "externalHandoff": {
         "adapterMissing": "Brak zatwierdzonego adaptera dostawcy dla tej akcji. Aipify nie może przekazać pliku, dopóki integracja nie będzie dostępna i nie wyrazisz wyraźnej zgody.",
+        "partial": "Adapter dostawcy jest zarejestrowany, ale nie w pełni gotowy — połącz integrację lub wybierz obsługiwany typ pliku przed przekazaniem.",
         "consentRequired": "Przekazanie pliku do zewnętrznej aplikacji wymaga najpierw Twojej wyraźnej zgody.",
         "permissionDenied": "Nie masz uprawnień do przekazania tego pliku.",
         "ready": "Aktywny plik jest gotowy do zatwierdzonego przekazania po Twoim potwierdzeniu."
+      },
+      "canvaHandoff": {
+        "title": "Wyślij plik do Canva",
+        "subtitle": "Sprawdź, co Aipify wyśle, zanim zatwierdzisz. Aipify nigdy nie przekazuje plików bez Twojej wyraźnej zgody.",
+        "fileLabel": "Plik",
+        "typeLabel": "Typ i rozmiar",
+        "recipientLabel": "Odbiorca",
+        "recipient": "Twoje połączone konto Canva (przez Canva Connect)",
+        "accessLabel": "Przyznany dostęp",
+        "accessScope": "Przesłanie do biblioteki Canva lub import jako edytowalny projekt — tylko w ramach zatwierdzonych uprawnień OAuth.",
+        "actionLabel": "Oczekiwane działanie",
+        "expectedUpload": "Prześlij obraz do biblioteki zasobów Canva",
+        "expectedImport": "Zaimportuj plik jako nowy projekt Canva, który możesz otworzyć i edytować",
+        "expectedUnsupported": "Ten typ pliku nie jest obsługiwany przez bieżący adapter przekazania Canva",
+        "connectRequired": "Połącz Canva w Integracjach, zanim Aipify wyśle ten plik.",
+        "connectCanva": "Połącz Canva",
+        "approveSend": "Zatwierdź i wyślij",
+        "cancel": "Anuluj",
+        "sendToCanva": "Wyślij do Canva",
+        "loadingPreview": "Przygotowywanie podglądu przekazania…",
+        "successOpen": "Otwórz w Canva",
+        "errors": {
+          "previewFailed": "Aipify nie mogło przygotować podglądu przekazania.",
+          "connectFailed": "Nie udało się rozpocząć połączenia z Canva.",
+          "notConnected": "Canva nie jest połączone. Połącz Canva przed wysłaniem tego pliku.",
+          "unsupportedType": "Ten typ pliku nie jest obsługiwany do przekazania Canva.",
+          "handoffFailed": "Canva nie przyjęło pliku. Nic nie zostało zgłoszone jako sukces."
+        }
       }
     }
   },

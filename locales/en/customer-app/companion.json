@@ -2101,9 +2101,38 @@
       },
       "externalHandoff": {
         "adapterMissing": "No approved provider adapter is registered for that action yet. Aipify cannot hand off this file until integration is available and you give explicit consent.",
+        "partial": "The provider adapter is registered but not fully ready — connect the integration or choose a supported file type before handoff.",
         "consentRequired": "Handing this file to an external app requires your explicit consent first.",
         "permissionDenied": "You do not have permission to hand off this file.",
         "ready": "The active file is ready for an approved provider handoff after you confirm."
+      },
+      "canvaHandoff": {
+        "title": "Send file to Canva",
+        "subtitle": "Review what Aipify will send before you approve. Aipify never hands off files without your explicit consent.",
+        "fileLabel": "File",
+        "typeLabel": "Type and size",
+        "recipientLabel": "Recipient",
+        "recipient": "Your connected Canva account (via Canva Connect)",
+        "accessLabel": "Access granted",
+        "accessScope": "Upload to your Canva library or import as an editable design — scoped to approved OAuth permissions only.",
+        "actionLabel": "Expected action",
+        "expectedUpload": "Upload image to your Canva asset library",
+        "expectedImport": "Import file as a new Canva design you can open and edit",
+        "expectedUnsupported": "This file type is not supported by the current Canva handoff adapter",
+        "connectRequired": "Connect Canva in Integrations before Aipify can send this file.",
+        "connectCanva": "Connect Canva",
+        "approveSend": "Approve and send",
+        "cancel": "Cancel",
+        "sendToCanva": "Send to Canva",
+        "loadingPreview": "Preparing handoff preview…",
+        "successOpen": "Open in Canva",
+        "errors": {
+          "previewFailed": "Aipify could not prepare the handoff preview.",
+          "connectFailed": "Could not start Canva connection.",
+          "notConnected": "Canva is not connected. Connect Canva before sending this file.",
+          "unsupportedType": "This file type is not supported for Canva handoff.",
+          "handoffFailed": "Canva did not accept the file. Nothing was reported as successful."
+        }
       }
     },
     "quickActions": {

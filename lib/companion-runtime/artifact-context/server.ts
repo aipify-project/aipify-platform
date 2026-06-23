@@ -38,6 +38,8 @@ export async function loadCompanionArtifactContext(
     attachment_ids?: readonly string[];
     external_provider?: string | null;
     external_consent?: boolean;
+    external_connection_connected?: boolean;
+    external_permission_granted?: boolean;
   },
 ): Promise<
   CompanionArtifactContextPayload & {
@@ -106,7 +108,9 @@ export async function loadCompanionArtifactContext(
       externalHandoff: classifyExternalProviderHandoff({
         provider_key: input.external_provider,
         consent_granted: input.external_consent === true,
-        permission_granted: reference.attachment_id !== null,
+        permission_granted:
+          input.external_permission_granted ?? reference.attachment_id !== null,
+        connection_connected: input.external_connection_connected === true,
       }),
     };
   }

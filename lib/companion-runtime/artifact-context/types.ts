@@ -59,6 +59,7 @@ export type CompanionExternalProviderHandoffStatus =
   | "consent_required"
   | "adapter_available"
   | "adapter_missing"
+  | "partial"
   | "permission_denied"
   | "blocked_by_policy";
 
