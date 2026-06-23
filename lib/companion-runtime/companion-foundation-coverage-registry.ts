@@ -28,6 +28,8 @@ import { applyP1_02LiveAppEmployeeE2eCoverageOverrides } from "./p1-02-live-app-
 import { readP1_02LiveAppEmployeeE2eCertificationArtifact } from "./p1-02-live-app-employee-e2e-certification";
 import { applyP1_03LiveAppCrmCustomerE2eCoverageOverrides } from "./p1-03-live-app-crm-customer-e2e-coverage";
 import { readP1_03LiveAppCrmCustomerE2eCertificationArtifact } from "./p1-03-live-app-crm-customer-e2e-certification";
+import { applyP1_04LiveAppSupplierVendorE2eCoverageOverrides } from "./p1-04-live-app-supplier-vendor-e2e-coverage";
+import { readP1_04LiveAppSupplierVendorE2eCertificationArtifact } from "./p1-04-live-app-supplier-vendor-e2e-certification";
 import type {
   CompanionCoverageEntry,
   CompanionCoverageReadiness,
@@ -572,27 +574,30 @@ export function buildCompanionFoundationCoverageRegistry(): CompanionCoverageEnt
       !explicitModuleIds.has(entry.module_id) && !SUPERSEDED_PROVIDER_MODULE_IDS.has(entry.module_id),
   );
 
-  return applyP1_03LiveAppCrmCustomerE2eCoverageOverrides(
-    applyP1_02LiveAppEmployeeE2eCoverageOverrides(
-      applyP1LiveE2eCoverageOverrides(
-        [
-          ...CORE_COMPANION_MODULES,
-          ...buildMarketingBusinessPackEntries(),
-          buildSkillRegistryEntry(),
-          ...filteredProviders,
-          ...MEMBER_VERIFICATION_COVERAGE_MODULES,
-          ...HAIRDRESSER_SERVICE_COVERAGE_MODULES,
-          ...COMMAND_BRIEF_COVERAGE_MODULES,
-          ...SUPPORT_COVERAGE_MODULES,
-          ...HOSTS_COVERAGE_MODULES,
-          ...ORGANIZATION_DIRECTORY_COVERAGE_MODULES,
-          ...PANEL_COVERAGE_ENTRIES,
-        ],
-        readP1LiveE2eCertificationArtifact(process.cwd()),
+  return applyP1_04LiveAppSupplierVendorE2eCoverageOverrides(
+    applyP1_03LiveAppCrmCustomerE2eCoverageOverrides(
+      applyP1_02LiveAppEmployeeE2eCoverageOverrides(
+        applyP1LiveE2eCoverageOverrides(
+          [
+            ...CORE_COMPANION_MODULES,
+            ...buildMarketingBusinessPackEntries(),
+            buildSkillRegistryEntry(),
+            ...filteredProviders,
+            ...MEMBER_VERIFICATION_COVERAGE_MODULES,
+            ...HAIRDRESSER_SERVICE_COVERAGE_MODULES,
+            ...COMMAND_BRIEF_COVERAGE_MODULES,
+            ...SUPPORT_COVERAGE_MODULES,
+            ...HOSTS_COVERAGE_MODULES,
+            ...ORGANIZATION_DIRECTORY_COVERAGE_MODULES,
+            ...PANEL_COVERAGE_ENTRIES,
+          ],
+          readP1LiveE2eCertificationArtifact(process.cwd()),
+        ),
+        readP1_02LiveAppEmployeeE2eCertificationArtifact(process.cwd()),
       ),
-      readP1_02LiveAppEmployeeE2eCertificationArtifact(process.cwd()),
+      readP1_03LiveAppCrmCustomerE2eCertificationArtifact(process.cwd()),
     ),
-    readP1_03LiveAppCrmCustomerE2eCertificationArtifact(process.cwd()),
+    readP1_04LiveAppSupplierVendorE2eCertificationArtifact(process.cwd()),
   );
 }
 

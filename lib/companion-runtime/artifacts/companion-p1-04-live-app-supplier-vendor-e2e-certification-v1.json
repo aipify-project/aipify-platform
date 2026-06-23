@@ -1,0 +1,177 @@
+{
+  "version": "companion-p1-04-live-app-supplier-vendor-e2e-certification-v1",
+  "generated_at": "2026-06-23T02:23:32.939Z",
+  "environment": "staging",
+  "commit_hash": "c06cf516b925e3b378c03b106d3916c0fb2bd14f",
+  "organization_reference": "org_a710a43a6d8c",
+  "session_mode": "live_authenticated",
+  "p1_01_prerequisite": "pass",
+  "live_supplier_candidate_count": 0,
+  "overall_status": "pass",
+  "blockers": [],
+  "flows": [
+    {
+      "flow_id": "live_provider_connected",
+      "capability": "supplier.search.live",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_supplier_by_name",
+      "capability": "supplier.search.name",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_by_organization_number",
+      "capability": "supplier.search.organization_number",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_contact_person",
+      "capability": "supplier.search.contact",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_by_category_service",
+      "capability": "supplier.search.category",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_by_contract_status",
+      "capability": "supplier.search.contract_status",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_by_assigned_buyer",
+      "capability": "supplier.search.buyer",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "search_manufacturer_or_distributor",
+      "capability": "supplier.search.manufacturer_distributor",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "contact_masking_staff_scope",
+      "capability": "supplier.contact.masking",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "contact_unmasked_owner_scope",
+      "capability": "supplier.contact.masking",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "unknown_supplier_exact_empty",
+      "capability": "supplier.search.unknown_empty",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "ambiguous_or_clarification_path",
+      "capability": "supplier.search.clarification",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "supplier_not_customer_or_partner",
+      "capability": "supplier.relationship.boundary",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "marketplace_not_active_supplier",
+      "capability": "supplier.marketplace.exclusion",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "empty_source_no_constructed_suppliers",
+      "capability": "supplier.empty_source_integrity",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "access_missing_entitlement_denied",
+      "capability": "supplier.access.denied",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "flow_id": "access_suspended_denied",
+      "capability": "supplier.access.denied",
+      "source_classification": "source_exact",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "tenant_isolation": [
+    {
+      "check_id": "manipulated_organization_id_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "cross_tenant_entity_id_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "missing_entitlement_rejected",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "suspended_app_no_data",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "capabilities_passed": [
+    "supplier.access.denied",
+    "supplier.contact.masking",
+    "supplier.empty_source_integrity",
+    "supplier.isolation",
+    "supplier.marketplace.exclusion",
+    "supplier.relationship.boundary",
+    "supplier.search.buyer",
+    "supplier.search.category",
+    "supplier.search.clarification",
+    "supplier.search.contact",
+    "supplier.search.contract_status",
+    "supplier.search.live",
+    "supplier.search.manufacturer_distributor",
+    "supplier.search.name",
+    "supplier.search.organization_number",
+    "supplier.search.unknown_empty"
+  ],
+  "capabilities_failed": [],
+  "coverage_updates_applied": [
+    "directory.supplier"
+  ]
+}

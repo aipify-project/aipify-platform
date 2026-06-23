@@ -1,6 +1,6 @@
 {
   "version": "companion-foundation-coverage-v1",
-  "generated_at": "2026-06-23T02:01:50.474Z",
+  "generated_at": "2026-06-23T02:21:56.252Z",
   "summary": {
     "total_modules": 178,
     "total_capabilities": 449,
@@ -4474,7 +4474,7 @@
       "limitations": [
         "Canonical org suppliers from procurement operations — not marketplace candidates.",
         "Supplier write-actions disabled in Companion runtime.",
-        "Authenticated live APP E2E certification passed — production_ready requires final operator sign-off."
+        "Supplier Vendor Directory live E2E certification passed — production_ready requires final operator sign-off."
       ],
       "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app"
@@ -20594,7 +20594,7 @@
       "limitations": [
         "Canonical org suppliers from procurement operations — not marketplace candidates.",
         "Supplier write-actions disabled in Companion runtime.",
-        "Authenticated live APP E2E certification passed — production_ready requires final operator sign-off."
+        "Supplier Vendor Directory live E2E certification passed — production_ready requires final operator sign-off."
       ],
       "next_required_step": "Operator sign-off before production_ready promotion.",
       "panel": "app",
@@ -20626,7 +20626,7 @@
           "limitations": [
             "Canonical org suppliers from procurement operations — not marketplace candidates.",
             "Supplier write-actions disabled in Companion runtime.",
-            "Authenticated live APP E2E certification passed — production_ready requires final operator sign-off."
+            "Supplier Vendor Directory live E2E certification passed — production_ready requires final operator sign-off."
           ]
         },
         "platform": {
