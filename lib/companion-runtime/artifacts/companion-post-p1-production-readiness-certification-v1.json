@@ -1,17 +1,17 @@
 {
   "version": "companion-post-p1-production-readiness-certification-v1",
-  "generated_at": "2026-06-23T16:23:13.115Z",
-  "commit_hash": "51a3e47bc905ec7e79164eef16c29b7ff8671428",
-  "overall_status": "pass",
-  "max_readiness_certified": "production_ready_candidate",
-  "live_e2e_status": "pass",
-  "session_mode": "live_authenticated",
-  "organization_reference": "org_a710a43a6d8c",
+  "generated_at": "2026-06-23T16:24:26.052Z",
+  "commit_hash": "26296c66a31e5c94eebfae5f84e0288525f3bfbe",
+  "overall_status": "partial",
+  "max_readiness_certified": "partial",
+  "live_e2e_status": "blocked",
+  "session_mode": "blocked",
+  "organization_reference": null,
   "environment": {
-    "cron_secret_configured": true,
-    "supabase_service_role_key_configured": true,
+    "cron_secret_configured": false,
+    "supabase_service_role_key_configured": false,
     "live_e2e_enabled": true,
-    "live_e2e_base_url_configured": true
+    "live_e2e_base_url_configured": false
   },
   "post_p1_commits": [
     {
@@ -219,126 +219,17 @@
       "failure_reason": null
     }
   ],
-  "flows": [
-    {
-      "flow_id": "conversation_enqueue",
-      "capability": "companion.chat.enqueue",
-      "surface": "drawer",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "cancel_queue_item",
-      "capability": "companion.queue.cancel",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "idempotency_duplicate_enqueue",
-      "capability": "companion.chat.idempotency",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "cron_worker_closed_browser",
-      "capability": "companion.queue.cron_worker",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "queue_worker_reply",
-      "capability": "companion.queue.worker_completion",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "shared_history_drawer",
-      "capability": "companion.chat.shared_state",
-      "surface": "drawer",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "shared_history_fullpage",
-      "capability": "companion.chat.shared_state",
-      "surface": "fullpage",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "shared_history_desktop",
-      "capability": "companion.chat.shared_state",
-      "surface": "desktop",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "shared_history_mobile",
-      "capability": "companion.chat.shared_state",
-      "surface": "mobile",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "cron_worker_endpoint",
-      "capability": "companion.queue.cron_endpoint",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "retry_queue_item",
-      "capability": "companion.queue.retry",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "worker_stale_recovery",
-      "capability": "companion.queue.lease_recovery",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "companion_reply_ready_notification",
-      "capability": "companion.notification.reply_ready",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "deep_link_conversation",
-      "capability": "companion.notification.deep_link",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "mark_read_on_open",
-      "capability": "companion.conversation.mark_read",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "archive_conversation",
-      "capability": "companion.conversation.archive",
-      "status": "pass",
-      "failure_reason": null
-    },
-    {
-      "flow_id": "delete_conversation",
-      "capability": "companion.conversation.delete",
-      "status": "pass",
-      "failure_reason": null
-    }
-  ],
-  "tenant_isolation": [
-    {
-      "check_id": "cross_tenant_conversation_denied",
-      "status": "pass",
-      "failure_reason": null
-    }
-  ],
+  "flows": [],
+  "tenant_isolation": [],
   "open_limitations": [
     "Provider-specific adapters remain outside Core — governed handoff only.",
     "Native mobile Companion client is not certified separately; shared queue/state is certified.",
     "Cron worker certification requires CRON_SECRET — values are never stored in artifacts."
   ],
-  "blockers": []
+  "blockers": [
+    {
+      "code": "invalid_credentials",
+      "message": "Supabase rejected the email/password pair for this project. Confirm the same credentials work in APP login at target_host, and that the account uses password auth (not OAuth-only)."
+    }
+  ]
 }
