@@ -142,7 +142,22 @@
       "uncertaintyPartial": "Niektóre pola były niedostępne — traktuj niepełne liczby jako niepewne.",
       "uncertaintyMissing": "Dla tego pytania nie zwrócono danych live — Aipify nie zgaduje.",
       "permissionDenied": "Twoja rola nie może odczytać tych danych organizacji z podłączonego źródła.",
-      "providerMissing": "Do tego pytania organizacyjnego nie podłączono jeszcze źródła live."
+      "permissionRequired": "Twoja rola nie ma uprawnień do odczytu tych danych z podłączonego źródła.",
+      "providerMissing": "Do tego pytania organizacyjnego nie podłączono jeszcze źródła live.",
+      "adapterMissing": "Dla tej zdolności organizacyjnej nie zarejestrowano jeszcze adaptera providera.",
+      "sourceUnavailable": "Podłączone źródło nie zwróciło danych live dla tego pytania.",
+      "memberDetailListLead": "Członkowie z podłączonego rejestru członków:",
+      "memberDetailListItem": "• {username} · ID {memberId} · {status}",
+      "memberDetailListEmpty": "Podłączone źródło nie zwróciło żadnych członków.",
+      "gapStatusLine": "Status: {status}",
+      "gapSourceReferenceLine": "Oczekiwane źródło: {source}",
+      "gapCapabilityLine": "Zdolność: {capability}",
+      "gapStatus": {
+        "adapter_missing": "adapter_missing",
+        "permission_required": "permission_required",
+        "source_unavailable": "source_unavailable",
+        "missing_data": "missing_data"
+      }
     },
     "memory": {
       "sourceLabel": "Potwierdzona pamięć organizacji",

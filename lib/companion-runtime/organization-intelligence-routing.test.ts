@@ -19,6 +19,7 @@ const repoRoot = path.join(import.meta.dirname, "..", "..");
 const E2E_QUESTIONS = [
   "Hvor mange medlemmer er registrert?",
   "Vis aktive medlemmer",
+  "Vis medlemmer med brukernavn, medlems-ID og status.",
   "Hvilke medlemmer venter på verifisering?",
   "Er medlem [TESTBRUKER] verifisert?",
   "Hvilke supportsaker nærmer seg eller har brutt SLA?",
@@ -71,6 +72,11 @@ for (const question of E2E_QUESTIONS) {
 const memberCountIntent = resolveOrganizationIntelligenceIntent("Hvor mange medlemmer er registrert?");
 assert.equal(memberCountIntent?.kind, "member_count");
 
+const memberDetailIntent = resolveOrganizationIntelligenceIntent(
+  "Vis medlemmer med brukernavn, medlems-ID og status.",
+);
+assert.equal(memberDetailIntent?.kind, "member_detail_list");
+
 const verificationIntent = resolveOrganizationIntelligenceIntent("Er medlem [TESTBRUKER] verifisert?");
 assert.equal(verificationIntent?.kind, "member_verification_status");
 assert.equal(verificationIntent?.member_reference, "TESTBRUKER");
@@ -103,6 +109,7 @@ const countAnswer = buildMemberCountAnswer({
 
 assert.match(countAnswer.directAnswer, /128/);
 assert.match(countAnswer.explanation ?? "", /Kilde:|Source:/i);
+assert.ok(countAnswer.sources.length > 0, "grounded answers must include sources");
 assert.equal(countAnswer.liveIntegrationToolUsed, true);
 assert.equal(
   filterCompanionSelfNavigationActions([

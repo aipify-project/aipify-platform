@@ -142,7 +142,22 @@
       "uncertaintyPartial": "Vissa fält var otillgängliga — behandla ofullständiga siffror som osäkra.",
       "uncertaintyMissing": "Ingen livedata returnerades för denna fråga — Aipify gissar inte.",
       "permissionDenied": "Din roll kan inte läsa dessa organisationsdata från den anslutna källan.",
-      "providerMissing": "Ingen live-källa är ansluten för denna organisationsfråga ännu."
+      "permissionRequired": "Din roll har inte behörighet att läsa dessa data från den anslutna källan.",
+      "providerMissing": "Ingen live-källa är ansluten för denna organisationsfråga ännu.",
+      "adapterMissing": "Ingen provider-adapter är registrerad för denna organisationsevne ännu.",
+      "sourceUnavailable": "Den anslutna källan returnerade inte livedata för denna fråga.",
+      "memberDetailListLead": "Medlemmar från det anslutna medlemsregistret:",
+      "memberDetailListItem": "• {username} · ID {memberId} · {status}",
+      "memberDetailListEmpty": "Inga medlemmar returnerades av den anslutna källan.",
+      "gapStatusLine": "Status: {status}",
+      "gapSourceReferenceLine": "Förväntad källa: {source}",
+      "gapCapabilityLine": "Evne: {capability}",
+      "gapStatus": {
+        "adapter_missing": "adapter_missing",
+        "permission_required": "permission_required",
+        "source_unavailable": "source_unavailable",
+        "missing_data": "missing_data"
+      }
     },
     "memory": {
       "sourceLabel": "Bekräftat organisationsminne",

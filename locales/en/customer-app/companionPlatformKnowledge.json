@@ -400,7 +400,22 @@
       "uncertaintyPartial": "Some fields were unavailable — treat incomplete counts as uncertain.",
       "uncertaintyMissing": "No live data was returned for this question — Aipify will not guess.",
       "permissionDenied": "Your role cannot read this organization data from the connected source.",
-      "providerMissing": "No live source is connected for this organization question yet."
+      "permissionRequired": "Your role does not have permission to read this data from the connected source.",
+      "providerMissing": "No live source is connected for this organization question yet.",
+      "adapterMissing": "No provider adapter is registered for this organization capability yet.",
+      "sourceUnavailable": "The connected source did not return live data for this question.",
+      "memberDetailListLead": "Members from the connected member directory:",
+      "memberDetailListItem": "• {username} · ID {memberId} · {status}",
+      "memberDetailListEmpty": "No members were returned by the connected directory source.",
+      "gapStatusLine": "Status: {status}",
+      "gapSourceReferenceLine": "Expected source: {source}",
+      "gapCapabilityLine": "Capability: {capability}",
+      "gapStatus": {
+        "adapter_missing": "adapter_missing",
+        "permission_required": "permission_required",
+        "source_unavailable": "source_unavailable",
+        "missing_data": "missing_data"
+      }
     },
     "memory": {
       "sourceLabel": "Confirmed organization memory",

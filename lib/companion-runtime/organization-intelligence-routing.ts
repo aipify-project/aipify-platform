@@ -13,12 +13,17 @@ import { executeCommunityMemberDirectorySearch } from "./community-member-direct
 import {
   buildMemberActiveListAnswer,
   buildMemberCountAnswer,
+  buildMemberDetailListAnswer,
   buildMemberPendingVerificationAnswer,
   buildMemberVerificationStatusAnswer,
   buildOrganizationIntelligenceGapAnswer,
   buildPrioritizeTodayAnswer,
   buildSupportSlaAnswer,
 } from "./organization-intelligence-answer";
+import {
+  assessOrganizationCapabilityReadiness,
+  resolveOrganizationCapabilityRoute,
+} from "./organization-capability-resolution";
 import {
   resolveOrganizationIntelligenceIntent,
   type OrganizationIntelligenceIntent,
@@ -128,13 +133,24 @@ async function resolveMemberDirectoryAnswer(
     locale: CustomerActiveLocale;
   },
 ): Promise<PlatformSearchResult | null> {
-  if (!isCommunityMemberDirectoryReadSourceConnected("member.search")) {
-    return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "provider_missing") };
+  const readiness = assessOrganizationCapabilityReadiness(intent);
+  if (readiness.status === "adapter_missing") {
+    return {
+      answer: buildOrganizationIntelligenceGapAnswer(input.t, "adapter_missing", {
+        sourceReference: readiness.source_reference,
+        capabilityKey: intent.capability_key,
+      }),
+    };
   }
 
-  const permission = buildMemberDirectoryPermission(input.tenantContext, true);
+  const permission = buildMemberDirectoryPermission(input.tenantContext, readiness.provider_active);
   if (!permission.can_view_community) {
-    return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "permission_denied") };
+    return {
+      answer: buildOrganizationIntelligenceGapAnswer(input.t, "permission_required", {
+        sourceReference: readiness.source_reference,
+        capabilityKey: intent.capability_key,
+      }),
+    };
   }
 
   const bridge = createCommunityMemberDirectoryReadProviderBridge(input.supabase);
@@ -142,8 +158,19 @@ async function resolveMemberDirectoryAnswer(
 
   if (!bundle.source_exact && intent.kind !== "member_count") {
     if (intent.kind === "member_verification_status" && !intent.member_reference) {
-      return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data") };
+      return {
+        answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data", {
+          sourceReference: bundle.source_reference,
+          capabilityKey: intent.capability_key,
+        }),
+      };
     }
+    return {
+      answer: buildOrganizationIntelligenceGapAnswer(input.t, "source_unavailable", {
+        sourceReference: bundle.source_reference,
+        capabilityKey: intent.capability_key,
+      }),
+    };
   }
 
   switch (intent.kind) {
@@ -154,6 +181,10 @@ async function resolveMemberDirectoryAnswer(
     case "member_active_list":
       return {
         answer: buildMemberActiveListAnswer({ bundle, t: input.t, locale: input.locale }),
+      };
+    case "member_detail_list":
+      return {
+        answer: buildMemberDetailListAnswer({ bundle, t: input.t, locale: input.locale }),
       };
     case "member_pending_verification": {
       const pendingFromDirectory = bundle.members
@@ -209,7 +240,12 @@ async function resolveMemberDirectoryAnswer(
     case "member_verification_status": {
       const reference = intent.member_reference?.trim();
       if (!reference) {
-        return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data") };
+        return {
+          answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data", {
+            sourceReference: bundle.source_reference,
+            capabilityKey: intent.capability_key,
+          }),
+        };
       }
 
       const searchResult = await executeCommunityMemberDirectorySearch({
@@ -242,7 +278,12 @@ async function resolveMemberDirectoryAnswer(
 
       const record = matchedMember ?? null;
       if (!record && searchResult.records.length === 0) {
-        return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data") };
+        return {
+          answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data", {
+            sourceReference: bundle.source_reference,
+            capabilityKey: intent.capability_key,
+          }),
+        };
       }
 
       const verificationStatus =
@@ -269,6 +310,7 @@ async function resolveMemberDirectoryAnswer(
 }
 
 async function resolveSupportSlaAnswer(
+  intent: OrganizationIntelligenceIntent,
   input: {
     supabase: SupabaseClient;
     tenantContext: CompanionTenantContext;
@@ -276,6 +318,16 @@ async function resolveSupportSlaAnswer(
     locale: CustomerActiveLocale;
   },
 ): Promise<PlatformSearchResult> {
+  const readiness = assessOrganizationCapabilityReadiness(intent);
+  if (readiness.status === "adapter_missing") {
+    return {
+      answer: buildOrganizationIntelligenceGapAnswer(input.t, "adapter_missing", {
+        sourceReference: readiness.source_reference,
+        capabilityKey: intent.capability_key,
+      }),
+    };
+  }
+
   const rpcBundle = await fetchSupportBundleFromRpc(input.supabase);
   const contextProvider = buildSupportProviderFromContext(input.tenantContext);
 
@@ -305,14 +357,29 @@ async function resolveSupportSlaAnswer(
     : contextProvider;
 
   if (!provider || !bundle.source_exact) {
-    return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "provider_missing") };
+    return {
+      answer: buildOrganizationIntelligenceGapAnswer(input.t, "source_unavailable", {
+        sourceReference: readiness.source_reference,
+        capabilityKey: intent.capability_key,
+      }),
+    };
+  }
+
+  const supportPermission = buildSupportPermission(input.tenantContext, bundle.source_exact);
+  if (!supportPermission.can_read_sla) {
+    return {
+      answer: buildOrganizationIntelligenceGapAnswer(input.t, "permission_required", {
+        sourceReference: readiness.source_reference,
+        capabilityKey: intent.capability_key,
+      }),
+    };
   }
 
   const queueResult = await executeSupportQueueRead({
     organization_id: input.tenantContext.organizationId!,
     tenant_id: input.tenantContext.companyId ?? input.tenantContext.organizationId!,
     user_role: input.tenantContext.organizationRole ?? "staff",
-    permission: buildSupportPermission(input.tenantContext, bundle.source_exact),
+    permission: supportPermission,
     providers: [provider],
   });
 
@@ -392,11 +459,26 @@ export async function resolveOrganizationIntelligenceAnswer(
     companionSurface?: boolean;
   },
 ): Promise<PlatformSearchResult | null> {
-  const intent = resolveOrganizationIntelligenceIntent(query);
+  const intent = resolveOrganizationIntelligenceIntent(query, input.activeLocale);
   if (!intent) return null;
 
+  const readiness = assessOrganizationCapabilityReadiness(intent);
+  if (readiness.status === "adapter_missing") {
+    return {
+      answer: buildOrganizationIntelligenceGapAnswer(input.t, "adapter_missing", {
+        sourceReference: readiness.source_reference,
+        capabilityKey: intent.capability_key,
+      }),
+    };
+  }
+
   if (!input.tenantContext.organizationId || !input.supabase) {
-    return { answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data") };
+    return {
+      answer: buildOrganizationIntelligenceGapAnswer(input.t, "source_unavailable", {
+        sourceReference: readiness.source_reference,
+        capabilityKey: intent.capability_key,
+      }),
+    };
   }
 
   if (intent.kind === "prioritize_today") {
@@ -408,7 +490,7 @@ export async function resolveOrganizationIntelligenceAnswer(
   }
 
   if (intent.kind === "support_sla") {
-    return resolveSupportSlaAnswer({
+    return resolveSupportSlaAnswer(intent, {
       supabase: input.supabase,
       tenantContext: input.tenantContext,
       t: input.t,
@@ -424,6 +506,9 @@ export async function resolveOrganizationIntelligenceAnswer(
   });
 }
 
-export function shouldBypassGenericNavigationForOrganizationQuery(query: string): boolean {
-  return resolveOrganizationIntelligenceIntent(query) !== null;
+export function shouldBypassGenericNavigationForOrganizationQuery(
+  query: string,
+  locale: CustomerActiveLocale = "en",
+): boolean {
+  return resolveOrganizationCapabilityRoute(query, locale) !== null;
 }

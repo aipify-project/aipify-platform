@@ -304,7 +304,22 @@
       "uncertaintyPartial": "Noen felt var utilgjengelige — behandle ufullstendige tall som usikre.",
       "uncertaintyMissing": "Ingen livedata ble returnert for dette spørsmålet — Aipify gjetter ikke.",
       "permissionDenied": "Rollen din kan ikke lese disse organisasjonsdataene fra den tilkoblede kilden.",
-      "providerMissing": "Ingen live-kilde er koblet til dette organisasjonsspørsmålet ennå."
+      "permissionRequired": "Rollen din har ikke tillatelse til å lese disse dataene fra den tilkoblede kilden.",
+      "providerMissing": "Ingen live-kilde er koblet til dette organisasjonsspørsmålet ennå.",
+      "adapterMissing": "Ingen provider-adapter er registrert for denne organisasjonsevnen ennå.",
+      "sourceUnavailable": "Den tilkoblede kilden returnerte ikke livedata for dette spørsmålet.",
+      "memberDetailListLead": "Medlemmer fra det tilkoblede medlemsregisteret:",
+      "memberDetailListItem": "• {username} · ID {memberId} · {status}",
+      "memberDetailListEmpty": "Ingen medlemmer ble returnert av den tilkoblede kilden.",
+      "gapStatusLine": "Status: {status}",
+      "gapSourceReferenceLine": "Forventet kilde: {source}",
+      "gapCapabilityLine": "Evne: {capability}",
+      "gapStatus": {
+        "adapter_missing": "adapter_missing",
+        "permission_required": "permission_required",
+        "source_unavailable": "source_unavailable",
+        "missing_data": "missing_data"
+      }
     },
     "memory": {
       "sourceLabel": "Bekreftet organisasjonsminne",

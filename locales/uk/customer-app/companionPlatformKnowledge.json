@@ -142,7 +142,22 @@
       "uncertaintyPartial": "Деякі поля були недоступні — сприймайте неповні числа як невизначені.",
       "uncertaintyMissing": "Для цього запитання не повернуто live-дані — Aipify не вгадує.",
       "permissionDenied": "Ваша роль не може читати ці організаційні дані з підключеного джерела.",
-      "providerMissing": "Для цього організаційного запитання ще не підключено live-джерело."
+      "permissionRequired": "Ваша роль не має дозволу читати ці дані з підключеного джерела.",
+      "providerMissing": "Для цього організаційного запитання ще не підключено live-джерело.",
+      "adapterMissing": "Для цієї організаційної можливості ще не зареєстровано адаптер provider.",
+      "sourceUnavailable": "Підключене джерело не повернуло live-дані для цього запитання.",
+      "memberDetailListLead": "Учасники з підключеного реєстру учасників:",
+      "memberDetailListItem": "• {username} · ID {memberId} · {status}",
+      "memberDetailListEmpty": "Підключене джерело не повернуло жодного учасника.",
+      "gapStatusLine": "Статус: {status}",
+      "gapSourceReferenceLine": "Очікуване джерело: {source}",
+      "gapCapabilityLine": "Можливість: {capability}",
+      "gapStatus": {
+        "adapter_missing": "adapter_missing",
+        "permission_required": "permission_required",
+        "source_unavailable": "source_unavailable",
+        "missing_data": "missing_data"
+      }
     },
     "memory": {
       "sourceLabel": "Підтверджена організаційна пам'ять",

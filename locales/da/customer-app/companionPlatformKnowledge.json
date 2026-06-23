@@ -142,7 +142,22 @@
       "uncertaintyPartial": "Nogle felter var utilgængelige — behandl ufuldstændige tal som usikre.",
       "uncertaintyMissing": "Ingen livedata blev returneret for dette spørgsmål — Aipify gætter ikke.",
       "permissionDenied": "Din rolle kan ikke læse disse organisationsdata fra den tilsluttede kilde.",
-      "providerMissing": "Ingen live-kilde er tilsluttet dette organisationsspørgsmål endnu."
+      "permissionRequired": "Din rolle har ikke tilladelse til at læse disse data fra den tilsluttede kilde.",
+      "providerMissing": "Ingen live-kilde er tilsluttet dette organisationsspørgsmål endnu.",
+      "adapterMissing": "Ingen provider-adapter er registreret for denne organisationsevne endnu.",
+      "sourceUnavailable": "Den tilsluttede kilde returnerede ikke livedata for dette spørgsmål.",
+      "memberDetailListLead": "Medlemmer fra det tilsluttede medlemsregister:",
+      "memberDetailListItem": "• {username} · ID {memberId} · {status}",
+      "memberDetailListEmpty": "Ingen medlemmer blev returneret af den tilsluttede kilde.",
+      "gapStatusLine": "Status: {status}",
+      "gapSourceReferenceLine": "Forventet kilde: {source}",
+      "gapCapabilityLine": "Evne: {capability}",
+      "gapStatus": {
+        "adapter_missing": "adapter_missing",
+        "permission_required": "permission_required",
+        "source_unavailable": "source_unavailable",
+        "missing_data": "missing_data"
+      }
     },
     "memory": {
       "sourceLabel": "Bekræftet organisationshukommelse",

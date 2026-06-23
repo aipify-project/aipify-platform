@@ -87,33 +87,54 @@ function baseAnswer(
   };
 }
 
+export type OrganizationIntelligenceGapReason =
+  | "adapter_missing"
+  | "permission_required"
+  | "source_unavailable"
+  | "missing_data";
+
 export function buildOrganizationIntelligenceGapAnswer(
   t: Translator,
-  reason: "permission_denied" | "provider_missing" | "missing_data",
+  reason: OrganizationIntelligenceGapReason,
+  input?: {
+    sourceReference?: string | null;
+    capabilityKey?: string | null;
+  },
 ): PlatformKnowledgeAnswer {
   const key =
-    reason === "permission_denied"
-      ? `${BASE}.permissionDenied`
-      : reason === "provider_missing"
-        ? `${BASE}.providerMissing`
-        : `${BASE}.uncertaintyMissing`;
+    reason === "permission_required"
+      ? `${BASE}.permissionRequired`
+      : reason === "adapter_missing"
+        ? `${BASE}.adapterMissing`
+        : reason === "source_unavailable"
+          ? `${BASE}.sourceUnavailable`
+          : `${BASE}.uncertaintyMissing`;
+
+  const statusLabel = t(`${BASE}.gapStatus.${reason}`);
+  const sourceReference = input?.sourceReference?.trim() || null;
+  const explanation = [
+    t(`${BASE}.gapStatusLine`).replace("{status}", statusLabel),
+    sourceReference
+      ? t(`${BASE}.gapSourceReferenceLine`).replace("{source}", sourceReference)
+      : null,
+    input?.capabilityKey
+      ? t(`${BASE}.gapCapabilityLine`).replace("{capability}", input.capabilityKey)
+      : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   return {
     directAnswer: t(key),
-    explanation: t(`${BASE}.readinessNote`),
+    explanation,
     steps: [],
     actions: [],
-    sources: [
-      {
-        id: "organization-intelligence-gap",
-        label: t(`${BASE}.sourceLabel`),
-        kind: "customer_context",
-      },
-    ],
+    sources: [],
     sourceId: "organization-intelligence-gap",
     source: "customer_context",
     confidence: "low",
     showSupportEscalation: false,
+    requestedLiveIntegration: true,
   };
 }
 
@@ -152,6 +173,47 @@ export function buildMemberCountAnswer(input: {
     bundle.source_reference,
     t(`${BASE}.sourceLabel`),
     bundle.source_exact ? "high" : "moderate",
+  );
+}
+
+export function buildMemberDetailListAnswer(input: {
+  bundle: CommunityMemberDirectoryReadBundle;
+  t: Translator;
+  locale: CustomerActiveLocale;
+}): PlatformKnowledgeAnswer {
+  const members = input.bundle.members.slice(0, 12);
+
+  const lines =
+    members.length > 0
+      ? members
+          .map((member) =>
+            input
+              .t(`${BASE}.memberDetailListItem`)
+              .replace("{username}", member.username)
+              .replace("{memberId}", member.member_id)
+              .replace("{status}", member.membership_status),
+          )
+          .join("\n")
+      : input.t(`${BASE}.memberDetailListEmpty`);
+
+  const warnings: string[] = [];
+  if (!input.bundle.source_exact) warnings.push(input.t(`${BASE}.uncertaintyPartial`));
+
+  const meta = buildSourceMeta({
+    source: input.bundle.source_reference,
+    checkedAt: new Date().toISOString(),
+    freshness: input.bundle.freshness,
+    t: input.t,
+    locale: input.locale,
+    warnings,
+  });
+
+  return baseAnswer(
+    `${input.t(`${BASE}.memberDetailListLead`)}\n${lines}`,
+    meta.explanation,
+    input.bundle.source_reference,
+    input.t(`${BASE}.sourceLabel`),
+    input.bundle.source_exact && members.length > 0 ? "high" : "moderate",
   );
 }
 
