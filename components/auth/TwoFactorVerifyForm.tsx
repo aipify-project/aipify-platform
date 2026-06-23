@@ -4,6 +4,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { invalidateTwoFactorStatusCache } from "@/lib/auth/two-factor";
+import {
+  normalizeTotpDigitsFromPaste,
+  shouldAutoSubmitTotpCode,
+} from "@/lib/auth/two-factor-verify-auto-submit";
 
 type TwoFactorVerifyFormProps = {
   labels: {
@@ -33,6 +37,8 @@ export default function TwoFactorVerifyForm({ labels }: TwoFactorVerifyFormProps
   const [loading, setLoading] = useState(false);
   const [booting, setBooting] = useState(true);
   const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
+  const submitInFlightRef = useRef(false);
+  const autoAttemptedCodeRef = useRef<string | null>(null);
 
   const nextPath = searchParams.get("next");
 
@@ -50,6 +56,107 @@ export default function TwoFactorVerifyForm({ labels }: TwoFactorVerifyFormProps
     void createChallenge().finally(() => setBooting(false));
   }, [createChallenge]);
 
+  const verifyCode = useCallback(
+    async (code: string, manual = false) => {
+      if (submitInFlightRef.current || loading) return;
+
+      if (!manual && autoAttemptedCodeRef.current === code) return;
+
+      setError(null);
+
+      if (!challengeId) {
+        setError(labels.generic);
+        return;
+      }
+
+      if (!code) {
+        setError(labels.codeRequired);
+        return;
+      }
+
+      submitInFlightRef.current = true;
+      if (!manual && !recoveryMode) {
+        autoAttemptedCodeRef.current = code;
+      }
+
+      setLoading(true);
+      try {
+        const endpoint = recoveryMode
+          ? "/api/auth/2fa/recovery/verify"
+          : "/api/auth/2fa/verify";
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ challengeId, code }),
+        });
+        const data = (await res.json()) as { error?: string };
+
+        if (!res.ok) {
+          const key = data.error ?? "generic";
+          setError(
+            key === "invalidCode"
+              ? labels.invalidCode
+              : key === "challengeLocked"
+                ? labels.challengeLocked
+                : labels.generic,
+          );
+          if (key === "challengeLocked" || key === "generic") {
+            await createChallenge();
+          }
+          return;
+        }
+
+        invalidateTwoFactorStatusCache();
+
+        const destination =
+          nextPath?.startsWith("/") && !nextPath.startsWith("//")
+            ? nextPath
+            : "/app/command-center";
+        window.location.assign(destination);
+      } catch {
+        setError(labels.generic);
+      } finally {
+        setLoading(false);
+        submitInFlightRef.current = false;
+      }
+    },
+    [
+      challengeId,
+      createChallenge,
+      labels.challengeLocked,
+      labels.codeRequired,
+      labels.generic,
+      labels.invalidCode,
+      loading,
+      nextPath,
+      recoveryMode,
+    ],
+  );
+
+  useEffect(() => {
+    const code = digits.join("");
+    if (code.length < 6) {
+      autoAttemptedCodeRef.current = null;
+    }
+  }, [digits]);
+
+  useEffect(() => {
+    if (
+      !shouldAutoSubmitTotpCode({
+        digits,
+        autoAttemptedCode: autoAttemptedCodeRef.current,
+        recoveryMode,
+        booting,
+        loading,
+        submitInFlight: submitInFlightRef.current,
+      })
+    ) {
+      return;
+    }
+
+    void verifyCode(digits.join(""));
+  }, [digits, recoveryMode, booting, loading, verifyCode]);
+
   function updateDigit(index: number, value: string) {
     const digit = value.replace(/\D/g, "").slice(-1);
     setDigits((prev) => {
@@ -63,11 +170,12 @@ export default function TwoFactorVerifyForm({ labels }: TwoFactorVerifyFormProps
   }
 
   function handlePaste(e: React.ClipboardEvent<HTMLInputElement>) {
-    const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 6);
-    if (!pasted) return;
+    const pasted = e.clipboardData.getData("text");
+    const nextDigits = normalizeTotpDigitsFromPaste(pasted);
+    if (!nextDigits.some(Boolean)) return;
     e.preventDefault();
-    setDigits(pasted.split("").concat(Array(6).fill("")).slice(0, 6));
-    inputRefs.current[Math.min(pasted.length, 5)]?.focus();
+    setDigits(nextDigits);
+    inputRefs.current[Math.min(nextDigits.filter(Boolean).length, 5)]?.focus();
   }
 
   async function handleSignOut() {
@@ -78,58 +186,8 @@ export default function TwoFactorVerifyForm({ labels }: TwoFactorVerifyFormProps
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setError(null);
-
-    if (!challengeId) {
-      setError(labels.generic);
-      return;
-    }
-
     const code = recoveryMode ? recoveryCode.trim() : digits.join("");
-    if (!code) {
-      setError(labels.codeRequired);
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const endpoint = recoveryMode
-        ? "/api/auth/2fa/recovery/verify"
-        : "/api/auth/2fa/verify";
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ challengeId, code }),
-      });
-      const data = (await res.json()) as { error?: string };
-
-      if (!res.ok) {
-        const key = data.error ?? "generic";
-        setError(
-          key === "invalidCode"
-            ? labels.invalidCode
-            : key === "challengeLocked"
-              ? labels.challengeLocked
-              : labels.generic
-        );
-        if (key === "challengeLocked" || key === "generic") {
-          await createChallenge();
-        }
-        return;
-      }
-
-      invalidateTwoFactorStatusCache();
-
-      const destination =
-        nextPath?.startsWith("/") && !nextPath.startsWith("//")
-          ? nextPath
-          : "/app/command-center";
-      window.location.assign(destination);
-    } catch {
-      setError(labels.generic);
-    } finally {
-      setLoading(false);
-    }
+    await verifyCode(code, true);
   }
 
   if (booting) {
@@ -210,6 +268,7 @@ export default function TwoFactorVerifyForm({ labels }: TwoFactorVerifyFormProps
           onClick={() => {
             setRecoveryMode((v) => !v);
             setError(null);
+            autoAttemptedCodeRef.current = null;
           }}
           className="font-medium text-violet-600 hover:text-violet-700"
         >
