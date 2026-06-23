@@ -1,0 +1,175 @@
+{
+  "version": "companion-post-p1-production-readiness-certification-v1",
+  "generated_at": "2026-06-23T15:42:20.142Z",
+  "commit_hash": "696ff3616ac4b976e175010bcaea0ec7eb70b307",
+  "overall_status": "partial",
+  "max_readiness_certified": "partial",
+  "live_e2e_status": "blocked",
+  "session_mode": "blocked",
+  "organization_reference": null,
+  "environment": {
+    "cron_secret_configured": false,
+    "supabase_service_role_key_configured": false,
+    "live_e2e_enabled": true,
+    "live_e2e_base_url_configured": false
+  },
+  "post_p1_commits": [
+    {
+      "phase": "P1.01",
+      "commit_hash": "cd081337",
+      "summary": "Secure attachments and active artifact context"
+    },
+    {
+      "phase": "P1.02",
+      "commit_hash": "4bcead7b",
+      "summary": "Governed Canva artifact handoff adapter"
+    },
+    {
+      "phase": "P1.03",
+      "commit_hash": "eee46497",
+      "summary": "Persistent queue background execution"
+    },
+    {
+      "phase": "P1.04",
+      "commit_hash": "e52bfe81",
+      "summary": "Durable background queue worker and recovery"
+    },
+    {
+      "phase": "P1.05",
+      "commit_hash": "62f3c938",
+      "summary": "Unify chat surfaces and conversation lifecycle"
+    }
+  ],
+  "unit_tests": [
+    {
+      "phase": "P1.01",
+      "test_file": "lib/app/companion/companion-attachments-ui.test.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "phase": "P1.02",
+      "test_file": "lib/companion-runtime/artifact-context/external-handoff.test.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "phase": "P1.03",
+      "test_file": "lib/app/companion/chat-queue/chat-queue.test.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "phase": "P1.04",
+      "test_file": "lib/app/companion/chat-queue/worker-config.test.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "phase": "P1.05",
+      "test_file": "lib/app/companion/companion-surface-unification.test.ts",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "static_audits": [
+    {
+      "check_id": "path_exists:supabase/migrations/20261910000000_companion_conversation_attachments_post_p1_01.sql",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:supabase/migrations/20261911000000_companion_canva_artifact_handoff_post_p1_02.sql",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:supabase/migrations/20261912000000_companion_chat_queue_persistent.sql",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:supabase/migrations/20261913000000_companion_queue_worker.sql",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:supabase/migrations/20261914000000_companion_conversation_lifecycle.sql",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:app/api/cron/companion-queue-worker/route.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:app/api/aipify/companion/chat/enqueue/route.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:app/api/aipify/companion/chat/archive/route.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:app/api/aipify/companion/chat/delete/route.ts",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:components/app/companion-experience/CompanionReplyReadyToast.tsx",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "path_exists:components/app/companion-experience/CompanionUnifiedSurface.tsx",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "desktop_chat_uses_unified_surface",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "desktop_chat_no_legacy_history",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "cron_route_requires_secret",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "lifecycle_rpc:archive_companion_conversation",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "lifecycle_rpc:delete_companion_conversation",
+      "status": "pass",
+      "failure_reason": null
+    },
+    {
+      "check_id": "lifecycle_rpc:companion_conversation_audit_logs",
+      "status": "pass",
+      "failure_reason": null
+    }
+  ],
+  "flows": [],
+  "tenant_isolation": [],
+  "open_limitations": [
+    "Provider-specific adapters remain outside Core — governed handoff only.",
+    "Native mobile Companion client is not certified separately; shared queue/state is certified.",
+    "Cron worker certification requires CRON_SECRET — values are never stored in artifacts."
+  ],
+  "blockers": [
+    {
+      "code": "invalid_credentials",
+      "message": "Supabase rejected the email/password pair for this project. Confirm the same credentials work in APP login at target_host, and that the account uses password auth (not OAuth-only)."
+    }
+  ]
+}
