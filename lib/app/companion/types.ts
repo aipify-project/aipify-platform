@@ -24,10 +24,21 @@ export type CompanionAnswerSource = {
 
 export type CompanionAnswerFeedbackState = "helpful" | "not_helpful" | "org_confirm" | null;
 
+export type CompanionChatAttachmentSummary = {
+  attachment_id: string;
+  filename: string;
+  mime_type: string;
+  category: "image" | "pdf" | "document" | "text" | "other";
+  byte_size: number;
+  preview_url?: string;
+};
+
 export type CompanionChatMessage = {
   id: string;
   role: CompanionChatMessageRole;
   content: string;
+  attachments?: CompanionChatAttachmentSummary[];
+  activeArtifactId?: string | null;
   directAnswer?: string;
   explanation?: string;
   integrationStatusCard?: IntegrationStatusCardPayload;
@@ -134,4 +145,35 @@ export type CompanionExperienceLabels = {
   scrollToLatestAria: string;
   ariaUserMessage: string;
   ariaUserMessageIdentity: string;
+  attachments: {
+    addAttachment: string;
+    stagedTitle: string;
+    activeArtifactLabel: string;
+    activeBadge: string;
+    remove: string;
+    removeAttachment: string;
+    statusUploading: string;
+    dropHint: string;
+    previewAlt: string;
+    errors: {
+      filenameMissing: string;
+      emptyFile: string;
+      fileTooLarge: string;
+      typeNotAllowed: string;
+      tooManyFiles: string;
+      uploadFailed: string;
+      removeFailed: string;
+    };
+    context: {
+      resolvedActive: string;
+      unresolvedReference: string;
+      noBinaryNote: string;
+    };
+    externalHandoff: {
+      adapterMissing: string;
+      consentRequired: string;
+      permissionDenied: string;
+      ready: string;
+    };
+  };
 };

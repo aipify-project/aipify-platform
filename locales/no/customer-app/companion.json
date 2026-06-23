@@ -2156,6 +2156,37 @@
     "scrollToLatest": "Gå til nyeste melding",
     "scrollToLatestAria": "Gå til nyeste melding i denne samtalen",
     "ariaUserMessage": "Din melding",
-    "ariaUserMessageIdentity": "Ditt spørsmål"
+    "ariaUserMessageIdentity": "Ditt spørsmål",
+    "attachments": {
+      "addAttachment": "Legg ved fil",
+      "stagedTitle": "Vedlagte filer",
+      "activeArtifactLabel": "Aktiv fil",
+      "activeBadge": "Aktiv",
+      "remove": "Fjern",
+      "removeAttachment": "Fjern {filename}",
+      "statusUploading": "Laster opp…",
+      "dropHint": "Slipp filer her eller lim inn et bilde fra utklippstavlen. Maks 10 MB per fil.",
+      "previewAlt": "Forhåndsvisning av {filename}",
+      "errors": {
+        "filenameMissing": "Velg en fil med et gyldig navn.",
+        "emptyFile": "Denne filen er tom.",
+        "fileTooLarge": "Denne filen overskrider grensen på 10 MB.",
+        "typeNotAllowed": "Denne filtypen støttes ikke.",
+        "tooManyFiles": "Du kan legge ved opptil 5 filer om gangen.",
+        "uploadFailed": "Aipify kunne ikke laste opp filen. Prøv igjen.",
+        "removeFailed": "Aipify kunne ikke fjerne vedlegget."
+      },
+      "context": {
+        "resolvedActive": "Aipify knyttet meldingen din til den aktive filen: {filename}.",
+        "unresolvedReference": "Aipify klarte ikke å identifisere hvilken fil du mener. Velg aktiv fil eller last opp en.",
+        "noBinaryNote": "Filmetadata brukes som kontekst — rå filinnhold sendes ikke til eksterne tjenester uten din godkjenning."
+      },
+      "externalHandoff": {
+        "adapterMissing": "Ingen godkjent provider-adapter er registrert for den handlingen ennå. Aipify kan ikke overføre filen før integrasjon er tilgjengelig og du gir eksplisitt samtykke.",
+        "consentRequired": "Overføring av filen til en ekstern app krever ditt eksplisitte samtykke først.",
+        "permissionDenied": "Du har ikke tillatelse til å overføre denne filen.",
+        "ready": "Den aktive filen er klar for godkjent provider-overføring etter at du bekrefter."
+      }
+    }
   }
 }

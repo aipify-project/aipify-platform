@@ -1,4 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { CompanionArtifactContextPayload } from "@/lib/companion-runtime/artifact-context/types";
+import type { CompanionExternalProviderHandoff } from "@/lib/companion-runtime/artifact-context/types";
 import type { AppOrganizationRole } from "@/lib/app-portal/nav-config";
 import type { Translator } from "@/lib/i18n/translate";
 import type { UserRole } from "@/lib/tenant/types";
@@ -212,6 +214,8 @@ export type PlatformKnowledgeAnswer = {
   requestedLiveIntegration?: boolean;
   orgConfirmBlockedReason?: string;
   integrationToolName?: string;
+  artifactContext?: CompanionArtifactContextPayload;
+  externalHandoff?: CompanionExternalProviderHandoff;
 };
 
 export type ResolvedPlatformArticle = {
@@ -253,6 +257,7 @@ export type PlatformSearchOptions = {
   supabase?: SupabaseClient;
   integrationContext?: string | null;
   snapshotContext?: { activeModules?: readonly string[] };
+  artifactContext?: CompanionArtifactContextPayload;
   tenantContext?: import("@/lib/companion-runtime/companion-tenant-context").CompanionTenantContext;
 };
 

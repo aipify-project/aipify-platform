@@ -1270,7 +1270,38 @@
     "scrollToLatest": "Przejdź do najnowszej wiadomości",
     "scrollToLatestAria": "Przejdź do najnowszej wiadomości w tej rozmowie",
     "ariaUserMessage": "Twoja wiadomość",
-    "ariaUserMessageIdentity": "Twoje pytanie"
+    "ariaUserMessageIdentity": "Twoje pytanie",
+    "attachments": {
+      "addAttachment": "Dodaj załącznik",
+      "stagedTitle": "Dołączone pliki",
+      "activeArtifactLabel": "Aktywny plik",
+      "activeBadge": "Aktywny",
+      "remove": "Usuń",
+      "removeAttachment": "Usuń {filename}",
+      "statusUploading": "Przesyłanie…",
+      "dropHint": "Upuść pliki tutaj lub wklej obraz ze schowka. Maks. 10 MB na plik.",
+      "previewAlt": "Podgląd pliku {filename}",
+      "errors": {
+        "filenameMissing": "Wybierz plik z prawidłową nazwą.",
+        "emptyFile": "Ten plik jest pusty.",
+        "fileTooLarge": "Ten plik przekracza limit 10 MB.",
+        "typeNotAllowed": "Ten typ pliku nie jest obsługiwany.",
+        "tooManyFiles": "Możesz dołączyć maksymalnie 5 plików naraz.",
+        "uploadFailed": "Aipify nie mogło przesłać pliku. Spróbuj ponownie.",
+        "removeFailed": "Aipify nie mogło usunąć załącznika."
+      },
+      "context": {
+        "resolvedActive": "Aipify powiązało Twoją wiadomość z aktywnym plikiem: {filename}.",
+        "unresolvedReference": "Aipify nie rozpoznało, o który plik chodzi. Wybierz aktywny plik lub prześlij nowy.",
+        "noBinaryNote": "Metadane pliku służą jako kontekst — surowa zawartość nie jest wysyłana do zewnętrznych usług bez Twojej zgody."
+      },
+      "externalHandoff": {
+        "adapterMissing": "Brak zatwierdzonego adaptera dostawcy dla tej akcji. Aipify nie może przekazać pliku, dopóki integracja nie będzie dostępna i nie wyrazisz wyraźnej zgody.",
+        "consentRequired": "Przekazanie pliku do zewnętrznej aplikacji wymaga najpierw Twojej wyraźnej zgody.",
+        "permissionDenied": "Nie masz uprawnień do przekazania tego pliku.",
+        "ready": "Aktywny plik jest gotowy do zatwierdzonego przekazania po Twoim potwierdzeniu."
+      }
+    }
   },
   "companionRelationshipEngine": {
     "title": "Relacja z Companion",

@@ -148,5 +148,36 @@ export function buildCompanionExperienceLabels(t: Translator): CompanionExperien
     scrollToLatestAria: t(`${p}.scrollToLatestAria`),
     ariaUserMessage: t(`${p}.ariaUserMessage`),
     ariaUserMessageIdentity: t(`${p}.ariaUserMessageIdentity`),
+    attachments: {
+      addAttachment: t(`${p}.attachments.addAttachment`),
+      stagedTitle: t(`${p}.attachments.stagedTitle`),
+      activeArtifactLabel: t(`${p}.attachments.activeArtifactLabel`),
+      activeBadge: t(`${p}.attachments.activeBadge`),
+      remove: t(`${p}.attachments.remove`),
+      removeAttachment: t(`${p}.attachments.removeAttachment`),
+      statusUploading: t(`${p}.attachments.statusUploading`),
+      dropHint: t(`${p}.attachments.dropHint`),
+      previewAlt: t(`${p}.attachments.previewAlt`),
+      errors: {
+        filenameMissing: t(`${p}.attachments.errors.filenameMissing`),
+        emptyFile: t(`${p}.attachments.errors.emptyFile`),
+        fileTooLarge: t(`${p}.attachments.errors.fileTooLarge`),
+        typeNotAllowed: t(`${p}.attachments.errors.typeNotAllowed`),
+        tooManyFiles: t(`${p}.attachments.errors.tooManyFiles`),
+        uploadFailed: t(`${p}.attachments.errors.uploadFailed`),
+        removeFailed: t(`${p}.attachments.errors.removeFailed`),
+      },
+      context: {
+        resolvedActive: t(`${p}.attachments.context.resolvedActive`),
+        unresolvedReference: t(`${p}.attachments.context.unresolvedReference`),
+        noBinaryNote: t(`${p}.attachments.context.noBinaryNote`),
+      },
+      externalHandoff: {
+        adapterMissing: t(`${p}.attachments.externalHandoff.adapterMissing`),
+        consentRequired: t(`${p}.attachments.externalHandoff.consentRequired`),
+        permissionDenied: t(`${p}.attachments.externalHandoff.permissionDenied`),
+        ready: t(`${p}.attachments.externalHandoff.ready`),
+      },
+    },
   };
 }

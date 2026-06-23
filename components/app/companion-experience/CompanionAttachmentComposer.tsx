@@ -1,0 +1,336 @@
+"use client";
+
+import { useCallback, useRef, useState } from "react";
+import {
+  COMPANION_ATTACHMENT_MAX_COUNT,
+  type CompanionArtifactProvenanceSource,
+} from "@/lib/companion-runtime/artifact-context";
+import {
+  createLocalAttachmentId,
+  formatAttachmentByteSize,
+  uploadCompanionAttachment,
+  deleteCompanionAttachment,
+  setCompanionActiveArtifact,
+  type CompanionPendingAttachment,
+} from "@/lib/app/companion/attachments";
+import type { CompanionExperienceLabels, CompanionChatAttachmentSummary } from "@/lib/app/companion/types";
+
+type CompanionAttachmentComposerProps = {
+  query: string;
+  setQuery: (value: string) => void;
+  loading: boolean;
+  labels: CompanionExperienceLabels;
+  conversationId: string;
+  compact?: boolean;
+  onSubmit: (input: {
+    question: string;
+    attachmentIds: string[];
+    activeArtifactId: string | null;
+    attachmentSummaries: CompanionChatAttachmentSummary[];
+  }) => void;
+};
+
+function mapProvenance(source: "picker" | "drop" | "paste"): CompanionArtifactProvenanceSource {
+  if (source === "drop") return "drag_drop";
+  if (source === "paste") return "clipboard_paste";
+  return "file_picker";
+}
+
+export function CompanionAttachmentComposer({
+  query,
+  setQuery,
+  loading,
+  labels,
+  conversationId,
+  compact,
+  onSubmit,
+}: CompanionAttachmentComposerProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [attachments, setAttachments] = useState<CompanionPendingAttachment[]>([]);
+  const [activeArtifactId, setActiveArtifactId] = useState<string | null>(null);
+  const [composerError, setComposerError] = useState<string | null>(null);
+
+  const att = labels.attachments;
+
+  const queueUpload = useCallback(
+    async (files: FileList | File[], source: "picker" | "drop" | "paste") => {
+      const list = Array.from(files);
+      if (list.length === 0) return;
+
+      if (attachments.length + list.length > COMPANION_ATTACHMENT_MAX_COUNT) {
+        setComposerError(att.errors.tooManyFiles);
+        return;
+      }
+
+      setComposerError(null);
+      const provenance = mapProvenance(source);
+
+      for (const file of list) {
+        const localId = createLocalAttachmentId();
+        const pending: CompanionPendingAttachment = {
+          localId,
+          filename: file.name,
+          mimeType: file.type || "application/octet-stream",
+          byteSize: file.size,
+          category: "other",
+          status: "uploading",
+          provenance,
+          previewUrl: file.type.startsWith("image/") ? URL.createObjectURL(file) : undefined,
+        };
+
+        setAttachments((prev) => [...prev, pending]);
+
+        try {
+          const uploaded = await uploadCompanionAttachment({
+            file,
+            conversationId,
+            provenance,
+          });
+          setAttachments((prev) =>
+            prev.map((row) =>
+              row.localId === localId
+                ? {
+                    ...row,
+                    attachmentId: uploaded.attachment_id,
+                    filename: uploaded.original_filename,
+                    mimeType: uploaded.mime_type,
+                    byteSize: uploaded.byte_size,
+                    category: uploaded.category,
+                    status: "ready",
+                    previewUrl: uploaded.preview_url ?? row.previewUrl,
+                  }
+                : row,
+            ),
+          );
+          setActiveArtifactId(uploaded.attachment_id);
+          await setCompanionActiveArtifact(conversationId, uploaded.attachment_id);
+        } catch {
+          setAttachments((prev) =>
+            prev.map((row) =>
+              row.localId === localId
+                ? { ...row, status: "error", errorMessage: att.errors.uploadFailed }
+                : row,
+            ),
+          );
+        }
+      }
+    },
+    [attachments.length, att.errors.tooManyFiles, att.errors.uploadFailed, conversationId],
+  );
+
+  const removeAttachment = useCallback(
+    async (localId: string) => {
+      const target = attachments.find((row) => row.localId === localId);
+      if (!target) return;
+
+      if (target.attachmentId) {
+        try {
+          await deleteCompanionAttachment(target.attachmentId);
+        } catch {
+          setComposerError(att.errors.removeFailed);
+          return;
+        }
+      }
+
+      if (target.previewUrl?.startsWith("blob:")) {
+        URL.revokeObjectURL(target.previewUrl);
+      }
+
+      setAttachments((prev) => prev.filter((row) => row.localId !== localId));
+      if (activeArtifactId === target.attachmentId) {
+        setActiveArtifactId(null);
+      }
+    },
+    [activeArtifactId, attachments, att.errors.removeFailed],
+  );
+
+  const readyAttachmentIds = attachments
+    .filter((row) => row.status === "ready" && row.attachmentId)
+    .map((row) => row.attachmentId!);
+
+  const canSubmit =
+    !loading &&
+    (query.trim().length > 0 || readyAttachmentIds.length > 0) &&
+    attachments.every((row) => row.status !== "uploading");
+
+  return (
+    <div className="flex flex-col gap-2">
+      {attachments.length > 0 ? (
+        <div className="flex flex-col gap-2 rounded-xl border border-aipify-border bg-aipify-surface-muted/60 p-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="text-xs font-medium text-aipify-text-secondary">{att.stagedTitle}</p>
+            {attachments.length > 1 ? (
+              <label className="flex items-center gap-2 text-xs text-aipify-text-secondary">
+                <span>{att.activeArtifactLabel}</span>
+                <select
+                  value={activeArtifactId ?? ""}
+                  onChange={(event) => {
+                    const next = event.target.value || null;
+                    setActiveArtifactId(next);
+                    if (next) void setCompanionActiveArtifact(conversationId, next);
+                  }}
+                  className="rounded-md border border-aipify-border bg-white px-2 py-1 text-xs text-aipify-text"
+                  aria-label={att.activeArtifactLabel}
+                >
+                  {attachments
+                    .filter((row) => row.status === "ready" && row.attachmentId)
+                    .map((row) => (
+                      <option key={row.localId} value={row.attachmentId}>
+                        {row.filename}
+                      </option>
+                    ))}
+                </select>
+              </label>
+            ) : null}
+          </div>
+          <ul className="flex flex-col gap-2">
+            {attachments.map((row) => (
+              <li
+                key={row.localId}
+                className="flex items-start gap-3 rounded-lg border border-aipify-border bg-white p-2"
+              >
+                {row.previewUrl && row.mimeType.startsWith("image/") ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={row.previewUrl}
+                    alt=""
+                    className="h-12 w-12 shrink-0 rounded-md object-cover"
+                  />
+                ) : (
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-violet-50 text-xs font-medium text-violet-700">
+                    {row.category.toUpperCase().slice(0, 3)}
+                  </div>
+                )}
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-medium text-aipify-text">{row.filename}</p>
+                  <p className="text-xs text-aipify-text-muted">
+                    {formatAttachmentByteSize(row.byteSize)}
+                    {row.status === "uploading" ? ` · ${att.statusUploading}` : null}
+                    {row.status === "error" ? ` · ${row.errorMessage ?? att.errors.uploadFailed}` : null}
+                    {row.attachmentId === activeArtifactId ? ` · ${att.activeBadge}` : null}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => void removeAttachment(row.localId)}
+                  className="rounded-md px-2 py-1 text-xs text-aipify-text-muted hover:bg-aipify-surface-muted"
+                  aria-label={att.removeAttachment.replace("{filename}", row.filename)}
+                >
+                  {att.remove}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {composerError ? (
+        <p role="alert" className="text-xs text-red-700">
+          {composerError}
+        </p>
+      ) : null}
+
+      <form
+        className={compact ? "flex gap-2" : "flex flex-col gap-2 sm:flex-row"}
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (!canSubmit) return;
+          onSubmit({
+            question: query.trim(),
+            attachmentIds: readyAttachmentIds,
+            activeArtifactId,
+            attachmentSummaries: attachments
+              .filter((row) => row.status === "ready" && row.attachmentId)
+              .map(
+                (row): CompanionChatAttachmentSummary => ({
+                  attachment_id: row.attachmentId!,
+                  filename: row.filename,
+                  mime_type: row.mimeType,
+                  category: row.category,
+                  byte_size: row.byteSize,
+                  preview_url: row.previewUrl,
+                }),
+              ),
+          });
+          setAttachments([]);
+          setActiveArtifactId(null);
+          setComposerError(null);
+        }}
+        onDragOver={(event) => {
+          event.preventDefault();
+        }}
+        onDrop={(event) => {
+          event.preventDefault();
+          if (event.dataTransfer.files?.length) {
+            void queueUpload(event.dataTransfer.files, "drop");
+          }
+        }}
+      >
+        <input
+          ref={fileInputRef}
+          type="file"
+          multiple
+          className="sr-only"
+          accept="image/*,.pdf,.txt,.md,.doc,.docx,.odt,.rtf"
+          onChange={(event) => {
+            if (event.target.files?.length) {
+              void queueUpload(event.target.files, "picker");
+              event.target.value = "";
+            }
+          }}
+        />
+        <div className={`flex min-w-0 flex-1 gap-2 ${compact ? "" : "flex-col sm:flex-row"}`}>
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={loading || attachments.length >= COMPANION_ATTACHMENT_MAX_COUNT}
+              className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-aipify-border bg-white text-aipify-companion hover:bg-violet-50 disabled:opacity-60"
+              aria-label={att.addAttachment}
+              title={att.addAttachment}
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.961-1.01a2.25 2.25 0 1 1-3.183-3.183l3.183 3.183Z" />
+              </svg>
+            </button>
+            <input
+              type="text"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              onPaste={(event) => {
+                const items = event.clipboardData?.items;
+                if (!items) return;
+                const files: File[] = [];
+                for (const item of items) {
+                  if (item.kind === "file") {
+                    const file = item.getAsFile();
+                    if (file) files.push(file);
+                  }
+                }
+                if (files.length > 0) {
+                  event.preventDefault();
+                  void queueUpload(files, "paste");
+                }
+              }}
+              placeholder={labels.inputPlaceholder}
+              className="min-h-12 flex-1 rounded-xl border border-aipify-border bg-white px-4 py-3 text-base text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-companion focus:outline-none focus:ring-2 focus:ring-violet-200"
+              aria-label={labels.inputPlaceholder}
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={!canSubmit}
+            className={
+              compact
+                ? "inline-flex min-h-12 shrink-0 items-center rounded-xl bg-aipify-companion px-5 text-base font-medium text-white hover:bg-violet-700 disabled:opacity-60"
+                : "inline-flex min-h-12 items-center justify-center rounded-xl bg-aipify-companion px-5 py-2.5 text-base font-medium text-white hover:bg-violet-700 disabled:opacity-60"
+            }
+          >
+            {labels.askAipifyButton}
+          </button>
+        </div>
+        <p className="text-[11px] text-aipify-text-muted">{att.dropHint}</p>
+      </form>
+    </div>
+  );
+}

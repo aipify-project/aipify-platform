@@ -2156,6 +2156,37 @@
     "scrollToLatest": "Gå til nyeste besked",
     "scrollToLatestAria": "Gå til nyeste besked i denne samtale",
     "ariaUserMessage": "Din besked",
-    "ariaUserMessageIdentity": "Dit spørgsmål"
+    "ariaUserMessageIdentity": "Dit spørgsmål",
+    "attachments": {
+      "addAttachment": "Tilføj vedhæftning",
+      "stagedTitle": "Vedhæftede filer",
+      "activeArtifactLabel": "Aktiv fil",
+      "activeBadge": "Aktiv",
+      "remove": "Fjern",
+      "removeAttachment": "Fjern {filename}",
+      "statusUploading": "Uploader…",
+      "dropHint": "Slip filer her eller indsæt et billede fra udklipsholderen. Maks. 10 MB pr. fil.",
+      "previewAlt": "Forhåndsvisning af {filename}",
+      "errors": {
+        "filenameMissing": "Vælg en fil med et gyldigt navn.",
+        "emptyFile": "Filen er tom.",
+        "fileTooLarge": "Filen overskrider grænsen på 10 MB.",
+        "typeNotAllowed": "Denne filtype understøttes ikke.",
+        "tooManyFiles": "Du kan vedhæfte op til 5 filer ad gangen.",
+        "uploadFailed": "Aipify kunne ikke uploade filen. Prøv igen.",
+        "removeFailed": "Aipify kunne ikke fjerne vedhæftningen."
+      },
+      "context": {
+        "resolvedActive": "Aipify knyttede din besked til den aktive fil: {filename}.",
+        "unresolvedReference": "Aipify kunne ikke identificere hvilken fil du mener. Vælg aktiv fil eller upload en.",
+        "noBinaryNote": "Filmetadata bruges som kontekst — rå filindhold sendes ikke til eksterne tjenester uden din godkendelse."
+      },
+      "externalHandoff": {
+        "adapterMissing": "Ingen godkendt provider-adapter er registreret for den handling endnu. Aipify kan ikke overføre filen, før integration er tilgængelig, og du giver eksplicit samtykke.",
+        "consentRequired": "Overførsel af filen til en ekstern app kræver dit eksplicitte samtykke først.",
+        "permissionDenied": "Du har ikke tilladelse til at overføre denne fil.",
+        "ready": "Den aktive fil er klar til godkendt provider-overførsel, når du bekræfter."
+      }
+    }
   }
 }

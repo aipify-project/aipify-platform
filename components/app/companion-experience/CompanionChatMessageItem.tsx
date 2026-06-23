@@ -53,6 +53,7 @@ export function CompanionChatMessageItem({
         <CompanionUserMessageCard
           messageId={msg.id}
           content={msg.content}
+          attachments={msg.attachments}
           labels={labels}
           spacious={spacious}
         />

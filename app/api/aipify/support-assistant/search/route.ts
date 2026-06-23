@@ -16,9 +16,12 @@ import {
   loadCompanionTenantContext,
   resolveCompanionIntegrationContext,
 } from "@/lib/companion-runtime/tenant-context";
+import { loadCompanionArtifactContext } from "@/lib/companion-runtime/artifact-context/server";
+import { enrichAnswerWithArtifactContext } from "@/lib/companion-runtime/artifact-context/enrich-answer";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildCompanionExperienceLabels } from "@/lib/app/companion/labels";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import type { UserRole } from "@/lib/tenant/types";
 import { createClient } from "@/lib/supabase/server";
@@ -58,6 +61,11 @@ export async function GET(request: Request) {
         ? integrationContextParam.trim()
         : null;
     const platformActiveModules = searchParams.get("platform_active_modules");
+    const conversationId = searchParams.get("conversation_id");
+    const activeArtifactId = searchParams.get("active_artifact_id");
+    const attachmentIdsParam = searchParams.get("attachment_ids");
+    const externalProvider = searchParams.get("external_provider");
+    const externalConsent = searchParams.get("external_consent") === "true";
     const snapshotContext = platformActiveModules
       ? {
           activeModules: platformActiveModules
@@ -91,6 +99,26 @@ export async function GET(request: Request) {
     );
     const searchContext = buildPlatformSearchContextFromTenant(tenantContext, userRole);
 
+    let artifactContextBundle:
+      | Awaited<ReturnType<typeof loadCompanionArtifactContext>>
+      | null = null;
+
+    if (conversationId && query.trim()) {
+      artifactContextBundle = await loadCompanionArtifactContext(supabase, {
+        conversation_id: conversationId,
+        query,
+        active_artifact_id: activeArtifactId,
+        attachment_ids: attachmentIdsParam
+          ? attachmentIdsParam
+              .split(",")
+              .map((entry) => entry.trim())
+              .filter(Boolean)
+          : undefined,
+        external_provider: externalProvider,
+        external_consent: externalConsent,
+      });
+    }
+
     let subscriptionRaw: unknown = null;
     try {
       const { data } = await supabase.rpc("get_customer_license_center");
@@ -109,6 +137,14 @@ export async function GET(request: Request) {
       supabase,
       integrationContext: resolvedIntegrationContext,
       snapshotContext,
+      artifactContext: artifactContextBundle
+        ? {
+            conversation_id: artifactContextBundle.conversation_id,
+            active_artifact: artifactContextBundle.active_artifact,
+            attachment_ids: artifactContextBundle.attachment_ids,
+            references: artifactContextBundle.references,
+          }
+        : undefined,
       tenantContext,
     };
 
@@ -134,18 +170,55 @@ export async function GET(request: Request) {
       void trackLowConfidenceQuery(supabase, query, answerLocale, result.answer.confidence);
     }
 
-    const legacyArticle = answerToLegacyArticle(result.answer);
+    let answer = result.answer;
+
+    if (artifactContextBundle) {
+      const companionDict = await getCustomerAppDictionaryForSplits(answerLocale, ["companion"]);
+      const companionLabels = buildCompanionExperienceLabels(createTranslator(companionDict));
+      const att = companionLabels.attachments;
+
+      answer = enrichAnswerWithArtifactContext(
+        answer,
+        artifactContextBundle,
+        artifactContextBundle.attachments,
+        {
+          resolvedActive: (filename) =>
+            att.context.resolvedActive.replace("{filename}", filename),
+          unresolvedReference: att.context.unresolvedReference,
+          noBinaryNote: att.context.noBinaryNote,
+        },
+      );
+
+      if (artifactContextBundle.externalHandoff) {
+        const handoff = artifactContextBundle.externalHandoff;
+        answer.externalHandoff = handoff;
+        const handoffCopy =
+          handoff.status === "consent_required"
+            ? att.externalHandoff.consentRequired
+            : handoff.status === "permission_denied"
+              ? att.externalHandoff.permissionDenied
+              : handoff.status === "adapter_available"
+                ? att.externalHandoff.ready
+                : att.externalHandoff.adapterMissing;
+        answer = {
+          ...answer,
+          explanation: [answer.explanation, handoffCopy].filter(Boolean).join("\n\n"),
+        };
+      }
+    }
+
+    const legacyArticle = answerToLegacyArticle(answer);
 
     return NextResponse.json({
       found: true,
       query,
-      answer: result.answer,
+      answer,
       articles: [legacyArticle],
       matched_article_id: result.matchedArticleId,
       principle: labels.principle,
       corpus_version: COMPANION_PLATFORM_KNOWLEDGE_CORPUS_VERSION,
-      source: result.answer.source,
-      confidence: result.answer.confidence,
+      source: answer.source,
+      confidence: answer.confidence,
       answer_locale: answerLocale,
     });
   } catch {

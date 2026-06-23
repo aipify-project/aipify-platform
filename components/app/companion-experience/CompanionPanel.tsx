@@ -34,6 +34,8 @@ import { CompanionIcon } from "./CompanionIcon";
 import { CompanionQuickActions } from "./CompanionQuickActions";
 import { CompanionChat } from "./CompanionChat";
 import { CompanionChatScrollViewport } from "./CompanionChatScrollViewport";
+import { CompanionAttachmentComposer } from "./CompanionAttachmentComposer";
+import type { CompanionChatAttachmentSummary } from "@/lib/app/companion/types";
 
 const QUICK_ACTION_ICONS: Record<CompanionQuickActionId, string> = {
   orgStatus: "◉",
@@ -59,56 +61,6 @@ type CompanionPanelProps = {
 
 function createMessageId() {
   return `msg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-}
-
-function ComposerForm({
-  query,
-  setQuery,
-  loading,
-  labels,
-  onSubmit,
-  compact,
-}: {
-  query: string;
-  setQuery: (value: string) => void;
-  loading: boolean;
-  labels: CompanionExperienceLabels;
-  onSubmit: (question: string) => void;
-  compact?: boolean;
-}) {
-  return (
-    <form
-      className={compact ? "flex gap-2" : "flex flex-col gap-2 sm:flex-row"}
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit(query);
-      }}
-    >
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder={labels.inputPlaceholder}
-        className={
-          compact
-            ? "min-h-12 flex-1 rounded-xl border border-aipify-border bg-white px-4 py-3 text-base text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-companion focus:outline-none focus:ring-2 focus:ring-violet-200"
-            : "min-h-12 flex-1 rounded-xl border border-aipify-border bg-white px-4 py-3 text-base text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-companion focus:outline-none focus:ring-2 focus:ring-violet-200"
-        }
-        aria-label={labels.inputPlaceholder}
-      />
-      <button
-        type="submit"
-        disabled={loading || !query.trim()}
-        className={
-          compact
-            ? "inline-flex min-h-12 shrink-0 items-center rounded-xl bg-aipify-companion px-5 text-base font-medium text-white hover:bg-violet-700 disabled:opacity-60"
-            : "inline-flex min-h-12 items-center justify-center rounded-xl bg-aipify-companion px-5 py-2.5 text-base font-medium text-white hover:bg-violet-700 disabled:opacity-60"
-        }
-      >
-        {labels.askAipifyButton}
-      </button>
-    </form>
-  );
 }
 
 export function CompanionPanel({
@@ -243,17 +195,28 @@ export function CompanionPanel({
   }, [initialQuery]);
 
   const askQuestion = useCallback(
-    async (question: string) => {
-      const trimmed = question.trim();
-      if (!trimmed || loading) return;
+    async (input: {
+      question: string;
+      attachmentIds?: string[];
+      activeArtifactId?: string | null;
+      attachmentSummaries?: CompanionChatAttachmentSummary[];
+    }) => {
+      const trimmed = input.question.trim();
+      const hasAttachments = (input.attachmentIds?.length ?? 0) > 0;
+      if ((!trimmed && !hasAttachments) || loading) return;
 
       setError(false);
       setShowSuggestions(false);
       notifyUserSentMessage();
+      const displayContent =
+        trimmed ||
+        labels.attachments.stagedTitle;
       const userMessage: CompanionChatMessage = {
         id: createMessageId(),
         role: "user",
-        content: trimmed,
+        content: displayContent,
+        attachments: input.attachmentSummaries,
+        activeArtifactId: input.activeArtifactId ?? null,
         timestamp: Date.now(),
       };
       setMessages((prev) => [...prev, userMessage]);
@@ -262,7 +225,17 @@ export function CompanionPanel({
       setLoading(true);
 
       try {
-        const params = new URLSearchParams({ q: trimmed, locale });
+        const params = new URLSearchParams({
+          q: trimmed || labels.attachments.activeBadge,
+          locale,
+          conversation_id: activeConversationId,
+        });
+        if (input.activeArtifactId) {
+          params.set("active_artifact_id", input.activeArtifactId);
+        }
+        if (input.attachmentIds?.length) {
+          params.set("attachment_ids", input.attachmentIds.join(","));
+        }
         const lastSnapshot = [...messages]
           .reverse()
           .find((message) => message.role === "aipify" && message.platformSnapshotCard);
@@ -279,10 +252,10 @@ export function CompanionPanel({
         const article = parsed.articles[0];
 
         const reply = answer
-          ? buildPlatformAnswerReply(answer, labels, trimmed)
+          ? buildPlatformAnswerReply(answer, labels, trimmed || displayContent)
           : article
-            ? buildArticleReply(article, labels, trimmed)
-            : buildFallbackReply(labels, trimmed);
+            ? buildArticleReply(article, labels, trimmed || displayContent)
+            : buildFallbackReply(labels, trimmed || displayContent);
 
         setMessages((prev) => {
           const nextMessages = [...prev, reply];
@@ -290,7 +263,7 @@ export function CompanionPanel({
           saveRecentConversation(
             buildConversationPreview({
               id: activeConversationId,
-              title: firstUser?.content ?? trimmed,
+              title: firstUser?.content ?? trimmed ?? displayContent,
               preview: answer?.directAnswer ?? article?.summary ?? labels.noResults,
               locale,
               messages: nextMessages,
@@ -312,7 +285,7 @@ export function CompanionPanel({
     const trimmed = initialQuery?.trim();
     if (!trimmed || initialQuerySubmittedRef.current) return;
     initialQuerySubmittedRef.current = true;
-    void askQuestion(trimmed);
+    void askQuestion({ question: trimmed });
   }, [initialQuery, askQuestion]);
 
   function buildPlatformAnswerReply(
@@ -423,7 +396,7 @@ export function CompanionPanel({
       setError(false);
       return;
     }
-    void askQuestion(conv.title);
+    void askQuestion({ question: conv.title });
   }
 
   function handleDeleteConversation(conversationId: string) {
@@ -490,7 +463,7 @@ export function CompanionPanel({
           icons={QUICK_ACTION_ICONS}
           onSelect={(id) => {
             const action = labels.quickActions[id];
-            void askQuestion(action.title);
+            void askQuestion({ question: action.title });
           }}
           onNavigate={(id) => {
             window.location.href = resolveQuickActionHref(id);
@@ -506,7 +479,7 @@ export function CompanionPanel({
               <li key={s.id}>
                 <button
                   type="button"
-                  onClick={() => void askQuestion(s.text)}
+                  onClick={() => void askQuestion({ question: s.text })}
                   className="rounded-full border border-violet-200 bg-violet-50 px-3 py-2 text-sm text-violet-900 hover:border-aipify-companion hover:bg-violet-100"
                 >
                   {s.text}
@@ -710,12 +683,20 @@ export function CompanionPanel({
             </div>
 
             <div className="mt-4">
-              <ComposerForm
+              <CompanionAttachmentComposer
                 query={query}
                 setQuery={setQuery}
                 loading={loading}
                 labels={labels}
-                onSubmit={(q) => void askQuestion(q)}
+                conversationId={activeConversationId}
+                onSubmit={(payload) =>
+                  void askQuestion({
+                    question: payload.question,
+                    attachmentIds: payload.attachmentIds,
+                    activeArtifactId: payload.activeArtifactId,
+                    attachmentSummaries: payload.attachmentSummaries,
+                  })
+                }
               />
             </div>
           </>
@@ -821,13 +802,21 @@ export function CompanionPanel({
 
       {isActiveConversation ? (
         <div className="shrink-0 border-t border-aipify-border bg-white p-4 sm:px-6">
-          <ComposerForm
+          <CompanionAttachmentComposer
             query={query}
             setQuery={setQuery}
             loading={loading}
             labels={labels}
-            onSubmit={(q) => void askQuestion(q)}
+            conversationId={activeConversationId}
             compact
+            onSubmit={(payload) =>
+              void askQuestion({
+                question: payload.question,
+                attachmentIds: payload.attachmentIds,
+                activeArtifactId: payload.activeArtifactId,
+                attachmentSummaries: payload.attachmentSummaries,
+              })
+            }
           />
         </div>
       ) : null}

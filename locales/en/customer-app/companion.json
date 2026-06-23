@@ -2075,6 +2075,37 @@
     "scrollToLatestAria": "Go to latest message in this conversation",
     "ariaUserMessage": "Your message",
     "ariaUserMessageIdentity": "Your question",
+    "attachments": {
+      "addAttachment": "Add attachment",
+      "stagedTitle": "Attached files",
+      "activeArtifactLabel": "Active file",
+      "activeBadge": "Active",
+      "remove": "Remove",
+      "removeAttachment": "Remove {filename}",
+      "statusUploading": "Uploading…",
+      "dropHint": "Drop files here or paste an image from your clipboard. Max 10 MB per file.",
+      "previewAlt": "Preview of {filename}",
+      "errors": {
+        "filenameMissing": "Choose a file with a valid name.",
+        "emptyFile": "This file is empty.",
+        "fileTooLarge": "This file exceeds the 10 MB limit.",
+        "typeNotAllowed": "This file type is not supported.",
+        "tooManyFiles": "You can attach up to 5 files at a time.",
+        "uploadFailed": "Aipify could not upload this file. Please try again.",
+        "removeFailed": "Aipify could not remove this attachment."
+      },
+      "context": {
+        "resolvedActive": "Aipify linked your message to the active file: {filename}.",
+        "unresolvedReference": "Aipify could not identify which file you mean. Select the active file or upload one.",
+        "noBinaryNote": "File metadata is used for context — raw file contents are not sent to external providers without your approval."
+      },
+      "externalHandoff": {
+        "adapterMissing": "No approved provider adapter is registered for that action yet. Aipify cannot hand off this file until integration is available and you give explicit consent.",
+        "consentRequired": "Handing this file to an external app requires your explicit consent first.",
+        "permissionDenied": "You do not have permission to hand off this file.",
+        "ready": "The active file is ready for an approved provider handoff after you confirm."
+      }
+    },
     "quickActions": {
       "orgStatus": {
         "title": "Organization status",

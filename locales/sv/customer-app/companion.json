@@ -2156,6 +2156,37 @@
     "scrollToLatest": "Gå till senaste meddelandet",
     "scrollToLatestAria": "Gå till senaste meddelandet i den här konversationen",
     "ariaUserMessage": "Ditt meddelande",
-    "ariaUserMessageIdentity": "Din fråga"
+    "ariaUserMessageIdentity": "Din fråga",
+    "attachments": {
+      "addAttachment": "Bifoga fil",
+      "stagedTitle": "Bifogade filer",
+      "activeArtifactLabel": "Aktiv fil",
+      "activeBadge": "Aktiv",
+      "remove": "Ta bort",
+      "removeAttachment": "Ta bort {filename}",
+      "statusUploading": "Laddar upp…",
+      "dropHint": "Släpp filer här eller klistra in en bild från urklipp. Max 10 MB per fil.",
+      "previewAlt": "Förhandsvisning av {filename}",
+      "errors": {
+        "filenameMissing": "Välj en fil med ett giltigt namn.",
+        "emptyFile": "Filen är tom.",
+        "fileTooLarge": "Filen överskrider gränsen på 10 MB.",
+        "typeNotAllowed": "Den här filtypen stöds inte.",
+        "tooManyFiles": "Du kan bifoga upp till 5 filer åt gången.",
+        "uploadFailed": "Aipify kunde inte ladda upp filen. Försök igen.",
+        "removeFailed": "Aipify kunde inte ta bort bilagan."
+      },
+      "context": {
+        "resolvedActive": "Aipify kopplade ditt meddelande till den aktiva filen: {filename}.",
+        "unresolvedReference": "Aipify kunde inte identifiera vilken fil du menar. Välj aktiv fil eller ladda upp en.",
+        "noBinaryNote": "Filmetadata används som kontext — rått filinnehåll skickas inte till externa tjänster utan ditt godkännande."
+      },
+      "externalHandoff": {
+        "adapterMissing": "Ingen godkänd provider-adapter är registrerad för den åtgärden ännu. Aipify kan inte överföra filen förrän integration finns och du ger uttryckligt samtycke.",
+        "consentRequired": "Överföring av filen till en extern app kräver ditt uttryckliga samtycke först.",
+        "permissionDenied": "Du har inte behörighet att överföra den här filen.",
+        "ready": "Den aktiva filen är redo för godkänd provider-överföring efter att du bekräftar."
+      }
+    }
   }
 }
