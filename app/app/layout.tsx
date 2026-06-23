@@ -19,6 +19,7 @@ import {
   buildLayoutCompanionExperienceLabels,
   buildLayoutCompanionPresenceLabels,
   buildLayoutLicensePanelLabels,
+  buildLayoutNotificationCenterLabels,
   buildLayoutVocWidgetLabels,
 } from "@/lib/app/layout-shell-labels";
 import { buildAppNavSearchIndex, type AppNavSearchEntry } from "@/lib/app/nav-search";
@@ -174,6 +175,7 @@ export default async function AppLayout({
           companionExperienceLabels={buildLayoutCompanionExperienceLabels(t)}
           companionPresenceLabels={buildLayoutCompanionPresenceLabels(t)}
           voiceOfCustomerLabels={buildLayoutVocWidgetLabels(t)}
+          notificationCenterLabels={buildLayoutNotificationCenterLabels(t)}
           locale={locale}
           organizationSwitcherLabels={{
             label: t("shell.multiTenantArchitecture.organizationSwitcher"),

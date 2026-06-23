@@ -216,5 +216,30 @@
     "trustNote": "Deltagelse er altid frivillig. Vi bruger feedback kun til at forbedre Aipify — aldrig til reklame eller videresalg.",
     "transparencyNote": "Oplysninger, du deler her, indsamles for at forbedre Aipify-produkter og -tjenester.",
     "trustStatementLink": "Politik for kundefeedback og produktforbedring"
+  },
+  "notificationCenter": {
+    "title": "Notifikationer",
+    "close": "Luk notifikationscenter",
+    "emptyTitle": "Ingen notifikationer endnu",
+    "emptyDescription": "Når Aipify har operationelle opdateringer, companion-svar eller elementer, der kræver opmærksomhed, vises de her.",
+    "markRead": "Markér som læst",
+    "openAction": "Åbn",
+    "dismiss": "Afvis",
+    "viewAll": "Se alle notifikationer",
+    "unreadSummary": "{count} ulæste",
+    "ariaBell": "Åbn notifikationer",
+    "ariaUnread": "Åbn notifikationer, {count} ulæste",
+    "levels": {
+      "informational": "Information",
+      "important": "Vigtigt",
+      "action_required": "Handling påkrævet",
+      "critical": "Kritisk"
+    },
+    "eventTypes": {
+      "companionReplyReady": "Companion-svar",
+      "playfulBellMoment": "Legende øjeblik",
+      "approvalAwaitingAction": "Godkendelse",
+      "default": "Notifikation"
+    }
   }
 }

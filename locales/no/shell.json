@@ -216,5 +216,30 @@
     "trustNote": "Deltakelse er alltid frivillig. Vi bruker tilbakemeldinger kun for å forbedre Aipify — aldri til reklame eller videresalg.",
     "transparencyNote": "Informasjon du deler her samles inn for å forbedre Aipify-produkter og -tjenester.",
     "trustStatementLink": "Retningslinjer for kundetilbakemelding og produktforbedring"
+  },
+  "notificationCenter": {
+    "title": "Varsler",
+    "close": "Lukk varslingssenter",
+    "emptyTitle": "Ingen varsler ennå",
+    "emptyDescription": "Når Aipify har operative oppdateringer, companion-svar eller elementer som krever oppmerksomhet, vises de her.",
+    "markRead": "Merk som lest",
+    "openAction": "Åpne",
+    "dismiss": "Avvis",
+    "viewAll": "Se alle varsler",
+    "unreadSummary": "{count} uleste",
+    "ariaBell": "Åpne varsler",
+    "ariaUnread": "Åpne varsler, {count} uleste",
+    "levels": {
+      "informational": "Informasjon",
+      "important": "Viktig",
+      "action_required": "Handling kreves",
+      "critical": "Kritisk"
+    },
+    "eventTypes": {
+      "companionReplyReady": "Companion-svar",
+      "playfulBellMoment": "Lyst øyeblikk",
+      "approvalAwaitingAction": "Godkjenning",
+      "default": "Varsel"
+    }
   }
 }

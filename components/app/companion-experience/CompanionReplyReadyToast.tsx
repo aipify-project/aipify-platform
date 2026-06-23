@@ -1,13 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
-import type { PresenceNotification } from "@/lib/presence/notification-state";
 import { useOptionalCompanionExperience } from "./CompanionExperienceProvider";
-
-type CompanionReplyReadyToastProps = {
-  pollMs?: number;
-};
+import { useOptionalUnifiedNotificationFeed } from "@/components/presence/UnifiedNotificationFeedProvider";
+import type { PresenceNotification } from "@/lib/presence/notification-state";
 
 function parseConversationId(notification: PresenceNotification): string | null {
   const href = notification.action_href ?? "";
@@ -21,41 +17,19 @@ function parseConversationId(notification: PresenceNotification): string | null 
   }
 }
 
-export function CompanionReplyReadyToast({ pollMs = 12000 }: CompanionReplyReadyToastProps) {
+export function CompanionReplyReadyToast() {
   const companion = useOptionalCompanionExperience();
+  const feed = useOptionalUnifiedNotificationFeed();
   const labels = companion?.labels;
-  const [toast, setToast] = useState<PresenceNotification | null>(null);
-  const seenRef = useRef<Set<string>>(new Set());
+  const toast = feed?.toastNotification ?? null;
 
-  const poll = useCallback(async () => {
-    const res = await fetch("/api/presence/notifications?limit=10&unread_only=true");
-    if (!res.ok) return;
-    const data = (await res.json()) as {
-      notifications?: PresenceNotification[];
-    };
-    const candidates = (data.notifications ?? []).filter(
-      (item) => item.event_type === "companion_reply_ready" && !item.read_at,
-    );
-    const next = candidates.find((item) => !seenRef.current.has(item.id));
-    if (next) {
-      seenRef.current.add(next.id);
-      setToast(next);
-    }
-  }, []);
+  if (!toast || !labels || !feed) return null;
 
-  useEffect(() => {
-    void poll();
-    const id = window.setInterval(() => void poll(), pollMs);
-    return () => window.clearInterval(id);
-  }, [poll, pollMs]);
+  const href = toast.action_href ?? undefined;
+  const conversationId = parseConversationId(toast);
 
   async function dismiss(notificationId: string) {
-    await fetch(`/api/presence/notifications/${notificationId}/action`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action_type: "dismiss" }),
-    });
-    setToast(null);
+    await feed!.dismissNotification(notificationId);
   }
 
   function openReply(notification: PresenceNotification) {
@@ -64,17 +38,18 @@ export function CompanionReplyReadyToast({ pollMs = 12000 }: CompanionReplyReady
 
     if (companion && conversationId) {
       companion.openDrawerWithConversation(conversationId);
-    } else if (href) {
-      window.location.assign(href);
+      void feed!.markNotificationRead(notification.id);
+      feed!.suppressToast(notification.id);
+      return;
+    }
+
+    if (href) {
+      void feed!.openNotification(notification);
+      return;
     }
 
     void dismiss(notification.id);
   }
-
-  if (!toast || !labels) return null;
-
-  const href = toast.action_href ?? undefined;
-  const conversationId = parseConversationId(toast);
 
   return (
     <div
@@ -100,7 +75,10 @@ export function CompanionReplyReadyToast({ pollMs = 12000 }: CompanionReplyReady
             ) : (
               <Link
                 href={href}
-                onClick={() => void dismiss(toast.id)}
+                onClick={() => {
+                  void feed!.markNotificationRead(toast.id);
+                  feed!.suppressToast(toast.id);
+                }}
                 className="rounded-lg bg-aipify-companion px-3 py-1.5 text-xs font-medium text-white hover:opacity-90"
               >
                 {labels.replyToast.openConversation}

@@ -33,6 +33,7 @@ export const PRESENCE_EVENT_TYPES = [
   "customer_escalation_detected",
   "new_opportunity_identified",
   "companion_reply_ready",
+  "playful_bell_moment",
 ] as const;
 
 export type PresenceEventType = (typeof PRESENCE_EVENT_TYPES)[number];

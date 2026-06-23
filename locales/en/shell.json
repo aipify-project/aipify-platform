@@ -216,5 +216,30 @@
     "trustNote": "Participation is always voluntary. We use feedback only to improve Aipify — never for advertising or resale.",
     "transparencyNote": "Information you share here is collected to improve Aipify products and services.",
     "trustStatementLink": "Customer Feedback & Product Improvement Policy"
+  },
+  "notificationCenter": {
+    "title": "Notifications",
+    "close": "Close notification center",
+    "emptyTitle": "No notifications yet",
+    "emptyDescription": "When Aipify has operational updates, companion replies, or items requiring attention, they will appear here.",
+    "markRead": "Mark as read",
+    "openAction": "Open",
+    "dismiss": "Dismiss",
+    "viewAll": "View all notifications",
+    "unreadSummary": "{count} unread",
+    "ariaBell": "Open notifications",
+    "ariaUnread": "Open notifications, {count} unread",
+    "levels": {
+      "informational": "Information",
+      "important": "Important",
+      "action_required": "Action required",
+      "critical": "Critical"
+    },
+    "eventTypes": {
+      "companionReplyReady": "Companion reply",
+      "playfulBellMoment": "Playful moment",
+      "approvalAwaitingAction": "Approval",
+      "default": "Alert"
+    }
   }
 }

@@ -203,5 +203,30 @@
     "trustNote": "Participation is always voluntary. We use feedback only to improve Aipify — never for advertising or resale.",
     "transparencyNote": "Information you share here is collected to improve Aipify products and services.",
     "trustStatementLink": "Customer Feedback & Product Improvement Policy"
+  },
+  "notificationCenter": {
+    "title": "Сповіщення",
+    "close": "Закрити центр сповіщень",
+    "emptyTitle": "Сповіщень ще немає",
+    "emptyDescription": "Коли в Aipify з’являться операційні оновлення, відповіді companion або елементи, що потребують уваги, вони відображатимуться тут.",
+    "markRead": "Позначити прочитаним",
+    "openAction": "Відкрити",
+    "dismiss": "Відхилити",
+    "viewAll": "Переглянути всі сповіщення",
+    "unreadSummary": "{count} непрочитаних",
+    "ariaBell": "Відкрити сповіщення",
+    "ariaUnread": "Відкрити сповіщення, {count} непрочитаних",
+    "levels": {
+      "informational": "Інформація",
+      "important": "Важливо",
+      "action_required": "Потрібна дія",
+      "critical": "Критично"
+    },
+    "eventTypes": {
+      "companionReplyReady": "Відповідь companion",
+      "playfulBellMoment": "Грайливий момент",
+      "approvalAwaitingAction": "Затвердження",
+      "default": "Сповіщення"
+    }
   }
 }

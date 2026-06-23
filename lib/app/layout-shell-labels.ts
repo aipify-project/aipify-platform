@@ -10,6 +10,10 @@ import {
   FEEDBACK_TYPES,
 } from "@/lib/voice-of-the-customer/constants";
 import type { Translator } from "@/lib/i18n/translate";
+import {
+  buildUnifiedNotificationCenterLabels,
+  type UnifiedNotificationCenterLabels,
+} from "@/lib/presence/unified-notification-feed";
 
 export function buildLayoutLicensePanelLabels(t: Translator) {
   const p = "shell.licenseSidebar";
@@ -164,4 +168,10 @@ export function buildLayoutVocWidgetLabels(t: Translator): VocWidgetLabels {
     trustStatementLink: t(`${p}.trustStatementLink`),
     trustStatementLinkAria: t(`${p}.trustStatementLinkAria`),
   };
+}
+
+export function buildLayoutNotificationCenterLabels(
+  t: Translator,
+): UnifiedNotificationCenterLabels {
+  return buildUnifiedNotificationCenterLabels(t);
 }

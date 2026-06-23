@@ -57,6 +57,10 @@ export const PRESENCE_MESSAGE_TEMPLATES: Record<
     title: "Aipify has a reply ready",
     body: "Your Companion answer is ready to review.",
   },
+  playful_bell_moment: {
+    title: "A playful moment",
+    body: "Aipify shared a brief playful note.",
+  },
 };
 
 export const PRESENCE_PERSONALITY_RULES = [

@@ -17,6 +17,11 @@ import type { CompanionExperienceLabels } from "@/lib/app/companion/types";
 import type { VocWidgetLabels } from "@/lib/voice-of-the-customer";
 import type { CompanionPresenceLabels } from "@/components/app/companion-presence";
 import { PresenceProvider, type PresenceLabels } from "@/components/presence/PresenceProvider";
+import {
+  UnifiedNotificationFeedProvider,
+} from "@/components/presence/UnifiedNotificationFeedProvider";
+import { NotificationCenterDrawer } from "@/components/presence/NotificationCenterDrawer";
+import type { UnifiedNotificationCenterLabels } from "@/lib/presence/unified-notification-feed";
 import Topbar from "./Topbar";
 import { OrganizationSwitcher } from "@/components/app/organization";
 import {
@@ -115,6 +120,7 @@ type DashboardShellProps = {
     navSources: CommandBarNavSource[];
   };
   voiceOfCustomerLabels?: VocWidgetLabels;
+  notificationCenterLabels?: UnifiedNotificationCenterLabels;
   pwaLabels?: PwaInstallLabels;
   onMenuClick?: () => void;
   children: React.ReactNode;
@@ -152,6 +158,7 @@ export default function DashboardShell({
   twoFactorBadgeLabels,
   commandBar,
   voiceOfCustomerLabels,
+  notificationCenterLabels,
   pwaLabels,
   children,
 }: DashboardShellProps) {
@@ -188,6 +195,7 @@ export default function DashboardShell({
           companionPresenceLabels={companionPresenceLabels}
           companionExperienceLabels={companionExperienceLabels}
           voiceOfCustomerLabels={voiceOfCustomerLabels}
+          notificationCenterLabels={notificationCenterLabels}
           locale={locale}
           languageSelectorLabels={
             shellVariant === "customer" ? languageSelectorLabels : undefined
@@ -231,6 +239,7 @@ export default function DashboardShell({
       companionPresenceLabels={companionPresenceLabels}
       companionExperienceLabels={companionExperienceLabels}
       voiceOfCustomerLabels={voiceOfCustomerLabels}
+      notificationCenterLabels={notificationCenterLabels}
       locale={locale}
       languageSelectorLabels={languageSelectorLabels}
       pwaLabels={pwaLabels}
@@ -278,6 +287,7 @@ function DashboardShellFrame({
   organizationSwitcherLabels,
   twoFactorBadgeLabels,
   voiceOfCustomerLabels,
+  notificationCenterLabels,
   pwaLabels,
   commandBarLabels,
   children,
@@ -595,13 +605,25 @@ function DashboardShellFrame({
       withCompanionExperience
     );
 
+  const withUnifiedNotifications =
+    shellVariant === "customer" &&
+    pathname.startsWith("/app") &&
+    notificationCenterLabels ? (
+      <UnifiedNotificationFeedProvider labels={notificationCenterLabels}>
+        {withFeedback}
+        <NotificationCenterDrawer />
+      </UnifiedNotificationFeedProvider>
+    ) : (
+      withFeedback
+    );
+
   if (!presenceLabels) {
-    return withFeedback;
+    return withUnifiedNotifications;
   }
 
   return (
     <PresenceProvider surface={shellVariant} labels={presenceLabels} locale={locale}>
-      {withFeedback}
+      {withUnifiedNotifications}
     </PresenceProvider>
   );
 }
