@@ -1468,6 +1468,13 @@
     "loading": "Laddar",
     "empty": "Executive Command Center är inte tillgängligt för denna organisation.",
     "refresh": "Uppdatera",
+    "liveRefresh": {
+      "updatedNow": "Uppdaterad just nu",
+      "updatedSecondsAgo": "Uppdaterad för {seconds} sekunder sedan",
+      "updatedMinutesAgo": "Uppdaterad för {minutes} minuter sedan",
+      "refreshFailed": "Kunde inte uppdatera. Visar senast kända data.",
+      "refreshing": "Uppdaterar…"
+    },
     "overallHealthScore": "Organisationshälsa",
     "companionRecommendations": "Companion-rekommendationer",
     "noRecords": "Inga poster ännu.",

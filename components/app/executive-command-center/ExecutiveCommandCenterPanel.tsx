@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { humanizeTranslationKey } from "@/lib/i18n/humanize-key";
+import { dedupeFetch } from "@/lib/polling";
 import {
   AppEmptyState,
   AppErrorState,
@@ -51,6 +52,7 @@ import type { buildExecutiveCommandCenterLabels } from "@/lib/executive-command-
 import { SinceLastLoginPresentation } from "@/components/shared/since-last-login/SinceLastLoginPresentation";
 import { EccTabIcons } from "./ecc-tab-icons";
 import { useExecutiveCommandCenterRefresh } from "./ExecutiveCommandCenterRefreshContext";
+import { useExecutiveCommandCenterLiveRefresh } from "./use-executive-command-center-live-refresh";
 
 type Labels = ReturnType<typeof buildExecutiveCommandCenterLabels>;
 
@@ -216,29 +218,94 @@ export function ExecutiveCommandCenterPanel({
 }) {
   const [center, setCenter] = useState<ExecutiveCommandCenter | null>(null);
   const [loading, setLoading] = useState(true);
-  const { registerRefreshHandler } = useExecutiveCommandCenterRefresh();
+  const abortRef = useRef<AbortController | null>(null);
+  const centerRef = useRef<ExecutiveCommandCenter | null>(null);
+  const {
+    registerRefreshHandler,
+    reportRefreshOutcome,
+    setSilentRefreshing,
+  } = useExecutiveCommandCenterRefresh();
   const resolveLabel = useMemo(
     () => (key: string) => labels.labelLookup[key] ?? humanizeTranslationKey(key),
     [labels.labelLookup]
   );
 
-  const load = useCallback(async () => {
-    setLoading(true);
+  const load = useCallback(async (options?: { silent?: boolean }) => {
+    const silent = options?.silent ?? false;
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    if (!silent && !centerRef.current) {
+      setLoading(true);
+    } else if (silent) {
+      setSilentRefreshing(true);
+    }
+
     const rpcSection = ecc590SectionToRpc(activeSection);
-    const res = await fetch(`/api/executive-command-center/center?section=${rpcSection}`);
-    const json = await res.json().catch(() => ({}));
-    setCenter(parseExecutiveCommandCenter(json));
-    setLoading(false);
-  }, [activeSection]);
+
+    try {
+      const ok = await dedupeFetch(`ecc-center:${activeSection}`, async () => {
+        const res = await fetch(`/api/executive-command-center/center?section=${rpcSection}`, {
+          signal: controller.signal,
+          cache: "no-store",
+        });
+
+        if (controller.signal.aborted) {
+          return false;
+        }
+
+        const json = await res.json().catch(() => ({}));
+        if (controller.signal.aborted) {
+          return false;
+        }
+
+        if (!res.ok) {
+          reportRefreshOutcome({
+            ok: false,
+            silent,
+            errorMessage: typeof json.error === "string" ? json.error : null,
+          });
+          return false;
+        }
+
+        const parsed = parseExecutiveCommandCenter(json);
+        centerRef.current = parsed;
+        setCenter(parsed);
+        reportRefreshOutcome({ ok: true, silent });
+        return true;
+      });
+
+      return ok;
+    } catch {
+      if (!controller.signal.aborted) {
+        reportRefreshOutcome({ ok: false, silent });
+      }
+      return false;
+    } finally {
+      if (!controller.signal.aborted) {
+        setLoading(false);
+        if (silent) {
+          setSilentRefreshing(false);
+        }
+      }
+    }
+  }, [activeSection, reportRefreshOutcome, setSilentRefreshing]);
 
   useEffect(() => {
-    void load();
+    centerRef.current = center;
+  }, [center]);
+
+  useEffect(() => {
+    void load({ silent: false });
   }, [load]);
 
   useEffect(() => {
     registerRefreshHandler(load);
     return () => registerRefreshHandler(null);
   }, [load, registerRefreshHandler]);
+
+  useExecutiveCommandCenterLiveRefresh(load);
 
   const datasets = useMemo(() => {
     if (!center?.found) return null;
@@ -275,7 +342,7 @@ export function ExecutiveCommandCenterPanel({
         description={center?.error ?? access.description}
         statusKind={access.statusKind}
         statusLabel={access.title}
-        onRetry={() => void load()}
+        onRetry={() => void load({ silent: false })}
         retryLabel={labels.premium.retry}
         returnHref="/app/command-center"
         returnLabel={labels.premium.returnToDashboard}

@@ -1,5 +1,6 @@
 /** Phase 370A — global polling intervals and cache TTLs (milliseconds). */
 
+export const POLL_INTERVAL_COMMAND_CENTER_MS = 60_000;
 export const POLL_INTERVAL_CRITICAL_MS = 30_000;
 export const POLL_INTERVAL_NOTIFICATIONS_MS = 60_000;
 export const POLL_INTERVAL_PRESENCE_OPEN_MS = 60_000;

@@ -1446,6 +1446,13 @@
     "loading": "Loading",
     "empty": "Executive Command Center is not available for this organization.",
     "refresh": "Refresh",
+    "liveRefresh": {
+      "updatedNow": "Updated just now",
+      "updatedSecondsAgo": "Updated {seconds} seconds ago",
+      "updatedMinutesAgo": "Updated {minutes} minutes ago",
+      "refreshFailed": "Could not refresh. Showing last known data.",
+      "refreshing": "Updating…"
+    },
     "overallHealthScore": "Organizational Health",
     "companionRecommendations": "Companion Recommendations",
     "noRecords": "No records yet.",

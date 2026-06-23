@@ -12,6 +12,13 @@ export function buildExecutiveCommandCenterLabels(t: Translator) {
     loading: t(`${p}.loading`),
     empty: t(`${p}.empty`),
     refresh: t(`${p}.refresh`),
+    liveRefresh: {
+      updatedNow: t(`${p}.liveRefresh.updatedNow`),
+      updatedSecondsAgo: t(`${p}.liveRefresh.updatedSecondsAgo`),
+      updatedMinutesAgo: t(`${p}.liveRefresh.updatedMinutesAgo`),
+      refreshFailed: t(`${p}.liveRefresh.refreshFailed`),
+      refreshing: t(`${p}.liveRefresh.refreshing`),
+    },
     overallHealthScore: t(`${p}.overallHealthScore`),
     companionRecommendations: t(`${p}.companionRecommendations`),
     noRecords: t(`${p}.noRecords`),

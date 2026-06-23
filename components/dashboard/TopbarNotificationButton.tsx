@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import {
+  isCommandCenterRoute,
   POLL_INTERVAL_HIDDEN_BADGE_MS,
   POLL_INTERVAL_NOTIFICATIONS_MS,
   dedupeFetch,
@@ -11,6 +12,7 @@ import {
   shouldPollNotifications,
   usePollingTask,
 } from "@/lib/polling";
+import { dispatchOperationalDataRefresh } from "@/lib/command-center/operational-refresh-events";
 import { createClient } from "@/lib/supabase/client";
 
 type TopbarNotificationButtonProps = {
@@ -31,6 +33,7 @@ export default function TopbarNotificationButton({ label }: TopbarNotificationBu
   const pathname = usePathname();
   const [counts, setCounts] = useState<UnreadCounts>({ unread: 0, critical_unread: 0 });
   const orgReadyRef = useRef<boolean | null>(null);
+  const previousUnreadRef = useRef(0);
 
   const ensureOrgReady = useCallback(async (): Promise<boolean> => {
     if (orgReadyRef.current === true) return true;
@@ -91,6 +94,17 @@ export default function TopbarNotificationButton({ label }: TopbarNotificationBu
   useEffect(() => {
     void loadUnread();
   }, [loadUnread]);
+
+  useEffect(() => {
+    if (!isCommandCenterRoute(pathname)) {
+      previousUnreadRef.current = counts.unread;
+      return;
+    }
+    if (counts.unread > previousUnreadRef.current) {
+      dispatchOperationalDataRefresh("notifications");
+    }
+    previousUnreadRef.current = counts.unread;
+  }, [counts.unread, pathname]);
 
   const pollingEnabled =
     shouldPollNotifications(pathname) && !isPermanentPollingFailure("notification-unread-count");

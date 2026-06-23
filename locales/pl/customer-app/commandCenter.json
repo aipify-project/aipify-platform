@@ -850,6 +850,13 @@
     "loading": "Ładowanie",
     "empty": "Executive Command Center nie jest dostępne dla tej organizacji.",
     "refresh": "Odśwież",
+    "liveRefresh": {
+      "updatedNow": "Zaktualizowano przed chwilą",
+      "updatedSecondsAgo": "Zaktualizowano {seconds} sekund temu",
+      "updatedMinutesAgo": "Zaktualizowano {minutes} minut temu",
+      "refreshFailed": "Nie udało się odświeżyć. Wyświetlane są ostatnie znane dane.",
+      "refreshing": "Aktualizowanie…"
+    },
     "overallHealthScore": "Zdrowie organizacji",
     "companionRecommendations": "Rekomendacje Companion",
     "noRecords": "Brak rekordów.",

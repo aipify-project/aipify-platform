@@ -850,6 +850,13 @@
     "loading": "Завантаження",
     "empty": "Executive Command Center недоступний для цієї організації.",
     "refresh": "Оновити",
+    "liveRefresh": {
+      "updatedNow": "Щойно оновлено",
+      "updatedSecondsAgo": "Оновлено {seconds} секунд тому",
+      "updatedMinutesAgo": "Оновлено {minutes} хвилин тому",
+      "refreshFailed": "Не вдалося оновити. Показано останні відомі дані.",
+      "refreshing": "Оновлення…"
+    },
     "overallHealthScore": "Здоров'я організації",
     "companionRecommendations": "Рекомендації Companion",
     "noRecords": "Записів ще немає.",

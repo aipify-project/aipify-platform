@@ -701,6 +701,19 @@
     "executiveCockpitLink": "Executive Strategic Decision Cockpit"
   },
   "executiveCommandCenter": {
+    "title": "Centro de mando ejecutivo",
+    "refresh": "Actualizar",
+    "loading": "Cargando",
+    "liveRefresh": {
+      "updatedNow": "Actualizado ahora",
+      "updatedSecondsAgo": "Actualizado hace {seconds} segundos",
+      "updatedMinutesAgo": "Actualizado hace {minutes} minutos",
+      "refreshFailed": "No se pudo actualizar. Mostrando los últimos datos conocidos.",
+      "refreshing": "Actualizando…"
+    },
+    "premium": {
+      "refreshing": "Actualizando…"
+    },
     "commandBriefOverview": {
       "organizationHealthTitle": "Salud organizacional",
       "organizationHealthEmptyTitle": "ℹ️ Señales de salud no disponibles",

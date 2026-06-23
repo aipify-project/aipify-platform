@@ -1468,6 +1468,13 @@
     "loading": "Indlæser",
     "empty": "Executive Command Center er ikke tilgængeligt for denne organisation.",
     "refresh": "Opdater",
+    "liveRefresh": {
+      "updatedNow": "Opdateret nu",
+      "updatedSecondsAgo": "Opdateret for {seconds} sekunder siden",
+      "updatedMinutesAgo": "Opdateret for {minutes} minutter siden",
+      "refreshFailed": "Kunne ikke opdatere. Viser senest kendte data.",
+      "refreshing": "Opdaterer…"
+    },
     "overallHealthScore": "Organisationshelbred",
     "companionRecommendations": "Companion-anbefalinger",
     "noRecords": "Ingen poster endnu.",
