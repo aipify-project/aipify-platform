@@ -2216,6 +2216,28 @@
           "handoffFailed": "Canva godtok ikke filen. Ingenting ble rapportert som vellykket."
         }
       }
+    },
+    "externalApplications": {
+      "useInApplication": "Bruk i program",
+      "chooseApplication": "Velg program",
+      "noApplicationsAvailable": "Ingen tilkoblede programmer støtter denne filen ennå.",
+      "handoff": {
+        "adapterMissing": "Ingen godkjent programadapter er registrert for den handlingen ennå.",
+        "partial": "Programadapteren er registrert, men ikke fullt klar — koble til integrasjonen eller velg en støttet filtype.",
+        "consentRequired": "Bruk av filen i et eksternt program krever ditt eksplisitte samtykke først.",
+        "permissionDenied": "Du har ikke tillatelse til å bruke denne filen i eksterne programmer.",
+        "ready": "Den aktive filen er klar for en godkjent programhandling etter at du bekrefter.",
+        "unsupported": "Denne filtypen støttes ikke for valgt programhandling."
+      },
+      "providers": {
+        "canva": "Canva",
+        "adobe_photoshop": "Adobe Photoshop",
+        "adobe_illustrator": "Adobe Illustrator",
+        "microsoft_word": "Microsoft Word",
+        "microsoft_excel": "Microsoft Excel",
+        "microsoft_powerpoint": "Microsoft PowerPoint",
+        "adobe_premiere": "Adobe Premiere Pro"
+      }
     }
   }
 }

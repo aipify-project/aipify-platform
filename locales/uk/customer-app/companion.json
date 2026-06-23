@@ -1330,6 +1330,28 @@
           "handoffFailed": "Canva не прийняло файл. Успіх не було зафіксовано."
         }
       }
+    },
+    "externalApplications": {
+      "useInApplication": "Використати в програмі",
+      "chooseApplication": "Обрати програму",
+      "noApplicationsAvailable": "Жодна підключена програма ще не підтримує цей файл.",
+      "handoff": {
+        "adapterMissing": "Для цієї дії ще не зареєстровано схвалений адаптер програми.",
+        "partial": "Адаптер програми зареєстровано, але він ще не повністю готовий — підключіть інтеграцію або оберіть підтримуваний тип файлу.",
+        "consentRequired": "Використання файлу у зовнішній програмі спочатку потребує вашої явної згоди.",
+        "permissionDenied": "У вас немає дозволу використовувати цей файл у зовнішніх програмах.",
+        "ready": "Активний файл готовий до схваленої дії програми після вашого підтвердження.",
+        "unsupported": "Цей тип файлу не підтримується для обраної дії програми."
+      },
+      "providers": {
+        "canva": "Canva",
+        "adobe_photoshop": "Adobe Photoshop",
+        "adobe_illustrator": "Adobe Illustrator",
+        "microsoft_word": "Microsoft Word",
+        "microsoft_excel": "Microsoft Excel",
+        "microsoft_powerpoint": "Microsoft PowerPoint",
+        "adobe_premiere": "Adobe Premiere Pro"
+      }
     }
   },
   "companionRelationshipEngine": {

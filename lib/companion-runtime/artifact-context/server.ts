@@ -40,6 +40,7 @@ export async function loadCompanionArtifactContext(
     external_consent?: boolean;
     external_connection_connected?: boolean;
     external_permission_granted?: boolean;
+    external_handoff?: CompanionExternalProviderHandoff;
   },
 ): Promise<
   CompanionArtifactContextPayload & {
@@ -102,16 +103,22 @@ export async function loadCompanionArtifactContext(
   };
 
   if (input.external_provider) {
-    return {
-      ...payload,
-      attachments: filtered,
-      externalHandoff: classifyExternalProviderHandoff({
+    const externalHandoff =
+      input.external_handoff ??
+      classifyExternalProviderHandoff({
         provider_key: input.external_provider,
         consent_granted: input.external_consent === true,
         permission_granted:
           input.external_permission_granted ?? reference.attachment_id !== null,
         connection_connected: input.external_connection_connected === true,
-      }),
+        adapter_registered: false,
+        readiness: "adapter_missing",
+      });
+
+    return {
+      ...payload,
+      attachments: filtered,
+      externalHandoff,
     };
   }
 

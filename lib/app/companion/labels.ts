@@ -208,5 +208,27 @@ export function buildCompanionExperienceLabels(t: Translator): CompanionExperien
         },
       },
     },
+    externalApplications: {
+      useInApplication: t(`${p}.externalApplications.useInApplication`),
+      chooseApplication: t(`${p}.externalApplications.chooseApplication`),
+      noApplicationsAvailable: t(`${p}.externalApplications.noApplicationsAvailable`),
+      handoff: {
+        adapterMissing: t(`${p}.externalApplications.handoff.adapterMissing`),
+        partial: t(`${p}.externalApplications.handoff.partial`),
+        consentRequired: t(`${p}.externalApplications.handoff.consentRequired`),
+        permissionDenied: t(`${p}.externalApplications.handoff.permissionDenied`),
+        ready: t(`${p}.externalApplications.handoff.ready`),
+        unsupported: t(`${p}.externalApplications.handoff.unsupported`),
+      },
+      providers: {
+        canva: t(`${p}.externalApplications.providers.canva`),
+        adobe_photoshop: t(`${p}.externalApplications.providers.adobe_photoshop`),
+        adobe_illustrator: t(`${p}.externalApplications.providers.adobe_illustrator`),
+        microsoft_word: t(`${p}.externalApplications.providers.microsoft_word`),
+        microsoft_excel: t(`${p}.externalApplications.providers.microsoft_excel`),
+        microsoft_powerpoint: t(`${p}.externalApplications.providers.microsoft_powerpoint`),
+        adobe_premiere: t(`${p}.externalApplications.providers.adobe_premiere`),
+      },
+    },
   };
 }

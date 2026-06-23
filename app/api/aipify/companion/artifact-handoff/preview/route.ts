@@ -6,7 +6,7 @@ import {
   loadCompanionHandoffAttachmentAccess,
 } from "@/lib/integration-intelligence/external-artifact-handoff/server";
 import { assertCanvaHandoffPermissionForRole } from "@/lib/integration-intelligence/providers/canva/permissions";
-import { classifyExternalProviderHandoff } from "@/lib/companion-runtime/artifact-context/external-handoff";
+import { classifyExternalProviderHandoffFromRegistry } from "@/lib/integration-intelligence/external-applications/handoff-bridge";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import type { UserRole } from "@/lib/tenant/types";
 
@@ -49,7 +49,7 @@ export async function GET(request: Request) {
     const permissionGranted = assertCanvaHandoffPermissionForRole(profile.user.role as UserRole);
 
     const connection = await loadCanvaHandoffConnectionMaterial(supabase);
-    const handoffClass = classifyExternalProviderHandoff({
+    const handoffClass = classifyExternalProviderHandoffFromRegistry({
       provider_key: providerKey,
       consent_granted: false,
       permission_granted: permissionGranted,

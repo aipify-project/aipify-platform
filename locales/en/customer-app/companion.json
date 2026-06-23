@@ -2135,6 +2135,28 @@
         }
       }
     },
+    "externalApplications": {
+      "useInApplication": "Use in application",
+      "chooseApplication": "Choose application",
+      "noApplicationsAvailable": "No connected applications support this file yet.",
+      "handoff": {
+        "adapterMissing": "No approved application adapter is registered for that action yet.",
+        "partial": "The application adapter is registered but not fully ready — connect the integration or choose a supported file type.",
+        "consentRequired": "Using this file in an external application requires your explicit consent first.",
+        "permissionDenied": "You do not have permission to use this file in external applications.",
+        "ready": "The active file is ready for an approved application action after you confirm.",
+        "unsupported": "This file type is not supported for the selected application action."
+      },
+      "providers": {
+        "canva": "Canva",
+        "adobe_photoshop": "Adobe Photoshop",
+        "adobe_illustrator": "Adobe Illustrator",
+        "microsoft_word": "Microsoft Word",
+        "microsoft_excel": "Microsoft Excel",
+        "microsoft_powerpoint": "Microsoft PowerPoint",
+        "adobe_premiere": "Adobe Premiere Pro"
+      }
+    },
     "quickActions": {
       "orgStatus": {
         "title": "Organization status",

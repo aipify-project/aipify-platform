@@ -14,6 +14,7 @@ import {
   type CompanionPendingAttachment,
 } from "@/lib/app/companion/attachments";
 import type { CompanionExperienceLabels, CompanionChatAttachmentSummary } from "@/lib/app/companion/types";
+import { fetchExternalApplicationDiscovery } from "@/lib/app/companion/external-applications";
 import { CompanionArtifactHandoffConsentDialog } from "@/components/app/companion-experience/CompanionArtifactHandoffConsentDialog";
 
 type CompanionAttachmentComposerProps = {
@@ -53,10 +54,54 @@ export function CompanionAttachmentComposer({
   const [handoffTarget, setHandoffTarget] = useState<{
     attachmentId: string;
     filename: string;
+    providerKey: string;
+  } | null>(null);
+  const [applicationPicker, setApplicationPicker] = useState<{
+    attachmentId: string;
+    filename: string;
+    candidates: string[];
+    selectedKey: string;
   } | null>(null);
   const [handoffSuccessUrl, setHandoffSuccessUrl] = useState<string | null>(null);
 
   const att = labels.attachments;
+  const apps = labels.externalApplications;
+
+  const beginApplicationHandoff = useCallback(
+    async (row: CompanionPendingAttachment) => {
+      if (!row.attachmentId) return;
+      setComposerError(null);
+      const discovery = await fetchExternalApplicationDiscovery({
+        category: row.category,
+        mimeType: row.mimeType,
+        operation: "handoff",
+      });
+
+      const candidates = discovery.selection?.candidates ?? [];
+      if (!discovery.ok || candidates.length === 0) {
+        setComposerError(apps.noApplicationsAvailable);
+        return;
+      }
+
+      const selected = discovery.selection?.selected;
+      if (discovery.selection?.requires_user_selection || !selected) {
+        setApplicationPicker({
+          attachmentId: row.attachmentId,
+          filename: row.filename,
+          candidates: candidates.map((entry) => entry.application_key),
+          selectedKey: candidates[0]?.application_key ?? "",
+        });
+        return;
+      }
+
+      setHandoffTarget({
+        attachmentId: row.attachmentId,
+        filename: row.filename,
+        providerKey: selected.application_key,
+      });
+    },
+    [apps.noApplicationsAvailable],
+  );
 
   const queueUpload = useCallback(
     async (files: FileList | File[], source: "picker" | "drop" | "paste") => {
@@ -220,15 +265,10 @@ export function CompanionAttachmentComposer({
                   {row.status === "ready" && row.attachmentId ? (
                     <button
                       type="button"
-                      onClick={() =>
-                        setHandoffTarget({
-                          attachmentId: row.attachmentId!,
-                          filename: row.filename,
-                        })
-                      }
+                      onClick={() => void beginApplicationHandoff(row)}
                       className="rounded-md px-2 py-1 text-xs font-medium text-aipify-companion hover:bg-violet-50"
                     >
-                      {att.canvaHandoff.sendToCanva}
+                      {apps.useInApplication}
                     </button>
                   ) : null}
                   <button
@@ -265,12 +305,58 @@ export function CompanionAttachmentComposer({
         </p>
       ) : null}
 
+      {applicationPicker ? (
+        <div className="rounded-xl border border-aipify-border bg-white p-3 text-sm">
+          <p className="font-medium text-aipify-text">{apps.chooseApplication}</p>
+          <p className="mt-1 text-xs text-aipify-text-muted">{applicationPicker.filename}</p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <select
+              value={applicationPicker.selectedKey}
+              onChange={(event) =>
+                setApplicationPicker((current) =>
+                  current ? { ...current, selectedKey: event.target.value } : current,
+                )
+              }
+              className="rounded-md border border-aipify-border bg-white px-2 py-1 text-xs"
+              aria-label={apps.chooseApplication}
+            >
+              {applicationPicker.candidates.map((key) => (
+                <option key={key} value={key}>
+                  {apps.providers[key as keyof typeof apps.providers] ?? key}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              className="rounded-md bg-aipify-companion px-3 py-1 text-xs font-medium text-white"
+              onClick={() => {
+                setHandoffTarget({
+                  attachmentId: applicationPicker.attachmentId,
+                  filename: applicationPicker.filename,
+                  providerKey: applicationPicker.selectedKey,
+                });
+                setApplicationPicker(null);
+              }}
+            >
+              {att.canvaHandoff.approveSend}
+            </button>
+            <button
+              type="button"
+              className="rounded-md border border-aipify-border px-3 py-1 text-xs"
+              onClick={() => setApplicationPicker(null)}
+            >
+              {att.canvaHandoff.cancel}
+            </button>
+          </div>
+        </div>
+      ) : null}
+
       {handoffTarget ? (
         <CompanionArtifactHandoffConsentDialog
           open
           onClose={() => setHandoffTarget(null)}
           labels={labels}
-          providerKey="canva"
+          providerKey={handoffTarget.providerKey}
           attachmentId={handoffTarget.attachmentId}
           conversationId={conversationId}
           filename={handoffTarget.filename}

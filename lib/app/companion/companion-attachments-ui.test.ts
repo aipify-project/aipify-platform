@@ -25,8 +25,16 @@ assert.match(composerSource, /onPaste/);
 assert.match(composerSource, /deleteCompanionAttachment/);
 assert.match(composerSource, /setCompanionActiveArtifact/);
 assert.match(userCardSource, /attachments\.map/);
-assert.match(composerSource, /CompanionArtifactHandoffConsentDialog/);
-assert.match(composerSource, /canvaHandoff\.sendToCanva/);
+assert.match(composerSource, /fetchExternalApplicationDiscovery/);
+assert.match(composerSource, /apps\.useInApplication/);
+
+const discoverRouteSource = readFileSync(
+  join(repoRoot, "app/api/aipify/companion/external-applications/discover/route.ts"),
+  "utf8",
+);
+
+assert.match(discoverRouteSource, /buildExternalApplicationDiscovery/);
+assert.match(discoverRouteSource, /selectExternalApplications/);
 
 const handoffDialogSource = readFileSync(
   join(repoRoot, "components/app/companion-experience/CompanionArtifactHandoffConsentDialog.tsx"),

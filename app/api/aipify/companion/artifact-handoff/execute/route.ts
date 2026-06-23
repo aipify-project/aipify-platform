@@ -8,7 +8,11 @@ import {
   recordCompanionArtifactHandoffAudit,
 } from "@/lib/integration-intelligence/external-artifact-handoff/server";
 import { assertCanvaHandoffPermissionForRole } from "@/lib/integration-intelligence/providers/canva/permissions";
-import { classifyExternalProviderHandoff } from "@/lib/companion-runtime/artifact-context/external-handoff";
+import { classifyExternalProviderHandoffFromRegistry } from "@/lib/integration-intelligence/external-applications/handoff-bridge";
+import {
+  assertExternalApplicationActionMayProceed,
+  finalizeExternalApplicationActionResult,
+} from "@/lib/companion-runtime/external-application-orchestration";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import type { UserRole } from "@/lib/tenant/types";
 
@@ -65,23 +69,24 @@ export async function POST(request: Request) {
     const permissionGranted = assertCanvaHandoffPermissionForRole(profile.user.role as UserRole);
 
     const connection = await loadCanvaHandoffConnectionMaterial(supabase);
-    const handoffClass = classifyExternalProviderHandoff({
+    const handoffClass = classifyExternalProviderHandoffFromRegistry({
       provider_key: providerKey,
       consent_granted: consentGranted,
       permission_granted: permissionGranted,
       connection_connected: connection.connected,
     });
 
-    if (handoffClass.status === "permission_denied") {
-      return NextResponse.json({ ok: false, status: "permission_denied", handoff: handoffClass }, { status: 403 });
-    }
-
-    if (handoffClass.status === "consent_required") {
-      return NextResponse.json({ ok: false, status: "consent_required", handoff: handoffClass }, { status: 400 });
-    }
-
-    if (handoffClass.status === "partial" || handoffClass.status === "adapter_missing") {
-      return NextResponse.json({ ok: false, status: handoffClass.status, handoff: handoffClass }, { status: 409 });
+    const blocked = assertExternalApplicationActionMayProceed({ handoff: handoffClass });
+    if (blocked) {
+      return NextResponse.json(
+        {
+          ok: false,
+          status: blocked.failure_code ?? handoffClass.status,
+          reported_as_executed: false,
+          handoff: handoffClass,
+        },
+        { status: handoffClass.status === "permission_denied" ? 403 : 409 },
+      );
     }
 
     if (!attachment.storage_path) {
@@ -93,7 +98,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "download_failed" }, { status: 500 });
     }
 
-    const result = await adapter.execute({
+    const adapterResult = await adapter.execute({
       provider_key: providerKey,
       attachment_id: attachmentId,
       conversation_id: conversationId,
@@ -107,20 +112,38 @@ export async function POST(request: Request) {
       access_token: connection.access_token,
     });
 
+    const result = finalizeExternalApplicationActionResult({
+      ok: adapterResult.ok,
+      reported_as_executed: adapterResult.ok,
+      capability_status: adapterResult.ok ? "connected" : "partial",
+      application_key: providerKey,
+      operation: "handoff",
+      external_reference: adapterResult.external_reference,
+      open_url: adapterResult.open_url,
+      edit_url: adapterResult.open_url,
+      failure_code: adapterResult.failure_code,
+      audited: false,
+    });
+
     const audited = await recordCompanionArtifactHandoffAudit(supabase, {
       conversation_id: conversationId,
       attachment_id: attachmentId,
       provider_key: providerKey,
       consent_granted: consentGranted,
-      status: result.status,
+      status: result.ok ? result.capability_status : (adapterResult.status ?? "failed"),
       external_reference: result.external_reference,
       open_url: result.open_url,
       failure_code: result.failure_code,
-      metadata: { ok: result.ok },
+      metadata: { ok: result.ok, reported_as_executed: result.reported_as_executed },
     });
 
     return NextResponse.json({
-      ...result,
+      ok: result.ok,
+      status: adapterResult.status,
+      reported_as_executed: result.reported_as_executed,
+      external_reference: result.external_reference,
+      open_url: result.open_url,
+      failure_code: result.failure_code,
       audited,
       handoff: handoffClass,
     });

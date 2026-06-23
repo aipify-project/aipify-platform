@@ -205,4 +205,18 @@ export type CompanionExperienceLabels = {
       };
     };
   };
+  externalApplications: {
+    useInApplication: string;
+    chooseApplication: string;
+    noApplicationsAvailable: string;
+    handoff: {
+      adapterMissing: string;
+      partial: string;
+      consentRequired: string;
+      permissionDenied: string;
+      ready: string;
+      unsupported: string;
+    };
+    providers: Record<string, string>;
+  };
 };

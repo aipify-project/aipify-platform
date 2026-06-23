@@ -61,7 +61,8 @@ export type CompanionExternalProviderHandoffStatus =
   | "adapter_missing"
   | "partial"
   | "permission_denied"
-  | "blocked_by_policy";
+  | "blocked_by_policy"
+  | "unsupported";
 
 export type CompanionExternalProviderHandoff = {
   provider_key: string;

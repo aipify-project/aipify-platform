@@ -17,6 +17,7 @@ import {
   resolveCompanionIntegrationContext,
 } from "@/lib/companion-runtime/tenant-context";
 import { loadCompanionArtifactContext } from "@/lib/companion-runtime/artifact-context/server";
+import { classifyExternalProviderHandoffFromRegistry } from "@/lib/integration-intelligence/external-applications/handoff-bridge";
 import { loadCanvaHandoffConnectionMaterial } from "@/lib/integration-intelligence/external-artifact-handoff/server";
 import { assertCanvaHandoffPermissionForRole } from "@/lib/integration-intelligence/providers/canva/permissions";
 import { enrichAnswerWithArtifactContext } from "@/lib/companion-runtime/artifact-context/enrich-answer";
@@ -113,6 +114,18 @@ export async function GET(request: Request) {
         externalConnectionConnected = connection.connected;
       }
 
+      const externalPermissionGranted = externalProviderKey
+        ? assertCanvaHandoffPermissionForRole(userRole)
+        : false;
+      const externalHandoff = externalProviderKey
+        ? classifyExternalProviderHandoffFromRegistry({
+            provider_key: externalProviderKey,
+            consent_granted: externalConsent,
+            permission_granted: externalPermissionGranted,
+            connection_connected: externalConnectionConnected,
+          })
+        : undefined;
+
       artifactContextBundle = await loadCompanionArtifactContext(supabase, {
         conversation_id: conversationId,
         query,
@@ -126,8 +139,14 @@ export async function GET(request: Request) {
         external_provider: externalProvider,
         external_consent: externalConsent,
         external_connection_connected: externalConnectionConnected,
-        external_permission_granted: externalProviderKey
-          ? assertCanvaHandoffPermissionForRole(userRole)
+        external_permission_granted: externalPermissionGranted,
+        external_handoff: externalHandoff
+          ? {
+              provider_key: externalHandoff.provider_key,
+              status: externalHandoff.status,
+              requires_explicit_consent: externalHandoff.requires_explicit_consent,
+              message_key: externalHandoff.message_key.replace(/^externalApplications\./, "attachments."),
+            }
           : undefined,
       });
     }
@@ -189,6 +208,7 @@ export async function GET(request: Request) {
       const companionDict = await getCustomerAppDictionaryForSplits(answerLocale, ["companion"]);
       const companionLabels = buildCompanionExperienceLabels(createTranslator(companionDict));
       const att = companionLabels.attachments;
+      const externalApps = companionLabels.externalApplications;
 
       answer = enrichAnswerWithArtifactContext(
         answer,
@@ -212,7 +232,9 @@ export async function GET(request: Request) {
               ? att.externalHandoff.permissionDenied
               : handoff.status === "partial"
                 ? att.externalHandoff.partial
-                : handoff.status === "adapter_available"
+                : handoff.status === "unsupported"
+                  ? externalApps.handoff.unsupported
+                  : handoff.status === "adapter_available"
                   ? att.externalHandoff.ready
                   : att.externalHandoff.adapterMissing;
         answer = {
