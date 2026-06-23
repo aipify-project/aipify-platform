@@ -24,6 +24,12 @@ function formatTimestamp(value: string | null, locale: CustomerActiveLocale): st
   }).format(new Date(parsed));
 }
 
+function localizeFreshness(freshness: string, t: Translator): string {
+  const key = `${BASE}.freshness.${freshness}`;
+  const translated = t(key);
+  return translated !== key ? translated : freshness;
+}
+
 function buildSourceMeta(input: {
   source: string;
   checkedAt: string | null;
@@ -39,7 +45,7 @@ function buildSourceMeta(input: {
       formatTimestamp(input.checkedAt, input.locale) ||
         input.t("customerApp.companionPlatformKnowledge.grounded.timestampUnavailable"),
     )
-    .replace("{freshness}", input.freshness);
+    .replace("{freshness}", localizeFreshness(input.freshness, input.t));
 }
 
 function groundedAnswer(input: {
@@ -137,30 +143,14 @@ export function buildSelfLoveFoundationAnswer(input: {
 export function buildFoxFoundationAnswer(input: {
   response: string;
   followUp: string | null;
-  bellText: string | null;
-  sourceLabel: string;
   t: Translator;
-  locale: CustomerActiveLocale;
 }): PlatformKnowledgeAnswer {
-  const lines = [input.response, input.followUp, input.bellText].filter(Boolean);
-  const meta = buildSourceMeta({
-    source: input.sourceLabel,
-    checkedAt: new Date().toISOString(),
-    freshness: "fresh",
-    t: input.t,
-    locale: input.locale,
-  });
+  const directAnswer = [input.response.trim(), input.followUp?.trim()].filter(Boolean).join("\n\n");
 
   return groundedAnswer({
-    directAnswer: lines.join("\n"),
-    explanation: meta,
-    sources: [
-      {
-        id: "playful-fox-exchange",
-        label: input.t(`${BASE}.foxSourceLabel`),
-        kind: "platform_corpus",
-      },
-    ],
+    directAnswer,
+    explanation: "",
+    sources: [],
     sourceId: "playful-fox-exchange",
     source: "platform_corpus",
     confidence: "high",

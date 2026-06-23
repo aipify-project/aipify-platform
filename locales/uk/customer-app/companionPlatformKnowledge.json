@@ -167,6 +167,7 @@
       "selfLoveLead": "Self Love — це принцип і цінність у Aipify Business Operating System (ABOS), а не зареєстрована назва продукту.",
       "selfLoveBoundariesLead": "Self Love інформує та готує; рішення приймають люди. Межі:",
       "foxFollowUp": "Грайливий момент — готовий продовжити, коли ви будете готові.",
+      "foxResponse": "Ring-ding-ding-ding-dingeringeding 🦊",
       "foxBellTitle": "Грайливий дзвінок",
       "foxBellBody": "Ring-ding-ding-ding-dingeringeding — грайливий момент зафіксовано.",
       "foundationUnavailable": "Фундамент платформи Aipify зараз недоступний для цього запитання.",
@@ -175,11 +176,16 @@
       "sourceUnavailable": "Джерело фундаменту не повернуло читабельний вміст.",
       "gapStatusLine": "Статус: {status}",
       "gapTopicLine": "Тема: {topic}",
+      "freshness": {
+        "fresh": "Актуально",
+        "stale": "Може бути застарілим",
+        "unknown": "Невідома актуальність"
+      },
       "gapStatus": {
-        "foundation_unavailable": "foundation_unavailable",
-        "adapter_missing": "adapter_missing",
-        "permission_required": "permission_required",
-        "source_unavailable": "source_unavailable"
+        "foundation_unavailable": "Фундамент недоступний",
+        "adapter_missing": "Адаптер відсутній",
+        "permission_required": "Потрібен дозвіл",
+        "source_unavailable": "Джерело недоступне"
       }
     },
     "memory": {

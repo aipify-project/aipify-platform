@@ -29,6 +29,7 @@ import {
   parsePresenceNotificationFeed,
   parsePresenceNotificationPreferences,
   playSoftBellChime,
+  primeSoftBellAudio,
   shouldPlayInAppNotificationSound,
   type UnifiedNotificationCenterLabels,
 } from "@/lib/presence/unified-notification-feed";
@@ -92,6 +93,8 @@ export function UnifiedNotificationFeedProvider({
   const pulseTimerRef = useRef<number | null>(null);
   const suppressedToastIdsRef = useRef<Set<string>>(new Set());
   const initializedRef = useRef(false);
+  const playedSoundIdsRef = useRef<Set<string>>(new Set());
+  const audioPrimedRef = useRef(false);
 
   const ensureOrgReady = useCallback(async (): Promise<boolean> => {
     if (orgReadyRef.current === true) return true;
@@ -142,10 +145,11 @@ export function UnifiedNotificationFeedProvider({
         }
 
         for (const item of newItems) {
-          if (shouldPlayInAppNotificationSound(item, prefs)) {
-            playSoftBellChime();
-            break;
-          }
+          if (!shouldPlayInAppNotificationSound(item, prefs)) continue;
+          if (playedSoundIdsRef.current.has(item.id)) continue;
+          playedSoundIdsRef.current.add(item.id);
+          playSoftBellChime();
+          break;
         }
       }
 
@@ -197,6 +201,26 @@ export function UnifiedNotificationFeedProvider({
   useEffect(() => {
     void loadPreferences();
   }, [loadPreferences]);
+
+  useEffect(() => {
+    if (audioPrimedRef.current || typeof window === "undefined") return;
+
+    const primeOnce = () => {
+      if (audioPrimedRef.current) return;
+      audioPrimedRef.current = true;
+      primeSoftBellAudio();
+      window.removeEventListener("pointerdown", primeOnce);
+      window.removeEventListener("keydown", primeOnce);
+    };
+
+    window.addEventListener("pointerdown", primeOnce, { passive: true });
+    window.addEventListener("keydown", primeOnce, { passive: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", primeOnce);
+      window.removeEventListener("keydown", primeOnce);
+    };
+  }, []);
 
   useEffect(() => {
     void refresh();

@@ -329,6 +329,7 @@
       "selfLoveLead": "Self Love er et prinsipp og en verdi i Aipify Business Operating System (ABOS) — ikke et varemerket produktnavn.",
       "selfLoveBoundariesLead": "Self Love informerer og forbereder; mennesker bestemmer. Grenser:",
       "foxFollowUp": "Et lekent øyeblikk — klar når du er for å fortsette.",
+      "foxResponse": "Ring-ding-ding-ding-dingeringeding 🦊",
       "foxBellTitle": "Lekent bjelleøyeblikk",
       "foxBellBody": "Ring-ding-ding-ding-dingeringeding — lekent øyeblikk registrert.",
       "foundationUnavailable": "Aipify plattformgrunnmur er ikke tilgjengelig for dette spørsmålet akkurat nå.",
@@ -337,11 +338,16 @@
       "sourceUnavailable": "Plattformgrunnmuren returnerte ikke lesbart innhold.",
       "gapStatusLine": "Status: {status}",
       "gapTopicLine": "Emne: {topic}",
+      "freshness": {
+        "fresh": "Fersk",
+        "stale": "Kan være utdatert",
+        "unknown": "Ukjent ferskhet"
+      },
       "gapStatus": {
-        "foundation_unavailable": "foundation_unavailable",
-        "adapter_missing": "adapter_missing",
-        "permission_required": "permission_required",
-        "source_unavailable": "source_unavailable"
+        "foundation_unavailable": "Grunnmur utilgjengelig",
+        "adapter_missing": "Adapter mangler",
+        "permission_required": "Tillatelse kreves",
+        "source_unavailable": "Kilde utilgjengelig"
       }
     },
     "memory": {

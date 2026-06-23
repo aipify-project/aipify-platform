@@ -33,6 +33,7 @@ import {
   type WorkerBootstrapFailure,
 } from "@/lib/companion-runtime/companion-worker-bootstrap-errors";
 import { bootstrapCompanionWorkerTenantRuntime } from "./load-worker-tenant-context";
+import { logCompanionWorkerStepTimings } from "./worker-step-timing";
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   const parts = path.replace(/^customerApp\./, "").split(".");
@@ -112,11 +113,20 @@ export async function executeCompanionTurn(
   const companionLabels = buildCompanionExperienceLabels(t);
   const legacyCorpus = buildSupportAssistantCorpus(labels, t);
 
+  const turnStarted = Date.now();
+  let bootstrapMs = 0;
+  let routingMs = 0;
+
   const workerBootstrap = input.workerProfile
     ? await bootstrapCompanionWorkerTenantRuntime(supabase, input.workerProfile, answerLocale, {
         queueId: input.workerQueueId,
+        query,
       })
     : null;
+
+  if (input.workerProfile) {
+    bootstrapMs = Date.now() - turnStarted;
+  }
 
   if (input.workerProfile && (!workerBootstrap || !workerBootstrap.ok)) {
     const failure =
@@ -230,7 +240,17 @@ export async function executeCompanionTurn(
   };
 
   const searchQuery = query || companionLabels.attachments.activeBadge;
+  const routingStarted = Date.now();
   const result = await searchPlatformKnowledge(searchQuery, searchOptions);
+  routingMs = Date.now() - routingStarted;
+
+  if (input.workerQueueId) {
+    logCompanionWorkerStepTimings(input.workerQueueId, input.workerProfile?.customerId, {
+      bootstrapMs,
+      routingMs,
+      totalMs: Date.now() - turnStarted,
+    });
+  }
 
   if (result.answer.confidence === "low") {
     void trackLowConfidenceQuery(runtimeSupabase, searchQuery, answerLocale, result.answer.confidence);

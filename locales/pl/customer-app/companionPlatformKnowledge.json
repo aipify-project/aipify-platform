@@ -167,6 +167,7 @@
       "selfLoveLead": "Self Love to zasada i wartość w Aipify Business Operating System (ABOS) — nie zastrzeżona nazwa produktu.",
       "selfLoveBoundariesLead": "Self Love informuje i przygotowuje; decyzje podejmują ludzie. Granice:",
       "foxFollowUp": "Zabawny moment — gotowy, gdy chcesz kontynuować.",
+      "foxResponse": "Ring-ding-ding-ding-dingeringeding 🦊",
       "foxBellTitle": "Zabawny moment dzwonka",
       "foxBellBody": "Ring-ding-ding-ding-dingeringeding — zarejestrowano zabawny moment.",
       "foundationUnavailable": "Fundament platformy Aipify nie jest teraz dostępny dla tego pytania.",
@@ -175,11 +176,16 @@
       "sourceUnavailable": "Źródło fundamentu nie zwróciło czytelnej treści.",
       "gapStatusLine": "Status: {status}",
       "gapTopicLine": "Temat: {topic}",
+      "freshness": {
+        "fresh": "Aktualne",
+        "stale": "Może być nieaktualne",
+        "unknown": "Nieznana aktualność"
+      },
       "gapStatus": {
-        "foundation_unavailable": "foundation_unavailable",
-        "adapter_missing": "adapter_missing",
-        "permission_required": "permission_required",
-        "source_unavailable": "source_unavailable"
+        "foundation_unavailable": "Fundament niedostępny",
+        "adapter_missing": "Brak adaptera",
+        "permission_required": "Wymagane uprawnienie",
+        "source_unavailable": "Źródło niedostępne"
       }
     },
     "memory": {

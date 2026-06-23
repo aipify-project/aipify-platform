@@ -199,6 +199,7 @@ import { resolveCommunityCompanionQuery } from "./community-companion-query";
 import { resolveOrganizationConnectionStatusAnswer } from "./organization-connection-status";
 import { resolveOrganizationIntelligenceAnswer } from "./organization-intelligence-routing";
 import { resolvePlatformFoundationAnswer } from "./platform-foundation-routing";
+import { isPlatformFoundationQuery } from "./platform-foundation-intent";
 import {
   buildBlockedProactiveOperationAnswer,
   buildExternalProactiveUnavailableAnswer,
@@ -1402,6 +1403,20 @@ export async function orchestrateCompanionSearch(
       },
     );
   };
+
+  if (supabase && isPlatformFoundationQuery(query)) {
+    const platformFoundationResult = await resolvePlatformFoundationAnswer(query, {
+      t,
+      activeLocale,
+      supabase,
+      tenantContext: resolvedTenantContext,
+      companionSurface: options?.companionSurface,
+      conversationId: options?.conversationId,
+    });
+    if (platformFoundationResult) {
+      return finalize(platformFoundationResult, { skipMemoryEnrichment: true });
+    }
+  }
 
   if (supabase && productConcept) {
     const kcArticle = await searchCanonicalKnowledgeCenter(supabase, query, activeLocale);

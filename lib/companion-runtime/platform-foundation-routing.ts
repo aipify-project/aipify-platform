@@ -105,15 +105,25 @@ async function resolveFoxFoundationAnswer(input: {
     };
   }
 
+  const localizedResponse = input.t("customerApp.companionPlatformKnowledge.foundation.foxResponse");
+  const localizedFollowUp = input.t("customerApp.companionPlatformKnowledge.foundation.foxFollowUp");
+  const localizedBellBody = input.t("customerApp.companionPlatformKnowledge.foundation.foxBellBody");
+
+  const response =
+    localizedResponse !== "customerApp.companionPlatformKnowledge.foundation.foxResponse"
+      ? localizedResponse
+      : exchange.aipify_responds;
+
   const { data: bellMoment } = await input.supabase.rpc("get_playful_bell_moment", {
     p_context: "fox_spoken",
   });
 
   const bellPayload =
     bellMoment && typeof bellMoment === "object" ? (bellMoment as Record<string, unknown>) : null;
-  const bellText = typeof bellPayload?.text === "string" ? bellPayload.text : null;
+  const bellAvailable =
+    typeof bellPayload?.text === "string" ? bellPayload.text.trim().length > 0 : Boolean(localizedBellBody);
 
-  if (!bellText) {
+  if (!bellAvailable) {
     return {
       answer: buildPlatformFoundationGapAnswer(input.t, "foundation_unavailable", {
         topicId: "playful_fox_exchange",
@@ -121,26 +131,20 @@ async function resolveFoxFoundationAnswer(input: {
     };
   }
 
-  const bell = await recordPlayfulFoxBellNotification(input.supabase, {
+  void recordPlayfulFoxBellNotification(input.supabase, {
     t: input.t,
     companyId: input.tenantContext.companyId,
     conversationId: input.conversationId,
-    bellText,
+    bellText: localizedBellBody,
+  }).catch(() => {
+    // Bell notification must not block the chat response.
   });
-
-  const followUp =
-    typeof exchange.follow_up === "string"
-      ? exchange.follow_up
-      : input.t("customerApp.companionPlatformKnowledge.foundation.foxFollowUp");
 
   return {
     answer: buildFoxFoundationAnswer({
-      response: exchange.aipify_responds,
-      followUp,
-      bellText: bell.created ? bellText : null,
-      sourceLabel: input.t("customerApp.companionPlatformKnowledge.foundation.platformSpecLabel"),
+      response,
+      followUp: localizedFollowUp,
       t: input.t,
-      locale: input.locale,
     }),
   };
 }

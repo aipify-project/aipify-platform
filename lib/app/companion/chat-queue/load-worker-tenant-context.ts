@@ -7,7 +7,12 @@ import {
   type WorkerBootstrapFailure,
 } from "@/lib/companion-runtime/companion-worker-bootstrap-errors";
 import { AsyncTimeoutError, withAsyncTimeout } from "@/lib/core/async-with-timeout";
-import { loadCompanionTenantContext, type CompanionTenantContext } from "@/lib/companion-runtime/tenant-context";
+import { loadCompanionTenantContextFromWorkerBootstrap } from "@/lib/companion-runtime/load-companion-worker-foundation-context";
+import { isPlatformFoundationQuery } from "@/lib/companion-runtime/platform-foundation-intent";
+import {
+  loadCompanionTenantContext,
+  type CompanionTenantContext,
+} from "@/lib/companion-runtime/tenant-context";
 import {
   createWorkerScopedCompanionSupabase,
   fetchCompanionWorkerRuntimeBootstrap,
@@ -45,7 +50,7 @@ export async function bootstrapCompanionWorkerTenantRuntime(
   supabase: SupabaseClient,
   profile: WorkerExecutionProfile,
   locale?: string | null,
-  context: { queueId?: string } = {},
+  context: { queueId?: string; query?: string } = {},
 ): Promise<BootstrapCompanionWorkerTenantRuntimeResult> {
   const started = Date.now();
   const activeLocale = coerceToCustomerActiveLocale(locale ?? undefined);
@@ -113,14 +118,20 @@ export async function bootstrapCompanionWorkerTenantRuntime(
   );
 
   try {
-    const tenantContext = await loadCompanionTenantContext(scopedSupabase, {
-      locale: activeLocale,
-    });
+    const bootstrapStarted = Date.now();
+    const useFoundationFastPath = Boolean(context.query && isPlatformFoundationQuery(context.query));
+    const tenantContext = useFoundationFastPath
+      ? loadCompanionTenantContextFromWorkerBootstrap(bootstrap, activeLocale)
+      : await loadCompanionTenantContext(scopedSupabase, {
+          locale: activeLocale,
+        });
 
     logCompanionWorkerEvent("bootstrap_complete", {
       queueId: context.queueId,
       tenantId: profile.customerId,
       durationMs: Date.now() - started,
+      foundationFastPath: useFoundationFastPath,
+      tenantContextMs: Date.now() - bootstrapStarted,
     });
 
     return {

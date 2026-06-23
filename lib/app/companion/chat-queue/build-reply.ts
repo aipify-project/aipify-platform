@@ -18,7 +18,7 @@ export function buildPlatformAnswerReply(
           href: action.href,
           variant: action.variant,
         }))
-      : [{ label: lbls.viewSuggestions, href: "/app/support/knowledge" }];
+      : [];
 
   return {
     id: createMessageId(),

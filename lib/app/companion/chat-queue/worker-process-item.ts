@@ -10,6 +10,7 @@ import {
   shouldNotifyCompanionReply,
 } from "./worker-config";
 import { logCompanionWorkerEvent } from "./worker-log";
+import { logCompanionWorkerStepTimings } from "./worker-step-timing";
 import { loadWorkerExecutionProfile } from "./load-worker-profile";
 
 export type WorkerQueueJob = {
@@ -87,6 +88,7 @@ export async function processWorkerQueueJob(
     : undefined;
 
   try {
+    const turnStarted = Date.now();
     const turn = await withAsyncTimeout(
       executeCompanionTurnToPayload(supabase, {
         query: job.question_text,
@@ -111,6 +113,8 @@ export async function processWorkerQueueJob(
       throw error;
     });
 
+    const routingMs = Date.now() - turnStarted;
+
     if (!turn.ok) {
       const retry = resolveCompanionQueueRetry(turn.code ?? "turn_failed");
       await supabase.rpc("companion_queue_worker_fail", {
@@ -132,6 +136,7 @@ export async function processWorkerQueueJob(
       return retry.retryable ? "retried" : "failed";
     }
 
+    const completeStarted = Date.now();
     const { data: completeRaw, error: completeError } = await supabase.rpc(
       "companion_queue_worker_complete",
       {
@@ -154,6 +159,8 @@ export async function processWorkerQueueJob(
       return retry.retryable ? "retried" : "failed";
     }
 
+    const messageWriteMs = Date.now() - completeStarted;
+
     if (
       completeRaw.deduplicated !== true &&
       shouldNotifyCompanionReply(job.companion_active_at_enqueue)
@@ -168,6 +175,12 @@ export async function processWorkerQueueJob(
         }
       })();
     }
+
+    logCompanionWorkerStepTimings(job.id, job.tenant_id, {
+      routingMs,
+      messageWriteMs,
+      totalMs: Date.now() - started,
+    });
 
     await supabase.rpc("companion_queue_worker_audit_event", {
       p_queue_id: job.id,

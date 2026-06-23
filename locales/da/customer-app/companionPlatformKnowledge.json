@@ -167,6 +167,7 @@
       "selfLoveLead": "Self Love er et princip og en værdi i Aipify Business Operating System (ABOS) — ikke et varemærket produktnavn.",
       "selfLoveBoundariesLead": "Self Love informerer og forbereder; mennesker beslutter. Grænser:",
       "foxFollowUp": "Et legende øjeblik — klar når du er klar til at fortsætte.",
+      "foxResponse": "Ring-ding-ding-ding-dingeringeding 🦊",
       "foxBellTitle": "Legende klokkeøjeblik",
       "foxBellBody": "Ring-ding-ding-ding-dingeringeding — legende øjeblik registreret.",
       "foundationUnavailable": "Aipify platformsfundament er ikke tilgængeligt for dette spørgsmål lige nu.",
@@ -175,11 +176,16 @@
       "sourceUnavailable": "Platformsfundamentet returnerede ikke læsbart indhold.",
       "gapStatusLine": "Status: {status}",
       "gapTopicLine": "Emne: {topic}",
+      "freshness": {
+        "fresh": "Frisk",
+        "stale": "Kan være forældet",
+        "unknown": "Ukendt friskhed"
+      },
       "gapStatus": {
-        "foundation_unavailable": "foundation_unavailable",
-        "adapter_missing": "adapter_missing",
-        "permission_required": "permission_required",
-        "source_unavailable": "source_unavailable"
+        "foundation_unavailable": "Fundament utilgængeligt",
+        "adapter_missing": "Adapter mangler",
+        "permission_required": "Tilladelse påkrævet",
+        "source_unavailable": "Kilde utilgængelig"
       }
     },
     "memory": {
