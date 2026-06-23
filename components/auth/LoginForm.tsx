@@ -5,10 +5,137 @@ import { useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { AipifyWebAppInstallAction } from "@/components/pwa/AipifyWebAppInstallAction";
 import { getPostLoginPath } from "@/lib/auth/get-post-login-path";
+import {
+  classifyPasswordSignInFailure,
+  normalizeSignInEmail,
+  type PasswordSignInFailureCode,
+} from "@/lib/auth/password-sign-in";
 import { twoFactorRedirectPath, type TwoFactorStatus } from "@/lib/auth/two-factor";
 import { isFetchNetworkError } from "@/lib/pwa/manifest-audit";
 import type { PwaInstallLabels } from "@/lib/pwa/types";
 import { createClient } from "@/lib/supabase/client";
+
+type SignInAttemptResult =
+  | { ok: true; destination: string }
+  | { ok: false; error: PasswordSignInFailureCode; message?: string; networkError: boolean };
+
+function mapSignInFailure(
+  code: PasswordSignInFailureCode | undefined,
+  labels: LoginFormProps["labels"],
+): { message: string; networkError: boolean } {
+  switch (code) {
+    case "required_fields":
+      return { message: labels.requiredFields, networkError: false };
+    case "invalid_credentials":
+      return { message: labels.invalidCredentials, networkError: false };
+    case "email_not_confirmed":
+      return { message: labels.emailNotConfirmed, networkError: false };
+    case "network":
+      return { message: labels.networkTitle, networkError: true };
+    default:
+      return { message: labels.generic, networkError: false };
+  }
+}
+
+async function signInViaBrowser(
+  email: string,
+  password: string,
+  nextPath: string | null,
+): Promise<SignInAttemptResult> {
+  const supabase = createClient();
+  await supabase.auth.signOut({ scope: "local" });
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: normalizeSignInEmail(email),
+    password,
+  });
+
+  if (error) {
+    return {
+      ok: false,
+      error: classifyPasswordSignInFailure(error.message),
+      message: error.message,
+      networkError: isFetchNetworkError(error.message),
+    };
+  }
+
+  if (!data.session) {
+    return { ok: false, error: "auth_failed", networkError: false };
+  }
+
+  const destination = await getPostLoginPath(
+    supabase,
+    nextPath,
+    typeof window !== "undefined" ? window.location.host : null,
+  );
+
+  return { ok: true, destination };
+}
+
+async function signInViaServerRoute(
+  email: string,
+  password: string,
+  nextPath: string | null,
+): Promise<SignInAttemptResult> {
+  const signInResponse = await fetch("/api/auth/sign-in", {
+    method: "POST",
+    credentials: "same-origin",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: normalizeSignInEmail(email),
+      password,
+      next: nextPath,
+    }),
+  });
+
+  const signInPayload = (await signInResponse.json().catch(() => null)) as
+    | {
+        ok?: boolean;
+        destination?: string;
+        error?: PasswordSignInFailureCode;
+        message?: string;
+      }
+    | null;
+
+  if (signInResponse.ok && signInPayload?.ok && signInPayload.destination) {
+    return { ok: true, destination: signInPayload.destination };
+  }
+
+  return {
+    ok: false,
+    error: signInPayload?.error ?? "auth_failed",
+    message: signInPayload?.message,
+    networkError:
+      isFetchNetworkError(signInPayload?.message ?? "") ||
+      signInPayload?.error === "network" ||
+      !signInResponse.ok && signInResponse.status >= 500,
+  };
+}
+
+async function signInWithFallback(
+  email: string,
+  password: string,
+  nextPath: string | null,
+): Promise<SignInAttemptResult> {
+  try {
+    const browserResult = await signInViaBrowser(email, password, nextPath);
+    if (browserResult.ok || !browserResult.networkError) {
+      return browserResult;
+    }
+  } catch (caught) {
+    const message = caught instanceof Error ? caught.message : "";
+    if (!isFetchNetworkError(message)) {
+      return {
+        ok: false,
+        error: "auth_failed",
+        message,
+        networkError: false,
+      };
+    }
+  }
+
+  return signInViaServerRoute(email, password, nextPath);
+}
 
 type LoginFormProps = {
   labels: {
@@ -19,6 +146,7 @@ type LoginFormProps = {
     createAccount: string;
     noAccount: string;
     invalidCredentials: string;
+    emailNotConfirmed: string;
     requiredFields: string;
     generic: string;
     networkTitle: string;
@@ -62,47 +190,27 @@ export default function LoginForm({
     setLoading(true);
 
     try {
-      const supabase = createClient();
-      const { data, error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const nextPath = postLoginNext ?? searchParams.get("next");
+      const result = await signInWithFallback(email, password, nextPath);
 
-      if (signInError) {
-        const message =
-          signInError.message.toLowerCase().includes("invalid") ||
-          signInError.message.toLowerCase().includes("credentials")
-            ? labels.invalidCredentials
-            : isFetchNetworkError(signInError.message)
-              ? labels.networkTitle
-              : signInError.message;
-        setNetworkError(isFetchNetworkError(signInError.message));
-        setError(message);
+      if (!result.ok) {
+        const mapped = mapSignInFailure(result.error, labels);
+        setNetworkError(result.networkError || mapped.networkError);
+        setError(mapped.message);
         return;
       }
 
-      if (!data.session) {
-        setError(labels.generic);
-        return;
-      }
-
-      const destination = await getPostLoginPath(
-        supabase,
-        postLoginNext ?? searchParams.get("next"),
-        typeof window !== "undefined" ? window.location.host : null
-      );
-
-      const statusRes = await fetch("/api/auth/2fa/status");
+      const statusRes = await fetch("/api/auth/2fa/status", { credentials: "same-origin" });
       if (statusRes.ok) {
         const status = (await statusRes.json()) as TwoFactorStatus;
-        const gatePath = twoFactorRedirectPath(status, destination);
+        const gatePath = twoFactorRedirectPath(status, result.destination);
         if (gatePath) {
           window.location.assign(gatePath);
           return;
         }
       }
 
-      window.location.assign(destination);
+      window.location.assign(result.destination);
     } catch (caught) {
       const message = caught instanceof Error ? caught.message : labels.generic;
       setNetworkError(isFetchNetworkError(message));
