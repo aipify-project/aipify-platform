@@ -208,13 +208,7 @@ export function buildFallbackAnswer(t: Translator, ctx: PermissionContext): Plat
       t("customerApp.companionPlatformKnowledge.fallback.step2"),
     ].filter(Boolean),
     actions,
-    sources: [
-      {
-        id: "platform-fallback",
-        label: t("customerApp.companionPlatformKnowledge.sources.platformGuide"),
-        kind: "platform_corpus",
-      },
-    ],
+    sources: [],
     sourceId: "platform-fallback",
     source: "fallback",
     confidence: "moderate",

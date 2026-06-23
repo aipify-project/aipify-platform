@@ -28,7 +28,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { buildReplyFromSearchJson } from "./build-reply";
 import type { CompanionExperienceLabels } from "../types";
 import type { WorkerExecutionProfile } from "./load-worker-profile";
-import { loadCompanionTenantContextForWorker } from "./load-worker-tenant-context";
+import { bootstrapCompanionWorkerTenantRuntime } from "./load-worker-tenant-context";
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   const parts = path.replace(/^customerApp\./, "").split(".");
@@ -106,8 +106,17 @@ export async function executeCompanionTurn(
   const companionLabels = buildCompanionExperienceLabels(t);
   const legacyCorpus = buildSupportAssistantCorpus(labels, t);
 
-  const tenantContext = input.workerProfile
-    ? await loadCompanionTenantContextForWorker(supabase, input.workerProfile, answerLocale)
+  const workerRuntime = input.workerProfile
+    ? await bootstrapCompanionWorkerTenantRuntime(supabase, input.workerProfile, answerLocale)
+    : null;
+
+  if (input.workerProfile && !workerRuntime) {
+    return { ok: false, error: "worker_bootstrap_failed", code: "tenant_mismatch" };
+  }
+
+  const runtimeSupabase = workerRuntime?.scopedSupabase ?? supabase;
+  const tenantContext = workerRuntime
+    ? workerRuntime.tenantContext
     : await loadCompanionTenantContext(supabase, { locale: answerLocale });
   const resolvedIntegrationContext = resolveCompanionIntegrationContext(
     input.integrationContext ?? null,
@@ -127,7 +136,7 @@ export async function executeCompanionTurn(
     const externalProviderKey = input.externalProvider?.trim().toLowerCase() ?? null;
     let externalConnectionConnected = false;
     if (externalProviderKey === "canva") {
-      const connection = await loadCanvaHandoffConnectionMaterial(supabase);
+      const connection = await loadCanvaHandoffConnectionMaterial(runtimeSupabase);
       externalConnectionConnected = connection.connected;
     }
 
@@ -143,7 +152,7 @@ export async function executeCompanionTurn(
         })
       : undefined;
 
-    artifactContextBundle = await loadCompanionArtifactContext(supabase, {
+    artifactContextBundle = await loadCompanionArtifactContext(runtimeSupabase, {
       conversation_id: input.conversationId,
       query,
       active_artifact_id: input.activeArtifactId,
@@ -165,7 +174,7 @@ export async function executeCompanionTurn(
 
   let subscriptionRaw: unknown = null;
   try {
-    const { data } = await supabase.rpc("get_customer_license_center");
+    const { data } = await runtimeSupabase.rpc("get_customer_license_center");
     subscriptionRaw = data;
   } catch {
     subscriptionRaw = null;
@@ -178,7 +187,7 @@ export async function executeCompanionTurn(
     getSearchTermsArray: (key: string) =>
       getSearchTermsArray(dict.customerApp as Record<string, unknown>, key),
     subscriptionRaw,
-    supabase,
+    supabase: runtimeSupabase,
     integrationContext: resolvedIntegrationContext,
     snapshotContext,
     artifactContext: artifactContextBundle
@@ -198,7 +207,7 @@ export async function executeCompanionTurn(
   const result = await searchPlatformKnowledge(searchQuery, searchOptions);
 
   if (result.answer.confidence === "low") {
-    void trackLowConfidenceQuery(supabase, searchQuery, answerLocale, result.answer.confidence);
+    void trackLowConfidenceQuery(runtimeSupabase, searchQuery, answerLocale, result.answer.confidence);
   }
 
   let answer = result.answer;

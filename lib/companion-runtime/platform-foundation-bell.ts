@@ -27,7 +27,24 @@ async function resolveTenantId(
 async function hasExistingDedupeNotification(
   supabase: SupabaseClient,
   dedupeKey: string,
+  tenantId: string | null,
 ): Promise<boolean> {
+  if (tenantId) {
+    const { data: workerDedupe, error: workerError } = await supabase.rpc(
+      "companion_worker_has_presence_dedupe",
+      {
+        p_tenant_id: tenantId,
+        p_dedupe_key: dedupeKey,
+      },
+    );
+    if (!workerError) {
+      const workerRecord = asRecord(workerDedupe);
+      if (typeof workerRecord?.exists === "boolean") {
+        return workerRecord.exists;
+      }
+    }
+  }
+
   const { data } = await supabase.rpc("list_presence_notifications", {
     p_limit: 40,
     p_unread_only: false,
@@ -58,7 +75,7 @@ export async function recordPlayfulFoxBellNotification(
     return { notification_id: null, dedupe_key: dedupeKey, created: false };
   }
 
-  if (await hasExistingDedupeNotification(supabase, dedupeKey)) {
+  if (await hasExistingDedupeNotification(supabase, dedupeKey, tenantId)) {
     return { notification_id: null, dedupe_key: dedupeKey, created: false };
   }
 
