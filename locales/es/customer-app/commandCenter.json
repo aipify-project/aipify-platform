@@ -699,5 +699,26 @@
       }
     },
     "executiveCockpitLink": "Executive Strategic Decision Cockpit"
+  },
+  "executiveCommandCenter": {
+    "commandBriefOverview": {
+      "organizationHealthTitle": "Salud organizacional",
+      "organizationHealthEmptyTitle": "ℹ️ Señales de salud no disponibles",
+      "organizationHealthEmptyBody": "Las señales de salud verificadas aparecerán aquí cuando su organización tenga suficientes datos operativos.",
+      "organizationHealthOverallLabel": "Puntuación general: {score}",
+      "recommendationsNowTitle": "Aipify recomienda ahora",
+      "recommendationsEmptyTitle": "ℹ️ Sin recomendaciones por ahora",
+      "recommendationsEmptyBody": "Aipify sigue monitorizando y sugerirá los próximos pasos cuando aparezcan oportunidades verificadas.",
+      "approvalsEmptyTitle": "✅ Sin aprobaciones pendientes",
+      "approvalsEmptyBody": "Nada requiere su aprobación ahora. Aipify le avisará cuando se necesite una decisión.",
+      "viewAllHealth": "Ver todas las señales de salud",
+      "viewAllRecommendations": "Ver todas las recomendaciones",
+      "recordTitles": {
+        "criticalApprovalDelay": "La aprobación crítica está retrasada",
+        "pendingTrustApproval": "Aprobación de confianza pendiente",
+        "majorCustomerRisk": "Riesgo significativo del cliente",
+        "invoicePaid": "Factura pagada"
+      }
+    }
   }
 }

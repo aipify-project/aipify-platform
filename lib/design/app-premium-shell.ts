@@ -8,7 +8,7 @@ export const AppPremiumShell = {
   commandBriefGrid: "grid grid-cols-12 gap-3 lg:gap-4 xl:gap-5",
   commandBriefSectionTitle: "text-base font-semibold tracking-tight text-aipify-text sm:text-[1.0625rem]",
   commandBriefBody: "text-base leading-relaxed text-aipify-text-secondary sm:text-lg sm:leading-7",
-  commandBriefMeta: "text-[12px] leading-snug text-aipify-text-secondary",
+  commandBriefMeta: "text-[13px] leading-snug text-aipify-text-muted",
   commandBriefListTitle: "text-[13px] font-semibold leading-snug text-aipify-text",
   commandBriefListBody: "text-[13px] leading-snug text-aipify-text-secondary",
   commandBriefMetricLabel: "text-[13px] font-medium leading-snug text-aipify-text-secondary",

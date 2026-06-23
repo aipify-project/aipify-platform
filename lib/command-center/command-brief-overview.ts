@@ -7,8 +7,13 @@ import {
   buildAlertsDataset,
   buildApprovalsDataset,
   buildEccOverviewCounts,
+  buildOpportunitiesDataset,
+  buildPerformanceDataset,
   crossTabSafeguardDedupe,
+  deduplicateCommandCenterItems,
   isSyntheticEccRecord,
+  mapAlertToItem,
+  mapOpportunityToItem,
   type CommandCenterItem,
 } from "@/lib/command-center/ecc-tab-datasets";
 import {
@@ -32,6 +37,9 @@ export { buildCommandBriefAttentionItems, buildCommandBriefAttentionItemsFromCen
 export const COMMAND_BRIEF_ACTIVITY_LIMIT = 5;
 export const COMMAND_BRIEF_ALERTS_LIMIT = 3;
 export const COMMAND_BRIEF_INTEGRATIONS_LIMIT = 6;
+export const COMMAND_BRIEF_APPROVALS_LIMIT = 3;
+export const COMMAND_BRIEF_RECOMMENDATIONS_LIMIT = 3;
+export const COMMAND_BRIEF_HEALTH_LIMIT = 4;
 
 function sortActivityEvents(events: SinceLastLoginEvent[]): SinceLastLoginEvent[] {
   return events.slice().sort((a, b) => {
@@ -126,9 +134,70 @@ export function buildCommandBriefAlertSummary(
 
 export function buildCommandBriefApprovalSummary(
   center: ExecutiveCommandCenter,
-  attentionItems: CommandCenterItem[]
-): CommandCenterItem[] {
-  return excludeAttentionItems(buildApprovalsDataset(center), attentionItems).slice(0, 3);
+  attentionItems: CommandCenterItem[],
+): { items: CommandCenterItem[]; totalCount: number } {
+  const all = excludeAttentionItems(buildApprovalsDataset(center), attentionItems);
+  return {
+    items: all.slice(0, COMMAND_BRIEF_APPROVALS_LIMIT),
+    totalCount: all.length,
+  };
+}
+
+function mapCompanionRecommendationToItem(record: Record<string, unknown>): CommandCenterItem {
+  if (record.alert_title || record.alert_type) {
+    return mapAlertToItem({
+      ...record,
+      companion_recommendation: record.recommendation ?? record.companion_recommendation,
+    });
+  }
+  if (record.opportunity_title) return mapOpportunityToItem(record);
+
+  const title = String(record.recommendation_title ?? record.title ?? "Recommendation");
+  return mapOpportunityToItem({
+    ...record,
+    opportunity_title: title,
+    recommendation: record.recommendation ?? record.summary,
+  });
+}
+
+function sortBySeverity(items: CommandCenterItem[]): CommandCenterItem[] {
+  return [...items].sort((a, b) => {
+    if (a.severityRank !== b.severityRank) return a.severityRank - b.severityRank;
+    const aTs = a.timestamp ? Date.parse(a.timestamp) : 0;
+    const bTs = b.timestamp ? Date.parse(b.timestamp) : 0;
+    return bTs - aTs;
+  });
+}
+
+export function buildCommandBriefRecommendationSummary(
+  center: ExecutiveCommandCenter,
+): { items: CommandCenterItem[]; totalCount: number } {
+  const companionItems = filterRealCompanionRecommendations(center.companion_recommendations ?? []).map(
+    mapCompanionRecommendationToItem,
+  );
+  const opportunityItems = buildOpportunitiesDataset(center);
+  const merged = sortBySeverity(
+    crossTabSafeguardDedupe(deduplicateCommandCenterItems([...companionItems, ...opportunityItems])),
+  );
+
+  return {
+    items: merged.slice(0, COMMAND_BRIEF_RECOMMENDATIONS_LIMIT),
+    totalCount: merged.length,
+  };
+}
+
+export function buildCommandBriefHealthSummary(center: ExecutiveCommandCenter): {
+  items: CommandCenterItem[];
+  totalCount: number;
+  overallScore: number | null;
+} {
+  const performance = buildPerformanceDataset(center);
+  return {
+    items: performance.healthItems.slice(0, COMMAND_BRIEF_HEALTH_LIMIT),
+    totalCount: performance.healthItems.length,
+    overallScore:
+      typeof center.overall_health_score === "number" ? center.overall_health_score : null,
+  };
 }
 
 export {

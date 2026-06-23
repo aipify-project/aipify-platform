@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import { SemanticBadge } from "@/components/ui/semantic-badge";
-import { AppPremiumShell } from "@/lib/design/app-premium-shell";
-import { formatDateTime } from "@/lib/i18n/format-date";
-import { formatRelativeTime } from "@/lib/i18n/format-relative-time";
+import { CommandBriefPremiumRow } from "@/components/shared/command-center/CommandBriefPremiumRow";
 import { resolveCommandBriefEventTypeLabelKey } from "@/lib/command-center/command-brief-event-labels";
+import { resolveCommandBriefRecordTitle } from "@/lib/command-center/command-brief-record-title-labels";
 import type { SinceLastLoginEvent } from "@/lib/command-center/since-last-login";
 import { EccTabIcons } from "@/components/app/executive-command-center/ecc-tab-icons";
+import { formatDateTime } from "@/lib/i18n/format-date";
+import { formatRelativeTime } from "@/lib/i18n/format-relative-time";
+import type { CommandBriefIconTone } from "./command-brief-icon-tones";
 
 type ActivityOverviewLabels = {
   activityCategories: Record<string, string>;
@@ -29,10 +29,18 @@ function activityCategoryLabel(labels: ActivityOverviewLabels, event: SinceLastL
 
 function activityIcon(event: SinceLastLoginEvent) {
   if (event.category === "completed_by_aipify" || event.category === "observed_by_aipify") {
-    return EccTabIcons.action;
+    return EccTabIcons.companionBriefing;
   }
   if (event.category === "requires_attention") return EccTabIcons.alerts;
+  if (event.eventType.toLowerCase().includes("integration")) return EccTabIcons.performance;
   return EccTabIcons.history;
+}
+
+function activityIconTone(event: SinceLastLoginEvent): CommandBriefIconTone {
+  if (event.category === "completed_by_aipify") return "success";
+  if (event.category === "requires_attention") return "attention";
+  if (event.workflowState === "awaiting_approval") return "waiting";
+  return "info";
 }
 
 function formatActivityTimestamp(isoDate: string | undefined, locale: string): string | null {
@@ -42,21 +50,21 @@ function formatActivityTimestamp(isoDate: string | undefined, locale: string): s
 
 function resolveEventTitle(
   event: SinceLastLoginEvent,
-  resolveLabel: (key: string) => string
+  resolveLabel: (key: string) => string,
 ): string {
   const typeLabelKey = resolveCommandBriefEventTypeLabelKey(event.eventType);
   if (typeLabelKey) return resolveLabel(typeLabelKey);
-  return event.title;
+  return resolveCommandBriefRecordTitle(event.title, resolveLabel);
 }
 
 function resolveSourceLabel(
   event: SinceLastLoginEvent,
   labels: ActivityOverviewLabels,
-  resolveLabel: (key: string) => string
+  resolveLabel: (key: string) => string,
 ): string {
   const typeLabelKey = resolveCommandBriefEventTypeLabelKey(event.eventType);
-  if (typeLabelKey) return resolveLabel(typeLabelKey);
-  return activityCategoryLabel(labels, event);
+  const source = typeLabelKey ? resolveLabel(typeLabelKey) : activityCategoryLabel(labels, event);
+  return `${labels.activitySource}: ${source}`;
 }
 
 export function CommandBriefActivityRow({
@@ -67,47 +75,26 @@ export function CommandBriefActivityRow({
 }: CommandBriefActivityRowProps) {
   const timestamp = formatActivityTimestamp(event.occurredAt, locale);
   const title = resolveEventTitle(event, resolveLabel);
-  const source = resolveSourceLabel(event, labels, resolveLabel);
 
   return (
-    <li>
-      <Link
-        href={event.href}
-        className={`group flex items-start gap-3 px-4 py-2.5 transition hover:bg-aipify-surface-muted ${AppPremiumShell.focusRing}`}
-      >
-        <div
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-aipify-accent-soft text-aipify-companion"
-          aria-hidden="true"
-        >
-          {activityIcon(event)}
-        </div>
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-            <span className={`${AppPremiumShell.commandBriefListTitle} group-hover:text-aipify-companion`}>
-              {title}
-            </span>
-            <SemanticBadge
-              type="severity"
-              value={event.severity ?? "info"}
-              label={activityCategoryLabel(labels, event)}
-            />
-            {timestamp ? (
-              <time dateTime={event.occurredAt} className={`ml-auto ${AppPremiumShell.commandBriefMeta}`}>
-                {timestamp}
-              </time>
-            ) : null}
-          </div>
-          {event.explanation ? (
-            <p className={`mt-0.5 line-clamp-1 ${AppPremiumShell.commandBriefListBody}`}>{event.explanation}</p>
-          ) : null}
-          <p className={`mt-1 ${AppPremiumShell.commandBriefMeta}`}>
-            {labels.activitySource}: {source}
-          </p>
-        </div>
-        <span className="hidden shrink-0 self-center text-[13px] font-medium text-aipify-companion sm:inline">
-          {labels.activityAction} →
-        </span>
-      </Link>
-    </li>
+    <CommandBriefPremiumRow
+      icon={activityIcon(event)}
+      iconTone={activityIconTone(event)}
+      title={title}
+      description={event.explanation ?? undefined}
+      primaryBadge={{
+        type: "severity",
+        value: event.severity ?? "info",
+        labelKey: `common.status.semantic.severity.${event.severity ?? "info"}`,
+      }}
+      primaryBadgeLabel={activityCategoryLabel(labels, event)}
+      timestamp={timestamp}
+      timestampIso={event.occurredAt}
+      sourceLabel={resolveSourceLabel(event, labels, resolveLabel)}
+      actionHref={event.href}
+      actionLabel={labels.activityAction}
+      resolveLabel={resolveLabel}
+      asLink
+    />
   );
 }

@@ -30,9 +30,11 @@ import {
 import {
   buildCommandBriefActivityFeed,
   buildCommandBriefAlertSummary,
+  buildCommandBriefApprovalSummary,
+  buildCommandBriefHealthSummary,
   buildCommandBriefIntegrationStatus,
-  buildCommandBriefKpiCounts,
   buildCommandBriefNextAction,
+  buildCommandBriefRecommendationSummary,
 } from "@/lib/command-center/command-brief-overview";
 import { buildCommandBriefAttentionItemsFromCenter } from "@/lib/command-center/command-brief-attention";
 import { CommandBriefOverview } from "./CommandBriefOverview";
@@ -291,16 +293,17 @@ export function ExecutiveCommandCenterPanel({
     const attention = buildCommandBriefAttentionItemsFromCenter(center);
     const attentionItems = attention.items;
     const activityFeed = buildCommandBriefActivityFeed(center);
-    const kpis = buildCommandBriefKpiCounts(center);
     const nextAction = buildCommandBriefNextAction(center);
     const alertSummary = buildCommandBriefAlertSummary(center, attentionItems);
+    const approvalSummary = buildCommandBriefApprovalSummary(center, attentionItems);
+    const healthSummary = buildCommandBriefHealthSummary(center);
+    const recommendationSummary = buildCommandBriefRecommendationSummary(center);
     const integrationStatus = buildCommandBriefIntegrationStatus(center);
 
     return (
       <CommandBriefOverview
         labels={labels}
         locale={locale}
-        kpis={kpis}
         attentionItems={attentionItems}
         attentionTotalCount={attention.totalCount}
         attentionSeeAllHref={attention.seeAllHref}
@@ -309,8 +312,15 @@ export function ExecutiveCommandCenterPanel({
         nextAction={nextAction}
         alertItems={alertSummary.items}
         alertTotalCount={alertSummary.totalCount}
+        approvalItems={approvalSummary.items}
+        approvalTotalCount={approvalSummary.totalCount}
+        healthItems={healthSummary.items}
+        healthTotalCount={healthSummary.totalCount}
+        healthOverallScore={healthSummary.overallScore}
         integrationItems={integrationStatus.items}
         integrationTotalCount={integrationStatus.totalCount}
+        recommendationItems={recommendationSummary.items}
+        recommendationTotalCount={recommendationSummary.totalCount}
         resolveLabel={resolveLabel}
       />
     );

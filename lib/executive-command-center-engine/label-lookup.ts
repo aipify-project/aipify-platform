@@ -158,5 +158,16 @@ export function buildCommandCenterLabelLookup(t: Translator): Record<string, str
     `${commandBriefPrefix}.attention.actions.reviewIntegration`
   );
 
+  const recordTitles = [
+    "criticalApprovalDelay",
+    "pendingTrustApproval",
+    "majorCustomerRisk",
+    "invoicePaid",
+  ] as const;
+  for (const title of recordTitles) {
+    const key = `${commandBriefPrefix}.recordTitles.${title}`;
+    lookup[key] = t(key);
+  }
+
   return lookup;
 }
