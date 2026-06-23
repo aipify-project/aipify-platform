@@ -9,11 +9,21 @@ export type AppNavSearchEntry = NavSearchEntry & {
 };
 
 const SEARCH_KEYWORDS: Record<string, string[]> = {
+  commandBrief: ["command brief", "briefing", "companion briefing"],
   appDashboard: ["dashboard", "home", "app"],
   sinceLastLogin: ["since last login", "briefing", "updates"],
   appNotifications: ["notifications", "alerts"],
   teamMembers: ["team", "members", "invite"],
   rolesPermissions: ["roles", "permissions", "access"],
+  operationsCenter: ["operations center", "operations", "ops"],
+  risksCompliance: ["risk", "compliance", "governance"],
+  managementInsights: ["management", "executive", "insights"],
+  dataSources: ["data sources", "integrations", "connect"],
+  connectedApps: ["connected apps", "integrations"],
+  apiDeveloperSettings: ["api", "developer", "access"],
+  organizationSettings: ["organization settings", "settings"],
+  marketplace: ["marketplace", "business packs", "recommendations"],
+  supportRequests: ["support cases", "support requests", "tickets"],
   knowledgeCenter: ["knowledge", "faq", "help"],
   subscription: ["subscription", "billing", "plan"],
   installedBusinessPacks: ["business packs", "modules", "installed"],

@@ -113,9 +113,9 @@ export const AipifySidebarTypography = {
   searchMenuGroup: "text-[12px] font-medium leading-snug text-aipify-text-secondary",
   searchMenuDescription: "text-[13px] leading-snug text-aipify-text-secondary",
   sectionLabel:
-    "text-[11px] font-bold uppercase tracking-[0.08em] text-aipify-text/75",
+    "text-[12px] font-semibold uppercase tracking-[0.06em] text-aipify-text/80",
   sectionLabelButton:
-    "text-[11px] font-bold uppercase tracking-[0.08em] text-aipify-text/75 transition hover:bg-aipify-surface-muted hover:text-aipify-text",
+    "text-[12px] font-semibold uppercase tracking-[0.06em] text-aipify-text/80 transition hover:bg-aipify-surface-muted hover:text-aipify-text",
   navigationItem:
     "text-[13px] font-medium leading-snug text-aipify-text-secondary",
   navigationItemActive: "text-[13px] font-semibold leading-snug text-white",

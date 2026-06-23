@@ -2315,11 +2315,11 @@ export const APP_NAV: AppNavItem[] = [
 ];
 
 export const APP_MOBILE_NAV_IDS: AppNavId[] = [
+  "commandBrief" as AppNavId,
   "appDashboard" as AppNavId,
-  "sinceLastLogin" as AppNavId,
+  "aipifyCompanion" as AppNavId,
   "teamMembers" as AppNavId,
-  "subscription" as AppNavId,
-  "knowledgeCenter" as AppNavId,
+  "supportRequests" as AppNavId,
   "profile" as AppNavId,
 ];
 

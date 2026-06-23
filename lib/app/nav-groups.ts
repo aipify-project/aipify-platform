@@ -38,8 +38,9 @@ export const APP_COLLAPSIBLE_GROUPS: AppNavGroupId[] = [
   "organization",
   "businessPacks",
   "operations",
+  "intelligence",
   "billing",
   "support",
   "account",
-  "appPlatform",
+  "integrations",
 ];

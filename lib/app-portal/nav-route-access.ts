@@ -6,4 +6,5 @@ export const APP_NAV_PERMISSION_KEYS: Partial<Record<AppPortalNavId, string[]>> 
   customerHealth: ["customer_health.view", "customer_health.manage"],
   customerSuccess: ["success.view"],
   abosCommandCenter: ["operations_center.view", "operations_center.manage"],
+  intelligenceCommandCenter: ["operations_center.view", "operations_center.manage"],
 };
