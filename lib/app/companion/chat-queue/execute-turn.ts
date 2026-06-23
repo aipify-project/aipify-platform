@@ -27,6 +27,8 @@ import type { UserRole } from "@/lib/tenant/types";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { buildReplyFromSearchJson } from "./build-reply";
 import type { CompanionExperienceLabels } from "../types";
+import type { WorkerExecutionProfile } from "./load-worker-profile";
+import { loadCompanionTenantContextForWorker } from "./load-worker-tenant-context";
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   const parts = path.replace(/^customerApp\./, "").split(".");
@@ -57,6 +59,8 @@ export type ExecuteCompanionTurnInput = {
   integrationContext?: string | null;
   externalProvider?: string | null;
   externalConsent?: boolean;
+  /** Background worker execution — uses queue tenant/user instead of auth session. */
+  workerProfile?: WorkerExecutionProfile;
 };
 
 export type ExecuteCompanionTurnResult =
@@ -77,9 +81,15 @@ export async function executeCompanionTurn(
     return { ok: false, error: "empty_query", code: "empty_query" };
   }
 
-  const profile = await getDashboardProfile(supabase);
+  const profile = input.workerProfile
+    ? {
+        user: input.workerProfile.user,
+        company: input.workerProfile.company,
+      }
+    : await getDashboardProfile(supabase);
+
   if (!profile) {
-    return { ok: false, error: "no_profile", code: "unauthorized" };
+    return { ok: false, error: "no_profile", code: input.workerProfile ? "tenant_mismatch" : "unauthorized" };
   }
 
   const userRole = (profile.user.role ?? "staff") as UserRole;
@@ -96,7 +106,9 @@ export async function executeCompanionTurn(
   const companionLabels = buildCompanionExperienceLabels(t);
   const legacyCorpus = buildSupportAssistantCorpus(labels, t);
 
-  const tenantContext = await loadCompanionTenantContext(supabase, { locale: answerLocale });
+  const tenantContext = input.workerProfile
+    ? await loadCompanionTenantContextForWorker(supabase, input.workerProfile, answerLocale)
+    : await loadCompanionTenantContext(supabase, { locale: answerLocale });
   const resolvedIntegrationContext = resolveCompanionIntegrationContext(
     input.integrationContext ?? null,
     tenantContext,

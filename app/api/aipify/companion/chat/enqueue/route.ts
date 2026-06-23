@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import {
-  processCompanionQueueForConversation,
-  scheduleCompanionQueueProcessing,
-} from "@/lib/app/companion/chat-queue/process-queue";
+import { scheduleCompanionQueueProcessing } from "@/lib/app/companion/chat-queue/process-queue";
 
 export async function POST(request: Request) {
   try {
@@ -30,6 +27,7 @@ export async function POST(request: Request) {
     const conversationId = String(body.conversation_id ?? "").trim();
     const idempotencyKey = String(body.idempotency_key ?? "").trim();
     const question = String(body.question ?? "").trim();
+    const companionActive = body.companion_active !== false;
 
     if (!conversationId || !idempotencyKey) {
       return NextResponse.json({ ok: false, error: "invalid_request" }, { status: 400 });
@@ -52,6 +50,7 @@ export async function POST(request: Request) {
       p_platform_active_modules: body.platform_active_modules ?? null,
       p_user_client_message_id: idempotencyKey.split(":").pop() ?? null,
       p_title: body.title ?? null,
+      p_companion_active: companionActive,
     });
 
     if (error) {
@@ -59,22 +58,7 @@ export async function POST(request: Request) {
     }
 
     scheduleCompanionQueueProcessing(conversationId, {
-      companionActive: body.companion_active !== false,
-      cookieHeader: request.headers.get("cookie"),
       origin: new URL(request.url).origin,
-    });
-
-    void processCompanionQueueForConversation(supabase, conversationId, {
-      maxItems: 1,
-      companionActive: body.companion_active !== false,
-    }).then(({ hasMore }) => {
-      if (hasMore) {
-        scheduleCompanionQueueProcessing(conversationId, {
-          companionActive: body.companion_active !== false,
-          cookieHeader: request.headers.get("cookie"),
-          origin: new URL(request.url).origin,
-        });
-      }
     });
 
     return NextResponse.json(data);

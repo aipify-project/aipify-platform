@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import {
-  processCompanionQueueForConversation,
-  scheduleCompanionQueueProcessing,
-} from "@/lib/app/companion/chat-queue/process-queue";
+import { scheduleCompanionQueueProcessing } from "@/lib/app/companion/chat-queue/process-queue";
 
 export async function POST(request: Request) {
   try {
@@ -15,7 +12,6 @@ export async function POST(request: Request) {
 
     const body = (await request.json()) as {
       conversation_id?: string;
-      companion_active?: boolean;
     };
 
     const conversationId = String(body.conversation_id ?? "").trim();
@@ -23,24 +19,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "invalid_request" }, { status: 400 });
     }
 
-    const { processed, hasMore } = await processCompanionQueueForConversation(
-      supabase,
-      conversationId,
-      {
-        maxItems: 3,
-        companionActive: body.companion_active !== false,
-      },
-    );
+    scheduleCompanionQueueProcessing(conversationId, {
+      origin: new URL(request.url).origin,
+    });
 
-    if (hasMore) {
-      scheduleCompanionQueueProcessing(conversationId, {
-        companionActive: body.companion_active !== false,
-        cookieHeader: request.headers.get("cookie"),
-        origin: new URL(request.url).origin,
-      });
-    }
-
-    return NextResponse.json({ ok: true, processed, has_more: hasMore });
+    return NextResponse.json({ ok: true, triggered: true });
   } catch {
     return NextResponse.json({ ok: false, error: "process_failed" }, { status: 500 });
   }

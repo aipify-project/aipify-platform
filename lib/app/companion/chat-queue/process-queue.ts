@@ -1,6 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { executeCompanionTurnToPayload } from "./execute-turn";
 import { notifyCompanionReplyReady } from "./notify-complete";
+import { triggerCompanionQueueWorker } from "./worker-run";
 
 export type ProcessCompanionQueueOptions = {
   maxItems?: number;
@@ -25,6 +26,7 @@ function parseAttachmentIds(raw: unknown): string[] {
   return raw.map(String).filter(Boolean);
 }
 
+/** @deprecated Inline auth-scoped processing — durable worker is authoritative. */
 export async function processCompanionQueueForConversation(
   supabase: SupabaseClient,
   conversationId: string,
@@ -116,25 +118,10 @@ export async function processCompanionQueueForConversation(
   return { processed, hasMore };
 }
 
+/** Fast inline trigger — cron worker remains authoritative. */
 export function scheduleCompanionQueueProcessing(
-  conversationId: string,
+  _conversationId: string,
   options: ProcessCompanionQueueOptions = {},
 ): void {
-  const origin = options.origin ?? process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-  const url = new URL("/api/aipify/companion/chat/process", origin);
-  url.searchParams.set("conversation_id", conversationId);
-  if (options.companionActive === true) {
-    url.searchParams.set("companion_active", "true");
-  }
-
-  void fetch(url.toString(), {
-    method: "POST",
-    headers: {
-      ...(options.cookieHeader ? { cookie: options.cookieHeader } : {}),
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({ conversation_id: conversationId }),
-  }).catch(() => {
-    /* client poll is fallback */
-  });
+  triggerCompanionQueueWorker(options.origin);
 }

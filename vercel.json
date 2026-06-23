@@ -8,5 +8,11 @@
       "AIPIFY_BUILD_HEAP_COMPILE": "--max-old-space-size=16384",
       "AIPIFY_BUILD_HEAP_GENERATE": "--max-old-space-size=8192"
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/companion-queue-worker",
+      "schedule": "* * * * *"
+    }
+  ]
 }
