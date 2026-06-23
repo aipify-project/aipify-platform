@@ -590,21 +590,37 @@ export function buildP1PriorityFreeze(
     },
     {
       priority_order: 10,
-      package_id: "p1.10_service_booking_write_rpc",
-      module_id: "service.booking_write",
-      exact_gap: "Booking write RPC not connected — proposals only.",
-      current_readiness: entryByModule(reconciled, "service.booking_write")?.readiness ?? "source_missing",
-      verified_source: "none — write orchestrator scaffold only",
-      required_work: "Ship reversible booking create/update/cancel RPC with availability recheck.",
-      read_write_scope: "write_approval_required",
-      dependencies: ["service.booking_read"],
-      security_considerations: ["Double-booking prevention and idempotency required."],
-      acceptance_criteria: [
-        "booking.create returns proposal until user confirms.",
-        "Availability recheck runs before commit.",
+      package_id: "p1.10_locked_p1_coverage_certification",
+      module_id: "certification.p1_locked_sequence",
+      exact_gap:
+        "Final audit and certification of locked P1.01–P1.09 sequence — registry, live E2E evidence, and readiness honesty.",
+      current_readiness: "connected_but_partial",
+      verified_source: "phase-p1-01.test.ts through phase-p1-09.test.ts + companion-p1-*-certification-v1.json artifacts",
+      required_work:
+        "Run consolidated P1 coverage audit; certify production_ready_candidate max; document open deviations.",
+      read_write_scope: "read_certification",
+      dependencies: [
+        "p1.01_live_app_e2e_certification",
+        "p1.02_directory_app_employee_e2e",
+        "p1.03_directory_crm_customer_close_partial",
+        "p1.04_directory_supplier_vendor_close_partial",
+        "p1.05_support_sla_exact_source",
+        "p1.06_support_case_write_adapter",
+        "p1.07_hosts_task_write_adapter",
+        "p1.08_member_verification_exact_source",
+        "p1.09_community_member_directory_source",
       ],
-      why_p1: "Services read is partial — write blocks appointment completion loop.",
-      estimated_complexity: "large",
+      security_considerations: [
+        "No customer names, domains, or provider field mapping in Core artifacts.",
+        "No proxy, seed, fallback, or simulated data certified as facts.",
+      ],
+      acceptance_criteria: [
+        "All P1.01–P1.09 live E2E artifacts pass with authenticated APP session evidence.",
+        "Canonical registry reconciled — max readiness production_ready_candidate.",
+        "Consolidated companion-p1-10-locked-p1-coverage-certification-v1.json documents capability status and deviations.",
+      ],
+      why_p1: "Closes the locked P1 sequence with honest, auditable certification before post-P1 work.",
+      estimated_complexity: "medium",
     },
   ];
 

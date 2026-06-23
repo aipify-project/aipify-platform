@@ -329,6 +329,17 @@ export const COMPANION_RUNTIME_PHASE_CHAIN: readonly CompanionPhaseChainEntry[] 
     ],
     commit_hint: "P1.09",
   },
+  {
+    phase: "P1.10",
+    required_test: "phase-p1-10.test.ts",
+    required_wiring: [
+      "p1-10-locked-p1-coverage-certification.ts",
+      "p1-10-locked-p1-coverage-audit.ts",
+      "p1-10-locked-p1-coverage-certification-types.ts",
+      "artifacts/companion-p1-10-locked-p1-coverage-certification-v1.json",
+    ],
+    commit_hint: "P1.10",
+  },
 ];
 
 export const COMPANION_RUNTIME_FLOW_CHAIN = [

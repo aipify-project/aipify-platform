@@ -1,0 +1,488 @@
+{
+  "version": "companion-p1-10-locked-p1-coverage-certification-v1",
+  "generated_at": "2026-06-23T12:59:51.896Z",
+  "commit_hash": "6831704cb4e58d8338e34c972ddc0c992c33ede8",
+  "locked_sequence": "p1.01-p1.09",
+  "overall_status": "pass",
+  "max_readiness_certified": "production_ready_candidate",
+  "registry_modules_audited": 12,
+  "packages_certified": 9,
+  "packages_failed": 0,
+  "package_audits": [
+    {
+      "priority_order": 1,
+      "package_id": "p1.01_live_app_e2e_certification",
+      "phase": "P1.01",
+      "module_ids": [
+        "directory.app_employee",
+        "directory.crm_customer",
+        "directory.supplier",
+        "core.command_brief_signals"
+      ],
+      "read_write_scope": "read_certification",
+      "artifact_filename": "companion-p1-01-live-e2e-certification-v1.json",
+      "artifact_status": "pass",
+      "artifact_commit_hash": "6831704cb4e58d8338e34c972ddc0c992c33ede8",
+      "test_file": "phase-p1-01.test.ts",
+      "test_status": "not_run",
+      "registry_readiness": {
+        "directory.app_employee": "production_ready_candidate",
+        "directory.crm_customer": "production_ready_candidate",
+        "directory.supplier": "production_ready_candidate",
+        "core.command_brief_signals": "production_ready_candidate"
+      },
+      "source_classification": {
+        "directory.app_employee": "source_exact",
+        "directory.crm_customer": "source_exact",
+        "directory.supplier": "source_exact",
+        "core.command_brief_signals": "source_compatible"
+      },
+      "capabilities_required": [
+        "employee.search",
+        "customer.search",
+        "supplier.search",
+        "command_brief.read"
+      ],
+      "capabilities_verified": [
+        "command_brief.read",
+        "companion.context_briefing",
+        "core.entitlement",
+        "core.organization_context",
+        "core.session",
+        "customer.search",
+        "directory.freshness",
+        "directory.read",
+        "employee.search",
+        "supplier.search"
+      ],
+      "classification": "production_ready_candidate",
+      "status": "pass",
+      "deviations": []
+    },
+    {
+      "priority_order": 2,
+      "package_id": "p1.02_directory_app_employee_e2e",
+      "phase": "P1.02",
+      "module_ids": [
+        "directory.app_employee"
+      ],
+      "read_write_scope": "read_only",
+      "artifact_filename": "companion-p1-02-live-app-employee-e2e-certification-v1.json",
+      "artifact_status": "pass",
+      "artifact_commit_hash": "6831704cb4e58d8338e34c972ddc0c992c33ede8",
+      "test_file": "phase-p1-02.test.ts",
+      "test_status": "not_run",
+      "registry_readiness": {
+        "directory.app_employee": "production_ready_candidate"
+      },
+      "source_classification": {
+        "directory.app_employee": "source_exact"
+      },
+      "capabilities_required": [
+        "employee.search.live",
+        "employee.search.role_status",
+        "employee.contact.masking",
+        "employee.permission.owner_admin",
+        "employee.search.unknown_empty",
+        "employee.access.denied",
+        "employee.isolation"
+      ],
+      "capabilities_verified": [
+        "employee.access.denied",
+        "employee.contact.masking",
+        "employee.isolation",
+        "employee.permission.owner_admin",
+        "employee.search.live",
+        "employee.search.role_status",
+        "employee.search.unknown_empty"
+      ],
+      "classification": "production_ready_candidate",
+      "status": "pass",
+      "deviations": []
+    },
+    {
+      "priority_order": 3,
+      "package_id": "p1.03_directory_crm_customer_close_partial",
+      "phase": "P1.03",
+      "module_ids": [
+        "directory.crm_customer"
+      ],
+      "read_write_scope": "read_only",
+      "artifact_filename": "companion-p1-03-live-app-crm-customer-e2e-certification-v1.json",
+      "artifact_status": "pass",
+      "artifact_commit_hash": "6831704cb4e58d8338e34c972ddc0c992c33ede8",
+      "test_file": "phase-p1-03.test.ts",
+      "test_status": "not_run",
+      "registry_readiness": {
+        "directory.crm_customer": "production_ready_candidate"
+      },
+      "source_classification": {
+        "directory.crm_customer": "source_exact"
+      },
+      "capabilities_required": [
+        "customer.search.live",
+        "customer.search.company",
+        "customer.search.email",
+        "customer.search.phone",
+        "customer.search.organization_number",
+        "customer.search.lead_prospect",
+        "customer.search.contact_company",
+        "customer.search.owner",
+        "customer.partner.attribution",
+        "customer.contact.masking",
+        "customer.search.unknown_empty",
+        "customer.search.clarification",
+        "customer.access.denied",
+        "customer.isolation"
+      ],
+      "capabilities_verified": [
+        "customer.access.denied",
+        "customer.contact.masking",
+        "customer.isolation",
+        "customer.partner.attribution",
+        "customer.search.clarification",
+        "customer.search.company",
+        "customer.search.contact_company",
+        "customer.search.email",
+        "customer.search.lead_prospect",
+        "customer.search.live",
+        "customer.search.organization_number",
+        "customer.search.owner",
+        "customer.search.phone",
+        "customer.search.unknown_empty"
+      ],
+      "classification": "production_ready_candidate",
+      "status": "pass",
+      "deviations": []
+    },
+    {
+      "priority_order": 4,
+      "package_id": "p1.04_directory_supplier_vendor_close_partial",
+      "phase": "P1.04",
+      "module_ids": [
+        "directory.supplier"
+      ],
+      "read_write_scope": "read_only",
+      "artifact_filename": "companion-p1-04-live-app-supplier-vendor-e2e-certification-v1.json",
+      "artifact_status": "pass",
+      "artifact_commit_hash": "6831704cb4e58d8338e34c972ddc0c992c33ede8",
+      "test_file": "phase-p1-04.test.ts",
+      "test_status": "not_run",
+      "registry_readiness": {
+        "directory.supplier": "production_ready_candidate"
+      },
+      "source_classification": {
+        "directory.supplier": "source_exact"
+      },
+      "capabilities_required": [
+        "supplier.search.live",
+        "supplier.search.name",
+        "supplier.search.organization_number",
+        "supplier.search.contact",
+        "supplier.search.category",
+        "supplier.search.contract_status",
+        "supplier.search.buyer",
+        "supplier.search.manufacturer_distributor",
+        "supplier.contact.masking",
+        "supplier.search.unknown_empty",
+        "supplier.search.clarification",
+        "supplier.relationship.boundary",
+        "supplier.marketplace.exclusion",
+        "supplier.access.denied",
+        "supplier.isolation",
+        "supplier.empty_source_integrity"
+      ],
+      "capabilities_verified": [
+        "supplier.access.denied",
+        "supplier.contact.masking",
+        "supplier.empty_source_integrity",
+        "supplier.isolation",
+        "supplier.marketplace.exclusion",
+        "supplier.relationship.boundary",
+        "supplier.search.buyer",
+        "supplier.search.category",
+        "supplier.search.clarification",
+        "supplier.search.contact",
+        "supplier.search.contract_status",
+        "supplier.search.live",
+        "supplier.search.manufacturer_distributor",
+        "supplier.search.name",
+        "supplier.search.organization_number",
+        "supplier.search.unknown_empty"
+      ],
+      "classification": "production_ready_candidate",
+      "status": "pass",
+      "deviations": []
+    },
+    {
+      "priority_order": 5,
+      "package_id": "p1.05_support_sla_exact_source",
+      "phase": "P1.05",
+      "module_ids": [
+        "support.queue_read",
+        "support.command_brief_signals"
+      ],
+      "read_write_scope": "read_only",
+      "artifact_filename": "companion-p1-05-live-app-support-sla-e2e-certification-v1.json",
+      "artifact_status": "pass",
+      "artifact_commit_hash": "6831704cb4e58d8338e34c972ddc0c992c33ede8",
+      "test_file": "phase-p1-05.test.ts",
+      "test_status": "not_run",
+      "registry_readiness": {
+        "support.queue_read": "production_ready_candidate",
+        "support.command_brief_signals": "production_ready_candidate"
+      },
+      "source_classification": {
+        "support.queue_read": "source_exact",
+        "support.command_brief_signals": "source_compatible"
+      },
+      "capabilities_required": [
+        "support.sla.live",
+        "support.sla.policy",
+        "support.sla.status_mapping",
+        "support.sla.unavailable",
+        "support.sla.no_fabrication",
+        "support.sla.empty_source",
+        "support.sla.isolation",
+        "support.sla.access",
+        "support.sla.command_brief",
+        "support.sla.no_fabrication"
+      ],
+      "capabilities_verified": [
+        "support.sla.access",
+        "support.sla.command_brief",
+        "support.sla.empty_source",
+        "support.sla.isolation",
+        "support.sla.live",
+        "support.sla.no_fabrication",
+        "support.sla.policy",
+        "support.sla.status_mapping",
+        "support.sla.unavailable"
+      ],
+      "classification": "production_ready_candidate",
+      "status": "pass",
+      "deviations": []
+    },
+    {
+      "priority_order": 6,
+      "package_id": "p1.06_support_case_write_adapter",
+      "phase": "P1.06",
+      "module_ids": [
+        "support.case_write"
+      ],
+      "read_write_scope": "write_approval_required",
+      "artifact_filename": "companion-p1-06-live-app-support-case-write-e2e-certification-v1.json",
+      "artifact_status": "pass",
+      "artifact_commit_hash": "6831704cb4e58d8338e34c972ddc0c992c33ede8",
+      "test_file": "phase-p1-06.test.ts",
+      "test_status": "not_run",
+      "registry_readiness": {
+        "support.case_write": "production_ready_candidate"
+      },
+      "source_classification": {
+        "support.case_write": "source_unknown"
+      },
+      "capabilities_required": [
+        "support.write.assign",
+        "support.write.escalate",
+        "support.write.confirmation",
+        "support.write.approval",
+        "support.write.idempotency",
+        "support.write.isolation",
+        "support.write.access",
+        "support.write.audit",
+        "support.write.blocked"
+      ],
+      "capabilities_verified": [
+        "support.write.access",
+        "support.write.approval",
+        "support.write.assign",
+        "support.write.audit",
+        "support.write.blocked",
+        "support.write.confirmation",
+        "support.write.escalate",
+        "support.write.idempotency",
+        "support.write.isolation"
+      ],
+      "classification": "production_ready_candidate",
+      "status": "pass",
+      "deviations": []
+    },
+    {
+      "priority_order": 7,
+      "package_id": "p1.07_hosts_task_write_adapter",
+      "phase": "P1.07",
+      "module_ids": [
+        "hosts.task_write"
+      ],
+      "read_write_scope": "write_approval_required",
+      "artifact_filename": "companion-p1-07-live-app-hosts-task-write-e2e-certification-v1.json",
+      "artifact_status": "pass",
+      "artifact_commit_hash": "6831704cb4e58d8338e34c972ddc0c992c33ede8",
+      "test_file": "phase-p1-07.test.ts",
+      "test_status": "not_run",
+      "registry_readiness": {
+        "hosts.task_write": "production_ready_candidate"
+      },
+      "source_classification": {
+        "hosts.task_write": "source_unknown"
+      },
+      "capabilities_required": [
+        "hosts.write.host_task",
+        "hosts.write.cleaning_assign",
+        "hosts.write.maintenance_create",
+        "hosts.write.confirmation",
+        "hosts.write.approval",
+        "hosts.write.idempotency",
+        "hosts.write.isolation",
+        "hosts.write.access",
+        "hosts.write.audit",
+        "hosts.write.blocked",
+        "hosts.write.cleanup"
+      ],
+      "capabilities_verified": [
+        "hosts.write.access",
+        "hosts.write.approval",
+        "hosts.write.audit",
+        "hosts.write.blocked",
+        "hosts.write.cleaning_assign",
+        "hosts.write.cleanup",
+        "hosts.write.confirmation",
+        "hosts.write.host_task",
+        "hosts.write.idempotency",
+        "hosts.write.isolation",
+        "hosts.write.maintenance_create"
+      ],
+      "classification": "production_ready_candidate",
+      "status": "pass",
+      "deviations": []
+    },
+    {
+      "priority_order": 8,
+      "package_id": "p1.08_member_verification_exact_source",
+      "phase": "P1.08",
+      "module_ids": [
+        "verification.queue_read",
+        "verification.case_read",
+        "verification.community_adapter_status"
+      ],
+      "read_write_scope": "read_only",
+      "artifact_filename": "companion-p1-08-live-app-member-verification-e2e-certification-v1.json",
+      "artifact_status": "pass",
+      "artifact_commit_hash": "6831704cb4e58d8338e34c972ddc0c992c33ede8",
+      "test_file": "phase-p1-08.test.ts",
+      "test_status": "not_run",
+      "registry_readiness": {
+        "verification.queue_read": "production_ready_candidate",
+        "verification.case_read": "production_ready_candidate",
+        "verification.community_adapter_status": "production_ready_candidate"
+      },
+      "source_classification": {
+        "verification.queue_read": "source_exact",
+        "verification.case_read": "source_exact",
+        "verification.community_adapter_status": "source_exact"
+      },
+      "capabilities_required": [
+        "verification.queue.live",
+        "verification.queue.status",
+        "verification.queue.priority",
+        "verification.queue.needs_information",
+        "verification.queue.no_fabrication",
+        "verification.queue.empty_source",
+        "verification.queue.isolation",
+        "verification.queue.access",
+        "verification.command_brief.exact_only",
+        "verification.blocked",
+        "verification.audit",
+        "verification.case.live",
+        "verification.case.status",
+        "verification.case.no_documents",
+        "verification.status.exact",
+        "verification.provider.connected"
+      ],
+      "capabilities_verified": [
+        "verification.audit",
+        "verification.blocked",
+        "verification.case.live",
+        "verification.case.no_documents",
+        "verification.case.status",
+        "verification.command_brief.exact_only",
+        "verification.provider.connected",
+        "verification.queue.access",
+        "verification.queue.empty_source",
+        "verification.queue.isolation",
+        "verification.queue.live",
+        "verification.queue.needs_information",
+        "verification.queue.no_fabrication",
+        "verification.queue.priority",
+        "verification.queue.status",
+        "verification.status.exact"
+      ],
+      "classification": "production_ready_candidate",
+      "status": "pass",
+      "deviations": []
+    },
+    {
+      "priority_order": 9,
+      "package_id": "p1.09_community_member_directory_source",
+      "phase": "P1.09",
+      "module_ids": [
+        "directory.community_member"
+      ],
+      "read_write_scope": "read_only",
+      "artifact_filename": "companion-p1-09-live-app-community-member-directory-e2e-certification-v1.json",
+      "artifact_status": "pass",
+      "artifact_commit_hash": "6831704cb4e58d8338e34c972ddc0c992c33ede8",
+      "test_file": "phase-p1-09.test.ts",
+      "test_status": "not_run",
+      "registry_readiness": {
+        "directory.community_member": "production_ready_candidate"
+      },
+      "source_classification": {
+        "directory.community_member": "source_exact"
+      },
+      "capabilities_required": [
+        "member.search.live",
+        "member.search.status",
+        "member.search.level",
+        "member.search.verification",
+        "member.search.profile",
+        "member.search.count",
+        "member.search.no_admin",
+        "member.search.masked_contact",
+        "member.search.no_match",
+        "member.search.no_proxy",
+        "member.search.isolation",
+        "member.search.access",
+        "member.command_brief.exact_only",
+        "member.provider.connected"
+      ],
+      "capabilities_verified": [
+        "member.command_brief.exact_only",
+        "member.provider.connected",
+        "member.search.access",
+        "member.search.count",
+        "member.search.isolation",
+        "member.search.level",
+        "member.search.live",
+        "member.search.masked_contact",
+        "member.search.no_admin",
+        "member.search.no_match",
+        "member.search.no_proxy",
+        "member.search.profile",
+        "member.search.status",
+        "member.search.verification"
+      ],
+      "classification": "production_ready_candidate",
+      "status": "pass",
+      "deviations": []
+    }
+  ],
+  "test_results": {
+    "phase43": "pass",
+    "phase43b": "pass",
+    "typecheck": "pass"
+  },
+  "open_deviations": [],
+  "blockers": []
+}
