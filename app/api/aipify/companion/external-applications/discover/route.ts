@@ -9,7 +9,13 @@ import {
   selectExternalApplications,
   type ExternalApplicationOperation,
 } from "@/lib/companion-runtime/external-application-orchestration";
-import { loadCanvaHandoffConnectionMaterial } from "@/lib/integration-intelligence/external-artifact-handoff/server";
+import {
+  loadCanvaHandoffConnectionMaterial,
+} from "@/lib/integration-intelligence/external-artifact-handoff/server";
+import {
+  loadMicrosoft365HandoffConnectionMaterial,
+  resolveConnectedApplicationKeys,
+} from "@/lib/integration-intelligence/external-artifact-handoff/connection-loader";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import type { UserRole } from "@/lib/tenant/types";
 import type { CompanionArtifactCategory } from "@/lib/companion-runtime/artifact-context/types";
@@ -34,7 +40,11 @@ export async function GET(request: Request) {
 
     const permissionMap = buildExternalApplicationPermissionMap(profile.user.role as UserRole);
     const canvaConnection = await loadCanvaHandoffConnectionMaterial(supabase);
-    const connectedKeys = canvaConnection.connected ? ["canva"] : [];
+    const microsoftConnection = await loadMicrosoft365HandoffConnectionMaterial(supabase);
+    const connectedKeys = resolveConnectedApplicationKeys({
+      canvaConnected: canvaConnection.connected,
+      microsoft365Connected: microsoftConnection.connected,
+    });
 
     const discovery = buildExternalApplicationDiscovery({
       category,

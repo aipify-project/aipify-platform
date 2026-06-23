@@ -29,13 +29,19 @@ assert.equal(
 
 const registry = summarizeExternalApplicationRegistry();
 assert.equal(registry.total, 7);
-assert.equal(registry.by_adapter_type.api_oauth, 1);
+assert.equal(registry.by_adapter_type.api_oauth, 4);
 assert.equal(registry.by_adapter_type.desktop_bridge, 3);
-assert.equal(registry.by_adapter_type.file_handoff, 3);
-assert.deepEqual(registry.handoff_registered, ["canva"]);
+assert.equal(registry.by_adapter_type.file_handoff ?? 0, 0);
+assert.deepEqual([...registry.handoff_registered].sort(), [
+  "canva",
+  "microsoft_excel",
+  "microsoft_powerpoint",
+  "microsoft_word",
+]);
 
 const missing = listMissingExternalApplicationHandoffAdapters();
 assert.ok(missing.includes("adobe_photoshop"));
 assert.ok(!missing.includes("canva"));
+assert.ok(!missing.includes("microsoft_word"));
 
 console.log("external-applications/discovery-runtime.test.ts: all assertions passed");

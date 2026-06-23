@@ -2,10 +2,12 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getExternalArtifactHandoffAdapter } from "@/lib/integration-intelligence/external-artifact-handoff/registry";
 import {
-  loadCanvaHandoffConnectionMaterial,
   loadCompanionHandoffAttachmentAccess,
 } from "@/lib/integration-intelligence/external-artifact-handoff/server";
-import { assertCanvaHandoffPermissionForRole } from "@/lib/integration-intelligence/providers/canva/permissions";
+import {
+  assertHandoffPermissionForRole,
+  loadHandoffConnectionMaterial,
+} from "@/lib/integration-intelligence/external-artifact-handoff/connection-loader";
 import { classifyExternalProviderHandoffFromRegistry } from "@/lib/integration-intelligence/external-applications/handoff-bridge";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import type { UserRole } from "@/lib/tenant/types";
@@ -46,9 +48,9 @@ export async function GET(request: Request) {
       return NextResponse.json({ ok: false, error: "no_profile" }, { status: 403 });
     }
 
-    const permissionGranted = assertCanvaHandoffPermissionForRole(profile.user.role as UserRole);
+    const permissionGranted = assertHandoffPermissionForRole(providerKey, profile.user.role as UserRole);
 
-    const connection = await loadCanvaHandoffConnectionMaterial(supabase);
+    const connection = await loadHandoffConnectionMaterial(supabase, providerKey);
     const handoffClass = classifyExternalProviderHandoffFromRegistry({
       provider_key: providerKey,
       consent_granted: false,

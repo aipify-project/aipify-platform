@@ -2228,6 +2228,33 @@
           "unsupportedType": "Denne filtypen støttes ikke for Canva-overføring.",
           "handoffFailed": "Canva godtok ikke filen. Ingenting ble rapportert som vellykket."
         }
+      },
+      "microsoft365Handoff": {
+        "title": "Bruk fil i Microsoft 365",
+        "subtitle": "Gå gjennom konto, fil, handling og tilgang før du godkjenner. Aipify handler aldri i Microsoft 365 uten ditt eksplisitte samtykke.",
+        "fileLabel": "Fil",
+        "accountLabel": "Tilkoblet konto",
+        "recipient": "Din tilkoblede Microsoft 365-konto (via Microsoft Graph)",
+        "accessScope": "Opprett, åpne, lagre eller last opp til OneDrive med godkjente OAuth-scopes — User.Read og Files.ReadWrite.",
+        "expectedCreateDocument": "Opprett et nytt Word-dokument i OneDrive",
+        "expectedCreateSpreadsheet": "Opprett et nytt Excel-regneark i OneDrive",
+        "expectedCreatePresentation": "Opprett en ny PowerPoint-presentasjon i OneDrive",
+        "expectedOpen": "Åpne valgt OneDrive-fil i Office på nett",
+        "expectedSave": "Lagre eller eksporter denne filen til OneDrive",
+        "expectedUpload": "Last opp dette Companion-artifactet til OneDrive",
+        "expectedUnsupported": "Denne handlingen støttes ikke av gjeldende Microsoft 365-adapter",
+        "consequence": "Filen lagres i OneDrive. Du kan åpne og redigere den fra lenken som returneres.",
+        "connectRequired": "Koble til Microsoft 365 i Integrasjoner før Aipify kan bruke denne filen.",
+        "connectMicrosoft365": "Koble til Microsoft 365",
+        "approveAction": "Godkjenn handling",
+        "successOpen": "Åpne i Microsoft 365",
+        "errors": {
+          "previewFailed": "Aipify kunne ikke forberede Microsoft 365-forhåndsvisningen.",
+          "connectFailed": "Kunne ikke starte Microsoft 365-tilkobling.",
+          "notConnected": "Microsoft 365 er ikke tilkoblet. Koble til kontoen før du fortsetter.",
+          "unsupportedType": "Denne filtypen støttes ikke for valgt Microsoft 365-app.",
+          "actionFailed": "Microsoft Graph fullførte ikke handlingen. Ingenting ble rapportert som vellykket."
+        }
       }
     },
     "externalApplications": {

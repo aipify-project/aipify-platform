@@ -1342,6 +1342,33 @@
           "unsupportedType": "Цей тип файлу не підтримується для передачі Canva.",
           "handoffFailed": "Canva не прийняло файл. Успіх не було зафіксовано."
         }
+      },
+      "microsoft365Handoff": {
+        "title": "Використати файл у Microsoft 365",
+        "subtitle": "Перевірте обліковий запис, файл, дію та доступ перед схваленням. Aipify ніколи не діє в Microsoft 365 без вашої явної згоди.",
+        "fileLabel": "Файл",
+        "accountLabel": "Підключений обліковий запис",
+        "recipient": "Ваш підключений обліковий запис Microsoft 365 (через Microsoft Graph)",
+        "accessScope": "Створення, відкриття, збереження або завантаження в OneDrive лише зі схваленими OAuth-scopes — User.Read і Files.ReadWrite.",
+        "expectedCreateDocument": "Створити новий документ Word у OneDrive",
+        "expectedCreateSpreadsheet": "Створити нову книгу Excel у OneDrive",
+        "expectedCreatePresentation": "Створити нову презентацію PowerPoint у OneDrive",
+        "expectedOpen": "Відкрити вибраний файл OneDrive в Office в інтернеті",
+        "expectedSave": "Зберегти або експортувати цей файл у OneDrive",
+        "expectedUpload": "Завантажити цей артефакт Companion у OneDrive",
+        "expectedUnsupported": "Ця дія не підтримується поточним адаптером Microsoft 365",
+        "consequence": "Файл буде збережено в OneDrive. Ви зможете відкрити та редагувати його за поверненим посиланням.",
+        "connectRequired": "Підключіть Microsoft 365 в Інтеграціях, перш ніж Aipify використає цей файл.",
+        "connectMicrosoft365": "Підключити Microsoft 365",
+        "approveAction": "Схвалити дію",
+        "successOpen": "Відкрити в Microsoft 365",
+        "errors": {
+          "previewFailed": "Aipify не змогло підготувати попередній перегляд Microsoft 365.",
+          "connectFailed": "Не вдалося розпочати підключення Microsoft 365.",
+          "notConnected": "Microsoft 365 не підключено. Підключіть обліковий запис перед продовженням.",
+          "unsupportedType": "Цей тип файлу не підтримується для вибраної програми Microsoft 365.",
+          "actionFailed": "Microsoft Graph не виконав дію. Успіх не було зафіксовано."
+        }
       }
     },
     "externalApplications": {

@@ -1,5 +1,10 @@
 import { canvaArtifactHandoffAdapter } from "@/lib/integration-intelligence/providers/canva/artifact-handoff-adapter";
 import { CANVA_ARTIFACT_HANDOFF_PROVIDER_KEY } from "@/lib/integration-intelligence/providers/canva/connect-capabilities-audit";
+import {
+  microsoftExcelArtifactHandoffAdapter,
+  microsoftPowerpointArtifactHandoffAdapter,
+  microsoftWordArtifactHandoffAdapter,
+} from "@/lib/integration-intelligence/providers/microsoft365/artifact-handoff-adapter";
 import type {
   ExternalArtifactHandoffAdapter,
   ExternalArtifactHandoffProviderReadiness,
@@ -7,6 +12,9 @@ import type {
 
 const registry = new Map<string, ExternalArtifactHandoffAdapter>([
   [CANVA_ARTIFACT_HANDOFF_PROVIDER_KEY, canvaArtifactHandoffAdapter],
+  ["microsoft_word", microsoftWordArtifactHandoffAdapter],
+  ["microsoft_excel", microsoftExcelArtifactHandoffAdapter],
+  ["microsoft_powerpoint", microsoftPowerpointArtifactHandoffAdapter],
 ]);
 
 export function listExternalArtifactHandoffProviderKeys(): readonly string[] {

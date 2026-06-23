@@ -3,11 +3,13 @@ import { createClient } from "@/lib/supabase/server";
 import { getExternalArtifactHandoffAdapter } from "@/lib/integration-intelligence/external-artifact-handoff/registry";
 import {
   downloadCompanionHandoffAttachmentBytes,
-  loadCanvaHandoffConnectionMaterial,
   loadCompanionHandoffAttachmentAccess,
   recordCompanionArtifactHandoffAudit,
 } from "@/lib/integration-intelligence/external-artifact-handoff/server";
-import { assertCanvaHandoffPermissionForRole } from "@/lib/integration-intelligence/providers/canva/permissions";
+import {
+  assertHandoffPermissionForRole,
+  loadHandoffConnectionMaterial,
+} from "@/lib/integration-intelligence/external-artifact-handoff/connection-loader";
 import { classifyExternalProviderHandoffFromRegistry } from "@/lib/integration-intelligence/external-applications/handoff-bridge";
 import {
   assertExternalApplicationActionMayProceed,
@@ -66,9 +68,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "attachment_not_approved" }, { status: 400 });
     }
 
-    const permissionGranted = assertCanvaHandoffPermissionForRole(profile.user.role as UserRole);
+    const permissionGranted = assertHandoffPermissionForRole(providerKey, profile.user.role as UserRole);
 
-    const connection = await loadCanvaHandoffConnectionMaterial(supabase);
+    const connection = await loadHandoffConnectionMaterial(supabase, providerKey);
     const handoffClass = classifyExternalProviderHandoffFromRegistry({
       provider_key: providerKey,
       consent_granted: consentGranted,

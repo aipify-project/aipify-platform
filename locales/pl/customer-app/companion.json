@@ -1342,6 +1342,33 @@
           "unsupportedType": "Ten typ pliku nie jest obsługiwany do przekazania Canva.",
           "handoffFailed": "Canva nie przyjęło pliku. Nic nie zostało zgłoszone jako sukces."
         }
+      },
+      "microsoft365Handoff": {
+        "title": "Użyj pliku w Microsoft 365",
+        "subtitle": "Przed zatwierdzeniem sprawdź konto, plik, działanie i dostęp. Aipify nigdy nie działa w Microsoft 365 bez Twojej wyraźnej zgody.",
+        "fileLabel": "Plik",
+        "accountLabel": "Połączone konto",
+        "recipient": "Twoje połączone konto Microsoft 365 (przez Microsoft Graph)",
+        "accessScope": "Tworzenie, otwieranie, zapisywanie lub przesyłanie do OneDrive tylko w zatwierdzonych zakresach OAuth — User.Read i Files.ReadWrite.",
+        "expectedCreateDocument": "Utwórz nowy dokument Word w OneDrive",
+        "expectedCreateSpreadsheet": "Utwórz nowy skoroszyt Excel w OneDrive",
+        "expectedCreatePresentation": "Utwórz nową prezentację PowerPoint w OneDrive",
+        "expectedOpen": "Otwórz wybrany plik OneDrive w Office w sieci",
+        "expectedSave": "Zapisz lub wyeksportuj ten plik do OneDrive",
+        "expectedUpload": "Prześlij ten artefakt Companion do OneDrive",
+        "expectedUnsupported": "To działanie nie jest obsługiwane przez bieżącą adapter Microsoft 365",
+        "consequence": "Plik zostanie zapisany w OneDrive. Możesz go otworzyć i edytować z zwróconego linku.",
+        "connectRequired": "Połącz Microsoft 365 w Integracjach, zanim Aipify użyje tego pliku.",
+        "connectMicrosoft365": "Połącz Microsoft 365",
+        "approveAction": "Zatwierdź działanie",
+        "successOpen": "Otwórz w Microsoft 365",
+        "errors": {
+          "previewFailed": "Aipify nie mogło przygotować podglądu Microsoft 365.",
+          "connectFailed": "Nie udało się rozpocząć połączenia Microsoft 365.",
+          "notConnected": "Microsoft 365 nie jest połączone. Połącz konto przed kontynuowaniem.",
+          "unsupportedType": "Ten typ pliku nie jest obsługiwany dla wybranej aplikacji Microsoft 365.",
+          "actionFailed": "Microsoft Graph nie ukończył działania. Sukces nie został zgłoszony."
+        }
       }
     },
     "externalApplications": {

@@ -2228,6 +2228,33 @@
           "unsupportedType": "Den här filtypen stöds inte för Canva-överföring.",
           "handoffFailed": "Canva accepterade inte filen. Inget rapporterades som lyckat."
         }
+      },
+      "microsoft365Handoff": {
+        "title": "Använd fil i Microsoft 365",
+        "subtitle": "Granska konto, fil, åtgärd och åtkomst innan du godkänner. Aipify agerar aldrig i Microsoft 365 utan ditt uttryckliga samtycke.",
+        "fileLabel": "Fil",
+        "accountLabel": "Anslutet konto",
+        "recipient": "Ditt anslutna Microsoft 365-konto (via Microsoft Graph)",
+        "accessScope": "Skapa, öppna, spara eller ladda upp till OneDrive med godkända OAuth-scopes — User.Read och Files.ReadWrite.",
+        "expectedCreateDocument": "Skapa ett nytt Word-dokument i OneDrive",
+        "expectedCreateSpreadsheet": "Skapa ett nytt Excel-kalkylblad i OneDrive",
+        "expectedCreatePresentation": "Skapa en ny PowerPoint-presentation i OneDrive",
+        "expectedOpen": "Öppna vald OneDrive-fil i Office på webben",
+        "expectedSave": "Spara eller exportera denna fil till OneDrive",
+        "expectedUpload": "Ladda upp detta Companion-artifact till OneDrive",
+        "expectedUnsupported": "Denna åtgärd stöds inte av den aktuella Microsoft 365-adaptern",
+        "consequence": "Filen lagras i OneDrive. Du kan öppna och redigera den via länken som returneras.",
+        "connectRequired": "Anslut Microsoft 365 i Integrationer innan Aipify kan använda denna fil.",
+        "connectMicrosoft365": "Anslut Microsoft 365",
+        "approveAction": "Godkänn åtgärd",
+        "successOpen": "Öppna i Microsoft 365",
+        "errors": {
+          "previewFailed": "Aipify kunde inte förbereda Microsoft 365-förhandsgranskningen.",
+          "connectFailed": "Kunde inte starta Microsoft 365-anslutning.",
+          "notConnected": "Microsoft 365 är inte anslutet. Anslut ditt konto innan du fortsätter.",
+          "unsupportedType": "Denna filtyp stöds inte för vald Microsoft 365-app.",
+          "actionFailed": "Microsoft Graph slutförde inte åtgärden. Inget rapporterades som lyckat."
+        }
       }
     },
     "externalApplications": {

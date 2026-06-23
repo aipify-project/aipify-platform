@@ -2146,6 +2146,33 @@
           "unsupportedType": "This file type is not supported for Canva handoff.",
           "handoffFailed": "Canva did not accept the file. Nothing was reported as successful."
         }
+      },
+      "microsoft365Handoff": {
+        "title": "Use file in Microsoft 365",
+        "subtitle": "Review the connected account, file, action, and access before you approve. Aipify never acts in Microsoft 365 without your explicit consent.",
+        "fileLabel": "File",
+        "accountLabel": "Connected account",
+        "recipient": "Your connected Microsoft 365 account (via Microsoft Graph)",
+        "accessScope": "Create, open, save, or upload to your OneDrive using approved OAuth scopes only — User.Read and Files.ReadWrite.",
+        "expectedCreateDocument": "Create a new Word document in your OneDrive",
+        "expectedCreateSpreadsheet": "Create a new Excel workbook in your OneDrive",
+        "expectedCreatePresentation": "Create a new PowerPoint presentation in your OneDrive",
+        "expectedOpen": "Open the selected OneDrive file in Office on the web",
+        "expectedSave": "Save or export this file to your OneDrive",
+        "expectedUpload": "Upload this Companion artifact to your OneDrive",
+        "expectedUnsupported": "This action is not supported by the current Microsoft 365 adapter",
+        "consequence": "The file will be stored in your OneDrive. You can open and edit it from the returned link.",
+        "connectRequired": "Connect Microsoft 365 in Integrations before Aipify can use this file.",
+        "connectMicrosoft365": "Connect Microsoft 365",
+        "approveAction": "Approve action",
+        "successOpen": "Open in Microsoft 365",
+        "errors": {
+          "previewFailed": "Aipify could not prepare the Microsoft 365 preview.",
+          "connectFailed": "Could not start Microsoft 365 connection.",
+          "notConnected": "Microsoft 365 is not connected. Connect your account before continuing.",
+          "unsupportedType": "This file type is not supported for the selected Microsoft 365 application.",
+          "actionFailed": "Microsoft Graph did not complete the action. Nothing was reported as successful."
+        }
       }
     },
     "externalApplications": {

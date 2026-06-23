@@ -1,6 +1,7 @@
 import {
   classifyExternalApplicationHandoff,
   type ExternalApplicationHandoffClassification,
+  type ExternalApplicationOperation,
 } from "@/lib/companion-runtime/external-application-orchestration";
 import {
   getExternalArtifactHandoffAdapter,
@@ -14,7 +15,7 @@ export function classifyExternalApplicationHandoffFromRegistry(input: {
   consent_granted: boolean;
   permission_granted: boolean;
   connection_connected?: boolean;
-  operation?: "handoff";
+  operation?: ExternalApplicationOperation;
 }): ExternalApplicationHandoffClassification {
   const applicationKey = input.application_key.trim().toLowerCase();
   const manifest = getExternalApplicationManifest(applicationKey);
