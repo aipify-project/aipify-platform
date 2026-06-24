@@ -29,6 +29,7 @@
       "saving": "Zapisywanie…",
       "saved": "Zapisano",
       "saveError": "Nie udało się zapisać. Spróbuj ponownie.",
+      "loadingPreferences": "Ładowanie ustawień powiadomień…",
       "statusTitle": "Status dźwięku",
       "status": {
         "active": "Dźwięk aktywny",

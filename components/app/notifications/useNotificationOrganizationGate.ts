@@ -6,31 +6,22 @@ import { resolveAppPortalAccessMessageKey } from "@/lib/app-portal/access-state-
 import {
   isNotificationOrganizationReady,
   resolveNotificationOrganizationKey,
+  resolveStableNotificationRequestKey,
 } from "@/lib/app/notifications/organization-context-gate";
 import {
   parseAppOrganizationContext,
   type AppOrganizationContext,
 } from "@/lib/tenant/resolve-app-organization-context";
+import { createClient } from "@/lib/supabase/client";
 
 export { isNotificationOrganizationReady, resolveNotificationOrganizationKey };
-
-const ORG_RETRY_MS = 900;
-const ORG_MAX_RETRIES = 8;
 
 export function useNotificationOrganizationGate() {
   const pathname = usePathname();
   const [context, setContext] = useState<AppOrganizationContext | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchFailed, setFetchFailed] = useState(false);
-  const retryTimerRef = useRef<number | null>(null);
-  const retryCountRef = useRef(0);
-
-  const clearRetryTimer = useCallback(() => {
-    if (retryTimerRef.current !== null) {
-      window.clearTimeout(retryTimerRef.current);
-      retryTimerRef.current = null;
-    }
-  }, []);
+  const loadedPathRef = useRef<string | null>(null);
 
   const refresh = useCallback(async (): Promise<AppOrganizationContext | null> => {
     setLoading(true);
@@ -44,9 +35,6 @@ export function useNotificationOrganizationGate() {
       }
       const parsed = parseAppOrganizationContext(await res.json());
       setContext(parsed);
-      if (isNotificationOrganizationReady(parsed)) {
-        retryCountRef.current = 0;
-      }
       return parsed;
     } catch {
       setFetchFailed(true);
@@ -58,41 +46,10 @@ export function useNotificationOrganizationGate() {
   }, []);
 
   useEffect(() => {
-    retryCountRef.current = 0;
-    clearRetryTimer();
+    if (loadedPathRef.current === pathname) return;
+    loadedPathRef.current = pathname;
     void refresh();
-  }, [pathname, refresh, clearRetryTimer]);
-
-  useEffect(() => {
-    clearRetryTimer();
-
-    if (loading || fetchFailed || isNotificationOrganizationReady(context)) {
-      return;
-    }
-
-    if (retryCountRef.current >= ORG_MAX_RETRIES) {
-      return;
-    }
-
-    retryTimerRef.current = window.setTimeout(() => {
-      retryCountRef.current += 1;
-      void refresh();
-    }, ORG_RETRY_MS);
-
-    return clearRetryTimer;
-  }, [clearRetryTimer, context, fetchFailed, loading, refresh]);
-
-  useEffect(() => {
-    function handleFocus() {
-      if (!isNotificationOrganizationReady(context)) {
-        retryCountRef.current = 0;
-        void refresh();
-      }
-    }
-
-    window.addEventListener("focus", handleFocus);
-    return () => window.removeEventListener("focus", handleFocus);
-  }, [context, refresh]);
+  }, [pathname, refresh]);
 
   const organizationKey = context ? resolveNotificationOrganizationKey(context) : null;
   const isReady = isNotificationOrganizationReady(context);
@@ -111,4 +68,23 @@ export function useNotificationOrganizationGate() {
     accessMessageKey,
     refresh,
   };
+}
+
+export async function resolveNotificationAuthUserId(): Promise<string | null> {
+  try {
+    const supabase = createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    return user?.id ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export function buildStableNotificationRequestKey(
+  context: AppOrganizationContext | null,
+  userId: string | null,
+): string | null {
+  return resolveStableNotificationRequestKey(context, userId);
 }

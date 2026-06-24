@@ -30,6 +30,7 @@ export type NotificationSettingsPageLabels = {
   saving: string;
   saved: string;
   saveError: string;
+  loadingPreferences: string;
   toggles: {
     inAppEnabled: { title: string; description: string };
     soundEnabled: { title: string; description: string };
@@ -101,6 +102,7 @@ export function buildNotificationSettingsPageLabels(t: Translator): Notification
     saving: t(`${SETTINGS}.saving`),
     saved: t(`${SETTINGS}.saved`),
     saveError: t(`${SETTINGS}.saveError`),
+    loadingPreferences: t(`${SETTINGS}.loadingPreferences`),
     toggles: {
       inAppEnabled: {
         title: t(`${SETTINGS}.inAppEnabled`),

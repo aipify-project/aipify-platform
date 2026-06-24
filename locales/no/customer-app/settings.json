@@ -182,6 +182,7 @@
       "saving": "Lagrer…",
       "saved": "Lagret",
       "saveError": "Kunne ikke lagres. Prøv igjen.",
+      "loadingPreferences": "Laster varslingsinnstillinger…",
       "statusTitle": "Lydstatus",
       "status": {
         "active": "Lyd aktiv",

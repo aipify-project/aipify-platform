@@ -233,7 +233,7 @@
     "soundToggleLabel": "Varslingslyd",
     "soundOn": "På",
     "soundOff": "Av",
-    "soundToggleLoading": "Laster lydinnstilling …",
+    "soundToggleLoading": "Laster …",
     "soundToggleLoadError": "Kunne ikke laste lydinnstillingen.",
     "soundToggleRetry": "Prøv igjen",
     "soundToggleSaving": "Lagrer …",

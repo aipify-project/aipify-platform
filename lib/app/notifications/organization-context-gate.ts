@@ -6,6 +6,19 @@ export function resolveNotificationOrganizationKey(
   return context.organization_id ?? context.customer_id ?? context.company_id ?? null;
 }
 
+/** Stable primitive for preference/feed effects — never use whole context objects as deps. */
+export function resolveStableNotificationRequestKey(
+  context: AppOrganizationContext | null,
+  userId: string | null,
+): string | null {
+  if (!context) return null;
+  const organizationId = context.organization_id ?? "";
+  const customerId = context.customer_id ?? "";
+  const uid = userId ?? "";
+  if (!organizationId && !customerId && !uid) return null;
+  return `${organizationId}:${customerId}:${uid}`;
+}
+
 export function isNotificationOrganizationReady(
   context: AppOrganizationContext | null,
 ): boolean {

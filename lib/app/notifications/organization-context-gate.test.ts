@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import {
   isNotificationOrganizationReady,
   resolveNotificationOrganizationKey,
+  resolveStableNotificationRequestKey,
 } from "@/lib/app/notifications/organization-context-gate";
 import type { AppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 
@@ -24,6 +25,10 @@ const readyContext: AppOrganizationContext = {
 };
 
 assert.equal(resolveNotificationOrganizationKey(readyContext), "org-unonight");
+assert.equal(
+  resolveStableNotificationRequestKey(readyContext, "user-42"),
+  "org-unonight:customer-1:user-42",
+);
 assert.equal(isNotificationOrganizationReady(readyContext), true);
 assert.equal(
   isNotificationOrganizationReady({ ...readyContext, state: "organization_missing" }),

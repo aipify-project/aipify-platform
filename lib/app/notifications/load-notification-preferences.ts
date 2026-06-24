@@ -1,3 +1,4 @@
+import { recordPreferencesLoadAttempt } from "@/lib/app/notifications/preferences-load-diagnostics";
 import type { AppOrganizationContextState } from "@/lib/tenant/resolve-app-organization-context";
 import type { PresenceNotificationPreferences } from "@/lib/presence/notification-state";
 import { parsePresenceNotificationPreferences } from "@/lib/presence/unified-notification-feed/preferences";
@@ -49,30 +50,68 @@ function mapAccessStateToLoadError(
   }
 }
 
-export async function fetchNotificationPreferences(): Promise<NotificationPreferencesLoadResult> {
+export async function fetchNotificationPreferences(
+  source = "fetchNotificationPreferences",
+  stableRequestKey: string | null = null,
+): Promise<NotificationPreferencesLoadResult> {
+  recordPreferencesLoadAttempt({
+    stableRequestKey,
+    source,
+    outcome: "start",
+  });
+
   try {
     const res = await fetch("/api/presence/preferences", { cache: "no-store" });
     const body = (await res.json()) as PreferencesApiPayload & Record<string, unknown>;
 
     if (!res.ok) {
+      const error = mapAccessStateToLoadError(body.access_state, res.status);
+      recordPreferencesLoadAttempt({
+        stableRequestKey,
+        source,
+        outcome: "error",
+        httpStatus: res.status,
+        errorCode: error,
+      });
       return {
         preferences: null,
-        error: mapAccessStateToLoadError(body.access_state, res.status),
+        error,
         httpStatus: res.status,
       };
     }
 
     const parsed = parsePresenceNotificationPreferences(body);
     if (!parsed) {
+      const error: NotificationPreferencesLoadError =
+        body.has_customer === false ? "organization_missing" : "page_load_error";
+      recordPreferencesLoadAttempt({
+        stableRequestKey,
+        source,
+        outcome: "error",
+        httpStatus: res.status,
+        errorCode: error,
+      });
       return {
         preferences: null,
-        error: body.has_customer === false ? "organization_missing" : "page_load_error",
+        error,
         httpStatus: res.status,
       };
     }
 
+    recordPreferencesLoadAttempt({
+      stableRequestKey,
+      source,
+      outcome: "success",
+      httpStatus: res.status,
+    });
     return { preferences: parsed, error: null, httpStatus: res.status };
   } catch {
+    recordPreferencesLoadAttempt({
+      stableRequestKey,
+      source,
+      outcome: "error",
+      errorCode: "page_load_error",
+    });
     return { preferences: null, error: "page_load_error", httpStatus: null };
   }
 }

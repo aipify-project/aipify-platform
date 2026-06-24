@@ -182,6 +182,7 @@
       "saving": "Saving…",
       "saved": "Saved",
       "saveError": "Could not save. Try again.",
+      "loadingPreferences": "Loading notification settings…",
       "statusTitle": "Sound status",
       "status": {
         "active": "Sound active",

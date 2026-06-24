@@ -20,6 +20,7 @@ import {
   type NotificationSettingsToggleKey,
   type NotificationSettingsToggleState,
 } from "@/lib/app/notifications/preferences-ui";
+import type { NotificationPreferencesStatus } from "@/lib/app/notifications/preferences-load-state";
 import type { PresenceNotificationPreferences } from "@/lib/presence/notification-state";
 import { notificationSoundStatusKind } from "@/lib/presence/notification-sound-settings-labels";
 import {
@@ -44,8 +45,7 @@ type NotificationSettingsSectionProps = {
   organizationName?: string | null;
   organizationReady: boolean;
   sharedPreferences?: PresenceNotificationPreferences | null;
-  preferencesLoading?: boolean;
-  preferencesLoadFailed?: boolean;
+  preferencesStatus?: NotificationPreferencesStatus;
   onPreferencesSaved?: (preferences: PresenceNotificationPreferences) => void;
   onRefreshSharedPreferences?: () => Promise<void>;
 };
@@ -83,8 +83,7 @@ export function NotificationSettingsSection({
   organizationName = null,
   organizationReady,
   sharedPreferences = null,
-  preferencesLoading = false,
-  preferencesLoadFailed = false,
+  preferencesStatus = "idle",
   onPreferencesSaved,
   onRefreshSharedPreferences,
 }: NotificationSettingsSectionProps) {
@@ -96,8 +95,10 @@ export function NotificationSettingsSection({
   );
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [testResult, setTestResult] = useState<NotificationSoundTestResult | null>(null);
+  const [retryInFlight, setRetryInFlight] = useState(false);
   const saveTimerRef = useRef<number | null>(null);
   const savedTimerRef = useRef<number | null>(null);
+  const hasEverHadDraftRef = useRef(Boolean(sharedPreferences));
 
   const preferencesSnapshot = useMemo(() => {
     if (!sharedPreferences) return null;
@@ -108,6 +109,7 @@ export function NotificationSettingsSection({
     if (!sharedPreferences || !preferencesSnapshot) return;
     setBasePreferences(sharedPreferences);
     setDraft(notificationPrefsToToggleState(sharedPreferences));
+    hasEverHadDraftRef.current = true;
   }, [preferencesSnapshot, sharedPreferences]);
 
   useEffect(() => {
@@ -212,15 +214,25 @@ export function NotificationSettingsSection({
   }
 
   async function handleRetry() {
-    await onRefreshSharedPreferences?.();
+    setRetryInFlight(true);
+    try {
+      await onRefreshSharedPreferences?.();
+    } finally {
+      setRetryInFlight(false);
+    }
   }
 
-  const waitingForPreferences =
-    organizationReady && (preferencesLoading || (!sharedPreferences && !preferencesLoadFailed));
-  const failedToLoadPreferences =
-    organizationReady && preferencesLoadFailed && !sharedPreferences;
+  const showInitialSpinner =
+    organizationReady &&
+    !hasEverHadDraftRef.current &&
+    !retryInFlight &&
+    (preferencesStatus === "idle" || preferencesStatus === "loading");
+  const showStableError =
+    organizationReady &&
+    !hasEverHadDraftRef.current &&
+    (preferencesStatus === "error" || (preferencesStatus === "loading" && retryInFlight));
 
-  if (waitingForPreferences) {
+  if (showInitialSpinner) {
     return (
       <section
         id="notification-sound-settings"
@@ -228,18 +240,20 @@ export function NotificationSettingsSection({
         aria-busy="true"
       >
         <AipifyLoader centered />
+        <span className="sr-only">{labels.loadingPreferences}</span>
       </section>
     );
   }
 
-  if (failedToLoadPreferences || !draft) {
+  if (showStableError || !draft) {
     return (
       <PlatformEmptyState
         title={labels.contextGate.pageLoadError}
         message={labels.contextGate.pageLoadError}
         primaryAction={{
-          label: labels.contextGate.retry,
+          label: retryInFlight ? labels.loadingPreferences : labels.contextGate.retry,
           onClick: () => {
+            if (retryInFlight) return;
             void handleRetry();
           },
         }}
@@ -265,6 +279,9 @@ export function NotificationSettingsSection({
           </p>
         ) : null}
         <p className="text-xs text-aipify-text-muted">{labels.browserHint}</p>
+        {preferencesStatus === "loading" && hasEverHadDraftRef.current ? (
+          <p className="text-sm text-aipify-text-secondary">{labels.loadingPreferences}</p>
+        ) : null}
         {saveState === "saving" ? (
           <p className="text-sm text-aipify-text-secondary">{labels.saving}</p>
         ) : null}

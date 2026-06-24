@@ -172,6 +172,7 @@
       "saving": "Gemmer…",
       "saved": "Gemt",
       "saveError": "Kunne ikke gemmes. Prøv igen.",
+      "loadingPreferences": "Indlæser notifikationsindstillinger…",
       "statusTitle": "Lydstatus",
       "status": {
         "active": "Lyd aktiv",

@@ -23,11 +23,11 @@ export function NotificationCenterSoundToggle({ labels }: NotificationCenterSoun
   const [optimisticEnabled, setOptimisticEnabled] = useState<boolean | null>(null);
   const savedTimerRef = useRef<number | null>(null);
 
+  const preferencesStatus = feed.preferencesStatus;
   const hasPreferences = feed.preferences !== null;
   const serverEnabled = hasPreferences ? resolveSoundEnabled(feed.preferences!) : false;
   const displayEnabled = optimisticEnabled ?? serverEnabled;
-  const isLoading = feed.preferencesLoading;
-  const loadFailed = feed.preferencesLoadFailed || (!isLoading && !hasPreferences);
+  const isInteractive = preferencesStatus === "ready" && hasPreferences;
 
   useEffect(() => {
     return () => {
@@ -43,7 +43,7 @@ export function NotificationCenterSoundToggle({ labels }: NotificationCenterSoun
   }, [feed.preferences, optimisticEnabled]);
 
   const toggleSound = useCallback(async () => {
-    if (!feed.preferences || saveState === "saving" || loadFailed) return;
+    if (!feed.preferences || saveState === "saving" || !isInteractive) return;
 
     const nextEnabled = !displayEnabled;
     setOptimisticEnabled(nextEnabled);
@@ -70,14 +70,14 @@ export function NotificationCenterSoundToggle({ labels }: NotificationCenterSoun
       setOptimisticEnabled(null);
       setSaveState("error");
     }
-  }, [displayEnabled, feed, loadFailed, saveState]);
+  }, [displayEnabled, feed, isInteractive, saveState]);
 
   function handleRetry() {
     setSaveState("idle");
     void feed.refreshPreferences();
   }
 
-  if (isLoading) {
+  if (preferencesStatus === "idle" || preferencesStatus === "loading") {
     return (
       <div className="mt-3 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2">
         <p className="text-xs text-gray-500">{labels.soundToggleLoading}</p>
@@ -85,7 +85,7 @@ export function NotificationCenterSoundToggle({ labels }: NotificationCenterSoun
     );
   }
 
-  if (loadFailed) {
+  if (preferencesStatus === "error") {
     return (
       <div className="mt-3 space-y-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2">
         <p className="text-xs text-rose-800">{labels.soundToggleLoadError}</p>
@@ -116,7 +116,7 @@ export function NotificationCenterSoundToggle({ labels }: NotificationCenterSoun
           role="switch"
           aria-checked={displayEnabled}
           aria-label={`${labels.soundToggleLabel}: ${displayEnabled ? labels.soundOn : labels.soundOff}`}
-          disabled={saveState === "saving"}
+          disabled={saveState === "saving" || !isInteractive}
           onClick={() => void toggleSound()}
           className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aipify-companion disabled:cursor-not-allowed disabled:opacity-60 ${
             displayEnabled ? "bg-aipify-companion" : "bg-gray-300"

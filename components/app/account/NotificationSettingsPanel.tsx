@@ -50,7 +50,6 @@ export function NotificationSettingsPanel({ labels }: NotificationSettingsPanelP
         messages={labels.contextGate}
         onRetry={() => {
           void orgGate.refresh();
-          void feed.refreshPreferences();
         }}
       >
         <NotificationSettingsSection
@@ -59,8 +58,7 @@ export function NotificationSettingsPanel({ labels }: NotificationSettingsPanelP
           organizationName={orgGate.organizationName}
           organizationReady={orgGate.isReady}
           sharedPreferences={feed.preferences}
-          preferencesLoading={feed.preferencesLoading}
-          preferencesLoadFailed={feed.preferencesLoadFailed}
+          preferencesStatus={feed.preferencesStatus}
           onRefreshSharedPreferences={feed.refreshPreferences}
           onPreferencesSaved={(preferences) => {
             feed.applyPreferences(preferences);

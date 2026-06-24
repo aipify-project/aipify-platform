@@ -35,10 +35,19 @@ import {
 } from "@/lib/presence/unified-notification-feed";
 import { patchNotificationArchivedLocally, patchNotificationReadLocally } from "@/lib/app/notifications/inbox";
 import { fetchNotificationPreferences } from "@/lib/app/notifications/load-notification-preferences";
+import type { NotificationPreferencesStatus } from "@/lib/app/notifications/preferences-load-state";
+import {
+  canStartPreferencesLoad,
+  nextPreferencesStatusOnManualRetry,
+} from "@/lib/app/notifications/preferences-load-state";
 import {
   isNotificationOrganizationReady,
-  resolveNotificationOrganizationKey,
+  resolveStableNotificationRequestKey,
 } from "@/lib/app/notifications/organization-context-gate";
+import {
+  buildStableNotificationRequestKey,
+  resolveNotificationAuthUserId,
+} from "@/components/app/notifications/useNotificationOrganizationGate";
 import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 import {
   applyActiveCompanionSeenSync,
@@ -57,8 +66,12 @@ type UnifiedNotificationFeedContextValue = {
   pulseActive: boolean;
   toastNotification: PresenceNotification | null;
   preferences: PresenceNotificationPreferences | null;
+  preferencesStatus: NotificationPreferencesStatus;
+  /** @deprecated use preferencesStatus */
   preferencesLoading: boolean;
+  /** @deprecated use preferencesStatus */
   preferencesLoadFailed: boolean;
+  stableRequestKey: string | null;
   openCenter: () => void;
   closeCenter: () => void;
   refresh: () => Promise<boolean>;
@@ -103,13 +116,15 @@ export function UnifiedNotificationFeedProvider({
   const [pulseActive, setPulseActive] = useState(false);
   const [toastNotification, setToastNotification] = useState<PresenceNotification | null>(null);
   const [preferences, setPreferences] = useState<PresenceNotificationPreferences | null>(null);
-  const [preferencesLoading, setPreferencesLoading] = useState(true);
-  const [preferencesLoadFailed, setPreferencesLoadFailed] = useState(false);
+  const [preferencesStatus, setPreferencesStatus] = useState<NotificationPreferencesStatus>("idle");
+  const [stableRequestKey, setStableRequestKey] = useState<string | null>(null);
 
   const orgContextRef = useRef<{ key: string | null; ready: boolean }>({
     key: null,
     ready: false,
   });
+  const authUserIdRef = useRef<string | null>(null);
+  const preferencesRequestIdRef = useRef(0);
   const knownIdsRef = useRef<Set<string>>(new Set());
   const previousUnreadRef = useRef(0);
   const pulseTimerRef = useRef<number | null>(null);
@@ -124,7 +139,7 @@ export function UnifiedNotificationFeedProvider({
     preferencesRef.current = preferences;
   }, [preferences]);
 
-  const resetFeedForOrganizationChange = useCallback(() => {
+  const resetNotificationsForOrganizationChange = useCallback(() => {
     knownIdsRef.current.clear();
     initializedRef.current = false;
     playedSoundIdsRef.current.clear();
@@ -132,85 +147,126 @@ export function UnifiedNotificationFeedProvider({
     setNotifications([]);
     setUnreadCount(0);
     setToastNotification(null);
+  }, []);
+
+  const resetPreferencesForOrganizationChange = useCallback(() => {
+    preferencesRequestIdRef.current += 1;
     setPreferences(null);
     preferencesRef.current = null;
-    setPreferencesLoading(true);
-    setPreferencesLoadFailed(false);
+    setPreferencesStatus("idle");
   }, []);
+
+  const fetchOrganizationContext = useCallback(async () => {
+    const res = await fetch("/api/app/organization-context", { cache: "no-store" });
+    if (!res.ok) return null;
+    return parseAppOrganizationContext(await res.json());
+  }, []);
+
+  const resolveStableKey = useCallback(async () => {
+    if (!authUserIdRef.current) {
+      authUserIdRef.current = await resolveNotificationAuthUserId();
+    }
+    const context = await fetchOrganizationContext();
+    if (!context) return { context: null, stableKey: null };
+    const stableKey = buildStableNotificationRequestKey(context, authUserIdRef.current);
+    return { context, stableKey };
+  }, [fetchOrganizationContext]);
 
   const ensureOrgReady = useCallback(async (): Promise<boolean> => {
     try {
-      const res = await fetch("/api/app/organization-context", { cache: "no-store" });
-      if (!res.ok) {
+      const { context, stableKey } = await resolveStableKey();
+      if (!context) {
         orgContextRef.current = { key: null, ready: false };
         return false;
       }
-      const context = parseAppOrganizationContext(await res.json());
-      const organizationKey = resolveNotificationOrganizationKey(context);
-      const ready = isNotificationOrganizationReady(context);
 
-      if (orgContextRef.current.key !== organizationKey) {
-        resetFeedForOrganizationChange();
+      const ready = isNotificationOrganizationReady(context);
+      if (stableKey && orgContextRef.current.key !== stableKey) {
+        resetNotificationsForOrganizationChange();
+        resetPreferencesForOrganizationChange();
+        setStableRequestKey(stableKey);
       }
 
-      orgContextRef.current = { key: organizationKey, ready };
+      orgContextRef.current = { key: stableKey, ready };
       return ready;
     } catch {
       orgContextRef.current = { key: null, ready: false };
       return false;
     }
-  }, [resetFeedForOrganizationChange]);
+  }, [resetNotificationsForOrganizationChange, resetPreferencesForOrganizationChange, resolveStableKey]);
 
-  const loadPreferences = useCallback(async (): Promise<PresenceNotificationPreferences | null> => {
-    setPreferencesLoading(true);
-    setPreferencesLoadFailed(false);
+  const preferencesStatusRef = useRef<NotificationPreferencesStatus>("idle");
 
-    if (!(await ensureOrgReady())) {
-      setPreferencesLoading(false);
-      setPreferencesLoadFailed(true);
-      return null;
-    }
+  useEffect(() => {
+    preferencesStatusRef.current = preferencesStatus;
+  }, [preferencesStatus]);
 
-    const result = await fetchNotificationPreferences();
-    if (result.preferences) {
-      setPreferences(result.preferences);
-      setPreferencesLoadFailed(false);
-      setPreferencesLoading(false);
-      return result.preferences;
-    }
+  const runPreferencesLoad = useCallback(
+    async (manualRetry: boolean, source: string) => {
+      if (!canStartPreferencesLoad(preferencesStatusRef.current, manualRetry)) {
+        return;
+      }
 
-    setPreferencesLoadFailed(true);
-    setPreferencesLoading(false);
-    return null;
-  }, [ensureOrgReady]);
+      const requestId = ++preferencesRequestIdRef.current;
+      setPreferencesStatus(manualRetry ? nextPreferencesStatusOnManualRetry() : "loading");
+
+      if (!(await ensureOrgReady())) {
+        if (requestId !== preferencesRequestIdRef.current) return;
+        setPreferencesStatus("error");
+        return;
+      }
+
+      const requestKey = orgContextRef.current.key;
+      const result = await fetchNotificationPreferences(source, requestKey);
+      if (requestId !== preferencesRequestIdRef.current) return;
+
+      if (result.preferences) {
+        setPreferences(result.preferences);
+        preferencesRef.current = result.preferences;
+        setPreferencesStatus("ready");
+        return;
+      }
+
+      setPreferencesStatus("error");
+    },
+    [ensureOrgReady],
+  );
 
   useEffect(() => {
     let cancelled = false;
-    let attempts = 0;
 
-    async function tryLoadPreferences() {
-      if (cancelled) return;
-      const prefs = await loadPreferences();
-      if (prefs || attempts >= 8) return;
-      attempts += 1;
-      window.setTimeout(() => {
-        void tryLoadPreferences();
-      }, 900);
-    }
+    void (async () => {
+      const { context, stableKey } = await resolveStableKey();
+      if (cancelled || !stableKey || !context) return;
 
-    void tryLoadPreferences();
+      const ready = isNotificationOrganizationReady(context);
+      if (orgContextRef.current.key !== stableKey) {
+        resetNotificationsForOrganizationChange();
+        resetPreferencesForOrganizationChange();
+        orgContextRef.current = { key: stableKey, ready };
+        setStableRequestKey(stableKey);
+      }
+    })();
 
     return () => {
       cancelled = true;
     };
-  }, [loadPreferences, pathname]);
+  }, [pathname, resetNotificationsForOrganizationChange, resetPreferencesForOrganizationChange, resolveStableKey]);
+
+  useEffect(() => {
+    if (!stableRequestKey) return;
+    if (preferencesStatus !== "idle") return;
+    void runPreferencesLoad(false, "initial_load");
+  }, [preferencesStatus, runPreferencesLoad, stableRequestKey]);
 
   const refreshPreferences = useCallback(async () => {
-    await loadPreferences();
-  }, [loadPreferences]);
+    await runPreferencesLoad(true, "manual_retry");
+  }, [runPreferencesLoad]);
 
   const applyPreferences = useCallback((next: PresenceNotificationPreferences) => {
     setPreferences(next);
+    preferencesRef.current = next;
+    setPreferencesStatus("ready");
   }, []);
 
   const markReadOnServer = useCallback(async (notificationIds: string[]) => {
@@ -455,8 +511,10 @@ export function UnifiedNotificationFeedProvider({
       pulseActive,
       toastNotification,
       preferences,
-      preferencesLoading,
-      preferencesLoadFailed,
+      preferencesStatus,
+      preferencesLoading: preferencesStatus === "loading",
+      preferencesLoadFailed: preferencesStatus === "error",
+      stableRequestKey,
       openCenter: () => setCenterOpen(true),
       closeCenter: () => setCenterOpen(false),
       refresh,
@@ -477,8 +535,8 @@ export function UnifiedNotificationFeedProvider({
       pulseActive,
       toastNotification,
       preferences,
-      preferencesLoading,
-      preferencesLoadFailed,
+      preferencesStatus,
+      stableRequestKey,
       refresh,
       refreshPreferences,
       applyPreferences,

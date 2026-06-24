@@ -172,6 +172,7 @@
       "saving": "Sparar…",
       "saved": "Sparat",
       "saveError": "Kunde inte sparas. Försök igen.",
+      "loadingPreferences": "Laddar aviseringsinställningar…",
       "statusTitle": "Ljudstatus",
       "status": {
         "active": "Ljud aktivt",
