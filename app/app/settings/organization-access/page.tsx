@@ -14,6 +14,8 @@ import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 
+export const dynamic = "force-dynamic";
+
 export default async function OrganizationAccessSettingsPage({
   searchParams,
 }: {
