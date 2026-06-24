@@ -118,6 +118,7 @@ export function mapServerMessagesToChat(messages: Array<{
       message.payload,
       timestamp,
     );
-    return feedback ? { ...chatMessage, feedback } : chatMessage;
+    const withServerId = { ...chatMessage, serverId: message.server_id ?? null };
+    return feedback ? { ...withServerId, feedback } : withServerId;
   });
 }

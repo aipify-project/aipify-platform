@@ -132,7 +132,14 @@ export async function fetchNotificationPreferences(
       httpStatus: res.status,
     });
     return { preferences: parsed, error: null, httpStatus: res.status };
-  } catch {
+  } catch (error) {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn(
+        "[aipify:fetchNotificationPreferences] network_error",
+        `source=${source}`,
+        `message=${error instanceof Error ? error.message : "unknown"}`,
+      );
+    }
     recordPreferencesLoadAttempt({
       stableRequestKey,
       source,

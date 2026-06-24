@@ -158,19 +158,27 @@ export function UnifiedNotificationFeedProvider({
   }, []);
 
   const fetchOrganizationContext = useCallback(async () => {
-    const res = await fetch("/api/app/organization-context", { cache: "no-store" });
-    if (!res.ok) return null;
-    return parseAppOrganizationContext(await res.json());
+    try {
+      const res = await fetch("/api/app/organization-context", { cache: "no-store" });
+      if (!res.ok) return null;
+      return parseAppOrganizationContext(await res.json());
+    } catch {
+      return null;
+    }
   }, []);
 
   const resolveStableKey = useCallback(async () => {
-    if (!authUserIdRef.current) {
-      authUserIdRef.current = await resolveNotificationAuthUserId();
+    try {
+      if (!authUserIdRef.current) {
+        authUserIdRef.current = await resolveNotificationAuthUserId();
+      }
+      const context = await fetchOrganizationContext();
+      if (!context) return { context: null, stableKey: null };
+      const stableKey = buildStableNotificationRequestKey(context, authUserIdRef.current);
+      return { context, stableKey };
+    } catch {
+      return { context: null, stableKey: null };
     }
-    const context = await fetchOrganizationContext();
-    if (!context) return { context: null, stableKey: null };
-    const stableKey = buildStableNotificationRequestKey(context, authUserIdRef.current);
-    return { context, stableKey };
   }, [fetchOrganizationContext]);
 
   const ensureOrgReady = useCallback(async (): Promise<boolean> => {
@@ -217,15 +225,30 @@ export function UnifiedNotificationFeedProvider({
       const requestId = ++preferencesRequestIdRef.current;
       setPreferencesStatus(manualRetry ? nextPreferencesStatusOnManualRetry() : "loading");
 
-      const { stableKey } = await resolveStableKey();
+      const { context, stableKey } = await resolveStableKey();
       if (requestId !== preferencesRequestIdRef.current) {
         setPreferencesStatus((current) => (current === "loading" ? "idle" : current));
         return;
       }
 
+      if (!context || !isNotificationOrganizationReady(context)) {
+        if (process.env.NODE_ENV !== "production") {
+          console.warn(
+            "[UnifiedNotificationFeedProvider] preferences skipped",
+            `source=${source}`,
+            "reason=organization_not_ready",
+            `stableKey=${stableKey ?? "null"}`,
+            `hasCustomer=${context?.has_customer ?? false}`,
+            `state=${context?.state ?? "null"}`,
+          );
+        }
+        setPreferencesStatus(preferencesRef.current ? "ready" : "idle");
+        return;
+      }
+
       if (stableKey) {
         setStableRequestKey(stableKey);
-        orgContextRef.current = { ...orgContextRef.current, key: stableKey };
+        orgContextRef.current = { ...orgContextRef.current, key: stableKey, ready: true };
       }
 
       const result = await fetchNotificationPreferences(source, stableKey);
@@ -242,12 +265,19 @@ export function UnifiedNotificationFeedProvider({
       }
 
       if (process.env.NODE_ENV !== "production") {
-        console.error("[UnifiedNotificationFeedProvider] preferences load failed", {
-          source,
-          stableKey,
-          httpStatus: result.httpStatus,
-          error: result.error,
-        });
+        console.error(
+          "[UnifiedNotificationFeedProvider] preferences load failed",
+          `source=${source}`,
+          `reason=${result.error ?? "unknown"}`,
+          `httpStatus=${String(result.httpStatus ?? "null")}`,
+          `stableKey=${stableKey ?? "null"}`,
+          `parserAccepted=false`,
+          `hasExistingPreferences=${preferencesRef.current != null}`,
+        );
+      }
+      if (preferencesRef.current) {
+        setPreferencesStatus("ready");
+        return;
       }
       setPreferencesStatus("error");
     },
@@ -283,6 +313,7 @@ export function UnifiedNotificationFeedProvider({
 
   useEffect(() => {
     if (!stableRequestKey) return;
+    if (!orgContextRef.current.ready) return;
     if (preferencesStatus !== "idle") return;
     void runPreferencesLoad(false, "initial_load");
   }, [preferencesStatus, runPreferencesLoad, stableRequestKey]);

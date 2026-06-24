@@ -26,6 +26,7 @@ import type { CompanionChatMessage, CompanionConversationPreview, CompanionExper
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardProfileProvider";
 import { CompanionIcon } from "./CompanionIcon";
+import { CompanionChatSoundSync } from "./CompanionChatSoundSync";
 import { CompanionNotificationSeenSync } from "./CompanionNotificationSeenSync";
 import { CompanionQuickActions } from "./CompanionQuickActions";
 import { CompanionChat } from "./CompanionChat";
@@ -499,6 +500,7 @@ export function CompanionPanel({
         panelVisible={panelVisible}
         messages={messages}
       />
+      <CompanionChatSoundSync messages={messages} enabled={panelVisible} />
       <div
         className={`shrink-0 border-b border-aipify-border bg-white ${
           isActiveConversation ? "px-4 py-3 sm:px-6" : "px-4 py-5 sm:px-6"

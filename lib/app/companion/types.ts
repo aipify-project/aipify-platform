@@ -35,6 +35,8 @@ export type CompanionChatAttachmentSummary = {
 
 export type CompanionChatMessage = {
   id: string;
+  /** Server UUID for dedupe and sound playback. */
+  serverId?: string | null;
   role: CompanionChatMessageRole;
   content: string;
   attachments?: CompanionChatAttachmentSummary[];

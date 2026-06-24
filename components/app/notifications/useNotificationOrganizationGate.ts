@@ -73,10 +73,13 @@ export function useNotificationOrganizationGate() {
 export async function resolveNotificationAuthUserId(): Promise<string | null> {
   try {
     const supabase = createClient();
+    // Session from cookies — no Auth API round-trip (getUser() throws "Failed to fetch" offline).
     const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    return user?.id ?? null;
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
+    if (error) return null;
+    return session?.user?.id ?? null;
   } catch {
     return null;
   }
