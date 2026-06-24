@@ -1,5 +1,32 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession, withPathnameRequestHeaders } from "@/lib/supabase/update-session";
+import {
+  hasOrganizationAccessIntentQuery,
+  ORGANIZATION_ACCESS_INTENT_COOKIE,
+  serializeOrganizationAccessIntentQuery,
+} from "@/lib/core/organization-access-approval/access-intent-binding";
+
+function stripOrganizationAccessIntentQuery(request: NextRequest): NextResponse | null {
+  if (request.nextUrl.pathname !== "/app/settings/organization-access") return null;
+
+  const params = Object.fromEntries(request.nextUrl.searchParams.entries());
+  if (!hasOrganizationAccessIntentQuery(params)) return null;
+
+  const cleanUrl = request.nextUrl.clone();
+  cleanUrl.search = "";
+  const response = NextResponse.redirect(cleanUrl);
+  response.cookies.set(
+    ORGANIZATION_ACCESS_INTENT_COOKIE,
+    serializeOrganizationAccessIntentQuery(params),
+    {
+      path: "/app/settings/organization-access",
+      maxAge: 120,
+      sameSite: "lax",
+      httpOnly: false,
+    },
+  );
+  return response;
+}
 
 function requiresSessionProxy(pathname: string): boolean {
   return (
@@ -16,6 +43,9 @@ function requiresSessionProxy(pathname: string): boolean {
 }
 
 export async function proxy(request: NextRequest) {
+  const strippedIntent = stripOrganizationAccessIntentQuery(request);
+  if (strippedIntent) return strippedIntent;
+
   if (requiresSessionProxy(request.nextUrl.pathname)) {
     return updateSession(request);
   }

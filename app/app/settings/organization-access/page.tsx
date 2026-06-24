@@ -1,42 +1,13 @@
 import { Suspense } from "react";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { OrganizationAccessApprovalPanel } from "@/components/app/settings/OrganizationAccessApprovalPanel";
 import { ORGANIZATION_PROVIDER_ACCESS_MANIFESTS } from "@/lib/core/organization-access-approval/provider-scope-registry";
 import { ORGANIZATION_ACCESS_CAPABILITY_LABEL_KEYS } from "@/lib/core/organization-access-approval/panel-display-labels";
-import {
-  hasOrganizationAccessIntentQuery,
-  ORGANIZATION_ACCESS_INTENT_COOKIE,
-  serializeOrganizationAccessIntentQuery,
-} from "@/lib/core/organization-access-approval/access-intent-binding";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 
-export const dynamic = "force-dynamic";
-
-export default async function OrganizationAccessSettingsPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const resolvedSearchParams = await searchParams;
-  if (hasOrganizationAccessIntentQuery(resolvedSearchParams)) {
-    const cookieStore = await cookies();
-    cookieStore.set(
-      ORGANIZATION_ACCESS_INTENT_COOKIE,
-      serializeOrganizationAccessIntentQuery(resolvedSearchParams),
-      {
-        path: "/app/settings/organization-access",
-        maxAge: 120,
-        sameSite: "lax",
-        httpOnly: false,
-      },
-    );
-    redirect("/app/settings/organization-access");
-  }
-
+export default async function OrganizationAccessSettingsPage() {
   const locale = await getLocale();
   const dict = await getCustomerAppDictionaryForSplits(locale, ["settings"]);
   const t = createTranslator(dict);
