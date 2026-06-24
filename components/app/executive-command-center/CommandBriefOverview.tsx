@@ -167,6 +167,7 @@ export function CommandBriefOverview({
   const kpiStatus = o.kpiStatus;
   const metricLabelClass = AppPremiumShell.commandBriefMetricLabel;
   const metricValueClass = AppPremiumShell.commandBriefMetricValue;
+  const nextActionValueClass = AppPremiumShell.commandBriefNextActionValue;
   const metricDescriptionClass = AppPremiumShell.commandBriefMetricDescription;
 
   const userRole = profile?.profile?.user.role;
@@ -275,7 +276,7 @@ export function CommandBriefOverview({
           value={nextActionValue}
           description={nextActionDescription}
           labelClassName={metricLabelClass}
-          valueClassName={metricValueClass}
+          valueClassName={nextActionValueClass}
           descriptionClassName={metricDescriptionClass}
           href={nextActionHref}
           {...nextActionStatus}

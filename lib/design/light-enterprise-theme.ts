@@ -121,13 +121,17 @@ export const AipifySidebarTypography = {
   navigationItemActive: "text-[13px] font-semibold leading-snug text-white",
   subNavigationItem: "text-[13px] font-medium leading-snug text-aipify-text-secondary",
   accessHint: "text-[12px] font-normal leading-snug text-amber-800",
-  workspaceSummary: "text-[13px] leading-snug text-aipify-text-secondary",
-  workspaceSummaryLabel: "shrink-0 text-[11px] font-medium leading-snug text-aipify-text-secondary",
-  workspaceSummaryValue: "min-w-0 text-[13px] font-medium leading-snug text-aipify-text",
+  workspaceSummary: "text-[12px] leading-[1.35] text-aipify-text-muted sm:text-[13px]",
+  workspaceSummaryLabel:
+    "shrink-0 text-[12px] font-medium leading-[1.35] text-aipify-text-muted sm:text-[13px]",
+  workspaceSummaryValue:
+    "min-w-0 text-[12px] font-semibold leading-[1.35] text-aipify-text-secondary sm:text-[13px]",
   workspaceSummaryRow: "flex flex-wrap items-baseline gap-x-1 gap-y-0",
   workspaceSummaryRowTight: "flex min-w-0 items-baseline gap-x-1",
-  workspaceSummaryFooter: "text-[12px] font-semibold leading-snug text-aipify-text",
-  workspaceSummaryCopyright: "text-[11px] leading-snug text-aipify-text-secondary",
+  workspaceSummaryFooter:
+    "text-[12px] font-semibold leading-[1.35] text-aipify-text-secondary sm:text-[13px]",
+  workspaceSummaryCopyright:
+    "text-[11px] leading-[1.35] text-aipify-text-muted sm:text-[12px]",
   feedbackButton: "text-[13px] font-medium leading-none",
   keyboardHint: "text-[12px] font-semibold uppercase tracking-wide text-aipify-text-secondary",
   searchInput: "text-[13px] text-aipify-text placeholder:text-aipify-text-secondary",

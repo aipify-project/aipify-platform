@@ -13,6 +13,8 @@ export const AppPremiumShell = {
   commandBriefListBody: "text-[13px] leading-snug text-aipify-text-secondary",
   commandBriefMetricLabel: "text-[13px] font-medium leading-snug text-aipify-text-secondary",
   commandBriefMetricValue: "text-[1.6875rem] font-bold leading-none tracking-tight text-aipify-text sm:text-[1.875rem]",
+  commandBriefNextActionValue:
+    "text-[18px] font-semibold leading-[1.2] tracking-tight text-aipify-text sm:text-[20px]",
   commandBriefMetricDescription:
     "mt-auto pt-2 text-[12px] leading-snug text-aipify-text-secondary",
   canvas: "min-h-full bg-aipify-canvas",
