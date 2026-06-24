@@ -677,6 +677,8 @@
     "empty": "Brak oczekujących wniosków o dostęp.",
     "employee": {
       "noAuthorityMessage": "Niestety nie masz uprawnień, aby zatwierdzić ten dostęp w imieniu organizacji. Właściciel organizacji lub upoważniony administrator musi zatwierdzić wniosek w panelu APP. Mogę wysłać wniosek do właściwego zatwierdzającego.",
+      "userRoleDeniedMessage": "Niestety nie masz uprawnień do wyświetlenia tych informacji. Skontaktuj się z przełożonym lub administratorem organizacji, jeśli potrzebujesz dostępu.",
+      "userRoleDeniedContext": "Twoja rola nie obejmuje dostępu do {dataType}. Zatwierdzenie dostępu dostawcy przez organizację nie zmienia Twoich osobistych uprawnień.",
       "providerContext": "Wniosek dotyczy {provider}.",
       "panelNote": "Możesz wysyłać wnioski o dostęp tutaj. Zatwierdzenie wymaga właściciela organizacji lub upoważnionego administratora.",
       "actions": { "submit": "Wyślij wniosek", "cancel": "Anuluj" }

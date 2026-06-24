@@ -8,6 +8,11 @@ import {
   isOrganizationAccessApprover,
 } from "@/lib/core/organization-access-approval/approval-policy";
 import {
+  canRetryOrganizationCapabilityAfterApproval,
+  resolveOrganizationAccessAuthorization,
+  userHasPermissionsForScopes,
+} from "@/lib/core/organization-access-approval/access-authorization-resolver";
+import {
   normalizeOrganizationAccessProviderKey,
   resolveProviderAccessManifest,
   resolveScopesForCapability,
@@ -85,6 +90,75 @@ assert.equal(
 
 assert.equal(isOrganizationAccessApprover({ role: "owner", effective_permissions: [] }), true);
 
+const memberScopes = ["community.members.read"];
+
+assert.equal(
+  resolveOrganizationAccessAuthorization({
+    provider_key: "community_member_directory",
+    scope_keys: memberScopes,
+    provider_ready: false,
+    effective_permissions: ["customer_community.view"],
+    organization_has_active_scope: false,
+  }).state,
+  "provider_not_connected",
+  "state A: missing provider adapter",
+);
+
+assert.equal(
+  resolveOrganizationAccessAuthorization({
+    provider_key: "community_member_directory",
+    scope_keys: memberScopes,
+    provider_ready: true,
+    effective_permissions: [],
+    organization_has_active_scope: true,
+  }).state,
+  "user_role_denied",
+  "state C: missing user role never shows org request path",
+);
+
+assert.equal(
+  resolveOrganizationAccessAuthorization({
+    provider_key: "community_member_directory",
+    scope_keys: memberScopes,
+    provider_ready: true,
+    effective_permissions: ["customer_community.view"],
+    organization_has_active_scope: false,
+  }).state,
+  "organization_scope_required",
+  "state B: provider ready + user role ok + org scope missing",
+);
+
+const authorized = resolveOrganizationAccessAuthorization({
+  provider_key: "community_member_directory",
+  scope_keys: memberScopes,
+  provider_ready: true,
+  effective_permissions: ["customer_community.view"],
+  organization_has_active_scope: true,
+});
+
+assert.equal(authorized.state, "authorized");
+assert.equal(canRetryOrganizationCapabilityAfterApproval(authorized), true);
+
+assert.equal(
+  canRetryOrganizationCapabilityAfterApproval({
+    ...authorized,
+    state: "authorized",
+    user_has_required_role: false,
+  }),
+  false,
+  "approved org scope without user role still blocks data retry",
+);
+
+assert.deepEqual(
+  userHasPermissionsForScopes(["customer_community.view"], memberScopes).missing,
+  [],
+);
+
+assert.deepEqual(
+  userHasPermissionsForScopes([], memberScopes).missing,
+  ["customer_community.view"],
+);
+
 assert.equal(
   normalizeOrganizationAccessProviderKey("member_verification_center"),
   "member_verification",
@@ -115,6 +189,7 @@ for (const locale of CORE_LOCALES) {
   const block = getNested(settings, "organizationAccessApproval") as Record<string, unknown>;
   assert.ok(block, `${locale} missing organizationAccessApproval`);
   assert.ok(getNested(block, "employee.noAuthorityMessage"), `${locale} employee message`);
+  assert.ok(getNested(block, "employee.userRoleDeniedMessage"), `${locale} user role denied message`);
   assert.ok(getNested(block, "employee.actions.submit"), `${locale} submit action`);
   assert.ok(getNested(block, "review.actions.approve"), `${locale} approve action`);
   assert.ok(getNested(block, "providers.communityMemberDirectory.label"), `${locale} provider label`);

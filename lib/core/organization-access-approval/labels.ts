@@ -8,6 +8,11 @@ export function buildOrganizationAccessEmployeeMessage(t: Translator): string {
   return t(`${BASE}.employee.noAuthorityMessage`);
 }
 
+/** State C — user role lacks permission to view the requested data type. */
+export function buildOrganizationAccessUserRoleDeniedMessage(t: Translator): string {
+  return t(`${BASE}.employee.userRoleDeniedMessage`);
+}
+
 export function buildOrganizationAccessRequestActions(t: Translator): Array<{
   id: string;
   label: string;

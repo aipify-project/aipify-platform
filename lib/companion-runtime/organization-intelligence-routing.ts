@@ -40,9 +40,9 @@ import { executeVerificationQueueRead } from "./verification-read-orchestrator";
 import { createVerificationReadProviderBridge } from "./verification-read-provider-bridge";
 import type { CompanionTenantContext } from "./companion-tenant-context";
 import {
-  buildOrganizationAccessRequiredAnswer,
   resolveAccessOfferFromCapability,
 } from "./organization-access-approval-bridge";
+import { resolveOrganizationAccessGate } from "./organization-access-gate";
 
 const PENDING_VERIFICATION_STATUSES = new Set([
   "pending",
@@ -95,9 +95,9 @@ function buildSupportPermission(
     user_role: tenantContext.organizationRole ?? "staff",
     app_suspended: isAppSuspended(tenantContext.subscriptionStatus),
     provider_active: providerActive,
-    can_read_queue: true,
-    can_read_cases: true,
-    can_read_sla: true,
+    can_read_queue: tenantContext.effectivePermissions.includes("support.view_metrics"),
+    can_read_cases: tenantContext.effectivePermissions.includes("support.view_metrics"),
+    can_read_sla: tenantContext.effectivePermissions.includes("support.view_metrics"),
     can_draft_response: false,
     can_assign_case: false,
     can_escalate_case: false,
@@ -145,28 +145,40 @@ async function resolveMemberDirectoryAnswer(
   },
 ): Promise<PlatformSearchResult | null> {
   const readiness = assessOrganizationCapabilityReadiness(intent);
-  if (readiness.status === "adapter_missing") {
-    return {
-      answer: buildOrganizationIntelligenceGapAnswer(input.t, "adapter_missing", {
-        sourceReference: readiness.source_reference,
-        capabilityKey: intent.capability_key,
-      }),
-    };
+
+  let providerReady = readiness.provider_active;
+  if (intent.kind === "member_count" && input.tenantContext.organizationId) {
+    const countProbe = await resolveOrganizationMemberCount({
+      supabase: input.supabase,
+      organizationId: input.tenantContext.organizationId,
+      tenantId: input.tenantContext.companyId ?? input.tenantContext.organizationId,
+    });
+    if (!isPresentableMemberCountResult(countProbe)) {
+      providerReady =
+        readiness.provider_active &&
+        resolveMemberCountGapReason(countProbe) !== "registry_not_connected";
+    }
   }
 
-  const permission = buildMemberDirectoryPermission(input.tenantContext, readiness.provider_active);
-  if (!permission.can_view_community) {
-    return {
-      answer: buildOrganizationAccessRequiredAnswer({
-        t: input.t,
-        offer: resolveAccessOfferFromCapability({
-          provider_key: intent.provider_key,
-          capability_key: intent.capability_key,
-          execution_kind: intent.kind,
-        }),
-      }),
-    };
-  }
+  const offer = resolveAccessOfferFromCapability({
+    provider_key: intent.provider_key,
+    capability_key: intent.capability_key,
+    execution_kind: intent.kind,
+  });
+
+  const { gate } = await resolveOrganizationAccessGate({
+    supabase: input.supabase,
+    t: input.t,
+    offer,
+    providerReady,
+    effectivePermissions: input.tenantContext.effectivePermissions,
+    capabilityKey: intent.capability_key,
+    sourceReference: readiness.source_reference,
+  });
+
+  if (gate) return gate;
+
+  const permission = buildMemberDirectoryPermission(input.tenantContext, providerReady);
 
   const bridge = createCommunityMemberDirectoryReadProviderBridge(input.supabase);
 
@@ -423,19 +435,25 @@ async function resolveSupportSlaAnswer(
     };
   }
 
+  const offer = resolveAccessOfferFromCapability({
+    provider_key: intent.provider_key,
+    capability_key: intent.capability_key,
+    execution_kind: intent.kind,
+  });
+
+  const { gate } = await resolveOrganizationAccessGate({
+    supabase: input.supabase,
+    t: input.t,
+    offer,
+    providerReady: readiness.provider_active && bundle.source_exact,
+    effectivePermissions: input.tenantContext.effectivePermissions,
+    capabilityKey: intent.capability_key,
+    sourceReference: readiness.source_reference,
+  });
+
+  if (gate) return gate;
+
   const supportPermission = buildSupportPermission(input.tenantContext, bundle.source_exact);
-  if (!supportPermission.can_read_sla) {
-    return {
-      answer: buildOrganizationAccessRequiredAnswer({
-        t: input.t,
-        offer: resolveAccessOfferFromCapability({
-          provider_key: intent.provider_key,
-          capability_key: intent.capability_key,
-          execution_kind: intent.kind,
-        }),
-      }),
-    };
-  }
 
   const queueResult = await executeSupportQueueRead({
     organization_id: input.tenantContext.organizationId!,

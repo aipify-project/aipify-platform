@@ -5841,6 +5841,8 @@
     "empty": "Ingen ventende adgangsanmodninger.",
     "employee": {
       "noAuthorityMessage": "Du har desværre ikke myndighed til at godkende denne adgang på organisationens vegne. En organisationsejer eller autoriseret administrator skal godkende anmodningen i APP-panelet. Jeg kan sende anmodningen til den rette godkender for dig.",
+      "userRoleDeniedMessage": "Du har desværre ikke tilladelse til at se disse oplysninger. Kontakt din leder eller en organisationsadministrator, hvis du har brug for adgang.",
+      "userRoleDeniedContext": "Din rolle inkluderer ikke adgang til {dataType}. Organisationsgodkendelse af provideradgang ændrer ikke dine personlige rettigheder.",
       "providerContext": "Anmodningen vedrører {provider}.",
       "panelNote": "Du kan sende adgangsanmodninger her. Godkendelse kræver organisationsejer eller autoriseret administrator.",
       "actions": {

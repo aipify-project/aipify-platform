@@ -1,4 +1,7 @@
--- Organization Access Approval V1 — generic Core governed APP access requests.
+-- Organization Access Approval V1 — forward-only reconciliation migration.
+-- Remote already recorded version 20261929000000 for presence notification preferences.
+-- Do not modify applied history or re-run the frozen presence migration.
+-- This file idempotently delivers OAA tables, RLS, RPCs, org-scoped grants, audit, and notifications.
 
 create table if not exists public.organization_provider_access_requests (
   id uuid primary key default gen_random_uuid(),
@@ -27,8 +30,9 @@ create table if not exists public.organization_provider_access_requests (
 create index if not exists organization_provider_access_requests_org_status_idx
   on public.organization_provider_access_requests (organization_id, status, created_at desc);
 
-create unique index if not exists organization_provider_access_requests_pending_dedupe_idx
-  on public.organization_provider_access_requests (organization_id, requester_user_id, provider_key, scope_fingerprint)
+drop index if exists organization_provider_access_requests_pending_dedupe_idx;
+create unique index organization_provider_access_requests_pending_dedupe_idx
+  on public.organization_provider_access_requests (organization_id, provider_key, scope_fingerprint)
   where status = 'pending';
 
 alter table public.organization_provider_access_requests enable row level security;
@@ -50,8 +54,8 @@ create table if not exists public.organization_provider_access_grants (
   updated_at timestamptz not null default now()
 );
 
-create index if not exists organization_provider_access_grants_org_user_idx
-  on public.organization_provider_access_grants (organization_id, user_id, active);
+create index if not exists organization_provider_access_grants_org_provider_idx
+  on public.organization_provider_access_grants (organization_id, provider_key, active);
 
 alter table public.organization_provider_access_grants enable row level security;
 revoke all on public.organization_provider_access_grants from authenticated, anon;
@@ -276,6 +280,93 @@ begin
 end;
 $$;
 
+create or replace function public._oaa_notify_approvers(
+  p_org_id uuid,
+  p_request_id uuid,
+  p_provider_key text,
+  p_scope_keys jsonb
+)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_tenant_id uuid;
+begin
+  if p_org_id is null or p_request_id is null then
+    return;
+  end if;
+
+  v_tenant_id := p_org_id;
+
+  perform public.record_presence_notification(
+    v_tenant_id,
+    'organization_access_request',
+    'action_required',
+    'Organization access approval required',
+    'An employee requested provider access for your organization. Review the request in Organization access approval.',
+    '["in_app"]'::jsonb,
+    jsonb_build_array(
+      jsonb_build_object('type', 'open', 'label', 'Review request')
+    ),
+    '/app/settings/organization-access',
+    jsonb_build_object(
+      'approver_only', true,
+      'request_id', p_request_id,
+      'provider_key', p_provider_key,
+      'scope_keys', coalesce(p_scope_keys, '[]'::jsonb)
+    )
+  );
+end;
+$$;
+
+create or replace function public._oaa_validate_provider_scopes(
+  p_provider_key text,
+  p_scope_keys jsonb
+)
+returns boolean
+language plpgsql
+immutable
+security definer
+set search_path = public
+as $$
+declare
+  v_scope text;
+  v_allowed jsonb;
+begin
+  if p_provider_key is null or btrim(p_provider_key) = '' then
+    return false;
+  end if;
+
+  if p_scope_keys is null or jsonb_typeof(p_scope_keys) <> 'array' or jsonb_array_length(p_scope_keys) = 0 then
+    return false;
+  end if;
+
+  v_allowed := case p_provider_key
+    when 'community_member_directory' then '["community.members.read"]'::jsonb
+    when 'organization_member_count' then '["organization.members.count.read"]'::jsonb
+    when 'autonomous_support_operations' then '["support.queue.read"]'::jsonb
+    when 'member_verification' then '["verification.queue.read"]'::jsonb
+    else '[]'::jsonb
+  end;
+
+  if jsonb_array_length(v_allowed) = 0 then
+    return false;
+  end if;
+
+  for v_scope in
+    select jsonb_array_elements_text(p_scope_keys)
+  loop
+    if not (v_allowed @> jsonb_build_array(v_scope)) then
+      return false;
+    end if;
+  end loop;
+
+  return true;
+end;
+$$;
+
 create or replace function public._oaa_request_json(r public.organization_provider_access_requests)
 returns jsonb
 language sql
@@ -287,7 +378,7 @@ as $$
     'id', r.id,
     'organization_id', r.organization_id,
     'requester_user_id', r.requester_user_id,
-    'requester_display_name', coalesce(u.full_name, u.email, ''),
+    'requester_display_name', coalesce(u.full_name, au.email, ''),
     'provider_key', r.provider_key,
     'capability_key', r.capability_key,
     'scope_keys', r.scope_keys,
@@ -306,6 +397,7 @@ as $$
   )
   from public.organization_provider_access_requests req
   left join public.users u on u.id = req.requester_user_id
+  left join auth.users au on au.id = u.auth_user_id
   where req.id = r.id;
 $$;
 
@@ -338,12 +430,20 @@ begin
     raise exception 'unauthorized';
   end if;
 
+  if public._mta_membership_active(v_org_id, v_user_id) is null then
+    raise exception 'unauthorized';
+  end if;
+
   if p_provider_key is null or btrim(p_provider_key) = '' then
     raise exception 'provider_key_required';
   end if;
 
   if p_scope_keys is null or jsonb_typeof(p_scope_keys) <> 'array' or jsonb_array_length(p_scope_keys) = 0 then
     raise exception 'scope_keys_required';
+  end if;
+
+  if not public._oaa_validate_provider_scopes(p_provider_key, p_scope_keys) then
+    raise exception 'invalid_scope_keys';
   end if;
 
   if public._oaa_can_approve(v_org_id, v_user_id, p_scope_keys) then
@@ -356,7 +456,6 @@ begin
   into v_existing
   from public.organization_provider_access_requests r
   where r.organization_id = v_org_id
-    and r.requester_user_id = v_user_id
     and r.provider_key = p_provider_key
     and r.scope_fingerprint = v_fingerprint
     and r.status = 'pending'
@@ -410,6 +509,13 @@ begin
     v_row.id,
     null,
     jsonb_build_object('provider_key', p_provider_key, 'scope_keys', p_scope_keys)
+  );
+
+  perform public._oaa_notify_approvers(
+    v_org_id,
+    v_row.id,
+    p_provider_key,
+    p_scope_keys
   );
 
   return public._oaa_request_json(v_row);
@@ -732,12 +838,10 @@ security definer
 set search_path = public
 as $$
 declare
-  v_user_id uuid;
   v_org_id uuid;
 begin
-  v_user_id := public._mta_app_user_id();
   v_org_id := public._oaa_current_org_id();
-  if v_user_id is null or v_org_id is null then
+  if v_org_id is null or p_provider_key is null or p_scope_key is null then
     return false;
   end if;
 
@@ -745,16 +849,51 @@ begin
     select 1
     from public.organization_provider_access_grants g
     where g.organization_id = v_org_id
-      and g.user_id = v_user_id
       and g.provider_key = p_provider_key
       and g.active = true
       and (g.expires_at is null or g.expires_at > now())
+      and (g.revoked_at is null)
       and exists (
         select 1
         from jsonb_array_elements_text(g.scope_keys) scope_entry(scope_key)
         where scope_entry.scope_key = p_scope_key
       )
   );
+end;
+$$;
+
+create or replace function public.has_active_organization_provider_scopes(
+  p_provider_key text,
+  p_scope_keys jsonb
+)
+returns boolean
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  v_org_id uuid;
+  v_scope text;
+begin
+  v_org_id := public._oaa_current_org_id();
+  if v_org_id is null or p_provider_key is null then
+    return false;
+  end if;
+
+  if p_scope_keys is null or jsonb_typeof(p_scope_keys) <> 'array' or jsonb_array_length(p_scope_keys) = 0 then
+    return false;
+  end if;
+
+  for v_scope in
+    select jsonb_array_elements_text(p_scope_keys)
+  loop
+    if not public.has_active_organization_provider_scope(p_provider_key, v_scope) then
+      return false;
+    end if;
+  end loop;
+
+  return true;
 end;
 $$;
 
@@ -765,6 +904,72 @@ grant execute on function public.cancel_organization_provider_access_request(uui
 grant execute on function public.revoke_organization_provider_access_grant(uuid) to authenticated;
 grant execute on function public.list_organization_provider_access_requests(text) to authenticated;
 grant execute on function public.has_active_organization_provider_scope(text, text) to authenticated;
+grant execute on function public.has_active_organization_provider_scopes(text, jsonb) to authenticated;
+
+-- Approver-only notifications: hide organization_access_request from non-approvers in inbox.
+create or replace function public.list_presence_notifications(
+  p_limit integer default 20,
+  p_unread_only boolean default false
+)
+returns jsonb
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  v_tenant_id uuid;
+  v_user_id uuid;
+  v_org_id uuid;
+begin
+  v_tenant_id := public._presence_tenant_for_auth();
+  v_user_id := public._mta_app_user_id();
+  v_org_id := public._oaa_current_org_id();
+  if v_tenant_id is null then
+    return jsonb_build_object('notifications', '[]'::jsonb, 'unread_count', 0);
+  end if;
+
+  return jsonb_build_object(
+    'notifications', coalesce(
+      (select jsonb_agg(
+        jsonb_build_object(
+          'id', n.id,
+          'event_type', n.event_type,
+          'level', n.level,
+          'title', n.title,
+          'body', n.body,
+          'status', n.status,
+          'channels', n.channels,
+          'actions', n.actions,
+          'action_href', n.action_href,
+          'created_at', n.created_at,
+          'read_at', n.read_at
+        ) order by n.created_at desc
+      )
+      from public.presence_notifications n
+      where n.tenant_id = v_tenant_id
+        and (not p_unread_only or n.status in ('pending', 'delivered'))
+        and (
+          coalesce(n.metadata->>'approver_only', 'false') <> 'true'
+          or (v_org_id is not null and v_user_id is not null and public._oaa_is_approver(v_org_id, v_user_id))
+        )
+      limit greatest(p_limit, 1)),
+      '[]'::jsonb
+    ),
+    'unread_count', (
+      select count(*)::integer from public.presence_notifications n
+      where n.tenant_id = v_tenant_id
+        and n.status in ('pending', 'delivered')
+        and (
+          coalesce(n.metadata->>'approver_only', 'false') <> 'true'
+          or (v_org_id is not null and v_user_id is not null and public._oaa_is_approver(v_org_id, v_user_id))
+        )
+    )
+  );
+end;
+$$;
+
+grant execute on function public.list_presence_notifications(integer, boolean) to authenticated;
 
 create or replace function public.can_review_organization_provider_access()
 returns boolean

@@ -5841,6 +5841,8 @@
     "empty": "Inga väntande åtkomstbegäranden.",
     "employee": {
       "noAuthorityMessage": "Du har tyvärr inte behörighet att godkänna denna åtkomst för organisationens räkning. En organisationsägare eller auktoriserad administratör måste godkänna begäran i APP-panelen. Jag kan skicka begäran till rätt godkännare åt dig.",
+      "userRoleDeniedMessage": "Du har tyvärr inte behörighet att se denna information. Kontakta din chef eller en organisationsadministratör om du behöver åtkomst.",
+      "userRoleDeniedContext": "Din roll inkluderar inte åtkomst till {dataType}. Organisationsgodkännande av provideråtkomst ändrar inte dina personliga behörigheter.",
       "providerContext": "Begäran gäller {provider}.",
       "panelNote": "Du kan skicka åtkomstbegäranden här. Godkännande kräver organisationsägare eller auktoriserad administratör.",
       "actions": {

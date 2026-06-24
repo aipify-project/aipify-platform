@@ -5836,6 +5836,8 @@
     "empty": "Ingen ventende tilgangsforespørsler.",
     "employee": {
       "noAuthorityMessage": "Beklager, du har ikke fullmakt til å godkjenne denne tilgangen på vegne av organisasjonen. En organisasjonseier eller autorisert administrator må godkjenne forespørselen i APP-panelet. Jeg kan sende forespørselen til riktig godkjenner for deg.",
+      "userRoleDeniedMessage": "Beklager, du har ikke tillatelse til å se denne informasjonen. Kontakt lederen din eller en organisasjonsadministrator hvis du trenger tilgang.",
+      "userRoleDeniedContext": "Rollen din inkluderer ikke tilgang til {dataType}. Organisasjonsgodkjenning av provider-tilgang endrer ikke dine personlige rettigheter.",
       "providerContext": "Forespørselen gjelder {provider}.",
       "panelNote": "Du kan sende tilgangsforespørsler her. Godkjenning krever organisasjonseier eller autorisert administrator.",
       "actions": {

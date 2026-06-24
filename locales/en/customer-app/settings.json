@@ -5861,6 +5861,8 @@
     "empty": "No pending access requests.",
     "employee": {
       "noAuthorityMessage": "Sorry, you do not have authority to approve this access on behalf of the organization. An organization owner or authorized administrator must approve the request in the APP panel. I can send the request to the right approver for you.",
+      "userRoleDeniedMessage": "Sorry, you do not have permission to view this information. Please contact your manager or an organization administrator if you need access.",
+      "userRoleDeniedContext": "Your role does not include access to {dataType}. Organization provider approval cannot change your personal permissions.",
       "providerContext": "This request relates to {provider}.",
       "panelNote": "You can submit access requests here. Approval requires an organization owner or authorized administrator.",
       "actions": {

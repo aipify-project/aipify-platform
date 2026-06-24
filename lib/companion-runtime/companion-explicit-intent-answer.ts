@@ -9,9 +9,9 @@ import {
 } from "./knowledge-sources";
 import { buildOrganizationIntelligenceGapAnswer } from "./organization-intelligence-answer";
 import {
-  buildOrganizationAccessRequiredAnswer,
   resolveAccessOfferFromCapability,
 } from "./organization-access-approval-bridge";
+import { resolveOrganizationAccessGate } from "./organization-access-gate";
 import type { CompanionExplicitIntent } from "./companion-explicit-intent";
 import type { CompanionTenantContext } from "./companion-tenant-context";
 import { assessOrganizationCapabilityReadiness } from "./organization-capability-resolution";
@@ -75,16 +75,23 @@ export async function buildCompanionExplicitIntentAnswer(input: {
       resolution_source: "domain_semantic",
     });
 
-    if (readiness.status === "permission_required") {
-      return buildOrganizationAccessRequiredAnswer({
-        t: input.t,
-        offer: resolveAccessOfferFromCapability({
-          provider_key: "member_verification",
-          capability_key: verificationIntent.capability_key,
-          execution_kind: "member_pending_verification",
-        }),
-      });
-    }
+    const offer = resolveAccessOfferFromCapability({
+      provider_key: "member_verification",
+      capability_key: verificationIntent.capability_key,
+      execution_kind: "member_pending_verification",
+    });
+
+    const { gate } = await resolveOrganizationAccessGate({
+      supabase,
+      t: input.t,
+      offer,
+      providerReady: readiness.provider_active,
+      effectivePermissions: input.tenantContext.effectivePermissions,
+      capabilityKey: verificationIntent.capability_key,
+      sourceReference: readiness.source_reference,
+    });
+
+    if (gate) return gate.answer;
 
     if (!readiness.provider_active) {
       return groundedAnswer(

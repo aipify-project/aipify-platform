@@ -3,6 +3,7 @@ import type { Translator } from "@/lib/i18n/translate";
 import {
   buildOrganizationAccessEmployeeMessage,
   buildOrganizationAccessRequestActions,
+  buildOrganizationAccessUserRoleDeniedMessage,
   resolveProviderFriendlyLabel,
 } from "@/lib/core/organization-access-approval/labels";
 import {
@@ -14,6 +15,42 @@ import type { OrganizationAccessOfferContext } from "@/lib/core/organization-acc
 import type { OrganizationExecutionKind } from "./organization-capability-resolution";
 
 const SETTINGS_ROUTE = "/app/settings/organization-access";
+
+/** State C — user lacks role permission; org provider approval does not elevate roles. */
+export function buildOrganizationAccessUserRoleDeniedAnswer(input: {
+  t: Translator;
+  offer: OrganizationAccessOfferContext;
+}): PlatformKnowledgeAnswer {
+  const manifest = resolveProviderAccessManifest(input.offer.provider_key);
+  const providerLabel = resolveProviderFriendlyLabel(input.t, input.offer.provider_key);
+  const dataTypeLabel = manifest ? input.t(manifest.data_type_label_key) : null;
+
+  return {
+    directAnswer: buildOrganizationAccessUserRoleDeniedMessage(input.t),
+    explanation: [
+      dataTypeLabel
+        ? input.t("customerApp.organizationAccessApproval.employee.userRoleDeniedContext").replace(
+            "{dataType}",
+            dataTypeLabel,
+          )
+        : null,
+      input.t("customerApp.organizationAccessApproval.employee.providerContext").replace(
+        "{provider}",
+        providerLabel,
+      ),
+    ]
+      .filter(Boolean)
+      .join("\n\n"),
+    steps: [],
+    actions: [],
+    sources: [],
+    sourceId: "organization-access-user-role-denied",
+    source: "customer_context",
+    confidence: "moderate",
+    showSupportEscalation: false,
+    requestedLiveIntegration: false,
+  };
+}
 
 export function buildOrganizationAccessRequiredAnswer(input: {
   t: Translator;
