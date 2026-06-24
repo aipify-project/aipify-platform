@@ -18,6 +18,12 @@ export type UnifiedNotificationCenterLabels = {
   soundToggleLabel: string;
   soundOn: string;
   soundOff: string;
+  soundToggleLoading: string;
+  soundToggleLoadError: string;
+  soundToggleRetry: string;
+  soundToggleSaving: string;
+  soundToggleSaved: string;
+  soundToggleSaveError: string;
   unreadSummary: string;
   ariaBell: string;
   ariaUnread: string;
@@ -52,6 +58,12 @@ export function buildUnifiedNotificationCenterLabels(
     soundToggleLabel: t(`${base}.soundToggleLabel`),
     soundOn: t(`${base}.soundOn`),
     soundOff: t(`${base}.soundOff`),
+    soundToggleLoading: t(`${base}.soundToggleLoading`),
+    soundToggleLoadError: t(`${base}.soundToggleLoadError`),
+    soundToggleRetry: t(`${base}.soundToggleRetry`),
+    soundToggleSaving: t(`${base}.soundToggleSaving`),
+    soundToggleSaved: t(`${base}.soundToggleSaved`),
+    soundToggleSaveError: t(`${base}.soundToggleSaveError`),
     unreadSummary: t(`${base}.unreadSummary`),
     ariaBell: t(`${base}.ariaBell`),
     ariaUnread: t(`${base}.ariaUnread`),

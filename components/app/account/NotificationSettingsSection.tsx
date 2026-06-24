@@ -13,11 +13,6 @@ import {
 import { NotificationPreferenceToggleCard } from "@/components/app/account/NotificationPreferenceToggleCard";
 import type { NotificationSettingsPageLabels } from "@/lib/app/notifications/labels";
 import {
-  fetchNotificationPreferences,
-  resolvePreferencesLoadErrorMessage,
-  type NotificationPreferencesLoadError,
-} from "@/lib/app/notifications/load-notification-preferences";
-import {
   applyToggleChange,
   formatQuietHoursRange,
   notificationPrefsToToggleState,
@@ -49,12 +44,11 @@ type NotificationSettingsSectionProps = {
   organizationName?: string | null;
   organizationReady: boolean;
   sharedPreferences?: PresenceNotificationPreferences | null;
+  preferencesLoading?: boolean;
+  preferencesLoadFailed?: boolean;
   onPreferencesSaved?: (preferences: PresenceNotificationPreferences) => void;
   onRefreshSharedPreferences?: () => Promise<void>;
 };
-
-const PREFS_RETRY_MS = 900;
-const PREFS_MAX_RETRIES = 8;
 
 function draftToEffective(
   state: NotificationSettingsToggleState,
@@ -89,6 +83,8 @@ export function NotificationSettingsSection({
   organizationName = null,
   organizationReady,
   sharedPreferences = null,
+  preferencesLoading = false,
+  preferencesLoadFailed = false,
   onPreferencesSaved,
   onRefreshSharedPreferences,
 }: NotificationSettingsSectionProps) {
@@ -98,91 +94,26 @@ export function NotificationSettingsSection({
   const [draft, setDraft] = useState<NotificationSettingsToggleState | null>(
     sharedPreferences ? notificationPrefsToToggleState(sharedPreferences) : null,
   );
-  const [loading, setLoading] = useState(!sharedPreferences);
-  const [loadError, setLoadError] = useState<NotificationPreferencesLoadError | null>(null);
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [testResult, setTestResult] = useState<NotificationSoundTestResult | null>(null);
   const saveTimerRef = useRef<number | null>(null);
   const savedTimerRef = useRef<number | null>(null);
-  const retryTimerRef = useRef<number | null>(null);
-  const retryCountRef = useRef(0);
 
-  const applyLoadedPreferences = useCallback((parsed: PresenceNotificationPreferences) => {
-    setBasePreferences(parsed);
-    setDraft(notificationPrefsToToggleState(parsed));
-    setLoadError(null);
-    retryCountRef.current = 0;
-  }, []);
-
-  const loadPreferences = useCallback(async () => {
-    if (!organizationKey || !organizationReady) return;
-    setLoading(true);
-    setLoadError(null);
-    try {
-      const result = await fetchNotificationPreferences();
-      if (result.preferences) {
-        applyLoadedPreferences(result.preferences);
-        logNotificationSettingsDiagnostic("preferences_loaded", {
-          organizationKey,
-          soundEnabled: result.preferences.sound_enabled,
-          playfulMomentsEnabled: result.preferences.playful_moments_enabled,
-          quietHoursEnabled: result.preferences.quiet_hours_enabled,
-        });
-        return;
-      }
-      setLoadError(result.error ?? "page_load_error");
-      setBasePreferences(null);
-      setDraft(null);
-    } finally {
-      setLoading(false);
-    }
-  }, [applyLoadedPreferences, organizationKey, organizationReady]);
+  const preferencesSnapshot = useMemo(() => {
+    if (!sharedPreferences) return null;
+    return JSON.stringify(notificationPrefsToToggleState(sharedPreferences));
+  }, [sharedPreferences]);
 
   useEffect(() => {
-    if (sharedPreferences) {
-      applyLoadedPreferences(sharedPreferences);
-      setLoading(false);
-    }
-  }, [applyLoadedPreferences, sharedPreferences]);
-
-  useEffect(() => {
-    if (!organizationKey || !organizationReady) return;
-    if (sharedPreferences) return;
-    void loadPreferences();
-  }, [organizationKey, organizationReady, loadPreferences, sharedPreferences]);
-
-  useEffect(() => {
-    if (retryTimerRef.current !== null) {
-      window.clearTimeout(retryTimerRef.current);
-      retryTimerRef.current = null;
-    }
-
-    if (!organizationReady || !organizationKey || loading || !loadError) {
-      return;
-    }
-
-    if (retryCountRef.current >= PREFS_MAX_RETRIES) {
-      return;
-    }
-
-    retryTimerRef.current = window.setTimeout(() => {
-      retryCountRef.current += 1;
-      void loadPreferences();
-    }, PREFS_RETRY_MS);
-
-    return () => {
-      if (retryTimerRef.current !== null) {
-        window.clearTimeout(retryTimerRef.current);
-        retryTimerRef.current = null;
-      }
-    };
-  }, [loadError, loadPreferences, loading, organizationKey, organizationReady]);
+    if (!sharedPreferences || !preferencesSnapshot) return;
+    setBasePreferences(sharedPreferences);
+    setDraft(notificationPrefsToToggleState(sharedPreferences));
+  }, [preferencesSnapshot, sharedPreferences]);
 
   useEffect(() => {
     return () => {
       if (saveTimerRef.current) window.clearTimeout(saveTimerRef.current);
       if (savedTimerRef.current) window.clearTimeout(savedTimerRef.current);
-      if (retryTimerRef.current) window.clearTimeout(retryTimerRef.current);
     };
   }, []);
 
@@ -209,7 +140,8 @@ export function NotificationSettingsSection({
         if (!res.ok) throw new Error("save_failed");
         const parsed = parsePresenceNotificationPreferences(await res.json());
         if (!parsed) throw new Error("missing_preferences");
-        applyLoadedPreferences(parsed);
+        setBasePreferences(parsed);
+        setDraft(notificationPrefsToToggleState(parsed));
         setSaveState("saved");
         onPreferencesSaved?.(parsed);
         savedTimerRef.current = window.setTimeout(() => {
@@ -219,7 +151,7 @@ export function NotificationSettingsSection({
         setSaveState("error");
       }
     },
-    [applyLoadedPreferences, basePreferences, onPreferencesSaved],
+    [basePreferences, onPreferencesSaved],
   );
 
   const queuePersist = useCallback(
@@ -280,12 +212,15 @@ export function NotificationSettingsSection({
   }
 
   async function handleRetry() {
-    retryCountRef.current = 0;
     await onRefreshSharedPreferences?.();
-    await loadPreferences();
   }
 
-  if (loading) {
+  const waitingForPreferences =
+    organizationReady && (preferencesLoading || (!sharedPreferences && !preferencesLoadFailed));
+  const failedToLoadPreferences =
+    organizationReady && preferencesLoadFailed && !sharedPreferences;
+
+  if (waitingForPreferences) {
     return (
       <section
         id="notification-sound-settings"
@@ -297,15 +232,11 @@ export function NotificationSettingsSection({
     );
   }
 
-  if (loadError || !draft) {
-    const message = loadError
-      ? resolvePreferencesLoadErrorMessage(loadError, labels.contextGate)
-      : labels.contextGate.pageLoadError;
-
+  if (failedToLoadPreferences || !draft) {
     return (
       <PlatformEmptyState
         title={labels.contextGate.pageLoadError}
-        message={message}
+        message={labels.contextGate.pageLoadError}
         primaryAction={{
           label: labels.contextGate.retry,
           onClick: () => {

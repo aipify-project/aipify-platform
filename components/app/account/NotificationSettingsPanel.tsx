@@ -59,6 +59,8 @@ export function NotificationSettingsPanel({ labels }: NotificationSettingsPanelP
           organizationName={orgGate.organizationName}
           organizationReady={orgGate.isReady}
           sharedPreferences={feed.preferences}
+          preferencesLoading={feed.preferencesLoading}
+          preferencesLoadFailed={feed.preferencesLoadFailed}
           onRefreshSharedPreferences={feed.refreshPreferences}
           onPreferencesSaved={(preferences) => {
             feed.applyPreferences(preferences);

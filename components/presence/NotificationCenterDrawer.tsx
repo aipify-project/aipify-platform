@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useUnifiedNotificationFeed } from "./UnifiedNotificationFeedProvider";
 import type { PresenceNotification } from "@/lib/presence/notification-state";
 import type { PresenceNotificationLevel } from "@/lib/presence/notifications";
-import { formatUnreadSummary, type UnifiedNotificationCenterLabels } from "@/lib/presence/unified-notification-feed";
+import { formatUnreadSummary, selectDrawerNotificationPreview, type UnifiedNotificationCenterLabels } from "@/lib/presence/unified-notification-feed";
 import { isNotificationUnread } from "@/lib/presence/unified-notification-feed";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { NotificationCenterSoundToggle } from "@/components/presence/NotificationCenterSoundToggle";
@@ -119,6 +119,7 @@ export function NotificationCenterDrawer() {
   const feed = useUnifiedNotificationFeed();
   const { labels, centerOpen, closeCenter, notifications, unreadCount, openNotification, dismissNotification, markNotificationRead } =
     feed;
+  const previewNotifications = selectDrawerNotificationPreview(notifications);
 
   if (!centerOpen) return null;
 
@@ -163,7 +164,7 @@ export function NotificationCenterDrawer() {
         <div className="flex-1 overflow-y-auto">
           <NotificationCenterList
             labels={labels}
-            notifications={notifications}
+            notifications={previewNotifications}
             onOpen={openNotification}
             onMarkRead={markNotificationRead}
             onArchive={dismissNotification}

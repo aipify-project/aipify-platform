@@ -57,6 +57,8 @@ type UnifiedNotificationFeedContextValue = {
   pulseActive: boolean;
   toastNotification: PresenceNotification | null;
   preferences: PresenceNotificationPreferences | null;
+  preferencesLoading: boolean;
+  preferencesLoadFailed: boolean;
   openCenter: () => void;
   closeCenter: () => void;
   refresh: () => Promise<boolean>;
@@ -101,6 +103,8 @@ export function UnifiedNotificationFeedProvider({
   const [pulseActive, setPulseActive] = useState(false);
   const [toastNotification, setToastNotification] = useState<PresenceNotification | null>(null);
   const [preferences, setPreferences] = useState<PresenceNotificationPreferences | null>(null);
+  const [preferencesLoading, setPreferencesLoading] = useState(true);
+  const [preferencesLoadFailed, setPreferencesLoadFailed] = useState(false);
 
   const orgContextRef = useRef<{ key: string | null; ready: boolean }>({
     key: null,
@@ -130,6 +134,8 @@ export function UnifiedNotificationFeedProvider({
     setToastNotification(null);
     setPreferences(null);
     preferencesRef.current = null;
+    setPreferencesLoading(true);
+    setPreferencesLoadFailed(false);
   }, []);
 
   const ensureOrgReady = useCallback(async (): Promise<boolean> => {
@@ -156,12 +162,25 @@ export function UnifiedNotificationFeedProvider({
   }, [resetFeedForOrganizationChange]);
 
   const loadPreferences = useCallback(async (): Promise<PresenceNotificationPreferences | null> => {
-    if (!(await ensureOrgReady())) return null;
+    setPreferencesLoading(true);
+    setPreferencesLoadFailed(false);
+
+    if (!(await ensureOrgReady())) {
+      setPreferencesLoading(false);
+      setPreferencesLoadFailed(true);
+      return null;
+    }
+
     const result = await fetchNotificationPreferences();
     if (result.preferences) {
       setPreferences(result.preferences);
+      setPreferencesLoadFailed(false);
+      setPreferencesLoading(false);
       return result.preferences;
     }
+
+    setPreferencesLoadFailed(true);
+    setPreferencesLoading(false);
     return null;
   }, [ensureOrgReady]);
 
@@ -436,6 +455,8 @@ export function UnifiedNotificationFeedProvider({
       pulseActive,
       toastNotification,
       preferences,
+      preferencesLoading,
+      preferencesLoadFailed,
       openCenter: () => setCenterOpen(true),
       closeCenter: () => setCenterOpen(false),
       refresh,
@@ -456,6 +477,8 @@ export function UnifiedNotificationFeedProvider({
       pulseActive,
       toastNotification,
       preferences,
+      preferencesLoading,
+      preferencesLoadFailed,
       refresh,
       refreshPreferences,
       applyPreferences,
