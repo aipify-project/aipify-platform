@@ -38,6 +38,7 @@ type TopbarProps = {
   languageSelectorLabels?: AppLanguageSelectorLabels;
   pwaLabels?: PwaInstallLabels;
   companionButton?: ReactNode;
+  feedbackButton?: ReactNode;
 };
 
 export default function Topbar({
@@ -63,6 +64,7 @@ export default function Topbar({
   languageSelectorLabels,
   pwaLabels,
   companionButton,
+  feedbackButton,
 }: TopbarProps) {
   return (
     <header className={`sticky top-0 z-20 flex h-16 shrink-0 items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 lg:px-8 ${AipifyShellClasses.topbar}`}>
@@ -146,6 +148,8 @@ export default function Topbar({
       </div>
 
       <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        {feedbackButton}
+
         {organizationSwitcher ?? (
           <button
             type="button"

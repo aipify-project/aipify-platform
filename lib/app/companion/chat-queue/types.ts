@@ -27,6 +27,7 @@ export type CompanionServerMessage = {
   payload?: Record<string, unknown>;
   sequence_no?: number;
   timestamp?: number;
+  feedback_type?: "helpful" | "not_helpful" | "org_confirm" | null;
 };
 
 export type CompanionChatState = {

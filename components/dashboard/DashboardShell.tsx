@@ -11,7 +11,7 @@ import { LicenseSidebarPanel } from "@/components/app/license";
 import Sidebar, { type NavItem } from "./Sidebar";
 import GroupedSidebar from "./GroupedSidebar";
 import SidebarBrand, { SidebarBrandLegacy } from "./SidebarBrand";
-import { ShareFeedbackWidget } from "@/components/app/voice-of-the-customer";
+import { TopbarShareFeedbackButton } from "@/components/app/voice-of-the-customer";
 import { CompanionShell, CompanionTopBarButton } from "@/components/app/companion-experience";
 import type { CompanionExperienceLabels } from "@/lib/app/companion/types";
 import type { VocWidgetLabels } from "@/lib/voice-of-the-customer";
@@ -540,6 +540,11 @@ function DashboardShellFrame({
               <CompanionTopBarButton />
             ) : undefined
           }
+          feedbackButton={
+            shellVariant === "customer" && voiceOfCustomerLabels ? (
+              <TopbarShareFeedbackButton labels={voiceOfCustomerLabels} />
+            ) : undefined
+          }
         />
 
         <main className="flex-1 overflow-y-auto px-4 py-6 pb-24 sm:px-6 sm:py-8 lg:px-8 lg:pb-8">
@@ -593,28 +598,16 @@ function DashboardShellFrame({
       shell
     );
 
-  const withFeedback =
-    shellVariant === "customer" &&
-    pathname.startsWith("/app") &&
-    voiceOfCustomerLabels ? (
-      <>
-        {withCompanionExperience}
-        <ShareFeedbackWidget labels={voiceOfCustomerLabels} />
-      </>
-    ) : (
-      withCompanionExperience
-    );
-
   const withUnifiedNotifications =
     shellVariant === "customer" &&
     pathname.startsWith("/app") &&
     notificationCenterLabels ? (
       <UnifiedNotificationFeedProvider labels={notificationCenterLabels}>
-        {withFeedback}
+        {withCompanionExperience}
         <NotificationCenterDrawer />
       </UnifiedNotificationFeedProvider>
     ) : (
-      withFeedback
+      withCompanionExperience
     );
 
   if (!presenceLabels) {

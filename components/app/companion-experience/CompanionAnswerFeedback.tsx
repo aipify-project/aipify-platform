@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type {
   CompanionAnswerFeedbackState,
   CompanionAnswerSource,
@@ -43,6 +43,15 @@ const REASONS: Array<{ id: NegativeReason; label: string }> = [
   { id: "other", label: "feedbackReasonOther" },
 ];
 
+function feedbackButtonClass(selected: boolean): string {
+  const base =
+    "rounded-lg border px-3 py-1.5 text-xs font-medium transition disabled:opacity-60";
+  if (selected) {
+    return `${base} border-aipify-companion bg-violet-50 text-aipify-companion ring-1 ring-aipify-companion/30`;
+  }
+  return `${base} border-aipify-border text-aipify-text hover:bg-aipify-surface-muted`;
+}
+
 export function CompanionAnswerFeedback({
   labels,
   conversationId,
@@ -65,14 +74,23 @@ export function CompanionAnswerFeedback({
   const [showReasons, setShowReasons] = useState(false);
   const [showSources, setShowSources] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [thanks, setThanks] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState(false);
+
+  useEffect(() => {
+    setFeedback(initialFeedback ?? null);
+  }, [initialFeedback, messageId]);
 
   async function submitFeedback(
     feedbackType: CompanionAnswerFeedbackState,
     negativeReason?: NegativeReason,
   ) {
     if (!feedbackType || submitting) return;
+
+    const previous = feedback;
+    setFeedback(feedbackType);
+    setSubmitError(false);
     setSubmitting(true);
+
     try {
       const res = await fetch("/api/aipify/companion/answer-feedback", {
         method: "POST",
@@ -90,13 +108,10 @@ export function CompanionAnswerFeedback({
         }),
       });
       if (!res.ok) throw new Error("feedback failed");
-      setFeedback(feedbackType);
-      setThanks(
-        feedbackType === "org_confirm" ? labels.feedbackOrgConfirmThanks : labels.feedbackThanks,
-      );
       onFeedback?.(feedbackType, negativeReason);
     } catch {
-      setThanks(null);
+      setFeedback(previous);
+      setSubmitError(true);
     } finally {
       setSubmitting(false);
       setShowReasons(false);
@@ -132,42 +147,55 @@ export function CompanionAnswerFeedback({
         </div>
       ) : null}
 
-      {feedback ? (
-        <p className="text-xs text-aipify-text-secondary">{thanks ?? labels.feedbackThanks}</p>
-      ) : (
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          disabled={submitting}
+          aria-pressed={feedback === "helpful"}
+          onClick={() => void submitFeedback("helpful")}
+          className={feedbackButtonClass(feedback === "helpful")}
+        >
+          👍 {labels.feedbackHelpful}
+        </button>
+        <button
+          type="button"
+          disabled={submitting}
+          aria-pressed={feedback === "not_helpful"}
+          onClick={() => setShowReasons(true)}
+          className={feedbackButtonClass(feedback === "not_helpful")}
+        >
+          👎 {labels.feedbackNotHelpful}
+        </button>
+        {orgConfirmAllowed ? (
           <button
             type="button"
             disabled={submitting}
-            onClick={() => void submitFeedback("helpful")}
-            className="rounded-lg border border-aipify-border px-3 py-1.5 text-xs font-medium text-aipify-text hover:bg-aipify-surface-muted disabled:opacity-60"
+            aria-pressed={feedback === "org_confirm"}
+            onClick={() => void submitFeedback("org_confirm")}
+            className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition disabled:opacity-60 ${
+              feedback === "org_confirm"
+                ? "border-emerald-400 bg-emerald-100 text-emerald-950 ring-1 ring-emerald-300"
+                : "border-emerald-200 bg-emerald-50 text-emerald-900 hover:bg-emerald-100"
+            }`}
           >
-            👍 {labels.feedbackHelpful}
+            ✅ {labels.feedbackOrgConfirm}
           </button>
-          <button
-            type="button"
-            disabled={submitting}
-            onClick={() => setShowReasons(true)}
-            className="rounded-lg border border-aipify-border px-3 py-1.5 text-xs font-medium text-aipify-text hover:bg-aipify-surface-muted disabled:opacity-60"
-          >
-            👎 {labels.feedbackNotHelpful}
-          </button>
-          {orgConfirmAllowed ? (
-            <button
-              type="button"
-              disabled={submitting}
-              onClick={() => void submitFeedback("org_confirm")}
-              className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-900 hover:bg-emerald-100 disabled:opacity-60"
-            >
-              ✅ {labels.feedbackOrgConfirm}
-            </button>
-          ) : canConfirmOrg && orgConfirmBlockedReason ? (
-            <p className="text-xs text-amber-800">{orgConfirmBlockedReason}</p>
-          ) : null}
-        </div>
-      )}
+        ) : canConfirmOrg && orgConfirmBlockedReason ? (
+          <p className="text-xs text-amber-800">{orgConfirmBlockedReason}</p>
+        ) : null}
+      </div>
 
-      {showReasons && !feedback ? (
+      {feedback ? (
+        <p className="text-xs text-aipify-text-secondary">
+          {feedback === "org_confirm" ? labels.feedbackOrgConfirmThanks : labels.feedbackThanks}
+        </p>
+      ) : null}
+
+      {submitError ? (
+        <p className="text-xs text-rose-800">{labels.queue.syncError}</p>
+      ) : null}
+
+      {showReasons ? (
         <div className="rounded-lg border border-aipify-border bg-aipify-surface-muted/40 p-3">
           <p className="text-xs font-medium text-aipify-text">{labels.feedbackReasonTitle}</p>
           <div className="mt-2 flex flex-wrap gap-2">

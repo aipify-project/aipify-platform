@@ -96,18 +96,28 @@ export function mapServerMessagesToChat(messages: Array<{
   content: string;
   payload?: Record<string, unknown>;
   timestamp?: number;
+  feedback_type?: "helpful" | "not_helpful" | "org_confirm" | null;
 }>): CompanionChatMessage[] {
   return messages.map((message) => {
     const timestamp = message.timestamp ?? Date.now();
+    const feedback =
+      message.feedback_type === "helpful" ||
+      message.feedback_type === "not_helpful" ||
+      message.feedback_type === "org_confirm"
+        ? message.feedback_type
+        : undefined;
+
     if (message.role === "user") {
       return deserializeUserMessage(message.id, message.content, message.payload, timestamp);
     }
-    return deserializeAssistantMessage(
+
+    const chatMessage = deserializeAssistantMessage(
       message.server_id ?? message.id,
       message.id,
       message.content,
       message.payload,
       timestamp,
     );
+    return feedback ? { ...chatMessage, feedback } : chatMessage;
   });
 }

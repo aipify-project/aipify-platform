@@ -175,8 +175,8 @@
     }
   },
   "voiceOfCustomer": {
-    "trigger": "Share Feedback",
-    "triggerShort": "Share Feedback",
+    "trigger": "Compartir feedback",
+    "triggerShort": "Compartir feedback",
     "title": "Share Feedback",
     "subtitle": "Your voice helps us improve Aipify — never forced, always welcome.",
     "type": "Feedback type",
