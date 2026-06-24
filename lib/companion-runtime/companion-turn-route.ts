@@ -1,5 +1,9 @@
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import { normalizeIntegrationQuery } from "@/lib/integration-intelligence/normalize-text";
+import {
+  isLocalDevicePermissionQuery,
+  isUserOwnedAccountControlQuery,
+} from "@/lib/core/authorization-target";
 import { isOrganizationCapabilityQuery } from "./organization-capability-resolution";
 import { isPlatformFoundationQuery } from "./platform-foundation-intent";
 import { detectOperationalQueryKind } from "./companion-operational-query-match";
@@ -115,6 +119,9 @@ export function classifyCompanionTurnRoute(
   }
 
   if (isPlatformFoundationQuery(query)) return "foundation";
+  if (isUserOwnedAccountControlQuery(query) || isLocalDevicePermissionQuery(query)) {
+    return "exact_source";
+  }
   if (detectOperationalQueryKind(query)) return "exact_source";
   if (isOrganizationCapabilityQuery(query, locale)) return "exact_source";
   if (needsFullCompanionRoute(query, options)) return "full";

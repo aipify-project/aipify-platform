@@ -5,7 +5,12 @@ import {
 } from "./companion-turn-route";
 import { resolveDirectDateTimeKind } from "./direct-datetime-answer";
 import {
+  isLocalDevicePermissionQuery,
+  isUserOwnedAccountControlQuery,
+} from "@/lib/core/authorization-target";
+import {
   resolveOrganizationCapabilityRoute,
+  isOrganizationCapabilityQuery,
   type OrganizationExecutionKind,
 } from "./organization-capability-resolution";
 import { detectOperationalQueryKind } from "./companion-operational-query-match";
@@ -43,6 +48,17 @@ export function classifyCompanionSubmitPath(
   const turnRoute = classifyCompanionTurnRoute(query, locale, options);
 
   if (turnRoute === "lightweight" || turnRoute === "foundation") {
+    return "direct";
+  }
+
+  if (
+    turnRoute === "exact_source" &&
+    (isUserOwnedAccountControlQuery(query) || isLocalDevicePermissionQuery(query))
+  ) {
+    return "direct";
+  }
+
+  if (turnRoute === "exact_source" && isOrganizationCapabilityQuery(query, locale)) {
     return "direct";
   }
 

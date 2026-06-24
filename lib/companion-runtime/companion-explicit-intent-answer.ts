@@ -89,6 +89,8 @@ export async function buildCompanionExplicitIntentAnswer(input: {
       effectivePermissions: input.tenantContext.effectivePermissions,
       capabilityKey: verificationIntent.capability_key,
       sourceReference: readiness.source_reference,
+      organizationRole: input.tenantContext.organizationRole,
+      organizationId: input.tenantContext.organizationId,
     });
 
     if (gate) return gate.answer;

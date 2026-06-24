@@ -5925,5 +5925,37 @@
       "supportQueueRead": "Vis supportkømålinger",
       "verificationQueueRead": "Vis verificeringskø"
     }
+  },
+  "authorizationTarget": {
+    "providers": {
+      "generic": { "label": "Tilsluttet tjeneste" },
+      "personalStreamingAccount": { "label": "Personlig musikkonto" }
+    },
+    "searchTerms": {
+      "personalStreamingAccount": "musik, streaming, afspilningsliste, afspilning"
+    },
+    "userOwned": {
+      "connectLead": "Du kan forbinde {provider}, så Aipify kan hjælpe med afspilning og styring.",
+      "connectExplanation": "Dette er din personlige konto. Den går ikke via organisationsgodkendelse — kun den adgang, du godkender, bruges.",
+      "actions": { "connect": "Forbind konto", "cancel": "Annuller" }
+    },
+    "localDevice": {
+      "permissionLead": "Aipify skal have tilladelse på denne enhed, før lokal afspilning eller højttalere kan styres.",
+      "permissionExplanation": "Dette er en lokal enhedstilladelse — ikke en organisationsanmodning for {provider}.",
+      "actions": { "openSettings": "Åbn enhedsindstillinger", "cancel": "Annuller" }
+    },
+    "approver": {
+      "directLead": "Du kan godkende denne organisationsadgang direkte i APP-panelet. Du behøver ikke sende en anmodning til dig selv.",
+      "directExplanation": "Gennemgå det anmodede omfang for {provider}, og godkend eller afvis med fuld revisionsspor.",
+      "panelTitle": "Godkend organisationsadgang",
+      "panelDescription": "Gennemgå omfang, varighed og risiko, før du godkender adgang for organisationen.",
+      "noPendingRequest": "Der er endnu ingen ventende anmodning for denne provider. Et teammedlem kan indsende en, eller du kan godkende en matchende anmodning, når den vises nedenfor.",
+      "actions": { "approveAccess": "Godkend adgang", "cancel": "Annuller" }
+    },
+    "errors": {
+      "approverShouldGrantDirectly": "Som organisationsgodkender tildeler du denne adgang i APP-panelet i stedet for at sende en anmodning.",
+      "providerRequired": "En provider er påkrævet for at fortsætte.",
+      "scopeRequired": "Et gyldigt adgangsomfang er påkrævet for at fortsætte."
+    }
   }
 }

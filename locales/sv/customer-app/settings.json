@@ -5925,5 +5925,37 @@
       "supportQueueRead": "Visa supportkömätningar",
       "verificationQueueRead": "Visa verifieringskö"
     }
+  },
+  "authorizationTarget": {
+    "providers": {
+      "generic": { "label": "Ansluten tjänst" },
+      "personalStreamingAccount": { "label": "Personligt musikkonto" }
+    },
+    "searchTerms": {
+      "personalStreamingAccount": "musik, streaming, spellista, uppspelning"
+    },
+    "userOwned": {
+      "connectLead": "Du kan ansluta {provider} så att Aipify kan hjälpa till med uppspelning och styrning.",
+      "connectExplanation": "Det här är ditt personliga konto. Det går inte via organisationsgodkännande — endast åtkomst du godkänner används.",
+      "actions": { "connect": "Anslut konto", "cancel": "Avbryt" }
+    },
+    "localDevice": {
+      "permissionLead": "Aipify behöver behörighet på den här enheten innan lokal uppspelning eller högtalare kan styras.",
+      "permissionExplanation": "Det här är en lokal enhetsbehörighet — inte en organisationsförfrågan för {provider}.",
+      "actions": { "openSettings": "Öppna enhetsinställningar", "cancel": "Avbryt" }
+    },
+    "approver": {
+      "directLead": "Du kan godkänna den här organisationsåtkomsten direkt i APP-panelen. Du behöver inte skicka en förfrågan till dig själv.",
+      "directExplanation": "Granska begärt omfång för {provider} och godkänn eller avslå med full revisionsspårning.",
+      "panelTitle": "Godkänn organisationsåtkomst",
+      "panelDescription": "Granska omfattning, varaktighet och risk innan du godkänner åtkomst för organisationen.",
+      "noPendingRequest": "Det finns ingen väntande förfrågan för den här providern ännu. En teammedlem kan skicka en, eller så kan du godkänna en matchande förfrågan när den visas nedan.",
+      "actions": { "approveAccess": "Godkänn åtkomst", "cancel": "Avbryt" }
+    },
+    "errors": {
+      "approverShouldGrantDirectly": "Som organisationsgodkännare beviljar du den här åtkomsten i APP-panelen i stället för att skicka en förfrågan.",
+      "providerRequired": "En provider krävs för att fortsätta.",
+      "scopeRequired": "Ett giltigt åtkomstomfång krävs för att fortsätta."
+    }
   }
 }

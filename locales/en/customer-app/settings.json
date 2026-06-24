@@ -5947,5 +5947,50 @@
       "supportQueueRead": "View support queue metrics",
       "verificationQueueRead": "View verification queue"
     }
+  },
+  "authorizationTarget": {
+    "providers": {
+      "generic": {
+        "label": "Connected service"
+      },
+      "personalStreamingAccount": {
+        "label": "Personal music account"
+      }
+    },
+    "searchTerms": {
+      "personalStreamingAccount": "music, streaming, playlist, playback"
+    },
+    "userOwned": {
+      "connectLead": "You can connect {provider} so Aipify can help with playback and control.",
+      "connectExplanation": "This is your personal account. It does not go through organization approval — only the access you approve is used.",
+      "actions": {
+        "connect": "Connect account",
+        "cancel": "Cancel"
+      }
+    },
+    "localDevice": {
+      "permissionLead": "Aipify needs permission on this device before it can control local playback or speakers.",
+      "permissionExplanation": "This is a local device permission — not an organization access request for {provider}.",
+      "actions": {
+        "openSettings": "Open device settings",
+        "cancel": "Cancel"
+      }
+    },
+    "approver": {
+      "directLead": "You can approve this organization access directly in the APP panel. You do not need to send a request to yourself.",
+      "directExplanation": "Review the requested scope for {provider}, then approve or deny with full audit visibility.",
+      "panelTitle": "Approve organization access",
+      "panelDescription": "Review the scope, duration, and risk before you approve access for your organization.",
+      "noPendingRequest": "There is no pending request for this provider yet. A team member can submit one, or you can approve a matching request when it appears below.",
+      "actions": {
+        "approveAccess": "Approve access",
+        "cancel": "Cancel"
+      }
+    },
+    "errors": {
+      "approverShouldGrantDirectly": "As an organization approver, grant this access in the APP panel instead of sending a request.",
+      "providerRequired": "A provider is required to continue.",
+      "scopeRequired": "A valid access scope is required to continue."
+    }
   }
 }

@@ -14,7 +14,31 @@ import {
 import type { OrganizationAccessOfferContext } from "@/lib/core/organization-access-approval/types";
 import type { OrganizationExecutionKind } from "./organization-capability-resolution";
 
+import {
+  buildOrganizationAccessIntentHref,
+  type OrganizationAccessIntentBinding,
+} from "@/lib/core/organization-access-approval/access-intent-binding";
+
 const SETTINGS_ROUTE = "/app/settings/organization-access";
+
+export function buildOrganizationAccessIntentBinding(input: {
+  intent: OrganizationAccessIntentBinding["intent"];
+  offer: OrganizationAccessOfferContext;
+  organization_id?: string | null;
+  user_message_id?: string | null;
+  ownership_type?: OrganizationAccessIntentBinding["ownership_type"];
+  request_id?: string | null;
+}): OrganizationAccessIntentBinding {
+  return {
+    intent: input.intent,
+    provider_key: input.offer.provider_key,
+    capability_key: input.offer.capability_key ?? null,
+    ownership_type: input.ownership_type ?? "organization_owned_resource",
+    organization_id: input.organization_id ?? null,
+    user_message_id: input.user_message_id ?? null,
+    request_id: input.request_id ?? null,
+  };
+}
 
 /** State C — user lacks role permission; org provider approval does not elevate roles. */
 export function buildOrganizationAccessUserRoleDeniedAnswer(input: {
@@ -55,6 +79,7 @@ export function buildOrganizationAccessUserRoleDeniedAnswer(input: {
 export function buildOrganizationAccessRequiredAnswer(input: {
   t: Translator;
   offer: OrganizationAccessOfferContext;
+  binding: OrganizationAccessIntentBinding;
 }): PlatformKnowledgeAnswer {
   const manifest = resolveProviderAccessManifest(input.offer.provider_key);
   const scopeKeys =
@@ -67,6 +92,7 @@ export function buildOrganizationAccessRequiredAnswer(input: {
 
   const providerLabel = resolveProviderFriendlyLabel(input.t, input.offer.provider_key);
   const whyNeeded = manifest ? input.t(manifest.why_needed_label_key) : null;
+  const createHref = buildOrganizationAccessIntentHref(SETTINGS_ROUTE, input.binding);
 
   return {
     directAnswer: buildOrganizationAccessEmployeeMessage(input.t),
@@ -83,10 +109,7 @@ export function buildOrganizationAccessRequiredAnswer(input: {
     actions: buildOrganizationAccessRequestActions(input.t).map((action) => ({
       labelKey: `customerApp.organizationAccessApproval.employee.actions.${action.id === "submit_access_request" ? "submit" : "cancel"}`,
       label: action.label,
-      href:
-        action.id === "submit_access_request"
-          ? `${SETTINGS_ROUTE}?intent=create&provider=${encodeURIComponent(input.offer.provider_key)}`
-          : SETTINGS_ROUTE,
+      href: action.id === "submit_access_request" ? createHref : SETTINGS_ROUTE,
       routeKey: action.id === "submit_access_request" ? "organizationAccessApproval" : "organizationAccessApprovalCancel",
       variant: action.kind,
     })),

@@ -13,6 +13,14 @@ import {
   resolveProviderAccessManifest,
   resolveScopesForCapability,
 } from "@/lib/core/organization-access-approval/provider-scope-registry";
+import { mapOrganizationAccessRpcError } from "@/lib/core/authorization-target";
+import {
+  buildOrganizationAccessContextPayload,
+  buildOrganizationAccessIdempotencyKey,
+  isOrganizationAccessApproveBinding,
+  isOrganizationAccessCreateBinding,
+  parseOrganizationAccessIntentBinding,
+} from "@/lib/core/organization-access-approval/access-intent-binding";
 
 export type OrganizationAccessApprovalPanelLabels = {
   title: string;
@@ -32,6 +40,15 @@ export type OrganizationAccessApprovalPanelLabels = {
   deny: string;
   approved: string;
   denied: string;
+  errors: {
+    approverShouldGrantDirectly: string;
+    providerRequired: string;
+    scopeRequired: string;
+  };
+  approverDirectTitle: string;
+  approverDirectDescription: string;
+  approverApproveAccess: string;
+  approverNoPendingRequest: string;
   review: {
     provider: string;
     dataType: string;
@@ -60,6 +77,23 @@ type OrganizationAccessApprovalPanelProps = {
   labels: OrganizationAccessApprovalPanelLabels;
 };
 
+function resolvePanelErrorMessage(
+  rawError: string | undefined,
+  labels: OrganizationAccessApprovalPanelLabels,
+): string {
+  const mappedKey = mapOrganizationAccessRpcError(rawError);
+  if (mappedKey === "customerApp.authorizationTarget.errors.approverShouldGrantDirectly") {
+    return labels.errors.approverShouldGrantDirectly;
+  }
+  if (mappedKey === "customerApp.authorizationTarget.errors.providerRequired") {
+    return labels.errors.providerRequired;
+  }
+  if (mappedKey === "customerApp.authorizationTarget.errors.scopeRequired") {
+    return labels.errors.scopeRequired;
+  }
+  return labels.requestFailed;
+}
+
 function parseCenterPayload(value: unknown): OrganizationAccessApprovalCenter {
   const record = (value ?? {}) as Record<string, unknown>;
   const requests = Array.isArray(record.requests)
@@ -73,8 +107,10 @@ function parseCenterPayload(value: unknown): OrganizationAccessApprovalCenter {
 
 export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessApprovalPanelProps) {
   const searchParams = useSearchParams();
-  const createProvider = searchParams.get("provider");
-  const createIntent = searchParams.get("intent");
+  const intentBinding = useMemo(
+    () => parseOrganizationAccessIntentBinding(searchParams),
+    [searchParams],
+  );
 
   const [center, setCenter] = useState<OrganizationAccessApprovalCenter | null>(null);
   const [loading, setLoading] = useState(true);
@@ -98,19 +134,72 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
   }, [load]);
 
   const createOffer = useMemo(() => {
-    if (!createProvider || createIntent !== "create") return null;
-    const manifest = resolveProviderAccessManifest(createProvider);
-    const scopeKeys = resolveScopesForCapability({ provider_key: createProvider });
+    if (!intentBinding || !isOrganizationAccessCreateBinding(intentBinding)) return null;
+    if (center?.can_review) return null;
+    const manifest = resolveProviderAccessManifest(intentBinding.provider_key);
+    const scopeKeys = resolveScopesForCapability({
+      provider_key: intentBinding.provider_key,
+      capability_key: intentBinding.capability_key,
+    });
     if (!manifest || scopeKeys.length === 0) return null;
     const defaultScope = manifest.required_scopes[0];
     return {
-      provider_key: createProvider,
+      provider_key: intentBinding.provider_key,
+      capability_key: intentBinding.capability_key,
       scope_keys: scopeKeys,
       access_mode: defaultScope.default_access_mode,
       duration_hours: defaultScope.default_duration_hours,
       risk_level: defaultScope.risk_level,
+      binding: intentBinding,
     };
-  }, [createIntent, createProvider]);
+  }, [center?.can_review, intentBinding]);
+
+  const approveBinding = useMemo(() => {
+    if (!intentBinding || !isOrganizationAccessApproveBinding(intentBinding)) return null;
+    if (!center?.can_review) return null;
+    const manifest = resolveProviderAccessManifest(intentBinding.provider_key);
+    const scopeKeys = resolveScopesForCapability({
+      provider_key: intentBinding.provider_key,
+      capability_key: intentBinding.capability_key,
+    });
+    if (!manifest || scopeKeys.length === 0) return null;
+    const defaultScope = manifest.required_scopes[0];
+    return {
+      provider_key: intentBinding.provider_key,
+      capability_key: intentBinding.capability_key,
+      scope_keys: scopeKeys,
+      access_mode: defaultScope.default_access_mode,
+      duration_hours: defaultScope.default_duration_hours,
+      risk_level: defaultScope.risk_level,
+      binding: intentBinding,
+    };
+  }, [center?.can_review, intentBinding]);
+
+  const matchingPendingRequest = useMemo(() => {
+    if (!approveBinding || !center) return null;
+    if (approveBinding.binding.request_id) {
+      return (
+        center.requests.find(
+          (request) =>
+            request.id === approveBinding.binding.request_id && request.status === "pending",
+        ) ?? null
+      );
+    }
+    return (
+      center.requests.find(
+        (request) =>
+          request.provider_key === approveBinding.provider_key &&
+          request.status === "pending" &&
+          (approveBinding.capability_key == null ||
+            request.capability_key === approveBinding.capability_key),
+      ) ?? null
+    );
+  }, [approveBinding, center]);
+
+  const staleApproverCreateIntent =
+    Boolean(center?.can_review) &&
+    intentBinding != null &&
+    isOrganizationAccessCreateBinding(intentBinding);
 
   async function submitCreateRequest() {
     if (!createOffer) return;
@@ -119,12 +208,21 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
     const res = await fetch("/api/app/organization-access/requests", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(createOffer),
+      body: JSON.stringify({
+        provider_key: createOffer.provider_key,
+        capability_key: createOffer.capability_key,
+        scope_keys: createOffer.scope_keys,
+        access_mode: createOffer.access_mode,
+        duration_hours: createOffer.duration_hours,
+        risk_level: createOffer.risk_level,
+        context_payload: buildOrganizationAccessContextPayload(createOffer.binding),
+        idempotency_key: buildOrganizationAccessIdempotencyKey(createOffer.binding),
+      }),
     });
     setSubmitting(false);
     if (!res.ok) {
       const payload = (await res.json().catch(() => ({}))) as { error?: string };
-      setActionError(payload.error ?? labels.requestFailed);
+      setActionError(resolvePanelErrorMessage(payload.error, labels));
       return;
     }
     setActionMessage(labels.requestSubmitted);
@@ -139,10 +237,40 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
     });
     if (!res.ok) {
       const payload = (await res.json().catch(() => ({}))) as { error?: string };
-      setActionError(payload.error ?? labels.requestFailed);
+      setActionError(resolvePanelErrorMessage(payload.error, labels));
       return;
     }
     setActionMessage(labels.approved);
+    window.history.replaceState({}, "", "/app/settings/organization-access");
+    await load();
+  }
+
+  async function submitDirectGrant() {
+    if (!approveBinding) return;
+    setSubmitting(true);
+    setActionError(null);
+    const res = await fetch("/api/app/organization-access/grant-direct", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        provider_key: approveBinding.provider_key,
+        capability_key: approveBinding.capability_key,
+        scope_keys: approveBinding.scope_keys,
+        access_mode: approveBinding.access_mode,
+        duration_hours: approveBinding.duration_hours,
+        risk_level: approveBinding.risk_level,
+        context_payload: buildOrganizationAccessContextPayload(approveBinding.binding),
+        idempotency_key: buildOrganizationAccessIdempotencyKey(approveBinding.binding),
+      }),
+    });
+    setSubmitting(false);
+    if (!res.ok) {
+      const payload = (await res.json().catch(() => ({}))) as { error?: string };
+      setActionError(resolvePanelErrorMessage(payload.error, labels));
+      return;
+    }
+    setActionMessage(labels.approved);
+    window.history.replaceState({}, "", "/app/settings/organization-access");
     await load();
   }
 
@@ -155,7 +283,7 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
     });
     if (!res.ok) {
       const payload = (await res.json().catch(() => ({}))) as { error?: string };
-      setActionError(payload.error ?? labels.requestFailed);
+      setActionError(resolvePanelErrorMessage(payload.error, labels));
       return;
     }
     setActionMessage(labels.denied);
@@ -184,6 +312,57 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
         <p className="rounded-xl border border-violet-100 bg-violet-50 px-4 py-3 text-sm text-violet-950">
           {labels.employeeNote}
         </p>
+      ) : null}
+
+      {staleApproverCreateIntent ? (
+        <p className="rounded-xl border border-amber-100 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+          {labels.errors.approverShouldGrantDirectly}
+        </p>
+      ) : null}
+
+      {approveBinding ? (
+        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-900">{labels.approverDirectTitle}</h2>
+          <p className="mt-2 text-sm text-slate-600">{labels.approverDirectDescription}</p>
+          <RequestReviewCard
+            request={buildDraftRequest(approveBinding, labels, matchingPendingRequest?.id ?? "approve-draft")}
+            labels={labels}
+          />
+          {matchingPendingRequest ? (
+            <div className="mt-4 flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => void approveRequest(matchingPendingRequest.id)}
+                className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700"
+              >
+                {labels.approverApproveAccess}
+              </button>
+              <Link
+                href="/app/settings/organization-access"
+                className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              >
+                {labels.cancelRequest}
+              </Link>
+            </div>
+          ) : (
+            <div className="mt-4 flex flex-wrap gap-3">
+              <button
+                type="button"
+                disabled={submitting}
+                onClick={() => void submitDirectGrant()}
+                className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-60"
+              >
+                {labels.approverApproveAccess}
+              </button>
+              <Link
+                href="/app/settings/organization-access"
+                className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              >
+                {labels.cancelRequest}
+              </Link>
+            </div>
+          )}
+        </section>
       ) : null}
 
       {createOffer ? (
@@ -258,9 +437,10 @@ function buildDraftRequest(
     risk_level: number;
   },
   labels: OrganizationAccessApprovalPanelLabels,
+  draftId = "draft",
 ): OrganizationAccessRequestRecord {
   return {
-    id: "draft",
+    id: draftId,
     organization_id: "",
     requester_user_id: "",
     requester_display_name: labels.review.requester.replace("{name}", "—"),

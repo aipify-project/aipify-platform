@@ -5923,6 +5923,51 @@
       "verificationQueueRead": "Vis verifiseringskø"
     }
   },
+  "authorizationTarget": {
+    "providers": {
+      "generic": {
+        "label": "Tilkoblet tjeneste"
+      },
+      "personalStreamingAccount": {
+        "label": "Personlig musikkonto"
+      }
+    },
+    "searchTerms": {
+      "personalStreamingAccount": "musikk, streaming, spilleliste, avspilling"
+    },
+    "userOwned": {
+      "connectLead": "Du kan koble til {provider} slik at Aipify kan hjelpe med avspilling og styring.",
+      "connectExplanation": "Dette er din personlige konto. Den går ikke via organisasjonsgodkjenning — kun tilgangen du godkjenner brukes.",
+      "actions": {
+        "connect": "Koble til konto",
+        "cancel": "Avbryt"
+      }
+    },
+    "localDevice": {
+      "permissionLead": "Aipify trenger tillatelse på denne enheten før lokal avspilling eller høyttalere kan styres.",
+      "permissionExplanation": "Dette er en lokal enhetstillatelse — ikke en organisasjonsforespørsel for {provider}.",
+      "actions": {
+        "openSettings": "Åpne enhetsinnstillinger",
+        "cancel": "Avbryt"
+      }
+    },
+    "approver": {
+      "directLead": "Du kan godkjenne denne organisasjonstilgangen direkte i APP-panelet. Du trenger ikke sende en forespørsel til deg selv.",
+      "directExplanation": "Gjennomgå forespurt omfang for {provider}, og godkjenn eller avslå med full revisjonsspor.",
+      "panelTitle": "Godkjenn organisasjonstilgang",
+      "panelDescription": "Gjennomgå omfang, varighet og risiko før du godkjenner tilgang for organisasjonen.",
+      "noPendingRequest": "Det finnes ingen ventende forespørsel for denne provideren ennå. Et teammedlem kan sende en, eller du kan godkjenne en matchende forespørsel når den vises nedenfor.",
+      "actions": {
+        "approveAccess": "Godkjenn tilgang",
+        "cancel": "Avbryt"
+      }
+    },
+    "errors": {
+      "approverShouldGrantDirectly": "Som organisasjonsgodkjenner gir du denne tilgangen i APP-panelet i stedet for å sende en forespørsel.",
+      "providerRequired": "En provider kreves for å fortsette.",
+      "scopeRequired": "Et gyldig tilgangsomfang kreves for å fortsette."
+    }
+  },
   "securityHub": {
     "title": "Security",
     "subtitle": "Manage sign-in verification, sessions, devices, and account protection for your workspace.",

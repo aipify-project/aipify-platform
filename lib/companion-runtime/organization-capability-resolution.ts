@@ -1,5 +1,11 @@
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import { normalizeIntegrationQuery } from "@/lib/integration-intelligence/normalize-text";
+import {
+  resolveAuthorizationTargetFromQuery,
+  shouldBlockOrganizationCapabilityRoute,
+  hasOrganizationMemberDomainSignal,
+  hasExplicitOrganizationMemberCountSignal,
+} from "@/lib/core/authorization-target";
 import { blocksOrganizationMemberCapabilityQuery } from "./companion-explicit-intent";
 import { getSupportSourceDefinition } from "@/lib/integration-intelligence/providers/support-operations/support-source-map";
 import { isCommunityMemberDirectoryReadSourceConnected } from "@/lib/integration-intelligence/providers/community-member-directory/community-member-directory-source-map";
@@ -125,6 +131,9 @@ function mapSemanticToExecutionKind(input: {
   }
 
   if (capabilityKey === "member.search" || /\b(medlem|member)\b/i.test(normalized)) {
+    if (hasExplicitOrganizationMemberCountSignal(query)) {
+      return "member_count";
+    }
     if (wantsMemberVerificationStatus(query, normalized)) {
       return "member_verification_status";
     }
@@ -137,7 +146,17 @@ function mapSemanticToExecutionKind(input: {
     if (metric === "active" || operation === "list" && /\b(aktiv|active)\b/i.test(normalized)) {
       return "member_active_list";
     }
-    if (operation === "count" || metric === "total" || /\b(hvor mange|how many|antall)\b/i.test(normalized)) {
+    if (
+      operation === "count" ||
+      metric === "total" ||
+      /\b(hvor mange|how many|antall)\b/i.test(normalized)
+    ) {
+      if (
+        !hasOrganizationMemberDomainSignal(normalized) &&
+        !hasExplicitOrganizationMemberCountSignal(query)
+      ) {
+        return null;
+      }
       return "member_count";
     }
     if (operation === "list" || metric === "list" || /\b(vis|show|list|hvilke)\b/i.test(normalized)) {
@@ -164,6 +183,14 @@ export function resolveOrganizationCapabilityRoute(
   const normalized = normalizeIntegrationQuery(query);
   if (!normalized.trim()) return null;
   if (blocksOrganizationMemberCapabilityQuery(query)) return null;
+  if (shouldBlockOrganizationCapabilityRoute(query)) return null;
+  const authorizationTarget = resolveAuthorizationTargetFromQuery(query, locale);
+  if (
+    authorizationTarget?.ownership === "user_owned_account" ||
+    authorizationTarget?.ownership === "local_device_permission"
+  ) {
+    return null;
+  }
   if (isOrganizationNavigationHelpQuery(normalized)) return null;
 
   const descriptors = collectOrganizationSemanticDescriptors();
@@ -253,7 +280,8 @@ export function resolveOrganizationCapabilityRoute(
     wantsPendingVerification(normalized) ||
     wantsMemberVerificationStatus(query, normalized) ||
     wantsMemberDetailFields(normalized) ||
-    /\b(hvor mange|how many|antall|how many members)\b/i.test(normalized);
+    hasExplicitOrganizationMemberCountSignal(query) ||
+    /\b(hvor mange|how many|antall|medlemstall|member count|how many members)\b/i.test(normalized);
 
   if (confidence === "low" && !explicitMatch) {
     return null;

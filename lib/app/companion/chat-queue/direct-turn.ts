@@ -271,6 +271,7 @@ export async function executeDirectCompanionTurn(
         locale: input.locale,
         conversationId: input.conversationId,
         route: directRoute,
+        userMessageId: userMessageId ?? null,
       }),
       turnTimeoutMs,
     );

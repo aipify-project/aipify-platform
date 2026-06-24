@@ -40,6 +40,9 @@ export type OrganizationProviderAccessManifest = {
   data_type_label_key: string;
   why_needed_label_key: string;
   required_scopes: readonly OrganizationProviderScopeDefinition[];
+  resource_ownership?: "organization_owned_resource";
+  consent_type?: "organization_access_approval";
+  search_terms?: readonly string[];
 };
 
 export type OrganizationAccessRequestRecord = {

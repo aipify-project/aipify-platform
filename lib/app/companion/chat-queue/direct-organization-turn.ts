@@ -1,6 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { parseCustomerLicenseCenter } from "@/lib/companion-platform-knowledge/pricing-bridge";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { companionDirectTurnDictionarySplits } from "@/lib/companion-runtime/companion-oaa-dictionary-splits";
 import { createTranslator } from "@/lib/i18n/translate";
 import { resolveAnswerLocale } from "@/lib/companion-platform-knowledge/language";
 import { coerceToCustomerActiveLocale, type CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
@@ -19,6 +20,7 @@ import {
   buildOperationalGapAnswer,
 } from "@/lib/companion-runtime/operational-answer";
 import { resolveOrganizationIntelligenceAnswer } from "@/lib/companion-runtime/organization-intelligence-routing";
+import { resolveAuthorizationTargetCompanionAnswer } from "@/lib/companion-runtime/authorization-target-routing";
 import { resolveOrganizationIntelligenceIntent } from "@/lib/companion-runtime/organization-intelligence-intent";
 import { resolvePlatformFoundationAnswer } from "@/lib/companion-runtime/platform-foundation-routing";
 import { isPlatformFoundationQuery } from "@/lib/companion-runtime/platform-foundation-intent";
@@ -61,10 +63,7 @@ async function loadMemberCountDirectTurnTenantContext(
 }
 
 async function loadDirectTurnDictionary(locale: CustomerActiveLocale) {
-  const dict = await getCustomerAppDictionaryForSplits(locale, [
-    "companion",
-    "companionPlatformKnowledge",
-  ]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, companionDirectTurnDictionarySplits());
   const t = createTranslator(dict);
   return { dict, t, companionLabels: buildCompanionExperienceLabels(t) };
 }
@@ -168,6 +167,7 @@ export async function executeDirectOrganizationOrFoundationTurn(
     locale: string;
     conversationId: string;
     route: CompanionTurnRoute | "datetime";
+    userMessageId?: string | null;
   },
 ): Promise<
   | { ok: true; assistantContent: string; assistantPayload: Record<string, unknown>; route: string; capability?: string }
@@ -333,13 +333,24 @@ export async function executeDirectOrganizationOrFoundationTurn(
     };
   }
 
-  const orgResult = await resolveOrganizationIntelligenceAnswer(input.query, {
-    t,
-    tenantContext,
-    supabase,
-    activeLocale: locale,
-    companionSurface: true,
-  });
+  const orgResult = await (async () => {
+    const authorizationTargetAnswer = resolveAuthorizationTargetCompanionAnswer(input.query, {
+      t,
+      locale,
+      userMessageId: input.userMessageId ?? null,
+      organizationId: tenantContext.organizationId ?? null,
+    });
+    if (authorizationTargetAnswer) return authorizationTargetAnswer;
+
+    return resolveOrganizationIntelligenceAnswer(input.query, {
+      t,
+      tenantContext,
+      supabase,
+      activeLocale: locale,
+      companionSurface: true,
+      userMessageId: input.userMessageId ?? null,
+    });
+  })();
 
   if (!orgResult) {
     return { ok: false, error: "org_intent_unresolved", should_queue: true, route: "exact_source" };

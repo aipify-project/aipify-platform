@@ -43,6 +43,7 @@ import {
   resolveAccessOfferFromCapability,
 } from "./organization-access-approval-bridge";
 import { resolveOrganizationAccessGate } from "./organization-access-gate";
+import { resolveAuthorizationTargetCompanionAnswer } from "./authorization-target-routing";
 
 const PENDING_VERIFICATION_STATUSES = new Set([
   "pending",
@@ -142,6 +143,7 @@ async function resolveMemberDirectoryAnswer(
     tenantContext: CompanionTenantContext;
     t: Translator;
     locale: CustomerActiveLocale;
+    userMessageId?: string | null;
   },
 ): Promise<PlatformSearchResult | null> {
   const readiness = assessOrganizationCapabilityReadiness(intent);
@@ -174,6 +176,9 @@ async function resolveMemberDirectoryAnswer(
     effectivePermissions: input.tenantContext.effectivePermissions,
     capabilityKey: intent.capability_key,
     sourceReference: readiness.source_reference,
+    organizationRole: input.tenantContext.organizationRole,
+    organizationId: input.tenantContext.organizationId,
+    userMessageId: input.userMessageId ?? null,
   });
 
   if (gate) return gate;
@@ -386,6 +391,7 @@ async function resolveSupportSlaAnswer(
     tenantContext: CompanionTenantContext;
     t: Translator;
     locale: CustomerActiveLocale;
+    userMessageId?: string | null;
   },
 ): Promise<PlatformSearchResult> {
   const readiness = assessOrganizationCapabilityReadiness(intent);
@@ -449,6 +455,9 @@ async function resolveSupportSlaAnswer(
     effectivePermissions: input.tenantContext.effectivePermissions,
     capabilityKey: intent.capability_key,
     sourceReference: readiness.source_reference,
+    organizationRole: input.tenantContext.organizationRole,
+    organizationId: input.tenantContext.organizationId,
+    userMessageId: input.userMessageId ?? null,
   });
 
   if (gate) return gate;
@@ -537,8 +546,17 @@ export async function resolveOrganizationIntelligenceAnswer(
     supabase: SupabaseClient | null | undefined;
     activeLocale: CustomerActiveLocale;
     companionSurface?: boolean;
+    userMessageId?: string | null;
   },
 ): Promise<PlatformSearchResult | null> {
+  const authorizationTargetAnswer = resolveAuthorizationTargetCompanionAnswer(query, {
+    t: input.t,
+    locale: input.activeLocale,
+    userMessageId: input.userMessageId ?? null,
+    organizationId: input.tenantContext.organizationId ?? null,
+  });
+  if (authorizationTargetAnswer) return authorizationTargetAnswer;
+
   const intent = resolveOrganizationIntelligenceIntent(query, input.activeLocale);
   if (!intent) return null;
 
@@ -575,6 +593,7 @@ export async function resolveOrganizationIntelligenceAnswer(
       tenantContext: input.tenantContext,
       t: input.t,
       locale: input.activeLocale,
+      userMessageId: input.userMessageId ?? null,
     });
   }
 
@@ -583,6 +602,7 @@ export async function resolveOrganizationIntelligenceAnswer(
     tenantContext: input.tenantContext,
     t: input.t,
     locale: input.activeLocale,
+    userMessageId: input.userMessageId ?? null,
   });
 }
 

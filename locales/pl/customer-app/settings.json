@@ -726,5 +726,37 @@
       "supportQueueRead": "Wyświetl metryki kolejki wsparcia",
       "verificationQueueRead": "Wyświetl kolejkę weryfikacji"
     }
+  },
+  "authorizationTarget": {
+    "providers": {
+      "generic": { "label": "Połączona usługa" },
+      "personalStreamingAccount": { "label": "Osobiste konto muzyczne" }
+    },
+    "searchTerms": {
+      "personalStreamingAccount": "muzyka, streaming, playlista, odtwarzanie"
+    },
+    "userOwned": {
+      "connectLead": "Możesz połączyć {provider}, aby Aipify pomagał w odtwarzaniu i sterowaniu.",
+      "connectExplanation": "To jest Twoje osobiste konto. Nie przechodzi przez zatwierdzenie organizacji — używany jest tylko dostęp, który zatwierdzisz.",
+      "actions": { "connect": "Połącz konto", "cancel": "Anuluj" }
+    },
+    "localDevice": {
+      "permissionLead": "Aipify potrzebuje uprawnienia na tym urządzeniu, zanim będzie mógł sterować lokalnym odtwarzaniem lub głośnikami.",
+      "permissionExplanation": "To jest lokalne uprawnienie urządzenia — nie wniosek organizacyjny dla {provider}.",
+      "actions": { "openSettings": "Otwórz ustawienia urządzenia", "cancel": "Anuluj" }
+    },
+    "approver": {
+      "directLead": "Możesz zatwierdzić ten dostęp organizacji bezpośrednio w panelu APP. Nie musisz wysyłać wniosku do siebie.",
+      "directExplanation": "Przejrzyj żądany zakres dla {provider}, a następnie zatwierdź lub odrzuć z pełnym audytem.",
+      "panelTitle": "Zatwierdź dostęp organizacji",
+      "panelDescription": "Przejrzyj zakres, czas trwania i ryzyko przed zatwierdzeniem dostępu dla organizacji.",
+      "noPendingRequest": "Nie ma jeszcze oczekującej prośby dla tego dostawcy. Członek zespołu może ją wysłać, albo możesz zatwierdzić pasującą prośbę, gdy pojawi się poniżej.",
+      "actions": { "approveAccess": "Zatwierdź dostęp", "cancel": "Anuluj" }
+    },
+    "errors": {
+      "approverShouldGrantDirectly": "Jako zatwierdzający organizacji nadaj ten dostęp w panelu APP zamiast wysyłać wniosek.",
+      "providerRequired": "Do kontynuacji wymagany jest dostawca.",
+      "scopeRequired": "Do kontynuacji wymagany jest prawidłowy zakres dostępu."
+    }
   }
 }

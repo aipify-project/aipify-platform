@@ -20,6 +20,7 @@ import { loadCanvaHandoffConnectionMaterial } from "@/lib/integration-intelligen
 import { assertCanvaHandoffPermissionForRole } from "@/lib/integration-intelligence/providers/canva/permissions";
 import { enrichAnswerWithArtifactContext } from "@/lib/companion-runtime/artifact-context/enrich-answer";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { companionDictionarySplitsForTurnRoute } from "@/lib/companion-runtime/companion-oaa-dictionary-splits";
 import { createTranslator } from "@/lib/i18n/translate";
 import { buildCompanionExperienceLabels } from "@/lib/app/companion/labels";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
@@ -160,12 +161,10 @@ export async function executeCompanionTurn(
     };
   }
 
-  const dict = await getCustomerAppDictionaryForSplits(answerLocale, [
-    "navigation",
-    "portalStructure",
-    "companionPlatformKnowledge",
-    "companion",
-  ]);
+  const dict = await getCustomerAppDictionaryForSplits(
+    answerLocale,
+    companionDictionarySplitsForTurnRoute(turnRoute),
+  );
   throwIfCompanionTurnAborted(input.abortSignal);
   const t = createTranslator(dict);
   const labels = buildSupportAssistantLabels(t);

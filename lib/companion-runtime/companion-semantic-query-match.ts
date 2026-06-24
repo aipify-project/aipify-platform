@@ -141,10 +141,12 @@ function aliasMatchesNormalized(alias: string, normalized: string): boolean {
 
   const aliasTokens = normalizedAlias.split(" ").filter(Boolean);
   const queryTokens = normalized.split(" ").filter(Boolean);
-  for (const aliasToken of aliasTokens) {
-    for (const queryToken of queryTokens) {
-      if (fuzzyTokenMatch(aliasToken, queryToken)) return true;
-    }
+
+  // Fuzzy matching is only safe for single-token hints — prevents "styr" matching "stor" from "hvor stor".
+  if (aliasTokens.length !== 1) return false;
+
+  for (const queryToken of queryTokens) {
+    if (fuzzyTokenMatch(aliasTokens[0]!, queryToken)) return true;
   }
   return false;
 }

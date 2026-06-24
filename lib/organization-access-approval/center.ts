@@ -103,6 +103,54 @@ export async function createOrganizationProviderAccessRequest(
   return parseOrganizationAccessRequest(data);
 }
 
+export async function grantOrganizationProviderAccessDirectly(
+  supabase: SupabaseClient,
+  input: {
+    provider_key: string;
+    capability_key?: string | null;
+    scope_keys: string[];
+    access_mode?: "one_time" | "ongoing";
+    duration_hours?: number | null;
+    risk_level?: number;
+    reason_summary?: string;
+    context_payload?: Record<string, unknown>;
+    idempotency_key?: string | null;
+  },
+): Promise<{ request: OrganizationAccessRequestRecord; grant: OrganizationAccessGrantRecord }> {
+  const { data, error } = await supabase.rpc("grant_organization_provider_access_directly", {
+    p_provider_key: input.provider_key,
+    p_capability_key: input.capability_key ?? null,
+    p_scope_keys: input.scope_keys,
+    p_access_mode: input.access_mode ?? "one_time",
+    p_duration_hours: input.duration_hours ?? null,
+    p_risk_level: input.risk_level ?? 1,
+    p_reason_summary: input.reason_summary ?? "",
+    p_context_payload: input.context_payload ?? {},
+    p_idempotency_key: input.idempotency_key ?? null,
+  });
+  if (error) throw new Error(error.message);
+
+  const record = asRecord(data);
+  const request = parseOrganizationAccessRequest(record.request);
+  const grant = asRecord(record.grant);
+  return {
+    request,
+    grant: {
+      id: asString(grant.id),
+      organization_id: request.organization_id,
+      user_id: request.requester_user_id,
+      provider_key: request.provider_key,
+      scope_keys: request.scope_keys,
+      access_mode: request.access_mode,
+      active: grant.active === true,
+      granted_from_request_id: request.id,
+      expires_at: typeof grant.expires_at === "string" ? grant.expires_at : null,
+      revoked_at: null,
+      created_at: request.created_at,
+    },
+  };
+}
+
 export async function approveOrganizationProviderAccessRequest(
   supabase: SupabaseClient,
   requestId: string,

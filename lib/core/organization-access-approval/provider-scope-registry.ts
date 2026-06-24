@@ -7,6 +7,9 @@ export const ORGANIZATION_PROVIDER_ACCESS_MANIFESTS: readonly OrganizationProvid
     provider_label_key: "customerApp.organizationAccessApproval.providers.communityMemberDirectory.label",
     data_type_label_key: "customerApp.organizationAccessApproval.providers.communityMemberDirectory.dataType",
     why_needed_label_key: "customerApp.organizationAccessApproval.providers.communityMemberDirectory.whyNeeded",
+    resource_ownership: "organization_owned_resource",
+    consent_type: "organization_access_approval",
+    search_terms: ["medlem", "member", "medlemmer", "members", "medlemsregister", "member directory"],
     required_scopes: [
       {
         scope_key: "community.members.read",
@@ -23,6 +26,9 @@ export const ORGANIZATION_PROVIDER_ACCESS_MANIFESTS: readonly OrganizationProvid
     provider_label_key: "customerApp.organizationAccessApproval.providers.memberCount.label",
     data_type_label_key: "customerApp.organizationAccessApproval.providers.memberCount.dataType",
     why_needed_label_key: "customerApp.organizationAccessApproval.providers.memberCount.whyNeeded",
+    resource_ownership: "organization_owned_resource",
+    consent_type: "organization_access_approval",
+    search_terms: ["medlemstall", "member count", "hvor mange medlemmer", "how many members", "antall medlemmer"],
     required_scopes: [
       {
         scope_key: "organization.members.count.read",
