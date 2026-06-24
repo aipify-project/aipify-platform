@@ -18,6 +18,7 @@ import {
   buildOrganizationAccessIdempotencyKey,
   isOrganizationAccessApproveBinding,
   isOrganizationAccessCreateBinding,
+  ORGANIZATION_ACCESS_INTENT_COOKIE,
   parseOrganizationAccessIntentBinding,
   type OrganizationAccessIntentBinding,
 } from "@/lib/core/organization-access-approval/access-intent-binding";
@@ -165,11 +166,18 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
   const [intentReady, setIntentReady] = useState(false);
 
   useEffect(() => {
+    const cookieMatch = document.cookie.match(
+      new RegExp(`(?:^|; )${ORGANIZATION_ACCESS_INTENT_COOKIE}=([^;]*)`),
+    );
+    const cookieQuery = cookieMatch?.[1] ? decodeURIComponent(cookieMatch[1]) : null;
     const binding = parseOrganizationAccessIntentBinding(
-      new URLSearchParams(window.location.search),
+      new URLSearchParams(cookieQuery ?? window.location.search),
     );
     setIntentBinding(binding);
     setIntentReady(true);
+    if (cookieQuery) {
+      document.cookie = `${ORGANIZATION_ACCESS_INTENT_COOKIE}=; path=/app/settings/organization-access; max-age=0`;
+    }
     if (window.location.search.length > 0) {
       window.history.replaceState({}, "", "/app/settings/organization-access");
     }

@@ -14,6 +14,42 @@ export type OrganizationAccessIntentBinding = {
 
 const ORGANIZATION_OWNED: AuthorizationResourceOwnership = "organization_owned_resource";
 
+/** Short-lived cookie used to pass intent query without embedding raw IDs in panel HTML. */
+export const ORGANIZATION_ACCESS_INTENT_COOKIE = "aipify_oaa_intent";
+
+export const ORGANIZATION_ACCESS_INTENT_QUERY_KEYS = [
+  "intent",
+  "provider",
+  "capability",
+  "ownership_type",
+  "organization_id",
+  "user_message_id",
+  "request_id",
+] as const;
+
+export function hasOrganizationAccessIntentQuery(
+  params: Record<string, string | string[] | undefined>,
+): boolean {
+  return ORGANIZATION_ACCESS_INTENT_QUERY_KEYS.some((key) => {
+    const value = params[key];
+    if (typeof value === "string") return value.length > 0;
+    if (Array.isArray(value)) return value.some((entry) => entry.length > 0);
+    return false;
+  });
+}
+
+export function serializeOrganizationAccessIntentQuery(
+  params: Record<string, string | string[] | undefined>,
+): string {
+  const qs = new URLSearchParams();
+  for (const key of ORGANIZATION_ACCESS_INTENT_QUERY_KEYS) {
+    const value = params[key];
+    if (typeof value === "string" && value) qs.set(key, value);
+    else if (Array.isArray(value) && value[0]) qs.set(key, value[0]);
+  }
+  return qs.toString();
+}
+
 export function buildOrganizationAccessIntentSearchParams(
   binding: OrganizationAccessIntentBinding,
 ): URLSearchParams {
