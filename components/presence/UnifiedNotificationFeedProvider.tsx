@@ -42,6 +42,7 @@ import {
 } from "@/lib/app/notifications/preferences-load-state";
 import {
   isNotificationOrganizationReady,
+  organizationTenantScopeKey,
   resolveStableNotificationRequestKey,
 } from "@/lib/app/notifications/organization-context-gate";
 import {
@@ -181,9 +182,15 @@ export function UnifiedNotificationFeedProvider({
       }
 
       const ready = isNotificationOrganizationReady(context);
-      if (stableKey && orgContextRef.current.key !== stableKey) {
+      const tenantScope = organizationTenantScopeKey(stableKey);
+      const previousScope = organizationTenantScopeKey(orgContextRef.current.key);
+
+      if (tenantScope && previousScope !== null && tenantScope !== previousScope) {
         resetNotificationsForOrganizationChange();
         resetPreferencesForOrganizationChange();
+      }
+
+      if (stableKey) {
         setStableRequestKey(stableKey);
       }
 
@@ -210,15 +217,22 @@ export function UnifiedNotificationFeedProvider({
       const requestId = ++preferencesRequestIdRef.current;
       setPreferencesStatus(manualRetry ? nextPreferencesStatusOnManualRetry() : "loading");
 
-      if (!(await ensureOrgReady())) {
-        if (requestId !== preferencesRequestIdRef.current) return;
-        setPreferencesStatus("error");
+      const { stableKey } = await resolveStableKey();
+      if (requestId !== preferencesRequestIdRef.current) {
+        setPreferencesStatus((current) => (current === "loading" ? "idle" : current));
         return;
       }
 
-      const requestKey = orgContextRef.current.key;
-      const result = await fetchNotificationPreferences(source, requestKey);
-      if (requestId !== preferencesRequestIdRef.current) return;
+      if (stableKey) {
+        setStableRequestKey(stableKey);
+        orgContextRef.current = { ...orgContextRef.current, key: stableKey };
+      }
+
+      const result = await fetchNotificationPreferences(source, stableKey);
+      if (requestId !== preferencesRequestIdRef.current) {
+        setPreferencesStatus((current) => (current === "loading" ? "idle" : current));
+        return;
+      }
 
       if (result.preferences) {
         setPreferences(result.preferences);
@@ -227,9 +241,17 @@ export function UnifiedNotificationFeedProvider({
         return;
       }
 
+      if (process.env.NODE_ENV !== "production") {
+        console.error("[UnifiedNotificationFeedProvider] preferences load failed", {
+          source,
+          stableKey,
+          httpStatus: result.httpStatus,
+          error: result.error,
+        });
+      }
       setPreferencesStatus("error");
     },
-    [ensureOrgReady],
+    [resolveStableKey],
   );
 
   useEffect(() => {
@@ -239,13 +261,19 @@ export function UnifiedNotificationFeedProvider({
       const { context, stableKey } = await resolveStableKey();
       if (cancelled || !stableKey || !context) return;
 
-      const ready = isNotificationOrganizationReady(context);
-      if (orgContextRef.current.key !== stableKey) {
+      const tenantScope = organizationTenantScopeKey(stableKey);
+      const previousScope = organizationTenantScopeKey(orgContextRef.current.key);
+
+      if (tenantScope && previousScope !== null && tenantScope !== previousScope) {
         resetNotificationsForOrganizationChange();
         resetPreferencesForOrganizationChange();
-        orgContextRef.current = { key: stableKey, ready };
-        setStableRequestKey(stableKey);
       }
+
+      orgContextRef.current = {
+        key: stableKey,
+        ready: isNotificationOrganizationReady(context),
+      };
+      setStableRequestKey(stableKey);
     })();
 
     return () => {

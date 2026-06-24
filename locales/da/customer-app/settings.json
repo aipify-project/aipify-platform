@@ -182,11 +182,12 @@
         "needsInteraction": "Lyd klar efter brugerinteraktion"
       },
       "testResult": {
-        "played": "✅ Testlyd afspillet.",
-        "blocked": "⚠️ Browseren blokerede lyd.",
+        "played": "✅ Testlyd fuldført.",
+        "blocked": "⚠️ Browseren afviste afspilning.",
+        "fileError": "❌ Lydfilen kunne ikke indlæses.",
+        "incomplete": "❌ Afspilningen startede, men blev ikke fuldført.",
         "disabled": "🔒 Notifikationslyd er slået fra.",
-        "quiet_hours": "⏳ Stilletid er aktiv.",
-        "context_unavailable": "❌ Lydafspilning mislykkedes."
+        "quietHours": "⏳ Stilletid er aktiv."
       },
       "manageFromDrawer": "Administrer notifikationsindstillinger"
     },

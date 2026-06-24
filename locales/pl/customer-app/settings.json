@@ -39,11 +39,12 @@
         "needsInteraction": "Dźwięk gotowy po interakcji ze stroną"
       },
       "testResult": {
-        "played": "✅ Dźwięk testowy odtworzony.",
-        "blocked": "⚠️ Przeglądarka zablokowała dźwięk.",
+        "played": "✅ Dźwięk testowy zakończony.",
+        "blocked": "⚠️ Przeglądarka odrzuciła odtwarzanie.",
+        "fileError": "❌ Nie udało się załadować pliku dźwiękowego.",
+        "incomplete": "❌ Odtwarzanie rozpoczęło się, ale nie zakończyło.",
         "disabled": "🔒 Dźwięk powiadomień jest wyłączony.",
-        "quiet_hours": "⏳ Godziny ciszy są aktywne.",
-        "context_unavailable": "❌ Odtwarzanie dźwięku nie powiodło się."
+        "quietHours": "⏳ Godziny ciszy są aktywne."
       },
       "manageFromDrawer": "Zarządzaj ustawieniami powiadomień"
     },

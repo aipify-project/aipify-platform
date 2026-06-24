@@ -182,11 +182,12 @@
         "needsInteraction": "Ljud klart efter interaktion med sidan"
       },
       "testResult": {
-        "played": "✅ Testljud spelades.",
-        "blocked": "⚠️ Webbläsaren blockerade ljudet.",
+        "played": "✅ Testljud slutfört.",
+        "blocked": "⚠️ Webbläsaren avvisade uppspelning.",
+        "fileError": "❌ Ljudfilen kunde inte laddas.",
+        "incomplete": "❌ Uppspelningen startade men slutfördes inte.",
         "disabled": "🔒 Aviseringsljud är avstängt.",
-        "quiet_hours": "⏳ Tyst tid är aktiv.",
-        "context_unavailable": "❌ Ljuduppspelning misslyckades."
+        "quietHours": "⏳ Tyst tid är aktiv."
       },
       "manageFromDrawer": "Hantera aviseringsinställningar"
     },

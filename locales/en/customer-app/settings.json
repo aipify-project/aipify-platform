@@ -192,11 +192,12 @@
         "needsInteraction": "Sound ready after you interact with the page"
       },
       "testResult": {
-        "played": "✅ Test sound played.",
-        "blocked": "⚠️ Browser blocked the test sound.",
+        "played": "✅ Test sound completed.",
+        "blocked": "⚠️ Browser rejected playback.",
+        "fileError": "❌ Sound file could not be loaded.",
+        "incomplete": "❌ Playback started but did not finish.",
         "disabled": "🔒 Notification sound is turned off.",
-        "quiet_hours": "⏳ Quiet hours are active — test sound suppressed.",
-        "context_unavailable": "❌ Sound playback failed."
+        "quietHours": "⏳ Quiet hours are active."
       },
       "manageFromDrawer": "Manage notification settings"
     },

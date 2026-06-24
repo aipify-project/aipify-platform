@@ -28,3 +28,11 @@ export function isNotificationOrganizationReady(
     context.has_customer === true
   );
 }
+
+/** Org+customer scope without user suffix — avoids reset when auth user id resolves later. */
+export function organizationTenantScopeKey(stableKey: string | null): string | null {
+  if (!stableKey) return null;
+  const [organizationId = "", customerId = ""] = stableKey.split(":");
+  if (!organizationId && !customerId) return null;
+  return `${organizationId}:${customerId}`;
+}

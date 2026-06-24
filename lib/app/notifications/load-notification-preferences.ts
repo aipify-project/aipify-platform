@@ -50,6 +50,31 @@ function mapAccessStateToLoadError(
   }
 }
 
+function logPreferencesFetchFailure(
+  body: Record<string, unknown>,
+  httpStatus: number,
+  reason: "http_error" | "parse_error",
+): void {
+  if (process.env.NODE_ENV === "production") return;
+  console.warn(
+    `[aipify:fetchNotificationPreferences] ${reason} status=${httpStatus}`,
+    JSON.stringify({
+      access_state: body.access_state ?? null,
+      error: body.error ?? null,
+      has_customer: body.has_customer ?? null,
+      has_customer_type: typeof body.has_customer,
+      has_preferences_object:
+        body.preferences !== null &&
+        body.preferences !== undefined &&
+        typeof body.preferences === "object",
+      preference_keys:
+        body.preferences && typeof body.preferences === "object"
+          ? Object.keys(body.preferences as Record<string, unknown>).slice(0, 12)
+          : [],
+    }),
+  );
+}
+
 export async function fetchNotificationPreferences(
   source = "fetchNotificationPreferences",
   stableRequestKey: string | null = null,
@@ -66,6 +91,7 @@ export async function fetchNotificationPreferences(
 
     if (!res.ok) {
       const error = mapAccessStateToLoadError(body.access_state, res.status);
+      logPreferencesFetchFailure(body, res.status, "http_error");
       recordPreferencesLoadAttempt({
         stableRequestKey,
         source,
@@ -82,6 +108,7 @@ export async function fetchNotificationPreferences(
 
     const parsed = parsePresenceNotificationPreferences(body);
     if (!parsed) {
+      logPreferencesFetchFailure(body, res.status, "parse_error");
       const error: NotificationPreferencesLoadError =
         body.has_customer === false ? "organization_missing" : "page_load_error";
       recordPreferencesLoadAttempt({

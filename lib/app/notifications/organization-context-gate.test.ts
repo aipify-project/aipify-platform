@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   isNotificationOrganizationReady,
+  organizationTenantScopeKey,
   resolveNotificationOrganizationKey,
   resolveStableNotificationRequestKey,
 } from "@/lib/app/notifications/organization-context-gate";
@@ -35,5 +36,17 @@ assert.equal(
   false,
 );
 assert.equal(isNotificationOrganizationReady({ ...readyContext, has_customer: false }), false);
+assert.equal(
+  organizationTenantScopeKey("org-unonight:customer-1:user-42"),
+  "org-unonight:customer-1",
+);
+assert.equal(
+  organizationTenantScopeKey("org-unonight:customer-1:user-99"),
+  "org-unonight:customer-1",
+);
+assert.equal(
+  organizationTenantScopeKey("org-unonight:customer-1:user-42"),
+  organizationTenantScopeKey("org-unonight:customer-1:user-99"),
+);
 
 console.log("organization-context-gate.test.ts passed");

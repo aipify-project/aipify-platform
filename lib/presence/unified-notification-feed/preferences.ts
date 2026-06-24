@@ -7,7 +7,7 @@ export function parsePresenceNotificationPreferences(
 ): PresenceNotificationPreferences | null {
   if (!data || typeof data !== "object") return null;
   const record = data as Record<string, unknown>;
-  if (record.has_customer === false) return null;
+  if (record.has_customer === false || record.has_customer === "false") return null;
 
   const prefsRaw = record.preferences;
   if (!prefsRaw || typeof prefsRaw !== "object") return null;

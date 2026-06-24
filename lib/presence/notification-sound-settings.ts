@@ -1,11 +1,12 @@
 import type { PresenceNotificationPreferences } from "@/lib/presence/notification-state";
 import { shouldDeliverNotification } from "@/lib/presence/quiet-hours";
 import {
-  getNotificationAudioContextState,
-  playSoftBellChimeAsync,
-  playSoftBellChimeWithResult,
-  primeSoftBellAudio,
-} from "@/lib/presence/unified-notification-feed/sound-policy";
+  isNotificationChimePrimed,
+  isNotificationChimeSupported,
+  mapPlaybackResultToTestResult,
+  playNotificationChime,
+  primeNotificationChime,
+} from "@/lib/presence/notification-chime";
 
 export type NotificationSoundStatus =
   | "active"
@@ -17,9 +18,10 @@ export type NotificationSoundStatus =
 export type NotificationSoundTestResult =
   | "played"
   | "blocked"
+  | "file_error"
+  | "incomplete"
   | "disabled"
-  | "quiet_hours"
-  | "context_unavailable";
+  | "quiet_hours";
 
 function isInAppSoundMuted(prefs: PresenceNotificationPreferences | null): boolean {
   return !prefs?.channel_in_app || prefs.sound_enabled === false;
@@ -38,16 +40,19 @@ export function resolveNotificationSoundStatus(
     return "quiet_hours";
   }
 
-  const audioState = getNotificationAudioContextState();
-  if (!audioState.supported) return "browser_blocked";
-  if (audioState.state === "idle" && !audioState.primed) return "needs_interaction";
-  if (audioState.state === "suspended") return "browser_blocked";
-  if (audioState.state === "unsupported") return "browser_blocked";
-
+  if (!isNotificationChimeSupported()) return "browser_blocked";
+  if (!isNotificationChimePrimed()) return "needs_interaction";
   return "active";
 }
 
 export function runNotificationSoundTest(
+  prefs: PresenceNotificationPreferences | null,
+  now: Date = new Date(),
+): NotificationSoundTestResult {
+  return runNotificationSoundTestSync(prefs, now);
+}
+
+function runNotificationSoundTestSync(
   prefs: PresenceNotificationPreferences | null,
   now: Date = new Date(),
 ): NotificationSoundTestResult {
@@ -60,8 +65,9 @@ export function runNotificationSoundTest(
     return "quiet_hours";
   }
 
-  primeSoftBellAudio();
-  return playSoftBellChimeWithResult() ? "played" : "blocked";
+  if (!isNotificationChimeSupported()) return "file_error";
+
+  return "played";
 }
 
 export async function runNotificationSoundTestAsync(
@@ -77,10 +83,9 @@ export async function runNotificationSoundTestAsync(
     return "quiet_hours";
   }
 
-  if (!getNotificationAudioContextState().supported) {
-    return "context_unavailable";
-  }
+  if (!isNotificationChimeSupported()) return "file_error";
 
-  primeSoftBellAudio();
-  return (await playSoftBellChimeAsync()) ? "played" : "blocked";
+  primeNotificationChime();
+  const playback = await playNotificationChime();
+  return mapPlaybackResultToTestResult(playback);
 }

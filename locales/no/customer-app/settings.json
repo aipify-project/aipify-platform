@@ -192,11 +192,12 @@
         "needsInteraction": "Lyd klar etter brukerinteraksjon"
       },
       "testResult": {
-        "played": "✅ Testlyd spilt.",
-        "blocked": "⚠️ Nettleseren blokkerte lyd.",
+        "played": "✅ Testlyd fullført.",
+        "blocked": "⚠️ Nettleseren avviste avspilling.",
+        "fileError": "❌ Lydfilen kunne ikke lastes.",
+        "incomplete": "❌ Avspillingen startet, men fullførte ikke.",
         "disabled": "🔒 Varslingslyd er avslått.",
-        "quiet_hours": "⏳ Stilletid er aktiv.",
-        "context_unavailable": "❌ Lydavspilling feilet."
+        "quietHours": "⏳ Stilletid er aktiv."
       },
       "manageFromDrawer": "Administrer varslingsinnstillinger"
     },
