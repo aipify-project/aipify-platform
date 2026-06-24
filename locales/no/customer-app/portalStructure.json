@@ -333,11 +333,12 @@
       },
       "accountNotifications": {
         "title": "Varslingsinnstillinger",
-        "subtitle": "Administrer varslingslevering og se nylige varsler.",
-        "emptyTitle": "Ingen varsler akkurat nå",
-        "emptyDescription": "Når Aipify har operative oppdateringer, Companion-svar eller elementer som krever oppmerksomhet, vises de her.",
-        "emptyAction": "Åpne Command Center",
-        "secondaryAction": "Åpne innstillinger"
+        "subtitle": "Styr varsler i appen, lyd, Companion-øyeblikk og stilletid.",
+        "manageInboxLink": "Åpne varslingsinnboks"
+      },
+      "notificationInbox": {
+        "title": "Varsler",
+        "subtitle": "Se varsler, Companion-svar og elementer som krever oppmerksomhet."
       },
       "apiAccess": {
         "title": "API Access",

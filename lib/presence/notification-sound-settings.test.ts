@@ -81,7 +81,7 @@ assert.equal(
 
 assert.equal(resolveNotificationSoundStatus({ ...basePrefs!, channel_in_app: false }), "disabled");
 assert.equal(
-  resolveNotificationSoundStatus({ ...basePrefs!, min_level_in_app: "critical" }),
+  resolveNotificationSoundStatus({ ...basePrefs!, sound_enabled: false }),
   "disabled",
 );
 assert.equal(
@@ -94,7 +94,7 @@ assert.ok(activeOrBlocked === "active" || activeOrBlocked === "browser_blocked")
 
 assert.equal(runNotificationSoundTest({ ...basePrefs!, channel_in_app: false }), "disabled");
 assert.equal(
-  runNotificationSoundTest({ ...basePrefs!, min_level_in_app: "critical" }),
+  runNotificationSoundTest({ ...basePrefs!, sound_enabled: false }),
   "disabled",
 );
 assert.equal(

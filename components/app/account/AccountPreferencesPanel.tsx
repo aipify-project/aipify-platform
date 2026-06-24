@@ -81,7 +81,7 @@ export function AccountPreferencesPanel({
       <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-gray-900">{labels.notificationsHint}</h2>
         <Link
-          href="/app/account/notifications"
+          href="/app/account/notification-settings"
           className="mt-4 inline-flex text-sm font-medium text-violet-700 hover:text-violet-900"
         >
           {labels.notificationsLink}

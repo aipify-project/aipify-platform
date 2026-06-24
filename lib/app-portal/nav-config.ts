@@ -209,7 +209,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     items: [
       { id: "profile", href: "/app/account/profile", labelKey: "customerApp.portalStructure.nav.profile" },
       { id: "accountSecurity", href: "/app/account/security", labelKey: "customerApp.portalStructure.nav.security" },
-      { id: "accountNotifications", href: "/app/account/notifications", labelKey: "customerApp.portalStructure.nav.accountNotifications" },
+      { id: "accountNotifications", href: "/app/account/notification-settings", labelKey: "customerApp.portalStructure.nav.accountNotifications" },
       { id: "organizationSettings", href: "/app/settings", labelKey: "customerApp.portalStructure.nav.organizationSettings" },
     ],
   },

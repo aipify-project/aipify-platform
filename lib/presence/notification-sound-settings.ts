@@ -16,7 +16,7 @@ export type NotificationSoundStatus =
 export type NotificationSoundTestResult = "played" | "blocked" | "disabled" | "quiet_hours";
 
 function isInAppSoundMuted(prefs: PresenceNotificationPreferences | null): boolean {
-  return !prefs?.channel_in_app || prefs.min_level_in_app === "critical";
+  return !prefs?.channel_in_app || prefs.sound_enabled === false;
 }
 
 export function resolveNotificationSoundStatus(

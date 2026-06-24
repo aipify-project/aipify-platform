@@ -6108,12 +6108,13 @@
         "subtitle": "Two-factor authentication, sessions, and security settings."
       },
       "accountNotifications": {
-        "title": "Notification preferences",
-        "subtitle": "Manage notification delivery and review recent alerts.",
-        "emptyTitle": "No notifications right now",
-        "emptyDescription": "When Aipify has operational updates, Companion replies, or items that need attention, they appear here.",
-        "emptyAction": "Open Command Center",
-        "secondaryAction": "Open Settings"
+        "title": "Notification settings",
+        "subtitle": "Control in-app alerts, sound, Companion moments, and quiet hours.",
+        "manageInboxLink": "Open notifications inbox"
+      },
+      "notificationInbox": {
+        "title": "Notifications",
+        "subtitle": "Review alerts, Companion replies, and items that need your attention."
       },
       "apiAccess": {
         "title": "API Access",

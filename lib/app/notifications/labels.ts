@@ -6,10 +6,11 @@ import type { UnifiedNotificationCenterLabels } from "@/lib/presence/unified-not
 import { buildUnifiedNotificationCenterLabels } from "@/lib/presence/unified-notification-feed/labels";
 
 const SETTINGS = "customerApp.settings.notificationSound";
-const RECENT = "customerApp.settings.accountNotifications";
-const PAGE = "customerApp.portalStructure.pages.accountNotifications";
+const INBOX = "customerApp.settings.notificationInbox";
+const SETTINGS_PAGE = "customerApp.portalStructure.pages.accountNotifications";
+const INBOX_PAGE = "customerApp.portalStructure.pages.notificationInbox";
 
-export type AccountNotificationsPageLabels = {
+export type NotificationSettingsPageLabels = {
   title: string;
   subtitle: string;
   back: string;
@@ -33,31 +34,43 @@ export type AccountNotificationsPageLabels = {
   onLabel: string;
   offLabel: string;
   soundLabels: NotificationSoundSettingsLabels;
-  recent: {
-    sectionTitle: string;
-    sectionDescription: string;
-    emptyTitle: string;
-    emptyDescription: string;
-    readStatusRead: string;
-    readStatusUnread: string;
-    markAsRead: string;
-    archive: string;
-    markAllAsRead: string;
-    openAction: string;
-    categoryLabel: string;
-    levels: Record<PresenceNotificationLevel, string>;
-    eventTypes: UnifiedNotificationCenterLabels["eventTypes"];
-  };
-  feedLabels: UnifiedNotificationCenterLabels;
+  manageInboxLink: string;
 };
 
-export function buildAccountNotificationsPageLabels(t: Translator): AccountNotificationsPageLabels {
+export type NotificationInboxPageLabels = {
+  title: string;
+  subtitle: string;
+  filters: {
+    unread: string;
+    all: string;
+    archived: string;
+  };
+  emptyTitle: string;
+  emptyDescription: string;
+  readStatusRead: string;
+  readStatusUnread: string;
+  readStatusArchived: string;
+  markAsRead: string;
+  archive: string;
+  markAllAsRead: string;
+  archiveAllRead: string;
+  archiveAllReadConfirm: string;
+  openAction: string;
+  categoryLabel: string;
+  loadMore: string;
+  loadingMore: string;
+  actionError: string;
+  levels: Record<PresenceNotificationLevel, string>;
+  eventTypes: UnifiedNotificationCenterLabels["eventTypes"];
+  manageSettingsLink: string;
+};
+
+export function buildNotificationSettingsPageLabels(t: Translator): NotificationSettingsPageLabels {
   const soundLabels = buildNotificationSoundSettingsLabels(t);
-  const feedLabels = buildUnifiedNotificationCenterLabels(t);
 
   return {
-    title: t(`${PAGE}.title`),
-    subtitle: t(`${PAGE}.subtitle`),
+    title: t(`${SETTINGS_PAGE}.title`),
+    subtitle: t(`${SETTINGS_PAGE}.subtitle`),
     back: t("customerApp.settings.accountPreferences.back"),
     settingsSectionTitle: t(`${SETTINGS}.settingsSectionTitle`),
     settingsSectionDescription: t(`${SETTINGS}.settingsSectionDescription`),
@@ -101,21 +114,43 @@ export function buildAccountNotificationsPageLabels(t: Translator): AccountNotif
     onLabel: t(`${SETTINGS}.toggleOn`),
     offLabel: t(`${SETTINGS}.toggleOff`),
     soundLabels,
-    recent: {
-      sectionTitle: t(`${RECENT}.sectionTitle`),
-      sectionDescription: t(`${RECENT}.sectionDescription`),
-      emptyTitle: t(`${RECENT}.emptyTitle`),
-      emptyDescription: t(`${RECENT}.emptyDescription`),
-      readStatusRead: t(`${RECENT}.readStatusRead`),
-      readStatusUnread: t(`${RECENT}.readStatusUnread`),
-      markAsRead: t(`${RECENT}.markAsRead`),
-      archive: t(`${RECENT}.archive`),
-      markAllAsRead: t(`${RECENT}.markAllAsRead`),
-      openAction: t(`${RECENT}.openAction`),
-      categoryLabel: t(`${RECENT}.categoryLabel`),
-      levels: feedLabels.levels,
-      eventTypes: feedLabels.eventTypes,
-    },
-    feedLabels,
+    manageInboxLink: t(`${SETTINGS_PAGE}.manageInboxLink`),
   };
+}
+
+export function buildNotificationInboxPageLabels(t: Translator): NotificationInboxPageLabels {
+  const feedLabels = buildUnifiedNotificationCenterLabels(t);
+
+  return {
+    title: t(`${INBOX_PAGE}.title`),
+    subtitle: t(`${INBOX_PAGE}.subtitle`),
+    filters: {
+      unread: t(`${INBOX}.filters.unread`),
+      all: t(`${INBOX}.filters.all`),
+      archived: t(`${INBOX}.filters.archived`),
+    },
+    emptyTitle: t(`${INBOX}.emptyTitle`),
+    emptyDescription: t(`${INBOX}.emptyDescription`),
+    readStatusRead: t(`${INBOX}.readStatusRead`),
+    readStatusUnread: t(`${INBOX}.readStatusUnread`),
+    readStatusArchived: t(`${INBOX}.readStatusArchived`),
+    markAsRead: t(`${INBOX}.markAsRead`),
+    archive: t(`${INBOX}.archive`),
+    markAllAsRead: t(`${INBOX}.markAllAsRead`),
+    archiveAllRead: t(`${INBOX}.archiveAllRead`),
+    archiveAllReadConfirm: t(`${INBOX}.archiveAllReadConfirm`),
+    openAction: t(`${INBOX}.openAction`),
+    categoryLabel: t(`${INBOX}.categoryLabel`),
+    loadMore: t(`${INBOX}.loadMore`),
+    loadingMore: t(`${INBOX}.loadingMore`),
+    actionError: t(`${INBOX}.actionError`),
+    levels: feedLabels.levels,
+    eventTypes: feedLabels.eventTypes,
+    manageSettingsLink: t(`${INBOX}.manageSettingsLink`),
+  };
+}
+
+/** @deprecated Use buildNotificationSettingsPageLabels */
+export function buildAccountNotificationsPageLabels(t: Translator) {
+  return buildNotificationSettingsPageLabels(t);
 }

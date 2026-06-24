@@ -111,6 +111,9 @@ export function DesktopPresenceFoundationPanel({
         min_level_email: (p.min_level_email as PresenceNotificationLevel) ?? "important",
         quiet_hours_enabled: p.quiet_hours_enabled === true,
         playful_moments_enabled: p.playful_moments_enabled !== false,
+        sound_enabled: p.sound_enabled !== false,
+        companion_replies_enabled: p.companion_replies_enabled !== false,
+        approvals_critical_enabled: p.approvals_critical_enabled !== false,
       });
     }
 

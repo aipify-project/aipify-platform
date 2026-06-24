@@ -188,18 +188,28 @@
       },
       "manageFromDrawer": "Manage notification settings"
     },
-    "accountNotifications": {
-      "sectionTitle": "Recent notifications",
-      "sectionDescription": "Review recent alerts from your workspace. Actions stay on this page.",
+    "notificationInbox": {
+      "filters": {
+        "unread": "Unread",
+        "all": "All",
+        "archived": "Archived"
+      },
       "emptyTitle": "No notifications right now",
       "emptyDescription": "When Aipify has operational updates, Companion replies, or items that need attention, they appear here.",
       "readStatusRead": "Read",
       "readStatusUnread": "Unread",
+      "readStatusArchived": "Archived",
       "markAsRead": "Mark as read",
       "archive": "Archive",
       "markAllAsRead": "Mark all as read",
+      "archiveAllRead": "Archive all read",
+      "archiveAllReadConfirm": "Archive all read notifications? They will remain available under Archived.",
       "openAction": "Open",
-      "categoryLabel": "Category"
+      "categoryLabel": "Category",
+      "loadMore": "Load more",
+      "loadingMore": "Loading more…",
+      "actionError": "Could not update notifications. Try again.",
+      "manageSettingsLink": "Manage notification settings"
     },
     "links": {
       "developer": "Developer settings",

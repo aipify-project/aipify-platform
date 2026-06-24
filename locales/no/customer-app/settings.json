@@ -188,18 +188,28 @@
       },
       "manageFromDrawer": "Administrer varslingsinnstillinger"
     },
-    "accountNotifications": {
-      "sectionTitle": "Nylige varsler",
-      "sectionDescription": "Se nylige varsler fra arbeidsområdet ditt. Handlinger skjer på denne siden.",
+    "notificationInbox": {
+      "filters": {
+        "unread": "Uleste",
+        "all": "Alle",
+        "archived": "Arkiverte"
+      },
       "emptyTitle": "Ingen varsler akkurat nå",
       "emptyDescription": "Når Aipify har operative oppdateringer, Companion-svar eller elementer som krever oppmerksomhet, vises de her.",
       "readStatusRead": "Lest",
       "readStatusUnread": "Ulest",
+      "readStatusArchived": "Arkivert",
       "markAsRead": "Marker som lest",
       "archive": "Arkiver",
       "markAllAsRead": "Marker alle som lest",
+      "archiveAllRead": "Arkiver alle leste",
+      "archiveAllReadConfirm": "Arkivere alle leste varsler? De blir fortsatt tilgjengelige under Arkiverte.",
       "openAction": "Åpne",
-      "categoryLabel": "Kategori"
+      "categoryLabel": "Kategori",
+      "loadMore": "Last inn flere",
+      "loadingMore": "Laster flere…",
+      "actionError": "Kunne ikke oppdatere varsler. Prøv igjen.",
+      "manageSettingsLink": "Administrer varslingsinnstillinger"
     },
     "links": {
       "developer": "Developer settings",

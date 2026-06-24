@@ -6,6 +6,7 @@ import type { PresenceNotification } from "@/lib/presence/notification-state";
 import type { PresenceNotificationLevel } from "@/lib/presence/notifications";
 import { formatUnreadSummary, type UnifiedNotificationCenterLabels } from "@/lib/presence/unified-notification-feed";
 import { isNotificationUnread } from "@/lib/presence/unified-notification-feed";
+import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 
 const LEVEL_STYLES: Record<PresenceNotificationLevel, string> = {
   informational: "bg-gray-100 text-gray-700",
@@ -28,7 +29,8 @@ type NotificationCenterListProps = {
   labels: UnifiedNotificationCenterLabels;
   notifications: PresenceNotification[];
   onOpen: (notification: PresenceNotification) => void;
-  onDismiss: (notificationId: string) => void;
+  onMarkRead: (notificationId: string) => void;
+  onArchive: (notificationId: string) => void;
   compact?: boolean;
 };
 
@@ -36,7 +38,8 @@ export function NotificationCenterList({
   labels,
   notifications,
   onOpen,
-  onDismiss,
+  onMarkRead,
+  onArchive,
   compact = false,
 }: NotificationCenterListProps) {
   if (notifications.length === 0) {
@@ -65,9 +68,10 @@ export function NotificationCenterList({
                   <span className="text-xs text-gray-500">
                     {eventTypeLabel(labels, notification.event_type)}
                   </span>
-                  {unread ? (
-                    <span className="inline-flex h-2 w-2 rounded-full bg-violet-500" aria-hidden="true" />
-                  ) : null}
+                  <AipifyStatusBadge
+                    kind={unread ? "needs_attention" : "verified"}
+                    label={unread ? labels.readStatusUnread : labels.readStatusRead}
+                  />
                 </div>
                 <p className="mt-2 text-base font-medium text-gray-900">{notification.title}</p>
                 {notification.body ? (
@@ -85,13 +89,23 @@ export function NotificationCenterList({
                   {labels.openAction}
                 </button>
               ) : null}
-              <button
-                type="button"
-                onClick={() => void onDismiss(notification.id)}
-                className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
-              >
-                {labels.dismiss}
-              </button>
+              {unread ? (
+                <button
+                  type="button"
+                  onClick={() => void onMarkRead(notification.id)}
+                  className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
+                >
+                  {labels.markRead}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => void onArchive(notification.id)}
+                  className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
+                >
+                  {labels.archive}
+                </button>
+              )}
             </div>
           </li>
         );
@@ -102,7 +116,7 @@ export function NotificationCenterList({
 
 export function NotificationCenterDrawer() {
   const feed = useUnifiedNotificationFeed();
-  const { labels, centerOpen, closeCenter, notifications, unreadCount, openNotification, dismissNotification } =
+  const { labels, centerOpen, closeCenter, notifications, unreadCount, openNotification, dismissNotification, markNotificationRead } =
     feed;
 
   if (!centerOpen) return null;
@@ -149,7 +163,8 @@ export function NotificationCenterDrawer() {
             labels={labels}
             notifications={notifications}
             onOpen={openNotification}
-            onDismiss={dismissNotification}
+            onMarkRead={markNotificationRead}
+            onArchive={dismissNotification}
             compact
           />
         </div>

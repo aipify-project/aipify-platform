@@ -44,6 +44,7 @@ export const NOTIFICATION_ACTION_TYPES = [
   "approve_recommendation",
   "open_dashboard",
   "dismiss",
+  "archive",
   "escalate",
   "mark_as_reviewed",
 ] as const;

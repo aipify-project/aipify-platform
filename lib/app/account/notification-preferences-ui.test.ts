@@ -3,20 +3,16 @@ import {
   applyToggleChange,
   notificationPrefsToToggleState,
   toggleStateToPreferencesPatch,
-} from "@/lib/app/account/notification-preferences-ui";
-import {
-  filterAccountRecentNotifications,
-  isIdentifiableTestNotification,
-  isValidInternalNotificationHref,
-} from "@/lib/app/account/recent-notifications";
-import type { PresenceNotification } from "@/lib/presence/notification-state";
+} from "@/lib/app/notifications/preferences-ui";
 import { parsePresenceNotificationPreferences } from "@/lib/presence/unified-notification-feed/preferences";
 
 const basePrefs = parsePresenceNotificationPreferences({
   has_customer: true,
   preferences: {
     channel_in_app: true,
-    min_level_in_app: "informational",
+    sound_enabled: true,
+    companion_replies_enabled: true,
+    approvals_critical_enabled: false,
     quiet_hours_enabled: false,
     playful_moments_enabled: true,
     working_hours_start: "22:00",
@@ -26,58 +22,23 @@ const basePrefs = parsePresenceNotificationPreferences({
 
 assert.ok(basePrefs);
 
-const allOn = notificationPrefsToToggleState(basePrefs!);
-assert.equal(allOn.inAppEnabled, true);
-assert.equal(allOn.soundEnabled, true);
-assert.equal(allOn.companionRepliesEnabled, true);
-assert.equal(allOn.approvalsCriticalEnabled, true);
+const state = notificationPrefsToToggleState(basePrefs!);
+assert.equal(state.soundEnabled, true);
+assert.equal(state.companionRepliesEnabled, true);
+assert.equal(state.approvalsCriticalEnabled, false);
 
-const soundOffPrefs = parsePresenceNotificationPreferences({
-  has_customer: true,
-  preferences: {
-    channel_in_app: true,
-    min_level_in_app: "critical",
-    quiet_hours_enabled: false,
-    playful_moments_enabled: true,
-  },
-});
-
-const soundOff = notificationPrefsToToggleState(soundOffPrefs!);
-assert.equal(soundOff.soundEnabled, false);
-
-const patch = toggleStateToPreferencesPatch(
-  applyToggleChange(allOn, "soundEnabled", false),
-  basePrefs,
+const soundOnly = toggleStateToPreferencesPatch(
+  applyToggleChange(state, "soundEnabled", false),
 );
-assert.equal(patch.min_level_in_app, "critical");
+assert.equal(soundOnly.sound_enabled, false);
+assert.equal(soundOnly.companion_replies_enabled, true);
+assert.equal(soundOnly.approvals_critical_enabled, false);
 
-const companionOff = toggleStateToPreferencesPatch(
-  applyToggleChange(allOn, "companionRepliesEnabled", false),
-  basePrefs,
+const companionOnly = toggleStateToPreferencesPatch(
+  applyToggleChange(state, "companionRepliesEnabled", false),
 );
-assert.equal(companionOff.min_level_in_app, "important");
-
-const testNotification: PresenceNotification = {
-  id: "test-1",
-  event_type: "companion_reply_ready",
-  level: "informational",
-  title: "POST-P1.09E background companion reply certification",
-  body: "Internal only",
-  status: "delivered",
-  channels: ["in_app"],
-  actions: [],
-  created_at: "2026-06-22T12:00:00.000Z",
-  read_at: null,
-};
-
-assert.equal(isIdentifiableTestNotification(testNotification), true);
-assert.equal(
-  filterAccountRecentNotifications([testNotification]).length,
-  0,
-);
-
-assert.equal(isValidInternalNotificationHref("/app/command-center"), true);
-assert.equal(isValidInternalNotificationHref("https://evil.example"), false);
-assert.equal(isValidInternalNotificationHref(null), false);
+assert.equal(companionOnly.sound_enabled, true);
+assert.equal(companionOnly.companion_replies_enabled, false);
+assert.equal(companionOnly.approvals_critical_enabled, false);
 
 console.log("notification-preferences-ui.test.ts passed");

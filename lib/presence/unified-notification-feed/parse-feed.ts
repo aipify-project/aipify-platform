@@ -52,8 +52,10 @@ function parsePresenceNotification(value: unknown): PresenceNotification | null 
     channels: Array.isArray(row.channels) ? (row.channels as PresenceNotification["channels"]) : ["in_app"],
     actions: Array.isArray(row.actions) ? (row.actions as PresenceNotification["actions"]) : [],
     action_href: typeof row.action_href === "string" ? row.action_href : null,
+    metadata: row.metadata && typeof row.metadata === "object" ? (row.metadata as Record<string, unknown>) : null,
     created_at: typeof row.created_at === "string" ? row.created_at : new Date().toISOString(),
     read_at: typeof row.read_at === "string" ? row.read_at : null,
+    archived_at: typeof row.archived_at === "string" ? row.archived_at : null,
   };
 }
 

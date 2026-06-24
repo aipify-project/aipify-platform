@@ -58,6 +58,9 @@ function draftToEffective(
     min_level_desktop: base?.min_level_desktop ?? "important",
     min_level_email: base?.min_level_email ?? "important",
     playful_moments_enabled: draft.playful_moments_enabled,
+    sound_enabled: base?.sound_enabled ?? true,
+    companion_replies_enabled: base?.companion_replies_enabled ?? true,
+    approvals_critical_enabled: base?.approvals_critical_enabled ?? true,
   };
 }
 

@@ -13,6 +13,8 @@ export function parsePresenceNotificationPreferences(
   if (!prefsRaw || typeof prefsRaw !== "object") return null;
   const prefs = prefsRaw as Record<string, unknown>;
 
+  const minLevel = (prefs.min_level_in_app as PresenceNotificationLevel) ?? "informational";
+
   return {
     mode: (prefs.quiet_hours_mode as QuietHoursMode) ?? "standard",
     working_hours_start: String(prefs.working_hours_start ?? "09:00"),
@@ -24,9 +26,19 @@ export function parsePresenceNotificationPreferences(
     channel_desktop: prefs.channel_desktop !== false,
     channel_email_digest: prefs.channel_email_digest === true,
     channel_mobile_push: prefs.channel_mobile_push === true,
-    min_level_in_app: (prefs.min_level_in_app as PresenceNotificationLevel) ?? "informational",
+    min_level_in_app: minLevel,
     min_level_desktop: (prefs.min_level_desktop as PresenceNotificationLevel) ?? "important",
     min_level_email: (prefs.min_level_email as PresenceNotificationLevel) ?? "important",
     playful_moments_enabled: prefs.playful_moments_enabled !== false,
+    sound_enabled:
+      typeof prefs.sound_enabled === "boolean" ? prefs.sound_enabled : minLevel !== "critical",
+    companion_replies_enabled:
+      typeof prefs.companion_replies_enabled === "boolean"
+        ? prefs.companion_replies_enabled
+        : minLevel === "informational" || minLevel === "action_required",
+    approvals_critical_enabled:
+      typeof prefs.approvals_critical_enabled === "boolean"
+        ? prefs.approvals_critical_enabled
+        : minLevel === "informational" || minLevel === "important",
   };
 }

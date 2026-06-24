@@ -68,10 +68,26 @@ export function shouldPlayInAppNotificationSound(
   now: Date = new Date(),
 ): boolean {
   if (!prefs?.channel_in_app) return false;
+  if (!prefs.sound_enabled) return false;
   if (
     notification.event_type === "playful_bell_moment" &&
     !prefs.playful_moments_enabled
   ) {
+    return false;
+  }
+  if (
+    notification.event_type === "companion_reply_ready" &&
+    !prefs.companion_replies_enabled
+  ) {
+    return false;
+  }
+  if (
+    notification.event_type === "approval_awaiting_action" &&
+    !prefs.approvals_critical_enabled
+  ) {
+    return false;
+  }
+  if (notification.level === "critical" && !prefs.approvals_critical_enabled) {
     return false;
   }
   if (!meetsMinimumLevel(notification.level, prefs.min_level_in_app)) return false;

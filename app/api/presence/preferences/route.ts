@@ -83,6 +83,9 @@ export async function PATCH(request: Request) {
       p_min_level_email: body.min_level_email ?? null,
       p_quiet_hours_enabled: body.quiet_hours_enabled ?? null,
       p_playful_moments_enabled: body.playful_moments_enabled ?? null,
+      p_sound_enabled: body.sound_enabled ?? null,
+      p_companion_replies_enabled: body.companion_replies_enabled ?? null,
+      p_approvals_critical_enabled: body.approvals_critical_enabled ?? null,
     });
 
     if (error) throw new Error(error.message);

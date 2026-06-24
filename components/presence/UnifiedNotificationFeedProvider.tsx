@@ -63,7 +63,7 @@ const UnifiedNotificationFeedContext = createContext<UnifiedNotificationFeedCont
 
 async function performNotificationAction(
   notificationId: string,
-  actionType: "mark_as_reviewed" | "dismiss",
+  actionType: "mark_as_reviewed" | "archive" | "dismiss",
 ): Promise<void> {
   await fetch(`/api/presence/notifications/${notificationId}/action`, {
     method: "POST",
@@ -272,7 +272,7 @@ export function UnifiedNotificationFeedProvider({
 
   const dismissNotification = useCallback(
     async (notificationId: string) => {
-      await performNotificationAction(notificationId, "dismiss");
+      await performNotificationAction(notificationId, "archive");
       suppressedToastIdsRef.current.add(notificationId);
       if (toastNotification?.id === notificationId) {
         setToastNotification(null);

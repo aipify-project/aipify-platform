@@ -23,8 +23,10 @@ export type PresenceNotification = {
   channels: PresenceNotificationChannel[];
   actions: PresenceNotificationAction[];
   action_href?: string | null;
+  metadata?: Record<string, unknown> | null;
   created_at: string;
   read_at: string | null;
+  archived_at?: string | null;
 };
 
 export type PresenceNotificationPreferences = QuietHoursPreferences & {
@@ -36,6 +38,9 @@ export type PresenceNotificationPreferences = QuietHoursPreferences & {
   min_level_desktop: PresenceNotificationLevel;
   min_level_email: PresenceNotificationLevel;
   playful_moments_enabled: boolean;
+  sound_enabled: boolean;
+  companion_replies_enabled: boolean;
+  approvals_critical_enabled: boolean;
 };
 
 export type PresencePilotMetrics = {

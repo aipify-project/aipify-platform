@@ -11,7 +11,7 @@ import {
   Volume2,
 } from "lucide-react";
 import { NotificationPreferenceToggleCard } from "@/components/app/account/NotificationPreferenceToggleCard";
-import type { AccountNotificationsPageLabels } from "@/lib/app/account/account-notifications-labels";
+import type { NotificationSettingsPageLabels } from "@/lib/app/notifications/labels";
 import {
   applyToggleChange,
   formatQuietHoursRange,
@@ -19,7 +19,7 @@ import {
   toggleStateToPreferencesPatch,
   type NotificationSettingsToggleKey,
   type NotificationSettingsToggleState,
-} from "@/lib/app/account/notification-preferences-ui";
+} from "@/lib/app/notifications/preferences-ui";
 import type { PresenceNotificationPreferences } from "@/lib/presence/notification-state";
 import {
   notificationSoundStatusKind,
@@ -36,7 +36,7 @@ import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 type SaveState = "idle" | "saving" | "saved" | "error";
 
 type NotificationSettingsSectionProps = {
-  labels: AccountNotificationsPageLabels;
+  labels: NotificationSettingsPageLabels;
   initialPreferences?: PresenceNotificationPreferences | null;
   onPreferencesSaved?: (preferences: PresenceNotificationPreferences) => void;
 };
@@ -46,11 +46,13 @@ function draftToEffective(
   base: PresenceNotificationPreferences | null,
 ): PresenceNotificationPreferences | null {
   if (!base) return null;
-  const patch = toggleStateToPreferencesPatch(state, base);
+  const patch = toggleStateToPreferencesPatch(state);
   return {
     ...base,
     channel_in_app: patch.channel_in_app as boolean,
-    min_level_in_app: patch.min_level_in_app as PresenceNotificationPreferences["min_level_in_app"],
+    sound_enabled: patch.sound_enabled as boolean,
+    companion_replies_enabled: patch.companion_replies_enabled as boolean,
+    approvals_critical_enabled: patch.approvals_critical_enabled as boolean,
     playful_moments_enabled: patch.playful_moments_enabled as boolean,
     quiet_hours_enabled: patch.quiet_hours_enabled as boolean,
     working_hours_start: String(patch.working_hours_start),
@@ -126,7 +128,7 @@ export function NotificationSettingsSection({
         const res = await fetch("/api/presence/preferences", {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(toggleStateToPreferencesPatch(nextDraft, basePreferences)),
+          body: JSON.stringify(toggleStateToPreferencesPatch(nextDraft)),
         });
         if (!res.ok) throw new Error("save_failed");
         const parsed = parsePresenceNotificationPreferences(await res.json());
