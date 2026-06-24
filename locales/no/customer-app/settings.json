@@ -90,6 +90,10 @@
           "3": {
             "href": "/app/settings/governance",
             "label": "Trust controls"
+          },
+          "4": {
+            "href": "/app/settings/organization-access",
+            "label": "Godkjenning av organisasjonstilgang"
           }
         }
       },
@@ -259,6 +263,7 @@
       "twoFactor": "Innloggingsverifisering (2FA)",
       "devicesPrinters": "Enheter og skrivere",
       "actionAccess": "Handlingsadgang",
+      "organizationAccess": "Godkjenning av organisasjonstilgang",
       "packagesAccess": "Pakker og tilgang",
       "aipifyInstall": "Aipify Install",
       "firstDayExperience": "Første dag-opplevelse",
@@ -5822,6 +5827,99 @@
     "version": "Versjon",
     "upcoming": "Kommende",
     "completed": "Fullført"
+  },
+  "organizationAccessApproval": {
+    "title": "Godkjenning av organisasjonstilgang",
+    "subtitle": "Gjennomgå og godkjenn tilgangsforespørsler for organisasjonen din.",
+    "back": "Tilbake til innstillinger",
+    "loading": "Forbereder tilgangsforespørsler…",
+    "empty": "Ingen ventende tilgangsforespørsler.",
+    "employee": {
+      "noAuthorityMessage": "Beklager, du har ikke fullmakt til å godkjenne denne tilgangen på vegne av organisasjonen. En organisasjonseier eller autorisert administrator må godkjenne forespørselen i APP-panelet. Jeg kan sende forespørselen til riktig godkjenner for deg.",
+      "providerContext": "Forespørselen gjelder {provider}.",
+      "panelNote": "Du kan sende tilgangsforespørsler her. Godkjenning krever organisasjonseier eller autorisert administrator.",
+      "actions": {
+        "submit": "Send forespørsel",
+        "cancel": "Avbryt"
+      }
+    },
+    "create": {
+      "title": "Send tilgangsforespørsel",
+      "description": "Gjennomgå detaljene nedenfor og send forespørselen til godkjenneren i organisasjonen.",
+      "submitted": "Tilgangsforespørselen er sendt til godkjenner.",
+      "failed": "Kunne ikke sende tilgangsforespørselen. Prøv igjen."
+    },
+    "review": {
+      "pendingTitle": "Ventende forespørsler",
+      "fields": {
+        "provider": "Hva Aipify ønsker tilgang til",
+        "dataType": "Datatype",
+        "whyNeeded": "Hvorfor tilgangen trengs",
+        "scope": "Forespurt omfang",
+        "accessMode": "Tilgangstype",
+        "duration": "Varighet",
+        "risk": "Risikonivå",
+        "requester": "Forespurt av"
+      },
+      "accessMode": {
+        "oneTime": "Engangstilgang",
+        "ongoing": "Løpende tilgang"
+      },
+      "durationOpenEnded": "Uten sluttdato til den trekkes tilbake",
+      "durationHours": "{hours} timer",
+      "riskLevels": {
+        "0": "Informasjon",
+        "1": "Lav",
+        "2": "Moderat",
+        "3": "Sensitiv — ekstra bekreftelse kreves"
+      },
+      "requester": "Forespurt av {name}",
+      "afterApprovalDetail": "Etter godkjenning aktiverer Aipify kun forespurt omfang og fortsetter den opprinnelige handlingen når det er trygt.",
+      "afterApproval": "Etter godkjenning",
+      "actions": {
+        "approve": "Godkjenn",
+        "deny": "Avslå"
+      },
+      "approved": "Tilgangsforespørselen er godkjent.",
+      "denied": "Tilgangsforespørselen er avslått."
+    },
+    "status": {
+      "pending": "Venter",
+      "approved": "Godkjent",
+      "denied": "Avslått",
+      "cancelled": "Avbrutt"
+    },
+    "providers": {
+      "generic": {
+        "label": "Tilkoblet leverandør"
+      },
+      "communityMemberDirectory": {
+        "label": "Medlemsregister",
+        "dataType": "Medlemsregisterdata",
+        "whyNeeded": "Aipify trenger lesetilgang for å svare nøyaktig på spørsmål om medlemmer."
+      },
+      "memberCount": {
+        "label": "Medlemstall",
+        "dataType": "Aggregerte medlemstall",
+        "whyNeeded": "Aipify trenger lesetilgang for å rapportere hvor mange medlemmer som er registrert."
+      },
+      "supportOperations": {
+        "label": "Supportdrift",
+        "dataType": "Supportkø og SLA-signaler",
+        "whyNeeded": "Aipify trenger lesetilgang for å fremheve supportsaker som nærmer seg SLA-risiko."
+      },
+      "memberVerification": {
+        "label": "Medlemsverifisering",
+        "dataType": "Status for verifiseringskø",
+        "whyNeeded": "Aipify trenger lesetilgang for å vise ventende medlemsverifisering."
+      }
+    },
+    "scopes": {
+      "communityMembersRead": "Vis medlemsregister",
+      "memberCountRead": "Vis medlemstall",
+      "supportQueueRead": "Vis supportkømålinger",
+      "verificationQueueRead": "Vis verifiseringskø"
+    }
   },
   "securityHub": {
     "title": "Security",

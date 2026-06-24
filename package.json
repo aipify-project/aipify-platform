@@ -24,6 +24,7 @@
     "test:unonight-pilot": "npx --yes tsx lib/unonight-pilot/unonight-pilot.test.ts",
     "test:ecc-tab-datasets": "npx --yes tsx lib/command-center/ecc-tab-datasets.test.ts",
     "test:marketing-i18n": "npx --yes tsx lib/marketing/marketing-i18n.test.ts",
+    "test:organization-access-approval": "npx --yes tsx lib/core/organization-access-approval/organization-access-approval.test.ts",
     "validate:marketing-i18n": "npx --yes tsx scripts/validate-marketing-i18n.ts",
     "sync:marketing-i18n": "node scripts/sync-marketing-i18n.mjs",
     "generate:customer-app-splits": "node scripts/generate-customer-app-split-locales.mjs",

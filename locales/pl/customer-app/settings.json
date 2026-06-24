@@ -668,5 +668,61 @@
     "subscriptionRequired": "Centrum powiadomień wymaga aktywnej subskrypcji organizacji.",
     "permissionMissing": "Nie masz uprawnień do centrum powiadomień. Skontaktuj się z administratorem organizacji.",
     "entitlementMissing": "Centrum powiadomień nie jest objęte aktywnymi Business Packs ani planem organizacji."
+  },
+  "organizationAccessApproval": {
+    "title": "Zatwierdzanie dostępu organizacji",
+    "subtitle": "Przeglądaj i zatwierdzaj wnioski o dostęp dostawcy dla organizacji.",
+    "back": "Wróć do ustawień",
+    "loading": "Przygotowywanie wniosków o dostęp…",
+    "empty": "Brak oczekujących wniosków o dostęp.",
+    "employee": {
+      "noAuthorityMessage": "Niestety nie masz uprawnień, aby zatwierdzić ten dostęp w imieniu organizacji. Właściciel organizacji lub upoważniony administrator musi zatwierdzić wniosek w panelu APP. Mogę wysłać wniosek do właściwego zatwierdzającego.",
+      "providerContext": "Wniosek dotyczy {provider}.",
+      "panelNote": "Możesz wysyłać wnioski o dostęp tutaj. Zatwierdzenie wymaga właściciela organizacji lub upoważnionego administratora.",
+      "actions": { "submit": "Wyślij wniosek", "cancel": "Anuluj" }
+    },
+    "create": {
+      "title": "Wyślij wniosek o dostęp",
+      "description": "Przejrzyj szczegóły poniżej i wyślij wniosek do zatwierdzającego w organizacji.",
+      "submitted": "Wniosek o dostęp został wysłany do zatwierdzającego.",
+      "failed": "Nie udało się wysłać wniosku o dostęp. Spróbuj ponownie."
+    },
+    "review": {
+      "pendingTitle": "Oczekujące wnioski",
+      "fields": {
+        "provider": "Do czego Aipify potrzebuje dostępu",
+        "dataType": "Typ danych",
+        "whyNeeded": "Dlaczego dostęp jest potrzebny",
+        "scope": "Żądany zakres",
+        "accessMode": "Typ dostępu",
+        "duration": "Czas trwania",
+        "risk": "Poziom ryzyka",
+        "requester": "Wnioskodawca"
+      },
+      "accessMode": { "oneTime": "Jednorazowy dostęp", "ongoing": "Stały dostęp" },
+      "durationOpenEnded": "Bezterminowo do cofnięcia",
+      "durationHours": "{hours} godzin",
+      "riskLevels": { "0": "Informacyjny", "1": "Niski", "2": "Umiarkowany", "3": "Wrażliwy — wymagane dodatkowe potwierdzenie" },
+      "requester": "Wnioskodawca: {name}",
+      "afterApprovalDetail": "Po zatwierdzeniu Aipify aktywuje tylko żądany zakres i kontynuuje pierwotną akcję, gdy jest to bezpieczne.",
+      "afterApproval": "Po zatwierdzeniu",
+      "actions": { "approve": "Zatwierdź", "deny": "Odrzuć" },
+      "approved": "Wniosek o dostęp zatwierdzony.",
+      "denied": "Wniosek o dostęp odrzucony."
+    },
+    "status": { "pending": "Oczekuje", "approved": "Zatwierdzony", "denied": "Odrzucony", "cancelled": "Anulowany" },
+    "providers": {
+      "generic": { "label": "Połączony dostawca" },
+      "communityMemberDirectory": { "label": "Rejestr członków", "dataType": "Dane rejestru członków", "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby dokładnie odpowiadać na pytania o członków." },
+      "memberCount": { "label": "Liczba członków", "dataType": "Zagregowane liczby członków", "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby raportować liczbę zarejestrowanych członków." },
+      "supportOperations": { "label": "Operacje wsparcia", "dataType": "Kolejka wsparcia i sygnały SLA", "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby wskazywać sprawy wsparcia zbliżające się do ryzyka SLA." },
+      "memberVerification": { "label": "Weryfikacja członków", "dataType": "Status kolejki weryfikacji", "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby pokazać oczekującą weryfikację członków." }
+    },
+    "scopes": {
+      "communityMembersRead": "Wyświetl rejestr członków",
+      "memberCountRead": "Wyświetl liczbę członków",
+      "supportQueueRead": "Wyświetl metryki kolejki wsparcia",
+      "verificationQueueRead": "Wyświetl kolejkę weryfikacji"
+    }
   }
 }

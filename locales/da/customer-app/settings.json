@@ -90,6 +90,10 @@
           "3": {
             "href": "/app/settings/governance",
             "label": "Trust controls"
+          },
+          "4": {
+            "href": "/app/settings/organization-access",
+            "label": "Godkendelse af organisationstilgang"
           }
         }
       },
@@ -228,6 +232,7 @@
       "twoFactor": "Loginbekræftelse (2FA)",
       "devicesPrinters": "Enheder og printere",
       "actionAccess": "Handlingsadgang",
+      "organizationAccess": "Godkendelse af organisationstilgang",
       "packagesAccess": "Pakker og adgang",
       "aipifyInstall": "Aipify Install",
       "firstDayExperience": "Første dag-oplevelse",
@@ -5827,5 +5832,96 @@
     "paymentProvider": "Payment provider",
     "requiredField": "Required field",
     "businessNumberRequired": "Business number is required for business customers."
+  },
+  "organizationAccessApproval": {
+    "title": "Godkendelse af organisationstilgang",
+    "subtitle": "Gennemgå og godkend anmodninger om leverandøradgang for din organisation.",
+    "back": "Tilbage til indstillinger",
+    "loading": "Forbereder adgangsanmodninger…",
+    "empty": "Ingen ventende adgangsanmodninger.",
+    "employee": {
+      "noAuthorityMessage": "Du har desværre ikke myndighed til at godkende denne adgang på organisationens vegne. En organisationsejer eller autoriseret administrator skal godkende anmodningen i APP-panelet. Jeg kan sende anmodningen til den rette godkender for dig.",
+      "providerContext": "Anmodningen vedrører {provider}.",
+      "panelNote": "Du kan sende adgangsanmodninger her. Godkendelse kræver organisationsejer eller autoriseret administrator.",
+      "actions": {
+        "submit": "Send anmodning",
+        "cancel": "Annuller"
+      }
+    },
+    "create": {
+      "title": "Send adgangsanmodning",
+      "description": "Gennemgå detaljerne nedenfor og send anmodningen til organisationens godkender.",
+      "submitted": "Adgangsanmodningen er sendt til godkenderen.",
+      "failed": "Kunne ikke sende adgangsanmodningen. Prøv igen."
+    },
+    "review": {
+      "pendingTitle": "Ventende anmodninger",
+      "fields": {
+        "provider": "Hvad Aipify ønsker adgang til",
+        "dataType": "Datatype",
+        "whyNeeded": "Hvorfor adgangen er nødvendig",
+        "scope": "Anmodet omfang",
+        "accessMode": "Adgangstype",
+        "duration": "Varighed",
+        "risk": "Risikoniveau",
+        "requester": "Anmodet af"
+      },
+      "accessMode": {
+        "oneTime": "Engangsadgang",
+        "ongoing": "Løbende adgang"
+      },
+      "durationOpenEnded": "Indtil den tilbagekaldes",
+      "durationHours": "{hours} timer",
+      "riskLevels": {
+        "0": "Informativ",
+        "1": "Lav",
+        "2": "Moderat",
+        "3": "Følsom — ekstra bekræftelse påkrævet"
+      },
+      "requester": "Anmodet af {name}",
+      "afterApprovalDetail": "Efter godkendelse aktiverer Aipify kun det anmodede omfang og fortsætter den oprindelige handling, når det er sikkert.",
+      "afterApproval": "Efter godkendelse",
+      "actions": {
+        "approve": "Godkend",
+        "deny": "Afvis"
+      },
+      "approved": "Adgangsanmodningen er godkendt.",
+      "denied": "Adgangsanmodningen er afvist."
+    },
+    "status": {
+      "pending": "Afventer",
+      "approved": "Godkendt",
+      "denied": "Afvist",
+      "cancelled": "Annulleret"
+    },
+    "providers": {
+      "generic": { "label": "Tilknyttet leverandør" },
+      "communityMemberDirectory": {
+        "label": "Medlemsregister",
+        "dataType": "Medlemsregisterdata",
+        "whyNeeded": "Aipify har brug for læseadgang for at besvare medlemsspørgsmål præcist."
+      },
+      "memberCount": {
+        "label": "Medlemstal",
+        "dataType": "Aggregerede medlemstal",
+        "whyNeeded": "Aipify har brug for læseadgang for at rapportere, hvor mange medlemmer der er registreret."
+      },
+      "supportOperations": {
+        "label": "Supportdrift",
+        "dataType": "Supportkø og SLA-signaler",
+        "whyNeeded": "Aipify har brug for læseadgang for at fremhæve supportsager med SLA-risiko."
+      },
+      "memberVerification": {
+        "label": "Medlemsverificering",
+        "dataType": "Status for verificeringskø",
+        "whyNeeded": "Aipify har brug for læseadgang for at vise ventende medlemsverificering."
+      }
+    },
+    "scopes": {
+      "communityMembersRead": "Vis medlemsregister",
+      "memberCountRead": "Vis medlemstal",
+      "supportQueueRead": "Vis supportkømålinger",
+      "verificationQueueRead": "Vis verificeringskø"
+    }
   }
 }

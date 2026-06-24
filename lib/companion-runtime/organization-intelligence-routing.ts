@@ -39,6 +39,10 @@ import { executeSupportQueueRead, type SupportProviderReader } from "./support-r
 import { executeVerificationQueueRead } from "./verification-read-orchestrator";
 import { createVerificationReadProviderBridge } from "./verification-read-provider-bridge";
 import type { CompanionTenantContext } from "./companion-tenant-context";
+import {
+  buildOrganizationAccessRequiredAnswer,
+  resolveAccessOfferFromCapability,
+} from "./organization-access-approval-bridge";
 
 const PENDING_VERIFICATION_STATUSES = new Set([
   "pending",
@@ -153,9 +157,13 @@ async function resolveMemberDirectoryAnswer(
   const permission = buildMemberDirectoryPermission(input.tenantContext, readiness.provider_active);
   if (!permission.can_view_community) {
     return {
-      answer: buildOrganizationIntelligenceGapAnswer(input.t, "permission_required", {
-        sourceReference: readiness.source_reference,
-        capabilityKey: intent.capability_key,
+      answer: buildOrganizationAccessRequiredAnswer({
+        t: input.t,
+        offer: resolveAccessOfferFromCapability({
+          provider_key: intent.provider_key,
+          capability_key: intent.capability_key,
+          execution_kind: intent.kind,
+        }),
       }),
     };
   }
@@ -418,9 +426,13 @@ async function resolveSupportSlaAnswer(
   const supportPermission = buildSupportPermission(input.tenantContext, bundle.source_exact);
   if (!supportPermission.can_read_sla) {
     return {
-      answer: buildOrganizationIntelligenceGapAnswer(input.t, "permission_required", {
-        sourceReference: readiness.source_reference,
-        capabilityKey: intent.capability_key,
+      answer: buildOrganizationAccessRequiredAnswer({
+        t: input.t,
+        offer: resolveAccessOfferFromCapability({
+          provider_key: intent.provider_key,
+          capability_key: intent.capability_key,
+          execution_kind: intent.kind,
+        }),
       }),
     };
   }

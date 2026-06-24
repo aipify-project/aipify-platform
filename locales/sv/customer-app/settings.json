@@ -90,6 +90,10 @@
           "3": {
             "href": "/app/settings/governance",
             "label": "Trust controls"
+          },
+          "4": {
+            "href": "/app/settings/organization-access",
+            "label": "Godkännande av organisationstillgång"
           }
         }
       },
@@ -228,6 +232,7 @@
       "twoFactor": "Inloggningsverifiering (2FA)",
       "devicesPrinters": "Enheter och skrivare",
       "actionAccess": "Åtgärdsåtkomst",
+      "organizationAccess": "Godkännande av organisationstillgång",
       "packagesAccess": "Paket och åtkomst",
       "aipifyInstall": "Aipify Install",
       "firstDayExperience": "Första dagen-upplevelse",
@@ -5827,5 +5832,96 @@
     "paymentProvider": "Payment provider",
     "requiredField": "Required field",
     "businessNumberRequired": "Business number is required for business customers."
+  },
+  "organizationAccessApproval": {
+    "title": "Godkännande av organisationstillgång",
+    "subtitle": "Granska och godkänn begäranden om leverantörstillgång för din organisation.",
+    "back": "Tillbaka till inställningar",
+    "loading": "Förbereder åtkomstbegäranden…",
+    "empty": "Inga väntande åtkomstbegäranden.",
+    "employee": {
+      "noAuthorityMessage": "Du har tyvärr inte behörighet att godkänna denna åtkomst för organisationens räkning. En organisationsägare eller auktoriserad administratör måste godkänna begäran i APP-panelen. Jag kan skicka begäran till rätt godkännare åt dig.",
+      "providerContext": "Begäran gäller {provider}.",
+      "panelNote": "Du kan skicka åtkomstbegäranden här. Godkännande kräver organisationsägare eller auktoriserad administratör.",
+      "actions": {
+        "submit": "Skicka begäran",
+        "cancel": "Avbryt"
+      }
+    },
+    "create": {
+      "title": "Skicka åtkomstbegäran",
+      "description": "Granska uppgifterna nedan och skicka begäran till organisationens godkännare.",
+      "submitted": "Åtkomstbegäran har skickats till godkännaren.",
+      "failed": "Kunde inte skicka åtkomstbegäran. Försök igen."
+    },
+    "review": {
+      "pendingTitle": "Väntande begäranden",
+      "fields": {
+        "provider": "Vad Aipify behöver åtkomst till",
+        "dataType": "Datatyp",
+        "whyNeeded": "Varför åtkomst behövs",
+        "scope": "Begärt omfång",
+        "accessMode": "Åtkomsttyp",
+        "duration": "Varaktighet",
+        "risk": "Risknivå",
+        "requester": "Begärd av"
+      },
+      "accessMode": {
+        "oneTime": "Engångsåtkomst",
+        "ongoing": "Löpande åtkomst"
+      },
+      "durationOpenEnded": "Tills den återkallas",
+      "durationHours": "{hours} timmar",
+      "riskLevels": {
+        "0": "Informativ",
+        "1": "Låg",
+        "2": "Måttlig",
+        "3": "Känslig — extra bekräftelse krävs"
+      },
+      "requester": "Begärd av {name}",
+      "afterApprovalDetail": "Efter godkännande aktiverar Aipify endast det begärda omfånget och fortsätter den ursprungliga åtgärden när det är säkert.",
+      "afterApproval": "Efter godkännande",
+      "actions": {
+        "approve": "Godkänn",
+        "deny": "Avslå"
+      },
+      "approved": "Åtkomstbegäran godkänd.",
+      "denied": "Åtkomstbegäran avslagen."
+    },
+    "status": {
+      "pending": "Väntande",
+      "approved": "Godkänd",
+      "denied": "Avslagen",
+      "cancelled": "Avbruten"
+    },
+    "providers": {
+      "generic": { "label": "Ansluten leverantör" },
+      "communityMemberDirectory": {
+        "label": "Medlemsregister",
+        "dataType": "Medlemsregisterdata",
+        "whyNeeded": "Aipify behöver läsåtkomst för att svara korrekt på medlemsfrågor."
+      },
+      "memberCount": {
+        "label": "Medlemsantal",
+        "dataType": "Aggregerade medlemssiffror",
+        "whyNeeded": "Aipify behöver läsåtkomst för att rapportera hur många medlemmar som är registrerade."
+      },
+      "supportOperations": {
+        "label": "Supportdrift",
+        "dataType": "Supportkö och SLA-signaler",
+        "whyNeeded": "Aipify behöver läsåtkomst för att lyfta fram supportärenden med SLA-risk."
+      },
+      "memberVerification": {
+        "label": "Medlemsverifiering",
+        "dataType": "Status för verifieringskö",
+        "whyNeeded": "Aipify behöver läsåtkomst för att visa väntande medlemsverifiering."
+      }
+    },
+    "scopes": {
+      "communityMembersRead": "Visa medlemsregister",
+      "memberCountRead": "Visa medlemssiffror",
+      "supportQueueRead": "Visa supportkömätningar",
+      "verificationQueueRead": "Visa verifieringskö"
+    }
   }
 }

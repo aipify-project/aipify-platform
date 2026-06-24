@@ -8,6 +8,10 @@ import {
   searchCanonicalKnowledgeCenter,
 } from "./knowledge-sources";
 import { buildOrganizationIntelligenceGapAnswer } from "./organization-intelligence-answer";
+import {
+  buildOrganizationAccessRequiredAnswer,
+  resolveAccessOfferFromCapability,
+} from "./organization-access-approval-bridge";
 import type { CompanionExplicitIntent } from "./companion-explicit-intent";
 import type { CompanionTenantContext } from "./companion-tenant-context";
 import { assessOrganizationCapabilityReadiness } from "./organization-capability-resolution";
@@ -72,9 +76,13 @@ export async function buildCompanionExplicitIntentAnswer(input: {
     });
 
     if (readiness.status === "permission_required") {
-      return buildOrganizationIntelligenceGapAnswer(input.t, "permission_required", {
-        sourceReference: readiness.source_reference,
-        capabilityKey: verificationIntent.capability_key,
+      return buildOrganizationAccessRequiredAnswer({
+        t: input.t,
+        offer: resolveAccessOfferFromCapability({
+          provider_key: "member_verification",
+          capability_key: verificationIntent.capability_key,
+          execution_kind: "member_pending_verification",
+        }),
       });
     }
 

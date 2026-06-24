@@ -90,6 +90,10 @@
           "3": {
             "href": "/app/settings/governance",
             "label": "Trust controls"
+          },
+          "4": {
+            "href": "/app/settings/organization-access",
+            "label": "Organization access approval"
           }
         }
       },
@@ -259,6 +263,7 @@
       "twoFactor": "Sign-in verification (2FA)",
       "devicesPrinters": "Devices & printers",
       "actionAccess": "Action access",
+      "organizationAccess": "Organization access approval",
       "packagesAccess": "Packages & Access",
       "aipifyInstall": "Aipify Install",
       "firstDayExperience": "First Day Experience",
@@ -5847,5 +5852,98 @@
     "version": "Version",
     "upcoming": "Upcoming",
     "completed": "Completed"
+  },
+  "organizationAccessApproval": {
+    "title": "Organization access approval",
+    "subtitle": "Review and approve provider access requests for your organization.",
+    "back": "Back to settings",
+    "loading": "Preparing access requests…",
+    "empty": "No pending access requests.",
+    "employee": {
+      "noAuthorityMessage": "Sorry, you do not have authority to approve this access on behalf of the organization. An organization owner or authorized administrator must approve the request in the APP panel. I can send the request to the right approver for you.",
+      "providerContext": "This request relates to {provider}.",
+      "panelNote": "You can submit access requests here. Approval requires an organization owner or authorized administrator.",
+      "actions": {
+        "submit": "Send request",
+        "cancel": "Cancel"
+      }
+    },
+    "create": {
+      "title": "Send access request",
+      "description": "Review the details below and send the request to your organization approver.",
+      "submitted": "Access request sent to your organization approver.",
+      "failed": "Could not send the access request. Please try again."
+    },
+    "review": {
+      "pendingTitle": "Pending requests",
+      "fields": {
+        "provider": "What Aipify needs access to",
+        "dataType": "Data type",
+        "whyNeeded": "Why access is needed",
+        "scope": "Requested scope",
+        "accessMode": "Access type",
+        "duration": "Duration",
+        "risk": "Risk level",
+        "requester": "Requested by"
+      },
+      "accessMode": {
+        "oneTime": "One-time access",
+        "ongoing": "Ongoing access"
+      },
+      "durationOpenEnded": "Open-ended until revoked",
+      "durationHours": "{hours} hours",
+      "riskLevels": {
+        "0": "Informational",
+        "1": "Low",
+        "2": "Moderate",
+        "3": "Sensitive — extra confirmation required"
+      },
+      "requester": "Requested by {name}",
+      "afterApprovalDetail": "After approval, Aipify activates only the requested scope and continues the original action when safe.",
+      "afterApproval": "After approval",
+      "actions": {
+        "approve": "Approve",
+        "deny": "Deny"
+      },
+      "approved": "Access request approved.",
+      "denied": "Access request denied."
+    },
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "denied": "Denied",
+      "cancelled": "Cancelled"
+    },
+    "providers": {
+      "generic": {
+        "label": "Connected provider"
+      },
+      "communityMemberDirectory": {
+        "label": "Member directory",
+        "dataType": "Member directory records",
+        "whyNeeded": "Aipify needs read access to answer member directory questions accurately."
+      },
+      "memberCount": {
+        "label": "Member count",
+        "dataType": "Aggregate member totals",
+        "whyNeeded": "Aipify needs read access to report how many members are registered."
+      },
+      "supportOperations": {
+        "label": "Support operations",
+        "dataType": "Support queue and SLA signals",
+        "whyNeeded": "Aipify needs read access to highlight support cases approaching SLA risk."
+      },
+      "memberVerification": {
+        "label": "Member verification",
+        "dataType": "Verification queue status",
+        "whyNeeded": "Aipify needs read access to show pending member verification status."
+      }
+    },
+    "scopes": {
+      "communityMembersRead": "View member directory",
+      "memberCountRead": "View member totals",
+      "supportQueueRead": "View support queue metrics",
+      "verificationQueueRead": "View verification queue"
+    }
   }
 }
