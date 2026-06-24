@@ -32,13 +32,16 @@ import {
 } from "@/lib/presence/notification-sound-settings";
 import { parsePresenceNotificationPreferences } from "@/lib/presence/unified-notification-feed/preferences";
 import { primeSoftBellAudio } from "@/lib/presence/unified-notification-feed/sound-policy";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
 
 type SaveState = "idle" | "saving" | "saved" | "error";
 
 type NotificationSettingsSectionProps = {
   labels: NotificationSettingsPageLabels;
-  initialPreferences?: PresenceNotificationPreferences | null;
+  organizationKey: string | null;
+  organizationName?: string | null;
   onPreferencesSaved?: (preferences: PresenceNotificationPreferences) => void;
 };
 
@@ -63,23 +66,23 @@ function draftToEffective(
 
 export function NotificationSettingsSection({
   labels,
-  initialPreferences = null,
+  organizationKey,
+  organizationName = null,
   onPreferencesSaved,
 }: NotificationSettingsSectionProps) {
-  const [basePreferences, setBasePreferences] = useState<PresenceNotificationPreferences | null>(
-    initialPreferences,
-  );
-  const [draft, setDraft] = useState<NotificationSettingsToggleState | null>(
-    initialPreferences ? notificationPrefsToToggleState(initialPreferences) : null,
-  );
-  const [loading, setLoading] = useState(!initialPreferences);
+  const [basePreferences, setBasePreferences] = useState<PresenceNotificationPreferences | null>(null);
+  const [draft, setDraft] = useState<NotificationSettingsToggleState | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [testResult, setTestResult] = useState<NotificationSoundTestResult | null>(null);
   const saveTimerRef = useRef<number | null>(null);
   const savedTimerRef = useRef<number | null>(null);
 
   const loadPreferences = useCallback(async () => {
+    if (!organizationKey) return;
     setLoading(true);
+    setLoadFailed(false);
     try {
       const res = await fetch("/api/presence/preferences", { cache: "no-store" });
       if (!res.ok) throw new Error("load_failed");
@@ -88,21 +91,18 @@ export function NotificationSettingsSection({
       setBasePreferences(parsed);
       setDraft(notificationPrefsToToggleState(parsed));
     } catch {
-      setSaveState("error");
+      setLoadFailed(true);
+      setBasePreferences(null);
+      setDraft(null);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [organizationKey]);
 
   useEffect(() => {
-    if (!initialPreferences) {
-      void loadPreferences();
-      return;
-    }
-    setBasePreferences(initialPreferences);
-    setDraft(notificationPrefsToToggleState(initialPreferences));
-    setLoading(false);
-  }, [initialPreferences, loadPreferences]);
+    if (!organizationKey) return;
+    void loadPreferences();
+  }, [organizationKey, loadPreferences]);
 
   useEffect(() => {
     return () => {
@@ -188,12 +188,29 @@ export function NotificationSettingsSection({
     void runNotificationSoundTestAsync(effectivePreferences).then(setTestResult);
   }
 
-  if (loading || !draft) {
+  if (loading) {
     return (
       <section
         id="notification-sound-settings"
-        className="rounded-xl border border-aipify-border bg-white p-5 shadow-sm"
+        className="flex min-h-[320px] items-center justify-center rounded-xl border border-aipify-border bg-white p-5 shadow-sm"
         aria-busy="true"
+      >
+        <AipifyLoader centered />
+      </section>
+    );
+  }
+
+  if (loadFailed || !draft) {
+    return (
+      <PlatformEmptyState
+        title={labels.contextGate.pageLoadError}
+        message={labels.contextGate.organizationMissing}
+        primaryAction={{
+          label: labels.contextGate.retry,
+          onClick: () => {
+            void loadPreferences();
+          },
+        }}
       />
     );
   }
@@ -210,6 +227,11 @@ export function NotificationSettingsSection({
       <header className="space-y-1">
         <h2 className="text-lg font-semibold text-aipify-text">{labels.settingsSectionTitle}</h2>
         <p className="text-sm text-aipify-text-secondary">{labels.settingsSectionDescription}</p>
+        {organizationName ? (
+          <p className="text-xs font-medium text-aipify-text-secondary">
+            {labels.activeOrganization.replace("{name}", organizationName)}
+          </p>
+        ) : null}
         <p className="text-xs text-aipify-text-muted">{labels.browserHint}</p>
         {saveState === "saving" ? (
           <p className="text-sm text-aipify-text-secondary">{labels.saving}</p>

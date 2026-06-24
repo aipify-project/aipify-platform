@@ -166,6 +166,16 @@
       "quietHoursEnd": "Stilletid slutter",
       "testSound": "Test lyd",
       "testSoundHint": "Bruker samme lyd som live varsler. Oppretter ikke et varsel.",
+      "activeOrganization": "Aktiv organisasjon: {name}",
+      "contextGate": {
+        "organizationMissing": "Organisasjonskontekst mangler. Åpne arbeidsområdet i APP før du endrer varslingsinnstillinger.",
+        "pageLoadError": "Varslingsinnstillingene kunne ikke lastes for dette arbeidsområdet. Prøv igjen om litt.",
+        "accessDenied": "Varslingsinnstillinger er ikke tilgjengelige for denne kontoen.",
+        "subscriptionRequired": "Et aktivt abonnement kreves før varslingsinnstillinger kan lastes.",
+        "permissionMissing": "Du har ikke tilgang til varslingsinnstillinger for dette arbeidsområdet.",
+        "entitlementLocked": "Varslingsinnstillinger krever en lisensiert arbeidsområdemodul.",
+        "retry": "Prøv igjen"
+      },
       "toggleOn": "På",
       "toggleOff": "Av",
       "save": "Lagre varslingslyd-innstillinger",
@@ -184,11 +194,22 @@
         "played": "Testlyd spilt.",
         "blocked": "Nettleseren blokkerte testlyden.",
         "disabled": "Lyd er deaktivert i innstillingene dine.",
-        "quietHours": "Stilletid er aktiv — testlyd undertrykt."
+        "quietHours": "Stilletid er aktiv — testlyd undertrykt.",
+        "contextUnavailable": "Kunne ikke opprette lydkontekst."
       },
       "manageFromDrawer": "Administrer varslingsinnstillinger"
     },
     "notificationInbox": {
+      "activeOrganization": "Aktiv organisasjon: {name}",
+      "contextGate": {
+        "organizationMissing": "Organisasjonskontekst mangler. Åpne arbeidsområdet i APP før du ser varsler.",
+        "pageLoadError": "Varsler kunne ikke lastes for dette arbeidsområdet. Prøv igjen om litt.",
+        "accessDenied": "Varsler er ikke tilgjengelige for denne kontoen.",
+        "subscriptionRequired": "Et aktivt abonnement kreves før varsler kan lastes.",
+        "permissionMissing": "Du har ikke tilgang til varsler for dette arbeidsområdet.",
+        "entitlementLocked": "Varsler krever en lisensiert arbeidsområdemodul.",
+        "retry": "Prøv igjen"
+      },
       "filters": {
         "unread": "Uleste",
         "all": "Alle",

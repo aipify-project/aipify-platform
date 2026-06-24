@@ -31,6 +31,8 @@ import {
 import type { PresenceNotification } from "@/lib/presence/notification-state";
 import type { PresenceNotificationLevel } from "@/lib/presence/notifications";
 import { useOptionalUnifiedNotificationFeed } from "@/components/presence/UnifiedNotificationFeedProvider";
+import { NotificationOrganizationGate } from "@/components/app/notifications/NotificationOrganizationGate";
+import { useNotificationOrganizationGate } from "@/components/app/notifications/useNotificationOrganizationGate";
 
 function eventTypeLabel(
   labels: NotificationInboxPageLabels,
@@ -75,6 +77,7 @@ type NotificationInboxPanelProps = {
 export function NotificationInboxPanel({ labels, locale }: NotificationInboxPanelProps) {
   const router = useRouter();
   const feed = useOptionalUnifiedNotificationFeed();
+  const orgGate = useNotificationOrganizationGate();
   const [filter, setFilter] = useState<NotificationInboxFilter>("unread");
   const [items, setItems] = useState<PresenceNotification[]>([]);
   const [counts, setCounts] = useState({ unread: 0, all: 0, archived: 0 });
@@ -111,8 +114,9 @@ export function NotificationInboxPanel({ labels, locale }: NotificationInboxPane
   );
 
   useEffect(() => {
+    if (!orgGate.isReady || !orgGate.organizationKey) return;
     void loadPage("unread", 0, false);
-  }, [loadPage]);
+  }, [loadPage, orgGate.isReady, orgGate.organizationKey]);
 
   const setPending = useCallback((notificationId: string, pending: boolean) => {
     setPendingIds((current) => {
@@ -244,6 +248,11 @@ export function NotificationInboxPanel({ labels, locale }: NotificationInboxPane
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-aipify-text">{labels.title}</h1>
           <p className="mt-1 text-sm text-aipify-text-secondary">{labels.subtitle}</p>
+          {orgGate.isReady && orgGate.organizationName ? (
+            <p className="mt-2 text-sm text-aipify-text-secondary">
+              {labels.activeOrganization.replace("{name}", orgGate.organizationName)}
+            </p>
+          ) : null}
         </div>
         <Link
           href="/app/account/notification-settings"
@@ -252,6 +261,16 @@ export function NotificationInboxPanel({ labels, locale }: NotificationInboxPane
           {labels.manageSettingsLink}
         </Link>
       </header>
+
+      <NotificationOrganizationGate
+        loading={orgGate.loading}
+        isReady={orgGate.isReady}
+        accessMessageKey={orgGate.accessMessageKey}
+        messages={labels.contextGate}
+        onRetry={() => {
+          void orgGate.refresh();
+        }}
+      >
 
       <div className="flex flex-col gap-3 rounded-xl border border-aipify-border bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-wrap gap-2">
@@ -404,6 +423,7 @@ export function NotificationInboxPanel({ labels, locale }: NotificationInboxPane
           </button>
         </div>
       ) : null}
+      </NotificationOrganizationGate>
     </div>
   );
 }

@@ -61,6 +61,7 @@ export function buildNotificationSoundSettingsLabels(
       blocked: t(`${BASE}.testResult.blocked`),
       disabled: t(`${BASE}.testResult.disabled`),
       quiet_hours: t(`${BASE}.testResult.quietHours`),
+      context_unavailable: t(`${BASE}.testResult.contextUnavailable`),
     },
     manageFromDrawer: t(`${BASE}.manageFromDrawer`),
   };

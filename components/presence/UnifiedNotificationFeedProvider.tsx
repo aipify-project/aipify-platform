@@ -36,6 +36,11 @@ import {
 } from "@/lib/presence/unified-notification-feed";
 import { patchNotificationArchivedLocally, patchNotificationReadLocally } from "@/lib/app/notifications/inbox";
 import {
+  isNotificationOrganizationReady,
+  resolveNotificationOrganizationKey,
+} from "@/lib/app/notifications/organization-context-gate";
+import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
+import {
   applyActiveCompanionSeenSync,
 } from "@/lib/presence/unified-notification-feed/companion-seen-sync";
 import { getCompanionActiveSession } from "@/lib/presence/unified-notification-feed/companion-active-session";
@@ -97,7 +102,10 @@ export function UnifiedNotificationFeedProvider({
   const [toastNotification, setToastNotification] = useState<PresenceNotification | null>(null);
   const [preferences, setPreferences] = useState<PresenceNotificationPreferences | null>(null);
 
-  const orgReadyRef = useRef<boolean | null>(null);
+  const orgContextRef = useRef<{ key: string | null; ready: boolean }>({
+    key: null,
+    ready: false,
+  });
   const knownIdsRef = useRef<Set<string>>(new Set());
   const previousUnreadRef = useRef(0);
   const pulseTimerRef = useRef<number | null>(null);
@@ -112,27 +120,43 @@ export function UnifiedNotificationFeedProvider({
     preferencesRef.current = preferences;
   }, [preferences]);
 
-  const ensureOrgReady = useCallback(async (): Promise<boolean> => {
-    if (orgReadyRef.current === true) return true;
-    if (orgReadyRef.current === false) return false;
+  const resetFeedForOrganizationChange = useCallback(() => {
+    knownIdsRef.current.clear();
+    initializedRef.current = false;
+    playedSoundIdsRef.current.clear();
+    suppressedToastIdsRef.current.clear();
+    setNotifications([]);
+    setUnreadCount(0);
+    setToastNotification(null);
+    setPreferences(null);
+    preferencesRef.current = null;
+  }, []);
 
+  const ensureOrgReady = useCallback(async (): Promise<boolean> => {
     try {
       const res = await fetch("/api/app/organization-context", { cache: "no-store" });
       if (!res.ok) {
-        orgReadyRef.current = false;
+        orgContextRef.current = { key: null, ready: false };
         return false;
       }
-      const body = (await res.json()) as { state?: string; has_app_access?: boolean };
-      const ready = body.state === "ready" && body.has_app_access === true;
-      orgReadyRef.current = ready;
+      const context = parseAppOrganizationContext(await res.json());
+      const organizationKey = resolveNotificationOrganizationKey(context);
+      const ready = isNotificationOrganizationReady(context);
+
+      if (orgContextRef.current.key !== organizationKey) {
+        resetFeedForOrganizationChange();
+      }
+
+      orgContextRef.current = { key: organizationKey, ready };
       return ready;
     } catch {
-      orgReadyRef.current = false;
+      orgContextRef.current = { key: null, ready: false };
       return false;
     }
-  }, []);
+  }, [resetFeedForOrganizationChange]);
 
   const loadPreferences = useCallback(async (): Promise<PresenceNotificationPreferences | null> => {
+    if (!(await ensureOrgReady())) return null;
     try {
       const res = await fetch("/api/presence/preferences", { cache: "no-store" });
       if (!res.ok) return null;
@@ -143,7 +167,7 @@ export function UnifiedNotificationFeedProvider({
     } catch {
       return null;
     }
-  }, []);
+  }, [ensureOrgReady]);
 
   const refreshPreferences = useCallback(async () => {
     await loadPreferences();

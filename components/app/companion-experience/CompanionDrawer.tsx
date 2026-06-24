@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { stopAllMediaCaptureTracks } from "@/lib/presence/unified-notification-feed/media-capture-registry";
 import {
   useCompanionExperience,
   useCompanionPanelKeepMounted,
@@ -20,6 +21,11 @@ export function CompanionDrawer() {
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [open, closeDrawer]);
+
+  useEffect(() => {
+    if (open) return;
+    stopAllMediaCaptureTracks("companion_drawer_closed");
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;

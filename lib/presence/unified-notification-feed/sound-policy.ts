@@ -2,12 +2,18 @@ import { meetsMinimumLevel, type PresenceNotificationLevel } from "@/lib/presenc
 import type { PresenceNotificationPreferences } from "@/lib/presence/notification-state";
 import { shouldDeliverNotification } from "@/lib/presence/quiet-hours";
 import type { PresenceNotification } from "@/lib/presence/notification-state";
+import { logAudioSessionDiagnostic } from "@/lib/presence/unified-notification-feed/audio-session-diagnostics";
+import { getMediaCaptureDiagnostics } from "@/lib/presence/unified-notification-feed/media-capture-registry";
 
 const BELL_DEBOUNCE_MS = 750;
+const BELL_IDLE_SUSPEND_MS = 450;
 
 let sharedAudioContext: AudioContext | null = null;
 let audioPrimed = false;
 let lastBellPlayedAt = 0;
+let idleSuspendTimer: ReturnType<typeof setTimeout> | null = null;
+let activeBellNodes: { oscillator: OscillatorNode; gain: GainNode } | null = null;
+let activeContextInstances = 0;
 
 function getAudioContextCtor(): typeof AudioContext | null {
   if (typeof window === "undefined") return null;
@@ -18,39 +24,90 @@ function getAudioContextCtor(): typeof AudioContext | null {
   );
 }
 
-function getSharedAudioContext(): AudioContext | null {
+function peekBellAudioContext(): AudioContext | null {
+  if (!sharedAudioContext || sharedAudioContext.state === "closed") return null;
+  return sharedAudioContext;
+}
+
+function acquireBellAudioContext(): AudioContext | null {
   const AudioContextCtor = getAudioContextCtor();
   if (!AudioContextCtor) return null;
-  if (!sharedAudioContext) {
+
+  if (!sharedAudioContext || sharedAudioContext.state === "closed") {
     sharedAudioContext = new AudioContextCtor();
+    activeContextInstances += 1;
+    logAudioSessionDiagnostic("context_created", {
+      activeContextInstances,
+      state: sharedAudioContext.state,
+      activeTrackCount: getMediaCaptureDiagnostics().activeTrackCount,
+      microphoneActive: getMediaCaptureDiagnostics().microphoneActive,
+    });
   }
+
   return sharedAudioContext;
+}
+
+function releaseActiveBellNodes(): void {
+  if (!activeBellNodes) return;
+  try {
+    activeBellNodes.oscillator.disconnect();
+    activeBellNodes.gain.disconnect();
+  } catch {
+    // Nodes may already be disconnected after stop().
+  }
+  activeBellNodes = null;
+  logAudioSessionDiagnostic("bell_released", {
+    contextState: peekBellAudioContext()?.state ?? "none",
+  });
+}
+
+function scheduleIdleSuspend(context: AudioContext): void {
+  if (idleSuspendTimer) {
+    clearTimeout(idleSuspendTimer);
+  }
+  idleSuspendTimer = setTimeout(() => {
+    idleSuspendTimer = null;
+    if (context.state !== "running") return;
+    void context
+      .suspend()
+      .then(() => {
+        logAudioSessionDiagnostic("context_suspended", {
+          reason: "idle_after_bell",
+          state: context.state,
+        });
+      })
+      .catch(() => {
+        // Suspend is best-effort — never block UI.
+      });
+  }, BELL_IDLE_SUSPEND_MS);
 }
 
 export function getNotificationAudioContextState(): {
   supported: boolean;
   primed: boolean;
-  state: AudioContextState | "unsupported";
+  state: AudioContextState | "unsupported" | "idle";
+  activeContextInstances: number;
 } {
-  const context = getSharedAudioContext();
+  const context = peekBellAudioContext();
   if (!context) {
-    return { supported: false, primed: audioPrimed, state: "unsupported" };
+    return {
+      supported: getAudioContextCtor() !== null,
+      primed: audioPrimed,
+      state: getAudioContextCtor() ? "idle" : "unsupported",
+      activeContextInstances,
+    };
   }
-  return { supported: true, primed: audioPrimed, state: context.state };
+  return {
+    supported: true,
+    primed: audioPrimed,
+    state: context.state,
+    activeContextInstances,
+  };
 }
 
-/** Resume audio after the first user gesture when the browser requires it. */
+/** Records a user gesture without creating or resuming an AudioContext. */
 export function primeSoftBellAudio(): void {
-  try {
-    const context = getSharedAudioContext();
-    if (!context) return;
-    if (context.state === "suspended") {
-      void context.resume();
-    }
-    audioPrimed = true;
-  } catch {
-    // Sound is optional — keep the pulse without surfacing errors.
-  }
+  audioPrimed = true;
 }
 
 function passesQuietHours(
@@ -99,15 +156,31 @@ export function playSoftBellChime(): void {
 }
 
 async function ensureRunningAudioContext(): Promise<AudioContext | null> {
-  const context = getSharedAudioContext();
-  if (!context) return null;
+  const before = peekBellAudioContext()?.state ?? "idle";
+  const context = acquireBellAudioContext();
+  if (!context || context.state === "closed") return null;
 
-  if (context.state === "closed") return null;
+  if (idleSuspendTimer) {
+    clearTimeout(idleSuspendTimer);
+    idleSuspendTimer = null;
+  }
 
-  if (context.state === "suspended") {
+  const initialState = context.state;
+  if (initialState === "suspended") {
     try {
       await context.resume();
+      const afterState = context.state;
+      logAudioSessionDiagnostic("context_resumed", {
+        before,
+        after: afterState,
+        resumeSucceeded: afterState === "running",
+      });
     } catch {
+      logAudioSessionDiagnostic("bell_blocked", {
+        reason: "resume_failed",
+        before,
+        after: context.state,
+      });
       return null;
     }
   }
@@ -122,16 +195,30 @@ export async function playSoftBellChimeAsync(): Promise<boolean> {
   if (now - lastBellPlayedAt < BELL_DEBOUNCE_MS) return true;
 
   try {
-    primeSoftBellAudio();
     const context = await ensureRunningAudioContext();
-    if (!context) return false;
-    return playSoftBellChimeOnContext(context);
+    if (!context) {
+      logAudioSessionDiagnostic("bell_blocked", {
+        reason: "context_unavailable",
+        primed: audioPrimed,
+      });
+      return false;
+    }
+    const played = playSoftBellChimeOnContext(context);
+    if (played) {
+      logAudioSessionDiagnostic("bell_played", {
+        contextState: context.state,
+        activeTrackCount: getMediaCaptureDiagnostics().activeTrackCount,
+        microphoneActive: getMediaCaptureDiagnostics().microphoneActive,
+      });
+    }
+    return played;
   } catch {
+    logAudioSessionDiagnostic("bell_blocked", { reason: "unexpected_error" });
     return false;
   }
 }
 
-/** Synchronous attempt — used after an explicit user gesture when resume may succeed inline. */
+/** Synchronous attempt — used only when an explicit user gesture just occurred. */
 export function playSoftBellChimeWithResult(): boolean {
   if (typeof window === "undefined") return false;
 
@@ -139,17 +226,12 @@ export function playSoftBellChimeWithResult(): boolean {
   if (now - lastBellPlayedAt < BELL_DEBOUNCE_MS) return true;
 
   try {
-    primeSoftBellAudio();
-    const context = getSharedAudioContext();
+    const context = acquireBellAudioContext();
     if (!context || context.state === "closed") return false;
 
     if (context.state === "suspended") {
       if (!audioPrimed) return false;
-      void context.resume().then(() => {
-        if (context.state === "running") {
-          playSoftBellChimeOnContext(context);
-        }
-      });
+      void playSoftBellChimeAsync();
       return false;
     }
 
@@ -164,8 +246,11 @@ function playSoftBellChimeOnContext(context: AudioContext): boolean {
   if (now - lastBellPlayedAt < BELL_DEBOUNCE_MS) return true;
   lastBellPlayedAt = now;
 
+  releaseActiveBellNodes();
+
   const oscillator = context.createOscillator();
   const gain = context.createGain();
+  activeBellNodes = { oscillator, gain };
 
   oscillator.type = "sine";
   oscillator.frequency.setValueAtTime(880, context.currentTime);
@@ -177,6 +262,12 @@ function playSoftBellChimeOnContext(context: AudioContext): boolean {
 
   oscillator.connect(gain);
   gain.connect(context.destination);
+
+  oscillator.onended = () => {
+    releaseActiveBellNodes();
+    scheduleIdleSuspend(context);
+  };
+
   oscillator.start(context.currentTime);
   oscillator.stop(context.currentTime + 0.36);
   return true;

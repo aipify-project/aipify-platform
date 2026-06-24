@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { NotificationSettingsSection } from "@/components/app/account/NotificationSettingsSection";
+import { NotificationOrganizationGate } from "@/components/app/notifications/NotificationOrganizationGate";
+import { useNotificationOrganizationGate } from "@/components/app/notifications/useNotificationOrganizationGate";
 import { useUnifiedNotificationFeed } from "@/components/presence/UnifiedNotificationFeedProvider";
 import type { NotificationSettingsPageLabels } from "@/lib/app/notifications/labels";
 
@@ -11,6 +13,7 @@ type NotificationSettingsPanelProps = {
 
 export function NotificationSettingsPanel({ labels }: NotificationSettingsPanelProps) {
   const feed = useUnifiedNotificationFeed();
+  const orgGate = useNotificationOrganizationGate();
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6 px-4 py-5 sm:px-6">
@@ -25,6 +28,11 @@ export function NotificationSettingsPanel({ labels }: NotificationSettingsPanelP
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
             <p className="mt-1 text-gray-600">{labels.subtitle}</p>
+            {orgGate.isReady && orgGate.organizationName ? (
+              <p className="mt-2 text-sm text-aipify-text-secondary">
+                {labels.activeOrganization.replace("{name}", orgGate.organizationName)}
+              </p>
+            ) : null}
           </div>
           <Link
             href="/app/notifications"
@@ -35,13 +43,24 @@ export function NotificationSettingsPanel({ labels }: NotificationSettingsPanelP
         </div>
       </header>
 
-      <NotificationSettingsSection
-        labels={labels}
-        initialPreferences={feed.preferences}
-        onPreferencesSaved={(preferences) => {
-          feed.applyPreferences(preferences);
+      <NotificationOrganizationGate
+        loading={orgGate.loading}
+        isReady={orgGate.isReady}
+        accessMessageKey={orgGate.accessMessageKey}
+        messages={labels.contextGate}
+        onRetry={() => {
+          void orgGate.refresh();
         }}
-      />
+      >
+        <NotificationSettingsSection
+          labels={labels}
+          organizationKey={orgGate.organizationKey}
+          organizationName={orgGate.organizationName}
+          onPreferencesSaved={(preferences) => {
+            feed.applyPreferences(preferences);
+          }}
+        />
+      </NotificationOrganizationGate>
     </div>
   );
 }

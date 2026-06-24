@@ -14,6 +14,16 @@ export type NotificationSettingsPageLabels = {
   title: string;
   subtitle: string;
   back: string;
+  activeOrganization: string;
+  contextGate: {
+    organizationMissing: string;
+    pageLoadError: string;
+    accessDenied: string;
+    subscriptionRequired: string;
+    permissionMissing: string;
+    entitlementLocked: string;
+    retry: string;
+  };
   settingsSectionTitle: string;
   settingsSectionDescription: string;
   browserHint: string;
@@ -40,6 +50,8 @@ export type NotificationSettingsPageLabels = {
 export type NotificationInboxPageLabels = {
   title: string;
   subtitle: string;
+  activeOrganization: string;
+  contextGate: NotificationSettingsPageLabels["contextGate"];
   filters: {
     unread: string;
     all: string;
@@ -67,11 +79,22 @@ export type NotificationInboxPageLabels = {
 
 export function buildNotificationSettingsPageLabels(t: Translator): NotificationSettingsPageLabels {
   const soundLabels = buildNotificationSoundSettingsLabels(t);
+  const gateBase = "customerApp.settings.notificationSound.contextGate";
 
   return {
     title: t(`${SETTINGS_PAGE}.title`),
     subtitle: t(`${SETTINGS_PAGE}.subtitle`),
     back: t("customerApp.settings.accountPreferences.back"),
+    activeOrganization: t(`${SETTINGS}.activeOrganization`),
+    contextGate: {
+      organizationMissing: t(`${gateBase}.organizationMissing`),
+      pageLoadError: t(`${gateBase}.pageLoadError`),
+      accessDenied: t(`${gateBase}.accessDenied`),
+      subscriptionRequired: t(`${gateBase}.subscriptionRequired`),
+      permissionMissing: t(`${gateBase}.permissionMissing`),
+      entitlementLocked: t(`${gateBase}.entitlementLocked`),
+      retry: t(`${gateBase}.retry`),
+    },
     settingsSectionTitle: t(`${SETTINGS}.settingsSectionTitle`),
     settingsSectionDescription: t(`${SETTINGS}.settingsSectionDescription`),
     browserHint: t(`${SETTINGS}.browserHint`),
@@ -120,10 +143,21 @@ export function buildNotificationSettingsPageLabels(t: Translator): Notification
 
 export function buildNotificationInboxPageLabels(t: Translator): NotificationInboxPageLabels {
   const feedLabels = buildUnifiedNotificationCenterLabels(t);
+  const gateBase = "customerApp.settings.notificationInbox.contextGate";
 
   return {
     title: t(`${INBOX_PAGE}.title`),
     subtitle: t(`${INBOX_PAGE}.subtitle`),
+    activeOrganization: t(`${INBOX}.activeOrganization`),
+    contextGate: {
+      organizationMissing: t(`${gateBase}.organizationMissing`),
+      pageLoadError: t(`${gateBase}.pageLoadError`),
+      accessDenied: t(`${gateBase}.accessDenied`),
+      subscriptionRequired: t(`${gateBase}.subscriptionRequired`),
+      permissionMissing: t(`${gateBase}.permissionMissing`),
+      entitlementLocked: t(`${gateBase}.entitlementLocked`),
+      retry: t(`${gateBase}.retry`),
+    },
     filters: {
       unread: t(`${INBOX}.filters.unread`),
       all: t(`${INBOX}.filters.all`),

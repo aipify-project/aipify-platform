@@ -166,6 +166,16 @@
       "quietHoursEnd": "Quiet hours end",
       "testSound": "Test sound",
       "testSoundHint": "Uses the same chime as live notifications. Does not create a notification.",
+      "activeOrganization": "Active organization: {name}",
+      "contextGate": {
+        "organizationMissing": "Organization context is missing. Open your workspace in the APP before changing notification settings.",
+        "pageLoadError": "Notification settings could not be loaded for this workspace. Try again shortly.",
+        "accessDenied": "Notification settings are not available for this account.",
+        "subscriptionRequired": "An active subscription is required before notification settings can be loaded.",
+        "permissionMissing": "You do not have permission to view notification settings for this workspace.",
+        "entitlementLocked": "Notification settings require an entitled workspace module.",
+        "retry": "Try again"
+      },
       "toggleOn": "On",
       "toggleOff": "Off",
       "save": "Save notification sound settings",
@@ -184,11 +194,22 @@
         "played": "Test sound played.",
         "blocked": "Browser blocked the test sound.",
         "disabled": "Sound is disabled in your settings.",
-        "quietHours": "Quiet hours are active — test sound suppressed."
+        "quietHours": "Quiet hours are active — test sound suppressed.",
+        "contextUnavailable": "Could not create audio context."
       },
       "manageFromDrawer": "Manage notification settings"
     },
     "notificationInbox": {
+      "activeOrganization": "Active organization: {name}",
+      "contextGate": {
+        "organizationMissing": "Organization context is missing. Open your workspace in the APP before viewing notifications.",
+        "pageLoadError": "Notifications could not be loaded for this workspace. Try again shortly.",
+        "accessDenied": "Notifications are not available for this account.",
+        "subscriptionRequired": "An active subscription is required before notifications can be loaded.",
+        "permissionMissing": "You do not have permission to view notifications for this workspace.",
+        "entitlementLocked": "Notifications require an entitled workspace module.",
+        "retry": "Try again"
+      },
       "filters": {
         "unread": "Unread",
         "all": "All",

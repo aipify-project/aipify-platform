@@ -14,7 +14,12 @@ export type NotificationSoundStatus =
   | "browser_blocked"
   | "needs_interaction";
 
-export type NotificationSoundTestResult = "played" | "blocked" | "disabled" | "quiet_hours";
+export type NotificationSoundTestResult =
+  | "played"
+  | "blocked"
+  | "disabled"
+  | "quiet_hours"
+  | "context_unavailable";
 
 function isInAppSoundMuted(prefs: PresenceNotificationPreferences | null): boolean {
   return !prefs?.channel_in_app || prefs.sound_enabled === false;
@@ -35,8 +40,9 @@ export function resolveNotificationSoundStatus(
 
   const audioState = getNotificationAudioContextState();
   if (!audioState.supported) return "browser_blocked";
-  if (audioState.state === "suspended" && !audioState.primed) return "needs_interaction";
+  if (audioState.state === "idle" && !audioState.primed) return "needs_interaction";
   if (audioState.state === "suspended") return "browser_blocked";
+  if (audioState.state === "unsupported") return "browser_blocked";
 
   return "active";
 }
@@ -69,6 +75,10 @@ export async function runNotificationSoundTestAsync(
     !shouldDeliverNotification("informational", prefs, now)
   ) {
     return "quiet_hours";
+  }
+
+  if (!getNotificationAudioContextState().supported) {
+    return "context_unavailable";
   }
 
   primeSoftBellAudio();
