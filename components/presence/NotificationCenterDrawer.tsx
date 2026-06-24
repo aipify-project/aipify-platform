@@ -7,6 +7,7 @@ import type { PresenceNotificationLevel } from "@/lib/presence/notifications";
 import { formatUnreadSummary, type UnifiedNotificationCenterLabels } from "@/lib/presence/unified-notification-feed";
 import { isNotificationUnread } from "@/lib/presence/unified-notification-feed";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
+import { NotificationCenterSoundToggle } from "@/components/presence/NotificationCenterSoundToggle";
 
 const LEVEL_STYLES: Record<PresenceNotificationLevel, string> = {
   informational: "bg-gray-100 text-gray-700",
@@ -138,6 +139,7 @@ export function NotificationCenterDrawer() {
                 {formatUnreadSummary(labels, unreadCount)}
               </p>
             ) : null}
+            <NotificationCenterSoundToggle labels={labels} />
             <Link
               href={labels.manageSettingsHref}
               onClick={closeCenter}

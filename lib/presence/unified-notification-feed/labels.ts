@@ -15,6 +15,9 @@ export type UnifiedNotificationCenterLabels = {
   viewAllHref: string;
   manageSettings: string;
   manageSettingsHref: string;
+  soundToggleLabel: string;
+  soundOn: string;
+  soundOff: string;
   unreadSummary: string;
   ariaBell: string;
   ariaUnread: string;
@@ -46,6 +49,9 @@ export function buildUnifiedNotificationCenterLabels(
     viewAllHref: "/app/notifications",
     manageSettings: t(`${base}.manageSettings`),
     manageSettingsHref: "/app/account/notification-settings",
+    soundToggleLabel: t(`${base}.soundToggleLabel`),
+    soundOn: t(`${base}.soundOn`),
+    soundOff: t(`${base}.soundOff`),
     unreadSummary: t(`${base}.unreadSummary`),
     ariaBell: t(`${base}.ariaBell`),
     ariaUnread: t(`${base}.ariaUnread`),

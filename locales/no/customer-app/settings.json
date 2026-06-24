@@ -191,11 +191,11 @@
         "needsInteraction": "Lyd klar etter brukerinteraksjon"
       },
       "testResult": {
-        "played": "Testlyd spilt.",
-        "blocked": "Nettleseren blokkerte testlyden.",
-        "disabled": "Lyd er deaktivert i innstillingene dine.",
-        "quietHours": "Stilletid er aktiv — testlyd undertrykt.",
-        "contextUnavailable": "Kunne ikke opprette lydkontekst."
+        "played": "✅ Testlyd spilt.",
+        "blocked": "⚠️ Nettleseren blokkerte lyd.",
+        "disabled": "🔒 Varslingslyd er avslått.",
+        "quiet_hours": "⏳ Stilletid er aktiv.",
+        "context_unavailable": "❌ Lydavspilling feilet."
       },
       "manageFromDrawer": "Administrer varslingsinnstillinger"
     },

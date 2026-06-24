@@ -28,13 +28,13 @@ import {
   findUnreadCompanionReplyReady,
   isNotificationUnread,
   parsePresenceNotificationFeed,
-  parsePresenceNotificationPreferences,
   playSoftBellChimeAsync,
   primeSoftBellAudio,
   shouldPlayInAppNotificationSound,
   type UnifiedNotificationCenterLabels,
 } from "@/lib/presence/unified-notification-feed";
 import { patchNotificationArchivedLocally, patchNotificationReadLocally } from "@/lib/app/notifications/inbox";
+import { fetchNotificationPreferences } from "@/lib/app/notifications/load-notification-preferences";
 import {
   isNotificationOrganizationReady,
   resolveNotificationOrganizationKey,
@@ -157,17 +157,34 @@ export function UnifiedNotificationFeedProvider({
 
   const loadPreferences = useCallback(async (): Promise<PresenceNotificationPreferences | null> => {
     if (!(await ensureOrgReady())) return null;
-    try {
-      const res = await fetch("/api/presence/preferences", { cache: "no-store" });
-      if (!res.ok) return null;
-      const data = (await res.json()) as unknown;
-      const parsed = parsePresenceNotificationPreferences(data);
-      setPreferences(parsed);
-      return parsed;
-    } catch {
-      return null;
+    const result = await fetchNotificationPreferences();
+    if (result.preferences) {
+      setPreferences(result.preferences);
+      return result.preferences;
     }
+    return null;
   }, [ensureOrgReady]);
+
+  useEffect(() => {
+    let cancelled = false;
+    let attempts = 0;
+
+    async function tryLoadPreferences() {
+      if (cancelled) return;
+      const prefs = await loadPreferences();
+      if (prefs || attempts >= 8) return;
+      attempts += 1;
+      window.setTimeout(() => {
+        void tryLoadPreferences();
+      }, 900);
+    }
+
+    void tryLoadPreferences();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [loadPreferences, pathname]);
 
   const refreshPreferences = useCallback(async () => {
     await loadPreferences();
@@ -287,10 +304,6 @@ export function UnifiedNotificationFeedProvider({
       setLoading(false);
     }
   }, [applyFeedEffects, ensureOrgReady, pathname]);
-
-  useEffect(() => {
-    void loadPreferences();
-  }, [loadPreferences]);
 
   useEffect(() => {
     if (audioPrimedRef.current || typeof window === "undefined") return;

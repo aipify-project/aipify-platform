@@ -181,10 +181,11 @@
         "needsInteraction": "Ljud klart efter interaktion med sidan"
       },
       "testResult": {
-        "played": "Testljud spelades.",
-        "blocked": "Webbläsaren blockerade testljudet.",
-        "disabled": "Ljud är avstängt i dina inställningar.",
-        "quietHours": "Tyst tid är aktiv — testljud dämpat."
+        "played": "✅ Testljud spelades.",
+        "blocked": "⚠️ Webbläsaren blockerade ljudet.",
+        "disabled": "🔒 Aviseringsljud är avstängt.",
+        "quiet_hours": "⏳ Tyst tid är aktiv.",
+        "context_unavailable": "❌ Ljuduppspelning misslyckades."
       },
       "manageFromDrawer": "Hantera aviseringsinställningar"
     },

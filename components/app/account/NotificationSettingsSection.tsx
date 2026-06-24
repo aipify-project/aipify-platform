@@ -13,6 +13,11 @@ import {
 import { NotificationPreferenceToggleCard } from "@/components/app/account/NotificationPreferenceToggleCard";
 import type { NotificationSettingsPageLabels } from "@/lib/app/notifications/labels";
 import {
+  fetchNotificationPreferences,
+  resolvePreferencesLoadErrorMessage,
+  type NotificationPreferencesLoadError,
+} from "@/lib/app/notifications/load-notification-preferences";
+import {
   applyToggleChange,
   formatQuietHoursRange,
   notificationPrefsToToggleState,
@@ -21,17 +26,17 @@ import {
   type NotificationSettingsToggleState,
 } from "@/lib/app/notifications/preferences-ui";
 import type { PresenceNotificationPreferences } from "@/lib/presence/notification-state";
-import {
-  notificationSoundStatusKind,
-} from "@/lib/presence/notification-sound-settings-labels";
+import { notificationSoundStatusKind } from "@/lib/presence/notification-sound-settings-labels";
 import {
   resolveNotificationSoundStatus,
-  runNotificationSoundTest,
   runNotificationSoundTestAsync,
   type NotificationSoundTestResult,
 } from "@/lib/presence/notification-sound-settings";
 import { parsePresenceNotificationPreferences } from "@/lib/presence/unified-notification-feed/preferences";
-import { primeSoftBellAudio } from "@/lib/presence/unified-notification-feed/sound-policy";
+import {
+  getNotificationAudioContextState,
+  primeSoftBellAudio,
+} from "@/lib/presence/unified-notification-feed/sound-policy";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
@@ -42,8 +47,14 @@ type NotificationSettingsSectionProps = {
   labels: NotificationSettingsPageLabels;
   organizationKey: string | null;
   organizationName?: string | null;
+  organizationReady: boolean;
+  sharedPreferences?: PresenceNotificationPreferences | null;
   onPreferencesSaved?: (preferences: PresenceNotificationPreferences) => void;
+  onRefreshSharedPreferences?: () => Promise<void>;
 };
+
+const PREFS_RETRY_MS = 900;
+const PREFS_MAX_RETRIES = 8;
 
 function draftToEffective(
   state: NotificationSettingsToggleState,
@@ -64,50 +75,114 @@ function draftToEffective(
   };
 }
 
+function logNotificationSettingsDiagnostic(
+  event: string,
+  payload: Record<string, string | number | boolean | null>,
+): void {
+  if (process.env.NODE_ENV === "production") return;
+  console.info("[aipify:notification-settings]", event, payload);
+}
+
 export function NotificationSettingsSection({
   labels,
   organizationKey,
   organizationName = null,
+  organizationReady,
+  sharedPreferences = null,
   onPreferencesSaved,
+  onRefreshSharedPreferences,
 }: NotificationSettingsSectionProps) {
-  const [basePreferences, setBasePreferences] = useState<PresenceNotificationPreferences | null>(null);
-  const [draft, setDraft] = useState<NotificationSettingsToggleState | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [loadFailed, setLoadFailed] = useState(false);
+  const [basePreferences, setBasePreferences] = useState<PresenceNotificationPreferences | null>(
+    sharedPreferences,
+  );
+  const [draft, setDraft] = useState<NotificationSettingsToggleState | null>(
+    sharedPreferences ? notificationPrefsToToggleState(sharedPreferences) : null,
+  );
+  const [loading, setLoading] = useState(!sharedPreferences);
+  const [loadError, setLoadError] = useState<NotificationPreferencesLoadError | null>(null);
   const [saveState, setSaveState] = useState<SaveState>("idle");
   const [testResult, setTestResult] = useState<NotificationSoundTestResult | null>(null);
   const saveTimerRef = useRef<number | null>(null);
   const savedTimerRef = useRef<number | null>(null);
+  const retryTimerRef = useRef<number | null>(null);
+  const retryCountRef = useRef(0);
+
+  const applyLoadedPreferences = useCallback((parsed: PresenceNotificationPreferences) => {
+    setBasePreferences(parsed);
+    setDraft(notificationPrefsToToggleState(parsed));
+    setLoadError(null);
+    retryCountRef.current = 0;
+  }, []);
 
   const loadPreferences = useCallback(async () => {
-    if (!organizationKey) return;
+    if (!organizationKey || !organizationReady) return;
     setLoading(true);
-    setLoadFailed(false);
+    setLoadError(null);
     try {
-      const res = await fetch("/api/presence/preferences", { cache: "no-store" });
-      if (!res.ok) throw new Error("load_failed");
-      const parsed = parsePresenceNotificationPreferences(await res.json());
-      if (!parsed) throw new Error("missing_preferences");
-      setBasePreferences(parsed);
-      setDraft(notificationPrefsToToggleState(parsed));
-    } catch {
-      setLoadFailed(true);
+      const result = await fetchNotificationPreferences();
+      if (result.preferences) {
+        applyLoadedPreferences(result.preferences);
+        logNotificationSettingsDiagnostic("preferences_loaded", {
+          organizationKey,
+          soundEnabled: result.preferences.sound_enabled,
+          playfulMomentsEnabled: result.preferences.playful_moments_enabled,
+          quietHoursEnabled: result.preferences.quiet_hours_enabled,
+        });
+        return;
+      }
+      setLoadError(result.error ?? "page_load_error");
       setBasePreferences(null);
       setDraft(null);
     } finally {
       setLoading(false);
     }
-  }, [organizationKey]);
+  }, [applyLoadedPreferences, organizationKey, organizationReady]);
 
   useEffect(() => {
-    if (!organizationKey) return;
+    if (sharedPreferences) {
+      applyLoadedPreferences(sharedPreferences);
+      setLoading(false);
+    }
+  }, [applyLoadedPreferences, sharedPreferences]);
+
+  useEffect(() => {
+    if (!organizationKey || !organizationReady) return;
+    if (sharedPreferences) return;
     void loadPreferences();
-  }, [organizationKey, loadPreferences]);
+  }, [organizationKey, organizationReady, loadPreferences, sharedPreferences]);
+
+  useEffect(() => {
+    if (retryTimerRef.current !== null) {
+      window.clearTimeout(retryTimerRef.current);
+      retryTimerRef.current = null;
+    }
+
+    if (!organizationReady || !organizationKey || loading || !loadError) {
+      return;
+    }
+
+    if (retryCountRef.current >= PREFS_MAX_RETRIES) {
+      return;
+    }
+
+    retryTimerRef.current = window.setTimeout(() => {
+      retryCountRef.current += 1;
+      void loadPreferences();
+    }, PREFS_RETRY_MS);
+
+    return () => {
+      if (retryTimerRef.current !== null) {
+        window.clearTimeout(retryTimerRef.current);
+        retryTimerRef.current = null;
+      }
+    };
+  }, [loadError, loadPreferences, loading, organizationKey, organizationReady]);
 
   useEffect(() => {
     return () => {
       if (saveTimerRef.current) window.clearTimeout(saveTimerRef.current);
       if (savedTimerRef.current) window.clearTimeout(savedTimerRef.current);
+      if (retryTimerRef.current) window.clearTimeout(retryTimerRef.current);
     };
   }, []);
 
@@ -134,8 +209,7 @@ export function NotificationSettingsSection({
         if (!res.ok) throw new Error("save_failed");
         const parsed = parsePresenceNotificationPreferences(await res.json());
         if (!parsed) throw new Error("missing_preferences");
-        setBasePreferences(parsed);
-        setDraft(notificationPrefsToToggleState(parsed));
+        applyLoadedPreferences(parsed);
         setSaveState("saved");
         onPreferencesSaved?.(parsed);
         savedTimerRef.current = window.setTimeout(() => {
@@ -145,7 +219,7 @@ export function NotificationSettingsSection({
         setSaveState("error");
       }
     },
-    [basePreferences, onPreferencesSaved],
+    [applyLoadedPreferences, basePreferences, onPreferencesSaved],
   );
 
   const queuePersist = useCallback(
@@ -185,7 +259,30 @@ export function NotificationSettingsSection({
   function handleTestSound() {
     if (!effectivePreferences) return;
     primeSoftBellAudio();
-    void runNotificationSoundTestAsync(effectivePreferences).then(setTestResult);
+    const audioState = getNotificationAudioContextState();
+    logNotificationSettingsDiagnostic("test_sound_requested", {
+      organizationKey,
+      organizationName,
+      soundEnabled: effectivePreferences.sound_enabled,
+      playfulMomentsEnabled: effectivePreferences.playful_moments_enabled,
+      quietHoursEnabled: effectivePreferences.quiet_hours_enabled,
+      audioContextState: audioState.state,
+      audioPrimed: audioState.primed,
+    });
+    void runNotificationSoundTestAsync(effectivePreferences).then((result) => {
+      setTestResult(result);
+      logNotificationSettingsDiagnostic("test_sound_result", {
+        organizationKey,
+        result,
+        audioContextState: getNotificationAudioContextState().state,
+      });
+    });
+  }
+
+  async function handleRetry() {
+    retryCountRef.current = 0;
+    await onRefreshSharedPreferences?.();
+    await loadPreferences();
   }
 
   if (loading) {
@@ -200,15 +297,19 @@ export function NotificationSettingsSection({
     );
   }
 
-  if (loadFailed || !draft) {
+  if (loadError || !draft) {
+    const message = loadError
+      ? resolvePreferencesLoadErrorMessage(loadError, labels.contextGate)
+      : labels.contextGate.pageLoadError;
+
     return (
       <PlatformEmptyState
         title={labels.contextGate.pageLoadError}
-        message={labels.contextGate.organizationMissing}
+        message={message}
         primaryAction={{
           label: labels.contextGate.retry,
           onClick: () => {
-            void loadPreferences();
+            void handleRetry();
           },
         }}
       />

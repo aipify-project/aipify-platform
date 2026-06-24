@@ -191,11 +191,11 @@
         "needsInteraction": "Sound ready after you interact with the page"
       },
       "testResult": {
-        "played": "Test sound played.",
-        "blocked": "Browser blocked the test sound.",
-        "disabled": "Sound is disabled in your settings.",
-        "quietHours": "Quiet hours are active — test sound suppressed.",
-        "contextUnavailable": "Could not create audio context."
+        "played": "✅ Test sound played.",
+        "blocked": "⚠️ Browser blocked the test sound.",
+        "disabled": "🔒 Notification sound is turned off.",
+        "quiet_hours": "⏳ Quiet hours are active — test sound suppressed.",
+        "context_unavailable": "❌ Sound playback failed."
       },
       "manageFromDrawer": "Manage notification settings"
     },

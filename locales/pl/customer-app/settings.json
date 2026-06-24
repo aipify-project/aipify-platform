@@ -38,10 +38,11 @@
         "needsInteraction": "Dźwięk gotowy po interakcji ze stroną"
       },
       "testResult": {
-        "played": "Dźwięk testowy odtworzony.",
-        "blocked": "Przeglądarka zablokowała dźwięk testowy.",
-        "disabled": "Dźwięk jest wyłączony w ustawieniach.",
-        "quietHours": "Godziny ciszy są aktywne — dźwięk testowy wyciszony."
+        "played": "✅ Dźwięk testowy odtworzony.",
+        "blocked": "⚠️ Przeglądarka zablokowała dźwięk.",
+        "disabled": "🔒 Dźwięk powiadomień jest wyłączony.",
+        "quiet_hours": "⏳ Godziny ciszy są aktywne.",
+        "context_unavailable": "❌ Odtwarzanie dźwięku nie powiodło się."
       },
       "manageFromDrawer": "Zarządzaj ustawieniami powiadomień"
     },
