@@ -333,9 +333,9 @@
       },
       "accountNotifications": {
         "title": "Notifikationsindstillinger",
-        "subtitle": "Styr hvilke notifikationer du modtager.",
-        "emptyTitle": "Notifikationsindstillinger administreres i Command Center",
-        "emptyDescription": "Aipify leverer operationelle notifikationer via Command Center og dine arbejdsområdeindstillinger. Brug Command Center til at gennemgå notifikationer, eller åbn Indstillinger for stille timer og leveringsvalg.",
+        "subtitle": "Administrer notifikationslevering og gennemgå seneste notifikationer.",
+        "emptyTitle": "Ingen notifikationer lige nu",
+        "emptyDescription": "Når Aipify har operationelle opdateringer, Companion-svar eller elementer, der kræver opmærksomhed, vises de her.",
         "emptyAction": "Åbn Command Center",
         "secondaryAction": "Åbn indstillinger"
       },

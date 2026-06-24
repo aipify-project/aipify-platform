@@ -15,11 +15,15 @@ export type NotificationSoundStatus =
 
 export type NotificationSoundTestResult = "played" | "blocked" | "disabled" | "quiet_hours";
 
+function isInAppSoundMuted(prefs: PresenceNotificationPreferences | null): boolean {
+  return !prefs?.channel_in_app || prefs.min_level_in_app === "critical";
+}
+
 export function resolveNotificationSoundStatus(
   prefs: PresenceNotificationPreferences | null,
   now: Date = new Date(),
 ): NotificationSoundStatus {
-  if (!prefs?.channel_in_app) return "disabled";
+  if (!prefs || isInAppSoundMuted(prefs)) return "disabled";
 
   if (
     prefs.quiet_hours_enabled &&
@@ -40,7 +44,7 @@ export function runNotificationSoundTest(
   prefs: PresenceNotificationPreferences | null,
   now: Date = new Date(),
 ): NotificationSoundTestResult {
-  if (!prefs?.channel_in_app) return "disabled";
+  if (!prefs || isInAppSoundMuted(prefs)) return "disabled";
 
   if (
     prefs.quiet_hours_enabled &&

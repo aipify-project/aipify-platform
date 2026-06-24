@@ -333,9 +333,9 @@
       },
       "accountNotifications": {
         "title": "Varslingsinnstillinger",
-        "subtitle": "Kontroller hvilke varsler du mottar.",
-        "emptyTitle": "Varslingsinnstillinger administreres i Command Center",
-        "emptyDescription": "Aipify leverer operative varsler via Command Center og innstillingene i arbeidsområdet ditt. Bruk Command Center for å se varsler, eller åpne Innstillinger for stille timer og leveringsvalg.",
+        "subtitle": "Administrer varslingslevering og se nylige varsler.",
+        "emptyTitle": "Ingen varsler akkurat nå",
+        "emptyDescription": "Når Aipify har operative oppdateringer, Companion-svar eller elementer som krever oppmerksomhet, vises de her.",
         "emptyAction": "Åpne Command Center",
         "secondaryAction": "Åpne innstillinger"
       },

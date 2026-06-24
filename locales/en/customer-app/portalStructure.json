@@ -6108,10 +6108,10 @@
         "subtitle": "Two-factor authentication, sessions, and security settings."
       },
       "accountNotifications": {
-        "title": "Notification Preferences",
-        "subtitle": "Control which notifications you receive.",
-        "emptyTitle": "Notification preferences are managed in Command Center",
-        "emptyDescription": "Aipify delivers operational alerts through Command Center and your workspace settings. Use Command Center to review alerts, or open Settings for quiet hours and delivery preferences.",
+        "title": "Notification preferences",
+        "subtitle": "Manage notification delivery and review recent alerts.",
+        "emptyTitle": "No notifications right now",
+        "emptyDescription": "When Aipify has operational updates, Companion replies, or items that need attention, they appear here.",
         "emptyAction": "Open Command Center",
         "secondaryAction": "Open Settings"
       },

@@ -2,22 +2,33 @@
   "settings": {
     "notificationSound": {
       "sectionTitle": "Sonido y horas silenciosas",
+      "settingsSectionTitle": "Ajustes de notificaciones",
+      "settingsSectionDescription": "Controla alertas en la app, sonido, momentos Companion y horas silenciosas para tu workspace.",
       "sectionDescription": "Controla el sonido de notificaciones en la app, momentos lúdicos de Companion y las horas silenciosas de tu workspace.",
       "browserHint": "El navegador puede requerir que hagas clic en la página antes de reproducir sonido.",
+      "inAppEnabled": "Notificaciones en Aipify",
+      "inAppEnabledHint": "Muestra alertas operativas, respuestas de Companion y elementos de aprobación en tu workspace.",
       "soundEnabled": "Sonido de notificaciones",
       "soundEnabledHint": "Reproduce un timbre suave cuando lleguen nuevas notificaciones en la app.",
       "playfulMoments": "Momentos lúdicos de Companion",
       "playfulMomentsHint": "Permite timbres suaves para intercambios lúdicos aprobados de Companion.",
+      "companionReplies": "Respuestas de Companion",
+      "companionRepliesHint": "Recibe alertas cuando Aipify tenga una respuesta de Companion lista para ti.",
+      "approvalsCritical": "Aprobaciones y eventos críticos",
+      "approvalsCriticalHint": "Incluye solicitudes de aprobación y alertas operativas críticas en el feed.",
       "quietHoursEnabled": "Horas silenciosas",
       "quietHoursEnabledHint": "Silencia el sonido de notificaciones fuera de las horas elegidas.",
+      "quietHoursActiveRange": "Horas silenciosas activas: {range}",
       "quietHoursStart": "Inicio de horas silenciosas",
       "quietHoursEnd": "Fin de horas silenciosas",
       "testSound": "Probar sonido",
       "testSoundHint": "Usa el mismo timbre que las notificaciones en vivo. No crea una notificación.",
+      "toggleOn": "Activado",
+      "toggleOff": "Desactivado",
       "save": "Guardar ajustes de sonido",
       "saving": "Guardando…",
-      "saved": "Ajustes de sonido guardados.",
-      "saveError": "No se pudieron guardar los ajustes de sonido. Inténtalo de nuevo.",
+      "saved": "Guardado",
+      "saveError": "No se pudo guardar. Inténtalo de nuevo.",
       "statusTitle": "Estado del sonido",
       "status": {
         "active": "Sonido activo",
@@ -33,6 +44,19 @@
         "quietHours": "Horas silenciosas activas — sonido de prueba suprimido."
       },
       "manageFromDrawer": "Administrar ajustes de notificaciones"
+    },
+    "accountNotifications": {
+      "sectionTitle": "Notificaciones recientes",
+      "sectionDescription": "Revisa alertas recientes de tu workspace. Las acciones permanecen en esta página.",
+      "emptyTitle": "No hay notificaciones ahora",
+      "emptyDescription": "Cuando Aipify tenga actualizaciones operativas, respuestas de Companion o elementos que requieran atención, aparecerán aquí.",
+      "readStatusRead": "Leída",
+      "readStatusUnread": "No leída",
+      "markAsRead": "Marcar como leída",
+      "archive": "Archivar",
+      "markAllAsRead": "Marcar todas como leídas",
+      "openAction": "Abrir",
+      "categoryLabel": "Categoría"
     }
   }
 }

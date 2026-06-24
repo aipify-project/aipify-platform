@@ -2,22 +2,33 @@
   "settings": {
     "notificationSound": {
       "sectionTitle": "Dźwięk i godziny ciszy",
+      "settingsSectionTitle": "Ustawienia powiadomień",
+      "settingsSectionDescription": "Kontroluj powiadomienia w aplikacji, dźwięk, momenty Companion i godziny ciszy dla workspace.",
       "sectionDescription": "Kontroluj dźwięk powiadomień w aplikacji, lekkie momenty Companion i godziny ciszy dla workspace.",
       "browserHint": "Przeglądarka może wymagać kliknięcia strony, zanim dźwięk będzie mógł zostać odtworzony.",
+      "inAppEnabled": "Powiadomienia w Aipify",
+      "inAppEnabledHint": "Pokazuj operacyjne powiadomienia, odpowiedzi Companion i elementy zatwierdzeń w workspace.",
       "soundEnabled": "Dźwięk powiadomień",
       "soundEnabledHint": "Odtwarzaj delikatny dzwonek, gdy pojawią się nowe powiadomienia w aplikacji.",
       "playfulMoments": "Lekkie momenty Companion",
       "playfulMomentsHint": "Zezwalaj na łagodne dzwonki dla zatwierdzonych lekkich wymian Companion.",
+      "companionReplies": "Odpowiedzi Companion",
+      "companionRepliesHint": "Otrzymuj powiadomienia, gdy Aipify ma gotową odpowiedź Companion.",
+      "approvalsCritical": "Zatwierdzenia i zdarzenia krytyczne",
+      "approvalsCriticalHint": "Uwzględniaj prośby o zatwierdzenie i krytyczne powiadomienia operacyjne w kanale.",
       "quietHoursEnabled": "Godziny ciszy",
       "quietHoursEnabledHint": "Wycisz dźwięk powiadomień poza wybranymi godzinami.",
+      "quietHoursActiveRange": "Aktywne godziny ciszy: {range}",
       "quietHoursStart": "Początek godzin ciszy",
       "quietHoursEnd": "Koniec godzin ciszy",
       "testSound": "Test dźwięku",
       "testSoundHint": "Używa tego samego dźwięku co powiadomienia na żywo. Nie tworzy powiadomienia.",
+      "toggleOn": "Wł.",
+      "toggleOff": "Wył.",
       "save": "Zapisz ustawienia dźwięku",
       "saving": "Zapisywanie…",
-      "saved": "Ustawienia dźwięku zapisane.",
-      "saveError": "Nie udało się zapisać ustawień dźwięku. Spróbuj ponownie.",
+      "saved": "Zapisano",
+      "saveError": "Nie udało się zapisać. Spróbuj ponownie.",
       "statusTitle": "Status dźwięku",
       "status": {
         "active": "Dźwięk aktywny",
@@ -33,6 +44,19 @@
         "quietHours": "Godziny ciszy są aktywne — dźwięk testowy wyciszony."
       },
       "manageFromDrawer": "Zarządzaj ustawieniami powiadomień"
+    },
+    "accountNotifications": {
+      "sectionTitle": "Ostatnie powiadomienia",
+      "sectionDescription": "Przeglądaj ostatnie powiadomienia z workspace. Działania pozostają na tej stronie.",
+      "emptyTitle": "Brak powiadomień w tej chwili",
+      "emptyDescription": "Gdy Aipify ma operacyjne aktualizacje, odpowiedzi Companion lub elementy wymagające uwagi, pojawią się tutaj.",
+      "readStatusRead": "Przeczytane",
+      "readStatusUnread": "Nieprzeczytane",
+      "markAsRead": "Oznacz jako przeczytane",
+      "archive": "Archiwizuj",
+      "markAllAsRead": "Oznacz wszystkie jako przeczytane",
+      "openAction": "Otwórz",
+      "categoryLabel": "Kategoria"
     }
   },
   "expertiseOperations": {

@@ -2,22 +2,33 @@
   "settings": {
     "notificationSound": {
       "sectionTitle": "Звук і тихі години",
+      "settingsSectionTitle": "Налаштування сповіщень",
+      "settingsSectionDescription": "Керуйте сповіщеннями в застосунку, звуком, моментами Companion і тихими годинами для workspace.",
       "sectionDescription": "Керуйте звуком сповіщень у застосунку, легкими моментами Companion і тихими годинами для workspace.",
       "browserHint": "Браузер може вимагати кліку на сторінці, перш ніж звук можна відтворити.",
+      "inAppEnabled": "Сповіщення в Aipify",
+      "inAppEnabledHint": "Показувати операційні сповіщення, відповіді Companion і елементи затвердження у workspace.",
       "soundEnabled": "Звук сповіщень",
       "soundEnabledHint": "Відтворювати м’який дзвінок, коли надходять нові сповіщення в застосунку.",
       "playfulMoments": "Легкі моменти Companion",
       "playfulMomentsHint": "Дозволяти м’які дзвінки для схвалених легких обмінів Companion.",
+      "companionReplies": "Відповіді Companion",
+      "companionRepliesHint": "Отримувати сповіщення, коли Aipify має готову відповідь Companion.",
+      "approvalsCritical": "Затвердження та критичні події",
+      "approvalsCriticalHint": "Включати запити на затвердження та критичні операційні сповіщення у стрічку.",
       "quietHoursEnabled": "Тихі години",
       "quietHoursEnabledHint": "Приглушувати звук сповіщень поза обраними годинами.",
+      "quietHoursActiveRange": "Активні тихі години: {range}",
       "quietHoursStart": "Початок тихих годин",
       "quietHoursEnd": "Кінець тихих годин",
       "testSound": "Тест звуку",
       "testSoundHint": "Використовує той самий звук, що й live-сповіщення. Не створює сповіщення.",
+      "toggleOn": "Увімк.",
+      "toggleOff": "Вимк.",
       "save": "Зберегти налаштування звуку",
       "saving": "Збереження…",
-      "saved": "Налаштування звуку збережено.",
-      "saveError": "Не вдалося зберегти налаштування звуку. Спробуйте ще раз.",
+      "saved": "Збережено",
+      "saveError": "Не вдалося зберегти. Спробуйте ще раз.",
       "statusTitle": "Статус звуку",
       "status": {
         "active": "Звук активний",
@@ -33,6 +44,19 @@
         "quietHours": "Тихі години активні — тестовий звук приглушено."
       },
       "manageFromDrawer": "Керувати налаштуваннями сповіщень"
+    },
+    "accountNotifications": {
+      "sectionTitle": "Останні сповіщення",
+      "sectionDescription": "Переглядайте останні сповіщення з workspace. Дії залишаються на цій сторінці.",
+      "emptyTitle": "Зараз немає сповіщень",
+      "emptyDescription": "Коли в Aipify з’являться операційні оновлення, відповіді Companion або елементи, що потребують уваги, вони відображатимуться тут.",
+      "readStatusRead": "Прочитано",
+      "readStatusUnread": "Непрочитано",
+      "markAsRead": "Позначити як прочитане",
+      "archive": "Архівувати",
+      "markAllAsRead": "Позначити всі як прочитані",
+      "openAction": "Відкрити",
+      "categoryLabel": "Категорія"
     }
   },
   "expertiseOperations": {

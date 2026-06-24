@@ -333,9 +333,9 @@
       },
       "accountNotifications": {
         "title": "Aviseringsinställningar",
-        "subtitle": "Styr vilka aviseringar du får.",
-        "emptyTitle": "Aviseringsinställningar hanteras i Command Center",
-        "emptyDescription": "Aipify levererar operativa aviseringar via Command Center och dina arbetsyteinställningar. Använd Command Center för att granska aviseringar, eller öppna Inställningar för tysta timmar och leveransval.",
+        "subtitle": "Hantera aviseringsleverans och granska senaste aviseringar.",
+        "emptyTitle": "Inga aviseringar just nu",
+        "emptyDescription": "När Aipify har operativa uppdateringar, Companion-svar eller objekt som kräver uppmärksamhet visas de här.",
         "emptyAction": "Öppna Command Center",
         "secondaryAction": "Öppna inställningar"
       },

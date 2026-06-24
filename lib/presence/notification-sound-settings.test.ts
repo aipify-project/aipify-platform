@@ -81,6 +81,10 @@ assert.equal(
 
 assert.equal(resolveNotificationSoundStatus({ ...basePrefs!, channel_in_app: false }), "disabled");
 assert.equal(
+  resolveNotificationSoundStatus({ ...basePrefs!, min_level_in_app: "critical" }),
+  "disabled",
+);
+assert.equal(
   resolveNotificationSoundStatus(quietHours, new Date("2026-06-22T22:00:00.000Z")),
   "quiet_hours",
 );
@@ -89,6 +93,10 @@ const activeOrBlocked = resolveNotificationSoundStatus(basePrefs);
 assert.ok(activeOrBlocked === "active" || activeOrBlocked === "browser_blocked");
 
 assert.equal(runNotificationSoundTest({ ...basePrefs!, channel_in_app: false }), "disabled");
+assert.equal(
+  runNotificationSoundTest({ ...basePrefs!, min_level_in_app: "critical" }),
+  "disabled",
+);
 assert.equal(
   runNotificationSoundTest(quietHours, new Date("2026-06-22T22:00:00.000Z")),
   "quiet_hours",
