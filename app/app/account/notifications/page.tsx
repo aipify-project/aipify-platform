@@ -2,6 +2,7 @@ import { AccountNotificationsPanel } from "@/components/app/account/AccountNotif
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildNotificationSoundSettingsLabels } from "@/lib/presence/notification-sound-settings-labels";
 
 export default async function AccountNotificationsPage() {
   const locale = await getLocale();
@@ -23,6 +24,7 @@ export default async function AccountNotificationsPage() {
         secondaryAction: t(`${page}.secondaryAction`),
         secondaryActionHref: "/app/settings",
       }}
+      soundLabels={buildNotificationSoundSettingsLabels(t)}
     />
   );
 }

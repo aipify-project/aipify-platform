@@ -226,6 +226,7 @@
     "openAction": "Abrir",
     "dismiss": "Descartar",
     "viewAll": "Ver todas las notificaciones",
+    "manageSettings": "Administrar ajustes de notificaciones",
     "unreadSummary": "{count} sin leer",
     "ariaBell": "Abrir notificaciones",
     "ariaUnread": "Abrir notificaciones, {count} sin leer",

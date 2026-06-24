@@ -61,7 +61,11 @@ export async function PATCH(request: Request) {
     const access = await requireReadyAppPortalContext(supabase);
     if (!access.ok) return access.response;
 
-    const permission = await requireOrganizationViewPermission(supabase, "settings.manage");
+    const permission = await requireOrganizationViewPermission(
+      supabase,
+      "settings.view",
+      "settings.manage",
+    );
     if (!permission.ok) return permission.response;
 
     const { data, error } = await supabase.rpc("update_presence_notification_preferences", {
@@ -77,6 +81,8 @@ export async function PATCH(request: Request) {
       p_min_level_in_app: body.min_level_in_app ?? null,
       p_min_level_desktop: body.min_level_desktop ?? null,
       p_min_level_email: body.min_level_email ?? null,
+      p_quiet_hours_enabled: body.quiet_hours_enabled ?? null,
+      p_playful_moments_enabled: body.playful_moments_enabled ?? null,
     });
 
     if (error) throw new Error(error.message);

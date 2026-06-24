@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { NotificationSoundSettingsPanel } from "@/components/app/account/NotificationSoundSettingsPanel";
 import { NotificationCenterList } from "@/components/presence/NotificationCenterDrawer";
 import { useUnifiedNotificationFeed } from "@/components/presence/UnifiedNotificationFeedProvider";
 import { formatUnreadSummary } from "@/lib/presence/unified-notification-feed";
+import type { NotificationSoundSettingsLabels } from "@/lib/presence/notification-sound-settings-labels";
 
 type AccountNotificationsPanelProps = {
   labels: {
@@ -17,9 +19,10 @@ type AccountNotificationsPanelProps = {
     secondaryAction: string;
     secondaryActionHref: string;
   };
+  soundLabels: NotificationSoundSettingsLabels;
 };
 
-export function AccountNotificationsPanel({ labels }: AccountNotificationsPanelProps) {
+export function AccountNotificationsPanel({ labels, soundLabels }: AccountNotificationsPanelProps) {
   const feed = useUnifiedNotificationFeed();
 
   return (
@@ -41,6 +44,16 @@ export function AccountNotificationsPanel({ labels }: AccountNotificationsPanelP
           ) : null}
         </div>
       </header>
+
+      <div id="notification-sound-settings">
+        <NotificationSoundSettingsPanel
+          labels={soundLabels}
+          initialPreferences={feed.preferences}
+          onPreferencesSaved={(preferences) => {
+            feed.applyPreferences(preferences);
+          }}
+        />
+      </div>
 
       {feed.loading ? (
         <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm" aria-busy="true" />

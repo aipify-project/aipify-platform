@@ -213,6 +213,7 @@
     "openAction": "Otwórz",
     "dismiss": "Odrzuć",
     "viewAll": "Zobacz wszystkie powiadomienia",
+    "manageSettings": "Zarządzaj ustawieniami powiadomień",
     "unreadSummary": "{count} nieprzeczytanych",
     "ariaBell": "Otwórz powiadomienia",
     "ariaUnread": "Otwórz powiadomienia, {count} nieprzeczytanych",

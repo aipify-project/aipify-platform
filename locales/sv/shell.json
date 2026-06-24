@@ -226,6 +226,7 @@
     "openAction": "Öppna",
     "dismiss": "Avfärda",
     "viewAll": "Visa alla aviseringar",
+    "manageSettings": "Hantera aviseringsinställningar",
     "unreadSummary": "{count} olästa",
     "ariaBell": "Öppna aviseringar",
     "ariaUnread": "Öppna aviseringar, {count} olästa",

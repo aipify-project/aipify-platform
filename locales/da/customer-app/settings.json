@@ -143,6 +143,40 @@
       "notificationsSection": "Notifikationsindstillinger",
       "notificationsLink": "Åbn notifikationsindstillinger"
     },
+    "notificationSound": {
+      "sectionTitle": "Lyd og stilletid",
+      "sectionDescription": "Styr lyd for notifikationer i appen, legende Companion-øjeblikke og stilletid for dit workspace.",
+      "browserHint": "Browseren kan kræve, at du klikker på siden, før lyd kan afspilles.",
+      "soundEnabled": "Lyd for notifikationer",
+      "soundEnabledHint": "Afspil en blid klokke, når nye notifikationer ankommer i appen.",
+      "playfulMoments": "Legende Companion-øjeblikke",
+      "playfulMomentsHint": "Tillad milde klokkeøjeblikke for godkendte legende Companion-udvekslinger.",
+      "quietHoursEnabled": "Stilletid",
+      "quietHoursEnabledHint": "Dæmp notifikationslyd uden for de timer, du vælger.",
+      "quietHoursStart": "Stilletid starter",
+      "quietHoursEnd": "Stilletid slutter",
+      "testSound": "Test lyd",
+      "testSoundHint": "Bruger samme lyd som live notifikationer. Opretter ingen notifikation.",
+      "save": "Gem notifikationslyd-indstillinger",
+      "saving": "Gemmer…",
+      "saved": "Notifikationslyd-indstillinger gemt.",
+      "saveError": "Kunne ikke gemme notifikationslyd-indstillinger. Prøv igen.",
+      "statusTitle": "Lydstatus",
+      "status": {
+        "active": "Lyd aktiv",
+        "disabled": "Lyd deaktiveret",
+        "quietHours": "Stilletid aktiv",
+        "browserBlocked": "Browseren blokerer lyd",
+        "needsInteraction": "Lyd klar efter brugerinteraktion"
+      },
+      "testResult": {
+        "played": "Testlyd afspillet.",
+        "blocked": "Browseren blokerede testlyden.",
+        "disabled": "Lyd er deaktiveret i dine indstillinger.",
+        "quietHours": "Stilletid er aktiv — testlyd undertrykt."
+      },
+      "manageFromDrawer": "Administrer notifikationsindstillinger"
+    },
     "links": {
       "developer": "Developer settings",
       "updates": "Update policies",

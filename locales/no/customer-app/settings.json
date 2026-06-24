@@ -143,6 +143,40 @@
       "notificationsSection": "Varslingsinnstillinger",
       "notificationsLink": "Åpne varslingsinnstillinger"
     },
+    "notificationSound": {
+      "sectionTitle": "Lyd og stilletid",
+      "sectionDescription": "Styr lyd for varsler i appen, lekne Companion-øyeblikk og stilletid for arbeidsområdet ditt.",
+      "browserHint": "Nettleseren kan kreve at du klikker på siden før lyd kan spilles.",
+      "soundEnabled": "Lyd for varsler",
+      "soundEnabledHint": "Spill en mild bjellelyd når nye varsler kommer i appen.",
+      "playfulMoments": "Lekne Companion-øyeblikk",
+      "playfulMomentsHint": "Tillat milde bjelleøyeblikk for godkjente lekne Companion-utvekslinger.",
+      "quietHoursEnabled": "Stilletid",
+      "quietHoursEnabledHint": "Demp varslingslyd utenfor timene du velger.",
+      "quietHoursStart": "Stilletid starter",
+      "quietHoursEnd": "Stilletid slutter",
+      "testSound": "Test lyd",
+      "testSoundHint": "Bruker samme lyd som live varsler. Oppretter ikke et varsel.",
+      "save": "Lagre varslingslyd-innstillinger",
+      "saving": "Lagrer…",
+      "saved": "Varslingslyd-innstillinger lagret.",
+      "saveError": "Kunne ikke lagre varslingslyd-innstillinger. Prøv igjen.",
+      "statusTitle": "Lydstatus",
+      "status": {
+        "active": "Lyd aktiv",
+        "disabled": "Lyd deaktivert",
+        "quietHours": "Stilletid aktiv",
+        "browserBlocked": "Nettleseren blokkerer lyd",
+        "needsInteraction": "Lyd klar etter brukerinteraksjon"
+      },
+      "testResult": {
+        "played": "Testlyd spilt.",
+        "blocked": "Nettleseren blokkerte testlyden.",
+        "disabled": "Lyd er deaktivert i innstillingene dine.",
+        "quietHours": "Stilletid er aktiv — testlyd undertrykt."
+      },
+      "manageFromDrawer": "Administrer varslingsinnstillinger"
+    },
     "links": {
       "developer": "Developer settings",
       "updates": "Update policies",

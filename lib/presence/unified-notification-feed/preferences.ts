@@ -19,6 +19,7 @@ export function parsePresenceNotificationPreferences(
     working_hours_end: String(prefs.working_hours_end ?? "17:00"),
     timezone: String(prefs.timezone ?? "UTC"),
     vacation_until: typeof prefs.vacation_until === "string" ? prefs.vacation_until : null,
+    quiet_hours_enabled: prefs.quiet_hours_enabled === true,
     channel_in_app: prefs.channel_in_app !== false,
     channel_desktop: prefs.channel_desktop !== false,
     channel_email_digest: prefs.channel_email_digest === true,
@@ -26,5 +27,6 @@ export function parsePresenceNotificationPreferences(
     min_level_in_app: (prefs.min_level_in_app as PresenceNotificationLevel) ?? "informational",
     min_level_desktop: (prefs.min_level_desktop as PresenceNotificationLevel) ?? "important",
     min_level_email: (prefs.min_level_email as PresenceNotificationLevel) ?? "important",
+    playful_moments_enabled: prefs.playful_moments_enabled !== false,
   };
 }

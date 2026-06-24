@@ -85,6 +85,8 @@ const prefs = parsePresenceNotificationPreferences({
     timezone: "UTC",
     channel_in_app: true,
     min_level_in_app: "informational",
+    quiet_hours_enabled: false,
+    playful_moments_enabled: true,
   },
 });
 assert.ok(prefs);
@@ -95,9 +97,33 @@ assert.equal(
 
 const blocked = parsePresenceNotificationPreferences({
   has_customer: true,
-  preferences: { channel_in_app: false, min_level_in_app: "informational", quiet_hours_mode: "standard" },
+  preferences: {
+    channel_in_app: false,
+    min_level_in_app: "informational",
+    quiet_hours_mode: "standard",
+    quiet_hours_enabled: false,
+    playful_moments_enabled: true,
+  },
 });
 assert.equal(shouldPlayInAppNotificationSound(sampleNotification(), blocked), false);
+
+const playfulBlocked = parsePresenceNotificationPreferences({
+  has_customer: true,
+  preferences: {
+    channel_in_app: true,
+    min_level_in_app: "informational",
+    quiet_hours_mode: "standard",
+    quiet_hours_enabled: false,
+    playful_moments_enabled: false,
+  },
+});
+assert.equal(
+  shouldPlayInAppNotificationSound(
+    sampleNotification({ event_type: "playful_bell_moment" }),
+    playfulBlocked,
+  ),
+  false,
+);
 assert.equal(parsePresenceNotificationPreferences({ has_customer: false }), null);
 
 console.log("unified-notification-feed.test.ts passed");

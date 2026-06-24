@@ -35,6 +35,7 @@ export type PresenceNotificationPreferences = QuietHoursPreferences & {
   min_level_in_app: PresenceNotificationLevel;
   min_level_desktop: PresenceNotificationLevel;
   min_level_email: PresenceNotificationLevel;
+  playful_moments_enabled: boolean;
 };
 
 export type PresencePilotMetrics = {

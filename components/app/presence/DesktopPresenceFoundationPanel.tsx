@@ -109,6 +109,8 @@ export function DesktopPresenceFoundationPanel({
         min_level_in_app: (p.min_level_in_app as PresenceNotificationLevel) ?? "informational",
         min_level_desktop: (p.min_level_desktop as PresenceNotificationLevel) ?? "important",
         min_level_email: (p.min_level_email as PresenceNotificationLevel) ?? "important",
+        quiet_hours_enabled: p.quiet_hours_enabled === true,
+        playful_moments_enabled: p.playful_moments_enabled !== false,
       });
     }
 

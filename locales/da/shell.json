@@ -226,6 +226,7 @@
     "openAction": "Åbn",
     "dismiss": "Afvis",
     "viewAll": "Se alle notifikationer",
+    "manageSettings": "Administrer notifikationsindstillinger",
     "unreadSummary": "{count} ulæste",
     "ariaBell": "Åbn notifikationer",
     "ariaUnread": "Åbn notifikationer, {count} ulæste",

@@ -17,6 +17,7 @@ export type QuietHoursPreferences = {
   working_hours_end: string;
   timezone: string;
   vacation_until: string | null;
+  quiet_hours_enabled: boolean;
 };
 
 export function isWithinWorkingHours(

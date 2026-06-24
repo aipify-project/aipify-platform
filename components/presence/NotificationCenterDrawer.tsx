@@ -124,6 +124,13 @@ export function NotificationCenterDrawer() {
                 {formatUnreadSummary(labels, unreadCount)}
               </p>
             ) : null}
+            <Link
+              href={labels.manageSettingsHref}
+              onClick={closeCenter}
+              className="mt-2 inline-flex text-xs font-medium text-aipify-companion hover:underline"
+            >
+              {labels.manageSettings}
+            </Link>
           </div>
           <button
             type="button"

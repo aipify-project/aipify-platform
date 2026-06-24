@@ -143,6 +143,40 @@
       "notificationsSection": "Notification preferences",
       "notificationsLink": "Open notification preferences"
     },
+    "notificationSound": {
+      "sectionTitle": "Sound and quiet hours",
+      "sectionDescription": "Control in-app notification sound, playful Companion moments, and quiet hours for your workspace.",
+      "browserHint": "Your browser may require a click on the page before sound can play.",
+      "soundEnabled": "Notification sound",
+      "soundEnabledHint": "Play a soft chime when new in-app notifications arrive.",
+      "playfulMoments": "Playful Companion moments",
+      "playfulMomentsHint": "Allow gentle bell moments for approved playful Companion exchanges.",
+      "quietHoursEnabled": "Quiet hours",
+      "quietHoursEnabledHint": "Suppress notification sound outside the hours you choose.",
+      "quietHoursStart": "Quiet hours start",
+      "quietHoursEnd": "Quiet hours end",
+      "testSound": "Test sound",
+      "testSoundHint": "Uses the same chime as live notifications. Does not create a notification.",
+      "save": "Save notification sound settings",
+      "saving": "Saving…",
+      "saved": "Notification sound settings saved.",
+      "saveError": "Could not save notification sound settings. Try again.",
+      "statusTitle": "Sound status",
+      "status": {
+        "active": "Sound active",
+        "disabled": "Sound disabled",
+        "quietHours": "Quiet hours active",
+        "browserBlocked": "Browser blocked sound",
+        "needsInteraction": "Sound ready after you interact with the page"
+      },
+      "testResult": {
+        "played": "Test sound played.",
+        "blocked": "Browser blocked the test sound.",
+        "disabled": "Sound is disabled in your settings.",
+        "quietHours": "Quiet hours are active — test sound suppressed."
+      },
+      "manageFromDrawer": "Manage notification settings"
+    },
     "links": {
       "developer": "Developer settings",
       "updates": "Update policies",

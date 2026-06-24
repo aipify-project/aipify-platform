@@ -226,6 +226,7 @@
     "openAction": "Open",
     "dismiss": "Dismiss",
     "viewAll": "View all notifications",
+    "manageSettings": "Manage notification settings",
     "unreadSummary": "{count} unread",
     "ariaBell": "Open notifications",
     "ariaUnread": "Open notifications, {count} unread",

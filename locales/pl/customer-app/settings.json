@@ -1,4 +1,40 @@
 {
+  "settings": {
+    "notificationSound": {
+      "sectionTitle": "Dźwięk i godziny ciszy",
+      "sectionDescription": "Kontroluj dźwięk powiadomień w aplikacji, lekkie momenty Companion i godziny ciszy dla workspace.",
+      "browserHint": "Przeglądarka może wymagać kliknięcia strony, zanim dźwięk będzie mógł zostać odtworzony.",
+      "soundEnabled": "Dźwięk powiadomień",
+      "soundEnabledHint": "Odtwarzaj delikatny dzwonek, gdy pojawią się nowe powiadomienia w aplikacji.",
+      "playfulMoments": "Lekkie momenty Companion",
+      "playfulMomentsHint": "Zezwalaj na łagodne dzwonki dla zatwierdzonych lekkich wymian Companion.",
+      "quietHoursEnabled": "Godziny ciszy",
+      "quietHoursEnabledHint": "Wycisz dźwięk powiadomień poza wybranymi godzinami.",
+      "quietHoursStart": "Początek godzin ciszy",
+      "quietHoursEnd": "Koniec godzin ciszy",
+      "testSound": "Test dźwięku",
+      "testSoundHint": "Używa tego samego dźwięku co powiadomienia na żywo. Nie tworzy powiadomienia.",
+      "save": "Zapisz ustawienia dźwięku",
+      "saving": "Zapisywanie…",
+      "saved": "Ustawienia dźwięku zapisane.",
+      "saveError": "Nie udało się zapisać ustawień dźwięku. Spróbuj ponownie.",
+      "statusTitle": "Status dźwięku",
+      "status": {
+        "active": "Dźwięk aktywny",
+        "disabled": "Dźwięk wyłączony",
+        "quietHours": "Godziny ciszy aktywne",
+        "browserBlocked": "Przeglądarka blokuje dźwięk",
+        "needsInteraction": "Dźwięk gotowy po interakcji ze stroną"
+      },
+      "testResult": {
+        "played": "Dźwięk testowy odtworzony.",
+        "blocked": "Przeglądarka zablokowała dźwięk testowy.",
+        "disabled": "Dźwięk jest wyłączony w ustawieniach.",
+        "quietHours": "Godziny ciszy są aktywne — dźwięk testowy wyciszony."
+      },
+      "manageFromDrawer": "Zarządzaj ustawieniami powiadomień"
+    }
+  },
   "expertiseOperations": {
     "title": "Centrum Ekspertyz",
     "subtitle": "Know-Who Engine — identify expertise, knowledge ownership, mentorship, and organizational risk before knowledge walks out the door.",

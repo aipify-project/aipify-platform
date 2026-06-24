@@ -27,6 +27,18 @@ function getSharedAudioContext(): AudioContext | null {
   return sharedAudioContext;
 }
 
+export function getNotificationAudioContextState(): {
+  supported: boolean;
+  primed: boolean;
+  state: AudioContextState | "unsupported";
+} {
+  const context = getSharedAudioContext();
+  if (!context) {
+    return { supported: false, primed: audioPrimed, state: "unsupported" };
+  }
+  return { supported: true, primed: audioPrimed, state: context.state };
+}
+
 /** Resume audio after the first user gesture when the browser requires it. */
 export function primeSoftBellAudio(): void {
   try {
@@ -41,26 +53,45 @@ export function primeSoftBellAudio(): void {
   }
 }
 
+function passesQuietHours(
+  prefs: PresenceNotificationPreferences,
+  level: PresenceNotificationLevel,
+  now: Date,
+): boolean {
+  if (!prefs.quiet_hours_enabled) return true;
+  return shouldDeliverNotification(level, prefs, now);
+}
+
 export function shouldPlayInAppNotificationSound(
   notification: PresenceNotification,
   prefs: PresenceNotificationPreferences | null,
   now: Date = new Date(),
 ): boolean {
   if (!prefs?.channel_in_app) return false;
+  if (
+    notification.event_type === "playful_bell_moment" &&
+    !prefs.playful_moments_enabled
+  ) {
+    return false;
+  }
   if (!meetsMinimumLevel(notification.level, prefs.min_level_in_app)) return false;
-  return shouldDeliverNotification(notification.level, prefs, now);
+  return passesQuietHours(prefs, notification.level, now);
 }
 
 export function playSoftBellChime(): void {
-  if (typeof window === "undefined") return;
+  void playSoftBellChimeWithResult();
+}
+
+export function playSoftBellChimeWithResult(): boolean {
+  if (typeof window === "undefined") return false;
 
   const now = Date.now();
-  if (now - lastBellPlayedAt < BELL_DEBOUNCE_MS) return;
+  if (now - lastBellPlayedAt < BELL_DEBOUNCE_MS) return true;
 
   try {
     const context = getSharedAudioContext();
-    if (!context) return;
-    if (context.state === "suspended" && !audioPrimed) return;
+    if (!context) return false;
+    if (context.state === "suspended" && !audioPrimed) return false;
 
     if (context.state === "suspended") {
       void context.resume().then(() => {
@@ -68,18 +99,18 @@ export function playSoftBellChime(): void {
           playSoftBellChimeOnContext(context);
         }
       });
-      return;
+      return false;
     }
 
-    playSoftBellChimeOnContext(context);
+    return playSoftBellChimeOnContext(context);
   } catch {
-    // Silent fallback — sound is optional enhancement.
+    return false;
   }
 }
 
-function playSoftBellChimeOnContext(context: AudioContext): void {
+function playSoftBellChimeOnContext(context: AudioContext): boolean {
   const now = Date.now();
-  if (now - lastBellPlayedAt < BELL_DEBOUNCE_MS) return;
+  if (now - lastBellPlayedAt < BELL_DEBOUNCE_MS) return true;
   lastBellPlayedAt = now;
 
   const oscillator = context.createOscillator();
@@ -97,4 +128,5 @@ function playSoftBellChimeOnContext(context: AudioContext): void {
   gain.connect(context.destination);
   oscillator.start(context.currentTime);
   oscillator.stop(context.currentTime + 0.36);
+  return true;
 }

@@ -10,6 +10,8 @@ export type UnifiedNotificationCenterLabels = {
   dismiss: string;
   viewAll: string;
   viewAllHref: string;
+  manageSettings: string;
+  manageSettingsHref: string;
   unreadSummary: string;
   ariaBell: string;
   ariaUnread: string;
@@ -36,6 +38,8 @@ export function buildUnifiedNotificationCenterLabels(
     dismiss: t(`${base}.dismiss`),
     viewAll: t(`${base}.viewAll`),
     viewAllHref: "/app/account/notifications",
+    manageSettings: t(`${base}.manageSettings`),
+    manageSettingsHref: "/app/account/notifications#notification-sound-settings",
     unreadSummary: t(`${base}.unreadSummary`),
     ariaBell: t(`${base}.ariaBell`),
     ariaUnread: t(`${base}.ariaUnread`),

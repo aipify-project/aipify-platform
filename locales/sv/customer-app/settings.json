@@ -143,6 +143,40 @@
       "notificationsSection": "Aviseringsinställningar",
       "notificationsLink": "Öppna aviseringsinställningar"
     },
+    "notificationSound": {
+      "sectionTitle": "Ljud och tyst tid",
+      "sectionDescription": "Styr ljud för aviseringar i appen, lekfulla Companion-ögonblick och tyst tid för din arbetsyta.",
+      "browserHint": "Webbläsaren kan kräva att du klickar på sidan innan ljud kan spelas.",
+      "soundEnabled": "Ljud för aviseringar",
+      "soundEnabledHint": "Spela ett mjukt bjällerljud när nya aviseringar kommer i appen.",
+      "playfulMoments": "Lekfulla Companion-ögonblick",
+      "playfulMomentsHint": "Tillåt milda bjällermoment för godkända lekfulla Companion-utbyten.",
+      "quietHoursEnabled": "Tyst tid",
+      "quietHoursEnabledHint": "Dämpa aviseringsljud utanför de timmar du väljer.",
+      "quietHoursStart": "Tyst tid börjar",
+      "quietHoursEnd": "Tyst tid slutar",
+      "testSound": "Testa ljud",
+      "testSoundHint": "Använder samma ljud som live-aviseringar. Skapar ingen avisering.",
+      "save": "Spara aviseringsljudinställningar",
+      "saving": "Sparar…",
+      "saved": "Aviseringsljudinställningar sparade.",
+      "saveError": "Kunde inte spara aviseringsljudinställningar. Försök igen.",
+      "statusTitle": "Ljudstatus",
+      "status": {
+        "active": "Ljud aktivt",
+        "disabled": "Ljud avstängt",
+        "quietHours": "Tyst tid aktiv",
+        "browserBlocked": "Webbläsaren blockerar ljud",
+        "needsInteraction": "Ljud klart efter interaktion med sidan"
+      },
+      "testResult": {
+        "played": "Testljud spelades.",
+        "blocked": "Webbläsaren blockerade testljudet.",
+        "disabled": "Ljud är avstängt i dina inställningar.",
+        "quietHours": "Tyst tid är aktiv — testljud dämpat."
+      },
+      "manageFromDrawer": "Hantera aviseringsinställningar"
+    },
     "links": {
       "developer": "Developer settings",
       "updates": "Update policies",

@@ -1,1 +1,38 @@
-{}
+{
+  "settings": {
+    "notificationSound": {
+      "sectionTitle": "Sonido y horas silenciosas",
+      "sectionDescription": "Controla el sonido de notificaciones en la app, momentos lúdicos de Companion y las horas silenciosas de tu workspace.",
+      "browserHint": "El navegador puede requerir que hagas clic en la página antes de reproducir sonido.",
+      "soundEnabled": "Sonido de notificaciones",
+      "soundEnabledHint": "Reproduce un timbre suave cuando lleguen nuevas notificaciones en la app.",
+      "playfulMoments": "Momentos lúdicos de Companion",
+      "playfulMomentsHint": "Permite timbres suaves para intercambios lúdicos aprobados de Companion.",
+      "quietHoursEnabled": "Horas silenciosas",
+      "quietHoursEnabledHint": "Silencia el sonido de notificaciones fuera de las horas elegidas.",
+      "quietHoursStart": "Inicio de horas silenciosas",
+      "quietHoursEnd": "Fin de horas silenciosas",
+      "testSound": "Probar sonido",
+      "testSoundHint": "Usa el mismo timbre que las notificaciones en vivo. No crea una notificación.",
+      "save": "Guardar ajustes de sonido",
+      "saving": "Guardando…",
+      "saved": "Ajustes de sonido guardados.",
+      "saveError": "No se pudieron guardar los ajustes de sonido. Inténtalo de nuevo.",
+      "statusTitle": "Estado del sonido",
+      "status": {
+        "active": "Sonido activo",
+        "disabled": "Sonido desactivado",
+        "quietHours": "Horas silenciosas activas",
+        "browserBlocked": "El navegador bloqueó el sonido",
+        "needsInteraction": "Sonido listo tras interactuar con la página"
+      },
+      "testResult": {
+        "played": "Sonido de prueba reproducido.",
+        "blocked": "El navegador bloqueó el sonido de prueba.",
+        "disabled": "El sonido está desactivado en tus ajustes.",
+        "quietHours": "Horas silenciosas activas — sonido de prueba suprimido."
+      },
+      "manageFromDrawer": "Administrar ajustes de notificaciones"
+    }
+  }
+}

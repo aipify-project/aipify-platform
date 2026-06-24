@@ -45,9 +45,12 @@ type UnifiedNotificationFeedContextValue = {
   centerOpen: boolean;
   pulseActive: boolean;
   toastNotification: PresenceNotification | null;
+  preferences: PresenceNotificationPreferences | null;
   openCenter: () => void;
   closeCenter: () => void;
   refresh: () => Promise<boolean>;
+  refreshPreferences: () => Promise<void>;
+  applyPreferences: (preferences: PresenceNotificationPreferences) => void;
   markNotificationRead: (notificationId: string) => Promise<void>;
   dismissNotification: (notificationId: string) => Promise<void>;
   openNotification: (notification: PresenceNotification) => Promise<void>;
@@ -116,15 +119,25 @@ export function UnifiedNotificationFeedProvider({
     }
   }, []);
 
-  const loadPreferences = useCallback(async () => {
+  const loadPreferences = useCallback(async (): Promise<PresenceNotificationPreferences | null> => {
     try {
       const res = await fetch("/api/presence/preferences", { cache: "no-store" });
-      if (!res.ok) return;
+      if (!res.ok) return null;
       const data = (await res.json()) as unknown;
-      setPreferences(parsePresenceNotificationPreferences(data));
+      const parsed = parsePresenceNotificationPreferences(data);
+      setPreferences(parsed);
+      return parsed;
     } catch {
-      // Preferences are optional for feed rendering.
+      return null;
     }
+  }, []);
+
+  const refreshPreferences = useCallback(async () => {
+    await loadPreferences();
+  }, [loadPreferences]);
+
+  const applyPreferences = useCallback((next: PresenceNotificationPreferences) => {
+    setPreferences(next);
   }, []);
 
   const applyFeedEffects = useCallback(
@@ -294,9 +307,12 @@ export function UnifiedNotificationFeedProvider({
       centerOpen,
       pulseActive,
       toastNotification,
+      preferences,
       openCenter: () => setCenterOpen(true),
       closeCenter: () => setCenterOpen(false),
       refresh,
+      refreshPreferences,
+      applyPreferences,
       markNotificationRead,
       dismissNotification,
       openNotification,
@@ -310,7 +326,10 @@ export function UnifiedNotificationFeedProvider({
       centerOpen,
       pulseActive,
       toastNotification,
+      preferences,
       refresh,
+      refreshPreferences,
+      applyPreferences,
       markNotificationRead,
       dismissNotification,
       openNotification,

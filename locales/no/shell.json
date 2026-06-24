@@ -226,6 +226,7 @@
     "openAction": "Åpne",
     "dismiss": "Avvis",
     "viewAll": "Se alle varsler",
+    "manageSettings": "Administrer varslingsinnstillinger",
     "unreadSummary": "{count} uleste",
     "ariaBell": "Åpne varsler",
     "ariaUnread": "Åpne varsler, {count} uleste",
