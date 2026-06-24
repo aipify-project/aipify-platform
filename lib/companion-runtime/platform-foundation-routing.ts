@@ -19,6 +19,17 @@ import {
 import { resolvePlatformFoundationTopicId } from "./platform-foundation-intent";
 import type { CompanionTenantContext } from "./companion-tenant-context";
 
+const BASE = "customerApp.companionPlatformKnowledge.foundation";
+
+function resolveFoundationLocalizedText(
+  t: Translator,
+  key: string,
+  fallback: string,
+): string {
+  const translated = t(key);
+  return translated !== key ? translated : fallback;
+}
+
 async function resolveSelfLoveFoundationAnswer(input: {
   query: string;
   supabase: SupabaseClient;
@@ -68,9 +79,7 @@ async function resolveSelfLoveFoundationAnswer(input: {
 
   if (!fallbackBody.trim()) {
     return {
-      answer: buildPlatformFoundationGapAnswer(input.t, "foundation_unavailable", {
-        topicId: topic?.topic_id ?? "self_love_principle",
-      }),
+      answer: buildPlatformFoundationGapAnswer(input.t, "foundation_unavailable"),
     };
   }
 
@@ -98,32 +107,36 @@ async function resolveFoxFoundationAnswer(input: {
   const exchange = spec.fox_exchange;
   if (!exchange?.aipify_responds) {
     return {
-      answer: buildPlatformFoundationGapAnswer(input.t, "foundation_unavailable", {
-        topicId: "playful_fox_exchange",
-      }),
+      answer: buildPlatformFoundationGapAnswer(input.t, "foundation_unavailable"),
     };
   }
 
   if (
-    input.tenantContext.identityContext.serious_context_only ||
     input.tenantContext.identityContext.crisis_mode_active ||
-    !input.tenantContext.identityContext.humor_enabled
+    input.tenantContext.identityContext.serious_context_only
   ) {
     return {
-      answer: buildPlatformFoundationGapAnswer(input.t, "foundation_unavailable", {
-        topicId: "playful_fox_exchange",
-      }),
+      answer: buildPlatformFoundationGapAnswer(input.t, "foundation_unavailable"),
     };
   }
 
-  const localizedResponse = input.t("customerApp.companionPlatformKnowledge.foundation.foxResponse");
-  const localizedFollowUp = input.t("customerApp.companionPlatformKnowledge.foundation.foxFollowUp");
-  const localizedBellBody = input.t("customerApp.companionPlatformKnowledge.foundation.foxBellBody");
+  const localizedResponse = resolveFoundationLocalizedText(
+    input.t,
+    `${BASE}.foxResponse`,
+    exchange.aipify_responds,
+  );
+  const localizedFollowUp = resolveFoundationLocalizedText(
+    input.t,
+    `${BASE}.foxFollowUp`,
+    exchange.follow_up ?? "",
+  );
+  const localizedBellBody = resolveFoundationLocalizedText(
+    input.t,
+    `${BASE}.foxBellBody`,
+    "Ring-ding-ding-ding-dingeringeding — playful moment acknowledged.",
+  );
 
-  const response =
-    localizedResponse !== "customerApp.companionPlatformKnowledge.foundation.foxResponse"
-      ? localizedResponse
-      : exchange.aipify_responds;
+  const response = localizedResponse;
 
   const { data: bellMoment } = await input.supabase.rpc("get_playful_bell_moment", {
     p_context: "fox_spoken",
@@ -132,12 +145,16 @@ async function resolveFoxFoundationAnswer(input: {
   const bellPayload =
     bellMoment && typeof bellMoment === "object" ? (bellMoment as Record<string, unknown>) : null;
   const bellAvailable =
-    typeof bellPayload?.text === "string" ? bellPayload.text.trim().length > 0 : Boolean(localizedBellBody);
+    typeof bellPayload?.text === "string"
+      ? bellPayload.text.trim().length > 0
+      : localizedBellBody.trim().length > 0;
 
   if (!bellAvailable) {
     return {
-      answer: buildPlatformFoundationGapAnswer(input.t, "foundation_unavailable", {
-        topicId: "playful_fox_exchange",
+      answer: buildFoxFoundationAnswer({
+        response,
+        followUp: localizedFollowUp || null,
+        t: input.t,
       }),
     };
   }
@@ -177,7 +194,7 @@ export async function resolvePlatformFoundationAnswer(
 
   if (!input.supabase) {
     return {
-      answer: buildPlatformFoundationGapAnswer(input.t, "foundation_unavailable", { topicId }),
+      answer: buildPlatformFoundationGapAnswer(input.t, "foundation_unavailable"),
     };
   }
 

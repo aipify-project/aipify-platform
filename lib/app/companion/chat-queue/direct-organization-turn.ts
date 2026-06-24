@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { parseCustomerLicenseCenter } from "@/lib/companion-platform-knowledge/pricing-bridge";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { createTranslator } from "@/lib/i18n/translate";
+import { resolveAnswerLocale } from "@/lib/companion-platform-knowledge/language";
 import { coerceToCustomerActiveLocale, type CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import { parseIdentityPermissionsDashboard } from "@/lib/aipify/identity-permissions/parse";
 import { resolveAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
@@ -172,7 +173,9 @@ export async function executeDirectOrganizationOrFoundationTurn(
   | { ok: true; assistantContent: string; assistantPayload: Record<string, unknown>; route: string; capability?: string }
   | { ok: false; error: string; should_queue?: boolean; route: string }
 > {
-  const locale = coerceToCustomerActiveLocale(input.locale);
+  const locale = coerceToCustomerActiveLocale(
+    resolveAnswerLocale(input.locale, input.query),
+  );
   const memberIntent = resolveOrganizationIntelligenceIntent(input.query, locale);
   const operationalPhrase = detectOperationalQueryKind(input.query);
   const foundationQuery =

@@ -74,7 +74,7 @@ function groundedAnswer(input: {
 export function buildPlatformFoundationGapAnswer(
   t: Translator,
   reason: PlatformFoundationGapReason,
-  input?: { topicId?: string | null },
+  _input?: { topicId?: string | null },
 ): PlatformKnowledgeAnswer {
   const key =
     reason === "foundation_unavailable"
@@ -85,21 +85,13 @@ export function buildPlatformFoundationGapAnswer(
           ? `${BASE}.permissionRequired`
           : `${BASE}.sourceUnavailable`;
 
-  const statusLabel = t(`${BASE}.gapStatus.${reason}`);
-  const explanation = [
-    t(`${BASE}.gapStatusLine`).replace("{status}", statusLabel),
-    input?.topicId ? t(`${BASE}.gapTopicLine`).replace("{topic}", input.topicId) : null,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
   return {
     directAnswer: t(key),
-    explanation,
+    explanation: "",
     steps: [],
     actions: [],
     sources: [],
-    sourceId: "platform-foundation-gap",
+    sourceId: "platform-foundation-guidance",
     source: "customer_context",
     confidence: "low",
     orgConfirmEligible: false,
