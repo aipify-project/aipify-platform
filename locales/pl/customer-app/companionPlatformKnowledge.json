@@ -106,6 +106,7 @@
       "partialWarning": "Dla tej odpowiedzi dostępne były tylko częściowe metadane operacyjne.",
       "emptyWarning": "W zatwierdzonych źródłach nie zgłoszono zdarzeń operacyjnych w tym okresie.",
       "unavailable": "Command Brief i dane od ostatniego logowania nie są teraz dostępne dla Twojej organizacji.",
+      "liveSourceUnavailable": "Brak podłączonych live zdarzeń operacyjnych dla Twojej organizacji. Aktywność showcase lub demo została odfiltrowana i nie może być pokazana jako prawdziwe zdarzenia klienta.",
       "leadSinceLast": "Od ostatniej sesji zarejestrowano te aktualizacje operacyjne:",
       "leadCompleted": "Aipify ukończyło następujące:",
       "leadAttention": "To wymaga uwagi:",
@@ -118,8 +119,28 @@
       "emptyChanges": "W zatwierdzonych źródłach operacyjnych nie zgłoszono ważnych zmian.",
       "emptyNextAction": "Ze zatwierdzonych źródeł operacyjnych nie było dostępnego zalecanego następnego działania.",
       "emptyOverview": "Ze zatwierdzonych źródeł nie było dostępnego podsumowania operacyjnego.",
-      "itemLine": "• {title} ({category})",
-      "nextActionLine": "• {title}"
+      "itemLine": "• {title} — {category}",
+      "nextActionLine": "• {title}",
+      "categoryLabels": {
+        "requires_attention": "Wymaga uwagi",
+        "important_change": "Ważna zmiana",
+        "completed": "Ukończone",
+        "operational_event": "Zdarzenie",
+        "recommended": "Zalecane",
+        "summary_line": "Podsumowanie",
+        "internal": "Aktualizacja operacyjna"
+      },
+      "eventTitles": {
+        "genericUpdate": "Aktualizacja operacyjna",
+        "customer_health_shift_detected": "Wykryto zmianę kondycji klienta",
+        "access_review_reminder_generated": "Przypomnienie o przeglądzie dostępu",
+        "automation_execution_requires_review": "Automatyzacja wymaga przeglądu",
+        "workspace_policy_updated": "Zaktualizowano politykę obszaru roboczego",
+        "executive_approval_queued": "Zatwierdzenie zarządcze w kolejce",
+        "companion_summary_prepared": "Przygotowano podsumowanie Companion",
+        "business_pack_milestone_recorded": "Zarejestrowano kamień milowy Business Pack",
+        "domain_verification_status_changed": "Zmieniono status weryfikacji domeny"
+      }
     },
     "organizationIntelligence": {
       "sourceLabel": "Inteligencja organizacji",
@@ -146,6 +167,7 @@
       "providerMissing": "Do tego pytania organizacyjnego nie podłączono jeszcze źródła live.",
       "adapterMissing": "Dla tej zdolności organizacyjnej nie zarejestrowano jeszcze adaptera providera.",
       "sourceUnavailable": "Podłączone źródło nie zwróciło danych live dla tego pytania.",
+      "memberRegistryNotConnected": "Aipify nie widzi jeszcze live rejestru członków dla Twojej organizacji. Liczby członków nie mogą być podane — podłącz zatwierdzony adapter providera do zweryfikowanego live źródła członków.",
       "memberDetailListLead": "Członkowie z podłączonego rejestru członków:",
       "memberDetailListItem": "• {username} · ID {memberId} · {status}",
       "memberDetailListEmpty": "Podłączone źródło nie zwróciło żadnych członków.",
@@ -156,7 +178,8 @@
         "adapter_missing": "adapter_missing",
         "permission_required": "permission_required",
         "source_unavailable": "source_unavailable",
-        "missing_data": "missing_data"
+        "missing_data": "missing_data",
+        "registry_not_connected": "Rejestr członków niepodłączony"
       }
     },
     "foundation": {
@@ -165,7 +188,12 @@
       "foxSourceLabel": "Fundament osobowości Aipify",
       "platformSpecLabel": "Fundament platformy Aipify",
       "selfLoveLead": "Self Love to zasada i wartość w Aipify Business Operating System (ABOS) — nie zastrzeżona nazwa produktu.",
+      "selfLovePhilosophy": "Self Love to wartość — troska, refleksja, regeneracja i równowaga. Wspieraj ciężką pracę bez gloryfikowania wyczerpania.",
+      "selfLoveAbosPrinciple": "Systemy, które dbają o siebie, lepiej dbają o innych.",
       "selfLoveBoundariesLead": "Self Love informuje i przygotowuje; decyzje podejmują ludzie. Granice:",
+      "selfLoveBoundary1": "• Nigdy natrętne — bez nadmiernych przypomnień",
+      "selfLoveBoundary2": "• Nigdy infantylizujące — ciepłe i pełne szacunku",
+      "selfLoveBoundary3": "• Nigdy blokujące pracę — tylko sugestie",
       "foxFollowUp": "Zabawny moment — gotowy, gdy chcesz kontynuować.",
       "foxResponse": "Ring-ding-ding-ding-dingeringeding 🦊",
       "foxBellTitle": "Zabawny moment dzwonka",
@@ -187,6 +215,22 @@
         "permission_required": "Wymagane uprawnienie",
         "source_unavailable": "Źródło niedostępne"
       }
+    },
+    "explicitIntent": {
+      "registrationMetaLead": "Aipify Companion działa w Twojej przestrzeni roboczej Aipify — nie jako osobna publiczna strona.",
+      "registrationMetaExplanation": "Companion jest przypisany do kontekstu organizacji w Aipify Core. Nie ma własnej domeny ani rejestru członków.",
+      "mediaVerificationLead": "Weryfikacja obrazów odbywa się przez podłączoną capability weryfikacji — nie przez zwykły czat.",
+      "mediaVerificationExplanation": "Aipify może prowadzić przepływy weryfikacji, gdy {capability} jest aktywna i Twoja rola na to pozwala. Nie mogę weryfikować obrazów wyłącznie z rozmowy.",
+      "mediaVerificationUnavailable": "Brak podłączonego live providera weryfikacji obrazów w tej przestrzeni roboczej.",
+      "mediaVerificationUnavailableExplanation": "Podłącz i zatwierdź odpowiednią capability weryfikacji, zanim Aipify sprawdzi oczekujące obrazy.",
+      "knowledgeCenterSource": "Na podstawie zatwierdzonej dokumentacji Knowledge Center.",
+      "organizationKnowledgeSource": "Na podstawie zatwierdzonej wiedzy organizacji.",
+      "knowledgeGapLead": "Nie udało się pobrać zatwierdzonej sekcji FAQ lub wiedzy dla {provider} z podłączonych źródeł.",
+      "knowledgeGapExplanation": "Aipify potrzebuje zatwierdzonego providera wiedzy lub artykułu Knowledge Center, zanim zwróci tę sekcję.",
+      "providerFallback": "żądanego providera",
+      "integrationCheckLead": "Mogę sprawdzić status instalacji {integration} tylko gdy adapter integracji jest podłączony i Twoja rola pozwala na odczyt.",
+      "integrationCheckExplanation": "Podłącz integrację w ustawieniach Install i zatwierdź dostęp do odczytu. Aipify porówna wtedy sygnały live zamiast zgadywać z czatu.",
+      "integrationFallback": "tej integracji"
     },
     "memory": {
       "sourceLabel": "Potwierdzona pamięć organizacji",

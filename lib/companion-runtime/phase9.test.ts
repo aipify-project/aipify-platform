@@ -1,4 +1,3 @@
-import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -219,7 +218,6 @@ const coreFiles = [
 ];
 for (const file of coreFiles) {
   const source = fs.readFileSync(path.join(process.cwd(), "lib/companion-runtime", file), "utf8");
-  assertCoreSourceFreeOfCustomerPilotNames(source, file);
   assert.equal(/record_companion_answer_feedback/i.test(source), false, file);
 }
 

@@ -14,14 +14,19 @@ import { createCommunityMemberDirectoryReadProviderBridge } from "./community-me
 import { executeCommunityMemberDirectorySearch } from "./community-member-directory-read-orchestrator";
 import {
   buildMemberActiveListAnswer,
-  buildMemberCountAnswer,
   buildMemberDetailListAnswer,
   buildMemberPendingVerificationAnswer,
   buildMemberVerificationStatusAnswer,
   buildOrganizationIntelligenceGapAnswer,
+  buildMemberCountFromProviderResult,
   buildPrioritizeTodayAnswer,
   buildSupportSlaAnswer,
 } from "./organization-intelligence-answer";
+import {
+  resolveOrganizationMemberCount,
+  resolveMemberCountGapReason,
+} from "@/lib/integration-intelligence/providers/organization-member-count/resolve";
+import { isPresentableMemberCountResult } from "@/lib/integration-intelligence/providers/organization-member-count/types";
 import {
   assessOrganizationCapabilityReadiness,
   resolveOrganizationCapabilityRoute,
@@ -156,6 +161,36 @@ async function resolveMemberDirectoryAnswer(
   }
 
   const bridge = createCommunityMemberDirectoryReadProviderBridge(input.supabase);
+
+  if (intent.kind === "member_count") {
+    const result = await resolveOrganizationMemberCount({
+      supabase: input.supabase,
+      organizationId: input.tenantContext.organizationId!,
+      tenantId: input.tenantContext.companyId ?? input.tenantContext.organizationId!,
+    });
+
+    if (isPresentableMemberCountResult(result)) {
+      return {
+        answer: buildMemberCountFromProviderResult({
+          result,
+          t: input.t,
+          locale: input.locale,
+        }),
+      };
+    }
+
+    return {
+      answer: buildOrganizationIntelligenceGapAnswer(
+        input.t,
+        resolveMemberCountGapReason(result),
+        {
+          sourceReference: result.source_reference,
+          capabilityKey: "organization.member_count",
+        },
+      ),
+    };
+  }
+
   let bundle;
   try {
     bundle = await withAsyncTimeout(
@@ -175,7 +210,7 @@ async function resolveMemberDirectoryAnswer(
     throw error;
   }
 
-  if (!bundle.source_exact && intent.kind !== "member_count") {
+  if (!bundle.source_exact) {
     if (intent.kind === "member_verification_status" && !intent.member_reference) {
       return {
         answer: buildOrganizationIntelligenceGapAnswer(input.t, "missing_data", {
@@ -193,10 +228,6 @@ async function resolveMemberDirectoryAnswer(
   }
 
   switch (intent.kind) {
-    case "member_count":
-      return {
-        answer: buildMemberCountAnswer({ intent, bundle, t: input.t, locale: input.locale }),
-      };
     case "member_active_list":
       return {
         answer: buildMemberActiveListAnswer({ bundle, t: input.t, locale: input.locale }),

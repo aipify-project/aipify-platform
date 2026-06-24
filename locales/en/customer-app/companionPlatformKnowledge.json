@@ -364,6 +364,7 @@
       "partialWarning": "Only partial operational metadata was available for this answer.",
       "emptyWarning": "No operational events were reported in the approved sources for this period.",
       "unavailable": "Command Brief and since-last-login data are not available for your organization right now.",
+      "liveSourceUnavailable": "No live operational events are connected for your organization right now. Showcase or demo activity was excluded and cannot be shown as real customer events.",
       "leadSinceLast": "Since your last session, these operational updates were recorded:",
       "leadCompleted": "Aipify completed the following items:",
       "leadAttention": "These items require your attention:",
@@ -376,8 +377,28 @@
       "emptyChanges": "No important changes were reported by approved operational sources.",
       "emptyNextAction": "No recommended next action was available from approved operational sources.",
       "emptyOverview": "No operational summary was available from approved sources.",
-      "itemLine": "• {title} ({category})",
-      "nextActionLine": "• {title}"
+      "itemLine": "• {title} — {category}",
+      "nextActionLine": "• {title}",
+      "categoryLabels": {
+        "requires_attention": "Needs attention",
+        "important_change": "Important change",
+        "completed": "Completed",
+        "operational_event": "Event",
+        "recommended": "Recommended",
+        "summary_line": "Summary",
+        "internal": "Operational update"
+      },
+      "eventTitles": {
+        "genericUpdate": "Operational update",
+        "customer_health_shift_detected": "Customer health change detected",
+        "access_review_reminder_generated": "Access review reminder",
+        "automation_execution_requires_review": "Automation run needs review",
+        "workspace_policy_updated": "Workspace policy updated",
+        "executive_approval_queued": "Executive approval queued",
+        "companion_summary_prepared": "Companion summary prepared",
+        "business_pack_milestone_recorded": "Business Pack milestone recorded",
+        "domain_verification_status_changed": "Domain verification status changed"
+      }
     },
     "organizationIntelligence": {
       "sourceLabel": "Organization intelligence",
@@ -404,6 +425,7 @@
       "providerMissing": "No live source is connected for this organization question yet.",
       "adapterMissing": "No provider adapter is registered for this organization capability yet.",
       "sourceUnavailable": "The connected source did not return live data for this question.",
+      "memberRegistryNotConnected": "Aipify cannot find a live member registry for your organization yet. A member count cannot be provided until an approved provider adapter connects a verified live member source.",
       "memberDetailListLead": "Members from the connected member directory:",
       "memberDetailListItem": "• {username} · ID {memberId} · {status}",
       "memberDetailListEmpty": "No members were returned by the connected directory source.",
@@ -414,7 +436,8 @@
         "adapter_missing": "adapter_missing",
         "permission_required": "permission_required",
         "source_unavailable": "source_unavailable",
-        "missing_data": "missing_data"
+        "missing_data": "missing_data",
+        "registry_not_connected": "Member registry not connected"
       }
     },
     "foundation": {
@@ -423,7 +446,12 @@
       "foxSourceLabel": "Aipify playful personality foundation",
       "platformSpecLabel": "Aipify platform foundation",
       "selfLoveLead": "Self Love is a principle and value within the Aipify Business Operating System (ABOS) — not a trademarked product name.",
+      "selfLovePhilosophy": "Self Love is a value — care, reflection, recovery, and balance. Support hard work without glorifying exhaustion.",
+      "selfLoveAbosPrinciple": "Systems that care for themselves are better equipped to care for others.",
       "selfLoveBoundariesLead": "Self Love informs and prepares; humans decide. Boundaries:",
+      "selfLoveBoundary1": "• Never intrusive — no excessive reminders",
+      "selfLoveBoundary2": "• Never infantilizing — warm and respectful",
+      "selfLoveBoundary3": "• Never blocking work — suggestions only",
       "foxFollowUp": "A playful moment — ready when you are to continue.",
       "foxResponse": "Ring-ding-ding-ding-dingeringeding 🦊",
       "foxBellTitle": "Playful bell moment",
@@ -445,6 +473,22 @@
         "permission_required": "Permission required",
         "source_unavailable": "Source unavailable"
       }
+    },
+    "explicitIntent": {
+      "registrationMetaLead": "Aipify Companion runs inside your Aipify workspace — not as a separate public website.",
+      "registrationMetaExplanation": "Companion is registered to your organization context in Aipify Core. It does not have its own standalone domain or member directory.",
+      "mediaVerificationLead": "Image verification is handled through your connected verification capability — not general chat.",
+      "mediaVerificationExplanation": "Aipify can guide verification workflows when {capability} is active and your role allows it. I cannot verify images from conversation alone.",
+      "mediaVerificationUnavailable": "No live image verification provider is connected for this workspace yet.",
+      "mediaVerificationUnavailableExplanation": "Connect and approve the relevant verification capability before Aipify can check pending images.",
+      "knowledgeCenterSource": "Based on approved Knowledge Center documentation.",
+      "organizationKnowledgeSource": "Based on approved organization knowledge.",
+      "knowledgeGapLead": "I could not fetch an approved FAQ or knowledge section for {provider} from connected sources.",
+      "knowledgeGapExplanation": "Aipify needs an approved knowledge provider or Knowledge Center article before it can return that section.",
+      "providerFallback": "the requested provider",
+      "integrationCheckLead": "I can check {integration} installation status only when the integration adapter is connected and your role allows reads.",
+      "integrationCheckExplanation": "Connect the integration in Install settings and approve read access. Aipify will then compare live signals instead of guessing from chat.",
+      "integrationFallback": "that integration"
     },
     "memory": {
       "sourceLabel": "Confirmed organization memory",

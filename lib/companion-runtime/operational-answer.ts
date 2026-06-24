@@ -7,6 +7,8 @@ import type {
   CompanionOperationalItem,
 } from "./companion-operational-context";
 import type { CompanionOperationalQueryMatch } from "./companion-operational-query-match";
+import { resolveOperationalEventTitle } from "./operational-event-title";
+import { isPresentableOperationalRecord } from "@/lib/integration-intelligence/operational/source-classification";
 
 function formatTimestamp(value: string | null, locale: CustomerActiveLocale): string {
   if (!value) return "";
@@ -18,16 +20,33 @@ function formatTimestamp(value: string | null, locale: CustomerActiveLocale): st
   }).format(new Date(parsed));
 }
 
+const OPERATIONAL_BASE = "customerApp.companionPlatformKnowledge.operational";
+
+const CUSTOMER_HIDDEN_OPERATIONAL_CATEGORIES = new Set(["summary_line"]);
+
+function isCustomerVisibleOperationalItem(item: CompanionOperationalItem): boolean {
+  return !CUSTOMER_HIDDEN_OPERATIONAL_CATEGORIES.has(item.category);
+}
+
+function resolveOperationalCategoryLabel(category: string, t: Translator): string {
+  const normalized = category.trim().toLowerCase().replace(/[^a-z0-9_]+/g, "_");
+  const key = `${OPERATIONAL_BASE}.categoryLabels.${normalized}`;
+  const label = t(key);
+  return label.startsWith("customerApp.") ? t(`${OPERATIONAL_BASE}.categoryLabels.internal`) : label;
+}
+
 function formatItemLines(items: CompanionOperationalItem[], t: Translator, emptyKey: string): string {
-  if (items.length === 0) {
+  const visibleItems = items.filter(isCustomerVisibleOperationalItem);
+
+  if (visibleItems.length === 0) {
     return t(emptyKey);
   }
-  return items
+  return visibleItems
     .slice(0, 6)
     .map((item) =>
-      t("customerApp.companionPlatformKnowledge.operational.itemLine")
-        .replace("{title}", item.title)
-        .replace("{category}", item.category),
+      t(`${OPERATIONAL_BASE}.itemLine`)
+        .replace("{title}", resolveOperationalEventTitle(item.title, t))
+        .replace("{category}", resolveOperationalCategoryLabel(item.category, t)),
     )
     .join("\n");
 }
@@ -52,29 +71,39 @@ function buildWarningLines(context: CompanionOperationalContext, t: Translator):
   return warnings;
 }
 
+function selectPresentableOperationalItems(
+  items: CompanionOperationalItem[],
+): CompanionOperationalItem[] {
+  return items.filter(
+    (item) => isPresentableOperationalRecord(item) && isCustomerVisibleOperationalItem(item),
+  );
+}
+
 function selectItemsForMatch(
   context: CompanionOperationalContext,
   match: CompanionOperationalQueryMatch,
 ): CompanionOperationalItem[] {
   switch (match.kind) {
     case "since_last":
-      return context.operational_events.length > 0
-        ? context.operational_events
-        : [...context.important_changes, ...context.attention_items, ...context.completed_items];
+      return selectPresentableOperationalItems(
+        context.operational_events.length > 0
+          ? context.operational_events
+          : [...context.important_changes, ...context.attention_items, ...context.completed_items],
+      );
     case "completed":
-      return context.completed_items;
+      return selectPresentableOperationalItems(context.completed_items);
     case "attention":
-      return context.attention_items;
+      return selectPresentableOperationalItems(context.attention_items);
     case "changes":
-      return context.important_changes;
+      return selectPresentableOperationalItems(context.important_changes);
     case "next_action":
       return [];
     case "overview":
-      return [
+      return selectPresentableOperationalItems([
         ...context.attention_items.slice(0, 2),
         ...context.completed_items.slice(0, 2),
         ...context.important_changes.slice(0, 2),
-      ];
+      ]);
     default:
       return [];
   }
@@ -122,6 +151,23 @@ export function buildGroundedOperationalAnswer(
   t: Translator,
   locale: CustomerActiveLocale,
 ): PlatformKnowledgeAnswer {
+  const items = selectItemsForMatch(context, match);
+  const hasOnlyNonLiveSources =
+    context.warnings.includes("non_live_source_filtered") ||
+    (match.kind === "since_last" &&
+      context.operational_events.length === 0 &&
+      context.attention_items.length === 0 &&
+      context.important_changes.every(
+        (item) => !isPresentableOperationalRecord(item) || !isCustomerVisibleOperationalItem(item),
+      ));
+  if (
+    items.length === 0 &&
+    (match.kind === "since_last" || match.kind === "overview") &&
+    (hasOnlyNonLiveSources || match.kind === "since_last")
+  ) {
+    return buildOperationalGapAnswer(t, "live_source_unavailable");
+  }
+
   let directAnswer = t(leadKeyForMatch(match.kind));
 
   if (match.kind === "next_action") {
@@ -139,7 +185,6 @@ export function buildGroundedOperationalAnswer(
       directAnswer = t(emptyKeyForMatch(match.kind));
     }
   } else {
-    const items = selectItemsForMatch(context, match);
     const body = formatItemLines(items, t, emptyKeyForMatch(match.kind));
     if (body !== t(emptyKeyForMatch(match.kind))) {
       directAnswer = `${directAnswer}\n${body}`;
@@ -178,7 +223,7 @@ export function buildGroundedOperationalAnswer(
 
 export function buildOperationalGapAnswer(
   t: Translator,
-  reason: "permission_denied" | "unavailable" | "empty",
+  reason: "permission_denied" | "unavailable" | "empty" | "live_source_unavailable",
 ): PlatformKnowledgeAnswer {
   const gap = buildHonestKnowledgeGapAnswer(t);
   const reasonKey =
@@ -186,11 +231,16 @@ export function buildOperationalGapAnswer(
       ? "customerApp.companionPlatformKnowledge.operational.permissionDenied"
       : reason === "empty"
         ? "customerApp.companionPlatformKnowledge.operational.emptyOverview"
-        : "customerApp.companionPlatformKnowledge.operational.unavailable";
+        : reason === "live_source_unavailable"
+          ? "customerApp.companionPlatformKnowledge.operational.liveSourceUnavailable"
+          : "customerApp.companionPlatformKnowledge.operational.unavailable";
+
+  const reasonText = t(reasonKey);
 
   return {
     ...gap,
-    explanation: [gap.explanation, t(reasonKey)].filter(Boolean).join("\n\n"),
+    directAnswer: reason === "live_source_unavailable" ? reasonText : gap.directAnswer,
+    explanation: [gap.explanation, reasonText].filter(Boolean).join("\n\n"),
     sources: [
       ...gap.sources,
       {

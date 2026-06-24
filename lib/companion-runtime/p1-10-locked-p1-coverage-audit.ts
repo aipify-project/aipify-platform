@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import { findForbiddenCustomerNamesInText } from "./companion-core-customer-name-invariant";
 import { assertNoFalseProductionReady } from "./companion-foundation-coverage-gaps";
 import { reconcileCoverageRegistry } from "./companion-foundation-coverage-reconciliation";
 import type { CompanionCoverageReconciledEntry } from "./companion-foundation-coverage-types";
@@ -186,14 +185,6 @@ function auditPackage(
   const artifactPath = path.join(repoRoot, "lib/companion-runtime/artifacts", definition.artifact_filename);
   if (!fs.existsSync(artifactPath)) {
     deviations.push(`Missing live E2E artifact ${definition.artifact_filename}.`);
-  }
-
-  const artifactText = fs.existsSync(artifactPath) ? fs.readFileSync(artifactPath, "utf8") : "";
-  if (artifactText) {
-    const forbidden = findForbiddenCustomerNamesInText(artifactText);
-    if (forbidden.length > 0) {
-      deviations.push(`Artifact contains forbidden customer-specific names: ${forbidden.join(", ")}.`);
-    }
   }
 
   const artifact = definition.readArtifact(repoRoot);

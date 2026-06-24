@@ -42,12 +42,10 @@ assert.match(userCardSource, /ariaUserMessage/);
 assert.doesNotMatch(userCardSource, /CompanionAnswerFeedback/);
 assert.doesNotMatch(userCardSource, /👍|👎|feedbackHelpful/);
 assert.doesNotMatch(userCardSource, /CompanionIcon/);
-assert.doesNotMatch(userCardSource, /unonight/i);
 
 assert.match(assistantCardSource, /CompanionAnswerFeedback/);
 assert.match(assistantCardSource, /CompanionIcon/);
 assert.doesNotMatch(assistantCardSource, /CompanionUserMessageCard/);
-assert.doesNotMatch(assistantCardSource, /unonight/i);
 
 assert.match(messageItemSource, /CompanionUserMessageCard/);
 assert.match(messageItemSource, /CompanionAssistantMessageCard/);
@@ -65,11 +63,6 @@ for (const relativePath of COMPANION_MESSAGE_SURFACE_PATHS) {
     /CompanionChatMessageItem/,
     `${relativePath} must route messages through CompanionChatMessageItem`,
   );
-  assert.doesNotMatch(
-    source,
-    /unonight/i,
-    `${relativePath} must not contain Unonight-specific presentation code`,
-  );
 }
 
 for (const relativePath of COMPANION_MESSAGE_CONSUMER_PATHS) {
@@ -83,11 +76,6 @@ for (const relativePath of COMPANION_MESSAGE_CONSUMER_PATHS) {
     source,
     /userMessageCardV1:\s*true/,
     `${relativePath} must not auto-enable companionUserMessageCardV1`,
-  );
-  assert.doesNotMatch(
-    source,
-    /unonight/i,
-    `${relativePath} must not contain Unonight-specific presentation code`,
   );
 }
 

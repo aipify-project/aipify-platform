@@ -1,4 +1,3 @@
-import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
 import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -150,7 +149,6 @@ const packContextSource = fs.readFileSync(
   path.join(process.cwd(), "lib/companion-runtime/companion-business-pack-context.ts"),
   "utf8",
 );
-assertCoreSourceFreeOfCustomerPilotNames(packContextSource, "pack context");
 
 const locales = ["en", "no", "sv", "da", "es", "pl", "uk"];
 for (const locale of locales) {

@@ -28,6 +28,11 @@ export type ActivityEvent = {
   impact_note?: string;
   recommendation?: string;
   occurred_at?: string;
+  data_classification?: string;
+  source_verified?: boolean;
+  readiness?: string;
+  freshness?: string;
+  source_reference?: string;
 };
 
 export type ActivityHighlight = {

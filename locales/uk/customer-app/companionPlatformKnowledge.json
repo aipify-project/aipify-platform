@@ -106,6 +106,7 @@
       "partialWarning": "Для цієї відповіді було доступне лише часткове операційне метадані.",
       "emptyWarning": "У затверджених джерелах за цей період не зафіксовано операційних подій.",
       "unavailable": "Command Brief і дані з моменту останнього входу зараз недоступні для вашої організації.",
+      "liveSourceUnavailable": "Для вашої організації не підключено live операційних подій. Showcase- або demo-активність відфільтровано — її не можна показувати як реальні події клієнта.",
       "leadSinceLast": "З моменту вашої останньої сесії зафіксовано такі операційні оновлення:",
       "leadCompleted": "Aipify завершило таке:",
       "leadAttention": "Це потребує уваги:",
@@ -118,8 +119,28 @@
       "emptyChanges": "У затверджених операційних джерелах не зафіксовано важливих змін.",
       "emptyNextAction": "У затверджених операційних джерелах не було доступної рекомендованої наступної дії.",
       "emptyOverview": "У затверджених джерелах не було доступного операційного підсумку.",
-      "itemLine": "• {title} ({category})",
-      "nextActionLine": "• {title}"
+      "itemLine": "• {title} — {category}",
+      "nextActionLine": "• {title}",
+      "categoryLabels": {
+        "requires_attention": "Потребує уваги",
+        "important_change": "Важлива зміна",
+        "completed": "Завершено",
+        "operational_event": "Подія",
+        "recommended": "Рекомендовано",
+        "summary_line": "Підсумок",
+        "internal": "Операційне оновлення"
+      },
+      "eventTitles": {
+        "genericUpdate": "Операційне оновлення",
+        "customer_health_shift_detected": "Виявлено зміну стану клієнта",
+        "access_review_reminder_generated": "Нагадування про перевірку доступу",
+        "automation_execution_requires_review": "Автоматизацію потрібно переглянути",
+        "workspace_policy_updated": "Оновлено політику робочого простору",
+        "executive_approval_queued": "Керівне погодження в черзі",
+        "companion_summary_prepared": "Підготовлено підсумок Companion",
+        "business_pack_milestone_recorded": "Зафіксовано етап Business Pack",
+        "domain_verification_status_changed": "Змінено статус перевірки домену"
+      }
     },
     "organizationIntelligence": {
       "sourceLabel": "Організаційна інтелектуальність",
@@ -146,6 +167,7 @@
       "providerMissing": "Для цього організаційного запитання ще не підключено live-джерело.",
       "adapterMissing": "Для цієї організаційної можливості ще не зареєстровано адаптер provider.",
       "sourceUnavailable": "Підключене джерело не повернуло live-дані для цього запитання.",
+      "memberRegistryNotConnected": "Aipify ще не бачить live-реєстр учасників для вашої організації. Кількість учасників не може бути надана — підключіть схвалений provider-adapter до перевіреного live-джерела учасників.",
       "memberDetailListLead": "Учасники з підключеного реєстру учасників:",
       "memberDetailListItem": "• {username} · ID {memberId} · {status}",
       "memberDetailListEmpty": "Підключене джерело не повернуло жодного учасника.",
@@ -156,7 +178,8 @@
         "adapter_missing": "adapter_missing",
         "permission_required": "permission_required",
         "source_unavailable": "source_unavailable",
-        "missing_data": "missing_data"
+        "missing_data": "missing_data",
+        "registry_not_connected": "Реєстр учасників не підключено"
       }
     },
     "foundation": {
@@ -165,7 +188,12 @@
       "foxSourceLabel": "Фундамент особистості Aipify",
       "platformSpecLabel": "Фундамент платформи Aipify",
       "selfLoveLead": "Self Love — це принцип і цінність у Aipify Business Operating System (ABOS), а не зареєстрована назва продукту.",
+      "selfLovePhilosophy": "Self Love — це цінність: турбота, рефлексія, відновлення та баланс. Підтримуйте наполегливу працю без романтизації виснаження.",
+      "selfLoveAbosPrinciple": "Системи, які дбають про себе, краще дбають про інших.",
       "selfLoveBoundariesLead": "Self Love інформує та готує; рішення приймають люди. Межі:",
+      "selfLoveBoundary1": "• Ніколи нав'язливо — без зайвих нагадувань",
+      "selfLoveBoundary2": "• Ніколи інфантильно — тепло і з повагою",
+      "selfLoveBoundary3": "• Ніколи не блокує роботу — лише пропозиції",
       "foxFollowUp": "Грайливий момент — готовий продовжити, коли ви будете готові.",
       "foxResponse": "Ring-ding-ding-ding-dingeringeding 🦊",
       "foxBellTitle": "Грайливий дзвінок",
@@ -187,6 +215,22 @@
         "permission_required": "Потрібен дозвіл",
         "source_unavailable": "Джерело недоступне"
       }
+    },
+    "explicitIntent": {
+      "registrationMetaLead": "Aipify Companion працює всередині вашого робочого простору Aipify — не як окремий публічний сайт.",
+      "registrationMetaExplanation": "Companion зареєстрований у контексті вашої організації в Aipify Core. Він не має власного домену чи реєстру учасників.",
+      "mediaVerificationLead": "Перевірка зображень виконується через підключену capability верифікації — не через загальний чат.",
+      "mediaVerificationExplanation": "Aipify може супроводжувати процеси верифікації, коли {capability} активна і ваша роль це дозволяє. Я не можу верифікувати зображення лише з розмови.",
+      "mediaVerificationUnavailable": "До цього робочого простору ще не підключено live provider верифікації зображень.",
+      "mediaVerificationUnavailableExplanation": "Підключіть і схваліть відповідну capability верифікації, перш ніж Aipify перевірить очікувані зображення.",
+      "knowledgeCenterSource": "На основі схваленої документації Knowledge Center.",
+      "organizationKnowledgeSource": "На основі схвалених знань організації.",
+      "knowledgeGapLead": "Не вдалося отримати схвалену секцію FAQ або знань для {provider} з підключених джерел.",
+      "knowledgeGapExplanation": "Aipify потребує схваленого provider знань або статті Knowledge Center, перш ніж повернути цю секцію.",
+      "providerFallback": "запитаного provider",
+      "integrationCheckLead": "Я можу перевірити статус інсталяції {integration} лише коли adapter інтеграції підключений і ваша роль дозволяє читання.",
+      "integrationCheckExplanation": "Підключіть інтеграцію в налаштуваннях Install і схваліть доступ на читання. Тоді Aipify порівнює live-сигнали замість здогадок із чату.",
+      "integrationFallback": "цієї інтеграції"
     },
     "memory": {
       "sourceLabel": "Підтверджена організаційна пам'ять",

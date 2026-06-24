@@ -1,4 +1,3 @@
-import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
 import { PILOT_INTEGRATION_PROVIDER_KEY } from "@/lib/integration-intelligence/pilot-integration-fixture";
 import assert from "node:assert/strict";
 import {

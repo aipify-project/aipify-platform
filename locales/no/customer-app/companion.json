@@ -1,4 +1,14 @@
 {
+  "companion": {
+    "lightweightConversational": {
+      "greeting": "Hei{name}! Jeg er her — hva vil du snakke om?",
+      "thanks": "Bare hyggelig. Glad jeg kunne hjelpe.",
+      "humor": "Jeg holder det lett — rolig støtte slår påklistrede vitser. Hva ville gjort dagen enklere?",
+      "social": "Jeg er her med deg. Si hva slags samtale du ønsker.",
+      "personality": "Jeg er Aipify — din forretningscompanion. Jeg forbereder, forklarer og anbefaler; du bestemmer.",
+      "general": "Jeg er her med deg. Spør med dine egne ord — jeg svarer så tydelig jeg kan."
+    }
+  },
   "companionBriefing": {
     "companionBriefing": "Companion-briefing",
     "loading": "Laster Companion-briefing…",
@@ -2293,16 +2303,26 @@
     "queue": {
       "title": "Meldingskø",
       "summary": "{count} venter",
+      "summaryDual": "{waiting} venter · {processing} behandles",
       "statusWaiting": "Venter",
       "statusProcessing": "Behandles",
       "statusCompleted": "Fullført",
       "statusFailed": "Kunne ikke fullføres",
       "statusCancelled": "Avbrutt",
-      "statusWorking": "Aipify arbeider med svaret",
-      "statusLongWait": "Dette tar lengre tid enn vanlig. Aipify jobber fortsatt med det.",
-      "statusTimedOut": "Dette tar lengre tid enn forventet. Bruk Prøv igjen — Aipify gjenbruker denne kømeldingen uten å opprette en duplikat.",
+      "statusWorking": "Aipify arbeider med svaret.",
+      "statusLongWait": "Dette tar litt lengre tid enn vanlig.",
+      "statusTimedOut": "Tidsavbrudd",
       "cancel": "Avbryt",
       "retry": "Prøv igjen",
+      "dismiss": "Fjern",
+      "dismissAll": "Fjern alle fullførte og feilede",
+      "confirmDismissAll": "Fjerne alle fullførte og feilede elementer fra køen? Aktive jobber som behandles fjernes ikke.",
+      "statusBackgroundContinuing": "Aipify fortsetter i bakgrunnen. Du kan arbeide videre.",
+      "errors": {
+        "turnTimeoutPrimary": "Aipify klarte ikke å fullføre svaret denne gangen.",
+        "turnTimeoutSecondary": "Oppgaven er stoppet og kan prøves på nytt eller fjernes.",
+        "generic": "Noe gikk galt under utarbeidelsen av svaret."
+      },
       "notificationTitle": "Aipify har et svar klart",
       "notificationBody": "Companion-svaret ditt for «{question}» er klart.",
       "restoreError": "Den forrige samtalen kunne ikke gjenopprettes. Du kan starte en ny nedenfor.",

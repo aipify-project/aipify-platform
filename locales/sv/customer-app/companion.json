@@ -1,4 +1,14 @@
 {
+  "companion": {
+    "lightweightConversational": {
+      "greeting": "Hej{name}! Jag är här — vad vill du prata om?",
+      "thanks": "Varsågod. Glad att jag kunde hjälpa.",
+      "humor": "Jag håller det lätt — stadigt stöd slår påklistrade skämt. Vad skulle göra dagen enklare?",
+      "social": "Jag är här med dig. Berätta vilken slags konversation du vill ha.",
+      "personality": "Jag är Aipify — din affärscompanion. Jag förbereder, förklarar och rekommenderar; du bestämmer.",
+      "general": "Jag är här med dig. Fråga med egna ord — jag svarar så tydligt jag kan."
+    }
+  },
   "companionBriefing": {
     "companionBriefing": "Companion-briefing",
     "loading": "Laddar Companion-briefing…",
@@ -2293,16 +2303,26 @@
     "queue": {
       "title": "Meddelandekö",
       "summary": "{count} väntar",
+      "summaryDual": "{waiting} väntar · {processing} bearbetas",
       "statusWaiting": "Väntar",
       "statusProcessing": "Bearbetas",
       "statusCompleted": "Slutförd",
       "statusFailed": "Kunde inte slutföras",
       "statusCancelled": "Avbruten",
-      "statusWorking": "Aipify arbetar med ditt svar",
-      "statusLongWait": "Detta tar längre tid än vanligt. Aipify arbetar fortfarande med det.",
-      "statusTimedOut": "Detta tar längre tid än väntat. Använd Försök igen — Aipify återanvänder detta kömeddelande utan att skapa en dubblett.",
+      "statusWorking": "Aipify arbetar med ditt svar.",
+      "statusLongWait": "Detta tar lite längre tid än vanligt.",
+      "statusTimedOut": "Tidsgräns",
       "cancel": "Avbryt",
       "retry": "Försök igen",
+      "dismiss": "Ta bort",
+      "dismissAll": "Ta bort alla slutförda och misslyckade",
+      "confirmDismissAll": "Ta bort alla slutförda och misslyckade objekt från kön? Aktiva jobb tas inte bort.",
+      "statusBackgroundContinuing": "Aipify fortsätter i bakgrunden. Du kan fortsätta arbeta.",
+      "errors": {
+        "turnTimeoutPrimary": "Aipify kunde inte slutföra svaret den här gången.",
+        "turnTimeoutSecondary": "Uppgiften stoppades så att den inte fastnade. Du kan försöka igen.",
+        "generic": "Något gick fel när svaret förbereddes."
+      },
       "notificationTitle": "Aipify har ett svar klart",
       "notificationBody": "Ditt Companion-svar för ”{question}” är klart.",
       "restoreError": "Din tidigare konversation kunde inte återställas. Du kan starta en ny nedan.",

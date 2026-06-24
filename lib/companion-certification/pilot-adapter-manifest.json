@@ -1,0 +1,4 @@
+{
+  "pilot_adapter_test_roots": ["lib/unonight/provider-adapter/tests"],
+  "legacy_directory_module_id": "directory.unonight_member"
+}

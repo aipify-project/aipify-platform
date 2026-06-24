@@ -1,4 +1,14 @@
 {
+  "companion": {
+    "lightweightConversational": {
+      "greeting": "Привіт{name}! Я тут — про що хочете поговорити?",
+      "thanks": "Будь ласка. Радий, що зміг допомогти.",
+      "humor": "Тримаю легкий тон — спокійна підтримка краща за нав’язливі жарти. Що полегшить день?",
+      "social": "Я поруч із вами. Скажіть, яку розмову ви хочете.",
+      "personality": "Я Aipify — ваш бізнес-companion. Готую, пояснюю й рекомендую; рішення за вами.",
+      "general": "Я поруч із вами. Запитайте своїми словами — відповім якомога зрозуміліше."
+    }
+  },
   "companionContextEngine": {
     "title": "Companion Context Engine",
     "subtitle": "Understand what is happening across your work environment so Aipify assistance becomes more relevant and valuable.",
@@ -1407,16 +1417,26 @@
     "queue": {
       "title": "Черга повідомлень",
       "summary": "{count} очікує",
+      "summaryDual": "{waiting} очікує · {processing} обробляється",
       "statusWaiting": "Очікує",
       "statusProcessing": "Обробляється",
       "statusCompleted": "Завершено",
       "statusFailed": "Не вдалося завершити",
       "statusCancelled": "Скасовано",
-      "statusWorking": "Aipify готує вашу відповідь",
-      "statusLongWait": "Це займає більше часу, ніж зазвичай. Aipify все ще працює над цим.",
-      "statusTimedOut": "Це займає більше часу, ніж очікувалось. Натисніть Спробувати знову — Aipify повторно використає це повідомлення в черзі без дубліката.",
+      "statusWorking": "Aipify працює над відповіддю.",
+      "statusLongWait": "Це займає трохи більше часу, ніж зазвичай.",
+      "statusTimedOut": "Час вичерпано",
       "cancel": "Скасувати",
       "retry": "Спробувати знову",
+      "dismiss": "Прибрати",
+      "dismissAll": "Прибрати всі завершені та невдалі",
+      "confirmDismissAll": "Прибрати всі завершені та невдалі елементи з черги? Активні завдання не будуть видалені.",
+      "statusBackgroundContinuing": "Aipify продовжує у фоновому режимі. Можете працювати далі.",
+      "errors": {
+        "turnTimeoutPrimary": "Aipify не встигло завершити відповідь цього разу.",
+        "turnTimeoutSecondary": "Завдання зупинено, щоб воно не зависло. Можете спробувати знову.",
+        "generic": "Щось пішло не так під час підготовки відповіді."
+      },
       "notificationTitle": "Aipify має готову відповідь",
       "notificationBody": "Ваша відповідь Companion для «{question}» готова.",
       "restoreError": "Попередню розмову не вдалося відновити. Ви можете почати нову нижче.",

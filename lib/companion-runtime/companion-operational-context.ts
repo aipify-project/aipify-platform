@@ -9,6 +9,8 @@ import {
   type SinceLastLoginEvent,
 } from "@/lib/command-center/since-last-login";
 import { isSyntheticEccRecord } from "@/lib/command-center/ecc-tab-datasets";
+import { isPresentableOperationalRecord } from "@/lib/integration-intelligence/operational/source-classification";
+import type { OperationalSourceMetadata } from "@/lib/integration-intelligence/operational/source-classification";
 import type { ActivityEvent } from "@/lib/activity-operations/types";
 import type { CompanionContextBriefing } from "@/lib/aipify/briefing/types";
 import { parseExecutiveCommandCenter, type ExecutiveCommandCenter } from "@/lib/executive-command-center-engine/parse";
@@ -23,11 +25,17 @@ export type CompanionOperationalItem = {
   id: string;
   title: string;
   summary?: string;
+  event_number?: string;
   category: string;
   priority?: string;
   occurred_at?: string;
   source_module?: string;
   href?: string;
+  data_classification?: string;
+  source_verified?: boolean;
+  readiness?: string;
+  freshness?: string;
+  source_reference?: string;
 };
 
 export type CompanionOperationalNextAction = {
@@ -107,17 +115,31 @@ function mapSinceLastLoginEvent(event: SinceLastLoginEvent): CompanionOperationa
   };
 }
 
-function mapActivityEvent(event: ActivityEvent): CompanionOperationalItem {
-  return {
+function mapActivityEvent(event: ActivityEvent): CompanionOperationalItem | null {
+  const item: CompanionOperationalItem = {
     id: event.id,
     title: event.title,
     summary: event.summary,
+    event_number: event.event_number,
     category: event.category,
     priority: event.priority,
     occurred_at: event.occurred_at,
     source_module: event.business_pack_key ?? event.category,
     href: event.record_href,
+    data_classification: event.data_classification,
+    source_verified: event.source_verified,
+    readiness: event.readiness,
+    freshness: event.freshness,
+    source_reference: event.source_reference,
   };
+  if (!isPresentableOperationalRecord(item)) return null;
+  return item;
+}
+
+function mapSinceLastLoginEventSafe(event: SinceLastLoginEvent): CompanionOperationalItem | null {
+  const item = mapSinceLastLoginEvent(event);
+  if (!isPresentableOperationalRecord(item)) return null;
+  return item;
 }
 
 const GENERIC_SOURCE_MODULES = new Set([
@@ -283,6 +305,7 @@ export function normalizeCompanionOperationalContext(
   const operationalEvents: CompanionOperationalItem[] = [];
   const recommendedNextActions: CompanionOperationalNextAction[] = [];
   let since: string | null = null;
+  let nonLiveFilteredCount = 0;
 
   if (input.activityCenter?.since_last_login) {
     const summary = input.activityCenter.since_last_login;
@@ -300,14 +323,20 @@ export function normalizeCompanionOperationalContext(
     }
 
     for (const event of summary.top_changes ?? []) {
-      importantChanges.push(mapActivityEvent(event));
+      const mapped = mapActivityEvent(event);
+      if (!mapped && event.id) nonLiveFilteredCount += 1;
+      if (mapped) importantChanges.push(mapped);
     }
 
     for (const event of summary.top_risks ?? []) {
-      attentionItems.push({
-        ...mapActivityEvent(event),
-        category: "requires_attention",
-      });
+      const mapped = mapActivityEvent(event);
+      if (!mapped && event.id) nonLiveFilteredCount += 1;
+      if (mapped) {
+        attentionItems.push({
+          ...mapped,
+          category: "requires_attention",
+        });
+      }
     }
 
     for (const action of summary.recommended_actions ?? []) {
@@ -322,20 +351,28 @@ export function normalizeCompanionOperationalContext(
   if (input.executiveCenter?.found) {
     const center = input.executiveCenter;
     const activityFeed = buildCommandBriefActivityFeed(center);
-    operationalEvents.push(...activityFeed.items.map(mapSinceLastLoginEvent));
+    operationalEvents.push(
+      ...activityFeed.items
+        .map(mapSinceLastLoginEventSafe)
+        .filter((item): item is CompanionOperationalItem => item !== null),
+    );
 
     const attention = buildCommandBriefAttentionItemsFromCenter(center);
     attentionItems.push(
-      ...attention.items.map((item) => ({
-        id: item.dedupeKey,
-        title: item.title,
-        summary: item.description,
-        category: "requires_attention",
-        priority: item.primaryBadge.value,
-        occurred_at: item.dueAt,
-        source_module: item.moduleArea,
-        href: item.detailHref,
-      })),
+      ...attention.items
+        .filter((item) =>
+          isPresentableOperationalRecord(item as OperationalSourceMetadata),
+        )
+        .map((item) => ({
+          id: item.dedupeKey,
+          title: item.title,
+          summary: item.description,
+          category: "requires_attention",
+          priority: item.primaryBadge.value,
+          occurred_at: item.dueAt,
+          source_module: item.moduleArea,
+          href: item.detailHref,
+        })),
     );
 
     const events = buildSinceLastLoginDataset({
@@ -370,9 +407,17 @@ export function normalizeCompanionOperationalContext(
         source_module: item.source_module,
         href: item.action_url ?? undefined,
       };
-      if (item.requires_action) attentionItems.push(mapped);
-      else importantChanges.push(mapped);
+      if (isPresentableOperationalRecord(mapped)) {
+        if (item.requires_action) attentionItems.push(mapped);
+        else importantChanges.push(mapped);
+      } else if (mapped.id) {
+        nonLiveFilteredCount += 1;
+      }
     }
+  }
+
+  if (nonLiveFilteredCount > 0) {
+    warnings.push("non_live_source_filtered");
   }
 
   const filteredCompleted = filterByEnabledModules(

@@ -268,6 +268,7 @@
       "partialWarning": "Kun delvis operativ metadata var tilgjengelig for dette svaret.",
       "emptyWarning": "Ingen operative hendelser ble rapportert i godkjente kilder for denne perioden.",
       "unavailable": "Command Brief og siden-sist-data er ikke tilgjengelige for organisasjonen din akkurat nå.",
+      "liveSourceUnavailable": "Ingen live operative hendelser er koblet til organisasjonen din akkurat nå. Showcase- eller demoaktivitet er filtrert bort og kan ikke vises som ekte kundehendelser.",
       "leadSinceLast": "Siden forrige økt ble disse operative oppdateringene registrert:",
       "leadCompleted": "Aipify fullførte følgende:",
       "leadAttention": "Dette krever oppmerksomhet:",
@@ -280,8 +281,28 @@
       "emptyChanges": "Ingen viktige endringer ble rapportert av godkjente operative kilder.",
       "emptyNextAction": "Ingen anbefalt neste handling var tilgjengelig fra godkjente operative kilder.",
       "emptyOverview": "Ingen operativ oppsummering var tilgjengelig fra godkjente kilder.",
-      "itemLine": "• {title} ({category})",
-      "nextActionLine": "• {title}"
+      "itemLine": "• {title} — {category}",
+      "nextActionLine": "• {title}",
+      "categoryLabels": {
+        "requires_attention": "Krever oppfølging",
+        "important_change": "Viktig endring",
+        "completed": "Fullført",
+        "operational_event": "Hendelse",
+        "recommended": "Anbefalt",
+        "summary_line": "Oppsummering",
+        "internal": "Operativ oppdatering"
+      },
+      "eventTitles": {
+        "genericUpdate": "Operativ oppdatering",
+        "customer_health_shift_detected": "Endring i kundens helsetilstand oppdaget",
+        "access_review_reminder_generated": "Påminnelse om tilgangsgranskning",
+        "automation_execution_requires_review": "Automatisering krever gjennomgang",
+        "workspace_policy_updated": "Retningslinjer for arbeidsområdet oppdatert",
+        "executive_approval_queued": "Godkjenning i lederkø",
+        "companion_summary_prepared": "Companion-oppsummering klargjort",
+        "business_pack_milestone_recorded": "Business Pack-milepæl registrert",
+        "domain_verification_status_changed": "Domeneverifiseringsstatus endret"
+      }
     },
     "organizationIntelligence": {
       "sourceLabel": "Organisasjonsintelligens",
@@ -308,6 +329,7 @@
       "providerMissing": "Ingen live-kilde er koblet til dette organisasjonsspørsmålet ennå.",
       "adapterMissing": "Ingen provider-adapter er registrert for denne organisasjonsevnen ennå.",
       "sourceUnavailable": "Den tilkoblede kilden returnerte ikke livedata for dette spørsmålet.",
+      "memberRegistryNotConnected": "Aipify finner ikke et live medlemsregister for organisasjonen din ennå. Medlemstall kan derfor ikke oppgis — koble et godkjent provider-adapter til et verifisert live medlemsregister før du stoler på tall her.",
       "memberDetailListLead": "Medlemmer fra det tilkoblede medlemsregisteret:",
       "memberDetailListItem": "• {username} · ID {memberId} · {status}",
       "memberDetailListEmpty": "Ingen medlemmer ble returnert av den tilkoblede kilden.",
@@ -315,10 +337,11 @@
       "gapSourceReferenceLine": "Forventet kilde: {source}",
       "gapCapabilityLine": "Evne: {capability}",
       "gapStatus": {
-        "adapter_missing": "adapter_missing",
-        "permission_required": "permission_required",
-        "source_unavailable": "source_unavailable",
-        "missing_data": "missing_data"
+        "adapter_missing": "Adapter mangler",
+        "permission_required": "Tillatelse kreves",
+        "source_unavailable": "Kilde utilgjengelig",
+        "missing_data": "Data mangler",
+        "registry_not_connected": "Medlemsregister ikke koblet"
       }
     },
     "foundation": {
@@ -327,7 +350,12 @@
       "foxSourceLabel": "Aipify leken personlighetsgrunnmur",
       "platformSpecLabel": "Aipify plattformgrunnmur",
       "selfLoveLead": "Self Love er et prinsipp og en verdi i Aipify Business Operating System (ABOS) — ikke et varemerket produktnavn.",
+      "selfLovePhilosophy": "Self Love er en verdi — omsorg, refleksjon, restitusjon og balanse. Støtt hardt arbeid uten å glorifisere utmattelse.",
+      "selfLoveAbosPrinciple": "Systemer som tar vare på seg selv, er bedre rustet til å ta vare på andre.",
       "selfLoveBoundariesLead": "Self Love informerer og forbereder; mennesker bestemmer. Grenser:",
+      "selfLoveBoundary1": "• Aldri påtrengende — ingen overdrevne påminnelser",
+      "selfLoveBoundary2": "• Aldri infantiliserende — varmt og respektfullt",
+      "selfLoveBoundary3": "• Aldri blokkerende for arbeid — kun forslag",
       "foxFollowUp": "Et lekent øyeblikk — klar når du er for å fortsette.",
       "foxResponse": "Ring-ding-ding-ding-dingeringeding 🦊",
       "foxBellTitle": "Lekent bjelleøyeblikk",
@@ -349,6 +377,22 @@
         "permission_required": "Tillatelse kreves",
         "source_unavailable": "Kilde utilgjengelig"
       }
+    },
+    "explicitIntent": {
+      "registrationMetaLead": "Aipify Companion kjører inne i Aipify-arbeidsområdet ditt — ikke som et eget offentlig nettsted.",
+      "registrationMetaExplanation": "Companion er registrert på organisasjonskonteksten din i Aipify Core. Den har ikke eget domene eller medlemsregister.",
+      "mediaVerificationLead": "Bildeverifisering håndteres via tilkoblet verifiseringskapabilitet — ikke generell samtale.",
+      "mediaVerificationExplanation": "Aipify kan veilede verifiseringsflyter når {capability} er aktiv og rollen din tillater det. Jeg kan ikke verifisere bilder fra samtalen alene.",
+      "mediaVerificationUnavailable": "Ingen live bildeverifiseringsprovider er koblet til dette arbeidsområdet ennå.",
+      "mediaVerificationUnavailableExplanation": "Koble til og godkjenn relevant verifiseringskapabilitet før Aipify kan sjekke ventende bilder.",
+      "knowledgeCenterSource": "Basert på godkjent Knowledge Center-dokumentasjon.",
+      "organizationKnowledgeSource": "Basert på godkjent organisasjonskunnskap.",
+      "knowledgeGapLead": "Jeg fant ingen godkjent FAQ- eller kunnskapsseksjon for {provider} fra tilkoblede kilder.",
+      "knowledgeGapExplanation": "Aipify trenger en godkjent kunnskapsprovider eller Knowledge Center-artikkel før den kan returnere den seksjonen.",
+      "providerFallback": "den forespurte leverandøren",
+      "integrationCheckLead": "Jeg kan sjekke installasjonsstatus for {integration} bare når integrasjonsadapteren er koblet til og rollen din tillater lesing.",
+      "integrationCheckExplanation": "Koble integrasjonen i Install-innstillinger og godkjenn lesetilgang. Aipify sammenligner da live signaler i stedet for å gjette fra chat.",
+      "integrationFallback": "den integrasjonen"
     },
     "memory": {
       "sourceLabel": "Bekreftet organisasjonsminne",

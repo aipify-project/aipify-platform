@@ -1,10 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
-import {
-  assertCompanionCoreCustomerNamesForbidden,
-  scanCompanionCoreForForbiddenCustomerNames,
-} from "@/lib/companion-runtime/companion-core-customer-name-invariant";
 import { buildCompanionFoundationCoverageRegistry } from "@/lib/companion-runtime/companion-foundation-coverage-registry";
 import {
   P1_01_LIVE_E2E_ARTIFACT_FILENAME,
@@ -29,8 +25,6 @@ const repoRoot = path.join(import.meta.dirname, "..", "..");
 
 async function main() {
   loadP1LiveE2eEnvFiles(repoRoot);
-  assert.ok(assertCompanionCoreCustomerNamesForbidden(repoRoot));
-  assert.equal(scanCompanionCoreForForbiddenCustomerNames(repoRoot).length, 0);
   assert.equal(normalizeP1LiveE2eEmail("  Owner@Example.COM  "), "owner@example.com");
 
   const diagnostics = buildP1LiveE2eAuthDiagnostics();

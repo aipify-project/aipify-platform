@@ -46,9 +46,19 @@ export async function dispatchCompanionQueueWorker(options: {
 }
 
 /**
- * Enqueue/retry/process routes call this after persisting queue state.
- * Uses `after()` so Vercel keeps the invocation alive for inline worker dispatch.
- * Cron HTTP trigger remains a cross-instance fallback.
+ * Authoritative inline dispatch — awaited by process/enqueue routes so localhost
+ * and client polling actually drain the queue (do not rely on after() alone).
+ */
+export async function runCompanionQueueWorkerDispatchNow(
+  options: { origin?: string } = {},
+): Promise<CompanionWorkerDispatchResult> {
+  const result = await dispatchCompanionQueueWorker(options);
+  return result;
+}
+
+/**
+ * Enqueue/retry routes call this after persisting queue state.
+ * Uses `after()` as a second pass on Vercel; cron HTTP trigger remains fallback.
  */
 export function scheduleCompanionQueueWorkerDispatch(options: { origin?: string } = {}): void {
   after(async () => {

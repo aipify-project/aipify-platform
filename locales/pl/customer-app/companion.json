@@ -1,4 +1,14 @@
 {
+  "companion": {
+    "lightweightConversational": {
+      "greeting": "Cześć{name}! Jestem tutaj — o czym chcesz porozmawiać?",
+      "thanks": "Nie ma za co. Cieszę się, że mogłem pomóc.",
+      "humor": "Trzymam lekki ton — spokierne wsparcie jest lepsze niż wymuszone żarty. Co ułatwiłoby dziś dzień?",
+      "social": "Jestem z Tobą. Powiedz, jakiej rozmowy potrzebujesz.",
+      "personality": "Jestem Aipify — Twoim companionem biznesowym. Przygotowuję, wyjaśniam i rekomenduję; Ty decydujesz.",
+      "general": "Jestem z Tobą. Zapytaj własnymi słowami — odpowiem tak jasno, jak mogę."
+    }
+  },
   "companionContextEngine": {
     "title": "Companion Context Engine",
     "subtitle": "Understand what is happening across your work environment so Aipify assistance becomes more relevant and valuable.",
@@ -1407,16 +1417,26 @@
     "queue": {
       "title": "Kolejka wiadomości",
       "summary": "{count} oczekuje",
+      "summaryDual": "{waiting} oczekuje · {processing} przetwarzanie",
       "statusWaiting": "Oczekuje",
       "statusProcessing": "Przetwarzanie",
       "statusCompleted": "Ukończono",
       "statusFailed": "Nie udało się ukończyć",
       "statusCancelled": "Anulowano",
-      "statusWorking": "Aipify pracuje nad Twoją odpowiedzią",
-      "statusLongWait": "To trwa dłużej niż zwykle. Aipify nadal nad tym pracuje.",
-      "statusTimedOut": "To trwa dłużej niż oczekiwano. Użyj Spróbuj ponownie — Aipify ponownie wykorzysta tę wiadomość w kolejce bez tworzenia duplikatu.",
+      "statusWorking": "Aipify pracuje nad odpowiedzią.",
+      "statusLongWait": "To trwa nieco dłużej niż zwykle.",
+      "statusTimedOut": "Przekroczono czas",
       "cancel": "Anuluj",
       "retry": "Spróbuj ponownie",
+      "dismiss": "Usuń",
+      "dismissAll": "Usuń wszystkie ukończone i nieudane",
+      "confirmDismissAll": "Usunąć wszystkie ukończone i nieudane elementy z kolejki? Aktywne zadania nie zostaną usunięte.",
+      "statusBackgroundContinuing": "Aipify kontynuuje w tle. Możesz dalej pracować.",
+      "errors": {
+        "turnTimeoutPrimary": "Aipify nie zdążyło ukończyć odpowiedzi tym razem.",
+        "turnTimeoutSecondary": "Zadanie zostało zatrzymane, aby nie utknęło. Możesz spróbować ponownie.",
+        "generic": "Coś poszło nie tak podczas przygotowywania odpowiedzi."
+      },
       "notificationTitle": "Aipify ma gotową odpowiedź",
       "notificationBody": "Odpowiedź Companion dla „{question}” jest gotowa.",
       "restoreError": "Nie udało się przywrócić poprzedniej rozmowy. Możesz rozpocząć nową poniżej.",

@@ -31,6 +31,11 @@ const OPERATIONAL_HINTS: Array<{ kind: CompanionOperationalQueryKind; phrases: s
       "what happened",
       "hva har skjedd",
       "vad har hänt",
+      "siste hendelser",
+      "recent events",
+      "latest events",
+      "siste aktivitet",
+      "recent activity",
     ],
   },
   {
@@ -133,6 +138,11 @@ function detectOperationalKind(query: string): CompanionOperationalQueryMatch | 
   }
 
   return best;
+}
+
+/** Phrase-only operational detection for submit routing (no tenant gate). */
+export function detectOperationalQueryKind(query: string): CompanionOperationalQueryMatch | null {
+  return detectOperationalKind(query);
 }
 
 export function matchOperationalQuery(

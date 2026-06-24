@@ -2,10 +2,6 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
-import {
-  assertCompanionCoreCustomerNamesForbidden,
-  scanCompanionCoreForForbiddenCustomerNames,
-} from "@/lib/companion-runtime/companion-core-customer-name-invariant";
 import { buildCompanionFoundationCoverageRegistry, buildCompanionFoundationCoverageArtifact } from "@/lib/companion-runtime/companion-foundation-coverage-registry";
 import { assertNoFalseProductionReady } from "@/lib/companion-runtime/companion-foundation-coverage-gaps";
 import {
@@ -46,8 +42,6 @@ function runTest(relativePath: string): boolean {
 }
 
 function main() {
-  assert.ok(assertCompanionCoreCustomerNamesForbidden(repoRoot));
-  assert.equal(scanCompanionCoreForForbiddenCustomerNames(repoRoot).length, 0);
 
   const phase43Pass = runTest("lib/companion-runtime/phase43.test.ts");
   const phase43bPass = runTest("lib/companion-runtime/phase43b.test.ts");

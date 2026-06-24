@@ -4,6 +4,8 @@ export type CompanionWorkerStepTimings = {
   enqueueToClaimMs?: number;
   bootstrapMs?: number;
   routingMs?: number;
+  route?: string;
+  turnTimeoutMs?: number;
   responseBuildMs?: number;
   messageWriteMs?: number;
   totalMs?: number;

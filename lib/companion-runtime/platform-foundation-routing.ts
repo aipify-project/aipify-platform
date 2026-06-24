@@ -15,7 +15,6 @@ import {
 import {
   findPlatformFoundationTopic,
   loadPlayfulFoxFoundationSpec,
-  loadSelfLoveFoundationSpec,
 } from "./platform-foundation-loader";
 import { resolvePlatformFoundationTopicId } from "./platform-foundation-intent";
 import type { CompanionTenantContext } from "./companion-tenant-context";
@@ -27,11 +26,22 @@ async function resolveSelfLoveFoundationAnswer(input: {
   locale: CustomerActiveLocale;
 }): Promise<PlatformSearchResult> {
   const topic = findPlatformFoundationTopic("self_love_principle");
-  const kcArticle = await searchCanonicalKnowledgeCenter(input.supabase, input.query, input.locale);
+  const kcArticle =
+    input.locale === "en"
+      ? await searchCanonicalKnowledgeCenter(input.supabase, input.query, input.locale)
+      : null;
 
   if (kcArticle) {
+    const summary = kcArticle.summary?.trim() ?? "";
     const body = formatKnowledgeCenterAnswerBody(kcArticle);
-    if (body) {
+    const looksLikeStubTitle =
+      summary.length > 0 &&
+      summary.length <= 40 &&
+      /^self love/i.test(summary) &&
+      !/[.!?]/.test(summary);
+    const bodyLongEnough = body.length >= 120;
+
+    if (body && bodyLongEnough && !looksLikeStubTitle) {
       return {
         answer: buildSelfLoveFoundationAnswer({
           body,
@@ -46,13 +56,14 @@ async function resolveSelfLoveFoundationAnswer(input: {
     }
   }
 
-  const spec = loadSelfLoveFoundationSpec();
   const fallbackBody = [
     input.t("customerApp.companionPlatformKnowledge.foundation.selfLoveLead"),
-    spec.philosophy,
-    spec.abosPrinciple,
+    input.t("customerApp.companionPlatformKnowledge.foundation.selfLovePhilosophy"),
+    input.t("customerApp.companionPlatformKnowledge.foundation.selfLoveAbosPrinciple"),
     input.t("customerApp.companionPlatformKnowledge.foundation.selfLoveBoundariesLead"),
-    ...spec.boundaries.map((entry) => `• ${entry}`),
+    input.t("customerApp.companionPlatformKnowledge.foundation.selfLoveBoundary1"),
+    input.t("customerApp.companionPlatformKnowledge.foundation.selfLoveBoundary2"),
+    input.t("customerApp.companionPlatformKnowledge.foundation.selfLoveBoundary3"),
   ].join("\n");
 
   if (!fallbackBody.trim()) {

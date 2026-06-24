@@ -19,6 +19,11 @@ function parseEvent(row: Record<string, unknown>): ActivityEvent {
     impact_note: row.impact_note ? String(row.impact_note) : undefined,
     recommendation: row.recommendation ? String(row.recommendation) : undefined,
     occurred_at: row.occurred_at ? String(row.occurred_at) : undefined,
+    data_classification: row.data_classification ? String(row.data_classification) : undefined,
+    source_verified: row.source_verified === true ? true : row.source_verified === false ? false : undefined,
+    readiness: row.readiness ? String(row.readiness) : undefined,
+    freshness: row.freshness ? String(row.freshness) : undefined,
+    source_reference: row.source_reference ? String(row.source_reference) : undefined,
   };
 }
 

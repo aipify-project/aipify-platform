@@ -21,6 +21,8 @@ export type UnonightMemberStatisticsSnapshot = {
   completeness: "complete" | "partial" | "empty";
   warnings: readonly string[];
   since_boundary_source: "explicit_date_from" | "since_last_login" | "none" | null;
+  data_classification?: "live" | "demo" | "seed" | "test";
+  source_verified?: boolean;
   error?: string | null;
 };
 
@@ -163,6 +165,14 @@ export function parseUnonightMemberStatisticsPayload(
       ? row.warnings.filter((entry): entry is string => typeof entry === "string")
       : [],
     since_boundary_source: sinceSource,
+    data_classification:
+      row.data_classification === "live" ||
+      row.data_classification === "demo" ||
+      row.data_classification === "seed" ||
+      row.data_classification === "test"
+        ? row.data_classification
+        : undefined,
+    source_verified: row.source_verified === true ? true : row.source_verified === false ? false : undefined,
     error: readString(row.error),
   };
 }

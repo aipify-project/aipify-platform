@@ -1,5 +1,8 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { scheduleCompanionQueueWorkerDispatch } from "./dispatch-worker";
+import {
+  runCompanionQueueWorkerDispatchNow,
+  scheduleCompanionQueueWorkerDispatch,
+} from "./dispatch-worker";
 import { executeCompanionTurnToPayload } from "./execute-turn";
 import { notifyCompanionReplyReady } from "./notify-complete";
 
@@ -66,7 +69,7 @@ export async function processCompanionQueueForConversation(
       if (!turn.ok) {
         await supabase.rpc("fail_companion_queue_item", {
           p_queue_id: queue.id,
-          p_error_message: turn.error,
+          p_error_message: turn.code ?? "turn_failed",
           p_error_code: turn.code ?? "turn_failed",
         });
         continue;
@@ -84,7 +87,7 @@ export async function processCompanionQueueForConversation(
       if (completeError || !completeRaw?.ok) {
         await supabase.rpc("fail_companion_queue_item", {
           p_queue_id: queue.id,
-          p_error_message: completeError?.message ?? "complete_failed",
+          p_error_message: "complete_failed",
           p_error_code: "complete_failed",
         });
         continue;
@@ -100,7 +103,7 @@ export async function processCompanionQueueForConversation(
     } catch (error) {
       await supabase.rpc("fail_companion_queue_item", {
         p_queue_id: queue.id,
-        p_error_message: error instanceof Error ? error.message : "unexpected_error",
+        p_error_message: "unexpected_error",
         p_error_code: "unexpected_error",
       });
     }
@@ -118,10 +121,18 @@ export async function processCompanionQueueForConversation(
   return { processed, hasMore };
 }
 
-/** Fast inline trigger — cron worker remains authoritative fallback. */
+/** Fire-and-forget schedule — prefer awaitCompanionQueueProcessing for client poll paths. */
 export function scheduleCompanionQueueProcessing(
   _conversationId: string,
   options: ProcessCompanionQueueOptions = {},
 ): void {
   scheduleCompanionQueueWorkerDispatch({ origin: options.origin });
+}
+
+/** Await inline worker dispatch — used by /api/aipify/companion/chat/process. */
+export async function awaitCompanionQueueProcessing(
+  _conversationId: string,
+  options: ProcessCompanionQueueOptions = {},
+) {
+  return runCompanionQueueWorkerDispatchNow({ origin: options.origin });
 }

@@ -34,6 +34,10 @@ import {
 } from "@/lib/companion-runtime/companion-worker-bootstrap-errors";
 import { bootstrapCompanionWorkerTenantRuntime } from "./load-worker-tenant-context";
 import { logCompanionWorkerStepTimings } from "./worker-step-timing";
+import { classifyCompanionTurnRoute } from "@/lib/companion-runtime/companion-turn-route";
+import { buildLightweightConversationalAnswer } from "@/lib/companion-runtime/lightweight-conversational-answer";
+import { coerceToCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import { throwIfCompanionTurnAborted } from "./companion-turn-abort";
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   const parts = path.replace(/^customerApp\./, "").split(".");
@@ -68,6 +72,10 @@ export type ExecuteCompanionTurnInput = {
   workerProfile?: WorkerExecutionProfile;
   /** Queue job ID — used for bootstrap failure diagnostics only. */
   workerQueueId?: string;
+  /** Set when worker cancels an overdue turn. */
+  abortSignal?: AbortSignal;
+  /** Pre-classified route from worker — avoids duplicate classification. */
+  turnRoute?: import("@/lib/companion-runtime/companion-turn-route").CompanionTurnRoute;
 };
 
 export type ExecuteCompanionTurnResult =
@@ -101,6 +109,56 @@ export async function executeCompanionTurn(
 
   const userRole = (profile.user.role ?? "staff") as UserRole;
   const answerLocale = resolveAnswerLocale(input.locale, query || "attachment");
+  const answerLocaleActive = coerceToCustomerActiveLocale(answerLocale);
+  const hasAttachments = (input.attachmentIds?.length ?? 0) > 0;
+  const turnRoute =
+    input.turnRoute ??
+    classifyCompanionTurnRoute(query, answerLocaleActive, {
+      hasAttachments,
+      hasActiveArtifact: Boolean(input.activeArtifactId),
+    });
+
+  throwIfCompanionTurnAborted(input.abortSignal);
+
+  if (turnRoute === "lightweight" && !hasAttachments && !input.activeArtifactId && query) {
+    const lightweightStarted = Date.now();
+    const dict = await getCustomerAppDictionaryForSplits(answerLocale, ["companion"]);
+    throwIfCompanionTurnAborted(input.abortSignal);
+    const t = createTranslator(dict);
+    const companionLabels = buildCompanionExperienceLabels(t);
+    const labels = buildSupportAssistantLabels(t);
+    const lightweightAnswer = buildLightweightConversationalAnswer({
+      query,
+      t,
+      identity: null,
+    });
+    const legacyArticle = answerToLegacyArticle(lightweightAnswer);
+    const totalMs = Date.now() - lightweightStarted;
+    if (input.workerQueueId) {
+      logCompanionWorkerStepTimings(input.workerQueueId, input.workerProfile?.customerId, {
+        bootstrapMs: 0,
+        routingMs: totalMs,
+        route: turnRoute,
+        totalMs,
+      });
+    }
+    return {
+      ok: true,
+      searchJson: {
+        found: true,
+        query,
+        answer: lightweightAnswer,
+        articles: [legacyArticle],
+        matched_article_id: null,
+        principle: labels.principle,
+        source: lightweightAnswer.source,
+        confidence: lightweightAnswer.confidence,
+        answer_locale: answerLocale,
+      },
+      labels: companionLabels,
+      question: query,
+    };
+  }
 
   const dict = await getCustomerAppDictionaryForSplits(answerLocale, [
     "navigation",
@@ -108,10 +166,16 @@ export async function executeCompanionTurn(
     "companionPlatformKnowledge",
     "companion",
   ]);
+  throwIfCompanionTurnAborted(input.abortSignal);
   const t = createTranslator(dict);
   const labels = buildSupportAssistantLabels(t);
   const companionLabels = buildCompanionExperienceLabels(t);
   const legacyCorpus = buildSupportAssistantCorpus(labels, t);
+
+  const skipHeavyArtifacts =
+    !hasAttachments &&
+    !input.activeArtifactId &&
+    (turnRoute === "lightweight" || turnRoute === "foundation");
 
   const turnStarted = Date.now();
   let bootstrapMs = 0;
@@ -123,6 +187,8 @@ export async function executeCompanionTurn(
         query,
       })
     : null;
+
+  throwIfCompanionTurnAborted(input.abortSignal);
 
   if (input.workerProfile) {
     bootstrapMs = Date.now() - turnStarted;
@@ -152,6 +218,9 @@ export async function executeCompanionTurn(
   const tenantContext = workerRuntime
     ? workerRuntime.tenantContext
     : await loadCompanionTenantContext(supabase, { locale: answerLocale });
+
+  throwIfCompanionTurnAborted(input.abortSignal);
+
   const resolvedIntegrationContext = resolveCompanionIntegrationContext(
     input.integrationContext ?? null,
     tenantContext,
@@ -166,7 +235,7 @@ export async function executeCompanionTurn(
     | Awaited<ReturnType<typeof loadCompanionArtifactContext>>
     | null = null;
 
-  if (input.conversationId && query) {
+  if (input.conversationId && query && !skipHeavyArtifacts) {
     const externalProviderKey = input.externalProvider?.trim().toLowerCase() ?? null;
     let externalConnectionConnected = false;
     if (externalProviderKey === "canva") {
@@ -248,6 +317,7 @@ export async function executeCompanionTurn(
     logCompanionWorkerStepTimings(input.workerQueueId, input.workerProfile?.customerId, {
       bootstrapMs,
       routingMs,
+      route: turnRoute,
       totalMs: Date.now() - turnStarted,
     });
   }

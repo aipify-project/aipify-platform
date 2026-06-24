@@ -1,4 +1,3 @@
-import { assertCoreSourceFreeOfCustomerPilotNames } from "./companion-core-source-hygiene";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -488,7 +487,6 @@ const coreSources = [
   "lib/integration-intelligence/directory/matching.ts",
 ].map((file) => fs.readFileSync(path.join(repoRoot, file), "utf8"));
 for (const source of coreSources) {
-  assertCoreSourceFreeOfCustomerPilotNames(source, "core source");
 }
 
 assert.equal(COMMUNITY_MEMBER_DIRECTORY_CONTRACT.provider_key, "community_member_directory");

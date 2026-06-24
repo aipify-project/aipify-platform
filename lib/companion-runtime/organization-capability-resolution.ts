@@ -1,5 +1,6 @@
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import { normalizeIntegrationQuery } from "@/lib/integration-intelligence/normalize-text";
+import { blocksOrganizationMemberCapabilityQuery } from "./companion-explicit-intent";
 import { getSupportSourceDefinition } from "@/lib/integration-intelligence/providers/support-operations/support-source-map";
 import { isCommunityMemberDirectoryReadSourceConnected } from "@/lib/integration-intelligence/providers/community-member-directory/community-member-directory-source-map";
 import { isMemberVerificationReadSourceConnected } from "@/lib/integration-intelligence/providers/member-verification/member-verification-source-map";
@@ -162,6 +163,7 @@ export function resolveOrganizationCapabilityRoute(
 ): OrganizationCapabilityRoute | null {
   const normalized = normalizeIntegrationQuery(query);
   if (!normalized.trim()) return null;
+  if (blocksOrganizationMemberCapabilityQuery(query)) return null;
   if (isOrganizationNavigationHelpQuery(normalized)) return null;
 
   const descriptors = collectOrganizationSemanticDescriptors();

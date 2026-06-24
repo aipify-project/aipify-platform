@@ -33,6 +33,11 @@ export async function enqueueCompanionMessage(
       platform_active_modules: input.platformActiveModules?.join(",") ?? null,
       title: input.title,
       companion_active: input.companionActive ?? true,
+      timezone:
+        input.timezone ??
+        (typeof Intl !== "undefined"
+          ? Intl.DateTimeFormat().resolvedOptions().timeZone
+          : undefined),
     }),
   });
 
@@ -71,18 +76,52 @@ export async function retryCompanionQueueItem(
   return data.ok === true;
 }
 
+export async function dismissCompanionQueueItem(
+  queueId: string,
+  conversationId: string,
+): Promise<boolean> {
+  const res = await fetch("/api/aipify/companion/chat/dismiss", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ queue_id: queueId, conversation_id: conversationId }),
+  });
+  if (!res.ok) return false;
+  const data = (await res.json()) as { ok?: boolean };
+  return data.ok === true;
+}
+
+export async function dismissFinishedCompanionQueueItems(
+  conversationId: string,
+): Promise<boolean> {
+  const res = await fetch("/api/aipify/companion/chat/dismiss-finished", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ conversation_id: conversationId }),
+  });
+  if (!res.ok) return false;
+  const data = (await res.json()) as { ok?: boolean };
+  return data.ok === true;
+}
+
 export async function triggerCompanionQueueProcess(
   conversationId: string,
   companionActive = true,
-): Promise<void> {
-  await fetch("/api/aipify/companion/chat/process", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      conversation_id: conversationId,
-      companion_active: companionActive,
-    }),
-  });
+): Promise<boolean> {
+  try {
+    const res = await fetch("/api/aipify/companion/chat/process", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        conversation_id: conversationId,
+        companion_active: companionActive,
+      }),
+    });
+    if (!res.ok) return false;
+    const data = (await res.json()) as { ok?: boolean };
+    return data.ok === true;
+  } catch {
+    return false;
+  }
 }
 
 export async function markCompanionConversationRead(conversationId: string): Promise<void> {

@@ -1,4 +1,14 @@
 {
+  "companion": {
+    "lightweightConversational": {
+      "greeting": "Hello{name}! I am here — what would you like to talk about?",
+      "thanks": "You are welcome. I am glad I could help.",
+      "humor": "I will keep it light — steady support beats forced jokes. What would make today easier?",
+      "social": "I am here with you. Tell me what kind of conversation you want.",
+      "personality": "I am Aipify — your business companion. I prepare, explain, and recommend; you decide.",
+      "general": "I am here with you. Ask in your own words — I will answer as clearly as I can."
+    }
+  },
   "companionBriefing": {
     "companionBriefing": "Companion Briefing",
     "loading": "Preparing executive briefing…",
@@ -2293,16 +2303,26 @@
     "queue": {
       "title": "Message queue",
       "summary": "{count} waiting",
+      "summaryDual": "{waiting} waiting · {processing} processing",
       "statusWaiting": "Waiting",
       "statusProcessing": "Processing",
       "statusCompleted": "Completed",
       "statusFailed": "Could not complete",
       "statusCancelled": "Cancelled",
-      "statusWorking": "Aipify is working on your reply",
-      "statusLongWait": "This is taking longer than usual. Aipify is still working on it.",
-      "statusTimedOut": "This is taking longer than expected. Use Try again — Aipify will reuse this queued message, not create a duplicate.",
+      "statusWorking": "Aipify is working on your reply.",
+      "statusLongWait": "This is taking a little longer than usual.",
+      "statusTimedOut": "Timed out",
       "cancel": "Cancel",
       "retry": "Try again",
+      "dismiss": "Remove",
+      "dismissAll": "Remove all completed and failed",
+      "confirmDismissAll": "Remove all completed and failed items from your queue? Active processing jobs will not be removed.",
+      "statusBackgroundContinuing": "Aipify continues in the background. You can keep working.",
+      "errors": {
+        "turnTimeoutPrimary": "Aipify could not finish the reply this time.",
+        "turnTimeoutSecondary": "The task was stopped and can be retried or removed.",
+        "generic": "Something went wrong while preparing this reply."
+      },
       "notificationTitle": "Aipify has a reply ready",
       "notificationBody": "Your Companion answer for “{question}” is ready.",
       "restoreError": "Your previous conversation could not be restored. You can start a new one below.",

@@ -4,11 +4,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { CompanionChatAttachmentSummary, CompanionChatMessage } from "../types";
 import type { CompanionQueueItem } from "./types";
 import { COMPANION_QUEUE_DISPATCH_STALL_MS } from "./worker-config";
+import { traceCompanionMount } from "@/lib/app/companion/companion-mount-trace";
 import { mapServerMessagesToChat } from "./message-payload";
 import {
   cancelCompanionQueueItem,
   createClientMessageId,
   createIdempotencyKey,
+  dismissCompanionQueueItem,
+  dismissFinishedCompanionQueueItems,
   enqueueCompanionMessage,
   fetchCompanionChatState,
   listCompanionConversations,
@@ -42,6 +45,8 @@ export function useCompanionPersistentChat({
     false,
   );
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => traceCompanionMount("useCompanionPersistentChat"), []);
 
   const loading = queue.some((item) => item.status === "processing");
 
@@ -96,14 +101,17 @@ export function useCompanionPersistentChat({
         (item) => item.status === "waiting" || item.status === "processing",
       );
       if (hasActiveQueue) {
-        void triggerCompanionQueueProcess(conversationId, panelVisible);
+        await triggerCompanionQueueProcess(conversationId, panelVisible);
+        if (!cancelled) {
+          await refreshState();
+        }
       }
     })();
 
     return () => {
       cancelled = true;
     };
-  }, [conversationId, organizationKey, applyState, panelVisible]);
+  }, [conversationId, applyState, refreshState]);
 
   useEffect(() => {
     const needsPoll = queue.some(
@@ -123,8 +131,10 @@ export function useCompanionPersistentChat({
     }
 
     pollRef.current = setInterval(() => {
-      void refreshState();
-      void triggerCompanionQueueProcess(conversationId, panelVisible);
+      void (async () => {
+        await triggerCompanionQueueProcess(conversationId, panelVisible);
+        await refreshState();
+      })();
     }, 1500);
 
     return () => {
@@ -172,12 +182,18 @@ export function useCompanionPersistentChat({
         return false;
       }
 
+      if (result.execution === "direct") {
+        await refreshState();
+        return true;
+      }
+
       if (result.worker_dispatch === "unavailable") {
         setWorkerDispatchError("unavailable");
       }
 
       await refreshState();
-      void triggerCompanionQueueProcess(conversationId, panelVisible);
+      await triggerCompanionQueueProcess(conversationId, panelVisible);
+      await refreshState();
       return true;
     },
     [conversationId, locale, pathname, panelVisible, refreshState],
@@ -204,6 +220,28 @@ export function useCompanionPersistentChat({
     [conversationId, panelVisible, refreshState],
   );
 
+  const dismissQueueItem = useCallback(
+    async (queueId: string) => {
+      setQueue((prev) => prev.filter((item) => item.id !== queueId));
+      const ok = await dismissCompanionQueueItem(queueId, conversationId);
+      if (!ok) {
+        await refreshState();
+      }
+    },
+    [conversationId, refreshState],
+  );
+
+  const dismissFinishedQueueItems = useCallback(async () => {
+    setQueue((prev) =>
+      prev.filter((item) => item.status !== "failed" && item.status !== "timed_out"),
+    );
+    const ok = await dismissFinishedCompanionQueueItems(conversationId);
+    if (!ok) {
+      await refreshState();
+    }
+    return ok;
+  }, [conversationId, refreshState]);
+
   return {
     messages,
     setMessages,
@@ -218,6 +256,8 @@ export function useCompanionPersistentChat({
     refreshState,
     cancelQueueItem,
     retryQueueItem,
+    dismissQueueItem,
+    dismissFinishedQueueItems,
     loadServerConversations: listCompanionConversations,
   };
 }

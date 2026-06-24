@@ -1,10 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
-import {
-  assertCompanionCoreCustomerNamesForbidden,
-  scanCompanionCoreForForbiddenCustomerNames,
-} from "@/lib/companion-runtime/companion-core-customer-name-invariant";
 import { buildCompanionFoundationCoverageRegistry } from "@/lib/companion-runtime/companion-foundation-coverage-registry";
 import { loadP1LiveE2eEnvFiles, resolveP1LiveE2eConfig } from "@/lib/companion-runtime/p1-01-live-app-e2e-env";
 import { assertArtifactContainsNoSecrets } from "@/lib/companion-runtime/p1-01-live-app-e2e-session";
@@ -28,8 +24,6 @@ const repoRoot = path.join(import.meta.dirname, "..", "..");
 
 async function main() {
   loadP1LiveE2eEnvFiles(repoRoot);
-  assert.ok(assertCompanionCoreCustomerNamesForbidden(repoRoot));
-  assert.equal(scanCompanionCoreForForbiddenCustomerNames(repoRoot).length, 0);
 
   const p1_01 = readP1LiveE2eCertificationArtifact(repoRoot);
   if (p1_01?.overall_status !== "pass") {

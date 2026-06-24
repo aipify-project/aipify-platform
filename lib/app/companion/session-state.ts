@@ -43,6 +43,18 @@ function normalizeSession(raw: unknown): CompanionUiSession | null {
   };
 }
 
+export function readCompanionPanelOpenState(): boolean {
+  if (!isBrowser()) return false;
+  try {
+    const raw = sessionStorage.getItem(COMPANION_UI_SESSION_STORAGE_KEY);
+    if (!raw) return false;
+    const parsed = normalizeSession(JSON.parse(raw));
+    return parsed?.panelOpen === true;
+  } catch {
+    return false;
+  }
+}
+
 export function readCompanionUiSession(organizationKey?: string | null): CompanionUiSession | null {
   if (!isBrowser()) return null;
   try {

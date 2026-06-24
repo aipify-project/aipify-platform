@@ -8,6 +8,7 @@ import type {
 import type { CommandBriefSignal } from "@/lib/integration-intelligence/command-brief/types";
 import { isCommandBriefSourceDisplayable } from "@/lib/integration-intelligence/command-brief/types";
 import type { CommunityMemberDirectoryReadBundle } from "@/lib/integration-intelligence/providers/community-member-directory/community-member-directory-read-provider-adapter";
+import type { OrganizationMemberCountResult } from "@/lib/integration-intelligence/providers/organization-member-count/types";
 import type { SupportCaseSummary } from "@/lib/integration-intelligence/support/types";
 import type { OrganizationIntelligenceIntent } from "./organization-intelligence-intent";
 
@@ -91,7 +92,9 @@ export type OrganizationIntelligenceGapReason =
   | "adapter_missing"
   | "permission_required"
   | "source_unavailable"
-  | "missing_data";
+  | "missing_data"
+  | "registry_not_connected"
+  | "demo_data_not_presentable";
 
 export function buildOrganizationIntelligenceGapAnswer(
   t: Translator,
@@ -106,9 +109,13 @@ export function buildOrganizationIntelligenceGapAnswer(
       ? `${BASE}.permissionRequired`
       : reason === "adapter_missing"
         ? `${BASE}.adapterMissing`
-        : reason === "source_unavailable"
-          ? `${BASE}.sourceUnavailable`
-          : `${BASE}.uncertaintyMissing`;
+        : reason === "registry_not_connected"
+          ? `${BASE}.memberRegistryNotConnected`
+          : reason === "demo_data_not_presentable"
+            ? `${BASE}.memberRegistryNotConnected`
+            : reason === "source_unavailable"
+            ? `${BASE}.sourceUnavailable`
+            : `${BASE}.uncertaintyMissing`;
 
   const statusLabel = t(`${BASE}.gapStatus.${reason}`);
   const sourceReference = input?.sourceReference?.trim() || null;
@@ -173,6 +180,32 @@ export function buildMemberCountAnswer(input: {
     bundle.source_reference,
     t(`${BASE}.sourceLabel`),
     bundle.source_exact ? "high" : "moderate",
+  );
+}
+
+export function buildMemberCountFromProviderResult(input: {
+  result: OrganizationMemberCountResult;
+  t: Translator;
+  locale: CustomerActiveLocale;
+}): PlatformKnowledgeAnswer {
+  const { result, t, locale } = input;
+  const count = result.total_count ?? 0;
+  const directAnswer = t(`${BASE}.memberCountLead`).replace("{count}", String(count));
+
+  const meta = buildSourceMeta({
+    source: result.source_reference,
+    checkedAt: result.generated_at,
+    freshness: result.freshness === "fresh" ? "fresh" : "stale",
+    t,
+    locale,
+  });
+
+  return baseAnswer(
+    directAnswer,
+    meta.explanation,
+    result.source_reference,
+    t(`${BASE}.sourceLabel`),
+    result.source_verified && result.data_classification === "live" ? "high" : "moderate",
   );
 }
 

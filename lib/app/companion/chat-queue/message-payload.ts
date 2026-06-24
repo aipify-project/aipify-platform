@@ -52,8 +52,10 @@ export function deserializeAssistantMessage(
       orgConfirmBlockedReason: p.orgConfirmBlockedReason,
       liveIntegrationToolUsed: p.liveIntegrationToolUsed,
       requestedLiveIntegration: p.requestedLiveIntegration,
-      attachments: p.attachments,
-      activeArtifactId: p.activeArtifactId,
+      responseToMessageId:
+        typeof p.response_to_message_id === "string" ? p.response_to_message_id : null,
+      queueId: typeof p.queue_id === "string" ? p.queue_id : null,
+      requestId: typeof p.request_id === "string" ? p.request_id : null,
       timestamp,
     };
   }

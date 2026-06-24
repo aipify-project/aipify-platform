@@ -14,8 +14,13 @@ import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardPro
 import type { CompanionExperienceLabels } from "@/lib/app/companion/types";
 import {
   patchCompanionUiSession,
+  readCompanionPanelOpenState,
   readCompanionUiSession,
 } from "@/lib/app/companion/session-state";
+import {
+  logCompanionFocusSnapshot,
+  traceCompanionMount,
+} from "@/lib/app/companion/companion-mount-trace";
 
 type CompanionExperienceContextValue = {
   open: boolean;
@@ -51,12 +56,29 @@ export function CompanionExperienceProvider({
   const profileCtx = useOptionalDashboardProfile();
   const organizationKey = profileCtx?.profile?.company.id ?? null;
 
-  const [open, setOpen] = useState(() => readCompanionUiSession()?.panelOpen ?? false);
+  const [open, setOpen] = useState(() => readCompanionPanelOpenState());
   const [drawerQuery, setDrawerQuery] = useState<string | null>(null);
-  const [drawerConversationId, setDrawerConversationId] = useState<string | null>(null);
-  const [panelEverOpened, setPanelEverOpened] = useState(
-    () => readCompanionUiSession()?.panelOpen ?? false,
-  );
+  const [drawerConversationId, setDrawerConversationId] = useState<string | null>(() => {
+    const session = readCompanionUiSession();
+    return session?.activeConversationId ?? null;
+  });
+  const [panelEverOpened, setPanelEverOpened] = useState(() => readCompanionPanelOpenState());
+
+  useEffect(() => traceCompanionMount("CompanionExperienceProvider"), []);
+
+  useEffect(() => {
+    const onVisible = () => {
+      if (document.visibilityState !== "visible") return;
+      logCompanionFocusSnapshot({
+        component: "CompanionExperienceProvider",
+        panelOpen: open,
+        activeConversationId: drawerConversationId,
+        organizationKey,
+      });
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [open, drawerConversationId, organizationKey]);
 
   useEffect(() => {
     if (open) {
@@ -67,37 +89,46 @@ export function CompanionExperienceProvider({
         panelOpen: open,
         organizationKey,
         pathname,
+        activeConversationId: drawerConversationId,
       },
       organizationKey,
     );
-  }, [open, organizationKey, pathname]);
+  }, [open, organizationKey, pathname, drawerConversationId]);
 
   const openDrawer = useCallback(() => {
     setDrawerQuery(null);
     setDrawerConversationId(null);
     setOpen(true);
     setPanelEverOpened(true);
-  }, []);
+    patchCompanionUiSession({ panelOpen: true, organizationKey, pathname }, organizationKey);
+  }, [organizationKey, pathname]);
 
   const openDrawerWithQuery = useCallback((query: string) => {
     setDrawerQuery(query.trim());
     setDrawerConversationId(null);
     setOpen(true);
     setPanelEverOpened(true);
-  }, []);
+    patchCompanionUiSession({ panelOpen: true, organizationKey, pathname }, organizationKey);
+  }, [organizationKey, pathname]);
 
   const openDrawerWithConversation = useCallback((conversationId: string) => {
-    setDrawerConversationId(conversationId.trim());
+    const trimmed = conversationId.trim();
+    setDrawerConversationId(trimmed);
     setDrawerQuery(null);
     setOpen(true);
     setPanelEverOpened(true);
-  }, []);
+    patchCompanionUiSession(
+      { panelOpen: true, organizationKey, pathname, activeConversationId: trimmed },
+      organizationKey,
+    );
+  }, [organizationKey, pathname]);
 
   const closeDrawer = useCallback(() => {
     setOpen(false);
     setDrawerQuery(null);
     setDrawerConversationId(null);
-  }, []);
+    patchCompanionUiSession({ panelOpen: false, organizationKey, pathname }, organizationKey);
+  }, [organizationKey, pathname]);
 
   const toggleDrawer = useCallback(() => {
     setOpen((value) => {
@@ -105,9 +136,10 @@ export function CompanionExperienceProvider({
       if (next) {
         setPanelEverOpened(true);
       }
+      patchCompanionUiSession({ panelOpen: next, organizationKey, pathname }, organizationKey);
       return next;
     });
-  }, []);
+  }, [organizationKey, pathname]);
 
   const value = useMemo(
     () => ({

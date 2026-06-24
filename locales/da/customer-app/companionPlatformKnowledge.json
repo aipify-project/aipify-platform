@@ -106,6 +106,7 @@
       "partialWarning": "Kun delvis operativ metadata var tilgængelig for dette svar.",
       "emptyWarning": "Ingen operative hændelser blev rapporteret i godkendte kilder for denne periode.",
       "unavailable": "Command Brief og data siden sidste login er ikke tilgængelige for din organisation lige nu.",
+      "liveSourceUnavailable": "Ingen live operative hændelser er tilkoblet din organisation lige nu. Showcase- eller demoaktivitet er filtreret fra og kan ikke vises som rigtige kundehændelser.",
       "leadSinceLast": "Siden din sidste session blev disse operative opdateringer registreret:",
       "leadCompleted": "Aipify fuldførte følgende:",
       "leadAttention": "Dette kræver opmærksomhed:",
@@ -118,8 +119,28 @@
       "emptyChanges": "Ingen vigtige ændringer blev rapporteret af godkendte operative kilder.",
       "emptyNextAction": "Ingen anbefalet næste handling var tilgængelig fra godkendte operative kilder.",
       "emptyOverview": "Ingen operativ oversigt var tilgængelig fra godkendte kilder.",
-      "itemLine": "• {title} ({category})",
-      "nextActionLine": "• {title}"
+      "itemLine": "• {title} — {category}",
+      "nextActionLine": "• {title}",
+      "categoryLabels": {
+        "requires_attention": "Kræver opfølgning",
+        "important_change": "Vigtig ændring",
+        "completed": "Fuldført",
+        "operational_event": "Hændelse",
+        "recommended": "Anbefalet",
+        "summary_line": "Resumé",
+        "internal": "Operativ opdatering"
+      },
+      "eventTitles": {
+        "genericUpdate": "Operativ opdatering",
+        "customer_health_shift_detected": "Ændring i kundesundhed registreret",
+        "access_review_reminder_generated": "Påmindelse om adgangsgranskning",
+        "automation_execution_requires_review": "Automatisering kræver gennemgang",
+        "workspace_policy_updated": "Politik for arbejdsområde opdateret",
+        "executive_approval_queued": "Ledelsesgodkendelse i kø",
+        "companion_summary_prepared": "Companion-resumé forberedt",
+        "business_pack_milestone_recorded": "Business Pack-milepæl registreret",
+        "domain_verification_status_changed": "Domæneverifikationsstatus ændret"
+      }
     },
     "organizationIntelligence": {
       "sourceLabel": "Organisationsintelligens",
@@ -146,6 +167,7 @@
       "providerMissing": "Ingen live-kilde er tilsluttet dette organisationsspørgsmål endnu.",
       "adapterMissing": "Ingen provider-adapter er registreret for denne organisationsevne endnu.",
       "sourceUnavailable": "Den tilsluttede kilde returnerede ikke livedata for dette spørgsmål.",
+      "memberRegistryNotConnected": "Aipify kan ikke finde et live medlemsregister for din organisation endnu. Medlemstal kan derfor ikke oplyses — tilslut et godkendt provider-adapter til en verificeret live medlemskilde, før du stoler på tal her.",
       "memberDetailListLead": "Medlemmer fra det tilsluttede medlemsregister:",
       "memberDetailListItem": "• {username} · ID {memberId} · {status}",
       "memberDetailListEmpty": "Ingen medlemmer blev returneret af den tilsluttede kilde.",
@@ -156,7 +178,8 @@
         "adapter_missing": "adapter_missing",
         "permission_required": "permission_required",
         "source_unavailable": "source_unavailable",
-        "missing_data": "missing_data"
+        "missing_data": "missing_data",
+        "registry_not_connected": "Medlemsregister ikke tilsluttet"
       }
     },
     "foundation": {
@@ -165,7 +188,12 @@
       "foxSourceLabel": "Aipify legesyg personlighedsgrund",
       "platformSpecLabel": "Aipify platformsfundament",
       "selfLoveLead": "Self Love er et princip og en værdi i Aipify Business Operating System (ABOS) — ikke et varemærket produktnavn.",
+      "selfLovePhilosophy": "Self Love er en værdi — omsorg, refleksion, restitution og balance. Støt hårdt arbejde uden at glorificere udmattelse.",
+      "selfLoveAbosPrinciple": "Systemer, der tager sig af sig selv, er bedre rustet til at tage sig af andre.",
       "selfLoveBoundariesLead": "Self Love informerer og forbereder; mennesker beslutter. Grænser:",
+      "selfLoveBoundary1": "• Aldrig påtrængende — ingen overdrevne påmindelser",
+      "selfLoveBoundary2": "• Aldrig infantiliserende — varmt og respektfuldt",
+      "selfLoveBoundary3": "• Aldrig blokerende for arbejdet — kun forslag",
       "foxFollowUp": "Et legende øjeblik — klar når du er klar til at fortsætte.",
       "foxResponse": "Ring-ding-ding-ding-dingeringeding 🦊",
       "foxBellTitle": "Legende klokkeøjeblik",
@@ -187,6 +215,22 @@
         "permission_required": "Tilladelse påkrævet",
         "source_unavailable": "Kilde utilgængelig"
       }
+    },
+    "explicitIntent": {
+      "registrationMetaLead": "Aipify Companion kører inde i dit Aipify-arbejdsområde — ikke som et separat offentligt website.",
+      "registrationMetaExplanation": "Companion er registreret på din organisationskontekst i Aipify Core. Den har ikke sit eget domæne eller medlemsregister.",
+      "mediaVerificationLead": "Billedverificering håndteres via tilsluttet verificeringskapacitet — ikke generel chat.",
+      "mediaVerificationExplanation": "Aipify kan guide verificeringsflows, når {capability} er aktiv og din rolle tillader det. Jeg kan ikke verificere billeder alene fra samtalen.",
+      "mediaVerificationUnavailable": "Ingen live billedverificeringsprovider er tilsluttet dette arbejdsområde endnu.",
+      "mediaVerificationUnavailableExplanation": "Tilslut og godkend relevant verificeringskapacitet, før Aipify kan tjekke ventende billeder.",
+      "knowledgeCenterSource": "Baseret på godkendt Knowledge Center-dokumentation.",
+      "organizationKnowledgeSource": "Baseret på godkendt organisationsviden.",
+      "knowledgeGapLead": "Jeg kunne ikke hente en godkendt FAQ- eller viden-sektion for {provider} fra tilsluttede kilder.",
+      "knowledgeGapExplanation": "Aipify har brug for en godkendt vidensprovider eller Knowledge Center-artikel, før den kan returnere den sektion.",
+      "providerFallback": "den anmodede provider",
+      "integrationCheckLead": "Jeg kan tjekke installationsstatus for {integration} kun når integrationsadapteren er tilsluttet og din rolle tillader læsning.",
+      "integrationCheckExplanation": "Tilslut integrationen i Install-indstillinger og godkend læseadgang. Aipify sammenligner derefter live signaler i stedet for at gætte ud fra chat.",
+      "integrationFallback": "den integration"
     },
     "memory": {
       "sourceLabel": "Bekræftet organisationshukommelse",

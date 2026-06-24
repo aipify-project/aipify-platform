@@ -7,12 +7,15 @@ import {
   resolveCompanionQueueWaitPhase,
   type CompanionQueueWaitPhase,
 } from "@/lib/app/companion/chat-queue/queue-wait-phase";
+import { resolveCompanionQueueDisplayError } from "@/lib/app/companion/chat-queue/queue-user-messages";
 
 type CompanionQueueBarProps = {
   queue: CompanionQueueItem[];
   labels: CompanionExperienceLabels;
   onCancel: (queueId: string) => void;
   onRetry: (queueId: string) => void;
+  onDismiss: (queueId: string) => void;
+  onDismissAllFinished: () => void;
 };
 
 function baseStatusLabel(
@@ -28,6 +31,8 @@ function baseStatusLabel(
       return labels.statusCompleted;
     case "failed":
       return labels.statusFailed;
+    case "timed_out":
+      return labels.statusTimedOut;
     case "cancelled":
       return labels.statusCancelled;
     default:
@@ -61,6 +66,8 @@ function statusIcon(status: CompanionQueueStatus): string {
       return "✅";
     case "failed":
       return "⚠️";
+    case "timed_out":
+      return "⏱️";
     case "cancelled":
       return "❌";
     default:
@@ -68,10 +75,21 @@ function statusIcon(status: CompanionQueueStatus): string {
   }
 }
 
-export function CompanionQueueBar({ queue, labels, onCancel, onRetry }: CompanionQueueBarProps) {
+export function CompanionQueueBar({
+  queue,
+  labels,
+  onCancel,
+  onRetry,
+  onDismiss,
+  onDismissAllFinished,
+}: CompanionQueueBarProps) {
   const [now, setNow] = useState(() => Date.now());
   const active = queue.filter(
-    (item) => item.status === "waiting" || item.status === "processing" || item.status === "failed",
+    (item) =>
+      item.status === "waiting" ||
+      item.status === "processing" ||
+      item.status === "failed" ||
+      item.status === "timed_out",
   );
 
   const hasActiveWait = active.some(
@@ -87,6 +105,17 @@ export function CompanionQueueBar({ queue, labels, onCancel, onRetry }: Companio
   if (active.length === 0) return null;
 
   const q = labels.queue;
+  const dismissableCount = active.filter(
+    (item) => item.status === "failed" || item.status === "timed_out",
+  ).length;
+  const waitingCount = active.filter((item) => item.status === "waiting").length;
+  const processingCount = active.filter((item) => item.status === "processing").length;
+  const summaryText =
+    waitingCount > 0 || processingCount > 0
+      ? q.summaryDual
+          .replace("{waiting}", String(waitingCount))
+          .replace("{processing}", String(processingCount))
+      : q.summary.replace("{count}", String(waitingCount));
 
   return (
     <div
@@ -98,9 +127,22 @@ export function CompanionQueueBar({ queue, labels, onCancel, onRetry }: Companio
         <p className="text-xs font-semibold uppercase tracking-wide text-violet-900">
           {q.title}
         </p>
-        <span className="text-xs text-violet-800">
-          {q.summary.replace("{count}", String(active.filter((i) => i.status === "waiting").length))}
-        </span>
+        <div className="flex items-center gap-2">
+          {dismissableCount > 1 ? (
+            <button
+              type="button"
+              onClick={() => {
+                if (window.confirm(q.confirmDismissAll)) {
+                  onDismissAllFinished();
+                }
+              }}
+              className="text-[11px] font-medium text-violet-800 underline-offset-2 hover:underline"
+            >
+              {q.dismissAll}
+            </button>
+          ) : null}
+          <span className="text-xs text-violet-800">{summaryText}</span>
+        </div>
       </div>
       <ul className="mt-2 space-y-2">
         {active.map((item) => {
@@ -114,7 +156,17 @@ export function CompanionQueueBar({ queue, labels, onCancel, onRetry }: Companio
                 })
               : "initial";
           const phaseDetail = waitPhaseDetail(waitPhase, q);
-          const showTimeoutRetry = waitPhase === "timeout" && item.status !== "failed";
+          const isFailedLike = item.status === "failed" || item.status === "timed_out";
+          const resolvedError = isFailedLike
+            ? resolveCompanionQueueDisplayError(item, q.errors)
+            : null;
+          const displayError =
+            isFailedLike && !resolvedError?.primary
+              ? {
+                  primary: q.errors.turnTimeoutPrimary,
+                  secondary: q.errors.turnTimeoutSecondary,
+                }
+              : resolvedError;
 
           return (
             <li
@@ -132,12 +184,15 @@ export function CompanionQueueBar({ queue, labels, onCancel, onRetry }: Companio
                 <p className="mt-0.5 line-clamp-2 text-xs text-aipify-text-secondary">
                   {item.question_text}
                 </p>
-                {item.status === "failed" && item.error_message ? (
-                  <p className="mt-1 text-xs text-amber-900">{item.error_message}</p>
+                {displayError?.primary ? (
+                  <p className="mt-1 text-xs text-amber-900">{displayError.primary}</p>
+                ) : null}
+                {displayError?.secondary ? (
+                  <p className="mt-0.5 text-xs text-aipify-text-muted">{displayError.secondary}</p>
                 ) : null}
               </div>
               <div className="flex shrink-0 flex-col gap-1">
-                {item.status === "waiting" ? (
+                {item.status === "waiting" || item.status === "processing" ? (
                   <button
                     type="button"
                     onClick={() => onCancel(item.id)}
@@ -146,14 +201,23 @@ export function CompanionQueueBar({ queue, labels, onCancel, onRetry }: Companio
                     {q.cancel}
                   </button>
                 ) : null}
-                {item.status === "failed" || showTimeoutRetry ? (
-                  <button
-                    type="button"
-                    onClick={() => onRetry(item.id)}
-                    className="rounded-md border border-violet-200 bg-violet-50 px-2 py-1 text-[11px] font-medium text-violet-900 hover:bg-violet-100"
-                  >
-                    {q.retry}
-                  </button>
+                {isFailedLike ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => onRetry(item.id)}
+                      className="rounded-md border border-violet-200 bg-violet-50 px-2 py-1 text-[11px] font-medium text-violet-900 hover:bg-violet-100"
+                    >
+                      {q.retry}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onDismiss(item.id)}
+                      className="rounded-md border border-aipify-border px-2 py-1 text-[11px] font-medium text-aipify-text-muted hover:bg-aipify-surface-muted"
+                    >
+                      {q.dismiss}
+                    </button>
+                  </>
                 ) : null}
               </div>
             </li>

@@ -25,6 +25,7 @@ import { SUPPORT_ASSISTANT_CONTEXT_STORAGE_KEY } from "@/lib/app-portal/support-
 import type { CompanionChatMessage, CompanionConversationPreview, CompanionExperienceLabels } from "@/lib/app/companion/types";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardProfileProvider";
+import { traceCompanionMount } from "@/lib/app/companion/companion-mount-trace";
 import { CompanionIcon } from "./CompanionIcon";
 import { CompanionChatSoundSync } from "./CompanionChatSoundSync";
 import { CompanionNotificationSeenSync } from "./CompanionNotificationSeenSync";
@@ -86,6 +87,8 @@ export function CompanionPanel({
   const initialConversationAppliedRef = useRef(false);
   const initialQuerySubmittedRef = useRef(false);
 
+  useEffect(() => traceCompanionMount("CompanionPanel"), []);
+
   const {
     messages,
     setMessages,
@@ -99,6 +102,8 @@ export function CompanionPanel({
     enqueueQuestion,
     cancelQueueItem,
     retryQueueItem,
+    dismissQueueItem,
+    dismissFinishedQueueItems,
     loadServerConversations,
   } = useCompanionPersistentChat({
     conversationId: activeConversationId,
@@ -730,6 +735,8 @@ export function CompanionPanel({
             labels={labels}
             onCancel={(queueId) => void cancelQueueItem(queueId)}
             onRetry={(queueId) => void retryQueueItem(queueId)}
+            onDismiss={(queueId) => void dismissQueueItem(queueId)}
+            onDismissAllFinished={() => void dismissFinishedQueueItems()}
           />
           <div className="shrink-0 border-t border-aipify-border bg-white p-3 sm:px-6 sm:py-4">
             <CompanionAttachmentComposer

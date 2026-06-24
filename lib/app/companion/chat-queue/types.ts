@@ -5,7 +5,8 @@ export type CompanionQueueStatus =
   | "processing"
   | "completed"
   | "failed"
-  | "cancelled";
+  | "cancelled"
+  | "timed_out";
 
 export type CompanionQueueItem = {
   id: string;
@@ -14,9 +15,11 @@ export type CompanionQueueItem = {
   queue_position: number;
   error_message?: string | null;
   error_code?: string | null;
+  route_type?: string | null;
   created_at?: string;
   started_at?: string | null;
   completed_at?: string | null;
+  cancel_requested?: boolean;
 };
 
 export type CompanionServerMessage = {
@@ -57,20 +60,32 @@ export type EnqueueCompanionMessageInput = {
   platformActiveModules?: string[];
   title?: string;
   companionActive?: boolean;
+  timezone?: string;
 };
 
 export type EnqueueCompanionMessageResult = {
   ok: boolean;
+  execution?: "direct" | "queued";
+  submit_path?: string;
+  route?: string;
   queue_id?: string;
   queue_position?: number;
   deduplicated?: boolean;
-  worker_dispatch?: "scheduled" | "unavailable";
+  user_message_id?: string;
+  assistant_message_id?: string;
+  duration_ms?: number;
+  worker_dispatch?: "scheduled" | "completed" | "unavailable" | string;
   error?: string;
 };
 
 export type CompanionAssistantPayload = Omit<
   CompanionChatMessage,
-  "id" | "role" | "content" | "timestamp"
+  "id" | "role" | "content" | "timestamp" | "responseToMessageId" | "queueId" | "requestId"
 > & {
   kind: "assistant_reply";
+  response_to_message_id?: string | null;
+  queue_id?: string | null;
+  request_id?: string | null;
+  execution?: string;
+  route?: string;
 };

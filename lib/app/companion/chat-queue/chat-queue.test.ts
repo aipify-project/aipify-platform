@@ -67,7 +67,7 @@ function testQueueWaitPhaseProgression() {
       startedAt: createdAt,
       now: base + 5_000,
     }),
-    "initial",
+    "working",
   );
   assert.equal(
     resolveCompanionQueueWaitPhase({
@@ -76,7 +76,7 @@ function testQueueWaitPhaseProgression() {
       startedAt: createdAt,
       now: base + 15_000,
     }),
-    "working",
+    "long_wait",
   );
   assert.equal(
     resolveCompanionQueueWaitPhase({

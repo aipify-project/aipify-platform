@@ -58,6 +58,9 @@ export type CompanionChatMessage = {
   orgConfirmBlockedReason?: string;
   liveIntegrationToolUsed?: boolean;
   requestedLiveIntegration?: boolean;
+  responseToMessageId?: string | null;
+  queueId?: string | null;
+  requestId?: string | null;
   timestamp: number;
 };
 
@@ -163,6 +166,7 @@ export type CompanionExperienceLabels = {
   queue: {
     title: string;
     summary: string;
+    summaryDual: string;
     statusWaiting: string;
     statusProcessing: string;
     statusCompleted: string;
@@ -173,6 +177,15 @@ export type CompanionExperienceLabels = {
     statusTimedOut: string;
     cancel: string;
     retry: string;
+    dismiss: string;
+    dismissAll: string;
+    confirmDismissAll: string;
+    statusBackgroundContinuing: string;
+    errors: {
+      turnTimeoutPrimary: string;
+      turnTimeoutSecondary: string;
+      generic: string;
+    };
     notificationTitle: string;
     notificationBody: string;
     restoreError: string;

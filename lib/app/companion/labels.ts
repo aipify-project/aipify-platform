@@ -173,6 +173,7 @@ export function buildCompanionExperienceLabels(t: Translator): CompanionExperien
     queue: {
       title: t(`${p}.queue.title`),
       summary: t(`${p}.queue.summary`),
+      summaryDual: t(`${p}.queue.summaryDual`),
       statusWaiting: t(`${p}.queue.statusWaiting`),
       statusProcessing: t(`${p}.queue.statusProcessing`),
       statusCompleted: t(`${p}.queue.statusCompleted`),
@@ -183,6 +184,15 @@ export function buildCompanionExperienceLabels(t: Translator): CompanionExperien
       statusTimedOut: t(`${p}.queue.statusTimedOut`),
       cancel: t(`${p}.queue.cancel`),
       retry: t(`${p}.queue.retry`),
+      dismiss: t(`${p}.queue.dismiss`),
+      dismissAll: t(`${p}.queue.dismissAll`),
+      confirmDismissAll: t(`${p}.queue.confirmDismissAll`),
+      statusBackgroundContinuing: t(`${p}.queue.statusBackgroundContinuing`),
+      errors: {
+        turnTimeoutPrimary: t(`${p}.queue.errors.turnTimeoutPrimary`),
+        turnTimeoutSecondary: t(`${p}.queue.errors.turnTimeoutSecondary`),
+        generic: t(`${p}.queue.errors.generic`),
+      },
       notificationTitle: t(`${p}.queue.notificationTitle`),
       notificationBody: t(`${p}.queue.notificationBody`),
       restoreError: t(`${p}.queue.restoreError`),

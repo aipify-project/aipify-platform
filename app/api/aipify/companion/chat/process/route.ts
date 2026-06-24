@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { scheduleCompanionQueueProcessing } from "@/lib/app/companion/chat-queue/process-queue";
+import { awaitCompanionQueueProcessing } from "@/lib/app/companion/chat-queue/process-queue";
+
+export const maxDuration = 300;
 
 export async function POST(request: Request) {
   try {
@@ -19,11 +21,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "invalid_request" }, { status: 400 });
     }
 
-    scheduleCompanionQueueProcessing(conversationId, {
+    const dispatch = await awaitCompanionQueueProcessing(conversationId, {
       origin: new URL(request.url).origin,
     });
 
-    return NextResponse.json({ ok: true, triggered: true });
+    return NextResponse.json({
+      ok: dispatch.ok,
+      triggered: true,
+      worker_dispatch: dispatch.ok ? "completed" : dispatch.error_code,
+    });
   } catch {
     return NextResponse.json({ ok: false, error: "process_failed" }, { status: 500 });
   }

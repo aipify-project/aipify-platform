@@ -36,6 +36,8 @@ export type CommunityMemberDirectoryReadBundle = {
   freshness: DirectoryFreshness;
   completeness: DirectoryCompleteness;
   limitations: readonly string[];
+  data_classification?: "live" | "demo" | "seed" | "test";
+  source_verified?: boolean;
 };
 
 function asRecord(value: unknown): Record<string, unknown> | null {
@@ -114,6 +116,17 @@ export function mapCommunityMemberDirectoryCenterPayload(payload: unknown): Comm
 
   const search = asRecord(record.search);
   const completeness = record.completeness === "complete" ? "complete" : "empty";
+  const dataClassificationRaw = typeof record.data_classification === "string"
+    ? record.data_classification
+    : null;
+  const data_classification =
+    dataClassificationRaw === "live" ||
+    dataClassificationRaw === "demo" ||
+    dataClassificationRaw === "seed" ||
+    dataClassificationRaw === "test"
+      ? dataClassificationRaw
+      : undefined;
+  const source_verified = record.source_verified === true;
 
   return {
     source_exact: true,
@@ -127,6 +140,8 @@ export function mapCommunityMemberDirectoryCenterPayload(payload: unknown): Comm
     freshness: "fresh",
     completeness,
     limitations: [],
+    data_classification,
+    source_verified,
   };
 }
 

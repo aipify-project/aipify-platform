@@ -20,6 +20,8 @@ import {
 
 registerCommunityProviderManifest(UNONIGHT_COMMUNITY_ADAPTER_MANIFEST);
 
+import "./register-organization-member-count-provider";
+
 import type { UnonightMemberStatisticsSnapshot } from "./member-statistics";
 
 export type ApplyUnonightProviderAdapterInput = {
