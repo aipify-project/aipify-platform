@@ -26,13 +26,19 @@ import {
   detectNewNotificationIds,
   findLatestByEventType,
   findUnreadCompanionReplyReady,
+  isNotificationUnread,
   parsePresenceNotificationFeed,
   parsePresenceNotificationPreferences,
-  playSoftBellChime,
+  playSoftBellChimeAsync,
   primeSoftBellAudio,
   shouldPlayInAppNotificationSound,
   type UnifiedNotificationCenterLabels,
 } from "@/lib/presence/unified-notification-feed";
+import { patchNotificationArchivedLocally, patchNotificationReadLocally } from "@/lib/app/notifications/inbox";
+import {
+  applyActiveCompanionSeenSync,
+} from "@/lib/presence/unified-notification-feed/companion-seen-sync";
+import { getCompanionActiveSession } from "@/lib/presence/unified-notification-feed/companion-active-session";
 
 const FEED_LIMIT = 40;
 const PULSE_DURATION_MS = 2600;
@@ -52,6 +58,7 @@ type UnifiedNotificationFeedContextValue = {
   refreshPreferences: () => Promise<void>;
   applyPreferences: (preferences: PresenceNotificationPreferences) => void;
   markNotificationRead: (notificationId: string) => Promise<void>;
+  markConversationNotificationsRead: (conversationId: string) => Promise<void>;
   dismissNotification: (notificationId: string) => Promise<void>;
   openNotification: (notification: PresenceNotification) => Promise<void>;
   suppressToast: (notificationId: string) => void;
@@ -98,6 +105,12 @@ export function UnifiedNotificationFeedProvider({
   const initializedRef = useRef(false);
   const playedSoundIdsRef = useRef<Set<string>>(new Set());
   const audioPrimedRef = useRef(false);
+  const preferencesRef = useRef<PresenceNotificationPreferences | null>(null);
+  const pendingMarkReadRef = useRef<Set<string>>(new Set());
+
+  useEffect(() => {
+    preferencesRef.current = preferences;
+  }, [preferences]);
 
   const ensureOrgReady = useCallback(async (): Promise<boolean> => {
     if (orgReadyRef.current === true) return true;
@@ -140,11 +153,45 @@ export function UnifiedNotificationFeedProvider({
     setPreferences(next);
   }, []);
 
+  const markReadOnServer = useCallback(async (notificationIds: string[]) => {
+    const uniqueIds = notificationIds.filter((id) => {
+      if (pendingMarkReadRef.current.has(id)) return false;
+      pendingMarkReadRef.current.add(id);
+      return true;
+    });
+    if (uniqueIds.length === 0) return;
+
+    await Promise.all(
+      uniqueIds.map((notificationId) =>
+        performNotificationAction(notificationId, "mark_as_reviewed").finally(() => {
+          pendingMarkReadRef.current.delete(notificationId);
+        }),
+      ),
+    );
+  }, []);
+
   const applyFeedEffects = useCallback(
-    (feedNotifications: PresenceNotification[], prefs: PresenceNotificationPreferences | null) => {
-      const newIds = detectNewNotificationIds(knownIdsRef.current, feedNotifications);
+    (
+      feedNotifications: PresenceNotification[],
+      prefs: PresenceNotificationPreferences | null,
+      unreadCount: number,
+    ) => {
+      const session = getCompanionActiveSession();
+      const seenSync = applyActiveCompanionSeenSync(
+        { notifications: feedNotifications, unreadCount },
+        session,
+      );
+
+      if (seenSync.idsToMarkRead.length > 0) {
+        void markReadOnServer(seenSync.idsToMarkRead);
+      }
+
+      const syncedNotifications = seenSync.feed.notifications;
+      const syncedUnreadCount = seenSync.feed.unreadCount;
+
+      const newIds = detectNewNotificationIds(knownIdsRef.current, syncedNotifications);
       if (initializedRef.current && newIds.length > 0) {
-        const newItems = feedNotifications.filter((item) => newIds.includes(item.id));
+        const newItems = syncedNotifications.filter((item) => newIds.includes(item.id));
         const playfulBell = newItems.find((item) => item.event_type === "playful_bell_moment");
         if (playfulBell) {
           setPulseActive(true);
@@ -157,27 +204,32 @@ export function UnifiedNotificationFeedProvider({
           }, PULSE_DURATION_MS);
         }
 
-        for (const item of newItems) {
-          if (!shouldPlayInAppNotificationSound(item, prefs)) continue;
-          if (playedSoundIdsRef.current.has(item.id)) continue;
-          playedSoundIdsRef.current.add(item.id);
-          playSoftBellChime();
-          break;
-        }
+        void (async () => {
+          for (const item of newItems) {
+            if (!shouldPlayInAppNotificationSound(item, prefs)) continue;
+            if (playedSoundIdsRef.current.has(item.id)) continue;
+            playedSoundIdsRef.current.add(item.id);
+            primeSoftBellAudio();
+            await playSoftBellChimeAsync();
+            break;
+          }
+        })();
       }
 
-      for (const item of feedNotifications) {
+      for (const item of syncedNotifications) {
         knownIdsRef.current.add(item.id);
       }
       initializedRef.current = true;
 
       const replyToast = findUnreadCompanionReplyReady(
-        feedNotifications,
+        syncedNotifications,
         suppressedToastIdsRef.current,
       );
       setToastNotification(replyToast);
+
+      return { notifications: syncedNotifications, unreadCount: syncedUnreadCount };
     },
-    [],
+    [markReadOnServer],
   );
 
   const refresh = useCallback(async (): Promise<boolean> => {
@@ -198,9 +250,10 @@ export function UnifiedNotificationFeedProvider({
 
         const data = (await res.json()) as unknown;
         const feed = parsePresenceNotificationFeed(data);
-        setNotifications(feed.notifications);
-        setUnreadCount(feed.unreadCount);
-        applyFeedEffects(feed.notifications, preferences);
+        const prefs = preferencesRef.current;
+        const synced = applyFeedEffects(feed.notifications, prefs, feed.unreadCount);
+        setNotifications(synced.notifications);
+        setUnreadCount(synced.unreadCount);
         return true;
       });
       return ok;
@@ -209,7 +262,7 @@ export function UnifiedNotificationFeedProvider({
     } finally {
       setLoading(false);
     }
-  }, [applyFeedEffects, ensureOrgReady, pathname, preferences]);
+  }, [applyFeedEffects, ensureOrgReady, pathname]);
 
   useEffect(() => {
     void loadPreferences();
@@ -262,24 +315,62 @@ export function UnifiedNotificationFeedProvider({
     execute: refresh,
   });
 
-  const markNotificationRead = useCallback(
-    async (notificationId: string) => {
-      await performNotificationAction(notificationId, "mark_as_reviewed");
-      await refresh();
+  const markNotificationRead = useCallback(async (notificationId: string) => {
+    let wasUnread = false;
+    setNotifications((current) => {
+      const target = current.find((item) => item.id === notificationId);
+      if (!target || !isNotificationUnread(target)) return current;
+      wasUnread = true;
+      return patchNotificationReadLocally(current, notificationId);
+    });
+    if (wasUnread) {
+      setUnreadCount((current) => Math.max(0, current - 1));
+    }
+    await performNotificationAction(notificationId, "mark_as_reviewed");
+  }, []);
+
+  const markConversationNotificationsRead = useCallback(
+    async (conversationId: string) => {
+      let idsToMark: string[] = [];
+      setNotifications((current) => {
+        const session = getCompanionActiveSession();
+        const synced = applyActiveCompanionSeenSync(
+          { notifications: current, unreadCount: 0 },
+          {
+            panelVisible: true,
+            conversationId,
+            hasVisibleAssistantReply: session.hasVisibleAssistantReply || true,
+          },
+        );
+        idsToMark = synced.idsToMarkRead;
+        return synced.feed.notifications;
+      });
+      if (idsToMark.length === 0) return;
+      setUnreadCount((current) => Math.max(0, current - idsToMark.length));
+      await markReadOnServer(idsToMark);
     },
-    [refresh],
+    [markReadOnServer],
   );
 
   const dismissNotification = useCallback(
     async (notificationId: string) => {
-      await performNotificationAction(notificationId, "archive");
+      let wasUnread = false;
+      setNotifications((current) => {
+        const target = current.find((item) => item.id === notificationId);
+        if (!target) return current;
+        if (isNotificationUnread(target)) wasUnread = true;
+        return patchNotificationArchivedLocally(current, notificationId);
+      });
+      if (wasUnread) {
+        setUnreadCount((current) => Math.max(0, current - 1));
+      }
       suppressedToastIdsRef.current.add(notificationId);
       if (toastNotification?.id === notificationId) {
         setToastNotification(null);
       }
-      await refresh();
+      await performNotificationAction(notificationId, "archive");
     },
-    [refresh, toastNotification?.id],
+    [toastNotification?.id],
   );
 
   const openNotification = useCallback(
@@ -314,6 +405,7 @@ export function UnifiedNotificationFeedProvider({
       refreshPreferences,
       applyPreferences,
       markNotificationRead,
+      markConversationNotificationsRead,
       dismissNotification,
       openNotification,
       suppressToast,
@@ -331,6 +423,7 @@ export function UnifiedNotificationFeedProvider({
       refreshPreferences,
       applyPreferences,
       markNotificationRead,
+      markConversationNotificationsRead,
       dismissNotification,
       openNotification,
       suppressToast,

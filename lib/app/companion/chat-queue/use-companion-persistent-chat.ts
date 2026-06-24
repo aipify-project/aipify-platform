@@ -12,7 +12,6 @@ import {
   enqueueCompanionMessage,
   fetchCompanionChatState,
   listCompanionConversations,
-  markCompanionConversationRead,
   retryCompanionQueueItem,
   triggerCompanionQueueProcess,
 } from "./client";
@@ -105,12 +104,6 @@ export function useCompanionPersistentChat({
       cancelled = true;
     };
   }, [conversationId, organizationKey, applyState, panelVisible]);
-
-  useEffect(() => {
-    if (panelVisible && conversationId) {
-      void markCompanionConversationRead(conversationId);
-    }
-  }, [panelVisible, conversationId, messages.length]);
 
   useEffect(() => {
     const needsPoll = queue.some(

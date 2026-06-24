@@ -2,6 +2,7 @@ import type { PresenceNotificationPreferences } from "@/lib/presence/notificatio
 import { shouldDeliverNotification } from "@/lib/presence/quiet-hours";
 import {
   getNotificationAudioContextState,
+  playSoftBellChimeAsync,
   playSoftBellChimeWithResult,
   primeSoftBellAudio,
 } from "@/lib/presence/unified-notification-feed/sound-policy";
@@ -55,4 +56,21 @@ export function runNotificationSoundTest(
 
   primeSoftBellAudio();
   return playSoftBellChimeWithResult() ? "played" : "blocked";
+}
+
+export async function runNotificationSoundTestAsync(
+  prefs: PresenceNotificationPreferences | null,
+  now: Date = new Date(),
+): Promise<NotificationSoundTestResult> {
+  if (!prefs || isInAppSoundMuted(prefs)) return "disabled";
+
+  if (
+    prefs.quiet_hours_enabled &&
+    !shouldDeliverNotification("informational", prefs, now)
+  ) {
+    return "quiet_hours";
+  }
+
+  primeSoftBellAudio();
+  return (await playSoftBellChimeAsync()) ? "played" : "blocked";
 }

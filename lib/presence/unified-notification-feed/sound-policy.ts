@@ -95,9 +95,43 @@ export function shouldPlayInAppNotificationSound(
 }
 
 export function playSoftBellChime(): void {
-  void playSoftBellChimeWithResult();
+  void playSoftBellChimeAsync();
 }
 
+async function ensureRunningAudioContext(): Promise<AudioContext | null> {
+  const context = getSharedAudioContext();
+  if (!context) return null;
+
+  if (context.state === "closed") return null;
+
+  if (context.state === "suspended") {
+    try {
+      await context.resume();
+    } catch {
+      return null;
+    }
+  }
+
+  return context.state === "running" ? context : null;
+}
+
+export async function playSoftBellChimeAsync(): Promise<boolean> {
+  if (typeof window === "undefined") return false;
+
+  const now = Date.now();
+  if (now - lastBellPlayedAt < BELL_DEBOUNCE_MS) return true;
+
+  try {
+    primeSoftBellAudio();
+    const context = await ensureRunningAudioContext();
+    if (!context) return false;
+    return playSoftBellChimeOnContext(context);
+  } catch {
+    return false;
+  }
+}
+
+/** Synchronous attempt — used after an explicit user gesture when resume may succeed inline. */
 export function playSoftBellChimeWithResult(): boolean {
   if (typeof window === "undefined") return false;
 
@@ -105,11 +139,12 @@ export function playSoftBellChimeWithResult(): boolean {
   if (now - lastBellPlayedAt < BELL_DEBOUNCE_MS) return true;
 
   try {
+    primeSoftBellAudio();
     const context = getSharedAudioContext();
-    if (!context) return false;
-    if (context.state === "suspended" && !audioPrimed) return false;
+    if (!context || context.state === "closed") return false;
 
     if (context.state === "suspended") {
+      if (!audioPrimed) return false;
       void context.resume().then(() => {
         if (context.state === "running") {
           playSoftBellChimeOnContext(context);

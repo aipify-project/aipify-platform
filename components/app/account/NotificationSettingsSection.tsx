@@ -27,6 +27,7 @@ import {
 import {
   resolveNotificationSoundStatus,
   runNotificationSoundTest,
+  runNotificationSoundTestAsync,
   type NotificationSoundTestResult,
 } from "@/lib/presence/notification-sound-settings";
 import { parsePresenceNotificationPreferences } from "@/lib/presence/unified-notification-feed/preferences";
@@ -184,7 +185,7 @@ export function NotificationSettingsSection({
   function handleTestSound() {
     if (!effectivePreferences) return;
     primeSoftBellAudio();
-    setTestResult(runNotificationSoundTest(effectivePreferences));
+    void runNotificationSoundTestAsync(effectivePreferences).then(setTestResult);
   }
 
   if (loading || !draft) {
