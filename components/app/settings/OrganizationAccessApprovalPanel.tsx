@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
   parseOrganizationAccessRequest,
@@ -20,7 +19,12 @@ import {
   isOrganizationAccessApproveBinding,
   isOrganizationAccessCreateBinding,
   parseOrganizationAccessIntentBinding,
+  type OrganizationAccessIntentBinding,
 } from "@/lib/core/organization-access-approval/access-intent-binding";
+import {
+  formatOrganizationAccessScopeSummary,
+  resolveOrganizationAccessProviderLabel,
+} from "@/lib/core/organization-access-approval/panel-display-labels";
 
 export type OrganizationAccessApprovalPanelLabels = {
   title: string;
@@ -70,12 +74,34 @@ export type OrganizationAccessApprovalPanelLabels = {
   riskLevels: Record<string, string>;
   providers: Record<string, string>;
   scopes: Record<string, string>;
+  capabilities: Record<string, string>;
+  unknownProvider: string;
+  unknownScope: string;
   statusLabels: Record<string, string>;
 };
 
 type OrganizationAccessApprovalPanelProps = {
   labels: OrganizationAccessApprovalPanelLabels;
 };
+
+type OrganizationAccessPanelDisplay = {
+  providerLabel: string;
+  dataTypeLabel: string;
+  whyNeededLabel: string;
+  scopeSummary: string;
+};
+
+function buildRequestDisplay(
+  request: OrganizationAccessRequestRecord,
+  labels: OrganizationAccessApprovalPanelLabels,
+): OrganizationAccessPanelDisplay {
+  return {
+    providerLabel: resolveOrganizationAccessProviderLabel(request.provider_key, labels),
+    dataTypeLabel: labels.providers[`${request.provider_key}.dataType`] ?? labels.unknownScope,
+    whyNeededLabel: labels.providers[`${request.provider_key}.whyNeeded`] ?? labels.unknownScope,
+    scopeSummary: formatOrganizationAccessScopeSummary(request.scope_keys, labels, request.provider_key),
+  };
+}
 
 function resolvePanelErrorMessage(
   rawError: string | undefined,
@@ -105,14 +131,51 @@ function parseCenterPayload(value: unknown): OrganizationAccessApprovalCenter {
   };
 }
 
-export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessApprovalPanelProps) {
-  const searchParams = useSearchParams();
-  const intentBinding = useMemo(
-    () => parseOrganizationAccessIntentBinding(searchParams),
-    [searchParams],
-  );
+type PanelPendingRequest = {
+  id: string;
+  status: OrganizationAccessRequestRecord["status"];
+  risk_level: number;
+  access_mode: OrganizationAccessRequestRecord["access_mode"];
+  duration_hours: number | null;
+  requester_display_name: string | null;
+  display: OrganizationAccessPanelDisplay;
+};
 
-  const [center, setCenter] = useState<OrganizationAccessApprovalCenter | null>(null);
+type OrganizationAccessApprovalCenterView = {
+  requests: PanelPendingRequest[];
+  can_review: boolean;
+};
+
+type OrganizationAccessPanelOffer = {
+  provider_key: string;
+  capability_key: string | null;
+  scope_keys: string[];
+  access_mode: "one_time" | "ongoing";
+  duration_hours: number | null;
+  risk_level: number;
+  binding: OrganizationAccessIntentBinding;
+  scopeSummary: string;
+  providerLabel: string;
+  dataTypeLabel: string;
+  whyNeededLabel: string;
+};
+
+export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessApprovalPanelProps) {
+  const [intentBinding, setIntentBinding] = useState<OrganizationAccessIntentBinding | null>(null);
+  const [intentReady, setIntentReady] = useState(false);
+
+  useEffect(() => {
+    const binding = parseOrganizationAccessIntentBinding(
+      new URLSearchParams(window.location.search),
+    );
+    setIntentBinding(binding);
+    setIntentReady(true);
+    if (window.location.search.length > 0) {
+      window.history.replaceState({}, "", "/app/settings/organization-access");
+    }
+  }, []);
+
+  const [center, setCenter] = useState<OrganizationAccessApprovalCenterView | null>(null);
   const [loading, setLoading] = useState(true);
   const [actionMessage, setActionMessage] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
@@ -122,19 +185,31 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
     setLoading(true);
     const res = await fetch("/api/app/organization-access/requests?status=pending");
     if (res.ok) {
-      setCenter(parseCenterPayload(await res.json()));
+      const raw = parseCenterPayload(await res.json());
+      setCenter({
+        can_review: raw.can_review,
+        requests: raw.requests.map((request) => ({
+          id: request.id,
+          status: request.status,
+          risk_level: request.risk_level,
+          access_mode: request.access_mode,
+          duration_hours: request.duration_hours,
+          requester_display_name: request.requester_display_name,
+          display: buildRequestDisplay(request, labels),
+        })),
+      });
     } else {
       setCenter({ requests: [], can_review: false });
     }
     setLoading(false);
-  }, []);
+  }, [labels]);
 
   useEffect(() => {
     void load();
   }, [load]);
 
   const createOffer = useMemo(() => {
-    if (!intentBinding || !isOrganizationAccessCreateBinding(intentBinding)) return null;
+    if (!intentReady || !intentBinding || !isOrganizationAccessCreateBinding(intentBinding)) return null;
     if (center?.can_review) return null;
     const manifest = resolveProviderAccessManifest(intentBinding.provider_key);
     const scopeKeys = resolveScopesForCapability({
@@ -143,7 +218,7 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
     });
     if (!manifest || scopeKeys.length === 0) return null;
     const defaultScope = manifest.required_scopes[0];
-    return {
+    const offer: OrganizationAccessPanelOffer = {
       provider_key: intentBinding.provider_key,
       capability_key: intentBinding.capability_key,
       scope_keys: scopeKeys,
@@ -151,11 +226,16 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
       duration_hours: defaultScope.default_duration_hours,
       risk_level: defaultScope.risk_level,
       binding: intentBinding,
+      scopeSummary: formatOrganizationAccessScopeSummary(scopeKeys, labels, intentBinding.provider_key),
+      providerLabel: resolveOrganizationAccessProviderLabel(intentBinding.provider_key, labels),
+      dataTypeLabel: labels.providers[`${intentBinding.provider_key}.dataType`] ?? labels.unknownScope,
+      whyNeededLabel: labels.providers[`${intentBinding.provider_key}.whyNeeded`] ?? labels.unknownScope,
     };
-  }, [center?.can_review, intentBinding]);
+    return offer;
+  }, [center?.can_review, intentBinding, intentReady, labels]);
 
   const approveBinding = useMemo(() => {
-    if (!intentBinding || !isOrganizationAccessApproveBinding(intentBinding)) return null;
+    if (!intentReady || !intentBinding || !isOrganizationAccessApproveBinding(intentBinding)) return null;
     if (!center?.can_review) return null;
     const manifest = resolveProviderAccessManifest(intentBinding.provider_key);
     const scopeKeys = resolveScopesForCapability({
@@ -164,7 +244,7 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
     });
     if (!manifest || scopeKeys.length === 0) return null;
     const defaultScope = manifest.required_scopes[0];
-    return {
+    const offer: OrganizationAccessPanelOffer = {
       provider_key: intentBinding.provider_key,
       capability_key: intentBinding.capability_key,
       scope_keys: scopeKeys,
@@ -172,8 +252,13 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
       duration_hours: defaultScope.default_duration_hours,
       risk_level: defaultScope.risk_level,
       binding: intentBinding,
+      scopeSummary: formatOrganizationAccessScopeSummary(scopeKeys, labels, intentBinding.provider_key),
+      providerLabel: resolveOrganizationAccessProviderLabel(intentBinding.provider_key, labels),
+      dataTypeLabel: labels.providers[`${intentBinding.provider_key}.dataType`] ?? labels.unknownScope,
+      whyNeededLabel: labels.providers[`${intentBinding.provider_key}.whyNeeded`] ?? labels.unknownScope,
     };
-  }, [center?.can_review, intentBinding]);
+    return offer;
+  }, [center?.can_review, intentBinding, intentReady, labels]);
 
   const matchingPendingRequest = useMemo(() => {
     if (!approveBinding || !center) return null;
@@ -188,10 +273,8 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
     return (
       center.requests.find(
         (request) =>
-          request.provider_key === approveBinding.provider_key &&
-          request.status === "pending" &&
-          (approveBinding.capability_key == null ||
-            request.capability_key === approveBinding.capability_key),
+          request.display.providerLabel === approveBinding.providerLabel &&
+          request.status === "pending",
       ) ?? null
     );
   }, [approveBinding, center]);
@@ -324,9 +407,10 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
         <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-slate-900">{labels.approverDirectTitle}</h2>
           <p className="mt-2 text-sm text-slate-600">{labels.approverDirectDescription}</p>
-          <RequestReviewCard
-            request={buildDraftRequest(approveBinding, labels, matchingPendingRequest?.id ?? "approve-draft")}
+          <OfferReviewCard
+            offer={approveBinding}
             labels={labels}
+            requesterName={labels.review.requester.replace("{name}", "—")}
           />
           {matchingPendingRequest ? (
             <div className="mt-4 flex flex-wrap gap-3">
@@ -369,7 +453,11 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
         <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-slate-900">{labels.createTitle}</h2>
           <p className="mt-2 text-sm text-slate-600">{labels.createDescription}</p>
-          <RequestReviewCard request={buildDraftRequest(createOffer, labels)} labels={labels} />
+          <OfferReviewCard
+            offer={createOffer}
+            labels={labels}
+            requesterName={labels.review.requester.replace("{name}", "—")}
+          />
           <div className="mt-4 flex flex-wrap gap-3">
             <button
               type="button"
@@ -397,7 +485,7 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
         {center?.requests.length ? (
           center.requests.map((request) => (
             <div key={request.id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-              <RequestReviewCard request={request} labels={labels} />
+              <PendingRequestReviewCard request={request} labels={labels} />
               {center.can_review && request.status === "pending" ? (
                 <div className="mt-4 flex flex-wrap gap-3">
                   <button
@@ -428,87 +516,100 @@ export function OrganizationAccessApprovalPanel({ labels }: OrganizationAccessAp
   );
 }
 
-function buildDraftRequest(
-  offer: {
-    provider_key: string;
-    scope_keys: string[];
-    access_mode: "one_time" | "ongoing";
-    duration_hours: number | null;
-    risk_level: number;
-  },
-  labels: OrganizationAccessApprovalPanelLabels,
-  draftId = "draft",
-): OrganizationAccessRequestRecord {
-  return {
-    id: draftId,
-    organization_id: "",
-    requester_user_id: "",
-    requester_display_name: labels.review.requester.replace("{name}", "—"),
-    provider_key: offer.provider_key,
-    capability_key: null,
-    scope_keys: offer.scope_keys,
-    access_mode: offer.access_mode,
-    duration_hours: offer.duration_hours,
-    risk_level: offer.risk_level,
-    status: "pending",
-    reason_summary: "",
-    context_payload: {},
-    idempotency_key: null,
-    approved_by_user_id: null,
-    denied_by_user_id: null,
-    expires_at: null,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  };
+function OfferReviewCard({
+  offer,
+  labels,
+  requesterName,
+}: {
+  offer: Pick<
+    OrganizationAccessPanelOffer,
+    | "scopeSummary"
+    | "providerLabel"
+    | "dataTypeLabel"
+    | "whyNeededLabel"
+    | "access_mode"
+    | "duration_hours"
+    | "risk_level"
+  >;
+  labels: OrganizationAccessApprovalPanelLabels;
+  requesterName: string;
+}) {
+  return (
+    <AccessReviewDetails
+      display={{
+        providerLabel: offer.providerLabel,
+        dataTypeLabel: offer.dataTypeLabel,
+        whyNeededLabel: offer.whyNeededLabel,
+        scopeSummary: offer.scopeSummary,
+      }}
+      access_mode={offer.access_mode}
+      duration_hours={offer.duration_hours}
+      risk_level={offer.risk_level}
+      requester_display_name={requesterName}
+      labels={labels}
+    />
+  );
 }
 
-function RequestReviewCard({
+function PendingRequestReviewCard({
   request,
   labels,
 }: {
-  request: OrganizationAccessRequestRecord;
+  request: PanelPendingRequest;
   labels: OrganizationAccessApprovalPanelLabels;
 }) {
-  const manifest = resolveProviderAccessManifest(request.provider_key);
-  const providerLabel =
-    labels.providers[request.provider_key] ??
-    (manifest ? labels.providers[manifest.provider_key] : request.provider_key);
+  return (
+    <AccessReviewDetails
+      display={request.display}
+      access_mode={request.access_mode}
+      duration_hours={request.duration_hours}
+      risk_level={request.risk_level}
+      requester_display_name={request.requester_display_name}
+      labels={labels}
+    />
+  );
+}
 
-  const scopeSummary = request.scope_keys
-    .map((scopeKey) => labels.scopes[scopeKey] ?? scopeKey)
-    .join(", ");
-
+function AccessReviewDetails({
+  display,
+  access_mode,
+  duration_hours,
+  risk_level,
+  requester_display_name,
+  labels,
+}: {
+  display: OrganizationAccessPanelDisplay;
+  access_mode: OrganizationAccessRequestRecord["access_mode"];
+  duration_hours: number | null;
+  risk_level: number;
+  requester_display_name: string | null;
+  labels: OrganizationAccessApprovalPanelLabels;
+}) {
   const accessModeLabel =
-    request.access_mode === "one_time" ? labels.accessMode.oneTime : labels.accessMode.ongoing;
+    access_mode === "one_time" ? labels.accessMode.oneTime : labels.accessMode.ongoing;
 
   const durationLabel =
-    request.duration_hours != null
-      ? labels.durationHours.replace("{hours}", String(request.duration_hours))
+    duration_hours != null
+      ? labels.durationHours.replace("{hours}", String(duration_hours))
       : labels.durationOpenEnded;
 
   return (
     <dl className="grid gap-3 text-sm text-slate-700 sm:grid-cols-2">
-      <ReviewItem label={labels.review.provider} value={providerLabel} />
-      <ReviewItem
-        label={labels.review.dataType}
-        value={manifest ? labels.providers[`${request.provider_key}.dataType`] ?? "—" : "—"}
-      />
+      <ReviewItem label={labels.review.provider} value={display.providerLabel} />
+      <ReviewItem label={labels.review.dataType} value={display.dataTypeLabel} />
       <ReviewItem
         label={labels.review.whyNeeded}
-        value={manifest ? labels.providers[`${request.provider_key}.whyNeeded`] ?? "—" : "—"}
+        value={display.whyNeededLabel}
         className="sm:col-span-2"
       />
-      <ReviewItem label={labels.review.scope} value={scopeSummary} />
+      <ReviewItem label={labels.review.scope} value={display.scopeSummary} />
       <ReviewItem label={labels.review.accessMode} value={accessModeLabel} />
       <ReviewItem label={labels.review.duration} value={durationLabel} />
       <ReviewItem
         label={labels.review.risk}
-        value={labels.riskLevels[String(request.risk_level)] ?? labels.riskLevels["1"]}
+        value={labels.riskLevels[String(risk_level)] ?? labels.riskLevels["1"]}
       />
-      <ReviewItem
-        label={labels.review.requester}
-        value={request.requester_display_name ?? "—"}
-      />
+      <ReviewItem label={labels.review.requester} value={requester_display_name ?? "—"} />
       <ReviewItem
         label={labels.review.afterApproval}
         value={labels.review.afterApprovalDetail}

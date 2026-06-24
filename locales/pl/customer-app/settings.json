@@ -706,6 +706,8 @@
       "durationHours": "{hours} godzin",
       "riskLevels": { "0": "Informacyjny", "1": "Niski", "2": "Umiarkowany", "3": "Wrażliwy — wymagane dodatkowe potwierdzenie" },
       "requester": "Wnioskodawca: {name}",
+      "unknownProvider": "Zatwierdzony dostawca",
+      "unknownScope": "Zatwierdzony zakres danych",
       "afterApprovalDetail": "Po zatwierdzeniu Aipify aktywuje tylko żądany zakres i kontynuuje pierwotną akcję, gdy jest to bezpieczne.",
       "afterApproval": "Po zatwierdzeniu",
       "actions": { "approve": "Zatwierdź", "deny": "Odrzuć" },
@@ -722,9 +724,12 @@
     },
     "scopes": {
       "communityMembersRead": "Wyświetl rejestr członków",
-      "memberCountRead": "Wyświetl liczbę członków",
+      "memberCountRead": "Odczyt liczby członków organizacji",
       "supportQueueRead": "Wyświetl metryki kolejki wsparcia",
       "verificationQueueRead": "Wyświetl kolejkę weryfikacji"
+    },
+    "capabilities": {
+      "memberSearch": "Wyszukuj i odczytuj członków"
     }
   },
   "authorizationTarget": {

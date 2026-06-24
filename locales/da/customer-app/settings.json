@@ -5881,6 +5881,8 @@
         "3": "Følsom — ekstra bekræftelse påkrævet"
       },
       "requester": "Anmodet af {name}",
+      "unknownProvider": "Godkendt leverandør",
+      "unknownScope": "Godkendt dataomfang",
       "afterApprovalDetail": "Efter godkendelse aktiverer Aipify kun det anmodede omfang og fortsætter den oprindelige handling, når det er sikkert.",
       "afterApproval": "Efter godkendelse",
       "actions": {
@@ -5921,9 +5923,12 @@
     },
     "scopes": {
       "communityMembersRead": "Vis medlemsregister",
-      "memberCountRead": "Vis medlemstal",
+      "memberCountRead": "Læs organisationens medlemstal",
       "supportQueueRead": "Vis supportkømålinger",
       "verificationQueueRead": "Vis verificeringskø"
+    },
+    "capabilities": {
+      "memberSearch": "Søg og læs medlemmer"
     }
   },
   "authorizationTarget": {

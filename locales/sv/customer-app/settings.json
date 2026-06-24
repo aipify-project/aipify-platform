@@ -5881,6 +5881,8 @@
         "3": "Känslig — extra bekräftelse krävs"
       },
       "requester": "Begärd av {name}",
+      "unknownProvider": "Godkänd leverantör",
+      "unknownScope": "Godkänt dataomfång",
       "afterApprovalDetail": "Efter godkännande aktiverar Aipify endast det begärda omfånget och fortsätter den ursprungliga åtgärden när det är säkert.",
       "afterApproval": "Efter godkännande",
       "actions": {
@@ -5921,9 +5923,12 @@
     },
     "scopes": {
       "communityMembersRead": "Visa medlemsregister",
-      "memberCountRead": "Visa medlemssiffror",
+      "memberCountRead": "Läs organisationens medlemssiffror",
       "supportQueueRead": "Visa supportkömätningar",
       "verificationQueueRead": "Visa verifieringskö"
+    },
+    "capabilities": {
+      "memberSearch": "Sök och läs medlemmar"
     }
   },
   "authorizationTarget": {

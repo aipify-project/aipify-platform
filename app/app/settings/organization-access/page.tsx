@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { OrganizationAccessApprovalPanel } from "@/components/app/settings/OrganizationAccessApprovalPanel";
 import { ORGANIZATION_PROVIDER_ACCESS_MANIFESTS } from "@/lib/core/organization-access-approval/provider-scope-registry";
+import { ORGANIZATION_ACCESS_CAPABILITY_LABEL_KEYS } from "@/lib/core/organization-access-approval/panel-display-labels";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -24,8 +25,15 @@ export default async function OrganizationAccessSettingsPage() {
   const scopes: Record<string, string> = {};
   for (const manifest of ORGANIZATION_PROVIDER_ACCESS_MANIFESTS) {
     for (const scope of manifest.required_scopes) {
-      scopes[scope.scope_key] = t(scope.label_key);
+      const shortKey = scope.label_key.split(".").pop() ?? scope.label_key;
+      scopes[`${manifest.provider_key}.${shortKey}`] = t(scope.label_key);
     }
+  }
+
+  const capabilities: Record<string, string> = {};
+  for (const [, labelKey] of Object.entries(ORGANIZATION_ACCESS_CAPABILITY_LABEL_KEYS)) {
+    const shortKey = labelKey.split(".").pop() ?? labelKey;
+    capabilities[shortKey] = t(labelKey);
   }
 
   const labels = {
@@ -81,6 +89,9 @@ export default async function OrganizationAccessSettingsPage() {
     },
     providers,
     scopes,
+    capabilities,
+    unknownProvider: t(`${base}.review.unknownProvider`),
+    unknownScope: t(`${base}.review.unknownScope`),
     statusLabels: {
       pending: t(`${base}.status.pending`),
       approved: t(`${base}.status.approved`),

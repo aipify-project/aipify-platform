@@ -706,6 +706,8 @@
       "durationHours": "{hours} годин",
       "riskLevels": { "0": "Інформаційний", "1": "Низький", "2": "Помірний", "3": "Чутливий — потрібне додаткове підтвердження" },
       "requester": "Запит від {name}",
+      "unknownProvider": "Затверджений постачальник",
+      "unknownScope": "Затверджений обсяг даних",
       "afterApprovalDetail": "Після затвердження Aipify активує лише запитуваний обсяг і продовжує початкову дію, коли це безпечно.",
       "afterApproval": "Після затвердження",
       "actions": { "approve": "Затвердити", "deny": "Відхилити" },
@@ -722,9 +724,12 @@
     },
     "scopes": {
       "communityMembersRead": "Перегляд реєстру учасників",
-      "memberCountRead": "Перегляд кількості учасників",
+      "memberCountRead": "Читання кількості учасників організації",
       "supportQueueRead": "Перегляд метрик черги підтримки",
       "verificationQueueRead": "Перегляд черги верифікації"
+    },
+    "capabilities": {
+      "memberSearch": "Пошук і перегляд учасників"
     }
   },
   "authorizationTarget": {

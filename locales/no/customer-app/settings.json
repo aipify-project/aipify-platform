@@ -5876,6 +5876,8 @@
         "3": "Sensitiv — ekstra bekreftelse kreves"
       },
       "requester": "Forespurt av {name}",
+      "unknownProvider": "Godkjent leverandør",
+      "unknownScope": "Godkjent dataomfang",
       "afterApprovalDetail": "Etter godkjenning aktiverer Aipify kun forespurt omfang og fortsetter den opprinnelige handlingen når det er trygt.",
       "afterApproval": "Etter godkjenning",
       "actions": {
@@ -5918,9 +5920,12 @@
     },
     "scopes": {
       "communityMembersRead": "Vis medlemsregister",
-      "memberCountRead": "Vis medlemstall",
+      "memberCountRead": "Les organisasjonens medlemstall",
       "supportQueueRead": "Vis supportkømålinger",
       "verificationQueueRead": "Vis verifiseringskø"
+    },
+    "capabilities": {
+      "memberSearch": "Søk og les medlemmer"
     }
   },
   "authorizationTarget": {

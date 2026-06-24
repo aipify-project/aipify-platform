@@ -5901,6 +5901,8 @@
         "3": "Sensitive — extra confirmation required"
       },
       "requester": "Requested by {name}",
+      "unknownProvider": "Approved provider",
+      "unknownScope": "Approved data scope",
       "afterApprovalDetail": "After approval, Aipify activates only the requested scope and continues the original action when safe.",
       "afterApproval": "After approval",
       "actions": {
@@ -5943,9 +5945,12 @@
     },
     "scopes": {
       "communityMembersRead": "View member directory",
-      "memberCountRead": "View member totals",
+      "memberCountRead": "Read organization member totals",
       "supportQueueRead": "View support queue metrics",
       "verificationQueueRead": "View verification queue"
+    },
+    "capabilities": {
+      "memberSearch": "Search and read members"
     }
   },
   "authorizationTarget": {
