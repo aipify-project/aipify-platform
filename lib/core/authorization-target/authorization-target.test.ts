@@ -163,8 +163,20 @@ const resolverSource = fs.readFileSync(
   path.join(repoRoot, "lib/core/authorization-target/resolve-authorization-target.ts"),
   "utf8",
 );
+const registrySource = fs.readFileSync(
+  path.join(repoRoot, "lib/core/authorization-target/provider-authorization-registry.ts"),
+  "utf8",
+);
 assert.equal(/\bspotify\b/i.test(resolverSource), false);
 assert.equal(/\bunonight\b/i.test(resolverSource), false);
+assert.equal(registrySource.includes("integration-intelligence/media"), false);
+
+const spotifyQuery = "kan du styre Spotify for meg";
+assert.equal(resolveOrganizationCapabilityRoute(spotifyQuery, "no"), null);
+assert.equal(
+  resolveAuthorizationTargetFromQuery(spotifyQuery, "no")?.ownership,
+  "user_owned_account",
+);
 
 console.log("authorization-target.test.ts: all assertions passed");
 }
