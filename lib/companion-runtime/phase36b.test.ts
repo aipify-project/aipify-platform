@@ -211,6 +211,33 @@ const changedBookingPayload = buildBookingApprovalCanonicalPayload({
 assert.notEqual(stableBookingHash, computeBookingApprovalPayloadHash(changedBookingPayload));
 
 async function runPhase36bAsyncTests() {
+  const fixedNow = new Date("2026-06-24T08:00:00.000Z");
+  const expectedExpiresAt = resolveBookingApprovalExpiresAt(fixedNow);
+  const expectedPayloadHash = computeBookingApprovalPayloadHash(
+    buildBookingApprovalCanonicalPayload({
+      capability_key: "booking.create",
+      ...writeRequestBase,
+      confirmed: true,
+      idempotency_key: "idem-approval",
+    }),
+  );
+
+  const approvalBridgeCallCount = { value: 0 };
+  let executeWriteCallCount = 0;
+
+  const mockApprovalBridgeSuccess = async () => {
+    approvalBridgeCallCount.value += 1;
+    return {
+      success: true,
+      outcome_code: "BOOKING_ACTION_REQUESTED",
+      action_request_id: "req-approval-001",
+      payload_hash: expectedPayloadHash,
+      idempotency_key: "idem-approval",
+      expires_at: expectedExpiresAt,
+      idempotent_replay: false,
+    };
+  };
+
   const createUnconfirmed = await executeBookingWrite({
     organization_id: ORG_A,
     tenant_id: "tenant-a",
@@ -218,6 +245,7 @@ async function runPhase36bAsyncTests() {
     permission: permissionCtx,
     provider_key: "appointment_booking",
     provider_write: providerWriteMissing,
+    record_approval_request: mockApprovalBridgeSuccess,
     request: {
       capability_key: "booking.create",
       ...writeRequestBase,
@@ -226,6 +254,9 @@ async function runPhase36bAsyncTests() {
   });
   assert.equal(createUnconfirmed.outcome, "confirmation_required");
   assert.equal(createUnconfirmed.booking, null);
+  assert.equal(createUnconfirmed.proposal?.proposal_id ?? null, null);
+  assert.ok(createUnconfirmed.proposal?.capability_key);
+  assert.equal(approvalBridgeCallCount.value, 0);
 
   const createConfirmedNoSource = await executeBookingWrite({
     organization_id: ORG_A,
@@ -234,6 +265,7 @@ async function runPhase36bAsyncTests() {
     permission: permissionCtx,
     provider_key: "appointment_booking",
     provider_write: providerWriteMissing,
+    record_approval_request: mockApprovalBridgeSuccess,
     request: {
       capability_key: "booking.create",
       ...writeRequestBase,
@@ -243,6 +275,8 @@ async function runPhase36bAsyncTests() {
   assert.equal(createConfirmedNoSource.outcome, "execution_source_missing");
   assert.equal(createConfirmedNoSource.booking, null);
   assert.equal(createConfirmedNoSource.proposal?.requires_approval, false);
+  assert.equal(createConfirmedNoSource.proposal?.proposal_id ?? null, null);
+  assert.equal(approvalBridgeCallCount.value, 0);
   assert.ok(
     createConfirmedNoSource.limitations.some((entry) =>
       entry.includes("writeExecutionSourceMissing"),
@@ -290,6 +324,11 @@ async function runPhase36bAsyncTests() {
     permission: permissionCtx,
     provider_key: "appointment_booking",
     provider_write: providerWriteWithApproval,
+    record_approval_request: mockApprovalBridgeSuccess,
+    execute_write: async () => {
+      executeWriteCallCount += 1;
+      return { executed: true, failure_reason: null };
+    },
     request: {
       capability_key: "booking.create",
       ...writeRequestBase,
@@ -299,7 +338,87 @@ async function runPhase36bAsyncTests() {
   });
   assert.equal(approvalWhenSourceExists.outcome, "approval_required");
   assert.equal(approvalWhenSourceExists.proposal?.requires_approval, true);
+  assert.equal(approvalWhenSourceExists.proposal?.proposal_id, "req-approval-001");
+  assert.equal(approvalWhenSourceExists.proposal?.proposal_id, approvalWhenSourceExists.action_request_id);
+  assert.ok((approvalWhenSourceExists.proposal?.proposal_id?.length ?? 0) > 0);
+  assert.equal(approvalWhenSourceExists.action_request_id, "req-approval-001");
+  assert.equal(approvalWhenSourceExists.payload_hash, expectedPayloadHash);
+  assert.equal(approvalWhenSourceExists.idempotency_key, "idem-approval");
+  assert.equal(approvalWhenSourceExists.expires_at, expectedExpiresAt);
+  assert.equal(approvalWhenSourceExists.idempotent_replay, false);
   assert.equal(approvalWhenSourceExists.booking, null);
+  assert.equal(executeWriteCallCount, 0);
+  assert.equal(approvalBridgeCallCount.value, 1);
+
+  const approvalReplay = await executeBookingWrite({
+    organization_id: ORG_A,
+    tenant_id: "tenant-a",
+    user_role: "admin",
+    permission: permissionCtx,
+    provider_key: "appointment_booking",
+    provider_write: providerWriteWithApproval,
+    record_approval_request: async () => {
+      approvalBridgeCallCount.value += 1;
+      return {
+        success: true,
+        outcome_code: "IDEMPOTENT_REPLAY",
+        action_request_id: "req-approval-001",
+        payload_hash: expectedPayloadHash,
+        idempotency_key: "idem-approval",
+        expires_at: expectedExpiresAt,
+        idempotent_replay: true,
+      };
+    },
+    execute_write: async () => {
+      executeWriteCallCount += 1;
+      return { executed: true, failure_reason: null };
+    },
+    request: {
+      capability_key: "booking.create",
+      ...writeRequestBase,
+      idempotency_key: "idem-approval",
+      confirmed: true,
+    },
+  });
+  assert.equal(approvalReplay.outcome, "approval_required");
+  assert.equal(approvalReplay.action_request_id, "req-approval-001");
+  assert.equal(approvalReplay.proposal?.proposal_id, "req-approval-001");
+  assert.equal(approvalReplay.idempotent_replay, true);
+  assert.equal(executeWriteCallCount, 0);
+
+  const approvalConflict = await executeBookingWrite({
+    organization_id: ORG_A,
+    tenant_id: "tenant-a",
+    user_role: "admin",
+    permission: permissionCtx,
+    provider_key: "appointment_booking",
+    provider_write: providerWriteWithApproval,
+    record_approval_request: async () => ({
+      success: false,
+      outcome_code: "IDEMPOTENCY_CONFLICT",
+      action_request_id: "req-approval-001",
+      payload_hash: expectedPayloadHash,
+      idempotency_key: "idem-approval-conflict",
+      expires_at: expectedExpiresAt,
+      idempotent_replay: false,
+    }),
+    execute_write: async () => {
+      executeWriteCallCount += 1;
+      return { executed: true, failure_reason: null };
+    },
+    request: {
+      capability_key: "booking.create",
+      ...writeRequestBase,
+      idempotency_key: "idem-approval-conflict",
+      start_at: "2026-06-25T09:00:00.000Z",
+      confirmed: true,
+    },
+  });
+  assert.equal(approvalConflict.outcome, "failed");
+  assert.equal(approvalConflict.proposal, null);
+  assert.equal(approvalConflict.action_request_id, "req-approval-001");
+  assert.equal(approvalConflict.idempotent_replay, false);
+  assert.equal(executeWriteCallCount, 0);
 
   const executedWithProvider = await executeBookingWrite({
     organization_id: ORG_A,
@@ -345,11 +464,11 @@ async function runPhase36bAsyncTests() {
     "utf8",
   );
   assert.equal(/get_organization_appointment/i.test(orchestratorSource), false);
+  assert.equal(/booking-proposal-\$\{Date\.now\(\)\}/.test(orchestratorSource), false);
+  assert.equal(orchestratorSource.includes('proposal_id: ""'), false);
 
-  const fixedNow = new Date("2026-06-24T08:00:00.000Z");
-  const expectedExpiresAt = resolveBookingApprovalExpiresAt(fixedNow);
-  const expectedPayload = buildBookingApprovalCanonicalPayload(bookingApprovalRequestBase);
-  const expectedPayloadHash = computeBookingApprovalPayloadHash(expectedPayload);
+  const bridgeExpectedPayload = buildBookingApprovalCanonicalPayload(bookingApprovalRequestBase);
+  const bridgeExpectedPayloadHash = computeBookingApprovalPayloadHash(bridgeExpectedPayload);
 
   let rpcCallCount = 0;
 
@@ -363,8 +482,8 @@ async function runPhase36bAsyncTests() {
       rpcCaller: async (params) => {
         rpcCallCount += 1;
         assert.equal(params.action_key, "booking.create");
-        assert.deepEqual(params.payload, expectedPayload);
-        assert.equal(params.payload_hash, expectedPayloadHash);
+        assert.deepEqual(params.payload, bridgeExpectedPayload);
+        assert.equal(params.payload_hash, bridgeExpectedPayloadHash);
         assert.equal(params.idempotency_key, "idem-bridge-36b");
         assert.equal(params.expires_at, expectedExpiresAt);
         return {
@@ -384,7 +503,7 @@ async function runPhase36bAsyncTests() {
   assert.equal(createResult.success, true);
   assert.equal(createResult.outcome_code, "BOOKING_ACTION_REQUESTED");
   assert.equal(createResult.action_request_id, "req-create-001");
-  assert.equal(createResult.payload_hash, expectedPayloadHash);
+  assert.equal(createResult.payload_hash, bridgeExpectedPayloadHash);
   assert.equal(createResult.idempotency_key, "idem-bridge-36b");
   assert.equal(createResult.expires_at, expectedExpiresAt);
   assert.equal(createResult.idempotent_replay, false);

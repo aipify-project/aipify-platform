@@ -157,7 +157,7 @@ export type BookingReadResult = {
 };
 
 export type BookingWriteProposal = {
-  proposal_id: string;
+  proposal_id: string | null;
   capability_key: BookingCapabilityKey;
   service_id: string | null;
   resource_id: string | null;
@@ -167,6 +167,10 @@ export type BookingWriteProposal = {
   requires_confirmation: true;
   requires_approval: boolean;
   idempotency_key: string | null;
+  action_request_id: string | null;
+  payload_hash: string | null;
+  expires_at: string | null;
+  idempotent_replay: boolean;
   limitations: readonly string[];
 };
 
@@ -177,6 +181,11 @@ export type BookingWriteResult = {
   outcome_key: string | null;
   audit_id: string | null;
   limitations: readonly string[];
+  action_request_id: string | null;
+  payload_hash: string | null;
+  idempotency_key: string | null;
+  expires_at: string | null;
+  idempotent_replay: boolean;
 };
 
 export type BookingCapabilityManifest = {
