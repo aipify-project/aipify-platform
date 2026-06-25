@@ -1,5 +1,10 @@
+import {
+  connectionToCanonicalInput,
+  resolveIntegrationCanonicalStatus,
+  type IntegrationCanonicalStatus,
+} from "@/lib/app-portal/integrations/canonical-status";
+import type { AppPortalIntegrationConnection } from "@/lib/app-portal/integrations/types";
 import { isEccDemoModeEnabled, isSyntheticEccRecord } from "@/lib/command-center/ecc-tab-datasets";
-import type { IntegrationCanonicalStatus } from "@/lib/app-portal/integrations/canonical-status";
 import type { ExecutiveCommandCenter } from "@/lib/executive-command-center-engine/parse";
 
 export type CommandBriefIntegrationStatusKey =
@@ -122,6 +127,58 @@ function resolvePackHref(packKey: string): string {
   return `/app/settings/modules?highlight=${encodeURIComponent(packKey)}`;
 }
 
+function resolveAppPortalIntegrationHref(providerKey: string): string {
+  return `/app/platform/integrations/connect/${encodeURIComponent(providerKey)}`;
+}
+
+export function mapAppPortalConnectionToIntegrationStatus(
+  connection: AppPortalIntegrationConnection,
+  displayName: string
+): CommandBriefIntegrationStatusItem | null {
+  if (connection.removed_at) return null;
+
+  const canonical = resolveIntegrationCanonicalStatus(connectionToCanonicalInput(connection));
+  if (canonical === "removed") return null;
+
+  const providerKey = connection.provider_key.trim();
+  if (!providerKey) return null;
+
+  const status = mapAppPortalCanonicalToCommandBriefStatus(canonical);
+  const badge = INTEGRATION_STATUS_BADGE[status];
+  const permissionLevel = connection.permission_level.toLowerCase();
+  const accessMode =
+    permissionLevel === "read_only" || permissionLevel === "readonly"
+      ? ("read_only" as const)
+      : status === "connected_verified"
+        ? ("full" as const)
+        : undefined;
+
+  const title = displayName.trim() || connection.connection_name?.trim() || providerKey;
+
+  return {
+    id: connection.id || providerKey,
+    packKey: providerKey,
+    title,
+    summary: "",
+    status,
+    statusLabelKey: integrationStatusLabelKey(status),
+    badgeType: badge.type,
+    badgeValue: badge.value,
+    eventsCount: 0,
+    alertsCount: 0,
+    lastSync: connection.last_test_success_at ?? connection.updated_at ?? undefined,
+    accessMode,
+    accessModeLabelKey: accessMode
+      ? `customerApp.executiveCommandCenter.commandBriefOverview.accessModes.${accessMode}`
+      : undefined,
+    href: resolveAppPortalIntegrationHref(providerKey),
+    actionLabelKey:
+      status === "needs_review" || status === "awaiting_setup"
+        ? "customerApp.executiveCommandCenter.commandBriefOverview.integrationActions.review"
+        : "customerApp.executiveCommandCenter.commandBriefOverview.integrationActions.manage",
+  };
+}
+
 export function mapBusinessPackToIntegrationStatus(
   record: Record<string, unknown>
 ): CommandBriefIntegrationStatusItem | null {
@@ -166,13 +223,42 @@ export function mapBusinessPackToIntegrationStatus(
   };
 }
 
-export function buildCommandBriefIntegrationStatus(center: ExecutiveCommandCenter): {
+export type BuildCommandBriefIntegrationStatusOptions = {
+  connections?: AppPortalIntegrationConnection[];
+  providerDisplayNames?: Record<string, string>;
+};
+
+export function buildCommandBriefIntegrationStatus(
+  center: ExecutiveCommandCenter,
+  options?: BuildCommandBriefIntegrationStatusOptions
+): {
   items: CommandBriefIntegrationStatusItem[];
   totalCount: number;
 } {
-  const items = (center.business_packs ?? [])
-    .map((record) => mapBusinessPackToIntegrationStatus(record))
-    .filter((item): item is CommandBriefIntegrationStatusItem => item != null);
+  const seenHrefs = new Set<string>();
+  const items: CommandBriefIntegrationStatusItem[] = [];
+
+  for (const connection of options?.connections ?? []) {
+    const displayName =
+      options?.providerDisplayNames?.[connection.provider_key] ??
+      connection.connection_name ??
+      connection.provider_key;
+    const item = mapAppPortalConnectionToIntegrationStatus(connection, displayName);
+    if (!item) continue;
+    const dedupeKey = item.href.toLowerCase();
+    if (seenHrefs.has(dedupeKey)) continue;
+    seenHrefs.add(dedupeKey);
+    items.push(item);
+  }
+
+  for (const record of center.business_packs ?? []) {
+    const item = mapBusinessPackToIntegrationStatus(record);
+    if (!item) continue;
+    const dedupeKey = item.href.toLowerCase();
+    if (seenHrefs.has(dedupeKey)) continue;
+    seenHrefs.add(dedupeKey);
+    items.push(item);
+  }
 
   return {
     items,

@@ -32,10 +32,14 @@ import {
   buildCommandBriefActivityFeed,
   buildCommandBriefAlertSummary,
   buildCommandBriefApprovalSummary,
-  buildCommandBriefIntegrationStatus,
   buildCommandBriefKpiCounts,
   buildCommandBriefNextAction,
 } from "@/lib/command-center/command-brief-overview";
+import {
+  buildCommandBriefIntegrationStatus,
+} from "@/lib/command-center/command-brief-integration-status";
+import { parseAppPortalIntegrationsHub } from "@/lib/app-portal/integrations/parse";
+import type { AppPortalIntegrationConnection } from "@/lib/app-portal/integrations/types";
 import { buildCommandBriefAttentionItemsFromCenter } from "@/lib/command-center/command-brief-attention";
 import { CommandBriefOverview } from "./CommandBriefOverview";
 import {
@@ -217,6 +221,8 @@ export function ExecutiveCommandCenterPanel({
   locale: string;
 }) {
   const [center, setCenter] = useState<ExecutiveCommandCenter | null>(null);
+  const [portalConnections, setPortalConnections] = useState<AppPortalIntegrationConnection[]>([]);
+  const [providerDisplayNames, setProviderDisplayNames] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
   const abortRef = useRef<AbortController | null>(null);
   const centerRef = useRef<ExecutiveCommandCenter | null>(null);
@@ -244,36 +250,72 @@ export function ExecutiveCommandCenterPanel({
 
     const rpcSection = ecc590SectionToRpc(activeSection);
 
-    try {
-      const ok = await dedupeFetch(`ecc-center:${activeSection}`, async () => {
-        const res = await fetch(`/api/executive-command-center/center?section=${rpcSection}`, {
+    const loadPortalIntegrations = async () => {
+      try {
+        const res = await fetch("/api/app-portal/integrations", {
           signal: controller.signal,
           cache: "no-store",
         });
-
-        if (controller.signal.aborted) {
-          return false;
-        }
-
-        const json = await res.json().catch(() => ({}));
-        if (controller.signal.aborted) {
-          return false;
-        }
-
+        if (controller.signal.aborted) return;
         if (!res.ok) {
-          reportRefreshOutcome({
-            ok: false,
-            silent,
-            errorMessage: typeof json.error === "string" ? json.error : null,
-          });
-          return false;
+          setPortalConnections([]);
+          setProviderDisplayNames({});
+          return;
         }
+        const hub = parseAppPortalIntegrationsHub(await res.json().catch(() => null));
+        if (controller.signal.aborted || !hub) {
+          setPortalConnections([]);
+          setProviderDisplayNames({});
+          return;
+        }
+        setPortalConnections(hub.connections);
+        setProviderDisplayNames(
+          Object.fromEntries(hub.providers.map((provider) => [provider.provider_key, provider.display_name]))
+        );
+      } catch {
+        if (!controller.signal.aborted) {
+          setPortalConnections([]);
+          setProviderDisplayNames({});
+        }
+      }
+    };
 
-        const parsed = parseExecutiveCommandCenter(json);
-        centerRef.current = parsed;
-        setCenter(parsed);
-        reportRefreshOutcome({ ok: true, silent });
-        return true;
+    try {
+      const ok = await dedupeFetch(`ecc-center:${activeSection}`, async () => {
+        const [centerLoaded] = await Promise.all([
+          (async () => {
+            const res = await fetch(`/api/executive-command-center/center?section=${rpcSection}`, {
+              signal: controller.signal,
+              cache: "no-store",
+            });
+
+            if (controller.signal.aborted) {
+              return false;
+            }
+
+            const json = await res.json().catch(() => ({}));
+            if (controller.signal.aborted) {
+              return false;
+            }
+
+            if (!res.ok) {
+              reportRefreshOutcome({
+                ok: false,
+                silent,
+                errorMessage: typeof json.error === "string" ? json.error : null,
+              });
+              return false;
+            }
+
+            const parsed = parseExecutiveCommandCenter(json);
+            centerRef.current = parsed;
+            setCenter(parsed);
+            reportRefreshOutcome({ ok: true, silent });
+            return true;
+          })(),
+          loadPortalIntegrations(),
+        ]);
+        return centerLoaded;
       });
 
       return ok;
@@ -363,7 +405,10 @@ export function ExecutiveCommandCenterPanel({
     const nextAction = buildCommandBriefNextAction(center);
     const alertSummary = buildCommandBriefAlertSummary(center, attentionItems);
     const approvalSummary = buildCommandBriefApprovalSummary(center, attentionItems);
-    const integrationStatus = buildCommandBriefIntegrationStatus(center);
+    const integrationStatus = buildCommandBriefIntegrationStatus(center, {
+      connections: portalConnections,
+      providerDisplayNames,
+    });
 
     return (
       <CommandBriefOverview
