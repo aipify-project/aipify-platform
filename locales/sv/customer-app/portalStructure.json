@@ -515,7 +515,7 @@
           "permissionsLabel": "Behörigheter",
           "lastVerifiedLabel": "Senast verifierad",
           "apiVersionLabel": "API-version",
-          "technicalDetailsLabel": "Tekniska detaljer",
+          "technicalDetailsLabel": "Avancerade tekniska detaljer",
           "technicalScopeLabel": "Tekniska scope-identifierare",
           "verifiedBody": "Aipify har verifierat din skrivskyddade anslutning till Unonight. Du kan hantera integrationen under Plattform → Integrationer.",
           "credentialSavedBody": "Din anslutningsnyckel lagras säkert. Kör ett anslutningstest för att verifiera åtkomst före aktivering.",
@@ -898,10 +898,15 @@
         }
       },
       "scopeDescriptions": {
-        "metadata_read": "Läsa godkänd operativ metadata om din organisation",
+        "metadata_read": "Läsa grundläggande integrationsinformation",
         "organization_read": "Läsa organisationsnamn och identitet för verifiering",
-        "integration_status_read": "Läsa integrationshälsa och anslutningsstatus"
-      }
+        "integration_status_read": "Läsa integrationsstatus och anslutningstillstånd",
+        "platform_metadata_read": "Läsa plattformsmetadata för verifierade live-signaler",
+        "read_products": "Läsa produkter",
+        "read_orders": "Läsa beställningar",
+        "read_customers": "Läsa kunder"
+      },
+      "scopeUnknownFallback": "Godkänd skrivskyddad åtkomst"
     },
     "executiveInsights": {
       "title": "Executive Insights",

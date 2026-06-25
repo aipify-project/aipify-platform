@@ -63,7 +63,15 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
   const hf = `${h}.feedback`;
   const pn = `${base}.providerNames`;
 
-  const scopeKeys = ["metadata.read", "organization.read", "integration.status.read"] as const;
+  const scopeKeys = [
+    "metadata.read",
+    "organization.read",
+    "integration.status.read",
+    "platform.metadata.read",
+    "read_products",
+    "read_orders",
+    "read_customers",
+  ] as const;
 
   const stepKeys = [
     "select_platform",
@@ -351,6 +359,7 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
       scopeDescriptions: Object.fromEntries(
         scopeKeys.map((key) => [key, t(`${sc}.${key.replace(/\./g, "_")}`)])
       ),
+      scopeUnknownFallback: t(`${base}.scopeUnknownFallback`),
     },
     guidance: {
       whyAccess: t(`${g}.whyAccess`),

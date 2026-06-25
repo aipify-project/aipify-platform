@@ -6503,7 +6503,7 @@
           "permissionsLabel": "Uprawnienia",
           "lastVerifiedLabel": "Ostatnia weryfikacja",
           "apiVersionLabel": "Wersja API",
-          "technicalDetailsLabel": "Szczegóły techniczne",
+          "technicalDetailsLabel": "Zaawansowane szczegóły techniczne",
           "technicalScopeLabel": "Techniczne identyfikatory zakresów",
           "verifiedBody": "Aipify zweryfikowało połączenie tylko do odczytu z Unonight. Możesz zarządzać integracją w Platforma → Integracje.",
           "credentialSavedBody": "Klucz połączenia jest bezpiecznie przechowywany. Uruchom test połączenia, aby zweryfikować dostęp przed aktywacją.",
@@ -6864,10 +6864,15 @@
         }
       },
       "scopeDescriptions": {
-        "metadata_read": "Odczyt zatwierdzonych metadanych operacyjnych organizacji",
+        "metadata_read": "Odczyt podstawowych informacji o integracji",
         "organization_read": "Odczyt nazwy i tożsamości organizacji w celu weryfikacji",
-        "integration_status_read": "Odczyt stanu integracji i statusu połączenia"
-      }
+        "integration_status_read": "Odczyt stanu integracji i statusu połączenia",
+        "platform_metadata_read": "Odczyt metadanych platformy dla zweryfikowanych sygnałów na żywo",
+        "read_products": "Odczyt produktów",
+        "read_orders": "Odczyt zamówień",
+        "read_customers": "Odczyt klientów"
+      },
+      "scopeUnknownFallback": "Zatwierdzony dostęp tylko do odczytu"
     }
   }
 }

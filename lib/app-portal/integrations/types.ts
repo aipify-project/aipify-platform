@@ -313,6 +313,7 @@ export type AppPortalIntegrationsLabels = {
     removeDialog: IntegrationRemoveDialogLabels;
     manageIntegration: string;
     scopeDescriptions: IntegrationScopeDescriptionLabels;
+    scopeUnknownFallback: string;
   };
   guidance: {
     whyAccess: string;

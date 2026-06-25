@@ -6503,7 +6503,7 @@
           "permissionsLabel": "Дозволи",
           "lastVerifiedLabel": "Остання перевірка",
           "apiVersionLabel": "Версія API",
-          "technicalDetailsLabel": "Технічні деталі",
+          "technicalDetailsLabel": "Розширені технічні деталі",
           "technicalScopeLabel": "Технічні ідентифікатори областей",
           "verifiedBody": "Aipify перевірило ваше підключення лише для читання до Unonight. Керуйте інтеграцією в Платформа → Інтеграції.",
           "credentialSavedBody": "Ключ підключення збережено безпечно. Запустіть перевірку підключення перед активацією.",
@@ -6864,10 +6864,15 @@
         }
       },
       "scopeDescriptions": {
-        "metadata_read": "Читання схвалених операційних метаданих організації",
+        "metadata_read": "Читання базової інформації про інтеграцію",
         "organization_read": "Читання назви та ідентичності організації для перевірки",
-        "integration_status_read": "Читання стану інтеграції та статусу підключення"
-      }
+        "integration_status_read": "Читання стану інтеграції та статусу підключення",
+        "platform_metadata_read": "Читання метаданих платформи для перевірених live-сигналів",
+        "read_products": "Читання продуктів",
+        "read_orders": "Читання замовлень",
+        "read_customers": "Читання клієнтів"
+      },
+      "scopeUnknownFallback": "Схвалений доступ лише для читання"
     }
   }
 }

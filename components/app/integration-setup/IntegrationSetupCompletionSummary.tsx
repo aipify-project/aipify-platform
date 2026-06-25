@@ -7,6 +7,7 @@ import type {
   IntegrationVerificationMetadata,
 } from "@/lib/app-portal/integrations";
 import type { IntegrationCanonicalStatus } from "@/lib/app-portal/integrations/canonical-status";
+import { resolveIntegrationScopeLabel } from "@/lib/app-portal/integrations/scope-labels";
 import { IntegrationConnectionStatusBadge } from "./IntegrationConnectionStatusBadge";
 
 export type IntegrationSetupCompletionMode = "credential_saved" | "verified" | "active";
@@ -85,6 +86,12 @@ export function IntegrationSetupCompletionSummary({
   const organizationName = verification?.organization_name ?? connectionName ?? providerName;
   const accessType = resolveAccessTypeLabel(permissionLevel, verification, labels);
   const displayScopes = verification?.scopes?.length ? verification.scopes : scopes;
+  const resolveScopeLabel = (scope: string) =>
+    resolveIntegrationScopeLabel(
+      scope,
+      labels.setup.scopeDescriptions,
+      labels.setup.scopeUnknownFallback,
+    );
 
   const statusLines =
     mode === "active"
@@ -152,9 +159,7 @@ export function IntegrationSetupCompletionSummary({
               <dd className="mt-2 space-y-2">
                 <ul className="space-y-1 text-sm text-aipify-text">
                   {displayScopes.map((scope) => (
-                    <li key={scope}>
-                      {labels.setup.scopeDescriptions[scope] ?? scope}
-                    </li>
+                    <li key={scope}>{resolveScopeLabel(scope)}</li>
                   ))}
                 </ul>
                 <details className="rounded-lg border border-aipify-border bg-white/70 px-3 py-2">

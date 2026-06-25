@@ -6292,7 +6292,7 @@
           "permissionsLabel": "Permissions",
           "lastVerifiedLabel": "Last verified",
           "apiVersionLabel": "API version",
-          "technicalDetailsLabel": "Technical details",
+          "technicalDetailsLabel": "Advanced technical details",
           "technicalScopeLabel": "Technical scope identifiers",
           "verifiedBody": "Aipify verified your read-only connection with Unonight. You can manage the integration from Platform → Integrations.",
           "credentialSavedBody": "Your connection key is stored securely. Run a connection test to verify access before activation.",
@@ -6671,10 +6671,15 @@
         }
       },
       "scopeDescriptions": {
-        "metadata_read": "Read approved operational metadata about your organization",
+        "metadata_read": "Read basic integration information",
         "organization_read": "Read your organization name and identity for verification",
-        "integration_status_read": "Read integration health and connection status"
-      }
+        "integration_status_read": "Read integration health and connection status",
+        "platform_metadata_read": "Read platform metadata for verified live signals",
+        "read_products": "Read products",
+        "read_orders": "Read orders",
+        "read_customers": "Read customers"
+      },
+      "scopeUnknownFallback": "Approved read-only access scope"
     },
     "scenarioPlanning": {
       "title": "Scenario Planning",

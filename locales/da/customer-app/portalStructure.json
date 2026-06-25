@@ -515,7 +515,7 @@
           "permissionsLabel": "Tilladelser",
           "lastVerifiedLabel": "Sidst verificeret",
           "apiVersionLabel": "API-version",
-          "technicalDetailsLabel": "Tekniske detaljer",
+          "technicalDetailsLabel": "Avancerede tekniske detaljer",
           "technicalScopeLabel": "Tekniske scope-identifikatorer",
           "verifiedBody": "Aipify har verificeret din skrivebeskyttede forbindelse til Unonight. Du kan administrere integrationen under Platform → Integrationer.",
           "credentialSavedBody": "Din forbindelsesnøgle gemmes sikkert. Kør en forbindelsestest for at verificere adgang før aktivering.",
@@ -898,10 +898,15 @@
         }
       },
       "scopeDescriptions": {
-        "metadata_read": "Læse godkendt driftsmetadata om din organisation",
+        "metadata_read": "Læse grundlæggende integrationsinformation",
         "organization_read": "Læse organisationsnavn og identitet til verificering",
-        "integration_status_read": "Læse integrationstilstand og forbindelsesstatus"
-      }
+        "integration_status_read": "Læse integrationstilstand og forbindelsesstatus",
+        "platform_metadata_read": "Læse platformmetadata til verificerede live-signaler",
+        "read_products": "Læse produkter",
+        "read_orders": "Læse ordrer",
+        "read_customers": "Læse kunder"
+      },
+      "scopeUnknownFallback": "Godkendt skrivebeskyttet adgang"
     },
     "executiveInsights": {
       "title": "Executive Insights",
