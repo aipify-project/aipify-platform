@@ -18,6 +18,7 @@ import type { CommandBriefAttentionItem } from "@/lib/command-center/command-bri
 import type { CommandCenterItem } from "@/lib/command-center/ecc-tab-datasets";
 import type { CommandBriefIntegrationStatusItem } from "@/lib/command-center/command-brief-integration-status";
 import type { CommandBriefKpiCounts } from "@/lib/command-center/command-brief-overview";
+import { resolveCommandBriefRecordDescription } from "@/lib/command-center/command-brief-record-description-labels";
 import { resolveCommandBriefRecordTitle } from "@/lib/command-center/command-brief-record-title-labels";
 import type { SinceLastLoginEvent } from "@/lib/command-center/since-last-login";
 import type { buildExecutiveCommandCenterLabels } from "@/lib/executive-command-center-engine/labels";
@@ -189,7 +190,9 @@ export function CommandBriefOverview({
     ? resolveCommandBriefRecordTitle(nextAction.title, resolveLabel)
     : o.nextActionEmptyTitle;
   const nextActionDescription = nextAction
-    ? nextAction.description?.trim() || o.kpiNextActionDesc
+    ? nextAction.description?.trim()
+      ? resolveCommandBriefRecordDescription(nextAction.description.trim(), resolveLabel)
+      : o.kpiNextActionDesc
     : o.nextActionEmptyBody;
   const nextActionHref = nextAction?.href;
 

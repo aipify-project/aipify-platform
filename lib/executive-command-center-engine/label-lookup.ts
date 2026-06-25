@@ -169,5 +169,11 @@ export function buildCommandCenterLabelLookup(t: Translator): Record<string, str
     lookup[key] = t(key);
   }
 
+  const recordDescriptions = ["completePendingExecutiveApprovalToday"] as const;
+  for (const description of recordDescriptions) {
+    const key = `${commandBriefPrefix}.recordDescriptions.${description}`;
+    lookup[key] = t(key);
+  }
+
   return lookup;
 }

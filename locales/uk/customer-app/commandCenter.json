@@ -1039,6 +1039,9 @@
         "majorCustomerRisk": "Значний ризик для клієнта",
         "invoicePaid": "Рахунок оплачено"
       },
+      "recordDescriptions": {
+        "completePendingExecutiveApprovalToday": "Завершіть очікуване керівне погодження сьогодні."
+      },
       "integrationSignalMeta": "{events} подій · {alerts} сповіщень",
       "orgNameUnavailable": "Організація недоступна",
       "nextActionTitle": "Рекомендована наступна дія",

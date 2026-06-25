@@ -1039,6 +1039,9 @@
         "majorCustomerRisk": "Istotne ryzyko klienta",
         "invoicePaid": "Faktura opłacona"
       },
+      "recordDescriptions": {
+        "completePendingExecutiveApprovalToday": "Dokończ oczekujące zatwierdzenie kierownictwa jeszcze dziś."
+      },
       "integrationSignalMeta": "{events} zdarzeń · {alerts} alertów",
       "orgNameUnavailable": "Organizacja niedostępna",
       "nextActionTitle": "Zalecane następne działanie",

@@ -1659,6 +1659,9 @@
         "majorCustomerRisk": "Betydelig kunderisiko",
         "invoicePaid": "Faktura betalt"
       },
+      "recordDescriptions": {
+        "completePendingExecutiveApprovalToday": "Fuldfør den afventende ledelsesgodkendelse i dag."
+      },
       "integrationSignalMeta": "{events} hændelser · {alerts} advarsler",
       "orgNameUnavailable": "Organisation utilgængelig",
       "nextActionTitle": "Anbefalet næste handling",

@@ -16,6 +16,7 @@ import {
   buildCommandBriefNextAction,
   filterRealCompanionRecommendations,
 } from "./command-brief-overview";
+import { resolveCommandBriefRecordDescription } from "./command-brief-record-description-labels";
 import type { ExecutiveCommandCenter } from "@/lib/executive-command-center-engine/parse";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -47,6 +48,7 @@ for (const locale of LOCALES) {
           viewAll?: string;
           severity?: { critical?: string; attention?: string; waiting?: string; info?: string };
         };
+        recordDescriptions?: { completePendingExecutiveApprovalToday?: string };
       };
     };
   };
@@ -61,7 +63,30 @@ for (const locale of LOCALES) {
   assert.ok(overview?.companionStatusReady, `${locale}: companionStatusReady`);
   assert.ok(overview?.attention?.viewAll, `${locale}: attention.viewAll`);
   assert.ok(overview?.attention?.severity?.critical, `${locale}: attention.severity.critical`);
+  assert.ok(
+    overview?.recordDescriptions?.completePendingExecutiveApprovalToday,
+    `${locale}: recordDescriptions.completePendingExecutiveApprovalToday`,
+  );
 }
+
+const NO_APPROVAL_RECOMMENDATION =
+  "Fullfør den ventende ledergodkjenningen i dag.";
+
+assert.equal(
+  resolveCommandBriefRecordDescription(
+    "Complete pending executive approval today.",
+    (key) =>
+      key ===
+      "customerApp.executiveCommandCenter.commandBriefOverview.recordDescriptions.completePendingExecutiveApprovalToday"
+        ? NO_APPROVAL_RECOMMENDATION
+        : key,
+  ),
+  NO_APPROVAL_RECOMMENDATION,
+);
+assert.equal(
+  resolveCommandBriefRecordDescription("Custom organization note.", (key) => key),
+  "Custom organization note.",
+);
 
 const syntheticCenter: ExecutiveCommandCenter = {
   found: true,

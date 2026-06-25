@@ -4,6 +4,7 @@ import { CommandBriefPremiumRow } from "@/components/shared/command-center/Comma
 import type { CommandBriefAttentionItem } from "@/lib/command-center/command-brief-attention";
 import { attentionSeverityLabelKey } from "@/lib/command-center/command-brief-attention";
 import { resolveCommandBriefModuleAreaLabelKey } from "@/lib/command-center/command-brief-module-labels";
+import { resolveCommandBriefRecordDescription } from "@/lib/command-center/command-brief-record-description-labels";
 import { resolveCommandBriefRecordTitle } from "@/lib/command-center/command-brief-record-title-labels";
 import { EccTabIcons } from "@/components/app/executive-command-center/ecc-tab-icons";
 import { formatDateTime } from "@/lib/i18n/format-date";
@@ -73,7 +74,11 @@ export function CommandBriefAttentionRow({
       icon={icon}
       iconTone={resolveIconTone(item)}
       title={resolveCommandBriefRecordTitle(item.title, resolveLabel)}
-      description={item.description?.trim() || undefined}
+      description={
+        item.description?.trim()
+          ? resolveCommandBriefRecordDescription(item.description.trim(), resolveLabel)
+          : undefined
+      }
       primaryBadge={item.primaryBadge}
       primaryBadgeLabel={resolveLabel(attentionSeverityLabelKey(item.severityTier))}
       secondaryBadge={item.secondaryBadge}

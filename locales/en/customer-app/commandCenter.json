@@ -1637,6 +1637,9 @@
         "majorCustomerRisk": "Significant customer risk",
         "invoicePaid": "Invoice paid"
       },
+      "recordDescriptions": {
+        "completePendingExecutiveApprovalToday": "Complete the pending executive approval today."
+      },
       "integrationSignalMeta": "{events} events · {alerts} alerts",
       "orgNameUnavailable": "Organization unavailable",
       "nextActionTitle": "Recommended next action",

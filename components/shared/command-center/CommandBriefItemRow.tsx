@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { CommandBriefPremiumRow } from "@/components/shared/command-center/CommandBriefPremiumRow";
 import type { CommandBriefIconTone } from "@/components/shared/command-center/command-brief-icon-tones";
 import type { CommandCenterItem } from "@/lib/command-center/ecc-tab-datasets";
+import { resolveCommandBriefRecordDescription } from "@/lib/command-center/command-brief-record-description-labels";
 import { resolveCommandBriefRecordTitle } from "@/lib/command-center/command-brief-record-title-labels";
 import { formatDateTime } from "@/lib/i18n/format-date";
 import { formatRelativeTime } from "@/lib/i18n/format-relative-time";
@@ -59,7 +60,11 @@ export function CommandBriefItemRow({
       icon={icon}
       iconTone={iconTone ?? resolveIconTone(item)}
       title={title}
-      description={item.description?.trim() || item.blockedSummary?.trim() || undefined}
+      description={
+        item.description?.trim()
+          ? resolveCommandBriefRecordDescription(item.description.trim(), resolveLabel)
+          : item.blockedSummary?.trim() || undefined
+      }
       primaryBadge={item.primaryBadge}
       secondaryBadge={item.secondaryBadge}
       timestamp={timestamp}

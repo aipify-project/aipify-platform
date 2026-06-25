@@ -1659,6 +1659,9 @@
         "majorCustomerRisk": "Betydande kundrisk",
         "invoicePaid": "Faktura betald"
       },
+      "recordDescriptions": {
+        "completePendingExecutiveApprovalToday": "Slutför det väntande ledningsgodkännandet i dag."
+      },
       "integrationSignalMeta": "{events} händelser · {alerts} varningar",
       "orgNameUnavailable": "Organisation otillgänglig",
       "nextActionTitle": "Rekommenderad nästa åtgärd",
