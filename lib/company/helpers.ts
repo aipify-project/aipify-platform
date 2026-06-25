@@ -17,10 +17,7 @@ export function formatCopyrightNotice(): string {
 }
 
 export function formatLegalEntityLine(): string {
-  const org =
-    COMPANY_CONFIG.organizationNumber === "TO_BE_UPDATED"
-      ? COMPANY_CONFIG.legalCompanyName
-      : `${COMPANY_CONFIG.legalCompanyName} · Org. ${COMPANY_CONFIG.organizationNumber}`;
+  const org = `${COMPANY_CONFIG.legalCompanyName} · Org. ${COMPANY_CONFIG.organizationNumber}`;
   return `${org} · ${formatHeadquartersLine()}`;
 }
 
