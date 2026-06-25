@@ -45,83 +45,94 @@ export function CommandBriefPremiumRow({
   resolveLabel,
   asLink = false,
 }: CommandBriefPremiumRowProps) {
-  const body = (
-    <article className="flex flex-col gap-3 px-4 py-3.5 sm:flex-row sm:items-start sm:gap-3.5 sm:py-4">
-      <div
-        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ring-1 ${commandBriefIconTileClass(iconTone)}`}
-        aria-hidden="true"
-      >
-        {icon}
-      </div>
+  const rowIsLink = Boolean(asLink && actionHref);
 
-      <div className="min-w-0 flex-1 space-y-2">
-        <div className="flex flex-wrap items-start gap-x-2 gap-y-1.5">
-          <h3 className={`min-w-0 flex-1 ${AppPremiumShell.commandBriefListTitle}`}>{title}</h3>
-          {timestamp ? (
-            <time
-              dateTime={timestampIso}
-              className={`shrink-0 text-[13px] leading-snug text-aipify-text-muted ${timestampIso ? "" : ""}`}
-            >
-              {timestamp}
-            </time>
-          ) : null}
+  const actionControl =
+    actionHref && actionLabel ? (
+      <div className="pt-0.5">
+        {rowIsLink ? (
+          <span
+            aria-hidden="true"
+            className="inline-flex min-h-9 items-center rounded-lg bg-aipify-companion px-3.5 py-2 text-[13px] font-semibold text-white"
+          >
+            {actionLabel}
+          </span>
+        ) : (
+          <Link
+            href={actionHref}
+            className={`relative z-10 inline-flex min-h-9 items-center rounded-lg bg-aipify-companion px-3.5 py-2 text-[13px] font-semibold text-white transition hover:bg-aipify-companion-hover ${AppPremiumShell.focusRing}`}
+          >
+            {actionLabel}
+          </Link>
+        )}
+      </div>
+    ) : null;
+
+  return (
+    <li className="relative">
+      <article
+        className={`relative flex flex-col gap-3 px-4 py-3.5 sm:flex-row sm:items-start sm:gap-3.5 sm:py-4 ${
+          rowIsLink ? "z-0" : ""
+        }`}
+      >
+        <div
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ring-1 ${commandBriefIconTileClass(iconTone)}`}
+          aria-hidden="true"
+        >
+          {icon}
         </div>
 
-        {description ? (
-          <p className={`line-clamp-3 ${AppPremiumShell.commandBriefListBody}`}>{description}</p>
-        ) : null}
-
-        {(primaryBadge || secondaryBadge) && (
-          <div className="flex flex-wrap items-center gap-2">
-            {primaryBadge ? (
-              <SemanticBadge
-                type={primaryBadge.type}
-                value={primaryBadge.value}
-                label={primaryBadgeLabel ?? resolveLabel(primaryBadge.labelKey)}
-              />
-            ) : null}
-            {secondaryBadge ? (
-              <SemanticBadge
-                type={secondaryBadge.type}
-                value={secondaryBadge.value}
-                label={secondaryBadgeLabel ?? resolveLabel(secondaryBadge.labelKey)}
-              />
+        <div className="min-w-0 flex-1 space-y-2">
+          <div className="flex flex-wrap items-start gap-x-2 gap-y-1.5">
+            <h3 className={`min-w-0 flex-1 ${AppPremiumShell.commandBriefListTitle}`}>{title}</h3>
+            {timestamp ? (
+              <time
+                dateTime={timestampIso}
+                className="shrink-0 text-[13px] leading-snug text-aipify-text-muted"
+              >
+                {timestamp}
+              </time>
             ) : null}
           </div>
-        )}
 
-        {sourceLabel ? (
-          <p className="text-[13px] leading-snug text-aipify-text-muted">
-            {sourceLabel}
-          </p>
-        ) : null}
+          {description ? (
+            <p className={`line-clamp-3 ${AppPremiumShell.commandBriefListBody}`}>{description}</p>
+          ) : null}
 
-        {actionHref && actionLabel ? (
-          <div className="pt-0.5">
-            <Link
-              href={actionHref}
-              className={`inline-flex min-h-9 items-center rounded-lg bg-aipify-companion px-3.5 py-2 text-[13px] font-semibold text-white transition hover:bg-aipify-companion-hover ${AppPremiumShell.focusRing}`}
-            >
-              {actionLabel}
-            </Link>
-          </div>
-        ) : null}
-      </div>
-    </article>
-  );
+          {(primaryBadge || secondaryBadge) && (
+            <div className="flex flex-wrap items-center gap-2">
+              {primaryBadge ? (
+                <SemanticBadge
+                  type={primaryBadge.type}
+                  value={primaryBadge.value}
+                  label={primaryBadgeLabel ?? resolveLabel(primaryBadge.labelKey)}
+                />
+              ) : null}
+              {secondaryBadge ? (
+                <SemanticBadge
+                  type={secondaryBadge.type}
+                  value={secondaryBadge.value}
+                  label={secondaryBadgeLabel ?? resolveLabel(secondaryBadge.labelKey)}
+                />
+              ) : null}
+            </div>
+          )}
 
-  if (asLink && actionHref) {
-    return (
-      <li>
+          {sourceLabel ? (
+            <p className="text-[13px] leading-snug text-aipify-text-muted">{sourceLabel}</p>
+          ) : null}
+
+          {actionControl}
+        </div>
+      </article>
+
+      {rowIsLink && actionHref ? (
         <Link
           href={actionHref}
-          className={`block transition hover:bg-aipify-surface-muted/80 ${AppPremiumShell.focusRing}`}
-        >
-          {body}
-        </Link>
-      </li>
-    );
-  }
-
-  return <li>{body}</li>;
+          className={`absolute inset-0 z-[1] block transition hover:bg-aipify-surface-muted/80 ${AppPremiumShell.focusRing}`}
+          aria-label={actionLabel ? `${title}. ${actionLabel}` : title}
+        />
+      ) : null}
+    </li>
+  );
 }
