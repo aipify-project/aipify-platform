@@ -35,6 +35,10 @@ export type MediaProviderSourceEngine =
   | "presence_operations"
   | "external_integration";
 
+export type MediaResourceOwnership = "user_owned_account" | "local_device_permission";
+
+export type MediaConsentType = "personal_oauth" | "local_device_permission";
+
 export type MediaProviderManifest = {
   provider_key: string;
   display_name_key: string;
@@ -42,6 +46,10 @@ export type MediaProviderManifest = {
   implementation_status: MediaProviderImplementationStatus;
   capabilities: readonly MediaCapabilityManifest[];
   search_terms_key: string;
+  resource_ownership: MediaResourceOwnership;
+  consent_type: MediaConsentType;
+  /** Optional inline search terms for adapter-registered manifests. */
+  search_terms?: readonly string[];
 };
 
 export function buildMediaCapabilityId(
