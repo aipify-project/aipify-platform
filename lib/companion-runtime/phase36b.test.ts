@@ -12,7 +12,6 @@ import {
   computeBookingApprovalPayloadHash,
   recordBookingApprovalActionRequest,
   resolveBookingApprovalExpiresAt,
-  type BookingApprovalBridgeRpcParams,
 } from "@/lib/companion-runtime/booking-approval-bridge";
 import { executeBookingWrite } from "@/lib/companion-runtime/booking-write-orchestrator";
 import {
@@ -353,7 +352,6 @@ async function runPhase36bAsyncTests() {
   const expectedPayloadHash = computeBookingApprovalPayloadHash(expectedPayload);
 
   let rpcCallCount = 0;
-  let lastRpcParams: BookingApprovalBridgeRpcParams | null = null;
 
   const mockSupabase = {} as import("@supabase/supabase-js").SupabaseClient;
 
@@ -364,7 +362,11 @@ async function runPhase36bAsyncTests() {
       now: () => fixedNow,
       rpcCaller: async (params) => {
         rpcCallCount += 1;
-        lastRpcParams = params;
+        assert.equal(params.action_key, "booking.create");
+        assert.deepEqual(params.payload, expectedPayload);
+        assert.equal(params.payload_hash, expectedPayloadHash);
+        assert.equal(params.idempotency_key, "idem-bridge-36b");
+        assert.equal(params.expires_at, expectedExpiresAt);
         return {
           data: {
             success: true,
@@ -386,15 +388,6 @@ async function runPhase36bAsyncTests() {
   assert.equal(createResult.idempotency_key, "idem-bridge-36b");
   assert.equal(createResult.expires_at, expectedExpiresAt);
   assert.equal(createResult.idempotent_replay, false);
-
-  if (!lastRpcParams) {
-    throw new Error("expected booking approval RPC params");
-  }
-  assert.equal(lastRpcParams.action_key, "booking.create");
-  assert.deepEqual(lastRpcParams.payload, expectedPayload);
-  assert.equal(lastRpcParams.payload_hash, expectedPayloadHash);
-  assert.equal(lastRpcParams.idempotency_key, "idem-bridge-36b");
-  assert.equal(lastRpcParams.expires_at, expectedExpiresAt);
 
   const replayResult = await recordBookingApprovalActionRequest(
     mockSupabase,
