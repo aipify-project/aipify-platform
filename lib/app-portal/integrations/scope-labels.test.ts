@@ -45,11 +45,11 @@ for (const locale of LOCALES) {
   const dict = JSON.parse(
     fs.readFileSync(path.join(ROOT, `locales/${locale}/customer-app/portalStructure.json`), "utf8"),
   ) as {
-    integrations?: {
-      setup?: {
+    portalStructure?: {
+      integrations?: {
         scopeDescriptions?: Record<string, string>;
         scopeUnknownFallback?: string;
-        completion?: { technicalDetailsLabel?: string };
+        setup?: { completion?: { technicalDetailsLabel?: string } };
       };
     };
   };
