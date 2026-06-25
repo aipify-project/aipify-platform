@@ -11,6 +11,7 @@ import {
   type CompanionQuickActionId,
 } from "@/lib/app/companion";
 import { createConversationId } from "@/lib/app/companion/conversations";
+import { shouldAutoSubmitHandoffQuery } from "@/lib/app/companion/handoff-query";
 import {
   patchCompanionUiSession,
   readCompanionUiSession,
@@ -73,10 +74,9 @@ export function CompanionPanel({
   const profileCtx = useOptionalDashboardProfile();
   const organizationKey = profileCtx?.profile?.company.id ?? null;
 
-  const [query, setQuery] = useState(() => {
-    if (initialQuery?.trim()) return initialQuery;
-    return readCompanionUiSession(organizationKey)?.draftText ?? "";
-  });
+  const [query, setQuery] = useState(
+    () => readCompanionUiSession(organizationKey)?.draftText ?? ""
+  );
   const [recentConversations, setRecentConversations] = useState<CompanionConversationPreview[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [showSecondarySections, setShowSecondarySections] = useState(false);
@@ -85,7 +85,7 @@ export function CompanionPanel({
     return readCompanionUiSession(organizationKey)?.activeConversationId ?? createConversationId();
   });
   const initialConversationAppliedRef = useRef(false);
-  const initialQuerySubmittedRef = useRef(false);
+  const lastHandoffQueryRef = useRef<string | null>(null);
 
   useEffect(() => traceCompanionMount("CompanionPanel"), []);
 
@@ -210,13 +210,6 @@ export function CompanionPanel({
     return () => window.clearTimeout(timeoutId);
   }, [query, organizationKey, pathname, initialQuery]);
 
-  useEffect(() => {
-    if (initialQuery) {
-      setQuery(initialQuery);
-      setShowSuggestions(false);
-    }
-  }, [initialQuery]);
-
   const submitQuestion = useCallback(
     async (input: {
       question: string;
@@ -266,10 +259,16 @@ export function CompanionPanel({
   );
 
   useEffect(() => {
-    const trimmed = initialQuery?.trim();
-    if (!trimmed || initialQuerySubmittedRef.current || !hydrated) return;
-    initialQuerySubmittedRef.current = true;
-    void submitQuestion({ question: trimmed });
+    if (!initialQuery?.trim()) {
+      lastHandoffQueryRef.current = null;
+      return;
+    }
+    if (!shouldAutoSubmitHandoffQuery(initialQuery, hydrated, lastHandoffQueryRef.current)) {
+      return;
+    }
+    lastHandoffQueryRef.current = initialQuery.trim();
+    setShowSuggestions(false);
+    void submitQuestion({ question: initialQuery.trim() });
   }, [initialQuery, submitQuestion, hydrated]);
 
   function startNewConversation() {
@@ -291,7 +290,7 @@ export function CompanionPanel({
       },
       organizationKey,
     );
-    initialQuerySubmittedRef.current = false;
+    lastHandoffQueryRef.current = null;
   }
 
   function loadConversation(conv: CompanionConversationPreview) {

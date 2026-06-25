@@ -58,6 +58,7 @@ export function CommandBriefCompanionCard({ labels, className = "" }: CommandBri
     const trimmed = query.trim();
     if (!trimmed || !companion) return;
     companion.openDrawerWithQuery(trimmed);
+    setQuery("");
   }
 
   return (
@@ -92,7 +93,9 @@ export function CommandBriefCompanionCard({ labels, className = "" }: CommandBri
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") handleAsk();
+              if (e.key !== "Enter") return;
+              e.preventDefault();
+              handleAsk();
             }}
             placeholder={labels.companionInputPlaceholder}
             className={`min-h-14 w-full rounded-xl border border-aipify-border bg-white px-4 py-3.5 text-base text-aipify-text shadow-sm placeholder:text-aipify-text-muted ${AppPremiumShell.focusRing}`}

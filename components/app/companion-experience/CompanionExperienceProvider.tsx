@@ -104,11 +104,22 @@ export function CompanionExperienceProvider({
   }, [organizationKey, pathname]);
 
   const openDrawerWithQuery = useCallback((query: string) => {
-    setDrawerQuery(query.trim());
-    setDrawerConversationId(null);
+    const trimmed = query.trim();
+    if (!trimmed) return;
+    const session = readCompanionUiSession(organizationKey);
+    setDrawerQuery(trimmed);
+    setDrawerConversationId(session?.activeConversationId ?? null);
     setOpen(true);
     setPanelEverOpened(true);
-    patchCompanionUiSession({ panelOpen: true, organizationKey, pathname }, organizationKey);
+    patchCompanionUiSession(
+      {
+        panelOpen: true,
+        organizationKey,
+        pathname,
+        activeConversationId: session?.activeConversationId ?? undefined,
+      },
+      organizationKey,
+    );
   }, [organizationKey, pathname]);
 
   const openDrawerWithConversation = useCallback((conversationId: string) => {
