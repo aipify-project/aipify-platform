@@ -30,17 +30,6 @@ export function useExecutiveCommandCenterLiveRefresh(load: RefreshHandler): void
 
   useEffect(() => {
     if (!pollingEnabled) return;
-
-    const onFocus = () => {
-      void loadRef.current({ silent: true });
-    };
-
-    window.addEventListener("focus", onFocus);
-    return () => window.removeEventListener("focus", onFocus);
-  }, [pollingEnabled]);
-
-  useEffect(() => {
-    if (!pollingEnabled) return;
     return subscribeOperationalDataRefresh(() => {
       void loadRef.current({ silent: true });
     });
