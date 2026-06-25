@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { revalidateAppPortalIntegrationSurfaces } from "@/lib/app-portal/integrations/invalidate";
+import { revalidateAppPortalIntegrationSurfaces } from "@/lib/app-portal/integrations/invalidate-server";
 import { createClient } from "@/lib/supabase/server";
 import { runUnonightAppPortalConnectionTest } from "@/lib/unonight/connection/run-test";
 import { UNONIGHT_PROVIDER_KEY } from "@/lib/unonight/connection/constants";
