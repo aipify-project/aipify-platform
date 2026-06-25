@@ -161,21 +161,33 @@
     {
       "priority_order": 8,
       "package_id": "p1.08_member_verification_exact_source",
-      "module_id": "verification.trust_center",
-      "exact_gap": "Verification queue exact read source not fully connected.",
-      "current_readiness": "connected_but_partial",
-      "verified_source": "get_customer_trust_center / security dashboard RPCs",
-      "required_work": "Connect read-only verification queue with metadata-only audit fields.",
+      "module_id": "verification.queue_read",
+      "module_ids": [
+        "verification.queue_read",
+        "verification.case_read",
+        "verification.community_adapter_status"
+      ],
+      "exact_gap": "Member verification exact read source connected via get_customer_member_verification_center — live E2E certified. Distinct from verification.trust_center (security dashboard; separate partial capability).",
+      "current_readiness": "production_ready_candidate",
+      "verified_source": "get_customer_member_verification_center",
+      "authoritative_verification_source": "get_customer_member_verification_center",
+      "artifact_filename": "companion-p1-08-live-app-member-verification-e2e-certification-v1.json",
+      "artifact_status": "pass",
+      "artifact_commit_hash": "6831704cb4e58d8338e34c972ddc0c992c33ede8",
+      "implementation_commit_hash": "2eaa69081193220b8dacc9c8e6431f7e1e6397b4",
+      "required_work": "Operator sign-off before production_ready promotion.",
       "read_write_scope": "read_only",
       "dependencies": [],
       "security_considerations": [
-        "No document images, ID numbers, or sensitive profile fields."
+        "No document images, ID numbers, or sensitive profile fields.",
+        "verification.trust_center remains a separate security-dashboard capability — not upgraded by this package."
       ],
       "acceptance_criteria": [
-        "verification_status.read uses source_exact or source_compatible only.",
+        "verification.queue_read, verification.case_read, and verification.community_adapter_status use source_exact via get_customer_member_verification_center.",
+        "Live authenticated APP E2E artifact pass with metadata-only queue/case reads.",
         "Command Brief signals exclude partial proxy verification counts."
       ],
-      "why_p1": "Trust verification is security-sensitive — partial sources risk false confidence.",
+      "why_p1": "Member verification queue is pilot-facing — exact source prevents false operational confidence.",
       "estimated_complexity": "medium"
     },
     {
