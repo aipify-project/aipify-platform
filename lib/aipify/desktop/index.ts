@@ -1,6 +1,5 @@
 export * from "./types";
 export * from "./parse";
-export { resolveDesktopChatIntent } from "./chat";
 export { UNONIGHT_DESKTOP_EVENTS } from "./presets/unonight-desktop";
 export { collectPresetDesktopEvents, presetEventsToRpcPayload } from "./collectors";
 
