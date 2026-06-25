@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { isValidIdempotencyKey } from "@/lib/companion-runtime/companion-action-idempotency";
-import type { BookingWriteRequest } from "@/lib/companion-runtime/booking-write-orchestrator";
+import type { BookingWriteRequest } from "@/lib/integration-intelligence/booking/types";
 
 const BOOKING_APPROVAL_ACTION_KEYS = [
   "booking.create",

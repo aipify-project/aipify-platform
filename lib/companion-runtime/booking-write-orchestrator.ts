@@ -14,9 +14,9 @@ import {
 } from "@/lib/integration-intelligence/booking/action-outcomes";
 import { isBookingCapabilityBlocked } from "@/lib/integration-intelligence/booking/types";
 import type {
-  BookingCapabilityKey,
   BookingWriteOutcome,
   BookingWriteProposal,
+  BookingWriteRequest,
   BookingWriteResult,
 } from "@/lib/integration-intelligence/booking/types";
 import {
@@ -26,17 +26,7 @@ import {
 } from "./booking-approval-bridge";
 import { createBookingAuditEvent } from "./booking-audit";
 
-export type BookingWriteRequest = {
-  capability_key: Extract<BookingCapabilityKey, "booking.create" | "booking.update" | "booking.cancel">;
-  service_id: string | null;
-  resource_id: string | null;
-  customer_reference: string | null;
-  booking_id: string | null;
-  start_at: string | null;
-  end_at: string | null;
-  confirmed: boolean;
-  idempotency_key: string | null;
-};
+export type { BookingWriteRequest } from "@/lib/integration-intelligence/booking/types";
 
 function emptyWriteResult(
   outcome: BookingWriteOutcome,

@@ -143,6 +143,18 @@ export type BookingWriteOutcome =
   | "conflict_detected"
   | "availability_changed";
 
+export type BookingWriteRequest = {
+  capability_key: Extract<BookingCapabilityKey, "booking.create" | "booking.update" | "booking.cancel">;
+  service_id: string | null;
+  resource_id: string | null;
+  customer_reference: string | null;
+  booking_id: string | null;
+  start_at: string | null;
+  end_at: string | null;
+  confirmed: boolean;
+  idempotency_key: string | null;
+};
+
 export type BookingReadResult = {
   outcome: BookingReadOutcome;
   services: readonly ServiceSummary[];
