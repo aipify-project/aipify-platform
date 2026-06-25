@@ -7,6 +7,12 @@ import {
   listBookingAuditEvents,
   resetBookingAuditLogForTests,
 } from "@/lib/companion-runtime/booking-audit";
+import {
+  buildBookingApprovalCanonicalPayload,
+  computeBookingApprovalPayloadHash,
+  recordBookingApprovalActionRequest,
+  resolveBookingApprovalExpiresAt,
+} from "@/lib/companion-runtime/booking-approval-bridge";
 import { executeBookingWrite } from "@/lib/companion-runtime/booking-write-orchestrator";
 import {
   bookingWriteProposalRequiresApproval,
@@ -179,6 +185,31 @@ for (const key of Object.values(BOOKING_WRITE_OUTCOME_I18N_KEYS)) {
 
 resetBookingAuditLogForTests();
 
+const bookingApprovalRequestBase = {
+  capability_key: "booking.create" as const,
+  service_id: "svc_cut_color",
+  resource_id: "emp_kari",
+  customer_reference: "masked-customer",
+  booking_id: null as string | null,
+  start_at: "2026-06-24T09:00:00.000Z",
+  end_at: "2026-06-24T10:30:00.000Z",
+  confirmed: true,
+  idempotency_key: "idem-bridge-36b",
+};
+
+const stableBookingPayload = buildBookingApprovalCanonicalPayload(bookingApprovalRequestBase);
+const stableBookingHash = computeBookingApprovalPayloadHash(stableBookingPayload);
+const stableBookingHashRepeat = computeBookingApprovalPayloadHash(
+  buildBookingApprovalCanonicalPayload(bookingApprovalRequestBase),
+);
+assert.equal(stableBookingHash, stableBookingHashRepeat);
+
+const changedBookingPayload = buildBookingApprovalCanonicalPayload({
+  ...bookingApprovalRequestBase,
+  start_at: "2026-06-25T09:00:00.000Z",
+});
+assert.notEqual(stableBookingHash, computeBookingApprovalPayloadHash(changedBookingPayload));
+
 async function runPhase36bAsyncTests() {
   const createUnconfirmed = await executeBookingWrite({
     organization_id: ORG_A,
@@ -314,6 +345,132 @@ async function runPhase36bAsyncTests() {
     "utf8",
   );
   assert.equal(/get_organization_appointment/i.test(orchestratorSource), false);
+
+  const fixedNow = new Date("2026-06-24T08:00:00.000Z");
+  const expectedExpiresAt = resolveBookingApprovalExpiresAt(fixedNow);
+  const expectedPayload = buildBookingApprovalCanonicalPayload(bookingApprovalRequestBase);
+  const expectedPayloadHash = computeBookingApprovalPayloadHash(expectedPayload);
+
+  let rpcCallCount = 0;
+  let lastRpcParams: {
+    action_key: string;
+    payload: Record<string, unknown>;
+    payload_hash: string;
+    idempotency_key: string;
+    expires_at: string;
+  } | null = null;
+
+  const mockSupabase = {} as import("@supabase/supabase-js").SupabaseClient;
+
+  const createResult = await recordBookingApprovalActionRequest(
+    mockSupabase,
+    bookingApprovalRequestBase,
+    {
+      now: () => fixedNow,
+      rpcCaller: async (params) => {
+        rpcCallCount += 1;
+        lastRpcParams = params;
+        return {
+          data: {
+            success: true,
+            outcome_code: "BOOKING_ACTION_REQUESTED",
+            action_request_id: "req-create-001",
+            expires_at: params.expires_at,
+            idempotent_replay: false,
+          },
+          error: null,
+        };
+      },
+    },
+  );
+
+  assert.equal(createResult.success, true);
+  assert.equal(createResult.outcome_code, "BOOKING_ACTION_REQUESTED");
+  assert.equal(createResult.action_request_id, "req-create-001");
+  assert.equal(createResult.payload_hash, expectedPayloadHash);
+  assert.equal(createResult.idempotency_key, "idem-bridge-36b");
+  assert.equal(createResult.expires_at, expectedExpiresAt);
+  assert.equal(createResult.idempotent_replay, false);
+
+  assert.ok(lastRpcParams);
+  assert.equal(lastRpcParams.action_key, "booking.create");
+  assert.deepEqual(lastRpcParams.payload, expectedPayload);
+  assert.equal(lastRpcParams.payload_hash, expectedPayloadHash);
+  assert.equal(lastRpcParams.idempotency_key, "idem-bridge-36b");
+  assert.equal(lastRpcParams.expires_at, expectedExpiresAt);
+
+  const replayResult = await recordBookingApprovalActionRequest(
+    mockSupabase,
+    bookingApprovalRequestBase,
+    {
+      now: () => fixedNow,
+      rpcCaller: async () => ({
+        data: {
+          success: true,
+          outcome_code: "IDEMPOTENT_REPLAY",
+          action_request_id: "req-create-001",
+          expires_at: expectedExpiresAt,
+          idempotent_replay: true,
+        },
+        error: null,
+      }),
+    },
+  );
+
+  assert.equal(replayResult.success, true);
+  assert.equal(replayResult.outcome_code, "IDEMPOTENT_REPLAY");
+  assert.equal(replayResult.action_request_id, "req-create-001");
+  assert.equal(replayResult.idempotent_replay, true);
+
+  const conflictResult = await recordBookingApprovalActionRequest(
+    mockSupabase,
+    {
+      ...bookingApprovalRequestBase,
+      start_at: "2026-06-25T09:00:00.000Z",
+    },
+    {
+      now: () => fixedNow,
+      rpcCaller: async () => ({
+        data: {
+          success: false,
+          outcome_code: "IDEMPOTENCY_CONFLICT",
+          action_request_id: "req-create-001",
+          expires_at: expectedExpiresAt,
+          idempotent_replay: false,
+        },
+        error: null,
+      }),
+    },
+  );
+
+  assert.equal(conflictResult.success, false);
+  assert.equal(conflictResult.outcome_code, "IDEMPOTENCY_CONFLICT");
+  assert.equal(conflictResult.action_request_id, "req-create-001");
+  assert.equal(conflictResult.idempotent_replay, false);
+  assert.equal(conflictResult.payload_hash, computeBookingApprovalPayloadHash(changedBookingPayload));
+
+  const rpcFailureResult = await recordBookingApprovalActionRequest(
+    mockSupabase,
+    bookingApprovalRequestBase,
+    {
+      now: () => fixedNow,
+      rpcCaller: async () => ({
+        data: null,
+        error: { message: "permission denied for function record_companion_booking_action_request" },
+      }),
+    },
+  );
+
+  assert.equal(rpcFailureResult.success, false);
+  assert.equal(rpcFailureResult.outcome_code, "REQUEST_FAILED");
+  assert.equal(rpcFailureResult.action_request_id, null);
+  assert.equal(
+    rpcFailureResult.outcome_code.includes("permission"),
+    false,
+    "RPC failure must not leak internal error text",
+  );
+
+  assert.equal(rpcCallCount, 1);
 
   console.log("phase36b.test.ts: all assertions passed");
 }
