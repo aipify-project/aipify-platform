@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { IntegrationConnectionStatusBadge } from "@/components/app/integration-setup";
 import { IntegrationRemoveDialog } from "@/components/app/app-portal/IntegrationRemoveDialog";
@@ -8,6 +9,7 @@ import {
   canonicalStatusLabelKey,
   connectionToCanonicalInput,
   interpolateIntegrationLabel,
+  refreshAppPortalIntegrationSurfaces,
   resolveIntegrationCanonicalStatus,
   resolveIntegrationHubActionTier,
   resolveIntegrationProviderDisplayName,
@@ -33,6 +35,7 @@ export function IntegrationConnectionRow({
   canManage,
   onRefresh,
 }: IntegrationConnectionRowProps) {
+  const router = useRouter();
   const menuId = useId();
   const menuRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -87,6 +90,7 @@ export function IntegrationConnectionRow({
       setActionError(labels.hub.feedback.testFailed);
     }
     setActing(false);
+    refreshAppPortalIntegrationSurfaces(router);
     await onRefresh();
   }
 
@@ -104,10 +108,11 @@ export function IntegrationConnectionRow({
     });
     if (!res.ok) {
       setActionError(
-        activate ? labels.hub.feedback.testFailed : labels.hub.feedback.removeFailed
+        activate ? labels.hub.feedback.activateFailed : labels.hub.feedback.deactivateFailed
       );
     }
     setActing(false);
+    refreshAppPortalIntegrationSurfaces(router);
     await onRefresh();
   }
 
@@ -125,6 +130,7 @@ export function IntegrationConnectionRow({
       setActionError(labels.hub.feedback.removeFailed);
       return;
     }
+    refreshAppPortalIntegrationSurfaces(router);
     await onRefresh();
   }
 

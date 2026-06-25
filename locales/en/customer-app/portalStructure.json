@@ -6188,7 +6188,9 @@
         },
         "feedback": {
           "removeFailed": "Could not remove integration. Try again.",
-          "testFailed": "Connection test failed. Review setup and try again."
+          "testFailed": "Connection test failed. Review setup and try again.",
+          "activateFailed": "Could not activate integration. Try again.",
+          "deactivateFailed": "Could not deactivate integration. Try again."
         },
         "duplicateWarningTitle": "Duplicate connection detected",
         "duplicateWarningBody": "Multiple integrations appear to point to the same external endpoint. Aipify recommends keeping one canonical connection.",

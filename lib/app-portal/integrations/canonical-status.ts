@@ -1,7 +1,5 @@
 import type { SemanticBadgeType } from "@/lib/design/semantic-status-system";
 import type { AppPortalIntegrationConnection } from "./types";
-
-/** Canonical integration lifecycle status — single source for all APP portal surfaces. */
 export type IntegrationCanonicalStatus =
   | "not_configured"
   | "credential_saved"
@@ -96,21 +94,19 @@ function isDeactivated(input: IntegrationCanonicalStatusInput): boolean {
 export function resolveIntegrationCanonicalStatus(
   input: IntegrationCanonicalStatusInput
 ): IntegrationCanonicalStatus {
-  const serverCanonical = normalizeKey(input.canonical_status);
-  if (
-    serverCanonical &&
-    serverCanonical in CANONICAL_LABEL_KEYS &&
-    !input.removed_at
-  ) {
-    return serverCanonical as IntegrationCanonicalStatus;
-  }
-
   if (input.removed_at) return "removed";
 
   const status = normalizeKey(input.status);
   if (status === "revoked") return "revoked";
 
-  if (testFailedIsNewer(input) || status === "failed" || status === "error") {
+  if (testFailedIsNewer(input)) {
+    return "verification_failed";
+  }
+
+  if (
+    (status === "failed" || status === "error" || status === "disconnected") &&
+    !input.last_test_success_at
+  ) {
     return "verification_failed";
   }
 
@@ -199,4 +195,28 @@ export function canonicalStatusLabelKey(
   canonicalStatus: IntegrationCanonicalStatus
 ): keyof import("./types").IntegrationStatusLabels {
   return CANONICAL_TO_STATUS_LABEL_KEY[canonicalStatus];
+}
+
+export type IntegrationSetupCompletionMode = "credential_saved" | "verified" | "active";
+
+/** Map a persisted connection to wizard completion mode, or null when setup should continue. */
+export function resolveCompletionModeFromConnection(
+  connection: AppPortalIntegrationConnection | null | undefined
+): IntegrationSetupCompletionMode | null {
+  if (!connection) return null;
+
+  const canonical = resolveIntegrationCanonicalStatus(connectionToCanonicalInput(connection));
+  if (
+    canonical === "verification_failed" ||
+    canonical === "removed" ||
+    canonical === "revoked" ||
+    canonical === "not_configured" ||
+    canonical === "verification_pending"
+  ) {
+    return null;
+  }
+  if (canonical === "active" || canonical === "inactive") return "active";
+  if (canonical === "verified") return "verified";
+  if (canonical === "credential_saved") return "credential_saved";
+  return null;
 }

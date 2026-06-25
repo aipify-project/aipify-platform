@@ -113,6 +113,8 @@ function parseDuplicateWarning(raw: unknown): IntegrationDuplicateWarning {
   const row = asRecord(raw) ?? {};
   return {
     normalized_base_url: asString(row.normalized_base_url),
+    external_organization_id:
+      row.external_organization_id == null ? null : asString(row.external_organization_id),
     connection_ids: asStringArray(row.connection_ids),
     provider_keys: asStringArray(row.provider_keys),
     preferred_provider_key: asString(row.preferred_provider_key),

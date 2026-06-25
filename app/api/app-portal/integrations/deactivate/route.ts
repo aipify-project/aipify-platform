@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidateAppPortalIntegrationSurfaces } from "@/lib/app-portal/integrations/invalidate";
 import { createClient } from "@/lib/supabase/server";
 
 const NO_STORE = { "Cache-Control": "no-store" };
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Deactivation could not be completed" }, { status, headers: NO_STORE });
     }
 
+    revalidateAppPortalIntegrationSurfaces();
     return NextResponse.json(data, { headers: NO_STORE });
   } catch {
     return NextResponse.json({ error: "Deactivation could not be completed" }, { status: 500, headers: NO_STORE });

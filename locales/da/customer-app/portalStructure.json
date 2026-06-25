@@ -386,8 +386,8 @@
         "providersTitle": "Available platforms",
         "connectCta": "Connect",
         "manageCta": "Manage",
-        "lastTestSuccess": "Last connection test succeeded",
-        "lastTestFailed": "Last connection test failed",
+        "lastTestSuccess": "Seneste forbindelsestest lykkedes",
+        "lastTestFailed": "Seneste forbindelsestest mislykkedes",
         "permissionReadOnly": "Read-only access",
         "permissionReadWrite": "Read & write access",
         "helpTitle": "Integrationshjælp",
@@ -411,7 +411,9 @@
         },
         "feedback": {
           "removeFailed": "Integrationen kunne ikke fjernes. Prøv igen.",
-          "testFailed": "Forbindelsestest mislykkedes. Gennemgå opsætningen og prøv igen."
+          "testFailed": "Forbindelsestest mislykkedes. Gennemgå opsætningen og prøv igen.",
+          "activateFailed": "Integrationen kunne ikke aktiveres. Prøv igen.",
+          "deactivateFailed": "Integrationen kunne ikke deaktiveres. Prøv igen."
         },
         "duplicateWarningTitle": "Dubletforbindelse opdaget",
         "duplicateWarningBody": "Flere integrationer ser ud til at pege på samme eksterne slutpunkt. Aipify anbefaler én kanonisk forbindelse.",

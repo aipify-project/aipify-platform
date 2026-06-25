@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidateAppPortalIntegrationSurfaces } from "@/lib/app-portal/integrations/invalidate";
 import { createClient } from "@/lib/supabase/server";
 import { runUnonightAppPortalConnectionTest } from "@/lib/unonight/connection/run-test";
 import { UNONIGHT_PROVIDER_KEY } from "@/lib/unonight/connection/constants";
@@ -69,6 +70,7 @@ export async function POST(request: Request) {
       return NextResponse.json(activateRes.data, { headers: NO_STORE });
     }
 
+    revalidateAppPortalIntegrationSurfaces();
     return NextResponse.json(result, { headers: NO_STORE });
   } catch {
     return NextResponse.json(

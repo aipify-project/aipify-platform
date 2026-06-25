@@ -6,13 +6,14 @@ import {
 } from "./canonical-status";
 import type { AppPortalIntegrationConnection } from "./types";
 
-// Stale failure must not override newer success
+// Stale status=failed must not override newer success
 assert.equal(
   resolveIntegrationCanonicalStatus({
-    status: "connected",
+    status: "failed",
     hasCredential: true,
     last_test_success_at: "2026-06-20T12:00:00Z",
     last_test_failed_at: "2026-06-01T12:00:00Z",
+    canonical_status: "verification_failed",
   }),
   "verified"
 );

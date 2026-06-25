@@ -163,6 +163,8 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
       feedback: {
         removeFailed: t(`${hf}.removeFailed`),
         testFailed: t(`${hf}.testFailed`),
+        activateFailed: t(`${hf}.activateFailed`),
+        deactivateFailed: t(`${hf}.deactivateFailed`),
       },
       duplicateWarningTitle: t(`${h}.duplicateWarningTitle`),
       duplicateWarningBody: t(`${h}.duplicateWarningBody`),

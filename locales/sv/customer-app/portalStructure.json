@@ -386,8 +386,8 @@
         "providersTitle": "Available platforms",
         "connectCta": "Connect",
         "manageCta": "Manage",
-        "lastTestSuccess": "Last connection test succeeded",
-        "lastTestFailed": "Last connection test failed",
+        "lastTestSuccess": "Senaste anslutningstesten lyckades",
+        "lastTestFailed": "Senaste anslutningstesten misslyckades",
         "permissionReadOnly": "Read-only access",
         "permissionReadWrite": "Read & write access",
         "helpTitle": "Integrationshjälp",
@@ -411,7 +411,9 @@
         },
         "feedback": {
           "removeFailed": "Integrationen kunde inte tas bort. Försök igen.",
-          "testFailed": "Anslutningstestet misslyckades. Granska inställningen och försök igen."
+          "testFailed": "Anslutningstestet misslyckades. Granska inställningen och försök igen.",
+          "activateFailed": "Integrationen kunde inte aktiveras. Försök igen.",
+          "deactivateFailed": "Integrationen kunde inte inaktiveras. Försök igen."
         },
         "duplicateWarningTitle": "Dubbel anslutning upptäckt",
         "duplicateWarningBody": "Flera integrationer verkar peka mot samma externa slutpunkt. Aipify rekommenderar en kanonisk anslutning.",

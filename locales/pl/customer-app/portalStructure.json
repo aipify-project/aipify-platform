@@ -6389,8 +6389,8 @@
         "providersTitle": "Available platforms",
         "connectCta": "Connect",
         "manageCta": "Manage",
-        "lastTestSuccess": "Last connection test succeeded",
-        "lastTestFailed": "Last connection test failed",
+        "lastTestSuccess": "Ostatni test połączenia zakończył się powodzeniem",
+        "lastTestFailed": "Ostatni test połączenia nie powiódł się",
         "permissionReadOnly": "Aipify może odczytywać informacje, ale nic nie zmienia",
         "permissionReadWrite": "Read & write access",
         "helpTitle": "Pomoc integracji",
@@ -6414,7 +6414,9 @@
         },
         "feedback": {
           "removeFailed": "Nie udało się usunąć integracji. Spróbuj ponownie.",
-          "testFailed": "Test połączenia nie powiódł się. Sprawdź konfigurację i spróbuj ponownie."
+          "testFailed": "Test połączenia nie powiódł się. Sprawdź konfigurację i spróbuj ponownie.",
+          "activateFailed": "Nie udało się aktywować integracji. Spróbuj ponownie.",
+          "deactivateFailed": "Nie udało się dezaktywować integracji. Spróbuj ponownie."
         },
         "duplicateWarningTitle": "Wykryto zduplikowane połączenie",
         "duplicateWarningBody": "Kilka integracji wskazuje na ten sam zewnętrzny endpoint. Aipify zaleca jedno kanoniczne połączenie.",

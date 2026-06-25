@@ -412,7 +412,9 @@
         },
         "feedback": {
           "removeFailed": "Integrasjonen kunne ikke fjernes. Prøv igjen.",
-          "testFailed": "Tilkoblingstest mislyktes. Kontroller oppsettet og prøv igjen."
+          "testFailed": "Tilkoblingstest mislyktes. Kontroller oppsettet og prøv igjen.",
+          "activateFailed": "Integrasjonen kunne ikke aktiveres. Prøv igjen.",
+          "deactivateFailed": "Integrasjonen kunne ikke deaktiveres. Prøv igjen."
         },
         "duplicateWarningTitle": "Duplisert tilkobling oppdaget",
         "duplicateWarningBody": "Flere integrasjoner ser ut til å peke mot samme eksterne endepunkt. Aipify anbefaler én kanonisk tilkobling.",

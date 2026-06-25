@@ -1,4 +1,5 @@
 import { isEccDemoModeEnabled, isSyntheticEccRecord } from "@/lib/command-center/ecc-tab-datasets";
+import type { IntegrationCanonicalStatus } from "@/lib/app-portal/integrations/canonical-status";
 import type { ExecutiveCommandCenter } from "@/lib/executive-command-center-engine/parse";
 
 export type CommandBriefIntegrationStatusKey =
@@ -63,6 +64,29 @@ const INTEGRATION_STATUS_BADGE: Record<
 
 export function integrationStatusLabelKey(status: CommandBriefIntegrationStatusKey): string {
   return INTEGRATION_STATUS_LABEL_KEYS[status];
+}
+
+/** Map APP portal canonical integration status to Command Brief presentation. */
+export function mapAppPortalCanonicalToCommandBriefStatus(
+  canonical: IntegrationCanonicalStatus
+): CommandBriefIntegrationStatusKey {
+  switch (canonical) {
+    case "active":
+    case "verified":
+      return "connected_verified";
+    case "inactive":
+      return "not_activated";
+    case "verification_failed":
+    case "revoked":
+    case "removed":
+      return "disconnected";
+    case "credential_saved":
+    case "verification_pending":
+    case "not_configured":
+      return "awaiting_setup";
+    default:
+      return "awaiting_setup";
+  }
 }
 
 export function isDemoEccBusinessPack(record: Record<string, unknown>): boolean {

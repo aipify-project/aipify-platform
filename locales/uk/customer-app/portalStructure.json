@@ -6389,8 +6389,8 @@
         "providersTitle": "Available platforms",
         "connectCta": "Connect",
         "manageCta": "Manage",
-        "lastTestSuccess": "Last connection test succeeded",
-        "lastTestFailed": "Last connection test failed",
+        "lastTestSuccess": "Останній тест підключення пройшов успішно",
+        "lastTestFailed": "Останній тест підключення не вдався",
         "permissionReadOnly": "Aipify може читати інформацію, але нічого не змінює",
         "permissionReadWrite": "Read & write access",
         "helpTitle": "Довідка з інтеграцій",
@@ -6414,7 +6414,9 @@
         },
         "feedback": {
           "removeFailed": "Не вдалося видалити інтеграцію. Спробуйте ще раз.",
-          "testFailed": "Тест підключення не вдався. Перевірте налаштування та спробуйте знову."
+          "testFailed": "Тест підключення не вдався. Перевірте налаштування та спробуйте знову.",
+          "activateFailed": "Не вдалося активувати інтеграцію. Спробуйте ще раз.",
+          "deactivateFailed": "Не вдалося деактивувати інтеграцію. Спробуйте ще раз."
         },
         "duplicateWarningTitle": "Виявлено дубльоване підключення",
         "duplicateWarningBody": "Кілька інтеграцій, схоже, вказують на ту саму зовнішню кінцеву точку. Aipify рекомендує одне канонічне підключення.",

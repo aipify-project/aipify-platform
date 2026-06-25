@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidateAppPortalIntegrationSurfaces } from "@/lib/app-portal/integrations/invalidate";
 import { createClient } from "@/lib/supabase/server";
 import {
   UNONIGHT_DEFAULT_SCOPES,
@@ -7,6 +8,8 @@ import {
   getUnonightBaseUrlValidationMessageKey,
   validateUnonightBaseUrlInput,
 } from "@/lib/unonight/connection";
+
+const NO_STORE = { "Cache-Control": "no-store" };
 
 export async function POST(request: Request) {
   try {
@@ -35,7 +38,7 @@ export async function POST(request: Request) {
             error_code: baseValidation.code,
             message_key: getUnonightBaseUrlValidationMessageKey(baseValidation.code),
           },
-          { status: 400 }
+          { status: 400, headers: NO_STORE }
         );
       }
 
@@ -72,14 +75,15 @@ export async function POST(request: Request) {
             error_code: "email_not_allowed",
             message_key: getUnonightBaseUrlValidationMessageKey("email_not_allowed"),
           },
-          { status: 400 }
+          { status: 400, headers: NO_STORE }
         );
       }
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return NextResponse.json({ error: "Failed to save integration" }, { status: 400, headers: NO_STORE });
     }
 
-    return NextResponse.json(data);
+    revalidateAppPortalIntegrationSurfaces();
+    return NextResponse.json(data, { headers: NO_STORE });
   } catch {
-    return NextResponse.json({ error: "Failed to save integration" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to save integration" }, { status: 500, headers: NO_STORE });
   }
 }

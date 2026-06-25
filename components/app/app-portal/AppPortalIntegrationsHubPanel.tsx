@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import {
   APP_PORTAL_INTEGRATIONS_FAQ_ARTICLES,
+  filterActiveHubConnections,
   parseAppPortalIntegrationsHub,
+  refreshAppPortalIntegrationSurfaces,
   type AppPortalIntegrationsHub,
   type AppPortalIntegrationsLabels,
 } from "@/lib/app-portal/integrations";
@@ -21,16 +24,24 @@ export function AppPortalIntegrationsHubPanel({
   faqLabels,
   answerLabels,
 }: AppPortalIntegrationsHubPanelProps) {
+  const router = useRouter();
   const [hub, setHub] = useState<AppPortalIntegrationsHub | null>(null);
   const [loading, setLoading] = useState(true);
   const [openFaq, setOpenFaq] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const res = await fetch("/api/app-portal/integrations");
-    if (res.ok) setHub(parseAppPortalIntegrationsHub(await res.json()));
+    const res = await fetch("/api/app-portal/integrations", { cache: "no-store" });
+    if (res.ok) {
+      const parsed = parseAppPortalIntegrationsHub(await res.json());
+      if (parsed) {
+        parsed.connections = filterActiveHubConnections(parsed.connections);
+        setHub(parsed);
+      }
+    }
     setLoading(false);
-  }, []);
+    refreshAppPortalIntegrationSurfaces(router);
+  }, [router]);
 
   useEffect(() => {
     void load();
@@ -69,8 +80,18 @@ export function AppPortalIntegrationsHubPanel({
           <p className="mt-2 text-sm text-amber-900">{labels.hub.duplicateWarningBody}</p>
           <ul className="mt-4 space-y-3">
             {hub.duplicate_warnings.map((warning) => (
-              <li key={warning.normalized_base_url} className="rounded-xl border border-amber-100 bg-white/80 p-4 text-sm">
-                <p className="font-medium text-slate-900">{warning.normalized_base_url}</p>
+              <li
+                key={`${warning.normalized_base_url}:${warning.external_organization_id ?? "none"}`}
+                className="rounded-xl border border-amber-100 bg-white/80 p-4 text-sm"
+              >
+                <p className="font-medium text-slate-900">
+                  {warning.normalized_base_url || warning.external_organization_id}
+                </p>
+                {warning.external_organization_id ? (
+                  <p className="mt-1 text-xs text-slate-500">
+                    {warning.external_organization_id}
+                  </p>
+                ) : null}
                 <p className="mt-1 text-slate-600">
                   {labels.hub.duplicateWarningPreferred}:{" "}
                   {labels.providerNames[warning.preferred_provider_key as keyof typeof labels.providerNames] ??

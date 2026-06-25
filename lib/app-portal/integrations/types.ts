@@ -42,6 +42,7 @@ export type AppPortalIntegrationConnection = {
 
 export type IntegrationDuplicateWarning = {
   normalized_base_url: string;
+  external_organization_id?: string | null;
   connection_ids: string[];
   provider_keys: string[];
   preferred_provider_key: string;
@@ -156,6 +157,8 @@ export type IntegrationHubActionLabels = {
 export type IntegrationHubFeedbackLabels = {
   removeFailed: string;
   testFailed: string;
+  activateFailed: string;
+  deactivateFailed: string;
 };
 
 export type IntegrationAuthHelpProviderLabels = Record<string, string> & {

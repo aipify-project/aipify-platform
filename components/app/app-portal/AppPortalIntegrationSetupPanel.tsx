@@ -28,6 +28,8 @@ import {
   interpolateIntegrationLabel,
   canonicalStatusLabelKey,
   connectionToCanonicalInput,
+  refreshAppPortalIntegrationSurfaces,
+  resolveCompletionModeFromConnection,
   resolveIntegrationCanonicalStatus,
   type AppPortalIntegrationSetup,
   type AppPortalIntegrationsLabels,
@@ -61,15 +63,7 @@ function maskCredential(value: string): string {
 function resolveInitialCompletionMode(
   setup: AppPortalIntegrationSetup
 ): IntegrationSetupCompletionMode | null {
-  const connection = setup.connection;
-  if (!connection) return null;
-
-  const canonical = resolveIntegrationCanonicalStatus(connectionToCanonicalInput(connection));
-
-  if (canonical === "active" || canonical === "inactive") return "active";
-  if (canonical === "verified") return "verified";
-  if (canonical === "credential_saved") return "credential_saved";
-  return null;
+  return resolveCompletionModeFromConnection(setup.connection);
 }
 
 function resolveInitialStepIndex(setup: AppPortalIntegrationSetup): number {
@@ -304,7 +298,10 @@ export function AppPortalIntegrationSetupPanel({
         const parsedVerification = parseVerificationFromTestResponse(body.verification);
         if (parsedVerification) setVerification(parsedVerification);
         setLastVerifiedAt(body.last_verified_at ?? new Date().toISOString());
+        setTestError(null);
+        setUnonightTestError(null);
         await load();
+        refreshAppPortalIntegrationSurfaces(router);
         const refreshed = parseAppPortalIntegrationSetup(
           await (await fetch(`/api/app-portal/integrations/${encodeURIComponent(providerKey)}`)).json()
         );
@@ -319,6 +316,9 @@ export function AppPortalIntegrationSetupPanel({
           setCompletionMode("verified");
         } else if (refreshedCanonical === "verification_failed") {
           setCompletionMode(null);
+          setStepIndex(flowSteps.indexOf("test_connection"));
+        } else {
+          setCompletionMode(resolveCompletionModeFromConnection(refreshed?.connection ?? null));
         }
       } else {
         if (isUnonight) {
@@ -328,8 +328,10 @@ export function AppPortalIntegrationSetupPanel({
           setTestError(guidance);
         }
         if (isActivation) {
-          setCompletionMode("verified");
+          setCompletionMode(null);
         }
+        await load();
+        refreshAppPortalIntegrationSurfaces(router);
       }
     } finally {
       setActing(false);
@@ -359,6 +361,7 @@ export function AppPortalIntegrationSetupPanel({
     setShowRemoveDialog(false);
     resumeInitialized.current = false;
     await load();
+    refreshAppPortalIntegrationSurfaces(router);
     setActing(false);
     router.push("/app/platform/integrations");
   }
@@ -373,7 +376,10 @@ export function AppPortalIntegrationSetupPanel({
     });
     setActing(false);
     if (res.ok) {
+      setTestError(null);
+      setUnonightTestError(null);
       await load();
+      refreshAppPortalIntegrationSurfaces(router);
       setCompletionMode("active");
     }
   }
@@ -431,7 +437,7 @@ export function AppPortalIntegrationSetupPanel({
     );
   }
 
-  if (completionMode) {
+  if (completionMode && canonicalStatus !== "verification_failed") {
     return (
       <>
         <IntegrationSetupCompletionSummary
