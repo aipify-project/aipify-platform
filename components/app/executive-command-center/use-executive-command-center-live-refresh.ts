@@ -24,7 +24,7 @@ export function useExecutiveCommandCenterLiveRefresh(load: RefreshHandler): void
     intervalMs: pollingEnabled ? POLL_INTERVAL_COMMAND_CENTER_MS : 0,
     enabled: pollingEnabled,
     runImmediately: false,
-    refreshOnVisible: true,
+    refreshOnVisible: false,
     execute: async () => loadRef.current({ silent: true }),
   });
 
