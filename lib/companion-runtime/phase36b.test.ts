@@ -24,6 +24,10 @@ import {
   BOOKING_WRITE_OUTCOME_I18N_KEYS,
 } from "@/lib/integration-intelligence/booking/outcomes";
 import { APPOINTMENT_BOOKING_SOURCE_MAP } from "@/lib/integration-intelligence/providers/appointment-booking/booking-source-map";
+import {
+  BOOKING_WRITE_RPC,
+  executeCompanionBookingWrite,
+} from "@/lib/integration-intelligence/providers/appointment-booking/booking-write-adapter";
 
 const repoRoot = path.join(import.meta.dirname, "..", "..");
 const ORG_A = "org-booking-36b";
@@ -871,6 +875,209 @@ async function runPhase36bAsyncTests() {
   assert.equal(malformedRpcResult.outcome, "verification_failed");
 
   assert.equal(resolverRpcCallCount, 1);
+
+  const writeAdapterActionRequestId = "req-write-adapter-001";
+  const writeAdapterAppointmentId = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee";
+  const writeAdapterAppointmentKey = "apt_write_adapter_001";
+  const writeAdapterAuditId = "bbbbbbbb-cccc-dddd-eeee-ffffffffffff";
+  const writeAdapterStartsAt = "2026-06-24T09:00:00.000Z";
+  const writeAdapterEndsAt = "2026-06-24T10:30:00.000Z";
+
+  function buildWriteAdapterRpcRow(overrides: Record<string, unknown> = {}) {
+    return {
+      success: true,
+      outcome_code: "BOOKING_CREATED",
+      appointment_id: writeAdapterAppointmentId,
+      appointment_key: writeAdapterAppointmentKey,
+      previous_status: null,
+      current_status: "confirmed",
+      starts_at: writeAdapterStartsAt,
+      ends_at: writeAdapterEndsAt,
+      audit_id: writeAdapterAuditId,
+      idempotent_replay: false,
+      channel_key: "companion",
+      ...overrides,
+    };
+  }
+
+  const mockWriteAdapterSupabase = {} as import("@supabase/supabase-js").SupabaseClient;
+
+  const createdWrite = await executeCompanionBookingWrite(
+    mockWriteAdapterSupabase,
+    writeAdapterActionRequestId,
+    {
+      rpcCaller: async () => ({
+        data: buildWriteAdapterRpcRow(),
+        error: null,
+      }),
+    },
+  );
+  assert.equal(createdWrite.executed, true);
+  assert.equal(createdWrite.outcome_code, "BOOKING_CREATED");
+  assert.equal(createdWrite.appointment_id, writeAdapterAppointmentId);
+  assert.equal(createdWrite.appointment_key, writeAdapterAppointmentKey);
+  assert.equal(createdWrite.previous_status, null);
+  assert.equal(createdWrite.current_status, "confirmed");
+  assert.equal(createdWrite.starts_at, writeAdapterStartsAt);
+  assert.equal(createdWrite.ends_at, writeAdapterEndsAt);
+  assert.equal(createdWrite.audit_id, writeAdapterAuditId);
+  assert.equal(createdWrite.idempotent_replay, false);
+  assert.equal(createdWrite.channel_key, "companion");
+
+  const updatedWrite = await executeCompanionBookingWrite(
+    mockWriteAdapterSupabase,
+    writeAdapterActionRequestId,
+    {
+      rpcCaller: async () => ({
+        data: buildWriteAdapterRpcRow({
+          outcome_code: "BOOKING_UPDATED",
+          previous_status: "confirmed",
+          current_status: "confirmed",
+          starts_at: "2026-06-25T09:00:00.000Z",
+          ends_at: "2026-06-25T10:30:00.000Z",
+        }),
+        error: null,
+      }),
+    },
+  );
+  assert.equal(updatedWrite.executed, true);
+  assert.equal(updatedWrite.outcome_code, "BOOKING_UPDATED");
+  assert.equal(updatedWrite.appointment_id, writeAdapterAppointmentId);
+  assert.equal(updatedWrite.appointment_key, writeAdapterAppointmentKey);
+  assert.equal(updatedWrite.previous_status, "confirmed");
+  assert.equal(updatedWrite.starts_at, "2026-06-25T09:00:00.000Z");
+  assert.equal(updatedWrite.ends_at, "2026-06-25T10:30:00.000Z");
+
+  const cancelledWrite = await executeCompanionBookingWrite(
+    mockWriteAdapterSupabase,
+    writeAdapterActionRequestId,
+    {
+      rpcCaller: async () => ({
+        data: buildWriteAdapterRpcRow({
+          outcome_code: "BOOKING_CANCELLED",
+          previous_status: "confirmed",
+          current_status: "cancelled",
+          starts_at: writeAdapterStartsAt,
+          ends_at: writeAdapterEndsAt,
+        }),
+        error: null,
+      }),
+    },
+  );
+  assert.equal(cancelledWrite.executed, true);
+  assert.equal(cancelledWrite.outcome_code, "BOOKING_CANCELLED");
+  assert.equal(cancelledWrite.appointment_id, writeAdapterAppointmentId);
+  assert.equal(cancelledWrite.current_status, "cancelled");
+
+  const replayWrite = await executeCompanionBookingWrite(
+    mockWriteAdapterSupabase,
+    writeAdapterActionRequestId,
+    {
+      rpcCaller: async () => ({
+        data: buildWriteAdapterRpcRow({
+          idempotent_replay: true,
+        }),
+        error: null,
+      }),
+    },
+  );
+  assert.equal(replayWrite.executed, true);
+  assert.equal(replayWrite.appointment_id, writeAdapterAppointmentId);
+  assert.equal(replayWrite.appointment_key, writeAdapterAppointmentKey);
+  assert.equal(replayWrite.idempotent_replay, true);
+
+  const overlapWrite = await executeCompanionBookingWrite(
+    mockWriteAdapterSupabase,
+    writeAdapterActionRequestId,
+    {
+      rpcCaller: async () => ({
+        data: {
+          success: false,
+          outcome_code: "OVERLAP_CONFLICT",
+          idempotent_replay: false,
+        },
+        error: null,
+      }),
+    },
+  );
+  assert.equal(overlapWrite.executed, false);
+  assert.equal(overlapWrite.outcome_code, "OVERLAP_CONFLICT");
+  assert.equal(overlapWrite.appointment_id, null);
+
+  const approvalInvalidWrite = await executeCompanionBookingWrite(
+    mockWriteAdapterSupabase,
+    writeAdapterActionRequestId,
+    {
+      rpcCaller: async () => ({
+        data: {
+          success: false,
+          outcome_code: "APPROVAL_INVALID",
+          idempotent_replay: false,
+        },
+        error: null,
+      }),
+    },
+  );
+  assert.equal(approvalInvalidWrite.executed, false);
+  assert.equal(approvalInvalidWrite.outcome_code, "APPROVAL_INVALID");
+  assert.equal(approvalInvalidWrite.appointment_id, null);
+
+  const rpcFailureWrite = await executeCompanionBookingWrite(
+    mockWriteAdapterSupabase,
+    writeAdapterActionRequestId,
+    {
+      rpcCaller: async () => ({
+        data: null,
+        error: { message: "permission denied for function execute_apt610_companion_booking_write" },
+      }),
+    },
+  );
+  assert.equal(rpcFailureWrite.executed, false);
+  assert.equal(rpcFailureWrite.outcome_code, "WRITE_FAILED");
+  assert.equal(rpcFailureWrite.appointment_id, null);
+  assert.equal(
+    rpcFailureWrite.outcome_code.includes("permission"),
+    false,
+    "RPC failure must not leak internal error text",
+  );
+
+  let writeAdapterRpcCallCount = 0;
+  let writeAdapterRpcParams: { p_action_request_id: string } | null = null;
+
+  await executeCompanionBookingWrite(mockWriteAdapterSupabase, writeAdapterActionRequestId, {
+    rpcCaller: async (params) => {
+      writeAdapterRpcCallCount += 1;
+      writeAdapterRpcParams = params;
+      assert.equal(Object.keys(params).length, 1);
+      assert.equal(params.p_action_request_id, writeAdapterActionRequestId);
+      return {
+        data: buildWriteAdapterRpcRow(),
+        error: null,
+      };
+    },
+  });
+
+  assert.equal(writeAdapterRpcCallCount, 1);
+  assert.ok(writeAdapterRpcParams);
+  assert.deepEqual(writeAdapterRpcParams, {
+    p_action_request_id: writeAdapterActionRequestId,
+  });
+  assert.equal(BOOKING_WRITE_RPC, "execute_apt610_companion_booking_write");
+
+  const writeAdapterSource = fs.readFileSync(
+    path.join(
+      repoRoot,
+      "lib/integration-intelligence/providers/appointment-booking/booking-write-adapter.ts",
+    ),
+    "utf8",
+  );
+  assert.equal(writeAdapterSource.includes("booking-approval-bridge"), false);
+  assert.equal(writeAdapterSource.includes("booking-write-orchestrator"), false);
+  assert.equal(writeAdapterSource.includes("recordBookingApprovalActionRequest"), false);
+  assert.equal(writeAdapterSource.includes("resolveBookingApprovalRequest"), false);
+  assert.equal(writeAdapterSource.includes("record_companion_booking_action_request"), false);
+  assert.equal(writeAdapterSource.includes("get_companion_booking_action_request"), false);
+  assert.equal(/Phase 346|phase.?346/i.test(writeAdapterSource), false);
 
   console.log("phase36b.test.ts: all assertions passed");
 }
