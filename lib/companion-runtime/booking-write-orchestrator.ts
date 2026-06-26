@@ -284,6 +284,7 @@ function resumeResult(
     Partial<Pick<BookingWriteResult, keyof typeof EMPTY_EXECUTION_FIELDS>>,
 ): BookingWriteResult {
   return writeResult({
+    booking: null,
     payload_hash: null,
     idempotency_key: null,
     expires_at: null,
