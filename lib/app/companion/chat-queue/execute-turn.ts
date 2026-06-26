@@ -1,25 +1,13 @@
 import {
   answerToLegacyArticle,
-  resolveAnswerLocale,
-  searchPlatformKnowledge,
-  trackLowConfidenceQuery,
-} from "@/lib/companion-platform-knowledge";
+} from "@/lib/companion-platform-knowledge/answer-builder";
+import { resolveAnswerLocale } from "@/lib/companion-platform-knowledge/language";
 import {
   buildSupportAssistantCorpus,
   buildSupportAssistantLabels,
-  getSupportAssistantArticleById,
 } from "@/lib/app-portal/support-assistant";
-import {
-  buildPlatformSearchContextFromTenant,
-  loadCompanionTenantContext,
-  resolveCompanionIntegrationContext,
-} from "@/lib/companion-runtime/tenant-context";
-import { loadCompanionArtifactContext } from "@/lib/companion-runtime/artifact-context/server";
 import { classifyExternalProviderHandoffFromRegistry } from "@/lib/integration-intelligence/external-applications/handoff-bridge";
-import { loadCanvaHandoffConnectionMaterial } from "@/lib/integration-intelligence/external-artifact-handoff/server";
 import { assertCanvaHandoffPermissionForRole } from "@/lib/integration-intelligence/providers/canva/permissions";
-import { enrichAnswerWithArtifactContext } from "@/lib/companion-runtime/artifact-context/enrich-answer";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { companionDictionarySplitsForTurnRoute } from "@/lib/companion-runtime/companion-oaa-dictionary-splits";
 import { createTranslator } from "@/lib/i18n/translate";
 import { buildCompanionExperienceLabels } from "@/lib/app/companion/labels";
@@ -33,12 +21,29 @@ import {
   formatBootstrapErrorMessage,
   type WorkerBootstrapFailure,
 } from "@/lib/companion-runtime/companion-worker-bootstrap-errors";
-import { bootstrapCompanionWorkerTenantRuntime } from "./load-worker-tenant-context";
 import { logCompanionWorkerStepTimings } from "./worker-step-timing";
 import { classifyCompanionTurnRoute } from "@/lib/companion-runtime/companion-turn-route";
 import { buildLightweightConversationalAnswer } from "@/lib/companion-runtime/lightweight-conversational-answer";
 import { coerceToCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import { detectBookingResumeContinuationIntent } from "@/lib/companion-runtime/booking-resume-intent";
+import {
+  loadCompanionConversationMessages,
+  type LoadCompanionConversationMessagesResult,
+} from "./load-companion-conversation-messages";
+import {
+  produceBookingResumeTurn,
+  type ProduceBookingResumeTurnResult,
+} from "@/lib/companion-runtime/booking-resume-turn-producer";
 import { throwIfCompanionTurnAborted } from "./companion-turn-abort";
+import type { Translator } from "@/lib/i18n/translate";
+
+async function loadCustomerAppDictionaryForTurn(
+  answerLocale: string,
+  splits: string[],
+) {
+  const { getCustomerAppDictionaryForSplits } = await import("@/lib/i18n/get-dictionary");
+  return getCustomerAppDictionaryForSplits(answerLocale, splits);
+}
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
   const parts = path.replace(/^customerApp\./, "").split(".");
@@ -88,9 +93,89 @@ export type ExecuteCompanionTurnResult =
     }
   | { ok: false; error: string; code?: string };
 
+export type ExecuteCompanionTurnDeps = {
+  detect_booking_resume_intent?: (query: string) => boolean;
+  load_companion_conversation_messages?: (
+    client: SupabaseClient,
+    conversationId: string,
+  ) => Promise<LoadCompanionConversationMessagesResult>;
+  produce_booking_resume_turn?: (
+    turnInput: Parameters<typeof produceBookingResumeTurn>[0],
+  ) => Promise<ProduceBookingResumeTurnResult>;
+};
+
+async function tryLazyBookingResumeTurn(input: {
+  supabase: SupabaseClient;
+  query: string;
+  conversationId: string;
+  answerLocale: string;
+  abortSignal?: AbortSignal;
+  t: Translator;
+  labels: ReturnType<typeof buildSupportAssistantLabels>;
+  companionLabels: CompanionExperienceLabels;
+  deps?: ExecuteCompanionTurnDeps;
+}): Promise<ExecuteCompanionTurnResult | null> {
+  const detectResume =
+    input.deps?.detect_booking_resume_intent ?? detectBookingResumeContinuationIntent;
+  if (!input.query || !detectResume(input.query)) {
+    return null;
+  }
+
+  const conversationId = input.conversationId.trim();
+  if (!conversationId) {
+    return null;
+  }
+
+  try {
+    const loadMessages =
+      input.deps?.load_companion_conversation_messages ?? loadCompanionConversationMessages;
+    const loaded = await loadMessages(input.supabase, conversationId);
+    throwIfCompanionTurnAborted(input.abortSignal);
+    if (loaded.status !== "loaded") {
+      return null;
+    }
+
+    const produceResume = input.deps?.produce_booking_resume_turn ?? produceBookingResumeTurn;
+    const producerResult = await produceResume({
+      supabase: input.supabase,
+      query: input.query,
+      messages: loaded.messages,
+      t: input.t,
+    });
+    throwIfCompanionTurnAborted(input.abortSignal);
+
+    if (!producerResult.handled) {
+      return null;
+    }
+
+    const answer = producerResult.answer;
+    const legacyArticle = answerToLegacyArticle(answer);
+    return {
+      ok: true,
+      searchJson: {
+        found: true,
+        query: input.query,
+        answer,
+        articles: [legacyArticle],
+        matched_article_id: null,
+        principle: input.labels.principle,
+        source: answer.source,
+        confidence: answer.confidence,
+        answer_locale: input.answerLocale,
+      },
+      labels: input.companionLabels,
+      question: input.query,
+    };
+  } catch {
+    throwIfCompanionTurnAborted(input.abortSignal);
+    return null;
+  }
+}
+
 export async function executeCompanionTurn(
   supabase: SupabaseClient,
   input: ExecuteCompanionTurnInput,
+  deps: ExecuteCompanionTurnDeps = {},
 ): Promise<ExecuteCompanionTurnResult> {
   const query = input.query.trim();
   if (!query && !(input.attachmentIds?.length ?? 0)) {
@@ -121,13 +206,33 @@ export async function executeCompanionTurn(
 
   throwIfCompanionTurnAborted(input.abortSignal);
 
+  const dictionarySplits =
+    turnRoute === "lightweight" && !hasAttachments && !input.activeArtifactId
+      ? (["companion"] as const)
+      : companionDictionarySplitsForTurnRoute(turnRoute);
+  const dict = await loadCustomerAppDictionaryForTurn(answerLocale, [...dictionarySplits]);
+  throwIfCompanionTurnAborted(input.abortSignal);
+  const t = createTranslator(dict);
+  const labels = buildSupportAssistantLabels(t);
+  const companionLabels = buildCompanionExperienceLabels(t);
+
+  const resumeTurn = await tryLazyBookingResumeTurn({
+    supabase,
+    query,
+    conversationId: input.conversationId,
+    answerLocale,
+    abortSignal: input.abortSignal,
+    t,
+    labels,
+    companionLabels,
+    deps,
+  });
+  if (resumeTurn) {
+    return resumeTurn;
+  }
+
   if (turnRoute === "lightweight" && !hasAttachments && !input.activeArtifactId && query) {
     const lightweightStarted = Date.now();
-    const dict = await getCustomerAppDictionaryForSplits(answerLocale, ["companion"]);
-    throwIfCompanionTurnAborted(input.abortSignal);
-    const t = createTranslator(dict);
-    const companionLabels = buildCompanionExperienceLabels(t);
-    const labels = buildSupportAssistantLabels(t);
     const lightweightAnswer = buildLightweightConversationalAnswer({
       query,
       t,
@@ -161,14 +266,6 @@ export async function executeCompanionTurn(
     };
   }
 
-  const dict = await getCustomerAppDictionaryForSplits(
-    answerLocale,
-    companionDictionarySplitsForTurnRoute(turnRoute),
-  );
-  throwIfCompanionTurnAborted(input.abortSignal);
-  const t = createTranslator(dict);
-  const labels = buildSupportAssistantLabels(t);
-  const companionLabels = buildCompanionExperienceLabels(t);
   const legacyCorpus = buildSupportAssistantCorpus(labels, t);
 
   const skipHeavyArtifacts =
@@ -179,6 +276,22 @@ export async function executeCompanionTurn(
   const turnStarted = Date.now();
   let bootstrapMs = 0;
   let routingMs = 0;
+
+  const { bootstrapCompanionWorkerTenantRuntime } = await import("./load-worker-tenant-context");
+  const {
+    buildPlatformSearchContextFromTenant,
+    loadCompanionTenantContext,
+    resolveCompanionIntegrationContext,
+  } = await import("@/lib/companion-runtime/tenant-context");
+  const { loadCompanionArtifactContext } = await import(
+    "@/lib/companion-runtime/artifact-context/server"
+  );
+  const { loadCanvaHandoffConnectionMaterial } = await import(
+    "@/lib/integration-intelligence/external-artifact-handoff/server"
+  );
+  const { enrichAnswerWithArtifactContext } = await import(
+    "@/lib/companion-runtime/artifact-context/enrich-answer"
+  );
 
   const workerBootstrap = input.workerProfile
     ? await bootstrapCompanionWorkerTenantRuntime(supabase, input.workerProfile, answerLocale, {
@@ -309,6 +422,7 @@ export async function executeCompanionTurn(
 
   const searchQuery = query || companionLabels.attachments.activeBadge;
   const routingStarted = Date.now();
+  const { searchPlatformKnowledge } = await import("@/lib/companion-platform-knowledge/search");
   const result = await searchPlatformKnowledge(searchQuery, searchOptions);
   routingMs = Date.now() - routingStarted;
 
@@ -322,6 +436,9 @@ export async function executeCompanionTurn(
   }
 
   if (result.answer.confidence === "low") {
+    const { trackLowConfidenceQuery } = await import(
+      "@/lib/companion-platform-knowledge/quality-tracking"
+    );
     void trackLowConfidenceQuery(runtimeSupabase, searchQuery, answerLocale, result.answer.confidence);
   }
 

@@ -1,14 +1,17 @@
 import assert from "node:assert/strict";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { PlatformKnowledgeAnswer } from "@/lib/companion-platform-knowledge/types";
 import { parseSupportAssistantSearch } from "@/lib/app-portal/support-assistant";
 import { resolvePendingBookingWritePointer } from "@/lib/companion-runtime/booking-pending-action-pointer";
 import type { CompanionExperienceLabels } from "../types";
 import { buildReplyFromSearchJson } from "./build-reply";
+import type { ExecuteCompanionTurnDeps } from "./execute-turn";
+import type { CompanionChatMessage } from "../types";
 import {
   mapServerMessagesToChat,
   deserializeAssistantMessage,
   serializeAssistantPayload,
 } from "./message-payload";
-import type { CompanionChatMessage } from "../types";
 import { createClientMessageId, createIdempotencyKey } from "./client";
 import { resolveCompanionQueueWaitPhase } from "./queue-wait-phase";
 
@@ -257,6 +260,447 @@ function testPlatformAnswerPendingBookingWriteSearchToChatContract() {
   );
 }
 
+const RESUME_CONVERSATION_ID = "conv-a1b2c3d4-e5f6-4789-a012-3456789abcde";
+const supabaseStub = {} as SupabaseClient;
+const workerProfileStub = {
+  user: {
+    id: "user-1",
+    auth_user_id: "auth-1",
+    company_id: "company-1",
+    full_name: "Test User",
+    role: "owner" as const,
+    created_at: "2026-01-01T00:00:00.000Z",
+  },
+  company: {
+    id: "company-1",
+    name: "Test Co",
+    slug: "test-co",
+    is_platform: false,
+    created_at: "2026-01-01T00:00:00.000Z",
+  },
+  customerId: "customer-1",
+};
+
+const canonicalLoadedMessages: CompanionChatMessage[] = [
+  {
+    id: "a1",
+    role: "aipify",
+    content: "Confirm booking?",
+    timestamp: 1,
+    pendingBookingWrite: { actionRequestId: VALID_ACTION_REQUEST_ID },
+  },
+];
+
+const producerAnswer: PlatformKnowledgeAnswer = {
+  directAnswer: "Resume producer answer",
+  steps: [],
+  actions: [],
+  sources: [{ id: "booking-resume", label: "Booking", kind: "customer_context" }],
+  sourceId: "booking-resume",
+  source: "customer_context",
+  confidence: "high",
+};
+
+function installServerOnlyShim(): void {
+  const moduleApi = require("node:module") as {
+    Module: {
+      _load: (request: string, parent: unknown, isMain: boolean) => unknown;
+    };
+  };
+  const originalLoad = moduleApi.Module._load;
+  moduleApi.Module._load = function (request, parent, isMain) {
+    if (request === "server-only") {
+      return {};
+    }
+    return originalLoad.call(this, request, parent, isMain);
+  };
+}
+
+type ExecuteCompanionTurnFn = typeof import("./execute-turn").executeCompanionTurn;
+let executeCompanionTurnRef: ExecuteCompanionTurnFn | null = null;
+
+async function getExecuteCompanionTurn(): Promise<ExecuteCompanionTurnFn> {
+  if (!executeCompanionTurnRef) {
+    installServerOnlyShim();
+    const mod = await import("./execute-turn");
+    executeCompanionTurnRef = mod.executeCompanionTurn;
+  }
+  return executeCompanionTurnRef;
+}
+
+async function runExecuteTurnWithResumeDeps(
+  input: {
+    query: string;
+    conversationId?: string;
+    turnRoute?: import("@/lib/companion-runtime/companion-turn-route").CompanionTurnRoute;
+    abortSignal?: AbortSignal;
+    deps?: ExecuteCompanionTurnDeps;
+  },
+) {
+  let detectCalls = 0;
+  let loadCalls = 0;
+  let produceCalls = 0;
+  let loadClient: SupabaseClient | null = null;
+  let loadConversationId: string | null = null;
+  let produceInput: {
+    supabase?: SupabaseClient;
+    query: string;
+    messages: readonly CompanionChatMessage[];
+    t?: import("@/lib/i18n/translate").Translator;
+  } | null = null;
+
+  const deps: ExecuteCompanionTurnDeps = {
+    detect_booking_resume_intent: (query) => {
+      detectCalls += 1;
+      return input.deps?.detect_booking_resume_intent
+        ? input.deps.detect_booking_resume_intent(query)
+        : query === "ja" || query === "yes confirm" || query === "bekreft";
+    },
+    load_companion_conversation_messages: input.deps?.load_companion_conversation_messages
+      ? async (client, conversationId) => {
+          loadCalls += 1;
+          loadClient = client;
+          loadConversationId = conversationId;
+          return input.deps!.load_companion_conversation_messages!(client, conversationId);
+        }
+      : async (client, conversationId) => {
+          loadCalls += 1;
+          loadClient = client;
+          loadConversationId = conversationId;
+          return { status: "loaded" as const, messages: canonicalLoadedMessages };
+        },
+    produce_booking_resume_turn: input.deps?.produce_booking_resume_turn
+      ? async (turnInput) => {
+          produceCalls += 1;
+          produceInput = turnInput;
+          return input.deps!.produce_booking_resume_turn!(turnInput);
+        }
+      : async (turnInput) => {
+          produceCalls += 1;
+          produceInput = turnInput;
+          return { handled: false as const };
+        },
+  };
+
+  const executeCompanionTurn = await getExecuteCompanionTurn();
+  const turn = await executeCompanionTurn(
+    supabaseStub,
+    {
+      query: input.query,
+      locale: "en",
+      conversationId: input.conversationId ?? RESUME_CONVERSATION_ID,
+      workerProfile: workerProfileStub,
+      turnRoute: input.turnRoute ?? "lightweight",
+      abortSignal: input.abortSignal,
+    },
+    deps,
+  );
+
+  return {
+    turn,
+    detectCalls,
+    loadCalls,
+    produceCalls,
+    loadClient,
+    loadConversationId,
+    produceInput,
+  };
+}
+
+async function testExecuteTurnResumeWiring() {
+  {
+    const { turn, detectCalls, loadCalls, produceCalls } = await runExecuteTurnWithResumeDeps(
+      {
+        query: "What is my schedule tomorrow?",
+        deps: {
+          detect_booking_resume_intent: () => false,
+        },
+      },
+    );
+    assert.equal(detectCalls, 1);
+    assert.equal(loadCalls, 0);
+    assert.equal(produceCalls, 0);
+    assert.equal(turn.ok, true);
+  }
+
+  {
+    const { loadCalls, produceCalls, turn } = await runExecuteTurnWithResumeDeps(
+      {
+        query: "ja",
+        conversationId: "   ",
+        deps: {
+          detect_booking_resume_intent: () => true,
+        },
+      },
+    );
+    assert.equal(loadCalls, 0);
+    assert.equal(produceCalls, 0);
+    assert.equal(turn.ok, true);
+  }
+
+  {
+    const { loadCalls, produceCalls, turn } = await runExecuteTurnWithResumeDeps(
+      {
+        query: "ja",
+        deps: {
+          detect_booking_resume_intent: () => true,
+          load_companion_conversation_messages: async () => ({ status: "failed", messages: [] }),
+        },
+      },
+    );
+    assert.equal(loadCalls, 1);
+    assert.equal(produceCalls, 0);
+    assert.equal(turn.ok, true);
+  }
+
+  {
+    const { produceCalls, turn } = await runExecuteTurnWithResumeDeps({
+      query: "ja",
+      deps: {
+        detect_booking_resume_intent: () => true,
+        produce_booking_resume_turn: async () => ({ handled: false }),
+      },
+    });
+    assert.equal(produceCalls, 1);
+    assert.equal(turn.ok, true);
+    if (turn.ok) {
+      assert.notEqual(turn.searchJson.answer, producerAnswer);
+    }
+  }
+
+  {
+    const { turn, loadClient, loadConversationId, produceInput, loadCalls, produceCalls, detectCalls } =
+      await runExecuteTurnWithResumeDeps({
+        query: "yes confirm",
+        deps: {
+          detect_booking_resume_intent: () => true,
+          produce_booking_resume_turn: async (turnInput) => ({
+            handled: true,
+            answer: producerAnswer,
+          }),
+        },
+      });
+    assert.equal(detectCalls, 1);
+    assert.equal(loadCalls, 1);
+    assert.equal(produceCalls, 1);
+    assert.equal(loadClient, supabaseStub);
+    assert.equal(loadConversationId, RESUME_CONVERSATION_ID);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    assert.deepEqual(turn.searchJson.answer, producerAnswer);
+    assert.equal(produceInput?.query, "yes confirm");
+    assert.deepEqual(produceInput?.messages, canonicalLoadedMessages);
+    assert.equal(typeof produceInput?.t, "function");
+    assert.equal(produceInput?.supabase, supabaseStub);
+  }
+
+  {
+    let loadCalls = 0;
+    const { turn } = await runExecuteTurnWithResumeDeps({
+      query: "ja",
+      deps: {
+        detect_booking_resume_intent: () => true,
+        load_companion_conversation_messages: async () => {
+          loadCalls += 1;
+          throw new Error("loader exploded");
+        },
+      },
+    });
+    assert.equal(loadCalls, 1);
+    assert.equal(turn.ok, true);
+    assert.equal(JSON.stringify(turn).includes("loader exploded"), false);
+  }
+
+  {
+    let produceCalls = 0;
+    const { turn } = await runExecuteTurnWithResumeDeps({
+      query: "ja",
+      deps: {
+        detect_booking_resume_intent: () => true,
+        produce_booking_resume_turn: async () => {
+          produceCalls += 1;
+          throw new Error("producer exploded");
+        },
+      },
+    });
+    assert.equal(produceCalls, 1);
+    assert.equal(turn.ok, true);
+    assert.equal(JSON.stringify(turn).includes("producer exploded"), false);
+  }
+
+  {
+    let loadCalls = 0;
+    const { loadCalls: firstLoadCalls } = await runExecuteTurnWithResumeDeps({
+      query: "What is billing?",
+      deps: {
+        detect_booking_resume_intent: () => false,
+        load_companion_conversation_messages: async () => {
+          loadCalls += 1;
+          return { status: "loaded", messages: canonicalLoadedMessages };
+        },
+      },
+    });
+    assert.equal(firstLoadCalls, 0);
+    assert.equal(loadCalls, 0);
+  }
+
+  {
+    const abortController = new AbortController();
+    abortController.abort();
+    await assert.rejects(
+      () =>
+        runExecuteTurnWithResumeDeps({
+          query: "ja",
+          abortSignal: abortController.signal,
+          deps: {
+            detect_booking_resume_intent: () => true,
+          },
+        }),
+      (error: unknown) =>
+        error instanceof DOMException &&
+        error.name === "AbortError" &&
+        error.message === "companion_turn_aborted",
+    );
+  }
+
+  {
+    const abortController = new AbortController();
+    await assert.rejects(
+      () =>
+        runExecuteTurnWithResumeDeps({
+          query: "ja",
+          abortSignal: abortController.signal,
+          deps: {
+            detect_booking_resume_intent: () => true,
+            load_companion_conversation_messages: async () => {
+              abortController.abort();
+              throw new Error("loader interrupted");
+            },
+          },
+        }),
+      (error: unknown) =>
+        error instanceof DOMException &&
+        error.name === "AbortError" &&
+        error.message === "companion_turn_aborted",
+    );
+  }
+
+  {
+    const abortController = new AbortController();
+    await assert.rejects(
+      () =>
+        runExecuteTurnWithResumeDeps({
+          query: "ja",
+          abortSignal: abortController.signal,
+          deps: {
+            detect_booking_resume_intent: () => true,
+            produce_booking_resume_turn: async () => {
+              abortController.abort();
+              throw new Error("producer interrupted");
+            },
+          },
+        }),
+      (error: unknown) =>
+        error instanceof DOMException &&
+        error.name === "AbortError" &&
+        error.message === "companion_turn_aborted",
+    );
+  }
+}
+
+async function testExecuteTurnRealProducerCallGraph() {
+  const { detectBookingResumeContinuationIntent } = await import(
+    "@/lib/companion-runtime/booking-resume-intent"
+  );
+  const { produceBookingResumeTurn } = await import(
+    "@/lib/companion-runtime/booking-resume-turn-producer"
+  );
+  const executeCompanionTurn = await getExecuteCompanionTurn();
+
+  let outerDetectCalls = 0;
+  let innerDetectCalls = 0;
+  let loadCalls = 0;
+  let produceEntryCalls = 0;
+  let resumeExecutionCalls = 0;
+  let capturedT: import("@/lib/i18n/translate").Translator | null = null;
+
+  const turn = await executeCompanionTurn(
+    supabaseStub,
+    {
+      query: "yes confirm",
+      locale: "en",
+      conversationId: RESUME_CONVERSATION_ID,
+      workerProfile: workerProfileStub,
+      turnRoute: "lightweight",
+    },
+    {
+      detect_booking_resume_intent: (query) => {
+        outerDetectCalls += 1;
+        return detectBookingResumeContinuationIntent(query);
+      },
+      load_companion_conversation_messages: async (client, conversationId) => {
+        loadCalls += 1;
+        assert.equal(client, supabaseStub);
+        assert.equal(conversationId, RESUME_CONVERSATION_ID);
+        return { status: "loaded", messages: canonicalLoadedMessages };
+      },
+      produce_booking_resume_turn: async (turnInput) => {
+        produceEntryCalls += 1;
+        capturedT = turnInput.t;
+        return produceBookingResumeTurn(turnInput, {
+          detect_resume_intent: (query) => {
+            innerDetectCalls += 1;
+            return detectBookingResumeContinuationIntent(query);
+          },
+          resume_execution: async (actionRequestId) => {
+            resumeExecutionCalls += 1;
+            assert.equal(actionRequestId, VALID_ACTION_REQUEST_ID);
+            return {
+              outcome: "approval_required",
+              proposal: null,
+              booking: null,
+              outcome_key: null,
+              audit_id: null,
+              limitations: [],
+              action_request_id: actionRequestId,
+              payload_hash: null,
+              idempotency_key: null,
+              expires_at: null,
+              idempotent_replay: false,
+              outcome_code: null,
+              appointment_id: null,
+              appointment_key: null,
+              previous_status: null,
+              current_status: null,
+              execution_starts_at: null,
+              execution_ends_at: null,
+              write_audit_id: null,
+              channel_key: null,
+            };
+          },
+        });
+      },
+    },
+  );
+
+  assert.equal(outerDetectCalls, 1);
+  assert.equal(innerDetectCalls, 1);
+  assert.equal(loadCalls, 1);
+  assert.equal(produceEntryCalls, 1);
+  assert.equal(resumeExecutionCalls, 1);
+  assert.equal(turn.ok, true);
+  if (!turn.ok) return;
+
+  const answer = turn.searchJson.answer as PlatformKnowledgeAnswer;
+  assert.equal(answer.sourceId, "booking-resume");
+  assert.deepEqual(answer.pendingBookingWrite, {
+    actionRequestId: VALID_ACTION_REQUEST_ID,
+  });
+  assert.equal(typeof capturedT, "function");
+  assert.equal(typeof turn.searchJson.answer, "object");
+  assert.notEqual(answer.directAnswer, producerAnswer.directAnswer);
+}
+
 testIdempotencyKeyStable();
 testDeserializeAssistantRoundTrip();
 testMapServerMessagesOrder();
@@ -266,4 +710,8 @@ testPendingBookingWriteHandoffContract();
 testPendingBookingWriteInvalidInputs();
 testPlatformAnswerPendingBookingWriteSearchToChatContract();
 
-console.log("chat-queue.test.ts: all assertions passed");
+void testExecuteTurnResumeWiring()
+  .then(() => testExecuteTurnRealProducerCallGraph())
+  .then(() => {
+    console.log("chat-queue.test.ts: all assertions passed");
+  });
