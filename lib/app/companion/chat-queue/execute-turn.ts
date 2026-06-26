@@ -24,7 +24,7 @@ import {
 import { logCompanionWorkerStepTimings } from "./worker-step-timing";
 import { classifyCompanionTurnRoute } from "@/lib/companion-runtime/companion-turn-route";
 import { buildLightweightConversationalAnswer } from "@/lib/companion-runtime/lightweight-conversational-answer";
-import { coerceToCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import { coerceToCustomerActiveLocale, type CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import type { Locale } from "@/lib/i18n/config";
 import type { CustomerAppSplitName } from "@/lib/i18n/customer-app-split-config";
 import { detectBookingResumeContinuationIntent } from "@/lib/companion-runtime/booking-resume-intent";
@@ -36,6 +36,10 @@ import {
   produceBookingResumeTurn,
   type ProduceBookingResumeTurnResult,
 } from "@/lib/companion-runtime/booking-resume-turn-producer";
+import {
+  produceBookingProposalTurn,
+  type ProduceBookingProposalTurnResult,
+} from "@/lib/companion-runtime/booking-proposal-turn-producer";
 import { throwIfCompanionTurnAborted } from "./companion-turn-abort";
 import type { Translator } from "@/lib/i18n/translate";
 
@@ -104,6 +108,9 @@ export type ExecuteCompanionTurnDeps = {
   produce_booking_resume_turn?: (
     turnInput: Parameters<typeof produceBookingResumeTurn>[0],
   ) => Promise<ProduceBookingResumeTurnResult>;
+  produce_booking_proposal_turn?: (
+    turnInput: Parameters<typeof produceBookingProposalTurn>[0],
+  ) => Promise<ProduceBookingProposalTurnResult>;
 };
 
 async function tryLazyBookingResumeTurn(input: {
@@ -174,6 +181,61 @@ async function tryLazyBookingResumeTurn(input: {
   }
 }
 
+async function tryLazyBookingProposalTurn(input: {
+  supabase: SupabaseClient;
+  query: string;
+  locale: CustomerActiveLocale;
+  userRole: UserRole;
+  abortSignal?: AbortSignal;
+  t: Translator;
+  labels: ReturnType<typeof buildSupportAssistantLabels>;
+  companionLabels: CompanionExperienceLabels;
+  deps?: ExecuteCompanionTurnDeps;
+}): Promise<ExecuteCompanionTurnResult | null> {
+  if (!input.query.trim()) {
+    return null;
+  }
+
+  try {
+    const produceProposal =
+      input.deps?.produce_booking_proposal_turn ?? produceBookingProposalTurn;
+    const producerResult = await produceProposal({
+      supabase: input.supabase,
+      query: input.query,
+      locale: input.locale,
+      t: input.t,
+      userRole: input.userRole,
+    });
+    throwIfCompanionTurnAborted(input.abortSignal);
+
+    if (!producerResult.handled) {
+      return null;
+    }
+
+    const answer = producerResult.answer;
+    const legacyArticle = answerToLegacyArticle(answer);
+    return {
+      ok: true,
+      searchJson: {
+        found: true,
+        query: input.query,
+        answer,
+        articles: [legacyArticle],
+        matched_article_id: null,
+        principle: input.labels.principle,
+        source: answer.source,
+        confidence: answer.confidence,
+        answer_locale: input.locale,
+      },
+      labels: input.companionLabels,
+      question: input.query,
+    };
+  } catch {
+    throwIfCompanionTurnAborted(input.abortSignal);
+    return null;
+  }
+}
+
 export async function executeCompanionTurn(
   supabase: SupabaseClient,
   input: ExecuteCompanionTurnInput,
@@ -231,6 +293,21 @@ export async function executeCompanionTurn(
   });
   if (resumeTurn) {
     return resumeTurn;
+  }
+
+  const proposalTurn = await tryLazyBookingProposalTurn({
+    supabase,
+    query,
+    locale: answerLocaleActive,
+    userRole,
+    abortSignal: input.abortSignal,
+    t,
+    labels,
+    companionLabels,
+    deps,
+  });
+  if (proposalTurn) {
+    return proposalTurn;
   }
 
   if (turnRoute === "lightweight" && !hasAttachments && !input.activeArtifactId && query) {

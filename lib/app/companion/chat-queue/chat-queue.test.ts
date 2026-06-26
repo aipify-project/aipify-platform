@@ -302,6 +302,27 @@ const producerAnswer: PlatformKnowledgeAnswer = {
   confidence: "high",
 };
 
+const proposalClarificationAnswer: PlatformKnowledgeAnswer = {
+  directAnswer: "Aipify needs more detail before preparing a booking action.",
+  steps: [],
+  actions: [],
+  sources: [{ id: "booking-proposal", label: "Services & appointment booking", kind: "customer_context" }],
+  sourceId: "booking-proposal",
+  source: "customer_context",
+  confidence: "high",
+};
+
+const proposalApprovalAnswer: PlatformKnowledgeAnswer = {
+  directAnswer: "Approval is required before booking can proceed.",
+  steps: [],
+  actions: [],
+  sources: [{ id: "booking-proposal", label: "Services & appointment booking", kind: "customer_context" }],
+  sourceId: "booking-proposal",
+  source: "customer_context",
+  confidence: "high",
+  pendingBookingWrite: { actionRequestId: VALID_ACTION_REQUEST_ID },
+};
+
 function installServerOnlyShim(): void {
   const moduleApi = require("node:module") as {
     Module: {
@@ -341,6 +362,7 @@ async function runExecuteTurnWithResumeDeps(
   let detectCalls = 0;
   let loadCalls = 0;
   let produceCalls = 0;
+  let proposalCalls = 0;
   let loadClient: SupabaseClient | null = null;
   let loadConversationId: string | null = null;
   let produceInput: {
@@ -348,6 +370,13 @@ async function runExecuteTurnWithResumeDeps(
     query: string;
     messages: readonly CompanionChatMessage[];
     t?: import("@/lib/i18n/translate").Translator;
+  } | null = null;
+  let proposalInput: {
+    supabase: SupabaseClient;
+    query: string;
+    locale: import("@/lib/i18n/customer-active-locale-registry").CustomerActiveLocale;
+    userRole: string;
+    t: import("@/lib/i18n/translate").Translator;
   } | null = null;
 
   const deps: ExecuteCompanionTurnDeps = {
@@ -381,6 +410,17 @@ async function runExecuteTurnWithResumeDeps(
           produceInput = turnInput;
           return { handled: false as const };
         },
+    produce_booking_proposal_turn: input.deps?.produce_booking_proposal_turn
+      ? async (turnInput) => {
+          proposalCalls += 1;
+          proposalInput = turnInput;
+          return input.deps!.produce_booking_proposal_turn!(turnInput);
+        }
+      : async (turnInput) => {
+          proposalCalls += 1;
+          proposalInput = turnInput;
+          return { handled: false as const };
+        },
   };
 
   const executeCompanionTurn = await getExecuteCompanionTurn();
@@ -402,9 +442,11 @@ async function runExecuteTurnWithResumeDeps(
     detectCalls,
     loadCalls,
     produceCalls,
+    proposalCalls,
     loadClient,
     loadConversationId,
     produceInput,
+    proposalInput,
   };
 }
 
@@ -709,6 +751,109 @@ async function testExecuteTurnRealProducerCallGraph() {
   assert.notEqual(answer.directAnswer, producerAnswer.directAnswer);
 }
 
+async function testExecuteTurnProposalWiring() {
+  const c3xQuery =
+    "Bestill en avtale for testkunde P112-C3X-E2E-R2 mandag neste uke kl. 10:00. Dette er en kontrollert production E2E. Opprett kun én booking.";
+
+  {
+    const { turn, detectCalls, produceCalls, proposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: c3xQuery,
+      deps: {
+        detect_booking_resume_intent: () => false,
+        produce_booking_proposal_turn: async () => ({
+          handled: true,
+          answer: proposalClarificationAnswer,
+        }),
+      },
+    });
+    assert.equal(detectCalls, 1);
+    assert.equal(produceCalls, 0);
+    assert.equal(proposalCalls, 1);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    const answer = turn.searchJson.answer as PlatformKnowledgeAnswer;
+    assert.equal(answer.sourceId, "booking-proposal");
+    assert.equal(answer.directAnswer, proposalClarificationAnswer.directAnswer);
+    assert.equal(answer.pendingBookingWrite, undefined);
+    assert.notEqual(answer.sourceId, "companion-lightweight-conversational");
+  }
+
+  {
+    const { turn, proposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: "Hva tenker du om kaffe?",
+      deps: {
+        detect_booking_resume_intent: () => false,
+        produce_booking_proposal_turn: async () => ({ handled: false }),
+      },
+    });
+    assert.equal(proposalCalls, 1);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    const answer = turn.searchJson.answer as PlatformKnowledgeAnswer;
+    assert.equal(answer.sourceId, "companion-lightweight-conversational");
+  }
+
+  {
+    const { turn, produceCalls, proposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: "yes confirm",
+      deps: {
+        detect_booking_resume_intent: () => true,
+        produce_booking_resume_turn: async () => ({
+          handled: true,
+          answer: producerAnswer,
+        }),
+      },
+    });
+    assert.equal(produceCalls, 1);
+    assert.equal(proposalCalls, 0);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    assert.equal((turn.searchJson.answer as PlatformKnowledgeAnswer).sourceId, "booking-resume");
+  }
+
+  {
+    const { turn, proposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: "Bestill en time for testkunde P112 ja bekreft",
+      deps: {
+        detect_booking_resume_intent: () => false,
+        produce_booking_proposal_turn: async () => ({
+          handled: true,
+          answer: proposalApprovalAnswer,
+        }),
+      },
+    });
+    assert.equal(proposalCalls, 1);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    const answer = turn.searchJson.answer as PlatformKnowledgeAnswer;
+    assert.equal(answer.sourceId, "booking-proposal");
+    assert.deepEqual(answer.pendingBookingWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+  }
+
+  {
+    const { turn, proposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: c3xQuery,
+      deps: {
+        detect_booking_resume_intent: () => false,
+        produce_booking_proposal_turn: async () => ({
+          handled: true,
+          answer: {
+            ...proposalClarificationAnswer,
+            directAnswer: "The booking could not be prepared.",
+            pendingBookingWrite: undefined,
+          },
+        }),
+      },
+    });
+    assert.equal(proposalCalls, 1);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    const answer = turn.searchJson.answer as PlatformKnowledgeAnswer;
+    assert.equal(answer.pendingBookingWrite, undefined);
+    assert.notEqual(answer.sourceId, "companion-lightweight-conversational");
+  }
+}
+
 testIdempotencyKeyStable();
 testDeserializeAssistantRoundTrip();
 testMapServerMessagesOrder();
@@ -720,6 +865,7 @@ testPlatformAnswerPendingBookingWriteSearchToChatContract();
 
 void testExecuteTurnResumeWiring()
   .then(() => testExecuteTurnRealProducerCallGraph())
+  .then(() => testExecuteTurnProposalWiring())
   .then(() => {
     console.log("chat-queue.test.ts: all assertions passed");
   });
