@@ -13,6 +13,7 @@ import {
   recordBookingApprovalActionRequest,
   resolveBookingApprovalExpiresAt,
 } from "@/lib/companion-runtime/booking-approval-bridge";
+import { resolveBookingApprovalRequest } from "@/lib/companion-runtime/booking-approval-request-resolver";
 import { executeBookingWrite } from "@/lib/companion-runtime/booking-write-orchestrator";
 import {
   bookingWriteProposalRequiresApproval,
@@ -580,6 +581,129 @@ async function runPhase36bAsyncTests() {
   );
 
   assert.equal(rpcCallCount, 1);
+
+  const resolverRequest = {
+    ...bookingApprovalRequestBase,
+    idempotency_key: "idem-resolver-36b",
+  };
+  const resolverExpectedHash = computeBookingApprovalPayloadHash(
+    buildBookingApprovalCanonicalPayload(resolverRequest),
+  );
+  const resolverInput = {
+    action_request_id: "req-resolver-001",
+    request: resolverRequest,
+  };
+
+  function buildResolverRpcRow(overrides: Record<string, unknown> = {}) {
+    return {
+      success: true,
+      outcome_code: "BOOKING_ACTION_REQUEST_FOUND",
+      action_request_id: resolverInput.action_request_id,
+      action_key: "booking.create",
+      approval_status: "approved",
+      lifecycle_status: "approved",
+      execution_status: "none",
+      payload_hash: resolverExpectedHash,
+      idempotency_key: resolverRequest.idempotency_key,
+      capability_key: "booking.create",
+      provider_key: "appointment_booking",
+      requested_action: "create",
+      expired: false,
+      consumed: false,
+      ...overrides,
+    };
+  }
+
+  const mockResolverSupabase = {} as import("@supabase/supabase-js").SupabaseClient;
+  let resolverRpcCallCount = 0;
+
+  const approvedMatch = await resolveBookingApprovalRequest(mockResolverSupabase, resolverInput, {
+    rpcReader: async (actionRequestId) => {
+      resolverRpcCallCount += 1;
+      assert.equal(actionRequestId, resolverInput.action_request_id);
+      return { data: buildResolverRpcRow(), error: null };
+    },
+  });
+  assert.equal(approvedMatch.outcome, "approved");
+  if (approvedMatch.outcome === "approved") {
+    assert.equal(approvedMatch.action_request_id, resolverInput.action_request_id);
+    assert.equal(approvedMatch.payload_hash, resolverExpectedHash);
+    assert.equal(approvedMatch.idempotency_key, resolverRequest.idempotency_key);
+  }
+
+  for (const [overrides, expectedOutcome] of [
+    [{ approval_status: "pending", lifecycle_status: "awaiting_approval" }, "approval_pending"],
+    [
+      {
+        approval_status: "rejected",
+        lifecycle_status: "rejected",
+        execution_status: "cancelled",
+      },
+      "approval_rejected",
+    ],
+    [{ approval_status: "changes_requested", lifecycle_status: "proposed" }, "approval_changes_requested"],
+    [{ approval_status: "pending", expired: true }, "approval_expired"],
+    [
+      {
+        approval_status: "approved",
+        lifecycle_status: "completed",
+        execution_status: "completed",
+        consumed: true,
+      },
+      "already_consumed",
+    ],
+  ] as const) {
+    const result = await resolveBookingApprovalRequest(mockResolverSupabase, resolverInput, {
+      rpcReader: async () => ({ data: buildResolverRpcRow(overrides), error: null }),
+    });
+    assert.equal(result.outcome, expectedOutcome);
+  }
+
+  for (const [overrides, label] of [
+    [{ payload_hash: "0".repeat(64) }, "hash mismatch"],
+    [{ idempotency_key: "other-idempotency-key" }, "idempotency mismatch"],
+    [
+      {
+        action_key: "booking.update",
+        capability_key: "booking.update",
+        requested_action: "update",
+        provider_key: "other_provider",
+      },
+      "capability/provider mismatch",
+    ],
+  ] as const) {
+    const result = await resolveBookingApprovalRequest(mockResolverSupabase, resolverInput, {
+      rpcReader: async () => ({ data: buildResolverRpcRow(overrides), error: null }),
+    });
+    assert.equal(result.outcome, "verification_failed", label);
+  }
+
+  const notFoundResult = await resolveBookingApprovalRequest(mockResolverSupabase, resolverInput, {
+    rpcReader: async () => ({
+      data: { success: false, outcome_code: "NOT_FOUND" },
+      error: null,
+    }),
+  });
+  assert.equal(notFoundResult.outcome, "not_found");
+
+  const rpcErrorResult = await resolveBookingApprovalRequest(mockResolverSupabase, resolverInput, {
+    rpcReader: async () => ({
+      data: null,
+      error: { message: "Permission denied: appointments.manage" },
+    }),
+  });
+  assert.equal(rpcErrorResult.outcome, "not_found");
+  assert.equal(JSON.stringify(rpcErrorResult).includes("Permission denied"), false);
+
+  const malformedRpcResult = await resolveBookingApprovalRequest(mockResolverSupabase, resolverInput, {
+    rpcReader: async () => ({
+      data: { success: true, outcome_code: "BOOKING_ACTION_REQUEST_FOUND" },
+      error: null,
+    }),
+  });
+  assert.equal(malformedRpcResult.outcome, "verification_failed");
+
+  assert.equal(resolverRpcCallCount, 1);
 
   console.log("phase36b.test.ts: all assertions passed");
 }
