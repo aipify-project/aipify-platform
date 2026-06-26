@@ -27,6 +27,7 @@ import { APPOINTMENT_BOOKING_SOURCE_MAP } from "@/lib/integration-intelligence/p
 import {
   BOOKING_WRITE_RPC,
   executeCompanionBookingWrite,
+  type BookingWriteAdapterResult,
 } from "@/lib/integration-intelligence/providers/appointment-booking/booking-write-adapter";
 
 const repoRoot = path.join(import.meta.dirname, "..", "..");
@@ -443,6 +444,63 @@ async function runPhase36bAsyncTests() {
     return { executed: true, failure_reason: null };
   };
 
+  let orchestratorAdapterCallCount = 0;
+  let orchestratorAdapterRequestId: string | null = null;
+
+  const orchestratorAdapterMustNotRun = async (actionRequestId: string) => {
+    orchestratorAdapterCallCount += 1;
+    orchestratorAdapterRequestId = actionRequestId;
+    throw new Error("execute_booking_write must not run");
+  };
+
+  const orchestratorWireAppointmentId = "cccccccc-dddd-eeee-ffff-000000000001";
+  const orchestratorWireAppointmentKey = "apt_orchestrator_wire_001";
+  const orchestratorWireAuditId = "dddddddd-eeee-ffff-0000-111111111111";
+  const orchestratorWireStartsAt = "2026-06-24T09:00:00.000Z";
+  const orchestratorWireEndsAt = "2026-06-24T10:30:00.000Z";
+
+  function buildOrchestratorAdapterResult(
+    overrides: Partial<BookingWriteAdapterResult> = {},
+  ): BookingWriteAdapterResult {
+    return {
+      executed: true,
+      outcome_code: "BOOKING_CREATED",
+      appointment_id: orchestratorWireAppointmentId,
+      appointment_key: orchestratorWireAppointmentKey,
+      previous_status: null,
+      current_status: "confirmed",
+      starts_at: orchestratorWireStartsAt,
+      ends_at: orchestratorWireEndsAt,
+      audit_id: orchestratorWireAuditId,
+      idempotent_replay: false,
+      channel_key: "companion",
+      ...overrides,
+    };
+  }
+
+  const orchestratorWireRequest = {
+    capability_key: "booking.create" as const,
+    ...writeRequestBase,
+    idempotency_key: "idem-orchestrator-wire",
+    action_request_id: "req-orchestrator-wire",
+    confirmed: true,
+  };
+  const orchestratorWireHash = computeBookingApprovalPayloadHash(
+    buildBookingApprovalCanonicalPayload(orchestratorWireRequest),
+  );
+  const orchestratorApprovedResolution = {
+    outcome: "approved" as const,
+    action_request_id: "req-orchestrator-wire",
+    payload_hash: orchestratorWireHash,
+    idempotency_key: "idem-orchestrator-wire",
+  };
+
+  const resolveOrchestratorWireApproved = async (actionRequestId: string) => {
+    approvalResolverCallCount.value += 1;
+    assert.equal(actionRequestId, "req-orchestrator-wire");
+    return orchestratorApprovedResolution;
+  };
+
   const pendingExistingId = await executeBookingWrite({
     organization_id: ORG_A,
     tenant_id: "tenant-a",
@@ -460,6 +518,7 @@ async function runPhase36bAsyncTests() {
       return { outcome: "approval_pending" };
     },
     execute_write: resolverWriteGate,
+    execute_booking_write: orchestratorAdapterMustNotRun,
     request: resolverOrchestratorRequest,
   });
   assert.equal(pendingExistingId.outcome, "approval_required");
@@ -473,7 +532,7 @@ async function runPhase36bAsyncTests() {
     user_role: "admin",
     permission: permissionCtx,
     provider_key: "appointment_booking",
-    provider_write: providerWriteWithApproval,
+    provider_write: providerWriteMissing,
     record_approval_request: async () => {
       approvalBridgeCallCount.value += 1;
       throw new Error("bridge must not run when action_request_id is set");
@@ -488,6 +547,7 @@ async function runPhase36bAsyncTests() {
       };
     },
     execute_write: resolverWriteGate,
+    execute_booking_write: orchestratorAdapterMustNotRun,
     request: resolverOrchestratorRequest,
   });
   assert.equal(approvedExistingId.outcome, "execution_source_missing");
@@ -498,6 +558,7 @@ async function runPhase36bAsyncTests() {
     approvedExistingId.limitations.some((entry) => entry.includes("writeExecutionSourceMissing")),
   );
   assert.equal(approvalBridgeCallCount.value, bridgeCountBeforeResolverCases);
+  assert.equal(orchestratorAdapterCallCount, 0);
 
   for (const [resolverOutcome, label] of [
     ["approval_rejected", "rejected"],
@@ -520,6 +581,7 @@ async function runPhase36bAsyncTests() {
         return { outcome: resolverOutcome };
       },
       execute_write: resolverWriteGate,
+      execute_booking_write: orchestratorAdapterMustNotRun,
       request: resolverOrchestratorRequest,
     });
     assert.equal(result.outcome, "failed", label);
@@ -543,6 +605,7 @@ async function runPhase36bAsyncTests() {
         return { outcome: resolverOutcome };
       },
       execute_write: resolverWriteGate,
+      execute_booking_write: orchestratorAdapterMustNotRun,
       request: resolverOrchestratorRequest,
     });
     assert.equal(result.outcome, "failed", label);
@@ -560,11 +623,13 @@ async function runPhase36bAsyncTests() {
       return { outcome: "verification_failed" };
     },
     execute_write: resolverWriteGate,
+    execute_booking_write: orchestratorAdapterMustNotRun,
     request: resolverOrchestratorRequest,
   });
   assert.equal(mismatchApproved.outcome, "failed");
 
   const resolverCountBeforeUnconfirmed = approvalResolverCallCount.value;
+  const adapterCountBeforeUnconfirmed = orchestratorAdapterCallCount;
 
   const unconfirmedWithExistingId = await executeBookingWrite({
     organization_id: ORG_A,
@@ -582,6 +647,7 @@ async function runPhase36bAsyncTests() {
       throw new Error("resolver must not run for unconfirmed request");
     },
     execute_write: resolverWriteGate,
+    execute_booking_write: orchestratorAdapterMustNotRun,
     request: {
       ...resolverOrchestratorRequest,
       confirmed: false,
@@ -590,7 +656,130 @@ async function runPhase36bAsyncTests() {
   assert.equal(unconfirmedWithExistingId.outcome, "confirmation_required");
   assert.equal(approvalBridgeCallCount.value, bridgeCountBeforeResolverCases);
   assert.equal(approvalResolverCallCount.value, resolverCountBeforeUnconfirmed);
+  assert.equal(orchestratorAdapterCallCount, adapterCountBeforeUnconfirmed);
   assert.equal(executeWriteCallCount, 0);
+
+  const adapterCountBeforeWireCases = orchestratorAdapterCallCount;
+
+  async function runOrchestratorWireCase(
+    overrides: {
+      provider_write?: typeof providerWriteWithApproval;
+      resolve_approval_request?: typeof resolveOrchestratorWireApproved;
+      execute_booking_write?: (actionRequestId: string) => Promise<BookingWriteAdapterResult>;
+      request?: typeof orchestratorWireRequest;
+    } = {},
+  ) {
+    return executeBookingWrite({
+      organization_id: ORG_A,
+      tenant_id: "tenant-a",
+      user_role: "admin",
+      permission: permissionCtx,
+      provider_key: "appointment_booking",
+      provider_write: overrides.provider_write ?? providerWriteWithApproval,
+      resolve_approval_request: overrides.resolve_approval_request ?? resolveOrchestratorWireApproved,
+      execute_booking_write: overrides.execute_booking_write ?? orchestratorAdapterMustNotRun,
+      request: overrides.request ?? orchestratorWireRequest,
+    });
+  }
+
+  const approvedSourceDisabled = await runOrchestratorWireCase({
+    provider_write: providerWriteMissing,
+  });
+  assert.equal(approvedSourceDisabled.outcome, "execution_source_missing");
+  assert.equal(orchestratorAdapterCallCount, adapterCountBeforeWireCases);
+
+  orchestratorAdapterCallCount = 0;
+  orchestratorAdapterRequestId = null;
+
+  const approvedSourceEnabled = await runOrchestratorWireCase({
+    execute_booking_write: async (actionRequestId) => {
+      orchestratorAdapterCallCount += 1;
+      orchestratorAdapterRequestId = actionRequestId;
+      return buildOrchestratorAdapterResult();
+    },
+  });
+  assert.equal(approvedSourceEnabled.outcome, "executed");
+  assert.equal(orchestratorAdapterCallCount, 1);
+  assert.equal(orchestratorAdapterRequestId, "req-orchestrator-wire");
+  assert.equal(approvedSourceEnabled.outcome_code, "BOOKING_CREATED");
+  assert.equal(approvedSourceEnabled.appointment_id, orchestratorWireAppointmentId);
+  assert.equal(approvedSourceEnabled.appointment_key, orchestratorWireAppointmentKey);
+  assert.equal(approvedSourceEnabled.write_audit_id, orchestratorWireAuditId);
+  assert.equal(approvedSourceEnabled.channel_key, "companion");
+
+  for (const [outcomeCode, previousStatus, currentStatus, startsAt, endsAt] of [
+    ["BOOKING_UPDATED", "confirmed", "confirmed", "2026-06-25T09:00:00.000Z", "2026-06-25T10:30:00.000Z"],
+    ["BOOKING_CANCELLED", "confirmed", "cancelled", orchestratorWireStartsAt, orchestratorWireEndsAt],
+  ] as const) {
+    const result = await runOrchestratorWireCase({
+      execute_booking_write: async () =>
+        buildOrchestratorAdapterResult({
+          outcome_code: outcomeCode,
+          previous_status: previousStatus,
+          current_status: currentStatus,
+          starts_at: startsAt,
+          ends_at: endsAt,
+        }),
+    });
+    assert.equal(result.outcome, "executed");
+    assert.equal(result.outcome_code, outcomeCode);
+    assert.equal(result.appointment_id, orchestratorWireAppointmentId);
+    assert.equal(result.current_status, currentStatus);
+  }
+
+  const replayExecuted = await runOrchestratorWireCase({
+    execute_booking_write: async () => buildOrchestratorAdapterResult({ idempotent_replay: true }),
+  });
+  assert.equal(replayExecuted.outcome, "executed");
+  assert.equal(replayExecuted.appointment_id, orchestratorWireAppointmentId);
+  assert.equal(replayExecuted.idempotent_replay, true);
+
+  for (const outcomeCode of ["OVERLAP_CONFLICT", "WRITE_FAILED"] as const) {
+    const result = await runOrchestratorWireCase({
+      execute_booking_write: async () =>
+        buildOrchestratorAdapterResult({
+          executed: false,
+          outcome_code: outcomeCode,
+          appointment_id: null,
+          appointment_key: null,
+          audit_id: null,
+          channel_key: null,
+        }),
+    });
+    assert.equal(result.outcome, "failed");
+    assert.equal(result.outcome_code, outcomeCode);
+    assert.equal(result.proposal, null);
+    assert.equal(JSON.stringify(result).includes("permission"), false);
+  }
+
+  orchestratorAdapterCallCount = 0;
+
+  for (const resolverOutcome of [
+    "approval_pending",
+    "approval_rejected",
+    "approval_changes_requested",
+    "approval_expired",
+    "already_consumed",
+    "verification_failed",
+    "not_found",
+  ] as const) {
+    await runOrchestratorWireCase({
+      resolve_approval_request: async () => ({ outcome: resolverOutcome }),
+    });
+  }
+  assert.equal(orchestratorAdapterCallCount, 0);
+
+  orchestratorAdapterCallCount = 0;
+
+  const singleExecution = await runOrchestratorWireCase({
+    execute_booking_write: async (actionRequestId) => {
+      orchestratorAdapterCallCount += 1;
+      assert.equal(actionRequestId, "req-orchestrator-wire");
+      return buildOrchestratorAdapterResult();
+    },
+  });
+  assert.equal(singleExecution.outcome, "executed");
+  assert.equal(orchestratorAdapterCallCount, 1);
 
   const executedWithProvider = await executeBookingWrite({
     organization_id: ORG_A,
@@ -612,7 +801,19 @@ async function runPhase36bAsyncTests() {
 
   const auditEvents = listBookingAuditEvents(ORG_A);
   assert.ok(auditEvents.length >= 5);
-  assert.ok(auditEvents.every((entry) => entry.booking_id === null));
+  assert.ok(
+    auditEvents
+      .filter((entry) => entry.outcome !== "executed")
+      .every((entry) => entry.booking_id === null),
+    "pre-execution and non-success audit entries must not attach booking_id",
+  );
+  assert.ok(
+    auditEvents.some(
+      (entry) =>
+        entry.outcome === "executed" && entry.booking_id === orchestratorWireAppointmentKey,
+    ),
+    "governed adapter execution records appointment key on audit",
+  );
 
   for (const capability of ["booking.create", "booking.update", "booking.cancel"] as const) {
     const source = APPOINTMENT_BOOKING_SOURCE_MAP.find((entry) => entry.capability_key === capability);
@@ -638,6 +839,10 @@ async function runPhase36bAsyncTests() {
   assert.equal(/get_organization_appointment/i.test(orchestratorSource), false);
   assert.equal(/booking-proposal-\$\{Date\.now\(\)\}/.test(orchestratorSource), false);
   assert.equal(orchestratorSource.includes('proposal_id: ""'), false);
+  assert.equal(orchestratorSource.includes("executeCompanionBookingWrite"), true);
+  assert.equal(orchestratorSource.includes("execute_booking_write"), true);
+  assert.equal(orchestratorSource.includes("booking-approval-bridge"), true);
+  assert.equal(orchestratorSource.includes("Phase 346"), false);
 
   const bridgeExpectedPayload = buildBookingApprovalCanonicalPayload(bookingApprovalRequestBase);
   const bridgeExpectedPayloadHash = computeBookingApprovalPayloadHash(bridgeExpectedPayload);

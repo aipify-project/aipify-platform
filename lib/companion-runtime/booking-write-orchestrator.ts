@@ -20,6 +20,10 @@ import type {
   BookingWriteResult,
 } from "@/lib/integration-intelligence/booking/types";
 import {
+  executeCompanionBookingWrite,
+  type BookingWriteAdapterResult,
+} from "@/lib/integration-intelligence/providers/appointment-booking/booking-write-adapter";
+import {
   buildBookingApprovalCanonicalPayload,
   computeBookingApprovalPayloadHash,
   recordBookingApprovalActionRequest,
@@ -34,11 +38,30 @@ import { createBookingAuditEvent } from "./booking-audit";
 
 export type { BookingWriteRequest } from "@/lib/integration-intelligence/booking/types";
 
+const EMPTY_EXECUTION_FIELDS = {
+  outcome_code: null,
+  appointment_id: null,
+  appointment_key: null,
+  previous_status: null,
+  current_status: null,
+  execution_starts_at: null,
+  execution_ends_at: null,
+  write_audit_id: null,
+  channel_key: null,
+} as const;
+
+function writeResult(
+  partial: Omit<BookingWriteResult, keyof typeof EMPTY_EXECUTION_FIELDS> &
+    Partial<Pick<BookingWriteResult, keyof typeof EMPTY_EXECUTION_FIELDS>>,
+): BookingWriteResult {
+  return { ...EMPTY_EXECUTION_FIELDS, ...partial };
+}
+
 function emptyWriteResult(
   outcome: BookingWriteOutcome,
   limitations: readonly string[] = [],
 ): BookingWriteResult {
-  return {
+  return writeResult({
     outcome,
     proposal: null,
     booking: null,
@@ -50,7 +73,7 @@ function emptyWriteResult(
     idempotency_key: null,
     expires_at: null,
     idempotent_replay: false,
-  };
+  });
 }
 
 function mapApprovalBridgeToResult(input: {
@@ -66,7 +89,7 @@ function mapApprovalBridgeToResult(input: {
       input.approval.outcome_code === "IDEMPOTENT_REPLAY");
 
   if (!governed) {
-    return {
+    return writeResult({
       outcome: "failed",
       proposal: null,
       booking: null,
@@ -78,7 +101,7 @@ function mapApprovalBridgeToResult(input: {
       idempotency_key: input.approval.idempotency_key,
       expires_at: input.approval.expires_at,
       idempotent_replay: false,
-    };
+    });
   }
 
   const proposal: BookingWriteProposal = {
@@ -99,7 +122,7 @@ function mapApprovalBridgeToResult(input: {
     limitations: [],
   };
 
-  return {
+  return writeResult({
     outcome: "approval_required",
     proposal,
     booking: null,
@@ -111,7 +134,7 @@ function mapApprovalBridgeToResult(input: {
     idempotency_key: input.approval.idempotency_key,
     expires_at: input.approval.expires_at,
     idempotent_replay: input.approval.idempotent_replay,
-  };
+  });
 }
 
 const WRITE_EXECUTION_SOURCE_MISSING_LIMITATION =
@@ -158,7 +181,7 @@ function mapApprovalResolverToResult(input: {
       requires_approval: true,
     });
 
-    return {
+    return writeResult({
       outcome: "approval_required",
       proposal,
       booking: null,
@@ -170,7 +193,7 @@ function mapApprovalResolverToResult(input: {
       idempotency_key: input.request.idempotency_key,
       expires_at: null,
       idempotent_replay: false,
-    };
+    });
   }
 
   if (input.resolution.outcome === "approved") {
@@ -182,7 +205,7 @@ function mapApprovalResolverToResult(input: {
       limitations: [WRITE_EXECUTION_SOURCE_MISSING_LIMITATION],
     });
 
-    return {
+    return writeResult({
       outcome: "execution_source_missing",
       proposal,
       booking: null,
@@ -194,10 +217,10 @@ function mapApprovalResolverToResult(input: {
       idempotency_key: input.resolution.idempotency_key,
       expires_at: null,
       idempotent_replay: false,
-    };
+    });
   }
 
-  return {
+  return writeResult({
     outcome: "failed",
     proposal: null,
     booking: null,
@@ -209,7 +232,37 @@ function mapApprovalResolverToResult(input: {
     idempotency_key: input.request.idempotency_key,
     expires_at: null,
     idempotent_replay: false,
-  };
+  });
+}
+
+function mapAdapterExecutionToResult(input: {
+  adapter: BookingWriteAdapterResult;
+  resolution: Extract<BookingApprovalRequestResolution, { outcome: "approved" }>;
+}): BookingWriteResult {
+  const outcome: BookingWriteOutcome = input.adapter.executed ? "executed" : "failed";
+
+  return writeResult({
+    outcome,
+    proposal: null,
+    booking: null,
+    outcome_key: bookingWriteOutcomeKey(outcome),
+    audit_id: null,
+    limitations: [],
+    action_request_id: input.resolution.action_request_id,
+    payload_hash: input.resolution.payload_hash,
+    idempotency_key: input.resolution.idempotency_key,
+    expires_at: null,
+    idempotent_replay: input.adapter.idempotent_replay,
+    outcome_code: input.adapter.outcome_code,
+    appointment_id: input.adapter.appointment_id,
+    appointment_key: input.adapter.appointment_key,
+    previous_status: input.adapter.previous_status,
+    current_status: input.adapter.current_status,
+    execution_starts_at: input.adapter.starts_at,
+    execution_ends_at: input.adapter.ends_at,
+    write_audit_id: input.adapter.audit_id,
+    channel_key: input.adapter.channel_key,
+  });
 }
 
 export async function executeBookingWrite(input: {
@@ -229,6 +282,7 @@ export async function executeBookingWrite(input: {
     actionRequestId: string,
     request: BookingWriteRequest,
   ) => Promise<BookingApprovalRequestResolution>;
+  execute_booking_write?: (actionRequestId: string) => Promise<BookingWriteAdapterResult>;
   execute_write?: () => Promise<BookingWriteExecutionResult>;
   request: BookingWriteRequest;
 }): Promise<BookingWriteResult> {
@@ -252,14 +306,16 @@ export async function executeBookingWrite(input: {
     return emptyWriteResult("permission_denied");
   }
 
-  if (
+  const existingActionRequestId = input.request.action_request_id?.trim() || null;
+  const governedApprovalPath =
     input.request.confirmed &&
-    bookingWriteProposalRequiresApproval({ provider_write: input.provider_write })
-  ) {
-    const existingActionRequestId = input.request.action_request_id?.trim() || null;
+    input.provider_write.requires_approval_before_execution &&
+    (bookingWriteProposalRequiresApproval({ provider_write: input.provider_write }) ||
+      Boolean(existingActionRequestId));
 
+  if (governedApprovalPath) {
     if (existingActionRequestId) {
-      const resolution = input.resolve_approval_request
+      let resolution = input.resolve_approval_request
         ? await input.resolve_approval_request(existingActionRequestId, input.request)
         : input.supabase
           ? await resolveBookingApprovalRequest(input.supabase, {
@@ -268,10 +324,82 @@ export async function executeBookingWrite(input: {
             })
           : { outcome: "not_found" as const };
 
-      const mapped = mapApprovalResolverToResult({
-        resolution,
+      if (
+        resolution.outcome === "approved" &&
+        resolution.action_request_id !== existingActionRequestId
+      ) {
+        resolution = { outcome: "verification_failed" };
+      }
+
+      let mapped: BookingWriteResult;
+      let adapterResult: BookingWriteAdapterResult | null = null;
+
+      if (
+        resolution.outcome === "approved" &&
+        resolution.action_request_id.length > 0 &&
+        input.provider_write.write_source_available
+      ) {
+        const executeBookingWriteFn =
+          input.execute_booking_write ??
+          (input.supabase
+            ? (actionRequestId: string) => executeCompanionBookingWrite(input.supabase!, actionRequestId)
+            : null);
+        adapterResult = executeBookingWriteFn
+          ? await executeBookingWriteFn(resolution.action_request_id)
+          : { executed: false, outcome_code: "WRITE_FAILED", appointment_id: null, appointment_key: null, previous_status: null, current_status: null, starts_at: null, ends_at: null, audit_id: null, idempotent_replay: false, channel_key: null };
+        mapped = mapAdapterExecutionToResult({ adapter: adapterResult, resolution });
+      } else {
+        mapped = mapApprovalResolverToResult({
+          resolution,
+          request: input.request,
+          actionRequestId: existingActionRequestId,
+        });
+      }
+
+      const audit = createBookingAuditEvent({
+        organization_id: input.organization_id,
+        tenant_id: input.tenant_id,
+        user_role: input.user_role,
+        capability_key: input.request.capability_key,
+        outcome: mapped.outcome,
+        booking_id: mapped.appointment_key,
+        provider_key: input.provider_key,
+        metadata: {
+          action_request_id: mapped.action_request_id,
+          confirmed: input.request.confirmed,
+          write_source_available: input.provider_write.write_source_available,
+          resolver_outcome: resolution.outcome,
+          write_outcome_code: mapped.outcome_code,
+          executed: adapterResult?.executed ?? false,
+          idempotent_replay: mapped.idempotent_replay,
+        },
+      });
+
+      return { ...mapped, audit_id: audit.audit_id };
+    }
+
+    if (bookingWriteProposalRequiresApproval({ provider_write: input.provider_write })) {
+      const approvalResult = input.record_approval_request
+        ? await input.record_approval_request(input.request, input.approval_bridge_deps)
+        : input.supabase
+          ? await recordBookingApprovalActionRequest(
+              input.supabase,
+              input.request,
+              input.approval_bridge_deps,
+            )
+          : null;
+
+      const mapped = mapApprovalBridgeToResult({
+        approval: approvalResult ?? {
+          success: false,
+          outcome_code: "REQUEST_FAILED",
+          action_request_id: null,
+          payload_hash: null,
+          idempotency_key: input.request.idempotency_key,
+          expires_at: null,
+          idempotent_replay: false,
+        },
         request: input.request,
-        actionRequestId: existingActionRequestId,
       });
 
       const audit = createBookingAuditEvent({
@@ -286,53 +414,12 @@ export async function executeBookingWrite(input: {
           action_request_id: mapped.action_request_id,
           confirmed: input.request.confirmed,
           write_source_available: input.provider_write.write_source_available,
-          resolver_outcome: resolution.outcome,
+          idempotent_replay: mapped.idempotent_replay,
         },
       });
 
       return { ...mapped, audit_id: audit.audit_id };
     }
-
-    const approvalResult = input.record_approval_request
-      ? await input.record_approval_request(input.request, input.approval_bridge_deps)
-      : input.supabase
-        ? await recordBookingApprovalActionRequest(
-            input.supabase,
-            input.request,
-            input.approval_bridge_deps,
-          )
-        : null;
-
-    const mapped = mapApprovalBridgeToResult({
-      approval: approvalResult ?? {
-        success: false,
-        outcome_code: "REQUEST_FAILED",
-        action_request_id: null,
-        payload_hash: null,
-        idempotency_key: input.request.idempotency_key,
-        expires_at: null,
-        idempotent_replay: false,
-      },
-      request: input.request,
-    });
-
-    const audit = createBookingAuditEvent({
-      organization_id: input.organization_id,
-      tenant_id: input.tenant_id,
-      user_role: input.user_role,
-      capability_key: input.request.capability_key,
-      outcome: mapped.outcome,
-      booking_id: null,
-      provider_key: input.provider_key,
-      metadata: {
-        action_request_id: mapped.action_request_id,
-        confirmed: input.request.confirmed,
-        write_source_available: input.provider_write.write_source_available,
-        idempotent_replay: mapped.idempotent_replay,
-      },
-    });
-
-    return { ...mapped, audit_id: audit.audit_id };
   }
 
   let executionResult: BookingWriteExecutionResult | null = null;
@@ -398,7 +485,7 @@ export async function executeBookingWrite(input: {
     },
   });
 
-  return {
+  return writeResult({
     outcome,
     proposal,
     booking: null,
@@ -410,5 +497,5 @@ export async function executeBookingWrite(input: {
     idempotency_key: input.request.idempotency_key,
     expires_at: null,
     idempotent_replay: false,
-  };
+  });
 }

@@ -199,6 +199,16 @@ export type BookingWriteResult = {
   idempotency_key: string | null;
   expires_at: string | null;
   idempotent_replay: boolean;
+  /** Core write RPC outcome code when governed execution runs. */
+  outcome_code: string | null;
+  appointment_id: string | null;
+  appointment_key: string | null;
+  previous_status: string | null;
+  current_status: string | null;
+  execution_starts_at: string | null;
+  execution_ends_at: string | null;
+  write_audit_id: string | null;
+  channel_key: string | null;
 };
 
 export type BookingCapabilityManifest = {
