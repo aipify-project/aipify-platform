@@ -6,6 +6,7 @@ import { resolvePendingBookingWritePointer } from "@/lib/companion-runtime/booki
 import type { CompanionExperienceLabels } from "../types";
 import { buildReplyFromSearchJson } from "./build-reply";
 import type { ExecuteCompanionTurnDeps } from "./execute-turn";
+import type { ProduceBookingResumeTurnInput } from "@/lib/companion-runtime/booking-resume-turn-producer";
 import type { CompanionChatMessage } from "../types";
 import {
   mapServerMessagesToChat,
@@ -469,15 +470,19 @@ async function testExecuteTurnResumeWiring() {
   }
 
   {
-    const { turn, loadClient, loadConversationId, produceInput, loadCalls, produceCalls, detectCalls } =
+    const capturedProducerInputs: ProduceBookingResumeTurnInput[] = [];
+    const { turn, loadClient, loadConversationId, loadCalls, produceCalls, detectCalls } =
       await runExecuteTurnWithResumeDeps({
         query: "yes confirm",
         deps: {
           detect_booking_resume_intent: () => true,
-          produce_booking_resume_turn: async (turnInput) => ({
-            handled: true,
-            answer: producerAnswer,
-          }),
+          produce_booking_resume_turn: async (turnInput) => {
+            capturedProducerInputs.push(turnInput);
+            return {
+              handled: true,
+              answer: producerAnswer,
+            };
+          },
         },
       });
     assert.equal(detectCalls, 1);
@@ -488,10 +493,13 @@ async function testExecuteTurnResumeWiring() {
     assert.equal(turn.ok, true);
     if (!turn.ok) return;
     assert.deepEqual(turn.searchJson.answer, producerAnswer);
-    assert.equal(produceInput?.query, "yes confirm");
-    assert.deepEqual(produceInput?.messages, canonicalLoadedMessages);
-    assert.equal(typeof produceInput?.t, "function");
-    assert.equal(produceInput?.supabase, supabaseStub);
+    assert.equal(capturedProducerInputs.length, 1);
+    const capturedProducerInput = capturedProducerInputs[0];
+    assert.ok(capturedProducerInput);
+    assert.equal(capturedProducerInput.query, "yes confirm");
+    assert.deepEqual(capturedProducerInput.messages, canonicalLoadedMessages);
+    assert.equal(typeof capturedProducerInput.t, "function");
+    assert.equal(capturedProducerInput.supabase, supabaseStub);
   }
 
   {

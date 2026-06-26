@@ -25,6 +25,8 @@ import { logCompanionWorkerStepTimings } from "./worker-step-timing";
 import { classifyCompanionTurnRoute } from "@/lib/companion-runtime/companion-turn-route";
 import { buildLightweightConversationalAnswer } from "@/lib/companion-runtime/lightweight-conversational-answer";
 import { coerceToCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
+import type { Locale } from "@/lib/i18n/config";
+import type { CustomerAppSplitName } from "@/lib/i18n/customer-app-split-config";
 import { detectBookingResumeContinuationIntent } from "@/lib/companion-runtime/booking-resume-intent";
 import {
   loadCompanionConversationMessages,
@@ -38,8 +40,8 @@ import { throwIfCompanionTurnAborted } from "./companion-turn-abort";
 import type { Translator } from "@/lib/i18n/translate";
 
 async function loadCustomerAppDictionaryForTurn(
-  answerLocale: string,
-  splits: string[],
+  answerLocale: Locale,
+  splits: CustomerAppSplitName[],
 ) {
   const { getCustomerAppDictionaryForSplits } = await import("@/lib/i18n/get-dictionary");
   return getCustomerAppDictionaryForSplits(answerLocale, splits);
@@ -206,11 +208,11 @@ export async function executeCompanionTurn(
 
   throwIfCompanionTurnAborted(input.abortSignal);
 
-  const dictionarySplits =
+  const dictionarySplits: CustomerAppSplitName[] =
     turnRoute === "lightweight" && !hasAttachments && !input.activeArtifactId
-      ? (["companion"] as const)
+      ? ["companion"]
       : companionDictionarySplitsForTurnRoute(turnRoute);
-  const dict = await loadCustomerAppDictionaryForTurn(answerLocale, [...dictionarySplits]);
+  const dict = await loadCustomerAppDictionaryForTurn(answerLocale, dictionarySplits);
   throwIfCompanionTurnAborted(input.abortSignal);
   const t = createTranslator(dict);
   const labels = buildSupportAssistantLabels(t);
