@@ -163,3 +163,63 @@ export const APPOINTMENT_BOOKING_READINESS = {
 export function getAppointmentBookingSource(capabilityKey: BookingCapabilityKey) {
   return APPOINTMENT_BOOKING_SOURCE_MAP.find((entry) => entry.capability_key === capabilityKey) ?? null;
 }
+
+export const BOOKING_WRITE_CAPABILITY_KEYS = [
+  "booking.create",
+  "booking.update",
+  "booking.cancel",
+] as const;
+
+export type BookingWriteCapabilityKey = (typeof BOOKING_WRITE_CAPABILITY_KEYS)[number];
+
+function isBookingWriteCapabilityKey(
+  capabilityKey: BookingCapabilityKey,
+): capabilityKey is BookingWriteCapabilityKey {
+  return (BOOKING_WRITE_CAPABILITY_KEYS as readonly string[]).includes(capabilityKey);
+}
+
+export function evaluateBookingWriteSourceConnected(input: {
+  capabilityKey: BookingCapabilityKey;
+  definition: AppointmentBookingSourceDefinition | null;
+  writeReady: boolean;
+}): boolean {
+  if (!isBookingWriteCapabilityKey(input.capabilityKey)) {
+    return false;
+  }
+
+  const definition = input.definition;
+  if (!definition) {
+    return false;
+  }
+
+  if (definition.capability_key !== input.capabilityKey) {
+    return false;
+  }
+
+  if (definition.status !== "live") {
+    return false;
+  }
+
+  const sourceId = definition.source_id?.trim();
+  if (!sourceId || sourceId === "none") {
+    return false;
+  }
+
+  if (definition.read_only) {
+    return false;
+  }
+
+  if (!input.writeReady) {
+    return false;
+  }
+
+  return true;
+}
+
+export function isBookingWriteSourceConnected(capabilityKey: BookingCapabilityKey): boolean {
+  return evaluateBookingWriteSourceConnected({
+    capabilityKey,
+    definition: getAppointmentBookingSource(capabilityKey),
+    writeReady: APPOINTMENT_BOOKING_READINESS.write_ready,
+  });
+}
