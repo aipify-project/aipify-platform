@@ -15,7 +15,8 @@ import {
 } from "@/lib/companion-runtime/booking-approval-bridge";
 import { resolveBookingApprovalRequest } from "@/lib/companion-runtime/booking-approval-request-resolver";
 import type { BookingApprovalRequestResolution } from "@/lib/companion-runtime/booking-approval-request-resolver";
-import { executeBookingWrite } from "@/lib/companion-runtime/booking-write-orchestrator";
+import { executeBookingWrite, resumeBookingWriteExecution } from "@/lib/companion-runtime/booking-write-orchestrator";
+import type { BookingWriteResult } from "@/lib/integration-intelligence/booking/types";
 import {
   bookingWriteProposalRequiresApproval,
   resolveBookingWriteActionOutcome,
@@ -1286,6 +1287,206 @@ async function runPhase36bAsyncTests() {
   assert.equal(writeAdapterSource.includes("record_companion_booking_action_request"), false);
   assert.equal(writeAdapterSource.includes("get_companion_booking_action_request"), false);
   assert.equal(/Phase 346|phase.?346/i.test(writeAdapterSource), false);
+
+  const resumeActionRequestId = "a1b2c3d4-e5f6-4789-a012-3456789abcde";
+  const mockResumeSupabase = {} as import("@supabase/supabase-js").SupabaseClient;
+  let resumeAdapterCallCount = 0;
+  let resumeAdapterLastId: string | null = null;
+  let resumeResolverCallCount = 0;
+
+  const resumeApprovedResolution = {
+    outcome: "approved" as const,
+    action_request_id: resumeActionRequestId,
+    capability_key: "booking.create" as const,
+    requested_action: "create" as const,
+  };
+
+  function buildResumeAdapterResult(
+    overrides: Partial<BookingWriteAdapterResult> = {},
+  ): BookingWriteAdapterResult {
+    return {
+      executed: true,
+      outcome_code: "BOOKING_CREATED",
+      appointment_id: "cccccccc-dddd-eeee-ffff-111111111111",
+      appointment_key: "apt_resume_pointer_001",
+      previous_status: null,
+      current_status: "confirmed",
+      starts_at: "2026-06-24T09:00:00.000Z",
+      ends_at: "2026-06-24T10:30:00.000Z",
+      audit_id: "dddddddd-eeee-ffff-1111-222222222222",
+      idempotent_replay: false,
+      channel_key: "companion",
+      ...overrides,
+    };
+  }
+
+  function assertResumeResultHasNoSensitiveFields(result: BookingWriteResult) {
+    assert.equal(result.payload_hash, null);
+    assert.equal(result.idempotency_key, null);
+    if (result.proposal) {
+      assert.equal(result.proposal.payload_hash, null);
+      assert.equal(result.proposal.idempotency_key, null);
+      assert.equal(result.proposal.service_id, null);
+      assert.equal(result.proposal.resource_id, null);
+      assert.equal(result.proposal.customer_reference, null);
+      assert.equal(result.proposal.start_at, null);
+      assert.equal(result.proposal.end_at, null);
+    }
+  }
+
+  async function runResumeCase(input: {
+    action_request_id?: string;
+    write_source_available: boolean;
+    resolution: import("@/lib/companion-runtime/booking-approval-resume-resolver").BookingApprovalResumeResult;
+    adapterResult?: BookingWriteAdapterResult;
+  }) {
+    resumeAdapterCallCount = 0;
+    resumeAdapterLastId = null;
+    resumeResolverCallCount = 0;
+    const actionRequestId = input.action_request_id ?? resumeActionRequestId;
+
+    return resumeBookingWriteExecution({
+      supabase: mockResumeSupabase,
+      action_request_id: actionRequestId,
+      write_source_available: input.write_source_available,
+      resolve_approval_resume: async (requestId) => {
+        resumeResolverCallCount += 1;
+        assert.equal(requestId, actionRequestId);
+        return input.resolution;
+      },
+      execute_booking_write: async (requestId) => {
+        resumeAdapterCallCount += 1;
+        resumeAdapterLastId = requestId;
+        return input.adapterResult ?? buildResumeAdapterResult();
+      },
+    });
+  }
+
+  const approvedSourceMissing = await runResumeCase({
+    write_source_available: false,
+    resolution: resumeApprovedResolution,
+  });
+  assert.equal(approvedSourceMissing.outcome, "execution_source_missing");
+  assert.equal(resumeAdapterCallCount, 0);
+  assert.equal(resumeResolverCallCount, 1);
+  assertResumeResultHasNoSensitiveFields(approvedSourceMissing);
+
+  const approvedExecuted = await runResumeCase({
+    write_source_available: true,
+    resolution: resumeApprovedResolution,
+  });
+  assert.equal(approvedExecuted.outcome, "executed");
+  assert.equal(resumeAdapterCallCount, 1);
+  assert.equal(resumeAdapterLastId, resumeActionRequestId);
+  assertResumeResultHasNoSensitiveFields(approvedExecuted);
+
+  for (const [outcomeCode, capability, requestedAction] of [
+    ["BOOKING_CREATED", "booking.create", "create"],
+    ["BOOKING_UPDATED", "booking.update", "update"],
+    ["BOOKING_CANCELLED", "booking.cancel", "cancel"],
+  ] as const) {
+    const result = await runResumeCase({
+      write_source_available: true,
+      resolution: {
+        outcome: "approved",
+        action_request_id: resumeActionRequestId,
+        capability_key: capability,
+        requested_action: requestedAction,
+      },
+      adapterResult: buildResumeAdapterResult({ outcome_code: outcomeCode }),
+    });
+    assert.equal(result.outcome, "executed");
+    assert.equal(result.outcome_code, outcomeCode);
+    assert.equal(resumeAdapterCallCount, 1);
+    assertResumeResultHasNoSensitiveFields(result);
+  }
+
+  const resumeReplayResult = await runResumeCase({
+    write_source_available: true,
+    resolution: resumeApprovedResolution,
+    adapterResult: buildResumeAdapterResult({ idempotent_replay: true }),
+  });
+  assert.equal(resumeReplayResult.outcome, "executed");
+  assert.equal(resumeReplayResult.idempotent_replay, true);
+
+  const adapterFailure = await runResumeCase({
+    write_source_available: true,
+    resolution: resumeApprovedResolution,
+    adapterResult: buildResumeAdapterResult({
+      executed: false,
+      outcome_code: "OVERLAP_CONFLICT",
+      appointment_id: null,
+      appointment_key: null,
+    }),
+  });
+  assert.equal(adapterFailure.outcome, "failed");
+  assert.equal(adapterFailure.outcome_code, "OVERLAP_CONFLICT");
+  assert.equal(resumeAdapterCallCount, 1);
+  assertResumeResultHasNoSensitiveFields(adapterFailure);
+
+  const pendingResult = await runResumeCase({
+    write_source_available: true,
+    resolution: { outcome: "pending", action_request_id: resumeActionRequestId },
+  });
+  assert.equal(pendingResult.outcome, "approval_required");
+  assert.equal(resumeAdapterCallCount, 0);
+  assertResumeResultHasNoSensitiveFields(pendingResult);
+
+  for (const outcome of [
+    "rejected",
+    "changes_requested",
+    "expired",
+    "already_consumed",
+    "verification_failed",
+    "not_found",
+  ] as const) {
+    const result = await runResumeCase({
+      write_source_available: true,
+      resolution: { outcome, action_request_id: resumeActionRequestId },
+    });
+    assert.equal(result.outcome, "failed", outcome);
+    assert.equal(resumeAdapterCallCount, 0, outcome);
+    assertResumeResultHasNoSensitiveFields(result);
+  }
+
+  resumeAdapterCallCount = 0;
+  const invalidUuidResult = await resumeBookingWriteExecution({
+    supabase: mockResumeSupabase,
+    action_request_id: "00000000-0000-0000-0000-000000000000",
+    write_source_available: true,
+    execute_booking_write: async () => {
+      resumeAdapterCallCount += 1;
+      return buildResumeAdapterResult();
+    },
+  });
+  assert.equal(invalidUuidResult.outcome, "failed");
+  assert.equal(resumeAdapterCallCount, 0);
+  assertResumeResultHasNoSensitiveFields(invalidUuidResult);
+
+  const missingDepsResult = await resumeBookingWriteExecution({
+    action_request_id: resumeActionRequestId,
+    write_source_available: true,
+  });
+  assert.equal(missingDepsResult.outcome, "failed");
+  assert.equal(missingDepsResult.proposal, null);
+
+  const mismatchedIdResult = await runResumeCase({
+    write_source_available: true,
+    resolution: {
+      ...resumeApprovedResolution,
+      action_request_id: "b2c3d4e5-f6a7-4890-b123-456789abcdef0",
+    },
+  });
+  assert.equal(mismatchedIdResult.outcome, "failed");
+  assert.equal(resumeAdapterCallCount, 0);
+
+  const approvedMissingExecutor = await resumeBookingWriteExecution({
+    action_request_id: resumeActionRequestId,
+    write_source_available: true,
+    resolve_approval_resume: async () => resumeApprovedResolution,
+  });
+  assert.equal(approvedMissingExecutor.outcome, "failed");
+  assert.equal(resumeAdapterCallCount, 0);
 
   console.log("phase36b.test.ts: all assertions passed");
 }
