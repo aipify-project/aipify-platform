@@ -9,6 +9,10 @@ import {
   riskBadgeClass,
   type CompanionActionCenter,
 } from "@/lib/companion-action-approval";
+import {
+  buildGovernedRejectPayload,
+  canRejectQueuedAction,
+} from "@/lib/companion-action-approval/queue-reject";
 
 type Props = {
   labels: Record<string, string>;
@@ -57,6 +61,14 @@ export function CompanionActionApprovalPanel({ labels }: Props) {
       setMessage(labels.actionFailed);
     }
     setBusy(null);
+  };
+
+  const rejectPendingAction = (actionRequestId: string) => {
+    void postAction(buildGovernedRejectPayload(actionRequestId));
+  };
+
+  const rejectQueuedAction = (actionRequestId: string) => {
+    void postAction(buildGovernedRejectPayload(actionRequestId));
   };
 
   if (loading) {
@@ -156,7 +168,7 @@ export function CompanionActionApprovalPanel({ labels }: Props) {
                 </dl>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <button type="button" disabled={busy !== null || center.emergency_stop_active} onClick={() => void postAction({ action: "approve", action_id: action.id })} className="rounded-lg bg-emerald-600 px-4 py-2 text-sm text-white hover:bg-emerald-700 disabled:opacity-50">{labels.approve}</button>
-                  <button type="button" disabled={busy !== null} onClick={() => void postAction({ action: "reject", action_id: action.id })} className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50">{labels.reject}</button>
+                  <button type="button" disabled={busy !== null} onClick={() => rejectPendingAction(action.id)} className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50">{labels.reject}</button>
                   <button type="button" disabled={busy !== null} onClick={() => void postAction({ action: "request_changes", action_id: action.id })} className="rounded-lg border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50">{labels.requestChanges}</button>
                 </div>
               </article>
@@ -172,9 +184,21 @@ export function CompanionActionApprovalPanel({ labels }: Props) {
         ) : (
           <ul className="space-y-2">
             {center.execution_queue.map((item) => (
-              <li key={item.id} className="flex flex-wrap items-center justify-between rounded-lg border border-slate-200 px-4 py-3 text-sm">
+              <li key={item.id} className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 px-4 py-3 text-sm">
                 <span className="font-medium text-slate-900">{item.title}</span>
-                <span className="text-slate-500">{labels[`status_${item.queue_status}`] ?? item.queue_status}</span>
+                <div className="flex flex-wrap items-center gap-2">
+                  {canRejectQueuedAction(item, center.action_history) ? (
+                    <button
+                      type="button"
+                      disabled={busy !== null}
+                      onClick={() => rejectQueuedAction(item.action_request_id)}
+                      className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+                    >
+                      {labels.reject}
+                    </button>
+                  ) : null}
+                  <span className="text-slate-500">{labels[`status_${item.queue_status}`] ?? item.queue_status}</span>
+                </div>
               </li>
             ))}
           </ul>
