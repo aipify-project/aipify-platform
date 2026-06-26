@@ -153,6 +153,7 @@ export type BookingWriteRequest = {
   end_at: string | null;
   confirmed: boolean;
   idempotency_key: string | null;
+  action_request_id?: string | null;
 };
 
 export type BookingReadResult = {

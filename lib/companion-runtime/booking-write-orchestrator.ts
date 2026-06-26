@@ -20,10 +20,16 @@ import type {
   BookingWriteResult,
 } from "@/lib/integration-intelligence/booking/types";
 import {
+  buildBookingApprovalCanonicalPayload,
+  computeBookingApprovalPayloadHash,
   recordBookingApprovalActionRequest,
   type BookingApprovalBridgeDeps,
   type BookingApprovalBridgeResult,
 } from "./booking-approval-bridge";
+import {
+  resolveBookingApprovalRequest,
+  type BookingApprovalRequestResolution,
+} from "./booking-approval-request-resolver";
 import { createBookingAuditEvent } from "./booking-audit";
 
 export type { BookingWriteRequest } from "@/lib/integration-intelligence/booking/types";
@@ -108,6 +114,104 @@ function mapApprovalBridgeToResult(input: {
   };
 }
 
+const WRITE_EXECUTION_SOURCE_MISSING_LIMITATION =
+  "customerApp.companionPlatformKnowledge.booking.warnings.writeExecutionSourceMissing";
+
+function buildWriteProposalFromRequest(
+  request: BookingWriteRequest,
+  overrides: Partial<BookingWriteProposal> = {},
+): BookingWriteProposal {
+  return {
+    proposal_id: null,
+    capability_key: request.capability_key,
+    service_id: request.service_id,
+    resource_id: request.resource_id,
+    customer_reference: request.customer_reference,
+    start_at: request.start_at,
+    end_at: request.end_at,
+    requires_confirmation: true,
+    requires_approval: true,
+    idempotency_key: request.idempotency_key,
+    action_request_id: null,
+    payload_hash: null,
+    expires_at: null,
+    idempotent_replay: false,
+    limitations: [],
+    ...overrides,
+  };
+}
+
+function mapApprovalResolverToResult(input: {
+  resolution: BookingApprovalRequestResolution;
+  request: BookingWriteRequest;
+  actionRequestId: string;
+}): BookingWriteResult {
+  const payloadHash = computeBookingApprovalPayloadHash(
+    buildBookingApprovalCanonicalPayload(input.request),
+  );
+
+  if (input.resolution.outcome === "approval_pending") {
+    const proposal = buildWriteProposalFromRequest(input.request, {
+      proposal_id: input.actionRequestId,
+      action_request_id: input.actionRequestId,
+      payload_hash: payloadHash,
+      requires_approval: true,
+    });
+
+    return {
+      outcome: "approval_required",
+      proposal,
+      booking: null,
+      outcome_key: bookingWriteOutcomeKey("approval_required"),
+      audit_id: null,
+      limitations: [],
+      action_request_id: input.actionRequestId,
+      payload_hash: payloadHash,
+      idempotency_key: input.request.idempotency_key,
+      expires_at: null,
+      idempotent_replay: false,
+    };
+  }
+
+  if (input.resolution.outcome === "approved") {
+    const proposal = buildWriteProposalFromRequest(input.request, {
+      requires_approval: true,
+      action_request_id: input.resolution.action_request_id,
+      payload_hash: input.resolution.payload_hash,
+      idempotency_key: input.resolution.idempotency_key,
+      limitations: [WRITE_EXECUTION_SOURCE_MISSING_LIMITATION],
+    });
+
+    return {
+      outcome: "execution_source_missing",
+      proposal,
+      booking: null,
+      outcome_key: bookingWriteOutcomeKey("execution_source_missing"),
+      audit_id: null,
+      limitations: [WRITE_EXECUTION_SOURCE_MISSING_LIMITATION],
+      action_request_id: input.resolution.action_request_id,
+      payload_hash: input.resolution.payload_hash,
+      idempotency_key: input.resolution.idempotency_key,
+      expires_at: null,
+      idempotent_replay: false,
+    };
+  }
+
+  return {
+    outcome: "failed",
+    proposal: null,
+    booking: null,
+    outcome_key: bookingWriteOutcomeKey("failed"),
+    audit_id: null,
+    limitations: [],
+    action_request_id: input.actionRequestId,
+    payload_hash: null,
+    idempotency_key: input.request.idempotency_key,
+    expires_at: null,
+    idempotent_replay: false,
+  };
+}
+
 export async function executeBookingWrite(input: {
   organization_id: string;
   tenant_id: string;
@@ -121,6 +225,10 @@ export async function executeBookingWrite(input: {
     deps?: BookingApprovalBridgeDeps,
   ) => Promise<BookingApprovalBridgeResult>;
   approval_bridge_deps?: BookingApprovalBridgeDeps;
+  resolve_approval_request?: (
+    actionRequestId: string,
+    request: BookingWriteRequest,
+  ) => Promise<BookingApprovalRequestResolution>;
   execute_write?: () => Promise<BookingWriteExecutionResult>;
   request: BookingWriteRequest;
 }): Promise<BookingWriteResult> {
@@ -148,6 +256,43 @@ export async function executeBookingWrite(input: {
     input.request.confirmed &&
     bookingWriteProposalRequiresApproval({ provider_write: input.provider_write })
   ) {
+    const existingActionRequestId = input.request.action_request_id?.trim() || null;
+
+    if (existingActionRequestId) {
+      const resolution = input.resolve_approval_request
+        ? await input.resolve_approval_request(existingActionRequestId, input.request)
+        : input.supabase
+          ? await resolveBookingApprovalRequest(input.supabase, {
+              action_request_id: existingActionRequestId,
+              request: input.request,
+            })
+          : { outcome: "not_found" as const };
+
+      const mapped = mapApprovalResolverToResult({
+        resolution,
+        request: input.request,
+        actionRequestId: existingActionRequestId,
+      });
+
+      const audit = createBookingAuditEvent({
+        organization_id: input.organization_id,
+        tenant_id: input.tenant_id,
+        user_role: input.user_role,
+        capability_key: input.request.capability_key,
+        outcome: mapped.outcome,
+        booking_id: null,
+        provider_key: input.provider_key,
+        metadata: {
+          action_request_id: mapped.action_request_id,
+          confirmed: input.request.confirmed,
+          write_source_available: input.provider_write.write_source_available,
+          resolver_outcome: resolution.outcome,
+        },
+      });
+
+      return { ...mapped, audit_id: audit.audit_id };
+    }
+
     const approvalResult = input.record_approval_request
       ? await input.record_approval_request(input.request, input.approval_bridge_deps)
       : input.supabase
@@ -210,9 +355,7 @@ export async function executeBookingWrite(input: {
 
   const limitations =
     outcome === "execution_source_missing"
-      ? [
-          "customerApp.companionPlatformKnowledge.booking.warnings.writeExecutionSourceMissing",
-        ]
+      ? [WRITE_EXECUTION_SOURCE_MISSING_LIMITATION]
       : outcome === "confirmation_required"
         ? ["customerApp.companionPlatformKnowledge.booking.warnings.writeBlocked"]
         : [];

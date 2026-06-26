@@ -421,6 +421,173 @@ async function runPhase36bAsyncTests() {
   assert.equal(approvalConflict.idempotent_replay, false);
   assert.equal(executeWriteCallCount, 0);
 
+  const approvalResolverCallCount = { value: 0 };
+  const resolverOrchestratorRequest = {
+    capability_key: "booking.create" as const,
+    ...writeRequestBase,
+    idempotency_key: "idem-resolver-orchestrator",
+    action_request_id: "req-resolver-existing",
+    confirmed: true,
+  };
+  const resolverOrchestratorHash = computeBookingApprovalPayloadHash(
+    buildBookingApprovalCanonicalPayload(resolverOrchestratorRequest),
+  );
+  const bridgeCountBeforeResolverCases = approvalBridgeCallCount.value;
+
+  const resolverWriteGate = async () => {
+    executeWriteCallCount += 1;
+    return { executed: true, failure_reason: null };
+  };
+
+  const pendingExistingId = await executeBookingWrite({
+    organization_id: ORG_A,
+    tenant_id: "tenant-a",
+    user_role: "admin",
+    permission: permissionCtx,
+    provider_key: "appointment_booking",
+    provider_write: providerWriteWithApproval,
+    record_approval_request: async () => {
+      approvalBridgeCallCount.value += 1;
+      throw new Error("bridge must not run when action_request_id is set");
+    },
+    resolve_approval_request: async (actionRequestId) => {
+      approvalResolverCallCount.value += 1;
+      assert.equal(actionRequestId, "req-resolver-existing");
+      return { outcome: "approval_pending" };
+    },
+    execute_write: resolverWriteGate,
+    request: resolverOrchestratorRequest,
+  });
+  assert.equal(pendingExistingId.outcome, "approval_required");
+  assert.equal(pendingExistingId.action_request_id, "req-resolver-existing");
+  assert.equal(approvalBridgeCallCount.value, bridgeCountBeforeResolverCases);
+  assert.equal(approvalResolverCallCount.value, 1);
+
+  const approvedExistingId = await executeBookingWrite({
+    organization_id: ORG_A,
+    tenant_id: "tenant-a",
+    user_role: "admin",
+    permission: permissionCtx,
+    provider_key: "appointment_booking",
+    provider_write: providerWriteWithApproval,
+    record_approval_request: async () => {
+      approvalBridgeCallCount.value += 1;
+      throw new Error("bridge must not run when action_request_id is set");
+    },
+    resolve_approval_request: async () => {
+      approvalResolverCallCount.value += 1;
+      return {
+        outcome: "approved",
+        action_request_id: "req-resolver-existing",
+        payload_hash: resolverOrchestratorHash,
+        idempotency_key: "idem-resolver-orchestrator",
+      };
+    },
+    execute_write: resolverWriteGate,
+    request: resolverOrchestratorRequest,
+  });
+  assert.equal(approvedExistingId.outcome, "execution_source_missing");
+  assert.equal(approvedExistingId.action_request_id, "req-resolver-existing");
+  assert.equal(approvedExistingId.payload_hash, resolverOrchestratorHash);
+  assert.equal(approvedExistingId.idempotency_key, "idem-resolver-orchestrator");
+  assert.ok(
+    approvedExistingId.limitations.some((entry) => entry.includes("writeExecutionSourceMissing")),
+  );
+  assert.equal(approvalBridgeCallCount.value, bridgeCountBeforeResolverCases);
+
+  for (const [resolverOutcome, label] of [
+    ["approval_rejected", "rejected"],
+    ["approval_changes_requested", "changes requested"],
+    ["approval_expired", "expired"],
+  ] as const) {
+    const result = await executeBookingWrite({
+      organization_id: ORG_A,
+      tenant_id: "tenant-a",
+      user_role: "admin",
+      permission: permissionCtx,
+      provider_key: "appointment_booking",
+      provider_write: providerWriteWithApproval,
+      record_approval_request: async () => {
+        approvalBridgeCallCount.value += 1;
+        throw new Error("bridge must not run when action_request_id is set");
+      },
+      resolve_approval_request: async () => {
+        approvalResolverCallCount.value += 1;
+        return { outcome: resolverOutcome };
+      },
+      execute_write: resolverWriteGate,
+      request: resolverOrchestratorRequest,
+    });
+    assert.equal(result.outcome, "failed", label);
+    assert.equal(result.proposal, null, label);
+  }
+
+  for (const [resolverOutcome, label] of [
+    ["already_consumed", "consumed"],
+    ["verification_failed", "verification failed"],
+    ["not_found", "not found"],
+  ] as const) {
+    const result = await executeBookingWrite({
+      organization_id: ORG_A,
+      tenant_id: "tenant-a",
+      user_role: "admin",
+      permission: permissionCtx,
+      provider_key: "appointment_booking",
+      provider_write: providerWriteWithApproval,
+      resolve_approval_request: async () => {
+        approvalResolverCallCount.value += 1;
+        return { outcome: resolverOutcome };
+      },
+      execute_write: resolverWriteGate,
+      request: resolverOrchestratorRequest,
+    });
+    assert.equal(result.outcome, "failed", label);
+  }
+
+  const mismatchApproved = await executeBookingWrite({
+    organization_id: ORG_A,
+    tenant_id: "tenant-a",
+    user_role: "admin",
+    permission: permissionCtx,
+    provider_key: "appointment_booking",
+    provider_write: providerWriteWithApproval,
+    resolve_approval_request: async () => {
+      approvalResolverCallCount.value += 1;
+      return { outcome: "verification_failed" };
+    },
+    execute_write: resolverWriteGate,
+    request: resolverOrchestratorRequest,
+  });
+  assert.equal(mismatchApproved.outcome, "failed");
+
+  const resolverCountBeforeUnconfirmed = approvalResolverCallCount.value;
+
+  const unconfirmedWithExistingId = await executeBookingWrite({
+    organization_id: ORG_A,
+    tenant_id: "tenant-a",
+    user_role: "admin",
+    permission: permissionCtx,
+    provider_key: "appointment_booking",
+    provider_write: providerWriteWithApproval,
+    record_approval_request: async () => {
+      approvalBridgeCallCount.value += 1;
+      throw new Error("bridge must not run for unconfirmed request");
+    },
+    resolve_approval_request: async () => {
+      approvalResolverCallCount.value += 1;
+      throw new Error("resolver must not run for unconfirmed request");
+    },
+    execute_write: resolverWriteGate,
+    request: {
+      ...resolverOrchestratorRequest,
+      confirmed: false,
+    },
+  });
+  assert.equal(unconfirmedWithExistingId.outcome, "confirmation_required");
+  assert.equal(approvalBridgeCallCount.value, bridgeCountBeforeResolverCases);
+  assert.equal(approvalResolverCallCount.value, resolverCountBeforeUnconfirmed);
+  assert.equal(executeWriteCallCount, 0);
+
   const executedWithProvider = await executeBookingWrite({
     organization_id: ORG_A,
     tenant_id: "tenant-a",
