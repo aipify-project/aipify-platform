@@ -1,7 +1,50 @@
-import type { CompanionAssistantPayload } from "./types";
+import type { CompanionAssistantPayload, CompanionPendingBookingWriteHandoff } from "./types";
 import type { CompanionChatMessage } from "../types";
 
+const UUID_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const NIL_UUID = "00000000-0000-0000-0000-000000000000";
+
+function normalizePendingBookingWriteHandoff(
+  value: unknown,
+): CompanionPendingBookingWriteHandoff | null {
+  if (value == null) {
+    return null;
+  }
+  if (typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+
+  const actionRequestId = (value as Record<string, unknown>).action_request_id;
+  if (typeof actionRequestId !== "string") {
+    return null;
+  }
+
+  const trimmed = actionRequestId.trim();
+  if (!trimmed || !UUID_REGEX.test(trimmed) || trimmed.toLowerCase() === NIL_UUID) {
+    return null;
+  }
+
+  return { action_request_id: trimmed };
+}
+
+function serializePendingBookingWriteHandoff(
+  message: CompanionChatMessage,
+): CompanionPendingBookingWriteHandoff | undefined {
+  const actionRequestId = message.pendingBookingWrite?.actionRequestId;
+  if (!actionRequestId) {
+    return undefined;
+  }
+
+  const normalized = normalizePendingBookingWriteHandoff({
+    action_request_id: actionRequestId,
+  });
+  return normalized ?? undefined;
+}
+
 export function serializeAssistantPayload(message: CompanionChatMessage): CompanionAssistantPayload {
+  const pendingBookingWrite = serializePendingBookingWriteHandoff(message);
+
   return {
     kind: "assistant_reply",
     directAnswer: message.directAnswer ?? message.content,
@@ -21,6 +64,7 @@ export function serializeAssistantPayload(message: CompanionChatMessage): Compan
     requestedLiveIntegration: message.requestedLiveIntegration,
     attachments: message.attachments,
     activeArtifactId: message.activeArtifactId,
+    ...(pendingBookingWrite ? { pending_booking_write: pendingBookingWrite } : {}),
   };
 }
 
@@ -33,6 +77,8 @@ export function deserializeAssistantMessage(
 ): CompanionChatMessage {
   if (payload?.kind === "assistant_reply") {
     const p = payload as CompanionAssistantPayload;
+    const pendingBookingWrite = normalizePendingBookingWriteHandoff(p.pending_booking_write);
+
     return {
       id: clientId,
       role: "aipify",
@@ -56,6 +102,9 @@ export function deserializeAssistantMessage(
         typeof p.response_to_message_id === "string" ? p.response_to_message_id : null,
       queueId: typeof p.queue_id === "string" ? p.queue_id : null,
       requestId: typeof p.request_id === "string" ? p.request_id : null,
+      ...(pendingBookingWrite
+        ? { pendingBookingWrite: { actionRequestId: pendingBookingWrite.action_request_id } }
+        : {}),
       timestamp,
     };
   }

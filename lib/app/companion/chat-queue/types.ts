@@ -78,9 +78,21 @@ export type EnqueueCompanionMessageResult = {
   error?: string;
 };
 
+/** Persisted pending booking write handoff — action_request_id pointer only (P1.12C2A). */
+export type CompanionPendingBookingWriteHandoff = {
+  action_request_id: string;
+};
+
 export type CompanionAssistantPayload = Omit<
   CompanionChatMessage,
-  "id" | "role" | "content" | "timestamp" | "responseToMessageId" | "queueId" | "requestId"
+  | "id"
+  | "role"
+  | "content"
+  | "timestamp"
+  | "responseToMessageId"
+  | "queueId"
+  | "requestId"
+  | "pendingBookingWrite"
 > & {
   kind: "assistant_reply";
   response_to_message_id?: string | null;
@@ -88,4 +100,5 @@ export type CompanionAssistantPayload = Omit<
   request_id?: string | null;
   execution?: string;
   route?: string;
+  pending_booking_write?: CompanionPendingBookingWriteHandoff | null;
 };

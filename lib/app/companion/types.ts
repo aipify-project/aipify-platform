@@ -61,6 +61,10 @@ export type CompanionChatMessage = {
   responseToMessageId?: string | null;
   queueId?: string | null;
   requestId?: string | null;
+  /** Pending booking write handoff pointer — action request ID only (P1.12C2A). */
+  pendingBookingWrite?: {
+    actionRequestId: string;
+  } | null;
   timestamp: number;
 };
 
