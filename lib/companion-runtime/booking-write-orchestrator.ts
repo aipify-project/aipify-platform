@@ -44,6 +44,7 @@ import { createBookingAuditEvent } from "./booking-audit";
 export type { BookingWriteRequest } from "@/lib/integration-intelligence/booking/types";
 
 const EMPTY_EXECUTION_FIELDS = {
+  booking: null,
   outcome_code: null,
   appointment_id: null,
   appointment_key: null,
@@ -284,7 +285,6 @@ function resumeResult(
     Partial<Pick<BookingWriteResult, keyof typeof EMPTY_EXECUTION_FIELDS>>,
 ): BookingWriteResult {
   return writeResult({
-    booking: null,
     payload_hash: null,
     idempotency_key: null,
     expires_at: null,
