@@ -5,6 +5,47 @@ function str(v: unknown, fb = ""): string {
   return typeof v === "string" ? v : fb;
 }
 
+const PLATFORM_ACTION_REQUEST_UUID_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const PLATFORM_NIL_ACTION_REQUEST_UUID = "00000000-0000-0000-0000-000000000000";
+
+function normalizePlatformActionRequestId(value: unknown): string | null {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  const trimmed = value.trim();
+  if (
+    !trimmed ||
+    !PLATFORM_ACTION_REQUEST_UUID_REGEX.test(trimmed) ||
+    trimmed.toLowerCase() === PLATFORM_NIL_ACTION_REQUEST_UUID
+  ) {
+    return null;
+  }
+
+  return trimmed;
+}
+
+function parsePendingBookingWriteHandoff(
+  raw: unknown,
+): PlatformKnowledgeAnswer["pendingBookingWrite"] {
+  if (raw == null) {
+    return undefined;
+  }
+  if (typeof raw !== "object" || Array.isArray(raw)) {
+    return undefined;
+  }
+
+  const actionRequestId = normalizePlatformActionRequestId(
+    (raw as Record<string, unknown>).actionRequestId,
+  );
+  if (!actionRequestId) {
+    return undefined;
+  }
+
+  return { actionRequestId };
+}
+
 function parsePlatformAction(raw: unknown): PlatformKnowledgeAction | null {
   if (!raw || typeof raw !== "object") return null;
   const row = raw as Record<string, unknown>;
@@ -182,6 +223,7 @@ function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined 
   const sources = Array.isArray(row.sources)
     ? row.sources.map(parsePlatformSource).filter((s): s is NonNullable<ReturnType<typeof parsePlatformSource>> => s !== null)
     : [];
+  const pendingBookingWrite = parsePendingBookingWriteHandoff(row.pendingBookingWrite);
   return {
     directAnswer: str(row.directAnswer),
     explanation: str(row.explanation) || undefined,
@@ -201,6 +243,7 @@ function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined 
     requestedLiveIntegration: row.requestedLiveIntegration === true,
     orgConfirmBlockedReason: str(row.orgConfirmBlockedReason) || undefined,
     integrationToolName: str(row.integrationToolName) || undefined,
+    ...(pendingBookingWrite ? { pendingBookingWrite } : {}),
   };
 }
 

@@ -40,6 +40,13 @@ export function buildPlatformAnswerReply(
     orgConfirmBlockedReason: platformAnswer.orgConfirmBlockedReason,
     liveIntegrationToolUsed: platformAnswer.liveIntegrationToolUsed === true,
     requestedLiveIntegration: platformAnswer.requestedLiveIntegration === true,
+    ...(platformAnswer.pendingBookingWrite?.actionRequestId
+      ? {
+          pendingBookingWrite: {
+            actionRequestId: platformAnswer.pendingBookingWrite.actionRequestId,
+          },
+        }
+      : {}),
     timestamp: Date.now(),
   };
 }

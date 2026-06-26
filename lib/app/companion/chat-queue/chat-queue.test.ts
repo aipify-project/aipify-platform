@@ -1,4 +1,8 @@
 import assert from "node:assert/strict";
+import { parseSupportAssistantSearch } from "@/lib/app-portal/support-assistant";
+import { resolvePendingBookingWritePointer } from "@/lib/companion-runtime/booking-pending-action-pointer";
+import type { CompanionExperienceLabels } from "../types";
+import { buildReplyFromSearchJson } from "./build-reply";
 import {
   mapServerMessagesToChat,
   deserializeAssistantMessage,
@@ -10,6 +14,25 @@ import { resolveCompanionQueueWaitPhase } from "./queue-wait-phase";
 
 const VALID_ACTION_REQUEST_ID = "a1b2c3d4-e5f6-4789-a012-3456789abcde";
 const NIL_UUID = "00000000-0000-0000-0000-000000000000";
+
+const stubLabels = {} as CompanionExperienceLabels;
+
+function platformSearchJson(pendingBookingWrite: unknown) {
+  return {
+    found: true,
+    query: "Book appointment",
+    answer: {
+      directAnswer: "Approval is required before booking can proceed.",
+      steps: [],
+      actions: [],
+      sources: [],
+      sourceId: "booking",
+      source: "platform_corpus",
+      confidence: "high",
+      ...(pendingBookingWrite === undefined ? {} : { pendingBookingWrite }),
+    },
+  };
+}
 
 function assistantMessage(
   overrides: Partial<CompanionChatMessage> & Pick<CompanionChatMessage, "content">,
@@ -156,6 +179,84 @@ function testPendingBookingWriteInvalidInputs() {
   }
 }
 
+function testPlatformAnswerPendingBookingWriteSearchToChatContract() {
+  const validSearchJson = platformSearchJson({ actionRequestId: VALID_ACTION_REQUEST_ID });
+  const parsed = parseSupportAssistantSearch(validSearchJson);
+  assert.deepEqual(parsed.answer?.pendingBookingWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+  assert.deepEqual(Object.keys(parsed.answer?.pendingBookingWrite ?? {}), ["actionRequestId"]);
+
+  const built = buildReplyFromSearchJson(validSearchJson, stubLabels, "Book appointment");
+  assert.deepEqual(built.message.pendingBookingWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+  assert.deepEqual(built.payload.pending_booking_write, { action_request_id: VALID_ACTION_REQUEST_ID });
+  assert.deepEqual(Object.keys(built.payload.pending_booking_write ?? {}), ["action_request_id"]);
+
+  const roundTripped = deserializeAssistantMessage(
+    "s-platform",
+    "c-platform",
+    built.message.content,
+    JSON.parse(JSON.stringify(built.payload)),
+    5000,
+  );
+  assert.deepEqual(roundTripped.pendingBookingWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+
+  for (const actionRequestId of ["not-a-uuid", "", "   ", NIL_UUID]) {
+    const invalidBuilt = buildReplyFromSearchJson(
+      platformSearchJson({ actionRequestId }),
+      stubLabels,
+      "Book appointment",
+    );
+    assert.equal(invalidBuilt.message.pendingBookingWrite, undefined);
+    assert.equal(invalidBuilt.payload.pending_booking_write, undefined);
+  }
+
+  const extraFieldsBuilt = buildReplyFromSearchJson(
+    platformSearchJson({
+      actionRequestId: VALID_ACTION_REQUEST_ID,
+      idempotency_key: "booking:abc",
+      capability: "booking.create",
+      payload: { service_id: "svc-1" },
+      organization_id: "org-1",
+    }),
+    stubLabels,
+    "Book appointment",
+  );
+  assert.deepEqual(extraFieldsBuilt.message.pendingBookingWrite, {
+    actionRequestId: VALID_ACTION_REQUEST_ID,
+  });
+  assert.deepEqual(extraFieldsBuilt.payload.pending_booking_write, {
+    action_request_id: VALID_ACTION_REQUEST_ID,
+  });
+  assert.deepEqual(Object.keys(extraFieldsBuilt.payload.pending_booking_write ?? {}), ["action_request_id"]);
+
+  const withoutPointer = buildReplyFromSearchJson(
+    platformSearchJson(undefined),
+    stubLabels,
+    "General follow-up",
+  );
+  assert.equal(withoutPointer.message.pendingBookingWrite, undefined);
+  assert.equal(withoutPointer.payload.pending_booking_write, undefined);
+
+  const withPointer = buildReplyFromSearchJson(
+    platformSearchJson({ actionRequestId: VALID_ACTION_REQUEST_ID }),
+    stubLabels,
+    "Book appointment",
+  );
+  const followUpWithoutPointer = buildReplyFromSearchJson(
+    platformSearchJson(undefined),
+    stubLabels,
+    "Thanks",
+  );
+  assert.equal(
+    resolvePendingBookingWritePointer([
+      { id: "u1", role: "user", content: "Book", timestamp: 1 },
+      { ...withPointer.message, id: "a1", timestamp: 2 },
+      { id: "u2", role: "user", content: "ok", timestamp: 3 },
+      { ...followUpWithoutPointer.message, id: "a2", timestamp: 4 },
+    ]),
+    null,
+  );
+}
+
 testIdempotencyKeyStable();
 testDeserializeAssistantRoundTrip();
 testMapServerMessagesOrder();
@@ -163,5 +264,6 @@ testClientMessageIdUnique();
 testQueueWaitPhaseProgression();
 testPendingBookingWriteHandoffContract();
 testPendingBookingWriteInvalidInputs();
+testPlatformAnswerPendingBookingWriteSearchToChatContract();
 
 console.log("chat-queue.test.ts: all assertions passed");

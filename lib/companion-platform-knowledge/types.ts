@@ -216,6 +216,10 @@ export type PlatformKnowledgeAnswer = {
   integrationToolName?: string;
   artifactContext?: CompanionArtifactContextPayload;
   externalHandoff?: CompanionExternalProviderHandoff;
+  /** Pending booking write handoff pointer — action request ID only (P1.12C3C). */
+  pendingBookingWrite?: {
+    actionRequestId: string;
+  } | null;
 };
 
 export type ResolvedPlatformArticle = {
