@@ -4,6 +4,7 @@ import {
   type CompanionTurnRoute,
 } from "./companion-turn-route";
 import { resolveDirectDateTimeKind } from "./direct-datetime-answer";
+import { isBookingAppointmentActionQuery } from "./direct-datetime-kind";
 import {
   isLocalDevicePermissionQuery,
   isUserOwnedAccountControlQuery,
@@ -37,7 +38,7 @@ export function classifyCompanionSubmitPath(
     return "queued";
   }
 
-  if (resolveDirectDateTimeKind(query)) {
+  if (!isBookingAppointmentActionQuery(query) && resolveDirectDateTimeKind(query)) {
     return "direct";
   }
 
@@ -84,7 +85,7 @@ export function resolveDirectTurnRoute(
   locale: CustomerActiveLocale = "en",
   options: { hasAttachments?: boolean; hasActiveArtifact?: boolean } = {},
 ): CompanionTurnRoute | "datetime" {
-  if (resolveDirectDateTimeKind(query)) {
+  if (!isBookingAppointmentActionQuery(query) && resolveDirectDateTimeKind(query)) {
     return "datetime";
   }
 
