@@ -14,6 +14,7 @@ import {
   resolveBookingApprovalExpiresAt,
 } from "@/lib/companion-runtime/booking-approval-bridge";
 import { resolveBookingApprovalRequest } from "@/lib/companion-runtime/booking-approval-request-resolver";
+import type { BookingApprovalRequestResolution } from "@/lib/companion-runtime/booking-approval-request-resolver";
 import { executeBookingWrite } from "@/lib/companion-runtime/booking-write-orchestrator";
 import {
   bookingWriteProposalRequiresApproval,
@@ -664,7 +665,9 @@ async function runPhase36bAsyncTests() {
   async function runOrchestratorWireCase(
     overrides: {
       provider_write?: typeof providerWriteWithApproval;
-      resolve_approval_request?: typeof resolveOrchestratorWireApproved;
+      resolve_approval_request?: (
+        actionRequestId: string,
+      ) => Promise<BookingApprovalRequestResolution>;
       execute_booking_write?: (actionRequestId: string) => Promise<BookingWriteAdapterResult>;
       request?: typeof orchestratorWireRequest;
     } = {},
