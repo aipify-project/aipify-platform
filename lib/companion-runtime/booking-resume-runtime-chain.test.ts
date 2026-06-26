@@ -111,6 +111,7 @@ function approvedRowForCapability(input: ApprovedCapabilityCase) {
 function createAuthenticatedSupabaseStub(input: {
   approvalRow: unknown;
   approvalError?: { message: string } | null;
+  allowExecution?: boolean;
 }) {
   const rpcCalls: RpcCall[] = [];
 
@@ -132,6 +133,29 @@ function createAuthenticatedSupabaseStub(input: {
         return Promise.resolve({
           data: input.approvalRow,
           error: input.approvalError ?? null,
+        });
+      }
+
+      if (name === EXECUTION_RPC) {
+        if (!input.allowExecution) {
+          throw new Error(`unexpected RPC: ${name}`);
+        }
+        assert.deepEqual(callParams, { p_action_request_id: VALID_ACTION_REQUEST_ID });
+        return Promise.resolve({
+          data: {
+            success: true,
+            outcome_code: "BOOKING_CREATED",
+            appointment_id: "apt-00000000-0000-4000-8000-000000000001",
+            appointment_key: "apt-key-001",
+            previous_status: null,
+            current_status: "confirmed",
+            starts_at: "2026-06-24T09:00:00.000Z",
+            ends_at: "2026-06-24T10:00:00.000Z",
+            audit_id: "audit-00000000-0000-4000-8000-000000000001",
+            idempotent_replay: false,
+            channel_key: "companion",
+          },
+          error: null,
         });
       }
 
@@ -167,10 +191,12 @@ async function runCertifiedResumeChain(input: {
   approvalRow: unknown;
   approvalError?: { message: string } | null;
   query?: string;
+  allowExecution?: boolean;
 }) {
   const { supabase, rpcCalls } = createAuthenticatedSupabaseStub({
     approvalRow: input.approvalRow,
     approvalError: input.approvalError,
+    allowExecution: input.allowExecution,
   });
   const query = input.query ?? RESUME_QUERY;
 
@@ -196,8 +222,34 @@ async function runCertifiedResumeChain(input: {
 }
 
 async function runTests() {
+  {
+    const capabilityCase = { capability: "booking.create", requestedAction: "create" } as const;
+    assert.equal(isBookingWriteSourceConnected(capabilityCase.capability), true, capabilityCase.capability);
+
+    const { producerResult, rpcCalls } = await runCertifiedResumeChain({
+      approvalRow: approvedRowForCapability(capabilityCase),
+      allowExecution: true,
+    });
+
+    assert.equal(producerResult.handled, true, capabilityCase.capability);
+    if (!producerResult.handled) return;
+
+    assert.equal(
+      producerResult.answer.directAnswer,
+      TRANSLATIONS[`${OUTCOME_BASE}.executed`],
+      capabilityCase.capability,
+    );
+    assert.equal(producerResult.answer.pendingBookingWrite, undefined, capabilityCase.capability);
+    assert.equal(rpcCalls.length, 3, capabilityCase.capability);
+    assert.deepEqual(
+      rpcCalls.map((call) => call.name),
+      ["get_companion_chat_state", "get_companion_booking_action_request", EXECUTION_RPC],
+      capabilityCase.capability,
+    );
+    assertNoSensitiveAnswerFields(producerResult.answer);
+  }
+
   for (const capabilityCase of [
-    { capability: "booking.create", requestedAction: "create" },
     { capability: "booking.update", requestedAction: "update" },
     { capability: "booking.cancel", requestedAction: "cancel" },
   ] as const satisfies readonly ApprovedCapabilityCase[]) {

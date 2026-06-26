@@ -26,14 +26,21 @@ function writeDefinition(
   };
 }
 
-for (const capabilityKey of ["booking.create", "booking.update", "booking.cancel"] as const) {
+{
+  const createDefinition = getAppointmentBookingSource("booking.create");
+  assert.equal(createDefinition?.status, "live");
+  assert.equal(createDefinition?.source_id, "execute_apt610_companion_booking_write");
+  assert.equal(isBookingWriteSourceConnected("booking.create"), true);
+}
+
+for (const capabilityKey of ["booking.update", "booking.cancel"] as const) {
   const definition = getAppointmentBookingSource(capabilityKey);
   assert.equal(definition?.status, "missing");
   assert.equal(definition?.source_id, "none");
   assert.equal(isBookingWriteSourceConnected(capabilityKey), false);
 }
 
-assert.equal(APPOINTMENT_BOOKING_READINESS.write_ready, false);
+assert.equal(APPOINTMENT_BOOKING_READINESS.write_ready, true);
 
 for (const capabilityKey of [
   "service.read",

@@ -115,14 +115,16 @@ export const APPOINTMENT_BOOKING_SOURCE_MAP: readonly AppointmentBookingSourceDe
   {
     capability_key: "booking.create",
     source_kind: "tenant_rpc",
-    source_id: "none",
+    source_id: "execute_apt610_companion_booking_write",
     auth_model: "supabase_session_rls_company_id",
     tenant_filter: "_presence_tenant_for_auth() / company_id",
     available_fields: [],
     required_permission: "appointments.manage",
-    status: "missing",
+    status: "live",
     read_only: false,
-    limitations: ["No reversible booking.create RPC approved for Companion runtime yet."],
+    limitations: [
+      "Governed booking.create via approved companion action requests — execute_apt610_companion_booking_write.",
+    ],
   },
   {
     capability_key: "booking.update",
@@ -154,7 +156,7 @@ export const APPOINTMENT_BOOKING_READINESS = {
   provider_key: "appointment_booking",
   business_pack_key: "appointments_services",
   readiness: "connected_but_partial" as const,
-  write_ready: false,
+  write_ready: true,
   source_rpc: "get_organization_appointment_center",
   absence_rpc: "get_organization_absence_center",
   workforce_rpc: "get_organization_workforce_scheduling_center",
