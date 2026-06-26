@@ -25,7 +25,7 @@ import {
   BOOKING_READ_OUTCOME_I18N_KEYS,
   BOOKING_WRITE_OUTCOME_I18N_KEYS,
 } from "@/lib/integration-intelligence/booking/outcomes";
-import { APPOINTMENT_BOOKING_SOURCE_MAP } from "@/lib/integration-intelligence/providers/appointment-booking/booking-source-map";
+import { APPOINTMENT_BOOKING_SOURCE_MAP, isBookingWriteSourceConnected } from "@/lib/integration-intelligence/providers/appointment-booking/booking-source-map";
 import {
   BOOKING_WRITE_RPC,
   executeCompanionBookingWrite,
@@ -1293,6 +1293,8 @@ async function runPhase36bAsyncTests() {
   let resumeAdapterCallCount = 0;
   let resumeAdapterLastId: string | null = null;
   let resumeResolverCallCount = 0;
+  let resumeGateCallCount = 0;
+  let resumeGateLastCapability: string | null = null;
 
   const resumeApprovedResolution = {
     outcome: "approved" as const,
@@ -1336,19 +1338,22 @@ async function runPhase36bAsyncTests() {
 
   async function runResumeCase(input: {
     action_request_id?: string;
-    write_source_available: boolean;
+    use_default_gate?: boolean;
+    gate_available?: boolean;
+    gate_throws?: boolean;
     resolution: import("@/lib/companion-runtime/booking-approval-resume-resolver").BookingApprovalResumeResult;
     adapterResult?: BookingWriteAdapterResult;
   }) {
     resumeAdapterCallCount = 0;
     resumeAdapterLastId = null;
     resumeResolverCallCount = 0;
+    resumeGateCallCount = 0;
+    resumeGateLastCapability = null;
     const actionRequestId = input.action_request_id ?? resumeActionRequestId;
 
-    return resumeBookingWriteExecution({
+    const resumeInput: Parameters<typeof resumeBookingWriteExecution>[0] = {
       supabase: mockResumeSupabase,
       action_request_id: actionRequestId,
-      write_source_available: input.write_source_available,
       resolve_approval_resume: async (requestId) => {
         resumeResolverCallCount += 1;
         assert.equal(requestId, actionRequestId);
@@ -1359,25 +1364,75 @@ async function runPhase36bAsyncTests() {
         resumeAdapterLastId = requestId;
         return input.adapterResult ?? buildResumeAdapterResult();
       },
-    });
+    };
+
+    if (!input.use_default_gate) {
+      resumeInput.is_write_source_available = (capabilityKey) => {
+        resumeGateCallCount += 1;
+        resumeGateLastCapability = capabilityKey;
+        if (input.gate_throws) {
+          throw new Error("gate failure");
+        }
+        return input.gate_available ?? false;
+      };
+    }
+
+    return resumeBookingWriteExecution(resumeInput);
   }
 
-  const approvedSourceMissing = await runResumeCase({
-    write_source_available: false,
+  for (const [capability, requestedAction] of [
+    ["booking.create", "create"],
+    ["booking.update", "update"],
+    ["booking.cancel", "cancel"],
+  ] as const) {
+    assert.equal(isBookingWriteSourceConnected(capability), false, capability);
+    const result = await runResumeCase({
+      use_default_gate: true,
+      resolution: {
+        outcome: "approved",
+        action_request_id: resumeActionRequestId,
+        capability_key: capability,
+        requested_action: requestedAction,
+      },
+    });
+    assert.equal(result.outcome, "execution_source_missing", capability);
+    assert.equal(resumeAdapterCallCount, 0, capability);
+    assert.equal(resumeResolverCallCount, 1, capability);
+    assert.equal(resumeGateCallCount, 0, capability);
+    assertResumeResultHasNoSensitiveFields(result);
+  }
+
+  const gateCapabilityProbe = await runResumeCase({
+    gate_available: true,
+    resolution: {
+      outcome: "approved",
+      action_request_id: resumeActionRequestId,
+      capability_key: "booking.update",
+      requested_action: "update",
+    },
+  });
+  assert.equal(resumeGateCallCount, 1);
+  assert.equal(resumeGateLastCapability, "booking.update");
+  assert.equal(gateCapabilityProbe.outcome, "executed");
+  assert.equal(resumeAdapterCallCount, 1);
+
+  const gateBlocked = await runResumeCase({
+    gate_available: false,
     resolution: resumeApprovedResolution,
   });
-  assert.equal(approvedSourceMissing.outcome, "execution_source_missing");
+  assert.equal(gateBlocked.outcome, "execution_source_missing");
+  assert.equal(resumeGateCallCount, 1);
   assert.equal(resumeAdapterCallCount, 0);
-  assert.equal(resumeResolverCallCount, 1);
-  assertResumeResultHasNoSensitiveFields(approvedSourceMissing);
+  assertResumeResultHasNoSensitiveFields(gateBlocked);
 
   const approvedExecuted = await runResumeCase({
-    write_source_available: true,
+    gate_available: true,
     resolution: resumeApprovedResolution,
   });
   assert.equal(approvedExecuted.outcome, "executed");
   assert.equal(resumeAdapterCallCount, 1);
   assert.equal(resumeAdapterLastId, resumeActionRequestId);
+  assert.equal(resumeGateCallCount, 1);
   assertResumeResultHasNoSensitiveFields(approvedExecuted);
 
   for (const [outcomeCode, capability, requestedAction] of [
@@ -1386,7 +1441,7 @@ async function runPhase36bAsyncTests() {
     ["BOOKING_CANCELLED", "booking.cancel", "cancel"],
   ] as const) {
     const result = await runResumeCase({
-      write_source_available: true,
+      gate_available: true,
       resolution: {
         outcome: "approved",
         action_request_id: resumeActionRequestId,
@@ -1398,11 +1453,12 @@ async function runPhase36bAsyncTests() {
     assert.equal(result.outcome, "executed");
     assert.equal(result.outcome_code, outcomeCode);
     assert.equal(resumeAdapterCallCount, 1);
+    assert.equal(resumeGateCallCount, 1);
     assertResumeResultHasNoSensitiveFields(result);
   }
 
   const resumeReplayResult = await runResumeCase({
-    write_source_available: true,
+    gate_available: true,
     resolution: resumeApprovedResolution,
     adapterResult: buildResumeAdapterResult({ idempotent_replay: true }),
   });
@@ -1410,7 +1466,7 @@ async function runPhase36bAsyncTests() {
   assert.equal(resumeReplayResult.idempotent_replay, true);
 
   const adapterFailure = await runResumeCase({
-    write_source_available: true,
+    gate_available: true,
     resolution: resumeApprovedResolution,
     adapterResult: buildResumeAdapterResult({
       executed: false,
@@ -1422,14 +1478,16 @@ async function runPhase36bAsyncTests() {
   assert.equal(adapterFailure.outcome, "failed");
   assert.equal(adapterFailure.outcome_code, "OVERLAP_CONFLICT");
   assert.equal(resumeAdapterCallCount, 1);
+  assert.equal(resumeGateCallCount, 1);
   assertResumeResultHasNoSensitiveFields(adapterFailure);
 
   const pendingResult = await runResumeCase({
-    write_source_available: true,
+    gate_available: true,
     resolution: { outcome: "pending", action_request_id: resumeActionRequestId },
   });
   assert.equal(pendingResult.outcome, "approval_required");
   assert.equal(resumeAdapterCallCount, 0);
+  assert.equal(resumeGateCallCount, 0);
   assertResumeResultHasNoSensitiveFields(pendingResult);
 
   for (const outcome of [
@@ -1441,19 +1499,24 @@ async function runPhase36bAsyncTests() {
     "not_found",
   ] as const) {
     const result = await runResumeCase({
-      write_source_available: true,
+      gate_available: true,
       resolution: { outcome, action_request_id: resumeActionRequestId },
     });
     assert.equal(result.outcome, "failed", outcome);
     assert.equal(resumeAdapterCallCount, 0, outcome);
+    assert.equal(resumeGateCallCount, 0, outcome);
     assertResumeResultHasNoSensitiveFields(result);
   }
 
   resumeAdapterCallCount = 0;
+  resumeGateCallCount = 0;
   const invalidUuidResult = await resumeBookingWriteExecution({
     supabase: mockResumeSupabase,
     action_request_id: "00000000-0000-0000-0000-000000000000",
-    write_source_available: true,
+    is_write_source_available: () => {
+      resumeGateCallCount += 1;
+      return true;
+    },
     execute_booking_write: async () => {
       resumeAdapterCallCount += 1;
       return buildResumeAdapterResult();
@@ -1461,17 +1524,17 @@ async function runPhase36bAsyncTests() {
   });
   assert.equal(invalidUuidResult.outcome, "failed");
   assert.equal(resumeAdapterCallCount, 0);
+  assert.equal(resumeGateCallCount, 0);
   assertResumeResultHasNoSensitiveFields(invalidUuidResult);
 
   const missingDepsResult = await resumeBookingWriteExecution({
     action_request_id: resumeActionRequestId,
-    write_source_available: true,
   });
   assert.equal(missingDepsResult.outcome, "failed");
   assert.equal(missingDepsResult.proposal, null);
 
   const mismatchedIdResult = await runResumeCase({
-    write_source_available: true,
+    gate_available: true,
     resolution: {
       ...resumeApprovedResolution,
       action_request_id: "b2c3d4e5-f6a7-4890-b123-456789abcdef0",
@@ -1479,10 +1542,27 @@ async function runPhase36bAsyncTests() {
   });
   assert.equal(mismatchedIdResult.outcome, "failed");
   assert.equal(resumeAdapterCallCount, 0);
+  assert.equal(resumeGateCallCount, 0);
+
+  const gateThrowsResult = await runResumeCase({
+    gate_throws: true,
+    resolution: resumeApprovedResolution,
+  });
+  assert.equal(gateThrowsResult.outcome, "failed");
+  assert.equal(resumeGateCallCount, 1);
+  assert.equal(resumeAdapterCallCount, 0);
+  assertResumeResultHasNoSensitiveFields(gateThrowsResult);
+
+  const resumeEntrySource = fs.readFileSync(
+    path.join(process.cwd(), "lib/companion-runtime/booking-write-orchestrator.ts"),
+    "utf8",
+  );
+  assert.equal(/write_source_available:\s*boolean/.test(resumeEntrySource), false);
+  assert.equal(resumeEntrySource.includes("isBookingWriteSourceConnected"), true);
 
   const approvedMissingExecutor = await resumeBookingWriteExecution({
     action_request_id: resumeActionRequestId,
-    write_source_available: true,
+    is_write_source_available: () => true,
     resolve_approval_resume: async () => resumeApprovedResolution,
   });
   assert.equal(approvedMissingExecutor.outcome, "failed");

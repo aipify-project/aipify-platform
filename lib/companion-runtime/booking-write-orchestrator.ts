@@ -23,6 +23,7 @@ import {
   executeCompanionBookingWrite,
   type BookingWriteAdapterResult,
 } from "@/lib/integration-intelligence/providers/appointment-booking/booking-write-adapter";
+import { isBookingWriteSourceConnected } from "@/lib/integration-intelligence/providers/appointment-booking/booking-source-map";
 import {
   buildBookingApprovalCanonicalPayload,
   computeBookingApprovalPayloadHash,
@@ -307,11 +308,11 @@ function resumeFailed(actionRequestId: string | null): BookingWriteResult {
 
 function mapResumeResolutionToResult(input: {
   resolution: BookingApprovalResumeResult;
-  writeSourceAvailable: boolean;
+  sourceMissing?: boolean;
   adapter?: BookingWriteAdapterResult | null;
 }): BookingWriteResult {
   if (input.resolution.outcome === "approved") {
-    if (!input.writeSourceAvailable) {
+    if (input.sourceMissing) {
       return resumeResult({
         outcome: "execution_source_missing",
         proposal: {
@@ -381,8 +382,10 @@ function mapResumeResolutionToResult(input: {
 export type ResumeBookingWriteExecutionInput = {
   supabase?: SupabaseClient;
   action_request_id: string;
-  write_source_available: boolean;
   allowed_capability_keys?: readonly BookingApprovalResumeCapabilityKey[];
+  is_write_source_available?: (
+    capabilityKey: BookingApprovalResumeCapabilityKey,
+  ) => boolean;
   resolve_approval_resume?: (
     actionRequestId: string,
     allowedCapabilities?: readonly BookingApprovalResumeCapabilityKey[],
@@ -410,10 +413,7 @@ export async function resumeBookingWriteExecution(
   const resolution = await resolveResume(input.action_request_id, input.allowed_capability_keys);
 
   if (resolution.outcome !== "approved") {
-    return mapResumeResolutionToResult({
-      resolution,
-      writeSourceAvailable: input.write_source_available,
-    });
+    return mapResumeResolutionToResult({ resolution });
   }
 
   if (
@@ -423,10 +423,20 @@ export async function resumeBookingWriteExecution(
     return resumeFailed(null);
   }
 
-  if (!input.write_source_available) {
+  const evaluateWriteSourceAvailable =
+    input.is_write_source_available ?? isBookingWriteSourceConnected;
+
+  let writeSourceAvailable = false;
+  try {
+    writeSourceAvailable = evaluateWriteSourceAvailable(resolution.capability_key);
+  } catch {
+    return resumeFailed(resolution.action_request_id);
+  }
+
+  if (!writeSourceAvailable) {
     return mapResumeResolutionToResult({
       resolution,
-      writeSourceAvailable: false,
+      sourceMissing: true,
     });
   }
 
@@ -444,7 +454,6 @@ export async function resumeBookingWriteExecution(
 
   return mapResumeResolutionToResult({
     resolution,
-    writeSourceAvailable: true,
     adapter: adapterResult,
   });
 }
