@@ -629,7 +629,11 @@ async function runExecuteTurnWithResumeDeps(
           supportProposalInput = turnInput;
           return input.deps!.produce_support_proposal_turn!(turnInput);
         }
-      : undefined,
+      : async (turnInput) => {
+          supportProposalCalls += 1;
+          supportProposalInput = turnInput;
+          return { handled: false as const };
+        },
   };
 
   const executeCompanionTurn = await getExecuteCompanionTurn();
@@ -666,7 +670,8 @@ async function runExecuteTurnWithResumeDeps(
 
 async function testExecuteTurnResumeWiring() {
   {
-    const { turn, detectCalls, loadCalls, produceCalls, proposalCalls } = await runExecuteTurnWithResumeDeps(
+    const { turn, detectCalls, loadCalls, produceCalls, proposalCalls, supportProposalCalls } =
+      await runExecuteTurnWithResumeDeps(
       {
         query: "What is my schedule tomorrow?",
         deps: {
@@ -678,6 +683,7 @@ async function testExecuteTurnResumeWiring() {
     assert.equal(loadCalls, 1);
     assert.equal(produceCalls, 0);
     assert.equal(proposalCalls, 1);
+    assert.equal(supportProposalCalls, 1);
     assert.equal(turn.ok, true);
   }
 
@@ -706,7 +712,7 @@ async function testExecuteTurnResumeWiring() {
         },
       },
     );
-    assert.equal(loadCalls, 3);
+    assert.equal(loadCalls, 1);
     assert.equal(produceCalls, 0);
     assert.equal(turn.ok, true);
   }
@@ -771,7 +777,7 @@ async function testExecuteTurnResumeWiring() {
         },
       },
     });
-    assert.equal(loadCalls, 3);
+    assert.equal(loadCalls, 1);
     assert.equal(turn.ok, true);
     assert.equal(JSON.stringify(turn).includes("loader exploded"), false);
   }
@@ -1291,6 +1297,89 @@ async function testExecuteTurnSupportResumeWiring() {
 
 async function testExecuteTurnSupportProposalWiring() {
   const assignQuery = "Assign support case P112-C3X to Alex. This is a controlled E2E.";
+  const explicitAssignQuery =
+    "Tildel sak 11111111-1111-4111-8111-111111111111 til bruker 22222222-2222-4222-8222-222222222222. Bekreft.";
+  const bookingProposalQuery =
+    "Bestill en avtale for testkunde P112-C3X-E2E-R2 mandag neste uke kl. 10:00. Dette er en kontrollert production E2E. Opprett kun én booking.";
+
+  {
+    const { turn, loadCalls, proposalCalls, supportProposalCalls } =
+      await runExecuteTurnWithResumeDeps({
+        query: "What is my schedule tomorrow?",
+        deps: {
+          detect_booking_resume_intent: () => false,
+          detect_support_resume_intent: () => false,
+        },
+      });
+    assert.equal(loadCalls, 1);
+    assert.equal(proposalCalls, 1);
+    assert.equal(supportProposalCalls, 1);
+    assert.equal(turn.ok, true);
+  }
+
+  {
+    const { turn, supportProduceCalls, supportProposalCalls } =
+      await runExecuteTurnWithResumeDeps({
+        query: "ja",
+        deps: {
+          detect_booking_resume_intent: () => false,
+          detect_support_resume_intent: () => true,
+          produce_support_resume_turn: async () => ({
+            handled: true,
+            answer: supportProducerAnswer,
+          }),
+        },
+      });
+    assert.equal(supportProduceCalls, 1);
+    assert.equal(supportProposalCalls, 0);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    assert.equal((turn.searchJson.answer as PlatformKnowledgeAnswer).sourceId, "support-resume");
+  }
+
+  {
+    const { turn, proposalCalls, supportProposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: bookingProposalQuery,
+      deps: {
+        detect_booking_resume_intent: () => false,
+        detect_support_resume_intent: () => false,
+        produce_booking_proposal_turn: async () => ({
+          handled: true,
+          answer: proposalClarificationAnswer,
+        }),
+      },
+    });
+    assert.equal(proposalCalls, 1);
+    assert.equal(supportProposalCalls, 0);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    assert.equal((turn.searchJson.answer as PlatformKnowledgeAnswer).sourceId, "booking-proposal");
+  }
+
+  {
+    const { turn, supportProposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: explicitAssignQuery,
+      deps: {
+        detect_booking_resume_intent: () => false,
+        detect_support_resume_intent: () => false,
+        produce_support_proposal_turn: async () => ({
+          handled: true,
+          answer: supportProposalBaseAnswer,
+          writeResult: {
+            outcome: "approval_required",
+            action_request_id: VALID_ACTION_REQUEST_ID,
+          },
+        }),
+      },
+    });
+    assert.equal(supportProposalCalls, 1);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    assert.notEqual(
+      (turn.searchJson.answer as PlatformKnowledgeAnswer).sourceId,
+      "companion-lightweight-conversational",
+    );
+  }
 
   {
     const { turn, supportProposalCalls } = await runExecuteTurnWithResumeDeps({
@@ -1376,11 +1465,17 @@ async function testExecuteTurnSupportProposalWiring() {
       deps: {
         detect_booking_resume_intent: () => false,
         detect_support_resume_intent: () => false,
+        produce_support_proposal_turn: async () => ({ handled: false }),
       },
     });
-    assert.equal(supportProposalCalls, 0);
+    assert.equal(supportProposalCalls, 1);
     assert.equal(proposalCalls, 1);
     assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    assert.equal(
+      (turn.searchJson.answer as PlatformKnowledgeAnswer).sourceId,
+      "companion-lightweight-conversational",
+    );
   }
 }
 

@@ -229,6 +229,75 @@ async function resolveProduceSupportProposalTurn(
   return produceSupportProposalTurnDefault;
 }
 
+type TurnConversationMessagesLoader = {
+  load: () => Promise<LoadCompanionConversationMessagesResult>;
+};
+
+function createTurnConversationMessagesLoader(input: {
+  supabase: SupabaseClient;
+  conversationId: string;
+  abortSignal?: AbortSignal;
+  deps?: ExecuteCompanionTurnDeps;
+}): TurnConversationMessagesLoader {
+  let loadPromise: Promise<LoadCompanionConversationMessagesResult> | undefined;
+
+  return {
+    load: () => {
+      if (!loadPromise) {
+        const loadMessages =
+          input.deps?.load_companion_conversation_messages ?? loadCompanionConversationMessages;
+        loadPromise = loadMessages(input.supabase, input.conversationId).then((loaded) => {
+          throwIfCompanionTurnAborted(input.abortSignal);
+          return loaded;
+        });
+      }
+      return loadPromise;
+    },
+  };
+}
+
+async function loadTurnConversationMessagesForResume(
+  messagesLoader: TurnConversationMessagesLoader | null,
+  abortSignal?: AbortSignal,
+): Promise<CompanionChatMessage[] | null> {
+  if (!messagesLoader) {
+    return null;
+  }
+
+  try {
+    const loaded = await messagesLoader.load();
+    throwIfCompanionTurnAborted(abortSignal);
+    if (loaded.status !== "loaded") {
+      return null;
+    }
+    return loaded.messages;
+  } catch {
+    throwIfCompanionTurnAborted(abortSignal);
+    return null;
+  }
+}
+
+async function loadTurnConversationMessagesForProposal(
+  messagesLoader: TurnConversationMessagesLoader | null,
+  abortSignal?: AbortSignal,
+): Promise<CompanionChatMessage[]> {
+  if (!messagesLoader) {
+    return [];
+  }
+
+  try {
+    const loaded = await messagesLoader.load();
+    throwIfCompanionTurnAborted(abortSignal);
+    if (loaded.status === "loaded") {
+      return loaded.messages;
+    }
+    return [];
+  } catch {
+    throwIfCompanionTurnAborted(abortSignal);
+    return [];
+  }
+}
+
 async function tryLazyBookingResumeTurn(input: {
   supabase: SupabaseClient;
   query: string;
@@ -238,6 +307,7 @@ async function tryLazyBookingResumeTurn(input: {
   t: Translator;
   labels: ReturnType<typeof buildSupportAssistantLabels>;
   companionLabels: CompanionExperienceLabels;
+  messagesLoader: TurnConversationMessagesLoader | null;
   deps?: ExecuteCompanionTurnDeps;
 }): Promise<ExecuteCompanionTurnResult | null> {
   const detectResume =
@@ -252,11 +322,11 @@ async function tryLazyBookingResumeTurn(input: {
   }
 
   try {
-    const loadMessages =
-      input.deps?.load_companion_conversation_messages ?? loadCompanionConversationMessages;
-    const loaded = await loadMessages(input.supabase, conversationId);
-    throwIfCompanionTurnAborted(input.abortSignal);
-    if (loaded.status !== "loaded") {
+    const messages = await loadTurnConversationMessagesForResume(
+      input.messagesLoader,
+      input.abortSignal,
+    );
+    if (!messages) {
       return null;
     }
 
@@ -264,7 +334,7 @@ async function tryLazyBookingResumeTurn(input: {
     const producerResult = await produceResume({
       supabase: input.supabase,
       query: input.query,
-      messages: loaded.messages,
+      messages,
       t: input.t,
     });
     throwIfCompanionTurnAborted(input.abortSignal);
@@ -306,6 +376,7 @@ async function tryLazySupportResumeTurn(input: {
   t: Translator;
   labels: ReturnType<typeof buildSupportAssistantLabels>;
   companionLabels: CompanionExperienceLabels;
+  messagesLoader: TurnConversationMessagesLoader | null;
   deps?: ExecuteCompanionTurnDeps;
 }): Promise<ExecuteCompanionTurnResult | null> {
   const detectResume =
@@ -320,11 +391,11 @@ async function tryLazySupportResumeTurn(input: {
   }
 
   try {
-    const loadMessages =
-      input.deps?.load_companion_conversation_messages ?? loadCompanionConversationMessages;
-    const loaded = await loadMessages(input.supabase, conversationId);
-    throwIfCompanionTurnAborted(input.abortSignal);
-    if (loaded.status !== "loaded") {
+    const messages = await loadTurnConversationMessagesForResume(
+      input.messagesLoader,
+      input.abortSignal,
+    );
+    if (!messages) {
       return null;
     }
 
@@ -332,7 +403,7 @@ async function tryLazySupportResumeTurn(input: {
     const producerResult = await produceResume({
       supabase: input.supabase,
       query: input.query,
-      messages: loaded.messages,
+      messages,
       t: input.t,
     });
     throwIfCompanionTurnAborted(input.abortSignal);
@@ -375,6 +446,7 @@ async function tryLazySupportProposalTurn(input: {
   t: Translator;
   labels: ReturnType<typeof buildSupportAssistantLabels>;
   companionLabels: CompanionExperienceLabels;
+  messagesLoader: TurnConversationMessagesLoader | null;
   deps?: ExecuteCompanionTurnDeps;
 }): Promise<ExecuteCompanionTurnResult | null> {
   if (!input.query.trim()) {
@@ -388,16 +460,10 @@ async function tryLazySupportProposalTurn(input: {
 
   try {
     const conversationId = input.conversationId.trim();
-    let messages: CompanionChatMessage[] = [];
-    if (conversationId) {
-      const loadMessages =
-        input.deps?.load_companion_conversation_messages ?? loadCompanionConversationMessages;
-      const loaded = await loadMessages(input.supabase, conversationId);
-      throwIfCompanionTurnAborted(input.abortSignal);
-      if (loaded.status === "loaded") {
-        messages = loaded.messages;
-      }
-    }
+    const messages = await loadTurnConversationMessagesForProposal(
+      input.messagesLoader,
+      input.abortSignal,
+    );
 
     const producerResult = await produceProposal({
       supabase: input.supabase,
@@ -451,6 +517,7 @@ async function tryLazyBookingProposalTurn(input: {
   t: Translator;
   labels: ReturnType<typeof buildSupportAssistantLabels>;
   companionLabels: CompanionExperienceLabels;
+  messagesLoader: TurnConversationMessagesLoader | null;
   deps?: ExecuteCompanionTurnDeps;
 }): Promise<ExecuteCompanionTurnResult | null> {
   if (!input.query.trim()) {
@@ -459,16 +526,10 @@ async function tryLazyBookingProposalTurn(input: {
 
   try {
     const conversationId = input.conversationId.trim();
-    let messages: CompanionChatMessage[] = [];
-    if (conversationId) {
-      const loadMessages =
-        input.deps?.load_companion_conversation_messages ?? loadCompanionConversationMessages;
-      const loaded = await loadMessages(input.supabase, conversationId);
-      throwIfCompanionTurnAborted(input.abortSignal);
-      if (loaded.status === "loaded") {
-        messages = loaded.messages;
-      }
-    }
+    const messages = await loadTurnConversationMessagesForProposal(
+      input.messagesLoader,
+      input.abortSignal,
+    );
 
     const produceProposal =
       input.deps?.produce_booking_proposal_turn ?? produceBookingProposalTurn;
@@ -555,6 +616,16 @@ export async function executeCompanionTurn(
   const labels = buildSupportAssistantLabels(t);
   const companionLabels = buildCompanionExperienceLabels(t);
 
+  const trimmedConversationId = input.conversationId.trim();
+  const turnMessagesLoader = trimmedConversationId
+    ? createTurnConversationMessagesLoader({
+        supabase,
+        conversationId: trimmedConversationId,
+        abortSignal: input.abortSignal,
+        deps,
+      })
+    : null;
+
   const resumeTurn = await tryLazyBookingResumeTurn({
     supabase,
     query,
@@ -564,6 +635,7 @@ export async function executeCompanionTurn(
     t,
     labels,
     companionLabels,
+    messagesLoader: turnMessagesLoader,
     deps,
   });
   if (resumeTurn) {
@@ -579,6 +651,7 @@ export async function executeCompanionTurn(
     t,
     labels,
     companionLabels,
+    messagesLoader: turnMessagesLoader,
     deps,
   });
   if (supportResumeTurn) {
@@ -595,6 +668,7 @@ export async function executeCompanionTurn(
     t,
     labels,
     companionLabels,
+    messagesLoader: turnMessagesLoader,
     deps,
   });
   if (proposalTurn) {
@@ -611,6 +685,7 @@ export async function executeCompanionTurn(
     t,
     labels,
     companionLabels,
+    messagesLoader: turnMessagesLoader,
     deps,
   });
   if (supportProposalTurn) {
