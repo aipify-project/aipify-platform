@@ -1,9 +1,17 @@
-import type { CompanionAssistantPayload, CompanionPendingBookingWriteHandoff } from "./types";
+import type {
+  CompanionAssistantPayload,
+  CompanionPendingBookingWriteHandoff,
+  CompanionPendingSupportWriteHandoff,
+} from "./types";
 import type { CompanionChatMessage } from "../types";
 import {
   normalizePendingBookingClarification,
   serializePendingBookingClarification,
 } from "@/lib/companion-runtime/booking-pending-action-pointer";
+import {
+  normalizePendingSupportWrite,
+  serializePendingSupportWrite,
+} from "@/lib/companion-runtime/support-pending-action-pointer";
 
 const UUID_REGEX =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -46,8 +54,29 @@ function serializePendingBookingWriteHandoff(
   return normalized ?? undefined;
 }
 
+type CompanionChatMessageWithPendingSupport = CompanionChatMessage & {
+  pendingSupportWrite?: { actionRequestId: string } | null;
+};
+
+function serializePendingSupportWriteHandoff(
+  message: CompanionChatMessage,
+): CompanionPendingSupportWriteHandoff | undefined {
+  const actionRequestId = (message as CompanionChatMessageWithPendingSupport).pendingSupportWrite
+    ?.actionRequestId;
+  if (!actionRequestId) {
+    return undefined;
+  }
+
+  try {
+    return serializePendingSupportWrite({ actionRequestId });
+  } catch {
+    return undefined;
+  }
+}
+
 export function serializeAssistantPayload(message: CompanionChatMessage): CompanionAssistantPayload {
   const pendingBookingWrite = serializePendingBookingWriteHandoff(message);
+  const pendingSupportWrite = serializePendingSupportWriteHandoff(message);
   const pendingBookingClarification = message.pendingBookingClarification
     ? serializePendingBookingClarification(message.pendingBookingClarification)
     : undefined;
@@ -72,6 +101,7 @@ export function serializeAssistantPayload(message: CompanionChatMessage): Compan
     attachments: message.attachments,
     activeArtifactId: message.activeArtifactId,
     ...(pendingBookingWrite ? { pending_booking_write: pendingBookingWrite } : {}),
+    ...(pendingSupportWrite ? { pending_support_write: pendingSupportWrite } : {}),
     ...(pendingBookingClarification
       ? { pending_booking_clarification: pendingBookingClarification }
       : {}),
@@ -88,6 +118,7 @@ export function deserializeAssistantMessage(
   if (payload?.kind === "assistant_reply") {
     const p = payload as CompanionAssistantPayload;
     const pendingBookingWrite = normalizePendingBookingWriteHandoff(p.pending_booking_write);
+    const pendingSupportWrite = normalizePendingSupportWrite(p.pending_support_write);
     const pendingBookingClarification = normalizePendingBookingClarification(
       p.pending_booking_clarification,
     );
@@ -117,6 +148,9 @@ export function deserializeAssistantMessage(
       requestId: typeof p.request_id === "string" ? p.request_id : null,
       ...(pendingBookingWrite
         ? { pendingBookingWrite: { actionRequestId: pendingBookingWrite.action_request_id } }
+        : {}),
+      ...(pendingSupportWrite
+        ? { pendingSupportWrite: { actionRequestId: pendingSupportWrite.action_request_id } }
         : {}),
       ...(pendingBookingClarification
         ? { pendingBookingClarification }
