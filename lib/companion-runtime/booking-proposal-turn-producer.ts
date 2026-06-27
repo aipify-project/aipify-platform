@@ -211,18 +211,41 @@ function resolveProposalSlotStartAt(slots: readonly { start_at: string }[]): str
   return null;
 }
 
+function extractFollowUpLabelValue(
+  query: string,
+  labels: readonly string[],
+  options?: { allowKlAbbreviation?: boolean },
+): string | null {
+  const labelPattern = labels.join("|");
+  const valuePattern = options?.allowKlAbbreviation ? "(?:[^.;]|\\bkl\\.)+?" : "[^.;]+";
+  const nextLabel =
+    "varighet|duration|kunde|customer|tjeneste|service|ressurs|ansatt|employee|behandler|tidspunkt|time|slot|opprett|bekreft|confirm";
+  const match = query.match(
+    new RegExp(
+      `\\b(?:${labelPattern})\\s*:\\s*(${valuePattern})(?=\\.(?:\\s+(?:${nextLabel})\\b|$)|\\s*$)`,
+      "i",
+    ),
+  );
+  return match?.[1]?.trim() ?? null;
+}
+
 export function extractBookingFollowUpFields(query: string): {
   customerReference: string | null;
   serviceLabel: string | null;
   resourceName: string | null;
   dateHint: string | null;
 } {
-  const customerFromLabel = query.match(/\b(?:kunde|customer)\s*:\s*([^.;]+)/i)?.[1]?.trim() ?? null;
-  const serviceLabel = query.match(/\b(?:tjeneste|service)\s*:\s*([^.;]+)/i)?.[1]?.trim() ?? null;
-  const dateHint =
-    query.match(/\b(?:tidspunkt|time|slot)\s*:\s*([^.;]+)/i)?.[1]?.trim() ?? null;
-  const resourceName =
-    query.match(/\b(?:ressurs|ansatt|employee|behandler)\s*:\s*([^.;]+)/i)?.[1]?.trim() ?? null;
+  const customerFromLabel = extractFollowUpLabelValue(query, ["kunde", "customer"]);
+  const serviceLabel = extractFollowUpLabelValue(query, ["tjeneste", "service"]);
+  const dateHint = extractFollowUpLabelValue(query, ["tidspunkt", "time", "slot"], {
+    allowKlAbbreviation: true,
+  });
+  const resourceName = extractFollowUpLabelValue(query, [
+    "ressurs",
+    "ansatt",
+    "employee",
+    "behandler",
+  ]);
 
   return {
     customerReference: customerFromLabel ?? extractBookingCustomerReference(query),

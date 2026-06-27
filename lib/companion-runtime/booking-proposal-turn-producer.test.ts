@@ -7,11 +7,14 @@ import type { BookingWriteResult } from "@/lib/integration-intelligence/booking/
 import type { Translator } from "@/lib/i18n/translate";
 import type { BookingPermissionContext } from "@/lib/integration-intelligence/booking/permissions";
 import {
+  extractBookingFollowUpFields,
   isClearBookingCreateIntent,
   produceBookingProposalTurn,
   type BookingProposalReadContext,
   type ProduceBookingProposalTurnResult,
 } from "@/lib/companion-runtime/booking-proposal-turn-producer";
+import { resolveBookingSemanticIntent, collectBookingDescriptorsFromManifests } from "@/lib/companion-runtime/booking-semantic-intent";
+import { APPOINTMENT_BOOKING_PROVIDER_MANIFESTS } from "@/lib/integration-intelligence/providers/appointment-booking/booking-manifest";
 import { buildPendingBookingClarificationState } from "@/lib/companion-runtime/booking-pending-action-pointer";
 import { buildAppointmentBookingReadBundle } from "@/lib/integration-intelligence/providers/appointment-booking/appointment-booking-contract";
 import type {
@@ -267,6 +270,107 @@ function assertHandled(
 }
 
 async function runAll() {
+const expectedDateHint = "mandag neste uke kl. 10:00";
+
+assert.equal(
+  extractBookingFollowUpFields("Tidspunkt: mandag neste uke kl. 10:00.").dateHint,
+  expectedDateHint,
+);
+assert.equal(
+  extractBookingFollowUpFields("Tidspunkt: mandag neste uke kl. 10:00").dateHint,
+  expectedDateHint,
+);
+
+const c3xR4Turn2Query =
+  "Ja, bekreft bookingen. Kunde: P112-C3X-R4. Tjeneste: Kontrollert testavtale. Tidspunkt: mandag neste uke kl. 10:00. Varighet: 60 minutter. Opprett kun én booking.";
+const c3xR4FollowUp = extractBookingFollowUpFields(c3xR4Turn2Query);
+const c3xR4Intent = resolveBookingSemanticIntent({
+  query: c3xR4Turn2Query,
+  locale: "no",
+  descriptors: collectBookingDescriptorsFromManifests(APPOINTMENT_BOOKING_PROVIDER_MANIFESTS),
+});
+assert.equal(c3xR4FollowUp.customerReference, "P112-C3X-R4");
+assert.equal(c3xR4FollowUp.serviceLabel, "Kontrollert testavtale");
+assert.equal(c3xR4FollowUp.dateHint, expectedDateHint);
+assert.match(c3xR4Turn2Query, /\bVarighet:\s*60 minutter/i);
+assert.equal(c3xR4Intent.confirmed, true);
+
+const emptyCatalogContinuation = await runProposal({
+  query: c3xR4Turn2Query,
+  intent: createIntent({
+    confirmed: true,
+    service_id: "Kontrollert testavtale",
+    confidence: "high",
+    ambiguous: false,
+  }),
+  read: readContext({ services: [], resources: [], slots: [] }),
+  conversationId: CONVERSATION_ID,
+  messages: [
+    {
+      id: "a1",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.clarificationRequired`],
+      timestamp: 1,
+      pendingBookingClarification: buildPendingBookingClarificationState({
+        clarificationId: CLARIFICATION_ID,
+        organizationId: "org-unonight",
+        conversationId: CONVERSATION_ID,
+        customerReference: "P112-C3X-R4",
+        missingFields: ["service_missing"],
+        now: FIXED_NOW,
+      }),
+    },
+  ],
+});
+assert.equal(emptyCatalogContinuation.result.handled, true);
+assertHandled(emptyCatalogContinuation.result);
+assert.deepEqual(
+  emptyCatalogContinuation.result.answer.pendingBookingClarification?.missingFields,
+  ["service_missing"],
+);
+assert.equal(emptyCatalogContinuation.bridgeCalls, 0);
+assert.equal(emptyCatalogContinuation.executionRpcCalled, false);
+
+const matchedServiceContinuation = await runProposal({
+  query: c3xR4Turn2Query,
+  intent: createIntent({
+    confirmed: true,
+    service_id: "Kontrollert testavtale",
+    confidence: "high",
+    ambiguous: false,
+  }),
+  read: readContext({
+    services: [controlledService],
+    resources: [],
+    slots: [],
+  }),
+  conversationId: CONVERSATION_ID,
+  messages: [
+    {
+      id: "a1",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.clarificationRequired`],
+      timestamp: 1,
+      pendingBookingClarification: buildPendingBookingClarificationState({
+        clarificationId: CLARIFICATION_ID,
+        organizationId: "org-unonight",
+        conversationId: CONVERSATION_ID,
+        customerReference: "P112-C3X-R4",
+        missingFields: ["service_missing"],
+        now: FIXED_NOW,
+      }),
+    },
+  ],
+});
+assert.equal(matchedServiceContinuation.result.handled, true);
+assertHandled(matchedServiceContinuation.result);
+assert.equal(
+  matchedServiceContinuation.result.answer.pendingBookingClarification?.dateHint,
+  expectedDateHint,
+);
+assert.equal(matchedServiceContinuation.bridgeCalls, 0);
+assert.equal(matchedServiceContinuation.executionRpcCalled, false);
+
 const c3xLike = await runProposal({
   query:
     "Bestill en avtale for testkunde P112-C3X-E2E-R2 mandag neste uke kl. 10:00. Dette er en kontrollert production E2E. Opprett kun én booking.",
