@@ -1,4 +1,177 @@
-import type { CompanionActionCenter } from "./types";
+import type { CompanionActionCenter, CompanionActionRequest } from "./types";
+
+export type ApprovalActionSource = "trust" | "companion";
+
+export function resolveApprovalPostRequest(
+  source: ApprovalActionSource,
+  actionId: string,
+  decision: "approve" | "reject",
+): { url: string; init: RequestInit } {
+  if (source === "companion") {
+    return {
+      url: "/api/companion/actions/action",
+      init: {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: decision, action_id: actionId }),
+      },
+    };
+  }
+
+  if (decision === "reject") {
+    return {
+      url: `/api/actions/${actionId}/reject`,
+      init: {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
+      },
+    };
+  }
+
+  return {
+    url: `/api/actions/${actionId}/approve`,
+    init: { method: "POST" },
+  };
+}
+
+export function dedupeCompanionPendingById<T extends { id: string }>(items: T[]): T[] {
+  const seen = new Set<string>();
+  return items.filter((item) => {
+    const id = item.id.trim();
+    if (!id || seen.has(id)) return false;
+    seen.add(id);
+    return true;
+  });
+}
+
+export type CompanionPendingDisplayFields = {
+  id: string;
+  title: string;
+  description: string;
+  status: string;
+  expiresAt: string;
+  category: string;
+};
+
+const COMPANION_DISPLAY_FIELD_KEYS = [
+  "id",
+  "title",
+  "description",
+  "status",
+  "expiresAt",
+  "category",
+] as const;
+
+export function buildCompanionPendingDisplayFields(
+  action: CompanionActionRequest,
+): CompanionPendingDisplayFields {
+  return {
+    id: action.id,
+    title: action.title,
+    description: action.description || action.reason,
+    status: action.approval_status || action.lifecycle_status,
+    expiresAt: action.expires_at,
+    category: action.category,
+  };
+}
+
+export function companionDisplayFieldsExcludeSensitivePayload(
+  display: CompanionPendingDisplayFields,
+): boolean {
+  const serialized = JSON.stringify(display);
+  const forbidden = [
+    "metadata",
+    "payload",
+    "payload_hash",
+    "case_id",
+    "assignee_user_id",
+    "idempotency_key",
+    "support_write",
+  ];
+  if (forbidden.some((token) => serialized.includes(token))) {
+    return false;
+  }
+  return COMPANION_DISPLAY_FIELD_KEYS.every((key) => key in display);
+}
+
+export type TrustApprovalsLoadOutcome = {
+  kind: "success" | "error";
+  error: string | null;
+};
+
+export type CompanionActionsLoadOutcome = {
+  kind: "success" | "error" | "no_access";
+  error: string | null;
+  actions: CompanionActionRequest[];
+  emergencyStop: boolean;
+};
+
+export function resolveTrustApprovalsLoadOutcome(input: {
+  responseOk: boolean;
+  payload: Record<string, unknown> & { error?: string };
+  fallbackError: string;
+}): TrustApprovalsLoadOutcome {
+  if (!input.responseOk) {
+    return {
+      kind: "error",
+      error:
+        typeof input.payload.error === "string" ? input.payload.error : input.fallbackError,
+    };
+  }
+  return { kind: "success", error: null };
+}
+
+export function resolveCompanionActionsLoadOutcome(input: {
+  responseOk: boolean;
+  payload: unknown;
+  fallbackError: string;
+}): CompanionActionsLoadOutcome {
+  if (!input.responseOk) {
+    const row =
+      input.payload && typeof input.payload === "object"
+        ? (input.payload as Record<string, unknown>)
+        : {};
+    return {
+      kind: "error",
+      error: typeof row.error === "string" ? row.error : input.fallbackError,
+      actions: [],
+      emergencyStop: false,
+    };
+  }
+
+  const center = parseCompanionActionCenter(input.payload);
+  if (!center?.has_access) {
+    return {
+      kind: "no_access",
+      error: null,
+      actions: [],
+      emergencyStop: false,
+    };
+  }
+
+  return {
+    kind: "success",
+    error: null,
+    actions: dedupeCompanionPendingById(center.pending_actions),
+    emergencyStop: center.emergency_stop_active,
+  };
+}
+
+export function shouldShowApprovalsEmptyState(params: {
+  loading: boolean;
+  error: string | null;
+  itemCount: number;
+}): boolean {
+  return !params.loading && params.error === null && params.itemCount === 0;
+}
+
+export async function runIndependentApprovalLoads(loaders: {
+  trust: () => Promise<void>;
+  companion: () => Promise<void>;
+}): Promise<[PromiseSettledResult<void>, PromiseSettledResult<void>]> {
+  return Promise.allSettled([loaders.trust(), loaders.companion()]);
+}
 
 function str(value: unknown, fallback = ""): string {
   return typeof value === "string" ? value : fallback;

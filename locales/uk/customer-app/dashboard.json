@@ -152,6 +152,13 @@
     "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center",
     "transformationChangeCenterLink": "Transformation & Change Center"
   },
+  "approvals": {
+    "trustSection": "Схвалення довіри та дій",
+    "companionSection": "Дії Companion",
+    "companionEmpty": "Немає дій Companion, що очікують на схвалення.",
+    "trustLoadError": "Aipify не вдалося зараз завантажити схвалення довіри.",
+    "retry": "Повторити"
+  },
   "organizationalEarlyWarning": {
     "title": "Центр раннього попередження",
     "subtitle": "Identify emerging risks, declining trends, hidden bottlenecks, and opportunities before they become major problems.",

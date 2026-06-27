@@ -5,6 +5,15 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import type { CustomerApproval } from "@/lib/app/customer-app";
+import {
+  buildCompanionPendingDisplayFields,
+  resolveApprovalPostRequest,
+  resolveCompanionActionsLoadOutcome,
+  resolveTrustApprovalsLoadOutcome,
+  runIndependentApprovalLoads,
+  shouldShowApprovalsEmptyState,
+  type CompanionActionRequest,
+} from "@/lib/companion-action-approval";
 import { RISK_LEVEL_STYLES, type ActionLevel } from "@/lib/trust-action";
 import { formatDate } from "@/lib/i18n/format-date";
 
@@ -43,6 +52,9 @@ type ApprovalsCenterPanelProps = {
     successCriteria?: string;
     transparencyRequirements?: string;
     integrationLinks?: string;
+    trustSection: string;
+    trustLoadError: string;
+    retry: string;
     riskLevels: Record<string, string>;
     statusLabels: Record<string, string>;
     categoryLabels: Record<string, string>;
@@ -51,6 +63,16 @@ type ApprovalsCenterPanelProps = {
       confidence: string;
       approver: string;
       reasoning: string;
+    };
+    companion: {
+      section: string;
+      empty: string;
+      loadError: string;
+      openCenter: string;
+      reason: string;
+      expires: string;
+      category: string;
+      statusLabels: Record<string, string>;
     };
   };
 };
@@ -61,6 +83,7 @@ const STATUS_STYLES: Record<string, string> = {
   rejected: "bg-rose-100 text-rose-900",
   completed: "bg-gray-100 text-gray-700",
   executing: "bg-indigo-100 text-indigo-900",
+  awaiting_approval: "bg-amber-100 text-amber-900",
 };
 
 function riskStyle(level: string): string {
@@ -71,70 +94,130 @@ function riskStyle(level: string): string {
   return "bg-gray-100 text-gray-700";
 }
 
+function companionStatusLabel(
+  status: string,
+  labels: ApprovalsCenterPanelProps["labels"]["companion"]["statusLabels"],
+): string {
+  const normalized = status.trim().toLowerCase();
+  return labels[`status_${normalized}`] ?? labels[normalized] ?? status;
+}
+
 export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelProps) {
   const [items, setItems] = useState<CustomerApproval[]>([]);
   const [centerMeta, setCenterMeta] = useState<ApprovalsCenterMeta | null>(null);
   const [emergencyState, setEmergencyState] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState<string | null>(null);
+  const [companionActions, setCompanionActions] = useState<CompanionActionRequest[]>([]);
+  const [companionEmergencyStop, setCompanionEmergencyStop] = useState(false);
+  const [trustLoading, setTrustLoading] = useState(true);
+  const [companionLoading, setCompanionLoading] = useState(true);
+  const [trustLoadError, setTrustLoadError] = useState<string | null>(null);
+  const [companionLoadError, setCompanionLoadError] = useState<string | null>(null);
   const [actingId, setActingId] = useState<string | null>(null);
 
-  const refresh = useCallback(async () => {
-    setLoadError(null);
-    const response = await fetch("/api/app/approvals");
-    const payload = (await response.json()) as Record<string, unknown> & { error?: string };
-    if (!response.ok) {
-      setLoadError(typeof payload.error === "string" ? payload.error : "Failed to load approvals");
-      setLoading(false);
-      return;
-    }
-    if (payload?.has_customer) {
-      setCenterMeta({
-        philosophy: typeof payload.philosophy === "string" ? payload.philosophy : undefined,
-        mission: typeof payload.mission === "string" ? payload.mission : undefined,
-        abos_principle: typeof payload.abos_principle === "string" ? payload.abos_principle : undefined,
-        vision: typeof payload.vision === "string" ? payload.vision : undefined,
-        action_categories: Array.isArray(payload.action_categories)
-          ? (payload.action_categories as ApprovalsCenterMeta["action_categories"])
-          : undefined,
-        success_criteria: Array.isArray(payload.success_criteria)
-          ? (payload.success_criteria as ApprovalsCenterMeta["success_criteria"])
-          : undefined,
-        transparency_requirements: Array.isArray(payload.transparency_requirements)
-          ? (payload.transparency_requirements as string[])
-          : undefined,
-        integration_links: Array.isArray(payload.integration_links)
-          ? (payload.integration_links as ApprovalsCenterMeta["integration_links"])
-          : undefined,
-        self_love_note: typeof payload.self_love_note === "string" ? payload.self_love_note : undefined,
+  const refreshTrust = useCallback(async () => {
+    setTrustLoadError(null);
+    try {
+      const response = await fetch("/api/app/approvals");
+      const payload = (await response.json()) as Record<string, unknown> & { error?: string };
+      const outcome = resolveTrustApprovalsLoadOutcome({
+        responseOk: response.ok,
+        payload,
+        fallbackError: labels.trustLoadError,
       });
-      setItems((payload.approvals as CustomerApproval[]) ?? []);
-      setEmergencyState(
-        typeof payload.emergency_state === "string" ? payload.emergency_state : null
-      );
+      if (outcome.kind === "error") {
+        setTrustLoadError(outcome.error);
+        return;
+      }
+      if (payload?.has_customer) {
+        setCenterMeta({
+          philosophy: typeof payload.philosophy === "string" ? payload.philosophy : undefined,
+          mission: typeof payload.mission === "string" ? payload.mission : undefined,
+          abos_principle: typeof payload.abos_principle === "string" ? payload.abos_principle : undefined,
+          vision: typeof payload.vision === "string" ? payload.vision : undefined,
+          action_categories: Array.isArray(payload.action_categories)
+            ? (payload.action_categories as ApprovalsCenterMeta["action_categories"])
+            : undefined,
+          success_criteria: Array.isArray(payload.success_criteria)
+            ? (payload.success_criteria as ApprovalsCenterMeta["success_criteria"])
+            : undefined,
+          transparency_requirements: Array.isArray(payload.transparency_requirements)
+            ? (payload.transparency_requirements as string[])
+            : undefined,
+          integration_links: Array.isArray(payload.integration_links)
+            ? (payload.integration_links as ApprovalsCenterMeta["integration_links"])
+            : undefined,
+          self_love_note: typeof payload.self_love_note === "string" ? payload.self_love_note : undefined,
+        });
+        setItems((payload.approvals as CustomerApproval[]) ?? []);
+        setEmergencyState(
+          typeof payload.emergency_state === "string" ? payload.emergency_state : null,
+        );
+      }
+    } catch {
+      setTrustLoadError(labels.trustLoadError);
+    } finally {
+      setTrustLoading(false);
     }
-    setLoading(false);
-  }, []);
+  }, [labels.trustLoadError]);
+
+  const refreshCompanion = useCallback(async () => {
+    setCompanionLoadError(null);
+    try {
+      const response = await fetch("/api/companion/actions");
+      const payload = await response.json();
+      const outcome = resolveCompanionActionsLoadOutcome({
+        responseOk: response.ok,
+        payload,
+        fallbackError: labels.companion.loadError,
+      });
+      if (outcome.kind === "error") {
+        setCompanionLoadError(outcome.error);
+        setCompanionActions([]);
+        setCompanionEmergencyStop(false);
+        return;
+      }
+      setCompanionActions(outcome.actions);
+      setCompanionEmergencyStop(outcome.emergencyStop);
+    } catch {
+      setCompanionLoadError(labels.companion.loadError);
+      setCompanionActions([]);
+      setCompanionEmergencyStop(false);
+    } finally {
+      setCompanionLoading(false);
+    }
+  }, [labels.companion.loadError]);
+
+  const refreshAll = useCallback(async () => {
+    await runIndependentApprovalLoads({
+      trust: refreshTrust,
+      companion: refreshCompanion,
+    });
+  }, [refreshTrust, refreshCompanion]);
+
+  const retryAll = useCallback(async () => {
+    setTrustLoading(true);
+    setCompanionLoading(true);
+    await refreshAll();
+  }, [refreshAll]);
 
   useEffect(() => {
-    void refresh();
-  }, [refresh]);
+    void refreshAll();
+  }, [refreshAll]);
 
-  async function approveAction(id: string) {
-    setActingId(id);
-    await fetch(`/api/actions/${id}/approve`, { method: "POST" });
-    await refresh();
-    setActingId(null);
-  }
-
-  async function rejectAction(id: string) {
-    setActingId(id);
-    await fetch(`/api/actions/${id}/reject`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({}),
-    });
-    await refresh();
+  async function postApprovalAction(
+    source: "trust" | "companion",
+    actionId: string,
+    decision: "approve" | "reject",
+  ) {
+    const actingKey = source === "companion" ? `companion:${actionId}` : actionId;
+    setActingId(actingKey);
+    const { url, init } = resolveApprovalPostRequest(source, actionId, decision);
+    await fetch(url, init);
+    if (source === "companion") {
+      await refreshCompanion();
+    } else {
+      await refreshTrust();
+    }
     setActingId(null);
   }
 
@@ -144,30 +227,11 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ state: "emergency_shutdown", reason: "Manual stop" }),
     });
-    await refresh();
+    await refreshTrust();
   }
 
-  if (loading) return <AipifyLoadingState message={labels.loading} centered />;
-
-  if (loadError) {
-    return (
-      <div className="mx-auto max-w-4xl space-y-4 p-6">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
-        <p className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
-          {loadError}
-        </p>
-        <button
-          type="button"
-          onClick={() => {
-            setLoading(true);
-            void refresh();
-          }}
-          className="rounded-lg bg-[#7C3AED] px-4 py-2 text-sm font-medium text-white hover:bg-[#6D28D9]"
-        >
-          Retry
-        </button>
-      </div>
-    );
+  if (trustLoading && companionLoading) {
+    return <AipifyLoadingState message={labels.loading} centered />;
   }
 
   const emergencyActive =
@@ -242,83 +306,203 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
         </section>
       )}
 
-      {items.length === 0 ? (
-        <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
-      ) : (
-        <ul className="space-y-3">
-          {items.map((item) => (
-            <li
-              key={`${item.category}-${item.id}`}
-              className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold text-gray-900">{labels.trustSection}</h2>
+        {trustLoadError && (
+          <div className="space-y-2">
+            <p className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+              {trustLoadError}
+            </p>
+            <button
+              type="button"
+              onClick={() => void retryAll()}
+              className="rounded-lg border border-rose-200 px-3 py-1.5 text-sm text-rose-800 hover:bg-rose-50"
             >
-              <div className="flex flex-wrap items-center gap-2">
-                <h2 className="font-semibold text-gray-900">{item.title}</h2>
-                <span
-                  className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[item.status] ?? STATUS_STYLES.pending}`}
-                >
-                  {labels.statusLabels[item.status] ?? item.status}
-                </span>
-                <span
-                  className={`rounded px-2 py-0.5 text-xs font-medium ${riskStyle(item.risk_level)}`}
-                >
-                  {labels.riskLevels[item.risk_level] ?? item.risk_level}
-                </span>
-                <span className="text-xs text-gray-500">
-                  {labels.categoryLabels[item.category] ?? item.category}
-                </span>
-              </div>
-
-              {item.skill_name && (
-                <p className="mt-2 text-xs text-gray-500">
-                  {labels.fields.skill}: {item.skill_name}
-                </p>
-              )}
-
-              {item.description && (
-                <p className="mt-2 text-sm text-gray-600">
-                  <span className="font-medium text-gray-700">{labels.fields.reasoning}: </span>
-                  {item.description}
-                </p>
-              )}
-
-              {typeof item.confidence_score === "number" && (
-                <p className="mt-1 text-xs text-gray-500">
-                  {labels.fields.confidence}: {item.confidence_score}%
-                </p>
-              )}
-
-              {item.approver_role_required && (
-                <p className="mt-1 text-xs text-gray-500">
-                  {labels.fields.approver}: {item.approver_role_required}
-                </p>
-              )}
-
-              <p className="mt-2 text-xs text-gray-400">{formatDate(item.created_at, locale)}</p>
-
-              {item.category === "action" && item.status === "pending" && !emergencyActive && (
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    disabled={actingId === item.id}
-                    onClick={() => void approveAction(item.id)}
-                    className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+              {labels.retry}
+            </button>
+          </div>
+        )}
+        {trustLoading ? (
+          <AipifyLoadingState message={labels.loading} centered />
+        ) : shouldShowApprovalsEmptyState({
+            loading: trustLoading,
+            error: trustLoadError,
+            itemCount: items.length,
+          }) ? (
+          <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
+        ) : trustLoadError ? null : (
+          <ul className="space-y-3">
+            {items.map((item) => (
+              <li
+                key={`${item.category}-${item.id}`}
+                className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                  <span
+                    className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[item.status] ?? STATUS_STYLES.pending}`}
                   >
-                    {actingId === item.id ? labels.executing : labels.approve}
-                  </button>
-                  <button
-                    type="button"
-                    disabled={actingId === item.id}
-                    onClick={() => void rejectAction(item.id)}
-                    className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+                    {labels.statusLabels[item.status] ?? item.status}
+                  </span>
+                  <span
+                    className={`rounded px-2 py-0.5 text-xs font-medium ${riskStyle(item.risk_level)}`}
                   >
-                    {labels.reject}
-                  </button>
+                    {labels.riskLevels[item.risk_level] ?? item.risk_level}
+                  </span>
+                  <span className="text-xs text-gray-500">
+                    {labels.categoryLabels[item.category] ?? item.category}
+                  </span>
                 </div>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
+
+                {item.skill_name && (
+                  <p className="mt-2 text-xs text-gray-500">
+                    {labels.fields.skill}: {item.skill_name}
+                  </p>
+                )}
+
+                {item.description && (
+                  <p className="mt-2 text-sm text-gray-600">
+                    <span className="font-medium text-gray-700">{labels.fields.reasoning}: </span>
+                    {item.description}
+                  </p>
+                )}
+
+                {typeof item.confidence_score === "number" && (
+                  <p className="mt-1 text-xs text-gray-500">
+                    {labels.fields.confidence}: {item.confidence_score}%
+                  </p>
+                )}
+
+                {item.approver_role_required && (
+                  <p className="mt-1 text-xs text-gray-500">
+                    {labels.fields.approver}: {item.approver_role_required}
+                  </p>
+                )}
+
+                <p className="mt-2 text-xs text-gray-400">{formatDate(item.created_at, locale)}</p>
+
+                {item.category === "action" && item.status === "pending" && !emergencyActive && (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      disabled={actingId === item.id}
+                      onClick={() => void postApprovalAction("trust", item.id, "approve")}
+                      className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+                    >
+                      {actingId === item.id ? labels.executing : labels.approve}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={actingId === item.id}
+                      onClick={() => void postApprovalAction("trust", item.id, "reject")}
+                      className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+                    >
+                      {labels.reject}
+                    </button>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section className="space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="text-lg font-semibold text-gray-900">{labels.companion.section}</h2>
+          <Link href="/app/companion/actions" className="text-sm text-indigo-600 hover:underline">
+            {labels.companion.openCenter}
+          </Link>
+        </div>
+        {companionLoadError && (
+          <div className="space-y-2">
+            <p className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+              {companionLoadError}
+            </p>
+            <button
+              type="button"
+              onClick={() => void retryAll()}
+              className="rounded-lg border border-amber-200 px-3 py-1.5 text-sm text-amber-900 hover:bg-amber-50"
+            >
+              {labels.retry}
+            </button>
+          </div>
+        )}
+        {companionLoading ? (
+          <AipifyLoadingState message={labels.loading} centered />
+        ) : shouldShowApprovalsEmptyState({
+            loading: companionLoading,
+            error: companionLoadError,
+            itemCount: companionActions.length,
+          }) ? (
+          <p className="text-sm text-gray-500">{labels.companion.empty}</p>
+        ) : companionLoadError ? null : (
+          <ul className="space-y-3">
+            {companionActions.map((action) => {
+              const display = buildCompanionPendingDisplayFields(action);
+              const actingKey = `companion:${display.id}`;
+              const isPending =
+                display.status === "pending" || display.status === "awaiting_approval";
+
+              return (
+                <li
+                  key={display.id}
+                  className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="font-semibold text-gray-900">{display.title}</h3>
+                    <span
+                      className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[display.status] ?? STATUS_STYLES.pending}`}
+                    >
+                      {companionStatusLabel(display.status, labels.companion.statusLabels)}
+                    </span>
+                  </div>
+
+                  {display.description && (
+                    <p className="mt-2 text-sm text-gray-600">
+                      <span className="font-medium text-gray-700">{labels.companion.reason}: </span>
+                      {display.description}
+                    </p>
+                  )}
+
+                  {display.category && (
+                    <p className="mt-1 text-xs text-gray-500">
+                      {labels.companion.category}: {display.category}
+                    </p>
+                  )}
+
+                  {display.expiresAt && (
+                    <p className="mt-2 text-xs text-gray-400">
+                      {labels.companion.expires}: {formatDate(display.expiresAt, locale)}
+                    </p>
+                  )}
+
+                  {isPending && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <button
+                        type="button"
+                        disabled={actingId === actingKey || companionEmergencyStop}
+                        onClick={() => void postApprovalAction("companion", display.id, "approve")}
+                        className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+                      >
+                        {actingId === actingKey ? labels.executing : labels.approve}
+                      </button>
+                      <button
+                        type="button"
+                        disabled={actingId === actingKey}
+                        onClick={() => void postApprovalAction("companion", display.id, "reject")}
+                        className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+                      >
+                        {labels.reject}
+                      </button>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </section>
 
       {centerMeta?.integration_links && centerMeta.integration_links.length > 0 && labels.integrationLinks && (
         <section className="rounded-lg border border-gray-200 p-4">

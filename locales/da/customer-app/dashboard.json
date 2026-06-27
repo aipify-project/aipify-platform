@@ -195,7 +195,12 @@
     },
     "actionCategories": "Handlingskategorier",
     "successCriteria": "Fase 6 succeskriterier",
-    "integrationLinks": "Relaterede styringsflader"
+    "integrationLinks": "Relaterede styringsflader",
+    "trustSection": "Trust- og handlingsgodkendelser",
+    "companionSection": "Companion-handlinger",
+    "companionEmpty": "Ingen Companion-handlinger afventer godkendelse.",
+    "trustLoadError": "Aipify kunne ikke indlæse trust-godkendelser lige nu.",
+    "retry": "Prøv igen"
   },
   "installations": {
     "title": "Installations",

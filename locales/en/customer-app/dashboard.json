@@ -195,7 +195,12 @@
     },
     "actionCategories": "Action categories",
     "successCriteria": "Phase 6 success criteria",
-    "integrationLinks": "Related governance surfaces"
+    "integrationLinks": "Related governance surfaces",
+    "trustSection": "Trust & action approvals",
+    "companionSection": "Companion actions",
+    "companionEmpty": "No Companion actions awaiting approval.",
+    "trustLoadError": "Aipify could not load trust approvals right now.",
+    "retry": "Retry"
   },
   "installations": {
     "title": "Installations",

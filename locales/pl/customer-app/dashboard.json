@@ -152,6 +152,13 @@
     "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center",
     "transformationChangeCenterLink": "Transformation & Change Center"
   },
+  "approvals": {
+    "trustSection": "Zatwierdzenia zaufania i działań",
+    "companionSection": "Działania Companion",
+    "companionEmpty": "Brak działań Companion oczekujących na zatwierdzenie.",
+    "trustLoadError": "Aipify nie mogło teraz wczytać zatwierdzeń zaufania.",
+    "retry": "Spróbuj ponownie"
+  },
   "organizationalEarlyWarning": {
     "title": "Centrum wczesnego ostrzegania",
     "subtitle": "Identify emerging risks, declining trends, hidden bottlenecks, and opportunities before they become major problems.",

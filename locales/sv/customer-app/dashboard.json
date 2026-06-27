@@ -195,7 +195,12 @@
     },
     "actionCategories": "Åtgärdskategorier",
     "successCriteria": "Fas 6 framgångskriterier",
-    "integrationLinks": "Relaterade styrningsytor"
+    "integrationLinks": "Relaterade styrningsytor",
+    "trustSection": "Trust- och åtgärdsgodkännanden",
+    "companionSection": "Companion-åtgärder",
+    "companionEmpty": "Inga Companion-åtgärder väntar på godkännande.",
+    "trustLoadError": "Aipify kunde inte ladda trust-godkännanden just nu.",
+    "retry": "Försök igen"
   },
   "installations": {
     "title": "Installations",
