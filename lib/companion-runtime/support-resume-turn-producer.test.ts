@@ -18,6 +18,24 @@ const OTHER_ID = "b2c3d4e5-f6a7-4890-b123-4567890abcde";
 const RECEIPT_ID = "d1d2e3f4-a5b6-4789-a012-3456789abcde";
 const supabaseStub = {} as SupabaseClient;
 
+type AssistantMessage = CompanionChatMessage & {
+  pendingSupportWrite?: { actionRequestId: string } | null;
+};
+
+function assistant(
+  id: string,
+  content: string,
+  pendingSupportWrite?: AssistantMessage["pendingSupportWrite"],
+): AssistantMessage {
+  return {
+    id,
+    role: "aipify",
+    content,
+    timestamp: Date.now(),
+    ...(pendingSupportWrite !== undefined ? { pendingSupportWrite } : {}),
+  };
+}
+
 const TRANSLATIONS: Record<string, string> = {
   [`${OUTCOME_BASE}.executed`]: "Support assignment completed",
   [`${OUTCOME_BASE}.approvalRequired`]: "Support approval still pending",
@@ -34,13 +52,7 @@ const TRANSLATIONS: Record<string, string> = {
 const t: Translator = (key) => TRANSLATIONS[key] ?? key;
 
 const messagesWithPointer: readonly CompanionChatMessage[] = [
-  {
-    id: "a1",
-    role: "aipify",
-    content: "Confirm assignment?",
-    timestamp: 1,
-    pendingSupportWrite: { actionRequestId: POINTER_ID },
-  },
+  assistant("a1", "Confirm assignment?", { actionRequestId: POINTER_ID }),
   { id: "u1", role: "user", content: "ja", timestamp: 2 },
 ];
 
@@ -237,19 +249,8 @@ async function runTests() {
 
   {
     const messages: readonly CompanionChatMessage[] = [
-      {
-        id: "a-old",
-        role: "aipify",
-        content: "Earlier assignment",
-        timestamp: 1,
-        pendingSupportWrite: { actionRequestId: OTHER_ID },
-      },
-      {
-        id: "a-new",
-        role: "aipify",
-        content: "Follow-up without pointer",
-        timestamp: 2,
-      },
+      assistant("a-old", "Earlier assignment", { actionRequestId: OTHER_ID }),
+      assistant("a-new", "Follow-up without pointer"),
       { id: "u1", role: "user", content: "ja", timestamp: 3 },
     ];
     const { result, resumeCalls } = await runCase({
