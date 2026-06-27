@@ -5,8 +5,10 @@ import { parseSupportAssistantSearch } from "@/lib/app-portal/support-assistant"
 import { resolvePendingBookingWritePointer, resolvePendingBookingClarificationPointer, buildPendingBookingClarificationState, normalizePendingBookingClarification, serializePendingBookingClarification } from "@/lib/companion-runtime/booking-pending-action-pointer";
 import type { CompanionExperienceLabels } from "../types";
 import { buildReplyFromSearchJson } from "./build-reply";
-import type { ExecuteCompanionTurnDeps } from "./execute-turn";
+import type { ExecuteCompanionTurnDeps, ProduceSupportProposalTurnInput } from "./execute-turn";
+import { applySupportWriteApprovalHandoffToAnswer } from "./execute-turn";
 import type { ProduceBookingResumeTurnInput } from "@/lib/companion-runtime/booking-resume-turn-producer";
+import type { ProduceSupportResumeTurnInput } from "@/lib/companion-runtime/support-resume-turn-producer";
 import type { CompanionChatMessage } from "../types";
 import {
   mapServerMessagesToChat,
@@ -20,6 +22,14 @@ const VALID_ACTION_REQUEST_ID = "a1b2c3d4-e5f6-4789-a012-3456789abcde";
 const VALID_CLARIFICATION_ID = "c1a2b3c4-f5c6-4789-a012-3456789abcde";
 const VALID_CONVERSATION_ID = "conv-70dc57a4-287d-4c01-915d-510be2b5f98b";
 const NIL_UUID = "00000000-0000-0000-0000-000000000000";
+
+type AssistantMessageWithPendingSupport = CompanionChatMessage & {
+  pendingSupportWrite?: { actionRequestId: string } | null;
+};
+
+type PlatformKnowledgeAnswerWithPendingSupport = PlatformKnowledgeAnswer & {
+  pendingSupportWrite?: { actionRequestId: string };
+};
 
 const stubLabels = {} as CompanionExperienceLabels;
 
@@ -459,6 +469,36 @@ const proposalApprovalAnswer: PlatformKnowledgeAnswer = {
   pendingBookingWrite: { actionRequestId: VALID_ACTION_REQUEST_ID },
 };
 
+const supportProducerAnswer: PlatformKnowledgeAnswer = {
+  directAnswer: "Support resume producer answer",
+  steps: [],
+  actions: [],
+  sources: [{ id: "support-resume", label: "Support", kind: "customer_context" }],
+  sourceId: "support-resume",
+  source: "customer_context",
+  confidence: "high",
+};
+
+const supportProposalBaseAnswer: PlatformKnowledgeAnswer = {
+  directAnswer: "Approval is required before support assignment can proceed.",
+  steps: [],
+  actions: [],
+  sources: [{ id: "support-proposal", label: "Support operations", kind: "customer_context" }],
+  sourceId: "support-proposal",
+  source: "customer_context",
+  confidence: "high",
+};
+
+const canonicalSupportLoadedMessages: CompanionChatMessage[] = [
+  {
+    id: "s-a1",
+    role: "aipify",
+    content: "Confirm assignment?",
+    timestamp: 1,
+    pendingSupportWrite: { actionRequestId: VALID_ACTION_REQUEST_ID },
+  } as CompanionChatMessage,
+];
+
 function installServerOnlyShim(): void {
   const moduleApi = require("node:module") as {
     Module: {
@@ -496,9 +536,12 @@ async function runExecuteTurnWithResumeDeps(
   },
 ) {
   let detectCalls = 0;
+  let supportDetectCalls = 0;
   let loadCalls = 0;
   let produceCalls = 0;
+  let supportProduceCalls = 0;
   let proposalCalls = 0;
+  let supportProposalCalls = 0;
   let loadClient: SupabaseClient | null = null;
   let loadConversationId: string | null = null;
   let produceInput: {
@@ -507,6 +550,7 @@ async function runExecuteTurnWithResumeDeps(
     messages: readonly CompanionChatMessage[];
     t?: import("@/lib/i18n/translate").Translator;
   } | null = null;
+  let supportProduceInput: ProduceSupportResumeTurnInput | null = null;
   let proposalInput: {
     supabase: SupabaseClient;
     query: string;
@@ -514,6 +558,7 @@ async function runExecuteTurnWithResumeDeps(
     userRole: string;
     t: import("@/lib/i18n/translate").Translator;
   } | null = null;
+  let supportProposalInput: ProduceSupportProposalTurnInput | null = null;
 
   const deps: ExecuteCompanionTurnDeps = {
     detect_booking_resume_intent: (query) => {
@@ -521,6 +566,16 @@ async function runExecuteTurnWithResumeDeps(
       return input.deps?.detect_booking_resume_intent
         ? input.deps.detect_booking_resume_intent(query)
         : query === "ja" || query === "yes confirm" || query === "bekreft";
+    },
+    detect_support_resume_intent: (query) => {
+      supportDetectCalls += 1;
+      if (input.deps?.detect_support_resume_intent) {
+        return input.deps.detect_support_resume_intent(query);
+      }
+      if (input.deps?.detect_booking_resume_intent) {
+        return input.deps.detect_booking_resume_intent(query);
+      }
+      return query === "ja" || query === "yes confirm" || query === "bekreft";
     },
     load_companion_conversation_messages: input.deps?.load_companion_conversation_messages
       ? async (client, conversationId) => {
@@ -557,6 +612,24 @@ async function runExecuteTurnWithResumeDeps(
           proposalInput = turnInput;
           return { handled: false as const };
         },
+    produce_support_resume_turn: input.deps?.produce_support_resume_turn
+      ? async (turnInput) => {
+          supportProduceCalls += 1;
+          supportProduceInput = turnInput;
+          return input.deps!.produce_support_resume_turn!(turnInput);
+        }
+      : async (turnInput) => {
+          supportProduceCalls += 1;
+          supportProduceInput = turnInput;
+          return { handled: false as const };
+        },
+    produce_support_proposal_turn: input.deps?.produce_support_proposal_turn
+      ? async (turnInput) => {
+          supportProposalCalls += 1;
+          supportProposalInput = turnInput;
+          return input.deps!.produce_support_proposal_turn!(turnInput);
+        }
+      : undefined,
   };
 
   const executeCompanionTurn = await getExecuteCompanionTurn();
@@ -576,13 +649,18 @@ async function runExecuteTurnWithResumeDeps(
   return {
     turn,
     detectCalls,
+    supportDetectCalls,
     loadCalls,
     produceCalls,
+    supportProduceCalls,
     proposalCalls,
+    supportProposalCalls,
     loadClient,
     loadConversationId,
     produceInput,
+    supportProduceInput,
     proposalInput,
+    supportProposalInput,
   };
 }
 
@@ -628,7 +706,7 @@ async function testExecuteTurnResumeWiring() {
         },
       },
     );
-    assert.equal(loadCalls, 2);
+    assert.equal(loadCalls, 3);
     assert.equal(produceCalls, 0);
     assert.equal(turn.ok, true);
   }
@@ -693,7 +771,7 @@ async function testExecuteTurnResumeWiring() {
         },
       },
     });
-    assert.equal(loadCalls, 2);
+    assert.equal(loadCalls, 3);
     assert.equal(turn.ok, true);
     assert.equal(JSON.stringify(turn).includes("loader exploded"), false);
   }
@@ -991,6 +1069,384 @@ async function testExecuteTurnProposalWiring() {
   }
 }
 
+function testExecuteTurnSupportApprovalHandoff() {
+  {
+    const answer = applySupportWriteApprovalHandoffToAnswer(supportProposalBaseAnswer, {
+      outcome: "approval_required",
+      action_request_id: VALID_ACTION_REQUEST_ID,
+    });
+    assert.deepEqual(answer.pendingSupportWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+    const serialized = serializeAssistantPayload({
+      id: "c-support",
+      role: "aipify",
+      content: answer.directAnswer,
+      directAnswer: answer.directAnswer,
+      timestamp: 1000,
+      pendingSupportWrite: answer.pendingSupportWrite,
+    } as AssistantMessageWithPendingSupport);
+    assert.deepEqual(serialized.pending_support_write, { action_request_id: VALID_ACTION_REQUEST_ID });
+  }
+
+  {
+    const answer = applySupportWriteApprovalHandoffToAnswer(supportProposalBaseAnswer, {
+      outcome: "approval_required",
+      action_request_id: null,
+    });
+    assert.equal(answer.pendingSupportWrite, undefined);
+  }
+
+  {
+    const answer = applySupportWriteApprovalHandoffToAnswer(supportProposalBaseAnswer, {
+      outcome: "approval_required",
+      action_request_id: NIL_UUID,
+    });
+    assert.equal(answer.pendingSupportWrite, undefined);
+  }
+
+  for (const outcome of ["confirmation_required", "failed", "executed"] as const) {
+    const answer = applySupportWriteApprovalHandoffToAnswer(
+      {
+        ...supportProposalBaseAnswer,
+        pendingSupportWrite: { actionRequestId: VALID_ACTION_REQUEST_ID },
+      } as PlatformKnowledgeAnswerWithPendingSupport,
+      { outcome, action_request_id: VALID_ACTION_REQUEST_ID },
+    );
+    assert.equal(answer.pendingSupportWrite, undefined);
+  }
+}
+
+async function testExecuteTurnSupportResumeWiring() {
+  {
+    const { turn, supportDetectCalls, supportProduceCalls, proposalCalls } =
+      await runExecuteTurnWithResumeDeps({
+        query: "What is my schedule tomorrow?",
+        deps: {
+          detect_booking_resume_intent: () => false,
+          detect_support_resume_intent: () => false,
+        },
+      });
+    assert.equal(supportDetectCalls, 1);
+    assert.equal(supportProduceCalls, 0);
+    assert.equal(proposalCalls, 1);
+    assert.equal(turn.ok, true);
+    if (turn.ok) {
+      assert.notEqual((turn.searchJson.answer as PlatformKnowledgeAnswer).sourceId, "support-resume");
+    }
+  }
+
+  {
+    const { supportProduceCalls, turn } = await runExecuteTurnWithResumeDeps({
+      query: "ja",
+      deps: {
+        detect_booking_resume_intent: () => true,
+        produce_booking_resume_turn: async () => ({ handled: false }),
+        detect_support_resume_intent: () => true,
+        load_companion_conversation_messages: async () => ({
+          status: "loaded",
+          messages: canonicalSupportLoadedMessages,
+        }),
+        produce_support_resume_turn: async () => ({
+          handled: true,
+          answer: supportProducerAnswer,
+        }),
+      },
+    });
+    assert.equal(supportProduceCalls, 1);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    assert.equal((turn.searchJson.answer as PlatformKnowledgeAnswer).sourceId, "support-resume");
+  }
+
+  {
+    const { turn, produceCalls, supportProduceCalls, proposalCalls } =
+      await runExecuteTurnWithResumeDeps({
+        query: "yes confirm",
+        deps: {
+          detect_booking_resume_intent: () => true,
+          produce_booking_resume_turn: async () => ({
+            handled: true,
+            answer: producerAnswer,
+          }),
+          detect_support_resume_intent: () => true,
+        },
+      });
+    assert.equal(produceCalls, 1);
+    assert.equal(supportProduceCalls, 0);
+    assert.equal(proposalCalls, 0);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    assert.equal((turn.searchJson.answer as PlatformKnowledgeAnswer).sourceId, "booking-resume");
+  }
+
+  {
+    const { turn, supportProduceCalls, proposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: "ja",
+      deps: {
+        detect_booking_resume_intent: () => true,
+        produce_booking_resume_turn: async () => ({ handled: false }),
+        detect_support_resume_intent: () => true,
+        load_companion_conversation_messages: async () => ({
+          status: "loaded",
+          messages: canonicalSupportLoadedMessages,
+        }),
+        produce_support_resume_turn: async () => ({
+          handled: true,
+          answer: {
+            ...supportProducerAnswer,
+            directAnswer: "Support approval still pending",
+            pendingSupportWrite: { actionRequestId: VALID_ACTION_REQUEST_ID },
+          },
+        }),
+      },
+    });
+    assert.equal(supportProduceCalls, 1);
+    assert.equal(proposalCalls, 0);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    const answer = turn.searchJson.answer as PlatformKnowledgeAnswer & {
+      pendingSupportWrite?: { actionRequestId: string };
+    };
+    assert.deepEqual(answer.pendingSupportWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+  }
+
+  {
+    const { turn, supportProduceCalls } = await runExecuteTurnWithResumeDeps({
+      query: "random question about billing",
+      deps: {
+        detect_booking_resume_intent: () => false,
+        detect_support_resume_intent: () => false,
+        load_companion_conversation_messages: async () => ({
+          status: "loaded",
+          messages: canonicalSupportLoadedMessages,
+        }),
+      },
+    });
+    assert.equal(supportProduceCalls, 0);
+    assert.equal(turn.ok, true);
+  }
+
+  {
+    const olderPointer = "b2c3d4e5-f6a7-4890-b123-4567890abcde";
+    const { turn, supportProduceCalls, proposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: "ja",
+      deps: {
+        detect_booking_resume_intent: () => false,
+        detect_support_resume_intent: () => true,
+        load_companion_conversation_messages: async () => ({
+          status: "loaded",
+          messages: [
+            {
+              id: "old",
+              role: "aipify",
+              content: "Old pointer",
+              timestamp: 1,
+              pendingSupportWrite: { actionRequestId: olderPointer },
+            } as CompanionChatMessage,
+            {
+              id: "new",
+              role: "aipify",
+              content: "No pointer on newest",
+              timestamp: 2,
+            },
+          ],
+        }),
+        produce_support_resume_turn: async () => ({ handled: false }),
+      },
+    });
+    assert.equal(supportProduceCalls, 1);
+    assert.equal(proposalCalls, 1);
+    assert.equal(turn.ok, true);
+  }
+
+  for (const outcome of ["executed", "rejected", "expired", "failed"] as const) {
+    const { turn, proposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: "ja",
+      deps: {
+        detect_booking_resume_intent: () => false,
+        detect_support_resume_intent: () => true,
+        load_companion_conversation_messages: async () => ({
+          status: "loaded",
+          messages: canonicalSupportLoadedMessages,
+        }),
+        produce_support_resume_turn: async () => ({
+          handled: true,
+          answer: {
+            ...supportProducerAnswer,
+            directAnswer: `Support ${outcome}`,
+            pendingSupportWrite: undefined,
+          },
+        }),
+      },
+    });
+    assert.equal(proposalCalls, 0);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    assert.equal(
+      (turn.searchJson.answer as PlatformKnowledgeAnswer & { pendingSupportWrite?: unknown })
+        .pendingSupportWrite,
+      undefined,
+    );
+  }
+}
+
+async function testExecuteTurnSupportProposalWiring() {
+  const assignQuery = "Assign support case P112-C3X to Alex. This is a controlled E2E.";
+
+  {
+    const { turn, supportProposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: assignQuery,
+      deps: {
+        detect_booking_resume_intent: () => false,
+        detect_support_resume_intent: () => false,
+        produce_support_proposal_turn: async () => ({
+          handled: true,
+          answer: supportProposalBaseAnswer,
+          writeResult: {
+            outcome: "approval_required",
+            action_request_id: VALID_ACTION_REQUEST_ID,
+          },
+        }),
+      },
+    });
+    assert.equal(supportProposalCalls, 1);
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    const answer = turn.searchJson.answer as PlatformKnowledgeAnswer & {
+      pendingSupportWrite?: { actionRequestId: string };
+    };
+    assert.deepEqual(answer.pendingSupportWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+    const serialized = serializeAssistantPayload({
+      id: "c1",
+      role: "aipify",
+      content: answer.directAnswer,
+      directAnswer: answer.directAnswer,
+      timestamp: 1000,
+      pendingSupportWrite: answer.pendingSupportWrite,
+    } as AssistantMessageWithPendingSupport);
+    assert.deepEqual(serialized.pending_support_write, { action_request_id: VALID_ACTION_REQUEST_ID });
+  }
+
+  {
+    const { turn } = await runExecuteTurnWithResumeDeps({
+      query: assignQuery,
+      deps: {
+        detect_booking_resume_intent: () => false,
+        detect_support_resume_intent: () => false,
+        produce_support_proposal_turn: async () => ({
+          handled: true,
+          answer: supportProposalBaseAnswer,
+          writeResult: { outcome: "approval_required", action_request_id: null },
+        }),
+      },
+    });
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    assert.equal(
+      (turn.searchJson.answer as PlatformKnowledgeAnswer & { pendingSupportWrite?: unknown })
+        .pendingSupportWrite,
+      undefined,
+    );
+  }
+
+  {
+    const { turn } = await runExecuteTurnWithResumeDeps({
+      query: assignQuery,
+      deps: {
+        detect_booking_resume_intent: () => false,
+        detect_support_resume_intent: () => false,
+        produce_support_proposal_turn: async () => ({
+          handled: true,
+          answer: supportProposalBaseAnswer,
+          writeResult: { outcome: "confirmation_required", action_request_id: null },
+        }),
+      },
+    });
+    assert.equal(turn.ok, true);
+    if (!turn.ok) return;
+    assert.equal(
+      (turn.searchJson.answer as PlatformKnowledgeAnswer & { pendingSupportWrite?: unknown })
+        .pendingSupportWrite,
+      undefined,
+    );
+  }
+
+  {
+    const { turn, supportProposalCalls, proposalCalls } = await runExecuteTurnWithResumeDeps({
+      query: "Hva tenker du om kaffe?",
+      deps: {
+        detect_booking_resume_intent: () => false,
+        detect_support_resume_intent: () => false,
+      },
+    });
+    assert.equal(supportProposalCalls, 0);
+    assert.equal(proposalCalls, 1);
+    assert.equal(turn.ok, true);
+  }
+}
+
+async function testExecuteTurnSupportRealProducerCallGraph() {
+  const { produceSupportResumeTurn } = await import(
+    "@/lib/companion-runtime/support-resume-turn-producer"
+  );
+  const { detectBookingResumeContinuationIntent } = await import(
+    "@/lib/companion-runtime/booking-resume-intent"
+  );
+  const executeCompanionTurn = await getExecuteCompanionTurn();
+
+  let supportDetectCalls = 0;
+  let supportProduceCalls = 0;
+  let resumeExecutionCalls = 0;
+
+  const turn = await executeCompanionTurn(
+    supabaseStub,
+    {
+      query: "yes confirm",
+      locale: "en",
+      conversationId: RESUME_CONVERSATION_ID,
+      workerProfile: workerProfileStub,
+      turnRoute: "lightweight",
+    },
+    {
+      detect_booking_resume_intent: () => false,
+      detect_support_resume_intent: (query) => {
+        supportDetectCalls += 1;
+        return detectBookingResumeContinuationIntent(query);
+      },
+      load_companion_conversation_messages: async () => ({
+        status: "loaded",
+        messages: canonicalSupportLoadedMessages,
+      }),
+      produce_support_resume_turn: async (turnInput) => {
+        supportProduceCalls += 1;
+        return produceSupportResumeTurn(turnInput, {
+          resume_execution: async (actionRequestId) => {
+            resumeExecutionCalls += 1;
+            assert.equal(actionRequestId, VALID_ACTION_REQUEST_ID);
+            return {
+              outcome: "executed",
+              action_request_id: actionRequestId,
+              receipt_id: "d1d2e3f4-a5b6-4789-a012-3456789abcde",
+              idempotent_replay: false,
+            };
+          },
+        });
+      },
+    },
+  );
+
+  assert.equal(supportDetectCalls, 1);
+  assert.equal(supportProduceCalls, 1);
+  assert.equal(resumeExecutionCalls, 1);
+  assert.equal(turn.ok, true);
+  if (!turn.ok) return;
+
+  const answer = turn.searchJson.answer as PlatformKnowledgeAnswer & {
+    pendingSupportWrite?: { actionRequestId: string };
+  };
+  assert.equal(answer.sourceId, "support-resume");
+  assert.equal(answer.pendingSupportWrite, undefined);
+}
+
 testIdempotencyKeyStable();
 testDeserializeAssistantRoundTrip();
 testMapServerMessagesOrder();
@@ -1004,6 +1460,12 @@ testPlatformAnswerPendingBookingWriteSearchToChatContract();
 void testExecuteTurnResumeWiring()
   .then(() => testExecuteTurnRealProducerCallGraph())
   .then(() => testExecuteTurnProposalWiring())
+  .then(() => {
+    testExecuteTurnSupportApprovalHandoff();
+    return testExecuteTurnSupportResumeWiring();
+  })
+  .then(() => testExecuteTurnSupportProposalWiring())
+  .then(() => testExecuteTurnSupportRealProducerCallGraph())
   .then(() => {
     console.log("chat-queue.test.ts: all assertions passed");
   });

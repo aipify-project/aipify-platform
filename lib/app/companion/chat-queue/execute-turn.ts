@@ -40,6 +40,11 @@ import {
   produceBookingProposalTurn,
   type ProduceBookingProposalTurnResult,
 } from "@/lib/companion-runtime/booking-proposal-turn-producer";
+import {
+  produceSupportResumeTurn,
+  type ProduceSupportResumeTurnResult,
+} from "@/lib/companion-runtime/support-resume-turn-producer";
+import type { SupportWriteResult } from "@/lib/companion-runtime/support-write-orchestrator";
 import { throwIfCompanionTurnAborted } from "./companion-turn-abort";
 import type { Translator } from "@/lib/i18n/translate";
 
@@ -99,8 +104,27 @@ export type ExecuteCompanionTurnResult =
     }
   | { ok: false; error: string; code?: string };
 
+export type ProduceSupportProposalTurnInput = {
+  supabase: SupabaseClient;
+  query: string;
+  locale: CustomerActiveLocale;
+  t: Translator;
+  userRole: UserRole;
+  conversationId?: string;
+  messages?: readonly CompanionChatMessage[];
+};
+
+export type ProduceSupportProposalTurnResult =
+  | { handled: false }
+  | {
+      handled: true;
+      answer: import("@/lib/companion-platform-knowledge/types").PlatformKnowledgeAnswer;
+      writeResult?: Pick<SupportWriteResult, "outcome" | "action_request_id">;
+    };
+
 export type ExecuteCompanionTurnDeps = {
   detect_booking_resume_intent?: (query: string) => boolean;
+  detect_support_resume_intent?: (query: string) => boolean;
   load_companion_conversation_messages?: (
     client: SupabaseClient,
     conversationId: string,
@@ -108,10 +132,102 @@ export type ExecuteCompanionTurnDeps = {
   produce_booking_resume_turn?: (
     turnInput: Parameters<typeof produceBookingResumeTurn>[0],
   ) => Promise<ProduceBookingResumeTurnResult>;
+  produce_support_resume_turn?: (
+    turnInput: Parameters<typeof produceSupportResumeTurn>[0],
+  ) => Promise<ProduceSupportResumeTurnResult>;
   produce_booking_proposal_turn?: (
     turnInput: Parameters<typeof produceBookingProposalTurn>[0],
   ) => Promise<ProduceBookingProposalTurnResult>;
+  produce_support_proposal_turn?: (
+    turnInput: ProduceSupportProposalTurnInput,
+  ) => Promise<ProduceSupportProposalTurnResult>;
 };
+
+type PlatformKnowledgeAnswerWithPendingSupport = import("@/lib/companion-platform-knowledge/types").PlatformKnowledgeAnswer & {
+  pendingSupportWrite?: { actionRequestId: string };
+};
+
+const SUPPORT_ACTION_REQUEST_ID_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const SUPPORT_NIL_ACTION_REQUEST_ID = "00000000-0000-0000-0000-000000000000";
+
+function normalizeSupportActionRequestId(value: string | null | undefined): string | null {
+  if (value == null) return null;
+  const trimmed = value.trim();
+  if (
+    !trimmed ||
+    !SUPPORT_ACTION_REQUEST_ID_REGEX.test(trimmed) ||
+    trimmed.toLowerCase() === SUPPORT_NIL_ACTION_REQUEST_ID
+  ) {
+    return null;
+  }
+  return trimmed;
+}
+
+export function applySupportWriteApprovalHandoffToAnswer(
+  answer: import("@/lib/companion-platform-knowledge/types").PlatformKnowledgeAnswer,
+  writeResult?: Pick<SupportWriteResult, "outcome" | "action_request_id">,
+): PlatformKnowledgeAnswerWithPendingSupport {
+  if (!writeResult) {
+    return answer;
+  }
+
+  if (writeResult.outcome === "approval_required") {
+    const persistedId = normalizeSupportActionRequestId(writeResult.action_request_id);
+    if (!persistedId) {
+      const { pendingSupportWrite: _ignored, ...rest } = answer as PlatformKnowledgeAnswerWithPendingSupport;
+      return rest;
+    }
+
+    return {
+      ...answer,
+      pendingSupportWrite: { actionRequestId: persistedId },
+    };
+  }
+
+  if (
+    writeResult.outcome === "confirmation_required" ||
+    writeResult.outcome === "failed" ||
+    writeResult.outcome === "executed"
+  ) {
+    const { pendingSupportWrite: _ignored, ...rest } = answer as PlatformKnowledgeAnswerWithPendingSupport;
+    return rest;
+  }
+
+  return answer;
+}
+
+let produceSupportProposalTurnDefault:
+  | ((input: ProduceSupportProposalTurnInput) => Promise<ProduceSupportProposalTurnResult>)
+  | null
+  | undefined;
+
+async function resolveProduceSupportProposalTurn(
+  deps?: ExecuteCompanionTurnDeps,
+): Promise<
+  ((input: ProduceSupportProposalTurnInput) => Promise<ProduceSupportProposalTurnResult>) | null
+> {
+  if (deps?.produce_support_proposal_turn) {
+    return deps.produce_support_proposal_turn;
+  }
+
+  if (produceSupportProposalTurnDefault === undefined) {
+    try {
+      const supportProposalTurnProducerModule =
+        "@/lib/companion-runtime/support-proposal-turn-producer";
+      const mod = (await import(supportProposalTurnProducerModule)) as {
+        produceSupportProposalTurn: (
+          input: ProduceSupportProposalTurnInput,
+        ) => Promise<ProduceSupportProposalTurnResult>;
+      };
+      produceSupportProposalTurnDefault = mod.produceSupportProposalTurn;
+    } catch {
+      produceSupportProposalTurnDefault = null;
+    }
+  }
+
+  return produceSupportProposalTurnDefault;
+}
 
 async function tryLazyBookingResumeTurn(input: {
   supabase: SupabaseClient;
@@ -171,6 +287,150 @@ async function tryLazyBookingResumeTurn(input: {
         source: answer.source,
         confidence: answer.confidence,
         answer_locale: input.answerLocale,
+      },
+      labels: input.companionLabels,
+      question: input.query,
+    };
+  } catch {
+    throwIfCompanionTurnAborted(input.abortSignal);
+    return null;
+  }
+}
+
+async function tryLazySupportResumeTurn(input: {
+  supabase: SupabaseClient;
+  query: string;
+  conversationId: string;
+  answerLocale: string;
+  abortSignal?: AbortSignal;
+  t: Translator;
+  labels: ReturnType<typeof buildSupportAssistantLabels>;
+  companionLabels: CompanionExperienceLabels;
+  deps?: ExecuteCompanionTurnDeps;
+}): Promise<ExecuteCompanionTurnResult | null> {
+  const detectResume =
+    input.deps?.detect_support_resume_intent ?? detectBookingResumeContinuationIntent;
+  if (!input.query || !detectResume(input.query)) {
+    return null;
+  }
+
+  const conversationId = input.conversationId.trim();
+  if (!conversationId) {
+    return null;
+  }
+
+  try {
+    const loadMessages =
+      input.deps?.load_companion_conversation_messages ?? loadCompanionConversationMessages;
+    const loaded = await loadMessages(input.supabase, conversationId);
+    throwIfCompanionTurnAborted(input.abortSignal);
+    if (loaded.status !== "loaded") {
+      return null;
+    }
+
+    const produceResume = input.deps?.produce_support_resume_turn ?? produceSupportResumeTurn;
+    const producerResult = await produceResume({
+      supabase: input.supabase,
+      query: input.query,
+      messages: loaded.messages,
+      t: input.t,
+    });
+    throwIfCompanionTurnAborted(input.abortSignal);
+
+    if (!producerResult.handled) {
+      return null;
+    }
+
+    const answer = producerResult.answer;
+    const legacyArticle = answerToLegacyArticle(answer);
+    return {
+      ok: true,
+      searchJson: {
+        found: true,
+        query: input.query,
+        answer,
+        articles: [legacyArticle],
+        matched_article_id: null,
+        principle: input.labels.principle,
+        source: answer.source,
+        confidence: answer.confidence,
+        answer_locale: input.answerLocale,
+      },
+      labels: input.companionLabels,
+      question: input.query,
+    };
+  } catch {
+    throwIfCompanionTurnAborted(input.abortSignal);
+    return null;
+  }
+}
+
+async function tryLazySupportProposalTurn(input: {
+  supabase: SupabaseClient;
+  query: string;
+  conversationId: string;
+  locale: CustomerActiveLocale;
+  userRole: UserRole;
+  abortSignal?: AbortSignal;
+  t: Translator;
+  labels: ReturnType<typeof buildSupportAssistantLabels>;
+  companionLabels: CompanionExperienceLabels;
+  deps?: ExecuteCompanionTurnDeps;
+}): Promise<ExecuteCompanionTurnResult | null> {
+  if (!input.query.trim()) {
+    return null;
+  }
+
+  const produceProposal = await resolveProduceSupportProposalTurn(input.deps);
+  if (!produceProposal) {
+    return null;
+  }
+
+  try {
+    const conversationId = input.conversationId.trim();
+    let messages: CompanionChatMessage[] = [];
+    if (conversationId) {
+      const loadMessages =
+        input.deps?.load_companion_conversation_messages ?? loadCompanionConversationMessages;
+      const loaded = await loadMessages(input.supabase, conversationId);
+      throwIfCompanionTurnAborted(input.abortSignal);
+      if (loaded.status === "loaded") {
+        messages = loaded.messages;
+      }
+    }
+
+    const producerResult = await produceProposal({
+      supabase: input.supabase,
+      query: input.query,
+      locale: input.locale,
+      t: input.t,
+      userRole: input.userRole,
+      conversationId,
+      messages,
+    });
+    throwIfCompanionTurnAborted(input.abortSignal);
+
+    if (!producerResult.handled) {
+      return null;
+    }
+
+    const answer = applySupportWriteApprovalHandoffToAnswer(
+      producerResult.answer,
+      producerResult.writeResult,
+    );
+    const legacyArticle = answerToLegacyArticle(answer);
+    return {
+      ok: true,
+      searchJson: {
+        found: true,
+        query: input.query,
+        answer,
+        articles: [legacyArticle],
+        matched_article_id: null,
+        principle: input.labels.principle,
+        source: answer.source,
+        confidence: answer.confidence,
+        answer_locale: input.locale,
       },
       labels: input.companionLabels,
       question: input.query,
@@ -310,6 +570,21 @@ export async function executeCompanionTurn(
     return resumeTurn;
   }
 
+  const supportResumeTurn = await tryLazySupportResumeTurn({
+    supabase,
+    query,
+    conversationId: input.conversationId,
+    answerLocale,
+    abortSignal: input.abortSignal,
+    t,
+    labels,
+    companionLabels,
+    deps,
+  });
+  if (supportResumeTurn) {
+    return supportResumeTurn;
+  }
+
   const proposalTurn = await tryLazyBookingProposalTurn({
     supabase,
     query,
@@ -324,6 +599,22 @@ export async function executeCompanionTurn(
   });
   if (proposalTurn) {
     return proposalTurn;
+  }
+
+  const supportProposalTurn = await tryLazySupportProposalTurn({
+    supabase,
+    query,
+    conversationId: input.conversationId,
+    locale: answerLocaleActive,
+    userRole,
+    abortSignal: input.abortSignal,
+    t,
+    labels,
+    companionLabels,
+    deps,
+  });
+  if (supportProposalTurn) {
+    return supportProposalTurn;
   }
 
   if (turnRoute === "lightweight" && !hasAttachments && !input.activeArtifactId && query) {
