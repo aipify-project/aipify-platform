@@ -76,7 +76,7 @@ export function resolveBookingSemanticIntent(input: {
   const wantsCancel = /\b(avbestill|cancel|kansell|annull|anuluj|скасув)\b/i.test(normalized);
   const wantsMove = /\b(flytt|move|reschedule|endre tid|byt tid|zmień termin)\b/i.test(normalized);
   const wantsCreate =
-    /\b(bestill|book|boka|bok|schedule|opprett(?:\s+time|\s+kun|\b)|zarezerwuj|забронюй)\b/i.test(
+    /\b(bestill(?:e|ing)?|book|boka|bok|schedule|opprett(?:\s+time|\s+kun|\b)|zarezerwuj|забронюй)\b/i.test(
       normalized,
     );
 

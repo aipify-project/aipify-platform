@@ -3,9 +3,34 @@ import {
   collectBookingDescriptorsFromManifests,
   resolveBookingSemanticIntent,
 } from "@/lib/companion-runtime/booking-semantic-intent";
+import { isClearBookingCreateIntent } from "@/lib/companion-runtime/booking-proposal-turn-producer";
+import { resolveDirectDateTimeKind } from "@/lib/companion-runtime/direct-datetime-answer";
 import { APPOINTMENT_BOOKING_PROVIDER_MANIFESTS } from "@/lib/integration-intelligence/providers/appointment-booking/booking-manifest";
 
 const descriptors = collectBookingDescriptorsFromManifests(APPOINTMENT_BOOKING_PROVIDER_MANIFESTS);
+
+function assertCreateIntent(query: string) {
+  const intent = resolveBookingSemanticIntent({ query, locale: "no", descriptors });
+  assert.equal(intent.capability_key, "booking.create");
+  assert.equal(intent.operation, "create");
+  assert.equal(isClearBookingCreateIntent(intent), true);
+}
+
+assertCreateIntent("Bestill time mandag kl. 10");
+assertCreateIntent("Jeg vil bestille time mandag kl. 10");
+assertCreateIntent("Ny bestilling for kunde mandag kl. 10");
+
+const c3xTurn1 = "Jeg vil bestille Kontrollert testavtale mandag 29. juni kl. 10.";
+assertCreateIntent(c3xTurn1);
+assert.equal(resolveDirectDateTimeKind(c3xTurn1), null);
+
+const avbestilleIntent = resolveBookingSemanticIntent({
+  query: "Jeg vil avbestille min time mandag",
+  locale: "no",
+  descriptors,
+});
+assert.notEqual(avbestilleIntent.capability_key, "booking.create");
+assert.equal(isClearBookingCreateIntent(avbestilleIntent), false);
 
 const c3xTurn2 =
   "Ja, bekreft bookingen. Kunde: P112-C3X-R3. Tjeneste: Kontrollert testavtale. Tidspunkt: mandag neste uke kl. 10:00. Varighet: 60 minutter. Opprett kun én booking.";
