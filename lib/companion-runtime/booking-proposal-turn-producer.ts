@@ -782,11 +782,27 @@ export async function produceBookingProposalTurn(
   }
 
   if (!assembly.request.confirmed) {
+    const pendingBookingClarification =
+      conversationId.length > 0
+        ? buildClarificationState({
+            organizationId: readContext.organization_id,
+            conversationId,
+            customerReference,
+            serviceLabel,
+            resourceName,
+            dateHint,
+            slotStartAt,
+            missingFields: [],
+            now,
+          })
+        : undefined;
+
     return {
       handled: true,
       answer: buildBookingProposalAnswer({
         t,
         directAnswer: t(`${OUTCOME_BASE}.confirmationRequired`),
+        ...(pendingBookingClarification ? { pendingBookingClarification } : {}),
       }),
     };
   }

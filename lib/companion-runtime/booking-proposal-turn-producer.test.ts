@@ -3,7 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { CompanionChatMessage } from "@/lib/app/companion/types";
 import type { PlatformKnowledgeAnswer } from "@/lib/companion-platform-knowledge/types";
 import type { BookingSemanticIntent } from "@/lib/companion-runtime/booking-semantic-intent";
-import type { BookingWriteResult } from "@/lib/integration-intelligence/booking/types";
+import type { BookingWriteRequest, BookingWriteResult } from "@/lib/integration-intelligence/booking/types";
 import type { Translator } from "@/lib/i18n/translate";
 import type { BookingPermissionContext } from "@/lib/integration-intelligence/booking/permissions";
 import {
@@ -291,9 +291,15 @@ async function runProposal(input: {
   conversationId?: string;
   messages?: CompanionChatMessage[];
   now?: Date;
-}) {
+}): Promise<{
+  result: ProduceBookingProposalTurnResult;
+  bridgeCalls: number;
+  executionRpcCalled: boolean;
+  lastWriteInput: { request: BookingWriteRequest } | null;
+}> {
   let bridgeCalls = 0;
   let executionRpcCalled = false;
+  let lastWriteInput: { request: BookingWriteRequest } | null = null;
 
   const result = await produceBookingProposalTurn(
     {
@@ -312,6 +318,7 @@ async function runProposal(input: {
       load_read_context: async () => input.read ?? readContext(),
       execute_booking_write: async (writeInput) => {
         bridgeCalls += 1;
+        lastWriteInput = writeInput;
         if (writeInput.execute_booking_write || writeInput.execute_write) {
           executionRpcCalled = true;
         }
@@ -320,7 +327,7 @@ async function runProposal(input: {
     },
   );
 
-  return { result, bridgeCalls, executionRpcCalled };
+  return { result, bridgeCalls, executionRpcCalled, lastWriteInput };
 }
 
 assert.equal(
@@ -728,9 +735,230 @@ const naturalTurn2 = await runProposal({
 assert.equal(naturalTurn2.result.handled, true);
 assertHandled(naturalTurn2.result);
 assert.equal(naturalTurn2.result.answer.directAnswer, TRANSLATIONS[`${OUTCOME_BASE}.confirmationRequired`]);
+assert.ok(naturalTurn2.result.answer.pendingBookingClarification);
+assert.deepEqual(naturalTurn2.result.answer.pendingBookingClarification?.missingFields, []);
+assert.equal(naturalTurn2.result.answer.pendingBookingClarification?.serviceLabel, "Controlled consultation");
+assert.equal(naturalTurn2.result.answer.pendingBookingClarification?.resourceName, "Provider A");
+assert.equal(naturalTurn2.result.answer.pendingBookingClarification?.customerReference, "customer-123");
+assert.equal(
+  naturalTurn2.result.answer.pendingBookingClarification?.slotStartAt,
+  catalogControlledConsultationSlot.start_at,
+);
 assert.equal(naturalTurn2.result.answer.pendingBookingWrite, undefined);
 assert.equal(naturalTurn2.bridgeCalls, 0);
 assert.equal(JSON.stringify(naturalTurn2.result.answer).includes("match_label"), false);
+
+const naturalTurn2RoundTrip = roundTripClarificationThroughProductionPayload(
+  naturalTurn2.result.answer.pendingBookingClarification!,
+);
+assert.deepEqual(naturalTurn2RoundTrip.wire?.missing_fields, []);
+assert.equal(naturalTurn2RoundTrip.validated?.serviceLabel, "Controlled consultation");
+
+const naturalTurn3 = await runProposal({
+  query: "Ja",
+  intent: naturalBookingCreateIntent("Ja"),
+  read: catalogConsultationReadContext(),
+  conversationId: CONVERSATION_ID,
+  messages: [
+    {
+      id: "u-natural-turn1",
+      role: "user",
+      content: NATURAL_TURN1_QUERY,
+      timestamp: 1,
+    },
+    {
+      id: "a-natural-turn1",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.clarificationRequired`],
+      timestamp: 2,
+      pendingBookingClarification: naturalRoundTrip.deserialized.pendingBookingClarification,
+    },
+    {
+      id: "u-natural-turn2",
+      role: "user",
+      content: NATURAL_TURN2_QUERY,
+      timestamp: 3,
+    },
+    {
+      id: "a-natural-turn2",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.confirmationRequired`],
+      timestamp: 4,
+      pendingBookingClarification: naturalTurn2RoundTrip.deserialized.pendingBookingClarification,
+    },
+  ],
+});
+assert.equal(naturalTurn3.result.handled, true);
+assertHandled(naturalTurn3.result);
+assert.equal(naturalTurn3.bridgeCalls, 1);
+assert.equal(naturalTurn3.result.answer.pendingBookingWrite?.actionRequestId, ACTION_REQUEST_ID);
+assert.equal(naturalTurn3.result.answer.pendingBookingClarification, undefined);
+assert.ok(naturalTurn3.lastWriteInput);
+assert.equal(naturalTurn3.lastWriteInput.request.confirmed, true);
+assert.equal(naturalTurn3.lastWriteInput.request.service_id, "svc_controlled_consultation");
+assert.equal(naturalTurn3.lastWriteInput.request.resource_id, "emp_provider_a");
+assert.equal(naturalTurn3.lastWriteInput.request.customer_reference, "customer-123");
+assert.equal(naturalTurn3.lastWriteInput.request.start_at, catalogControlledConsultationSlot.start_at);
+assert.equal(naturalTurn3.lastWriteInput.request.end_at, catalogControlledConsultationSlot.end_at);
+assert.equal(JSON.stringify(naturalTurn3.result.answer).includes("match_label"), false);
+
+const naturalTurn3Decline = await runProposal({
+  query: "Nei",
+  intent: naturalBookingCreateIntent("Nei"),
+  read: catalogConsultationReadContext(),
+  conversationId: CONVERSATION_ID,
+  messages: [
+    {
+      id: "u-natural-turn1",
+      role: "user",
+      content: NATURAL_TURN1_QUERY,
+      timestamp: 1,
+    },
+    {
+      id: "a-natural-turn1",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.clarificationRequired`],
+      timestamp: 2,
+      pendingBookingClarification: naturalRoundTrip.deserialized.pendingBookingClarification,
+    },
+    {
+      id: "u-natural-turn2",
+      role: "user",
+      content: NATURAL_TURN2_QUERY,
+      timestamp: 3,
+    },
+    {
+      id: "a-natural-turn2",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.confirmationRequired`],
+      timestamp: 4,
+      pendingBookingClarification: naturalTurn2RoundTrip.deserialized.pendingBookingClarification,
+    },
+  ],
+});
+assert.equal(naturalTurn3Decline.result.handled, true);
+assertHandled(naturalTurn3Decline.result);
+assert.equal(naturalTurn3Decline.bridgeCalls, 0);
+assert.equal(naturalTurn3Decline.result.answer.pendingBookingWrite, undefined);
+assert.equal(
+  naturalTurn3Decline.result.answer.directAnswer,
+  TRANSLATIONS[`${OUTCOME_BASE}.confirmationRequired`],
+);
+
+const naturalTurn3Random = await runProposal({
+  query: "Hva er været i dag?",
+  intent: naturalBookingCreateIntent("Hva er været i dag?"),
+  read: catalogConsultationReadContext(),
+  conversationId: CONVERSATION_ID,
+  messages: [
+    {
+      id: "a-natural-turn2",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.confirmationRequired`],
+      timestamp: 4,
+      pendingBookingClarification: naturalTurn2RoundTrip.deserialized.pendingBookingClarification,
+    },
+  ],
+});
+assert.equal(naturalTurn3Random.result.handled, true);
+assertHandled(naturalTurn3Random.result);
+assert.equal(naturalTurn3Random.bridgeCalls, 0);
+assert.equal(naturalTurn3Random.result.answer.pendingBookingWrite, undefined);
+
+const expiredConfirmationState = buildPendingBookingClarificationState({
+  clarificationId: CLARIFICATION_ID,
+  organizationId: "org-unonight",
+  conversationId: CONVERSATION_ID,
+  customerReference: "customer-123",
+  serviceLabel: "Controlled consultation",
+  resourceName: "Provider A",
+  slotStartAt: catalogControlledConsultationSlot.start_at,
+  missingFields: [],
+  now: new Date("2026-06-27T04:00:00.000Z"),
+});
+
+const naturalTurn3Expired = await runProposal({
+  query: "Ja",
+  intent: naturalBookingCreateIntent("Ja"),
+  read: catalogConsultationReadContext(),
+  conversationId: CONVERSATION_ID,
+  now: new Date("2026-06-27T05:30:00.000Z"),
+  messages: [
+    {
+      id: "a-natural-turn2-expired",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.confirmationRequired`],
+      timestamp: 4,
+      pendingBookingClarification: expiredConfirmationState,
+    },
+  ],
+});
+assert.equal(naturalTurn3Expired.result.handled, true);
+assertHandled(naturalTurn3Expired.result);
+assert.equal(naturalTurn3Expired.bridgeCalls, 0);
+assert.equal(naturalTurn3Expired.result.answer.pendingBookingWrite, undefined);
+assert.equal(
+  naturalTurn3Expired.result.answer.directAnswer,
+  TRANSLATIONS[`${OUTCOME_BASE}.clarificationRequired`],
+);
+
+const naturalTurn3Idempotent = await runProposal({
+  query: "Ja",
+  intent: naturalBookingCreateIntent("Ja"),
+  read: catalogConsultationReadContext(),
+  conversationId: CONVERSATION_ID,
+  writeResult: writeResult({ idempotent_replay: true }),
+  messages: [
+    {
+      id: "a-natural-turn2",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.confirmationRequired`],
+      timestamp: 4,
+      pendingBookingClarification: naturalTurn2RoundTrip.deserialized.pendingBookingClarification,
+    },
+  ],
+});
+assert.equal(naturalTurn3Idempotent.bridgeCalls, 1);
+assert.equal(
+  naturalTurn3Idempotent.result.handled === true &&
+    naturalTurn3Idempotent.result.answer.pendingBookingWrite?.actionRequestId,
+  ACTION_REQUEST_ID,
+);
+
+const incompleteEmptyMissingFields = buildPendingBookingClarificationState({
+  clarificationId: CLARIFICATION_ID,
+  organizationId: "org-unonight",
+  conversationId: CONVERSATION_ID,
+  customerReference: null,
+  serviceLabel: null,
+  resourceName: null,
+  slotStartAt: null,
+  missingFields: [],
+  now: FIXED_NOW,
+});
+
+const incompleteConfirmationAttempt = await runProposal({
+  query: "Ja",
+  intent: naturalBookingCreateIntent("Ja"),
+  read: catalogConsultationReadContext(),
+  conversationId: CONVERSATION_ID,
+  messages: [
+    {
+      id: "a-incomplete",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.confirmationRequired`],
+      timestamp: 1,
+      pendingBookingClarification: incompleteEmptyMissingFields,
+    },
+  ],
+});
+assert.equal(incompleteConfirmationAttempt.result.handled, true);
+assertHandled(incompleteConfirmationAttempt.result);
+assert.equal(incompleteConfirmationAttempt.bridgeCalls, 0);
+assert.equal(
+  incompleteConfirmationAttempt.result.answer.directAnswer,
+  TRANSLATIONS[`${OUTCOME_BASE}.clarificationRequired`],
+);
 
 const explicitServiceLabel = await runProposal({
   query: "Jeg vil bestille mandag kl. 10. Tjeneste: Controlled consultation.",

@@ -115,6 +115,81 @@ const withClarification = resolvePendingBookingClarificationPointer([
 ]);
 assert.deepEqual(withClarification?.customerReference, "P112");
 
+const turn1Clarification = buildPendingBookingClarificationState({
+  organizationId: "org-1",
+  conversationId: "conv-1",
+  serviceLabel: "Consultation",
+  missingFields: ["employee_missing"],
+  now: new Date("2026-06-27T05:00:00.000Z"),
+});
+
+const turn2ConfirmationState = buildPendingBookingClarificationState({
+  organizationId: "org-1",
+  conversationId: "conv-1",
+  serviceLabel: "Consultation",
+  resourceName: "Provider A",
+  customerReference: "customer-123",
+  slotStartAt: "2026-06-29T08:00:00.000Z",
+  missingFields: [],
+  now: new Date("2026-06-27T05:00:00.000Z"),
+});
+
+assert.deepEqual(
+  resolvePendingBookingClarificationPointer([
+    user("u1", "Turn 1"),
+    { ...assistant("a1", "clarify"), pendingBookingClarification: turn1Clarification },
+    user("u2", "Turn 2"),
+    { ...assistant("a2", "confirm"), pendingBookingClarification: turn2ConfirmationState },
+  ])?.missingFields,
+  [],
+);
+
+assert.deepEqual(
+  resolvePendingBookingClarificationPointer([
+    user("u1", "Turn 1"),
+    { ...assistant("a1", "clarify"), pendingBookingClarification: turn1Clarification },
+    user("u2", "Turn 2"),
+    assistant("a2", "confirm"),
+  ]),
+  null,
+);
+
+const emptyMissingFieldsClarification = buildPendingBookingClarificationState({
+  organizationId: "org-1",
+  conversationId: "conv-1",
+  serviceLabel: "Consultation",
+  resourceName: "Provider A",
+  customerReference: "customer-123",
+  slotStartAt: "2026-06-29T08:00:00.000Z",
+  missingFields: [],
+  now: new Date("2026-06-27T05:00:00.000Z"),
+});
+
+assert.deepEqual(
+  normalizePendingBookingClarification({
+    clarification_id: emptyMissingFieldsClarification.clarificationId,
+    capability_key: "booking.create",
+    organization_id: "org-1",
+    conversation_id: "conv-1",
+    service_label: "Consultation",
+    resource_name: "Provider A",
+    customer_reference: "customer-123",
+    slot_start_at: "2026-06-29T08:00:00.000Z",
+    missing_fields: [],
+    expires_at: emptyMissingFieldsClarification.expiresAt,
+  })?.missingFields,
+  [],
+);
+
+assert.ok(
+  validatePendingBookingClarification({
+    state: emptyMissingFieldsClarification,
+    conversationId: "conv-1",
+    organizationId: "org-1",
+    now: new Date("2026-06-27T05:00:00.000Z"),
+  }),
+);
+
 assert.equal(
   validatePendingBookingClarification({
     state: clarification,
