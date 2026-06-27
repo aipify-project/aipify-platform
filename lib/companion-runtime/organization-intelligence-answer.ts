@@ -9,7 +9,7 @@ import type { CommandBriefSignal } from "@/lib/integration-intelligence/command-
 import { isCommandBriefSourceDisplayable } from "@/lib/integration-intelligence/command-brief/types";
 import type { CommunityMemberDirectoryReadBundle } from "@/lib/integration-intelligence/providers/community-member-directory/community-member-directory-read-provider-adapter";
 import type { OrganizationMemberCountResult } from "@/lib/integration-intelligence/providers/organization-member-count/types";
-import type { SupportCaseSummary } from "@/lib/integration-intelligence/support/types";
+import type { SupportCaseSummary, SupportQueueSummary } from "@/lib/integration-intelligence/support/types";
 import type { OrganizationIntelligenceIntent } from "./organization-intelligence-intent";
 
 const BASE = "customerApp.companionPlatformKnowledge.organizationIntelligence";
@@ -375,6 +375,51 @@ export function buildMemberVerificationStatusAnswer(input: {
     input.sourceReference,
     input.t(`${BASE}.sourceLabel`),
     input.sourceExact ? "high" : "moderate",
+  );
+}
+
+export function buildSupportQueueAnswer(input: {
+  queue: SupportQueueSummary | null;
+  sourceReference: string;
+  sourceExact: boolean;
+  generatedAt: string | null;
+  t: Translator;
+  locale: CustomerActiveLocale;
+}): PlatformKnowledgeAnswer {
+  const openCount = input.queue?.total_open ?? 0;
+  const directAnswer =
+    openCount === 0
+      ? input.t("customerApp.companionPlatformKnowledge.support.outcomes.emptyQueue")
+      : input.t(`${BASE}.supportQueueOpenLead`).replace("{count}", String(openCount));
+
+  const warnings: string[] = [];
+  if (!input.sourceExact) {
+    warnings.push(input.t("customerApp.companionPlatformKnowledge.support.warnings.partialSource"));
+  }
+
+  const meta = buildSourceMeta({
+    source: input.sourceReference,
+    checkedAt: input.generatedAt,
+    freshness: input.sourceExact ? "fresh" : "unknown",
+    t: input.t,
+    locale: input.locale,
+    warnings,
+  });
+
+  return baseAnswer(
+    directAnswer,
+    meta.explanation,
+    input.sourceReference,
+    input.t("customerApp.companionPlatformKnowledge.support.sourceLabel"),
+    input.sourceExact && openCount >= 0 ? "high" : "moderate",
+    [
+      {
+        labelKey: "customerApp.companionPlatformKnowledge.support.openSupportCenter",
+        label: input.t("customerApp.companionPlatformKnowledge.support.openSupportCenter"),
+        href: "/app/support",
+        routeKey: "supportRequests",
+      },
+    ],
   );
 }
 

@@ -10,6 +10,7 @@ import {
 import {
   canRetryOrganizationCapabilityAfterApproval,
   resolveOrganizationAccessAuthorization,
+  resolvesBusinessPackEntitlementWithoutOrganizationGrant,
   userHasPermissionsForScopes,
 } from "@/lib/core/organization-access-approval/access-authorization-resolver";
 import {
@@ -178,6 +179,128 @@ const offer = resolveAccessOfferFromCapability({
 });
 assert.deepEqual(offer.scope_keys, ["verification.queue.read"]);
 assert.ok(resolveProviderAccessManifest("community_member_verification"));
+
+const supportQueueScopes = ["support.queue.read"];
+
+assert.equal(
+  resolveOrganizationAccessAuthorization({
+    provider_key: "autonomous_support_operations",
+    scope_keys: supportQueueScopes,
+    provider_ready: true,
+    effective_permissions: ["support.view_metrics"],
+    organization_has_active_scope: false,
+  }).state,
+  "organization_scope_required",
+  "internal pack without entitlement bypass input still requires grant when scope flag is false",
+);
+
+assert.equal(
+  resolvesBusinessPackEntitlementWithoutOrganizationGrant({
+    provider_key: "autonomous_support_operations",
+    scope_keys: supportQueueScopes,
+    provider_ready: true,
+    effective_permissions: ["support.view_metrics"],
+  }),
+  true,
+  "internal pack read scope authorizes without organization grant when ready and permitted",
+);
+
+assert.equal(
+  resolveOrganizationAccessAuthorization({
+    provider_key: "autonomous_support_operations",
+    scope_keys: supportQueueScopes,
+    provider_ready: true,
+    effective_permissions: ["support.view_metrics"],
+    organization_has_active_scope: resolvesBusinessPackEntitlementWithoutOrganizationGrant({
+      provider_key: "autonomous_support_operations",
+      scope_keys: supportQueueScopes,
+      provider_ready: true,
+      effective_permissions: ["support.view_metrics"],
+    }),
+  }).state,
+  "authorized",
+  "internal pack provider + ready + permission + read scope + no grant → authorized",
+);
+
+assert.equal(
+  resolveOrganizationAccessAuthorization({
+    provider_key: "autonomous_support_operations",
+    scope_keys: supportQueueScopes,
+    provider_ready: false,
+    effective_permissions: ["support.view_metrics"],
+    organization_has_active_scope: resolvesBusinessPackEntitlementWithoutOrganizationGrant({
+      provider_key: "autonomous_support_operations",
+      scope_keys: supportQueueScopes,
+      provider_ready: false,
+      effective_permissions: ["support.view_metrics"],
+    }),
+  }).state,
+  "provider_not_connected",
+  "internal pack provider blocks when provider readiness is false",
+);
+
+assert.equal(
+  resolveOrganizationAccessAuthorization({
+    provider_key: "autonomous_support_operations",
+    scope_keys: supportQueueScopes,
+    provider_ready: true,
+    effective_permissions: [],
+    organization_has_active_scope: resolvesBusinessPackEntitlementWithoutOrganizationGrant({
+      provider_key: "autonomous_support_operations",
+      scope_keys: supportQueueScopes,
+      provider_ready: true,
+      effective_permissions: [],
+    }),
+  }).state,
+  "user_role_denied",
+  "internal pack provider blocks when user permission is missing",
+);
+
+assert.equal(
+  resolvesBusinessPackEntitlementWithoutOrganizationGrant({
+    provider_key: "autonomous_support_operations",
+    scope_keys: ["support.queue.write"],
+    provider_ready: true,
+    effective_permissions: ["support.view_metrics"],
+  }),
+  false,
+  "unknown scope is not authorized via business pack entitlement",
+);
+
+assert.equal(
+  resolvesBusinessPackEntitlementWithoutOrganizationGrant({
+    provider_key: "member_verification",
+    scope_keys: ["verification.queue.read"],
+    provider_ready: true,
+    effective_permissions: ["moderation.review"],
+  }),
+  false,
+  "higher-risk external scope still requires organization grant",
+);
+
+assert.equal(
+  resolveOrganizationAccessAuthorization({
+    provider_key: "member_verification",
+    scope_keys: ["verification.queue.read"],
+    provider_ready: true,
+    effective_permissions: ["moderation.review"],
+    organization_has_active_scope: false,
+  }).state,
+  "organization_scope_required",
+  "external provider without grant remains blocked",
+);
+
+assert.equal(
+  resolveOrganizationAccessAuthorization({
+    provider_key: "member_verification",
+    scope_keys: ["verification.queue.read"],
+    provider_ready: true,
+    effective_permissions: ["moderation.review"],
+    organization_has_active_scope: true,
+  }).state,
+  "authorized",
+  "external provider with grant remains authorized",
+);
 
 for (const manifest of ORGANIZATION_PROVIDER_ACCESS_MANIFESTS) {
   const scopes = resolveScopesForCapability({ provider_key: manifest.provider_key });

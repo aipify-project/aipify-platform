@@ -1,5 +1,12 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { resolveMissingScopePermissionKeys } from "./provider-scope-registry";
+import {
+  resolveMissingScopePermissionKeys,
+  resolveOrganizationAccessConsentType,
+  resolveProviderAccessManifest,
+} from "./provider-scope-registry";
+
+/** Read-only organization scopes eligible for business-pack entitlement authorization. */
+const BUSINESS_PACK_ENTITLEMENT_MAX_RISK_LEVEL = 1 as const;
 
 /** Three-state organization access gate — order is fixed and intentional. */
 export type OrganizationAccessAuthorizationState =
@@ -40,6 +47,46 @@ export function userHasPermissionsForScopes(
   const required = resolveRequiredPermissionsForScopes(scopeKeys);
   const missing = required.filter((key) => !effectivePermissions.includes(key));
   return { granted: missing.length === 0, missing };
+}
+
+/**
+ * Internal Business Pack read scopes may authorize without a separate organization grant
+ * when provider readiness, user permissions, and manifest scope metadata already gate access.
+ */
+export function resolvesBusinessPackEntitlementWithoutOrganizationGrant(input: {
+  provider_key: string;
+  scope_keys: readonly string[];
+  provider_ready: boolean;
+  effective_permissions: readonly string[];
+}): boolean {
+  if (!input.provider_ready || input.scope_keys.length === 0) {
+    return false;
+  }
+
+  const manifest = resolveProviderAccessManifest(input.provider_key);
+  if (!manifest || resolveOrganizationAccessConsentType(input.provider_key) !== "business_pack_entitlement") {
+    return false;
+  }
+
+  const permissionCheck = userHasPermissionsForScopes(
+    input.effective_permissions,
+    input.scope_keys,
+  );
+  if (!permissionCheck.granted) {
+    return false;
+  }
+
+  for (const scopeKey of input.scope_keys) {
+    const scopeDefinition = manifest.required_scopes.find((scope) => scope.scope_key === scopeKey);
+    if (!scopeDefinition) {
+      return false;
+    }
+    if (scopeDefinition.risk_level > BUSINESS_PACK_ENTITLEMENT_MAX_RISK_LEVEL) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**
@@ -105,18 +152,27 @@ export async function resolveOrganizationAccessAuthorizationWithCore(input: {
   provider_ready: boolean;
   effective_permissions: readonly string[];
 }): Promise<OrganizationAccessAuthorizationResolution> {
-  const organizationHasActiveScope = await checkOrganizationProviderScopesActive({
+  const organizationGrantActive = await checkOrganizationProviderScopesActive({
     supabase: input.supabase,
     provider_key: input.provider_key,
     scope_keys: input.scope_keys,
   });
+
+  const businessPackEntitlementActive =
+    !organizationGrantActive &&
+    resolvesBusinessPackEntitlementWithoutOrganizationGrant({
+      provider_key: input.provider_key,
+      scope_keys: input.scope_keys,
+      provider_ready: input.provider_ready,
+      effective_permissions: input.effective_permissions,
+    });
 
   return resolveOrganizationAccessAuthorization({
     provider_key: input.provider_key,
     scope_keys: input.scope_keys,
     provider_ready: input.provider_ready,
     effective_permissions: input.effective_permissions,
-    organization_has_active_scope: organizationHasActiveScope,
+    organization_has_active_scope: organizationGrantActive || businessPackEntitlementActive,
   });
 }
 

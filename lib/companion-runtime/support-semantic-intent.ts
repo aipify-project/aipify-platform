@@ -29,6 +29,17 @@ function extractCaseId(normalized: string): string | null {
   return bare?.[1]?.trim() ?? null;
 }
 
+function wantsSupportQueueInquiry(normalized: string): boolean {
+  if (/\bhenvendelser?\b/i.test(normalized)) return true;
+  if (/\b(nye henvendelser|ny henvendelse|new inquiries|new tickets)\b/i.test(normalized)) {
+    return true;
+  }
+  return (
+    /\b(er det (noen|nye)|any new|are there any)\b/i.test(normalized) &&
+    /\b(henvend|inquir|ticket|supportsak)\b/i.test(normalized)
+  );
+}
+
 function scoreAlias(normalized: string, aliases: readonly string[] | undefined): number {
   if (!aliases?.length) return 0;
   let score = 0;
@@ -54,8 +65,16 @@ export const SUPPORT_SEMANTIC_DESCRIPTORS: readonly SupportSemanticDescriptor[] 
       "oldest_open_case",
     ],
     aliases: {
-      en: ["support queue", "open cases", "support tickets", "unassigned cases"],
-      no: ["supportkø", "åpne saker", "supportsaker", "uten ansvarlig"],
+      en: ["support queue", "open cases", "support tickets", "inquiries", "new inquiries", "unassigned cases"],
+      no: [
+        "supportkø",
+        "åpne saker",
+        "supportsaker",
+        "henvendelse",
+        "henvendelser",
+        "nye henvendelser",
+        "uten ansvarlig",
+      ],
       sv: ["supportkö", "öppna ärenden", "supportärenden"],
       da: ["supportkø", "åbne sager", "supportsager"],
       es: ["cola de soporte", "casos abiertos", "tickets de soporte"],
@@ -171,6 +190,19 @@ export function resolveSupportSemanticIntent(input: {
     };
   }
 
+  if (wantsSupportQueueInquiry(normalized)) {
+    return {
+      capability_key: "support_queue.read",
+      entity: "support_queue",
+      operation: "status",
+      metric: "open_cases",
+      case_id: null,
+      confirmed,
+      confidence: "high",
+      ambiguous: false,
+    };
+  }
+
   const scored = descriptors
     .map((descriptor) => ({
       descriptor,
@@ -197,6 +229,8 @@ export function resolveSupportSemanticIntent(input: {
   } else if (/\b(lengst|oldest|eldst|najdłużej|найдовше)\b/i.test(normalized)) {
     metric = "oldest_open_case";
   } else if (/\b(hvor mange|how many|count|antall|antal|ile|скільки)\b/i.test(normalized)) {
+    metric = "open_cases";
+  } else if (/\b(nye|new)\b/i.test(normalized) && /\b(henvend|inquir|ticket|sak|case)\b/i.test(normalized)) {
     metric = "open_cases";
   } else if (/\b(venter på kunde|waiting for customer|esperando cliente)\b/i.test(normalized)) {
     metric = "waiting_for_customer";

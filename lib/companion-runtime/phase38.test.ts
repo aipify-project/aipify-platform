@@ -461,6 +461,23 @@ const semanticDraft = resolveSupportSemanticIntent({
 assert.equal(semanticDraft.operation, "draft");
 assert.equal(semanticDraft.case_id, "case-1");
 
+const semanticNewInquiriesPlural = resolveSupportSemanticIntent({
+  query: "Er det noen nye henvendelser?",
+  locale: "no",
+});
+assert.equal(semanticNewInquiriesPlural.capability_key, "support_queue.read");
+assert.equal(semanticNewInquiriesPlural.operation, "status");
+assert.equal(semanticNewInquiriesPlural.metric, "open_cases");
+assert.equal(semanticNewInquiriesPlural.confidence, "high");
+
+const semanticNewInquirySingular = resolveSupportSemanticIntent({
+  query: "Er det noen ny henvendelse?",
+  locale: "no",
+});
+assert.equal(semanticNewInquirySingular.capability_key, "support_queue.read");
+assert.equal(semanticNewInquirySingular.operation, "status");
+assert.equal(semanticNewInquirySingular.metric, "open_cases");
+
 const supportContext = createEmptyCompanionSupportContext({
   autonomous_support_enabled: true,
   queue_summary: bundle.queue,

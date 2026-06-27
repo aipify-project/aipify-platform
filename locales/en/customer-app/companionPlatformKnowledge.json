@@ -412,6 +412,7 @@
       "memberPendingVerificationEmpty": "No members are waiting for verification in the connected sources.",
       "memberVerificationStatusLead": "{reference}: verification status is {status}.",
       "supportSlaLead": "Support cases approaching or past SLA limits:",
+      "supportQueueOpenLead": "Open support inquiries in your connected queue: {count}.",
       "supportSlaCaseLine": "• {subject} — SLA: {slaStatus}",
       "supportSlaEmpty": "No support cases are approaching or past SLA limits in the connected queue.",
       "prioritizeLead": "Based on verified signals from your organization, prioritize these items today:",

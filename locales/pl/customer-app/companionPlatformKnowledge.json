@@ -154,6 +154,7 @@
       "memberPendingVerificationEmpty": "W podłączonych źródłach nikt nie oczekuje na weryfikację.",
       "memberVerificationStatusLead": "{reference}: status weryfikacji to {status}.",
       "supportSlaLead": "Zgłoszenia wsparcia zbliżające się do SLA lub z naruszonym SLA:",
+      "supportQueueOpenLead": "Otwarte zgłoszenia w podłączonej kolejce wsparcia: {count}.",
       "supportSlaCaseLine": "• {subject} — SLA: {slaStatus}",
       "supportSlaEmpty": "W podłączonej kolejce nie ma zgłoszeń zbliżających się do SLA ani z naruszonym SLA.",
       "prioritizeLead": "Na podstawie zweryfikowanych sygnałów w organizacji, dziś priorytetyzuj:",

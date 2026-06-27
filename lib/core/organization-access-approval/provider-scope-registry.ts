@@ -1,7 +1,17 @@
-import type { OrganizationProviderAccessManifest } from "./types";
+import type {
+  OrganizationAccessConsentType,
+  OrganizationProviderAccessManifest,
+} from "./types";
+
+export type OrganizationProviderAccessManifestEntry = Omit<
+  OrganizationProviderAccessManifest,
+  "consent_type"
+> & {
+  consent_type?: OrganizationAccessConsentType;
+};
 
 /** Generic provider scope manifests — no customer-specific providers. */
-export const ORGANIZATION_PROVIDER_ACCESS_MANIFESTS: readonly OrganizationProviderAccessManifest[] = [
+const MANIFEST_ENTRIES: readonly OrganizationProviderAccessManifestEntry[] = [
   {
     provider_key: "community_member_directory",
     provider_label_key: "customerApp.organizationAccessApproval.providers.communityMemberDirectory.label",
@@ -45,6 +55,7 @@ export const ORGANIZATION_PROVIDER_ACCESS_MANIFESTS: readonly OrganizationProvid
     provider_label_key: "customerApp.organizationAccessApproval.providers.supportOperations.label",
     data_type_label_key: "customerApp.organizationAccessApproval.providers.supportOperations.dataType",
     why_needed_label_key: "customerApp.organizationAccessApproval.providers.supportOperations.whyNeeded",
+    consent_type: "business_pack_entitlement",
     required_scopes: [
       {
         scope_key: "support.queue.read",
@@ -74,6 +85,9 @@ export const ORGANIZATION_PROVIDER_ACCESS_MANIFESTS: readonly OrganizationProvid
   },
 ];
 
+export const ORGANIZATION_PROVIDER_ACCESS_MANIFESTS =
+  MANIFEST_ENTRIES as readonly OrganizationProviderAccessManifest[];
+
 const PROVIDER_KEY_ALIASES: Record<string, string> = {
   member_verification_center: "member_verification",
   community_member_verification: "member_verification",
@@ -84,14 +98,23 @@ export function normalizeOrganizationAccessProviderKey(providerKey: string): str
   return PROVIDER_KEY_ALIASES[providerKey] ?? providerKey;
 }
 
+function resolveProviderAccessManifestEntry(
+  providerKey: string,
+): OrganizationProviderAccessManifestEntry | null {
+  const normalized = normalizeOrganizationAccessProviderKey(providerKey);
+  return MANIFEST_ENTRIES.find((entry) => entry.provider_key === normalized) ?? null;
+}
+
+export function resolveOrganizationAccessConsentType(
+  providerKey: string,
+): OrganizationAccessConsentType {
+  return resolveProviderAccessManifestEntry(providerKey)?.consent_type ?? "organization_access_approval";
+}
+
 export function resolveProviderAccessManifest(
   providerKey: string,
 ): OrganizationProviderAccessManifest | null {
-  const normalized = normalizeOrganizationAccessProviderKey(providerKey);
-  return (
-    ORGANIZATION_PROVIDER_ACCESS_MANIFESTS.find((entry) => entry.provider_key === normalized) ??
-    null
-  );
+  return resolveProviderAccessManifestEntry(providerKey) as OrganizationProviderAccessManifest | null;
 }
 
 export function resolveScopesForCapability(input: {

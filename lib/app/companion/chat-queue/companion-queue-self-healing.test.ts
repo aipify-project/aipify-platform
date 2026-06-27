@@ -1,9 +1,20 @@
 import assert from "node:assert/strict";
-import { classifyCompanionTurnRoute } from "@/lib/companion-runtime/companion-turn-route";
+import { classifyCompanionTurnRoute, needsFullCompanionRoute } from "@/lib/companion-runtime/companion-turn-route";
 import { buildLightweightConversationalAnswer } from "@/lib/companion-runtime/lightweight-conversational-answer";
 import { resolveCompanionQueueRetry } from "./worker-config";
 import { resolveCompanionTurnTimeoutMs } from "./worker-route-timeout";
 import { resolveCompanionQueueDisplayError } from "./queue-user-messages";
+
+function testSupportInquiryRouteEscalation() {
+  for (const query of [
+    "Er det noen nye henvendelser?",
+    "Er det noen ny henvendelse?",
+  ]) {
+    assert.equal(needsFullCompanionRoute(query), true, query);
+    assert.notEqual(classifyCompanionTurnRoute(query, "no"), "lightweight", query);
+    assert.equal(classifyCompanionTurnRoute(query, "no"), "exact_source", query);
+  }
+}
 
 function testLightweightRouteClassification() {
   assert.equal(classifyCompanionTurnRoute("Kan du le?", "no"), "lightweight");
@@ -86,6 +97,7 @@ function testLightweightSmalltalkAnswerUnder3s() {
   console.log(`lightweight smalltalk answer ready in ${elapsed}ms`);
 }
 
+testSupportInquiryRouteEscalation();
 testLightweightRouteClassification();
 testRouteTimeouts();
 testTurnTimeoutIsPermanent();

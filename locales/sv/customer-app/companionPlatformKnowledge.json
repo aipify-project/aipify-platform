@@ -154,6 +154,7 @@
       "memberPendingVerificationEmpty": "Inga medlemmar väntar på verifiering i de anslutna källorna.",
       "memberVerificationStatusLead": "{reference}: verifieringsstatus är {status}.",
       "supportSlaLead": "Supportärenden som närmar sig eller har brutit SLA:",
+      "supportQueueOpenLead": "Öppna ärenden i ansluten supportkö: {count}.",
       "supportSlaCaseLine": "• {subject} — SLA: {slaStatus}",
       "supportSlaEmpty": "Inga supportärenden närmar sig eller har brutit SLA i den anslutna kön.",
       "prioritizeLead": "Baserat på verifierade signaler i din organisation, prioritera detta i dag:",

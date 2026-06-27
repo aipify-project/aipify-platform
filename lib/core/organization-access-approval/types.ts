@@ -34,6 +34,11 @@ export type OrganizationProviderScopeDefinition = {
   default_duration_hours: number | null;
 };
 
+/** Organization access consent models — extended by provider-scope-registry entries. */
+export type OrganizationAccessConsentType =
+  | "organization_access_approval"
+  | "business_pack_entitlement";
+
 export type OrganizationProviderAccessManifest = {
   provider_key: string;
   provider_label_key: string;

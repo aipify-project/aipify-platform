@@ -154,6 +154,7 @@
       "memberPendingVerificationEmpty": "Ingen medlemmer venter på verificering i de tilsluttede kilder.",
       "memberVerificationStatusLead": "{reference}: verificeringsstatus er {status}.",
       "supportSlaLead": "Supportsager der nærmer sig eller har brudt SLA:",
+      "supportQueueOpenLead": "Åbne henvendelser i tilsluttet supportkø: {count}.",
       "supportSlaCaseLine": "• {subject} — SLA: {slaStatus}",
       "supportSlaEmpty": "Ingen supportsager nærmer sig eller har brudt SLA i den tilsluttede kø.",
       "prioritizeLead": "Baseret på verificerede signaler i din organisation, prioriter dette i dag:",

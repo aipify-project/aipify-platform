@@ -26,6 +26,7 @@ export type OrganizationExecutionKind =
   | "member_detail_list"
   | "member_pending_verification"
   | "member_verification_status"
+  | "support_queue"
   | "support_sla"
   | "prioritize_today";
 
@@ -100,6 +101,17 @@ function wantsSupportSla(normalized: string): boolean {
   return hasSupport && hasSla;
 }
 
+function wantsSupportQueueInquiry(normalized: string): boolean {
+  if (/\bhenvendelser?\b/i.test(normalized)) return true;
+  if (/\b(nye henvendelser|ny henvendelse|new inquiries|new tickets)\b/i.test(normalized)) {
+    return true;
+  }
+  return (
+    /\b(er det (noen|nye)|any new|are there any)\b/i.test(normalized) &&
+    /\b(henvend|inquir|ticket|supportsak)\b/i.test(normalized)
+  );
+}
+
 function wantsPrioritizeToday(normalized: string): boolean {
   return /\b(prioriter|prioritize|prioritet|focus today|hva bør|what should i)\b/i.test(normalized);
 }
@@ -119,6 +131,13 @@ function mapSemanticToExecutionKind(input: {
 
   if (capabilityKey === "support_sla.read" || wantsSupportSla(normalized)) {
     return "support_sla";
+  }
+
+  if (
+    capabilityKey === "support_queue.read" ||
+    (wantsSupportQueueInquiry(normalized) && !wantsSupportSla(normalized))
+  ) {
+    return "support_queue";
   }
 
   if (capabilityKey.startsWith("verification") || wantsPendingVerification(normalized)) {
@@ -235,8 +254,8 @@ export function resolveOrganizationCapabilityRoute(
     query,
     normalized,
     capabilityKey: capabilityKey ?? "",
-    operation: semanticIntent.operation,
-    metric: semanticIntent.metric,
+    operation: semanticIntent.operation ?? supportIntent.operation,
+    metric: semanticIntent.metric ?? supportIntent.metric,
   });
 
   if (!executionKind) return null;
@@ -246,9 +265,11 @@ export function resolveOrganizationCapabilityRoute(
       ? "organization.priority_signals"
       : executionKind === "support_sla"
         ? "support.sla"
-        : executionKind === "member_verification_status" || executionKind === "member_pending_verification"
-          ? "verification.member"
-          : "directory.community_member";
+        : executionKind === "support_queue"
+          ? "support.case"
+          : executionKind === "member_verification_status" || executionKind === "member_pending_verification"
+            ? "verification.member"
+            : "directory.community_member";
 
   const resolvedCapability =
     findOrganizationCapabilityByKey(
@@ -256,9 +277,11 @@ export function resolveOrganizationCapabilityRoute(
         ? "command_brief.prioritize"
         : moduleId === "support.sla"
           ? "support_sla.read"
-          : moduleId === "verification.member"
-            ? "verification_queue.read"
-            : "member.search",
+          : moduleId === "support.case" && executionKind === "support_queue"
+            ? "support_queue.read"
+            : moduleId === "verification.member"
+              ? "verification_queue.read"
+              : "member.search",
     ) ?? capability;
 
   if (!resolvedCapability) return null;
@@ -277,6 +300,7 @@ export function resolveOrganizationCapabilityRoute(
   const explicitMatch =
     wantsPrioritizeToday(normalized) ||
     wantsSupportSla(normalized) ||
+    wantsSupportQueueInquiry(normalized) ||
     wantsPendingVerification(normalized) ||
     wantsMemberVerificationStatus(query, normalized) ||
     wantsMemberDetailFields(normalized) ||
@@ -319,10 +343,20 @@ export function assessOrganizationCapabilityReadiness(route: OrganizationCapabil
         provider_active: connected,
       };
     }
-    case "support.sla":
-    case "support.case": {
+    case "support.sla": {
       const definition = getSupportSourceDefinition("support_sla.read");
       const connected = definition?.status === "live" && definition.read_only;
+      return {
+        status: connected ? "production_ready_candidate" : "adapter_missing",
+        source_reference: "get_customer_support_operations_center",
+        provider_active: Boolean(connected),
+      };
+    }
+    case "support.case": {
+      const definition = getSupportSourceDefinition("support_queue.read");
+      const connected =
+        definition?.read_only &&
+        (definition.status === "live" || definition.status === "partial");
       return {
         status: connected ? "production_ready_candidate" : "adapter_missing",
         source_reference: "get_customer_support_operations_center",

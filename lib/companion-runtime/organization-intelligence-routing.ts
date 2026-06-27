@@ -21,6 +21,7 @@ import {
   buildMemberCountFromProviderResult,
   buildPrioritizeTodayAnswer,
   buildSupportSlaAnswer,
+  buildSupportQueueAnswer,
 } from "./organization-intelligence-answer";
 import {
   resolveOrganizationMemberCount,
@@ -384,6 +385,106 @@ async function resolveMemberDirectoryAnswer(
   }
 }
 
+async function resolveSupportQueueAnswer(
+  intent: OrganizationIntelligenceIntent,
+  input: {
+    supabase: SupabaseClient;
+    tenantContext: CompanionTenantContext;
+    t: Translator;
+    locale: CustomerActiveLocale;
+    userMessageId?: string | null;
+  },
+): Promise<PlatformSearchResult> {
+  const readiness = assessOrganizationCapabilityReadiness(intent);
+  if (readiness.status === "adapter_missing") {
+    return {
+      answer: buildOrganizationIntelligenceGapAnswer(input.t, "adapter_missing", {
+        sourceReference: readiness.source_reference,
+        capabilityKey: intent.capability_key,
+      }),
+    };
+  }
+
+  const rpcBundle = await fetchSupportBundleFromRpc(input.supabase);
+  const contextProvider = buildSupportProviderFromContext(input.tenantContext);
+
+  const bundle = rpcBundle ?? {
+    queue: input.tenantContext.supportContext.queue_summary,
+    cases: input.tenantContext.supportContext.case_summaries,
+    source_exact: input.tenantContext.supportContext.support_source_exact,
+    sla_source_exact: false,
+    limitations: [] as readonly string[],
+  };
+
+  const provider: SupportProviderReader | null = rpcBundle
+    ? {
+        provider_key: "autonomous_support_operations",
+        active: rpcBundle.source_exact,
+        read_queue: async () => ({
+          queue: rpcBundle.queue,
+          cases: rpcBundle.cases,
+          source_exact: rpcBundle.source_exact,
+          limitations: rpcBundle.limitations,
+        }),
+        read_case: async () => ({
+          case_detail: null,
+          limitations: rpcBundle.limitations,
+        }),
+      }
+    : contextProvider;
+
+  if (!provider || !bundle.source_exact) {
+    return {
+      answer: buildOrganizationIntelligenceGapAnswer(input.t, "source_unavailable", {
+        sourceReference: readiness.source_reference,
+        capabilityKey: intent.capability_key,
+      }),
+    };
+  }
+
+  const offer = resolveAccessOfferFromCapability({
+    provider_key: intent.provider_key,
+    capability_key: intent.capability_key,
+    execution_kind: intent.kind,
+  });
+
+  const { gate } = await resolveOrganizationAccessGate({
+    supabase: input.supabase,
+    t: input.t,
+    offer,
+    providerReady: readiness.provider_active && bundle.source_exact,
+    effectivePermissions: input.tenantContext.effectivePermissions,
+    capabilityKey: intent.capability_key,
+    sourceReference: readiness.source_reference,
+    organizationRole: input.tenantContext.organizationRole,
+    organizationId: input.tenantContext.organizationId,
+    userMessageId: input.userMessageId ?? null,
+  });
+
+  if (gate) return gate;
+
+  const supportPermission = buildSupportPermission(input.tenantContext, bundle.source_exact);
+
+  const queueResult = await executeSupportQueueRead({
+    organization_id: input.tenantContext.organizationId!,
+    tenant_id: input.tenantContext.companyId ?? input.tenantContext.organizationId!,
+    user_role: input.tenantContext.organizationRole ?? "staff",
+    permission: supportPermission,
+    providers: [provider],
+  });
+
+  return {
+    answer: buildSupportQueueAnswer({
+      queue: queueResult.queue,
+      sourceReference: bundle.queue?.source_reference ?? "get_customer_support_operations_center",
+      sourceExact: bundle.source_exact,
+      generatedAt: bundle.queue?.generated_at ?? null,
+      t: input.t,
+      locale: input.locale,
+    }),
+  };
+}
+
 async function resolveSupportSlaAnswer(
   intent: OrganizationIntelligenceIntent,
   input: {
@@ -589,6 +690,16 @@ export async function resolveOrganizationIntelligenceAnswer(
 
   if (intent.kind === "support_sla") {
     return resolveSupportSlaAnswer(intent, {
+      supabase: input.supabase,
+      tenantContext: input.tenantContext,
+      t: input.t,
+      locale: input.activeLocale,
+      userMessageId: input.userMessageId ?? null,
+    });
+  }
+
+  if (intent.kind === "support_queue") {
+    return resolveSupportQueueAnswer(intent, {
       supabase: input.supabase,
       tenantContext: input.tenantContext,
       t: input.t,
