@@ -209,6 +209,212 @@ async function runPhase38AsyncTests() {
     },
   });
   assert.equal(assignWrite.outcome, "execution_source_missing");
+  assert.equal(assignWrite.action_request_id, null);
+
+  const assignCaseId = "case-1";
+  const assigneeUserId = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee";
+  const assignIdempotencyKey = "support-assign-idem-phase38";
+  const assignActionRequestId = "11111111-2222-3333-4444-555555555555";
+  const assignProviderWrite = {
+    write_source_available: true,
+    requires_approval_before_execution: true,
+  } as const;
+  const assignLookup = async () => ({
+    found: true as const,
+    case_summary: bundle.cases.find((entry) => entry.case_id === assignCaseId) ?? null,
+  });
+  const assignRequestBase = {
+    capability_key: "support_case.assign" as const,
+    case_id: assignCaseId,
+    draft_text: null,
+    assignee_reference: assigneeUserId,
+    escalation_reason: null,
+    grounded_sources: [] as const,
+    approved: false,
+    idempotency_key: assignIdempotencyKey,
+  };
+
+  let assignBridgeCalls = 0;
+  const unconfirmedAssign = await executeSupportWrite({
+    organization_id: ORG,
+    tenant_id: ORG,
+    user_role: "owner",
+    permission,
+    provider_key: "support_ai_engine",
+    provider_write: assignProviderWrite,
+    lookup_case: assignLookup,
+    record_assign_approval: async () => {
+      assignBridgeCalls += 1;
+      return {
+        success: true,
+        outcome_code: "SUPPORT_ACTION_REQUESTED",
+        action_request_id: assignActionRequestId,
+        payload_hash: "hash",
+        idempotency_key: assignIdempotencyKey,
+        expires_at: "2026-07-01T00:00:00.000Z",
+        idempotent_replay: false,
+      };
+    },
+    request: {
+      ...assignRequestBase,
+      confirmed: false,
+    },
+  });
+  assert.equal(unconfirmedAssign.outcome, "confirmation_required");
+  assert.equal(unconfirmedAssign.action_request_id, null);
+  assert.equal(assignBridgeCalls, 0);
+
+  let executeWriteCalls = 0;
+  assignBridgeCalls = 0;
+  let capturedBridgeRequest: {
+    case_id: string;
+    assignee_user_id: string;
+    idempotency_key: string;
+  } | null = null;
+
+  const confirmedAssign = await executeSupportWrite({
+    organization_id: ORG,
+    tenant_id: ORG,
+    user_role: "owner",
+    permission,
+    provider_key: "support_ai_engine",
+    provider_write: assignProviderWrite,
+    lookup_case: assignLookup,
+    execute_write: async () => {
+      executeWriteCalls += 1;
+      return {
+        executed: true,
+        failure_reason: null,
+        verified_after_reread: true,
+      };
+    },
+    record_assign_approval: async (request) => {
+      assignBridgeCalls += 1;
+      capturedBridgeRequest = request;
+      assert.equal(Object.keys(request).sort().join(","), "assignee_user_id,case_id,idempotency_key");
+      return {
+        success: true,
+        outcome_code: "SUPPORT_ACTION_REQUESTED",
+        action_request_id: assignActionRequestId,
+        payload_hash: "hash",
+        idempotency_key: request.idempotency_key,
+        expires_at: "2026-07-01T00:00:00.000Z",
+        idempotent_replay: false,
+      };
+    },
+    request: {
+      ...assignRequestBase,
+      confirmed: true,
+    },
+  });
+  assert.equal(confirmedAssign.outcome, "approval_required");
+  assert.equal(confirmedAssign.action_request_id, assignActionRequestId);
+  assert.equal(assignBridgeCalls, 1);
+  assert.equal(executeWriteCalls, 0);
+  assert.deepEqual(capturedBridgeRequest, {
+    case_id: assignCaseId,
+    assignee_user_id: assigneeUserId,
+    idempotency_key: assignIdempotencyKey,
+  });
+
+  assignBridgeCalls = 0;
+  const replayAssign = await executeSupportWrite({
+    organization_id: ORG,
+    tenant_id: ORG,
+    user_role: "owner",
+    permission,
+    provider_key: "support_ai_engine",
+    provider_write: assignProviderWrite,
+    lookup_case: assignLookup,
+    record_assign_approval: async () => {
+      assignBridgeCalls += 1;
+      return {
+        success: true,
+        outcome_code: "IDEMPOTENT_REPLAY",
+        action_request_id: assignActionRequestId,
+        payload_hash: "hash",
+        idempotency_key: assignIdempotencyKey,
+        expires_at: "2026-07-01T00:00:00.000Z",
+        idempotent_replay: true,
+      };
+    },
+    request: {
+      ...assignRequestBase,
+      confirmed: true,
+    },
+  });
+  assert.equal(replayAssign.outcome, "approval_required");
+  assert.equal(replayAssign.action_request_id, assignActionRequestId);
+  assert.equal(assignBridgeCalls, 1);
+
+  const failedAssign = await executeSupportWrite({
+    organization_id: ORG,
+    tenant_id: ORG,
+    user_role: "owner",
+    permission,
+    provider_key: "support_ai_engine",
+    provider_write: assignProviderWrite,
+    lookup_case: assignLookup,
+    execute_write: async () => {
+      executeWriteCalls += 1;
+      return { executed: true, failure_reason: null };
+    },
+    record_assign_approval: async () => ({
+      success: false,
+      outcome_code: "REQUEST_FAILED",
+      action_request_id: null,
+      payload_hash: "hash",
+      idempotency_key: assignIdempotencyKey,
+      expires_at: null,
+      idempotent_replay: false,
+    }),
+    request: {
+      ...assignRequestBase,
+      confirmed: true,
+    },
+  });
+  assert.equal(failedAssign.outcome, "failed");
+  assert.equal(failedAssign.action_request_id, null);
+  assert.equal(executeWriteCalls, 0);
+
+  let escalateBridgeCalls = 0;
+  const escalateWrite = await executeSupportWrite({
+    organization_id: ORG,
+    tenant_id: ORG,
+    user_role: "owner",
+    permission,
+    provider_key: "support_ai_engine",
+    provider_write: assignProviderWrite,
+    lookup_case: assignLookup,
+    record_assign_approval: async () => {
+      escalateBridgeCalls += 1;
+      return {
+        success: true,
+        outcome_code: "SUPPORT_ACTION_REQUESTED",
+        action_request_id: assignActionRequestId,
+        payload_hash: "hash",
+        idempotency_key: "escalate-idem",
+        expires_at: "2026-07-01T00:00:00.000Z",
+        idempotent_replay: false,
+      };
+    },
+    request: {
+      capability_key: "support_case.escalate",
+      case_id: assignCaseId,
+      draft_text: null,
+      assignee_reference: null,
+      escalation_reason: "Needs senior review",
+      grounded_sources: [],
+      confirmed: true,
+      approved: false,
+      idempotency_key: "escalate-idem",
+    },
+  });
+  assert.equal(escalateWrite.outcome, "approval_required");
+  assert.equal(escalateWrite.action_request_id, null);
+  assert.equal(escalateBridgeCalls, 0);
+
+  assert.equal(draftWrite.action_request_id, null);
 
   const denied = await executeSupportQueueRead({
     organization_id: ORG,

@@ -18,14 +18,22 @@ import type {
   SupportCaseSummary,
   SupportWriteOutcome,
   SupportWriteProposal,
-  SupportWriteResult,
+  SupportWriteResult as SupportWriteResultBase,
 } from "@/lib/integration-intelligence/support/types";
 import { isSupportWriteSourceConnected } from "@/lib/integration-intelligence/providers/support-operations/support-source-map";
 import {
   hasDuplicateIdempotencyKey,
   recordIdempotentExecution,
 } from "./companion-action-idempotency";
+import type {
+  SupportAssignApprovalBridgeResult,
+  SupportAssignApprovalRequest,
+} from "./support-approval-bridge";
 import { createSupportAuditEvent } from "./support-audit";
+
+export type SupportWriteResult = SupportWriteResultBase & {
+  action_request_id: string | null;
+};
 
 export type SupportWriteRequest = {
   capability_key: Extract<
@@ -58,6 +66,7 @@ function emptyWriteResult(
     case_id: caseId,
     outcome_key: supportWriteOutcomeKey(outcome),
     audit_id: null,
+    action_request_id: null,
     limitations,
   };
 }
@@ -75,6 +84,27 @@ function canExecuteCapability(
   return permission.can_draft_response;
 }
 
+function buildApprovalProposal(input: {
+  request: SupportWriteRequest;
+  provider_write: SupportProviderWriteContext;
+  limitations: readonly string[];
+}): SupportWriteProposal {
+  return {
+    proposal_id: `support-proposal-${Date.now()}`,
+    capability_key: input.request.capability_key,
+    case_id: input.request.case_id,
+    draft_text: null,
+    assignee_reference: input.request.assignee_reference,
+    escalation_reason: input.request.escalation_reason,
+    requires_confirmation: true,
+    requires_approval: supportWriteProposalRequiresApproval({
+      provider_write: input.provider_write,
+    }),
+    grounded_sources: input.request.grounded_sources,
+    limitations: input.limitations,
+  };
+}
+
 export async function executeSupportWrite(input: {
   organization_id: string;
   tenant_id: string;
@@ -84,6 +114,9 @@ export async function executeSupportWrite(input: {
   provider_write: SupportProviderWriteContext;
   lookup_case?: (caseId: string) => Promise<SupportCaseLookupResult>;
   execute_write?: () => Promise<SupportWriteExecutionResult>;
+  record_assign_approval?: (
+    request: SupportAssignApprovalRequest,
+  ) => Promise<SupportAssignApprovalBridgeResult>;
   request: SupportWriteRequest;
 }): Promise<SupportWriteResult> {
   if (isSupportCapabilityBlocked(input.request.capability_key)) {
@@ -157,6 +190,7 @@ export async function executeSupportWrite(input: {
       case_id: input.request.case_id,
       outcome_key: supportWriteOutcomeKey(draftOutcome),
       audit_id: audit.audit_id,
+      action_request_id: null,
       limitations,
     };
   }
@@ -180,6 +214,7 @@ export async function executeSupportWrite(input: {
         case_id: input.request.case_id,
         outcome_key: supportWriteOutcomeKey("failed"),
         audit_id: audit.audit_id,
+        action_request_id: null,
         limitations: ["customerApp.companionPlatformKnowledge.support.outcomes.noMatch"],
       };
     }
@@ -191,6 +226,75 @@ export async function executeSupportWrite(input: {
     write_source_available: writeSourceConnected && input.provider_write.write_source_available,
     requires_approval_before_execution: input.provider_write.requires_approval_before_execution,
   };
+
+  if (
+    input.request.capability_key === "support_case.assign" &&
+    input.request.confirmed &&
+    !input.request.approved &&
+    supportWriteProposalRequiresApproval({ provider_write: providerWrite })
+  ) {
+    const limitations = [
+      "customerApp.companionPlatformKnowledge.support.humanOversightRequired",
+    ];
+    const assigneeUserId = input.request.assignee_reference?.trim() ?? "";
+    const idempotencyKey = input.request.idempotency_key?.trim() ?? "";
+
+    const approvalResult = input.record_assign_approval
+      ? await input.record_assign_approval({
+          case_id: input.request.case_id,
+          assignee_user_id: assigneeUserId,
+          idempotency_key: idempotencyKey,
+        })
+      : null;
+
+    if (!approvalResult?.success || !approvalResult.action_request_id) {
+      const audit = createSupportAuditEvent({
+        organization_id: input.organization_id,
+        tenant_id: input.tenant_id,
+        user_role: input.user_role,
+        capability_key: input.request.capability_key,
+        outcome: "failed",
+        case_id: input.request.case_id,
+        provider_key: input.provider_key,
+        case_summary: caseSummary,
+      });
+
+      return {
+        outcome: "failed",
+        proposal: null,
+        case_id: input.request.case_id,
+        outcome_key: supportWriteOutcomeKey("failed"),
+        audit_id: audit.audit_id,
+        action_request_id: null,
+        limitations: ["customerApp.companionPlatformKnowledge.support.outcomes.noMatch"],
+      };
+    }
+
+    const audit = createSupportAuditEvent({
+      organization_id: input.organization_id,
+      tenant_id: input.tenant_id,
+      user_role: input.user_role,
+      capability_key: input.request.capability_key,
+      outcome: "approval_required",
+      case_id: input.request.case_id,
+      provider_key: input.provider_key,
+      case_summary: caseSummary,
+    });
+
+    return {
+      outcome: "approval_required",
+      proposal: buildApprovalProposal({
+        request: input.request,
+        provider_write: providerWrite,
+        limitations,
+      }),
+      case_id: input.request.case_id,
+      outcome_key: supportWriteOutcomeKey("approval_required"),
+      audit_id: audit.audit_id,
+      action_request_id: approvalResult.action_request_id,
+      limitations,
+    };
+  }
 
   let executionResult: SupportWriteExecutionResult | null = null;
   const idempotencyKey = input.request.idempotency_key;
@@ -246,18 +350,11 @@ export async function executeSupportWrite(input: {
     outcome === "confirmation_required" ||
     outcome === "execution_source_missing" ||
     outcome === "approval_required"
-      ? {
-          proposal_id: `support-proposal-${Date.now()}`,
-          capability_key: input.request.capability_key,
-          case_id: input.request.case_id,
-          draft_text: null,
-          assignee_reference: input.request.assignee_reference,
-          escalation_reason: input.request.escalation_reason,
-          requires_confirmation: true,
-          requires_approval: supportWriteProposalRequiresApproval({ provider_write: providerWrite }),
-          grounded_sources: input.request.grounded_sources,
+      ? buildApprovalProposal({
+          request: input.request,
+          provider_write: providerWrite,
           limitations,
-        }
+        })
       : null;
 
   const audit = createSupportAuditEvent({
@@ -277,6 +374,7 @@ export async function executeSupportWrite(input: {
     case_id: input.request.case_id,
     outcome_key: supportWriteOutcomeKey(outcome),
     audit_id: audit.audit_id,
+    action_request_id: null,
     limitations,
   };
 }
