@@ -5,7 +5,7 @@ import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-reg
 import type { Translator } from "@/lib/i18n/translate";
 import type { BookingPermissionContext } from "@/lib/integration-intelligence/booking/permissions";
 import { canProposeBookingWrite } from "@/lib/integration-intelligence/booking/permissions";
-import type { BookingWriteResult } from "@/lib/integration-intelligence/booking/types";
+import type { BookingWriteResult, ServiceSummary } from "@/lib/integration-intelligence/booking/types";
 import {
   APPOINTMENT_BOOKING_PROVIDER_MANIFESTS,
 } from "@/lib/integration-intelligence/providers/appointment-booking/booking-manifest";
@@ -209,6 +209,43 @@ function resolveProposalSlotStartAt(slots: readonly { start_at: string }[]): str
     return slots[0]?.start_at?.trim() || null;
   }
   return null;
+}
+
+function normalizeCatalogServiceMatchToken(value: string): string {
+  return value.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function escapeCatalogMatchRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Resolves a catalog service when the full normalized title appears once as a
+ * token-bounded phrase in a booking.create utterance. No fuzzy or partial matching.
+ */
+export function resolveServiceLabelFromCatalogQuery(
+  query: string,
+  services: readonly ServiceSummary[],
+): string | null {
+  const normalizedQuery = normalizeCatalogServiceMatchToken(query);
+  if (!normalizedQuery) return null;
+
+  const matches = services.filter((service) => {
+    const canonicalName = service.name?.trim() ?? "";
+    const normalizedTitle = normalizeCatalogServiceMatchToken(canonicalName);
+    if (normalizedTitle.length < 2) return false;
+
+    const pattern = new RegExp(
+      `(?:^|[\\s,.;:!?])${escapeCatalogMatchRegExp(normalizedTitle)}(?=$|[\\s,.;:!?])`,
+    );
+    return pattern.test(normalizedQuery);
+  });
+
+  if (matches.length !== 1) {
+    return null;
+  }
+
+  return matches[0]?.name?.trim() || null;
 }
 
 function stripFollowUpLabelledFields(query: string): string {
@@ -669,8 +706,17 @@ export async function produceBookingProposalTurn(
     followUp.customerReference ??
     validatedClarification?.customerReference ??
     extractBookingCustomerReference(input.query);
+  const catalogServiceLabel =
+    clearCreate &&
+    !followUp.serviceLabel?.trim() &&
+    !intent.service_id?.trim()
+      ? resolveServiceLabelFromCatalogQuery(input.query, readContext.bundle.services)
+      : null;
   const serviceLabel =
-    followUp.serviceLabel ?? validatedClarification?.serviceLabel ?? intent.service_id;
+    followUp.serviceLabel ??
+    validatedClarification?.serviceLabel ??
+    catalogServiceLabel ??
+    intent.service_id;
   const resourceName =
     followUp.resourceName ?? validatedClarification?.resourceName ?? intent.resource_name;
   const dateHint = followUp.dateHint ?? validatedClarification?.dateHint ?? intent.date_hint;

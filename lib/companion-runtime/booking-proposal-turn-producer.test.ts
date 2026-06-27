@@ -10,12 +10,21 @@ import {
   extractBookingFollowUpFields,
   isClearBookingCreateIntent,
   produceBookingProposalTurn,
+  resolveServiceLabelFromCatalogQuery,
   type BookingProposalReadContext,
   type ProduceBookingProposalTurnResult,
 } from "@/lib/companion-runtime/booking-proposal-turn-producer";
 import { resolveBookingSemanticIntent, collectBookingDescriptorsFromManifests } from "@/lib/companion-runtime/booking-semantic-intent";
 import { APPOINTMENT_BOOKING_PROVIDER_MANIFESTS } from "@/lib/integration-intelligence/providers/appointment-booking/booking-manifest";
-import { buildPendingBookingClarificationState } from "@/lib/companion-runtime/booking-pending-action-pointer";
+import {
+  buildPendingBookingClarificationState,
+  coercePendingBookingClarification,
+  validatePendingBookingClarification,
+} from "@/lib/companion-runtime/booking-pending-action-pointer";
+import {
+  deserializeAssistantMessage,
+  serializeAssistantPayload,
+} from "@/lib/app/companion/chat-queue/message-payload";
 import { buildAppointmentBookingReadBundle } from "@/lib/integration-intelligence/providers/appointment-booking/appointment-booking-contract";
 import type {
   AvailabilitySlot,
@@ -119,6 +128,33 @@ const consultationSlot: AvailabilitySlot = {
   end_at: "2026-06-29T09:00:00.000Z",
   timezone: "Europe/Oslo",
   service_id: "svc_controlled",
+  location_id: null,
+  availability_status: "available",
+  source_reference: "appointment_center",
+  freshness: "fresh",
+  completeness: "complete",
+};
+
+const catalogControlledConsultationService: ServiceSummary = {
+  service_id: "svc_controlled_consultation",
+  name: "Controlled consultation",
+  duration_minutes: 60,
+  buffer_before: 0,
+  buffer_after: 0,
+  price_summary: null,
+  required_resource_type: "employee",
+  location: "Salon 1",
+  source_reference: "appointment_center",
+  freshness: "fresh",
+  completeness: "complete",
+};
+
+const catalogControlledConsultationSlot: AvailabilitySlot = {
+  resource_id: "emp_provider_a",
+  start_at: "2026-06-29T08:00:00.000Z",
+  end_at: "2026-06-29T09:00:00.000Z",
+  timezone: "Europe/Oslo",
+  service_id: "svc_controlled_consultation",
   location_id: null,
   availability_status: "available",
   source_reference: "appointment_center",
@@ -296,6 +332,58 @@ function assertHandled(
   result: ProduceBookingProposalTurnResult,
 ): asserts result is { handled: true; answer: PlatformKnowledgeAnswer } {
   assert.equal(result.handled, true);
+}
+
+function naturalBookingCreateIntent(query: string): BookingSemanticIntent {
+  return resolveBookingSemanticIntent({
+    query,
+    locale: "no",
+    descriptors: collectBookingDescriptorsFromManifests(APPOINTMENT_BOOKING_PROVIDER_MANIFESTS),
+  });
+}
+
+function catalogConsultationReadContext(
+  serviceOverrides: ServiceSummary[] = [catalogControlledConsultationService],
+): BookingProposalReadContext {
+  return readContext({
+    services: serviceOverrides,
+    resources: [providerEmployee],
+    slots: [catalogControlledConsultationSlot],
+  });
+}
+
+function roundTripClarificationThroughProductionPayload(
+  clarification: NonNullable<PlatformKnowledgeAnswer["pendingBookingClarification"]>,
+) {
+  const message = {
+    id: "assistant-turn1",
+    role: "aipify" as const,
+    content: TRANSLATIONS[`${OUTCOME_BASE}.clarificationRequired`],
+    directAnswer: TRANSLATIONS[`${OUTCOME_BASE}.clarificationRequired`],
+    pendingBookingClarification: clarification,
+    timestamp: FIXED_NOW.getTime(),
+  };
+  const payload = serializeAssistantPayload(message);
+  const wire = payload.pending_booking_clarification;
+  assert.ok(wire);
+  const coerced = coercePendingBookingClarification(wire);
+  assert.ok(coerced);
+  const validated = validatePendingBookingClarification({
+    state: coerced,
+    conversationId: clarification.conversationId,
+    organizationId: clarification.organizationId,
+    now: FIXED_NOW,
+  });
+  assert.ok(validated);
+  const deserialized = deserializeAssistantMessage(
+    "server-turn1",
+    "assistant-turn1",
+    message.content,
+    payload as Record<string, unknown>,
+    message.timestamp,
+  );
+  assert.ok(deserialized.pendingBookingClarification);
+  return { wire, coerced, validated, deserialized };
 }
 
 async function runAll() {
@@ -556,6 +644,148 @@ assert.equal(unlabelledTurn2.result.answer.pendingBookingWrite, undefined);
 assert.equal(unlabelledTurn2.bridgeCalls, 0);
 assert.equal(unlabelledTurn2.executionRpcCalled, false);
 assert.equal(JSON.stringify(unlabelledTurn2.result.answer).includes("match_label"), false);
+
+const NATURAL_TURN1_QUERY =
+  "Jeg vil bestille Controlled consultation mandag 29. juni kl. 10.";
+const NATURAL_TURN2_QUERY = "Provider A. Kunde: customer-123.";
+const naturalTurn1Intent = naturalBookingCreateIntent(NATURAL_TURN1_QUERY);
+assert.equal(naturalTurn1Intent.capability_key, "booking.create");
+assert.equal(naturalTurn1Intent.service_id, null);
+
+assert.equal(
+  resolveServiceLabelFromCatalogQuery(NATURAL_TURN1_QUERY, [catalogControlledConsultationService]),
+  "Controlled consultation",
+);
+assert.equal(
+  resolveServiceLabelFromCatalogQuery("Jeg vil bestille Controlled mandag kl. 10.", [
+    catalogControlledConsultationService,
+  ]),
+  null,
+);
+assert.equal(
+  resolveServiceLabelFromCatalogQuery("Bestill en time mandag kl. 10:00", [
+    catalogControlledConsultationService,
+  ]),
+  null,
+);
+assert.equal(
+  resolveServiceLabelFromCatalogQuery(NATURAL_TURN1_QUERY, [
+    catalogControlledConsultationService,
+    { ...catalogControlledConsultationService, service_id: "svc_duplicate" },
+  ]),
+  null,
+);
+
+const naturalTurn1 = await runProposal({
+  query: NATURAL_TURN1_QUERY,
+  intent: naturalTurn1Intent,
+  read: catalogConsultationReadContext(),
+  conversationId: CONVERSATION_ID,
+});
+assert.equal(naturalTurn1.result.handled, true);
+assertHandled(naturalTurn1.result);
+assertProposalAnswer(naturalTurn1.result.answer);
+assert.equal(naturalTurn1.result.answer.directAnswer, TRANSLATIONS[`${OUTCOME_BASE}.clarificationRequired`]);
+assert.ok(naturalTurn1.result.answer.pendingBookingClarification);
+assert.equal(naturalTurn1.result.answer.pendingBookingClarification?.serviceLabel, "Controlled consultation");
+assert.equal(naturalTurn1.result.answer.pendingBookingClarification?.slotStartAt, catalogControlledConsultationSlot.start_at);
+assert.equal(
+  naturalTurn1.result.answer.pendingBookingClarification?.missingFields.includes("service_missing"),
+  false,
+);
+assert.equal(naturalTurn1.result.answer.pendingBookingClarification?.missingFields.includes("employee_missing"), true);
+assert.equal(naturalTurn1.result.answer.pendingBookingWrite, undefined);
+assert.equal(naturalTurn1.bridgeCalls, 0);
+assert.equal(JSON.stringify(naturalTurn1.result.answer).includes("match_label"), false);
+
+const naturalRoundTrip = roundTripClarificationThroughProductionPayload(
+  naturalTurn1.result.answer.pendingBookingClarification!,
+);
+assert.equal(naturalRoundTrip.wire?.service_label, "Controlled consultation");
+assert.equal(naturalRoundTrip.validated?.serviceLabel, "Controlled consultation");
+
+const naturalTurn2 = await runProposal({
+  query: NATURAL_TURN2_QUERY,
+  intent: naturalBookingCreateIntent(NATURAL_TURN2_QUERY),
+  read: catalogConsultationReadContext(),
+  conversationId: CONVERSATION_ID,
+  messages: [
+    {
+      id: "u-natural-turn1",
+      role: "user",
+      content: NATURAL_TURN1_QUERY,
+      timestamp: 1,
+    },
+    {
+      id: "a-natural-turn1",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.clarificationRequired`],
+      timestamp: 2,
+      pendingBookingClarification: naturalRoundTrip.deserialized.pendingBookingClarification,
+    },
+  ],
+});
+assert.equal(naturalTurn2.result.handled, true);
+assertHandled(naturalTurn2.result);
+assert.equal(naturalTurn2.result.answer.directAnswer, TRANSLATIONS[`${OUTCOME_BASE}.confirmationRequired`]);
+assert.equal(naturalTurn2.result.answer.pendingBookingWrite, undefined);
+assert.equal(naturalTurn2.bridgeCalls, 0);
+assert.equal(JSON.stringify(naturalTurn2.result.answer).includes("match_label"), false);
+
+const explicitServiceLabel = await runProposal({
+  query: "Jeg vil bestille mandag kl. 10. Tjeneste: Controlled consultation.",
+  intent: naturalBookingCreateIntent("Jeg vil bestille mandag kl. 10. Tjeneste: Controlled consultation."),
+  read: catalogConsultationReadContext(),
+  conversationId: CONVERSATION_ID,
+});
+assert.equal(explicitServiceLabel.result.handled, true);
+assertHandled(explicitServiceLabel.result);
+assert.equal(
+  explicitServiceLabel.result.answer.pendingBookingClarification?.serviceLabel,
+  "Controlled consultation",
+);
+assert.equal(
+  explicitServiceLabel.result.answer.pendingBookingClarification?.missingFields.includes("service_missing"),
+  false,
+);
+
+const stableServiceKey = await runProposal({
+  query: "Bestill en time mandag kl. 10:00",
+  intent: createIntent({
+    service_id: "svc_controlled_consultation",
+    resource_name: null,
+    confirmed: false,
+    confidence: "moderate",
+    ambiguous: true,
+  }),
+  read: catalogConsultationReadContext(),
+  conversationId: CONVERSATION_ID,
+});
+assert.equal(stableServiceKey.result.handled, true);
+assertHandled(stableServiceKey.result);
+assert.equal(
+  stableServiceKey.result.answer.pendingBookingClarification?.missingFields.includes("service_missing"),
+  false,
+);
+
+const updateWithCatalogPhrase = await runProposal({
+  query: NATURAL_TURN1_QUERY,
+  intent: {
+    capability_key: "booking.update",
+    entity: "booking",
+    operation: "update",
+    metric: null,
+    booking_id: null,
+    service_id: null,
+    resource_name: null,
+    date_hint: null,
+    confirmed: false,
+    confidence: "moderate",
+    ambiguous: true,
+  },
+  read: catalogConsultationReadContext(),
+});
+assert.equal(updateWithCatalogPhrase.result.handled, false);
 
 const expiredClarification = buildPendingBookingClarificationState({
   clarificationId: CLARIFICATION_ID,
