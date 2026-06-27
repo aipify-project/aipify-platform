@@ -58,6 +58,8 @@ export type ServiceSummary = {
 export type EmployeeResourceSummary = {
   resource_id: string;
   display_name: string | null;
+  /** @internal Server-side canonical label for proposal matching — omit before customer serialization. */
+  match_label?: string | null;
   resource_type: "employee" | "resource" | "unknown";
   location: string | null;
   source_reference: string;

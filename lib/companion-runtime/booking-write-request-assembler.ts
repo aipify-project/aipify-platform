@@ -169,6 +169,25 @@ function resolveResourceId(input: BookingWriteRequestAssemblerInput): ResolveOk<
   );
   if (callerKey.ok) return callerKey;
 
+  const intentKey = resolveByStableKey(
+    input.resources,
+    input.intent.resource_name,
+    "resource_id",
+    "employee_missing",
+  );
+  if (intentKey.ok) return intentKey;
+
+  const canonicalLabel = resolveByExactLabel(
+    input.resources,
+    input.intent.resource_name,
+    (resource) => resource.resource_id,
+    (resource) => resource.match_label ?? null,
+    "employee_missing",
+    "employee_ambiguous",
+  );
+  if (canonicalLabel.ok) return canonicalLabel;
+  if (canonicalLabel.reason === "employee_ambiguous") return canonicalLabel;
+
   return resolveByExactLabel(
     input.resources,
     input.intent.resource_name,

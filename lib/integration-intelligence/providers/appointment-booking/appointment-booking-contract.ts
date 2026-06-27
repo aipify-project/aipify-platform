@@ -103,21 +103,44 @@ export function mapAppointmentServiceSummary(
   };
 }
 
+function resolveCanonicalEmployeeLabel(row: AppointmentCenterProxyRow): string | null {
+  if (typeof row.employee_label === "string" && row.employee_label.trim()) {
+    return row.employee_label.trim();
+  }
+  if (typeof row.label === "string" && row.label.trim()) {
+    return row.label.trim();
+  }
+  if (typeof row.name === "string" && row.name.trim()) {
+    return row.name.trim();
+  }
+  return null;
+}
+
 export function mapAppointmentResourceSummary(
   row: AppointmentCenterProxyRow,
   input: { source_reference: string; fetched_at: string },
 ): EmployeeResourceSummary | null {
   const resourceId = resolveId(row, ["employee_key", "resource_key", "id"]);
   if (!resourceId) return null;
+  const canonicalLabel = resolveCanonicalEmployeeLabel(row);
   return {
     resource_id: resourceId,
-    display_name: maskEmployeeDisplayName(row.label ?? row.name ?? resourceId),
+    display_name: maskEmployeeDisplayName(canonicalLabel ?? resourceId),
+    match_label: canonicalLabel,
     resource_type: row.employee_key ? "employee" : row.resource_key ? "resource" : "unknown",
     location: typeof row.location_label === "string" ? row.location_label : null,
     source_reference: input.source_reference,
     freshness: "fresh",
     completeness: "partial",
   };
+}
+
+/** Omits server-internal match_label before customer-facing bundle serialization. */
+export function toCustomerFacingEmployeeResourceSummary(
+  resource: EmployeeResourceSummary,
+): EmployeeResourceSummary {
+  const { match_label: _internal, ...customerFacing } = resource;
+  return customerFacing;
 }
 
 export function mapAppointmentBookingSummary(
@@ -223,7 +246,10 @@ export function extractBookingPolicyFromSettings(
   });
 }
 
-export function buildAppointmentBookingReadBundle(payload: AppointmentCenterProxyPayload) {
+export function buildAppointmentBookingReadBundle(
+  payload: AppointmentCenterProxyPayload,
+  options?: { retainInternalMatchLabels?: boolean },
+) {
   const meta = {
     source_reference: payload.source_reference,
     fetched_at: payload.fetched_at,
@@ -231,9 +257,12 @@ export function buildAppointmentBookingReadBundle(payload: AppointmentCenterProx
   const services = (payload.services ?? [])
     .map((row) => mapAppointmentServiceSummary(row, meta))
     .filter((entry): entry is ServiceSummary => entry !== null);
-  const resources = [...(payload.employees ?? []), ...(payload.resources ?? [])]
+  const resourcesInternal = [...(payload.employees ?? []), ...(payload.resources ?? [])]
     .map((row) => mapAppointmentResourceSummary(row, meta))
     .filter((entry): entry is EmployeeResourceSummary => entry !== null);
+  const resources = options?.retainInternalMatchLabels
+    ? resourcesInternal
+    : resourcesInternal.map(toCustomerFacingEmployeeResourceSummary);
   const bookings = (payload.appointments ?? [])
     .map((row) => mapAppointmentBookingSummary(row, meta))
     .filter((entry): entry is BookingSummary => entry !== null);

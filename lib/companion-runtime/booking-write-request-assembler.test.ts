@@ -18,6 +18,10 @@ import type {
   EmployeeResourceSummary,
   ServiceSummary,
 } from "@/lib/integration-intelligence/booking/types";
+import {
+  buildAppointmentBookingReadBundle,
+  mapAppointmentResourceSummary,
+} from "@/lib/integration-intelligence/providers/appointment-booking/appointment-booking-contract";
 
 const services: ServiceSummary[] = [
   {
@@ -87,6 +91,44 @@ const slotAfternoon = { ...slotMorning, start_at: "2026-06-24T13:00:00.000Z", en
 const slotSameTimeOtherEmployee: AvailabilitySlot = {
   ...slotMorning,
   resource_id: "emp_ola",
+};
+
+const providerConsultationService: ServiceSummary = {
+  service_id: "svc_consultation",
+  name: "Consultation",
+  duration_minutes: 60,
+  buffer_before: 0,
+  buffer_after: 0,
+  price_summary: null,
+  required_resource_type: "employee",
+  location: "Room 1",
+  source_reference: "appointment_center",
+  freshness: "fresh",
+  completeness: "complete",
+};
+
+const providerResource: EmployeeResourceSummary = {
+  resource_id: "emp_provider_a",
+  display_name: "P. A***",
+  match_label: "Provider A",
+  resource_type: "employee",
+  location: "Room 1",
+  source_reference: "appointment_center",
+  freshness: "fresh",
+  completeness: "complete",
+};
+
+const providerSlot: AvailabilitySlot = {
+  resource_id: "emp_provider_a",
+  start_at: "2026-06-29T08:00:00+00:00",
+  end_at: "2026-06-29T09:00:00+00:00",
+  timezone: "Europe/Oslo",
+  service_id: "svc_consultation",
+  location_id: null,
+  availability_status: "available",
+  source_reference: "appointment_center",
+  freshness: "fresh",
+  completeness: "complete",
 };
 
 const existingBooking: BookingSummary = {
@@ -234,6 +276,176 @@ const cases: Array<{
         ),
         ["employee_ambiguous"],
       ),
+  },
+  {
+    name: "duplicate canonical match_label returns employee_ambiguous",
+    run: () =>
+      expectClarification(
+        assembleBookingWriteRequest(
+          input({
+            resources: [
+              {
+                ...resources[0]!,
+                resource_id: "emp_alpha",
+                display_name: "A. S***",
+                match_label: "Alex Smith",
+              },
+              {
+                ...resources[1]!,
+                resource_id: "emp_beta",
+                display_name: "A. S***",
+                match_label: "Alex Smith",
+              },
+            ],
+            resource_id: null,
+            intent: intent({ resource_name: "Alex Smith" }),
+          }),
+        ),
+        ["employee_ambiguous"],
+      ),
+  },
+  {
+    name: "canonical employee label resolves masked resource",
+    run: () => {
+      const result = assembleBookingWriteRequest(
+        input({
+          services: [providerConsultationService],
+          resources: [providerResource],
+          availability_slots: [providerSlot],
+          service_id: "svc_consultation",
+          resource_id: null,
+          slot_start_at: providerSlot.start_at,
+          intent: intent({
+            service_id: "Consultation",
+            resource_name: "Provider A",
+          }),
+        }),
+      );
+      assert.equal(result.status, "assembled");
+      if (result.status !== "assembled") return;
+      assert.equal(result.request.resource_id, "emp_provider_a");
+    },
+  },
+  {
+    name: "canonical employee label matching is case and whitespace tolerant",
+    run: () => {
+      const result = assembleBookingWriteRequest(
+        input({
+          services: [providerConsultationService],
+          resources: [providerResource],
+          availability_slots: [providerSlot],
+          service_id: "svc_consultation",
+          resource_id: null,
+          slot_start_at: providerSlot.start_at,
+          intent: intent({
+            service_id: "Consultation",
+            resource_name: "  provider   a  ",
+          }),
+        }),
+      );
+      assert.equal(result.status, "assembled");
+      if (result.status !== "assembled") return;
+      assert.equal(result.request.resource_id, "emp_provider_a");
+    },
+  },
+  {
+    name: "employee_key still resolves when resource_name is stable key",
+    run: () => {
+      const result = assembleBookingWriteRequest(
+        input({
+          services: [providerConsultationService],
+          resources: [providerResource],
+          availability_slots: [providerSlot],
+          service_id: "svc_consultation",
+          resource_id: null,
+          slot_start_at: providerSlot.start_at,
+          intent: intent({
+            service_id: "Consultation",
+            resource_name: "emp_provider_a",
+          }),
+        }),
+      );
+      assert.equal(result.status, "assembled");
+      if (result.status !== "assembled") return;
+      assert.equal(result.request.resource_id, "emp_provider_a");
+    },
+  },
+  {
+    name: "unknown employee label returns employee_missing",
+    run: () =>
+      expectClarification(
+        assembleBookingWriteRequest(
+          input({
+            services: [providerConsultationService],
+            resources: [providerResource],
+            availability_slots: [providerSlot],
+            service_id: "svc_consultation",
+            resource_id: null,
+            slot_start_at: providerSlot.start_at,
+            intent: intent({
+              service_id: "Consultation",
+              resource_name: "Unknown Person",
+            }),
+          }),
+        ),
+        ["employee_missing"],
+      ),
+  },
+  {
+    name: "mapAppointmentResourceSummary masks display_name and keeps internal match_label",
+    run: () => {
+      const mapped = mapAppointmentResourceSummary(
+        { employee_key: "emp_provider_a", employee_label: "Provider A" },
+        { source_reference: "test", fetched_at: "2026-01-01T00:00:00.000Z" },
+      );
+      assert.ok(mapped);
+      assert.equal(mapped!.display_name, "P. A***");
+      assert.equal(mapped!.match_label, "Provider A");
+    },
+  },
+  {
+    name: "customer-facing read bundle omits match_label and raw canonical label",
+    run: () => {
+      const bundle = buildAppointmentBookingReadBundle({
+        organization_id: "org_test",
+        source_reference: "test",
+        fetched_at: "2026-01-01T00:00:00.000Z",
+        settings: {},
+        employees: [{ employee_key: "emp_provider_a", employee_label: "Provider A" }],
+      });
+      assert.equal(bundle.resources.length, 1);
+      assert.equal(bundle.resources[0]!.display_name, "P. A***");
+      assert.equal(bundle.resources[0]!.match_label, undefined);
+      const serialized = JSON.stringify(bundle.resources);
+      assert.equal(serialized.includes("match_label"), false);
+      assert.equal(serialized.includes("Provider A"), false);
+    },
+  },
+  {
+    name: "approval payload never includes match_label or raw canonical label",
+    run: () => {
+      const result = assembleBookingWriteRequest(
+        input({
+          services: [providerConsultationService],
+          resources: [providerResource],
+          availability_slots: [providerSlot],
+          service_id: "svc_consultation",
+          resource_id: null,
+          slot_start_at: providerSlot.start_at,
+          intent: intent({
+            service_id: "Consultation",
+            resource_name: "Provider A",
+          }),
+        }),
+      );
+      assert.equal(result.status, "assembled");
+      if (result.status !== "assembled") return;
+      const payload = buildBookingApprovalCanonicalPayload(result.request);
+      const serialized = JSON.stringify(payload);
+      assert.equal(serialized.includes("match_label"), false);
+      assert.equal(serialized.includes("Provider A"), false);
+      assert.equal(result.request.resource_id, "emp_provider_a");
+    },
   },
   {
     name: "single employee without explicit choice returns employee_missing",

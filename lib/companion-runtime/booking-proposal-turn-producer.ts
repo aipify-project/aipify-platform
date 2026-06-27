@@ -461,7 +461,7 @@ export async function loadBookingProposalReadContext(
   return {
     permission,
     organization_id: organizationId,
-    bundle: buildAppointmentBookingReadBundle(payload),
+    bundle: buildAppointmentBookingReadBundle(payload, { retainInternalMatchLabels: true }),
   };
 }
 
