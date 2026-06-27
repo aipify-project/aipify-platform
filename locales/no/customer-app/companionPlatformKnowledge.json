@@ -2242,6 +2242,8 @@
         "exactMatch": "Aipify fant de forespurte booking-metadataene.",
         "multipleMatches": "Flere bookinger eller tjenester matchet — gjennomgå listen eller oppgi en booking-ID.",
         "noMatch": "Ingen booking matchet den referansen.",
+        "bookingListLead": "Bookinger fra tilkoblet kilde: {count}.",
+        "bookingListEmpty": "Ingen bookinger ble funnet i godkjente kilder akkurat nå.",
         "permissionDenied": "Rollen din kan ikke lese tjenester, tilgjengelighet eller booking-metadata.",
         "providerMissing": "Ingen live booking-provider er koblet til organisasjonen ennå.",
         "sourceMissing": "Booking-metadata er ikke tilgjengelig fra en godkjent kilde ennå.",

@@ -41,6 +41,10 @@ import {
   type ProduceBookingProposalTurnResult,
 } from "@/lib/companion-runtime/booking-proposal-turn-producer";
 import {
+  produceBookingReadTurn,
+  type ProduceBookingReadTurnResult,
+} from "@/lib/companion-runtime/booking-read-turn-producer";
+import {
   produceSupportResumeTurn,
   type ProduceSupportResumeTurnResult,
 } from "@/lib/companion-runtime/support-resume-turn-producer";
@@ -138,6 +142,9 @@ export type ExecuteCompanionTurnDeps = {
   produce_booking_proposal_turn?: (
     turnInput: Parameters<typeof produceBookingProposalTurn>[0],
   ) => Promise<ProduceBookingProposalTurnResult>;
+  produce_booking_read_turn?: (
+    turnInput: Parameters<typeof produceBookingReadTurn>[0],
+  ) => Promise<ProduceBookingReadTurnResult>;
   produce_support_proposal_turn?: (
     turnInput: ProduceSupportProposalTurnInput,
   ) => Promise<ProduceSupportProposalTurnResult>;
@@ -507,6 +514,59 @@ async function tryLazySupportProposalTurn(input: {
   }
 }
 
+async function tryLazyBookingReadTurn(input: {
+  supabase: SupabaseClient;
+  query: string;
+  locale: CustomerActiveLocale;
+  userRole: UserRole;
+  abortSignal?: AbortSignal;
+  t: Translator;
+  labels: ReturnType<typeof buildSupportAssistantLabels>;
+  companionLabels: CompanionExperienceLabels;
+  deps?: ExecuteCompanionTurnDeps;
+}): Promise<ExecuteCompanionTurnResult | null> {
+  if (!input.query.trim()) {
+    return null;
+  }
+
+  try {
+    const produceRead = input.deps?.produce_booking_read_turn ?? produceBookingReadTurn;
+    const producerResult = await produceRead({
+      supabase: input.supabase,
+      query: input.query,
+      locale: input.locale,
+      userRole: input.userRole,
+    });
+    throwIfCompanionTurnAborted(input.abortSignal);
+
+    if (!producerResult.handled) {
+      return null;
+    }
+
+    const answer = producerResult.answer;
+    const legacyArticle = answerToLegacyArticle(answer);
+    return {
+      ok: true,
+      searchJson: {
+        found: true,
+        query: input.query,
+        answer,
+        articles: [legacyArticle],
+        matched_article_id: null,
+        principle: input.labels.principle,
+        source: answer.source,
+        confidence: answer.confidence,
+        answer_locale: input.locale,
+      },
+      labels: input.companionLabels,
+      question: input.query,
+    };
+  } catch {
+    throwIfCompanionTurnAborted(input.abortSignal);
+    return null;
+  }
+}
+
 async function tryLazyBookingProposalTurn(input: {
   supabase: SupabaseClient;
   query: string;
@@ -656,6 +716,21 @@ export async function executeCompanionTurn(
   });
   if (supportResumeTurn) {
     return supportResumeTurn;
+  }
+
+  const bookingReadTurn = await tryLazyBookingReadTurn({
+    supabase,
+    query,
+    locale: answerLocaleActive,
+    userRole,
+    abortSignal: input.abortSignal,
+    t,
+    labels,
+    companionLabels,
+    deps,
+  });
+  if (bookingReadTurn) {
+    return bookingReadTurn;
   }
 
   const proposalTurn = await tryLazyBookingProposalTurn({

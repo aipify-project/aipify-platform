@@ -2242,6 +2242,8 @@
         "exactMatch": "Aipify znalazł żądane metadane rezerwacji.",
         "multipleMatches": "Dopasowano wiele rezerwacji lub usług — przejrzyj listę lub podaj ID rezerwacji.",
         "noMatch": "Żadna rezerwacja nie pasuje do tego odniesienia.",
+        "bookingListLead": "Rezerwacje z podłączonego źródła: {count}.",
+        "bookingListEmpty": "Nie znaleziono rezerwacji w zatwierdzonych źródłach.",
         "permissionDenied": "Twoja rola nie może odczytywać usług, dostępności ani metadanych rezerwacji.",
         "providerMissing": "Dla tej organizacji nie podłączono jeszcze live providera rezerwacji.",
         "sourceMissing": "Metadane rezerwacji nie są jeszcze dostępne ze zatwierdzonego źródła.",

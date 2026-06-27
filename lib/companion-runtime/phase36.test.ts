@@ -233,6 +233,14 @@ const bookingIdIntent = resolveBookingSemanticIntent({
 });
 assert.equal(bookingIdIntent.booking_id, "apt_1001");
 
+const bookingListIntent = resolveBookingSemanticIntent({
+  query: "Vis meg bookinger",
+  locale: "no",
+  descriptors,
+});
+assert.equal(bookingListIntent.capability_key, "booking.read");
+assert.equal(bookingListIntent.operation, "list");
+
 resetBookingAuditLogForTests();
 
 async function runPhase36AsyncTests() {
@@ -271,6 +279,17 @@ const availabilityRead = await executeBookingRead({
   providers: [testProvider],
 });
 assert.ok(availabilityRead.availability_slots.length >= 1);
+
+const bookingListRead = await executeBookingRead({
+  organization_id: ORG_A,
+  tenant_id: "tenant-a",
+  user_role: "admin",
+  capability_key: "booking.read",
+  permission: permissionCtx,
+  providers: [testProvider],
+});
+assert.equal(bookingListRead.bookings.length, 1);
+assert.ok(["partial_result", "exact_match"].includes(bookingListRead.outcome));
 
 const bookingLookup = await executeBookingRead({
   organization_id: ORG_A,

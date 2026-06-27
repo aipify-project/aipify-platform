@@ -24,6 +24,26 @@ export type BookingSemanticIntent = {
   ambiguous: boolean;
 };
 
+function wantsBookingListInquiry(normalized: string): boolean {
+  if (/\b(vis meg bookinger|vis bookinger|vis meg avtaler|vis avtaler)\b/i.test(normalized)) {
+    return true;
+  }
+  return (
+    /\b(vis meg|vis|show me|show|list|liste)\b/i.test(normalized) &&
+    /\b(bookinger|bookings|avtaler|appointments?)\b/i.test(normalized) &&
+    !/\b(bestill|book|boka|schedule|opprett|avbestill|cancel|kansell)\b/i.test(normalized)
+  );
+}
+
+export function isClearBookingListReadIntent(intent: BookingSemanticIntent): boolean {
+  return (
+    intent.capability_key === "booking.read" &&
+    intent.operation === "list" &&
+    intent.confidence === "high" &&
+    !intent.booking_id
+  );
+}
+
 function extractBookingId(normalized: string): string | null {
   const explicit = normalized.match(
     /\b(?:booking|appointment|avtale|termin|bokning|reserva)\s*(?:id|nr|#)?\s*[:#]?\s*([a-z0-9_-]{4,})\b/i,
@@ -56,6 +76,22 @@ export function resolveBookingSemanticIntent(input: {
   const normalized = normalizeIntegrationQuery(input.query);
   const bookingId = extractBookingId(normalized);
   const confirmed = /\b(bekreft|confirm|godkjen|approve|ja|yes)\b/i.test(normalized);
+
+  if (wantsBookingListInquiry(normalized)) {
+    return {
+      capability_key: "booking.read",
+      entity: "booking",
+      operation: "list",
+      metric: null,
+      booking_id: null,
+      service_id: null,
+      resource_name: null,
+      date_hint: null,
+      confirmed,
+      confidence: "high",
+      ambiguous: false,
+    };
+  }
 
   if (bookingId) {
     return {

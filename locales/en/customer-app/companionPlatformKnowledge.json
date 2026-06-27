@@ -252,6 +252,8 @@
         "exactMatch": "Aipify found the requested booking metadata.",
         "multipleMatches": "Multiple bookings or services matched — review the list or provide a booking ID.",
         "noMatch": "No booking matched that reference.",
+        "bookingListLead": "Bookings from your connected source: {count}.",
+        "bookingListEmpty": "No bookings were found in approved sources right now.",
         "permissionDenied": "Your role cannot read services, availability, or booking metadata.",
         "providerMissing": "No live booking provider is connected for this organization yet.",
         "sourceMissing": "Booking metadata is not available from an approved source yet.",

@@ -88,6 +88,9 @@ export function needsFullCompanionRoute(
   if (normalized.split(/\s+/).length > 40) return true;
 
   return (
+    /\b(vis meg bookinger|vis bookinger|vis meg avtaler|vis avtaler)\b/i.test(normalized) ||
+    (/\b(vis|show)\s+(bookinger|avtaler|appointments?)\b/i.test(normalized) &&
+      !/\b(bestill|book|boka|schedule|opprett)\b/i.test(normalized)) ||
     /\b(canva|shopify|wordpress|integrasjon|integration|abonnement|subscription|faktura|invoice|betaling|payment|support\s*(sak|case|ticket)|henvendelser?|nye henvendelser|ordre|order|lager|inventory|analytics|analyse|rapport|report|installer|installasjon|document|dokument|vedlegg|attachment|csv|pdf|excel|database|medlemmer|members|aktive medlemmer|verifisert|pending|godkjen|approve|execute|kjør|run workflow|automation|automatisering)\b/i.test(
       normalized,
     ) ||

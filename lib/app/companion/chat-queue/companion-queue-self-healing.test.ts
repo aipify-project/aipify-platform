@@ -16,6 +16,15 @@ function testSupportInquiryRouteEscalation() {
   }
 }
 
+function testBookingListRouteEscalation() {
+  for (const query of ["Vis meg bookinger", "Vis bookinger", "Vis meg avtaler"]) {
+    assert.equal(needsFullCompanionRoute(query), true, query);
+    assert.notEqual(classifyCompanionTurnRoute(query, "no"), "lightweight", query);
+    assert.equal(classifyCompanionTurnRoute(query, "no"), "full", query);
+  }
+  assert.equal(classifyCompanionTurnRoute("Hei!", "no"), "lightweight");
+}
+
 function testLightweightRouteClassification() {
   assert.equal(classifyCompanionTurnRoute("Kan du le?", "no"), "lightweight");
   assert.equal(classifyCompanionTurnRoute("Hei!", "no"), "lightweight");
@@ -98,6 +107,7 @@ function testLightweightSmalltalkAnswerUnder3s() {
 }
 
 testSupportInquiryRouteEscalation();
+testBookingListRouteEscalation();
 testLightweightRouteClassification();
 testRouteTimeouts();
 testTurnTimeoutIsPermanent();

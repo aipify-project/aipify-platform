@@ -14,6 +14,11 @@ import {
   type BookingProposalReadContext,
   type ProduceBookingProposalTurnResult,
 } from "@/lib/companion-runtime/booking-proposal-turn-producer";
+import {
+  produceBookingReadTurn,
+  mapBookingReadResultToAnswer,
+} from "@/lib/companion-runtime/booking-read-turn-producer";
+import { executeBookingRead } from "@/lib/companion-runtime/booking-read-orchestrator";
 import { resolveBookingSemanticIntent, collectBookingDescriptorsFromManifests } from "@/lib/companion-runtime/booking-semantic-intent";
 import { APPOINTMENT_BOOKING_PROVIDER_MANIFESTS } from "@/lib/integration-intelligence/providers/appointment-booking/booking-manifest";
 import {
@@ -46,6 +51,10 @@ const TRANSLATIONS: Record<string, string> = {
   [`${OUTCOME_BASE}.clarificationRequired`]: "Aipify needs more detail before preparing a booking action.",
   [`${OUTCOME_BASE}.permissionDenied`]: "Your role cannot prepare booking actions.",
   [`${OUTCOME_BASE}.failed`]: "The booking could not be prepared.",
+  [`${OUTCOME_BASE}.bookingListLead`]: "Bookings from your connected source: {count}.",
+  [`${OUTCOME_BASE}.bookingListEmpty`]: "No bookings were found in approved sources right now.",
+  "customerApp.companionPlatformKnowledge.organizationIntelligence.sourceUnavailable":
+    "The connected source did not return live data for this question.",
   [SOURCE_LABEL_KEY]: "Services & appointment booking",
 };
 
@@ -1128,6 +1137,119 @@ assert.equal(
   TRANSLATIONS[`${OUTCOME_BASE}.confirmationRequired`],
 );
 assert.equal(unconfirmedCompleteFields.bridgeCalls, 0);
+
+let executeBookingReadCalls = 0;
+const readContextWithBookings: BookingProposalReadContext = {
+  ...readContext({}),
+  bundle: {
+    ...readContext({}).bundle,
+    bookings: [
+      {
+        booking_id: "apt_test_1",
+        service_id: "svc_cut_color",
+        resource_id: "emp_kari",
+        customer_reference: "T***",
+        start_at: "2026-06-24T09:00:00.000Z",
+        end_at: "2026-06-24T10:00:00.000Z",
+        status: "confirmed",
+        location: "Salon 1",
+        source_reference: "test:appointment_center",
+        freshness: "fresh",
+        completeness: "complete",
+      },
+    ],
+  },
+};
+const listRead = await produceBookingReadTurn(
+  {
+    supabase: supabaseStub,
+    query: "Vis meg bookinger",
+    locale: "no",
+    userRole: "admin",
+  },
+  {
+    translate: t,
+    load_read_context: async () => readContextWithBookings,
+    execute_booking_read: async (input) => {
+      executeBookingReadCalls += 1;
+      return executeBookingRead(input);
+    },
+  },
+);
+assert.equal(listRead.handled, true);
+assert.equal(executeBookingReadCalls, 1);
+assert.ok(listRead.handled && listRead.answer.steps.length >= 1);
+
+const emptyBundle = buildAppointmentBookingReadBundle({
+  organization_id: "org-test",
+  source_reference: "test",
+  fetched_at: FIXED_NOW.toISOString(),
+  settings: {},
+  appointments: [],
+});
+const emptyListRead = await produceBookingReadTurn(
+  {
+    supabase: supabaseStub,
+    query: "Vis bookinger",
+    locale: "no",
+    userRole: "admin",
+  },
+  {
+    translate: t,
+    load_read_context: async () => ({
+      ...readContextWithBookings,
+      bundle: emptyBundle,
+    }),
+    execute_booking_read: executeBookingRead,
+  },
+);
+assert.equal(emptyListRead.handled, true);
+assert.equal(
+  emptyListRead.handled ? emptyListRead.answer.directAnswer : "",
+  TRANSLATIONS[`${OUTCOME_BASE}.bookingListEmpty`],
+);
+
+const unavailableRead = await produceBookingReadTurn(
+  {
+    supabase: supabaseStub,
+    query: "Vis meg avtaler",
+    locale: "no",
+    userRole: "admin",
+  },
+  {
+    translate: t,
+    load_read_context: async () => ({
+      ...readContextWithBookings,
+      permission: { ...readContextWithBookings.permission, provider_active: false },
+    }),
+  },
+);
+assert.equal(unavailableRead.handled, true);
+assert.equal(
+  unavailableRead.handled ? unavailableRead.answer.directAnswer : "",
+  TRANSLATIONS["customerApp.companionPlatformKnowledge.organizationIntelligence.sourceUnavailable"],
+);
+
+const providerMissingAnswer = mapBookingReadResultToAnswer({
+  result: {
+    outcome: "provider_missing",
+    services: [],
+    resources: [],
+    availability_slots: [],
+    bookings: [],
+    absences: [],
+    vacation_modes: [],
+    outcome_key: "customerApp.companionPlatformKnowledge.booking.outcomes.providerMissing",
+    audit_id: null,
+    limitations: [],
+  },
+  t,
+  locale: "no",
+});
+assert.equal(
+  providerMissingAnswer.directAnswer,
+  TRANSLATIONS["customerApp.companionPlatformKnowledge.organizationIntelligence.sourceUnavailable"],
+);
 
 console.log("booking-proposal-turn-producer.test.ts: all assertions passed");
 }

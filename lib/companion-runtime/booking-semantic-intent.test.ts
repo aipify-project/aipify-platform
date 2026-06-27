@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   collectBookingDescriptorsFromManifests,
+  isClearBookingListReadIntent,
   resolveBookingSemanticIntent,
 } from "@/lib/companion-runtime/booking-semantic-intent";
 import { isClearBookingCreateIntent } from "@/lib/companion-runtime/booking-proposal-turn-producer";
@@ -59,5 +60,12 @@ const tidLabelOnly = resolveBookingSemanticIntent({
   descriptors,
 });
 assert.equal(tidLabelOnly.booking_id, null);
+
+for (const query of ["Vis meg bookinger", "Vis bookinger", "Vis meg avtaler"]) {
+  const listIntent = resolveBookingSemanticIntent({ query, locale: "no", descriptors });
+  assert.equal(listIntent.capability_key, "booking.read", query);
+  assert.equal(listIntent.operation, "list", query);
+  assert.equal(isClearBookingListReadIntent(listIntent), true, query);
+}
 
 console.log("booking-semantic-intent.test.ts: all assertions passed");
