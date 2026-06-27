@@ -371,7 +371,7 @@ const cases: Array<{
     },
   },
   {
-    name: "unknown employee label returns employee_missing",
+    name: "unknown unlabelled employee label returns employee_missing",
     run: () =>
       expectClarification(
         assembleBookingWriteRequest(
@@ -379,9 +379,10 @@ const cases: Array<{
             services: [providerConsultationService],
             resources: [providerResource],
             availability_slots: [providerSlot],
-            service_id: "svc_consultation",
+            service_id: null,
             resource_id: null,
             slot_start_at: providerSlot.start_at,
+            customer_reference: "customer-123",
             intent: intent({
               service_id: "Consultation",
               resource_name: "Unknown Person",
@@ -390,6 +391,30 @@ const cases: Array<{
         ),
         ["employee_missing"],
       ),
+  },
+  {
+    name: "unlabelled employee key resolves via stable key",
+    run: () => {
+      const result = assembleBookingWriteRequest(
+        input({
+          services: [providerConsultationService],
+          resources: [providerResource],
+          availability_slots: [providerSlot],
+          service_id: null,
+          resource_id: null,
+          slot_start_at: providerSlot.start_at,
+          customer_reference: "customer-123",
+          intent: intent({
+            service_id: "Consultation",
+            resource_name: "emp_provider_a",
+          }),
+        }),
+      );
+      assert.equal(result.status, "assembled");
+      if (result.status === "assembled") {
+        assert.equal(result.request.resource_id, "emp_provider_a");
+      }
+    },
   },
   {
     name: "mapAppointmentResourceSummary masks display_name and keeps internal match_label",

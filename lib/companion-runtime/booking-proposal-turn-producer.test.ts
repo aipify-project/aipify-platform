@@ -97,6 +97,35 @@ const controlledSlot: AvailabilitySlot = {
   completeness: "complete",
 };
 
+const providerEmployee: EmployeeResourceSummary = {
+  resource_id: "emp_provider_a",
+  display_name: "P. A***",
+  match_label: "Provider A",
+  resource_type: "employee",
+  location: "Salon 1",
+  source_reference: "appointment_center",
+  freshness: "fresh",
+  completeness: "complete",
+};
+
+const consultationService: ServiceSummary = {
+  ...controlledService,
+  name: "Controlled consultation",
+};
+
+const consultationSlot: AvailabilitySlot = {
+  resource_id: "emp_provider_a",
+  start_at: "2026-06-29T08:00:00.000Z",
+  end_at: "2026-06-29T09:00:00.000Z",
+  timezone: "Europe/Oslo",
+  service_id: "svc_controlled",
+  location_id: null,
+  availability_status: "available",
+  source_reference: "appointment_center",
+  freshness: "fresh",
+  completeness: "complete",
+};
+
 const slotMorning: AvailabilitySlot = {
   resource_id: "emp_kari",
   start_at: "2026-06-24T09:00:00.000Z",
@@ -272,6 +301,35 @@ function assertHandled(
 async function runAll() {
 const expectedDateHint = "mandag neste uke kl. 10:00";
 
+const extractFollowUpWithUnlabelled = (query: string) =>
+  extractBookingFollowUpFields(query, { allowUnlabelledResourceCandidate: true });
+
+assert.deepEqual(extractFollowUpWithUnlabelled("Provider A. Kunde: customer-123."), {
+  customerReference: "customer-123",
+  serviceLabel: null,
+  resourceName: "Provider A",
+  dateHint: null,
+});
+assert.equal(
+  extractFollowUpWithUnlabelled("Ansatt: Provider A. Kunde: customer-123.").resourceName,
+  "Provider A",
+);
+assert.equal(
+  extractFollowUpWithUnlabelled("emp_provider_a. Kunde: customer-123.").resourceName,
+  "emp_provider_a",
+);
+assert.equal(
+  extractFollowUpWithUnlabelled("Unknown Person. Kunde: customer-123.").resourceName,
+  "Unknown Person",
+);
+assert.equal(extractFollowUpWithUnlabelled("Ja").resourceName, null);
+assert.equal(extractFollowUpWithUnlabelled("Kunde: customer-123.").resourceName, null);
+assert.equal(extractFollowUpWithUnlabelled("Provider A. Provider B.").resourceName, null);
+assert.equal(
+  extractBookingFollowUpFields("Bestill en time for testkunde P112 ja bekreft").resourceName,
+  null,
+);
+
 assert.equal(
   extractBookingFollowUpFields("Tidspunkt: mandag neste uke kl. 10:00.").dateHint,
   expectedDateHint,
@@ -446,6 +504,58 @@ assert.equal(c3xR3Turn2.bridgeCalls, 1);
 assert.equal(c3xR3Turn2.result.answer.pendingBookingWrite?.actionRequestId, ACTION_REQUEST_ID);
 assert.equal(c3xR3Turn2.result.answer.pendingBookingClarification, undefined);
 assert.equal(c3xR3Turn2.executionRpcCalled, false);
+
+const unlabelledTurn1Clarification = buildPendingBookingClarificationState({
+  clarificationId: CLARIFICATION_ID,
+  organizationId: "org-unonight",
+  conversationId: CONVERSATION_ID,
+  customerReference: null,
+  serviceLabel: "Controlled consultation",
+  resourceName: null,
+  dateHint: "mandag 29. juni kl. 10",
+  slotStartAt: consultationSlot.start_at,
+  missingFields: ["employee_missing"],
+  now: FIXED_NOW,
+});
+
+const unlabelledTurn2 = await runProposal({
+  query: "Provider A. Kunde: customer-123.",
+  intent: createIntent({
+    confirmed: false,
+    service_id: null,
+    resource_name: null,
+    confidence: "moderate",
+    ambiguous: true,
+  }),
+  read: readContext({
+    services: [consultationService],
+    resources: [providerEmployee],
+    slots: [consultationSlot],
+  }),
+  conversationId: CONVERSATION_ID,
+  messages: [
+    {
+      id: "u-turn1",
+      role: "user",
+      content: "Jeg vil bestille Controlled consultation mandag 29. juni kl. 10.",
+      timestamp: 1,
+    },
+    {
+      id: "a-turn1",
+      role: "aipify",
+      content: TRANSLATIONS[`${OUTCOME_BASE}.clarificationRequired`],
+      timestamp: 2,
+      pendingBookingClarification: unlabelledTurn1Clarification,
+    },
+  ],
+});
+assert.equal(unlabelledTurn2.result.handled, true);
+assertHandled(unlabelledTurn2.result);
+assert.equal(unlabelledTurn2.result.answer.directAnswer, TRANSLATIONS[`${OUTCOME_BASE}.confirmationRequired`]);
+assert.equal(unlabelledTurn2.result.answer.pendingBookingWrite, undefined);
+assert.equal(unlabelledTurn2.bridgeCalls, 0);
+assert.equal(unlabelledTurn2.executionRpcCalled, false);
+assert.equal(JSON.stringify(unlabelledTurn2.result.answer).includes("match_label"), false);
 
 const expiredClarification = buildPendingBookingClarificationState({
   clarificationId: CLARIFICATION_ID,

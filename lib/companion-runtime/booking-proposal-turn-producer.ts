@@ -211,6 +211,93 @@ function resolveProposalSlotStartAt(slots: readonly { start_at: string }[]): str
   return null;
 }
 
+function stripFollowUpLabelledFields(query: string): string {
+  const labelPattern =
+    "kunde|customer|tjeneste|service|ressurs|ansatt|employee|behandler|tidspunkt|time|slot|varighet|duration";
+  const valuePattern = "(?:[^.;]|\\bkl\\.)+?";
+  const nextLabel =
+    "varighet|duration|kunde|customer|tjeneste|service|ressurs|ansatt|employee|behandler|tidspunkt|time|slot|opprett|bekreft|confirm";
+  const pattern = new RegExp(
+    `\\b(?:${labelPattern})\\s*:\\s*${valuePattern}(?=\\.(?:\\s+(?:${nextLabel})\\b|$)|\\s*$)`,
+    "gi",
+  );
+
+  return query
+    .replace(pattern, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/^[\s.,;]+|[\s.,;]+$/g, "");
+}
+
+function normalizeFollowUpToken(value: string): string {
+  return value.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function looksLikeCustomerReferenceToken(token: string): boolean {
+  const trimmed = token.trim();
+  if (!trimmed) return true;
+
+  if (/^customer[-_][a-z0-9-]+$/i.test(trimmed)) return true;
+
+  const extracted = extractBookingCustomerReference(trimmed);
+  return extracted === trimmed;
+}
+
+function looksLikeDateOrTimeToken(token: string): boolean {
+  const normalized = normalizeFollowUpToken(token);
+  if (!normalized) return true;
+
+  if (/\bkl\.?\s*\d/.test(normalized)) return true;
+  if (/\d{1,2}[:.]\d{2}/.test(normalized)) return true;
+  if (/\b\d{1,2}\.\s*(januar|februar|mars|april|mai|juni|juli|august|september|oktober|november|desember)\b/.test(normalized)) {
+    return true;
+  }
+
+  return /\b(mandag|tirsdag|onsdag|torsdag|fredag|lordag|søndag|sondag|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/.test(
+    normalized,
+  );
+}
+
+const UNLABELLED_RESOURCE_CANDIDATE_MAX_WORDS = 5;
+const UNLABELLED_RESOURCE_CANDIDATE_MAX_LENGTH = 48;
+
+function isRejectedUnlabelledResourceCandidate(token: string): boolean {
+  const trimmed = token.trim();
+  if (!trimmed) return true;
+
+  const normalized = normalizeFollowUpToken(trimmed);
+  if (normalized.length < 2) return true;
+  if (trimmed.length > UNLABELLED_RESOURCE_CANDIDATE_MAX_LENGTH) return true;
+  if (trimmed.split(/\s+/).length > UNLABELLED_RESOURCE_CANDIDATE_MAX_WORDS) return true;
+  if (/^(ja|yes|nei|no|bekreft|confirm|ok)$/.test(normalized)) return true;
+  if (looksLikeCustomerReferenceToken(trimmed)) return true;
+  if (looksLikeDateOrTimeToken(trimmed)) return true;
+  if (
+    /\b(bestill|bekreft|confirm|booking|opprett|avtale|testkunde|time for)\b/i.test(normalized)
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+function extractUnlabelledResourceCandidate(query: string): string | null {
+  const stripped = stripFollowUpLabelledFields(query);
+  if (!stripped) return null;
+
+  const segments = stripped
+    .split(/[.;]+/)
+    .map((segment) => segment.trim())
+    .filter(Boolean);
+  const candidates = segments.filter((segment) => !isRejectedUnlabelledResourceCandidate(segment));
+
+  if (candidates.length !== 1) {
+    return null;
+  }
+
+  return candidates[0] ?? null;
+}
+
 function extractFollowUpLabelValue(
   query: string,
   labels: readonly string[],
@@ -229,7 +316,15 @@ function extractFollowUpLabelValue(
   return match?.[1]?.trim() ?? null;
 }
 
-export function extractBookingFollowUpFields(query: string): {
+export type ExtractBookingFollowUpFieldsOptions = {
+  /** When true, remaining short unlabelled text may resolve employee/resource in clarification follow-ups. */
+  allowUnlabelledResourceCandidate?: boolean;
+};
+
+export function extractBookingFollowUpFields(
+  query: string,
+  options?: ExtractBookingFollowUpFieldsOptions,
+): {
   customerReference: string | null;
   serviceLabel: string | null;
   resourceName: string | null;
@@ -240,12 +335,17 @@ export function extractBookingFollowUpFields(query: string): {
   const dateHint = extractFollowUpLabelValue(query, ["tidspunkt", "time", "slot"], {
     allowKlAbbreviation: true,
   });
-  const resourceName = extractFollowUpLabelValue(query, [
+  const resourceNameFromLabel = extractFollowUpLabelValue(query, [
     "ressurs",
     "ansatt",
     "employee",
     "behandler",
   ]);
+  const resourceName =
+    resourceNameFromLabel ??
+    (options?.allowUnlabelledResourceCandidate
+      ? extractUnlabelledResourceCandidate(query)
+      : null);
 
   return {
     customerReference: customerFromLabel ?? extractBookingCustomerReference(query),
@@ -552,7 +652,11 @@ export async function produceBookingProposalTurn(
     return { handled: false };
   }
 
-  const followUp = extractBookingFollowUpFields(input.query);
+  const clarificationNeedsEmployee =
+    validatedClarification?.missingFields.includes("employee_missing") ?? false;
+  const followUp = extractBookingFollowUpFields(input.query, {
+    allowUnlabelledResourceCandidate: clarificationNeedsEmployee,
+  });
   const intent = validatedClarification
     ? buildMergedCreateIntent({
         semanticIntent,
