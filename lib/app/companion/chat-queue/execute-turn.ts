@@ -33,6 +33,7 @@ import { coerceToCustomerActiveLocale, type CustomerActiveLocale } from "@/lib/i
 import type { Locale } from "@/lib/i18n/config";
 import type { CustomerAppSplitName } from "@/lib/i18n/customer-app-split-config";
 import { detectBookingResumeContinuationIntent } from "@/lib/companion-runtime/booking-resume-intent";
+import { resolvePendingSupportWritePointer } from "@/lib/companion-runtime/support-pending-action-pointer";
 import {
   loadCompanionConversationMessages,
   type LoadCompanionConversationMessagesResult,
@@ -69,13 +70,38 @@ function lightweightTurnNeedsPlatformKnowledge(
   return hasSupportAssignIntent(query, intent);
 }
 
-function resolveDictionarySplitsForTurn(input: {
+async function resolveLightweightDictionarySplits(input: {
+  query: string;
+  locale: CustomerActiveLocale;
+  messagesLoader: TurnConversationMessagesLoader | null;
+  abortSignal?: AbortSignal;
+}): Promise<CustomerAppSplitName[]> {
+  if (lightweightTurnNeedsPlatformKnowledge(input.query, input.locale)) {
+    return companionDirectTurnDictionarySplits();
+  }
+
+  if (input.messagesLoader && detectBookingResumeContinuationIntent(input.query)) {
+    const messages = await loadTurnConversationMessagesForResume(
+      input.messagesLoader,
+      input.abortSignal,
+    );
+    if (messages && resolvePendingSupportWritePointer(messages)) {
+      return companionDirectTurnDictionarySplits();
+    }
+  }
+
+  return ["companion"];
+}
+
+async function resolveDictionarySplitsForTurn(input: {
   turnRoute: import("@/lib/companion-runtime/companion-turn-route").CompanionTurnRoute;
   query: string;
   locale: CustomerActiveLocale;
   hasAttachments: boolean;
   hasActiveArtifact: boolean;
-}): CustomerAppSplitName[] {
+  messagesLoader: TurnConversationMessagesLoader | null;
+  abortSignal?: AbortSignal;
+}): Promise<CustomerAppSplitName[]> {
   const isLightweightMinimal =
     input.turnRoute === "lightweight" && !input.hasAttachments && !input.hasActiveArtifact;
 
@@ -83,9 +109,12 @@ function resolveDictionarySplitsForTurn(input: {
     return companionDictionarySplitsForTurnRoute(input.turnRoute);
   }
 
-  return lightweightTurnNeedsPlatformKnowledge(input.query, input.locale)
-    ? companionDirectTurnDictionarySplits()
-    : ["companion"];
+  return resolveLightweightDictionarySplits({
+    query: input.query,
+    locale: input.locale,
+    messagesLoader: input.messagesLoader,
+    abortSignal: input.abortSignal,
+  });
 }
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
@@ -638,19 +667,6 @@ export async function executeCompanionTurn(
 
   throwIfCompanionTurnAborted(input.abortSignal);
 
-  const dictionarySplits = resolveDictionarySplitsForTurn({
-    turnRoute,
-    query,
-    locale: answerLocaleActive,
-    hasAttachments,
-    hasActiveArtifact: Boolean(input.activeArtifactId),
-  });
-  const dict = await loadCustomerAppDictionaryForTurn(answerLocale, dictionarySplits);
-  throwIfCompanionTurnAborted(input.abortSignal);
-  const t = createTranslator(dict);
-  const labels = buildSupportAssistantLabels(t);
-  const companionLabels = buildCompanionExperienceLabels(t);
-
   const trimmedConversationId = input.conversationId.trim();
   const turnMessagesLoader = trimmedConversationId
     ? createTurnConversationMessagesLoader({
@@ -660,6 +676,21 @@ export async function executeCompanionTurn(
         deps,
       })
     : null;
+
+  const dictionarySplits = await resolveDictionarySplitsForTurn({
+    turnRoute,
+    query,
+    locale: answerLocaleActive,
+    hasAttachments,
+    hasActiveArtifact: Boolean(input.activeArtifactId),
+    messagesLoader: turnMessagesLoader,
+    abortSignal: input.abortSignal,
+  });
+  const dict = await loadCustomerAppDictionaryForTurn(answerLocale, dictionarySplits);
+  throwIfCompanionTurnAborted(input.abortSignal);
+  const t = createTranslator(dict);
+  const labels = buildSupportAssistantLabels(t);
+  const companionLabels = buildCompanionExperienceLabels(t);
 
   const resumeTurn = await tryLazyBookingResumeTurn({
     supabase,

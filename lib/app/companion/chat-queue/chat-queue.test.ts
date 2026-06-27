@@ -21,8 +21,12 @@ import { resolveCompanionQueueWaitPhase } from "./queue-wait-phase";
 const VALID_ACTION_REQUEST_ID = "a1b2c3d4-e5f6-4789-a012-3456789abcde";
 const SUPPORT_OUTCOME_APPROVAL_KEY =
   "customerApp.companionPlatformKnowledge.support.outcomes.approvalRequired";
+const SUPPORT_OUTCOME_EXECUTED_KEY =
+  "customerApp.companionPlatformKnowledge.support.outcomes.executed";
 const NORWEGIAN_SUPPORT_APPROVAL_REQUIRED =
   "Denne supporthandlingen krever godkjenning før leverandøren kan utføre den.";
+const NORWEGIAN_SUPPORT_EXECUTED =
+  "Supporthandlingen ble utført av den tilkoblede leverandøren.";
 const VALID_CLARIFICATION_ID = "c1a2b3c4-f5c6-4789-a012-3456789abcde";
 const VALID_CONVERSATION_ID = "conv-70dc57a4-287d-4c01-915d-510be2b5f98b";
 const NIL_UUID = "00000000-0000-0000-0000-000000000000";
@@ -1769,6 +1773,150 @@ async function testExecuteTurnSupportApprovalResponseLocalized() {
   });
 }
 
+async function testExecuteTurnSupportResumeCompletionLocalized() {
+  const { produceSupportResumeTurn } = await import(
+    "@/lib/companion-runtime/support-resume-turn-producer"
+  );
+  const { detectBookingResumeContinuationIntent } = await import(
+    "@/lib/companion-runtime/booking-resume-intent"
+  );
+
+  const {
+    turn,
+    supportDetectCalls,
+    supportProduceCalls,
+    loadCalls,
+    supportProposalCalls,
+  } = await runExecuteTurnWithResumeDeps({
+    query: "Fortsett",
+    locale: "no",
+    turnRoute: "lightweight",
+    deps: {
+      detect_booking_resume_intent: () => false,
+      detect_support_resume_intent: (query) => {
+        return detectBookingResumeContinuationIntent(query);
+      },
+      load_companion_conversation_messages: async () => ({
+        status: "loaded" as const,
+        messages: canonicalSupportLoadedMessages,
+      }),
+      produce_support_resume_turn: async (turnInput) => {
+        return produceSupportResumeTurn(turnInput, {
+          resume_execution: async (actionRequestId) => {
+            assert.equal(actionRequestId, VALID_ACTION_REQUEST_ID);
+            return {
+              outcome: "executed",
+              action_request_id: actionRequestId,
+              receipt_id: "d1d2e3f4-a5b6-4789-a012-3456789abcde",
+              idempotent_replay: false,
+            };
+          },
+        });
+      },
+      produce_support_proposal_turn: async () => ({ handled: false }),
+    },
+  });
+
+  assert.equal(supportDetectCalls, 1);
+  assert.equal(supportProduceCalls, 1);
+  assert.equal(supportProposalCalls, 0);
+  assert.equal(loadCalls, 1);
+  assert.equal(turn.ok, true);
+  if (!turn.ok) return;
+
+  const answer = turn.searchJson.answer as PlatformKnowledgeAnswer & {
+    pendingSupportWrite?: { actionRequestId: string };
+  };
+  assert.equal(answer.sourceId, "support-resume");
+  assert.equal(answer.directAnswer, NORWEGIAN_SUPPORT_EXECUTED);
+  assert.notEqual(answer.directAnswer, "Executed");
+  assert.notEqual(answer.directAnswer, SUPPORT_OUTCOME_EXECUTED_KEY);
+  assert.equal(answer.pendingSupportWrite, undefined);
+
+  const fortsettWithoutPointer = await runExecuteTurnWithResumeDeps({
+    query: "Fortsett",
+    locale: "no",
+    turnRoute: "lightweight",
+    deps: {
+      detect_booking_resume_intent: () => false,
+      detect_support_resume_intent: (query) => detectBookingResumeContinuationIntent(query),
+      load_companion_conversation_messages: async () => ({
+        status: "loaded" as const,
+        messages: [],
+      }),
+      produce_support_resume_turn: async (turnInput) =>
+        produceSupportResumeTurn(turnInput),
+    },
+  });
+  assert.equal(fortsettWithoutPointer.supportProduceCalls, 1);
+  assert.equal(fortsettWithoutPointer.turn.ok, true);
+  if (!fortsettWithoutPointer.turn.ok) return;
+  assert.equal(
+    (fortsettWithoutPointer.turn.searchJson.answer as PlatformKnowledgeAnswer).sourceId,
+    "companion-lightweight-conversational",
+  );
+
+  const chitchat = await runExecuteTurnWithResumeDeps({
+    query: "Hei",
+    locale: "no",
+    turnRoute: "lightweight",
+    deps: {
+      detect_booking_resume_intent: () => false,
+      detect_support_resume_intent: () => false,
+      produce_support_proposal_turn: async () => ({ handled: false }),
+    },
+  });
+  assert.equal(chitchat.supportProposalCalls, 1);
+  assert.equal(chitchat.turn.ok, true);
+  if (!chitchat.turn.ok) return;
+  assert.equal(
+    (chitchat.turn.searchJson.answer as PlatformKnowledgeAnswer).sourceId,
+    "companion-lightweight-conversational",
+  );
+
+  const explicitAssignQuery =
+    "Tildel sak 4ead4ffa-063e-4471-9440-930de5d5cc6b til bruker 97916b50-a341-451f-8869-9b0847e1382f. Bekreft.";
+  const proposal = await runExecuteTurnWithResumeDeps({
+    query: explicitAssignQuery,
+    locale: "no",
+    turnRoute: "lightweight",
+    deps: {
+      detect_booking_resume_intent: () => false,
+      detect_support_resume_intent: () => false,
+      produce_support_proposal_turn: async (turnInput) => ({
+        handled: true,
+        answer: {
+          ...supportProposalBaseAnswer,
+          directAnswer: turnInput.t(SUPPORT_OUTCOME_APPROVAL_KEY),
+        },
+        writeResult: {
+          outcome: "approval_required" as const,
+          action_request_id: VALID_ACTION_REQUEST_ID,
+        },
+      }),
+    },
+  });
+  assert.equal(proposal.supportProposalCalls, 1);
+  assert.equal(proposal.turn.ok, true);
+  if (!proposal.turn.ok) return;
+  assert.equal(
+    (proposal.turn.searchJson.answer as PlatformKnowledgeAnswer).directAnswer,
+    NORWEGIAN_SUPPORT_APPROVAL_REQUIRED,
+  );
+
+  const bookingStillWorks = buildReplyFromSearchJson(
+    platformSearchJson({ actionRequestId: VALID_ACTION_REQUEST_ID }),
+    stubLabels,
+    "Book appointment",
+  );
+  assert.deepEqual(bookingStillWorks.message.pendingBookingWrite, {
+    actionRequestId: VALID_ACTION_REQUEST_ID,
+  });
+  assert.deepEqual(bookingStillWorks.payload.pending_booking_write, {
+    action_request_id: VALID_ACTION_REQUEST_ID,
+  });
+}
+
 testIdempotencyKeyStable();
 testDeserializeAssistantRoundTrip();
 testMapServerMessagesOrder();
@@ -1790,6 +1938,7 @@ void testExecuteTurnResumeWiring()
   .then(() => testExecuteTurnSupportProposalWiring())
   .then(() => testExecuteCompanionTurnToPayloadSupportApprovalPointer())
   .then(() => testExecuteTurnSupportApprovalResponseLocalized())
+  .then(() => testExecuteTurnSupportResumeCompletionLocalized())
   .then(() => testExecuteTurnSupportRealProducerCallGraph())
   .then(() => {
     console.log("chat-queue.test.ts: all assertions passed");
