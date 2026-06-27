@@ -5,7 +5,7 @@ const LOCALE_HINTS: Record<CoreLocale, RegExp[]> = {
     /\b(what|how|where|when|why|who|the|is|are|my|your|find|help|does|say|can|could|would|should|please|thanks|hello|hi)\b/i,
   ],
   no: [
-    /\b(hva|hvordan|hvor|når|hvorfor|min|mitt|mine|finner|hjelp|abonnement|faktura|ansatte|koble|nøkkel|si|sier|takk|hei|kan|jeg|du)\b/i,
+    /\b(hva|hvordan|hvor|når|hvorfor|min|mitt|mine|finner|hjelp|abonnement|faktura|ansatte|koble|nøkkel|si|sier|takk|hei|kan|jeg|du|ja|bekreft|bestill|avtale|kunde|tjeneste|booking|opprett)\b/i,
   ],
   sv: [
     /\b(vad|hur|var|när|varför|min|mitt|mina|hitta|hjälp|abonnemang|faktura|anslut|nyckel|säger|säg|tack|hej|kan|jag|du)\b/i,
@@ -66,6 +66,14 @@ export function resolveAnswerLocale(appLocale: string, question: string): CoreLo
 
   if (best.hits >= 1 && best.hits > second.hits) {
     return best.locale;
+  }
+
+  if (best.hits >= 1 && best.hits === second.hits) {
+    return app;
+  }
+
+  if (best.hits >= 1 && best.locale !== app) {
+    return app;
   }
 
   if (shortMessage && best.hits >= 1) {

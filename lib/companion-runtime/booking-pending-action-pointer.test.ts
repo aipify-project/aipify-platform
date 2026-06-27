@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import type { CompanionChatMessage } from "@/lib/app/companion/types";
-import { resolvePendingBookingWritePointer } from "@/lib/companion-runtime/booking-pending-action-pointer";
+import {
+  resolvePendingBookingWritePointer,
+  resolvePendingBookingClarificationPointer,
+  validatePendingBookingClarification,
+  buildPendingBookingClarificationState,
+  normalizePendingBookingClarification,
+} from "@/lib/companion-runtime/booking-pending-action-pointer";
 
 const VALID_ID = "a1b2c3d4-e5f6-4789-a012-3456789abcde";
 const OLDER_ID = "b2c3d4e5-f6a7-4890-b123-456789abcdef0";
@@ -82,5 +88,71 @@ const immutableInput = [
 const before = snapshotMessages(immutableInput);
 assert.deepEqual(resolvePendingBookingWritePointer(immutableInput), { actionRequestId: VALID_ID });
 assert.equal(snapshotMessages(immutableInput), before);
+
+const clarification = buildPendingBookingClarificationState({
+  organizationId: "org-1",
+  conversationId: "conv-1",
+  customerReference: "P112",
+  missingFields: ["service_missing"],
+  now: new Date("2026-06-27T05:00:00.000Z"),
+});
+
+assert.deepEqual(
+  resolvePendingBookingClarificationPointer([
+    user("u1", "Book"),
+    assistant("a1", "Need details"),
+  ]),
+  null,
+);
+
+const withClarification = resolvePendingBookingClarificationPointer([
+  user("u1", "Book"),
+  {
+    ...assistant("a1", "Need details"),
+    pendingBookingClarification: clarification,
+  },
+  user("u2", "follow up"),
+]);
+assert.deepEqual(withClarification?.customerReference, "P112");
+
+assert.equal(
+  validatePendingBookingClarification({
+    state: clarification,
+    conversationId: "conv-other",
+    organizationId: "org-1",
+  }),
+  null,
+);
+
+assert.equal(
+  validatePendingBookingClarification({
+    state: clarification,
+    conversationId: "conv-1",
+    organizationId: "org-other",
+  }),
+  null,
+);
+
+assert.equal(
+  validatePendingBookingClarification({
+    state: clarification,
+    conversationId: "conv-1",
+    organizationId: "org-1",
+    now: new Date("2026-06-27T06:00:00.000Z"),
+  }),
+  null,
+);
+
+assert.equal(
+  normalizePendingBookingClarification({
+    clarification_id: NIL_UUID,
+    capability_key: "booking.create",
+    organization_id: "org-1",
+    conversation_id: "conv-1",
+    expires_at: clarification.expiresAt,
+    missing_fields: ["service_missing"],
+  }),
+  null,
+);
 
 console.log("booking-pending-action-pointer.test.ts: all assertions passed");

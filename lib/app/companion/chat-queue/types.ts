@@ -83,6 +83,10 @@ export type CompanionPendingBookingWriteHandoff = {
   action_request_id: string;
 };
 
+/** Persisted pending booking clarification draft (P1.12C3ZH). */
+export type CompanionPendingBookingClarificationHandoff =
+  import("@/lib/companion-runtime/booking-pending-action-pointer").PendingBookingClarificationWire;
+
 export type CompanionAssistantPayload = Omit<
   CompanionChatMessage,
   | "id"
@@ -93,6 +97,7 @@ export type CompanionAssistantPayload = Omit<
   | "queueId"
   | "requestId"
   | "pendingBookingWrite"
+  | "pendingBookingClarification"
 > & {
   kind: "assistant_reply";
   response_to_message_id?: string | null;
@@ -101,4 +106,5 @@ export type CompanionAssistantPayload = Omit<
   execution?: string;
   route?: string;
   pending_booking_write?: CompanionPendingBookingWriteHandoff | null;
+  pending_booking_clarification?: CompanionPendingBookingClarificationHandoff | null;
 };

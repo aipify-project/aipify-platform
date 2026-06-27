@@ -15,7 +15,7 @@ import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import type { UserRole } from "@/lib/tenant/types";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { buildReplyFromSearchJson } from "./build-reply";
-import type { CompanionExperienceLabels } from "../types";
+import type { CompanionChatMessage, CompanionExperienceLabels } from "../types";
 import type { WorkerExecutionProfile } from "./load-worker-profile";
 import {
   formatBootstrapErrorMessage,
@@ -184,6 +184,7 @@ async function tryLazyBookingResumeTurn(input: {
 async function tryLazyBookingProposalTurn(input: {
   supabase: SupabaseClient;
   query: string;
+  conversationId: string;
   locale: CustomerActiveLocale;
   userRole: UserRole;
   abortSignal?: AbortSignal;
@@ -197,6 +198,18 @@ async function tryLazyBookingProposalTurn(input: {
   }
 
   try {
+    const conversationId = input.conversationId.trim();
+    let messages: CompanionChatMessage[] = [];
+    if (conversationId) {
+      const loadMessages =
+        input.deps?.load_companion_conversation_messages ?? loadCompanionConversationMessages;
+      const loaded = await loadMessages(input.supabase, conversationId);
+      throwIfCompanionTurnAborted(input.abortSignal);
+      if (loaded.status === "loaded") {
+        messages = loaded.messages;
+      }
+    }
+
     const produceProposal =
       input.deps?.produce_booking_proposal_turn ?? produceBookingProposalTurn;
     const producerResult = await produceProposal({
@@ -205,6 +218,8 @@ async function tryLazyBookingProposalTurn(input: {
       locale: input.locale,
       t: input.t,
       userRole: input.userRole,
+      conversationId,
+      messages,
     });
     throwIfCompanionTurnAborted(input.abortSignal);
 
@@ -298,6 +313,7 @@ export async function executeCompanionTurn(
   const proposalTurn = await tryLazyBookingProposalTurn({
     supabase,
     query,
+    conversationId: input.conversationId,
     locale: answerLocaleActive,
     userRole,
     abortSignal: input.abortSignal,

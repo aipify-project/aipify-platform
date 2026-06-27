@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { PlatformKnowledgeAnswer } from "@/lib/companion-platform-knowledge/types";
 import { parseSupportAssistantSearch } from "@/lib/app-portal/support-assistant";
-import { resolvePendingBookingWritePointer } from "@/lib/companion-runtime/booking-pending-action-pointer";
+import { resolvePendingBookingWritePointer, resolvePendingBookingClarificationPointer, buildPendingBookingClarificationState, normalizePendingBookingClarification, serializePendingBookingClarification } from "@/lib/companion-runtime/booking-pending-action-pointer";
 import type { CompanionExperienceLabels } from "../types";
 import { buildReplyFromSearchJson } from "./build-reply";
 import type { ExecuteCompanionTurnDeps } from "./execute-turn";
@@ -17,6 +17,8 @@ import { createClientMessageId, createIdempotencyKey } from "./client";
 import { resolveCompanionQueueWaitPhase } from "./queue-wait-phase";
 
 const VALID_ACTION_REQUEST_ID = "a1b2c3d4-e5f6-4789-a012-3456789abcde";
+const VALID_CLARIFICATION_ID = "c1a2b3c4-f5c6-4789-a012-3456789abcde";
+const VALID_CONVERSATION_ID = "conv-70dc57a4-287d-4c01-915d-510be2b5f98b";
 const NIL_UUID = "00000000-0000-0000-0000-000000000000";
 
 const stubLabels = {} as CompanionExperienceLabels;
@@ -181,6 +183,140 @@ function testPendingBookingWriteInvalidInputs() {
     );
     assert.equal(parsed.pendingBookingWrite, undefined);
   }
+}
+
+function testPendingBookingClarificationHandoffContract() {
+  const clarificationState = buildPendingBookingClarificationState({
+    clarificationId: VALID_CLARIFICATION_ID,
+    organizationId: "org-unonight",
+    conversationId: VALID_CONVERSATION_ID,
+    customerReference: "P112-C3X-R3",
+    serviceLabel: null,
+    resourceName: null,
+    dateHint: "mandag neste uke kl. 10:00",
+    missingFields: ["service_missing", "employee_missing"],
+    now: new Date("2026-06-27T05:20:00.000Z"),
+  });
+
+  const withClarification = assistantMessage({
+    id: "c-clarify",
+    content: "Aipify trenger mer detaljer før en booking kan forberedes.",
+    pendingBookingClarification: clarificationState,
+  });
+  const serialized = serializeAssistantPayload(withClarification);
+  assert.ok(serialized.pending_booking_clarification);
+  assert.equal(serialized.pending_booking_clarification?.clarification_id, VALID_CLARIFICATION_ID);
+  assert.equal(serialized.pending_booking_clarification?.organization_id, "org-unonight");
+  assert.equal(serialized.pending_booking_clarification?.conversation_id, VALID_CONVERSATION_ID);
+  assert.deepEqual(
+    Object.keys(serialized.pending_booking_clarification ?? {}).sort(),
+    [
+      "capability_key",
+      "clarification_id",
+      "conversation_id",
+      "customer_reference",
+      "date_hint",
+      "expires_at",
+      "missing_fields",
+      "organization_id",
+      "resource_name",
+      "service_label",
+      "slot_start_at",
+    ].sort(),
+  );
+
+  const roundTripped = deserializeAssistantMessage(
+    "s-clarify",
+    "c-clarify",
+    withClarification.content,
+    JSON.parse(JSON.stringify(serialized)),
+    6000,
+  );
+  assert.deepEqual(roundTripped.pendingBookingClarification?.clarificationId, VALID_CLARIFICATION_ID);
+  assert.deepEqual(roundTripped.pendingBookingClarification?.customerReference, "P112-C3X-R3");
+
+  const searchJson = {
+    found: true,
+    query: "Book appointment",
+    answer: {
+      directAnswer: "Aipify trenger mer detaljer før en booking kan forberedes.",
+      steps: [],
+      actions: [],
+      sources: [],
+      sourceId: "booking-proposal",
+      source: "customer_context",
+      confidence: "high",
+      pendingBookingClarification: clarificationState,
+    },
+  };
+  const parsed = parseSupportAssistantSearch(searchJson);
+  assert.equal(parsed.answer?.pendingBookingClarification?.conversationId, VALID_CONVERSATION_ID);
+
+  const built = buildReplyFromSearchJson(searchJson, stubLabels, "Book appointment");
+  assert.equal(built.message.pendingBookingClarification?.clarificationId, VALID_CLARIFICATION_ID);
+  assert.equal(built.payload.pending_booking_clarification?.clarification_id, VALID_CLARIFICATION_ID);
+
+  const resolved = resolvePendingBookingClarificationPointer([
+    { id: "u1", role: "user", content: "Book", timestamp: 1 },
+    built.message,
+  ]);
+  assert.equal(resolved?.customerReference, "P112-C3X-R3");
+
+  assert.equal(
+    normalizePendingBookingClarification({
+      clarification_id: "not-a-uuid",
+      capability_key: "booking.create",
+      organization_id: "org-unonight",
+      conversation_id: VALID_CONVERSATION_ID,
+      expires_at: clarificationState.expiresAt,
+      missing_fields: ["service_missing"],
+    }),
+    null,
+  );
+  assert.equal(
+    normalizePendingBookingClarification({
+      clarification_id: VALID_CLARIFICATION_ID,
+      capability_key: "booking.update",
+      organization_id: "org-unonight",
+      conversation_id: VALID_CONVERSATION_ID,
+      expires_at: clarificationState.expiresAt,
+      missing_fields: ["service_missing"],
+      extra_field: "ignored",
+    }),
+    null,
+  );
+
+  const camelFromProducer = {
+    clarificationId: VALID_CLARIFICATION_ID,
+    capabilityKey: "booking.create" as const,
+    organizationId: "org-unonight",
+    conversationId: VALID_CONVERSATION_ID,
+    customerReference: "P112-C3X-R3",
+    serviceLabel: null,
+    resourceName: null,
+    dateHint: "mandag neste uke kl. 10:00",
+    slotStartAt: null,
+    missingFields: ["service_missing", "employee_missing"] as const,
+    expiresAt: clarificationState.expiresAt,
+    unknownField: "ignored",
+  };
+  assert.equal(
+    parseSupportAssistantSearch({
+      found: true,
+      query: "Book",
+      answer: {
+        directAnswer: "Need details",
+        steps: [],
+        actions: [],
+        sources: [],
+        sourceId: "booking-proposal",
+        source: "customer_context",
+        confidence: "high",
+        pendingBookingClarification: camelFromProducer,
+      },
+    }).answer?.pendingBookingClarification?.clarificationId,
+    VALID_CLARIFICATION_ID,
+  );
 }
 
 function testPlatformAnswerPendingBookingWriteSearchToChatContract() {
@@ -452,7 +588,7 @@ async function runExecuteTurnWithResumeDeps(
 
 async function testExecuteTurnResumeWiring() {
   {
-    const { turn, detectCalls, loadCalls, produceCalls } = await runExecuteTurnWithResumeDeps(
+    const { turn, detectCalls, loadCalls, produceCalls, proposalCalls } = await runExecuteTurnWithResumeDeps(
       {
         query: "What is my schedule tomorrow?",
         deps: {
@@ -461,8 +597,9 @@ async function testExecuteTurnResumeWiring() {
       },
     );
     assert.equal(detectCalls, 1);
-    assert.equal(loadCalls, 0);
+    assert.equal(loadCalls, 1);
     assert.equal(produceCalls, 0);
+    assert.equal(proposalCalls, 1);
     assert.equal(turn.ok, true);
   }
 
@@ -491,7 +628,7 @@ async function testExecuteTurnResumeWiring() {
         },
       },
     );
-    assert.equal(loadCalls, 1);
+    assert.equal(loadCalls, 2);
     assert.equal(produceCalls, 0);
     assert.equal(turn.ok, true);
   }
@@ -556,7 +693,7 @@ async function testExecuteTurnResumeWiring() {
         },
       },
     });
-    assert.equal(loadCalls, 1);
+    assert.equal(loadCalls, 2);
     assert.equal(turn.ok, true);
     assert.equal(JSON.stringify(turn).includes("loader exploded"), false);
   }
@@ -590,8 +727,8 @@ async function testExecuteTurnResumeWiring() {
         },
       },
     });
-    assert.equal(firstLoadCalls, 0);
-    assert.equal(loadCalls, 0);
+    assert.equal(firstLoadCalls, 1);
+    assert.equal(loadCalls, 1);
   }
 
   {
@@ -861,6 +998,7 @@ testClientMessageIdUnique();
 testQueueWaitPhaseProgression();
 testPendingBookingWriteHandoffContract();
 testPendingBookingWriteInvalidInputs();
+testPendingBookingClarificationHandoffContract();
 testPlatformAnswerPendingBookingWriteSearchToChatContract();
 
 void testExecuteTurnResumeWiring()

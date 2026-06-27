@@ -26,9 +26,13 @@ export type BookingSemanticIntent = {
 
 function extractBookingId(normalized: string): string | null {
   const explicit = normalized.match(
-    /\b(?:booking|appointment|avtale|tid|termin|bokning|reserva)\s*(?:id|nr|#)?\s*[:#]?\s*([a-z0-9_-]{4,})\b/i,
+    /\b(?:booking|appointment|avtale|termin|bokning|reserva)\s*(?:id|nr|#)?\s*[:#]?\s*([a-z0-9_-]{4,})\b/i,
   );
   if (explicit?.[1]) return explicit[1].trim();
+
+  const tidExplicit = normalized.match(/\btid\s+(?:id|nr|#)\s*[:#]?\s*([a-z0-9_-]{4,})\b/i);
+  if (tidExplicit?.[1]) return tidExplicit[1].trim();
+
   const bare = normalized.match(/\b(apt_[a-z0-9_-]{3,}|booking_[a-z0-9_-]{3,})\b/i);
   return bare?.[1]?.trim() ?? null;
 }
@@ -71,7 +75,10 @@ export function resolveBookingSemanticIntent(input: {
 
   const wantsCancel = /\b(avbestill|cancel|kansell|annull|anuluj|скасув)\b/i.test(normalized);
   const wantsMove = /\b(flytt|move|reschedule|endre tid|byt tid|zmień termin)\b/i.test(normalized);
-  const wantsCreate = /\b(bestill|book|boka|bok|schedule|opprett time|zarezerwuj|забронюй)\b/i.test(normalized);
+  const wantsCreate =
+    /\b(bestill|book|boka|bok|schedule|opprett(?:\s+time|\s+kun|\b)|zarezerwuj|забронюй)\b/i.test(
+      normalized,
+    );
 
   if (wantsCancel) {
     return {

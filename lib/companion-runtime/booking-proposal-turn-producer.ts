@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { CompanionChatMessage } from "@/lib/app/companion/types";
 import type { PlatformKnowledgeAnswer } from "@/lib/companion-platform-knowledge/types";
 import type { CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import type { Translator } from "@/lib/i18n/translate";
@@ -17,12 +18,20 @@ import { isBookingWriteSourceConnected } from "@/lib/integration-intelligence/pr
 import { parseIdentityPermissionsDashboard } from "@/lib/aipify/identity-permissions/parse";
 import { resolveAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 import {
+  buildPendingBookingClarificationState,
+  isExpiredPendingBookingClarification,
+  resolvePendingBookingClarificationPointer,
+  validatePendingBookingClarification,
+  type PendingBookingClarificationState,
+} from "./booking-pending-action-pointer";
+import {
   collectBookingDescriptorsFromManifests,
   resolveBookingSemanticIntent,
   type BookingSemanticIntent,
 } from "./booking-semantic-intent";
 import {
   assembleBookingWriteRequest,
+  type BookingWriteClarificationReason,
 } from "./booking-write-request-assembler";
 import { executeBookingWrite } from "./booking-write-orchestrator";
 
@@ -36,6 +45,8 @@ export type ProduceBookingProposalTurnInput = {
   locale: CustomerActiveLocale;
   t: Translator;
   userRole: string;
+  conversationId?: string;
+  messages?: readonly CompanionChatMessage[];
 };
 
 export type BookingProposalReadContext = {
@@ -53,6 +64,7 @@ export type ProduceBookingProposalTurnDeps = {
   execute_booking_write?: (
     input: Parameters<typeof executeBookingWrite>[0],
   ) => Promise<BookingWriteResult>;
+  now?: () => Date;
 };
 
 export type ProduceBookingProposalTurnResult =
@@ -199,10 +211,85 @@ function resolveProposalSlotStartAt(slots: readonly { start_at: string }[]): str
   return null;
 }
 
+export function extractBookingFollowUpFields(query: string): {
+  customerReference: string | null;
+  serviceLabel: string | null;
+  resourceName: string | null;
+  dateHint: string | null;
+} {
+  const customerFromLabel = query.match(/\b(?:kunde|customer)\s*:\s*([^.;]+)/i)?.[1]?.trim() ?? null;
+  const serviceLabel = query.match(/\b(?:tjeneste|service)\s*:\s*([^.;]+)/i)?.[1]?.trim() ?? null;
+  const dateHint =
+    query.match(/\b(?:tidspunkt|time|slot)\s*:\s*([^.;]+)/i)?.[1]?.trim() ?? null;
+  const resourceName =
+    query.match(/\b(?:ressurs|ansatt|employee|behandler)\s*:\s*([^.;]+)/i)?.[1]?.trim() ?? null;
+
+  return {
+    customerReference: customerFromLabel ?? extractBookingCustomerReference(query),
+    serviceLabel,
+    resourceName,
+    dateHint,
+  };
+}
+
+export function isBookingClarificationFollowUpAttempt(query: string): boolean {
+  return /\b(bekreft|confirm|ja|yes|kunde|tjeneste|tidspunkt|booking|bestill|avtale|opprett)\b/i.test(
+    query,
+  );
+}
+
+function buildMergedCreateIntent(input: {
+  semanticIntent: BookingSemanticIntent;
+  clarification: PendingBookingClarificationState;
+  followUp: ReturnType<typeof extractBookingFollowUpFields>;
+}): BookingSemanticIntent {
+  const { semanticIntent, clarification, followUp } = input;
+  return {
+    capability_key: "booking.create",
+    entity: "booking",
+    operation: "create",
+    metric: null,
+    booking_id: null,
+    service_id:
+      followUp.serviceLabel ?? clarification.serviceLabel ?? semanticIntent.service_id,
+    resource_name:
+      followUp.resourceName ?? clarification.resourceName ?? semanticIntent.resource_name,
+    date_hint: followUp.dateHint ?? clarification.dateHint ?? semanticIntent.date_hint,
+    confirmed: semanticIntent.confirmed,
+    confidence: semanticIntent.confirmed ? "high" : "moderate",
+    ambiguous: !semanticIntent.confirmed,
+  };
+}
+
+function buildClarificationState(input: {
+  organizationId: string;
+  conversationId: string;
+  customerReference: string | null;
+  serviceLabel: string | null;
+  resourceName: string | null;
+  dateHint: string | null;
+  slotStartAt: string | null;
+  missingFields: readonly BookingWriteClarificationReason[];
+  now: Date;
+}): PendingBookingClarificationState {
+  return buildPendingBookingClarificationState({
+    organizationId: input.organizationId,
+    conversationId: input.conversationId,
+    customerReference: input.customerReference,
+    serviceLabel: input.serviceLabel,
+    resourceName: input.resourceName,
+    dateHint: input.dateHint,
+    slotStartAt: input.slotStartAt,
+    missingFields: input.missingFields,
+    now: input.now,
+  });
+}
+
 function buildBookingProposalAnswer(input: {
   t: Translator;
   directAnswer: string;
   pendingBookingWrite?: { actionRequestId: string };
+  pendingBookingClarification?: PendingBookingClarificationState;
 }): PlatformKnowledgeAnswer {
   return {
     directAnswer: input.directAnswer,
@@ -221,6 +308,9 @@ function buildBookingProposalAnswer(input: {
     orgConfirmEligible: false,
     showSupportEscalation: false,
     ...(input.pendingBookingWrite ? { pendingBookingWrite: input.pendingBookingWrite } : {}),
+    ...(input.pendingBookingClarification
+      ? { pendingBookingClarification: input.pendingBookingClarification }
+      : {}),
   };
 }
 
@@ -356,6 +446,18 @@ export async function produceBookingProposalTurn(
   input: ProduceBookingProposalTurnInput,
   deps: ProduceBookingProposalTurnDeps = {},
 ): Promise<ProduceBookingProposalTurnResult> {
+  const now = deps.now?.() ?? new Date();
+  const conversationId = input.conversationId?.trim() ?? "";
+  const messages = input.messages ?? [];
+  const clarificationCandidate = conversationId
+    ? resolvePendingBookingClarificationPointer(messages)
+    : null;
+  const expiredClarification =
+    clarificationCandidate &&
+    isExpiredPendingBookingClarification(clarificationCandidate, now)
+      ? clarificationCandidate
+      : null;
+
   const resolveIntent =
     deps.resolve_semantic_intent ??
     ((query: string, locale: CustomerActiveLocale) =>
@@ -365,8 +467,11 @@ export async function produceBookingProposalTurn(
         descriptors: collectBookingDescriptorsFromManifests(APPOINTMENT_BOOKING_PROVIDER_MANIFESTS),
       }));
 
-  const intent = resolveIntent(input.query, input.locale);
-  if (!isClearBookingCreateIntent(intent)) {
+  const semanticIntent = resolveIntent(input.query, input.locale);
+  const clearCreate = isClearBookingCreateIntent(semanticIntent);
+  const mightHandle = clearCreate || clarificationCandidate != null;
+
+  if (!mightHandle) {
     return { handled: false };
   }
 
@@ -396,22 +501,99 @@ export async function produceBookingProposalTurn(
     };
   }
 
-  const assembly = assembleBookingWriteRequest({
-    intent,
-    confirmed: intent.confirmed,
-    services: readContext.bundle.services,
-    resources: readContext.bundle.resources,
-    availability_slots: readContext.bundle.availability_slots,
-    customer_reference: extractBookingCustomerReference(input.query),
-    slot_start_at: resolveProposalSlotStartAt(readContext.bundle.availability_slots),
-  });
+  const validatedClarification =
+    clarificationCandidate && conversationId
+      ? validatePendingBookingClarification({
+          state: clarificationCandidate,
+          conversationId,
+          organizationId: readContext.organization_id,
+          now,
+        })
+      : null;
 
-  if (assembly.status === "needs_clarification") {
+  if (
+    expiredClarification &&
+    !validatedClarification &&
+    isBookingClarificationFollowUpAttempt(input.query)
+  ) {
     return {
       handled: true,
       answer: buildBookingProposalAnswer({
         t,
         directAnswer: t(`${OUTCOME_BASE}.clarificationRequired`),
+      }),
+    };
+  }
+
+  if (!validatedClarification && !clearCreate) {
+    return { handled: false };
+  }
+
+  const followUp = extractBookingFollowUpFields(input.query);
+  const intent = validatedClarification
+    ? buildMergedCreateIntent({
+        semanticIntent,
+        clarification: validatedClarification,
+        followUp,
+      })
+    : semanticIntent;
+
+  const customerReference =
+    followUp.customerReference ??
+    validatedClarification?.customerReference ??
+    extractBookingCustomerReference(input.query);
+  const serviceLabel =
+    followUp.serviceLabel ?? validatedClarification?.serviceLabel ?? intent.service_id;
+  const resourceName =
+    followUp.resourceName ?? validatedClarification?.resourceName ?? intent.resource_name;
+  const dateHint = followUp.dateHint ?? validatedClarification?.dateHint ?? intent.date_hint;
+  const slotStartAt =
+    validatedClarification?.slotStartAt ??
+    resolveProposalSlotStartAt(readContext.bundle.availability_slots);
+
+  const assemblyIntent: BookingSemanticIntent = {
+    ...intent,
+    capability_key: "booking.create",
+    entity: "booking",
+    operation: "create",
+    booking_id: null,
+    service_id: serviceLabel,
+    resource_name: resourceName,
+    date_hint: dateHint,
+  };
+
+  const assembly = assembleBookingWriteRequest({
+    intent: assemblyIntent,
+    confirmed: semanticIntent.confirmed,
+    services: readContext.bundle.services,
+    resources: readContext.bundle.resources,
+    availability_slots: readContext.bundle.availability_slots,
+    customer_reference: customerReference,
+    slot_start_at: slotStartAt,
+  });
+
+  if (assembly.status === "needs_clarification") {
+    const pendingBookingClarification =
+      conversationId.length > 0
+        ? buildClarificationState({
+            organizationId: readContext.organization_id,
+            conversationId,
+            customerReference,
+            serviceLabel,
+            resourceName,
+            dateHint,
+            slotStartAt,
+            missingFields: assembly.reasons,
+            now,
+          })
+        : undefined;
+
+    return {
+      handled: true,
+      answer: buildBookingProposalAnswer({
+        t,
+        directAnswer: t(`${OUTCOME_BASE}.clarificationRequired`),
+        ...(pendingBookingClarification ? { pendingBookingClarification } : {}),
       }),
     };
   }

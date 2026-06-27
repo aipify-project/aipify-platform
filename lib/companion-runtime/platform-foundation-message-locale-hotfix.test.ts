@@ -54,6 +54,11 @@ async function runTests() {
   assert.equal(resolveAnswerLocale("uk", "Що каже лис?"), "uk");
   assert.equal(resolveAnswerLocale("no", "ok"), "no", "short unclear falls back to app locale");
 
+  const c3xFollowUp =
+    "Ja, bekreft bookingen. Kunde: P112-C3X-R3. Tjeneste: Kontrollert testavtale. Tidspunkt: mandag neste uke kl. 10:00.";
+  assert.equal(resolveAnswerLocale("no", c3xFollowUp), "no", "Norwegian follow-up with Ja stays Norwegian");
+  assert.equal(resolveAnswerLocale("no", "Ja"), "no", "ambiguous Ja prefers app locale no");
+
   const appLocaleNo = "no";
   const englishFox = "What does the fox say?";
   const responseLocale = coerceToCustomerActiveLocale(

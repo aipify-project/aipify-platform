@@ -47,6 +47,9 @@ export function buildPlatformAnswerReply(
           },
         }
       : {}),
+    ...(platformAnswer.pendingBookingClarification
+      ? { pendingBookingClarification: platformAnswer.pendingBookingClarification }
+      : {}),
     timestamp: Date.now(),
   };
 }

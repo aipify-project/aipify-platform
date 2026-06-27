@@ -220,6 +220,8 @@ export type PlatformKnowledgeAnswer = {
   pendingBookingWrite?: {
     actionRequestId: string;
   } | null;
+  /** Pending booking clarification draft — proposal-only (P1.12C3ZH). */
+  pendingBookingClarification?: import("@/lib/companion-runtime/booking-pending-action-pointer").PendingBookingClarificationState | null;
 };
 
 export type ResolvedPlatformArticle = {

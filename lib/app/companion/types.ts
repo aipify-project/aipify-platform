@@ -65,6 +65,8 @@ export type CompanionChatMessage = {
   pendingBookingWrite?: {
     actionRequestId: string;
   } | null;
+  /** Pending booking clarification draft — proposal-only, no action request (P1.12C3ZH). */
+  pendingBookingClarification?: import("@/lib/companion-runtime/booking-pending-action-pointer").PendingBookingClarificationState | null;
   timestamp: number;
 };
 

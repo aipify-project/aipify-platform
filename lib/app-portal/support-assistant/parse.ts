@@ -26,6 +26,10 @@ function normalizePlatformActionRequestId(value: unknown): string | null {
   return trimmed;
 }
 
+import {
+  coercePendingBookingClarification,
+} from "@/lib/companion-runtime/booking-pending-action-pointer";
+
 function parsePendingBookingWriteHandoff(
   raw: unknown,
 ): PlatformKnowledgeAnswer["pendingBookingWrite"] {
@@ -224,6 +228,9 @@ function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined 
     ? row.sources.map(parsePlatformSource).filter((s): s is NonNullable<ReturnType<typeof parsePlatformSource>> => s !== null)
     : [];
   const pendingBookingWrite = parsePendingBookingWriteHandoff(row.pendingBookingWrite);
+  const pendingBookingClarification = coercePendingBookingClarification(
+    row.pendingBookingClarification,
+  );
   return {
     directAnswer: str(row.directAnswer),
     explanation: str(row.explanation) || undefined,
@@ -244,6 +251,7 @@ function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined 
     orgConfirmBlockedReason: str(row.orgConfirmBlockedReason) || undefined,
     integrationToolName: str(row.integrationToolName) || undefined,
     ...(pendingBookingWrite ? { pendingBookingWrite } : {}),
+    ...(pendingBookingClarification ? { pendingBookingClarification } : {}),
   };
 }
 
