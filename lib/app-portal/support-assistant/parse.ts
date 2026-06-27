@@ -50,6 +50,26 @@ function parsePendingBookingWriteHandoff(
   return { actionRequestId };
 }
 
+type PendingSupportWriteHandoff = { actionRequestId: string };
+
+function parsePendingSupportWriteHandoff(raw: unknown): PendingSupportWriteHandoff | undefined {
+  if (raw == null) {
+    return undefined;
+  }
+  if (typeof raw !== "object" || Array.isArray(raw)) {
+    return undefined;
+  }
+
+  const actionRequestId = normalizePlatformActionRequestId(
+    (raw as Record<string, unknown>).actionRequestId,
+  );
+  if (!actionRequestId) {
+    return undefined;
+  }
+
+  return { actionRequestId };
+}
+
 function parsePlatformAction(raw: unknown): PlatformKnowledgeAction | null {
   if (!raw || typeof raw !== "object") return null;
   const row = raw as Record<string, unknown>;
@@ -228,6 +248,7 @@ function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined 
     ? row.sources.map(parsePlatformSource).filter((s): s is NonNullable<ReturnType<typeof parsePlatformSource>> => s !== null)
     : [];
   const pendingBookingWrite = parsePendingBookingWriteHandoff(row.pendingBookingWrite);
+  const pendingSupportWrite = parsePendingSupportWriteHandoff(row.pendingSupportWrite);
   const pendingBookingClarification = coercePendingBookingClarification(
     row.pendingBookingClarification,
   );
@@ -251,6 +272,7 @@ function parsePlatformAnswer(raw: unknown): PlatformKnowledgeAnswer | undefined 
     orgConfirmBlockedReason: str(row.orgConfirmBlockedReason) || undefined,
     integrationToolName: str(row.integrationToolName) || undefined,
     ...(pendingBookingWrite ? { pendingBookingWrite } : {}),
+    ...(pendingSupportWrite ? { pendingSupportWrite } : {}),
     ...(pendingBookingClarification ? { pendingBookingClarification } : {}),
   };
 }

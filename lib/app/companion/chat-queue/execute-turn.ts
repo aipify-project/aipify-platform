@@ -8,7 +8,12 @@ import {
 } from "@/lib/app-portal/support-assistant";
 import { classifyExternalProviderHandoffFromRegistry } from "@/lib/integration-intelligence/external-applications/handoff-bridge";
 import { assertCanvaHandoffPermissionForRole } from "@/lib/integration-intelligence/providers/canva/permissions";
-import { companionDictionarySplitsForTurnRoute } from "@/lib/companion-runtime/companion-oaa-dictionary-splits";
+import {
+  companionDictionarySplitsForTurnRoute,
+  companionDirectTurnDictionarySplits,
+} from "@/lib/companion-runtime/companion-oaa-dictionary-splits";
+import { hasSupportAssignIntent } from "@/lib/companion-runtime/support-proposal-turn-producer";
+import { resolveSupportSemanticIntent } from "@/lib/companion-runtime/support-semantic-intent";
 import { createTranslator } from "@/lib/i18n/translate";
 import { buildCompanionExperienceLabels } from "@/lib/app/companion/labels";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
@@ -54,6 +59,33 @@ async function loadCustomerAppDictionaryForTurn(
 ) {
   const { getCustomerAppDictionaryForSplits } = await import("@/lib/i18n/get-dictionary");
   return getCustomerAppDictionaryForSplits(answerLocale, splits);
+}
+
+function lightweightTurnNeedsPlatformKnowledge(
+  query: string,
+  locale: CustomerActiveLocale,
+): boolean {
+  const intent = resolveSupportSemanticIntent({ query, locale });
+  return hasSupportAssignIntent(query, intent);
+}
+
+function resolveDictionarySplitsForTurn(input: {
+  turnRoute: import("@/lib/companion-runtime/companion-turn-route").CompanionTurnRoute;
+  query: string;
+  locale: CustomerActiveLocale;
+  hasAttachments: boolean;
+  hasActiveArtifact: boolean;
+}): CustomerAppSplitName[] {
+  const isLightweightMinimal =
+    input.turnRoute === "lightweight" && !input.hasAttachments && !input.hasActiveArtifact;
+
+  if (!isLightweightMinimal) {
+    return companionDictionarySplitsForTurnRoute(input.turnRoute);
+  }
+
+  return lightweightTurnNeedsPlatformKnowledge(input.query, input.locale)
+    ? companionDirectTurnDictionarySplits()
+    : ["companion"];
 }
 
 function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
@@ -606,10 +638,13 @@ export async function executeCompanionTurn(
 
   throwIfCompanionTurnAborted(input.abortSignal);
 
-  const dictionarySplits: CustomerAppSplitName[] =
-    turnRoute === "lightweight" && !hasAttachments && !input.activeArtifactId
-      ? ["companion"]
-      : companionDictionarySplitsForTurnRoute(turnRoute);
+  const dictionarySplits = resolveDictionarySplitsForTurn({
+    turnRoute,
+    query,
+    locale: answerLocaleActive,
+    hasAttachments,
+    hasActiveArtifact: Boolean(input.activeArtifactId),
+  });
   const dict = await loadCustomerAppDictionaryForTurn(answerLocale, dictionarySplits);
   throwIfCompanionTurnAborted(input.abortSignal);
   const t = createTranslator(dict);

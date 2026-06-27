@@ -1,4 +1,5 @@
 import { parseSupportAssistantSearch, type SupportAssistantArticle } from "@/lib/app-portal/support-assistant";
+import type { PlatformKnowledgeAnswer } from "@/lib/companion-platform-knowledge/types";
 import type { CompanionExperienceLabels, CompanionChatMessage } from "../types";
 import { serializeAssistantPayload } from "./message-payload";
 
@@ -19,6 +20,12 @@ export function buildPlatformAnswerReply(
           variant: action.variant,
         }))
       : [];
+
+  const pendingSupportWrite = (
+    platformAnswer as PlatformKnowledgeAnswer & {
+      pendingSupportWrite?: { actionRequestId: string };
+    }
+  ).pendingSupportWrite;
 
   return {
     id: createMessageId(),
@@ -44,6 +51,13 @@ export function buildPlatformAnswerReply(
       ? {
           pendingBookingWrite: {
             actionRequestId: platformAnswer.pendingBookingWrite.actionRequestId,
+          },
+        }
+      : {}),
+    ...(pendingSupportWrite?.actionRequestId
+      ? {
+          pendingSupportWrite: {
+            actionRequestId: pendingSupportWrite.actionRequestId,
           },
         }
       : {}),

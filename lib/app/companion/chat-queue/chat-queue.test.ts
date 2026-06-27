@@ -19,6 +19,10 @@ import { createClientMessageId, createIdempotencyKey } from "./client";
 import { resolveCompanionQueueWaitPhase } from "./queue-wait-phase";
 
 const VALID_ACTION_REQUEST_ID = "a1b2c3d4-e5f6-4789-a012-3456789abcde";
+const SUPPORT_OUTCOME_APPROVAL_KEY =
+  "customerApp.companionPlatformKnowledge.support.outcomes.approvalRequired";
+const NORWEGIAN_SUPPORT_APPROVAL_REQUIRED =
+  "Denne supporthandlingen krever godkjenning før leverandøren kan utføre den.";
 const VALID_CLARIFICATION_ID = "c1a2b3c4-f5c6-4789-a012-3456789abcde";
 const VALID_CONVERSATION_ID = "conv-70dc57a4-287d-4c01-915d-510be2b5f98b";
 const NIL_UUID = "00000000-0000-0000-0000-000000000000";
@@ -46,6 +50,26 @@ function platformSearchJson(pendingBookingWrite: unknown) {
       source: "platform_corpus",
       confidence: "high",
       ...(pendingBookingWrite === undefined ? {} : { pendingBookingWrite }),
+    },
+  };
+}
+
+function platformSupportSearchJson(pendingSupportWrite: unknown) {
+  return {
+    found: true,
+    query: "Assign support case",
+    answer: {
+      directAnswer: "Approval is required before support assignment can proceed.",
+      steps: [],
+      actions: [],
+      sources: [{ id: "support-proposal", label: "Support operations", kind: "customer_context" }],
+      sourceId: "support-proposal",
+      source: "customer_context",
+      confidence: "high",
+      ...(pendingSupportWrite === undefined ? {} : { pendingSupportWrite }),
+      writeResult: { outcome: "approval_required", action_request_id: VALID_ACTION_REQUEST_ID },
+      case_id: "4ead4ffa-063e-4471-9440-930de5d5cc6b",
+      assignee_user_id: "97916b50-a341-451f-8869-9b0847e1382f",
     },
   };
 }
@@ -407,6 +431,82 @@ function testPlatformAnswerPendingBookingWriteSearchToChatContract() {
   );
 }
 
+function testPlatformAnswerPendingSupportWriteSearchToChatContract() {
+  const validSearchJson = platformSupportSearchJson({ actionRequestId: VALID_ACTION_REQUEST_ID });
+  const parsed = parseSupportAssistantSearch(validSearchJson);
+  const parsedAnswer = parsed.answer as PlatformKnowledgeAnswerWithPendingSupport | undefined;
+  assert.deepEqual(parsedAnswer?.pendingSupportWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+  assert.deepEqual(Object.keys(parsedAnswer?.pendingSupportWrite ?? {}), ["actionRequestId"]);
+  assert.equal((parsedAnswer as Record<string, unknown> | undefined)?.writeResult, undefined);
+  assert.equal((parsedAnswer as Record<string, unknown> | undefined)?.case_id, undefined);
+
+  const built = buildReplyFromSearchJson(validSearchJson, stubLabels, "Assign support case");
+  const builtMessage = built.message as AssistantMessageWithPendingSupport;
+  assert.deepEqual(builtMessage.pendingSupportWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+  assert.deepEqual(built.payload.pending_support_write, { action_request_id: VALID_ACTION_REQUEST_ID });
+  assert.deepEqual(Object.keys(built.payload.pending_support_write ?? {}), ["action_request_id"]);
+  assert.equal((built.payload as Record<string, unknown>).writeResult, undefined);
+  assert.equal((built.payload as Record<string, unknown>).write_outcome, undefined);
+  assert.equal((built.payload as Record<string, unknown>).case_id, undefined);
+
+  const roundTripped = deserializeAssistantMessage(
+    "s-support",
+    "c-support",
+    built.message.content,
+    JSON.parse(JSON.stringify(built.payload)),
+    5000,
+  ) as AssistantMessageWithPendingSupport;
+  assert.deepEqual(roundTripped.pendingSupportWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+
+  for (const actionRequestId of ["not-a-uuid", "", "   ", NIL_UUID]) {
+    const invalidBuilt = buildReplyFromSearchJson(
+      platformSupportSearchJson({ actionRequestId }),
+      stubLabels,
+      "Assign support case",
+    );
+    assert.equal(
+      (invalidBuilt.message as AssistantMessageWithPendingSupport).pendingSupportWrite,
+      undefined,
+    );
+    assert.equal(invalidBuilt.payload.pending_support_write, undefined);
+  }
+
+  const extraFieldsBuilt = buildReplyFromSearchJson(
+    platformSupportSearchJson({
+      actionRequestId: VALID_ACTION_REQUEST_ID,
+      idempotency_key: "support-assign:case:assignee",
+      capability: "support_case.assign",
+      payload: { case_id: "case-1", assignee_user_id: "user-1" },
+      organization_id: "org-1",
+    }),
+    stubLabels,
+    "Assign support case",
+  );
+  assert.deepEqual(
+    (extraFieldsBuilt.message as AssistantMessageWithPendingSupport).pendingSupportWrite,
+    {
+      actionRequestId: VALID_ACTION_REQUEST_ID,
+    },
+  );
+  assert.deepEqual(extraFieldsBuilt.payload.pending_support_write, {
+    action_request_id: VALID_ACTION_REQUEST_ID,
+  });
+  assert.deepEqual(Object.keys(extraFieldsBuilt.payload.pending_support_write ?? {}), ["action_request_id"]);
+  assert.equal((extraFieldsBuilt.payload as Record<string, unknown>).writeResult, undefined);
+
+  const bookingStillWorks = buildReplyFromSearchJson(
+    platformSearchJson({ actionRequestId: VALID_ACTION_REQUEST_ID }),
+    stubLabels,
+    "Book appointment",
+  );
+  assert.deepEqual(bookingStillWorks.message.pendingBookingWrite, {
+    actionRequestId: VALID_ACTION_REQUEST_ID,
+  });
+  assert.deepEqual(bookingStillWorks.payload.pending_booking_write, {
+    action_request_id: VALID_ACTION_REQUEST_ID,
+  });
+}
+
 const RESUME_CONVERSATION_ID = "conv-a1b2c3d4-e5f6-4789-a012-3456789abcde";
 const supabaseStub = {} as SupabaseClient;
 const workerProfileStub = {
@@ -530,6 +630,7 @@ async function runExecuteTurnWithResumeDeps(
   input: {
     query: string;
     conversationId?: string;
+    locale?: string;
     turnRoute?: import("@/lib/companion-runtime/companion-turn-route").CompanionTurnRoute;
     abortSignal?: AbortSignal;
     deps?: ExecuteCompanionTurnDeps;
@@ -641,7 +742,7 @@ async function runExecuteTurnWithResumeDeps(
     supabaseStub,
     {
       query: input.query,
-      locale: "en",
+      locale: input.locale ?? "en",
       conversationId: input.conversationId ?? RESUME_CONVERSATION_ID,
       workerProfile: workerProfileStub,
       turnRoute: input.turnRoute ?? "lightweight",
@@ -1542,6 +1643,132 @@ async function testExecuteTurnSupportRealProducerCallGraph() {
   assert.equal(answer.pendingSupportWrite, undefined);
 }
 
+async function testExecuteCompanionTurnToPayloadSupportApprovalPointer() {
+  const explicitAssignQuery =
+    "Tildel sak 11111111-1111-4111-8111-111111111111 til bruker 22222222-2222-4222-8222-222222222222. Bekreft.";
+  const { turn, supportProposalCalls } = await runExecuteTurnWithResumeDeps({
+    query: explicitAssignQuery,
+    deps: {
+      detect_booking_resume_intent: () => false,
+      detect_support_resume_intent: () => false,
+      produce_support_proposal_turn: async () => ({
+        handled: true,
+        answer: supportProposalBaseAnswer,
+        writeResult: {
+          outcome: "approval_required" as const,
+          action_request_id: VALID_ACTION_REQUEST_ID,
+        },
+      }),
+    },
+  });
+  assert.equal(supportProposalCalls, 1);
+  assert.equal(turn.ok, true);
+  if (!turn.ok) return;
+
+  const answer = turn.searchJson.answer as PlatformKnowledgeAnswerWithPendingSupport;
+  assert.deepEqual(answer.pendingSupportWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+
+  const payloadResult = buildReplyFromSearchJson(turn.searchJson, turn.labels, turn.question);
+  const payloadMessage = payloadResult.message as AssistantMessageWithPendingSupport;
+  assert.deepEqual(payloadMessage.pendingSupportWrite, {
+    actionRequestId: VALID_ACTION_REQUEST_ID,
+  });
+  assert.deepEqual(payloadResult.payload.pending_support_write, {
+    action_request_id: VALID_ACTION_REQUEST_ID,
+  });
+  assert.equal((payloadResult.payload as Record<string, unknown>).writeResult, undefined);
+  assert.equal((payloadResult.payload as Record<string, unknown>).write_outcome, undefined);
+  assert.equal((payloadResult.payload as Record<string, unknown>).case_id, undefined);
+  assert.equal(payloadResult.message.directAnswer, answer.directAnswer);
+}
+
+async function testExecuteTurnSupportApprovalResponseLocalized() {
+  const explicitAssignQuery =
+    "Tildel sak 4ead4ffa-063e-4471-9440-930de5d5cc6b til bruker 97916b50-a341-451f-8869-9b0847e1382f. Bekreft.";
+
+  const { turn, supportProposalCalls } = await runExecuteTurnWithResumeDeps({
+    query: explicitAssignQuery,
+    locale: "no",
+    turnRoute: "lightweight",
+    deps: {
+      detect_booking_resume_intent: () => false,
+      detect_support_resume_intent: () => false,
+      produce_support_proposal_turn: async (turnInput) => ({
+        handled: true,
+        answer: {
+          ...supportProposalBaseAnswer,
+          directAnswer: turnInput.t(SUPPORT_OUTCOME_APPROVAL_KEY),
+        },
+        writeResult: {
+          outcome: "approval_required" as const,
+          action_request_id: VALID_ACTION_REQUEST_ID,
+        },
+      }),
+    },
+  });
+
+  assert.equal(supportProposalCalls, 1);
+  assert.equal(turn.ok, true);
+  if (!turn.ok) return;
+
+  const answer = turn.searchJson.answer as PlatformKnowledgeAnswerWithPendingSupport;
+  assert.equal(answer.directAnswer, NORWEGIAN_SUPPORT_APPROVAL_REQUIRED);
+  assert.notEqual(answer.directAnswer, "Approval Required");
+  assert.notEqual(answer.directAnswer, SUPPORT_OUTCOME_APPROVAL_KEY);
+  assert.notEqual(answer.sourceId, "companion-lightweight-conversational");
+  assert.deepEqual(answer.pendingSupportWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+
+  const payloadResult = buildReplyFromSearchJson(turn.searchJson, turn.labels, turn.question);
+  const payloadMessage = payloadResult.message as AssistantMessageWithPendingSupport;
+  assert.deepEqual(payloadMessage.pendingSupportWrite, {
+    actionRequestId: VALID_ACTION_REQUEST_ID,
+  });
+  assert.deepEqual(payloadResult.payload.pending_support_write, {
+    action_request_id: VALID_ACTION_REQUEST_ID,
+  });
+  assert.equal((payloadResult.payload as Record<string, unknown>).writeResult, undefined);
+  assert.equal((payloadResult.payload as Record<string, unknown>).write_outcome, undefined);
+
+  const roundTripped = deserializeAssistantMessage(
+    "s-localized",
+    "c-localized",
+    payloadMessage.content,
+    JSON.parse(JSON.stringify(payloadResult.payload)),
+    6000,
+  ) as AssistantMessageWithPendingSupport;
+  assert.deepEqual(roundTripped.pendingSupportWrite, { actionRequestId: VALID_ACTION_REQUEST_ID });
+
+  const chitchat = await runExecuteTurnWithResumeDeps({
+    query: "Hei",
+    locale: "no",
+    turnRoute: "lightweight",
+    deps: {
+      detect_booking_resume_intent: () => false,
+      detect_support_resume_intent: () => false,
+      produce_support_proposal_turn: async () => ({ handled: false }),
+    },
+  });
+  assert.equal(chitchat.supportProposalCalls, 1);
+  assert.equal(chitchat.turn.ok, true);
+  if (!chitchat.turn.ok) return;
+  assert.equal(
+    (chitchat.turn.searchJson.answer as PlatformKnowledgeAnswer).sourceId,
+    "companion-lightweight-conversational",
+  );
+
+  const bookingStillWorks = buildReplyFromSearchJson(
+    platformSearchJson({ actionRequestId: VALID_ACTION_REQUEST_ID }),
+    stubLabels,
+    "Book appointment",
+  );
+  assert.deepEqual(bookingStillWorks.message.pendingBookingWrite, {
+    actionRequestId: VALID_ACTION_REQUEST_ID,
+  });
+  assert.deepEqual(bookingStillWorks.payload.pending_booking_write, {
+    action_request_id: VALID_ACTION_REQUEST_ID,
+  });
+}
+
 testIdempotencyKeyStable();
 testDeserializeAssistantRoundTrip();
 testMapServerMessagesOrder();
@@ -1551,6 +1778,7 @@ testPendingBookingWriteHandoffContract();
 testPendingBookingWriteInvalidInputs();
 testPendingBookingClarificationHandoffContract();
 testPlatformAnswerPendingBookingWriteSearchToChatContract();
+testPlatformAnswerPendingSupportWriteSearchToChatContract();
 
 void testExecuteTurnResumeWiring()
   .then(() => testExecuteTurnRealProducerCallGraph())
@@ -1560,6 +1788,8 @@ void testExecuteTurnResumeWiring()
     return testExecuteTurnSupportResumeWiring();
   })
   .then(() => testExecuteTurnSupportProposalWiring())
+  .then(() => testExecuteCompanionTurnToPayloadSupportApprovalPointer())
+  .then(() => testExecuteTurnSupportApprovalResponseLocalized())
   .then(() => testExecuteTurnSupportRealProducerCallGraph())
   .then(() => {
     console.log("chat-queue.test.ts: all assertions passed");
