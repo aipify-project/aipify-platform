@@ -3,7 +3,11 @@ import type { CompanionChatMessage } from "@/lib/app/companion/types";
 import type { PlatformKnowledgeAnswer } from "@/lib/companion-platform-knowledge/types";
 import type { Translator } from "@/lib/i18n/translate";
 import { detectBookingResumeContinuationIntent } from "@/lib/companion-runtime/booking-resume-intent";
-import { resolvePendingSupportWritePointer } from "@/lib/companion-runtime/support-pending-action-pointer";
+import {
+  resolvePendingSupportWritePointer,
+  SUPPORT_RESUME_SOURCE_ID,
+  SUPPORT_RESUME_TERMINAL_CONSUMED_SOURCE_META,
+} from "@/lib/companion-runtime/support-pending-action-pointer";
 import {
   executeSupportAssignResume,
   type SupportAssignResumeExecutorResult,
@@ -39,6 +43,7 @@ function buildSupportResumeAnswer(input: {
   t: Translator;
   directAnswer: string;
   pendingSupportWrite?: { actionRequestId: string };
+  terminalConsumed?: boolean;
 }): SupportResumeAnswer {
   return {
     directAnswer: input.directAnswer,
@@ -46,12 +51,15 @@ function buildSupportResumeAnswer(input: {
     actions: [],
     sources: [
       {
-        id: "support-resume",
+        id: SUPPORT_RESUME_SOURCE_ID,
         label: input.t(SOURCE_LABEL_KEY),
         kind: "customer_context",
+        ...(input.terminalConsumed
+          ? { meta: SUPPORT_RESUME_TERMINAL_CONSUMED_SOURCE_META }
+          : {}),
       },
     ],
-    sourceId: "support-resume",
+    sourceId: SUPPORT_RESUME_SOURCE_ID,
     source: "customer_context",
     confidence: "high",
     orgConfirmEligible: false,
@@ -73,6 +81,7 @@ function mapSupportResumeExecutorResult(input: {
       return buildSupportResumeAnswer({
         t,
         directAnswer: t(`${OUTCOME_BASE}.executed`),
+        terminalConsumed: true,
       });
     case "pending": {
       const persistedId = result.action_request_id?.trim() || null;
@@ -127,7 +136,12 @@ export async function produceSupportResumeTurn(
     return { handled: false };
   }
 
-  const resolvePointer = deps.resolve_pointer ?? resolvePendingSupportWritePointer;
+  const resolvePointer =
+    deps.resolve_pointer ??
+    ((messages) =>
+      resolvePendingSupportWritePointer(messages, {
+        resumeContinuationQuery: input.query,
+      }));
   const pointer = resolvePointer(input.messages);
   if (!pointer) {
     return { handled: false };

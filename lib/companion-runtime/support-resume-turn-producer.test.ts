@@ -132,7 +132,9 @@ async function runCase(input: {
         ? input.resolvePointer
         : (messages) => {
             pointerCalls += 1;
-            return resolvePendingSupportWritePointer(messages);
+            return resolvePendingSupportWritePointer(messages, {
+              resumeContinuationQuery: input.query,
+            });
           },
       resume_execution: input.resumeResult
         ? async (actionRequestId) => {
@@ -260,6 +262,40 @@ async function runTests() {
     });
     assert.deepEqual(result, { handled: false });
     assert.equal(resumeCalls, 0);
+  }
+
+  {
+    const messages: readonly CompanionChatMessage[] = [
+      assistant("a-proposal", "Confirm assignment?", { actionRequestId: POINTER_ID }),
+      { id: "u1", role: "user", content: "fortsett", timestamp: 2 },
+      {
+        id: "a-terminal",
+        role: "aipify",
+        content: "Support assignment completed",
+        timestamp: 3,
+        sourceId: "support-resume",
+        sources: [
+          {
+            id: "support-resume",
+            label: "Support operations",
+            kind: "customer_context",
+            meta: "terminal_consumed",
+          },
+        ],
+      },
+    ];
+    const { result, resumeCalls, resumeLastId } = await runCase({
+      query: "fortsett",
+      messages,
+      resumeResult: executorResult("already_consumed"),
+    });
+    assert.equal(result.handled, true);
+    if (!result.handled) return;
+    assert.equal(result.answer.directAnswer, TRANSLATIONS[`${OUTCOME_BASE}.executed`]);
+    assert.equal(getPendingSupportWrite(result.answer), undefined);
+    assert.equal(resumeCalls, 1);
+    assert.equal(resumeLastId, POINTER_ID);
+    assert.equal(result.answer.sources?.[0]?.meta, "terminal_consumed");
   }
 
   {

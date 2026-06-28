@@ -85,7 +85,10 @@ async function resolveLightweightDictionarySplits(input: {
       input.messagesLoader,
       input.abortSignal,
     );
-    if (messages && resolvePendingSupportWritePointer(messages)) {
+    if (
+      messages &&
+      resolvePendingSupportWritePointer(messages, { resumeContinuationQuery: input.query })
+    ) {
       return companionDirectTurnDictionarySplits();
     }
   }

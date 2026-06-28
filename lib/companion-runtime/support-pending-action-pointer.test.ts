@@ -6,9 +6,12 @@ import {
 } from "@/lib/app/companion/chat-queue/message-payload";
 import {
   coercePendingSupportWrite,
+  isReplayEligibleTerminalSupportResume,
   normalizePendingSupportWrite,
   resolvePendingSupportWritePointer,
   serializePendingSupportWrite,
+  SUPPORT_RESUME_SOURCE_ID,
+  SUPPORT_RESUME_TERMINAL_CONSUMED_SOURCE_META,
 } from "@/lib/companion-runtime/support-pending-action-pointer";
 import { resolvePendingBookingWritePointer } from "@/lib/companion-runtime/booking-pending-action-pointer";
 
@@ -38,6 +41,38 @@ function assistant(
 function user(id: string, content: string): CompanionChatMessage {
   return { id, role: "user", content, timestamp: Date.now() };
 }
+
+function supportProposal(
+  id: string,
+  content: string,
+  actionRequestId: string,
+): AssistantMessage {
+  return {
+    ...assistant(id, content, { actionRequestId }),
+    sourceId: "support-proposal",
+  };
+}
+
+function terminalSupportResume(
+  id: string,
+  content: string,
+  consumed = true,
+): AssistantMessage {
+  return {
+    ...assistant(id, content, null),
+    sourceId: SUPPORT_RESUME_SOURCE_ID,
+    sources: [
+      {
+        id: SUPPORT_RESUME_SOURCE_ID,
+        label: "Support operations",
+        kind: "customer_context",
+        ...(consumed ? { meta: SUPPORT_RESUME_TERMINAL_CONSUMED_SOURCE_META } : {}),
+      },
+    ],
+  };
+}
+
+const RESUME_QUERY = "Fortsett";
 
 assert.deepEqual(serializePendingSupportWrite({ actionRequestId: VALID_ID }), {
   action_request_id: VALID_ID,
@@ -178,6 +213,103 @@ assert.equal(
     },
   ]),
   null,
+);
+
+assert.deepEqual(
+  resolvePendingSupportWritePointer(
+    [
+      supportProposal("a1", "Approval required?", VALID_ID),
+      user("u1", RESUME_QUERY),
+      terminalSupportResume("a2", "Supporthandlingen ble utført av den tilkoblede leverandøren."),
+    ],
+    { resumeContinuationQuery: RESUME_QUERY },
+  ),
+  { actionRequestId: VALID_ID },
+);
+
+assert.equal(
+  resolvePendingSupportWritePointer(
+    [
+      supportProposal("a1", "Approval required?", VALID_ID),
+      user("u1", RESUME_QUERY),
+      terminalSupportResume("a2", "Supporthandlingen ble utført av den tilkoblede leverandøren."),
+    ],
+    { resumeContinuationQuery: "Hei" },
+  ),
+  null,
+);
+
+assert.equal(
+  resolvePendingSupportWritePointer(
+    [
+      supportProposal("a1", "Approval required?", VALID_ID),
+      user("u1", RESUME_QUERY),
+      terminalSupportResume("a2", "Supporthandlingen kunne ikke fullføres", false),
+    ],
+    { resumeContinuationQuery: RESUME_QUERY },
+  ),
+  null,
+);
+
+assert.equal(
+  resolvePendingSupportWritePointer(
+    [terminalSupportResume("a2", "Supporthandlingen ble utført av den tilkoblede leverandøren.")],
+    { resumeContinuationQuery: RESUME_QUERY },
+  ),
+  null,
+);
+
+assert.equal(
+  resolvePendingSupportWritePointer(
+    [
+      supportProposal("a1", "Approval required?", VALID_ID),
+      user("u1", RESUME_QUERY),
+      terminalSupportResume("a2", "Supporthandlingen ble utført av den tilkoblede leverandøren."),
+      user("u2", "Hei"),
+      assistant("a3", "Vanlig assistant-svar"),
+    ],
+    { resumeContinuationQuery: RESUME_QUERY },
+  ),
+  null,
+);
+
+assert.deepEqual(
+  resolvePendingSupportWritePointer(
+    [
+      supportProposal("a-old", "Older assignment", OLDER_ID),
+      user("u-old", RESUME_QUERY),
+      terminalSupportResume("a-term", "Done"),
+      user("u-mid", "ok"),
+      supportProposal("a-new", "New assignment?", VALID_ID),
+    ],
+    { resumeContinuationQuery: RESUME_QUERY },
+  ),
+  { actionRequestId: VALID_ID },
+);
+
+assert.equal(
+  resolvePendingSupportWritePointer(
+    [
+      user("u1", "Hei"),
+      assistant("a1", "Vanlig assistant-svar"),
+    ],
+    { resumeContinuationQuery: RESUME_QUERY },
+  ),
+  null,
+);
+
+assert.equal(
+  isReplayEligibleTerminalSupportResume(
+    terminalSupportResume("a2", "Supporthandlingen ble utført av den tilkoblede leverandøren."),
+  ),
+  true,
+);
+
+assert.equal(
+  isReplayEligibleTerminalSupportResume(
+    terminalSupportResume("a2", "Supporthandlingen kunne ikke fullføres", false),
+  ),
+  false,
 );
 
 console.log("support-pending-action-pointer.test.ts: all assertions passed");
