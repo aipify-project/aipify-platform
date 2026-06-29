@@ -2,8 +2,16 @@ import assert from "node:assert/strict";
 import {
   buildSupportCaseCreateRpcParams,
   createSupportCase,
+  parseSupportCaseCreateBody,
+  parseSupportPrioritizeBody,
   SUPPORT_CASE_CREATE_RPC,
+  SUPPORT_PRIORITIZE_ASSESS_RPC,
+  SUPPORT_PRIORITIZE_CLEAR_RPC,
+  SUPPORT_PRIORITIZE_MANUAL_RPC,
   SUPPORT_UNDERSTAND_RPC,
+  assessSupportCasePriority,
+  clearSupportCasePriorityOverride,
+  setSupportCasePriorityManual,
   understandSupportCase,
 } from "./support-ai";
 
@@ -49,6 +57,7 @@ async function main() {
       p_priority: "medium",
       p_initial_message: null,
       p_idempotency_key: null,
+      p_priority_explicit: false,
     });
     assert.equal(result.created, true);
     assert.equal(result.message_id, null);
@@ -239,6 +248,114 @@ async function main() {
       () => understandSupportCase(supabase, "case-3"),
       /support_understanding_no_inbound/
     );
+  });
+
+  await test("parseSupportCaseCreateBody marks explicit medium as priority_explicit", async () => {
+    const parsed = parseSupportCaseCreateBody({ subject: "Help", priority: "medium" });
+    assert.equal(parsed.ok, true);
+    if (!parsed.ok) return;
+    assert.equal(parsed.rpcParams.p_priority, "medium");
+    assert.equal(parsed.rpcParams.p_priority_explicit, true);
+  });
+
+  await test("parseSupportCaseCreateBody omits priority as default provenance", async () => {
+    const parsed = parseSupportCaseCreateBody({ subject: "Help" });
+    assert.equal(parsed.ok, true);
+    if (!parsed.ok) return;
+    assert.equal(parsed.rpcParams.p_priority_explicit, false);
+  });
+
+  await test("parseSupportPrioritizeBody defaults empty body to assess", async () => {
+    const parsed = parseSupportPrioritizeBody(undefined);
+    assert.equal(parsed.ok, true);
+    if (!parsed.ok) return;
+    assert.equal(parsed.action, "assess");
+  });
+
+  await test("parseSupportPrioritizeBody accepts set_manual with priority", async () => {
+    const parsed = parseSupportPrioritizeBody({ action: "set_manual", priority: "low" });
+    assert.equal(parsed.ok, true);
+    if (!parsed.ok) return;
+    assert.equal(parsed.action, "set_manual");
+    assert.equal(parsed.priority, "low");
+  });
+
+  await test("assessSupportCasePriority calls assess RPC only", async () => {
+    const rpcNames: string[] = [];
+    const supabase = {
+      rpc: async (fn: string) => {
+        rpcNames.push(fn);
+        return {
+          data: {
+            case_id: "case-1",
+            priority: "high",
+            priority_source: "automatic",
+            reason_code: "category_refund",
+            confidence: 0.75,
+            created: true,
+            protected: false,
+          },
+          error: null,
+        };
+      },
+    };
+
+    const result = await assessSupportCasePriority(supabase, "case-1");
+    assert.deepEqual(rpcNames, [SUPPORT_PRIORITIZE_ASSESS_RPC]);
+    assert.equal(result.created, true);
+    assert.equal(result.priority_source, "automatic");
+  });
+
+  await test("setSupportCasePriorityManual calls manual RPC", async () => {
+    const rpcCalls: Array<{ fn: string; params?: Record<string, unknown> }> = [];
+    const supabase = {
+      rpc: async (fn: string, params?: Record<string, unknown>) => {
+        rpcCalls.push({ fn, params });
+        return {
+          data: {
+            case_id: "case-1",
+            priority: "low",
+            priority_source: "manual",
+            created: true,
+          },
+          error: null,
+        };
+      },
+    };
+
+    await setSupportCasePriorityManual(supabase, "case-1", "low");
+    assert.equal(rpcCalls[0]?.fn, SUPPORT_PRIORITIZE_MANUAL_RPC);
+    assert.deepEqual(rpcCalls[0]?.params, { p_case_id: "case-1", p_priority: "low" });
+  });
+
+  await test("clearSupportCasePriorityOverride calls clear RPC", async () => {
+    const rpcCalls: Array<{ fn: string; params?: Record<string, unknown> }> = [];
+    const supabase = {
+      rpc: async (fn: string, params?: Record<string, unknown>) => {
+        rpcCalls.push({ fn, params });
+        return {
+          data: { case_id: "case-1", priority_source: "default", created: true },
+          error: null,
+        };
+      },
+    };
+
+    await clearSupportCasePriorityOverride(supabase, "case-1");
+    assert.equal(rpcCalls[0]?.fn, SUPPORT_PRIORITIZE_CLEAR_RPC);
+    assert.deepEqual(rpcCalls[0]?.params, { p_case_id: "case-1" });
+  });
+
+  await test("assessSupportCasePriority does not call ASO triage RPC", async () => {
+    const rpcNames: string[] = [];
+    const supabase = {
+      rpc: async (fn: string) => {
+        rpcNames.push(fn);
+        return { data: { created: true, protected: false }, error: null };
+      },
+    };
+
+    await assessSupportCasePriority(supabase, "case-5");
+    assert.deepEqual(rpcNames, [SUPPORT_PRIORITIZE_ASSESS_RPC]);
   });
 
   await test("understandSupportCase does not call ASO triage RPC", async () => {

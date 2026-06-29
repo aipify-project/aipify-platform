@@ -47,8 +47,26 @@ export const SUPPORT_INTAKE_LIMITS = {
 
 export const SUPPORT_CASE_CREATE_RPC = "create_organization_support_case" as const;
 export const SUPPORT_UNDERSTAND_RPC = "understand_organization_support_case" as const;
+export const SUPPORT_PRIORITIZE_ASSESS_RPC = "assess_organization_support_case_priority" as const;
+export const SUPPORT_PRIORITIZE_MANUAL_RPC = "set_organization_support_case_priority_manual" as const;
+export const SUPPORT_PRIORITIZE_CLEAR_RPC = "clear_organization_support_case_priority_override" as const;
 export const SUPPORT_INTAKE_IDEMPOTENCY_CONFLICT = "support_intake_idempotency_conflict" as const;
 export const SUPPORT_UNDERSTANDING_NO_INBOUND = "support_understanding_no_inbound" as const;
+export const SUPPORT_PRIORITY_UNDERSTANDING_REQUIRED = "support_priority_understanding_required" as const;
+export const SUPPORT_PRIORITY_UNDERSTANDING_STALE = "support_priority_understanding_stale" as const;
+export const SUPPORT_PRIORITY_MANUAL_CLEAR_NOT_MANUAL = "support_priority_manual_clear_not_manual" as const;
+
+export const SUPPORT_PRIORITY_SOURCES = [
+  "legacy",
+  "default",
+  "automatic",
+  "manual",
+  "escalation",
+] as const;
+export type SupportPrioritySource = (typeof SUPPORT_PRIORITY_SOURCES)[number];
+
+export const SUPPORT_PRIORITIZE_ACTIONS = ["assess", "set_manual", "clear_manual"] as const;
+export type SupportPrioritizeAction = (typeof SUPPORT_PRIORITIZE_ACTIONS)[number];
 
 const SUPPORT_CASE_UUID_REGEX =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -61,6 +79,7 @@ export type SupportCaseCreateRpcParams = {
   p_priority: SupportPriority;
   p_initial_message: string | null;
   p_idempotency_key: string | null;
+  p_priority_explicit: boolean;
 };
 
 export type ParsedSupportCaseCreateBody =
@@ -78,6 +97,7 @@ export function buildSupportCaseCreateRpcParams(params: {
   customer_identifier?: string;
   channel?: SupportChannel;
   priority?: SupportPriority;
+  priority_explicit?: boolean;
   initial_message?: string;
   idempotency_key?: string;
 }): SupportCaseCreateRpcParams {
@@ -88,6 +108,7 @@ export function buildSupportCaseCreateRpcParams(params: {
     p_priority: params.priority ?? "medium",
     p_initial_message: params.initial_message ?? null,
     p_idempotency_key: params.idempotency_key ?? null,
+    p_priority_explicit: params.priority_explicit ?? false,
   };
 }
 
@@ -128,6 +149,7 @@ export function parseSupportCaseCreateBody(raw: unknown): ParsedSupportCaseCreat
     typeof body.channel === "string" && (SUPPORT_CHANNELS as readonly string[]).includes(body.channel)
       ? (body.channel as SupportChannel)
       : "admin_inbox";
+  const priorityExplicit = Object.prototype.hasOwnProperty.call(body, "priority");
   const priority =
     typeof body.priority === "string" && (SUPPORT_PRIORITIES as readonly string[]).includes(body.priority)
       ? (body.priority as SupportPriority)
@@ -140,6 +162,7 @@ export function parseSupportCaseCreateBody(raw: unknown): ParsedSupportCaseCreat
       customer_identifier: customerIdentifier ?? undefined,
       channel,
       priority,
+      priority_explicit: priorityExplicit,
       initial_message: message ?? undefined,
       idempotency_key: idempotencyKey ?? undefined,
     }),
@@ -253,6 +276,173 @@ export async function processSupportCaseUnderstandRequest(
   return { status: 200, body: (data as Record<string, unknown>) ?? {} };
 }
 
+export function mapSupportCasePrioritizeRpcError(message: string): { status: number; error: string } {
+  if (message.includes(SUPPORT_PRIORITY_UNDERSTANDING_REQUIRED)) {
+    return { status: 409, error: SUPPORT_PRIORITY_UNDERSTANDING_REQUIRED };
+  }
+  if (message.includes(SUPPORT_PRIORITY_UNDERSTANDING_STALE)) {
+    return { status: 409, error: SUPPORT_PRIORITY_UNDERSTANDING_STALE };
+  }
+  if (message.includes(SUPPORT_PRIORITY_MANUAL_CLEAR_NOT_MANUAL)) {
+    return { status: 409, error: SUPPORT_PRIORITY_MANUAL_CLEAR_NOT_MANUAL };
+  }
+  if (message.includes("invalid_priority")) {
+    return { status: 400, error: "invalid_priority" };
+  }
+  if (message.includes("Case not found")) {
+    return { status: 404, error: "Case not found" };
+  }
+  return { status: 403, error: message };
+}
+
+export type ParsedSupportPrioritizeBody =
+  | { ok: true; action: SupportPrioritizeAction; priority?: SupportPriority }
+  | { ok: false; status: number; error: string };
+
+export function parseSupportPrioritizeBody(raw: unknown): ParsedSupportPrioritizeBody {
+  if (raw == null || raw === "" || (typeof raw === "object" && !Array.isArray(raw) && Object.keys(raw).length === 0)) {
+    return { ok: true, action: "assess" };
+  }
+
+  if (typeof raw !== "object" || Array.isArray(raw)) {
+    return { ok: false, status: 400, error: "invalid action" };
+  }
+
+  const body = raw as Record<string, unknown>;
+  const actionRaw = body.action;
+  const action =
+    actionRaw == null || actionRaw === ""
+      ? "assess"
+      : typeof actionRaw === "string" &&
+          (SUPPORT_PRIORITIZE_ACTIONS as readonly string[]).includes(actionRaw)
+        ? (actionRaw as SupportPrioritizeAction)
+        : null;
+
+  if (!action) {
+    return { ok: false, status: 400, error: "invalid action" };
+  }
+
+  if (action === "assess") {
+    return { ok: true, action };
+  }
+
+  if (action === "clear_manual") {
+    return { ok: true, action };
+  }
+
+  const priority =
+    typeof body.priority === "string" && (SUPPORT_PRIORITIES as readonly string[]).includes(body.priority)
+      ? (body.priority as SupportPriority)
+      : null;
+
+  if (!priority) {
+    return { ok: false, status: 400, error: "invalid priority" };
+  }
+
+  return { ok: true, action, priority };
+}
+
+export async function assessSupportCasePriority(
+  supabase: SupportRpcClient,
+  caseId: string
+): Promise<Record<string, unknown>> {
+  const { data, error } = await supabase.rpc(SUPPORT_PRIORITIZE_ASSESS_RPC, {
+    p_case_id: caseId,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Record<string, unknown>) ?? {};
+}
+
+export async function setSupportCasePriorityManual(
+  supabase: SupportRpcClient,
+  caseId: string,
+  priority: SupportPriority
+): Promise<Record<string, unknown>> {
+  const { data, error } = await supabase.rpc(SUPPORT_PRIORITIZE_MANUAL_RPC, {
+    p_case_id: caseId,
+    p_priority: priority,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Record<string, unknown>) ?? {};
+}
+
+export async function clearSupportCasePriorityOverride(
+  supabase: SupportRpcClient,
+  caseId: string
+): Promise<Record<string, unknown>> {
+  const { data, error } = await supabase.rpc(SUPPORT_PRIORITIZE_CLEAR_RPC, {
+    p_case_id: caseId,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Record<string, unknown>) ?? {};
+}
+
+type SupportCasePrioritizeClient = SupportRpcClient & {
+  auth: {
+    getUser: () => Promise<{ data: { user: { id: string } | null } }>;
+  };
+};
+
+export async function processSupportCasePrioritizeRequest(
+  supabase: SupportCasePrioritizeClient,
+  caseId: string,
+  rawBody: unknown
+): Promise<{ status: number; body: Record<string, unknown> }> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return { status: 401, body: { error: "Unauthorized" } };
+  }
+
+  if (!isValidSupportCaseId(caseId)) {
+    return { status: 400, body: { error: "Invalid case id" } };
+  }
+
+  const parsed = parseSupportPrioritizeBody(rawBody);
+  if (!parsed.ok) {
+    return { status: parsed.status, body: { error: parsed.error } };
+  }
+
+  const trimmedCaseId = caseId.trim();
+
+  try {
+    if (parsed.action === "assess") {
+      const { data, error } = await supabase.rpc(SUPPORT_PRIORITIZE_ASSESS_RPC, {
+        p_case_id: trimmedCaseId,
+      });
+      if (error) {
+        const mapped = mapSupportCasePrioritizeRpcError(error.message);
+        return { status: mapped.status, body: { error: mapped.error } };
+      }
+      return { status: 200, body: (data as Record<string, unknown>) ?? {} };
+    }
+
+    if (parsed.action === "clear_manual") {
+      const { data, error } = await supabase.rpc(SUPPORT_PRIORITIZE_CLEAR_RPC, {
+        p_case_id: trimmedCaseId,
+      });
+      if (error) {
+        const mapped = mapSupportCasePrioritizeRpcError(error.message);
+        return { status: mapped.status, body: { error: mapped.error } };
+      }
+      return { status: 200, body: (data as Record<string, unknown>) ?? {} };
+    }
+
+    const { data, error } = await supabase.rpc(SUPPORT_PRIORITIZE_MANUAL_RPC, {
+      p_case_id: trimmedCaseId,
+      p_priority: parsed.priority,
+    });
+    if (error) {
+      const mapped = mapSupportCasePrioritizeRpcError(error.message);
+      return { status: mapped.status, body: { error: mapped.error } };
+    }
+    return { status: 200, body: (data as Record<string, unknown>) ?? {} };
+  } catch {
+    return { status: 500, body: { error: "Failed to prioritize support case" } };
+  }
+}
+
 export async function createSupportCase(
   supabase: SupportRpcClient,
   params: {
@@ -260,6 +450,7 @@ export async function createSupportCase(
     customer_identifier?: string;
     channel?: SupportChannel;
     priority?: SupportPriority;
+    priority_explicit?: boolean;
     initial_message?: string;
     idempotency_key?: string;
   }
