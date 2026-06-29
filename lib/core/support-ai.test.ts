@@ -19,6 +19,14 @@ import {
   retrieveSupportCaseKnowledge,
   mapSupportCaseKnowledgeRpcError,
   processSupportCaseKnowledgeRequest,
+  proposeSupportCaseResponse,
+  processSupportCaseProposalRequest,
+  mapSupportCaseProposalRpcError,
+  SUPPORT_PROPOSAL_RPC,
+  SUPPORT_PROPOSAL_UNDERSTANDING_REQUIRED,
+  SUPPORT_PROPOSAL_UNDERSTANDING_STALE,
+  SUPPORT_PROPOSAL_KNOWLEDGE_REQUIRED,
+  SUPPORT_PROPOSAL_KNOWLEDGE_STALE,
 } from "./support-ai";
 
 function test(name: string, fn: () => void | Promise<void>) {
@@ -471,6 +479,82 @@ async function main() {
     };
     await retrieveSupportCaseKnowledge(supabase, "case-7");
     assert.deepEqual(rpcNames, [SUPPORT_KNOWLEDGE_RETRIEVE_RPC]);
+  });
+
+  await test("mapSupportCaseProposalRpcError maps understanding required to 409", async () => {
+    const mapped = mapSupportCaseProposalRpcError(SUPPORT_PROPOSAL_UNDERSTANDING_REQUIRED);
+    assert.equal(mapped.status, 409);
+    assert.equal(mapped.error, SUPPORT_PROPOSAL_UNDERSTANDING_REQUIRED);
+  });
+
+  await test("mapSupportCaseProposalRpcError maps stale knowledge to 409", async () => {
+    const mapped = mapSupportCaseProposalRpcError(SUPPORT_PROPOSAL_KNOWLEDGE_STALE);
+    assert.equal(mapped.status, 409);
+    assert.equal(mapped.error, SUPPORT_PROPOSAL_KNOWLEDGE_STALE);
+  });
+
+  await test("mapSupportCaseProposalRpcError maps foreign case to 404", async () => {
+    const mapped = mapSupportCaseProposalRpcError("Case not found");
+    assert.equal(mapped.status, 404);
+  });
+
+  await test("mapSupportCaseProposalRpcError maps permission errors to 403", async () => {
+    const mapped = mapSupportCaseProposalRpcError("permission denied for support.view");
+    assert.equal(mapped.status, 403);
+  });
+
+  await test("processSupportCaseProposalRequest returns 401 when unauthenticated", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: null } }) },
+      rpc: async () => ({ data: null, error: null }),
+    };
+    const result = await processSupportCaseProposalRequest(supabase, "b1b2c3d4-e5f6-4789-a012-3456789abcde");
+    assert.equal(result.status, 401);
+  });
+
+  await test("processSupportCaseProposalRequest rejects invalid UUID with 400", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({ data: null, error: null }),
+    };
+    const result = await processSupportCaseProposalRequest(supabase, "bad-id");
+    assert.equal(result.status, 400);
+  });
+
+  await test("processSupportCaseProposalRequest returns RPC result on success", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({
+        data: {
+          case_id: "b1b2c3d4-e5f6-4789-a012-3456789abcde",
+          created: false,
+          status: "proposed",
+          proposed_body: "Refund steps here.",
+          source_count: 1,
+        },
+        error: null,
+      }),
+    };
+    const result = await processSupportCaseProposalRequest(
+      supabase,
+      "b1b2c3d4-e5f6-4789-a012-3456789abcde"
+    );
+    assert.equal(result.status, 200);
+    assert.equal(result.body.created, false);
+    assert.equal(result.body.status, "proposed");
+  });
+
+  await test("proposeSupportCaseResponse calls canonical proposal RPC only", async () => {
+    const rpcNames: string[] = [];
+    const supabase = {
+      rpc: async (fn: string) => {
+        rpcNames.push(fn);
+        return { data: { created: true, status: "proposed" }, error: null };
+      },
+    };
+    await proposeSupportCaseResponse(supabase, "case-8");
+    assert.deepEqual(rpcNames, [SUPPORT_PROPOSAL_RPC]);
+    assert.doesNotMatch(rpcNames.join(","), /suggest_support_ai_response/);
   });
 
   console.log("All support-ai tests passed.");

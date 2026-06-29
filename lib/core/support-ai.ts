@@ -58,9 +58,17 @@ export const SUPPORT_PRIORITY_MANUAL_CLEAR_NOT_MANUAL = "support_priority_manual
 export const SUPPORT_KNOWLEDGE_RETRIEVE_RPC = "retrieve_organization_support_case_knowledge" as const;
 export const SUPPORT_KNOWLEDGE_UNDERSTANDING_REQUIRED = "support_knowledge_understanding_required" as const;
 export const SUPPORT_KNOWLEDGE_UNDERSTANDING_STALE = "support_knowledge_understanding_stale" as const;
+export const SUPPORT_PROPOSAL_RPC = "propose_organization_support_case_response" as const;
+export const SUPPORT_PROPOSAL_UNDERSTANDING_REQUIRED = "support_proposal_understanding_required" as const;
+export const SUPPORT_PROPOSAL_UNDERSTANDING_STALE = "support_proposal_understanding_stale" as const;
+export const SUPPORT_PROPOSAL_KNOWLEDGE_REQUIRED = "support_proposal_knowledge_required" as const;
+export const SUPPORT_PROPOSAL_KNOWLEDGE_STALE = "support_proposal_knowledge_stale" as const;
 
 export const SUPPORT_KNOWLEDGE_STATUSES = ["complete", "needs_human_knowledge_review"] as const;
 export type SupportKnowledgeStatus = (typeof SUPPORT_KNOWLEDGE_STATUSES)[number];
+
+export const SUPPORT_PROPOSAL_STATUSES = ["proposed", "needs_human_review"] as const;
+export type SupportProposalStatus = (typeof SUPPORT_PROPOSAL_STATUSES)[number];
 
 export const SUPPORT_PRIORITY_SOURCES = [
   "legacy",
@@ -204,6 +212,25 @@ export function mapSupportCaseKnowledgeRpcError(message: string): { status: numb
   }
   if (message.includes(SUPPORT_KNOWLEDGE_UNDERSTANDING_STALE)) {
     return { status: 409, error: SUPPORT_KNOWLEDGE_UNDERSTANDING_STALE };
+  }
+  if (message.includes("Case not found")) {
+    return { status: 404, error: "Case not found" };
+  }
+  return { status: 403, error: message };
+}
+
+export function mapSupportCaseProposalRpcError(message: string): { status: number; error: string } {
+  if (message.includes(SUPPORT_PROPOSAL_UNDERSTANDING_REQUIRED)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_UNDERSTANDING_REQUIRED };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_UNDERSTANDING_STALE)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_UNDERSTANDING_STALE };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_KNOWLEDGE_REQUIRED)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_KNOWLEDGE_REQUIRED };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_KNOWLEDGE_STALE)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_KNOWLEDGE_STALE };
   }
   if (message.includes("Case not found")) {
     return { status: 404, error: "Case not found" };
@@ -507,6 +534,54 @@ export async function processSupportCaseKnowledgeRequest(
     return { status: 200, body: (data as Record<string, unknown>) ?? {} };
   } catch {
     return { status: 500, body: { error: "Failed to retrieve support case knowledge" } };
+  }
+}
+
+export async function proposeSupportCaseResponse(
+  supabase: SupportRpcClient,
+  caseId: string
+): Promise<Record<string, unknown>> {
+  const { data, error } = await supabase.rpc(SUPPORT_PROPOSAL_RPC, {
+    p_case_id: caseId,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Record<string, unknown>) ?? {};
+}
+
+type SupportCaseProposalClient = SupportRpcClient & {
+  auth: {
+    getUser: () => Promise<{ data: { user: { id: string } | null } }>;
+  };
+};
+
+export async function processSupportCaseProposalRequest(
+  supabase: SupportCaseProposalClient,
+  caseId: string
+): Promise<{ status: number; body: Record<string, unknown> }> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return { status: 401, body: { error: "Unauthorized" } };
+  }
+
+  if (!isValidSupportCaseId(caseId)) {
+    return { status: 400, body: { error: "Invalid case id" } };
+  }
+
+  const trimmedCaseId = caseId.trim();
+
+  try {
+    const { data, error } = await supabase.rpc(SUPPORT_PROPOSAL_RPC, {
+      p_case_id: trimmedCaseId,
+    });
+    if (error) {
+      const mapped = mapSupportCaseProposalRpcError(error.message);
+      return { status: mapped.status, body: { error: mapped.error } };
+    }
+    return { status: 200, body: (data as Record<string, unknown>) ?? {} };
+  } catch {
+    return { status: 500, body: { error: "Failed to propose support case response" } };
   }
 }
 
