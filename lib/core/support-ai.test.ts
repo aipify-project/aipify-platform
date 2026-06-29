@@ -3,6 +3,8 @@ import {
   buildSupportCaseCreateRpcParams,
   createSupportCase,
   SUPPORT_CASE_CREATE_RPC,
+  SUPPORT_UNDERSTAND_RPC,
+  understandSupportCase,
 } from "./support-ai";
 
 function test(name: string, fn: () => void | Promise<void>) {
@@ -136,6 +138,120 @@ async function main() {
         }),
       /support_intake_idempotency_conflict/
     );
+  });
+
+  await test("understandSupportCase calls understand RPC with p_case_id", async () => {
+    const calls: Array<{ fn: string; params?: Record<string, unknown> }> = [];
+    const supabase = {
+      rpc: async (fn: string, params?: Record<string, unknown>) => {
+        calls.push({ fn, params });
+        return {
+          data: {
+            case_id: "case-1",
+            created: true,
+            summary: "Billing: I was charged twice.",
+            intent: "Customer inquiry about payment or billing",
+            category: "payment",
+            language: "unknown",
+            confidence: 0.75,
+            status: "complete",
+            message_count: 1,
+            engine_key: "canonical_support_rules",
+            engine_version: "rules-v1",
+            analyzed_at: "2026-06-26T12:00:00.000Z",
+          },
+          error: null,
+        };
+      },
+    };
+
+    const result = await understandSupportCase(supabase, "case-1");
+
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0]?.fn, SUPPORT_UNDERSTAND_RPC);
+    assert.deepEqual(calls[0]?.params, { p_case_id: "case-1" });
+    assert.equal(result.created, true);
+    assert.equal(result.engine_key, "canonical_support_rules");
+  });
+
+  await test("understandSupportCase preserves cached created=false result", async () => {
+    const supabase = {
+      rpc: async () => ({
+        data: {
+          case_id: "case-1",
+          created: false,
+          summary: "Billing: I was charged twice.",
+          intent: "Customer inquiry about payment or billing",
+          category: "payment",
+          language: "unknown",
+          confidence: 0.75,
+          status: "complete",
+          message_count: 1,
+          engine_key: "canonical_support_rules",
+          engine_version: "rules-v1",
+          analyzed_at: "2026-06-26T12:00:00.000Z",
+        },
+        error: null,
+      }),
+    };
+
+    const result = await understandSupportCase(supabase, "case-1");
+    assert.equal(result.created, false);
+    assert.equal(result.category, "payment");
+  });
+
+  await test("understandSupportCase preserves low-confidence result explicitly", async () => {
+    const supabase = {
+      rpc: async () => ({
+        data: {
+          case_id: "case-2",
+          created: true,
+          summary: "General question: Need help with something.",
+          intent: "General customer support inquiry",
+          category: "general",
+          language: "unknown",
+          confidence: 0.35,
+          status: "low_confidence",
+          message_count: 1,
+          engine_key: "canonical_support_rules",
+          engine_version: "rules-v1",
+          analyzed_at: "2026-06-26T12:00:00.000Z",
+        },
+        error: null,
+      }),
+    };
+
+    const result = await understandSupportCase(supabase, "case-2");
+    assert.equal(result.status, "low_confidence");
+    assert.equal(result.confidence, 0.35);
+    assert.equal(result.category, "general");
+  });
+
+  await test("understandSupportCase propagates RPC errors", async () => {
+    const supabase = {
+      rpc: async () => ({
+        data: null,
+        error: { message: "support_understanding_no_inbound" },
+      }),
+    };
+
+    await assert.rejects(
+      () => understandSupportCase(supabase, "case-3"),
+      /support_understanding_no_inbound/
+    );
+  });
+
+  await test("understandSupportCase does not call ASO triage RPC", async () => {
+    const rpcNames: string[] = [];
+    const supabase = {
+      rpc: async (fn: string) => {
+        rpcNames.push(fn);
+        return { data: { created: true }, error: null };
+      },
+    };
+
+    await understandSupportCase(supabase, "case-4");
+    assert.deepEqual(rpcNames, [SUPPORT_UNDERSTAND_RPC]);
   });
 
   console.log("All support-ai tests passed.");

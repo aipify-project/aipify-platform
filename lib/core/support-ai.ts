@@ -46,7 +46,13 @@ export const SUPPORT_INTAKE_LIMITS = {
 } as const;
 
 export const SUPPORT_CASE_CREATE_RPC = "create_organization_support_case" as const;
+export const SUPPORT_UNDERSTAND_RPC = "understand_organization_support_case" as const;
 export const SUPPORT_INTAKE_IDEMPOTENCY_CONFLICT = "support_intake_idempotency_conflict" as const;
+export const SUPPORT_UNDERSTANDING_NO_INBOUND = "support_understanding_no_inbound" as const;
+
+const SUPPORT_CASE_UUID_REGEX =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const SUPPORT_CASE_NIL_UUID = "00000000-0000-0000-0000-000000000000";
 
 export type SupportCaseCreateRpcParams = {
   p_subject: string;
@@ -147,6 +153,22 @@ export function mapSupportCaseCreateRpcError(message: string): { status: number;
   return { status: 403, error: message };
 }
 
+export function isValidSupportCaseId(caseId: string): boolean {
+  const trimmed = caseId.trim();
+  if (!trimmed || !SUPPORT_CASE_UUID_REGEX.test(trimmed)) return false;
+  return trimmed.toLowerCase() !== SUPPORT_CASE_NIL_UUID;
+}
+
+export function mapSupportCaseUnderstandRpcError(message: string): { status: number; error: string } {
+  if (message.includes(SUPPORT_UNDERSTANDING_NO_INBOUND)) {
+    return { status: 409, error: SUPPORT_UNDERSTANDING_NO_INBOUND };
+  }
+  if (message.includes("Case not found")) {
+    return { status: 404, error: "Case not found" };
+  }
+  return { status: 403, error: message };
+}
+
 type SupportCaseCreateClient = SupportRpcClient & {
   auth: {
     getUser: () => Promise<{ data: { user: { id: string } | null } }>;
@@ -186,6 +208,49 @@ export function isHighRiskTopic(text: string): boolean {
   return /billing|refund|legal|privacy|security breach|account suspension|chargeback|gdpr|lawsuit/i.test(
     text
   );
+}
+
+export async function understandSupportCase(
+  supabase: SupportRpcClient,
+  caseId: string
+): Promise<Record<string, unknown>> {
+  const { data, error } = await supabase.rpc(SUPPORT_UNDERSTAND_RPC, {
+    p_case_id: caseId,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Record<string, unknown>) ?? {};
+}
+
+type SupportCaseUnderstandClient = SupportRpcClient & {
+  auth: {
+    getUser: () => Promise<{ data: { user: { id: string } | null } }>;
+  };
+};
+
+export async function processSupportCaseUnderstandRequest(
+  supabase: SupportCaseUnderstandClient,
+  caseId: string
+): Promise<{ status: number; body: Record<string, unknown> }> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return { status: 401, body: { error: "Unauthorized" } };
+  }
+
+  if (!isValidSupportCaseId(caseId)) {
+    return { status: 400, body: { error: "Invalid case id" } };
+  }
+
+  const { data, error } = await supabase.rpc(SUPPORT_UNDERSTAND_RPC, {
+    p_case_id: caseId.trim(),
+  });
+  if (error) {
+    const mapped = mapSupportCaseUnderstandRpcError(error.message);
+    return { status: mapped.status, body: { error: mapped.error } };
+  }
+
+  return { status: 200, body: (data as Record<string, unknown>) ?? {} };
 }
 
 export async function createSupportCase(
