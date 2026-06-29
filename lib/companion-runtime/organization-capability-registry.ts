@@ -146,7 +146,7 @@ export const ORGANIZATION_CAPABILITY_REGISTRY: readonly OrganizationCapabilityDe
   {
     module_id: "support.case",
     capability_key: "support_queue.read",
-    provider_key: "autonomous_support_operations",
+    provider_key: "support_ai_engine",
     semantic: supportDescriptorToSemantic(
       SUPPORT_SEMANTIC_DESCRIPTORS.find((entry) => entry.capability_key === "support_queue.read")!,
     ),

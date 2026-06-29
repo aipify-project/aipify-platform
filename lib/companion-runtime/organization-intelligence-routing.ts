@@ -7,7 +7,11 @@ import type { PlatformSearchResult } from "@/lib/companion-platform-knowledge/ty
 import { isCommunityMemberDirectoryReadSourceConnected } from "@/lib/integration-intelligence/providers/community-member-directory/community-member-directory-source-map";
 import { buildCommunityMemberDirectoryPermissionContext } from "@/lib/integration-intelligence/providers/community-member-directory/permissions";
 import { isMemberVerificationReadSourceConnected } from "@/lib/integration-intelligence/providers/member-verification/member-verification-source-map";
-import { mapAsoDashboardToSupportBundle } from "@/lib/integration-intelligence/providers/support-operations/support-operations-contract";
+import {
+  mapAsoDashboardToSupportBundle,
+  mapSupportAiDashboardToSupportBundle,
+  SUPPORT_AI_QUEUE_SOURCE_REFERENCE,
+} from "@/lib/integration-intelligence/providers/support-operations/support-operations-contract";
 import type { SupportPermissionContext } from "@/lib/integration-intelligence/support/permissions";
 import type { VerificationPermissionContext } from "@/lib/integration-intelligence/verification/permissions";
 import { createCommunityMemberDirectoryReadProviderBridge } from "./community-member-directory-read-provider-bridge";
@@ -87,6 +91,26 @@ function buildVerificationPermission(
   };
 }
 
+function buildSupportQueuePermission(
+  tenantContext: CompanionTenantContext,
+  providerActive: boolean,
+): SupportPermissionContext {
+  return {
+    organization_id: tenantContext.organizationId!,
+    tenant_id: tenantContext.companyId ?? tenantContext.organizationId!,
+    user_role: tenantContext.organizationRole ?? "staff",
+    app_suspended: isAppSuspended(tenantContext.subscriptionStatus),
+    provider_active: providerActive,
+    can_read_queue: tenantContext.effectivePermissions.includes("support.view"),
+    can_read_cases: tenantContext.effectivePermissions.includes("support.view"),
+    can_read_sla: false,
+    can_draft_response: false,
+    can_assign_case: false,
+    can_escalate_case: false,
+    rate_limit_ok: true,
+  };
+}
+
 function buildSupportPermission(
   tenantContext: CompanionTenantContext,
   providerActive: boolean,
@@ -131,7 +155,13 @@ function buildSupportProviderFromContext(
   };
 }
 
-async function fetchSupportBundleFromRpc(supabase: SupabaseClient) {
+async function fetchSupportAiQueueBundleFromRpc(supabase: SupabaseClient) {
+  const { data, error } = await supabase.rpc("get_support_ai_engine_dashboard");
+  if (error || !data) return null;
+  return mapSupportAiDashboardToSupportBundle(data);
+}
+
+async function fetchAsoSupportBundleFromRpc(supabase: SupabaseClient) {
   const { data, error } = await supabase.rpc("get_customer_support_operations_center");
   if (error || !data) return null;
   return mapAsoDashboardToSupportBundle(data);
@@ -405,35 +435,9 @@ async function resolveSupportQueueAnswer(
     };
   }
 
-  const rpcBundle = await fetchSupportBundleFromRpc(input.supabase);
-  const contextProvider = buildSupportProviderFromContext(input.tenantContext);
+  const rpcBundle = await fetchSupportAiQueueBundleFromRpc(input.supabase);
 
-  const bundle = rpcBundle ?? {
-    queue: input.tenantContext.supportContext.queue_summary,
-    cases: input.tenantContext.supportContext.case_summaries,
-    source_exact: input.tenantContext.supportContext.support_source_exact,
-    sla_source_exact: false,
-    limitations: [] as readonly string[],
-  };
-
-  const provider: SupportProviderReader | null = rpcBundle
-    ? {
-        provider_key: "autonomous_support_operations",
-        active: rpcBundle.source_exact,
-        read_queue: async () => ({
-          queue: rpcBundle.queue,
-          cases: rpcBundle.cases,
-          source_exact: rpcBundle.source_exact,
-          limitations: rpcBundle.limitations,
-        }),
-        read_case: async () => ({
-          case_detail: null,
-          limitations: rpcBundle.limitations,
-        }),
-      }
-    : contextProvider;
-
-  if (!provider || !bundle.source_exact) {
+  if (!rpcBundle || !rpcBundle.source_exact) {
     return {
       answer: buildOrganizationIntelligenceGapAnswer(input.t, "source_unavailable", {
         sourceReference: readiness.source_reference,
@@ -441,6 +445,21 @@ async function resolveSupportQueueAnswer(
       }),
     };
   }
+
+  const provider: SupportProviderReader = {
+    provider_key: "support_ai_engine",
+    active: true,
+    read_queue: async () => ({
+      queue: rpcBundle.queue,
+      cases: rpcBundle.cases,
+      source_exact: rpcBundle.source_exact,
+      limitations: rpcBundle.limitations,
+    }),
+    read_case: async () => ({
+      case_detail: null,
+      limitations: rpcBundle.limitations,
+    }),
+  };
 
   const offer = resolveAccessOfferFromCapability({
     provider_key: intent.provider_key,
@@ -452,7 +471,7 @@ async function resolveSupportQueueAnswer(
     supabase: input.supabase,
     t: input.t,
     offer,
-    providerReady: readiness.provider_active && bundle.source_exact,
+    providerReady: readiness.provider_active && rpcBundle.source_exact,
     effectivePermissions: input.tenantContext.effectivePermissions,
     capabilityKey: intent.capability_key,
     sourceReference: readiness.source_reference,
@@ -463,7 +482,7 @@ async function resolveSupportQueueAnswer(
 
   if (gate) return gate;
 
-  const supportPermission = buildSupportPermission(input.tenantContext, bundle.source_exact);
+  const supportPermission = buildSupportQueuePermission(input.tenantContext, rpcBundle.source_exact);
 
   const queueResult = await executeSupportQueueRead({
     organization_id: input.tenantContext.organizationId!,
@@ -476,9 +495,9 @@ async function resolveSupportQueueAnswer(
   return {
     answer: buildSupportQueueAnswer({
       queue: queueResult.queue,
-      sourceReference: bundle.queue?.source_reference ?? "get_customer_support_operations_center",
-      sourceExact: bundle.source_exact,
-      generatedAt: bundle.queue?.generated_at ?? null,
+      sourceReference: rpcBundle.queue?.source_reference ?? SUPPORT_AI_QUEUE_SOURCE_REFERENCE,
+      sourceExact: rpcBundle.source_exact,
+      generatedAt: rpcBundle.queue?.generated_at ?? null,
       t: input.t,
       locale: input.locale,
     }),
@@ -505,7 +524,7 @@ async function resolveSupportSlaAnswer(
     };
   }
 
-  const rpcBundle = await fetchSupportBundleFromRpc(input.supabase);
+  const rpcBundle = await fetchAsoSupportBundleFromRpc(input.supabase);
   const contextProvider = buildSupportProviderFromContext(input.tenantContext);
 
   const bundle = rpcBundle ?? {

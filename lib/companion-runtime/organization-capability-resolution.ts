@@ -353,13 +353,13 @@ export function assessOrganizationCapabilityReadiness(route: OrganizationCapabil
       };
     }
     case "support.case": {
-      const definition = getSupportSourceDefinition("support_queue.read");
+      const definition = getSupportSourceDefinition("support_queue.read", "support_ai_engine");
       const connected =
         definition?.read_only &&
         (definition.status === "live" || definition.status === "partial");
       return {
         status: connected ? "production_ready_candidate" : "adapter_missing",
-        source_reference: "get_customer_support_operations_center",
+        source_reference: "get_support_ai_engine_dashboard",
         provider_active: Boolean(connected),
       };
     }

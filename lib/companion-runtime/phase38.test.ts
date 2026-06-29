@@ -13,7 +13,11 @@ import { createEmptyCompanionSalesContext } from "@/lib/companion-runtime/compan
 import { createEmptyCompanionSecurityContext } from "@/lib/companion-runtime/companion-security-context";
 import { createEmptyCompanionSupportContext } from "@/lib/companion-runtime/companion-support-context";
 import { createEmptyCompanionWarehouseContext } from "@/lib/companion-runtime/companion-warehouse-context";
-import { mapAsoDashboardToSupportBundle } from "@/lib/integration-intelligence/providers/support-operations/support-operations-contract";
+import {
+  mapAsoDashboardToSupportBundle,
+  mapSupportAiDashboardToSupportBundle,
+  SUPPORT_AI_QUEUE_SOURCE_REFERENCE,
+} from "@/lib/integration-intelligence/providers/support-operations/support-operations-contract";
 import { SUPPORT_OPERATIONS_SOURCE_MAP } from "@/lib/integration-intelligence/providers/support-operations/support-source-map";
 import {
   normalizeSlaStatus,
@@ -40,6 +44,23 @@ import { getCommandBriefCatalogEntry } from "@/lib/integration-intelligence/comm
 
 const repoRoot = path.join(import.meta.dirname, "..", "..");
 const ORG = "org-support-38";
+
+function buildSupportAiPreviewCases(count: number) {
+  return Array.from({ length: count }, (_, index) => ({
+    id: `case-preview-${index + 1}`,
+    subject: `Preview case ${index + 1}`,
+    status: index === 0 ? "waiting_for_internal" : "open",
+    priority: index === 0 ? "medium" : "low",
+    channel: "admin_inbox",
+    created_at: `2026-06-${String(Math.min(index + 1, 28)).padStart(2, "0")}T08:00:00.000Z`,
+  }));
+}
+
+const SUPPORT_AI_QUEUE_SUMMARY_28_15 = {
+  total_open: 28,
+  unassigned: 15,
+  preview_limit: 15,
+} as const;
 
 assert.equal(normalizeSupportStatus("pending_approval"), "waiting_for_support");
 assert.equal(normalizeSupportStatus("waiting_on_customer"), "waiting_for_customer");
@@ -80,6 +101,94 @@ assert.equal(bundle.queue?.total_open, 3);
 assert.ok(bundle.cases.length >= 3);
 assert.equal(bundle.cases.every((entry) => entry.sla_status === "unavailable"), true);
 assert.ok(bundle.source_exact);
+
+const supportAiPayload = {
+  has_organization: true,
+  queue_summary: { total_open: 1, unassigned: 1, preview_limit: 15 },
+  open_cases: [
+    {
+      id: "a1e5c4d7-4055-4a47-9cbe-27cb57e27391",
+      subject: "Canonical probe case",
+      status: "waiting_for_internal",
+      priority: "medium",
+      channel: "admin_inbox",
+      created_at: "2026-06-22T08:00:00.000Z",
+    },
+  ],
+};
+
+const supportAiBundle = mapSupportAiDashboardToSupportBundle(supportAiPayload);
+assert.equal(supportAiBundle.queue?.total_open, 1);
+assert.equal(supportAiBundle.cases[0]?.case_id, "a1e5c4d7-4055-4a47-9cbe-27cb57e27391");
+assert.equal(supportAiBundle.queue?.source_reference, SUPPORT_AI_QUEUE_SOURCE_REFERENCE);
+assert.equal(
+  mapSupportAiDashboardToSupportBundle({ has_organization: false }).source_exact,
+  false,
+);
+
+const aggregatePreviewCases = buildSupportAiPreviewCases(15);
+const aggregateSupportAiBundle = mapSupportAiDashboardToSupportBundle({
+  has_organization: true,
+  queue_summary: SUPPORT_AI_QUEUE_SUMMARY_28_15,
+  open_cases: aggregatePreviewCases,
+});
+assert.equal(aggregateSupportAiBundle.queue?.total_open, 28);
+assert.equal(aggregateSupportAiBundle.queue?.unassigned, 15);
+assert.equal(aggregateSupportAiBundle.cases.length, 15);
+assert.equal(aggregateSupportAiBundle.source_exact, true);
+assert.notEqual(aggregateSupportAiBundle.queue?.total_open, aggregateSupportAiBundle.cases.length);
+
+assert.equal(
+  mapSupportAiDashboardToSupportBundle({ has_organization: true, open_cases: [] }).source_exact,
+  false,
+);
+assert.equal(
+  mapSupportAiDashboardToSupportBundle({
+    has_organization: true,
+    queue_summary: { total_open: -1, unassigned: 0, preview_limit: 15 },
+    open_cases: [],
+  }).source_exact,
+  false,
+);
+assert.equal(
+  mapSupportAiDashboardToSupportBundle({
+    has_organization: true,
+    queue_summary: { total_open: 2.5, unassigned: 0, preview_limit: 15 },
+    open_cases: [],
+  }).source_exact,
+  false,
+);
+assert.equal(
+  mapSupportAiDashboardToSupportBundle({
+    has_organization: true,
+    queue_summary: { total_open: 3, unassigned: 10, preview_limit: 15 },
+    open_cases: [],
+  }).source_exact,
+  false,
+);
+assert.equal(
+  mapSupportAiDashboardToSupportBundle({
+    has_organization: true,
+    queue_summary: { total_open: 28, unassigned: 15, preview_limit: 15 },
+    open_cases: buildSupportAiPreviewCases(16),
+  }).source_exact,
+  false,
+);
+
+const supportAiProvider: SupportProviderReader = {
+  provider_key: "support_ai_engine",
+  active: true,
+  read_queue: async () => ({
+    queue: supportAiBundle.queue,
+    cases: supportAiBundle.cases,
+    source_exact: supportAiBundle.source_exact,
+    limitations: supportAiBundle.limitations,
+  }),
+  read_case: async () => ({
+    case_detail: null,
+    limitations: supportAiBundle.limitations,
+  }),
+};
 
 const briefSignals = buildSupportCommandBriefSignals({
   queue: bundle.queue,
@@ -154,6 +263,52 @@ async function runPhase38AsyncTests() {
   assert.equal(queueRead.outcome, "partial_result");
   assert.ok(queueRead.queue);
   assert.ok(queueRead.cases.length > 0);
+
+  const canonicalQueueRead = await executeSupportQueueRead({
+    organization_id: ORG,
+    tenant_id: ORG,
+    user_role: "owner",
+    permission: {
+      ...permission,
+      can_read_queue: true,
+      can_read_cases: true,
+      can_read_sla: false,
+    },
+    providers: [supportAiProvider],
+  });
+  assert.equal(canonicalQueueRead.outcome, "partial_result");
+  assert.equal(canonicalQueueRead.queue?.total_open, 1);
+  assert.equal(canonicalQueueRead.cases[0]?.case_id, "a1e5c4d7-4055-4a47-9cbe-27cb57e27391");
+
+  const emptyCanonicalQueueRead = await executeSupportQueueRead({
+    organization_id: ORG,
+    tenant_id: ORG,
+    user_role: "owner",
+    permission: {
+      ...permission,
+      can_read_queue: true,
+      can_read_cases: true,
+      can_read_sla: false,
+    },
+    providers: [
+      {
+        provider_key: "support_ai_engine",
+        active: true,
+        read_queue: async () => ({
+          queue: mapSupportAiDashboardToSupportBundle({
+            has_organization: true,
+            queue_summary: { total_open: 0, unassigned: 0, preview_limit: 15 },
+            open_cases: [],
+          }).queue,
+          cases: [],
+          source_exact: true,
+          limitations: [],
+        }),
+        read_case: async () => ({ case_detail: null, limitations: [] }),
+      },
+    ],
+  });
+  assert.equal(emptyCanonicalQueueRead.outcome, "empty_queue");
 
   const caseRead = await executeSupportCaseRead({
     organization_id: ORG,
@@ -532,6 +687,11 @@ runPhase38AsyncTests()
     }
 
     assert.ok(SUPPORT_OPERATIONS_SOURCE_MAP.length >= 5);
+    const queueSource = SUPPORT_OPERATIONS_SOURCE_MAP.find(
+      (entry) => entry.capability_key === "support_queue.read",
+    );
+    assert.equal(queueSource?.provider_key, "support_ai_engine");
+    assert.equal(queueSource?.source_id, "get_support_ai_engine_dashboard");
 
     for (const locale of COMPANION_COVERAGE_LOCALES) {
       const dict = JSON.parse(

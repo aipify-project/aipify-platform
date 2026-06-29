@@ -77,7 +77,7 @@ assert.equal(
     supportScopes,
   ),
   true,
-  "delegated admin with scope permission can approve support scopes",
+  "delegated admin with scope permission can approve support SLA scopes",
 );
 
 assert.equal(
@@ -184,10 +184,10 @@ const supportQueueScopes = ["support.queue.read"];
 
 assert.equal(
   resolveOrganizationAccessAuthorization({
-    provider_key: "autonomous_support_operations",
+    provider_key: "support_ai_engine",
     scope_keys: supportQueueScopes,
     provider_ready: true,
-    effective_permissions: ["support.view_metrics"],
+    effective_permissions: ["support.view"],
     organization_has_active_scope: false,
   }).state,
   "organization_scope_required",
@@ -196,75 +196,98 @@ assert.equal(
 
 assert.equal(
   resolvesBusinessPackEntitlementWithoutOrganizationGrant({
-    provider_key: "autonomous_support_operations",
+    provider_key: "support_ai_engine",
     scope_keys: supportQueueScopes,
     provider_ready: true,
-    effective_permissions: ["support.view_metrics"],
+    effective_permissions: ["support.view"],
   }),
   true,
-  "internal pack read scope authorizes without organization grant when ready and permitted",
+  "internal Support AI pack read scope authorizes without organization grant when ready and permitted",
 );
 
 assert.equal(
   resolveOrganizationAccessAuthorization({
-    provider_key: "autonomous_support_operations",
+    provider_key: "support_ai_engine",
     scope_keys: supportQueueScopes,
     provider_ready: true,
-    effective_permissions: ["support.view_metrics"],
+    effective_permissions: ["support.view"],
     organization_has_active_scope: resolvesBusinessPackEntitlementWithoutOrganizationGrant({
-      provider_key: "autonomous_support_operations",
+      provider_key: "support_ai_engine",
       scope_keys: supportQueueScopes,
       provider_ready: true,
-      effective_permissions: ["support.view_metrics"],
+      effective_permissions: ["support.view"],
     }),
   }).state,
   "authorized",
-  "internal pack provider + ready + permission + read scope + no grant → authorized",
+  "internal Support AI provider + ready + permission + read scope + no grant → authorized",
 );
 
 assert.equal(
   resolveOrganizationAccessAuthorization({
-    provider_key: "autonomous_support_operations",
+    provider_key: "support_ai_engine",
     scope_keys: supportQueueScopes,
     provider_ready: false,
-    effective_permissions: ["support.view_metrics"],
+    effective_permissions: ["support.view"],
     organization_has_active_scope: resolvesBusinessPackEntitlementWithoutOrganizationGrant({
-      provider_key: "autonomous_support_operations",
+      provider_key: "support_ai_engine",
       scope_keys: supportQueueScopes,
       provider_ready: false,
-      effective_permissions: ["support.view_metrics"],
+      effective_permissions: ["support.view"],
     }),
   }).state,
   "provider_not_connected",
-  "internal pack provider blocks when provider readiness is false",
+  "internal Support AI provider blocks when provider readiness is false",
 );
 
 assert.equal(
   resolveOrganizationAccessAuthorization({
-    provider_key: "autonomous_support_operations",
+    provider_key: "support_ai_engine",
     scope_keys: supportQueueScopes,
     provider_ready: true,
     effective_permissions: [],
     organization_has_active_scope: resolvesBusinessPackEntitlementWithoutOrganizationGrant({
-      provider_key: "autonomous_support_operations",
+      provider_key: "support_ai_engine",
       scope_keys: supportQueueScopes,
       provider_ready: true,
       effective_permissions: [],
     }),
   }).state,
   "user_role_denied",
-  "internal pack provider blocks when user permission is missing",
+  "internal Support AI provider blocks when user permission is missing",
+);
+
+assert.equal(
+  resolvesBusinessPackEntitlementWithoutOrganizationGrant({
+    provider_key: "support_ai_engine",
+    scope_keys: ["support.queue.write"],
+    provider_ready: true,
+    effective_permissions: ["support.view"],
+  }),
+  false,
+  "unknown Support AI scope is not authorized via business pack entitlement",
 );
 
 assert.equal(
   resolvesBusinessPackEntitlementWithoutOrganizationGrant({
     provider_key: "autonomous_support_operations",
-    scope_keys: ["support.queue.write"],
+    scope_keys: ["support.sla.read"],
     provider_ready: true,
     effective_permissions: ["support.view_metrics"],
   }),
-  false,
-  "unknown scope is not authorized via business pack entitlement",
+  true,
+  "ASO SLA scope still authorizes via business pack entitlement",
+);
+
+assert.equal(
+  resolveOrganizationAccessAuthorization({
+    provider_key: "autonomous_support_operations",
+    scope_keys: supportQueueScopes,
+    provider_ready: true,
+    effective_permissions: ["support.view_metrics"],
+    organization_has_active_scope: false,
+  }).state,
+  "user_role_denied",
+  "ASO provider no longer owns support queue scope",
 );
 
 assert.equal(

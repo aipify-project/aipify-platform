@@ -51,7 +51,7 @@ const MANIFEST_ENTRIES: readonly OrganizationProviderAccessManifestEntry[] = [
     ],
   },
   {
-    provider_key: "autonomous_support_operations",
+    provider_key: "support_ai_engine",
     provider_label_key: "customerApp.organizationAccessApproval.providers.supportOperations.label",
     data_type_label_key: "customerApp.organizationAccessApproval.providers.supportOperations.dataType",
     why_needed_label_key: "customerApp.organizationAccessApproval.providers.supportOperations.whyNeeded",
@@ -59,6 +59,23 @@ const MANIFEST_ENTRIES: readonly OrganizationProviderAccessManifestEntry[] = [
     required_scopes: [
       {
         scope_key: "support.queue.read",
+        permission_key: "support.view",
+        label_key: "customerApp.organizationAccessApproval.scopes.supportQueueRead",
+        risk_level: 1,
+        default_access_mode: "ongoing",
+        default_duration_hours: null,
+      },
+    ],
+  },
+  {
+    provider_key: "autonomous_support_operations",
+    provider_label_key: "customerApp.organizationAccessApproval.providers.supportOperations.label",
+    data_type_label_key: "customerApp.organizationAccessApproval.providers.supportOperations.dataType",
+    why_needed_label_key: "customerApp.organizationAccessApproval.providers.supportOperations.whyNeeded",
+    consent_type: "business_pack_entitlement",
+    required_scopes: [
+      {
+        scope_key: "support.sla.read",
         permission_key: "support.view_metrics",
         label_key: "customerApp.organizationAccessApproval.scopes.supportQueueRead",
         risk_level: 1,

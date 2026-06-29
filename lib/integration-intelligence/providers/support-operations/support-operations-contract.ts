@@ -18,6 +18,41 @@ function asArray(value: unknown): RawSupportCaseRow[] {
   return Array.isArray(value) ? (value as RawSupportCaseRow[]) : [];
 }
 
+function isNonNegativeInteger(value: unknown): value is number {
+  return typeof value === "number" && Number.isInteger(value) && value >= 0 && Number.isFinite(value);
+}
+
+function isPositiveInteger(value: unknown): value is number {
+  return typeof value === "number" && Number.isInteger(value) && value > 0 && Number.isFinite(value);
+}
+
+function parseSupportAiQueueSummary(
+  record: Record<string, unknown>,
+  previewCaseCount: number,
+): { total_open: number; unassigned: number; preview_limit: number } | null {
+  const queueSummary = record.queue_summary;
+  if (!queueSummary || typeof queueSummary !== "object" || Array.isArray(queueSummary)) {
+    return null;
+  }
+
+  const summary = queueSummary as Record<string, unknown>;
+  const totalOpen = summary.total_open;
+  const unassigned = summary.unassigned;
+  const previewLimit = summary.preview_limit;
+
+  if (!isNonNegativeInteger(totalOpen)) return null;
+  if (!isNonNegativeInteger(unassigned)) return null;
+  if (!isPositiveInteger(previewLimit)) return null;
+  if (unassigned > totalOpen) return null;
+  if (previewCaseCount > previewLimit) return null;
+
+  return {
+    total_open: totalOpen,
+    unassigned,
+    preview_limit: previewLimit,
+  };
+}
+
 function parseSlaBlock(data: Record<string, unknown>): {
   sla_source_exact: boolean;
   policy_configured: boolean;
@@ -228,20 +263,128 @@ export function mapAsoDashboardToSupportBundle(data: unknown): {
   };
 }
 
+export const SUPPORT_AI_QUEUE_SOURCE_REFERENCE =
+  "support_ai_engine:get_support_ai_engine_dashboard" as const;
+
+function mapSupportAiCaseRow(row: RawSupportCaseRow): SupportCaseSummary {
+  const mapped = mapAsoCaseRow(row, SUPPORT_AI_QUEUE_SOURCE_REFERENCE, false);
+  mapped.completeness = "partial";
+  mapped.warnings = [
+    "customerApp.companionPlatformKnowledge.support.warnings.casePartialSource",
+  ];
+
+  if (row.channel && !mapped.category) {
+    mapped.category = String(row.channel);
+  }
+
+  const assignedTo = row.assigned_to ?? row.assigned_user_id ?? null;
+  mapped.assigned_user_reference = assignedTo ? String(assignedTo) : null;
+
+  return mapped;
+}
+
 export function mapSupportAiDashboardCases(data: unknown): SupportCaseSummary[] {
   if (!data || typeof data !== "object") return [];
   const record = data as Record<string, unknown>;
   if (record.has_organization === false) return [];
 
+  return asArray(record.open_cases).map((row) => mapSupportAiCaseRow(row));
+}
+
+export function mapSupportAiDashboardToSupportBundle(data: unknown): {
+  queue: SupportQueueSummary | null;
+  cases: SupportCaseSummary[];
+  source_exact: boolean;
+  sla_source_exact: boolean;
+  sla_policy_configured: boolean;
+  limitations: readonly string[];
+} {
+  if (!data || typeof data !== "object") {
+    return {
+      queue: null,
+      cases: [],
+      source_exact: false,
+      sla_source_exact: false,
+      sla_policy_configured: false,
+      limitations: ["Support AI dashboard payload missing."],
+    };
+  }
+
+  const record = data as Record<string, unknown>;
+  if (record.has_organization === false) {
+    return {
+      queue: null,
+      cases: [],
+      source_exact: false,
+      sla_source_exact: false,
+      sla_policy_configured: false,
+      limitations: ["Organization has no Support AI context."],
+    };
+  }
+
   const openCases = asArray(record.open_cases);
-  return openCases.map((row) => {
-    const mapped = mapAsoCaseRow(row, "support_ai_engine:get_support_ai_engine_dashboard", false);
-    mapped.completeness = "partial";
-    mapped.warnings = [
-      "customerApp.companionPlatformKnowledge.support.warnings.casePartialSource",
-    ];
-    return mapped;
-  });
+  const cases = openCases.map((row) => mapSupportAiCaseRow(row));
+  const queueSummary = parseSupportAiQueueSummary(record, cases.length);
+
+  if (!queueSummary) {
+    return {
+      queue: null,
+      cases: [],
+      source_exact: false,
+      sla_source_exact: false,
+      sla_policy_configured: false,
+      limitations: ["Support AI dashboard queue_summary missing or invalid."],
+    };
+  }
+
+  const { total_open: totalOpen, unassigned } = queueSummary;
+
+  let urgent = 0;
+  let waitingForCustomer = 0;
+  let waitingForSupport = 0;
+  let oldestOpenAt: string | null = null;
+
+  for (const supportCase of cases) {
+    if (supportCase.priority === "urgent") urgent += 1;
+    if (supportCase.status === "waiting_for_customer") waitingForCustomer += 1;
+    if (
+      supportCase.status === "waiting_for_support" ||
+      supportCase.status === "in_progress"
+    ) {
+      waitingForSupport += supportCase.status === "waiting_for_support" ? 1 : 0;
+    }
+    if (supportCase.created_at) {
+      if (!oldestOpenAt || supportCase.created_at < oldestOpenAt) {
+        oldestOpenAt = supportCase.created_at;
+      }
+    }
+  }
+
+  const queue: SupportQueueSummary = {
+    total_open: totalOpen,
+    unassigned,
+    urgent,
+    overdue: 0,
+    sla_at_risk: 0,
+    waiting_for_customer: waitingForCustomer,
+    waiting_for_support: waitingForSupport,
+    oldest_open_at: oldestOpenAt,
+    generated_at: new Date().toISOString(),
+    source_reference: SUPPORT_AI_QUEUE_SOURCE_REFERENCE,
+    freshness: "fresh" as SupportFreshness,
+    completeness: "partial" as SupportCompleteness,
+  };
+
+  return {
+    queue,
+    cases,
+    source_exact: true,
+    sla_source_exact: false,
+    sla_policy_configured: false,
+    limitations: [
+      "customerApp.companionPlatformKnowledge.support.warnings.queuePartialSource",
+    ],
+  };
 }
 
 export function buildSupportCaseDetail(caseSummary: SupportCaseSummary): SupportCaseDetail {

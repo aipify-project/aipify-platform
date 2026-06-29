@@ -20,8 +20,25 @@ import {
 } from "@/lib/companion-runtime/organization-intelligence-routing";
 import { createEmptyCompanionTenantContext } from "@/lib/companion-runtime/companion-tenant-context";
 import { createEmptyCompanionSupportContext } from "@/lib/companion-runtime/companion-support-context";
-import { mapAsoDashboardToSupportBundle } from "@/lib/integration-intelligence/providers/support-operations/support-operations-contract";
+import { mapAsoDashboardToSupportBundle, mapSupportAiDashboardToSupportBundle, SUPPORT_AI_QUEUE_SOURCE_REFERENCE } from "@/lib/integration-intelligence/providers/support-operations/support-operations-contract";
 import type { CommandBriefSignal } from "@/lib/integration-intelligence/command-brief/types";
+
+function buildSupportAiPreviewCases(count: number) {
+  return Array.from({ length: count }, (_, index) => ({
+    id: `case-preview-${index + 1}`,
+    subject: `Preview case ${index + 1}`,
+    status: index === 0 ? "waiting_for_internal" : "open",
+    priority: index === 0 ? "medium" : "low",
+    channel: "admin_inbox",
+    created_at: `2026-06-${String(Math.min(index + 1, 28)).padStart(2, "0")}T08:00:00.000Z`,
+  }));
+}
+
+const SUPPORT_AI_QUEUE_SUMMARY_28_15 = {
+  total_open: 28,
+  unassigned: 15,
+  preview_limit: 15,
+} as const;
 
 const repoRoot = path.join(import.meta.dirname, "..", "..");
 
@@ -100,6 +117,7 @@ for (const inquiryQuery of [
   const supportQueueIntent = resolveOrganizationIntelligenceIntent(inquiryQuery, "no");
   assert.equal(supportQueueIntent?.kind, "support_queue", inquiryQuery);
   assert.equal(supportQueueIntent?.capability_key, "support_queue.read", inquiryQuery);
+  assert.equal(supportQueueIntent?.provider_key, "support_ai_engine", inquiryQuery);
 }
 
 const genericNavQuestion = "Hvor finner jeg medlemsoversikten i appen?";
@@ -187,46 +205,163 @@ const prioritizeAnswer = buildPrioritizeTodayAnswer({
 assert.match(prioritizeAnswer.directAnswer, /1\./);
 assert.doesNotMatch(prioritizeAnswer.directAnswer, /Open Aipify Companion|Åpne Aipify Companion/i);
 
-const supportBundle = mapAsoDashboardToSupportBundle({
-  has_customer: true,
-  performance: { open_cases: 4 },
-  open_cases: [],
-  high_risk_cases: [],
-  approval_queue: [],
+const supportBundle = mapSupportAiDashboardToSupportBundle({
+  has_organization: true,
+  queue_summary: { total_open: 2, unassigned: 2, preview_limit: 15 },
+  open_cases: [
+    {
+      id: "a1e5c4d7-4055-4a47-9cbe-27cb57e27391",
+      subject: "Canonical probe case",
+      status: "waiting_for_internal",
+      priority: "medium",
+      channel: "admin_inbox",
+      created_at: "2026-06-22T08:00:00.000Z",
+    },
+    {
+      id: "case-2",
+      subject: "Second open case",
+      status: "open",
+      priority: "low",
+      channel: "email_support",
+      created_at: "2026-06-23T08:00:00.000Z",
+    },
+  ],
 });
 
 const connectedQueueAnswer = buildSupportQueueAnswer({
   queue: supportBundle.queue,
-  sourceReference: "get_customer_support_operations_center",
+  sourceReference: SUPPORT_AI_QUEUE_SOURCE_REFERENCE,
   sourceExact: true,
   generatedAt: supportBundle.queue?.generated_at ?? null,
   t,
   locale: "no",
 });
-assert.match(connectedQueueAnswer.directAnswer, /4/);
+assert.match(connectedQueueAnswer.directAnswer, /2/);
+assert.equal(connectedQueueAnswer.sourceId, SUPPORT_AI_QUEUE_SOURCE_REFERENCE);
 assert.doesNotMatch(connectedQueueAnswer.directAnswer, /Jeg er her med deg/i);
 
+const aggregatePreviewCases = buildSupportAiPreviewCases(15);
+const aggregateBundle = mapSupportAiDashboardToSupportBundle({
+  has_organization: true,
+  queue_summary: SUPPORT_AI_QUEUE_SUMMARY_28_15,
+  open_cases: aggregatePreviewCases,
+});
+assert.equal(aggregateBundle.queue?.total_open, 28);
+assert.equal(aggregateBundle.queue?.unassigned, 15);
+assert.equal(aggregateBundle.cases.length, 15);
+assert.equal(aggregateBundle.source_exact, true);
+assert.notEqual(aggregateBundle.queue?.total_open, aggregateBundle.cases.length);
+
+const aggregateQueueAnswer = buildSupportQueueAnswer({
+  queue: aggregateBundle.queue,
+  sourceReference: SUPPORT_AI_QUEUE_SOURCE_REFERENCE,
+  sourceExact: true,
+  generatedAt: aggregateBundle.queue?.generated_at ?? null,
+  t,
+  locale: "no",
+});
+assert.match(aggregateQueueAnswer.directAnswer, /28/);
+assert.doesNotMatch(aggregateQueueAnswer.directAnswer, /\b15\b.*åpen|15 open/i);
+
+const emptyQueueBundle = mapSupportAiDashboardToSupportBundle({
+  has_organization: true,
+  queue_summary: { total_open: 0, unassigned: 0, preview_limit: 15 },
+  open_cases: [],
+});
+assert.equal(emptyQueueBundle.queue?.total_open, 0);
+assert.equal(emptyQueueBundle.cases.length, 0);
+assert.equal(emptyQueueBundle.source_exact, true);
+const emptyQueueAnswer = buildSupportQueueAnswer({
+  queue: emptyQueueBundle.queue,
+  sourceReference: SUPPORT_AI_QUEUE_SOURCE_REFERENCE,
+  sourceExact: true,
+  generatedAt: emptyQueueBundle.queue?.generated_at ?? null,
+  t,
+  locale: "no",
+});
+assert.match(emptyQueueAnswer.directAnswer, /0|ingen|empty|tom/i);
+
+assert.equal(
+  mapSupportAiDashboardToSupportBundle({ has_organization: true, open_cases: [] }).source_exact,
+  false,
+  "missing queue_summary must fail-closed",
+);
+assert.equal(
+  mapSupportAiDashboardToSupportBundle({
+    has_organization: true,
+    queue_summary: { total_open: -1, unassigned: 0, preview_limit: 15 },
+    open_cases: [],
+  }).source_exact,
+  false,
+  "negative total_open must fail-closed",
+);
+assert.equal(
+  mapSupportAiDashboardToSupportBundle({
+    has_organization: true,
+    queue_summary: { total_open: 1.5, unassigned: 0, preview_limit: 15 },
+    open_cases: [],
+  }).source_exact,
+  false,
+  "decimal total_open must fail-closed",
+);
+assert.equal(
+  mapSupportAiDashboardToSupportBundle({
+    has_organization: true,
+    queue_summary: { total_open: 2, unassigned: 5, preview_limit: 15 },
+    open_cases: [],
+  }).source_exact,
+  false,
+  "unassigned > total_open must fail-closed",
+);
+assert.equal(
+  mapSupportAiDashboardToSupportBundle({
+    has_organization: true,
+    queue_summary: { total_open: 28, unassigned: 15, preview_limit: 15 },
+    open_cases: buildSupportAiPreviewCases(16),
+  }).source_exact,
+  false,
+  "preview longer than preview_limit must fail-closed",
+);
+
 const unavailableGapAnswer = buildOrganizationIntelligenceGapAnswer(t, "source_unavailable", {
-  sourceReference: "get_customer_support_operations_center",
+  sourceReference: "get_support_ai_engine_dashboard",
   capabilityKey: "support_queue.read",
 });
 assert.match(unavailableGapAnswer.directAnswer, /live data|live-data|returnerte ikke/i);
 assert.doesNotMatch(unavailableGapAnswer.directAnswer, /Jeg er her med deg/i);
 
 async function runSupportQueueRoutingTests() {
+  const rpcCalls: string[] = [];
+
   const connectedSupabaseStub = {
     rpc: async (name: string) => {
+      rpcCalls.push(name);
       if (name === "has_active_organization_provider_scopes") {
         return { data: false, error: null };
       }
-      if (name === "get_customer_support_operations_center") {
+      if (name === "get_support_ai_engine_dashboard") {
         return {
           data: {
-            has_customer: true,
-            performance: { open_cases: 4 },
-            open_cases: [],
-            high_risk_cases: [],
-            approval_queue: [],
+            has_organization: true,
+            queue_summary: { total_open: 2, unassigned: 2, preview_limit: 15 },
+            open_cases: [
+              {
+                id: "a1e5c4d7-4055-4a47-9cbe-27cb57e27391",
+                subject: "Canonical probe case",
+                status: "waiting_for_internal",
+                priority: "medium",
+                channel: "admin_inbox",
+                created_at: "2026-06-22T08:00:00.000Z",
+              },
+              {
+                id: "case-2",
+                subject: "Second open case",
+                status: "open",
+                priority: "low",
+                channel: "email_support",
+                created_at: "2026-06-23T08:00:00.000Z",
+              },
+            ],
           },
           error: null,
         };
@@ -240,6 +375,9 @@ async function runSupportQueueRoutingTests() {
       if (name === "has_active_organization_provider_scopes") {
         return { data: false, error: null };
       }
+      if (name === "get_support_ai_engine_dashboard") {
+        return { data: { has_organization: false }, error: null };
+      }
       return { data: null, error: { message: "offline" } };
     },
   } as never;
@@ -248,8 +386,9 @@ async function runSupportQueueRoutingTests() {
     organizationId: "org-queue-read",
     companyId: "org-queue-read",
     organizationRole: "organization_owner",
-    effectivePermissions: ["support.view_metrics"],
+    effectivePermissions: ["support.view"],
     supportContext: createEmptyCompanionSupportContext({
+      support_ai_enabled: true,
       autonomous_support_enabled: true,
       support_source_exact: true,
       queue_summary: supportBundle.queue,
@@ -264,14 +403,41 @@ async function runSupportQueueRoutingTests() {
     tenantContext,
   });
   assert.ok(connected?.answer, "expected connected support queue answer");
-  assert.match(connected.answer.directAnswer, /4/);
+  assert.match(connected.answer.directAnswer, /2/);
+  assert.equal(connected.answer.sourceId, SUPPORT_AI_QUEUE_SOURCE_REFERENCE);
   assert.doesNotMatch(connected.answer.directAnswer, /Jeg er her med deg/i);
+  assert.ok(
+    rpcCalls.includes("get_support_ai_engine_dashboard"),
+    "support queue read must call Support AI dashboard RPC",
+  );
+  assert.equal(
+    rpcCalls.filter((name) => name === "get_customer_support_operations_center").length,
+    0,
+    "support queue read must never call ASO RPC",
+  );
   assert.notEqual(
     connected.answer.sourceId,
     "organization-access-approver-direct",
     "support queue read must not create organization access approval CTA",
   );
   assert.notEqual(connected.answer.sourceId, "organization-access-offer");
+
+  const deniedPermission = await resolveOrganizationIntelligenceAnswer("Er det noen nye henvendelser?", {
+    t,
+    activeLocale: "no",
+    supabase: connectedSupabaseStub,
+    tenantContext: createEmptyCompanionTenantContext({
+      organizationId: "org-queue-read",
+      companyId: "org-queue-read",
+      organizationRole: "organization_owner",
+      effectivePermissions: [],
+      supportContext: createEmptyCompanionSupportContext({
+        support_ai_enabled: true,
+      }),
+    }),
+  });
+  assert.ok(deniedPermission?.answer, "expected permission-denied queue answer");
+  assert.match(deniedPermission.answer.directAnswer, /0|ingen|empty|tom/i);
 
   const unavailable = await resolveOrganizationIntelligenceAnswer("Er det noen nye henvendelser?", {
     t,
@@ -281,8 +447,9 @@ async function runSupportQueueRoutingTests() {
       organizationId: "org-queue-read",
       companyId: "org-queue-read",
       organizationRole: "organization_owner",
-      effectivePermissions: ["support.view_metrics"],
+      effectivePermissions: ["support.view"],
       supportContext: createEmptyCompanionSupportContext({
+        support_ai_enabled: false,
         autonomous_support_enabled: false,
         support_source_exact: false,
       }),
