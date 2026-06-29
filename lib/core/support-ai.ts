@@ -55,6 +55,12 @@ export const SUPPORT_UNDERSTANDING_NO_INBOUND = "support_understanding_no_inboun
 export const SUPPORT_PRIORITY_UNDERSTANDING_REQUIRED = "support_priority_understanding_required" as const;
 export const SUPPORT_PRIORITY_UNDERSTANDING_STALE = "support_priority_understanding_stale" as const;
 export const SUPPORT_PRIORITY_MANUAL_CLEAR_NOT_MANUAL = "support_priority_manual_clear_not_manual" as const;
+export const SUPPORT_KNOWLEDGE_RETRIEVE_RPC = "retrieve_organization_support_case_knowledge" as const;
+export const SUPPORT_KNOWLEDGE_UNDERSTANDING_REQUIRED = "support_knowledge_understanding_required" as const;
+export const SUPPORT_KNOWLEDGE_UNDERSTANDING_STALE = "support_knowledge_understanding_stale" as const;
+
+export const SUPPORT_KNOWLEDGE_STATUSES = ["complete", "needs_human_knowledge_review"] as const;
+export type SupportKnowledgeStatus = (typeof SUPPORT_KNOWLEDGE_STATUSES)[number];
 
 export const SUPPORT_PRIORITY_SOURCES = [
   "legacy",
@@ -185,6 +191,19 @@ export function isValidSupportCaseId(caseId: string): boolean {
 export function mapSupportCaseUnderstandRpcError(message: string): { status: number; error: string } {
   if (message.includes(SUPPORT_UNDERSTANDING_NO_INBOUND)) {
     return { status: 409, error: SUPPORT_UNDERSTANDING_NO_INBOUND };
+  }
+  if (message.includes("Case not found")) {
+    return { status: 404, error: "Case not found" };
+  }
+  return { status: 403, error: message };
+}
+
+export function mapSupportCaseKnowledgeRpcError(message: string): { status: number; error: string } {
+  if (message.includes(SUPPORT_KNOWLEDGE_UNDERSTANDING_REQUIRED)) {
+    return { status: 409, error: SUPPORT_KNOWLEDGE_UNDERSTANDING_REQUIRED };
+  }
+  if (message.includes(SUPPORT_KNOWLEDGE_UNDERSTANDING_STALE)) {
+    return { status: 409, error: SUPPORT_KNOWLEDGE_UNDERSTANDING_STALE };
   }
   if (message.includes("Case not found")) {
     return { status: 404, error: "Case not found" };
@@ -440,6 +459,54 @@ export async function processSupportCasePrioritizeRequest(
     return { status: 200, body: (data as Record<string, unknown>) ?? {} };
   } catch {
     return { status: 500, body: { error: "Failed to prioritize support case" } };
+  }
+}
+
+export async function retrieveSupportCaseKnowledge(
+  supabase: SupportRpcClient,
+  caseId: string
+): Promise<Record<string, unknown>> {
+  const { data, error } = await supabase.rpc(SUPPORT_KNOWLEDGE_RETRIEVE_RPC, {
+    p_case_id: caseId,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Record<string, unknown>) ?? {};
+}
+
+type SupportCaseKnowledgeClient = SupportRpcClient & {
+  auth: {
+    getUser: () => Promise<{ data: { user: { id: string } | null } }>;
+  };
+};
+
+export async function processSupportCaseKnowledgeRequest(
+  supabase: SupportCaseKnowledgeClient,
+  caseId: string
+): Promise<{ status: number; body: Record<string, unknown> }> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return { status: 401, body: { error: "Unauthorized" } };
+  }
+
+  if (!isValidSupportCaseId(caseId)) {
+    return { status: 400, body: { error: "Invalid case id" } };
+  }
+
+  const trimmedCaseId = caseId.trim();
+
+  try {
+    const { data, error } = await supabase.rpc(SUPPORT_KNOWLEDGE_RETRIEVE_RPC, {
+      p_case_id: trimmedCaseId,
+    });
+    if (error) {
+      const mapped = mapSupportCaseKnowledgeRpcError(error.message);
+      return { status: mapped.status, body: { error: mapped.error } };
+    }
+    return { status: 200, body: (data as Record<string, unknown>) ?? {} };
+  } catch {
+    return { status: 500, body: { error: "Failed to retrieve support case knowledge" } };
   }
 }
 

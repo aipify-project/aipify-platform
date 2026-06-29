@@ -9,10 +9,16 @@ import {
   SUPPORT_PRIORITIZE_CLEAR_RPC,
   SUPPORT_PRIORITIZE_MANUAL_RPC,
   SUPPORT_UNDERSTAND_RPC,
+  SUPPORT_KNOWLEDGE_RETRIEVE_RPC,
+  SUPPORT_KNOWLEDGE_UNDERSTANDING_REQUIRED,
+  SUPPORT_KNOWLEDGE_UNDERSTANDING_STALE,
   assessSupportCasePriority,
   clearSupportCasePriorityOverride,
   setSupportCasePriorityManual,
   understandSupportCase,
+  retrieveSupportCaseKnowledge,
+  mapSupportCaseKnowledgeRpcError,
+  processSupportCaseKnowledgeRequest,
 } from "./support-ai";
 
 function test(name: string, fn: () => void | Promise<void>) {
@@ -369,6 +375,102 @@ async function main() {
 
     await understandSupportCase(supabase, "case-4");
     assert.deepEqual(rpcNames, [SUPPORT_UNDERSTAND_RPC]);
+  });
+
+  await test("retrieveSupportCaseKnowledge calls retrieve RPC only", async () => {
+    const rpcCalls: Array<{ fn: string; params?: Record<string, unknown> }> = [];
+    const supabase = {
+      rpc: async (fn: string, params?: Record<string, unknown>) => {
+        rpcCalls.push({ fn, params });
+        return {
+          data: {
+            case_id: "case-6",
+            created: true,
+            status: "complete",
+            sources: [],
+            source_count: 0,
+          },
+          error: null,
+        };
+      },
+    };
+
+    await retrieveSupportCaseKnowledge(supabase, "case-6");
+    assert.equal(rpcCalls[0]?.fn, SUPPORT_KNOWLEDGE_RETRIEVE_RPC);
+    assert.deepEqual(rpcCalls[0]?.params, { p_case_id: "case-6" });
+  });
+
+  await test("mapSupportCaseKnowledgeRpcError maps understanding required to 409", async () => {
+    const mapped = mapSupportCaseKnowledgeRpcError(SUPPORT_KNOWLEDGE_UNDERSTANDING_REQUIRED);
+    assert.equal(mapped.status, 409);
+    assert.equal(mapped.error, SUPPORT_KNOWLEDGE_UNDERSTANDING_REQUIRED);
+  });
+
+  await test("mapSupportCaseKnowledgeRpcError maps stale understanding to 409", async () => {
+    const mapped = mapSupportCaseKnowledgeRpcError(SUPPORT_KNOWLEDGE_UNDERSTANDING_STALE);
+    assert.equal(mapped.status, 409);
+    assert.equal(mapped.error, SUPPORT_KNOWLEDGE_UNDERSTANDING_STALE);
+  });
+
+  await test("mapSupportCaseKnowledgeRpcError maps foreign case to 404", async () => {
+    const mapped = mapSupportCaseKnowledgeRpcError("Case not found");
+    assert.equal(mapped.status, 404);
+  });
+
+  await test("mapSupportCaseKnowledgeRpcError maps permission errors to 403", async () => {
+    const mapped = mapSupportCaseKnowledgeRpcError("permission denied for support.view");
+    assert.equal(mapped.status, 403);
+  });
+
+  await test("processSupportCaseKnowledgeRequest returns 401 when unauthenticated", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: null } }) },
+      rpc: async () => ({ data: null, error: null }),
+    };
+    const result = await processSupportCaseKnowledgeRequest(supabase, "b1b2c3d4-e5f6-4789-a012-3456789abcde");
+    assert.equal(result.status, 401);
+  });
+
+  await test("processSupportCaseKnowledgeRequest rejects invalid UUID with 400", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({ data: null, error: null }),
+    };
+    const result = await processSupportCaseKnowledgeRequest(supabase, "bad-id");
+    assert.equal(result.status, 400);
+  });
+
+  await test("processSupportCaseKnowledgeRequest returns RPC result on success", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({
+        data: {
+          case_id: "b1b2c3d4-e5f6-4789-a012-3456789abcde",
+          created: false,
+          status: "complete",
+          source_count: 1,
+        },
+        error: null,
+      }),
+    };
+    const result = await processSupportCaseKnowledgeRequest(
+      supabase,
+      "b1b2c3d4-e5f6-4789-a012-3456789abcde"
+    );
+    assert.equal(result.status, 200);
+    assert.equal(result.body.created, false);
+  });
+
+  await test("retrieveSupportCaseKnowledge does not call suggest or ASO RPC", async () => {
+    const rpcNames: string[] = [];
+    const supabase = {
+      rpc: async (fn: string) => {
+        rpcNames.push(fn);
+        return { data: { created: true }, error: null };
+      },
+    };
+    await retrieveSupportCaseKnowledge(supabase, "case-7");
+    assert.deepEqual(rpcNames, [SUPPORT_KNOWLEDGE_RETRIEVE_RPC]);
   });
 
   console.log("All support-ai tests passed.");
