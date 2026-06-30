@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 
 export async function POST(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ caseId: string }> }
 ) {
   try {
     const supabase = await createClient();
@@ -12,8 +12,8 @@ export async function POST(
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { id } = await params;
-    const { data, error } = await supabase.rpc("suggest_support_ai_response", { p_case_id: id });
+    const { caseId } = await params;
+    const { data, error } = await supabase.rpc("suggest_support_ai_response", { p_case_id: caseId });
     if (error) return NextResponse.json({ error: error.message }, { status: 403 });
     return NextResponse.json(data);
   } catch {
