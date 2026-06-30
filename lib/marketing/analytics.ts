@@ -18,6 +18,19 @@ export type MarketingEventName =
 
 export type MarketingEventPayload = Record<string, string | number | boolean | undefined>;
 
+/** Module-scoped dedup survives React Strict Mode remounts for the same path. */
+let lastIngestedMarketingPageViewPath: string | null = null;
+
+export function shouldIngestMarketingPageView(pagePath: string): boolean {
+  if (lastIngestedMarketingPageViewPath === pagePath) return false;
+  lastIngestedMarketingPageViewPath = pagePath;
+  return true;
+}
+
+export function resetMarketingPageViewDedupForTests(): void {
+  lastIngestedMarketingPageViewPath = null;
+}
+
 export function trackEvent(
   name: MarketingEventName,
   payload: MarketingEventPayload = {}

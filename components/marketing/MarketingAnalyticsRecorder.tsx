@@ -8,9 +8,9 @@ import {
   getStoredCampaignSource,
   getStoredLeadSource,
   ingestMarketingWebsiteEvent,
+  shouldIngestMarketingPageView,
   storeCampaignSource,
   storeLeadSource,
-  trackEvent,
 } from "@/lib/marketing/analytics";
 import {
   resolveCampaignSource,
@@ -73,8 +73,9 @@ export default function MarketingAnalyticsRecorder() {
       );
     }
 
-    trackEvent("page_view", { path: pagePath });
-    void ingestMarketingWebsiteEvent(buildIngestPayload("page_view", pagePath, prev ?? undefined));
+    if (shouldIngestMarketingPageView(pagePath)) {
+      void ingestMarketingWebsiteEvent(buildIngestPayload("page_view", pagePath, prev ?? undefined));
+    }
 
     previousPath.current = pagePath;
   }, [pathname, searchParams]);
@@ -87,7 +88,7 @@ export default function MarketingAnalyticsRecorder() {
         depth?: number;
         [key: string]: string | number | boolean | undefined;
       };
-      if (!detail?.name) return;
+      if (!detail?.name || detail.name === "page_view") return;
 
       const pagePath = previousPath.current ?? window.location.pathname;
       const { name, ...rest } = detail;
