@@ -1,7 +1,9 @@
 import type { AnalyticsConsentState } from "@/lib/product-analytics/consent";
 
 export type GtagCommand = "js" | "config" | "consent";
-export type GtagFn = (...args: unknown[]) => void;
+export type GtagFn = ((...args: unknown[]) => void) & {
+  (command: GtagCommand, ...args: unknown[]): void;
+};
 
 export type Ga4Window = {
   dataLayer?: unknown[];
@@ -59,15 +61,21 @@ export function shouldMountGa4Script(
 ): boolean {
   if (!hydrated || !measurementId || consent !== "granted") return false;
   if (runtime.scriptLoaded) return false;
+  if (!runtime.configCalled) return false;
   return true;
+}
+
+export function createOfficialGtagStub(dataLayer: unknown[]): GtagFn {
+  const gtag = function gtag() {
+    dataLayer.push(arguments);
+  };
+  return gtag as GtagFn;
 }
 
 export function ensureGa4DataLayer(windowLike: Ga4Window): void {
   windowLike.dataLayer = windowLike.dataLayer ?? [];
   if (typeof windowLike.gtag !== "function") {
-    windowLike.gtag = (...args: unknown[]) => {
-      windowLike.dataLayer!.push(args);
-    };
+    windowLike.gtag = createOfficialGtagStub(windowLike.dataLayer);
   }
 }
 
@@ -97,6 +105,7 @@ export function reEnableGa4Tracking(measurementId: string, windowLike: Ga4Window
   }
 }
 
+/** Queue consent/js/config in dataLayer before gtag.js loads. Idempotent per document. */
 export function configureGa4Once(
   measurementId: string,
   windowLike: Ga4Window,
@@ -107,6 +116,7 @@ export function configureGa4Once(
   }
 
   ensureGa4DataLayer(windowLike);
+  ensureGa4ConsentDefault(windowLike);
   windowLike[gaDisableFlagKey(measurementId)] = false;
   windowLike.gtag!("consent", "update", { analytics_storage: "granted" });
   windowLike.gtag!("js", now);
@@ -141,36 +151,23 @@ export function syncGa4WithConsent(
     };
   }
 
-  if (runtime.scriptLoaded && runtime.configCalled && runtime.measurementId === measurementId) {
+  if (runtime.configCalled && runtime.measurementId === measurementId) {
     if (windowLike[gaDisableFlagKey(measurementId)] === true) {
       reEnableGa4Tracking(measurementId, windowLike);
       return { action: "re-enable", shouldMountScript: false };
     }
-    return { action: "noop", shouldMountScript: false };
-  }
-
-  ensureGa4DataLayer(windowLike);
-  ensureGa4ConsentDefault(windowLike);
-  windowLike[gaDisableFlagKey(measurementId)] = false;
-
-  if (runtime.scriptLoaded) {
-    const configured = configureGa4Once(measurementId, windowLike);
     return {
-      action: configured ? "configure" : "re-enable",
-      shouldMountScript: false,
+      action: "noop",
+      shouldMountScript: !runtime.scriptLoaded,
     };
   }
 
+  configureGa4Once(measurementId, windowLike);
   return { action: "mount-script", shouldMountScript: true };
 }
 
-export function handleGa4ScriptLoad(
-  measurementId: string,
-  windowLike: Ga4Window,
-  now: Date = new Date()
-): boolean {
+export function handleGa4ScriptLoad(measurementId: string): void {
   markGa4ScriptLoaded(measurementId);
-  return configureGa4Once(measurementId, windowLike, now);
 }
 
 export function getGa4RuntimeStateForTests(): Readonly<Ga4RuntimeState> {

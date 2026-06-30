@@ -41,7 +41,7 @@ export default function ConsentGatedGoogleAnalytics({ consent, hydrated }: Props
       strategy="afterInteractive"
       onLoad={() => {
         if (typeof window === "undefined" || consent !== "granted") return;
-        handleGa4ScriptLoad(measurementId, window as unknown as Ga4Window);
+        handleGa4ScriptLoad(measurementId);
       }}
     />
   );
