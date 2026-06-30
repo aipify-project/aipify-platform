@@ -2,13 +2,13 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
+import type { UnonightAipifyConnectionLabels } from "@/lib/unonight-platform/labels";
 import {
   parseUnonightAipifyTokenList,
   parseUnonightAipifyTokenReveal,
-  type UnonightAipifyConnectionLabels,
   type UnonightAipifyTokenRecord,
   type UnonightAipifyTokenRevealResponse,
-} from "@/lib/unonight-platform";
+} from "@/lib/unonight-platform/types";
 
 type AipifyConnectionTokensPanelProps = {
   labels: UnonightAipifyConnectionLabels;
