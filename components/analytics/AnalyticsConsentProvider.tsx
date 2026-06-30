@@ -10,6 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import AnalyticsConsentBanner from "./AnalyticsConsentBanner";
+import ConsentGatedGoogleAnalytics from "./ConsentGatedGoogleAnalytics";
 import type {
   AnalyticsConsentDecision,
   AnalyticsConsentLabels,
@@ -84,6 +85,7 @@ export default function AnalyticsConsentProvider({
 
   return (
     <AnalyticsConsentContext.Provider value={contextValue}>
+      <ConsentGatedGoogleAnalytics consent={consent} hydrated={hydrated} />
       {children}
       {showInitialBanner ? (
         <AnalyticsConsentBanner
