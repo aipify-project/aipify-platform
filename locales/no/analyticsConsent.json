@@ -1,0 +1,15 @@
+{
+  "banner": {
+    "title": "Informasjonskapsler og personvernvalg",
+    "necessaryCookies": "Nødvendige informasjonskapsler brukes til innlogging og sikker drift av Aipify.",
+    "analyticsCookies": "Valgfrie analyse-informasjonskapsler hjelper Aipify å forstå bruksmønstre og forbedre tjenesten.",
+    "acceptAnalytics": "Godta analyse",
+    "declineAnalytics": "Avslå",
+    "privacyLink": "Personvern- og informasjonskapselinformasjon"
+  },
+  "privacySettings": {
+    "open": "Personverninnstillinger",
+    "manageTitle": "Personverninnstillinger",
+    "close": "Lukk"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "banner": {
+    "title": "Wybory dotyczące plików cookie i prywatności",
+    "necessaryCookies": "Niezbędne pliki cookie są używane do logowania i bezpiecznej pracy Aipify.",
+    "analyticsCookies": "Opcjonalne pliki cookie analityczne pomagają Aipify zrozumieć wzorce użycia i ulepszać usługę.",
+    "acceptAnalytics": "Akceptuj analitykę",
+    "declineAnalytics": "Odrzuć",
+    "privacyLink": "Informacje o prywatności i plikach cookie"
+  },
+  "privacySettings": {
+    "open": "Ustawienia prywatności",
+    "manageTitle": "Ustawienia prywatności",
+    "close": "Zamknij"
+  }
+}

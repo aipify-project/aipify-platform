@@ -1,0 +1,15 @@
+{
+  "banner": {
+    "title": "Cookie- och integritetsval",
+    "necessaryCookies": "Nödvändiga cookies används för inloggning och säker drift av Aipify.",
+    "analyticsCookies": "Valfria analys-cookies hjälper Aipify att förstå användningsmönster och förbättra tjänsten.",
+    "acceptAnalytics": "Godkänn analys",
+    "declineAnalytics": "Avslå",
+    "privacyLink": "Integritets- och cookieinformation"
+  },
+  "privacySettings": {
+    "open": "Integritetsinställningar",
+    "manageTitle": "Integritetsinställningar",
+    "close": "Stäng"
+  }
+}

@@ -11,6 +11,10 @@ import {
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import { getSection } from "@/lib/marketing/parse-marketing";
 import MarketingAnalyticsShell from "@/components/marketing/MarketingAnalyticsShell";
+import AnalyticsConsentProvider from "@/components/analytics/AnalyticsConsentProvider";
+import { buildAnalyticsConsentLabels } from "@/lib/product-analytics/consent";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { createTranslator } from "@/lib/i18n/translate";
 
 export default async function MarketingLayout({
   children,
@@ -21,7 +25,11 @@ export default async function MarketingLayout({
   const companion = parseWebsiteCompanionLabels(marketing);
   const searchIndex = buildMarketingSearchFromDictionary(marketing);
 
+  const consentDict = await getDictionary(locale, ["analyticsConsent"]);
+  const consentLabels = buildAnalyticsConsentLabels(createTranslator(consentDict));
+
   return (
+    <AnalyticsConsentProvider labels={consentLabels} privacyHref="/privacy">
     <div className={`min-h-full ${AipifyMarketingClasses.canvas}`}>
       <MarketingAnalyticsShell />
       <MarketingNavbar
@@ -37,6 +45,7 @@ export default async function MarketingLayout({
       <MarketingFooter appName={common.appName} marketing={marketing} locale={locale} />
       <WebsiteCompanionAssistant {...companion} />
     </div>
+    </AnalyticsConsentProvider>
   );
 }
 

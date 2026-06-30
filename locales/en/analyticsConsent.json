@@ -1,0 +1,15 @@
+{
+  "banner": {
+    "title": "Cookie and privacy choices",
+    "necessaryCookies": "Necessary cookies are used for sign-in and secure operation of Aipify.",
+    "analyticsCookies": "Optional analytics cookies help Aipify understand usage patterns and improve the service.",
+    "acceptAnalytics": "Accept analytics",
+    "declineAnalytics": "Decline",
+    "privacyLink": "Privacy and cookie information"
+  },
+  "privacySettings": {
+    "open": "Privacy settings",
+    "manageTitle": "Privacy settings",
+    "close": "Close"
+  }
+}

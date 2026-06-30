@@ -37,6 +37,8 @@ import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 import { buildPwaInstallLabels } from "@/lib/pwa/labels";
 import { createClient } from "@/lib/supabase/server";
+import AnalyticsConsentProvider from "@/components/analytics/AnalyticsConsentProvider";
+import { buildAnalyticsConsentLabels } from "@/lib/product-analytics/consent";
 
 /** Authenticated app shell — skip build-time static prerender (700+ routes). */
 export const dynamic = "force-dynamic";
@@ -57,6 +59,8 @@ export default async function AppLayout({
   const pwaDict = await getDictionary(locale, ["pwa"]);
   const pwaT = createTranslator(pwaDict);
   const pwaLabels = buildPwaInstallLabels(pwaT);
+  const consentDict = await getDictionary(locale, ["analyticsConsent"]);
+  const analyticsConsentLabels = buildAnalyticsConsentLabels(createTranslator(consentDict));
   const fallbackGroups = buildAppNavGroupConfig(t);
   const fallbackConfig = buildAppNavConfig(t);
 
@@ -137,6 +141,7 @@ export default async function AppLayout({
   }
 
   return (
+    <AnalyticsConsentProvider labels={analyticsConsentLabels} privacyHref="/privacy">
     <CustomerPortalGuard loadingLabel={t("common.loadingState.preparingContent")}>
       <TwoFactorSessionGate loadingLabel={t("common.loadingState.preparingContent")}>
       <DashboardProfileProvider>
@@ -226,5 +231,6 @@ export default async function AppLayout({
       </DashboardProfileProvider>
       </TwoFactorSessionGate>
     </CustomerPortalGuard>
+    </AnalyticsConsentProvider>
   );
 }
