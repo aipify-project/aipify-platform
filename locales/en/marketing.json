@@ -4456,6 +4456,22 @@
     "title": "Aipify",
     "prompt": "Find what you need — pricing, knowledge, Business Packs, or a demo.",
     "presenceLabel": "Companion status",
+    "chat": {
+      "welcome": "Ask Aipify about pricing, Business Packs, getting started, or how the platform works.",
+      "inputPlaceholder": "Ask a question…",
+      "send": "Send",
+      "sendAria": "Send message",
+      "sending": "Aipify is preparing a response",
+      "retry": "Try again",
+      "genericError": "Something unexpected happened. Please try again.",
+      "sources": "Sources",
+      "goToLatest": "Go to latest message",
+      "goToLatestAria": "Go to latest message in this conversation",
+      "charactersRemaining": "{count} characters remaining",
+      "open": "Open {title}",
+      "close": "Close {title}",
+      "quickLinks": "Quick links"
+    },
     "states": {
       "READY": "Ready",
       "WORKING": "Working",

@@ -69,6 +69,7 @@ export function buildMarketingSearchFromDictionary(marketing: MarketingDictionar
 
 export function parseWebsiteCompanionLabels(marketing: MarketingDictionary) {
   const c = (marketing.websiteCompanion ?? {}) as Record<string, unknown>;
+  const chat = (c.chat ?? {}) as Record<string, string>;
   const actions = (c.actions ?? {}) as Record<string, { label?: string; href?: string; description?: string }>;
   const statesRaw = (c.states ?? {}) as Record<string, string>;
   const states = {
@@ -84,6 +85,22 @@ export function parseWebsiteCompanionLabels(marketing: MarketingDictionary) {
     title: String(c.title ?? "Aipify"),
     prompt: String(c.prompt ?? ""),
     presenceLabel: String(c.presenceLabel ?? "Companion status"),
+    chat: {
+      welcome: String(chat.welcome ?? ""),
+      inputPlaceholder: String(chat.inputPlaceholder ?? ""),
+      send: String(chat.send ?? "Send"),
+      sendAria: String(chat.sendAria ?? chat.send ?? "Send"),
+      sending: String(chat.sending ?? ""),
+      retry: String(chat.retry ?? "Try again"),
+      genericError: String(chat.genericError ?? ""),
+      sources: String(chat.sources ?? "Sources"),
+      goToLatest: String(chat.goToLatest ?? "Go to latest message"),
+      goToLatestAria: String(chat.goToLatestAria ?? chat.goToLatest ?? "Go to latest message"),
+      charactersRemaining: String(chat.charactersRemaining ?? "{count} characters remaining"),
+      open: String(chat.open ?? "Open {title}"),
+      close: String(chat.close ?? "Close {title}"),
+      quickLinks: String(chat.quickLinks ?? "Quick links"),
+    },
     states,
     actions: Object.entries(actions).map(([id, a]) => ({
       id,

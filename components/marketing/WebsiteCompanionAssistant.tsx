@@ -1,8 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import AipifyPulse from "@/components/branding/AipifyPulse";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import {
+  applyCompanionChatInitialScroll,
+  COMPANION_CHAT_INITIAL_SCROLL_BEHAVIOR,
+  isCompanionChatNearBottom,
+  scrollCompanionChatToLatest,
+  shouldAutoScrollCompanionChatOnUpdate,
+} from "@/lib/app/companion/companion-chat-scroll-policy";
+import type { PublicCompanionAskResponse } from "@/lib/marketing/public-companion-ask";
+import {
+  buildWebsiteCompanionAskBody,
+  formatWebsiteCompanionCharactersRemaining,
+  mapWebsiteCompanionApiResponse,
+  shouldAllowWebsiteCompanionSend,
+  validateWebsiteCompanionQuestion,
+  WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH,
+  type WebsiteCompanionChatMessage,
+} from "@/lib/marketing/website-companion-chat";
 import {
   WEBSITE_COMPANION_PRESENCE_STYLES,
   websiteCompanionPresenceLabel,
@@ -16,24 +34,139 @@ type CompanionAction = {
   description: string;
 };
 
+type WebsiteCompanionChatLabels = {
+  welcome: string;
+  inputPlaceholder: string;
+  send: string;
+  sendAria: string;
+  sending: string;
+  retry: string;
+  genericError: string;
+  sources: string;
+  goToLatest: string;
+  goToLatestAria: string;
+  charactersRemaining: string;
+  open: string;
+  close: string;
+  quickLinks: string;
+};
+
 type WebsiteCompanionAssistantProps = {
+  locale: string;
   title: string;
   prompt: string;
   presenceLabel: string;
+  chat: WebsiteCompanionChatLabels;
   states: Record<WebsiteCompanionPresenceState, string>;
   actions: CompanionAction[];
 };
 
+function createMessageId(): string {
+  return `msg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function preserveLineBreaks(text: string): string[] {
+  return text.split("\n").map((line) => line.trimEnd());
+}
+
+function AssistantAnswerBody({
+  message,
+  sourcesLabel,
+}: {
+  message: Extract<WebsiteCompanionChatMessage, { role: "assistant"; failed?: false }>;
+  sourcesLabel: string;
+}) {
+  if ("failed" in message && message.failed) return null;
+
+  return (
+    <div className="space-y-3 text-sm text-aipify-text">
+      <div className="space-y-2">
+        {preserveLineBreaks(message.directAnswer).map((line, index) => (
+          <p key={`answer-${index}`} className={line ? undefined : "min-h-[1em]"}>
+            {line}
+          </p>
+        ))}
+      </div>
+
+      {message.explanation?.trim() ? (
+        <div className="space-y-2 text-aipify-text-secondary">
+          {preserveLineBreaks(message.explanation).map((line, index) => (
+            <p key={`explanation-${index}`} className={line ? undefined : "min-h-[1em]"}>
+              {line}
+            </p>
+          ))}
+        </div>
+      ) : null}
+
+      {message.steps.length > 0 ? (
+        <ol className="list-decimal space-y-1.5 pl-5 text-aipify-text-secondary">
+          {message.steps.map((step, index) => (
+            <li key={`step-${index}`}>{step}</li>
+          ))}
+        </ol>
+      ) : null}
+
+      {message.sources.length > 0 ? (
+        <div className="rounded-lg border border-aipify-border bg-aipify-surface-muted/60 px-3 py-2">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-aipify-text-muted">
+            {sourcesLabel}
+          </p>
+          <ul className="mt-1 space-y-0.5 text-xs text-aipify-text-secondary">
+            {message.sources.map((source) => (
+              <li key={source}>{source}</li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      {message.actions.length > 0 ? (
+        <div className="flex flex-wrap gap-2 pt-1">
+          {message.actions.map((action) => (
+            <Link
+              key={`${action.href}-${action.label}`}
+              href={action.href}
+              className={
+                action.variant === "primary"
+                  ? "inline-flex min-h-9 items-center rounded-full bg-aipify-companion px-3 py-1.5 text-xs font-medium text-white hover:opacity-90"
+                  : "inline-flex min-h-9 items-center rounded-full border border-aipify-border bg-aipify-surface px-3 py-1.5 text-xs font-medium text-aipify-companion hover:bg-aipify-surface-muted"
+              }
+            >
+              {action.label}
+            </Link>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 export default function WebsiteCompanionAssistant({
+  locale,
   title,
   prompt,
   presenceLabel,
+  chat,
   states,
   actions,
 }: WebsiteCompanionAssistantProps) {
+  const inputId = useId();
   const [open, setOpen] = useState(false);
   const [presence, setPresence] = useState<WebsiteCompanionPresenceState>("READY");
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [draft, setDraft] = useState("");
+  const [messages, setMessages] = useState<WebsiteCompanionChatMessage[]>([]);
+  const [sending, setSending] = useState(false);
+  const [showJumpToLatest, setShowJumpToLatest] = useState(false);
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const userJustSentMessageRef = useRef(false);
+  const initialScrollAppliedRef = useRef(false);
+  const requestIdRef = useRef(0);
+
+  const inConversation = messages.some((message) => message.role === "user");
+  const contentSignature = `${messages.length}:${sending}:${messages
+    .map((message) => message.id)
+    .join(",")}`;
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -44,52 +177,342 @@ export default function WebsiteCompanionAssistant({
   }, []);
 
   useEffect(() => {
-    if (open) {
-      setPresence("WORKING");
-      const timer = window.setTimeout(() => setPresence("READY"), 2400);
-      return () => window.clearTimeout(timer);
+    if (!open) {
+      setPresence("READY");
+      return undefined;
     }
-    setPresence("READY");
+    if (sending) {
+      setPresence("WORKING");
+      return undefined;
+    }
+    setPresence(inConversation ? "COMPLETED" : "READY");
     return undefined;
-  }, [open]);
+  }, [inConversation, open, sending]);
+
+  const applyInitialScroll = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    applyCompanionChatInitialScroll({
+      container,
+      shouldRestore: false,
+      restoreScrollTop: 0,
+    });
+    initialScrollAppliedRef.current = true;
+    setShowJumpToLatest(false);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!open || messages.length === 0) {
+      initialScrollAppliedRef.current = false;
+      setShowJumpToLatest(false);
+      return;
+    }
+
+    if (!initialScrollAppliedRef.current) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => applyInitialScroll());
+      });
+      return;
+    }
+
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const shouldAutoScroll = shouldAutoScrollCompanionChatOnUpdate({
+      isNearBottom: isCompanionChatNearBottom(container),
+      userJustSentMessage: userJustSentMessageRef.current,
+    });
+    userJustSentMessageRef.current = false;
+
+    if (shouldAutoScroll) {
+      scrollCompanionChatToLatest(container, COMPANION_CHAT_INITIAL_SCROLL_BEHAVIOR);
+      setShowJumpToLatest(false);
+      return;
+    }
+
+    setShowJumpToLatest(true);
+  }, [applyInitialScroll, contentSignature, messages.length, open, sending]);
+
+  const handleScroll = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    setShowJumpToLatest(!isCompanionChatNearBottom(container));
+  }, []);
+
+  const jumpToLatestMessage = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    scrollCompanionChatToLatest(container, COMPANION_CHAT_INITIAL_SCROLL_BEHAVIOR);
+    setShowJumpToLatest(false);
+  }, []);
+
+  const submitQuestion = useCallback(
+    async (
+      question: string,
+      priorMessages: WebsiteCompanionChatMessage[],
+      options?: { appendUserMessage?: boolean; replaceFailedMessageId?: string },
+    ) => {
+      const validation = validateWebsiteCompanionQuestion(question);
+      if (!validation.valid || sending) return;
+
+      const requestId = requestIdRef.current + 1;
+      requestIdRef.current = requestId;
+      const appendUserMessage = options?.appendUserMessage ?? true;
+      const userMessage: WebsiteCompanionChatMessage = {
+        id: createMessageId(),
+        role: "user",
+        text: validation.question,
+      };
+
+      setMessages((current) => {
+        const withoutFailed = options?.replaceFailedMessageId
+          ? current.filter((message) => message.id !== options.replaceFailedMessageId)
+          : current;
+        return appendUserMessage ? [...withoutFailed, userMessage] : withoutFailed;
+      });
+      setDraft("");
+      setSending(true);
+      userJustSentMessageRef.current = true;
+
+      const body = buildWebsiteCompanionAskBody({
+        question: validation.question,
+        locale,
+        messages: priorMessages,
+      });
+
+      try {
+        const response = await fetch("/api/marketing/companion/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+
+        if (!response.ok) {
+          throw new Error("request failed");
+        }
+
+        const payload = (await response.json()) as PublicCompanionAskResponse;
+        if (requestIdRef.current !== requestId) return;
+
+        const assistantMessage: WebsiteCompanionChatMessage = {
+          id: createMessageId(),
+          role: "assistant",
+          ...mapWebsiteCompanionApiResponse(payload),
+        };
+        setMessages((current) => [...current, assistantMessage]);
+      } catch {
+        if (requestIdRef.current !== requestId) return;
+        setMessages((current) => [
+          ...current,
+          {
+            id: createMessageId(),
+            role: "assistant",
+            failed: true,
+            retryQuestion: validation.question,
+          },
+        ]);
+      } finally {
+        if (requestIdRef.current === requestId) {
+          setSending(false);
+        }
+      }
+    },
+    [locale, sending],
+  );
+
+  const handleSubmit = useCallback(
+    async (event?: React.FormEvent) => {
+      event?.preventDefault();
+      if (!shouldAllowWebsiteCompanionSend({ question: draft, sending })) return;
+      await submitQuestion(draft, messages);
+    },
+    [draft, messages, sending, submitQuestion],
+  );
+
+  const handleRetry = useCallback(
+    async (retryQuestion: string, failedMessageId: string) => {
+      const withoutFailed = messages.filter((message) => message.id !== failedMessageId);
+      await submitQuestion(retryQuestion, withoutFailed, {
+        appendUserMessage: false,
+        replaceFailedMessageId: failedMessageId,
+      });
+    },
+    [messages, submitQuestion],
+  );
 
   const style = WEBSITE_COMPANION_PRESENCE_STYLES[presence];
   const stateLabel = websiteCompanionPresenceLabel(states, presence);
   const ringAnimation = reducedMotion ? "" : style.ringAnimation;
+  const remainingCharacters = WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH - draft.length;
+  const toggleLabel = open
+    ? chat.close.replace("{title}", title)
+    : chat.open.replace("{title}", title);
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)]">
+    <div className="fixed bottom-4 right-4 z-40 pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)] sm:bottom-6 sm:right-6">
       {open ? (
-        <div className="mb-3 w-80 max-w-[calc(100vw-3rem)] rounded-2xl border border-aipify-border bg-aipify-surface shadow-lg">
-          <div className="border-b border-aipify-border px-4 py-3">
-            <p className="text-sm font-semibold text-aipify-text">{title}</p>
-            <p className="mt-1 text-xs text-aipify-text-secondary">{prompt}</p>
-            <p className="mt-2 text-[11px] font-medium uppercase tracking-wide text-aipify-text-muted">
-              {presenceLabel}: <span className="text-aipify-companion">{stateLabel}</span>
-            </p>
+        <div className="mb-3 flex w-[min(100vw-2rem,26rem)] max-h-[min(78vh,40rem)] flex-col overflow-hidden rounded-2xl border border-aipify-border bg-aipify-surface shadow-lg sm:w-[min(100vw-3rem,27.5rem)]">
+          <div className="shrink-0 border-b border-aipify-border px-4 py-3">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-aipify-text">{title}</p>
+                <p className="mt-1 text-xs text-aipify-text-secondary">{prompt}</p>
+                <p className="mt-2 text-[11px] font-medium uppercase tracking-wide text-aipify-text-muted">
+                  {presenceLabel}: <span className="text-aipify-companion">{stateLabel}</span>
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="rounded-full px-2 py-1 text-xs font-medium text-aipify-text-secondary hover:bg-aipify-surface-muted"
+                aria-label={chat.close.replace("{title}", title)}
+              >
+                ×
+              </button>
+            </div>
           </div>
-          <ul className="max-h-72 overflow-y-auto p-2">
-            {actions.map((action) => (
-              <li key={action.id}>
-                <Link
-                  href={action.href}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-lg px-3 py-2.5 hover:bg-aipify-surface-muted"
-                >
-                  <span className="text-sm font-medium text-aipify-companion">{action.label}</span>
-                  <span className="mt-0.5 block text-xs text-aipify-text-secondary">{action.description}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+
+          <div
+            ref={scrollContainerRef}
+            onScroll={handleScroll}
+            className="min-h-0 flex-1 overflow-y-auto px-4 py-3"
+          >
+            <div className="space-y-4">
+              <div className="rounded-xl bg-aipify-surface-muted/70 px-3 py-3 text-sm text-aipify-text-secondary">
+                {chat.welcome}
+              </div>
+
+              <div>
+                <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-aipify-text-muted">
+                  {chat.quickLinks}
+                </p>
+                <ul className="space-y-1">
+                  {actions.map((action) => (
+                    <li key={action.id}>
+                      <Link
+                        href={action.href}
+                        onClick={() => setOpen(false)}
+                        className="block rounded-lg px-2 py-2 hover:bg-aipify-surface-muted"
+                      >
+                        <span className="text-sm font-medium text-aipify-companion">{action.label}</span>
+                        <span className="mt-0.5 block text-xs text-aipify-text-secondary">
+                          {action.description}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {messages.map((message) => {
+                if (message.role === "user") {
+                  return (
+                    <div key={message.id} className="flex justify-end">
+                      <div className="max-w-[92%] rounded-2xl rounded-br-md bg-aipify-companion px-3 py-2 text-sm text-white">
+                        {message.text}
+                      </div>
+                    </div>
+                  );
+                }
+
+                if ("failed" in message && message.failed) {
+                  return (
+                    <div key={message.id} className="flex justify-start">
+                      <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
+                        <p className="text-sm text-aipify-text-secondary">{chat.genericError}</p>
+                        <button
+                          type="button"
+                          onClick={() => void handleRetry(message.retryQuestion, message.id)}
+                          className="mt-3 inline-flex min-h-9 items-center rounded-full border border-aipify-border px-3 py-1.5 text-xs font-medium text-aipify-companion hover:bg-aipify-surface-muted"
+                          disabled={sending}
+                        >
+                          {chat.retry}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+
+                return (
+                  <div key={message.id} className="flex justify-start">
+                    <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
+                      <AssistantAnswerBody message={message} sourcesLabel={chat.sources} />
+                    </div>
+                  </div>
+                );
+              })}
+
+              {sending ? (
+                <div className="flex justify-start">
+                  <div className="rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
+                    <AipifyLoader size="sm" centered={false} label="" className="justify-start" />
+                    <span className="sr-only">{chat.sending}</span>
+                  </div>
+                </div>
+              ) : null}
+
+              {showJumpToLatest ? (
+                <div className="sticky bottom-2 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={jumpToLatestMessage}
+                    className="inline-flex min-h-9 items-center rounded-full border border-violet-200 bg-white px-4 py-2 text-xs font-medium text-aipify-companion shadow-sm hover:bg-violet-50"
+                    aria-label={chat.goToLatestAria}
+                  >
+                    {chat.goToLatest}
+                  </button>
+                </div>
+              ) : null}
+            </div>
+          </div>
+
+          <form
+            onSubmit={(event) => void handleSubmit(event)}
+            className="shrink-0 border-t border-aipify-border px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+          >
+            <label htmlFor={inputId} className="sr-only">
+              {chat.inputPlaceholder}
+            </label>
+            <textarea
+              id={inputId}
+              value={draft}
+              onChange={(event) =>
+                setDraft(event.target.value.slice(0, WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH))
+              }
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && !event.shiftKey) {
+                  event.preventDefault();
+                  void handleSubmit();
+                }
+              }}
+              rows={2}
+              placeholder={chat.inputPlaceholder}
+              disabled={sending}
+              className="w-full resize-none rounded-xl border border-aipify-border bg-aipify-surface px-3 py-2 text-sm text-aipify-text outline-none ring-aipify-focus placeholder:text-aipify-text-muted focus:ring-2 disabled:opacity-60"
+            />
+            <div className="mt-2 flex items-center justify-between gap-3">
+              <p className="text-[11px] text-aipify-text-muted">
+                {formatWebsiteCompanionCharactersRemaining(chat.charactersRemaining, remainingCharacters)}
+              </p>
+              <button
+                type="submit"
+                disabled={!shouldAllowWebsiteCompanionSend({ question: draft, sending })}
+                className="inline-flex min-h-10 items-center rounded-full bg-aipify-companion px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                aria-label={chat.sendAria}
+              >
+                {sending ? chat.sending : chat.send}
+              </button>
+            </div>
+          </form>
         </div>
       ) : null}
+
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setOpen((value) => !value)}
         className={`relative flex h-12 w-12 items-center justify-center rounded-full border bg-aipify-surface shadow-lg transition hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-aipify-focus ${style.buttonRing}`}
         aria-expanded={open}
-        aria-label={`${open ? "Close" : "Open"} ${title} — ${stateLabel}`}
+        aria-label={`${toggleLabel} — ${stateLabel}`}
         title={`${title} — ${stateLabel}`}
       >
         <span

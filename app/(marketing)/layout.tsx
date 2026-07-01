@@ -43,7 +43,7 @@ export default async function MarketingLayout({
       />
       <main className="flex-1">{children}</main>
       <MarketingFooter appName={common.appName} marketing={marketing} locale={locale} />
-      <WebsiteCompanionAssistant {...companion} />
+      <WebsiteCompanionAssistant {...companion} locale={locale} />
     </div>
     </AnalyticsConsentProvider>
   );

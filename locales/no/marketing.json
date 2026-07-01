@@ -4832,6 +4832,22 @@
     "title": "Aipify",
     "prompt": "Finn det du trenger — priser, kunnskap, Business Packs eller demo.",
     "presenceLabel": "Companion status",
+    "chat": {
+      "welcome": "Spør Aipify om priser, Business Packs, kom i gang eller hvordan plattformen fungerer.",
+      "inputPlaceholder": "Skriv et spørsmål …",
+      "send": "Send",
+      "sendAria": "Send melding",
+      "sending": "Aipify forbereder et svar",
+      "retry": "Prøv igjen",
+      "genericError": "Noe uventet skjedde. Prøv igjen.",
+      "sources": "Kilder",
+      "goToLatest": "Gå til siste melding",
+      "goToLatestAria": "Gå til siste melding i denne samtalen",
+      "charactersRemaining": "{count} tegn igjen",
+      "open": "Åpne {title}",
+      "close": "Lukk {title}",
+      "quickLinks": "Hurtigvalg"
+    },
     "states": {
       "READY": "Ready",
       "WORKING": "Working",
