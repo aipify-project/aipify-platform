@@ -26,6 +26,24 @@ import {
   websiteCompanionPresenceLabel,
   type WebsiteCompanionPresenceState,
 } from "@/lib/marketing/website-companion-presence";
+import {
+  applyWebsiteCompanionWindowDragDelta,
+  applyWebsiteCompanionWindowResizeDelta,
+  canStartWebsiteCompanionWindowDrag,
+  clampWebsiteCompanionWindowGeometry,
+  clearWebsiteCompanionWindowState,
+  getDefaultWebsiteCompanionWindowGeometry,
+  getWebsiteCompanionWindowResetLabel,
+  isWebsiteCompanionDesktopViewport,
+  isWebsiteCompanionLocalStorageAvailable,
+  isWebsiteCompanionPointerEventsSupported,
+  readWebsiteCompanionWindowState,
+  reconcileWebsiteCompanionWindowGeometry,
+  shouldUseWebsiteCompanionFloatingWindow,
+  writeWebsiteCompanionWindowState,
+  type CompanionViewport,
+  type CompanionWindowGeometry,
+} from "@/lib/marketing/website-companion-window";
 
 type CompanionAction = {
   id: string;
@@ -162,6 +180,29 @@ export default function WebsiteCompanionAssistant({
   const userJustSentMessageRef = useRef(false);
   const initialScrollAppliedRef = useRef(false);
   const requestIdRef = useRef(0);
+  const dragSessionRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    origin: CompanionWindowGeometry;
+  } | null>(null);
+  const resizeSessionRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    origin: CompanionWindowGeometry;
+  } | null>(null);
+
+  const [viewport, setViewport] = useState<CompanionViewport>({ width: 1280, height: 900 });
+  const [pointerEventsSupported, setPointerEventsSupported] = useState(true);
+  const [storageAvailable, setStorageAvailable] = useState(true);
+  const [windowGeometry, setWindowGeometry] = useState<CompanionWindowGeometry | null>(null);
+
+  const floatingWindowEnabled = shouldUseWebsiteCompanionFloatingWindow({
+    viewportWidth: viewport.width,
+    pointerEventsSupported,
+  });
+  const floatingWindowActive = open && floatingWindowEnabled && windowGeometry !== null;
 
   const inConversation = messages.some((message) => message.role === "user");
   const contentSignature = `${messages.length}:${sending}:${messages
@@ -175,6 +216,150 @@ export default function WebsiteCompanionAssistant({
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
+
+  useEffect(() => {
+    setPointerEventsSupported(isWebsiteCompanionPointerEventsSupported({ window }));
+    setStorageAvailable(isWebsiteCompanionLocalStorageAvailable(window.localStorage));
+  }, []);
+
+  useEffect(() => {
+    const syncViewport = () => {
+      const nextViewport = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+      setViewport(nextViewport);
+      setWindowGeometry((current) => {
+        if (!current || !isWebsiteCompanionDesktopViewport(nextViewport.width)) {
+          return current;
+        }
+        return reconcileWebsiteCompanionWindowGeometry(current, nextViewport);
+      });
+    };
+
+    syncViewport();
+    window.addEventListener("resize", syncViewport);
+    return () => window.removeEventListener("resize", syncViewport);
+  }, []);
+
+  useEffect(() => {
+    if (!open || !isWebsiteCompanionDesktopViewport(viewport.width)) {
+      return;
+    }
+    setWindowGeometry(readWebsiteCompanionWindowState(window.localStorage, viewport));
+  }, [open, viewport.height, viewport.width]);
+
+  const persistWindowGeometry = useCallback(
+    (geometry: CompanionWindowGeometry) => {
+      const clamped = clampWebsiteCompanionWindowGeometry(geometry, viewport);
+      setWindowGeometry(clamped);
+      if (storageAvailable) {
+        writeWebsiteCompanionWindowState(window.localStorage, clamped, viewport);
+      }
+    },
+    [storageAvailable, viewport],
+  );
+
+  const handleResetWindowLayout = useCallback(() => {
+    clearWebsiteCompanionWindowState(window.localStorage);
+    setWindowGeometry(getDefaultWebsiteCompanionWindowGeometry(viewport));
+  }, [viewport]);
+
+  const handleWindowDragPointerDown = useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (!floatingWindowEnabled || !windowGeometry) return;
+      if (!canStartWebsiteCompanionWindowDrag(event.target as Element)) return;
+      event.preventDefault();
+
+      const session = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        origin: windowGeometry,
+      };
+      dragSessionRef.current = session;
+
+      const onMove = (moveEvent: PointerEvent) => {
+        if (moveEvent.pointerId !== session.pointerId) return;
+        setWindowGeometry(
+          applyWebsiteCompanionWindowDragDelta(
+            session.origin,
+            moveEvent.clientX - session.startX,
+            moveEvent.clientY - session.startY,
+            viewport,
+          ),
+        );
+      };
+
+      const onEnd = (endEvent: PointerEvent) => {
+        if (endEvent.pointerId !== session.pointerId) return;
+        const finalGeometry = applyWebsiteCompanionWindowDragDelta(
+          session.origin,
+          endEvent.clientX - session.startX,
+          endEvent.clientY - session.startY,
+          viewport,
+        );
+        dragSessionRef.current = null;
+        persistWindowGeometry(finalGeometry);
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onEnd);
+        window.removeEventListener("pointercancel", onEnd);
+      };
+
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onEnd);
+      window.addEventListener("pointercancel", onEnd);
+    },
+    [floatingWindowEnabled, persistWindowGeometry, viewport, windowGeometry],
+  );
+
+  const handleWindowResizePointerDown = useCallback(
+    (event: React.PointerEvent<HTMLButtonElement>) => {
+      if (!floatingWindowEnabled || !windowGeometry) return;
+      event.preventDefault();
+      event.stopPropagation();
+
+      const session = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        origin: windowGeometry,
+      };
+      resizeSessionRef.current = session;
+
+      const onMove = (moveEvent: PointerEvent) => {
+        if (moveEvent.pointerId !== session.pointerId) return;
+        setWindowGeometry(
+          applyWebsiteCompanionWindowResizeDelta(
+            session.origin,
+            moveEvent.clientX - session.startX,
+            moveEvent.clientY - session.startY,
+            viewport,
+          ),
+        );
+      };
+
+      const onEnd = (endEvent: PointerEvent) => {
+        if (endEvent.pointerId !== session.pointerId) return;
+        const finalGeometry = applyWebsiteCompanionWindowResizeDelta(
+          session.origin,
+          endEvent.clientX - session.startX,
+          endEvent.clientY - session.startY,
+          viewport,
+        );
+        resizeSessionRef.current = null;
+        persistWindowGeometry(finalGeometry);
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerup", onEnd);
+        window.removeEventListener("pointercancel", onEnd);
+      };
+
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onEnd);
+      window.addEventListener("pointercancel", onEnd);
+    },
+    [floatingWindowEnabled, persistWindowGeometry, viewport, windowGeometry],
+  );
 
   useEffect(() => {
     if (!open) {
@@ -348,182 +533,239 @@ export default function WebsiteCompanionAssistant({
     ? chat.close.replace("{title}", title)
     : chat.open.replace("{title}", title);
 
-  return (
-    <div className="fixed bottom-4 right-4 z-40 pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)] sm:bottom-6 sm:right-6">
-      {open ? (
-        <div className="mb-3 flex w-[min(100vw-2rem,26rem)] max-h-[min(78vh,40rem)] flex-col overflow-hidden rounded-2xl border border-aipify-border bg-aipify-surface shadow-lg sm:w-[min(100vw-3rem,27.5rem)]">
-          <div className="shrink-0 border-b border-aipify-border px-4 py-3">
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <p className="text-sm font-semibold text-aipify-text">{title}</p>
-                <p className="mt-1 text-xs text-aipify-text-secondary">{prompt}</p>
-                <p className="mt-2 text-[11px] font-medium uppercase tracking-wide text-aipify-text-muted">
-                  {presenceLabel}: <span className="text-aipify-companion">{stateLabel}</span>
-                </p>
-              </div>
+  const resetWindowLabel = getWebsiteCompanionWindowResetLabel(locale);
+
+  const panelBody = (
+    <>
+      <div
+        data-companion-window-drag-handle
+        onPointerDown={handleWindowDragPointerDown}
+        className={`shrink-0 border-b border-aipify-border px-4 py-3 ${
+          floatingWindowActive ? "cursor-grab touch-none active:cursor-grabbing" : ""
+        }`}
+      >
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-aipify-text">{title}</p>
+            <p className="mt-1 text-xs text-aipify-text-secondary">{prompt}</p>
+            <p className="mt-2 text-[11px] font-medium uppercase tracking-wide text-aipify-text-muted">
+              {presenceLabel}: <span className="text-aipify-companion">{stateLabel}</span>
+            </p>
+          </div>
+          <div className="flex shrink-0 items-center gap-1" data-companion-window-no-drag>
+            {floatingWindowActive ? (
               <button
                 type="button"
-                onClick={() => setOpen(false)}
-                className="rounded-full px-2 py-1 text-xs font-medium text-aipify-text-secondary hover:bg-aipify-surface-muted"
-                aria-label={chat.close.replace("{title}", title)}
+                onClick={handleResetWindowLayout}
+                className="rounded-full px-2 py-1 text-[11px] font-medium text-aipify-text-secondary hover:bg-aipify-surface-muted"
               >
-                ×
+                {resetWindowLabel}
               </button>
-            </div>
+            ) : null}
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="rounded-full px-2 py-1 text-xs font-medium text-aipify-text-secondary hover:bg-aipify-surface-muted"
+              aria-label={chat.close.replace("{title}", title)}
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="min-h-0 flex-1 overflow-y-auto px-4 py-3"
+      >
+        <div className="space-y-4">
+          <div className="rounded-xl bg-aipify-surface-muted/70 px-3 py-3 text-sm text-aipify-text-secondary">
+            {chat.welcome}
           </div>
 
-          <div
-            ref={scrollContainerRef}
-            onScroll={handleScroll}
-            className="min-h-0 flex-1 overflow-y-auto px-4 py-3"
-          >
-            <div className="space-y-4">
-              <div className="rounded-xl bg-aipify-surface-muted/70 px-3 py-3 text-sm text-aipify-text-secondary">
-                {chat.welcome}
-              </div>
-
-              <div>
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-aipify-text-muted">
-                  {chat.quickLinks}
-                </p>
-                <ul className="space-y-1">
-                  {actions.map((action) => (
-                    <li key={action.id}>
-                      <Link
-                        href={action.href}
-                        onClick={() => setOpen(false)}
-                        className="block rounded-lg px-2 py-2 hover:bg-aipify-surface-muted"
-                      >
-                        <span className="text-sm font-medium text-aipify-companion">{action.label}</span>
-                        <span className="mt-0.5 block text-xs text-aipify-text-secondary">
-                          {action.description}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {messages.map((message) => {
-                if (message.role === "user") {
-                  return (
-                    <div key={message.id} className="flex justify-end">
-                      <div className="max-w-[92%] rounded-2xl rounded-br-md bg-aipify-companion px-3 py-2 text-sm text-white">
-                        {message.text}
-                      </div>
-                    </div>
-                  );
-                }
-
-                if ("failed" in message && message.failed) {
-                  return (
-                    <div key={message.id} className="flex justify-start">
-                      <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
-                        <p className="text-sm text-aipify-text-secondary">{chat.genericError}</p>
-                        <button
-                          type="button"
-                          onClick={() => void handleRetry(message.retryQuestion, message.id)}
-                          className="mt-3 inline-flex min-h-9 items-center rounded-full border border-aipify-border px-3 py-1.5 text-xs font-medium text-aipify-companion hover:bg-aipify-surface-muted"
-                          disabled={sending}
-                        >
-                          {chat.retry}
-                        </button>
-                      </div>
-                    </div>
-                  );
-                }
-
-                return (
-                  <div key={message.id} className="flex justify-start">
-                    <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
-                      <AssistantAnswerBody message={message} sourcesLabel={chat.sources} />
-                    </div>
-                  </div>
-                );
-              })}
-
-              {sending ? (
-                <div className="flex justify-start">
-                  <div className="rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
-                    <AipifyLoader size="sm" centered={false} label="" className="justify-start" />
-                    <span className="sr-only">{chat.sending}</span>
-                  </div>
-                </div>
-              ) : null}
-
-              {showJumpToLatest ? (
-                <div className="sticky bottom-2 flex justify-center">
-                  <button
-                    type="button"
-                    onClick={jumpToLatestMessage}
-                    className="inline-flex min-h-9 items-center rounded-full border border-violet-200 bg-white px-4 py-2 text-xs font-medium text-aipify-companion shadow-sm hover:bg-violet-50"
-                    aria-label={chat.goToLatestAria}
+          <div>
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-aipify-text-muted">
+              {chat.quickLinks}
+            </p>
+            <ul className="space-y-1">
+              {actions.map((action) => (
+                <li key={action.id}>
+                  <Link
+                    href={action.href}
+                    onClick={() => setOpen(false)}
+                    className="block rounded-lg px-2 py-2 hover:bg-aipify-surface-muted"
                   >
-                    {chat.goToLatest}
-                  </button>
-                </div>
-              ) : null}
-            </div>
+                    <span className="text-sm font-medium text-aipify-companion">{action.label}</span>
+                    <span className="mt-0.5 block text-xs text-aipify-text-secondary">
+                      {action.description}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <form
-            onSubmit={(event) => void handleSubmit(event)}
-            className="shrink-0 border-t border-aipify-border px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
-          >
-            <label htmlFor={inputId} className="sr-only">
-              {chat.inputPlaceholder}
-            </label>
-            <textarea
-              id={inputId}
-              value={draft}
-              onChange={(event) =>
-                setDraft(event.target.value.slice(0, WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH))
-              }
-              onKeyDown={(event) => {
-                if (event.key === "Enter" && !event.shiftKey) {
-                  event.preventDefault();
-                  void handleSubmit();
-                }
-              }}
-              rows={2}
-              placeholder={chat.inputPlaceholder}
-              disabled={sending}
-              className="w-full resize-none rounded-xl border border-aipify-border bg-aipify-surface px-3 py-2 text-sm text-aipify-text outline-none ring-aipify-focus placeholder:text-aipify-text-muted focus:ring-2 disabled:opacity-60"
-            />
-            <div className="mt-2 flex items-center justify-between gap-3">
-              <p className="text-[11px] text-aipify-text-muted">
-                {formatWebsiteCompanionCharactersRemaining(chat.charactersRemaining, remainingCharacters)}
-              </p>
+          {messages.map((message) => {
+            if (message.role === "user") {
+              return (
+                <div key={message.id} className="flex justify-end">
+                  <div className="max-w-[92%] rounded-2xl rounded-br-md bg-aipify-companion px-3 py-2 text-sm text-white">
+                    {message.text}
+                  </div>
+                </div>
+              );
+            }
+
+            if ("failed" in message && message.failed) {
+              return (
+                <div key={message.id} className="flex justify-start">
+                  <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
+                    <p className="text-sm text-aipify-text-secondary">{chat.genericError}</p>
+                    <button
+                      type="button"
+                      onClick={() => void handleRetry(message.retryQuestion, message.id)}
+                      className="mt-3 inline-flex min-h-9 items-center rounded-full border border-aipify-border px-3 py-1.5 text-xs font-medium text-aipify-companion hover:bg-aipify-surface-muted"
+                      disabled={sending}
+                    >
+                      {chat.retry}
+                    </button>
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <div key={message.id} className="flex justify-start">
+                <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
+                  <AssistantAnswerBody message={message} sourcesLabel={chat.sources} />
+                </div>
+              </div>
+            );
+          })}
+
+          {sending ? (
+            <div className="flex justify-start">
+              <div className="rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
+                <AipifyLoader size="sm" centered={false} label="" className="justify-start" />
+                <span className="sr-only">{chat.sending}</span>
+              </div>
+            </div>
+          ) : null}
+
+          {showJumpToLatest ? (
+            <div className="sticky bottom-2 flex justify-center">
               <button
-                type="submit"
-                disabled={!shouldAllowWebsiteCompanionSend({ question: draft, sending })}
-                className="inline-flex min-h-10 items-center rounded-full bg-aipify-companion px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-                aria-label={chat.sendAria}
+                type="button"
+                onClick={jumpToLatestMessage}
+                className="inline-flex min-h-9 items-center rounded-full border border-violet-200 bg-white px-4 py-2 text-xs font-medium text-aipify-companion shadow-sm hover:bg-violet-50"
+                aria-label={chat.goToLatestAria}
               >
-                {sending ? chat.sending : chat.send}
+                {chat.goToLatest}
               </button>
             </div>
-          </form>
+          ) : null}
+        </div>
+      </div>
+
+      <form
+        onSubmit={(event) => void handleSubmit(event)}
+        className="shrink-0 border-t border-aipify-border px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+        data-companion-window-no-drag
+      >
+        <label htmlFor={inputId} className="sr-only">
+          {chat.inputPlaceholder}
+        </label>
+        <textarea
+          id={inputId}
+          value={draft}
+          onChange={(event) =>
+            setDraft(event.target.value.slice(0, WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH))
+          }
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && !event.shiftKey) {
+              event.preventDefault();
+              void handleSubmit();
+            }
+          }}
+          rows={2}
+          placeholder={chat.inputPlaceholder}
+          disabled={sending}
+          className="w-full resize-none rounded-xl border border-aipify-border bg-aipify-surface px-3 py-2 text-sm text-aipify-text outline-none ring-aipify-focus placeholder:text-aipify-text-muted focus:ring-2 disabled:opacity-60"
+        />
+        <div className="mt-2 flex items-center justify-between gap-3">
+          <p className="text-[11px] text-aipify-text-muted">
+            {formatWebsiteCompanionCharactersRemaining(chat.charactersRemaining, remainingCharacters)}
+          </p>
+          <button
+            type="submit"
+            disabled={!shouldAllowWebsiteCompanionSend({ question: draft, sending })}
+            className="inline-flex min-h-10 items-center rounded-full bg-aipify-companion px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+            aria-label={chat.sendAria}
+          >
+            {sending ? chat.sending : chat.send}
+          </button>
+        </div>
+      </form>
+
+      {floatingWindowActive ? (
+        <button
+          type="button"
+          aria-label={locale === "no" ? "Juster vindusstørrelse" : "Adjust window size"}
+          data-companion-window-resize-handle
+          onPointerDown={handleWindowResizePointerDown}
+          className="absolute bottom-0 right-0 z-10 h-5 w-5 touch-none cursor-nwse-resize rounded-br-2xl text-aipify-text-muted hover:text-aipify-companion"
+        >
+          <span
+            aria-hidden="true"
+            className="absolute bottom-1.5 right-1.5 block h-2.5 w-2.5 border-b-2 border-r-2 border-current"
+          />
+        </button>
+      ) : null}
+    </>
+  );
+
+  return (
+    <>
+      {open && floatingWindowActive && windowGeometry ? (
+        <div
+          className="fixed z-40 flex flex-col overflow-hidden rounded-2xl border border-aipify-border bg-aipify-surface shadow-lg"
+          style={{
+            left: windowGeometry.x,
+            top: windowGeometry.y,
+            width: windowGeometry.width,
+            height: windowGeometry.height,
+          }}
+        >
+          <div className="relative flex min-h-0 flex-1 flex-col">{panelBody}</div>
         </div>
       ) : null}
 
-      <button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        className={`relative flex h-12 w-12 items-center justify-center rounded-full border bg-aipify-surface shadow-lg transition hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-aipify-focus ${style.buttonRing}`}
-        aria-expanded={open}
-        aria-label={`${toggleLabel} — ${stateLabel}`}
-        title={`${title} — ${stateLabel}`}
-      >
-        <span
-          className={`pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br ${style.ring} blur-md ${ringAnimation}`}
-          aria-hidden="true"
-        />
-        <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-aipify-surface">
-          <AipifyPulse size={28} variant="gradient" title={title} aria-label={title} />
-        </span>
-        <span className="sr-only">{`${presenceLabel}: ${stateLabel}`}</span>
-      </button>
-    </div>
+      <div className="fixed bottom-4 right-4 z-50 pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)] sm:bottom-6 sm:right-6">
+        {open && !floatingWindowActive ? (
+          <div className="mb-3 flex w-[min(100vw-2rem,26rem)] max-h-[min(78vh,40rem)] flex-col overflow-hidden rounded-2xl border border-aipify-border bg-aipify-surface shadow-lg sm:w-[min(100vw-3rem,27.5rem)]">
+            {panelBody}
+          </div>
+        ) : null}
+
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          className={`relative flex h-12 w-12 items-center justify-center rounded-full border bg-aipify-surface shadow-lg transition hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-aipify-focus ${style.buttonRing}`}
+          aria-expanded={open}
+          aria-label={`${toggleLabel} — ${stateLabel}`}
+          title={`${title} — ${stateLabel}`}
+        >
+          <span
+            className={`pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br ${style.ring} blur-md ${ringAnimation}`}
+            aria-hidden="true"
+          />
+          <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-aipify-surface">
+            <AipifyPulse size={28} variant="gradient" title={title} aria-label={title} />
+          </span>
+          <span className="sr-only">{`${presenceLabel}: ${stateLabel}`}</span>
+        </button>
+      </div>
+    </>
   );
 }
