@@ -1,0 +1,401 @@
+import "server-only";
+
+import { getPlatformCorpusEntry } from "@/lib/companion-platform-knowledge/platform-corpus";
+import { searchPlatformKnowledge } from "@/lib/companion-platform-knowledge/search";
+import type {
+  PlatformKnowledgeAction,
+  PlatformKnowledgeAnswer,
+  PlatformSearchContext,
+  PlatformCorpusArticleId,
+} from "@/lib/companion-platform-knowledge/types";
+import { getPlatformRouteByKey } from "@/lib/companion-platform-knowledge/route-registry";
+import { buildHonestKnowledgeGapAnswer } from "@/lib/companion-platform-knowledge/answer-builder";
+import { createEmptyCompanionTenantContext } from "@/lib/companion-runtime/companion-tenant-context";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n/config";
+import { isPublicFooterEnabledLocale } from "@/lib/i18n/public-locales";
+import { createTranslator } from "@/lib/i18n/translate";
+
+export const PUBLIC_COMPANION_ASK_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
+export type PublicCompanionAskLocale = (typeof PUBLIC_COMPANION_ASK_LOCALES)[number];
+
+export const PUBLIC_COMPANION_ASK_MAX_QUESTION_LENGTH = 1000;
+export const PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGES = 6;
+export const PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGE_LENGTH = 500;
+
+const ALLOWED_REQUEST_KEYS = new Set(["question", "locale", "messageLocale", "recentContext"]);
+
+export type PublicCompanionRecentContextMessage = {
+  role: "user" | "assistant";
+  text: string;
+};
+
+export type PublicCompanionAskRequest = {
+  question: string;
+  locale?: string;
+  messageLocale?: string;
+  recentContext?: PublicCompanionRecentContextMessage[];
+};
+
+export type PublicCompanionAskAction = {
+  label: string;
+  href: string;
+  variant: "primary" | "secondary";
+};
+
+export type PublicCompanionAskSource = {
+  title: string;
+  route: string;
+};
+
+export type PublicCompanionAskConfidence = {
+  level: "high" | "medium" | "low";
+  score: number | null;
+};
+
+export type PublicCompanionAskSupportEscalation = {
+  offered: boolean;
+  reason: "low_confidence" | "knowledge_gap" | null;
+};
+
+export type PublicCompanionAskResponse = {
+  answer: {
+    directAnswer: string;
+    explanation: string | null;
+    steps: string[];
+  };
+  actions: PublicCompanionAskAction[];
+  sources: PublicCompanionAskSource[];
+  confidence: PublicCompanionAskConfidence;
+  supportEscalation: PublicCompanionAskSupportEscalation;
+  locale: PublicCompanionAskLocale;
+};
+
+export class PublicCompanionAskValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "PublicCompanionAskValidationError";
+  }
+}
+
+function resolvePublicCompanionLocale(
+  locale?: string,
+  messageLocale?: string,
+): PublicCompanionAskLocale {
+  const preferred = messageLocale?.trim() || locale?.trim();
+  if (preferred && isPublicFooterEnabledLocale(preferred)) {
+    return preferred;
+  }
+  return DEFAULT_LOCALE;
+}
+
+function getSearchTermsArray(customerApp: Record<string, unknown>, key: string): string[] {
+  const pathParts = key.replace(/^customerApp\./, "").split(".");
+  let current: unknown = customerApp;
+  for (const part of pathParts) {
+    if (!current || typeof current !== "object") return [];
+    current = (current as Record<string, unknown>)[part];
+  }
+  if (typeof current === "string") {
+    return current.split("|").map((entry) => entry.trim()).filter(Boolean);
+  }
+  return [];
+}
+
+export function buildPublicPlatformSearchContext(locale: string): PlatformSearchContext {
+  return {
+    locale,
+    userRole: "read_only",
+  };
+}
+
+export function shouldRewritePublicRetrievalQuery(question: string): boolean {
+  const normalized = question.trim().toLowerCase().replace(/[?!.]+$/, "").replace(/\s+/g, " ");
+
+  return (
+    /\b(kost|koster|pris\w*|price|pricing|abonnement)\b/.test(normalized) ||
+    /\b(demo|demonstrasjon|demonstration|book)\b/.test(normalized) ||
+    /\b(vise meg|show me)\b/.test(normalized) ||
+    /\b(hvordan|how)\b.*\baipify\b.*\bfungerer\b/.test(normalized) ||
+    /\b(business pack|business packs|forretningspak|bedriftspak|bedrifter)\b/.test(normalized) ||
+    /\bpakkene?\b/.test(normalized) ||
+    /\b(komme i gang|getting started|get started|komme igang|hjelp.*start)\b/.test(normalized) ||
+    /\b(ny|new)\b.*\b(her|here)\b/.test(normalized) ||
+    /\bbegynne\b/.test(normalized)
+  );
+}
+
+export function buildPublicRetrievalQuery(question: string): string {
+  const normalized = question.trim().toLowerCase().replace(/[?!.]+$/, "").replace(/\s+/g, " ");
+
+  if (/\b(kost|koster|pris\w*|price|pricing|abonnement)\b/.test(normalized)) {
+    return "Go to upgrade pricing";
+  }
+
+  if (
+    /\b(business pack|business packs|forretningspak|bedriftspak|bedrifter)\b/.test(normalized) ||
+    /\bpakkene?\b/.test(normalized)
+  ) {
+    return "Go to business packs";
+  }
+
+  if (
+    /\b(demo|demonstrasjon|demonstration|book)\b/.test(normalized) ||
+    /\b(vise meg|show me)\b/.test(normalized) ||
+    /\b(hvordan|how)\b.*\baipify\b.*\bfungerer\b/.test(normalized)
+  ) {
+    return "Go to knowledge getting started";
+  }
+
+  if (
+    /\b(komme i gang|getting started|get started|komme igang|hjelp.*start)\b/.test(normalized) ||
+    /\b(ny|new)\b.*\b(her|here)\b/.test(normalized) ||
+    /\bbegynne\b/.test(normalized)
+  ) {
+    return "Go to knowledge getting started";
+  }
+
+  return question.trim();
+}
+
+export function buildPublicCompanionQuery(
+  question: string,
+  recentContext?: PublicCompanionRecentContextMessage[],
+): string {
+  if (!recentContext?.length) return question;
+  const contextLines = recentContext.map((entry) => `${entry.role}: ${entry.text}`);
+  return [...contextLines, `user: ${question}`].join("\n");
+}
+
+function assertAllowedRequestKeys(body: Record<string, unknown>): void {
+  for (const key of Object.keys(body)) {
+    if (!ALLOWED_REQUEST_KEYS.has(key)) {
+      throw new PublicCompanionAskValidationError("Invalid request field");
+    }
+  }
+}
+
+export function validatePublicCompanionAskRequest(body: unknown): PublicCompanionAskRequest {
+  if (!body || typeof body !== "object") {
+    throw new PublicCompanionAskValidationError("Invalid request body");
+  }
+
+  const record = body as Record<string, unknown>;
+  assertAllowedRequestKeys(record);
+
+  const question = typeof record.question === "string" ? record.question.trim() : "";
+  if (!question) {
+    throw new PublicCompanionAskValidationError("question required");
+  }
+  if (question.length > PUBLIC_COMPANION_ASK_MAX_QUESTION_LENGTH) {
+    throw new PublicCompanionAskValidationError("question too long");
+  }
+
+  const recentContext = sanitizeRecentContext(record.recentContext);
+
+  return {
+    question,
+    locale: typeof record.locale === "string" ? record.locale : undefined,
+    messageLocale: typeof record.messageLocale === "string" ? record.messageLocale : undefined,
+    recentContext,
+  };
+}
+
+function sanitizeRecentContext(value: unknown): PublicCompanionRecentContextMessage[] | undefined {
+  if (value == null) return undefined;
+  if (!Array.isArray(value)) {
+    throw new PublicCompanionAskValidationError("recentContext must be an array");
+  }
+  if (value.length > PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGES) {
+    throw new PublicCompanionAskValidationError("recentContext too long");
+  }
+
+  return value.map((entry) => {
+    if (!entry || typeof entry !== "object") {
+      throw new PublicCompanionAskValidationError("Invalid recentContext entry");
+    }
+    const row = entry as Record<string, unknown>;
+    if (row.role !== "user" && row.role !== "assistant") {
+      throw new PublicCompanionAskValidationError("Invalid recentContext role");
+    }
+    const text = typeof row.text === "string" ? row.text.trim() : "";
+    if (!text) {
+      throw new PublicCompanionAskValidationError("recentContext text required");
+    }
+    if (text.length > PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGE_LENGTH) {
+      throw new PublicCompanionAskValidationError("recentContext text too long");
+    }
+    return { role: row.role, text };
+  });
+}
+
+function mapConfidenceLevel(level: PlatformKnowledgeAnswer["confidence"]): PublicCompanionAskConfidence["level"] {
+  if (level === "moderate") return "medium";
+  return level;
+}
+
+function mapConfidenceScore(level: PublicCompanionAskConfidence["level"]): number | null {
+  switch (level) {
+    case "high":
+      return 0.9;
+    case "medium":
+      return 0.65;
+    case "low":
+      return 0.25;
+    default:
+      return null;
+  }
+}
+
+function isUnsafeHref(href: string): boolean {
+  const normalized = href.trim().toLowerCase();
+  if (!normalized.startsWith("/") || normalized.startsWith("//")) return true;
+  if (/^(javascript:|data:|vbscript:)/.test(normalized)) return true;
+  if (/^https?:/.test(normalized)) return true;
+  return false;
+}
+
+export function sanitizePublicCompanionActions(
+  actions: PlatformKnowledgeAction[],
+): PublicCompanionAskAction[] {
+  const sanitized: PublicCompanionAskAction[] = [];
+
+  for (const action of actions) {
+    if (!action.label?.trim() || !action.href?.trim() || !action.routeKey?.trim()) continue;
+    if (isUnsafeHref(action.href)) continue;
+
+    const route = getPlatformRouteByKey(action.routeKey);
+    if (!route || route.href !== action.href) continue;
+
+    sanitized.push({
+      label: action.label.trim(),
+      href: action.href,
+      variant: action.variant === "primary" ? "primary" : "secondary",
+    });
+  }
+
+  return sanitized;
+}
+
+function mapSources(answer: PlatformKnowledgeAnswer): PublicCompanionAskSource[] {
+  const mapped = answer.sources
+    .map((source) => ({
+      title: source.label?.trim() || source.id,
+      route: source.id,
+    }))
+    .filter((source) => source.title.length > 0 && source.route.length > 0);
+
+  if (mapped.length > 0) return mapped;
+
+  if (answer.sourceId) {
+    return [{ title: answer.title ?? answer.sourceId, route: answer.sourceId }];
+  }
+
+  return [];
+}
+
+function containsUnsafeMarkup(text: string): boolean {
+  return /<\/?[a-z][\s\S]*>/i.test(text) || /\[[^\]]+\]\([^)]+\)/.test(text);
+}
+
+function assertSafeTextFields(answer: PlatformKnowledgeAnswer): void {
+  const fields = [answer.directAnswer, answer.explanation ?? "", ...answer.steps];
+  for (const field of fields) {
+    if (containsUnsafeMarkup(field)) {
+      throw new Error("Unsafe answer markup");
+    }
+  }
+}
+
+function isKnowledgeGapAnswer(answer: PlatformKnowledgeAnswer): boolean {
+  return answer.sourceId === "knowledge-gap" || answer.source === "fallback" && answer.confidence === "low" && answer.actions.length === 0;
+}
+
+function isCustomerContextAnswer(matchedArticleId?: string, answer?: PlatformKnowledgeAnswer): boolean {
+  if (matchedArticleId) {
+    const entry = getPlatformCorpusEntry(matchedArticleId as PlatformCorpusArticleId);
+    if (entry?.requiresCustomerContext) return true;
+  }
+  return answer?.sourceId === "my-subscription";
+}
+
+function resolveSupportEscalation(
+  answer: PlatformKnowledgeAnswer,
+  confidence: PublicCompanionAskConfidence,
+  forceGap: boolean,
+): PublicCompanionAskSupportEscalation {
+  if (forceGap || isKnowledgeGapAnswer(answer)) {
+    return { offered: true, reason: "knowledge_gap" };
+  }
+  if (confidence.level === "low") {
+    return { offered: true, reason: "low_confidence" };
+  }
+  if (answer.showSupportEscalation && confidence.level === "medium") {
+    return { offered: true, reason: "low_confidence" };
+  }
+  return { offered: false, reason: null };
+}
+
+function mapPlatformAnswerToPublicResponse(
+  answer: PlatformKnowledgeAnswer,
+  locale: PublicCompanionAskLocale,
+  matchedArticleId?: string,
+): PublicCompanionAskResponse {
+  const forceGap = isCustomerContextAnswer(matchedArticleId, answer);
+  const confidence: PublicCompanionAskConfidence = forceGap
+    ? { level: "low", score: mapConfidenceScore("low") }
+    : {
+        level: mapConfidenceLevel(answer.confidence),
+        score: mapConfidenceScore(mapConfidenceLevel(answer.confidence)),
+      };
+
+  const supportEscalation = resolveSupportEscalation(answer, confidence, forceGap);
+
+  assertSafeTextFields(answer);
+
+  return {
+    answer: {
+      directAnswer: answer.directAnswer,
+      explanation: answer.explanation ?? null,
+      steps: answer.steps ?? [],
+    },
+    actions: sanitizePublicCompanionActions(answer.actions),
+    sources: mapSources(answer),
+    confidence,
+    supportEscalation,
+    locale,
+  };
+}
+
+export async function askPublicPlatformCompanion(
+  input: PublicCompanionAskRequest,
+): Promise<PublicCompanionAskResponse> {
+  const validated = validatePublicCompanionAskRequest(input);
+  const locale = resolvePublicCompanionLocale(validated.locale, validated.messageLocale);
+  const contextualQuestion = buildPublicCompanionQuery(validated.question, validated.recentContext);
+  const query = shouldRewritePublicRetrievalQuery(validated.question)
+    ? buildPublicRetrievalQuery(validated.question)
+    : contextualQuestion;
+
+  const dict = await getCustomerAppDictionaryForSplits(locale as Locale, ["companionPlatformKnowledge"]);
+  const customerApp = dict.customerApp as Record<string, unknown>;
+  const t = createTranslator(dict);
+
+  const tenantContext = createEmptyCompanionTenantContext({ locale });
+
+  const result = await searchPlatformKnowledge(query, {
+    t,
+    locale,
+    ctx: buildPublicPlatformSearchContext(locale),
+    getSearchTermsArray: (key) => getSearchTermsArray(customerApp, key),
+    companionSurface: false,
+    tenantContext,
+  });
+
+  if (isCustomerContextAnswer(result.matchedArticleId, result.answer)) {
+    const gap = buildHonestKnowledgeGapAnswer(t);
+    return mapPlatformAnswerToPublicResponse(gap, locale, "knowledge-gap");
+  }
+
+  return mapPlatformAnswerToPublicResponse(result.answer, locale, result.matchedArticleId);
+}
