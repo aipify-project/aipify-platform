@@ -22,7 +22,7 @@
       "rolesPermissions": "Roller og tilganger",
       "activityOverview": "Aktivitet",
       "installedBusinessPacks": "Installerte pakker",
-      "availableBusinessPacks": "Available Business Packs",
+      "availableBusinessPacks": "Tilgjengelige Business Packs",
       "businessPackSettings": "Innstillinger",
       "tasks": "Oppgaver",
       "workflows": "Arbeidsflyter",
@@ -272,12 +272,12 @@
         "subtitle": "Summary of recent team and operational activity."
       },
       "installedBusinessPacks": {
-        "title": "Installed Business Packs",
-        "subtitle": "Business Packs licensed and active for your organization."
+        "title": "Installerte Business Packs",
+        "subtitle": "Business Packs lisensiert og aktive for organisasjonen."
       },
       "availableBusinessPacks": {
-        "title": "Available Business Packs",
-        "subtitle": "Browse Business Packs available for your subscription."
+        "title": "Tilgjengelige Business Packs",
+        "subtitle": "Utforsk Business Packs tilgjengelig for abonnementet ditt."
       },
       "businessPackSettings": {
         "title": "Business Pack Settings",
@@ -296,20 +296,20 @@
         "subtitle": "Operational insights and recommendations for your organization."
       },
       "subscription": {
-        "title": "Subscription",
-        "subtitle": "Your current plan, renewal status, and licensed modules."
+        "title": "Abonnement",
+        "subtitle": "Gjeldende plan, fornyelsesstatus og lisensierte moduler."
       },
       "paymentHistory": {
-        "title": "Payment History",
-        "subtitle": "Past payments and billing activity for your organization."
+        "title": "Betalingshistorikk",
+        "subtitle": "Tidligere betalinger og faktureringsaktivitet for organisasjonen."
       },
       "invoices": {
-        "title": "Invoices",
-        "subtitle": "Download and review invoices for your subscription."
+        "title": "Fakturaer",
+        "subtitle": "Last ned og gå gjennom fakturaer for abonnementet."
       },
       "upgradeOptions": {
-        "title": "Upgrade Options",
-        "subtitle": "Compare plans and upgrade your subscription."
+        "title": "Oppgraderingsalternativer",
+        "subtitle": "Sammenlign planer og oppgrader abonnementet."
       },
       "contactSupport": {
         "title": "Contact Support",

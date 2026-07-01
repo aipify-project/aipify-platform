@@ -259,6 +259,123 @@ async function main() {
     assert.ok(response.actions.length > 0 || response.sources.length > 0);
   });
 
+  const FORBIDDEN_ENGLISH_SOURCE_TITLES = [
+    "Upgrade Options",
+    "Knowledge Center",
+    "Marketplace",
+    "Getting Started",
+  ];
+
+  function assertNoEnglishRouteSourceTitles(
+    sources: Array<{ title: string }>,
+    context: string,
+  ) {
+    for (const title of FORBIDDEN_ENGLISH_SOURCE_TITLES) {
+      assert.ok(
+        !sources.some((source) => source.title === title),
+        `${context}: unexpected English source title "${title}"`,
+      );
+    }
+  }
+
+  await test("Norwegian pricing source titles use portalStructure locale", async () => {
+    const response = await askPublicPlatformCompanion({
+      question: "Hva koster Aipify?",
+      locale: "no",
+    });
+
+    assert.equal(response.locale, "no");
+    assertNoEnglishRouteSourceTitles(response.sources, "pricing");
+    assert.ok(
+      response.sources.some(
+        (source) => source.title === "Oppgraderinger" || source.title === "Oppgraderingsalternativer",
+      ),
+      `expected Norwegian upgrade route source, got: ${response.sources.map((s) => s.title).join(", ")}`,
+    );
+  });
+
+  await test("Norwegian knowledge source titles use portalStructure locale", async () => {
+    const response = await askPublicPlatformCompanion({
+      question: "Kan noen vise meg hvordan Aipify fungerer?",
+      locale: "no",
+    });
+
+    assert.equal(response.locale, "no");
+    assertNoEnglishRouteSourceTitles(response.sources, "knowledge");
+    assert.ok(
+      response.sources.some((source) => source.title === "Kunnskapssenter"),
+      `expected Kunnskapssenter source, got: ${response.sources.map((s) => s.title).join(", ")}`,
+    );
+    for (const action of response.actions) {
+      assert.ok(!FORBIDDEN_ENGLISH_SOURCE_TITLES.includes(action.label));
+    }
+  });
+
+  await test("Norwegian marketplace source titles use portalStructure locale", async () => {
+    const response = await askPublicPlatformCompanion({
+      question: "Hvordan fungerer disse pakkene for bedrifter?",
+      locale: "no",
+    });
+
+    assert.equal(response.locale, "no");
+    assertNoEnglishRouteSourceTitles(response.sources, "marketplace");
+    assert.ok(
+      response.sources.some((source) => source.title === "Markedsplass"),
+      `expected Markedsplass source, got: ${response.sources.map((s) => s.title).join(", ")}`,
+    );
+  });
+
+  await test("Norwegian response uses same locale for sources and action labels", async () => {
+    const response = await askPublicPlatformCompanion({
+      question: "Kan noen vise meg hvordan Aipify fungerer?",
+      locale: "no",
+    });
+
+    assert.equal(response.locale, "no");
+    assert.ok(response.sources.length > 0);
+    assert.ok(response.actions.length > 0);
+    assert.ok(response.actions.some((action) => action.label === "Kom i gang"));
+    assert.ok(response.actions.some((action) => action.label === "Åpne Aipify Companion"));
+    assertNoEnglishRouteSourceTitles(response.sources, "locale consistency");
+  });
+
+  await test("messageLocale en keeps English source titles", async () => {
+    const response = await askPublicPlatformCompanion({
+      question: "Hva koster Aipify?",
+      locale: "no",
+      messageLocale: "en",
+    });
+
+    assert.equal(response.locale, "en");
+    assert.ok(
+      response.sources.some((source) => source.title === "Upgrades"),
+      `expected English Upgrades source, got: ${response.sources.map((s) => s.title).join(", ")}`,
+    );
+    assert.ok(!response.sources.some((source) => source.title === "Oppgraderinger"));
+  });
+
+  await test("invalid locale falls back to English source titles", async () => {
+    const response = await askPublicPlatformCompanion({
+      question: "Hva koster Aipify?",
+      locale: "de",
+    });
+
+    assert.equal(response.locale, "en");
+    assert.ok(
+      response.sources.some((source) => source.title === "Upgrades"),
+      `expected English Upgrades source, got: ${response.sources.map((s) => s.title).join(", ")}`,
+    );
+    assert.ok(!response.sources.some((source) => source.title === "Oppgraderinger"));
+  });
+
+  await test("runtime loads portalStructure without hardcoded source titles", () => {
+    assert.match(
+      publicCompanionAskSource,
+      /getCustomerAppDictionaryForSplits\(\s*locale as Locale,\s*\[[\s\S]*?"companionPlatformKnowledge"[\s\S]*?"portalStructure"[\s\S]*?\]\s*\)/,
+    );
+    assert.doesNotMatch(publicCompanionAskSource, /Oppgraderinger|Kunnskapssenter|Markedsplass/);
+  });
+
   await test("output does not require raw HTML or markdown links", async () => {
     const response = await askPublicPlatformCompanion({
       question: "Hva koster Aipify?",

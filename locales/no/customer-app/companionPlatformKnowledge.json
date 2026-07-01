@@ -1,7 +1,7 @@
 {
   "companionPlatformKnowledge": {
     "pricing": {
-      "custom": "Custom pricing",
+      "custom": "Tilpasset prising",
       "perMonth": "måned",
       "perMonthShort": "mo",
       "planStarter": "Starter",
@@ -1879,73 +1879,73 @@
     },
     "routes": {
       "appDashboard": {
-        "description": "Your Command Center dashboard — priorities, briefings, and workspace overview."
+        "description": "Command Center-dashboardet — prioriteringer, briefinger og arbeidsområdeoversikt."
       },
       "sinceLastLogin": {
-        "description": "Catch up on what changed since your last visit."
+        "description": "Oppdater deg på hva som har endret seg siden sist besøk."
       },
       "appNotifications": {
-        "description": "Review and manage notifications."
+        "description": "Gå gjennom og administrer varsler."
       },
       "teamMembers": {
-        "description": "Invite and manage team members."
+        "description": "Inviter og administrer teammedlemmer."
       },
       "rolesPermissions": {
-        "description": "Assign roles and permissions."
+        "description": "Tildel roller og tilganger."
       },
       "subscription": {
-        "description": "View your current subscription and license status."
+        "description": "Se gjeldende abonnement og lisensstatus."
       },
       "paymentHistory": {
-        "description": "Payment receipts and transaction history."
+        "description": "Betalingskvitteringer og transaksjonshistorikk."
       },
       "invoices": {
-        "description": "Download and review invoices."
+        "description": "Last ned og gå gjennom fakturaer."
       },
       "upgradeOptions": {
-        "description": "Compare plans and upgrade your subscription."
+        "description": "Sammenlign planer og oppgrader abonnementet."
       },
       "knowledgeCenter": {
-        "description": "Approved guides and FAQ articles."
+        "description": "Godkjente guider og FAQ-artikler."
       },
       "contactSupport": {
-        "description": "Reach Aipify support."
+        "description": "Kontakt Aipify support."
       },
       "supportRequests": {
-        "description": "Track open support requests."
+        "description": "Følg åpne supportforespørsler."
       },
       "accountSecurity": {
-        "description": "Password, two-factor authentication, and security settings."
+        "description": "Passord, tofaktorautentisering og sikkerhetsinnstillinger."
       },
       "preferences": {
-        "description": "Language, notifications, and workspace preferences."
+        "description": "Språk, varsler og arbeidsområdepreferanser."
       },
       "integrations": {
-        "description": "Integration hub for connected systems."
+        "description": "Integrasjonssenter for tilkoblede systemer."
       },
       "connectIntegration": {
-        "description": "Connect Shopify, WordPress, and other integrations."
+        "description": "Koble til Shopify, WordPress og andre integrasjoner."
       },
       "connectedIntegrations": {
-        "description": "View active integration connections."
+        "description": "Se aktive integrasjonstilkoblinger."
       },
       "apiAccess": {
-        "description": "API keys and developer access."
+        "description": "API-nøkler og utviklertilgang."
       },
       "aipifyCompanion": {
-        "description": "Ask Aipify and get guided next steps."
+        "description": "Spør Aipify og få veiledede neste steg."
       },
       "commandBrief": {
-        "description": "Executive command brief and daily priorities."
+        "description": "Command Brief og daglige prioriteringer."
       },
       "installedBusinessPacks": {
-        "description": "Business Packs activated for your organization."
+        "description": "Business Packs aktivert for organisasjonen."
       },
       "availableBusinessPacks": {
-        "description": "Browse and activate Business Packs."
+        "description": "Utforsk og aktiver Business Packs."
       },
       "activityOverview": {
-        "description": "Organization activity and audit overview."
+        "description": "Organisasjonsaktivitet og revisjonsoversikt."
       }
     },
     "articles": {
@@ -1953,205 +1953,205 @@
         "title": "Hva er Aipify?",
         "directAnswer": "Aipify er ditt Business Operating System (ABOS) — én pålitelig companion som hjelper organisasjonen din å operere, beslutte og vokse fra ett APP-portal.",
         "explanation": "Aipify jobber inne i arbeidsområdet ditt med verifisert kontekst. Du beholder kontrollen; Aipify forbereder, forklarer og anbefaler neste steg.",
-        "step1": "Explore the Command Center for your daily overview.",
-        "step2": "Ask Aipify Companion anytime for guidance with direct links.",
+        "step1": "Utforsk Command Center for daglig oversikt.",
+        "step2": "Spør Aipify Companion når som helst om veiledning med direkte lenker.",
         "searchTerms": "hva er aipify|what is aipify|what is aipify?|hva er aipify?|about aipify|om aipify"
       },
       "aipifyCapabilities": {
         "title": "Hva kan Aipify hjelpe meg med?",
         "directAnswer": "Aipify hjelper med drift, teamstyring, fakturering, sikkerhet, integrasjoner, Business Packs, briefinger og support — alt fra APP-portalen.",
-        "explanation": "Companion guidance covers navigation, approvals, notifications, and verified account context. Humans decide; Aipify informs and prepares.",
-        "step1": "Open Aipify Companion for contextual guidance on any page.",
-        "step2": "Use Command Brief and Since Last Login for executive catch-up.",
+        "explanation": "Companion veileder deg i navigasjon, godkjenninger, varsler og verifisert kontekst. Mennesker bestemmer; Aipify informerer og forbereder.",
+        "step1": "Åpne Aipify Companion for kontekstual veiledning på en hvilken som helst side.",
+        "step2": "Bruk Command Brief og Siden sist innlogging for rask lederoversikt.",
         "searchTerms": "hva kan aipify hjelpe|what can aipify help|help me with|hjelpe meg med|capabilities|funksjoner"
       },
       "appPanelNavigation": {
         "title": "Slik fungerer APP-panelet",
         "directAnswer": "APP-portalen er organisert i Hjem, Organisasjon, Business Packs, Operasjoner, Intelligence, Fakturering, Support, Konto og Plattform i sidemenyen.",
-        "explanation": "Each section maps to real routes in your workspace. Your role and plan determine which pages you can access.",
-        "step1": "Use the sidebar to navigate between sections.",
-        "step2": "Open Aipify Companion on any page for page-aware suggestions.",
-        "step3": "Check Since Last Login under Intelligence for a quick catch-up.",
+        "explanation": "Hver seksjon kobles til reelle ruter i arbeidsområdet. Rolle og plan avgjør hvilke sider du får tilgang til.",
+        "step1": "Bruk sidemenyen for å navigere mellom seksjoner.",
+        "step2": "Åpne Aipify Companion på en hvilken som helst side for sidebevisste forslag.",
+        "step3": "Sjekk Siden sist innlogging under Intelligence for rask oversikt.",
         "searchTerms": "app panel|app-panelet|how does the app|hvordan fungerer app|navigation|sidebar|portal"
       },
       "addTeamMembers": {
         "title": "Legg til ansatte",
         "directAnswer": "Inviter ansatte fra Organisasjon → Teammedlemmer. Eiere og administratorer kan sende invitasjoner og tildele initial tilgang.",
-        "explanation": "New members receive access according to your organization's role policy. You can adjust roles afterward under Roles & Permissions.",
-        "step1": "Go to Organization → Team Members.",
-        "step2": "Select Invite member and enter their email.",
-        "step3": "Assign a role and send the invitation.",
+        "explanation": "Nye medlemmer får tilgang i tråd med organisasjonens rollepolicy. Du kan justere roller senere under Roller og tilganger.",
+        "step1": "Gå til Organisasjon → Teammedlemmer.",
+        "step2": "Velg Inviter medlem og skriv inn e-post.",
+        "step3": "Tildel rolle og send invitasjonen.",
         "searchTerms": "add employee|legge til ansatte|invite team|inviter|team members|medarbeider|ansatte"
       },
       "changeRoles": {
         "title": "Endre roller",
         "directAnswer": "Oppdater medlemsroller under Organisasjon → Roller og tilganger. Kun eiere og administratorer kan endre roller.",
-        "explanation": "Roles control access to billing, team management, integrations, and sensitive settings. Changes are audited.",
-        "step1": "Open Organization → Roles & Permissions.",
-        "step2": "Select the team member to update.",
-        "step3": "Choose the new role and save.",
+        "explanation": "Roller styrer tilgang til fakturering, team, integrasjoner og sensitive innstillinger. Endringer logges.",
+        "step1": "Åpne Organisasjon → Roller og tilganger.",
+        "step2": "Velg teammedlemmet du vil oppdatere.",
+        "step3": "Velg ny rolle og lagre.",
         "searchTerms": "change role|endre roller|roles|permissions|tilgang|roller"
       },
       "upgradeSubscription": {
         "title": "Oppgrader abonnementet",
         "directAnswer": "Sammenlign planer og oppgrader under Fakturering → Oppgraderingsalternativer. Eiere og administratorer kan starte oppgraderinger.",
-        "explanation": "Upgrades unlock additional capacity, Business Packs, and advanced modules according to the selected plan.",
-        "step1": "Open Billing → Upgrade Options.",
-        "step2": "Compare plans and select the best fit.",
-        "step3": "Complete the upgrade flow and confirm billing details.",
+        "explanation": "Oppgraderinger gir ekstra kapasitet, Business Packs og avanserte moduler i tråd med valgt plan.",
+        "step1": "Åpne Fakturering → Oppgraderingsalternativer.",
+        "step2": "Sammenlign planer og velg det som passer best.",
+        "step3": "Fullfør oppgraderingsflyten og bekreft faktureringsdetaljer.",
         "searchTerms": "upgrade|oppgrader|oppgradere|change plan|bytte abonnement"
       },
       "subscriptionPricing": {
         "title": "Abonnementspriser",
         "directAnswer": "Publiserte månedlige priser (NOK) er listet nedenfor. Enterprise bruker tilpasset prising gjennom avtale.",
-        "explanation": "Prices come from the canonical Aipify public pricing catalog. Your organization's active subscription may differ based on agreement date.",
-        "step1": "Review plan options under Billing → Upgrade Options.",
-        "step2": "Open Subscription to see your current plan.",
+        "explanation": "Priser kommer fra den kanoniske Aipify-priskatalogen. Organisasjonens aktive abonnement kan avvike basert på avtaledato.",
+        "step1": "Gå gjennom planalternativer under Fakturering → Oppgraderingsalternativer.",
+        "step2": "Åpne Abonnement for å se gjeldende plan.",
         "searchTerms": "hva koster|what does it cost|pricing|price|pris|abonnement kost|subscription cost"
       },
       "mySubscription": {
         "title": "Ditt abonnement",
         "directAnswer": "Ditt verifiserte abonnement er {planLabel} ({planKey}) med status: {status}.",
-        "explanation": "This reflects your organization's live license data. Open Subscription for renewal dates, capacity, and billing details.",
-        "step1": "Open Billing → Subscription for full details.",
-        "step2": "Visit Upgrade Options if you need more capacity or modules.",
+        "explanation": "Dette reflekterer organisasjonens live lisensdata. Åpne Abonnement for fornyelsesdatoer, kapasitet og faktureringsdetaljer.",
+        "step1": "Åpne Fakturering → Abonnement for full oversikt.",
+        "step2": "Gå til Oppgraderingsalternativer hvis du trenger mer kapasitet eller moduler.",
         "searchTerms": "hvilket abonnement|my subscription|current plan|min plan|mitt abonnement|which plan"
       },
       "findInvoices": {
         "title": "Finn faktura",
         "directAnswer": "Fakturaer finnes under Fakturering → Fakturaer.",
-        "explanation": "Download PDF invoices for accounting and records. Owners and admins have full billing access.",
-        "step1": "Open Billing → Invoices.",
-        "step2": "Select an invoice period to view or download.",
+        "explanation": "Last ned PDF-fakturaer for regnskap og arkiv. Eiere og administratorer har full faktureringstilgang.",
+        "step1": "Åpne Fakturering → Fakturaer.",
+        "step2": "Velg en fakturaperiode for visning eller nedlasting.",
         "searchTerms": "invoice|faktura|find invoice|hvor finner jeg faktura|billing invoice"
       },
       "findReceipts": {
         "title": "Finn kvittering",
         "directAnswer": "Betalingskvitteringer og transaksjonshistorikk finnes under Fakturering → Betalingshistorikk.",
-        "explanation": "Receipts show completed payments. For formal invoices, use the Invoices page.",
-        "step1": "Open Billing → Payment History.",
-        "step2": "Locate the payment and open the receipt.",
+        "explanation": "Kvitteringer viser fullførte betalinger. For formelle fakturaer, bruk Fakturaer-siden.",
+        "step1": "Åpne Fakturering → Betalingshistorikk.",
+        "step2": "Finn betalingen og åpne kvitteringen.",
         "searchTerms": "receipt|kvittering|payment history|betaling|hvor finner jeg kvittering"
       },
       "connectShopify": {
         "title": "Koble til Shopify",
         "directAnswer": "Koble til Shopify fra Plattform → Koble integrasjon. Eiere og administratorer kan autorisere tilkoblingen.",
-        "explanation": "Integrations start read-only until you approve expanded access. Aipify learns your store context after connection.",
-        "step1": "Open Platform → Connect Integration.",
-        "step2": "Select Shopify and follow the authorization steps.",
-        "step3": "Review discovered capabilities before activating.",
+        "explanation": "Integrasjoner starter med lesetilgang til du godkjenner utvidet tilgang. Aipify lærer butikkonteksten etter tilkobling.",
+        "step1": "Åpne Plattform → Koble integrasjon.",
+        "step2": "Velg Shopify og følg autoriseringstrinnene.",
+        "step3": "Gjennomgå oppdagede funksjoner før aktivering.",
         "searchTerms": "shopify|connect shopify|koble shopify|integrasjon shopify|integration shopify"
       },
       "enable2fa": {
         "title": "Aktiver tofaktorautentisering",
         "directAnswer": "Aktiver 2FA under Konto → Sikkerhet. Aipify anbefaler tofaktorautentisering for alle brukere.",
-        "explanation": "Two-factor authentication adds a verification step at sign-in. Recovery codes are provided during setup.",
-        "step1": "Open Account → Security.",
-        "step2": "Select Enable two-factor authentication.",
-        "step3": "Scan the QR code with your authenticator app and save recovery codes.",
+        "explanation": "Tofaktorautentisering legger til et verifiseringstrinn ved innlogging. Gjenopprettingskoder gis under oppsett.",
+        "step1": "Åpne Konto → Sikkerhet.",
+        "step2": "Velg Aktiver tofaktorautentisering.",
+        "step3": "Skann QR-koden med autentiseringsappen og lagre gjenopprettingskoder.",
         "searchTerms": "2fa|two factor|tofaktor|two-factor|aktiver 2fa|enable 2fa|security"
       },
       "installWebApp": {
         "title": "Installer Aipify Web App",
         "directAnswer": "Installer Aipify Web App fra nettleseren når du blir bedt om det, eller følg veiledningen i Kunnskapssenteret.",
-        "explanation": "The web app adds a home-screen shortcut and improved mobile experience. Supported browsers show an install prompt automatically.",
-        "step1": "Open Aipify in Chrome, Edge, or Safari on your device.",
-        "step2": "Accept the install prompt, or use the browser menu → Install app.",
-        "step3": "See Knowledge Center for platform-specific instructions.",
+        "explanation": "Webappen legger til snarvei på hjemskjermen og bedre mobilopplevelse. Støttede nettlesere viser installasjonsmelding automatisk.",
+        "step1": "Åpne Aipify i Chrome, Edge eller Safari på enheten.",
+        "step2": "Godta installasjonsmeldingen, eller bruk nettlesermenyen → Installer app.",
+        "step3": "Se Kunnskapssenteret for plattformspesifikke instruksjoner.",
         "searchTerms": "web app|install app|installer aipify|pwa|install aipify web|mobile app"
       },
       "contactSupport": {
         "title": "Kontakt support",
         "directAnswer": "Kontakt Aipify support fra Support → Kontakt support, eller opprett en forespørsel under Supportforespørsler.",
-        "explanation": "Include context from Companion when escalating — your question is forwarded to help the team respond faster.",
-        "step1": "Open Support → Contact Support.",
-        "step2": "Or create a tracked request under Support Requests.",
+        "explanation": "Ta med kontekst fra Companion ved eskalering — spørsmålet videresendes for raskere svar.",
+        "step1": "Åpne Support → Kontakt support.",
+        "step2": "Eller opprett en sporet forespørsel under Supportforespørsler.",
         "searchTerms": "contact support|kontakt support|support|hjelp|help|customer support"
       },
       "aipifyGroupLocation": {
         "title": "Aipify Group AS — beliggenhet",
-        "directAnswer": "Aipify Group AS har hovedkontor i Bergen, Norge. From Norway. For the world.",
-        "explanation": "Aipify Group AS is the parent company behind the Aipify Business Operating System (ABOS).",
+        "directAnswer": "Aipify Group AS har hovedkontor i Bergen, Norge. Fra Norge. For verden.",
+        "explanation": "Aipify Group AS er morselskapet bak Aipify Business Operating System (ABOS).",
         "searchTerms": "aipify group|bergen|norway|norge|hvor holder|location|headquarters|adresse"
       },
       "businessPacks": {
         "title": "Hva er et Business Pack?",
         "directAnswer": "Business Packs er modulære driftskapabiliteter du aktiverer for organisasjonen — bransje- eller funksjonsspesifikke moduler.",
-        "explanation": "Browse available packs under Business Packs → Available. Installed packs appear under Installed Business Packs.",
-        "step1": "Open Business Packs → Available to browse the catalog.",
-        "step2": "Review requirements and activate packs your plan supports.",
+        "explanation": "Utforsk tilgjengelige pakker under Business Packs → Tilgjengelige. Installerte pakker vises under Installerte pakker.",
+        "step1": "Åpne Business Packs → Tilgjengelige for å bla i katalogen.",
+        "step2": "Gå gjennom krav og aktiver pakker planen støtter.",
         "searchTerms": "business pack|business packs|hva er et business pack|modul|pack"
       },
       "sinceLastLogin": {
         "title": "Siden sist innlogging",
         "directAnswer": "Se hva som har endret seg siden sist under Intelligence → Siden sist innlogging.",
-        "explanation": "This view summarizes notifications, activity, and items requiring attention — a calm catch-up before deep work.",
-        "step1": "Open Intelligence → Since Last Login.",
-        "step2": "Review highlighted changes and follow suggested next steps.",
+        "explanation": "Denne visningen oppsummerer varsler, aktivitet og elementer som krever oppmerksomhet — en rolig oppdatering før dypere arbeid.",
+        "step1": "Åpne Intelligence → Siden sist innlogging.",
+        "step2": "Gå gjennom uthevede endringer og følg foreslåtte neste steg.",
         "searchTerms": "since last login|siden sist|what happened|hva har skjedd|catch up|oppdatering"
       },
       "companionOverview": {
         "title": "Aipify Companion",
-        "directAnswer": "Aipify Companion is your in-portal guide — ask questions and receive direct answers with links to the right page.",
-        "explanation": "There is one Aipify. Companion is an extension of Aipify, not a separate assistant.",
-        "step1": "Open Intelligence → Aipify Companion.",
+        "directAnswer": "Aipify Companion er din veileder i portalen — still spørsmål og få direkte svar med lenker til riktig side.",
+        "explanation": "Det finnes én Aipify. Companion er en utvidelse av Aipify, ikke en separat assistent.",
+        "step1": "Åpne Intelligence → Aipify Companion.",
         "searchTerms": "companion|aipify companion"
       },
       "commandBrief": {
         "title": "Command Brief",
-        "directAnswer": "Command Brief summarizes priorities and executive context from your Command Center.",
-        "explanation": "Use it for a focused daily overview before operations work.",
-        "step1": "Open Intelligence → Command Brief or the Command Center dashboard.",
+        "directAnswer": "Command Brief oppsummerer prioriteringer og lederkontekst fra Command Center.",
+        "explanation": "Bruk den for en fokusert daglig oversikt før driftsarbeid.",
+        "step1": "Åpne Intelligence → Command Brief eller Command Center-dashboardet.",
         "searchTerms": "command brief|briefing|daily brief"
       },
       "knowledgeCenter": {
-        "title": "Knowledge Center",
-        "directAnswer": "Approved guides and FAQ articles live under Support → Knowledge Center.",
-        "explanation": "Knowledge Center complements Companion with published documentation.",
-        "step1": "Open Support → Knowledge Center.",
+        "title": "Kunnskapssenter",
+        "directAnswer": "Godkjente guider og FAQ-artikler finnes under Support → Kunnskapssenter.",
+        "explanation": "Kunnskapssenteret utfyller Companion med publisert dokumentasjon.",
+        "step1": "Åpne Support → Kunnskapssenter.",
         "searchTerms": "knowledge center|kunnskap|faq|help articles"
       },
       "notificationsPreferences": {
-        "title": "Notification preferences",
-        "directAnswer": "Manage notification preferences under Account → Notifications and Intelligence → Notifications.",
-        "explanation": "Control channels, quiet hours, and minimum alert levels.",
-        "step1": "Open Account → Notifications.",
+        "title": "Varslingsinnstillinger",
+        "directAnswer": "Administrer varslingsinnstillinger under Konto → Varslingsinnstillinger og Intelligence → Varsler.",
+        "explanation": "Styr kanaler, stilletid og minimum varselsnivå.",
+        "step1": "Åpne Konto → Varslingsinnstillinger.",
         "searchTerms": "notifications|varsler|notification preferences"
       },
       "vacationMode": {
-        "title": "Vacation mode",
-        "directAnswer": "Adjust presence and notification settings under Account → Preferences to reduce non-essential alerts during time away.",
-        "explanation": "Vacation mode suppresses non-critical noise while keeping critical alerts available.",
-        "step1": "Open Account → Preferences.",
+        "title": "Feriemodus",
+        "directAnswer": "Juster tilstedeværelse og varsler under Konto → Innstillinger for å redusere unødvendig støy når du er borte.",
+        "explanation": "Feriemodus demper ikke-kritiske varsler, men kritiske varsler er fortsatt tilgjengelige.",
+        "step1": "Åpne Konto → Innstillinger.",
         "searchTerms": "vacation|ferie|away mode|time away"
       },
       "apiAccess": {
-        "title": "API access",
-        "directAnswer": "API keys and developer access are under Platform → API Access. Owners and admins manage credentials.",
-        "explanation": "Treat API keys as secrets. Rotate keys through Developer settings when needed.",
-        "step1": "Open Platform → API Access.",
-        "step2": "Create or rotate keys following your security policy.",
+        "title": "API-tilgang",
+        "directAnswer": "API-nøkler og utviklertilgang finnes under Plattform → API-tilgang. Eiere og administratorer administrerer legitimasjon.",
+        "explanation": "Behandle API-nøkler som hemmeligheter. Roter nøkler via utviklerinnstillinger ved behov.",
+        "step1": "Åpne Plattform → API-tilgang.",
+        "step2": "Opprett eller roter nøkler i tråd med sikkerhetspolicyen.",
         "searchTerms": "api-nøkkel admin|api access|developer access|api credentials"
       },
       "approvals": {
-        "title": "Approvals",
-        "directAnswer": "Sensitive actions require your approval. Review pending items in your workspace approval center when notified.",
-        "explanation": "Aipify prepares actions — humans approve. Critical actions are never executed without explicit approval.",
-        "step1": "Check notifications for pending approval requests.",
+        "title": "Godkjenninger",
+        "directAnswer": "Sensitive handlinger krever godkjenning fra deg. Gå gjennom ventende elementer i godkjenningssenteret når du varsles.",
+        "explanation": "Aipify forbereder handlinger — mennesker godkjenner. Kritiske handlinger utføres aldri uten eksplisitt godkjenning.",
+        "step1": "Sjekk varsler for ventende godkjenningsforespørsler.",
         "searchTerms": "approval|godkjenning|approve|pending approval"
       },
       "auditGovernance": {
-        "title": "Audit and governance",
-        "directAnswer": "Organization activity and security events are visible under Organization → Activity Overview and Account → Security.",
-        "explanation": "Aipify maintains audit trails for trust and compliance. Platform admins see aggregates only.",
-        "step1": "Open Organization → Activity Overview.",
+        "title": "Revisjon og styring",
+        "directAnswer": "Organisasjonsaktivitet og sikkerhetshendelser er synlige under Organisasjon → Aktivitetsoversikt og Konto → Sikkerhet.",
+        "explanation": "Aipify fører revisjonsspor for tillit og etterlevelse. Plattformadministratorer ser kun aggregerte data.",
+        "step1": "Åpne Organisasjon → Aktivitetsoversikt.",
         "searchTerms": "audit|governance|activity log|revisjon"
       },
       "languageSettings": {
-        "title": "Language settings",
-        "directAnswer": "Change your language under Account → Preferences. Aipify supports English, Norwegian, Swedish, Danish, Polish, and Ukrainian.",
-        "explanation": "Language applies across the APP portal, Companion, and notifications.",
-        "step1": "Open Account → Preferences and select your language.",
+        "title": "Språkinnstillinger",
+        "directAnswer": "Endre språk under Konto → Innstillinger. Aipify støtter engelsk, norsk, svensk, dansk, polsk og ukrainsk.",
+        "explanation": "Språk gjelder i APP-portalen, Companion og varsler.",
+        "step1": "Åpne Konto → Innstillinger og velg språk.",
         "searchTerms": "language|språk|locale|change language"
       },
       "whatIsApi": {
@@ -2162,26 +2162,26 @@
       },
       "findApiKey": {
         "title": "Finn API-nøkkelen",
-        "directAnswer": "API-nøkler finner du under Platform → API Access. Eiere og administratorer kan se og administrere nøkler der.",
+        "directAnswer": "API-nøkler finner du under Plattform → API-tilgang. Eiere og administratorer kan se og administrere nøkler der.",
         "explanation": "Del bare nøkler med godkjente systemer, og roter dem når tilgang endres.",
-        "step1": "Åpne Platform → API Access.",
+        "step1": "Åpne Plattform → API-tilgang.",
         "step2": "Finn aktiv nøkkel eller opprett en ny hvis du har tilgang.",
         "searchTerms": "finn api-nøkkel|hvor finner jeg api-nøkkel|api key location|hvor er api-nøkkel"
       },
       "createApiKey": {
         "title": "Opprett API-nøkkel",
-        "directAnswer": "Opprett eller roter API-nøkler under Platform → API Access. Eiere og administratorer kan generere nøkler i tråd med sikkerhetspolicyen.",
+        "directAnswer": "Opprett eller roter API-nøkler under Plattform → API-tilgang. Eiere og administratorer kan generere nøkler i tråd med sikkerhetspolicyen.",
         "explanation": "Lagre nøkler sikkert og trekk tilbake ubrukte nøkler raskt.",
-        "step1": "Åpne Platform → API Access.",
+        "step1": "Åpne Plattform → API-tilgang.",
         "step2": "Velg Opprett nøkkel eller Roter nøkkel.",
-        "step3": "Kopier nøkkelen én gang og lagre den i godkjent secret manager.",
+        "step3": "Kopier nøkkelen én gang og lagre den i godkjent nøkkellager.",
         "searchTerms": "opprette api-nøkkel|create api key|generate api key|ny api-nøkkel"
       },
       "connectSystem": {
         "title": "Koble et system til Aipify",
-        "directAnswer": "Koble kundesystemer fra Platform → Connect Integration. Start med lesetilgang og godkjenn utvidet tilgang når du er klar.",
+        "directAnswer": "Koble kundesystemer fra Plattform → Koble integrasjon. Start med lesetilgang og godkjenn utvidet tilgang når du er klar.",
         "explanation": "Aipify lærer godkjent metadata fra tilkoblede systemer — mennesker godkjenner aktivering.",
-        "step1": "Åpne Platform → Connect Integration.",
+        "step1": "Åpne Plattform → Koble integrasjon.",
         "step2": "Velg plattform og fullfør autorisering.",
         "step3": "Gjennomgå oppdagede funksjoner før aktivering.",
         "searchTerms": "koble system|connect system|tilkoble system|integrer system|koble til aipify"
@@ -2190,8 +2190,8 @@
         "title": "Hva får Aipify tilgang til?",
         "directAnswer": "Aipify får kun tilgang til godkjent metadata og operasjonell kontekst som kreves for lisensierte moduler. Integrasjoner starter med lesetilgang, sensitive handlinger krever godkjenning, og organisasjonen styrer tilkoblede systemer.",
         "explanation": "Kundedata blir hos kunden. Aipify lagrer intelligensmønstre — ikke rå private poster med mindre det er eksplisitt godkjent.",
-        "step1": "Gjennomgå tilkoblede integrasjoner under Platform → Integrations.",
-        "step2": "Åpne Account → Security for tilgangs- og revisjonssynlighet.",
+        "step1": "Gjennomgå tilkoblede integrasjoner under Plattform → Integrasjoner.",
+        "step2": "Åpne Konto → Sikkerhet for tilgangs- og revisjonssynlighet.",
         "searchTerms": "hva får aipify tilgang|what does aipify access|data access|tilgang aipify|hva kan aipify se"
       }
     },

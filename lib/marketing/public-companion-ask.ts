@@ -377,7 +377,10 @@ export async function askPublicPlatformCompanion(
     ? buildPublicRetrievalQuery(validated.question)
     : contextualQuestion;
 
-  const dict = await getCustomerAppDictionaryForSplits(locale as Locale, ["companionPlatformKnowledge"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale as Locale, [
+    "companionPlatformKnowledge",
+    "portalStructure",
+  ]);
   const customerApp = dict.customerApp as Record<string, unknown>;
   const t = createTranslator(dict);
 
