@@ -1,26 +1,46 @@
 import assert from "node:assert/strict";
 import {
   applyWebsiteCompanionWindowDragDelta,
+  applyWebsiteCompanionWindowMaximize,
   applyWebsiteCompanionWindowResizeDelta,
+  applyWebsiteCompanionWindowRestore,
   canStartWebsiteCompanionWindowDrag,
   clearWebsiteCompanionWindowState,
   clampWebsiteCompanionWindowGeometry,
   getDefaultWebsiteCompanionWindowGeometry,
+  getWebsiteCompanionWindowMaxHeight,
+  getWebsiteCompanionWindowMaxWidth,
+  getWebsiteCompanionWindowMaximizedGeometry,
   getWebsiteCompanionWindowResetLabel,
+  getWebsiteCompanionWindowResetLayout,
   isWebsiteCompanionDesktopViewport,
   isWebsiteCompanionLocalStorageAvailable,
   isWebsiteCompanionPointerEventsSupported,
+  parseWebsiteCompanionWindowLayoutState,
   parseWebsiteCompanionWindowState,
+  readWebsiteCompanionWindowLayoutState,
   readWebsiteCompanionWindowState,
   reconcileWebsiteCompanionWindowGeometry,
+  reconcileWebsiteCompanionWindowLayoutState,
+  serializeWebsiteCompanionWindowLayoutState,
   serializeWebsiteCompanionWindowState,
+  shouldAllowWebsiteCompanionWindowDrag,
+  shouldAllowWebsiteCompanionWindowResize,
   shouldIgnoreWebsiteCompanionDesktopState,
+  shouldShowWebsiteCompanionMaximizeControl,
   shouldUseWebsiteCompanionFloatingWindow,
+  WEBSITE_COMPANION_WINDOW_DEFAULT_HEIGHT_PX,
+  WEBSITE_COMPANION_WINDOW_DEFAULT_WIDTH_PX,
+  WEBSITE_COMPANION_WINDOW_DESKTOP_MAX_WIDTH_PX,
   WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_HEIGHT_PX,
   WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_WIDTH_PX,
   WEBSITE_COMPANION_WINDOW_HEADER_MIN_VISIBLE_PX,
+  WEBSITE_COMPANION_WINDOW_LEGACY_SCHEMA_VERSION,
+  WEBSITE_COMPANION_WINDOW_MAX_HEIGHT_DVH_RATIO,
   WEBSITE_COMPANION_WINDOW_SCHEMA_VERSION,
   WEBSITE_COMPANION_WINDOW_STORAGE_KEY,
+  WEBSITE_COMPANION_WINDOW_VIEWPORT_MARGIN_PX,
+  writeWebsiteCompanionWindowLayoutState,
   writeWebsiteCompanionWindowState,
 } from "@/lib/marketing/website-companion-window";
 import {
@@ -29,6 +49,7 @@ import {
 } from "@/lib/marketing/website-companion-chat";
 
 const desktopViewport = { width: 1280, height: 900 };
+const wideViewport = { width: 1440, height: 900 };
 const mobileViewport = { width: 390, height: 844 };
 
 function createMemoryStorage(): Storage {
@@ -67,6 +88,12 @@ function createDomTarget(path: string[]): { closest: (selector: string) => Eleme
       if (selector === "[data-companion-window-resize-handle]" && path.includes("resize")) {
         return {} as Element;
       }
+      if (
+        selector === "[data-companion-window-maximize-control]" &&
+        path.includes("maximize")
+      ) {
+        return {} as Element;
+      }
       const interactiveTags = ["button", "a", "input", "textarea", "select", "label"];
       if (interactiveTags.some((tag) => selector.includes(tag) && path.includes(tag))) {
         return {} as Element;
@@ -76,27 +103,117 @@ function createDomTarget(path: string[]): { closest: (selector: string) => Eleme
   };
 }
 
-// 1. Valid stored size and position restored
-const storage = createMemoryStorage();
-const storedGeometry = { x: 700, y: 120, width: 480, height: 640 };
-writeWebsiteCompanionWindowState(storage, storedGeometry, desktopViewport);
-const restored = readWebsiteCompanionWindowState(storage, desktopViewport);
-assert.equal(restored.width, 480);
-assert.equal(restored.height, 640);
-assert.ok(restored.x >= 16);
-assert.ok(restored.y >= 16);
-console.log("ok valid stored geometry restored");
-
-// 2. Invalid localStorage falls back safely
-assert.equal(parseWebsiteCompanionWindowState("{bad", desktopViewport), null);
+// 1. Max width can reach 1080 px when viewport allows it
+assert.equal(getWebsiteCompanionWindowMaxWidth(wideViewport), 1080);
+assert.equal(getWebsiteCompanionWindowMaxWidth(desktopViewport), 1080);
+const narrowDesktop = { width: 900, height: 900 };
 assert.equal(
-  parseWebsiteCompanionWindowState(
+  getWebsiteCompanionWindowMaxWidth(narrowDesktop),
+  narrowDesktop.width - WEBSITE_COMPANION_WINDOW_VIEWPORT_MARGIN_PX * 2,
+);
+console.log("ok max width reaches 1080 when viewport allows");
+
+// 2. Max height follows safe ~92dvh limit
+const maxHeight1440 = getWebsiteCompanionWindowMaxHeight(wideViewport);
+assert.equal(maxHeight1440, Math.min(900 * WEBSITE_COMPANION_WINDOW_MAX_HEIGHT_DVH_RATIO, 900 - 48));
+assert.ok(maxHeight1440 > 800);
+console.log("ok max height follows 92dvh safe limit");
+
+// 3. New default size is larger than previous 460×680
+const defaultGeometry = getDefaultWebsiteCompanionWindowGeometry(desktopViewport);
+assert.equal(WEBSITE_COMPANION_WINDOW_DEFAULT_WIDTH_PX, 540);
+assert.equal(WEBSITE_COMPANION_WINDOW_DEFAULT_HEIGHT_PX, 740);
+assert.ok(defaultGeometry.width >= 540);
+assert.ok(defaultGeometry.height >= 740);
+assert.ok(defaultGeometry.width > 460);
+assert.ok(defaultGeometry.height > 680);
+console.log("ok default size larger than legacy 460x680");
+
+// 4. Maximize uses available viewport without overflow
+const manualLayout = {
+  geometry: { x: 700, y: 120, width: 480, height: 640 },
+  isMaximized: false,
+  restoreState: { x: 700, y: 120, width: 480, height: 640 },
+};
+const maximized = applyWebsiteCompanionWindowMaximize(manualLayout, wideViewport);
+assert.equal(maximized.isMaximized, true);
+assert.equal(maximized.geometry.width, 1080);
+assert.equal(maximized.geometry.height, getWebsiteCompanionWindowMaxHeight(wideViewport));
+assert.ok(
+  maximized.geometry.x + maximized.geometry.width <=
+    wideViewport.width - WEBSITE_COMPANION_WINDOW_VIEWPORT_MARGIN_PX,
+);
+assert.ok(
+  maximized.geometry.y + maximized.geometry.height <= wideViewport.height - 48,
+);
+console.log("ok maximize uses viewport without overflow");
+
+// 5. Restore returns to last manual state
+const restored = applyWebsiteCompanionWindowRestore(maximized, wideViewport);
+assert.equal(restored.isMaximized, false);
+assert.equal(restored.geometry.width, 480);
+assert.equal(restored.geometry.height, 640);
+assert.equal(restored.geometry.x, 700);
+console.log("ok restore returns to last manual state");
+
+// 6. Maximize/restore does not delete messages (storage layer has no message keys)
+const messageArchive = ["user:hello", "assistant:hei"];
+applyWebsiteCompanionWindowMaximize(manualLayout, desktopViewport);
+applyWebsiteCompanionWindowRestore(maximized, desktopViewport);
+assert.deepEqual(messageArchive, ["user:hello", "assistant:hei"]);
+console.log("ok maximize restore does not touch conversation data");
+
+// 7. Maximize/restore button does not start drag
+assert.equal(canStartWebsiteCompanionWindowDrag(createDomTarget(["header", "maximize"])), false);
+assert.equal(canStartWebsiteCompanionWindowDrag(createDomTarget(["header", "div"])), true);
+console.log("ok maximize control does not start drag");
+
+// 8. Drag and resize ignored while maximized
+assert.equal(shouldAllowWebsiteCompanionWindowDrag(maximized), false);
+assert.equal(shouldAllowWebsiteCompanionWindowResize(maximized), false);
+assert.equal(shouldAllowWebsiteCompanionWindowDrag(manualLayout), true);
+assert.equal(shouldAllowWebsiteCompanionWindowResize(manualLayout), true);
+console.log("ok drag resize blocked while maximized");
+
+// 9. Persistence restores isMaximized and restoreState
+const storage = createMemoryStorage();
+writeWebsiteCompanionWindowLayoutState(storage, maximized, wideViewport);
+const parsedMax = parseWebsiteCompanionWindowLayoutState(
+  storage.getItem(WEBSITE_COMPANION_WINDOW_STORAGE_KEY),
+  wideViewport,
+);
+assert.ok(parsedMax);
+assert.equal(parsedMax.isMaximized, true);
+assert.equal(parsedMax.restoreState?.width, 480);
+const readBack = readWebsiteCompanionWindowLayoutState(storage, wideViewport);
+assert.equal(readBack.isMaximized, true);
+console.log("ok persistence restores isMaximized and restoreState");
+
+// 10. SchemaVersion 1 migrates safely
+const v1Payload = JSON.stringify({
+  schemaVersion: WEBSITE_COMPANION_WINDOW_LEGACY_SCHEMA_VERSION,
+  x: 700,
+  y: 120,
+  width: 480,
+  height: 640,
+});
+const migrated = parseWebsiteCompanionWindowLayoutState(v1Payload, desktopViewport);
+assert.ok(migrated);
+assert.equal(migrated.isMaximized, false);
+assert.equal(migrated.geometry.width, 480);
+assert.equal(migrated.restoreState?.width, 480);
+console.log("ok schema v1 migrates safely");
+
+// 11. Corrupt state falls back without crash
+assert.equal(parseWebsiteCompanionWindowLayoutState("{bad", desktopViewport), null);
+assert.equal(
+  parseWebsiteCompanionWindowLayoutState(
     JSON.stringify({ schemaVersion: 99, x: 1, y: 2, width: 480, height: 640 }),
     desktopViewport,
   ),
   null,
 );
-const fallback = readWebsiteCompanionWindowState(
+const fallback = readWebsiteCompanionWindowLayoutState(
   {
     getItem: () => "not-json",
     setItem: () => undefined,
@@ -104,10 +221,96 @@ const fallback = readWebsiteCompanionWindowState(
   },
   desktopViewport,
 );
-assert.ok(fallback.width >= WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_WIDTH_PX);
-console.log("ok invalid localStorage safe fallback");
+assert.ok(fallback.geometry.width >= WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_WIDTH_PX);
+assert.equal(fallback.isMaximized, false);
+console.log("ok corrupt state safe fallback");
 
-// 3. Drag clamped within viewport
+// 12. Viewport resize clamps normal state and restoreState
+const offscreen = { x: 1100, y: 700, width: 460, height: 680 };
+const smallerViewport = { width: 1024, height: 768 };
+const reclamped = reconcileWebsiteCompanionWindowGeometry(offscreen, smallerViewport);
+assert.ok(reclamped.x + reclamped.width <= smallerViewport.width);
+assert.ok(reclamped.y + WEBSITE_COMPANION_WINDOW_HEADER_MIN_VISIBLE_PX <= smallerViewport.height);
+const layoutWithRestore = reconcileWebsiteCompanionWindowLayoutState(
+  {
+    geometry: offscreen,
+    isMaximized: false,
+    restoreState: { x: 1200, y: 800, width: 700, height: 900 },
+  },
+  smallerViewport,
+);
+assert.ok(layoutWithRestore.restoreState);
+assert.ok(layoutWithRestore.restoreState.x + layoutWithRestore.restoreState.width <= smallerViewport.width);
+console.log("ok viewport resize clamps normal and restore state");
+
+// 13. Maximized state adapts to new viewport
+const maximizedOnSmall = reconcileWebsiteCompanionWindowLayoutState(
+  { ...maximized, isMaximized: true },
+  smallerViewport,
+);
+assert.equal(maximizedOnSmall.isMaximized, true);
+assert.ok(maximizedOnSmall.geometry.width <= getWebsiteCompanionWindowMaxWidth(smallerViewport));
+assert.ok(maximizedOnSmall.geometry.height <= getWebsiteCompanionWindowMaxHeight(smallerViewport));
+console.log("ok maximized state adapts to viewport resize");
+
+// 14. Reset exits maximize mode and keeps chat
+writeWebsiteCompanionWindowLayoutState(storage, maximized, wideViewport);
+clearWebsiteCompanionWindowState(storage);
+const resetLayout = getWebsiteCompanionWindowResetLayout(desktopViewport);
+assert.equal(resetLayout.isMaximized, false);
+assert.ok(resetLayout.geometry.width >= WEBSITE_COMPANION_WINDOW_DEFAULT_WIDTH_PX);
+const chatAfterReset = ["user:still-here"];
+assert.deepEqual(chatAfterReset, ["user:still-here"]);
+console.log("ok reset exits maximize and keeps chat");
+
+// 15. Mobile shows no maximize control
+assert.equal(shouldShowWebsiteCompanionMaximizeControl(mobileViewport.width), false);
+assert.equal(shouldIgnoreWebsiteCompanionDesktopState(mobileViewport.width), true);
+assert.equal(
+  shouldUseWebsiteCompanionFloatingWindow({
+    viewportWidth: mobileViewport.width,
+    pointerEventsSupported: true,
+  }),
+  false,
+);
+console.log("ok mobile hides maximize control");
+
+// 16. Missing localStorage gives functioning default
+const brokenStorage = {
+  getItem: () => {
+    throw new Error("blocked");
+  },
+  setItem: () => {
+    throw new Error("blocked");
+  },
+  removeItem: () => {
+    throw new Error("blocked");
+  },
+};
+assert.equal(isWebsiteCompanionLocalStorageAvailable(brokenStorage), false);
+const defaultFromBroken = readWebsiteCompanionWindowLayoutState(brokenStorage, desktopViewport);
+assert.ok(defaultFromBroken.geometry.width >= WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_WIDTH_PX);
+console.log("ok missing localStorage uses default layout");
+
+// 17. Missing Pointer Events gives safe fixed layout
+assert.equal(
+  shouldUseWebsiteCompanionFloatingWindow({
+    viewportWidth: desktopViewport.width,
+    pointerEventsSupported: false,
+  }),
+  false,
+);
+assert.equal(isWebsiteCompanionPointerEventsSupported({ window: {} }), false);
+console.log("ok missing pointer events disables floating controls");
+
+// Legacy coverage retained from production-proven baseline
+const storedGeometry = { x: 700, y: 120, width: 480, height: 640 };
+writeWebsiteCompanionWindowState(storage, storedGeometry, desktopViewport);
+const restoredLegacy = readWebsiteCompanionWindowState(storage, desktopViewport);
+assert.equal(restoredLegacy.width, 480);
+assert.equal(restoredLegacy.height, 640);
+console.log("ok valid stored geometry restored");
+
 const dragged = applyWebsiteCompanionWindowDragDelta(
   { x: 100, y: 100, width: 460, height: 680 },
   5000,
@@ -118,7 +321,6 @@ assert.ok(dragged.x < desktopViewport.width - 50);
 assert.ok(dragged.y <= desktopViewport.height - 48);
 console.log("ok drag clamped within viewport");
 
-// 4. Resize respects min/max width and height
 const resized = applyWebsiteCompanionWindowResizeDelta(
   { x: 700, y: 120, width: 460, height: 680 },
   -500,
@@ -133,77 +335,16 @@ const expanded = applyWebsiteCompanionWindowResizeDelta(
   5000,
   desktopViewport,
 );
-assert.ok(expanded.width <= 720);
-assert.ok(expanded.height <= desktopViewport.height - 80);
+assert.ok(expanded.width <= WEBSITE_COMPANION_WINDOW_DESKTOP_MAX_WIDTH_PX);
+assert.ok(expanded.height <= getWebsiteCompanionWindowMaxHeight(desktopViewport));
 console.log("ok resize min/max respected");
 
-// 5. Viewport change reclamps window back on screen
-const offscreen = { x: 1100, y: 700, width: 460, height: 680 };
-const smallerViewport = { width: 1024, height: 768 };
-const reclamped = reconcileWebsiteCompanionWindowGeometry(offscreen, smallerViewport);
-assert.ok(reclamped.x + reclamped.width <= smallerViewport.width);
-assert.ok(reclamped.y + WEBSITE_COMPANION_WINDOW_HEADER_MIN_VISIBLE_PX <= smallerViewport.height);
-console.log("ok viewport change reclamps geometry");
-
-// 6. Reset clears only window state
-writeWebsiteCompanionWindowState(storage, storedGeometry, desktopViewport);
-clearWebsiteCompanionWindowState(storage);
-assert.equal(storage.getItem(WEBSITE_COMPANION_WINDOW_STORAGE_KEY), null);
-console.log("ok reset clears window state only");
-
-// 7. Reset does not delete messages (storage layer has no message keys)
-const messageArchive = ["user:hello", "assistant:hei"];
-clearWebsiteCompanionWindowState(storage);
-assert.deepEqual(messageArchive, ["user:hello", "assistant:hei"]);
-console.log("ok reset does not touch conversation data");
-
-// 8. Mobile ignores desktop position and size
-assert.equal(shouldIgnoreWebsiteCompanionDesktopState(mobileViewport.width), true);
-assert.equal(
-  shouldUseWebsiteCompanionFloatingWindow({
-    viewportWidth: mobileViewport.width,
-    pointerEventsSupported: true,
-  }),
-  false,
-);
-console.log("ok mobile ignores desktop floating window");
-
-// 9. Missing Pointer Events uses fixed functioning panel mode
-assert.equal(
-  shouldUseWebsiteCompanionFloatingWindow({
-    viewportWidth: desktopViewport.width,
-    pointerEventsSupported: false,
-  }),
-  false,
-);
-assert.equal(isWebsiteCompanionPointerEventsSupported({ window: {} }), false);
-console.log("ok missing pointer events disables floating controls");
-
-// 10. Missing localStorage still yields functioning default geometry
-const brokenStorage = {
-  getItem: () => {
-    throw new Error("blocked");
-  },
-  setItem: () => {
-    throw new Error("blocked");
-  },
-  removeItem: () => {
-    throw new Error("blocked");
-  },
-};
-assert.equal(isWebsiteCompanionLocalStorageAvailable(brokenStorage), false);
-const defaultGeometry = readWebsiteCompanionWindowState(brokenStorage, desktopViewport);
-assert.ok(defaultGeometry.width >= WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_WIDTH_PX);
-console.log("ok missing localStorage uses default geometry");
-
-// 11. Close/send/input do not start drag
-assert.equal(canStartWebsiteCompanionWindowDrag(createDomTarget(["header", "div"])), true);
 assert.equal(canStartWebsiteCompanionWindowDrag(createDomTarget(["header", "button"])), false);
 assert.equal(canStartWebsiteCompanionWindowDrag(createDomTarget(["header", "textarea"])), false);
 assert.equal(canStartWebsiteCompanionWindowDrag(createDomTarget(["header", "resize"])), false);
 console.log("ok interactive controls do not start drag");
 
-// 12. Chat request and context shape unchanged
+// 18. Chat request and recentContext shape unchanged
 const body = buildWebsiteCompanionAskBody({
   question: "Hva koster Aipify?",
   locale: "no",
@@ -235,8 +376,23 @@ const serialized = serializeWebsiteCompanionWindowState(
     desktopViewport,
   ),
 );
-const parsed = JSON.parse(serialized) as { schemaVersion: number };
-assert.equal(parsed.schemaVersion, WEBSITE_COMPANION_WINDOW_SCHEMA_VERSION);
-console.log("ok persistence schema version");
+const parsedJson = JSON.parse(serialized) as { schemaVersion: number };
+assert.equal(parsedJson.schemaVersion, WEBSITE_COMPANION_WINDOW_SCHEMA_VERSION);
+
+const serializedLayout = serializeWebsiteCompanionWindowLayoutState(
+  applyWebsiteCompanionWindowMaximize(
+    getWebsiteCompanionWindowResetLayout(desktopViewport),
+    desktopViewport,
+  ),
+);
+const parsedLayout = JSON.parse(serializedLayout) as {
+  schemaVersion: number;
+  isMaximized: boolean;
+  restoreState: { width: number };
+};
+assert.equal(parsedLayout.schemaVersion, WEBSITE_COMPANION_WINDOW_SCHEMA_VERSION);
+assert.equal(parsedLayout.isMaximized, true);
+assert.ok(parsedLayout.restoreState.width >= WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_WIDTH_PX);
+console.log("ok persistence schema version 2");
 
 console.log("website-companion-window.test.ts: all assertions passed");

@@ -28,21 +28,29 @@ import {
 } from "@/lib/marketing/website-companion-presence";
 import {
   applyWebsiteCompanionWindowDragDelta,
+  applyWebsiteCompanionWindowMaximize,
   applyWebsiteCompanionWindowResizeDelta,
+  applyWebsiteCompanionWindowRestore,
   canStartWebsiteCompanionWindowDrag,
-  clampWebsiteCompanionWindowGeometry,
   clearWebsiteCompanionWindowState,
-  getDefaultWebsiteCompanionWindowGeometry,
+  getWebsiteCompanionWindowDisplayedGeometry,
+  getWebsiteCompanionWindowMaximizeAriaLabel,
+  getWebsiteCompanionWindowResetLayout,
   getWebsiteCompanionWindowResetLabel,
+  getWebsiteCompanionWindowRestoreAriaLabel,
   isWebsiteCompanionDesktopViewport,
   isWebsiteCompanionLocalStorageAvailable,
   isWebsiteCompanionPointerEventsSupported,
-  readWebsiteCompanionWindowState,
-  reconcileWebsiteCompanionWindowGeometry,
+  readWebsiteCompanionWindowLayoutState,
+  reconcileWebsiteCompanionWindowLayoutState,
+  shouldAllowWebsiteCompanionWindowDrag,
+  shouldAllowWebsiteCompanionWindowResize,
+  shouldShowWebsiteCompanionMaximizeControl,
   shouldUseWebsiteCompanionFloatingWindow,
-  writeWebsiteCompanionWindowState,
+  writeWebsiteCompanionWindowLayoutState,
   type CompanionViewport,
   type CompanionWindowGeometry,
+  type CompanionWindowLayoutState,
 } from "@/lib/marketing/website-companion-window";
 
 type CompanionAction = {
@@ -196,13 +204,20 @@ export default function WebsiteCompanionAssistant({
   const [viewport, setViewport] = useState<CompanionViewport>({ width: 1280, height: 900 });
   const [pointerEventsSupported, setPointerEventsSupported] = useState(true);
   const [storageAvailable, setStorageAvailable] = useState(true);
-  const [windowGeometry, setWindowGeometry] = useState<CompanionWindowGeometry | null>(null);
+  const [windowLayout, setWindowLayout] = useState<CompanionWindowLayoutState | null>(null);
 
   const floatingWindowEnabled = shouldUseWebsiteCompanionFloatingWindow({
     viewportWidth: viewport.width,
     pointerEventsSupported,
   });
-  const floatingWindowActive = open && floatingWindowEnabled && windowGeometry !== null;
+  const displayedWindowGeometry =
+    windowLayout && floatingWindowEnabled
+      ? getWebsiteCompanionWindowDisplayedGeometry(windowLayout, viewport)
+      : null;
+  const floatingWindowActive = open && floatingWindowEnabled && displayedWindowGeometry !== null;
+  const windowMaximized = windowLayout?.isMaximized ?? false;
+  const showMaximizeControl =
+    floatingWindowActive && shouldShowWebsiteCompanionMaximizeControl(viewport.width);
 
   const inConversation = messages.some((message) => message.role === "user");
   const contentSignature = `${messages.length}:${sending}:${messages
@@ -229,11 +244,11 @@ export default function WebsiteCompanionAssistant({
         height: window.innerHeight,
       };
       setViewport(nextViewport);
-      setWindowGeometry((current) => {
+      setWindowLayout((current) => {
         if (!current || !isWebsiteCompanionDesktopViewport(nextViewport.width)) {
           return current;
         }
-        return reconcileWebsiteCompanionWindowGeometry(current, nextViewport);
+        return reconcileWebsiteCompanionWindowLayoutState(current, nextViewport);
       });
     };
 
@@ -246,28 +261,54 @@ export default function WebsiteCompanionAssistant({
     if (!open || !isWebsiteCompanionDesktopViewport(viewport.width)) {
       return;
     }
-    setWindowGeometry(readWebsiteCompanionWindowState(window.localStorage, viewport));
+    setWindowLayout(readWebsiteCompanionWindowLayoutState(window.localStorage, viewport));
   }, [open, viewport.height, viewport.width]);
 
-  const persistWindowGeometry = useCallback(
-    (geometry: CompanionWindowGeometry) => {
-      const clamped = clampWebsiteCompanionWindowGeometry(geometry, viewport);
-      setWindowGeometry(clamped);
+  const persistWindowLayout = useCallback(
+    (layout: CompanionWindowLayoutState) => {
+      const reconciled = reconcileWebsiteCompanionWindowLayoutState(layout, viewport);
+      setWindowLayout(reconciled);
       if (storageAvailable) {
-        writeWebsiteCompanionWindowState(window.localStorage, clamped, viewport);
+        writeWebsiteCompanionWindowLayoutState(window.localStorage, reconciled, viewport);
       }
     },
     [storageAvailable, viewport],
   );
 
+  const persistManualGeometry = useCallback(
+    (geometry: CompanionWindowGeometry) => {
+      persistWindowLayout({
+        geometry,
+        isMaximized: false,
+        restoreState: geometry,
+      });
+    },
+    [persistWindowLayout],
+  );
+
   const handleResetWindowLayout = useCallback(() => {
     clearWebsiteCompanionWindowState(window.localStorage);
-    setWindowGeometry(getDefaultWebsiteCompanionWindowGeometry(viewport));
+    setWindowLayout(getWebsiteCompanionWindowResetLayout(viewport));
   }, [viewport]);
+
+  const handleToggleWindowMaximize = useCallback(() => {
+    setWindowLayout((current) => {
+      if (!current) return current;
+      const nextLayout = current.isMaximized
+        ? applyWebsiteCompanionWindowRestore(current, viewport)
+        : applyWebsiteCompanionWindowMaximize(current, viewport);
+      const reconciled = reconcileWebsiteCompanionWindowLayoutState(nextLayout, viewport);
+      if (storageAvailable) {
+        writeWebsiteCompanionWindowLayoutState(window.localStorage, reconciled, viewport);
+      }
+      return reconciled;
+    });
+  }, [storageAvailable, viewport]);
 
   const handleWindowDragPointerDown = useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
-      if (!floatingWindowEnabled || !windowGeometry) return;
+      if (!floatingWindowEnabled || !windowLayout || !displayedWindowGeometry) return;
+      if (!shouldAllowWebsiteCompanionWindowDrag(windowLayout)) return;
       if (!canStartWebsiteCompanionWindowDrag(event.target as Element)) return;
       event.preventDefault();
 
@@ -275,19 +316,26 @@ export default function WebsiteCompanionAssistant({
         pointerId: event.pointerId,
         startX: event.clientX,
         startY: event.clientY,
-        origin: windowGeometry,
+        origin: displayedWindowGeometry,
       };
       dragSessionRef.current = session;
 
       const onMove = (moveEvent: PointerEvent) => {
         if (moveEvent.pointerId !== session.pointerId) return;
-        setWindowGeometry(
-          applyWebsiteCompanionWindowDragDelta(
-            session.origin,
-            moveEvent.clientX - session.startX,
-            moveEvent.clientY - session.startY,
-            viewport,
-          ),
+        const geometry = applyWebsiteCompanionWindowDragDelta(
+          session.origin,
+          moveEvent.clientX - session.startX,
+          moveEvent.clientY - session.startY,
+          viewport,
+        );
+        setWindowLayout((current) =>
+          current
+            ? {
+                ...current,
+                geometry,
+                isMaximized: false,
+              }
+            : current,
         );
       };
 
@@ -300,7 +348,7 @@ export default function WebsiteCompanionAssistant({
           viewport,
         );
         dragSessionRef.current = null;
-        persistWindowGeometry(finalGeometry);
+        persistManualGeometry(finalGeometry);
         window.removeEventListener("pointermove", onMove);
         window.removeEventListener("pointerup", onEnd);
         window.removeEventListener("pointercancel", onEnd);
@@ -310,12 +358,19 @@ export default function WebsiteCompanionAssistant({
       window.addEventListener("pointerup", onEnd);
       window.addEventListener("pointercancel", onEnd);
     },
-    [floatingWindowEnabled, persistWindowGeometry, viewport, windowGeometry],
+    [
+      displayedWindowGeometry,
+      floatingWindowEnabled,
+      persistManualGeometry,
+      viewport,
+      windowLayout,
+    ],
   );
 
   const handleWindowResizePointerDown = useCallback(
     (event: React.PointerEvent<HTMLButtonElement>) => {
-      if (!floatingWindowEnabled || !windowGeometry) return;
+      if (!floatingWindowEnabled || !windowLayout || !displayedWindowGeometry) return;
+      if (!shouldAllowWebsiteCompanionWindowResize(windowLayout)) return;
       event.preventDefault();
       event.stopPropagation();
 
@@ -323,19 +378,26 @@ export default function WebsiteCompanionAssistant({
         pointerId: event.pointerId,
         startX: event.clientX,
         startY: event.clientY,
-        origin: windowGeometry,
+        origin: displayedWindowGeometry,
       };
       resizeSessionRef.current = session;
 
       const onMove = (moveEvent: PointerEvent) => {
         if (moveEvent.pointerId !== session.pointerId) return;
-        setWindowGeometry(
-          applyWebsiteCompanionWindowResizeDelta(
-            session.origin,
-            moveEvent.clientX - session.startX,
-            moveEvent.clientY - session.startY,
-            viewport,
-          ),
+        const geometry = applyWebsiteCompanionWindowResizeDelta(
+          session.origin,
+          moveEvent.clientX - session.startX,
+          moveEvent.clientY - session.startY,
+          viewport,
+        );
+        setWindowLayout((current) =>
+          current
+            ? {
+                ...current,
+                geometry,
+                isMaximized: false,
+              }
+            : current,
         );
       };
 
@@ -348,7 +410,7 @@ export default function WebsiteCompanionAssistant({
           viewport,
         );
         resizeSessionRef.current = null;
-        persistWindowGeometry(finalGeometry);
+        persistManualGeometry(finalGeometry);
         window.removeEventListener("pointermove", onMove);
         window.removeEventListener("pointerup", onEnd);
         window.removeEventListener("pointercancel", onEnd);
@@ -358,7 +420,13 @@ export default function WebsiteCompanionAssistant({
       window.addEventListener("pointerup", onEnd);
       window.addEventListener("pointercancel", onEnd);
     },
-    [floatingWindowEnabled, persistWindowGeometry, viewport, windowGeometry],
+    [
+      displayedWindowGeometry,
+      floatingWindowEnabled,
+      persistManualGeometry,
+      viewport,
+      windowLayout,
+    ],
   );
 
   useEffect(() => {
@@ -534,6 +602,8 @@ export default function WebsiteCompanionAssistant({
     : chat.open.replace("{title}", title);
 
   const resetWindowLabel = getWebsiteCompanionWindowResetLabel(locale);
+  const maximizeAriaLabel = getWebsiteCompanionWindowMaximizeAriaLabel(locale);
+  const restoreAriaLabel = getWebsiteCompanionWindowRestoreAriaLabel(locale);
 
   const panelBody = (
     <>
@@ -541,7 +611,9 @@ export default function WebsiteCompanionAssistant({
         data-companion-window-drag-handle
         onPointerDown={handleWindowDragPointerDown}
         className={`shrink-0 border-b border-aipify-border px-4 py-3 ${
-          floatingWindowActive ? "cursor-grab touch-none active:cursor-grabbing" : ""
+          floatingWindowActive && !windowMaximized
+            ? "cursor-grab touch-none active:cursor-grabbing"
+            : ""
         }`}
       >
         <div className="flex items-start justify-between gap-3">
@@ -553,6 +625,40 @@ export default function WebsiteCompanionAssistant({
             </p>
           </div>
           <div className="flex shrink-0 items-center gap-1" data-companion-window-no-drag>
+            {showMaximizeControl ? (
+              <button
+                type="button"
+                data-companion-window-maximize-control
+                onClick={handleToggleWindowMaximize}
+                className="inline-flex h-7 w-7 items-center justify-center rounded-full text-aipify-text-secondary hover:bg-aipify-surface-muted"
+                aria-label={windowMaximized ? restoreAriaLabel : maximizeAriaLabel}
+              >
+                {windowMaximized ? (
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    aria-hidden="true"
+                    className="text-current"
+                  >
+                    <rect x="1.5" y="3.5" width="8" height="8" rx="1" stroke="currentColor" strokeWidth="1.25" />
+                    <path d="M5 1.5H11.5V8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+                  </svg>
+                ) : (
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    aria-hidden="true"
+                    className="text-current"
+                  >
+                    <rect x="2.5" y="2.5" width="9" height="9" rx="1" stroke="currentColor" strokeWidth="1.25" />
+                  </svg>
+                )}
+              </button>
+            ) : null}
             {floatingWindowActive ? (
               <button
                 type="button"
@@ -708,7 +814,7 @@ export default function WebsiteCompanionAssistant({
         </div>
       </form>
 
-      {floatingWindowActive ? (
+      {floatingWindowActive && !windowMaximized ? (
         <button
           type="button"
           aria-label={locale === "no" ? "Juster vindusstørrelse" : "Adjust window size"}
@@ -727,14 +833,14 @@ export default function WebsiteCompanionAssistant({
 
   return (
     <>
-      {open && floatingWindowActive && windowGeometry ? (
+      {open && floatingWindowActive && displayedWindowGeometry ? (
         <div
           className="fixed z-40 flex flex-col overflow-hidden rounded-2xl border border-aipify-border bg-aipify-surface shadow-lg"
           style={{
-            left: windowGeometry.x,
-            top: windowGeometry.y,
-            width: windowGeometry.width,
-            height: windowGeometry.height,
+            left: displayedWindowGeometry.x,
+            top: displayedWindowGeometry.y,
+            width: displayedWindowGeometry.width,
+            height: displayedWindowGeometry.height,
           }}
         >
           <div className="relative flex min-h-0 flex-1 flex-col">{panelBody}</div>
