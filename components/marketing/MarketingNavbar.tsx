@@ -77,7 +77,7 @@ export default function MarketingNavbar({ appName, labels, search }: MarketingNa
   return (
     <header className={AipifyMarketingClasses.header}>
       <nav
-        className="mx-auto flex h-16 max-w-[90rem] items-center justify-between px-4 sm:px-6 lg:px-8"
+        className="mx-auto flex h-14 max-w-[87.5rem] items-center justify-between px-4 sm:px-6 lg:px-8"
         aria-label="Main navigation"
       >
         <Link href="/" className="flex shrink-0 items-center gap-2.5">

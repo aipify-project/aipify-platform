@@ -1,49 +1,36 @@
-import dynamic from "next/dynamic";
 import {
-  CommandBriefSection,
-  CoreOutcomesSection,
+  BuyingJourneySection,
   CuratedPacksSection,
   HomepageCompanionSection,
   HomepageFinalCta,
   HomepageHero,
   HomepageTrustSection,
+  PracticeSection,
+  ProblemOutcomeSection,
   SimpleFlowSection,
+  TrustFoundationStrip,
 } from "@/components/marketing/homepage";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import { parseHomepageRedesign } from "@/lib/marketing/parse-homepage";
-import { getSection } from "@/lib/marketing/parse-marketing";
-import { getDictionary } from "@/lib/i18n/get-dictionary";
-import { createTranslator } from "@/lib/i18n/translate";
-import { buildHumanVerificationLabels } from "@/lib/system-notice/labels";
-
-const HomepageWorkflowDemo = dynamic(
-  () => import("@/components/marketing/homepage/HomepageWorkflowDemo"),
-  { loading: () => null }
-);
 
 export default async function MarketingHomePage() {
-  const { marketing, common, locale } = await getMarketingContext();
+  const { marketing, common } = await getMarketingContext();
   const content = parseHomepageRedesign(marketing);
-  const earlyAccess = getSection<Record<string, unknown>>(marketing, "earlyAccess");
-  const dict = await getDictionary(locale, ["common"]);
-  const t = createTranslator(dict);
-
-  const flowSteps = content.simpleFlow.steps;
-  const companionCapabilities = content.companion.capabilities;
 
   return (
     <>
       <HomepageHero hero={content.hero} commandBrief={content.commandBrief} />
 
-      <CommandBriefSection labels={content.commandBrief} />
+      <TrustFoundationStrip items={content.trustFoundation.items} />
 
-      <CoreOutcomesSection title={content.coreOutcomes.title} items={content.coreOutcomes.items} />
+      <ProblemOutcomeSection {...content.problemOutcome} />
 
       <SimpleFlowSection
         title={content.simpleFlow.title}
         subtitle={content.simpleFlow.subtitle}
         learnMore={content.simpleFlow.learnMore}
-        steps={flowSteps}
+        permissionNote={content.simpleFlow.permissionNote}
+        steps={content.simpleFlow.steps}
       />
 
       <CuratedPacksSection
@@ -54,11 +41,12 @@ export default async function MarketingHomePage() {
         packs={content.businessPacks.packs}
       />
 
-      <HomepageWorkflowDemo
-        title={content.workflowDemo.title}
-        subtitle={content.workflowDemo.subtitle}
-        ui={content.workflowDemo.ui}
-        steps={content.workflowDemo.steps}
+      <HomepageCompanionSection
+        title={content.companion.title}
+        subtitle={content.companion.subtitle}
+        learnMore={content.companion.learnMore}
+        capabilities={content.companion.capabilities}
+        appName={common.appName}
       />
 
       <HomepageTrustSection
@@ -68,21 +56,27 @@ export default async function MarketingHomePage() {
         points={content.enterpriseTrust.points}
       />
 
-      <HomepageCompanionSection
-        title={content.companion.title}
-        subtitle={content.companion.subtitle}
-        learnMore={content.companion.learnMore}
-        capabilities={companionCapabilities}
-        appName={common.appName}
+      <PracticeSection
+        title={content.practice.title}
+        subtitle={content.practice.subtitle}
+        illustrativeLabel={content.practice.illustrativeLabel}
+        exampleLabel={content.practice.exampleLabel}
+        examples={content.practice.examples}
+      />
+
+      <BuyingJourneySection
+        title={content.buyingJourney.title}
+        subtitle={content.buyingJourney.subtitle}
+        footnote={content.buyingJourney.footnote}
+        comparePlans={content.buyingJourney.comparePlans}
+        plans={content.buyingJourney.plans}
       />
 
       <HomepageFinalCta
         title={content.finalCta.title}
         subtitle={content.finalCta.subtitle}
         bookDemo={content.finalCta.bookDemo}
-        earlyAccessDivider={content.finalCta.earlyAccessDivider}
-        earlyAccessLabels={earlyAccess as Parameters<typeof HomepageFinalCta>[0]["earlyAccessLabels"]}
-        verificationLabels={buildHumanVerificationLabels(t)}
+        talkToAipify={content.finalCta.talkToAipify}
       />
     </>
   );

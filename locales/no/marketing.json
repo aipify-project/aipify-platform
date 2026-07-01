@@ -59,7 +59,7 @@
     "getStarted": "Kom i gang"
   },
   "footer": {
-    "tagline": "Aipify Business Operating System (ABOS) — operasjonell intelligens med menneskelig kontroll innebygd.",
+    "tagline": "Business Operating System for moderne organisasjoner.",
     "companyName": "Aipify Group AS",
     "headquarters": "Bergen, Norge",
     "businessOperatingSystem": "Business Operating System",
@@ -87,7 +87,7 @@
     "earlyAccess": "Tidlig tilgang",
     "bookDemo": "Book demo",
     "growthPartners": "Growth Partners",
-    "copyright": "Aipify Group AS. Alle rettigheter reservert.",
+    "copyright": "© Aipify Group AS. Alle rettigheter reservert.",
     "privacyNote": "Aipify bistår ansatte. Aipify overvåker ikke skjermer, tastetrykk, private filer eller nettleserhistorikk.",
     "languageRegion": "Språk og region",
     "languageRegionHint": "Velg foretrukket språk.",
@@ -95,7 +95,12 @@
     "languageChange": "Bytt språk",
     "languageComingLater": "Kommer senere",
     "languageSwitchFailed": "Språkbytte mislyktes.",
-    "languageRetry": "Prøv igjen"
+    "languageRetry": "Prøv igjen",
+    "address": "5008 Bergen, Norge",
+    "organizationNumber": "Organisasjonsnummer 937 978 960",
+    "supportEmail": "support@aipify.ai",
+    "resources": "Ressurser",
+    "partners": "Partnere"
   },
   "hero": {
     "badge": "Aipify Business Operating System",
@@ -122,20 +127,21 @@
     "hero": {
       "badge": "Aipify Business Operating System",
       "title": "Business Operating System for moderne organisasjoner.",
+      "headline": "Business Operating System for modern organizations.",
+      "description": "Aipify brings operations, support, knowledge, governance and approved workflows into one coordinated platform — so the organization can see what changed, what needs attention and what should happen next.",
+      "ctaPrimary": "Book demo",
+      "ctaSecondary": "Se hvordan Aipify fungerer",
       "subtitle": "Aipify kobler support, drift, kunnskap, styring og godkjente arbeidsflyter i én koordinert plattform.",
       "benefits": {
         "1": "Se hva som endret seg.",
         "2": "Vit hva som krever oppmerksomhet.",
         "3": "La Aipify forberede neste steg."
       },
-      "ctaPrimary": "Book demo",
-      "ctaSecondary": "Se hvordan Aipify fungerer",
       "explorePacks": "Utforsk Business Packs"
     },
     "commandBrief": {
-      "title": "Organisasjonen din, oppsummert før du starter dagen.",
-      "subtitle": "Aipify bringer den viktigste informasjonen til deg — i stedet for at du må lete i flere systemer.",
       "panelTitle": "Command Brief",
+      "illustrativeLabel": "Illustrative product view",
       "sinceLastLogin": "Siden sist innlogging",
       "aipifyCompleted": "Aipify fullførte",
       "needsAttention": "Krever din oppmerksomhet",
@@ -166,29 +172,50 @@
         "2": "Styring: 1 venter",
         "3": "Hosts pack: I drift",
         "4": "Lisens: OK"
-      }
+      },
+      "title": "Organisasjonen din, oppsummert før du starter dagen.",
+      "subtitle": "Aipify bringer den viktigste informasjonen til deg — i stedet for at du må lete i flere systemer."
     },
-    "coreOutcomes": {
-      "title": "Operasjonell oversikt uten enda et dashbord.",
+    "trustFoundation": {
       "items": {
         "1": {
-          "title": "Vit hva som endret seg",
-          "description": "Aipify oppsummerer aktivitet, risiko, godkjenninger og viktige operative endringer i organisasjonen."
+          "title": "Human-controlled approvals",
+          "description": "Sensitive actions wait for people."
         },
         "2": {
-          "title": "Vit hva som trenger deg",
-          "description": "Menneskelige beslutninger, godkjenninger og unntak prioriteres tydelig — aldri begravd i støy."
+          "title": "Rollebasert tilgang",
+          "description": "Permissions follow organizational roles."
         },
         "3": {
-          "title": "La Aipify forberede arbeidet",
-          "description": "Aipify forbereder utkast, anbefalinger, oppfølginger og godkjente neste steg — du beholder kontrollen."
+          "title": "Revisjonslogging",
+          "description": "Actions and decisions are recorded."
+        },
+        "4": {
+          "title": "Organization isolation",
+          "description": "Each customer environment stays separate."
+        },
+        "5": {
+          "title": "Modular Business Packs",
+          "description": "Activate only the capabilities you need."
+        },
+        "6": {
+          "title": "Built in Bergen",
+          "description": "Aipify Group AS — Norway, for the world."
         }
       }
+    },
+    "problemOutcome": {
+      "title": "From disconnected work to one operational layer",
+      "problemLabel": "The problem",
+      "problem": "Organizations run work across too many disconnected tools, inboxes, dashboards and manual handoffs. Context gets lost. Decisions slow down.",
+      "outcomeLabel": "The Aipify outcome",
+      "outcome": "Aipify brings approved context, work and decisions into one operational layer — so teams see what changed, what needs attention and what should happen next."
     },
     "simpleFlow": {
       "title": "Slik fungerer Aipify",
       "subtitle": "Koble det du allerede bruker. Koordiner arbeid med innebygd styring.",
       "learnMore": "Lær hvordan Aipify fungerer",
+      "permissionNote": "Aipify can do anything it has permission to do.",
       "steps": {
         "1": {
           "title": "Koble eksisterende systemer",
@@ -226,17 +253,17 @@
       "viewDetails": "Se detaljer",
       "exploreAll": "Utforsk alle Business Packs",
       "packs": {
-        "hosts": {
-          "name": "Hosts",
-          "audience": "Gjeste- og eiendomsoperatører",
-          "value": "Gjeste-arbeidsflyter, eiendomskoordinering og operative briefinger.",
-          "href": "/business-packs/hosts"
-        },
         "support": {
           "name": "Support",
           "audience": "Support- og kundesuccessteam",
           "value": "Triage, kunnskapssøk, utkast til svar og styrt eskalering.",
           "href": "/business-packs/support"
+        },
+        "hosts": {
+          "name": "Hosts",
+          "audience": "Gjeste- og eiendomsoperatører",
+          "value": "Gjeste-arbeidsflyter, eiendomskoordinering og operative briefinger.",
+          "href": "/business-packs/hosts"
         },
         "commerce": {
           "name": "Commerce",
@@ -261,6 +288,159 @@
           "audience": "Økonomi og forretningsdrift",
           "value": "Faktureringsoversikt, abonnementskontekst og operative økonomi-varsler.",
           "href": "/business-packs/finance"
+        }
+      }
+    },
+    "companion": {
+      "title": "Én Aipify — koblet til driften din",
+      "subtitle": "Companion er ikke en egen chatbot. Det er hvordan Aipify forblir til stede — oppgaver, godkjenninger, briefinger og veiledning i én identitet.",
+      "learnMore": "Utforsk plattformen",
+      "capabilities": {
+        "identity": {
+          "title": "One identity",
+          "description": "The same Aipify presence across approved surfaces."
+        },
+        "context": {
+          "title": "Approved context",
+          "description": "Connected to organizational knowledge and operational data you authorize."
+        },
+        "governance": {
+          "title": "Same governance",
+          "description": "Permissions, approvals and audit rules apply everywhere."
+        },
+        "support": {
+          "title": "Supports the work",
+          "description": "Briefings, tasks and guidance — humans remain in control."
+        },
+        "observes": {
+          "title": "Observerer",
+          "description": "Viser operative endringer fra godkjente kilder."
+        },
+        "prepares": {
+          "title": "Forbereder",
+          "description": "Utkast, oppsummeringer og neste steg klare for gjennomgang."
+        },
+        "recommends": {
+          "title": "Anbefaler",
+          "description": "Prioriterte handlinger med kontekst — mennesker bestemmer alltid."
+        }
+      }
+    },
+    "enterpriseTrust": {
+      "title": "Enterprise-tillit, innebygd.",
+      "subtitle": "Styring og menneskelig kontroll er en del av plattformen — ikke en ettertanke.",
+      "exploreEnterprise": "Utforsk Enterprise",
+      "points": {
+        "rbac": {
+          "title": "Rollebasert tilgang",
+          "description": "Tillatelser knyttet til organisasjonsroller — eier, admin, support, ansatt og skrivebeskyttet."
+        },
+        "approval": {
+          "title": "Menneskelig godkjenning",
+          "description": "Aipify anbefaler og forbereder. Mennesker bestemmer før sensitive handlinger kjøres."
+        },
+        "audit": {
+          "title": "Revisjonslogging",
+          "description": "Handlinger, godkjenninger og konfigurasjonsendringer logges med forklaring."
+        },
+        "tenant": {
+          "title": "Leietakerisolasjon",
+          "description": "Hver kunde avgrenses per tenant — ingen kryss-tenant-data i kundeflater."
+        },
+        "ownership": {
+          "title": "Organizational ownership",
+          "description": "Your data and decisions stay under your control."
+        },
+        "multilingual": {
+          "title": "Multilingual support",
+          "description": "Public and workspace surfaces support multiple languages."
+        },
+        "integrations": {
+          "title": "Controlled integrations",
+          "description": "Connect approved systems with explicit scope."
+        },
+        "automation": {
+          "title": "Styrt automatisering",
+          "description": "Deleger gradvis godkjente arbeidsflyter — eksplisitt, reversibelt, revisjonert."
+        },
+        "deployment": {
+          "title": "Enterprise-distribusjon",
+          "description": "SSO-klarhet, innkjøpsvennlig styring og fleksibel distribusjon."
+        }
+      }
+    },
+    "practice": {
+      "title": "Aipify i praksis",
+      "subtitle": "Illustrative operational examples — not customer references.",
+      "illustrativeLabel": "Illustrative product view",
+      "exampleLabel": "Operational example",
+      "examples": {
+        "1": {
+          "title": "Support queue coordination",
+          "challenge": "Billing inquiries spike while senior agents are in meetings.",
+          "coordination": "Aipify summarizes new cases, searches approved knowledge and prepares draft responses for review.",
+          "outcome": "Agents approve and send faster — with a full audit trail."
+        },
+        "2": {
+          "title": "Operational handoff",
+          "challenge": "A property check-in policy change must reach front desk and support teams.",
+          "coordination": "Aipify flags the policy update, routes approval and prepares briefing notes for affected roles.",
+          "outcome": "Teams act from one coordinated brief instead of scattered messages."
+        },
+        "3": {
+          "title": "Executive visibility",
+          "challenge": "Leadership needs a clear picture without opening five dashboards.",
+          "coordination": "Command Brief aggregates approved operational signals into prioritized attention and recommended actions.",
+          "outcome": "Decisions start from one governed summary."
+        }
+      }
+    },
+    "buyingJourney": {
+      "title": "Start with the right foundation",
+      "subtitle": "Choose a base plan, add Business Packs as needed, and increase capacity as the organization grows.",
+      "footnote": "Activation follows validation and permissions. Enterprise plans include procurement-friendly governance and deployment options.",
+      "comparePlans": "Sammenlign planer",
+      "plans": {
+        "1": {
+          "name": "Starter",
+          "description": "Essential platform access for early operational coordination."
+        },
+        "2": {
+          "name": "Professional",
+          "description": "Expanded capacity for growing teams and Business Packs."
+        },
+        "3": {
+          "name": "Business",
+          "description": "Advanced packs, governance and operational depth."
+        },
+        "4": {
+          "name": "Enterprise",
+          "description": "Custom deployment, security review and dedicated alignment."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Klar til å se Aipify i organisasjonen din?",
+      "subtitle": "Book en demonstrasjon eller be om tidlig tilgang. Aipify Group AS — Bergen, Norge. For verden.",
+      "bookDemo": "Book demo",
+      "talkToAipify": "Talk to Aipify",
+      "earlyAccess": "Be om tidlig tilgang",
+      "earlyAccessDivider": "Eller be om tidlig tilgang"
+    },
+    "coreOutcomes": {
+      "title": "Operasjonell oversikt uten enda et dashbord.",
+      "items": {
+        "1": {
+          "title": "Vit hva som endret seg",
+          "description": "Aipify oppsummerer aktivitet, risiko, godkjenninger og viktige operative endringer i organisasjonen."
+        },
+        "2": {
+          "title": "Vit hva som trenger deg",
+          "description": "Menneskelige beslutninger, godkjenninger og unntak prioriteres tydelig — aldri begravd i støy."
+        },
+        "3": {
+          "title": "La Aipify forberede arbeidet",
+          "description": "Aipify forbereder utkast, anbefalinger, oppfølginger og godkjente neste steg — du beholder kontrollen."
         }
       }
     },
@@ -300,63 +480,6 @@
           "detail": "Handling, godkjenner og resultat registreres i revisjonssporet."
         }
       }
-    },
-    "enterpriseTrust": {
-      "title": "Enterprise-tillit, innebygd.",
-      "subtitle": "Styring og menneskelig kontroll er en del av plattformen — ikke en ettertanke.",
-      "exploreEnterprise": "Utforsk Enterprise",
-      "points": {
-        "rbac": {
-          "title": "Rollebasert tilgang",
-          "description": "Tillatelser knyttet til organisasjonsroller — eier, admin, support, ansatt og skrivebeskyttet."
-        },
-        "approval": {
-          "title": "Menneskelig godkjenning",
-          "description": "Aipify anbefaler og forbereder. Mennesker bestemmer før sensitive handlinger kjøres."
-        },
-        "audit": {
-          "title": "Revisjonslogging",
-          "description": "Handlinger, godkjenninger og konfigurasjonsendringer logges med forklaring."
-        },
-        "tenant": {
-          "title": "Leietakerisolasjon",
-          "description": "Hver kunde avgrenses per tenant — ingen kryss-tenant-data i kundeflater."
-        },
-        "automation": {
-          "title": "Styrt automatisering",
-          "description": "Deleger gradvis godkjente arbeidsflyter — eksplisitt, reversibelt, revisjonert."
-        },
-        "deployment": {
-          "title": "Enterprise-distribusjon",
-          "description": "SSO-klarhet, innkjøpsvennlig styring og fleksibel distribusjon."
-        }
-      }
-    },
-    "companion": {
-      "title": "Én Aipify — koblet til driften din",
-      "subtitle": "Companion er ikke en egen chatbot. Det er hvordan Aipify forblir til stede — oppgaver, godkjenninger, briefinger og veiledning i én identitet.",
-      "learnMore": "Utforsk plattformen",
-      "capabilities": {
-        "observes": {
-          "title": "Observerer",
-          "description": "Viser operative endringer fra godkjente kilder."
-        },
-        "prepares": {
-          "title": "Forbereder",
-          "description": "Utkast, oppsummeringer og neste steg klare for gjennomgang."
-        },
-        "recommends": {
-          "title": "Anbefaler",
-          "description": "Prioriterte handlinger med kontekst — mennesker bestemmer alltid."
-        }
-      }
-    },
-    "finalCta": {
-      "title": "Klar til å se Aipify i organisasjonen din?",
-      "subtitle": "Book en demonstrasjon eller be om tidlig tilgang. Aipify Group AS — Bergen, Norge. For verden.",
-      "bookDemo": "Book demo",
-      "earlyAccess": "Be om tidlig tilgang",
-      "earlyAccessDivider": "Eller be om tidlig tilgang"
     }
   },
   "valueStrip": {

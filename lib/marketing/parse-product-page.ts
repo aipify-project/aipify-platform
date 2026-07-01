@@ -323,12 +323,12 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
   const section = getSection<Record<string, unknown>>(marketing, "productPageRedesign");
   const meta = (section.meta as { title?: string; description?: string }) ?? {};
   const hero = (section.hero as ProductPageContent["hero"]) ?? {
-    eyebrow: "Aipify Business Operating System",
+    eyebrow: hp.hero.badge,
     title: hp.hero.title,
-    subtitle: hp.hero.subtitle,
+    subtitle: hp.hero.headline || hp.hero.description,
     ctaPrimary: hp.hero.ctaPrimary,
     ctaSecondary: hp.hero.ctaSecondary,
-    explorePacks: hp.hero.explorePacks,
+    explorePacks: hp.businessPacks.exploreAll,
   };
   const publicPages = getSection<{ breadcrumbs?: { home?: string } }>(marketing, "publicPages");
   const nav = getSection<Record<string, string>>(marketing, "nav");

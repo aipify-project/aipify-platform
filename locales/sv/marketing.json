@@ -59,7 +59,7 @@
     "getStarted": "Kom igång"
   },
   "footer": {
-    "tagline": "Aipify Business Operating System (ABOS) — operativ intelligens med mänsklig kontroll inbyggd.",
+    "tagline": "Business Operating System for moderna organisationer.",
     "companyName": "Aipify Group AS",
     "headquarters": "Bergen, Norge",
     "businessOperatingSystem": "Business Operating System",
@@ -87,7 +87,7 @@
     "earlyAccess": "Tidig åtkomst",
     "bookDemo": "Boka demo",
     "growthPartners": "Growth Partners",
-    "copyright": "Aipify Group AS. Alla rättigheter förbehållna.",
+    "copyright": "© Aipify Group AS. Alla rättigheter förbehållna.",
     "privacyNote": "Aipify assisterar medarbetare. Aipify övervakar inte skärmar, tangenttryckningar, privata filer eller webbhistorik.",
     "languageRegion": "Språk och region",
     "languageRegionHint": "Välj önskat språk.",
@@ -95,7 +95,12 @@
     "languageChange": "Byt språk",
     "languageComingLater": "Kommer senare",
     "languageSwitchFailed": "Språkbytet misslyckades.",
-    "languageRetry": "Försök igen"
+    "languageRetry": "Försök igen",
+    "address": "5008 Bergen, Norge",
+    "organizationNumber": "Organisationsnummer 937 978 960",
+    "supportEmail": "support@aipify.ai",
+    "resources": "Resurser",
+    "partners": "Partners"
   },
   "hero": {
     "badge": "Aipify Business Operating System",
@@ -122,20 +127,21 @@
     "hero": {
       "badge": "Aipify Business Operating System",
       "title": "Business Operating System för moderna organisationer.",
+      "headline": "Business Operating System for modern organizations.",
+      "description": "Aipify brings operations, support, knowledge, governance and approved workflows into one coordinated platform — so the organization can see what changed, what needs attention and what should happen next.",
+      "ctaPrimary": "Boka demo",
+      "ctaSecondary": "Se hur Aipify fungerar",
       "subtitle": "Aipify kopplar support, drift, kunskap, styrning och godkända arbetsflöden i en koordinerad plattform.",
       "benefits": {
         "1": "Se vad som förändrats.",
         "2": "Vet vad som kräver uppmärksamhet.",
         "3": "Låt Aipify förbereda nästa steg."
       },
-      "ctaPrimary": "Boka demo",
-      "ctaSecondary": "Se hur Aipify fungerar",
       "explorePacks": "Utforska Business Packs"
     },
     "commandBrief": {
-      "title": "Din organisation, sammanfattad innan du börjar dagen.",
-      "subtitle": "Aipify tar fram den viktigaste informationen — i stället för att du måste söka i flera system.",
       "panelTitle": "Command Brief",
+      "illustrativeLabel": "Illustrative product view",
       "sinceLastLogin": "Sedan senaste inloggning",
       "aipifyCompleted": "Aipify slutförde",
       "needsAttention": "Kräver din uppmärksamhet",
@@ -166,29 +172,50 @@
         "2": "Styrning: 1 väntar",
         "3": "Hosts pack: I drift",
         "4": "Licens: OK"
-      }
+      },
+      "title": "Din organisation, sammanfattad innan du börjar dagen.",
+      "subtitle": "Aipify tar fram den viktigaste informationen — i stället för att du måste söka i flera system."
     },
-    "coreOutcomes": {
-      "title": "Operativ tydlighet utan ytterligare ett dashboard.",
+    "trustFoundation": {
       "items": {
         "1": {
-          "title": "Vet vad som förändrats",
-          "description": "Aipify sammanfattar aktivitet, risk, godkännanden och viktiga operativa förändringar i organisationen."
+          "title": "Human-controlled approvals",
+          "description": "Sensitive actions wait for people."
         },
         "2": {
-          "title": "Vet vad som behöver dig",
-          "description": "Mänskliga beslut, godkännanden och undantag prioriteras tydligt — aldrig begravda i brus."
+          "title": "Role-based access",
+          "description": "Permissions follow organizational roles."
         },
         "3": {
-          "title": "Låt Aipify förbereda arbetet",
-          "description": "Aipify förbereder utkast, rekommendationer, uppföljningar och godkända nästa steg — du behåller kontrollen."
+          "title": "Audit logging",
+          "description": "Actions and decisions are recorded."
+        },
+        "4": {
+          "title": "Organization isolation",
+          "description": "Each customer environment stays separate."
+        },
+        "5": {
+          "title": "Modular Business Packs",
+          "description": "Activate only the capabilities you need."
+        },
+        "6": {
+          "title": "Built in Bergen",
+          "description": "Aipify Group AS — Norway, for the world."
         }
       }
+    },
+    "problemOutcome": {
+      "title": "From disconnected work to one operational layer",
+      "problemLabel": "The problem",
+      "problem": "Organizations run work across too many disconnected tools, inboxes, dashboards and manual handoffs. Context gets lost. Decisions slow down.",
+      "outcomeLabel": "The Aipify outcome",
+      "outcome": "Aipify brings approved context, work and decisions into one operational layer — so teams see what changed, what needs attention and what should happen next."
     },
     "simpleFlow": {
       "title": "Så fungerar Aipify",
       "subtitle": "Anslut det du redan använder. Koordinera arbete med inbyggd styrning.",
       "learnMore": "Lär dig hur Aipify fungerar",
+      "permissionNote": "Aipify can do anything it has permission to do.",
       "steps": {
         "1": {
           "title": "Anslut befintliga system",
@@ -226,17 +253,17 @@
       "viewDetails": "Visa detaljer",
       "exploreAll": "Utforska alla Business Packs",
       "packs": {
-        "hosts": {
-          "name": "Hosts",
-          "audience": "Gäst- och fastighetsoperatörer",
-          "value": "Gästflöden, fastighetskoordinering och operativa briefings.",
-          "href": "/business-packs/hosts"
-        },
         "support": {
           "name": "Support",
           "audience": "Support- och kundframgångsteam",
           "value": "Triage, kunskapssökning, svarutkast och styrd eskalering.",
           "href": "/business-packs/support"
+        },
+        "hosts": {
+          "name": "Hosts",
+          "audience": "Gäst- och fastighetsoperatörer",
+          "value": "Gästflöden, fastighetskoordinering och operativa briefings.",
+          "href": "/business-packs/hosts"
         },
         "commerce": {
           "name": "Commerce",
@@ -261,6 +288,159 @@
           "audience": "Ekonomi och affärsdrift",
           "value": "Faktureringsöversikt, prenumerationskontext och operativa ekonomivarningar.",
           "href": "/business-packs/finance"
+        }
+      }
+    },
+    "companion": {
+      "title": "En Aipify — kopplad till din drift",
+      "subtitle": "Companion är inte en separat chatbot. Det är hur Aipify förblir närvarande — uppgifter, godkännanden, briefings och vägledning i en identitet.",
+      "learnMore": "Utforska plattformen",
+      "capabilities": {
+        "identity": {
+          "title": "One identity",
+          "description": "The same Aipify presence across approved surfaces."
+        },
+        "context": {
+          "title": "Approved context",
+          "description": "Connected to organizational knowledge and operational data you authorize."
+        },
+        "governance": {
+          "title": "Same governance",
+          "description": "Permissions, approvals and audit rules apply everywhere."
+        },
+        "support": {
+          "title": "Supports the work",
+          "description": "Briefings, tasks and guidance — humans remain in control."
+        },
+        "observes": {
+          "title": "Observerar",
+          "description": "Visar operativa förändringar från godkända källor."
+        },
+        "prepares": {
+          "title": "Förbereder",
+          "description": "Utkast, sammanfattningar och nästa steg redo för granskning."
+        },
+        "recommends": {
+          "title": "Rekommenderar",
+          "description": "Prioriterade åtgärder med kontext — människor bestämmer alltid."
+        }
+      }
+    },
+    "enterpriseTrust": {
+      "title": "Enterprise-förtroende, inbyggt.",
+      "subtitle": "Styrning och mänsklig kontroll är en del av plattformen — inte en eftertanke.",
+      "exploreEnterprise": "Utforska Enterprise",
+      "points": {
+        "rbac": {
+          "title": "Rollbaserad åtkomst",
+          "description": "Behörigheter kopplade till organisationsroller — ägare, admin, support, personal och skrivskyddad."
+        },
+        "approval": {
+          "title": "Mänskligt godkännande",
+          "description": "Aipify rekommenderar och förbereder. Människor bestämmer innan känsliga åtgärder körs."
+        },
+        "audit": {
+          "title": "Revisionsloggning",
+          "description": "Åtgärder, godkännanden och konfigurationsändringar loggas med förklaring."
+        },
+        "tenant": {
+          "title": "Tenant-isolering",
+          "description": "Varje kund avgränsas per tenant — ingen kors-tenant-data i kundyta."
+        },
+        "ownership": {
+          "title": "Organizational ownership",
+          "description": "Your data and decisions stay under your control."
+        },
+        "multilingual": {
+          "title": "Multilingual support",
+          "description": "Public and workspace surfaces support multiple languages."
+        },
+        "integrations": {
+          "title": "Controlled integrations",
+          "description": "Connect approved systems with explicit scope."
+        },
+        "automation": {
+          "title": "Styrd automatisering",
+          "description": "Delegera gradvis godkända arbetsflöden — explicit, reversibelt, reviderbart."
+        },
+        "deployment": {
+          "title": "Enterprise-distribution",
+          "description": "SSO-beredskap, upphandlingsvänlig styrning och flexibel distribution."
+        }
+      }
+    },
+    "practice": {
+      "title": "Aipify i praktiken",
+      "subtitle": "Illustrative operational examples — not customer references.",
+      "illustrativeLabel": "Illustrative product view",
+      "exampleLabel": "Operational example",
+      "examples": {
+        "1": {
+          "title": "Support queue coordination",
+          "challenge": "Billing inquiries spike while senior agents are in meetings.",
+          "coordination": "Aipify summarizes new cases, searches approved knowledge and prepares draft responses for review.",
+          "outcome": "Agents approve and send faster — with a full audit trail."
+        },
+        "2": {
+          "title": "Operational handoff",
+          "challenge": "A property check-in policy change must reach front desk and support teams.",
+          "coordination": "Aipify flags the policy update, routes approval and prepares briefing notes for affected roles.",
+          "outcome": "Teams act from one coordinated brief instead of scattered messages."
+        },
+        "3": {
+          "title": "Executive visibility",
+          "challenge": "Leadership needs a clear picture without opening five dashboards.",
+          "coordination": "Command Brief aggregates approved operational signals into prioritized attention and recommended actions.",
+          "outcome": "Decisions start from one governed summary."
+        }
+      }
+    },
+    "buyingJourney": {
+      "title": "Start with the right foundation",
+      "subtitle": "Choose a base plan, add Business Packs as needed, and increase capacity as the organization grows.",
+      "footnote": "Activation follows validation and permissions. Enterprise plans include procurement-friendly governance and deployment options.",
+      "comparePlans": "Compare plans",
+      "plans": {
+        "1": {
+          "name": "Starter",
+          "description": "Essential platform access for early operational coordination."
+        },
+        "2": {
+          "name": "Professional",
+          "description": "Expanded capacity for growing teams and Business Packs."
+        },
+        "3": {
+          "name": "Business",
+          "description": "Advanced packs, governance and operational depth."
+        },
+        "4": {
+          "name": "Enterprise",
+          "description": "Custom deployment, security review and dedicated alignment."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Redo att se Aipify i din organisation?",
+      "subtitle": "Boka en demonstration eller begär tidig åtkomst. Aipify Group AS — Bergen, Norge. For the world.",
+      "bookDemo": "Boka demo",
+      "talkToAipify": "Talk to Aipify",
+      "earlyAccess": "Begär tidig åtkomst",
+      "earlyAccessDivider": "Eller begär tidig åtkomst"
+    },
+    "coreOutcomes": {
+      "title": "Operativ tydlighet utan ytterligare ett dashboard.",
+      "items": {
+        "1": {
+          "title": "Vet vad som förändrats",
+          "description": "Aipify sammanfattar aktivitet, risk, godkännanden och viktiga operativa förändringar i organisationen."
+        },
+        "2": {
+          "title": "Vet vad som behöver dig",
+          "description": "Mänskliga beslut, godkännanden och undantag prioriteras tydligt — aldrig begravda i brus."
+        },
+        "3": {
+          "title": "Låt Aipify förbereda arbetet",
+          "description": "Aipify förbereder utkast, rekommendationer, uppföljningar och godkända nästa steg — du behåller kontrollen."
         }
       }
     },
@@ -300,63 +480,6 @@
           "detail": "Åtgärd, godkännare och resultat registreras i revisionsspåret."
         }
       }
-    },
-    "enterpriseTrust": {
-      "title": "Enterprise-förtroende, inbyggt.",
-      "subtitle": "Styrning och mänsklig kontroll är en del av plattformen — inte en eftertanke.",
-      "exploreEnterprise": "Utforska Enterprise",
-      "points": {
-        "rbac": {
-          "title": "Rollbaserad åtkomst",
-          "description": "Behörigheter kopplade till organisationsroller — ägare, admin, support, personal och skrivskyddad."
-        },
-        "approval": {
-          "title": "Mänskligt godkännande",
-          "description": "Aipify rekommenderar och förbereder. Människor bestämmer innan känsliga åtgärder körs."
-        },
-        "audit": {
-          "title": "Revisionsloggning",
-          "description": "Åtgärder, godkännanden och konfigurationsändringar loggas med förklaring."
-        },
-        "tenant": {
-          "title": "Tenant-isolering",
-          "description": "Varje kund avgränsas per tenant — ingen kors-tenant-data i kundyta."
-        },
-        "automation": {
-          "title": "Styrd automatisering",
-          "description": "Delegera gradvis godkända arbetsflöden — explicit, reversibelt, reviderbart."
-        },
-        "deployment": {
-          "title": "Enterprise-distribution",
-          "description": "SSO-beredskap, upphandlingsvänlig styrning och flexibel distribution."
-        }
-      }
-    },
-    "companion": {
-      "title": "En Aipify — kopplad till din drift",
-      "subtitle": "Companion är inte en separat chatbot. Det är hur Aipify förblir närvarande — uppgifter, godkännanden, briefings och vägledning i en identitet.",
-      "learnMore": "Utforska plattformen",
-      "capabilities": {
-        "observes": {
-          "title": "Observerar",
-          "description": "Visar operativa förändringar från godkända källor."
-        },
-        "prepares": {
-          "title": "Förbereder",
-          "description": "Utkast, sammanfattningar och nästa steg redo för granskning."
-        },
-        "recommends": {
-          "title": "Rekommenderar",
-          "description": "Prioriterade åtgärder med kontext — människor bestämmer alltid."
-        }
-      }
-    },
-    "finalCta": {
-      "title": "Redo att se Aipify i din organisation?",
-      "subtitle": "Boka en demonstration eller begär tidig åtkomst. Aipify Group AS — Bergen, Norge. For the world.",
-      "bookDemo": "Boka demo",
-      "earlyAccess": "Begär tidig åtkomst",
-      "earlyAccessDivider": "Eller begär tidig åtkomst"
     }
   },
   "valueStrip": {
@@ -7614,11 +7737,11 @@
   "knowledgePageRedesign": {
     "hero": {
       "breadcrumbHome": "Hem",
-      "breadcrumbKnowledge": "Knowledge Center",
-      "eyebrow": "KNOWLEDGE CENTER",
-      "title": "Knowledge Center",
-      "subtitle": "Learn how Aipify helps organizations modernize operations — with governed intelligence, operational visibility, and human-centered design.",
-      "authorityNote": "Every article is written to help you understand, learn, improve, decide, and trust. We publish knowledge for people first — search visibility follows usefulness."
+      "breadcrumbKnowledge": "Kunskapscenter",
+      "eyebrow": "KUNSKAPSCENTER",
+      "title": "Kunskapscenter",
+      "subtitle": "Lär dig hur Aipify hjälper organisationer att modernisera drift — med styrd intelligens, operativ tydlighet och människocentrerad design.",
+      "authorityNote": "Varje artikel är skriven för att hjälpa dig förstå, lära, förbättra, besluta och lita. Vi publicerar kunskap för människor först."
     },
     "search": {
       "placeholder": "Search articles, topics, and guides…",
@@ -7653,9 +7776,9 @@
       }
     },
     "featured": {
-      "title": "Featured guides",
-      "subtitle": "Start with foundational concepts for modern operations.",
-      "readArticle": "Read article",
+      "title": "Utvalda guider",
+      "subtitle": "Börja med grundläggande koncept för modern drift.",
+      "readArticle": "Läs artikel",
       "featuredSlugs": [
         "what-is-a-business-operating-system",
         "how-companion-supports-organizations",
@@ -7663,9 +7786,9 @@
       ]
     },
     "hubs": {
-      "title": "Content hubs",
-      "subtitle": "Deep-dive hubs for platform strategy and Companion.",
-      "exploreHub": "Explore hub",
+      "title": "Innehållshubbar",
+      "subtitle": "Fördjupning för plattformsstrategi och Companion.",
+      "exploreHub": "Utforska hub",
       "items": {
         "business-operating-system": {
           "title": "Business Operating System",
@@ -7678,14 +7801,14 @@
       }
     },
     "categories": {
-      "title": "Browse by category",
-      "subtitle": "Explore topics across the Aipify platform.",
-      "exploreCategory": "View category"
+      "title": "Bläddra efter kategori",
+      "subtitle": "Utforska ämnen över Aipify-plattformen.",
+      "exploreCategory": "Visa kategori"
     },
     "industries": {
-      "title": "Industry guides",
-      "subtitle": "Operational knowledge tailored to your sector.",
-      "exploreIndustry": "View industry guide"
+      "title": "Branschguider",
+      "subtitle": "Operativ kunskap anpassad till din bransch.",
+      "exploreIndustry": "Visa branschguide"
     },
     "businessPacks": {
       "title": "Business Packs",

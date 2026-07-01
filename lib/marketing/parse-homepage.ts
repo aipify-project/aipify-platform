@@ -5,6 +5,13 @@ export type HomepageOutcome = { title: string; description: string };
 export type HomepageFlowStep = { title: string; description: string };
 export type HomepagePack = { id: string; name: string; audience: string; value: string; href: string };
 export type HomepageCompanionCapability = { title: string; description: string };
+export type HomepagePracticeExample = {
+  title: string;
+  challenge: string;
+  coordination: string;
+  outcome: string;
+};
+export type HomepagePlanOverview = { name: string; description: string };
 
 export type CommandBriefMockupLabels = {
   panelTitle: string;
@@ -18,6 +25,9 @@ export type CommandBriefMockupLabels = {
   attentionItems: string[];
   actionItems: string[];
   statusItems: string[];
+  illustrativeLabel?: string;
+  title?: string;
+  subtitle?: string;
   panelOrganization?: string;
   panelContext?: string;
   headerBadge?: string;
@@ -29,35 +39,27 @@ export type HomepageRedesignContent = {
   hero: {
     badge: string;
     title: string;
-    subtitle: string;
-    benefits: string[];
+    headline: string;
+    description: string;
     ctaPrimary: string;
     ctaSecondary: string;
-    explorePacks: string;
   };
-  commandBrief: {
-    title: string;
-    subtitle: string;
-    panelTitle: string;
-    sinceLastLogin: string;
-    aipifyCompleted: string;
-    needsAttention: string;
-    recommendedActions: string;
-    organizationStatus: string;
-    sinceItems: string[];
-    completedItems: string[];
-    attentionItems: string[];
-    actionItems: string[];
-    statusItems: string[];
-  };
-  coreOutcomes: {
-    title: string;
+  commandBrief: CommandBriefMockupLabels;
+  trustFoundation: {
     items: HomepageOutcome[];
+  };
+  problemOutcome: {
+    title: string;
+    problemLabel: string;
+    problem: string;
+    outcomeLabel: string;
+    outcome: string;
   };
   simpleFlow: {
     title: string;
     subtitle: string;
     learnMore: string;
+    permissionNote: string;
     steps: HomepageFlowStep[];
   };
   businessPacks: {
@@ -67,17 +69,11 @@ export type HomepageRedesignContent = {
     exploreAll: string;
     packs: HomepagePack[];
   };
-  workflowDemo: {
+  companion: {
     title: string;
     subtitle: string;
-    ui: {
-      pauseDemo: string;
-      resumeDemo: string;
-      liveStep: string;
-      preparedLabel: string;
-      preparedDetail: string;
-    };
-    steps: { title: string; detail: string }[];
+    learnMore: string;
+    capabilities: HomepageCompanionCapability[];
   };
   enterpriseTrust: {
     title: string;
@@ -85,18 +81,25 @@ export type HomepageRedesignContent = {
     exploreEnterprise: string;
     points: { title: string; description: string }[];
   };
-  companion: {
+  practice: {
     title: string;
     subtitle: string;
-    learnMore: string;
-    capabilities: HomepageCompanionCapability[];
+    illustrativeLabel: string;
+    exampleLabel: string;
+    examples: HomepagePracticeExample[];
+  };
+  buyingJourney: {
+    title: string;
+    subtitle: string;
+    footnote: string;
+    comparePlans: string;
+    plans: HomepagePlanOverview[];
   };
   finalCta: {
     title: string;
     subtitle: string;
     bookDemo: string;
-    earlyAccess: string;
-    earlyAccessDivider: string;
+    talkToAipify: string;
   };
 };
 
@@ -133,17 +136,6 @@ function parseFlowSteps(section: Record<string, unknown> | undefined): HomepageF
     });
 }
 
-function parseDemoSteps(section: Record<string, unknown> | undefined): { title: string; detail: string }[] {
-  const raw = section?.steps;
-  if (!raw || typeof raw !== "object") return [];
-  return Object.keys(raw)
-    .sort((a, b) => Number(a) - Number(b))
-    .map((k) => {
-      const item = (raw as Record<string, { title?: string; detail?: string }>)[k] ?? {};
-      return { title: item.title ?? "", detail: item.detail ?? "" };
-    });
-}
-
 function parseTrustPoints(section: Record<string, unknown> | undefined): { title: string; description: string }[] {
   const raw = section?.points;
   if (!raw || typeof raw !== "object") return [];
@@ -153,7 +145,35 @@ function parseTrustPoints(section: Record<string, unknown> | undefined): { title
   }));
 }
 
-const CURATED_PACK_IDS = ["hosts", "support", "commerce", "services", "projects", "finance"] as const;
+function parsePracticeExamples(section: Record<string, unknown> | undefined): HomepagePracticeExample[] {
+  const raw = section?.examples;
+  if (!raw || typeof raw !== "object") return [];
+  return Object.keys(raw)
+    .sort((a, b) => Number(a) - Number(b))
+    .map((k) => {
+      const item = (raw as Record<string, HomepagePracticeExample>)[k] ?? ({} as HomepagePracticeExample);
+      return {
+        title: item.title ?? "",
+        challenge: item.challenge ?? "",
+        coordination: item.coordination ?? "",
+        outcome: item.outcome ?? "",
+      };
+    });
+}
+
+function parsePlans(section: Record<string, unknown> | undefined): HomepagePlanOverview[] {
+  const raw = section?.plans;
+  if (!raw || typeof raw !== "object") return [];
+  return Object.keys(raw)
+    .sort((a, b) => Number(a) - Number(b))
+    .map((k) => {
+      const item = (raw as Record<string, { name?: string; description?: string }>)[k] ?? {};
+      return { name: item.name ?? "", description: item.description ?? "" };
+    });
+}
+
+/** Launch-ready packs shown on homepage (max four). */
+const CURATED_PACK_IDS = ["support", "hosts", "commerce", "services"] as const;
 
 function parsePacks(section: Record<string, unknown> | undefined): HomepagePack[] {
   const raw = section?.packs;
@@ -184,69 +204,79 @@ function parseCompanionCapabilities(section: Record<string, unknown> | undefined
     });
 }
 
+function parseCommandBrief(section: Record<string, unknown> | undefined): CommandBriefMockupLabels {
+  const s = section as Record<string, string> | undefined;
+  return {
+    panelTitle: String(s?.panelTitle ?? "Command Brief"),
+    sinceLastLogin: String(s?.sinceLastLogin ?? "Since your last visit"),
+    aipifyCompleted: String(s?.aipifyCompleted ?? "Aipify completed"),
+    needsAttention: String(s?.needsAttention ?? "Requires your attention"),
+    recommendedActions: String(s?.recommendedActions ?? "Recommended actions"),
+    organizationStatus: String(s?.organizationStatus ?? "Organization status"),
+    illustrativeLabel: String(s?.illustrativeLabel ?? "Illustrative product view"),
+    title: s?.title ? String(s.title) : undefined,
+    subtitle: s?.subtitle ? String(s.subtitle) : undefined,
+    sinceItems: parseStringListFromRecord(section, "sinceItems"),
+    completedItems: parseStringListFromRecord(section, "completedItems"),
+    attentionItems: parseStringListFromRecord(section, "attentionItems"),
+    actionItems: parseStringListFromRecord(section, "actionItems"),
+    statusItems: parseStringListFromRecord(section, "statusItems"),
+  };
+}
+
 export function parseHomepageRedesign(marketing: MarketingDictionary): HomepageRedesignContent {
   const hp = getSection<Record<string, unknown>>(marketing, "homepageRedesign");
   const heroFallback = getSection<Record<string, string>>(marketing, "hero");
   const cta = getSection<Record<string, string>>(marketing, "ctaBand");
+  const heroSection = hp.hero as Record<string, string> | undefined;
 
   return {
     hero: {
-      badge: String(hp.hero && typeof hp.hero === "object" ? (hp.hero as Record<string, string>).badge : heroFallback.badge ?? ""),
-      title: String(hp.hero && typeof hp.hero === "object" ? (hp.hero as Record<string, string>).title : heroFallback.title ?? ""),
-      subtitle: String(hp.hero && typeof hp.hero === "object" ? (hp.hero as Record<string, string>).subtitle : heroFallback.subtitle ?? ""),
-      benefits: parseStringListFromRecord(hp.hero as Record<string, unknown> | undefined, "benefits"),
-      ctaPrimary: String(hp.hero && typeof hp.hero === "object" ? (hp.hero as Record<string, string>).ctaPrimary : heroFallback.ctaPrimary ?? "Book Demo"),
-      ctaSecondary: String(hp.hero && typeof hp.hero === "object" ? (hp.hero as Record<string, string>).ctaSecondary : heroFallback.ctaSecondary ?? "See How Aipify Works"),
-      explorePacks: String(hp.hero && typeof hp.hero === "object" ? (hp.hero as Record<string, string>).explorePacks : "Explore Business Packs"),
+      badge: String(heroSection?.badge ?? heroFallback.badge ?? "Aipify Business Operating System"),
+      title: String(heroSection?.title ?? "Aipify works for you."),
+      headline: String(
+        heroSection?.headline ?? heroFallback.title ?? "Business Operating System for modern organizations."
+      ),
+      description: String(
+        heroSection?.description ??
+          "Aipify brings operations, support, knowledge, governance and approved workflows into one coordinated platform — so the organization can see what changed, what needs attention and what should happen next."
+      ),
+      ctaPrimary: String(heroSection?.ctaPrimary ?? heroFallback.ctaPrimary ?? "Book demo"),
+      ctaSecondary: String(heroSection?.ctaSecondary ?? "See Aipify in action"),
     },
-    commandBrief: {
-      title: String((hp.commandBrief as Record<string, string> | undefined)?.title ?? "Your organization, summarized before you start the day."),
-      subtitle: String((hp.commandBrief as Record<string, string> | undefined)?.subtitle ?? ""),
-      panelTitle: String((hp.commandBrief as Record<string, string> | undefined)?.panelTitle ?? "Command Brief"),
-      sinceLastLogin: String((hp.commandBrief as Record<string, string> | undefined)?.sinceLastLogin ?? "Since last login"),
-      aipifyCompleted: String((hp.commandBrief as Record<string, string> | undefined)?.aipifyCompleted ?? "Aipify completed"),
-      needsAttention: String((hp.commandBrief as Record<string, string> | undefined)?.needsAttention ?? "Needs your attention"),
-      recommendedActions: String((hp.commandBrief as Record<string, string> | undefined)?.recommendedActions ?? "Recommended actions"),
-      organizationStatus: String((hp.commandBrief as Record<string, string> | undefined)?.organizationStatus ?? "Organization status"),
-      sinceItems: parseStringListFromRecord(hp.commandBrief as Record<string, unknown> | undefined, "sinceItems"),
-      completedItems: parseStringListFromRecord(hp.commandBrief as Record<string, unknown> | undefined, "completedItems"),
-      attentionItems: parseStringListFromRecord(hp.commandBrief as Record<string, unknown> | undefined, "attentionItems"),
-      actionItems: parseStringListFromRecord(hp.commandBrief as Record<string, unknown> | undefined, "actionItems"),
-      statusItems: parseStringListFromRecord(hp.commandBrief as Record<string, unknown> | undefined, "statusItems"),
+    commandBrief: parseCommandBrief(hp.commandBrief as Record<string, unknown> | undefined),
+    trustFoundation: {
+      items: parseOutcomes(hp.trustFoundation as Record<string, unknown> | undefined),
     },
-    coreOutcomes: {
-      title: String((hp.coreOutcomes as Record<string, string> | undefined)?.title ?? ""),
-      items: parseOutcomes(hp.coreOutcomes as Record<string, unknown> | undefined),
+    problemOutcome: {
+      title: String((hp.problemOutcome as Record<string, string> | undefined)?.title ?? ""),
+      problemLabel: String((hp.problemOutcome as Record<string, string> | undefined)?.problemLabel ?? "The problem"),
+      problem: String((hp.problemOutcome as Record<string, string> | undefined)?.problem ?? ""),
+      outcomeLabel: String((hp.problemOutcome as Record<string, string> | undefined)?.outcomeLabel ?? "The Aipify outcome"),
+      outcome: String((hp.problemOutcome as Record<string, string> | undefined)?.outcome ?? ""),
     },
     simpleFlow: {
       title: String((hp.simpleFlow as Record<string, string> | undefined)?.title ?? "How Aipify works"),
       subtitle: String((hp.simpleFlow as Record<string, string> | undefined)?.subtitle ?? ""),
       learnMore: String((hp.simpleFlow as Record<string, string> | undefined)?.learnMore ?? "Learn how Aipify works"),
+      permissionNote: String(
+        (hp.simpleFlow as Record<string, string> | undefined)?.permissionNote ??
+          "Aipify can do anything it has permission to do."
+      ),
       steps: parseFlowSteps(hp.simpleFlow as Record<string, unknown> | undefined),
     },
     businessPacks: {
       title: String((hp.businessPacks as Record<string, string> | undefined)?.title ?? ""),
       subtitle: String((hp.businessPacks as Record<string, string> | undefined)?.subtitle ?? ""),
       viewDetails: String((hp.businessPacks as Record<string, string> | undefined)?.viewDetails ?? "View details"),
-      exploreAll: String((hp.businessPacks as Record<string, string> | undefined)?.exploreAll ?? "Explore all Business Packs"),
+      exploreAll: String((hp.businessPacks as Record<string, string> | undefined)?.exploreAll ?? "Explore Business Packs"),
       packs: parsePacks(hp.businessPacks as Record<string, unknown> | undefined),
     },
-    workflowDemo: {
-      title: String((hp.workflowDemo as Record<string, string> | undefined)?.title ?? ""),
-      subtitle: String((hp.workflowDemo as Record<string, string> | undefined)?.subtitle ?? ""),
-      ui: {
-        pauseDemo: String((hp.workflowDemo as { ui?: { pauseDemo?: string } })?.ui?.pauseDemo ?? "Pause demo"),
-        resumeDemo: String((hp.workflowDemo as { ui?: { resumeDemo?: string } })?.ui?.resumeDemo ?? "Resume demo"),
-        liveStep: String((hp.workflowDemo as { ui?: { liveStep?: string } })?.ui?.liveStep ?? "Live step"),
-        preparedLabel: String(
-          (hp.workflowDemo as { ui?: { preparedLabel?: string } })?.ui?.preparedLabel ?? "Aipify prepared",
-        ),
-        preparedDetail: String(
-          (hp.workflowDemo as { ui?: { preparedDetail?: string } })?.ui?.preparedDetail ??
-            "Draft ready · Awaiting human approval · Audit trail active",
-        ),
-      },
-      steps: parseDemoSteps(hp.workflowDemo as Record<string, unknown> | undefined),
+    companion: {
+      title: String((hp.companion as Record<string, string> | undefined)?.title ?? "One Aipify, connected to your operations."),
+      subtitle: String((hp.companion as Record<string, string> | undefined)?.subtitle ?? ""),
+      learnMore: String((hp.companion as Record<string, string> | undefined)?.learnMore ?? "Explore the platform"),
+      capabilities: parseCompanionCapabilities(hp.companion as Record<string, unknown> | undefined),
     },
     enterpriseTrust: {
       title: String((hp.enterpriseTrust as Record<string, string> | undefined)?.title ?? ""),
@@ -254,20 +284,25 @@ export function parseHomepageRedesign(marketing: MarketingDictionary): HomepageR
       exploreEnterprise: String((hp.enterpriseTrust as Record<string, string> | undefined)?.exploreEnterprise ?? "Explore Enterprise"),
       points: parseTrustPoints(hp.enterpriseTrust as Record<string, unknown> | undefined),
     },
-    companion: {
-      title: String((hp.companion as Record<string, string> | undefined)?.title ?? "Companion, not chatbot."),
-      subtitle: String((hp.companion as Record<string, string> | undefined)?.subtitle ?? ""),
-      learnMore: String((hp.companion as Record<string, string> | undefined)?.learnMore ?? "Learn about Companion"),
-      capabilities: parseCompanionCapabilities(hp.companion as Record<string, unknown> | undefined),
+    practice: {
+      title: String((hp.practice as Record<string, string> | undefined)?.title ?? "Aipify in practice"),
+      subtitle: String((hp.practice as Record<string, string> | undefined)?.subtitle ?? ""),
+      illustrativeLabel: String((hp.practice as Record<string, string> | undefined)?.illustrativeLabel ?? "Illustrative product view"),
+      exampleLabel: String((hp.practice as Record<string, string> | undefined)?.exampleLabel ?? "Operational example"),
+      examples: parsePracticeExamples(hp.practice as Record<string, unknown> | undefined),
+    },
+    buyingJourney: {
+      title: String((hp.buyingJourney as Record<string, string> | undefined)?.title ?? ""),
+      subtitle: String((hp.buyingJourney as Record<string, string> | undefined)?.subtitle ?? ""),
+      footnote: String((hp.buyingJourney as Record<string, string> | undefined)?.footnote ?? ""),
+      comparePlans: String((hp.buyingJourney as Record<string, string> | undefined)?.comparePlans ?? "Compare plans"),
+      plans: parsePlans(hp.buyingJourney as Record<string, unknown> | undefined),
     },
     finalCta: {
       title: String((hp.finalCta as Record<string, string> | undefined)?.title ?? cta.title ?? ""),
       subtitle: String((hp.finalCta as Record<string, string> | undefined)?.subtitle ?? cta.subtitle ?? ""),
-      bookDemo: String((hp.finalCta as Record<string, string> | undefined)?.bookDemo ?? cta.bookDemo ?? "Book Demo"),
-      earlyAccess: String((hp.finalCta as Record<string, string> | undefined)?.earlyAccess ?? cta.earlyAccess ?? "Early Access"),
-      earlyAccessDivider: String(
-        (hp.finalCta as Record<string, string> | undefined)?.earlyAccessDivider ?? "Or request early access"
-      ),
+      bookDemo: String((hp.finalCta as Record<string, string> | undefined)?.bookDemo ?? cta.bookDemo ?? "Book demo"),
+      talkToAipify: String((hp.finalCta as Record<string, string> | undefined)?.talkToAipify ?? "Talk to Aipify"),
     },
   };
 }

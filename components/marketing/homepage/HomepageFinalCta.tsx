@@ -1,57 +1,39 @@
 import Link from "next/link";
-import EarlyAccessForm from "@/components/marketing/EarlyAccessForm";
 import { AipifyMarketingClasses } from "@/lib/design/light-enterprise-theme";
 import { marketingDataAttr } from "@/lib/marketing/analytics";
-import { MARKETING_PRIMARY_CTA_HREFS } from "@/lib/marketing/primary-ctas";
-import type { HumanVerificationLabels } from "@/lib/system-notice/types";
-
-type EarlyAccessLabels = Parameters<typeof EarlyAccessForm>[0]["labels"];
+import { MARKETING_ENTERPRISE_CTA_HREFS, MARKETING_PRIMARY_CTA_HREFS } from "@/lib/marketing/primary-ctas";
+import HomepageSectionShell from "./HomepageSectionShell";
 
 type HomepageFinalCtaProps = {
   title: string;
   subtitle: string;
   bookDemo: string;
-  earlyAccessDivider: string;
-  earlyAccessLabels: EarlyAccessLabels;
-  verificationLabels: HumanVerificationLabels;
+  talkToAipify: string;
 };
 
-export default function HomepageFinalCta({
-  title,
-  subtitle,
-  bookDemo,
-  earlyAccessDivider,
-  earlyAccessLabels,
-  verificationLabels,
-}: HomepageFinalCtaProps) {
+export default function HomepageFinalCta({ title, subtitle, bookDemo, talkToAipify }: HomepageFinalCtaProps) {
   return (
-    <section className="border-t border-aipify-border">
-      <div className="mx-auto max-w-[90rem] px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-14">
-          <div className="max-w-xl">
-            <h2 className="text-2xl font-bold text-aipify-text sm:text-3xl">{title}</h2>
-            {subtitle ? <p className="mt-3 text-lg leading-relaxed text-aipify-text-secondary">{subtitle}</p> : null}
-            <Link
-              href={MARKETING_PRIMARY_CTA_HREFS.bookDemo}
-              className={`mt-8 inline-flex ${AipifyMarketingClasses.primaryCta}`}
-              {...marketingDataAttr("cta_click", "final_book_demo")}
-            >
-              {bookDemo}
-            </Link>
-          </div>
-
-          <div className="rounded-2xl border border-aipify-border bg-aipify-surface p-6 shadow-sm sm:p-8">
-            <p className="text-sm font-medium text-aipify-text-muted">{earlyAccessDivider}</p>
-            <div className="mt-4">
-              <EarlyAccessForm
-                labels={earlyAccessLabels}
-                verificationLabels={verificationLabels}
-                variant="light"
-              />
-            </div>
-          </div>
+    <HomepageSectionShell className="border-t border-aipify-border bg-aipify-surface-muted/40">
+      <div className="mx-auto max-w-3xl text-center">
+        <h2 className="text-3xl font-bold tracking-tight text-aipify-text sm:text-4xl">{title}</h2>
+        {subtitle ? <p className="mt-4 text-lg leading-relaxed text-aipify-text-secondary">{subtitle}</p> : null}
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Link
+            href={MARKETING_PRIMARY_CTA_HREFS.bookDemo}
+            className={`${AipifyMarketingClasses.primaryCta} px-8 py-3.5 text-base`}
+            {...marketingDataAttr("cta_click", "final_book_demo")}
+          >
+            {bookDemo}
+          </Link>
+          <Link
+            href={MARKETING_ENTERPRISE_CTA_HREFS.speakWithAipify}
+            className={`${AipifyMarketingClasses.secondaryCta} px-8 py-3.5 text-base`}
+            {...marketingDataAttr("cta_click", "final_talk_to_aipify")}
+          >
+            {talkToAipify}
+          </Link>
         </div>
       </div>
-    </section>
+    </HomepageSectionShell>
   );
 }

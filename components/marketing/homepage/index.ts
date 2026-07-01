@@ -1,9 +1,12 @@
 export { default as HomepageHero } from "./HomepageHero";
-export { default as CommandBriefSection } from "./CommandBriefSection";
-export { default as CoreOutcomesSection } from "./CoreOutcomesSection";
+export { default as HomepageSectionShell } from "./HomepageSectionShell";
+export { default as TrustFoundationStrip } from "./TrustFoundationStrip";
+export { default as ProblemOutcomeSection } from "./ProblemOutcomeSection";
 export { default as SimpleFlowSection } from "./SimpleFlowSection";
 export { default as CuratedPacksSection } from "./CuratedPacksSection";
-export { default as HomepageWorkflowDemo } from "./HomepageWorkflowDemo";
+export { default as PracticeSection } from "./PracticeSection";
+export { default as BuyingJourneySection } from "./BuyingJourneySection";
 export { default as HomepageTrustSection } from "./HomepageTrustSection";
 export { default as HomepageCompanionSection } from "./HomepageCompanionSection";
 export { default as HomepageFinalCta } from "./HomepageFinalCta";
+export { default as CommandBriefMockup } from "./CommandBriefMockup";
