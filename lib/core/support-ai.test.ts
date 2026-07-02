@@ -27,6 +27,16 @@ import {
   SUPPORT_PROPOSAL_UNDERSTANDING_STALE,
   SUPPORT_PROPOSAL_KNOWLEDGE_REQUIRED,
   SUPPORT_PROPOSAL_KNOWLEDGE_STALE,
+  SUPPORT_PROPOSAL_APPROVAL_RPC,
+  SUPPORT_PROPOSAL_APPROVAL_REQUIRED,
+  SUPPORT_PROPOSAL_APPROVAL_NOT_APPROVABLE,
+  SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID,
+  SUPPORT_PROPOSAL_APPROVAL_HASH_MISMATCH,
+  approveSupportCaseResponseProposal,
+  processSupportCaseProposalApprovalRequest,
+  mapSupportCaseProposalApprovalRpcError,
+  parseSupportProposalApprovalBody,
+  mapSupportProposalApprovalRpcResult,
 } from "./support-ai";
 
 function test(name: string, fn: () => void | Promise<void>) {
@@ -555,6 +565,247 @@ async function main() {
     await proposeSupportCaseResponse(supabase, "case-8");
     assert.deepEqual(rpcNames, [SUPPORT_PROPOSAL_RPC]);
     assert.doesNotMatch(rpcNames.join(","), /suggest_support_ai_response/);
+  });
+
+  const VALID_CASE_ID = "b1b2c3d4-e5f6-4789-a012-3456789abcde";
+  const VALID_PROPOSAL_HASH =
+    "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456";
+
+  await test("parseSupportProposalApprovalBody rejects missing hash", async () => {
+    const parsed = parseSupportProposalApprovalBody({});
+    assert.equal(parsed.ok, false);
+    if (!parsed.ok) {
+      assert.equal(parsed.status, 400);
+    }
+  });
+
+  await test("parseSupportProposalApprovalBody rejects invalid hash format", async () => {
+    const parsed = parseSupportProposalApprovalBody({ expectedProposalInputHash: "not-a-hash" });
+    assert.equal(parsed.ok, false);
+    if (!parsed.ok) {
+      assert.equal(parsed.error, SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID);
+    }
+  });
+
+  await test("mapSupportProposalApprovalRpcResult maps snake_case to camelCase", async () => {
+    const mapped = mapSupportProposalApprovalRpcResult({
+      proposal_id: "prop-1",
+      case_id: VALID_CASE_ID,
+      approval_status: "approved",
+      approved_at: "2026-06-29T12:00:00.000Z",
+      created: true,
+    });
+    assert.equal(mapped.proposalId, "prop-1");
+    assert.equal(mapped.caseId, VALID_CASE_ID);
+    assert.equal(mapped.approvalStatus, "approved");
+    assert.equal(mapped.created, true);
+    assert.equal(mapped.proposed_body, undefined);
+  });
+
+  await test("mapSupportCaseProposalApprovalRpcError maps hash mismatch to 409", async () => {
+    const mapped = mapSupportCaseProposalApprovalRpcError(SUPPORT_PROPOSAL_APPROVAL_HASH_MISMATCH);
+    assert.equal(mapped.status, 409);
+  });
+
+  await test("mapSupportCaseProposalApprovalRpcError maps not approvable to 409", async () => {
+    const mapped = mapSupportCaseProposalApprovalRpcError(SUPPORT_PROPOSAL_APPROVAL_NOT_APPROVABLE);
+    assert.equal(mapped.status, 409);
+  });
+
+  await test("mapSupportCaseProposalApprovalRpcError maps invalid hash to 400", async () => {
+    const mapped = mapSupportCaseProposalApprovalRpcError(
+      SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID
+    );
+    assert.equal(mapped.status, 400);
+  });
+
+  await test("mapSupportCaseProposalApprovalRpcError maps permission errors to 403", async () => {
+    const mapped = mapSupportCaseProposalApprovalRpcError("permission denied for support.reply");
+    assert.equal(mapped.status, 403);
+  });
+
+  await test("processSupportCaseProposalApprovalRequest returns 401 when unauthenticated", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: null } }) },
+      rpc: async () => ({ data: null, error: null }),
+    };
+    const result = await processSupportCaseProposalApprovalRequest(supabase, VALID_CASE_ID, {
+      expectedProposalInputHash: VALID_PROPOSAL_HASH,
+    });
+    assert.equal(result.status, 401);
+  });
+
+  await test("processSupportCaseProposalApprovalRequest rejects invalid case id with 400", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({ data: null, error: null }),
+    };
+    const result = await processSupportCaseProposalApprovalRequest(supabase, "bad-id", {
+      expectedProposalInputHash: VALID_PROPOSAL_HASH,
+    });
+    assert.equal(result.status, 400);
+  });
+
+  await test("processSupportCaseProposalApprovalRequest calls approval RPC with support.reply path", async () => {
+    const rpcCalls: Array<{ fn: string; params?: Record<string, unknown> }> = [];
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async (fn: string, params?: Record<string, unknown>) => {
+        rpcCalls.push({ fn, params });
+        return {
+          data: {
+            proposal_id: "prop-1",
+            case_id: VALID_CASE_ID,
+            approval_status: "approved",
+            approved_at: "2026-06-29T12:00:00.000Z",
+            created: true,
+          },
+          error: null,
+        };
+      },
+    };
+    const result = await processSupportCaseProposalApprovalRequest(supabase, VALID_CASE_ID, {
+      expectedProposalInputHash: VALID_PROPOSAL_HASH,
+    });
+    assert.equal(result.status, 200);
+    assert.equal(result.body.created, true);
+    assert.equal(result.body.approvalStatus, "approved");
+    assert.equal(rpcCalls[0]?.fn, SUPPORT_PROPOSAL_APPROVAL_RPC);
+    assert.deepEqual(rpcCalls[0]?.params, {
+      p_case_id: VALID_CASE_ID,
+      p_expected_proposal_input_hash: VALID_PROPOSAL_HASH,
+    });
+    assert.equal(result.body.proposedBody, undefined);
+  });
+
+  await test("processSupportCaseProposalApprovalRequest idempotent created=false", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({
+        data: {
+          proposal_id: "prop-1",
+          case_id: VALID_CASE_ID,
+          approval_status: "approved",
+          approved_at: "2026-06-29T12:00:00.000Z",
+          created: false,
+        },
+        error: null,
+      }),
+    };
+    const result = await processSupportCaseProposalApprovalRequest(supabase, VALID_CASE_ID, {
+      expectedProposalInputHash: VALID_PROPOSAL_HASH,
+    });
+    assert.equal(result.status, 200);
+    assert.equal(result.body.created, false);
+  });
+
+  await test("processSupportCaseProposalApprovalRequest maps hash mismatch to 409", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({
+        data: null,
+        error: { message: SUPPORT_PROPOSAL_APPROVAL_HASH_MISMATCH },
+      }),
+    };
+    const result = await processSupportCaseProposalApprovalRequest(supabase, VALID_CASE_ID, {
+      expectedProposalInputHash: VALID_PROPOSAL_HASH,
+    });
+    assert.equal(result.status, 409);
+    assert.equal(result.body.error, SUPPORT_PROPOSAL_APPROVAL_HASH_MISMATCH);
+  });
+
+  await test("processSupportCaseProposalApprovalRequest maps not approvable to 409", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({
+        data: null,
+        error: { message: SUPPORT_PROPOSAL_APPROVAL_NOT_APPROVABLE },
+      }),
+    };
+    const result = await processSupportCaseProposalApprovalRequest(supabase, VALID_CASE_ID, {
+      expectedProposalInputHash: VALID_PROPOSAL_HASH,
+    });
+    assert.equal(result.status, 409);
+  });
+
+  await test("processSupportCaseProposalApprovalRequest maps stale understanding to 409", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({
+        data: null,
+        error: { message: SUPPORT_PROPOSAL_UNDERSTANDING_STALE },
+      }),
+    };
+    const result = await processSupportCaseProposalApprovalRequest(supabase, VALID_CASE_ID, {
+      expectedProposalInputHash: VALID_PROPOSAL_HASH,
+    });
+    assert.equal(result.status, 409);
+  });
+
+  await test("processSupportCaseProposalApprovalRequest maps stale knowledge to 409", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({
+        data: null,
+        error: { message: SUPPORT_PROPOSAL_KNOWLEDGE_STALE },
+      }),
+    };
+    const result = await processSupportCaseProposalApprovalRequest(supabase, VALID_CASE_ID, {
+      expectedProposalInputHash: VALID_PROPOSAL_HASH,
+    });
+    assert.equal(result.status, 409);
+  });
+
+  await test("processSupportCaseProposalApprovalRequest maps foreign case to 404", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({
+        data: null,
+        error: { message: "Case not found" },
+      }),
+    };
+    const result = await processSupportCaseProposalApprovalRequest(supabase, VALID_CASE_ID, {
+      expectedProposalInputHash: VALID_PROPOSAL_HASH,
+    });
+    assert.equal(result.status, 404);
+  });
+
+  await test("processSupportCaseProposalApprovalRequest maps proposal required to 409", async () => {
+    const supabase = {
+      auth: { getUser: async () => ({ data: { user: { id: "user-1" } } }) },
+      rpc: async () => ({
+        data: null,
+        error: { message: SUPPORT_PROPOSAL_APPROVAL_REQUIRED },
+      }),
+    };
+    const result = await processSupportCaseProposalApprovalRequest(supabase, VALID_CASE_ID, {
+      expectedProposalInputHash: VALID_PROPOSAL_HASH,
+    });
+    assert.equal(result.status, 409);
+  });
+
+  await test("approveSupportCaseResponseProposal does not call ASO, Companion, or send RPCs", async () => {
+    const rpcNames: string[] = [];
+    const supabase = {
+      rpc: async (fn: string) => {
+        rpcNames.push(fn);
+        return {
+          data: {
+            proposal_id: "prop-1",
+            case_id: VALID_CASE_ID,
+            approval_status: "approved",
+            created: true,
+          },
+          error: null,
+        };
+      },
+    };
+    await approveSupportCaseResponseProposal(supabase, VALID_CASE_ID, VALID_PROPOSAL_HASH);
+    assert.deepEqual(rpcNames, [SUPPORT_PROPOSAL_APPROVAL_RPC]);
+    assert.doesNotMatch(rpcNames.join(","), /approve_support_ai_response/);
+    assert.doesNotMatch(rpcNames.join(","), /send_support_reply/);
+    assert.doesNotMatch(rpcNames.join(","), /companion/);
+    assert.doesNotMatch(rpcNames.join(","), /execute_companion/);
   });
 
   console.log("All support-ai tests passed.");

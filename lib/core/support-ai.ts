@@ -63,6 +63,20 @@ export const SUPPORT_PROPOSAL_UNDERSTANDING_REQUIRED = "support_proposal_underst
 export const SUPPORT_PROPOSAL_UNDERSTANDING_STALE = "support_proposal_understanding_stale" as const;
 export const SUPPORT_PROPOSAL_KNOWLEDGE_REQUIRED = "support_proposal_knowledge_required" as const;
 export const SUPPORT_PROPOSAL_KNOWLEDGE_STALE = "support_proposal_knowledge_stale" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_RPC =
+  "approve_organization_support_case_response_proposal" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_REQUIRED = "support_proposal_approval_required" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_NOT_APPROVABLE =
+  "support_proposal_approval_not_approvable" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID =
+  "support_proposal_approval_expected_hash_invalid" as const;
+export const SUPPORT_PROPOSAL_APPROVAL_HASH_MISMATCH =
+  "support_proposal_approval_hash_mismatch" as const;
+
+export const SUPPORT_PROPOSAL_APPROVAL_STATUSES = ["pending", "approved"] as const;
+export type SupportProposalApprovalStatus = (typeof SUPPORT_PROPOSAL_APPROVAL_STATUSES)[number];
+
+export const SUPPORT_PROPOSAL_INPUT_HASH_REGEX = /^[a-f0-9]{64}$/;
 
 export const SUPPORT_KNOWLEDGE_STATUSES = ["complete", "needs_human_knowledge_review"] as const;
 export type SupportKnowledgeStatus = (typeof SUPPORT_KNOWLEDGE_STATUSES)[number];
@@ -236,6 +250,63 @@ export function mapSupportCaseProposalRpcError(message: string): { status: numbe
     return { status: 404, error: "Case not found" };
   }
   return { status: 403, error: message };
+}
+
+export function mapSupportCaseProposalApprovalRpcError(
+  message: string
+): { status: number; error: string } {
+  if (message.includes(SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID)) {
+    return { status: 400, error: SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_APPROVAL_HASH_MISMATCH)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_APPROVAL_HASH_MISMATCH };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_APPROVAL_REQUIRED)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_APPROVAL_REQUIRED };
+  }
+  if (message.includes(SUPPORT_PROPOSAL_APPROVAL_NOT_APPROVABLE)) {
+    return { status: 409, error: SUPPORT_PROPOSAL_APPROVAL_NOT_APPROVABLE };
+  }
+  if (message.includes("Unauthorized")) {
+    return { status: 401, error: "Unauthorized" };
+  }
+  return mapSupportCaseProposalRpcError(message);
+}
+
+export type ParsedSupportProposalApprovalBody =
+  | { ok: true; expectedProposalInputHash: string }
+  | { ok: false; status: number; error: string };
+
+export function parseSupportProposalApprovalBody(raw: unknown): ParsedSupportProposalApprovalBody {
+  if (raw == null || typeof raw !== "object" || Array.isArray(raw)) {
+    return { ok: false, status: 400, error: "expectedProposalInputHash required" };
+  }
+
+  const body = raw as Record<string, unknown>;
+  const hashRaw = body.expectedProposalInputHash;
+
+  if (typeof hashRaw !== "string" || hashRaw.trim().length === 0) {
+    return { ok: false, status: 400, error: "expectedProposalInputHash required" };
+  }
+
+  const expectedProposalInputHash = hashRaw.trim().toLowerCase();
+  if (!SUPPORT_PROPOSAL_INPUT_HASH_REGEX.test(expectedProposalInputHash)) {
+    return { ok: false, status: 400, error: SUPPORT_PROPOSAL_APPROVAL_EXPECTED_HASH_INVALID };
+  }
+
+  return { ok: true, expectedProposalInputHash };
+}
+
+export function mapSupportProposalApprovalRpcResult(
+  data: Record<string, unknown>
+): Record<string, unknown> {
+  return {
+    proposalId: data.proposal_id,
+    caseId: data.case_id,
+    approvalStatus: data.approval_status,
+    approvedAt: data.approved_at,
+    created: data.created,
+  };
 }
 
 type SupportCaseCreateClient = SupportRpcClient & {
@@ -553,6 +624,66 @@ type SupportCaseProposalClient = SupportRpcClient & {
     getUser: () => Promise<{ data: { user: { id: string } | null } }>;
   };
 };
+
+export async function approveSupportCaseResponseProposal(
+  supabase: SupportRpcClient,
+  caseId: string,
+  expectedProposalInputHash: string
+): Promise<Record<string, unknown>> {
+  const { data, error } = await supabase.rpc(SUPPORT_PROPOSAL_APPROVAL_RPC, {
+    p_case_id: caseId,
+    p_expected_proposal_input_hash: expectedProposalInputHash,
+  });
+  if (error) throw new Error(error.message);
+  return (data as Record<string, unknown>) ?? {};
+}
+
+type SupportCaseProposalApprovalClient = SupportRpcClient & {
+  auth: {
+    getUser: () => Promise<{ data: { user: { id: string } | null } }>;
+  };
+};
+
+export async function processSupportCaseProposalApprovalRequest(
+  supabase: SupportCaseProposalApprovalClient,
+  caseId: string,
+  rawBody: unknown
+): Promise<{ status: number; body: Record<string, unknown> }> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    return { status: 401, body: { error: "Unauthorized" } };
+  }
+
+  if (!isValidSupportCaseId(caseId)) {
+    return { status: 400, body: { error: "Invalid case id" } };
+  }
+
+  const parsed = parseSupportProposalApprovalBody(rawBody);
+  if (!parsed.ok) {
+    return { status: parsed.status, body: { error: parsed.error } };
+  }
+
+  const trimmedCaseId = caseId.trim();
+
+  try {
+    const { data, error } = await supabase.rpc(SUPPORT_PROPOSAL_APPROVAL_RPC, {
+      p_case_id: trimmedCaseId,
+      p_expected_proposal_input_hash: parsed.expectedProposalInputHash,
+    });
+    if (error) {
+      const mapped = mapSupportCaseProposalApprovalRpcError(error.message);
+      return { status: mapped.status, body: { error: mapped.error } };
+    }
+    return {
+      status: 200,
+      body: mapSupportProposalApprovalRpcResult((data as Record<string, unknown>) ?? {}),
+    };
+  } catch {
+    return { status: 500, body: { error: "Failed to approve support case response proposal" } };
+  }
+}
 
 export async function processSupportCaseProposalRequest(
   supabase: SupportCaseProposalClient,
