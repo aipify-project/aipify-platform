@@ -2154,8 +2154,8 @@
       }
     },
     "workflow": {
-      "title": "See how work moves through Aipify.",
-      "subtitle": "Realistic workflow examples — from support triage to governed execution — with human approval and audit at every sensitive step.",
+      "title": "Se hur arbetet rör sig genom Aipify.",
+      "subtitle": "Realistiska arbetsflödesexempel — från supporttriagering till styrd exekvering — med mänskligt godkännande och granskning vid varje känsligt steg.",
       "controls": {
         "play": "Spela",
         "pause": "Pausa",
@@ -2165,120 +2165,120 @@
       "examples": {
         "1": {
           "id": "support",
-          "label": "Support response",
-          "disclaimer": "Illustrative workflow — your policies and approval rules apply.",
+          "label": "Supportrespons",
+          "disclaimer": "Illustrativt arbetsflöde — dina policyer och godkännanderegler gäller.",
           "steps": {
             "1": {
-              "title": "Support request arrives",
-              "detail": "A customer inquiry enters from email, chat, or your admin.",
-              "prepared": "Case created · Category detected",
-              "approval": "None required yet",
-              "audit": "Intake logged"
+              "title": "Supportförfrågan anländer",
+              "detail": "En kundförfrågan kommer in via e-post, chatt eller er admin.",
+              "prepared": "Ärende skapat · Kategori identifierad",
+              "approval": "Ingen krävs ännu",
+              "audit": "Intag loggat"
             },
             "2": {
-              "title": "Intent identified",
-              "detail": "Aipify classifies category, urgency, and routing.",
-              "prepared": "Routing recommendation ready",
-              "approval": "Policy check passed",
-              "audit": "Classification recorded"
+              "title": "Avsikt identifierad",
+              "detail": "Aipify klassificerar kategori, brådska och routing.",
+              "prepared": "Routingrekommendation klar",
+              "approval": "Policykontroll godkänd",
+              "audit": "Klassificering registrerad"
             },
             "3": {
-              "title": "Knowledge Center search",
-              "detail": "Approved knowledge sources are searched — metadata only.",
-              "prepared": "3 relevant articles matched",
-              "approval": "Sources approved",
-              "audit": "Search scope logged"
+              "title": "Sökning i Knowledge Center",
+              "detail": "Godkända kunskapskällor söks — endast metadata.",
+              "prepared": "3 relevanta artiklar matchade",
+              "approval": "Källor godkända",
+              "audit": "Sökomfattning loggad"
             },
             "4": {
-              "title": "Response drafted",
-              "detail": "A business-ready draft is prepared for review.",
-              "prepared": "Draft ready for human review",
-              "approval": "Required before send",
-              "audit": "Draft version saved"
+              "title": "Svar utarbetat",
+              "detail": "Ett affärsfärdigt utkast förbereds för granskning.",
+              "prepared": "Utkast klart för mänsklig granskning",
+              "approval": "Krävs före sändning",
+              "audit": "Utkastversion sparad"
             },
             "5": {
-              "title": "Human approval",
-              "detail": "Your team approves, edits, or delegates future handling.",
-              "prepared": "Diff and context attached",
-              "approval": "Owner or support lead",
-              "audit": "Approver identity captured"
+              "title": "Mänskligt godkännande",
+              "detail": "Ert team godkänner, redigerar eller delegerar framtida hantering.",
+              "prepared": "Diff och kontext bifogad",
+              "approval": "Ägare eller supportledare",
+              "audit": "Godkännares identitet registrerad"
             },
             "6": {
-              "title": "Response sent",
-              "detail": "Approved work is executed inside your workflow.",
-              "prepared": "Channel selected",
-              "approval": "Confirmed",
-              "audit": "Send event logged"
+              "title": "Svar skickat",
+              "detail": "Godkänt arbete utförs i ert arbetsflöde.",
+              "prepared": "Kanal vald",
+              "approval": "Bekräftat",
+              "audit": "Sändningshändelse loggad"
             },
             "7": {
-              "title": "Audit log created",
-              "detail": "Every step is recorded with explainability.",
-              "prepared": "Trail complete",
+              "title": "Granskningslogg skapad",
+              "detail": "Varje steg registreras med förklarbarhet.",
+              "prepared": "Spår komplett",
               "approval": "N/A",
-              "audit": "Immutable entry stored"
+              "audit": "Oföränderlig post lagrad"
             },
             "8": {
-              "title": "Dashboard updated",
-              "detail": "Operations view reflects the outcome in real time.",
-              "prepared": "Command Brief refreshed",
+              "title": "Dashboard uppdaterat",
+              "detail": "Driftsvyn speglar resultatet i realtid.",
+              "prepared": "Kommandoöversikt uppdaterad",
               "approval": "N/A",
-              "audit": "Metrics updated"
+              "audit": "Mätvärden uppdaterade"
             },
             "9": {
-              "title": "Workflow learned",
-              "detail": "Approved patterns improve future recommendations — reversibly.",
-              "prepared": "Learning suggestion queued",
-              "approval": "Customer controls learning mode",
-              "audit": "Learning event metadata only"
+              "title": "Arbetsflöde inlärt",
+              "detail": "Godkända mönster förbättrar framtida rekommendationer — reversibelt.",
+              "prepared": "Inlärningsförslag i kö",
+              "approval": "Kunden styr inlärningsläge",
+              "audit": "Endast metadata för inlärningshändelse"
             }
           }
         },
         "2": {
           "id": "approval",
-          "label": "Approval request",
-          "disclaimer": "Illustrative workflow — sensitivity levels enforced by your policies.",
+          "label": "Godkännandeförfrågan",
+          "disclaimer": "Illustrativt arbetsflöde — känslighetsnivåer tillämpas enligt era policyer.",
           "steps": {
             "1": {
-              "title": "Action prepared",
-              "detail": "Aipify prepares a sensitive operational change with full context.",
-              "prepared": "Explanation attached",
-              "approval": "Pending",
-              "audit": "Request opened"
+              "title": "Åtgärd förberedd",
+              "detail": "Aipify förbereder en känslig operativ förändring med full kontext.",
+              "prepared": "Förklaring bifogad",
+              "approval": "Väntar",
+              "audit": "Förfrågan öppnad"
             },
             "2": {
-              "title": "Risk classified",
-              "detail": "Trust & Action Engine assigns risk level and required approver.",
-              "prepared": "Level 3 — sensitive",
-              "approval": "Admin required",
-              "audit": "Classification logged"
+              "title": "Risk klassificerad",
+              "detail": "Trust & Action Engine tilldelar risknivå och krävd godkännare.",
+              "prepared": "Nivå 3 — känslig",
+              "approval": "Admin krävs",
+              "audit": "Klassificering loggad"
             },
             "3": {
-              "title": "Reviewer notified",
-              "detail": "Command Brief and Approval Center surface the decision clearly.",
-              "prepared": "Notification sent",
-              "approval": "Awaiting human",
-              "audit": "Delivery logged"
+              "title": "Granskare meddelad",
+              "detail": "Kommandoöversikt och Godkännandecenter visar beslutet tydligt.",
+              "prepared": "Avisering skickad",
+              "approval": "Väntar på människa",
+              "audit": "Leverans loggad"
             },
             "4": {
-              "title": "Human decision",
-              "detail": "Approver reviews, edits, approves, or rejects with reason.",
-              "prepared": "Context panel open",
-              "approval": "Explicit decision",
-              "audit": "Decision captured"
+              "title": "Mänskligt beslut",
+              "detail": "Godkännare granskar, redigerar, godkänner eller avvisar med motivering.",
+              "prepared": "Kontextpanel öppen",
+              "approval": "Explicit beslut",
+              "audit": "Beslut registrerat"
             },
             "5": {
-              "title": "Governed execution",
-              "detail": "Approved action runs within policy boundaries.",
-              "prepared": "Execution queued",
-              "approval": "Confirmed",
-              "audit": "Execution logged"
+              "title": "Styrd exekvering",
+              "detail": "Godkänd åtgärd körs inom policygränserna.",
+              "prepared": "Exekvering i kö",
+              "approval": "Bekräftat",
+              "audit": "Exekvering loggad"
             },
             "6": {
-              "title": "Audit trail closed",
-              "detail": "Full lifecycle recorded for procurement and compliance review.",
-              "prepared": "Complete",
+              "title": "Granskningsspår stängt",
+              "detail": "Full livscykel registrerad för upphandling och compliance-granskning.",
+              "prepared": "Slutförd",
               "approval": "N/A",
-              "audit": "Trail sealed"
+              "audit": "Spår förseglat"
             }
           }
         },
