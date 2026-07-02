@@ -1,5 +1,6 @@
 import { PublicMarketingClasses } from "@/lib/design/public-marketing-tokens";
 import type { ProductPageContent } from "@/lib/marketing/parse-product-page";
+import { formatProductPageLabel } from "@/lib/marketing/parse-product-page";
 
 type ProductGovernanceSectionProps = ProductPageContent["governance"];
 
@@ -9,6 +10,7 @@ export default function ProductGovernanceSection({
   levels,
   workflowTitle,
   workflowSteps,
+  ui,
 }: ProductGovernanceSectionProps) {
   return (
     <section id="governance" className="scroll-mt-20" aria-labelledby="product-governance-title">
@@ -24,25 +26,25 @@ export default function ProductGovernanceSection({
           {levels.map((level) => (
             <li key={level.level} className={PublicMarketingClasses.card}>
               <span className="inline-flex rounded-full bg-aipify-accent-soft px-2.5 py-1 text-xs font-semibold text-aipify-companion">
-                Level {level.level}
+                {formatProductPageLabel(ui.level, { level: level.level })}
               </span>
               <h3 className={`${PublicMarketingClasses.cardTitle} mt-3`}>{level.title}</h3>
               <p className={PublicMarketingClasses.cardBody}>{level.body}</p>
               <dl className="mt-4 space-y-2 border-t border-aipify-border pt-4 text-xs">
                 <div>
-                  <dt className="font-semibold text-aipify-text-muted">Example</dt>
+                  <dt className="font-semibold text-aipify-text-muted">{ui.example}</dt>
                   <dd className="mt-0.5 text-aipify-text-secondary">{level.example}</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold text-aipify-text-muted">Human control</dt>
+                  <dt className="font-semibold text-aipify-text-muted">{ui.humanControl}</dt>
                   <dd className="mt-0.5 text-aipify-text-secondary">{level.humanControl}</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold text-aipify-text-muted">Audit</dt>
+                  <dt className="font-semibold text-aipify-text-muted">{ui.audit}</dt>
                   <dd className="mt-0.5 text-aipify-text-secondary">{level.audit}</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold text-aipify-text-muted">Reversible</dt>
+                  <dt className="font-semibold text-aipify-text-muted">{ui.reversible}</dt>
                   <dd className="mt-0.5 text-aipify-text-secondary">{level.reversible}</dd>
                 </div>
               </dl>

@@ -16,6 +16,7 @@ export default function ProductCompanionSection({
   distinction,
   panel,
   capabilities,
+  ui,
   appName,
 }: ProductCompanionSectionProps) {
   const [activeId, setActiveId] = useState(capabilities[0]?.id ?? "");
@@ -28,7 +29,7 @@ export default function ProductCompanionSection({
           <div>
             <div className="flex items-center gap-3">
               <AipifyPulse size={40} variant="gradient" title={appName} aria-label={appName} />
-              <span className="text-sm font-semibold text-aipify-companion">Aipify Companion</span>
+              <span className="text-sm font-semibold text-aipify-companion">{ui.companionName}</span>
             </div>
             <h2 id="product-companion-title" className={`mt-5 ${PublicMarketingClasses.sectionHeading}`}>
               {title}
@@ -60,19 +61,19 @@ export default function ProductCompanionSection({
             {active ? (
               <dl className="mt-6 space-y-4">
                 <div>
-                  <dt className={PublicMarketingClasses.cardLabel}>What it means</dt>
+                  <dt className={PublicMarketingClasses.cardLabel}>{ui.whatItMeans}</dt>
                   <dd className="mt-1 text-sm leading-relaxed text-aipify-text">{active.meaning}</dd>
                 </div>
                 <div>
-                  <dt className={PublicMarketingClasses.cardLabel}>Example</dt>
+                  <dt className={PublicMarketingClasses.cardLabel}>{ui.example}</dt>
                   <dd className="mt-1 text-sm leading-relaxed text-aipify-text-secondary">{active.example}</dd>
                 </div>
                 <div>
-                  <dt className={PublicMarketingClasses.cardLabel}>Boundary</dt>
+                  <dt className={PublicMarketingClasses.cardLabel}>{ui.boundary}</dt>
                   <dd className="mt-1 text-sm leading-relaxed text-aipify-text-secondary">{active.boundary}</dd>
                 </div>
                 <div>
-                  <dt className={PublicMarketingClasses.cardLabel}>Human control</dt>
+                  <dt className={PublicMarketingClasses.cardLabel}>{ui.humanControl}</dt>
                   <dd className="mt-1 text-sm leading-relaxed text-aipify-text-secondary">{active.humanControl}</dd>
                 </div>
               </dl>

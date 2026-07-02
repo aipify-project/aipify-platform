@@ -2834,6 +2834,34 @@
       "primary": "Book demo",
       "secondary": "Udforsk Business Packs",
       "tertiary": "Anmod om tidlig adgang"
+    },
+    "ui": {
+      "workflow": {
+        "liveStep": "Live trin",
+        "preparedLabel": "Aipify forberedte",
+        "approvalLabel": "Godkendelse",
+        "auditLabel": "Revisionslog"
+      },
+      "companion": {
+        "companionName": "Aipify Companion",
+        "whatItMeans": "Hvad det betyder",
+        "example": "Eksempel",
+        "boundary": "Grænse",
+        "humanControl": "Menneskelig kontrol"
+      },
+      "governance": {
+        "level": "Niveau {level}",
+        "example": "Eksempel",
+        "humanControl": "Menneskelig kontrol",
+        "audit": "Revisionslog",
+        "reversible": "Reversibel"
+      },
+      "enterprise": {
+        "trustPanel": "Tillidspanel"
+      },
+      "businessPacks": {
+        "briefSignalPrefix": "Kommandooversigt: {signal}"
+      }
     }
   },
   "enterprisePage": {

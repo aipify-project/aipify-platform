@@ -2834,6 +2834,34 @@
       "primary": "Boka demo",
       "secondary": "Utforska Business Packs",
       "tertiary": "Begär tidig åtkomst"
+    },
+    "ui": {
+      "workflow": {
+        "liveStep": "Live steg",
+        "preparedLabel": "Aipify förberedde",
+        "approvalLabel": "Godkännande",
+        "auditLabel": "Granskningslogg"
+      },
+      "companion": {
+        "companionName": "Aipify Companion",
+        "whatItMeans": "Vad det innebär",
+        "example": "Exempel",
+        "boundary": "Gräns",
+        "humanControl": "Mänsklig kontroll"
+      },
+      "governance": {
+        "level": "Nivå {level}",
+        "example": "Exempel",
+        "humanControl": "Mänsklig kontroll",
+        "audit": "Granskningslogg",
+        "reversible": "Reversibel"
+      },
+      "enterprise": {
+        "trustPanel": "Förtroendepanel"
+      },
+      "businessPacks": {
+        "briefSignalPrefix": "Kommandoöversikt: {signal}"
+      }
     }
   },
   "enterprisePage": {

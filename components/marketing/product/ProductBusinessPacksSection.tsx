@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PublicMarketingClasses } from "@/lib/design/public-marketing-tokens";
 import { marketingDataAttr } from "@/lib/marketing/analytics";
 import type { ProductPageContent } from "@/lib/marketing/parse-product-page";
+import { formatProductPageLabel } from "@/lib/marketing/parse-product-page";
 
 type ProductBusinessPacksSectionProps = ProductPageContent["businessPacks"];
 
@@ -13,6 +14,7 @@ export default function ProductBusinessPacksSection({
   modelNote,
   packs,
   exploreAll,
+  ui,
 }: ProductBusinessPacksSectionProps) {
   return (
     <section id="business-packs" className="scroll-mt-20 border-y border-aipify-border" aria-labelledby="product-packs-title">
@@ -57,7 +59,7 @@ export default function ProductBusinessPacksSection({
                 ))}
               </ul>
               <p className="mt-4 rounded-lg border border-aipify-accent-muted bg-aipify-accent-soft/40 px-3 py-2 text-xs font-medium text-aipify-companion">
-                Command Brief: {pack.briefSignal}
+                {formatProductPageLabel(ui.briefSignalPrefix, { signal: pack.briefSignal })}
               </p>
               <Link
                 href={pack.href}

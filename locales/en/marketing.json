@@ -2800,6 +2800,34 @@
       "primary": "Book Demo",
       "secondary": "Explore Business Packs",
       "tertiary": "Request Early Access"
+    },
+    "ui": {
+      "workflow": {
+        "liveStep": "Live step",
+        "preparedLabel": "Aipify prepared",
+        "approvalLabel": "Approval",
+        "auditLabel": "Audit"
+      },
+      "companion": {
+        "companionName": "Aipify Companion",
+        "whatItMeans": "What it means",
+        "example": "Example",
+        "boundary": "Boundary",
+        "humanControl": "Human control"
+      },
+      "governance": {
+        "level": "Level {level}",
+        "example": "Example",
+        "humanControl": "Human control",
+        "audit": "Audit",
+        "reversible": "Reversible"
+      },
+      "enterprise": {
+        "trustPanel": "Trust panel"
+      },
+      "businessPacks": {
+        "briefSignalPrefix": "Command Brief: {signal}"
+      }
     }
   },
   "enterprisePage": {

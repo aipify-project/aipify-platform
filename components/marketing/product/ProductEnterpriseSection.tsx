@@ -16,6 +16,7 @@ export default function ProductEnterpriseSection({
   pillars,
   trust,
   statusLabels,
+  ui,
 }: ProductEnterpriseSectionProps) {
   return (
     <section
@@ -49,7 +50,7 @@ export default function ProductEnterpriseSection({
           </ul>
 
           <div className="rounded-2xl border border-aipify-border bg-aipify-surface p-6 shadow-sm">
-            <p className={PublicMarketingClasses.cardLabel}>Trust panel</p>
+            <p className={PublicMarketingClasses.cardLabel}>{ui.trustPanel}</p>
             <ul className="mt-4 space-y-4">
               {trust.map((item) => (
                 <li key={item.title}>

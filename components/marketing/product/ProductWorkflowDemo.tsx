@@ -9,7 +9,7 @@ type ProductWorkflowDemoProps = ProductPageContent["workflow"];
 
 const STEP_MS = 3200;
 
-export default function ProductWorkflowDemo({ title, subtitle, examples, controls }: ProductWorkflowDemoProps) {
+export default function ProductWorkflowDemo({ title, subtitle, examples, controls, ui }: ProductWorkflowDemoProps) {
   const [exampleIndex, setExampleIndex] = useState(0);
   const [activeStep, setActiveStep] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -144,7 +144,7 @@ export default function ProductWorkflowDemo({ title, subtitle, examples, control
             <div className="border-t border-aipify-border bg-aipify-accent-soft/30 p-6 lg:border-t-0">
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden="true" />
-                <p className="text-xs font-medium uppercase tracking-wide text-aipify-companion">Live step</p>
+                <p className="text-xs font-medium uppercase tracking-wide text-aipify-companion">{ui.liveStep}</p>
               </div>
               <p className="mt-4 text-lg font-semibold text-aipify-text">{step?.title}</p>
               <p className="mt-2 text-sm leading-relaxed text-aipify-text-secondary">{step?.detail}</p>
@@ -153,19 +153,19 @@ export default function ProductWorkflowDemo({ title, subtitle, examples, control
                 <div className="mt-6 space-y-3">
                   {step.prepared ? (
                     <div className="rounded-lg border border-aipify-border bg-aipify-surface px-4 py-3">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-aipify-companion">Aipify prepared</p>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-aipify-companion">{ui.preparedLabel}</p>
                       <p className="mt-1 text-sm text-aipify-text">{step.prepared}</p>
                     </div>
                   ) : null}
                   {step.approval ? (
                     <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-amber-800">Approval</p>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-amber-800">{ui.approvalLabel}</p>
                       <p className="mt-1 text-sm text-amber-900">{step.approval}</p>
                     </div>
                   ) : null}
                   {step.audit ? (
                     <div className="rounded-lg border border-aipify-border bg-aipify-surface-muted px-4 py-3">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-aipify-text-secondary">Audit</p>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-aipify-text-secondary">{ui.auditLabel}</p>
                       <p className="mt-1 text-sm text-aipify-text">{step.audit}</p>
                     </div>
                   ) : null}

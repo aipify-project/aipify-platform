@@ -46,6 +46,105 @@ export type ProductPackCard = {
   href: string;
 };
 
+export type ProductPageUiLabels = {
+  workflow: {
+    liveStep: string;
+    preparedLabel: string;
+    approvalLabel: string;
+    auditLabel: string;
+  };
+  companion: {
+    companionName: string;
+    whatItMeans: string;
+    example: string;
+    boundary: string;
+    humanControl: string;
+  };
+  governance: {
+    level: string;
+    example: string;
+    humanControl: string;
+    audit: string;
+    reversible: string;
+  };
+  enterprise: {
+    trustPanel: string;
+  };
+  businessPacks: {
+    briefSignalPrefix: string;
+  };
+};
+
+const DEFAULT_PRODUCT_PAGE_UI: ProductPageUiLabels = {
+  workflow: {
+    liveStep: "Live step",
+    preparedLabel: "Aipify prepared",
+    approvalLabel: "Approval",
+    auditLabel: "Audit",
+  },
+  companion: {
+    companionName: "Aipify Companion",
+    whatItMeans: "What it means",
+    example: "Example",
+    boundary: "Boundary",
+    humanControl: "Human control",
+  },
+  governance: {
+    level: "Level {level}",
+    example: "Example",
+    humanControl: "Human control",
+    audit: "Audit",
+    reversible: "Reversible",
+  },
+  enterprise: {
+    trustPanel: "Trust panel",
+  },
+  businessPacks: {
+    briefSignalPrefix: "Command Brief: {signal}",
+  },
+};
+
+function parseProductPageUi(section: Record<string, unknown> | undefined): ProductPageUiLabels {
+  const ui = section?.ui as Partial<ProductPageUiLabels> | undefined;
+  return {
+    workflow: {
+      liveStep: String(ui?.workflow?.liveStep ?? DEFAULT_PRODUCT_PAGE_UI.workflow.liveStep),
+      preparedLabel: String(ui?.workflow?.preparedLabel ?? DEFAULT_PRODUCT_PAGE_UI.workflow.preparedLabel),
+      approvalLabel: String(ui?.workflow?.approvalLabel ?? DEFAULT_PRODUCT_PAGE_UI.workflow.approvalLabel),
+      auditLabel: String(ui?.workflow?.auditLabel ?? DEFAULT_PRODUCT_PAGE_UI.workflow.auditLabel),
+    },
+    companion: {
+      companionName: String(ui?.companion?.companionName ?? DEFAULT_PRODUCT_PAGE_UI.companion.companionName),
+      whatItMeans: String(ui?.companion?.whatItMeans ?? DEFAULT_PRODUCT_PAGE_UI.companion.whatItMeans),
+      example: String(ui?.companion?.example ?? DEFAULT_PRODUCT_PAGE_UI.companion.example),
+      boundary: String(ui?.companion?.boundary ?? DEFAULT_PRODUCT_PAGE_UI.companion.boundary),
+      humanControl: String(ui?.companion?.humanControl ?? DEFAULT_PRODUCT_PAGE_UI.companion.humanControl),
+    },
+    governance: {
+      level: String(ui?.governance?.level ?? DEFAULT_PRODUCT_PAGE_UI.governance.level),
+      example: String(ui?.governance?.example ?? DEFAULT_PRODUCT_PAGE_UI.governance.example),
+      humanControl: String(ui?.governance?.humanControl ?? DEFAULT_PRODUCT_PAGE_UI.governance.humanControl),
+      audit: String(ui?.governance?.audit ?? DEFAULT_PRODUCT_PAGE_UI.governance.audit),
+      reversible: String(ui?.governance?.reversible ?? DEFAULT_PRODUCT_PAGE_UI.governance.reversible),
+    },
+    enterprise: {
+      trustPanel: String(ui?.enterprise?.trustPanel ?? DEFAULT_PRODUCT_PAGE_UI.enterprise.trustPanel),
+    },
+    businessPacks: {
+      briefSignalPrefix: String(
+        ui?.businessPacks?.briefSignalPrefix ?? DEFAULT_PRODUCT_PAGE_UI.businessPacks.briefSignalPrefix,
+      ),
+    },
+  };
+}
+
+export function formatProductPageLabel(template: string, values: Record<string, string>): string {
+  return Object.entries(values).reduce(
+    (result, [key, value]) => result.replaceAll(`{${key}}`, value),
+    template,
+  );
+}
+
 export type ProductPageContent = {
   meta: { title: string; description: string };
   hero: {
@@ -72,6 +171,7 @@ export type ProductPageContent = {
     subtitle: string;
     examples: ProductWorkflowExample[];
     controls: { play: string; pause: string; previous: string; next: string };
+    ui: ProductPageUiLabels["workflow"];
   };
   coordination: {
     title: string;
@@ -98,6 +198,7 @@ export type ProductPageContent = {
       explainLabel: string;
     };
     capabilities: Array<{ id: string; title: string; meaning: string; example: string; boundary: string; humanControl: string }>;
+    ui: ProductPageUiLabels["companion"];
   };
   platform: {
     title: string;
@@ -131,6 +232,7 @@ export type ProductPageContent = {
     modelNote: string;
     packs: ProductPackCard[];
     exploreAll: string;
+    ui: ProductPageUiLabels["businessPacks"];
   };
   governance: {
     title: string;
@@ -138,12 +240,14 @@ export type ProductPageContent = {
     levels: Array<{ level: string; title: string; body: string; example: string; humanControl: string; audit: string; reversible: string }>;
     workflowTitle: string;
     workflowSteps: string[];
+    ui: ProductPageUiLabels["governance"];
   };
   enterprise: {
     title: string;
     statusLabels: Record<"available" | "custom" | "planned" | "enterprise_only", string>;
     pillars: Array<{ title: string; benefit: string; example: string; status: "available" | "custom" | "planned" | "enterprise_only" }>;
     trust: Array<{ title: string; body: string }>;
+    ui: ProductPageUiLabels["enterprise"];
   };
   expansion: {
     title: string;
@@ -363,6 +467,7 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
   const companionSection = section.companion as Record<string, unknown> | undefined;
   const govSection = section.governance as Record<string, unknown> | undefined;
   const entSection = section.enterprise as Record<string, unknown> | undefined;
+  const pageUi = parseProductPageUi(section);
 
   return {
     meta: {
@@ -416,6 +521,7 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
         previous: wfControls.previous ?? "Previous",
         next: wfControls.next ?? "Next",
       },
+      ui: pageUi.workflow,
     },
     coordination: {
       title: String(coordSection?.title ?? "One coordinated layer across your existing systems."),
@@ -444,6 +550,7 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
         explainLabel: String((companionSection?.panel as { explainLabel?: string })?.explainLabel ?? "Why this recommendation?"),
       },
       capabilities: parseCompanionCapabilities(companionSection),
+      ui: pageUi.companion,
     },
     platform: {
       title: String((section.platform as { title?: string })?.title ?? "One platform foundation. Modular operational capability."),
@@ -470,6 +577,7 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
       modelNote: String((section.businessPacks as { modelNote?: string })?.modelNote ?? ""),
       packs: parsePackCards(section.businessPacks as Record<string, unknown>),
       exploreAll: String((section.businessPacks as { exploreAll?: string })?.exploreAll ?? hp.businessPacks.exploreAll),
+      ui: pageUi.businessPacks,
     },
     governance: {
       title: String(govSection?.title ?? "Aipify recommends. Humans decide."),
@@ -477,6 +585,7 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
       levels: parseGovernanceLevels(govSection),
       workflowTitle: String(govSection?.workflowTitle ?? ""),
       workflowSteps: parseStringListFromRecord(govSection, "workflowSteps"),
+      ui: pageUi.governance,
     },
     enterprise: {
       title: String(entSection?.title ?? "Built for professional and enterprise organizations."),
@@ -490,6 +599,7 @@ export function parseProductPageContent(marketing: MarketingDictionary): Product
       },
       pillars: parseEnterprisePillars(entSection),
       trust: parseTrustItems(entSection),
+      ui: pageUi.enterprise,
     },
     expansion: {
       title: String((section.expansion as { title?: string })?.title ?? ""),
