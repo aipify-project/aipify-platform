@@ -70,7 +70,8 @@ export function buildMarketingSearchFromDictionary(marketing: MarketingDictionar
 
 export function parseWebsiteCompanionLabels(marketing: MarketingDictionary) {
   const c = (marketing.websiteCompanion ?? {}) as Record<string, unknown>;
-  const chat = (c.chat ?? {}) as Record<string, string>;
+  const chat = (c.chat ?? {}) as Record<string, unknown>;
+  const publicLinksRaw = (chat.publicLinks ?? {}) as Record<string, string>;
   const actions = (c.actions ?? {}) as Record<string, { label?: string; href?: string; description?: string }>;
   const statesRaw = (c.states ?? {}) as Record<string, string>;
   const states = {
@@ -90,7 +91,7 @@ export function parseWebsiteCompanionLabels(marketing: MarketingDictionary) {
       welcome: String(chat.welcome ?? ""),
       inputPlaceholder: String(chat.inputPlaceholder ?? ""),
       send: String(chat.send ?? "Send"),
-      sendAria: String(chat.sendAria ?? chat.send ?? "Send"),
+      sendAria: String(chat.sendAria ?? (chat.send as string | undefined) ?? "Send"),
       sending: String(chat.sending ?? ""),
       retry: String(chat.retry ?? "Try again"),
       genericError: String(chat.genericError ?? ""),
@@ -101,6 +102,10 @@ export function parseWebsiteCompanionLabels(marketing: MarketingDictionary) {
       open: String(chat.open ?? "Open {title}"),
       close: String(chat.close ?? "Close {title}"),
       quickLinks: String(chat.quickLinks ?? "Quick links"),
+      publicLinks: {
+        businessPacks: String(publicLinksRaw.businessPacks ?? "Explore Business Packs"),
+        becomePartner: String(publicLinksRaw.becomePartner ?? "Become a partner"),
+      },
     },
     states,
     actions: Object.entries(actions).map(([id, a]) => ({

@@ -4844,7 +4844,11 @@
       "charactersRemaining": "{count} tegn igjen",
       "open": "Åpne {title}",
       "close": "Lukk {title}",
-      "quickLinks": "Hurtigvalg"
+      "quickLinks": "Hurtigvalg",
+      "publicLinks": {
+        "businessPacks": "Se Business Packs",
+        "becomePartner": "Bli partner"
+      }
     },
     "states": {
       "READY": "Ready",

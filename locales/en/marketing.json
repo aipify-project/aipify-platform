@@ -4481,7 +4481,11 @@
       "charactersRemaining": "{count} characters remaining",
       "open": "Open {title}",
       "close": "Close {title}",
-      "quickLinks": "Quick links"
+      "quickLinks": "Quick links",
+      "publicLinks": {
+        "businessPacks": "Explore Business Packs",
+        "becomePartner": "Become a partner"
+      }
     },
     "states": {
       "READY": "Ready",

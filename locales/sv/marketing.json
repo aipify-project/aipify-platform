@@ -4829,6 +4829,12 @@
     "title": "Aipify",
     "prompt": "Hitta det du behöver — priser, kunskap, Business Packs eller demo.",
     "presenceLabel": "Companion status",
+    "chat": {
+      "publicLinks": {
+        "businessPacks": "Utforska Business Packs",
+        "becomePartner": "Bli partner"
+      }
+    },
     "states": {
       "READY": "Ready",
       "WORKING": "Working",

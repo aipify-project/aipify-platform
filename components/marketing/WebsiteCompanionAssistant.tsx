@@ -5,6 +5,11 @@ import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from
 import AipifyPulse from "@/components/branding/AipifyPulse";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
+  COMPANION_PUBLIC_LINK_BECOME_PARTNER_URL,
+  COMPANION_PUBLIC_LINK_BUSINESS_PACKS_URL,
+  isCompanionPublicLinksEnabled,
+} from "@/lib/app/companion/companion-public-links";
+import {
   applyCompanionChatInitialScroll,
   COMPANION_CHAT_INITIAL_SCROLL_BEHAVIOR,
   isCompanionChatNearBottom,
@@ -77,6 +82,10 @@ type WebsiteCompanionChatLabels = {
   open: string;
   close: string;
   quickLinks: string;
+  publicLinks: {
+    businessPacks: string;
+    becomePartner: string;
+  };
 };
 
 type WebsiteCompanionAssistantProps = {
@@ -607,6 +616,7 @@ export default function WebsiteCompanionAssistant({
   const stateLabel = websiteCompanionPresenceLabel(states, presence);
   const ringAnimation = reducedMotion ? "" : style.ringAnimation;
   const remainingCharacters = WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH - draft.length;
+  const publicLinksEnabled = isCompanionPublicLinksEnabled();
   const toggleLabel = open
     ? chat.close.replace("{title}", title)
     : chat.open.replace("{title}", title);
@@ -809,6 +819,26 @@ export default function WebsiteCompanionAssistant({
           disabled={sending}
           className="w-full resize-none rounded-xl border border-aipify-border bg-aipify-surface px-3 py-2 text-sm text-aipify-text outline-none ring-aipify-focus placeholder:text-aipify-text-muted focus:ring-2 disabled:opacity-60"
         />
+        {publicLinksEnabled ? (
+          <div className="mt-2 flex min-w-0 max-w-full flex-wrap gap-2">
+            <a
+              href={COMPANION_PUBLIC_LINK_BUSINESS_PACKS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex max-w-full min-h-8 shrink-0 items-center rounded-xl border border-aipify-border bg-aipify-surface px-3 py-1.5 text-xs font-medium text-aipify-text-secondary hover:bg-aipify-surface-muted"
+            >
+              <span className="truncate">{chat.publicLinks.businessPacks}</span>
+            </a>
+            <a
+              href={COMPANION_PUBLIC_LINK_BECOME_PARTNER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex max-w-full min-h-8 shrink-0 items-center rounded-xl border border-aipify-border bg-aipify-surface px-3 py-1.5 text-xs font-medium text-aipify-text-secondary hover:bg-aipify-surface-muted"
+            >
+              <span className="truncate">{chat.publicLinks.becomePartner}</span>
+            </a>
+          </div>
+        ) : null}
         <div className="mt-2 flex items-center justify-between gap-3">
           <p className="text-[11px] text-aipify-text-muted">
             {formatWebsiteCompanionCharactersRemaining(chat.charactersRemaining, remainingCharacters)}

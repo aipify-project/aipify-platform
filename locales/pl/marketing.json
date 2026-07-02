@@ -62,5 +62,13 @@
         "publishedDate": "2026-06-22"
       }
     }
+  },
+  "websiteCompanion": {
+    "chat": {
+      "publicLinks": {
+        "businessPacks": "Poznaj Business Packs",
+        "becomePartner": "Zostań partnerem"
+      }
+    }
   }
 }
