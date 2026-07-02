@@ -1,4 +1,4 @@
-import type { HomepageRedesignContent, CommandBriefMockupLabels } from "@/lib/marketing/parse-homepage";
+import type { CommandBriefMockupLabels } from "@/lib/marketing/parse-homepage";
 
 type CommandBriefMockupProps = {
   labels: CommandBriefMockupLabels;
@@ -62,9 +62,10 @@ function StatusBadge({ item }: { item: string }) {
 }
 
 export default function CommandBriefMockup({ labels, compact = false }: CommandBriefMockupProps) {
-  const organization = labels.panelOrganization ?? "Unonight Operations";
-  const context = labels.panelContext ?? "Friday morning";
-  const badge = labels.headerBadge ?? "All systems operational";
+  const organization = labels.panelOrganization?.trim();
+  const context = labels.panelContext?.trim();
+  const badge = labels.headerBadge?.trim();
+  const contextLine = [organization, context].filter(Boolean).join(" · ");
 
   return (
     <div
@@ -77,13 +78,15 @@ export default function CommandBriefMockup({ labels, compact = false }: CommandB
       <div className="flex items-center justify-between border-b border-aipify-border bg-aipify-surface-muted/80 px-5 py-3.5">
         <div>
           <p className="text-sm font-semibold text-aipify-text">{labels.panelTitle}</p>
-          <p className="text-xs text-aipify-text-secondary">
-            {organization} · {context}
-          </p>
+          {contextLine ? (
+            <p className="text-xs text-aipify-text-secondary">{contextLine}</p>
+          ) : null}
         </div>
-        <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-800">
-          {badge}
-        </span>
+        {badge ? (
+          <span className="rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-800">
+            {badge}
+          </span>
+        ) : null}
       </div>
 
       <div className={`grid gap-4 p-5 ${compact ? "sm:grid-cols-2" : "lg:grid-cols-2 xl:grid-cols-3"}`}>

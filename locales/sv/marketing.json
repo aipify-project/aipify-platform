@@ -135,7 +135,10 @@
     "commandBrief": {
       "title": "Din organisation, sammanfattad innan du börjar dagen.",
       "subtitle": "Aipify tar fram den viktigaste informationen — i stället för att du måste söka i flera system.",
-      "panelTitle": "Command Brief",
+      "panelTitle": "Kommandoöversikt",
+      "panelOrganization": "Unonight-drift",
+      "panelContext": "fredag morgon",
+      "headerBadge": "Alla system i drift",
       "sinceLastLogin": "Sedan senaste inloggning",
       "aipifyCompleted": "Aipify slutförde",
       "needsAttention": "Kräver din uppmärksamhet",
@@ -164,7 +167,7 @@
       "statusItems": {
         "1": "Support: Aktiv",
         "2": "Styrning: 1 väntar",
-        "3": "Hosts pack: I drift",
+        "3": "Värdpaket: I drift",
         "4": "Licens: OK"
       }
     },
@@ -2088,7 +2091,7 @@
       "explorePacks": "Utforska Business Packs"
     },
     "commandBrief": {
-      "title": "Command Brief — din organisation sammanfattad innan du börjar.",
+      "title": "Kommandoöversikt — din organisation sammanfattad innan du börjar.",
       "subtitle": "Aipify samlar de viktigaste operativa förändringarna, färdigt arbete och beslut — i stället för att du måste söka i flera system.",
       "points": {
         "1": {
@@ -2110,7 +2113,7 @@
       }
     },
     "servicesAndHospitalityDemo": {
-      "panelTitle": "Command Brief",
+      "panelTitle": "Kommandoöversikt",
       "panelOrganization": "Nordic Stay & Studio",
       "panelContext": "Service- och gästoperativ · måndag morgon",
       "headerBadge": "Drift koordinerad",
@@ -2144,7 +2147,7 @@
       },
       "statusItems": {
         "1": "✅ Salongsbokningar aktiva",
-        "2": "✅ Hosts pack i drift",
+        "2": "✅ Värdpaket: I drift",
         "3": "✅ Kalendersynkronisering OK",
         "4": "✅ Städschema uppdaterat",
         "5": "⚠️ 2 godkännanden väntar"

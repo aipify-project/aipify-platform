@@ -39,6 +39,9 @@ export type HomepageRedesignContent = {
     title: string;
     subtitle: string;
     panelTitle: string;
+    panelOrganization?: string;
+    panelContext?: string;
+    headerBadge?: string;
     sinceLastLogin: string;
     aipifyCompleted: string;
     needsAttention: string;
@@ -203,6 +206,9 @@ export function parseHomepageRedesign(marketing: MarketingDictionary): HomepageR
       title: String((hp.commandBrief as Record<string, string> | undefined)?.title ?? "Your organization, summarized before you start the day."),
       subtitle: String((hp.commandBrief as Record<string, string> | undefined)?.subtitle ?? ""),
       panelTitle: String((hp.commandBrief as Record<string, string> | undefined)?.panelTitle ?? "Command Brief"),
+      panelOrganization: String((hp.commandBrief as Record<string, string> | undefined)?.panelOrganization ?? "").trim() || undefined,
+      panelContext: String((hp.commandBrief as Record<string, string> | undefined)?.panelContext ?? "").trim() || undefined,
+      headerBadge: String((hp.commandBrief as Record<string, string> | undefined)?.headerBadge ?? "").trim() || undefined,
       sinceLastLogin: String((hp.commandBrief as Record<string, string> | undefined)?.sinceLastLogin ?? "Since last login"),
       aipifyCompleted: String((hp.commandBrief as Record<string, string> | undefined)?.aipifyCompleted ?? "Aipify completed"),
       needsAttention: String((hp.commandBrief as Record<string, string> | undefined)?.needsAttention ?? "Needs your attention"),
