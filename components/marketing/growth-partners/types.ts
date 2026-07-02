@@ -8,6 +8,7 @@ export type GrowthPartnerFormLabels = {
   stepAbout: string;
   stepBusiness: string;
   stepAccount: string;
+  stepCounter: string;
   continue: string;
   back: string;
   password: string;
@@ -18,7 +19,9 @@ export type GrowthPartnerFormLabels = {
   companyName: string;
   businessRegistrationNumber: string;
   businessRegistrationHelper: string;
+  businessRegistrationHelpers: Record<string, string>;
   country: string;
+  countryOptions: Record<string, string>;
   address: string;
   website: string;
   websiteOptional: string;

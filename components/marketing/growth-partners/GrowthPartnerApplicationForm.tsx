@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import { AipifyHumanVerification, PublicFormHoneypot } from "@/components/ui/aipify-human-verification";
 import {
   GROWTH_PARTNER_COUNTRY_OPTIONS,
   GROWTH_PARTNER_PHONE_COUNTRIES,
-  businessRegistrationHelper,
   dialForCountry,
   parseGrowthPartnerSignupResult,
 } from "@/lib/growth-partner-signup";
@@ -56,7 +55,7 @@ export default function GrowthPartnerApplicationForm({ labels, verificationLabel
     verificationRequired,
   } = usePublicFormGuard();
 
-  const regHelper = useMemo(() => businessRegistrationHelper(country), [country]);
+  const regHelper = labels.businessRegistrationHelpers[country] ?? labels.businessRegistrationHelper;
   const progressPct = step === 1 ? 33 : step === 2 ? 66 : 100;
 
   function onCountryChange(next: string) {
@@ -244,7 +243,7 @@ export default function GrowthPartnerApplicationForm({ labels, verificationLabel
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-lg font-bold text-aipify-text">{labels.title}</h2>
         <span className="text-xs font-semibold uppercase tracking-wide text-aipify-text-muted">
-          Step {step} of 3
+          {labels.stepCounter.replace("{current}", String(step)).replace("{total}", "3")}
         </span>
       </div>
 
@@ -337,7 +336,9 @@ export default function GrowthPartnerApplicationForm({ labels, verificationLabel
               className={INPUT_CLASS}
             >
               {GROWTH_PARTNER_COUNTRY_OPTIONS.map((c) => (
-                <option key={c.code} value={c.code} className="bg-aipify-canvas">{c.label}</option>
+                <option key={c.code} value={c.code} className="bg-aipify-canvas">
+                  {labels.countryOptions[c.code] ?? c.code}
+                </option>
               ))}
             </select>
           </div>
