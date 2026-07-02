@@ -2284,85 +2284,85 @@
         },
         "3": {
           "id": "follow-up",
-          "label": "Follow-up coordination",
-          "disclaimer": "Illustrative workflow — Companion prepares; people decide.",
+          "label": "Oppfølgingskoordinering",
+          "disclaimer": "Illustrativ arbeidsflyt — Companion forbereder; mennesker bestemmer.",
           "steps": {
             "1": {
-              "title": "Signal detected",
-              "detail": "Aipify identifies an overdue follow-up from approved operational context.",
-              "prepared": "Priority scored",
-              "approval": "None",
-              "audit": "Signal logged"
+              "title": "Signal oppdaget",
+              "detail": "Aipify identifiserer en forfalt oppfølging fra godkjent operasjonell kontekst.",
+              "prepared": "Prioritet vurdert",
+              "approval": "Ingen",
+              "audit": "Signal loggført"
             },
             "2": {
-              "title": "Context assembled",
-              "detail": "Related records, prior communications metadata, and policy notes combined.",
-              "prepared": "Brief ready",
+              "title": "Kontekst satt sammen",
+              "detail": "Relaterte poster, metadata fra tidligere kommunikasjon og policy-notater kombinert.",
+              "prepared": "Kommandooversikt klar",
               "approval": "N/A",
-              "audit": "Sources listed"
+              "audit": "Kilder listet"
             },
             "3": {
-              "title": "Anbefaling prepared",
-              "detail": "Companion suggests next step with effort and impact explained.",
-              "prepared": "Draft follow-up",
-              "approval": "Review suggested",
-              "audit": "Anbefaling logged"
+              "title": "Anbefaling forberedt",
+              "detail": "Companion foreslår neste steg med innsats og effekt forklart.",
+              "prepared": "Utkast til oppfølging",
+              "approval": "Gjennomgang foreslått",
+              "audit": "Anbefaling loggført"
             },
             "4": {
-              "title": "Human confirms",
-              "detail": "Owner approves timing, recipient, and message.",
-              "prepared": "Editable draft",
-              "approval": "Required",
-              "audit": "Confirmation logged"
+              "title": "Menneske bekrefter",
+              "detail": "Eier godkjenner tidspunkt, mottaker og melding.",
+              "prepared": "Redigerbart utkast",
+              "approval": "Påkrevd",
+              "audit": "Bekreftelse loggført"
             },
             "5": {
-              "title": "Follow-up executed",
-              "detail": "Approved action completes through your existing channels.",
-              "prepared": "Sent",
-              "approval": "Confirmed",
-              "audit": "Outcome recorded"
+              "title": "Oppfølging utført",
+              "detail": "Godkjent handling fullføres gjennom eksisterende kanaler.",
+              "prepared": "Sendt",
+              "approval": "Bekreftet",
+              "audit": "Resultat registrert"
             }
           }
         },
         "4": {
           "id": "knowledge",
-          "label": "Knowledge workflow",
-          "disclaimer": "Illustrative workflow — approved sources only.",
+          "label": "Kunnskapsarbeidsflyt",
+          "disclaimer": "Illustrativ arbeidsflyt — kun godkjente kilder.",
           "steps": {
             "1": {
-              "title": "Gap identified",
-              "detail": "Support or operations activity reveals missing approved knowledge.",
-              "prepared": "Gap flagged",
+              "title": "Hull identifisert",
+              "detail": "Support- eller driftsaktivitet avslører manglende godkjent kunnskap.",
+              "prepared": "Hull flagget",
               "approval": "N/A",
-              "audit": "Gap logged"
+              "audit": "Hull loggført"
             },
             "2": {
-              "title": "Draft article prepared",
-              "detail": "Aipify prepares a knowledge article from approved patterns — not raw chat.",
-              "prepared": "Draft ready",
-              "approval": "Admin review",
-              "audit": "Draft saved"
+              "title": "Utkast til artikkel forberedt",
+              "detail": "Aipify forbereder en kunnskapsartikkel fra godkjente mønstre — ikke rå chat.",
+              "prepared": "Utkast klart",
+              "approval": "Admin-gjennomgang",
+              "audit": "Utkast lagret"
             },
             "3": {
-              "title": "Review queue",
-              "detail": "Knowledge Approval Center surfaces the item for human review.",
-              "prepared": "Context attached",
-              "approval": "Required",
-              "audit": "Queue event logged"
+              "title": "Gjennomgangskø",
+              "detail": "Knowledge Approval Center presenterer elementet til menneskelig gjennomgang.",
+              "prepared": "Kontekst vedlagt",
+              "approval": "Påkrevd",
+              "audit": "Kø-hendelse loggført"
             },
             "4": {
-              "title": "Published to approved sources",
-              "detail": "Once approved, knowledge becomes available to governed search.",
+              "title": "Publisert til godkjente kilder",
+              "detail": "Når godkjent, blir kunnskap tilgjengelig for styrt søk.",
               "prepared": "Live",
-              "approval": "Confirmed",
-              "audit": "Publication logged"
+              "approval": "Bekreftet",
+              "audit": "Publisering loggført"
             },
             "5": {
-              "title": "Future cases improved",
-              "detail": "Neste similar requests benefit from approved knowledge — with audit.",
-              "prepared": "Search updated",
+              "title": "Fremtidige saker forbedret",
+              "detail": "Neste lignende forespørsler drar nytte av godkjent kunnskap — med revisjon.",
+              "prepared": "Søk oppdatert",
               "approval": "N/A",
-              "audit": "Usage metadata only"
+              "audit": "Kun metadata for bruk"
             }
           }
         }
