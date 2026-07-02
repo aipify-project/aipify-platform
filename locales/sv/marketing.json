@@ -2394,59 +2394,59 @@
       }
     },
     "companion": {
-      "title": "Companion works inside operational context — not beside it.",
-      "subtitle": "Companion observes approved sources, explains what matters, prepares recommendations, and coordinates next steps. Humans remain accountable.",
-      "distinction": "Companion is not a standalone chatbot. It is Aipify's executive intelligence layer — grounded in your tenant, policies, and approved workflows.",
+      "title": "Companion arbetar inom operativ kontext — inte vid sidan om.",
+      "subtitle": "Companion observerar godkända källor, förklarar vad som spelar roll, förbereder rekommendationer och koordinerar nästa steg. Människor behåller ansvaret.",
+      "distinction": "Companion är inte en fristående chatbot. Det är Aipifys ledningsintelligenslager — förankrat i er tenant, policyer och godkända arbetsflöden.",
       "panel": {
-        "title": "Companion — Billing dispute context",
-        "contextLabel": "Operational context",
+        "title": "Aipify Companion — Kontext för faktureringsdispyt",
+        "contextLabel": "Operativ kontext",
         "contextItems": {
-          "1": "Support case #4821 · Billing category",
-          "2": "Customer tier: Business · License healthy",
-          "3": "Similar cases resolved with policy KB-014"
+          "1": "Supportärende #4821 · Faktureringskategori",
+          "2": "Kundnivå: Business · Licens i gott skick",
+          "3": "Liknande ärenden lösta med policy KB-014"
         },
-        "recommendationLabel": "Companion recommendation",
-        "recommendation": "Review the prepared response draft. Approve send or edit before 14:00 to meet SLA. Escalate to finance if refund threshold applies.",
+        "recommendationLabel": "Rekommendation från Companion",
+        "recommendation": "Granska det förberedda svarsutkastet. Godkänn sändning eller redigera före kl. 14:00 för att uppfylla SLA. Eskalera till ekonomi om återbetalningströskel gäller.",
         "actions": {
-          "1": "Open prepared draft",
-          "2": "View approval policy",
-          "3": "Schedule follow-up"
+          "1": "Öppna förberett utkast",
+          "2": "Visa godkännandepolicy",
+          "3": "Planera uppföljning"
         },
-        "status": "Awaiting human approval",
-        "explainLabel": "Why this recommendation?"
+        "status": "Väntar på mänskligt godkännande",
+        "explainLabel": "Varför denna rekommendation?"
       },
       "capabilities": {
         "1": {
           "id": "briefings",
-          "title": "Executive briefings",
-          "meaning": "Summarize operational state with signal, not noise.",
-          "example": "Command Brief highlights approvals, risks, and completed work since last login.",
-          "boundary": "Never auto-executes sensitive decisions.",
-          "humanControl": "You choose briefing scope and notification preferences."
+          "title": "Ledningsbriefingar",
+          "meaning": "Sammanfatta operativt läge med signal, inte brus.",
+          "example": "Kommandoöversikt lyfter fram godkännanden, risker och slutfört arbete sedan senaste inloggning.",
+          "boundary": "Utför aldrig känsliga beslut automatiskt.",
+          "humanControl": "Ni väljer briefingomfattning och aviseringsinställningar."
         },
         "2": {
           "id": "recommendations",
-          "title": "Grounded recommendations",
-          "meaning": "Observation, impact, and next step — not bare counts.",
-          "example": "Billing queue spike with suggested triage path and draft responses prepared.",
-          "boundary": "Rekommendations require context and explainability.",
-          "humanControl": "Approve, edit, or dismiss every recommendation."
+          "title": "Förankrade rekommendationer",
+          "meaning": "Observation, påverkan och nästa steg — inte bara siffror.",
+          "example": "Ökning i faktureringskö med föreslagen triagering och förberedda svarsutkast.",
+          "boundary": "Rekommendationer kräver kontext och förklarbarhet.",
+          "humanControl": "Godkänn, redigera eller avvisa varje rekommendation."
         },
         "3": {
           "id": "preparation",
-          "title": "Work preparation",
-          "meaning": "Drafts, summaries, and follow-ups prepared for review.",
-          "example": "Support response drafted from approved knowledge — awaiting your approval.",
-          "boundary": "No send without explicit human approval on sensitive actions.",
-          "humanControl": "Approval policies define what Aipify may prepare vs execute."
+          "title": "Arbetsförberedelse",
+          "meaning": "Utkast, sammanfattningar och uppföljningar förberedda för granskning.",
+          "example": "Supportrespons utarbetad från godkänd kunskap — väntar på ert godkännande.",
+          "boundary": "Ingen sändning utan explicit mänskligt godkännande vid känsliga åtgärder.",
+          "humanControl": "Godkännandepolicyer definierar vad Aipify får förbereda kontra utföra."
         },
         "4": {
           "id": "coordination",
-          "title": "Cross-module coordination",
-          "meaning": "Connect support, finance, projects, and Business Packs in one view.",
-          "example": "Renewal context surfaced alongside support case and approval queue.",
-          "boundary": "Tenant-scoped only — no cross-customer data.",
-          "humanControl": "RBAC maps to your organizational roles."
+          "title": "Koordinering över moduler",
+          "meaning": "Koppla support, ekonomi, projekt och Business Packs i en vy.",
+          "example": "Förnyelsekontext visas tillsammans med supportärende och godkännandekö.",
+          "boundary": "Endast tenant-avgränsat — ingen data mellan kunder.",
+          "humanControl": "RBAC mappas till organisationens roller."
         }
       }
     },
