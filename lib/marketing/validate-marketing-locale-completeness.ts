@@ -74,7 +74,9 @@ export function validateMarketingLocaleCompleteness(
         continue;
       }
       const value = localeFlat[key]?.trim?.() ?? localeFlat[key];
+      const canonicalValue = canonicalFlat[key]?.trim?.() ?? canonicalFlat[key];
       if (value === "" || value === undefined) {
+        if (value === "" && canonicalValue === "") continue;
         issues.push({ locale, key, kind: "empty" });
         emptyByLocale[locale] += 1;
       }

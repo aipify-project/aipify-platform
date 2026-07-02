@@ -70,7 +70,12 @@ for (const locale of TARGET_LOCALES) {
       continue;
     }
     const translated = translateMarketingTree(en[section], locale, section);
-    target[section] = deepMerge(translated, target[section] ?? {});
+    if (section === "homepageRedesign") {
+      // Full replace — old homepage keys must not override the redesign structure.
+      target[section] = translated;
+    } else {
+      target[section] = deepMerge(translated, target[section] ?? {});
+    }
   }
 
   const surfacePatch = MARKETING_SURFACE_PATCHES[locale];
