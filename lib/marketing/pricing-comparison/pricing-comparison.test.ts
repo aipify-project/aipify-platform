@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildPublishedPricingSummary, getCanonicalPricingSource } from "@/lib/companion-platform-knowledge/pricing-bridge";
 import { MARKETING_PRIMARY_CTA_HREFS } from "@/lib/marketing/primary-ctas";
 import {
   PUBLIC_PLAN_PRICES,
@@ -64,16 +66,38 @@ const enComparison = resolvePricingComparison(
 const starterEntry = getPublicPlanCatalog().find((e) => e.key === "starter")!;
 assert.equal(
   formatPublicPlanPrice(starterEntry.price, "en", enPricing.pricingLabels),
-  `${PUBLIC_PLAN_PRICES.starter.amount.toLocaleString("en-US")} kr / month`,
+  `NOK ${PUBLIC_PLAN_PRICES.starter.amount.toLocaleString("en-US")} / month`,
 );
-assert.equal(enComparison.plans.find((p) => p.key === "starter")?.price, "799 kr / month");
-assert.equal(enComparison.plans.find((p) => p.key === "professional")?.price, "2,500 kr / month");
-assert.equal(enComparison.plans.find((p) => p.key === "business")?.price, "6,999 kr / month");
+assert.equal(enComparison.plans.find((p) => p.key === "starter")?.price, "NOK 799 / month");
+assert.equal(enComparison.plans.find((p) => p.key === "professional")?.price, "NOK 3,990 / month");
+assert.equal(enComparison.plans.find((p) => p.key === "business")?.price, "NOK 14,500 / month");
+
+const professionalEntry = getPublicPlanCatalog().find((entry) => entry.key === "professional")!;
+const businessEntry = getPublicPlanCatalog().find((entry) => entry.key === "business")!;
+assert.equal(PUBLIC_PLAN_PRICES.starter.amount, 799);
+assert.equal(PUBLIC_PLAN_PRICES.professional.amount, 3990);
+assert.equal(PUBLIC_PLAN_PRICES.business.amount, 14500);
+assert.equal(businessEntry.limits.users, 25);
+assert.equal(businessEntry.limits.domains, 10);
+assert.equal(JSON.stringify(PUBLIC_PLAN_PRICES).includes("6999"), false);
+assert.equal(JSON.stringify(PUBLIC_PLAN_PRICES).includes("2500"), false);
+
+// Pricing cards and comparison table share the same formatted registry values.
+assert.equal(
+  formatPublicPlanPrice(professionalEntry.price, "en", enPricing.pricingLabels),
+  enComparison.plans.find((p) => p.key === "professional")?.price,
+);
+assert.equal(
+  formatPublicPlanPrice(businessEntry.price, "en", enPricing.pricingLabels),
+  enComparison.plans.find((p) => p.key === "business")?.price,
+);
 
 // 6. Norwegian price format uses kr / måned (not ,- / mnd.).
 const noPricing = getPricingLabels("no");
 const noStarterPrice = formatPublicPlanPrice(starterEntry.price, "no", noPricing.pricingLabels);
 assert.match(noStarterPrice, /799 kr \/ måned/);
+const noProfessionalPrice = formatPublicPlanPrice(professionalEntry.price, "no", noPricing.pricingLabels);
+assert.match(noProfessionalPrice, /3\s?990 kr \/ måned/);
 assert.doesNotMatch(noStarterPrice, /,-/);
 assert.doesNotMatch(noStarterPrice, /mnd\./);
 
@@ -126,6 +150,39 @@ for (const locale of ["no", "sv", "da"] as const) {
   assert.notEqual(labels.header.title, EN_COMPARE_TITLE, `${locale} comparison title still English`);
   assert.ok(labels.categories.pricing.length > 0);
   assert.ok(labels.cellStates.included.length > 0);
+}
+
+// 17–18. Business pack anchor and companion pricing source.
+const pricingPageSource = fs.readFileSync(
+  path.join(root, "components/marketing/PricingPackagesPageContent.tsx"),
+  "utf8",
+);
+assert.equal(pricingPageSource.includes('href="/pricing#business-packs"'), false);
+assert.equal(pricingPageSource.includes('href="#business-packs"'), true);
+assert.equal(getCanonicalPricingSource(), "lib/marketing/public-pricing.ts");
+
+const companionPricing = buildPublishedPricingSummary("no", {
+  custom: "Tilpasset pris",
+  perMonth: "måned",
+  planStarter: "Starter",
+  planProfessional: "Professional",
+  planBusiness: "Business",
+  planEnterprise: "Enterprise",
+});
+assert.match(companionPricing, /14\s?500/);
+assert.match(companionPricing, /3\s?990/);
+assert.equal(companionPricing.includes("6999"), false);
+assert.equal(companionPricing.includes("2500"), false);
+
+// 19. Norwegian pricing page has no common English package labels.
+const noPackages = getPricingLabels("no").packages.items;
+const EN_PACKAGE_LEAKS = ["Available", "Most Popular", "Everything in", "View details"];
+for (const pkg of noPackages) {
+  for (const leak of EN_PACKAGE_LEAKS) {
+    assert.equal(pkg.name.includes(leak), false, `no package name leaked English: ${leak}`);
+    assert.equal(pkg.audience.includes(leak), false, `no package audience leaked English: ${leak}`);
+    assert.equal(pkg.cta.includes(leak), false, `no package cta leaked English: ${leak}`);
+  }
 }
 
 console.log("pricing-comparison.test.ts: all assertions passed");

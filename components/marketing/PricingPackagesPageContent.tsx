@@ -21,6 +21,7 @@ type Package = {
   audience: string;
   idealFor?: string;
   features: string[];
+  businessPacksNote?: string;
   status: string;
   statusKey?: "available" | "popular" | "enterprise";
   cta: string;
@@ -62,6 +63,7 @@ export type PricingPackagesPageLabels = {
   };
   growthProgression: {
     title: string;
+    stageEyebrows: [string, string, string];
     stages: Array<{ name: string; items: string[] }>;
   };
   businessPacks: {
@@ -96,6 +98,8 @@ export type PricingPackagesPageLabels = {
   trustPanel: { title: string; items: string[] };
   billingArchitecture: {
     title: string;
+    billingFrequencyLabel: string;
+    paymentMethodsLabel: string;
     billing: string[];
     paymentProviders: string[];
     accounting: string;
@@ -153,13 +157,14 @@ function PlanCard({
   const priceDisplay = formatPublicPlanPrice(catalogEntry.price, locale, pricingLabels);
   const users = formatLimitValue(catalogEntry.limits.users, pricingLabels);
   const domains = formatLimitValue(catalogEntry.limits.domains, pricingLabels);
+  const businessPacksNote = pkg.businessPacksNote ?? catalogEntry.businessPacks.note;
 
   return (
     <article
-      className={`relative flex h-full flex-col rounded-2xl border p-6 shadow-sm ${
+      className={`relative flex h-full flex-col rounded-2xl border p-6 transition-shadow ${
         isPopular
-          ? "border-aipify-companion/40 bg-aipify-accent-soft/50"
-          : "border-aipify-border bg-aipify-surface"
+          ? "border-aipify-companion/40 bg-aipify-accent-soft/50 shadow-lg ring-1 ring-aipify-companion/15"
+          : "border-aipify-border bg-aipify-surface shadow-md hover:shadow-lg"
       }`}
     >
       {isPopular ? (
@@ -193,7 +198,7 @@ function PlanCard({
           </li>
           <li>
             {pricingLabels.businessPacks}:{" "}
-            <span className="font-medium text-aipify-text">{catalogEntry.businessPacks.note}</span>
+            <span className="font-medium text-aipify-text">{businessPacksNote}</span>
           </li>
           <li>
             {pricingLabels.support}:{" "}
@@ -299,7 +304,7 @@ export default function PricingPackagesPageContent({ labels, locale, businessPac
           <h2 className={PublicMarketingClasses.sectionHeading}>{labels.billingArchitecture.title}</h2>
           <div className={`mt-6 ${PublicMarketingClasses.card} space-y-5 text-sm text-aipify-text-secondary`}>
             <div>
-              <p className="font-semibold text-aipify-text">Billing frequency</p>
+              <p className="font-semibold text-aipify-text">{labels.billingArchitecture.billingFrequencyLabel}</p>
               <ul className="mt-2 list-inside list-disc space-y-1">
                 {labels.billingArchitecture.billing.map((item) => (
                   <li key={item}>{item}</li>
@@ -307,7 +312,7 @@ export default function PricingPackagesPageContent({ labels, locale, businessPac
               </ul>
             </div>
             <div>
-              <p className="font-semibold text-aipify-text">Payment methods</p>
+              <p className="font-semibold text-aipify-text">{labels.billingArchitecture.paymentMethodsLabel}</p>
               <ul className="mt-2 list-inside list-disc space-y-1">
                 {labels.billingArchitecture.paymentProviders.map((item) => (
                   <li key={item}>{item}</li>
@@ -328,7 +333,7 @@ export default function PricingPackagesPageContent({ labels, locale, businessPac
             {labels.growthProgression.stages.map((stage, index) => (
               <div key={stage.name} className={PublicMarketingClasses.card}>
                 <p className="text-xs font-bold uppercase tracking-wide text-aipify-companion">
-                  {index === 0 ? "Start" : index === 1 ? "Grow" : "Scale"}
+                  {labels.growthProgression.stageEyebrows[index]}
                 </p>
                 <h3 className="mt-2 text-lg font-semibold text-aipify-text">{stage.name}</h3>
                 <ul className="mt-4 space-y-2">
@@ -377,7 +382,7 @@ export default function PricingPackagesPageContent({ labels, locale, businessPac
               </li>
             ))}
           </ul>
-          <Link href="/pricing#business-packs" className={`mt-8 inline-block text-sm font-semibold ${PublicMarketingClasses.link}`}>
+          <Link href="#business-packs" className={`mt-8 inline-block text-sm font-semibold ${PublicMarketingClasses.link}`}>
             {labels.businessPacks.exploreAll} →
           </Link>
         </div>

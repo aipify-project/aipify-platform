@@ -3393,7 +3393,8 @@
             "Governance Foundation",
             "Basic Support"
           ],
-          "status": "Available",
+          "businessPacksNote": "Opgrader til Professional eller Business for at tilføje Business Packs.",
+          "status": "Tilgængelig",
           "statusKey": "available",
           "cta": "Anmod om Starter-adgang",
           "ctaHref": "/early-access",
@@ -3405,14 +3406,14 @@
           "audience": "For voksende organisationer der koordinerer flere workflows.",
           "idealFor": "Når koordinering og godkendelser bliver kritiske",
           "features": [
-            "Everything in Starter",
-            "Advanced Operations",
-            "Workflows",
-            "Approvals",
-            "Integrations",
-            "Expanded Reporting"
+            "Alt i Starter",
+            "Arbejdsgange og godkendelser",
+            "Udvidede integrationer",
+            "Business Packs som tillæg",
+            "Prioriteret support"
           ],
-          "status": "Available",
+          "businessPacksNote": "Business Packs købes separat som tillæg.",
+          "status": "Tilgængelig",
           "statusKey": "available",
           "cta": "Start Professional",
           "ctaHref": "/early-access",
@@ -3424,14 +3425,14 @@
           "audience": "For organisationer der styrer flere afdelinger og Business Packs.",
           "idealFor": "Anbefales for voksende organisationer",
           "features": [
-            "Everything in Professional",
-            "Business Packs",
-            "Advanced Governance",
-            "Advanced Analytics",
-            "Priority Support",
-            "Advanced Permissions"
+            "Alt i Professional",
+            "Flere Business Packs som tillæg",
+            "Avanceret styring",
+            "Executive-synlighed",
+            "Avancerede tilladelser"
           ],
-          "status": "Most Popular",
+          "businessPacksNote": "Flere Business Packs understøttes som tillæg.",
+          "status": "Mest populær",
           "statusKey": "popular",
           "cta": "Start Business",
           "ctaHref": "/early-access",
@@ -3443,13 +3444,13 @@
           "audience": "For organisationer der kræver avanceret styring, skala og udrulningsfleksibilitet.",
           "idealFor": "Tilpassede aftaler og enterprise-tjenester",
           "features": [
-            "Everything in Business",
-            "Enterprise Security",
-            "Custom Business Packs",
-            "Hybrid Deployment",
-            "Dedicated Success Support",
-            "Advanced Governance"
+            "Tilpasset bruger- og domænekapacitet",
+            "Enterprise-sikkerhed via aftale",
+            "Tilpassede Business Pack-konfigurationer",
+            "Dedikeret success-støtte via aftale",
+            "Kontrakt- og indkøbsstøtte"
           ],
+          "businessPacksNote": "Tilpassede Business Pack-konfigurationer via enterprise-aftale.",
           "status": "Enterprise",
           "statusKey": "enterprise",
           "cta": "Tal med Enterprise-teamet",
@@ -3477,143 +3478,133 @@
       }
     },
     "growthProgression": {
-      "title": "As your organization grows, Aipify grows with you",
+      "title": "Når jeres organisation vokser, vokser Aipify med jer",
+      "stageEyebrows": ["Start", "Voks", "Skaler"],
       "stages": [
         {
-          "name": "Core organization",
+          "name": "Kerneorganisation",
           "items": [
-            "Initial users",
-            "One operational scope",
-            "Styring foundation"
+            "Første brugere",
+            "Ét operationelt omfang",
+            "Styringsfundament"
           ]
         },
         {
-          "name": "Expanded operations",
+          "name": "Udvidet drift",
           "items": [
-            "More users",
-            "More domains",
-            "Additional Business Packs",
-            "More integrations"
+            "Flere brugere",
+            "Flere domæner",
+            "Flere Business Packs",
+            "Flere integrationer"
           ]
         },
         {
-          "name": "Enterprise scale",
+          "name": "Enterprise-skala",
           "items": [
-            "Advanced governance",
-            "Executive visibility",
-            "Enterprise deployment",
-            "Dedicated support"
+            "Avanceret styring",
+            "Executive-synlighed",
+            "Enterprise-distribution",
+            "Dedikeret support"
           ]
         }
       ]
     },
     "businessPacks": {
       "title": "Aktivér kun de Business Packs I har brug for.",
-      "copy": "Organizations install capabilities as required — not everything at once.",
-      "exploreAll": "Explore all Business Packs",
-      "planRequirementPrefix": "Tilgængelig from",
-      "viewDetails": "View details",
+      "copy": "Organisationer aktiverer kapabilitet efter behov — ikke alt på én gang.",
+      "exploreAll": "Udforsk alle Business Packs",
+      "planRequirementPrefix": "Tilgængelig fra",
+      "viewDetails": "Se detaljer",
       "pricingStatus": {
-        "included": "Included with qualifying plan",
-        "addon": "Add-on",
-        "custom": "Custom pricing",
-        "pilot": "Pilot availability",
+        "included": "Inkluderet i kvalificerende plan",
+        "addon": "Tillæg",
+        "custom": "Tilpasset pris",
+        "pilot": "Pilot-tilgængelighed",
         "contact": "Kontakt Aipify"
       },
       "catalog": {
         "hosts": {
-          "audience": "Hospitality and property operators",
-          "value": "Guest operations, property workflows, and occupancy visibility."
+          "audience": "Hotel, overnatning og ejendomsdrift",
+          "value": "Gæstedrift, ejendomsarbejdsgange og belægningssynlighed."
         },
         "support": {
-          "audience": "Customer service and support teams",
-          "value": "Governed triage, knowledge-backed responses, and escalation."
+          "audience": "Kundeservice og supportteams",
+          "value": "Styret triage, vidensstøttede svar og eskalering."
         },
         "commerce": {
-          "audience": "Retail and e-commerce operations",
-          "value": "Order visibility, inventory coordination, and customer touchpoints."
+          "audience": "Detailhandel og e-handel",
+          "value": "Ordresynlighed, lagerkoordinering og kundekontaktpunkter."
         },
         "services": {
-          "audience": "Professional services organizations",
-          "value": "Client delivery, knowledge retention, and executive visibility."
+          "audience": "Professionelle serviceorganisationer",
+          "value": "Leverance, vidensbevaring og executive-synlighed."
         },
         "projects": {
-          "audience": "Project-driven teams",
-          "value": "Delivery coordination, approvals, and operational handoffs."
+          "audience": "Projektstyrte teams",
+          "value": "Leverancekoordinering, godkendelser og operationelle overleveringer."
         },
         "finance": {
-          "audience": "Finance and operations leaders",
-          "value": "Operational finance visibility with governance controls."
+          "audience": "Finans- og driftsledere",
+          "value": "Operationel finanssynlighed med styringskontroller."
         }
-      },
-      "examples": [
-        "Hosts",
-        "Support",
-        "Commerce",
-        "Warehouse",
-        "Partner Success",
-        "Finance",
-        "Future Industry Packs"
-      ],
-      "status": "Add Business Packs when your operational scope expands."
+      }
     },
     "businessPackModel": {
-      "title": "How Business Packs work",
+      "title": "Sådan fungerer Business Packs",
       "steps": [
-        "Choose your Aipify plan",
-        "Add the Business Packs you need",
-        "Select the required capacity",
-        "Complete payment or agreement",
-        "Aipify validates and activates the pack"
+        "Vælg jeres Aipify-plan",
+        "Tilføj de Business Packs I har brug for",
+        "Vælg nødvendig kapacitet",
+        "Fuldfør betaling eller aftale",
+        "Aipify validerer og aktiverer pakken"
       ],
-      "note": "A base plan is required. Business Packs are added on top of your subscription. Removing a pack removes its operational capabilities after the billing period ends."
+      "note": "En grundplan er påkrævet. Business Packs tilføjes abonnementet. Fjerner I en pakke, fjernes dens kapabiliteter efter faktureringsperioden."
     },
     "enterpriseFlexibility": {
-      "title": "Enterprise flexibility",
-      "intro": "Aipify supports organizations that require tailored governance, deployment, procurement and operational capacity.",
+      "title": "Enterprise-fleksibilitet",
+      "intro": "Aipify understøtter organisationer, der har brug for tilpasset styring, distribution, indkøb og operationel kapacitet.",
       "cta": "Tal med Enterprise",
       "items": [
         {
-          "label": "Custom agreements",
+          "label": "Tilpassede aftaler",
           "status": "available"
         },
         {
-          "label": "Custom deployment options",
+          "label": "Tilpassede distributionsmuligheder",
           "status": "custom"
         },
         {
-          "label": "Advanced governance",
+          "label": "Avanceret styring",
           "status": "available"
         },
         {
-          "label": "Enterprise services",
-          "status": "available"
-        },
-        {
-          "label": "Dedicated success support",
-          "status": "available"
-        },
-        {
-          "label": "Hybrid deployment",
+          "label": "Enterprise-tjenester",
           "status": "custom"
         },
         {
-          "label": "On-premise assessment",
+          "label": "Dedikeret success-support",
+          "status": "custom"
+        },
+        {
+          "label": "Hybrid distribution",
+          "status": "custom"
+        },
+        {
+          "label": "On-premise-vurdering",
           "status": "planned"
         }
       ]
     },
     "included": {
-      "title": "What is included in every plan",
+      "title": "Inkluderet i alle planer",
       "items": [
         "Companion",
         "Knowledge Center",
-        "Governance Foundation",
-        "Audit Logging",
-        "Business Pack Support",
-        "Multi-Language Support",
-        "Platform Updates",
-        "Security Foundation"
+        "Styringsfundament",
+        "Revisionssporing",
+        "Flersproget support",
+        "Platformopdateringer",
+        "Sikkerhedsfundament"
       ]
     },
     "planComparison": {
@@ -3692,94 +3683,96 @@
       "supportingText": "Alle planer inkluderer menneskestyrede godkendelser, revisionssporing og tenant-isolation. Opgrader kapacitet efterhånden som organisationen vokser — uden at skifte platform."
     },
     "outcomes": {
-      "title": "Designed to reduce operational friction",
+      "title": "Bygget til at reducere operationel friktion",
       "items": [
         {
-          "title": "Spend less time searching",
-          "body": "Approved knowledge and context in one operational layer."
+          "title": "Mindre tid på at lede",
+          "body": "Godkendt viden og kontekst i ét operationelt lag."
         },
         {
-          "title": "Reduce manual follow-ups",
-          "body": "Companion prepares next steps — humans retain approval."
+          "title": "Færre manuelle opfølgninger",
+          "body": "Companion forbereder næste skridt — mennesker beholder godkendelse."
         },
         {
-          "title": "Improve operational visibility",
-          "body": "Executive-ready summaries without switching systems."
+          "title": "Bedre operationel synlighed",
+          "body": "Executive-klare opsummeringer uden at skifte system."
         },
         {
-          "title": "Strengthen governance",
-          "body": "Audit logging and human-controlled activation."
+          "title": "Stærkere styring",
+          "body": "Revisionssporing og menneskestyret aktivering."
         }
       ]
     },
     "upgradeFlow": {
-      "title": "Upgrade after payment and validation",
-      "intro": "Eligible upgrades are activated automatically after payment and successful validation.",
+      "title": "Opgrader efter betaling og validering",
+      "intro": "Kvalificerede opgraderinger aktiveres automatisk efter betaling og vellykket validering.",
       "steps": [
         {
-          "label": "Payment approved",
+          "label": "Betaling godkendt",
           "status": "done"
         },
         {
-          "label": "Subscription updated",
+          "label": "Abonnement opdateret",
           "status": "done"
         },
         {
-          "label": "Entitlements prepared",
+          "label": "Rettigheder forberedt",
           "status": "progress"
         },
         {
-          "label": "Activation validated",
+          "label": "Aktivering valideret",
           "status": "progress"
         },
         {
-          "label": "Access available",
+          "label": "Adgang tilgængelig",
           "status": "pending"
         }
       ],
-      "note": "If validation requires additional setup, you see Activation in progress rather than a partially available feature."
+      "note": "Kræver validering ekstra opsætning vises Aktivering i gang — ikke en delvist tilgængelig funktion."
     },
     "faq": {
       "title": "Hyppige køberspørgsmål",
       "items": [
         {
-          "question": "Can I start small?",
-          "answer": "Yes. Starter is designed for teams beginning with operational visibility — expand only when you need more."
+          "question": "Kan vi starte i det små?",
+          "answer": "Ja. Starter er til teams, der etablerer operationel synlighed — udvid når I har brug for mere."
         },
         {
-          "question": "Can I upgrade later?",
-          "answer": "Yes. Upgrade at any time. Subscription, permissions, and features update immediately after payment."
+          "question": "Kan vi opgradere senere?",
+          "answer": "Ja. Opgrader når som helst. Abonnement, tilladelser og funktioner opdateres efter betaling."
         },
         {
-          "question": "Can I add Business Packs later?",
-          "answer": "Yes. Activate Business Packs as your operational scope grows — you never need everything on day one."
+          "question": "Kan vi tilføje Business Packs senere?",
+          "answer": "Ja. Aktivér Business Packs i takt med at jeres operationelle omfang vokser — I behøver ikke alt dag ét."
         },
         {
-          "question": "Can I add users later?",
-          "answer": "Yes. Add users as your organization expands. Plan limits scale with your subscription."
+          "question": "Kan vi tilføje brugere senere?",
+          "answer": "Ja. Tilføj brugere efterhånden som organisationen vokser. Plangrænser følger abonnementet."
         },
         {
-          "question": "Can I add domains later?",
-          "answer": "Yes. Domain capacity grows with your plan as you connect more of your organization."
+          "question": "Kan vi tilføje domæner senere?",
+          "answer": "Ja. Domænekapacitet vokser med planen, når I forbinder mere af organisationen."
         },
         {
-          "question": "Can I move to Enterprise later?",
-          "answer": "Yes. Most organizations start smaller and move to Enterprise when governance, scale, or deployment requirements increase."
+          "question": "Kan vi gå til Enterprise senere?",
+          "answer": "Ja. De fleste starter mindre og går til Enterprise, når styring, skala eller distribution kræver mere."
         }
       ]
     },
     "trustPanel": {
-      "title": "Buy with confidence",
+      "title": "Køb med tryghed",
       "items": [
-        "Start with the plan that fits today",
-        "Add users and Business Packs later",
-        "Human-controlled activation",
-        "Transparent billing",
-        "Enterprise support available"
+        "Start med den plan, der passer i dag",
+        "Tilføj brugere og Business Packs senere",
+        "Menneskestyret aktivering",
+        "Transparent fakturering",
+        "Enterprise-support gennem aftale"
       ]
     },
     "billingArchitecture": {
       "title": "Faktureringsmuligheder",
+      "billingFrequencyLabel": "Faktureringsfrekvens",
+      "paymentMethodsLabel": "Betalingsmetoder",
       "billing": [
         "Månedlig fakturering (offentliggjorte NOK-priser)",
         "Årlige aftaler via konsultation"

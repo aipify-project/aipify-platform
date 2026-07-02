@@ -31,8 +31,8 @@ export const PUBLIC_PLAN_PRICES: Record<
   { amount: number; currency: "NOK"; period: "monthly" }
 > = {
   starter: { amount: 799, currency: "NOK", period: "monthly" },
-  professional: { amount: 2500, currency: "NOK", period: "monthly" },
-  business: { amount: 6999, currency: "NOK", period: "monthly" },
+  professional: { amount: 3990, currency: "NOK", period: "monthly" },
+  business: { amount: 14500, currency: "NOK", period: "monthly" },
 };
 
 export type BusinessPackPricingModel =
@@ -147,6 +147,10 @@ export type PublicPlanPriceFormatLabels = {
   perMonthShort?: string;
 };
 
+function normalizePublicPricingLocale(locale: Locale | string): string {
+  return String(locale).trim().toLowerCase().split("-")[0];
+}
+
 export function formatPublicPlanPrice(
   price: PublicPlanCatalogEntry["price"],
   locale: Locale | string,
@@ -156,14 +160,30 @@ export function formatPublicPlanPrice(
 
   const { amount } = price;
   const monthLabel = labels.perMonth;
+  const lang = normalizePublicPricingLocale(locale);
+  const formattedEn = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(amount);
 
-  const intlLocale =
-    locale === "no" ? "nb-NO" : locale === "sv" ? "sv-SE" : locale === "da" ? "da-DK" : "en-US";
-  const formatted = new Intl.NumberFormat(intlLocale, { maximumFractionDigits: 0 })
+  if (lang === "en") {
+    return `NOK ${formattedEn} / ${monthLabel}`;
+  }
+
+  if (lang === "no") {
+    const formattedNo = new Intl.NumberFormat("nb-NO", { maximumFractionDigits: 0 })
+      .format(amount)
+      .replace(/\u00a0/g, " ");
+    return `${formattedNo} kr / ${monthLabel}`;
+  }
+
+  const intlLocale = lang === "sv" ? "sv-SE" : lang === "da" ? "da-DK" : "en-US";
+  const formattedRegional = new Intl.NumberFormat(intlLocale, { maximumFractionDigits: 0 })
     .format(amount)
     .replace(/\u00a0/g, " ");
 
-  return `${formatted} kr / ${monthLabel}`;
+  if (lang === "sv" || lang === "da") {
+    return `NOK ${formattedRegional} / ${monthLabel}`;
+  }
+
+  return `NOK ${formattedEn} / ${monthLabel}`;
 }
 
 export function formatPublicPlanComparisonPrices(

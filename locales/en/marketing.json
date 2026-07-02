@@ -3355,9 +3355,10 @@
             "Governance foundation",
             "Standard support"
           ],
+          "businessPacksNote": "Upgrade to Professional or Business to add Business Packs.",
           "status": "Available",
           "statusKey": "available",
-          "cta": "Request Starter Access",
+          "cta": "Request Starter access",
           "ctaHref": "/early-access",
           "detailsHref": "#compare"
         },
@@ -3373,9 +3374,10 @@
             "Business Pack add-ons",
             "Priority support"
           ],
+          "businessPacksNote": "Business Packs purchased separately as add-ons.",
           "status": "Available",
           "statusKey": "available",
-          "cta": "Start Professional",
+          "cta": "Request Professional access",
           "ctaHref": "/early-access",
           "detailsHref": "#compare"
         },
@@ -3391,9 +3393,10 @@
             "Executive visibility",
             "Advanced permissions"
           ],
-          "status": "Most Popular",
+          "businessPacksNote": "Multiple Business Packs supported as add-ons.",
+          "status": "Most popular",
           "statusKey": "popular",
-          "cta": "Start Business",
+          "cta": "Request Business access",
           "ctaHref": "/early-access",
           "detailsHref": "#compare"
         },
@@ -3404,14 +3407,15 @@
           "idealFor": "Custom agreements and enterprise services",
           "features": [
             "Custom user and domain capacity",
-            "Enterprise security and SSO",
+            "Enterprise security through agreement",
             "Custom Business Pack configurations",
-            "Dedicated success support",
+            "Dedicated success support through agreement",
             "Contract and procurement support"
           ],
+          "businessPacksNote": "Custom Business Pack configurations through enterprise agreement.",
           "status": "Enterprise",
           "statusKey": "enterprise",
-          "cta": "Talk to Enterprise Sales",
+          "cta": "Talk to Enterprise sales",
           "ctaHref": "/contact",
           "detailsHref": "#compare"
         }
@@ -3437,6 +3441,7 @@
     },
     "growthProgression": {
       "title": "As your organization grows, Aipify grows with you",
+      "stageEyebrows": ["Start", "Grow", "Scale"],
       "stages": [
         {
           "name": "Core organization",
@@ -3536,11 +3541,11 @@
         },
         {
           "label": "Enterprise services",
-          "status": "available"
+          "status": "custom"
         },
         {
           "label": "Dedicated success support",
-          "status": "available"
+          "status": "custom"
         },
         {
           "label": "Hybrid deployment",
@@ -3744,6 +3749,8 @@
     },
     "billingArchitecture": {
       "title": "Billing options",
+      "billingFrequencyLabel": "Billing frequency",
+      "paymentMethodsLabel": "Payment methods",
       "billing": [
         "Monthly billing (published NOK prices)",
         "Annual agreements through consultation"
