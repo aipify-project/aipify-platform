@@ -2075,8 +2075,8 @@
   },
   "productPageRedesign": {
     "meta": {
-      "title": "Aipify Business Operating System | Product Plattform",
-      "description": "Explore Command Brief, Companion, operational engines, Business Packs, governance and approved workflows — one coordinated platform for modern organizations."
+      "title": "Aipify Business Operating System | Produktplattform",
+      "description": "Utforsk Kommandooversikt, Companion, operative motorer, Business Packs, styring og godkjente arbeidsflyter — én koordinert plattform for moderne organisasjoner."
     },
     "breadcrumbs": {
       "home": "Hjem",
@@ -2086,7 +2086,7 @@
       "eyebrow": "Aipify Business Operating System",
       "title": "Én plattform for operasjonell oversikt, styrt utførelse og menneskelig kontroll.",
       "subtitle": "Aipify kobler support, drift, kunnskap, styring og godkjente arbeidsflyter i ett koordinert Business Operating System — installert der teamene dine allerede jobber.",
-      "ctaPrimary": "Book demo",
+      "ctaPrimary": "Bestill demo",
       "ctaSecondary": "Se hvordan Aipify fungerer",
       "explorePacks": "Utforsk Business Packs"
     },
@@ -2829,9 +2829,9 @@
       }
     },
     "finalCta": {
-      "title": "See how Aipify could work inside your organization.",
-      "subtitle": "Book a demo to walk through Command Brief, Business Packs, and governed workflows — or explore packs at your own pace.",
-      "primary": "Book demo",
+      "title": "Se hvordan Aipify kan fungere i organisasjonen din.",
+      "subtitle": "Bestill demo for en gjennomgang av Kommandooversikt, Business Packs og styrte arbeidsflyter — eller utforsk pakker i ditt eget tempo.",
+      "primary": "Bestill demo",
       "secondary": "Utforsk Business Packs",
       "tertiary": "Be om tidlig tilgang"
     },
