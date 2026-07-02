@@ -9,12 +9,24 @@ import type {
   PlatformCorpusArticleId,
 } from "@/lib/companion-platform-knowledge/types";
 import { getPlatformRouteByKey } from "@/lib/companion-platform-knowledge/route-registry";
-import { buildHonestKnowledgeGapAnswer } from "@/lib/companion-platform-knowledge/answer-builder";
+import {
+  buildHonestKnowledgeGapAnswer,
+  buildPricingLabels,
+} from "@/lib/companion-platform-knowledge/answer-builder";
+import {
+  buildPublishedPricingSummary,
+  getCanonicalPricingSource,
+  type PricingBridgeLabels,
+} from "@/lib/companion-platform-knowledge/pricing-bridge";
 import { createEmptyCompanionTenantContext } from "@/lib/companion-runtime/companion-tenant-context";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n/config";
 import { isPublicFooterEnabledLocale } from "@/lib/i18n/public-locales";
-import { createTranslator } from "@/lib/i18n/translate";
+import { createTranslator, type Translator } from "@/lib/i18n/translate";
+import {
+  formatLimitValue,
+  getPublicPlanCatalog,
+} from "@/lib/marketing/public-pricing";
 
 export const PUBLIC_COMPANION_ASK_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
 export type PublicCompanionAskLocale = (typeof PUBLIC_COMPANION_ASK_LOCALES)[number];
@@ -100,6 +112,95 @@ function getSearchTermsArray(customerApp: Record<string, unknown>, key: string):
     return current.split("|").map((entry) => entry.trim()).filter(Boolean);
   }
   return [];
+}
+
+export function isPublicPricingQuestion(question: string): boolean {
+  const normalized = question.trim().toLowerCase().replace(/[?!.]+$/, "").replace(/\s+/g, " ");
+  return /\b(kost|koster|pris\w*|price|pricing|cost|costs|abonnement)\b/.test(normalized);
+}
+
+function licenseLabelForLocale(locale: PublicCompanionAskLocale): string {
+  switch (locale) {
+    case "en":
+      return "licenses";
+    case "da":
+    case "sv":
+      return "licenser";
+    default:
+      return "lisenser";
+  }
+}
+
+export function enrichPublishedPricingSummary(
+  locale: Locale | string,
+  labels: PricingBridgeLabels,
+): string {
+  const summary = buildPublishedPricingSummary(locale, labels);
+  const business = getPublicPlanCatalog().find((entry) => entry.key === "business");
+  if (!business || business.limits.users === "custom") return summary;
+
+  const users = formatLimitValue(business.limits.users, { custom: labels.custom });
+  const planLabel = labels.planBusiness;
+  const licenseLabel = licenseLabelForLocale(
+    isPublicFooterEnabledLocale(String(locale)) ? (locale as PublicCompanionAskLocale) : DEFAULT_LOCALE,
+  );
+
+  return summary
+    .split("\n")
+    .map((line) => (line.startsWith(`${planLabel}:`) ? `${line}, ${users} ${licenseLabel}` : line))
+    .join("\n");
+}
+
+async function buildPublicPricingCompanionResponse(
+  locale: PublicCompanionAskLocale,
+  t: Translator,
+): Promise<PublicCompanionAskResponse> {
+  const marketingDict = await getDictionary(locale as Locale, ["marketing"]);
+  const marketing = marketingDict.marketing as Record<string, Record<string, unknown>>;
+  const pricingLabels = buildPricingLabels(t);
+  const pricingPageLabels = (marketing.pricingPage as { pricingLabels?: { custom?: string; perMonth?: string } } | undefined)
+    ?.pricingLabels;
+  const bridgeLabels: PricingBridgeLabels = {
+    ...pricingLabels,
+    custom: pricingPageLabels?.custom ?? pricingLabels.custom,
+    perMonth: pricingPageLabels?.perMonth ?? pricingLabels.perMonth,
+  };
+  const pricingSummary = enrichPublishedPricingSummary(locale, bridgeLabels);
+  const pricingBreadcrumb = (marketing.pricingPage as { breadcrumbs?: { pricing?: string } } | undefined)
+    ?.breadcrumbs?.pricing;
+  const nav = marketing.nav as { contact?: string } | undefined;
+
+  const directAnswer = `${t("customerApp.companionPlatformKnowledge.articles.subscriptionPricing.directAnswer")}\n\n${pricingSummary}`;
+  const explanation = t("customerApp.companionPlatformKnowledge.articles.subscriptionPricing.explanation");
+
+  return {
+    answer: {
+      directAnswer,
+      explanation,
+      steps: [],
+    },
+    actions: [
+      {
+        label: pricingBreadcrumb ?? t("customerApp.companionPlatformKnowledge.articles.subscriptionPricing.title"),
+        href: "/pricing",
+        variant: "primary",
+      },
+      {
+        label: nav?.contact ?? t("customerApp.companionPlatformKnowledge.articles.contactSupport.title"),
+        href: "/contact",
+        variant: "secondary",
+      },
+    ],
+    sources: [
+      {
+        title: t("customerApp.companionPlatformKnowledge.articles.subscriptionPricing.title"),
+        route: getCanonicalPricingSource(),
+      },
+    ],
+    confidence: { level: "high", score: 0.9 },
+    supportEscalation: { offered: false, reason: null },
+    locale,
+  };
 }
 
 export function buildPublicPlatformSearchContext(locale: string): PlatformSearchContext {
@@ -372,17 +473,21 @@ export async function askPublicPlatformCompanion(
 ): Promise<PublicCompanionAskResponse> {
   const validated = validatePublicCompanionAskRequest(input);
   const locale = resolvePublicCompanionLocale(validated.locale, validated.messageLocale);
-  const contextualQuestion = buildPublicCompanionQuery(validated.question, validated.recentContext);
-  const query = shouldRewritePublicRetrievalQuery(validated.question)
-    ? buildPublicRetrievalQuery(validated.question)
-    : contextualQuestion;
 
   const dict = await getCustomerAppDictionaryForSplits(locale as Locale, [
     "companionPlatformKnowledge",
     "portalStructure",
   ]);
-  const customerApp = dict.customerApp as Record<string, unknown>;
   const t = createTranslator(dict);
+
+  if (isPublicPricingQuestion(validated.question)) {
+    return buildPublicPricingCompanionResponse(locale, t);
+  }
+
+  const contextualQuestion = buildPublicCompanionQuery(validated.question, validated.recentContext);
+  const query = shouldRewritePublicRetrievalQuery(validated.question)
+    ? buildPublicRetrievalQuery(validated.question)
+    : contextualQuestion;
 
   const tenantContext = createEmptyCompanionTenantContext({ locale });
 
@@ -390,7 +495,7 @@ export async function askPublicPlatformCompanion(
     t,
     locale,
     ctx: buildPublicPlatformSearchContext(locale),
-    getSearchTermsArray: (key) => getSearchTermsArray(customerApp, key),
+    getSearchTermsArray: (key) => getSearchTermsArray(dict.customerApp as Record<string, unknown>, key),
     companionSurface: false,
     tenantContext,
   });

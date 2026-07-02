@@ -54,16 +54,46 @@ async function main() {
     validatePublicCompanionAskRequest,
   } = await import("./public-companion-ask");
 
-  await test("natural pricing question finds pricing answer without exact FAQ text", async () => {
+  await test("natural pricing question returns canonical published ladder", async () => {
     const response = await askPublicPlatformCompanion({
       question: "Hva koster Aipify?",
       locale: "no",
     });
 
-    assert.ok(response.answer.directAnswer.length > 20);
-    assert.match(response.answer.directAnswer.toLowerCase(), /kost|pris|plan|abonnement|price|subscription/);
-    assert.ok(["high", "medium"].includes(response.confidence.level));
-    assert.ok(response.sources.length > 0);
+    const combined = [response.answer.directAnswer, response.answer.explanation ?? ""].join("\n");
+    assert.match(combined, /799/);
+    assert.match(combined, /3\s?990/);
+    assert.match(combined, /14\s?500/);
+    assert.match(combined.toLowerCase(), /tilpasset/);
+    assert.match(combined, /25\s+lisenser/);
+    assert.equal(response.confidence.level, "high");
+    assert.equal(response.supportEscalation.offered, false);
+    assert.ok(response.actions.some((action) => action.href === "/pricing"));
+    assert.ok(!response.actions.some((action) => action.href.startsWith("/app/")));
+    assert.ok(response.sources.some((source) => source.route.includes("public-pricing.ts")));
+  });
+
+  await test("pricing questions in Norwegian and English use published summary", async () => {
+    for (const question of ["Hvilke priser har dere?", "What does Aipify cost?"]) {
+      const response = await askPublicPlatformCompanion({
+        question,
+        locale: question.startsWith("H") ? "no" : "en",
+      });
+      assert.match(response.answer.directAnswer, /799/);
+      assert.match(response.answer.directAnswer, /3[,\s]?990/);
+      assert.equal(response.confidence.level, "high");
+      assert.equal(response.supportEscalation.offered, false);
+    }
+  });
+
+  await test("business-specific pricing question includes business ladder line", async () => {
+    const response = await askPublicPlatformCompanion({
+      question: "Hva koster Business?",
+      locale: "no",
+    });
+
+    assert.match(response.answer.directAnswer, /Business:\s*14\s?500/);
+    assert.match(response.answer.directAnswer, /25\s+lisenser/);
   });
 
   await test("natural demo question returns safe internal action", async () => {
@@ -278,7 +308,7 @@ async function main() {
     }
   }
 
-  await test("Norwegian pricing source titles use portalStructure locale", async () => {
+  await test("Norwegian pricing source titles use published pricing source", async () => {
     const response = await askPublicPlatformCompanion({
       question: "Hva koster Aipify?",
       locale: "no",
@@ -287,10 +317,12 @@ async function main() {
     assert.equal(response.locale, "no");
     assertNoEnglishRouteSourceTitles(response.sources, "pricing");
     assert.ok(
-      response.sources.some(
-        (source) => source.title === "Oppgraderinger" || source.title === "Oppgraderingsalternativer",
-      ),
-      `expected Norwegian upgrade route source, got: ${response.sources.map((s) => s.title).join(", ")}`,
+      response.sources.some((source) => source.title === "Abonnementspriser"),
+      `expected Abonnementspriser source, got: ${response.sources.map((s) => s.title).join(", ")}`,
+    );
+    assert.ok(
+      response.sources.some((source) => source.route.includes("public-pricing.ts")),
+      "expected canonical pricing source route",
     );
   });
 
@@ -339,7 +371,7 @@ async function main() {
     assertNoEnglishRouteSourceTitles(response.sources, "locale consistency");
   });
 
-  await test("messageLocale en keeps English source titles", async () => {
+  await test("messageLocale en keeps English pricing source titles", async () => {
     const response = await askPublicPlatformCompanion({
       question: "Hva koster Aipify?",
       locale: "no",
@@ -348,13 +380,13 @@ async function main() {
 
     assert.equal(response.locale, "en");
     assert.ok(
-      response.sources.some((source) => source.title === "Upgrades"),
-      `expected English Upgrades source, got: ${response.sources.map((s) => s.title).join(", ")}`,
+      response.sources.some((source) => source.title === "Subscription pricing"),
+      `expected English Subscription pricing source, got: ${response.sources.map((s) => s.title).join(", ")}`,
     );
-    assert.ok(!response.sources.some((source) => source.title === "Oppgraderinger"));
+    assert.ok(!response.sources.some((source) => source.title === "Abonnementspriser"));
   });
 
-  await test("invalid locale falls back to English source titles", async () => {
+  await test("invalid locale falls back to English pricing source titles", async () => {
     const response = await askPublicPlatformCompanion({
       question: "Hva koster Aipify?",
       locale: "de",
@@ -362,10 +394,10 @@ async function main() {
 
     assert.equal(response.locale, "en");
     assert.ok(
-      response.sources.some((source) => source.title === "Upgrades"),
-      `expected English Upgrades source, got: ${response.sources.map((s) => s.title).join(", ")}`,
+      response.sources.some((source) => source.title === "Subscription pricing"),
+      `expected English Subscription pricing source, got: ${response.sources.map((s) => s.title).join(", ")}`,
     );
-    assert.ok(!response.sources.some((source) => source.title === "Oppgraderinger"));
+    assert.ok(!response.sources.some((source) => source.title === "Abonnementspriser"));
   });
 
   await test("runtime loads portalStructure without hardcoded source titles", () => {
@@ -373,6 +405,7 @@ async function main() {
       publicCompanionAskSource,
       /getCustomerAppDictionaryForSplits\(\s*locale as Locale,\s*\[[\s\S]*?"companionPlatformKnowledge"[\s\S]*?"portalStructure"[\s\S]*?\]\s*\)/,
     );
+    assert.match(publicCompanionAskSource, /buildPublishedPricingSummary/);
     assert.doesNotMatch(publicCompanionAskSource, /Oppgraderinger|Kunnskapssenter|Markedsplass/);
   });
 

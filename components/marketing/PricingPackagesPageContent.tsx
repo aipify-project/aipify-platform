@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import type { MouseEvent } from "react";
 import { PublicPageHero, PublicCTA } from "./public";
 import PricingComparisonTable from "./pricing/PricingComparisonTable";
 import PricingFaqAccordion from "./pricing/PricingFaqAccordion";
@@ -132,6 +135,26 @@ type Props = {
 };
 
 const SECTION = "scroll-mt-24 py-12 sm:py-14";
+const BUSINESS_PACKS_HREF = "/pricing#business-packs";
+
+function navigateToBusinessPacks(event: MouseEvent<HTMLAnchorElement>) {
+  if (typeof window === "undefined" || window.location.pathname !== "/pricing") return;
+
+  event.preventDefault();
+  if (window.location.hash !== "#business-packs") {
+    window.history.replaceState(null, "", BUSINESS_PACKS_HREF);
+  }
+  document.getElementById("business-packs")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function localizeCommercialTypeLabel(
+  label: string,
+  pricingStatus: PricingPackagesPageLabels["businessPacks"]["pricingStatus"],
+): string {
+  if (label === "Add-on") return pricingStatus.addon;
+  if (label === "Tailored add-on") return pricingStatus.tailored_addon ?? pricingStatus.custom;
+  return label;
+}
 
 const STATUS_ICONS: Record<EnterpriseItem["status"], string> = {
   available: "✅",
@@ -371,7 +394,7 @@ export default function PricingPackagesPageContent({ labels, locale, businessPac
                 <p className="mt-1 text-xs font-medium text-aipify-companion">{pack.audience}</p>
                 <p className="mt-3 text-sm leading-relaxed text-aipify-text-secondary">{pack.value}</p>
                 <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-aipify-text-secondary">
-                  {pack.commercialTypeLabel}
+                  {localizeCommercialTypeLabel(pack.commercialTypeLabel, labels.businessPacks.pricingStatus)}
                 </p>
                 <p className="mt-1 text-xs text-aipify-text-muted">
                   {labels.businessPacks.planRequirementPrefix} {pack.minPlanLabel}
@@ -382,7 +405,11 @@ export default function PricingPackagesPageContent({ labels, locale, businessPac
               </li>
             ))}
           </ul>
-          <Link href="#business-packs" className={`mt-8 inline-block text-sm font-semibold ${PublicMarketingClasses.link}`}>
+          <Link
+            href={BUSINESS_PACKS_HREF}
+            onClick={navigateToBusinessPacks}
+            className={`mt-8 inline-block text-sm font-semibold ${PublicMarketingClasses.link}`}
+          >
             {labels.businessPacks.exploreAll} →
           </Link>
         </div>
@@ -500,7 +527,11 @@ export default function PricingPackagesPageContent({ labels, locale, businessPac
         analyticsSecondary="pricing_final_demo"
       />
       <div className="pb-8 text-center">
-        <Link href="#business-packs" className={`text-sm font-semibold ${PublicMarketingClasses.link}`}>
+        <Link
+          href={BUSINESS_PACKS_HREF}
+          onClick={navigateToBusinessPacks}
+          className={`text-sm font-semibold ${PublicMarketingClasses.link}`}
+        >
           {labels.finalCta.tertiary} →
         </Link>
       </div>

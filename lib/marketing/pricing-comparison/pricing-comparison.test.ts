@@ -157,8 +157,9 @@ const pricingPageSource = fs.readFileSync(
   path.join(root, "components/marketing/PricingPackagesPageContent.tsx"),
   "utf8",
 );
-assert.equal(pricingPageSource.includes('href="/pricing#business-packs"'), false);
-assert.equal(pricingPageSource.includes('href="#business-packs"'), true);
+assert.equal(pricingPageSource.includes('const BUSINESS_PACKS_HREF = "/pricing#business-packs"'), true);
+assert.equal(pricingPageSource.includes("navigateToBusinessPacks"), true);
+assert.equal(pricingPageSource.includes('href="#business-packs"'), false);
 assert.equal(getCanonicalPricingSource(), "lib/marketing/public-pricing.ts");
 
 const companionPricing = buildPublishedPricingSummary("no", {

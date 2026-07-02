@@ -50,7 +50,7 @@
     "knowledge": "Kunnskapssenter",
     "growthPartners": "Growth Partners",
     "earlyAccess": "Tidlig tilgang",
-    "bookDemo": "Book demo",
+    "bookDemo": "Bestill demo",
     "contact": "Kontakt",
     "careers": "Karriere",
     "media": "Media",
@@ -85,7 +85,7 @@
     "growthPartnerTerms": "Growth Partner-vilkår",
     "contact": "Kontakt",
     "earlyAccess": "Tidlig tilgang",
-    "bookDemo": "Book demo",
+    "bookDemo": "Bestill demo",
     "growthPartners": "Growth Partners",
     "copyright": "Aipify Group AS. Alle rettigheter reservert.",
     "privacyNote": "Aipify bistår ansatte. Aipify overvåker ikke skjermer, tastetrykk, private filer eller nettleserhistorikk.",
@@ -3518,6 +3518,7 @@
       "pricingStatus": {
         "included": "Inkludert i kvalifiserende plan",
         "addon": "Tillegg",
+        "tailored_addon": "Tilpasset tillegg",
         "custom": "Tilpasset pris",
         "pilot": "Pilot-tilgjengelighet",
         "contact": "Kontakt Aipify"
@@ -3613,7 +3614,7 @@
         "title": "Sammenlign planer side om side",
         "description": "Se hvordan Starter, Professional, Business og Enterprise passer organisasjonen din — fra pris og kapasitet til styring, Companion-dybde og distribusjon.",
         "helpChoosing": "Usikker på hvilken plan passer teamet ditt?",
-        "bookDemo": "Book en demo"
+        "bookDemo": "Bestill demo"
       },
       "categories": {
         "pricing": "Priser",
@@ -7802,8 +7803,8 @@
       },
       "availableFrom": "Tilgjengelig from",
       "commercialTypes": {
-        "addon": "Add-on",
-        "tailored_addon": "Tailored add-on"
+        "addon": "Tillegg",
+        "tailored_addon": "Tilpasset tillegg"
       },
       "sections": {
         "businessValue": "Business value",
