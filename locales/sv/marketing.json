@@ -5082,34 +5082,34 @@
   },
   "publicKnowledge": {
     "hub": {
-      "title": "Knowledge Center",
-      "subtitle": "Lär dig hur Aipify hjälper organisationer att modernisera verksamheten.",
-      "authorityNote": "Varje artikel är skriven för att hjälpa dig förstå, lära, förbättra, besluta och lita. Innehåll för människor först.",
-      "browseCategories": "Browse by category",
-      "browseHubs": "Content hubs",
-      "browseIndustries": "Industry guides",
+      "title": "Kunskapscenter",
+      "subtitle": "Lär dig hur Aipify hjälper organisationer att modernisera verksamheten — med styrd intelligens, operativ synlighet och människocentrerad design.",
+      "authorityNote": "Varje artikel är skriven för att hjälpa dig att förstå, lära, förbättra, besluta och lita. Vi publicerar kunskap för människor först — sökbar synlighet följer nyttan.",
+      "browseCategories": "Bläddra efter kategori",
+      "browseHubs": "Innehållshubbar",
+      "browseIndustries": "Branschguider",
       "browseBusinessPacks": "Business Packs",
-      "searchIntentsTitle": "Topics we help organizations understand",
-      "articleCtaTitle": "Ready to explore Aipify?",
-      "articleCtaPrimary": "Book Demo",
-      "articleCtaSecondary": "Get Started",
-      "relatedArticles": "Related content",
-      "relatedBusinessPacks": "Related Business Packs",
-      "relatedFeatures": "Capabilities",
-      "relatedIntegrations": "Integrations",
-      "relatedUseCases": "Use cases",
-      "examplesTitle": "Examples",
-      "introductionLabel": "Introduction",
-      "faqTitle": "Frequently asked questions",
-      "readArticle": "Read article",
+      "searchIntentsTitle": "Ämnen vi hjälper organisationer att förstå",
+      "articleCtaTitle": "Redo att utforska Aipify?",
+      "articleCtaPrimary": "Boka demo",
+      "articleCtaSecondary": "Kom igång",
+      "relatedArticles": "Relaterat innehåll",
+      "relatedBusinessPacks": "Relaterade Business Packs",
+      "relatedFeatures": "Kapabiliteter",
+      "relatedIntegrations": "Integrationer",
+      "relatedUseCases": "Användningsfall",
+      "examplesTitle": "Exempel",
+      "introductionLabel": "Introduktion",
+      "faqTitle": "Vanliga frågor",
+      "readArticle": "Läs artikel",
       "viewCategory": "Visa kategori →",
-      "viewAllArticles": "All articles",
-      "businessPackCta": "Explore this Business Pack",
+      "viewAllArticles": "Alla artiklar",
+      "businessPackCta": "Utforska denna Business Pack",
       "localesNote": "Tillgängligt på engelska, norska, svenska och danska. Tyska, spanska, franska och polska planeras.",
       "readingTimeLabel": "Lästid",
       "publishedLabel": "Publicerad",
       "keyTakeawaysTitle": "Viktiga slutsatser",
-      "backToKnowledge": "Tillbaka till Knowledge Center",
+      "backToKnowledge": "Tillbaka till Kunskapscenter",
       "exploreBusinessPack": "Utforska Business Pack",
       "industryChallengesTitle": "Vanliga utmaningar",
       "industryHowAipifyHelpsTitle": "Så hjälper Aipify",
@@ -5585,29 +5585,33 @@
       "what-is-a-business-operating-system": {
         "title": "Vad är ett Business Operating System?",
         "metaDescription": "Ett Business Operating System koordinerar kunskap, drift, styrning och intelligens — bortom chatbotar och punktverktyg.",
-        "introduction": "Most organizations run on disconnected software: a helpdesk here, spreadsheets there, chat tools everywhere. A Business Operating System (BOS) unifies operational coordination — with human control built in.",
+        "introduction": "De flesta organisationer kör på frånkoplad programvara: en helpdesk här, kalkylark där, chattverktyg överallt. Ett Business Operating System (BOS) samlar operativ samordning — med mänsklig kontroll inbyggd.",
         "sections": [
           {
-            "heading": "Beyond single-purpose tools",
-            "body": "A BOS connects support, knowledge, workflows, approvals, and executive visibility. It does not replace your ERP or CRM — it orchestrates operational intelligence above them."
+            "heading": "Bortom enkelsyftesverktyg",
+            "body": "Ett BOS kopplar samman support, kunskap, arbetsflöden, godkännanden och ledarsynlighet. Det ersätter inte ert ERP eller CRM — det orkestrerar operativ intelligens ovanpå dem."
           },
           {
-            "heading": "Governed by design",
-            "body": "Sensitive actions require human approval. Policies define what Aipify may prepare versus execute. Every important step is auditable."
+            "heading": "Styrd by design",
+            "body": "Känsliga åtgärder kräver mänskligt godkännande. Policyer definierar vad Aipify får förbereda kontra utföra. Varje viktigt steg är reviderbart."
           },
           {
-            "heading": "Modular activation",
-            "body": "Organizations activate Business Packs and modules as needed — hospitality, support, warehouse, finance — without unnecessary complexity."
+            "heading": "Modulär aktivering",
+            "body": "Organisationer aktiverar Business Packs och moduler efter behov — hospitality, support, lager, finans — utan onödig komplexitet."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Vem har nytta av ett BOS",
+            "body": "Operativa ledare får samordnad synlighet. Supportteam får tillgång till godkänd kunskap där arbetet sker. Chefer får briefings med kontext och rekommenderade åtgärder — inte bara råa siffror. IT- och säkerhetsteam behåller styrningskontroll över behörigheter, godkännanden och revisionsspår."
+          },
+          {
+            "heading": "Så implementerar Aipify modellen",
+            "body": "Aipify installeras i kundmiljöer och mappas till inbyggda roller. Business Packs aktiverar domänkapabiliteter — hospitality, support, lager, finans — utan att tvinga fram ett parallellt admin-arbetsflöde. Companion samordnar prioriteringar över moduler medan människor godkänner känsliga åtgärder."
           }
         ],
         "examples": [
           {
-            "title": "Support escalation",
-            "body": "A support case arrives → Aipify triages with Business DNA → Drafts a response → Human approves before send → Audit logged."
+            "title": "Supporteskalering",
+            "body": "Ett supportärende kommer in → Aipify triagerar med Business DNA → Utformar svar → Människa godkänner före sändning → Revision loggad."
           }
         ],
         "readingTime": "9 min läsning",
@@ -5621,29 +5625,25 @@
       "why-organizations-need-operational-visibility": {
         "title": "Varför organisationer behöver operativ synlighet",
         "metaDescription": "Operativ synlighet hjälper ledare och team att se vad som spelar roll, vad som är blockerat och vad de ska agera på — utan övervakning eller brus.",
-        "introduction": "When work is scattered across inboxes, chats, and siloed dashboards, leaders spend time chasing updates instead of making decisions. Operational visibility brings signal to one governed layer.",
+        "introduction": "När arbete är utspritt över inkorgar, chattar och siloiserade dashboards lägger ledare tid på att jaga uppdateringar i stället för att fatta beslut. Operativ synlighet samlar signaler i ett styrt lager.",
         "sections": [
           {
-            "heading": "Executive clarity without micromanagement",
-            "body": "Aipify surfaces priorities, risks, and prepared actions — not keystroke monitoring or employee surveillance."
+            "heading": "Ledarklarhet utan mikrostyrning",
+            "body": "Aipify lyfter fram prioriteringar, risker och förberedda åtgärder — inte tangenttrycksövervakning eller medarbetarövervakning."
           },
           {
-            "heading": "Cross-team coordination",
-            "body": "Operations, support, and leadership share context through approved knowledge and coordinated workflows."
+            "heading": "Tvärteamssamordning",
+            "body": "Drift, support och ledning delar kontext genom godkänd kunskap och samordnade arbetsflöden."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Morning briefing",
-            "body": "Aipify prepares an executive briefing: open approvals, support trends, and operational items requiring attention — each with recommended next steps."
+            "title": "Morgonbriefing",
+            "body": "Aipify förbereder en ledarbriefing: öppna godkännanden, supporttrender och operativa punkter som kräver uppmärksamhet — var och en med rekommenderade nästa steg."
           }
         ],
         "readingTime": "8 min läsning",
@@ -5657,29 +5657,25 @@
       "how-operational-knowledge-creates-competitive-advantage": {
         "title": "Hur operativ kunskap skapar konkurrensfördel",
         "metaDescription": "Organisationer som fångar, godkänner och återanvänder operativ kunskap svarar snabbare och introducerar team mer konsekvent.",
-        "introduction": "Knowledge trapped in inboxes and individual memory creates inconsistency. A governed Knowledge Center makes approved procedures, playbooks, and answers accessible to the right roles.",
+        "introduction": "Kunskap fast i inkorgar och individuellt minne skapar inkonsekvens. Ett styrt kunskapscenter gör godkända procedurer, playbooks och svar tillgängliga för rätt roller.",
         "sections": [
           {
-            "heading": "Approved sources only",
-            "body": "Aipify learns from administrator-approved knowledge — transparent and auditable, not hidden scraping."
+            "heading": "Endast godkända källor",
+            "body": "Aipify lär sig från administratörsgodkänd kunskap — transparent och reviderbart, inte dold skrapning."
           },
           {
-            "heading": "Gap detection",
-            "body": "When confidence is low, Aipify identifies knowledge gaps and recommends content improvements — humans approve changes."
+            "heading": "Gapdetektering",
+            "body": "När förtroendet är lågt identifierar Aipify kunskapsluckor och rekommenderar innehållsförbättringar — människor godkänner ändringar."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Onboarding path",
-            "body": "A new support agent asks how refunds are handled → Knowledge search returns the approved policy → Gap flagged if the answer is outdated."
+            "title": "Onboardingväg",
+            "body": "En ny supportmedarbetare frågar hur återbetalningar hanteras → Kunskapssökning returnerar godkänd policy → Lucka flaggas om svaret är inaktuellt."
           }
         ],
         "readingTime": "8 min läsning",
@@ -5693,29 +5689,25 @@
       "the-future-of-business-operations": {
         "title": "Framtiden för affärsdrift",
         "metaDescription": "Nästa generations driftsprogramvara kombinerar intelligens, styrning och mänskligt ansvar — inte okontrollerad automation.",
-        "introduction": "Organizations want speed without losing control. The future belongs to platforms that prepare work, explain reasoning, and require approval for sensitive actions.",
+        "introduction": "Organisationer vill ha tempo utan att förlora kontroll. Framtiden tillhör plattformar som förbereder arbete, förklarar resonemang och kräver godkännande för känsliga åtgärder.",
         "sections": [
           {
-            "heading": "Gradual trust delegation",
-            "body": "Start with drafts and recommendations. Delegate reversible workflows only after explicit policy approval."
+            "heading": "Gradvis förtroende-delegering",
+            "body": "Börja med utkast och rekommendationer. Delegera reversibla arbetsflöden först efter uttrycklig policygodkännande."
           },
           {
-            "heading": "Companion-led coordination",
-            "body": "Aipify Companion helps leaders prioritize and decide — it does not replace ownership or accountability."
+            "heading": "Companion-ledd samordning",
+            "body": "Aipify Companion hjälper ledare att prioritera och besluta — den ersätter inte ägarskap eller ansvar."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Policy progression",
-            "body": "Month 1: Aipify drafts support replies. Month 3: Low-risk replies auto-send within policy. Month 6: Expanded packs with full audit trail."
+            "title": "Policyprogression",
+            "body": "Månad 1: Aipify utformar supportsvar. Månad 3: Lågrisksvar skickas automatiskt inom policy. Månad 6: Utökade paket med fullt revisionsspår."
           }
         ],
         "readingTime": "7 min läsning",
@@ -5729,29 +5721,25 @@
       "what-is-a-business-companion": {
         "title": "Vad är en affärs-Companion?",
         "metaDescription": "Aipify Companion är lednings- och operativ intelligens — briefings, prioriteringar och vägledning förankrad i er affärskontext.",
-        "introduction": "Companion is how Aipify stays present for leaders and teams: calm, professional, and actionable. It is an extension of Aipify — not a separate AI product.",
+        "introduction": "Companion är hur Aipify finns till för ledare och team: lugnt, professionellt och handlingsbart. Det är en förlängning av Aipify — inte en separat AI-produkt.",
         "sections": [
           {
-            "heading": "Observation, explanation, recommendation",
-            "body": "Companion insights include why you are seeing something, why it matters, and what to do next."
+            "heading": "Observation, förklaring, rekommendation",
+            "body": "Companion-insikter inkluderar varför du ser något, varför det spelar roll och vad du bör göra härnäst."
           },
           {
-            "heading": "One Aipify identity",
-            "body": "Skills, Centers, and Companion capabilities belong to Aipify — customers interact with Aipify, not a fleet of disconnected assistants."
+            "heading": "En Aipify-identitet",
+            "body": "Skills, Centers och Companion-kapabiliteter tillhör Aipify — kunder interagerar med Aipify, inte en flotta av frånkopplade assistenter."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Priority review",
-            "body": "Companion surfaces three items requiring attention today — each with context, impact, and a prepared next step."
+            "title": "Prioritetsgenomgång",
+            "body": "Companion lyfter fram tre punkter som kräver uppmärksamhet idag — var och en med kontext, effekt och ett förberett nästa steg."
           }
         ],
         "readingTime": "8 min läsning",
@@ -5765,29 +5753,25 @@
       "companion-vs-chatbot": {
         "title": "Companion mot chatbot",
         "metaDescription": "Chatbotar svarar på frågor. Aipify Companion koordinerar operativ intelligens med styrning och ansvar.",
-        "introduction": "A chatbot optimizes for conversation. A Business Operating System optimizes for outcomes: support resolved, knowledge current, approvals handled, executives informed.",
+        "introduction": "En chatbot optimerar för konversation. Ett Business Operating System optimerar för resultat: support löst, kunskap aktuell, godkännanden hanterade, chefer informerade.",
         "sections": [
           {
-            "heading": "Operational depth",
-            "body": "Companion connects to knowledge, calendars, tasks, approvals, and Business Packs — not isolated Q&A."
+            "heading": "Operativ djup",
+            "body": "Companion kopplas till kunskap, kalendrar, uppgifter, godkännanden och Business Packs — inte isolerad fråga och svar."
           },
           {
-            "heading": "Never information-only",
-            "body": "Companion avoids count-only alerts. Every insight includes context and a recommended action when possible."
+            "heading": "Aldrig bara information",
+            "body": "Companion undviker larm som bara visar siffror. Varje insikt inkluderar kontext och en rekommenderad åtgärd när det är möjligt."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Contrast",
-            "body": "Chatbot: 'You have 14 notifications.' Companion: 'Three support cases exceed SLA — here is context, impact, and a recommended escalation path.'"
+            "title": "Kontrast",
+            "body": "Chatbot: ”Du har 14 aviseringar.” Companion: ”Tre supportärenden överskrider SLA — här är kontext, effekt och en rekommenderad eskalering.”"
           }
         ],
         "readingTime": "7 min läsning",
@@ -5801,29 +5785,25 @@
       "companion-vs-ai-assistant": {
         "title": "Companion mot AI-assistent",
         "metaDescription": "Generiska AI-assistenter optimeras för allmän konversation. Aipify Companion är byggd för styrd affärsdrift.",
-        "introduction": "Enterprise buyers need explainability, audit trails, and human approval — not open-ended AI that acts without boundaries.",
+        "introduction": "Företagsköpare behöver förklarbarhet, revisionsspår och mänskligt godkännande — inte öppen AI som agerar utan gränser.",
         "sections": [
           {
-            "heading": "Model-agnostic intelligence",
-            "body": "Customers purchase Aipify, not a model brand. Intelligence is selected by task behind the scenes."
+            "heading": "Modellagnostisk intelligens",
+            "body": "Kunder köper Aipify, inte ett modellvarumärke. Intelligens väljs efter uppgift i bakgrunden."
           },
           {
-            "heading": "Human-centered design",
-            "body": "Companion adapts style through the Identity Engine — familiarity without manipulation or impersonation."
+            "heading": "Människocentrerad design",
+            "body": "Companion anpassar stil genom Identity Engine — familiaritet utan manipulation eller impersonering."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Approval boundary",
-            "body": "Companion prepares a contract summary draft → Presents for review → Human approves → Action logged in Trust Center."
+            "title": "Godkännandegräns",
+            "body": "Companion förbereder utkast till kontraktssammanfattning → Presenterar för granskning → Människa godkänner → Åtgärd loggad i Trust Center."
           }
         ],
         "readingTime": "7 min läsning",
@@ -5837,29 +5817,25 @@
       "how-companion-supports-organizations": {
         "title": "Hur Companion stödjer organisationer",
         "metaDescription": "Companion hjälper ledare och drifteam att prioritera, besluta och följa upp — inom godkänd styrning.",
-        "introduction": "From daily briefings to decision support, Companion reduces context switching while preserving human accountability.",
+        "introduction": "Från dagliga briefings till beslutsstöd minskar Companion kontextväxling samtidigt som mänskligt ansvar bevaras.",
         "sections": [
           {
-            "heading": "Executive visibility",
-            "body": "Leadership sees operational health, risks, and prepared decisions — high signal, low noise."
+            "heading": "Ledarsynlighet",
+            "body": "Ledningen ser operativ hälsa, risker och förberedda beslut — hög signal, lågt brus."
           },
           {
-            "heading": "Team coordination",
-            "body": "Operations and support teams receive actionable guidance connected to knowledge and workflows."
+            "heading": "Teamsamordning",
+            "body": "Drift- och supportteam får handlingsbar vägledning kopplad till kunskap och arbetsflöden."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Decision support",
-            "body": "Should we expand warehouse hours? Companion presents options, trade-offs, confidence level, and links to relevant operational data."
+            "title": "Beslutsstöd",
+            "body": "Bör vi utöka lagrets öppettider? Companion presenterar alternativ, avvägningar, förtroendenivå och länkar till relevant operativ data."
           }
         ],
         "readingTime": "8 min läsning",
@@ -5873,29 +5849,25 @@
       "human-centered-companion-design": {
         "title": "Människocentrerad Companion-design",
         "metaDescription": "Aipify Companion är designad för att stärka människor — aldrig för att ersätta omdöme, skapa press eller övervaka anställda.",
-        "introduction": "Human-centered design means calm language, transparent limits, and user control over identity, attention, and memory.",
+        "introduction": "Människocentrerad design innebär lugnt språk, transparenta gränser och användarkontroll över identitet, uppmärksamhet och minne.",
         "sections": [
           {
-            "heading": "No surveillance",
-            "body": "Aipify does not monitor screens, keystrokes, private files, or browsing history."
+            "heading": "Ingen övervakning",
+            "body": "Aipify övervakar inte skärmar, tangenttryck, privata filer eller webbhistorik."
           },
           {
-            "heading": "Users decide",
-            "body": "Recommendations prepare and inform. Sensitive actions always require explicit approval."
+            "heading": "Användarna bestämmer",
+            "body": "Rekommendationer förbereder och informerar. Känsliga åtgärder kräver alltid uttryckligt godkännande."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Attention protection",
-            "body": "Focus mode requires confirmation. Companion respects quiet hours and user preferences for notification levels."
+            "title": "Uppmärksamhetsskydd",
+            "body": "Fokusläge kräver bekräftelse. Companion respekterar tysta timmar och användarpreferenser för aviseringsnivåer."
           }
         ],
         "readingTime": "8 min läsning",
@@ -5909,29 +5881,25 @@
       "getting-started-with-aipify": {
         "title": "Kom igång med Aipify",
         "metaDescription": "En praktisk orientering för organisationer som utvärderar Aipify Business Operating System.",
-        "introduction": "Aipify installs into your existing environment and learns how your organization works — reducing the need for a separate daily-login admin panel.",
+        "introduction": "Aipify installeras i er befintliga miljö och lär sig hur er organisation arbetar — vilket minskar behovet av en separat adminpanel för daglig inloggning.",
         "sections": [
           {
-            "heading": "Install-first strategy",
-            "body": "Connect Aipify to your admin, store, or custom system. Map roles to customer-native permissions."
+            "heading": "Install-first-strategi",
+            "body": "Anslut Aipify till ert admin, er butik eller eget system. Mappa roller till kundens inbyggda behörigheter."
           },
           {
-            "heading": "Phased value",
-            "body": "Start with knowledge and support. Add Business Packs and governed automation as trust grows."
+            "heading": "Stegvis värde",
+            "body": "Börja med kunskap och support. Lägg till Business Packs och styrd automation i takt med att förtroendet växer."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "First 30 days",
-            "body": "Week 1: Connect and import knowledge. Week 2: Activate core modules. Week 3: Train team on approvals. Week 4: Review operational metrics."
+            "title": "Första 30 dagarna",
+            "body": "Vecka 1: Anslut och importera kunskap. Vecka 2: Aktivera kärnmoduler. Vecka 3: Träna teamet på godkännanden. Vecka 4: Granska operativa mätvärden."
           }
         ],
         "readingTime": "10 min läsning",
@@ -5945,29 +5913,25 @@
       "governance-and-human-approval": {
         "title": "Styrning och mänskligt godkännande",
         "metaDescription": "Aipify rekommenderar. Människor bestämmer. Varje känslig åtgärd är förklarbar och reviderbar.",
-        "introduction": "Governance is not a checkbox — it is how enterprises trust operational intelligence at scale.",
+        "introduction": "Styrning är inte en kryssruta — det är grunden för att Enterprise-organisationer litar på operativ intelligens i stor skala. Aipify rekommenderar; människor bestämmer.",
         "sections": [
           {
-            "heading": "Action levels",
-            "body": "Information and drafts require less oversight. Sensitive and critical actions require explicit human approval. Level 4 critical actions are prohibited for AI."
+            "heading": "Handlingsnivåer",
+            "body": "Information och utkast kräver mindre tillsyn. Känsliga och kritiska åtgärder kräver uttryckligt mänskligt godkännande. Nivå 4 kritiska åtgärder är förbjudna för AI."
           },
           {
-            "heading": "Emergency stop",
-            "body": "Organizations can pause pending actions instantly while preserving settings and audit history."
+            "heading": "Nödstopp",
+            "body": "Organisationer kan pausa väntande åtgärder omedelbart — samtidigt som inställningar och revisionshistorik bevaras."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Refund request",
-            "body": "Customer requests refund → Aipify prepares recommendation → Manager approves or rejects → Customer notified → Event audited."
+            "title": "Återbetalningsförfrågan",
+            "body": "Kund begär återbetalning → Aipify förbereder rekommendation → Chef godkänner eller avslår → Kund meddelas → Händelse revideras."
           }
         ],
         "readingTime": "9 min läsning",
@@ -5981,29 +5945,25 @@
       "enterprise-knowledge-management": {
         "title": "Enterprise-kunskapshantering med Aipify",
         "metaDescription": "Styrd kunskap hjälper organisationer att svara konsekvent utan att lagra rått privat innehåll i inlärningsminne.",
-        "introduction": "Enterprise knowledge requires role-based access, approval workflows, and gap detection — not a shared document dump.",
+        "introduction": "Enterprise-kunskap kräver rollbaserad åtkomst, godkännandeflöden och gapdetektering — inte en gemensam dokumenthög.",
         "sections": [
           {
-            "heading": "Metadata-first learning",
-            "body": "Aipify stores patterns and approved summaries — not raw email, chat, or payment data."
+            "heading": "Metadata-först-inlärning",
+            "body": "Aipify lagrar mönster och godkända sammanfattningar — inte rå e-post, chatt eller betalningsdata."
           },
           {
-            "heading": "Employee and customer knowledge",
-            "body": "Business DNA and Employee Knowledge Engine serve different audiences with appropriate permissions."
+            "heading": "Medarbetar- och kundkunskap",
+            "body": "Business DNA och Employee Knowledge Engine betjänar olika målgrupper med lämpliga behörigheter."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Role-based access",
-            "body": "Support sees support procedures. Operations sees runbooks. Executives see summaries — all from approved sources."
+            "title": "Rollbaserad åtkomst",
+            "body": "Support ser supportprocedurer. Drift ser runbooks. Chefer ser sammanfattningar — allt från godkända källor."
           }
         ],
         "readingTime": "9 min läsning",
@@ -6017,29 +5977,25 @@
       "hospitality-operations-with-aipify": {
         "title": "Gästbranschdrift med Aipify",
         "metaDescription": "Gästoperationer, fastighetsflöden och gästintelligens — modulärt och styrt.",
-        "introduction": "Hospitality organizations juggle guest communication, property tasks, and staff coordination. Aipify Hosts Business Pack brings operational visibility without replacing your PMS.",
+        "introduction": "Organisationer inom hospitality jonglerar gästkommunikation, fastighetsuppgifter och personalssamordning. Aipify Hosts Business Pack ger operativ synlighet utan att ersätta ert PMS.",
         "sections": [
           {
-            "heading": "Guest coordination",
-            "body": "Triage guest requests, prepare responses, and escalate when confidence is low."
+            "heading": "Gästkoordinering",
+            "body": "Triagera gästförfrågningar, förbered svar och eskalera när förtroendet är lågt."
           },
           {
-            "heading": "Property workflows",
-            "body": "Maintenance, housekeeping handoffs, and operational checklists in one coordinated layer."
+            "heading": "Fastighetsarbetsflöden",
+            "body": "Underhåll, städöverlämningar och operativa checklistor i ett samordnat lager."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Late checkout request",
-            "body": "Guest messages via booking channel → Aipify checks policy and availability → Prepares response → Staff approves → Logged."
+            "title": "Sen utcheckningsförfrågan",
+            "body": "Gäst meddelar via bokningskanal → Aipify kontrollerar policy och tillgänglighet → Förbereder svar → Personal godkänner → Loggat."
           }
         ],
         "readingTime": "8 min läsning",
@@ -6053,29 +6009,25 @@
       "property-management-operations-with-aipify": {
         "title": "Fastighetsförvaltningsdrift med Aipify",
         "metaDescription": "Anläggningar, underhåll och portföljdrift med ledningsöversikt.",
-        "introduction": "Property managers need visibility across units, vendors, and tenant requests — not another disconnected ticketing tool.",
+        "introduction": "Fastighetsförvaltare behöver synlighet över enheter, leverantörer och hyresgästförfrågningar — inte ännu ett frånkopplat ärendesystem.",
         "sections": [
           {
-            "heading": "Portfolio visibility",
-            "body": "See open issues, maintenance schedules, and escalations across properties."
+            "heading": "Portföljsynlighet",
+            "body": "Se öppna ärenden, underhållsscheman och eskaleringar över fastigheter."
           },
           {
-            "heading": "Vendor coordination",
-            "body": "Prepare work orders and follow-ups with audit trails."
+            "heading": "Leverantörssamordning",
+            "body": "Förbered arbetsorder och uppföljning med revisionsspår."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Maintenance escalation",
-            "body": "Urgent leak reported → Aipify prioritizes → Notifies on-call vendor path → Manager approves dispatch."
+            "title": "Underhållseskalering",
+            "body": "Akut läcka rapporterad → Aipify prioriterar → Meddelar jourberedd leverantörsväg → Chef godkänner utskick."
           }
         ],
         "readingTime": "8 min läsning",
@@ -6089,29 +6041,25 @@
       "commerce-operations-with-aipify": {
         "title": "Handelsdrift med Aipify",
         "metaDescription": "Ordersynlighet, koordinering av uppfyllelse och support kopplad till handelsflöden.",
-        "introduction": "Commerce teams need operational intelligence across orders, inventory signals, and customer support — especially during peak periods.",
+        "introduction": "Handelsteam behöver operativ intelligens över order, lagersignaler och kundsupport — särskilt under topperioder.",
         "sections": [
           {
-            "heading": "Fulfillment visibility",
-            "body": "Surface delays, exceptions, and customer-impacting issues early."
+            "heading": "Fulfillment-synlighet",
+            "body": "Lyft fram förseningar, avvik och kundpåverkande ärenden tidigt."
           },
           {
-            "heading": "Support integration",
-            "body": "Support Operations Pack connects order context to triage and response."
+            "heading": "Supportintegration",
+            "body": "Support Operations Pack kopplar orderkontext till triage och svar."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Shipping delay",
-            "body": "Carrier exception detected → Aipify drafts customer notification → Support reviews → Proactive outreach sent."
+            "title": "Leveransförsening",
+            "body": "Transportörsavvikelse upptäckt → Aipify utformar kundmeddelande → Support granskar → Proaktiv kontakt skickas."
           }
         ],
         "readingTime": "8 min läsning",
@@ -6125,29 +6073,25 @@
       "support-operations-with-aipify": {
         "title": "Supportdrift med Aipify",
         "metaDescription": "Triage, kunskapsbaserade svar och eskalering med förtroendepoäng.",
-        "introduction": "Support teams drown in volume without institutional knowledge at their fingertips. Aipify Support Operations combines Business DNA with governed automation.",
+        "introduction": "Supportteam drunknar i volym utan institutionell kunskap till hands. Aipify Support Operations kombinerar Business DNA med styrd automation.",
         "sections": [
           {
-            "heading": "Confidence-based triage",
-            "body": "High-confidence, low-risk categories may auto-draft or auto-reply within policy. Uncertainty always escalates."
+            "heading": "Förtroendebaserad triage",
+            "body": "Kategorier med högt förtroende och låg risk kan auto-utkasta eller auto-svara inom policy. Osäkerhet eskaleras alltid."
           },
           {
-            "heading": "Knowledge gaps",
-            "body": "Repeated low-confidence answers create visible gaps for knowledge improvement."
+            "heading": "Kunskapsluckor",
+            "body": "Upprepade svar med lågt förtroende skapar synliga luckor för kunskapsförbättring."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Policy question",
-            "body": "Customer asks about warranty → Knowledge match found → Draft prepared → Agent reviews → Sent with audit."
+            "title": "Policyfråga",
+            "body": "Kund frågar om garanti → Kunskapsträff hittad → Utkast förberett → Agent granskar → Skickat med revision."
           }
         ],
         "readingTime": "8 min läsning",
@@ -6161,29 +6105,25 @@
       "warehouse-operations-with-aipify": {
         "title": "Lagerdrift med Aipify",
         "metaDescription": "Lagerkoordinering, uppgiftsöverlämningar och operativ synlighet för lagerteam.",
-        "introduction": "Warehouse operations depend on timely handoffs and clear priorities — not more dashboards nobody checks.",
+        "introduction": "Lageroperationer bygger på tidsenliga överlämningar och tydliga prioriteringar — inte fler dashboards som ingen följer.",
         "sections": [
           {
-            "heading": "Task coordination",
-            "body": "Unified tasks, reminders, and accountability across shifts."
+            "heading": "Uppgiftssamordning",
+            "body": "Samlade uppgifter, påminnelser och ansvar över skift."
           },
           {
-            "heading": "Exception handling",
-            "body": "Surface stock discrepancies and fulfillment blockers with recommended actions."
+            "heading": "Undantagshantering",
+            "body": "Lyft fram lageravvik och fulfillment-blockeringar med rekommenderade åtgärder."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Pick exception",
-            "body": "SKU mismatch flagged → Aipify notifies supervisor → Suggests resolution path → Shift lead approves adjustment."
+            "title": "Plockundantag",
+            "body": "SKU-avvikelse flaggad → Aipify meddelar skiftledare → Föreslår lösningsväg → Skiftledare godkänner justering."
           }
         ],
         "readingTime": "8 min läsning",
@@ -6197,29 +6137,25 @@
       "professional-services-with-aipify": {
         "title": "Professionella tjänster med Aipify",
         "metaDescription": "Kundleverans, kunskapsåteranvändning och ledningsöversikt för konsult- och tjänsteföretag.",
-        "introduction": "Professional services organizations sell expertise — operational knowledge and client visibility determine margin and quality.",
+        "introduction": "Professional services-organisationer säljer expertis — operativ kunskap och kundsynlighet avgör marginal och kvalitet.",
         "sections": [
           {
-            "heading": "Delivery playbooks",
-            "body": "Approved methodologies and templates accessible to delivery teams."
+            "heading": "Leveransplaybooks",
+            "body": "Godkända metoder och mallar tillgängliga för leveransteam."
           },
           {
-            "heading": "Executive portfolio view",
-            "body": "Partners see client health, risks, and utilization signals — not raw inbox noise."
+            "heading": "Portföljvy för ledning",
+            "body": "Partners ser kundhälsa, risker och utnyttelsesignaler — inte rå inkorgsbrus."
           },
           {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
-          },
-          {
-            "heading": "Så kommer ni igång",
-            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revision bekräftar att angreppssättet passar organisationen."
+            "heading": "Så sätter ni det i praktiken",
+            "body": "Organisationer börjar vanligtvis med godkänd kunskapsimport och ett fokuserat pilottteam. Aipify förbereder operativt arbete inom styrda policyer — era ledare godkänner vad som når kunder, leverantörer och team. Utöka Business Packs och automation först när förtroende och revisionsgranskning bekräftar att angreppssättet passar er organisation."
           }
         ],
         "examples": [
           {
-            "title": "Client onboarding",
-            "body": "New engagement starts → Onboarding checklist activated → Companion tracks milestones → Partner briefing prepared."
+            "title": "Kundonboarding",
+            "body": "Nytt uppdrag startar → Onboarding-checklista aktiveras → Companion följer milstolpar → Partnerbriefing förbereds."
           }
         ],
         "readingTime": "8 min läsning",
@@ -6581,7 +6517,7 @@
         },
         "3": {
           "q": "Behöver jag ett separat konto?",
-          "a": "Nej. Använd samma Aipify-konto och organisation du redan har. Installation skapar inte en second identitet."
+          "a": "Nej. Använd samma Aipify-konto och organisation du redan har. Installation skapar inte en annan identitet."
         },
         "4": {
           "q": "Vilka webbläsare stöder installation?",
@@ -6677,11 +6613,11 @@
         },
         "27": {
           "q": "Var kan jag få hjälp?",
-          "a": "Kontakta organisationsadministratör för åtkomstproblem. För produktsupport, använd organisationens Aipify-supportkanal eller Knowledge Center och installationsguiden."
+          "a": "Kontakta organisationsadministratör för åtkomstproblem. För produktsupport, använd organisationens Aipify-supportkanal, eller besök Kunskapscentret och installationsguiden."
         },
         "28": {
           "q": "Var är den fullständiga installationsguiden?",
-          "a": "Den fullständiga guiden finns på /install på Aipify-webbplatsen och i denna Knowledge Center-artikel. Plattformsspecifika steg listas för desktop, Android och Apple-enheter."
+          "a": "Den fullständiga guiden finns på /install på Aipify-webbplatsen och i denna artikel i Kunskapscentret. Plattformsspecifika steg listas för desktop, Android och Apple-enheter."
         }
       }
     },
@@ -7775,9 +7711,9 @@
       "earlyAccess": "Begär tidig åtkomst"
     },
     "nested": {
-      "backToKnowledge": "Back to Knowledge Center",
+      "backToKnowledge": "Tillbaka till Kunskapscenter",
       "breadcrumbHome": "Hem",
-      "breadcrumbKnowledge": "Knowledge Center"
+      "breadcrumbKnowledge": "Kunskapscenter"
     },
     "localesNote": "Tillgängligt på engelska, norska, svenska och danska. Tyska, spanska, franska och polska är planerade.",
     "hub": {
