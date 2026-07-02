@@ -6746,25 +6746,29 @@
   "growthPartnersPageRedesign": {
     "meta": {
       "title": "Growth Partners — Build Your Business with Aipify",
-      "description": "Apply to become a certified Aipify Growth Partner. Professional business partnership for consultants and advisors — transparent commission tracking, certification, and Partner Success support."
+      "description": "Apply to become a certified Aipify Growth Partner. For consultants and advisors — training, approval, and transparent commission tracking."
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "current": "Growth Partners"
     },
     "hero": {
       "eyebrow": "CERTIFIED BUSINESS PARTNERSHIP",
       "headline": "Build your business with Aipify.",
-      "copy": "Become a certified Aipify Growth Partner and help organizations modernize operations through a professional business partnership — not affiliate marketing.",
+      "copy": "Become a certified Growth Partner and help organizations modernize operations — a professional partnership, not affiliate marketing.",
       "keyPoints": [
         {
-          "text": "Operate as an independent business with transparent commission tracking inside the partner portal."
+          "text": "Operate as an independent business with commission tracking in the partner portal."
         },
         {
           "text": "Complete Aipify certification before active selling rights are granted."
         },
         {
-          "text": "Partner Success in Bergen, Norway — human guidance through onboarding and certification."
+          "text": "Partner Success from Aipify Group AS — guidance through onboarding and certification."
         }
       ],
       "trustStatus": [
-        "Under 3 minutes to apply",
+        "Short guided application",
         "Independent business",
         "Certification required",
         "Professional partnership"
@@ -6774,7 +6778,7 @@
         "steps": [
           "Submit your application with registered business details.",
           "Partner Success reviews your application and confirms next steps.",
-          "Complete certification covering platform, governance, and customer positioning.",
+          "Complete certification on platform, governance, and customer positioning.",
           "Access the Growth Partner portal to build your customer portfolio."
         ]
       }
@@ -6815,7 +6819,7 @@
       "errorGeneric": "Something went wrong. Please try again.",
       "errorPasswordMismatch": "Passwords must match and be at least 8 characters.",
       "errorRequired": "This field is required.",
-      "legalNote": "By registering, you confirm that you operate independently, are responsible for your own tax and reporting obligations, and agree to represent Aipify Group AS professionally.",
+      "legalNote": "By registering, you confirm that you operate independently, handle your own tax and reporting obligations, and represent Aipify Group AS professionally.",
       "successTitle": "Application received",
       "successBody": "Thank you for applying. Partner Success will review your application and guide you through certification.",
       "successReferenceLabel": "Reference",
@@ -6824,9 +6828,9 @@
         "Check your email to confirm your account if required.",
         "Sign in to your Growth Partner workspace.",
         "Complete your profile and begin certification training.",
-        "Contact Partner Success if you have questions during onboarding."
+        "Email partners@aipify.ai if you have questions during onboarding."
       ],
-      "successContact": "Questions? Contact Partner Success through the contact page — we respond with clear next steps.",
+      "successContact": "Questions? Email partners@aipify.ai or use the contact page — we respond with clear next steps.",
       "successPortalCta": "Continue to Growth Partner workspace"
     },
     "split": {
@@ -6843,18 +6847,18 @@
       "aipifyProvides": {
         "title": "What Aipify provides",
         "items": [
-          "Enterprise-grade platform and Business Packs.",
+          "Enterprise platform and Business Packs.",
           "Training and professional certification.",
           "Growth Partner portal and sales resources.",
           "Commission tracking and attribution.",
-          "Payout management and governance.",
+          "Settlement and payout review.",
           "Ongoing product development and platform support."
         ]
       }
     },
     "portalPreview": {
       "title": "Growth Partner portal preview",
-      "subtitle": "One workspace for leads, commissions, certification, and partner resources — illustrative view.",
+      "subtitle": "One workspace for leads, commissions, certification, and resources — illustrative view.",
       "tabs": {
         "leads": "Leads",
         "commissions": "Commissions",
@@ -6900,7 +6904,7 @@
           },
           {
             "label": "Attribution rules",
-            "value": "Published in portal"
+            "value": "Rules shown in Growth Partner portal"
           }
         ]
       },
@@ -6942,11 +6946,11 @@
       "steps": [
         {
           "title": "Apply",
-          "description": "Submit your business details — about three minutes to complete the application."
+          "description": "Submit your business details in a short guided application."
         },
         {
           "title": "Review",
-          "description": "Partner Success reviews your application and confirms certification requirements."
+          "description": "Partner Success reviews your application and confirms requirements."
         },
         {
           "title": "Certification",
@@ -6962,13 +6966,13 @@
         },
         {
           "title": "Build & earn",
-          "description": "Grow your customer portfolio with transparent commission tracking and payouts."
+          "description": "Grow your portfolio with transparent commission tracking — earnings depend on your activity."
         }
       ]
     },
     "certification": {
-      "title": "Certification and Partner Success",
-      "intro": "Every Growth Partner completes certification before active selling. The program builds trust with customers and ensures you understand how to position Aipify professionally.",
+      "title": "Training and certification",
+      "intro": "Every Growth Partner completes certification before active selling. The program ensures you can position Aipify professionally and build customer trust.",
       "topics": [
         "Platform Fundamentals",
         "Business Packs",
@@ -6977,17 +6981,17 @@
         "Operational Value",
         "Customer Positioning"
       ],
-      "note": "Certification applies to Aipify product and sales training. It does not imply public, government, or independent professional authorization."
+      "note": "Certification covers Aipify product and sales training. It does not imply public, government, or independent professional authorization."
     },
     "commission": {
-      "title": "Transparent commission and attribution",
-      "intro": "Growth Partners should always know what they earned, why they earned it, when payouts occur, and how performance is calculated.",
+      "title": "Commission and attribution",
+      "intro": "Partners should know what they earned, why, when payouts occur, and how performance is calculated — without promised fixed rates.",
       "lifecycleTitle": "Commission lifecycle",
       "lifecycleStages": [
         "Customer attribution to your partner account",
-        "Qualification against published partner rules",
+        "Qualification against rules shown in the Growth Partner portal",
         "Active subscription and customer status",
-        "Commission accrual per published terms",
+        "Commission accrual per terms shown in the Growth Partner portal",
         "Payout review and approval",
         "Payout to your registered business"
       ],
@@ -6999,7 +7003,7 @@
         },
         {
           "label": "Commission basis",
-          "value": "Per published rules"
+          "value": "Rules shown in Growth Partner portal"
         },
         {
           "label": "Payout period",
@@ -7010,10 +7014,10 @@
           "value": "Full trail in portal"
         }
       ],
-      "disclaimer": "No guaranteed income. Earnings depend on your activity, customer retention, plan value, commission settings, and active partner status. Commission rules are visible inside the Growth Partner portal."
+      "disclaimer": "No guaranteed income or fixed commission rates. Earnings depend on your activity, customer retention, plan value, and active partner status. Rules are shown in the Growth Partner portal."
     },
     "requirements": {
-      "title": "Requirements and professional standards",
+      "title": "Requirements",
       "cards": [
         {
           "title": "Registered business",
@@ -7043,7 +7047,7 @@
     },
     "businessModel": {
       "title": "Independent business model",
-      "intro": "Growth Partners operate independently while representing Aipify professionally — as consultants, advisors, and implementation partners.",
+      "intro": "Growth Partners operate independently while representing Aipify — as consultants, advisors, and implementation partners.",
       "columns": [
         {
           "title": "Partner responsibilities",
@@ -7079,19 +7083,19 @@
       "items": [
         {
           "question": "What is an Aipify Growth Partner?",
-          "answer": "A Growth Partner is an independent business professional who helps organizations adopt Aipify. Partners build customer relationships, complete certification, and earn commission through a transparent partner program — not an affiliate scheme."
+          "answer": "An independent business professional who helps organizations adopt Aipify. Partners build customer relationships, complete certification, and earn commission through a transparent program — not an affiliate scheme."
         },
         {
           "question": "Is this an affiliate or referral program?",
-          "answer": "No. Growth Partners operate registered businesses, complete certification, and build long-term customer portfolios. Aipify provides platform infrastructure, governance, and partner support."
+          "answer": "No. Growth Partners operate registered businesses, complete certification, and build long-term portfolios. Aipify provides platform infrastructure, governance, and partner support."
         },
         {
           "question": "What are the requirements to apply?",
-          "answer": "You must operate through a registered business, provide accurate registration details, accept the Growth Partner Terms, and complete certification before active selling rights are granted."
+          "answer": "Operate through a registered business, provide accurate registration details, accept the Growth Partner Terms, and complete certification before active selling rights."
         },
         {
           "question": "How does certification work?",
-          "answer": "After application review, you complete training modules covering platform fundamentals, Business Packs, Companion, governance, and customer positioning. Certification is required before you represent Aipify to customers."
+          "answer": "After application review, you complete training on platform fundamentals, Business Packs, Companion, governance, and customer positioning. Certification is required before you represent Aipify to customers."
         },
         {
           "question": "When can I start selling?",
@@ -7099,15 +7103,15 @@
         },
         {
           "question": "How are commissions tracked?",
-          "answer": "Attribution, commission rules, accrual, and payout history are visible inside the Growth Partner portal. Calculations follow published partner terms — not hidden formulas."
+          "answer": "Attribution, rules, accrual, and payout history are visible in the Growth Partner portal. Calculations follow terms shown in the Growth Partner portal — not hidden formulas or promised fixed rates."
         },
         {
           "question": "Do I own the customers I bring?",
-          "answer": "Customers belong to Aipify Platform. Growth Partners receive attribution and commission for qualified customers they introduce, but do not own customer accounts."
+          "answer": "Customers belong to Aipify Platform. Growth Partners receive attribution and commission for qualified introductions, but do not own customer accounts."
         },
         {
           "question": "What support does Aipify provide?",
-          "answer": "Partner Success in Bergen, Norway supports onboarding and certification. Partners also access sales material, demo assets, training, and the Knowledge Center through the portal."
+          "answer": "Partner Success from Aipify Group AS supports onboarding and certification. Partners also access sales material, demo assets, training, and the Knowledge Center through the portal."
         },
         {
           "question": "Can I operate in multiple countries?",
@@ -7115,7 +7119,7 @@
         },
         {
           "question": "How do I get started?",
-          "answer": "Complete the application on this page. Partner Success reviews your submission, confirms next steps, and guides you through certification and portal access."
+          "answer": "Complete the application on this page. Partner Success reviews your submission and guides you through certification and portal access."
         }
       ]
     },
@@ -7123,7 +7127,7 @@
       "title": "Ready to build your business with Aipify?",
       "subtitle": "Apply as a certified Growth Partner — professional partnership, transparent commission tracking, and Partner Success support.",
       "primary": "Apply as Growth Partner",
-      "secondary": "Speak with Partner Success"
+      "secondary": "Contact Partner Success"
     },
     "partnerAdvisor": {
       "title": "Partner Success Team",
@@ -7133,7 +7137,7 @@
       "role": "Growth Partner onboarding",
       "availability": "Available for onboarding and certification guidance",
       "contactLabel": "Contact",
-      "contactPath": "Speak with Partner Success",
+      "contactPath": "partners@aipify.ai",
       "services": [
         "Growth Partner onboarding",
         "Certification guidance",
@@ -7141,7 +7145,7 @@
         "Partner development"
       ]
     },
-    "footerNote": "Aipify Group AS · Bergen, Norway. For the world."
+    "footerNote": "Aipify Group AS · Bergen, Norway · partners@aipify.ai"
   },
   "knowledgePageRedesign": {
     "hero": {

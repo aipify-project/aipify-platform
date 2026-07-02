@@ -18,6 +18,14 @@ type Props = {
 };
 
 export function PartnerAdvisorCard({ labels }: Props) {
+  const contactPath = labels.contactPath.trim();
+  const contactHref =
+    contactPath.includes("@") && !contactPath.includes(":") && !contactPath.includes(" ")
+      ? `mailto:${contactPath}`
+      : contactPath.startsWith("/")
+        ? contactPath
+        : "/contact";
+
   return (
     <div className={`${PublicMarketingClasses.card} shadow-md`}>
       <p className="text-sm font-semibold text-aipify-companion">{labels.title}</p>
@@ -54,7 +62,7 @@ export function PartnerAdvisorCard({ labels }: Props) {
       </ul>
       <p className="mt-6 text-sm text-aipify-text-secondary">
         {labels.contactLabel}:{" "}
-        <Link href="/contact" className={`font-medium ${PublicMarketingClasses.link}`}>
+        <Link href={contactHref} className={`font-medium ${PublicMarketingClasses.link}`}>
           {labels.contactPath}
         </Link>
       </p>

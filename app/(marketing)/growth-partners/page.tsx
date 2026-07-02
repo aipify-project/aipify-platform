@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import GrowthPartnersPageContent from "@/components/marketing/GrowthPartnersPageContent";
 import type { GrowthPartnersPageLabels } from "@/components/marketing/growth-partners/types";
+import PublicBreadcrumbs from "@/components/marketing/public/PublicBreadcrumbs";
 import { getMarketingContext } from "@/lib/marketing/get-marketing-context";
 import { getSection } from "@/lib/marketing/parse-marketing";
 import { buildHumanVerificationLabels } from "@/lib/system-notice/labels";
@@ -21,12 +22,27 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function GrowthPartnersPage() {
   const { marketing, t } = await getMarketingContext();
-  const labels = getSection<GrowthPartnersPageLabels>(marketing, "growthPartnersPageRedesign");
+  const section = getSection<
+    GrowthPartnersPageLabels & { breadcrumbs?: { home?: string; current?: string } }
+  >(marketing, "growthPartnersPageRedesign");
+  const breadcrumbs = section.breadcrumbs;
 
   return (
-    <GrowthPartnersPageContent
-      labels={labels}
-      verificationLabels={buildHumanVerificationLabels(t)}
-    />
+    <div className="min-w-0">
+      {breadcrumbs?.home && breadcrumbs?.current ? (
+        <div className="mx-auto w-full max-w-6xl px-4 pt-6 sm:px-6 lg:px-8">
+          <PublicBreadcrumbs
+            items={[
+              { label: breadcrumbs.home, href: "/" },
+              { label: breadcrumbs.current },
+            ]}
+          />
+        </div>
+      ) : null}
+      <GrowthPartnersPageContent
+        labels={section}
+        verificationLabels={buildHumanVerificationLabels(t)}
+      />
+    </div>
   );
 }
