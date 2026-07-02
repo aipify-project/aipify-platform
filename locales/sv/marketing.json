@@ -120,17 +120,15 @@
   },
   "homepageRedesign": {
     "hero": {
-      "badge": "Aipify Business Operating System",
-      "title": "Business Operating System för moderna organisationer.",
-      "subtitle": "Aipify kopplar support, drift, kunskap, styrning och godkända arbetsflöden i en koordinerad plattform.",
+      "badge": "Mer än en chatbot — ett operativsystem för verksamheten",
+      "title": "Det AI-drivna operativsystemet som hjälper organisationen att få arbetet gjort.",
+      "subtitle": "Samla överblick, uppgifter, beslut och Business Packs i en styrd plattform. Companion förklarar, föreslår och genomför godkända åtgärder med rätt åtkomst.",
       "benefits": {
-        "1": "Se vad som förändrats.",
-        "2": "Vet vad som kräver uppmärksamhet.",
-        "3": "Låt Aipify förbereda nästa steg."
+        "1": "Aipify works for you."
       },
       "ctaPrimary": "Boka demo",
-      "ctaSecondary": "Se hur Aipify fungerar",
-      "explorePacks": "Utforska Business Packs"
+      "ctaSecondary": "Se priser",
+      "explorePacks": "Illustrativ produktvy · exempeldata"
     },
     "commandBrief": {
       "title": "Din organisation, sammanfattad innan du börjar dagen.",

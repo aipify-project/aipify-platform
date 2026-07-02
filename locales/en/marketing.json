@@ -119,17 +119,15 @@
   },
   "homepageRedesign": {
     "hero": {
-      "badge": "Aipify Business Operating System",
-      "title": "The Business Operating System for modern organizations.",
-      "subtitle": "Aipify connects support, operations, knowledge, governance and approved workflows in one coordinated platform.",
+      "badge": "More than a chatbot — an operating system for your organization",
+      "title": "The AI-powered operating system that helps your organization get work done.",
+      "subtitle": "Bring visibility, tasks, decisions, and Business Packs into one governed platform. Companion explains, recommends, and carries out approved actions with the right access.",
       "benefits": {
-        "1": "See what changed.",
-        "2": "Know what requires attention.",
-        "3": "Let Aipify prepare the next step."
+        "1": "Aipify works for you."
       },
-      "ctaPrimary": "Book Demo",
-      "ctaSecondary": "See How Aipify Works",
-      "explorePacks": "Explore Business Packs"
+      "ctaPrimary": "Book a demo",
+      "ctaSecondary": "View pricing",
+      "explorePacks": "Illustrative product view · sample data"
     },
     "commandBrief": {
       "title": "Your organization, summarized before you start the day.",

@@ -32,7 +32,9 @@ export default function HomepageHero({ hero, commandBrief }: HomepageHeroProps) 
 
             <p className="mt-5 text-lg leading-relaxed text-aipify-text-secondary">{hero.subtitle}</p>
 
-            {hero.benefits.length > 0 ? (
+            {hero.benefits.length === 1 ? (
+              <p className="mt-6 text-base font-medium text-aipify-text">{hero.benefits[0]}</p>
+            ) : hero.benefits.length > 1 ? (
               <ul className="mt-6 space-y-2.5">
                 {hero.benefits.map((benefit) => (
                   <li key={benefit} className="flex gap-3 text-base text-aipify-text">
@@ -52,26 +54,21 @@ export default function HomepageHero({ hero, commandBrief }: HomepageHeroProps) 
                 {hero.ctaPrimary}
               </Link>
               <Link
-                href="#how-it-works"
+                href="/pricing"
                 className={`${AipifyMarketingClasses.secondaryCta} px-7 py-3.5 text-base`}
-                {...marketingDataAttr("cta_click", "hero_see_how_it_works")}
+                {...marketingDataAttr("cta_click", "hero_view_pricing")}
               >
                 {hero.ctaSecondary}
               </Link>
             </div>
-
-            <Link
-              href="/pricing#business-packs"
-              className="mt-4 inline-block text-sm font-medium text-aipify-accent hover:text-aipify-companion"
-              {...marketingDataAttr("cta_click", "hero_explore_packs")}
-            >
-              {hero.explorePacks} →
-            </Link>
           </div>
 
-          <div className="lg:pl-4">
+          <figure className="lg:pl-4">
             <CommandBriefMockup labels={commandBrief} compact />
-          </div>
+            <figcaption className="mt-2.5 text-center text-xs font-medium tracking-wide text-aipify-text-muted">
+              {hero.explorePacks}
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
