@@ -17,6 +17,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function CustomerStoriesPage() {
   const { marketing } = await getMarketingContext();
   const labels = getSection<CustomerStoriesPageLabels>(marketing, "customerStoriesPage");
+  const publicPages = getSection<{ breadcrumbs?: { home?: string } }>(marketing, "publicPages");
+  const nav = getSection<Record<string, string>>(marketing, "nav");
+  const homeLabel = publicPages.breadcrumbs?.home;
+  const currentLabel = nav.customerStories;
 
   return (
     <>
@@ -24,11 +28,14 @@ export default async function CustomerStoriesPage() {
         eyebrow={labels.hero.eyebrow ?? "Customer Stories"}
         title={labels.hero.headline}
         subtitle={labels.hero.subheadline}
-        breadcrumbs={[
-          { label: "Home", href: "/" },
-          { label: "Solutions", href: "/customer-stories" },
-          { label: "Customer Stories", href: "/customer-stories" },
-        ]}
+        breadcrumbs={
+          homeLabel && currentLabel
+            ? [
+                { label: homeLabel, href: "/" },
+                { label: currentLabel },
+              ]
+            : undefined
+        }
         primaryCta={{ label: labels.hero.cta, href: "#industry-examples", analyticsId: "customer_stories_explore" }}
         secondaryCta={{
           label: labels.hero.ctaSecondary ?? "Book a Demo",

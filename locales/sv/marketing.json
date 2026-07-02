@@ -4039,164 +4039,164 @@
   "customerStoriesPage": {
     "meta": {
       "title": "Kundberättelser — hur organisationer använder Aipify",
-      "description": "Se hur team förbättrar drift, kundsupport och arbetsflöden med Aipify."
+      "description": "Illustrativa driftsarbetsflöden och verifierat pilotframsteg — resultat och styrning, inte funktionslistor. Godkända kundreferenser publiceras här när de är klara."
     },
     "hero": {
-      "eyebrow": "Customer Stories",
-      "headline": "Se hur organisationer använder Aipify.",
-      "subheadline": "Upptäck hur team använder Aipify för att förbättra drift, stödja kunder, automatisera arbetsflöden och växa.",
-      "cta": "Utforska berättelser",
-      "ctaSecondary": "Boka demo"
+      "eyebrow": "Kundberättelser",
+      "headline": "Se hur organisationer driver verksamheten med Aipify.",
+      "subheadline": "Utforska realistiska arbetsflöden inom support, drift, handel, tjänster och styrning.",
+      "cta": "Utforska exempel",
+      "ctaSecondary": "Boka en demo"
     },
     "sectionA": {
-      "title": "Industry operating examples",
-      "subtitle": "Illustrative workflows — not named customers. Each example shows how Aipify coordinates operations inside an industry context.",
-      "illustrativeLabel": "Illustrative workflows",
-      "featuredLabel": "Featured example",
-      "challengeLabel": "Challenge",
-      "solutionLabel": "Solution",
-      "outcomeLabel": "Potential outcome",
+      "title": "Branschexempel på drift",
+      "subtitle": "Illustrativa arbetsflöden — inte namngivna kunder. Varje exempel visar hur Aipify koordinerar drift i en branschkontext.",
+      "illustrativeLabel": "Illustrativa arbetsflöden",
+      "featuredLabel": "Utvalt exempel",
+      "challengeLabel": "Utmaning",
+      "solutionLabel": "Lösning",
+      "outcomeLabel": "Potentiellt utfall",
       "featured": {
-        "industry": "Hospitality",
-        "challenge": "Fragmented property, guest, and turnover coordination across channels and staff.",
-        "solution": "Aipify Hosts Business Pack with operational Companion, approvals, and occupancy visibility.",
-        "outcome": "Clearer occupancy insight, faster guest response, and less manual administration."
+        "industry": "Hotell och besöksnäring",
+        "challenge": "Fragmenterad koordinering av fastigheter, gäster och omsättning över kanaler och personal.",
+        "solution": "Aipify Hosts Business Pack med operativ Companion, godkännanden och synlighet för beläggning.",
+        "outcome": "Tydligare insikt i beläggning, snabbare gästrespons och mindre manuell administration."
       },
       "industries": [
         {
-          "industry": "Commerce",
-          "challenge": "Support and operations spread across storefront, email, and back-office tools.",
-          "solution": "Commerce Operations Business Pack with unified customer context.",
-          "outcome": "Consistent operational visibility and workflow automation with human approval."
+          "industry": "Handel",
+          "challenge": "Support och drift spridda över webbutik, e-post och backoffice-verktyg.",
+          "solution": "Commerce Operations Business Pack med samlad kundkontext.",
+          "outcome": "Konsekvent operativ synlighet och arbetsflödesautomation med mänskligt godkännande."
         },
         {
-          "industry": "Customer Support",
-          "challenge": "Inconsistent responses and knowledge gaps across agents.",
-          "solution": "Aipify Support with Business DNA, Knowledge Center, and approval gates.",
-          "outcome": "Consistent drafts, human review, and a full audit trail."
+          "industry": "Kundsupport",
+          "challenge": "Inkonsekventa svar och kunskapsluckor hos agenter.",
+          "solution": "Aipify Support med Business DNA, Knowledge Center och godkännandegrindar.",
+          "outcome": "Konsekventa utkast, mänsklig granskning och fullständigt revisionsspår."
         },
         {
-          "industry": "Property Management",
-          "challenge": "Manual tenant, maintenance, and vendor follow-through.",
-          "solution": "Operations layer with tasks, knowledge, and Companion follow-up.",
-          "outcome": "Centralized visibility and accountable execution."
+          "industry": "Fastighetsförvaltning",
+          "challenge": "Manuell uppföljning av hyresgäster, underhåll och leverantörer.",
+          "solution": "Driftslager med uppgifter, kunskap och uppföljning via Companion.",
+          "outcome": "Centraliserad synlighet och ansvarsfull genomförande."
         },
         {
-          "industry": "Professional Services",
-          "challenge": "Institutional knowledge and client context scattered across engagements.",
-          "solution": "Knowledge Center, executive briefings, and governed automations.",
-          "outcome": "Continuity across teams with explainable recommendations."
+          "industry": "Professionella tjänster",
+          "challenge": "Institutionell kunskap och kundkontext spridd över uppdrag.",
+          "solution": "Knowledge Center, ledningsbriefingar och styrda automationer.",
+          "outcome": "Kontinuitet över team med förklarbara rekommendationer."
         },
         {
-          "industry": "Consulting",
-          "challenge": "Delivery knowledge walks out the door between projects.",
-          "solution": "Organizational memory with approved learning and Companion context.",
-          "outcome": "Repeatable delivery patterns without replacing human judgment."
+          "industry": "Konsultverksamhet",
+          "challenge": "Leveranskunskap försvinner mellan projekt.",
+          "solution": "Organisationsminne med godkänd inlärning och Companion-kontext.",
+          "outcome": "Repeterbara leveransmönster utan att ersätta mänskligt omdöme."
         },
         {
-          "industry": "Education",
-          "challenge": "Administrative load pulls staff away from people.",
-          "solution": "Workflow automation with governance and role-based access.",
-          "outcome": "More time for students and staff — less repetitive coordination."
+          "industry": "Utbildning",
+          "challenge": "Administrativ belastning drar personal bort från människor.",
+          "solution": "Arbetsflödesautomation med styrning och rollbaserad åtkomst.",
+          "outcome": "Mer tid för elever och personal — mindre repetitiv koordinering."
         },
         {
-          "industry": "Healthcare Operations",
-          "challenge": "Strict governance on sensitive operational workflows.",
-          "solution": "Approvals, audit logging, and least-privilege access by default.",
-          "outcome": "Assisted operations without bypassing human control."
+          "industry": "Hälso- och sjukvårdsdrift",
+          "challenge": "Strikt styrning av känsliga operativa arbetsflöden.",
+          "solution": "Godkännanden, revisionsloggning och minsta-behörighetsåtkomst som standard.",
+          "outcome": "Assisterad drift utan att kringgå mänsklig kontroll."
         },
         {
-          "industry": "Construction & Field Ops",
-          "challenge": "Field and office teams working from disconnected updates.",
-          "solution": "Operations reporting, task coordination, and executive visibility.",
-          "outcome": "Better project accountability and fewer status gaps."
+          "industry": "Bygg och fältoperationer",
+          "challenge": "Fält- och kontorsteam arbetar utifrån frånkopplade uppdateringar.",
+          "solution": "Driftsrapportering, uppgiftssamordning och ledningssynlighet.",
+          "outcome": "Bättre projektansvar och färre statusluckor."
         }
       ]
     },
     "sectionB": {
-      "title": "Operational outcomes",
-      "subtitle": "What organizations typically pursue with Aipify — measured by clarity and control, not vanity metrics.",
+      "title": "Operativa resultat",
+      "subtitle": "Det organisationer typiskt strävar efter med Aipify — mätt i tydlighet och kontroll, inte tomma nyckeltal.",
       "items": [
         {
-          "title": "Operational efficiency",
-          "body": "Less time switching tools; more time improving how the business runs."
+          "title": "Operativ effektivitet",
+          "body": "Mindre tid på att byta verktyg; mer tid till att förbättra hur verksamheten drivs."
         },
         {
-          "title": "Customer experience",
-          "body": "Faster, consistent support with human approval on what gets sent."
+          "title": "Kundupplevelse",
+          "body": "Snabbare, konsekvent support med mänskligt godkännande av det som skickas."
         },
         {
-          "title": "Governed automation",
-          "body": "Repeatable workflows — never silent execution on sensitive actions."
+          "title": "Styrd automation",
+          "body": "Repeterbara arbetsflöden — aldrig tyst körning av känsliga åtgärder."
         },
         {
-          "title": "Knowledge continuity",
-          "body": "Organizational memory that outlasts turnover and tool changes."
+          "title": "Kunskapskontinuitet",
+          "body": "Organisationsminne som överlever personalomsättning och verktygsbyten."
         },
         {
-          "title": "Executive visibility",
-          "body": "Signal over noise in briefings, dashboards, and prepared decisions."
+          "title": "Ledningssynlighet",
+          "body": "Signal framför brus i briefingar, instrumentpaneler och förberedda beslut."
         },
         {
-          "title": "Decision support",
-          "body": "Context, recommendations, and trade-offs — humans always decide."
+          "title": "Beslutsstöd",
+          "body": "Kontext, rekommendationer och avvägningar — människor bestämmer alltid."
         }
       ]
     },
     "sectionC": {
-      "headline": "Growth Partners building with Aipify",
-      "disclaimer": "Illustrative partner profiles — no guaranteed income. Certified Growth Partners build customer portfolios through professional sales activity.",
-      "linkLabel": "Explore Growth Partners",
+      "headline": "Growth Partners som bygger med Aipify",
+      "disclaimer": "Illustrativa partnerprofiler — ingen garanterad inkomst. Certifierade Growth Partners bygger kundportföljer genom professionell försäljning.",
+      "linkLabel": "Utforska Growth Partners",
       "profiles": [
         {
-          "profile": "Independent consultant",
-          "focus": "Advises SMBs on operational readiness and Aipify adoption.",
-          "outcome": "Recurring commission on qualified customers with certification before selling."
+          "profile": "Oberoende konsult",
+          "focus": "Rådgiver SMB-företag om operativ beredskap och Aipify-adoption.",
+          "outcome": "Återkommande provision på kvalificerade kunder med certifiering före försäljning."
         },
         {
-          "profile": "Implementation agency",
-          "focus": "Deploys Aipify for clients in hospitality and commerce.",
-          "outcome": "Combines services with licensed deployments and long-term relationships."
+          "profile": "Implementeringsbyrå",
+          "focus": "Rullar ut Aipify för kunder inom hotell och handel.",
+          "outcome": "Kombinerar tjänster med licensierade utrullningar och långsiktiga relationer."
         },
         {
-          "profile": "Regional sales partner",
-          "focus": "Builds a Nordic customer base across professional services.",
-          "outcome": "Lead pipeline transparency, commission traceability, trust-first selling."
+          "profile": "Regional försäljningspartner",
+          "focus": "Bygger en nordisk kundbas inom professionella tjänster.",
+          "outcome": "Transparens i försäljningspipeline, provisionsspårbarhet och förtroendebaserad försäljning."
         }
       ]
     },
     "sectionD": {
-      "title": "Verified pilot program",
-      "subtitle": "Operational validation in live business environments — not theoretical demos.",
-      "description": "Aipify is validated in real operations under governance, audit, and human approval. The first pilot customer exercises support, knowledge, moderation, approvals, Business Packs, executive reporting, and operational monitoring.",
-      "validationLabel": "Pilot validation areas",
+      "title": "Verifierat pilotprogram",
+      "subtitle": "Operativ validering i levande affärsmiljöer — inte teoretiska demonstrationer.",
+      "description": "Aipify valideras i verklig drift under styrning, revision och mänskligt godkännande. Den första pilotkunden testar support, kunskap, moderering, godkännanden, Business Packs, ledningsrapportering och operativ övervakning.",
+      "validationLabel": "Pilotvalideringsområden",
       "highlights": [
-        "Support operations",
-        "Knowledge management",
-        "Moderation workflows",
-        "Approval workflows",
-        "Business Pack operations",
-        "Executive reporting",
-        "Styrning processes",
-        "Operational monitoring"
+        "Supportoperationer",
+        "Kunskapshantering",
+        "Modereringsarbetsflöden",
+        "Godkännandearbetsflöden",
+        "Business Pack-operationer",
+        "Ledningsrapportering",
+        "Styrningsprocesser",
+        "Operativ övervakning"
       ],
-      "cta": "Learn about the pilot program",
+      "cta": "Läs om pilotprogrammet",
       "ctaHref": "/pilot",
-      "statusLabel": "Active validation",
-      "statusNote": "Approved customer references publish when pilot milestones complete."
+      "statusLabel": "Aktiv validering",
+      "statusNote": "Godkända kundreferenser publiceras när pilotmilstolpar är slutförda."
     },
     "sectionE": {
-      "title": "Future verified customer stories",
-      "subtitle": "Named organizations, logos, and video references require explicit approval.",
-      "body": "When customers authorize public references, verified stories will appear here with full context — challenge, approach, governance, and outcomes.",
-      "emptyTitle": "Verified stories coming soon",
-      "emptyBody": "We publish only approved references. Illustrative workflows above show how Aipify operates until verified stories are ready.",
-      "notifyCta": "Join early access"
+      "title": "Framtida verifierade kundberättelser",
+      "subtitle": "Namngivna organisationer, logotyper och videoreferenser kräver uttryckligt godkännande.",
+      "body": "När kunder godkänner offentliga referenser visas verifierade berättelser här med full kontext — utmaning, angreppssätt, styrning och resultat.",
+      "emptyTitle": "Verifierade berättelser kommer snart",
+      "emptyBody": "Vi publicerar endast godkända referenser. Illustrativa arbetsflöden ovan visar hur Aipify arbetar tills verifierade berättelser är klara.",
+      "notifyCta": "Gå med i tidig åtkomst"
     },
     "sectionF": {
-      "headline": "See how Aipify could fit your organization.",
-      "subtitle": "Människor trust real outcomes more than feature lists. Start with a conversation — not pressure.",
-      "bookDemo": "Boka demo",
+      "headline": "Se hur Aipify kan passa din organisation.",
+      "subtitle": "Människor litar mer på verkliga resultat än funktionslistor. Börja med ett samtal — inte press.",
+      "bookDemo": "Boka en demo",
       "businessPacks": "Utforska Business Packs",
       "earlyAccess": "Begär tidig åtkomst"
     },
