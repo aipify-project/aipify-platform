@@ -5199,8 +5199,8 @@
         }
       },
       "knowledge-center": {
-        "name": "Knowledge Center",
-        "description": "Driftskunnskap, playbooks og institusjonelt minne.",
+        "name": "Kunnskapssenter",
+        "description": "Driftskunnskap, driftsmanualer og institusjonelt minne.",
         "headline": "Driftskunnskap organisasjonen kan stole på",
         "introduction": "Aipify Knowledge Center hjelper team å fange, godkjenne og gjenbruke driftskunnskap — playbooks, prosedyrer og institusjonelt minne — med rollebasert tilgang og full transparens.",
         "topics": {
@@ -5233,7 +5233,7 @@
         }
       },
       "trust-center": {
-        "name": "Trust Center",
+        "name": "Tillitssenter",
         "description": "Transparens, dataeierskap og styringskontroller.",
         "headline": "Tillit, transparens og dataeierskap",
         "introduction": "Kunder eier dataene sine. Aipify eier intelligenslaget. Disse ressursene forklarer hvordan privacy-by-design, metadata-først-lagring og transparente kontroller beskytter organisasjonen.",
@@ -5442,7 +5442,7 @@
       },
       "security": {
         "name": "Sikkerhet",
-        "description": "Enterprise sikkerhetsbaseline og privacy-by-design.",
+        "description": "Sikkerhetsbaseline for store organisasjoner og personvern innebygd i designen.",
         "headline": "Enterprise sikkerhetsbaseline",
         "introduction": "Sikkerhetsgjennomganger forventer synlige kontroller — autentisering, revisjon, tenant-isolasjon og ansvarlig databehandling. Disse ressursene beskriver Aipifys sikkerhetsprofil for seriøse organisasjoner.",
         "topics": {
@@ -5549,28 +5549,28 @@
     },
     "industries": {
       "hospitality": {
-        "name": "Hospitality",
-        "description": "Guest operations, property workflows, and service coordination."
+        "name": "Gjestebransjen",
+        "description": "Gjesteoperasjoner, eiendomsarbeidsflyter og tjenestekoordinering."
       },
       "property-management": {
-        "name": "Property Management",
-        "description": "Facilities, maintenance, and portfolio operations."
+        "name": "Eiendomsforvaltning",
+        "description": "Anlegg, vedlikehold og porteføljedrift."
       },
       "commerce": {
-        "name": "Commerce",
-        "description": "Orders, fulfillment visibility, and operational commerce flows."
+        "name": "Handel",
+        "description": "Ordrer, synlighet i oppfyllelse og operative handelsflyter."
       },
       "support-operations": {
-        "name": "Support Operations",
-        "description": "Customer support, triage, and service excellence."
+        "name": "Supportdrift",
+        "description": "Kundesupport, triage og servicekvalitet."
       },
       "warehouse-operations": {
-        "name": "Warehouse Operations",
-        "description": "Inventory coordination, tasks, and handoffs."
+        "name": "Lagerdrift",
+        "description": "Lagerkoordinering, oppgaver og overleveringer."
       },
       "professional-services": {
-        "name": "Professional Services",
-        "description": "Client delivery, knowledge, and executive visibility."
+        "name": "Profesjonelle tjenester",
+        "description": "Kundedrift, kunnskap og ledelsessynlighet."
       }
     },
     "searchIntents": {
@@ -5588,8 +5588,8 @@
     },
     "articles": {
       "what-is-a-business-operating-system": {
-        "title": "What is a Business Operating System?",
-        "metaDescription": "A Business Operating System coordinates knowledge, operations, governance, and intelligence — beyond chatbots and point tools.",
+        "title": "Hva er et Business Operating System?",
+        "metaDescription": "Et Business Operating System koordinerer kunnskap, drift, styring og intelligens — utover chatboter og enkeltverktøy.",
         "introduction": "Most organizations run on disconnected software: a helpdesk here, spreadsheets there, chat tools everywhere. A Business Operating System (BOS) unifies operational coordination — with human control built in.",
         "sections": [
           {
@@ -5624,8 +5624,8 @@
         }
       },
       "why-organizations-need-operational-visibility": {
-        "title": "Why organizations need operational visibility",
-        "metaDescription": "Operational visibility helps leaders and teams see what matters, what is blocked, and what to act on — without surveillance or noise.",
+        "title": "Hvorfor organisasjoner trenger operasjonell synlighet",
+        "metaDescription": "Operasjonell synlighet hjelper ledere og team å se hva som betyr noe, hva som er blokkert og hva de bør handle på — uten overvåking eller støy.",
         "introduction": "When work is scattered across inboxes, chats, and siloed dashboards, leaders spend time chasing updates instead of making decisions. Operational visibility brings signal to one governed layer.",
         "sections": [
           {
@@ -5660,8 +5660,8 @@
         }
       },
       "how-operational-knowledge-creates-competitive-advantage": {
-        "title": "How operational knowledge creates competitive advantage",
-        "metaDescription": "Organizations that capture, approve, and reuse operational knowledge respond faster and onboard teams more consistently.",
+        "title": "Hvordan operasjonell kunnskap skaper konkurransefordel",
+        "metaDescription": "Organisasjoner som fanger, godkjenner og gjenbruker operasjonell kunnskap responderer raskere og onboarder team mer konsekvent.",
         "introduction": "Knowledge trapped in inboxes and individual memory creates inconsistency. A governed Knowledge Center makes approved procedures, playbooks, and answers accessible to the right roles.",
         "sections": [
           {
@@ -5696,8 +5696,8 @@
         }
       },
       "the-future-of-business-operations": {
-        "title": "The future of business operations",
-        "metaDescription": "The next generation of operations software combines intelligence, governance, and human accountability — not uncontrolled automation.",
+        "title": "Fremtidens forretningsdrift",
+        "metaDescription": "Neste generasjon driftsprogramvare kombinerer intelligens, styring og menneskelig ansvarlighet — ikke ukontrollert automatisering.",
         "introduction": "Organizations want speed without losing control. The future belongs to platforms that prepare work, explain reasoning, and require approval for sensitive actions.",
         "sections": [
           {
@@ -5732,8 +5732,8 @@
         }
       },
       "what-is-a-business-companion": {
-        "title": "What is a business companion?",
-        "metaDescription": "Aipify Companion is executive and operational intelligence — briefings, priorities, and guidance grounded in your business context.",
+        "title": "Hva er en forretnings-Companion?",
+        "metaDescription": "Aipify Companion er ledelses- og operasjonell intelligens — briefinger, prioriteringer og veiledning forankret i forretningskonteksten deres.",
         "introduction": "Companion is how Aipify stays present for leaders and teams: calm, professional, and actionable. It is an extension of Aipify — not a separate AI product.",
         "sections": [
           {
@@ -5768,8 +5768,8 @@
         }
       },
       "companion-vs-chatbot": {
-        "title": "Companion vs chatbot",
-        "metaDescription": "Chatbots answer questions. Aipify Companion coordinates operational intelligence with governance and accountability.",
+        "title": "Companion mot chatbot",
+        "metaDescription": "Chatboter svarer på spørsmål. Aipify Companion koordinerer operasjonell intelligens med styring og ansvarlighet.",
         "introduction": "A chatbot optimizes for conversation. A Business Operating System optimizes for outcomes: support resolved, knowledge current, approvals handled, executives informed.",
         "sections": [
           {
@@ -5804,8 +5804,8 @@
         }
       },
       "companion-vs-ai-assistant": {
-        "title": "Companion vs AI assistant",
-        "metaDescription": "Generic AI assistants optimize for general conversation. Aipify Companion is built for governed business operations.",
+        "title": "Companion mot AI-assistent",
+        "metaDescription": "Generiske AI-assistenter er optimalisert for generell samtale. Aipify Companion er bygget for styrt forretningsdrift.",
         "introduction": "Enterprise buyers need explainability, audit trails, and human approval — not open-ended AI that acts without boundaries.",
         "sections": [
           {
@@ -5840,8 +5840,8 @@
         }
       },
       "how-companion-supports-organizations": {
-        "title": "How Companion supports organizations",
-        "metaDescription": "Companion helps executives and operations teams prioritize, decide, and follow through — within approved governance.",
+        "title": "Hvordan Companion støtter organisasjoner",
+        "metaDescription": "Companion hjelper ledere og driftsteam med å prioritere, beslutte og følge opp — innenfor godkjent styring.",
         "introduction": "From daily briefings to decision support, Companion reduces context switching while preserving human accountability.",
         "sections": [
           {
@@ -5876,8 +5876,8 @@
         }
       },
       "human-centered-companion-design": {
-        "title": "Human-centered Companion design",
-        "metaDescription": "Aipify Companion is designed to augment people — never to replace judgment, create pressure, or surveil employees.",
+        "title": "Menneskesentrert Companion-design",
+        "metaDescription": "Aipify Companion er designet for å styrke mennesker — aldri for å erstatte skjønn, skape press eller overvåke ansatte.",
         "introduction": "Human-centered design means calm language, transparent limits, and user control over identity, attention, and memory.",
         "sections": [
           {
@@ -5912,8 +5912,8 @@
         }
       },
       "getting-started-with-aipify": {
-        "title": "Getting started with Aipify",
-        "metaDescription": "A practical orientation for organizations evaluating the Aipify Business Operating System.",
+        "title": "Kom i gang med Aipify",
+        "metaDescription": "En praktisk orientering for organisasjoner som vurderer Aipify Business Operating System.",
         "introduction": "Aipify installs into your existing environment and learns how your organization works — reducing the need for a separate daily-login admin panel.",
         "sections": [
           {
@@ -5948,8 +5948,8 @@
         }
       },
       "governance-and-human-approval": {
-        "title": "Governance and human approval",
-        "metaDescription": "Aipify recommends. Humans decide. Every sensitive action is explainable and audited.",
+        "title": "Styring og menneskelig godkjenning",
+        "metaDescription": "Aipify anbefaler. Mennesker bestemmer. Hver sensitiv handling er forklarbar og revisjonsbar.",
         "introduction": "Governance is not a checkbox — it is how enterprises trust operational intelligence at scale.",
         "sections": [
           {
@@ -5984,8 +5984,8 @@
         }
       },
       "enterprise-knowledge-management": {
-        "title": "Enterprise knowledge management with Aipify",
-        "metaDescription": "Governed knowledge helps organizations respond consistently without storing raw private content in learning memory.",
+        "title": "Enterprise-kunnskapshåndtering med Aipify",
+        "metaDescription": "Styrt kunnskap hjelper organisasjoner å svare konsekvent uten å lagre rått privat innhold i læringsminne.",
         "introduction": "Enterprise knowledge requires role-based access, approval workflows, and gap detection — not a shared document dump.",
         "sections": [
           {
@@ -6020,8 +6020,8 @@
         }
       },
       "hospitality-operations-with-aipify": {
-        "title": "Hospitality operations with Aipify",
-        "metaDescription": "Guest operations, property workflows, and hospitality intelligence — modular and governed.",
+        "title": "Gjestebransjedrift med Aipify",
+        "metaDescription": "Gjesteoperasjoner, eiendomsarbeidsflyter og gjesteintelligens — modulært og styrt.",
         "introduction": "Hospitality organizations juggle guest communication, property tasks, and staff coordination. Aipify Hosts Business Pack brings operational visibility without replacing your PMS.",
         "sections": [
           {
@@ -6056,8 +6056,8 @@
         }
       },
       "property-management-operations-with-aipify": {
-        "title": "Property management operations with Aipify",
-        "metaDescription": "Facilities, maintenance, and portfolio operations with executive visibility.",
+        "title": "Eiendomsforvaltningsdrift med Aipify",
+        "metaDescription": "Anlegg, vedlikehold og porteføljedrift med ledelsessynlighet.",
         "introduction": "Property managers need visibility across units, vendors, and tenant requests — not another disconnected ticketing tool.",
         "sections": [
           {
@@ -6092,8 +6092,8 @@
         }
       },
       "commerce-operations-with-aipify": {
-        "title": "Commerce operations with Aipify",
-        "metaDescription": "Order visibility, fulfillment coordination, and support connected to commerce workflows.",
+        "title": "Handelsdrift med Aipify",
+        "metaDescription": "Ordresynlighet, koordinering av oppfyllelse og support koblet til handelsarbeidsflyter.",
         "introduction": "Commerce teams need operational intelligence across orders, inventory signals, and customer support — especially during peak periods.",
         "sections": [
           {
@@ -6128,8 +6128,8 @@
         }
       },
       "support-operations-with-aipify": {
-        "title": "Support operations with Aipify",
-        "metaDescription": "Triage, knowledge-backed responses, and escalation with confidence scoring.",
+        "title": "Supportdrift med Aipify",
+        "metaDescription": "Triage, kunnskapsbaserte svar og eskalering med konfidenspoeng.",
         "introduction": "Support teams drown in volume without institutional knowledge at their fingertips. Aipify Support Operations combines Business DNA with governed automation.",
         "sections": [
           {
@@ -6164,8 +6164,8 @@
         }
       },
       "warehouse-operations-with-aipify": {
-        "title": "Warehouse operations with Aipify",
-        "metaDescription": "Inventory coordination, task handoffs, and operational visibility for warehouse teams.",
+        "title": "Lagerdrift med Aipify",
+        "metaDescription": "Lagerkoordinering, oppgaveoverleveringer og operasjonell synlighet for lagerteam.",
         "introduction": "Warehouse operations depend on timely handoffs and clear priorities — not more dashboards nobody checks.",
         "sections": [
           {
@@ -6200,8 +6200,8 @@
         }
       },
       "professional-services-with-aipify": {
-        "title": "Professional services with Aipify",
-        "metaDescription": "Client delivery, knowledge reuse, and executive visibility for consulting and services firms.",
+        "title": "Profesjonelle tjenester med Aipify",
+        "metaDescription": "Kundedrift, gjenbruk av kunnskap og ledelsessynlighet for konsulent- og tjenestebedrifter.",
         "introduction": "Professional services organizations sell expertise — operational knowledge and client visibility determine margin and quality.",
         "sections": [
           {
@@ -6289,7 +6289,7 @@
       },
       "how-aipify-install-works": {
         "title": "Slik fungerer Aipify Install",
-        "metaDescription": "Lær hvordan Aipify Install kobler til nettsiden, nettbutikken eller forretningssystemene dine — med skrivebeskyttet tilgang først, veiledet oppsett og full kontroll over tillatelser.",
+        "metaDescription": "Lær hvordan Aipify Install kobler til nettstedet, butikken eller forretningssystemene deres — med skrivebeskyttet tilgang først, veiledet oppsett og full kontroll over tillatelser.",
         "introduction": "Aipify Install er hvordan organisasjonen din kobler Aipify til systemene dere allerede bruker — som nettside, nettbutikk eller eget adminpanel. Du beholder kontrollen: Aipify lærer fra godkjent tilgang, forbereder anbefalinger og omgår aldri innlogging eller godkjenningsregler.",
         "sections": [
           {
@@ -6349,7 +6349,7 @@
       },
       "customer-feedback-and-product-improvement": {
         "title": "Retningslinjer for kundetilbakemelding og produktforbedring",
-        "metaDescription": "Hvordan Aipify samler inn og bruker frivillige kundetilbakemeldinger for å forbedre produkter, arbeidsflyter og support — uten reklame eller videresalg.",
+        "metaDescription": "Hvordan Aipify samler inn og bruker frivillig kundetilbakemelding for å forbedre produkter, arbeidsflyter og support — uten reklame eller videresalg.",
         "introduction": "Det er alltid frivillig å sende tilbakemeldinger gjennom Aipify. Denne siden forklarer hvordan tilbakemeldinger brukes, hvilken informasjon som kan inkluderes, og hvordan Aipify beskytter personvernet ditt.",
         "sections": [
           {
@@ -6402,7 +6402,7 @@
     "businessPacks": {
       "hosts": {
         "name": "Aipify Hosts",
-        "metaDescription": "Guest operations and hospitality intelligence for property and accommodation businesses.",
+        "metaDescription": "Gjesteoperasjoner og gjesteintelligens for eiendoms- og overnattingsbedrifter.",
         "headline": "Aipify Hosts — hospitality operations",
         "introduction": "Coordinate guest communication, property workflows, and service excellence with governed intelligence.",
         "useCases": [
@@ -6439,7 +6439,7 @@
       },
       "support": {
         "name": "Aipify Support",
-        "metaDescription": "Customer support triage, knowledge-backed responses, and service coordination.",
+        "metaDescription": "Kundesupport-triage, kunnskapsbaserte svar og tjenestekoordinering.",
         "headline": "Support Operations — governed customer service",
         "introduction": "Help support teams respond faster with Business DNA, knowledge, and confidence-based triage.",
         "useCases": [
@@ -6476,7 +6476,7 @@
       },
       "warehouse": {
         "name": "Warehouse Operations Pack",
-        "metaDescription": "Inventory coordination, task management, and operational handoffs for warehouse teams.",
+        "metaDescription": "Lagerkoordinering, oppgavehåndtering og operative overleveringer for lagerteam.",
         "headline": "Warehouse Operations — coordinated fulfillment",
         "introduction": "Give warehouse teams shared visibility, prioritized tasks, and exception handling with audit trails.",
         "useCases": [
@@ -6508,7 +6508,7 @@
       },
       "finance": {
         "name": "Aipify Finance",
-        "metaDescription": "Operational finance visibility, reporting, and governed workflows for finance teams.",
+        "metaDescription": "Operasjonell finansiell synlighet, rapportering og styrte arbeidsflyter for finans-team.",
         "headline": "Finance Operations — visibility with control",
         "introduction": "Support finance teams with operational reporting, approval workflows, and executive visibility.",
         "useCases": [
@@ -7630,16 +7630,16 @@
       "eyebrow": "KUNNSKAPSSENTER",
       "title": "Kunnskapssenter",
       "subtitle": "Lær hvordan Aipify hjelper organisasjoner å modernisere drift — med styrt intelligens, operasjonell oversikt og menneskesentrert design.",
-      "authorityNote": "Hver artikkel er skrevet for å hjelpe deg å forstå, lære, forbedre, beslutte og stole. Vi publiserer kunnskap for mennesker først."
+      "authorityNote": "Hver artikkel er skrevet for å hjelpe deg å forstå, lære, forbedre, beslutte og stole. Vi publiserer kunnskap for mennesker først — synlighet i søk følger nytteverdi."
     },
     "search": {
-      "placeholder": "Search articles, topics, and guides…",
-      "ariaLabel": "Search Knowledge Center",
-      "noResults": "No articles match your search.",
-      "quickLinksTitle": "Popular topics",
+      "placeholder": "Søk artikler, temaer og guider…",
+      "ariaLabel": "Søk i Kunnskapssenteret",
+      "noResults": "Ingen artikler samsvarer med søket ditt.",
+      "quickLinksTitle": "Populære temaer",
       "quickLinks": {
         "1": {
-          "label": "Getting Started",
+          "label": "Kom i gang",
           "href": "/knowledge/getting-started"
         },
         "2": {
@@ -7655,11 +7655,11 @@
           "href": "/knowledge/governance"
         },
         "5": {
-          "label": "Integrations",
+          "label": "Integrasjoner",
           "href": "/knowledge/integrations"
         },
         "6": {
-          "label": "Security",
+          "label": "Sikkerhet",
           "href": "/knowledge/security"
         }
       }
@@ -7681,11 +7681,11 @@
       "items": {
         "business-operating-system": {
           "title": "Business Operating System",
-          "description": "Category definition, operational visibility, and platform strategy for serious organizations."
+          "description": "Kategoridefinisjon, operasjonell oversikt og plattformstrategi for seriøse organisasjoner."
         },
         "companion": {
           "title": "Companion",
-          "description": "How Aipify's Companion supports leaders and teams — governed intelligence, not a chatbot."
+          "description": "Hvordan Aipifys Companion støtter ledere og team — styrt intelligens, ikke en chatbot."
         }
       }
     },
@@ -7701,90 +7701,90 @@
     },
     "businessPacks": {
       "title": "Business Packs",
-      "subtitle": "Modular capabilities for specific operational domains.",
-      "explorePack": "Explore this Business Pack"
+      "subtitle": "Modulære kapabiliteter for spesifikke driftsområder.",
+      "explorePack": "Utforsk denne Business Pack"
     },
     "filterBar": {
-      "categoryLabel": "Category",
-      "typeLabel": "Content type",
-      "sortLabel": "Sort",
-      "allCategories": "All categories",
-      "allTypes": "All types",
-      "sortTitleAsc": "Title A–Z",
-      "sortTitleDesc": "Title Z–A",
-      "resultsCount": "{count} articles",
-      "openFilters": "Filters",
-      "closeFilters": "Close filters",
+      "categoryLabel": "Kategori",
+      "typeLabel": "Innholdstype",
+      "sortLabel": "Sorter",
+      "allCategories": "Alle kategorier",
+      "allTypes": "Alle typer",
+      "sortTitleAsc": "Tittel A–Å",
+      "sortTitleDesc": "Tittel Å–A",
+      "resultsCount": "{count} artikler",
+      "openFilters": "Filtre",
+      "closeFilters": "Lukk filtre",
       "types": {
-        "hub": "Hub articles",
-        "industry": "Industry guides",
-        "article": "General articles"
+        "hub": "Hub-artikler",
+        "industry": "Bransjeguider",
+        "article": "Generelle artikler"
       }
     },
     "articleListing": {
-      "featured": "Featured",
-      "gettingStarted": "Getting started",
-      "latest": "More guides",
-      "all": "All articles",
-      "readArticle": "Read article",
-      "empty": "No articles match your filters."
+      "featured": "Utvalgt",
+      "gettingStarted": "Kom i gang",
+      "latest": "Flere guider",
+      "all": "Alle artikler",
+      "readArticle": "Les artikkel",
+      "empty": "Ingen artikler samsvarer med filtrene dine."
     },
     "journey": {
-      "title": "Your knowledge journey",
+      "title": "Din kunnskapsreise",
       "steps": {
         "1": {
-          "title": "Understand the platform",
-          "description": "Learn what a Business Operating System means for your organization."
+          "title": "Forstå plattformen",
+          "description": "Lær hva et Business Operating System betyr for organisasjonen din."
         },
         "2": {
-          "title": "Explore Companion",
-          "description": "See how Aipify supports leaders and teams with governed intelligence."
+          "title": "Utforsk Companion",
+          "description": "Se hvordan Aipify støtter ledere og team med styrt intelligens."
         },
         "3": {
-          "title": "Review your industry",
-          "description": "Find operational guides relevant to your sector and workflows."
+          "title": "Gjennomgå bransjen din",
+          "description": "Finn operative guider som er relevante for sektor og arbeidsflyter."
         },
         "4": {
-          "title": "Take the next step",
-          "description": "Book a demo or explore Business Packs when you are ready."
+          "title": "Ta neste steg",
+          "description": "Book en demo eller utforsk Business Packs når du er klar."
         }
       }
     },
     "trust": {
-      "title": "Built for trust and clarity",
-      "subtitle": "Knowledge that helps you decide — not marketing noise.",
+      "title": "Bygget for tillit og klarhet",
+      "subtitle": "Kunnskap som hjelper deg å beslutte — ikke markedsstøy.",
       "principles": {
         "1": {
-          "title": "Mennesker first",
-          "description": "Every article explains how humans stay in control of decisions and approvals."
+          "title": "Mennesker først",
+          "description": "Hver artikkel forklarer hvordan mennesker beholder kontroll over beslutninger og godkjenninger."
         },
         "2": {
-          "title": "Governed by design",
-          "description": "Policies, audit trails, and transparency are part of the platform — not add-ons."
+          "title": "Styrt by design",
+          "description": "Policyer, revisjonsspor og transparens er en del av plattformen — ikke tillegg."
         },
         "3": {
-          "title": "Useful before searchable",
-          "description": "We publish knowledge to help you understand and decide — not to chase keywords."
+          "title": "Nyttig før søkbart",
+          "description": "Vi publiserer kunnskap for å hjelpe deg å forstå og beslutte — ikke for å jage nøkkelord."
         },
         "4": {
-          "title": "Honest scope",
-          "description": "We describe what Aipify does today and what requires your organization's approval."
+          "title": "Ærlig scope",
+          "description": "Vi beskriver hva Aipify gjør i dag og hva som krever organisasjonens godkjenning."
         }
       }
     },
     "cta": {
-      "title": "Ready to explore Aipify?",
-      "subtitle": "See how governed operational intelligence works in practice.",
-      "bookDemo": "Book demo",
+      "title": "Klar til å utforske Aipify?",
+      "subtitle": "Se hvordan styrt operasjonell intelligens fungerer i praksis.",
+      "bookDemo": "Book en demo",
       "explorePacks": "Utforsk Business Packs",
-      "earlyAccess": "Request early access"
+      "earlyAccess": "Be om tidlig tilgang"
     },
     "nested": {
       "backToKnowledge": "Back to Knowledge Center",
       "breadcrumbHome": "Hjem",
       "breadcrumbKnowledge": "Knowledge Center"
     },
-    "localesNote": "Tilgjengelig in English, Norwegian, Swedish, and Danish. German, Spanish, French, and Polish planned.",
+    "localesNote": "Tilgjengelig på engelsk, norsk, svensk og dansk. Tysk, spansk, fransk og polsk er planlagt.",
     "hub": {
       "eyebrow": "KUNNSKAPSSENTER",
       "title": "Lær hvordan Aipify moderniserer drift",
