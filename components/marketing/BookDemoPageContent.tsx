@@ -12,6 +12,7 @@ type FaqItem = { question: string; answer: string };
 export type BookDemoPageLabels = {
   meta: { title: string; description: string };
   hero: {
+    eyebrow: string;
     headline: string;
     subheadline: string;
     supporting: string;
@@ -28,12 +29,14 @@ export type BookDemoPageLabels = {
     languages: string;
     contact: string;
     email: string;
+    availabilityStatuses: Record<string, string>;
   };
   enterpriseReadiness: { headline: string; cards: Card[] };
   deploymentModels: { title: string; cards: Card[] };
   faq: { title: string; items: FaqItem[] };
   companion: { headline: string; copy: string };
   finalPrinciple: string;
+  footerCompanyLine: string;
   breadcrumbs?: { home: string; bookDemo: string };
 };
 
@@ -68,13 +71,14 @@ export default function BookDemoPageContent({ labels, advisor, verificationLabel
     faq,
     companion,
     finalPrinciple,
+    footerCompanyLine,
     breadcrumbs,
   } = labels;
 
   return (
     <>
       <PublicPageHero
-        eyebrow="Aipify Business Operating System"
+        eyebrow={hero.eyebrow}
         title={hero.headline}
         subtitle={hero.subheadline}
         breadcrumbs={
@@ -183,7 +187,7 @@ export default function BookDemoPageContent({ labels, advisor, verificationLabel
         <p className="mx-auto max-w-2xl px-4 text-center text-sm leading-relaxed text-aipify-text-muted">
           {finalPrinciple}
         </p>
-        <p className="mt-4 text-center text-xs text-aipify-text-muted">Aipify Group AS · Bergen. Norway. For the world.</p>
+        <p className="mt-4 text-center text-xs text-aipify-text-muted">{footerCompanyLine}</p>
       </section>
     </>
   );

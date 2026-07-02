@@ -9,12 +9,22 @@ type AdvisorLabels = {
   languages: string;
   contact: string;
   email: string;
+  availabilityStatuses: Record<string, string>;
 };
 
 type Props = {
   advisor: BookDemoAdvisor | null;
   labels: AdvisorLabels;
 };
+
+function formatAvailabilityStatus(status: string, statuses: Record<string, string>): string {
+  const key = status.trim().toLowerCase();
+  if (statuses[key]) return statuses[key];
+  return status
+    .trim()
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
 
 export function DemoAdvisorCard({ advisor, labels }: Props) {
   if (!advisor) return null;
@@ -25,6 +35,10 @@ export function DemoAdvisorCard({ advisor, labels }: Props) {
     .join("")
     .slice(0, 2)
     .toUpperCase();
+
+  const availabilityDisplay =
+    advisor.availabilityNote ||
+    formatAvailabilityStatus(advisor.availabilityStatus, labels.availabilityStatuses);
 
   return (
     <div className={`${PublicMarketingClasses.card} shadow-md`}>
@@ -45,7 +59,7 @@ export function DemoAdvisorCard({ advisor, labels }: Props) {
       <dl className="mt-6 space-y-3 text-sm">
         <div>
           <dt className="text-aipify-text-secondary">{labels.availability}</dt>
-          <dd className="text-aipify-text">{advisor.availabilityNote || advisor.availabilityStatus.replace(/_/g, " ")}</dd>
+          <dd className="text-aipify-text">{availabilityDisplay}</dd>
         </div>
         <div>
           <dt className="text-aipify-text-secondary">{labels.languages}</dt>

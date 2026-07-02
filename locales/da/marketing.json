@@ -4472,80 +4472,81 @@
       "description": "Planlæg en personlig demonstration. En samtale — ikke et lead-skema."
     },
     "hero": {
+      "eyebrow": "Aipifys forretningsoperativsystem",
       "headline": "Se Aipify i praksis.",
-      "subheadline": "Schedule a personalized demonstration and discover how Aipify can support your organization.",
-      "supporting": "We will walk through your goals, challenges, workflows, and opportunities.",
+      "subheadline": "Planlæg en personlig demonstration og opdag, hvordan Aipify kan støtte jeres organisation.",
+      "supporting": "Vi gennemgår jeres mål, udfordringer, arbejdsgange og muligheder.",
       "cta": "Planlæg min demo"
     },
     "whatToExpect": {
-      "title": "What to expect",
+      "title": "Det kan du forvente",
       "steps": [
         {
-          "title": "Discovery Conversation",
-          "body": "We learn about your organization, priorities, and operational context."
+          "title": "Opdagelsessamtale",
+          "body": "Vi lærer om jeres organisation, prioriteringer og operationel kontekst."
         },
         {
-          "title": "Platform Demonstration",
-          "body": "See relevant Aipify capabilities aligned to your challenges — not a generic tour."
+          "title": "Platformsdemonstration",
+          "body": "Se relevante Aipify-funktioner tilpasset jeres udfordringer — ikke en generisk rundvisning."
         },
         {
-          "title": "Business Pack Review",
-          "body": "Explore industry-specific solutions that fit your operating model."
+          "title": "Gennemgang af Business Pack",
+          "body": "Udforsk branchespecifikke løsninger, der passer til jeres driftsmodel."
         },
         {
-          "title": "Implementation Discussion",
-          "body": "Review deployment options, governance, and sensible next steps."
+          "title": "Implementeringsdiskussion",
+          "body": "Gennemgå udrulningsmuligheder, styring og fornuftige næste skridt."
         }
       ]
     },
     "whoShouldBook": {
-      "title": "Who should book?",
+      "title": "Hvem bør booke?",
       "cards": [
         {
-          "title": "Business Owners",
-          "body": "Evaluate Aipify as a long-term operating platform for your organization."
+          "title": "Virksomhedsejere",
+          "body": "Evaluer Aipify som en langsigtet driftsplatform for jeres organisation."
         },
         {
-          "title": "Operations Leaders",
-          "body": "See how workflows, approvals, and visibility come together."
+          "title": "Driftsledere",
+          "body": "Se, hvordan arbejdsgange, godkendelser og overblik hænger sammen."
         },
         {
-          "title": "Customer Support Leaders",
-          "body": "Explore support operations with human control and knowledge."
+          "title": "Ledere for kundesupport",
+          "body": "Udforsk supportdrift med menneskelig kontrol og viden."
         },
         {
-          "title": "Department Managers",
-          "body": "Understand how Aipify supports your team without replacing them."
+          "title": "Afdelingsledere",
+          "body": "Forstå, hvordan Aipify støtter jeres team uden at erstatte dem."
         },
         {
-          "title": "Executive Teams",
-          "body": "Review governance, security, and executive visibility."
+          "title": "Ledergrupper",
+          "body": "Gennemgå styring, sikkerhed og ledelsesoverblik."
         },
         {
-          "title": "Growth-Focused Organizations",
-          "body": "Plan a scalable path from foundation to Business Packs."
+          "title": "Vækstorienterede organisationer",
+          "body": "Planlæg en skalerbar vej fra fundament til Business Packs."
         }
       ]
     },
     "form": {
-      "title": "Schedule Your Demo",
-      "firstName": "First Name",
-      "lastName": "Last Name",
-      "companyName": "Company Name",
-      "jobTitle": "Job Title",
-      "businessEmail": "Business Email",
-      "phone": "Phone",
-      "country": "Country",
-      "companySize": "Company Size",
-      "industry": "Industry",
-      "currentChallenge": "Current Challenge",
-      "additionalNotes": "Additional Notes",
-      "meetingTypeTitle": "Preferred Meeting Type",
+      "title": "Planlæg din demo",
+      "firstName": "Fornavn",
+      "lastName": "Efternavn",
+      "companyName": "Firmanavn",
+      "jobTitle": "Stillingstitel",
+      "businessEmail": "Arbejds-e-mail",
+      "phone": "Telefon",
+      "country": "Land",
+      "companySize": "Virksomhedsstørrelse",
+      "industry": "Branche",
+      "currentChallenge": "Nuværende udfordring",
+      "additionalNotes": "Yderligere bemærkninger",
+      "meetingTypeTitle": "Foretrukket mødetype",
       "submit": "Anmod demo",
-      "submitting": "Starting your conversation…",
+      "submitting": "Starter samtalen …",
       "successTitle": "Tak — opdagelsessamtalen er i gang.",
-      "successBody": "A member of the Aipify team will confirm your meeting shortly. Pipeline stage: Discovery Scheduled.",
-      "error": "Something went wrong. Please try again or contact us directly.",
+      "successBody": "Et medlem af Aipify-teamet bekræfter dit møde snart. Pipeline-trin: Opdagelse planlagt.",
+      "error": "Noget gik galt. Prøv igen eller kontakt os direkte.",
       "companySizes": {
         "1-10": "1–10",
         "11-50": "11–50",
@@ -4554,121 +4555,127 @@
         "1000+": "1000+"
       },
       "industries": {
-        "hospitality": "Hospitality",
-        "commerce": "Commerce",
-        "support": "Support",
-        "property_management": "Property Management",
-        "professional_services": "Professional Services",
-        "healthcare": "Healthcare",
-        "education": "Education",
-        "construction": "Construction",
-        "manufacturing": "Manufacturing",
-        "technology": "Technology",
-        "other": "Other"
+        "hospitality": "Hotel og gæstfrihed",
+        "commerce": "Handel",
+        "support": "Kundesupport",
+        "property_management": "Ejendomsadministration",
+        "professional_services": "Professionelle ydelser",
+        "healthcare": "Sundhedsvæsen",
+        "education": "Uddannelse",
+        "construction": "Byggeri",
+        "manufacturing": "Produktion",
+        "technology": "Teknologi",
+        "other": "Andet"
       },
       "challenges": {
-        "operational_visibility": "Operational Visibility",
-        "support_efficiency": "Support Efficiency",
-        "knowledge_management": "Knowledge Management",
-        "automation": "Automation",
-        "reporting": "Reporting",
-        "governance": "Governance",
-        "business_growth": "Business Growth",
-        "other": "Other"
+        "operational_visibility": "Operationel synlighed",
+        "support_efficiency": "Supporteffektivitet",
+        "knowledge_management": "Vidensstyring",
+        "automation": "Automatisering",
+        "reporting": "Rapportering",
+        "governance": "Styring",
+        "business_growth": "Forretningsvækst",
+        "other": "Andet"
       },
       "meetingTypes": {
-        "video": "Video Meeting",
-        "phone": "Phone Call",
-        "in_person": "In-Person Discussion",
-        "no_preference": "No Preference"
+        "video": "Videomøde",
+        "phone": "Telefonopkald",
+        "in_person": "Personligt møde",
+        "no_preference": "Ingen præference"
       },
-      "integrationsNote": "Future integrations: Google Meet, Microsoft Teams, and Zoom."
+      "integrationsNote": "Fremtidige integrationer: Google Meet, Microsoft Teams og Zoom."
     },
     "advisor": {
-      "title": "Meet the team",
-      "photoPlaceholder": "Advisor photo",
-      "role": "Discovery Advisor",
-      "availability": "Availability",
-      "languages": "Languages",
-      "contact": "Contact",
-      "email": "Email"
+      "title": "Mød teamet",
+      "photoPlaceholder": "Rådgiverbillede",
+      "role": "Opdagelsesrådgiver",
+      "availability": "Tilgængelighed",
+      "languages": "Sprog",
+      "contact": "Kontakt",
+      "email": "E-mail",
+      "availabilityStatuses": {
+        "available": "Tilgængelig",
+        "limited": "Begrænset tilgængelighed",
+        "unavailable": "Ikke tilgængelig"
+      }
     },
     "enterpriseReadiness": {
-      "headline": "Built for organizations of all sizes.",
+      "headline": "Bygget til organisationer i alle størrelser.",
       "cards": [
         {
-          "title": "Startups",
-          "body": "Start with foundation — grow without migrating platforms."
+          "title": "Opstartsvirksomheder",
+          "body": "Start med fundament — væk uden at migrere platform."
         },
         {
-          "title": "Growing Teams",
-          "body": "Operations and approvals as headcount scales."
+          "title": "Voksende teams",
+          "body": "Drift og godkendelser i takt med voksende bemanding."
         },
         {
-          "title": "Mid-Market",
-          "body": "Business Packs, governance, and cross-team visibility."
+          "title": "Mellemstore virksomheder",
+          "body": "Business Packs, styring og overblik på tværs af teams."
         },
         {
           "title": "Enterprise",
-          "body": "SSO, audit, hybrid deployment, and dedicated success."
+          "body": "SSO, revision, hybrid udrulning og dedikeret opfølgning."
         },
         {
-          "title": "Government",
-          "body": "Governance-first deployment with human control."
+          "title": "Offentlig sektor",
+          "body": "Styringsfokuseret udrulning med menneskelig kontrol."
         }
       ]
     },
     "deploymentModels": {
-      "title": "Deployment models",
+      "title": "Udrulningsmodeller",
       "cards": [
         {
-          "title": "Cloud",
-          "body": "Standard Aipify cloud deployment with enterprise controls."
+          "title": "Sky",
+          "body": "Standard Aipify-skyudrulning med enterprise-kontroller."
         },
         {
           "title": "Hybrid",
-          "body": "Combine cloud intelligence with on-site requirements."
+          "body": "Kombiner skybaseret intelligens med lokale krav."
         },
         {
-          "title": "On-Premise",
-          "body": "Options for strict data residency and regulated environments."
+          "title": "On-premises",
+          "body": "Muligheder for streng datalokalitet og regulerede miljøer."
         },
         {
           "title": "Enterprise Managed",
-          "body": "Dedicated rollout with success manager oversight."
+          "body": "Dedikeret udrulning med opfølgning fra success manager."
         }
       ]
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "title": "Ofte stillede spørgsmål",
       "items": [
         {
-          "question": "How long is the demo?",
-          "answer": "Typically 45–60 minutes — tailored to your priorities, not a fixed script."
+          "question": "Hvor lang er demoen?",
+          "answer": "Typisk 45–60 minutter — tilpasset jeres prioriteringer, ikke et fast manuskript."
         },
         {
-          "question": "Do I need technical knowledge?",
-          "answer": "No. We focus on operational outcomes. Technical stakeholders are welcome to join."
+          "question": "Har jeg brug for teknisk viden?",
+          "answer": "Nej. Vi fokuserer på operationelle resultater. Tekniske interessenter er velkomne til at deltage."
         },
         {
-          "question": "Can I invite colleagues?",
-          "answer": "Yes. We encourage the right decision-makers and day-to-day operators to attend."
+          "question": "Kan jeg invitere kolleger?",
+          "answer": "Ja. Vi opfordrer de rette beslutningstagere og daglige operatører til at deltage."
         },
         {
-          "question": "Can we discuss custom Business Packs?",
-          "answer": "Yes. We review industry packs and discuss fit for your organization."
+          "question": "Kan vi diskutere tilpassede Business Packs?",
+          "answer": "Ja. Vi gennemgår branchepakker og diskuterer pasform for jeres organisation."
         },
         {
-          "question": "Can Aipify integrate with our systems?",
-          "answer": "We discuss install-first integration during implementation planning — read-only first, expand with approval."
+          "question": "Kan Aipify integreres med vores systemer?",
+          "answer": "Vi diskuterer install-first-integration under implementeringsplanlægning — kun læseadgang først, udvidelse med godkendelse."
         }
       ]
     },
     "companion": {
-      "headline": "Meet Aipify Companion",
-      "copy": "During your demonstration you will see how Companion helps organizations remember, coordinate, follow up, and operate more effectively — with human control at every sensitive step."
+      "headline": "Mød Aipify Companion",
+      "copy": "Under jeres demonstration ser I, hvordan Companion hjælper organisationer med at huske, koordinere, følge op og drive mere effektivt — med menneskelig kontrol ved hvert følsomt trin."
     },
-    "finalPrinciple": "Målet er ikke at indsamle leads. Målet er at begynde relationer."
+    "finalPrinciple": "Målet er ikke at indsamle leads. Målet er at begynde relationer — forstået, før de nogensinde bliver kunder.",
+    "footerCompanyLine": "Aipify Group AS · Bergen. Norway. For the world."
   },
   "getStartedPage": {
     "meta": {

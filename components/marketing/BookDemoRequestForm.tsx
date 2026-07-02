@@ -109,10 +109,12 @@ export default function BookDemoRequestForm({ labels, verificationLabels, varian
     ? `mt-1.5 w-full ${AipifyShellClasses.input} px-4 py-3 text-sm`
     : "mt-1.5 w-full rounded-xl border border-aipify-border bg-white/5 px-4 py-3 text-sm text-white placeholder:text-aipify-text-muted focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/30";
   const titleClass = isLight ? "text-xl font-semibold text-aipify-text" : "text-xl font-semibold text-white";
-  const fieldsetClass = isLight
+  const meetingTypePanelClass = isLight
     ? "rounded-xl border border-aipify-border bg-aipify-surface-muted/60 p-5"
     : "rounded-xl border border-aipify-border bg-white/[0.02] p-5";
-  const legendClass = isLight ? "px-1 text-sm font-semibold text-aipify-text" : "px-1 text-sm font-semibold text-white";
+  const meetingTypeHeadingClass = isLight
+    ? "text-sm font-semibold text-aipify-text"
+    : "text-sm font-semibold text-white";
   const radioLabelClass = isLight
     ? "flex cursor-pointer items-center gap-3 rounded-lg border border-aipify-border px-4 py-3 text-sm text-aipify-text-secondary hover:bg-aipify-surface-muted"
     : "flex cursor-pointer items-center gap-3 rounded-lg border border-aipify-border px-4 py-3 text-sm text-aipify-text-secondary hover:bg-white/5";
@@ -228,8 +230,10 @@ export default function BookDemoRequestForm({ labels, verificationLabels, varian
         <textarea id="bd-notes" name="additional_notes" rows={4} className={inputClass} />
       </div>
 
-      <fieldset className={fieldsetClass}>
-        <legend className={legendClass}>{labels.meetingTypeTitle}</legend>
+      <div className={meetingTypePanelClass} role="group" aria-labelledby="bd-meeting-type-heading">
+        <h4 id="bd-meeting-type-heading" className={meetingTypeHeadingClass}>
+          {labels.meetingTypeTitle}
+        </h4>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           {BOOK_DEMO_MEETING_TYPES.map((key) => (
             <label key={key} className={radioLabelClass}>
@@ -245,7 +249,7 @@ export default function BookDemoRequestForm({ labels, verificationLabels, varian
           ))}
         </div>
         <p className="mt-4 text-xs text-aipify-text-muted">{labels.integrationsNote}</p>
-      </fieldset>
+      </div>
 
       <AipifyHumanVerification
         labels={verificationLabels}

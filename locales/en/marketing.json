@@ -4110,6 +4110,7 @@
       "description": "Schedule a personalized demonstration. We learn your goals, show relevant capabilities, and discuss implementation — a conversation, not a lead form."
     },
     "hero": {
+      "eyebrow": "Aipify Business Operating System",
       "headline": "See Aipify in action.",
       "subheadline": "Schedule a personalized demonstration and discover how Aipify can support your organization.",
       "supporting": "We will walk through your goals, challenges, workflows, and opportunities.",
@@ -4229,7 +4230,12 @@
       "availability": "Availability",
       "languages": "Languages",
       "contact": "Contact",
-      "email": "Email"
+      "email": "Email",
+      "availabilityStatuses": {
+        "available": "Available",
+        "limited": "Limited availability",
+        "unavailable": "Unavailable"
+      }
     },
     "enterpriseReadiness": {
       "headline": "Built for organizations of all sizes.",
@@ -4306,7 +4312,8 @@
       "headline": "Meet Aipify Companion",
       "copy": "During your demonstration you will see how Companion helps organizations remember, coordinate, follow up, and operate more effectively — with human control at every sensitive step."
     },
-    "finalPrinciple": "The goal is not to collect leads. The goal is to begin relationships — understood before they ever become customers."
+    "finalPrinciple": "The goal is not to collect leads. The goal is to begin relationships — understood before they ever become customers.",
+    "footerCompanyLine": "Aipify Group AS · Bergen. Norway. For the world."
   },
   "getStartedPage": {
     "meta": {
