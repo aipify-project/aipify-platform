@@ -2369,28 +2369,28 @@
       }
     },
     "coordination": {
-      "title": "One coordinated layer across people, Aipify, and your systems.",
-      "subtitle": "Aipify does not replace your admin, store, or custom environment — it coordinates work above them with governance built in.",
+      "title": "Ét koordineret lag på tværs af mennesker, Aipify og jeres systemer.",
+      "subtitle": "Aipify erstatter ikke jeres admin, butik eller tilpassede miljø — det koordinerer arbejde over dem med indbygget styring.",
       "peopleTitle": "Mennesker",
       "people": {
-        "1": "Owners & executives",
-        "2": "Operations & support teams",
-        "3": "Staff with role-scoped access"
+        "1": "Ejere og ledelse",
+        "2": "Drifts- og supportteams",
+        "3": "Medarbejdere med rollebaseret adgang"
       },
       "aipifyTitle": "Aipify Business Operating System",
       "aipifyModules": {
-        "1": "Command Brief",
+        "1": "Kommandooversigt",
         "2": "Companion",
-        "3": "Operational engines",
+        "3": "Operationelle motorer",
         "4": "Business Packs",
-        "5": "Styring & audit"
+        "5": "Styring og revision"
       },
-      "systemsTitle": "Existing systems",
+      "systemsTitle": "Eksisterende systemer",
       "systems": {
         "1": "WordPress / Shopify admin",
-        "2": "Email & chat channels",
-        "3": "CRM & finance tools",
-        "4": "Custom APIs & databases"
+        "2": "E-mail- og chatkanaler",
+        "3": "CRM- og finansværktøjer",
+        "4": "Tilpassede API'er og databaser"
       }
     },
     "companion": {
