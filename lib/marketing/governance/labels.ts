@@ -1,4 +1,5 @@
 import type { MarketingDictionary } from "@/lib/marketing/get-marketing-context";
+import { COMPANY_CONFIG } from "@/lib/company/company.config";
 import { recordValues } from "@/lib/marketing/parse-marketing";
 import { buildMarketingSearchIndex } from "./search-index";
 
@@ -153,6 +154,7 @@ export function parseFooterGovernanceLabels(marketing: MarketingDictionary) {
     enterprise: footer.enterprise ?? "Enterprise",
     growthPartners: footer.growthPartners ?? "Growth Partners",
     knowledge: footer.knowledge ?? "Knowledge",
+    resources: footer.resources ?? "Resources",
     security: footer.security ?? "Security",
     privacy: footer.privacy ?? "Privacy",
     terms: footer.terms ?? "Terms",
@@ -164,6 +166,9 @@ export function parseFooterGovernanceLabels(marketing: MarketingDictionary) {
     legal: footer.legal ?? "Legal",
     growthPartnerTerms: footer.growthPartnerTerms ?? "Growth Partner Terms",
     companyName: footer.companyName ?? "Aipify Group AS",
+    organizationNumberLabel: footer.organizationNumberLabel ?? "Org. no.",
+    organizationNumberDisplay:
+      footer.organizationNumberDisplay ?? COMPANY_CONFIG.organizationNumberDisplay,
     headquarters: footer.headquarters ?? "Bergen, Norway",
     businessOperatingSystem: footer.businessOperatingSystem ?? "Business Operating System",
     tagline: footer.tagline ?? "",

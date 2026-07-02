@@ -48,6 +48,11 @@ export function injectCompanyIntoMarketing(dict: Dictionary): Dictionary {
   const marketing = { ...(dict as Dictionary) };
 
   setNested(marketing, ["footer", "companyName"], COMPANY_CONFIG.legalCompanyName);
+  setNested(
+    marketing,
+    ["footer", "organizationNumberDisplay"],
+    COMPANY_CONFIG.organizationNumberDisplay,
+  );
   setNested(marketing, ["footer", "headquarters"], formatHeadquartersLine());
   setNested(marketing, ["footer", "description"], COMPANY_CONFIG.brandStatement);
   setNested(marketing, ["footer", "signature"], COMPANY_CONFIG.corporateSignature);

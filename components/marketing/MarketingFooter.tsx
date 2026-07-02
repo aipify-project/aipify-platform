@@ -53,6 +53,9 @@ export default function MarketingFooter({ appName, marketing, locale }: Marketin
             </Link>
             <div className="mt-5 space-y-1 text-sm">
               <p className="font-semibold text-aipify-text">{labels.companyName}</p>
+              <p className="text-aipify-text-secondary">
+                {labels.organizationNumberLabel} {labels.organizationNumberDisplay}
+              </p>
               <p className="text-aipify-text-secondary">{labels.headquarters}</p>
               <p className="text-aipify-text-muted">{labels.businessOperatingSystem}</p>
             </div>
@@ -88,7 +91,7 @@ export default function MarketingFooter({ appName, marketing, locale }: Marketin
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold text-aipify-text">{labels.knowledge}</h3>
+              <h3 className="text-sm font-semibold text-aipify-text">{labels.resources}</h3>
               <ul className="mt-4 space-y-2.5">
                 {resourceLinks.map((link) => (
                   <li key={link.href}>

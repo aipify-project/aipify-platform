@@ -61,6 +61,7 @@
   "footer": {
     "tagline": "Aipify Business Operating System (ABOS) — operational intelligence with human control built in.",
     "companyName": "Aipify Group AS",
+    "organizationNumberLabel": "Org. no.",
     "headquarters": "Bergen, Norway",
     "businessOperatingSystem": "Business Operating System",
     "description": "Building intelligent business systems — a complete Business Operating System with governance, operational depth, and human control.",
@@ -82,6 +83,7 @@
     "terms": "Terms",
     "security": "Security",
     "knowledge": "Knowledge",
+    "resources": "Resources",
     "growthPartnerTerms": "Growth Partner Terms",
     "contact": "Contact",
     "earlyAccess": "Early Access",
