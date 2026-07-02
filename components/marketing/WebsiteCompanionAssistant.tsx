@@ -38,9 +38,11 @@ import {
   getWebsiteCompanionWindowResetLayout,
   getWebsiteCompanionWindowResetLabel,
   getWebsiteCompanionWindowRestoreAriaLabel,
+  getWebsiteCompanionWindowViewportOffset,
   isWebsiteCompanionDesktopViewport,
   isWebsiteCompanionLocalStorageAvailable,
   isWebsiteCompanionPointerEventsSupported,
+  readWebsiteCompanionViewport,
   readWebsiteCompanionWindowLayoutState,
   reconcileWebsiteCompanionWindowLayoutState,
   shouldAllowWebsiteCompanionWindowDrag,
@@ -202,6 +204,10 @@ export default function WebsiteCompanionAssistant({
   } | null>(null);
 
   const [viewport, setViewport] = useState<CompanionViewport>({ width: 1280, height: 900 });
+  const [viewportOffset, setViewportOffset] = useState<Pick<CompanionWindowGeometry, "x" | "y">>({
+    x: 0,
+    y: 0,
+  });
   const [pointerEventsSupported, setPointerEventsSupported] = useState(true);
   const [storageAvailable, setStorageAvailable] = useState(true);
   const [windowLayout, setWindowLayout] = useState<CompanionWindowLayoutState | null>(null);
@@ -239,11 +245,9 @@ export default function WebsiteCompanionAssistant({
 
   useEffect(() => {
     const syncViewport = () => {
-      const nextViewport = {
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
+      const nextViewport = readWebsiteCompanionViewport(window);
       setViewport(nextViewport);
+      setViewportOffset(getWebsiteCompanionWindowViewportOffset(window));
       setWindowLayout((current) => {
         if (!current || !isWebsiteCompanionDesktopViewport(nextViewport.width)) {
           return current;
@@ -254,7 +258,13 @@ export default function WebsiteCompanionAssistant({
 
     syncViewport();
     window.addEventListener("resize", syncViewport);
-    return () => window.removeEventListener("resize", syncViewport);
+    window.visualViewport?.addEventListener("resize", syncViewport);
+    window.visualViewport?.addEventListener("scroll", syncViewport);
+    return () => {
+      window.removeEventListener("resize", syncViewport);
+      window.visualViewport?.removeEventListener("resize", syncViewport);
+      window.visualViewport?.removeEventListener("scroll", syncViewport);
+    };
   }, []);
 
   useEffect(() => {
@@ -837,8 +847,8 @@ export default function WebsiteCompanionAssistant({
         <div
           className="fixed z-40 flex flex-col overflow-hidden rounded-2xl border border-aipify-border bg-aipify-surface shadow-lg"
           style={{
-            left: displayedWindowGeometry.x,
-            top: displayedWindowGeometry.y,
+            left: displayedWindowGeometry.x + viewportOffset.x,
+            top: displayedWindowGeometry.y + viewportOffset.y,
             width: displayedWindowGeometry.width,
             height: displayedWindowGeometry.height,
           }}

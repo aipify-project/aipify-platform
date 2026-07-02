@@ -105,6 +105,57 @@ export function getWebsiteCompanionWindowRestoreAriaLabel(locale: string): strin
   return lookupLocaleLabel(RESTORE_ARIA_LABELS, locale);
 }
 
+export function readWebsiteCompanionViewport(windowLike: {
+  innerWidth: number;
+  innerHeight: number;
+  visualViewport?: {
+    width: number;
+    height: number;
+    offsetLeft: number;
+    offsetTop: number;
+  } | null;
+}): CompanionViewport {
+  const visualViewport = windowLike.visualViewport;
+  if (
+    visualViewport &&
+    Number.isFinite(visualViewport.width) &&
+    Number.isFinite(visualViewport.height) &&
+    visualViewport.width > 0 &&
+    visualViewport.height > 0
+  ) {
+    return {
+      width: visualViewport.width,
+      height: visualViewport.height,
+    };
+  }
+
+  return {
+    width: windowLike.innerWidth,
+    height: windowLike.innerHeight,
+  };
+}
+
+export function getWebsiteCompanionWindowViewportOffset(windowLike: {
+  visualViewport?: {
+    offsetLeft: number;
+    offsetTop: number;
+  } | null;
+}): Pick<CompanionWindowGeometry, "x" | "y"> {
+  const visualViewport = windowLike.visualViewport;
+  return {
+    x: visualViewport?.offsetLeft ?? 0,
+    y: visualViewport?.offsetTop ?? 0,
+  };
+}
+
+export function getWebsiteCompanionWindowFitHeight(viewport: CompanionViewport): number {
+  const margin = WEBSITE_COMPANION_WINDOW_VIEWPORT_MARGIN_PX;
+  return Math.max(
+    WEBSITE_COMPANION_WINDOW_HEADER_MIN_VISIBLE_PX,
+    viewport.height - margin * 2,
+  );
+}
+
 export function getWebsiteCompanionWindowMaxWidth(viewport: CompanionViewport): number {
   const margin = WEBSITE_COMPANION_WINDOW_VIEWPORT_MARGIN_PX * 2;
   return Math.min(
@@ -114,12 +165,12 @@ export function getWebsiteCompanionWindowMaxWidth(viewport: CompanionViewport): 
 }
 
 export function getWebsiteCompanionWindowMaxHeight(viewport: CompanionViewport): number {
+  const fitHeight = getWebsiteCompanionWindowFitHeight(viewport);
   const dvhHeight = viewport.height * WEBSITE_COMPANION_WINDOW_MAX_HEIGHT_DVH_RATIO;
   const marginHeight = viewport.height - WEBSITE_COMPANION_WINDOW_MAX_HEIGHT_TOP_MARGIN_PX;
-  return Math.max(
-    WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_HEIGHT_PX,
-    Math.min(dvhHeight, marginHeight),
-  );
+  const capped = Math.min(dvhHeight, marginHeight, fitHeight);
+  const minHeight = Math.min(WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_HEIGHT_PX, fitHeight);
+  return Math.max(minHeight, capped);
 }
 
 export function clampWebsiteCompanionWindowSize(
@@ -129,9 +180,10 @@ export function clampWebsiteCompanionWindowSize(
 ): Pick<CompanionWindowGeometry, "width" | "height"> {
   const maxWidth = getWebsiteCompanionWindowMaxWidth(viewport);
   const maxHeight = getWebsiteCompanionWindowMaxHeight(viewport);
+  const minHeight = Math.min(WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_HEIGHT_PX, maxHeight);
   return {
     width: Math.min(maxWidth, Math.max(WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_WIDTH_PX, width)),
-    height: Math.min(maxHeight, Math.max(WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_HEIGHT_PX, height)),
+    height: Math.min(maxHeight, Math.max(minHeight, height)),
   };
 }
 
@@ -145,15 +197,30 @@ export function clampWebsiteCompanionWindowPosition(
   const minX = margin;
   const maxX = Math.max(margin, viewport.width - size.width - margin);
   const minY = margin;
-  const maxY = Math.max(
-    margin,
-    viewport.height - WEBSITE_COMPANION_WINDOW_HEADER_MIN_VISIBLE_PX - margin,
-  );
+  const maxY = Math.max(margin, viewport.height - size.height - margin);
 
   return {
     x: Math.min(maxX, Math.max(minX, x)),
     y: Math.min(maxY, Math.max(minY, y)),
   };
+}
+
+export function isWebsiteCompanionWindowHeaderWithinViewport(
+  geometry: CompanionWindowGeometry,
+  viewport: CompanionViewport,
+): boolean {
+  const margin = WEBSITE_COMPANION_WINDOW_VIEWPORT_MARGIN_PX;
+  return (
+    geometry.y >= margin &&
+    geometry.y <= viewport.height - WEBSITE_COMPANION_WINDOW_HEADER_MIN_VISIBLE_PX - margin
+  );
+}
+
+export function isWebsiteCompanionWindowControlBandWithinViewport(
+  geometry: CompanionWindowGeometry,
+  viewport: CompanionViewport,
+): boolean {
+  return isWebsiteCompanionWindowHeaderWithinViewport(geometry, viewport);
 }
 
 export function clampWebsiteCompanionWindowGeometry(

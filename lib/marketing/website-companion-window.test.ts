@@ -1,4 +1,7 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   applyWebsiteCompanionWindowDragDelta,
   applyWebsiteCompanionWindowMaximize,
@@ -13,11 +16,15 @@ import {
   getWebsiteCompanionWindowMaximizedGeometry,
   getWebsiteCompanionWindowResetLabel,
   getWebsiteCompanionWindowResetLayout,
+  getWebsiteCompanionWindowViewportOffset,
   isWebsiteCompanionDesktopViewport,
   isWebsiteCompanionLocalStorageAvailable,
   isWebsiteCompanionPointerEventsSupported,
+  isWebsiteCompanionWindowControlBandWithinViewport,
+  isWebsiteCompanionWindowHeaderWithinViewport,
   parseWebsiteCompanionWindowLayoutState,
   parseWebsiteCompanionWindowState,
+  readWebsiteCompanionViewport,
   readWebsiteCompanionWindowLayoutState,
   readWebsiteCompanionWindowState,
   reconcileWebsiteCompanionWindowGeometry,
@@ -48,6 +55,7 @@ import {
   buildWebsiteCompanionAskBody,
 } from "@/lib/marketing/website-companion-chat";
 
+const root = path.dirname(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 const desktopViewport = { width: 1280, height: 900 };
 const wideViewport = { width: 1440, height: 900 };
 const mobileViewport = { width: 390, height: 844 };
@@ -394,5 +402,218 @@ assert.equal(parsedLayout.schemaVersion, WEBSITE_COMPANION_WINDOW_SCHEMA_VERSION
 assert.equal(parsedLayout.isMaximized, true);
 assert.ok(parsedLayout.restoreState.width >= WEBSITE_COMPANION_WINDOW_DESKTOP_MIN_WIDTH_PX);
 console.log("ok persistence schema version 2");
+
+const lowViewport = { width: 1440, height: 420 };
+
+// 04E-1. Negative stored y clamped so header stays visible
+const negativeYGeometry = clampWebsiteCompanionWindowGeometry(
+  { x: 120, y: -240, width: 540, height: 680 },
+  lowViewport,
+);
+assert.ok(negativeYGeometry.y >= WEBSITE_COMPANION_WINDOW_VIEWPORT_MARGIN_PX);
+assert.equal(isWebsiteCompanionWindowHeaderWithinViewport(negativeYGeometry, lowViewport), true);
+console.log("ok negative stored y clamped with visible header");
+
+// 04E-2. Maximized state with negative y recalculated safely
+const negativeMaximizedPayload = JSON.stringify({
+  schemaVersion: WEBSITE_COMPANION_WINDOW_SCHEMA_VERSION,
+  x: 16,
+  y: -180,
+  width: 1080,
+  height: 820,
+  isMaximized: true,
+  restoreState: { x: 700, y: 120, width: 480, height: 640 },
+});
+const negativeMaximized = parseWebsiteCompanionWindowLayoutState(
+  negativeMaximizedPayload,
+  lowViewport,
+);
+assert.ok(negativeMaximized);
+assert.equal(negativeMaximized.isMaximized, true);
+assert.equal(negativeMaximized.geometry.y, WEBSITE_COMPANION_WINDOW_VIEWPORT_MARGIN_PX);
+assert.equal(
+  isWebsiteCompanionWindowControlBandWithinViewport(negativeMaximized.geometry, lowViewport),
+  true,
+);
+console.log("ok maximized negative y recalculated");
+
+// 04E-3. Reload with isMaximized=true uses current viewport, not stored geometry
+const storedLargeMaximized = JSON.stringify({
+  schemaVersion: WEBSITE_COMPANION_WINDOW_SCHEMA_VERSION,
+  x: 16,
+  y: 16,
+  width: 1080,
+  height: 828,
+  isMaximized: true,
+  restoreState: { x: 700, y: 120, width: 480, height: 640 },
+});
+const reloadedMaximized = parseWebsiteCompanionWindowLayoutState(
+  storedLargeMaximized,
+  lowViewport,
+);
+assert.ok(reloadedMaximized);
+assert.ok(reloadedMaximized.geometry.height <= getWebsiteCompanionWindowMaxHeight(lowViewport));
+assert.ok(
+  reloadedMaximized.geometry.y + reloadedMaximized.geometry.height <=
+    lowViewport.height - WEBSITE_COMPANION_WINDOW_VIEWPORT_MARGIN_PX + 1,
+);
+console.log("ok reload maximized uses current viewport");
+
+// 04E-4. Too tall height clamped without hiding header
+const tallGeometry = clampWebsiteCompanionWindowGeometry(
+  { x: 16, y: 16, width: 540, height: 2000 },
+  lowViewport,
+);
+assert.ok(tallGeometry.height <= getWebsiteCompanionWindowMaxHeight(lowViewport));
+assert.equal(isWebsiteCompanionWindowHeaderWithinViewport(tallGeometry, lowViewport), true);
+assert.ok(tallGeometry.y + tallGeometry.height <= lowViewport.height - WEBSITE_COMPANION_WINDOW_VIEWPORT_MARGIN_PX + 1);
+console.log("ok excessive height clamped with header visible");
+
+// 04E-5. Smaller viewport after reload keeps header visible
+const smallerReloadViewport = { width: 1280, height: 520 };
+const persistedWide = applyWebsiteCompanionWindowMaximize(manualLayout, wideViewport);
+writeWebsiteCompanionWindowLayoutState(storage, persistedWide, wideViewport);
+const reloadedOnSmall = readWebsiteCompanionWindowLayoutState(storage, smallerReloadViewport);
+assert.equal(
+  isWebsiteCompanionWindowHeaderWithinViewport(
+    getWebsiteCompanionWindowMaximizedGeometry(smallerReloadViewport),
+    smallerReloadViewport,
+  ),
+  true,
+);
+assert.equal(
+  isWebsiteCompanionWindowHeaderWithinViewport(reloadedOnSmall.geometry, smallerReloadViewport),
+  true,
+);
+console.log("ok smaller viewport reload keeps header visible");
+
+// 04E-6. Visual viewport / zoom reconciliation
+const zoomedViewport = readWebsiteCompanionViewport({
+  innerWidth: 1280,
+  innerHeight: 900,
+  visualViewport: { width: 1280, height: 520, offsetLeft: 0, offsetTop: 140 },
+});
+assert.equal(zoomedViewport.height, 520);
+const zoomReconciled = reconcileWebsiteCompanionWindowLayoutState(persistedWide, zoomedViewport);
+assert.equal(
+  isWebsiteCompanionWindowControlBandWithinViewport(zoomReconciled.geometry, zoomedViewport),
+  true,
+);
+assert.deepEqual(getWebsiteCompanionWindowViewportOffset({
+  visualViewport: { offsetLeft: 12, offsetTop: 48 },
+}), { x: 12, y: 48 });
+console.log("ok visual viewport reconciliation");
+
+// 04E-7. restoreState with negative position repaired
+const negativeRestoreLayout = reconcileWebsiteCompanionWindowLayoutState(
+  {
+    geometry: { x: 700, y: 120, width: 480, height: 640 },
+    isMaximized: false,
+    restoreState: { x: 120, y: -300, width: 480, height: 640 },
+  },
+  desktopViewport,
+);
+assert.ok(negativeRestoreLayout.restoreState);
+assert.ok(negativeRestoreLayout.restoreState.y >= WEBSITE_COMPANION_WINDOW_VIEWPORT_MARGIN_PX);
+console.log("ok negative restoreState repaired");
+
+// 04E-8. Restore cannot place header outside viewport
+const restoredFromMax = applyWebsiteCompanionWindowRestore(
+  {
+    geometry: getWebsiteCompanionWindowMaximizedGeometry(lowViewport),
+    isMaximized: true,
+    restoreState: { x: 120, y: -400, width: 480, height: 640 },
+  },
+  lowViewport,
+);
+assert.equal(restoredFromMax.isMaximized, false);
+assert.equal(isWebsiteCompanionWindowHeaderWithinViewport(restoredFromMax.geometry, lowViewport), true);
+console.log("ok restore keeps header within viewport");
+
+// 04E-9. Reset gives safe default placement
+const resetOnLow = getWebsiteCompanionWindowResetLayout(lowViewport);
+assert.equal(resetOnLow.isMaximized, false);
+assert.equal(isWebsiteCompanionWindowHeaderWithinViewport(resetOnLow.geometry, lowViewport), true);
+console.log("ok reset gives safe default placement");
+
+// 04E-10. Page scroll does not change viewport-relative positioning inputs
+const beforeScroll = readWebsiteCompanionViewport({
+  innerWidth: 1280,
+  innerHeight: 720,
+  visualViewport: { width: 1280, height: 720, offsetLeft: 0, offsetTop: 0 },
+});
+const afterScroll = readWebsiteCompanionViewport({
+  innerWidth: 1280,
+  innerHeight: 720,
+  visualViewport: { width: 1280, height: 720, offsetLeft: 0, offsetTop: 240 },
+});
+assert.equal(beforeScroll.width, afterScroll.width);
+assert.equal(beforeScroll.height, afterScroll.height);
+assert.notEqual(
+  getWebsiteCompanionWindowViewportOffset({
+    visualViewport: { offsetLeft: 0, offsetTop: 240 },
+  }).y,
+  0,
+);
+console.log("ok page scroll uses visual viewport offset not document scroll");
+
+// 04E-11. Close control band stays within computed visible header area
+const headerSafeGeometry = getWebsiteCompanionWindowMaximizedGeometry(lowViewport);
+assert.equal(isWebsiteCompanionWindowControlBandWithinViewport(headerSafeGeometry, lowViewport), true);
+console.log("ok close control band within visible area");
+
+// 04E-12. Maximize/restore controls remain within visible area
+const maxOnLow = applyWebsiteCompanionWindowMaximize(manualLayout, lowViewport);
+assert.equal(isWebsiteCompanionWindowControlBandWithinViewport(maxOnLow.geometry, lowViewport), true);
+assert.equal(
+  isWebsiteCompanionWindowControlBandWithinViewport(
+    applyWebsiteCompanionWindowRestore(maxOnLow, lowViewport).geometry,
+    lowViewport,
+  ),
+  true,
+);
+console.log("ok maximize restore controls within visible area");
+
+// 04E-13. Mobile behavior unchanged
+assert.equal(shouldShowWebsiteCompanionMaximizeControl(mobileViewport.width), false);
+assert.equal(shouldUseWebsiteCompanionFloatingWindow({
+  viewportWidth: mobileViewport.width,
+  pointerEventsSupported: true,
+}), false);
+console.log("ok mobile behavior unchanged");
+
+// 04E-14. Chat request shape unchanged (covered above, reassert)
+assertWebsiteCompanionAskBodyShape(body);
+console.log("ok chat request shape unchanged after header recovery");
+
+// 04E-15. Corrupt localStorage gives safe recovery
+const corruptRecovery = readWebsiteCompanionWindowLayoutState(
+  {
+    getItem: () =>
+      JSON.stringify({
+        schemaVersion: WEBSITE_COMPANION_WINDOW_SCHEMA_VERSION,
+        x: Number.NaN,
+        y: -999,
+        width: 9999,
+        height: 9999,
+        isMaximized: true,
+      }),
+    setItem: () => undefined,
+    removeItem: () => undefined,
+  },
+  lowViewport,
+);
+assert.equal(isWebsiteCompanionWindowHeaderWithinViewport(corruptRecovery.geometry, lowViewport), true);
+console.log("ok corrupt localStorage recovery");
+
+// 04E-16. No customer-specific logic in window module
+const moduleSource = fs.readFileSync(
+  path.join(root, "lib/marketing/website-companion-window.ts"),
+  "utf8",
+);
+for (const term of ["unonight", "Unonight", "unonight.com"]) {
+  assert.equal(moduleSource.includes(term), false);
+}
+console.log("ok no customer-specific logic in window module");
 
 console.log("website-companion-window.test.ts: all assertions passed");
