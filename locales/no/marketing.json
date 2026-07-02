@@ -3532,6 +3532,10 @@
           "audience": "Kundeservice og supportteam",
           "value": "Styrt triage, kunnskapsstøttede svar og eskalering."
         },
+        "warehouse": {
+          "audience": "Lager- og fulfillment-team",
+          "value": "Lagerkoordinering, oppgaveoverleveringer og operasjonell synlighet."
+        },
         "commerce": {
           "audience": "Detaljhandel og netthandel",
           "value": "Ordresynlighet, lagerkoordinering og kundekontaktpunkter."
@@ -7805,23 +7809,23 @@
         "home": "Hjem",
         "businessPacks": "Business Packs"
       },
-      "availableFrom": "Tilgjengelig from",
+      "availableFrom": "Tilgjengelig fra",
       "commercialTypes": {
         "addon": "Tillegg",
         "tailored_addon": "Tilpasset tillegg"
       },
       "sections": {
-        "businessValue": "Business value",
-        "capabilities": "What Aipify helps with",
-        "howItWorks": "How it works",
-        "governance": "Styring and control",
-        "whoFor": "Who it is for",
-        "planActivation": "Plan and activation",
-        "relatedPacks": "Related Business Packs",
-        "heroPanel": "Pack capabilities"
+        "businessValue": "Forretningsverdi",
+        "capabilities": "Hva Aipify hjelper med",
+        "howItWorks": "Slik fungerer det",
+        "governance": "Styring og kontroll",
+        "whoFor": "Hvem det er for",
+        "planActivation": "Plan og aktivering",
+        "relatedPacks": "Relaterte Business Packs",
+        "heroPanel": "Pakkekapabiliteter"
       },
       "ctas": {
-        "bookDemo": "Book a demo",
+        "bookDemo": "Book en demo",
         "viewDetails": "Se detaljer",
         "exploreBusinessPacks": "Utforsk Business Packs"
       },
@@ -7832,427 +7836,427 @@
         "enterprise": "Enterprise"
       },
       "notFound": {
-        "title": "This Business Pack is not available",
-        "subtitle": "The page you requested is not in our public Business Pack catalog. Explore available packs or speak with Aipify.",
-        "backToPacks": "View Business Packs",
-        "bookDemo": "Book a demo",
+        "title": "Denne Business Pack er ikke tilgjengelig",
+        "subtitle": "Siden du ba om finnes ikke i vår offentlige Business Pack-katalog. Utforsk tilgjengelige pakker eller snakk med Aipify.",
+        "backToPacks": "Se Business Packs",
+        "bookDemo": "Book en demo",
         "contact": "Kontakt Aipify"
       }
     },
     "packs": {
       "hosts": {
         "name": "Aipify Hosts",
-        "label": "Hospitality Business Pack",
+        "label": "Business Pack for gjestebransje",
         "audience": "Hospitality and property operators",
         "value": "Guest operations, property workflows, and occupancy visibility.",
-        "metaTitle": "Aipify Hosts | Hospitality Operations Business Pack",
-        "metaDescription": "Guest operations and hospitality intelligence for property and accommodation businesses — with governed workflows and executive visibility.",
-        "headline": "Hospitality operations with clarity and control",
-        "introduction": "Coordinate guest experience, property workflows, and daily hospitality operations — with governed intelligence your team trusts.",
+        "metaTitle": "Aipify Hosts | Business Pack for gjestebransjedrift",
+        "metaDescription": "Gjesteoperasjoner og gjesteintelligens for eiendoms- og overnattingsbedrifter — med styrte arbeidsflyter og ledelsessynlighet.",
+        "headline": "Gjestebransjedrift med tydelighet og kontroll",
+        "introduction": "Koordiner gjesteopplevelse, eiendomsarbeidsflyter og daglig gjestebransjedrift — med styrt intelligens teamet deres stoler på.",
         "heroCapabilities": {
-          "1": "Guest request coordination",
-          "2": "Property operational briefings",
-          "3": "Multi-location visibility",
-          "4": "Approval-governed actions"
+          "1": "Koordinering av gjesteforespørsler",
+          "2": "Operative briefinger for eiendom",
+          "3": "Synlighet på tvers av lokasjoner",
+          "4": "Handlinger med godkjenningsstyring"
         },
         "outcomes": {
           "1": {
-            "title": "Clearer guest operations",
-            "body": "See guest requests, arrivals, and exceptions in one operational view instead of scattered channels."
+            "title": "Tydeligere gjesteoperasjoner",
+            "body": "Se gjesteforespørsler, ankomster og avvik i ett operativt bilde i stedet for spredte kanaler."
           },
           "2": {
-            "title": "Faster team coordination",
-            "body": "Housekeeping, maintenance, and front-desk teams share prepared context and handoffs."
+            "title": "Raskere teamkoordinering",
+            "body": "Housekeeping, vedlikehold og resepsjon deler forberedt kontekst og overleveringer."
           },
           "3": {
-            "title": "Executive property visibility",
-            "body": "Leadership receives explainable briefings across locations without manual status chasing."
+            "title": "Ledelsessynlighet for eiendom",
+            "body": "Ledelsen mottar forklarbare briefinger på tvers av lokasjoner uten manuell statusjaging."
           },
           "4": {
-            "title": "Less repetitive follow-up",
-            "body": "Recurring hospitality workflows are prepared for review — not rebuilt from scratch each day."
+            "title": "Mindre repetitiv oppfølging",
+            "body": "Gjentakende arbeidsflyter i gjestebransjen forberedes til gjennomgang — ikke bygges på nytt hver dag."
           }
         },
         "capabilities": {
-          "1": "Guest intelligence workflows",
-          "2": "Knowledge-backed response preparation",
-          "3": "Housekeeping and maintenance handoffs",
-          "4": "Property operational briefings",
-          "5": "Policy-aware escalation to staff",
-          "6": "Multi-property executive summaries"
+          "1": "Arbeidsflyter for gjesteintelligens",
+          "2": "Forberedelse av kunnskapsbaserte svar",
+          "3": "Overleveringer housekeeping og vedlikehold",
+          "4": "Operative briefinger for eiendom",
+          "5": "Policybevisst eskalering til ansatte",
+          "6": "Ledelsessammendrag for flere eiendommer"
         },
         "steps": {
           "1": {
-            "title": "Connect hospitality context",
-            "body": "Link approved property systems, messaging channels, and operational workflows."
+            "title": "Koble gjestebransjekontekst",
+            "body": "Koble godkjente eiendomssystemer, meldingskanaler og operative arbeidsflyter."
           },
           "2": {
-            "title": "Aipify learns approved operations",
-            "body": "Operational context is organized from approved sources — not raw guest transcripts."
+            "title": "Aipify lærer godkjent drift",
+            "body": "Operativ kontekst organiseres fra godkjente kilder — ikke rå gjestesamtaler."
           },
           "3": {
-            "title": "Teams receive prepared work",
-            "body": "Briefings, drafts, and coordination steps surface with recommended next actions."
+            "title": "Team mottar forberedt arbeid",
+            "body": "Briefinger, utkast og koordineringstrinn vises med anbefalte neste steg."
           },
           "4": {
-            "title": "Humans approve sensitive work",
-            "body": "Guest-impacting actions proceed only after your team reviews and approves."
+            "title": "Mennesker godkjenner sensitivt arbeid",
+            "body": "Gjestepåvirkende handlinger skjer først etter at teamet har gjennomgått og godkjent."
           }
         },
-        "governanceTitle": "Governed hospitality operations",
-        "governanceBody": "Sensitive guest and property actions require human approval. Autonomy levels, confidence thresholds, and audit trails keep hospitality operations accountable. Aipify orchestrates intelligence above your PMS — it does not replace front-desk judgment or core property systems.",
-        "whoForTitle": "Built for hospitality operators",
-        "whoForBody": "Hospitality operators, property managers, guest experience leaders, and multi-location accommodation businesses that need coordinated visibility without replacing core property software.",
-        "planActivationTitle": "Activate on Business",
-        "planActivationBody": "Add Aipify Hosts on a Business plan. Your organization purchases the pack, completes activation validation, grants team access, and operational menus appear when the pack is fully active.",
-        "primaryCta": "Get Aipify Hosts",
-        "finalCtaTitle": "READY TO MOVE FORWARD?",
-        "finalCtaSubtitle": "Start with Aipify Hosts on your Business plan — or book a demo to see hospitality operations in practice."
+        "governanceTitle": "Styrt gjestebransjedrift",
+        "governanceBody": "Sensitive gjeste- og eiendomshandlinger krever menneskelig godkjenning. Autonominivåer, konfidensgrenser og revisjonsspor holder gjestebransjedriften ansvarlig. Aipify orkestrerer intelligens over PMS-en deres — den erstatter ikke resepsjonsskjønn eller kjernesystemer for eiendom.",
+        "whoForTitle": "Bygget for gjestebransjeoperatører",
+        "whoForBody": "Gjestebransjeoperatører, eiendomsforvaltere, ledere for gjesteopplevelse og overnatting med flere lokasjoner som trenger koordinert synlighet uten å erstatte kjernesystemer for eiendom.",
+        "planActivationTitle": "Aktiver på Business",
+        "planActivationBody": "Legg til Aipify Hosts på en Business-plan. Organisasjonen kjøper pakken, fullfører aktiveringsvalidering, gir teamtilgang, og operative menyer vises når pakken er fullt aktiv.",
+        "primaryCta": "Skaff Aipify Hosts",
+        "finalCtaTitle": "KLAR TIL Å GÅ VIDERE?",
+        "finalCtaSubtitle": "Start med Aipify Hosts på Business-planen deres — eller book en demo for å se gjestebransjedrift i praksis."
       },
       "support": {
         "name": "Aipify Support",
-        "label": "Support Business Pack",
+        "label": "Business Pack for support",
         "audience": "Customer service and support teams",
         "value": "Governed triage, knowledge-backed responses, and escalation.",
-        "metaTitle": "Aipify Support | Customer Service Operations Business Pack",
-        "metaDescription": "Governed customer support triage, knowledge-backed drafts, and escalation for service teams that keep humans in control.",
-        "headline": "Customer support with governed speed",
-        "introduction": "Help support teams triage faster, draft with approved knowledge, and escalate with full context — without losing human ownership of important cases.",
+        "metaTitle": "Aipify Support | Business Pack for kundeservicedrift",
+        "metaDescription": "Styrt kundesupport-triage, kunnskapsbaserte utkast og eskalering for serviceteam som holder mennesker i kontroll.",
+        "headline": "Kundesupport med styrt tempo",
+        "introduction": "Hjelp supportteam med raskere triage, utkast basert på godkjent kunnskap og eskalering med full kontekst — uten å miste menneskelig eierskap til viktige saker.",
         "heroCapabilities": {
-          "1": "Governed ticket triage",
-          "2": "Knowledge-backed drafts",
-          "3": "Confidence-based escalation",
-          "4": "Support analytics and gap detection"
+          "1": "Styrt ticket-triage",
+          "2": "Kunnskapsbaserte utkast",
+          "3": "Konfidensbasert eskalering",
+          "4": "Supportanalyse og gap-deteksjon"
         },
         "outcomes": {
           "1": {
-            "title": "Faster first responses",
-            "body": "Prepared drafts and triage recommendations reduce time spent searching for answers."
+            "title": "Raskere første svar",
+            "body": "Forberedte utkast og triage-anbefalinger reduserer tid brukt på å lete etter svar."
           },
           "2": {
-            "title": "Consistent guidance",
-            "body": "Approved knowledge and Business DNA keep responses aligned with your policies."
+            "title": "Konsekvent veiledning",
+            "body": "Godkjent kunnskap og Business DNA holder svarene i tråd med retningslinjene deres."
           },
           "3": {
-            "title": "Smoother escalation",
-            "body": "Low-confidence cases route to humans with explainable context — not silent automation."
+            "title": "Smidigere eskalering",
+            "body": "Saker med lav konfidens rutes til mennesker med forklarbar kontekst — ikke stille automatisering."
           },
           "4": {
-            "title": "Visible support demand",
-            "body": "Leaders see queue health, gaps, and patterns without digging through disconnected tools."
+            "title": "Synlig supportetterspørsel",
+            "body": "Ledere ser køhelse, hull og mønstre uten å grave i frakoblede verktøy."
           }
         },
         "capabilities": {
-          "1": "Business DNA integration",
-          "2": "Autonomous support levels 0–3",
-          "3": "Knowledge gap tracking",
-          "4": "Category and policy controls",
-          "5": "Draft response preparation",
-          "6": "Full audit trail"
+          "1": "Business DNA-integrasjon",
+          "2": "Autonome supportnivåer 0–3",
+          "3": "Sporing av kunnskapshull",
+          "4": "Kategori- og policykontroller",
+          "5": "Forberedelse av svarutkast",
+          "6": "Fullt revisjonsspor"
         },
         "steps": {
           "1": {
-            "title": "Requests enter your channels",
-            "body": "Email, chat, and helpdesk inquiries flow into governed support workflows."
+            "title": "Forespørsler kommer inn i kanalene deres",
+            "body": "E-post, chat og helpdesk-henvendelser flyter inn i styrte supportarbeidsflyter."
           },
           "2": {
-            "title": "Approved knowledge is searched",
-            "body": "Aipify retrieves metadata from approved knowledge — not raw customer conversations."
+            "title": "Godkjent kunnskap søkes",
+            "body": "Aipify henter metadata fra godkjent kunnskap — ikke rå kundesamtaler."
           },
           "3": {
-            "title": "Drafts and triage are prepared",
-            "body": "Recommendations include context, confidence, and suggested next steps."
+            "title": "Utkast og triage forberedes",
+            "body": "Anbefalinger inkluderer kontekst, konfidens og foreslåtte neste steg."
           },
           "4": {
-            "title": "Humans review before delivery",
-            "body": "Your team edits, approves, or escalates before customers receive sensitive responses."
+            "title": "Mennesker gjennomgår før levering",
+            "body": "Teamet redigerer, godkjenner eller eskalerer før kunder mottar sensitive svar."
           }
         },
-        "governanceTitle": "Support stays under human control",
-        "governanceBody": "Auto-reply is permitted only within approved autonomy settings, confidence thresholds, and category policy. Uncertain or sensitive cases escalate for human decision. Every draft, assignment, and action is auditable.",
-        "whoForTitle": "Built for support organizations",
-        "whoForBody": "Customer service teams, support leaders, and customer success organizations managing volume while preserving quality, policy compliance, and accountability.",
-        "planActivationTitle": "Activate on Professional",
-        "planActivationBody": "Add Aipify Support on a Professional plan or above. Purchase the pack, activate for your organization, and grant access to support teams through your admin controls.",
-        "primaryCta": "Get Aipify Support",
-        "finalCtaTitle": "READY TO MOVE FORWARD?",
-        "finalCtaSubtitle": "Get Aipify Support on your plan — or book a demo to see governed support workflows in practice."
+        "governanceTitle": "Support forblir under menneskelig kontroll",
+        "governanceBody": "Autosvar er tillatt bare innenfor godkjente autonomiinnstillinger, konfidensgrenser og kategoripolicy. Usikre eller sensitive saker eskaleres for menneskelig beslutning. Hvert utkast, tildeling og handling er revisjonsbart.",
+        "whoForTitle": "Bygget for supportorganisasjoner",
+        "whoForBody": "Kundeserviceteam, supportledere og customer success-organisasjoner som håndterer volum samtidig som kvalitet, policyetterlevelse og ansvarlighet bevares.",
+        "planActivationTitle": "Aktiver på Professional",
+        "planActivationBody": "Legg til Aipify Support på en Professional-plan eller høyere. Kjøp pakken, aktiver for organisasjonen og gi tilgang til supportteam via admin-kontrollene deres.",
+        "primaryCta": "Skaff Aipify Support",
+        "finalCtaTitle": "KLAR TIL Å GÅ VIDERE?",
+        "finalCtaSubtitle": "Skaff Aipify Support på planen deres — eller book en demo for å se styrte supportarbeidsflyter i praksis."
       },
       "commerce": {
         "name": "Aipify Commerce",
-        "label": "Commerce Business Pack",
+        "label": "Business Pack for handel",
         "audience": "Retail and e-commerce operations",
         "value": "Order visibility, inventory coordination, and customer touchpoints.",
-        "metaTitle": "Aipify Commerce | Retail & E-commerce Operations Business Pack",
-        "metaDescription": "Order visibility, fulfillment coordination, and customer context for retail and e-commerce operations teams.",
-        "headline": "Commerce operations with connected visibility",
-        "introduction": "Unify order visibility, fulfillment coordination, and customer context so commerce teams respond with clarity — inside the systems they already use.",
+        "metaTitle": "Aipify Commerce | Business Pack for detaljhandel og netthandel",
+        "metaDescription": "Ordresynlighet, koordinering av oppfyllelse og kundekontekst for detaljhandels- og netthandelsteam.",
+        "headline": "Handelsdrift med sammenkoblet synlighet",
+        "introduction": "Samle ordresynlighet, koordinering av oppfyllelse og kundekontekst slik at handelsteam responderer med tydelighet — i systemene de allerede bruker.",
         "heroCapabilities": {
-          "1": "Order and fulfillment visibility",
-          "2": "Customer context in workflows",
-          "3": "Operational alerts with actions",
-          "4": "Executive commerce summaries"
+          "1": "Synlighet for ordre og oppfyllelse",
+          "2": "Kundekontekst i arbeidsflyter",
+          "3": "Operative varsler med handlinger",
+          "4": "Ledelsessammendrag for handel"
         },
         "outcomes": {
           "1": {
-            "title": "Faster fulfillment coordination",
-            "body": "Exceptions and delays surface with context teams can act on immediately."
+            "title": "Raskere koordinering av oppfyllelse",
+            "body": "Avvik og forsinkelser vises med kontekst team kan handle på umiddelbart."
           },
           "2": {
-            "title": "Connected customer context",
-            "body": "Support and operations see order history without switching between platforms."
+            "title": "Sammenkoblet kundekontekst",
+            "body": "Support og drift ser ordrehistorikk uten å bytte mellom plattformer."
           },
           "3": {
-            "title": "Actionable operational alerts",
-            "body": "Signals include recommended next steps — not raw counts alone."
+            "title": "Handlingsbare operative varsler",
+            "body": "Signaler inkluderer anbefalte neste steg — ikke bare rå telling."
           },
           "4": {
-            "title": "Less tool-switching",
-            "body": "Commerce teams work from prepared briefings instead of manual status assembly."
+            "title": "Mindre verktøybytte",
+            "body": "Handelsteam jobber fra forberedte briefinger i stedet for manuell statussammenstilling."
           }
         },
         "capabilities": {
-          "1": "Order and fulfillment visibility",
-          "2": "Inventory and exception signals",
-          "3": "Customer context in workflows",
-          "4": "Operational alerts with next steps",
-          "5": "Integration-ready commerce coordination",
-          "6": "Executive commerce summaries"
+          "1": "Synlighet for ordre og oppfyllelse",
+          "2": "Lager- og avvikssignaler",
+          "3": "Kundekontekst i arbeidsflyter",
+          "4": "Operative varsler med neste steg",
+          "5": "Integrasjonsklar handelskoordinering",
+          "6": "Ledelsessammendrag for handel"
         },
         "steps": {
           "1": {
-            "title": "Connect commerce platforms",
-            "body": "Link storefronts, fulfillment tools, and customer channels with approved access."
+            "title": "Koble handelsplattformer",
+            "body": "Koble nettbutikker, oppfyllelsesverktøy og kundekanaler med godkjent tilgang."
           },
           "2": {
-            "title": "Aipify surfaces operational signals",
-            "body": "Orders, exceptions, and customer touchpoints appear in governed workflows."
+            "title": "Aipify viser operative signaler",
+            "body": "Ordrer, avvik og kundekontaktpunkter vises i styrte arbeidsflyter."
           },
           "3": {
-            "title": "Teams receive prepared context",
-            "body": "Briefings and recommendations reduce manual coordination across tools."
+            "title": "Team mottar forberedt kontekst",
+            "body": "Briefinger og anbefalinger reduserer manuell koordinering på tvers av verktøy."
           },
           "4": {
-            "title": "Approved actions execute",
-            "body": "Sensitive changes follow trust levels with human approval where required."
+            "title": "Godkjente handlinger utføres",
+            "body": "Sensitive endringer følger tillitsnivåer med menneskelig godkjenning der det kreves."
           }
         },
-        "governanceTitle": "Commerce actions stay governed",
-        "governanceBody": "Commerce workflows follow Aipify trust levels — informational visibility by default, with sensitive operational changes requiring explicit approval and audit logging.",
-        "whoForTitle": "Built for commerce operators",
-        "whoForBody": "Retail operators, e-commerce teams, fulfillment coordinators, and organizations running commerce alongside support and finance workflows.",
-        "planActivationTitle": "Activate on Professional",
-        "planActivationBody": "Add Aipify Commerce on a Professional plan or above. Select capacity, complete activation, and grant commerce teams access through your organization settings.",
-        "primaryCta": "Get Aipify Commerce",
-        "finalCtaTitle": "READY TO MOVE FORWARD?",
-        "finalCtaSubtitle": "Get Aipify Commerce on your plan — or book a demo to review fulfillment and order workflows."
+        "governanceTitle": "Handelsoperasjoner forblir styrte",
+        "governanceBody": "Handelsarbeidsflyter følger Aipifys tillitsnivåer — informasjonssynlighet som standard, med sensitive operative endringer som krever eksplisitt godkjenning og revisjonslogging.",
+        "whoForTitle": "Bygget for handelsoperatører",
+        "whoForBody": "Detaljhandelsoperatører, netthandelsteam, koordinatorer for oppfyllelse og organisasjoner som driver handel sammen med support- og finansarbeidsflyter.",
+        "planActivationTitle": "Aktiver på Professional",
+        "planActivationBody": "Legg til Aipify Commerce på en Professional-plan eller høyere. Velg kapasitet, fullfør aktivering og gi handelsteam tilgang via organisasjonsinnstillingene deres.",
+        "primaryCta": "Skaff Aipify Commerce",
+        "finalCtaTitle": "KLAR TIL Å GÅ VIDERE?",
+        "finalCtaSubtitle": "Skaff Aipify Commerce på planen deres — eller book en demo for å gjennomgå oppfyllelse- og ordrearbeidsflyter."
       },
       "services": {
         "name": "Aipify Services",
-        "label": "Professional Services Business Pack",
+        "label": "Business Pack for profesjonelle tjenester",
         "audience": "Professional services organizations",
         "value": "Client delivery, knowledge retention, and executive visibility.",
-        "metaTitle": "Aipify Services | Professional Services Business Pack",
-        "metaDescription": "Client delivery coordination, knowledge reuse, and engagement visibility for professional services organizations.",
-        "headline": "Client delivery with institutional memory",
-        "introduction": "Support professional services teams with delivery coordination, approved knowledge reuse, and engagement visibility — without burying expertise in disconnected documents.",
+        "metaTitle": "Aipify Services | Business Pack for profesjonelle tjenester",
+        "metaDescription": "Koordinering av kundedrift, gjenbruk av kunnskap og engasjementssynlighet for profesjonelle tjenesteorganisasjoner.",
+        "headline": "Kundeleveranse med institusjonell hukommelse",
+        "introduction": "Støtt profesjonelle tjenesteteam med leveransekoordinering, godkjent gjenbruk av kunnskap og engasjementssynlighet — uten å begrave ekspertise i frakoblede dokumenter.",
         "heroCapabilities": {
-          "1": "Client engagement visibility",
-          "2": "Delivery milestone coordination",
-          "3": "Approved knowledge reuse",
-          "4": "Executive services briefings"
+          "1": "Synlighet i kundeengasjementer",
+          "2": "Koordinering av leveransemilepæler",
+          "3": "Godkjent gjenbruk av kunnskap",
+          "4": "Ledelsesbriefinger for tjenester"
         },
         "outcomes": {
           "1": {
-            "title": "Clearer delivery tracking",
-            "body": "Milestones, owners, and risks stay visible across active engagements."
+            "title": "Tydeligere leveransesporing",
+            "body": "Milepæler, eiere og risikoer forblir synlige på tvers av aktive engasjementer."
           },
           "2": {
-            "title": "Reusable approved knowledge",
-            "body": "Institutional expertise is accessible through governed knowledge — not ad-hoc files."
+            "title": "Gjenbrukbar godkjent kunnskap",
+            "body": "Institusjonell ekspertise er tilgjengelig gjennom styrt kunnskap — ikke ad hoc-filer."
           },
           "3": {
-            "title": "Executive engagement visibility",
-            "body": "Leaders see portfolio health without manual status reporting cycles."
+            "title": "Ledelsessynlighet i engasjementer",
+            "body": "Ledere ser porteføljehelse uten manuelle statusrapporteringssykluser."
           },
           "4": {
-            "title": "Fewer status meetings",
-            "body": "Prepared briefings replace repetitive manual updates across teams."
+            "title": "Færre statusmøter",
+            "body": "Forberedte briefinger erstatter repeterende manuelle oppdateringer på tvers av team."
           }
         },
         "capabilities": {
-          "1": "Client engagement visibility",
-          "2": "Delivery milestone coordination",
-          "3": "Approved knowledge reuse",
-          "4": "Executive services briefings",
-          "5": "Team handoff coordination",
-          "6": "Governance-aware client workflows"
+          "1": "Synlighet i kundeengasjementer",
+          "2": "Koordinering av leveransemilepæler",
+          "3": "Godkjent gjenbruk av kunnskap",
+          "4": "Ledelsesbriefinger for tjenester",
+          "5": "Koordinering av teamoverleveringer",
+          "6": "Styringsbevisste kundearbeidsflyter"
         },
         "steps": {
           "1": {
-            "title": "Map delivery workflows",
-            "body": "Define how engagements, milestones, and knowledge sources connect in your firm."
+            "title": "Kartlegg leveransearbeidsflyter",
+            "body": "Definer hvordan engasjementer, milepæler og kunnskapskilder henger sammen i firmaet deres."
           },
           "2": {
-            "title": "Aipify prepares delivery context",
-            "body": "Briefings and coordination steps are prepared from approved operational metadata."
+            "title": "Aipify forbereder leveransekontekst",
+            "body": "Briefinger og koordineringstrinn forberedes fra godkjent operasjonell metadata."
           },
           "3": {
-            "title": "Consultants review prepared work",
-            "body": "Teams edit, approve, and assign before client-impacting updates proceed."
+            "title": "Konsulenter gjennomgår forberedt arbeid",
+            "body": "Team redigerer, godkjenner og tildeler før kundepåvirkende oppdateringer går videre."
           },
           "4": {
-            "title": "Leadership reviews portfolio health",
-            "body": "Executive summaries explain status, risk, and recommended focus areas."
+            "title": "Ledelsen gjennomgår porteføljehelse",
+            "body": "Ledelsessammendrag forklarer status, risiko og anbefalte fokusområder."
           }
         },
-        "governanceTitle": "Client relationships stay human-owned",
-        "governanceBody": "Client-sensitive information follows metadata-first patterns. External actions and deliverable changes require appropriate human review. Aipify prepares coordination — your consultants retain ownership of client relationships.",
-        "whoForTitle": "Built for services firms",
-        "whoForBody": "Professional services firms, consulting organizations, agencies, and delivery teams managing multiple client engagements with accountability requirements.",
-        "planActivationTitle": "Activate on Professional",
-        "planActivationBody": "Add Aipify Services on a Professional plan or above. Activate the pack for your organization and grant delivery teams access through admin controls.",
-        "primaryCta": "Get Aipify Services",
-        "finalCtaTitle": "READY TO MOVE FORWARD?",
-        "finalCtaSubtitle": "Get Aipify Services on your plan — or book a demo to see client delivery coordination in practice."
+        "governanceTitle": "Kunderelasjoner forblir menneskelig eid",
+        "governanceBody": "Kundesensitiv informasjon følger metadata-først-mønstre. Eksterne handlinger og endringer i leveranser krever passende menneskelig gjennomgang. Aipify forbereder koordinering — konsulentene deres beholder eierskap til kunderelasjoner.",
+        "whoForTitle": "Bygget for tjenestefirmaer",
+        "whoForBody": "Profesjonelle tjenestefirmaer, konsulentorganisasjoner, byråer og leveranseteam som håndterer flere kundeengasjementer med ansvarskrav.",
+        "planActivationTitle": "Aktiver på Professional",
+        "planActivationBody": "Legg til Aipify Services på en Professional-plan eller høyere. Aktiver pakken for organisasjonen deres og gi leveranseteam tilgang via admin-kontroller.",
+        "primaryCta": "Skaff Aipify Services",
+        "finalCtaTitle": "KLAR TIL Å GÅ VIDERE?",
+        "finalCtaSubtitle": "Skaff Aipify Services på planen deres — eller book en demo for å se kundeleveransekoordinering i praksis."
       },
       "projects": {
         "name": "Aipify Projects",
-        "label": "Project Delivery Business Pack",
+        "label": "Business Pack for prosjektleveranse",
         "audience": "Project-driven teams",
         "value": "Delivery coordination, approvals, and operational handoffs.",
-        "metaTitle": "Aipify Projects | Project Delivery Business Pack",
-        "metaDescription": "Milestone tracking, governed approvals, and delivery coordination for project-driven teams — tailored to your operating model.",
-        "headline": "Project delivery with operational discipline",
-        "introduction": "Coordinate milestones, approvals, assignments, and handoffs across project-driven teams — with tailored configuration for how your organization delivers work.",
+        "metaTitle": "Aipify Projects | Business Pack for prosjektleveranse",
+        "metaDescription": "Milepælssporing, styrte godkjenninger og leveransekoordinering for prosjektstyrte team — tilpasset deres driftsmodell.",
+        "headline": "Prosjektleveranse med operasjonell disiplin",
+        "introduction": "Koordiner milepæler, godkjenninger, tildelinger og overleveringer på tvers av prosjektdrevne team — med skreddersydd konfigurasjon for hvordan organisasjonen deres leverer arbeid.",
         "heroCapabilities": {
-          "1": "Milestone and dependency tracking",
-          "2": "Approval-governed handoffs",
-          "3": "Delivery status reporting",
-          "4": "Tailored pack configuration"
+          "1": "Sporing av milepæler og avhengigheter",
+          "2": "Godkjenningsstyrte overleveringer",
+          "3": "Leveransestatusrapportering",
+          "4": "Skreddersydd pakkekonfigurasjon"
         },
         "outcomes": {
           "1": {
-            "title": "Clearer milestone visibility",
-            "body": "Dependencies, owners, and blockers are visible before they become delivery crises."
+            "title": "Tydeligere milepælsynlighet",
+            "body": "Avhengigheter, eiere og blokkeringer er synlige før de blir leveransekriser."
           },
           "2": {
-            "title": "Governed handoffs",
-            "body": "Cross-team transitions include approval context and audit trails."
+            "title": "Styrte overleveringer",
+            "body": "Overganger på tvers av team inkluderer godkjenningskontekst og revisjonsspor."
           },
           "3": {
-            "title": "Less status overhead",
-            "body": "Prepared portfolio summaries reduce manual reporting for PMOs and delivery leads."
+            "title": "Mindre statusoverhead",
+            "body": "Forberedte porteføljesammendrag reduserer manuell rapportering for PMO-er og leveranseledere."
           },
           "4": {
-            "title": "Tailored to your model",
-            "body": "Projects is configured for how your organization actually delivers — not a generic template."
+            "title": "Tilpasset modellen deres",
+            "body": "Projects er konfigurert for hvordan organisasjonen deres faktisk leverer — ikke en generisk mal."
           }
         },
         "capabilities": {
-          "1": "Milestone and dependency tracking",
-          "2": "Assignment and ownership coordination",
-          "3": "Approval-governed handoffs",
-          "4": "Delivery status reporting",
-          "5": "Cross-team operational briefings",
-          "6": "Tailored pack configuration"
+          "1": "Sporing av milepæler og avhengigheter",
+          "2": "Koordinering av tildeling og eierskap",
+          "3": "Godkjenningsstyrte overleveringer",
+          "4": "Leveransestatusrapportering",
+          "5": "Operative briefinger på tvers av team",
+          "6": "Skreddersydd pakkekonfigurasjon"
         },
         "steps": {
           "1": {
-            "title": "Define delivery patterns",
-            "body": "Work with Aipify to align the Projects pack to your PMO and delivery workflows."
+            "title": "Definer leveransmønstre",
+            "body": "Jobb med Aipify for å tilpasse Projects-pakken til PMO-en og leveransearbeidsflytene deres."
           },
           "2": {
-            "title": "Configure tailored activation",
-            "body": "Pack scope, permissions, and menus are set for your organization's model."
+            "title": "Konfigurer skreddersydd aktivering",
+            "body": "Pakkeomfang, tillatelser og menyer settes for organisasjonens modell."
           },
           "3": {
-            "title": "Teams operate in governed workflows",
-            "body": "Assignments, approvals, and handoffs follow your established trust policies."
+            "title": "Team opererer i styrte arbeidsflyter",
+            "body": "Tildelinger, godkjenninger og overleveringer følger etablerte tillitspolicyer."
           },
           "4": {
-            "title": "Leadership reviews portfolio status",
-            "body": "Executive views summarize delivery health with explainable recommendations."
+            "title": "Ledelsen gjennomgår porteføljestatus",
+            "body": "Ledelsesvisninger oppsummerer leveransehelse med forklarbare anbefalinger."
           }
         },
-        "governanceTitle": "Delivery decisions stay with your leaders",
-        "governanceBody": "Project-impacting changes and client-sensitive actions require human approval. Aipify prepares coordination and visibility — PMOs and delivery leads decide outcomes.",
-        "whoForTitle": "Built for project organizations",
-        "whoForBody": "Project-driven teams, PMOs, delivery organizations, and businesses coordinating complex work across departments and vendors.",
-        "planActivationTitle": "Tailored activation on Business",
-        "planActivationBody": "Aipify Projects is a tailored add-on on the Business plan. Speak with Aipify to scope configuration, capacity, and activation for your delivery model.",
-        "primaryCta": "Talk to Aipify about Projects",
-        "finalCtaTitle": "READY TO MOVE FORWARD?",
-        "finalCtaSubtitle": "Talk to Aipify about a tailored Projects configuration — or book a demo to review delivery coordination options."
+        "governanceTitle": "Leveransebeslutninger forblir hos lederne deres",
+        "governanceBody": "Prosjektpåvirkende endringer og kundesensitive handlinger krever menneskelig godkjenning. Aipify forbereder koordinering og synlighet — PMO-er og leveranseledere bestemmer utfall.",
+        "whoForTitle": "Bygget for prosjektorganisasjoner",
+        "whoForBody": "Prosjektdrevne team, PMO-er, leveranseorganisasjoner og virksomheter som koordinerer komplekst arbeid på tvers av avdelinger og leverandører.",
+        "planActivationTitle": "Skreddersydd aktivering på Business",
+        "planActivationBody": "Aipify Projects er et skreddersydd tillegg på Business-planen. Snakk med Aipify for å avklare konfigurasjon, kapasitet og aktivering for leveransemodellen deres.",
+        "primaryCta": "Snakk med Aipify om Projects",
+        "finalCtaTitle": "KLAR TIL Å GÅ VIDERE?",
+        "finalCtaSubtitle": "Snakk med Aipify om en skreddersydd Projects-konfigurasjon — eller book en demo for å gjennomgå alternativer for leveransekoordinering."
       },
       "finance": {
         "name": "Aipify Finance",
-        "label": "Finance Operations Business Pack",
+        "label": "Business Pack for finansdrift",
         "audience": "Finance and operations leaders",
         "value": "Operational finance visibility with governance controls.",
-        "metaTitle": "Aipify Finance | Operational Finance Business Pack",
-        "metaDescription": "Operational finance visibility, billing awareness, and governed workflows for finance and business operations leaders.",
-        "headline": "Operational finance with governance built in",
-        "introduction": "Give finance and operations leaders visibility into billing context, subscription awareness, and operational finance signals — with controls appropriate for sensitive work.",
+        "metaTitle": "Aipify Finance | Business Pack for operasjonell finans",
+        "metaDescription": "Operasjonell finanssynlighet, faktureringsbevissthet og styrte arbeidsflyter for finans- og driftsledere.",
+        "headline": "Operasjonell finans med innebygd styring",
+        "introduction": "Gi finans- og driftsledere synlighet i faktureringskontekst, abonnementsbevissthet og operative finanssignaler — med kontroller som passer sensitivt arbeid.",
         "heroCapabilities": {
-          "1": "Operational finance reporting",
-          "2": "Billing and subscription awareness",
-          "3": "Approval-governed financial actions",
-          "4": "Executive finance briefings"
+          "1": "Operasjonell finansrapportering",
+          "2": "Fakturerings- og abonnementsbevissthet",
+          "3": "Finansielle handlinger med godkjenningsstyring",
+          "4": "Ledelsesbriefinger for finans"
         },
         "outcomes": {
           "1": {
-            "title": "Clearer finance visibility",
-            "body": "Operational finance signals surface with context — not disconnected spreadsheet exports."
+            "title": "Tydeligere finanssynlighet",
+            "body": "Operative finanssignaler vises med kontekst — ikke frakoblede regnearkseksporter."
           },
           "2": {
-            "title": "Billing context for teams",
-            "body": "Support and operations understand subscription and billing status within governed views."
+            "title": "Faktureringskontekst for team",
+            "body": "Support og drift forstår abonnements- og faktureringsstatus innen styrte visninger."
           },
           "3": {
-            "title": "Governed sensitive actions",
-            "body": "High-risk financial changes require explicit approvers and audit trails."
+            "title": "Styrte sensitive handlinger",
+            "body": "Høyrisiko finansielle endringer krever eksplisitte godkjennere og revisjonsspor."
           },
           "4": {
-            "title": "Audit-ready documentation",
-            "body": "Prepared summaries support review cycles without exposing unnecessary raw records."
+            "title": "Revisjonsklar dokumentasjon",
+            "body": "Forberedte sammendrag støtter gjennomgangssykluser uten å eksponere unødvendige råposter."
           }
         },
         "capabilities": {
-          "1": "Operational finance reporting",
-          "2": "Billing and subscription awareness",
-          "3": "Approval-governed financial actions",
-          "4": "Executive finance briefings",
-          "5": "Policy enforcement",
-          "6": "Document preparation with review"
+          "1": "Operasjonell finansrapportering",
+          "2": "Fakturerings- og abonnementsbevissthet",
+          "3": "Finansielle handlinger med godkjenningsstyring",
+          "4": "Ledelsesbriefinger for finans",
+          "5": "Policyhåndhevelse",
+          "6": "Dokumentforberedelse med gjennomgang"
         },
         "steps": {
           "1": {
-            "title": "Connect approved finance context",
-            "body": "Link accounting, billing, and operational data sources with appropriate access levels."
+            "title": "Koble godkjent finanskontekst",
+            "body": "Koble regnskap, fakturering og operative datakilder med passende tilgangsnivåer."
           },
           "2": {
-            "title": "Aipify surfaces finance signals",
-            "body": "Summaries and alerts focus on patterns and outcomes — not unnecessary raw records."
+            "title": "Aipify viser finanssignaler",
+            "body": "Sammendrag og varsler fokuserer på mønstre og utfall — ikke unødvendige råposter."
           },
           "3": {
-            "title": "Finance teams review and approve",
-            "body": "Sensitive actions require human approval with explainable context."
+            "title": "Finans-team gjennomgår og godkjenner",
+            "body": "Sensitive handlinger krever menneskelig godkjenning med forklarbar kontekst."
           },
           "4": {
-            "title": "Leadership receives briefings",
-            "body": "Executive finance views highlight risks, trends, and recommended focus areas."
+            "title": "Ledelsen mottar briefinger",
+            "body": "Ledelsesvisninger for finans fremhever risiko, trender og anbefalte fokusområder."
           }
         },
-        "governanceTitle": "Financial control stays explicit",
-        "governanceBody": "Critical financial actions require explicit human approval. Aipify does not autonomously process payments, issue refunds, or execute high-risk financial changes.",
-        "whoForTitle": "Built for finance leaders",
-        "whoForBody": "Finance leaders, business operations teams, and organizations needing operational finance visibility with enterprise-grade governance and audit expectations.",
-        "planActivationTitle": "Activate on Business",
-        "planActivationBody": "Add Aipify Finance on a Business plan. Purchase the pack, complete activation validation, and grant finance and operations teams governed access.",
-        "primaryCta": "Get Aipify Finance",
-        "finalCtaTitle": "READY TO MOVE FORWARD?",
-        "finalCtaSubtitle": "Get Aipify Finance on your Business plan — or book a demo to review operational finance visibility."
+        "governanceTitle": "Finansiell kontroll forblir eksplisitt",
+        "governanceBody": "Kritiske finansielle handlinger krever eksplisitt menneskelig godkjenning. Aipify behandler ikke betalinger autonomt, utsteder ikke refusjoner og utfører ikke høyrisiko finansielle endringer.",
+        "whoForTitle": "Bygget for finansledere",
+        "whoForBody": "Finansledere, forretningsdriftsteam og organisasjoner som trenger operasjonell finanssynlighet med enterprise-styring og revisjonsforventninger.",
+        "planActivationTitle": "Aktiver på Business",
+        "planActivationBody": "Legg til Aipify Finance på en Business-plan. Kjøp pakken, fullfør aktiveringsvalidering og gi finans- og driftsteam styrt tilgang.",
+        "primaryCta": "Skaff Aipify Finance",
+        "finalCtaTitle": "KLAR TIL Å GÅ VIDERE?",
+        "finalCtaSubtitle": "Skaff Aipify Finance på Business-planen deres — eller book en demo for å gjennomgå operasjonell finanssynlighet."
       },
       "warehouse": {
         "name": "Warehouse Operations Pack",

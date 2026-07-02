@@ -3493,6 +3493,10 @@
           "audience": "Customer service and support teams",
           "value": "Governed triage, knowledge-backed responses, and escalation."
         },
+        "warehouse": {
+          "audience": "Warehouse and fulfillment teams",
+          "value": "Inventory coordination, task handoffs, and operational visibility."
+        },
         "commerce": {
           "audience": "Retail and e-commerce operations",
           "value": "Order visibility, inventory coordination, and customer touchpoints."
