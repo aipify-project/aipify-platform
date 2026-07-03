@@ -52,11 +52,42 @@ export const HUMAN_APPROVAL_NAV_ITEM: HumanApprovalNavItem = {
   labelKey: HUMAN_APPROVAL_NAV_LABEL_KEY,
 };
 
-export function filterHumanApprovalNavItems<T extends { id: string }>(items: T[]): T[] {
-  if (isCoreHumanApprovalUiEnabled()) {
+export type HumanApprovalNavFilterOptions = {
+  featureEnabled?: boolean;
+  organizationRole?: string | null;
+};
+
+export function shouldShowHumanApprovalNav(
+  options: HumanApprovalNavFilterOptions = {},
+): boolean {
+  const featureEnabled = options.featureEnabled ?? isCoreHumanApprovalUiEnabled();
+  if (!featureEnabled) return false;
+  if (!("organizationRole" in options)) return true;
+  return isHumanApprovalPilotRole(options.organizationRole ?? null);
+}
+
+export function filterHumanApprovalNavItems<T extends { id: string }>(
+  items: T[],
+  options: HumanApprovalNavFilterOptions = {},
+): T[] {
+  if (shouldShowHumanApprovalNav(options)) {
     return items;
   }
   return items.filter((item) => item.id !== HUMAN_APPROVAL_NAV_ID);
+}
+
+export function filterHumanApprovalNavGroups<
+  T extends { id: string; items: Array<{ id: string }> },
+>(groups: T[], options: HumanApprovalNavFilterOptions = {}): T[] {
+  if (shouldShowHumanApprovalNav(options)) {
+    return groups;
+  }
+  return groups
+    .map((group) => ({
+      ...group,
+      items: group.items.filter((item) => item.id !== HUMAN_APPROVAL_NAV_ID),
+    }))
+    .filter((group) => group.items.length > 0);
 }
 
 export type HumanApprovalAccessState =

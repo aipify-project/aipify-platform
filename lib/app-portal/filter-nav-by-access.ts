@@ -1,10 +1,16 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { AppNavGroupConfig } from "@/lib/app/build-nav";
+import {
+  filterHumanApprovalNavGroups,
+  isCoreHumanApprovalUiEnabled,
+} from "@/lib/app/human-approval-nav";
 import { APP_PORTAL_NAV_GROUPS } from "@/lib/app-portal/nav-config";
 import { APP_NAV_PERMISSION_KEYS } from "@/lib/app-portal/nav-route-access";
 import { resolvePortalFeatureEnabled } from "@/lib/app-portal/feature-entitlements";
 import { parseAppPortalFeatureAccess } from "@/lib/app-portal/parse";
-import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
+import {
+  parseAppOrganizationContext,
+} from "@/lib/tenant/resolve-app-organization-context";
 
 const FEATURE_BY_NAV_ID = new Map(
   APP_PORTAL_NAV_GROUPS.flatMap((group) =>
@@ -89,12 +95,16 @@ export async function filterNavGroupsByAccess(
     ...new Set(Object.values(APP_NAV_PERMISSION_KEYS).flatMap((keys) => keys ?? [])),
   ];
 
-  const [featureAccess, permissionAccess] = await Promise.all([
+  const [featureAccess, permissionAccess, contextData] = await Promise.all([
     featureKeys.length ? loadFeatureAccess(supabase, featureKeys) : Promise.resolve(new Map()),
     permissionKeys.length ? loadPermissionAccess(supabase, permissionKeys) : Promise.resolve(new Map()),
+    supabase.rpc("get_app_organization_context"),
   ]);
+  const organizationContext = parseAppOrganizationContext(contextData.data);
+  const organizationRole =
+    organizationContext.state === "ready" ? organizationContext.organization_role : null;
 
-  return groups
+  const filtered = groups
     .map((group) => ({
       ...group,
       items: group.items.filter((item) => {
@@ -103,6 +113,11 @@ export async function filterNavGroupsByAccess(
       }),
     }))
     .filter((group) => group.items.length > 0);
+
+  return filterHumanApprovalNavGroups(filtered, {
+    featureEnabled: isCoreHumanApprovalUiEnabled(),
+    organizationRole,
+  });
 }
 
 export function filterFlatNavByAccess(

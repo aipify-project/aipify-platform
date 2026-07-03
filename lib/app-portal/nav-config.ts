@@ -1,3 +1,10 @@
+import {
+  filterHumanApprovalNavGroups,
+  HUMAN_APPROVAL_NAV_LABEL_KEY,
+  HUMAN_APPROVAL_ROUTE,
+  isCoreHumanApprovalUiEnabled,
+} from "@/lib/app/human-approval-nav";
+
 export const APP_PORTAL_HOME_ROUTE = "/app/command-center";
 
 export const APP_ORGANIZATION_ROLES = [
@@ -94,6 +101,7 @@ export type AppPortalNavId =
   | "apiAccess"
   | "operationsCenter"
   | "risksCompliance"
+  | "humanApproval"
   | "managementInsights"
   | "dataSources"
   | "organizationSettings";
@@ -123,7 +131,7 @@ export type AppPortalNavGroup = {
   defaultExpanded?: boolean;
 };
 
-export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
+export const RAW_APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
   {
     id: "home",
     labelKey: "customerApp.portalStructure.navGroups.home",
@@ -167,6 +175,11 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
       { id: "decisionCenter", href: "/app/operations/decision-center", labelKey: "customerApp.portalStructure.nav.decisionCenter" },
       { id: "goalsObjectives", href: "/app/operations/goals", labelKey: "customerApp.portalStructure.nav.goalsObjectives" },
       { id: "risksCompliance", href: "/app/operations/risks", labelKey: "customerApp.portalStructure.nav.risksCompliance" },
+      {
+        id: "humanApproval",
+        href: HUMAN_APPROVAL_ROUTE,
+        labelKey: HUMAN_APPROVAL_NAV_LABEL_KEY,
+      },
       { id: "meetings", href: "/app/operations/meetings", labelKey: "customerApp.portalStructure.nav.meetings" },
       { id: "operationsCenter", href: "/app/operations", labelKey: "customerApp.portalStructure.nav.operationsCenter" },
     ],
@@ -224,6 +237,12 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
   },
 ];
 
+/** Feature-flag default OFF — Human Approval hidden unless explicitly enabled. */
+export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = filterHumanApprovalNavGroups(
+  RAW_APP_PORTAL_NAV_GROUPS,
+  { featureEnabled: isCoreHumanApprovalUiEnabled() },
+);
+
 export const APP_PORTAL_NAV: AppPortalNavItem[] = APP_PORTAL_NAV_GROUPS.flatMap((g) => g.items);
 
 export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
@@ -269,6 +288,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/operations/goals")) return "goalsObjectives";
   if (pathname.startsWith("/app/operations/playbooks")) return "operationsCenter";
   if (pathname.startsWith("/app/operations/risks")) return "risksCompliance";
+  if (pathname.startsWith("/app/human-approval")) return "humanApproval";
   if (pathname.startsWith("/app/operations/meetings")) return "meetings";
   if (pathname.startsWith("/app/operations/continuity")) return "operationsCenter";
   if (pathname.startsWith("/app/operations/learning")) return "operationsCenter";

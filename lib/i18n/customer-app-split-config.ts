@@ -14,6 +14,7 @@ export const CUSTOMER_APP_SPLIT_NAMES = [
   "settings",
   "dashboard",
   "core",
+  "humanApproval",
 ] as const;
 
 export type CustomerAppSplitName = (typeof CUSTOMER_APP_SPLIT_NAMES)[number];
@@ -85,6 +86,7 @@ const DASHBOARD_MODULE_OVERRIDES = new Set([
 ]);
 
 export function resolveCustomerAppSplit(key: string): CustomerAppSplitName {
+  if (key === "humanApproval") return "humanApproval";
   if (NAVIGATION_KEYS.has(key)) return "navigation";
   if (PORTAL_STRUCTURE_KEYS.has(key)) return "portalStructure";
   if (DASHBOARD_MODULE_OVERRIDES.has(key)) return "dashboard";

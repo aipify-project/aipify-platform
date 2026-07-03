@@ -1,6 +1,11 @@
 import { resolveAppHref } from "./route-aliases";
 import { APP_PORTAL_NAV, getAppPortalActiveNavId } from "../app-portal/nav-config";
-import { filterHumanApprovalNavItems, HUMAN_APPROVAL_NAV_ITEM } from "./human-approval-nav";
+import {
+  filterHumanApprovalNavGroups,
+  filterHumanApprovalNavItems,
+  HUMAN_APPROVAL_NAV_ITEM,
+} from "./human-approval-nav";
+import { APP_NAV_GROUPS, type AppNavGroup } from "./nav-groups";
 
 export type AppNavId =
   | "overview"
@@ -3544,11 +3549,21 @@ export function getAppActiveNavId(pathname: string): AppNavId {
 }
 
 /** Nav items with hrefs resolved to active routes during /dashboard → /app migration. */
-export function getAppNavItemsForShell(): AppNavItem[] {
+export function getAppNavItemsForShell(
+  options?: Parameters<typeof filterHumanApprovalNavItems>[1],
+): AppNavItem[] {
   return filterHumanApprovalNavItems(
     APP_NAV.map((item) => ({
       ...item,
       href: resolveAppHref(item.href),
     })),
+    options,
   );
+}
+
+/** Grouped portal nav with Human Approval gated by feature flag and owner/admin pilot role. */
+export function getAppNavGroupsForShell(
+  options?: Parameters<typeof filterHumanApprovalNavItems>[1],
+): AppNavGroup[] {
+  return filterHumanApprovalNavGroups(APP_NAV_GROUPS, options);
 }

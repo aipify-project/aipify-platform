@@ -4,13 +4,16 @@ import path from "node:path";
 import {
   CORE_HUMAN_APPROVAL_UI_ENV_KEY,
   HUMAN_APPROVAL_READ_ONLY_ACTIONS,
+  filterHumanApprovalNavGroups,
   filterHumanApprovalNavItems,
   isCoreHumanApprovalUiEnabled,
   isHumanApprovalPilotRole,
   isHumanApprovalReadOnlyAction,
   rejectUnsafeHumanApprovalMethod,
   resolveHumanApprovalAccessState,
+  shouldShowHumanApprovalNav,
 } from "@/lib/app/human-approval-nav";
+import { CUSTOMER_APP_SPLIT_NAMES } from "@/lib/i18n/customer-app-split-config";
 import {
   flattenHumanApprovalLabelKeys,
   readHumanApprovalLocaleFileSync,
@@ -125,10 +128,64 @@ const navItems = [
 assert.equal(filterHumanApprovalNavItems(navItems).length, 1);
 process.env[CORE_HUMAN_APPROVAL_UI_ENV_KEY] = "true";
 assert.equal(filterHumanApprovalNavItems(navItems).length, 2);
+assert.equal(
+  filterHumanApprovalNavItems(navItems, { featureEnabled: true, organizationRole: "staff" }).length,
+  1,
+  "non-owner/admin hidden when flag ON",
+);
+assert.equal(
+  filterHumanApprovalNavItems(navItems, { featureEnabled: true, organizationRole: "owner" }).length,
+  2,
+  "owner sees nav when flag ON",
+);
 if (envSnapshot === undefined) {
   delete process.env[CORE_HUMAN_APPROVAL_UI_ENV_KEY];
 } else {
   process.env[CORE_HUMAN_APPROVAL_UI_ENV_KEY] = envSnapshot;
+}
+
+assert.equal(shouldShowHumanApprovalNav({ featureEnabled: false, organizationRole: "owner" }), false);
+assert.equal(shouldShowHumanApprovalNav({ featureEnabled: true, organizationRole: "owner" }), true);
+assert.equal(shouldShowHumanApprovalNav({ featureEnabled: true, organizationRole: "staff" }), false);
+
+const sampleGroups = [
+  {
+    id: "operations",
+    labelKey: "g",
+    items: [
+      { id: "appTasks", labelKey: "a" },
+      { id: "humanApproval", labelKey: "b" },
+    ],
+  },
+  {
+    id: "billing",
+    labelKey: "h",
+    items: [{ id: "subscription", labelKey: "c" }],
+  },
+];
+const hiddenGroups = filterHumanApprovalNavGroups(sampleGroups, {
+  featureEnabled: false,
+  organizationRole: "owner",
+});
+assert.equal(hiddenGroups.find((group) => group.id === "operations")?.items.length, 1);
+assert.equal(hiddenGroups.find((group) => group.id === "billing")?.items.length, 1);
+const visibleGroups = filterHumanApprovalNavGroups(sampleGroups, {
+  featureEnabled: true,
+  organizationRole: "administrator",
+});
+assert.equal(visibleGroups.find((group) => group.id === "operations")?.items.length, 2);
+
+assert.ok(
+  (CUSTOMER_APP_SPLIT_NAMES as readonly string[]).includes("humanApproval"),
+  "humanApproval split registered",
+);
+
+for (const locale of CORE_LOCALES) {
+  if (locale === "en") continue;
+  const englishKeys = flattenHumanApprovalLabelKeys(readHumanApprovalLocaleFileSync("en"));
+  const localizedKeys = new Set(flattenHumanApprovalLabelKeys(readHumanApprovalLocaleFileSync(locale)));
+  const missing = englishKeys.filter((key) => !localizedKeys.has(key));
+  assert.equal(missing.length, 0, `${locale} humanApproval keys mismatch: ${missing.join(", ")}`);
 }
 
 const english = readHumanApprovalLocaleFileSync("en");

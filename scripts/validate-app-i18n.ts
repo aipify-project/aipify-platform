@@ -1,5 +1,5 @@
 #!/usr/bin/env npx tsx
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { CUSTOMER_APP_SPLIT_NAMES } from "../lib/i18n/customer-app-split-config";
 import { APP_LOCALES } from "../lib/i18n/app-locales";
@@ -43,6 +43,8 @@ function compareLocaleFiles(
   locale: string,
   relativePath: string,
 ): MissingKeyReport | null {
+  const localizedPath = path.join(ROOT, relativePath);
+  if (!existsSync(localizedPath)) return null;
   const english = readJson(englishRelativePath);
   const localized = readJson(relativePath);
   const englishKeys = flattenKeys(english);
