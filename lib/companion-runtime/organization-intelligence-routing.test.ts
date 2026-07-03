@@ -18,6 +18,12 @@ import {
   shouldBypassGenericNavigationForOrganizationQuery,
   resolveOrganizationIntelligenceAnswer,
 } from "@/lib/companion-runtime/organization-intelligence-routing";
+import {
+  classifyCompanionTurnRoute,
+  isCapabilityHelpQuery,
+  resolveLightweightConversationalIntent,
+} from "@/lib/companion-runtime/companion-turn-route";
+import { resolveArticleIdForQuery } from "@/lib/companion-platform-knowledge/search-helpers";
 import { createEmptyCompanionTenantContext } from "@/lib/companion-runtime/companion-tenant-context";
 import { createEmptyCompanionSupportContext } from "@/lib/companion-runtime/companion-support-context";
 import { mapAsoDashboardToSupportBundle, mapSupportAiDashboardToSupportBundle, SUPPORT_AI_QUEUE_SOURCE_REFERENCE } from "@/lib/integration-intelligence/providers/support-operations/support-operations-contract";
@@ -495,6 +501,40 @@ runSupportQueueRoutingTests()
     const orgIntelIndex = orchestratorSource.indexOf("resolveOrganizationIntelligenceAnswer");
     const communityIndex = orchestratorSource.indexOf("resolveCommunityProviderAnswer");
     assert.ok(orgIntelIndex > 0 && orgIntelIndex < communityIndex);
+
+    const capabilityHelpCases = [
+      { query: "Hva kan Aipify hjelpe meg med?", locale: "no" as const },
+      {
+        query: "Hva kan Aipify Companion hjelpe Nordic Example AS med?",
+        locale: "no" as const,
+      },
+      { query: "What can Aipify help me with?", locale: "en" as const },
+      { query: "How can Aipify Companion help Acme?", locale: "en" as const },
+    ] as const;
+
+    for (const { query, locale } of capabilityHelpCases) {
+      assert.equal(isCapabilityHelpQuery(query), true, query);
+      assert.notEqual(
+        classifyCompanionTurnRoute(query, locale),
+        "lightweight",
+        `capability help must not route lightweight: ${query}`,
+      );
+      assert.equal(
+        classifyCompanionTurnRoute(query, locale),
+        "full",
+        `capability help must route full: ${query}`,
+      );
+      assert.equal(
+        resolveArticleIdForQuery(query),
+        "aipify-capabilities",
+        `capability help must resolve aipify-capabilities: ${query}`,
+      );
+    }
+
+    assert.equal(classifyCompanionTurnRoute("Hei!", "no"), "lightweight");
+    assert.equal(classifyCompanionTurnRoute("Kan du le?", "no"), "lightweight");
+    assert.equal(resolveLightweightConversationalIntent("Takk!"), "thanks");
+    assert.equal(classifyCompanionTurnRoute("hva sier Aipify", "no"), "lightweight");
 
     console.log("organization-intelligence-routing.test.ts: all assertions passed");
   })
