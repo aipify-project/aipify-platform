@@ -17,6 +17,12 @@ import {
 } from "./message-payload";
 import { createClientMessageId, createIdempotencyKey } from "./client";
 import { resolveCompanionQueueWaitPhase } from "./queue-wait-phase";
+import {
+  classifyCompanionTurnRoute,
+  isCapabilityHelpQuery,
+  resolveLightweightConversationalIntent,
+} from "@/lib/companion-runtime/companion-turn-route";
+import { resolveArticleIdForQuery } from "@/lib/companion-platform-knowledge/search-helpers";
 
 const VALID_ACTION_REQUEST_ID = "a1b2c3d4-e5f6-4789-a012-3456789abcde";
 const SUPPORT_OUTCOME_APPROVAL_KEY =
@@ -1917,6 +1923,267 @@ async function testExecuteTurnSupportResumeCompletionLocalized() {
   });
 }
 
+function testCapabilityHelpTurnRouting() {
+  const capabilityHelpCases = [
+    { query: "Hva kan Aipify hjelpe meg med?", locale: "no" as const },
+    {
+      query: "Hva kan Aipify Companion hjelpe Nordic Example AS med?",
+      locale: "no" as const,
+    },
+    { query: "What can Aipify help me with?", locale: "en" as const },
+    { query: "How can Aipify Companion help Acme?", locale: "en" as const },
+  ] as const;
+
+  for (const { query, locale } of capabilityHelpCases) {
+    assert.notEqual(
+      classifyCompanionTurnRoute(query, locale),
+      "lightweight",
+      `capability help must not route lightweight: ${query}`,
+    );
+    assert.equal(
+      classifyCompanionTurnRoute(query, locale),
+      "full",
+      `capability help must route full: ${query}`,
+    );
+    assert.equal(
+      resolveArticleIdForQuery(query),
+      "aipify-capabilities",
+      `capability help article for: ${query}`,
+    );
+  }
+
+  assert.equal(classifyCompanionTurnRoute("Hei!", "no"), "lightweight");
+  assert.equal(classifyCompanionTurnRoute("Takk!", "no"), "lightweight");
+  assert.equal(resolveLightweightConversationalIntent("Kan du le?"), "humor");
+  assert.equal(classifyCompanionTurnRoute("hva sier Aipify", "no"), "lightweight");
+}
+
+function createMinimalBootstrapRpcPayload() {
+  return {
+    ok: true,
+    scope: {
+      tenant_id: workerProfileStub.customerId,
+      user_id: workerProfileStub.user.id,
+      customer_id: workerProfileStub.customerId,
+      company_id: workerProfileStub.company.id,
+      organization_id: "org-example-1",
+      user_role: workerProfileStub.user.role,
+      organization_role: "owner",
+    },
+    organization_context: {
+      organization_name: "Example Organization",
+      plan_name: "Business",
+      license_status: "active",
+      default_language: "en",
+    },
+    identity_permissions: { user_permissions: [] },
+    customer_license_center: { subscription: { plan_key: "business", status: "active" } },
+    integrations_hub: { connections: [] },
+    identity_center: null,
+    assistant_identity: null,
+    personality_card: null,
+    companion_identity_relationship: null,
+    install_discovery_context: null,
+    install_discovery_center: null,
+    support_operations_center: null,
+    executive_command_center: null,
+    marketplace_summary: { installed_pack_keys: [] },
+    license_subscription_center: null,
+    memory_center_preferences: null,
+    learning_center: null,
+  };
+}
+
+function createTrackingBootstrapSupabase(options: { includeAttachment?: boolean } = {}) {
+  const rpcCalls: string[] = [];
+  const supabase = {
+    rpc: async (fn: string) => {
+      rpcCalls.push(fn);
+      if (fn === "companion_worker_get_runtime_bootstrap") {
+        return { data: createMinimalBootstrapRpcPayload(), error: null };
+      }
+      if (fn === "list_companion_conversation_attachments") {
+        return {
+          data: {
+            ok: true,
+            attachments: options.includeAttachment
+              ? [
+                  {
+                    attachment_id: "att-example-1",
+                    conversation_id: VALID_CONVERSATION_ID,
+                    original_filename: "notes.pdf",
+                    mime_type: "application/pdf",
+                    category: "document",
+                    byte_size: 1024,
+                    security_status: "approved",
+                    provenance_source: "user_upload",
+                    created_at: "2026-01-01T00:00:00.000Z",
+                    preview_available: false,
+                  },
+                ]
+              : [],
+          },
+          error: null,
+        };
+      }
+      if (fn === "get_companion_active_artifact") {
+        return { data: { active_artifact: null }, error: null };
+      }
+      return { data: null, error: null };
+    },
+    getRpcCalls: () => [...rpcCalls],
+  };
+  return supabase as unknown as SupabaseClient & { getRpcCalls: () => string[] };
+}
+
+function assertHeavyPackLoaderNotInvoked(rpcCalls: readonly string[]) {
+  const heavyPackRpcMarkers = [
+    "get_companion_calendar_context",
+    "get_organization_inventory_center",
+    "get_support_ai_engine_dashboard",
+    "get_organization_appointment_center",
+  ];
+  for (const marker of heavyPackRpcMarkers) {
+    assert.equal(
+      rpcCalls.includes(marker),
+      false,
+      `heavy tenant/pack loader must not invoke ${marker}`,
+    );
+  }
+}
+
+async function testCapabilityHelpWorkerBootstrapFastPath() {
+  installServerOnlyShim();
+  const supabase = createTrackingBootstrapSupabase();
+  const { bootstrapCompanionWorkerTenantRuntime } = await import("./load-worker-tenant-context");
+  const result = await bootstrapCompanionWorkerTenantRuntime(
+    supabase,
+    workerProfileStub,
+    "en",
+    { query: "What can Aipify help me with?" },
+  );
+
+  assert.equal(result.ok, true);
+  assert.ok(supabase.getRpcCalls().includes("companion_worker_get_runtime_bootstrap"));
+  assertHeavyPackLoaderNotInvoked(supabase.getRpcCalls());
+}
+
+async function testCapabilityHelpExecuteTurnCorpusFastPath() {
+  installServerOnlyShim();
+  const supabase = createTrackingBootstrapSupabase();
+  const executeCompanionTurn = await getExecuteCompanionTurn();
+  const { executeCompanionTurnToPayload } = await import("./execute-turn");
+
+  const turn = await executeCompanionTurn(
+    supabase,
+    {
+      query: "What can Aipify help me with?",
+      locale: "en",
+      conversationId: VALID_CONVERSATION_ID,
+      workerProfile: workerProfileStub,
+      workerQueueId: "queue-capability-1",
+      turnRoute: "full",
+    },
+    {
+      detect_booking_resume_intent: () => false,
+      detect_support_resume_intent: () => false,
+      produce_booking_proposal_turn: async () => ({ handled: false }),
+      produce_support_proposal_turn: async () => ({ handled: false }),
+    },
+  );
+
+  assert.equal(turn.ok, true, turn.ok ? "" : String((turn as { error?: string }).error));
+  if (!turn.ok) return;
+
+  assertHeavyPackLoaderNotInvoked(supabase.getRpcCalls());
+  assert.equal(
+    supabase.getRpcCalls().includes("list_companion_conversation_attachments"),
+    false,
+    "no-artifact capability help must skip artifact-context loading",
+  );
+  const answer = turn.searchJson.answer as PlatformKnowledgeAnswer;
+  assert.equal(
+    turn.searchJson.matched_article_id ?? answer.sourceId,
+    "aipify-capabilities",
+  );
+  assert.equal(answer.source, "platform_corpus");
+
+  const payload = await executeCompanionTurnToPayload(supabase, {
+    query: "What can Aipify help me with?",
+    locale: "en",
+    conversationId: VALID_CONVERSATION_ID,
+    workerProfile: workerProfileStub,
+    turnRoute: "full",
+  });
+  assert.equal(payload.ok, true);
+  if (!payload.ok) return;
+
+  const linked = buildReplyFromSearchJson(turn.searchJson, turn.labels, turn.question);
+  assert.ok(linked.message.content || linked.message.directAnswer);
+  assert.equal(linked.message.sourceId, "aipify-capabilities");
+  assert.equal(linked.payload.sourceId, "aipify-capabilities");
+  assert.equal(payload.assistantPayload.sourceId, "aipify-capabilities");
+}
+
+async function testCapabilityHelpWithAttachmentPreservesArtifactLoading() {
+  installServerOnlyShim();
+  const supabase = createTrackingBootstrapSupabase({ includeAttachment: true });
+  const executeCompanionTurn = await getExecuteCompanionTurn();
+
+  const turn = await executeCompanionTurn(
+    supabase,
+    {
+      query: "What can Aipify help me with?",
+      locale: "en",
+      conversationId: VALID_CONVERSATION_ID,
+      workerProfile: workerProfileStub,
+      attachmentIds: ["att-example-1"],
+      turnRoute: "full",
+    },
+    {
+      detect_booking_resume_intent: () => false,
+      detect_support_resume_intent: () => false,
+      produce_booking_proposal_turn: async () => ({ handled: false }),
+      produce_support_proposal_turn: async () => ({ handled: false }),
+    },
+  );
+
+  assert.equal(turn.ok, true);
+  assert.equal(
+    supabase.getRpcCalls().includes("list_companion_conversation_attachments"),
+    true,
+    "attachments must preserve artifact loading",
+  );
+  assertHeavyPackLoaderNotInvoked(supabase.getRpcCalls());
+}
+
+async function testNonCapabilityFullRouteStillUsesHeavyTenantLoader() {
+  installServerOnlyShim();
+  const supabase = createTrackingBootstrapSupabase();
+  const { bootstrapCompanionWorkerTenantRuntime } = await import("./load-worker-tenant-context");
+  const result = await bootstrapCompanionWorkerTenantRuntime(
+    supabase,
+    workerProfileStub,
+    "en",
+    { query: "Show me all open support cases and pending orders" },
+  );
+
+  assert.equal(result.ok, true);
+  assert.ok(
+    supabase
+      .getRpcCalls()
+      .some((call) =>
+        [
+          "get_companion_calendar_context",
+          "get_support_ai_engine_dashboard",
+          "get_organization_appointment_center",
+          "get_organization_inventory_center",
+        ].includes(call),
+      ),
+    "ordinary full-route turns must still load heavy tenant context",
+  );
+}
+
 testIdempotencyKeyStable();
 testDeserializeAssistantRoundTrip();
 testMapServerMessagesOrder();
@@ -1927,8 +2194,13 @@ testPendingBookingWriteInvalidInputs();
 testPendingBookingClarificationHandoffContract();
 testPlatformAnswerPendingBookingWriteSearchToChatContract();
 testPlatformAnswerPendingSupportWriteSearchToChatContract();
+testCapabilityHelpTurnRouting();
 
-void testExecuteTurnResumeWiring()
+void testCapabilityHelpWorkerBootstrapFastPath()
+  .then(() => testCapabilityHelpExecuteTurnCorpusFastPath())
+  .then(() => testCapabilityHelpWithAttachmentPreservesArtifactLoading())
+  .then(() => testNonCapabilityFullRouteStillUsesHeavyTenantLoader())
+  .then(() => testExecuteTurnResumeWiring())
   .then(() => testExecuteTurnRealProducerCallGraph())
   .then(() => testExecuteTurnProposalWiring())
   .then(() => {
