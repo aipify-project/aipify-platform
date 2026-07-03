@@ -1,6 +1,9 @@
 import { createHash } from "node:crypto";
 
-/** Stable JSON serialization — keys sorted recursively (matches SQL jsonb sort intent). */
+/**
+ * Canonical JSON contract shared with SQL `_cha_canonical_text()`.
+ * Object keys sorted lexicographically; array order preserved.
+ */
 export function stableStringify(value: unknown): string {
   if (value === null || typeof value !== "object") {
     return JSON.stringify(value);
@@ -13,9 +16,13 @@ export function stableStringify(value: unknown): string {
   return `{${keys.map((key) => `${JSON.stringify(key)}:${stableStringify(record[key])}`).join(",")}}`;
 }
 
+export function canonicalizeScope(scope: Record<string, unknown>): Record<string, unknown> {
+  return sortRecord(scope);
+}
+
 export function computeScopeFingerprint(scope: Record<string, unknown> | readonly string[]): string {
   const payload =
-    Array.isArray(scope) ? { scope_keys: [...scope].sort() } : sortRecord(scope);
+    Array.isArray(scope) ? { scope_keys: [...scope].sort() } : canonicalizeScope(scope);
   return createHash("md5").update(stableStringify(payload)).digest("hex");
 }
 
@@ -31,7 +38,7 @@ export function computePayloadHash(input: {
         action_key: input.action_key,
         consumer_ref_id: input.consumer_ref_id,
         organization_id: input.organization_id,
-        scope_json: sortRecord(input.scope),
+        scope_json: canonicalizeScope(input.scope),
       }),
     )
     .digest("hex");
@@ -51,6 +58,29 @@ function sortRecord(value: Record<string, unknown>): Record<string, unknown> {
   }
   return sorted;
 }
+
+export const CANONICAL_HASH_TEST_VECTORS = [
+  {
+    name: "reordered object keys",
+    scope: { b: 2, a: 1 },
+    expectedCanonical: '{"a":1,"b":2}',
+  },
+  {
+    name: "nested objects",
+    scope: { outer: { z: true, a: null }, action_name: "draft" },
+    expectedCanonical: '{"action_name":"draft","outer":{"a":null,"z":true}}',
+  },
+  {
+    name: "array order preserved",
+    scope: { tags: ["beta", "alpha"], action_name: "sync" },
+    expectedCanonical: '{"action_name":"sync","tags":["beta","alpha"]}',
+  },
+  {
+    name: "escaped string",
+    scope: { note: 'Quote "inside"', action_name: "notify" },
+    expectedCanonical: '{"action_name":"notify","note":"Quote \\"inside\\""}',
+  },
+] as const;
 
 export function buildTrustActionScope(input: {
   action_name: string;

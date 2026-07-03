@@ -107,12 +107,85 @@ as $$
   select p_tenant_id;
 $$;
 
+create or replace function public._cha_json_quote_string(p_text text)
+returns text
+language sql
+immutable
+as $$
+  select to_jsonb(p_text)::text;
+$$;
+
+-- Canonical JSON text — must match TypeScript stableStringify() in scope-fingerprint.ts
+create or replace function public._cha_canonical_text(p_value jsonb)
+returns text
+language plpgsql
+immutable
+as $$
+declare
+  v_type text;
+  v_key text;
+  v_keys text[];
+  v_parts text[];
+  v_elem jsonb;
+begin
+  if p_value is null then
+    return 'null';
+  end if;
+
+  v_type := jsonb_typeof(p_value);
+
+  if v_type = 'null' then
+    return 'null';
+  elsif v_type = 'boolean' then
+    if p_value = 'true'::jsonb then
+      return 'true';
+    end if;
+    return 'false';
+  elsif v_type = 'number' then
+    return p_value::text;
+  elsif v_type = 'string' then
+    return public._cha_json_quote_string(p_value #>> '{}');
+  elsif v_type = 'array' then
+    v_parts := array[]::text[];
+    for v_elem in
+      select value from jsonb_array_elements(p_value)
+    loop
+      v_parts := array_append(v_parts, public._cha_canonical_text(v_elem));
+    end loop;
+    if coalesce(array_length(v_parts, 1), 0) = 0 then
+      return '[]';
+    end if;
+    return '[' || array_to_string(v_parts, ',') || ']';
+  elsif v_type = 'object' then
+    select coalesce(array_agg(key order by key), array[]::text[])
+    into v_keys
+    from jsonb_object_keys(p_value) as key;
+
+    v_parts := array[]::text[];
+    foreach v_key in array v_keys
+    loop
+      v_parts := array_append(
+        v_parts,
+        public._cha_json_quote_string(v_key) || ':' ||
+        public._cha_canonical_text(p_value -> v_key)
+      );
+    end loop;
+    if coalesce(array_length(v_parts, 1), 0) = 0 then
+      return '{}';
+    end if;
+    return '{' || array_to_string(v_parts, ',') || '}';
+  end if;
+
+  return 'null';
+end;
+$$;
+
 create or replace function public._cha_scope_fingerprint(p_scope jsonb)
 returns text
 language sql
 immutable
 as $$
-  select md5(coalesce(p_scope, '{}'::jsonb)::text);
+  select md5(public._cha_canonical_text(coalesce(p_scope, '{}'::jsonb)));
 $$;
 
 create or replace function public._cha_payload_hash(
@@ -125,12 +198,16 @@ returns text
 language sql
 immutable
 as $$
-  select md5(jsonb_build_object(
+  select md5(public._cha_canonical_text(jsonb_build_object(
     'action_key', coalesce(p_action_key, ''),
-    'scope_json', coalesce(p_scope, '{}'::jsonb),
-    'organization_id', p_organization_id,
-    'consumer_ref_id', p_consumer_ref_id
-  )::text);
+    'consumer_ref_id',
+      case
+        when p_consumer_ref_id is null then 'null'::jsonb
+        else to_jsonb(p_consumer_ref_id::text)
+      end,
+    'organization_id', p_organization_id::text,
+    'scope_json', coalesce(p_scope, '{}'::jsonb)
+  )));
 $$;
 
 create or replace function public._cha_membership_role(p_org_id uuid, p_user_id uuid)
@@ -228,30 +305,41 @@ begin
 end;
 $$;
 
-create or replace function public._cha_request_json(p_row public.core_human_approval_requests)
+create or replace function public._cha_latest_audit_id(p_request_id uuid)
+returns uuid
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select e.id
+  from public.core_human_approval_events e
+  where e.request_id = p_request_id
+  order by e.created_at desc
+  limit 1;
+$$;
+
+create or replace function public._cha_approved_by_display(p_user_id uuid)
+returns text
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select coalesce(u.full_name, au.email, '')
+  from public.users u
+  left join auth.users au on au.id = u.auth_user_id
+  where u.id = p_user_id;
+$$;
+
+create or replace function public._cha_request_json_internal(p_row public.core_human_approval_requests)
 returns jsonb
 language plpgsql
 stable
 security definer
 set search_path = public
 as $$
-declare
-  v_latest_audit uuid;
-  v_approved_display text;
 begin
-  select e.id
-  into v_latest_audit
-  from public.core_human_approval_events e
-  where e.request_id = p_row.id
-  order by e.created_at desc
-  limit 1;
-
-  select coalesce(u.full_name, au.email, '')
-  into v_approved_display
-  from public.users u
-  left join auth.users au on au.id = u.auth_user_id
-  where u.id = p_row.approved_by_user_id;
-
   return jsonb_build_object(
     'id', p_row.id,
     'correlation_id', p_row.id,
@@ -274,7 +362,7 @@ begin
     'consumer_kind', p_row.consumer_kind,
     'consumer_ref_id', p_row.consumer_ref_id,
     'approved_by_user_id', p_row.approved_by_user_id,
-    'approved_by_display', v_approved_display,
+    'approved_by_display', public._cha_approved_by_display(p_row.approved_by_user_id),
     'denied_by_user_id', p_row.denied_by_user_id,
     'approver_role_snapshot', p_row.approver_role_snapshot,
     'approver_authority_snapshot', p_row.approver_authority_snapshot,
@@ -288,7 +376,42 @@ begin
     'approved_at', case when p_row.status in ('approved', 'executing', 'succeeded', 'failed') then p_row.updated_at else null end,
     'created_at', p_row.created_at,
     'updated_at', p_row.updated_at,
-    'latest_audit_id', v_latest_audit
+    'latest_audit_id', public._cha_latest_audit_id(p_row.id)
+  );
+end;
+$$;
+
+create or replace function public._cha_request_json_safe(p_row public.core_human_approval_requests)
+returns jsonb
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+begin
+  return jsonb_build_object(
+    'id', p_row.id,
+    'correlation_id', p_row.id,
+    'organization_id', p_row.organization_id,
+    'action_category', p_row.action_category,
+    'action_key', p_row.action_key,
+    'title', p_row.title,
+    'summary', p_row.summary,
+    'unchanged_summary', p_row.unchanged_summary,
+    'scope_summary', coalesce(p_row.scope_json ->> 'scope_summary', ''),
+    'target_environment', p_row.target_environment,
+    'access_mode', p_row.access_mode,
+    'risk_level', p_row.risk_level,
+    'status', p_row.status,
+    'approved_by_display', public._cha_approved_by_display(p_row.approved_by_user_id),
+    'approver_role_snapshot', p_row.approver_role_snapshot,
+    'expires_at', p_row.expires_at,
+    'execution_result', p_row.execution_result,
+    'execution_error_summary', p_row.execution_error_summary,
+    'approved_at', case when p_row.status in ('approved', 'executing', 'succeeded', 'failed') then p_row.updated_at else null end,
+    'created_at', p_row.created_at,
+    'updated_at', p_row.updated_at,
+    'latest_audit_id', public._cha_latest_audit_id(p_row.id)
   );
 end;
 $$;
@@ -389,7 +512,7 @@ begin
         jsonb_build_object('idempotency_key', p_idempotency_key), v_role
       );
       return jsonb_build_object(
-        'request', public._cha_request_json(v_existing),
+        'request', public._cha_request_json_safe(v_existing),
         'correlation_id', v_existing.id,
         'latest_audit_id', v_audit_id
       );
@@ -443,7 +566,7 @@ begin
   );
 
   return jsonb_build_object(
-    'request', public._cha_request_json(v_row),
+    'request', public._cha_request_json_safe(v_row),
     'correlation_id', v_row.id,
     'latest_audit_id', v_audit_id
   );
@@ -531,7 +654,7 @@ begin
     'core_approval_id', v_row.id,
     'correlation_id', v_row.id,
     'latest_audit_id', v_audit_id,
-    'request', public._cha_request_json(v_row)
+    'request', public._cha_request_json_safe(v_row)
   );
 end;
 $$;
@@ -597,7 +720,7 @@ begin
     'core_approval_id', v_row.id,
     'correlation_id', v_row.id,
     'latest_audit_id', v_audit_id,
-    'request', public._cha_request_json(v_row)
+    'request', public._cha_request_json_safe(v_row)
   );
 end;
 $$;
@@ -617,10 +740,19 @@ declare
   v_role text;
   v_row public.core_human_approval_requests;
   v_audit_id uuid;
+  v_trust_role_required text;
 begin
   v_user_id := public._mta_app_user_id();
   v_org_id := public._mta_require_organization();
   v_role := public._cha_trust_user_role();
+
+  if v_user_id is null or v_org_id is null then
+    raise exception 'unauthorized';
+  end if;
+
+  if public._mta_membership_active(v_org_id, v_user_id) is null then
+    raise exception 'unauthorized';
+  end if;
 
   select *
   into v_row
@@ -636,6 +768,20 @@ begin
     raise exception 'request_not_revocable';
   end if;
 
+  if v_row.consumer_kind = 'trust_action' and v_row.consumer_ref_id is not null then
+    select ar.approver_role_required
+    into v_trust_role_required
+    from public.action_requests ar
+    where ar.id = v_row.consumer_ref_id
+    limit 1;
+
+    if not public._cha_can_approve_trust(v_user_id, v_row.requester_user_id, v_trust_role_required) then
+      raise exception 'revoke_forbidden';
+    end if;
+  elsif not public._cha_is_elevated_role(v_role) then
+    raise exception 'revoke_forbidden';
+  end if;
+
   update public.core_human_approval_requests
   set status = 'revoked',
       revoked_at = now(),
@@ -645,7 +791,11 @@ begin
 
   v_audit_id := public._cha_audit(
     v_org_id, v_user_id, 'request_revoked', v_row.id,
-    jsonb_build_object('reason', coalesce(p_reason, '')), v_role
+    jsonb_build_object(
+      'reason', coalesce(p_reason, ''),
+      'approver_role', v_role
+    ),
+    v_role
   );
 
   return jsonb_build_object(
@@ -737,7 +887,7 @@ begin
   if coalesce(p_payload_hash, '') <> v_row.payload_hash then
     perform public._cha_audit(
       v_org_id, v_user_id, 'scope_mismatch_rejected', v_row.id,
-      jsonb_build_object('expected', v_row.payload_hash, 'provided', p_payload_hash), v_role
+      jsonb_build_object('reason', 'payload_mismatch'), v_role
     );
     raise exception 'payload_mismatch';
   end if;
@@ -775,7 +925,7 @@ begin
 
   v_audit_id := public._cha_audit(
     v_org_id, v_user_id, 'execution_started', v_row.id,
-    jsonb_build_object('payload_hash', p_payload_hash), v_role
+    jsonb_build_object('status', 'executing'), v_role
   );
 
   return jsonb_build_object(
@@ -821,6 +971,14 @@ begin
     raise exception 'request_not_found';
   end if;
 
+  if v_user_id is null or public._mta_membership_active(v_org_id, v_user_id) is null then
+    raise exception 'unauthorized';
+  end if;
+
+  if v_row.status <> 'executing' then
+    raise exception 'execution_not_in_progress';
+  end if;
+
   if p_result = 'succeeded' then
     v_status := 'succeeded';
     v_event := 'execution_succeeded';
@@ -851,7 +1009,7 @@ begin
     'core_approval_id', v_row.id,
     'correlation_id', v_row.id,
     'latest_audit_id', v_audit_id,
-    'request', public._cha_request_json(v_row)
+    'request', public._cha_request_json_safe(v_row)
   );
 end;
 $$;
@@ -878,7 +1036,7 @@ begin
     raise exception 'request_not_found';
   end if;
 
-  return public._cha_request_json(v_row);
+  return public._cha_request_json_safe(v_row);
 end;
 $$;
 
@@ -888,11 +1046,19 @@ grant execute on function public.create_core_human_approval_request(
 grant execute on function public.approve_core_human_approval_request(uuid) to authenticated;
 grant execute on function public.deny_core_human_approval_request(uuid, text) to authenticated;
 grant execute on function public.revoke_core_human_approval_request(uuid, text) to authenticated;
-grant execute on function public.expire_stale_core_human_approval_requests() to authenticated;
-grant execute on function public.assert_core_human_approval_for_execution(uuid, text) to authenticated;
-grant execute on function public.begin_core_human_approval_execution(uuid, text) to authenticated;
-grant execute on function public.complete_core_human_approval_execution(uuid, text, text) to authenticated;
 grant execute on function public.get_core_human_approval_request(uuid) to authenticated;
+
+revoke all on function public.expire_stale_core_human_approval_requests() from public, anon, authenticated;
+grant execute on function public.expire_stale_core_human_approval_requests() to service_role;
+
+revoke all on function public.assert_core_human_approval_for_execution(uuid, text) from public, anon, authenticated;
+grant execute on function public.assert_core_human_approval_for_execution(uuid, text) to service_role;
+
+revoke all on function public.begin_core_human_approval_execution(uuid, text) from public, anon, authenticated;
+grant execute on function public.begin_core_human_approval_execution(uuid, text) to service_role;
+
+revoke all on function public.complete_core_human_approval_execution(uuid, text, text) from public, anon, authenticated;
+grant execute on function public.complete_core_human_approval_execution(uuid, text, text) to service_role;
 
 -- ---------------------------------------------------------------------------
 -- 5. Trust & Action — first consumer wrappers
@@ -1185,7 +1351,8 @@ declare
   v_email text;
   v_org_id uuid;
   v_core public.core_human_approval_requests;
-  v_skill_key text;
+  v_core_started boolean := false;
+  v_safe_error text := 'Execution could not be completed safely.';
 begin
   v_tenant_id := public._presence_tenant_for_auth();
   if v_tenant_id is null then
@@ -1216,39 +1383,65 @@ begin
   v_org_id := public._cha_organization_for_tenant(v_tenant_id);
   v_core := public._cha_find_by_consumer(v_org_id, 'trust_action', p_request_id);
 
-  if v_core.id is not null and v_req.risk_level >= 1 then
-    select s.key into v_skill_key from public.skills s where s.id = v_req.skill_id limit 1;
-    perform public.begin_core_human_approval_execution(v_core.id, v_core.payload_hash);
-  end if;
-
   select coalesce(au.email, 'system') into v_email
   from public.users u
   left join auth.users au on au.id = u.auth_user_id
   where u.auth_user_id = auth.uid()
   limit 1;
 
-  update public.action_requests
-  set status = 'executing', updated_at = now()
-  where id = p_request_id;
+  begin
+    if v_core.id is not null and v_req.risk_level >= 1 then
+      perform public.begin_core_human_approval_execution(v_core.id, v_core.payload_hash);
+      v_core_started := true;
+    end if;
 
-  perform public.log_action_audit(p_request_id, 'executing', v_email, '{}'::jsonb);
+    update public.action_requests
+    set status = 'executing', updated_at = now()
+    where id = p_request_id;
 
-  update public.action_requests
-  set status = 'completed', executed_at = now(), updated_at = now()
-  where id = p_request_id;
+    perform public.log_action_audit(p_request_id, 'executing', v_email, '{}'::jsonb);
 
-  perform public.log_action_audit(p_request_id, 'completed', v_email, '{}'::jsonb);
+    update public.action_requests
+    set status = 'completed', executed_at = now(), updated_at = now()
+    where id = p_request_id;
 
-  if v_core.id is not null and v_req.risk_level >= 1 then
-    perform public.complete_core_human_approval_execution(v_core.id, 'succeeded', null);
-  end if;
+    perform public.log_action_audit(p_request_id, 'completed', v_email, '{}'::jsonb);
 
-  return jsonb_build_object(
-    'ok', true,
-    'status', 'completed',
-    'core_approval_id', v_core.id,
-    'correlation_id', v_core.id
-  );
+    if v_core.id is not null and v_req.risk_level >= 1 then
+      perform public.complete_core_human_approval_execution(v_core.id, 'succeeded', null);
+    end if;
+
+    return jsonb_build_object(
+      'ok', true,
+      'status', 'completed',
+      'core_approval_id', v_core.id,
+      'correlation_id', v_core.id
+    );
+  exception
+    when others then
+      if v_core.id is not null and v_req.risk_level >= 1 then
+        if v_core_started then
+          perform public.complete_core_human_approval_execution(v_core.id, 'failed', v_safe_error);
+        end if;
+      end if;
+
+      update public.action_requests
+      set status = 'failed', updated_at = now()
+      where id = p_request_id and tenant_id = v_tenant_id;
+
+      perform public.log_action_audit(
+        p_request_id, 'failed', v_email,
+        jsonb_build_object('error', v_safe_error)
+      );
+
+      return jsonb_build_object(
+        'ok', false,
+        'status', 'failed',
+        'error', v_safe_error,
+        'core_approval_id', v_core.id,
+        'correlation_id', v_core.id
+      );
+  end;
 end;
 $$;
 

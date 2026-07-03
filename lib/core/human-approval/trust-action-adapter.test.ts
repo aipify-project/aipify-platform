@@ -5,6 +5,7 @@ import {
   mergeTrustActionWithCoreReadModel,
   parseTrustApprovalFromCenterRow,
 } from "./trust-action-adapter";
+import { computePayloadHash, buildTrustActionScope } from "./scope-fingerprint";
 import type { ActionRequest } from "@/lib/trust-action/types";
 import type { CoreHumanApprovalRequest } from "./types";
 
@@ -103,5 +104,22 @@ const row = parseTrustApprovalFromCenterRow({
   scope_summary: core.scope_summary,
 });
 assert.equal(row.core_approval_id, core.id);
+
+const canonicalScope = buildTrustActionScope({
+  action_name: action.action_name,
+  resource_id: action.resource_id,
+  resource_type: action.resource_type,
+  skill_key: action.skill_key,
+});
+assert.equal(
+  link.payload_hash,
+  computePayloadHash({
+    action_key: action.action_name,
+    scope: canonicalScope,
+    organization_id: "22222222-2222-2222-2222-222222222222",
+    consumer_ref_id: action.id,
+  }),
+  "trust adapter payload hash uses canonical contract",
+);
 
 console.log("human-approval trust-action-adapter tests passed");

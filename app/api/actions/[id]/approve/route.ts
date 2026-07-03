@@ -1,32 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import {
-  buildHumanApprovalReceiptModel,
-  parseCoreHumanApprovalRequest,
-} from "@/lib/core/human-approval";
-import type { HumanApprovalReceiptLabels } from "@/lib/core/human-approval/types";
-
-const RECEIPT_LABELS: HumanApprovalReceiptLabels = {
-  title: "Approval confirmed",
-  copy: "Copy",
-  copied: "Copied",
-  approvedBy: "Approved by",
-  approverRole: "Approver role",
-  approvedAt: "Approved at",
-  action: "Action",
-  scope: "Scope",
-  target: "Target",
-  validity: "Validity",
-  oneTime: "One-time approval",
-  ongoing: "Ongoing approval",
-  expiresAt: "Expires at",
-  auditId: "Audit ID",
-  correlationId: "Correlation ID",
-  status: "Status",
-  executionResult: "Execution result",
-  unchanged: "What will not change",
-  notAvailable: "Not available",
-};
+import { parseCoreHumanApprovalRequest } from "@/lib/core/human-approval";
 
 export async function POST(
   _request: Request,
@@ -50,7 +24,7 @@ export async function POST(
     const coreApprovalId =
       typeof approveRow.core_approval_id === "string" ? approveRow.core_approval_id : null;
 
-    const { error: executeError } = await supabase.rpc("execute_action_request", {
+    const { data: executeData, error: executeError } = await supabase.rpc("execute_action_request", {
       p_request_id: id,
     });
 
@@ -58,17 +32,28 @@ export async function POST(
       return NextResponse.json({ error: executeError.message }, { status: 400 });
     }
 
-    let receipt = null;
+    const executeRow = (executeData ?? {}) as Record<string, unknown>;
+    if (executeRow.ok === false) {
+      return NextResponse.json(
+        {
+          ...executeRow,
+          confirmed: false,
+          coreApprovalId,
+          correlationId:
+            typeof executeRow.correlation_id === "string" ? executeRow.correlation_id : coreApprovalId,
+        },
+        { status: 400 },
+      );
+    }
+
+    let receiptSource = null;
     if (coreApprovalId) {
       const { data: coreRequest, error: coreError } = await supabase.rpc(
         "get_core_human_approval_request",
         { p_request_id: coreApprovalId },
       );
       if (!coreError) {
-        const parsed = parseCoreHumanApprovalRequest(coreRequest);
-        if (parsed) {
-          receipt = buildHumanApprovalReceiptModel(parsed, RECEIPT_LABELS.title, RECEIPT_LABELS);
-        }
+        receiptSource = parseCoreHumanApprovalRequest(coreRequest);
       }
     }
 
@@ -79,7 +64,7 @@ export async function POST(
       correlationId:
         typeof approveRow.correlation_id === "string" ? approveRow.correlation_id : coreApprovalId,
       auditId: typeof approveRow.latest_audit_id === "string" ? approveRow.latest_audit_id : null,
-      receipt,
+      receiptSource,
     });
   } catch {
     return NextResponse.json({ error: "Failed to approve action" }, { status: 500 });

@@ -87,6 +87,38 @@ assert.match(plain, /Approver One/);
 assert.match(plain, /Billing and unrelated permissions will not be changed/);
 assert.doesNotMatch(plain, /scope_json|payload_hash|secret|token/i);
 
+const localizedLabelSets: Record<string, HumanApprovalReceiptLabels> = {
+  en: labels,
+  no: {
+    ...labels,
+    title: "Godkjenning bekreftet",
+    approvedBy: "Godkjent av",
+    copy: "Kopier",
+    copied: "Kopiert",
+  },
+  sv: {
+    ...labels,
+    title: "Godkännande bekräftat",
+    approvedBy: "Godkänd av",
+    copy: "Kopiera",
+    copied: "Kopierad",
+  },
+  da: {
+    ...labels,
+    title: "Godkendelse bekræftet",
+    approvedBy: "Godkendt af",
+    copy: "Kopiér",
+    copied: "Kopieret",
+  },
+};
+
+for (const [locale, localeLabels] of Object.entries(localizedLabelSets)) {
+  const localizedModel = buildHumanApprovalReceiptModel(request, localeLabels.title, localeLabels);
+  const localizedPlain = formatHumanApprovalReceiptPlainText(localizedModel, localeLabels);
+  assert.match(localizedPlain, new RegExp(localeLabels.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.ok(receiptPlainTextExcludesSensitiveFields(localizedPlain), `${locale} receipt stays safe`);
+}
+
 for (const locale of CORE_LOCALES) {
   const dashboard = JSON.parse(
     fs.readFileSync(path.join(repoRoot, `locales/${locale}/customer-app/dashboard.json`), "utf8"),

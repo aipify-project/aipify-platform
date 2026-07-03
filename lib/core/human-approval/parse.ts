@@ -3,6 +3,7 @@ import type {
   CoreHumanApprovalExecutionResultPayload,
   CoreHumanApprovalRequest,
 } from "./types";
+import { SENSITIVE_CORE_APPROVAL_RPC_FIELDS } from "./types";
 
 function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" && !Array.isArray(value)
@@ -16,6 +17,12 @@ function asString(value: unknown): string {
 
 function asNullableString(value: unknown): string | null {
   return typeof value === "string" ? value : null;
+}
+
+export function isSafeCoreHumanApprovalRpcPayload(value: unknown): boolean {
+  const record = asRecord(value);
+  const request = asRecord(record.request ?? record);
+  return !SENSITIVE_CORE_APPROVAL_RPC_FIELDS.some((field) => field in request);
 }
 
 export function parseCoreHumanApprovalRequest(value: unknown): CoreHumanApprovalRequest | null {

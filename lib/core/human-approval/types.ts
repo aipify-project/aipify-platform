@@ -149,3 +149,24 @@ export type HumanApprovalReceiptLabels = {
   unchanged: string;
   notAvailable: string;
 };
+
+/** Safe receipt source returned by APIs — no localized labels. */
+export type HumanApprovalReceiptSource = CoreHumanApprovalRequest;
+
+export const SENSITIVE_CORE_APPROVAL_RPC_FIELDS = [
+  "scope_json",
+  "scope_fingerprint",
+  "payload_hash",
+  "idempotency_key",
+  "approver_authority_snapshot",
+] as const;
+
+export const AUTHENTICATED_DENIED_CORE_RPCS = [
+  "expire_stale_core_human_approval_requests",
+  "assert_core_human_approval_for_execution",
+  "begin_core_human_approval_execution",
+  "complete_core_human_approval_execution",
+] as const;
+
+export type SensitiveCoreApprovalRpcField = (typeof SENSITIVE_CORE_APPROVAL_RPC_FIELDS)[number];
+export type AuthenticatedDeniedCoreRpc = (typeof AUTHENTICATED_DENIED_CORE_RPCS)[number];

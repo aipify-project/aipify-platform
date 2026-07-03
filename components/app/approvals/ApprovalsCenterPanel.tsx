@@ -8,6 +8,7 @@ import { HumanApprovalReceipt } from "@/components/app/approvals/HumanApprovalRe
 import {
   buildHumanApprovalReceiptModel,
   buildCoreHumanApprovalRequestFromTrustRow,
+  parseCoreHumanApprovalRequest,
 } from "@/lib/core/human-approval";
 import type { HumanApprovalReceiptLabels, HumanApprovalReceiptModel } from "@/lib/core/human-approval/types";
 import type { CustomerApproval } from "@/lib/app/customer-app";
@@ -257,11 +258,17 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
     const { url, init } = resolveApprovalPostRequest(source, actionId, decision);
     const response = await fetch(url, init);
     const payload = (await response.json().catch(() => ({}))) as Record<string, unknown> & {
-      receipt?: HumanApprovalReceiptModel;
+      receiptSource?: unknown;
     };
 
-    if (source === "trust" && response.ok && decision === "approve" && payload.receipt) {
-      setReceiptModels((current) => ({ ...current, [actionId]: payload.receipt as HumanApprovalReceiptModel }));
+    if (source === "trust" && response.ok && decision === "approve" && payload.receiptSource) {
+      const parsed = parseCoreHumanApprovalRequest(payload.receiptSource);
+      if (parsed) {
+        setReceiptModels((current) => ({
+          ...current,
+          [actionId]: buildHumanApprovalReceiptModel(parsed, receiptHeading, labels.receipt),
+        }));
+      }
     }
 
     if (source === "companion") {
