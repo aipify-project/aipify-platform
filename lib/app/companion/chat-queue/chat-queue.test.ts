@@ -2033,7 +2033,7 @@ function createTrackingBootstrapSupabase(options: { includeAttachment?: boolean 
     },
     getRpcCalls: () => [...rpcCalls],
   };
-  return supabase as SupabaseClient & { getRpcCalls: () => string[] };
+  return supabase as unknown as SupabaseClient & { getRpcCalls: () => string[] };
 }
 
 function assertHeavyPackLoaderNotInvoked(rpcCalls: readonly string[]) {
