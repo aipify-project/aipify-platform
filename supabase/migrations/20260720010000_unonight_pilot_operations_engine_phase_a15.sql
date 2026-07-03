@@ -919,9 +919,6 @@ returns boolean language sql immutable as $$
   ) or p_action_type like 'ai_%' or p_action_type like '%_changed';
 $$;
 
--- Seed Unonight pilot on migration (internal — no auth context during migration)
-select public._upo_provision_unonight_pilot_internal();
-
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
 select 'unonight-pilot-operations-engine', 'Unonight Pilot Operations Engine', 'First pilot customer operations — validate Support AI, Admin Assistant, KC, approvals, audit, and integrations.', 'authenticated', 62
 where not exists (select 1 from public.aipify_knowledge_categories where slug = 'unonight-pilot-operations-engine' and tenant_id is null);

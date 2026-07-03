@@ -273,7 +273,12 @@ begin
   update public.aipify_core_platform_settings
   set unonight_pilot_mode = true
   where tenant_id = p_tenant_id
-    and exists (select 1 from public.customers c where c.id = p_tenant_id and c.slug = 'unonight');
+    and exists (
+      select 1
+      from public.customers c
+      join public.companies co on co.id = c.company_id
+      where c.id = p_tenant_id and co.slug = 'unonight'
+    );
 end; $$;
 
 create or replace function public._acp_refresh_metrics(p_tenant_id uuid)

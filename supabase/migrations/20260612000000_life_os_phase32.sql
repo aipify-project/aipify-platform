@@ -794,7 +794,8 @@ $$;
 insert into public.life_checklists (tenant_id, title, description, checklist_type)
 select c.id, 'Monthly finance review', 'Recurring monthly checklist.', 'finance'
 from public.customers c
-where c.slug = 'unonight'
+join public.companies co on co.id = c.company_id
+where co.slug = 'unonight'
   and not exists (
     select 1 from public.life_checklists lc
     where lc.tenant_id = c.id and lc.title = 'Monthly finance review'

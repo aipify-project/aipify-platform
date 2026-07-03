@@ -575,7 +575,8 @@ begin
 
   select c.id into v_pilot_id
   from public.customers c
-  where c.slug = 'unonight'
+  join public.companies co on co.id = c.company_id
+  where co.slug = 'unonight'
   limit 1;
 
   if v_pilot_id is null then

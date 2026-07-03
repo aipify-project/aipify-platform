@@ -94,7 +94,7 @@ create index if not exists aipify_hosts_guest_center_events_tenant_idx
 alter table public.aipify_hosts_guest_center_events enable row level security;
 revoke all on public.aipify_hosts_guest_center_events from authenticated, anon;
 
-create or replace function public._ahostguest_ensure_settings(p_tenant_id uuid)
+create or replace function public._ahostgcent_ensure_settings(p_tenant_id uuid)
 returns public.aipify_hosts_guest_center_settings language plpgsql security definer set search_path = public as $$
 declare v_row public.aipify_hosts_guest_center_settings;
 begin
@@ -235,7 +235,7 @@ declare v_tenant_id uuid; v_gc public.aipify_hosts_guest_center_settings; v_host
 begin
   v_tenant_id := coalesce(p_org_id, public._ahost_tenant_for_auth());
   if v_tenant_id is null then return jsonb_build_object('has_customer', false); end if;
-  v_gc := public._ahostguest_ensure_settings(v_tenant_id);
+  v_gc := public._ahostgcent_ensure_settings(v_tenant_id);
   v_hosts := public._ahost_ensure_settings(v_tenant_id);
   return jsonb_build_object(
     'has_customer', true,
@@ -257,7 +257,7 @@ declare
   v_section text; v_filter text; v_guests jsonb; v_requests jsonb; v_notes jsonb; v_profile jsonb; v_timeline jsonb;
 begin
   v_tenant_id := coalesce(p_org_id, public._ahost_require_tenant());
-  v_gc := public._ahostguest_ensure_settings(v_tenant_id);
+  v_gc := public._ahostgcent_ensure_settings(v_tenant_id);
   v_hosts := public._ahost_ensure_settings(v_tenant_id);
   v_section := coalesce(nullif(trim(p_section), ''), v_gc.default_section, 'active_guests');
   v_filter := coalesce(nullif(trim(p_filter), ''), 'active_guests');

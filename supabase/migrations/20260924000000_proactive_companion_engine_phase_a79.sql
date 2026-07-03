@@ -228,7 +228,7 @@ begin
   );
 end; $$;
 
-create or replace function public._pce_ensure_settings(p_organization_id uuid)
+create or replace function public._pcme_ensure_settings(p_organization_id uuid)
 returns public.organization_proactive_companion_settings language plpgsql security definer set search_path = public as $$
 declare v_row public.organization_proactive_companion_settings;
 begin
@@ -251,7 +251,7 @@ returns public.organization_proactive_companion_user_preferences language plpgsq
 declare v_row public.organization_proactive_companion_user_preferences;
 declare v_settings public.organization_proactive_companion_settings;
 begin
-  v_settings := public._pce_ensure_settings(p_organization_id);
+  v_settings := public._pcme_ensure_settings(p_organization_id);
 
   insert into public.organization_proactive_companion_user_preferences (
     organization_id, user_id, frequency, channels, enabled_categories, communication_style
@@ -348,7 +348,7 @@ returns jsonb language plpgsql stable security definer set search_path = public 
 declare v_prefs public.organization_proactive_companion_user_preferences;
 declare v_settings public.organization_proactive_companion_settings;
 begin
-  v_settings := public._pce_ensure_settings(p_organization_id);
+  v_settings := public._pcme_ensure_settings(p_organization_id);
   v_prefs := public._pce_ensure_user_prefs(p_organization_id, p_user_id);
 
   return jsonb_build_object(
@@ -491,7 +491,7 @@ begin
   perform public._irp_require_permission('proactive_companion.manage');
   v_org_id := public._mta_require_organization();
   v_user_id := public._mta_app_user_id();
-  v_settings := public._pce_ensure_settings(v_org_id);
+  v_settings := public._pcme_ensure_settings(v_org_id);
 
   update public.organization_proactive_companion_settings set
     enabled = coalesce((p_payload->>'enabled')::boolean, enabled),
@@ -587,7 +587,7 @@ begin
   perform public._irp_require_permission('proactive_companion.view');
   v_org_id := public._mta_require_organization();
   v_user_id := public._mta_app_user_id();
-  v_settings := public._pce_ensure_settings(v_org_id);
+  v_settings := public._pcme_ensure_settings(v_org_id);
   v_prefs := public._pce_ensure_user_prefs(v_org_id, v_user_id);
   perform public._pce_seed_nudges(v_org_id);
 
@@ -653,7 +653,7 @@ begin
   perform public._irp_require_permission('proactive_companion.view');
   v_org_id := public._mta_require_organization();
   v_user_id := public._mta_app_user_id();
-  v_settings := public._pce_ensure_settings(v_org_id);
+  v_settings := public._pcme_ensure_settings(v_org_id);
 
   perform public._pce_log(v_org_id, v_user_id, 'summary_exported', jsonb_build_object(
     'format', coalesce(p_format, 'json'),
@@ -800,7 +800,7 @@ grant execute on function public.export_proactive_companion_summary(text) to aut
 -- ---------------------------------------------------------------------------
 do $$ declare v_org_id uuid; begin
   for v_org_id in select id from public.organizations loop
-    perform public._pce_ensure_settings(v_org_id);
+    perform public._pcme_ensure_settings(v_org_id);
     perform public._pce_seed_nudges(v_org_id);
   end loop;
 end; $$;

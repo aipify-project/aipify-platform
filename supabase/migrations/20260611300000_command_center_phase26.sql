@@ -313,7 +313,8 @@ begin
 
   select c.id into v_pilot_id
   from public.customers c
-  where c.slug = 'unonight'
+  join public.companies co on co.id = c.company_id
+  where co.slug = 'unonight'
   limit 1;
 
   if v_pilot_id is null then
@@ -366,6 +367,7 @@ $$;
 insert into public.presence_executive_feed (tenant_id, time_label, message, level)
 select c.id, v.time_label, v.message, v.level
 from public.customers c
+join public.companies co on co.id = c.company_id
 cross join (
   values
     ('08:30', 'Good morning. Aipify resolved 14 support conversations overnight.', 'informational'),
@@ -373,7 +375,7 @@ cross join (
     ('14:15', 'A recommendation is awaiting approval.', 'action_required'),
     ('17:00', 'Daily summary is ready.', 'important')
 ) as v(time_label, message, level)
-where c.slug = 'unonight'
+where co.slug = 'unonight'
   and not exists (
     select 1 from public.presence_executive_feed f
     where f.tenant_id = c.id and f.time_label = v.time_label

@@ -526,7 +526,11 @@ begin
     raise exception 'Not authorized';
   end if;
 
-  select c.id into v_pilot_id from public.customers c where c.slug = 'unonight' limit 1;
+  select c.id into v_pilot_id
+  from public.customers c
+  join public.companies co on co.id = c.company_id
+  where co.slug = 'unonight'
+  limit 1;
 
   select count(*) into v_pilot_memories
   from public.customer_learning_memory m
@@ -575,7 +579,8 @@ grant execute on function public.get_learning_governance_overview() to authentic
 insert into public.customer_learning_settings (tenant_id, learning_mode)
 select c.id, 'assisted'
 from public.customers c
-where c.slug = 'unonight'
+join public.companies co on co.id = c.company_id
+where co.slug = 'unonight'
 on conflict (tenant_id) do nothing;
 
 insert into public.customer_learning_memory (
@@ -586,6 +591,7 @@ select c.id, v.pattern_type, v.source_type, 'unonight_pilot',
   v.confidence_score, public._confidence_level_from_score(v.confidence_score),
   v.skill_key, v.explanation, '{}'::jsonb
 from public.customers c
+join public.companies co on co.id = c.company_id
 cross join (
   values
     (
@@ -610,7 +616,7 @@ cross join (
       'Aipify learned from approved recommendations to prioritise operational efficiency suggestions.'
     )
 ) as v(pattern_type, source_type, confidence_score, skill_key, explanation)
-where c.slug = 'unonight'
+where co.slug = 'unonight'
   and not exists (
     select 1 from public.customer_learning_memory m
     where m.tenant_id = c.id and m.pattern_type = v.pattern_type

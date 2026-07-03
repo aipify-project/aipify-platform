@@ -421,7 +421,10 @@ grant execute on function public.get_platform_assistant_memory_overview() to aut
 -- 10. Seed Unonight pilot memory
 -- ---------------------------------------------------------------------------
 insert into public.customer_assistant_settings (tenant_id)
-select c.id from public.customers c where c.slug = 'unonight'
+select c.id
+from public.customers c
+join public.companies co on co.id = c.company_id
+where co.slug = 'unonight'
 on conflict (tenant_id) do nothing;
 
 insert into public.customer_assistant_memories (
@@ -434,7 +437,8 @@ select c.id, 'personal', 'Wife''s birthday',
   'remember', '["14_days_before","7_days_before","1_day_before"]'::jsonb,
   'annual', 'explicit', 92
 from public.customers c
-where c.slug = 'unonight'
+join public.companies co on co.id = c.company_id
+where co.slug = 'unonight'
   and not exists (
     select 1 from public.customer_assistant_memories m
     where m.tenant_id = c.id and m.title = 'Wife''s birthday' and m.status = 'active'

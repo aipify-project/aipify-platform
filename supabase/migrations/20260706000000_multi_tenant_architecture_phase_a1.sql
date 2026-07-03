@@ -562,8 +562,10 @@ begin
   return v_org_id;
 exception
   when others then
-    select c.id into v_org_id from public.customers c
-    where c.slug = p_slug
+    select c.id into v_org_id
+    from public.customers c
+    join public.companies co on co.id = c.company_id
+    where co.slug = p_slug
     limit 1;
     if v_org_id is null then
       select c.id into v_org_id from public.customers c
@@ -608,7 +610,11 @@ begin
     ) as v(name, slug, subscription_plan, status, contact_email)
   loop
     v_org_id := null;
-    select c.id into v_org_id from public.customers c where c.slug = v_rec.slug limit 1;
+    select c.id into v_org_id
+    from public.customers c
+    join public.companies co on co.id = c.company_id
+    where co.slug = v_rec.slug
+    limit 1;
     if v_org_id is null then
       select c.id into v_org_id
       from public.customers c

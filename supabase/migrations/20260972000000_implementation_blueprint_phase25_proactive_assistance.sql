@@ -406,7 +406,7 @@ begin
   perform public._irp_require_permission('proactive_companion.view');
   v_org_id := public._mta_require_organization();
   v_user_id := public._mta_app_user_id();
-  v_settings := public._pce_ensure_settings(v_org_id);
+  v_settings := public._pcme_ensure_settings(v_org_id);
   v_prefs := public._pce_ensure_user_prefs(v_org_id, v_user_id);
   perform public._pce_seed_nudges(v_org_id);
 

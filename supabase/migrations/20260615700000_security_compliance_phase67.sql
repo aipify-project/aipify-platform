@@ -291,10 +291,7 @@ end; $$;
 
 create or replace function public._sec_emergency_stop_active(p_tenant_id uuid)
 returns boolean language sql stable security definer set search_path = public as $$
-  select coalesce(
-    (select is_active from public.aipify_emergency_stop_state where tenant_id = p_tenant_id limit 1),
-    false
-  );
+  select public._tacc_is_emergency_active(p_tenant_id);
 $$;
 
 create or replace function public._sec_seed_classifications(p_tenant_id uuid)

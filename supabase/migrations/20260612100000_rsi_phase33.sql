@@ -674,7 +674,8 @@ set
   favorite_activities = '["spa experiences"]'::jsonb,
   anniversary = make_date(extract(year from current_date)::integer, 6, 15)
 from public.customers c
-where ip.tenant_id = c.id and c.slug = 'unonight' and ip.name = 'Wife';
+join public.companies co on co.id = c.company_id
+where ip.tenant_id = c.id and co.slug = 'unonight' and ip.name = 'Wife';
 
 do $$
 declare
@@ -684,7 +685,8 @@ begin
   select ip.id, ip.tenant_id into v_person_id, v_tenant_id
   from public.important_people ip
   join public.customers c on c.id = ip.tenant_id
-  where c.slug = 'unonight' and ip.name = 'Wife'
+  join public.companies co on co.id = c.company_id
+  where co.slug = 'unonight' and ip.name = 'Wife'
   limit 1;
 
   if v_person_id is not null then

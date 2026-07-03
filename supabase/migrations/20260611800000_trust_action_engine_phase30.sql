@@ -927,8 +927,9 @@ on conflict do nothing;
 insert into public.skill_trust_scores (tenant_id, skill_id, trust_score, approval_rate, failure_rate)
 select c.id, s.id, 88, 92.5, 2.1
 from public.customers c
+join public.companies co on co.id = c.company_id
 cross join public.skills s
-where c.slug = 'unonight' and s.key = 'support-assistant'
+where co.slug = 'unonight' and s.key = 'support-assistant'
 on conflict (tenant_id, skill_id) do nothing;
 
 insert into public.action_requests (
@@ -938,8 +939,9 @@ insert into public.action_requests (
 select c.id, s.id, 'send_support_response', 'Draft support response for ticket #1042',
   1, 'support_ticket', '1042', 'pending', 'support-assistant', false, 'staff'
 from public.customers c
+join public.companies co on co.id = c.company_id
 join public.skills s on s.key = 'support-assistant'
-where c.slug = 'unonight'
+where co.slug = 'unonight'
   and not exists (
     select 1 from public.action_requests ar
     where ar.tenant_id = c.id and ar.action_name = 'send_support_response' and ar.status = 'pending'
@@ -952,5 +954,6 @@ select ar.id,
   '["prior_approval:18","satisfaction_delta:24"]'::jsonb
 from public.action_requests ar
 join public.customers c on c.id = ar.tenant_id
-where c.slug = 'unonight' and ar.action_name = 'send_support_response' and ar.status = 'pending'
+join public.companies co on co.id = c.company_id
+where co.slug = 'unonight' and ar.action_name = 'send_support_response' and ar.status = 'pending'
   and not exists (select 1 from public.action_explanations ae where ae.action_request_id = ar.id);

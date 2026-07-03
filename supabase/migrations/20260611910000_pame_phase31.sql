@@ -609,7 +609,8 @@ select c.id, 'important_people', 'Wife''s birthday',
   make_timestamptz(extract(year from current_date)::integer, 4, 3, 9, 0, 0),
   true, 'annual', 'high', '["14_days_before","7_days_before","1_day_before"]'::jsonb
 from public.customers c
-where c.slug = 'unonight'
+join public.companies co on co.id = c.company_id
+where co.slug = 'unonight'
   and not exists (
     select 1 from public.personal_memories p
     where p.tenant_id = c.id and p.title = 'Wife''s birthday' and p.status = 'active'
@@ -619,7 +620,8 @@ insert into public.important_people (tenant_id, name, relationship, birthday, no
 select c.id, 'Wife', 'wife', make_date(extract(year from current_date)::integer, 4, 3),
   'Birthday reminders enabled.'
 from public.customers c
-where c.slug = 'unonight'
+join public.companies co on co.id = c.company_id
+where co.slug = 'unonight'
   and not exists (
     select 1 from public.important_people ip
     where ip.tenant_id = c.id and ip.name = 'Wife'

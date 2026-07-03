@@ -176,8 +176,8 @@ begin
   select id into v_company_id from public.companies where is_platform = true limit 1;
 
   if v_company_id is null then
-    insert into public.companies (name, slug, is_platform, plan)
-    values ('Aipify Group AS', 'aipify-internal', true, 'enterprise')
+    insert into public.companies (name, slug, is_platform)
+    values ('Aipify Group AS', 'aipify-internal', true)
     returning id into v_company_id;
   end if;
 
@@ -190,18 +190,18 @@ begin
   if v_customer_id is null then
     select c.id into v_customer_id
     from public.customers c
-    where c.slug in ('aipify-group', 'aipify-internal', 'aipify')
+    join public.companies co on co.id = c.company_id
+    where co.slug in ('aipify-group', 'aipify-internal', 'aipify')
     limit 1;
   end if;
 
   if v_customer_id is null then
     insert into public.customers (
-      customer_number, company_id, customer_type, slug, company_name, email, country, language, status
+      customer_number, company_id, customer_type, company_name, email, country, language, status
     ) values (
       public.format_customer_number(nextval('public.customer_number_seq')),
       v_company_id,
       'company',
-      'aipify-group',
       'Aipify Group AS',
       'team@aipify.com',
       'NO',

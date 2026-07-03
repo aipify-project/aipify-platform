@@ -226,7 +226,11 @@ declare v_tenant uuid;
 begin
   if exists (select 1 from public.growth_partner_content_requests limit 1) then return; end if;
 
-  select c.id into v_tenant from public.customers c where c.slug = 'unonight' limit 1;
+  select c.id into v_tenant
+  from public.customers c
+  join public.companies co on co.id = c.company_id
+  where co.slug = 'unonight'
+  limit 1;
   if v_tenant is null then
     select c.id into v_tenant from public.customers c where not coalesce(c.is_platform, false) limit 1;
   end if;

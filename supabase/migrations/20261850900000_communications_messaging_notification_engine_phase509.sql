@@ -77,6 +77,83 @@ create table if not exists public.organization_communication_notifications (
   created_at timestamptz not null default now()
 );
 
+do $$ begin
+  if exists (
+    select 1
+    from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'organization_communication_notifications'
+      and column_name = 'category'
+  ) and not exists (
+    select 1
+    from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'organization_communication_notifications'
+      and column_name = 'notification_type'
+  ) then
+    alter table public.organization_communication_notifications
+      add column notification_type text,
+      add column summary text,
+      add column source_type text,
+      add column source_id uuid,
+      add column domain_id uuid,
+      add column business_pack_key text;
+
+    update public.organization_communication_notifications
+      set notification_type = coalesce(category, 'system'),
+          summary = coalesce(nullif(trim(title), ''), nullif(trim(message), ''), 'Notification')
+      where notification_type is null;
+
+    alter table public.organization_communication_notifications
+      alter column notification_type set not null,
+      alter column summary set not null;
+  end if;
+end $$;
+
+create or replace function public._cme509_sync_notification_columns()
+returns trigger language plpgsql set search_path = public as $$
+begin
+  if new.notification_type is not null and new.category is null then
+    new.category := case
+      when new.notification_type like 'approval_%' then 'approvals'
+      when new.notification_type like 'task_%' then 'tasks'
+      when new.notification_type in ('license_warning', 'subscription_warning') then 'billing'
+      when new.notification_type in ('document_updated', 'knowledge_published') then 'quality'
+      when new.notification_type like 'employee_%' then 'onboarding'
+      else 'system_alerts'
+    end;
+  end if;
+  if new.summary is not null and new.title is null then
+    new.title := left(new.summary, 200);
+  end if;
+  if new.message is null and new.summary is not null then
+    new.message := new.summary;
+  end if;
+  if new.category is not null and new.notification_type is null then
+    new.notification_type := case new.category
+      when 'approvals' then 'approval_required'
+      when 'tasks' then 'task_assigned'
+      when 'billing' then 'license_warning'
+      when 'support' then 'message'
+      when 'integrations' then 'domain_event'
+      when 'governance' then 'system'
+      when 'quality' then 'document_updated'
+      when 'onboarding' then 'employee_invited'
+      else 'system'
+    end;
+  end if;
+  if new.title is not null and new.summary is null then
+    new.summary := coalesce(nullif(trim(new.title), ''), nullif(trim(new.message), ''), 'Notification');
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists organization_communication_notifications_sync_columns on public.organization_communication_notifications;
+create trigger organization_communication_notifications_sync_columns
+  before insert on public.organization_communication_notifications
+  for each row execute function public._cme509_sync_notification_columns();
+
 create table if not exists public.organization_communication_activity (
   id uuid primary key default gen_random_uuid(),
   organization_id uuid not null references public.organizations (id) on delete cascade,
