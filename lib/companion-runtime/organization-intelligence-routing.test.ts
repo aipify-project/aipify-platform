@@ -535,6 +535,9 @@ runSupportQueueRoutingTests()
     assert.equal(classifyCompanionTurnRoute("Kan du le?", "no"), "lightweight");
     assert.equal(resolveLightweightConversationalIntent("Takk!"), "thanks");
     assert.equal(classifyCompanionTurnRoute("hva sier Aipify", "no"), "lightweight");
+    assert.equal(classifyCompanionTurnRoute("Vis aktive medlemmer", "no"), "exact_source");
+    assert.equal(classifyCompanionTurnRoute("Er det noen nye henvendelser?", "no"), "exact_source");
+    assert.equal(isCapabilityHelpQuery("Hei, hva kan du gjøre?"), false);
 
     console.log("organization-intelligence-routing.test.ts: all assertions passed");
   })
