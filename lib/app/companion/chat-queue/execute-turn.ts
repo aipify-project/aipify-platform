@@ -27,7 +27,10 @@ import {
   type WorkerBootstrapFailure,
 } from "@/lib/companion-runtime/companion-worker-bootstrap-errors";
 import { logCompanionWorkerStepTimings } from "./worker-step-timing";
-import { classifyCompanionTurnRoute } from "@/lib/companion-runtime/companion-turn-route";
+import {
+  classifyCompanionTurnRoute,
+  isCapabilityHelpQuery,
+} from "@/lib/companion-runtime/companion-turn-route";
 import { buildLightweightConversationalAnswer } from "@/lib/companion-runtime/lightweight-conversational-answer";
 import { coerceToCustomerActiveLocale, type CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import type { Locale } from "@/lib/i18n/config";
@@ -801,7 +804,9 @@ export async function executeCompanionTurn(
   const skipHeavyArtifacts =
     !hasAttachments &&
     !input.activeArtifactId &&
-    (turnRoute === "lightweight" || turnRoute === "foundation");
+    (turnRoute === "lightweight" ||
+      turnRoute === "foundation" ||
+      isCapabilityHelpQuery(query));
 
   const turnStarted = Date.now();
   let bootstrapMs = 0;

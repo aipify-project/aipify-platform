@@ -9,7 +9,10 @@ import {
 import { AsyncTimeoutError, withAsyncTimeout } from "@/lib/core/async-with-timeout";
 import { loadCompanionTenantContextFromWorkerBootstrap } from "@/lib/companion-runtime/load-companion-worker-foundation-context";
 import { isPlatformFoundationQuery } from "@/lib/companion-runtime/platform-foundation-intent";
-import { resolveLightweightConversationalIntent } from "@/lib/companion-runtime/companion-turn-route";
+import {
+  isCapabilityHelpQuery,
+  resolveLightweightConversationalIntent,
+} from "@/lib/companion-runtime/companion-turn-route";
 import {
   loadCompanionTenantContext,
   type CompanionTenantContext,
@@ -124,7 +127,11 @@ export async function bootstrapCompanionWorkerTenantRuntime(
     const useLightweightFastPath = Boolean(
       context.query && resolveLightweightConversationalIntent(context.query),
     );
-    const useFastPath = useFoundationFastPath || useLightweightFastPath;
+    const useCapabilityHelpFastPath = Boolean(
+      context.query && isCapabilityHelpQuery(context.query),
+    );
+    const useFastPath =
+      useFoundationFastPath || useLightweightFastPath || useCapabilityHelpFastPath;
     const tenantContext = useFastPath
       ? loadCompanionTenantContextFromWorkerBootstrap(bootstrap, activeLocale)
       : await loadCompanionTenantContext(scopedSupabase, {
@@ -137,6 +144,7 @@ export async function bootstrapCompanionWorkerTenantRuntime(
       durationMs: Date.now() - started,
       foundationFastPath: useFoundationFastPath,
       lightweightFastPath: useLightweightFastPath,
+      capabilityHelpFastPath: useCapabilityHelpFastPath,
       tenantContextMs: Date.now() - bootstrapStarted,
     });
 
