@@ -17,6 +17,11 @@ import {
 } from "./message-payload";
 import { createClientMessageId, createIdempotencyKey } from "./client";
 import { resolveCompanionQueueWaitPhase } from "./queue-wait-phase";
+import {
+  classifyCompanionTurnRoute,
+  resolveLightweightConversationalIntent,
+} from "@/lib/companion-runtime/companion-turn-route";
+import { resolveArticleIdForQuery } from "@/lib/companion-platform-knowledge/search-helpers";
 
 const VALID_ACTION_REQUEST_ID = "a1b2c3d4-e5f6-4789-a012-3456789abcde";
 const SUPPORT_OUTCOME_APPROVAL_KEY =
@@ -1917,6 +1922,41 @@ async function testExecuteTurnSupportResumeCompletionLocalized() {
   });
 }
 
+function testCapabilityHelpTurnRouting() {
+  const capabilityHelpCases = [
+    { query: "Hva kan Aipify hjelpe meg med?", locale: "no" as const },
+    {
+      query: "Hva kan Aipify Companion hjelpe Nordic Example AS med?",
+      locale: "no" as const,
+    },
+    { query: "What can Aipify help me with?", locale: "en" as const },
+    { query: "How can Aipify Companion help Acme?", locale: "en" as const },
+  ] as const;
+
+  for (const { query, locale } of capabilityHelpCases) {
+    assert.notEqual(
+      classifyCompanionTurnRoute(query, locale),
+      "lightweight",
+      `capability help must not route lightweight: ${query}`,
+    );
+    assert.equal(
+      classifyCompanionTurnRoute(query, locale),
+      "full",
+      `capability help must route full: ${query}`,
+    );
+    assert.equal(
+      resolveArticleIdForQuery(query),
+      "aipify-capabilities",
+      `capability help article for: ${query}`,
+    );
+  }
+
+  assert.equal(classifyCompanionTurnRoute("Hei!", "no"), "lightweight");
+  assert.equal(classifyCompanionTurnRoute("Takk!", "no"), "lightweight");
+  assert.equal(resolveLightweightConversationalIntent("Kan du le?"), "humor");
+  assert.equal(classifyCompanionTurnRoute("hva sier Aipify", "no"), "lightweight");
+}
+
 testIdempotencyKeyStable();
 testDeserializeAssistantRoundTrip();
 testMapServerMessagesOrder();
@@ -1927,6 +1967,7 @@ testPendingBookingWriteInvalidInputs();
 testPendingBookingClarificationHandoffContract();
 testPlatformAnswerPendingBookingWriteSearchToChatContract();
 testPlatformAnswerPendingSupportWriteSearchToChatContract();
+testCapabilityHelpTurnRouting();
 
 void testExecuteTurnResumeWiring()
   .then(() => testExecuteTurnRealProducerCallGraph())

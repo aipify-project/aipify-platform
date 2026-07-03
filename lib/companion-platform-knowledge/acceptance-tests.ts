@@ -88,6 +88,34 @@ function makeSearchOptions(locale: string) {
 }
 
 async function runTests() {
+  const capabilityHelpCases = [
+    "Hva kan Aipify hjelpe meg med?",
+    "Hva kan Aipify Companion hjelpe Nordic Example AS med?",
+    "What can Aipify help me with?",
+    "How can Aipify Companion help Acme?",
+  ] as const;
+
+  for (const question of capabilityHelpCases) {
+    assert.equal(
+      resolveArticleIdForQuery(question),
+      "aipify-capabilities",
+      `capability help article for: ${question}`,
+    );
+    const locale = question.startsWith("Hva") || question.includes("Nordic") ? "no" : "en";
+    const result = await searchPlatformKnowledge(question, makeSearchOptions(locale));
+    assert.equal(
+      result.matchedArticleId,
+      "aipify-capabilities",
+      `capability help search for: ${question}`,
+    );
+    assert.ok(result.answer.directAnswer.length > 20, `empty capability help answer for: ${question}`);
+    assert.doesNotMatch(
+      result.answer.directAnswer,
+      /Jeg er her med deg/i,
+      `capability help must not use lightweight fallback for: ${question}`,
+    );
+  }
+
   assert.ok(PLATFORM_ROUTE_REGISTRY.length >= 50, "route registry should cover nav-config");
   for (const route of PLATFORM_ROUTE_REGISTRY) {
     const navItem = APP_PORTAL_NAV.find((n) => n.id === route.routeKey);
