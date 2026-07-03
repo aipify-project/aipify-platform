@@ -20,7 +20,17 @@ export async function POST(
     });
 
     if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-    return NextResponse.json(data);
+
+    const row = (data ?? {}) as Record<string, unknown>;
+    return NextResponse.json({
+      ...row,
+      confirmed: false,
+      denied: true,
+      coreApprovalId:
+        typeof row.core_approval_id === "string" ? row.core_approval_id : null,
+      correlationId: typeof row.correlation_id === "string" ? row.correlation_id : null,
+      auditId: typeof row.latest_audit_id === "string" ? row.latest_audit_id : null,
+    });
   } catch {
     return NextResponse.json({ error: "Failed to reject action" }, { status: 500 });
   }

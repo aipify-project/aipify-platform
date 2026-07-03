@@ -200,7 +200,29 @@
     "companionSection": "Companion-handlinger",
     "companionEmpty": "Ingen Companion-handlinger venter på godkjenning.",
     "trustLoadError": "Aipify kunne ikke laste tillitsgodkjenninger akkurat nå.",
-    "retry": "Prøv igjen"
+    "retry": "Prøv igjen",
+    "confirmed": "Godkjenning bekreftet",
+    "receipt": {
+      "title": "Godkjenning bekreftet",
+      "copy": "Kopier",
+      "copied": "Kopiert",
+      "approvedBy": "Godkjent av",
+      "approverRole": "Godkjennerrolle",
+      "approvedAt": "Godkjent",
+      "action": "Handling",
+      "scope": "Omfang",
+      "target": "Målorganisasjon/miljø",
+      "validity": "Gyldighet",
+      "oneTime": "Engangsgodkjenning",
+      "ongoing": "Løpende godkjenning",
+      "expiresAt": "Utløper",
+      "auditId": "Revisjons-ID",
+      "correlationId": "Korrelasjons-ID",
+      "status": "Status",
+      "executionResult": "Utførelsesresultat",
+      "unchanged": "Dette endres ikke",
+      "notAvailable": "Ikke tilgjengelig"
+    }
   },
   "installations": {
     "title": "Installations",

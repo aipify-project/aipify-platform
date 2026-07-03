@@ -200,7 +200,29 @@
     "companionSection": "Companion actions",
     "companionEmpty": "No Companion actions awaiting approval.",
     "trustLoadError": "Aipify could not load trust approvals right now.",
-    "retry": "Retry"
+    "retry": "Retry",
+    "confirmed": "Approval confirmed",
+    "receipt": {
+      "title": "Approval confirmed",
+      "copy": "Copy",
+      "copied": "Copied",
+      "approvedBy": "Approved by",
+      "approverRole": "Approver role",
+      "approvedAt": "Approved at",
+      "action": "Action",
+      "scope": "Scope",
+      "target": "Target organization/environment",
+      "validity": "Validity",
+      "oneTime": "One-time approval",
+      "ongoing": "Ongoing approval",
+      "expiresAt": "Expires at",
+      "auditId": "Audit ID",
+      "correlationId": "Correlation ID",
+      "status": "Status",
+      "executionResult": "Execution result",
+      "unchanged": "What will not change",
+      "notAvailable": "Not available"
+    }
   },
   "installations": {
     "title": "Installations",

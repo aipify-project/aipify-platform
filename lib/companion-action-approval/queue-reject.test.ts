@@ -26,6 +26,29 @@ const UNIFIED_APPROVAL_KEYS = [
   "companionEmpty",
   "trustLoadError",
   "retry",
+  "confirmed",
+] as const;
+
+const RECEIPT_LABEL_KEYS = [
+  "title",
+  "copy",
+  "copied",
+  "approvedBy",
+  "approverRole",
+  "approvedAt",
+  "action",
+  "scope",
+  "target",
+  "validity",
+  "oneTime",
+  "ongoing",
+  "expiresAt",
+  "auditId",
+  "correlationId",
+  "status",
+  "executionResult",
+  "unchanged",
+  "notAvailable",
 ] as const;
 
 const companionSuccessPayload = {
@@ -72,6 +95,13 @@ for (const locale of CORE_LOCALES) {
       const value: unknown = approvals[key];
       assert.equal(typeof value, "string", `${locale} missing approvals.${key}`);
       assert.notEqual(String(value).trim(), "", `${locale} approvals.${key} is empty`);
+    }
+    const receipt = approvals.receipt as Record<string, unknown> | undefined;
+    assert.ok(receipt, `${locale} missing approvals.receipt`);
+    for (const key of RECEIPT_LABEL_KEYS) {
+      const value: unknown = receipt[key];
+      assert.equal(typeof value, "string", `${locale} missing approvals.receipt.${key}`);
+      assert.notEqual(String(value).trim(), "", `${locale} approvals.receipt.${key} is empty`);
     }
     if (locale === "pl") {
       assert.match(String(approvals.companionSection), /Companion/i);

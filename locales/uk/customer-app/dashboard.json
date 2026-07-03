@@ -157,7 +157,29 @@
     "companionSection": "Дії Companion",
     "companionEmpty": "Немає дій Companion, що очікують на схвалення.",
     "trustLoadError": "Aipify не вдалося зараз завантажити схвалення довіри.",
-    "retry": "Повторити"
+    "retry": "Повторити",
+    "confirmed": "Затвердження підтверджено",
+    "receipt": {
+      "title": "Затвердження підтверджено",
+      "copy": "Копіювати",
+      "copied": "Скопійовано",
+      "approvedBy": "Затвердив",
+      "approverRole": "Роль затверджувача",
+      "approvedAt": "Затверджено",
+      "action": "Дія",
+      "scope": "Обсяг",
+      "target": "Цільова організація/середовище",
+      "validity": "Чинність",
+      "oneTime": "Разове затвердження",
+      "ongoing": "Постійне затвердження",
+      "expiresAt": "Діє до",
+      "auditId": "Ідентифікатор аудиту",
+      "correlationId": "Ідентифікатор кореляції",
+      "status": "Статус",
+      "executionResult": "Результат виконання",
+      "unchanged": "Це не зміниться",
+      "notAvailable": "Недоступно"
+    }
   },
   "organizationalEarlyWarning": {
     "title": "Центр раннього попередження",

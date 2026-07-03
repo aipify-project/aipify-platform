@@ -157,7 +157,29 @@
     "companionSection": "Działania Companion",
     "companionEmpty": "Brak działań Companion oczekujących na zatwierdzenie.",
     "trustLoadError": "Aipify nie mogło teraz wczytać zatwierdzeń zaufania.",
-    "retry": "Spróbuj ponownie"
+    "retry": "Spróbuj ponownie",
+    "confirmed": "Zatwierdzenie potwierdzone",
+    "receipt": {
+      "title": "Zatwierdzenie potwierdzone",
+      "copy": "Kopiuj",
+      "copied": "Skopiowano",
+      "approvedBy": "Zatwierdzone przez",
+      "approverRole": "Rola zatwierdzającego",
+      "approvedAt": "Zatwierdzono",
+      "action": "Działanie",
+      "scope": "Zakres",
+      "target": "Organizacja docelowa/środowisko",
+      "validity": "Ważność",
+      "oneTime": "Jednorazowe zatwierdzenie",
+      "ongoing": "Ciągłe zatwierdzenie",
+      "expiresAt": "Wygasa",
+      "auditId": "Identyfikator audytu",
+      "correlationId": "Identyfikator korelacji",
+      "status": "Status",
+      "executionResult": "Wynik wykonania",
+      "unchanged": "Tego nie zmienimy",
+      "notAvailable": "Niedostępne"
+    }
   },
   "organizationalEarlyWarning": {
     "title": "Centrum wczesnego ostrzegania",

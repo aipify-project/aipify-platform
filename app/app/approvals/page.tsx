@@ -96,6 +96,28 @@ export default async function ApprovalsPage() {
               status_rejected: companionLabels.status_rejected,
             },
           },
+          confirmed: t("customerApp.approvals.confirmed"),
+          receipt: {
+            title: t("customerApp.approvals.receipt.title"),
+            copy: t("customerApp.approvals.receipt.copy"),
+            copied: t("customerApp.approvals.receipt.copied"),
+            approvedBy: t("customerApp.approvals.receipt.approvedBy"),
+            approverRole: t("customerApp.approvals.receipt.approverRole"),
+            approvedAt: t("customerApp.approvals.receipt.approvedAt"),
+            action: t("customerApp.approvals.receipt.action"),
+            scope: t("customerApp.approvals.receipt.scope"),
+            target: t("customerApp.approvals.receipt.target"),
+            validity: t("customerApp.approvals.receipt.validity"),
+            oneTime: t("customerApp.approvals.receipt.oneTime"),
+            ongoing: t("customerApp.approvals.receipt.ongoing"),
+            expiresAt: t("customerApp.approvals.receipt.expiresAt"),
+            auditId: t("customerApp.approvals.receipt.auditId"),
+            correlationId: t("customerApp.approvals.receipt.correlationId"),
+            status: t("customerApp.approvals.receipt.status"),
+            executionResult: t("customerApp.approvals.receipt.executionResult"),
+            unchanged: t("customerApp.approvals.receipt.unchanged"),
+            notAvailable: t("customerApp.approvals.receipt.notAvailable"),
+          },
         }}
       />
     </div>

@@ -200,7 +200,29 @@
     "companionSection": "Companion-åtgärder",
     "companionEmpty": "Inga Companion-åtgärder väntar på godkännande.",
     "trustLoadError": "Aipify kunde inte ladda trust-godkännanden just nu.",
-    "retry": "Försök igen"
+    "retry": "Försök igen",
+    "confirmed": "Godkännande bekräftat",
+    "receipt": {
+      "title": "Godkännande bekräftat",
+      "copy": "Kopiera",
+      "copied": "Kopierat",
+      "approvedBy": "Godkänd av",
+      "approverRole": "Godkännarroll",
+      "approvedAt": "Godkänd",
+      "action": "Åtgärd",
+      "scope": "Omfattning",
+      "target": "Målorganisation/miljö",
+      "validity": "Giltighet",
+      "oneTime": "Engångsgodkännande",
+      "ongoing": "Löpande godkännande",
+      "expiresAt": "Upphör",
+      "auditId": "Gransknings-ID",
+      "correlationId": "Korrelations-ID",
+      "status": "Status",
+      "executionResult": "Utföranderesultat",
+      "unchanged": "Detta ändras inte",
+      "notAvailable": "Inte tillgängligt"
+    }
   },
   "installations": {
     "title": "Installations",

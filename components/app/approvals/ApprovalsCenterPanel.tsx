@@ -4,6 +4,12 @@ import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
+import { HumanApprovalReceipt } from "@/components/app/approvals/HumanApprovalReceipt";
+import {
+  buildHumanApprovalReceiptModel,
+  buildCoreHumanApprovalRequestFromTrustRow,
+} from "@/lib/core/human-approval";
+import type { HumanApprovalReceiptLabels, HumanApprovalReceiptModel } from "@/lib/core/human-approval/types";
 import type { CustomerApproval } from "@/lib/app/customer-app";
 import {
   buildCompanionPendingDisplayFields,
@@ -16,6 +22,22 @@ import {
 } from "@/lib/companion-action-approval";
 import { RISK_LEVEL_STYLES, type ActionLevel } from "@/lib/trust-action";
 import { formatDate } from "@/lib/i18n/format-date";
+
+type TrustApprovalItem = CustomerApproval & {
+  core_approval_id?: string | null;
+  correlation_id?: string | null;
+  latest_audit_id?: string | null;
+  scope_summary?: string | null;
+  access_mode?: string | null;
+  target_environment?: string | null;
+  execution_result?: string | null;
+  unchanged_summary?: string | null;
+  approved_by_display?: string | null;
+  approver_role_snapshot?: string | null;
+  approved_at?: string | null;
+  expires_at?: string | null;
+  action_name?: string;
+};
 
 type ApprovalsCenterMeta = {
   philosophy?: string;
@@ -74,6 +96,8 @@ type ApprovalsCenterPanelProps = {
       category: string;
       statusLabels: Record<string, string>;
     };
+    confirmed: string;
+    receipt: HumanApprovalReceiptLabels;
   };
 };
 
@@ -103,7 +127,7 @@ function companionStatusLabel(
 }
 
 export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelProps) {
-  const [items, setItems] = useState<CustomerApproval[]>([]);
+  const [items, setItems] = useState<TrustApprovalItem[]>([]);
   const [centerMeta, setCenterMeta] = useState<ApprovalsCenterMeta | null>(null);
   const [emergencyState, setEmergencyState] = useState<string | null>(null);
   const [companionActions, setCompanionActions] = useState<CompanionActionRequest[]>([]);
@@ -113,6 +137,24 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
   const [trustLoadError, setTrustLoadError] = useState<string | null>(null);
   const [companionLoadError, setCompanionLoadError] = useState<string | null>(null);
   const [actingId, setActingId] = useState<string | null>(null);
+  const [receiptModels, setReceiptModels] = useState<Record<string, HumanApprovalReceiptModel>>({});
+
+  const receiptHeading = labels.receipt.title || labels.confirmed;
+
+  const rebuildReceipts = useCallback(
+    (approvals: TrustApprovalItem[]) => {
+      const next: Record<string, HumanApprovalReceiptModel> = {};
+      for (const item of approvals) {
+        if (item.category !== "action" || !item.core_approval_id) continue;
+        if (!["approved", "completed", "executing"].includes(item.status)) continue;
+        const coreRequest = buildCoreHumanApprovalRequestFromTrustRow(item);
+        if (!coreRequest) continue;
+        next[item.id] = buildHumanApprovalReceiptModel(coreRequest, receiptHeading, labels.receipt);
+      }
+      setReceiptModels(next);
+    },
+    [labels.receipt, receiptHeading],
+  );
 
   const refreshTrust = useCallback(async () => {
     setTrustLoadError(null);
@@ -148,7 +190,8 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
             : undefined,
           self_love_note: typeof payload.self_love_note === "string" ? payload.self_love_note : undefined,
         });
-        setItems((payload.approvals as CustomerApproval[]) ?? []);
+        setItems((payload.approvals as TrustApprovalItem[]) ?? []);
+        rebuildReceipts((payload.approvals as TrustApprovalItem[]) ?? []);
         setEmergencyState(
           typeof payload.emergency_state === "string" ? payload.emergency_state : null,
         );
@@ -158,7 +201,7 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
     } finally {
       setTrustLoading(false);
     }
-  }, [labels.trustLoadError]);
+  }, [labels.trustLoadError, rebuildReceipts]);
 
   const refreshCompanion = useCallback(async () => {
     setCompanionLoadError(null);
@@ -212,7 +255,15 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
     const actingKey = source === "companion" ? `companion:${actionId}` : actionId;
     setActingId(actingKey);
     const { url, init } = resolveApprovalPostRequest(source, actionId, decision);
-    await fetch(url, init);
+    const response = await fetch(url, init);
+    const payload = (await response.json().catch(() => ({}))) as Record<string, unknown> & {
+      receipt?: HumanApprovalReceiptModel;
+    };
+
+    if (source === "trust" && response.ok && decision === "approve" && payload.receipt) {
+      setReceiptModels((current) => ({ ...current, [actionId]: payload.receipt as HumanApprovalReceiptModel }));
+    }
+
     if (source === "companion") {
       await refreshCompanion();
     } else {
@@ -399,6 +450,12 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
                     >
                       {labels.reject}
                     </button>
+                  </div>
+                )}
+
+                {item.category === "action" && receiptModels[item.id] && (
+                  <div className="mt-4">
+                    <HumanApprovalReceipt model={receiptModels[item.id]} labels={labels.receipt} />
                   </div>
                 )}
               </li>

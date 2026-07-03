@@ -200,7 +200,29 @@
     "companionSection": "Companion-handlinger",
     "companionEmpty": "Ingen Companion-handlinger afventer godkendelse.",
     "trustLoadError": "Aipify kunne ikke indlæse trust-godkendelser lige nu.",
-    "retry": "Prøv igen"
+    "retry": "Prøv igen",
+    "confirmed": "Godkendelse bekræftet",
+    "receipt": {
+      "title": "Godkendelse bekræftet",
+      "copy": "Kopiér",
+      "copied": "Kopieret",
+      "approvedBy": "Godkendt af",
+      "approverRole": "Godkenderrolle",
+      "approvedAt": "Godkendt",
+      "action": "Handling",
+      "scope": "Omfang",
+      "target": "Målorganisation/miljø",
+      "validity": "Gyldighed",
+      "oneTime": "Engangsgodkendelse",
+      "ongoing": "Løbende godkendelse",
+      "expiresAt": "Udløber",
+      "auditId": "Revisions-ID",
+      "correlationId": "Korrelations-ID",
+      "status": "Status",
+      "executionResult": "Udførelsesresultat",
+      "unchanged": "Dette ændres ikke",
+      "notAvailable": "Ikke tilgængelig"
+    }
   },
   "installations": {
     "title": "Installations",

@@ -20,6 +20,17 @@ export type ActionRequest = {
   confidence_score?: number | null;
   undo_available?: boolean;
   approver_role_required?: string | null;
+  core_approval_id?: string | null;
+  correlation_id?: string | null;
+  latest_audit_id?: string | null;
+  scope_summary?: string | null;
+  access_mode?: string | null;
+  target_environment?: string | null;
+  execution_result?: string | null;
+  unchanged_summary?: string | null;
+  approved_by_display?: string | null;
+  approver_role_snapshot?: string | null;
+  expires_at?: string | null;
 };
 
 export type ActionPolicy = {
