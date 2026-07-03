@@ -1,0 +1,66 @@
+{
+  "navLabel": "Menneskelig godkjenning",
+  "title": "Menneskelig godkjenning",
+  "subtitle": "Gjennomgå sensitive handlinger som krever godkjenning fra eier eller administrator før Aipify fortsetter.",
+  "intro": "Aipify forbereder handlinger og venter på din beslutning. Ingenting sensitivt kjøres uten godkjenning registrert her. Denne visningen er skrivebeskyttet — gjennomgå status, omfang og revisjonsreferanser i ro og mak.",
+  "loading": "Aipify forbereder arbeidsområdet ditt…",
+  "empty": {
+    "title": "Ingen godkjenningsforespørsler ennå",
+    "body": "Når Aipify trenger tillatelse for en sensitiv handling, vises forespørselen her til gjennomgang.",
+    "action": "Tilbake til Command Brief"
+  },
+  "disabled": {
+    "title": "Menneskelig godkjenning er ikke aktivert",
+    "body": "Dette arbeidsområdet er ikke aktivert for Human Approval-senteret ennå. Administratoren din kan slå det på når dere er klare."
+  },
+  "forbidden": {
+    "title": "Krever eier- eller administrator-tilgang",
+    "body": "Godkjenningsforespørsler kan gjennomgås av organisasjonseiere og administratorer i denne pilotfasen."
+  },
+  "backToList": "Tilbake til Menneskelig godkjenning",
+  "backToApp": "Command Brief",
+  "viewDetail": "Vis detaljer",
+  "latestAuditId": "Siste revisjonsreferanse",
+  "correlationId": "Korrelasjons-ID",
+  "auditTimelinePlaceholder": "Full revisjonstidslinje blir tilgjengelig når støtte for hendelsesliste er aktivert.",
+  "targetEnvironment": "Målmiljø",
+  "actionCategory": "Handlingskategori",
+  "actionKey": "Handling",
+  "scopeSummary": "Omfang",
+  "unchangedSummary": "Dette endres ikke",
+  "approvedBy": "Godkjent av",
+  "approverRole": "Godkjennerrolle",
+  "executionResult": "Utførelsesresultat",
+  "executionError": "Utførelsesnotat",
+  "createdAt": "Opprettet",
+  "updatedAt": "Oppdatert",
+  "expiresAt": "Utløper",
+  "riskLevel": "Risikonivå",
+  "accessMode": "Tilgangsmodus",
+  "statusLabel": "Status",
+  "summary": "Sammendrag",
+  "notAvailable": "Ikke tilgjengelig",
+  "loadError": "Noe uventet skjedde under lasting av godkjenninger. Prøv igjen.",
+  "retry": "Prøv igjen",
+  "status": {
+    "pending": "Venter på godkjenning",
+    "approved": "Godkjent",
+    "denied": "Avslått",
+    "expired": "Utløpt",
+    "revoked": "Tilbakekalt",
+    "executing": "Utfører",
+    "succeeded": "Vellykket",
+    "failed": "Mislyktes"
+  },
+  "risk": {
+    "information": "Informasjon",
+    "draft": "Utkast",
+    "reversible": "Reversibel",
+    "sensitive": "Sensitiv",
+    "critical": "Kritisk"
+  },
+  "accessMode": {
+    "oneTime": "Engangsgodkjenning",
+    "ongoing": "Løpende godkjenning"
+  }
+}

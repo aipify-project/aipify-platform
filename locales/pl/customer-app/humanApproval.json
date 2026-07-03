@@ -1,0 +1,66 @@
+{
+  "navLabel": "Zatwierdzenie przez człowieka",
+  "title": "Zatwierdzenie przez człowieka",
+  "subtitle": "Przeglądaj wrażliwe działania wymagające zatwierdzenia przez właściciela lub administratora, zanim Aipify będzie kontynuować.",
+  "intro": "Aipify przygotowuje działania i czeka na Twoją decyzję. Nic wrażliwego nie jest uruchamiane bez zatwierdzenia zapisanej tutaj. Ten widok jest tylko do odczytu — spokojnie sprawdź status, zakres i referencje audytu.",
+  "loading": "Aipify przygotowuje Twoją przestrzeń roboczą…",
+  "empty": {
+    "title": "Brak próśb o zatwierdzenie",
+    "body": "Gdy Aipify będzie potrzebować zgody na wrażliwe działanie, prośba pojawi się tutaj do przeglądu.",
+    "action": "Wróć do Command Brief"
+  },
+  "disabled": {
+    "title": "Zatwierdzenie przez człowieka nie jest włączone",
+    "body": "Ta przestrzeń robocza nie została jeszcze objęta centrum Human Approval. Administrator może je włączyć, gdy będziecie gotowi."
+  },
+  "forbidden": {
+    "title": "Wymagany dostęp właściciela lub administratora",
+    "body": "Prośby o zatwierdzenie mogą przeglądać właściciele organizacji i administratorzy w tej fazie pilotażowej."
+  },
+  "backToList": "Wróć do Zatwierdzenia przez człowieka",
+  "backToApp": "Command Brief",
+  "viewDetail": "Zobacz szczegóły",
+  "latestAuditId": "Ostatnia referencja audytu",
+  "correlationId": "Identyfikator korelacji",
+  "auditTimelinePlaceholder": "Pełna oś czasu audytu będzie dostępna po włączeniu obsługi listy zdarzeń.",
+  "targetEnvironment": "Środowisko docelowe",
+  "actionCategory": "Kategoria działania",
+  "actionKey": "Działanie",
+  "scopeSummary": "Zakres",
+  "unchangedSummary": "Co się nie zmieni",
+  "approvedBy": "Zatwierdzone przez",
+  "approverRole": "Rola zatwierdzającego",
+  "executionResult": "Wynik wykonania",
+  "executionError": "Notatka wykonania",
+  "createdAt": "Utworzono",
+  "updatedAt": "Zaktualizowano",
+  "expiresAt": "Wygasa",
+  "riskLevel": "Poziom ryzyka",
+  "accessMode": "Tryb dostępu",
+  "statusLabel": "Status",
+  "summary": "Podsumowanie",
+  "notAvailable": "Niedostępne",
+  "loadError": "Wystąpił nieoczekiwany problem podczas ładowania zatwierdzeń. Spróbuj ponownie.",
+  "retry": "Spróbuj ponownie",
+  "status": {
+    "pending": "Oczekuje na zatwierdzenie",
+    "approved": "Zatwierdzone",
+    "denied": "Odrzucone",
+    "expired": "Wygasłe",
+    "revoked": "Cofnięte",
+    "executing": "Wykonywanie",
+    "succeeded": "Powiodło się",
+    "failed": "Nie powiodło się"
+  },
+  "risk": {
+    "information": "Informacyjne",
+    "draft": "Szkic",
+    "reversible": "Odwracalne",
+    "sensitive": "Wrażliwe",
+    "critical": "Krytyczne"
+  },
+  "accessMode": {
+    "oneTime": "Jednorazowe zatwierdzenie",
+    "ongoing": "Ciągłe zatwierdzenie"
+  }
+}

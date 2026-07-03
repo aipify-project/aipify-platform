@@ -1,5 +1,6 @@
 import { resolveAppHref } from "./route-aliases";
 import { APP_PORTAL_NAV, getAppPortalActiveNavId } from "../app-portal/nav-config";
+import { filterHumanApprovalNavItems, HUMAN_APPROVAL_NAV_ITEM } from "./human-approval-nav";
 
 export type AppNavId =
   | "overview"
@@ -485,6 +486,7 @@ export type AppNavId =
   | "personalityEngine"
   | "workstyleEngine"
   | "approvals"
+  | "humanApproval"
   | "actionCenter"
   | "realWorldActionServiceOrchestrationEngine"
   | "businessPulse"
@@ -2214,6 +2216,7 @@ export const APP_NAV: AppNavItem[] = [
   { id: "supplierIntelligenceEngine", href: "/app/supplier-intelligence", labelKey: "navigation.nav.supplierIntelligenceEngine" },
   { id: "personalityEngine", href: "/app/personality", labelKey: "navigation.nav.personalityEngine" },
   { id: "approvals", href: "/app/approvals", labelKey: "navigation.nav.approvals" },
+  HUMAN_APPROVAL_NAV_ITEM,
   { id: "actionCenter", href: "/app/action-center", labelKey: "navigation.nav.actionCenter" },
   {
     id: "realWorldActionServiceOrchestrationEngine",
@@ -3373,6 +3376,7 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/global-commerce-expansion")) return "globalCommerceExpansionEngine";
   if (pathname.startsWith("/app/supplier-intelligence")) return "supplierIntelligenceEngine";
   if (pathname.startsWith("/app/personality")) return "personalityEngine";
+  if (pathname.startsWith("/app/human-approval")) return "humanApproval";
   if (pathname.startsWith("/app/approvals")) return "approvals";
   if (
     pathname === "/app/actions" ||
@@ -3541,8 +3545,10 @@ export function getAppActiveNavId(pathname: string): AppNavId {
 
 /** Nav items with hrefs resolved to active routes during /dashboard → /app migration. */
 export function getAppNavItemsForShell(): AppNavItem[] {
-  return APP_NAV.map((item) => ({
-    ...item,
-    href: resolveAppHref(item.href),
-  }));
+  return filterHumanApprovalNavItems(
+    APP_NAV.map((item) => ({
+      ...item,
+      href: resolveAppHref(item.href),
+    })),
+  );
 }

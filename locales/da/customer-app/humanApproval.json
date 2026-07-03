@@ -1,0 +1,66 @@
+{
+  "navLabel": "Menneskelig godkendelse",
+  "title": "Menneskelig godkendelse",
+  "subtitle": "Gennemgå følsomme handlinger, der kræver godkendelse fra ejer eller administrator, før Aipify fortsætter.",
+  "intro": "Aipify forbereder handlinger og venter på din beslutning. Intet følsomt kører uden godkendelse registreret her. Denne visning er skrivebeskyttet — gennemgå status, omfang og revisionsreferencer roligt.",
+  "loading": "Aipify forbereder dit arbejdsområde…",
+  "empty": {
+    "title": "Ingen godkendelsesanmodninger endnu",
+    "body": "Når Aipify har brug for tilladelse til en følsom handling, vises anmodningen her til gennemgang.",
+    "action": "Tilbage til Command Brief"
+  },
+  "disabled": {
+    "title": "Menneskelig godkendelse er ikke aktiveret",
+    "body": "Dette arbejdsområde er endnu ikke tilmeldt Human Approval-centeret. Din administrator kan aktivere det, når I er klar."
+  },
+  "forbidden": {
+    "title": "Kræver ejer- eller administratoradgang",
+    "body": "Godkendelsesanmodninger kan gennemgås af organisationsejere og administratorer i denne pilotfase."
+  },
+  "backToList": "Tilbage til Menneskelig godkendelse",
+  "backToApp": "Command Brief",
+  "viewDetail": "Vis detaljer",
+  "latestAuditId": "Seneste revisionsreference",
+  "correlationId": "Korrelations-ID",
+  "auditTimelinePlaceholder": "Fuld revisionstidslinje bliver tilgængelig, når understøttelse af hændelsesliste er aktiveret.",
+  "targetEnvironment": "Målmiljø",
+  "actionCategory": "Handlingskategori",
+  "actionKey": "Handling",
+  "scopeSummary": "Omfang",
+  "unchangedSummary": "Dette ændres ikke",
+  "approvedBy": "Godkendt af",
+  "approverRole": "Godkenderrolle",
+  "executionResult": "Udførelsesresultat",
+  "executionError": "Udførelsesnote",
+  "createdAt": "Oprettet",
+  "updatedAt": "Opdateret",
+  "expiresAt": "Udløber",
+  "riskLevel": "Risikoniveau",
+  "accessMode": "Adgangstilstand",
+  "statusLabel": "Status",
+  "summary": "Resumé",
+  "notAvailable": "Ikke tilgængelig",
+  "loadError": "Noget uventet skete under indlæsning af godkendelser. Prøv igen.",
+  "retry": "Prøv igen",
+  "status": {
+    "pending": "Afventer godkendelse",
+    "approved": "Godkendt",
+    "denied": "Afvist",
+    "expired": "Udløbet",
+    "revoked": "Tilbagekaldt",
+    "executing": "Udfører",
+    "succeeded": "Lykkedes",
+    "failed": "Mislykkedes"
+  },
+  "risk": {
+    "information": "Information",
+    "draft": "Kladde",
+    "reversible": "Reversibel",
+    "sensitive": "Følsom",
+    "critical": "Kritisk"
+  },
+  "accessMode": {
+    "oneTime": "Engangsgodkendelse",
+    "ongoing": "Løbende godkendelse"
+  }
+}

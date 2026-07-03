@@ -1,0 +1,66 @@
+{
+  "navLabel": "Mänskligt godkännande",
+  "title": "Mänskligt godkännande",
+  "subtitle": "Granska känsliga åtgärder som kräver godkännande från ägare eller administratör innan Aipify fortsätter.",
+  "intro": "Aipify förbereder åtgärder och väntar på ditt beslut. Inget känsligt körs utan godkännande som registreras här. Den här vyn är skrivskyddad — granska status, omfattning och revisionsreferenser i lugn och ro.",
+  "loading": "Aipify förbereder din arbetsyta…",
+  "empty": {
+    "title": "Inga godkännandebegäranden ännu",
+    "body": "När Aipify behöver tillstånd för en känslig åtgärd visas begäran här för granskning.",
+    "action": "Tillbaka till Command Brief"
+  },
+  "disabled": {
+    "title": "Mänskligt godkännande är inte aktiverat",
+    "body": "Den här arbetsytan har inte aktiverats för Human Approval-center ännu. Din administratör kan slå på det när ni är redo."
+  },
+  "forbidden": {
+    "title": "Kräver ägar- eller administratörsåtkomst",
+    "body": "Godkännandebegäranden kan granskas av organisationsägare och administratörer under den här pilotfasen."
+  },
+  "backToList": "Tillbaka till Mänskligt godkännande",
+  "backToApp": "Command Brief",
+  "viewDetail": "Visa detaljer",
+  "latestAuditId": "Senaste revisionsreferens",
+  "correlationId": "Korrelations-ID",
+  "auditTimelinePlaceholder": "Full revisionstidslinje blir tillgänglig när stöd för händelselista aktiveras.",
+  "targetEnvironment": "Målmiljö",
+  "actionCategory": "Åtgärdskategori",
+  "actionKey": "Åtgärd",
+  "scopeSummary": "Omfattning",
+  "unchangedSummary": "Detta ändras inte",
+  "approvedBy": "Godkänd av",
+  "approverRole": "Godkännarroll",
+  "executionResult": "Utföranderesultat",
+  "executionError": "Utförandenotering",
+  "createdAt": "Skapad",
+  "updatedAt": "Uppdaterad",
+  "expiresAt": "Upphör",
+  "riskLevel": "Risknivå",
+  "accessMode": "Åtkomstläge",
+  "statusLabel": "Status",
+  "summary": "Sammanfattning",
+  "notAvailable": "Inte tillgänglig",
+  "loadError": "Något oväntat hände när godkännanden skulle läsas in. Försök igen.",
+  "retry": "Försök igen",
+  "status": {
+    "pending": "Väntar på godkännande",
+    "approved": "Godkänd",
+    "denied": "Nekad",
+    "expired": "Utgången",
+    "revoked": "Återkallad",
+    "executing": "Utför",
+    "succeeded": "Lyckades",
+    "failed": "Misslyckades"
+  },
+  "risk": {
+    "information": "Information",
+    "draft": "Utkast",
+    "reversible": "Reversibel",
+    "sensitive": "Känslig",
+    "critical": "Kritisk"
+  },
+  "accessMode": {
+    "oneTime": "Engångsgodkännande",
+    "ongoing": "Löpande godkännande"
+  }
+}

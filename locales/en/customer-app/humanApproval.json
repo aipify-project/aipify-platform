@@ -1,0 +1,66 @@
+{
+  "navLabel": "Human Approval",
+  "title": "Human Approval",
+  "subtitle": "Review sensitive actions that require owner or administrator approval before Aipify proceeds.",
+  "intro": "Aipify prepares actions and waits for your decision. Nothing sensitive runs without the approval recorded here. This view is read-only — review status, scope, and audit references calmly.",
+  "loading": "Aipify is preparing your workspace…",
+  "empty": {
+    "title": "No approval requests yet",
+    "body": "When Aipify needs permission for a sensitive action, the request will appear here for review.",
+    "action": "Return to Command Brief"
+  },
+  "disabled": {
+    "title": "Human Approval is not enabled",
+    "body": "This workspace has not been opted in to the Human Approval center yet. Your administrator can enable it when ready."
+  },
+  "forbidden": {
+    "title": "Owner or administrator access required",
+    "body": "Human Approval requests can be reviewed by organization owners and administrators during this pilot phase."
+  },
+  "backToList": "Back to Human Approval",
+  "backToApp": "Command Brief",
+  "viewDetail": "View details",
+  "latestAuditId": "Latest audit reference",
+  "correlationId": "Correlation ID",
+  "auditTimelinePlaceholder": "Full audit timeline will be available after audit event list support is enabled.",
+  "targetEnvironment": "Target environment",
+  "actionCategory": "Action category",
+  "actionKey": "Action",
+  "scopeSummary": "Scope",
+  "unchangedSummary": "What will not change",
+  "approvedBy": "Approved by",
+  "approverRole": "Approver role",
+  "executionResult": "Execution result",
+  "executionError": "Execution note",
+  "createdAt": "Created",
+  "updatedAt": "Updated",
+  "expiresAt": "Expires",
+  "riskLevel": "Risk level",
+  "accessMode": "Access mode",
+  "statusLabel": "Status",
+  "summary": "Summary",
+  "notAvailable": "Not available",
+  "loadError": "Something unexpected happened while loading approvals. Please try again.",
+  "retry": "Retry",
+  "status": {
+    "pending": "Pending approval",
+    "approved": "Approved",
+    "denied": "Denied",
+    "expired": "Expired",
+    "revoked": "Revoked",
+    "executing": "Executing",
+    "succeeded": "Succeeded",
+    "failed": "Failed"
+  },
+  "risk": {
+    "information": "Information",
+    "draft": "Draft",
+    "reversible": "Reversible",
+    "sensitive": "Sensitive",
+    "critical": "Critical"
+  },
+  "accessMode": {
+    "oneTime": "One-time approval",
+    "ongoing": "Ongoing approval"
+  }
+}
