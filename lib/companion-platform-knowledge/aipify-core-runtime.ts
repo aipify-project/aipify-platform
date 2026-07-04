@@ -15,6 +15,7 @@ export {
   isPlatformProductKnowledgeQuery,
   resolvePlatformProductCorpusArticleId,
   resolvePlatformProductFoundationTopic,
+  shouldBypassIndustryPackProviderCatalog,
   shouldBypassOrganizationIntelligenceForProductQuery,
   PLATFORM_PRODUCT_CORPUS_MIN_SCORE,
   type PlatformProductFoundationTopic,
