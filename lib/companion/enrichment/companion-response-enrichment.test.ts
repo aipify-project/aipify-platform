@@ -2,13 +2,16 @@ import assert from "node:assert/strict";
 import type { PlatformKnowledgeAnswer } from "@/lib/companion-platform-knowledge/types";
 import { createTranslator } from "@/lib/i18n/translate";
 import type { CompanionEnrichmentDecisionLog } from "./companion-response-enrichment-types";
+import { classifyCompanionTurnRoute } from "@/lib/companion-runtime/companion-turn-route";
 import {
   __setCompanionEnrichmentLogSinkForTests,
   enrichCompanionPlatformAnswer,
   enrichCompanionResponseWithTranslator,
   enrichCompanionSearchJson,
+  isCompanionOnboardingRegistrationQuery,
   resolveCompanionEnrichmentIntent,
   resolveCompanionOrganizationState,
+  shouldDeferLightweightConversationalAnswer,
 } from "./companion-response-enrichment";
 
 const t = createTranslator({});
@@ -74,6 +77,15 @@ assert.equal(
 );
 assert.equal(resolveCompanionEnrichmentIntent("I need help with support"), "support");
 assert.equal(resolveCompanionEnrichmentIntent("What is the weather today?"), "general");
+
+assert.equal(shouldDeferLightweightConversationalAnswer("Hva koster det?"), true);
+assert.equal(shouldDeferLightweightConversationalAnswer("What is the weather today?"), false);
+assert.equal(isCompanionOnboardingRegistrationQuery("hvor registrer jeg meg?"), true);
+assert.equal(
+  resolveCompanionEnrichmentIntent("hvor registrer jeg meg?"),
+  "onboarding",
+);
+assert.equal(classifyCompanionTurnRoute("hvor registrer jeg meg?", "no"), "full");
 
 // Organization state
 assert.equal(
