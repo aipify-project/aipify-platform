@@ -77,9 +77,12 @@ const orchestratorSource = fs.readFileSync(
   "utf8",
 );
 assert.ok(orchestratorSource.includes("resolvePlatformFoundationAnswer"));
+assert.ok(orchestratorSource.includes("resolveAipifyCoreFoundationSearch"));
 const foundationIndex = orchestratorSource.indexOf("await resolvePlatformFoundationAnswer");
+const productFoundationIndex = orchestratorSource.indexOf("resolveAipifyCoreFoundationSearch");
 const orgIntelIndex = orchestratorSource.indexOf("await resolveOrganizationIntelligenceAnswer");
 assert.ok(foundationIndex > 0 && foundationIndex < orgIntelIndex);
+assert.ok(productFoundationIndex > 0 && productFoundationIndex < orgIntelIndex);
 
 for (const locale of COMPANION_COVERAGE_LOCALES) {
   const dict = loadJson(`locales/${locale}/customer-app/companionPlatformKnowledge.json`);
