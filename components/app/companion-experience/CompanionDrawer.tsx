@@ -9,8 +9,16 @@ import {
 import { CompanionPanel } from "./CompanionPanel";
 
 export function CompanionDrawer() {
-  const { open, closeDrawer, labels, locale, pathname, drawerQuery, drawerConversationId } =
-    useCompanionExperience();
+  const {
+    open,
+    drawerExpanded,
+    closeDrawer,
+    labels,
+    locale,
+    pathname,
+    drawerQuery,
+    drawerConversationId,
+  } = useCompanionExperience();
   const keepMounted = useCompanionPanelKeepMounted();
 
   useEffect(() => {
@@ -65,7 +73,9 @@ export function CompanionDrawer() {
         aria-modal={open}
         aria-hidden={!open}
         aria-label={labels.ariaCompanionPanel}
-        className="relative flex h-full w-full max-w-[100vw] flex-col bg-aipify-canvas shadow-2xl sm:w-[min(760px,100vw)]"
+        className={`relative flex h-full w-full max-w-[100vw] flex-col bg-aipify-canvas shadow-2xl ${
+          drawerExpanded ? "sm:w-[min(calc(100vw-1.5rem),1400px)]" : "sm:w-[min(760px,100vw)]"
+        }`}
       >
         <CompanionPanel
           labels={labels}
