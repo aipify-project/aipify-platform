@@ -19,6 +19,10 @@ import { buildCompanionExperienceLabels } from "@/lib/app/companion/labels";
 import { getDashboardProfile } from "@/lib/tenant/get-profile";
 import type { UserRole } from "@/lib/tenant/types";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import {
+  resolveCompanionOrganizationState,
+  enrichCompanionSearchJson,
+} from "@/lib/companion/enrichment/companion-response-enrichment";
 import { buildReplyFromSearchJson } from "./build-reply";
 import type { CompanionChatMessage, CompanionExperienceLabels } from "../types";
 import type { WorkerExecutionProfile } from "./load-worker-profile";
@@ -1027,6 +1031,7 @@ export async function executeCompanionTurn(
     source: answer.source,
     confidence: answer.confidence,
     answer_locale: answerLocale,
+    organization_state: resolveCompanionOrganizationState(subscriptionRaw),
   };
 
   return {
@@ -1044,8 +1049,28 @@ export async function executeCompanionTurnToPayload(
   const turn = await executeCompanionTurn(supabase, input);
   if (!turn.ok) return turn;
 
+  const answerLocale =
+    typeof (turn.searchJson as { answer_locale?: unknown }).answer_locale === "string"
+      ? (turn.searchJson as { answer_locale: string }).answer_locale
+      : input.locale;
+
+  const organizationState =
+    (turn.searchJson as { organization_state?: ReturnType<typeof resolveCompanionOrganizationState> })
+      .organization_state ?? "unknown";
+
+  const enrichedSearchJson = await enrichCompanionSearchJson(turn.searchJson, {
+    query: turn.question,
+    locale: answerLocale,
+    organizationState,
+    logContext: {
+      conversationId: input.conversationId,
+      queueId: input.workerQueueId,
+      correlationId: input.workerQueueId ?? input.conversationId,
+    },
+  });
+
   const { message, payload } = buildReplyFromSearchJson(
-    turn.searchJson,
+    enrichedSearchJson,
     turn.labels,
     turn.question,
   );
