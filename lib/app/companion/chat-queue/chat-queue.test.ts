@@ -23,6 +23,8 @@ import {
   resolveLightweightConversationalIntent,
 } from "@/lib/companion-runtime/companion-turn-route";
 import { resolveArticleIdForQuery } from "@/lib/companion-platform-knowledge/search-helpers";
+import { isPlatformProductKnowledgeQuery } from "@/lib/companion-platform-knowledge/platform-product-foundation";
+import { resolveOrganizationCapabilityRoute } from "@/lib/companion-runtime/organization-capability-resolution";
 
 const VALID_ACTION_REQUEST_ID = "a1b2c3d4-e5f6-4789-a012-3456789abcde";
 const SUPPORT_OUTCOME_APPROVAL_KEY =
@@ -2052,6 +2054,126 @@ function assertHeavyPackLoaderNotInvoked(rpcCalls: readonly string[]) {
   }
 }
 
+async function testSolutionQuestionDirectPathKeepsCoreRoute() {
+  installServerOnlyShim();
+  const { executeDirectCompanionTurn } = await import("./direct-turn");
+
+  const solutionsQuery = "Hvilken løsninger har dere?";
+
+  assert.equal(
+    isPlatformProductKnowledgeQuery(solutionsQuery),
+    true,
+    "solution query must be detected as platform product knowledge",
+  );
+  assert.notEqual(
+    classifyCompanionTurnRoute(solutionsQuery, "no"),
+    "exact_source",
+    "solution query must not route exact_source",
+  );
+  assert.equal(
+    resolveOrganizationCapabilityRoute(solutionsQuery, "no")?.capability_key,
+    "member.search",
+    "semantic org layer may still false-positive member.search",
+  );
+
+  const rpcCalls: string[] = [];
+  let appendCount = 0;
+  let assistantPayload: Record<string, unknown> | null = null;
+
+  const supabase = {
+    auth: {
+      getUser: async () => ({
+        data: { user: { id: "auth-user-1" } },
+        error: null,
+      }),
+    },
+    from: (table: string) => ({
+      select: () => ({
+        eq: () => ({
+          maybeSingle: async () => {
+            if (table === "users") {
+              return {
+                data: {
+                  id: "user-1",
+                  auth_user_id: "auth-user-1",
+                  company_id: "company-1",
+                  full_name: "Test User",
+                  role: "owner",
+                  created_at: "2026-01-01T00:00:00.000Z",
+                },
+                error: null,
+              };
+            }
+            if (table === "companies") {
+              return {
+                data: {
+                  id: "company-1",
+                  name: "Test Co",
+                  slug: "test-co",
+                  is_platform: false,
+                  created_at: "2026-01-01T00:00:00.000Z",
+                },
+                error: null,
+              };
+            }
+            return { data: null, error: null };
+          },
+        }),
+      }),
+    }),
+    rpc: async (fn: string, args?: Record<string, unknown>) => {
+      rpcCalls.push(fn);
+      if (fn === "upsert_companion_conversation") return { error: null };
+      if (fn === "append_companion_chat_message") {
+        appendCount += 1;
+        if (appendCount === 2 && args?.p_payload && typeof args.p_payload === "object") {
+          assistantPayload = args.p_payload as Record<string, unknown>;
+        }
+        return {
+          data: {
+            message_id: appendCount === 1 ? "msg-user-1" : "msg-assistant-1",
+            deduplicated: false,
+          },
+          error: null,
+        };
+      }
+      if (fn === "get_app_organization_context") {
+        return { data: { organization_id: "org-1" }, error: null };
+      }
+      if (fn === "provision_tenant_for_auth_user") return { data: null, error: null };
+      if (fn === "get_customer_license_center") return { data: null, error: null };
+      return { data: null, error: null };
+    },
+  } as unknown as SupabaseClient;
+
+  const result = await executeDirectCompanionTurn(supabase, {
+    conversationId: VALID_CONVERSATION_ID,
+    idempotencyKey: `${VALID_CONVERSATION_ID}:msg-solution-direct`,
+    question: solutionsQuery,
+    locale: "no",
+  });
+
+  assert.equal(result.ok, true, result.ok ? "" : String((result as { ok: false; error: string }).error));
+  if (!result.ok) return;
+
+  assert.equal(result.route, "lightweight", "direct turn must stay on lightweight/Core path");
+  assert.equal(
+    rpcCalls.includes("get_customer_member_directory_center"),
+    false,
+    "direct Core path must not call member directory RPC",
+  );
+  assert.equal(
+    rpcCalls.includes("companion_worker_get_customer_member_directory_center"),
+    false,
+    "direct Core path must not call worker member directory RPC",
+  );
+  assert.ok(assistantPayload, "assistant payload must be persisted");
+  assert.notEqual(assistantPayload!.sourceId, "organization-intelligence-gap");
+  assert.equal(assistantPayload!.sourceId, "aipify-capabilities");
+  assert.notEqual(result.capability, "member.search");
+  assert.equal(result.capability, "direct.lightweight");
+}
+
 async function testCapabilityHelpWorkerBootstrapFastPath() {
   installServerOnlyShim();
   const supabase = createTrackingBootstrapSupabase();
@@ -2196,7 +2318,8 @@ testPlatformAnswerPendingBookingWriteSearchToChatContract();
 testPlatformAnswerPendingSupportWriteSearchToChatContract();
 testCapabilityHelpTurnRouting();
 
-void testCapabilityHelpWorkerBootstrapFastPath()
+void testSolutionQuestionDirectPathKeepsCoreRoute()
+  .then(() => testCapabilityHelpWorkerBootstrapFastPath())
   .then(() => testCapabilityHelpExecuteTurnCorpusFastPath())
   .then(() => testCapabilityHelpWithAttachmentPreservesArtifactLoading())
   .then(() => testNonCapabilityFullRouteStillUsesHeavyTenantLoader())

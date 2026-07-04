@@ -97,6 +97,15 @@ const PRODUCT_TOPIC_DESCRIPTORS: readonly ProductTopicDescriptor[] = [
     topic: "aipify_capabilities",
     corpusArticleId: "aipify-capabilities",
     signalGroups: [
+      ["løsning", "løsninger", "losning", "losninger", "solution", "solutions"],
+    ],
+    minScore: 25,
+    priority: 66,
+  },
+  {
+    topic: "aipify_capabilities",
+    corpusArticleId: "aipify-capabilities",
+    signalGroups: [
       ["help me", "hjelpe meg", "help with", "capabilities", "funksjoner", "what can"],
       ["gjøre for", "do for", "bedriften", "business", "organization"],
     ],
