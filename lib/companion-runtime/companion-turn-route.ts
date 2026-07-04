@@ -9,6 +9,8 @@ import { isPlatformFoundationQuery } from "./platform-foundation-intent";
 import { detectOperationalQueryKind } from "./companion-operational-query-match";
 import { resolveCompanionExplicitIntent } from "./companion-explicit-intent";
 
+export { resolveCompanionEnrichmentIntent } from "@/lib/companion/enrichment/companion-response-enrichment";
+
 export type CompanionTurnRoute = "lightweight" | "foundation" | "exact_source" | "full";
 
 export type LightweightConversationalIntent =
