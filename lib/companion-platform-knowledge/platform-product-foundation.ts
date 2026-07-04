@@ -1,5 +1,5 @@
 import { normalizeIntegrationQuery } from "@/lib/integration-intelligence/normalize-text";
-import { isCapabilityHelpQuery } from "@/lib/companion-runtime/companion-turn-route";
+import { isCapabilityHelpQuery } from "./aipify-core-query";
 import { isAppNavigationQuery, isProductConceptQuery } from "@/lib/companion-runtime/product-concept";
 import type { PlatformCorpusArticleId } from "./types";
 

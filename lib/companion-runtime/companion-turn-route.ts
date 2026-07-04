@@ -78,19 +78,9 @@ export function resolveLightweightConversationalIntent(
   return null;
 }
 
-/** Capability/help questions ask what Aipify or Companion can do — never lightweight smalltalk. */
-export function isCapabilityHelpQuery(query: string): boolean {
-  const normalized = normalizeIntegrationQuery(query);
-  if (!normalized.trim()) return false;
+import { isCapabilityHelpQuery } from "@/lib/companion-platform-knowledge/aipify-core-query";
 
-  if (!/\b(aipify|companion)\b/i.test(normalized)) return false;
-
-  return (
-    (/\b(hva kan|what can|how can|hvordan kan)\b/i.test(normalized) &&
-      /\b(hjelpe|help|assist|assistere|støtte|support)\b/i.test(normalized)) ||
-    /\b(how can|how does)\b.*\b(aipify|companion)\b.*\b(help|assist)\b/i.test(normalized)
-  );
-}
+export { isCapabilityHelpQuery };
 
 /** Escalate to full route only when the query clearly needs org data, actions, or integrations. */
 export function needsFullCompanionRoute(
