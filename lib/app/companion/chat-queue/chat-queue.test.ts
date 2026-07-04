@@ -2168,8 +2168,9 @@ async function testSolutionQuestionDirectPathKeepsCoreRoute() {
     "direct Core path must not call worker member directory RPC",
   );
   assert.ok(assistantPayload, "assistant payload must be persisted");
-  assert.notEqual(assistantPayload!.sourceId, "organization-intelligence-gap");
-  assert.equal(assistantPayload!.sourceId, "aipify-capabilities");
+  const persistedPayload = assistantPayload as Record<string, unknown>;
+  assert.notEqual(persistedPayload.sourceId, "organization-intelligence-gap");
+  assert.equal(persistedPayload.sourceId, "aipify-capabilities");
   assert.notEqual(result.capability, "member.search");
   assert.equal(result.capability, "direct.lightweight");
 }
