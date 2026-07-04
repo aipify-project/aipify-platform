@@ -19,12 +19,12 @@ const searchOptions: PlatformSearchOptions = {
   t,
   locale: "no",
   ctx: {
+    locale: "no",
     userRole: "owner",
     enabledFeatures: [],
-    planKey: null,
   },
   getSearchTermsArray: () => [],
-  subscriptionRaw: null,
+  subscriptionRaw: undefined,
   tenantContext,
 };
 

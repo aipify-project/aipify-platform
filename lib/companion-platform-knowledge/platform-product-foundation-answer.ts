@@ -26,7 +26,7 @@ export function buildGrowthPartnersFoundationResult(
 
   const explanationKey = "customerApp.companionPlatformKnowledge.articles.aipifyOverview.explanation";
   const explanation = t(explanationKey);
-  const resolvedExplanation = explanation !== explanationKey ? explanation : undefined;
+  const resolvedExplanation = explanation !== explanationKey ? explanation : "";
 
   const article: ResolvedPlatformArticle = {
     id: "growth-partners",

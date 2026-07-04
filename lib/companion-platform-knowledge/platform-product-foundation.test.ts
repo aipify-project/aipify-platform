@@ -90,7 +90,6 @@ for (const { query, topic, corpusId } of VALIDATION_QUERIES) {
 const growthResult = buildGrowthPartnersFoundationResult(t, {
   userRole: "owner",
   enabledFeatures: [],
-  planKey: null,
 });
 assert.equal(growthResult.matchedArticleId, "growth-partners");
 assert.ok(growthResult.answer.directAnswer.trim().length > 0);
