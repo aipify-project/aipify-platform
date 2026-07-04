@@ -1,7 +1,6 @@
 import { normalizeIntegrationQuery } from "@/lib/integration-intelligence/normalize-text";
 import { isCapabilityHelpQuery } from "@/lib/companion-runtime/companion-turn-route";
 import { isAppNavigationQuery, isProductConceptQuery } from "@/lib/companion-runtime/product-concept";
-import { shouldUsePlatformKnowledgeCompanionTurn } from "@/lib/companion/enrichment/companion-action-intent";
 import type { PlatformCorpusArticleId } from "./types";
 
 export type PlatformProductFoundationTopic =
@@ -187,7 +186,6 @@ export function isPlatformProductKnowledgeQuery(query: string): boolean {
   if (isProductConceptQuery(query)) return true;
   if (isAppNavigationQuery(query)) return true;
   if (isCapabilityHelpQuery(query)) return true;
-  if (shouldUsePlatformKnowledgeCompanionTurn(query)) return true;
 
   const normalized = normalizeIntegrationQuery(query).toLowerCase();
   return /\b(aipify|abos|business pack|growth partner|companion)\b/i.test(normalized);
