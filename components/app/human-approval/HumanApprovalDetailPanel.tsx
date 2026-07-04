@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import type { CoreHumanApprovalRequest } from "@/lib/core/human-approval/types";
-import type { HumanApprovalUiLabels } from "@/lib/core/human-approval/labels";
+import type { HumanApprovalUiLabels } from "@/lib/core/human-approval/labels-client";
 import type { HumanApprovalAccessState } from "@/lib/app/human-approval-nav";
 import { HUMAN_APPROVAL_ROUTE } from "@/lib/app/human-approval-nav";
 import { formatDate } from "@/lib/i18n/format-date";

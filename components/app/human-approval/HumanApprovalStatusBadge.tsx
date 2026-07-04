@@ -1,12 +1,12 @@
 "use client";
 
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
-import type { HumanApprovalUiLabels } from "@/lib/core/human-approval/labels";
+import type { HumanApprovalUiLabels } from "@/lib/core/human-approval/labels-client";
 import {
   resolveHumanApprovalAccessModeLabel,
   resolveHumanApprovalRiskLabel,
   resolveHumanApprovalStatusLabel,
-} from "@/lib/core/human-approval/labels";
+} from "@/lib/core/human-approval/labels-client";
 import {
   mapCoreHumanApprovalStatusToKind,
   normalizeRiskLevel,

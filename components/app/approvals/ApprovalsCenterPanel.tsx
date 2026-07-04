@@ -5,11 +5,12 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import { HumanApprovalReceipt } from "@/components/app/approvals/HumanApprovalReceipt";
+import { buildHumanApprovalReceiptModel } from "@/lib/core/human-approval/receipt";
+import { parseCoreHumanApprovalRequest } from "@/lib/core/human-approval/parse";
 import {
-  buildHumanApprovalReceiptModel,
   buildCoreHumanApprovalRequestFromTrustRow,
-  parseCoreHumanApprovalRequest,
-} from "@/lib/core/human-approval";
+  parseTrustApprovalFromCenterRow,
+} from "@/lib/core/human-approval/trust-action-adapter-client";
 import type { HumanApprovalReceiptLabels, HumanApprovalReceiptModel } from "@/lib/core/human-approval/types";
 import type { CustomerApproval } from "@/lib/app/customer-app";
 import {
@@ -148,7 +149,9 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
       for (const item of approvals) {
         if (item.category !== "action" || !item.core_approval_id) continue;
         if (!["approved", "completed", "executing"].includes(item.status)) continue;
-        const coreRequest = buildCoreHumanApprovalRequestFromTrustRow(item);
+        const coreRequest = buildCoreHumanApprovalRequestFromTrustRow(
+          parseTrustApprovalFromCenterRow(item as Record<string, unknown>),
+        );
         if (!coreRequest) continue;
         next[item.id] = buildHumanApprovalReceiptModel(coreRequest, receiptHeading, labels.receipt);
       }

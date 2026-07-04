@@ -1,5 +1,5 @@
 export * from "./types";
-export * from "./scope-fingerprint";
+export * from "./scope-fingerprint-client";
 export * from "./approval-policy";
 export * from "./parse";
 export * from "./receipt";

@@ -14,10 +14,8 @@ import {
   shouldShowHumanApprovalNav,
 } from "@/lib/app/human-approval-nav";
 import { CUSTOMER_APP_SPLIT_NAMES } from "@/lib/i18n/customer-app-split-config";
-import {
-  flattenHumanApprovalLabelKeys,
-  readHumanApprovalLocaleFileSync,
-} from "@/lib/core/human-approval/labels";
+import { flattenHumanApprovalLabelKeys } from "@/lib/core/human-approval/labels-client";
+import { readHumanApprovalLocaleFileSync } from "@/lib/core/human-approval/labels-server";
 import { isSafeCoreHumanApprovalRpcPayload } from "@/lib/core/human-approval/parse";
 import { SENSITIVE_CORE_APPROVAL_RPC_FIELDS } from "@/lib/core/human-approval/types";
 import {
