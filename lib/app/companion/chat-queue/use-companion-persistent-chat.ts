@@ -4,6 +4,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { CompanionChatAttachmentSummary, CompanionChatMessage } from "../types";
 import type { CompanionQueueItem } from "./types";
 import { COMPANION_QUEUE_DISPATCH_STALL_MS } from "./worker-config";
+import {
+  buildAppCompanionSubmitPageContext,
+} from "@/lib/companion-runtime/companion-submit-page-context";
 import { traceCompanionMount } from "@/lib/app/companion/companion-mount-trace";
 import { mapServerMessagesToChat } from "./message-payload";
 import {
@@ -163,6 +166,11 @@ export function useCompanionPersistentChat({
       const clientMessageId = createClientMessageId();
       const idempotencyKey = createIdempotencyKey(conversationId, clientMessageId);
 
+      const pageContext =
+        typeof window !== "undefined"
+          ? buildAppCompanionSubmitPageContext(pathname, window)
+          : buildAppCompanionSubmitPageContext(pathname);
+
       const result = await enqueueCompanionMessage({
         conversationId,
         idempotencyKey,
@@ -172,6 +180,7 @@ export function useCompanionPersistentChat({
         attachmentSummaries: input.attachmentSummaries,
         locale,
         pathname,
+        pageContext,
         platformActiveModules: input.platformActiveModules,
         title: input.title ?? trimmed,
         companionActive: panelVisible,

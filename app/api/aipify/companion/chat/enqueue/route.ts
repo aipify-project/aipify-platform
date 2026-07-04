@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { resolveDirectDateTimeKind } from "@/lib/companion-runtime/direct-datetime-kind";
+import { sanitizeCompanionSubmitPageContext } from "@/lib/companion-runtime/companion-submit-page-context";
 import {
   createCompanionSubmitRequestId,
   logCompanionSubmitTrace,
@@ -48,6 +49,7 @@ export async function POST(request: Request) {
       attachment_summaries?: unknown[];
       locale?: string;
       pathname?: string;
+      page_context?: unknown;
       platform_active_modules?: string | null;
       title?: string;
       companion_active?: boolean;
@@ -62,6 +64,21 @@ export async function POST(request: Request) {
     const locale = body.locale ?? "en";
     const timeZone = resolveRequestTimeZone(request, body.timezone);
     const userClientMessageId = idempotencyKey.split(":").pop() ?? null;
+
+    let pageContext;
+    try {
+      pageContext =
+        body.page_context != null
+          ? sanitizeCompanionSubmitPageContext(body.page_context)
+          : body.pathname?.trim()
+            ? sanitizeCompanionSubmitPageContext({
+                pathname: body.pathname.trim(),
+                surface: "app",
+              })
+            : undefined;
+    } catch {
+      return NextResponse.json({ ok: false, error: "invalid_page_context" }, { status: 400 });
+    }
 
     if (!conversationId || !idempotencyKey) {
       return NextResponse.json({ ok: false, error: "invalid_request" }, { status: 400 });
@@ -239,6 +256,7 @@ export async function POST(request: Request) {
         question,
         locale,
         pathname: body.pathname ?? null,
+        pageContext,
         title: body.title ?? null,
         timeZone,
         platformActiveModules: body.platform_active_modules

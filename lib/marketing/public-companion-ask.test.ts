@@ -433,6 +433,7 @@ async function main() {
       pathname: "/knowledge/articles/what-is-a-business-companion",
       title: "Hva er en forretnings-Companion?",
       metaDescription: "Aipify Companion er ledelses- og operasjonell intelligens.",
+      surface: "public" as const,
     };
 
     assert.equal(
@@ -470,6 +471,7 @@ async function main() {
         pathname: "/knowledge/articles/what-is-a-business-companion",
         title: "Hva er en forretnings-Companion?",
         metaDescription: "Aipify Companion er ledelses- og operasjonell intelligens.",
+        surface: "public",
       },
     });
 
@@ -492,6 +494,7 @@ async function main() {
         pathname: "/knowledge/articles/what-is-a-business-companion",
         title: "Hva er en forretnings-Companion?",
         metaDescription: "Aipify Companion er ledelses- og operasjonell intelligens.",
+        surface: "public",
       },
     });
     assert.equal(validated.pageContext?.pathname, "/knowledge/articles/what-is-a-business-companion");

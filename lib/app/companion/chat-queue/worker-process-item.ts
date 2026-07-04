@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { classifyCompanionTurnRoute } from "@/lib/companion-runtime/companion-turn-route";
 import { coerceToCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import { executeCompanionTurnToPayload } from "./execute-turn";
+import { resolveAppCompanionSubmitPageContextFromPathname } from "@/lib/companion-runtime/app-companion-page-context";
 import {
   COMPANION_QUEUE_HEARTBEAT_INTERVAL_MS,
   COMPANION_QUEUE_LEASE_SECONDS,
@@ -61,6 +62,7 @@ async function runTurnWithDeadline(input: {
   let timeoutHandle: ReturnType<typeof setTimeout> | undefined;
 
   const attachmentIds = parseAttachmentIds(input.job.attachment_ids);
+  const pageContext = resolveAppCompanionSubmitPageContextFromPathname(input.job.pathname);
   const turnPromise = executeCompanionTurnToPayload(input.supabase, {
     query: input.job.question_text,
     locale: input.job.locale ?? "en",
@@ -72,6 +74,7 @@ async function runTurnWithDeadline(input: {
     workerQueueId: input.job.id,
     abortSignal: abortController.signal,
     turnRoute: input.turnRoute,
+    pageContext,
   });
 
   const turn = await new Promise<TurnPayloadResult>((resolve) => {

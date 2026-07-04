@@ -105,6 +105,7 @@ const collectedPageContext = collectWebsiteCompanionPageContext({
   },
 });
 assert.equal(collectedPageContext?.pathname, "/knowledge/articles/what-is-a-business-companion");
+assert.equal(collectedPageContext?.surface, "public");
 assert.match(collectedPageContext?.title ?? "", /forretnings-Companion/);
 assert.match(collectedPageContext?.metaDescription ?? "", /Companion/);
 

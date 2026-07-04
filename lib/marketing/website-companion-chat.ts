@@ -1,3 +1,9 @@
+import {
+  collectPublicCompanionSubmitPageContext,
+  sanitizeCompanionSubmitPageContext,
+  type CompanionSubmitPageContext,
+} from "@/lib/companion-runtime/companion-submit-page-context";
+
 export const WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH = 1000;
 export const WEBSITE_COMPANION_CHAT_MAX_CONTEXT_MESSAGES = 6;
 export const WEBSITE_COMPANION_CHAT_MAX_CONTEXT_MESSAGE_LENGTH = 500;
@@ -56,11 +62,7 @@ export type WebsiteCompanionChatMessage =
   | WebsiteCompanionAssistantMessage
   | WebsiteCompanionErrorMessage;
 
-export type WebsiteCompanionPageContext = {
-  pathname?: string;
-  title?: string;
-  metaDescription?: string;
-};
+export type WebsiteCompanionPageContext = CompanionSubmitPageContext;
 
 export type WebsiteCompanionAskRequestBody = {
   question: string;
@@ -72,6 +74,22 @@ export type WebsiteCompanionAskRequestBody = {
 export const WEBSITE_COMPANION_PAGE_CONTEXT_MAX_PATHNAME_LENGTH = 240;
 export const WEBSITE_COMPANION_PAGE_CONTEXT_MAX_TITLE_LENGTH = 200;
 export const WEBSITE_COMPANION_PAGE_CONTEXT_MAX_META_DESCRIPTION_LENGTH = 320;
+
+export function sanitizeWebsiteCompanionPageContext(
+  value: unknown,
+): WebsiteCompanionPageContext | undefined {
+  return sanitizeCompanionSubmitPageContext(value);
+}
+
+export function collectWebsiteCompanionPageContext(windowLike?: {
+  location?: { pathname?: string };
+  document?: {
+    title?: string;
+    querySelector?: (selector: string) => { getAttribute?: (name: string) => string | null } | null;
+  };
+}): WebsiteCompanionPageContext | undefined {
+  return collectPublicCompanionSubmitPageContext(windowLike);
+}
 
 export type WebsiteCompanionQuestionValidationResult =
   | { valid: true; question: string }
@@ -137,72 +155,6 @@ export function buildWebsiteCompanionRecentContext(
       role: message.role,
       text: text.slice(0, WEBSITE_COMPANION_CHAT_MAX_CONTEXT_MESSAGE_LENGTH),
     };
-  });
-}
-
-export function sanitizeWebsiteCompanionPageContext(
-  value: unknown,
-): WebsiteCompanionPageContext | undefined {
-  if (value == null) return undefined;
-  if (typeof value !== "object" || Array.isArray(value)) {
-    throw new Error("pageContext must be an object");
-  }
-  const record = value as Record<string, unknown>;
-  const allowedKeys = new Set(["pathname", "title", "metaDescription"]);
-  for (const key of Object.keys(record)) {
-    if (!allowedKeys.has(key)) {
-      throw new Error(`Forbidden pageContext field: ${key}`);
-    }
-  }
-
-  const pathname =
-    typeof record.pathname === "string" ? record.pathname.trim().slice(0, WEBSITE_COMPANION_PAGE_CONTEXT_MAX_PATHNAME_LENGTH) : "";
-  const title =
-    typeof record.title === "string" ? record.title.trim().slice(0, WEBSITE_COMPANION_PAGE_CONTEXT_MAX_TITLE_LENGTH) : "";
-  const metaDescription =
-    typeof record.metaDescription === "string"
-      ? record.metaDescription.trim().slice(0, WEBSITE_COMPANION_PAGE_CONTEXT_MAX_META_DESCRIPTION_LENGTH)
-      : "";
-
-  if (pathname && !pathname.startsWith("/")) {
-    throw new Error("pageContext.pathname must start with /");
-  }
-
-  if (!pathname && !title && !metaDescription) {
-    return undefined;
-  }
-
-  const pageContext: WebsiteCompanionPageContext = {};
-  if (pathname) pageContext.pathname = pathname;
-  if (title) pageContext.title = title;
-  if (metaDescription) pageContext.metaDescription = metaDescription;
-  return pageContext;
-}
-
-export function collectWebsiteCompanionPageContext(windowLike?: {
-  location?: { pathname?: string };
-  document?: {
-    title?: string;
-    querySelector?: (selector: string) => { getAttribute?: (name: string) => string | null } | null;
-  };
-}): WebsiteCompanionPageContext | undefined {
-  const pathname = windowLike?.location?.pathname?.trim() ?? "";
-  if (!pathname.startsWith("/")) {
-    return undefined;
-  }
-
-  const title = windowLike?.document?.title?.trim().slice(0, WEBSITE_COMPANION_PAGE_CONTEXT_MAX_TITLE_LENGTH) ?? "";
-  const metaDescription =
-    windowLike?.document
-      ?.querySelector?.('meta[name="description"]')
-      ?.getAttribute?.("content")
-      ?.trim()
-      .slice(0, WEBSITE_COMPANION_PAGE_CONTEXT_MAX_META_DESCRIPTION_LENGTH) ?? "";
-
-  return sanitizeWebsiteCompanionPageContext({
-    pathname,
-    title: title || undefined,
-    metaDescription: metaDescription || undefined,
   });
 }
 

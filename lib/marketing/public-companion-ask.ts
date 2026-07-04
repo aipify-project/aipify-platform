@@ -568,7 +568,11 @@ async function tryBuildPublicPageContextAnswer(
   pageContext: PublicCompanionPageContext | undefined,
   locale: PublicCompanionAskLocale,
 ): Promise<PublicCompanionAskResponse | null> {
-  if (!pageContext?.pathname || isPlatformProductKnowledgeQuery(question)) {
+  if (
+    !pageContext?.pathname ||
+    (pageContext.surface && pageContext.surface !== "public") ||
+    isPlatformProductKnowledgeQuery(question)
+  ) {
     return null;
   }
 
