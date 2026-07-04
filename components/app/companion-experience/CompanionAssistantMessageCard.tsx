@@ -90,15 +90,17 @@ export function CompanionAssistantMessageCard({
             ))}
           </ol>
         ) : null}
-        {msg.ctas && msg.ctas.length > 0 ? (
+        {msg.ctas?.filter((cta) => cta.href.trim().length > 0).length ? (
           <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-            {msg.ctas.map((cta) => (
+            {msg.ctas
+              .filter((cta) => cta.href.trim().length > 0)
+              .map((cta) => (
               <Link
                 key={cta.href + cta.label}
                 href={cta.href}
                 className={`${ctaClassName(cta.variant)} w-full sm:w-auto`}
               >
-                {cta.label}
+                {cta.label.trim() || cta.href}
               </Link>
             ))}
           </div>

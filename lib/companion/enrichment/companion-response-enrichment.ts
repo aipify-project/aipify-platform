@@ -159,6 +159,34 @@ function mergeActions(
   return merged;
 }
 
+/** Self-service signup/onboarding — not organization member directory intelligence. */
+export function isCompanionOnboardingRegistrationQuery(query: string): boolean {
+  const normalized = normalizeIntegrationQuery(query);
+  const lower = normalized.toLowerCase();
+
+  if (/\b(medlem|member|medlemmer|members)\b/i.test(lower)) {
+    return false;
+  }
+
+  return (
+    /\b(hvor\s+registrer\w*|where\s+(?:do\s+)?i\s+register|how\s+(?:do\s+)?i\s+register)\b/i.test(
+      lower,
+    ) ||
+    (/\b(hvor|where|how)\b/i.test(lower) &&
+      /\b(registrer\w*|register|sign\s*up|signup)\b/i.test(lower) &&
+      /\b(meg|myself|me|konto|account|organisasjon|organization|workspace)\b/i.test(lower))
+  );
+}
+
+/** Pricing/onboarding/support queries need platform knowledge — not lightweight smalltalk. */
+export function shouldDeferLightweightConversationalAnswer(
+  query: string,
+  answer?: Pick<PlatformKnowledgeAnswer, "sourceId" | "source">,
+): boolean {
+  if (isCompanionOnboardingRegistrationQuery(query)) return true;
+  return resolveCompanionEnrichmentIntent(query, answer) !== "general";
+}
+
 export function resolveCompanionEnrichmentIntent(
   query: string,
   answer?: Pick<PlatformKnowledgeAnswer, "sourceId" | "source">,
@@ -187,7 +215,7 @@ export function resolveCompanionEnrichmentIntent(
   if (
     answer?.sourceId === "add-team-members" ||
     answer?.sourceId === "install-web-app" ||
-    /\b(onboard\w*|register|registrer\w*|kom i gang|getting started|set up|setup|establish workspace|ny organisasjon)\b/i.test(
+    /\b(onboard\w*|register|registrer\w*|registrerer jeg|hvor registrer\w*|kom i gang|getting started|set up|setup|establish workspace|ny organisasjon|sign\s*up|signup)\b/i.test(
       lower,
     )
   ) {
@@ -388,6 +416,7 @@ export async function enrichCompanionSearchJson(
     locale: string;
     organizationState?: CompanionOrganizationState;
     logContext?: CompanionEnrichmentLogContext;
+    t?: Translator;
   },
 ): Promise<Record<string, unknown>> {
   const answer = (searchJson as { answer?: PlatformKnowledgeAnswer }).answer;
@@ -406,13 +435,22 @@ export async function enrichCompanionSearchJson(
     return searchJson;
   }
 
-  const { getDictionary } = await import("@/lib/i18n/get-dictionary");
   const { createTranslator } = await import("@/lib/i18n/translate");
   const { isCoreLocale } = await import("@/lib/i18n/config");
 
   const locale = isCoreLocale(options.locale) ? options.locale : "en";
-  const dict = await getDictionary(locale);
-  const t = createTranslator(dict);
+  let t = options.t;
+  if (!t) {
+    const { getCustomerAppDictionaryForSplits } = await import("@/lib/i18n/get-dictionary");
+    const { companionDirectTurnDictionarySplits } = await import(
+      "@/lib/companion-runtime/companion-oaa-dictionary-splits"
+    );
+    const dict = await getCustomerAppDictionaryForSplits(
+      locale,
+      companionDirectTurnDictionarySplits(),
+    );
+    t = createTranslator(dict);
+  }
 
   const enrichedAnswer = enrichCompanionPlatformAnswer(answer, {
     query: options.query,

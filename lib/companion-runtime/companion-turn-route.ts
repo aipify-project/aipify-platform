@@ -8,6 +8,7 @@ import { isOrganizationCapabilityQuery } from "./organization-capability-resolut
 import { isPlatformFoundationQuery } from "./platform-foundation-intent";
 import { detectOperationalQueryKind } from "./companion-operational-query-match";
 import { resolveCompanionExplicitIntent } from "./companion-explicit-intent";
+import { shouldDeferLightweightConversationalAnswer } from "@/lib/companion/enrichment/companion-response-enrichment";
 
 export { resolveCompanionEnrichmentIntent } from "@/lib/companion/enrichment/companion-response-enrichment";
 
@@ -137,6 +138,7 @@ export function classifyCompanionTurnRoute(
   }
 
   if (isPlatformFoundationQuery(query)) return "foundation";
+  if (shouldDeferLightweightConversationalAnswer(query)) return "full";
   if (isUserOwnedAccountControlQuery(query) || isLocalDevicePermissionQuery(query)) {
     return "exact_source";
   }

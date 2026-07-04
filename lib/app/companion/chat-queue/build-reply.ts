@@ -1,10 +1,27 @@
 import { parseSupportAssistantSearch, type SupportAssistantArticle } from "@/lib/app-portal/support-assistant";
 import type { PlatformKnowledgeAnswer } from "@/lib/companion-platform-knowledge/types";
-import type { CompanionExperienceLabels, CompanionChatMessage } from "../types";
+import type { CompanionExperienceLabels, CompanionChatMessage, CompanionChatCta } from "../types";
 import { serializeAssistantPayload } from "./message-payload";
 
 function createMessageId(prefix = "msg") {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function platformActionToCta(action: {
+  label: string;
+  href: string;
+  labelKey?: string;
+  variant?: "primary" | "secondary";
+}): CompanionChatCta | null {
+  const href = action.href?.trim();
+  if (!href) return null;
+
+  const label = action.label?.trim() || action.labelKey?.trim() || href;
+  return {
+    label,
+    href,
+    variant: action.variant,
+  };
 }
 
 export function buildPlatformAnswerReply(
@@ -14,11 +31,9 @@ export function buildPlatformAnswerReply(
 ): CompanionChatMessage {
   const ctas =
     platformAnswer.actions.length > 0
-      ? platformAnswer.actions.map((action) => ({
-          label: action.label,
-          href: action.href,
-          variant: action.variant,
-        }))
+      ? platformAnswer.actions
+          .map((action) => platformActionToCta(action))
+          .filter((cta): cta is NonNullable<typeof cta> => cta !== null)
       : [];
 
   const pendingSupportWrite = (

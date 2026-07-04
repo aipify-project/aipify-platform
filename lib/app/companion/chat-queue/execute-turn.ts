@@ -21,9 +21,9 @@ import type { UserRole } from "@/lib/tenant/types";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import {
   resolveCompanionOrganizationState,
-  enrichCompanionSearchJson,
+  shouldDeferLightweightConversationalAnswer,
 } from "@/lib/companion/enrichment/companion-response-enrichment";
-import { buildReplyFromSearchJson } from "./build-reply";
+import { buildEnrichedReplyFromSearchJson } from "./build-reply-from-search-json";
 import type { CompanionChatMessage, CompanionExperienceLabels } from "../types";
 import type { WorkerExecutionProfile } from "./load-worker-profile";
 import {
@@ -768,7 +768,13 @@ export async function executeCompanionTurn(
     return supportProposalTurn;
   }
 
-  if (turnRoute === "lightweight" && !hasAttachments && !input.activeArtifactId && query) {
+  if (
+    turnRoute === "lightweight" &&
+    !hasAttachments &&
+    !input.activeArtifactId &&
+    query &&
+    !shouldDeferLightweightConversationalAnswer(query)
+  ) {
     const lightweightStarted = Date.now();
     const lightweightAnswer = buildLightweightConversationalAnswer({
       query,
@@ -1058,21 +1064,19 @@ export async function executeCompanionTurnToPayload(
     (turn.searchJson as { organization_state?: ReturnType<typeof resolveCompanionOrganizationState> })
       .organization_state ?? "unknown";
 
-  const enrichedSearchJson = await enrichCompanionSearchJson(turn.searchJson, {
-    query: turn.question,
-    locale: answerLocale,
-    organizationState,
-    logContext: {
-      conversationId: input.conversationId,
-      queueId: input.workerQueueId,
-      correlationId: input.workerQueueId ?? input.conversationId,
-    },
-  });
-
-  const { message, payload } = buildReplyFromSearchJson(
-    enrichedSearchJson,
+  const { message, payload } = await buildEnrichedReplyFromSearchJson(
+    turn.searchJson,
     turn.labels,
     turn.question,
+    {
+      locale: answerLocale,
+      organizationState,
+      logContext: {
+        conversationId: input.conversationId,
+        queueId: input.workerQueueId,
+        correlationId: input.workerQueueId ?? input.conversationId,
+      },
+    },
   );
 
   return {
