@@ -24,6 +24,8 @@ import {
   resolveLightweightConversationalIntent,
 } from "@/lib/companion-runtime/companion-turn-route";
 import { resolveArticleIdForQuery } from "@/lib/companion-platform-knowledge/search-helpers";
+import { classifyCompanionSubmitPath } from "@/lib/companion-runtime/companion-submit-path";
+import { orchestrateCompanionSearch } from "@/lib/companion-runtime/orchestrator";
 import { createEmptyCompanionTenantContext } from "@/lib/companion-runtime/companion-tenant-context";
 import { createEmptyCompanionSupportContext } from "@/lib/companion-runtime/companion-support-context";
 import { mapAsoDashboardToSupportBundle, mapSupportAiDashboardToSupportBundle, SUPPORT_AI_QUEUE_SOURCE_REFERENCE } from "@/lib/integration-intelligence/providers/support-operations/support-operations-contract";
@@ -470,7 +472,7 @@ async function runSupportQueueRoutingTests() {
 }
 
 runSupportQueueRoutingTests()
-  .then(() => {
+  .then(async () => {
     for (const locale of COMPANION_COVERAGE_LOCALES) {
       const dict = loadJson(`locales/${locale}/customer-app/companionPlatformKnowledge.json`);
       const section = (dict.companionPlatformKnowledge as Record<string, unknown>)
@@ -538,6 +540,54 @@ runSupportQueueRoutingTests()
     assert.equal(classifyCompanionTurnRoute("Vis aktive medlemmer", "no"), "exact_source");
     assert.equal(classifyCompanionTurnRoute("Er det noen nye henvendelser?", "no"), "exact_source");
     assert.equal(isCapabilityHelpQuery("Hei, hva kan du gjøre?"), false);
+
+    const solutionsQuery = "Hvilken løsninger har dere?";
+    assert.notEqual(
+      classifyCompanionTurnRoute(solutionsQuery, "no"),
+      "exact_source",
+      "product solutions query must not bypass Core via exact_source",
+    );
+    assert.equal(
+      classifyCompanionTurnRoute(solutionsQuery, "no"),
+      "lightweight",
+      "product solutions query must route to orchestrator/Core path",
+    );
+
+    assert.equal(
+      classifyCompanionSubmitPath(solutionsQuery, "no"),
+      "direct",
+      "product solutions query must use direct orchestrator path",
+    );
+
+    const tenantContext = createEmptyCompanionTenantContext({ locale: "no" });
+    const orchestratorResult = await orchestrateCompanionSearch(
+      solutionsQuery,
+      {
+        t,
+        locale: "no",
+        ctx: { locale: "no", userRole: "owner", enabledFeatures: [] },
+        getSearchTermsArray: () => [],
+        tenantContext,
+        companionSurface: true,
+      },
+      tenantContext,
+    );
+
+    assert.notEqual(
+      orchestratorResult.answer.sourceId,
+      "organization-intelligence-gap",
+      "product solutions query must not end in organization-intelligence-gap",
+    );
+    assert.equal(
+      orchestratorResult.answer.source,
+      "platform_corpus",
+      "product solutions query must answer from Core/platform corpus",
+    );
+    assert.equal(
+      orchestratorResult.matchedArticleId,
+      "aipify-capabilities",
+      "product solutions query must match capabilities corpus article",
+    );
 
     console.log("organization-intelligence-routing.test.ts: all assertions passed");
   })

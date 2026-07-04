@@ -79,6 +79,7 @@ export function resolveLightweightConversationalIntent(
 }
 
 import { isCapabilityHelpQuery } from "@/lib/companion-platform-knowledge/aipify-core-query";
+import { isPlatformProductKnowledgeQuery } from "@/lib/companion-platform-knowledge/platform-product-foundation";
 
 export { isCapabilityHelpQuery };
 
@@ -133,6 +134,10 @@ export function classifyCompanionTurnRoute(
     return "exact_source";
   }
   if (detectOperationalQueryKind(query)) return "exact_source";
+  if (isPlatformProductKnowledgeQuery(query)) {
+    if (isCapabilityHelpQuery(query)) return "full";
+    return "lightweight";
+  }
   if (isOrganizationCapabilityQuery(query, locale)) return "exact_source";
   if (isCapabilityHelpQuery(query)) return "full";
   if (needsFullCompanionRoute(query, options)) return "full";
