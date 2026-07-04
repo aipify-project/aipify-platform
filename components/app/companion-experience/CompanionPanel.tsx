@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   COMPANION_CAPABILITY_IDS,
   COMPANION_EXPERIENCE_ROUTE,
@@ -37,6 +38,7 @@ import { CompanionAttachmentComposer } from "./CompanionAttachmentComposer";
 import { CompanionContextStrip } from "./CompanionContextStrip";
 import { CompanionQueueBar } from "./CompanionQueueBar";
 import type { CompanionChatAttachmentSummary } from "@/lib/app/companion/types";
+import { useOptionalCompanionExperience } from "./CompanionExperienceProvider";
 
 const QUICK_ACTION_ICONS: Record<CompanionQuickActionId, string> = {
   orgStatus: "◉",
@@ -73,6 +75,9 @@ export function CompanionPanel({
 }: CompanionPanelProps) {
   const profileCtx = useOptionalDashboardProfile();
   const organizationKey = profileCtx?.profile?.company.id ?? null;
+  const router = useRouter();
+  const companionCtx = useOptionalCompanionExperience();
+  const drawerExpanded = companionCtx?.drawerExpanded ?? false;
 
   const [query, setQuery] = useState(
     () => readCompanionUiSession(organizationKey)?.draftText ?? ""
@@ -147,6 +152,21 @@ export function CompanionPanel({
   const canConfirmOrg = userRole === "owner" || userRole === "admin";
   const pageLabelKey = resolveCompanionPageLabelKey(pathname);
   const pageLabel = labels.contextPages[pageLabelKey] ?? labels.contextPages.default;
+
+  const handleMinimizeFullPage = useCallback(() => {
+    const session = readCompanionUiSession(organizationKey);
+    const returnPath =
+      session?.pathname && session.pathname !== COMPANION_EXPERIENCE_ROUTE
+        ? session.pathname
+        : "/app";
+    companionCtx?.openDrawerCompact();
+    router.push(returnPath);
+  }, [companionCtx, organizationKey, router]);
+
+  const handleOpenFullPage = useCallback(() => {
+    onClose?.();
+  }, [onClose]);
+
   const routeSuggestions = useMemo(() => resolveCompanionSuggestions(pathname), [pathname]);
   const isActiveConversation = messages.length > 0 || loading || queue.length > 0;
   const restoreNotice =
@@ -550,8 +570,26 @@ export function CompanionPanel({
             </button>
             {mode === "drawer" ? (
               <>
+                <button
+                  type="button"
+                  onClick={() => companionCtx?.toggleDrawerExpanded()}
+                  className="hidden rounded-lg border border-aipify-border p-2 text-aipify-text-muted hover:bg-aipify-surface-muted sm:inline-flex"
+                  aria-label={drawerExpanded ? labels.secondarySectionsHide : labels.openCompanion}
+                  aria-pressed={drawerExpanded}
+                >
+                  {drawerExpanded ? (
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M15 9h4.5M15 9V4.5M15 9l5.25-5.25M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25" />
+                    </svg>
+                  ) : (
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                    </svg>
+                  )}
+                </button>
                 <Link
                   href={COMPANION_EXPERIENCE_ROUTE}
+                  onClick={handleOpenFullPage}
                   className="hidden rounded-lg border border-aipify-border px-3 py-1.5 text-xs font-medium text-aipify-companion hover:bg-violet-50 sm:inline-flex"
                 >
                   {labels.fullPageLink}
@@ -569,7 +607,16 @@ export function CompanionPanel({
                   </button>
                 ) : null}
               </>
-            ) : null}
+            ) : (
+              <button
+                type="button"
+                onClick={handleMinimizeFullPage}
+                className="rounded-lg border border-aipify-border px-3 py-1.5 text-xs font-medium text-aipify-companion hover:bg-violet-50"
+                aria-label={labels.closeDrawer}
+              >
+                {labels.closeDrawer}
+              </button>
+            )}
           </div>
         </div>
 
