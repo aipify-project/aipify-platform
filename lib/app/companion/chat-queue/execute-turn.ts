@@ -23,6 +23,7 @@ import {
   resolveCompanionOrganizationState,
   enrichCompanionSearchJson,
 } from "@/lib/companion/enrichment/companion-response-enrichment";
+import { buildReplyFromSearchJson } from "./build-reply";
 import type { CompanionChatMessage, CompanionExperienceLabels } from "../types";
 import type { WorkerExecutionProfile } from "./load-worker-profile";
 import {
@@ -1061,6 +1062,11 @@ export async function executeCompanionTurnToPayload(
     query: turn.question,
     locale: answerLocale,
     organizationState,
+    logContext: {
+      conversationId: input.conversationId,
+      queueId: input.workerQueueId,
+      correlationId: input.workerQueueId ?? input.conversationId,
+    },
   });
 
   const { message, payload } = buildReplyFromSearchJson(

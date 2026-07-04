@@ -7,17 +7,122 @@ import {
 } from "./companion-enrichment-routes";
 import type {
   CompanionEnrichmentAction,
+  CompanionEnrichmentDecisionLog,
+  CompanionEnrichmentLogContext,
+  CompanionEnrichmentSkipReason,
   CompanionOrganizationState,
   CompanionResponseEnrichmentInput,
   CompanionResponseEnrichmentIntent,
   CompanionResponseEnrichmentOutput,
 } from "./companion-response-enrichment-types";
 
+export type {
+  CompanionEnrichmentDecisionLog,
+  CompanionEnrichmentLogContext,
+  CompanionEnrichmentSkipReason,
+} from "./companion-response-enrichment-types";
+
 const MAX_ENRICHMENT_ACTIONS = 2;
 const MAX_TOTAL_ACTIONS = 4;
 
-function actionIdentity(action: { href: string; routeKey?: string }): string {
-  return action.routeKey?.trim() || action.href.trim();
+type EnrichmentLogSink = (decision: CompanionEnrichmentDecisionLog) => void;
+
+let enrichmentLogSink: EnrichmentLogSink | null = null;
+
+/** Test-only hook — captures enrichment decisions without console output. */
+export function __setCompanionEnrichmentLogSinkForTests(sink: EnrichmentLogSink | null): void {
+  enrichmentLogSink = sink;
+}
+
+export function logCompanionEnrichmentDecision(decision: CompanionEnrichmentDecisionLog): void {
+  const payload: Record<string, string | number | string[]> = {
+    event: decision.event,
+    intent: decision.intent,
+    organizationState: decision.organizationState,
+    existingActionCount: decision.existingActionCount,
+    injectedActionIds: decision.injectedActionIds,
+    finalActionCount: decision.finalActionCount,
+  };
+
+  if (decision.skippedReason) payload.skippedReason = decision.skippedReason;
+  if (decision.conversationId) payload.conversationId = decision.conversationId;
+  if (decision.queueId) payload.queueId = decision.queueId;
+  if (decision.correlationId) payload.correlationId = decision.correlationId;
+
+  console.info("[companion-enrichment]", JSON.stringify(payload));
+}
+
+function emitCompanionEnrichmentDecision(decision: CompanionEnrichmentDecisionLog): void {
+  if (enrichmentLogSink) {
+    enrichmentLogSink(decision);
+    return;
+  }
+  logCompanionEnrichmentDecision(decision);
+}
+
+function resolveCatalogActionId(action: CompanionEnrichmentAction): string {
+  if (action.routeKey) {
+    for (const [id, definition] of Object.entries(COMPANION_ENRICHMENT_ROUTE_CATALOG)) {
+      if (definition.routeKey === action.routeKey) return id;
+      if (definition.id === action.routeKey) return id;
+    }
+  }
+
+  for (const [id, definition] of Object.entries(COMPANION_ENRICHMENT_ROUTE_CATALOG)) {
+    if (definition.href === action.route && !definition.routeKey) return id;
+  }
+
+  for (const [id, definition] of Object.entries(COMPANION_ENRICHMENT_ROUTE_CATALOG)) {
+    if (definition.href === action.route) return id;
+  }
+
+  return action.routeKey?.trim() || action.route.trim();
+}
+
+function resolveInjectedActionIds(
+  existing: CompanionEnrichmentAction[],
+  finalActions: CompanionEnrichmentAction[],
+): string[] {
+  const existingKeys = new Set(existing.map(actionIdentity));
+  return finalActions
+    .filter((action) => !existingKeys.has(actionIdentity(action)))
+    .map(resolveCatalogActionId);
+}
+
+export function buildCompanionEnrichmentDecisionLog(input: {
+  intent: CompanionResponseEnrichmentIntent;
+  organizationState: CompanionOrganizationState;
+  existingActionCount: number;
+  existingActions: CompanionEnrichmentAction[];
+  finalActions: CompanionEnrichmentAction[];
+  skippedReason?: CompanionEnrichmentSkipReason;
+  logContext?: CompanionEnrichmentLogContext;
+}): CompanionEnrichmentDecisionLog {
+  const injectedActionIds = input.skippedReason
+    ? []
+    : resolveInjectedActionIds(input.existingActions, input.finalActions);
+
+  let skippedReason = input.skippedReason;
+  if (!skippedReason && injectedActionIds.length === 0) {
+    skippedReason = "no_new_actions";
+  }
+
+  return {
+    event: "companion_enrichment_decision",
+    intent: input.intent,
+    organizationState: input.organizationState,
+    existingActionCount: input.existingActionCount,
+    injectedActionIds,
+    finalActionCount: input.finalActions.length,
+    ...(skippedReason ? { skippedReason } : {}),
+    ...(input.logContext?.conversationId ? { conversationId: input.logContext.conversationId } : {}),
+    ...(input.logContext?.queueId ? { queueId: input.logContext.queueId } : {}),
+    ...(input.logContext?.correlationId ? { correlationId: input.logContext.correlationId } : {}),
+  };
+}
+
+function actionIdentity(action: { href?: string; route?: string; routeKey?: string }): string {
+  return action.routeKey?.trim() || action.route?.trim() || action.href?.trim() || "";
 }
 
 function toEnrichmentAction(action: {
@@ -198,28 +303,71 @@ export function enrichCompanionPlatformAnswer(
     query: string;
     t: Translator;
     organizationState?: CompanionOrganizationState;
+    logContext?: CompanionEnrichmentLogContext;
   },
 ): PlatformKnowledgeAnswer {
+  const organizationState = options.organizationState ?? "unknown";
   const intent = resolveCompanionEnrichmentIntent(options.query, answer);
+  const existingActions =
+    answer.actions.map((action) => toEnrichmentAction(action));
+
+  if (intent === "general" && existingActions.length > 0) {
+    emitCompanionEnrichmentDecision(
+      buildCompanionEnrichmentDecisionLog({
+        intent,
+        organizationState,
+        existingActionCount: existingActions.length,
+        existingActions,
+        finalActions: existingActions,
+        skippedReason: "general_existing_actions",
+        logContext: options.logContext,
+      }),
+    );
+    return answer;
+  }
+
   const enriched = enrichCompanionResponseWithTranslator({
     text: answer.directAnswer,
     intent,
     context: {
-      organizationState: options.organizationState ?? "unknown",
+      organizationState,
     },
     existingActions: answer.actions,
     t: options.t,
   });
 
-  if (
+  const unchanged =
     enriched.actions.length === answer.actions.length &&
     enriched.actions.every(
       (action, index) =>
         actionIdentity(action) === actionIdentity(toEnrichmentAction(answer.actions[index]!)),
-    )
-  ) {
+    );
+
+  if (unchanged) {
+    emitCompanionEnrichmentDecision(
+      buildCompanionEnrichmentDecisionLog({
+        intent,
+        organizationState,
+        existingActionCount: existingActions.length,
+        existingActions,
+        finalActions: existingActions,
+        skippedReason: "unchanged_actions",
+        logContext: options.logContext,
+      }),
+    );
     return answer;
   }
+
+  emitCompanionEnrichmentDecision(
+    buildCompanionEnrichmentDecisionLog({
+      intent,
+      organizationState,
+      existingActionCount: existingActions.length,
+      existingActions,
+      finalActions: enriched.actions,
+      logContext: options.logContext,
+    }),
+  );
 
   return {
     ...answer,
@@ -239,10 +387,24 @@ export async function enrichCompanionSearchJson(
     query: string;
     locale: string;
     organizationState?: CompanionOrganizationState;
+    logContext?: CompanionEnrichmentLogContext;
   },
 ): Promise<Record<string, unknown>> {
   const answer = (searchJson as { answer?: PlatformKnowledgeAnswer }).answer;
-  if (!answer?.directAnswer?.trim()) return searchJson;
+  if (!answer?.directAnswer?.trim()) {
+    emitCompanionEnrichmentDecision(
+      buildCompanionEnrichmentDecisionLog({
+        intent: "general",
+        organizationState: options.organizationState ?? "unknown",
+        existingActionCount: answer?.actions?.length ?? 0,
+        existingActions: [],
+        finalActions: [],
+        skippedReason: "empty_answer",
+        logContext: options.logContext,
+      }),
+    );
+    return searchJson;
+  }
 
   const { getDictionary } = await import("@/lib/i18n/get-dictionary");
   const { createTranslator } = await import("@/lib/i18n/translate");
@@ -256,6 +418,7 @@ export async function enrichCompanionSearchJson(
     query: options.query,
     t,
     organizationState: options.organizationState,
+    logContext: options.logContext,
   });
 
   return {
