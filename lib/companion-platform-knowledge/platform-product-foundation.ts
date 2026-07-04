@@ -25,16 +25,6 @@ type ProductTopicDescriptor = {
 
 const PRODUCT_TOPIC_DESCRIPTORS: readonly ProductTopicDescriptor[] = [
   {
-    topic: "aipify_capabilities",
-    corpusArticleId: "aipify-capabilities",
-    signalGroups: [
-      ["help me", "hjelpe meg", "help with", "capabilities", "funksjoner", "what can"],
-      ["gjøre for", "do for", "bedriften", "business", "organization"],
-    ],
-    minScore: 25,
-    priority: 65,
-  },
-  {
     topic: "growth_partners",
     corpusArticleId: "growth-partners",
     signalGroups: [
@@ -45,14 +35,6 @@ const PRODUCT_TOPIC_DESCRIPTORS: readonly ProductTopicDescriptor[] = [
     excludeSignals: ["member", "medlem", "medlemmer", "members"],
     minScore: 30,
     priority: 95,
-  },
-  {
-    topic: "growth_partners",
-    corpusArticleId: "growth-partners",
-    signalGroups: [["hva er", "what is", "forklar", "explain"], ["partner", "partners"]],
-    excludeSignals: ["member", "medlem", "medlemmer", "members", "team", "ansatt"],
-    minScore: 25,
-    priority: 94,
   },
   {
     topic: "subscription_pricing",
@@ -115,31 +97,11 @@ const PRODUCT_TOPIC_DESCRIPTORS: readonly ProductTopicDescriptor[] = [
     topic: "aipify_capabilities",
     corpusArticleId: "aipify-capabilities",
     signalGroups: [
-      ["løsning", "løsninger", "solution", "solutions", "tjeneste", "tjenester"],
-      ["hvilken", "which", "what", "har dere", "do you have", "tilbyr", "offer"],
+      ["help me", "hjelpe meg", "help with", "capabilities", "funksjoner", "what can"],
+      ["gjøre for", "do for", "bedriften", "business", "organization"],
     ],
     minScore: 25,
-    priority: 66,
-  },
-  {
-    topic: "aipify_capabilities",
-    corpusArticleId: "aipify-capabilities",
-    signalGroups: [
-      ["kan jeg", "can i", "could i", "may i"],
-      ["bruke", "bruker", "use"],
-    ],
-    minScore: 25,
-    priority: 64,
-  },
-  {
-    topic: "aipify_capabilities",
-    corpusArticleId: "aipify-capabilities",
-    signalGroups: [
-      ["på min", "for min", "for my", "for our", "for vår"],
-      ["salong", "frisør", "utleie", "leilighet", "rental", "airbnb", "butikk", "bedrift"],
-    ],
-    minScore: 25,
-    priority: 63,
+    priority: 65,
   },
   {
     topic: "aipify_overview",
@@ -187,13 +149,6 @@ function scoreProductTopicDescriptor(normalized: string, descriptor: ProductTopi
         group.some((signal) => hasSignal(normalized, signal)),
       );
     if (!hasPartnerCore) return 0;
-
-    if (
-      descriptor.signalGroups.length === 2 &&
-      descriptor.signalGroups[1]?.some((signal) => signal === "partner" || signal === "partners")
-    ) {
-      if (matchedGroups < 2) return 0;
-    }
   }
 
   if (score < descriptor.minScore) return 0;
@@ -237,11 +192,6 @@ export function isPlatformProductKnowledgeQuery(query: string): boolean {
 }
 
 export function shouldBypassOrganizationIntelligenceForProductQuery(query: string): boolean {
-  return isPlatformProductKnowledgeQuery(query);
-}
-
-/** General Aipify product/use-case questions must not hit industry pack provider catalog gaps. */
-export function shouldBypassIndustryPackProviderCatalog(query: string): boolean {
   return isPlatformProductKnowledgeQuery(query);
 }
 
