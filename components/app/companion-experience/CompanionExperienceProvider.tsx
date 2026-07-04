@@ -14,27 +14,30 @@ import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardPro
 import type { CompanionExperienceLabels } from "@/lib/app/companion/types";
 import {
   patchCompanionUiSession,
-  readCompanionPanelOpenState,
   readCompanionUiSession,
 } from "@/lib/app/companion/session-state";
 import {
   logCompanionFocusSnapshot,
   traceCompanionMount,
 } from "@/lib/app/companion/companion-mount-trace";
+import { useCompanionUIState } from "./hooks/useCompanionUIState";
 
 type CompanionExperienceContextValue = {
   open: boolean;
+  drawerExpanded: boolean;
   panelEverOpened: boolean;
   mode: "drawer" | "fullpage";
   labels: CompanionExperienceLabels;
   locale: string;
   openDrawer: () => void;
+  openDrawerCompact: () => void;
   openDrawerWithQuery: (query: string) => void;
   openDrawerWithConversation: (conversationId: string) => void;
   drawerQuery: string | null;
   drawerConversationId: string | null;
   closeDrawer: () => void;
   toggleDrawer: () => void;
+  toggleDrawerExpanded: () => void;
   pathname: string;
   organizationKey: string | null;
 };
@@ -56,13 +59,22 @@ export function CompanionExperienceProvider({
   const profileCtx = useOptionalDashboardProfile();
   const organizationKey = profileCtx?.profile?.company.id ?? null;
 
-  const [open, setOpen] = useState(() => readCompanionPanelOpenState());
+  const {
+    open,
+    drawerExpanded,
+    panelEverOpened,
+    openDrawer,
+    openDrawerCompact,
+    closeDrawer,
+    toggleDrawer,
+    toggleDrawerExpanded,
+  } = useCompanionUIState({ pathname, organizationKey });
+
   const [drawerQuery, setDrawerQuery] = useState<string | null>(null);
   const [drawerConversationId, setDrawerConversationId] = useState<string | null>(() => {
     const session = readCompanionUiSession();
     return session?.activeConversationId ?? null;
   });
-  const [panelEverOpened, setPanelEverOpened] = useState(() => readCompanionPanelOpenState());
 
   useEffect(() => traceCompanionMount("CompanionExperienceProvider"), []);
 
@@ -81,9 +93,6 @@ export function CompanionExperienceProvider({
   }, [open, drawerConversationId, organizationKey]);
 
   useEffect(() => {
-    if (open) {
-      setPanelEverOpened(true);
-    }
     patchCompanionUiSession(
       {
         panelOpen: open,
@@ -95,94 +104,78 @@ export function CompanionExperienceProvider({
     );
   }, [open, organizationKey, pathname, drawerConversationId]);
 
-  const openDrawer = useCallback(() => {
-    setDrawerQuery(null);
-    setDrawerConversationId(null);
-    setOpen(true);
-    setPanelEverOpened(true);
-    patchCompanionUiSession({ panelOpen: true, organizationKey, pathname }, organizationKey);
-  }, [organizationKey, pathname]);
-
-  const openDrawerWithQuery = useCallback((query: string) => {
-    const trimmed = query.trim();
-    if (!trimmed) return;
-    const session = readCompanionUiSession(organizationKey);
-    setDrawerQuery(trimmed);
-    setDrawerConversationId(session?.activeConversationId ?? null);
-    setOpen(true);
-    setPanelEverOpened(true);
-    patchCompanionUiSession(
-      {
-        panelOpen: true,
+  const openDrawerWithQuery = useCallback(
+    (query: string) => {
+      const trimmed = query.trim();
+      if (!trimmed) return;
+      const session = readCompanionUiSession(organizationKey);
+      setDrawerQuery(trimmed);
+      setDrawerConversationId(session?.activeConversationId ?? null);
+      openDrawerCompact();
+      patchCompanionUiSession(
+        {
+          panelOpen: true,
+          organizationKey,
+          pathname,
+          activeConversationId: session?.activeConversationId ?? undefined,
+        },
         organizationKey,
-        pathname,
-        activeConversationId: session?.activeConversationId ?? undefined,
-      },
-      organizationKey,
-    );
-  }, [organizationKey, pathname]);
+      );
+    },
+    [organizationKey, pathname, openDrawerCompact],
+  );
 
-  const openDrawerWithConversation = useCallback((conversationId: string) => {
-    const trimmed = conversationId.trim();
-    setDrawerConversationId(trimmed);
-    setDrawerQuery(null);
-    setOpen(true);
-    setPanelEverOpened(true);
-    patchCompanionUiSession(
-      { panelOpen: true, organizationKey, pathname, activeConversationId: trimmed },
-      organizationKey,
-    );
-  }, [organizationKey, pathname]);
-
-  const closeDrawer = useCallback(() => {
-    setOpen(false);
-    setDrawerQuery(null);
-    setDrawerConversationId(null);
-    patchCompanionUiSession({ panelOpen: false, organizationKey, pathname }, organizationKey);
-  }, [organizationKey, pathname]);
-
-  const toggleDrawer = useCallback(() => {
-    setOpen((value) => {
-      const next = !value;
-      if (next) {
-        setPanelEverOpened(true);
-      }
-      patchCompanionUiSession({ panelOpen: next, organizationKey, pathname }, organizationKey);
-      return next;
-    });
-  }, [organizationKey, pathname]);
+  const openDrawerWithConversation = useCallback(
+    (conversationId: string) => {
+      const trimmed = conversationId.trim();
+      setDrawerConversationId(trimmed);
+      setDrawerQuery(null);
+      openDrawerCompact();
+      patchCompanionUiSession(
+        { panelOpen: true, organizationKey, pathname, activeConversationId: trimmed },
+        organizationKey,
+      );
+    },
+    [organizationKey, pathname, openDrawerCompact],
+  );
 
   const value = useMemo(
     () => ({
       open,
+      drawerExpanded,
+      panelEverOpened,
       mode: "drawer" as const,
       labels,
       locale,
       openDrawer,
+      openDrawerCompact,
       openDrawerWithQuery,
       openDrawerWithConversation,
       drawerQuery,
       drawerConversationId,
       closeDrawer,
       toggleDrawer,
+      toggleDrawerExpanded,
       pathname,
       organizationKey,
-      panelEverOpened,
     }),
     [
       open,
+      drawerExpanded,
+      panelEverOpened,
       labels,
       locale,
       openDrawer,
+      openDrawerCompact,
       openDrawerWithQuery,
       openDrawerWithConversation,
       drawerQuery,
       drawerConversationId,
       closeDrawer,
       toggleDrawer,
+      toggleDrawerExpanded,
       pathname,
       organizationKey,
-      panelEverOpened,
     ],
   );
 
