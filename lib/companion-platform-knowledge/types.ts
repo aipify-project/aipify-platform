@@ -60,7 +60,8 @@ export type PlatformCorpusArticleId =
   | "aipify-data-access"
   | "approvals"
   | "audit-governance"
-  | "language-settings";
+  | "language-settings"
+  | "growth-partners";
 
 export type PlatformKnowledgeSourceKind =
   | "platform_corpus"

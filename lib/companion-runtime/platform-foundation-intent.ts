@@ -46,3 +46,10 @@ export function resolvePlatformFoundationTopicId(query: string): PlatformFoundat
 export function isPlatformFoundationQuery(query: string): boolean {
   return resolvePlatformFoundationTopicId(query) !== null;
 }
+
+export {
+  isPlatformProductKnowledgeQuery,
+  resolvePlatformProductCorpusArticleId,
+  resolvePlatformProductFoundationTopic,
+  shouldBypassOrganizationIntelligenceForProductQuery,
+} from "@/lib/companion-platform-knowledge/platform-product-foundation";

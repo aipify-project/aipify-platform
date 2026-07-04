@@ -21,7 +21,6 @@ import type { UserRole } from "@/lib/tenant/types";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import {
   resolveCompanionOrganizationState,
-  shouldDeferLightweightConversationalAnswer,
 } from "@/lib/companion/enrichment/companion-response-enrichment";
 import { buildEnrichedReplyFromSearchJson } from "./build-reply-from-search-json";
 import type { CompanionChatMessage, CompanionExperienceLabels } from "../types";
@@ -34,6 +33,7 @@ import { logCompanionWorkerStepTimings } from "./worker-step-timing";
 import {
   classifyCompanionTurnRoute,
   isCapabilityHelpQuery,
+  resolveLightweightConversationalIntent,
 } from "@/lib/companion-runtime/companion-turn-route";
 import { buildLightweightConversationalAnswer } from "@/lib/companion-runtime/lightweight-conversational-answer";
 import { coerceToCustomerActiveLocale, type CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
@@ -773,7 +773,7 @@ export async function executeCompanionTurn(
     !hasAttachments &&
     !input.activeArtifactId &&
     query &&
-    !shouldDeferLightweightConversationalAnswer(query)
+    resolveLightweightConversationalIntent(query) !== null
   ) {
     const lightweightStarted = Date.now();
     const lightweightAnswer = buildLightweightConversationalAnswer({

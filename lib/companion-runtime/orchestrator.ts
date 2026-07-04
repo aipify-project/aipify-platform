@@ -199,7 +199,17 @@ import { resolveCommunityCompanionQuery } from "./community-companion-query";
 import { resolveOrganizationConnectionStatusAnswer } from "./organization-connection-status";
 import { resolveOrganizationIntelligenceAnswer } from "./organization-intelligence-routing";
 import { resolvePlatformFoundationAnswer } from "./platform-foundation-routing";
-import { isPlatformFoundationQuery } from "./platform-foundation-intent";
+import {
+  isPlatformFoundationQuery,
+  isPlatformProductKnowledgeQuery,
+  shouldBypassOrganizationIntelligenceForProductQuery,
+} from "./platform-foundation-intent";
+import { buildGrowthPartnersFoundationResult } from "@/lib/companion-platform-knowledge/platform-product-foundation-answer";
+import {
+  PLATFORM_PRODUCT_CORPUS_MIN_SCORE,
+  resolvePlatformProductCorpusArticleId,
+  resolvePlatformProductFoundationTopic,
+} from "@/lib/companion-platform-knowledge/platform-product-foundation";
 import {
   buildBlockedProactiveOperationAnswer,
   buildExternalProactiveUnavailableAnswer,
@@ -705,6 +715,102 @@ async function resolveNavigationCorpusAnswer(
     return {
       matchedArticleId: corpusMatch.article.id,
       answer: buildPlatformAnswer(corpusMatch.article, t, permissionCtx, {
+        source: "platform_corpus",
+        confidence: corpusMatch.score >= 80 ? "high" : "moderate",
+        subscription,
+        pricingSummary,
+        restrictedNote,
+      }),
+    };
+  }
+
+  return null;
+}
+
+async function finalizePlatformProductFoundationResult(
+  query: string,
+  result: PlatformSearchResult,
+  options: PlatformSearchOptions,
+  resolvedTenantContext: CompanionTenantContext,
+  t: Translator,
+): Promise<PlatformSearchResult> {
+  if (result.matchedArticleId === "business-packs") {
+    return {
+      ...result,
+      answer: enrichAnswerWithBusinessPackContext(
+        result.answer,
+        resolvedTenantContext.businessPackContext,
+        t,
+      ),
+    };
+  }
+
+  if (
+    result.matchedArticleId === "connect-system" ||
+    detectPlatformQuestionIntent(query) === "connect-system"
+  ) {
+    return {
+      ...result,
+      answer: enrichAnswerWithInstallDiscovery(
+        result.answer,
+        resolvedTenantContext.discovery,
+        t,
+      ),
+    };
+  }
+
+  return result;
+}
+
+async function resolvePlatformProductFoundationSearch(
+  query: string,
+  options: PlatformSearchOptions,
+  permissionCtx: PermissionContext,
+  corpus: ResolvedPlatformArticle[],
+  subscription: ReturnType<typeof parseCustomerLicenseCenter>,
+  pricingSummary: string | undefined,
+  restrictedNote: string,
+): Promise<PlatformSearchResult | null> {
+  if (!isPlatformProductKnowledgeQuery(query)) return null;
+
+  const topic = resolvePlatformProductFoundationTopic(query);
+  if (topic === "growth_partners") {
+    return buildGrowthPartnersFoundationResult(options.t, permissionCtx);
+  }
+
+  const corpusArticleId = resolvePlatformProductCorpusArticleId(query);
+  if (corpusArticleId && corpusArticleId !== "growth-partners") {
+    const article = corpus.find((entry) => entry.id === corpusArticleId);
+    if (article) {
+      return {
+        matchedArticleId: article.id,
+        answer: buildPlatformAnswer(article, options.t, permissionCtx, {
+          source: "platform_corpus",
+          confidence: "high",
+          subscription,
+          pricingSummary,
+          restrictedNote,
+        }),
+      };
+    }
+  }
+
+  const navResult = await resolveNavigationCorpusAnswer(
+    query,
+    options,
+    permissionCtx,
+    corpus,
+    subscription,
+    pricingSummary,
+    restrictedNote,
+  );
+  if (navResult) return navResult;
+
+  const corpusMatch = findBestCorpusMatch(query, corpus, options.ctx);
+  if (corpusMatch && corpusMatch.score >= PLATFORM_PRODUCT_CORPUS_MIN_SCORE) {
+    return {
+      matchedArticleId: corpusMatch.article.id,
+      answer: buildPlatformAnswer(corpusMatch.article, options.t, permissionCtx, {
         source: "platform_corpus",
         confidence: corpusMatch.score >= 80 ? "high" : "moderate",
         subscription,
@@ -1436,6 +1542,29 @@ export async function orchestrateCompanionSearch(
     }
   }
 
+  if (isPlatformProductKnowledgeQuery(query)) {
+    const productFoundationResult = await resolvePlatformProductFoundationSearch(
+      query,
+      options,
+      permissionCtx,
+      corpus,
+      subscription,
+      pricingSummary,
+      restrictedNote,
+    );
+    if (productFoundationResult) {
+      return finalize(
+        await finalizePlatformProductFoundationResult(
+          query,
+          productFoundationResult,
+          options,
+          resolvedTenantContext,
+          t,
+        ),
+      );
+    }
+  }
+
   const actionResult = await resolveCompanionActionAnswer(
     query,
     options,
@@ -1495,13 +1624,15 @@ export async function orchestrateCompanionSearch(
     return finalize(organizationConnectionResult, { liveAnswer: true });
   }
 
-  const organizationIntelligenceResult = await resolveOrganizationIntelligenceAnswer(query, {
-    t,
-    tenantContext: resolvedTenantContext,
-    supabase,
-    activeLocale,
-    companionSurface: options?.companionSurface,
-  });
+  const organizationIntelligenceResult = shouldBypassOrganizationIntelligenceForProductQuery(query)
+    ? null
+    : await resolveOrganizationIntelligenceAnswer(query, {
+        t,
+        tenantContext: resolvedTenantContext,
+        supabase,
+        activeLocale,
+        companionSurface: options?.companionSurface,
+      });
   if (organizationIntelligenceResult) {
     return finalize(organizationIntelligenceResult, { liveAnswer: true });
   }
@@ -1567,7 +1698,11 @@ export async function orchestrateCompanionSearch(
   );
   if (operationalResult) return finalize(operationalResult);
 
-  if (navigationQuery || detectPlatformQuestionIntent(query)) {
+  if (
+    isPlatformProductKnowledgeQuery(query) ||
+    navigationQuery ||
+    detectPlatformQuestionIntent(query)
+  ) {
     const navResult = await resolveNavigationCorpusAnswer(
       query,
       options,
@@ -1633,7 +1768,27 @@ export async function orchestrateCompanionSearch(
     }
   }
 
-  if (productConcept || navigationQuery || normalized.includes("aipify")) {
+  if (isPlatformProductKnowledgeQuery(query)) {
+    const productFoundationResult = await resolvePlatformProductFoundationSearch(
+      query,
+      options,
+      permissionCtx,
+      corpus,
+      subscription,
+      pricingSummary,
+      restrictedNote,
+    );
+    if (productFoundationResult) {
+      return finalize(
+        await finalizePlatformProductFoundationResult(
+          query,
+          productFoundationResult,
+          options,
+          resolvedTenantContext,
+          t,
+        ),
+      );
+    }
     return finalize({ answer: buildHonestKnowledgeGapAnswer(t) });
   }
 
