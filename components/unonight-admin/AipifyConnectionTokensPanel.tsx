@@ -5,10 +5,10 @@ import { AipifyEmptyState } from "@/components/branding";
 import {
   parseUnonightAipifyTokenList,
   parseUnonightAipifyTokenReveal,
-  type UnonightAipifyConnectionLabels,
   type UnonightAipifyTokenRecord,
   type UnonightAipifyTokenRevealResponse,
-} from "@/lib/unonight-platform";
+} from "@/lib/unonight-platform/types";
+import type { UnonightAipifyConnectionLabels } from "@/lib/unonight-platform/labels";
 
 type AipifyConnectionTokensPanelProps = {
   labels: UnonightAipifyConnectionLabels;
