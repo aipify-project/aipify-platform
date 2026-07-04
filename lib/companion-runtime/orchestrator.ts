@@ -210,7 +210,6 @@ import {
   PLATFORM_PRODUCT_CORPUS_MIN_SCORE,
   resolvePlatformProductCorpusArticleId,
   resolvePlatformProductFoundationTopic,
-  shouldBypassIndustryPackProviderCatalog,
 } from "@/lib/companion-platform-knowledge/aipify-core-runtime";
 import {
   buildBlockedProactiveOperationAnswer,
@@ -916,10 +915,6 @@ function resolveIndustryPackProviderAnswer(
   t: Translator,
   tenantContext: CompanionTenantContext,
 ): PlatformSearchResult | null {
-  if (shouldBypassIndustryPackProviderCatalog(query)) {
-    return null;
-  }
-
   if (hasBlockedIndustryPackOperationIntent(query)) {
     return {
       answer: buildBlockedIndustryPackOperationAnswer(t),
