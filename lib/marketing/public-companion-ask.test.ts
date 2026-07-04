@@ -50,6 +50,8 @@ async function main() {
     PUBLIC_COMPANION_ASK_MAX_QUESTION_LENGTH,
     askPublicPlatformCompanion,
     buildPublicCompanionQuery,
+    buildPublicPageContextRetrievalQuery,
+    isPublicPageContextQuestion,
     sanitizePublicCompanionActions,
     validatePublicCompanionAskRequest,
   } = await import("./public-companion-ask");
@@ -424,6 +426,97 @@ async function main() {
 
     assert.doesNotMatch(combined, /<\/?[a-z][\s\S]*>/i);
     assert.doesNotMatch(combined, /\[[^\]]+\]\([^)]+\)/);
+  });
+
+  await test("page context question on companion article uses current-page knowledge", async () => {
+    const pageContext = {
+      pathname: "/knowledge/articles/what-is-a-business-companion",
+      title: "Hva er en forretnings-Companion?",
+      metaDescription: "Aipify Companion er ledelses- og operasjonell intelligens.",
+    };
+
+    assert.equal(
+      isPublicPageContextQuestion("Hva handler denne siden om?", {
+        slug: "what-is-a-business-companion",
+        title: pageContext.title,
+        searchIntents: ["Companion Platform", "Enterprise Companion"],
+      }),
+      true,
+    );
+
+    const response = await askPublicPlatformCompanion({
+      question: "Hva handler denne siden om?",
+      locale: "no",
+      pageContext,
+    });
+
+    const combined = [response.answer.directAnswer, response.answer.explanation ?? ""].join("\n");
+    assert.match(combined.toLowerCase(), /companion|forretnings|aipify/);
+    assert.ok(
+      response.sources.some(
+        (source) =>
+          source.route.includes("what-is-a-business-companion") ||
+          source.route.includes("/knowledge/articles/what-is-a-business-companion"),
+      ),
+      `expected page source, got ${JSON.stringify(response.sources)}`,
+    );
+  });
+
+  await test("core capability question ignores page context on companion article page", async () => {
+    const response = await askPublicPlatformCompanion({
+      question: "Hvilken løsninger har dere?",
+      locale: "no",
+      pageContext: {
+        pathname: "/knowledge/articles/what-is-a-business-companion",
+        title: "Hva er en forretnings-Companion?",
+        metaDescription: "Aipify Companion er ledelses- og operasjonell intelligens.",
+      },
+    });
+
+    assert.ok(
+      response.sources.some((source) => source.route.includes("aipify-capabilities")),
+      `expected aipify-capabilities source, got ${JSON.stringify(response.sources)}`,
+    );
+    assert.ok(
+      !response.sources.some((source) =>
+        source.route.includes("what-is-a-business-companion"),
+      ),
+    );
+  });
+
+  await test("pageContext validation accepts safe shape and rejects unsafe fields", () => {
+    const validated = validatePublicCompanionAskRequest({
+      question: "Hva handler denne siden om?",
+      locale: "no",
+      pageContext: {
+        pathname: "/knowledge/articles/what-is-a-business-companion",
+        title: "Hva er en forretnings-Companion?",
+        metaDescription: "Aipify Companion er ledelses- og operasjonell intelligens.",
+      },
+    });
+    assert.equal(validated.pageContext?.pathname, "/knowledge/articles/what-is-a-business-companion");
+
+    assert.throws(() =>
+      validatePublicCompanionAskRequest({
+        question: "Hei",
+        pageContext: {
+          pathname: "/knowledge/articles/what-is-a-business-companion",
+          pageHtml: "<p>unsafe</p>",
+        },
+      }),
+    );
+
+    const hint = buildPublicPageContextRetrievalQuery(
+      "Hva handler denne siden om?",
+      {
+        title: "Hva er en forretnings-Companion?",
+        metaDescription: "Aipify Companion er ledelses- og operasjonell intelligens.",
+        introduction: "Companion er hvordan Aipify er til stede for ledere og team.",
+      },
+      validated.pageContext,
+    );
+    assert.match(hint, /Current page:/);
+    assert.match(hint, /User question: Hva handler denne siden om\?/);
   });
 
   await test("new files do not reference Unonight or customer-specific runtime symbols", () => {

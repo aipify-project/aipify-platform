@@ -10,9 +10,11 @@ import {
   assertWebsiteCompanionAskBodyShape,
   buildWebsiteCompanionAskBody,
   buildWebsiteCompanionRecentContext,
+  collectWebsiteCompanionPageContext,
   filterWebsiteCompanionUiActions,
   formatWebsiteCompanionCharactersRemaining,
   mapWebsiteCompanionApiResponse,
+  sanitizeWebsiteCompanionPageContext,
   shouldAllowWebsiteCompanionSend,
   validateWebsiteCompanionQuestion,
   WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH,
@@ -65,6 +67,46 @@ assert.equal(body.recentContext?.length, 2);
 assert.deepEqual(Object.keys(body).sort(), ["locale", "question", "recentContext"]);
 assertWebsiteCompanionAskBodyShape(body);
 assert.throws(() => assertWebsiteCompanionAskBodyShape({ ...body, tenantId: "x" } as never));
+
+const bodyWithPageContext = buildWebsiteCompanionAskBody({
+  question: "Hva handler denne siden om?",
+  locale: "no",
+  messages: [],
+  pageContext: {
+    pathname: "/knowledge/articles/what-is-a-business-companion",
+    title: "Hva er en forretnings-Companion?",
+    metaDescription: "Aipify Companion er ledelses- og operasjonell intelligens.",
+  },
+});
+assert.equal(bodyWithPageContext.pageContext?.pathname, "/knowledge/articles/what-is-a-business-companion");
+assertWebsiteCompanionAskBodyShape(bodyWithPageContext);
+assert.throws(() =>
+  sanitizeWebsiteCompanionPageContext({
+    pathname: "/knowledge/articles/what-is-a-business-companion",
+    domHtml: "<p>unsafe</p>",
+  }),
+);
+assert.throws(() =>
+  sanitizeWebsiteCompanionPageContext({
+    pathname: "https://evil.example/page",
+  }),
+);
+
+const collectedPageContext = collectWebsiteCompanionPageContext({
+  location: { pathname: "/knowledge/articles/what-is-a-business-companion" },
+  document: {
+    title: "Hva er en forretnings-Companion? | Aipify",
+    querySelector: (selector: string) =>
+      selector === 'meta[name="description"]'
+        ? {
+            getAttribute: () => "Aipify Companion er ledelses- og operasjonell intelligens.",
+          }
+        : null,
+  },
+});
+assert.equal(collectedPageContext?.pathname, "/knowledge/articles/what-is-a-business-companion");
+assert.match(collectedPageContext?.title ?? "", /forretnings-Companion/);
+assert.match(collectedPageContext?.metaDescription ?? "", /Companion/);
 
 const longContextMessages: WebsiteCompanionChatMessage[] = Array.from({ length: 8 }, (_, index) => ({
   id: `u-${index}`,
@@ -152,6 +194,7 @@ const componentSource = fs.readFileSync(
 );
 assert.match(componentSource, /locale/);
 assert.match(componentSource, /\/api\/marketing\/companion\/ask/);
+assert.match(componentSource, /collectWebsiteCompanionPageContext/);
 assert.doesNotMatch(componentSource, /dangerouslySetInnerHTML/);
 assert.doesNotMatch(componentSource, /Oppgrader abonnementet|Kunnskapssenter/);
 assert.match(componentSource, /chat\.welcome/);

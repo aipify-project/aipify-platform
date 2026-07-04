@@ -19,6 +19,7 @@ import {
 import type { PublicCompanionAskResponse } from "@/lib/marketing/public-companion-ask";
 import {
   buildWebsiteCompanionAskBody,
+  collectWebsiteCompanionPageContext,
   formatWebsiteCompanionCharactersRemaining,
   mapWebsiteCompanionApiResponse,
   shouldAllowWebsiteCompanionSend,
@@ -550,6 +551,9 @@ export default function WebsiteCompanionAssistant({
         question: validation.question,
         locale,
         messages: priorMessages,
+        pageContext: collectWebsiteCompanionPageContext(
+          typeof window !== "undefined" ? window : undefined,
+        ),
       });
 
       try {
