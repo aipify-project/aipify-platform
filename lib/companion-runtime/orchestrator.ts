@@ -206,10 +206,11 @@ import {
 } from "./platform-foundation-intent";
 import { buildGrowthPartnersFoundationResult } from "@/lib/companion-platform-knowledge/platform-product-foundation-answer";
 import {
+  isAipifyCoreKnowledgeQuery,
   PLATFORM_PRODUCT_CORPUS_MIN_SCORE,
   resolvePlatformProductCorpusArticleId,
   resolvePlatformProductFoundationTopic,
-} from "@/lib/companion-platform-knowledge/platform-product-foundation";
+} from "@/lib/companion-platform-knowledge/aipify-core-runtime";
 import {
   buildBlockedProactiveOperationAnswer,
   buildExternalProactiveUnavailableAnswer,
@@ -762,7 +763,7 @@ async function finalizePlatformProductFoundationResult(
   return result;
 }
 
-async function resolvePlatformProductFoundationSearch(
+async function resolveAipifyCoreFoundationSearch(
   query: string,
   options: PlatformSearchOptions,
   permissionCtx: PermissionContext,
@@ -771,7 +772,7 @@ async function resolvePlatformProductFoundationSearch(
   pricingSummary: string | undefined,
   restrictedNote: string,
 ): Promise<PlatformSearchResult | null> {
-  if (!isPlatformProductKnowledgeQuery(query)) return null;
+  if (!isAipifyCoreKnowledgeQuery(query)) return null;
 
   const topic = resolvePlatformProductFoundationTopic(query);
   if (topic === "growth_partners") {
@@ -1542,8 +1543,9 @@ export async function orchestrateCompanionSearch(
     }
   }
 
-  if (isPlatformProductKnowledgeQuery(query)) {
-    const productFoundationResult = await resolvePlatformProductFoundationSearch(
+  // One Aipify Core — product/platform questions before org intelligence and providers.
+  if (isAipifyCoreKnowledgeQuery(query)) {
+    const productFoundationResult = await resolveAipifyCoreFoundationSearch(
       query,
       options,
       permissionCtx,
@@ -1699,7 +1701,7 @@ export async function orchestrateCompanionSearch(
   if (operationalResult) return finalize(operationalResult);
 
   if (
-    isPlatformProductKnowledgeQuery(query) ||
+    isAipifyCoreKnowledgeQuery(query) ||
     navigationQuery ||
     detectPlatformQuestionIntent(query)
   ) {
@@ -1768,8 +1770,9 @@ export async function orchestrateCompanionSearch(
     }
   }
 
-  if (isPlatformProductKnowledgeQuery(query)) {
-    const productFoundationResult = await resolvePlatformProductFoundationSearch(
+  // One Aipify Core — product/platform questions before org intelligence and providers.
+  if (isAipifyCoreKnowledgeQuery(query)) {
+    const productFoundationResult = await resolveAipifyCoreFoundationSearch(
       query,
       options,
       permissionCtx,

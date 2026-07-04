@@ -33,8 +33,8 @@ import { logCompanionWorkerStepTimings } from "./worker-step-timing";
 import {
   classifyCompanionTurnRoute,
   isCapabilityHelpQuery,
-  resolveLightweightConversationalIntent,
 } from "@/lib/companion-runtime/companion-turn-route";
+import { isTrueCompanionSmalltalk } from "@/lib/companion-platform-knowledge/aipify-core-runtime";
 import { buildLightweightConversationalAnswer } from "@/lib/companion-runtime/lightweight-conversational-answer";
 import { coerceToCustomerActiveLocale, type CustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import type { Locale } from "@/lib/i18n/config";
@@ -773,7 +773,7 @@ export async function executeCompanionTurn(
     !hasAttachments &&
     !input.activeArtifactId &&
     query &&
-    resolveLightweightConversationalIntent(query) !== null
+    isTrueCompanionSmalltalk(query)
   ) {
     const lightweightStarted = Date.now();
     const lightweightAnswer = buildLightweightConversationalAnswer({

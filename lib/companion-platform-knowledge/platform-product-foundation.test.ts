@@ -1,12 +1,13 @@
 import assert from "node:assert/strict";
 import { createTranslator } from "@/lib/i18n/translate";
-import { resolveLightweightConversationalIntent } from "@/lib/companion-runtime/companion-turn-route";
-import { shouldBypassOrganizationIntelligenceForProductQuery } from "@/lib/companion-runtime/platform-foundation-intent";
+import { isTrueCompanionSmalltalk } from "./aipify-core-runtime";
 import {
+  isAipifyCoreKnowledgeQuery,
   isPlatformProductKnowledgeQuery,
   resolvePlatformProductCorpusArticleId,
   resolvePlatformProductFoundationTopic,
-} from "./platform-product-foundation";
+  shouldBypassOrganizationIntelligenceForProductQuery,
+} from "./aipify-core-runtime";
 import { buildGrowthPartnersFoundationResult } from "./platform-product-foundation-answer";
 import { resolvePlatformCorpus } from "./answer-builder";
 import { PLATFORM_KNOWLEDGE_CORPUS } from "./platform-corpus";
@@ -83,11 +84,7 @@ for (const { query, topic, corpusId } of VALIDATION_QUERIES) {
     true,
     `bypass org intel: ${query}`,
   );
-  assert.equal(
-    resolveLightweightConversationalIntent(query),
-    null,
-    `not smalltalk: ${query}`,
-  );
+  assert.equal(isTrueCompanionSmalltalk(query), false, `not smalltalk: ${query}`);
 }
 
 const growthResult = buildGrowthPartnersFoundationResult(t, {

@@ -1,0 +1,129 @@
+import assert from "node:assert/strict";
+import { createTranslator } from "@/lib/i18n/translate";
+import { orchestrateCompanionSearch } from "@/lib/companion-runtime/orchestrator";
+import { createEmptyCompanionTenantContext } from "@/lib/companion-runtime/companion-tenant-context";
+import type { PlatformSearchOptions } from "./types";
+import {
+  isAipifyCoreKnowledgeQuery,
+  isTrueCompanionSmalltalk,
+  resolvePlatformProductCorpusArticleId,
+  resolvePlatformProductFoundationTopic,
+  shouldBypassOrganizationIntelligenceForProductQuery,
+  shouldRouteThroughAipifyCore,
+} from "./aipify-core-runtime";
+
+const t = createTranslator({});
+const tenantContext = createEmptyCompanionTenantContext({ locale: "no" });
+
+const searchOptions: PlatformSearchOptions = {
+  t,
+  locale: "no",
+  ctx: {
+    userRole: "owner",
+    enabledFeatures: [],
+    planKey: null,
+  },
+  getSearchTermsArray: () => [],
+  subscriptionRaw: null,
+  tenantContext,
+};
+
+const VALIDATION_QUERIES: Array<{
+  query: string;
+  topic: ReturnType<typeof resolvePlatformProductFoundationTopic>;
+  corpusId: ReturnType<typeof resolvePlatformProductCorpusArticleId>;
+}> = [
+  { query: "Hva er Aipify?", topic: "aipify_overview", corpusId: "aipify-overview" },
+  {
+    query: "Hva kan Aipify hjelpe meg med?",
+    topic: "aipify_capabilities",
+    corpusId: "aipify-capabilities",
+  },
+  {
+    query: "Hva koster Aipify?",
+    topic: "subscription_pricing",
+    corpusId: "subscription-pricing",
+  },
+  {
+    query: "Hvor registrerer jeg meg?",
+    topic: "onboarding_registration",
+    corpusId: "install-web-app",
+  },
+  {
+    query: "Hvordan blir jeg Aipify Partner?",
+    topic: "growth_partners",
+    corpusId: "growth-partners",
+  },
+  {
+    query: "Hva er Growth Partners?",
+    topic: "growth_partners",
+    corpusId: "growth-partners",
+  },
+  {
+    query: "Hva er Business Packs?",
+    topic: "business_packs",
+    corpusId: "business-packs",
+  },
+  {
+    query: "Hvordan legger jeg til ansatte i APP?",
+    topic: "team_members",
+    corpusId: "add-team-members",
+  },
+  {
+    query: "Hva kan Aipify gjøre for bedriften min?",
+    topic: "aipify_capabilities",
+    corpusId: "aipify-capabilities",
+  },
+  {
+    query: "Hvordan kontakter jeg support?",
+    topic: "support_contact",
+    corpusId: "contact-support",
+  },
+];
+
+async function runCoreValidationTests(): Promise<void> {
+  for (const { query, topic, corpusId } of VALIDATION_QUERIES) {
+    assert.equal(resolvePlatformProductFoundationTopic(query), topic, `topic: ${query}`);
+    assert.equal(resolvePlatformProductCorpusArticleId(query), corpusId, `corpus: ${query}`);
+    assert.equal(isAipifyCoreKnowledgeQuery(query), true, `core query: ${query}`);
+    assert.equal(shouldRouteThroughAipifyCore(query), true, `core route: ${query}`);
+    assert.equal(
+      shouldBypassOrganizationIntelligenceForProductQuery(query),
+      true,
+      `bypass org: ${query}`,
+    );
+    assert.equal(isTrueCompanionSmalltalk(query), false, `not smalltalk: ${query}`);
+  }
+
+  assert.equal(isTrueCompanionSmalltalk("Hei!"), true);
+  assert.equal(isTrueCompanionSmalltalk("Takk for hjelpen"), true);
+  assert.equal(isTrueCompanionSmalltalk("Hva er Aipify?"), false);
+
+  for (const { query, corpusId } of VALIDATION_QUERIES) {
+    const result = await orchestrateCompanionSearch(query, searchOptions, tenantContext);
+
+    assert.ok(result.answer.directAnswer.trim().length > 0, `answer body: ${query}`);
+    assert.notEqual(result.answer.source, "fallback", `not fallback: ${query}`);
+    assert.notEqual(result.answer.sourceId, "knowledge-gap", `not knowledge-gap: ${query}`);
+    assert.notEqual(
+      result.answer.sourceId,
+      "organization-intelligence-gap",
+      `not org gap: ${query}`,
+    );
+
+    if (corpusId === "growth-partners") {
+      assert.equal(result.matchedArticleId, "growth-partners", `growth partners article: ${query}`);
+    } else {
+      assert.equal(result.matchedArticleId, corpusId, `matched article: ${query}`);
+    }
+
+    assert.equal(result.answer.source, "platform_corpus", `platform corpus source: ${query}`);
+  }
+
+  console.log("aipify-core-runtime.test.ts: all 10 Core validation queries passed");
+}
+
+runCoreValidationTests().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

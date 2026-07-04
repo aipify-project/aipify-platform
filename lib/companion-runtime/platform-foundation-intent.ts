@@ -52,4 +52,4 @@ export {
   resolvePlatformProductCorpusArticleId,
   resolvePlatformProductFoundationTopic,
   shouldBypassOrganizationIntelligenceForProductQuery,
-} from "@/lib/companion-platform-knowledge/platform-product-foundation";
+} from "@/lib/companion-platform-knowledge/aipify-core-runtime";

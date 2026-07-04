@@ -77,9 +77,9 @@ const orchestratorSource = fs.readFileSync(
   "utf8",
 );
 assert.ok(orchestratorSource.includes("resolvePlatformFoundationAnswer"));
-assert.ok(orchestratorSource.includes("resolvePlatformProductFoundationSearch"));
+assert.ok(orchestratorSource.includes("resolveAipifyCoreFoundationSearch"));
 const foundationIndex = orchestratorSource.indexOf("await resolvePlatformFoundationAnswer");
-const productFoundationIndex = orchestratorSource.indexOf("resolvePlatformProductFoundationSearch");
+const productFoundationIndex = orchestratorSource.indexOf("resolveAipifyCoreFoundationSearch");
 const orgIntelIndex = orchestratorSource.indexOf("await resolveOrganizationIntelligenceAnswer");
 assert.ok(foundationIndex > 0 && foundationIndex < orgIntelIndex);
 assert.ok(productFoundationIndex > 0 && productFoundationIndex < orgIntelIndex);
