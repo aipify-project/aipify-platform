@@ -1262,16 +1262,29 @@ The customer-site **Website Kompis launcher** uses the canonical **Aipify Compan
 - mint/green circular presence ring
 - soft fade/pulse-ready ring in React surfaces
 
-**Rule:** No customer implementation should replace this with a generic letter icon (for example “K”), plain text, or a tenant logo.
+**Rule:** No customer implementation should replace this with a generic letter icon (for example “K”), plain text, a tenant logo, or a locally hosted launcher icon. **Aipify Core owns all launcher icon assets and approved variants.**
 
 | Asset | Location |
 |-------|----------|
-| Public SVG | `/aipify-companion-launcher-icon.svg` |
-| Source SVG | `assets/brand/aipify-companion-launcher-icon.svg` |
+| Public SVG (default) | `/aipify-companion-launcher-icon.svg` |
+| Public SVG (light websites) | `/aipify-companion-launcher-icon-dark.svg` |
+| Public SVG (dark websites) | `/aipify-companion-launcher-icon-light.svg` |
+| Source SVGs | `assets/brand/aipify-companion-launcher-icon*.svg` |
+| Variant registry | `lib/branding/companion-launcher-icons.ts` |
 | React component | `components/branding/AipifyCompanionLauncherIcon.tsx` |
 | Embed metadata API | `GET /api/embed/companion/launcher-icon` |
 
 Customer embeds should consume the icon from Aipify Core — either the public SVG URL or the embed metadata endpoint — rather than hardcoding their own launcher artwork.
+
+**Variant keys (Core-approved):**
+
+| Key | Recommended surface | Purpose |
+|-----|-------------------|---------|
+| `companion-purple-default` | any | Backward-compatible canonical icon |
+| `companion-purple-dark` | light / white websites | Stronger contrast on light backgrounds |
+| `companion-purple-light` | dark / black websites | Brighter mark on dark backgrounds |
+
+The metadata endpoint exposes `defaultVariant`, `selectedVariant`, and a `variants` array. Until install/config selection is wired, `selectedVariant` equals `defaultVariant`. Optional `?variant=` query param validates against the registry and falls back safely.
 
 ---
 

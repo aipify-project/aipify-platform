@@ -7,58 +7,183 @@ import {
   getCompanionLauncherIconPath,
   getCompanionLauncherIconUrl,
 } from "@/lib/branding/companion-launcher-icon";
+import {
+  COMPANION_LAUNCHER_ICON_VARIANT_KEYS,
+  DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT,
+  resolveCompanionLauncherIconVariant,
+} from "@/lib/branding/companion-launcher-icons";
+import { GET as getLauncherIconMetadata } from "@/app/api/embed/companion/launcher-icon/route";
 
-const root = process.cwd();
+async function runCompanionLauncherIconTests() {
+  const root = process.cwd();
+  const origin = "https://aipify.ai";
+  const forbiddenMetadataKeys = [
+    "tenantId",
+    "tenant_id",
+    "companyId",
+    "company_id",
+    "installId",
+    "install_id",
+    "customerId",
+    "customer_id",
+    "domain",
+  ];
 
-assert.equal(getCompanionLauncherIconPath(), "/aipify-companion-launcher-icon.svg");
-assert.equal(
-  getCompanionLauncherIconUrl("https://aipify.ai"),
-  "https://aipify.ai/aipify-companion-launcher-icon.svg",
-);
+  assert.equal(getCompanionLauncherIconPath(), "/aipify-companion-launcher-icon.svg");
+  assert.equal(
+    getCompanionLauncherIconUrl(origin),
+    "https://aipify.ai/aipify-companion-launcher-icon.svg",
+  );
 
-const config = getCompanionLauncherIconEmbedConfig("https://aipify.ai");
-assert.equal(config.id, COMPANION_LAUNCHER_ICON.id);
-assert.equal(config.iconUrl, "https://aipify.ai/aipify-companion-launcher-icon.svg");
-assert.equal(config.iconPath, "/aipify-companion-launcher-icon.svg");
-assert.equal(config.ariaLabel, "Aipify Companion");
-assert.equal(config.presenceRingColor, "#34D399");
+  const config = getCompanionLauncherIconEmbedConfig(origin);
+  assert.equal(config.id, COMPANION_LAUNCHER_ICON.id);
+  assert.equal(config.iconUrl, "https://aipify.ai/aipify-companion-launcher-icon.svg");
+  assert.equal(config.iconPath, "/aipify-companion-launcher-icon.svg");
+  assert.equal(config.ariaLabel, "Aipify Companion");
+  assert.equal(config.presenceRingColor, "#34D399");
+  assert.equal(config.defaultVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+  assert.equal(config.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
 
-const publicAsset = path.join(root, "public/aipify-companion-launcher-icon.svg");
-const sourceAsset = path.join(root, "assets/brand/aipify-companion-launcher-icon.svg");
-assert.ok(fs.existsSync(publicAsset), "public launcher icon asset must exist");
-assert.ok(fs.existsSync(sourceAsset), "source launcher icon asset must exist");
+  assert.equal(config.variants.length, COMPANION_LAUNCHER_ICON_VARIANT_KEYS.length);
+  const variantKeys = config.variants.map((variant) => variant.variantKey);
+  assert.ok(variantKeys.includes("companion-purple-dark"));
+  assert.ok(variantKeys.includes("companion-purple-light"));
+  assert.ok(variantKeys.includes("companion-purple-default"));
 
-const svg = fs.readFileSync(publicAsset, "utf8");
-assert.match(svg, /#34D399/);
-assert.match(svg, /#6d28d9/);
-assert.match(svg, /aipify-companion-launcher-gradient/);
-assert.match(svg, /aipify-companion-launcher-glow/);
-assert.match(svg, /viewBox="-1 -1 50 50"/);
-assert.match(svg, /overflow="visible"/);
-assert.doesNotMatch(svg, /r="18"[^>]*fill="#34D399"/);
-assert.equal(
-  fs.readFileSync(sourceAsset, "utf8"),
-  fs.readFileSync(publicAsset, "utf8"),
-  "public launcher icon must match source asset",
-);
+  const darkVariant = config.variants.find(
+    (variant) => variant.variantKey === "companion-purple-dark",
+  );
+  const lightVariant = config.variants.find(
+    (variant) => variant.variantKey === "companion-purple-light",
+  );
+  assert.ok(darkVariant);
+  assert.ok(lightVariant);
+  assert.equal(darkVariant.recommendedSurface, "light");
+  assert.equal(lightVariant.recommendedSurface, "dark");
 
-const routeSource = fs.readFileSync(
-  path.join(root, "app/api/embed/companion/launcher-icon/route.ts"),
-  "utf8",
-);
-assert.match(routeSource, /getCompanionLauncherIconEmbedConfig/);
+  const invalidSelection = getCompanionLauncherIconEmbedConfig(origin, {
+    variant: "not-an-approved-variant",
+  });
+  assert.equal(invalidSelection.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+  assert.equal(
+    invalidSelection.iconUrl,
+    "https://aipify.ai/aipify-companion-launcher-icon.svg",
+  );
 
-const brandingComponentSource = fs.readFileSync(
-  path.join(root, "components/branding/AipifyCompanionLauncherIcon.tsx"),
-  "utf8",
-);
-assert.match(brandingComponentSource, /AipifyCompanionLauncherIcon/);
-assert.match(brandingComponentSource, /availabilityRing/);
+  const darkSelection = getCompanionLauncherIconEmbedConfig(origin, {
+    variant: "companion-purple-dark",
+  });
+  assert.equal(darkSelection.selectedVariant, "companion-purple-dark");
+  assert.equal(
+    darkSelection.iconUrl,
+    "https://aipify.ai/aipify-companion-launcher-icon-dark.svg",
+  );
 
-const companionAliasSource = fs.readFileSync(
-  path.join(root, "components/app/companion-experience/CompanionIcon.tsx"),
-  "utf8",
-);
-assert.match(companionAliasSource, /AipifyCompanionLauncherIcon as CompanionIcon/);
+  assert.equal(
+    resolveCompanionLauncherIconVariant("companion-purple-light"),
+    "companion-purple-light",
+  );
+  assert.equal(
+    resolveCompanionLauncherIconVariant(undefined),
+    DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT,
+  );
 
-console.log("companion-launcher-icon.test.ts: all assertions passed");
+  const metadataResponse = await getLauncherIconMetadata(
+    new Request("https://aipify.ai/api/embed/companion/launcher-icon"),
+  );
+  assert.equal(metadataResponse.status, 200);
+  const metadataBody = (await metadataResponse.json()) as ReturnType<
+    typeof getCompanionLauncherIconEmbedConfig
+  >;
+  assert.equal(metadataBody.iconUrl, "https://aipify.ai/aipify-companion-launcher-icon.svg");
+  assert.equal(metadataBody.defaultVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+  assert.equal(metadataBody.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+
+  const variantResponse = await getLauncherIconMetadata(
+    new Request(
+      "https://aipify.ai/api/embed/companion/launcher-icon?variant=companion-purple-light",
+    ),
+  );
+  assert.equal(variantResponse.status, 200);
+  const variantBody = (await variantResponse.json()) as ReturnType<
+    typeof getCompanionLauncherIconEmbedConfig
+  >;
+  assert.equal(variantBody.selectedVariant, "companion-purple-light");
+  assert.equal(
+    variantBody.iconUrl,
+    "https://aipify.ai/aipify-companion-launcher-icon-light.svg",
+  );
+
+  for (const key of forbiddenMetadataKeys) {
+    assert.equal(Object.hasOwn(config, key), false, `metadata must not expose ${key}`);
+    for (const variant of config.variants) {
+      assert.equal(Object.hasOwn(variant, key), false, `variant metadata must not expose ${key}`);
+    }
+  }
+
+  const assetPairs = [
+    ["public/aipify-companion-launcher-icon.svg", "assets/brand/aipify-companion-launcher-icon.svg"],
+    [
+      "public/aipify-companion-launcher-icon-dark.svg",
+      "assets/brand/aipify-companion-launcher-icon-dark.svg",
+    ],
+    [
+      "public/aipify-companion-launcher-icon-light.svg",
+      "assets/brand/aipify-companion-launcher-icon-light.svg",
+    ],
+  ] as const;
+
+  for (const [publicRelativePath, sourceRelativePath] of assetPairs) {
+    const publicAsset = path.join(root, publicRelativePath);
+    const sourceAsset = path.join(root, sourceRelativePath);
+    assert.ok(fs.existsSync(publicAsset), `${publicRelativePath} must exist`);
+    assert.ok(fs.existsSync(sourceAsset), `${sourceRelativePath} must exist`);
+
+    const svg = fs.readFileSync(publicAsset, "utf8");
+    assert.match(svg, /<svg/);
+    assert.match(svg, /viewBox="-1 -1 50 50"/);
+    assert.equal(
+      fs.readFileSync(sourceAsset, "utf8"),
+      svg,
+      `${publicRelativePath} must match source asset`,
+    );
+  }
+
+  const defaultSvg = fs.readFileSync(
+    path.join(root, "public/aipify-companion-launcher-icon.svg"),
+    "utf8",
+  );
+  assert.match(defaultSvg, /#34D399/);
+  assert.match(defaultSvg, /#6d28d9/);
+  assert.match(defaultSvg, /aipify-companion-launcher-gradient/);
+  assert.match(defaultSvg, /aipify-companion-launcher-glow/);
+  assert.match(defaultSvg, /overflow="visible"/);
+  assert.doesNotMatch(defaultSvg, /r="18"[^>]*fill="#34D399"/);
+
+  const routeSource = fs.readFileSync(
+    path.join(root, "app/api/embed/companion/launcher-icon/route.ts"),
+    "utf8",
+  );
+  assert.match(routeSource, /getCompanionLauncherIconEmbedConfig/);
+  assert.match(routeSource, /searchParams\.get\("variant"\)/);
+
+  const brandingComponentSource = fs.readFileSync(
+    path.join(root, "components/branding/AipifyCompanionLauncherIcon.tsx"),
+    "utf8",
+  );
+  assert.match(brandingComponentSource, /AipifyCompanionLauncherIcon/);
+  assert.match(brandingComponentSource, /availabilityRing/);
+
+  const companionAliasSource = fs.readFileSync(
+    path.join(root, "components/app/companion-experience/CompanionIcon.tsx"),
+    "utf8",
+  );
+  assert.match(companionAliasSource, /AipifyCompanionLauncherIcon as CompanionIcon/);
+
+  console.log("companion-launcher-icon.test.ts: all assertions passed");
+}
+
+runCompanionLauncherIconTests().catch((error: unknown) => {
+  console.error(error);
+  process.exit(1);
+});
