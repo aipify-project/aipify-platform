@@ -4,7 +4,11 @@ import {
   type CompanionLauncherIconVariantKey,
 } from "@/lib/branding/companion-launcher-icons";
 import type { PublicCompanionVisitorContext } from "@/lib/marketing/public-companion-tenant-faq";
-import { resolvePublicCompanionVisitorContext } from "@/lib/marketing/public-companion-tenant-faq";
+import {
+  hasPublicCompanionVisitorContext,
+  resolvePublicCompanionVisitorContext,
+} from "@/lib/marketing/public-companion-tenant-faq";
+import { loadWebsiteKompisInstallConfigFromStorage } from "@/lib/marketing/website-kompis-install-config-storage";
 
 export const WEBSITE_KOMPIS_DISABLED_SOURCE = "website-kompis-disabled" as const;
 
@@ -212,6 +216,7 @@ export type WebsiteKompisInstallConfigRequestContext = {
 export type GetWebsiteKompisInstallConfigOptions = {
   requestLocale?: string | null;
   rawInstallConfig?: unknown;
+  skipPersistedLoad?: boolean;
   loadInstallConfig?: (
     visitorContext: PublicCompanionVisitorContext,
   ) => Promise<unknown> | unknown;
@@ -230,6 +235,12 @@ export async function getWebsiteKompisInstallConfigForPublicRequest(
   let rawConfig = options.rawInstallConfig;
   if (options.loadInstallConfig) {
     rawConfig = await options.loadInstallConfig(visitorContext);
+  } else if (
+    options.rawInstallConfig === undefined &&
+    !options.skipPersistedLoad &&
+    hasPublicCompanionVisitorContext(visitorContext)
+  ) {
+    rawConfig = await loadWebsiteKompisInstallConfigFromStorage(visitorContext);
   }
 
   return normalizeWebsiteKompisInstallConfig(rawConfig, {

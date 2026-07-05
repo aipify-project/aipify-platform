@@ -198,6 +198,18 @@ async function runCompanionLauncherIconTests() {
   assert.match(routeSource, /searchParams\.get\("variant"\)/);
   assert.match(routeSource, /getWebsiteKompisInstallConfigForPublicRequest/);
 
+  const installConfigSource = fs.readFileSync(
+    path.join(root, "lib/marketing/website-kompis-install-config.ts"),
+    "utf8",
+  );
+  assert.match(installConfigSource, /loadWebsiteKompisInstallConfigFromStorage/);
+
+  const storageSource = fs.readFileSync(
+    path.join(root, "lib/marketing/website-kompis-install-config-storage.ts"),
+    "utf8",
+  );
+  assert.match(storageSource, /get_website_kompis_public_install_config/);
+
   const brandingComponentSource = fs.readFileSync(
     path.join(root, "components/branding/AipifyCompanionLauncherIcon.tsx"),
     "utf8",

@@ -1302,7 +1302,27 @@ The metadata endpoint exposes `defaultVariant`, `selectedVariant`, and a `varian
 - Icon variants are selected by approved registry keys only — never arbitrary URLs.
 - Source toggles are safety-bounded; boundary rules cannot be disabled from client input.
 - `sources.publicSiteIndex` defaults to `false` until Public Site Index ships.
-- APP settings UI and persistent install config storage are later tasks.
+- APP settings UI remains a later task; storage RPCs are live in §14.3.
+
+## 14.3 Website Kompis install config storage (Core RPC)
+
+Persistent per-install settings live in `tenant_public_companion_install_config` (raw JSON only). Core normalizes on every read.
+
+| Concern | Location |
+|---------|----------|
+| Storage table | `tenant_public_companion_install_config` |
+| Public read RPC | `get_website_kompis_public_install_config(p_install_id, p_domain)` — anon-safe after visitor context resolution |
+| Authenticated read RPC | `get_website_kompis_install_config(p_install_id)` — owner/admin/platform |
+| Update RPC | `update_website_kompis_install_config(p_install_id, p_patch)` — owner/admin/platform only |
+| Storage loader | `loadWebsiteKompisInstallConfigFromStorage()` |
+| Public reader wiring | `getWebsiteKompisInstallConfigForPublicRequest()` |
+
+**Rules:**
+- DB stores raw JSON only; `normalizeWebsiteKompisInstallConfig()` remains the public contract.
+- Customer widgets must not send config; patches go through authenticated update RPC only.
+- Forbidden patch fields (`iconUrl`, `tenantId`, `customerId`, secrets) are stripped before write.
+- Public metadata and ask routes read persisted config after install/domain resolution; missing rows return safe defaults.
+- No tenant/customer IDs are exposed in public metadata or ask responses.
 
 ---
 

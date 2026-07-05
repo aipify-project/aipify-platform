@@ -242,6 +242,10 @@ async function main() {
 
   assert.match(publicCompanionAskSource, /tryBuildWebsiteKompisCurrentPublicPageAnswer/);
   assert.match(publicCompanionAskSource, /getWebsiteKompisInstallConfigForPublicRequest/);
+  assert.match(
+    fs.readFileSync(path.join(root, "lib/marketing/website-kompis-install-config.ts"), "utf8"),
+    /loadWebsiteKompisInstallConfigFromStorage/,
+  );
   assert.doesNotMatch(publicCompanionAskSource, /search_organization_knowledge|member\.search/);
 
   rpcCalled = false;
