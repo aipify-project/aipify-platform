@@ -38,10 +38,25 @@ async function main() {
   const {
     matchesPublicCompanionTenantFaqQuery,
     scorePublicCompanionTenantFaqMatch,
+    tokenizePublicCompanionFaqQuery,
   } = await import("./public-companion-tenant-faq-retrieval");
 
   installServerOnlyShim();
   const { askPublicPlatformCompanion } = await import("./public-companion-ask");
+
+  const closedQueryTokens = tokenizePublicCompanionFaqQuery("Er dere stengt i påsken?");
+  assert.ok(closedQueryTokens.includes("stengt"), `expected stengt in ${closedQueryTokens.join(",")}`);
+  assert.ok(closedQueryTokens.includes("påsken"), `expected påsken in ${closedQueryTokens.join(",")}`);
+
+  const serviceQueryTokens = tokenizePublicCompanionFaqQuery("Når svarer kundeservice igjen?");
+  for (const token of ["svarer", "kundeservice", "igjen"]) {
+    assert.ok(serviceQueryTokens.includes(token), `expected ${token} in ${serviceQueryTokens.join(",")}`);
+  }
+
+  const dateQueryTokens = tokenizePublicCompanionFaqQuery("Er kundeservice tilbake 22. april?");
+  for (const token of ["kundeservice", "tilbake", "22", "april"]) {
+    assert.ok(dateQueryTokens.includes(token), `expected ${token} in ${dateQueryTokens.join(",")}`);
+  }
 
   const titleQuery = "Har dere åpent i påsken?";
   assert.equal(matchesPublicCompanionTenantFaqQuery(titleQuery, EASTER_FAQ), true);
@@ -52,6 +67,11 @@ async function main() {
   assert.equal(matchesPublicCompanionTenantFaqQuery(answerBodyQuery, EASTER_FAQ), true);
   const answerBodyScore = scorePublicCompanionTenantFaqMatch(answerBodyQuery, EASTER_FAQ);
   assert.ok(answerBodyScore.score >= 10, `expected answer-body match score >= 10, got ${answerBodyScore.score}`);
+
+  const closedQuery = "Er dere stengt i påsken?";
+  assert.equal(matchesPublicCompanionTenantFaqQuery(closedQuery, EASTER_FAQ), true);
+  const closedScore = scorePublicCompanionTenantFaqMatch(closedQuery, EASTER_FAQ);
+  assert.ok(closedScore.score >= 10, `expected closed-query match score >= 10, got ${closedScore.score}`);
 
   const answerDateQuery = "Er kundeservice tilbake 22. april?";
   assert.equal(matchesPublicCompanionTenantFaqQuery(answerDateQuery, EASTER_FAQ), true);
@@ -70,7 +90,7 @@ async function main() {
     matched_reason: answerBodyScore.matchedReason,
   };
 
-  for (const query of [titleQuery, answerBodyQuery, answerDateQuery]) {
+  for (const query of [titleQuery, closedQuery, answerBodyQuery, answerDateQuery]) {
     assert.equal(isRelevantPublicCompanionTenantFaqResult([fixtureRow], query), true);
     const response = buildPublicCompanionTenantFaqResponse([fixtureRow], "no");
     assert.match(response.answer.directAnswer, /stengt 17/);
@@ -79,6 +99,8 @@ async function main() {
       `expected website-kompis-faq source for ${query}`,
     );
   }
+
+  assert.equal(matchesPublicCompanionTenantFaqQuery("Hvilken løsninger har dere?", EASTER_FAQ), false);
 
   const installId = "11111111-1111-4111-8111-111111111111";
   const fallbackResponse = await askPublicPlatformCompanion(
