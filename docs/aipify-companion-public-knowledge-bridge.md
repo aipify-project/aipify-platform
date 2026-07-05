@@ -1291,4 +1291,31 @@ This gate does **not** deliver:
 
 ---
 
+# PUBLIC.KOMPIS.FAQ.MIGRATION.VERSION.RECONCILE — Website Kompis FAQ migration filenames
+
+**Status:** Reconciled (repo only — not applied to remote until controlled apply gate)
+
+Remote Supabase Core already recorded unrelated migrations at version keys that collided with initial Website Kompis FAQ filenames:
+
+| Remote version | Remote name | Website Kompis FAQ? |
+|----------------|-------------|---------------------|
+| `20261932100000` | `core_human_approval_foundation` | **No** — unrelated |
+| `20261932200000` | `remote_reconciliation_emergency_stop_forward_fix` | **No** — unrelated |
+
+**Canonical Website Kompis FAQ migration files (after reconcile):**
+
+| Gate | Filename |
+|------|----------|
+| **01D** | `supabase/migrations/20261932300000_tenant_public_companion_faq.sql` |
+| **01E** | `supabase/migrations/20261932400000_tenant_public_companion_faq_rpcs.sql` |
+
+**Superseded local filenames (do not use for apply):**
+
+- `20261932000000_tenant_public_companion_faq.sql`
+- `20261932100000_tenant_public_companion_faq_rpcs.sql`
+
+Apply order: **01D (`20261932300000`) → 01E (`20261932400000`)** via controlled migration apply gate only.
+
+---
+
 *End of PUBLIC.KOMPIS.FAQ.01C.APP.UI.SPEC*

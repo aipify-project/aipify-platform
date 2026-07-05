@@ -1,6 +1,6 @@
 -- PUBLIC.KOMPIS.FAQ.01E — Website Kompis FAQ admin RPCs + public-safe visitor search
 -- Feature owner: Customer App (admin) · Install Engine (public read)
--- Builds on: 20261932000000_tenant_public_companion_faq.sql
+-- Builds on: 20261932300000_tenant_public_companion_faq.sql
 
 -- ---------------------------------------------------------------------------
 -- 0. Internal helpers
