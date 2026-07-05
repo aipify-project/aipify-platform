@@ -51,6 +51,12 @@ import {
   isExplicitAipifyOrKompisQuestion,
 } from "@/lib/marketing/website-kompis-public-boundary";
 import { tryBuildWebsiteKompisCurrentPublicPageAnswer } from "@/lib/marketing/website-kompis-public-page-context";
+import {
+  buildWebsiteKompisDisabledResponse,
+  getWebsiteKompisInstallConfigForPublicRequest,
+  type GetWebsiteKompisInstallConfigOptions,
+  type WebsiteKompisInstallConfig,
+} from "@/lib/marketing/website-kompis-install-config";
 
 export const PUBLIC_COMPANION_ASK_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
 export type PublicCompanionAskLocale = (typeof PUBLIC_COMPANION_ASK_LOCALES)[number];
@@ -89,6 +95,8 @@ export type PublicCompanionAskRequest = {
 export type PublicCompanionAskOptions = {
   requestHost?: string | null;
   searchTenantVisitorKnowledge?: typeof searchPublicCompanionTenantFaq;
+  rawInstallConfig?: unknown;
+  loadInstallConfig?: GetWebsiteKompisInstallConfigOptions["loadInstallConfig"];
 };
 
 export type PublicCompanionAskAction = {
@@ -656,7 +664,12 @@ async function tryBuildPublicTenantFaqAnswer(
   searchTenantVisitorKnowledge: typeof searchPublicCompanionTenantFaq,
   visitorContext: PublicCompanionVisitorContext,
   onCustomerWebsite: boolean,
+  installConfig: WebsiteKompisInstallConfig,
 ): Promise<PublicCompanionAskResponse | null> {
+  if (!installConfig.sources.faq) {
+    return null;
+  }
+
   if (onCustomerWebsite) {
     if (isExplicitAipifyOrKompisQuestion(question)) {
       return null;
@@ -701,6 +714,24 @@ export async function askPublicPlatformCompanion(
   });
   const onCustomerWebsite = isCustomerWebsiteVisitorContext(visitorContext);
 
+  const installConfig = await getWebsiteKompisInstallConfigForPublicRequest(
+    {
+      installId: validated.installId,
+      domain: validated.domain,
+      requestHost: options?.requestHost,
+      locale,
+    },
+    {
+      rawInstallConfig: options?.rawInstallConfig,
+      loadInstallConfig: options?.loadInstallConfig,
+      requestLocale: locale,
+    },
+  );
+
+  if (!installConfig.enabled) {
+    return buildWebsiteKompisDisabledResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
+  }
+
   const dict = await getCustomerAppDictionaryForSplits(locale as Locale, [
     "companionPlatformKnowledge",
     "portalStructure",
@@ -722,6 +753,7 @@ export async function askPublicPlatformCompanion(
     searchTenantVisitorKnowledge,
     visitorContext,
     onCustomerWebsite,
+    installConfig,
   );
   if (tenantFaqAnswer) {
     return tenantFaqAnswer;
@@ -739,25 +771,39 @@ export async function askPublicPlatformCompanion(
   }
 
   if (onCustomerWebsite && !isExplicitAipifyOrKompisQuestion(validated.question)) {
-    const currentPageAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
-      question: validated.question,
-      pageContext: validated.pageContext,
-      locale,
-    });
-    if (currentPageAnswer) {
-      return {
-        answer: currentPageAnswer.answer,
-        actions: [],
-        sources: currentPageAnswer.sources,
-        confidence: {
-          level: currentPageAnswer.confidence.level,
-          score: currentPageAnswer.confidence.score,
-        },
-        supportEscalation: { offered: false, reason: null },
+    if (installConfig.sources.currentPage) {
+      const currentPageAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
+        question: validated.question,
+        pageContext: validated.pageContext,
         locale,
-      };
+      });
+      if (currentPageAnswer) {
+        return {
+          answer: currentPageAnswer.answer,
+          actions: [],
+          sources: currentPageAnswer.sources,
+          confidence: {
+            level: currentPageAnswer.confidence.level,
+            score: currentPageAnswer.confidence.score,
+          },
+          supportEscalation: { offered: false, reason: null },
+          locale,
+        };
+      }
     }
 
+    return buildWebsiteKompisSafeFallbackResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
+  }
+
+  if (
+    onCustomerWebsite &&
+    isExplicitAipifyOrKompisQuestion(validated.question) &&
+    !installConfig.sources.aipifyPublic
+  ) {
+    return buildWebsiteKompisSafeFallbackResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
+  }
+
+  if (!installConfig.sources.aipifyPublic) {
     return buildWebsiteKompisSafeFallbackResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
   }
 

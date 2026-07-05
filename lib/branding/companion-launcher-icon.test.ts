@@ -114,6 +114,36 @@ async function runCompanionLauncherIconTests() {
     "https://aipify.ai/aipify-companion-launcher-icon-light.svg",
   );
 
+  const installConfigMeta = getCompanionLauncherIconEmbedConfig(origin, {
+    installConfig: {
+      enabled: false,
+      iconVariant: "companion-purple-dark",
+      welcomeMessageVariant: "compact",
+      fallbackTone: "short-direct",
+    },
+    preferInstallConfigVariant: true,
+  });
+  assert.equal(installConfigMeta.selectedVariant, "companion-purple-dark");
+  assert.equal(installConfigMeta.enabled, false);
+  assert.equal(installConfigMeta.welcomeMessageVariant, "compact");
+
+  const invalidInstallVariant = getCompanionLauncherIconEmbedConfig(origin, {
+    installConfig: { iconVariant: "bad-variant" },
+    preferInstallConfigVariant: true,
+  });
+  assert.equal(invalidInstallVariant.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+
+  const installSelectorResponse = await getLauncherIconMetadata(
+    new Request(
+      "https://aipify.ai/api/embed/companion/launcher-icon?installId=11111111-1111-4111-8111-111111111111&domain=example-a.test&variant=companion-purple-light",
+    ),
+  );
+  assert.equal(installSelectorResponse.status, 200);
+  const installSelectorBody = (await installSelectorResponse.json()) as ReturnType<
+    typeof getCompanionLauncherIconEmbedConfig
+  >;
+  assert.equal(installSelectorBody.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+
   for (const key of forbiddenMetadataKeys) {
     assert.equal(Object.hasOwn(config, key), false, `metadata must not expose ${key}`);
     for (const variant of config.variants) {
@@ -166,6 +196,7 @@ async function runCompanionLauncherIconTests() {
   );
   assert.match(routeSource, /getCompanionLauncherIconEmbedConfig/);
   assert.match(routeSource, /searchParams\.get\("variant"\)/);
+  assert.match(routeSource, /getWebsiteKompisInstallConfigForPublicRequest/);
 
   const brandingComponentSource = fs.readFileSync(
     path.join(root, "components/branding/AipifyCompanionLauncherIcon.tsx"),

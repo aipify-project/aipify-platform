@@ -1284,7 +1284,25 @@ Customer embeds should consume the icon from Aipify Core — either the public S
 | `companion-purple-dark` | light / white websites | Stronger contrast on light backgrounds |
 | `companion-purple-light` | dark / black websites | Brighter mark on dark backgrounds |
 
-The metadata endpoint exposes `defaultVariant`, `selectedVariant`, and a `variants` array. Until install/config selection is wired, `selectedVariant` equals `defaultVariant`. Optional `?variant=` query param validates against the registry and falls back safely.
+The metadata endpoint exposes `defaultVariant`, `selectedVariant`, and a `variants` array. Optional `?installId=` and `?domain=` selectors resolve Core-normalized install config when present; otherwise `selectedVariant` equals `defaultVariant`. Optional `?variant=` query param validates against the registry and falls back safely when no install selector is provided.
+
+## 14.2 Website Kompis install config (Core contract)
+
+**Aipify Core owns `WebsiteKompisInstallConfig`.** Customer widgets must not send config in ask requests. Core normalizes approved settings from install storage (future) or safe defaults today.
+
+| Concern | Location |
+|---------|----------|
+| Config contract | `lib/marketing/website-kompis-install-config.ts` |
+| Normalizer | `normalizeWebsiteKompisInstallConfig()` |
+| Public reader | `getWebsiteKompisInstallConfigForPublicRequest()` |
+| Public ask usage | `askPublicPlatformCompanion()` |
+| Launcher metadata usage | `GET /api/embed/companion/launcher-icon` |
+
+**Rules:**
+- Icon variants are selected by approved registry keys only — never arbitrary URLs.
+- Source toggles are safety-bounded; boundary rules cannot be disabled from client input.
+- `sources.publicSiteIndex` defaults to `false` until Public Site Index ships.
+- APP settings UI and persistent install config storage are later tasks.
 
 ---
 

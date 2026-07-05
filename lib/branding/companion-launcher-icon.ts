@@ -35,6 +35,9 @@ export type CompanionLauncherIconEmbedConfig = {
   defaultVariant: CompanionLauncherIconVariantKey;
   selectedVariant: CompanionLauncherIconVariantKey;
   variants: CompanionLauncherIconVariantPublicMetadata[];
+  enabled?: boolean;
+  welcomeMessageVariant?: string;
+  fallbackTone?: string;
 };
 
 export type CompanionLauncherIconVariantPublicMetadata = Pick<
@@ -53,6 +56,13 @@ export type CompanionLauncherIconVariantPublicMetadata = Pick<
 export type GetCompanionLauncherIconEmbedConfigOptions = {
   /** Optional variant key; invalid values fall back to default. */
   variant?: string | null;
+  installConfig?: {
+    enabled?: boolean;
+    iconVariant?: string | null;
+    welcomeMessageVariant?: string;
+    fallbackTone?: string;
+  } | null;
+  preferInstallConfigVariant?: boolean;
 };
 
 function toVariantPublicMetadata(
@@ -88,10 +98,14 @@ export function getCompanionLauncherIconEmbedConfig(
   origin: string,
   options: GetCompanionLauncherIconEmbedConfigOptions = {},
 ): CompanionLauncherIconEmbedConfig {
-  const selectedVariant = resolveCompanionLauncherIconVariant(options.variant);
+  const installVariant =
+    options.preferInstallConfigVariant && options.installConfig?.iconVariant
+      ? resolveCompanionLauncherIconVariant(options.installConfig.iconVariant)
+      : null;
+  const selectedVariant = installVariant ?? resolveCompanionLauncherIconVariant(options.variant);
   const selected = getCompanionLauncherIconVariantDefinition(selectedVariant);
 
-  return {
+  const config: CompanionLauncherIconEmbedConfig = {
     id: selected.id,
     iconUrl: getCompanionLauncherIconUrlForVariant(origin, selectedVariant),
     iconPath: selected.iconPath,
@@ -104,4 +118,16 @@ export function getCompanionLauncherIconEmbedConfig(
       toVariantPublicMetadata(origin, definition),
     ),
   };
+
+  if (options.installConfig) {
+    config.enabled = options.installConfig.enabled ?? true;
+    if (options.installConfig.welcomeMessageVariant) {
+      config.welcomeMessageVariant = options.installConfig.welcomeMessageVariant;
+    }
+    if (options.installConfig.fallbackTone) {
+      config.fallbackTone = options.installConfig.fallbackTone;
+    }
+  }
+
+  return config;
 }
