@@ -1,8 +1,8 @@
+import { collectPublicCompanionSubmitPageContext } from "@/lib/companion-runtime/companion-submit-page-context";
 import {
-  collectPublicCompanionSubmitPageContext,
-  sanitizeCompanionSubmitPageContext,
-  type CompanionSubmitPageContext,
-} from "@/lib/companion-runtime/companion-submit-page-context";
+  sanitizeWebsiteKompisPublicPageContext,
+  type WebsiteKompisPublicPageContext,
+} from "@/lib/marketing/website-kompis-public-page-context";
 
 export const WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH = 1000;
 export const WEBSITE_COMPANION_CHAT_MAX_CONTEXT_MESSAGES = 6;
@@ -62,7 +62,7 @@ export type WebsiteCompanionChatMessage =
   | WebsiteCompanionAssistantMessage
   | WebsiteCompanionErrorMessage;
 
-export type WebsiteCompanionPageContext = CompanionSubmitPageContext;
+export type WebsiteCompanionPageContext = WebsiteKompisPublicPageContext;
 
 export type WebsiteCompanionAskRequestBody = {
   question: string;
@@ -84,7 +84,7 @@ export const WEBSITE_COMPANION_PAGE_CONTEXT_MAX_META_DESCRIPTION_LENGTH = 320;
 export function sanitizeWebsiteCompanionPageContext(
   value: unknown,
 ): WebsiteCompanionPageContext | undefined {
-  return sanitizeCompanionSubmitPageContext(value);
+  return sanitizeWebsiteKompisPublicPageContext(value);
 }
 
 export function collectWebsiteCompanionPageContext(windowLike?: {
@@ -94,7 +94,9 @@ export function collectWebsiteCompanionPageContext(windowLike?: {
     querySelector?: (selector: string) => { getAttribute?: (name: string) => string | null } | null;
   };
 }): WebsiteCompanionPageContext | undefined {
-  return collectPublicCompanionSubmitPageContext(windowLike);
+  const collected = collectPublicCompanionSubmitPageContext(windowLike);
+  if (!collected) return undefined;
+  return sanitizeWebsiteKompisPublicPageContext(collected);
 }
 
 export type WebsiteCompanionQuestionValidationResult =

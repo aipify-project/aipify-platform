@@ -105,6 +105,79 @@ async function main() {
   assert.equal(fallbackResponse.sources[0]?.route, "website-kompis-safe-fallback");
   assert.match(fallbackResponse.answer.directAnswer, /Example-a|virksomheten/i);
 
+  const pageContext = {
+    pathname: "/services/consulting",
+    title: "Consulting Services",
+    metaDescription: "We offer consulting services for growing teams.",
+    surface: "public" as const,
+    headings: [{ level: 1 as const, text: "Consulting Services" }],
+    textSnippets: ["Our consulting packages help teams adopt new workflows."],
+  };
+
+  const faqWins = await askPublicPlatformCompanion(
+    {
+      question: "Har dere åpent i påsken?",
+      locale: "no",
+      domain: "example-a.test",
+      installId,
+      pageContext,
+    },
+    {
+      searchTenantVisitorKnowledge: async () => [
+        {
+          item_id: "22222222-2222-4222-8222-222222222222",
+          title: "Åpningstider i påsken",
+          answer: "Vi holder stengt 17.–21. april.",
+          category: "hours",
+          content_type: "holiday_notice",
+          locale: "no",
+          source_url: "https://example-a.test/kontakt",
+          score: 40,
+          matched_reason: "title_match",
+        },
+      ],
+    },
+  );
+  assert.match(faqWins.answer.directAnswer, /stengt 17/);
+  assert.ok(
+    faqWins.sources.some(
+      (source) =>
+        source.route.startsWith("website-kompis-faq:") || source.route.startsWith("https://"),
+    ),
+  );
+
+  const pageContextAnswer = await askPublicPlatformCompanion(
+    {
+      question: "Tell me about consulting services",
+      locale: "en",
+      domain: "example-a.test",
+      installId,
+      pageContext,
+    },
+    {
+      searchTenantVisitorKnowledge: async () => [],
+    },
+  );
+  assert.equal(pageContextAnswer.sources[0]?.route, "website-kompis-current-page");
+  assert.match(pageContextAnswer.answer.directAnswer, /consulting/i);
+
+  const unrelatedWithContext = await askPublicPlatformCompanion(
+    {
+      question: "What is the weather today?",
+      locale: "en",
+      domain: "example-a.test",
+      installId,
+      pageContext,
+    },
+    {
+      searchTenantVisitorKnowledge: async () => [],
+    },
+  );
+  assert.equal(unrelatedWithContext.sources[0]?.route, "website-kompis-safe-fallback");
+
+  assert.match(publicCompanionAskSource, /tryBuildWebsiteKompisCurrentPublicPageAnswer/);
+  assert.doesNotMatch(publicCompanionAskSource, /search_organization_knowledge|member\.search/);
+
   rpcCalled = false;
   const coreResponse = await askPublicPlatformCompanion(
     {

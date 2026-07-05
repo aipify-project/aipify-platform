@@ -50,6 +50,7 @@ import {
   isCustomerWebsiteVisitorContext,
   isExplicitAipifyOrKompisQuestion,
 } from "@/lib/marketing/website-kompis-public-boundary";
+import { tryBuildWebsiteKompisCurrentPublicPageAnswer } from "@/lib/marketing/website-kompis-public-page-context";
 
 export const PUBLIC_COMPANION_ASK_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
 export type PublicCompanionAskLocale = (typeof PUBLIC_COMPANION_ASK_LOCALES)[number];
@@ -738,6 +739,25 @@ export async function askPublicPlatformCompanion(
   }
 
   if (onCustomerWebsite && !isExplicitAipifyOrKompisQuestion(validated.question)) {
+    const currentPageAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
+      question: validated.question,
+      pageContext: validated.pageContext,
+      locale,
+    });
+    if (currentPageAnswer) {
+      return {
+        answer: currentPageAnswer.answer,
+        actions: [],
+        sources: currentPageAnswer.sources,
+        confidence: {
+          level: currentPageAnswer.confidence.level,
+          score: currentPageAnswer.confidence.score,
+        },
+        supportEscalation: { offered: false, reason: null },
+        locale,
+      };
+    }
+
     return buildWebsiteKompisSafeFallbackResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
   }
 
