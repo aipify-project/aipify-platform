@@ -111,6 +111,74 @@ async function runWebsiteKompisInstallConfigTests() {
   assert.equal(fromPersisted.sources.faq, false);
   assert.equal(fromPersisted.sources.aipifyPublic, false);
 
+  const exampleInstallId = "11111111-1111-4111-8111-111111111111";
+  const exampleDomain = "example-a.test";
+  const persistedPatch = {
+    iconVariant: "companion-purple-light",
+    welcomeMessageVariant: "compact",
+    fallbackTone: "short-direct",
+  };
+
+  const domainOnly = await getWebsiteKompisInstallConfigForPublicRequest(
+    { domain: exampleDomain, requestHost: "aipify.ai" },
+    {
+      loadInstallConfig: async (visitorContext) => {
+        assert.equal(visitorContext.domain, exampleDomain);
+        assert.equal(visitorContext.installId, null);
+        return persistedPatch;
+      },
+    },
+  );
+  assert.equal(domainOnly.iconVariant, "companion-purple-light");
+  assert.equal(domainOnly.welcomeMessageVariant, "compact");
+
+  const installIdAndDomain = await getWebsiteKompisInstallConfigForPublicRequest(
+    { installId: exampleInstallId, domain: exampleDomain, requestHost: "aipify.ai" },
+    {
+      loadInstallConfig: async (visitorContext) => {
+        assert.equal(visitorContext.installId, exampleInstallId);
+        assert.equal(visitorContext.domain, exampleDomain);
+        return persistedPatch;
+      },
+    },
+  );
+  assert.equal(installIdAndDomain.iconVariant, "companion-purple-light");
+
+  const installIdOnly = await getWebsiteKompisInstallConfigForPublicRequest(
+    { installId: exampleInstallId, requestHost: "aipify.ai" },
+    {
+      loadInstallConfig: async (visitorContext) => {
+        assert.equal(visitorContext.installId, exampleInstallId);
+        assert.equal(visitorContext.domain, null);
+        return persistedPatch;
+      },
+    },
+  );
+  assert.equal(installIdOnly.iconVariant, "companion-purple-light");
+  assert.equal(installIdOnly.fallbackTone, "short-direct");
+
+  const installIdWrongDomain = await getWebsiteKompisInstallConfigForPublicRequest(
+    {
+      installId: exampleInstallId,
+      domain: "wrong.example",
+      requestHost: "aipify.ai",
+    },
+    {
+      loadInstallConfig: async (visitorContext) => {
+        assert.equal(visitorContext.domain, "wrong.example");
+        return null;
+      },
+    },
+  );
+  assert.equal(installIdWrongDomain.iconVariant, "companion-purple-default");
+
+  const invalidInstallId = await getWebsiteKompisInstallConfigForPublicRequest(
+    { installId: "not-a-uuid" },
+    { skipPersistedLoad: true },
+  );
+  assert.equal(invalidInstallId.iconVariant, "companion-purple-default");
+  assert.equal(Object.hasOwn(invalidInstallId, "tenantId"), false);
+
   console.log("website-kompis-install-config.test.ts: all assertions passed");
 }
 

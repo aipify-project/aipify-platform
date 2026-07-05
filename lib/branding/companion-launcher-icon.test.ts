@@ -144,6 +144,30 @@ async function runCompanionLauncherIconTests() {
   >;
   assert.equal(installSelectorBody.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
 
+  const installIdOnlyResponse = await getLauncherIconMetadata(
+    new Request(
+      "https://aipify.ai/api/embed/companion/launcher-icon?installId=11111111-1111-4111-8111-111111111111",
+    ),
+  );
+  assert.equal(installIdOnlyResponse.status, 200);
+  const installIdOnlyBody = (await installIdOnlyResponse.json()) as ReturnType<
+    typeof getCompanionLauncherIconEmbedConfig
+  >;
+  assert.equal(installIdOnlyBody.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+  assert.equal(installIdOnlyBody.defaultVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+  for (const key of forbiddenMetadataKeys) {
+    assert.equal(Object.hasOwn(installIdOnlyBody, key), false);
+  }
+
+  const invalidInstallResponse = await getLauncherIconMetadata(
+    new Request("https://aipify.ai/api/embed/companion/launcher-icon?installId=not-a-uuid"),
+  );
+  assert.equal(invalidInstallResponse.status, 200);
+  const invalidInstallBody = (await invalidInstallResponse.json()) as ReturnType<
+    typeof getCompanionLauncherIconEmbedConfig
+  >;
+  assert.equal(invalidInstallBody.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+
   for (const key of forbiddenMetadataKeys) {
     assert.equal(Object.hasOwn(config, key), false, `metadata must not expose ${key}`);
     for (const variant of config.variants) {

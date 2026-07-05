@@ -95,6 +95,28 @@ async function runStorageLoaderTests() {
     },
   );
   assert.equal(noContext, null);
+
+  let installIdOnlyDomainArg: string | null | undefined;
+  const installIdOnly = await loadWebsiteKompisInstallConfigFromStorage(
+    { installId, domain: null },
+    {
+      supabase: {
+        rpc: async (_name: string, args: { p_domain?: string | null }) => {
+          installIdOnlyDomainArg = args.p_domain;
+          return {
+            data: {
+              ok: true,
+              install_id: installId,
+              config: { iconVariant: "companion-purple-light" },
+            },
+            error: null,
+          };
+        },
+      } as unknown as Pick<SupabaseClient, "rpc">,
+    },
+  );
+  assert.equal(installIdOnlyDomainArg, null);
+  assert.deepEqual(installIdOnly, { iconVariant: "companion-purple-light" });
 }
 
 runStorageLoaderTests()
