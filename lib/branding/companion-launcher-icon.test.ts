@@ -32,6 +32,15 @@ const svg = fs.readFileSync(publicAsset, "utf8");
 assert.match(svg, /#34D399/);
 assert.match(svg, /#6d28d9/);
 assert.match(svg, /aipify-companion-launcher-gradient/);
+assert.match(svg, /aipify-companion-launcher-glow/);
+assert.match(svg, /viewBox="-1 -1 50 50"/);
+assert.match(svg, /overflow="visible"/);
+assert.doesNotMatch(svg, /r="18"[^>]*fill="#34D399"/);
+assert.equal(
+  fs.readFileSync(sourceAsset, "utf8"),
+  fs.readFileSync(publicAsset, "utf8"),
+  "public launcher icon must match source asset",
+);
 
 const routeSource = fs.readFileSync(
   path.join(root, "app/api/embed/companion/launcher-icon/route.ts"),
