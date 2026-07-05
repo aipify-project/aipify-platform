@@ -675,7 +675,7 @@ async function tryBuildPublicTenantFaqAnswer(
     return null;
   }
 
-  return buildPublicCompanionTenantFaqResponse(rows, locale);
+  return buildPublicCompanionTenantFaqResponse(rows, locale) as PublicCompanionAskResponse;
 }
 
 export async function askPublicPlatformCompanion(

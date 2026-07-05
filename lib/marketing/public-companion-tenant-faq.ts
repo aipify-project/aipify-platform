@@ -1,7 +1,22 @@
 import "server-only";
 
 import { createPublicAnonSupabaseClient } from "@/lib/supabase/public-anon";
-import type { PublicCompanionAskLocale, PublicCompanionAskResponse } from "@/lib/marketing/public-companion-ask";
+
+export type PublicCompanionTenantFaqAnswer = {
+  answer: {
+    directAnswer: string;
+    explanation: null;
+    steps: [];
+  };
+  actions: [];
+  sources: Array<{ title: string; route: string }>;
+  confidence: {
+    level: "high" | "medium" | "low";
+    score: number;
+  };
+  supportEscalation: { offered: false; reason: null };
+  locale: string;
+};
 
 export const PUBLIC_COMPANION_TENANT_FAQ_RPC = "search_tenant_public_visitor_knowledge" as const;
 export const PUBLIC_COMPANION_TENANT_FAQ_MIN_QUERY_LENGTH = 2;
@@ -155,8 +170,8 @@ function isSafeTenantFaqSourceUrl(url: string): boolean {
 
 export function buildPublicCompanionTenantFaqResponse(
   rows: PublicCompanionTenantFaqRow[],
-  locale: PublicCompanionAskLocale,
-): PublicCompanionAskResponse {
+  locale: string,
+): PublicCompanionTenantFaqAnswer {
   const primary = rows[0];
   const supplemental = rows.slice(1, 3);
 
