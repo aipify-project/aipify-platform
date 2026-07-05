@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
-import AipifyPulse from "@/components/branding/AipifyPulse";
+import { AipifyCompanionLauncherIcon } from "@/components/branding/AipifyCompanionLauncherIcon";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
   COMPANION_PUBLIC_LINK_BECOME_PARTNER_URL,
@@ -915,7 +915,7 @@ export default function WebsiteCompanionAssistant({
             aria-hidden="true"
           />
           <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-aipify-surface">
-            <AipifyPulse size={28} variant="gradient" title={title} aria-label={title} />
+            <AipifyCompanionLauncherIcon size={40} availabilityRing title={title} ariaLabel={title} />
           </span>
           <span className="sr-only">{`${presenceLabel}: ${stateLabel}`}</span>
         </button>
