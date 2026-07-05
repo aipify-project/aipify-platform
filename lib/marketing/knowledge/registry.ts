@@ -198,3 +198,18 @@ export function getArticlesByIndustry(industryId: PublicKnowledgeIndustryId): Pu
 export function getAllArticleSlugs(): string[] {
   return PUBLIC_KNOWLEDGE_ARTICLE_REGISTRY.map((a) => a.slug);
 }
+
+const PUBLIC_KNOWLEDGE_ARTICLE_PATH_PREFIX = "/knowledge/articles/";
+
+/** Resolve marketing knowledge article slug from a public-site pathname. */
+export function resolvePublicKnowledgeArticleSlugFromPathname(pathname: string): string | null {
+  const normalized = pathname.trim();
+  if (!normalized.startsWith(PUBLIC_KNOWLEDGE_ARTICLE_PATH_PREFIX)) {
+    return null;
+  }
+  const slug = normalized.slice(PUBLIC_KNOWLEDGE_ARTICLE_PATH_PREFIX.length).replace(/\/+$/, "");
+  if (!slug || slug.includes("/")) {
+    return null;
+  }
+  return getArticleMeta(slug) ? slug : null;
+}

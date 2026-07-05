@@ -7,7 +7,11 @@ import {
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as unknown;
-    const response = await askPublicPlatformCompanion(body as Parameters<typeof askPublicPlatformCompanion>[0]);
+    const requestHost = request.headers.get("host");
+    const response = await askPublicPlatformCompanion(
+      body as Parameters<typeof askPublicPlatformCompanion>[0],
+      { requestHost },
+    );
     return NextResponse.json(response);
   } catch (error) {
     if (error instanceof PublicCompanionAskValidationError) {

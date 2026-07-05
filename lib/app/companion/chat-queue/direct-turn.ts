@@ -6,6 +6,8 @@ import {
 import { buildDirectDateTimeAnswer } from "@/lib/companion-runtime/direct-datetime-answer";
 import { coerceToCustomerActiveLocale } from "@/lib/i18n/customer-active-locale-registry";
 import { executeCompanionTurnToPayload } from "./execute-turn";
+import { sanitizeCompanionSubmitPageContext } from "@/lib/companion-runtime/companion-submit-page-context";
+import type { CompanionSubmitPageContext } from "@/lib/companion-runtime/companion-submit-page-context";
 import { executeDirectOrganizationOrFoundationTurn } from "./direct-organization-turn";
 
 export const COMPANION_DIRECT_EXACT_SOURCE_TIMEOUT_MS = 5_000;
@@ -16,6 +18,7 @@ export type ExecuteDirectCompanionTurnInput = {
   question: string;
   locale: string;
   pathname?: string | null;
+  pageContext?: CompanionSubmitPageContext;
   title?: string | null;
   timeZone?: string | null;
   platformActiveModules?: string[];
@@ -230,6 +233,7 @@ export async function executeDirectCompanionTurn(
         locale: input.locale,
         conversationId: input.conversationId,
         turnRoute: "lightweight",
+        pageContext: input.pageContext,
       }),
       3_000,
     );

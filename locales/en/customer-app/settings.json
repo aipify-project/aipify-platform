@@ -72,6 +72,10 @@
           "3": {
             "href": "/app/settings/business-dna",
             "label": "Business DNA"
+          },
+          "4": {
+            "href": "/app/website-kompis/faq",
+            "label": "Website Kompis FAQ"
           }
         }
       },

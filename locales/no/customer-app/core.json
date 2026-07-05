@@ -6762,5 +6762,95 @@
       "philosophy": "People First. Aggregate-only capacity scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
     }
+  },
+  "websiteKompisFaq": {
+    "title": "Website Kompis FAQ",
+    "subtitle": "Publisert innhold kan brukes av Website Kompis for besøkende på nettsiden.",
+    "navTitle": "Website Kompis FAQ",
+    "warningBanner": "Ikke publiser privat kunde-, medlem-, ansatt-, booking-, support-, økonomi- eller intern driftsinformasjon.",
+    "loading": "Forbereder Website Kompis FAQ…",
+    "accessDenied": "Kun eier eller administrator kan administrere Website Kompis FAQ.",
+    "back": "Tilbake til innstillinger",
+    "saveDraft": "Lagre utkast",
+    "saved": "Lagret",
+    "publish": "Publiser",
+    "unpublish": "Avpubliser",
+    "archive": "Arkiver",
+    "restore": "Gjenopprett til utkast",
+    "createFirst": "Opprett første offentlige FAQ",
+    "emptyTitle": "Du har ikke publisert Website Kompis FAQ ennå.",
+    "emptyDescription": "Opprett offentlig trygge svar som Website Kompis kan bruke for besøkende på nettsiden.",
+    "edit": "Rediger",
+    "create": "Opprett FAQ",
+    "cancel": "Avbryt",
+    "confirmPublishTitle": "Publiser til Website Kompis?",
+    "confirmPublishBody": "Besøkende på den offentlige nettsiden kan få dette svaret. Bekreft at innholdet er trygt for publikum.",
+    "confirmPublishAction": "Publiser nå",
+    "riskyWordsWarning": "Gjennomgå før publisering — mulig sensitiv ordlyd oppdaget",
+    "previewTitle": "Dette kan Website Kompis svare med",
+    "previewHint": "Forhåndsvisningen viser hvordan en besøkende kan se innholdet.",
+    "previewGroundingNote": "FAQ gir grunnlag — Website Kompis tilpasser formuleringen naturlig og leser ikke dette som et fast manus.",
+    "yes": "Ja",
+    "no": "Nei",
+    "errorGeneric": "Noe gikk galt. Prøv igjen.",
+    "publishDisabledHint": "Fyll ut tittel, svar, språk, innholdstype og merk som offentlig trygt før publisering.",
+    "filters": {
+      "status": "Status",
+      "locale": "Språk",
+      "contentType": "Innholdstype",
+      "search": "Søk",
+      "all": "Alle"
+    },
+    "columns": {
+      "title": "Tittel",
+      "locale": "Språk",
+      "category": "Kategori",
+      "contentType": "Innholdstype",
+      "status": "Status",
+      "publicSafe": "Offentlig trygg",
+      "priority": "Prioritet",
+      "publishedAt": "Publisert",
+      "lastReviewedAt": "Sist gjennomgått",
+      "actions": "Handlinger"
+    },
+    "fields": {
+      "title": "Tittel",
+      "question": "Spørsmål (valgfritt)",
+      "answer": "Svar",
+      "category": "Kategori",
+      "locale": "Språk",
+      "contentType": "Innholdstype",
+      "tags": "Tagger (kommaseparert)",
+      "sourceUrl": "Kilde-URL",
+      "validFrom": "Gyldig fra",
+      "validUntil": "Gyldig til",
+      "priority": "Prioritet",
+      "publicSafe": "Merk som offentlig trygg",
+      "publicSafeHint": "Påkrevd før publisering. Bekreft at innholdet er trygt for anonyme nettbesøkende.",
+      "lastReviewedAt": "Sist gjennomgått (valgfritt)"
+    },
+    "contentTypes": {
+      "faq": "FAQ",
+      "opening_hours": "Åpningstider",
+      "holiday_notice": "Helligdagsmelding",
+      "contact": "Kontakt",
+      "policy": "Retningslinje",
+      "product_info": "Produktinfo",
+      "service_info": "Tjenesteinfo",
+      "link": "Lenke"
+    },
+    "statuses": {
+      "draft": "Utkast",
+      "published": "Publisert",
+      "archived": "Arkivert"
+    },
+    "locales": {
+      "en": "Engelsk",
+      "no": "Norsk",
+      "sv": "Svensk",
+      "da": "Dansk",
+      "pl": "Polsk",
+      "uk": "Ukrainsk"
+    }
   }
 }

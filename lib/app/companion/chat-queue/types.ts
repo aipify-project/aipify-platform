@@ -1,4 +1,5 @@
 import type { CompanionChatAttachmentSummary, CompanionChatMessage } from "../types";
+import type { CompanionSubmitPageContext } from "@/lib/companion-runtime/companion-submit-page-context";
 
 export type CompanionQueueStatus =
   | "waiting"
@@ -57,6 +58,7 @@ export type EnqueueCompanionMessageInput = {
   attachmentSummaries?: CompanionChatAttachmentSummary[];
   locale: string;
   pathname: string;
+  pageContext?: CompanionSubmitPageContext;
   platformActiveModules?: string[];
   title?: string;
   companionActive?: boolean;

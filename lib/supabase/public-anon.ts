@@ -1,0 +1,18 @@
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+
+/** Anon Supabase client for public embed/marketing RPCs (no session). */
+export function createPublicAnonSupabaseClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!url || !anonKey) {
+    throw new Error("Missing Supabase public anon configuration.");
+  }
+
+  return createSupabaseClient(url, anonKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+}

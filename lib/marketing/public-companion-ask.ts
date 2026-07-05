@@ -1,5 +1,6 @@
 import "server-only";
 
+import { isPlatformProductKnowledgeQuery } from "@/lib/companion-platform-knowledge/platform-product-foundation";
 import { getPlatformCorpusEntry } from "@/lib/companion-platform-knowledge/platform-corpus";
 import { searchPlatformKnowledge } from "@/lib/companion-platform-knowledge/search";
 import type {
@@ -27,6 +28,22 @@ import {
   formatLimitValue,
   getPublicPlanCatalog,
 } from "@/lib/marketing/public-pricing";
+import { getPublicKnowledgeArticle } from "@/lib/marketing/knowledge/load";
+import { resolvePublicKnowledgeArticleSlugFromPathname } from "@/lib/marketing/knowledge/registry";
+import type { PublicKnowledgeArticleMeta } from "@/lib/marketing/knowledge/types";
+import {
+  sanitizeWebsiteCompanionPageContext,
+  type WebsiteCompanionPageContext,
+} from "@/lib/marketing/website-companion-chat";
+import {
+  buildPublicCompanionTenantFaqResponse,
+  hasPublicCompanionVisitorContext,
+  isRelevantPublicCompanionTenantFaqResult,
+  resolvePublicCompanionVisitorContext,
+  sanitizePublicCompanionDomain,
+  sanitizePublicCompanionInstallId,
+  searchPublicCompanionTenantFaq,
+} from "@/lib/marketing/public-companion-tenant-faq";
 
 export const PUBLIC_COMPANION_ASK_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
 export type PublicCompanionAskLocale = (typeof PUBLIC_COMPANION_ASK_LOCALES)[number];
@@ -35,7 +52,17 @@ export const PUBLIC_COMPANION_ASK_MAX_QUESTION_LENGTH = 1000;
 export const PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGES = 6;
 export const PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGE_LENGTH = 500;
 
-const ALLOWED_REQUEST_KEYS = new Set(["question", "locale", "messageLocale", "recentContext"]);
+const ALLOWED_REQUEST_KEYS = new Set([
+  "question",
+  "locale",
+  "messageLocale",
+  "recentContext",
+  "pageContext",
+  "domain",
+  "installId",
+]);
+
+export type PublicCompanionPageContext = WebsiteCompanionPageContext;
 
 export type PublicCompanionRecentContextMessage = {
   role: "user" | "assistant";
@@ -47,6 +74,14 @@ export type PublicCompanionAskRequest = {
   locale?: string;
   messageLocale?: string;
   recentContext?: PublicCompanionRecentContextMessage[];
+  pageContext?: PublicCompanionPageContext;
+  domain?: string;
+  installId?: string;
+};
+
+export type PublicCompanionAskOptions = {
+  requestHost?: string | null;
+  searchTenantVisitorKnowledge?: typeof searchPublicCompanionTenantFaq;
 };
 
 export type PublicCompanionAskAction = {
@@ -293,13 +328,26 @@ export function validatePublicCompanionAskRequest(body: unknown): PublicCompanio
   }
 
   const recentContext = sanitizeRecentContext(record.recentContext);
+  const pageContext = sanitizePageContext(record.pageContext);
 
   return {
     question,
     locale: typeof record.locale === "string" ? record.locale : undefined,
     messageLocale: typeof record.messageLocale === "string" ? record.messageLocale : undefined,
     recentContext,
+    pageContext,
+    domain: sanitizePublicCompanionDomain(record.domain) ?? undefined,
+    installId: sanitizePublicCompanionInstallId(record.installId) ?? undefined,
   };
+}
+
+function sanitizePageContext(value: unknown): PublicCompanionPageContext | undefined {
+  if (value == null) return undefined;
+  try {
+    return sanitizeWebsiteCompanionPageContext(value);
+  } catch {
+    throw new PublicCompanionAskValidationError("Invalid pageContext");
+  }
 }
 
 function sanitizeRecentContext(value: unknown): PublicCompanionRecentContextMessage[] | undefined {
@@ -468,11 +516,176 @@ function mapPlatformAnswerToPublicResponse(
   };
 }
 
+function slugSignificantTerms(slug: string): string[] {
+  const stopWords = new Set(["what", "is", "a", "an", "the", "how", "with", "and", "for", "to"]);
+  return slug
+    .split("-")
+    .map((term) => term.trim().toLowerCase())
+    .filter((term) => term.length > 2 && !stopWords.has(term));
+}
+
+export function isPublicPageContextQuestion(
+  question: string,
+  article: Pick<PublicKnowledgeArticleMeta, "slug" | "searchIntents"> & { title: string },
+  pageContext?: PublicCompanionPageContext,
+): boolean {
+  const normalized = question.trim().toLowerCase().replace(/[?!.]+$/, "").replace(/\s+/g, " ");
+
+  if (
+    /\b(denne siden|this page|denne artikelen|this article|på denne siden|on this page)\b/.test(
+      normalized,
+    ) ||
+    /\b(forklar denne|oppsummer denne|explain this|summarize this|what is this page about|hva handler denne)\b/.test(
+      normalized,
+    )
+  ) {
+    return true;
+  }
+
+  const titleSource = (pageContext?.title ?? article.title).toLowerCase();
+  const titleTokens = titleSource.split(/\W+/).filter((token) => token.length > 3);
+  const titleMatches = titleTokens.filter((token) => normalized.includes(token));
+  if (titleMatches.length >= 2) {
+    return true;
+  }
+
+  const slugTerms = slugSignificantTerms(article.slug);
+  const slugMatches = slugTerms.filter((term) => normalized.includes(term));
+  if (slugMatches.length >= 2) {
+    return true;
+  }
+
+  for (const intent of article.searchIntents ?? []) {
+    const intentNorm = intent.trim().toLowerCase();
+    if (!intentNorm) continue;
+    if (normalized.includes(intentNorm)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+export function buildPublicPageContextRetrievalQuery(
+  question: string,
+  article: {
+    title: string;
+    metaDescription: string;
+    introduction: string;
+  },
+  pageContext?: PublicCompanionPageContext,
+): string {
+  const title = pageContext?.title?.trim() || article.title.trim();
+  const description = pageContext?.metaDescription?.trim() || article.metaDescription.trim();
+  const introduction = article.introduction.trim().slice(0, 400);
+
+  return [
+    `Current page: ${title}`,
+    description ? `Page summary: ${description}` : null,
+    introduction ? `Page introduction: ${introduction}` : null,
+    `User question: ${question.trim()}`,
+  ]
+    .filter(Boolean)
+    .join("\n");
+}
+
+async function tryBuildPublicPageContextAnswer(
+  question: string,
+  pageContext: PublicCompanionPageContext | undefined,
+  locale: PublicCompanionAskLocale,
+): Promise<PublicCompanionAskResponse | null> {
+  if (
+    !pageContext?.pathname ||
+    (pageContext.surface && pageContext.surface !== "public") ||
+    isPlatformProductKnowledgeQuery(question)
+  ) {
+    return null;
+  }
+
+  const slug = resolvePublicKnowledgeArticleSlugFromPathname(pageContext.pathname);
+  if (!slug) {
+    return null;
+  }
+
+  const dict = await getDictionary(locale as Locale, ["marketing"]);
+  const article = getPublicKnowledgeArticle(dict.marketing as Record<string, unknown>, slug);
+  if (!article || !isPublicPageContextQuestion(question, article, pageContext)) {
+    return null;
+  }
+
+  const explanation = article.sections[0]?.body?.trim() || article.metaDescription.trim() || null;
+  const steps = article.keyTakeaways.map((entry) => entry.trim()).filter(Boolean).slice(0, 3);
+
+  return {
+    answer: {
+      directAnswer: article.introduction.trim(),
+      explanation,
+      steps,
+    },
+    actions: [
+      {
+        label: article.title,
+        href: pageContext.pathname,
+        variant: "primary",
+      },
+    ],
+    sources: [
+      {
+        title: article.title,
+        route: pageContext.pathname,
+      },
+    ],
+    confidence: { level: "high", score: 0.9 },
+    supportEscalation: { offered: false, reason: null },
+    locale,
+  };
+}
+
+async function tryBuildPublicTenantFaqAnswer(
+  question: string,
+  locale: PublicCompanionAskLocale,
+  validated: PublicCompanionAskRequest,
+  requestHost: string | null | undefined,
+  searchTenantVisitorKnowledge: typeof searchPublicCompanionTenantFaq,
+): Promise<PublicCompanionAskResponse | null> {
+  if (isPlatformProductKnowledgeQuery(question)) {
+    return null;
+  }
+
+  const visitorContext = resolvePublicCompanionVisitorContext({
+    clientDomain: validated.domain,
+    requestHost,
+    installId: validated.installId,
+  });
+
+  if (!hasPublicCompanionVisitorContext(visitorContext)) {
+    return null;
+  }
+
+  const rows = await searchTenantVisitorKnowledge({
+    installId: visitorContext.installId,
+    domain: visitorContext.domain,
+    locale,
+    query: question,
+    pathname: validated.pageContext?.pathname ?? null,
+    limit: 5,
+  });
+
+  if (!isRelevantPublicCompanionTenantFaqResult(rows, question)) {
+    return null;
+  }
+
+  return buildPublicCompanionTenantFaqResponse(rows, locale) as PublicCompanionAskResponse;
+}
+
 export async function askPublicPlatformCompanion(
   input: PublicCompanionAskRequest,
+  options?: PublicCompanionAskOptions,
 ): Promise<PublicCompanionAskResponse> {
   const validated = validatePublicCompanionAskRequest(input);
   const locale = resolvePublicCompanionLocale(validated.locale, validated.messageLocale);
+  const searchTenantVisitorKnowledge =
+    options?.searchTenantVisitorKnowledge ?? searchPublicCompanionTenantFaq;
 
   const dict = await getCustomerAppDictionaryForSplits(locale as Locale, [
     "companionPlatformKnowledge",
@@ -482,6 +695,26 @@ export async function askPublicPlatformCompanion(
 
   if (isPublicPricingQuestion(validated.question)) {
     return buildPublicPricingCompanionResponse(locale, t);
+  }
+
+  const tenantFaqAnswer = await tryBuildPublicTenantFaqAnswer(
+    validated.question,
+    locale,
+    validated,
+    options?.requestHost,
+    searchTenantVisitorKnowledge,
+  );
+  if (tenantFaqAnswer) {
+    return tenantFaqAnswer;
+  }
+
+  const pageContextAnswer = await tryBuildPublicPageContextAnswer(
+    validated.question,
+    validated.pageContext,
+    locale,
+  );
+  if (pageContextAnswer) {
+    return pageContextAnswer;
   }
 
   const contextualQuestion = buildPublicCompanionQuery(validated.question, validated.recentContext);

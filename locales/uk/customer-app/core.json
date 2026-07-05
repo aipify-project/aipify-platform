@@ -298,5 +298,95 @@
       "readinessAssessments": "How are readiness assessments performed?",
       "readinessAssessmentsAnswer": "From leadership alignment, communication effectiveness, resource availability, training readiness, and governance patterns — as governance indicators, not surveillance."
     }
+  },
+  "websiteKompisFaq": {
+    "title": "Website Kompis FAQ",
+    "subtitle": "Опублікований вміст може використовуватися Website Kompis для відвідувачів сайту.",
+    "navTitle": "Website Kompis FAQ",
+    "warningBanner": "Не публікуйте приватну інформацію про клієнтів, учасників, співробітників, бронювання, підтримку, фінанси чи внутрішні операції.",
+    "loading": "Підготовка Website Kompis FAQ…",
+    "accessDenied": "Лише власник або адміністратор може керувати Website Kompis FAQ.",
+    "back": "Назад до налаштувань",
+    "saveDraft": "Зберегти чернетку",
+    "saved": "Збережено",
+    "publish": "Опублікувати",
+    "unpublish": "Скасувати публікацію",
+    "archive": "Архівувати",
+    "restore": "Відновити до чернетки",
+    "createFirst": "Створити перше публічне FAQ",
+    "emptyTitle": "Ви ще не опублікували Website Kompis FAQ.",
+    "emptyDescription": "Створіть публічно безпечні відповіді, які Website Kompis може використовувати для відвідувачів сайту.",
+    "edit": "Редагувати",
+    "create": "Створити FAQ",
+    "cancel": "Скасувати",
+    "confirmPublishTitle": "Опублікувати в Website Kompis?",
+    "confirmPublishBody": "Відвідувачі публічного сайту можуть отримати цю відповідь. Підтвердьте, що вміст безпечний для публіки.",
+    "confirmPublishAction": "Опублікувати зараз",
+    "riskyWordsWarning": "Перевірте перед публікацією — виявлено можливі чутливі формулювання",
+    "previewTitle": "Цим Website Kompis може відповісти",
+    "previewHint": "Попередній перегляд показує, як відвідувач може побачити вміст.",
+    "previewGroundingNote": "FAQ — це основа; Website Kompis природно адаптує формулювання і не читає це як фіксований сценарій.",
+    "yes": "Так",
+    "no": "Ні",
+    "errorGeneric": "Щось пішло не так. Спробуйте ще раз.",
+    "publishDisabledHint": "Заповніть заголовок, відповідь, мову, тип вмісту та позначте як публічно безпечне перед публікацією.",
+    "filters": {
+      "status": "Статус",
+      "locale": "Мова",
+      "contentType": "Тип вмісту",
+      "search": "Пошук",
+      "all": "Усі"
+    },
+    "columns": {
+      "title": "Заголовок",
+      "locale": "Мова",
+      "category": "Категорія",
+      "contentType": "Тип вмісту",
+      "status": "Статус",
+      "publicSafe": "Публічно безпечно",
+      "priority": "Пріоритет",
+      "publishedAt": "Опубліковано",
+      "lastReviewedAt": "Останній перегляд",
+      "actions": "Дії"
+    },
+    "fields": {
+      "title": "Заголовок",
+      "question": "Питання (необов'язково)",
+      "answer": "Відповідь",
+      "category": "Категорія",
+      "locale": "Мова",
+      "contentType": "Тип вмісту",
+      "tags": "Теги (через кому)",
+      "sourceUrl": "URL джерела",
+      "validFrom": "Дійсно з",
+      "validUntil": "Дійсно до",
+      "priority": "Пріоритет",
+      "publicSafe": "Позначити як публічно безпечне",
+      "publicSafeHint": "Потрібно перед публікацією. Підтвердьте, що вміст безпечний для анонімних відвідувачів.",
+      "lastReviewedAt": "Останній перегляд (необов'язково)"
+    },
+    "contentTypes": {
+      "faq": "FAQ",
+      "opening_hours": "Години роботи",
+      "holiday_notice": "Святкове повідомлення",
+      "contact": "Контакт",
+      "policy": "Політика",
+      "product_info": "Інформація про продукт",
+      "service_info": "Інформація про послугу",
+      "link": "Посилання"
+    },
+    "statuses": {
+      "draft": "Чернетка",
+      "published": "Опубліковано",
+      "archived": "Архівовано"
+    },
+    "locales": {
+      "en": "Англійська",
+      "no": "Норвезька",
+      "sv": "Шведська",
+      "da": "Данська",
+      "pl": "Польська",
+      "uk": "Українська"
+    }
   }
 }

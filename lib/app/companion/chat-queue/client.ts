@@ -30,6 +30,7 @@ export async function enqueueCompanionMessage(
       attachment_summaries: input.attachmentSummaries ?? [],
       locale: input.locale,
       pathname: input.pathname,
+      page_context: input.pageContext ?? undefined,
       platform_active_modules: input.platformActiveModules?.join(",") ?? null,
       title: input.title,
       companion_active: input.companionActive ?? true,

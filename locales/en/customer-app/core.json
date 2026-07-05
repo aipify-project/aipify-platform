@@ -6751,5 +6751,95 @@
       "usefulness": "Companion usefulness"
     },
     "settingsLink": "Opportunity Discovery"
+  },
+  "websiteKompisFaq": {
+    "title": "Website Kompis FAQ",
+    "subtitle": "Published content can be used by Website Kompis for visitors on your website.",
+    "navTitle": "Website Kompis FAQ",
+    "warningBanner": "Do not publish private customer, member, employee, booking, support, finance, or internal operations information.",
+    "loading": "Preparing Website Kompis FAQ…",
+    "accessDenied": "Owner or administrator access is required to manage Website Kompis FAQ.",
+    "back": "Back to settings",
+    "saveDraft": "Save draft",
+    "saved": "Saved",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "archive": "Archive",
+    "restore": "Restore to draft",
+    "createFirst": "Create first public FAQ",
+    "emptyTitle": "You have not published Website Kompis FAQ yet.",
+    "emptyDescription": "Create public-safe answers that Website Kompis may use for website visitors.",
+    "edit": "Edit",
+    "create": "Create FAQ",
+    "cancel": "Cancel",
+    "confirmPublishTitle": "Publish to Website Kompis?",
+    "confirmPublishBody": "Visitors on your public website may receive this answer. Confirm that the content is public-safe.",
+    "confirmPublishAction": "Publish now",
+    "riskyWordsWarning": "Review before publishing — possible sensitive wording detected",
+    "previewTitle": "This is what Website Kompis may answer with",
+    "previewHint": "Preview shows how a visitor may see this content.",
+    "previewGroundingNote": "FAQ provides grounding — Website Kompis adapts wording naturally and does not read this as a fixed script.",
+    "yes": "Yes",
+    "no": "No",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "publishDisabledHint": "Complete title, answer, locale, content type, and mark as public-safe before publishing.",
+    "filters": {
+      "status": "Status",
+      "locale": "Locale",
+      "contentType": "Content type",
+      "search": "Search",
+      "all": "All"
+    },
+    "columns": {
+      "title": "Title",
+      "locale": "Locale",
+      "category": "Category",
+      "contentType": "Content type",
+      "status": "Status",
+      "publicSafe": "Public safe",
+      "priority": "Priority",
+      "publishedAt": "Published",
+      "lastReviewedAt": "Last reviewed",
+      "actions": "Actions"
+    },
+    "fields": {
+      "title": "Title",
+      "question": "Question (optional)",
+      "answer": "Answer",
+      "category": "Category",
+      "locale": "Locale",
+      "contentType": "Content type",
+      "tags": "Tags (comma separated)",
+      "sourceUrl": "Source URL",
+      "validFrom": "Valid from",
+      "validUntil": "Valid until",
+      "priority": "Priority",
+      "publicSafe": "Mark as public-safe",
+      "publicSafeHint": "Required before publishing. Confirm this content is safe for anonymous website visitors.",
+      "lastReviewedAt": "Last reviewed (optional)"
+    },
+    "contentTypes": {
+      "faq": "FAQ",
+      "opening_hours": "Opening hours",
+      "holiday_notice": "Holiday notice",
+      "contact": "Contact",
+      "policy": "Policy",
+      "product_info": "Product info",
+      "service_info": "Service info",
+      "link": "Link"
+    },
+    "statuses": {
+      "draft": "Draft",
+      "published": "Published",
+      "archived": "Archived"
+    },
+    "locales": {
+      "en": "English",
+      "no": "Norwegian",
+      "sv": "Swedish",
+      "da": "Danish",
+      "pl": "Polish",
+      "uk": "Ukrainian"
+    }
   }
 }

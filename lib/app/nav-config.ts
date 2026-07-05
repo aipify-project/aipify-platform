@@ -513,6 +513,7 @@ export type AppNavId =
   | "organizationalMemoryCenterEngine"
   | "knowledgeCenter"
   | "installations"
+  | "websiteKompisFaq"
   | "domains"
   | "team"
   | "license"
@@ -3507,6 +3508,11 @@ export function getAppActiveNavId(pathname: string): AppNavId {
   if (pathname.startsWith("/app/knowledge-center/organizational-memory")) return "organizationalMemoryCenterEngine";
   if (pathname.startsWith("/app/knowledge-center")) {
     return "knowledgeCenter";
+  }
+  if (
+    pathname.startsWith("/app/website-kompis")
+  ) {
+    return "websiteKompisFaq";
   }
   if (
     pathname.startsWith("/app/install") ||

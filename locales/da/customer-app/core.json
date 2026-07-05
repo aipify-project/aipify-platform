@@ -6762,5 +6762,95 @@
       "readinessAssessments": "How are readiness assessments performed?",
       "readinessAssessmentsAnswer": "From leadership alignment, communication effectiveness, resource availability, training readiness, and governance patterns — as governance indicators, not surveillance."
     }
+  },
+  "websiteKompisFaq": {
+    "title": "Website Kompis FAQ",
+    "subtitle": "Publiceret indhold kan bruges af Website Kompis for besøgende på hjemmesiden.",
+    "navTitle": "Website Kompis FAQ",
+    "warningBanner": "Publicer ikke privat kunde-, medlems-, medarbejder-, booking-, support-, økonomi- eller intern driftsinformation.",
+    "loading": "Forbereder Website Kompis FAQ…",
+    "accessDenied": "Kun ejer eller administrator kan administrere Website Kompis FAQ.",
+    "back": "Tilbage til indstillinger",
+    "saveDraft": "Gem kladde",
+    "saved": "Gemt",
+    "publish": "Publicer",
+    "unpublish": "Afpublicer",
+    "archive": "Arkiver",
+    "restore": "Gendan til kladde",
+    "createFirst": "Opret første offentlige FAQ",
+    "emptyTitle": "Du har ikke publiceret Website Kompis FAQ endnu.",
+    "emptyDescription": "Opret offentligt sikre svar, som Website Kompis kan bruge for besøgende på hjemmesiden.",
+    "edit": "Rediger",
+    "create": "Opret FAQ",
+    "cancel": "Annuller",
+    "confirmPublishTitle": "Publicer til Website Kompis?",
+    "confirmPublishBody": "Besøgende på den offentlige hjemmeside kan modtage dette svar. Bekræft at indholdet er sikkert for offentligheden.",
+    "confirmPublishAction": "Publicer nu",
+    "riskyWordsWarning": "Gennemgå før publicering — mulig følsom ordlyd registreret",
+    "previewTitle": "Dette kan Website Kompis svare med",
+    "previewHint": "Forhåndsvisningen viser, hvordan en besøgende kan se indholdet.",
+    "previewGroundingNote": "FAQ giver grundlag — Website Kompis tilpasser formuleringen naturligt og læser ikke dette som et fast manuskript.",
+    "yes": "Ja",
+    "no": "Nej",
+    "errorGeneric": "Noget gik galt. Prøv igen.",
+    "publishDisabledHint": "Udfyld titel, svar, sprog, indholdstype og marker som offentligt sikker før publicering.",
+    "filters": {
+      "status": "Status",
+      "locale": "Sprog",
+      "contentType": "Indholdstype",
+      "search": "Søg",
+      "all": "Alle"
+    },
+    "columns": {
+      "title": "Titel",
+      "locale": "Sprog",
+      "category": "Kategori",
+      "contentType": "Indholdstype",
+      "status": "Status",
+      "publicSafe": "Offentligt sikker",
+      "priority": "Prioritet",
+      "publishedAt": "Publiceret",
+      "lastReviewedAt": "Sidst gennemgået",
+      "actions": "Handlinger"
+    },
+    "fields": {
+      "title": "Titel",
+      "question": "Spørgsmål (valgfrit)",
+      "answer": "Svar",
+      "category": "Kategori",
+      "locale": "Sprog",
+      "contentType": "Indholdstype",
+      "tags": "Tags (kommasepareret)",
+      "sourceUrl": "Kilde-URL",
+      "validFrom": "Gyldig fra",
+      "validUntil": "Gyldig til",
+      "priority": "Prioritet",
+      "publicSafe": "Marker som offentligt sikker",
+      "publicSafeHint": "Påkrævet før publicering. Bekræft at indholdet er sikkert for anonyme besøgende.",
+      "lastReviewedAt": "Sidst gennemgået (valgfrit)"
+    },
+    "contentTypes": {
+      "faq": "FAQ",
+      "opening_hours": "Åbningstider",
+      "holiday_notice": "Helligdagsmeddelelse",
+      "contact": "Kontakt",
+      "policy": "Politik",
+      "product_info": "Produktinfo",
+      "service_info": "Serviceinfo",
+      "link": "Link"
+    },
+    "statuses": {
+      "draft": "Kladde",
+      "published": "Publiceret",
+      "archived": "Arkiveret"
+    },
+    "locales": {
+      "en": "Engelsk",
+      "no": "Norsk",
+      "sv": "Svensk",
+      "da": "Dansk",
+      "pl": "Polsk",
+      "uk": "Ukrainsk"
+    }
   }
 }

@@ -6762,5 +6762,95 @@
       "philosophy": "People First. Aggregate-only capacity scaffolds. Growth Partner terminology — never Affiliate.",
       "growthPartnerNotAffiliate": "Growth Partner terminology — never Affiliate."
     }
+  },
+  "websiteKompisFaq": {
+    "title": "Website Kompis FAQ",
+    "subtitle": "Publicerat innehåll kan användas av Website Kompis för besökare på webbplatsen.",
+    "navTitle": "Website Kompis FAQ",
+    "warningBanner": "Publicera inte privat kund-, medlems-, personal-, boknings-, support-, ekonomi- eller intern driftsinformation.",
+    "loading": "Förbereder Website Kompis FAQ…",
+    "accessDenied": "Endast ägare eller administratör kan hantera Website Kompis FAQ.",
+    "back": "Tillbaka till inställningar",
+    "saveDraft": "Spara utkast",
+    "saved": "Sparat",
+    "publish": "Publicera",
+    "unpublish": "Avpublicera",
+    "archive": "Arkivera",
+    "restore": "Återställ till utkast",
+    "createFirst": "Skapa första offentliga FAQ",
+    "emptyTitle": "Du har inte publicerat Website Kompis FAQ ännu.",
+    "emptyDescription": "Skapa offentligt säkra svar som Website Kompis kan använda för webbbesökare.",
+    "edit": "Redigera",
+    "create": "Skapa FAQ",
+    "cancel": "Avbryt",
+    "confirmPublishTitle": "Publicera till Website Kompis?",
+    "confirmPublishBody": "Besökare på den offentliga webbplatsen kan få detta svar. Bekräfta att innehållet är säkert för allmänheten.",
+    "confirmPublishAction": "Publicera nu",
+    "riskyWordsWarning": "Granska före publicering — möjlig känslig formulering upptäckt",
+    "previewTitle": "Det här kan Website Kompis svara med",
+    "previewHint": "Förhandsvisningen visar hur en besökare kan se innehållet.",
+    "previewGroundingNote": "FAQ ger grund — Website Kompis anpassar formuleringen naturligt och läser inte detta som ett fast manus.",
+    "yes": "Ja",
+    "no": "Nej",
+    "errorGeneric": "Något gick fel. Försök igen.",
+    "publishDisabledHint": "Fyll i titel, svar, språk, innehållstyp och markera som offentligt säker före publicering.",
+    "filters": {
+      "status": "Status",
+      "locale": "Språk",
+      "contentType": "Innehållstyp",
+      "search": "Sök",
+      "all": "Alla"
+    },
+    "columns": {
+      "title": "Titel",
+      "locale": "Språk",
+      "category": "Kategori",
+      "contentType": "Innehållstyp",
+      "status": "Status",
+      "publicSafe": "Offentligt säker",
+      "priority": "Prioritet",
+      "publishedAt": "Publicerad",
+      "lastReviewedAt": "Senast granskad",
+      "actions": "Åtgärder"
+    },
+    "fields": {
+      "title": "Titel",
+      "question": "Fråga (valfritt)",
+      "answer": "Svar",
+      "category": "Kategori",
+      "locale": "Språk",
+      "contentType": "Innehållstyp",
+      "tags": "Taggar (kommaseparerade)",
+      "sourceUrl": "Käll-URL",
+      "validFrom": "Giltig från",
+      "validUntil": "Giltig till",
+      "priority": "Prioritet",
+      "publicSafe": "Markera som offentligt säker",
+      "publicSafeHint": "Krävs före publicering. Bekräfta att innehållet är säkert för anonyma webbbesökare.",
+      "lastReviewedAt": "Senast granskad (valfritt)"
+    },
+    "contentTypes": {
+      "faq": "FAQ",
+      "opening_hours": "Öppettider",
+      "holiday_notice": "Helgdagsmeddelande",
+      "contact": "Kontakt",
+      "policy": "Policy",
+      "product_info": "Produktinfo",
+      "service_info": "Tjänsteinfo",
+      "link": "Länk"
+    },
+    "statuses": {
+      "draft": "Utkast",
+      "published": "Publicerad",
+      "archived": "Arkiverad"
+    },
+    "locales": {
+      "en": "Engelska",
+      "no": "Norska",
+      "sv": "Svenska",
+      "da": "Danska",
+      "pl": "Polska",
+      "uk": "Ukrainska"
+    }
   }
 }

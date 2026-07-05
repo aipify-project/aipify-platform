@@ -1,0 +1,14 @@
+import { WebsiteKompisFaqAdminPanel } from "@/components/app/website-kompis/WebsiteKompisFaqAdminPanel";
+import { buildWebsiteKompisFaqLabels } from "@/lib/website-kompis-faq/labels";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { createTranslator } from "@/lib/i18n/translate";
+
+export default async function WebsiteKompisFaqPage() {
+  const locale = await getLocale();
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["core"]);
+  const t = createTranslator(dict);
+  const labels = buildWebsiteKompisFaqLabels(t);
+
+  return <WebsiteKompisFaqAdminPanel labels={labels} />;
+}

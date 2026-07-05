@@ -60,6 +60,8 @@ import {
 import type { SupportWriteResult } from "@/lib/companion-runtime/support-write-orchestrator";
 import { throwIfCompanionTurnAborted } from "./companion-turn-abort";
 import type { Translator } from "@/lib/i18n/translate";
+import type { CompanionSubmitPageContext } from "@/lib/companion-runtime/companion-submit-page-context";
+import { tryBuildAppPageContextSearchResult } from "@/lib/companion-runtime/app-companion-page-context";
 
 async function loadCustomerAppDictionaryForTurn(
   answerLocale: Locale,
@@ -164,6 +166,8 @@ export type ExecuteCompanionTurnInput = {
   abortSignal?: AbortSignal;
   /** Pre-classified route from worker — avoids duplicate classification. */
   turnRoute?: import("@/lib/companion-runtime/companion-turn-route").CompanionTurnRoute;
+  /** Current APP page context from popup submit — used for mapped page-aware answers. */
+  pageContext?: CompanionSubmitPageContext;
 };
 
 export type ExecuteCompanionTurnResult =
@@ -967,8 +971,19 @@ export async function executeCompanionTurn(
 
   const searchQuery = query || companionLabels.attachments.activeBadge;
   const routingStarted = Date.now();
+  const pageContextResult =
+    input.pageContext?.surface === "app"
+      ? tryBuildAppPageContextSearchResult({
+          question: searchQuery,
+          pageContext: input.pageContext,
+          t,
+          labels: companionLabels,
+          userRole,
+        })
+      : null;
   const { searchPlatformKnowledge } = await import("@/lib/companion-platform-knowledge/search");
-  const result = await searchPlatformKnowledge(searchQuery, searchOptions);
+  const result =
+    pageContextResult ?? (await searchPlatformKnowledge(searchQuery, searchOptions));
   routingMs = Date.now() - routingStarted;
 
   if (input.workerQueueId) {
