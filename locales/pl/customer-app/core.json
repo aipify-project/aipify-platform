@@ -298,5 +298,95 @@
       "readinessAssessments": "How are readiness assessments performed?",
       "readinessAssessmentsAnswer": "From leadership alignment, communication effectiveness, resource availability, training readiness, and governance patterns — as governance indicators, not surveillance."
     }
+  },
+  "websiteKompisFaq": {
+    "title": "Website Kompis FAQ",
+    "subtitle": "Opublikowane treści mogą być używane przez Website Kompis dla odwiedzających stronę.",
+    "navTitle": "Website Kompis FAQ",
+    "warningBanner": "Nie publikuj prywatnych informacji o klientach, członkach, pracownikach, rezerwacjach, wsparciu, finansach ani operacjach wewnętrznych.",
+    "loading": "Przygotowywanie Website Kompis FAQ…",
+    "accessDenied": "Tylko właściciel lub administrator może zarządzać Website Kompis FAQ.",
+    "back": "Powrót do ustawień",
+    "saveDraft": "Zapisz szkic",
+    "saved": "Zapisano",
+    "publish": "Opublikuj",
+    "unpublish": "Cofnij publikację",
+    "archive": "Archiwizuj",
+    "restore": "Przywróć do szkicu",
+    "createFirst": "Utwórz pierwsze publiczne FAQ",
+    "emptyTitle": "Nie opublikowano jeszcze Website Kompis FAQ.",
+    "emptyDescription": "Utwórz publicznie bezpieczne odpowiedzi, których Website Kompis może używać dla odwiedzających stronę.",
+    "edit": "Edytuj",
+    "create": "Utwórz FAQ",
+    "cancel": "Anuluj",
+    "confirmPublishTitle": "Opublikować w Website Kompis?",
+    "confirmPublishBody": "Odwiedzający publiczną stronę mogą otrzymać tę odpowiedź. Potwierdź, że treść jest bezpieczna dla publiczności.",
+    "confirmPublishAction": "Opublikuj teraz",
+    "riskyWordsWarning": "Przejrzyj przed publikacją — wykryto możliwe wrażliwe sformułowania",
+    "previewTitle": "Tym Website Kompis może odpowiedzieć",
+    "previewHint": "Podgląd pokazuje, jak odwiedzający może zobaczyć treść.",
+    "previewGroundingNote": "FAQ stanowi podstawę — Website Kompis naturalnie dostosowuje sformułowania i nie traktuje tego jako sztywnego skryptu.",
+    "yes": "Tak",
+    "no": "Nie",
+    "errorGeneric": "Coś poszło nie tak. Spróbuj ponownie.",
+    "publishDisabledHint": "Uzupełnij tytuł, odpowiedź, język, typ treści i oznacz jako publicznie bezpieczne przed publikacją.",
+    "filters": {
+      "status": "Status",
+      "locale": "Język",
+      "contentType": "Typ treści",
+      "search": "Szukaj",
+      "all": "Wszystkie"
+    },
+    "columns": {
+      "title": "Tytuł",
+      "locale": "Język",
+      "category": "Kategoria",
+      "contentType": "Typ treści",
+      "status": "Status",
+      "publicSafe": "Publicznie bezpieczne",
+      "priority": "Priorytet",
+      "publishedAt": "Opublikowano",
+      "lastReviewedAt": "Ostatni przegląd",
+      "actions": "Akcje"
+    },
+    "fields": {
+      "title": "Tytuł",
+      "question": "Pytanie (opcjonalnie)",
+      "answer": "Odpowiedź",
+      "category": "Kategoria",
+      "locale": "Język",
+      "contentType": "Typ treści",
+      "tags": "Tagi (oddzielone przecinkami)",
+      "sourceUrl": "URL źródła",
+      "validFrom": "Ważne od",
+      "validUntil": "Ważne do",
+      "priority": "Priorytet",
+      "publicSafe": "Oznacz jako publicznie bezpieczne",
+      "publicSafeHint": "Wymagane przed publikacją. Potwierdź, że treść jest bezpieczna dla anonimowych odwiedzających.",
+      "lastReviewedAt": "Ostatni przegląd (opcjonalnie)"
+    },
+    "contentTypes": {
+      "faq": "FAQ",
+      "opening_hours": "Godziny otwarcia",
+      "holiday_notice": "Komunikat świąteczny",
+      "contact": "Kontakt",
+      "policy": "Polityka",
+      "product_info": "Informacje o produkcie",
+      "service_info": "Informacje o usłudze",
+      "link": "Link"
+    },
+    "statuses": {
+      "draft": "Szkic",
+      "published": "Opublikowane",
+      "archived": "Zarchiwizowane"
+    },
+    "locales": {
+      "en": "Angielski",
+      "no": "Norweski",
+      "sv": "Szwedzki",
+      "da": "Duński",
+      "pl": "Polski",
+      "uk": "Ukraiński"
+    }
   }
 }
