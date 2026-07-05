@@ -1,13 +1,18 @@
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aipify Companion">
+<svg width="48" height="48" viewBox="-1 -1 50 50" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aipify Companion">
   <title>Aipify Companion</title>
-  <circle cx="24" cy="24" r="22" stroke="#34D399" stroke-opacity="0.8" stroke-width="2" fill="none" />
-  <circle cx="24" cy="24" r="18" fill="#34D399" fill-opacity="0.12" />
   <defs>
-    <linearGradient id="aipify-companion-launcher-gradient" x1="12" y1="10" x2="36" y2="38" gradientUnits="userSpaceOnUse">
+    <linearGradient id="aipify-companion-launcher-gradient" x1="12" y1="10" x2="36" y2="34" gradientUnits="userSpaceOnUse">
       <stop stop-color="#6d28d9" />
       <stop offset="1" stop-color="#a78bfa" />
     </linearGradient>
+    <radialGradient id="aipify-companion-launcher-glow" cx="24" cy="24" r="18" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#34D399" stop-opacity="0.12" />
+      <stop offset="0.72" stop-color="#34D399" stop-opacity="0.04" />
+      <stop offset="1" stop-color="#34D399" stop-opacity="0" />
+    </radialGradient>
   </defs>
+  <circle cx="24" cy="24" r="18" fill="url(#aipify-companion-launcher-glow)" />
+  <circle cx="24" cy="24" r="22" stroke="#34D399" stroke-opacity="0.8" stroke-width="2" fill="none" />
   <g transform="translate(4 4)">
     <g stroke="url(#aipify-companion-launcher-gradient)" stroke-width="1.6" stroke-linecap="round">
       <path d="M20 11 L11.5 29.5" />
