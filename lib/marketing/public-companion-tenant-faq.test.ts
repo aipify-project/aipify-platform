@@ -46,6 +46,37 @@ async function main() {
   assert.equal(context.domain, "example-a.test");
   assert.equal(context.installId, installId);
 
+  const installIdOnly = resolvePublicCompanionVisitorContext({
+    installId,
+    requestHost: "aipify.ai",
+  });
+  assert.equal(installIdOnly.installId, installId);
+  assert.equal(installIdOnly.domain, null);
+
+  const explicitDomainWins = resolvePublicCompanionVisitorContext({
+    installId,
+    clientDomain: "example-a.test",
+    requestHost: "aipify.ai",
+  });
+  assert.equal(explicitDomainWins.domain, "example-a.test");
+
+  const wrongExplicitDomain = resolvePublicCompanionVisitorContext({
+    installId,
+    clientDomain: "wrong.example",
+    requestHost: "aipify.ai",
+  });
+  assert.equal(wrongExplicitDomain.domain, "wrong.example");
+
+  const requestHostOnly = resolvePublicCompanionVisitorContext({
+    requestHost: "aipify.ai",
+  });
+  assert.equal(requestHostOnly.installId, null);
+  assert.equal(requestHostOnly.domain, "aipify.ai");
+
+  const noContext = resolvePublicCompanionVisitorContext({});
+  assert.equal(noContext.installId, null);
+  assert.equal(noContext.domain, null);
+
   const fixtureRows = [
     {
       item_id: "22222222-2222-4222-8222-222222222222",

@@ -80,9 +80,13 @@ export function resolvePublicCompanionVisitorContext(input: {
   const clientDomain = sanitizePublicCompanionDomain(input.clientDomain ?? null);
   const hostDomain = sanitizePublicCompanionDomain(input.requestHost ?? null);
 
+  // Install-scoped reads resolve by install id alone. Do not fall back to the
+  // metadata/API request host (e.g. aipify.ai) when no explicit domain is given.
+  const domain = clientDomain ?? (installId ? null : hostDomain);
+
   return {
     installId,
-    domain: clientDomain ?? hostDomain,
+    domain,
   };
 }
 

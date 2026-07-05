@@ -41,6 +41,9 @@ async function main() {
   const { askPublicPlatformCompanion, validatePublicCompanionAskRequest } = await import(
     "./public-companion-ask"
   );
+  const { getWebsiteKompisInstallConfigForPublicRequest } = await import(
+    "./website-kompis-install-config"
+  );
 
   assert.throws(
     () =>
@@ -277,6 +280,25 @@ async function main() {
   assert.doesNotMatch(publicCompanionAskSource, /search_organization_knowledge/);
   assert.match(publicCompanionAskSource, /searchPublicCompanionTenantFaq/);
   assert.match(routeSource, /requestHost/);
+  assert.match(
+    fs.readFileSync(path.join(root, "lib/marketing/website-kompis-domain-activation.ts"), "utf8"),
+    /resolveWebsiteKompisTrustedVisitorContext/,
+  );
+
+  const mismatchedDomain = await getWebsiteKompisInstallConfigForPublicRequest(
+    {
+      installId,
+      domain: "wrong.example",
+      requestHost: "aipify.ai",
+    },
+    {
+      loadInstallConfig: async (visitorContext) => {
+        assert.equal(visitorContext.domain, "wrong.example");
+        return null;
+      },
+    },
+  );
+  assert.equal(mismatchedDomain.iconVariant, "companion-purple-default");
   assert.doesNotMatch(routeSource, /tenant_id|tenantId/);
 
   console.log("public-companion-tenant-faq-bridge.test.ts: all assertions passed");

@@ -1324,6 +1324,26 @@ Persistent per-install settings live in `tenant_public_companion_install_config`
 - Public metadata and ask routes read persisted config after install/domain resolution; missing rows return safe defaults.
 - No tenant/customer IDs are exposed in public metadata or ask responses.
 
+## 14.4 Website Kompis domain activation binding
+
+Website Kompis activation is bound to verified customer domains in Core — not client-supplied tenant context.
+
+| Concern | Location |
+|---------|----------|
+| Activation contract | `lib/marketing/website-kompis-domain-activation.ts` |
+| Trusted visitor binding | `resolveWebsiteKompisTrustedVisitorContext()` · `resolvePublicCompanionVisitorContext()` |
+| Activate RPC | `activate_website_kompis_for_domain(p_domain_id)` — owner/admin/platform |
+| Deactivate RPC | `deactivate_website_kompis_for_domain(p_domain_id)` — sets `enabled=false` |
+| Domain source of truth | `customer_domains` (verified + active) linked to `installations` |
+| Public resolver | `_wpkf_resolve_visitor_context()` — installId-only resolves trusted domain from install record |
+
+**Rules:**
+- Activation requires verified, active `customer_domains` row belonging to caller tenant.
+- Activation creates/reuses `tenant_public_companion_install_config` with `enabled=true`.
+- Deactivation sets `enabled=false`; history is retained.
+- Public metadata/ask resolve install/domain from Core records — never from `requestHost=aipify.ai` when only `installId` is supplied.
+- Public responses expose only `installId`, `domain`, and public-safe config metadata — never tenant/customer IDs.
+
 ---
 
 ## 15. Non-goals for 01C
