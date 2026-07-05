@@ -92,6 +92,25 @@ async function runWebsiteKompisInstallConfigTests() {
   const noContext = await getWebsiteKompisInstallConfigForPublicRequest({});
   assert.equal(noContext.iconVariant, "companion-purple-default");
 
+  const fromPersisted = await getWebsiteKompisInstallConfigForPublicRequest(
+    {
+      installId: "11111111-1111-4111-8111-111111111111",
+      domain: "example-a.test",
+      locale: "en",
+    },
+    {
+      loadInstallConfig: async () => ({
+        iconVariant: "companion-purple-dark",
+        enabled: false,
+        sources: { faq: false, currentPage: true, aipifyPublic: false },
+      }),
+    },
+  );
+  assert.equal(fromPersisted.iconVariant, "companion-purple-dark");
+  assert.equal(fromPersisted.enabled, false);
+  assert.equal(fromPersisted.sources.faq, false);
+  assert.equal(fromPersisted.sources.aipifyPublic, false);
+
   console.log("website-kompis-install-config.test.ts: all assertions passed");
 }
 
