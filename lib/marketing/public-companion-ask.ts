@@ -35,6 +35,15 @@ import {
   sanitizeWebsiteCompanionPageContext,
   type WebsiteCompanionPageContext,
 } from "@/lib/marketing/website-companion-chat";
+import {
+  buildPublicCompanionTenantFaqResponse,
+  hasPublicCompanionVisitorContext,
+  isRelevantPublicCompanionTenantFaqResult,
+  resolvePublicCompanionVisitorContext,
+  sanitizePublicCompanionDomain,
+  sanitizePublicCompanionInstallId,
+  searchPublicCompanionTenantFaq,
+} from "@/lib/marketing/public-companion-tenant-faq";
 
 export const PUBLIC_COMPANION_ASK_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
 export type PublicCompanionAskLocale = (typeof PUBLIC_COMPANION_ASK_LOCALES)[number];
@@ -43,7 +52,15 @@ export const PUBLIC_COMPANION_ASK_MAX_QUESTION_LENGTH = 1000;
 export const PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGES = 6;
 export const PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGE_LENGTH = 500;
 
-const ALLOWED_REQUEST_KEYS = new Set(["question", "locale", "messageLocale", "recentContext", "pageContext"]);
+const ALLOWED_REQUEST_KEYS = new Set([
+  "question",
+  "locale",
+  "messageLocale",
+  "recentContext",
+  "pageContext",
+  "domain",
+  "installId",
+]);
 
 export type PublicCompanionPageContext = WebsiteCompanionPageContext;
 
@@ -58,6 +75,13 @@ export type PublicCompanionAskRequest = {
   messageLocale?: string;
   recentContext?: PublicCompanionRecentContextMessage[];
   pageContext?: PublicCompanionPageContext;
+  domain?: string;
+  installId?: string;
+};
+
+export type PublicCompanionAskOptions = {
+  requestHost?: string | null;
+  searchTenantVisitorKnowledge?: typeof searchPublicCompanionTenantFaq;
 };
 
 export type PublicCompanionAskAction = {
@@ -312,6 +336,8 @@ export function validatePublicCompanionAskRequest(body: unknown): PublicCompanio
     messageLocale: typeof record.messageLocale === "string" ? record.messageLocale : undefined,
     recentContext,
     pageContext,
+    domain: sanitizePublicCompanionDomain(record.domain) ?? undefined,
+    installId: sanitizePublicCompanionInstallId(record.installId) ?? undefined,
   };
 }
 
@@ -615,11 +641,51 @@ async function tryBuildPublicPageContextAnswer(
   };
 }
 
+async function tryBuildPublicTenantFaqAnswer(
+  question: string,
+  locale: PublicCompanionAskLocale,
+  validated: PublicCompanionAskRequest,
+  requestHost: string | null | undefined,
+  searchTenantVisitorKnowledge: typeof searchPublicCompanionTenantFaq,
+): Promise<PublicCompanionAskResponse | null> {
+  if (isPlatformProductKnowledgeQuery(question)) {
+    return null;
+  }
+
+  const visitorContext = resolvePublicCompanionVisitorContext({
+    clientDomain: validated.domain,
+    requestHost,
+    installId: validated.installId,
+  });
+
+  if (!hasPublicCompanionVisitorContext(visitorContext)) {
+    return null;
+  }
+
+  const rows = await searchTenantVisitorKnowledge({
+    installId: visitorContext.installId,
+    domain: visitorContext.domain,
+    locale,
+    query: question,
+    pathname: validated.pageContext?.pathname ?? null,
+    limit: 5,
+  });
+
+  if (!isRelevantPublicCompanionTenantFaqResult(rows, question)) {
+    return null;
+  }
+
+  return buildPublicCompanionTenantFaqResponse(rows, locale);
+}
+
 export async function askPublicPlatformCompanion(
   input: PublicCompanionAskRequest,
+  options?: PublicCompanionAskOptions,
 ): Promise<PublicCompanionAskResponse> {
   const validated = validatePublicCompanionAskRequest(input);
   const locale = resolvePublicCompanionLocale(validated.locale, validated.messageLocale);
+  const searchTenantVisitorKnowledge =
+    options?.searchTenantVisitorKnowledge ?? searchPublicCompanionTenantFaq;
 
   const dict = await getCustomerAppDictionaryForSplits(locale as Locale, [
     "companionPlatformKnowledge",
@@ -629,6 +695,17 @@ export async function askPublicPlatformCompanion(
 
   if (isPublicPricingQuestion(validated.question)) {
     return buildPublicPricingCompanionResponse(locale, t);
+  }
+
+  const tenantFaqAnswer = await tryBuildPublicTenantFaqAnswer(
+    validated.question,
+    locale,
+    validated,
+    options?.requestHost,
+    searchTenantVisitorKnowledge,
+  );
+  if (tenantFaqAnswer) {
+    return tenantFaqAnswer;
   }
 
   const pageContextAnswer = await tryBuildPublicPageContextAnswer(

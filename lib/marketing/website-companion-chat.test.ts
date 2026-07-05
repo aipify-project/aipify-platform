@@ -11,6 +11,7 @@ import {
   buildWebsiteCompanionAskBody,
   buildWebsiteCompanionRecentContext,
   collectWebsiteCompanionPageContext,
+  collectWebsiteCompanionVisitorDomain,
   filterWebsiteCompanionUiActions,
   formatWebsiteCompanionCharactersRemaining,
   mapWebsiteCompanionApiResponse,
@@ -67,6 +68,23 @@ assert.equal(body.recentContext?.length, 2);
 assert.deepEqual(Object.keys(body).sort(), ["locale", "question", "recentContext"]);
 assertWebsiteCompanionAskBodyShape(body);
 assert.throws(() => assertWebsiteCompanionAskBodyShape({ ...body, tenantId: "x" } as never));
+
+const bodyWithVisitorContext = buildWebsiteCompanionAskBody({
+  question: "Har dere åpent i påsken?",
+  locale: "no",
+  messages: [],
+  domain: "example-a.test",
+  installId: "11111111-1111-4111-8111-111111111111",
+});
+assert.equal(bodyWithVisitorContext.domain, "example-a.test");
+assert.equal(bodyWithVisitorContext.installId, "11111111-1111-4111-8111-111111111111");
+assertWebsiteCompanionAskBodyShape(bodyWithVisitorContext);
+assert.throws(() => assertWebsiteCompanionAskBodyShape({ ...bodyWithVisitorContext, tenant_id: "x" } as never));
+
+const collectedDomain = collectWebsiteCompanionVisitorDomain({
+  location: { hostname: "Example-A.test" },
+});
+assert.equal(collectedDomain, "example-a.test");
 
 const bodyWithPageContext = buildWebsiteCompanionAskBody({
   question: "Hva handler denne siden om?",

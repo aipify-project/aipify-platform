@@ -20,6 +20,7 @@ import type { PublicCompanionAskResponse } from "@/lib/marketing/public-companio
 import {
   buildWebsiteCompanionAskBody,
   collectWebsiteCompanionPageContext,
+  collectWebsiteCompanionVisitorDomain,
   formatWebsiteCompanionCharactersRemaining,
   mapWebsiteCompanionApiResponse,
   shouldAllowWebsiteCompanionSend,
@@ -552,6 +553,9 @@ export default function WebsiteCompanionAssistant({
         locale,
         messages: priorMessages,
         pageContext: collectWebsiteCompanionPageContext(
+          typeof window !== "undefined" ? window : undefined,
+        ),
+        domain: collectWebsiteCompanionVisitorDomain(
           typeof window !== "undefined" ? window : undefined,
         ),
       });

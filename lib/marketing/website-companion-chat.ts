@@ -69,7 +69,13 @@ export type WebsiteCompanionAskRequestBody = {
   locale: string;
   recentContext?: PublicCompanionRecentContextMessage[];
   pageContext?: WebsiteCompanionPageContext;
+  domain?: string;
+  installId?: string;
 };
+
+export const WEBSITE_COMPANION_DOMAIN_MAX_LENGTH = 253;
+export const WEBSITE_COMPANION_INSTALL_ID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export const WEBSITE_COMPANION_PAGE_CONTEXT_MAX_PATHNAME_LENGTH = 240;
 export const WEBSITE_COMPANION_PAGE_CONTEXT_MAX_TITLE_LENGTH = 200;
@@ -158,11 +164,26 @@ export function buildWebsiteCompanionRecentContext(
   });
 }
 
+export function collectWebsiteCompanionVisitorDomain(windowLike?: {
+  location?: { hostname?: string };
+}): string | undefined {
+  const hostname = windowLike?.location?.hostname?.trim();
+  if (!hostname || hostname.length > WEBSITE_COMPANION_DOMAIN_MAX_LENGTH) {
+    return undefined;
+  }
+  if (!/^[a-z0-9.-]+$/i.test(hostname)) {
+    return undefined;
+  }
+  return hostname.toLowerCase();
+}
+
 export function buildWebsiteCompanionAskBody(input: {
   question: string;
   locale: string;
   messages: WebsiteCompanionChatMessage[];
   pageContext?: WebsiteCompanionPageContext;
+  domain?: string;
+  installId?: string;
 }): WebsiteCompanionAskRequestBody {
   const recentContext = buildWebsiteCompanionRecentContext(input.messages);
   const body: WebsiteCompanionAskRequestBody = {
@@ -175,6 +196,14 @@ export function buildWebsiteCompanionAskBody(input: {
   if (input.pageContext) {
     body.pageContext = input.pageContext;
   }
+  const domain = input.domain?.trim().toLowerCase();
+  if (domain && domain.length <= WEBSITE_COMPANION_DOMAIN_MAX_LENGTH) {
+    body.domain = domain;
+  }
+  const installId = input.installId?.trim();
+  if (installId && WEBSITE_COMPANION_INSTALL_ID_PATTERN.test(installId)) {
+    body.installId = installId.toLowerCase();
+  }
   return body;
 }
 
@@ -183,6 +212,7 @@ export function assertWebsiteCompanionAskBodyShape(
 ): void {
   const forbiddenKeys = [
     "tenantId",
+    "tenant_id",
     "organizationId",
     "userId",
     "providerId",
