@@ -46,7 +46,9 @@ function createMockWindow(): Ga4Window & { gtagCalls: IArguments[] } {
   const dataLayer: unknown[] = [];
   const gtagCalls: IArguments[] = [];
   const gtag = function gtag() {
+    // eslint-disable-next-line prefer-rest-params -- mock must store Arguments for parity tests
     gtagCalls.push(arguments);
+    // eslint-disable-next-line prefer-rest-params -- mock must store Arguments for parity tests
     dataLayer.push(arguments);
   };
   const windowLike: Ga4Window & { gtagCalls: IArguments[] } = {

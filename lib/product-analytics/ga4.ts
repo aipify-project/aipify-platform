@@ -67,6 +67,8 @@ export function shouldMountGa4Script(
 
 export function createOfficialGtagStub(dataLayer: unknown[]): GtagFn {
   const gtag = function gtag() {
+    // gtag.js queues Arguments objects — not rest arrays — in dataLayer.
+    // eslint-disable-next-line prefer-rest-params -- official stub parity
     dataLayer.push(arguments);
   };
   return gtag as GtagFn;

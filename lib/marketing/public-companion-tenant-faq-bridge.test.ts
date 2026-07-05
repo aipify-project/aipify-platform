@@ -175,7 +175,73 @@ async function main() {
   );
   assert.equal(unrelatedWithContext.sources[0]?.route, "website-kompis-safe-fallback");
 
+  const disabledResponse = await askPublicPlatformCompanion(
+    {
+      question: "Tell me about consulting services",
+      locale: "en",
+      domain: "example-a.test",
+      installId,
+      pageContext,
+    },
+    {
+      rawInstallConfig: { website_kompis: { enabled: false } },
+      searchTenantVisitorKnowledge: async () => {
+        throw new Error("FAQ should not run when disabled");
+      },
+    },
+  );
+  assert.equal(disabledResponse.sources[0]?.route, "website-kompis-disabled");
+
+  const faqDisabled = await askPublicPlatformCompanion(
+    {
+      question: "Har dere åpent i påsken?",
+      locale: "no",
+      domain: "example-a.test",
+      installId,
+    },
+    {
+      rawInstallConfig: { website_kompis: { sources: { faq: false, currentPage: false } } },
+      searchTenantVisitorKnowledge: async () => {
+        throw new Error("FAQ should not run when sources.faq is false");
+      },
+    },
+  );
+  assert.equal(faqDisabled.sources[0]?.route, "website-kompis-safe-fallback");
+
+  const pageOnly = await askPublicPlatformCompanion(
+    {
+      question: "Tell me about consulting services",
+      locale: "en",
+      domain: "example-a.test",
+      installId,
+      pageContext,
+    },
+    {
+      rawInstallConfig: { website_kompis: { sources: { faq: false, currentPage: true } } },
+      searchTenantVisitorKnowledge: async () => [],
+    },
+  );
+  assert.equal(pageOnly.sources[0]?.route, "website-kompis-current-page");
+
+  const noAipifyPublic = await askPublicPlatformCompanion(
+    {
+      question: "What is Aipify Kompis?",
+      locale: "en",
+      domain: "example-a.test",
+      installId,
+    },
+    {
+      rawInstallConfig: { website_kompis: { sources: { aipifyPublic: false } } },
+      searchTenantVisitorKnowledge: async () => [],
+    },
+  );
+  assert.equal(noAipifyPublic.sources[0]?.route, "website-kompis-safe-fallback");
+  assert.ok(
+    !noAipifyPublic.sources.some((source) => source.route.includes("aipify-overview")),
+  );
+
   assert.match(publicCompanionAskSource, /tryBuildWebsiteKompisCurrentPublicPageAnswer/);
+  assert.match(publicCompanionAskSource, /getWebsiteKompisInstallConfigForPublicRequest/);
   assert.doesNotMatch(publicCompanionAskSource, /search_organization_knowledge|member\.search/);
 
   rpcCalled = false;
