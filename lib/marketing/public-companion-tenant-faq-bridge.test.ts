@@ -102,7 +102,8 @@ async function main() {
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.ok(fallbackResponse.answer.directAnswer.length > 10);
+  assert.equal(fallbackResponse.sources[0]?.route, "website-kompis-safe-fallback");
+  assert.match(fallbackResponse.answer.directAnswer, /Example-a|virksomheten/i);
 
   rpcCalled = false;
   const coreResponse = await askPublicPlatformCompanion(
@@ -120,10 +121,11 @@ async function main() {
     },
   );
 
-  assert.equal(rpcCalled, false);
+  assert.equal(rpcCalled, true);
+  assert.equal(coreResponse.sources[0]?.route, "website-kompis-safe-fallback");
   assert.ok(
-    coreResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
-    `expected aipify-capabilities source, got ${JSON.stringify(coreResponse.sources)}`,
+    !coreResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
+    `expected safe fallback, got ${JSON.stringify(coreResponse.sources)}`,
   );
 
   assert.match(tenantFaqSource, /search_tenant_public_visitor_knowledge/);

@@ -43,7 +43,13 @@ import {
   sanitizePublicCompanionDomain,
   sanitizePublicCompanionInstallId,
   searchPublicCompanionTenantFaq,
+  type PublicCompanionVisitorContext,
 } from "@/lib/marketing/public-companion-tenant-faq";
+import {
+  buildWebsiteKompisSafeFallbackResponse,
+  isCustomerWebsiteVisitorContext,
+  isExplicitAipifyOrKompisQuestion,
+} from "@/lib/marketing/website-kompis-public-boundary";
 
 export const PUBLIC_COMPANION_ASK_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
 export type PublicCompanionAskLocale = (typeof PUBLIC_COMPANION_ASK_LOCALES)[number];
@@ -647,16 +653,16 @@ async function tryBuildPublicTenantFaqAnswer(
   validated: PublicCompanionAskRequest,
   requestHost: string | null | undefined,
   searchTenantVisitorKnowledge: typeof searchPublicCompanionTenantFaq,
+  visitorContext: PublicCompanionVisitorContext,
+  onCustomerWebsite: boolean,
 ): Promise<PublicCompanionAskResponse | null> {
-  if (isPlatformProductKnowledgeQuery(question)) {
+  if (onCustomerWebsite) {
+    if (isExplicitAipifyOrKompisQuestion(question)) {
+      return null;
+    }
+  } else if (isPlatformProductKnowledgeQuery(question)) {
     return null;
   }
-
-  const visitorContext = resolvePublicCompanionVisitorContext({
-    clientDomain: validated.domain,
-    requestHost,
-    installId: validated.installId,
-  });
 
   if (!hasPublicCompanionVisitorContext(visitorContext)) {
     return null;
@@ -687,13 +693,23 @@ export async function askPublicPlatformCompanion(
   const searchTenantVisitorKnowledge =
     options?.searchTenantVisitorKnowledge ?? searchPublicCompanionTenantFaq;
 
+  const visitorContext = resolvePublicCompanionVisitorContext({
+    clientDomain: validated.domain,
+    requestHost: options?.requestHost,
+    installId: validated.installId,
+  });
+  const onCustomerWebsite = isCustomerWebsiteVisitorContext(visitorContext);
+
   const dict = await getCustomerAppDictionaryForSplits(locale as Locale, [
     "companionPlatformKnowledge",
     "portalStructure",
   ]);
   const t = createTranslator(dict);
 
-  if (isPublicPricingQuestion(validated.question)) {
+  if (
+    isPublicPricingQuestion(validated.question) &&
+    (!onCustomerWebsite || isExplicitAipifyOrKompisQuestion(validated.question))
+  ) {
     return buildPublicPricingCompanionResponse(locale, t);
   }
 
@@ -703,18 +719,26 @@ export async function askPublicPlatformCompanion(
     validated,
     options?.requestHost,
     searchTenantVisitorKnowledge,
+    visitorContext,
+    onCustomerWebsite,
   );
   if (tenantFaqAnswer) {
     return tenantFaqAnswer;
   }
 
-  const pageContextAnswer = await tryBuildPublicPageContextAnswer(
-    validated.question,
-    validated.pageContext,
-    locale,
-  );
-  if (pageContextAnswer) {
-    return pageContextAnswer;
+  if (!onCustomerWebsite) {
+    const pageContextAnswer = await tryBuildPublicPageContextAnswer(
+      validated.question,
+      validated.pageContext,
+      locale,
+    );
+    if (pageContextAnswer) {
+      return pageContextAnswer;
+    }
+  }
+
+  if (onCustomerWebsite && !isExplicitAipifyOrKompisQuestion(validated.question)) {
+    return buildWebsiteKompisSafeFallbackResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
   }
 
   const contextualQuestion = buildPublicCompanionQuery(validated.question, validated.recentContext);
