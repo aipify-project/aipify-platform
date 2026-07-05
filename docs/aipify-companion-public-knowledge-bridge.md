@@ -1254,6 +1254,27 @@ No direct table SELECT from browser. No anon access to this page.
 
 ---
 
+## 14.1 Companion launcher icon (canonical brand asset)
+
+The customer-site **Website Kompis launcher** uses the canonical **Aipify Companion presence icon**:
+
+- purple connected-node Companion mark
+- mint/green circular presence ring
+- soft fade/pulse-ready ring in React surfaces
+
+**Rule:** No customer implementation should replace this with a generic letter icon (for example “K”), plain text, or a tenant logo.
+
+| Asset | Location |
+|-------|----------|
+| Public SVG | `/aipify-companion-launcher-icon.svg` |
+| Source SVG | `assets/brand/aipify-companion-launcher-icon.svg` |
+| React component | `components/branding/AipifyCompanionLauncherIcon.tsx` |
+| Embed metadata API | `GET /api/embed/companion/launcher-icon` |
+
+Customer embeds should consume the icon from Aipify Core — either the public SVG URL or the embed metadata endpoint — rather than hardcoding their own launcher artwork.
+
+---
+
 ## 15. Non-goals for 01C
 
 This gate does **not** deliver:
