@@ -1,10 +1,31 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 const root = path.dirname(path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 const require = createRequire(import.meta.url);
+
+const TENANT_A = {
+  installId: "11111111-1111-4111-8111-111111111111",
+  domain: "example-a.com",
+  label: "Example-a",
+} as const;
+
+const TENANT_B = {
+  installId: "22222222-2222-4222-8222-222222222222",
+  domain: "demo-clinic.com",
+  label: "Demo-clinic",
+} as const;
+
+const WEBSITE_KOMPIS_RUNTIME_FILES = [
+  "lib/marketing/public-companion-ask.ts",
+  "lib/marketing/public-companion-tenant-faq.ts",
+  "lib/marketing/public-companion-tenant-faq-retrieval.ts",
+  "lib/marketing/website-kompis-public-boundary.ts",
+  "app/api/marketing/companion/ask/route.ts",
+] as const;
 
 function installServerOnlyShim(): void {
   const moduleApi = require("node:module") as {
@@ -41,8 +62,8 @@ async function main() {
 
   assert.equal(
     isCustomerWebsiteVisitorContext({
-      installId: "180c9d31-3340-4633-b210-3b64edf1e1be",
-      domain: "unonight.com",
+      installId: TENANT_A.installId,
+      domain: TENANT_A.domain,
     }),
     true,
   );
@@ -55,22 +76,25 @@ async function main() {
     false,
   );
 
-  const fallback = buildWebsiteKompisSafeFallbackResponse("no", "unonight.com");
-  assert.match(fallback.answer.directAnswer, /Unonight/);
-  assert.equal(fallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  const fallbackA = buildWebsiteKompisSafeFallbackResponse("no", TENANT_A.domain);
+  assert.match(fallbackA.answer.directAnswer, new RegExp(TENANT_A.label));
+  assert.equal(fallbackA.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
 
-  const installId = "180c9d31-3340-4633-b210-3b64edf1e1be";
+  const fallbackB = buildWebsiteKompisSafeFallbackResponse("no", TENANT_B.domain);
+  assert.match(fallbackB.answer.directAnswer, new RegExp(TENANT_B.label));
+  assert.doesNotMatch(fallbackB.answer.directAnswer, new RegExp(TENANT_A.label));
+
   let rpcCalled = false;
 
   const genericResponse = await askPublicPlatformCompanion(
     {
       question: "Hvilken løsninger har dere?",
       locale: "no",
-      domain: "unonight.com",
-      installId,
+      domain: TENANT_A.domain,
+      installId: TENANT_A.installId,
     },
     {
-      requestHost: "unonight.com",
+      requestHost: TENANT_A.domain,
       searchTenantVisitorKnowledge: async () => {
         rpcCalled = true;
         return [];
@@ -80,6 +104,7 @@ async function main() {
 
   assert.equal(rpcCalled, true);
   assert.equal(genericResponse.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  assert.match(genericResponse.answer.directAnswer, new RegExp(TENANT_A.label));
   assert.ok(
     !genericResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
   );
@@ -87,26 +112,41 @@ async function main() {
     !genericResponse.sources.some((source) => source.route.includes("platform-fallback")),
   );
 
-  const easterFallback = await askPublicPlatformCompanion(
+  const tenantBFallback = await askPublicPlatformCompanion(
     {
-      question: "Har dere åpent i påsken?",
+      question: "Hvilken løsninger har dere?",
       locale: "no",
-      domain: "unonight.com",
-      installId,
+      domain: TENANT_B.domain,
+      installId: TENANT_B.installId,
     },
     {
       searchTenantVisitorKnowledge: async () => [],
     },
   );
-  assert.equal(easterFallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
-  assert.match(easterFallback.answer.directAnswer, /Unonight/);
+  assert.equal(tenantBFallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  assert.match(tenantBFallback.answer.directAnswer, new RegExp(TENANT_B.label));
+  assert.doesNotMatch(tenantBFallback.answer.directAnswer, new RegExp(TENANT_A.label));
+
+  const holidayFallback = await askPublicPlatformCompanion(
+    {
+      question: "Har dere åpent i påsken?",
+      locale: "no",
+      domain: TENANT_A.domain,
+      installId: TENANT_A.installId,
+    },
+    {
+      searchTenantVisitorKnowledge: async () => [],
+    },
+  );
+  assert.equal(holidayFallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  assert.match(holidayFallback.answer.directAnswer, new RegExp(TENANT_A.label));
 
   const explicitAipify = await askPublicPlatformCompanion(
     {
       question: "Hva er Aipify Kompis?",
       locale: "no",
-      domain: "unonight.com",
-      installId,
+      domain: TENANT_A.domain,
+      installId: TENANT_A.installId,
     },
     {
       searchTenantVisitorKnowledge: async () => [],
@@ -135,6 +175,17 @@ async function main() {
     marketingCore.sources.some((source) => source.route.includes("aipify-capabilities")),
     `expected aipify-capabilities on marketing ask, got ${JSON.stringify(marketingCore.sources)}`,
   );
+
+  const forbiddenRuntime = /\bunonight\b|\bUnonight\b|unonight\.com|180c9d31-3340-4633-b210-3b64edf1e1be/i;
+  for (const relativePath of WEBSITE_KOMPIS_RUNTIME_FILES) {
+    const absolutePath = path.join(root, relativePath);
+    const source = fs.readFileSync(absolutePath, "utf8");
+    assert.doesNotMatch(
+      source,
+      forbiddenRuntime,
+      `${relativePath} must not contain customer-specific runtime symbols`,
+    );
+  }
 
   console.log("website-kompis-public-boundary.test.ts: all assertions passed");
 }

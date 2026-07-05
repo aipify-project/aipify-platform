@@ -67,6 +67,10 @@ async function main() {
   assert.equal(isRelevantPublicCompanionTenantFaqResult(fixtureRows, "a"), false);
 
   const response = buildPublicCompanionTenantFaqResponse(fixtureRows, "no");
+  assert.equal(
+    response.answer.directAnswer,
+    "Vi holder stengt 17.–21. april. Kundeservice svarer igjen 22. april.",
+  );
   assert.match(response.answer.directAnswer, /stengt 17/);
   assert.ok(response.sources.some((source) => source.title === "Åpningstider i påsken"));
   assert.ok(response.sources.some((source) => source.route === "https://example-a.test/kontakt"));

@@ -93,6 +93,7 @@ async function main() {
   for (const query of [titleQuery, closedQuery, answerBodyQuery, answerDateQuery]) {
     assert.equal(isRelevantPublicCompanionTenantFaqResult([fixtureRow], query), true);
     const response = buildPublicCompanionTenantFaqResponse([fixtureRow], "no");
+    assert.equal(response.answer.directAnswer, EASTER_FAQ.answer);
     assert.match(response.answer.directAnswer, /stengt 17/);
     assert.ok(
       response.sources.some((source) => source.route === "website-kompis-faq:holiday_notice"),
@@ -103,6 +104,7 @@ async function main() {
   assert.equal(matchesPublicCompanionTenantFaqQuery("Hvilken løsninger har dere?", EASTER_FAQ), false);
 
   const installId = "11111111-1111-4111-8111-111111111111";
+  const tenantBInstallId = "22222222-2222-4222-8222-222222222222";
   const fallbackResponse = await askPublicPlatformCompanion(
     {
       question: "Hvilken løsninger har dere?",
@@ -115,9 +117,25 @@ async function main() {
     },
   );
   assert.equal(fallbackResponse.sources[0]?.route, "website-kompis-safe-fallback");
+  assert.match(fallbackResponse.answer.directAnswer, /Example-a|virksomheten/i);
   assert.ok(
     !fallbackResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
   );
+
+  const tenantBFallback = await askPublicPlatformCompanion(
+    {
+      question: "Hvilken løsninger har dere?",
+      locale: "no",
+      domain: "demo-clinic.com",
+      installId: tenantBInstallId,
+    },
+    {
+      searchTenantVisitorKnowledge: async () => [],
+    },
+  );
+  assert.equal(tenantBFallback.sources[0]?.route, "website-kompis-safe-fallback");
+  assert.match(tenantBFallback.answer.directAnswer, /Demo-clinic|virksomheten/i);
+  assert.doesNotMatch(tenantBFallback.answer.directAnswer, /Example-a/i);
 
   const explicitAipifyOnMarketing = await askPublicPlatformCompanion(
     {
