@@ -32,6 +32,17 @@
       "users": "Users",
       "paymentStatus": "Payment status"
     },
+    "licenseCode": {
+      "title": "Aipify license code",
+      "description": "Your APP subscription license code. Hidden by default — use the eye control to reveal the full code.",
+      "reveal": "Reveal license code",
+      "hide": "Hide license code",
+      "copy": "Copy license code",
+      "copied": "Copied",
+      "unavailable": "License code is not available yet.",
+      "revealError": "Could not reveal the license code. Please try again.",
+      "status": "Code status"
+    },
     "sections": {
       "license_information": {
         "title": "License Information",

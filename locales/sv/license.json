@@ -32,6 +32,17 @@
       "users": "Users",
       "paymentStatus": "Payment status"
     },
+    "licenseCode": {
+      "title": "Aipify-licenskod",
+      "description": "Din APP-prenumerationslicenskod. Dold som standard — använd ögat för att visa hela koden.",
+      "reveal": "Visa licenskod",
+      "hide": "Dölj licenskod",
+      "copy": "Kopiera licenskod",
+      "copied": "Kopierad",
+      "unavailable": "Licenskod är inte tillgänglig ännu.",
+      "revealError": "Kunde inte visa licenskoden. Försök igen.",
+      "status": "Kodstatus"
+    },
     "sections": {
       "license_information": {
         "title": "License Information",
