@@ -5799,7 +5799,52 @@
     "back": "Back",
     "domainPlaceholder": "example.no",
     "selectPlatform": "Connected platform",
-    "save": "Add Domain"
+    "save": "Add Domain",
+    "websiteKompis": {
+      "title": "Website Kompis",
+      "subtitle": "Offentlig kompis för denna verifierade domän — launcher, källor och säker fallback.",
+      "licenseAvailable": "APP-licens aktiv",
+      "licenseRequired": "APP-licens krävs",
+      "licenseNotIncluded": "Website Kompis ingår inte i din APP-licens.",
+      "licenseInactive": "Website Kompis kräver en aktiv APP-licens.",
+      "unableToVerifyLicense": "Aipify kunde inte verifiera APP-licensstatus. Inställningarna förblir låsta tills verifieringen lyckas.",
+      "domainMustBeVerified": "Verifiera och aktivera denna domän innan du hanterar Website Kompis.",
+      "installMissing": "En betrodd installationsbindning krävs innan Website Kompis kan köras.",
+      "domainLabel": "Domän",
+      "installIdLabel": "Installations-ID",
+      "installPending": "Tillgänglig efter aktivering",
+      "metadataUrlLabel": "Offentlig metadata-URL",
+      "metadataPending": "Tillgänglig efter aktivering",
+      "sourcePriority": "Svarsprioritet: FAQ, aktuell offentlig sida, säker fallback, sedan Aipify offentlig kunskap för explicita Aipify- eller Kompis-frågor.",
+      "publicSiteIndexComingLater": "Public Site Index kommer senare och förblir avstängt tills vidare.",
+      "enabledLabel": "Aktivera Website Kompis på denna domän",
+      "iconVariantLabel": "Launcher-ikonvariant",
+      "fallbackToneLabel": "Fallback-ton",
+      "welcomeVariantLabel": "Välkomstmeddelandevariant",
+      "sourcesLabel": "Offentliga källor",
+      "sourceFaq": "FAQ",
+      "sourceCurrentPage": "Aktuell offentlig sida",
+      "sourceAipifyPublic": "Aipify offentlig kunskap",
+      "save": "Spara inställningar",
+      "reset": "Återställ ändringar",
+      "saved": "Website Kompis-inställningar sparade.",
+      "saving": "Sparar…",
+      "saveError": "Kunde inte spara Website Kompis-inställningar. Försök igen.",
+      "loadError": "Kunde inte läsa in Website Kompis-inställningar.",
+      "iconVariants": {
+        "companionPurpleDefault": "Companion lila (standard)",
+        "companionPurpleDark": "Companion lila (mörk)",
+        "companionPurpleLight": "Companion lila (ljus)"
+      },
+      "fallbackTones": {
+        "professionalFriendly": "Professionell och vänlig",
+        "shortDirect": "Kort och direkt"
+      },
+      "welcomeVariants": {
+        "standard": "Standard",
+        "compact": "Kompakt"
+      }
+    }
   },
   "checkoutVat": {
     "title": "Checkout",

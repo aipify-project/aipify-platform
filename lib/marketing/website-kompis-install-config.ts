@@ -299,8 +299,18 @@ export function buildWebsiteKompisDisabledResponse(
   };
 }
 
+export const WEBSITE_KOMPIS_PUBLIC_UNAVAILABLE_REASONS = [
+  "license_required",
+  "not_available",
+] as const;
+
+export type WebsiteKompisPublicUnavailableReason =
+  (typeof WEBSITE_KOMPIS_PUBLIC_UNAVAILABLE_REASONS)[number];
+
 export type WebsiteKompisPublicInstallMetadata = {
   enabled: boolean;
+  available?: boolean;
+  reason?: WebsiteKompisPublicUnavailableReason;
   iconVariant: CompanionLauncherIconVariantKey;
   welcomeMessageVariant: WebsiteKompisWelcomeMessageVariant;
   fallbackTone: WebsiteKompisFallbackTone;
@@ -311,8 +321,22 @@ export function toWebsiteKompisPublicInstallMetadata(
 ): WebsiteKompisPublicInstallMetadata {
   return {
     enabled: config.enabled,
+    available: config.enabled,
     iconVariant: config.iconVariant,
     welcomeMessageVariant: config.welcomeMessageVariant,
     fallbackTone: config.fallbackTone,
+  };
+}
+
+export function buildWebsiteKompisLicensedDisabledPublicMetadata(
+  reason: WebsiteKompisPublicUnavailableReason = "license_required",
+): WebsiteKompisPublicInstallMetadata {
+  return {
+    enabled: false,
+    available: false,
+    reason,
+    iconVariant: DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT,
+    welcomeMessageVariant: DEFAULT_WEBSITE_KOMPIS_INSTALL_CONFIG.welcomeMessageVariant,
+    fallbackTone: DEFAULT_WEBSITE_KOMPIS_INSTALL_CONFIG.fallbackTone,
   };
 }

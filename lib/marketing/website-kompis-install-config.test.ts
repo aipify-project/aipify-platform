@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import {
   DEFAULT_WEBSITE_KOMPIS_INSTALL_CONFIG,
   buildWebsiteKompisDisabledResponse,
+  buildWebsiteKompisLicensedDisabledPublicMetadata,
   getWebsiteKompisInstallConfigForPublicRequest,
   normalizeWebsiteKompisInstallConfig,
   toWebsiteKompisPublicInstallMetadata,
@@ -70,6 +71,12 @@ async function runWebsiteKompisInstallConfigTests() {
   assert.equal(metadata.enabled, false);
   assert.equal(metadata.iconVariant, "companion-purple-default");
   assert.equal(Object.hasOwn(metadata, "tenantId"), false);
+
+  const licensedDisabled = buildWebsiteKompisLicensedDisabledPublicMetadata("license_required");
+  assert.equal(licensedDisabled.enabled, false);
+  assert.equal(licensedDisabled.available, false);
+  assert.equal(licensedDisabled.reason, "license_required");
+  assert.equal(Object.hasOwn(licensedDisabled, "tenantId"), false);
 
   const disabled = buildWebsiteKompisDisabledResponse("en", "example-a.com");
   assert.equal(disabled.sources[0]?.route, WEBSITE_KOMPIS_DISABLED_SOURCE);

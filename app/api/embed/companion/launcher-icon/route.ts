@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
 import { getCompanionLauncherIconEmbedConfig } from "@/lib/branding/companion-launcher-icon";
 import {
+  buildWebsiteKompisLicensedDisabledPublicMetadata,
   getWebsiteKompisInstallConfigForPublicRequest,
   toWebsiteKompisPublicInstallMetadata,
 } from "@/lib/marketing/website-kompis-install-config";
+import { mapWebsiteKompisAvailabilityToPublicReason } from "@/lib/marketing/website-kompis-licensed-availability";
+import {
+  hasPublicCompanionVisitorContext,
+  resolvePublicCompanionVisitorContext,
+} from "@/lib/marketing/public-companion-tenant-faq";
+import { resolveWebsiteKompisPublicLicensedAvailability } from "@/lib/marketing/website-kompis-licensed-availability-server";
 
 /** Public embed metadata for Core-owned Website Kompis / Companion launcher icon variants. */
 export async function GET(request: Request) {
@@ -14,23 +21,43 @@ export async function GET(request: Request) {
   const domain = url.searchParams.get("domain");
   const hasInstallSelector = Boolean(installId?.trim() || domain?.trim());
 
-  const installConfig = hasInstallSelector
-    ? await getWebsiteKompisInstallConfigForPublicRequest({
-        installId,
-        domain,
-        requestHost: url.hostname,
-      })
-    : null;
+  let publicMetadata = null;
 
-  const publicMetadata = installConfig
-    ? toWebsiteKompisPublicInstallMetadata(installConfig)
-    : null;
+  if (hasInstallSelector) {
+    const visitorContext = resolvePublicCompanionVisitorContext({
+      clientDomain: domain,
+      requestHost: url.hostname,
+      installId,
+    });
+
+    if (!hasPublicCompanionVisitorContext(visitorContext)) {
+      publicMetadata = buildWebsiteKompisLicensedDisabledPublicMetadata("not_available");
+    } else {
+      const availability = await resolveWebsiteKompisPublicLicensedAvailability(visitorContext);
+
+      if (!availability.available) {
+        publicMetadata = buildWebsiteKompisLicensedDisabledPublicMetadata(
+          mapWebsiteKompisAvailabilityToPublicReason(availability.reason),
+        );
+      } else {
+        const installConfig = await getWebsiteKompisInstallConfigForPublicRequest({
+          installId,
+          domain,
+          requestHost: url.hostname,
+        });
+
+        publicMetadata = installConfig.enabled
+          ? toWebsiteKompisPublicInstallMetadata(installConfig)
+          : buildWebsiteKompisLicensedDisabledPublicMetadata("not_available");
+      }
+    }
+  }
 
   return NextResponse.json(
     getCompanionLauncherIconEmbedConfig(origin, {
-      variant,
+      variant: publicMetadata?.available === false ? undefined : variant,
       installConfig: publicMetadata,
-      preferInstallConfigVariant: hasInstallSelector,
+      preferInstallConfigVariant: hasInstallSelector && publicMetadata?.available !== false,
     }),
     {
       headers: {

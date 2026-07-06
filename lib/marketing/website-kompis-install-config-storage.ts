@@ -92,3 +92,35 @@ export async function loadWebsiteKompisInstallConfigFromStorage(
 
   return parsed.config ?? {};
 }
+
+export async function loadWebsiteKompisInstallConfigForApp(
+  supabase: Pick<SupabaseClient, "rpc">,
+  installId: string,
+): Promise<WebsiteKompisInstallConfigRpcResult | null> {
+  const { data, error } = await supabase.rpc(WEBSITE_KOMPIS_INSTALL_CONFIG_READ_RPC, {
+    p_install_id: installId,
+  });
+
+  if (error) {
+    return null;
+  }
+
+  return parseRpcResult(data);
+}
+
+export async function updateWebsiteKompisInstallConfigInStorage(
+  supabase: Pick<SupabaseClient, "rpc">,
+  installId: string,
+  patch: Record<string, unknown>,
+): Promise<WebsiteKompisInstallConfigRpcResult | null> {
+  const { data, error } = await supabase.rpc(WEBSITE_KOMPIS_INSTALL_CONFIG_UPDATE_RPC, {
+    p_install_id: installId,
+    p_patch: patch,
+  });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return parseRpcResult(data);
+}

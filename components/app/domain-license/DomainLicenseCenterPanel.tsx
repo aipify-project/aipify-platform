@@ -9,6 +9,7 @@ import {
   type DomainLicenseLabels,
 } from "@/lib/domain-license";
 import { AipifyModuleAccessDenied } from "@/components/ui/aipify-module-access-denied";
+import { WebsiteKompisDomainSettingsCard } from "@/components/app/domain-license/WebsiteKompisDomainSettingsCard";
 
 type Tab = "overview" | "active" | "pending" | "licenses" | "packs";
 
@@ -136,6 +137,11 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
                   {labels.packs}: {(d.installed_packs ?? []).map((p) => p.pack_key.replace(/_/g, " ")).join(", ")}
                 </p>
               ) : null}
+              <WebsiteKompisDomainSettingsCard
+                domainId={d.id}
+                domain={d.domain}
+                labels={labels.websiteKompis}
+              />
             </div>
           ))}
         </div>

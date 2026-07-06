@@ -127,15 +127,46 @@ async function runCompanionLauncherIconTests() {
   assert.equal(installConfigMeta.enabled, false);
   assert.equal(installConfigMeta.welcomeMessageVariant, "compact");
 
+  const licensedDisabledMeta = getCompanionLauncherIconEmbedConfig(origin, {
+    installConfig: {
+      enabled: false,
+      available: false,
+      reason: "license_required",
+    },
+    preferInstallConfigVariant: true,
+  });
+  assert.equal(licensedDisabledMeta.enabled, false);
+  assert.equal(licensedDisabledMeta.available, false);
+  assert.equal(licensedDisabledMeta.unavailableReason, "license_required");
+
   const invalidInstallVariant = getCompanionLauncherIconEmbedConfig(origin, {
     installConfig: { iconVariant: "bad-variant" },
     preferInstallConfigVariant: true,
   });
   assert.equal(invalidInstallVariant.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
 
+  const neutralInstallId = "00000000-0000-4000-8000-000000000001";
+  const neutralDomain = "neutral-example.test";
+
+  const unavailableInstallResponse = await getLauncherIconMetadata(
+    new Request(
+      `https://aipify.ai/api/embed/companion/launcher-icon?installId=${neutralInstallId}&domain=${neutralDomain}`,
+    ),
+  );
+  assert.equal(unavailableInstallResponse.status, 200);
+  const unavailableInstallBody = (await unavailableInstallResponse.json()) as ReturnType<
+    typeof getCompanionLauncherIconEmbedConfig
+  >;
+  assert.equal(unavailableInstallBody.enabled, false);
+  assert.equal(unavailableInstallBody.available, false);
+  assert.equal(unavailableInstallBody.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+  for (const key of forbiddenMetadataKeys) {
+    assert.equal(Object.hasOwn(unavailableInstallBody, key), false);
+  }
+
   const installSelectorResponse = await getLauncherIconMetadata(
     new Request(
-      "https://aipify.ai/api/embed/companion/launcher-icon?installId=11111111-1111-4111-8111-111111111111&domain=example-a.test&variant=companion-purple-light",
+      `https://aipify.ai/api/embed/companion/launcher-icon?installId=${neutralInstallId}&domain=${neutralDomain}&variant=companion-purple-light`,
     ),
   );
   assert.equal(installSelectorResponse.status, 200);
@@ -143,10 +174,11 @@ async function runCompanionLauncherIconTests() {
     typeof getCompanionLauncherIconEmbedConfig
   >;
   assert.equal(installSelectorBody.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+  assert.equal(installSelectorBody.enabled, false);
 
   const installIdOnlyResponse = await getLauncherIconMetadata(
     new Request(
-      "https://aipify.ai/api/embed/companion/launcher-icon?installId=11111111-1111-4111-8111-111111111111",
+      `https://aipify.ai/api/embed/companion/launcher-icon?installId=${neutralInstallId}`,
     ),
   );
   assert.equal(installIdOnlyResponse.status, 200);
@@ -155,6 +187,7 @@ async function runCompanionLauncherIconTests() {
   >;
   assert.equal(installIdOnlyBody.selectedVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
   assert.equal(installIdOnlyBody.defaultVariant, DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT);
+  assert.equal(installIdOnlyBody.enabled, false);
   for (const key of forbiddenMetadataKeys) {
     assert.equal(Object.hasOwn(installIdOnlyBody, key), false);
   }
