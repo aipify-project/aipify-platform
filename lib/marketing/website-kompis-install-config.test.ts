@@ -1,14 +1,34 @@
 import assert from "node:assert/strict";
-import {
-  DEFAULT_WEBSITE_KOMPIS_INSTALL_CONFIG,
-  buildWebsiteKompisDisabledResponse,
-  getWebsiteKompisInstallConfigForPublicRequest,
-  normalizeWebsiteKompisInstallConfig,
-  toWebsiteKompisPublicInstallMetadata,
-  WEBSITE_KOMPIS_DISABLED_SOURCE,
-} from "@/lib/marketing/website-kompis-install-config";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
+
+function installServerOnlyShim(): void {
+  const moduleApi = require("node:module") as {
+    Module: {
+      _load: (request: string, parent: unknown, isMain: boolean) => unknown;
+    };
+  };
+  const originalLoad = moduleApi.Module._load;
+  moduleApi.Module._load = function (request, parent, isMain) {
+    if (request === "server-only") {
+      return {};
+    }
+    return originalLoad.call(this, request, parent, isMain);
+  };
+}
 
 async function runWebsiteKompisInstallConfigTests() {
+  installServerOnlyShim();
+  const {
+    DEFAULT_WEBSITE_KOMPIS_INSTALL_CONFIG,
+    buildWebsiteKompisDisabledResponse,
+    buildWebsiteKompisLicensedDisabledPublicMetadata,
+    getWebsiteKompisInstallConfigForPublicRequest,
+    normalizeWebsiteKompisInstallConfig,
+    toWebsiteKompisPublicInstallMetadata,
+    WEBSITE_KOMPIS_DISABLED_SOURCE,
+  } = await import("@/lib/marketing/website-kompis-install-config");
   const defaults = normalizeWebsiteKompisInstallConfig(undefined);
   assert.deepEqual(defaults.sources, DEFAULT_WEBSITE_KOMPIS_INSTALL_CONFIG.sources);
   assert.equal(defaults.enabled, true);
@@ -70,6 +90,12 @@ async function runWebsiteKompisInstallConfigTests() {
   assert.equal(metadata.enabled, false);
   assert.equal(metadata.iconVariant, "companion-purple-default");
   assert.equal(Object.hasOwn(metadata, "tenantId"), false);
+
+  const licensedDisabled = buildWebsiteKompisLicensedDisabledPublicMetadata("license_required");
+  assert.equal(licensedDisabled.enabled, false);
+  assert.equal(licensedDisabled.available, false);
+  assert.equal(licensedDisabled.reason, "license_required");
+  assert.equal(Object.hasOwn(licensedDisabled, "tenantId"), false);
 
   const disabled = buildWebsiteKompisDisabledResponse("en", "example-a.com");
   assert.equal(disabled.sources[0]?.route, WEBSITE_KOMPIS_DISABLED_SOURCE);

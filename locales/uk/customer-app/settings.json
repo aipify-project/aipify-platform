@@ -763,5 +763,52 @@
       "providerRequired": "Для продовження потрібен provider.",
       "scopeRequired": "Для продовження потрібна дійсна область доступу."
     }
+  },
+  "domainLicense": {
+    "websiteKompis": {
+      "title": "Website Kompis",
+      "subtitle": "Публічний компаньон для цього перевіреного домену — launcher, джерела та безпечний fallback.",
+      "licenseAvailable": "Ліцензія APP активна",
+      "licenseRequired": "Потрібна ліцензія APP",
+      "licenseNotIncluded": "Website Kompis не входить до вашої ліцензії APP.",
+      "licenseInactive": "Website Kompis потребує активної ліцензії APP.",
+      "unableToVerifyLicense": "Aipify не змогло перевірити статус ліцензії APP. Налаштування залишаються заблокованими до успішної перевірки.",
+      "domainMustBeVerified": "Перевірте та активуйте цей домен перед керуванням Website Kompis.",
+      "installMissing": "Перед запуском Website Kompis потрібне довірене прив’язування інсталяції.",
+      "domainLabel": "Домен",
+      "installIdLabel": "ID інсталяції",
+      "installPending": "Доступно після активації",
+      "metadataUrlLabel": "Публічна URL метаданих",
+      "metadataPending": "Доступно після активації",
+      "sourcePriority": "Пріоритет відповідей: FAQ, поточна публічна сторінка, безпечний fallback, потім публічні знання Aipify для явних запитань про Aipify або Kompis.",
+      "publicSiteIndexComingLater": "Public Site Index з’явиться пізніше і поки що залишається вимкненим.",
+      "enabledLabel": "Увімкнути Website Kompis на цьому домені",
+      "iconVariantLabel": "Варіант іконки launcher",
+      "fallbackToneLabel": "Тон fallback",
+      "welcomeVariantLabel": "Варіант вітального повідомлення",
+      "sourcesLabel": "Публічні джерела",
+      "sourceFaq": "FAQ",
+      "sourceCurrentPage": "Поточна публічна сторінка",
+      "sourceAipifyPublic": "Публічні знання Aipify",
+      "save": "Зберегти налаштування",
+      "reset": "Скинути зміни",
+      "saved": "Налаштування Website Kompis збережено.",
+      "saving": "Збереження…",
+      "saveError": "Не вдалося зберегти налаштування Website Kompis. Спробуйте ще раз.",
+      "loadError": "Не вдалося завантажити налаштування Website Kompis.",
+      "iconVariants": {
+        "companionPurpleDefault": "Companion фіолетовий (стандарт)",
+        "companionPurpleDark": "Companion фіолетовий (темний)",
+        "companionPurpleLight": "Companion фіолетовий (світлий)"
+      },
+      "fallbackTones": {
+        "professionalFriendly": "Професійний і дружній",
+        "shortDirect": "Короткий і прямий"
+      },
+      "welcomeVariants": {
+        "standard": "Стандартний",
+        "compact": "Компактний"
+      }
+    }
   }
 }

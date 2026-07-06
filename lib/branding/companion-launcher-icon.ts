@@ -36,6 +36,8 @@ export type CompanionLauncherIconEmbedConfig = {
   selectedVariant: CompanionLauncherIconVariantKey;
   variants: CompanionLauncherIconVariantPublicMetadata[];
   enabled?: boolean;
+  available?: boolean;
+  unavailableReason?: string;
   welcomeMessageVariant?: string;
   fallbackTone?: string;
 };
@@ -58,6 +60,8 @@ export type GetCompanionLauncherIconEmbedConfigOptions = {
   variant?: string | null;
   installConfig?: {
     enabled?: boolean;
+    available?: boolean;
+    reason?: string | null;
     iconVariant?: string | null;
     welcomeMessageVariant?: string;
     fallbackTone?: string;
@@ -121,6 +125,15 @@ export function getCompanionLauncherIconEmbedConfig(
 
   if (options.installConfig) {
     config.enabled = options.installConfig.enabled ?? true;
+    if (options.installConfig.available === false) {
+      config.available = false;
+      config.enabled = false;
+    } else if (options.installConfig.available === true) {
+      config.available = true;
+    }
+    if (options.installConfig.reason) {
+      config.unavailableReason = options.installConfig.reason;
+    }
     if (options.installConfig.welcomeMessageVariant) {
       config.welcomeMessageVariant = options.installConfig.welcomeMessageVariant;
     }

@@ -522,6 +522,44 @@ async function main() {
     assert.match(hint, /User question: Hva handler denne siden om\?/);
   });
 
+  await test("inactive licensed widget returns disabled fallback and skips FAQ", async () => {
+    let faqCalled = false;
+    const response = await askPublicPlatformCompanion(
+      {
+        question: "What are your opening hours?",
+        locale: "en",
+        installId: "11111111-1111-4111-8111-111111111111",
+        domain: "example-a.test",
+      },
+      {
+        requestHost: "example-a.test",
+        rawInstallConfig: {
+          website_kompis: {
+            enabled: true,
+            sources: {
+              faq: true,
+              currentPage: true,
+              aipifyPublic: true,
+              publicSiteIndex: false,
+            },
+          },
+        },
+        resolveLicensedAvailability: async () => ({
+          available: false,
+          reason: "license_inactive",
+          capabilityKey: "website_kompis",
+        }),
+        searchTenantVisitorKnowledge: async () => {
+          faqCalled = true;
+          return [];
+        },
+      },
+    );
+
+    assert.equal(faqCalled, false);
+    assert.match(response.answer.directAnswer, /temporarily unavailable/i);
+  });
+
   await test("new files do not reference Unonight or customer-specific runtime symbols", () => {
     const forbidden =
       /\bunonight\b|loadCompanionTenantContext|search_organization_knowledge|record_companion_answer_feedback/i;

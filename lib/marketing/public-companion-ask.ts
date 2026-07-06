@@ -57,6 +57,10 @@ import {
   type GetWebsiteKompisInstallConfigOptions,
   type WebsiteKompisInstallConfig,
 } from "@/lib/marketing/website-kompis-install-config";
+import {
+  resolveWebsiteKompisPublicLicensedAvailability,
+} from "@/lib/marketing/website-kompis-licensed-availability-server";
+import type { WebsiteKompisLicensedAvailability } from "@/lib/marketing/website-kompis-licensed-availability";
 
 export const PUBLIC_COMPANION_ASK_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
 export type PublicCompanionAskLocale = (typeof PUBLIC_COMPANION_ASK_LOCALES)[number];
@@ -97,6 +101,9 @@ export type PublicCompanionAskOptions = {
   searchTenantVisitorKnowledge?: typeof searchPublicCompanionTenantFaq;
   rawInstallConfig?: unknown;
   loadInstallConfig?: GetWebsiteKompisInstallConfigOptions["loadInstallConfig"];
+  resolveLicensedAvailability?: (
+    visitorContext: PublicCompanionVisitorContext,
+  ) => Promise<WebsiteKompisLicensedAvailability> | WebsiteKompisLicensedAvailability;
 };
 
 export type PublicCompanionAskAction = {
@@ -713,6 +720,18 @@ export async function askPublicPlatformCompanion(
     installId: validated.installId,
   });
   const onCustomerWebsite = isCustomerWebsiteVisitorContext(visitorContext);
+
+  if (hasPublicCompanionVisitorContext(visitorContext)) {
+    const resolveAvailability =
+      options?.resolveLicensedAvailability ?? resolveWebsiteKompisPublicLicensedAvailability;
+    const availability = await resolveAvailability(visitorContext);
+    if (!availability.available) {
+      return buildWebsiteKompisDisabledResponse(
+        locale,
+        visitorContext.domain,
+      ) as PublicCompanionAskResponse;
+    }
+  }
 
   const installConfig = await getWebsiteKompisInstallConfigForPublicRequest(
     {

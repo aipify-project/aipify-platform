@@ -763,5 +763,52 @@
       "providerRequired": "Do kontynuacji wymagany jest dostawca.",
       "scopeRequired": "Do kontynuacji wymagany jest prawidłowy zakres dostępu."
     }
+  },
+  "domainLicense": {
+    "websiteKompis": {
+      "title": "Website Kompis",
+      "subtitle": "Publiczny kompan dla tej zweryfikowanej domeny — launcher, źródła i bezpieczny fallback.",
+      "licenseAvailable": "Licencja APP aktywna",
+      "licenseRequired": "Wymagana licencja APP",
+      "licenseNotIncluded": "Website Kompis nie jest objęty licencją APP.",
+      "licenseInactive": "Website Kompis wymaga aktywnej licencji APP.",
+      "unableToVerifyLicense": "Aipify nie mogło zweryfikować statusu licencji APP. Ustawienia pozostają zablokowane do czasu pomyślnej weryfikacji.",
+      "domainMustBeVerified": "Zweryfikuj i aktywuj tę domenę przed zarządzaniem Website Kompis.",
+      "installMissing": "Do uruchomienia Website Kompis wymagane jest zaufane powiązanie instalacji.",
+      "domainLabel": "Domena",
+      "installIdLabel": "ID instalacji",
+      "installPending": "Dostępne po aktywacji",
+      "metadataUrlLabel": "Publiczny URL metadanych",
+      "metadataPending": "Dostępne po aktywacji",
+      "sourcePriority": "Priorytet odpowiedzi: FAQ, bieżąca strona publiczna, bezpieczny fallback, następnie publiczna wiedza Aipify dla wyraźnych pytań o Aipify lub Kompis.",
+      "publicSiteIndexComingLater": "Public Site Index pojawi się później i na razie pozostaje wyłączony.",
+      "enabledLabel": "Włącz Website Kompis na tej domenie",
+      "iconVariantLabel": "Wariant ikony launchera",
+      "fallbackToneLabel": "Ton fallbacku",
+      "welcomeVariantLabel": "Wariant wiadomości powitalnej",
+      "sourcesLabel": "Publiczne źródła",
+      "sourceFaq": "FAQ",
+      "sourceCurrentPage": "Bieżąca strona publiczna",
+      "sourceAipifyPublic": "Publiczna wiedza Aipify",
+      "save": "Zapisz ustawienia",
+      "reset": "Resetuj zmiany",
+      "saved": "Ustawienia Website Kompis zapisane.",
+      "saving": "Zapisywanie…",
+      "saveError": "Nie udało się zapisać ustawień Website Kompis. Spróbuj ponownie.",
+      "loadError": "Nie udało się wczytać ustawień Website Kompis.",
+      "iconVariants": {
+        "companionPurpleDefault": "Companion fiolet (domyślny)",
+        "companionPurpleDark": "Companion fiolet (ciemny)",
+        "companionPurpleLight": "Companion fiolet (jasny)"
+      },
+      "fallbackTones": {
+        "professionalFriendly": "Profesjonalny i przyjazny",
+        "shortDirect": "Krótki i bezpośredni"
+      },
+      "welcomeVariants": {
+        "standard": "Standardowy",
+        "compact": "Kompaktowy"
+      }
+    }
   }
 }

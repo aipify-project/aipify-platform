@@ -5799,7 +5799,52 @@
     "back": "Back",
     "domainPlaceholder": "example.no",
     "selectPlatform": "Connected platform",
-    "save": "Add Domain"
+    "save": "Add Domain",
+    "websiteKompis": {
+      "title": "Website Kompis",
+      "subtitle": "Offentlig kompis for dette verificerede domæne — launcher, kilder og sikker fallback.",
+      "licenseAvailable": "APP-licens aktiv",
+      "licenseRequired": "APP-licens kræves",
+      "licenseNotIncluded": "Website Kompis er ikke inkluderet i din APP-licens.",
+      "licenseInactive": "Website Kompis kræver en aktiv APP-licens.",
+      "unableToVerifyLicense": "Aipify kunne ikke bekræfte APP-licensstatus. Indstillinger forbliver låst, indtil verificering lykkes.",
+      "domainMustBeVerified": "Verificer og aktiver dette domæne, før du administrerer Website Kompis.",
+      "installMissing": "En betroet installationsbinding kræves, før Website Kompis kan køre.",
+      "domainLabel": "Domæne",
+      "installIdLabel": "Installations-ID",
+      "installPending": "Tilgængelig efter aktivering",
+      "metadataUrlLabel": "Offentlig metadata-URL",
+      "metadataPending": "Tilgængelig efter aktivering",
+      "sourcePriority": "Svarprioritet: FAQ, aktuel offentlig side, sikker fallback, derefter Aipify offentlig viden for eksplicitte Aipify- eller Kompis-spørgsmål.",
+      "publicSiteIndexComingLater": "Public Site Index kommer senere og forbliver slukket indtil videre.",
+      "enabledLabel": "Aktiver Website Kompis på dette domæne",
+      "iconVariantLabel": "Launcher-ikonvariant",
+      "fallbackToneLabel": "Fallback-tone",
+      "welcomeVariantLabel": "Velkomstbeskedvariant",
+      "sourcesLabel": "Offentlige kilder",
+      "sourceFaq": "FAQ",
+      "sourceCurrentPage": "Aktuel offentlig side",
+      "sourceAipifyPublic": "Aipify offentlig viden",
+      "save": "Gem indstillinger",
+      "reset": "Nulstil ændringer",
+      "saved": "Website Kompis-indstillinger gemt.",
+      "saving": "Gemmer…",
+      "saveError": "Kunne ikke gemme Website Kompis-indstillinger. Prøv igen.",
+      "loadError": "Kunne ikke indlæse Website Kompis-indstillinger.",
+      "iconVariants": {
+        "companionPurpleDefault": "Companion lilla (standard)",
+        "companionPurpleDark": "Companion lilla (mørk)",
+        "companionPurpleLight": "Companion lilla (lys)"
+      },
+      "fallbackTones": {
+        "professionalFriendly": "Professionel og venlig",
+        "shortDirect": "Kort og direkte"
+      },
+      "welcomeVariants": {
+        "standard": "Standard",
+        "compact": "Kompakt"
+      }
+    }
   },
   "checkoutVat": {
     "title": "Checkout",

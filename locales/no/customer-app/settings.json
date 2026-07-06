@@ -1873,7 +1873,52 @@
     "back": "Tilbake",
     "domainPlaceholder": "firma.no",
     "selectPlatform": "Tilkoblet plattform",
-    "save": "Legg til domene"
+    "save": "Legg til domene",
+    "websiteKompis": {
+      "title": "Website Kompis",
+      "subtitle": "Offentlig kompis for dette verifiserte domenet — launcher, kilder og trygg fallback.",
+      "licenseAvailable": "APP-lisens aktiv",
+      "licenseRequired": "APP-lisens kreves",
+      "licenseNotIncluded": "Website Kompis er ikke inkludert i APP-lisensen din.",
+      "licenseInactive": "Website Kompis krever en aktiv APP-lisens.",
+      "unableToVerifyLicense": "Aipify kunne ikke bekrefte APP-lisensstatus. Innstillinger forblir låst til verifisering lykkes.",
+      "domainMustBeVerified": "Verifiser og aktiver dette domenet før du administrerer Website Kompis.",
+      "installMissing": "En betrodd installasjonsbinding kreves før Website Kompis kan kjøre.",
+      "domainLabel": "Domene",
+      "installIdLabel": "Installasjons-ID",
+      "installPending": "Tilgjengelig etter aktivering",
+      "metadataUrlLabel": "Offentlig metadata-URL",
+      "metadataPending": "Tilgjengelig etter aktivering",
+      "sourcePriority": "Svarprioritet: FAQ, gjeldende offentlig side, trygg fallback, deretter Aipify offentlig kunnskap for eksplisitte Aipify- eller Kompis-spørsmål.",
+      "publicSiteIndexComingLater": "Public Site Index kommer senere og forblir av for nå.",
+      "enabledLabel": "Aktiver Website Kompis på dette domenet",
+      "iconVariantLabel": "Launcher-ikonvariant",
+      "fallbackToneLabel": "Fallback-tone",
+      "welcomeVariantLabel": "Velkomstmeldingsvariant",
+      "sourcesLabel": "Offentlige kilder",
+      "sourceFaq": "FAQ",
+      "sourceCurrentPage": "Gjeldende offentlig side",
+      "sourceAipifyPublic": "Aipify offentlig kunnskap",
+      "save": "Lagre innstillinger",
+      "reset": "Tilbakestill endringer",
+      "saved": "Website Kompis-innstillinger lagret.",
+      "saving": "Lagrer…",
+      "saveError": "Kunne ikke lagre Website Kompis-innstillinger. Prøv igjen.",
+      "loadError": "Kunne ikke laste Website Kompis-innstillinger.",
+      "iconVariants": {
+        "companionPurpleDefault": "Companion lilla (standard)",
+        "companionPurpleDark": "Companion lilla (mørk)",
+        "companionPurpleLight": "Companion lilla (lys)"
+      },
+      "fallbackTones": {
+        "professionalFriendly": "Profesjonell og vennlig",
+        "shortDirect": "Kort og direkte"
+      },
+      "welcomeVariants": {
+        "standard": "Standard",
+        "compact": "Kompakt"
+      }
+    }
   },
   "taskManagement": {
     "title": "Oppgavesenter",
