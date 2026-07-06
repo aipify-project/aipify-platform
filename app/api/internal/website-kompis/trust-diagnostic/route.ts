@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {
   isWebsiteKompisDiagnosticGuardConfigured,
+  runWebsiteKompisAvailabilityProbeDiagnostic,
   runWebsiteKompisMetadataPipelineDiagnostic,
   runWebsiteKompisRuntimeTrustDiagnostic,
   verifyWebsiteKompisDiagnosticToken,
@@ -30,6 +31,16 @@ export async function GET(request: Request) {
 
   if (mode === "metadataPipeline") {
     const diagnostic = await runWebsiteKompisMetadataPipelineDiagnostic({
+      domain,
+      installId,
+      requestHost: url.hostname,
+    });
+
+    return NextResponse.json(diagnostic, { status: 200, headers: NO_STORE_HEADERS });
+  }
+
+  if (mode === "availabilityProbe") {
+    const diagnostic = await runWebsiteKompisAvailabilityProbeDiagnostic({
       domain,
       installId,
       requestHost: url.hostname,

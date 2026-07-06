@@ -25,13 +25,17 @@ async function runWebsiteKompisRuntimeTrustDiagnosticTests() {
   installServerOnlyShim();
 
   const {
+    bucketWebsiteKompisLicenseStatusForProbe,
+    evaluateWebsiteKompisAvailabilityProbeDiagnostic,
     evaluateWebsiteKompisMetadataPipelineDiagnostic,
     evaluateWebsiteKompisRuntimeTrustDiagnostic,
     FORBIDDEN_WEBSITE_KOMPIS_RUNTIME_TRUST_DIAGNOSTIC_FIELDS,
     isWebsiteKompisDiagnosticGuardConfigured,
+    sanitizeWebsiteKompisAvailabilityProbeDiagnosticResponse,
     sanitizeWebsiteKompisMetadataPipelineDiagnosticResponse,
     sanitizeWebsiteKompisRuntimeTrustDiagnosticResponse,
     verifyWebsiteKompisDiagnosticToken,
+    WEBSITE_KOMPIS_AVAILABILITY_PROBE_FAILURE_STAGES,
     WEBSITE_KOMPIS_METADATA_PIPELINE_FAILURE_STAGES,
   } = await import("@/lib/marketing/website-kompis-runtime-trust-diagnostic");
   type WebsiteKompisRuntimeTrustDiagnosticProbe = import("@/lib/marketing/website-kompis-runtime-trust-diagnostic").WebsiteKompisRuntimeTrustDiagnosticProbe;
@@ -289,6 +293,102 @@ async function runWebsiteKompisRuntimeTrustDiagnosticTests() {
   assert.equal(pipelineRecord.installId, undefined);
   assert.equal(pipelineRecord.domain, undefined);
   assert.match(String(pipelineTrustFailure.trustReason ?? ""), /^[a-z_]+$/);
+
+  assert.equal(bucketWebsiteKompisLicenseStatusForProbe(null), "missing");
+  assert.equal(bucketWebsiteKompisLicenseStatusForProbe(""), "missing");
+  assert.equal(bucketWebsiteKompisLicenseStatusForProbe("active"), "active");
+  assert.equal(bucketWebsiteKompisLicenseStatusForProbe("trialing"), "unrecognized");
+
+  const probeMissingLicense = evaluateWebsiteKompisAvailabilityProbeDiagnostic({
+    trustTrusted: true,
+    trustReason: "available",
+    entitlementRpcOk: false,
+    entitlementEnabled: null,
+    licenseRpcOk: false,
+    licenseStatusPresent: false,
+    licenseStatusBucket: "missing",
+    availabilityAvailable: false,
+    availabilityReason: "license_unknown",
+  });
+  assert.equal(probeMissingLicense.mode, "availabilityProbe");
+  assert.equal(probeMissingLicense.failureStage, "license_rpc");
+  assert.equal(probeMissingLicense.evaluatorBranch, "licenseResolvable");
+
+  const probeUnrecognizedLicense = evaluateWebsiteKompisAvailabilityProbeDiagnostic({
+    trustTrusted: true,
+    trustReason: "available",
+    entitlementRpcOk: true,
+    entitlementEnabled: true,
+    licenseRpcOk: true,
+    licenseStatusPresent: true,
+    licenseStatusBucket: "unrecognized",
+    availabilityAvailable: false,
+    availabilityReason: "license_unknown",
+  });
+  assert.equal(probeUnrecognizedLicense.failureStage, "license_status");
+  assert.equal(probeUnrecognizedLicense.evaluatorBranch, "licenseActive");
+
+  const probeEntitlementNull = evaluateWebsiteKompisAvailabilityProbeDiagnostic({
+    trustTrusted: true,
+    trustReason: "available",
+    entitlementRpcOk: false,
+    entitlementEnabled: null,
+    licenseRpcOk: true,
+    licenseStatusPresent: true,
+    licenseStatusBucket: "active",
+    availabilityAvailable: false,
+    availabilityReason: "license_unknown",
+  });
+  assert.equal(probeEntitlementNull.failureStage, "entitlement_rpc");
+  assert.equal(probeEntitlementNull.evaluatorBranch, "entitlementNull");
+
+  const probeAvailable = evaluateWebsiteKompisAvailabilityProbeDiagnostic({
+    trustTrusted: true,
+    trustReason: "available",
+    entitlementRpcOk: true,
+    entitlementEnabled: true,
+    licenseRpcOk: true,
+    licenseStatusPresent: true,
+    licenseStatusBucket: "active",
+    availabilityAvailable: true,
+    availabilityReason: "available",
+  });
+  assert.equal(probeAvailable.ok, true);
+  assert.equal(probeAvailable.failureStage, "none");
+  assert.equal(probeAvailable.evaluatorBranch, "available");
+
+  const sanitizedProbe = sanitizeWebsiteKompisAvailabilityProbeDiagnosticResponse({
+    ok: false,
+    mode: "availabilityProbe",
+    trustTrusted: true,
+    trustReason: "available",
+    entitlementRpcOk: false,
+    entitlementEnabled: null,
+    licenseRpcOk: true,
+    licenseStatusPresent: true,
+    licenseStatusBucket: "unrecognized",
+    evaluatorBranch: "licenseActive",
+    availabilityAvailable: false,
+    availabilityReason: "license_unknown",
+    failureStage: "license_status",
+    tenant_id: "secret-tenant",
+    customer_id: "secret-customer",
+    installId: NEUTRAL_INSTALL_ID,
+    domain: NEUTRAL_DOMAIN,
+  });
+
+  for (const forbidden of FORBIDDEN_WEBSITE_KOMPIS_RUNTIME_TRUST_DIAGNOSTIC_FIELDS) {
+    assert.equal(
+      forbidden in sanitizedProbe,
+      false,
+      `availabilityProbe forbidden field leaked: ${forbidden}`,
+    );
+  }
+
+  assert.equal(
+    WEBSITE_KOMPIS_AVAILABILITY_PROBE_FAILURE_STAGES.includes(sanitizedProbe.failureStage),
+    true,
+  );
 }
 
 runWebsiteKompisRuntimeTrustDiagnosticTests()
