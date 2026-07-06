@@ -18,11 +18,12 @@ function installServerOnlyShim(): void {
   };
 }
 
-installServerOnlyShim();
+async function runWebsiteKompisDomainSettingsTests() {
+  installServerOnlyShim();
+  const { buildWebsiteKompisDomainSettingsView } = await import(
+    "@/lib/marketing/website-kompis-domain-settings"
+  );
 
-import { buildWebsiteKompisDomainSettingsView } from "@/lib/marketing/website-kompis-domain-settings";
-
-function runWebsiteKompisDomainSettingsTests() {
   const locked = buildWebsiteKompisDomainSettingsView({
     record: {
       domainId: "22222222-2222-4222-8222-222222222222",
@@ -77,4 +78,7 @@ function runWebsiteKompisDomainSettingsTests() {
   console.log("website-kompis-domain-settings.test.ts: all assertions passed");
 }
 
-runWebsiteKompisDomainSettingsTests();
+runWebsiteKompisDomainSettingsTests().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

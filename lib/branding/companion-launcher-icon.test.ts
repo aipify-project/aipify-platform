@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { createRequire } from "node:module";
 import {
   COMPANION_LAUNCHER_ICON,
   getCompanionLauncherIconEmbedConfig,
@@ -12,9 +13,29 @@ import {
   DEFAULT_COMPANION_LAUNCHER_ICON_VARIANT,
   resolveCompanionLauncherIconVariant,
 } from "@/lib/branding/companion-launcher-icons";
-import { GET as getLauncherIconMetadata } from "@/app/api/embed/companion/launcher-icon/route";
+
+const require = createRequire(import.meta.url);
+
+function installServerOnlyShim(): void {
+  const moduleApi = require("node:module") as {
+    Module: {
+      _load: (request: string, parent: unknown, isMain: boolean) => unknown;
+    };
+  };
+  const originalLoad = moduleApi.Module._load;
+  moduleApi.Module._load = function (request, parent, isMain) {
+    if (request === "server-only") {
+      return {};
+    }
+    return originalLoad.call(this, request, parent, isMain);
+  };
+}
 
 async function runCompanionLauncherIconTests() {
+  installServerOnlyShim();
+  const { GET: getLauncherIconMetadata } = await import(
+    "@/app/api/embed/companion/launcher-icon/route"
+  );
   const root = process.cwd();
   const origin = "https://aipify.ai";
   const forbiddenMetadataKeys = [
