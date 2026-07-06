@@ -161,7 +161,7 @@ export function WebsiteKompisDomainSettingsCard({
 
   if (loading) {
     return (
-      <div className="mt-4 rounded-lg border border-gray-100 bg-gray-50/70 p-4 text-sm text-gray-600">
+      <div className="mt-3 rounded-lg border border-gray-100 bg-gray-50/70 p-3 text-sm text-gray-600">
         {labels.title}
       </div>
     );
@@ -170,11 +170,11 @@ export function WebsiteKompisDomainSettingsCard({
   const locked = !settings?.canManage || !settings.availability.available;
 
   return (
-    <div className="mt-4 rounded-lg border border-violet-100 bg-violet-50/30 p-4">
+    <div className="mt-3 rounded-lg border border-violet-100 bg-violet-50/30 p-3">
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <div>
+        <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold text-gray-900">{labels.title}</p>
-          <p className="mt-1 text-sm text-gray-600">{labels.subtitle}</p>
+          <p className="mt-0.5 text-sm text-gray-600">{labels.subtitle}</p>
         </div>
         <span
           className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${
@@ -187,7 +187,7 @@ export function WebsiteKompisDomainSettingsCard({
         </span>
       </div>
 
-      <dl className="mt-3 grid gap-2 text-sm text-gray-600 sm:grid-cols-2">
+      <dl className="mt-2 grid gap-2 text-sm text-gray-600 sm:grid-cols-2">
         <div>
           <dt className="font-medium text-gray-700">{labels.domainLabel}</dt>
           <dd>{domain}</dd>
@@ -202,7 +202,7 @@ export function WebsiteKompisDomainSettingsCard({
         </div>
       </dl>
 
-      <div className="mt-4 rounded-lg border border-gray-200 bg-white/80 p-3">
+      <div className="mt-3 w-full rounded-lg border border-gray-200 bg-white/80 p-3">
         <p className="text-sm font-semibold text-gray-900">Installer Website Kompis</p>
         <p className="mt-1 text-sm text-gray-600">
           Legg denne koden inn før {"</body>"} på {normalizedDomain ?? "DOMENE"}.
