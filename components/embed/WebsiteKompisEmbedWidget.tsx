@@ -1,0 +1,315 @@
+"use client";
+
+import { useCallback, useEffect, useId, useState } from "react";
+import { AipifyCompanionLauncherIcon } from "@/components/branding/AipifyCompanionLauncherIcon";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
+import type { CompanionLauncherIconEmbedConfig } from "@/lib/branding/companion-launcher-icon";
+import type { PublicCompanionAskResponse } from "@/lib/marketing/public-companion-ask";
+import {
+  buildWebsiteKompisAskPayload,
+  buildWebsiteKompisMetadataRequestPath,
+  type WebsiteKompisEmbedLocale,
+  type WebsiteKompisEmbedRecentContextMessage,
+} from "@/lib/marketing/website-kompis-embed";
+import { shouldHideWebsiteKompisLauncherFromEmbedMetadata } from "@/lib/marketing/website-kompis-launcher-visibility";
+import {
+  mapWebsiteCompanionApiResponse,
+  validateWebsiteCompanionQuestion,
+  WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH,
+} from "@/lib/marketing/website-companion-chat";
+
+const LABELS = {
+  title: "Website Kompis",
+  prompt: "Spør Website Kompis",
+  placeholder: "Skriv et spørsmål...",
+  send: "Send",
+  sending: "Sender...",
+  unavailable: "Midlertidig utilgjengelig",
+  error: "Noe gikk galt. Prøv igjen.",
+  open: "Åpne Website Kompis",
+  close: "Lukk Website Kompis",
+} as const;
+
+type ChatMessage =
+  | { id: string; role: "user"; text: string }
+  | { id: string; role: "assistant"; text: string; failed?: false }
+  | { id: string; role: "assistant"; failed: true; retryQuestion: string };
+
+function createMessageId(): string {
+  return `embed-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function toRecentContext(messages: ChatMessage[]): WebsiteKompisEmbedRecentContextMessage[] {
+  return messages
+    .filter(
+      (message): message is Extract<ChatMessage, { role: "user" } | { role: "assistant"; failed?: false }> =>
+        message.role === "user" || (message.role === "assistant" && !("failed" in message && message.failed)),
+    )
+    .slice(-6)
+    .map((message) => ({
+      role: message.role,
+      text: message.text.trim(),
+    }))
+    .filter((entry) => entry.text.length > 0);
+}
+
+export function WebsiteKompisEmbedWidget({
+  installId,
+  domain,
+  locale,
+}: {
+  installId: string;
+  domain: string;
+  locale: WebsiteKompisEmbedLocale;
+}) {
+  const inputId = useId();
+  const [metadata, setMetadata] = useState<CompanionLauncherIconEmbedConfig | null>(null);
+  const [metadataState, setMetadataState] = useState<"loading" | "ready" | "error">("loading");
+  const [open, setOpen] = useState(false);
+  const [draft, setDraft] = useState("");
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [sending, setSending] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadMetadata() {
+      setMetadataState("loading");
+      try {
+        const response = await fetch(
+          buildWebsiteKompisMetadataRequestPath({ installId, domain }),
+        );
+        if (!response.ok) {
+          throw new Error("metadata request failed");
+        }
+        const payload = (await response.json()) as CompanionLauncherIconEmbedConfig;
+        if (cancelled) return;
+        setMetadata(payload);
+        setMetadataState("ready");
+      } catch {
+        if (cancelled) return;
+        setMetadata(null);
+        setMetadataState("error");
+      }
+    }
+
+    void loadMetadata();
+    return () => {
+      cancelled = true;
+    };
+  }, [domain, installId]);
+
+  const hidden = shouldHideWebsiteKompisLauncherFromEmbedMetadata(metadata);
+  const unavailable = metadataState === "error" || (metadataState === "ready" && hidden);
+
+  const submitQuestion = useCallback(
+    async (question: string, priorMessages: ChatMessage[]) => {
+      const validation = validateWebsiteCompanionQuestion(question);
+      if (!validation.valid || sending) return;
+
+      const userMessage: ChatMessage = {
+        id: createMessageId(),
+        role: "user",
+        text: validation.question,
+      };
+
+      setMessages((current) => [...current, userMessage]);
+      setDraft("");
+      setSending(true);
+
+      try {
+        const response = await fetch("/api/marketing/companion/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(
+            buildWebsiteKompisAskPayload({
+              question: validation.question,
+              locale,
+              domain,
+              installId,
+              recentContext: toRecentContext(priorMessages),
+            }),
+          ),
+        });
+
+        if (!response.ok) {
+          throw new Error("ask request failed");
+        }
+
+        const payload = (await response.json()) as PublicCompanionAskResponse;
+        const mapped = mapWebsiteCompanionApiResponse(payload);
+        const answerParts = [mapped.directAnswer.trim()];
+        if (mapped.explanation?.trim()) answerParts.push(mapped.explanation.trim());
+        for (const step of mapped.steps) {
+          if (step.trim()) answerParts.push(step.trim());
+        }
+
+        setMessages((current) => [
+          ...current,
+          {
+            id: createMessageId(),
+            role: "assistant",
+            text: answerParts.join("\n\n"),
+          },
+        ]);
+      } catch {
+        setMessages((current) => [
+          ...current,
+          {
+            id: createMessageId(),
+            role: "assistant",
+            failed: true,
+            retryQuestion: validation.question,
+          },
+        ]);
+      } finally {
+        setSending(false);
+      }
+    },
+    [domain, installId, locale, sending],
+  );
+
+  const handleSubmit = useCallback(
+    async (event?: React.FormEvent) => {
+      event?.preventDefault();
+      if (sending || !draft.trim()) return;
+      await submitQuestion(draft, messages);
+    },
+    [draft, messages, sending, submitQuestion],
+  );
+
+  if (metadataState === "loading") {
+    return (
+      <div className="flex min-h-dvh items-center justify-center">
+        <AipifyLoader size="sm" centered={false} label="" />
+      </div>
+    );
+  }
+
+  if (unavailable) {
+    return (
+      <div className="flex min-h-dvh items-center justify-center p-4">
+        <p className="rounded-lg border border-aipify-border bg-aipify-surface px-4 py-3 text-sm text-aipify-text-secondary">
+          {LABELS.unavailable}
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative min-h-dvh w-full">
+      {open ? (
+        <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col overflow-hidden rounded-t-2xl border border-aipify-border bg-aipify-surface shadow-lg">
+          <header className="flex items-center justify-between border-b border-aipify-border px-4 py-3">
+            <div>
+              <p className="text-sm font-semibold text-aipify-text">{LABELS.title}</p>
+              <p className="text-xs text-aipify-text-secondary">{LABELS.prompt}</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="rounded-full border border-aipify-border px-3 py-1 text-xs font-medium text-aipify-text-secondary hover:bg-aipify-surface-muted"
+              aria-label={LABELS.close}
+            >
+              {LABELS.close}
+            </button>
+          </header>
+
+          <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-3">
+            {messages.map((message) => {
+              if ("failed" in message && message.failed) {
+                return (
+                  <div key={message.id} className="flex justify-start">
+                    <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
+                      <p className="text-sm text-aipify-text-secondary">{LABELS.error}</p>
+                      <button
+                        type="button"
+                        onClick={() => void submitQuestion(message.retryQuestion, messages.filter((m) => m.id !== message.id))}
+                        className="mt-2 text-xs font-medium text-aipify-companion hover:underline"
+                        disabled={sending}
+                      >
+                        {LABELS.send}
+                      </button>
+                    </div>
+                  </div>
+                );
+              }
+
+              const isUser = message.role === "user";
+              return (
+                <div key={message.id} className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
+                  <div
+                    className={`max-w-[92%] rounded-2xl px-3 py-3 text-sm whitespace-pre-wrap ${
+                      isUser
+                        ? "rounded-br-md bg-aipify-companion text-white"
+                        : "rounded-bl-md border border-aipify-border bg-aipify-surface text-aipify-text"
+                    }`}
+                  >
+                    {message.text}
+                  </div>
+                </div>
+              );
+            })}
+
+            {sending ? (
+              <div className="flex justify-start">
+                <div className="rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
+                  <AipifyLoader size="sm" centered={false} label="" />
+                  <span className="sr-only">{LABELS.sending}</span>
+                </div>
+              </div>
+            ) : null}
+          </div>
+
+          <form
+            onSubmit={(event) => void handleSubmit(event)}
+            className="border-t border-aipify-border px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+          >
+            <label htmlFor={inputId} className="sr-only">
+              {LABELS.placeholder}
+            </label>
+            <textarea
+              id={inputId}
+              value={draft}
+              onChange={(event) =>
+                setDraft(event.target.value.slice(0, WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH))
+              }
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && !event.shiftKey) {
+                  event.preventDefault();
+                  void handleSubmit();
+                }
+              }}
+              rows={2}
+              placeholder={LABELS.placeholder}
+              disabled={sending}
+              className="w-full resize-none rounded-xl border border-aipify-border bg-aipify-surface px-3 py-2 text-sm text-aipify-text outline-none ring-aipify-focus placeholder:text-aipify-text-muted focus:ring-2 disabled:opacity-60"
+            />
+            <div className="mt-2 flex justify-end">
+              <button
+                type="submit"
+                disabled={sending || !draft.trim()}
+                className="inline-flex min-h-10 items-center rounded-full bg-aipify-companion px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {sending ? LABELS.sending : LABELS.send}
+              </button>
+            </div>
+          </form>
+        </div>
+      ) : null}
+
+      <div className="fixed bottom-4 right-4 z-50 pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)]">
+        <button
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          className="relative flex h-12 w-12 items-center justify-center rounded-full border border-aipify-border bg-aipify-surface shadow-lg transition hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-aipify-focus"
+          aria-expanded={open}
+          aria-label={open ? LABELS.close : LABELS.open}
+          title={LABELS.title}
+        >
+          <AipifyCompanionLauncherIcon size={40} availabilityRing title={LABELS.title} ariaLabel={LABELS.title} />
+        </button>
+      </div>
+    </div>
+  );
+}
