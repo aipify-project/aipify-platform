@@ -25,11 +25,14 @@ async function runWebsiteKompisRuntimeTrustDiagnosticTests() {
   installServerOnlyShim();
 
   const {
+    evaluateWebsiteKompisMetadataPipelineDiagnostic,
     evaluateWebsiteKompisRuntimeTrustDiagnostic,
     FORBIDDEN_WEBSITE_KOMPIS_RUNTIME_TRUST_DIAGNOSTIC_FIELDS,
     isWebsiteKompisDiagnosticGuardConfigured,
+    sanitizeWebsiteKompisMetadataPipelineDiagnosticResponse,
     sanitizeWebsiteKompisRuntimeTrustDiagnosticResponse,
     verifyWebsiteKompisDiagnosticToken,
+    WEBSITE_KOMPIS_METADATA_PIPELINE_FAILURE_STAGES,
   } = await import("@/lib/marketing/website-kompis-runtime-trust-diagnostic");
   type WebsiteKompisRuntimeTrustDiagnosticProbe = import("@/lib/marketing/website-kompis-runtime-trust-diagnostic").WebsiteKompisRuntimeTrustDiagnosticProbe;
 
@@ -169,6 +172,123 @@ async function runWebsiteKompisRuntimeTrustDiagnosticTests() {
 
   void NEUTRAL_DOMAIN;
   void NEUTRAL_INSTALL_ID;
+
+  const defaultModeShape = evaluateWebsiteKompisRuntimeTrustDiagnostic(baseProbe());
+  assert.equal(typeof defaultModeShape.ok, "boolean");
+  assert.equal(typeof defaultModeShape.serviceRoleConfigured, "boolean");
+  assert.equal(typeof defaultModeShape.canReadExpectedBinding, "boolean");
+  assert.equal(defaultModeShape.failureStage, "none");
+  assert.equal("mode" in (defaultModeShape as Record<string, unknown>), false);
+
+  const pipelineSuccess = evaluateWebsiteKompisMetadataPipelineDiagnostic({
+    hasInstallSelector: true,
+    visitorContextOk: true,
+    trustTrusted: true,
+    trustReason: "available",
+    availabilityAvailable: true,
+    availabilityReason: "available",
+    installConfigLoaded: true,
+    installConfigEnabled: true,
+    finalMetadataEnabled: true,
+    finalMetadataAvailable: true,
+    finalUnavailableReason: null,
+  });
+  assert.equal(pipelineSuccess.mode, "metadataPipeline");
+  assert.equal(pipelineSuccess.ok, true);
+  assert.equal(pipelineSuccess.failureStage, "none");
+  assert.equal(pipelineSuccess.finalMetadataEnabled, true);
+  assert.equal(pipelineSuccess.finalMetadataAvailable, true);
+
+  const pipelineTrustFailure = evaluateWebsiteKompisMetadataPipelineDiagnostic({
+    hasInstallSelector: true,
+    visitorContextOk: true,
+    trustTrusted: false,
+    trustReason: "domain_unverified",
+    availabilityAvailable: false,
+    availabilityReason: null,
+    installConfigLoaded: false,
+    installConfigEnabled: null,
+    finalMetadataEnabled: false,
+    finalMetadataAvailable: false,
+    finalUnavailableReason: "not_available",
+  });
+  assert.equal(pipelineTrustFailure.failureStage, "trust");
+  assert.equal(pipelineTrustFailure.trustReason, "domain_unverified");
+  assert.equal(pipelineTrustFailure.ok, false);
+
+  const pipelineAvailabilityFailure = evaluateWebsiteKompisMetadataPipelineDiagnostic({
+    hasInstallSelector: true,
+    visitorContextOk: true,
+    trustTrusted: true,
+    trustReason: "available",
+    availabilityAvailable: false,
+    availabilityReason: "license_unknown",
+    installConfigLoaded: false,
+    installConfigEnabled: null,
+    finalMetadataEnabled: false,
+    finalMetadataAvailable: false,
+    finalUnavailableReason: "not_available",
+  });
+  assert.equal(pipelineAvailabilityFailure.failureStage, "availability");
+  assert.equal(pipelineAvailabilityFailure.availabilityReason, "license_unknown");
+
+  const pipelineConfigFailure = evaluateWebsiteKompisMetadataPipelineDiagnostic({
+    hasInstallSelector: true,
+    visitorContextOk: true,
+    trustTrusted: true,
+    trustReason: "available",
+    availabilityAvailable: true,
+    availabilityReason: "available",
+    installConfigLoaded: true,
+    installConfigEnabled: false,
+    finalMetadataEnabled: false,
+    finalMetadataAvailable: false,
+    finalUnavailableReason: "not_available",
+  });
+  assert.equal(pipelineConfigFailure.failureStage, "install_config");
+
+  const sanitizedPipeline = sanitizeWebsiteKompisMetadataPipelineDiagnosticResponse({
+    ok: false,
+    mode: "metadataPipeline",
+    visitorContextOk: true,
+    trustTrusted: false,
+    trustReason: "install_missing",
+    availabilityAvailable: false,
+    availabilityReason: null,
+    installConfigLoaded: false,
+    installConfigEnabled: null,
+    finalMetadataEnabled: false,
+    finalMetadataAvailable: false,
+    finalUnavailableReason: "not_available",
+    failureStage: "trust",
+    tenant_id: "secret-tenant",
+    customer_id: "secret-customer",
+    user_id: "secret-user",
+    profile_id: "secret-profile",
+    membership_id: "secret-membership",
+    tenantId: "secret-tenant-id",
+    installId: NEUTRAL_INSTALL_ID,
+    domain: NEUTRAL_DOMAIN,
+  });
+
+  for (const forbidden of FORBIDDEN_WEBSITE_KOMPIS_RUNTIME_TRUST_DIAGNOSTIC_FIELDS) {
+    assert.equal(
+      forbidden in sanitizedPipeline,
+      false,
+      `metadataPipeline forbidden field leaked: ${forbidden}`,
+    );
+  }
+
+  assert.equal(
+    WEBSITE_KOMPIS_METADATA_PIPELINE_FAILURE_STAGES.includes(sanitizedPipeline.failureStage),
+    true,
+  );
+
+  const pipelineRecord = sanitizedPipeline as Record<string, unknown>;
+  assert.equal(pipelineRecord.tenant_id, undefined);
+  assert.equal(pipelineRecord.installId, undefined);
+  assert.equal(pipelineRecord.domain, undefined);
+  assert.match(String(pipelineTrustFailure.trustReason ?? ""), /^[a-z_]+$/);
 }
 
 runWebsiteKompisRuntimeTrustDiagnosticTests()

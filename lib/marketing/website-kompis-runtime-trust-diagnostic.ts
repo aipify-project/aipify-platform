@@ -44,6 +44,11 @@ export const FORBIDDEN_WEBSITE_KOMPIS_RUNTIME_TRUST_DIAGNOSTIC_FIELDS = [
   "tenant_id",
   "customer_id",
   "user_id",
+  "profile_id",
+  "membership_id",
+  "tenantId",
+  "installId",
+  "domain",
   "serviceRoleKey",
   "anonKey",
   "supabaseUrl",
@@ -51,6 +56,53 @@ export const FORBIDDEN_WEBSITE_KOMPIS_RUNTIME_TRUST_DIAGNOSTIC_FIELDS = [
   "headers",
   "cookies",
 ] as const;
+
+export const WEBSITE_KOMPIS_METADATA_PIPELINE_FAILURE_STAGES = [
+  "none",
+  "visitor_context",
+  "trust",
+  "availability",
+  "install_config",
+  "metadata_merge",
+  "unexpected",
+] as const;
+
+export type WebsiteKompisMetadataPipelineFailureStage =
+  (typeof WEBSITE_KOMPIS_METADATA_PIPELINE_FAILURE_STAGES)[number];
+
+export type WebsiteKompisMetadataPipelineDiagnosticResponse = {
+  ok: boolean;
+  mode: "metadataPipeline";
+  visitorContextOk: boolean;
+  trustTrusted: boolean;
+  trustReason: string | null;
+  availabilityAvailable: boolean;
+  availabilityReason: string | null;
+  installConfigLoaded: boolean;
+  installConfigEnabled: boolean | null;
+  finalMetadataEnabled: boolean;
+  finalMetadataAvailable: boolean;
+  finalUnavailableReason: string | null;
+  failureStage: WebsiteKompisMetadataPipelineFailureStage;
+};
+
+const METADATA_PIPELINE_ALLOWED_RESPONSE_KEYS = new Set<
+  keyof WebsiteKompisMetadataPipelineDiagnosticResponse
+>([
+  "ok",
+  "mode",
+  "visitorContextOk",
+  "trustTrusted",
+  "trustReason",
+  "availabilityAvailable",
+  "availabilityReason",
+  "installConfigLoaded",
+  "installConfigEnabled",
+  "finalMetadataEnabled",
+  "finalMetadataAvailable",
+  "finalUnavailableReason",
+  "failureStage",
+]);
 
 const ACTIVE_INSTALL_STATUSES = ["ready", "installing", "active", "warning"] as const;
 
@@ -545,4 +597,196 @@ export async function runWebsiteKompisRuntimeTrustDiagnostic(input: {
   }
 
   return evaluateWebsiteKompisRuntimeTrustDiagnostic(baseProbe);
+}
+
+export function sanitizeWebsiteKompisMetadataPipelineDiagnosticResponse(
+  value: Record<string, unknown>,
+): WebsiteKompisMetadataPipelineDiagnosticResponse {
+  const sanitized = {} as Record<string, unknown>;
+
+  for (const key of METADATA_PIPELINE_ALLOWED_RESPONSE_KEYS) {
+    if (key in value) {
+      sanitized[key] = value[key];
+    }
+  }
+
+  for (const forbidden of FORBIDDEN_WEBSITE_KOMPIS_RUNTIME_TRUST_DIAGNOSTIC_FIELDS) {
+    delete sanitized[forbidden];
+  }
+
+  sanitized.mode = "metadataPipeline";
+
+  return sanitized as WebsiteKompisMetadataPipelineDiagnosticResponse;
+}
+
+export function evaluateWebsiteKompisMetadataPipelineDiagnostic(input: {
+  hasInstallSelector: boolean;
+  visitorContextOk: boolean;
+  trustTrusted: boolean;
+  trustReason: string | null;
+  availabilityAvailable: boolean;
+  availabilityReason: string | null;
+  installConfigLoaded: boolean;
+  installConfigEnabled: boolean | null;
+  finalMetadataEnabled: boolean;
+  finalMetadataAvailable: boolean;
+  finalUnavailableReason: string | null;
+}): WebsiteKompisMetadataPipelineDiagnosticResponse {
+  let failureStage: WebsiteKompisMetadataPipelineFailureStage = "unexpected";
+
+  if (!input.hasInstallSelector || !input.visitorContextOk) {
+    failureStage = "visitor_context";
+  } else if (!input.trustTrusted) {
+    failureStage = "trust";
+  } else if (!input.availabilityAvailable) {
+    failureStage = "availability";
+  } else if (input.installConfigLoaded && input.installConfigEnabled !== true) {
+    failureStage = "install_config";
+  } else if (input.finalMetadataEnabled && input.finalMetadataAvailable) {
+    failureStage = "none";
+  } else if (
+    input.trustTrusted &&
+    input.availabilityAvailable &&
+    input.installConfigEnabled === true
+  ) {
+    failureStage = "metadata_merge";
+  }
+
+  return sanitizeWebsiteKompisMetadataPipelineDiagnosticResponse({
+    ok: failureStage === "none",
+    mode: "metadataPipeline",
+    visitorContextOk: input.visitorContextOk,
+    trustTrusted: input.trustTrusted,
+    trustReason: input.trustReason,
+    availabilityAvailable: input.availabilityAvailable,
+    availabilityReason: input.availabilityReason,
+    installConfigLoaded: input.installConfigLoaded,
+    installConfigEnabled: input.installConfigEnabled,
+    finalMetadataEnabled: input.finalMetadataEnabled,
+    finalMetadataAvailable: input.finalMetadataAvailable,
+    finalUnavailableReason: input.finalUnavailableReason,
+    failureStage,
+  });
+}
+
+export async function runWebsiteKompisMetadataPipelineDiagnostic(input: {
+  domain?: string | null;
+  installId?: string | null;
+  requestHost?: string | null;
+}): Promise<WebsiteKompisMetadataPipelineDiagnosticResponse> {
+  const {
+    buildWebsiteKompisLicensedDisabledPublicMetadata,
+    getWebsiteKompisInstallConfigForPublicRequest,
+    toWebsiteKompisPublicInstallMetadata,
+  } = await import("@/lib/marketing/website-kompis-install-config");
+  const { mapWebsiteKompisAvailabilityToPublicReason } = await import(
+    "@/lib/marketing/website-kompis-licensed-availability"
+  );
+  const {
+    hasPublicCompanionVisitorContext,
+    resolvePublicCompanionVisitorContext,
+  } = await import("@/lib/marketing/public-companion-tenant-faq");
+  const {
+    resolveWebsiteKompisLicensedAvailabilityForPublicTenant,
+    resolveWebsiteKompisPublicInstallDomainTrust,
+  } = await import("@/lib/marketing/website-kompis-licensed-availability-server");
+
+  const installId = input.installId ?? null;
+  const domain = input.domain ?? null;
+  const hasInstallSelector = Boolean(installId?.trim() || domain?.trim());
+
+  const visitorContext = resolvePublicCompanionVisitorContext({
+    clientDomain: domain,
+    requestHost: input.requestHost ?? null,
+    installId,
+  });
+  const visitorContextOk = hasPublicCompanionVisitorContext(visitorContext);
+
+  if (!hasInstallSelector || !visitorContextOk) {
+    const disabled = buildWebsiteKompisLicensedDisabledPublicMetadata("not_available");
+    return evaluateWebsiteKompisMetadataPipelineDiagnostic({
+      hasInstallSelector,
+      visitorContextOk,
+      trustTrusted: false,
+      trustReason: null,
+      availabilityAvailable: false,
+      availabilityReason: null,
+      installConfigLoaded: false,
+      installConfigEnabled: null,
+      finalMetadataEnabled: disabled.enabled,
+      finalMetadataAvailable: disabled.available === false,
+      finalUnavailableReason: disabled.reason ?? "not_available",
+    });
+  }
+
+  const trust = await resolveWebsiteKompisPublicInstallDomainTrust({
+    installId,
+    domain,
+  });
+
+  if (!trust.trusted) {
+    const disabled = buildWebsiteKompisLicensedDisabledPublicMetadata(
+      mapWebsiteKompisAvailabilityToPublicReason(trust.reason),
+    );
+    return evaluateWebsiteKompisMetadataPipelineDiagnostic({
+      hasInstallSelector,
+      visitorContextOk,
+      trustTrusted: false,
+      trustReason: trust.reason,
+      availabilityAvailable: false,
+      availabilityReason: null,
+      installConfigLoaded: false,
+      installConfigEnabled: null,
+      finalMetadataEnabled: disabled.enabled,
+      finalMetadataAvailable: disabled.available === false,
+      finalUnavailableReason: disabled.reason ?? null,
+    });
+  }
+
+  const availability = trust.tenantId
+    ? await resolveWebsiteKompisLicensedAvailabilityForPublicTenant(trust.tenantId)
+    : { available: false as const, reason: "license_unknown" as const };
+
+  if (!availability.available) {
+    const disabled = buildWebsiteKompisLicensedDisabledPublicMetadata(
+      mapWebsiteKompisAvailabilityToPublicReason(availability.reason),
+    );
+    return evaluateWebsiteKompisMetadataPipelineDiagnostic({
+      hasInstallSelector,
+      visitorContextOk,
+      trustTrusted: true,
+      trustReason: trust.reason,
+      availabilityAvailable: false,
+      availabilityReason: availability.reason,
+      installConfigLoaded: false,
+      installConfigEnabled: null,
+      finalMetadataEnabled: disabled.enabled,
+      finalMetadataAvailable: disabled.available === false,
+      finalUnavailableReason: disabled.reason ?? null,
+    });
+  }
+
+  const installConfig = await getWebsiteKompisInstallConfigForPublicRequest({
+    installId: trust.installId ?? installId,
+    domain: trust.domain ?? domain,
+    requestHost: input.requestHost ?? null,
+  });
+
+  const publicMetadata = installConfig.enabled
+    ? toWebsiteKompisPublicInstallMetadata(installConfig)
+    : buildWebsiteKompisLicensedDisabledPublicMetadata("not_available");
+
+  return evaluateWebsiteKompisMetadataPipelineDiagnostic({
+    hasInstallSelector,
+    visitorContextOk,
+    trustTrusted: true,
+    trustReason: trust.reason,
+    availabilityAvailable: true,
+    availabilityReason: availability.reason,
+    installConfigLoaded: true,
+    installConfigEnabled: installConfig.enabled,
+    finalMetadataEnabled: publicMetadata.enabled,
+    finalMetadataAvailable: publicMetadata.available !== false,
+    finalUnavailableReason: publicMetadata.reason ?? null,
+  });
 }

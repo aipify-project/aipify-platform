@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {
   isWebsiteKompisDiagnosticGuardConfigured,
+  runWebsiteKompisMetadataPipelineDiagnostic,
   runWebsiteKompisRuntimeTrustDiagnostic,
   verifyWebsiteKompisDiagnosticToken,
   WEBSITE_KOMPIS_DIAGNOSTIC_TOKEN_HEADER,
@@ -25,6 +26,17 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const domain = url.searchParams.get("domain");
   const installId = url.searchParams.get("installId");
+  const mode = url.searchParams.get("mode");
+
+  if (mode === "metadataPipeline") {
+    const diagnostic = await runWebsiteKompisMetadataPipelineDiagnostic({
+      domain,
+      installId,
+      requestHost: url.hostname,
+    });
+
+    return NextResponse.json(diagnostic, { status: 200, headers: NO_STORE_HEADERS });
+  }
 
   const diagnostic = await runWebsiteKompisRuntimeTrustDiagnostic({ domain, installId });
 
