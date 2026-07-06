@@ -213,6 +213,21 @@ async function runCompanionLauncherIconTests() {
     assert.equal(Object.hasOwn(installIdOnlyBody, key), false);
   }
 
+  const domainOnlyResponse = await getLauncherIconMetadata(
+    new Request(
+      `https://aipify.ai/api/embed/companion/launcher-icon?domain=${neutralDomain}`,
+    ),
+  );
+  assert.equal(domainOnlyResponse.status, 200);
+  const domainOnlyBody = (await domainOnlyResponse.json()) as ReturnType<
+    typeof getCompanionLauncherIconEmbedConfig
+  >;
+  assert.equal(domainOnlyBody.enabled, false);
+  assert.equal(domainOnlyBody.available, false);
+  for (const key of forbiddenMetadataKeys) {
+    assert.equal(Object.hasOwn(domainOnlyBody, key), false);
+  }
+
   const invalidInstallResponse = await getLauncherIconMetadata(
     new Request("https://aipify.ai/api/embed/companion/launcher-icon?installId=not-a-uuid"),
   );
@@ -274,6 +289,8 @@ async function runCompanionLauncherIconTests() {
   );
   assert.match(routeSource, /getCompanionLauncherIconEmbedConfig/);
   assert.match(routeSource, /searchParams\.get\("variant"\)/);
+  assert.match(routeSource, /resolveWebsiteKompisPublicInstallDomainTrust/);
+  assert.match(routeSource, /resolveWebsiteKompisLicensedAvailabilityForPublicTenant/);
   assert.match(routeSource, /getWebsiteKompisInstallConfigForPublicRequest/);
 
   const installConfigSource = fs.readFileSync(

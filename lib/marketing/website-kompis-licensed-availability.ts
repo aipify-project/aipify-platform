@@ -31,6 +31,81 @@ export type WebsiteKompisLicenseEvaluationInput = {
   licenseResolvable?: boolean;
 };
 
+/** Resolved public install/domain binding inputs for fail-closed trust evaluation. */
+export type WebsiteKompisPublicInstallDomainTrustResolution = {
+  requestedInstallId?: string | null;
+  requestedDomain?: string | null;
+  tenantId?: string | null;
+  resolvedInstallId?: string | null;
+  resolvedDomain?: string | null;
+  hasVerifiedActiveBinding?: boolean;
+};
+
+export type WebsiteKompisPublicInstallDomainTrustResult = {
+  trusted: boolean;
+  reason: WebsiteKompisLicenseUnavailableReason;
+  /** Internal resolution — never expose in public metadata. */
+  tenantId?: string;
+  installId?: string;
+  domain?: string;
+};
+
+function normalizeTrustDomain(value: string | null | undefined): string | null {
+  if (typeof value !== "string") return null;
+  const normalized = value.trim().toLowerCase();
+  return normalized || null;
+}
+
+/** Pure fail-closed trust check for public Website Kompis install/domain binding. */
+export function evaluateWebsiteKompisPublicInstallDomainTrust(
+  input: WebsiteKompisPublicInstallDomainTrustResolution,
+): WebsiteKompisPublicInstallDomainTrustResult {
+  const requestedInstallId = input.requestedInstallId?.trim() || null;
+  const requestedDomain = normalizeTrustDomain(input.requestedDomain);
+
+  if (!requestedInstallId && !requestedDomain) {
+    return { trusted: false, reason: "install_missing" };
+  }
+
+  if (!input.hasVerifiedActiveBinding) {
+    if (requestedInstallId && !requestedDomain) {
+      return { trusted: false, reason: "domain_unverified" };
+    }
+    if (requestedDomain && !input.resolvedInstallId) {
+      return { trusted: false, reason: "install_missing" };
+    }
+    return { trusted: false, reason: "domain_unverified" };
+  }
+
+  const resolvedInstallId = input.resolvedInstallId?.trim() || null;
+  const resolvedDomain = normalizeTrustDomain(input.resolvedDomain);
+  const tenantId = input.tenantId?.trim() || null;
+
+  if (!tenantId) {
+    return { trusted: false, reason: "license_unknown" };
+  }
+
+  if (!resolvedInstallId || !resolvedDomain) {
+    return { trusted: false, reason: "install_missing" };
+  }
+
+  if (requestedInstallId && requestedInstallId !== resolvedInstallId) {
+    return { trusted: false, reason: "domain_unverified" };
+  }
+
+  if (requestedDomain && requestedDomain !== resolvedDomain) {
+    return { trusted: false, reason: "domain_unverified" };
+  }
+
+  return {
+    trusted: true,
+    reason: "available",
+    tenantId,
+    installId: resolvedInstallId,
+    domain: resolvedDomain,
+  };
+}
+
 const INACTIVE_LICENSE_SERVICE_STATUSES = new Set(["paused", "suspended", "cancelled"]);
 const INACTIVE_SUBSCRIPTION_STATUSES = new Set([
   "cancelled",
