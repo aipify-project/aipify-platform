@@ -3,6 +3,8 @@ import {
   buildWebsiteKompisAskPayload,
   buildWebsiteKompisEmbedIframeSrc,
   buildWebsiteKompisMetadataRequestPath,
+  buildWebsiteKompisScriptEmbedSnippet,
+  escapeWebsiteKompisEmbedAttributeValue,
   normalizeWebsiteKompisEmbedDomain,
   normalizeWebsiteKompisEmbedInstallId,
   parseWebsiteKompisEmbedSearchParams,
@@ -75,5 +77,41 @@ assert.equal(askPayload.locale, "no");
 assert.equal(askPayload.domain, exampleDomain);
 assert.equal(askPayload.installId, exampleInstallId);
 assert.equal(askPayload.recentContext?.length, 1);
+
+const snippet = buildWebsiteKompisScriptEmbedSnippet({
+  installId: exampleInstallId,
+  domain: exampleDomain,
+  locale: "no",
+});
+assert.ok(snippet);
+assert.match(snippet ?? "", /\/embed\/website-kompis\.js/);
+assert.match(snippet ?? "", /data-install-id="/);
+assert.match(snippet ?? "", /data-domain="/);
+assert.match(snippet ?? "", /data-locale="/);
+assert.match(snippet ?? "", /https:\/\/aipify\.ai\/embed\/website-kompis\.js/);
+assert.match(snippet ?? "", /data-install-id="11111111-1111-4111-8111-111111111111"/);
+assert.match(snippet ?? "", /data-domain="example-a\.test"/);
+assert.match(snippet ?? "", /data-locale="no"/);
+
+const defaultOriginSnippet = buildWebsiteKompisScriptEmbedSnippet({
+  installId: exampleInstallId,
+  domain: exampleDomain,
+});
+assert.match(defaultOriginSnippet ?? "", /https:\/\/aipify\.ai\/embed\/website-kompis\.js/);
+
+const escapedSnippet = buildWebsiteKompisScriptEmbedSnippet({
+  coreOrigin: 'https://aipify.ai?ref="beta"',
+  installId: exampleInstallId,
+  domain: exampleDomain,
+});
+assert.match(escapedSnippet ?? "", /src="https:\/\/aipify\.ai\?ref=&quot;beta&quot;\/embed\/website-kompis\.js"/);
+
+assert.equal(
+  escapeWebsiteKompisEmbedAttributeValue('a&b"c<d>e'),
+  "a&amp;b&quot;c&lt;d&gt;e",
+);
+
+assert.equal(buildWebsiteKompisScriptEmbedSnippet({ installId: "", domain: exampleDomain }), null);
+assert.equal(buildWebsiteKompisScriptEmbedSnippet({ installId: exampleInstallId, domain: "" }), null);
 
 console.log("website-kompis-embed.test.ts: all assertions passed");
