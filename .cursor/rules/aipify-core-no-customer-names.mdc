@@ -1,0 +1,77 @@
+---
+description: Keep Aipify Core generic. Never use real customer names or tenant-specific copy in Core artifacts.
+alwaysApply: true
+---
+
+# Aipify Core — No Customer Names Rule
+
+Aipify Core must remain generic.
+
+Do not use real customer names, tenant names, pilot names, or customer-specific copy in:
+- Core code
+- comments
+- migrations
+- seed data
+- tests
+- docs
+- branch names
+- commit messages
+- Cursor task reports
+- examples embedded in Core artifacts
+
+Use placeholders instead:
+- NETTSTED
+- NETTSTED_NAVN
+- DOMENE
+- KUNDE
+- TENANT
+- ORGANIZATION
+- INSTALL_ID
+- WEBSITE_NAME
+- WEBSITE_DOMAIN
+
+Allowed:
+- generic Core logic
+- generic Website Kompis runtime logic
+- generic tenant/domain/install resolver logic
+- generic FAQ/knowledge schema and retrieval logic
+- placeholder examples using NETTSTED_NAVN or DOMENE
+
+Not allowed:
+- customer-specific hardcoding
+- pilot-specific logic
+- customer-specific marketing copy in Core
+- real customer names in code, tests, docs, migrations, seeds, commits, branches, or reports
+
+Runtime identifier exception:
+If a single runtime lookup absolutely requires a real domain or install ID, use only the exact identifier needed for that one command.
+Do not include real customer names in explanation, copy, code, comments, tests, docs, migrations, seed data, branch names, commit messages, or reports.
+After the lookup, refer to the result as DOMENE, NETTSTED, KUNDE, TENANT, or ORGANIZATION.
+
+Generic FAQ/content pattern:
+
+Question:
+Hvilke løsninger og tjenester tilbyr NETTSTED_NAVN?
+
+Answer:
+NETTSTED_NAVN tilbyr et medlemsbasert fellesskap med profiler, medlemskap, markedsplass, ønskelister, gaver, video- og bildeinnhold, verifisering og tryggere samhandling mellom medlemmer. Tilgjengelige funksjoner kan variere etter medlemsnivå og hva som er aktivert på kontoen din.
+
+Tags:
+løsninger, tjenester, produkter, medlemskap, markedsplass, bilder, videoer, gaver, ønskeliste, verifisering
+
+Cursor behavior:
+- Keep Core generic.
+- Use NETTSTED_NAVN / DOMENE placeholders.
+- Do not add customer-specific copy to Core.
+- Do not hardcode pilot/customer behavior.
+- Stop if a task requires a real customer name in Core code, docs, migrations, tests, seed data, commits, branches, or reports.
+- Ask for clarification instead.
+
+Sniper workflow:
+- One task only.
+- Execute only explicitly provided commands.
+- No extra exploration.
+- No unrelated files.
+- No hidden fixes.
+- No commit, push, deploy, migration, env change, or auth action unless explicitly included.
+- Stop after final report.
