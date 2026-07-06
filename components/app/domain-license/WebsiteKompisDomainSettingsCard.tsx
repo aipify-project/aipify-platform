@@ -174,7 +174,7 @@ export function WebsiteKompisDomainSettingsCard({
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
           <p className="text-sm font-semibold text-gray-900">{labels.title}</p>
-          <p className="mt-1 text-xs text-gray-600">{labels.subtitle}</p>
+          <p className="mt-1 text-sm text-gray-600">{labels.subtitle}</p>
         </div>
         <span
           className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${
@@ -187,7 +187,7 @@ export function WebsiteKompisDomainSettingsCard({
         </span>
       </div>
 
-      <dl className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-2">
+      <dl className="mt-3 grid gap-2 text-sm text-gray-600 sm:grid-cols-2">
         <div>
           <dt className="font-medium text-gray-700">{labels.domainLabel}</dt>
           <dd>{domain}</dd>
@@ -204,32 +204,32 @@ export function WebsiteKompisDomainSettingsCard({
 
       <div className="mt-4 rounded-lg border border-gray-200 bg-white/80 p-3">
         <p className="text-sm font-semibold text-gray-900">Installer Website Kompis</p>
-        <p className="mt-1 text-xs text-gray-600">
+        <p className="mt-1 text-sm text-gray-600">
           Legg denne koden inn før {"</body>"} på {normalizedDomain ?? "DOMENE"}.
         </p>
 
         {installSnippet ? (
           <div className="mt-3 space-y-2">
-            <pre className="max-h-48 overflow-x-auto rounded-md border border-gray-200 bg-gray-950 p-3 text-[11px] leading-relaxed text-gray-100">
+            <pre className="max-h-48 overflow-x-auto rounded-md border border-gray-200 bg-gray-950 p-3 text-xs leading-relaxed text-gray-100">
               <code>{installSnippet}</code>
             </pre>
             <button
               type="button"
               onClick={() => void handleCopySnippet()}
-              className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
+              className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
               {snippetCopied ? "Kopiert" : "Kopier kode"}
             </button>
           </div>
         ) : (
-          <p className="mt-3 text-xs text-gray-500">
+          <p className="mt-3 text-sm text-gray-500">
             Installasjonskode blir tilgjengelig når INSTALL_ID og DOMENE er klare.
           </p>
         )}
       </div>
 
-      <p className="mt-3 text-xs text-gray-600">{labels.sourcePriority}</p>
-      <p className="mt-1 text-xs text-gray-500">{labels.publicSiteIndexComingLater}</p>
+      <p className="mt-3 text-sm text-gray-600">{labels.sourcePriority}</p>
+      <p className="mt-1 text-sm text-gray-500">{labels.publicSiteIndexComingLater}</p>
 
       {locked ? (
         <div className="mt-4 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
