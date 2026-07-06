@@ -22,6 +22,13 @@ type RpcClient = Pick<SupabaseClient, "rpc">;
 type ServiceRoleClient = Pick<SupabaseClient, "rpc" | "from">;
 
 const ACTIVE_INSTALL_STATUSES = ["ready", "installing", "active", "warning"] as const;
+const TENANT_MODULE_ENABLED_STATUSES = new Set(["enabled", "trial", "beta"]);
+
+type TenantModuleEntitlementRow = {
+  licensed?: boolean | null;
+  enabled?: boolean | null;
+  status?: string | null;
+};
 
 type InstallationRecord = {
   id: string;
@@ -319,20 +326,43 @@ export async function resolveWebsiteKompisPublicInstallDomainTrust(input: {
   });
 }
 
+function isWebsiteKompisTenantModuleEntitlementEnabled(
+  row: TenantModuleEntitlementRow | null | undefined,
+): boolean {
+  if (!row) {
+    return false;
+  }
+
+  if (row.licensed !== true || row.enabled !== true) {
+    return false;
+  }
+
+  const status = typeof row.status === "string" ? row.status.trim() : "";
+  return TENANT_MODULE_ENABLED_STATUSES.has(status);
+}
+
 async function loadTenantEntitlementEnabled(
   admin: ServiceRoleClient,
   tenantId: string,
 ): Promise<boolean | null> {
-  const { data, error } = await admin.rpc("is_tenant_module_enabled", {
-    p_tenant_id: tenantId,
-    p_module_key: WEBSITE_KOMPIS_CAPABILITY_KEY,
-  });
+  try {
+    const { data, error } = await admin
+      .from("tenant_modules")
+      .select("licensed, enabled, status")
+      .eq("tenant_id", tenantId)
+      .eq("module_key", WEBSITE_KOMPIS_CAPABILITY_KEY)
+      .maybeSingle();
 
-  if (error) {
+    if (error) {
+      return null;
+    }
+
+    return isWebsiteKompisTenantModuleEntitlementEnabled(
+      data as TenantModuleEntitlementRow | null,
+    );
+  } catch {
     return null;
   }
-
-  return data === true;
 }
 
 async function loadTenantLicenseServiceStatus(
