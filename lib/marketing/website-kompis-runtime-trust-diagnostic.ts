@@ -122,6 +122,18 @@ export const WEBSITE_KOMPIS_LICENSE_STATUS_BUCKETS = [
 export type WebsiteKompisLicenseStatusBucket =
   (typeof WEBSITE_KOMPIS_LICENSE_STATUS_BUCKETS)[number];
 
+export const WEBSITE_KOMPIS_RPC_ERROR_KINDS = [
+  "none",
+  "read_only_transaction",
+  "permission_denied",
+  "function_not_found",
+  "invalid_arguments",
+  "network_or_unknown",
+  "unexpected",
+] as const;
+
+export type WebsiteKompisRpcErrorKind = (typeof WEBSITE_KOMPIS_RPC_ERROR_KINDS)[number];
+
 export type WebsiteKompisAvailabilityProbeDiagnosticResponse = {
   ok: boolean;
   mode: "availabilityProbe";
@@ -129,7 +141,9 @@ export type WebsiteKompisAvailabilityProbeDiagnosticResponse = {
   trustReason: string | null;
   entitlementRpcOk: boolean;
   entitlementEnabled: boolean | null;
+  entitlementRpcErrorKind: WebsiteKompisRpcErrorKind;
   licenseRpcOk: boolean;
+  licenseRpcErrorKind: WebsiteKompisRpcErrorKind;
   licenseStatusPresent: boolean;
   licenseStatusBucket: WebsiteKompisLicenseStatusBucket;
   evaluatorBranch: WebsiteKompisAvailabilityProbeEvaluatorBranch;
@@ -147,7 +161,9 @@ const AVAILABILITY_PROBE_ALLOWED_RESPONSE_KEYS = new Set<
   "trustReason",
   "entitlementRpcOk",
   "entitlementEnabled",
+  "entitlementRpcErrorKind",
   "licenseRpcOk",
+  "licenseRpcErrorKind",
   "licenseStatusPresent",
   "licenseStatusBucket",
   "evaluatorBranch",
@@ -155,6 +171,16 @@ const AVAILABILITY_PROBE_ALLOWED_RESPONSE_KEYS = new Set<
   "availabilityReason",
   "failureStage",
 ]);
+
+const AVAILABILITY_PROBE_FORBIDDEN_RESPONSE_KEYS = [
+  "message",
+  "details",
+  "hint",
+  "errorMessage",
+  "errorDetails",
+  "errorHint",
+  "code",
+] as const;
 
 const METADATA_PIPELINE_ALLOWED_RESPONSE_KEYS = new Set<
   keyof WebsiteKompisMetadataPipelineDiagnosticResponse
@@ -864,6 +890,61 @@ export async function runWebsiteKompisMetadataPipelineDiagnostic(input: {
   });
 }
 
+type RpcErrorLike = {
+  code?: string | null;
+};
+
+export function classifyWebsiteKompisRpcErrorKind(
+  error: unknown,
+): Exclude<WebsiteKompisRpcErrorKind, "none"> {
+  if (!error || typeof error !== "object") {
+    return "unexpected";
+  }
+
+  const code =
+    typeof (error as RpcErrorLike).code === "string"
+      ? (error as RpcErrorLike).code!.trim()
+      : "";
+
+  if (!code) {
+    return "network_or_unknown";
+  }
+
+  if (code === "25006") {
+    return "read_only_transaction";
+  }
+
+  if (code === "42501") {
+    return "permission_denied";
+  }
+
+  if (code === "42883" || code === "PGRST202" || code === "PGRST203") {
+    return "function_not_found";
+  }
+
+  if (code === "42725") {
+    return "invalid_arguments";
+  }
+
+  return "unexpected";
+}
+
+export function resolveWebsiteKompisRpcErrorKindForProbe(input: {
+  rpcOk: boolean;
+  rpcAttempted: boolean;
+  error: unknown;
+}): WebsiteKompisRpcErrorKind {
+  if (!input.rpcAttempted || input.rpcOk) {
+    return "none";
+  }
+
+  if (input.error != null) {
+    return classifyWebsiteKompisRpcErrorKind(input.error);
+  }
+
+  return "network_or_unknown";
+}
+
 export function bucketWebsiteKompisLicenseStatusForProbe(
   status: string | null | undefined,
 ): WebsiteKompisLicenseStatusBucket {
@@ -935,6 +1016,10 @@ export function sanitizeWebsiteKompisAvailabilityProbeDiagnosticResponse(
     delete sanitized[forbidden];
   }
 
+  for (const forbidden of AVAILABILITY_PROBE_FORBIDDEN_RESPONSE_KEYS) {
+    delete sanitized[forbidden];
+  }
+
   sanitized.mode = "availabilityProbe";
 
   return sanitized as WebsiteKompisAvailabilityProbeDiagnosticResponse;
@@ -945,12 +1030,19 @@ export function evaluateWebsiteKompisAvailabilityProbeDiagnostic(input: {
   trustReason: string | null;
   entitlementRpcOk: boolean;
   entitlementEnabled: boolean | null;
+  entitlementRpcErrorKind?: WebsiteKompisRpcErrorKind;
   licenseRpcOk: boolean;
+  licenseRpcErrorKind?: WebsiteKompisRpcErrorKind;
   licenseStatusPresent: boolean;
   licenseStatusBucket: WebsiteKompisLicenseStatusBucket;
   availabilityAvailable: boolean;
   availabilityReason: string | null;
 }): WebsiteKompisAvailabilityProbeDiagnosticResponse {
+  const entitlementRpcErrorKind =
+    input.entitlementRpcErrorKind ??
+    (input.entitlementRpcOk ? "none" : "unexpected");
+  const licenseRpcErrorKind =
+    input.licenseRpcErrorKind ?? (input.licenseRpcOk ? "none" : "unexpected");
   const evaluatorBranch = resolveWebsiteKompisAvailabilityProbeEvaluatorBranch({
     trustTrusted: input.trustTrusted,
     licenseRpcOk: input.licenseRpcOk,
@@ -979,7 +1071,9 @@ export function evaluateWebsiteKompisAvailabilityProbeDiagnostic(input: {
     trustReason: input.trustReason,
     entitlementRpcOk: input.entitlementRpcOk,
     entitlementEnabled: input.entitlementEnabled,
+    entitlementRpcErrorKind,
     licenseRpcOk: input.licenseRpcOk,
+    licenseRpcErrorKind,
     licenseStatusPresent: input.licenseStatusPresent,
     licenseStatusBucket: input.licenseStatusBucket,
     evaluatorBranch,
@@ -992,7 +1086,9 @@ export function evaluateWebsiteKompisAvailabilityProbeDiagnostic(input: {
 async function probeWebsiteKompisAvailabilityDependencies(tenantId: string): Promise<{
   entitlementRpcOk: boolean;
   entitlementEnabled: boolean | null;
+  entitlementRpcErrorKind: WebsiteKompisRpcErrorKind;
   licenseRpcOk: boolean;
+  licenseRpcErrorKind: WebsiteKompisRpcErrorKind;
   licenseStatusPresent: boolean;
   licenseStatusBucket: WebsiteKompisLicenseStatusBucket;
   licenseServiceStatus: string | null;
@@ -1004,7 +1100,11 @@ async function probeWebsiteKompisAvailabilityDependencies(tenantId: string): Pro
 
   let entitlementRpcOk = false;
   let entitlementEnabled: boolean | null = null;
+  let entitlementRpcAttempted = false;
+  let entitlementRpcError: unknown = null;
   let licenseRpcOk = false;
+  let licenseRpcAttempted = false;
+  let licenseRpcError: unknown = null;
   let licenseStatusPresent = false;
   let licenseServiceStatus: string | null = null;
 
@@ -1015,7 +1115,9 @@ async function probeWebsiteKompisAvailabilityDependencies(tenantId: string): Pro
     return {
       entitlementRpcOk: false,
       entitlementEnabled: null,
+      entitlementRpcErrorKind: "none",
       licenseRpcOk: false,
+      licenseRpcErrorKind: "none",
       licenseStatusPresent: false,
       licenseStatusBucket: "missing",
       licenseServiceStatus: null,
@@ -1027,39 +1129,57 @@ async function probeWebsiteKompisAvailabilityDependencies(tenantId: string): Pro
       p_tenant_id: tenantId,
       p_module_key: WEBSITE_KOMPIS_CAPABILITY_KEY,
     });
+    entitlementRpcAttempted = true;
     if (error) {
       entitlementRpcOk = false;
       entitlementEnabled = null;
+      entitlementRpcError = error;
     } else {
       entitlementRpcOk = true;
       entitlementEnabled = data === true;
     }
-  } catch {
+  } catch (caught) {
+    entitlementRpcAttempted = true;
     entitlementRpcOk = false;
     entitlementEnabled = null;
+    entitlementRpcError = caught;
   }
 
   try {
     const { data, error } = await admin.rpc("resolve_license_service_status", {
       p_customer_id: tenantId,
     });
+    licenseRpcAttempted = true;
     if (error || typeof data !== "string") {
       licenseRpcOk = false;
       licenseServiceStatus = null;
+      licenseRpcError = error ?? null;
     } else {
       licenseRpcOk = true;
       licenseServiceStatus = data;
       licenseStatusPresent = data.trim().length > 0;
     }
-  } catch {
+  } catch (caught) {
+    licenseRpcAttempted = true;
     licenseRpcOk = false;
     licenseServiceStatus = null;
+    licenseRpcError = caught;
   }
 
   return {
     entitlementRpcOk,
     entitlementEnabled,
+    entitlementRpcErrorKind: resolveWebsiteKompisRpcErrorKindForProbe({
+      rpcOk: entitlementRpcOk,
+      rpcAttempted: entitlementRpcAttempted,
+      error: entitlementRpcError,
+    }),
     licenseRpcOk,
+    licenseRpcErrorKind: resolveWebsiteKompisRpcErrorKindForProbe({
+      rpcOk: licenseRpcOk,
+      rpcAttempted: licenseRpcAttempted,
+      error: licenseRpcError,
+    }),
     licenseStatusPresent,
     licenseStatusBucket: bucketWebsiteKompisLicenseStatusForProbe(licenseServiceStatus),
     licenseServiceStatus,
@@ -1141,7 +1261,9 @@ export async function runWebsiteKompisAvailabilityProbeDiagnostic(input: {
     trustReason: trust.reason,
     entitlementRpcOk: probe.entitlementRpcOk,
     entitlementEnabled: probe.entitlementEnabled,
+    entitlementRpcErrorKind: probe.entitlementRpcErrorKind,
     licenseRpcOk: probe.licenseRpcOk,
+    licenseRpcErrorKind: probe.licenseRpcErrorKind,
     licenseStatusPresent: probe.licenseStatusPresent,
     licenseStatusBucket: probe.licenseStatusBucket,
     availabilityAvailable: availability.available,

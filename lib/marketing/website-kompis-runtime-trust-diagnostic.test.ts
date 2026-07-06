@@ -26,17 +26,20 @@ async function runWebsiteKompisRuntimeTrustDiagnosticTests() {
 
   const {
     bucketWebsiteKompisLicenseStatusForProbe,
+    classifyWebsiteKompisRpcErrorKind,
     evaluateWebsiteKompisAvailabilityProbeDiagnostic,
     evaluateWebsiteKompisMetadataPipelineDiagnostic,
     evaluateWebsiteKompisRuntimeTrustDiagnostic,
     FORBIDDEN_WEBSITE_KOMPIS_RUNTIME_TRUST_DIAGNOSTIC_FIELDS,
     isWebsiteKompisDiagnosticGuardConfigured,
+    resolveWebsiteKompisRpcErrorKindForProbe,
     sanitizeWebsiteKompisAvailabilityProbeDiagnosticResponse,
     sanitizeWebsiteKompisMetadataPipelineDiagnosticResponse,
     sanitizeWebsiteKompisRuntimeTrustDiagnosticResponse,
     verifyWebsiteKompisDiagnosticToken,
     WEBSITE_KOMPIS_AVAILABILITY_PROBE_FAILURE_STAGES,
     WEBSITE_KOMPIS_METADATA_PIPELINE_FAILURE_STAGES,
+    WEBSITE_KOMPIS_RPC_ERROR_KINDS,
   } = await import("@/lib/marketing/website-kompis-runtime-trust-diagnostic");
   type WebsiteKompisRuntimeTrustDiagnosticProbe = import("@/lib/marketing/website-kompis-runtime-trust-diagnostic").WebsiteKompisRuntimeTrustDiagnosticProbe;
 
@@ -389,6 +392,121 @@ async function runWebsiteKompisRuntimeTrustDiagnosticTests() {
     WEBSITE_KOMPIS_AVAILABILITY_PROBE_FAILURE_STAGES.includes(sanitizedProbe.failureStage),
     true,
   );
+
+  assert.equal(classifyWebsiteKompisRpcErrorKind({ code: "25006" }), "read_only_transaction");
+  assert.equal(classifyWebsiteKompisRpcErrorKind({ code: "42501" }), "permission_denied");
+  assert.equal(classifyWebsiteKompisRpcErrorKind({ code: "42883" }), "function_not_found");
+  assert.equal(classifyWebsiteKompisRpcErrorKind({ code: "PGRST202" }), "function_not_found");
+  assert.equal(classifyWebsiteKompisRpcErrorKind({ code: "42725" }), "invalid_arguments");
+  assert.equal(classifyWebsiteKompisRpcErrorKind({ code: "99999" }), "unexpected");
+  assert.equal(classifyWebsiteKompisRpcErrorKind(null), "unexpected");
+
+  assert.equal(
+    resolveWebsiteKompisRpcErrorKindForProbe({
+      rpcOk: true,
+      rpcAttempted: true,
+      error: { code: "25006" },
+    }),
+    "none",
+  );
+
+  const probeReadOnlyEntitlement = evaluateWebsiteKompisAvailabilityProbeDiagnostic({
+    trustTrusted: true,
+    trustReason: "available",
+    entitlementRpcOk: false,
+    entitlementEnabled: null,
+    entitlementRpcErrorKind: "read_only_transaction",
+    licenseRpcOk: true,
+    licenseRpcErrorKind: "none",
+    licenseStatusPresent: true,
+    licenseStatusBucket: "active",
+    availabilityAvailable: false,
+    availabilityReason: "license_unknown",
+  });
+  assert.equal(probeReadOnlyEntitlement.entitlementRpcErrorKind, "read_only_transaction");
+  assert.equal(probeReadOnlyEntitlement.licenseRpcErrorKind, "none");
+  assert.equal(probeReadOnlyEntitlement.failureStage, "entitlement_rpc");
+
+  const probePermissionEntitlement = evaluateWebsiteKompisAvailabilityProbeDiagnostic({
+    trustTrusted: true,
+    trustReason: "available",
+    entitlementRpcOk: false,
+    entitlementEnabled: null,
+    entitlementRpcErrorKind: "permission_denied",
+    licenseRpcOk: true,
+    licenseRpcErrorKind: "none",
+    licenseStatusPresent: true,
+    licenseStatusBucket: "active",
+    availabilityAvailable: false,
+    availabilityReason: "license_unknown",
+  });
+  assert.equal(probePermissionEntitlement.entitlementRpcErrorKind, "permission_denied");
+
+  const probeMissingFunction = evaluateWebsiteKompisAvailabilityProbeDiagnostic({
+    trustTrusted: true,
+    trustReason: "available",
+    entitlementRpcOk: false,
+    entitlementEnabled: null,
+    entitlementRpcErrorKind: "function_not_found",
+    licenseRpcOk: true,
+    licenseRpcErrorKind: "none",
+    licenseStatusPresent: true,
+    licenseStatusBucket: "active",
+    availabilityAvailable: false,
+    availabilityReason: "license_unknown",
+  });
+  assert.equal(probeMissingFunction.entitlementRpcErrorKind, "function_not_found");
+
+  const probeInvalidArguments = evaluateWebsiteKompisAvailabilityProbeDiagnostic({
+    trustTrusted: true,
+    trustReason: "available",
+    entitlementRpcOk: false,
+    entitlementEnabled: null,
+    entitlementRpcErrorKind: "invalid_arguments",
+    licenseRpcOk: true,
+    licenseRpcErrorKind: "none",
+    licenseStatusPresent: true,
+    licenseStatusBucket: "active",
+    availabilityAvailable: false,
+    availabilityReason: "license_unknown",
+  });
+  assert.equal(probeInvalidArguments.entitlementRpcErrorKind, "invalid_arguments");
+
+  assert.equal(probeAvailable.licenseRpcErrorKind, "none");
+  assert.equal(probeAvailable.entitlementRpcErrorKind, "none");
+
+  const sanitizedProbeWithRawError = sanitizeWebsiteKompisAvailabilityProbeDiagnosticResponse({
+    ok: false,
+    mode: "availabilityProbe",
+    trustTrusted: true,
+    trustReason: "available",
+    entitlementRpcOk: false,
+    entitlementEnabled: null,
+    entitlementRpcErrorKind: "read_only_transaction",
+    licenseRpcOk: true,
+    licenseRpcErrorKind: "none",
+    licenseStatusPresent: true,
+    licenseStatusBucket: "active",
+    evaluatorBranch: "entitlementNull",
+    availabilityAvailable: false,
+    availabilityReason: "license_unknown",
+    failureStage: "entitlement_rpc",
+    message: "cannot execute INSERT in a read-only transaction",
+    details: "SQLSTATE 25006",
+    hint: "Use POST for mutating RPC",
+    code: "25006",
+  });
+
+  const sanitizedProbeWithRawErrorRecord = sanitizedProbeWithRawError as Record<string, unknown>;
+  assert.equal("message" in sanitizedProbeWithRawErrorRecord, false);
+  assert.equal("details" in sanitizedProbeWithRawErrorRecord, false);
+  assert.equal("hint" in sanitizedProbeWithRawErrorRecord, false);
+  assert.equal("code" in sanitizedProbeWithRawErrorRecord, false);
+  assert.equal(sanitizedProbeWithRawError.entitlementRpcErrorKind, "read_only_transaction");
+
+  for (const kind of WEBSITE_KOMPIS_RPC_ERROR_KINDS) {
+    assert.equal(typeof kind, "string");
+  }
 }
 
 runWebsiteKompisRuntimeTrustDiagnosticTests()
