@@ -10,7 +10,10 @@ import {
   hasPublicCompanionVisitorContext,
   resolvePublicCompanionVisitorContext,
 } from "@/lib/marketing/public-companion-tenant-faq";
-import { resolveWebsiteKompisPublicLicensedAvailability } from "@/lib/marketing/website-kompis-licensed-availability-server";
+import {
+  resolveWebsiteKompisLicensedAvailabilityForPublicTenant,
+  resolveWebsiteKompisPublicInstallDomainTrust,
+} from "@/lib/marketing/website-kompis-licensed-availability-server";
 
 /** Public embed metadata for Core-owned Website Kompis / Companion launcher icon variants. */
 export async function GET(request: Request) {
@@ -33,22 +36,35 @@ export async function GET(request: Request) {
     if (!hasPublicCompanionVisitorContext(visitorContext)) {
       publicMetadata = buildWebsiteKompisLicensedDisabledPublicMetadata("not_available");
     } else {
-      const availability = await resolveWebsiteKompisPublicLicensedAvailability(visitorContext);
+      const trust = await resolveWebsiteKompisPublicInstallDomainTrust({
+        installId,
+        domain,
+      });
 
-      if (!availability.available) {
+      if (!trust.trusted) {
         publicMetadata = buildWebsiteKompisLicensedDisabledPublicMetadata(
-          mapWebsiteKompisAvailabilityToPublicReason(availability.reason),
+          mapWebsiteKompisAvailabilityToPublicReason(trust.reason),
         );
       } else {
-        const installConfig = await getWebsiteKompisInstallConfigForPublicRequest({
-          installId,
-          domain,
-          requestHost: url.hostname,
-        });
+        const availability = trust.tenantId
+          ? await resolveWebsiteKompisLicensedAvailabilityForPublicTenant(trust.tenantId)
+          : { available: false, reason: "license_unknown" as const };
 
-        publicMetadata = installConfig.enabled
-          ? toWebsiteKompisPublicInstallMetadata(installConfig)
-          : buildWebsiteKompisLicensedDisabledPublicMetadata("not_available");
+        if (!availability.available) {
+          publicMetadata = buildWebsiteKompisLicensedDisabledPublicMetadata(
+            mapWebsiteKompisAvailabilityToPublicReason(availability.reason),
+          );
+        } else {
+          const installConfig = await getWebsiteKompisInstallConfigForPublicRequest({
+            installId: trust.installId ?? installId,
+            domain: trust.domain ?? domain,
+            requestHost: url.hostname,
+          });
+
+          publicMetadata = installConfig.enabled
+            ? toWebsiteKompisPublicInstallMetadata(installConfig)
+            : buildWebsiteKompisLicensedDisabledPublicMetadata("not_available");
+        }
       }
     }
   }
