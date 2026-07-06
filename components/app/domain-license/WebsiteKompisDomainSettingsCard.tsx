@@ -7,6 +7,7 @@ import type { WebsiteKompisDomainSettingsLabels } from "@/lib/domain-license/lab
 import {
   buildWebsiteKompisScriptEmbedSnippet,
   normalizeWebsiteKompisEmbedDomain,
+  sanitizeWebsiteKompisEmbedLocale,
   WEBSITE_KOMPIS_EMBED_DEFAULT_CORE_ORIGIN,
 } from "@/lib/marketing/website-kompis-embed";
 
@@ -64,7 +65,7 @@ export function WebsiteKompisDomainSettingsCard({
       coreOrigin: embedCoreOrigin,
       installId: settings.installId,
       domain: normalizedDomain,
-      locale: draft?.defaultLocale ?? "no",
+      locale: sanitizeWebsiteKompisEmbedLocale(draft?.defaultLocale ?? "no"),
     });
   }, [draft?.defaultLocale, embedCoreOrigin, normalizedDomain, settings?.installId]);
 
