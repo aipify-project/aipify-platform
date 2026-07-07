@@ -183,6 +183,12 @@
         "registry_not_connected": "Rejestr członków niepodłączony"
       }
     },
+    "unknownOrganizationSource": {
+      "ownerDirectAnswer": "Nie widzę podłączonego źródła planowania wydarzeń ani list gości w tej organizacji. Nie mogę pobrać listy gości, dopóki właściciel nie podłączy zatwierdzonego źródła z właściwym dostępem.",
+      "ownerExplanation": "Następny krok to podłączenie źródła — na przykład dokumentu, modułu lub usługi zewnętrznej — z dostępem do odczytu dla APP Companion.",
+      "employeeDirectAnswer": "Nie widzę podłączonego źródła planowania wydarzeń ani list gości w tej organizacji. Nie mogę pobrać listy gości bez zatwierdzonego źródła.",
+      "employeeExplanation": "Poproś właściciela lub administratora organizacji o podłączenie zatwierdzonego źródła z dostępem do odczytu dla APP Companion."
+    },
     "foundation": {
       "sourceLine": "Źródło: {source} · Sprawdzono: {checkedAt} · Świeżość: {freshness}",
       "selfLoveSourceLabel": "Wiedza platformy Aipify",

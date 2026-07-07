@@ -19,6 +19,7 @@ import {
   findOrganizationCapabilityByKey,
   type OrganizationCapabilityModuleId,
 } from "./organization-capability-registry";
+import { isUnknownOrganizationSourceIntent } from "./unknown-organization-source-intent";
 
 export type OrganizationExecutionKind =
   | "member_count"
@@ -116,6 +117,19 @@ function wantsPrioritizeToday(normalized: string): boolean {
   return /\b(prioriter|prioritize|prioritet|focus today|hva bør|what should i)\b/i.test(normalized);
 }
 
+function wantsMemberLookup(normalized: string): boolean {
+  return (
+    /\b(finn|søk|search|find)\b/i.test(normalized) &&
+    (/\bmedlemmet\b/i.test(normalized) ||
+      hasOrganizationMemberDomainSignal(normalized) ||
+      /\b(medlem|member)\b/i.test(normalized))
+  );
+}
+
+function hasMemberCapabilityQuerySignal(normalized: string): boolean {
+  return hasOrganizationMemberDomainSignal(normalized) || /\bmedlemmet\b/i.test(normalized);
+}
+
 function mapSemanticToExecutionKind(input: {
   query: string;
   normalized: string;
@@ -149,7 +163,7 @@ function mapSemanticToExecutionKind(input: {
     }
   }
 
-  if (capabilityKey === "member.search" || /\b(medlem|member)\b/i.test(normalized)) {
+  if (capabilityKey === "member.search" || hasMemberCapabilityQuerySignal(normalized)) {
     if (hasExplicitOrganizationMemberCountSignal(query)) {
       return "member_count";
     }
@@ -159,7 +173,7 @@ function mapSemanticToExecutionKind(input: {
     if (wantsPendingVerification(normalized)) {
       return "member_pending_verification";
     }
-    if (wantsMemberDetailFields(normalized)) {
+    if (wantsMemberDetailFields(normalized) || wantsMemberLookup(normalized)) {
       return "member_detail_list";
     }
     if (metric === "active" || operation === "list" && /\b(aktiv|active)\b/i.test(normalized)) {
@@ -211,6 +225,7 @@ export function resolveOrganizationCapabilityRoute(
     return null;
   }
   if (isOrganizationNavigationHelpQuery(normalized)) return null;
+  if (isUnknownOrganizationSourceIntent(query, locale)) return null;
 
   const descriptors = collectOrganizationSemanticDescriptors();
   const semanticIntent = resolveCompanionSemanticIntent({
@@ -304,6 +319,7 @@ export function resolveOrganizationCapabilityRoute(
     wantsPendingVerification(normalized) ||
     wantsMemberVerificationStatus(query, normalized) ||
     wantsMemberDetailFields(normalized) ||
+    wantsMemberLookup(normalized) ||
     hasExplicitOrganizationMemberCountSignal(query) ||
     /\b(hvor mange|how many|antall|medlemstall|member count|how many members)\b/i.test(normalized);
 

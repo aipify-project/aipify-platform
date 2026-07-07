@@ -441,6 +441,12 @@
         "registry_not_connected": "Member registry not connected"
       }
     },
+    "unknownOrganizationSource": {
+      "ownerDirectAnswer": "I cannot find a connected source for event planning or guest lists in this organization yet. I cannot retrieve the guest list until an owner connects an approved source with the right access.",
+      "ownerExplanation": "The next step is to connect a source — for example a document, a module, or an external service — with read access for APP Companion.",
+      "employeeDirectAnswer": "I cannot find a connected source for event planning or guest lists in this organization yet. I cannot retrieve the guest list without an approved source.",
+      "employeeExplanation": "Ask an organization owner or administrator to connect an approved source with read access for APP Companion."
+    },
     "foundation": {
       "sourceLine": "Source: {source} · Checked: {checkedAt} · Freshness: {freshness}",
       "selfLoveSourceLabel": "Aipify platform knowledge",

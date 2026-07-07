@@ -345,6 +345,12 @@
         "registry_not_connected": "Medlemsregister ikke koblet"
       }
     },
+    "unknownOrganizationSource": {
+      "ownerDirectAnswer": "Jeg finner ingen koblet kilde for festplanlegging eller gjestelister i denne organisasjonen ennå. Jeg kan ikke hente gjestelisten før en eier kobler en godkjent kilde med riktig tilgang.",
+      "ownerExplanation": "Neste steg er å koble en kilde, for eksempel et dokument, en modul eller en ekstern tjeneste, med lesetilgang for APP Kompis.",
+      "employeeDirectAnswer": "Jeg finner ingen koblet kilde for festplanlegging eller gjestelister i denne organisasjonen ennå. Jeg kan ikke hente gjestelisten uten en godkjent kilde.",
+      "employeeExplanation": "Be en eier eller administrator i organisasjonen om å koble en godkjent kilde med lesetilgang for APP Kompis."
+    },
     "foundation": {
       "sourceLine": "Kilde: {source} · Sjekket: {checkedAt} · Ferskhet: {freshness}",
       "selfLoveSourceLabel": "Aipify plattformkunnskap",

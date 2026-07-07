@@ -16,6 +16,7 @@ import {
 } from "./organization-capability-resolution";
 import { detectOperationalQueryKind } from "./companion-operational-query-match";
 import { resolveCompanionExplicitIntent } from "./companion-explicit-intent";
+import { isUnknownOrganizationSourceIntent } from "./unknown-organization-source-intent";
 
 export type CompanionSubmitPath = "direct" | "queued" | "direct_exact_source_or_queue";
 
@@ -43,6 +44,10 @@ export function classifyCompanionSubmitPath(
   }
 
   if (resolveCompanionExplicitIntent(query)) {
+    return "direct";
+  }
+
+  if (isUnknownOrganizationSourceIntent(query, locale)) {
     return "direct";
   }
 

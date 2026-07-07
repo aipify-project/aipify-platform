@@ -183,6 +183,12 @@
         "registry_not_connected": "Medlemsregister inte anslutet"
       }
     },
+    "unknownOrganizationSource": {
+      "ownerDirectAnswer": "Jag hittar ingen ansluten källa för eventplanering eller gästlistor i den här organisationen ännu. Jag kan inte hämta gästlistan förrän en ägare kopplar en godkänd källa med rätt åtkomst.",
+      "ownerExplanation": "Nästa steg är att koppla en källa — till exempel ett dokument, en modul eller en extern tjänst — med läsåtkomst för APP Companion.",
+      "employeeDirectAnswer": "Jag hittar ingen ansluten källa för eventplanering eller gästlistor i den här organisationen ännu. Jag kan inte hämta gästlistan utan en godkänd källa.",
+      "employeeExplanation": "Be en ägare eller administratör i organisationen att koppla en godkänd källa med läsåtkomst för APP Companion."
+    },
     "foundation": {
       "sourceLine": "Källa: {source} · Kontrollerad: {checkedAt} · Färskhet: {freshness}",
       "selfLoveSourceLabel": "Aipify plattformskunskap",

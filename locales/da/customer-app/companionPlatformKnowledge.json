@@ -183,6 +183,12 @@
         "registry_not_connected": "Medlemsregister ikke tilsluttet"
       }
     },
+    "unknownOrganizationSource": {
+      "ownerDirectAnswer": "Jeg finder ingen tilsluttet kilde til festplanlægning eller gæstelister i denne organisation endnu. Jeg kan ikke hente gæstelisten, før en ejer tilslutter en godkendt kilde med den rette adgang.",
+      "ownerExplanation": "Næste skridt er at tilslutte en kilde — for eksempel et dokument, et modul eller en ekstern tjeneste — med læseadgang for APP Companion.",
+      "employeeDirectAnswer": "Jeg finder ingen tilsluttet kilde til festplanlægning eller gæstelister i denne organisation endnu. Jeg kan ikke hente gæstelisten uden en godkendt kilde.",
+      "employeeExplanation": "Bed en ejer eller administrator i organisationen om at tilslutte en godkendt kilde med læseadgang for APP Companion."
+    },
     "foundation": {
       "sourceLine": "Kilde: {source} · Tjekket: {checkedAt} · Friskhed: {freshness}",
       "selfLoveSourceLabel": "Aipify platformsviden",

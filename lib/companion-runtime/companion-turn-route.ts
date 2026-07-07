@@ -5,6 +5,7 @@ import {
   isUserOwnedAccountControlQuery,
 } from "@/lib/core/authorization-target";
 import { isOrganizationCapabilityQuery } from "./organization-capability-resolution";
+import { shouldRouteUnknownOrganizationSourceAsExact } from "./unknown-organization-source-intent";
 import { isPlatformFoundationQuery } from "./platform-foundation-intent";
 import { detectOperationalQueryKind } from "./companion-operational-query-match";
 import { resolveCompanionExplicitIntent } from "./companion-explicit-intent";
@@ -114,7 +115,12 @@ export function classifyCompanionTurnRoute(
   options: { hasAttachments?: boolean; hasActiveArtifact?: boolean } = {},
 ): CompanionTurnRoute {
   if (options.hasAttachments || options.hasActiveArtifact) {
-    if (isOrganizationCapabilityQuery(query, locale)) return "exact_source";
+    if (
+      shouldRouteUnknownOrganizationSourceAsExact(query, locale) ||
+      isOrganizationCapabilityQuery(query, locale)
+    ) {
+      return "exact_source";
+    }
     return "full";
   }
 
@@ -138,6 +144,7 @@ export function classifyCompanionTurnRoute(
     if (isCapabilityHelpQuery(query)) return "full";
     return "lightweight";
   }
+  if (shouldRouteUnknownOrganizationSourceAsExact(query, locale)) return "exact_source";
   if (isOrganizationCapabilityQuery(query, locale)) return "exact_source";
   if (isCapabilityHelpQuery(query)) return "full";
   if (needsFullCompanionRoute(query, options)) return "full";

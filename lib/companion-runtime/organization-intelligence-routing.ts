@@ -48,6 +48,8 @@ import {
   resolveAccessOfferFromCapability,
 } from "./organization-access-approval-bridge";
 import { resolveOrganizationAccessGate } from "./organization-access-gate";
+import { isUnknownOrganizationSourceIntent } from "./unknown-organization-source-intent";
+import { buildUnknownOrganizationSourceAnswer } from "./unknown-organization-source-answer";
 import { resolveAuthorizationTargetCompanionAnswer } from "./authorization-target-routing";
 
 const PENDING_VERIFICATION_STATUSES = new Set([
@@ -677,6 +679,16 @@ export async function resolveOrganizationIntelligenceAnswer(
   });
   if (authorizationTargetAnswer) return authorizationTargetAnswer;
 
+  if (isUnknownOrganizationSourceIntent(query, input.activeLocale)) {
+    return {
+      answer: buildUnknownOrganizationSourceAnswer({
+        t: input.t,
+        organizationRole: input.tenantContext.organizationRole,
+        effectivePermissions: input.tenantContext.effectivePermissions,
+      }),
+    };
+  }
+
   const intent = resolveOrganizationIntelligenceIntent(query, input.activeLocale);
   if (!intent) return null;
 
@@ -740,5 +752,8 @@ export function shouldBypassGenericNavigationForOrganizationQuery(
   query: string,
   locale: CustomerActiveLocale = "en",
 ): boolean {
-  return resolveOrganizationCapabilityRoute(query, locale) !== null;
+  return (
+    isUnknownOrganizationSourceIntent(query, locale) ||
+    resolveOrganizationCapabilityRoute(query, locale) !== null
+  );
 }
