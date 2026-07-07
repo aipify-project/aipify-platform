@@ -1,7 +1,8 @@
 import type { PublicCompanionTenantFaqRow } from "@/lib/marketing/public-companion-tenant-faq";
-import type { PublicCompanionAskLocale } from "@/lib/marketing/public-companion-ask";
 
 export const WEBSITE_KOMPIS_SAFETY_POLICY_SOURCE = "website-kompis-safety-policy" as const;
+
+type WebsiteKompisFaqMatchSafetyLocale = "en" | "no" | "sv" | "da" | "pl" | "uk" | "es";
 
 type SafetyModifierGroup = {
   userPatterns: RegExp[];
@@ -218,7 +219,7 @@ export function buildWebsiteKompisSafetyPolicyRefusalCopy(locale: string): {
   }
 }
 
-export function buildWebsiteKompisSafetyPolicyRefusalResponse(locale: PublicCompanionAskLocale) {
+export function buildWebsiteKompisSafetyPolicyRefusalResponse(locale: WebsiteKompisFaqMatchSafetyLocale) {
   const copy = buildWebsiteKompisSafetyPolicyRefusalCopy(locale);
 
   return {
@@ -237,7 +238,7 @@ export function buildWebsiteKompisSafetyPolicyRefusalResponse(locale: PublicComp
 
 export function tryBuildWebsiteKompisSafetyPolicyAnswer(
   question: string,
-  locale: PublicCompanionAskLocale,
+  locale: WebsiteKompisFaqMatchSafetyLocale,
 ): ReturnType<typeof buildWebsiteKompisSafetyPolicyRefusalResponse> | null {
   if (!isWebsiteKompisMandatorySafetyRefusalQuestion(question)) {
     return null;
