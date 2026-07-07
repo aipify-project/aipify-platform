@@ -765,6 +765,10 @@
     }
   },
   "domainLicense": {
+    "pendingDomainsNone": "Brak oczekujących domen.",
+    "licensesUsage": "{{included}} wliczone + {{additional}} zakupione",
+    "expandDomainDetails": "Pokaż szczegóły Website Kompis",
+    "collapseDomainDetails": "Ukryj szczegóły Website Kompis",
     "websiteKompis": {
       "title": "Website Kompis",
       "subtitle": "Publiczny kompan dla tej zweryfikowanej domeny — launcher, źródła i bezpieczny fallback.",
@@ -796,6 +800,13 @@
       "saving": "Zapisywanie…",
       "saveError": "Nie udało się zapisać ustawień Website Kompis. Spróbuj ponownie.",
       "loadError": "Nie udało się wczytać ustawień Website Kompis.",
+      "installSectionTitle": "Zainstaluj Website Kompis",
+      "installSectionBody": "Wklej ten kod przed </body> na {{domain}}.",
+      "copySnippet": "Kopiuj kod",
+      "snippetCopied": "Skopiowano",
+      "snippetPending": "Kod instalacji będzie dostępny, gdy ID instalacji i domena będą gotowe.",
+      "statusSummaryAvailable": "Gotowe",
+      "statusSummaryLocked": "Wymagana konfiguracja",
       "iconVariants": {
         "companionPurpleDefault": "Companion fiolet (domyślny)",
         "companionPurpleDark": "Companion fiolet (ciemny)",

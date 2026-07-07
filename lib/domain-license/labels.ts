@@ -29,6 +29,10 @@ export function buildDomainLicenseLabels(t: Translator) {
     domainPlaceholder: t(`${p}.domainPlaceholder`),
     selectPlatform: t(`${p}.selectPlatform`),
     save: t(`${p}.save`),
+    pendingDomainsNone: t(`${p}.pendingDomainsNone`),
+    licensesUsage: t(`${p}.licensesUsage`),
+    expandDomainDetails: t(`${p}.expandDomainDetails`),
+    collapseDomainDetails: t(`${p}.collapseDomainDetails`),
     websiteKompis: buildWebsiteKompisDomainSettingsLabels(t),
   };
 }
@@ -66,6 +70,13 @@ export function buildWebsiteKompisDomainSettingsLabels(t: Translator) {
     saving: t(`${p}.saving`),
     saveError: t(`${p}.saveError`),
     loadError: t(`${p}.loadError`),
+    installSectionTitle: t(`${p}.installSectionTitle`),
+    installSectionBody: t(`${p}.installSectionBody`),
+    copySnippet: t(`${p}.copySnippet`),
+    snippetCopied: t(`${p}.snippetCopied`),
+    snippetPending: t(`${p}.snippetPending`),
+    statusSummaryAvailable: t(`${p}.statusSummaryAvailable`),
+    statusSummaryLocked: t(`${p}.statusSummaryLocked`),
     iconVariants: {
       "companion-purple-default": t(`${p}.iconVariants.companionPurpleDefault`),
       "companion-purple-dark": t(`${p}.iconVariants.companionPurpleDark`),

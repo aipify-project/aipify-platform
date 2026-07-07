@@ -765,6 +765,10 @@
     }
   },
   "domainLicense": {
+    "pendingDomainsNone": "Немає доменів, що очікують.",
+    "licensesUsage": "{{included}} включено + {{additional}} придбано",
+    "expandDomainDetails": "Показати деталі Website Kompis",
+    "collapseDomainDetails": "Приховати деталі Website Kompis",
     "websiteKompis": {
       "title": "Website Kompis",
       "subtitle": "Публічний компаньон для цього перевіреного домену — launcher, джерела та безпечний fallback.",
@@ -796,6 +800,13 @@
       "saving": "Збереження…",
       "saveError": "Не вдалося зберегти налаштування Website Kompis. Спробуйте ще раз.",
       "loadError": "Не вдалося завантажити налаштування Website Kompis.",
+      "installSectionTitle": "Встановити Website Kompis",
+      "installSectionBody": "Вставте цей код перед </body> на {{domain}}.",
+      "copySnippet": "Копіювати код",
+      "snippetCopied": "Скопійовано",
+      "snippetPending": "Код установки стане доступним, коли ID інсталяції та домен будуть готові.",
+      "statusSummaryAvailable": "Готово",
+      "statusSummaryLocked": "Потрібне налаштування",
       "iconVariants": {
         "companionPurpleDefault": "Companion фіолетовий (стандарт)",
         "companionPurpleDark": "Companion фіолетовий (темний)",
