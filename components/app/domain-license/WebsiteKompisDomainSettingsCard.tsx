@@ -27,14 +27,20 @@ const ICON_VARIANTS = [
 const FALLBACK_TONES = ["professional-friendly", "short-direct"] as const;
 const WELCOME_VARIANTS = ["standard", "compact"] as const;
 
+function formatInstallSectionBody(template: string, domain: string): string {
+  return template.replace(/\{\{domain\}\}/g, domain);
+}
+
 export function WebsiteKompisDomainSettingsCard({
   domainId,
   domain,
   labels,
+  expanded = false,
 }: {
   domainId: string;
   domain: string;
   labels: WebsiteKompisDomainSettingsLabels;
+  expanded?: boolean;
 }) {
   const [settings, setSettings] = useState<WebsiteKompisDomainSettingsView | null>(null);
   const [draft, setDraft] = useState<WebsiteKompisInstallConfig | null>(null);
@@ -159,7 +165,19 @@ export function WebsiteKompisDomainSettingsCard({
     }
   }
 
+  const locked = !settings?.canManage || !settings?.availability.available;
+  const statusSummary = settings?.availability.available
+    ? labels.statusSummaryAvailable
+    : labels.statusSummaryLocked;
+
   if (loading) {
+    if (!expanded) {
+      return (
+        <div className="mt-3 border-t border-gray-100 pt-3 text-sm text-gray-500">
+          {labels.title}
+        </div>
+      );
+    }
     return (
       <div className="mt-3 rounded-lg border border-gray-100 bg-gray-50/70 p-3 text-sm text-gray-600">
         {labels.title}
@@ -167,7 +185,22 @@ export function WebsiteKompisDomainSettingsCard({
     );
   }
 
-  const locked = !settings?.canManage || !settings.availability.available;
+  if (!expanded) {
+    return (
+      <div className="mt-3 flex items-center justify-between gap-2 border-t border-gray-100 pt-3 text-sm">
+        <span className="font-medium text-gray-900">{labels.title}</span>
+        <span
+          className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium ${
+            settings?.availability.available
+              ? "bg-emerald-100 text-emerald-800"
+              : "bg-amber-100 text-amber-900"
+          }`}
+        >
+          {statusSummary}
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-3 rounded-lg border border-violet-100 bg-violet-50/30 p-3">
@@ -203,9 +236,12 @@ export function WebsiteKompisDomainSettingsCard({
       </dl>
 
       <div className="mt-3 w-full rounded-lg border border-gray-200 bg-white/80 p-3">
-        <p className="text-sm font-semibold text-gray-900">Installer Website Kompis</p>
+        <p className="text-sm font-semibold text-gray-900">{labels.installSectionTitle}</p>
         <p className="mt-1 text-sm text-gray-600">
-          Legg denne koden inn før {"</body>"} på {normalizedDomain ?? "DOMENE"}.
+          {formatInstallSectionBody(
+            labels.installSectionBody,
+            normalizedDomain ?? labels.domainLabel,
+          )}
         </p>
 
         {installSnippet ? (
@@ -218,13 +254,11 @@ export function WebsiteKompisDomainSettingsCard({
               onClick={() => void handleCopySnippet()}
               className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
             >
-              {snippetCopied ? "Kopiert" : "Kopier kode"}
+              {snippetCopied ? labels.snippetCopied : labels.copySnippet}
             </button>
           </div>
         ) : (
-          <p className="mt-3 text-sm text-gray-500">
-            Installasjonskode blir tilgjengelig når INSTALL_ID og DOMENE er klare.
-          </p>
+          <p className="mt-3 text-sm text-gray-500">{labels.snippetPending}</p>
         )}
       </div>
 
