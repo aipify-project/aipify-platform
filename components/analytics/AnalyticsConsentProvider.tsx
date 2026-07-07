@@ -50,7 +50,9 @@ export default function AnalyticsConsentProvider({
   privacyHref = "/privacy",
   children,
 }: Props) {
-  const [consent, setConsentState] = useState<AnalyticsConsentState>("unknown");
+  const [consent, setConsentState] = useState<AnalyticsConsentState>(() =>
+    typeof document !== "undefined" ? readAnalyticsConsentFromDocument() : "unknown"
+  );
   const [hydrated, setHydrated] = useState(false);
   const [manageOpen, setManageOpen] = useState(false);
 

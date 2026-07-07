@@ -72,6 +72,33 @@ async function main() {
     assert.match(second, /=denied/);
   });
 
+  await test("consent cookie on app.aipify.ai includes shared production domain", async () => {
+    const granted = formatAnalyticsConsentCookie("granted", "app.aipify.ai");
+    assert.match(granted, new RegExp(`^${ANALYTICS_CONSENT_COOKIE_NAME}=granted`));
+    if (process.env.NODE_ENV === "production") {
+      assert.match(granted, /Domain=\.aipify\.ai/);
+      assert.match(granted, /Secure/);
+    } else {
+      assert.doesNotMatch(granted, /Domain=\.aipify\.ai/);
+    }
+  });
+
+  await test("consent cookie on Vercel preview host stays host-only", async () => {
+    const granted = formatAnalyticsConsentCookie("granted", "aipify-platform-abc123.vercel.app");
+    assert.match(granted, new RegExp(`^${ANALYTICS_CONSENT_COOKIE_NAME}=granted`));
+    assert.doesNotMatch(granted, /Domain=\.aipify\.ai/);
+  });
+
+  await test("consent cookie on localhost and app.localhost stays host-only", async () => {
+    const localhost = formatAnalyticsConsentCookie("granted", "localhost");
+    assert.match(localhost, new RegExp(`^${ANALYTICS_CONSENT_COOKIE_NAME}=granted`));
+    assert.doesNotMatch(localhost, /Domain=\.aipify\.ai/);
+
+    const appLocalhost = formatAnalyticsConsentCookie("granted", "app.localhost");
+    assert.match(appLocalhost, new RegExp(`^${ANALYTICS_CONSENT_COOKIE_NAME}=granted`));
+    assert.doesNotMatch(appLocalhost, /Domain=\.aipify\.ai/);
+  });
+
   await test("marketing, app, and partners layouts mount AnalyticsConsentProvider", async () => {
     const marketing = fs.readFileSync(
       path.join(process.cwd(), "app/(marketing)/layout.tsx"),
