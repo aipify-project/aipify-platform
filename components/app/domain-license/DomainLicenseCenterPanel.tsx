@@ -95,15 +95,15 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
       {summary ? (
         <div className="grid gap-3 sm:grid-cols-3">
           <div className="rounded-xl border border-gray-200 bg-white p-4">
-            <p className="text-xs uppercase tracking-wide text-gray-500">{labels.purchased}</p>
+            <p className="text-sm uppercase tracking-wide text-gray-500">{labels.purchased}</p>
             <p className="mt-1 text-2xl font-semibold text-gray-900">{summary.purchased}</p>
           </div>
           <div className="rounded-xl border border-gray-200 bg-white p-4">
-            <p className="text-xs uppercase tracking-wide text-gray-500">{labels.used}</p>
+            <p className="text-sm uppercase tracking-wide text-gray-500">{labels.used}</p>
             <p className="mt-1 text-2xl font-semibold text-gray-900">{summary.used}</p>
           </div>
           <div className="rounded-xl border border-indigo-100 bg-indigo-50/40 p-4">
-            <p className="text-xs uppercase tracking-wide text-indigo-700">{labels.available}</p>
+            <p className="text-sm uppercase tracking-wide text-indigo-700">{labels.available}</p>
             <p className="mt-1 text-2xl font-semibold text-indigo-950">{summary.available}</p>
           </div>
         </div>
@@ -118,31 +118,48 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
       </div>
 
       {tab === "overview" || tab === "active" ? (
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {(center.active_domains ?? []).map((d) => (
-            <div key={d.id} className="rounded-xl border border-gray-200 bg-white p-4">
-              <div className="flex flex-wrap items-start justify-between gap-2">
-                <div>
-                  <p className="font-semibold text-gray-900">{d.display_name ?? d.domain}</p>
-                  <p className="text-sm text-gray-600">{d.domain}</p>
+            <article
+              key={d.id}
+              className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+            >
+              <header className="space-y-2 border-b border-gray-100 pb-3">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-semibold text-gray-900">{d.display_name ?? d.domain}</p>
+                    <p className="truncate text-sm text-gray-600">{d.domain}</p>
+                  </div>
+                  {d.is_primary ? (
+                    <span className="shrink-0 rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
+                      {labels.primary}
+                    </span>
+                  ) : null}
                 </div>
-                <div className="text-right text-xs text-gray-500">
-                  {d.is_primary ? <span className="font-medium text-indigo-700">{labels.primary}</span> : null}
-                  <p className="capitalize">{labels.platform}: {d.connected_platform?.replace(/_/g, " ")}</p>
-                  <p className="capitalize">{labels.status}: {d.domain_status}</p>
-                </div>
+                <dl className="grid grid-cols-2 gap-x-3 gap-y-1 text-sm text-gray-600">
+                  <div className="min-w-0">
+                    <dt className="text-xs font-medium uppercase tracking-wide text-gray-500">{labels.platform}</dt>
+                    <dd className="truncate capitalize">{d.connected_platform?.replace(/_/g, " ")}</dd>
+                  </div>
+                  <div className="min-w-0">
+                    <dt className="text-xs font-medium uppercase tracking-wide text-gray-500">{labels.status}</dt>
+                    <dd className="capitalize">{d.domain_status}</dd>
+                  </div>
+                </dl>
+                {(d.installed_packs ?? []).length > 0 ? (
+                  <p className="line-clamp-2 text-xs text-gray-700">
+                    {labels.packs}: {(d.installed_packs ?? []).map((p) => p.pack_key.replace(/_/g, " ")).join(", ")}
+                  </p>
+                ) : null}
+              </header>
+              <div className="flex-1">
+                <WebsiteKompisDomainSettingsCard
+                  domainId={d.id}
+                  domain={d.domain}
+                  labels={labels.websiteKompis}
+                />
               </div>
-              {(d.installed_packs ?? []).length > 0 ? (
-                <p className="mt-3 text-sm text-gray-700">
-                  {labels.packs}: {(d.installed_packs ?? []).map((p) => p.pack_key.replace(/_/g, " ")).join(", ")}
-                </p>
-              ) : null}
-              <WebsiteKompisDomainSettingsCard
-                domainId={d.id}
-                domain={d.domain}
-                labels={labels.websiteKompis}
-              />
-            </div>
+            </article>
           ))}
         </div>
       ) : null}
@@ -155,7 +172,7 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
             (center.pending_domains ?? []).map((d) => (
               <div key={d.id} className="rounded-xl border border-amber-100 bg-amber-50/40 p-4">
                 <p className="font-medium text-gray-900">{d.domain}</p>
-                <p className="text-xs text-gray-600 capitalize">{d.connected_platform?.replace(/_/g, " ")} · {d.verification_status}</p>
+                <p className="text-sm text-gray-600 capitalize">{d.connected_platform?.replace(/_/g, " ")} · {d.verification_status}</p>
               </div>
             ))
           )}

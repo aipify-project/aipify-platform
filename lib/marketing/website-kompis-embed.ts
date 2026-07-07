@@ -179,3 +179,39 @@ export function buildWebsiteKompisAskPayload(input: {
 
   return payload;
 }
+
+export function escapeWebsiteKompisEmbedAttributeValue(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+export function buildWebsiteKompisScriptEmbedSnippet(input: {
+  coreOrigin?: string;
+  installId: string;
+  domain: string;
+  locale?: WebsiteKompisEmbedLocale;
+}): string | null {
+  const installId = normalizeWebsiteKompisEmbedInstallId(input.installId);
+  const domain = normalizeWebsiteKompisEmbedDomain(input.domain);
+  if (!installId || !domain) {
+    return null;
+  }
+
+  const origin = (input.coreOrigin ?? WEBSITE_KOMPIS_EMBED_DEFAULT_CORE_ORIGIN).replace(/\/$/, "");
+  const locale = sanitizeWebsiteKompisEmbedLocale(input.locale);
+  const escapedOrigin = escapeWebsiteKompisEmbedAttributeValue(origin);
+  const escapedInstallId = escapeWebsiteKompisEmbedAttributeValue(installId);
+  const escapedDomain = escapeWebsiteKompisEmbedAttributeValue(domain);
+  const escapedLocale = escapeWebsiteKompisEmbedAttributeValue(locale);
+
+  return `<script
+  src="${escapedOrigin}/embed/website-kompis.js"
+  data-install-id="${escapedInstallId}"
+  data-domain="${escapedDomain}"
+  data-locale="${escapedLocale}"
+  defer
+></script>`;
+}

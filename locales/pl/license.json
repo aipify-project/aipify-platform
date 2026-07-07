@@ -1,0 +1,15 @@
+{
+  "center": {
+    "licenseCode": {
+      "title": "Kod licencji Aipify",
+      "description": "Kod licencji subskrypcji APP. Domyślnie ukryty — użyj ikony oka, aby pokazać pełny kod.",
+      "reveal": "Pokaż kod licencji",
+      "hide": "Ukryj kod licencji",
+      "copy": "Kopiuj kod licencji",
+      "copied": "Skopiowano",
+      "unavailable": "Kod licencji nie jest jeszcze dostępny.",
+      "revealError": "Nie udało się pokazać kodu licencji. Spróbuj ponownie.",
+      "status": "Status kodu"
+    }
+  }
+}

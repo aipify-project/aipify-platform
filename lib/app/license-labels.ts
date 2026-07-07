@@ -58,5 +58,16 @@ export function buildLicenseCenterLabels(dict: Dictionary) {
       users: t("license.center.subscription.users"),
       paymentStatus: t("license.center.subscription.paymentStatus"),
     },
+    licenseCode: {
+      title: t("license.center.licenseCode.title"),
+      description: t("license.center.licenseCode.description"),
+      reveal: t("license.center.licenseCode.reveal"),
+      hide: t("license.center.licenseCode.hide"),
+      copy: t("license.center.licenseCode.copy"),
+      copied: t("license.center.licenseCode.copied"),
+      unavailable: t("license.center.licenseCode.unavailable"),
+      revealError: t("license.center.licenseCode.revealError"),
+      status: t("license.center.licenseCode.status"),
+    },
   };
 }

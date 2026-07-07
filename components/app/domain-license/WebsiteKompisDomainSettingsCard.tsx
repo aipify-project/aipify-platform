@@ -1,9 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { WebsiteKompisDomainSettingsView } from "@/lib/marketing/website-kompis-domain-settings";
 import type { WebsiteKompisInstallConfig } from "@/lib/marketing/website-kompis-install-config";
 import type { WebsiteKompisDomainSettingsLabels } from "@/lib/domain-license/labels";
+import {
+  buildWebsiteKompisScriptEmbedSnippet,
+  normalizeWebsiteKompisEmbedDomain,
+  sanitizeWebsiteKompisEmbedLocale,
+  WEBSITE_KOMPIS_EMBED_DEFAULT_CORE_ORIGIN,
+} from "@/lib/marketing/website-kompis-embed";
 
 type SettingsResponse = {
   found: boolean;
@@ -36,6 +42,32 @@ export function WebsiteKompisDomainSettingsCard({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+  const [snippetCopied, setSnippetCopied] = useState(false);
+
+  const normalizedDomain = useMemo(() => normalizeWebsiteKompisEmbedDomain(domain), [domain]);
+
+  const embedCoreOrigin = useMemo(() => {
+    if (!settings?.metadataUrl) {
+      return WEBSITE_KOMPIS_EMBED_DEFAULT_CORE_ORIGIN;
+    }
+    try {
+      return new URL(settings.metadataUrl).origin;
+    } catch {
+      return WEBSITE_KOMPIS_EMBED_DEFAULT_CORE_ORIGIN;
+    }
+  }, [settings?.metadataUrl]);
+
+  const installSnippet = useMemo(() => {
+    if (!settings?.installId || !normalizedDomain) {
+      return null;
+    }
+    return buildWebsiteKompisScriptEmbedSnippet({
+      coreOrigin: embedCoreOrigin,
+      installId: settings.installId,
+      domain: normalizedDomain,
+      locale: sanitizeWebsiteKompisEmbedLocale(draft?.defaultLocale ?? "no"),
+    });
+  }, [draft?.defaultLocale, embedCoreOrigin, normalizedDomain, settings?.installId]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -98,6 +130,17 @@ export function WebsiteKompisDomainSettingsCard({
     setSaved(true);
   }
 
+  async function handleCopySnippet() {
+    if (!installSnippet) return;
+    try {
+      await navigator.clipboard.writeText(installSnippet);
+      setSnippetCopied(true);
+      window.setTimeout(() => setSnippetCopied(false), 2000);
+    } catch {
+      setSnippetCopied(false);
+    }
+  }
+
   function lockMessage(): string {
     if (!settings) return labels.unableToVerifyLicense;
     switch (settings.availability.reason) {
@@ -118,7 +161,7 @@ export function WebsiteKompisDomainSettingsCard({
 
   if (loading) {
     return (
-      <div className="mt-4 rounded-lg border border-gray-100 bg-gray-50/70 p-4 text-sm text-gray-600">
+      <div className="mt-3 rounded-lg border border-gray-100 bg-gray-50/70 p-3 text-sm text-gray-600">
         {labels.title}
       </div>
     );
@@ -127,11 +170,11 @@ export function WebsiteKompisDomainSettingsCard({
   const locked = !settings?.canManage || !settings.availability.available;
 
   return (
-    <div className="mt-4 rounded-lg border border-violet-100 bg-violet-50/30 p-4">
+    <div className="mt-3 rounded-lg border border-violet-100 bg-violet-50/30 p-3">
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <div>
+        <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold text-gray-900">{labels.title}</p>
-          <p className="mt-1 text-xs text-gray-600">{labels.subtitle}</p>
+          <p className="mt-0.5 text-sm text-gray-600">{labels.subtitle}</p>
         </div>
         <span
           className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${
@@ -144,7 +187,7 @@ export function WebsiteKompisDomainSettingsCard({
         </span>
       </div>
 
-      <dl className="mt-3 grid gap-2 text-xs text-gray-600 sm:grid-cols-2">
+      <dl className="mt-2 grid gap-2 text-sm text-gray-600 sm:grid-cols-2">
         <div>
           <dt className="font-medium text-gray-700">{labels.domainLabel}</dt>
           <dd>{domain}</dd>
@@ -159,8 +202,34 @@ export function WebsiteKompisDomainSettingsCard({
         </div>
       </dl>
 
-      <p className="mt-3 text-xs text-gray-600">{labels.sourcePriority}</p>
-      <p className="mt-1 text-xs text-gray-500">{labels.publicSiteIndexComingLater}</p>
+      <div className="mt-3 w-full rounded-lg border border-gray-200 bg-white/80 p-3">
+        <p className="text-sm font-semibold text-gray-900">Installer Website Kompis</p>
+        <p className="mt-1 text-sm text-gray-600">
+          Legg denne koden inn før {"</body>"} på {normalizedDomain ?? "DOMENE"}.
+        </p>
+
+        {installSnippet ? (
+          <div className="mt-3 space-y-2">
+            <pre className="max-h-48 overflow-x-auto rounded-md border border-gray-200 bg-gray-950 p-3 text-xs leading-relaxed text-gray-100">
+              <code>{installSnippet}</code>
+            </pre>
+            <button
+              type="button"
+              onClick={() => void handleCopySnippet()}
+              className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            >
+              {snippetCopied ? "Kopiert" : "Kopier kode"}
+            </button>
+          </div>
+        ) : (
+          <p className="mt-3 text-sm text-gray-500">
+            Installasjonskode blir tilgjengelig når INSTALL_ID og DOMENE er klare.
+          </p>
+        )}
+      </div>
+
+      <p className="mt-3 text-sm text-gray-600">{labels.sourcePriority}</p>
+      <p className="mt-1 text-sm text-gray-500">{labels.publicSiteIndexComingLater}</p>
 
       {locked ? (
         <div className="mt-4 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">

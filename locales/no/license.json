@@ -32,6 +32,17 @@
       "users": "Users",
       "paymentStatus": "Payment status"
     },
+    "licenseCode": {
+      "title": "Aipify-lisenskode",
+      "description": "Din APP-abonnementslisenskode. Skjult som standard — bruk øye-kontrollen for å vise hele koden.",
+      "reveal": "Vis lisenskode",
+      "hide": "Skjul lisenskode",
+      "copy": "Kopier lisenskode",
+      "copied": "Kopiert",
+      "unavailable": "Lisenskode er ikke tilgjengelig ennå.",
+      "revealError": "Kunne ikke vise lisenskoden. Prøv igjen.",
+      "status": "Kodestatus"
+    },
     "sections": {
       "license_information": {
         "title": "License Information",
