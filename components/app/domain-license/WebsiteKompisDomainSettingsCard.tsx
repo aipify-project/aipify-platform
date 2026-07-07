@@ -166,9 +166,11 @@ export function WebsiteKompisDomainSettingsCard({
   }
 
   const locked = !settings?.canManage || !settings?.availability.available;
-  const statusSummary = settings?.availability.available
+  const isAvailable = settings?.availability.available === true;
+  const statusSummary = isAvailable
     ? labels.statusSummaryAvailable
     : labels.statusSummaryLocked;
+  const expandedIntro = isAvailable ? labels.subtitleReady : labels.subtitleInactive;
 
   if (loading) {
     if (!expanded) {
@@ -207,7 +209,7 @@ export function WebsiteKompisDomainSettingsCard({
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold text-gray-900">{labels.title}</p>
-          <p className="mt-0.5 text-sm text-gray-600">{labels.subtitle}</p>
+          <p className="mt-0.5 text-sm text-gray-600">{expandedIntro}</p>
         </div>
         <span
           className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${
@@ -229,10 +231,12 @@ export function WebsiteKompisDomainSettingsCard({
           <dt className="font-medium text-gray-700">{labels.installIdLabel}</dt>
           <dd className="break-all">{settings?.installId ?? labels.installPending}</dd>
         </div>
-        <div className="sm:col-span-2">
-          <dt className="font-medium text-gray-700">{labels.metadataUrlLabel}</dt>
-          <dd className="break-all">{settings?.metadataUrl ?? labels.metadataPending}</dd>
-        </div>
+        {labels.metadataUrlLabel.trim() ? (
+          <div className="sm:col-span-2">
+            <dt className="font-medium text-gray-700">{labels.metadataUrlLabel}</dt>
+            <dd className="break-all">{settings?.metadataUrl ?? labels.metadataPending}</dd>
+          </div>
+        ) : null}
       </dl>
 
       <div className="mt-3 w-full rounded-lg border border-gray-200 bg-white/80 p-3">
@@ -262,8 +266,12 @@ export function WebsiteKompisDomainSettingsCard({
         )}
       </div>
 
-      <p className="mt-3 text-sm text-gray-600">{labels.sourcePriority}</p>
-      <p className="mt-1 text-sm text-gray-500">{labels.publicSiteIndexComingLater}</p>
+      {labels.sourcePriority.trim() ? (
+        <p className="mt-3 text-sm text-gray-600">{labels.sourcePriority}</p>
+      ) : null}
+      {labels.publicSiteIndexComingLater.trim() ? (
+        <p className="mt-1 text-sm text-gray-500">{labels.publicSiteIndexComingLater}</p>
+      ) : null}
 
       {locked ? (
         <div className="mt-4 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">

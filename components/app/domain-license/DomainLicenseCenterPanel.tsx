@@ -9,6 +9,10 @@ import {
   type DomainLicenseCenter,
   type DomainLicenseLabels,
 } from "@/lib/domain-license";
+import {
+  resolveDomainPlatformLabel,
+  resolveDomainStatusLabel,
+} from "@/lib/domain-license/labels";
 import { AipifyModuleAccessDenied } from "@/components/ui/aipify-module-access-denied";
 import { WebsiteKompisDomainSettingsCard } from "@/components/app/domain-license/WebsiteKompisDomainSettingsCard";
 
@@ -158,11 +162,11 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
                     <dl className="grid grid-cols-2 gap-x-3 gap-y-1 text-sm text-gray-600">
                       <div className="min-w-0">
                         <dt className="text-xs font-medium uppercase tracking-wide text-gray-500">{labels.platform}</dt>
-                        <dd className="truncate capitalize">{d.connected_platform?.replace(/_/g, " ")}</dd>
+                        <dd className="truncate">{resolveDomainPlatformLabel(labels, d.connected_platform)}</dd>
                       </div>
                       <div className="min-w-0">
                         <dt className="text-xs font-medium uppercase tracking-wide text-gray-500">{labels.status}</dt>
-                        <dd className="capitalize">{d.domain_status}</dd>
+                        <dd>{resolveDomainStatusLabel(labels, d.domain_status)}</dd>
                       </div>
                     </dl>
                     {(d.installed_packs ?? []).length > 0 ? (
@@ -218,7 +222,12 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
             (center.pending_domains ?? []).map((d) => (
               <div key={d.id} className="rounded-xl border border-amber-100 bg-amber-50/40 p-4">
                 <p className="font-medium text-gray-900">{d.domain}</p>
-                <p className="text-sm text-gray-600 capitalize">{d.connected_platform?.replace(/_/g, " ")} · {d.verification_status}</p>
+                <p className="text-sm text-gray-600">
+                  {resolveDomainPlatformLabel(labels, d.connected_platform)}
+                  {d.verification_status
+                    ? ` · ${resolveDomainStatusLabel(labels, d.verification_status)}`
+                    : null}
+                </p>
               </div>
             ))
           )}
@@ -241,7 +250,7 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
               <input value={newDomain} onChange={(e) => setNewDomain(e.target.value)} placeholder={labels.domainPlaceholder} className="min-w-[200px] flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm" />
               <select value={platform} onChange={(e) => setPlatform(e.target.value)} className="rounded-lg border border-gray-200 px-3 py-2 text-sm">
                 {(center.supported_platforms ?? []).map((p) => (
-                  <option key={p} value={p}>{p.replace(/_/g, " ")}</option>
+                  <option key={p} value={p}>{resolveDomainPlatformLabel(labels, p)}</option>
                 ))}
               </select>
               <button type="button" disabled={busy} onClick={() => void addDomain()} className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
