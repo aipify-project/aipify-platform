@@ -33,6 +33,8 @@ export function buildLicensePanelLabels(t: Translator) {
     notConfigured: t("license.sidebar.notConfigured"),
     notAssigned: t("license.sidebar.notAssigned"),
     organizationMissing: t("shell.licenseSidebar.organizationMissing"),
+    contextLoading: t("shell.licenseSidebar.contextLoading"),
+    contextUnavailable: t("shell.licenseSidebar.contextUnavailable"),
     pulseLabel: t("branding.pulseLabel"),
   };
 }
