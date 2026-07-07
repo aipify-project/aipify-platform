@@ -317,6 +317,9 @@ export function isWebsiteKompisExplicitCurrentPageQuestion(question: string): bo
     ) ||
     /\b(forklar denne|oppsummer denne|explain this|summarize this|what is this page about|hva handler denne)\b/.test(
       normalized,
+    ) ||
+    /(?:^|\s)(hvilken side er jeg på|which page am i on|what page am i on)(?:\?|$|[\s,])/.test(
+      ` ${normalized} `,
     )
   );
 }
@@ -334,8 +337,12 @@ export function isCustomerWebsitePageIntentQuestion(question: string): boolean {
     return true;
   }
 
+  if (/\b(hva koster det|what does it cost|how much does (?:it|this) cost)\b/.test(normalized)) {
+    return true;
+  }
+
   const customerSiteTopic =
-    /\b(åpningstid\w*|opening hours|kontakt|contact|medlemskap|membership|medlem|member|sikkerhet|safety|plan\w*|fordeler|benefits|tilbud|offer\w*|pris\w*|services|tjenester|produkt\w*)\b/.test(
+    /\b(åpningstid\w*|opening hours|kontakt|contact|medlemskap|membership|medlem|member|sikkerhet|safety|plan\w*|fordeler|benefits|tilbud|offer\w*|pris\w*|kost\w*|services|tjenester|produkt\w*)\b/.test(
       normalized,
     );
   const customerSiteScope =

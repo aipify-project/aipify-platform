@@ -50,6 +50,10 @@ import {
   isCustomerWebsiteVisitorContext,
   shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite,
 } from "@/lib/marketing/website-kompis-public-boundary";
+import {
+  shouldRejectWebsiteKompisFaqMatch,
+  tryBuildWebsiteKompisSafetyPolicyAnswer,
+} from "@/lib/marketing/website-kompis-faq-match-safety";
 import { tryBuildWebsiteKompisCurrentPublicPageAnswer } from "@/lib/marketing/website-kompis-public-page-context";
 import {
   presentWebsiteKompisCustomerSiteAnswer,
@@ -706,6 +710,11 @@ async function tryBuildPublicTenantFaqAnswer(
     return null;
   }
 
+  const primary = rows[0];
+  if (primary && shouldRejectWebsiteKompisFaqMatch(question, primary)) {
+    return null;
+  }
+
   return buildPublicCompanionTenantFaqResponse(rows, locale) as PublicCompanionAskResponse;
 }
 
@@ -844,6 +853,17 @@ export async function askPublicPlatformCompanion(
     );
     if (customerFaqAnswer) {
       return applyWebsiteKompisCustomerSiteTone(customerFaqAnswer, {
+        ...customerSiteTone,
+        source: "faq",
+      });
+    }
+
+    const safetyPolicyAnswer = tryBuildWebsiteKompisSafetyPolicyAnswer(
+      validated.question,
+      locale,
+    );
+    if (safetyPolicyAnswer) {
+      return applyWebsiteKompisCustomerSiteTone(safetyPolicyAnswer, {
         ...customerSiteTone,
         source: "faq",
       });
