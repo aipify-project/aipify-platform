@@ -9,6 +9,7 @@ import {
 } from "@/lib/core/organization-access-approval/approval-policy";
 import {
   canRetryOrganizationCapabilityAfterApproval,
+  checkOrganizationProviderScopesActive,
   resolveOrganizationAccessAuthorization,
   resolvesBusinessPackEntitlementWithoutOrganizationGrant,
   userHasPermissionsForScopes,
@@ -325,6 +326,62 @@ assert.equal(
   "external provider with grant remains authorized",
 );
 
+async function runOrganizationGrantScopeProbeTests() {
+  const scopeCalls: Array<Record<string, unknown>> = [];
+  const supabaseStub = {
+    rpc: async (name: string, params?: Record<string, unknown>) => {
+      if (name === "has_active_organization_provider_scopes") {
+        scopeCalls.push(params ?? {});
+        return { data: true, error: null };
+      }
+      return { data: null, error: { message: "unexpected rpc" } };
+    },
+  } as never;
+
+  const active = await checkOrganizationProviderScopesActive({
+    supabase: supabaseStub,
+    provider_key: "community_member_directory",
+    scope_keys: ["community.members.read"],
+    organization_id: "org-active-member-read",
+  });
+
+  assert.equal(active, true, "approved org scope probe should return true");
+  assert.equal(scopeCalls.length, 1, "scope probe should call has_active_organization_provider_scopes once");
+  assert.equal(
+    scopeCalls[0]?.p_organization_id,
+    "org-active-member-read",
+    "scope probe must pass active organization id to Core",
+  );
+  assert.equal(
+    scopeCalls[0]?.p_provider_key,
+    "community_member_directory",
+    "scope probe must pass provider key",
+  );
+  assert.deepEqual(
+    scopeCalls[0]?.p_scope_keys,
+    ["community.members.read"],
+    "scope probe must pass requested scopes",
+  );
+
+  const wrongProviderStub = {
+    rpc: async (name: string) => {
+      if (name === "has_active_organization_provider_scopes") {
+        return { data: false, error: null };
+      }
+      return { data: null, error: { message: "unexpected rpc" } };
+    },
+  } as never;
+
+  const blocked = await checkOrganizationProviderScopesActive({
+    supabase: wrongProviderStub,
+    provider_key: "member_verification",
+    scope_keys: ["verification.queue.read"],
+    organization_id: "org-active-member-read",
+  });
+
+  assert.equal(blocked, false, "missing grant for unrelated provider must stay blocked");
+}
+
 for (const manifest of ORGANIZATION_PROVIDER_ACCESS_MANIFESTS) {
   const scopes = resolveScopesForCapability({ provider_key: manifest.provider_key });
   assert.ok(scopes.length > 0, `${manifest.provider_key} resolves scopes`);
@@ -342,3 +399,8 @@ for (const locale of CORE_LOCALES) {
 }
 
 console.log("organization-access-approval tests passed");
+
+runOrganizationGrantScopeProbeTests().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

@@ -471,7 +471,112 @@ async function runSupportQueueRoutingTests() {
   assert.doesNotMatch(unavailable.answer.directAnswer, /Jeg er her med deg/i);
 }
 
+const MEMBER_DIRECTORY_RPC_PAYLOAD = {
+  found: true,
+  members: [
+    {
+      member_id: "member-1",
+      username: "kari",
+      display_name: "Kari Nordmann",
+      membership_status: "active",
+      membership_level: "standard",
+      verification_status: "verified",
+      profile_reference: "profile_ref_001",
+      email_masked: "k***@example.com",
+      phone_masked: null,
+    },
+  ],
+  total_member_count: 1,
+  completeness: "complete",
+  data_classification: "live",
+  source_verified: true,
+} as const;
+
+function createMemberDirectorySupabaseStub(input: {
+  scopeActive: boolean;
+  members?: Record<string, unknown>;
+  scopeCalls?: Array<Record<string, unknown>>;
+}) {
+  const membersPayload = input.members ?? MEMBER_DIRECTORY_RPC_PAYLOAD;
+  return {
+    rpc: async (name: string, params?: Record<string, unknown>) => {
+      if (name === "has_active_organization_provider_scopes") {
+        input.scopeCalls?.push(params ?? {});
+        return { data: input.scopeActive, error: null };
+      }
+      if (name === "get_customer_member_directory_center") {
+        return { data: membersPayload, error: null };
+      }
+      return { data: null, error: { message: "offline" } };
+    },
+  } as never;
+}
+
+async function runMemberDirectoryAccessTests() {
+  const t = createTranslator("no");
+  const orgId = "org-member-directory";
+  const tenantBase = {
+    organizationId: orgId,
+    companyId: orgId,
+    organizationRole: "organization_owner" as const,
+    effectivePermissions: ["customer_community.view"],
+  };
+
+  const scopeCalls: Array<Record<string, unknown>> = [];
+  const authorized = await resolveOrganizationIntelligenceAnswer("Hvilke medlemmer har vi?", {
+    t,
+    activeLocale: "no",
+    supabase: createMemberDirectorySupabaseStub({ scopeActive: true, scopeCalls }),
+    tenantContext: createEmptyCompanionTenantContext(tenantBase),
+  });
+  assert.ok(authorized?.answer, "expected authorized member list answer");
+  assert.match(authorized.answer.directAnswer, /Kari Nordmann|kari/i);
+  assert.notEqual(authorized.answer.sourceId, "organization-access-offer");
+  assert.equal(
+    scopeCalls[0]?.p_organization_id,
+    orgId,
+    "member directory gate must pass active organization id to scope probe",
+  );
+
+  const blocked = await resolveOrganizationIntelligenceAnswer("Hvilke medlemmer har vi?", {
+    t,
+    activeLocale: "no",
+    supabase: createMemberDirectorySupabaseStub({ scopeActive: false }),
+    tenantContext: createEmptyCompanionTenantContext({
+      ...tenantBase,
+      organizationRole: "organization_member",
+      effectivePermissions: ["customer_community.view"],
+    }),
+  });
+  assert.ok(blocked?.answer, "expected blocked member list answer");
+  assert.equal(blocked.answer.sourceId, "organization-access-offer");
+
+  const emptyMembers = await resolveOrganizationIntelligenceAnswer("Hvilke medlemmer har vi?", {
+    t,
+    activeLocale: "no",
+    supabase: createMemberDirectorySupabaseStub({
+      scopeActive: true,
+      members: {
+        found: true,
+        members: [],
+        total_member_count: 0,
+        completeness: "complete",
+      },
+    }),
+    tenantContext: createEmptyCompanionTenantContext(tenantBase),
+  });
+  assert.ok(emptyMembers?.answer, "expected empty member list answer");
+  assert.match(
+    emptyMembers.answer.directAnswer,
+    /Ingen medlemmer ble returnert|ingen medlemmer/i,
+    "empty directory must report no results, not access denial",
+  );
+  assert.notEqual(emptyMembers.answer.sourceId, "organization-access-offer");
+  assert.notEqual(emptyMembers.answer.sourceId, "organization-access-user-role-denied");
+}
+
 runSupportQueueRoutingTests()
+  .then(() => runMemberDirectoryAccessTests())
   .then(async () => {
     for (const locale of COMPANION_COVERAGE_LOCALES) {
       const dict = loadJson(`locales/${locale}/customer-app/companionPlatformKnowledge.json`);
