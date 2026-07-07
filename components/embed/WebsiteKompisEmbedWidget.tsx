@@ -8,9 +8,12 @@ import type { PublicCompanionAskResponse } from "@/lib/marketing/public-companio
 import {
   buildWebsiteKompisAskPayload,
   buildWebsiteKompisMetadataRequestPath,
+  parseWebsiteKompisEmbedPageContextMessage,
+  WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE,
   type WebsiteKompisEmbedLocale,
   type WebsiteKompisEmbedRecentContextMessage,
 } from "@/lib/marketing/website-kompis-embed";
+import type { WebsiteKompisPublicPageContext } from "@/lib/marketing/website-kompis-public-page-context";
 import { shouldHideWebsiteKompisLauncherFromEmbedMetadata } from "@/lib/marketing/website-kompis-launcher-visibility";
 import {
   mapWebsiteCompanionApiResponse,
@@ -69,6 +72,29 @@ export function WebsiteKompisEmbedWidget({
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [sending, setSending] = useState(false);
+  const [pageContext, setPageContext] = useState<WebsiteKompisPublicPageContext | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    function handleMessage(event: MessageEvent) {
+      if (event.source !== window.parent) {
+        return;
+      }
+
+      const nextPageContext = parseWebsiteKompisEmbedPageContextMessage(event.data);
+      if (nextPageContext) {
+        setPageContext(nextPageContext);
+      }
+    }
+
+    window.addEventListener("message", handleMessage);
+    window.parent.postMessage({ type: WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE }, "*");
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -128,6 +154,7 @@ export function WebsiteKompisEmbedWidget({
               domain,
               installId,
               recentContext: toRecentContext(priorMessages),
+              pageContext,
             }),
           ),
         });
@@ -166,7 +193,7 @@ export function WebsiteKompisEmbedWidget({
         setSending(false);
       }
     },
-    [domain, installId, locale, sending],
+    [domain, installId, locale, pageContext, sending],
   );
 
   const handleSubmit = useCallback(

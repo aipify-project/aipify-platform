@@ -459,3 +459,90 @@ export function collectPublicPageContextCorpus(pageContext: WebsiteKompisPublicP
   }
   return corpus;
 }
+
+export type WebsiteKompisEmbedParentDocument = {
+  title: string;
+  querySelector(selector: string): { getAttribute?(name: string): string | null; textContent?: string | null } | null;
+  querySelectorAll(selector: string): Iterable<{ textContent?: string | null; closest?(selector: string): unknown | null; tagName?: string }>;
+  body?: { textContent?: string | null } | null;
+};
+
+const EMBED_PARENT_SKIP_ANCESTOR_SELECTORS = "form, input, textarea, select, button, script, style, noscript";
+
+function isInsideEmbedParentSkipZone(element: { closest?(selector: string): unknown | null }): boolean {
+  if (!element.closest) return false;
+  return Boolean(element.closest(EMBED_PARENT_SKIP_ANCESTOR_SELECTORS));
+}
+
+function collectEmbedParentHeadings(
+  documentLike: WebsiteKompisEmbedParentDocument,
+): WebsiteKompisPublicPageHeading[] {
+  const headings: WebsiteKompisPublicPageHeading[] = [];
+
+  for (const element of documentLike.querySelectorAll("h1, h2")) {
+    if (isInsideEmbedParentSkipZone(element)) continue;
+    const tagName = typeof element.tagName === "string" ? element.tagName.toUpperCase() : "";
+    const level = tagName === "H1" ? 1 : tagName === "H2" ? 2 : null;
+    if (!level) continue;
+    const text = sanitizePlainText(element.textContent ?? "", WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_HEADING_LENGTH);
+    if (!text) continue;
+    headings.push({ level, text });
+    if (headings.length >= WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_HEADINGS) break;
+  }
+
+  return headings;
+}
+
+function collectEmbedParentTextSnippets(
+  documentLike: WebsiteKompisEmbedParentDocument,
+): string[] {
+  const snippets: string[] = [];
+
+  for (const element of documentLike.querySelectorAll("main p, article p, [role='main'] p, body > p")) {
+    if (isInsideEmbedParentSkipZone(element)) continue;
+    const text = sanitizePlainText(element.textContent ?? "", WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPET_LENGTH);
+    if (!text || text.length < 24) continue;
+    if (snippets.includes(text)) continue;
+    snippets.push(text);
+    if (snippets.length >= WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPETS) break;
+  }
+
+  return snippets;
+}
+
+/** Safe current-page capture for parent-site embed loader (testable DOM shape). */
+export function collectWebsiteKompisEmbedParentPageContext(input: {
+  location: { pathname: string; href?: string };
+  document: WebsiteKompisEmbedParentDocument;
+  locale?: string;
+}): WebsiteKompisPublicPageContext | undefined {
+  const pathname = input.location.pathname?.trim().slice(0, COMPANION_SUBMIT_PAGE_CONTEXT_MAX_PATHNAME_LENGTH) ?? "";
+  if (!pathname.startsWith("/") || isPrivateWebsiteKompisPathname(pathname)) {
+    return undefined;
+  }
+
+  const title = sanitizePlainText(input.document.title ?? "", COMPANION_SUBMIT_PAGE_CONTEXT_MAX_TITLE_LENGTH);
+  const metaDescription = sanitizePlainText(
+    input.document.querySelector('meta[name="description"]')?.getAttribute?.("content") ?? "",
+    COMPANION_SUBMIT_PAGE_CONTEXT_MAX_META_DESCRIPTION_LENGTH,
+  );
+  const canonicalUrl = sanitizeCanonicalUrl(
+    input.document.querySelector('link[rel="canonical"]')?.getAttribute?.("href") ??
+      input.location.href ??
+      "",
+  );
+  const headings = collectEmbedParentHeadings(input.document);
+  const textSnippets = collectEmbedParentTextSnippets(input.document);
+
+  return sanitizeWebsiteKompisPublicPageContext({
+    pathname,
+    title: title || undefined,
+    metaDescription: metaDescription || undefined,
+    canonicalUrl,
+    locale: input.locale,
+    surface: "public",
+    headings: headings.length > 0 ? headings : undefined,
+    textSnippets: textSnippets.length > 0 ? textSnippets : undefined,
+    capturedAt: new Date().toISOString(),
+  });
+}

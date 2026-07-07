@@ -7,8 +7,10 @@ import {
   escapeWebsiteKompisEmbedAttributeValue,
   normalizeWebsiteKompisEmbedDomain,
   normalizeWebsiteKompisEmbedInstallId,
+  parseWebsiteKompisEmbedPageContextMessage,
   parseWebsiteKompisEmbedSearchParams,
   sanitizeWebsiteKompisEmbedLocale,
+  WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE,
 } from "@/lib/marketing/website-kompis-embed";
 
 const exampleInstallId = "11111111-1111-4111-8111-111111111111";
@@ -77,6 +79,43 @@ assert.equal(askPayload.locale, "no");
 assert.equal(askPayload.domain, exampleDomain);
 assert.equal(askPayload.installId, exampleInstallId);
 assert.equal(askPayload.recentContext?.length, 1);
+
+const askPayloadWithPageContext = buildWebsiteKompisAskPayload({
+  question: "Hva tilbyr dere?",
+  locale: "no",
+  domain: exampleDomain,
+  installId: exampleInstallId,
+  pageContext: {
+    surface: "public",
+    pathname: "/services",
+    title: "Tjenester",
+  },
+});
+assert.equal(askPayloadWithPageContext.pageContext?.title, "Tjenester");
+assert.equal(askPayloadWithPageContext.pageContext?.surface, "public");
+
+const parsedPageContextMessage = parseWebsiteKompisEmbedPageContextMessage({
+  type: WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE,
+  pageContext: {
+    pathname: "/about",
+    title: "About us",
+    surface: "public",
+    pageHtml: "<unsafe>",
+  },
+});
+assert.equal(parsedPageContextMessage, undefined);
+
+const validPageContextMessage = parseWebsiteKompisEmbedPageContextMessage({
+  type: WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE,
+  pageContext: {
+    pathname: "/about",
+    title: "About us",
+    surface: "public",
+    headings: [{ level: 1, text: "About us" }],
+  },
+});
+assert.equal(validPageContextMessage?.title, "About us");
+assert.equal(validPageContextMessage?.headings?.length, 1);
 
 const snippet = buildWebsiteKompisScriptEmbedSnippet({
   installId: exampleInstallId,

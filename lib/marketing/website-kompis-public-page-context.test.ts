@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import {
+  collectWebsiteKompisEmbedParentPageContext,
   isPrivateWebsiteKompisPathname,
   sanitizeWebsiteKompisPublicPageContext,
   scoreWebsiteKompisPublicPageContextMatch,
@@ -100,5 +101,48 @@ const weakMatch = tryBuildWebsiteKompisCurrentPublicPageAnswer({
   locale: "en",
 });
 assert.equal(weakMatch, null);
+
+const collected = collectWebsiteKompisEmbedParentPageContext({
+  location: { pathname: "/services", href: "https://example-a.com/services" },
+  locale: "no",
+  document: {
+    title: "Tjenester",
+    querySelector(selector: string) {
+      if (selector === 'meta[name="description"]') {
+        return { getAttribute: () => "Vi tilbyr tjenester for bedrifter." };
+      }
+      if (selector === 'link[rel="canonical"]') {
+        return { getAttribute: () => "https://example-a.com/services" };
+      }
+      return null;
+    },
+    querySelectorAll(selector: string) {
+      if (selector === "h1, h2") {
+        return [{ tagName: "H1", textContent: "Våre tjenester", closest: () => null }];
+      }
+      if (selector === "main p, article p, [role='main'] p, body > p") {
+        return [
+          {
+            textContent: "Vi hjelper bedrifter med rådgivning og implementering.",
+            closest: () => null,
+          },
+        ];
+      }
+      return [];
+    },
+  },
+});
+assert.ok(collected);
+assert.equal(collected?.surface, "public");
+assert.equal(collected?.title, "Tjenester");
+assert.equal(collected?.headings?.[0]?.text, "Våre tjenester");
+
+assert.equal(
+  collectWebsiteKompisEmbedParentPageContext({
+    location: { pathname: "/admin/users" },
+    document: { title: "Admin", querySelector: () => null, querySelectorAll: () => [] },
+  }),
+  undefined,
+);
 
 console.log("website-kompis-public-page-context.test.ts: all assertions passed");
