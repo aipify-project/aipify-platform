@@ -200,6 +200,27 @@ export function evaluateWebsiteKompisLicensedAvailability(
   return { available: true, reason: "available", capabilityKey };
 }
 
+/**
+ * Apply domain/install binding gates before exposing Website Kompis in APP.
+ * Tenant license + entitlement must already match public runtime evaluation.
+ */
+export function applyWebsiteKompisDomainInstallAvailabilityGates(
+  tenantAvailability: WebsiteKompisLicensedAvailability,
+  input: { domainVerified?: boolean; installTrusted?: boolean },
+): WebsiteKompisLicensedAvailability {
+  const capabilityKey = WEBSITE_KOMPIS_CAPABILITY_KEY;
+
+  if (input.installTrusted === false) {
+    return { available: false, reason: "install_missing", capabilityKey };
+  }
+
+  if (input.domainVerified === false) {
+    return { available: false, reason: "domain_unverified", capabilityKey };
+  }
+
+  return tenantAvailability;
+}
+
 export function evaluateWebsiteKompisLicensedAvailabilityFromAppContext(input: {
   context: Pick<
     AppOrganizationContext,

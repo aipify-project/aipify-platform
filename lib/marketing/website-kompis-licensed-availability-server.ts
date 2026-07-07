@@ -8,8 +8,8 @@ import {
   type PublicCompanionVisitorContext,
 } from "@/lib/marketing/public-companion-tenant-faq";
 import {
+  applyWebsiteKompisDomainInstallAvailabilityGates,
   evaluateWebsiteKompisLicensedAvailability,
-  evaluateWebsiteKompisLicensedAvailabilityFromAppContext,
   evaluateWebsiteKompisPublicInstallDomainTrust,
   WEBSITE_KOMPIS_CAPABILITY_KEY,
   type WebsiteKompisLicensedAvailability,
@@ -406,14 +406,19 @@ export async function resolveWebsiteKompisAppLicensedAvailability(input: {
   domainVerified?: boolean;
   installTrusted?: boolean;
 }): Promise<WebsiteKompisLicensedAvailability> {
-  const entitlementEnabled = await loadWebsiteKompisEntitlementForAppTenant(
-    input.supabase,
+  if (!input.context.customer_id) {
+    return {
+      available: false,
+      reason: "license_unknown",
+      capabilityKey: WEBSITE_KOMPIS_CAPABILITY_KEY,
+    };
+  }
+
+  const tenantAvailability = await resolveWebsiteKompisLicensedAvailabilityForPublicTenant(
     input.context.customer_id,
   );
 
-  return evaluateWebsiteKompisLicensedAvailabilityFromAppContext({
-    context: input.context,
-    entitlementEnabled,
+  return applyWebsiteKompisDomainInstallAvailabilityGates(tenantAvailability, {
     domainVerified: input.domainVerified,
     installTrusted: input.installTrusted,
   });

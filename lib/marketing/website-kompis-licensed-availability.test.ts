@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   WEBSITE_KOMPIS_CAPABILITY_KEY,
+  applyWebsiteKompisDomainInstallAvailabilityGates,
   canManageWebsiteKompisDomainSettings,
   evaluateWebsiteKompisLicensedAvailability,
   evaluateWebsiteKompisLicensedAvailabilityFromAppContext,
@@ -182,6 +183,70 @@ function runWebsiteKompisLicensedAvailabilityTests() {
 
   assert.equal(canManageWebsiteKompisDomainSettings({ organization_role: "owner", user_role: "owner" }), true);
   assert.equal(canManageWebsiteKompisDomainSettings({ organization_role: "staff", user_role: "staff" }), false);
+
+  const publicTenantAvailable = evaluateWebsiteKompisLicensedAvailability({
+    licenseServiceStatus: "active",
+    entitlementEnabled: true,
+    domainVerified: true,
+    installTrusted: true,
+    licenseResolvable: true,
+  });
+  const appAlignedAvailable = applyWebsiteKompisDomainInstallAvailabilityGates(
+    publicTenantAvailable,
+    { domainVerified: true, installTrusted: true },
+  );
+  assert.equal(appAlignedAvailable.available, true);
+  assert.notEqual(appAlignedAvailable.reason, "license_unknown");
+  assert.equal(
+    canManageWebsiteKompisDomainSettings({ organization_role: "owner", user_role: "owner" }) &&
+      appAlignedAvailable.available,
+    true,
+  );
+
+  const legacyAppLicenseUnknown = evaluateWebsiteKompisLicensedAvailabilityFromAppContext({
+    context: {
+      state: "ready",
+      license_status: null,
+      customer_id: NEUTRAL_TENANT_ID,
+      organization_role: "owner",
+      user_role: "owner",
+    },
+    entitlementEnabled: true,
+    domainVerified: true,
+    installTrusted: true,
+  });
+  assert.equal(legacyAppLicenseUnknown.reason, "license_unknown");
+
+  const gatedMissingInstall = applyWebsiteKompisDomainInstallAvailabilityGates(
+    publicTenantAvailable,
+    { domainVerified: true, installTrusted: false },
+  );
+  assert.equal(gatedMissingInstall.available, false);
+  assert.equal(gatedMissingInstall.reason, "install_missing");
+
+  const gatedUnverifiedDomain = applyWebsiteKompisDomainInstallAvailabilityGates(
+    publicTenantAvailable,
+    { domainVerified: false, installTrusted: true },
+  );
+  assert.equal(gatedUnverifiedDomain.available, false);
+  assert.equal(gatedUnverifiedDomain.reason, "domain_unverified");
+
+  const gatedMissingEntitlement = applyWebsiteKompisDomainInstallAvailabilityGates(
+    evaluateWebsiteKompisLicensedAvailability({
+      licenseServiceStatus: "active",
+      entitlementEnabled: false,
+      licenseResolvable: true,
+    }),
+    { domainVerified: true, installTrusted: true },
+  );
+  assert.equal(gatedMissingEntitlement.available, false);
+  assert.equal(gatedMissingEntitlement.reason, "entitlement_missing");
+
+  assert.equal(
+    canManageWebsiteKompisDomainSettings({ organization_role: "staff", user_role: "staff" }) &&
+      appAlignedAvailable.available,
+    false,
+  );
 
   assert.equal(mapWebsiteKompisAvailabilityToPublicReason("license_inactive"), "license_required");
   assert.equal(mapWebsiteKompisAvailabilityToPublicReason("install_missing"), "not_available");
