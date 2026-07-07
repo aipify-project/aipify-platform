@@ -34,6 +34,7 @@ export async function resolveOrganizationAccessGate(input: {
     scope_keys: input.offer.scope_keys,
     provider_ready: input.providerReady,
     effective_permissions: input.effectivePermissions,
+    organization_id: input.organizationId ?? null,
   });
 
   switch (resolution.state) {

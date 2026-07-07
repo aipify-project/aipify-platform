@@ -130,12 +130,15 @@ export async function checkOrganizationProviderScopesActive(input: {
   supabase: SupabaseClient;
   provider_key: string;
   scope_keys: readonly string[];
+  /** Active APP organization — must match Companion tenant context when provided. */
+  organization_id?: string | null;
 }): Promise<boolean> {
   if (input.scope_keys.length === 0) return false;
 
   const { data, error } = await input.supabase.rpc("has_active_organization_provider_scopes", {
     p_provider_key: input.provider_key,
     p_scope_keys: input.scope_keys,
+    p_organization_id: input.organization_id ?? null,
   });
 
   if (error) {
@@ -151,11 +154,13 @@ export async function resolveOrganizationAccessAuthorizationWithCore(input: {
   scope_keys: readonly string[];
   provider_ready: boolean;
   effective_permissions: readonly string[];
+  organization_id?: string | null;
 }): Promise<OrganizationAccessAuthorizationResolution> {
   const organizationGrantActive = await checkOrganizationProviderScopesActive({
     supabase: input.supabase,
     provider_key: input.provider_key,
     scope_keys: input.scope_keys,
+    organization_id: input.organization_id ?? null,
   });
 
   const businessPackEntitlementActive =
