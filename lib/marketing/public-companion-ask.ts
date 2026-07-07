@@ -51,7 +51,7 @@ import {
   shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite,
 } from "@/lib/marketing/website-kompis-public-boundary";
 import {
-  shouldRejectWebsiteKompisFaqMatch,
+  filterWebsiteKompisSafeFaqRows,
   tryBuildWebsiteKompisSafetyPolicyAnswer,
 } from "@/lib/marketing/website-kompis-faq-match-safety";
 import { tryBuildWebsiteKompisCurrentPublicPageAnswer } from "@/lib/marketing/website-kompis-public-page-context";
@@ -710,12 +710,12 @@ async function tryBuildPublicTenantFaqAnswer(
     return null;
   }
 
-  const primary = rows[0];
-  if (primary && shouldRejectWebsiteKompisFaqMatch(question, primary)) {
+  const safeRows = filterWebsiteKompisSafeFaqRows(question, rows);
+  if (safeRows.length === 0) {
     return null;
   }
 
-  return buildPublicCompanionTenantFaqResponse(rows, locale) as PublicCompanionAskResponse;
+  return buildPublicCompanionTenantFaqResponse(safeRows, locale) as PublicCompanionAskResponse;
 }
 
 function applyWebsiteKompisCustomerSiteTone(
@@ -841,6 +841,17 @@ export async function askPublicPlatformCompanion(
       }
     }
 
+    const safetyPolicyAnswer = tryBuildWebsiteKompisSafetyPolicyAnswer(
+      validated.question,
+      locale,
+    );
+    if (safetyPolicyAnswer) {
+      return applyWebsiteKompisCustomerSiteTone(safetyPolicyAnswer, {
+        ...customerSiteTone,
+        source: "faq",
+      });
+    }
+
     const customerFaqAnswer = await tryBuildPublicTenantFaqAnswer(
       validated.question,
       locale,
@@ -853,17 +864,6 @@ export async function askPublicPlatformCompanion(
     );
     if (customerFaqAnswer) {
       return applyWebsiteKompisCustomerSiteTone(customerFaqAnswer, {
-        ...customerSiteTone,
-        source: "faq",
-      });
-    }
-
-    const safetyPolicyAnswer = tryBuildWebsiteKompisSafetyPolicyAnswer(
-      validated.question,
-      locale,
-    );
-    if (safetyPolicyAnswer) {
-      return applyWebsiteKompisCustomerSiteTone(safetyPolicyAnswer, {
         ...customerSiteTone,
         source: "faq",
       });
