@@ -1,7 +1,9 @@
-import { getBrowserAuthCookieOptions } from "@/lib/supabase/auth-cookies";
+import { normalizeHost } from "@/lib/portals/hosts";
 
 /** First-party analytics consent — no fingerprinting, no user id. */
 export const ANALYTICS_CONSENT_COOKIE_NAME = "aipify-analytics-consent";
+
+const PRODUCTION_ANALYTICS_CONSENT_COOKIE_DOMAIN = ".aipify.ai";
 
 export const ANALYTICS_CONSENT_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
 
@@ -62,8 +64,45 @@ export function isAnalyticsConsentBlocked(state: AnalyticsConsentState): boolean
   return !isAnalyticsConsentAllowed(state);
 }
 
-export function formatAnalyticsConsentCookie(decision: AnalyticsConsentDecision): string {
-  const options = getBrowserAuthCookieOptions();
+export function isAnalyticsConsentSharedDomainHost(host: string | null | undefined): boolean {
+  const normalized = normalizeHost(host);
+  if (!normalized) return false;
+  return normalized === "aipify.ai" || normalized.endsWith(".aipify.ai");
+}
+
+export function getAnalyticsConsentCookieOptions(host?: string | null): {
+  domain?: string;
+  path: string;
+  sameSite: "lax";
+  secure?: boolean;
+} {
+  const options: {
+    domain?: string;
+    path: string;
+    sameSite: "lax";
+    secure?: boolean;
+  } = {
+    path: "/",
+    sameSite: "lax",
+  };
+
+  if (process.env.NODE_ENV === "production") {
+    options.secure = true;
+    if (isAnalyticsConsentSharedDomainHost(host)) {
+      options.domain = PRODUCTION_ANALYTICS_CONSENT_COOKIE_DOMAIN;
+    }
+  }
+
+  return options;
+}
+
+export function formatAnalyticsConsentCookie(
+  decision: AnalyticsConsentDecision,
+  host?: string | null
+): string {
+  const resolvedHost =
+    host ?? (typeof window !== "undefined" ? window.location.hostname : undefined);
+  const options = getAnalyticsConsentCookieOptions(resolvedHost);
   const parts = [
     `${ANALYTICS_CONSENT_COOKIE_NAME}=${decision}`,
     `max-age=${ANALYTICS_CONSENT_COOKIE_MAX_AGE_SECONDS}`,
@@ -77,7 +116,7 @@ export function formatAnalyticsConsentCookie(decision: AnalyticsConsentDecision)
 
 export function writeAnalyticsConsentCookie(decision: AnalyticsConsentDecision): void {
   if (typeof document === "undefined") return;
-  document.cookie = formatAnalyticsConsentCookie(decision);
+  document.cookie = formatAnalyticsConsentCookie(decision, window.location.hostname);
 }
 
 export function readAnalyticsConsentFromDocument(): AnalyticsConsentState {
