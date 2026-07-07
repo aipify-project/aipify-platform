@@ -96,6 +96,7 @@ async function main() {
 
   const fallback = buildWebsiteKompisSafeFallbackResponse("no", "unonight.com");
   assert.match(fallback.answer.directAnswer, /Unonight/);
+  assert.match(fallback.answer.directAnswer, /Ta gjerne kontakt/);
   assert.equal(fallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
 
   const installId = "180c9d31-3340-4633-b210-3b64edf1e1be";
@@ -141,6 +142,10 @@ async function main() {
     },
   );
   assert.equal(currentPageResponse.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
+  assert.match(
+    currentPageResponse.answer.directAnswer,
+    /Her er det jeg finner på denne siden:/,
+  );
 
   const benefitsHereResponse = await askPublicPlatformCompanion(
     {
@@ -207,6 +212,7 @@ async function main() {
   );
   assert.equal(easterFallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
   assert.match(easterFallback.answer.directAnswer, /Unonight/);
+  assert.match(easterFallback.answer.directAnswer, /Ta gjerne kontakt/);
 
   const explicitAipify = await askPublicPlatformCompanion(
     {
