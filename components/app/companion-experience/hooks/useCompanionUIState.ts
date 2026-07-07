@@ -2,7 +2,10 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { COMPANION_EXPERIENCE_ROUTE } from "@/lib/app/companion";
-import { patchCompanionUiSession } from "@/lib/app/companion/session-state";
+import {
+  patchCompanionUiSession,
+  readCompanionPanelOpenState,
+} from "@/lib/app/companion/session-state";
 
 type UseCompanionUIStateOptions = {
   pathname: string;
@@ -26,9 +29,9 @@ export function useCompanionUIState({
   pathname,
   organizationKey,
 }: UseCompanionUIStateOptions): CompanionUIState {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(() => readCompanionPanelOpenState());
   const [drawerExpanded, setDrawerExpanded] = useState(false);
-  const [panelEverOpened, setPanelEverOpened] = useState(false);
+  const [panelEverOpened, setPanelEverOpened] = useState(() => readCompanionPanelOpenState());
 
   const persistPanelOpen = useCallback(
     (panelOpen: boolean) => {

@@ -66,6 +66,10 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
   }, [profileContext?.profile?.company]);
   const profileFallbackRef = useRef(profileFallback);
   profileFallbackRef.current = profileFallback;
+  const phaseRef = useRef(phase);
+  phaseRef.current = phase;
+  const contextRef = useRef(context);
+  contextRef.current = context;
 
   const sidebarLabels = useMemo(
     () => ({
@@ -100,7 +104,12 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
 
   const load = useCallback(async () => {
     await dedupeFetch(LICENSE_CACHE_KEY, async () => {
-      setPhase("loading");
+      const hasStableDisplay =
+        phaseRef.current === "ready" &&
+        (contextRef.current !== null || profileFallbackRef.current !== null);
+      if (!hasStableDisplay) {
+        setPhase("loading");
+      }
 
       const { fetchResult, context: nextContext } = await fetchOrganizationContextWithRetry();
       const nextPhase = resolveSidebarPhaseAfterFetch({
