@@ -52,6 +52,10 @@ import {
 } from "@/lib/marketing/website-kompis-public-boundary";
 import { tryBuildWebsiteKompisCurrentPublicPageAnswer } from "@/lib/marketing/website-kompis-public-page-context";
 import {
+  presentWebsiteKompisCustomerSiteAnswer,
+  type WebsiteKompisVisitorAnswerSource,
+} from "@/lib/marketing/website-kompis-visitor-tone";
+import {
   buildWebsiteKompisDisabledResponse,
   getWebsiteKompisInstallConfigForPublicRequest,
   type GetWebsiteKompisInstallConfigOptions,
@@ -705,6 +709,36 @@ async function tryBuildPublicTenantFaqAnswer(
   return buildPublicCompanionTenantFaqResponse(rows, locale) as PublicCompanionAskResponse;
 }
 
+function applyWebsiteKompisCustomerSiteTone(
+  response: PublicCompanionAskResponse,
+  input: {
+    locale: string;
+    fallbackTone: WebsiteKompisInstallConfig["fallbackTone"];
+    source: WebsiteKompisVisitorAnswerSource;
+    domain?: string | null;
+  },
+): PublicCompanionAskResponse {
+  return {
+    ...response,
+    answer: presentWebsiteKompisCustomerSiteAnswer(response.answer, {
+      locale: input.locale,
+      fallbackTone: input.fallbackTone,
+      source: input.source,
+      domain: input.domain,
+    }),
+  };
+}
+
+function buildWebsiteKompisCustomerSiteFallbackResponse(
+  locale: string,
+  domain: string | null | undefined,
+  fallbackTone: WebsiteKompisInstallConfig["fallbackTone"],
+): PublicCompanionAskResponse {
+  return buildWebsiteKompisSafeFallbackResponse(locale, domain, {
+    fallbackTone,
+  }) as PublicCompanionAskResponse;
+}
+
 export async function askPublicPlatformCompanion(
   input: PublicCompanionAskRequest,
   options?: PublicCompanionAskOptions,
@@ -768,6 +802,12 @@ export async function askPublicPlatformCompanion(
   }
 
   if (onCustomerWebsite && !allowAipifyPlatformKnowledge) {
+    const customerSiteTone = {
+      locale,
+      fallbackTone: installConfig.fallbackTone,
+      domain: visitorContext.domain,
+    };
+
     if (installConfig.sources.currentPage) {
       const currentPageAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
         question: validated.question,
@@ -775,17 +815,20 @@ export async function askPublicPlatformCompanion(
         locale,
       });
       if (currentPageAnswer) {
-        return {
-          answer: currentPageAnswer.answer,
-          actions: [],
-          sources: currentPageAnswer.sources,
-          confidence: {
-            level: currentPageAnswer.confidence.level,
-            score: currentPageAnswer.confidence.score,
+        return applyWebsiteKompisCustomerSiteTone(
+          {
+            answer: currentPageAnswer.answer,
+            actions: [],
+            sources: currentPageAnswer.sources,
+            confidence: {
+              level: currentPageAnswer.confidence.level,
+              score: currentPageAnswer.confidence.score,
+            },
+            supportEscalation: { offered: false, reason: null },
+            locale,
           },
-          supportEscalation: { offered: false, reason: null },
-          locale,
-        };
+          { ...customerSiteTone, source: "current-page" },
+        );
       }
     }
 
@@ -800,10 +843,17 @@ export async function askPublicPlatformCompanion(
       installConfig,
     );
     if (customerFaqAnswer) {
-      return customerFaqAnswer;
+      return applyWebsiteKompisCustomerSiteTone(customerFaqAnswer, {
+        ...customerSiteTone,
+        source: "faq",
+      });
     }
 
-    return buildWebsiteKompisSafeFallbackResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
+    return buildWebsiteKompisCustomerSiteFallbackResponse(
+      locale,
+      visitorContext.domain,
+      installConfig.fallbackTone,
+    );
   }
 
   const tenantFaqAnswer = await tryBuildPublicTenantFaqAnswer(
@@ -832,11 +882,19 @@ export async function askPublicPlatformCompanion(
   }
 
   if (onCustomerWebsite && !installConfig.sources.aipifyPublic) {
-    return buildWebsiteKompisSafeFallbackResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
+    return buildWebsiteKompisCustomerSiteFallbackResponse(
+      locale,
+      visitorContext.domain,
+      installConfig.fallbackTone,
+    );
   }
 
   if (!installConfig.sources.aipifyPublic) {
-    return buildWebsiteKompisSafeFallbackResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
+    return buildWebsiteKompisCustomerSiteFallbackResponse(
+      locale,
+      visitorContext.domain,
+      installConfig.fallbackTone,
+    );
   }
 
   const contextualQuestion = buildPublicCompanionQuery(validated.question, validated.recentContext);
