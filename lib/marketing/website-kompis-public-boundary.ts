@@ -38,6 +38,8 @@ export function isCustomerWebsiteVisitorContext(
   return !AIPIFY_MARKETING_DOMAINS.has(domain);
 }
 
+export const AIPIFY_PUBLIC_KNOWLEDGE_SOURCE_PREFIX = "aipify" as const;
+
 /** Explicit questions about Aipify, Website Kompis, or the widget/system — not generic site questions. */
 export function isExplicitAipifyOrKompisQuestion(question: string): boolean {
   const normalized = question
@@ -60,6 +62,50 @@ export function isExplicitAipifyOrKompisQuestion(question: string): boolean {
   }
 
   return false;
+}
+
+function normalizeVisitorQuestion(question: string): string {
+  return question
+    .trim()
+    .toLowerCase()
+    .replace(/[?!.]+$/, "")
+    .replace(/\s+/g, " ");
+}
+
+/** Aipify product pricing on a customer domain — not the customer's own prices. */
+export function isExplicitAipifyPricingQuestion(question: string): boolean {
+  const normalized = normalizeVisitorQuestion(question);
+  if (!normalized) return false;
+
+  const mentionsPricing = /\b(kost|koster|pris\w*|price|pricing|cost|costs|abonnement)\b/.test(
+    normalized,
+  );
+  const mentionsAipify = /\b(aipify|abos|website kompis|website-kompis)\b/.test(normalized);
+
+  return mentionsPricing && mentionsAipify;
+}
+
+/** Aipify support/contact on a customer domain — not the customer's own support. */
+export function isExplicitAipifySupportQuestion(question: string): boolean {
+  const normalized = normalizeVisitorQuestion(question);
+  if (!normalized) return false;
+
+  const mentionsAipify = /\b(aipify|abos|website kompis|website-kompis)\b/.test(normalized);
+  if (!mentionsAipify) return false;
+
+  return /\b(support|hjelp|help|kontakt aipify|contact aipify|kundeservice)\b/.test(normalized);
+}
+
+/**
+ * Platform/Aipify knowledge is allowed on a customer public domain only for explicit
+ * Aipify, Website Kompis, pricing, product, or support questions.
+ */
+export function shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(question: string): boolean {
+  return (
+    isExplicitAipifyOrKompisQuestion(question) ||
+    isExplicitAipifyPricingQuestion(question) ||
+    isExplicitAipifySupportQuestion(question)
+  );
 }
 
 function siteLabelFromDomain(domain: string | null | undefined): string | null {

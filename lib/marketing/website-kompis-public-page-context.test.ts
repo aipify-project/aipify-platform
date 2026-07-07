@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {
   collectWebsiteKompisEmbedParentPageContext,
+  isCustomerWebsitePageIntentQuestion,
   isPrivateWebsiteKompisPathname,
   sanitizeWebsiteKompisPublicPageContext,
   scoreWebsiteKompisPublicPageContextMatch,
@@ -101,6 +102,22 @@ const weakMatch = tryBuildWebsiteKompisCurrentPublicPageAnswer({
   locale: "en",
 });
 assert.equal(weakMatch, null);
+
+assert.equal(isCustomerWebsitePageIntentQuestion("Hvilke fordeler får jeg her?"), true);
+
+const deicticPageAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
+  question: "Hvilke fordeler får jeg her?",
+  pageContext: {
+    pathname: "/medlemskap",
+    title: "Medlemskap og fordeler",
+    metaDescription: "Se fordeler med medlemskap.",
+    surface: "public",
+    textSnippets: ["Som medlem får du eksklusive fordeler og rabatter."],
+  },
+  locale: "no",
+});
+assert.ok(deicticPageAnswer);
+assert.equal(deicticPageAnswer!.sources[0]?.route, WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE);
 
 const collected = collectWebsiteKompisEmbedParentPageContext({
   location: { pathname: "/services", href: "https://example-a.com/services" },

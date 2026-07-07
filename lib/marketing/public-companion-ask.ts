@@ -48,7 +48,7 @@ import {
 import {
   buildWebsiteKompisSafeFallbackResponse,
   isCustomerWebsiteVisitorContext,
-  isExplicitAipifyOrKompisQuestion,
+  shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite,
 } from "@/lib/marketing/website-kompis-public-boundary";
 import { tryBuildWebsiteKompisCurrentPublicPageAnswer } from "@/lib/marketing/website-kompis-public-page-context";
 import {
@@ -678,7 +678,7 @@ async function tryBuildPublicTenantFaqAnswer(
   }
 
   if (onCustomerWebsite) {
-    if (isExplicitAipifyOrKompisQuestion(question)) {
+    if (shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(question)) {
       return null;
     }
   } else if (isPlatformProductKnowledgeQuery(question)) {
@@ -720,6 +720,9 @@ export async function askPublicPlatformCompanion(
     installId: validated.installId,
   });
   const onCustomerWebsite = isCustomerWebsiteVisitorContext(visitorContext);
+  const allowAipifyPlatformKnowledge =
+    !onCustomerWebsite ||
+    shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(validated.question);
 
   if (hasPublicCompanionVisitorContext(visitorContext)) {
     const resolveAvailability =
@@ -759,9 +762,48 @@ export async function askPublicPlatformCompanion(
 
   if (
     isPublicPricingQuestion(validated.question) &&
-    (!onCustomerWebsite || isExplicitAipifyOrKompisQuestion(validated.question))
+    allowAipifyPlatformKnowledge
   ) {
     return buildPublicPricingCompanionResponse(locale, t);
+  }
+
+  if (onCustomerWebsite && !allowAipifyPlatformKnowledge) {
+    if (installConfig.sources.currentPage) {
+      const currentPageAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
+        question: validated.question,
+        pageContext: validated.pageContext,
+        locale,
+      });
+      if (currentPageAnswer) {
+        return {
+          answer: currentPageAnswer.answer,
+          actions: [],
+          sources: currentPageAnswer.sources,
+          confidence: {
+            level: currentPageAnswer.confidence.level,
+            score: currentPageAnswer.confidence.score,
+          },
+          supportEscalation: { offered: false, reason: null },
+          locale,
+        };
+      }
+    }
+
+    const customerFaqAnswer = await tryBuildPublicTenantFaqAnswer(
+      validated.question,
+      locale,
+      validated,
+      options?.requestHost,
+      searchTenantVisitorKnowledge,
+      visitorContext,
+      onCustomerWebsite,
+      installConfig,
+    );
+    if (customerFaqAnswer) {
+      return customerFaqAnswer;
+    }
+
+    return buildWebsiteKompisSafeFallbackResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
   }
 
   const tenantFaqAnswer = await tryBuildPublicTenantFaqAnswer(
@@ -789,36 +831,7 @@ export async function askPublicPlatformCompanion(
     }
   }
 
-  if (onCustomerWebsite && !isExplicitAipifyOrKompisQuestion(validated.question)) {
-    if (installConfig.sources.currentPage) {
-      const currentPageAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
-        question: validated.question,
-        pageContext: validated.pageContext,
-        locale,
-      });
-      if (currentPageAnswer) {
-        return {
-          answer: currentPageAnswer.answer,
-          actions: [],
-          sources: currentPageAnswer.sources,
-          confidence: {
-            level: currentPageAnswer.confidence.level,
-            score: currentPageAnswer.confidence.score,
-          },
-          supportEscalation: { offered: false, reason: null },
-          locale,
-        };
-      }
-    }
-
-    return buildWebsiteKompisSafeFallbackResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
-  }
-
-  if (
-    onCustomerWebsite &&
-    isExplicitAipifyOrKompisQuestion(validated.question) &&
-    !installConfig.sources.aipifyPublic
-  ) {
+  if (onCustomerWebsite && !installConfig.sources.aipifyPublic) {
     return buildWebsiteKompisSafeFallbackResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
   }
 
