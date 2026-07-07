@@ -120,13 +120,13 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
       </div>
 
       {tab === "overview" || tab === "active" ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
           {(center.active_domains ?? []).map((d) => {
             const isExpanded = expandedDomainId === d.id;
             return (
               <article
                 key={d.id}
-                className={`flex h-full flex-col rounded-xl border bg-white shadow-sm transition-colors ${
+                className={`flex w-full flex-col self-start rounded-xl border bg-white shadow-sm transition-colors ${
                   isExpanded ? "border-indigo-200 ring-1 ring-indigo-100" : "border-gray-200"
                 }`}
               >
