@@ -15,8 +15,14 @@ import {
   type WebsiteKompisLicensedAvailability,
   type WebsiteKompisPublicInstallDomainTrustResult,
 } from "@/lib/marketing/website-kompis-licensed-availability";
+import {
+  WebsiteKompisPositiveAvailabilityCache,
+  resolveWebsiteKompisPublicAvailabilityWithResilience,
+} from "@/lib/marketing/website-kompis-public-availability-resilience";
 import type { AppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
+
+const websiteKompisPositiveAvailabilityCache = new WebsiteKompisPositiveAvailabilityCache();
 
 type RpcClient = Pick<SupabaseClient, "rpc">;
 type ServiceRoleClient = Pick<SupabaseClient, "rpc" | "from">;
@@ -341,7 +347,7 @@ function isWebsiteKompisTenantModuleEntitlementEnabled(
   return TENANT_MODULE_ENABLED_STATUSES.has(status);
 }
 
-async function loadTenantEntitlementEnabled(
+async function loadTenantEntitlementEnabledOnce(
   admin: ServiceRoleClient,
   tenantId: string,
 ): Promise<boolean | null> {
@@ -365,7 +371,19 @@ async function loadTenantEntitlementEnabled(
   }
 }
 
-async function loadTenantLicenseServiceStatus(
+async function loadTenantEntitlementEnabled(
+  admin: ServiceRoleClient,
+  tenantId: string,
+): Promise<boolean | null> {
+  const first = await loadTenantEntitlementEnabledOnce(admin, tenantId);
+  if (first !== null) {
+    return first;
+  }
+
+  return loadTenantEntitlementEnabledOnce(admin, tenantId);
+}
+
+async function loadTenantLicenseServiceStatusOnce(
   admin: ServiceRoleClient,
   tenantId: string,
 ): Promise<string | null> {
@@ -378,6 +396,18 @@ async function loadTenantLicenseServiceStatus(
   }
 
   return data;
+}
+
+async function loadTenantLicenseServiceStatus(
+  admin: ServiceRoleClient,
+  tenantId: string,
+): Promise<string | null> {
+  const first = await loadTenantLicenseServiceStatusOnce(admin, tenantId);
+  if (first !== null) {
+    return first;
+  }
+
+  return loadTenantLicenseServiceStatusOnce(admin, tenantId);
 }
 
 export async function loadWebsiteKompisEntitlementForAppTenant(
@@ -452,7 +482,7 @@ export async function resolveWebsiteKompisLicensedAvailabilityForPublicTenant(
   });
 }
 
-export async function resolveWebsiteKompisPublicLicensedAvailability(
+async function resolveWebsiteKompisPublicLicensedAvailabilityOnce(
   visitorContext: PublicCompanionVisitorContext,
 ): Promise<WebsiteKompisLicensedAvailability> {
   if (!hasPublicCompanionVisitorContext(visitorContext)) {
@@ -477,4 +507,14 @@ export async function resolveWebsiteKompisPublicLicensedAvailability(
   }
 
   return resolveWebsiteKompisLicensedAvailabilityForPublicTenant(trust.tenantId);
+}
+
+export async function resolveWebsiteKompisPublicLicensedAvailability(
+  visitorContext: PublicCompanionVisitorContext,
+): Promise<WebsiteKompisLicensedAvailability> {
+  return resolveWebsiteKompisPublicAvailabilityWithResilience({
+    visitorContext,
+    cache: websiteKompisPositiveAvailabilityCache,
+    resolveOnce: () => resolveWebsiteKompisPublicLicensedAvailabilityOnce(visitorContext),
+  });
 }

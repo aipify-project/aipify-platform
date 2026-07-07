@@ -1,3 +1,5 @@
+import type { WebsiteKompisFallbackTone } from "@/lib/marketing/website-kompis-install-config";
+import { buildWebsiteKompisWarmSafeFallbackCopy } from "@/lib/marketing/website-kompis-visitor-tone";
 import type { PublicCompanionVisitorContext } from "@/lib/marketing/public-companion-tenant-faq";
 import { hasPublicCompanionVisitorContext } from "@/lib/marketing/public-companion-tenant-faq";
 
@@ -38,6 +40,8 @@ export function isCustomerWebsiteVisitorContext(
   return !AIPIFY_MARKETING_DOMAINS.has(domain);
 }
 
+export const AIPIFY_PUBLIC_KNOWLEDGE_SOURCE_PREFIX = "aipify" as const;
+
 /** Explicit questions about Aipify, Website Kompis, or the widget/system — not generic site questions. */
 export function isExplicitAipifyOrKompisQuestion(question: string): boolean {
   const normalized = question
@@ -62,6 +66,50 @@ export function isExplicitAipifyOrKompisQuestion(question: string): boolean {
   return false;
 }
 
+function normalizeVisitorQuestion(question: string): string {
+  return question
+    .trim()
+    .toLowerCase()
+    .replace(/[?!.]+$/, "")
+    .replace(/\s+/g, " ");
+}
+
+/** Aipify product pricing on a customer domain — not the customer's own prices. */
+export function isExplicitAipifyPricingQuestion(question: string): boolean {
+  const normalized = normalizeVisitorQuestion(question);
+  if (!normalized) return false;
+
+  const mentionsPricing = /\b(kost|koster|pris\w*|price|pricing|cost|costs|abonnement)\b/.test(
+    normalized,
+  );
+  const mentionsAipify = /\b(aipify|abos|website kompis|website-kompis)\b/.test(normalized);
+
+  return mentionsPricing && mentionsAipify;
+}
+
+/** Aipify support/contact on a customer domain — not the customer's own support. */
+export function isExplicitAipifySupportQuestion(question: string): boolean {
+  const normalized = normalizeVisitorQuestion(question);
+  if (!normalized) return false;
+
+  const mentionsAipify = /\b(aipify|abos|website kompis|website-kompis)\b/.test(normalized);
+  if (!mentionsAipify) return false;
+
+  return /\b(support|hjelp|help|kontakt aipify|contact aipify|kundeservice)\b/.test(normalized);
+}
+
+/**
+ * Platform/Aipify knowledge is allowed on a customer public domain only for explicit
+ * Aipify, Website Kompis, pricing, product, or support questions.
+ */
+export function shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(question: string): boolean {
+  return (
+    isExplicitAipifyOrKompisQuestion(question) ||
+    isExplicitAipifyPricingQuestion(question) ||
+    isExplicitAipifySupportQuestion(question)
+  );
+}
+
 function siteLabelFromDomain(domain: string | null | undefined): string | null {
   if (!domain) return null;
   const label = domain.split(".")[0]?.trim();
@@ -69,39 +117,25 @@ function siteLabelFromDomain(domain: string | null | undefined): string | null {
   return label.charAt(0).toUpperCase() + label.slice(1);
 }
 
-function safeFallbackCopy(locale: string, siteLabel: string | null): string {
-  const named = siteLabel?.trim() || null;
-
-  switch (locale) {
-    case "no":
-      return named
-        ? `Jeg har ikke nok publisert informasjon om ${named} til å svare sikkert på dette ennå. Kontakt ${named} for mer informasjon.`
-        : "Jeg har ikke nok publisert informasjon til å svare sikkert på dette ennå. Kontakt virksomheten for mer informasjon.";
-    case "sv":
-      return named
-        ? `Jag har inte tillräckligt publicerad information om ${named} för att svara säkert på detta ännu. Kontakta ${named} för mer information.`
-        : "Jag har inte tillräckligt publicerad information för att svara säkert på detta ännu. Kontakta verksamheten för mer information.";
-    case "da":
-      return named
-        ? `Jeg har ikke nok offentliggjort information om ${named} til at svare sikkert på dette endnu. Kontakt ${named} for mere information.`
-        : "Jeg har ikke nok offentliggjort information til at svare sikkert på dette endnu. Kontakt virksomheden for mere information.";
-    case "en":
-    default:
-      return named
-        ? `I do not have enough published information about ${named} to answer this safely yet. Contact ${named} for more information.`
-        : "I do not have enough published information to answer this safely yet. Contact the business for more information.";
-  }
+function safeFallbackCopy(
+  locale: string,
+  siteLabel: string | null,
+  fallbackTone: WebsiteKompisFallbackTone = "professional-friendly",
+): string {
+  return buildWebsiteKompisWarmSafeFallbackCopy(locale, siteLabel, fallbackTone);
 }
 
 export function buildWebsiteKompisSafeFallbackResponse(
   locale: string,
   domain: string | null | undefined,
+  options?: { fallbackTone?: WebsiteKompisFallbackTone },
 ) {
   const siteLabel = siteLabelFromDomain(domain ?? null);
+  const fallbackTone = options?.fallbackTone ?? "professional-friendly";
 
   return {
     answer: {
-      directAnswer: safeFallbackCopy(locale, siteLabel),
+      directAnswer: safeFallbackCopy(locale, siteLabel, fallbackTone),
       explanation: null,
       steps: [],
     },

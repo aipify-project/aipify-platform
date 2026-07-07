@@ -317,8 +317,40 @@ export function isWebsiteKompisExplicitCurrentPageQuestion(question: string): bo
     ) ||
     /\b(forklar denne|oppsummer denne|explain this|summarize this|what is this page about|hva handler denne)\b/.test(
       normalized,
+    ) ||
+    /(?:^|\s)(hvilken side er jeg på|which page am i on|what page am i on)(?:\?|$|[\s,])/.test(
+      ` ${normalized} `,
     )
   );
+}
+
+/** Visitor questions about the visible customer page — not Aipify/platform product questions. */
+export function isCustomerWebsitePageIntentQuestion(question: string): boolean {
+  if (isWebsiteKompisExplicitCurrentPageQuestion(question)) {
+    return true;
+  }
+
+  const normalized = question.trim().toLowerCase().replace(/[?!.]+$/, "").replace(/\s+/g, " ");
+  if (!normalized) return false;
+
+  if (/\b(her|here|på denne nettsiden|on this site|this website|denne nettsiden)\b/.test(normalized)) {
+    return true;
+  }
+
+  if (/\b(hva koster det|what does it cost|how much does (?:it|this) cost)\b/.test(normalized)) {
+    return true;
+  }
+
+  const customerSiteTopic =
+    /\b(åpningstid\w*|opening hours|kontakt|contact|medlemskap|membership|medlem|member|sikkerhet|safety|plan\w*|fordeler|benefits|tilbud|offer\w*|pris\w*|kost\w*|services|tjenester|produkt\w*)\b/.test(
+      normalized,
+    );
+  const customerSiteScope =
+    /\b(her|dere|dykk|you|your|nettsted\w*|website|siden|page|virksomheten|business|company)\b/.test(
+      normalized,
+    );
+
+  return customerSiteTopic && customerSiteScope;
 }
 
 export function scoreWebsiteKompisPublicPageContextMatch(
@@ -411,15 +443,16 @@ export function tryBuildWebsiteKompisCurrentPublicPageAnswer(input: {
   }
 
   const score = scoreWebsiteKompisPublicPageContextMatch(input.question, pageContext);
-  const explicit = isWebsiteKompisExplicitCurrentPageQuestion(input.question);
-  const minScore = explicit ? 2 : 4;
-
-  if (score < minScore) {
-    return null;
-  }
+  const explicitPage = isWebsiteKompisExplicitCurrentPageQuestion(input.question);
+  const pageIntent = isCustomerWebsitePageIntentQuestion(input.question);
+  const minScore = explicitPage ? 2 : pageIntent ? 0 : 4;
 
   const { directAnswer, explanation } = pickAnswerSegments(pageContext);
   if (!directAnswer) {
+    return null;
+  }
+
+  if (score < minScore) {
     return null;
   }
 
@@ -438,7 +471,7 @@ export function tryBuildWebsiteKompisCurrentPublicPageAnswer(input: {
       },
     ],
     confidence: {
-      level: score >= 6 || explicit ? "high" : "medium",
+      level: score >= 6 || pageIntent ? "high" : "medium",
       score: Math.min(0.95, 0.55 + score * 0.05),
     },
   };

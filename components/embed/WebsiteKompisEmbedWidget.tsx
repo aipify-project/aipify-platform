@@ -16,22 +16,14 @@ import {
 import type { WebsiteKompisPublicPageContext } from "@/lib/marketing/website-kompis-public-page-context";
 import { shouldHideWebsiteKompisLauncherFromEmbedMetadata } from "@/lib/marketing/website-kompis-launcher-visibility";
 import {
+  resolveWebsiteKompisEmbedUiLabels,
+  type WebsiteKompisEmbedUiLabels,
+} from "@/lib/marketing/website-kompis-visitor-tone";
+import {
   mapWebsiteCompanionApiResponse,
   validateWebsiteCompanionQuestion,
   WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH,
 } from "@/lib/marketing/website-companion-chat";
-
-const LABELS = {
-  title: "Website Kompis",
-  prompt: "Spør Website Kompis",
-  placeholder: "Skriv et spørsmål...",
-  send: "Send",
-  sending: "Sender...",
-  unavailable: "Midlertidig utilgjengelig",
-  error: "Noe gikk galt. Prøv igjen.",
-  open: "Åpne Website Kompis",
-  close: "Lukk Website Kompis",
-} as const;
 
 type ChatMessage =
   | { id: string; role: "user"; text: string }
@@ -127,6 +119,10 @@ export function WebsiteKompisEmbedWidget({
 
   const hidden = shouldHideWebsiteKompisLauncherFromEmbedMetadata(metadata);
   const unavailable = metadataState === "error" || (metadataState === "ready" && hidden);
+  const labels: WebsiteKompisEmbedUiLabels = resolveWebsiteKompisEmbedUiLabels({
+    locale,
+    welcomeMessageVariant: metadata?.welcomeMessageVariant,
+  });
 
   const submitQuestion = useCallback(
     async (question: string, priorMessages: ChatMessage[]) => {
@@ -217,7 +213,7 @@ export function WebsiteKompisEmbedWidget({
     return (
       <div className="flex min-h-dvh items-center justify-center p-4">
         <p className="rounded-lg border border-aipify-border bg-aipify-surface px-4 py-3 text-sm text-aipify-text-secondary">
-          {LABELS.unavailable}
+          {labels.unavailable}
         </p>
       </div>
     );
@@ -229,16 +225,16 @@ export function WebsiteKompisEmbedWidget({
         <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col overflow-hidden rounded-t-2xl border border-aipify-border bg-aipify-surface shadow-lg">
           <header className="flex items-center justify-between border-b border-aipify-border px-4 py-3">
             <div>
-              <p className="text-sm font-semibold text-aipify-text">{LABELS.title}</p>
-              <p className="text-xs text-aipify-text-secondary">{LABELS.prompt}</p>
+              <p className="text-sm font-semibold text-aipify-text">{labels.title}</p>
+              <p className="text-xs text-aipify-text-secondary">{labels.prompt}</p>
             </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
               className="rounded-full border border-aipify-border px-3 py-1 text-xs font-medium text-aipify-text-secondary hover:bg-aipify-surface-muted"
-              aria-label={LABELS.close}
+              aria-label={labels.close}
             >
-              {LABELS.close}
+              {labels.close}
             </button>
           </header>
 
@@ -248,14 +244,14 @@ export function WebsiteKompisEmbedWidget({
                 return (
                   <div key={message.id} className="flex justify-start">
                     <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
-                      <p className="text-sm text-aipify-text-secondary">{LABELS.error}</p>
+                      <p className="text-sm text-aipify-text-secondary">{labels.error}</p>
                       <button
                         type="button"
                         onClick={() => void submitQuestion(message.retryQuestion, messages.filter((m) => m.id !== message.id))}
                         className="mt-2 text-xs font-medium text-aipify-companion hover:underline"
                         disabled={sending}
                       >
-                        {LABELS.send}
+                        {labels.send}
                       </button>
                     </div>
                   </div>
@@ -282,7 +278,7 @@ export function WebsiteKompisEmbedWidget({
               <div className="flex justify-start">
                 <div className="rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
                   <AipifyLoader size="sm" centered={false} label="" />
-                  <span className="sr-only">{LABELS.sending}</span>
+                  <span className="sr-only">{labels.sending}</span>
                 </div>
               </div>
             ) : null}
@@ -293,7 +289,7 @@ export function WebsiteKompisEmbedWidget({
             className="border-t border-aipify-border px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
           >
             <label htmlFor={inputId} className="sr-only">
-              {LABELS.placeholder}
+              {labels.placeholder}
             </label>
             <textarea
               id={inputId}
@@ -308,7 +304,7 @@ export function WebsiteKompisEmbedWidget({
                 }
               }}
               rows={2}
-              placeholder={LABELS.placeholder}
+              placeholder={labels.placeholder}
               disabled={sending}
               className="w-full resize-none rounded-xl border border-aipify-border bg-aipify-surface px-3 py-2 text-sm text-aipify-text outline-none ring-aipify-focus placeholder:text-aipify-text-muted focus:ring-2 disabled:opacity-60"
             />
@@ -318,7 +314,7 @@ export function WebsiteKompisEmbedWidget({
                 disabled={sending || !draft.trim()}
                 className="inline-flex min-h-10 items-center rounded-full bg-aipify-companion px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {sending ? LABELS.sending : LABELS.send}
+                {sending ? labels.sending : labels.send}
               </button>
             </div>
           </form>
@@ -331,10 +327,10 @@ export function WebsiteKompisEmbedWidget({
           onClick={() => setOpen((value) => !value)}
           className="relative flex h-12 w-12 items-center justify-center rounded-full border border-aipify-border bg-aipify-surface shadow-lg transition hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-aipify-focus"
           aria-expanded={open}
-          aria-label={open ? LABELS.close : LABELS.open}
-          title={LABELS.title}
+          aria-label={open ? labels.close : labels.open}
+          title={labels.title}
         >
-          <AipifyCompanionLauncherIcon size={40} availabilityRing title={LABELS.title} ariaLabel={LABELS.title} />
+          <AipifyCompanionLauncherIcon size={40} availabilityRing title={labels.title} ariaLabel={labels.title} />
         </button>
       </div>
     </div>
