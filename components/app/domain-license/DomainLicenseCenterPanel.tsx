@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import {
   parseDomainLicenseCenter,
@@ -26,12 +26,31 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
   const [newDomain, setNewDomain] = useState("");
   const [platform, setPlatform] = useState("custom_website");
   const [expandedDomainId, setExpandedDomainId] = useState<string | null>(null);
+  const centerRef = useRef<DomainLicenseCenter | null>(center);
+  centerRef.current = center;
 
   const load = useCallback(async () => {
-    setLoading(true);
-    const res = await fetch("/api/app/domains");
-    if (res.ok) setCenter(parseDomainLicenseCenter(await res.json()));
-    else setCenter(null);
+    const hadCenter = centerRef.current?.found === true;
+    if (!hadCenter) {
+      setLoading(true);
+    }
+    const retryDelaysMs = [0, 350, 900];
+    for (let attempt = 0; attempt < retryDelaysMs.length; attempt += 1) {
+      const delay = retryDelaysMs[attempt] ?? 0;
+      if (delay > 0) {
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+      const res = await fetch("/api/app/domains");
+      if (res.ok) {
+        const parsed = parseDomainLicenseCenter(await res.json());
+        if (parsed?.found) {
+          setCenter(parsed);
+          setLoading(false);
+          return;
+        }
+      }
+    }
+    setCenter(null);
     setLoading(false);
   }, []);
 

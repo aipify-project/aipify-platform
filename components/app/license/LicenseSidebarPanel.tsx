@@ -1,12 +1,22 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardProfileProvider";
 import { AipifySidebarTypography } from "@/lib/design";
 import { AipifyPulse } from "@/components/branding";
 import { AIPIFY_BRAND } from "@/lib/branding/tokens";
 import { formatSoftwareVersion } from "@/lib/license";
 import { resolveAppHref } from "@/lib/app/route-aliases";
+import {
+  fetchOrganizationContextWithRetry,
+  resolveSidebarOrganizationDisplay,
+  resolveSidebarPhaseAfterFetch,
+  shouldCacheOrganizationSidebarContext,
+  type OrganizationContextSidebarLabels,
+  type SidebarOrganizationDisplayPhase,
+} from "@/lib/app/organization-context-sidebar";
+import type { AppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 import {
   CACHE_TTL_LICENSE_MS,
   LICENSE_SIDEBAR_CACHE_KEY,
@@ -17,7 +27,7 @@ import {
 } from "@/lib/polling";
 
 type LicenseSidebarPanelProps = {
-  labels: {
+  labels: OrganizationContextSidebarLabels & {
     workspace: string;
     licensedTo: string;
     plan: string;
@@ -25,106 +35,101 @@ type LicenseSidebarPanelProps = {
     version: string;
     poweredBy: string;
     copyright: string;
-    statusActive: string;
-    statusGrace: string;
-    statusPaused: string;
-    statusUnknown: string;
-    notConfigured: string;
-    notAssigned: string;
-    organizationMissing: string;
     pulseLabel: string;
   };
 };
 
-type LicenseSummary = {
-  licensed_to: string | null;
-  plan_name: string | null;
-  license_status: string | null;
-  software_version: string | null;
-  software_owner: string | null;
-  has_customer: boolean;
-};
-
-type OrganizationContextState =
-  | "ready"
-  | "organization_missing"
-  | "membership_missing"
-  | "subscription_inactive"
-  | "access_denied"
-  | "user_not_provisioned";
-
 type LicenseCache = {
-  workspaceName: string | null;
-  summary: LicenseSummary | null;
-  contextState: OrganizationContextState | null;
+  phase: SidebarOrganizationDisplayPhase;
+  context: AppOrganizationContext | null;
 };
 
 const LICENSE_CACHE_KEY = LICENSE_SIDEBAR_CACHE_KEY;
 
 export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps) {
+  const profileContext = useOptionalDashboardProfile();
   const cached = getCachedValue<LicenseCache>(LICENSE_CACHE_KEY);
-  const [workspaceName, setWorkspaceName] = useState<string | null>(cached?.workspaceName ?? null);
-  const [summary, setSummary] = useState<LicenseSummary | null>(cached?.summary ?? null);
-  const [contextState, setContextState] = useState<OrganizationContextState | null>(
-    cached?.contextState ?? null
-  );
-  const [resolved, setResolved] = useState(Boolean(cached));
+  const [phase, setPhase] = useState<SidebarOrganizationDisplayPhase>(cached?.phase ?? "loading");
+  const [context, setContext] = useState<AppOrganizationContext | null>(cached?.context ?? null);
   const licenseHref = resolveAppHref("/app/license");
   const { sidebarMark } = AIPIFY_BRAND;
 
+  const profileFallback = useMemo(() => {
+    const company = profileContext?.profile?.company;
+    if (!company?.name?.trim()) {
+      return null;
+    }
+    return {
+      companyName: company.name,
+      isPlatform: company.is_platform === true,
+    };
+  }, [profileContext?.profile?.company]);
+  const profileFallbackRef = useRef(profileFallback);
+  profileFallbackRef.current = profileFallback;
+  const phaseRef = useRef(phase);
+  phaseRef.current = phase;
+  const contextRef = useRef(context);
+  contextRef.current = context;
+
+  const sidebarLabels = useMemo(
+    () => ({
+      contextLoading: labels.contextLoading,
+      contextUnavailable: labels.contextUnavailable,
+      organizationMissing: labels.organizationMissing,
+      notAssigned: labels.notAssigned,
+      statusActive: labels.statusActive,
+      statusGrace: labels.statusGrace,
+      statusPaused: labels.statusPaused,
+    }),
+    [labels],
+  );
+
+  const effectivePhase = useMemo((): SidebarOrganizationDisplayPhase => {
+    if (profileFallback && (phase === "transient_error" || (phase === "loading" && profileContext?.loading === false))) {
+      return "ready";
+    }
+    return phase;
+  }, [phase, profileFallback, profileContext?.loading]);
+
+  const display = useMemo(
+    () =>
+      resolveSidebarOrganizationDisplay({
+        phase: effectivePhase,
+        context: effectivePhase === "ready" && phase !== "ready" ? null : context,
+        profileFallback,
+        labels: sidebarLabels,
+      }),
+    [effectivePhase, phase, context, profileFallback, sidebarLabels],
+  );
+
   const load = useCallback(async () => {
     await dedupeFetch(LICENSE_CACHE_KEY, async () => {
-      const contextRes = await fetch("/api/app/organization-context", { cache: "no-store" });
-      let nextWorkspace: string | null = null;
-      let nextSummary: LicenseSummary | null = null;
-      let nextContextState: OrganizationContextState | null = null;
+      const hasStableDisplay =
+        phaseRef.current === "ready" &&
+        (contextRef.current !== null || profileFallbackRef.current !== null);
+      if (!hasStableDisplay) {
+        setPhase("loading");
+      }
 
-      if (contextRes.ok) {
-        const context = (await contextRes.json()) as {
-          state?: OrganizationContextState;
-          workspace_name?: string | null;
-          licensed_to?: string | null;
-          plan_name?: string | null;
-          license_status?: string | null;
-          has_customer?: boolean;
-        };
-        nextContextState = context.state ?? null;
-        nextWorkspace = context.workspace_name?.trim() || null;
-        nextSummary = {
-          has_customer: context.has_customer === true,
-          licensed_to: context.licensed_to?.trim() || null,
-          plan_name: context.plan_name?.trim() || null,
-          license_status: context.license_status?.trim() || null,
-          software_version: "1.0.0",
-          software_owner: "Aipify Group AS",
-        };
+      const { fetchResult, context: nextContext } = await fetchOrganizationContextWithRetry();
+      const nextPhase = resolveSidebarPhaseAfterFetch({
+        fetchResult,
+        context: nextContext,
+        profileFallback: profileFallbackRef.current,
+      });
 
-        const cacheable =
-          nextContextState === "ready" &&
-          Boolean(nextWorkspace) &&
-          Boolean(nextSummary?.licensed_to || nextSummary?.has_customer);
-
-        if (cacheable) {
-          setCachedValue(
-            LICENSE_CACHE_KEY,
-            {
-              workspaceName: nextWorkspace,
-              summary: nextSummary,
-              contextState: nextContextState,
-            },
-            CACHE_TTL_LICENSE_MS
-          );
-        } else {
-          invalidateCachedValue(LICENSE_CACHE_KEY);
-        }
+      if (nextContext && shouldCacheOrganizationSidebarContext(nextContext)) {
+        setCachedValue(
+          LICENSE_CACHE_KEY,
+          { phase: nextPhase, context: nextContext },
+          CACHE_TTL_LICENSE_MS,
+        );
       } else {
         invalidateCachedValue(LICENSE_CACHE_KEY);
       }
 
-      setWorkspaceName(nextWorkspace);
-      setSummary(nextSummary);
-      setContextState(nextContextState);
-      setResolved(true);
+      setContext(nextContext);
+      setPhase(nextPhase);
       return true;
     });
   }, []);
@@ -133,48 +138,12 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
     void load();
   }, [load]);
 
-  const isOrganizationMissing =
-    contextState === "organization_missing" ||
-    contextState === "user_not_provisioned" ||
-    contextState === "membership_missing";
-
-  const statusLabel = isOrganizationMissing
-    ? labels.organizationMissing
-    : summary?.license_status === "grace_period"
-      ? labels.statusGrace
-      : summary?.license_status === "paused"
-        ? labels.statusPaused
-        : summary?.license_status === "active"
-          ? labels.statusActive
-          : contextState === "subscription_inactive"
-            ? labels.statusPaused
-            : summary?.has_customer
-              ? labels.statusActive
-              : labels.organizationMissing;
-
-  const workspaceDisplay = workspaceName?.trim()
-    ? workspaceName
-    : isOrganizationMissing
-      ? labels.organizationMissing
-      : resolved
-        ? labels.notConfigured
-        : workspaceName ?? "";
-  const licensedToDisplay = summary?.licensed_to?.trim()
-    ? summary.licensed_to
-    : isOrganizationMissing
-      ? labels.organizationMissing
-      : resolved
-        ? summary?.software_owner?.trim() || labels.notConfigured
-        : summary?.licensed_to ?? "";
-  const planDisplay = isOrganizationMissing
-    ? labels.notAssigned
-    : summary?.plan_name?.trim() || (resolved ? labels.notAssigned : "");
-
   return (
     <Link
       href={licenseHref}
       className="relative mx-3 mb-3 block shrink-0 rounded-xl border border-aipify-border bg-aipify-surface-muted px-3 py-2.5 transition hover:border-aipify-accent-muted hover:bg-aipify-accent-soft/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2"
       aria-label={labels.poweredBy}
+      aria-busy={display.phase === "loading"}
     >
       <div className="flex items-start gap-2.5">
         <AipifyPulse
@@ -186,33 +155,33 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
           className="mt-px shrink-0 text-aipify-companion"
         />
         <div className={`min-w-0 flex-1 space-y-1 ${AipifySidebarTypography.workspaceSummary}`}>
-          <p className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.workspace} ${workspaceDisplay}`}>
+          <p className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.workspace} ${display.workspaceName}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.workspace}</span>
             <span
               className={`${AipifySidebarTypography.workspaceSummaryValue} line-clamp-2`}
-              title={workspaceDisplay}
+              title={display.workspaceName}
             >
-              {workspaceDisplay}
+              {display.workspaceName}
             </span>
           </p>
-          <p className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.licensedTo} ${licensedToDisplay}`}>
+          <p className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.licensedTo} ${display.licensedTo}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.licensedTo}</span>
             <span className={`${AipifySidebarTypography.workspaceSummaryValue} line-clamp-2`}>
-              {licensedToDisplay}
+              {display.licensedTo}
             </span>
           </p>
-          <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.plan} ${planDisplay}`}>
+          <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.plan} ${display.planName}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.plan}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{planDisplay}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{display.planName}</span>
           </p>
-          <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.status} ${statusLabel}`}>
+          <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.status} ${display.statusLabel}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.status}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{statusLabel}</span>
+            <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{display.statusLabel}</span>
           </p>
-          <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.version} ${formatSoftwareVersion(summary?.software_version ?? "1.0.0")}`}>
+          <p className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.version} ${formatSoftwareVersion("1.0.0")}`}>
             <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.version}</span>
             <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>
-              {formatSoftwareVersion(summary?.software_version ?? "1.0.0")}
+              {formatSoftwareVersion("1.0.0")}
             </span>
           </p>
           <p className={`pt-0.5 ${AipifySidebarTypography.workspaceSummaryFooter}`}>

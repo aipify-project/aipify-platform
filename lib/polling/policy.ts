@@ -14,7 +14,7 @@ export const CACHE_TTL_EXECUTIVE_MS = 120_000;
 export const CACHE_TTL_PRESENCE_MS = 60_000;
 export const CACHE_TTL_LICENSE_MS = 5 * 60_000;
 /** Bump when organization context shape or resolver changes — invalidates stale sidebar cache. */
-export const LICENSE_SIDEBAR_CACHE_KEY = "license-sidebar:v2";
+export const LICENSE_SIDEBAR_CACHE_KEY = "license-sidebar:v3";
 export const CACHE_TTL_SIDEBAR_MS = 90_000;
 export const CACHE_TTL_SETTINGS_MS = 5 * 60_000;
 

@@ -132,6 +132,11 @@ export function useTwoFactorSessionGate(options: TwoFactorGateOptions = {}) {
       }
 
       if (event === "SIGNED_IN") {
+        if (passedRef.current || hasTwoFactorPassed()) {
+          // Tab focus / cross-tab auth sync can replay SIGNED_IN — keep APP shell mounted.
+          invalidateTwoFactorStatusCache();
+          return;
+        }
         passedRef.current = false;
         clearPortalSessionMarks();
         setReady(false);

@@ -45,7 +45,9 @@
     "statusUnknown": "Unknown",
     "notConfigured": "Not configured",
     "notAssigned": "Not assigned",
-    "organizationMissing": "Brakuje kontekstu organizacji"
+    "organizationMissing": "Brakuje kontekstu organizacji",
+    "contextLoading": "Pobieranie kontekstu organizacji…",
+    "contextUnavailable": "Nie udało się teraz pobrać kontekstu organizacji. Odśwież stronę."
   },
   "branding": {
     "pulseLabel": "Aipify platform symbol"

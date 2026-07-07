@@ -58,7 +58,9 @@
     "statusUnknown": "Okänd",
     "notConfigured": "Inte konfigurerad",
     "notAssigned": "Inte tilldelad",
-    "organizationMissing": "Organisationskontext saknas"
+    "organizationMissing": "Organisationskontext saknas",
+    "contextLoading": "Hämtar organisationskontext …",
+    "contextUnavailable": "Vi kunde inte hämta organisationskontexten just nu. Försök att uppdatera sidan."
   },
   "branding": {
     "pulseLabel": "Aipify platform symbol"
