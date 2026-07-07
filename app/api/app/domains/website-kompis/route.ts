@@ -16,10 +16,8 @@ import {
 } from "@/lib/marketing/website-kompis-install-config-storage";
 import {
   canManageWebsiteKompisDomainSettings,
-  evaluateWebsiteKompisLicensedAvailabilityFromAppContext,
 } from "@/lib/marketing/website-kompis-licensed-availability";
 import {
-  loadWebsiteKompisEntitlementForAppTenant,
   resolveWebsiteKompisAppLicensedAvailability,
 } from "@/lib/marketing/website-kompis-licensed-availability-server";
 import {
@@ -96,14 +94,9 @@ async function buildDomainSettingsResponse(input: {
         })
       : null);
 
-  const entitlementEnabled = await loadWebsiteKompisEntitlementForAppTenant(
-    input.supabase,
-    access.context.customer_id,
-  );
-
-  const availability = evaluateWebsiteKompisLicensedAvailabilityFromAppContext({
+  const availability = await resolveWebsiteKompisAppLicensedAvailability({
     context: access.context,
-    entitlementEnabled,
+    supabase: input.supabase,
     domainVerified,
     installTrusted: installId != null,
   });
