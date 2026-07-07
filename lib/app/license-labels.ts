@@ -39,6 +39,17 @@ export function buildLicensePanelLabels(t: Translator) {
   };
 }
 
+export function buildDomainCenterLoadLabels(t: Translator) {
+  return {
+    loadFailedTitle: t("shell.domainCenter.loadFailedTitle"),
+    loadFailedMessage: t("shell.domainCenter.loadFailedMessage"),
+    retry: t("shell.domainCenter.retry"),
+    backToDashboard: t("shell.domainCenter.backToDashboard"),
+  };
+}
+
+export type DomainCenterLoadLabels = ReturnType<typeof buildDomainCenterLoadLabels>;
+
 export function buildLicenseCenterLabels(dict: Dictionary) {
   const t = createTranslator(dict);
 

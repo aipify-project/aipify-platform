@@ -84,22 +84,15 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
     [labels],
   );
 
-  const effectivePhase = useMemo((): SidebarOrganizationDisplayPhase => {
-    if (profileFallback && (phase === "transient_error" || (phase === "loading" && profileContext?.loading === false))) {
-      return "ready";
-    }
-    return phase;
-  }, [phase, profileFallback, profileContext?.loading]);
-
   const display = useMemo(
     () =>
       resolveSidebarOrganizationDisplay({
-        phase: effectivePhase,
-        context: effectivePhase === "ready" && phase !== "ready" ? null : context,
+        phase,
+        context,
         profileFallback,
         labels: sidebarLabels,
       }),
-    [effectivePhase, phase, context, profileFallback, sidebarLabels],
+    [phase, context, profileFallback, sidebarLabels],
   );
 
   const load = useCallback(async () => {

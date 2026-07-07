@@ -1,8 +1,12 @@
 import assert from "node:assert/strict";
 import {
+  classifyDomainLicenseCenterFetchFailure,
+  hasProfileWorkspaceFallback,
   isRealOrganizationMissingState,
   isTransientOrganizationContext,
   resolveProfileOrganizationFallback,
+  resolveProfileOnlySidebarDisplay,
+  resolveProfileWorkspaceDisplayFallback,
   resolveSidebarOrganizationDisplay,
   resolveSidebarPhaseAfterFetch,
   shouldRetryOrganizationContextFetch,
@@ -57,6 +61,38 @@ assert.deepEqual(resolveProfileOrganizationFallback({ companyName: "Unonight", i
   licensedTo: "Unonight",
 });
 assert.equal(resolveProfileOrganizationFallback({ companyName: "Aipify Group AS", isPlatform: true }), null);
+assert.equal(resolveProfileWorkspaceDisplayFallback({ companyName: "Aipify Group AS", isPlatform: true }), "Aipify Group AS");
+assert.equal(hasProfileWorkspaceFallback({ companyName: "Aipify Group AS", isPlatform: true }), true);
+
+const platformProfileOnly = resolveProfileOnlySidebarDisplay(
+  { companyName: "Aipify Group AS", isPlatform: true },
+  LABELS,
+);
+assert.ok(platformProfileOnly);
+assert.equal(platformProfileOnly?.workspaceName, "Aipify Group AS");
+assert.equal(platformProfileOnly?.licensedTo, LABELS.notAssigned);
+assert.equal(platformProfileOnly?.statusLabel, LABELS.contextUnavailable);
+assert.notEqual(platformProfileOnly?.workspaceName, LABELS.organizationMissing);
+
+const platformTransientDisplay = resolveSidebarOrganizationDisplay({
+  phase: "transient_error",
+  context: null,
+  profileFallback: { companyName: "Aipify Group AS", isPlatform: true },
+  labels: LABELS,
+});
+assert.equal(platformTransientDisplay.workspaceName, "Aipify Group AS");
+assert.equal(platformTransientDisplay.statusLabel, LABELS.contextUnavailable);
+
+const platformDegradedPhase = resolveSidebarPhaseAfterFetch({
+  fetchResult: { ok: false, reason: "http" },
+  context: null,
+  profileFallback: { companyName: "Aipify Group AS", isPlatform: true },
+});
+assert.equal(platformDegradedPhase, "ready");
+
+assert.equal(classifyDomainLicenseCenterFetchFailure(500, { error: "Owner or admin role required" }), "admin_required");
+assert.equal(classifyDomainLicenseCenterFetchFailure(500, { error: "database timeout" }), "load_failed");
+assert.equal(classifyDomainLicenseCenterFetchFailure(503, { error: "Service unavailable" }), "load_failed");
 
 const loadingDisplay = resolveSidebarOrganizationDisplay({
   phase: "loading",

@@ -62,6 +62,12 @@
     "contextLoading": "Loading organization context…",
     "contextUnavailable": "Could not load organization context right now. Try refreshing the page."
   },
+  "domainCenter": {
+    "loadFailedTitle": "Domain center could not be loaded",
+    "loadFailedMessage": "Organization context is unavailable or the domain center request failed. Your access may still be valid — try again or return to the dashboard.",
+    "retry": "Try again",
+    "backToDashboard": "Back to dashboard"
+  },
   "branding": {
     "pulseLabel": "Aipify platform symbol"
   },

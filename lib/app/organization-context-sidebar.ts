@@ -78,6 +78,21 @@ export function hasStableCustomerOrganizationContext(context: AppOrganizationCon
   return isTransientOrganizationContext(context);
 }
 
+/** Company name for sidebar workspace display — includes platform companies. */
+export function resolveProfileWorkspaceDisplayFallback(
+  profile: ProfileOrganizationFallback | null | undefined,
+): string | null {
+  const name = profile?.companyName?.trim();
+  return name || null;
+}
+
+export function hasProfileWorkspaceFallback(
+  profile: ProfileOrganizationFallback | null | undefined,
+): boolean {
+  return resolveProfileWorkspaceDisplayFallback(profile) !== null;
+}
+
+/** Customer-org licensed_to pairing only — never used to imply tenant license for platform companies. */
 export function resolveProfileOrganizationFallback(
   profile: ProfileOrganizationFallback | null | undefined,
 ): { workspaceName: string; licensedTo: string } | null {
@@ -86,6 +101,25 @@ export function resolveProfileOrganizationFallback(
   }
   const name = profile.companyName.trim();
   return { workspaceName: name, licensedTo: name };
+}
+
+export function resolveProfileOnlySidebarDisplay(
+  profile: ProfileOrganizationFallback | null | undefined,
+  labels: OrganizationContextSidebarLabels,
+): SidebarOrganizationDisplay | null {
+  const workspaceName = resolveProfileWorkspaceDisplayFallback(profile);
+  if (!workspaceName) {
+    return null;
+  }
+
+  const isPlatform = profile?.isPlatform === true;
+  return {
+    phase: "ready",
+    workspaceName,
+    licensedTo: isPlatform ? labels.notAssigned : workspaceName,
+    planName: labels.notAssigned,
+    statusLabel: isPlatform ? labels.contextUnavailable : labels.statusActive,
+  };
 }
 
 export function resolveOrganizationWorkspaceName(
@@ -159,6 +193,14 @@ export function resolveSidebarOrganizationDisplay(input: {
   }
 
   if (phase === "transient_error") {
+    const profileOnly = resolveProfileOnlySidebarDisplay(profileFallback, labels);
+    if (profileOnly) {
+      return {
+        ...profileOnly,
+        phase: "transient_error",
+        statusLabel: labels.contextUnavailable,
+      };
+    }
     return {
       phase,
       workspaceName: labels.contextUnavailable,
@@ -179,15 +221,9 @@ export function resolveSidebarOrganizationDisplay(input: {
   }
 
   if (!context) {
-    const profileNames = resolveProfileOrganizationFallback(profileFallback);
-    if (profileNames) {
-      return {
-        phase: "ready",
-        workspaceName: profileNames.workspaceName,
-        licensedTo: profileNames.licensedTo,
-        planName: labels.notAssigned,
-        statusLabel: labels.statusActive,
-      };
+    const profileOnly = resolveProfileOnlySidebarDisplay(profileFallback, labels);
+    if (profileOnly) {
+      return profileOnly;
     }
     return {
       phase: "organization_missing",
@@ -219,7 +255,7 @@ export function resolveSidebarPhaseAfterFetch(input: {
   const { fetchResult, context, profileFallback } = input;
 
   if (!fetchResult.ok || !context) {
-    return resolveProfileOrganizationFallback(profileFallback) ? "ready" : "transient_error";
+    return hasProfileWorkspaceFallback(profileFallback) ? "ready" : "transient_error";
   }
 
   if (isRealOrganizationMissingState(context.state)) {
@@ -230,7 +266,40 @@ export function resolveSidebarPhaseAfterFetch(input: {
     return "ready";
   }
 
-  return resolveProfileOrganizationFallback(profileFallback) ? "ready" : "transient_error";
+  return hasProfileWorkspaceFallback(profileFallback) ? "ready" : "transient_error";
+}
+
+export type DomainLicenseCenterLoadFailureKind = "admin_required" | "load_failed";
+
+const DOMAIN_ADMIN_DENIED_PATTERNS = [
+  /owner or admin role required/i,
+  /admin.?tilgang/i,
+  /administrator.?rolle/i,
+  /administrator.?tilgang/i,
+  /eier- eller administrator/i,
+];
+
+function readApiErrorMessage(body: unknown): string | null {
+  if (!body || typeof body !== "object") {
+    return null;
+  }
+  const error = (body as Record<string, unknown>).error;
+  return typeof error === "string" && error.trim() ? error.trim() : null;
+}
+
+export function classifyDomainLicenseCenterFetchFailure(
+  status: number,
+  body: unknown,
+): DomainLicenseCenterLoadFailureKind {
+  const message = readApiErrorMessage(body) ?? "";
+  const probe = `${message} ${status}`;
+  if (DOMAIN_ADMIN_DENIED_PATTERNS.some((pattern) => pattern.test(probe))) {
+    return "admin_required";
+  }
+  if ((status === 401 || status === 403) && message.length > 0) {
+    return "admin_required";
+  }
+  return "load_failed";
 }
 
 export function shouldRetryOrganizationContextFetch(input: {

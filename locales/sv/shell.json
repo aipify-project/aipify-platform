@@ -62,6 +62,12 @@
     "contextLoading": "Hämtar organisationskontext …",
     "contextUnavailable": "Vi kunde inte hämta organisationskontexten just nu. Försök att uppdatera sidan."
   },
+  "domainCenter": {
+    "loadFailedTitle": "Domäncentret kunde inte laddas",
+    "loadFailedMessage": "Organisationskontexten är otillgänglig eller begäran misslyckades. Din åtkomst kan fortfarande vara giltig — försök igen eller gå tillbaka till översikten.",
+    "retry": "Försök igen",
+    "backToDashboard": "Tillbaka till översikten"
+  },
   "branding": {
     "pulseLabel": "Aipify platform symbol"
   },

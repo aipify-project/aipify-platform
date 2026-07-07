@@ -49,6 +49,12 @@
     "contextLoading": "Pobieranie kontekstu organizacji…",
     "contextUnavailable": "Nie udało się teraz pobrać kontekstu organizacji. Odśwież stronę."
   },
+  "domainCenter": {
+    "loadFailedTitle": "Nie udało się wczytać centrum domen",
+    "loadFailedMessage": "Kontekst organizacji jest niedostępny lub żądanie nie powiodło się. Twój dostęp może nadal być ważny — spróbuj ponownie lub wróć do panelu.",
+    "retry": "Spróbuj ponownie",
+    "backToDashboard": "Wróć do panelu"
+  },
   "branding": {
     "pulseLabel": "Aipify platform symbol"
   },

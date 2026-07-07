@@ -14,13 +14,26 @@ import {
   resolveDomainStatusLabel,
 } from "@/lib/domain-license/labels";
 import { AipifyModuleAccessDenied } from "@/components/ui/aipify-module-access-denied";
+import { AipifySystemNotice } from "@/components/ui/aipify-system-notice";
 import { WebsiteKompisDomainSettingsCard } from "@/components/app/domain-license/WebsiteKompisDomainSettingsCard";
+import { classifyDomainLicenseCenterFetchFailure } from "@/lib/app/organization-context-sidebar";
+import type { DomainCenterLoadLabels } from "@/lib/app/license-labels";
+import { APP_PORTAL_HOME_ROUTE } from "@/lib/app-portal/nav-config";
 
 type Tab = "overview" | "active" | "pending" | "licenses" | "packs";
 
-export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabels }) {
+type DomainLoadFailure = "admin_required" | "load_failed";
+
+export function DomainLicenseCenterPanel({
+  labels,
+  loadLabels,
+}: {
+  labels: DomainLicenseLabels;
+  loadLabels: DomainCenterLoadLabels;
+}) {
   const [center, setCenter] = useState<DomainLicenseCenter | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadFailure, setLoadFailure] = useState<DomainLoadFailure | null>(null);
   const [tab, setTab] = useState<Tab>("overview");
   const [busy, setBusy] = useState(false);
   const [newDomain, setNewDomain] = useState("");
@@ -34,23 +47,43 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
     if (!hadCenter) {
       setLoading(true);
     }
+    let failureKind: DomainLoadFailure = "load_failed";
     const retryDelaysMs = [0, 350, 900];
     for (let attempt = 0; attempt < retryDelaysMs.length; attempt += 1) {
       const delay = retryDelaysMs[attempt] ?? 0;
       if (delay > 0) {
         await new Promise((resolve) => setTimeout(resolve, delay));
       }
-      const res = await fetch("/api/app/domains");
-      if (res.ok) {
-        const parsed = parseDomainLicenseCenter(await res.json());
-        if (parsed?.found) {
-          setCenter(parsed);
-          setLoading(false);
-          return;
+      try {
+        const res = await fetch("/api/app/domains");
+        const body = (await res.json().catch(() => null)) as unknown;
+        if (res.ok) {
+          const parsed = parseDomainLicenseCenter(body);
+          if (parsed?.found) {
+            setCenter(parsed);
+            setLoadFailure(null);
+            setLoading(false);
+            return;
+          }
+          failureKind = "load_failed";
+          continue;
         }
+        failureKind = classifyDomainLicenseCenterFetchFailure(res.status, body);
+        if (failureKind === "admin_required") {
+          break;
+        }
+      } catch {
+        failureKind = "load_failed";
       }
     }
+
+    if (hadCenter) {
+      setLoading(false);
+      return;
+    }
+
     setCenter(null);
+    setLoadFailure(failureKind);
     setLoading(false);
   }, []);
 
@@ -92,8 +125,36 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
   }
 
   if (!center?.found) {
+    if (loadFailure === "admin_required") {
+      return (
+        <AipifyModuleAccessDenied message={labels.accessDenied} />
+      );
+    }
+
     return (
-      <AipifyModuleAccessDenied message={labels.accessDenied} />
+      <div className="mx-auto max-w-3xl space-y-4 p-6">
+        <AipifySystemNotice
+          status="unauthorized_panel"
+          title={loadLabels.loadFailedTitle}
+          message={loadLabels.loadFailedMessage}
+          fullPage={false}
+        />
+        <div className="flex flex-wrap justify-center gap-3">
+          <button
+            type="button"
+            onClick={() => void load()}
+            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+          >
+            {loadLabels.retry}
+          </button>
+          <Link
+            href={APP_PORTAL_HOME_ROUTE}
+            className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            {loadLabels.backToDashboard}
+          </Link>
+        </div>
+      </div>
     );
   }
 
