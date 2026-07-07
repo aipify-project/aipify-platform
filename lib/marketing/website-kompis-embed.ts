@@ -1,3 +1,8 @@
+import {
+  sanitizeWebsiteKompisPublicPageContext,
+  type WebsiteKompisPublicPageContext,
+} from "@/lib/marketing/website-kompis-public-page-context";
+
 export const WEBSITE_KOMPIS_EMBED_DEFAULT_LOCALE = "no" as const;
 
 export const WEBSITE_KOMPIS_EMBED_LOCALES = [
@@ -32,12 +37,19 @@ export type WebsiteKompisEmbedRecentContextMessage = {
   text: string;
 };
 
+export const WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE =
+  "aipify.websiteKompis.pageContext" as const;
+
+export const WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE =
+  "aipify.websiteKompis.requestPageContext" as const;
+
 export type WebsiteKompisEmbedAskPayload = {
   question: string;
   locale: WebsiteKompisEmbedLocale;
   domain: string;
   installId: string;
   recentContext?: WebsiteKompisEmbedRecentContextMessage[];
+  pageContext?: WebsiteKompisPublicPageContext;
 };
 
 export function normalizeWebsiteKompisEmbedInstallId(value: unknown): string | null {
@@ -160,6 +172,7 @@ export function buildWebsiteKompisAskPayload(input: {
   domain: string;
   installId: string;
   recentContext?: WebsiteKompisEmbedRecentContextMessage[];
+  pageContext?: WebsiteKompisPublicPageContext;
 }): WebsiteKompisEmbedAskPayload {
   const payload: WebsiteKompisEmbedAskPayload = {
     question: input.question.trim(),
@@ -177,7 +190,30 @@ export function buildWebsiteKompisAskPayload(input: {
       }));
   }
 
+  if (input.pageContext) {
+    payload.pageContext = input.pageContext;
+  }
+
   return payload;
+}
+
+export function parseWebsiteKompisEmbedPageContextMessage(
+  value: unknown,
+): WebsiteKompisPublicPageContext | undefined {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return undefined;
+  }
+
+  const record = value as Record<string, unknown>;
+  if (record.type !== WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE) {
+    return undefined;
+  }
+
+  try {
+    return sanitizeWebsiteKompisPublicPageContext(record.pageContext);
+  } catch {
+    return undefined;
+  }
 }
 
 export function escapeWebsiteKompisEmbedAttributeValue(value: string): string {
