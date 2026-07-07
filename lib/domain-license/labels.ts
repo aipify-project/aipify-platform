@@ -1,8 +1,53 @@
 import type { Translator } from "@/lib/i18n/translate";
 
+const DOMAIN_PLATFORM_IDS = [
+  "wordpress",
+  "shopify",
+  "woocommerce",
+  "custom_website",
+  "enterprise_integration",
+  "future_platform",
+] as const;
+
+const DOMAIN_STATUS_IDS = ["pending", "active", "suspended", "removed"] as const;
+
+function domainPlatformTranslationKey(platform: string): string {
+  const camelCase: Record<string, string> = {
+    custom_website: "customWebsite",
+    enterprise_integration: "enterpriseIntegration",
+    future_platform: "futurePlatform",
+  };
+  return camelCase[platform] ?? platform;
+}
+
+export function resolveDomainPlatformLabel(
+  labels: DomainLicenseLabels,
+  platform?: string | null
+): string {
+  if (!platform) return "";
+  return labels.platformLabels[platform] ?? platform.replace(/_/g, " ");
+}
+
+export function resolveDomainStatusLabel(
+  labels: DomainLicenseLabels,
+  status?: string | null
+): string {
+  if (!status) return "";
+  return labels.domainStatusLabels[status] ?? status.replace(/_/g, " ");
+}
+
 export function buildDomainLicenseLabels(t: Translator) {
   const p = "customerApp.domainLicense";
-  const w = `${p}.websiteKompis`;
+  const platformLabels = Object.fromEntries(
+    DOMAIN_PLATFORM_IDS.map((platform) => [
+      platform,
+      t(`${p}.platforms.${domainPlatformTranslationKey(platform)}`),
+    ])
+  ) as Record<string, string>;
+  const domainStatusLabels = Object.fromEntries(
+    DOMAIN_STATUS_IDS.map((status) => [status, t(`${p}.domainStatuses.${status}`)])
+  ) as Record<string, string>;
+
   return {
     title: t(`${p}.title`),
     subtitle: t(`${p}.subtitle`),
@@ -33,6 +78,8 @@ export function buildDomainLicenseLabels(t: Translator) {
     licensesUsage: t(`${p}.licensesUsage`),
     expandDomainDetails: t(`${p}.expandDomainDetails`),
     collapseDomainDetails: t(`${p}.collapseDomainDetails`),
+    platformLabels,
+    domainStatusLabels,
     websiteKompis: buildWebsiteKompisDomainSettingsLabels(t),
   };
 }
@@ -42,6 +89,8 @@ export function buildWebsiteKompisDomainSettingsLabels(t: Translator) {
   return {
     title: t(`${p}.title`),
     subtitle: t(`${p}.subtitle`),
+    subtitleReady: t(`${p}.subtitleReady`),
+    subtitleInactive: t(`${p}.subtitleInactive`),
     licenseAvailable: t(`${p}.licenseAvailable`),
     licenseRequired: t(`${p}.licenseRequired`),
     licenseNotIncluded: t(`${p}.licenseNotIncluded`),
