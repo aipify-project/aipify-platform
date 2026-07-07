@@ -58,7 +58,9 @@
     "statusUnknown": "Unknown",
     "notConfigured": "Not configured",
     "notAssigned": "Not assigned",
-    "organizationMissing": "Organization not linked"
+    "organizationMissing": "Organization not linked",
+    "contextLoading": "Loading organization context…",
+    "contextUnavailable": "Could not load organization context right now. Try refreshing the page."
   },
   "branding": {
     "pulseLabel": "Aipify platform symbol"

@@ -58,7 +58,9 @@
     "statusUnknown": "Ukendt",
     "notConfigured": "Ikke konfigureret",
     "notAssigned": "Ikke tildelt",
-    "organizationMissing": "Organisationskontekst mangler"
+    "organizationMissing": "Organisationskontekst mangler",
+    "contextLoading": "Henter organisationskontekst …",
+    "contextUnavailable": "Vi kunne ikke hente organisationskonteksten lige nu. Prøv at opdatere siden."
   },
   "branding": {
     "pulseLabel": "Aipify platform symbol"

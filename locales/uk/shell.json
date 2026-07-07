@@ -45,7 +45,9 @@
     "statusUnknown": "Unknown",
     "notConfigured": "Not configured",
     "notAssigned": "Not assigned",
-    "organizationMissing": "Відсутній контекст організації"
+    "organizationMissing": "Відсутній контекст організації",
+    "contextLoading": "Завантаження контексту організації…",
+    "contextUnavailable": "Зараз не вдалося отримати контекст організації. Спробуйте оновити сторінку."
   },
   "branding": {
     "pulseLabel": "Aipify platform symbol"

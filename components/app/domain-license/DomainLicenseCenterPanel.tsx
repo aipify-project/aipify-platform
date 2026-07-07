@@ -29,9 +29,23 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
 
   const load = useCallback(async () => {
     setLoading(true);
-    const res = await fetch("/api/app/domains");
-    if (res.ok) setCenter(parseDomainLicenseCenter(await res.json()));
-    else setCenter(null);
+    const retryDelaysMs = [0, 350, 900];
+    for (let attempt = 0; attempt < retryDelaysMs.length; attempt += 1) {
+      const delay = retryDelaysMs[attempt] ?? 0;
+      if (delay > 0) {
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+      const res = await fetch("/api/app/domains");
+      if (res.ok) {
+        const parsed = parseDomainLicenseCenter(await res.json());
+        if (parsed?.found) {
+          setCenter(parsed);
+          setLoading(false);
+          return;
+        }
+      }
+    }
+    setCenter(null);
     setLoading(false);
   }, []);
 
