@@ -179,6 +179,48 @@ revoke all on public.organization_notification_orchestration_audit_logs from aut
 -- ---------------------------------------------------------------------------
 -- 5. Extend Phase 509 notification enums
 -- ---------------------------------------------------------------------------
+do $$ begin
+  if not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'organization_communication_notifications'
+      and column_name = 'notification_type'
+  ) then
+    alter table public.organization_communication_notifications
+      add column notification_type text;
+
+    if exists (
+      select 1 from information_schema.columns
+      where table_schema = 'public'
+        and table_name = 'organization_communication_notifications'
+        and column_name = 'category'
+    ) then
+      update public.organization_communication_notifications set notification_type = case category
+        when 'support' then 'system'
+        when 'approvals' then 'approval_required'
+        when 'tasks' then 'task_assigned'
+        when 'integrations' then 'domain_event'
+        when 'governance' then 'system'
+        when 'quality' then 'system'
+        when 'onboarding' then 'employee_invited'
+        when 'billing' then 'license_warning'
+        when 'system_alerts' then 'system'
+        else 'system'
+      end;
+    end if;
+
+    update public.organization_communication_notifications
+      set notification_type = 'system'
+      where notification_type is null;
+
+    alter table public.organization_communication_notifications
+      alter column notification_type set default 'system';
+
+    alter table public.organization_communication_notifications
+      alter column notification_type set not null;
+  end if;
+end $$;
+
 alter table public.organization_communication_notifications drop constraint if exists organization_communication_notifications_notification_type_check;
 alter table public.organization_communication_notifications add constraint organization_communication_notifications_notification_type_check check (
   notification_type in (
