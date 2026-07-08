@@ -248,15 +248,30 @@ end; $$;
 
 create or replace function public._ahostrep_rating_trends(p_tenant_id uuid)
 returns jsonb language sql stable security definer set search_path = public as $$
+  with months as (
+    select generate_series(
+      date_trunc('month', current_date - interval '5 months'),
+      date_trunc('month', current_date),
+      interval '1 month'
+    ) as m
+  ),
+  monthly as (
+    select
+      m.m,
+      round(coalesce(avg(r.overall_rating), 0)::numeric, 2) as avg_rating,
+      count(r.id)::int as review_count
+    from months m
+    left join public.aipify_hosts_property_reviews r
+      on r.tenant_id = p_tenant_id
+      and date_trunc('month', r.review_date) = m.m
+    group by m.m
+  )
   select coalesce(jsonb_agg(jsonb_build_object(
     'month', to_char(m, 'YYYY-MM'),
-    'avg_rating', round(coalesce(avg(r.overall_rating), 0)::numeric, 2),
-    'review_count', count(r.id)::int
+    'avg_rating', avg_rating,
+    'review_count', review_count
   ) order by m), '[]'::jsonb)
-  from generate_series(date_trunc('month', current_date - interval '5 months'), date_trunc('month', current_date), interval '1 month') m
-  left join public.aipify_hosts_property_reviews r
-    on r.tenant_id = p_tenant_id
-    and date_trunc('month', r.review_date) = m; $$;
+  from monthly; $$;
 
 create or replace function public._ahostrep_category_trends(p_tenant_id uuid)
 returns jsonb language plpgsql stable security definer set search_path = public as $$
@@ -270,15 +285,29 @@ declare
 begin
   foreach v_cat in array v_cats loop
     v_result := v_result || jsonb_build_object(v_cat, coalesce((
+      with months as (
+        select generate_series(
+          date_trunc('month', current_date - interval '5 months'),
+          date_trunc('month', current_date),
+          interval '1 month'
+        ) as m
+      ),
+      monthly as (
+        select
+          m.m,
+          round(coalesce(avg((r.category_scores->>v_cat)::numeric), 0)::numeric, 2) as avg_rating
+        from months m
+        left join public.aipify_hosts_property_reviews r
+          on r.tenant_id = p_tenant_id
+          and date_trunc('month', r.review_date) = m.m
+          and r.category_scores ? v_cat
+        group by m.m
+      )
       select jsonb_agg(jsonb_build_object(
         'month', to_char(m, 'YYYY-MM'),
-        'avg_rating', round(coalesce(avg((r.category_scores->>v_cat)::numeric), 0)::numeric, 2)
+        'avg_rating', avg_rating
       ) order by m)
-      from generate_series(date_trunc('month', current_date - interval '5 months'), date_trunc('month', current_date), interval '1 month') m
-      left join public.aipify_hosts_property_reviews r
-        on r.tenant_id = p_tenant_id
-        and date_trunc('month', r.review_date) = m
-        and r.category_scores ? v_cat
+      from monthly
     ), '[]'::jsonb));
   end loop;
   return v_result;
@@ -287,16 +316,24 @@ end; $$;
 create or replace function public._ahostrep_property_comparisons(p_tenant_id uuid)
 returns jsonb language sql stable security definer set search_path = public as $$
   select coalesce(jsonb_agg(jsonb_build_object(
-    'property_id', p.id,
-    'property', p.display_name,
-    'avg_rating', round(avg(r.overall_rating)::numeric, 2),
-    'review_count', count(r.id)::int,
-    'reputation_status', public._ahostrep_property_reputation_status(avg(r.overall_rating))
-  ) order by avg(r.overall_rating) desc), '[]'::jsonb)
-  from public.aipify_hosts_property_reviews r
-  join public.aipify_hosts_properties p on p.id = r.property_id
-  where r.tenant_id = p_tenant_id and r.property_id is not null
-  group by p.id, p.display_name; $$;
+    'property_id', property_id,
+    'property', display_name,
+    'avg_rating', avg_rating,
+    'review_count', review_count,
+    'reputation_status', public._ahostrep_property_reputation_status(avg_rating_raw)
+  ) order by avg_rating_raw desc), '[]'::jsonb)
+  from (
+    select
+      p.id as property_id,
+      p.display_name as display_name,
+      round(avg(r.overall_rating)::numeric, 2) as avg_rating,
+      avg(r.overall_rating) as avg_rating_raw,
+      count(r.id)::int as review_count
+    from public.aipify_hosts_property_reviews r
+    join public.aipify_hosts_properties p on p.id = r.property_id
+    where r.tenant_id = p_tenant_id and r.property_id is not null
+    group by p.id, p.display_name
+  ) sub; $$;
 
 create or replace function public._ahostrep_improvement_opportunities(p_tenant_id uuid)
 returns jsonb language plpgsql stable security definer set search_path = public as $$

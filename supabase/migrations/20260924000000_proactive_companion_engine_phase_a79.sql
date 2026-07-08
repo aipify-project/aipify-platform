@@ -228,6 +228,9 @@ begin
   );
 end; $$;
 
+-- Phase 91 partner certification reused _pce_ensure_settings(uuid) with a different return type.
+drop function if exists public._pce_ensure_settings(uuid);
+
 create or replace function public._pce_ensure_settings(p_organization_id uuid)
 returns public.organization_proactive_companion_settings language plpgsql security definer set search_path = public as $$
 declare v_row public.organization_proactive_companion_settings;

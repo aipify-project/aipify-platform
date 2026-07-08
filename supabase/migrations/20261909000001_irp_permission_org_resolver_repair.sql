@@ -142,6 +142,15 @@ where module_key in ('customers', 'procurement')
   and status not in ('active', 'beta');
 
 -- Center RPCs perform settings seed + audit inserts; must not be STABLE/read-only.
-alter function if exists public.get_customer_relationship_center(text) volatile;
-alter function if exists public.get_lead_management_center() volatile;
-alter function if exists public.get_procurement_operations_center(text) volatile;
+do $$
+begin
+  if to_regprocedure('public.get_customer_relationship_center(text)') is not null then
+    alter function public.get_customer_relationship_center(text) volatile;
+  end if;
+  if to_regprocedure('public.get_lead_management_center()') is not null then
+    alter function public.get_lead_management_center() volatile;
+  end if;
+  if to_regprocedure('public.get_procurement_operations_center(text)') is not null then
+    alter function public.get_procurement_operations_center(text) volatile;
+  end if;
+end $$;
