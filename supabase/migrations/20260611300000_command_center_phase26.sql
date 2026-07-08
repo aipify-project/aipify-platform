@@ -1,6 +1,43 @@
 -- Phase 26 — Command Center & unified Notification Engine (extends Phase 25)
 
 -- ---------------------------------------------------------------------------
+-- 0. Tenant slug on customers (mirrors companies.slug for pilot seed lookups)
+-- ---------------------------------------------------------------------------
+alter table public.customers
+  add column if not exists slug text;
+
+update public.customers c
+set slug = co.slug
+from public.companies co
+where co.id = c.company_id
+  and (c.slug is null or c.slug is distinct from co.slug);
+
+create unique index if not exists customers_slug_idx
+  on public.customers (slug)
+  where slug is not null;
+
+create or replace function public.sync_customer_slug_from_company()
+returns trigger
+language plpgsql
+set search_path = public
+as $$
+begin
+  if new.company_id is not null then
+    select co.slug into new.slug
+    from public.companies co
+    where co.id = new.company_id;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists customers_sync_slug on public.customers;
+create trigger customers_sync_slug
+  before insert or update of company_id on public.customers
+  for each row
+  execute function public.sync_customer_slug_from_company();
+
+-- ---------------------------------------------------------------------------
 -- 1. Executive feed (operational awareness timeline)
 -- ---------------------------------------------------------------------------
 create table if not exists public.presence_executive_feed (
