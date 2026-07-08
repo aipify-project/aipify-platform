@@ -112,7 +112,6 @@ begin
     from public.platform_admins pa
     where pa.auth_user_id = auth.uid()
       and pa.role = 'super_admin'
-      and coalesce(pa.status, 'active') = 'active'
   ) then
     return true;
   end if;
@@ -128,7 +127,7 @@ end;
 $$;
 
 comment on function public._app_has_canonical_admin_capability() is
-  'APP operational admin: users.role owner/admin, or active platform super_admin only.';
+  'APP operational admin: users.role owner/admin, or platform super_admin only.';
 
 -- ---------------------------------------------------------------------------
 -- Business DNA admin gate — canonical APP admin path

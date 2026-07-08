@@ -196,15 +196,15 @@ begin
     raise exception 'read_only must not pass _app_has_canonical_admin_capability';
   end if;
 
-  insert into public.platform_admins (auth_user_id, role, status)
-  values (v_auth_super, 'super_admin', 'active');
+  insert into public.platform_admins (auth_user_id, role)
+  values (v_auth_super, 'super_admin');
   perform set_config('request.jwt.claim.sub', v_auth_super::text, true);
   if not public._app_has_canonical_admin_capability() then
     raise exception 'platform super_admin must pass _app_has_canonical_admin_capability';
   end if;
 
-  insert into public.platform_admins (auth_user_id, role, status)
-  values (v_auth_platform_support, 'platform_support', 'active');
+  insert into public.platform_admins (auth_user_id, role)
+  values (v_auth_platform_support, 'platform_support');
   perform set_config('request.jwt.claim.sub', v_auth_platform_support::text, true);
   if public._app_has_canonical_admin_capability() then
     raise exception 'platform_support must not pass _app_has_canonical_admin_capability';
