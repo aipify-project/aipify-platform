@@ -919,8 +919,75 @@ returns boolean language sql immutable as $$
   ) or p_action_type like 'ai_%' or p_action_type like '%_changed';
 $$;
 
--- Seed Unonight pilot on migration (internal — no auth context during migration)
-select public._upo_provision_unonight_pilot_internal();
+-- Seed Unonight pilot on migration (replay-safe — avoid auth-gated provision_pilot_tenant)
+do $$
+declare
+  v_org_id uuid;
+begin
+  select o.id into v_org_id from public.organizations o where o.slug = 'unonight' limit 1;
+
+  if v_org_id is null then
+    select c.id into v_org_id
+    from public.customers c
+    join public.aipify_tenant_profiles p on p.tenant_id = c.id
+    where p.slug = 'unonight'
+    limit 1;
+
+    if v_org_id is null then
+      select c.id into v_org_id from public.customers c where c.slug = 'unonight' limit 1;
+    end if;
+
+    if v_org_id is not null then
+      perform public._mta_sync_organization_from_customer(v_org_id);
+      update public.organizations set
+        name = 'Unonight',
+        subscription_plan = 'internal',
+        status = 'active',
+        slug = 'unonight',
+        updated_at = now()
+      where id = v_org_id;
+      perform public._mta_seed_organization_modules(v_org_id);
+      perform public._mta_seed_organization_settings(v_org_id);
+      perform public._mta_seed_organization_integrations(v_org_id, 'unonight');
+      perform public._mta_backfill_memberships(v_org_id);
+    end if;
+  else
+    update public.organizations set
+      name = 'Unonight',
+      subscription_plan = 'internal',
+      status = 'active',
+      updated_at = now()
+    where id = v_org_id;
+  end if;
+
+  if v_org_id is null then
+    return;
+  end if;
+
+  perform public._upo_enable_pilot_modules(v_org_id);
+  perform public._upo_ensure_config(v_org_id);
+  perform public._upo_seed_milestones(v_org_id);
+
+  update public.unonight_pilot_config set
+    pilot_status = 'active',
+    organization_type = 'pilot_customer',
+    provisioned_at = coalesce(provisioned_at, now()),
+    module_flags = '{
+      "admin_assistant": true,
+      "support_ai": true,
+      "knowledge_center": true,
+      "audit_log": true,
+      "operations_dashboard": true,
+      "governance_engine": true,
+      "quality_guardian": true,
+      "integration_engine": true
+    }'::jsonb,
+    updated_at = now()
+  where organization_id = v_org_id;
+
+  perform public._upo_compute_health(v_org_id);
+  perform public._upo_snapshot_success_metrics(v_org_id);
+end $$;
 
 insert into public.aipify_knowledge_categories (slug, name, description, visibility, sort_order)
 select 'unonight-pilot-operations-engine', 'Unonight Pilot Operations Engine', 'First pilot customer operations — validate Support AI, Admin Assistant, KC, approvals, audit, and integrations.', 'authenticated', 62
