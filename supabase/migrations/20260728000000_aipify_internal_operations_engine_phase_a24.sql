@@ -176,8 +176,8 @@ begin
   select id into v_company_id from public.companies where is_platform = true limit 1;
 
   if v_company_id is null then
-    insert into public.companies (name, slug, is_platform, plan)
-    values ('Aipify Group AS', 'aipify-internal', true, 'enterprise')
+    insert into public.companies (name, slug, is_platform)
+    values ('Aipify Group AS', 'aipify-internal', true)
     returning id into v_company_id;
   end if;
 
