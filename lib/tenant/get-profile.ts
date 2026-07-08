@@ -1,5 +1,26 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { parseAppOrganizationContext } from "./resolve-app-organization-context";
 import type { Company, DashboardProfile, AppUser } from "./types";
+
+function resolveCanonicalProfileCompanyName(
+  homeCompanyName: string,
+  orgContextRaw: unknown,
+  orgContextError: { message: string } | null
+): string {
+  if (orgContextError) {
+    return homeCompanyName;
+  }
+
+  const orgContext = parseAppOrganizationContext(orgContextRaw);
+  if (!orgContext.authenticated || orgContext.state === "database_execution_error") {
+    return homeCompanyName;
+  }
+
+  const fromContext =
+    orgContext.workspace_name?.trim() || orgContext.licensed_to?.trim() || null;
+
+  return fromContext ?? homeCompanyName;
+}
 
 export async function getDashboardProfile(
   supabase: SupabaseClient
@@ -32,8 +53,9 @@ export async function getDashboardProfile(
     return null;
   }
 
-  // Sync organization membership + license context for sidebar and APP portal RPCs.
-  await supabase.rpc("get_app_organization_context");
+  const { data: orgContextRaw, error: orgContextError } = await supabase.rpc(
+    "get_app_organization_context"
+  );
 
   const { data: company, error: companyError } = await supabase
     .from("companies")
@@ -45,8 +67,19 @@ export async function getDashboardProfile(
     return null;
   }
 
+  const homeCompany = company as Company;
+  const displayName = resolveCanonicalProfileCompanyName(
+    homeCompany.name,
+    orgContextRaw,
+    orgContextError
+  );
+
   return {
     user: appUser as AppUser,
-    company: company as Company,
+    company: {
+      ...homeCompany,
+      // company.name is canonical workspace display; company.id remains home company until 3.2E.
+      name: displayName,
+    },
   };
 }
