@@ -45,8 +45,8 @@ async function main() {
   copyFileSync(join(brandDir, "aipify-symbol.svg"), join(appDir, "icon.svg"));
   console.log("✓ app/icon.svg");
 
-  await writePng(masterSvg, 180, join(appDir, "apple-icon.png"));
-  console.log("✓ app/apple-icon.png");
+  // Apple touch icon is served from public/apple-touch-icon.png via AIPIFY_GLOBAL_ICONS
+  // (app/apple-icon.png file-based metadata breaks Vercel split-build onBuildComplete)
 
   const icoSizes = [16, 32, 48];
   const icoBuffers = await Promise.all(
