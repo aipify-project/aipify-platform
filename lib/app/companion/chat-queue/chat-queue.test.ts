@@ -2175,6 +2175,22 @@ async function testSolutionQuestionDirectPathKeepsCoreRoute() {
   assert.equal(result.capability, "direct.lightweight");
 }
 
+async function testProductKnowledgeWorkerBootstrapFastPath() {
+  installServerOnlyShim();
+  const supabase = createTrackingBootstrapSupabase();
+  const { bootstrapCompanionWorkerTenantRuntime } = await import("./load-worker-tenant-context");
+  const result = await bootstrapCompanionWorkerTenantRuntime(
+    supabase,
+    workerProfileStub,
+    "no",
+    { query: "Hvilke løsninger har Aipify?" },
+  );
+
+  assert.equal(result.ok, true);
+  assert.ok(supabase.getRpcCalls().includes("companion_worker_get_runtime_bootstrap"));
+  assertHeavyPackLoaderNotInvoked(supabase.getRpcCalls());
+}
+
 async function testCapabilityHelpWorkerBootstrapFastPath() {
   installServerOnlyShim();
   const supabase = createTrackingBootstrapSupabase();
@@ -2320,6 +2336,7 @@ testPlatformAnswerPendingSupportWriteSearchToChatContract();
 testCapabilityHelpTurnRouting();
 
 void testSolutionQuestionDirectPathKeepsCoreRoute()
+  .then(() => testProductKnowledgeWorkerBootstrapFastPath())
   .then(() => testCapabilityHelpWorkerBootstrapFastPath())
   .then(() => testCapabilityHelpExecuteTurnCorpusFastPath())
   .then(() => testCapabilityHelpWithAttachmentPreservesArtifactLoading())
