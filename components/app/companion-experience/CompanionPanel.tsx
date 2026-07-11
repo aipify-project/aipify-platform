@@ -91,6 +91,7 @@ export function CompanionPanel({
   });
   const initialConversationAppliedRef = useRef(false);
   const lastHandoffQueryRef = useRef<string | null>(null);
+  const handoffInFlightRef = useRef<string | null>(null);
 
   useEffect(() => traceCompanionMount("CompanionPanel"), []);
 
@@ -236,10 +237,10 @@ export function CompanionPanel({
       attachmentIds?: string[];
       activeArtifactId?: string | null;
       attachmentSummaries?: CompanionChatAttachmentSummary[];
-    }) => {
+    }): Promise<boolean> => {
       const trimmed = input.question.trim();
       const hasAttachments = (input.attachmentIds?.length ?? 0) > 0;
-      if (!trimmed && !hasAttachments) return;
+      if (!trimmed && !hasAttachments) return false;
 
       setSyncError(false);
       setShowSuggestions(false);
@@ -262,9 +263,15 @@ export function CompanionPanel({
 
       if (!ok) {
         setSyncError(true);
-      } else {
-        void refreshRecentConversations();
+        if (trimmed) {
+          setQuery(trimmed);
+          patchCompanionUiSession({ draftText: trimmed, organizationKey, pathname }, organizationKey);
+        }
+        return false;
       }
+
+      void refreshRecentConversations();
+      return true;
     },
     [
       messages,
@@ -279,17 +286,40 @@ export function CompanionPanel({
   );
 
   useEffect(() => {
-    if (!initialQuery?.trim()) {
+    const trimmed = initialQuery?.trim();
+    if (!trimmed) {
       lastHandoffQueryRef.current = null;
+      handoffInFlightRef.current = null;
       return;
     }
+
+    setQuery(trimmed);
+    setShowSuggestions(false);
+
     if (!shouldAutoSubmitHandoffQuery(initialQuery, hydrated, lastHandoffQueryRef.current)) {
       return;
     }
-    lastHandoffQueryRef.current = initialQuery.trim();
-    setShowSuggestions(false);
-    void submitQuestion({ question: initialQuery.trim() });
-  }, [initialQuery, submitQuestion, hydrated]);
+
+    if (handoffInFlightRef.current === trimmed) {
+      return;
+    }
+
+    handoffInFlightRef.current = trimmed;
+
+    void (async () => {
+      try {
+        const submitted = await submitQuestion({ question: trimmed });
+        if (submitted) {
+          lastHandoffQueryRef.current = trimmed;
+        }
+      } finally {
+        if (handoffInFlightRef.current === trimmed) {
+          handoffInFlightRef.current = null;
+        }
+        companionCtx?.clearDrawerQuery();
+      }
+    })();
+  }, [initialQuery, submitQuestion, hydrated, companionCtx]);
 
   function startNewConversation() {
     setMessages([]);
