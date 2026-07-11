@@ -27,6 +27,10 @@ function testLightweightRouteClassification() {
 
 function testRouteTimeouts() {
   assert.equal(resolveCompanionTurnTimeoutMs("lightweight"), 8_000);
+  assert.equal(
+    resolveCompanionTurnTimeoutMs("lightweight", { query: "Hvem jobber du for?" }),
+    15_000,
+  );
   assert.equal(resolveCompanionTurnTimeoutMs("foundation"), 15_000);
   assert.equal(resolveCompanionTurnTimeoutMs("exact_source"), 30_000);
   assert.equal(resolveCompanionTurnTimeoutMs("full"), 60_000);

@@ -140,7 +140,9 @@ export async function processWorkerQueueJob(
       hasActiveArtifact: Boolean(job.active_artifact_id),
     },
   );
-  const turnTimeoutMs = resolveCompanionTurnTimeoutMs(turnRoute);
+  const turnTimeoutMs = resolveCompanionTurnTimeoutMs(turnRoute, {
+    query: job.question_text,
+  });
 
   logCompanionWorkerEvent("job_start", {
     queueId: job.id,
