@@ -26,6 +26,10 @@ export type ExecuteDirectCompanionTurnInput = {
   activeArtifactId?: string | null;
   attachmentSummaries?: unknown[];
   requestId?: string;
+  /** Test-only override for lightweight direct turn execution. */
+  __testLightweightTurnExecutor?: typeof executeCompanionTurnToPayload;
+  /** Test-only override for lightweight direct turn timeout budget. */
+  __testLightweightTimeoutMs?: number;
 };
 
 export type ExecuteDirectCompanionTurnResult =
@@ -227,21 +231,24 @@ export async function executeDirectCompanionTurn(
     };
     capability = datetimeAnswer.sourceId ?? "direct.datetime";
   } else if (directRoute === "lightweight") {
+    const lightweightTurnExecutor =
+      input.__testLightweightTurnExecutor ?? executeCompanionTurnToPayload;
     const turnResult = await runTurnWithTimeout(
-      executeCompanionTurnToPayload(supabase, {
+      lightweightTurnExecutor(supabase, {
         query: question,
         locale: input.locale,
         conversationId: input.conversationId,
         turnRoute: "lightweight",
         pageContext: input.pageContext,
       }),
-      3_000,
+      input.__testLightweightTimeoutMs ?? 3_000,
     );
 
     if (!turnResult.ok) {
       return {
         ok: false,
         error: "turn_timeout",
+        should_queue: true,
         route: "lightweight",
         duration_ms: Date.now() - started,
       };
