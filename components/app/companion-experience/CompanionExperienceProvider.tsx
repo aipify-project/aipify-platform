@@ -33,6 +33,7 @@ type CompanionExperienceContextValue = {
   openDrawerCompact: () => void;
   openDrawerWithQuery: (query: string) => void;
   openDrawerWithConversation: (conversationId: string) => void;
+  clearDrawerQuery: () => void;
   drawerQuery: string | null;
   drawerConversationId: string | null;
   closeDrawer: () => void;
@@ -139,6 +140,10 @@ export function CompanionExperienceProvider({
     [organizationKey, pathname, openDrawerCompact],
   );
 
+  const clearDrawerQuery = useCallback(() => {
+    setDrawerQuery(null);
+  }, []);
+
   const value = useMemo(
     () => ({
       open,
@@ -151,6 +156,7 @@ export function CompanionExperienceProvider({
       openDrawerCompact,
       openDrawerWithQuery,
       openDrawerWithConversation,
+      clearDrawerQuery,
       drawerQuery,
       drawerConversationId,
       closeDrawer,
@@ -169,6 +175,7 @@ export function CompanionExperienceProvider({
       openDrawerCompact,
       openDrawerWithQuery,
       openDrawerWithConversation,
+      clearDrawerQuery,
       drawerQuery,
       drawerConversationId,
       closeDrawer,
