@@ -10,7 +10,6 @@ import sharp from "sharp";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
 const publicDir = join(root, "public");
-const appDir = join(root, "app");
 const brandDir = join(root, "assets", "brand");
 
 const masterSvg = readFileSync(join(brandDir, "aipify-symbol.svg"));
@@ -42,11 +41,9 @@ async function main() {
   copyFileSync(join(brandDir, "safari-pinned-tab.svg"), join(publicDir, "safari-pinned-tab.svg"));
   console.log("✓ public/favicon.svg, public/safari-pinned-tab.svg");
 
-  copyFileSync(join(brandDir, "aipify-symbol.svg"), join(appDir, "icon.svg"));
-  console.log("✓ app/icon.svg");
-
-  // Apple touch icon is served from public/apple-touch-icon.png via AIPIFY_GLOBAL_ICONS
-  // (app/apple-icon.png file-based metadata breaks Vercel split-build onBuildComplete)
+  // Icons are served from public/ via AIPIFY_GLOBAL_ICONS (lib/branding/favicon-metadata.ts).
+  // Do not write app/icon.svg, app/favicon.ico, or app/apple-icon.png — file-based metadata
+  // under app/ breaks Vercel split-build onBuildComplete (ENOTDIR on app/*/route).
 
   const icoSizes = [16, 32, 48];
   const icoBuffers = await Promise.all(
@@ -57,9 +54,8 @@ async function main() {
 
   const { default: pngToIco } = await import("png-to-ico");
   const ico = await pngToIco(icoBuffers);
-  writeFileSync(join(appDir, "favicon.ico"), ico);
   writeFileSync(join(publicDir, "favicon.ico"), ico);
-  console.log("✓ app/favicon.ico, public/favicon.ico");
+  console.log("✓ public/favicon.ico");
 }
 
 main().catch((err) => {
