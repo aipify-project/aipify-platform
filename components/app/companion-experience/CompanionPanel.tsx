@@ -92,6 +92,8 @@ export function CompanionPanel({
   const initialConversationAppliedRef = useRef(false);
   const lastHandoffQueryRef = useRef<string | null>(null);
   const handoffInFlightRef = useRef<string | null>(null);
+  const submitInFlightRef = useRef(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => traceCompanionMount("CompanionPanel"), []);
 
@@ -169,7 +171,7 @@ export function CompanionPanel({
   }, [onClose]);
 
   const routeSuggestions = useMemo(() => resolveCompanionSuggestions(pathname), [pathname]);
-  const isActiveConversation = messages.length > 0 || loading || queue.length > 0;
+  const isActiveConversation = messages.length > 0 || loading || submitting || queue.length > 0;
   const restoreNotice =
     restoreFailed && hydrated && messages.length === 0 ? labels.queue.restoreError : null;
   const queueDispatchError = workerDispatchError
@@ -241,7 +243,10 @@ export function CompanionPanel({
       const trimmed = input.question.trim();
       const hasAttachments = (input.attachmentIds?.length ?? 0) > 0;
       if (!trimmed && !hasAttachments) return false;
+      if (submitInFlightRef.current) return false;
 
+      submitInFlightRef.current = true;
+      setSubmitting(true);
       setSyncError(false);
       setShowSuggestions(false);
       notifyUserSentMessage();
@@ -252,26 +257,31 @@ export function CompanionPanel({
         .reverse()
         .find((message) => message.role === "aipify" && message.platformSnapshotCard);
 
-      const ok = await enqueueQuestion({
-        question: trimmed || (hasAttachments ? labels.attachments.activeBadge : ""),
-        attachmentIds: input.attachmentIds,
-        activeArtifactId: input.activeArtifactId,
-        attachmentSummaries: input.attachmentSummaries,
-        title: trimmed || labels.attachments.stagedTitle,
-        platformActiveModules: lastSnapshot?.platformSnapshotCard?.activeModules,
-      });
+      try {
+        const ok = await enqueueQuestion({
+          question: trimmed || (hasAttachments ? labels.attachments.activeBadge : ""),
+          attachmentIds: input.attachmentIds,
+          activeArtifactId: input.activeArtifactId,
+          attachmentSummaries: input.attachmentSummaries,
+          title: trimmed || labels.attachments.stagedTitle,
+          platformActiveModules: lastSnapshot?.platformSnapshotCard?.activeModules,
+        });
 
-      if (!ok) {
-        setSyncError(true);
-        if (trimmed) {
-          setQuery(trimmed);
-          patchCompanionUiSession({ draftText: trimmed, organizationKey, pathname }, organizationKey);
+        if (!ok) {
+          setSyncError(true);
+          if (trimmed) {
+            setQuery(trimmed);
+            patchCompanionUiSession({ draftText: trimmed, organizationKey, pathname }, organizationKey);
+          }
+          return false;
         }
-        return false;
-      }
 
-      void refreshRecentConversations();
-      return true;
+        void refreshRecentConversations();
+        return true;
+      } finally {
+        submitInFlightRef.current = false;
+        setSubmitting(false);
+      }
     },
     [
       messages,
@@ -293,10 +303,19 @@ export function CompanionPanel({
       return;
     }
 
-    setQuery(trimmed);
     setShowSuggestions(false);
 
-    if (!shouldAutoSubmitHandoffQuery(initialQuery, hydrated, lastHandoffQueryRef.current)) {
+    const alreadySubmitted = lastHandoffQueryRef.current === trimmed;
+    const shouldAutoSubmit = shouldAutoSubmitHandoffQuery(
+      initialQuery,
+      hydrated,
+      lastHandoffQueryRef.current,
+    );
+
+    if (!shouldAutoSubmit) {
+      if (!alreadySubmitted) {
+        setQuery(trimmed);
+      }
       return;
     }
 
@@ -305,6 +324,7 @@ export function CompanionPanel({
     }
 
     handoffInFlightRef.current = trimmed;
+    companionCtx?.clearDrawerQuery();
 
     void (async () => {
       try {
@@ -316,7 +336,6 @@ export function CompanionPanel({
         if (handoffInFlightRef.current === trimmed) {
           handoffInFlightRef.current = null;
         }
-        companionCtx?.clearDrawerQuery();
       }
     })();
   }, [initialQuery, submitQuestion, hydrated, companionCtx]);
@@ -704,7 +723,7 @@ export function CompanionPanel({
               <CompanionAttachmentComposer
                 query={query}
                 setQuery={setQuery}
-                loading={false}
+                loading={loading || submitting}
                 labels={labels}
                 conversationId={activeConversationId}
                 onSubmit={(payload) =>
@@ -778,7 +797,7 @@ export function CompanionPanel({
 
           <CompanionChat
             messages={messages}
-            loading={loading}
+            loading={loading || submitting}
             labels={labels}
             spacious={isActiveConversation}
             conversationId={activeConversationId}
@@ -818,7 +837,7 @@ export function CompanionPanel({
             <CompanionAttachmentComposer
               query={query}
               setQuery={setQuery}
-              loading={false}
+              loading={loading || submitting}
               labels={labels}
               conversationId={activeConversationId}
               onSubmit={(payload) =>

@@ -51,7 +51,9 @@ export function useCompanionPersistentChat({
 
   useEffect(() => traceCompanionMount("useCompanionPersistentChat"), []);
 
-  const loading = queue.some((item) => item.status === "processing");
+  const loading = queue.some(
+    (item) => item.status === "waiting" || item.status === "processing",
+  );
 
   const detectDispatchStall = useCallback((items: CompanionQueueItem[]) => {
     const now = Date.now();
