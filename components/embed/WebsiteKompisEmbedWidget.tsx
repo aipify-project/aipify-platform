@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { AipifyCompanionLauncherIcon } from "@/components/branding/AipifyCompanionLauncherIcon";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import type { CompanionLauncherIconEmbedConfig } from "@/lib/branding/companion-launcher-icon";
@@ -9,7 +9,9 @@ import {
   buildWebsiteKompisAskPayload,
   buildWebsiteKompisMetadataRequestPath,
   parseWebsiteKompisEmbedPageContextMessage,
+  parseWebsiteKompisEmbedSessionMessage,
   WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE,
+  WEBSITE_KOMPIS_EMBED_SESSION_HEADER,
   type WebsiteKompisEmbedLocale,
   type WebsiteKompisEmbedRecentContextMessage,
 } from "@/lib/marketing/website-kompis-embed";
@@ -67,11 +69,19 @@ export function WebsiteKompisEmbedWidget({
   const [pageContext, setPageContext] = useState<WebsiteKompisPublicPageContext | undefined>(
     undefined,
   );
+  const embedSessionRef = useRef<string | null>(null);
+  const [embedSessionReady, setEmbedSessionReady] = useState(false);
 
   useEffect(() => {
     function handleMessage(event: MessageEvent) {
       if (event.source !== window.parent) {
         return;
+      }
+
+      const nextSession = parseWebsiteKompisEmbedSessionMessage(event.data);
+      if (nextSession) {
+        embedSessionRef.current = nextSession.embedSession;
+        setEmbedSessionReady(true);
       }
 
       const nextPageContext = parseWebsiteKompisEmbedPageContextMessage(event.data);
@@ -89,6 +99,10 @@ export function WebsiteKompisEmbedWidget({
   }, []);
 
   useEffect(() => {
+    if (!embedSessionReady || !embedSessionRef.current) {
+      return;
+    }
+
     let cancelled = false;
 
     async function loadMetadata() {
@@ -96,6 +110,11 @@ export function WebsiteKompisEmbedWidget({
       try {
         const response = await fetch(
           buildWebsiteKompisMetadataRequestPath({ installId, domain }),
+          {
+            headers: {
+              [WEBSITE_KOMPIS_EMBED_SESSION_HEADER]: embedSessionRef.current ?? "",
+            },
+          },
         );
         if (!response.ok) {
           throw new Error("metadata request failed");
@@ -115,7 +134,7 @@ export function WebsiteKompisEmbedWidget({
     return () => {
       cancelled = true;
     };
-  }, [domain, installId]);
+  }, [domain, embedSessionReady, installId]);
 
   const hidden = shouldHideWebsiteKompisLauncherFromEmbedMetadata(metadata);
   const unavailable = metadataState === "error" || (metadataState === "ready" && hidden);
@@ -140,9 +159,14 @@ export function WebsiteKompisEmbedWidget({
       setSending(true);
 
       try {
+        const sessionHeaders: HeadersInit = { "Content-Type": "application/json" };
+        if (embedSessionRef.current) {
+          sessionHeaders[WEBSITE_KOMPIS_EMBED_SESSION_HEADER] = embedSessionRef.current;
+        }
+
         const response = await fetch("/api/marketing/companion/ask", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: sessionHeaders,
           body: JSON.stringify(
             buildWebsiteKompisAskPayload({
               question: validation.question,
@@ -201,7 +225,7 @@ export function WebsiteKompisEmbedWidget({
     [draft, messages, sending, submitQuestion],
   );
 
-  if (metadataState === "loading") {
+  if (metadataState === "loading" || !embedSessionReady) {
     return (
       <div className="flex min-h-dvh items-center justify-center">
         <AipifyLoader size="sm" centered={false} label="" />

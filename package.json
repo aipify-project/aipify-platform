@@ -48,6 +48,7 @@
   "dependencies": {
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.108.1",
+    "@upstash/redis": "^1.38.0",
     "lottie-web": "^5.13.0",
     "lucide-react": "^1.21.0",
     "next": "16.2.9",
