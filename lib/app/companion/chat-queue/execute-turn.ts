@@ -8,6 +8,7 @@ import {
 } from "@/lib/app-portal/support-assistant";
 import { classifyExternalProviderHandoffFromRegistry } from "@/lib/integration-intelligence/external-applications/handoff-bridge";
 import { assertCanvaHandoffPermissionForRole } from "@/lib/integration-intelligence/providers/canva/permissions";
+import { shouldRouteThroughAipifyCore } from "@/lib/companion-platform-knowledge/aipify-core-runtime";
 import {
   companionDictionarySplitsForTurnRoute,
   companionDirectTurnDictionarySplits,
@@ -75,6 +76,9 @@ function lightweightTurnNeedsPlatformKnowledge(
   query: string,
   locale: CustomerActiveLocale,
 ): boolean {
+  if (shouldRouteThroughAipifyCore(query)) {
+    return true;
+  }
   const intent = resolveSupportSemanticIntent({ query, locale });
   return hasSupportAssignIntent(query, intent);
 }
