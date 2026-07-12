@@ -13,10 +13,7 @@ import {
   WEBSITE_KOMPIS_EMBED_SESSION_HEADER,
 } from "@/lib/marketing/website-kompis-embed-session";
 import { normalizeWebsiteKompisEmbedInstallId } from "@/lib/marketing/website-kompis-embed";
-import {
-  assertWebsiteKompisPublicRateLimit,
-  websiteKompisPublicClientIp,
-} from "@/lib/marketing/website-kompis-public-rate-limit";
+import { assertWebsiteKompisPublicRateLimit } from "@/lib/marketing/website-kompis-public-rate-limit";
 import {
   resolveWebsiteKompisLicensedAvailabilityForPublicTenant,
   resolveWebsiteKompisPublicInstallDomainTrust,
@@ -77,6 +74,40 @@ function failure(input: WebsiteKompisPublicSecurityFailure): WebsiteKompisPublic
     retryAfterSeconds: input.retryAfterSeconds,
   });
   return input;
+}
+
+function mapWebsiteKompisRateLimitFailure(
+  result: Extract<
+    Awaited<ReturnType<typeof assertWebsiteKompisPublicRateLimit>>,
+    { allowed: false }
+  >,
+  input: { limitedCode: string; limitedEvent: string },
+): WebsiteKompisPublicSecurityFailure {
+  if ("backendUnavailable" in result && result.backendUnavailable) {
+    return failure({
+      ok: false,
+      status: 503,
+      code: "rate_limit_backend_unavailable",
+      logEvent: "wk_rate_limit_backend_unavailable",
+    });
+  }
+
+  if (result.status !== 429) {
+    return failure({
+      ok: false,
+      status: 503,
+      code: "rate_limit_backend_unavailable",
+      logEvent: "wk_rate_limit_backend_unavailable",
+    });
+  }
+
+  return failure({
+    ok: false,
+    status: 429,
+    code: input.limitedCode,
+    retryAfterSeconds: result.retryAfterSeconds,
+    logEvent: input.limitedEvent,
+  });
 }
 
 function parseValidatedBrowserOrigin(request: Request): {
@@ -142,19 +173,15 @@ export async function issueWebsiteKompisEmbedSessionForRequest(
     });
   }
 
-  const ip = websiteKompisPublicClientIp(request);
-  const bootstrapLimit = assertWebsiteKompisPublicRateLimit({
+  const bootstrapIpLimit = await assertWebsiteKompisPublicRateLimit({
     category: "bootstrap",
-    ip,
-    installId,
+    request,
+    scopes: ["ip"],
   });
-  if (!bootstrapLimit.allowed) {
-    return failure({
-      ok: false,
-      status: 429,
-      code: "bootstrap_rate_limited",
-      retryAfterSeconds: bootstrapLimit.retryAfterSeconds,
-      logEvent: "bootstrap_rate_limited",
+  if (!bootstrapIpLimit.allowed) {
+    return mapWebsiteKompisRateLimitFailure(bootstrapIpLimit, {
+      limitedCode: "bootstrap_rate_limited",
+      limitedEvent: "bootstrap_rate_limited",
     });
   }
 
@@ -185,6 +212,19 @@ export async function issueWebsiteKompisEmbedSessionForRequest(
       status: 403,
       code: "entitlement_rejected",
       logEvent: "entitlement_rejected",
+    });
+  }
+
+  const bootstrapInstallLimit = await assertWebsiteKompisPublicRateLimit({
+    category: "bootstrap",
+    request,
+    installId: trust.installId,
+    scopes: ["install"],
+  });
+  if (!bootstrapInstallLimit.allowed) {
+    return mapWebsiteKompisRateLimitFailure(bootstrapInstallLimit, {
+      limitedCode: "bootstrap_rate_limited",
+      limitedEvent: "bootstrap_rate_limited",
     });
   }
 
@@ -280,21 +320,17 @@ export async function assertWebsiteKompisEmbedProtectedRequest(
     });
   }
 
-  const ip = websiteKompisPublicClientIp(request);
-  const rateLimit = assertWebsiteKompisPublicRateLimit({
+  const rateLimit = await assertWebsiteKompisPublicRateLimit({
     category: input.category,
-    ip,
+    request,
     installId: trust.installId,
     tenantId: trust.tenantId,
   });
 
   if (!rateLimit.allowed) {
-    return failure({
-      ok: false,
-      status: 429,
-      code: input.category === "ask" ? "ask_rate_limited" : "launcher_rate_limited",
-      retryAfterSeconds: rateLimit.retryAfterSeconds,
-      logEvent: input.category === "ask" ? "ask_rate_limited" : "launcher_rate_limited",
+    return mapWebsiteKompisRateLimitFailure(rateLimit, {
+      limitedCode: input.category === "ask" ? "ask_rate_limited" : "launcher_rate_limited",
+      limitedEvent: input.category === "ask" ? "ask_rate_limited" : "launcher_rate_limited",
     });
   }
 

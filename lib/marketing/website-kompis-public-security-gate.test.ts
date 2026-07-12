@@ -1,21 +1,10 @@
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import {
-  embedSessionMatchesInstallContext,
-  issueWebsiteKompisEmbedSession,
-  verifyWebsiteKompisEmbedSession,
-  WEBSITE_KOMPIS_EMBED_SESSION_TTL_SECONDS,
-} from "@/lib/marketing/website-kompis-embed-session";
-import {
   isWebsiteKompisAllowedDevOriginHostname,
   parseWebsiteKompisRequestOriginHostname,
   websiteKompisOriginHostnamesMatch,
 } from "@/lib/marketing/website-kompis-embed-origin";
-import {
-  assertWebsiteKompisPublicRateLimit,
-  resetWebsiteKompisPublicRateLimitsForTests,
-  WEBSITE_KOMPIS_PUBLIC_RATE_LIMIT_POLICY,
-} from "@/lib/marketing/website-kompis-public-rate-limit";
 import {
   parseWebsiteKompisEmbedSessionMessage,
   WEBSITE_KOMPIS_EMBED_SESSION_MESSAGE_TYPE,
@@ -40,6 +29,13 @@ function installServerOnlyShim(): void {
     }
     return originalLoad.call(this, request, parent, isMain);
   };
+}
+
+function requestWithIp(ip: string): Request {
+  return new Request("https://aipify.ai/api/marketing/companion/ask", {
+    method: "POST",
+    headers: { "x-forwarded-for": ip },
+  });
 }
 
 function withTestSecret<T>(run: () => T): T {
@@ -69,7 +65,24 @@ function assertNoPilotRuntimeStrings(source: string): void {
 
 async function runWebsiteKompisPublicSecurityGateTests() {
   installServerOnlyShim();
-  resetWebsiteKompisPublicRateLimitsForTests();
+  const {
+    embedSessionMatchesInstallContext,
+    issueWebsiteKompisEmbedSession,
+    verifyWebsiteKompisEmbedSession,
+    WEBSITE_KOMPIS_EMBED_SESSION_TTL_SECONDS,
+  } = await import("@/lib/marketing/website-kompis-embed-session");
+  const {
+    assertWebsiteKompisPublicRateLimit,
+    clearWebsiteKompisPublicRateLimitsForTests,
+    configureWebsiteKompisPublicRateLimitsForTests,
+    WEBSITE_KOMPIS_PUBLIC_RATE_LIMIT_POLICY,
+  } = await import("@/lib/marketing/website-kompis-public-rate-limit");
+
+  clearWebsiteKompisPublicRateLimitsForTests();
+  configureWebsiteKompisPublicRateLimitsForTests({});
+
+  const previousEmbedSecret = process.env.WEBSITE_KOMPIS_EMBED_SESSION_SECRET;
+  process.env.WEBSITE_KOMPIS_EMBED_SESSION_SECRET = TEST_SECRET;
 
   assert.equal(parseWebsiteKompisRequestOriginHostname("https://example-a.test"), NEUTRAL_DOMAIN);
   assert.equal(parseWebsiteKompisRequestOriginHostname("null"), null);
@@ -133,7 +146,7 @@ async function runWebsiteKompisPublicSecurityGateTests() {
   });
   assert.equal(parseWebsiteKompisEmbedSessionMessage({ type: "other" }), undefined);
 
-  const ip = "203.0.113.10";
+  const request = requestWithIp("203.0.113.10");
   const installA = NEUTRAL_INSTALL_ID;
   const installB = "22222222-2222-4222-8222-222222222222";
   const tenantA = NEUTRAL_TENANT_ID;
@@ -141,53 +154,59 @@ async function runWebsiteKompisPublicSecurityGateTests() {
   const now = 1_700_000_000_000;
 
   for (let index = 0; index < WEBSITE_KOMPIS_PUBLIC_RATE_LIMIT_POLICY.ask.installMax; index += 1) {
-    const allowed = assertWebsiteKompisPublicRateLimit({
+    const allowed = await assertWebsiteKompisPublicRateLimit({
       category: "ask",
-      ip,
+      request,
       installId: installA,
       tenantId: tenantA,
-      now,
+      nowMs: now,
     });
     assert.equal(allowed.allowed, true);
   }
 
-  const askLimited = assertWebsiteKompisPublicRateLimit({
+  const askLimited = await assertWebsiteKompisPublicRateLimit({
     category: "ask",
-    ip,
+    request,
     installId: installA,
     tenantId: tenantA,
-    now,
+    nowMs: now,
   });
   assert.equal(askLimited.allowed, false);
   if (askLimited.allowed) return;
+  assert.equal(askLimited.status, 429);
   assert.equal(askLimited.retryAfterSeconds >= 1, true);
 
-  const tenantBStillAllowed = assertWebsiteKompisPublicRateLimit({
+  const tenantBStillAllowed = await assertWebsiteKompisPublicRateLimit({
     category: "ask",
-    ip,
+    request,
     installId: installB,
     tenantId: tenantB,
-    now,
+    nowMs: now,
   });
   assert.equal(tenantBStillAllowed.allowed, true);
 
-  resetWebsiteKompisPublicRateLimitsForTests();
+  clearWebsiteKompisPublicRateLimitsForTests();
+  configureWebsiteKompisPublicRateLimitsForTests({});
   for (let index = 0; index < WEBSITE_KOMPIS_PUBLIC_RATE_LIMIT_POLICY.bootstrap.installMax; index += 1) {
     assert.equal(
-      assertWebsiteKompisPublicRateLimit({
-        category: "bootstrap",
-        ip,
-        installId: installA,
-        now,
-      }).allowed,
+      (
+        await assertWebsiteKompisPublicRateLimit({
+          category: "bootstrap",
+          request,
+          installId: installA,
+          scopes: ["install"],
+          nowMs: now,
+        })
+      ).allowed,
       true,
     );
   }
-  const bootstrapLimited = assertWebsiteKompisPublicRateLimit({
+  const bootstrapLimited = await assertWebsiteKompisPublicRateLimit({
     category: "bootstrap",
-    ip,
+    request,
     installId: installA,
-    now,
+    scopes: ["install"],
+    nowMs: now,
   });
   assert.equal(bootstrapLimited.allowed, false);
 
@@ -196,6 +215,12 @@ async function runWebsiteKompisPublicSecurityGateTests() {
   assertNoPilotRuntimeStrings(String(gateSource.assertWebsiteKompisEmbedProtectedRequest));
 
   assert.equal(isWebsiteKompisAllowedDevOriginHostname("localhost"), process.env.NODE_ENV !== "production");
+
+  if (previousEmbedSecret === undefined) {
+    delete process.env.WEBSITE_KOMPIS_EMBED_SESSION_SECRET;
+  } else {
+    process.env.WEBSITE_KOMPIS_EMBED_SESSION_SECRET = previousEmbedSecret;
+  }
 }
 
 void runWebsiteKompisPublicSecurityGateTests()
