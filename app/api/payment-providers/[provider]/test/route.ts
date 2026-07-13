@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { guardPrivilegedPlatformScopeSession } from "@/lib/auth/platform-server-access";
 import {
   decryptPaymentCredential,
   parseProviderCard,
@@ -25,6 +26,11 @@ export async function POST(request: Request, context: RouteContext) {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    if (scope === "platform") {
+      const platformGuard = await guardPrivilegedPlatformScopeSession(supabase, scope);
+      if (platformGuard) return platformGuard;
+    }
 
     const { data: encryptedData, error: fetchError } = await supabase.rpc(
       "get_payment_provider_encrypted_credentials",

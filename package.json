@@ -25,7 +25,7 @@
     "test:ecc-tab-datasets": "npx --yes tsx lib/command-center/ecc-tab-datasets.test.ts",
     "test:marketing-i18n": "npx --yes tsx lib/marketing/marketing-i18n.test.ts",
     "test:organization-access-approval": "npx --yes tsx lib/core/organization-access-approval/organization-access-approval.test.ts",
-    "test:platform-mfa-boundary": "npx --yes tsx lib/auth/platform-mfa-server-boundary.test.ts && npx --yes tsx lib/auth/two-factor-session-gate-regression.test.ts && npx --yes tsx lib/portals/portal-auth.test.ts",
+    "test:platform-mfa-boundary": "npx --yes tsx lib/auth/platform-mfa-server-boundary.test.ts && npx --yes tsx lib/auth/platform-privileged-request.test.ts && npx --yes tsx lib/auth/platform-mfa-api-guards.test.ts && npx --yes tsx lib/auth/platform-mfa-api-route.integration.test.ts && npx --yes tsx lib/auth/two-factor-session-gate-regression.test.ts && npx --yes tsx lib/portals/portal-auth.test.ts",
     "test:companion-foundation-locale-hotfix": "npx --yes tsx lib/companion-runtime/platform-foundation-message-locale-hotfix.test.ts",
     "validate:marketing-i18n": "npx --yes tsx scripts/validate-marketing-i18n.ts",
     "sync:marketing-i18n": "node scripts/sync-marketing-i18n.mjs",

@@ -1,8 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession, withPathnameRequestHeaders } from "@/lib/supabase/update-session";
 import {
-  guardPrivilegedPlatformApi,
-  isPrivilegedPlatformApiPath,
+  authGuardUnavailableResponse,
+  classifyPrivilegedPlatformRequest,
+  guardPrivilegedPlatformApiByClassification,
+  PlatformAuthGuardUnavailableError,
 } from "@/lib/auth/platform-server-access";
 import { createServerClient } from "@supabase/ssr";
 import { mergeAuthCookieOptions } from "@/lib/supabase/auth-cookies";
@@ -53,9 +55,14 @@ export async function proxy(request: NextRequest) {
   if (strippedIntent) return strippedIntent;
 
   const pathname = request.nextUrl.pathname;
+  const classification = classifyPrivilegedPlatformRequest({
+    pathname,
+    method: request.method,
+    searchParams: request.nextUrl.searchParams,
+  });
 
-  if (isPrivilegedPlatformApiPath(pathname)) {
-    const platformApiGuard = await enforcePrivilegedPlatformApiAtEdge(request);
+  if (classification.privileged) {
+    const platformApiGuard = await enforcePrivilegedPlatformApiAtEdge(request, classification);
     if (platformApiGuard) return platformApiGuard;
   }
 
@@ -70,10 +77,13 @@ export async function proxy(request: NextRequest) {
 
 async function enforcePrivilegedPlatformApiAtEdge(
   request: NextRequest,
+  classification: ReturnType<typeof classifyPrivilegedPlatformRequest>,
 ): Promise<NextResponse | null> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anonKey) return null;
+  if (!url || !anonKey) {
+    return authGuardUnavailableResponse();
+  }
 
   let response = NextResponse.next({
     request: { headers: withPathnameRequestHeaders(request) },
@@ -99,7 +109,14 @@ async function enforcePrivilegedPlatformApiAtEdge(
     },
   });
 
-  return guardPrivilegedPlatformApi(supabase);
+  try {
+    return await guardPrivilegedPlatformApiByClassification(supabase, classification);
+  } catch (error) {
+    if (error instanceof PlatformAuthGuardUnavailableError) {
+      return authGuardUnavailableResponse();
+    }
+    throw error;
+  }
 }
 
 export const config = {

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { guardPrivilegedPlatformPortalSession } from "@/lib/auth/platform-server-access";
 import { buildCommandBarLabels, fetchCommandBarRecommendations } from "@/lib/command-bar";
 import type { CommandBarPortal } from "@/lib/command-bar/types";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
@@ -22,6 +23,9 @@ export async function GET(request: Request) {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const platformGuard = await guardPrivilegedPlatformPortalSession(supabase, portal);
+    if (platformGuard) return platformGuard;
 
     const locale = await getLocale();
     const dict = await getDictionary(locale, ["commandBar"]);

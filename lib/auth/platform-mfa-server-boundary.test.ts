@@ -5,7 +5,10 @@ import {
   isPlatformPortalDestination,
   resolveMfaSuccessDestination,
 } from "./two-factor/mfa-portal-routing";
-import { isPrivilegedPlatformApiPath } from "./platform-server-access";
+import {
+  classifyPrivilegedPlatformRequest,
+  isPrivilegedPlatformApiPath,
+} from "./platform-privileged-request";
 
 function test(name: string, fn: () => void) {
   try {
@@ -71,7 +74,7 @@ test("missing next resolves to platform for platform MFA verify", () => {
   assert.equal(resolveMfaSuccessDestination(null, "customer"), "/app/command-center");
 });
 
-test("privileged platform API path coverage", () => {
+test("privileged platform API path coverage includes alternate families", () => {
   const covered = [
     "/api/platform/navigation",
     "/api/platform-admin/audit",
@@ -79,6 +82,10 @@ test("privileged platform API path coverage", () => {
     "/api/platform-portal/dashboard",
     "/api/aipify/platform-install/trial/cancel",
     "/api/aipify/platform-integrity/briefings/generate",
+    "/api/customer-success-operations/overview",
+    "/api/subscription-operations/overview",
+    "/api/executive-operations-center/overview",
+    "/api/aipify/install/unonight/status",
   ];
 
   for (const path of covered) {
@@ -88,6 +95,25 @@ test("privileged platform API path coverage", () => {
   assert.equal(isPrivilegedPlatformApiPath("/api/aipify/v1/platform-snapshot"), false);
   assert.equal(isPrivilegedPlatformApiPath("/api/auth/2fa/status"), false);
   assert.equal(isPrivilegedPlatformApiPath("/api/app/organization-context"), false);
+  assert.equal(isPrivilegedPlatformApiPath("/api/incidents"), false);
+  assert.equal(isPrivilegedPlatformApiPath("/api/observability/status"), false);
+});
+
+test("command-bar requires request-aware classification", () => {
+  assert.equal(
+    classifyPrivilegedPlatformRequest({
+      pathname: "/api/command-bar/search",
+      searchParams: new URLSearchParams("portal=platform"),
+    }).privileged,
+    true,
+  );
+  assert.equal(
+    classifyPrivilegedPlatformRequest({
+      pathname: "/api/command-bar/search",
+      searchParams: new URLSearchParams("portal=customer"),
+    }).privileged,
+    false,
+  );
 });
 
 console.log("platform-mfa-server-boundary.test.ts: all assertions passed");
