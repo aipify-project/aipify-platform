@@ -36,6 +36,7 @@ function readyContext(overrides: Partial<AppOrganizationContext> = {}): AppOrgan
     has_organization_membership: true,
     has_app_access: true,
     can_access_self_support: true,
+    eligible_organization_count: null,
     ...overrides,
   };
 }
@@ -95,6 +96,21 @@ assert.equal(
   resolveSidebarPhaseAfterFetch({
     fetchResult: { ok: true, context: readyContext({ state: "membership_missing" }) },
     context: readyContext({ state: "membership_missing" }),
+    profileFallback: { companyName: "Customer Org", isPlatform: false },
+  }),
+  "organization_missing",
+);
+
+const selectionRequiredContext = readyContext({
+  state: "selection_required",
+  eligible_organization_count: 2,
+});
+assert.equal(isRealOrganizationMissingState("selection_required"), true);
+assert.equal(isTransientOrganizationContext(selectionRequiredContext), false);
+assert.equal(
+  resolveSidebarPhaseAfterFetch({
+    fetchResult: { ok: true, context: selectionRequiredContext },
+    context: selectionRequiredContext,
     profileFallback: { companyName: "Customer Org", isPlatform: false },
   }),
   "organization_missing",
