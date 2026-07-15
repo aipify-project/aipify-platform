@@ -169,6 +169,7 @@ const ACCESS_MESSAGES: Record<
   user_not_provisioned: "organizationMissing",
   organization_missing: "organizationMissing",
   membership_missing: "organizationMissing",
+  selection_required: "organizationMissing",
   subscription_inactive: "subscriptionRequired",
   license_inactive: "subscriptionRequired",
   entitlement_missing: "entitlementMissing",
