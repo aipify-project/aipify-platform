@@ -6,7 +6,12 @@ import {
   isCustomerPortalHost,
   isMarketingApexHost,
 } from "@/lib/portals/hosts";
-import { resolvePostLoginPath } from "@/lib/portals/separation";
+import {
+  resolvePortalRouteDecision,
+  resolvePostLoginPath,
+} from "@/lib/portals/separation";
+import type { PlatformAccessProfile } from "@/lib/portals/types";
+import { CUSTOMER_PORTAL_ROUTE } from "@/lib/portals/routes";
 import {
   resolvePostLoginRedirectUrl,
   shouldCanonicalizeToCustomerPortal,
@@ -108,6 +113,71 @@ test("auth cookies use shared production domain on aipify hosts", () => {
   } else {
     assert.equal(merged.domain, undefined);
   }
+});
+
+const platformAdminAccess: PlatformAccessProfile = {
+  isPlatformAdmin: true,
+  isSuperAdmin: true,
+  role: "super_admin",
+};
+
+const customerAccess: PlatformAccessProfile = {
+  isPlatformAdmin: false,
+  isSuperAdmin: false,
+  role: null,
+};
+
+test("customer host allows platform admins on /platform", () => {
+  assert.deepEqual(
+    resolvePortalRouteDecision("/platform", "app.aipify.ai", platformAdminAccess),
+    { action: "continue" },
+  );
+});
+
+test("customer host allows platform admins on nested /platform routes", () => {
+  assert.deepEqual(
+    resolvePortalRouteDecision("/platform/customers", "app.aipify.ai", platformAdminAccess),
+    { action: "continue" },
+  );
+});
+
+test("customer host redirects non-platform users from /platform to /app", () => {
+  assert.deepEqual(
+    resolvePortalRouteDecision("/platform", "app.aipify.ai", customerAccess),
+    { action: "redirect", pathname: CUSTOMER_PORTAL_ROUTE },
+  );
+});
+
+test("customer host redirects non-platform users from nested /platform routes to /app", () => {
+  assert.deepEqual(
+    resolvePortalRouteDecision("/platform/customers", "app.aipify.ai", customerAccess),
+    { action: "redirect", pathname: CUSTOMER_PORTAL_ROUTE },
+  );
+});
+
+test("customer host still blocks /super even for platform admins", () => {
+  assert.deepEqual(
+    resolvePortalRouteDecision("/super", "app.aipify.ai", platformAdminAccess),
+    { action: "redirect", pathname: CUSTOMER_PORTAL_ROUTE },
+  );
+});
+
+test("customer host preserves ordinary /app routes", () => {
+  assert.deepEqual(
+    resolvePortalRouteDecision("/app/command-center", "app.aipify.ai", customerAccess),
+    { action: "continue" },
+  );
+});
+
+test("preview host preserves /platform behavior for platform admins", () => {
+  assert.deepEqual(
+    resolvePortalRouteDecision(
+      "/platform",
+      "aipify-platform-git-main.vercel.app",
+      platformAdminAccess,
+    ),
+    { action: "continue" },
+  );
 });
 
 console.log("portal-auth tests passed");

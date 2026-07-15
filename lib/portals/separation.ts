@@ -36,7 +36,10 @@ export function resolvePortalRouteDecision(
   }
 
   if (isCustomerPortalHost(host)) {
-    if (pathname.startsWith(SUPER_ADMIN_ROUTE) || pathname.startsWith(PLATFORM_ADMIN_ROUTE)) {
+    if (pathname.startsWith(SUPER_ADMIN_ROUTE)) {
+      return { action: "redirect", pathname: CUSTOMER_PORTAL_ROUTE };
+    }
+    if (pathname.startsWith(PLATFORM_ADMIN_ROUTE) && !access.isPlatformAdmin) {
       return { action: "redirect", pathname: CUSTOMER_PORTAL_ROUTE };
     }
   }
