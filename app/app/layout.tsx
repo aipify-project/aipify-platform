@@ -1,4 +1,5 @@
 import CustomerPortalGuard from "@/components/app/CustomerPortalGuard";
+import { AppTenantBootstrapSurface } from "@/components/app/bootstrap/AppTenantBootstrapSurface";
 import TwoFactorSessionGate from "@/components/auth/TwoFactorSessionGate";
 import { DynamicNavigationSuspendedBanner, BusinessPackActivationInProgressBanner, NavigationUseTracker } from "@/components/app/dynamic-navigation";
 import {
@@ -35,10 +36,14 @@ import {
 import { getAppLayoutDictionary, getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { getPlatformAccessProfile } from "@/lib/portals/separation";
 import { buildPwaInstallLabels } from "@/lib/pwa/labels";
 import { createClient } from "@/lib/supabase/server";
+import { resolveAppLayoutBranch } from "@/lib/tenant/resolve-app-layout-branch";
+import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 import AnalyticsConsentProvider from "@/components/analytics/AnalyticsConsentProvider";
 import { buildAnalyticsConsentLabels } from "@/lib/product-analytics/consent";
+import { redirect } from "next/navigation";
 
 /** Authenticated app shell — skip build-time static prerender (700+ routes). */
 export const dynamic = "force-dynamic";
@@ -84,66 +89,98 @@ export default async function AppLayout({
     }));
   }
 
-  try {
-    const supabase = await createClient();
-    const [dynamicRaw, activationGates, featureAccessRaw] = await Promise.all([
-      getDynamicAppNavigation(supabase),
-      getOrganizationBusinessPackActivationGates(supabase).catch(() => ({ found: false as const })),
-      supabase.rpc("get_app_portal_feature_access", { p_feature: "business_packs" }),
-    ]);
-    const dynamicNav = parseDynamicAppNavigation(dynamicRaw);
-    if (dynamicNav?.found) {
-      const built = buildAppNavFromDynamicNavigation(dynamicNav, t);
-      const merged = mergeDynamicWithFallbackNav(built, fallbackGroups, fallbackConfig);
-      navGroups = merged.navGroups;
-      navConfig = merged.navConfig;
-      navSearchIndex = buildNavSearchFromDynamicNavigation(dynamicNav).map((entry) => ({
-        ...entry,
-        groupId: "modules" as const,
-        groupLabel: entry.groupLabel,
-      }));
-      if (navSearchIndex.length === 0) {
-        navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
-      }
-      mobileNavIds = built.mobileNavIds;
-      if (dynamicNav.suspended && dynamicNav.suspended_notice) {
-        suspendedNotice = dynamicNav.suspended_notice;
-      }
-    }
-    showActivationBanner =
-      activationGates.found === true &&
-      (activationGates.items?.some((item) =>
-        ["pending_activation", "validating"].includes(item.activation_status)
-      ) ?? false);
+  const supabase = await createClient();
+  const [{ data: orgContextRaw }, platformAccess] = await Promise.all([
+    supabase.rpc("get_app_organization_context"),
+    getPlatformAccessProfile(supabase),
+  ]);
+  const orgContext = parseAppOrganizationContext(orgContextRaw);
+  const layoutBranch = resolveAppLayoutBranch({
+    state: orgContext.state,
+    hasPlatformAccess: platformAccess.isPlatformAdmin,
+  });
 
-    const featureAccess = featureAccessRaw.error
-      ? null
-      : parseAppPortalFeatureAccess(featureAccessRaw.data);
-    if (featureAccess?.upgrade_required) {
-      navGroups = applyBusinessPackSettingsNavLock(navGroups);
-      navConfig = navConfig.map((item) =>
-        item.id === "businessPackSettings"
-          ? {
-              ...item,
-              locked: true,
-              accessHint: t("customerApp.portalStructure.businessPackSettings.navRequiresUpgrade"),
-            }
-          : item
-      );
-    }
+  if (layoutBranch === "platform") {
+    redirect("/platform");
+  }
 
-    navGroups = await filterNavGroupsByAccess(supabase, navGroups);
-    navConfig = filterFlatNavByAccess(navConfig, navGroups);
-    navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
-    mobileNavIds = mobileNavIds.filter((id) => navConfig.some((item) => item.id === id));
-  } catch {
-    // Fallback to static navigation when dynamic engine unavailable
+  const bootstrapState =
+    orgContext.state === "selection_required" ? "selection_required" : "membership_missing";
+  const bootstrapLabels = {
+    titleSelectionRequired: t("shell.multiTenantArchitecture.organizationSwitcher"),
+    messageSelectionRequired: t("shell.licenseSidebar.organizationMissing"),
+    titleMembershipMissing: t("shell.licenseSidebar.organizationMissing"),
+    messageMembershipMissing: t("shell.licenseSidebar.contextUnavailable"),
+    selectOrganization: t("shell.multiTenantArchitecture.yourOrganizations"),
+    switching: t("shell.multiTenantArchitecture.switchingOrganization"),
+    switchFailed: t("shell.languageSelector.switchFailed"),
+    retry: t("shell.languageSelector.retry"),
+  };
+
+  if (layoutBranch === "shell") {
+    try {
+      const [dynamicRaw, activationGates, featureAccessRaw] = await Promise.all([
+        getDynamicAppNavigation(supabase),
+        getOrganizationBusinessPackActivationGates(supabase).catch(() => ({ found: false as const })),
+        supabase.rpc("get_app_portal_feature_access", { p_feature: "business_packs" }),
+      ]);
+      const dynamicNav = parseDynamicAppNavigation(dynamicRaw);
+      if (dynamicNav?.found) {
+        const built = buildAppNavFromDynamicNavigation(dynamicNav, t);
+        const merged = mergeDynamicWithFallbackNav(built, fallbackGroups, fallbackConfig);
+        navGroups = merged.navGroups;
+        navConfig = merged.navConfig;
+        navSearchIndex = buildNavSearchFromDynamicNavigation(dynamicNav).map((entry) => ({
+          ...entry,
+          groupId: "modules" as const,
+          groupLabel: entry.groupLabel,
+        }));
+        if (navSearchIndex.length === 0) {
+          navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
+        }
+        mobileNavIds = built.mobileNavIds;
+        if (dynamicNav.suspended && dynamicNav.suspended_notice) {
+          suspendedNotice = dynamicNav.suspended_notice;
+        }
+      }
+      showActivationBanner =
+        activationGates.found === true &&
+        (activationGates.items?.some((item) =>
+          ["pending_activation", "validating"].includes(item.activation_status)
+        ) ?? false);
+
+      const featureAccess = featureAccessRaw.error
+        ? null
+        : parseAppPortalFeatureAccess(featureAccessRaw.data);
+      if (featureAccess?.upgrade_required) {
+        navGroups = applyBusinessPackSettingsNavLock(navGroups);
+        navConfig = navConfig.map((item) =>
+          item.id === "businessPackSettings"
+            ? {
+                ...item,
+                locked: true,
+                accessHint: t("customerApp.portalStructure.businessPackSettings.navRequiresUpgrade"),
+              }
+            : item
+        );
+      }
+
+      navGroups = await filterNavGroupsByAccess(supabase, navGroups);
+      navConfig = filterFlatNavByAccess(navConfig, navGroups);
+      navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
+      mobileNavIds = mobileNavIds.filter((id) => navConfig.some((item) => item.id === id));
+    } catch {
+      // Fallback to static navigation when dynamic engine unavailable
+    }
   }
 
   return (
     <AnalyticsConsentProvider labels={analyticsConsentLabels} privacyHref="/privacy">
     <CustomerPortalGuard loadingLabel={t("common.loadingState.preparingContent")}>
       <TwoFactorSessionGate loadingLabel={t("common.loadingState.preparingContent")}>
+      {layoutBranch === "bootstrap" ? (
+        <AppTenantBootstrapSurface state={bootstrapState} labels={bootstrapLabels} />
+      ) : (
       <DashboardProfileProvider>
         <DashboardShell
           appName={t("common.appName")}
@@ -229,6 +266,7 @@ export default async function AppLayout({
           {children}
         </DashboardShell>
       </DashboardProfileProvider>
+      )}
       </TwoFactorSessionGate>
     </CustomerPortalGuard>
     </AnalyticsConsentProvider>
