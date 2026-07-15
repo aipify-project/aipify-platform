@@ -6,6 +6,7 @@ export type AppOrganizationContextState =
   | "user_not_provisioned"
   | "organization_missing"
   | "membership_missing"
+  | "selection_required"
   | "subscription_inactive"
   | "license_inactive"
   | "entitlement_missing"
@@ -29,6 +30,7 @@ export type AppOrganizationContext = {
   has_organization_membership: boolean;
   has_app_access: boolean;
   can_access_self_support: boolean;
+  eligible_organization_count: number | null;
 };
 
 const CONTEXT_STATES = new Set<AppOrganizationContextState>([
@@ -37,6 +39,7 @@ const CONTEXT_STATES = new Set<AppOrganizationContextState>([
   "user_not_provisioned",
   "organization_missing",
   "membership_missing",
+  "selection_required",
   "subscription_inactive",
   "license_inactive",
   "entitlement_missing",
@@ -51,6 +54,19 @@ function str(value: unknown): string | null {
 
 function bool(value: unknown): boolean {
   return value === true;
+}
+
+function nonNegativeCount(value: unknown): number | null {
+  if (typeof value === "number" && Number.isFinite(value) && value >= 0) {
+    return Math.trunc(value);
+  }
+  if (typeof value === "string" && value.trim()) {
+    const parsed = Number(value.trim());
+    if (Number.isFinite(parsed) && parsed >= 0) {
+      return Math.trunc(parsed);
+    }
+  }
+  return null;
 }
 
 export function parseAppOrganizationContext(data: unknown): AppOrganizationContext {
@@ -76,6 +92,7 @@ export function parseAppOrganizationContext(data: unknown): AppOrganizationConte
     has_organization_membership: bool(record.has_organization_membership),
     has_app_access: bool(record.has_app_access),
     can_access_self_support: bool(record.can_access_self_support),
+    eligible_organization_count: nonNegativeCount(record.eligible_organization_count),
   };
 }
 
