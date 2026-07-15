@@ -95,6 +95,11 @@ test("portal auth paths include password recovery routes", () => {
   assert.equal(isPortalAuthPath("/forgot-password"), true);
 });
 
+test("portal auth paths include neutral MFA routes", () => {
+  assert.equal(isPortalAuthPath("/auth/two-factor/enroll"), true);
+  assert.equal(isPortalAuthPath("/auth/two-factor/verify"), true);
+});
+
 test("auth cookies use shared production domain on aipify hosts", () => {
   const merged = mergeAuthCookieOptions({}, "app.aipify.ai");
   if (process.env.NODE_ENV === "production") {

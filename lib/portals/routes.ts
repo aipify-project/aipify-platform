@@ -1,4 +1,5 @@
 import type { PortalDefinition } from "./types";
+import { isNeutralMfaPath } from "@/lib/auth/two-factor/mfa-portal-routing";
 
 export const CUSTOMER_PORTAL_ROUTE = "/app";
 export const PLATFORM_ADMIN_ROUTE = "/platform";
@@ -45,7 +46,8 @@ export function isPortalAuthPath(pathname: string): boolean {
     pathname.startsWith("/auth/reset-password") ||
     pathname.startsWith("/auth/update-password") ||
     pathname.startsWith("/verify-2fa") ||
-    pathname.startsWith("/app/settings/two-factor")
+    pathname.startsWith("/app/settings/two-factor") ||
+    isNeutralMfaPath(pathname)
   );
 }
 

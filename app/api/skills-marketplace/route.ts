@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { guardPrivilegedPlatformScopeSession } from "@/lib/auth/platform-server-access";
 import { parseSkillsMarketplaceExperience } from "@/lib/skills-marketplace";
 import type { SkillsMarketplaceScope } from "@/lib/skills-marketplace/types";
 import { createClient } from "@/lib/supabase/server";
@@ -19,6 +20,9 @@ export async function GET(request: Request) {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const platformGuard = await guardPrivilegedPlatformScopeSession(supabase, scope);
+    if (platformGuard) return platformGuard;
 
     const { data, error } = await supabase.rpc("get_skills_marketplace_experience", {
       p_scope: scope,

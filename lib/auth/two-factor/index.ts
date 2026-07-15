@@ -17,6 +17,18 @@ export {
   type TwoFactorStatus,
 } from "./requires-2fa";
 export {
+  NEUTRAL_MFA_BASE_ROUTE,
+  NEUTRAL_MFA_ENROLL_ROUTE,
+  NEUTRAL_MFA_VERIFY_ROUTE,
+  buildMfaEnrollPath,
+  buildMfaVerifyPath,
+  isNeutralMfaPath,
+  isPlatformPortalDestination,
+  resolveMfaPortalKind,
+  resolveMfaSuccessDestination,
+  type MfaPortalKind,
+} from "./mfa-portal-routing";
+export {
   fetchTwoFactorStatusCached,
   invalidateTwoFactorStatusCache,
 } from "./session-status-cache";

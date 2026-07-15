@@ -4,12 +4,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { invalidateTwoFactorStatusCache } from "@/lib/auth/two-factor";
+import { sanitizeNextPath } from "@/lib/auth/safe-next-path";
 import {
   normalizeTotpDigitsFromPaste,
   shouldAutoSubmitTotpCode,
 } from "@/lib/auth/two-factor-verify-auto-submit";
 
 type TwoFactorVerifyFormProps = {
+  defaultDestination?: string;
   labels: {
     codeLabel: string;
     verify: string;
@@ -26,7 +28,10 @@ type TwoFactorVerifyFormProps = {
   };
 };
 
-export default function TwoFactorVerifyForm({ labels }: TwoFactorVerifyFormProps) {
+export default function TwoFactorVerifyForm({
+  labels,
+  defaultDestination = "/app/command-center",
+}: TwoFactorVerifyFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [digits, setDigits] = useState(["", "", "", "", "", ""]);
@@ -108,10 +113,7 @@ export default function TwoFactorVerifyForm({ labels }: TwoFactorVerifyFormProps
 
         invalidateTwoFactorStatusCache();
 
-        const destination =
-          nextPath?.startsWith("/") && !nextPath.startsWith("//")
-            ? nextPath
-            : "/app/command-center";
+        const destination = sanitizeNextPath(nextPath) ?? defaultDestination;
         window.location.assign(destination);
       } catch {
         setError(labels.generic);
@@ -129,6 +131,7 @@ export default function TwoFactorVerifyForm({ labels }: TwoFactorVerifyFormProps
       labels.invalidCode,
       loading,
       nextPath,
+      defaultDestination,
       recoveryMode,
     ],
   );

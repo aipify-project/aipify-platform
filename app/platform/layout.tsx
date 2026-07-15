@@ -3,6 +3,7 @@ import PlatformAuthGuard from "@/components/platform/PlatformAuthGuard";
 import PlatformAccessGate from "@/components/platform/PlatformAccessGate";
 import PlatformPortalBanner from "@/components/platform/PlatformPortalBanner";
 import { PlatformProfileProvider } from "@/components/platform/PlatformProfileProvider";
+import { requirePlatformServerAccess } from "@/lib/auth/platform-server-access";
 import {
   PLATFORM_MOBILE_NAV_IDS,
 } from "@/lib/platform/nav-config";
@@ -22,6 +23,8 @@ export default async function PlatformLayout({
 }: {
   children: React.ReactNode;
 }) {
+  await requirePlatformServerAccess("/platform");
+
   const locale = await getLocale();
   const dict = await getDictionary(locale, ["common", "auth", "platform", "branding", "presence", "commandBar"]);
   const t = createTranslator(dict);

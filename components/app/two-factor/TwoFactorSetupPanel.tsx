@@ -7,6 +7,9 @@ import QRCode from "qrcode";
 import { formatManualSetupKey } from "@/lib/auth/two-factor/format";
 
 type TwoFactorSetupPanelProps = {
+  backHref?: string;
+  hideBackLink?: boolean;
+  enrollmentCompleteHref?: string;
   labels: {
     title: string;
     subtitle: string;
@@ -87,7 +90,12 @@ function formatEnabledDate(iso: string | null): string {
   }
 }
 
-export function TwoFactorSetupPanel({ labels }: TwoFactorSetupPanelProps) {
+export function TwoFactorSetupPanel({
+  labels,
+  backHref = "/app/settings",
+  hideBackLink = false,
+  enrollmentCompleteHref,
+}: TwoFactorSetupPanelProps) {
   const searchParams = useSearchParams();
   const required = searchParams.get("required") === "1";
 
@@ -355,7 +363,12 @@ export function TwoFactorSetupPanel({ labels }: TwoFactorSetupPanelProps) {
           <p className="mt-4 text-sm font-medium text-violet-950">{labels.saveCodes}</p>
           <button
             type="button"
-            onClick={() => setRecoveryCodes(null)}
+            onClick={() => {
+              setRecoveryCodes(null);
+              if (enrollmentCompleteHref) {
+                window.location.assign(enrollmentCompleteHref);
+              }
+            }}
             className="mt-4 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800"
           >
             {labels.done}
@@ -610,9 +623,11 @@ export function TwoFactorSetupPanel({ labels }: TwoFactorSetupPanelProps) {
         ) : null}
       </section>
 
-      <Link href="/app/settings" className="text-sm font-medium text-violet-600 hover:text-violet-700">
-        {labels.backToSettings}
-      </Link>
+      {!hideBackLink ? (
+        <Link href={backHref} className="text-sm font-medium text-violet-600 hover:text-violet-700">
+          {labels.backToSettings}
+        </Link>
+      ) : null}
     </div>
   );
 }

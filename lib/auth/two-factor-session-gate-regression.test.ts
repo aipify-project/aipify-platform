@@ -19,6 +19,24 @@ const authenticatedNeedsVerification: TwoFactorStatus = {
 
 assert.equal(sessionNeedsTwoFactorGate(authenticatedNeedsVerification), true);
 assert.equal(
+  twoFactorRedirectPath(authenticatedNeedsVerification, "/platform"),
+  "/auth/two-factor/verify?next=%2Fplatform",
+);
+
+assert.equal(
+  twoFactorRedirectPath(
+    {
+      ...authenticatedNeedsVerification,
+      needs_enrollment: true,
+      needs_verification: false,
+      enabled: false,
+    },
+    "/platform",
+  ),
+  "/auth/two-factor/enroll?required=1&next=%2Fplatform",
+);
+
+assert.equal(
   twoFactorRedirectPath(authenticatedNeedsVerification, "/app/command-center"),
   "/verify-2fa?next=%2Fapp%2Fcommand-center",
 );

@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   fetchTwoFactorStatusCached,
   invalidateTwoFactorStatusCache,
+  isNeutralMfaPath,
   twoFactorRedirectPath,
   type TwoFactorStatus,
 } from "@/lib/auth/two-factor";
@@ -28,7 +29,8 @@ export type TwoFactorGateOptions = {
 function isTwoFactorExemptPath(pathname: string): boolean {
   return (
     pathname.startsWith("/verify-2fa") ||
-    pathname.startsWith("/app/settings/two-factor")
+    pathname.startsWith("/app/settings/two-factor") ||
+    isNeutralMfaPath(pathname)
   );
 }
 

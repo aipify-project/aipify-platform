@@ -1,4 +1,7 @@
-import { sanitizeNextPath } from "@/lib/auth/safe-next-path";
+import {
+  buildMfaEnrollPath,
+  buildMfaVerifyPath,
+} from "@/lib/auth/two-factor/mfa-portal-routing";
 
 export type TwoFactorStatus = {
   authenticated: boolean;
@@ -25,13 +28,9 @@ export function twoFactorRedirectPath(
 ): string | null {
   if (!sessionNeedsTwoFactorGate(status)) return null;
 
-  const safeNext = sanitizeNextPath(nextPath);
-  const next = safeNext ? `?next=${encodeURIComponent(safeNext)}` : "";
-
   if (status.needs_enrollment) {
-    const q = safeNext ? `?required=1&next=${encodeURIComponent(safeNext)}` : "?required=1";
-    return `/app/settings/two-factor${q}`;
+    return buildMfaEnrollPath(nextPath);
   }
 
-  return `/verify-2fa${next}`;
+  return buildMfaVerifyPath(nextPath);
 }

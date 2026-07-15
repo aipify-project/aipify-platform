@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, type ReactNode } from "react";
+import { buildMfaEnrollPath } from "@/lib/auth/two-factor/mfa-portal-routing";
 import { useTwoFactorSessionGate } from "@/lib/auth/use-two-factor-session-gate";
 
 const PLATFORM_SESSION_AUDIT_KEY = "aipify-platform-admin-session-audit";
@@ -23,9 +24,7 @@ export default function PlatformAccessGate({
   const { ready, blockedReason } = useTwoFactorSessionGate({
     requireEnabled: true,
     onRequireEnabled: (pathname) => {
-      router.replace(
-        `/app/settings/two-factor?required=1&next=${encodeURIComponent(pathname)}`
-      );
+      router.replace(buildMfaEnrollPath(pathname, "platform"));
     },
   });
 

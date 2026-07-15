@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { guardPrivilegedPlatformScopeSession } from "@/lib/auth/platform-server-access";
 import { parsePaymentProvidersCenter } from "@/lib/payment-providers";
 import {
   isDatabaseExecutionError,
@@ -19,6 +20,11 @@ export async function GET(request: Request) {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    if (scope === "platform") {
+      const platformGuard = await guardPrivilegedPlatformScopeSession(supabase, scope);
+      if (platformGuard) return platformGuard;
+    }
 
     if (scope === "tenant") {
       const access = await requireReadyAppPortalContext(supabase);
