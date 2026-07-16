@@ -51,7 +51,7 @@ const METRIC_VARIANT_STYLES: Record<
 function countVariant(
   count: number,
   elevated: "warning" | "danger" = "warning",
-): MetricVariant {
+): "success" | "warning" | "danger" {
   return count === 0 ? "success" : elevated;
 }
 
@@ -80,6 +80,69 @@ function MetricCard({
         />
       </div>
       <dd className={`mt-2 text-2xl font-semibold tabular-nums tracking-tight ${styles.value}`}>
+        {value}
+      </dd>
+    </div>
+  );
+}
+
+const ATTENTION_ICON_STYLES: Record<"success" | "warning" | "danger", string> = {
+  success: "text-emerald-600 dark:text-emerald-400",
+  warning: "text-amber-600 dark:text-amber-400",
+  danger: "text-rose-600 dark:text-rose-400",
+};
+
+function AttentionStatusIcon({ variant }: { variant: "success" | "warning" | "danger" }) {
+  const className = `h-4 w-4 shrink-0 ${ATTENTION_ICON_STYLES[variant]}`;
+
+  if (variant === "success") {
+    return (
+      <svg className={className} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm3.78 5.97-4.34 4.35a.75.75 0 0 1-1.06 0L4.22 8.16a.75.75 0 0 1 1.06-1.06l1.63 1.63 3.81-3.82a.75.75 0 1 1 1.06 1.06Z" />
+      </svg>
+    );
+  }
+
+  if (variant === "danger") {
+    return (
+      <svg className={className} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M8 1.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0Zm-.75 4.75a.75.75 0 0 1 1.5 0v3.5a.75.75 0 0 1-1.5 0v-3.5Zm.75 7a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className={className} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 5a.75.75 0 0 0-.75.75v3.5a.75.75 0 0 0 1.5 0v-3.5A.75.75 0 0 0 8 5Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" />
+    </svg>
+  );
+}
+
+function AttentionCard({
+  label,
+  value,
+  elevated = "warning",
+}: {
+  label: string;
+  value: number;
+  elevated?: "warning" | "danger";
+}) {
+  const variant = countVariant(value, elevated);
+  const styles = METRIC_VARIANT_STYLES[variant];
+
+  return (
+    <div
+      className={`rounded-xl border px-3.5 py-3 shadow-sm ${styles.card}`}
+      data-variant={variant}
+      data-attention="true"
+    >
+      <div className="flex items-center gap-2">
+        <AttentionStatusIcon variant={variant} />
+        <dt className={`min-w-0 truncate text-xs font-medium uppercase tracking-wide ${styles.label}`}>
+          {label}
+        </dt>
+      </div>
+      <dd className={`mt-1.5 text-xl font-semibold tabular-nums tracking-tight ${styles.value}`}>
         {value}
       </dd>
     </div>
@@ -126,38 +189,49 @@ export function PlatformPortalDashboardPanel({
         </p>
       </div>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <MetricCard
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
+        <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <AttentionCard
             label={labels.organizationsRequiringAttention}
             value={dashboard.organizations_requiring_attention}
-            variant={countVariant(dashboard.organizations_requiring_attention)}
           />
+          <AttentionCard
+            label={labels.openSupportWorkload}
+            value={dashboard.open_support_workload}
+          />
+          <AttentionCard
+            label={labels.paymentPastDue}
+            value={dashboard.payment_status_summary.past_due}
+            elevated="danger"
+          />
+          <AttentionCard
+            label={labels.pendingReview}
+            value={dashboard.marketplace_moderation.pending_review}
+          />
+          <AttentionCard
+            label={labels.pendingApplications}
+            value={dashboard.growth_partner_summary.pending_applications}
+          />
+        </dl>
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <MetricCard
             label={labels.activeSubscriptions}
             value={dashboard.active_subscriptions}
             variant="success"
-          />
-          <MetricCard
-            label={labels.openSupportWorkload}
-            value={dashboard.open_support_workload}
-            variant={countVariant(dashboard.open_support_workload)}
           />
         </dl>
       </section>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="font-semibold text-slate-900">{labels.paymentStatusSummary}</h2>
-        <dl className="mt-4 grid gap-4 sm:grid-cols-3">
+        <dl className="mt-4 grid gap-4 sm:grid-cols-2">
           <MetricCard
             label={labels.paymentActive}
             value={dashboard.payment_status_summary.active}
             variant="success"
-          />
-          <MetricCard
-            label={labels.paymentPastDue}
-            value={dashboard.payment_status_summary.past_due}
-            variant={countVariant(dashboard.payment_status_summary.past_due, "danger")}
           />
           <MetricCard
             label={labels.paymentTrialing}
@@ -171,13 +245,6 @@ export function PlatformPortalDashboardPanel({
         <h2 className="font-semibold text-slate-900">{labels.customerSuccessIndicators}</h2>
         <dl className="mt-4 grid gap-4 sm:grid-cols-2">
           <MetricCard
-            label={labels.organizationsRequiringAttention}
-            value={dashboard.customer_success_indicators.organizations_requiring_attention}
-            variant={countVariant(
-              dashboard.customer_success_indicators.organizations_requiring_attention,
-            )}
-          />
-          <MetricCard
             label={labels.healthyRatio}
             value={`${dashboard.customer_success_indicators.healthy_ratio_pct}%`}
             variant="success"
@@ -189,11 +256,6 @@ export function PlatformPortalDashboardPanel({
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="font-semibold text-slate-900">{labels.marketplaceModeration}</h2>
           <dl className="mt-4 grid gap-4 sm:grid-cols-2">
-            <MetricCard
-              label={labels.pendingReview}
-              value={dashboard.marketplace_moderation.pending_review}
-              variant={countVariant(dashboard.marketplace_moderation.pending_review)}
-            />
             <MetricCard
               label={labels.published}
               value={dashboard.marketplace_moderation.published}
@@ -208,11 +270,6 @@ export function PlatformPortalDashboardPanel({
               label={labels.activePrograms}
               value={dashboard.growth_partner_summary.active_programs}
               variant="success"
-            />
-            <MetricCard
-              label={labels.pendingApplications}
-              value={dashboard.growth_partner_summary.pending_applications}
-              variant={countVariant(dashboard.growth_partner_summary.pending_applications)}
             />
           </dl>
         </div>
