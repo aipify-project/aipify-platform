@@ -30,7 +30,10 @@
       "productDeploymentUpdates": "Aktualizacje produktu i wdrożeń",
       "noUpdates": "Brak zaplanowanych aktualizacji wdrożeń.",
       "portalModules": "Moduły PLATFORM",
-      "openModule": "Otwórz moduł"
+      "openModule": "Otwórz moduł",
+      "loadErrorTitle": "Nie udało się załadować panelu Platform",
+      "loadErrorMessage": "Nie udało się załadować danych panelu. Sprawdź połączenie i spróbuj ponownie.",
+      "retry": "Spróbuj ponownie"
     },
     "foundation": {
       "loading": "Ładowanie…",
