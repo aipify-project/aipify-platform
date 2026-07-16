@@ -68,7 +68,7 @@ function MetricCard({
 
   return (
     <div
-      className={`rounded-xl border px-4 py-3.5 shadow-sm ${styles.card}`}
+      className={`flex h-full flex-col rounded-xl border px-4 py-3.5 shadow-sm ${styles.card}`}
       data-variant={variant}
     >
       <div className="flex items-start justify-between gap-3">
@@ -588,32 +588,21 @@ export function PlatformPortalDashboardPanel({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section
+        className="w-full rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40"
+        data-area="operational-metrics"
+      >
+        <dl className="grid w-full grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <MetricCard
             label={labels.activeSubscriptions}
             value={dashboard.active_subscriptions}
             variant="success"
           />
-        </dl>
-      </section>
-
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="font-semibold text-slate-900">{labels.customerSuccessIndicators}</h2>
-        <dl className="mt-4 grid gap-4 sm:grid-cols-2">
           <MetricCard
             label={labels.healthyRatio}
             value={`${dashboard.customer_success_indicators.healthy_ratio_pct}%`}
             variant="success"
           />
-        </dl>
-      </section>
-
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
-        <h2 className="font-semibold text-slate-900 dark:text-slate-100">
-          {labels.marketplaceModeration}
-        </h2>
-        <dl className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <MetricCard
             label={labels.published}
             value={dashboard.marketplace_moderation.published}
