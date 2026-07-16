@@ -152,40 +152,23 @@ function AttentionCard({
 const FINANCE_NAV_ROUTES = [
   {
     href: "/platform/billing/invoices",
-    aliases: ["/platform/billing/enterprise-invoices"],
     icon: "invoices",
+    labelKey: "invoices",
   },
   {
     href: "/platform/billing/payment-providers",
-    aliases: ["/platform/payment-providers"],
     icon: "providers",
+    labelKey: "paymentProviders",
   },
   {
     href: "/platform/billing/accounting-integration",
-    aliases: [] as string[],
     icon: "accounting",
+    labelKey: "accountingIntegration",
   },
 ] as const;
 
 function flattenNavLinks(navGroups: PlatformNavGroupConfig[]) {
   return navGroups.flatMap((group) => group.items);
-}
-
-/** Resolve a localized nav label from portal navGroups (exact, alias, then longest href prefix). */
-function resolveNavLabel(
-  navGroups: PlatformNavGroupConfig[],
-  href: string,
-  aliases: readonly string[] = [],
-): string | null {
-  const flat = flattenNavLinks(navGroups);
-  const candidates = [href, ...aliases];
-  const exact = flat.find((item) => candidates.includes(item.href));
-  if (exact) return exact.label;
-
-  const prefixes = flat
-    .filter((item) => href === item.href || href.startsWith(`${item.href}/`))
-    .sort((a, b) => b.href.length - a.href.length);
-  return prefixes[0]?.label ?? null;
 }
 
 function FinanceMetricCard({
@@ -503,11 +486,10 @@ export function PlatformPortalDashboardPanel({
     );
   }
 
-  const financeNavCards = FINANCE_NAV_ROUTES.flatMap((route) => {
-    const label = resolveNavLabel(navGroups, route.href, route.aliases);
-    if (!label) return [];
-    return [{ ...route, label }];
-  });
+  const financeNavCards = FINANCE_NAV_ROUTES.map((route) => ({
+    ...route,
+    label: labels[route.labelKey],
+  }));
 
   const partnerNavCards = PARTNER_NAV_ROUTES.flatMap((route) => {
     const item = resolveNavLink(navGroups, route.href);
