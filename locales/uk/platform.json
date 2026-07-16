@@ -30,7 +30,10 @@
       "productDeploymentUpdates": "Оновлення продуктів і розгортання",
       "noUpdates": "Немає запланованих оновлень розгортання.",
       "portalModules": "Модулі PLATFORM",
-      "openModule": "Відкритий модуль"
+      "openModule": "Відкритий модуль",
+      "loadErrorTitle": "Не вдалося завантажити панель Platform",
+      "loadErrorMessage": "Не вдалося завантажити дані панелі. Перевірте з’єднання та спробуйте ще раз.",
+      "retry": "Спробувати ще раз"
     },
     "foundation": {
       "loading": "Завантаження…",
