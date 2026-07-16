@@ -30,7 +30,10 @@
       "noUpdates": "Ingen planlagte deployoppdateringer.",
       "portalModules": "PLATFORM-moduler",
       "openModule": "Åpne modul",
-      "partnerProgramSummary": "Aipify Partners-ytelse"
+      "partnerProgramSummary": "Aipify Partners-ytelse",
+      "loadErrorTitle": "Kunne ikke laste Platform-dashboardet",
+      "loadErrorMessage": "Dashboarddataene kunne ikke lastes inn. Kontroller tilkoblingen og prøv igjen.",
+      "retry": "Prøv igjen"
     },
     "foundation": {
       "loading": "Laster…",
