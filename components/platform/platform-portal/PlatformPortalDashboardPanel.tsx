@@ -414,19 +414,47 @@ export function PlatformPortalDashboardPanel({
 }: PlatformPortalDashboardPanelProps) {
   const [dashboard, setDashboard] = useState<PlatformPortalDashboard | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
 
   const load = useCallback(async () => {
+    setLoadError(false);
     setLoading(true);
-    const res = await fetch("/api/platform-portal/dashboard");
-    if (res.ok) setDashboard(parsePlatformPortalDashboard(await res.json()));
-    setLoading(false);
+    setDashboard(null);
+
+    try {
+      const res = await fetch("/api/platform-portal/dashboard");
+      if (!res.ok) {
+        setLoadError(true);
+        return;
+      }
+
+      let payload: unknown;
+      try {
+        payload = await res.json();
+      } catch {
+        setLoadError(true);
+        return;
+      }
+
+      const parsed = parsePlatformPortalDashboard(payload);
+      if (!parsed) {
+        setLoadError(true);
+        return;
+      }
+
+      setDashboard(parsed);
+    } catch {
+      setLoadError(true);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
     void load();
   }, [load]);
 
-  if (loading && !dashboard) {
+  if (loading) {
     return (
       <div className="mx-auto flex min-h-[60vh] w-full max-w-[1680px] items-center justify-center p-6">
         <AipifyLoader centered label={labels.loading} />
@@ -434,8 +462,45 @@ export function PlatformPortalDashboardPanel({
     );
   }
 
-  if (!dashboard) {
-    return <p className="p-6 text-sm text-red-600">{labels.loading}</p>;
+  if (loadError || !dashboard) {
+    return (
+      <div className="mx-auto w-full max-w-[1680px] p-6">
+        <div
+          role="alert"
+          className="flex flex-col gap-4 rounded-xl border border-rose-200 bg-rose-50 px-5 py-4 shadow-sm sm:flex-row sm:items-start sm:justify-between dark:border-rose-800/80 dark:bg-rose-950/40"
+        >
+          <div className="flex min-w-0 items-start gap-3">
+            <span
+              className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-700 dark:bg-rose-900/70 dark:text-rose-300"
+              aria-hidden="true"
+            >
+              <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.168 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 6.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 6.75Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </span>
+            <div className="min-w-0">
+              <h2 className="text-base font-semibold text-rose-950 dark:text-rose-50">
+                {labels.loadErrorTitle}
+              </h2>
+              <p className="mt-1 text-sm text-rose-800/90 dark:text-rose-200/90">
+                {labels.loadErrorMessage}
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => void load()}
+            className="inline-flex shrink-0 items-center justify-center rounded-lg border border-rose-300 bg-white px-4 py-2 text-sm font-medium text-rose-900 shadow-sm transition hover:bg-rose-100 dark:border-rose-700 dark:bg-rose-950 dark:text-rose-50 dark:hover:bg-rose-900"
+          >
+            {labels.retry}
+          </button>
+        </div>
+      </div>
+    );
   }
 
   const financeNavCards = FINANCE_NAV_ROUTES.flatMap((route) => {
