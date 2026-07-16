@@ -528,7 +528,7 @@ export function PlatformPortalDashboardPanel({
         <h1 className="text-2xl font-semibold tracking-tight text-slate-900">{labels.title}</h1>
         <p className="mt-2 max-w-3xl text-slate-600">{labels.subtitle}</p>
         <p className="mt-4 rounded-2xl border border-slate-100 bg-slate-50 px-5 py-4 text-sm text-slate-800">
-          {dashboard.principle}
+          {labels.principle}
         </p>
       </div>
 
@@ -725,7 +725,7 @@ export function PlatformPortalDashboardPanel({
         ))}
       </section>
 
-      <p className="text-xs text-slate-500">{dashboard.privacy_note || labels.privacyNote}</p>
+      <p className="text-xs text-slate-500">{labels.privacyNote}</p>
     </div>
   );
 }
