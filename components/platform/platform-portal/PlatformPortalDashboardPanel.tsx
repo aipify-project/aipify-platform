@@ -15,11 +15,73 @@ type PlatformPortalDashboardPanelProps = {
   navGroups: PlatformNavGroupConfig[];
 };
 
-function MetricCard({ label, value }: { label: string; value: string | number }) {
+type MetricVariant = "neutral" | "success" | "warning" | "danger";
+
+const METRIC_VARIANT_STYLES: Record<
+  MetricVariant,
+  { card: string; label: string; value: string; marker: string }
+> = {
+  neutral: {
+    card: "border-slate-200 bg-slate-50/80 dark:border-slate-700 dark:bg-slate-900/50",
+    label: "text-slate-500 dark:text-slate-400",
+    value: "text-slate-900 dark:text-slate-100",
+    marker: "bg-slate-400 ring-slate-200 dark:bg-slate-500 dark:ring-slate-700",
+  },
+  success: {
+    card: "border-emerald-200/90 bg-emerald-50/70 dark:border-emerald-800/70 dark:bg-emerald-950/35",
+    label: "text-emerald-800/80 dark:text-emerald-300/90",
+    value: "text-emerald-950 dark:text-emerald-50",
+    marker: "bg-emerald-500 ring-emerald-200 dark:bg-emerald-400 dark:ring-emerald-900",
+  },
+  warning: {
+    card: "border-amber-200/90 bg-amber-50/70 dark:border-amber-800/70 dark:bg-amber-950/35",
+    label: "text-amber-800/80 dark:text-amber-300/90",
+    value: "text-amber-950 dark:text-amber-50",
+    marker: "bg-amber-500 ring-amber-200 dark:bg-amber-400 dark:ring-amber-900",
+  },
+  danger: {
+    card: "border-rose-200/90 bg-rose-50/70 dark:border-rose-800/70 dark:bg-rose-950/35",
+    label: "text-rose-800/80 dark:text-rose-300/90",
+    value: "text-rose-950 dark:text-rose-50",
+    marker: "bg-rose-500 ring-rose-200 dark:bg-rose-400 dark:ring-rose-900",
+  },
+};
+
+/** Problem/waiting counts: zero is healthy; non-zero uses the elevated variant. */
+function countVariant(
+  count: number,
+  elevated: "warning" | "danger" = "warning",
+): MetricVariant {
+  return count === 0 ? "success" : elevated;
+}
+
+function MetricCard({
+  label,
+  value,
+  variant = "neutral",
+}: {
+  label: string;
+  value: string | number;
+  variant?: MetricVariant;
+}) {
+  const styles = METRIC_VARIANT_STYLES[variant];
+
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm">
-      <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">{label}</dt>
-      <dd className="mt-2 text-2xl font-semibold text-slate-900">{value}</dd>
+    <div
+      className={`rounded-xl border px-4 py-3.5 shadow-sm ${styles.card}`}
+      data-variant={variant}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <dt className={`text-xs font-medium uppercase tracking-wide ${styles.label}`}>{label}</dt>
+        <span
+          className={`mt-0.5 h-2 w-2 shrink-0 rounded-full ring-2 ${styles.marker}`}
+          aria-hidden="true"
+          data-status={variant}
+        />
+      </div>
+      <dd className={`mt-2 text-2xl font-semibold tabular-nums tracking-tight ${styles.value}`}>
+        {value}
+      </dd>
     </div>
   );
 }
@@ -69,23 +131,38 @@ export function PlatformPortalDashboardPanel({
           <MetricCard
             label={labels.organizationsRequiringAttention}
             value={dashboard.organizations_requiring_attention}
+            variant={countVariant(dashboard.organizations_requiring_attention)}
           />
-          <MetricCard label={labels.activeSubscriptions} value={dashboard.active_subscriptions} />
-          <MetricCard label={labels.openSupportWorkload} value={dashboard.open_support_workload} />
+          <MetricCard
+            label={labels.activeSubscriptions}
+            value={dashboard.active_subscriptions}
+            variant="success"
+          />
+          <MetricCard
+            label={labels.openSupportWorkload}
+            value={dashboard.open_support_workload}
+            variant={countVariant(dashboard.open_support_workload)}
+          />
         </dl>
       </section>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="font-semibold text-slate-900">{labels.paymentStatusSummary}</h2>
         <dl className="mt-4 grid gap-4 sm:grid-cols-3">
-          <MetricCard label={labels.paymentActive} value={dashboard.payment_status_summary.active} />
+          <MetricCard
+            label={labels.paymentActive}
+            value={dashboard.payment_status_summary.active}
+            variant="success"
+          />
           <MetricCard
             label={labels.paymentPastDue}
             value={dashboard.payment_status_summary.past_due}
+            variant={countVariant(dashboard.payment_status_summary.past_due, "danger")}
           />
           <MetricCard
             label={labels.paymentTrialing}
             value={dashboard.payment_status_summary.trialing}
+            variant={countVariant(dashboard.payment_status_summary.trialing)}
           />
         </dl>
       </section>
@@ -96,10 +173,14 @@ export function PlatformPortalDashboardPanel({
           <MetricCard
             label={labels.organizationsRequiringAttention}
             value={dashboard.customer_success_indicators.organizations_requiring_attention}
+            variant={countVariant(
+              dashboard.customer_success_indicators.organizations_requiring_attention,
+            )}
           />
           <MetricCard
             label={labels.healthyRatio}
             value={`${dashboard.customer_success_indicators.healthy_ratio_pct}%`}
+            variant="success"
           />
         </dl>
       </section>
@@ -111,8 +192,13 @@ export function PlatformPortalDashboardPanel({
             <MetricCard
               label={labels.pendingReview}
               value={dashboard.marketplace_moderation.pending_review}
+              variant={countVariant(dashboard.marketplace_moderation.pending_review)}
             />
-            <MetricCard label={labels.published} value={dashboard.marketplace_moderation.published} />
+            <MetricCard
+              label={labels.published}
+              value={dashboard.marketplace_moderation.published}
+              variant="success"
+            />
           </dl>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -121,10 +207,12 @@ export function PlatformPortalDashboardPanel({
             <MetricCard
               label={labels.activePrograms}
               value={dashboard.growth_partner_summary.active_programs}
+              variant="success"
             />
             <MetricCard
               label={labels.pendingApplications}
               value={dashboard.growth_partner_summary.pending_applications}
+              variant={countVariant(dashboard.growth_partner_summary.pending_applications)}
             />
           </dl>
         </div>
