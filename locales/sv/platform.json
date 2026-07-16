@@ -30,7 +30,10 @@
       "productDeploymentUpdates": "Produkt- och driftsuppdateringar",
       "noUpdates": "Inga schemalagda driftsuppdateringar.",
       "portalModules": "PLATFORM-moduler",
-      "openModule": "Öppna modul"
+      "openModule": "Öppna modul",
+      "loadErrorTitle": "Det gick inte att läsa in Platform-instrumentpanelen",
+      "loadErrorMessage": "Instrumentpanelens data kunde inte läsas in. Kontrollera anslutningen och försök igen.",
+      "retry": "Försök igen"
     },
     "foundation": {
       "loading": "Laddar…",
