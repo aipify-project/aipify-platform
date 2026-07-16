@@ -8,6 +8,7 @@ import {
   type PlatformPortalDashboard,
 } from "@/lib/platform-portal";
 import type { PlatformNavGroupConfig } from "@/lib/platform/build-nav";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
 
 type PlatformPortalDashboardPanelProps = {
   labels: ReturnType<typeof buildPlatformPortalLabels>["dashboard"];
@@ -42,7 +43,11 @@ export function PlatformPortalDashboardPanel({
   }, [load]);
 
   if (loading && !dashboard) {
-    return <p className="p-6 text-sm text-slate-500">{labels.loading}</p>;
+    return (
+      <div className="mx-auto flex min-h-[60vh] w-full max-w-[1680px] items-center justify-center p-6">
+        <AipifyLoader centered label={labels.loading} />
+      </div>
+    );
   }
 
   if (!dashboard) {
@@ -50,7 +55,7 @@ export function PlatformPortalDashboardPanel({
   }
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8 p-6">
+    <div className="mx-auto w-full max-w-[1680px] space-y-8 p-6">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight text-slate-900">{labels.title}</h1>
         <p className="mt-2 max-w-3xl text-slate-600">{labels.subtitle}</p>
