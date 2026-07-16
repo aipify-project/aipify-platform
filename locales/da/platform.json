@@ -30,7 +30,10 @@
       "noUpdates": "Ingen planlagte deployopdateringer.",
       "portalModules": "PLATFORM-moduler",
       "openModule": "Åbn modul",
-      "partnerProgramSummary": "Aipify Partners-ydelse"
+      "partnerProgramSummary": "Aipify Partners-ydelse",
+      "loadErrorTitle": "Kunne ikke indlæse Platform-dashboardet",
+      "loadErrorMessage": "Dashboarddataene kunne ikke indlæses. Kontrollér forbindelsen, og prøv igen.",
+      "retry": "Prøv igen"
     },
     "foundation": {
       "loading": "Indlæser…",
