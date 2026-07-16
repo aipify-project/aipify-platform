@@ -48,6 +48,11 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
     labelKey: "platform.navGroups.commercial",
     items: [
       { id: "payments", labelKey: "platform.nav.payments" },
+      {
+        id: "growthPartnerAttribution",
+        labelKey: "platform.billingCommerceCenter.nav.growthPartnerAttribution",
+      },
+      { id: "commissions", labelKey: "platform.billingCommerceCenter.nav.commissions" },
       { id: "subscriptions", labelKey: "platform.nav.subscriptions" },
       { id: "marketplace", labelKey: "platform.nav.marketplace" },
       { id: "growthPartners", labelKey: "platform.nav.growthPartners" },
