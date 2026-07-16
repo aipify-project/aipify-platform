@@ -28,6 +28,7 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
     labelKey: "platform.navGroups.operations",
     defaultExpanded: true,
     items: [
+      { id: "overview", labelKey: "platform.nav.overview" },
       { id: "operationsOverview", labelKey: "platform.nav.operationsOverview" },
       { id: "platformHealth", labelKey: "platform.nav.platformHealth" },
       { id: "deployments", labelKey: "platform.nav.deployments" },
