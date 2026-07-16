@@ -14,6 +14,7 @@ const ACCESS_STATE_TO_KEY: Partial<Record<AppOrganizationContextState, AppPortal
   user_not_provisioned: "organizationMissing",
   organization_missing: "organizationMissing",
   membership_missing: "organizationMissing",
+  selection_required: "organizationMissing",
   subscription_inactive: "subscriptionRequired",
   license_inactive: "subscriptionRequired",
   entitlement_missing: "entitlementLocked",

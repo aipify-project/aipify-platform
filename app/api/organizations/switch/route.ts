@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "organization_id required" }, { status: 400 });
     }
 
-    const { data, error } = await supabase.rpc("switch_organization", {
+    const { data, error } = await supabase.rpc("switch_app_organization", {
       p_organization_id: body.organization_id,
     });
     if (error) return NextResponse.json({ error: error.message }, { status: 403 });

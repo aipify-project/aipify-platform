@@ -47,6 +47,7 @@ export function isRealOrganizationMissingState(
   return (
     state === "organization_missing" ||
     state === "membership_missing" ||
+    state === "selection_required" ||
     state === "user_not_provisioned"
   );
 }

@@ -23,6 +23,7 @@ const readyContext: AppOrganizationContext = {
   has_organization_membership: true,
   has_app_access: true,
   can_access_self_support: true,
+  eligible_organization_count: null,
 };
 
 assert.equal(resolveNotificationOrganizationKey(readyContext), "org-unonight");
