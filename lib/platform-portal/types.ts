@@ -15,11 +15,6 @@ export type PlatformPortalMarketplaceModeration = {
   published: number;
 };
 
-export type PlatformPortalGrowthPartnerSummary = {
-  active_programs: number;
-  pending_applications: number;
-};
-
 export type PlatformPortalProductUpdate = {
   id: string;
   title: string;
@@ -29,16 +24,13 @@ export type PlatformPortalProductUpdate = {
 };
 
 export type PlatformPortalDashboard = {
-  principle: string;
   organizations_requiring_attention: number;
   active_subscriptions: number;
   open_support_workload: number;
   payment_status_summary: PlatformPortalPaymentSummary;
   customer_success_indicators: PlatformPortalCustomerSuccess;
   marketplace_moderation: PlatformPortalMarketplaceModeration;
-  growth_partner_summary: PlatformPortalGrowthPartnerSummary;
   product_deployment_updates: PlatformPortalProductUpdate[];
-  privacy_note: string;
 };
 
 export type PlatformPortalLabels = {

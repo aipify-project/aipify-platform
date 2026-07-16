@@ -20,7 +20,6 @@ export function parsePlatformPortalDashboard(raw: unknown): PlatformPortalDashbo
   const payment = asRecord(row.payment_status_summary) ?? {};
   const customerSuccess = asRecord(row.customer_success_indicators) ?? {};
   const marketplace = asRecord(row.marketplace_moderation) ?? {};
-  const growth = asRecord(row.growth_partner_summary) ?? {};
 
   const productUpdates = Array.isArray(row.product_deployment_updates)
     ? row.product_deployment_updates
@@ -39,7 +38,6 @@ export function parsePlatformPortalDashboard(raw: unknown): PlatformPortalDashbo
     : [];
 
   return {
-    principle: asString(row.principle),
     organizations_requiring_attention: asNumber(row.organizations_requiring_attention),
     active_subscriptions: asNumber(row.active_subscriptions),
     open_support_workload: asNumber(row.open_support_workload),
@@ -57,11 +55,6 @@ export function parsePlatformPortalDashboard(raw: unknown): PlatformPortalDashbo
       pending_review: asNumber(marketplace.pending_review),
       published: asNumber(marketplace.published),
     },
-    growth_partner_summary: {
-      active_programs: asNumber(growth.active_programs),
-      pending_applications: asNumber(growth.pending_applications),
-    },
     product_deployment_updates: productUpdates,
-    privacy_note: asString(row.privacy_note),
   };
 }
