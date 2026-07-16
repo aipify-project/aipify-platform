@@ -47,6 +47,9 @@ export type PlatformPortalLabels = {
     paymentActive: string;
     paymentPastDue: string;
     paymentTrialing: string;
+    invoices: string;
+    paymentProviders: string;
+    accountingIntegration: string;
     customerSuccessIndicators: string;
     healthyRatio: string;
     marketplaceModeration: string;

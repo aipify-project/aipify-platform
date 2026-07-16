@@ -4,6 +4,7 @@ import type { PlatformPortalLabels } from "./types";
 export function buildPlatformPortalLabels(t: Translator): PlatformPortalLabels {
   const d = "platform.portalStructure.dashboard";
   const f = "platform.portalStructure.foundation";
+  const billingNav = "platform.billingCommerceCenter.nav";
 
   return {
     dashboard: {
@@ -19,6 +20,9 @@ export function buildPlatformPortalLabels(t: Translator): PlatformPortalLabels {
       paymentActive: t(`${d}.paymentActive`),
       paymentPastDue: t(`${d}.paymentPastDue`),
       paymentTrialing: t(`${d}.paymentTrialing`),
+      invoices: t(`${billingNav}.invoices`),
+      paymentProviders: t(`${billingNav}.paymentProviders`),
+      accountingIntegration: t(`${billingNav}.accountingIntegration`),
       customerSuccessIndicators: t(`${d}.customerSuccessIndicators`),
       healthyRatio: t(`${d}.healthyRatio`),
       marketplaceModeration: t(`${d}.marketplaceModeration`),
