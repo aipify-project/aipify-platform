@@ -30,7 +30,10 @@
       "productDeploymentUpdates": "Product and deployment updates",
       "noUpdates": "No scheduled deployment updates.",
       "portalModules": "PLATFORM modules",
-      "openModule": "Open module"
+      "openModule": "Open module",
+      "loadErrorTitle": "Could not load Platform dashboard",
+      "loadErrorMessage": "The dashboard data could not be loaded. Check the connection and try again.",
+      "retry": "Try again"
     },
     "foundation": {
       "loading": "Loading…",
