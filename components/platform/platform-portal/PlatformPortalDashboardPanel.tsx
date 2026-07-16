@@ -336,6 +336,78 @@ function PartnerNavCard({
   );
 }
 
+const QUICK_ACTION_ROUTES = [
+  { href: "/platform/customers", icon: "customers" },
+  { href: "/platform/subscriptions", icon: "subscriptions" },
+  { href: "/platform/installations", icon: "installations" },
+  { href: "/platform/support", icon: "support" },
+] as const;
+
+function QuickActionNavIcon({ kind }: { kind: (typeof QUICK_ACTION_ROUTES)[number]["icon"] }) {
+  const className = "h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400";
+
+  if (kind === "customers") {
+    return (
+      <svg className={className} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M5.5 3.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0ZM8 0a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7ZM2.25 14.5A4.75 4.75 0 0 1 7 9.75h2a4.75 4.75 0 0 1 4.75 4.75.75.75 0 0 1-1.5 0A3.25 3.25 0 0 0 9 11.25H7A3.25 3.25 0 0 0 3.75 14.5a.75.75 0 0 1-1.5 0Z" />
+      </svg>
+    );
+  }
+
+  if (kind === "subscriptions") {
+    return (
+      <svg className={className} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M2 3.75A1.75 1.75 0 0 1 3.75 2h8.5A1.75 1.75 0 0 1 14 3.75v8.5A1.75 1.75 0 0 1 12.25 14h-8.5A1.75 1.75 0 0 1 2 12.25v-8.5ZM3.75 3.5a.25.25 0 0 0-.25.25v8.5c0 .172.16.0.3.25h8.5a.25.25 0 0 0 .25-.25v-8.5a.25.25 0 0 0-.25-.25h-8.5ZM5 6.25A.75.75 0 0 1 5.75 5.5h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 5 6.25Zm0 2.5a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5A.75.75 0 0 1 5 8.75Z" />
+      </svg>
+    );
+  }
+
+  if (kind === "installations") {
+    return (
+      <svg className={className} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M8.75 1.75a.75.75 0 0 0-1.5 0V6H4.56a.75.75 0 0 0-.53 1.28l3.44 3.44a.75.75 0 0 0 1.06 0l3.44-3.44A.75.75 0 0 0 11.44 6H8.75V1.75ZM3.5 12.25a.75.75 0 0 0 0 1.5h9a.75.75 0 0 0 0-1.5h-9Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className={className} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M2.5 4.5A2.5 2.5 0 0 1 5 2h6a2.5 2.5 0 0 1 2.5 2.5v1.1c0 .192.168.0.4.668l.9.45A1.75 1.75 0 0 1 16 8.28v.44a1.75 1.75 0 0 1-.95 1.562l-.9.45a.75.75 0 0 0-.4.668V13.5A2.5 2.5 0 0 1 11 16H5a2.5 2.5 0 0 1-2.5-2.5v-1.1a.75.75 0 0 0-.4-.668l-.9-.45A1.75 1.75 0 0 1 0 8.72v-.44c0-.66.372-1.263.95-1.562l.9-.45a.75.75 0 0 0 .4-.668V4.5ZM5 3.5a1 1 0 0 0-1 1v1.1c0 .66-.372 1.263-.95 1.562l-.9.45a.25.25 0 0 0-.15.225v.44c0 .10.0.1.2.226l.9.45c.578.299.95.902.95 1.562v1.1a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-1.1c0-.66.372-1.263.95-1.562l.9-.45a.25.25 0 0 0 .15-.226v-.44a.25.25 0 0 0-.15-.225l-.9-.45A1.75 1.75 0 0 1 12 5.6V4.5a1 1 0 0 0-1-1H5Z" />
+    </svg>
+  );
+}
+
+function QuickActionNavCard({
+  href,
+  label,
+  actionLabel,
+  icon,
+}: {
+  href: string;
+  label: string;
+  actionLabel: string;
+  icon: (typeof QUICK_ACTION_ROUTES)[number]["icon"];
+}) {
+  const styles = METRIC_VARIANT_STYLES.neutral;
+
+  return (
+    <Link
+      href={href}
+      className={`block rounded-xl border px-4 py-3.5 shadow-sm transition hover:border-slate-300 hover:shadow-md dark:hover:border-slate-600 ${styles.card}`}
+      data-variant="neutral"
+      data-quick-action={icon}
+    >
+      <div className="flex items-center gap-2">
+        <QuickActionNavIcon kind={icon} />
+        <span className={`min-w-0 truncate text-xs font-medium uppercase tracking-wide ${styles.label}`}>
+          {label}
+        </span>
+      </div>
+      <span className={`mt-2 block text-sm font-semibold ${styles.value}`}>{actionLabel}</span>
+    </Link>
+  );
+}
+
 export function PlatformPortalDashboardPanel({
   labels,
   navGroups,
@@ -377,6 +449,13 @@ export function PlatformPortalDashboardPanel({
     if (!item) return [];
     return [{ ...route, label: item.label }];
   });
+
+  const quickActionNavCards = QUICK_ACTION_ROUTES.flatMap((route) => {
+    const item = resolveNavLink(navGroups, route.href);
+    if (!item) return [];
+    return [{ ...route, label: item.label }];
+  });
+  const activityUpdates = dashboard.product_deployment_updates.slice(0, 5);
 
   return (
     <div className="mx-auto w-full max-w-[1680px] space-y-8 p-6">
@@ -500,25 +579,34 @@ export function PlatformPortalDashboardPanel({
         </section>
       ) : null}
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="font-semibold text-slate-900">{labels.productDeploymentUpdates}</h2>
-        {dashboard.product_deployment_updates.length === 0 ? (
-          <p className="mt-4 text-sm text-slate-500">{labels.noUpdates}</p>
+      <section
+        className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40"
+        data-area="activity"
+      >
+        <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+          {labels.productDeploymentUpdates}
+        </h2>
+        {activityUpdates.length === 0 ? (
+          <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">{labels.noUpdates}</p>
         ) : (
-          <ul className="mt-4 space-y-3">
-            {dashboard.product_deployment_updates.map((update) => (
+          <ul className="mt-3 divide-y divide-slate-100 dark:divide-slate-800">
+            {activityUpdates.map((update) => (
               <li
                 key={update.id}
-                className="flex items-start justify-between gap-4 rounded-xl border border-slate-100 px-4 py-3"
+                className="flex items-start justify-between gap-4 py-2.5 first:pt-0 last:pb-0"
               >
-                <div>
-                  <p className="font-medium text-slate-900">{update.title}</p>
-                  <p className="mt-1 text-xs text-slate-500">
-                    v{update.version} · {update.classification}
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
+                    {update.title}
+                  </p>
+                  <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                    {update.version ? `v${update.version}` : null}
+                    {update.version && update.classification ? " · " : null}
+                    {update.classification || null}
                   </p>
                 </div>
                 {update.scheduled_at ? (
-                  <span className="text-xs text-slate-500">
+                  <span className="shrink-0 text-xs text-slate-500 dark:text-slate-400">
                     {new Date(update.scheduled_at).toLocaleDateString()}
                   </span>
                 ) : null}
@@ -527,6 +615,25 @@ export function PlatformPortalDashboardPanel({
           </ul>
         )}
       </section>
+
+      {quickActionNavCards.length === QUICK_ACTION_ROUTES.length ? (
+        <section
+          className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900/40"
+          data-area="quick-actions"
+        >
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {quickActionNavCards.map((card) => (
+              <QuickActionNavCard
+                key={card.href}
+                href={card.href}
+                label={card.label}
+                actionLabel={labels.openModule}
+                icon={card.icon}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="space-y-6">
         <h2 className="text-lg font-semibold text-slate-900">{labels.portalModules}</h2>
