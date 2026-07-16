@@ -271,6 +271,71 @@ function FinanceNavCard({
   );
 }
 
+const PARTNER_NAV_ROUTES = [
+  {
+    href: "/platform/billing/growth-partner-attribution",
+    icon: "attribution",
+  },
+  {
+    href: "/platform/billing/commissions",
+    icon: "commissions",
+  },
+] as const;
+
+function resolveNavLink(navGroups: PlatformNavGroupConfig[], href: string) {
+  return flattenNavLinks(navGroups).find((item) => item.href === href) ?? null;
+}
+
+function PartnerNavIcon({ kind }: { kind: (typeof PARTNER_NAV_ROUTES)[number]["icon"] }) {
+  const className = "h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400";
+
+  if (kind === "attribution") {
+    return (
+      <svg className={className} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+        <path d="M8 1.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM6.5 4.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM3.25 13.5A4.75 4.75 0 0 1 8 8.75a4.75 4.75 0 0 1 4.75 4.75.75.75 0 0 1-1.5 0A3.25 3.25 0 0 0 8 10.25 3.25 3.25 0 0 0 4.75 13.5a.75.75 0 0 1-1.5 0Z" />
+        <path d="M12.78 2.22a.75.75 0 0 1 0 1.06l-1.5 1.5a.75.75 0 1 1-1.06-1.06l1.5-1.5a.75.75 0 0 1 1.06 0ZM14.25 5.5a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h2Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className={className} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M2.5 3.75A1.75 1.75 0 0 1 4.25 2h7.5A1.75 1.75 0 0 1 13.5 3.75v8.5A1.75 1.75 0 0 1 11.75 14h-7.5A1.75 1.75 0 0 1 2.5 12.25v-8.5ZM4.25 3.5a.25.25 0 0 0-.25.25v8.5c0 .172.16.0.3.25h7.5a.25.25 0 0 0 .25-.25v-8.5a.25.25 0 0 0-.25-.25h-7.5ZM5 6.25A.75.75 0 0 1 5.75 5.5h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 5 6.25Zm0 2.5a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5A.75.75 0 0 1 5 8.75Z" />
+    </svg>
+  );
+}
+
+function PartnerNavCard({
+  href,
+  label,
+  actionLabel,
+  icon,
+}: {
+  href: string;
+  label: string;
+  actionLabel: string;
+  icon: (typeof PARTNER_NAV_ROUTES)[number]["icon"];
+}) {
+  const styles = METRIC_VARIANT_STYLES.neutral;
+
+  return (
+    <Link
+      href={href}
+      className={`block rounded-xl border px-4 py-3.5 shadow-sm transition hover:border-slate-300 hover:shadow-md dark:hover:border-slate-600 ${styles.card}`}
+      data-variant="neutral"
+      data-partner-nav={icon}
+    >
+      <div className="flex items-center gap-2">
+        <PartnerNavIcon kind={icon} />
+        <span className={`min-w-0 truncate text-xs font-medium uppercase tracking-wide ${styles.label}`}>
+          {label}
+        </span>
+      </div>
+      <span className={`mt-2 block text-sm font-semibold ${styles.value}`}>{actionLabel}</span>
+    </Link>
+  );
+}
+
 export function PlatformPortalDashboardPanel({
   labels,
   navGroups,
@@ -307,6 +372,12 @@ export function PlatformPortalDashboardPanel({
     return [{ ...route, label }];
   });
 
+  const partnerNavCards = PARTNER_NAV_ROUTES.flatMap((route) => {
+    const item = resolveNavLink(navGroups, route.href);
+    if (!item) return [];
+    return [{ ...route, label: item.label }];
+  });
+
   return (
     <div className="mx-auto w-full max-w-[1680px] space-y-8 p-6">
       <div>
@@ -318,7 +389,7 @@ export function PlatformPortalDashboardPanel({
       </div>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
-        <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <AttentionCard
             label={labels.organizationsRequiringAttention}
             value={dashboard.organizations_requiring_attention}
@@ -335,10 +406,6 @@ export function PlatformPortalDashboardPanel({
           <AttentionCard
             label={labels.pendingReview}
             value={dashboard.marketplace_moderation.pending_review}
-          />
-          <AttentionCard
-            label={labels.pendingApplications}
-            value={dashboard.growth_partner_summary.pending_applications}
           />
         </dl>
       </section>
@@ -398,28 +465,40 @@ export function PlatformPortalDashboardPanel({
         </dl>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="font-semibold text-slate-900">{labels.marketplaceModeration}</h2>
-          <dl className="mt-4 grid gap-4 sm:grid-cols-2">
-            <MetricCard
-              label={labels.published}
-              value={dashboard.marketplace_moderation.published}
-              variant="success"
-            />
-          </dl>
-        </div>
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="font-semibold text-slate-900">{labels.partnerProgramSummary}</h2>
-          <dl className="mt-4 grid gap-4 sm:grid-cols-2">
-            <MetricCard
-              label={labels.activePrograms}
-              value={dashboard.growth_partner_summary.active_programs}
-              variant="success"
-            />
-          </dl>
-        </div>
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
+        <h2 className="font-semibold text-slate-900 dark:text-slate-100">
+          {labels.marketplaceModeration}
+        </h2>
+        <dl className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <MetricCard
+            label={labels.published}
+            value={dashboard.marketplace_moderation.published}
+            variant="success"
+          />
+        </dl>
       </section>
+
+      {partnerNavCards.length > 0 ? (
+        <section
+          className="rounded-2xl border border-slate-200 bg-slate-50/60 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900/40"
+          data-area="partners"
+        >
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+            {labels.partnerProgramSummary}
+          </h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {partnerNavCards.map((card) => (
+              <PartnerNavCard
+                key={card.href}
+                href={card.href}
+                label={card.label}
+                actionLabel={labels.openModule}
+                icon={card.icon}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="font-semibold text-slate-900">{labels.productDeploymentUpdates}</h2>
