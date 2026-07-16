@@ -700,31 +700,6 @@ export function PlatformPortalDashboardPanel({
         </section>
       ) : null}
 
-      <section className="space-y-6">
-        <h2 className="text-lg font-semibold text-slate-900">{labels.portalModules}</h2>
-        {navGroups.map((group) => (
-          <div key={group.id}>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-              {group.label}
-            </h3>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {group.items.map((item) => (
-                <Link
-                  key={item.id}
-                  href={item.href}
-                  className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-indigo-200 hover:shadow-md"
-                >
-                  <h4 className="font-medium text-slate-900">{item.label}</h4>
-                  <span className="mt-4 inline-block text-sm font-medium text-indigo-600">
-                    {labels.openModule} →
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        ))}
-      </section>
-
       <p className="text-xs text-slate-500">{labels.privacyNote}</p>
     </div>
   );
