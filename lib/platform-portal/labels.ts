@@ -31,6 +31,9 @@ export function buildPlatformPortalLabels(t: Translator): PlatformPortalLabels {
       noUpdates: t(`${d}.noUpdates`),
       portalModules: t(`${d}.portalModules`),
       openModule: t(`${d}.openModule`),
+      loadErrorTitle: t(`${d}.loadErrorTitle`),
+      loadErrorMessage: t(`${d}.loadErrorMessage`),
+      retry: t(`${d}.retry`),
     },
     foundation: {
       loading: t(`${f}.loading`),

@@ -67,6 +67,9 @@ export type PlatformPortalLabels = {
     noUpdates: string;
     portalModules: string;
     openModule: string;
+    loadErrorTitle: string;
+    loadErrorMessage: string;
+    retry: string;
   };
   foundation: {
     loading: string;
