@@ -447,7 +447,9 @@
       "active": "Активний",
       "cancelled": "Скасовано",
       "paused": "Призупинено",
-      "past_due": "Прострочено"
+      "past_due": "Прострочено",
+      "unpaid": "Не оплачено",
+      "canceled": "Скасовано"
     },
     "invoice": {
       "draft": "Чернетка",
@@ -565,7 +567,17 @@
     "summaryNew": "Нові клієнти (30 днів)",
     "filterPartner": "Партнерські клієнти",
     "filterDirect": "Прямі клієнти",
-    "requiresAttention": "Потребує уваги"
+    "requiresAttention": "Потребує уваги",
+    "emptyTitle": "Клієнтів не знайдено",
+    "emptyDescription": "Жоден клієнт не відповідає вибраним фільтрам.",
+    "clearFilters": "Очистити фільтри",
+    "filterSubscription": "Підписка",
+    "filterAttribution": "Джерело клієнта",
+    "lifetime": "Довічний доступ",
+    "partnerCustomer": "Партнерський клієнт",
+    "directCustomer": "Прямий клієнт",
+    "notAvailable": "Недоступно",
+    "noOpenSupport": "Немає відкритих звернень до підтримки"
   },
   "customerDetail": {
     "back": "Назад до клієнтів",

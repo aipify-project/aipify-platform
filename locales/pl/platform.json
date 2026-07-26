@@ -447,7 +447,9 @@
       "active": "Aktywna",
       "cancelled": "Anulowana",
       "paused": "Wstrzymana",
-      "past_due": "Po terminie"
+      "past_due": "Po terminie",
+      "unpaid": "Nieopłacona",
+      "canceled": "Anulowana"
     },
     "invoice": {
       "draft": "Szkic",
@@ -565,7 +567,17 @@
     "summaryNew": "Nowi klienci (30 dni)",
     "filterPartner": "Klienci partnerscy",
     "filterDirect": "Klienci bezpośredni",
-    "requiresAttention": "Wymaga uwagi"
+    "requiresAttention": "Wymaga uwagi",
+    "emptyTitle": "Nie znaleziono klientów",
+    "emptyDescription": "Żaden klient nie pasuje do wybranych filtrów.",
+    "clearFilters": "Wyczyść filtry",
+    "filterSubscription": "Subskrypcja",
+    "filterAttribution": "Źródło klienta",
+    "lifetime": "Dożywotni dostęp",
+    "partnerCustomer": "Klient partnerski",
+    "directCustomer": "Klient bezpośredni",
+    "notAvailable": "Niedostępne",
+    "noOpenSupport": "Brak otwartych zgłoszeń do pomocy technicznej"
   },
   "customerDetail": {
     "back": "Powrót do klientów",

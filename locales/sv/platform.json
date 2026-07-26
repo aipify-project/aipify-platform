@@ -447,7 +447,9 @@
       "active": "Active",
       "cancelled": "Cancelled",
       "paused": "Paused",
-      "past_due": "Past due"
+      "past_due": "Past due",
+      "unpaid": "Obetald",
+      "canceled": "Cancelled"
     },
     "invoice": {
       "draft": "Draft",
@@ -565,7 +567,17 @@
     "summaryNew": "Nya kunder (30 dagar)",
     "filterPartner": "Partnerkunder",
     "filterDirect": "Direktkunder",
-    "requiresAttention": "Kräver uppmärksamhet"
+    "requiresAttention": "Kräver uppmärksamhet",
+    "emptyTitle": "Inga kunder hittades",
+    "emptyDescription": "Inga kunder matchar de valda filtren.",
+    "clearFilters": "Rensa filter",
+    "filterSubscription": "Abonnemang",
+    "filterAttribution": "Kundkälla",
+    "lifetime": "Livstidsåtkomst",
+    "partnerCustomer": "Partnerkund",
+    "directCustomer": "Direktkund",
+    "notAvailable": "Inte tillgängligt",
+    "noOpenSupport": "Inga öppna supportärenden"
   },
   "customerDetail": {
     "back": "Back to customers",

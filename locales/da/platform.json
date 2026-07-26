@@ -265,7 +265,9 @@
       "active": "Active",
       "cancelled": "Cancelled",
       "paused": "Paused",
-      "past_due": "Past due"
+      "past_due": "Past due",
+      "unpaid": "Ubetalt",
+      "canceled": "Cancelled"
     },
     "invoice": {
       "draft": "Draft",
@@ -369,7 +371,17 @@
     "summaryAttention": "Kræver opmærksomhed",
     "filterPartner": "Partnerkunder",
     "filterDirect": "Direkte kunder",
-    "requiresAttention": "Kræver opmærksomhed"
+    "requiresAttention": "Kræver opmærksomhed",
+    "emptyTitle": "Ingen kunder fundet",
+    "emptyDescription": "Ingen kunder matcher de valgte filtre.",
+    "clearFilters": "Ryd filtre",
+    "filterSubscription": "Abonnement",
+    "filterAttribution": "Kundekilde",
+    "lifetime": "Livstidsadgang",
+    "partnerCustomer": "Partnerkunde",
+    "directCustomer": "Direkte kunde",
+    "notAvailable": "Ikke tilgængelig",
+    "noOpenSupport": "Ingen åbne supportsager"
   },
   "customerDetail": {
     "back": "Back to customers",

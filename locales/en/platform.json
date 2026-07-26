@@ -447,7 +447,9 @@
       "active": "Active",
       "cancelled": "Cancelled",
       "paused": "Paused",
-      "past_due": "Past due"
+      "past_due": "Past due",
+      "unpaid": "Unpaid",
+      "canceled": "Cancelled"
     },
     "invoice": {
       "draft": "Draft",
@@ -565,7 +567,17 @@
     "summaryNew": "New customers (30 days)",
     "filterPartner": "Partner customers",
     "filterDirect": "Direct customers",
-    "requiresAttention": "Requires attention"
+    "requiresAttention": "Requires attention",
+    "emptyTitle": "No customers found",
+    "emptyDescription": "No customers match the selected filters.",
+    "clearFilters": "Clear filters",
+    "filterSubscription": "Subscription",
+    "filterAttribution": "Customer source",
+    "lifetime": "Lifetime access",
+    "partnerCustomer": "Partner customer",
+    "directCustomer": "Direct customer",
+    "notAvailable": "Not available",
+    "noOpenSupport": "No open support cases"
   },
   "customerDetail": {
     "back": "Back to customers",

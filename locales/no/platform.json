@@ -290,7 +290,9 @@
       "active": "Active",
       "cancelled": "Cancelled",
       "paused": "Paused",
-      "past_due": "Past due"
+      "past_due": "Past due",
+      "unpaid": "Ubetalt",
+      "canceled": "Cancelled"
     },
     "invoice": {
       "draft": "Draft",
@@ -405,7 +407,17 @@
     "summaryAttention": "Krever oppmerksomhet",
     "filterPartner": "Partnerkunder",
     "filterDirect": "Direktekunder",
-    "requiresAttention": "Krever oppmerksomhet"
+    "requiresAttention": "Krever oppmerksomhet",
+    "emptyTitle": "Ingen kunder funnet",
+    "emptyDescription": "Ingen kunder samsvarer med de valgte filtrene.",
+    "clearFilters": "Nullstill filtre",
+    "filterSubscription": "Abonnement",
+    "filterAttribution": "Kundekilde",
+    "lifetime": "Livstidstilgang",
+    "partnerCustomer": "Partnerkunde",
+    "directCustomer": "Direktekunde",
+    "notAvailable": "Ikke tilgjengelig",
+    "noOpenSupport": "Ingen åpne supportsaker"
   },
   "customerDetail": {
     "back": "Back to customers",
