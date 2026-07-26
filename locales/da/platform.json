@@ -360,7 +360,16 @@
     "enterpriseLabels": {
       "yes": "Ja",
       "no": "Nej"
-    }
+    },
+    "error": "Kunne ikke indlæse kunder.",
+    "retry": "Prøv igen",
+    "summaryTotal": "Kunder i alt",
+    "summaryActive": "Aktive kunder",
+    "summaryNew": "Nye kunder (30 dage)",
+    "summaryAttention": "Kræver opmærksomhed",
+    "filterPartner": "Partnerkunder",
+    "filterDirect": "Direkte kunder",
+    "requiresAttention": "Kræver opmærksomhed"
   },
   "customerDetail": {
     "back": "Back to customers",

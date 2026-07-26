@@ -559,7 +559,13 @@
     "enterpriseLabels": {
       "yes": "Yes",
       "no": "No"
-    }
+    },
+    "error": "Unable to load customers.",
+    "retry": "Try again",
+    "summaryNew": "New customers (30 days)",
+    "filterPartner": "Partner customers",
+    "filterDirect": "Direct customers",
+    "requiresAttention": "Requires attention"
   },
   "customerDetail": {
     "back": "Back to customers",

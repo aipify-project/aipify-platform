@@ -559,7 +559,13 @@
     "enterpriseLabels": {
       "yes": "Tak",
       "no": "Nie"
-    }
+    },
+    "error": "Nie udało się wczytać klientów.",
+    "retry": "Spróbuj ponownie",
+    "summaryNew": "Nowi klienci (30 dni)",
+    "filterPartner": "Klienci partnerscy",
+    "filterDirect": "Klienci bezpośredni",
+    "requiresAttention": "Wymaga uwagi"
   },
   "customerDetail": {
     "back": "Powrót do klientów",

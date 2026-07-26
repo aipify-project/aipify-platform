@@ -487,10 +487,10 @@
     "subtitle": "Permanent customer numbers, profiles, and tenant links — Platform Admin only.",
     "loading": "Loading customers...",
     "empty": "No customers yet.",
-    "summaryTotal": "Total customers",
-    "summaryActive": "Active customers",
+    "summaryTotal": "Totalt antal kunder",
+    "summaryActive": "Aktiva kunder",
     "summaryTrial": "Trial customers",
-    "summaryAttention": "Needs attention",
+    "summaryAttention": "Kräver uppmärksamhet",
     "summaryEnterprise": "Enterprise candidates",
     "summaryTwoFactor": "2FA enabled",
     "search": "Search customers...",
@@ -559,7 +559,13 @@
     "enterpriseLabels": {
       "yes": "Ja",
       "no": "Nej"
-    }
+    },
+    "error": "Kunde inte läsa in kunder.",
+    "retry": "Försök igen",
+    "summaryNew": "Nya kunder (30 dagar)",
+    "filterPartner": "Partnerkunder",
+    "filterDirect": "Direktkunder",
+    "requiresAttention": "Kräver uppmärksamhet"
   },
   "customerDetail": {
     "back": "Back to customers",

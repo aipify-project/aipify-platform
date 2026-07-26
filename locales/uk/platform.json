@@ -559,7 +559,13 @@
     "enterpriseLabels": {
       "yes": "так",
       "no": "немає"
-    }
+    },
+    "error": "Не вдалося завантажити клієнтів.",
+    "retry": "Спробувати ще раз",
+    "summaryNew": "Нові клієнти (30 днів)",
+    "filterPartner": "Партнерські клієнти",
+    "filterDirect": "Прямі клієнти",
+    "requiresAttention": "Потребує уваги"
   },
   "customerDetail": {
     "back": "Назад до клієнтів",

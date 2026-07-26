@@ -396,7 +396,16 @@
     "enterpriseLabels": {
       "yes": "Ja",
       "no": "Nei"
-    }
+    },
+    "error": "Kunne ikke laste kunder.",
+    "retry": "Prøv igjen",
+    "summaryTotal": "Kunder totalt",
+    "summaryActive": "Aktive kunder",
+    "summaryNew": "Nye kunder (30 dager)",
+    "summaryAttention": "Krever oppmerksomhet",
+    "filterPartner": "Partnerkunder",
+    "filterDirect": "Direktekunder",
+    "requiresAttention": "Krever oppmerksomhet"
   },
   "customerDetail": {
     "back": "Back to customers",
