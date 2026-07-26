@@ -33,6 +33,47 @@ export type PlatformPortalDashboard = {
   product_deployment_updates: PlatformPortalProductUpdate[];
 };
 
+export type PlatformPortalCustomerSummary = {
+  total: number;
+  active: number;
+  new30d: number;
+  requiresAttention: number;
+};
+
+export type PlatformPortalCustomerRecord = {
+  organizationId: string;
+  customerId: string;
+  companyId: string;
+  legalName: string;
+  organizationNumber: string | null;
+  organizationSlug: string | null;
+  customerStatus: string | null;
+  createdAt: string | null;
+  subscriptionStatus: string | null;
+  subscriptionPlanKey: string | null;
+  subscriptionPlanType: string | null;
+  subscriptionPlanName: string | null;
+  subscriptionBillingCycle: string | null;
+  subscriptionCreatedAt: string | null;
+  subscriptionUpdatedAt: string | null;
+  isLifetime: boolean;
+  primaryContactName: string | null;
+  memberCount: number;
+  licenseServiceStatus: string | null;
+  paymentOverdueSince: string | null;
+  isPartnerAttributed: boolean;
+  growthPartnerProfileId: string | null;
+  growthPartnerPublicId: string | null;
+  openSupportCount: number;
+  lastActivityAt: string | null;
+  requiresAttention: boolean;
+};
+
+export type PlatformPortalCustomersPayload = {
+  summary: PlatformPortalCustomerSummary;
+  customers: PlatformPortalCustomerRecord[];
+};
+
 export type PlatformPortalLabels = {
   dashboard: {
     title: string;
