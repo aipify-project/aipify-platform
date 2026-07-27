@@ -436,14 +436,14 @@
   },
   "status": {
     "customer": {
-      "trial": "суд",
+      "trial": "Пробний період",
       "active": "Активний",
       "paused": "Призупинено",
       "cancelled": "Скасовано",
-      "overdue": "Прострочена"
+      "overdue": "Прострочено"
     },
     "subscription": {
-      "trialing": "Випробування",
+      "trialing": "Пробний період",
       "active": "Активний",
       "cancelled": "Скасовано",
       "paused": "Призупинено",
@@ -496,9 +496,9 @@
     "summaryEnterprise": "Підприємства кандидати",
     "summaryTwoFactor": "2FA увімкнено",
     "search": "Пошук клієнтів...",
-    "filterStatus": "Всі статуси",
+    "filterStatus": "Статус",
     "filterType": "Всі види",
-    "filterAll": "всі",
+    "filterAll": "Усі",
     "customerNumber": "№ клієнта",
     "name": "Ім'я",
     "type": "Тип",
@@ -577,7 +577,21 @@
     "partnerCustomer": "Партнерський клієнт",
     "directCustomer": "Прямий клієнт",
     "notAvailable": "Недоступно",
-    "noOpenSupport": "Немає відкритих звернень до підтримки"
+    "noOpenSupport": "Немає відкритих звернень до підтримки",
+    "registryTitle": "Клієнти",
+    "registryDescription": "Постійні номери клієнтів, профілі та зв’язки з організаціями — лише для адміністратора платформи.",
+    "searchPlaceholder": "Пошук клієнтів...",
+    "columnCustomer": "Клієнт",
+    "columnOrganizationNumber": "Реєстраційний номер",
+    "columnStatus": "Статус",
+    "columnSubscription": "Підписка",
+    "columnMembers": "Учасники",
+    "columnAttribution": "Джерело клієнта",
+    "columnSupport": "Підтримка",
+    "columnLastActivity": "Остання активність",
+    "columnActions": "Дії",
+    "openCustomer": "Відкрити клієнта",
+    "noSubscription": "Немає підписки"
   },
   "customerDetail": {
     "back": "Назад до клієнтів",

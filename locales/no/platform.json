@@ -279,20 +279,20 @@
   },
   "status": {
     "customer": {
-      "trial": "Trial",
-      "active": "Active",
-      "paused": "Paused",
-      "cancelled": "Cancelled",
-      "overdue": "Overdue"
+      "trial": "Prøveperiode",
+      "active": "Aktiv",
+      "paused": "Pauset",
+      "cancelled": "Avsluttet",
+      "overdue": "Forfalt"
     },
     "subscription": {
-      "trialing": "Trialing",
-      "active": "Active",
-      "cancelled": "Cancelled",
-      "paused": "Paused",
-      "past_due": "Past due",
+      "trialing": "Prøveperiode",
+      "active": "Aktiv",
+      "cancelled": "Avsluttet",
+      "paused": "Pauset",
+      "past_due": "Forfalt",
       "unpaid": "Ubetalt",
-      "canceled": "Cancelled"
+      "canceled": "Avsluttet"
     },
     "invoice": {
       "draft": "Draft",
@@ -333,9 +333,9 @@
     "loading": "Loading customers...",
     "empty": "No customers yet.",
     "search": "Search customers...",
-    "filterStatus": "All statuses",
+    "filterStatus": "Status",
     "filterType": "All types",
-    "filterAll": "All",
+    "filterAll": "Alle",
     "customerNumber": "Customer no.",
     "name": "Name",
     "type": "Type",
@@ -417,7 +417,21 @@
     "partnerCustomer": "Partnerkunde",
     "directCustomer": "Direktekunde",
     "notAvailable": "Ikke tilgjengelig",
-    "noOpenSupport": "Ingen åpne supportsaker"
+    "noOpenSupport": "Ingen åpne supportsaker",
+    "registryTitle": "Kunder",
+    "registryDescription": "Permanente kundenumre, profiler og organisasjonstilknytninger — kun for Platform Admin.",
+    "searchPlaceholder": "Søk etter kunder...",
+    "columnCustomer": "Kunde",
+    "columnOrganizationNumber": "Org.nr.",
+    "columnStatus": "Status",
+    "columnSubscription": "Abonnement",
+    "columnMembers": "Medlemmer",
+    "columnAttribution": "Kundekilde",
+    "columnSupport": "Support",
+    "columnLastActivity": "Siste aktivitet",
+    "columnActions": "Handlinger",
+    "openCustomer": "Åpne kunde",
+    "noSubscription": "Ingen abonnement"
   },
   "customerDetail": {
     "back": "Back to customers",

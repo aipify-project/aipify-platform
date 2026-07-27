@@ -436,20 +436,20 @@
   },
   "status": {
     "customer": {
-      "trial": "Trial",
-      "active": "Active",
-      "paused": "Paused",
-      "cancelled": "Cancelled",
-      "overdue": "Overdue"
+      "trial": "Provperiod",
+      "active": "Aktiv",
+      "paused": "Pausad",
+      "cancelled": "Avslutad",
+      "overdue": "Förfallen"
     },
     "subscription": {
-      "trialing": "Trialing",
-      "active": "Active",
-      "cancelled": "Cancelled",
-      "paused": "Paused",
-      "past_due": "Past due",
+      "trialing": "Provperiod",
+      "active": "Aktiv",
+      "cancelled": "Avslutad",
+      "paused": "Pausad",
+      "past_due": "Förfallen",
       "unpaid": "Obetald",
-      "canceled": "Cancelled"
+      "canceled": "Avslutad"
     },
     "invoice": {
       "draft": "Draft",
@@ -496,9 +496,9 @@
     "summaryEnterprise": "Enterprise candidates",
     "summaryTwoFactor": "2FA enabled",
     "search": "Search customers...",
-    "filterStatus": "All statuses",
+    "filterStatus": "Status",
     "filterType": "All types",
-    "filterAll": "All",
+    "filterAll": "Alla",
     "customerNumber": "Customer no.",
     "name": "Name",
     "type": "Type",
@@ -577,7 +577,21 @@
     "partnerCustomer": "Partnerkund",
     "directCustomer": "Direktkund",
     "notAvailable": "Inte tillgängligt",
-    "noOpenSupport": "Inga öppna supportärenden"
+    "noOpenSupport": "Inga öppna supportärenden",
+    "registryTitle": "Kunder",
+    "registryDescription": "Permanenta kundnummer, profiler och organisationskopplingar — endast för Platform Admin.",
+    "searchPlaceholder": "Sök efter kunder...",
+    "columnCustomer": "Kund",
+    "columnOrganizationNumber": "Organisationsnr.",
+    "columnStatus": "Status",
+    "columnSubscription": "Abonnemang",
+    "columnMembers": "Medlemmar",
+    "columnAttribution": "Kundkälla",
+    "columnSupport": "Support",
+    "columnLastActivity": "Senaste aktivitet",
+    "columnActions": "Åtgärder",
+    "openCustomer": "Öppna kund",
+    "noSubscription": "Inget abonnemang"
   },
   "customerDetail": {
     "back": "Back to customers",

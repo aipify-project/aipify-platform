@@ -440,16 +440,16 @@
       "active": "Aktywny",
       "paused": "Wstrzymany",
       "cancelled": "Anulowany",
-      "overdue": "Po terminie"
+      "overdue": "Zaległy"
     },
     "subscription": {
       "trialing": "Okres próbny",
-      "active": "Aktywna",
-      "cancelled": "Anulowana",
-      "paused": "Wstrzymana",
-      "past_due": "Po terminie",
+      "active": "Aktywny",
+      "cancelled": "Anulowany",
+      "paused": "Wstrzymany",
+      "past_due": "Zaległy",
       "unpaid": "Nieopłacona",
-      "canceled": "Anulowana"
+      "canceled": "Anulowany"
     },
     "invoice": {
       "draft": "Szkic",
@@ -496,9 +496,9 @@
     "summaryEnterprise": "Kandydaci Enterprise",
     "summaryTwoFactor": "Włączone 2FA",
     "search": "Szukaj klientów...",
-    "filterStatus": "Wszystkie statusy",
+    "filterStatus": "Status",
     "filterType": "Wszystkie typy",
-    "filterAll": "Wszystkie",
+    "filterAll": "Wszyscy",
     "customerNumber": "Nr klienta",
     "name": "Nazwa",
     "type": "Typ",
@@ -577,7 +577,21 @@
     "partnerCustomer": "Klient partnerski",
     "directCustomer": "Klient bezpośredni",
     "notAvailable": "Niedostępne",
-    "noOpenSupport": "Brak otwartych zgłoszeń do pomocy technicznej"
+    "noOpenSupport": "Brak otwartych zgłoszeń do pomocy technicznej",
+    "registryTitle": "Klienci",
+    "registryDescription": "Stałe numery klientów, profile i powiązania z organizacjami — tylko dla administratora platformy.",
+    "searchPlaceholder": "Szukaj klientów...",
+    "columnCustomer": "Klient",
+    "columnOrganizationNumber": "Numer organizacji",
+    "columnStatus": "Status",
+    "columnSubscription": "Subskrypcja",
+    "columnMembers": "Członkowie",
+    "columnAttribution": "Źródło klienta",
+    "columnSupport": "Wsparcie",
+    "columnLastActivity": "Ostatnia aktywność",
+    "columnActions": "Działania",
+    "openCustomer": "Otwórz klienta",
+    "noSubscription": "Brak subskrypcji"
   },
   "customerDetail": {
     "back": "Powrót do klientów",
