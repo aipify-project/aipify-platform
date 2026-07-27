@@ -317,7 +317,7 @@ export function PlatformPortalCustomersPanel({
   if (loading) {
     return (
       <div
-        className="mx-auto flex min-h-[60vh] w-full max-w-[1680px] items-center justify-center p-6"
+        className="flex min-h-[60vh] w-full items-center justify-center"
         role="status"
         aria-live="polite"
       >
@@ -327,7 +327,7 @@ export function PlatformPortalCustomersPanel({
   }
 
   return (
-    <div className="mx-auto w-full max-w-[1680px] space-y-6 p-6">
+    <div className="w-full space-y-6">
       <header>
         <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
           {labels.title}
