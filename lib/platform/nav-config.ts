@@ -54,6 +54,8 @@ export type PlatformNavId =
   | "subscriptionOperations"
   | "revenueOperations"
   | "paymentProviders"
+  | "growthPartnerAttribution"
+  | "commissions"
   | "installations"
   | "installEngine"
   | "updates"
@@ -430,6 +432,16 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.paymentProviders",
   },
   {
+    id: "growthPartnerAttribution",
+    href: "/platform/billing/growth-partner-attribution",
+    labelKey: "platform.billingCommerceCenter.nav.growthPartnerAttribution",
+  },
+  {
+    id: "commissions",
+    href: "/platform/billing/commissions",
+    labelKey: "platform.billingCommerceCenter.nav.commissions",
+  },
+  {
     id: "installations",
     href: "/platform/installations",
     labelKey: "platform.nav.installations",
@@ -573,6 +585,10 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/billing/vat-engine")) return "taxVerification";
   if (pathname.startsWith("/platform/billing/tax-verification")) return "taxVerification";
   if (pathname.startsWith("/platform/billing/payment-operations")) return "paymentOperations";
+  if (pathname.startsWith("/platform/billing/growth-partner-attribution")) {
+    return "growthPartnerAttribution";
+  }
+  if (pathname.startsWith("/platform/billing/commissions")) return "commissions";
   if (pathname.startsWith("/platform/billing")) return "billing";
   if (pathname.startsWith("/platform/subscriptions")) return "subscriptions";
   if (pathname.startsWith("/platform/companion-marketplace")) return "marketplace";

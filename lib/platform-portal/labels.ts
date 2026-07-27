@@ -1,9 +1,13 @@
 import type { Translator } from "@/lib/i18n/translate";
-import type { PlatformPortalLabels } from "./types";
+import type {
+  PlatformPortalCustomersLabels,
+  PlatformPortalLabels,
+} from "./types";
 
 export function buildPlatformPortalLabels(t: Translator): PlatformPortalLabels {
   const d = "platform.portalStructure.dashboard";
   const f = "platform.portalStructure.foundation";
+  const billingNav = "platform.billingCommerceCenter.nav";
 
   return {
     dashboard: {
@@ -19,6 +23,9 @@ export function buildPlatformPortalLabels(t: Translator): PlatformPortalLabels {
       paymentActive: t(`${d}.paymentActive`),
       paymentPastDue: t(`${d}.paymentPastDue`),
       paymentTrialing: t(`${d}.paymentTrialing`),
+      invoices: t(`${billingNav}.invoices`),
+      paymentProviders: t(`${billingNav}.paymentProviders`),
+      accountingIntegration: t(`${billingNav}.accountingIntegration`),
       customerSuccessIndicators: t(`${d}.customerSuccessIndicators`),
       healthyRatio: t(`${d}.healthyRatio`),
       marketplaceModeration: t(`${d}.marketplaceModeration`),
@@ -31,11 +38,77 @@ export function buildPlatformPortalLabels(t: Translator): PlatformPortalLabels {
       noUpdates: t(`${d}.noUpdates`),
       portalModules: t(`${d}.portalModules`),
       openModule: t(`${d}.openModule`),
+      loadErrorTitle: t(`${d}.loadErrorTitle`),
+      loadErrorMessage: t(`${d}.loadErrorMessage`),
+      retry: t(`${d}.retry`),
     },
     foundation: {
       loading: t(`${f}.loading`),
       back: t(`${f}.back`),
       structureNote: t(`${f}.structureNote`),
+    },
+  };
+}
+
+export function buildPlatformPortalCustomersLabels(
+  t: Translator,
+): PlatformPortalCustomersLabels {
+  const c = "platform.customers";
+  const customerStatus = "platform.status.customer";
+  const subscriptionStatus = "platform.status.subscription";
+
+  return {
+    title: t(`${c}.registryTitle`),
+    description: t(`${c}.registryDescription`),
+    summaryTotal: t(`${c}.summaryTotal`),
+    summaryActive: t(`${c}.summaryActive`),
+    summaryNew: t(`${c}.summaryNew`),
+    summaryAttention: t(`${c}.summaryAttention`),
+    loading: t(`${c}.loading`),
+    error: t(`${c}.error`),
+    retry: t(`${c}.retry`),
+    emptyTitle: t(`${c}.emptyTitle`),
+    emptyDescription: t(`${c}.emptyDescription`),
+    searchPlaceholder: t(`${c}.searchPlaceholder`),
+    filterAll: t(`${c}.filterAll`),
+    filterStatus: t(`${c}.filterStatus`),
+    filterSubscription: t(`${c}.filterSubscription`),
+    filterAttribution: t(`${c}.filterAttribution`),
+    filterPartner: t(`${c}.filterPartner`),
+    filterDirect: t(`${c}.filterDirect`),
+    clearFilters: t(`${c}.clearFilters`),
+    columnCustomer: t(`${c}.columnCustomer`),
+    columnOrganizationNumber: t(`${c}.columnOrganizationNumber`),
+    columnStatus: t(`${c}.columnStatus`),
+    columnSubscription: t(`${c}.columnSubscription`),
+    columnMembers: t(`${c}.columnMembers`),
+    columnAttribution: t(`${c}.columnAttribution`),
+    columnSupport: t(`${c}.columnSupport`),
+    columnLastActivity: t(`${c}.columnLastActivity`),
+    columnActions: t(`${c}.columnActions`),
+    requiresAttention: t(`${c}.requiresAttention`),
+    lifetime: t(`${c}.lifetime`),
+    partnerCustomer: t(`${c}.partnerCustomer`),
+    directCustomer: t(`${c}.directCustomer`),
+    noSubscription: t(`${c}.noSubscription`),
+    notAvailable: t(`${c}.notAvailable`),
+    openCustomer: t(`${c}.openCustomer`),
+    noOpenSupport: t(`${c}.noOpenSupport`),
+    customerStatuses: {
+      trial: t(`${customerStatus}.trial`),
+      active: t(`${customerStatus}.active`),
+      paused: t(`${customerStatus}.paused`),
+      cancelled: t(`${customerStatus}.cancelled`),
+      overdue: t(`${customerStatus}.overdue`),
+    },
+    subscriptionStatuses: {
+      active: t(`${subscriptionStatus}.active`),
+      trialing: t(`${subscriptionStatus}.trialing`),
+      past_due: t(`${subscriptionStatus}.past_due`),
+      unpaid: t(`${subscriptionStatus}.unpaid`),
+      paused: t(`${subscriptionStatus}.paused`),
+      cancelled: t(`${subscriptionStatus}.cancelled`),
+      canceled: t(`${subscriptionStatus}.canceled`),
     },
   };
 }

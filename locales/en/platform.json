@@ -30,7 +30,10 @@
       "productDeploymentUpdates": "Product and deployment updates",
       "noUpdates": "No scheduled deployment updates.",
       "portalModules": "PLATFORM modules",
-      "openModule": "Open module"
+      "openModule": "Open module",
+      "loadErrorTitle": "Could not load Platform dashboard",
+      "loadErrorMessage": "The dashboard data could not be loaded. Check the connection and try again.",
+      "retry": "Try again"
     },
     "foundation": {
       "loading": "Loading…",
@@ -444,7 +447,9 @@
       "active": "Active",
       "cancelled": "Cancelled",
       "paused": "Paused",
-      "past_due": "Past due"
+      "past_due": "Past due",
+      "unpaid": "Unpaid",
+      "canceled": "Cancelled"
     },
     "invoice": {
       "draft": "Draft",
@@ -491,7 +496,7 @@
     "summaryEnterprise": "Enterprise candidates",
     "summaryTwoFactor": "2FA enabled",
     "search": "Search customers...",
-    "filterStatus": "All statuses",
+    "filterStatus": "Status",
     "filterType": "All types",
     "filterAll": "All",
     "customerNumber": "Customer no.",
@@ -556,7 +561,37 @@
     "enterpriseLabels": {
       "yes": "Yes",
       "no": "No"
-    }
+    },
+    "error": "Unable to load customers.",
+    "retry": "Try again",
+    "summaryNew": "New customers (30 days)",
+    "filterPartner": "Partner customers",
+    "filterDirect": "Direct customers",
+    "requiresAttention": "Requires attention",
+    "emptyTitle": "No customers found",
+    "emptyDescription": "No customers match the selected filters.",
+    "clearFilters": "Clear filters",
+    "filterSubscription": "Subscription",
+    "filterAttribution": "Customer source",
+    "lifetime": "Lifetime access",
+    "partnerCustomer": "Partner customer",
+    "directCustomer": "Direct customer",
+    "notAvailable": "Not available",
+    "noOpenSupport": "No open support cases",
+    "registryTitle": "Customers",
+    "registryDescription": "Permanent customer numbers, profiles and organization links — Platform Admin only.",
+    "searchPlaceholder": "Search customers...",
+    "columnCustomer": "Customer",
+    "columnOrganizationNumber": "Org. no.",
+    "columnStatus": "Status",
+    "columnSubscription": "Subscription",
+    "columnMembers": "Members",
+    "columnAttribution": "Customer source",
+    "columnSupport": "Support",
+    "columnLastActivity": "Last activity",
+    "columnActions": "Actions",
+    "openCustomer": "Open customer",
+    "noSubscription": "No subscription"
   },
   "customerDetail": {
     "back": "Back to customers",

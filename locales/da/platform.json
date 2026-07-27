@@ -30,7 +30,10 @@
       "noUpdates": "Ingen planlagte deployopdateringer.",
       "portalModules": "PLATFORM-moduler",
       "openModule": "Åbn modul",
-      "partnerProgramSummary": "Aipify Partners-ydelse"
+      "partnerProgramSummary": "Aipify Partners-ydelse",
+      "loadErrorTitle": "Kunne ikke indlæse Platform-dashboardet",
+      "loadErrorMessage": "Dashboarddataene kunne ikke indlæses. Kontrollér forbindelsen, og prøv igen.",
+      "retry": "Prøv igen"
     },
     "foundation": {
       "loading": "Indlæser…",
@@ -251,18 +254,20 @@
   },
   "status": {
     "customer": {
-      "trial": "Trial",
-      "active": "Active",
-      "paused": "Paused",
-      "cancelled": "Cancelled",
-      "overdue": "Overdue"
+      "trial": "Prøveperiode",
+      "active": "Aktiv",
+      "paused": "Sat på pause",
+      "cancelled": "Annulleret",
+      "overdue": "Forfalden"
     },
     "subscription": {
-      "trialing": "Trialing",
-      "active": "Active",
-      "cancelled": "Cancelled",
-      "paused": "Paused",
-      "past_due": "Past due"
+      "trialing": "Prøveperiode",
+      "active": "Aktiv",
+      "cancelled": "Annulleret",
+      "paused": "Sat på pause",
+      "past_due": "Forfalden",
+      "unpaid": "Ubetalt",
+      "canceled": "Annulleret"
     },
     "invoice": {
       "draft": "Draft",
@@ -292,9 +297,9 @@
     "loading": "Loading customers...",
     "empty": "No customers yet.",
     "search": "Search customers...",
-    "filterStatus": "All statuses",
+    "filterStatus": "Status",
     "filterType": "All types",
-    "filterAll": "All",
+    "filterAll": "Alle",
     "customerNumber": "Customer no.",
     "name": "Name",
     "type": "Type",
@@ -357,7 +362,40 @@
     "enterpriseLabels": {
       "yes": "Ja",
       "no": "Nej"
-    }
+    },
+    "error": "Kunne ikke indlæse kunder.",
+    "retry": "Prøv igen",
+    "summaryTotal": "Kunder i alt",
+    "summaryActive": "Aktive kunder",
+    "summaryNew": "Nye kunder (30 dage)",
+    "summaryAttention": "Kræver opmærksomhed",
+    "filterPartner": "Partnerkunder",
+    "filterDirect": "Direkte kunder",
+    "requiresAttention": "Kræver opmærksomhed",
+    "emptyTitle": "Ingen kunder fundet",
+    "emptyDescription": "Ingen kunder matcher de valgte filtre.",
+    "clearFilters": "Ryd filtre",
+    "filterSubscription": "Abonnement",
+    "filterAttribution": "Kundekilde",
+    "lifetime": "Livstidsadgang",
+    "partnerCustomer": "Partnerkunde",
+    "directCustomer": "Direkte kunde",
+    "notAvailable": "Ikke tilgængelig",
+    "noOpenSupport": "Ingen åbne supportsager",
+    "registryTitle": "Kunder",
+    "registryDescription": "Permanente kundenumre, profiler og organisationstilknytninger — kun for Platform Admin.",
+    "searchPlaceholder": "Søg efter kunder...",
+    "columnCustomer": "Kunde",
+    "columnOrganizationNumber": "Org.nr.",
+    "columnStatus": "Status",
+    "columnSubscription": "Abonnement",
+    "columnMembers": "Medlemmer",
+    "columnAttribution": "Kundekilde",
+    "columnSupport": "Support",
+    "columnLastActivity": "Seneste aktivitet",
+    "columnActions": "Handlinger",
+    "openCustomer": "Åbn kunde",
+    "noSubscription": "Intet abonnement"
   },
   "customerDetail": {
     "back": "Back to customers",

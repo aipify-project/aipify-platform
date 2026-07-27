@@ -1,4 +1,9 @@
-import type { PlatformPortalDashboard } from "./types";
+import type {
+  PlatformPortalCustomerRecord,
+  PlatformPortalCustomerSummary,
+  PlatformPortalCustomersPayload,
+  PlatformPortalDashboard,
+} from "./types";
 
 function asRecord(raw: unknown): Record<string, unknown> | null {
   return raw && typeof raw === "object" ? (raw as Record<string, unknown>) : null;
@@ -13,6 +18,92 @@ function asNumber(value: unknown, fallback = 0): number {
   return Number.isFinite(n) ? n : fallback;
 }
 
+function asNonNegativeCount(value: unknown, fallback = 0): number {
+  const n = asNumber(value, fallback);
+  return n < 0 ? 0 : n;
+}
+
+function asStrictBoolean(value: unknown, fallback = false): boolean {
+  return typeof value === "boolean" ? value : fallback;
+}
+
+function asNullableTrimmedString(value: unknown): string | null {
+  if (value == null) return null;
+  const trimmed = String(value).trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
+function asRequiredId(value: unknown): string | null {
+  return asNullableTrimmedString(value);
+}
+
+function emptyCustomersPayload(): PlatformPortalCustomersPayload {
+  return {
+    summary: {
+      total: 0,
+      active: 0,
+      new30d: 0,
+      requiresAttention: 0,
+    },
+    customers: [],
+  };
+}
+
+function parseCustomerSummary(raw: unknown): PlatformPortalCustomerSummary {
+  const summary = asRecord(raw);
+  if (!summary) {
+    return emptyCustomersPayload().summary;
+  }
+
+  return {
+    total: asNonNegativeCount(summary.total),
+    active: asNonNegativeCount(summary.active),
+    new30d: asNonNegativeCount(summary.new_30d),
+    requiresAttention: asNonNegativeCount(summary.requires_attention),
+  };
+}
+
+function parseCustomerRecord(raw: unknown): PlatformPortalCustomerRecord | null {
+  const row = asRecord(raw);
+  if (!row) return null;
+
+  const organizationId = asRequiredId(row.organization_id);
+  const customerId = asRequiredId(row.customer_id);
+  const companyId = asRequiredId(row.company_id);
+  if (!organizationId || !customerId || !companyId) return null;
+
+  const legalNameRaw = asNullableTrimmedString(row.legal_name);
+
+  return {
+    organizationId,
+    customerId,
+    companyId,
+    legalName: legalNameRaw ?? "",
+    organizationNumber: asNullableTrimmedString(row.organization_number),
+    organizationSlug: asNullableTrimmedString(row.organization_slug),
+    customerStatus: asNullableTrimmedString(row.customer_status),
+    createdAt: asNullableTrimmedString(row.created_at),
+    subscriptionStatus: asNullableTrimmedString(row.subscription_status),
+    subscriptionPlanKey: asNullableTrimmedString(row.subscription_plan_key),
+    subscriptionPlanType: asNullableTrimmedString(row.subscription_plan_type),
+    subscriptionPlanName: asNullableTrimmedString(row.subscription_plan_name),
+    subscriptionBillingCycle: asNullableTrimmedString(row.subscription_billing_cycle),
+    subscriptionCreatedAt: asNullableTrimmedString(row.subscription_created_at),
+    subscriptionUpdatedAt: asNullableTrimmedString(row.subscription_updated_at),
+    isLifetime: asStrictBoolean(row.is_lifetime),
+    primaryContactName: asNullableTrimmedString(row.primary_contact_name),
+    memberCount: asNonNegativeCount(row.member_count),
+    licenseServiceStatus: asNullableTrimmedString(row.license_service_status),
+    paymentOverdueSince: asNullableTrimmedString(row.payment_overdue_since),
+    isPartnerAttributed: asStrictBoolean(row.is_partner_attributed),
+    growthPartnerProfileId: asNullableTrimmedString(row.growth_partner_profile_id),
+    growthPartnerPublicId: asNullableTrimmedString(row.growth_partner_public_id),
+    openSupportCount: asNonNegativeCount(row.open_support_count),
+    lastActivityAt: asNullableTrimmedString(row.last_activity_at),
+    requiresAttention: asStrictBoolean(row.requires_attention),
+  };
+}
+
 export function parsePlatformPortalDashboard(raw: unknown): PlatformPortalDashboard | null {
   const row = asRecord(raw);
   if (!row) return null;
@@ -20,7 +111,6 @@ export function parsePlatformPortalDashboard(raw: unknown): PlatformPortalDashbo
   const payment = asRecord(row.payment_status_summary) ?? {};
   const customerSuccess = asRecord(row.customer_success_indicators) ?? {};
   const marketplace = asRecord(row.marketplace_moderation) ?? {};
-  const growth = asRecord(row.growth_partner_summary) ?? {};
 
   const productUpdates = Array.isArray(row.product_deployment_updates)
     ? row.product_deployment_updates
@@ -39,7 +129,6 @@ export function parsePlatformPortalDashboard(raw: unknown): PlatformPortalDashbo
     : [];
 
   return {
-    principle: asString(row.principle),
     organizations_requiring_attention: asNumber(row.organizations_requiring_attention),
     active_subscriptions: asNumber(row.active_subscriptions),
     open_support_workload: asNumber(row.open_support_workload),
@@ -57,11 +146,22 @@ export function parsePlatformPortalDashboard(raw: unknown): PlatformPortalDashbo
       pending_review: asNumber(marketplace.pending_review),
       published: asNumber(marketplace.published),
     },
-    growth_partner_summary: {
-      active_programs: asNumber(growth.active_programs),
-      pending_applications: asNumber(growth.pending_applications),
-    },
     product_deployment_updates: productUpdates,
-    privacy_note: asString(row.privacy_note),
+  };
+}
+
+export function parsePlatformPortalCustomersPayload(value: unknown): PlatformPortalCustomersPayload {
+  const row = asRecord(value);
+  if (!row) return emptyCustomersPayload();
+
+  const customers = Array.isArray(row.customers)
+    ? row.customers
+        .map((item) => parseCustomerRecord(item))
+        .filter((item): item is PlatformPortalCustomerRecord => item !== null)
+    : [];
+
+  return {
+    summary: parseCustomerSummary(row.summary),
+    customers,
   };
 }
