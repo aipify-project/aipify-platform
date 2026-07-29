@@ -77,6 +77,7 @@ export type AppPortalNavId =
   | "contactSupport"
   | "supportRequests"
   | "aipifyCompanion"
+  | "kompisOperator"
   | "commandBrief"
   | "successCenter"
   | "gettingStarted"
@@ -176,6 +177,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     labelKey: "customerApp.portalStructure.navGroups.aipifyIntelligence",
     items: [
       { id: "aipifyCompanion", href: "/app/companion", labelKey: "customerApp.portalStructure.nav.aipifyCompanion" },
+      { id: "kompisOperator", href: "/app/kompis", labelKey: "customerApp.portalStructure.nav.kompisOperator" },
       { id: "commandBrief", href: "/app/command-center/companion-briefing", labelKey: "customerApp.portalStructure.nav.commandBrief" },
       { id: "intelligenceCommandCenter", href: "/app/intelligence/intelligence-command-center", labelKey: "customerApp.portalStructure.nav.intelligenceCommandCenter" },
       { id: "scenarioPlanning", href: "/app/intelligence/scenario-planning", labelKey: "customerApp.portalStructure.nav.scenarioPlanning" },
@@ -291,6 +293,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/support/customer-success")) return "supportRequests";
   if (pathname.startsWith("/app/support/customer-health")) return "supportRequests";
   if (pathname === "/app/companion") return "aipifyCompanion";
+  if (pathname.startsWith("/app/kompis")) return "kompisOperator";
   if (pathname.startsWith("/app/support/assistant")) return "aipifyCompanion";
   if (pathname.startsWith("/app/support/getting-started")) return "gettingStarted";
   if (pathname.startsWith("/app/support/academy")) return "customerAcademy";

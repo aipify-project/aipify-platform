@@ -255,7 +255,8 @@
       "organizationSettings": "Ustawienia organizacji",
       "connectedApps": "Połączone aplikacje",
       "dataSources": "Źródła danych",
-      "apiDeveloperSettings": "API i ustawienia deweloperskie"
+      "apiDeveloperSettings": "API i ustawienia deweloperskie",
+      "kompisOperator": "Kompis"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",

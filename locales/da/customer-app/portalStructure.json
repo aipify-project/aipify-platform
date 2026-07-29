@@ -105,7 +105,8 @@
       "organizationSettings": "Organisationsindstillinger",
       "connectedApps": "Tilknyttede apps",
       "dataSources": "Datakilder",
-      "apiDeveloperSettings": "API og udviklerindstillinger"
+      "apiDeveloperSettings": "API og udviklerindstillinger",
+      "kompisOperator": "Kompis"
     },
     "dashboard": {
       "title": "APP-dashboard",

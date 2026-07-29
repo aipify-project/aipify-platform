@@ -146,7 +146,8 @@
       "organizationSettings": "Configuración de la organización",
       "connectedApps": "Aplicaciones conectadas",
       "dataSources": "Fuentes de datos",
-      "apiDeveloperSettings": "API y configuración de desarrollador"
+      "apiDeveloperSettings": "API y configuración de desarrollador",
+      "kompisOperator": "Kompis"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
