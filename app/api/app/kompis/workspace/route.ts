@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { getKompisAiRuntimeStatus } from "@/lib/kompis-operator/ai-runtime";
 import { mapKompisOperatorRpcError, parseWorkspace } from "@/lib/kompis-operator/parse";
+import { listAvailableKompisOperatorTools, KOMPIS_OPERATOR_TOOL_REGISTRY } from "@/lib/kompis-operator/tools-registry";
 import { requireReadyAppPortalContext } from "@/lib/tenant/app-portal-route-access";
 import { createClient } from "@/lib/supabase/server";
 
@@ -29,7 +31,28 @@ export async function GET() {
     if (!parsed) {
       return NextResponse.json({ error: "Unable to load Kompis workspace.", code: "unknown" }, { status: 500, headers });
     }
-    return NextResponse.json(parsed, { headers });
+    const ai = getKompisAiRuntimeStatus();
+    return NextResponse.json(
+      {
+        ...parsed,
+        ai,
+        tools: {
+          available: listAvailableKompisOperatorTools().map((tool) => ({
+            key: tool.key,
+            version: tool.version,
+            category: tool.category,
+            riskClass: tool.riskClass,
+            kind: tool.kind,
+          })),
+          unavailable: KOMPIS_OPERATOR_TOOL_REGISTRY.filter((tool) => !tool.available).map((tool) => ({
+            key: tool.key,
+            version: tool.version,
+            reason: tool.unavailableReason ?? "unavailable",
+          })),
+        },
+      },
+      { headers },
+    );
   } catch {
     return NextResponse.json({ error: "Unable to load Kompis workspace.", code: "unknown" }, { status: 500, headers });
   }

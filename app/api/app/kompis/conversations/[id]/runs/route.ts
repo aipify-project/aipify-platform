@@ -4,6 +4,7 @@ import {
   planKompisOperatorRequest,
   planToRpcJson,
 } from "@/lib/kompis-operator/planner";
+import { assertKompisOperatorRateLimit } from "@/lib/kompis-operator/rate-limit";
 import {
   isUuid,
   mapKompisOperatorRpcError,
@@ -39,7 +40,20 @@ export async function POST(
       return NextResponse.json({ error: "Invalid input.", code: parsedBody.code }, { status: 400, headers });
     }
 
-    const plan = planKompisOperatorRequest(parsedBody.requestText);
+    const rate = await assertKompisOperatorRateLimit({
+      supabase,
+      userId: user.id,
+      organizationId: access.context.organization_id ?? "unknown",
+      kind: "plan",
+    });
+    if (!rate.allowed) {
+      return NextResponse.json(
+        { error: "Rate limit exceeded.", code: "rate_limited", resetInSeconds: rate.resetInSeconds ?? 60 },
+        { status: 429, headers },
+      );
+    }
+
+    const plan = await planKompisOperatorRequest(parsedBody.requestText);
     if (plan.riskClass === 3 || plan.unavailableReason === "critical_blocked") {
       return NextResponse.json(
         {
