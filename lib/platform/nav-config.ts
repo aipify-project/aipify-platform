@@ -45,6 +45,7 @@ export type PlatformNavId =
   | "customerLifecycle"
   | "customerSuccessOperations"
   | "subscriptions"
+  | "licenses"
   | "billing"
   | "invoices"
   | "taxVerification"
@@ -387,6 +388,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.subscriptions",
   },
   {
+    id: "licenses",
+    href: "/platform/licenses",
+    labelKey: "platform.nav.licenses",
+  },
+  {
     id: "billing",
     href: "/platform/billing",
     labelKey: "platform.nav.billing",
@@ -591,6 +597,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/billing/commissions")) return "commissions";
   if (pathname.startsWith("/platform/billing")) return "billing";
   if (pathname.startsWith("/platform/subscriptions")) return "subscriptions";
+  if (pathname.startsWith("/platform/licenses")) return "licenses";
   if (pathname.startsWith("/platform/companion-marketplace")) return "marketplace";
   if (pathname.startsWith("/platform/skills")) return "marketplace";
   if (pathname.startsWith("/platform/pilot-operations")) return "growthPartners";
