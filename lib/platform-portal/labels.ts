@@ -47,6 +47,15 @@ export function buildPlatformPortalLabels(t: Translator): PlatformPortalLabels {
       loadErrorTitle: t(`${d}.loadErrorTitle`),
       loadErrorMessage: t(`${d}.loadErrorMessage`),
       retry: t(`${d}.retry`),
+      lastChecked: t(`${d}.lastChecked`),
+      unknownStatus: t(`${d}.unknownStatus`),
+      updateClassifications: {
+        patch: t(`${d}.updateClassifications.patch`),
+        minor: t(`${d}.updateClassifications.minor`),
+        major: t(`${d}.updateClassifications.major`),
+        security: t(`${d}.updateClassifications.security`),
+        database_migration: t(`${d}.updateClassifications.database_migration`),
+      },
     },
     foundation: {
       loading: t(`${f}.loading`),

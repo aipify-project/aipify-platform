@@ -7,6 +7,7 @@ import {
   parsePlatformPortalDashboard,
   type PlatformPortalDashboard,
 } from "@/lib/platform-portal";
+import { mapLookupLabel } from "@/lib/platform-portal/business-language";
 import type { PlatformNavGroupConfig } from "@/lib/platform/build-nav";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 
@@ -638,7 +639,13 @@ export function PlatformPortalDashboardPanel({
                   <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
                     {update.version ? `v${update.version}` : null}
                     {update.version && update.classification ? " · " : null}
-                    {update.classification || null}
+                    {update.classification
+                      ? mapLookupLabel(
+                          update.classification,
+                          labels.updateClassifications,
+                          labels.unknownStatus,
+                        )
+                      : null}
                   </p>
                 </div>
                 {update.scheduled_at ? (

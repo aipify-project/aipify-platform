@@ -18,3 +18,22 @@ alwaysApply: true
 ## Related
 
 See also [aipify-global-platform.mdc](./aipify-global-platform.mdc) — Aipify is global by default.
+
+## Platform Dashboard & navigation
+
+Prefer business section labels in customer-facing Platform Admin UI:
+
+- Operations → Drift (NO) / Operations (EN)
+- Customers → Kunder
+- Commercial → Avtaler og salg / Agreements & sales
+- Knowledge → Kunnskap
+- Product → Produkt
+- Audit & Governance → Kontroll og styring / Control & governance
+- Platform Dashboard → Platformoversikt / Platform overview
+- Subscriptions → Kundeavtaler / Customer agreements
+- Lifetime → Ubegrenset / Unlimited
+- Deployments → Publiseringer / Publishing
+- Platform Health → Plattformstatus / Platform status
+- Data generated / response timestamps → Sist kontrollert / Last checked
+
+Do not show raw deployment classification codes (`patch`, `minor`, `major`, `security`, `database_migration`) as primary UI text.

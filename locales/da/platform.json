@@ -1,39 +1,48 @@
 {
   "accessDenied": "Platformadgang er begrænset til Platform Administrators og Super Admins.",
   "portal": {
-    "bannerTitle": "PLATFORM Portal",
-    "bannerBody": "Operationelt hjerte for Aipify Group AS. Kundevendte APP-workflows ligger i Customer App.",
+    "bannerTitle": "Platformportal",
+    "bannerBody": "Operativ oversigt for Aipify Group AS. Kundevendte APP-arbejdsgange ligger i Customer App.",
     "twoFactorRequired": "Platform Admin kræver tofaktorgodkendelse før adgang."
   },
   "portalStructure": {
     "dashboard": {
-      "title": "PLATFORM Dashboard",
-      "subtitle": "Operationelt hjerte for Aipify Group AS — support, finans, marketplace, produkt og customer success.",
-      "loading": "Indlæser platformdashboard…",
-      "principle": "PLATFORM driver Aipify Group. Executive oversight hører til i SUPER.",
-      "privacyNote": "Kun aggregerede platformoperationer — intet kundeindhold.",
+      "title": "Platformoversigt",
+      "subtitle": "Samlet oversigt over kunder, aftaler, tjenester og platformstatus.",
+      "loading": "Indlæser platformoversigt…",
+      "principle": "Platform driver Aipify Group. Executive oversigt hører hjemme i Super Admin.",
+      "privacyNote": "Kun aggregerede platformoperationer — ikke kundens forretningsindhold.",
       "organizationsRequiringAttention": "Organisationer der kræver opmærksomhed",
-      "activeSubscriptions": "Aktive abonnementer",
+      "activeSubscriptions": "Aktive aftaler",
       "openSupportWorkload": "Åben supportbelastning",
-      "paymentStatusSummary": "Betalingsoversigt",
+      "paymentStatusSummary": "Betalingsstatus",
       "paymentActive": "Aktive",
-      "paymentPastDue": "Forfaldne",
+      "paymentPastDue": "Forfalden",
       "paymentTrialing": "Prøveperiode",
-      "customerSuccessIndicators": "Customer Success-indikatorer",
+      "customerSuccessIndicators": "Kundesuccesindikatorer",
       "healthyRatio": "Andel sunde organisationer",
-      "marketplaceModeration": "Marketplace-moderation",
+      "marketplaceModeration": "Markedspladsmoderering",
       "pendingReview": "Afventer gennemgang",
-      "published": "Publicerede",
+      "published": "Publiceret",
       "activePrograms": "Aktive programmer",
-      "pendingApplications": "Afventende ansøgninger",
-      "productDeploymentUpdates": "Produkt- og deployopdateringer",
-      "noUpdates": "Ingen planlagte deployopdateringer.",
-      "portalModules": "PLATFORM-moduler",
-      "openModule": "Åbn modul",
-      "partnerProgramSummary": "Aipify Partners-ydelse",
-      "loadErrorTitle": "Kunne ikke indlæse Platform-dashboardet",
-      "loadErrorMessage": "Dashboarddataene kunne ikke indlæses. Kontrollér forbindelsen, og prøv igen.",
-      "retry": "Prøv igen"
+      "pendingApplications": "Ventende ansøgninger",
+      "productDeploymentUpdates": "Produkt- og publiceringsopdateringer",
+      "noUpdates": "Ingen planlagte publiceringsopdateringer.",
+      "portalModules": "Platformtjenester",
+      "openModule": "Åbn",
+      "partnerProgramSummary": "Growth Partner-resultater",
+      "loadErrorTitle": "Kunne ikke indlæse platformoversigten",
+      "loadErrorMessage": "Oversigtsdataene kunne ikke indlæses. Kontrollér forbindelsen, og prøv igen.",
+      "retry": "Prøv igen",
+      "lastChecked": "Sidst kontrolleret",
+      "unknownStatus": "Ukendt status",
+      "updateClassifications": {
+        "patch": "Patch",
+        "minor": "Mindre opdatering",
+        "major": "Større opdatering",
+        "security": "Sikkerhedsopdatering",
+        "database_migration": "Databaseopdatering"
+      }
     },
     "foundation": {
       "loading": "Indlæser…",
@@ -41,16 +50,16 @@
       "structureNote": "Dette modul er en del af PLATFORM-portalstrukturen. Operationelle funktioner udvides i fremtidige faser."
     },
     "operationsOverview": {
-      "title": "Operations Overview",
-      "subtitle": "Daglige operationssignaler, anbefalede handlinger og platformintelligens for Aipify Group."
+      "title": "Driftsoversigt",
+      "subtitle": "Daglige driftssignaler, anbefalede handlinger og platformindsigt for Aipify Group."
     },
     "deployments": {
-      "title": "Deployments",
-      "subtitle": "Releaseplanlægning, deploykoordinering og rollout-synlighed."
+      "title": "Publiceringer",
+      "subtitle": "Planlægning, koordinering og synlighed for publiceringer."
     },
     "operationsAuditLogs": {
-      "title": "Operations Audit Logs",
-      "subtitle": "Operationel revisionsspor for platformadministration."
+      "title": "Hændelseslog",
+      "subtitle": "Operativ hændelseslog for platformadministration."
     },
     "translationManagement": {
       "title": "Translation Management",
@@ -74,22 +83,24 @@
     }
   },
   "navGroups": {
-    "operations": "Operations",
-    "customers": "Customers",
-    "commercial": "Commercial",
-    "knowledge": "Knowledge",
-    "product": "Product",
-    "auditGovernance": "Audit & Governance"
+    "operations": "Drift",
+    "customers": "Kunder",
+    "commercial": "Aftaler og salg",
+    "knowledge": "Viden",
+    "product": "Produkt",
+    "auditGovernance": "Kontrol og styring",
+    "system": "System",
+    "platformAdmin": "Platform Admin"
   },
-  "search": "Search customers...",
+  "search": "Søg efter kunder…",
   "sidebar": {
     "plan": "Platform Admin",
     "platformAdmin": "Platform Admin",
     "organization": "Aipify Group AS"
   },
   "topbar": {
-    "organization": "Organization",
-    "notifications": "Notifications",
+    "organization": "Organisation",
+    "notifications": "Notifikationer",
     "profileFallback": "Admin",
     "organizationFallback": "Aipify Group"
   },
@@ -99,8 +110,8 @@
     "platform_admin": "Platform Administrator"
   },
   "nav": {
-    "overview": "Platformdashboard",
-    "operationsOverview": "Operations Overview",
+    "overview": "Platformoversigt",
+    "operationsOverview": "Driftsoversigt",
     "buildHealthCenter": "Build Health Center",
     "aosCore": "AOS Core Center",
     "companionPersonality": "Companion Personality Center",
@@ -111,28 +122,28 @@
     "businessPackRuntime": "Pack Runtime",
     "reliabilityOperations": "Reliability Operations",
     "changeOperations": "Ændringsoperationer",
-    "platformHealth": "Platform Health",
-    "deployments": "Deployments",
-    "operationsAuditLogs": "Audit Logs",
+    "platformHealth": "Platformstatus",
+    "deployments": "Publiceringer",
+    "operationsAuditLogs": "Hændelseslog",
     "organizations": "Organisationer",
-    "customerSuccess": "Customer Success",
+    "customerSuccess": "Kundesucces",
     "payments": "Betalinger",
-    "marketplace": "Marketplace",
+    "marketplace": "Markedsplads",
     "growthPartners": "Growth Partners",
-    "knowledgeCenter": "Knowledge Center",
-    "translationManagement": "Translation Management",
-    "documentation": "Documentation",
+    "knowledgeCenter": "Videnscenter",
+    "translationManagement": "Oversættelsesadministration",
+    "documentation": "Dokumentation",
     "businessPacks": "Business Packs",
-    "productManagement": "Product Management",
-    "installationOversight": "Installation Oversight",
-    "activityLogs": "Activity Logs",
-    "governanceRecords": "Governance Records",
-    "securityReviews": "Security Reviews",
-    "customers": "Customers",
+    "productManagement": "Produktstyring",
+    "installationOversight": "Installationsoversigt",
+    "activityLogs": "Aktivitetslog",
+    "governanceRecords": "Styringsregistre",
+    "securityReviews": "Sikkerhedsgennemgange",
+    "customers": "Kunder",
     "customerLifecycle": "Livscykelcenter",
     "customerSuccessOperations": "Succesoperationer",
     "commercialIntelligence": "Indtægtscenter",
-    "subscriptions": "Subscriptions",
+    "subscriptions": "Kundaftaler",
     "billing": "Billing",
     "invoices": "Invoices",
     "installations": "Installations",
@@ -292,6 +303,31 @@
       "active": "Active",
       "paused": "Paused",
       "revoked": "Revoked"
+    },
+    "dashboard": {
+      "healthy": "Normal drift",
+      "degraded": "Reduceret drift",
+      "unavailable": "Utilgængelig",
+      "unknown": "Ukendt status",
+      "ready": "Klar",
+      "building": "Bygger",
+      "failed": "Mislykkedes",
+      "cancelled": "Annulleret",
+      "canceled": "Annulleret",
+      "published": "Publiceret",
+      "production": "Produktion",
+      "preview": "Forhåndsvisning",
+      "active": "Aktiv",
+      "pending": "Afventer",
+      "suspended": "Suspenderet",
+      "revoked": "Tilbagekaldt",
+      "draft": "Kladde",
+      "verified": "Verificeret",
+      "unverified": "Ikke verificeret",
+      "lifetime": "Ubegrænset",
+      "monthly": "Månedlig",
+      "yearly": "Årlig",
+      "annual": "Årlig"
     }
   },
   "customers": {
@@ -942,7 +978,8 @@
       "licensePurchases": "Licenskøb",
       "domainLicenses": "Domænelicenser",
       "growthPartnerAttribution": "Growth Partner-attribution",
-      "accountingIntegration": "Regnskabsintegration"
+      "accountingIntegration": "Regnskabsintegration",
+      "commissions": "Provisioner"
     },
     "modules": {
       "customerIdentity": "Kundeidentitet",
@@ -5941,5 +5978,12 @@
       "localization_coverage": "Localization Coverage",
       "conversion_paths": "Conversion Paths"
     }
+  },
+  "navSearch": {
+    "hint": "Søg i menu",
+    "compactToggle": "Kompakt navigation",
+    "results": "Søgeresultater",
+    "noResults": "Ingen resultater",
+    "navigationLabel": "Platformnavigation"
   }
 }

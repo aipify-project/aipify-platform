@@ -106,6 +106,9 @@ export type PlatformPortalLabels = {
     loadErrorTitle: string;
     loadErrorMessage: string;
     retry: string;
+    lastChecked: string;
+    unknownStatus: string;
+    updateClassifications: Record<string, string>;
   };
   foundation: {
     loading: string;

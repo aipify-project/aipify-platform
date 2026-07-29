@@ -46,6 +46,7 @@ type GroupedSidebarProps = {
   searchResultsLabel?: string;
   keyboardHint?: string;
   noSearchResultsLabel?: string;
+  navigationAriaLabel?: string;
   sidebarMode?: "customer" | "platform";
 };
 
@@ -221,6 +222,7 @@ export default function GroupedSidebar({
   searchResultsLabel = "Search results",
   keyboardHint,
   noSearchResultsLabel = "No matching modules",
+  navigationAriaLabel = "Navigation",
   sidebarMode = "customer",
 }: GroupedSidebarProps) {
   const storage = useMemo(() => createStorageHelpers(sidebarMode), [sidebarMode]);
@@ -325,7 +327,7 @@ export default function GroupedSidebar({
   const isSearching = searchQuery.trim().length > 0;
 
   if (!hydrated) {
-    return <nav className={`flex flex-col gap-2 ${className}`} aria-label="Dashboard" />;
+    return <nav className={`flex flex-col gap-2 ${className}`} aria-label={navigationAriaLabel} />;
   }
 
   return (
@@ -336,7 +338,7 @@ export default function GroupedSidebar({
         </p>
       ) : null}
 
-      <nav className="flex flex-col gap-1" aria-label="Dashboard">
+      <nav className="flex flex-col gap-1" aria-label={navigationAriaLabel}>
         {isSearching ? (
           <div className="space-y-1">
             <p className={`px-3 py-1 ${AipifySidebarTypography.sectionLabel}`}>{searchResultsLabel}</p>

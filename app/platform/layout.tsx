@@ -61,6 +61,7 @@ export default async function PlatformLayout({
           navSearchNoResultsLabel={t("platform.navSearch.noResults")}
           navSearchHint={t("platform.navSearch.hint")}
           navSearchResultsLabel={t("platform.navSearch.results")}
+          navigationAriaLabel={t("platform.navSearch.navigationLabel")}
           shellVariant="platform"
           mobileNavIds={PLATFORM_MOBILE_NAV_IDS}
           platformBrandMark={{
