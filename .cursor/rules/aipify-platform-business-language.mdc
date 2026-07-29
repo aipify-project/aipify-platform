@@ -1,0 +1,20 @@
+---
+description: Platform UI uses business language — never raw developer or database terms
+alwaysApply: true
+---
+
+# Aipify Platform Business Language
+
+**Aipify Platform shall use understandable business language.** Technical field names, raw database values, internal status codes, and developer terms must not be shown directly when a clear business term exists.
+
+## Rules
+
+1. Prefer business labels over technical identifiers in primary UI text.
+2. Do not surface raw codes such as `slug`, `provisioning`, `payload`, `RPC`, `entitlement`, `app_subscription`, `license_type`, or `install_id` as primary labels.
+3. Technical identifiers may appear in a secondary technical section when useful for administration, with a clear business label.
+4. Map status and product codes through authoritative UI helpers before display.
+5. Keep agreement duration separate from agreement status, and license package separate from registered users.
+
+## Related
+
+See also [aipify-global-platform.mdc](./aipify-global-platform.mdc) — Aipify is global by default.

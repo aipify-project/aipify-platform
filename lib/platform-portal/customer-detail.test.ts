@@ -258,15 +258,19 @@ test("locale parity for platform.customers.detail across core locales", () => {
   assert.equal(no.title, "Kundedetaljer");
   assert.equal(no.backToCustomers, "Tilbake til kunder");
   assert.equal(no.sectionBusiness, "Kunde og virksomhet");
-  assert.equal(no.sectionCommercial, "Kommersiell status");
-  assert.equal(no.sectionLicenses, "Lisenser og provisioning");
+  assert.equal(no.sectionCommercial, "Kundeavtale");
+  assert.equal(no.sectionLicenses, "Lisenser og oppsett");
   assert.equal(no.sectionDomains, "Domener og installasjoner");
-  assert.equal(no.sectionEntitlements, "Rettigheter");
+  assert.equal(no.sectionEntitlements, "Aktiverte tjenester");
   assert.equal(no.sectionStatus, "Kundestatus");
   assert.equal(no.organizationNumber, "Organisasjonsnummer");
   assert.equal(no.emptyLicenses, "Ingen lisenser er opprettet");
   assert.equal(no.notFound, "Kunden ble ikke funnet");
   assert.equal(no.forbidden, "Du har ikke tilgang til denne kunden");
+  assert.equal(no.slug, "Kundenøkkel");
+  assert.equal(no.lifetime, "Ubegrenset");
+  assert.equal(no.duration, "Varighet");
+  assert.equal(no.members, "Registrerte brukere");
 });
 
 console.log("platform-portal-customer-detail: all tests passed");

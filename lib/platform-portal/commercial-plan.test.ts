@@ -219,7 +219,7 @@ test("locale parity for commercial plan namespace", () => {
         customers: { commercialPlan: { managePlan: string; activate: string } };
       }
     ).customers.commercialPlan.managePlan,
-    "Administrer plan",
+    "Administrer avtale",
   );
 });
 
