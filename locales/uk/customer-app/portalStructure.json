@@ -255,7 +255,8 @@
       "organizationSettings": "Налаштування організації",
       "connectedApps": "Підключені застосунки",
       "dataSources": "Джерела даних",
-      "apiDeveloperSettings": "API та налаштування розробника"
+      "apiDeveloperSettings": "API та налаштування розробника",
+      "kompisOperator": "Kompis"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
