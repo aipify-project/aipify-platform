@@ -409,6 +409,7 @@ export type PlatformPortalCustomerCreationInput = {
   displayName: string;
   slug: string;
   country: string;
+  verificationSource: "brreg" | "operator";
 };
 
 export type PlatformPortalCustomerCreationResult = {
@@ -439,16 +440,31 @@ export type PlatformPortalCustomerCreationLabels = {
   sectionPlatform: string;
   sectionSummary: string;
   organizationNumber: string;
+  registrationNumber: string;
+  registrationNumberHelp: string;
   legalName: string;
   customerName: string;
   slug: string;
   country: string;
+  selectCountry: string;
+  searchNorwegianCompany: string;
+  searchNameOrNumber: string;
+  companyNameOrNumber: string;
   lookupAction: string;
   lookupLoading: string;
   lookupSuccess: string;
   lookupNotFound: string;
   lookupUnavailable: string;
+  lookupMultiple: string;
+  selectCompany: string;
+  selectedCompany: string;
+  lookupAvailableNorway: string;
+  lookupUnavailableCountry: string;
+  enterManually: string;
+  queryTooShort: string;
+  registryNoResponse: string;
   invalidOrganizationNumber: string;
+  registrationNumberRequired: string;
   duplicateOrganizationNumber: string;
   invalidSlug: string;
   duplicateSlug: string;
@@ -470,10 +486,32 @@ export type PlatformPortalCustomerCreationLabels = {
   addressUnavailableNote: string;
 };
 
+export type PlatformPortalCompanyLookupMatch = {
+  registrationNumber: string;
+  legalName: string;
+  organizationType: string | null;
+  addressLine: string | null;
+  postalCode: string | null;
+  city: string | null;
+  status: string | null;
+};
+
 export type PlatformPortalCompanyLookupResult = {
-  status: "valid" | "invalid" | "service_unavailable";
-  organizationNumber: string | null;
-  legalName: string | null;
+  status:
+    | "valid"
+    | "multiple"
+    | "invalid"
+    | "invalid_query"
+    | "no_results"
+    | "lookup_unavailable"
+    | "timeout"
+    | "service_unavailable";
+  provider?: "brreg" | null;
+  countryCode?: string;
+  results?: PlatformPortalCompanyLookupMatch[];
+  organizationNumber?: string | null;
+  legalName?: string | null;
+  minQueryLength?: number;
 };
 
 export type PlatformPortalLicenseProduct = {
