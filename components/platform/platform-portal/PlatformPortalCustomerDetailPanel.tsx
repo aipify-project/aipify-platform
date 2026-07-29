@@ -7,13 +7,16 @@ import type {
   PlatformPortalCommercialPlanLabels,
   PlatformPortalCustomerDetail,
   PlatformPortalCustomerDetailLabels,
+  PlatformPortalLicenseProvisioningLabels,
 } from "@/lib/platform-portal";
 import { PlatformPortalCommercialPlanPanel } from "@/components/platform/platform-portal/PlatformPortalCommercialPlanPanel";
+import { PlatformPortalLicenseProvisioningPanel } from "@/components/platform/platform-portal/PlatformPortalLicenseProvisioningPanel";
 
 type Props = {
   customerId: string;
   labels: PlatformPortalCustomerDetailLabels;
   commercialPlanLabels: PlatformPortalCommercialPlanLabels;
+  licenseProvisioningLabels: PlatformPortalLicenseProvisioningLabels;
   locale: string;
 };
 
@@ -459,12 +462,15 @@ export function PlatformPortalCustomerDetailPanel({
   customerId,
   labels,
   commercialPlanLabels,
+  licenseProvisioningLabels,
   locale,
 }: Props) {
   const [loadState, setLoadState] = useState<LoadState>({ kind: "loading" });
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [commercialOpen, setCommercialOpen] = useState(false);
   const [commercialSuccess, setCommercialSuccess] = useState(false);
+  const [licenseOpen, setLicenseOpen] = useState(false);
+  const [licenseSuccess, setLicenseSuccess] = useState(false);
 
   const load = useCallback(async () => {
     setLoadState({ kind: "loading" });
@@ -826,6 +832,23 @@ export function PlatformPortalCustomerDetailPanel({
           </SectionCard>
 
           <SectionCard title={labels.sectionLicenses}>
+            <div className="mb-4 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setLicenseSuccess(false);
+                  setLicenseOpen(true);
+                }}
+                className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
+              >
+                {labels.createLicense}
+              </button>
+              {licenseSuccess ? (
+                <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
+                  {licenseProvisioningLabels.success}
+                </p>
+              ) : null}
+            </div>
             {data.licenses.length === 0 ? (
               <EmptyTableMessage message={labels.emptyLicenses} />
             ) : (
@@ -838,6 +861,12 @@ export function PlatformPortalCustomerDetailPanel({
                       </th>
                       <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.status}
+                      </th>
+                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                        {licenseProvisioningLabels.provisioningStatus}
+                      </th>
+                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                        {licenseProvisioningLabels.maskedLicenseCode}
                       </th>
                       <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.domain}
@@ -874,6 +903,31 @@ export function PlatformPortalCustomerDetailPanel({
                               )}
                               variant={licenseStatusVariant(license.status)}
                             />
+                          </td>
+                          <td className="px-3 py-2.5">
+                            <StatusBadge
+                              label={statusLabel(
+                                license.provisioningStatus,
+                                labels.provisioningStatuses,
+                                labels.notAvailable,
+                              )}
+                              variant={
+                                (license.provisioningStatus ?? "").toLowerCase() ===
+                                "domain_linked"
+                                  ? "success"
+                                  : (license.provisioningStatus ?? "").toLowerCase() ===
+                                      "requires_domain" ||
+                                    (license.provisioningStatus ?? "").toLowerCase() ===
+                                      "requires_installation"
+                                  ? "warning"
+                                  : "info"
+                              }
+                            />
+                          </td>
+                          <td className="px-3 py-2.5 font-mono text-xs text-slate-600 dark:text-slate-300">
+                            {license.maskedLicenseCode?.trim()
+                              ? license.maskedLicenseCode
+                              : labels.notAvailable}
                           </td>
                           <td className="px-3 py-2.5 text-slate-700 dark:text-slate-300">
                             {license.domain?.trim() ? license.domain : labels.notAvailable}
@@ -1111,6 +1165,20 @@ export function PlatformPortalCustomerDetailPanel({
         onSuccess={() => {
           setCommercialSuccess(true);
           setCommercialOpen(false);
+          void load();
+        }}
+      />
+
+      <PlatformPortalLicenseProvisioningPanel
+        open={licenseOpen}
+        customerId={customerId}
+        commercial={commercial}
+        existingLicenses={data.licenses}
+        labels={licenseProvisioningLabels}
+        onClose={() => setLicenseOpen(false)}
+        onSuccess={() => {
+          setLicenseSuccess(true);
+          setLicenseOpen(false);
           void load();
         }}
       />

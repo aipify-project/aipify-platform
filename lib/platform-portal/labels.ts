@@ -5,6 +5,7 @@ import type {
   PlatformPortalCustomerDetailLabels,
   PlatformPortalCustomersLabels,
   PlatformPortalLabels,
+  PlatformPortalLicenseProvisioningLabels,
 } from "./types";
 
 export function buildPlatformPortalLabels(t: Translator): PlatformPortalLabels {
@@ -221,7 +222,15 @@ export function buildPlatformPortalCustomerDetailLabels(
       expired: t(`${d}.entitlementStatuses.expired`),
       deactivated: t(`${d}.entitlementStatuses.deactivated`),
     },
+    provisioningStatuses: {
+      requires_domain: t(`${d}.provisioningStatuses.requires_domain`),
+      domain_linked: t(`${d}.provisioningStatuses.domain_linked`),
+      requires_installation: t(`${d}.provisioningStatuses.requires_installation`),
+      pending: t(`${d}.provisioningStatuses.pending`),
+      provisioned: t(`${d}.provisioningStatuses.provisioned`),
+    },
     managePlan: t(`${d}.managePlan`),
+    createLicense: t(`${d}.createLicense`),
   };
 }
 
@@ -340,6 +349,79 @@ export function buildPlatformPortalCommercialPlanLabels(
       paused: t(`${subscriptionStatus}.paused`),
       cancelled: t(`${subscriptionStatus}.cancelled`),
       canceled: t(`${subscriptionStatus}.canceled`),
+    },
+  };
+}
+
+export function buildPlatformPortalLicenseProvisioningLabels(
+  t: Translator,
+): PlatformPortalLicenseProvisioningLabels {
+  const c = "platform.customers.licenseProvisioning";
+  return {
+    createLicense: t(`${c}.createLicense`),
+    title: t(`${c}.title`),
+    currentLicenses: t(`${c}.currentLicenses`),
+    availableProducts: t(`${c}.availableProducts`),
+    licenseProduct: t(`${c}.licenseProduct`),
+    productCode: t(`${c}.productCode`),
+    productName: t(`${c}.productName`),
+    licenseStatus: t(`${c}.licenseStatus`),
+    provisioningStatus: t(`${c}.provisioningStatus`),
+    licenseCode: t(`${c}.licenseCode`),
+    maskedLicenseCode: t(`${c}.maskedLicenseCode`),
+    requiresCommercialPlan: t(`${c}.requiresCommercialPlan`),
+    commercialPlanActive: t(`${c}.commercialPlanActive`),
+    commercialPlanMissing: t(`${c}.commercialPlanMissing`),
+    requiresEntitlement: t(`${c}.requiresEntitlement`),
+    domainLater: t(`${c}.domainLater`),
+    installationLater: t(`${c}.installationLater`),
+    internalReason: t(`${c}.internalReason`),
+    reasonRequired: t(`${c}.reasonRequired`),
+    summary: t(`${c}.summary`),
+    summaryCreates: t(`${c}.summaryCreates`),
+    summaryNoDomain: t(`${c}.summaryNoDomain`),
+    summaryNoWebsiteKompis: t(`${c}.summaryNoWebsiteKompis`),
+    create: t(`${c}.create`),
+    creating: t(`${c}.creating`),
+    success: t(`${c}.success`),
+    alreadyExists: t(`${c}.alreadyExists`),
+    productUnavailable: t(`${c}.productUnavailable`),
+    productNotAssignable: t(`${c}.productNotAssignable`),
+    emptyProducts: t(`${c}.emptyProducts`),
+    emptyLicenses: t(`${c}.emptyLicenses`),
+    waitingProvisioning: t(`${c}.waitingProvisioning`),
+    requiresDomain: t(`${c}.requiresDomain`),
+    requiresInstallation: t(`${c}.requiresInstallation`),
+    active: t(`${c}.active`),
+    pending: t(`${c}.pending`),
+    suspended: t(`${c}.suspended`),
+    expired: t(`${c}.expired`),
+    revoked: t(`${c}.revoked`),
+    failed: t(`${c}.failed`),
+    forbidden: t(`${c}.forbidden`),
+    unauthorized: t(`${c}.unauthorized`),
+    loadProductsError: t(`${c}.loadProductsError`),
+    createError: t(`${c}.createError`),
+    cancel: t(`${c}.cancel`),
+    retry: t(`${c}.retry`),
+    confirmRequired: t(`${c}.confirmRequired`),
+    loadingProducts: t(`${c}.loadingProducts`),
+    licenseStatuses: {
+      pending: t(`${c}.licenseStatuses.pending`),
+      active: t(`${c}.licenseStatuses.active`),
+      suspended: t(`${c}.licenseStatuses.suspended`),
+      expired: t(`${c}.licenseStatuses.expired`),
+      cancelled: t(`${c}.licenseStatuses.cancelled`),
+      canceled: t(`${c}.licenseStatuses.cancelled`),
+      revoked: t(`${c}.licenseStatuses.revoked`),
+      failed: t(`${c}.licenseStatuses.failed`),
+    },
+    provisioningStatuses: {
+      requires_domain: t(`${c}.provisioningStatuses.requires_domain`),
+      domain_linked: t(`${c}.provisioningStatuses.domain_linked`),
+      requires_installation: t(`${c}.provisioningStatuses.requires_installation`),
+      pending: t(`${c}.provisioningStatuses.pending`),
+      provisioned: t(`${c}.provisioningStatuses.provisioned`),
     },
   };
 }
