@@ -1,4 +1,5 @@
 import type { Translator } from "@/lib/i18n/translate";
+import type { PlatformCustomerAgreementsLabels } from "./customer-agreements";
 import type { PlatformCustomerSuccessLabels } from "./customer-success";
 import type {
   PlatformPortalCommercialPlanLabels,
@@ -184,6 +185,84 @@ export function buildPlatformCustomerSuccessLabels(
       not_ready: t(`${c}.serviceStatuses.not_ready`),
       suspended: t(`${c}.serviceStatuses.suspended`),
     },
+  };
+}
+
+export function buildPlatformCustomerAgreementsLabels(
+  t: Translator,
+): PlatformCustomerAgreementsLabels {
+  const c = "platform.customers.agreementsOverview";
+  return {
+    title: t(`${c}.title`),
+    subtitle: t(`${c}.subtitle`),
+    lastChecked: t(`${c}.lastChecked`),
+    searchPlaceholder: t(`${c}.searchPlaceholder`),
+    filterAll: t(`${c}.filterAll`),
+    filterActive: t(`${c}.filterActive`),
+    filterTrial: t(`${c}.filterTrial`),
+    filterAttention: t(`${c}.filterAttention`),
+    filterEnded: t(`${c}.filterEnded`),
+    filterExpired: t(`${c}.filterExpired`),
+    filterUnknown: t(`${c}.filterUnknown`),
+    filterDurationAll: t(`${c}.filterDurationAll`),
+    filterDurationMonthly: t(`${c}.filterDurationMonthly`),
+    filterDurationYearly: t(`${c}.filterDurationYearly`),
+    filterDurationUnlimited: t(`${c}.filterDurationUnlimited`),
+    filterCountry: t(`${c}.filterCountry`),
+    kpiTotal: t(`${c}.kpiTotal`),
+    kpiActive: t(`${c}.kpiActive`),
+    kpiTrial: t(`${c}.kpiTrial`),
+    kpiAttention: t(`${c}.kpiAttention`),
+    kpiEnded: t(`${c}.kpiEnded`),
+    kpiUnlimited: t(`${c}.kpiUnlimited`),
+    columnCustomer: t(`${c}.columnCustomer`),
+    columnAgreement: t(`${c}.columnAgreement`),
+    columnStatus: t(`${c}.columnStatus`),
+    columnDuration: t(`${c}.columnDuration`),
+    columnPeriod: t(`${c}.columnPeriod`),
+    columnRenewal: t(`${c}.columnRenewal`),
+    columnAmount: t(`${c}.columnAmount`),
+    columnFollowUp: t(`${c}.columnFollowUp`),
+    startDate: t(`${c}.startDate`),
+    endDate: t(`${c}.endDate`),
+    noEndDate: t(`${c}.noEndDate`),
+    noTrial: t(`${c}.noTrial`),
+    currentAgreement: t(`${c}.currentAgreement`),
+    historicalAgreement: t(`${c}.historicalAgreement`),
+    openCustomer: t(`${c}.openCustomer`),
+    notAvailable: t(`${c}.notAvailable`),
+    emptyTitle: t(`${c}.emptyTitle`),
+    emptyDescription: t(`${c}.emptyDescription`),
+    filteredEmptyTitle: t(`${c}.filteredEmptyTitle`),
+    filteredEmptyDescription: t(`${c}.filteredEmptyDescription`),
+    errorTitle: t(`${c}.errorTitle`),
+    errorDescription: t(`${c}.errorDescription`),
+    retry: t(`${c}.retry`),
+    clearFilters: t(`${c}.clearFilters`),
+    unknownStatus: t(`${c}.unknownStatus`),
+    agreementStatuses: {
+      active: t(`${c}.agreementStatuses.active`),
+      trialing: t(`${c}.agreementStatuses.trialing`),
+      pending: t(`${c}.agreementStatuses.pending`),
+      past_due: t(`${c}.agreementStatuses.past_due`),
+      paused: t(`${c}.agreementStatuses.paused`),
+      suspended: t(`${c}.agreementStatuses.suspended`),
+      cancelled: t(`${c}.agreementStatuses.cancelled`),
+      canceled: t(`${c}.agreementStatuses.cancelled`),
+      expired: t(`${c}.agreementStatuses.expired`),
+      unpaid: t(`${c}.agreementStatuses.unpaid`),
+      unknown: t(`${c}.unknownStatus`),
+    },
+    durationLabels: {
+      lifetime: t(`${c}.durationLabels.lifetime`),
+      monthly: t(`${c}.durationLabels.monthly`),
+      yearly: t(`${c}.durationLabels.yearly`),
+      annual: t(`${c}.durationLabels.yearly`),
+      unknown: t(`${c}.notAvailable`),
+    },
+    unonightPilotAgreement: t(`${c}.unonightPilotAgreement`),
+    unonightUnlimitedAgreement: t(`${c}.unonightUnlimitedAgreement`),
+    lifetimeAgreement: t(`${c}.lifetimeAgreement`),
   };
 }
 
