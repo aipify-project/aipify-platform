@@ -1,4 +1,8 @@
 import type {
+  PlatformPortalCustomerDetail,
+  PlatformPortalCustomerDetailDomain,
+  PlatformPortalCustomerDetailEntitlement,
+  PlatformPortalCustomerDetailLicense,
   PlatformPortalCustomerRecord,
   PlatformPortalCustomerSummary,
   PlatformPortalCustomersPayload,
@@ -163,5 +167,134 @@ export function parsePlatformPortalCustomersPayload(value: unknown): PlatformPor
   return {
     summary: parseCustomerSummary(row.summary),
     customers,
+  };
+}
+
+function parseLicense(raw: unknown): PlatformPortalCustomerDetailLicense | null {
+  const row = asRecord(raw);
+  if (!row) return null;
+  const id = asRequiredId(row.id);
+  const status = asNullableTrimmedString(row.status);
+  if (!id || !status) return null;
+  return {
+    id,
+    status,
+    productCode: asNullableTrimmedString(row.product_code),
+    productName: asNullableTrimmedString(row.product_name),
+    domain: asNullableTrimmedString(row.domain),
+    installId: asNullableTrimmedString(row.install_id),
+    createdAt: asNullableTrimmedString(row.created_at),
+    activatedAt: asNullableTrimmedString(row.activated_at),
+    expiresAt: asNullableTrimmedString(row.expires_at),
+  };
+}
+
+function parseDomain(raw: unknown): PlatformPortalCustomerDetailDomain | null {
+  const row = asRecord(raw);
+  if (!row) return null;
+  const id = asRequiredId(row.id);
+  const hostname = asNullableTrimmedString(row.hostname);
+  const status = asNullableTrimmedString(row.status);
+  if (!id || !hostname || !status) return null;
+  return {
+    id,
+    hostname,
+    status,
+    installId: asNullableTrimmedString(row.install_id),
+    createdAt: asNullableTrimmedString(row.created_at),
+    verifiedAt: asNullableTrimmedString(row.verified_at),
+  };
+}
+
+function parseEntitlement(raw: unknown): PlatformPortalCustomerDetailEntitlement | null {
+  const row = asRecord(raw);
+  if (!row) return null;
+  const id = asRequiredId(row.id);
+  const code = asNullableTrimmedString(row.code);
+  const status = asNullableTrimmedString(row.status);
+  if (!id || !code || !status) return null;
+  return {
+    id,
+    code,
+    name: asNullableTrimmedString(row.name),
+    status,
+    grantedAt: asNullableTrimmedString(row.granted_at),
+    expiresAt: asNullableTrimmedString(row.expires_at),
+  };
+}
+
+export function parsePlatformPortalCustomerDetail(
+  value: unknown,
+): PlatformPortalCustomerDetail | null {
+  const row = asRecord(value);
+  if (!row) return null;
+
+  const customer = asRecord(row.customer);
+  const commercial = asRecord(row.commercial);
+  const usage = asRecord(row.usage);
+  const metadata = asRecord(row.metadata);
+  if (!customer || !commercial || !usage || !metadata) return null;
+
+  const id = asRequiredId(customer.id);
+  const companyId = asRequiredId(customer.company_id);
+  const name = asNullableTrimmedString(customer.name);
+  const status = asNullableTrimmedString(customer.status);
+  const generatedAt = asNullableTrimmedString(metadata.generated_at);
+  if (!id || !companyId || !name || !status || !generatedAt) return null;
+
+  const licenses = Array.isArray(row.licenses)
+    ? row.licenses
+        .map((item) => parseLicense(item))
+        .filter((item): item is PlatformPortalCustomerDetailLicense => item !== null)
+    : [];
+  const domains = Array.isArray(row.domains)
+    ? row.domains
+        .map((item) => parseDomain(item))
+        .filter((item): item is PlatformPortalCustomerDetailDomain => item !== null)
+    : [];
+  const entitlements = Array.isArray(row.entitlements)
+    ? row.entitlements
+        .map((item) => parseEntitlement(item))
+        .filter((item): item is PlatformPortalCustomerDetailEntitlement => item !== null)
+    : [];
+
+  return {
+    customer: {
+      id,
+      companyId,
+      name,
+      legalName: asNullableTrimmedString(customer.legal_name),
+      slug: asNullableTrimmedString(customer.slug),
+      organizationNumber: asNullableTrimmedString(customer.organization_number),
+      status,
+      createdAt: asNullableTrimmedString(customer.created_at),
+      updatedAt: asNullableTrimmedString(customer.updated_at),
+      requiresAttention: asStrictBoolean(customer.requires_attention),
+    },
+    commercial: {
+      lifetime: asStrictBoolean(commercial.lifetime),
+      subscriptionStatus: asNullableTrimmedString(commercial.subscription_status),
+      planName: asNullableTrimmedString(commercial.plan_name),
+      trialStartsAt: asNullableTrimmedString(commercial.trial_starts_at),
+      trialEndsAt: asNullableTrimmedString(commercial.trial_ends_at),
+      currentPeriodStartsAt: asNullableTrimmedString(commercial.current_period_starts_at),
+      currentPeriodEndsAt: asNullableTrimmedString(commercial.current_period_ends_at),
+      partnerAttributed: asStrictBoolean(commercial.partner_attributed),
+      partnerName: asNullableTrimmedString(commercial.partner_name),
+    },
+    usage: {
+      memberCount: asNonNegativeCount(usage.member_count),
+      activeLicenseCount: asNonNegativeCount(usage.active_license_count),
+      totalLicenseCount: asNonNegativeCount(usage.total_license_count),
+      domainCount: asNonNegativeCount(usage.domain_count),
+      installationCount: asNonNegativeCount(usage.installation_count),
+      openSupportCount: asNonNegativeCount(usage.open_support_count),
+    },
+    licenses,
+    domains,
+    entitlements,
+    metadata: {
+      generatedAt,
+    },
   };
 }
