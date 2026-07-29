@@ -292,6 +292,110 @@ export type PlatformPortalCustomerDetailLabels = {
   licenseStatuses: Record<string, string>;
   domainStatuses: Record<string, string>;
   entitlementStatuses: Record<string, string>;
+  managePlan: string;
+};
+
+export type PlatformPortalCommercialPlan = {
+  id: string;
+  key: string;
+  name: string;
+  description: string | null;
+  planType: string;
+  billingCycle: string | null;
+  amountMinor: number | null;
+  currency: string | null;
+  trialDays: number | null;
+  active: boolean;
+  supportsLifetime: boolean;
+  supportsRecurring: boolean;
+  supportsTrial: boolean;
+};
+
+export type PlatformPortalCommercialPlansPayload = {
+  plans: PlatformPortalCommercialPlan[];
+  generatedAt: string | null;
+};
+
+export type SetPlatformPortalCustomerCommercialPlanInput = {
+  customerId: string;
+  planId: string;
+  mode: "lifetime" | "recurring";
+  startMode: "now" | "trial";
+  trialDays: number | null;
+  internalReason: string;
+  idempotencyKey: string;
+};
+
+export type PlatformPortalCustomerCommercialPlanResult = {
+  customerId: string;
+  subscription: {
+    id: string;
+    planId: string | null;
+    planKey: string | null;
+    planName: string | null;
+    mode: "lifetime" | "recurring";
+    status: string;
+    trialStartsAt: string | null;
+    trialEndsAt: string | null;
+    currentPeriodStartsAt: string | null;
+    currentPeriodEndsAt: string | null;
+    createdAt: string | null;
+    updatedAt: string | null;
+  };
+  created: boolean;
+  replacedSubscriptionId: string | null;
+  idempotentReplay: boolean;
+};
+
+export type PlatformPortalCommercialPlanLabels = {
+  managePlan: string;
+  title: string;
+  currentPlan: string;
+  availablePlans: string;
+  lifetime: string;
+  recurring: string;
+  monthly: string;
+  yearly: string;
+  trialPeriod: string;
+  noTrial: string;
+  active: string;
+  trialing: string;
+  pending: string;
+  cancelled: string;
+  paused: string;
+  pastDue: string;
+  unknownStatus: string;
+  planDescription: string;
+  price: string;
+  billingCycle: string;
+  startNow: string;
+  startTrial: string;
+  trialDays: string;
+  internalReason: string;
+  reasonRequired: string;
+  summary: string;
+  summaryCreates: string;
+  summaryNoPayment: string;
+  summaryNoLicense: string;
+  activate: string;
+  activating: string;
+  success: string;
+  activePlanConflict: string;
+  planLifetimeUnsupported: string;
+  planRecurringUnsupported: string;
+  planTrialUnsupported: string;
+  loadPlansError: string;
+  activateError: string;
+  emptyPlans: string;
+  forbidden: string;
+  unauthorized: string;
+  cancel: string;
+  retry: string;
+  confirmRequired: string;
+  selectPlan: string;
+  noPrice: string;
+  loadingPlans: string;
+  subscriptionStatuses: Record<string, string>;
 };
 
 export type PlatformPortalCustomerCreationInput = {

@@ -4,13 +4,16 @@ import Link from "next/link";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import type {
+  PlatformPortalCommercialPlanLabels,
   PlatformPortalCustomerDetail,
   PlatformPortalCustomerDetailLabels,
 } from "@/lib/platform-portal";
+import { PlatformPortalCommercialPlanPanel } from "@/components/platform/platform-portal/PlatformPortalCommercialPlanPanel";
 
 type Props = {
   customerId: string;
   labels: PlatformPortalCustomerDetailLabels;
+  commercialPlanLabels: PlatformPortalCommercialPlanLabels;
   locale: string;
 };
 
@@ -455,10 +458,13 @@ function subscriptionKpi(data: PlatformPortalCustomerDetail, labels: PlatformPor
 export function PlatformPortalCustomerDetailPanel({
   customerId,
   labels,
+  commercialPlanLabels,
   locale,
 }: Props) {
   const [loadState, setLoadState] = useState<LoadState>({ kind: "loading" });
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [commercialOpen, setCommercialOpen] = useState(false);
+  const [commercialSuccess, setCommercialSuccess] = useState(false);
 
   const load = useCallback(async () => {
     setLoadState({ kind: "loading" });
@@ -800,6 +806,23 @@ export function PlatformPortalCustomerDetailPanel({
                 </div>
               </DetailRow>
             </dl>
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setCommercialSuccess(false);
+                  setCommercialOpen(true);
+                }}
+                className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
+              >
+                {labels.managePlan}
+              </button>
+              {commercialSuccess ? (
+                <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
+                  {commercialPlanLabels.success}
+                </p>
+              ) : null}
+            </div>
           </SectionCard>
 
           <SectionCard title={labels.sectionLicenses}>
@@ -1077,6 +1100,20 @@ export function PlatformPortalCustomerDetailPanel({
           </SectionCard>
         </aside>
       </div>
+
+      <PlatformPortalCommercialPlanPanel
+        open={commercialOpen}
+        customerId={customerId}
+        commercial={commercial}
+        labels={commercialPlanLabels}
+        locale={locale}
+        onClose={() => setCommercialOpen(false)}
+        onSuccess={() => {
+          setCommercialSuccess(true);
+          setCommercialOpen(false);
+          void load();
+        }}
+      />
     </div>
   );
 }

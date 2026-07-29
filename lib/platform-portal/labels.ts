@@ -1,5 +1,6 @@
 import type { Translator } from "@/lib/i18n/translate";
 import type {
+  PlatformPortalCommercialPlanLabels,
   PlatformPortalCustomerCreationLabels,
   PlatformPortalCustomerDetailLabels,
   PlatformPortalCustomersLabels,
@@ -220,6 +221,7 @@ export function buildPlatformPortalCustomerDetailLabels(
       expired: t(`${d}.entitlementStatuses.expired`),
       deactivated: t(`${d}.entitlementStatuses.deactivated`),
     },
+    managePlan: t(`${d}.managePlan`),
   };
 }
 
@@ -274,5 +276,70 @@ export function buildPlatformPortalCustomerCreationLabels(
     retry: t(`${c}.retry`),
     slugPreview: t(`${c}.slugPreview`),
     addressUnavailableNote: t(`${c}.addressUnavailableNote`),
+  };
+}
+
+export function buildPlatformPortalCommercialPlanLabels(
+  t: Translator,
+): PlatformPortalCommercialPlanLabels {
+  const c = "platform.customers.commercialPlan";
+  const subscriptionStatus = "platform.status.subscription";
+  return {
+    managePlan: t(`${c}.managePlan`),
+    title: t(`${c}.title`),
+    currentPlan: t(`${c}.currentPlan`),
+    availablePlans: t(`${c}.availablePlans`),
+    lifetime: t(`${c}.lifetime`),
+    recurring: t(`${c}.recurring`),
+    monthly: t(`${c}.monthly`),
+    yearly: t(`${c}.yearly`),
+    trialPeriod: t(`${c}.trialPeriod`),
+    noTrial: t(`${c}.noTrial`),
+    active: t(`${c}.active`),
+    trialing: t(`${c}.trialing`),
+    pending: t(`${c}.pending`),
+    cancelled: t(`${c}.cancelled`),
+    paused: t(`${c}.paused`),
+    pastDue: t(`${c}.pastDue`),
+    unknownStatus: t(`${c}.unknownStatus`),
+    planDescription: t(`${c}.planDescription`),
+    price: t(`${c}.price`),
+    billingCycle: t(`${c}.billingCycle`),
+    startNow: t(`${c}.startNow`),
+    startTrial: t(`${c}.startTrial`),
+    trialDays: t(`${c}.trialDays`),
+    internalReason: t(`${c}.internalReason`),
+    reasonRequired: t(`${c}.reasonRequired`),
+    summary: t(`${c}.summary`),
+    summaryCreates: t(`${c}.summaryCreates`),
+    summaryNoPayment: t(`${c}.summaryNoPayment`),
+    summaryNoLicense: t(`${c}.summaryNoLicense`),
+    activate: t(`${c}.activate`),
+    activating: t(`${c}.activating`),
+    success: t(`${c}.success`),
+    activePlanConflict: t(`${c}.activePlanConflict`),
+    planLifetimeUnsupported: t(`${c}.planLifetimeUnsupported`),
+    planRecurringUnsupported: t(`${c}.planRecurringUnsupported`),
+    planTrialUnsupported: t(`${c}.planTrialUnsupported`),
+    loadPlansError: t(`${c}.loadPlansError`),
+    activateError: t(`${c}.activateError`),
+    emptyPlans: t(`${c}.emptyPlans`),
+    forbidden: t(`${c}.forbidden`),
+    unauthorized: t(`${c}.unauthorized`),
+    cancel: t(`${c}.cancel`),
+    retry: t(`${c}.retry`),
+    confirmRequired: t(`${c}.confirmRequired`),
+    selectPlan: t(`${c}.selectPlan`),
+    noPrice: t(`${c}.noPrice`),
+    loadingPlans: t(`${c}.loadingPlans`),
+    subscriptionStatuses: {
+      active: t(`${subscriptionStatus}.active`),
+      trialing: t(`${subscriptionStatus}.trialing`),
+      past_due: t(`${subscriptionStatus}.past_due`),
+      unpaid: t(`${subscriptionStatus}.unpaid`),
+      paused: t(`${subscriptionStatus}.paused`),
+      cancelled: t(`${subscriptionStatus}.cancelled`),
+      canceled: t(`${subscriptionStatus}.canceled`),
+    },
   };
 }
