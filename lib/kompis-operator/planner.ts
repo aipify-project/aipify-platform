@@ -36,6 +36,33 @@ type IntentRule = {
 };
 
 const RULES: IntentRule[] = [
+  // Critical patterns must win over overlapping read/write intents (e.g. delete + license).
+  {
+    intent: "critical_forbidden",
+    title: "Critical action",
+    summary: "This request asks for a critical change that Kompis cannot execute in V1.",
+    patterns: [
+      /slett/i,
+      /delete/i,
+      /betal/i,
+      /payment/i,
+      /stripe/i,
+      /fiken/i,
+      /dns/i,
+      /domeneendr/i,
+      /change\s*domain/i,
+      /roter.*nøkkel/i,
+      /rotate.*key/i,
+      /suspender/i,
+      /revoke/i,
+      /mfa/i,
+      /totp/i,
+      /passord/i,
+      /password/i,
+    ],
+    tools: [],
+    critical: true,
+  },
   {
     intent: "check_kompis_delivery",
     title: "Check APP and Website Kompis",
@@ -84,32 +111,6 @@ const RULES: IntentRule[] = [
     summary: "Prepare an organization profile change draft without publishing it.",
     patterns: [/utkast.*profil/i, /draft.*profile/i, /endre.*profil/i],
     tools: ["organization_profile_draft"],
-  },
-  {
-    intent: "critical_forbidden",
-    title: "Critical action",
-    summary: "This request asks for a critical change that Kompis cannot execute in V1.",
-    patterns: [
-      /slett/i,
-      /delete/i,
-      /betal/i,
-      /payment/i,
-      /stripe/i,
-      /fiken/i,
-      /dns/i,
-      /domeneendr/i,
-      /change\s*domain/i,
-      /roter.*nøkkel/i,
-      /rotate.*key/i,
-      /suspender/i,
-      /revoke/i,
-      /mfa/i,
-      /totp/i,
-      /passord/i,
-      /password/i,
-    ],
-    tools: [],
-    critical: true,
   },
 ];
 
