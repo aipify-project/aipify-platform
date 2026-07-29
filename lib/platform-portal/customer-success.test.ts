@@ -361,7 +361,10 @@ test("page and panel wire Customer Detail links and states", () => {
   assert.match(panel, /filteredEmptyTitle/);
   assert.match(panel, /emptyTitle/);
   assert.match(panel, /errorTitle/);
-  assert.match(panel, /TableSkeleton/);
+  assert.match(panel, /AipifyLoader/);
+  assert.match(panel, /items-center justify-center/);
+  assert.match(panel, /!bg-transparent/);
+  assert.doesNotMatch(panel, /TableSkeleton/);
 });
 
 test("locale parity for successOverview", () => {
