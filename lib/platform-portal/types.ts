@@ -154,3 +154,141 @@ export type PlatformPortalCustomersLabels = {
   customerStatuses: Record<string, string>;
   subscriptionStatuses: Record<string, string>;
 };
+
+export type PlatformPortalCustomerDetailCustomer = {
+  id: string;
+  companyId: string;
+  name: string;
+  legalName: string | null;
+  slug: string | null;
+  organizationNumber: string | null;
+  status: string;
+  createdAt: string | null;
+  updatedAt: string | null;
+  requiresAttention: boolean;
+};
+
+export type PlatformPortalCustomerDetailCommercial = {
+  lifetime: boolean;
+  subscriptionStatus: string | null;
+  planName: string | null;
+  trialStartsAt: string | null;
+  trialEndsAt: string | null;
+  currentPeriodStartsAt: string | null;
+  currentPeriodEndsAt: string | null;
+  partnerAttributed: boolean;
+  partnerName: string | null;
+};
+
+export type PlatformPortalCustomerDetailUsage = {
+  memberCount: number;
+  activeLicenseCount: number;
+  totalLicenseCount: number;
+  domainCount: number;
+  installationCount: number;
+  openSupportCount: number;
+};
+
+export type PlatformPortalCustomerDetailLicense = {
+  id: string;
+  status: string;
+  productCode: string | null;
+  productName: string | null;
+  domain: string | null;
+  installId: string | null;
+  createdAt: string | null;
+  activatedAt: string | null;
+  expiresAt: string | null;
+};
+
+export type PlatformPortalCustomerDetailDomain = {
+  id: string;
+  hostname: string;
+  status: string;
+  installId: string | null;
+  createdAt: string | null;
+  verifiedAt: string | null;
+};
+
+export type PlatformPortalCustomerDetailEntitlement = {
+  id: string;
+  code: string;
+  name: string | null;
+  status: string;
+  grantedAt: string | null;
+  expiresAt: string | null;
+};
+
+export type PlatformPortalCustomerDetail = {
+  customer: PlatformPortalCustomerDetailCustomer;
+  commercial: PlatformPortalCustomerDetailCommercial;
+  usage: PlatformPortalCustomerDetailUsage;
+  licenses: PlatformPortalCustomerDetailLicense[];
+  domains: PlatformPortalCustomerDetailDomain[];
+  entitlements: PlatformPortalCustomerDetailEntitlement[];
+  metadata: {
+    generatedAt: string;
+  };
+};
+
+export type PlatformPortalCustomerDetailLabels = {
+  title: string;
+  backToCustomers: string;
+  loading: string;
+  error: string;
+  retry: string;
+  notFound: string;
+  forbidden: string;
+  unauthorized: string;
+  sectionBusiness: string;
+  sectionCommercial: string;
+  sectionLicenses: string;
+  sectionDomains: string;
+  sectionEntitlements: string;
+  sectionStatus: string;
+  organizationNumber: string;
+  legalName: string;
+  customerName: string;
+  customerId: string;
+  companyId: string;
+  createdAt: string;
+  updatedAt: string;
+  subscription: string;
+  lifetime: string;
+  plan: string;
+  trialPeriod: string;
+  activePeriod: string;
+  directCustomer: string;
+  partnerCustomer: string;
+  members: string;
+  activeLicenses: string;
+  domains: string;
+  installations: string;
+  openSupport: string;
+  notAvailable: string;
+  requiresAttention: string;
+  healthy: string;
+  emptyLicenses: string;
+  emptyDomains: string;
+  emptyEntitlements: string;
+  copy: string;
+  copied: string;
+  generatedAt: string;
+  slug: string;
+  product: string;
+  status: string;
+  domain: string;
+  installId: string;
+  activatedAt: string;
+  expiresAt: string;
+  hostname: string;
+  verifiedAt: string;
+  code: string;
+  name: string;
+  grantedAt: string;
+  customerStatuses: Record<string, string>;
+  subscriptionStatuses: Record<string, string>;
+  licenseStatuses: Record<string, string>;
+  domainStatuses: Record<string, string>;
+  entitlementStatuses: Record<string, string>;
+};
