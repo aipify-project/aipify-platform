@@ -9,6 +9,8 @@ import type {
   PlatformPortalCustomerDetailLabels,
   PlatformPortalDomainInstallationLabels,
   PlatformPortalLicenseProvisioningLabels,
+  PlatformPortalWebsiteKompisLabels,
+  PlatformPortalWebsiteKompisStatus,
 } from "@/lib/platform-portal";
 import {
   canShowCreateLicenseAction,
@@ -25,6 +27,12 @@ import {
 import { PlatformPortalCommercialPlanPanel } from "@/components/platform/platform-portal/PlatformPortalCommercialPlanPanel";
 import { PlatformPortalDomainInstallationPanel } from "@/components/platform/platform-portal/PlatformPortalDomainInstallationPanel";
 import { PlatformPortalLicenseProvisioningPanel } from "@/components/platform/platform-portal/PlatformPortalLicenseProvisioningPanel";
+import { PlatformPortalWebsiteKompisActivationPanel } from "@/components/platform/platform-portal/PlatformPortalWebsiteKompisActivationPanel";
+import {
+  parsePlatformPortalWebsiteKompisStatus,
+  reasonLabel,
+  websiteKompisStatusVariant,
+} from "@/lib/platform-portal/website-kompis-activation";
 
 type Props = {
   customerId: string;
@@ -32,6 +40,7 @@ type Props = {
   commercialPlanLabels: PlatformPortalCommercialPlanLabels;
   licenseProvisioningLabels: PlatformPortalLicenseProvisioningLabels;
   domainInstallationLabels: PlatformPortalDomainInstallationLabels;
+  websiteKompisLabels: PlatformPortalWebsiteKompisLabels;
   locale: string;
 };
 
@@ -482,6 +491,7 @@ export function PlatformPortalCustomerDetailPanel({
   commercialPlanLabels,
   licenseProvisioningLabels,
   domainInstallationLabels,
+  websiteKompisLabels,
   locale,
 }: Props) {
   const [loadState, setLoadState] = useState<LoadState>({ kind: "loading" });
@@ -492,6 +502,12 @@ export function PlatformPortalCustomerDetailPanel({
   const [licenseSuccess, setLicenseSuccess] = useState(false);
   const [domainOpen, setDomainOpen] = useState(false);
   const [domainSuccess, setDomainSuccess] = useState(false);
+  const [websiteKompis, setWebsiteKompis] =
+    useState<PlatformPortalWebsiteKompisStatus | null>(null);
+  const [websiteKompisOpen, setWebsiteKompisOpen] = useState(false);
+  const [websiteKompisSuccess, setWebsiteKompisSuccess] = useState<string | null>(
+    null,
+  );
 
   const load = useCallback(async () => {
     setLoadState({ kind: "loading" });
@@ -541,6 +557,28 @@ export function PlatformPortalCustomerDetailPanel({
   useEffect(() => {
     void load();
   }, [load]);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function loadWebsiteKompis() {
+      try {
+        const response = await fetch(
+          `/api/platform-portal/customers/${customerId}/website-kompis`,
+          { cache: "no-store" },
+        );
+        if (!response.ok) return;
+        const body: unknown = await response.json();
+        const parsed = parsePlatformPortalWebsiteKompisStatus(body);
+        if (!cancelled) setWebsiteKompis(parsed);
+      } catch {
+        /* keep previous */
+      }
+    }
+    void loadWebsiteKompis();
+    return () => {
+      cancelled = true;
+    };
+  }, [customerId, loadState.kind]);
 
   useEffect(() => {
     if (!copiedKey) return;
@@ -1274,6 +1312,109 @@ export function PlatformPortalCustomerDetailPanel({
         </div>
 
         <aside className="space-y-6">
+          <SectionCard title={websiteKompisLabels.sectionActivatedServices}>
+            <div className="space-y-4">
+              {websiteKompisSuccess ? (
+                <p
+                  className="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-200"
+                  role="status"
+                >
+                  {websiteKompisSuccess}
+                </p>
+              ) : null}
+              <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                      {websiteKompisLabels.serviceName}
+                    </h3>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                      {websiteKompisLabels.appLicense}
+                      {websiteKompis?.domain.hostname
+                        ? ` · ${websiteKompis.domain.hostname}`
+                        : ""}
+                    </p>
+                  </div>
+                  <StatusBadge
+                    label={
+                      websiteKompisLabels.activationStatuses[
+                        websiteKompis?.activationStatus ?? "not_ready"
+                      ] ?? websiteKompisLabels.notReady
+                    }
+                    variant={websiteKompisStatusVariant(
+                      websiteKompis?.activationStatus,
+                    )}
+                  />
+                </div>
+                <dl className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <dt className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      {websiteKompisLabels.domain}
+                    </dt>
+                    <dd className="mt-1 text-sm text-slate-800 dark:text-slate-200">
+                      {websiteKompis?.domain.hostname ?? labels.notAvailable}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      {websiteKompisLabels.installKey}
+                    </dt>
+                    <dd className="mt-1 break-all text-sm text-slate-800 dark:text-slate-200">
+                      {websiteKompis?.installation.installId ??
+                        labels.notAvailable}
+                    </dd>
+                  </div>
+                </dl>
+                {!websiteKompis?.active && websiteKompis?.reasons?.length ? (
+                  <ul className="mt-4 space-y-1.5">
+                    {websiteKompis.reasons.map((reason) => (
+                      <li
+                        key={reason.code}
+                        className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300"
+                      >
+                        <span
+                          aria-hidden
+                          className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
+                            reason.satisfied ? "bg-emerald-500" : "bg-amber-500"
+                          }`}
+                        />
+                        <span>
+                          {reasonLabel(
+                            reason.code,
+                            websiteKompisLabels.reasonLabels,
+                            reason.satisfied,
+                          )}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {websiteKompis?.eligible && !websiteKompis.active ? (
+                    <button
+                      type="button"
+                      onClick={() => setWebsiteKompisOpen(true)}
+                      className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-500"
+                    >
+                      {websiteKompisLabels.activate}
+                    </button>
+                  ) : null}
+                  {websiteKompis?.active ? (
+                    <p className="text-sm text-slate-600 dark:text-slate-300">
+                      {websiteKompisLabels.alreadyActive}
+                      {websiteKompis.existingActivation.activatedAt
+                        ? ` · ${formatDate(
+                            websiteKompis.existingActivation.activatedAt,
+                            locale,
+                            labels.notAvailable,
+                          )}`
+                        : ""}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          </SectionCard>
           <SectionCard title={labels.sectionStatus}>
             <dl className="space-y-4">
               <DetailRow label={labels.status}>
@@ -1382,6 +1523,28 @@ export function PlatformPortalCustomerDetailPanel({
           setDomainSuccess(true);
           setDomainOpen(false);
           void load();
+        }}
+      />
+      <PlatformPortalWebsiteKompisActivationPanel
+        open={websiteKompisOpen}
+        customerId={customerId}
+        status={websiteKompis}
+        labels={websiteKompisLabels}
+        onClose={() => setWebsiteKompisOpen(false)}
+        onSuccess={(message) => {
+          setWebsiteKompisOpen(false);
+          setWebsiteKompisSuccess(message);
+          void load();
+          void fetch(
+            `/api/platform-portal/customers/${customerId}/website-kompis`,
+            { cache: "no-store" },
+          )
+            .then((response) => (response.ok ? response.json() : null))
+            .then((value) => {
+              const parsed = parsePlatformPortalWebsiteKompisStatus(value);
+              if (parsed) setWebsiteKompis(parsed);
+            })
+            .catch(() => undefined);
         }}
       />
     </div>

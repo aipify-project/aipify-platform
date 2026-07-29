@@ -651,6 +651,136 @@ export type PlatformPortalLicenseProvisioningLabels = {
   provisioningStatuses: Record<string, string>;
 };
 
+export type PlatformPortalWebsiteKompisEligibilityReason = {
+  code: string;
+  satisfied: boolean;
+};
+
+export type PlatformPortalWebsiteKompisStatus = {
+  customerId: string;
+  eligible: boolean;
+  active: boolean;
+  activationStatus: string;
+  reasons: PlatformPortalWebsiteKompisEligibilityReason[];
+  agreement: {
+    eligible: boolean;
+    status: string | null;
+    duration: string | null;
+  };
+  license: {
+    eligible: boolean;
+    id: string | null;
+    status: string | null;
+    productCode: string | null;
+    provisioningStatus: string | null;
+    domainReference: string | null;
+  };
+  domain: {
+    eligible: boolean;
+    id: string | null;
+    hostname: string | null;
+    status: string | null;
+    verified: boolean;
+  };
+  installation: {
+    eligible: boolean;
+    id: string | null;
+    installId: string | null;
+    status: string | null;
+  };
+  approval: {
+    required: boolean;
+    satisfied: boolean;
+  };
+  existingActivation: {
+    id: string | null;
+    status: string | null;
+    activatedAt: string | null;
+    entitlementEnabled: boolean;
+    configEnabled: boolean;
+  };
+};
+
+export type PlatformPortalWebsiteKompisActivationResult = {
+  customerId: string;
+  created: boolean;
+  idempotentReplay: boolean;
+  activation: {
+    id: string | null;
+    moduleCode: string | null;
+    status: string | null;
+    activatedAt: string | null;
+  };
+  entitlement: {
+    id: string | null;
+    status: string | null;
+    created: boolean;
+  };
+  license: {
+    id: string | null;
+    status: string | null;
+    provisioningStatus: string | null;
+  };
+  domain: {
+    id: string | null;
+    hostname: string | null;
+  };
+  installation: {
+    id: string | null;
+    installId: string | null;
+  };
+};
+
+export type PlatformPortalWebsiteKompisLabels = {
+  title: string;
+  serviceName: string;
+  sectionActivatedServices: string;
+  statusLabel: string;
+  notReady: string;
+  readyForActivation: string;
+  activating: string;
+  active: string;
+  suspended: string;
+  failed: string;
+  revoked: string;
+  activate: string;
+  activatingAction: string;
+  summary: string;
+  agreement: string;
+  licensePackage: string;
+  appLicense: string;
+  setupStatus: string;
+  domain: string;
+  installation: string;
+  installKey: string;
+  prerequisites: string;
+  internalReason: string;
+  reasonRequired: string;
+  confirmRequired: string;
+  summaryTitle: string;
+  summaryActivates: string;
+  summaryAgreementUnchanged: string;
+  summaryLicenseUnchanged: string;
+  summaryDomainUnchanged: string;
+  summaryInstallationUnchanged: string;
+  summaryNoPayment: string;
+  summaryNoEmail: string;
+  summaryNoDns: string;
+  cancel: string;
+  close: string;
+  retry: string;
+  success: string;
+  error: string;
+  notEligible: string;
+  alreadyActive: string;
+  unauthorized: string;
+  forbidden: string;
+  viewService: string;
+  loading: string;
+  reasonLabels: Record<string, string>;
+  activationStatuses: Record<string, string>;
+};
+
 export type PlatformPortalCustomerDomain = {
   id: string;
   hostname: string;

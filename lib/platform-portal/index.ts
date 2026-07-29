@@ -8,3 +8,4 @@ export * from "./commercial-plan";
 export * from "./business-language";
 export * from "./license-provisioning";
 export * from "./domain-installation";
+export * from "./website-kompis-activation";
