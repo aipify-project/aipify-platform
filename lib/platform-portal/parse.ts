@@ -209,6 +209,11 @@ function parseDomain(raw: unknown): PlatformPortalCustomerDetailDomain | null {
     installId: asNullableTrimmedString(row.install_id),
     createdAt: asNullableTrimmedString(row.created_at),
     verifiedAt: asNullableTrimmedString(row.verified_at),
+    isPrimary:
+      row.is_primary === undefined && row.isPrimary === undefined
+        ? null
+        : asStrictBoolean(row.is_primary ?? row.isPrimary),
+    role: asNullableTrimmedString(row.role),
   };
 }
 

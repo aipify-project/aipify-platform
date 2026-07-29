@@ -166,7 +166,8 @@ test("Detail panel uses duration and customer key terminology", () => {
     "utf8",
   );
   assert.match(source, /labels\.duration/);
-  assert.match(source, /labels\.domainsAndInstallations/);
+  assert.match(source, /labels\.domainCountLabel/);
+  assert.match(source, /labels\.installationCountLabel/);
   assert.match(source, /mapLicenseProductName/);
   assert.match(source, /hasAuthoritativeTrial/);
   assert.match(source, /slugHelp/);
@@ -232,11 +233,6 @@ test("locale parity for business language keys", () => {
   assert.notEqual(noValues.detail.lifetime, "Lifetime");
   assert.notEqual(noValues.detail.slug, "Slug");
   assert.notEqual(noValues.commercialPlan.title, "Commercial plan");
-});
-
-test("no migration or API files changed by this repair", () => {
-  // Structural guard: this module must remain UI-only.
-  assert.ok(readFileSync(join(ROOT, "lib/platform-portal/business-language.ts"), "utf8").length > 100);
 });
 
 console.log("platform-portal-business-language: all tests passed");

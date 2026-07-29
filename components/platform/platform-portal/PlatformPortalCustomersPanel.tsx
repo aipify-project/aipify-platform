@@ -8,7 +8,11 @@ import type {
   PlatformPortalCustomersLabels,
   PlatformPortalCustomersPayload,
 } from "@/lib/platform-portal";
-import { mapAgreementStatus } from "@/lib/platform-portal/business-language";
+import {
+  mapAgreementDisplayName,
+  mapAgreementStatus,
+  mapCustomerLifecycleStatus,
+} from "@/lib/platform-portal/business-language";
 
 type PlatformPortalCustomersPanelProps = {
   labels: PlatformPortalCustomersLabels;
@@ -171,13 +175,24 @@ function subscriptionStatusVariant(status: string | null): MetricVariant {
   }
 }
 
-function planSecondaryText(customer: PlatformPortalCustomerRecord): string | null {
-  return (
+function planSecondaryText(
+  customer: PlatformPortalCustomerRecord,
+  labels: PlatformPortalCustomersLabels,
+): string | null {
+  const raw =
     customer.subscriptionPlanName ||
     customer.subscriptionPlanKey ||
     customer.subscriptionPlanType ||
-    null
-  );
+    null;
+  if (!raw) return null;
+  return mapAgreementDisplayName({
+    planName: customer.subscriptionPlanName,
+    planKey: customer.subscriptionPlanKey,
+    planType: customer.subscriptionPlanType,
+    lifetime: customer.isLifetime,
+    customerName: customer.legalName || customer.organizationSlug,
+    labels: labels.agreementDisplayNames,
+  });
 }
 
 function uniqueInOrder(values: Array<string | null | undefined>): string[] {
@@ -589,9 +604,13 @@ export function PlatformPortalCustomersPanel({
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                     {visibleCustomers.map((customer) => {
-                      const customerStatusLabel = customer.customerStatus
-                        ? labels.customerStatuses[customer.customerStatus] ?? labels.notAvailable
-                        : labels.notAvailable;
+                      const customerStatusLabel = mapCustomerLifecycleStatus({
+                        customerStatus: customer.customerStatus,
+                        subscriptionStatus: customer.subscriptionStatus,
+                        map: labels.customerStatuses,
+                        agreementMap: labels.subscriptionStatuses,
+                        unknownFallback: labels.notAvailable,
+                      });
                       const subscriptionStatusLabel = customer.subscriptionStatus
                         ? mapAgreementStatus({
                             status: customer.subscriptionStatus,
@@ -600,7 +619,7 @@ export function PlatformPortalCustomersPanel({
                             unknownFallback: labels.notAvailable,
                           })
                         : null;
-                      const planText = planSecondaryText(customer);
+                      const planText = planSecondaryText(customer, labels);
                       const legalName = customer.legalName.trim()
                         ? customer.legalName
                         : labels.notAvailable;
@@ -643,7 +662,11 @@ export function PlatformPortalCustomersPanel({
                           <td className="px-4 py-3 align-top">
                             <StatusBadge
                               label={customerStatusLabel}
-                              variant={customerStatusVariant(customer.customerStatus)}
+                              variant={customerStatusVariant(
+                                customerStatusLabel === labels.customerStatuses.active
+                                  ? "active"
+                                  : customer.customerStatus,
+                              )}
                             />
                           </td>
                           <td className="min-w-[12rem] px-4 py-3 align-top">

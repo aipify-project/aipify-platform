@@ -449,7 +449,10 @@
       "paused": "Paused",
       "past_due": "Past due",
       "unpaid": "Unpaid",
-      "canceled": "Cancelled"
+      "canceled": "Cancelled",
+      "pending": "Pending",
+      "suspended": "Suspended",
+      "expired": "Expired"
     },
     "invoice": {
       "draft": "Draft",
@@ -634,7 +637,7 @@
       "emptyEntitlements": "No entitlements have been granted",
       "copy": "Copy",
       "copied": "Copied",
-      "generatedAt": "Data generated",
+      "generatedAt": "Last checked",
       "slug": "Customer key",
       "product": "License package",
       "status": "Status",
@@ -692,6 +695,28 @@
       },
       "licenseProductDescriptions": {
         "app_subscription": "APP license linked to the customer agreement."
+      },
+      "lastChecked": "Last checked",
+      "domainCountLabel": "Domains",
+      "installationCountLabel": "Installations",
+      "domainRole": "Domain role",
+      "viewLicense": "View license",
+      "viewSetup": "View setup",
+      "licenseAlreadyCreated": "The license is already created",
+      "licenseAlreadyConfigured": "The license already has a domain and installation",
+      "licenseMissingLink": "The license is missing a link to the existing setup",
+      "noNewLicenseNeeded": "No new license is required",
+      "noNewDomainInstallationNeeded": "No new domain or installation is required",
+      "domainRoles": {
+        "customer": "Customer domain",
+        "runtime": "Runtime domain",
+        "license": "License domain",
+        "historical": "Historical domain",
+        "unknown": "Unknown role"
+      },
+      "agreementDisplayNames": {
+        "unonightPilotAgreement": "Unonight pilot agreement",
+        "unonightUnlimitedAgreement": "Unonight unlimited agreement"
       }
     },
     "createCustomer": "Create customer",

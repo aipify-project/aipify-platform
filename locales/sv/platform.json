@@ -449,7 +449,10 @@
       "paused": "Pausad",
       "past_due": "Förfallen",
       "unpaid": "Obetald",
-      "canceled": "Avslutad"
+      "canceled": "Avslutad",
+      "pending": "Väntar",
+      "suspended": "Suspenderad",
+      "expired": "Utgången"
     },
     "invoice": {
       "draft": "Draft",
@@ -634,7 +637,7 @@
       "emptyEntitlements": "Inga rättigheter har tilldelats",
       "copy": "Kopiera",
       "copied": "Kopierat",
-      "generatedAt": "Data genererad",
+      "generatedAt": "Senast kontrollerad",
       "slug": "Kundnyckel",
       "product": "Licenspaket",
       "status": "Status",
@@ -692,6 +695,28 @@
       },
       "licenseProductDescriptions": {
         "app_subscription": "APP-licens kopplad till kundens avtal."
+      },
+      "lastChecked": "Senast kontrollerad",
+      "domainCountLabel": "Domäner",
+      "installationCountLabel": "Installationer",
+      "domainRole": "Domänroll",
+      "viewLicense": "Visa licens",
+      "viewSetup": "Visa uppsättning",
+      "licenseAlreadyCreated": "Licensen är redan skapad",
+      "licenseAlreadyConfigured": "Licensen har redan domän och installation",
+      "licenseMissingLink": "Licensen saknar en koppling till befintlig uppsättning",
+      "noNewLicenseNeeded": "Ingen ny licens behövs",
+      "noNewDomainInstallationNeeded": "Ingen ny domän eller installation behövs",
+      "domainRoles": {
+        "customer": "Kunddomän",
+        "runtime": "Runtime-domän",
+        "license": "Licensdomän",
+        "historical": "Historisk domän",
+        "unknown": "Okänd roll"
+      },
+      "agreementDisplayNames": {
+        "unonightPilotAgreement": "Unonight pilotavtal",
+        "unonightUnlimitedAgreement": "Unonight obegränsat avtal"
       }
     },
     "createCustomer": "Skapa kund",
