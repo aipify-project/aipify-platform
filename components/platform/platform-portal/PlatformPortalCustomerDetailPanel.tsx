@@ -7,9 +7,11 @@ import type {
   PlatformPortalCommercialPlanLabels,
   PlatformPortalCustomerDetail,
   PlatformPortalCustomerDetailLabels,
+  PlatformPortalDomainInstallationLabels,
   PlatformPortalLicenseProvisioningLabels,
 } from "@/lib/platform-portal";
 import { PlatformPortalCommercialPlanPanel } from "@/components/platform/platform-portal/PlatformPortalCommercialPlanPanel";
+import { PlatformPortalDomainInstallationPanel } from "@/components/platform/platform-portal/PlatformPortalDomainInstallationPanel";
 import { PlatformPortalLicenseProvisioningPanel } from "@/components/platform/platform-portal/PlatformPortalLicenseProvisioningPanel";
 
 type Props = {
@@ -17,6 +19,7 @@ type Props = {
   labels: PlatformPortalCustomerDetailLabels;
   commercialPlanLabels: PlatformPortalCommercialPlanLabels;
   licenseProvisioningLabels: PlatformPortalLicenseProvisioningLabels;
+  domainInstallationLabels: PlatformPortalDomainInstallationLabels;
   locale: string;
 };
 
@@ -463,6 +466,7 @@ export function PlatformPortalCustomerDetailPanel({
   labels,
   commercialPlanLabels,
   licenseProvisioningLabels,
+  domainInstallationLabels,
   locale,
 }: Props) {
   const [loadState, setLoadState] = useState<LoadState>({ kind: "loading" });
@@ -471,6 +475,8 @@ export function PlatformPortalCustomerDetailPanel({
   const [commercialSuccess, setCommercialSuccess] = useState(false);
   const [licenseOpen, setLicenseOpen] = useState(false);
   const [licenseSuccess, setLicenseSuccess] = useState(false);
+  const [domainOpen, setDomainOpen] = useState(false);
+  const [domainSuccess, setDomainSuccess] = useState(false);
 
   const load = useCallback(async () => {
     setLoadState({ kind: "loading" });
@@ -964,6 +970,23 @@ export function PlatformPortalCustomerDetailPanel({
           </SectionCard>
 
           <SectionCard title={labels.sectionDomains}>
+            <div className="mb-4 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setDomainSuccess(false);
+                  setDomainOpen(true);
+                }}
+                className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
+              >
+                {labels.addDomainInstallation}
+              </button>
+              {domainSuccess ? (
+                <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
+                  {domainInstallationLabels.success}
+                </p>
+              ) : null}
+            </div>
             {data.domains.length === 0 ? (
               <EmptyTableMessage message={labels.emptyDomains} />
             ) : (
@@ -1179,6 +1202,19 @@ export function PlatformPortalCustomerDetailPanel({
         onSuccess={() => {
           setLicenseSuccess(true);
           setLicenseOpen(false);
+          void load();
+        }}
+      />
+
+      <PlatformPortalDomainInstallationPanel
+        open={domainOpen}
+        customerId={customerId}
+        existingLicenses={data.licenses}
+        labels={domainInstallationLabels}
+        onClose={() => setDomainOpen(false)}
+        onSuccess={() => {
+          setDomainSuccess(true);
+          setDomainOpen(false);
           void load();
         }}
       />

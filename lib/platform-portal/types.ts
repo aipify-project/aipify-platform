@@ -297,6 +297,7 @@ export type PlatformPortalCustomerDetailLabels = {
   provisioningStatuses: Record<string, string>;
   managePlan: string;
   createLicense: string;
+  addDomainInstallation: string;
 };
 
 export type PlatformPortalCommercialPlan = {
@@ -573,5 +574,135 @@ export type PlatformPortalLicenseProvisioningLabels = {
   confirmRequired: string;
   loadingProducts: string;
   licenseStatuses: Record<string, string>;
+  provisioningStatuses: Record<string, string>;
+};
+
+export type PlatformPortalCustomerDomain = {
+  id: string;
+  hostname: string;
+  status: string;
+  verificationStatus: string | null;
+  installId: string | null;
+  createdAt: string | null;
+  verifiedAt: string | null;
+};
+
+export type PlatformPortalEligibleLicense = {
+  id: string;
+  productCode: string | null;
+  productName: string | null;
+  status: string;
+  domain: string | null;
+  installId: string | null;
+  provisioningStatus: string | null;
+  eligible: boolean;
+};
+
+export type PlatformPortalCustomerDomainsPayload = {
+  customerId: string | null;
+  domains: PlatformPortalCustomerDomain[];
+  eligibleLicenses: PlatformPortalEligibleLicense[];
+  generatedAt: string | null;
+};
+
+export type PlatformPortalCustomerInstallation = {
+  id: string;
+  installId: string;
+  status: string;
+  systemType: string | null;
+  name: string | null;
+  siteUrl: string | null;
+  domainId: string | null;
+  createdAt: string | null;
+  activatedAt: string | null;
+};
+
+export type PlatformPortalCustomerInstallationsPayload = {
+  customerId: string | null;
+  installations: PlatformPortalCustomerInstallation[];
+  generatedAt: string | null;
+};
+
+export type PlatformPortalCustomerDomainInstallationResult = {
+  customerId: string;
+  licenseId: string;
+  domain: {
+    id: string;
+    hostname: string;
+    status: string;
+    verifiedAt: string | null;
+    createdAt: string | null;
+  };
+  installation: {
+    id: string;
+    installId: string;
+    status: string;
+    createdAt: string | null;
+    activatedAt: string | null;
+  };
+  license: {
+    id: string;
+    status: string;
+    provisioningStatus: string;
+    domainId: string | null;
+    installationId: string | null;
+    installId: string | null;
+  };
+  created: {
+    domain: boolean;
+    installation: boolean;
+  };
+  idempotentReplay: boolean;
+};
+
+export type PlatformPortalDomainInstallationLabels = {
+  addDomainInstallation: string;
+  title: string;
+  currentDomains: string;
+  currentInstallations: string;
+  selectLicense: string;
+  eligibleLicenses: string;
+  noEligibleLicenses: string;
+  hostname: string;
+  canonicalHostname: string;
+  domainId: string;
+  domainStatus: string;
+  installation: string;
+  installationId: string;
+  installId: string;
+  installationStatus: string;
+  notVerified: string;
+  waitingVerification: string;
+  readyForActivation: string;
+  active: string;
+  suspended: string;
+  failed: string;
+  domainNotAutoVerified: string;
+  dnsNotChanged: string;
+  websiteKompisNotActivated: string;
+  internalReason: string;
+  reasonRequired: string;
+  summary: string;
+  summaryCreates: string;
+  create: string;
+  creating: string;
+  success: string;
+  domainAlreadyRegistered: string;
+  licenseAlreadyHasDomain: string;
+  licenseAlreadyHasInstallation: string;
+  hostnameInvalid: string;
+  emptyDomains: string;
+  emptyInstallations: string;
+  forbidden: string;
+  unauthorized: string;
+  loadDomainsError: string;
+  loadInstallationsError: string;
+  createError: string;
+  cancel: string;
+  retry: string;
+  confirmRequired: string;
+  loadingEligible: string;
+  domainStatuses: Record<string, string>;
+  installationStatuses: Record<string, string>;
   provisioningStatuses: Record<string, string>;
 };
