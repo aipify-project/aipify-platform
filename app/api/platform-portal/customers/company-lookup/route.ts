@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
-import { validateNorwegianOrganization } from "@/lib/brreg/validate-organization";
-import { normalizeOrganizationNumber } from "@/lib/platform-portal/create-customer";
+import {
+  BRREG_NAME_MIN_LENGTH,
+  searchNorwegianCompanies,
+} from "@/lib/brreg/validate-organization";
+import { countryHasCompanyLookupProvider, isValidIsoAlpha2Country } from "@/lib/platform-portal/countries";
 import { createClient } from "@/lib/supabase/server";
 
 const NO_STORE = { "Cache-Control": "no-store" } as const;
@@ -13,8 +16,9 @@ function jsonError(message: string, status: number, code?: string) {
 }
 
 /**
- * Server-protected Brønnøysund company lookup for Platform customer creation.
- * Never exposes raw upstream payloads to the browser.
+ * Server-protected company lookup for Platform customer creation.
+ * Norway → Brønnøysund (name or organization number).
+ * Other countries → lookup_unavailable (manual operator entry).
  */
 export async function POST(request: Request) {
   try {
@@ -27,19 +31,8 @@ export async function POST(request: Request) {
       return jsonError("Unauthorized", 401, "unauthorized");
     }
 
-    // Access gate: Platform Owner/Super Admin via existing portal RPC.
     const { error: accessError } = await supabase.rpc("get_platform_portal_customers");
     if (accessError) {
-      const message = (accessError.message ?? "").toLowerCase();
-      if (
-        message.includes("platform portal access denied") ||
-        message.includes("access denied") ||
-        message.includes("not authorized") ||
-        message.includes("permission") ||
-        message.includes("forbidden")
-      ) {
-        return jsonError("Forbidden", 403, "forbidden");
-      }
       return jsonError("Forbidden", 403, "forbidden");
     }
 
@@ -54,51 +47,112 @@ export async function POST(request: Request) {
       body && typeof body === "object" && !Array.isArray(body)
         ? (body as Record<string, unknown>)
         : null;
-    if (!row || Object.keys(row).some((key) => key !== "organizationNumber")) {
+
+    if (!row) {
       return jsonError("Invalid lookup input.", 400, "unknown");
     }
 
-    const organizationNumber = normalizeOrganizationNumber(row.organizationNumber);
-    if (!organizationNumber) {
+    for (const key of Object.keys(row)) {
+      if (key !== "countryCode" && key !== "query" && key !== "organizationNumber") {
+        return jsonError("Invalid lookup input.", 400, "unknown");
+      }
+    }
+
+    const countryCode = String(row.countryCode ?? "NO")
+      .trim()
+      .toUpperCase();
+    if (!isValidIsoAlpha2Country(countryCode)) {
+      return jsonError("Invalid country.", 400, "invalid_country");
+    }
+
+    const query = String(row.query ?? row.organizationNumber ?? "").trim();
+
+    if (!countryHasCompanyLookupProvider(countryCode)) {
       return NextResponse.json(
         {
-          status: "invalid",
-          organizationNumber: null,
-          legalName: null,
+          status: "lookup_unavailable",
+          provider: null,
+          countryCode,
+          results: [],
         },
         { status: 200, headers: NO_STORE },
       );
     }
 
-    const result = await validateNorwegianOrganization(organizationNumber);
-
-    if (result.status === "valid") {
+    if (!query || query.length < BRREG_NAME_MIN_LENGTH) {
       return NextResponse.json(
         {
-          status: "valid",
-          organizationNumber,
-          legalName: result.companyName,
+          status: "invalid_query",
+          provider: "brreg",
+          countryCode: "NO",
+          results: [],
+          minQueryLength: BRREG_NAME_MIN_LENGTH,
         },
         { status: 200, headers: NO_STORE },
       );
     }
 
-    if (result.status === "invalid") {
+    const search = await searchNorwegianCompanies(query);
+
+    if (search.status === "invalid_query") {
       return NextResponse.json(
         {
-          status: "invalid",
-          organizationNumber,
-          legalName: null,
+          status: "invalid_query",
+          provider: "brreg",
+          countryCode: "NO",
+          results: [],
+          minQueryLength: BRREG_NAME_MIN_LENGTH,
         },
         { status: 200, headers: NO_STORE },
       );
     }
 
+    if (search.status === "no_results") {
+      return NextResponse.json(
+        {
+          status: "no_results",
+          provider: "brreg",
+          countryCode: "NO",
+          results: [],
+        },
+        { status: 200, headers: NO_STORE },
+      );
+    }
+
+    if (search.status === "timeout") {
+      return NextResponse.json(
+        {
+          status: "timeout",
+          provider: "brreg",
+          countryCode: "NO",
+          results: [],
+        },
+        { status: 200, headers: NO_STORE },
+      );
+    }
+
+    if (search.status === "rate_limited" || search.status === "service_unavailable") {
+      return NextResponse.json(
+        {
+          status: "service_unavailable",
+          provider: "brreg",
+          countryCode: "NO",
+          results: [],
+        },
+        { status: 200, headers: NO_STORE },
+      );
+    }
+
+    // Backward-compatible single-hit shape for existing clients + multi-result list.
+    const first = search.results[0] ?? null;
     return NextResponse.json(
       {
-        status: "service_unavailable",
-        organizationNumber,
-        legalName: null,
+        status: search.results.length === 1 ? "valid" : "multiple",
+        provider: "brreg",
+        countryCode: "NO",
+        organizationNumber: first?.registrationNumber ?? null,
+        legalName: first?.legalName ?? null,
+        results: search.results,
       },
       { status: 200, headers: NO_STORE },
     );

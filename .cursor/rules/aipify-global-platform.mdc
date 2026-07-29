@@ -1,0 +1,27 @@
+---
+description: Aipify is global by default — never hardcode Norway or a single country
+alwaysApply: true
+---
+
+# Aipify Global Platform
+
+**Aipify.ai is global by default.**
+
+Country-specific validation, company lookup, payment, address, and identity behavior must be selected by country/provider and must never be hardcoded globally to Norway or another single country.
+
+## Rules
+
+1. Do **not** hardcode Norway as the only allowed country.
+2. Do **not** require a Norwegian organization number for non-Norwegian companies.
+3. Do **not** assume nine digits for all business identifiers.
+4. Do **not** permanently default to `NO`.
+5. Do **not** assume Norwegian address format, NOK, or Brønnøysund as a global company directory.
+6. Country-specific integrations are **optional adapters** (e.g. Brønnøysund for Norway).
+7. Other countries use operator-verified registration numbers and company data until a country provider exists.
+
+## Customer creation
+
+- `country` is ISO 3166-1 alpha-2.
+- Registration numbers are stored as text (`organization_number`).
+- Norwegian nine-digit rules apply only when `country = NO`.
+- Duplicate protection is country-aware.

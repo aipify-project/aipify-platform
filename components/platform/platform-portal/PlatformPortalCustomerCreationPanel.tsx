@@ -3,31 +3,38 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import type { PlatformPortalCustomerCreationLabels } from "@/lib/platform-portal";
+import type {
+  PlatformPortalCompanyLookupMatch,
+  PlatformPortalCustomerCreationLabels,
+} from "@/lib/platform-portal";
+import {
+  countryHasCompanyLookupProvider,
+  listIsoAlpha2Countries,
+} from "@/lib/platform-portal/countries";
 import {
   isReservedCustomerSlug,
   normalizeCustomerSlug,
-  normalizeOrganizationNumber,
+  normalizeRegistrationNumber,
   suggestCustomerSlug,
   type PlatformPortalCustomerCreationErrorCode,
 } from "@/lib/platform-portal/create-customer";
 
 type Props = {
   labels: PlatformPortalCustomerCreationLabels;
+  locale: string;
 };
 
 type LookupState =
   | { kind: "idle" }
   | { kind: "loading" }
-  | { kind: "success"; legalName: string; organizationNumber: string }
+  | { kind: "results"; results: PlatformPortalCompanyLookupMatch[] }
   | { kind: "not_found" }
   | { kind: "unavailable" }
-  | { kind: "invalid" };
+  | { kind: "timeout" }
+  | { kind: "invalid_query" }
+  | { kind: "lookup_unavailable" };
 
-type FormErrorCode =
-  | PlatformPortalCustomerCreationErrorCode
-  | "lookup_invalid"
-  | null;
+type FormErrorCode = PlatformPortalCustomerCreationErrorCode | "lookup_invalid" | null;
 
 type SubmitState =
   | { kind: "idle" }
@@ -38,11 +45,14 @@ type SubmitState =
 function errorMessage(
   labels: PlatformPortalCustomerCreationLabels,
   code: FormErrorCode,
+  country: string,
 ): string {
   switch (code) {
     case "invalid_organization_number":
     case "lookup_invalid":
-      return labels.invalidOrganizationNumber;
+      return country === "NO"
+        ? labels.invalidOrganizationNumber
+        : labels.registrationNumberRequired;
     case "duplicate_organization_number":
       return labels.duplicateOrganizationNumber;
     case "invalid_slug":
@@ -51,6 +61,8 @@ function errorMessage(
       return labels.duplicateSlug;
     case "reserved_slug":
       return labels.reservedSlug;
+    case "invalid_country":
+      return labels.selectCountry;
     case "unauthorized":
       return labels.unauthorized;
     case "forbidden":
@@ -60,18 +72,34 @@ function errorMessage(
   }
 }
 
-export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
+export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
   const router = useRouter();
+  const countries = useMemo(() => listIsoAlpha2Countries(locale), [locale]);
+
+  const [country, setCountry] = useState("");
+  const [lookupQuery, setLookupQuery] = useState("");
   const [organizationNumber, setOrganizationNumber] = useState("");
   const [legalName, setLegalName] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [slug, setSlug] = useState("");
   const [slugTouched, setSlugTouched] = useState(false);
-  const [country, setCountry] = useState("NO");
+  const [orgTouched, setOrgTouched] = useState(false);
+  const [legalTouched, setLegalTouched] = useState(false);
+  const [countryTouched, setCountryTouched] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [legalNameLocked, setLegalNameLocked] = useState(false);
+  const [orgLocked, setOrgLocked] = useState(false);
+  const [verificationSource, setVerificationSource] = useState<"brreg" | "operator">(
+    "operator",
+  );
+  const [selectedResult, setSelectedResult] = useState<PlatformPortalCompanyLookupMatch | null>(
+    null,
+  );
   const [lookup, setLookup] = useState<LookupState>({ kind: "idle" });
   const [submit, setSubmit] = useState<SubmitState>({ kind: "idle" });
-  const [localError, setLocalError] = useState<FormErrorCode>(null);
+
+  const isNorway = country === "NO";
+  const hasLookup = countryHasCompanyLookupProvider(country);
 
   useEffect(() => {
     if (slugTouched) return;
@@ -79,34 +107,70 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
     setSlug(suggested === "customer" ? "" : suggested);
   }, [displayName, legalName, slugTouched]);
 
+  useEffect(() => {
+    setLookup({ kind: "idle" });
+    setSelectedResult(null);
+    setLookupQuery("");
+    setLegalNameLocked(false);
+    setOrgLocked(false);
+    setVerificationSource("operator");
+  }, [country]);
+
   const normalizedOrg = useMemo(
-    () => normalizeOrganizationNumber(organizationNumber),
-    [organizationNumber],
+    () => (country ? normalizeRegistrationNumber(country, organizationNumber) : null),
+    [country, organizationNumber],
   );
   const normalizedSlug = useMemo(() => normalizeCustomerSlug(slug), [slug]);
 
-  const slugStatus = useMemo(() => {
-    if (!slug.trim()) return "empty" as const;
-    if (!normalizedSlug) return "invalid" as const;
-    if (isReservedCustomerSlug(normalizedSlug)) return "reserved" as const;
-    return "ok" as const;
-  }, [slug, normalizedSlug]);
+  const showCountryError =
+    (countryTouched || submitted) && !country;
+  const showOrgError =
+    (orgTouched || submitted) && country.length > 0 && !normalizedOrg;
+  const showLegalError = (legalTouched || submitted) && !legalName.trim();
+  const showSlugError =
+    (slugTouched || submitted) &&
+    (slug.trim().length > 0 || submitted) &&
+    (!normalizedSlug || (normalizedSlug != null && isReservedCustomerSlug(normalizedSlug)));
+
+  const canSubmit =
+    Boolean(country) &&
+    Boolean(normalizedOrg) &&
+    Boolean(legalName.trim()) &&
+    Boolean(normalizedSlug) &&
+    !isReservedCustomerSlug(normalizedSlug ?? "") &&
+    submit.kind !== "submitting" &&
+    submit.kind !== "success";
+
+  function applyCompanyResult(match: PlatformPortalCompanyLookupMatch) {
+    setSelectedResult(match);
+    setOrganizationNumber(match.registrationNumber);
+    setLegalName(match.legalName);
+    setLegalNameLocked(true);
+    setOrgLocked(true);
+    setVerificationSource("brreg");
+    if (!displayName.trim()) {
+      setDisplayName(match.legalName);
+    }
+  }
 
   async function runLookup() {
-    setLocalError(null);
-    if (!normalizedOrg) {
-      setLookup({ kind: "invalid" });
-      setLocalError("invalid_organization_number");
+    if (!hasLookup) {
+      setLookup({ kind: "lookup_unavailable" });
       return;
     }
 
     setLookup({ kind: "loading" });
+    setSelectedResult(null);
+
     try {
       const response = await fetch("/api/platform-portal/customers/company-lookup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         cache: "no-store",
-        body: JSON.stringify({ organizationNumber: normalizedOrg }),
+        body: JSON.stringify({
+          countryCode: country,
+          query: lookupQuery.trim(),
+        }),
       });
 
       if (response.status === 401) {
@@ -127,35 +191,63 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
 
       const data = (await response.json()) as {
         status?: string;
-        legalName?: string | null;
+        results?: PlatformPortalCompanyLookupMatch[];
         organizationNumber?: string | null;
+        legalName?: string | null;
       };
 
-      if (data.status === "valid" && data.legalName) {
-        setLookup({
-          kind: "success",
-          legalName: data.legalName,
-          organizationNumber: data.organizationNumber ?? normalizedOrg,
-        });
-        setLegalName(data.legalName);
-        setLegalNameLocked(true);
-        if (!displayName.trim()) {
-          setDisplayName(data.legalName);
-        }
+      if (data.status === "lookup_unavailable") {
+        setLookup({ kind: "lookup_unavailable" });
         return;
       }
 
-      if (data.status === "invalid") {
+      if (data.status === "invalid_query") {
+        setLookup({ kind: "invalid_query" });
+        return;
+      }
+
+      if (data.status === "no_results" || data.status === "invalid") {
         setLookup({ kind: "not_found" });
-        setLegalNameLocked(false);
         return;
       }
 
-      setLookup({ kind: "unavailable" });
-      setLegalNameLocked(false);
+      if (data.status === "timeout") {
+        setLookup({ kind: "timeout" });
+        return;
+      }
+
+      if (data.status === "service_unavailable") {
+        setLookup({ kind: "unavailable" });
+        return;
+      }
+
+      const results = Array.isArray(data.results) ? data.results : [];
+      if (results.length === 0 && data.organizationNumber && data.legalName) {
+        const single: PlatformPortalCompanyLookupMatch = {
+          registrationNumber: data.organizationNumber,
+          legalName: data.legalName,
+          organizationType: null,
+          addressLine: null,
+          postalCode: null,
+          city: null,
+          status: "active",
+        };
+        setLookup({ kind: "results", results: [single] });
+        applyCompanyResult(single);
+        return;
+      }
+
+      if (results.length === 0) {
+        setLookup({ kind: "not_found" });
+        return;
+      }
+
+      setLookup({ kind: "results", results });
+      if (results.length === 1 && results[0]) {
+        applyCompanyResult(results[0]);
+      }
     } catch {
       setLookup({ kind: "unavailable" });
-      setLegalNameLocked(false);
     }
   }
 
@@ -163,22 +255,10 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
     event.preventDefault();
     if (submit.kind === "submitting" || submit.kind === "success") return;
 
-    setLocalError(null);
+    setSubmitted(true);
+    setSubmit({ kind: "idle" });
 
-    if (!normalizedOrg) {
-      setLocalError("invalid_organization_number");
-      return;
-    }
-    if (!legalName.trim()) {
-      setLocalError("invalid_legal_name");
-      return;
-    }
-    if (!normalizedSlug) {
-      setLocalError("invalid_slug");
-      return;
-    }
-    if (isReservedCustomerSlug(normalizedSlug)) {
-      setLocalError("reserved_slug");
+    if (!canSubmit || !normalizedOrg || !normalizedSlug) {
       return;
     }
 
@@ -192,9 +272,10 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
         body: JSON.stringify({
           organizationNumber: normalizedOrg,
           legalName: legalName.trim(),
-          displayName: (displayName.trim() || legalName.trim()),
+          displayName: displayName.trim() || legalName.trim(),
           slug: normalizedSlug,
           country,
+          verificationSource,
         }),
       });
 
@@ -210,14 +291,10 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
       const payload = (await response.json().catch(() => null)) as {
         customer?: { id?: string };
         code?: PlatformPortalCustomerCreationErrorCode;
-        error?: string;
       } | null;
 
       if (!response.ok) {
-        setSubmit({
-          kind: "error",
-          code: payload?.code ?? "unknown",
-        });
+        setSubmit({ kind: "error", code: payload?.code ?? "unknown" });
         return;
       }
 
@@ -236,11 +313,11 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
 
   const isSubmitting = submit.kind === "submitting";
   const bannerError =
-    submit.kind === "error"
-      ? errorMessage(labels, submit.code)
-      : localError
-        ? errorMessage(labels, localError)
-        : null;
+    submit.kind === "error" ? errorMessage(labels, submit.code, country) : null;
+
+  const registrationLabel = isNorway
+    ? labels.organizationNumber
+    : labels.registrationNumber;
 
   return (
     <div className="w-full space-y-6">
@@ -279,30 +356,66 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
         </div>
       ) : null}
 
-      <form onSubmit={(event) => void onSubmit(event)} className="w-full space-y-6">
+      <form onSubmit={(event) => void onSubmit(event)} className="w-full space-y-6" noValidate>
         <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
           <h2 className="text-base font-semibold text-slate-900 dark:text-slate-50">
             {labels.sectionIdentity}
           </h2>
-          <div className="mt-4 grid gap-4 lg:grid-cols-2">
-            <div className="space-y-2 lg:col-span-2">
-              <label
-                htmlFor="organizationNumber"
-                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
-              >
-                {labels.organizationNumber}
-              </label>
+
+          <div className="mt-4 space-y-2">
+            <label
+              htmlFor="country"
+              className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+            >
+              {labels.country}
+            </label>
+            <select
+              id="country"
+              name="country"
+              value={country}
+              onChange={(event) => {
+                setCountryTouched(true);
+                setCountry(event.target.value);
+              }}
+              onBlur={() => setCountryTouched(true)}
+              className="w-full max-w-xl rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-violet-900/50"
+            >
+              <option value="">{labels.selectCountry}</option>
+              {countries.map((option) => (
+                <option key={option.code} value={option.code}>
+                  {option.name} ({option.code})
+                </option>
+              ))}
+            </select>
+            {showCountryError ? (
+              <p className="text-sm text-rose-700 dark:text-rose-300">{labels.selectCountry}</p>
+            ) : null}
+            {country && hasLookup ? (
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                {labels.lookupAvailableNorway}
+              </p>
+            ) : null}
+            {country && !hasLookup ? (
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                {labels.lookupUnavailableCountry} {labels.enterManually}
+              </p>
+            ) : null}
+          </div>
+
+          {hasLookup ? (
+            <div className="mt-5 space-y-3 rounded-xl border border-violet-200/80 bg-violet-50/40 p-4 dark:border-violet-800/60 dark:bg-violet-950/30">
+              <h3 className="text-sm font-semibold text-violet-950 dark:text-violet-100">
+                {labels.searchNorwegianCompany}
+              </h3>
+              <p className="text-sm text-violet-900/80 dark:text-violet-200/80">
+                {labels.searchNameOrNumber}
+              </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <input
-                  id="organizationNumber"
-                  name="organizationNumber"
-                  value={organizationNumber}
-                  onChange={(event) => {
-                    setOrganizationNumber(event.target.value);
-                    setLookup({ kind: "idle" });
-                    setLegalNameLocked(false);
-                  }}
-                  inputMode="numeric"
+                  id="companyLookupQuery"
+                  value={lookupQuery}
+                  onChange={(event) => setLookupQuery(event.target.value)}
+                  placeholder={labels.companyNameOrNumber}
                   autoComplete="off"
                   className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-violet-900/50"
                 />
@@ -315,18 +428,106 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
                   {lookup.kind === "loading" ? labels.lookupLoading : labels.lookupAction}
                 </button>
               </div>
-              {lookup.kind === "success" ? (
-                <p className="text-sm text-emerald-700 dark:text-emerald-300">{labels.lookupSuccess}</p>
+
+              {lookup.kind === "invalid_query" ? (
+                <p className="text-sm text-amber-700 dark:text-amber-300">{labels.queryTooShort}</p>
               ) : null}
               {lookup.kind === "not_found" ? (
                 <p className="text-sm text-amber-700 dark:text-amber-300">{labels.lookupNotFound}</p>
               ) : null}
-              {lookup.kind === "unavailable" ? (
-                <p className="text-sm text-amber-700 dark:text-amber-300">{labels.lookupUnavailable}</p>
+              {lookup.kind === "unavailable" || lookup.kind === "timeout" ? (
+                <p className="text-sm text-amber-700 dark:text-amber-300">
+                  {labels.registryNoResponse}
+                </p>
               ) : null}
-              {lookup.kind === "invalid" ? (
+
+              {lookup.kind === "results" && lookup.results.length > 1 ? (
+                <div className="space-y-2">
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-100">
+                    {labels.lookupMultiple}. {labels.selectCompany}
+                  </p>
+                  <ul
+                    role="listbox"
+                    aria-label={labels.selectCompany}
+                    className="max-h-64 overflow-y-auto rounded-lg border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900"
+                  >
+                    {lookup.results.map((result) => {
+                      const selected =
+                        selectedResult?.registrationNumber === result.registrationNumber;
+                      return (
+                        <li key={result.registrationNumber}>
+                          <button
+                            type="button"
+                            role="option"
+                            aria-selected={selected}
+                            onClick={() => applyCompanyResult(result)}
+                            className={`flex w-full flex-col gap-0.5 px-3 py-2.5 text-left text-sm transition hover:bg-violet-50 dark:hover:bg-violet-950/40 ${
+                              selected
+                                ? "bg-violet-50 dark:bg-violet-950/50"
+                                : ""
+                            }`}
+                          >
+                            <span className="font-medium text-slate-900 dark:text-slate-50">
+                              {result.legalName}
+                            </span>
+                            <span className="font-mono text-xs text-slate-600 dark:text-slate-300">
+                              {result.registrationNumber}
+                              {result.organizationType
+                                ? ` · ${result.organizationType}`
+                                : ""}
+                              {result.city ? ` · ${result.city}` : ""}
+                            </span>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ) : null}
+
+              {selectedResult ? (
+                <p className="text-sm text-emerald-700 dark:text-emerald-300">
+                  {labels.selectedCompany}: {selectedResult.legalName} (
+                  {selectedResult.registrationNumber})
+                </p>
+              ) : null}
+            </div>
+          ) : null}
+
+          <div className="mt-5 grid gap-4 lg:grid-cols-2">
+            <div className="space-y-2">
+              <label
+                htmlFor="organizationNumber"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+              >
+                {registrationLabel}
+              </label>
+              <input
+                id="organizationNumber"
+                name="organizationNumber"
+                value={organizationNumber}
+                readOnly={orgLocked}
+                onChange={(event) => {
+                  setOrgTouched(true);
+                  setOrganizationNumber(event.target.value);
+                  setVerificationSource("operator");
+                  setSelectedResult(null);
+                }}
+                onBlur={() => setOrgTouched(true)}
+                autoComplete="off"
+                disabled={!country}
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200 disabled:opacity-60 read-only:bg-slate-50 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-violet-900/50 dark:read-only:bg-slate-900/60"
+              />
+              {!isNorway && country ? (
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  {labels.registrationNumberHelp}
+                </p>
+              ) : null}
+              {showOrgError ? (
                 <p className="text-sm text-rose-700 dark:text-rose-300">
-                  {labels.invalidOrganizationNumber}
+                  {isNorway
+                    ? labels.invalidOrganizationNumber
+                    : labels.registrationNumberRequired}
                 </p>
               ) : null}
             </div>
@@ -342,13 +543,21 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
                 id="legalName"
                 name="legalName"
                 value={legalName}
-                onChange={(event) => setLegalName(event.target.value)}
+                onChange={(event) => {
+                  setLegalTouched(true);
+                  setLegalName(event.target.value);
+                }}
+                onBlur={() => setLegalTouched(true)}
                 readOnly={legalNameLocked}
-                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200 read-only:bg-slate-50 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-violet-900/50 dark:read-only:bg-slate-900/60"
+                disabled={!country}
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200 disabled:opacity-60 read-only:bg-slate-50 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-violet-900/50 dark:read-only:bg-slate-900/60"
               />
+              {showLegalError ? (
+                <p className="text-sm text-rose-700 dark:text-rose-300">{labels.legalName}</p>
+              ) : null}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 lg:col-span-2">
               <label
                 htmlFor="displayName"
                 className="block text-sm font-medium text-slate-700 dark:text-slate-300"
@@ -360,7 +569,8 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
                 name="displayName"
                 value={displayName}
                 onChange={(event) => setDisplayName(event.target.value)}
-                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-violet-900/50"
+                disabled={!country}
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200 disabled:opacity-60 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-violet-900/50"
               />
             </div>
           </div>
@@ -370,65 +580,40 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
           <h2 className="text-base font-semibold text-slate-900 dark:text-slate-50">
             {labels.sectionPlatform}
           </h2>
-          <div className="mt-4 grid gap-4 lg:grid-cols-2">
-            <div className="space-y-2">
-              <label
-                htmlFor="slug"
-                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
-              >
-                {labels.slug}
-              </label>
-              <input
-                id="slug"
-                name="slug"
-                value={slug}
-                onChange={(event) => {
-                  setSlugTouched(true);
-                  setSlug(event.target.value);
-                }}
-                autoComplete="off"
-                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-violet-900/50"
-              />
-              {slugStatus === "ok" && normalizedSlug ? (
-                <p className="text-sm text-emerald-700 dark:text-emerald-300">
-                  {labels.slugPreview}: {normalizedSlug}
-                </p>
-              ) : null}
-              {slugStatus === "invalid" ? (
-                <p className="text-sm text-rose-700 dark:text-rose-300">{labels.invalidSlug}</p>
-              ) : null}
-              {slugStatus === "reserved" ? (
-                <p className="text-sm text-rose-700 dark:text-rose-300">{labels.reservedSlug}</p>
-              ) : null}
-            </div>
-
-            <div className="space-y-2">
-              <label
-                htmlFor="country"
-                className="block text-sm font-medium text-slate-700 dark:text-slate-300"
-              >
-                {labels.country}
-              </label>
-              <select
-                id="country"
-                name="country"
-                value={country}
-                onChange={(event) => setCountry(event.target.value)}
-                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-violet-900/50"
-              >
-                <option value="NO">NO</option>
-                <option value="SE">SE</option>
-                <option value="DK">DK</option>
-                <option value="FI">FI</option>
-                <option value="PL">PL</option>
-                <option value="UA">UA</option>
-                <option value="GB">GB</option>
-                <option value="US">US</option>
-              </select>
+          <div className="mt-4 space-y-2">
+            <label
+              htmlFor="slug"
+              className="block text-sm font-medium text-slate-700 dark:text-slate-300"
+            >
+              {labels.slug}
+            </label>
+            <input
+              id="slug"
+              name="slug"
+              value={slug}
+              onChange={(event) => {
+                setSlugTouched(true);
+                setSlug(event.target.value);
+              }}
+              onBlur={() => setSlugTouched(true)}
+              autoComplete="off"
+              className="w-full max-w-xl rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-violet-900/50"
+            />
+            {normalizedSlug && !showSlugError ? (
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                {labels.addressUnavailableNote}
+                {labels.slugPreview}: {normalizedSlug}
               </p>
-            </div>
+            ) : null}
+            {showSlugError ? (
+              <p className="text-sm text-rose-700 dark:text-rose-300">
+                {normalizedSlug && isReservedCustomerSlug(normalizedSlug)
+                  ? labels.reservedSlug
+                  : labels.invalidSlug}
+              </p>
+            ) : null}
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              {labels.addressUnavailableNote}
+            </p>
           </div>
         </section>
 
@@ -436,11 +621,12 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
           <h2 className="text-base font-semibold text-slate-900 dark:text-slate-50">
             {labels.sectionSummary}
           </h2>
-          <dl className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <dl className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+            <SummaryItem label={labels.country} value={country || "—"} />
             <SummaryItem label={labels.customerName} value={displayName || legalName || "—"} />
             <SummaryItem label={labels.legalName} value={legalName || "—"} />
             <SummaryItem
-              label={labels.organizationNumber}
+              label={registrationLabel}
               value={normalizedOrg ?? (organizationNumber || "—")}
             />
             <SummaryItem label={labels.slug} value={normalizedSlug ?? (slug || "—")} />
@@ -479,7 +665,7 @@ export function PlatformPortalCustomerCreationPanel({ labels }: Props) {
           </Link>
           <button
             type="submit"
-            disabled={isSubmitting || submit.kind === "success"}
+            disabled={!canSubmit}
             className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-violet-500 dark:hover:bg-violet-400"
           >
             {isSubmitting ? labels.submitting : labels.submit}

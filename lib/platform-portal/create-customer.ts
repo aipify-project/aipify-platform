@@ -1,3 +1,4 @@
+import { isValidIsoAlpha2Country } from "./countries";
 import type {
   PlatformPortalCustomerCreationInput,
   PlatformPortalCustomerCreationResult,
@@ -20,6 +21,9 @@ const RESERVED_SLUGS = new Set([
   "aipify-internal",
 ]);
 
+export const REGISTRATION_NUMBER_MIN_LENGTH = 2;
+export const REGISTRATION_NUMBER_MAX_LENGTH = 64;
+
 export type PlatformPortalCustomerCreationErrorCode =
   | "invalid_organization_number"
   | "invalid_legal_name"
@@ -27,6 +31,7 @@ export type PlatformPortalCustomerCreationErrorCode =
   | "invalid_slug"
   | "reserved_slug"
   | "invalid_country"
+  | "invalid_verification_source"
   | "duplicate_organization_number"
   | "duplicate_slug"
   | "unauthorized"
@@ -55,9 +60,42 @@ function asStrictBoolean(value: unknown, fallback = false): boolean {
   return typeof value === "boolean" ? value : fallback;
 }
 
-export function normalizeOrganizationNumber(value: unknown): string | null {
+/** Norway-only: nine digits after stripping non-digits. */
+export function normalizeNorwegianOrganizationNumber(value: unknown): string | null {
   const digits = String(value ?? "").replace(/\D/g, "");
   return digits.length === 9 ? digits : null;
+}
+
+/** @deprecated Prefer normalizeRegistrationNumber(country, value). Kept for Norway-only callers. */
+export function normalizeOrganizationNumber(value: unknown): string | null {
+  return normalizeNorwegianOrganizationNumber(value);
+}
+
+/**
+ * Country-aware registration number normalization.
+ * NO → exact nine digits. Other countries → trim only; preserve letters/hyphens.
+ */
+export function normalizeRegistrationNumber(
+  countryCode: string,
+  value: unknown,
+): string | null {
+  const country = String(countryCode ?? "")
+    .trim()
+    .toUpperCase();
+  if (!country) return null;
+
+  if (country === "NO") {
+    return normalizeNorwegianOrganizationNumber(value);
+  }
+
+  const trimmed = String(value ?? "").trim();
+  if (
+    trimmed.length < REGISTRATION_NUMBER_MIN_LENGTH ||
+    trimmed.length > REGISTRATION_NUMBER_MAX_LENGTH
+  ) {
+    return null;
+  }
+  return trimmed;
 }
 
 export function normalizeCustomerSlug(value: unknown): string | null {
@@ -94,6 +132,7 @@ export function parseCustomerCreationInput(
     "displayName",
     "slug",
     "country",
+    "verificationSource",
   ]);
   for (const key of Object.keys(row)) {
     if (!allowed.has(key)) {
@@ -101,7 +140,16 @@ export function parseCustomerCreationInput(
     }
   }
 
-  const organizationNumber = normalizeOrganizationNumber(row.organizationNumber);
+  const countryRaw = asNullableTrimmedString(row.country);
+  if (!countryRaw) {
+    return { ok: false, code: "invalid_country" };
+  }
+  const country = countryRaw.toUpperCase();
+  if (!isValidIsoAlpha2Country(country)) {
+    return { ok: false, code: "invalid_country" };
+  }
+
+  const organizationNumber = normalizeRegistrationNumber(country, row.organizationNumber);
   if (!organizationNumber) {
     return { ok: false, code: "invalid_organization_number" };
   }
@@ -124,10 +172,16 @@ export function parseCustomerCreationInput(
     return { ok: false, code: "reserved_slug" };
   }
 
-  const countryRaw = asNullableTrimmedString(row.country) ?? "NO";
-  const country = countryRaw.toUpperCase();
-  if (!/^[A-Z]{2}$/.test(country)) {
-    return { ok: false, code: "invalid_country" };
+  const verificationRaw = asNullableTrimmedString(row.verificationSource);
+  const verificationSource =
+    verificationRaw === "brreg" || verificationRaw === "operator"
+      ? verificationRaw
+      : country === "NO"
+        ? "operator"
+        : "operator";
+
+  if (verificationSource === "brreg" && country !== "NO") {
+    return { ok: false, code: "invalid_verification_source" };
   }
 
   return {
@@ -138,6 +192,7 @@ export function parseCustomerCreationInput(
       displayName,
       slug,
       country,
+      verificationSource,
     },
   };
 }

@@ -10,5 +10,5 @@ export default async function PlatformCustomerCreationPage() {
   const t = createTranslator(dict);
   const labels = buildPlatformPortalCustomerCreationLabels(t);
 
-  return <PlatformPortalCustomerCreationPanel labels={labels} />;
+  return <PlatformPortalCustomerCreationPanel labels={labels} locale={locale} />;
 }
