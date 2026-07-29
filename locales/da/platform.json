@@ -473,6 +473,55 @@
         "expired": "Udløbet",
         "deactivated": "Deaktiveret"
       }
+    },
+    "createCustomer": "Opret kunde",
+    "creation": {
+      "title": "Opret kunde",
+      "description": "Opretter kundens grundstruktur og organisationsidentitet. Abonnement, licenser, domæner og adgang konfigureres senere.",
+      "backToCustomers": "Tilbage til kunder",
+      "sectionIdentity": "Virksomhedsidentitet",
+      "sectionPlatform": "Platformidentitet",
+      "sectionSummary": "Opsummering",
+      "organizationNumber": "Organisationsnummer",
+      "legalName": "Juridisk navn",
+      "customerName": "Kundenavn",
+      "slug": "Slug",
+      "country": "Land",
+      "lookupAction": "Søg i Enhedsregistret",
+      "lookupLoading": "Henter virksomhedsoplysninger",
+      "lookupSuccess": "Virksomheden blev fundet",
+      "lookupNotFound": "Virksomheden blev ikke fundet",
+      "lookupUnavailable": "Registeropslag er ikke tilgængeligt",
+      "invalidOrganizationNumber": "Organisationsnummeret skal bestå af ni cifre",
+      "duplicateOrganizationNumber": "Organisationsnummeret er allerede registreret",
+      "invalidSlug": "Angiv en gyldig slug med små bogstaver og bindestreger",
+      "duplicateSlug": "Sluggen er allerede i brug",
+      "reservedSlug": "Denne slug er reserveret og kan ikke bruges",
+      "summaryTitle": "Opsummering",
+      "createsTitle": "Dette oprettes",
+      "createsNotTitle": "Dette oprettes ikke endnu",
+      "creates": {
+        "company": "Virksomhedspost",
+        "organization": "Organisationspost",
+        "customer": "Kundepost"
+      },
+      "createsNot": {
+        "subscription": "Abonnement",
+        "license": "Licens",
+        "domain": "Domæne eller installation",
+        "auth": "Auth- eller app-bruger",
+        "email": "Invitations-e-mail"
+      },
+      "submit": "Opret kunde",
+      "cancel": "Annuller",
+      "submitting": "Opretter kunde",
+      "success": "Kunden blev oprettet",
+      "error": "Kunden kunne ikke oprettes",
+      "unauthorized": "Login kræves for at oprette kunder",
+      "forbidden": "Du har ikke adgang til at oprette kunder",
+      "retry": "Prøv igen",
+      "slugPreview": "Kundeidentitet",
+      "addressUnavailableNote": "Gadeadresse, postnummer og by gemmes ikke i kundeoprettelse V1, fordi de kræver registration-profile-felter uden for denne identitetsflow."
     }
   },
   "customerDetail": {

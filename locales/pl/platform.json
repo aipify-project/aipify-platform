@@ -669,6 +669,55 @@
         "expired": "Wygasłe",
         "deactivated": "Dezaktywowane"
       }
+    },
+    "createCustomer": "Utwórz klienta",
+    "creation": {
+      "title": "Utwórz klienta",
+      "description": "Tworzy podstawową strukturę i tożsamość organizacyjną klienta. Subskrypcje, licencje, domeny i dostęp konfiguruje się później.",
+      "backToCustomers": "Powrót do klientów",
+      "sectionIdentity": "Tożsamość firmy",
+      "sectionPlatform": "Tożsamość platformy",
+      "sectionSummary": "Podsumowanie",
+      "organizationNumber": "Numer organizacji",
+      "legalName": "Nazwa prawna",
+      "customerName": "Nazwa klienta",
+      "slug": "Slug",
+      "country": "Kraj",
+      "lookupAction": "Szukaj w rejestrze firm",
+      "lookupLoading": "Pobieranie informacji o firmie",
+      "lookupSuccess": "Znaleziono firmę",
+      "lookupNotFound": "Nie znaleziono firmy",
+      "lookupUnavailable": "Wyszukiwanie w rejestrze jest niedostępne",
+      "invalidOrganizationNumber": "Numer organizacji musi składać się z dziewięciu cyfr",
+      "duplicateOrganizationNumber": "Numer organizacji jest już zarejestrowany",
+      "invalidSlug": "Podaj prawidłowy slug małymi literami z łącznikami",
+      "duplicateSlug": "Slug jest już używany",
+      "reservedSlug": "Ten slug jest zastrzeżony i nie może być użyty",
+      "summaryTitle": "Podsumowanie",
+      "createsTitle": "Zostanie utworzone",
+      "createsNotTitle": "Nie zostanie jeszcze utworzone",
+      "creates": {
+        "company": "Rekord firmy",
+        "organization": "Rekord organizacji",
+        "customer": "Rekord klienta"
+      },
+      "createsNot": {
+        "subscription": "Subskrypcja",
+        "license": "Licencja",
+        "domain": "Domena lub instalacja",
+        "auth": "Użytkownik auth lub aplikacji",
+        "email": "E-mail z zaproszeniem"
+      },
+      "submit": "Utwórz klienta",
+      "cancel": "Anuluj",
+      "submitting": "Tworzenie klienta",
+      "success": "Klient został utworzony",
+      "error": "Nie udało się utworzyć klienta",
+      "unauthorized": "Wymagane logowanie, aby utworzyć klientów",
+      "forbidden": "Nie masz dostępu do tworzenia klientów",
+      "retry": "Spróbuj ponownie",
+      "slugPreview": "Tożsamość klienta",
+      "addressUnavailableNote": "Adres ulicy, kod pocztowy i miejscowość nie są zapisywane w tworzeniu klienta V1, ponieważ wymagają pól registration-profile poza tym przepływem tożsamości."
     }
   },
   "customerDetail": {

@@ -669,6 +669,55 @@
         "expired": "Utgången",
         "deactivated": "Inaktiverad"
       }
+    },
+    "createCustomer": "Skapa kund",
+    "creation": {
+      "title": "Skapa kund",
+      "description": "Skapar kundens grundstruktur och organisationsidentitet. Prenumerationer, licenser, domäner och åtkomst konfigureras senare.",
+      "backToCustomers": "Tillbaka till kunder",
+      "sectionIdentity": "Företagsidentitet",
+      "sectionPlatform": "Plattformsidentitet",
+      "sectionSummary": "Sammanfattning",
+      "organizationNumber": "Organisationsnummer",
+      "legalName": "Juridiskt namn",
+      "customerName": "Kundnamn",
+      "slug": "Slug",
+      "country": "Land",
+      "lookupAction": "Sök i företagsregistret",
+      "lookupLoading": "Hämtar företagsinformation",
+      "lookupSuccess": "Företaget hittades",
+      "lookupNotFound": "Företaget hittades inte",
+      "lookupUnavailable": "Registeruppslag är inte tillgängligt",
+      "invalidOrganizationNumber": "Organisationsnumret måste bestå av nio siffror",
+      "duplicateOrganizationNumber": "Organisationsnumret är redan registrerat",
+      "invalidSlug": "Ange en giltig slug med gemener och bindestreck",
+      "duplicateSlug": "Sluggen används redan",
+      "reservedSlug": "Denna slug är reserverad och kan inte användas",
+      "summaryTitle": "Sammanfattning",
+      "createsTitle": "Detta skapas",
+      "createsNotTitle": "Detta skapas inte ännu",
+      "creates": {
+        "company": "Företagspost",
+        "organization": "Organisationspost",
+        "customer": "Kundpost"
+      },
+      "createsNot": {
+        "subscription": "Prenumeration",
+        "license": "Licens",
+        "domain": "Domän eller installation",
+        "auth": "Auth- eller app-användare",
+        "email": "Inbjudnings-e-post"
+      },
+      "submit": "Skapa kund",
+      "cancel": "Avbryt",
+      "submitting": "Skapar kund",
+      "success": "Kunden skapades",
+      "error": "Kunden kunde inte skapas",
+      "unauthorized": "Inloggning krävs för att skapa kunder",
+      "forbidden": "Du har inte behörighet att skapa kunder",
+      "retry": "Försök igen",
+      "slugPreview": "Kundidentitet",
+      "addressUnavailableNote": "Gatuadress, postnummer och ort lagras inte i kundskapande V1 eftersom de kräver registration-profile-fält utanför detta identitetsflöde."
     }
   },
   "customerDetail": {

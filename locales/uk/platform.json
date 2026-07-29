@@ -669,6 +669,55 @@
         "expired": "Закінчились",
         "deactivated": "Деактивовані"
       }
+    },
+    "createCustomer": "Створити клієнта",
+    "creation": {
+      "title": "Створити клієнта",
+      "description": "Створює базову структуру та організаційну ідентичність клієнта. Підписки, ліцензії, домени та доступ налаштовуються пізніше.",
+      "backToCustomers": "Назад до клієнтів",
+      "sectionIdentity": "Ідентичність бізнесу",
+      "sectionPlatform": "Ідентичність платформи",
+      "sectionSummary": "Підсумок",
+      "organizationNumber": "Організаційний номер",
+      "legalName": "Юридична назва",
+      "customerName": "Назва клієнта",
+      "slug": "Slug",
+      "country": "Країна",
+      "lookupAction": "Пошук у реєстрі компаній",
+      "lookupLoading": "Отримання інформації про компанію",
+      "lookupSuccess": "Компанію знайдено",
+      "lookupNotFound": "Компанію не знайдено",
+      "lookupUnavailable": "Пошук у реєстрі недоступний",
+      "invalidOrganizationNumber": "Організаційний номер має складатися з дев’яти цифр",
+      "duplicateOrganizationNumber": "Організаційний номер уже зареєстровано",
+      "invalidSlug": "Введіть дійсний slug малими літерами з дефісами",
+      "duplicateSlug": "Slug уже використовується",
+      "reservedSlug": "Цей slug зарезервовано і його не можна використати",
+      "summaryTitle": "Підсумок",
+      "createsTitle": "Буде створено",
+      "createsNotTitle": "Ще не буде створено",
+      "creates": {
+        "company": "Запис компанії",
+        "organization": "Запис організації",
+        "customer": "Запис клієнта"
+      },
+      "createsNot": {
+        "subscription": "Підписка",
+        "license": "Ліцензія",
+        "domain": "Домен або встановлення",
+        "auth": "Користувач auth або додатку",
+        "email": "Лист із запрошенням"
+      },
+      "submit": "Створити клієнта",
+      "cancel": "Скасувати",
+      "submitting": "Створення клієнта",
+      "success": "Клієнта створено",
+      "error": "Не вдалося створити клієнта",
+      "unauthorized": "Потрібен вхід, щоб створювати клієнтів",
+      "forbidden": "У вас немає доступу до створення клієнтів",
+      "retry": "Спробувати знову",
+      "slugPreview": "Ідентичність клієнта",
+      "addressUnavailableNote": "Вулицю, поштовий індекс і місто не зберігаються у створенні клієнта V1, бо вони потребують полів registration-profile поза цим потоком ідентичності."
     }
   },
   "customerDetail": {
