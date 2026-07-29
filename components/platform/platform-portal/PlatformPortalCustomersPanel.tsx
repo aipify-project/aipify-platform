@@ -8,6 +8,7 @@ import type {
   PlatformPortalCustomersLabels,
   PlatformPortalCustomersPayload,
 } from "@/lib/platform-portal";
+import { mapAgreementStatus } from "@/lib/platform-portal/business-language";
 
 type PlatformPortalCustomersPanelProps = {
   labels: PlatformPortalCustomersLabels;
@@ -592,8 +593,12 @@ export function PlatformPortalCustomersPanel({
                         ? labels.customerStatuses[customer.customerStatus] ?? labels.notAvailable
                         : labels.notAvailable;
                       const subscriptionStatusLabel = customer.subscriptionStatus
-                        ? labels.subscriptionStatuses[customer.subscriptionStatus] ??
-                          labels.notAvailable
+                        ? mapAgreementStatus({
+                            status: customer.subscriptionStatus,
+                            lifetime: customer.isLifetime,
+                            map: labels.subscriptionStatuses,
+                            unknownFallback: labels.notAvailable,
+                          })
                         : null;
                       const planText = planSecondaryText(customer);
                       const legalName = customer.legalName.trim()
@@ -645,23 +650,35 @@ export function PlatformPortalCustomersPanel({
                             {customer.subscriptionStatus ? (
                               <div className="space-y-1.5">
                                 <div className="flex flex-wrap items-center gap-1.5">
+                                  {customer.isLifetime ? (
+                                    <StatusBadge label={labels.lifetime} variant="info" />
+                                  ) : null}
                                   <StatusBadge
                                     label={
                                       subscriptionStatusLabel ?? labels.notAvailable
                                     }
                                     variant={subscriptionStatusVariant(
-                                      customer.subscriptionStatus,
+                                      customer.isLifetime &&
+                                        customer.subscriptionStatus.toLowerCase() ===
+                                          "trialing"
+                                        ? "active"
+                                        : customer.subscriptionStatus,
                                     )}
                                   />
-                                  {customer.isLifetime ? (
-                                    <StatusBadge label={labels.lifetime} variant="info" />
-                                  ) : null}
                                 </div>
                                 {planText ? (
                                   <p className="truncate text-xs text-slate-500 dark:text-slate-400">
                                     {planText}
                                   </p>
                                 ) : null}
+                              </div>
+                            ) : customer.isLifetime ? (
+                              <div className="flex flex-wrap items-center gap-1.5">
+                                <StatusBadge label={labels.lifetime} variant="info" />
+                                <StatusBadge
+                                  label={labels.subscriptionStatuses.active ?? labels.notAvailable}
+                                  variant="success"
+                                />
                               </div>
                             ) : (
                               <StatusBadge

@@ -10,6 +10,11 @@ import type {
   PlatformPortalDomainInstallationLabels,
   PlatformPortalLicenseProvisioningLabels,
 } from "@/lib/platform-portal";
+import {
+  hasAuthoritativeTrial,
+  mapAgreementStatus,
+  mapLicenseProductName,
+} from "@/lib/platform-portal/business-language";
 import { PlatformPortalCommercialPlanPanel } from "@/components/platform/platform-portal/PlatformPortalCommercialPlanPanel";
 import { PlatformPortalDomainInstallationPanel } from "@/components/platform/platform-portal/PlatformPortalDomainInstallationPanel";
 import { PlatformPortalLicenseProvisioningPanel } from "@/components/platform/platform-portal/PlatformPortalLicenseProvisioningPanel";
@@ -441,16 +446,19 @@ function EmptyTableMessage({ message }: { message: string }) {
 
 function subscriptionKpi(data: PlatformPortalCustomerDetail, labels: PlatformPortalCustomerDetailLabels) {
   if (data.commercial.lifetime) {
-    return { label: labels.lifetime, value: labels.lifetime, variant: "info" as MetricVariant };
+    return { label: labels.duration, value: labels.lifetime, variant: "info" as MetricVariant };
   }
   if (data.commercial.subscriptionStatus) {
     return {
       label: labels.subscription,
-      value: statusLabel(
-        data.commercial.subscriptionStatus,
-        labels.subscriptionStatuses,
-        labels.notAvailable,
-      ),
+      value: mapAgreementStatus({
+        status: data.commercial.subscriptionStatus,
+        lifetime: data.commercial.lifetime,
+        trialStartsAt: data.commercial.trialStartsAt,
+        trialEndsAt: data.commercial.trialEndsAt,
+        map: labels.subscriptionStatuses,
+        unknownFallback: labels.unknownStatus,
+      }),
       variant: subscriptionStatusVariant(data.commercial.subscriptionStatus),
     };
   }
@@ -651,7 +659,7 @@ export function PlatformPortalCustomerDetailPanel({
                   </span>
                 ) : null}
                 {customer.slug ? (
-                  <span>
+                  <span title={labels.slugHelp}>
                     {labels.slug}: {customer.slug}
                   </span>
                 ) : null}
@@ -663,14 +671,28 @@ export function PlatformPortalCustomerDetailPanel({
                 />
                 {commercial.lifetime ? (
                   <StatusBadge label={labels.lifetime} variant="info" />
-                ) : commercial.subscriptionStatus ? (
+                ) : null}
+                {commercial.subscriptionStatus &&
+                !(
+                  commercial.lifetime &&
+                  !hasAuthoritativeTrial(commercial) &&
+                  commercial.subscriptionStatus.toLowerCase() === "trialing"
+                ) ? (
                   <StatusBadge
-                    label={statusLabel(
-                      commercial.subscriptionStatus,
-                      labels.subscriptionStatuses,
-                      labels.notAvailable,
-                    )}
+                    label={mapAgreementStatus({
+                      status: commercial.subscriptionStatus,
+                      lifetime: commercial.lifetime,
+                      trialStartsAt: commercial.trialStartsAt,
+                      trialEndsAt: commercial.trialEndsAt,
+                      map: labels.subscriptionStatuses,
+                      unknownFallback: labels.unknownStatus,
+                    })}
                     variant={subscriptionStatusVariant(commercial.subscriptionStatus)}
+                  />
+                ) : commercial.lifetime ? (
+                  <StatusBadge
+                    label={labels.subscriptionStatuses.active ?? labels.notAvailable}
+                    variant="success"
                   />
                 ) : null}
                 <StatusBadge label={partnerLabel} variant={partnerVariant} />
@@ -709,7 +731,7 @@ export function PlatformPortalCustomerDetailPanel({
             variant={usage.activeLicenseCount > 0 ? "success" : "muted"}
           />
           <MetricCard
-            label={`${labels.domains} · ${labels.installations}`}
+            label={labels.domainsAndInstallations}
             value={`${usage.domainCount} · ${usage.installationCount}`}
             variant={usage.domainCount > 0 || usage.installationCount > 0 ? "info" : "muted"}
           />
@@ -768,7 +790,7 @@ export function PlatformPortalCustomerDetailPanel({
 
           <SectionCard title={labels.sectionCommercial}>
             <dl className="space-y-4">
-              <DetailRow label={labels.lifetime}>
+              <DetailRow label={labels.duration}>
                 <StatusBadge
                   label={commercial.lifetime ? labels.lifetime : labels.notAvailable}
                   variant={commercial.lifetime ? "info" : "muted"}
@@ -777,11 +799,14 @@ export function PlatformPortalCustomerDetailPanel({
               <DetailRow label={labels.subscription}>
                 {commercial.subscriptionStatus ? (
                   <StatusBadge
-                    label={statusLabel(
-                      commercial.subscriptionStatus,
-                      labels.subscriptionStatuses,
-                      labels.notAvailable,
-                    )}
+                    label={mapAgreementStatus({
+                      status: commercial.subscriptionStatus,
+                      lifetime: commercial.lifetime,
+                      trialStartsAt: commercial.trialStartsAt,
+                      trialEndsAt: commercial.trialEndsAt,
+                      map: labels.subscriptionStatuses,
+                      unknownFallback: labels.unknownStatus,
+                    })}
                     variant={subscriptionStatusVariant(commercial.subscriptionStatus)}
                   />
                 ) : (
@@ -791,14 +816,18 @@ export function PlatformPortalCustomerDetailPanel({
               <DetailRow label={labels.plan}>
                 {commercial.planName?.trim() ? commercial.planName : labels.notAvailable}
               </DetailRow>
-              <DetailRow label={labels.trialPeriod}>
-                {formatDateRange(
-                  commercial.trialStartsAt,
-                  commercial.trialEndsAt,
-                  locale,
-                  labels.notAvailable,
-                )}
-              </DetailRow>
+              {hasAuthoritativeTrial(commercial) ? (
+                <DetailRow label={labels.trialPeriod}>
+                  {formatDateRange(
+                    commercial.trialStartsAt,
+                    commercial.trialEndsAt,
+                    locale,
+                    labels.notAvailable,
+                  )}
+                </DetailRow>
+              ) : (
+                <DetailRow label={labels.trialPeriod}>{labels.noTrial}</DetailRow>
+              )}
               <DetailRow label={labels.activePeriod}>
                 {formatDateRange(
                   commercial.currentPeriodStartsAt,
@@ -893,10 +922,17 @@ export function PlatformPortalCustomerDetailPanel({
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                     {data.licenses.map((license) => {
-                      const productLabel =
-                        license.productName?.trim() ||
-                        license.productCode?.trim() ||
-                        labels.notAvailable;
+                      const productLabel = mapLicenseProductName(
+                        license.productCode,
+                        license.productName,
+                        Object.fromEntries(
+                          Object.entries(labels.licenseProductNames).map(([code, name]) => [
+                            code,
+                            { name, description: labels.licenseProductDescriptions[code] },
+                          ]),
+                        ),
+                        labels.notAvailable,
+                      );
                       return (
                         <tr key={license.id} className="align-top">
                           <td className="px-3 py-2.5 text-slate-800 dark:text-slate-200">{productLabel}</td>
@@ -1122,16 +1158,19 @@ export function PlatformPortalCustomerDetailPanel({
               <DetailRow label={commercial.partnerAttributed ? labels.partnerCustomer : labels.directCustomer}>
                 <StatusBadge label={partnerLabel} variant={partnerVariant} />
               </DetailRow>
-              <DetailRow label={commercial.lifetime ? labels.lifetime : labels.subscription}>
+              <DetailRow label={labels.duration}>
                 {commercial.lifetime ? (
                   <StatusBadge label={labels.lifetime} variant="info" />
                 ) : commercial.subscriptionStatus ? (
                   <StatusBadge
-                    label={statusLabel(
-                      commercial.subscriptionStatus,
-                      labels.subscriptionStatuses,
-                      labels.notAvailable,
-                    )}
+                    label={mapAgreementStatus({
+                      status: commercial.subscriptionStatus,
+                      lifetime: commercial.lifetime,
+                      trialStartsAt: commercial.trialStartsAt,
+                      trialEndsAt: commercial.trialEndsAt,
+                      map: labels.subscriptionStatuses,
+                      unknownFallback: labels.unknownStatus,
+                    })}
                     variant={subscriptionStatusVariant(commercial.subscriptionStatus)}
                   />
                 ) : (
@@ -1168,7 +1207,10 @@ export function PlatformPortalCustomerDetailPanel({
                 />
               </DetailRow>
               <DetailRow label={labels.slug}>
-                {customer.slug?.trim() ? customer.slug : labels.notAvailable}
+                <div className="space-y-1">
+                  <p>{customer.slug?.trim() ? customer.slug : labels.notAvailable}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{labels.slugHelp}</p>
+                </div>
               </DetailRow>
               <DetailRow label={labels.generatedAt}>
                 {formatDate(data.metadata.generatedAt, locale, labels.notAvailable)}

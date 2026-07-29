@@ -266,7 +266,10 @@ describe("license provisioning locale parity", () => {
     };
     const labels = buildPlatformPortalLicenseProvisioningLabels(t);
     assert.equal(labels.createLicense, "Opprett lisens");
-    assert.equal(labels.commercialPlanMissing, "Kommersiell plan mangler");
+    assert.equal(labels.commercialPlanMissing, "Kundeavtale mangler");
     assert.equal(labels.summaryNoWebsiteKompis, "Website Kompis blir ikke aktivert");
+    assert.equal(labels.maskedLicenseCode, "Lisensnøkkel");
+    assert.equal(labels.provisioningStatus, "Oppsettstatus");
+    assert.equal(labels.productNames.app_subscription, "Aipify APP-lisens");
   });
 });

@@ -151,8 +151,10 @@ export function buildPlatformPortalCustomerDetailLabels(
     updatedAt: t(`${d}.updatedAt`),
     subscription: t(`${d}.subscription`),
     lifetime: t(`${d}.lifetime`),
+    duration: t(`${d}.duration`),
     plan: t(`${d}.plan`),
     trialPeriod: t(`${d}.trialPeriod`),
+    noTrial: t(`${d}.noTrial`),
     activePeriod: t(`${d}.activePeriod`),
     directCustomer: t(`${d}.directCustomer`),
     partnerCustomer: t(`${d}.partnerCustomer`),
@@ -160,6 +162,7 @@ export function buildPlatformPortalCustomerDetailLabels(
     activeLicenses: t(`${d}.activeLicenses`),
     domains: t(`${d}.domains`),
     installations: t(`${d}.installations`),
+    domainsAndInstallations: t(`${d}.domainsAndInstallations`),
     openSupport: t(`${d}.openSupport`),
     notAvailable: t(`${d}.notAvailable`),
     requiresAttention: t(`${d}.requiresAttention`),
@@ -171,6 +174,7 @@ export function buildPlatformPortalCustomerDetailLabels(
     copied: t(`${d}.copied`),
     generatedAt: t(`${d}.generatedAt`),
     slug: t(`${d}.slug`),
+    slugHelp: t(`${d}.slugHelp`),
     product: t(`${d}.product`),
     status: t(`${d}.status`),
     domain: t(`${d}.domain`),
@@ -182,6 +186,7 @@ export function buildPlatformPortalCustomerDetailLabels(
     code: t(`${d}.code`),
     name: t(`${d}.name`),
     grantedAt: t(`${d}.grantedAt`),
+    unknownStatus: t(`${d}.unknownStatus`),
     customerStatuses: {
       trial: t(`${customerStatus}.trial`),
       active: t(`${customerStatus}.active`),
@@ -229,6 +234,15 @@ export function buildPlatformPortalCustomerDetailLabels(
       requires_installation: t(`${d}.provisioningStatuses.requires_installation`),
       pending: t(`${d}.provisioningStatuses.pending`),
       provisioned: t(`${d}.provisioningStatuses.provisioned`),
+      ready_for_activation: t(`${d}.provisioningStatuses.ready_for_activation`),
+      active: t(`${d}.provisioningStatuses.active`),
+      failed: t(`${d}.provisioningStatuses.failed`),
+    },
+    licenseProductNames: {
+      app_subscription: t(`${d}.licenseProductNames.app_subscription`),
+    },
+    licenseProductDescriptions: {
+      app_subscription: t(`${d}.licenseProductDescriptions.app_subscription`),
     },
     managePlan: t(`${d}.managePlan`),
     createLicense: t(`${d}.createLicense`),
@@ -319,6 +333,8 @@ export function buildPlatformPortalCommercialPlanLabels(
     recurring: t(`${c}.recurring`),
     monthly: t(`${c}.monthly`),
     yearly: t(`${c}.yearly`),
+    duration: t(`${c}.duration`),
+    agreement: t(`${c}.agreement`),
     trialPeriod: t(`${c}.trialPeriod`),
     noTrial: t(`${c}.noTrial`),
     active: t(`${c}.active`),
@@ -344,6 +360,7 @@ export function buildPlatformPortalCommercialPlanLabels(
     activating: t(`${c}.activating`),
     success: t(`${c}.success`),
     activePlanConflict: t(`${c}.activePlanConflict`),
+    activeAgreementChangeUnsupported: t(`${c}.activeAgreementChangeUnsupported`),
     planLifetimeUnsupported: t(`${c}.planLifetimeUnsupported`),
     planRecurringUnsupported: t(`${c}.planRecurringUnsupported`),
     planTrialUnsupported: t(`${c}.planTrialUnsupported`),
@@ -353,6 +370,7 @@ export function buildPlatformPortalCommercialPlanLabels(
     forbidden: t(`${c}.forbidden`),
     unauthorized: t(`${c}.unauthorized`),
     cancel: t(`${c}.cancel`),
+    close: t(`${c}.close`),
     retry: t(`${c}.retry`),
     confirmRequired: t(`${c}.confirmRequired`),
     selectPlan: t(`${c}.selectPlan`),
@@ -423,6 +441,13 @@ export function buildPlatformPortalLicenseProvisioningLabels(
     retry: t(`${c}.retry`),
     confirmRequired: t(`${c}.confirmRequired`),
     loadingProducts: t(`${c}.loadingProducts`),
+    close: t(`${c}.close`),
+    productNames: {
+      app_subscription: t(`${c}.productNames.app_subscription`),
+    },
+    productDescriptions: {
+      app_subscription: t(`${c}.productDescriptions.app_subscription`),
+    },
     licenseStatuses: {
       pending: t(`${c}.licenseStatuses.pending`),
       active: t(`${c}.licenseStatuses.active`),
@@ -439,6 +464,9 @@ export function buildPlatformPortalLicenseProvisioningLabels(
       requires_installation: t(`${c}.provisioningStatuses.requires_installation`),
       pending: t(`${c}.provisioningStatuses.pending`),
       provisioned: t(`${c}.provisioningStatuses.provisioned`),
+      ready_for_activation: t(`${c}.provisioningStatuses.ready_for_activation`),
+      active: t(`${c}.provisioningStatuses.active`),
+      failed: t(`${c}.provisioningStatuses.failed`),
     },
   };
 }
@@ -494,6 +522,12 @@ export function buildPlatformPortalDomainInstallationLabels(
     retry: t(`${c}.retry`),
     confirmRequired: t(`${c}.confirmRequired`),
     loadingEligible: t(`${c}.loadingEligible`),
+    close: t(`${c}.close`),
+    installIdHelp: t(`${c}.installIdHelp`),
+    conflictReadOnly: t(`${c}.conflictReadOnly`),
+    productNames: {
+      app_subscription: t(`${c}.productNames.app_subscription`),
+    },
     domainStatuses: {
       pending: t(`${c}.domainStatuses.pending`),
       active: t(`${c}.domainStatuses.active`),
@@ -522,6 +556,9 @@ export function buildPlatformPortalDomainInstallationLabels(
       requires_installation: t(`${c}.provisioningStatuses.requires_installation`),
       pending: t(`${c}.provisioningStatuses.pending`),
       provisioned: t(`${c}.provisioningStatuses.provisioned`),
+      ready_for_activation: t(`${c}.provisioningStatuses.ready_for_activation`),
+      active: t(`${c}.provisioningStatuses.active`),
+      failed: t(`${c}.provisioningStatuses.failed`),
     },
   };
 }

@@ -5,5 +5,6 @@ export * from "./labels";
 export * from "./countries";
 export * from "./create-customer";
 export * from "./commercial-plan";
+export * from "./business-language";
 export * from "./license-provisioning";
 export * from "./domain-installation";

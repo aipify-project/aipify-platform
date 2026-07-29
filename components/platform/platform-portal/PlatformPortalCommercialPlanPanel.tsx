@@ -241,7 +241,7 @@ export function PlatformPortalCommercialPlanPanel({
             onClick={onClose}
             className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-900"
           >
-            {labels.cancel}
+            {blocked ? labels.close : labels.cancel}
           </button>
         </div>
 
@@ -252,37 +252,39 @@ export function PlatformPortalCommercialPlanPanel({
             </h3>
             <dl className="mt-3 grid gap-2 sm:grid-cols-2">
               <div>
-                <dt className="text-xs uppercase tracking-wide text-slate-500">{labels.title}</dt>
+                <dt className="text-xs uppercase tracking-wide text-slate-500">{labels.agreement}</dt>
                 <dd className="text-sm font-medium text-slate-900 dark:text-slate-50">
                   {commercial.planName ?? labels.noPrice}
                 </dd>
               </div>
               <div>
-                <dt className="text-xs uppercase tracking-wide text-slate-500">{labels.active}</dt>
+                <dt className="text-xs uppercase tracking-wide text-slate-500">{labels.duration}</dt>
                 <dd className="text-sm font-medium text-slate-900 dark:text-slate-50">
                   {commercial.lifetime
                     ? labels.lifetime
-                    : commercial.subscriptionStatus
-                      ? labels.subscriptionStatuses[commercial.subscriptionStatus] ??
-                        labels.unknownStatus
-                      : labels.pending}
+                    : labels.recurring}
                 </dd>
               </div>
             </dl>
             {blocked ? (
-              <p className="mt-3 text-sm text-amber-800 dark:text-amber-200">
-                {labels.activePlanConflict}
-              </p>
+              <div className="mt-3 space-y-1">
+                <p className="text-sm text-amber-800 dark:text-amber-200">
+                  {labels.activePlanConflict}
+                </p>
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  {labels.activeAgreementChangeUnsupported}
+                </p>
+              </div>
             ) : null}
           </section>
 
-          {plansState.kind === "loading" ? (
+          {blocked ? null : plansState.kind === "loading" ? (
             <p className="text-sm text-slate-600 dark:text-slate-400">{labels.loadingPlans}</p>
           ) : null}
-          {plansState.kind === "error" ? (
+          {blocked ? null : plansState.kind === "error" ? (
             <p className="text-sm text-rose-700 dark:text-rose-300">{labels.loadPlansError}</p>
           ) : null}
-          {plansState.kind === "empty" ? (
+          {blocked ? null : plansState.kind === "empty" ? (
             <p className="text-sm text-slate-600 dark:text-slate-400">{labels.emptyPlans}</p>
           ) : null}
 
@@ -429,28 +431,39 @@ export function PlatformPortalCommercialPlanPanel({
         </div>
 
         <div className="flex flex-col-reverse gap-3 border-t border-slate-200 px-5 py-4 sm:flex-row sm:justify-end dark:border-slate-700">
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-800 dark:border-slate-600 dark:text-slate-100"
-          >
-            {labels.cancel}
-          </button>
-          <button
-            type="button"
-            disabled={
-              blocked ||
-              submit.kind === "submitting" ||
-              submit.kind === "success" ||
-              !selectedPlan ||
-              !confirmed ||
-              reason.trim().length < 3
-            }
-            onClick={() => void activate()}
-            className="rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {submit.kind === "submitting" ? labels.activating : labels.activate}
-          </button>
+          {blocked ? (
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-violet-500"
+            >
+              {labels.close}
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={onClose}
+                className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-800 dark:border-slate-600 dark:text-slate-100"
+              >
+                {labels.cancel}
+              </button>
+              <button
+                type="button"
+                disabled={
+                  submit.kind === "submitting" ||
+                  submit.kind === "success" ||
+                  !selectedPlan ||
+                  !confirmed ||
+                  reason.trim().length < 3
+                }
+                onClick={() => void activate()}
+                className="rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {submit.kind === "submitting" ? labels.activating : labels.activate}
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

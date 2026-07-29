@@ -258,8 +258,10 @@ export type PlatformPortalCustomerDetailLabels = {
   updatedAt: string;
   subscription: string;
   lifetime: string;
+  duration: string;
   plan: string;
   trialPeriod: string;
+  noTrial: string;
   activePeriod: string;
   directCustomer: string;
   partnerCustomer: string;
@@ -267,6 +269,7 @@ export type PlatformPortalCustomerDetailLabels = {
   activeLicenses: string;
   domains: string;
   installations: string;
+  domainsAndInstallations: string;
   openSupport: string;
   notAvailable: string;
   requiresAttention: string;
@@ -278,6 +281,7 @@ export type PlatformPortalCustomerDetailLabels = {
   copied: string;
   generatedAt: string;
   slug: string;
+  slugHelp: string;
   product: string;
   status: string;
   domain: string;
@@ -289,12 +293,15 @@ export type PlatformPortalCustomerDetailLabels = {
   code: string;
   name: string;
   grantedAt: string;
+  unknownStatus: string;
   customerStatuses: Record<string, string>;
   subscriptionStatuses: Record<string, string>;
   licenseStatuses: Record<string, string>;
   domainStatuses: Record<string, string>;
   entitlementStatuses: Record<string, string>;
   provisioningStatuses: Record<string, string>;
+  licenseProductNames: Record<string, string>;
+  licenseProductDescriptions: Record<string, string>;
   managePlan: string;
   createLicense: string;
   addDomainInstallation: string;
@@ -361,6 +368,8 @@ export type PlatformPortalCommercialPlanLabels = {
   recurring: string;
   monthly: string;
   yearly: string;
+  duration: string;
+  agreement: string;
   trialPeriod: string;
   noTrial: string;
   active: string;
@@ -386,6 +395,7 @@ export type PlatformPortalCommercialPlanLabels = {
   activating: string;
   success: string;
   activePlanConflict: string;
+  activeAgreementChangeUnsupported: string;
   planLifetimeUnsupported: string;
   planRecurringUnsupported: string;
   planTrialUnsupported: string;
@@ -395,6 +405,7 @@ export type PlatformPortalCommercialPlanLabels = {
   forbidden: string;
   unauthorized: string;
   cancel: string;
+  close: string;
   retry: string;
   confirmRequired: string;
   selectPlan: string;
@@ -611,6 +622,9 @@ export type PlatformPortalLicenseProvisioningLabels = {
   retry: string;
   confirmRequired: string;
   loadingProducts: string;
+  close: string;
+  productNames: Record<string, string>;
+  productDescriptions: Record<string, string>;
   licenseStatuses: Record<string, string>;
   provisioningStatuses: Record<string, string>;
 };
@@ -740,6 +754,10 @@ export type PlatformPortalDomainInstallationLabels = {
   retry: string;
   confirmRequired: string;
   loadingEligible: string;
+  close: string;
+  installIdHelp: string;
+  conflictReadOnly: string;
+  productNames: Record<string, string>;
   domainStatuses: Record<string, string>;
   installationStatuses: Record<string, string>;
   provisioningStatuses: Record<string, string>;
