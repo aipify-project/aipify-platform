@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { AipifyLoader } from "@/components/ui/aipify-loader";
 import type {
   PlatformCustomerSuccessCustomer,
   PlatformCustomerSuccessLabels,
@@ -142,38 +143,6 @@ function formatGeneratedAt(value: string, locale: string): string {
   } catch {
     return new Date(ms).toISOString();
   }
-}
-
-function TableSkeleton({ labels }: { labels: PlatformCustomerSuccessLabels }) {
-  return (
-    <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700" aria-hidden="true">
-      <div className="grid grid-cols-9 gap-3 border-b border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-900/60">
-        {[
-          labels.columnCustomer,
-          labels.columnStatus,
-          labels.columnAgreement,
-          labels.columnLicenseSetup,
-          labels.columnDomains,
-          labels.columnInstallations,
-          labels.columnServices,
-          labels.columnUsers,
-          labels.columnFollowUp,
-        ].map((col) => (
-          <div key={col} className="h-3 rounded bg-slate-200 dark:bg-slate-700" />
-        ))}
-      </div>
-      {Array.from({ length: 5 }).map((_, index) => (
-        <div
-          key={index}
-          className="grid grid-cols-9 gap-3 border-b border-slate-100 px-4 py-4 last:border-0 dark:border-slate-800"
-        >
-          {Array.from({ length: 9 }).map((__, cell) => (
-            <div key={cell} className="h-4 rounded bg-slate-100 dark:bg-slate-800" />
-          ))}
-        </div>
-      ))}
-    </div>
-  );
 }
 
 export function PlatformCustomerSuccessOverviewPanel({ labels, locale }: PanelProps) {
@@ -555,7 +524,15 @@ export function PlatformCustomerSuccessOverviewPanel({ labels, locale }: PanelPr
           ) : null}
         </div>
 
-        {loading ? <TableSkeleton labels={labels} /> : null}
+        {loading ? (
+          <div
+            className="flex min-h-[240px] w-full items-center justify-center"
+            role="status"
+            aria-live="polite"
+          >
+            <AipifyLoader centered className="!w-auto !bg-transparent" />
+          </div>
+        ) : null}
 
         {!loading && error ? (
           <div
