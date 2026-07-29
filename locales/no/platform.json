@@ -509,6 +509,55 @@
         "expired": "Utløpt",
         "deactivated": "Deaktivert"
       }
+    },
+    "createCustomer": "Opprett kunde",
+    "creation": {
+      "title": "Opprett kunde",
+      "description": "Oppretter kundens grunnstruktur og organisasjonsidentitet. Abonnement, lisenser, domener og tilgang konfigureres senere.",
+      "backToCustomers": "Tilbake til kunder",
+      "sectionIdentity": "Virksomhetsidentitet",
+      "sectionPlatform": "Plattformidentitet",
+      "sectionSummary": "Oppsummering",
+      "organizationNumber": "Organisasjonsnummer",
+      "legalName": "Juridisk navn",
+      "customerName": "Kundenavn",
+      "slug": "Slug",
+      "country": "Land",
+      "lookupAction": "Søk i Enhetsregisteret",
+      "lookupLoading": "Henter virksomhetsinformasjon",
+      "lookupSuccess": "Virksomheten ble funnet",
+      "lookupNotFound": "Virksomheten ble ikke funnet",
+      "lookupUnavailable": "Registeroppslag er ikke tilgjengelig",
+      "invalidOrganizationNumber": "Organisasjonsnummeret må bestå av ni sifre",
+      "duplicateOrganizationNumber": "Organisasjonsnummeret er allerede registrert",
+      "invalidSlug": "Oppgi en gyldig slug med små bokstaver og bindestreker",
+      "duplicateSlug": "Sluggen er allerede i bruk",
+      "reservedSlug": "Denne sluggen er reservert og kan ikke brukes",
+      "summaryTitle": "Oppsummering",
+      "createsTitle": "Dette opprettes",
+      "createsNotTitle": "Dette opprettes ikke ennå",
+      "creates": {
+        "company": "Selskapsoppføring",
+        "organization": "Organisasjonsoppføring",
+        "customer": "Kundeoppføring"
+      },
+      "createsNot": {
+        "subscription": "Abonnement",
+        "license": "Lisens",
+        "domain": "Domene eller installasjon",
+        "auth": "Auth- eller app-bruker",
+        "email": "Invitasjons-e-post"
+      },
+      "submit": "Opprett kunde",
+      "cancel": "Avbryt",
+      "submitting": "Oppretter kunde",
+      "success": "Kunden ble opprettet",
+      "error": "Kunne ikke opprette kunden",
+      "unauthorized": "Innlogging kreves for å opprette kunder",
+      "forbidden": "Du har ikke tilgang til å opprette kunder",
+      "retry": "Prøv igjen",
+      "slugPreview": "Kundeidentitet",
+      "addressUnavailableNote": "Gateadresse, postnummer og poststed lagres ikke i kundeopprettelse V1 fordi de krever registration-profile-felt utenfor denne identitetsflyten."
     }
   },
   "customerDetail": {

@@ -151,6 +151,7 @@ export type PlatformPortalCustomersLabels = {
   notAvailable: string;
   openCustomer: string;
   noOpenSupport: string;
+  createCustomer: string;
   customerStatuses: Record<string, string>;
   subscriptionStatuses: Record<string, string>;
 };
@@ -291,4 +292,77 @@ export type PlatformPortalCustomerDetailLabels = {
   licenseStatuses: Record<string, string>;
   domainStatuses: Record<string, string>;
   entitlementStatuses: Record<string, string>;
+};
+
+export type PlatformPortalCustomerCreationInput = {
+  organizationNumber: string;
+  legalName: string;
+  displayName: string;
+  slug: string;
+  country: string;
+};
+
+export type PlatformPortalCustomerCreationResult = {
+  customer: {
+    id: string;
+    companyId: string;
+    name: string;
+    legalName: string | null;
+    slug: string | null;
+    organizationNumber: string | null;
+    status: string;
+    createdAt: string | null;
+  };
+  created: {
+    company: boolean;
+    organization: boolean;
+    customer: boolean;
+    registrationProfile: boolean;
+    paymentProfile: boolean;
+  };
+};
+
+export type PlatformPortalCustomerCreationLabels = {
+  title: string;
+  description: string;
+  backToCustomers: string;
+  sectionIdentity: string;
+  sectionPlatform: string;
+  sectionSummary: string;
+  organizationNumber: string;
+  legalName: string;
+  customerName: string;
+  slug: string;
+  country: string;
+  lookupAction: string;
+  lookupLoading: string;
+  lookupSuccess: string;
+  lookupNotFound: string;
+  lookupUnavailable: string;
+  invalidOrganizationNumber: string;
+  duplicateOrganizationNumber: string;
+  invalidSlug: string;
+  duplicateSlug: string;
+  reservedSlug: string;
+  summaryTitle: string;
+  createsTitle: string;
+  createsNotTitle: string;
+  createsItems: string[];
+  createsNotItems: string[];
+  submit: string;
+  cancel: string;
+  submitting: string;
+  success: string;
+  error: string;
+  unauthorized: string;
+  forbidden: string;
+  retry: string;
+  slugPreview: string;
+  addressUnavailableNote: string;
+};
+
+export type PlatformPortalCompanyLookupResult = {
+  status: "valid" | "invalid" | "service_unavailable";
+  organizationNumber: string | null;
+  legalName: string | null;
 };

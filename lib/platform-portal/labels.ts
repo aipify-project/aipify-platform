@@ -1,5 +1,6 @@
 import type { Translator } from "@/lib/i18n/translate";
 import type {
+  PlatformPortalCustomerCreationLabels,
   PlatformPortalCustomerDetailLabels,
   PlatformPortalCustomersLabels,
   PlatformPortalLabels,
@@ -95,6 +96,7 @@ export function buildPlatformPortalCustomersLabels(
     notAvailable: t(`${c}.notAvailable`),
     openCustomer: t(`${c}.openCustomer`),
     noOpenSupport: t(`${c}.noOpenSupport`),
+    createCustomer: t(`${c}.createCustomer`),
     customerStatuses: {
       trial: t(`${customerStatus}.trial`),
       active: t(`${customerStatus}.active`),
@@ -218,5 +220,59 @@ export function buildPlatformPortalCustomerDetailLabels(
       expired: t(`${d}.entitlementStatuses.expired`),
       deactivated: t(`${d}.entitlementStatuses.deactivated`),
     },
+  };
+}
+
+export function buildPlatformPortalCustomerCreationLabels(
+  t: Translator,
+): PlatformPortalCustomerCreationLabels {
+  const c = "platform.customers.creation";
+  return {
+    title: t(`${c}.title`),
+    description: t(`${c}.description`),
+    backToCustomers: t(`${c}.backToCustomers`),
+    sectionIdentity: t(`${c}.sectionIdentity`),
+    sectionPlatform: t(`${c}.sectionPlatform`),
+    sectionSummary: t(`${c}.sectionSummary`),
+    organizationNumber: t(`${c}.organizationNumber`),
+    legalName: t(`${c}.legalName`),
+    customerName: t(`${c}.customerName`),
+    slug: t(`${c}.slug`),
+    country: t(`${c}.country`),
+    lookupAction: t(`${c}.lookupAction`),
+    lookupLoading: t(`${c}.lookupLoading`),
+    lookupSuccess: t(`${c}.lookupSuccess`),
+    lookupNotFound: t(`${c}.lookupNotFound`),
+    lookupUnavailable: t(`${c}.lookupUnavailable`),
+    invalidOrganizationNumber: t(`${c}.invalidOrganizationNumber`),
+    duplicateOrganizationNumber: t(`${c}.duplicateOrganizationNumber`),
+    invalidSlug: t(`${c}.invalidSlug`),
+    duplicateSlug: t(`${c}.duplicateSlug`),
+    reservedSlug: t(`${c}.reservedSlug`),
+    summaryTitle: t(`${c}.summaryTitle`),
+    createsTitle: t(`${c}.createsTitle`),
+    createsNotTitle: t(`${c}.createsNotTitle`),
+    createsItems: [
+      t(`${c}.creates.company`),
+      t(`${c}.creates.organization`),
+      t(`${c}.creates.customer`),
+    ],
+    createsNotItems: [
+      t(`${c}.createsNot.subscription`),
+      t(`${c}.createsNot.license`),
+      t(`${c}.createsNot.domain`),
+      t(`${c}.createsNot.auth`),
+      t(`${c}.createsNot.email`),
+    ],
+    submit: t(`${c}.submit`),
+    cancel: t(`${c}.cancel`),
+    submitting: t(`${c}.submitting`),
+    success: t(`${c}.success`),
+    error: t(`${c}.error`),
+    unauthorized: t(`${c}.unauthorized`),
+    forbidden: t(`${c}.forbidden`),
+    retry: t(`${c}.retry`),
+    slugPreview: t(`${c}.slugPreview`),
+    addressUnavailableNote: t(`${c}.addressUnavailableNote`),
   };
 }

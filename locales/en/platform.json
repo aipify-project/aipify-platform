@@ -669,6 +669,55 @@
         "expired": "Expired",
         "deactivated": "Deactivated"
       }
+    },
+    "createCustomer": "Create customer",
+    "creation": {
+      "title": "Create customer",
+      "description": "Create the customer's core identity and organization structure. Subscriptions, licenses, domains, and access are configured later.",
+      "backToCustomers": "Back to customers",
+      "sectionIdentity": "Business identity",
+      "sectionPlatform": "Platform identity",
+      "sectionSummary": "Summary",
+      "organizationNumber": "Organization number",
+      "legalName": "Legal name",
+      "customerName": "Customer name",
+      "slug": "Slug",
+      "country": "Country",
+      "lookupAction": "Search the Central Coordinating Register",
+      "lookupLoading": "Retrieving company information",
+      "lookupSuccess": "Company found",
+      "lookupNotFound": "Company was not found",
+      "lookupUnavailable": "Company lookup is not available",
+      "invalidOrganizationNumber": "The organization number must consist of nine digits",
+      "duplicateOrganizationNumber": "The organization number is already registered",
+      "invalidSlug": "Enter a valid lowercase slug with hyphens",
+      "duplicateSlug": "The slug is already in use",
+      "reservedSlug": "This slug is reserved and cannot be used",
+      "summaryTitle": "Summary",
+      "createsTitle": "This will be created",
+      "createsNotTitle": "This will not be created yet",
+      "creates": {
+        "company": "Company record",
+        "organization": "Organization record",
+        "customer": "Customer record"
+      },
+      "createsNot": {
+        "subscription": "Subscription",
+        "license": "License",
+        "domain": "Domain or installation",
+        "auth": "Auth or app user",
+        "email": "Invitation email"
+      },
+      "submit": "Create customer",
+      "cancel": "Cancel",
+      "submitting": "Creating customer",
+      "success": "The customer was created",
+      "error": "Could not create the customer",
+      "unauthorized": "Sign in required to create customers",
+      "forbidden": "You do not have access to create customers",
+      "retry": "Try again",
+      "slugPreview": "Customer identity",
+      "addressUnavailableNote": "Street address, postal code, and city are not stored in Customer Creation V1 because they require registration-profile fields outside this identity flow."
     }
   },
   "customerDetail": {
