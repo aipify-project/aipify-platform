@@ -2,6 +2,7 @@ import { PlatformPortalCustomerDetailPanel } from "@/components/platform/platfor
 import {
   buildPlatformPortalCommercialPlanLabels,
   buildPlatformPortalCustomerDetailLabels,
+  buildPlatformPortalLicenseProvisioningLabels,
 } from "@/lib/platform-portal";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -18,12 +19,14 @@ export default async function PlatformCustomerDetailPage({ params }: CustomerDet
   const t = createTranslator(dict);
   const labels = buildPlatformPortalCustomerDetailLabels(t);
   const commercialPlanLabels = buildPlatformPortalCommercialPlanLabels(t);
+  const licenseProvisioningLabels = buildPlatformPortalLicenseProvisioningLabels(t);
 
   return (
     <PlatformPortalCustomerDetailPanel
       customerId={id}
       labels={labels}
       commercialPlanLabels={commercialPlanLabels}
+      licenseProvisioningLabels={licenseProvisioningLabels}
       locale={locale}
     />
   );

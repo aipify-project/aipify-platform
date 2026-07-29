@@ -197,6 +197,8 @@ export type PlatformPortalCustomerDetailLicense = {
   productName: string | null;
   domain: string | null;
   installId: string | null;
+  maskedLicenseCode: string | null;
+  provisioningStatus: string | null;
   createdAt: string | null;
   activatedAt: string | null;
   expiresAt: string | null;
@@ -292,7 +294,9 @@ export type PlatformPortalCustomerDetailLabels = {
   licenseStatuses: Record<string, string>;
   domainStatuses: Record<string, string>;
   entitlementStatuses: Record<string, string>;
+  provisioningStatuses: Record<string, string>;
   managePlan: string;
+  createLicense: string;
 };
 
 export type PlatformPortalCommercialPlan = {
@@ -469,4 +473,105 @@ export type PlatformPortalCompanyLookupResult = {
   status: "valid" | "invalid" | "service_unavailable";
   organizationNumber: string | null;
   legalName: string | null;
+};
+
+export type PlatformPortalLicenseProduct = {
+  id: string;
+  code: string;
+  name: string;
+  description: string | null;
+  active: boolean;
+  assignableByPlatform: boolean;
+  requiresCommercialPlan: boolean;
+  requiresEntitlement: boolean;
+  requiresDomain: boolean;
+  requiresInstallation: boolean;
+  licenseMode: string | null;
+  defaultStatus: string | null;
+};
+
+export type PlatformPortalLicenseProductsPayload = {
+  products: PlatformPortalLicenseProduct[];
+  generatedAt: string | null;
+};
+
+export type PlatformPortalCustomerLicense = {
+  id: string;
+  productId: string | null;
+  productCode: string | null;
+  productName: string | null;
+  status: string;
+  maskedLicenseCode: string | null;
+  entitlementId: string | null;
+  domainId: string | null;
+  domain: string | null;
+  installationId: string | null;
+  installId: string | null;
+  provisioningStatus: string | null;
+  provisioningRequired: boolean;
+  createdAt: string | null;
+  activatedAt: string | null;
+  expiresAt: string | null;
+};
+
+export type PlatformPortalCustomerLicenseResult = {
+  customerId: string;
+  license: PlatformPortalCustomerLicense;
+  created: boolean;
+  entitlementCreated: boolean;
+  provisioningRequired: boolean;
+  idempotentReplay: boolean;
+};
+
+export type PlatformPortalLicenseProvisioningLabels = {
+  createLicense: string;
+  title: string;
+  currentLicenses: string;
+  availableProducts: string;
+  licenseProduct: string;
+  productCode: string;
+  productName: string;
+  licenseStatus: string;
+  provisioningStatus: string;
+  licenseCode: string;
+  maskedLicenseCode: string;
+  requiresCommercialPlan: string;
+  commercialPlanActive: string;
+  commercialPlanMissing: string;
+  requiresEntitlement: string;
+  domainLater: string;
+  installationLater: string;
+  internalReason: string;
+  reasonRequired: string;
+  summary: string;
+  summaryCreates: string;
+  summaryNoDomain: string;
+  summaryNoWebsiteKompis: string;
+  create: string;
+  creating: string;
+  success: string;
+  alreadyExists: string;
+  productUnavailable: string;
+  productNotAssignable: string;
+  emptyProducts: string;
+  emptyLicenses: string;
+  waitingProvisioning: string;
+  requiresDomain: string;
+  requiresInstallation: string;
+  active: string;
+  pending: string;
+  suspended: string;
+  expired: string;
+  revoked: string;
+  failed: string;
+  forbidden: string;
+  unauthorized: string;
+  loadProductsError: string;
+  createError: string;
+  cancel: string;
+  retry: string;
+  confirmRequired: string;
+  loadingProducts: string;
+  licenseStatuses: Record<string, string>;
+  provisioningStatuses: Record<string, string>;
 };

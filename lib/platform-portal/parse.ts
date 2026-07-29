@@ -183,6 +183,12 @@ function parseLicense(raw: unknown): PlatformPortalCustomerDetailLicense | null 
     productName: asNullableTrimmedString(row.product_name),
     domain: asNullableTrimmedString(row.domain),
     installId: asNullableTrimmedString(row.install_id),
+    maskedLicenseCode: asNullableTrimmedString(
+      row.masked_license_code ?? row.maskedLicenseCode,
+    ),
+    provisioningStatus: asNullableTrimmedString(
+      row.provisioning_status ?? row.provisioningStatus,
+    ),
     createdAt: asNullableTrimmedString(row.created_at),
     activatedAt: asNullableTrimmedString(row.activated_at),
     expiresAt: asNullableTrimmedString(row.expires_at),
