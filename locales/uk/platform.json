@@ -449,7 +449,10 @@
       "paused": "Призупинено",
       "past_due": "Прострочено",
       "unpaid": "Не оплачено",
-      "canceled": "Скасовано"
+      "canceled": "Скасовано",
+      "pending": "Очікує",
+      "suspended": "Призупинено",
+      "expired": "Закінчилася"
     },
     "invoice": {
       "draft": "Чернетка",
@@ -634,7 +637,7 @@
       "emptyEntitlements": "Права доступу не надано",
       "copy": "Копіювати",
       "copied": "Скопійовано",
-      "generatedAt": "Дані згенеровано",
+      "generatedAt": "Востаннє перевірено",
       "slug": "Ключ клієнта",
       "product": "Ліцензійний пакет",
       "status": "Статус",
@@ -692,6 +695,28 @@
       },
       "licenseProductDescriptions": {
         "app_subscription": "Ліцензія APP, повʼязана з угодою клієнта."
+      },
+      "lastChecked": "Востаннє перевірено",
+      "domainCountLabel": "Домени",
+      "installationCountLabel": "Встановлення",
+      "domainRole": "Роль домену",
+      "viewLicense": "Переглянути ліцензію",
+      "viewSetup": "Переглянути налаштування",
+      "licenseAlreadyCreated": "Ліцензію вже створено",
+      "licenseAlreadyConfigured": "Ліцензія вже має домен і встановлення",
+      "licenseMissingLink": "Ліцензії бракує зв’язку з наявним налаштуванням",
+      "noNewLicenseNeeded": "Нова ліцензія не потрібна",
+      "noNewDomainInstallationNeeded": "Новий домен або встановлення не потрібні",
+      "domainRoles": {
+        "customer": "Домен клієнта",
+        "runtime": "Runtime-домен",
+        "license": "Домен ліцензії",
+        "historical": "Історичний домен",
+        "unknown": "Невідома роль"
+      },
+      "agreementDisplayNames": {
+        "unonightPilotAgreement": "Пілотна угода Unonight",
+        "unonightUnlimitedAgreement": "Безстрокова угода Unonight"
       }
     },
     "createCustomer": "Створити клієнта",

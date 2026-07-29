@@ -11,9 +11,16 @@ import type {
   PlatformPortalLicenseProvisioningLabels,
 } from "@/lib/platform-portal";
 import {
+  canShowCreateLicenseAction,
+  canShowDomainInstallationAction,
+  deriveLicenseProvisioningStatus,
   hasAuthoritativeTrial,
+  mapAgreementDisplayName,
   mapAgreementStatus,
+  mapCustomerLifecycleStatus,
+  mapDomainRole,
   mapLicenseProductName,
+  shouldShowTrialBadge,
 } from "@/lib/platform-portal/business-language";
 import { PlatformPortalCommercialPlanPanel } from "@/components/platform/platform-portal/PlatformPortalCommercialPlanPanel";
 import { PlatformPortalDomainInstallationPanel } from "@/components/platform/platform-portal/PlatformPortalDomainInstallationPanel";
@@ -612,11 +619,35 @@ export function PlatformPortalCustomerDetailPanel({
 
   const { data } = loadState;
   const { customer, commercial, usage } = data;
-  const customerStatusLabel = statusLabel(
-    customer.status,
-    labels.customerStatuses,
-    labels.notAvailable,
-  );
+  const customerStatusLabel = mapCustomerLifecycleStatus({
+    customerStatus: customer.status,
+    subscriptionStatus: commercial.subscriptionStatus,
+    trialStartsAt: commercial.trialStartsAt,
+    trialEndsAt: commercial.trialEndsAt,
+    map: labels.customerStatuses,
+    agreementMap: labels.subscriptionStatuses,
+    unknownFallback: labels.unknownStatus,
+  });
+  const agreementDisplayName = mapAgreementDisplayName({
+    planName: commercial.planName,
+    lifetime: commercial.lifetime,
+    customerName: customer.name,
+    labels: labels.agreementDisplayNames,
+  });
+  const showCreateLicense = canShowCreateLicenseAction({
+    hasQualifiedAgreement:
+      Boolean(commercial.subscriptionStatus) &&
+      ["active", "trialing"].includes(
+        (commercial.subscriptionStatus ?? "").trim().toLowerCase(),
+      ),
+    licenses: data.licenses,
+  });
+  const showDomainInstallation = canShowDomainInstallationAction({
+    licenses: data.licenses,
+  });
+  const licenseDomain = data.licenses
+    .map((license) => (license.domain ?? "").trim().toLowerCase())
+    .find((hostname) => hostname.length > 0);
   const subscriptionKpiValue = subscriptionKpi(data, labels);
   const showLegalName =
     customer.legalName != null &&
@@ -628,6 +659,12 @@ export function PlatformPortalCustomerDetailPanel({
     ? labels.partnerCustomer
     : labels.directCustomer;
   const partnerVariant: MetricVariant = commercial.partnerAttributed ? "info" : "neutral";
+  const showTrialBadge = shouldShowTrialBadge({
+    subscriptionStatus: commercial.subscriptionStatus,
+    trialStartsAt: commercial.trialStartsAt,
+    trialEndsAt: commercial.trialEndsAt,
+    customerStatus: customer.status,
+  });
 
   return (
     <div className="w-full space-y-6">
@@ -667,7 +704,16 @@ export function PlatformPortalCustomerDetailPanel({
               <div className="flex flex-wrap items-center gap-2 pt-1">
                 <StatusBadge
                   label={customerStatusLabel}
-                  variant={customerStatusVariant(customer.status)}
+                  variant={
+                    showTrialBadge
+                      ? "info"
+                      : customerStatusVariant(
+                          customerStatusLabel ===
+                            (labels.customerStatuses.active ?? labels.subscriptionStatuses.active)
+                            ? "active"
+                            : customer.status,
+                        )
+                  }
                 />
                 {commercial.lifetime ? (
                   <StatusBadge label={labels.lifetime} variant="info" />
@@ -719,7 +765,7 @@ export function PlatformPortalCustomerDetailPanel({
         className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40"
         aria-label={labels.title}
       >
-        <dl className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
+        <dl className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
           <MetricCard
             label={subscriptionKpiValue.label}
             value={subscriptionKpiValue.value}
@@ -731,9 +777,14 @@ export function PlatformPortalCustomerDetailPanel({
             variant={usage.activeLicenseCount > 0 ? "success" : "muted"}
           />
           <MetricCard
-            label={labels.domainsAndInstallations}
-            value={`${usage.domainCount} · ${usage.installationCount}`}
-            variant={usage.domainCount > 0 || usage.installationCount > 0 ? "info" : "muted"}
+            label={labels.domainCountLabel}
+            value={usage.domainCount}
+            variant={usage.domainCount > 0 ? "info" : "muted"}
+          />
+          <MetricCard
+            label={labels.installationCountLabel}
+            value={usage.installationCount}
+            variant={usage.installationCount > 0 ? "info" : "muted"}
           />
           <MetricCard
             label={labels.members}
@@ -813,9 +864,7 @@ export function PlatformPortalCustomerDetailPanel({
                   labels.notAvailable
                 )}
               </DetailRow>
-              <DetailRow label={labels.plan}>
-                {commercial.planName?.trim() ? commercial.planName : labels.notAvailable}
-              </DetailRow>
+              <DetailRow label={labels.plan}>{agreementDisplayName}</DetailRow>
               {hasAuthoritativeTrial(commercial) ? (
                 <DetailRow label={labels.trialPeriod}>
                   {formatDateRange(
@@ -868,22 +917,42 @@ export function PlatformPortalCustomerDetailPanel({
 
           <SectionCard title={labels.sectionLicenses}>
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setLicenseSuccess(false);
-                  setLicenseOpen(true);
-                }}
-                className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
-              >
-                {labels.createLicense}
-              </button>
+              {showCreateLicense ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLicenseSuccess(false);
+                    setLicenseOpen(true);
+                  }}
+                  className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
+                >
+                  {labels.createLicense}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    document
+                      .getElementById("platform-portal-customer-licenses")
+                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-900"
+                >
+                  {labels.viewLicense}
+                </button>
+              )}
+              {!showCreateLicense ? (
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  {labels.noNewLicenseNeeded}
+                </p>
+              ) : null}
               {licenseSuccess ? (
                 <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
                   {licenseProvisioningLabels.success}
                 </p>
               ) : null}
             </div>
+            <div id="platform-portal-customer-licenses">
             {data.licenses.length === 0 ? (
               <EmptyTableMessage message={labels.emptyLicenses} />
             ) : (
@@ -933,6 +1002,11 @@ export function PlatformPortalCustomerDetailPanel({
                         ),
                         labels.notAvailable,
                       );
+                      const provisioningStatus = deriveLicenseProvisioningStatus({
+                        domain: license.domain,
+                        installId: license.installId,
+                        storedStatus: license.provisioningStatus,
+                      });
                       return (
                         <tr key={license.id} className="align-top">
                           <td className="px-3 py-2.5 text-slate-800 dark:text-slate-200">{productLabel}</td>
@@ -949,20 +1023,22 @@ export function PlatformPortalCustomerDetailPanel({
                           <td className="px-3 py-2.5">
                             <StatusBadge
                               label={statusLabel(
-                                license.provisioningStatus,
+                                provisioningStatus,
                                 labels.provisioningStatuses,
-                                labels.notAvailable,
+                                labels.unknownStatus,
                               )}
                               variant={
-                                (license.provisioningStatus ?? "").toLowerCase() ===
-                                "domain_linked"
+                                provisioningStatus === "domain_linked" ||
+                                provisioningStatus === "ready_for_activation" ||
+                                provisioningStatus === "provisioned" ||
+                                provisioningStatus === "active"
                                   ? "success"
-                                  : (license.provisioningStatus ?? "").toLowerCase() ===
-                                      "requires_domain" ||
-                                    (license.provisioningStatus ?? "").toLowerCase() ===
-                                      "requires_installation"
-                                  ? "warning"
-                                  : "info"
+                                  : provisioningStatus === "requires_domain" ||
+                                      provisioningStatus === "requires_installation"
+                                    ? "warning"
+                                    : provisioningStatus === "failed"
+                                      ? "danger"
+                                      : "info"
                               }
                             />
                           </td>
@@ -1003,26 +1079,50 @@ export function PlatformPortalCustomerDetailPanel({
                 </table>
               </div>
             )}
+            </div>
           </SectionCard>
 
           <SectionCard title={labels.sectionDomains}>
             <div className="mb-4 flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setDomainSuccess(false);
-                  setDomainOpen(true);
-                }}
-                className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
-              >
-                {labels.addDomainInstallation}
-              </button>
+              {showDomainInstallation ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDomainSuccess(false);
+                    setDomainOpen(true);
+                  }}
+                  className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 dark:bg-violet-500 dark:hover:bg-violet-400"
+                >
+                  {labels.addDomainInstallation}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    document
+                      .getElementById("platform-portal-customer-domains")
+                      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  className="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-800 shadow-sm transition hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-300 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-900"
+                >
+                  {labels.viewSetup}
+                </button>
+              )}
+              {!showDomainInstallation ? (
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  {data.licenses.some((license) => !(license.domain ?? "").trim()) &&
+                  (usage.domainCount > 0 || usage.installationCount > 0)
+                    ? labels.licenseMissingLink
+                    : labels.noNewDomainInstallationNeeded}
+                </p>
+              ) : null}
               {domainSuccess ? (
                 <p className="text-sm font-medium text-emerald-700 dark:text-emerald-300">
                   {domainInstallationLabels.success}
                 </p>
               ) : null}
             </div>
+            <div id="platform-portal-customer-domains">
             {data.domains.length === 0 ? (
               <EmptyTableMessage message={labels.emptyDomains} />
             ) : (
@@ -1032,6 +1132,9 @@ export function PlatformPortalCustomerDetailPanel({
                     <tr>
                       <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.hostname}
+                      </th>
+                      <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                        {labels.domainRole}
                       </th>
                       <th scope="col" className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {labels.status}
@@ -1048,10 +1151,29 @@ export function PlatformPortalCustomerDetailPanel({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                    {data.domains.map((domain) => (
+                    {data.domains.map((domain) => {
+                      const role = mapDomainRole({
+                        hostname: domain.hostname,
+                        status: domain.status,
+                        installId: domain.installId,
+                        isPrimary: domain.isPrimary,
+                        licenseDomain,
+                        role: domain.role,
+                      });
+                      return (
                       <tr key={domain.id} className="align-top">
                         <td className="px-3 py-2.5 font-medium text-slate-800 dark:text-slate-200">
                           {domain.hostname}
+                        </td>
+                        <td className="px-3 py-2.5">
+                          <StatusBadge
+                            label={
+                              role === "unknown"
+                                ? labels.notAvailable
+                                : labels.domainRoles[role] ?? labels.notAvailable
+                            }
+                            variant={role === "license" || role === "runtime" ? "info" : "neutral"}
+                          />
                         </td>
                         <td className="px-3 py-2.5">
                           <StatusBadge
@@ -1083,11 +1205,13 @@ export function PlatformPortalCustomerDetailPanel({
                           {formatDate(domain.verifiedAt, locale, labels.notAvailable)}
                         </td>
                       </tr>
-                    ))}
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
             )}
+            </div>
           </SectionCard>
 
           <SectionCard title={labels.sectionEntitlements}>
@@ -1212,7 +1336,7 @@ export function PlatformPortalCustomerDetailPanel({
                   <p className="text-xs text-slate-500 dark:text-slate-400">{labels.slugHelp}</p>
                 </div>
               </DetailRow>
-              <DetailRow label={labels.generatedAt}>
+              <DetailRow label={labels.lastChecked}>
                 {formatDate(data.metadata.generatedAt, locale, labels.notAvailable)}
               </DetailRow>
             </dl>

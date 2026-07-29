@@ -292,7 +292,10 @@
       "paused": "Pauset",
       "past_due": "Forfalt",
       "unpaid": "Ubetalt",
-      "canceled": "Avsluttet"
+      "canceled": "Avsluttet",
+      "pending": "Avventer",
+      "suspended": "Suspendert",
+      "expired": "Utløpt"
     },
     "invoice": {
       "draft": "Draft",
@@ -474,7 +477,7 @@
       "emptyEntitlements": "Ingen rettigheter er tildelt",
       "copy": "Kopier",
       "copied": "Kopiert",
-      "generatedAt": "Data generert",
+      "generatedAt": "Sist kontrollert",
       "slug": "Kundenøkkel",
       "product": "Lisenspakke",
       "status": "Status",
@@ -532,6 +535,28 @@
       },
       "licenseProductDescriptions": {
         "app_subscription": "APP-lisens knyttet til kundens avtale."
+      },
+      "lastChecked": "Sist kontrollert",
+      "domainCountLabel": "Domener",
+      "installationCountLabel": "Installasjoner",
+      "domainRole": "Domenerolle",
+      "viewLicense": "Vis lisens",
+      "viewSetup": "Vis oppsett",
+      "licenseAlreadyCreated": "Lisensen er allerede opprettet",
+      "licenseAlreadyConfigured": "Lisensen har allerede domene og installasjon",
+      "licenseMissingLink": "Lisensen mangler en kobling til eksisterende oppsett",
+      "noNewLicenseNeeded": "Ingen ny lisens er nødvendig",
+      "noNewDomainInstallationNeeded": "Ingen nytt domene eller installasjon er nødvendig",
+      "domainRoles": {
+        "customer": "Kundedomene",
+        "runtime": "Runtime-domene",
+        "license": "Lisensdomene",
+        "historical": "Historisk domene",
+        "unknown": "Ukjent rolle"
+      },
+      "agreementDisplayNames": {
+        "unonightPilotAgreement": "Unonight pilotavtale",
+        "unonightUnlimitedAgreement": "Unonight ubegrenset avtale"
       }
     },
     "createCustomer": "Opprett kunde",

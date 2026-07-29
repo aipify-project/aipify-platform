@@ -154,6 +154,10 @@ export type PlatformPortalCustomersLabels = {
   createCustomer: string;
   customerStatuses: Record<string, string>;
   subscriptionStatuses: Record<string, string>;
+  agreementDisplayNames: {
+    unonightPilotAgreement: string;
+    unonightUnlimitedAgreement: string;
+  };
 };
 
 export type PlatformPortalCustomerDetailCustomer = {
@@ -211,6 +215,8 @@ export type PlatformPortalCustomerDetailDomain = {
   installId: string | null;
   createdAt: string | null;
   verifiedAt: string | null;
+  isPrimary?: boolean | null;
+  role?: string | null;
 };
 
 export type PlatformPortalCustomerDetailEntitlement = {
@@ -270,6 +276,8 @@ export type PlatformPortalCustomerDetailLabels = {
   domains: string;
   installations: string;
   domainsAndInstallations: string;
+  domainCountLabel: string;
+  installationCountLabel: string;
   openSupport: string;
   notAvailable: string;
   requiresAttention: string;
@@ -280,11 +288,13 @@ export type PlatformPortalCustomerDetailLabels = {
   copy: string;
   copied: string;
   generatedAt: string;
+  lastChecked: string;
   slug: string;
   slugHelp: string;
   product: string;
   status: string;
   domain: string;
+  domainRole: string;
   installId: string;
   activatedAt: string;
   expiresAt: string;
@@ -298,13 +308,25 @@ export type PlatformPortalCustomerDetailLabels = {
   subscriptionStatuses: Record<string, string>;
   licenseStatuses: Record<string, string>;
   domainStatuses: Record<string, string>;
+  domainRoles: Record<string, string>;
   entitlementStatuses: Record<string, string>;
   provisioningStatuses: Record<string, string>;
   licenseProductNames: Record<string, string>;
   licenseProductDescriptions: Record<string, string>;
+  agreementDisplayNames: {
+    unonightPilotAgreement: string;
+    unonightUnlimitedAgreement: string;
+  };
   managePlan: string;
   createLicense: string;
+  viewLicense: string;
   addDomainInstallation: string;
+  viewSetup: string;
+  licenseAlreadyCreated: string;
+  licenseAlreadyConfigured: string;
+  licenseMissingLink: string;
+  noNewLicenseNeeded: string;
+  noNewDomainInstallationNeeded: string;
 };
 
 export type PlatformPortalCommercialPlan = {

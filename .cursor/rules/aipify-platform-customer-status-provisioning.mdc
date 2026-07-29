@@ -1,0 +1,15 @@
+---
+description: Platform customer status and provisioning consistency
+globs: components/platform/platform-portal/**/*,lib/platform-portal/**
+alwaysApply: false
+---
+
+# Platform Customer Status & Provisioning Consistency
+
+- Trial badges require authoritative subscription `trialing` or an active trial window — never `customers.status = trial` alone.
+- Agreement duration (`lifetime` → Unlimited) is separate from agreement status (`active`).
+- Do not show raw seeded plan names like `Unonight Lifetime` in customer UI; use localized agreement display mapping.
+- License setup status is derived from `domain_reference` + linked installation — not array lengths alone.
+- Hide create-license / add-domain-installation when the customer already has the configured license chain; offer view-only alternatives.
+- `metadata.generatedAt` is response generation time → label as last checked, not last updated.
+- Never activate Website Kompis from status/provisioning consistency work.

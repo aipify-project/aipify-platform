@@ -113,8 +113,19 @@ export function buildPlatformPortalCustomersLabels(
       past_due: t(`${subscriptionStatus}.past_due`),
       unpaid: t(`${subscriptionStatus}.unpaid`),
       paused: t(`${subscriptionStatus}.paused`),
+      suspended: t(`${subscriptionStatus}.suspended`),
+      pending: t(`${subscriptionStatus}.pending`),
       cancelled: t(`${subscriptionStatus}.cancelled`),
       canceled: t(`${subscriptionStatus}.canceled`),
+      expired: t(`${subscriptionStatus}.expired`),
+    },
+    agreementDisplayNames: {
+      unonightPilotAgreement: t(
+        "platform.customers.detail.agreementDisplayNames.unonightPilotAgreement",
+      ),
+      unonightUnlimitedAgreement: t(
+        "platform.customers.detail.agreementDisplayNames.unonightUnlimitedAgreement",
+      ),
     },
   };
 }
@@ -163,6 +174,8 @@ export function buildPlatformPortalCustomerDetailLabels(
     domains: t(`${d}.domains`),
     installations: t(`${d}.installations`),
     domainsAndInstallations: t(`${d}.domainsAndInstallations`),
+    domainCountLabel: t(`${d}.domainCountLabel`),
+    installationCountLabel: t(`${d}.installationCountLabel`),
     openSupport: t(`${d}.openSupport`),
     notAvailable: t(`${d}.notAvailable`),
     requiresAttention: t(`${d}.requiresAttention`),
@@ -173,11 +186,13 @@ export function buildPlatformPortalCustomerDetailLabels(
     copy: t(`${d}.copy`),
     copied: t(`${d}.copied`),
     generatedAt: t(`${d}.generatedAt`),
+    lastChecked: t(`${d}.lastChecked`),
     slug: t(`${d}.slug`),
     slugHelp: t(`${d}.slugHelp`),
     product: t(`${d}.product`),
     status: t(`${d}.status`),
     domain: t(`${d}.domain`),
+    domainRole: t(`${d}.domainRole`),
     installId: t(`${d}.installId`),
     activatedAt: t(`${d}.activatedAt`),
     expiresAt: t(`${d}.expiresAt`),
@@ -200,8 +215,11 @@ export function buildPlatformPortalCustomerDetailLabels(
       past_due: t(`${subscriptionStatus}.past_due`),
       unpaid: t(`${subscriptionStatus}.unpaid`),
       paused: t(`${subscriptionStatus}.paused`),
+      suspended: t(`${subscriptionStatus}.suspended`),
+      pending: t(`${subscriptionStatus}.pending`),
       cancelled: t(`${subscriptionStatus}.cancelled`),
       canceled: t(`${subscriptionStatus}.canceled`),
+      expired: t(`${subscriptionStatus}.expired`),
     },
     licenseStatuses: {
       pending: t(`${d}.licenseStatuses.pending`),
@@ -220,6 +238,13 @@ export function buildPlatformPortalCustomerDetailLabels(
       unknown: t(`${d}.domainStatuses.unknown`),
       paused: t(`${installationStatus}.paused`),
       revoked: t(`${installationStatus}.revoked`),
+    },
+    domainRoles: {
+      customer: t(`${d}.domainRoles.customer`),
+      runtime: t(`${d}.domainRoles.runtime`),
+      license: t(`${d}.domainRoles.license`),
+      historical: t(`${d}.domainRoles.historical`),
+      unknown: t(`${d}.domainRoles.unknown`),
     },
     entitlementStatuses: {
       active: t(`${d}.entitlementStatuses.active`),
@@ -244,9 +269,22 @@ export function buildPlatformPortalCustomerDetailLabels(
     licenseProductDescriptions: {
       app_subscription: t(`${d}.licenseProductDescriptions.app_subscription`),
     },
+    agreementDisplayNames: {
+      unonightPilotAgreement: t(`${d}.agreementDisplayNames.unonightPilotAgreement`),
+      unonightUnlimitedAgreement: t(
+        `${d}.agreementDisplayNames.unonightUnlimitedAgreement`,
+      ),
+    },
     managePlan: t(`${d}.managePlan`),
     createLicense: t(`${d}.createLicense`),
+    viewLicense: t(`${d}.viewLicense`),
     addDomainInstallation: t(`${d}.addDomainInstallation`),
+    viewSetup: t(`${d}.viewSetup`),
+    licenseAlreadyCreated: t(`${d}.licenseAlreadyCreated`),
+    licenseAlreadyConfigured: t(`${d}.licenseAlreadyConfigured`),
+    licenseMissingLink: t(`${d}.licenseMissingLink`),
+    noNewLicenseNeeded: t(`${d}.noNewLicenseNeeded`),
+    noNewDomainInstallationNeeded: t(`${d}.noNewDomainInstallationNeeded`),
   };
 }
 

@@ -449,7 +449,10 @@
       "paused": "Wstrzymany",
       "past_due": "Zaległy",
       "unpaid": "Nieopłacona",
-      "canceled": "Anulowany"
+      "canceled": "Anulowany",
+      "pending": "Oczekujące",
+      "suspended": "Zawieszona",
+      "expired": "Wygasła"
     },
     "invoice": {
       "draft": "Szkic",
@@ -634,7 +637,7 @@
       "emptyEntitlements": "Nie przyznano żadnych uprawnień",
       "copy": "Kopiuj",
       "copied": "Skopiowano",
-      "generatedAt": "Dane wygenerowane",
+      "generatedAt": "Ostatnio sprawdzono",
       "slug": "Klucz klienta",
       "product": "Pakiet licencyjny",
       "status": "Status",
@@ -692,6 +695,28 @@
       },
       "licenseProductDescriptions": {
         "app_subscription": "Licencja APP powiązana z umową klienta."
+      },
+      "lastChecked": "Ostatnio sprawdzono",
+      "domainCountLabel": "Domeny",
+      "installationCountLabel": "Instalacje",
+      "domainRole": "Rola domeny",
+      "viewLicense": "Pokaż licencję",
+      "viewSetup": "Pokaż konfigurację",
+      "licenseAlreadyCreated": "Licencja została już utworzona",
+      "licenseAlreadyConfigured": "Licencja ma już domenę i instalację",
+      "licenseMissingLink": "Licencji brakuje powiązania z istniejącą konfiguracją",
+      "noNewLicenseNeeded": "Nowa licencja nie jest wymagana",
+      "noNewDomainInstallationNeeded": "Nowa domena lub instalacja nie jest wymagana",
+      "domainRoles": {
+        "customer": "Domena klienta",
+        "runtime": "Domena runtime",
+        "license": "Domena licencji",
+        "historical": "Domena historyczna",
+        "unknown": "Nieznana rola"
+      },
+      "agreementDisplayNames": {
+        "unonightPilotAgreement": "Umowa pilotażowa Unonight",
+        "unonightUnlimitedAgreement": "Umowa bezterminowa Unonight"
       }
     },
     "createCustomer": "Utwórz klienta",
