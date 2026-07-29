@@ -299,7 +299,7 @@ begin
       'platform_customer_website_kompis_activate'
     )
     and (
-      target_id = v_customer.id
+      target_id::text = v_customer.id::text
       or metadata ->> 'customer_id' = v_customer.id::text
     );
 
