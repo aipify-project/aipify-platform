@@ -1,39 +1,48 @@
 {
   "accessDenied": "Dostęp do Platformy jest ograniczony do administratorów Platformy i superadministratorów.",
   "portal": {
-    "bannerTitle": "Portal PLATFORM",
-    "bannerBody": "Operacyjny puls Aipify Group AS. Procesy APP skierowane do klientów pozostają w Aplikacji Klienta.",
+    "bannerTitle": "Portal platformy",
+    "bannerBody": "Operacyjny przegląd dla Aipify Group AS. Przepływy APP klienta pozostają w Customer App.",
     "twoFactorRequired": "Platform Admin wymaga uwierzytelniania dwuskładnikowego przed uzyskaniem dostępu."
   },
   "portalStructure": {
     "dashboard": {
-      "title": "Panel PLATFORM",
-      "subtitle": "Operacyjny puls Aipify Group AS — wsparcie, finanse, marketplace, produkt i sukces klientów w jednym widoku.",
-      "loading": "Ładowanie panelu platformy…",
-      "principle": "PLATFORM obsługuje Aipify Group. Nadzór wykonawczy należy do SUPER.",
-      "privacyNote": "Wyłącznie zagregowane operacje platformy — bez treści biznesowych klientów.",
+      "title": "Przegląd platformy",
+      "subtitle": "Zbiorczy przegląd klientów, umów, usług i statusu platformy.",
+      "loading": "Ładowanie przeglądu platformy…",
+      "principle": "Platforma obsługuje Aipify Group. Nadzór wykonawczy należy do Super Admin.",
+      "privacyNote": "Tylko zagregowane operacje platformy — bez treści biznesowych klienta.",
       "organizationsRequiringAttention": "Organizacje wymagające uwagi",
-      "activeSubscriptions": "Aktywne subskrypcje",
-      "openSupportWorkload": "Otwarte zgłoszenia wsparcia",
-      "paymentStatusSummary": "Podsumowanie statusu płatności",
+      "activeSubscriptions": "Aktywne umowy",
+      "openSupportWorkload": "Otwarte obciążenie supportu",
+      "paymentStatusSummary": "Status płatności",
       "paymentActive": "Aktywne",
-      "paymentPastDue": "Po terminie",
+      "paymentPastDue": "Zaległe",
       "paymentTrialing": "Okres próbny",
-      "customerSuccessIndicators": "Wskaźniki sukcesu klientów",
-      "healthyRatio": "Udział organizacji w dobrej kondycji",
-      "marketplaceModeration": "Moderacja Marketplace",
-      "pendingReview": "Oczekujące na weryfikację",
-      "published": "Opublikowane",
-      "partnerProgramSummary": "Wyniki Aipify Partners",
+      "customerSuccessIndicators": "Wskaźniki sukcesu klienta",
+      "healthyRatio": "Udział zdrowych organizacji",
+      "marketplaceModeration": "Moderacja marketplace",
+      "pendingReview": "Oczekuje na przegląd",
+      "published": "Opublikowano",
+      "partnerProgramSummary": "Wyniki Growth Partner",
       "activePrograms": "Aktywne programy",
-      "pendingApplications": "Oczekujące zgłoszenia",
-      "productDeploymentUpdates": "Aktualizacje produktu i wdrożeń",
-      "noUpdates": "Brak zaplanowanych aktualizacji wdrożeń.",
-      "portalModules": "Moduły PLATFORM",
-      "openModule": "Otwórz moduł",
-      "loadErrorTitle": "Nie udało się załadować panelu Platform",
-      "loadErrorMessage": "Nie udało się załadować danych panelu. Sprawdź połączenie i spróbuj ponownie.",
-      "retry": "Spróbuj ponownie"
+      "pendingApplications": "Oczekujące wnioski",
+      "productDeploymentUpdates": "Aktualizacje produktu i publikacji",
+      "noUpdates": "Brak zaplanowanych aktualizacji publikacji.",
+      "portalModules": "Usługi platformy",
+      "openModule": "Otwórz",
+      "loadErrorTitle": "Nie można załadować przeglądu platformy",
+      "loadErrorMessage": "Nie udało się załadować danych przeglądu. Sprawdź połączenie i spróbuj ponownie.",
+      "retry": "Spróbuj ponownie",
+      "lastChecked": "Ostatnio sprawdzono",
+      "unknownStatus": "Nieznany status",
+      "updateClassifications": {
+        "patch": "Poprawka",
+        "minor": "Mniejsza aktualizacja",
+        "major": "Większa aktualizacja",
+        "security": "Aktualizacja bezpieczeństwa",
+        "database_migration": "Aktualizacja bazy danych"
+      }
     },
     "foundation": {
       "loading": "Ładowanie…",
@@ -42,15 +51,15 @@
     },
     "operationsOverview": {
       "title": "Przegląd operacji",
-      "subtitle": "Codzienne sygnały operacyjne, rekomendowane działania i analizy platformy dla pracowników Aipify Group."
+      "subtitle": "Codzienne sygnały operacyjne, zalecane działania i wiedza platformowa dla Aipify Group."
     },
     "deployments": {
-      "title": "Wdrożenia",
-      "subtitle": "Planowanie wydań, koordynacja wdrożeń i widoczność procesu wdrażania."
+      "title": "Publikacje",
+      "subtitle": "Planowanie, koordynacja i widoczność publikacji."
     },
     "operationsAuditLogs": {
-      "title": "Dzienniki audytowe operacji",
-      "subtitle": "Ślad audytowy działań administracyjnych na platformie."
+      "title": "Dziennik zdarzeń",
+      "subtitle": "Operacyjny dziennik zdarzeń administracji platformy."
     },
     "translationManagement": {
       "title": "Zarządzanie tłumaczeniami",
@@ -80,20 +89,21 @@
     "backToPlatform": "Powrót do platformy",
     "viewDiagnostics": "Wyświetl diagnostykę"
   },
-  "search": "Szukaj klientów...",
+  "search": "Szukaj klientów…",
   "navSearch": {
-    "hint": "Przeszukaj menu",
-    "compactToggle": "Kompaktowa nawigacja",
+    "hint": "Szukaj w menu",
+    "compactToggle": "Zwinięta nawigacja",
     "results": "Wyniki wyszukiwania",
-    "noResults": "Brak pasujących modułów"
+    "noResults": "Brak wyników",
+    "navigationLabel": "Nawigacja platformy"
   },
   "navGroups": {
     "operations": "Operacje",
     "customers": "Klienci",
-    "commercial": "Komercyjne",
+    "commercial": "Umowy i sprzedaż",
     "knowledge": "Wiedza",
     "product": "Produkt",
-    "auditGovernance": "Audyt i ład organizacyjny",
+    "auditGovernance": "Kontrola i zarządzanie",
     "platformAdmin": "Platform Admin",
     "knowledgeGovernance": "Wiedza i ład organizacyjny",
     "customerOperations": "Operacje klientów",
@@ -116,7 +126,7 @@
   "topbar": {
     "organization": "Organizacja",
     "notifications": "Powiadomienia",
-    "profileFallback": "Administrator",
+    "profileFallback": "Admin",
     "organizationFallback": "Aipify Group"
   },
   "roles": {
@@ -125,7 +135,7 @@
     "platform_admin": "Administrator Platformy"
   },
   "nav": {
-    "overview": "Panel Platformy",
+    "overview": "Przegląd platformy",
     "operationsOverview": "Przegląd operacji",
     "buildHealthCenter": "Centrum kondycji kompilacji",
     "aosCore": "Centrum AOS Core",
@@ -137,11 +147,11 @@
     "ecosystemCenter": "Centrum ekosystemu",
     "reliabilityOperations": "Operacje niezawodności",
     "changeOperations": "Operacje zmian",
-    "platformHealth": "Kondycja platformy",
-    "deployments": "Wdrożenia",
-    "operationsAuditLogs": "Dzienniki audytowe",
+    "platformHealth": "Status platformy",
+    "deployments": "Publikacje",
+    "operationsAuditLogs": "Dziennik zdarzeń",
     "organizations": "Organizacje",
-    "customerSuccess": "Sukces klientów",
+    "customerSuccess": "Sukces klienta",
     "payments": "Płatności",
     "marketplace": "Marketplace",
     "growthPartners": "Growth Partners",
@@ -152,15 +162,15 @@
     "moduleRegistry": "Rejestr modułów",
     "appStoreRevenue": "Przychody App Store",
     "productManagement": "Zarządzanie produktem",
-    "installationOversight": "Nadzór nad instalacjami",
-    "activityLogs": "Dzienniki aktywności",
-    "governanceRecords": "Rejestry ładu organizacyjnego",
+    "installationOversight": "Przegląd instalacji",
+    "activityLogs": "Dziennik aktywności",
+    "governanceRecords": "Rejestry zarządzania",
     "securityReviews": "Przeglądy bezpieczeństwa",
     "customers": "Klienci",
     "customerLifecycle": "Centrum cyklu życia",
     "customerSuccessOperations": "Operacje sukcesu klientów",
     "commercialIntelligence": "Centrum przychodów",
-    "subscriptions": "Subskrypcje",
+    "subscriptions": "Umowy klienta",
     "billing": "Rozliczenia",
     "invoices": "Faktury",
     "enterpriseInvoices": "Faktury Enterprise",
@@ -184,7 +194,7 @@
     "paymentAnalytics": "Analityka płatności",
     "subscriptionOperations": "Operacje subskrypcji",
     "revenueOperations": "Operacje przychodowe",
-    "support": "Wsparcie",
+    "support": "Support",
     "automations": "Automatyzacje",
     "intelligence": "Intelligence",
     "actions": "Centrum działań",
@@ -485,6 +495,31 @@
       "open": "Otwarte",
       "closed": "Zamknięte",
       "escalated": "Eskalowane"
+    },
+    "dashboard": {
+      "healthy": "Normalna praca",
+      "degraded": "Ograniczona praca",
+      "unavailable": "Niedostępne",
+      "unknown": "Nieznany status",
+      "ready": "Gotowe",
+      "building": "Budowanie",
+      "failed": "Niepowodzenie",
+      "cancelled": "Anulowano",
+      "canceled": "Anulowano",
+      "published": "Opublikowano",
+      "production": "Produkcja",
+      "preview": "Podgląd",
+      "active": "Aktywne",
+      "pending": "Oczekuje",
+      "suspended": "Zawieszone",
+      "revoked": "Cofnięte",
+      "draft": "Szkic",
+      "verified": "Zweryfikowano",
+      "unverified": "Niezweryfikowano",
+      "lifetime": "Bezterminowo",
+      "monthly": "Miesięcznie",
+      "yearly": "Rocznie",
+      "annual": "Rocznie"
     }
   },
   "customers": {

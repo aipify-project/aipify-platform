@@ -1,39 +1,48 @@
 {
   "accessDenied": "Доступ до платформи обмежено для Platform Administrators і Super Admin.",
   "portal": {
-    "bannerTitle": "ПЛАТФОРМА Портал",
-    "bannerBody": "Операційний пульс для Aipify Group AS. Робочі процеси APP, орієнтовані на клієнта, залишаються в програмі Customer App.",
+    "bannerTitle": "Портал платформи",
+    "bannerBody": "Операційний огляд для Aipify Group AS. Робочі процеси APP клієнта залишаються в Customer App.",
     "twoFactorRequired": "Platform Admin вимагає двофакторної автентифікації перед входом."
   },
   "portalStructure": {
     "dashboard": {
-      "title": "Інформаційна панель ПЛАТФОРМИ",
-      "subtitle": "Операційний пульс для Aipify Group AS — підтримка, фінанси, ринок, продукт і успіх клієнтів з першого погляду.",
-      "loading": "Завантаження інформаційної панелі платформи…",
-      "principle": "PLATFORM управляє Aipify Group. Виконавчий нагляд належить до SUPER.",
-      "privacyNote": "Лише сукупні операції на платформі — без клієнтського бізнес-контенту.",
-      "organizationsRequiringAttention": "Організації, які потребують уваги",
-      "activeSubscriptions": "Активні підписки",
-      "openSupportWorkload": "Відкрите робоче навантаження підтримки",
-      "paymentStatusSummary": "Підсумок статусу платежу",
-      "paymentActive": "Активний",
-      "paymentPastDue": "Прострочено",
-      "paymentTrialing": "Випробування",
-      "customerSuccessIndicators": "Індикатори успіху клієнта",
-      "healthyRatio": "Коефіцієнт здорової організації",
-      "marketplaceModeration": "Marketplace модерація",
-      "pendingReview": "Очікує на розгляд",
+      "title": "Огляд платформи",
+      "subtitle": "Зведений огляд клієнтів, угод, служб і статусу платформи.",
+      "loading": "Завантаження огляду платформи…",
+      "principle": "Платформа обслуговує Aipify Group. Виконавчий нагляд належить Super Admin.",
+      "privacyNote": "Лише агреговані операції платформи — без бізнес-вмісту клієнта.",
+      "organizationsRequiringAttention": "Організації, що потребують уваги",
+      "activeSubscriptions": "Активні угоди",
+      "openSupportWorkload": "Відкрите навантаження підтримки",
+      "paymentStatusSummary": "Статус платежів",
+      "paymentActive": "Активні",
+      "paymentPastDue": "Прострочені",
+      "paymentTrialing": "Пробний період",
+      "customerSuccessIndicators": "Показники успіху клієнта",
+      "healthyRatio": "Частка здорових організацій",
+      "marketplaceModeration": "Модерація маркетплейсу",
+      "pendingReview": "Очікує перегляду",
       "published": "Опубліковано",
-      "partnerProgramSummary": "Продуктивність партнерів Aipify",
+      "partnerProgramSummary": "Результати Growth Partner",
       "activePrograms": "Активні програми",
-      "pendingApplications": "Заявки, що очікують на розгляд",
-      "productDeploymentUpdates": "Оновлення продуктів і розгортання",
-      "noUpdates": "Немає запланованих оновлень розгортання.",
-      "portalModules": "Модулі PLATFORM",
-      "openModule": "Відкритий модуль",
-      "loadErrorTitle": "Не вдалося завантажити панель Platform",
-      "loadErrorMessage": "Не вдалося завантажити дані панелі. Перевірте з’єднання та спробуйте ще раз.",
-      "retry": "Спробувати ще раз"
+      "pendingApplications": "Заявки в очікуванні",
+      "productDeploymentUpdates": "Оновлення продукту та публікацій",
+      "noUpdates": "Немає запланованих оновлень публікацій.",
+      "portalModules": "Служби платформи",
+      "openModule": "Відкрити",
+      "loadErrorTitle": "Не вдалося завантажити огляд платформи",
+      "loadErrorMessage": "Не вдалося завантажити дані огляду. Перевірте з’єднання та спробуйте знову.",
+      "retry": "Спробувати знову",
+      "lastChecked": "Останню перевірку виконано",
+      "unknownStatus": "Невідомий статус",
+      "updateClassifications": {
+        "patch": "Виправлення",
+        "minor": "Незначне оновлення",
+        "major": "Значне оновлення",
+        "security": "Оновлення безпеки",
+        "database_migration": "Оновлення бази даних"
+      }
     },
     "foundation": {
       "loading": "Завантаження…",
@@ -42,15 +51,15 @@
     },
     "operationsOverview": {
       "title": "Огляд операцій",
-      "subtitle": "Щоденні робочі сигнали, рекомендовані дії та розвідка платформи для персоналу Aipify Group."
+      "subtitle": "Щоденні операційні сигнали, рекомендовані дії та знання платформи для Aipify Group."
     },
     "deployments": {
-      "title": "Розгортання",
-      "subtitle": "Планування випусків, координація розгортання та видимість розгортання."
+      "title": "Публікації",
+      "subtitle": "Планування, координація та видимість публікацій."
     },
     "operationsAuditLogs": {
-      "title": "Журнали аудиту операцій",
-      "subtitle": "Оперативний аудит дій адміністрування платформи."
+      "title": "Журнал подій",
+      "subtitle": "Операційний журнал подій адміністрування платформи."
     },
     "translationManagement": {
       "title": "Управління перекладами",
@@ -80,20 +89,21 @@
     "backToPlatform": "Назад до платформи",
     "viewDiagnostics": "Переглянути діагностику"
   },
-  "search": "Пошук клієнтів...",
+  "search": "Пошук клієнтів…",
   "navSearch": {
-    "hint": "Меню пошуку",
+    "hint": "Пошук у меню",
     "compactToggle": "Компактна навігація",
     "results": "Результати пошуку",
-    "noResults": "Немає відповідних модулів"
+    "noResults": "Немає збігів",
+    "navigationLabel": "Навігація платформи"
   },
   "navGroups": {
     "operations": "Операції",
     "customers": "Клієнти",
-    "commercial": "Комерційний",
+    "commercial": "Угоди та продажі",
     "knowledge": "Знання",
     "product": "Продукт",
-    "auditGovernance": "Аудит і управління",
+    "auditGovernance": "Контроль і управління",
     "platformAdmin": "Platform Admin",
     "knowledgeGovernance": "Знання та управління",
     "customerOperations": "Операції з клієнтами",
@@ -101,7 +111,7 @@
     "deploymentPlatform": "Розгортання та платформа",
     "intelligenceAutomation": "Інтелект і автоматизація",
     "marketplace": "Marketplace",
-    "system": "система",
+    "system": "Система",
     "searchDescriptions": {
       "platformAcademyStudio": "Growth Partner Academy — навчання, сертифікація та комерційна підтримка.",
       "companionMarketplace": "Керований каталог Companion і нагляд за розгортанням.",
@@ -114,10 +124,10 @@
     "organization": "Aipify Group AS"
   },
   "topbar": {
-    "organization": "організація",
+    "organization": "Організація",
     "notifications": "Сповіщення",
-    "profileFallback": "адмін",
-    "organizationFallback": "Група Aipify"
+    "profileFallback": "Admin",
+    "organizationFallback": "Aipify Group"
   },
   "roles": {
     "super_admin": "Super Admin",
@@ -125,7 +135,7 @@
     "platform_admin": "Platform Administrator"
   },
   "nav": {
-    "overview": "Інформаційна панель платформи",
+    "overview": "Огляд платформи",
     "operationsOverview": "Огляд операцій",
     "buildHealthCenter": "Побудувати Центр здоров'я",
     "aosCore": "Основний центр AOS",
@@ -137,30 +147,30 @@
     "ecosystemCenter": "Екосистемний центр",
     "reliabilityOperations": "Операції з надійності",
     "changeOperations": "Операції зміни",
-    "platformHealth": "Платформа Health",
-    "deployments": "Розгортання",
-    "operationsAuditLogs": "Журнали аудиту",
-    "organizations": "організації",
+    "platformHealth": "Статус платформи",
+    "deployments": "Публікації",
+    "operationsAuditLogs": "Журнал подій",
+    "organizations": "Організації",
     "customerSuccess": "Успіх клієнта",
     "payments": "Платежі",
-    "marketplace": "Marketplace",
+    "marketplace": "Маркетплейс",
     "growthPartners": "Growth Partners",
     "knowledgeCenter": "Центр знань",
-    "translationManagement": "Управління перекладами",
+    "translationManagement": "Керування перекладами",
     "documentation": "Документація",
     "businessPacks": "Business Packs",
     "moduleRegistry": "Реєстр модулів",
     "appStoreRevenue": "Дохід App Store",
-    "productManagement": "Управління продуктами",
-    "installationOversight": "Контроль встановлення",
-    "activityLogs": "Журнали активності",
-    "governanceRecords": "Записи управління",
-    "securityReviews": "Огляд безпеки",
+    "productManagement": "Керування продуктом",
+    "installationOversight": "Огляд інсталяцій",
+    "activityLogs": "Журнал активності",
+    "governanceRecords": "Реєстри управління",
+    "securityReviews": "Перевірки безпеки",
     "customers": "Клієнти",
     "customerLifecycle": "Центр життєвого циклу",
     "customerSuccessOperations": "Успіх операцій",
     "commercialIntelligence": "Центр доходів",
-    "subscriptions": "Підписки",
+    "subscriptions": "Клієнтські угоди",
     "billing": "Виставлення рахунків",
     "invoices": "Рахунки-фактури",
     "enterpriseInvoices": "Рахунки підприємства",
@@ -485,6 +495,31 @@
       "open": "відкритий",
       "closed": "Закрито",
       "escalated": "Ескалація"
+    },
+    "dashboard": {
+      "healthy": "Нормальна робота",
+      "degraded": "Знижена робота",
+      "unavailable": "Недоступно",
+      "unknown": "Невідомий статус",
+      "ready": "Готово",
+      "building": "Збірка",
+      "failed": "Невдача",
+      "cancelled": "Скасовано",
+      "canceled": "Скасовано",
+      "published": "Опубліковано",
+      "production": "Продакшн",
+      "preview": "Попередній перегляд",
+      "active": "Активно",
+      "pending": "Очікує",
+      "suspended": "Призупинено",
+      "revoked": "Відкликано",
+      "draft": "Чернетка",
+      "verified": "Підтверджено",
+      "unverified": "Не підтверджено",
+      "lifetime": "Безстроково",
+      "monthly": "Щомісяця",
+      "yearly": "Щороку",
+      "annual": "Щороку"
     }
   },
   "customers": {

@@ -64,6 +64,7 @@ type DashboardShellProps = {
   mobileNavIds: string[];
   navSearchHint?: string;
   navSearchResultsLabel?: string;
+  navigationAriaLabel?: string;
   companyNameOverride?: string;
   platformBrandMark?: {
     poweredBy: string;
@@ -147,6 +148,7 @@ export default function DashboardShell({
   mobileNavIds,
   navSearchHint,
   navSearchResultsLabel,
+  navigationAriaLabel,
   companyNameOverride,
   platformBrandMark,
   licensePanelLabels,
@@ -190,6 +192,7 @@ export default function DashboardShell({
           mobileNavIds={mobileNavIds}
           navSearchHint={navSearchHint}
           navSearchResultsLabel={navSearchResultsLabel}
+          navigationAriaLabel={navigationAriaLabel}
           companyNameOverride={companyNameOverride}
           platformBrandMark={platformBrandMark}
           licensePanelLabels={licensePanelLabels}
@@ -234,6 +237,7 @@ export default function DashboardShell({
       mobileNavIds={mobileNavIds}
       navSearchHint={navSearchHint}
       navSearchResultsLabel={navSearchResultsLabel}
+      navigationAriaLabel={navigationAriaLabel}
       companyNameOverride={companyNameOverride}
       platformBrandMark={platformBrandMark}
       licensePanelLabels={licensePanelLabels}
@@ -277,6 +281,7 @@ function DashboardShellFrame({
   mobileNavIds,
   navSearchHint,
   navSearchResultsLabel,
+  navigationAriaLabel,
   companyNameOverride,
   platformBrandMark,
   licensePanelLabels,
@@ -366,6 +371,7 @@ function DashboardShellFrame({
       searchResultsLabel={navSearchResultsLabel}
       keyboardHint={navSearchHint}
       noSearchResultsLabel={navSearchNoResultsLabel}
+      navigationAriaLabel={navigationAriaLabel}
       activeAccent={shellVariant === "customer" ? "soft" : "default"}
       sidebarMode={shellVariant === "platform" ? "platform" : "customer"}
     />
@@ -472,6 +478,7 @@ function DashboardShellFrame({
                   searchResultsLabel={navSearchResultsLabel}
                   keyboardHint={navSearchHint}
                   noSearchResultsLabel={navSearchNoResultsLabel}
+                  navigationAriaLabel={navigationAriaLabel}
                   activeAccent={shellVariant === "customer" ? "soft" : "default"}
                   sidebarMode={shellVariant === "platform" ? "platform" : "customer"}
                 />
