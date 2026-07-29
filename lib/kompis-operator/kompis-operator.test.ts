@@ -28,6 +28,13 @@ assert.equal(critical.riskClass, 3);
 assert.equal(critical.steps.length, 0);
 assert.equal(critical.unavailableReason, "critical_blocked");
 
+const criticalWithLicense = planKompisOperatorRequest(
+  "Slett all kundedata og endre lisensen",
+);
+assert.equal(criticalWithLicense.riskClass, 3);
+assert.equal(criticalWithLicense.steps.length, 0);
+assert.equal(criticalWithLicense.unavailableReason, "critical_blocked");
+
 const sqlBlocked = planKompisOperatorRequest("SELECT * FROM users WHERE 1=1");
 assert.equal(sqlBlocked.unavailableReason, "sql_blocked");
 
