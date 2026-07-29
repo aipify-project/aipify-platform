@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import type {
+  PlatformPortalAppKompisDeliveryLabels,
   PlatformPortalCommercialPlanLabels,
   PlatformPortalCustomerDetail,
   PlatformPortalCustomerDetailLabels,
@@ -24,6 +25,7 @@ import {
   mapLicenseProductName,
   shouldShowTrialBadge,
 } from "@/lib/platform-portal/business-language";
+import { PlatformPortalAppKompisDeliveryPanel } from "@/components/platform/platform-portal/PlatformPortalAppKompisDeliveryPanel";
 import { PlatformPortalCommercialPlanPanel } from "@/components/platform/platform-portal/PlatformPortalCommercialPlanPanel";
 import { PlatformPortalDomainInstallationPanel } from "@/components/platform/platform-portal/PlatformPortalDomainInstallationPanel";
 import { PlatformPortalLicenseProvisioningPanel } from "@/components/platform/platform-portal/PlatformPortalLicenseProvisioningPanel";
@@ -41,6 +43,7 @@ type Props = {
   licenseProvisioningLabels: PlatformPortalLicenseProvisioningLabels;
   domainInstallationLabels: PlatformPortalDomainInstallationLabels;
   websiteKompisLabels: PlatformPortalWebsiteKompisLabels;
+  appKompisDeliveryLabels: PlatformPortalAppKompisDeliveryLabels;
   locale: string;
 };
 
@@ -492,6 +495,7 @@ export function PlatformPortalCustomerDetailPanel({
   licenseProvisioningLabels,
   domainInstallationLabels,
   websiteKompisLabels,
+  appKompisDeliveryLabels,
   locale,
 }: Props) {
   const [loadState, setLoadState] = useState<LoadState>({ kind: "loading" });
@@ -1312,6 +1316,10 @@ export function PlatformPortalCustomerDetailPanel({
         </div>
 
         <aside className="space-y-6">
+          <PlatformPortalAppKompisDeliveryPanel
+            customerId={customerId}
+            labels={appKompisDeliveryLabels}
+          />
           <SectionCard title={websiteKompisLabels.sectionActivatedServices}>
             <div className="space-y-4">
               {websiteKompisSuccess ? (
