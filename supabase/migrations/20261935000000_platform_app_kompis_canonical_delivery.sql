@@ -553,7 +553,7 @@ begin
     perform public.record_platform_admin_audit_event(
       'platform_customer_app_kompis_deliver',
       'customer',
-      p_customer_id,
+      p_customer_id::text,
       jsonb_build_object(
         'customer_id', p_customer_id,
         'organization_id', p_customer_id,
@@ -785,7 +785,7 @@ begin
   perform public.record_platform_admin_audit_event(
     'platform_customer_app_kompis_deliver',
     'customer',
-    p_customer_id,
+    p_customer_id::text,
     jsonb_build_object(
       'customer_id', p_customer_id,
       'organization_id', p_customer_id,
@@ -953,7 +953,7 @@ begin
     perform public.record_platform_admin_audit_event(
       'platform_customer_app_kompis_reconcile',
       'customer',
-      p_customer_id,
+      p_customer_id::text,
       jsonb_build_object(
         'customer_id', p_customer_id,
         'organization_id', p_customer_id,
@@ -996,7 +996,7 @@ begin
   perform public.record_platform_admin_audit_event(
     'platform_customer_app_kompis_reconcile',
     'customer',
-    p_customer_id,
+    p_customer_id::text,
     jsonb_build_object(
       'customer_id', p_customer_id,
       'organization_id', p_customer_id,
