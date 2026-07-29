@@ -1,5 +1,6 @@
 import { PlatformPortalCustomerDetailPanel } from "@/components/platform/platform-portal/PlatformPortalCustomerDetailPanel";
 import {
+  buildPlatformPortalAppKompisDeliveryLabels,
   buildPlatformPortalCommercialPlanLabels,
   buildPlatformPortalCustomerDetailLabels,
   buildPlatformPortalDomainInstallationLabels,
@@ -24,6 +25,7 @@ export default async function PlatformCustomerDetailPage({ params }: CustomerDet
   const licenseProvisioningLabels = buildPlatformPortalLicenseProvisioningLabels(t);
   const domainInstallationLabels = buildPlatformPortalDomainInstallationLabels(t);
   const websiteKompisLabels = buildPlatformPortalWebsiteKompisLabels(t);
+  const appKompisDeliveryLabels = buildPlatformPortalAppKompisDeliveryLabels(t);
 
   return (
     <PlatformPortalCustomerDetailPanel
@@ -33,6 +35,7 @@ export default async function PlatformCustomerDetailPage({ params }: CustomerDet
       licenseProvisioningLabels={licenseProvisioningLabels}
       domainInstallationLabels={domainInstallationLabels}
       websiteKompisLabels={websiteKompisLabels}
+      appKompisDeliveryLabels={appKompisDeliveryLabels}
       locale={locale}
     />
   );
