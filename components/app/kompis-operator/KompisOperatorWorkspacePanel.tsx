@@ -2,10 +2,8 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
-import {
-  createKompisOperatorIdempotencyKey,
-  type KompisOperatorLabels,
-} from "@/lib/kompis-operator";
+import { createKompisOperatorIdempotencyKey } from "@/lib/kompis-operator/ids";
+import type { KompisOperatorLabels } from "@/lib/kompis-operator/labels";
 import { SEVERITY_BADGE_CLASS, riskClassTone, runStatusTone } from "@/lib/kompis-operator/severity";
 
 type Workspace = {
@@ -16,6 +14,12 @@ type Workspace = {
   agreement: Record<string, unknown> | null;
   parentLicense: Record<string, unknown> | null;
   websiteKompis: Record<string, unknown>;
+  ai?: {
+    providerConfigured?: boolean;
+    providerStatus?: string;
+    liveAiActive?: boolean;
+    deterministicFallbackActive?: boolean;
+  };
 };
 
 type Conversation = { id: string; title: string; updated_at?: string };
@@ -139,6 +143,10 @@ export function KompisOperatorWorkspacePanel({
         });
         return;
       }
+      if (res.status === 429) {
+        setMessage(labels.rateLimited);
+        return;
+      }
       if (!res.ok) {
         setMessage(labels.errorTitle);
         return;
@@ -248,6 +256,17 @@ export function KompisOperatorWorkspacePanel({
         <header>
           <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">{labels.title}</h1>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{labels.subtitle}</p>
+          <p className="mt-2 text-sm font-medium text-slate-800 dark:text-slate-200">{labels.whatCanIHelpWith}</p>
+          {workspace.ai?.providerConfigured ? null : (
+            <p className="mt-2 text-xs text-slate-500 dark:text-slate-400" role="status">
+              {labels.usingSafeFallback}
+            </p>
+          )}
+          {workspace.ai?.providerStatus === "unavailable" ? (
+            <p className="mt-2 text-xs text-amber-700 dark:text-amber-300" role="status">
+              {labels.providerUnavailable}
+            </p>
+          ) : null}
         </header>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950">
@@ -265,6 +284,9 @@ export function KompisOperatorWorkspacePanel({
             {[
               labels.suggestionKompis,
               labels.suggestionLicense,
+              labels.suggestionKnowledge,
+              labels.suggestionMembers,
+              labels.suggestionActivity,
               labels.suggestionDraftSupport,
               labels.suggestionDraftProfile,
             ].map((suggestion) => (

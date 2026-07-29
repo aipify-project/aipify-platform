@@ -3,12 +3,18 @@ import type { Translator } from "@/lib/i18n/translate";
 export type KompisOperatorLabels = {
   title: string;
   subtitle: string;
+  whatCanIHelpWith: string;
   sendTask: string;
   describeTask: string;
   understanding: string;
   planning: string;
   checkingAccess: string;
+  searchingAuthorizedData: string;
+  foundInformation: string;
+  sources: string;
+  summary: string;
   plan: string;
+  affectedAreas: string;
   riskClass: string;
   risk0: string;
   risk1: string;
@@ -47,10 +53,32 @@ export type KompisOperatorLabels = {
   suspendedTitle: string;
   errorTitle: string;
   confirmCheckbox: string;
+  createsDraft: string;
+  sendsMessage: string;
+  providerUnavailable: string;
+  usingSafeFallback: string;
+  noMatches: string;
+  noAuthorizedSources: string;
+  supportCases: string;
+  notifications: string;
+  organizationMembers: string;
+  activity: string;
+  businessProfile: string;
+  contentDraft: string;
+  knowledgeDraft: string;
+  createSupportCase: string;
+  replySupportCase: string;
+  markAsRead: string;
+  createDraft: string;
+  updateDraft: string;
+  rateLimited: string;
   suggestionKompis: string;
   suggestionLicense: string;
   suggestionDraftSupport: string;
   suggestionDraftProfile: string;
+  suggestionKnowledge: string;
+  suggestionMembers: string;
+  suggestionActivity: string;
   reasonPlaceholder: string;
   emptyHistory: string;
   statusLabel: string;
@@ -61,12 +89,18 @@ export function buildKompisOperatorLabels(t: Translator): KompisOperatorLabels {
   return {
     title: t(`${p}.title`),
     subtitle: t(`${p}.subtitle`),
+    whatCanIHelpWith: t(`${p}.whatCanIHelpWith`),
     sendTask: t(`${p}.sendTask`),
     describeTask: t(`${p}.describeTask`),
     understanding: t(`${p}.understanding`),
     planning: t(`${p}.planning`),
     checkingAccess: t(`${p}.checkingAccess`),
+    searchingAuthorizedData: t(`${p}.searchingAuthorizedData`),
+    foundInformation: t(`${p}.foundInformation`),
+    sources: t(`${p}.sources`),
+    summary: t(`${p}.summary`),
     plan: t(`${p}.plan`),
+    affectedAreas: t(`${p}.affectedAreas`),
     riskClass: t(`${p}.riskClass`),
     risk0: t(`${p}.risk0`),
     risk1: t(`${p}.risk1`),
@@ -105,10 +139,32 @@ export function buildKompisOperatorLabels(t: Translator): KompisOperatorLabels {
     suspendedTitle: t(`${p}.suspendedTitle`),
     errorTitle: t(`${p}.errorTitle`),
     confirmCheckbox: t(`${p}.confirmCheckbox`),
+    createsDraft: t(`${p}.createsDraft`),
+    sendsMessage: t(`${p}.sendsMessage`),
+    providerUnavailable: t(`${p}.providerUnavailable`),
+    usingSafeFallback: t(`${p}.usingSafeFallback`),
+    noMatches: t(`${p}.noMatches`),
+    noAuthorizedSources: t(`${p}.noAuthorizedSources`),
+    supportCases: t(`${p}.supportCases`),
+    notifications: t(`${p}.notifications`),
+    organizationMembers: t(`${p}.organizationMembers`),
+    activity: t(`${p}.activity`),
+    businessProfile: t(`${p}.businessProfile`),
+    contentDraft: t(`${p}.contentDraft`),
+    knowledgeDraft: t(`${p}.knowledgeDraft`),
+    createSupportCase: t(`${p}.createSupportCase`),
+    replySupportCase: t(`${p}.replySupportCase`),
+    markAsRead: t(`${p}.markAsRead`),
+    createDraft: t(`${p}.createDraft`),
+    updateDraft: t(`${p}.updateDraft`),
+    rateLimited: t(`${p}.rateLimited`),
     suggestionKompis: t(`${p}.suggestionKompis`),
     suggestionLicense: t(`${p}.suggestionLicense`),
     suggestionDraftSupport: t(`${p}.suggestionDraftSupport`),
     suggestionDraftProfile: t(`${p}.suggestionDraftProfile`),
+    suggestionKnowledge: t(`${p}.suggestionKnowledge`),
+    suggestionMembers: t(`${p}.suggestionMembers`),
+    suggestionActivity: t(`${p}.suggestionActivity`),
     reasonPlaceholder: t(`${p}.reasonPlaceholder`),
     emptyHistory: t(`${p}.emptyHistory`),
     statusLabel: t(`${p}.statusLabel`),
