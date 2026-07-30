@@ -32,6 +32,7 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
       { id: "operationsOverview", labelKey: "platform.nav.operationsOverview" },
       { id: "platformHealth", labelKey: "platform.nav.platformHealth" },
       { id: "kompisAi", labelKey: "platform.nav.kompisAi" },
+      { id: "websiteReleaseVerification", labelKey: "platform.nav.websiteReleaseVerification" },
       { id: "deployments", labelKey: "platform.nav.deployments" },
       { id: "operationsAuditLogs", labelKey: "platform.nav.operationsAuditLogs" },
     ],

@@ -71,6 +71,7 @@ export type PlatformNavId =
   | "marketingSeo"
   | "websiteIntelligence"
   | "websiteGovernance"
+  | "websiteReleaseVerification"
   | "analyticsCustomerJourneys"
   | "stats"
   | "support"
@@ -510,6 +511,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.websiteGovernance",
   },
   {
+    id: "websiteReleaseVerification",
+    href: "/platform/website-verification",
+    labelKey: "platform.nav.websiteReleaseVerification",
+  },
+  {
     id: "marketingSeo",
     href: "/platform/marketing/seo",
     labelKey: "platform.nav.marketingSeo",
@@ -631,6 +637,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/analytics/customer-journeys")) return "analyticsCustomerJourneys";
   if (pathname.startsWith("/platform/analytics")) return "analyticsCustomerJourneys";
   if (pathname.startsWith("/platform/website-intelligence")) return "websiteIntelligence";
+  if (pathname.startsWith("/platform/website-verification")) return "websiteReleaseVerification";
   if (pathname.startsWith("/platform/website-governance")) return "websiteGovernance";
   if (pathname.startsWith("/platform/marketing/seo")) return "marketingSeo";
   if (pathname.startsWith("/platform/metrics")) return "metrics";

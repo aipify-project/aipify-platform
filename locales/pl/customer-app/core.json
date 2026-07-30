@@ -575,5 +575,14 @@
     "previewNotFoundTitle": "Nie znaleziono podglądu",
     "previewNotFoundBody": "Ten podgląd mógł wygasnąć lub już nie istnieje.",
     "previewBackToWorkspace": "Powrót do przestrzeni roboczej Kompis"
+  },
+  "customerApp": {
+    "websiteCms": {
+      "releaseChainVerified": "Łańcuch publikacji został zweryfikowany",
+      "releaseChainCodeReady": "Łańcuch publikacji jest gotowy w kodzie, ale nie zweryfikowany na żywo",
+      "releaseChainRunning": "Weryfikacja staging trwa",
+      "releaseChainAttention": "Weryfikacja staging wymaga działań",
+      "releaseChainBlocked": "Łańcuch publikacji jest zablokowany"
+    }
   }
 }

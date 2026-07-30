@@ -80,6 +80,11 @@ export type WebsiteCmsLabels = {
   previewNotFoundTitle: string;
   previewNotFoundBody: string;
   previewBackToWorkspace: string;
+  releaseChainVerified: string;
+  releaseChainCodeReady: string;
+  releaseChainRunning: string;
+  releaseChainAttention: string;
+  releaseChainBlocked: string;
 };
 
 export function buildWebsiteCmsLabels(t: Translator): WebsiteCmsLabels {
@@ -163,7 +168,44 @@ export function buildWebsiteCmsLabels(t: Translator): WebsiteCmsLabels {
     previewNotFoundTitle: t(`${p}.previewNotFoundTitle`),
     previewNotFoundBody: t(`${p}.previewNotFoundBody`),
     previewBackToWorkspace: t(`${p}.previewBackToWorkspace`),
+    releaseChainVerified: t(`${p}.releaseChainVerified`),
+    releaseChainCodeReady: t(`${p}.releaseChainCodeReady`),
+    releaseChainRunning: t(`${p}.releaseChainRunning`),
+    releaseChainAttention: t(`${p}.releaseChainAttention`),
+    releaseChainBlocked: t(`${p}.releaseChainBlocked`),
   };
+}
+
+export function websiteCmsReleaseChainLabelKey(
+  status: string,
+): keyof WebsiteCmsLabels {
+  switch (status) {
+    case "verified":
+      return "releaseChainVerified";
+    case "running":
+      return "releaseChainRunning";
+    case "attention":
+      return "releaseChainAttention";
+    case "blocked":
+      return "releaseChainBlocked";
+    default:
+      return "releaseChainCodeReady";
+  }
+}
+
+/** Green only after full publish + second publish + rollback runtime proof. */
+export function websiteCmsReleaseChainTone(status: string): KompisOperatorSeverityTone {
+  switch (status) {
+    case "verified":
+      return "success";
+    case "running":
+    case "attention":
+      return "warning";
+    case "blocked":
+      return "danger";
+    default:
+      return "info";
+  }
 }
 
 export function websiteCmsStatusLabelKey(status: string): keyof WebsiteCmsLabels {

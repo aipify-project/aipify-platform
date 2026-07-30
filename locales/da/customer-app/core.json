@@ -7039,5 +7039,14 @@
     "previewNotFoundTitle": "Forhåndsvisning ikke fundet",
     "previewNotFoundBody": "Denne forhåndsvisning kan være udløbet eller findes ikke længere.",
     "previewBackToWorkspace": "Tilbage til Kompis-arbejdsområdet"
+  },
+  "customerApp": {
+    "websiteCms": {
+      "releaseChainVerified": "Publiceringskæden er verificeret",
+      "releaseChainCodeReady": "Publiceringskæden er kodeklar, men ikke live-verificeret",
+      "releaseChainRunning": "Staging-verificering er i gang",
+      "releaseChainAttention": "Staging-verificering kræver opfølgning",
+      "releaseChainBlocked": "Publiceringskæden er blokeret"
+    }
   }
 }

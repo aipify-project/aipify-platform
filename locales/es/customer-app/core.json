@@ -485,5 +485,14 @@
     "previewNotFoundTitle": "Vista previa no encontrada",
     "previewNotFoundBody": "Esta vista previa puede haber vencido o ya no existe.",
     "previewBackToWorkspace": "Volver al espacio de trabajo de Kompis"
+  },
+  "customerApp": {
+    "websiteCms": {
+      "releaseChainVerified": "La cadena de publicación está verificada",
+      "releaseChainCodeReady": "La cadena de publicación está lista en código, pero no verificada en vivo",
+      "releaseChainRunning": "Verificación de staging en curso",
+      "releaseChainAttention": "La verificación de staging requiere seguimiento",
+      "releaseChainBlocked": "La cadena de publicación está bloqueada"
+    }
   }
 }
