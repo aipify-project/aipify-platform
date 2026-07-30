@@ -4,6 +4,17 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { createKompisOperatorIdempotencyKey } from "./ids";
 import type { KompisOperatorPlan, KompisOperatorPlanStep } from "./planner";
 import { getKompisOperatorTool } from "./tools-registry";
+import { resolveKompisWebsiteContext } from "./website-context";
+import {
+  buildWebsiteContentQualityAudit,
+  buildWebsiteDraftPreview,
+  buildWebsiteLocaleCoverage,
+  buildWebsiteSeoAudit,
+  isWebsiteDraftKind,
+  listWebsiteDraftPages,
+  validateWebsiteDraftInput,
+  type WebsiteDraftKind,
+} from "./website-ops";
 
 type ToolResult = {
   ok: boolean;
@@ -407,6 +418,248 @@ async function executeTool(
           : "Draft update needs follow-up verification.",
         data: draft,
         errorCode: verified ? undefined : "draft_verify_uncertain",
+      };
+    }
+    case "website_overview_read":
+    case "website_health_read": {
+      const context = await resolveKompisWebsiteContext(supabase);
+      return {
+        ok: true,
+        verified: Boolean(context.organizationId),
+        summary: "Website operations context loaded.",
+        data: { context },
+      };
+    }
+    case "website_pages_read":
+    case "website_navigation_read":
+    case "website_publish_history_read":
+    case "website_preview_status_read": {
+      const listed = await listWebsiteDraftPages(supabase, 50);
+      if (!listed.ok) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "Website pages could not be loaded.",
+          errorCode: listed.errorCode,
+        };
+      }
+      const pages =
+        step.toolKey === "website_navigation_read"
+          ? listed.pages.filter((page) => page.draftKind === "website_navigation")
+          : listed.pages;
+      return {
+        ok: true,
+        verified: true,
+        summary:
+          step.toolKey === "website_publish_history_read"
+            ? "No authoritative website publish history is available in V4."
+            : `Loaded ${pages.length} website draft items.`,
+        data: {
+          count: pages.length,
+          pages,
+          authoritativePageModel: false,
+          publishHistory: [],
+          publishCapability: false,
+          previewCapability: true,
+        },
+      };
+    }
+    case "website_page_read": {
+      const draftId = typeof safeInput.draftId === "string" ? safeInput.draftId : "";
+      if (!draftId) {
+        return { ok: false, verified: false, summary: "Draft id is required.", errorCode: "invalid_input" };
+      }
+      const { data, error } = await supabase.rpc("get_app_kompis_operator_draft", {
+        p_draft_id: draftId,
+      });
+      if (error) {
+        return { ok: false, verified: false, summary: "Website page draft was not found.", errorCode: "draft_not_found" };
+      }
+      const draft = asRecord(data);
+      if (typeof draft.draft_kind !== "string" || !String(draft.draft_kind).startsWith("website_")) {
+        return { ok: false, verified: false, summary: "Draft is not a website draft.", errorCode: "invalid_draft_kind" };
+      }
+      return {
+        ok: true,
+        verified: draft.organization_id === organizationId && draft.published !== true,
+        summary: "Website page draft loaded.",
+        data: { page: draft },
+      };
+    }
+    case "website_seo_audit": {
+      const listed = await listWebsiteDraftPages(supabase, 50);
+      const context = await resolveKompisWebsiteContext(supabase);
+      const audit = buildWebsiteSeoAudit({
+        context,
+        pages: listed.pages.map((page) => ({ ...page, body: page })),
+      });
+      return {
+        ok: true,
+        verified: true,
+        summary: `SEO audit completed with ${audit.findingCount} findings.`,
+        data: audit,
+      };
+    }
+    case "website_content_quality_audit": {
+      const listed = await listWebsiteDraftPages(supabase, 50);
+      const audit = buildWebsiteContentQualityAudit(
+        listed.pages.map((page) => ({ ...page, body: page })),
+      );
+      return {
+        ok: true,
+        verified: true,
+        summary: `Content quality audit completed with ${audit.findingCount} findings.`,
+        data: audit,
+      };
+    }
+    case "website_locale_coverage_read": {
+      const listed = await listWebsiteDraftPages(supabase, 100);
+      return {
+        ok: true,
+        verified: true,
+        summary: "Locale coverage loaded for website drafts.",
+        data: buildWebsiteLocaleCoverage(listed.pages),
+      };
+    }
+    case "website_page_draft_create":
+    case "website_seo_draft_update":
+    case "website_navigation_draft_update":
+    case "website_translation_draft_create":
+    case "website_section_draft_update":
+    case "website_image_metadata_draft_update": {
+      const kindMap: Record<string, WebsiteDraftKind> = {
+        website_page_draft_create: "website_page",
+        website_seo_draft_update: "website_seo",
+        website_navigation_draft_update: "website_navigation",
+        website_translation_draft_create: "website_translation",
+        website_section_draft_update: "website_section",
+        website_image_metadata_draft_update: "website_image_metadata",
+      };
+      const kind = kindMap[step.toolKey];
+      if (!kind || !isWebsiteDraftKind(kind)) {
+        return { ok: false, verified: false, summary: "Invalid website draft kind.", errorCode: "invalid_draft_kind" };
+      }
+      const context = await resolveKompisWebsiteContext(supabase);
+      const validated = validateWebsiteDraftInput({
+        kind,
+        title: safeInput.title,
+        locale: safeInput.locale ?? context.defaultLocale,
+        path: safeInput.path,
+        text: safeInput.text,
+        metaDescription: safeInput.metaDescription,
+        canonicalUrl: safeInput.canonicalUrl,
+        altText: safeInput.altText,
+        navigation: safeInput.navigation,
+        activeLocales: context.supportedLocales,
+      });
+      if (!validated.ok) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "Website draft input was rejected.",
+          errorCode: validated.errorCode,
+        };
+      }
+      const idempotencyKey =
+        typeof safeInput.idempotencyKey === "string" && safeInput.idempotencyKey
+          ? safeInput.idempotencyKey
+          : createKompisOperatorIdempotencyKey();
+      const { data, error } = await supabase.rpc("create_app_kompis_operator_draft", {
+        p_draft_kind: kind,
+        p_title: validated.title,
+        p_locale: validated.locale,
+        p_body: validated.body,
+        p_idempotency_key: idempotencyKey,
+        p_run_id: runId,
+      });
+      if (error) {
+        return { ok: false, verified: false, summary: "Website draft could not be created.", errorCode: "draft_create_failed" };
+      }
+      const draft = asRecord(data);
+      const verified = await verifyDraft(supabase, String(draft.id ?? ""), organizationId);
+      return {
+        ok: verified,
+        verified,
+        changed: draft.idempotent_replay !== true,
+        summary: verified
+          ? "Website draft created. Nothing was published."
+          : "Website draft needs follow-up verification.",
+        data: draft,
+        errorCode: verified ? undefined : "draft_verify_uncertain",
+      };
+    }
+    case "website_page_draft_update": {
+      const draftId = typeof safeInput.draftId === "string" ? safeInput.draftId : "";
+      const expectedVersion =
+        typeof safeInput.expectedVersion === "number" ? safeInput.expectedVersion : null;
+      if (!draftId || expectedVersion == null) {
+        return { ok: false, verified: false, summary: "Draft id and version are required.", errorCode: "invalid_input" };
+      }
+      const context = await resolveKompisWebsiteContext(supabase);
+      const validated = validateWebsiteDraftInput({
+        kind: "website_page",
+        title: safeInput.title,
+        locale: safeInput.locale ?? context.defaultLocale,
+        path: safeInput.path,
+        text: safeInput.text,
+        metaDescription: safeInput.metaDescription,
+        canonicalUrl: safeInput.canonicalUrl,
+        activeLocales: context.supportedLocales,
+      });
+      if (!validated.ok) {
+        return { ok: false, verified: false, summary: "Website draft update rejected.", errorCode: validated.errorCode };
+      }
+      const { data, error } = await supabase.rpc("update_app_kompis_operator_draft", {
+        p_draft_id: draftId,
+        p_title: validated.title,
+        p_body: validated.body,
+        p_expected_version: expectedVersion,
+      });
+      if (error) {
+        const code = /VERSION_CONFLICT/i.test(error.message)
+          ? "draft_version_conflict"
+          : "draft_update_failed";
+        return { ok: false, verified: false, summary: "Website draft could not be updated.", errorCode: code };
+      }
+      const draft = asRecord(data);
+      const verified = await verifyDraft(supabase, String(draft.id ?? draftId), organizationId);
+      return {
+        ok: verified,
+        verified,
+        changed: true,
+        summary: verified
+          ? "Website draft updated. Nothing was published."
+          : "Website draft update needs follow-up verification.",
+        data: draft,
+        errorCode: verified ? undefined : "draft_verify_uncertain",
+      };
+    }
+    case "website_draft_preview_create": {
+      const draftId = typeof safeInput.draftId === "string" ? safeInput.draftId : "";
+      if (!draftId) {
+        return { ok: false, verified: false, summary: "Draft id is required for preview.", errorCode: "invalid_input" };
+      }
+      const { data: draftData, error: draftError } = await supabase.rpc("get_app_kompis_operator_draft", {
+        p_draft_id: draftId,
+      });
+      if (draftError) {
+        return { ok: false, verified: false, summary: "Draft was not found.", errorCode: "draft_not_found" };
+      }
+      const draft = asRecord(draftData);
+      const preview = buildWebsiteDraftPreview(draft);
+      const { data, error } = await supabase.rpc("create_app_kompis_website_ops_preview", {
+        p_draft_id: draftId,
+        p_preview_payload: preview,
+      });
+      if (error) {
+        return { ok: false, verified: false, summary: "Preview could not be created.", errorCode: "preview_create_failed" };
+      }
+      return {
+        ok: true,
+        verified: true,
+        changed: true,
+        summary: "Draft preview created. Production was not changed.",
+        data: asRecord(data),
       };
     }
     default: {

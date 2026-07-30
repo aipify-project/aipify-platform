@@ -6938,6 +6938,26 @@
     "liveAiActive": "Live AI är aktiv",
     "liveAiNotEnabled": "Live AI är inte aktiverad",
     "liveAiTemporarilyLimited": "Live AI ar tillfalligt begransad",
-    "continuesWithSafeFallback": "Tillgängliga uppgifter körs med säker reservplanering"
+    "continuesWithSafeFallback": "Tillgängliga uppgifter körs med säker reservplanering",
+    "websiteTab": "Webbplats",
+    "tasksTab": "Uppgifter",
+    "websiteOverview": "Webbplatsöversikt",
+    "websitePages": "Sidor",
+    "websiteSeo": "SEO",
+    "websiteLocales": "Språk",
+    "websiteDrafts": "Utkast",
+    "websitePublishes": "Publiceringar",
+    "primaryDomain": "Primärdomän",
+    "installation": "Installation",
+    "currentVersion": "Aktuell version",
+    "lastPublish": "Senaste publicering",
+    "runtimeStatus": "Körningsstatus",
+    "draftCount": "Antal utkast",
+    "publishUnavailable": "Ingen publiceringsmekanism är tillgänglig",
+    "draftsOnlyReady": "Kompis kan fortfarande skapa säkra utkast och analyser",
+    "suggestionWebsite": "Kontrollera webbplatsen",
+    "suggestionSeo": "Kontrollera SEO",
+    "approveAndCreateDraft": "Godkänn och skapa utkast",
+    "noPublishMechanism": "Kompis kan fortfarande skapa säkra utkast och analyser"
   }
 }

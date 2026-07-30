@@ -6938,6 +6938,26 @@
     "liveAiActive": "Live AI er aktiv",
     "liveAiNotEnabled": "Live AI er ikke aktivert",
     "liveAiTemporarilyLimited": "Live AI er midlertidig begrenset",
-    "continuesWithSafeFallback": "Tilgjengelige oppgaver utføres med sikker reserveplanlegging"
+    "continuesWithSafeFallback": "Tilgjengelige oppgaver utføres med sikker reserveplanlegging",
+    "websiteTab": "Nettsted",
+    "tasksTab": "Oppgaver",
+    "websiteOverview": "Nettstedsoversikt",
+    "websitePages": "Sider",
+    "websiteSeo": "SEO",
+    "websiteLocales": "Språk",
+    "websiteDrafts": "Utkast",
+    "websitePublishes": "Publiseringer",
+    "primaryDomain": "Primærdomene",
+    "installation": "Installasjon",
+    "currentVersion": "Gjeldende versjon",
+    "lastPublish": "Siste publisering",
+    "runtimeStatus": "Runtime-status",
+    "draftCount": "Antall utkast",
+    "publishUnavailable": "Ingen publiseringsmekanisme er tilgjengelig",
+    "draftsOnlyReady": "Kompis kan fortsatt lage sikre utkast og analyser",
+    "suggestionWebsite": "Kontroller nettstedet",
+    "suggestionSeo": "Kontroller SEO",
+    "approveAndCreateDraft": "Godkjenn og opprett utkast",
+    "noPublishMechanism": "Kompis kan fortsatt lage sikre utkast og analyser"
   }
 }

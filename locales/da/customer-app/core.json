@@ -6938,6 +6938,26 @@
     "liveAiActive": "Live AI er aktiv",
     "liveAiNotEnabled": "Live AI er ikke aktiveret",
     "liveAiTemporarilyLimited": "Live AI er midlertidigt begraenset",
-    "continuesWithSafeFallback": "Tilgængelige opgaver udføres med sikker reserveplanlægning"
+    "continuesWithSafeFallback": "Tilgængelige opgaver udføres med sikker reserveplanlægning",
+    "websiteTab": "Websted",
+    "tasksTab": "Opgaver",
+    "websiteOverview": "Webstedsoversigt",
+    "websitePages": "Sider",
+    "websiteSeo": "SEO",
+    "websiteLocales": "Sprog",
+    "websiteDrafts": "Kladder",
+    "websitePublishes": "Publiceringer",
+    "primaryDomain": "Primært domæne",
+    "installation": "Installation",
+    "currentVersion": "Aktuel version",
+    "lastPublish": "Seneste publicering",
+    "runtimeStatus": "Runtime-status",
+    "draftCount": "Antal kladder",
+    "publishUnavailable": "Ingen publiceringsmekanisme er tilgængelig",
+    "draftsOnlyReady": "Kompis kan stadig lave sikre kladder og analyser",
+    "suggestionWebsite": "Kontrollér webstedet",
+    "suggestionSeo": "Kontrollér SEO",
+    "approveAndCreateDraft": "Godkend og opret kladde",
+    "noPublishMechanism": "Kompis kan stadig lave sikre kladder og analyser"
   }
 }

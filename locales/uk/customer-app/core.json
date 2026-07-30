@@ -474,6 +474,26 @@
     "liveAiActive": "Live AI aktyvnyi",
     "liveAiNotEnabled": "Live AI ne aktyvovano",
     "liveAiTemporarilyLimited": "Live AI tymchasovo obmezheno",
-    "continuesWithSafeFallback": "Dostupni zavdannia vykonuiutsia z bezpechnym rezervnym planuvanniam"
+    "continuesWithSafeFallback": "Dostupni zavdannia vykonuiutsia z bezpechnym rezervnym planuvanniam",
+    "websiteTab": "Сайт",
+    "tasksTab": "Завдання",
+    "websiteOverview": "Огляд сайту",
+    "websitePages": "Сторінки",
+    "websiteSeo": "SEO",
+    "websiteLocales": "Мови",
+    "websiteDrafts": "Чернетки",
+    "websitePublishes": "Публікації",
+    "primaryDomain": "Основний домен",
+    "installation": "Встановлення",
+    "currentVersion": "Поточна версія",
+    "lastPublish": "Остання публікація",
+    "runtimeStatus": "Статус середовища",
+    "draftCount": "Кількість чернеток",
+    "publishUnavailable": "Механізм публікації недоступний",
+    "draftsOnlyReady": "Kompis і надалі може створювати безпечні чернетки та аналізи",
+    "suggestionWebsite": "Перевірити сайт",
+    "suggestionSeo": "Перевірити SEO",
+    "approveAndCreateDraft": "Схвалити та створити чернетку",
+    "noPublishMechanism": "Kompis і надалі може створювати безпечні чернетки та аналізи"
   }
 }

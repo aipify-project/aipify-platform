@@ -384,6 +384,26 @@
     "liveAiActive": "La IA en vivo esta activa",
     "liveAiNotEnabled": "La IA en vivo no esta activada",
     "liveAiTemporarilyLimited": "La IA en vivo esta temporalmente limitada",
-    "continuesWithSafeFallback": "Las tareas disponibles se ejecutan con planificacion de reserva segura"
+    "continuesWithSafeFallback": "Las tareas disponibles se ejecutan con planificacion de reserva segura",
+    "websiteTab": "Sitio web",
+    "tasksTab": "Tareas",
+    "websiteOverview": "Resumen del sitio",
+    "websitePages": "Páginas",
+    "websiteSeo": "SEO",
+    "websiteLocales": "Idiomas",
+    "websiteDrafts": "Borradores",
+    "websitePublishes": "Publicaciones",
+    "primaryDomain": "Dominio principal",
+    "installation": "Instalación",
+    "currentVersion": "Versión actual",
+    "lastPublish": "Última publicación",
+    "runtimeStatus": "Estado del runtime",
+    "draftCount": "Número de borradores",
+    "publishUnavailable": "No hay un mecanismo de publicación disponible",
+    "draftsOnlyReady": "Kompis aún puede crear borradores y análisis seguros",
+    "suggestionWebsite": "Revisar el sitio web",
+    "suggestionSeo": "Revisar SEO",
+    "approveAndCreateDraft": "Aprobar y crear borrador",
+    "noPublishMechanism": "Kompis aún puede crear borradores y análisis seguros"
   }
 }
