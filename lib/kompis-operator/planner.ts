@@ -4,7 +4,6 @@ import {
   type KompisAiPlanCandidate,
   type KompisAiProviderStatus,
 } from "./ai-runtime";
-import { createKompisOperatorIdempotencyKey } from "./ids";
 import {
   getKompisOperatorTool,
   isKompisOperatorToolKey,
@@ -453,19 +452,25 @@ function validateAiCandidate(candidate: KompisAiPlanCandidate): KompisOperatorPl
   };
 }
 
-export async function planKompisOperatorRequest(rawRequest: string): Promise<KompisOperatorPlan> {
+export async function planKompisOperatorRequest(
+  rawRequest: string,
+  options?: { supabase?: import("@supabase/supabase-js").SupabaseClient; organizationId?: string | null },
+): Promise<KompisOperatorPlan> {
   const deterministic = planKompisOperatorRequestDeterministic(rawRequest);
   const runtime = getKompisAiRuntimeStatus();
   if (!runtime.liveAiActive) {
     return deterministic;
   }
 
-  const ai = await requestKompisAiPlan(rawRequest);
+  const ai = await requestKompisAiPlan(rawRequest, {
+    supabase: options?.supabase,
+    organizationId: options?.organizationId,
+  });
   if (!ai.ok || !ai.candidate) {
     return {
       ...deterministic,
       plannerSource: "ai_fallback",
-      providerStatus: ai.status,
+      providerStatus: ai.status === "cooldown" ? "cooldown" : "fallback",
     };
   }
 

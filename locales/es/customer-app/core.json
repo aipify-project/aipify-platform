@@ -380,6 +380,10 @@
     "rateLimited": "Demasiadas solicitudes. Inténtalo de nuevo en breve.",
     "suggestionKnowledge": "Buscar conocimiento autorizado",
     "suggestionMembers": "Mostrar miembros de la organización",
-    "suggestionActivity": "Mostrar la actividad reciente"
+    "suggestionActivity": "Mostrar la actividad reciente",
+    "liveAiActive": "La IA en vivo esta activa",
+    "liveAiNotEnabled": "La IA en vivo no esta activada",
+    "liveAiTemporarilyLimited": "La IA en vivo esta temporalmente limitada",
+    "continuesWithSafeFallback": "Las tareas disponibles se ejecutan con planificacion de reserva segura"
   }
 }

@@ -6,14 +6,18 @@ export async function assertKompisOperatorRateLimit(input: {
   supabase: SupabaseClient;
   userId: string;
   organizationId: string;
-  kind: "plan" | "execute" | "write";
+  kind: "plan" | "execute" | "write" | "live" | "health";
 }): Promise<{ allowed: boolean; resetInSeconds?: number }> {
   const limits =
     input.kind === "write"
       ? { perMinute: 10, perHour: 40 }
       : input.kind === "execute"
         ? { perMinute: 20, perHour: 120 }
-        : { perMinute: 30, perHour: 200 };
+        : input.kind === "live"
+          ? { perMinute: 12, perHour: 80 }
+          : input.kind === "health"
+            ? { perMinute: 4, perHour: 20 }
+            : { perMinute: 30, perHour: 200 };
 
   const minuteKey = `kompis:${input.kind}:user:${input.userId}:org:${input.organizationId}:m`;
   const hourKey = `kompis:${input.kind}:user:${input.userId}:org:${input.organizationId}:h`;

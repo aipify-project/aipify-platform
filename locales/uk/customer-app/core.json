@@ -470,6 +470,10 @@
     "rateLimited": "Забагато запитів. Спробуйте знову незабаром.",
     "suggestionKnowledge": "Шукати в дозволених знаннях",
     "suggestionMembers": "Показати учасників організації",
-    "suggestionActivity": "Показати останню активність"
+    "suggestionActivity": "Показати останню активність",
+    "liveAiActive": "Live AI aktyvnyi",
+    "liveAiNotEnabled": "Live AI ne aktyvovano",
+    "liveAiTemporarilyLimited": "Live AI tymchasovo obmezheno",
+    "continuesWithSafeFallback": "Dostupni zavdannia vykonuiutsia z bezpechnym rezervnym planuvanniam"
   }
 }

@@ -42,6 +42,25 @@ export function runStatusTone(status: string): KompisOperatorSeverityTone {
   }
 }
 
+export function providerReadinessTone(
+  status: "not_configured" | "ready" | "degraded" | "cooldown" | "unavailable" | "disabled" | string,
+): KompisOperatorSeverityTone {
+  switch (status) {
+    case "ready":
+      return "success";
+    case "degraded":
+    case "cooldown":
+      return "warning";
+    case "unavailable":
+      return "danger";
+    case "disabled":
+      return "muted";
+    case "not_configured":
+    default:
+      return "info";
+  }
+}
+
 export const SEVERITY_BADGE_CLASS: Record<KompisOperatorSeverityTone, string> = {
   neutral:
     "border-violet-200 bg-violet-50 text-violet-900 dark:border-violet-700 dark:bg-violet-950/40 dark:text-violet-200",

@@ -53,7 +53,17 @@ export async function POST(
       );
     }
 
-    const plan = await planKompisOperatorRequest(parsedBody.requestText);
+    const liveRate = await assertKompisOperatorRateLimit({
+      supabase,
+      userId: user.id,
+      organizationId: access.context.organization_id ?? "unknown",
+      kind: "live",
+    });
+
+    const plan = await planKompisOperatorRequest(parsedBody.requestText, {
+      supabase: liveRate.allowed ? supabase : undefined,
+      organizationId: access.context.organization_id,
+    });
     if (plan.riskClass === 3 || plan.unavailableReason === "critical_blocked") {
       return NextResponse.json(
         {

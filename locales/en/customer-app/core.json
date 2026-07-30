@@ -6923,6 +6923,10 @@
     "rateLimited": "Too many requests. Try again shortly.",
     "suggestionKnowledge": "Search authorized knowledge",
     "suggestionMembers": "Show organization members",
-    "suggestionActivity": "Show latest activity"
+    "suggestionActivity": "Show latest activity",
+    "liveAiActive": "Live AI is active",
+    "liveAiNotEnabled": "Live AI is not enabled",
+    "liveAiTemporarilyLimited": "Live AI is temporarily limited",
+    "continuesWithSafeFallback": "Available tasks run with secure fallback planning"
   }
 }

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getKompisAiRuntimeStatus } from "@/lib/kompis-operator/ai-runtime";
+import { buildKompisAiReadiness, getKompisAiRuntimeStatus } from "@/lib/kompis-operator/ai-runtime";
 import { mapKompisOperatorRpcError, parseWorkspace } from "@/lib/kompis-operator/parse";
 import { listAvailableKompisOperatorTools, KOMPIS_OPERATOR_TOOL_REGISTRY } from "@/lib/kompis-operator/tools-registry";
 import { requireReadyAppPortalContext } from "@/lib/tenant/app-portal-route-access";
@@ -31,11 +31,17 @@ export async function GET() {
     if (!parsed) {
       return NextResponse.json({ error: "Unable to load Kompis workspace.", code: "unknown" }, { status: 500, headers });
     }
-    const ai = getKompisAiRuntimeStatus();
+    let providerState: Record<string, unknown> = {};
+    const stateRes = await supabase.rpc("get_app_kompis_ai_provider_state");
+    if (!stateRes.error && stateRes.data && typeof stateRes.data === "object") {
+      providerState = stateRes.data as Record<string, unknown>;
+    }
+    const runtime = getKompisAiRuntimeStatus(providerState);
     return NextResponse.json(
       {
         ...parsed,
-        ai,
+        ai: runtime,
+        readiness: buildKompisAiReadiness(providerState),
         tools: {
           available: listAvailableKompisOperatorTools().map((tool) => ({
             key: tool.key,
