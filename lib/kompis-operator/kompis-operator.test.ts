@@ -178,12 +178,12 @@ async function runKompisWebsiteOperationsV4Tests() {
 
   assert.equal(PLANNER_VERSION, "planner_v4");
   assert.ok(getKompisOperatorTool("website_overview_read")?.available);
-  assert.equal(getKompisOperatorTool("website_publish_approved_draft")?.available, false);
-  assert.equal(getKompisOperatorTool("website_publish_rollback")?.available, false);
-  assert.match(
-    String(getKompisOperatorTool("website_publish_approved_draft")?.unavailableReason),
-    /no_authoritative_website_cms_publish_path_v4/,
-  );
+  // Website CMS publish/rollback v1: the static registry entries are now
+  // available; the Website CMS context gates the actual publish/rollback at
+  // runtime via `publishCapability` / `rollbackCapability` (see
+  // lib/website-cms/v4-adapter.ts and lib/kompis-operator/executor.ts).
+  assert.equal(getKompisOperatorTool("website_publish_approved_draft")?.available, true);
+  assert.equal(getKompisOperatorTool("website_publish_rollback")?.available, true);
 
   const seo = planKompisOperatorRequestSync("Kontroller SEO på nettsiden");
   assert.equal(seo.riskClass, 0);
@@ -195,8 +195,14 @@ async function runKompisWebsiteOperationsV4Tests() {
 
   const publish = planKompisOperatorRequestSync("Publiser det godkjente utkastet");
   assert.equal(publish.riskClass, 2);
-  assert.equal(publish.steps.length, 0);
-  assert.match(String(publish.unavailableReason), /no_authoritative_website_cms_publish_path_v4/);
+  assert.equal(publish.steps.length, 1);
+  assert.equal(publish.steps[0]?.toolKey, "website_publish_approved_draft");
+  assert.equal(publish.unavailableReason, undefined);
+
+  const rollback = planKompisOperatorRequestSync("Rull tilbake nettsiden til forrige versjon");
+  assert.equal(rollback.riskClass, 2);
+  assert.equal(rollback.steps.length, 1);
+  assert.equal(rollback.steps[0]?.toolKey, "website_publish_rollback");
 
   const criticalSite = planKompisOperatorRequestSync("Slett hele nettsiden");
   assert.equal(criticalSite.riskClass, 3);
@@ -283,7 +289,8 @@ async function runKompisWebsiteOperationsV4Tests() {
   assert.equal(riskClassTone(3, "pending"), "danger");
 
   assert.ok(listAvailableKompisOperatorTools().some((tool) => tool.key === "website_overview_read"));
-  assert.ok(KOMPIS_OPERATOR_TOOL_REGISTRY.some((tool) => tool.key === "website_publish_approved_draft" && !tool.available));
+  assert.ok(KOMPIS_OPERATOR_TOOL_REGISTRY.some((tool) => tool.key === "website_publish_approved_draft" && tool.available));
+  assert.ok(KOMPIS_OPERATOR_TOOL_REGISTRY.some((tool) => tool.key === "website_publish_rollback" && tool.available));
 
   const root = process.cwd();
   for (const locale of locales) {
@@ -315,7 +322,9 @@ async function runKompisWebsiteOperationsV4Tests() {
   ].join("\n");
   assert.doesNotMatch(source, /unonight/i);
   assert.match(source, /website_overview_read/);
-  assert.match(source, /no_authoritative_website_cms_publish_path_v4/);
+  // Website CMS publish/rollback v1 replaced the static V4 "no publish path"
+  // placeholder with runtime capability gating via the CMS context.
+  assert.match(source, /publishCapability|website_publish_capability_not_ready/);
   assert.match(source, /planner_v4/);
 
   console.log("kompis-website-operations-v4: all tests passed");

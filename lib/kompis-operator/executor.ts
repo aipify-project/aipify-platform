@@ -15,6 +15,13 @@ import {
   validateWebsiteDraftInput,
   type WebsiteDraftKind,
 } from "./website-ops";
+import { resolveWebsiteCmsContext } from "../website-cms/context";
+import {
+  createWebsitePublishIdempotencyKey,
+  createWebsiteRollbackIdempotencyKey,
+  publishWebsiteCandidate,
+} from "../website-cms/publish";
+import { rollbackWebsiteVersion } from "../website-cms/rollback";
 
 type ToolResult = {
   ok: boolean;
@@ -432,7 +439,6 @@ async function executeTool(
     }
     case "website_pages_read":
     case "website_navigation_read":
-    case "website_publish_history_read":
     case "website_preview_status_read": {
       const listed = await listWebsiteDraftPages(supabase, 50);
       if (!listed.ok) {
@@ -447,21 +453,49 @@ async function executeTool(
         step.toolKey === "website_navigation_read"
           ? listed.pages.filter((page) => page.draftKind === "website_navigation")
           : listed.pages;
+      const context = await resolveKompisWebsiteContext(supabase);
       return {
         ok: true,
         verified: true,
-        summary:
-          step.toolKey === "website_publish_history_read"
-            ? "No authoritative website publish history is available in V4."
-            : `Loaded ${pages.length} website draft items.`,
+        summary: `Loaded ${pages.length} website draft items.`,
         data: {
           count: pages.length,
           pages,
-          authoritativePageModel: false,
-          publishHistory: [],
-          publishCapability: false,
-          previewCapability: true,
+          authoritativePageModel: context.authoritativePageModel,
+          publishCapability: context.publishCapability,
+          rollbackCapability: context.rollbackCapability,
+          previewCapability: context.previewCapability,
+          currentVersion: context.currentVersion,
         },
+      };
+    }
+    case "website_publish_history_read": {
+      const cms = await resolveWebsiteCmsContext(supabase);
+      if (!cms.available || !cms.website) {
+        return {
+          ok: true,
+          verified: true,
+          summary: "No website has been provisioned yet, so there is no publish history.",
+          data: { count: 0, history: [], authoritativePageModel: false },
+        };
+      }
+      const { data, error } = await supabase.rpc("get_customer_website_publish_history", {
+        p_limit: 20,
+      });
+      if (error) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "Publish history could not be loaded.",
+          errorCode: "publish_history_read_failed",
+        };
+      }
+      const history = asArray(asRecord(data).operations);
+      return {
+        ok: true,
+        verified: true,
+        summary: `Loaded ${history.length} publish history entries.`,
+        data: { count: history.length, history, authoritativePageModel: true },
       };
     }
     case "website_page_read": {
@@ -660,6 +694,152 @@ async function executeTool(
         changed: true,
         summary: "Draft preview created. Production was not changed.",
         data: asRecord(data),
+      };
+    }
+    case "website_publish_approved_draft": {
+      const candidateId = typeof safeInput.candidateId === "string" ? safeInput.candidateId : "";
+      const confirmation = safeInput.confirmation === true;
+      if (!candidateId) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "A built candidate version is required before publishing.",
+          errorCode: "invalid_input",
+        };
+      }
+      if (!confirmation) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "Explicit confirmation is required before publishing to production.",
+          errorCode: "confirmation_required",
+        };
+      }
+      const cms = await resolveWebsiteCmsContext(supabase);
+      if (!cms.capabilities.publishCapability) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "The website is not ready to publish yet (delivery, acknowledgement, or preview verification missing).",
+          errorCode: "website_publish_capability_not_ready",
+        };
+      }
+      const internalReason =
+        typeof safeInput.internalReason === "string" && safeInput.internalReason.trim()
+          ? safeInput.internalReason.trim().slice(0, 500)
+          : "Published via Kompis after operator approval.";
+      const expectedCurrentVersionId =
+        typeof safeInput.expectedCurrentVersionId === "string"
+          ? safeInput.expectedCurrentVersionId
+          : (cms.website?.currentVersionId ?? null);
+      const idempotencyKey =
+        typeof safeInput.idempotencyKey === "string" && safeInput.idempotencyKey
+          ? safeInput.idempotencyKey
+          : createWebsitePublishIdempotencyKey();
+      const result = await publishWebsiteCandidate(supabase, {
+        candidateId,
+        expectedCurrentVersionId,
+        internalReason,
+        confirmation: true,
+        idempotencyKey,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "Website publish could not be completed.",
+          errorCode: result.errorCode,
+        };
+      }
+      const verified = result.status === "active" && result.runtimeVerification.verified;
+      return {
+        ok: true,
+        verified,
+        changed: !result.idempotentReplay,
+        summary: verified
+          ? "Website published and runtime-verified against the live domain."
+          : "Publish was recorded but still needs runtime verification.",
+        data: {
+          operationId: result.operationId,
+          status: result.status,
+          versionId: result.versionId ?? null,
+          versionNumber: result.versionNumber ?? null,
+          runtimeVerification: result.runtimeVerification,
+        },
+        errorCode: verified ? undefined : "publish_pending_verification",
+      };
+    }
+    case "website_publish_rollback": {
+      const targetVersionId = typeof safeInput.targetVersionId === "string" ? safeInput.targetVersionId : "";
+      const confirmation = safeInput.confirmation === true;
+      if (!targetVersionId) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "A target published version is required to roll back to.",
+          errorCode: "invalid_input",
+        };
+      }
+      if (!confirmation) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "Explicit confirmation is required before rolling back production.",
+          errorCode: "confirmation_required",
+        };
+      }
+      const cms = await resolveWebsiteCmsContext(supabase);
+      if (!cms.capabilities.rollbackCapability) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "Rollback is not available yet (no published version, delivery, or acknowledgement).",
+          errorCode: "website_rollback_capability_not_ready",
+        };
+      }
+      const internalReason =
+        typeof safeInput.internalReason === "string" && safeInput.internalReason.trim()
+          ? safeInput.internalReason.trim().slice(0, 500)
+          : "Rolled back via Kompis after operator approval.";
+      const expectedCurrentVersionId =
+        typeof safeInput.expectedCurrentVersionId === "string"
+          ? safeInput.expectedCurrentVersionId
+          : (cms.website?.currentVersionId ?? null);
+      const idempotencyKey =
+        typeof safeInput.idempotencyKey === "string" && safeInput.idempotencyKey
+          ? safeInput.idempotencyKey
+          : createWebsiteRollbackIdempotencyKey();
+      const result = await rollbackWebsiteVersion(supabase, {
+        targetVersionId,
+        expectedCurrentVersionId,
+        internalReason,
+        confirmation: true,
+        idempotencyKey,
+      });
+      if (!result.ok) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "Website rollback could not be completed.",
+          errorCode: result.errorCode,
+        };
+      }
+      const verified = result.status === "active" && result.runtimeVerification.verified;
+      return {
+        ok: true,
+        verified,
+        changed: !result.idempotentReplay,
+        summary: verified
+          ? "Website rolled back and runtime-verified against the live domain. Publish history was preserved."
+          : "Rollback was recorded but still needs runtime verification.",
+        data: {
+          operationId: result.operationId,
+          status: result.status,
+          versionId: result.versionId ?? null,
+          versionNumber: result.versionNumber ?? null,
+          runtimeVerification: result.runtimeVerification,
+        },
+        errorCode: verified ? undefined : "rollback_pending_verification",
       };
     }
     default: {

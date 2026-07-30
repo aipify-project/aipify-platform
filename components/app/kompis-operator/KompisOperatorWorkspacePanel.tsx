@@ -5,6 +5,12 @@ import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { createKompisOperatorIdempotencyKey } from "@/lib/kompis-operator/ids";
 import type { KompisOperatorLabels } from "@/lib/kompis-operator/labels";
 import { SEVERITY_BADGE_CLASS, riskClassTone, runStatusTone } from "@/lib/kompis-operator/severity";
+import type { WebsiteCmsLabels } from "@/lib/website-cms/labels";
+import {
+  websiteCmsOperationStatusTone,
+  websiteCmsVersionStatusTone,
+  websiteCmsWebsiteStatusTone,
+} from "@/lib/website-cms/labels";
 
 type Workspace = {
   available: boolean;
@@ -27,6 +33,51 @@ type Workspace = {
     liveAiActive?: boolean;
     providerConfigured?: boolean;
   };
+};
+
+type WebsiteCmsContextView = {
+  available: boolean;
+  organizationId: string | null;
+  domain: string | null;
+  acknowledgementOk: boolean;
+  website: {
+    id: string;
+    status: string;
+    defaultLocale: string;
+    activeLocales: string[];
+    currentVersionId: string | null;
+  } | null;
+  currentVersion: {
+    id: string;
+    versionNumber: number;
+    status: string;
+    previewVerifiedAt: string | null;
+  } | null;
+  capabilities: {
+    authoritativePageModel: boolean;
+    draftCapability: boolean;
+    previewCapability: boolean;
+    publishCapability: boolean;
+    rollbackCapability: boolean;
+  };
+};
+
+type WebsiteCmsVersionRow = {
+  id: string;
+  version_number: number;
+  status: string;
+  change_summary?: string | null;
+  preview_verified_at?: string | null;
+  created_at?: string | null;
+};
+
+type WebsiteCmsOperationRow = {
+  id: string;
+  operation_kind: string;
+  status: string;
+  resulting_version_id?: string | null;
+  error_code?: string | null;
+  created_at?: string | null;
 };
 
 type Conversation = { id: string; title: string; updated_at?: string };
@@ -59,9 +110,11 @@ function Badge({
 
 export function KompisOperatorWorkspacePanel({
   labels,
+  websiteCmsLabels,
   locale,
 }: {
   labels: KompisOperatorLabels;
+  websiteCmsLabels: WebsiteCmsLabels;
   locale: string;
 }) {
   const [workspace, setWorkspace] = useState<Workspace | null>(null);
@@ -82,6 +135,221 @@ export function KompisOperatorWorkspacePanel({
     locales?: { localeGaps?: number; pagesPerLocale?: Record<string, number> };
     tools?: { unavailable?: Array<{ key: string; reason: string }> };
   } | null>(null);
+
+  const [cms, setCms] = useState<WebsiteCmsContextView | null>(null);
+  const [cmsVersions, setCmsVersions] = useState<WebsiteCmsVersionRow[]>([]);
+  const [cmsHistory, setCmsHistory] = useState<WebsiteCmsOperationRow[]>([]);
+  const [selectedDraftIds, setSelectedDraftIds] = useState<string[]>([]);
+  const [candidateReason, setCandidateReason] = useState("");
+  const [candidate, setCandidate] = useState<{
+    candidateId: string;
+    versionNumber: number;
+    contentChecksum: string;
+    manifestChecksum: string;
+  } | null>(null);
+  const [previewInfo, setPreviewInfo] = useState<{
+    previewId: string;
+    expiresAt: string;
+    verified: boolean;
+  } | null>(null);
+  const [publishReason, setPublishReason] = useState("");
+  const [publishConfirmed, setPublishConfirmed] = useState(false);
+  const [rollbackTargetId, setRollbackTargetId] = useState<string | null>(null);
+  const [rollbackReason, setRollbackReason] = useState("");
+  const [rollbackConfirmed, setRollbackConfirmed] = useState(false);
+  const [rollbackPreviewId, setRollbackPreviewId] = useState<string | null>(null);
+  const [cmsMessage, setCmsMessage] = useState<string | null>(null);
+  const [cmsPending, startCmsTransition] = useTransition();
+
+  async function refreshCmsContext() {
+    const res = await fetch("/api/app/website", { cache: "no-store" });
+    if (!res.ok) return;
+    const body = (await res.json()) as { context?: WebsiteCmsContextView };
+    setCms(body.context ?? null);
+  }
+
+  async function refreshCmsVersions() {
+    const res = await fetch("/api/app/website/versions", { cache: "no-store" });
+    if (!res.ok) return;
+    const body = (await res.json()) as { versions?: WebsiteCmsVersionRow[] };
+    setCmsVersions(Array.isArray(body.versions) ? body.versions : []);
+  }
+
+  async function refreshCmsHistory() {
+    const res = await fetch("/api/app/website/publish/status", { cache: "no-store" });
+    if (!res.ok) return;
+    const body = (await res.json()) as { operations?: WebsiteCmsOperationRow[] };
+    setCmsHistory(Array.isArray(body.operations) ? body.operations : []);
+  }
+
+  function toggleDraftSelection(draftId: string) {
+    setSelectedDraftIds((prev) =>
+      prev.includes(draftId) ? prev.filter((id) => id !== draftId) : [...prev, draftId],
+    );
+  }
+
+  function buildCandidate() {
+    if (selectedDraftIds.length === 0) {
+      setCmsMessage(websiteCmsLabels.selectDrafts);
+      return;
+    }
+    startCmsTransition(async () => {
+      setCmsMessage(null);
+      const activeLocales = cms?.website?.activeLocales?.length ? cms.website.activeLocales : [locale];
+      const res = await fetch("/api/app/website/candidates", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          draftIds: selectedDraftIds,
+          locales: activeLocales,
+          internalReason: candidateReason.trim() || websiteCmsLabels.buildCandidateHelp,
+          idempotencyKey: createKompisOperatorIdempotencyKey(),
+        }),
+      });
+      const body = (await res.json()) as {
+        candidate?: {
+          candidateId: string;
+          versionNumber: number;
+          contentChecksum: string;
+          manifestChecksum: string;
+        };
+        code?: string;
+      };
+      if (!res.ok || !body.candidate) {
+        setCmsMessage(body.code ?? websiteCmsLabels.publishFailed);
+        return;
+      }
+      setCandidate(body.candidate);
+      setPreviewInfo(null);
+      setCmsMessage(websiteCmsLabels.candidateBuilt);
+      await refreshCmsVersions();
+    });
+  }
+
+  function createCandidatePreview() {
+    if (!candidate) return;
+    startCmsTransition(async () => {
+      const res = await fetch("/api/app/website/preview", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ versionId: candidate.candidateId, locale: cms?.website?.defaultLocale ?? locale }),
+      });
+      const body = (await res.json()) as {
+        preview?: { previewId: string; expiresAt: string };
+        code?: string;
+      };
+      if (!res.ok || !body.preview) {
+        setCmsMessage(body.code ?? websiteCmsLabels.publishFailed);
+        return;
+      }
+      setPreviewInfo({ previewId: body.preview.previewId, expiresAt: body.preview.expiresAt, verified: false });
+      setCmsMessage(websiteCmsLabels.previewCreated);
+    });
+  }
+
+  function verifyCandidatePreview() {
+    if (!candidate) return;
+    startCmsTransition(async () => {
+      const res = await fetch("/api/app/website/preview", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ versionId: candidate.candidateId, action: "verify" }),
+      });
+      const body = (await res.json()) as { code?: string };
+      if (!res.ok) {
+        setCmsMessage(body.code ?? websiteCmsLabels.previewRequired);
+        return;
+      }
+      setPreviewInfo((prev) => (prev ? { ...prev, verified: true } : { previewId: "", expiresAt: "", verified: true }));
+      setCmsMessage(websiteCmsLabels.previewVerified);
+    });
+  }
+
+  function publishCandidate() {
+    if (!candidate || !publishConfirmed || publishReason.trim().length < 3) return;
+    startCmsTransition(async () => {
+      const res = await fetch("/api/app/website/publish", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          candidateId: candidate.candidateId,
+          expectedCurrentVersionId: cms?.website?.currentVersionId ?? null,
+          internalReason: publishReason.trim(),
+          confirmation: true,
+          idempotencyKey: createKompisOperatorIdempotencyKey(),
+        }),
+      });
+      const body = (await res.json()) as {
+        publish?: { status: string; runtimeVerification?: { verified: boolean } };
+        code?: string;
+      };
+      if (!res.ok || !body.publish) {
+        setCmsMessage(body.code ?? websiteCmsLabels.publishFailed);
+        return;
+      }
+      setCmsMessage(
+        body.publish.status === "active"
+          ? websiteCmsLabels.publishSuccess
+          : websiteCmsLabels.publishAttention,
+      );
+      setPublishConfirmed(false);
+      setPublishReason("");
+      setCandidate(null);
+      setSelectedDraftIds([]);
+      await Promise.all([refreshCmsContext(), refreshCmsVersions()]);
+    });
+  }
+
+  function previewRollbackTarget() {
+    if (!rollbackTargetId) return;
+    startCmsTransition(async () => {
+      const res = await fetch("/api/app/website/rollback/preview", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ targetVersionId: rollbackTargetId, locale: cms?.website?.defaultLocale ?? locale }),
+      });
+      const body = (await res.json()) as { preview?: { previewId: string }; code?: string };
+      if (!res.ok || !body.preview) {
+        setCmsMessage(body.code ?? websiteCmsLabels.publishFailed);
+        return;
+      }
+      setRollbackPreviewId(body.preview.previewId);
+      setCmsMessage(websiteCmsLabels.previewCreated);
+    });
+  }
+
+  function rollbackToVersion() {
+    if (!rollbackTargetId || !rollbackConfirmed || rollbackReason.trim().length < 3) return;
+    startCmsTransition(async () => {
+      const res = await fetch("/api/app/website/rollback", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          targetVersionId: rollbackTargetId,
+          expectedCurrentVersionId: cms?.website?.currentVersionId ?? null,
+          internalReason: rollbackReason.trim(),
+          confirmation: true,
+          idempotencyKey: createKompisOperatorIdempotencyKey(),
+        }),
+      });
+      const body = (await res.json()) as {
+        rollback?: { status: string };
+        code?: string;
+      };
+      if (!res.ok || !body.rollback) {
+        setCmsMessage(body.code ?? websiteCmsLabels.rollbackAttention);
+        return;
+      }
+      setCmsMessage(
+        body.rollback.status === "active" ? websiteCmsLabels.rollbackSuccess : websiteCmsLabels.rollbackAttention,
+      );
+      setRollbackConfirmed(false);
+      setRollbackReason("");
+      setRollbackTargetId(null);
+      setRollbackPreviewId(null);
+      await Promise.all([refreshCmsContext(), refreshCmsVersions()]);
+    });
+  }
 
   async function refreshWorkspace() {
     const res = await fetch("/api/app/kompis/workspace", { cache: "no-store" });
@@ -111,6 +379,9 @@ export function KompisOperatorWorkspacePanel({
       if (!res.ok) return;
       setWebsite((await res.json()) as typeof website);
     });
+    void refreshCmsContext();
+    void refreshCmsVersions();
+    void refreshCmsHistory();
   }, [view]);
 
   async function ensureConversation(): Promise<string | null> {
@@ -332,9 +603,15 @@ export function KompisOperatorWorkspacePanel({
               <>
                 <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
                   <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{labels.websiteOverview}</h2>
-                  <p className="mt-2 text-sm text-indigo-700 dark:text-indigo-300" role="status">
-                    {labels.draftsOnlyReady}
-                  </p>
+                  <div className="mt-2 flex flex-wrap items-center gap-2">
+                    <Badge
+                      tone={websiteCmsWebsiteStatusTone(cms?.website?.status ?? "provisioned")}
+                      label={`${websiteCmsLabels.websiteStatus}: ${cms?.website?.status ?? websiteCmsLabels.statusProvisioned}`}
+                    />
+                    {cms?.capabilities.authoritativePageModel ? (
+                      <Badge tone="success" label={websiteCmsLabels.authoritativePageModelActive} />
+                    ) : null}
+                  </div>
                   <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
                     <div>
                       <dt className="text-slate-500">{labels.primaryDomain}</dt>
@@ -355,21 +632,32 @@ export function KompisOperatorWorkspacePanel({
                       <dd>{String(website.context?.draftCount ?? 0)}</dd>
                     </div>
                     <div>
-                      <dt className="text-slate-500">{labels.currentVersion}</dt>
-                      <dd>{String(website.context?.currentVersion ?? "—")}</dd>
+                      <dt className="text-slate-500">{websiteCmsLabels.currentVersion}</dt>
+                      <dd>
+                        {cms?.currentVersion
+                          ? `v${cms.currentVersion.versionNumber} · ${cms.currentVersion.status}`
+                          : "—"}
+                      </dd>
                     </div>
                     <div>
                       <dt className="text-slate-500">{labels.lastPublish}</dt>
                       <dd>{String(website.context?.lastPublishAt ?? "—")}</dd>
                     </div>
                   </dl>
-                  <p className="mt-4 text-sm text-amber-800 dark:text-amber-200" role="status">
-                    {labels.publishUnavailable}. {labels.noPublishMechanism}
-                  </p>
+                  {cms?.capabilities.publishCapability ? (
+                    <p className="mt-4 text-sm text-emerald-700 dark:text-emerald-300" role="status">
+                      {websiteCmsLabels.neverDeletesHistory}
+                    </p>
+                  ) : (
+                    <p className="mt-4 text-sm text-amber-800 dark:text-amber-200" role="status">
+                      {websiteCmsLabels.publishUnavailableNoDelivery}
+                    </p>
+                  )}
                 </section>
 
                 <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
                   <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{labels.websitePages}</h2>
+                  <p className="mt-1 text-xs text-slate-500">{websiteCmsLabels.buildCandidateHelp}</p>
                   {(website.pages?.length ?? 0) === 0 ? (
                     <p className="mt-2 text-sm text-slate-500">{labels.emptyHistory}</p>
                   ) : (
@@ -377,6 +665,7 @@ export function KompisOperatorWorkspacePanel({
                       <table className="min-w-full text-left text-sm">
                         <thead>
                           <tr className="border-b border-slate-200 dark:border-slate-800">
+                            <th className="py-2 pr-4 font-medium" aria-hidden="true" />
                             <th className="py-2 pr-4 font-medium">{labels.websitePages}</th>
                             <th className="py-2 pr-4 font-medium">{labels.websiteLocales}</th>
                             <th className="py-2 font-medium">{labels.statusLabel}</th>
@@ -385,6 +674,14 @@ export function KompisOperatorWorkspacePanel({
                         <tbody>
                           {website.pages?.map((page) => (
                             <tr key={String(page.id)} className="border-b border-slate-100 dark:border-slate-900">
+                              <td className="py-2 pr-4">
+                                <input
+                                  type="checkbox"
+                                  aria-label={websiteCmsLabels.selectDrafts}
+                                  checked={selectedDraftIds.includes(String(page.id))}
+                                  onChange={() => toggleDraftSelection(String(page.id))}
+                                />
+                              </td>
                               <td className="py-2 pr-4">{String(page.title ?? "—")}</td>
                               <td className="py-2 pr-4">{String(page.locale ?? "—")}</td>
                               <td className="py-2">{String(page.status ?? "draft")}</td>
@@ -413,6 +710,254 @@ export function KompisOperatorWorkspacePanel({
                     ))}
                   </ul>
                 </section>
+
+                <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
+                  <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{websiteCmsLabels.candidatesTab}</h2>
+                  <label className="mt-3 block text-sm text-slate-800 dark:text-slate-200">
+                    {websiteCmsLabels.buildCandidateHelp}
+                    <textarea
+                      value={candidateReason}
+                      onChange={(event) => setCandidateReason(event.target.value)}
+                      rows={2}
+                      placeholder={websiteCmsLabels.publishInternalReasonPlaceholder}
+                      className="mt-2 w-full rounded-xl border border-slate-200 bg-white p-3 text-sm dark:border-slate-700 dark:bg-slate-900"
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    disabled={cmsPending || selectedDraftIds.length === 0}
+                    className="mt-3 rounded-xl bg-violet-700 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+                    onClick={buildCandidate}
+                  >
+                    {websiteCmsLabels.buildCandidate}
+                  </button>
+
+                  {candidate ? (
+                    <div className="mt-4 space-y-3 rounded-xl border border-slate-100 p-4 dark:border-slate-800">
+                      <p className="text-sm font-medium text-slate-900 dark:text-slate-50">
+                        {websiteCmsLabels.candidateVersion}: v{candidate.versionNumber}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          disabled={cmsPending}
+                          className="rounded-xl border border-slate-300 px-3 py-1.5 text-sm dark:border-slate-600"
+                          onClick={createCandidatePreview}
+                        >
+                          {websiteCmsLabels.createPreview}
+                        </button>
+                        <button
+                          type="button"
+                          disabled={cmsPending || !previewInfo}
+                          className="rounded-xl border border-slate-300 px-3 py-1.5 text-sm dark:border-slate-600"
+                          onClick={verifyCandidatePreview}
+                        >
+                          {websiteCmsLabels.markPreviewVerified}
+                        </button>
+                      </div>
+                      {previewInfo ? (
+                        <p className="text-xs text-slate-500">
+                          {previewInfo.verified
+                            ? websiteCmsLabels.previewVerified
+                            : `${websiteCmsLabels.previewExpires}: ${previewInfo.expiresAt}`}
+                          {" · "}
+                          {websiteCmsLabels.previewNoindex}
+                          {" · "}
+                          <a
+                            href={`/app/website/preview/${previewInfo.previewId}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="font-medium text-violet-700 underline dark:text-violet-300"
+                          >
+                            {websiteCmsLabels.openPreview}
+                          </a>
+                        </p>
+                      ) : null}
+
+                      <div className="space-y-2 rounded-xl border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950/30">
+                        <label className="block text-sm text-slate-800 dark:text-slate-200">
+                          {labels.internalReason}
+                          <textarea
+                            value={publishReason}
+                            onChange={(event) => setPublishReason(event.target.value)}
+                            rows={2}
+                            placeholder={websiteCmsLabels.publishInternalReasonPlaceholder}
+                            className="mt-2 w-full rounded-xl border border-slate-200 bg-white p-3 text-sm dark:border-slate-700 dark:bg-slate-900"
+                          />
+                        </label>
+                        <label className="flex items-start gap-2 text-sm text-slate-800 dark:text-slate-200">
+                          <input
+                            type="checkbox"
+                            checked={publishConfirmed}
+                            onChange={(event) => setPublishConfirmed(event.target.checked)}
+                            className="mt-0.5"
+                          />
+                          <span>{websiteCmsLabels.publishConfirmCheckbox}</span>
+                        </label>
+                        <button
+                          type="button"
+                          disabled={
+                            cmsPending ||
+                            !publishConfirmed ||
+                            publishReason.trim().length < 3 ||
+                            !cms?.capabilities.publishCapability
+                          }
+                          className="rounded-xl bg-violet-700 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+                          onClick={publishCandidate}
+                        >
+                          {websiteCmsLabels.publishCandidate}
+                        </button>
+                        {!cms?.capabilities.publishCapability ? (
+                          <p className="text-xs text-amber-800 dark:text-amber-200">{websiteCmsLabels.previewRequired}</p>
+                        ) : null}
+                      </div>
+                    </div>
+                  ) : null}
+                </section>
+
+                <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
+                  <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{websiteCmsLabels.historyTab}</h2>
+                  {cmsVersions.length === 0 ? (
+                    <p className="mt-2 text-sm text-slate-500">{websiteCmsLabels.noVersionsYet}</p>
+                  ) : (
+                    <div className="mt-3 overflow-x-auto">
+                      <table className="min-w-full text-left text-sm">
+                        <thead>
+                          <tr className="border-b border-slate-200 dark:border-slate-800">
+                            <th className="py-2 pr-4 font-medium">{websiteCmsLabels.versionNumber}</th>
+                            <th className="py-2 pr-4 font-medium">{labels.statusLabel}</th>
+                            <th className="py-2 pr-4 font-medium">{websiteCmsLabels.rollbackToVersion}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {cmsVersions.map((version) => (
+                            <tr key={version.id} className="border-b border-slate-100 dark:border-slate-900">
+                              <td className="py-2 pr-4">v{version.version_number}</td>
+                              <td className="py-2 pr-4">
+                                <Badge tone={websiteCmsVersionStatusTone(version.status)} label={version.status} />
+                              </td>
+                              <td className="py-2 pr-4">
+                                {version.status === "published" || version.status === "superseded" ? (
+                                  <button
+                                    type="button"
+                                    className="rounded-lg border border-slate-300 px-2 py-1 text-xs dark:border-slate-600"
+                                    onClick={() => setRollbackTargetId(version.id)}
+                                  >
+                                    {websiteCmsLabels.rollbackToVersion}
+                                  </button>
+                                ) : null}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+
+                  <h3 className="mt-5 text-sm font-semibold text-slate-900 dark:text-slate-50">
+                    {websiteCmsLabels.publishesTab}
+                  </h3>
+                  {cmsHistory.length === 0 ? (
+                    <p className="mt-2 text-sm text-slate-500">{websiteCmsLabels.noPublishHistory}</p>
+                  ) : (
+                    <ul className="mt-2 space-y-2 text-sm text-slate-700 dark:text-slate-200">
+                      {cmsHistory.slice(0, 10).map((operation) => (
+                        <li
+                          key={operation.id}
+                          className="flex items-center justify-between gap-3 rounded-xl border border-slate-100 px-3 py-2 dark:border-slate-800"
+                        >
+                          <span>
+                            {operation.operation_kind === "rollback"
+                              ? websiteCmsLabels.operationRollback
+                              : websiteCmsLabels.operationPublish}
+                          </span>
+                          <Badge tone={websiteCmsOperationStatusTone(operation.status)} label={operation.status} />
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </section>
+
+                {rollbackTargetId ? (
+                  <section className="rounded-2xl border border-amber-200 bg-amber-50 p-5 dark:border-amber-800 dark:bg-amber-950/30">
+                    <h2 className="text-lg font-semibold text-amber-950 dark:text-amber-100">
+                      {websiteCmsLabels.rollbackTab}
+                    </h2>
+                    <p className="mt-2 text-sm text-amber-900 dark:text-amber-100">
+                      {websiteCmsLabels.neverDeletesHistory}
+                    </p>
+                    <label className="mt-3 block text-sm text-slate-800 dark:text-slate-200">
+                      {labels.internalReason}
+                      <textarea
+                        value={rollbackReason}
+                        onChange={(event) => setRollbackReason(event.target.value)}
+                        rows={2}
+                        placeholder={websiteCmsLabels.publishInternalReasonPlaceholder}
+                        className="mt-2 w-full rounded-xl border border-slate-200 bg-white p-3 text-sm dark:border-slate-700 dark:bg-slate-900"
+                      />
+                    </label>
+                    <label className="mt-2 flex items-start gap-2 text-sm text-slate-800 dark:text-slate-200">
+                      <input
+                        type="checkbox"
+                        checked={rollbackConfirmed}
+                        onChange={(event) => setRollbackConfirmed(event.target.checked)}
+                        className="mt-0.5"
+                      />
+                      <span>{websiteCmsLabels.rollbackConfirmCheckbox}</span>
+                    </label>
+                    {rollbackPreviewId ? (
+                      <p className="mt-3 text-xs text-slate-600 dark:text-slate-300">
+                        <a
+                          href={`/app/website/preview/${rollbackPreviewId}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="font-medium text-violet-700 underline dark:text-violet-300"
+                        >
+                          {websiteCmsLabels.openPreview}
+                        </a>
+                      </p>
+                    ) : null}
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <button
+                        type="button"
+                        disabled={cmsPending}
+                        className="rounded-xl border border-slate-300 px-4 py-2 text-sm dark:border-slate-600"
+                        onClick={previewRollbackTarget}
+                      >
+                        {websiteCmsLabels.createPreview}
+                      </button>
+                      <button
+                        type="button"
+                        disabled={
+                          cmsPending ||
+                          !rollbackConfirmed ||
+                          rollbackReason.trim().length < 3 ||
+                          !cms?.capabilities.rollbackCapability
+                        }
+                        className="rounded-xl bg-amber-700 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+                        onClick={rollbackToVersion}
+                      >
+                        {websiteCmsLabels.rollbackToVersion}
+                      </button>
+                      <button
+                        type="button"
+                        className="rounded-xl border border-slate-300 px-4 py-2 text-sm dark:border-slate-600"
+                        onClick={() => {
+                          setRollbackTargetId(null);
+                          setRollbackPreviewId(null);
+                        }}
+                      >
+                        {labels.rejectPlan}
+                      </button>
+                    </div>
+                  </section>
+                ) : null}
+
+                {cmsMessage ? (
+                  <p className="text-sm text-slate-700 dark:text-slate-200" role="status">
+                    {cmsMessage}
+                  </p>
+                ) : null}
               </>
             )}
           </div>
@@ -618,7 +1163,11 @@ export function KompisOperatorWorkspacePanel({
             </div>
             <div className="flex justify-between gap-3">
               <dt className="text-slate-500">{labels.websitePublishes}</dt>
-              <dd>{labels.publishUnavailable}</dd>
+              <dd>
+                {cms?.capabilities.publishCapability
+                  ? websiteCmsLabels.statusReady
+                  : labels.publishUnavailable}
+              </dd>
             </div>
           </dl>
         </div>

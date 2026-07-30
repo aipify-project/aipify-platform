@@ -2,6 +2,8 @@ import "server-only";
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { discoverOperatorLocales } from "./locales";
+import { resolveWebsiteCmsContext } from "../website-cms/context";
+import { mergeWebsiteCmsIntoV4Context } from "../website-cms/v4-adapter";
 
 export type KompisWebsiteContext = {
   organizationId: string | null;
@@ -72,8 +74,13 @@ export async function resolveKompisWebsiteContext(
     }).length;
   }
 
-  const publishUnavailableReason = "no_authoritative_website_cms_publish_path_v4";
-  const rollbackUnavailableReason = "no_authoritative_website_version_rollback_path_v4";
+  const cms = await resolveWebsiteCmsContext(supabase);
+  const patch = mergeWebsiteCmsIntoV4Context(cms, {
+    deliveryActive: workspace.available === true,
+    acknowledgementOk,
+    draftCapability: workspace.available === true,
+    previewCapability: true,
+  });
 
   return {
     organizationId: typeof organization.id === "string" ? organization.id : null,
@@ -97,16 +104,16 @@ export async function resolveKompisWebsiteContext(
     siteEnvironment: "production",
     supportedLocales: locales,
     defaultLocale: locales.includes("en" as never) ? "en" : locales[0] ?? "en",
-    draftCapability: workspace.available === true,
-    previewCapability: true,
-    publishCapability: false,
-    rollbackCapability: false,
-    authoritativePageModel: false,
-    currentVersion: null,
+    draftCapability: patch.draftCapability,
+    previewCapability: patch.previewCapability,
+    publishCapability: patch.publishCapability,
+    rollbackCapability: patch.rollbackCapability,
+    authoritativePageModel: patch.authoritativePageModel,
+    currentVersion: patch.currentVersion,
     draftCount,
-    lastPublishAt: null,
+    lastPublishAt: patch.lastPublishAt,
     conflicts: [],
-    publishUnavailableReason,
-    rollbackUnavailableReason,
+    publishUnavailableReason: patch.publishUnavailableReason,
+    rollbackUnavailableReason: patch.rollbackUnavailableReason,
   };
 }

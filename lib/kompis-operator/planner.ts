@@ -86,7 +86,7 @@ const RULES: IntentRule[] = [
   {
     intent: "website_publish",
     title: "Publish approved website draft",
-    summary: "Publishing requires preview, approval, and an authoritative website publish path.",
+    summary: "Publishing requires a verified preview, explicit confirmation, and a live Website CMS.",
     patterns: [/publiser/i, /publish/i],
     tools: ["website_publish_approved_draft"],
     confidence: "high",
@@ -94,7 +94,7 @@ const RULES: IntentRule[] = [
   {
     intent: "website_rollback",
     title: "Website publish rollback",
-    summary: "Rollback requires an authoritative version model that is not available in V4.",
+    summary: "Rollback requires an existing published version and explicit confirmation.",
     patterns: [/tilbakefør/i, /rollback/i, /rull\s*tilbake/i],
     tools: ["website_publish_rollback"],
     confidence: "high",
