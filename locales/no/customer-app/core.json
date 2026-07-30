@@ -6934,6 +6934,10 @@
     "rateLimited": "For mange forespørsler. Prøv igjen snart.",
     "suggestionKnowledge": "Søk i autorisert kunnskap",
     "suggestionMembers": "Vis organisasjonsmedlemmer",
-    "suggestionActivity": "Vis siste aktivitet"
+    "suggestionActivity": "Vis siste aktivitet",
+    "liveAiActive": "Live AI er aktiv",
+    "liveAiNotEnabled": "Live AI er ikke aktivert",
+    "liveAiTemporarilyLimited": "Live AI er midlertidig begrenset",
+    "continuesWithSafeFallback": "Tilgjengelige oppgaver utføres med sikker reserveplanlegging"
   }
 }

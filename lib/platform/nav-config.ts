@@ -10,6 +10,7 @@ export type PlatformNavId =
   | "reliabilityOperations"
   | "changeOperations"
   | "platformHealth"
+  | "kompisAi"
   | "deployments"
   | "operationsAuditLogs"
   | "organizations"
@@ -296,6 +297,7 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     labelKey: "platform.nav.changeOperations",
   },
   { id: "platformHealth", href: "/platform/operations/platform-health", labelKey: "platform.nav.platformHealth" },
+  { id: "kompisAi", href: "/platform/kompis-ai", labelKey: "platform.nav.kompisAi" },
   { id: "deployments", href: "/platform/operations/deployments", labelKey: "platform.nav.deployments" },
   { id: "operationsAuditLogs", href: "/platform/operations/audit-logs", labelKey: "platform.nav.operationsAuditLogs" },
   { id: "organizations", href: "/platform/customers", labelKey: "platform.nav.organizations" },
@@ -579,6 +581,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/operations/build-health")) return "buildHealthCenter";
   if (pathname.startsWith("/platform/operations/route-registry")) return "buildHealthCenter";
   if (pathname.startsWith("/platform/operations/overview")) return "operationsOverview";
+  if (pathname.startsWith("/platform/kompis-ai")) return "kompisAi";
   if (pathname.startsWith("/platform/operations/platform-health")) return "platformHealth";
   if (pathname.startsWith("/platform/operations/deployments")) return "deployments";
   if (pathname.startsWith("/platform/operations/audit-logs")) return "operationsAuditLogs";

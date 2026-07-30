@@ -57,6 +57,10 @@ export type KompisOperatorLabels = {
   sendsMessage: string;
   providerUnavailable: string;
   usingSafeFallback: string;
+  liveAiActive: string;
+  liveAiNotEnabled: string;
+  liveAiTemporarilyLimited: string;
+  continuesWithSafeFallback: string;
   noMatches: string;
   noAuthorizedSources: string;
   supportCases: string;
@@ -143,6 +147,10 @@ export function buildKompisOperatorLabels(t: Translator): KompisOperatorLabels {
     sendsMessage: t(`${p}.sendsMessage`),
     providerUnavailable: t(`${p}.providerUnavailable`),
     usingSafeFallback: t(`${p}.usingSafeFallback`),
+    liveAiActive: t(`${p}.liveAiActive`),
+    liveAiNotEnabled: t(`${p}.liveAiNotEnabled`),
+    liveAiTemporarilyLimited: t(`${p}.liveAiTemporarilyLimited`),
+    continuesWithSafeFallback: t(`${p}.continuesWithSafeFallback`),
     noMatches: t(`${p}.noMatches`),
     noAuthorizedSources: t(`${p}.noAuthorizedSources`),
     supportCases: t(`${p}.supportCases`),

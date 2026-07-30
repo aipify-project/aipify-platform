@@ -19,6 +19,13 @@ type Workspace = {
     providerStatus?: string;
     liveAiActive?: boolean;
     deterministicFallbackActive?: boolean;
+    readiness?: string;
+    circuitOpen?: boolean;
+  };
+  readiness?: {
+    status?: string;
+    liveAiActive?: boolean;
+    providerConfigured?: boolean;
   };
 };
 
@@ -257,14 +264,22 @@ export function KompisOperatorWorkspacePanel({
           <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">{labels.title}</h1>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{labels.subtitle}</p>
           <p className="mt-2 text-sm font-medium text-slate-800 dark:text-slate-200">{labels.whatCanIHelpWith}</p>
-          {workspace.ai?.providerConfigured ? null : (
-            <p className="mt-2 text-xs text-slate-500 dark:text-slate-400" role="status">
-              {labels.usingSafeFallback}
+          {workspace.ai?.liveAiActive ? (
+            <p className="mt-2 text-xs text-emerald-700 dark:text-emerald-300" role="status">
+              {labels.liveAiActive}
+            </p>
+          ) : workspace.ai?.providerConfigured ? (
+            <p className="mt-2 text-xs text-amber-700 dark:text-amber-300" role="status">
+              {labels.liveAiTemporarilyLimited}
+            </p>
+          ) : (
+            <p className="mt-2 text-xs text-indigo-700 dark:text-indigo-300" role="status">
+              {labels.liveAiNotEnabled}. {labels.continuesWithSafeFallback}
             </p>
           )}
           {workspace.ai?.providerStatus === "unavailable" ? (
             <p className="mt-2 text-xs text-amber-700 dark:text-amber-300" role="status">
-              {labels.providerUnavailable}
+              {labels.providerUnavailable}. {labels.usingSafeFallback}
             </p>
           ) : null}
         </header>

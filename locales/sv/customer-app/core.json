@@ -6934,6 +6934,10 @@
     "rateLimited": "För många förfrågningar. Försök igen strax.",
     "suggestionKnowledge": "Sök behörig kunskap",
     "suggestionMembers": "Visa organisationsmedlemmar",
-    "suggestionActivity": "Visa senaste aktivitet"
+    "suggestionActivity": "Visa senaste aktivitet",
+    "liveAiActive": "Live AI är aktiv",
+    "liveAiNotEnabled": "Live AI är inte aktiverad",
+    "liveAiTemporarilyLimited": "Live AI ar tillfalligt begransad",
+    "continuesWithSafeFallback": "Tillgängliga uppgifter körs med säker reservplanering"
   }
 }

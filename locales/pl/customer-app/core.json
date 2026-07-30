@@ -470,6 +470,10 @@
     "rateLimited": "Zbyt wiele żądań. Spróbuj ponownie wkrótce.",
     "suggestionKnowledge": "Przeszukaj zatwierdzoną wiedzę",
     "suggestionMembers": "Pokaż członków organizacji",
-    "suggestionActivity": "Pokaż najnowszą aktywność"
+    "suggestionActivity": "Pokaż najnowszą aktywność",
+    "liveAiActive": "Live AI jest aktywne",
+    "liveAiNotEnabled": "Live AI nie jest wlaczone",
+    "liveAiTemporarilyLimited": "Live AI jest tymczasowo ograniczone",
+    "continuesWithSafeFallback": "Dostepne zadania sa wykonywane z bezpiecznym planowaniem zapasowym"
   }
 }
