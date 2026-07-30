@@ -1,0 +1,17 @@
+# Kompis Website Operations V4
+
+Website Operations may create APP-internal drafts and previews only.
+
+## Forbidden
+
+- Do not claim live website CMS publish or rollback unless an authoritative page/version model exists
+- Do not invent parallel CMS, crawlers, Git, shell, filesystem, or arbitrary URL access
+- Do not hardcode TENANT/DOMENE/customer names
+- Do not execute risk class 3 website actions
+
+## Allowed
+
+- Reuse Operator drafts with `website_*` kinds
+- APP-internal draft preview (`noindex`, Production unchanged)
+- Read tools over delivery context + website drafts
+- Mark publish/rollback tools unavailable with explicit reasons

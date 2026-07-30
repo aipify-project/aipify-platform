@@ -86,6 +86,26 @@ export type KompisOperatorLabels = {
   reasonPlaceholder: string;
   emptyHistory: string;
   statusLabel: string;
+  websiteTab: string;
+  tasksTab: string;
+  websiteOverview: string;
+  websitePages: string;
+  websiteSeo: string;
+  websiteLocales: string;
+  websiteDrafts: string;
+  websitePublishes: string;
+  primaryDomain: string;
+  installation: string;
+  currentVersion: string;
+  lastPublish: string;
+  runtimeStatus: string;
+  draftCount: string;
+  publishUnavailable: string;
+  draftsOnlyReady: string;
+  suggestionWebsite: string;
+  suggestionSeo: string;
+  approveAndCreateDraft: string;
+  noPublishMechanism: string;
 };
 
 export function buildKompisOperatorLabels(t: Translator): KompisOperatorLabels {
@@ -176,5 +196,25 @@ export function buildKompisOperatorLabels(t: Translator): KompisOperatorLabels {
     reasonPlaceholder: t(`${p}.reasonPlaceholder`),
     emptyHistory: t(`${p}.emptyHistory`),
     statusLabel: t(`${p}.statusLabel`),
+    websiteTab: t(`${p}.websiteTab`),
+    tasksTab: t(`${p}.tasksTab`),
+    websiteOverview: t(`${p}.websiteOverview`),
+    websitePages: t(`${p}.websitePages`),
+    websiteSeo: t(`${p}.websiteSeo`),
+    websiteLocales: t(`${p}.websiteLocales`),
+    websiteDrafts: t(`${p}.websiteDrafts`),
+    websitePublishes: t(`${p}.websitePublishes`),
+    primaryDomain: t(`${p}.primaryDomain`),
+    installation: t(`${p}.installation`),
+    currentVersion: t(`${p}.currentVersion`),
+    lastPublish: t(`${p}.lastPublish`),
+    runtimeStatus: t(`${p}.runtimeStatus`),
+    draftCount: t(`${p}.draftCount`),
+    publishUnavailable: t(`${p}.publishUnavailable`),
+    draftsOnlyReady: t(`${p}.draftsOnlyReady`),
+    suggestionWebsite: t(`${p}.suggestionWebsite`),
+    suggestionSeo: t(`${p}.suggestionSeo`),
+    approveAndCreateDraft: t(`${p}.approveAndCreateDraft`),
+    noPublishMechanism: t(`${p}.noPublishMechanism`),
   };
 }

@@ -474,6 +474,26 @@
     "liveAiActive": "Live AI jest aktywne",
     "liveAiNotEnabled": "Live AI nie jest wlaczone",
     "liveAiTemporarilyLimited": "Live AI jest tymczasowo ograniczone",
-    "continuesWithSafeFallback": "Dostepne zadania sa wykonywane z bezpiecznym planowaniem zapasowym"
+    "continuesWithSafeFallback": "Dostepne zadania sa wykonywane z bezpiecznym planowaniem zapasowym",
+    "websiteTab": "Witryna",
+    "tasksTab": "Zadania",
+    "websiteOverview": "Przegląd witryny",
+    "websitePages": "Strony",
+    "websiteSeo": "SEO",
+    "websiteLocales": "Języki",
+    "websiteDrafts": "Szkice",
+    "websitePublishes": "Publikacje",
+    "primaryDomain": "Domena główna",
+    "installation": "Instalacja",
+    "currentVersion": "Bieżąca wersja",
+    "lastPublish": "Ostatnia publikacja",
+    "runtimeStatus": "Status środowiska",
+    "draftCount": "Liczba szkiców",
+    "publishUnavailable": "Brak dostępnego mechanizmu publikacji",
+    "draftsOnlyReady": "Kompis może nadal tworzyć bezpieczne szkice i analizy",
+    "suggestionWebsite": "Sprawdź witrynę",
+    "suggestionSeo": "Sprawdź SEO",
+    "approveAndCreateDraft": "Zatwierdź i utwórz szkic",
+    "noPublishMechanism": "Kompis może nadal tworzyć bezpieczne szkice i analizy"
   }
 }

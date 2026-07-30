@@ -74,6 +74,14 @@ export function KompisOperatorWorkspacePanel({
   const [confirmed, setConfirmed] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
+  const [view, setView] = useState<"tasks" | "website">("tasks");
+  const [website, setWebsite] = useState<{
+    context?: Record<string, unknown>;
+    pages?: Array<Record<string, unknown>>;
+    seo?: { findingCount?: number; findings?: Array<Record<string, unknown>> };
+    locales?: { localeGaps?: number; pagesPerLocale?: Record<string, number> };
+    tools?: { unavailable?: Array<{ key: string; reason: string }> };
+  } | null>(null);
 
   async function refreshWorkspace() {
     const res = await fetch("/api/app/kompis/workspace", { cache: "no-store" });
@@ -96,6 +104,14 @@ export function KompisOperatorWorkspacePanel({
     void refreshWorkspace();
     void refreshConversations();
   }, []);
+
+  useEffect(() => {
+    if (view !== "website") return;
+    void fetch("/api/app/kompis/website", { cache: "no-store" }).then(async (res) => {
+      if (!res.ok) return;
+      setWebsite((await res.json()) as typeof website);
+    });
+  }, [view]);
 
   async function ensureConversation(): Promise<string | null> {
     if (conversationId) return conversationId;
@@ -263,7 +279,29 @@ export function KompisOperatorWorkspacePanel({
         <header>
           <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">{labels.title}</h1>
           <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{labels.subtitle}</p>
-          <p className="mt-2 text-sm font-medium text-slate-800 dark:text-slate-200">{labels.whatCanIHelpWith}</p>
+          <div className="mt-4 flex gap-2" role="tablist" aria-label={labels.websiteTab}>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={view === "tasks"}
+              className={`rounded-xl px-3 py-1.5 text-sm ${view === "tasks" ? "bg-violet-700 text-white" : "border border-slate-200 text-slate-700 dark:border-slate-700 dark:text-slate-200"}`}
+              onClick={() => setView("tasks")}
+            >
+              {labels.tasksTab}
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={view === "website"}
+              className={`rounded-xl px-3 py-1.5 text-sm ${view === "website" ? "bg-violet-700 text-white" : "border border-slate-200 text-slate-700 dark:border-slate-700 dark:text-slate-200"}`}
+              onClick={() => setView("website")}
+            >
+              {labels.websiteTab}
+            </button>
+          </div>
+          {view === "tasks" ? (
+            <p className="mt-2 text-sm font-medium text-slate-800 dark:text-slate-200">{labels.whatCanIHelpWith}</p>
+          ) : null}
           {workspace.ai?.liveAiActive ? (
             <p className="mt-2 text-xs text-emerald-700 dark:text-emerald-300" role="status">
               {labels.liveAiActive}
@@ -284,6 +322,104 @@ export function KompisOperatorWorkspacePanel({
           ) : null}
         </header>
 
+        {view === "website" ? (
+          <div className="space-y-4">
+            {!website ? (
+              <div className="flex min-h-[12rem] items-center justify-center rounded-2xl border border-slate-200 dark:border-slate-700">
+                <AipifyLoader centered />
+              </div>
+            ) : (
+              <>
+                <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
+                  <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{labels.websiteOverview}</h2>
+                  <p className="mt-2 text-sm text-indigo-700 dark:text-indigo-300" role="status">
+                    {labels.draftsOnlyReady}
+                  </p>
+                  <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
+                    <div>
+                      <dt className="text-slate-500">{labels.primaryDomain}</dt>
+                      <dd>{String(website.context?.primaryDomain ?? "—")}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-slate-500">{labels.installation}</dt>
+                      <dd className="truncate">{String(website.context?.installationId ?? "—")}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-slate-500">{labels.runtimeStatus}</dt>
+                      <dd>
+                        {website.context?.acknowledgementOk === true ? labels.completed : labels.attention}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-slate-500">{labels.draftCount}</dt>
+                      <dd>{String(website.context?.draftCount ?? 0)}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-slate-500">{labels.currentVersion}</dt>
+                      <dd>{String(website.context?.currentVersion ?? "—")}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-slate-500">{labels.lastPublish}</dt>
+                      <dd>{String(website.context?.lastPublishAt ?? "—")}</dd>
+                    </div>
+                  </dl>
+                  <p className="mt-4 text-sm text-amber-800 dark:text-amber-200" role="status">
+                    {labels.publishUnavailable}. {labels.noPublishMechanism}
+                  </p>
+                </section>
+
+                <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
+                  <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{labels.websitePages}</h2>
+                  {(website.pages?.length ?? 0) === 0 ? (
+                    <p className="mt-2 text-sm text-slate-500">{labels.emptyHistory}</p>
+                  ) : (
+                    <div className="mt-3 overflow-x-auto">
+                      <table className="min-w-full text-left text-sm">
+                        <thead>
+                          <tr className="border-b border-slate-200 dark:border-slate-800">
+                            <th className="py-2 pr-4 font-medium">{labels.websitePages}</th>
+                            <th className="py-2 pr-4 font-medium">{labels.websiteLocales}</th>
+                            <th className="py-2 font-medium">{labels.statusLabel}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {website.pages?.map((page) => (
+                            <tr key={String(page.id)} className="border-b border-slate-100 dark:border-slate-900">
+                              <td className="py-2 pr-4">{String(page.title ?? "—")}</td>
+                              <td className="py-2 pr-4">{String(page.locale ?? "—")}</td>
+                              <td className="py-2">{String(page.status ?? "draft")}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </section>
+
+                <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
+                  <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{labels.websiteSeo}</h2>
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                    {String(website.seo?.findingCount ?? 0)} · {labels.websiteLocales}:{" "}
+                    {String(website.locales?.localeGaps ?? 0)}
+                  </p>
+                  <ul className="mt-3 space-y-2 text-sm text-slate-700 dark:text-slate-200">
+                    {(website.seo?.findings ?? []).slice(0, 8).map((finding, index) => (
+                      <li
+                        key={`${String(finding.code)}-${index}`}
+                        className="rounded-xl border border-slate-100 px-3 py-2 dark:border-slate-800"
+                      >
+                        {String(finding.detail ?? finding.code)}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              </>
+            )}
+          </div>
+        ) : null}
+
+        {view === "tasks" ? (
+        <>
         <div className="rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-950">
           <label className="block text-sm font-medium text-slate-800 dark:text-slate-200" htmlFor="kompis-task">
             {labels.describeTask}
@@ -298,6 +434,8 @@ export function KompisOperatorWorkspacePanel({
           <div className="mt-3 flex flex-wrap gap-2">
             {[
               labels.suggestionKompis,
+              labels.suggestionWebsite,
+              labels.suggestionSeo,
               labels.suggestionLicense,
               labels.suggestionKnowledge,
               labels.suggestionMembers,
@@ -449,6 +587,8 @@ export function KompisOperatorWorkspacePanel({
             {message}
           </p>
         ) : null}
+        </>
+        ) : null}
       </section>
 
       <aside className="w-full shrink-0 space-y-4 lg:w-80">
@@ -471,6 +611,14 @@ export function KompisOperatorWorkspacePanel({
             <div className="flex justify-between gap-3">
               <dt className="text-slate-500">{labels.domainInstallation}</dt>
               <dd className="truncate text-right">{String(workspace.websiteKompis.domain ?? "—")}</dd>
+            </div>
+            <div className="flex justify-between gap-3">
+              <dt className="text-slate-500">{labels.draftCount}</dt>
+              <dd>{String(website?.context?.draftCount ?? "—")}</dd>
+            </div>
+            <div className="flex justify-between gap-3">
+              <dt className="text-slate-500">{labels.websitePublishes}</dt>
+              <dd>{labels.publishUnavailable}</dd>
             </div>
           </dl>
         </div>

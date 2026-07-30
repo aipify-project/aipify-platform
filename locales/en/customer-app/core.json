@@ -6927,6 +6927,26 @@
     "liveAiActive": "Live AI is active",
     "liveAiNotEnabled": "Live AI is not enabled",
     "liveAiTemporarilyLimited": "Live AI is temporarily limited",
-    "continuesWithSafeFallback": "Available tasks run with secure fallback planning"
+    "continuesWithSafeFallback": "Available tasks run with secure fallback planning",
+    "websiteTab": "Website",
+    "tasksTab": "Tasks",
+    "websiteOverview": "Website overview",
+    "websitePages": "Pages",
+    "websiteSeo": "SEO",
+    "websiteLocales": "Languages",
+    "websiteDrafts": "Drafts",
+    "websitePublishes": "Publishes",
+    "primaryDomain": "Primary domain",
+    "installation": "Installation",
+    "currentVersion": "Current version",
+    "lastPublish": "Last publish",
+    "runtimeStatus": "Runtime status",
+    "draftCount": "Draft count",
+    "publishUnavailable": "No publish mechanism is available",
+    "draftsOnlyReady": "Kompis can still create secure drafts and analyses",
+    "suggestionWebsite": "Check the website overview",
+    "suggestionSeo": "Check website SEO",
+    "approveAndCreateDraft": "Approve and create draft",
+    "noPublishMechanism": "Kompis can still create secure drafts and analyses"
   }
 }

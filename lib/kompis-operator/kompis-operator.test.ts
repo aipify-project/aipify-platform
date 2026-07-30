@@ -158,7 +158,175 @@ async function runKompisLiveAiGovernanceV3Tests() {
   console.log("kompis-live-ai-governance-v3: all tests passed");
 }
 
-runKompisLiveAiGovernanceV3Tests().catch((error) => {
+async function runKompisWebsiteOperationsV4Tests() {
+  installServerOnlyShim();
+
+  const { planKompisOperatorRequestSync, PLANNER_VERSION } = await import("./planner");
+  const {
+    getKompisOperatorTool,
+    listAvailableKompisOperatorTools,
+    KOMPIS_OPERATOR_TOOL_REGISTRY,
+  } = await import("./tools-registry");
+  const {
+    isWebsiteDraftKind,
+    validateWebsiteDraftInput,
+    buildWebsiteSeoAudit,
+    buildWebsiteLocaleCoverage,
+  } = await import("./website-ops");
+  const { discoverOperatorLocales } = await import("./locales");
+  const { riskClassTone } = await import("./severity");
+
+  assert.equal(PLANNER_VERSION, "planner_v4");
+  assert.ok(getKompisOperatorTool("website_overview_read")?.available);
+  assert.equal(getKompisOperatorTool("website_publish_approved_draft")?.available, false);
+  assert.equal(getKompisOperatorTool("website_publish_rollback")?.available, false);
+  assert.match(
+    String(getKompisOperatorTool("website_publish_approved_draft")?.unavailableReason),
+    /no_authoritative_website_cms_publish_path_v4/,
+  );
+
+  const seo = planKompisOperatorRequestSync("Kontroller SEO på nettsiden");
+  assert.equal(seo.riskClass, 0);
+  assert.ok(seo.steps.some((step) => step.toolKey === "website_seo_audit"));
+
+  const pageDraft = planKompisOperatorRequestSync("Lag et utkast til en ny Om oss-side");
+  assert.equal(pageDraft.riskClass, 1);
+  assert.ok(pageDraft.steps.some((step) => step.toolKey === "website_page_draft_create"));
+
+  const publish = planKompisOperatorRequestSync("Publiser det godkjente utkastet");
+  assert.equal(publish.riskClass, 2);
+  assert.equal(publish.steps.length, 0);
+  assert.match(String(publish.unavailableReason), /no_authoritative_website_cms_publish_path_v4/);
+
+  const criticalSite = planKompisOperatorRequestSync("Slett hele nettsiden");
+  assert.equal(criticalSite.riskClass, 3);
+  assert.equal(criticalSite.steps.length, 0);
+
+  const criticalDomain = planKompisOperatorRequestSync("Bytt domenet for nettsiden");
+  assert.equal(criticalDomain.riskClass, 3);
+
+  const criticalScript = planKompisOperatorRequestSync("Legg dette JavaScriptet på alle sider");
+  assert.equal(criticalScript.riskClass, 3);
+
+  assert.equal(isWebsiteDraftKind("website_page"), true);
+  assert.equal(isWebsiteDraftKind("content"), false);
+
+  const locales = discoverOperatorLocales();
+  const valid = validateWebsiteDraftInput({
+    kind: "website_page",
+    title: "About",
+    locale: "en",
+    path: "/about",
+    text: "Hello",
+    activeLocales: locales,
+  });
+  assert.equal(valid.ok, true);
+
+  const blockedScript = validateWebsiteDraftInput({
+    kind: "website_page",
+    title: "Bad",
+    locale: "en",
+    path: "/about",
+    text: '<script>alert(1)</script>',
+    activeLocales: locales,
+  });
+  assert.equal(blockedScript.ok, false);
+
+  const inactiveLocale = validateWebsiteDraftInput({
+    kind: "website_translation",
+    title: "X",
+    locale: "zz",
+    text: "Hello",
+    activeLocales: locales,
+  });
+  assert.equal(inactiveLocale.ok, false);
+
+  const audit = buildWebsiteSeoAudit({
+    context: {
+      organizationId: "org",
+      organizationName: null,
+      appLicenseActive: true,
+      websiteKompisCapability: true,
+      deliveryActive: true,
+      acknowledgementOk: true,
+      primaryDomain: "example.com",
+      runtimeDomain: "example.com",
+      installationId: "install",
+      installTrustOk: true,
+      siteEnvironment: "production",
+      supportedLocales: locales,
+      defaultLocale: "en",
+      draftCapability: true,
+      previewCapability: true,
+      publishCapability: false,
+      rollbackCapability: false,
+      authoritativePageModel: false,
+      currentVersion: null,
+      draftCount: 0,
+      lastPublishAt: null,
+      conflicts: [],
+      publishUnavailableReason: "no_authoritative_website_cms_publish_path_v4",
+      rollbackUnavailableReason: "no_authoritative_website_version_rollback_path_v4",
+    },
+    pages: [{ id: "d1", title: "", body: {} }],
+  });
+  assert.equal(audit.crawlAvailable, false);
+  assert.ok(audit.findings.some((item) => item.code === "missing_title"));
+
+  const coverage = buildWebsiteLocaleCoverage([{ locale: "en" }]);
+  assert.ok(coverage.activeLocales.includes("en" as never));
+  assert.ok(coverage.localeGaps >= 0);
+
+  assert.equal(riskClassTone(0, "idle"), "info");
+  assert.equal(riskClassTone(1, "pending"), "warning");
+  assert.equal(riskClassTone(2, "pending"), "warning");
+  assert.equal(riskClassTone(3, "pending"), "danger");
+
+  assert.ok(listAvailableKompisOperatorTools().some((tool) => tool.key === "website_overview_read"));
+  assert.ok(KOMPIS_OPERATOR_TOOL_REGISTRY.some((tool) => tool.key === "website_publish_approved_draft" && !tool.available));
+
+  const root = process.cwd();
+  for (const locale of locales) {
+    const core = JSON.parse(
+      readFileSync(join(root, "locales", locale, "customer-app", "core.json"), "utf8"),
+    );
+    assert.ok(core.kompisOperator?.websiteTab);
+    assert.ok(core.kompisOperator?.publishUnavailable);
+    assert.ok(core.kompisOperator?.draftsOnlyReady);
+    assert.doesNotMatch(JSON.stringify(core.kompisOperator), /unonight/i);
+  }
+
+  const migration = readFileSync(
+    join(root, "supabase/migrations/20261935400000_app_kompis_website_operations_v4.sql"),
+    "utf8",
+  );
+  assert.doesNotMatch(migration, /unonight/i);
+  assert.match(migration, /kompis_website_ops_previews/);
+  assert.match(migration, /website_page/);
+  assert.match(migration, /search_path = public/);
+  assert.match(migration, /no_authoritative_website_cms_publish_path_v4/);
+
+  const source = [
+    readFileSync(join(root, "lib/kompis-operator/tools-registry.ts"), "utf8"),
+    readFileSync(join(root, "lib/kompis-operator/planner.ts"), "utf8"),
+    readFileSync(join(root, "lib/kompis-operator/executor.ts"), "utf8"),
+    readFileSync(join(root, "components/app/kompis-operator/KompisOperatorWorkspacePanel.tsx"), "utf8"),
+    readFileSync(join(root, "app/api/app/kompis/website/route.ts"), "utf8"),
+  ].join("\n");
+  assert.doesNotMatch(source, /unonight/i);
+  assert.match(source, /website_overview_read/);
+  assert.match(source, /no_authoritative_website_cms_publish_path_v4/);
+  assert.match(source, /planner_v4/);
+
+  console.log("kompis-website-operations-v4: all tests passed");
+}
+
+async function main() {
+  await runKompisLiveAiGovernanceV3Tests();
+  await runKompisWebsiteOperationsV4Tests();
+}
+
+main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
