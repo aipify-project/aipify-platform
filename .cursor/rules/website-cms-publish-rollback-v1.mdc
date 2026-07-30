@@ -1,0 +1,23 @@
+---
+description: Website CMS publish/rollback V1 — no fake publish, always runtime-verified
+alwaysApply: true
+---
+
+# Website CMS Publish/Rollback V1
+
+Locked schema and RPC surface: `supabase/migrations/20261935500000_platform_website_cms_core_v1.sql` and `supabase/migrations/20261935600000_platform_website_publish_versioning_rollback_v1.sql`. Library: `lib/website-cms/`. Feature owner: **APP** (content/publish) + **PLATFORM** (ensure/reconcile/status read).
+
+## Rules
+
+1. **Never mark a version "active" without runtime verification.** `publish_customer_website_candidate` and `rollback_customer_website_version` must call the live-domain checksum check (`get_public_website_active_version`) before an operation status becomes `active`. A checksum mismatch or resolve failure is `attention`, not `active`.
+2. **A verified preview is required before publish** — `preview_verified_at` must be set on the candidate version (via `create_customer_website_version_preview` + `mark_customer_website_preview_verified`) before `publish_customer_website_candidate` proceeds, unless it is the website's first publish.
+3. **Rollback never deletes history.** `rollback_customer_website_version` only moves `customer_websites.current_version_id`; prior `customer_website_versions`, `customer_website_page_revisions`, and `customer_website_operations` rows are immutable and retained.
+4. **Preserve V4 drafts.** `kompis_operator_drafts` and `kompis_website_ops_previews` remain the drafting/preview surface for V4. Candidate builds (`build_customer_website_candidate_from_drafts`) read from drafts — they never mutate or delete them.
+5. **Idempotency required on every write RPC.** `build_customer_website_candidate_from_drafts`, `publish_customer_website_candidate`, and `rollback_customer_website_version` take `p_idempotency_key`; replays with the same key return the original result via `customer_website_operations` (`UNIQUE(organization_id, idempotency_key)`) — never re-execute the side effect.
+6. **No direct table access.** All six CMS tables `revoke all from public, anon, authenticated` — reads and writes go only through `security definer` RPCs with `set search_path = public`.
+7. **Owner/admin approval only.** Publish and rollback require `_kompis_operator_require_access()` plus an explicit `p_confirmation = true` and a non-empty `p_internal_reason` (validated by `_website_cms_reason_ok`) — never auto-execute from a plan without human confirmation in the UI.
+8. **Public resolve never leaks secrets.** `get_public_website_active_version` returns only the published manifest subset (pages, checksums, locales) — never install tokens, drafts, or unpublished/candidate content. Preview pages and API responses always set `noindex` / `X-Robots-Tag: noindex, nofollow`.
+9. **No customer names in Core.** Never hardcode a real domain, tenant, or customer identifier in migrations, RPC bodies, comments, or `lib/website-cms/` — resolve domain/installation from `_kompis_operator_require_access()` / `customer_domains` at runtime only.
+10. **Locked migration surface.** V1 ships in exactly these two migration files. New CMS capabilities (multi-website per org, page-level rollback, scheduled publish) require a new, additively-versioned migration — never edit the two files above once applied.
+
+> A publish is only "done" when the live website proves it — not when the database row says so.

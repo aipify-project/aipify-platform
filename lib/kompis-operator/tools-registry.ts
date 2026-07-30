@@ -194,26 +194,29 @@ export const KOMPIS_OPERATOR_TOOL_REGISTRY: readonly KompisOperatorToolDefinitio
     key: "website_publish_approved_draft",
     version: "1",
     category: "website",
-    description: "Publish approved website draft",
+    description: "Publish approved website draft via the Website CMS candidate/publish pipeline",
     riskClass: 2,
     kind: "write",
     requiresApproval: true,
     requiredRoles: ["owner", "admin", "organization_owner", "organization_admin"],
-    available: false,
-    unavailableReason: "no_authoritative_website_cms_publish_path_v4",
+    // Static registry availability is now true; the runtime CMS context (website
+    // provisioned + delivery acknowledged + preview verified) still gates the
+    // actual publish via `publishCapability` — see `lib/website-cms/v4-adapter.ts`.
+    available: true,
     timeoutMs: 12000,
   },
   {
     key: "website_publish_rollback",
     version: "1",
     category: "website",
-    description: "Roll back website publish",
+    description: "Roll back website publish to a prior published version via the Website CMS",
     riskClass: 2,
     kind: "write",
     requiresApproval: true,
     requiredRoles: ["owner", "admin", "organization_owner", "organization_admin"],
-    available: false,
-    unavailableReason: "no_authoritative_website_version_rollback_path_v4",
+    // Static registry availability is now true; runtime gates via `rollbackCapability`
+    // (requires an existing published version to roll back to).
+    available: true,
     timeoutMs: 12000,
   },
   {
