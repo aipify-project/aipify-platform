@@ -1,0 +1,37 @@
+---
+description: Website Staging & Release Verification V2 safety locks
+globs:
+  - lib/website-staging-verification/**
+  - app/api/platform-portal/website-verification/**
+  - app/website-staging/**
+  - app/platform/website-verification/**
+  - components/platform/website-release-verification/**
+  - supabase/migrations/*website_staging_verification*
+alwaysApply: false
+---
+
+# Website Staging Release Verification V2
+
+## Never
+
+- Use a Production customer domain as staging
+- Share a Production installation with staging
+- Change Production `current_version_id` during staging QA
+- Bypass tenant, capability, or license checks
+- Insert staging fixtures/runs/environments at migration apply
+- Create auth users, passwords, or MFA for staging
+- Send email, create invoices, or call Stripe/Fiken from staging flows
+- Change DNS without a separate approved task
+- Hardcode customer names, pilot names, countries of incorporation, or national organisation-number formats
+- Mark readiness `verified` / green without runtime checksum proof for first publish, second publish, and rollback
+
+## Always
+
+- Keep staging identities `environment_type = 'staging'` and `INT-STAGING-*` organisation markers
+- Exclude staging identities from ordinary commercial customer/KPI lists
+- Require Platform `super_admin` (or explicit high-risk Platform role) for writes
+- Require CSRF/origin checks on write APIs
+- Use path-based signed staging preview (`/website-staging/<token>/...`) with `noindex, nofollow`
+- Preserve immutable publish/rollback history
+- Enforce idempotency and concurrency locks
+- Never expose install tokens, secrets, or staging access tokens to ordinary APP customers

@@ -7039,5 +7039,14 @@
     "previewNotFoundTitle": "Fant ikke forhåndsvisning",
     "previewNotFoundBody": "Denne forhåndsvisningen kan ha utløpt eller finnes ikke lenger.",
     "previewBackToWorkspace": "Tilbake til Kompis-arbeidsområdet"
+  },
+  "customerApp": {
+    "websiteCms": {
+      "releaseChainVerified": "Publiseringskjeden er verifisert",
+      "releaseChainCodeReady": "Publiseringskjeden er kodeklar, men ikke live-verifisert",
+      "releaseChainRunning": "Staging-verifisering pågår",
+      "releaseChainAttention": "Staging-verifisering krever oppfølging",
+      "releaseChainBlocked": "Publiseringskjeden er blokkert"
+    }
   }
 }

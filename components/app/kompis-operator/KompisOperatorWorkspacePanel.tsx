@@ -8,9 +8,12 @@ import { SEVERITY_BADGE_CLASS, riskClassTone, runStatusTone } from "@/lib/kompis
 import type { WebsiteCmsLabels } from "@/lib/website-cms/labels";
 import {
   websiteCmsOperationStatusTone,
+  websiteCmsReleaseChainLabelKey,
+  websiteCmsReleaseChainTone,
   websiteCmsVersionStatusTone,
   websiteCmsWebsiteStatusTone,
 } from "@/lib/website-cms/labels";
+import type { WebsiteReleaseChainReadiness } from "@/lib/website-staging-verification/types";
 
 type Workspace = {
   available: boolean;
@@ -160,12 +163,20 @@ export function KompisOperatorWorkspacePanel({
   const [rollbackPreviewId, setRollbackPreviewId] = useState<string | null>(null);
   const [cmsMessage, setCmsMessage] = useState<string | null>(null);
   const [cmsPending, startCmsTransition] = useTransition();
+  const [releaseChainReadiness, setReleaseChainReadiness] =
+    useState<WebsiteReleaseChainReadiness | null>(null);
 
   async function refreshCmsContext() {
     const res = await fetch("/api/app/website", { cache: "no-store" });
     if (!res.ok) return;
-    const body = (await res.json()) as { context?: WebsiteCmsContextView };
+    const body = (await res.json()) as {
+      context?: WebsiteCmsContextView;
+      releaseChainReadiness?: WebsiteReleaseChainReadiness;
+    };
     setCms(body.context ?? null);
+    if (body.releaseChainReadiness?.status) {
+      setReleaseChainReadiness(body.releaseChainReadiness);
+    }
   }
 
   async function refreshCmsVersions() {
@@ -610,6 +621,16 @@ export function KompisOperatorWorkspacePanel({
                     />
                     {cms?.capabilities.authoritativePageModel ? (
                       <Badge tone="success" label={websiteCmsLabels.authoritativePageModelActive} />
+                    ) : null}
+                    {releaseChainReadiness ? (
+                      <Badge
+                        tone={websiteCmsReleaseChainTone(releaseChainReadiness.status)}
+                        label={
+                          websiteCmsLabels[
+                            websiteCmsReleaseChainLabelKey(releaseChainReadiness.status)
+                          ]
+                        }
+                      />
                     ) : null}
                   </div>
                   <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">

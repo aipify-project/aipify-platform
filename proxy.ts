@@ -70,6 +70,15 @@ export async function proxy(request: NextRequest) {
     return updateSession(request);
   }
 
+  if (pathname.startsWith("/website-staging")) {
+    const stagingResponse = NextResponse.next({
+      request: { headers: withPathnameRequestHeaders(request) },
+    });
+    stagingResponse.headers.set("X-Robots-Tag", "noindex, nofollow");
+    stagingResponse.headers.set("Cache-Control", "private, no-store");
+    return stagingResponse;
+  }
+
   return NextResponse.next({
     request: { headers: withPathnameRequestHeaders(request) },
   });

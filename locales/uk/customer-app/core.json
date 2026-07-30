@@ -575,5 +575,14 @@
     "previewNotFoundTitle": "Попередній перегляд не знайдено",
     "previewNotFoundBody": "Термін дії цього попереднього перегляду міг минути, або він більше не існує.",
     "previewBackToWorkspace": "Назад до робочого простору Kompis"
+  },
+  "customerApp": {
+    "websiteCms": {
+      "releaseChainVerified": "Ланцюг публікації перевірено",
+      "releaseChainCodeReady": "Ланцюг публікації готовий у коді, але не перевірений наживо",
+      "releaseChainRunning": "Триває staging-перевірка",
+      "releaseChainAttention": "Staging-перевірка потребує уваги",
+      "releaseChainBlocked": "Ланцюг публікації заблоковано"
+    }
   }
 }

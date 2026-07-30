@@ -4,6 +4,7 @@ import { requireReadyAppPortalContext } from "@/lib/tenant/app-portal-route-acce
 import { assertKompisOperatorRateLimit } from "@/lib/kompis-operator/rate-limit";
 import { mapKompisOperatorRpcError } from "@/lib/kompis-operator/parse";
 import { ensureCustomerWebsite, resolveWebsiteCmsContext } from "@/lib/website-cms/context";
+import { fetchWebsiteReleaseChainReadiness } from "@/lib/website-staging-verification/readiness";
 
 const headers = { "Cache-Control": "no-store" };
 
@@ -52,7 +53,9 @@ export async function GET() {
     }
 
     const context = await resolveWebsiteCmsContext(supabase);
-    return NextResponse.json({ context }, { headers });
+    // Aggregate readiness only — never staging org/fixture/token internals.
+    const releaseChainReadiness = await fetchWebsiteReleaseChainReadiness(supabase);
+    return NextResponse.json({ context, releaseChainReadiness }, { headers });
   } catch (error) {
     const message = error instanceof Error ? error.message : "";
     const mapped = mapKompisOperatorRpcError(message);

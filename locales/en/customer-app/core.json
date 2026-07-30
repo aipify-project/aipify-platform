@@ -7028,5 +7028,14 @@
     "previewNotFoundTitle": "Preview not found",
     "previewNotFoundBody": "This preview may have expired or no longer exists.",
     "previewBackToWorkspace": "Back to Kompis workspace"
+  },
+  "customerApp": {
+    "websiteCms": {
+      "releaseChainVerified": "Publishing chain verified",
+      "releaseChainCodeReady": "Publishing chain is code-ready but not live-verified",
+      "releaseChainRunning": "Staging verification in progress",
+      "releaseChainAttention": "Staging verification needs follow-up",
+      "releaseChainBlocked": "Publishing chain is blocked"
+    }
   }
 }

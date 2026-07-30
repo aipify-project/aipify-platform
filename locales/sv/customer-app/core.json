@@ -7039,5 +7039,14 @@
     "previewNotFoundTitle": "Förhandsgranskning hittades inte",
     "previewNotFoundBody": "Denna förhandsgranskning kan ha upphört eller finns inte längre.",
     "previewBackToWorkspace": "Tillbaka till Kompis-arbetsytan"
+  },
+  "customerApp": {
+    "websiteCms": {
+      "releaseChainVerified": "Publiceringskedjan är verifierad",
+      "releaseChainCodeReady": "Publiceringskedjan är kodklar men inte live-verifierad",
+      "releaseChainRunning": "Staging-verifiering pågår",
+      "releaseChainAttention": "Staging-verifiering kräver uppföljning",
+      "releaseChainBlocked": "Publiceringskedjan är blockerad"
+    }
   }
 }
