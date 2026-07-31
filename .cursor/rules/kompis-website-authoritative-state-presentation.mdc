@@ -1,0 +1,36 @@
+---
+description: Kompis website workspace must use one authoritative state presentation contract
+globs:
+  - components/app/kompis-operator/**
+  - lib/kompis-operator/website-*
+  - app/api/app/kompis/website/**
+  - locales/*/customer-app/core.json
+alwaysApply: false
+---
+
+# Kompis Website — Authoritative State Presentation
+
+See task `AIPIFY.KOMPIS.WEBSITE.WORKSPACE.AUTHORITATIVE.STATE.PRESENTATION.V1`.
+
+## Mandatory
+
+1. **One authoritative view model** — `buildAuthoritativeWebsiteWorkspaceView()` in `lib/kompis-operator/website-workspace-view.ts`. Website tab surfaces must not invent parallel runtime, publish, version, or draft truths.
+2. **No parallel publish truths** — sidebar and website tab use the same `publish.code` (`ready_for_publish` · `publish_requires_approval` · `publish_temporarily_blocked` · `publish_not_configured`). Never show “no publish mechanism” when the CMS/delivery contract is ready.
+3. **No raw enums** as primary customer text (`active`, `completed`, `failed`, `awaiting_approval`, `ready`, `draft`, `published`, `superseded`).
+4. **No raw ISO timestamps** as primary text — use `formatKompisWebsiteDateTime` / platform date helpers.
+5. **No raw locale codes** (`en`, `no`, …) as primary labels — use content locale business names (`Engelsk`, `Norsk`, …).
+6. **Status capitalization** comes from locale strings — never CSS `text-transform: capitalize` / `capitalize` as a status fix.
+7. **CORE.APPROVAL** (`action_requests` + bindings) is authoritative for publish/rollback execution. Local `kompis_operator_approvals` must not unlock execution alone.
+8. **Drafts** — dedupe by id; group revisions; never render the same record twice; never show fixture/showcase drafts in ordinary customer UI.
+9. **SEO findings** — dedupe on `code|pageId|locale|revision`; translate via `seoFindings.*` keys.
+10. **History** — mark current version; never offer rollback to the current version.
+11. **Installation UUID** — show “Connected installation” / locale equivalent; full UUID only in expandable technical details (shortened preferred).
+12. **Actions** — disable candidate/publish/rollback when authoritative state is inconsistent; always show a concrete reason.
+13. **No UnoNight hardcoding** in Core components, services, migrations, tests, or docs.
+14. **No live CMS writes** in presentation-repair tasks (no publish, rollback, candidate build, draft create against Production).
+
+## Code
+
+- Presentation: `lib/kompis-operator/website-presentation.ts`
+- View model: `lib/kompis-operator/website-workspace-view.ts`
+- Labels: `customerApp.kompisOperator.statuses|contentLocales|tools|plans|results|seoFindings|workspace`

@@ -8,15 +8,30 @@ import type { KompisOperatorLabels } from "@/lib/kompis-operator/labels";
 import { SEVERITY_BADGE_CLASS, riskClassTone, runStatusTone } from "@/lib/kompis-operator/severity";
 import type { WebsiteCmsLabels } from "@/lib/website-cms/labels";
 import {
+  websiteCmsOperationStatusLabelKey,
   websiteCmsOperationStatusTone,
   websiteCmsReleaseChainLabelKey,
   websiteCmsReleaseChainTone,
+  websiteCmsStatusLabelKey,
+  websiteCmsVersionStatusLabelKey,
   websiteCmsVersionStatusTone,
   websiteCmsWebsiteStatusTone,
 } from "@/lib/website-cms/labels";
 import type { CustomerWebsiteRuntimeLabels } from "@/lib/customer-website-runtime/labels";
 import { CustomerWebsiteRuntimeReadinessCard } from "@/components/app/website/CustomerWebsiteRuntimeReadinessCard";
 import type { WebsiteReleaseChainReadiness } from "@/lib/website-staging-verification/types";
+import {
+  formatKompisWebsiteDateTime,
+  KOMPIS_PLAN_TITLE_KEYS,
+  resolveContentLocaleLabel,
+  resolveKompisResultSummary,
+  resolveKompisToolLabel,
+  resolveKompisWebsiteStatusLabel,
+  resolveKompisWebsiteStatusTone,
+  shortenTechnicalId,
+  WEBSITE_SEO_FINDING_LOCALE_KEYS,
+  type WebsiteSeoFindingCode,
+} from "@/lib/kompis-operator/website-presentation";
 
 type Workspace = {
   available: boolean;
@@ -141,9 +156,34 @@ export function KompisOperatorWorkspacePanel({
   const [website, setWebsite] = useState<{
     context?: Record<string, unknown>;
     pages?: Array<Record<string, unknown>>;
+    drafts?: Array<Record<string, unknown>>;
     seo?: { findingCount?: number; findings?: Array<Record<string, unknown>> };
     locales?: { localeGaps?: number; pagesPerLocale?: Record<string, number> };
     tools?: { unavailable?: Array<{ key: string; reason: string }> };
+    runtime?: {
+      available?: boolean;
+      websiteProvisioned?: boolean;
+      runtimeEnabled?: boolean;
+      homepageEnabled?: boolean;
+      mountedPaths?: string[];
+      activeVersionNumber?: number | null;
+      manifestChecksum?: string | null;
+      dbPublished?: boolean;
+      acknowledgementStatus?: string | null;
+      httpStatus?: string | null;
+      lastOperationStatus?: string | null;
+      fullyVerified?: boolean;
+      lastFullyVerifiedAt?: string | null;
+      businessStatus?: string;
+    };
+    publish?: { code?: string; blockers?: string[]; mechanismAvailable?: boolean };
+    actions?: {
+      buildCandidateAllowed?: boolean;
+      publishAllowed?: boolean;
+      rollbackAllowed?: boolean;
+      blockReasons?: string[];
+    };
+    consistency?: { ok?: boolean; issues?: string[] };
   } | null>(null);
 
   const [cms, setCms] = useState<WebsiteCmsContextView | null>(null);
@@ -172,6 +212,80 @@ export function KompisOperatorWorkspacePanel({
   const [cmsPending, startCmsTransition] = useTransition();
   const [releaseChainReadiness, setReleaseChainReadiness] =
     useState<WebsiteReleaseChainReadiness | null>(null);
+
+  const statusLabel = (status: string | null | undefined) =>
+    resolveKompisWebsiteStatusLabel(status, labels.statuses, labels.statuses.unknown);
+  const contentLocaleLabel = (code: string | null | undefined) =>
+    resolveContentLocaleLabel(code, labels.contentLocales, labels.contentLocales.unknown);
+  const formatDate = (value: string | null | undefined) =>
+    formatKompisWebsiteDateTime(
+      value,
+      locale,
+      labels.workspace.emptyDate,
+      labels.workspace.invalidDate,
+    );
+  const publishCapabilityLabel = () => {
+    const code = website?.publish?.code;
+    if (code === "ready_for_publish") return labels.statuses.readyForPublish;
+    if (code === "publish_requires_approval") return labels.statuses.publishRequiresApproval;
+    if (code === "publish_temporarily_blocked") return labels.statuses.publishTemporarilyBlocked;
+    if (code === "publish_not_configured") return labels.statuses.publishNotConfigured;
+    if (cms?.capabilities.publishCapability || website?.publish?.mechanismAvailable) {
+      return labels.statuses.publishRequiresApproval;
+    }
+    return labels.statuses.publishNotConfigured;
+  };
+  const runtimeBusinessLabel = () => {
+    const code = website?.runtime?.businessStatus;
+    if (code === "fully_verified" || website?.runtime?.fullyVerified) {
+      return labels.statuses.fullyVerified;
+    }
+    if (code === "awaiting_acknowledgement") return labels.statuses.awaitingAcknowledgement;
+    if (code === "http_verification_missing") return labels.statuses.httpVerificationMissing;
+    if (code === "verification_failed") return labels.statuses.verificationFailed;
+    if (code === "not_configured") return labels.statuses.notConfigured;
+    if (website?.context?.acknowledgementOk === true) return labels.statuses.attention;
+    return labels.statuses.notConfigured;
+  };
+  const seoFindingLabel = (code: string | null | undefined) => {
+    if (!code) return labels.statuses.unknown;
+    const key = WEBSITE_SEO_FINDING_LOCALE_KEYS[code as WebsiteSeoFindingCode];
+    return (key && labels.seoFindings[key]) || labels.statuses.unknown;
+  };
+  const actionBlockMessage = () => {
+    const reasons = website?.actions?.blockReasons ?? [];
+    if (reasons.includes("no_approved_drafts")) return labels.workspace.selectApprovedDraft;
+    if (reasons.includes("runtime_requires_attention")) return labels.workspace.runtimeMustBeChecked;
+    if (reasons.includes("conflicting_operation")) return labels.workspace.conflictingPublish;
+    if (reasons.includes("authoritative_state_inconsistent")) return labels.workspace.stateInconsistent;
+    if (reasons.includes("approval_contract_unavailable")) return labels.workspace.approvalMissing;
+    return labels.workspace.actionBlockedTitle;
+  };
+  const currentVersionId = cms?.currentVersion?.id ?? cms?.website?.currentVersionId ?? null;
+  const draftRows = (website?.drafts ?? website?.pages ?? []) as Array<Record<string, unknown>>;
+  const runtimeInitial =
+    website?.runtime != null
+      ? {
+          available: website.runtime.available !== false,
+          websiteProvisioned: Boolean(website.runtime.websiteProvisioned),
+          contractVersion: null as string | null,
+          runtimeEnabled: Boolean(website.runtime.runtimeEnabled),
+          homepageEnabled: Boolean(website.runtime.homepageEnabled),
+          mountedPaths: Array.isArray(website.runtime.mountedPaths)
+            ? website.runtime.mountedPaths
+            : [],
+          fallbackMode: "customer_runtime",
+          configVersion: 0,
+          activeVersionNumber: website.runtime.activeVersionNumber ?? null,
+          manifestChecksum: website.runtime.manifestChecksum ?? null,
+          dbPublished: Boolean(website.runtime.dbPublished),
+          acknowledgementStatus: website.runtime.acknowledgementStatus ?? null,
+          httpStatus: website.runtime.httpStatus ?? null,
+          lastOperationStatus: website.runtime.lastOperationStatus ?? null,
+          fullyVerified: Boolean(website.runtime.fullyVerified),
+          lastFullyVerifiedAt: website.runtime.lastFullyVerifiedAt ?? null,
+        }
+      : null;
 
   async function refreshCmsContext() {
     const res = await fetch("/api/app/website", { cache: "no-store" });
@@ -659,7 +773,11 @@ export function KompisOperatorWorkspacePanel({
                   <div className="mt-2 flex flex-wrap items-center gap-2">
                     <Badge
                       tone={websiteCmsWebsiteStatusTone(cms?.website?.status ?? "provisioned")}
-                      label={`${websiteCmsLabels.websiteStatus}: ${cms?.website?.status ?? websiteCmsLabels.statusProvisioned}`}
+                      label={`${websiteCmsLabels.websiteStatus}: ${
+                        cms?.website
+                          ? websiteCmsLabels[websiteCmsStatusLabelKey(cms.website.status)]
+                          : labels.statuses.notConfigured
+                      }`}
                     />
                     {cms?.capabilities.authoritativePageModel ? (
                       <Badge tone="success" label={websiteCmsLabels.authoritativePageModelActive} />
@@ -682,51 +800,92 @@ export function KompisOperatorWorkspacePanel({
                     </div>
                     <div>
                       <dt className="text-slate-500">{labels.installation}</dt>
-                      <dd className="truncate">{String(website.context?.installationId ?? "—")}</dd>
+                      <dd>{labels.workspace.installationConnected}</dd>
                     </div>
                     <div>
                       <dt className="text-slate-500">{labels.runtimeStatus}</dt>
                       <dd>
-                        {website.context?.acknowledgementOk === true ? labels.completed : labels.attention}
+                        <Badge
+                          tone={resolveKompisWebsiteStatusTone(
+                            website.runtime?.businessStatus ??
+                              (website.runtime?.fullyVerified ? "fully_verified" : "attention"),
+                          )}
+                          label={runtimeBusinessLabel()}
+                        />
                       </dd>
                     </div>
                     <div>
                       <dt className="text-slate-500">{labels.draftCount}</dt>
-                      <dd>{String(website.context?.draftCount ?? 0)}</dd>
+                      <dd>{String(draftRows.length || website.context?.draftCount || 0)}</dd>
                     </div>
                     <div>
                       <dt className="text-slate-500">{websiteCmsLabels.currentVersion}</dt>
                       <dd>
-                        {cms?.currentVersion
-                          ? `v${cms.currentVersion.versionNumber} · ${cms.currentVersion.status}`
-                          : "—"}
+                        {cms?.currentVersion || website.runtime?.activeVersionNumber != null
+                          ? `v${cms?.currentVersion?.versionNumber ?? website.runtime?.activeVersionNumber} · ${statusLabel(
+                              cms?.currentVersion?.status ?? "published",
+                            )}`
+                          : labels.statuses.notConfigured}
                       </dd>
                     </div>
                     <div>
                       <dt className="text-slate-500">{labels.lastPublish}</dt>
-                      <dd>{String(website.context?.lastPublishAt ?? "—")}</dd>
+                      <dd>
+                        {formatDate(
+                          typeof website.context?.lastPublishAt === "string"
+                            ? website.context.lastPublishAt
+                            : null,
+                        )}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-slate-500">{labels.websitePublishes}</dt>
+                      <dd>
+                        <Badge
+                          tone={resolveKompisWebsiteStatusTone(website?.publish?.code ?? "publish_not_configured")}
+                          label={publishCapabilityLabel()}
+                        />
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="text-slate-500">{websiteRuntimeLabels.homepageDisabled}</dt>
+                      <dd>
+                        {website.runtime?.homepageEnabled
+                          ? labels.workspace.homepageEnabled
+                          : labels.workspace.homepageDisabled}
+                      </dd>
                     </div>
                   </dl>
-                  {cms?.capabilities.publishCapability ? (
-                    <p className="mt-4 text-sm text-emerald-700 dark:text-emerald-300" role="status">
-                      {websiteCmsLabels.neverDeletesHistory}
+                  {website.context?.installationId ? (
+                    <details className="mt-4 text-sm text-slate-600 dark:text-slate-300">
+                      <summary className="cursor-pointer font-medium">{labels.workspace.technicalDetails}</summary>
+                      <p className="mt-2">
+                        {labels.installation}: {shortenTechnicalId(String(website.context.installationId))}
+                      </p>
+                    </details>
+                  ) : null}
+                  <p className="mt-4 text-sm text-slate-700 dark:text-slate-200" role="status">
+                    {website?.publish?.mechanismAvailable
+                      ? websiteCmsLabels.neverDeletesHistory
+                      : publishCapabilityLabel()}
+                  </p>
+                  {website?.consistency?.ok === false ? (
+                    <p className="mt-2 text-sm text-amber-800 dark:text-amber-200" role="alert">
+                      {labels.workspace.stateInconsistent}
                     </p>
-                  ) : (
-                    <p className="mt-4 text-sm text-amber-800 dark:text-amber-200" role="status">
-                      {websiteCmsLabels.publishUnavailableNoDelivery}
-                    </p>
-                  )}
+                  ) : null}
                 </section>
 
                 <CustomerWebsiteRuntimeReadinessCard
                   labels={websiteRuntimeLabels}
                   locale={locale}
+                  initialStatus={runtimeInitial}
                 />
 
                 <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
                   <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{labels.websitePages}</h2>
                   <p className="mt-1 text-xs text-slate-500">{websiteCmsLabels.buildCandidateHelp}</p>
-                  {(website.pages?.length ?? 0) === 0 ? (
+                  {draftRows.length === 0 ? (
                     <p className="mt-2 text-sm text-slate-500">{labels.emptyHistory}</p>
                   ) : (
                     <div className="mt-3 overflow-x-auto">
@@ -736,25 +895,53 @@ export function KompisOperatorWorkspacePanel({
                             <th className="py-2 pr-4 font-medium" aria-hidden="true" />
                             <th className="py-2 pr-4 font-medium">{labels.websitePages}</th>
                             <th className="py-2 pr-4 font-medium">{labels.websiteLocales}</th>
+                            <th className="py-2 pr-4 font-medium">{labels.workspace.revisionLabel}</th>
                             <th className="py-2 font-medium">{labels.statusLabel}</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {website.pages?.map((page) => (
-                            <tr key={String(page.id)} className="border-b border-slate-100 dark:border-slate-900">
-                              <td className="py-2 pr-4">
-                                <input
-                                  type="checkbox"
-                                  aria-label={websiteCmsLabels.selectDrafts}
-                                  checked={selectedDraftIds.includes(String(page.id))}
-                                  onChange={() => toggleDraftSelection(String(page.id))}
-                                />
-                              </td>
-                              <td className="py-2 pr-4">{String(page.title ?? "—")}</td>
-                              <td className="py-2 pr-4">{String(page.locale ?? "—")}</td>
-                              <td className="py-2">{String(page.status ?? "draft")}</td>
-                            </tr>
-                          ))}
+                          {draftRows.map((page) => {
+                            const pageLocale =
+                              typeof page.locale === "string" ? page.locale : null;
+                            const localeMismatch =
+                              pageLocale != null &&
+                              pageLocale !== locale &&
+                              pageLocale !== locale.slice(0, 2);
+                            return (
+                              <tr key={String(page.id)} className="border-b border-slate-100 dark:border-slate-900">
+                                <td className="py-2 pr-4">
+                                  <input
+                                    type="checkbox"
+                                    aria-label={websiteCmsLabels.selectDrafts}
+                                    checked={selectedDraftIds.includes(String(page.id))}
+                                    onChange={() => toggleDraftSelection(String(page.id))}
+                                  />
+                                </td>
+                                <td className="py-2 pr-4">{String(page.title ?? "—")}</td>
+                                <td className="py-2 pr-4">
+                                  {contentLocaleLabel(pageLocale)}
+                                  {localeMismatch ? (
+                                    <span className="mt-1 block text-xs text-amber-700 dark:text-amber-300">
+                                      {labels.workspace.localeMismatchHint}
+                                    </span>
+                                  ) : null}
+                                </td>
+                                <td className="py-2 pr-4">
+                                  {page.revisionNumber != null
+                                    ? `${labels.workspace.revisionLabel} ${String(page.revisionNumber)}`
+                                    : page.version != null
+                                      ? `${labels.workspace.revisionLabel} ${String(page.version)}`
+                                      : "—"}
+                                </td>
+                                <td className="py-2">
+                                  <Badge
+                                    tone={resolveKompisWebsiteStatusTone(String(page.status ?? "draft"))}
+                                    label={statusLabel(String(page.status ?? "draft"))}
+                                  />
+                                </td>
+                              </tr>
+                            );
+                          })}
                         </tbody>
                       </table>
                     </div>
@@ -768,12 +955,18 @@ export function KompisOperatorWorkspacePanel({
                     {String(website.locales?.localeGaps ?? 0)}
                   </p>
                   <ul className="mt-3 space-y-2 text-sm text-slate-700 dark:text-slate-200">
-                    {(website.seo?.findings ?? []).slice(0, 8).map((finding, index) => (
+                    {(website.seo?.findings ?? []).slice(0, 8).map((finding) => (
                       <li
-                        key={`${String(finding.code)}-${index}`}
+                        key={String(finding.dedupeKey ?? `${finding.code}-${finding.pageId ?? "global"}`)}
                         className="rounded-xl border border-slate-100 px-3 py-2 dark:border-slate-800"
                       >
-                        {String(finding.detail ?? finding.code)}
+                        <p>{seoFindingLabel(typeof finding.code === "string" ? finding.code : null)}</p>
+                        <p className="mt-1 text-xs text-slate-500">
+                          {finding.code === "crawl_unavailable" ||
+                          finding.code === "runtime_acknowledgement_missing"
+                            ? labels.seoFindings.nextActionConfirmDelivery
+                            : labels.seoFindings.nextActionReviewDraft}
+                        </p>
                       </li>
                     ))}
                   </ul>
@@ -793,12 +986,25 @@ export function KompisOperatorWorkspacePanel({
                   </label>
                   <button
                     type="button"
-                    disabled={cmsPending || selectedDraftIds.length === 0}
+                    disabled={
+                      cmsPending ||
+                      selectedDraftIds.length === 0 ||
+                      website?.actions?.buildCandidateAllowed === false
+                    }
                     className="mt-3 rounded-xl bg-violet-700 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
                     onClick={buildCandidate}
                   >
                     {websiteCmsLabels.buildCandidate}
                   </button>
+                  {website?.actions?.buildCandidateAllowed === false ? (
+                    <p className="mt-2 text-sm text-amber-800 dark:text-amber-200" role="status">
+                      {actionBlockMessage()}
+                    </p>
+                  ) : selectedDraftIds.length === 0 ? (
+                    <p className="mt-2 text-sm text-slate-500" role="status">
+                      {labels.workspace.selectApprovedDraft}
+                    </p>
+                  ) : null}
 
                   {candidate ? (
                     <div className="mt-4 space-y-3 rounded-xl border border-slate-100 p-4 dark:border-slate-800">
@@ -827,7 +1033,7 @@ export function KompisOperatorWorkspacePanel({
                         <p className="text-xs text-slate-500">
                           {previewInfo.verified
                             ? websiteCmsLabels.previewVerified
-                            : `${websiteCmsLabels.previewExpires}: ${previewInfo.expiresAt}`}
+                            : `${websiteCmsLabels.previewExpires}: ${formatDate(previewInfo.expiresAt)}`}
                           {" · "}
                           {websiteCmsLabels.previewNoindex}
                           {" · "}
@@ -898,25 +1104,51 @@ export function KompisOperatorWorkspacePanel({
                           </tr>
                         </thead>
                         <tbody>
-                          {cmsVersions.map((version) => (
-                            <tr key={version.id} className="border-b border-slate-100 dark:border-slate-900">
-                              <td className="py-2 pr-4">v{version.version_number}</td>
-                              <td className="py-2 pr-4">
-                                <Badge tone={websiteCmsVersionStatusTone(version.status)} label={version.status} />
-                              </td>
-                              <td className="py-2 pr-4">
-                                {version.status === "published" || version.status === "superseded" ? (
-                                  <button
-                                    type="button"
-                                    className="rounded-lg border border-slate-300 px-2 py-1 text-xs dark:border-slate-600"
-                                    onClick={() => setRollbackTargetId(version.id)}
-                                  >
-                                    {websiteCmsLabels.rollbackToVersion}
-                                  </button>
-                                ) : null}
-                              </td>
-                            </tr>
-                          ))}
+                          {cmsVersions.map((version) => {
+                            const isCurrent =
+                              version.id === currentVersionId ||
+                              (version.status === "published" &&
+                                cms?.currentVersion?.versionNumber === version.version_number);
+                            const canRollback =
+                              !isCurrent &&
+                              (version.status === "published" || version.status === "superseded") &&
+                              website?.actions?.rollbackAllowed !== false;
+                            return (
+                              <tr key={version.id} className="border-b border-slate-100 dark:border-slate-900">
+                                <td className="py-2 pr-4">
+                                  v{version.version_number}
+                                  {isCurrent ? (
+                                    <span className="mt-1 block text-xs font-medium text-emerald-700 dark:text-emerald-300">
+                                      {labels.workspace.currentVersionMarker}
+                                    </span>
+                                  ) : null}
+                                </td>
+                                <td className="py-2 pr-4">
+                                  <Badge
+                                    tone={websiteCmsVersionStatusTone(version.status)}
+                                    label={
+                                      websiteCmsLabels[websiteCmsVersionStatusLabelKey(version.status)]
+                                    }
+                                  />
+                                </td>
+                                <td className="py-2 pr-4">
+                                  {canRollback ? (
+                                    <button
+                                      type="button"
+                                      className="rounded-lg border border-slate-300 px-2 py-1 text-xs dark:border-slate-600"
+                                      onClick={() => setRollbackTargetId(version.id)}
+                                    >
+                                      {labels.workspace.rollbackToThisVersion}
+                                    </button>
+                                  ) : isCurrent ? (
+                                    <span className="text-xs text-slate-500">
+                                      {labels.workspace.rollbackNotForCurrent}
+                                    </span>
+                                  ) : null}
+                                </td>
+                              </tr>
+                            );
+                          })}
                         </tbody>
                       </table>
                     </div>
@@ -932,14 +1164,22 @@ export function KompisOperatorWorkspacePanel({
                       {cmsHistory.slice(0, 10).map((operation) => (
                         <li
                           key={operation.id}
-                          className="flex items-center justify-between gap-3 rounded-xl border border-slate-100 px-3 py-2 dark:border-slate-800"
+                          className="space-y-1 rounded-xl border border-slate-100 px-3 py-2 dark:border-slate-800"
                         >
-                          <span>
-                            {operation.operation_kind === "rollback"
-                              ? websiteCmsLabels.operationRollback
-                              : websiteCmsLabels.operationPublish}
-                          </span>
-                          <Badge tone={websiteCmsOperationStatusTone(operation.status)} label={operation.status} />
+                          <div className="flex items-center justify-between gap-3">
+                            <span>
+                              {operation.operation_kind === "rollback"
+                                ? websiteCmsLabels.operationRollback
+                                : websiteCmsLabels.operationPublish}
+                            </span>
+                            <Badge
+                              tone={websiteCmsOperationStatusTone(operation.status)}
+                              label={
+                                websiteCmsLabels[websiteCmsOperationStatusLabelKey(operation.status)]
+                              }
+                            />
+                          </div>
+                          <p className="text-xs text-slate-500">{formatDate(operation.created_at)}</p>
                         </li>
                       ))}
                     </ul>
@@ -1092,26 +1332,112 @@ export function KompisOperatorWorkspacePanel({
         {activeRun ? (
           <article className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
             <div className="flex flex-wrap items-center gap-2">
-              <Badge tone={runStatusTone(activeRun.status)} label={`${labels.statusLabel}: ${activeRun.status}`} />
+              <Badge
+                tone={runStatusTone(activeRun.status)}
+                label={`${labels.statusLabel}: ${statusLabel(activeRun.status)}`}
+              />
               <Badge
                 tone={riskClassTone(risk, activeRun.status === "completed" ? "success" : "pending")}
                 label={`${labels.riskClass}: ${risk === 0 ? labels.risk0 : risk === 1 ? labels.risk1 : risk === 2 ? labels.risk2 : labels.risk3}`}
               />
+              {activeRun.approval_status ? (
+                <Badge
+                  tone={resolveKompisWebsiteStatusTone(
+                    activeRun.approval_status === "pending" ? "awaiting_approval" : activeRun.approval_status,
+                  )}
+                  label={statusLabel(
+                    activeRun.approval_status === "pending" ? "awaiting_approval" : activeRun.approval_status,
+                  )}
+                />
+              ) : null}
             </div>
             <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">
-              {activeRun.user_summary ?? labels.plan}
+              {(() => {
+                const summary = activeRun.user_summary ?? labels.plan;
+                const planKey = KOMPIS_PLAN_TITLE_KEYS[summary];
+                return (planKey && labels.plans[planKey]) || summary;
+              })()}
             </h2>
             {activeRun.plan?.steps?.length ? (
               <ol className="space-y-2 text-sm text-slate-700 dark:text-slate-200">
                 {activeRun.plan.steps.map((step) => (
                   <li key={step.sequence} className="rounded-xl border border-slate-100 px-3 py-2 dark:border-slate-800">
-                    {step.sequence}. {step.purpose || step.toolKey}
+                    {step.sequence}.{" "}
+                    {resolveKompisToolLabel(step.toolKey, labels.tools, step.purpose || step.toolKey)}
                   </li>
                 ))}
               </ol>
             ) : null}
-            {activeRun.result_summary ? (
-              <p className="text-sm text-slate-700 dark:text-slate-200">{activeRun.result_summary}</p>
+            {activeRun.result_summary === "knowledge_search_failed" ||
+            activeRun.result_summary === "Knowledge search failed." ? (
+              <div className="space-y-2 rounded-xl border border-rose-200 bg-rose-50 p-4 dark:border-rose-800 dark:bg-rose-950/30">
+                <h3 className="text-sm font-semibold text-rose-900 dark:text-rose-100">
+                  {labels.workspace.knowledgeSearchErrorTitle}
+                </h3>
+                <p className="text-sm text-rose-800 dark:text-rose-200">
+                  {labels.workspace.knowledgeSearchErrorBody}
+                </p>
+                <dl className="grid gap-1 text-xs text-rose-800 dark:text-rose-200 sm:grid-cols-2">
+                  <div>
+                    <dt className="font-medium">{labels.workspace.errorCategory}</dt>
+                    <dd>knowledge_access</dd>
+                  </div>
+                  <div>
+                    <dt className="font-medium">{labels.workspace.errorSource}</dt>
+                    <dd>search_organization_knowledge</dd>
+                  </div>
+                  <div>
+                    <dt className="font-medium">{labels.workspace.retrySafe}</dt>
+                    <dd>{labels.workspace.temporaryError}</dd>
+                  </div>
+                </dl>
+                <p className="text-sm text-rose-900 dark:text-rose-100">
+                  {labels.workspace.recommendedNextAction}: {labels.retry}
+                </p>
+                <details className="text-xs text-rose-700 dark:text-rose-300">
+                  <summary>{labels.workspace.technicalReference}</summary>
+                  <p className="mt-1">knowledge_search_failed</p>
+                </details>
+                <button
+                  type="button"
+                  className="rounded-xl border border-rose-300 px-3 py-1.5 text-sm dark:border-rose-700"
+                  onClick={() => submitTask(labels.suggestionKnowledge)}
+                >
+                  {labels.retry}
+                </button>
+              </div>
+            ) : activeRun.result_summary ? (
+              <p className="text-sm text-slate-700 dark:text-slate-200">
+                {resolveKompisResultSummary(
+                  activeRun.result_summary,
+                  labels.results,
+                  activeRun.result_summary,
+                )}
+              </p>
+            ) : null}
+
+            {activeRun.core_approval_request_id ? (
+              <dl className="grid gap-2 rounded-xl border border-slate-100 p-3 text-xs text-slate-600 dark:border-slate-800 dark:text-slate-300 sm:grid-cols-2">
+                <div>
+                  <dt className="font-medium">{labels.workspace.coreApprovalId}</dt>
+                  <dd>{shortenTechnicalId(activeRun.core_approval_request_id)}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium">{labels.statusLabel}</dt>
+                  <dd>
+                    {statusLabel(
+                      activeRun.approval_status === "pending"
+                        ? "awaiting_approval"
+                        : activeRun.approval_status ?? "awaiting_approval",
+                    )}
+                  </dd>
+                </div>
+                <div className="sm:col-span-2">
+                  <Link href="/app/approvals" className="font-medium text-violet-700 underline dark:text-violet-300">
+                    {labels.openApprovalCenter}
+                  </Link>
+                </div>
+              </dl>
             ) : null}
 
             {activeRun.status === "blocked" && risk === 3 ? (
@@ -1203,7 +1529,14 @@ export function KompisOperatorWorkspacePanel({
             {activeRun.status === "completed" ? (
               <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-950 dark:border-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-100">
                 <p>{labels.authoritativelyVerified}</p>
-                <p className="mt-1">{labels.whatChanged}: {activeRun.result_summary}</p>
+                <p className="mt-1">
+                  {labels.whatChanged}:{" "}
+                  {resolveKompisResultSummary(
+                    activeRun.result_summary,
+                    labels.results,
+                    activeRun.result_summary ?? labels.nothingChanged,
+                  )}
+                </p>
                 <p className="mt-1">{labels.auditReference}: {activeRun.id}</p>
               </div>
             ) : null}
@@ -1228,12 +1561,14 @@ export function KompisOperatorWorkspacePanel({
           <dl className="mt-4 space-y-2 text-sm">
             <div className="flex justify-between gap-3">
               <dt className="text-slate-500">{labels.appLicense}</dt>
-              <dd>{String(workspace.parentLicense?.status ?? "—")}</dd>
+              <dd>{statusLabel(String(workspace.parentLicense?.status ?? "unknown"))}</dd>
             </div>
             <div className="flex justify-between gap-3">
               <dt className="text-slate-500">{labels.websiteKompis}</dt>
               <dd>
-                {workspace.websiteKompis.acknowledgement_ok === true ? labels.completed : labels.attention}
+                {workspace.websiteKompis.acknowledgement_ok === true
+                  ? labels.statuses.completed
+                  : labels.statuses.attention}
               </dd>
             </div>
             <div className="flex justify-between gap-3">
@@ -1242,15 +1577,11 @@ export function KompisOperatorWorkspacePanel({
             </div>
             <div className="flex justify-between gap-3">
               <dt className="text-slate-500">{labels.draftCount}</dt>
-              <dd>{String(website?.context?.draftCount ?? "—")}</dd>
+              <dd>{String(draftRows.length || website?.context?.draftCount || "—")}</dd>
             </div>
             <div className="flex justify-between gap-3">
               <dt className="text-slate-500">{labels.websitePublishes}</dt>
-              <dd>
-                {cms?.capabilities.publishCapability
-                  ? websiteCmsLabels.statusReady
-                  : labels.publishUnavailable}
-              </dd>
+              <dd className="text-right">{publishCapabilityLabel()}</dd>
             </div>
           </dl>
         </div>

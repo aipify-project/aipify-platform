@@ -1,14 +1,7 @@
 import { NextResponse } from "next/server";
 import { mapKompisOperatorRpcError } from "@/lib/kompis-operator/parse";
 import { assertKompisOperatorRateLimit } from "@/lib/kompis-operator/rate-limit";
-import { resolveKompisWebsiteContext } from "@/lib/kompis-operator/website-context";
-import {
-  buildWebsiteContentQualityAudit,
-  buildWebsiteLocaleCoverage,
-  buildWebsiteSeoAudit,
-  listWebsiteDraftPages,
-} from "@/lib/kompis-operator/website-ops";
-import { KOMPIS_OPERATOR_TOOL_REGISTRY } from "@/lib/kompis-operator/tools-registry";
+import { buildAuthoritativeWebsiteWorkspaceView } from "@/lib/kompis-operator/website-workspace-view";
 import { requireReadyAppPortalContext } from "@/lib/tenant/app-portal-route-access";
 import { createClient } from "@/lib/supabase/server";
 
@@ -26,8 +19,8 @@ export async function GET() {
     const access = await requireReadyAppPortalContext(supabase);
     if (!access.ok) return access.response;
 
-    const context = await resolveKompisWebsiteContext(supabase);
-    if (!context.organizationId) {
+    const view = await buildAuthoritativeWebsiteWorkspaceView(supabase);
+    if (!view.context.organizationId) {
       return NextResponse.json(
         { error: "Website operations are not available.", code: "kompis_unavailable" },
         { status: 403, headers },
@@ -37,7 +30,7 @@ export async function GET() {
     const rate = await assertKompisOperatorRateLimit({
       supabase,
       userId: user.id,
-      organizationId: context.organizationId,
+      organizationId: view.context.organizationId,
       kind: "plan",
     });
     if (!rate.allowed) {
@@ -47,34 +40,23 @@ export async function GET() {
       );
     }
 
-    const listed = await listWebsiteDraftPages(supabase, 50);
-    const seo = buildWebsiteSeoAudit({ context, pages: listed.pages });
-    const quality = buildWebsiteContentQualityAudit(listed.pages);
-    const locales = buildWebsiteLocaleCoverage(listed.pages);
-    const websiteTools = KOMPIS_OPERATOR_TOOL_REGISTRY.filter((tool) => tool.category === "website");
-
     return NextResponse.json(
       {
-        context,
-        pages: listed.pages,
-        seo,
-        quality,
-        locales,
-        tools: {
-          available: websiteTools.filter((tool) => tool.available).map((tool) => ({
-            key: tool.key,
-            version: tool.version,
-            riskClass: tool.riskClass,
-            kind: tool.kind,
-          })),
-          unavailable: websiteTools
-            .filter((tool) => !tool.available)
-            .map((tool) => ({
-              key: tool.key,
-              version: tool.version,
-              reason: tool.unavailableReason ?? "unavailable",
-            })),
+        authoritative: true,
+        context: view.context,
+        runtime: view.runtime,
+        pages: view.drafts,
+        drafts: view.drafts,
+        seo: {
+          findingCount: view.seoFindings.length,
+          findings: view.seoFindings,
         },
+        quality: { findingCount: view.qualityFindingCount },
+        locales: view.localeCoverage,
+        publish: view.publish,
+        actions: view.actions,
+        consistency: view.consistency,
+        tools: view.tools,
       },
       { headers },
     );

@@ -239,7 +239,19 @@ async function executeTool(
         p_filters: { query, limit: 5, status: "published" },
       });
       if (error) {
-        return { ok: false, verified: false, summary: "Knowledge search failed.", errorCode: "knowledge_search_failed" };
+        return {
+          ok: false,
+          verified: false,
+          summary: "knowledge_search_failed",
+          errorCode: "knowledge_search_failed",
+          data: {
+            errorCategory: "knowledge_access",
+            source: "search_organization_knowledge",
+            retrySafe: true,
+            permanent: false,
+            technicalReference: error.message?.slice(0, 120) ?? "knowledge_rpc_failed",
+          },
+        };
       }
       const hits = asArray(data)
         .slice(0, 5)
@@ -255,7 +267,7 @@ async function executeTool(
       return {
         ok: true,
         verified: true,
-        summary: hits.length ? `Found ${hits.length} authorized sources.` : "No authorized sources were found.",
+        summary: hits.length ? "knowledge_search_hits" : "knowledge_search_empty",
         data: { count: hits.length, sources: hits, query },
       };
     }
@@ -1038,18 +1050,21 @@ export async function executeKompisOperatorPlan(input: {
       ? "attention"
       : "completed";
 
+  const failedStep = stepResults.find((step) => step.status === "failed" || step.status === "blocked");
   const resultSummary = failed
-    ? "Task stopped before all steps completed."
+    ? failedStep?.errorCode === "knowledge_search_failed"
+      ? "knowledge_search_failed"
+      : "task_stopped_partial"
     : uncertain
-      ? "Task finished but result verification needs follow-up."
-      : "Task completed and authoritatively verified.";
+      ? "task_needs_follow_up"
+      : "task_completed_verified";
 
   await supabase.rpc("complete_app_kompis_operator_run", {
     p_run_id: runId,
     p_status: finalStatus === "attention" ? "attention" : finalStatus,
     p_result_summary: resultSummary,
     p_safe_error_code: failed
-      ? "step_failed"
+      ? failedStep?.errorCode ?? "step_failed"
       : uncertain
         ? "verifier_uncertain"
         : null,
