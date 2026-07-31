@@ -207,15 +207,38 @@ assert.equal(customerRisk?.actionLabelKey, "customerApp.executiveCommandCenter.t
 // 9. Synthetic ps620 records filtered from alerts
 assert.ok(!alerts.some((item) => item.title.includes("Synthetic")));
 
-// 10. Approvals dedupe Pending Trust Approval
+// 10. Seed Pending Trust Approval without CORE id is filtered (not actionable pending)
 const approvals = buildApprovalsDataset(sampleCenter);
-assert.equal(approvals.filter((item) => item.title === "Pending Trust Approval").length, 1);
+assert.equal(approvals.filter((item) => item.title === "Pending Trust Approval").length, 0);
+assert.equal(
+  isSyntheticEccRecord({
+    action_key: "approval_trust",
+    action_title: "Pending Trust Approval",
+    action_type: "approval",
+    record_href: "/app/approvals",
+    summary: "Level 3 action awaiting approval.",
+  }),
+  true,
+);
 
-// 11. Approval dual badges (severity + workflow)
-const pendingApproval = approvals[0];
-assert.equal(pendingApproval?.primaryBadge.type, "severity");
-assert.equal(pendingApproval?.secondaryBadge?.type, "workflow");
-assert.equal(pendingApproval?.secondaryBadge?.value, "awaiting_approval");
+// 10b. CORE approval deep link preserves exact request UUID
+const linked = mapApprovalToItem({
+  action_key: "core_approval:11111111-1111-4111-8111-111111111111",
+  action_title: "Kompis website publish",
+  action_type: "approval",
+  priority: "critical",
+  action_status: "pending",
+  approval_id: "11111111-1111-4111-8111-111111111111",
+  record_href: "/app/approvals?request=11111111-1111-4111-8111-111111111111",
+  summary: "Publish approved draft.",
+});
+assert.equal(linked.href, "/app/approvals?request=11111111-1111-4111-8111-111111111111");
+assert.equal(linked.staleLink, false);
+
+// 11. Approval dual badges (severity + workflow) for real linked approval
+assert.equal(linked.primaryBadge.type, "severity");
+assert.equal(linked.secondaryBadge?.type, "workflow");
+assert.equal(linked.secondaryBadge?.value, "awaiting_approval");
 
 // 12. Risks split active vs operational health
 const risks = buildRisksDataset(sampleCenter);

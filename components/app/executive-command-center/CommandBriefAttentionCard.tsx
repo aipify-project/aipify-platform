@@ -6,6 +6,7 @@ import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import { formatRelativeTime } from "@/lib/i18n/format-relative-time";
 import type { CommandBriefAttentionItem } from "@/lib/command-center/command-brief-attention";
 import { attentionSeverityLabelKey } from "@/lib/command-center/command-brief-attention";
+import { resolveCommandBriefRecordTitle } from "@/lib/command-center/command-brief-record-title-labels";
 import { EccTabIcons } from "./ecc-tab-icons";
 
 const ATTENTION_ICONS = {
@@ -39,6 +40,9 @@ function formatAttentionAge(timestamp: string | undefined, locale: string): stri
 }
 
 function resolveActionHref(item: CommandBriefAttentionItem, canAccessApprovals: boolean): string {
+  if (item.staleLink) {
+    return `/app/command-center/approvals?return=${encodeURIComponent("/app/command-center")}`;
+  }
   if (item.href.includes("/app/approvals") && !canAccessApprovals) {
     return `/app/command-center/approvals?return=${encodeURIComponent("/app/command-center")}`;
   }
@@ -56,6 +60,12 @@ export function CommandBriefAttentionCard({
   const age = formatAttentionAge(item.timestamp, locale);
   const actionHref = resolveActionHref(item, canAccessApprovals);
   const severityLabel = resolveLabel(attentionSeverityLabelKey(item.severityTier));
+  const title = item.titleLabelKey
+    ? resolveLabel(item.titleLabelKey)
+    : resolveCommandBriefRecordTitle(item.title, resolveLabel);
+  const description = item.descriptionLabelKey
+    ? resolveLabel(item.descriptionLabelKey)
+    : item.description;
 
   return (
     <article className={`${AppPremiumShell.elevatedCard} border-l-4 border-l-aipify-companion/40 p-5 sm:p-6`}>
@@ -80,16 +90,18 @@ export function CommandBriefAttentionCard({
           </div>
 
           <div>
-            <h3 className="text-base font-semibold text-aipify-text sm:text-lg">{item.title}</h3>
-            {item.description ? (
-              <p className={`mt-2 line-clamp-2 ${AppPremiumShell.commandBriefBody}`}>{item.description}</p>
+            <h3 className="text-base font-semibold text-aipify-text sm:text-lg">{title}</h3>
+            {description ? (
+              <p className={`mt-2 line-clamp-2 ${AppPremiumShell.commandBriefBody}`}>{description}</p>
             ) : null}
           </div>
 
           <dl className={`grid gap-2 sm:grid-cols-2 ${AppPremiumShell.commandBriefMeta}`}>
             <div>
               <dt className="inline font-medium text-aipify-text-secondary">{labels.moduleArea}: </dt>
-              <dd className="inline capitalize text-aipify-text">{item.moduleArea}</dd>
+              <dd className="inline text-aipify-text">
+                {item.itemTypeLabelKey ? resolveLabel(item.itemTypeLabelKey) : item.moduleArea}
+              </dd>
             </div>
             {age ? (
               <div>

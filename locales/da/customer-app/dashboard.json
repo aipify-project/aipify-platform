@@ -183,7 +183,13 @@
       "pending": "Pending",
       "approved": "Approved",
       "rejected": "Rejected",
-      "completed": "Completed"
+      "completed": "Completed",
+      "awaiting_approval": "Pending",
+      "expired": "Udløbet",
+      "cancelled": "Annulleret",
+      "canceled": "Annulleret",
+      "consumed": "Brugt",
+      "failed": "Mislykkedes"
     },
     "categoryLabels": {
       "notification": "Notification",
@@ -208,7 +214,19 @@
     "reasonPlaceholder": "Beskriv hvorfor handlingen skal gennemføres",
     "focusedMissing": "Denne godkendelse blev ikke fundet, eller den venter ikke længere.",
     "kompisPublishTitle": "Kompis: publicer webstedsudkast",
-    "kompisRollbackTitle": "Kompis: rul webstedsversion tilbage"
+    "kompisRollbackTitle": "Kompis: rul webstedsversion tilbage",
+    "couldNotOpen": "Godkendelsen kunne ikke åbnes",
+    "couldNotOpenBody": "Vi fandt ikke godkendelsen, eller du har ikke adgang til den.",
+    "backToApprovals": "Tilbage til godkendelser",
+    "incompleteScopeTitle": "Godkendelsen kan ikke behandles",
+    "incompleteScopeBody": "Nødvendigt scope er ufuldstændigt. Godkend og afvis forbliver deaktiveret, indtil bindingen er komplet.",
+    "invalidLink": "Godkendelseslinket er ugyldigt.",
+    "accessDenied": "Du har ikke adgang til denne godkendelse.",
+    "historicalExpired": "Udløbet",
+    "historicalCancelled": "Annulleret",
+    "historicalConsumed": "Brugt",
+    "historicalFailed": "Mislykkedes",
+    "technicalDetails": "Teknisk detalje"
   },
   "installations": {
     "title": "Installations",

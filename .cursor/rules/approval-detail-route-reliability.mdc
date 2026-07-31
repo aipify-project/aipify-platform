@@ -1,0 +1,52 @@
+---
+description: Canonical Approval Center detail route reliability
+globs:
+  - components/app/approvals/**
+  - components/app/executive-command-center/**
+  - components/shared/command-center/**
+  - lib/command-center/**
+  - lib/companion-action-approval/**
+  - app/app/approvals/**
+  - supabase/migrations/**approval_detail*
+alwaysApply: false
+---
+
+# Approval Detail Route Reliability
+
+## Canonical route
+
+One detail contract only:
+
+`/app/approvals?request=<approval-uuid>`
+
+- Exact CORE `action_requests.id` UUID required
+- Tenant resolved from session — never from URL org params
+- No parallel `id`, `approval`, `requestId`, or `actionRequest` query variants without an adapter that normalizes to `request=`
+
+Helpers: `buildApprovalsDeepLink`, `resolveApprovalDetailHref`, `selectFocusedApprovalId` in `lib/companion-action-approval/parse.ts`.
+
+## Navigation
+
+- Executive Command Center, Approval Center list, Kompis, and notifications must emit the same canonical href when an approval ID exists
+- Never deep-link a pending card to bare `/app/approvals` as if it were a concrete detail
+- Missing/invalid UUID → controlled empty/not-found state — never a crash or generic English global-error page
+- Showcase seed cards (`approval_trust`, `ps620:*`, English “Pending Trust Approval” without `request=`) are not actionable pending approvals
+
+## Loader & safety
+
+- Detail loader must not throw for missing, wrong-tenant, expired, cancelled, rejected, or consumed approvals
+- Decision buttons require complete valid scope, actionable pending status, and tenant match
+- Incomplete scope → disable approve/reject with a clear localized explanation
+
+## Presentation
+
+- Localized error states (`couldNotOpen`, retry, back to approvals, back to Kompis)
+- No raw enums, raw ISO timestamps as primary text, or full UUID as primary title
+- Status capitalization comes from locale data — no CSS `capitalize` / `uppercase` on status or type labels
+- No UnoNight hardcoding in Core
+
+## Forbidden
+
+- Browser/session/MFA handling changes
+- Live approval decisions, publish, or rollback in repair tasks
+- Dependencies/lockfile changes for this concern

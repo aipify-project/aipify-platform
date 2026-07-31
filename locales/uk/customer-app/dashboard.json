@@ -169,7 +169,31 @@
     "reasonPlaceholder": "Опишіть, чому дію слід виконати",
     "focusedMissing": "Це схвалення не знайдено або більше не очікує.",
     "kompisPublishTitle": "Kompis: опублікувати чернетку сайту",
-    "kompisRollbackTitle": "Kompis: відкотити версію сайту"
+    "kompisRollbackTitle": "Kompis: відкотити версію сайту",
+    "couldNotOpen": "Не вдалося відкрити схвалення",
+    "couldNotOpenBody": "Схвалення не знайдено, або у вас немає доступу.",
+    "backToApprovals": "Назад до схвалень",
+    "incompleteScopeTitle": "Схвалення неможливо опрацювати",
+    "incompleteScopeBody": "Необхідна область дії неповна. Схвалити й Відхилити залишаються вимкненими, доки прив’язка не буде повною.",
+    "invalidLink": "Посилання на схвалення недійсне.",
+    "accessDenied": "У вас немає доступу до цього схвалення.",
+    "historicalExpired": "Прострочено",
+    "historicalCancelled": "Скасовано",
+    "historicalConsumed": "Використано",
+    "historicalFailed": "Не вдалося",
+    "technicalDetails": "Технічні деталі",
+    "statusLabels": {
+      "pending": "Pending",
+      "awaiting_approval": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "completed": "Completed",
+      "expired": "Прострочено",
+      "cancelled": "Скасовано",
+      "canceled": "Скасовано",
+      "consumed": "Використано",
+      "failed": "Не вдалося"
+    }
   },
   "organizationalEarlyWarning": {
     "title": "Центр раннього попередження",

@@ -6,6 +6,12 @@ import {
   type SeverityLevel,
 } from "@/lib/design/semantic-status-system";
 import type { ExecutiveCommandCenter } from "@/lib/executive-command-center-engine/parse";
+import {
+  buildApprovalsDeepLink,
+  isApprovalRequestUuid,
+  resolveApprovalDetailHref,
+} from "@/lib/companion-action-approval/parse";
+import { resolveCommandBriefRecordTitleLabelKey } from "@/lib/command-center/command-brief-record-title-labels";
 
 export type CommandCenterBadge = {
   type: SemanticBadgeType;
@@ -18,8 +24,11 @@ export type CommandCenterItem = {
   dedupeKey: string;
   title: string;
   description: string;
+  titleLabelKey?: string;
+  descriptionLabelKey?: string;
   source?: string;
   itemType?: string;
+  itemTypeLabelKey?: string;
   timestamp?: string;
   count: number;
   href: string;
@@ -35,6 +44,8 @@ export type CommandCenterItem = {
   supportsPdf?: boolean;
   supportsWord?: boolean;
   severityRank: number;
+  /** When true, review CTA is disabled / refresh-only (missing concrete approval id). */
+  staleLink?: boolean;
 };
 
 export type EccOverviewCounts = {
@@ -48,6 +59,10 @@ export type EccOverviewCounts = {
 const SYNTHETIC_TEXT_PATTERN =
   /\b(synthetic|layout testing|layout test|mock data|mock record|demo dataset|design validation|test description|lorem ipsum|validation dataset|since last login validation|synthetic activity)\b/i;
 const SYNTHETIC_KEY_PREFIX = /^ps620:/i;
+/** Showcase seed keys that are not backed by CORE.APPROVAL ids. */
+const SEED_APPROVAL_KEYS = new Set(["approval_trust"]);
+const SEED_APPROVAL_TITLE = /^pending trust approval$/i;
+const SEED_APPROVAL_SUMMARY = /^level 3 action awaiting approval\.?$/i;
 
 const RISK_ALERT_TYPES = new Set([
   "customer_risk",
@@ -79,8 +94,26 @@ export function containsSyntheticEccText(...fields: string[]): boolean {
   return SYNTHETIC_KEY_PREFIX.test(text);
 }
 
+function isSeedApprovalPlaceholder(record: Record<string, unknown>): boolean {
+  const actionType = String(record.action_type ?? "").toLowerCase();
+  if (!(actionType === "approval" || actionType.includes("approval"))) return false;
+
+  const actionKey = String(record.action_key ?? "").trim().toLowerCase();
+  if (SEED_APPROVAL_KEYS.has(actionKey)) return true;
+
+  const title = String(record.action_title ?? record.title ?? "").trim();
+  const summary = String(record.summary ?? record.description ?? "").trim();
+  if (SEED_APPROVAL_TITLE.test(title) && SEED_APPROVAL_SUMMARY.test(summary)) {
+    return resolveApprovalDetailHref(record) == null;
+  }
+
+  return false;
+}
+
 export function isSyntheticEccRecord(record: Record<string, unknown>): boolean {
   if (isEccDemoModeEnabled()) return false;
+
+  if (isSeedApprovalPlaceholder(record)) return true;
 
   const idFields = [
     record.alert_key,
@@ -288,25 +321,40 @@ function mapApprovalWorkflow(record: Record<string, unknown>): string {
 
 export function mapApprovalToItem(record: Record<string, unknown>): CommandCenterItem {
   const title = String(record.action_title ?? "Approval");
+  const description = String(record.summary ?? "");
   const priority = record.priority;
   const severity = mapExecutivePriorityToSeverity(priority);
-  const id = resolveRecordId(record, ["action_key", "approval_id"]) || title;
-  const href =
-    typeof record.record_href === "string" && record.record_href.startsWith("/")
-      ? record.record_href
-      : "/app/approvals";
+  const approvalId =
+    [record.approval_id, record.action_request_id, record.request_id, record.id]
+      .map((value) => (typeof value === "string" ? value.trim() : ""))
+      .find((value) => isApprovalRequestUuid(value)) ?? null;
+  const id = approvalId || resolveRecordId(record, ["action_key", "approval_id"]) || title;
+  const detailHref = resolveApprovalDetailHref({
+    ...record,
+    approval_id: approvalId ?? record.approval_id,
+  });
+  const href = detailHref ?? "/app/approvals";
+  const titleLabelKey = resolveCommandBriefRecordTitleLabelKey(title) ?? undefined;
+  const descriptionLabelKey = SEED_APPROVAL_SUMMARY.test(description)
+    ? "customerApp.executiveCommandCenter.commandBriefOverview.recordDescriptions.level3ActionAwaitingApproval"
+    : undefined;
 
   return {
     id,
     dedupeKey: resolveDedupeKey(record, "approval", title),
     title,
-    description: String(record.summary ?? ""),
-    source: String(record.action_type ?? "approval").replace(/_/g, " "),
-    itemType: String(record.action_type ?? "approval"),
+    description,
+    titleLabelKey,
+    descriptionLabelKey,
+    source: "approval",
+    itemType: "approval",
+    itemTypeLabelKey: "customerApp.executiveCommandCenter.tabs.approvals.typeApproval",
     timestamp: parseTimestamp(record),
     count: 1,
     href,
-    actionLabelKey: "customerApp.executiveCommandCenter.tabs.approvals.actions.review",
+    actionLabelKey: detailHref
+      ? "customerApp.executiveCommandCenter.tabs.approvals.actions.review"
+      : "customerApp.executiveCommandCenter.tabs.approvals.actions.refresh",
     primaryBadge: {
       type: "severity",
       value: severity,
@@ -320,7 +368,13 @@ export function mapApprovalToItem(record: Record<string, unknown>): CommandCente
     blockedSummary: String(record.blocked_summary ?? record.summary ?? ""),
     requester: typeof record.requester === "string" ? record.requester : undefined,
     severityRank: severityRank(priority),
+    staleLink: detailHref == null,
   };
+}
+
+/** @internal test helper — keep deep-link builder reachable from ECC module. */
+export function buildEccApprovalDeepLink(approvalId: string): string {
+  return buildApprovalsDeepLink(approvalId);
 }
 
 export function mapRiskAlertToItem(record: Record<string, unknown>): CommandCenterItem {

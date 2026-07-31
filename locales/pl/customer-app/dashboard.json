@@ -169,7 +169,31 @@
     "reasonPlaceholder": "Opisz, dlaczego działanie powinno zostać wykonane",
     "focusedMissing": "Nie znaleziono tego zatwierdzenia lub nie jest już oczekujące.",
     "kompisPublishTitle": "Kompis: opublikuj szkic witryny",
-    "kompisRollbackTitle": "Kompis: wycofaj wersję witryny"
+    "kompisRollbackTitle": "Kompis: wycofaj wersję witryny",
+    "couldNotOpen": "Nie udało się otworzyć zatwierdzenia",
+    "couldNotOpenBody": "Nie znaleziono zatwierdzenia albo nie masz do niego dostępu.",
+    "backToApprovals": "Powrót do zatwierdzeń",
+    "incompleteScopeTitle": "Zatwierdzenia nie można przetworzyć",
+    "incompleteScopeBody": "Wymagany zakres jest niekompletny. Zatwierdź i Odrzuć pozostają wyłączone, dopóki powiązanie nie będzie kompletne.",
+    "invalidLink": "Link zatwierdzenia jest nieprawidłowy.",
+    "accessDenied": "Nie masz dostępu do tego zatwierdzenia.",
+    "historicalExpired": "Wygasło",
+    "historicalCancelled": "Anulowano",
+    "historicalConsumed": "Użyto",
+    "historicalFailed": "Nie powiodło się",
+    "technicalDetails": "Szczegóły techniczne",
+    "statusLabels": {
+      "pending": "Pending",
+      "awaiting_approval": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "completed": "Completed",
+      "expired": "Wygasło",
+      "cancelled": "Anulowano",
+      "canceled": "Anulowano",
+      "consumed": "Użyto",
+      "failed": "Nie powiodło się"
+    }
   },
   "organizationalEarlyWarning": {
     "title": "Centrum wczesnego ostrzegania",
