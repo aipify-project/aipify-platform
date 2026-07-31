@@ -26,6 +26,8 @@ import {
   shouldShowTrialBadge,
 } from "@/lib/platform-portal/business-language";
 import { PlatformPortalAppKompisDeliveryPanel } from "@/components/platform/platform-portal/PlatformPortalAppKompisDeliveryPanel";
+import { CustomerWebsiteRuntimeDeliveryPanel } from "@/components/platform/platform-portal/CustomerWebsiteRuntimeDeliveryPanel";
+import type { CustomerWebsiteRuntimeLabels } from "@/lib/customer-website-runtime/labels";
 import { PlatformPortalCommercialPlanPanel } from "@/components/platform/platform-portal/PlatformPortalCommercialPlanPanel";
 import { PlatformPortalDomainInstallationPanel } from "@/components/platform/platform-portal/PlatformPortalDomainInstallationPanel";
 import { PlatformPortalLicenseProvisioningPanel } from "@/components/platform/platform-portal/PlatformPortalLicenseProvisioningPanel";
@@ -44,6 +46,7 @@ type Props = {
   domainInstallationLabels: PlatformPortalDomainInstallationLabels;
   websiteKompisLabels: PlatformPortalWebsiteKompisLabels;
   appKompisDeliveryLabels: PlatformPortalAppKompisDeliveryLabels;
+  websiteRuntimeLabels: CustomerWebsiteRuntimeLabels;
   locale: string;
 };
 
@@ -496,6 +499,7 @@ export function PlatformPortalCustomerDetailPanel({
   domainInstallationLabels,
   websiteKompisLabels,
   appKompisDeliveryLabels,
+  websiteRuntimeLabels,
   locale,
 }: Props) {
   const [loadState, setLoadState] = useState<LoadState>({ kind: "loading" });
@@ -1319,6 +1323,10 @@ export function PlatformPortalCustomerDetailPanel({
           <PlatformPortalAppKompisDeliveryPanel
             customerId={customerId}
             labels={appKompisDeliveryLabels}
+          />
+          <CustomerWebsiteRuntimeDeliveryPanel
+            organizationId={customerId}
+            labels={websiteRuntimeLabels}
           />
           <SectionCard title={websiteKompisLabels.sectionActivatedServices}>
             <div className="space-y-4">

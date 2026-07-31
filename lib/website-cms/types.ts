@@ -6,7 +6,12 @@ export type WebsiteCmsVersionStatus = "candidate" | "published" | "superseded" |
 
 export type WebsiteCmsOperationKind = "publish" | "rollback" | "reconcile";
 
-export type WebsiteCmsOperationStatus = "pending_verification" | "active" | "attention" | "failed";
+export type WebsiteCmsOperationStatus =
+  | "pending_verification"
+  | "pending_runtime"
+  | "active"
+  | "attention"
+  | "failed";
 
 export type WebsiteCmsWebsiteSummary = {
   id: string;

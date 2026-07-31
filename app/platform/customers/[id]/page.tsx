@@ -7,6 +7,7 @@ import {
   buildPlatformPortalLicenseProvisioningLabels,
   buildPlatformPortalWebsiteKompisLabels,
 } from "@/lib/platform-portal";
+import { buildCustomerWebsiteRuntimeLabels } from "@/lib/customer-website-runtime/labels";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -26,6 +27,7 @@ export default async function PlatformCustomerDetailPage({ params }: CustomerDet
   const domainInstallationLabels = buildPlatformPortalDomainInstallationLabels(t);
   const websiteKompisLabels = buildPlatformPortalWebsiteKompisLabels(t);
   const appKompisDeliveryLabels = buildPlatformPortalAppKompisDeliveryLabels(t);
+  const websiteRuntimeLabels = buildCustomerWebsiteRuntimeLabels(t);
 
   return (
     <PlatformPortalCustomerDetailPanel
@@ -36,6 +38,7 @@ export default async function PlatformCustomerDetailPage({ params }: CustomerDet
       domainInstallationLabels={domainInstallationLabels}
       websiteKompisLabels={websiteKompisLabels}
       appKompisDeliveryLabels={appKompisDeliveryLabels}
+      websiteRuntimeLabels={websiteRuntimeLabels}
       locale={locale}
     />
   );
