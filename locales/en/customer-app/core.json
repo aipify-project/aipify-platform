@@ -7101,7 +7101,7 @@
       "verificationStatus": "Verification"
     },
     "approvalRequiredTitle": "Approval required",
-    "approvalRequiredBody": "Kompis has prepared an action that must be approved before it can run.",
+    "approvalRequiredBody": "Kompis has prepared the action. Review the scope before it can run.",
     "reviewAndApprove": "Review and approve",
     "approvalCreationFailedTitle": "Approval could not be created",
     "approvalCreationFailedBody": "The action stays blocked until approval is created. You can try again.",

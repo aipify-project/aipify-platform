@@ -1486,17 +1486,18 @@ export function KompisOperatorWorkspacePanel({
                   {labels.approvalRequiredTitle}
                 </h3>
                 <p className="text-sm text-slate-700 dark:text-slate-200">{labels.approvalRequiredBody}</p>
-                <p className="text-sm text-slate-700 dark:text-slate-200">{labels.coreApprovalRequired}</p>
                 <dl className="grid gap-2 text-xs text-slate-600 dark:text-slate-300 sm:grid-cols-2">
                   <div>
                     <dt className="font-medium">{labels.statusLabel}</dt>
                     <dd>{statusLabel("awaiting_approval")}</dd>
                   </div>
-                  <div>
-                    <dt className="font-medium">{labels.workspace.coreApprovalId}</dt>
-                    <dd>{shortenTechnicalId(activeRun.core_approval_request_id)}</dd>
-                  </div>
                 </dl>
+                <details className="text-xs text-slate-600 dark:text-slate-300">
+                  <summary>{labels.workspace.technicalReference}</summary>
+                  <p className="mt-1 font-mono">
+                    {labels.workspace.coreApprovalId}: {shortenTechnicalId(activeRun.core_approval_request_id)}
+                  </p>
+                </details>
                 <div className="flex flex-wrap gap-2">
                   <Link
                     href={`/app/approvals?request=${encodeURIComponent(activeRun.core_approval_request_id)}`}

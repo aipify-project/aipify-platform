@@ -1,5 +1,6 @@
 import { AipifyCompanionBriefingBanner } from "@/components/app/briefing";
 import { ApprovalsCenterPanel } from "@/components/app/approvals/ApprovalsCenterPanel";
+import { buildApprovalsCenterLabels } from "@/lib/companion-action-approval/approvals-center-labels";
 import { buildCompanionActionApprovalLabels } from "@/lib/companion-action-approval/labels";
 import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-labels";
 import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
@@ -21,112 +22,38 @@ export default async function ApprovalsPage() {
     createTranslator(companionActionApprovalDict),
   );
 
+  const labels = buildApprovalsCenterLabels(t, {
+    pulseLabel: t("branding.pulseLabel"),
+    companion: {
+      section: t("customerApp.approvals.companionSection"),
+      empty: t("customerApp.approvals.companionEmpty"),
+      loadError: companionLabels.errorMessage,
+      openCenter: companionLabels.title,
+      reason: companionLabels.reason,
+      expires: companionLabels.expires,
+      category: companionLabels.category,
+      statusLabels: {
+        pending: companionLabels.status_pending,
+        awaiting_approval: companionLabels.status_pending,
+        approved: companionLabels.status_approved,
+        rejected: companionLabels.status_rejected,
+        status_pending: companionLabels.status_pending,
+        status_approved: companionLabels.status_approved,
+        status_rejected: companionLabels.status_rejected,
+      },
+    },
+  });
+
   return (
-    <div className="space-y-4">
-      <div className="px-6 pt-6">
+    <div className="space-y-3">
+      <div className="mx-auto w-full max-w-[1560px] px-4 pt-4 sm:px-6 lg:px-8">
         <AipifyCompanionBriefingBanner
           context="approvals"
           labels={buildCompanionBriefingLabels(t)}
         />
       </div>
-      <Suspense fallback={<AipifyLoadingState message={t("customerApp.approvals.loading")} centered />}>
-        <ApprovalsCenterPanel
-          locale={locale}
-          labels={{
-            title: t("customerApp.approvals.title"),
-            subtitle: t("customerApp.approvals.subtitle"),
-            loading: t("customerApp.approvals.loading"),
-            empty: t("customerApp.approvals.empty"),
-            pulseLabel: t("branding.pulseLabel"),
-            openActionCenter: t("customerApp.approvals.openActionCenter"),
-            approve: t("customerApp.approvals.approve"),
-            reject: t("customerApp.approvals.reject"),
-            executing: t("customerApp.approvals.executing"),
-            emergencyStop: t("customerApp.approvals.emergencyStop"),
-            emergencyActive: t("customerApp.approvals.emergencyActive"),
-            emergencyStopConfirm: t("customerApp.approvals.emergencyStopConfirm"),
-            emergencyStopReasonPrompt: t("customerApp.approvals.emergencyStopReasonPrompt"),
-            actionCategories: t("customerApp.approvals.actionCategories"),
-            successCriteria: t("customerApp.approvals.successCriteria"),
-            integrationLinks: t("customerApp.approvals.integrationLinks"),
-            trustSection: t("customerApp.approvals.trustSection"),
-            trustLoadError: t("customerApp.approvals.trustLoadError"),
-            retry: t("customerApp.approvals.retry"),
-            returnToKompis: t("customerApp.approvals.returnToKompis"),
-            internalReason: t("customerApp.approvals.internalReason"),
-            reasonPlaceholder: t("customerApp.approvals.reasonPlaceholder"),
-            focusedMissing: t("customerApp.approvals.focusedMissing"),
-            couldNotOpen: t("customerApp.approvals.couldNotOpen"),
-            couldNotOpenBody: t("customerApp.approvals.couldNotOpenBody"),
-            backToApprovals: t("customerApp.approvals.backToApprovals"),
-            incompleteScopeTitle: t("customerApp.approvals.incompleteScopeTitle"),
-            incompleteScopeBody: t("customerApp.approvals.incompleteScopeBody"),
-            kompisPublishTitle: t("customerApp.approvals.kompisPublishTitle"),
-            kompisRollbackTitle: t("customerApp.approvals.kompisRollbackTitle"),
-            kompisPublishDetailTitle: t("customerApp.approvals.kompisPublishDetailTitle"),
-            websiteKompisSource: t("customerApp.approvals.websiteKompisSource"),
-            localeNorwegian: t("customerApp.approvals.localeNorwegian"),
-            whatChanges: t("customerApp.approvals.whatChanges"),
-            whatUnchanged: t("customerApp.approvals.whatUnchanged"),
-            homepageUnchanged: t("customerApp.approvals.homepageUnchanged"),
-            pathLabel: t("customerApp.approvals.pathLabel"),
-            localeLabel: t("customerApp.approvals.localeLabel"),
-            candidateLabel: t("customerApp.approvals.candidateLabel"),
-            currentVersionLabel: t("customerApp.approvals.currentVersionLabel"),
-            expectedVersionLabel: t("customerApp.approvals.expectedVersionLabel"),
-            auditReferenceLabel: t("customerApp.approvals.auditReferenceLabel"),
-            expiresLabel: t("customerApp.approvals.expiresLabel"),
-            riskLevels: {
-              "0": t("customerApp.approvals.riskLevels.information"),
-              "1": t("customerApp.approvals.riskLevels.low"),
-              "2": t("customerApp.approvals.riskLevels.medium"),
-              "3": t("customerApp.approvals.riskLevels.high"),
-              "4": t("customerApp.approvals.riskLevels.critical"),
-              low: t("customerApp.approvals.riskLevels.low"),
-              medium: t("customerApp.approvals.riskLevels.medium"),
-              high: t("customerApp.approvals.riskLevels.high"),
-              critical: t("customerApp.approvals.riskLevels.critical"),
-            },
-            fields: {
-              skill: t("customerApp.approvals.fields.skill"),
-              confidence: t("customerApp.approvals.fields.confidence"),
-              approver: t("customerApp.approvals.fields.approver"),
-              reasoning: t("customerApp.approvals.fields.reasoning"),
-            },
-            statusLabels: {
-              pending: t("customerApp.approvals.statusLabels.pending"),
-              approved: t("customerApp.approvals.statusLabels.approved"),
-              rejected: t("customerApp.approvals.statusLabels.rejected"),
-              completed: t("customerApp.approvals.statusLabels.completed"),
-            },
-            categoryLabels: {
-              notification: t("customerApp.approvals.categoryLabels.notification"),
-              recommendation: t("customerApp.approvals.categoryLabels.recommendation"),
-              automation: t("customerApp.approvals.categoryLabels.automation"),
-              integration: t("customerApp.approvals.categoryLabels.integration"),
-              update: t("customerApp.approvals.categoryLabels.update"),
-              action: t("customerApp.approvals.categoryLabels.action"),
-            },
-            companion: {
-              section: t("customerApp.approvals.companionSection"),
-              empty: t("customerApp.approvals.companionEmpty"),
-              loadError: companionLabels.errorMessage,
-              openCenter: companionLabels.title,
-              reason: companionLabels.reason,
-              expires: companionLabels.expires,
-              category: companionLabels.category,
-              statusLabels: {
-                pending: companionLabels.status_pending,
-                awaiting_approval: companionLabels.status_pending,
-                approved: companionLabels.status_approved,
-                rejected: companionLabels.status_rejected,
-                status_pending: companionLabels.status_pending,
-                status_approved: companionLabels.status_approved,
-                status_rejected: companionLabels.status_rejected,
-              },
-            },
-          }}
-        />
+      <Suspense fallback={<AipifyLoadingState message={labels.loading} centered />}>
+        <ApprovalsCenterPanel locale={locale} labels={labels} />
       </Suspense>
     </div>
   );
