@@ -9,7 +9,8 @@ export type KompisCoreApprovalPresentationStatus =
   | "cancelled"
   | "executing"
   | "consumed"
-  | "creation_failed";
+  | "creation_failed"
+  | "incomplete_scope";
 
 export function buildKompisApprovalDeepLink(actionRequestId: string | null | undefined): string | null {
   const id = typeof actionRequestId === "string" ? actionRequestId.trim() : "";
@@ -26,12 +27,23 @@ export function resolveKompisCoreApprovalPresentation(input: {
   runStatus?: string | null;
   approvalStatus?: string | null;
   bindingUsedAt?: string | null;
+  safeErrorCode?: string | null;
+  scopeComplete?: boolean | null;
 }): KompisCoreApprovalPresentationStatus {
   const required = input.coreApprovalRequired === true;
   const requestId = typeof input.coreApprovalRequestId === "string" ? input.coreApprovalRequestId.trim() : "";
   const coreStatus = String(input.coreApprovalStatus ?? "").trim().toLowerCase();
   const runStatus = String(input.runStatus ?? "").trim().toLowerCase();
   const approvalStatus = String(input.approvalStatus ?? "").trim().toLowerCase();
+  const safeError = String(input.safeErrorCode ?? "").trim().toLowerCase();
+
+  if (
+    safeError === "approval_scope_incomplete" ||
+    input.scopeComplete === false ||
+    runStatus === "failed" && safeError.includes("scope")
+  ) {
+    return "incomplete_scope";
+  }
 
   if (required && !requestId) {
     if (approvalStatus === "pending" || runStatus === "awaiting_approval") {

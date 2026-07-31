@@ -35,6 +35,9 @@ export type KompisOperatorLabels = {
   reviewAndApprove: string;
   approvalCreationFailedTitle: string;
   approvalCreationFailedBody: string;
+  incompleteScopeTitle: string;
+  incompleteScopeBody: string;
+  incompleteScopeTechnical: string;
   returnToKompis: string;
   toolNotAllowed: string;
   approveAndExecute: string;
@@ -175,6 +178,9 @@ export function buildKompisOperatorLabels(t: Translator): KompisOperatorLabels {
     reviewAndApprove: t(`${p}.reviewAndApprove`),
     approvalCreationFailedTitle: t(`${p}.approvalCreationFailedTitle`),
     approvalCreationFailedBody: t(`${p}.approvalCreationFailedBody`),
+    incompleteScopeTitle: t(`${p}.incompleteScopeTitle`),
+    incompleteScopeBody: t(`${p}.incompleteScopeBody`),
+    incompleteScopeTechnical: t(`${p}.incompleteScopeTechnical`),
     returnToKompis: t(`${p}.returnToKompis`),
     toolNotAllowed: t(`${p}.toolNotAllowed`),
     approveAndExecute: t(`${p}.approveAndExecute`),

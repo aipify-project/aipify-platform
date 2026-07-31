@@ -1,0 +1,29 @@
+---
+description: Fail-closed Website Kompis CORE approval scope
+globs: lib/kompis-operator/**/*,supabase/migrations/*kompis*approval*,components/app/kompis-operator/**/*,components/app/approvals/**/*
+alwaysApply: false
+---
+
+# Kompis website approval — fail closed
+
+## Rules
+
+1. **No website approval with empty scope** — never create CORE `action_requests` / bindings when publish/rollback scope is incomplete.
+2. **Publish requires** organization, website, path, candidate, locale, expected current version, reason, action checksum, idempotency key, run, step, tool.
+3. **Rollback requires** organization, website, path, current/expected version, rollback target, reason, checksum, idempotency, run, step, tool.
+4. **No nullable wildcard behavior** — assert rejects when binding or execute fields are missing; exact equality only.
+5. **Fail closed on missing binding** — incomplete binding cannot unlock execution.
+6. **No awaiting state without complete CORE approval** — draft/preview first; prepare approval only after candidate exists.
+7. **Action checksum required** — server-built from canonical scope.
+8. **Idempotency required** — stable key per exact action; replay with changed scope denied.
+9. **Planner must create draft/preview before publish approval** for content update tasks.
+10. **Execute input cannot complete missing binding** after the fact.
+11. **Approval is single-use** — consumed bindings cannot replay.
+12. **No local approval bypass** for publish/rollback.
+13. **No UnoNight / customer hardcoding** in Core.
+14. **No direct CMS writes** outside approved RPCs.
+
+## Errors
+
+- Missing scope → `APPROVAL_SCOPE_INCOMPLETE`
+- UI: “Handlingen kunne ikke klargjøres” / incomplete scope card — not false “Godkjenning kreves”

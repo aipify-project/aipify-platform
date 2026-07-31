@@ -23,6 +23,7 @@ import {
 } from "../website-cms/publish";
 import { rollbackWebsiteVersion } from "../website-cms/rollback";
 import { assertKompisCoreApprovalReady, consumeKompisCoreApproval } from "./core-approval";
+import { isEmptySafeInput } from "./website-approval-scope";
 
 type ToolResult = {
   ok: boolean;
@@ -749,6 +750,30 @@ async function executeTool(
         typeof safeInput.path === "string" && safeInput.path.trim()
           ? safeInput.path.trim()
           : null;
+      const locale =
+        typeof safeInput.locale === "string" && safeInput.locale.trim()
+          ? safeInput.locale.trim()
+          : null;
+      const actionChecksum =
+        typeof safeInput.actionChecksum === "string"
+          ? safeInput.actionChecksum
+          : typeof safeInput.action_checksum === "string"
+            ? safeInput.action_checksum
+            : null;
+      const idempotencyKeyFromScope =
+        typeof safeInput.idempotencyKey === "string"
+          ? safeInput.idempotencyKey
+          : typeof safeInput.idempotency_key === "string"
+            ? safeInput.idempotency_key
+            : null;
+      if (!path || !locale || !expectedCurrentVersionId || !actionChecksum || !idempotencyKeyFromScope) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "Publish scope is incomplete.",
+          errorCode: "approval_scope_incomplete",
+        };
+      }
       const core = await assertKompisCoreApprovalReady(supabase, {
         runId,
         toolKey: "website_publish_approved_draft",
@@ -757,6 +782,10 @@ async function executeTool(
           path,
           candidate_id: candidateId,
           expected_current_version_id: expectedCurrentVersionId,
+          locale,
+          reason: internalReason,
+          action_checksum: actionChecksum,
+          idempotency_key: idempotencyKeyFromScope,
         },
       });
       if (!core.ok) {
@@ -945,6 +974,7 @@ export async function executeKompisOperatorPlan(input: {
   resultSummary: string;
   safeErrorCode: string | null;
   stepResults: Array<{ sequence: number; status: string; result: Record<string, unknown> }>;
+  coreApprovalRequestId?: string | null;
 }> {
   const { supabase, runId, idempotencyKey, plan } = input;
 
@@ -995,6 +1025,8 @@ export async function executeKompisOperatorPlan(input: {
   const stepResults: Array<{ sequence: number; status: string; result: Record<string, unknown> }> = [];
   let failed = false;
   let uncertain = false;
+  let lastDraftId: string | null = null;
+  let preparedApprovalId: string | null = null;
 
   for (const step of plan.steps) {
     const tool = getKompisOperatorTool(step.toolKey);
@@ -1008,10 +1040,42 @@ export async function executeKompisOperatorPlan(input: {
       break;
     }
 
-    const result = await executeTool(supabase, step, workspace, runId);
+    // Skip CORE publish until prepared after draft/preview.
+    if (
+      step.toolKey === "website_publish_approved_draft" &&
+      (plan.preparePublishAfterPreview === true ||
+        plan.intent === "website_content_update_prepare_publish" ||
+        isEmptySafeInput(step.safeInput))
+    ) {
+      stepResults.push({
+        sequence: step.sequence,
+        status: "pending",
+        result: { ok: true, deferred: true, errorCode: null },
+      });
+      continue;
+    }
+
+    const enrichedStep = {
+      ...step,
+      safeInput: {
+        ...step.safeInput,
+        ...(step.toolKey === "website_draft_preview_create" &&
+        !step.safeInput.draftId &&
+        lastDraftId
+          ? { draftId: lastDraftId }
+          : {}),
+      },
+    };
+
+    const result = await executeTool(supabase, enrichedStep, workspace, runId);
     const status = result.ok ? (result.verified ? "completed" : "attention") : "failed";
     if (!result.ok) failed = true;
     if (result.ok && !result.verified) uncertain = true;
+
+    if (step.toolKey === "website_page_draft_create" && result.ok) {
+      const draftId = result.data && typeof result.data.id === "string" ? result.data.id : null;
+      if (draftId) lastDraftId = draftId;
+    }
 
     await supabase.rpc("record_app_kompis_operator_step_result", {
       p_run_id: runId,
@@ -1042,6 +1106,41 @@ export async function executeKompisOperatorPlan(input: {
     if (!result.ok) break;
   }
 
+  if (
+    !failed &&
+    (plan.preparePublishAfterPreview === true || plan.intent === "website_content_update_prepare_publish")
+  ) {
+    const prepared = await supabase.rpc("prepare_kompis_website_publish_approval_from_run", {
+      p_run_id: runId,
+      p_reason:
+        "Godkjenner publisering av det norske QA-utkastet kun på /aipify-cms-qa for kontroll av Aipify sin ordinære kundeleveranse. Forsiden og øvrige sider skal ikke endres.",
+    });
+    if (prepared.error) {
+      uncertain = true;
+      stepResults.push({
+        sequence: stepResults.length + 1,
+        status: "attention",
+        result: {
+          ok: false,
+          errorCode: /APPROVAL_SCOPE_INCOMPLETE/i.test(prepared.error.message)
+            ? "approval_scope_incomplete"
+            : "prepare_publish_approval_failed",
+        },
+      });
+    } else {
+      const row = prepared.data && typeof prepared.data === "object" ? (prepared.data as Record<string, unknown>) : {};
+      preparedApprovalId =
+        typeof row.action_request_id === "string" ? row.action_request_id : null;
+      return {
+        status: "attention",
+        resultSummary: "draft_preview_ready_awaiting_core_approval",
+        safeErrorCode: null,
+        stepResults,
+        coreApprovalRequestId: preparedApprovalId,
+      };
+    }
+  }
+
   const finalStatus = failed
     ? stepResults.some((step) => step.status === "completed")
       ? "partial"
@@ -1056,7 +1155,9 @@ export async function executeKompisOperatorPlan(input: {
   const resultSummary = failed
     ? failedErrorCode === "knowledge_search_failed"
       ? "knowledge_search_failed"
-      : "task_stopped_partial"
+      : failedErrorCode === "approval_scope_incomplete"
+        ? "approval_scope_incomplete"
+        : "task_stopped_partial"
     : uncertain
       ? "task_needs_follow_up"
       : "task_completed_verified";
@@ -1075,7 +1176,7 @@ export async function executeKompisOperatorPlan(input: {
   return {
     status: finalStatus,
     resultSummary,
-    safeErrorCode: failed ? "step_failed" : uncertain ? "verifier_uncertain" : null,
+    safeErrorCode: failed ? failedErrorCode ?? "step_failed" : uncertain ? "verifier_uncertain" : null,
     stepResults,
   };
 }

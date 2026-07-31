@@ -7116,7 +7116,10 @@
     "reviewAndApprove": "Gennemgå og godkend",
     "approvalCreationFailedTitle": "Godkendelsen kunne ikke oprettes",
     "approvalCreationFailedBody": "Handlingen forbliver blokeret, indtil godkendelsen er oprettet. Du kan prøve igen.",
-    "returnToKompis": "Tilbage til Kompis"
+    "returnToKompis": "Tilbage til Kompis",
+    "incompleteScopeTitle": "Handlingen kunne ikke klargøres",
+    "incompleteScopeBody": "Kompis mangler nødvendige oplysninger om side, udkast eller version. Ingen godkendelse eller publicering er udført.",
+    "incompleteScopeTechnical": "APPROVAL_SCOPE_INCOMPLETE"
   },
   "websiteCms": {
     "title": "Websted-CMS",

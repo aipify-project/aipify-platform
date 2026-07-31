@@ -4,14 +4,23 @@ import {
   type KompisAiPlanCandidate,
   type KompisAiProviderStatus,
 } from "./ai-runtime";
+import { toolRequiresCoreApproval } from "./core-approval-policy";
 import {
   getKompisOperatorTool,
   isKompisOperatorToolKey,
   type KompisOperatorRiskClass,
   type KompisOperatorToolKey,
 } from "./tools-registry";
+import {
+  APPROVAL_SCOPE_INCOMPLETE,
+  extractWebsiteContentHints,
+  isEmptySafeInput,
+  NORWEGIAN_QA_DRAFT,
+  validateCoreApprovalScopeForTool,
+} from "./website-approval-scope";
 
 export { createKompisOperatorIdempotencyKey } from "./ids";
+
 export type KompisOperatorPlanStep = {
   sequence: number;
   toolKey: KompisOperatorToolKey;
@@ -30,14 +39,17 @@ export type KompisOperatorPlan = {
   requiresApproval: boolean;
   confidence: "high" | "medium" | "low";
   steps: KompisOperatorPlanStep[];
+  scope?: Record<string, unknown>;
   unavailableReason?: string;
   blockedReasonCode?: string;
   plannerSource: "deterministic" | "ai" | "ai_fallback";
   providerStatus: KompisAiProviderStatus;
+  /** When true, draft/preview run first; CORE publish approval is prepared after candidate exists. */
+  preparePublishAfterPreview?: boolean;
 };
 
 const MAX_STEPS = 5;
-export const PLANNER_VERSION = "planner_v4";
+export const PLANNER_VERSION = "planner_v5";
 
 type IntentRule = {
   intent: string;
@@ -84,9 +96,26 @@ const RULES: IntentRule[] = [
     confidence: "high",
   },
   {
+    intent: "website_content_update_prepare_publish",
+    title: "Prepare website draft and preview",
+    summary:
+      "Create a website draft and preview first. Publish approval is prepared only after a candidate exists.",
+    patterns: [
+      /oppdater.*\/aipify-cms-qa/i,
+      /\/aipify-cms-qa.*utkast/i,
+      /utkast.*forhåndsvis/i,
+      /draft.*preview/i,
+      /lag\s+først\s+et\s+utkast/i,
+      /create\s+(a\s+)?draft.*preview/i,
+      /oppdater\s+den\s+eksisterende\s+qa-siden/i,
+    ],
+    tools: ["website_page_draft_create", "website_draft_preview_create"],
+    confidence: "high",
+  },
+  {
     intent: "website_publish",
     title: "Publish approved website draft",
-    summary: "Publishing requires a verified preview, explicit confirmation, and a live Website CMS.",
+    summary: "Publishing requires a complete candidate scope, verified preview, and Approval Center confirmation.",
     patterns: [/publiser/i, /publish/i],
     tools: ["website_publish_approved_draft"],
     confidence: "high",
@@ -94,7 +123,7 @@ const RULES: IntentRule[] = [
   {
     intent: "website_rollback",
     title: "Website publish rollback",
-    summary: "Rollback requires an existing published version and explicit confirmation.",
+    summary: "Rollback requires a complete version scope and explicit confirmation.",
     patterns: [/tilbakefør/i, /rollback/i, /rull\s*tilbake/i],
     tools: ["website_publish_rollback"],
     confidence: "high",
@@ -272,9 +301,19 @@ function scrubInjection(input: string): string {
 
 function buildSteps(
   tools: KompisOperatorToolKey[],
-  safeInput: Record<string, unknown> = {},
+  safeInputByTool: Record<string, Record<string, unknown>> | Record<string, unknown> = {},
 ): { steps: KompisOperatorPlanStep[]; unavailableReason?: string; riskClass: KompisOperatorRiskClass } {
   const steps: KompisOperatorPlanStep[] = [];
+  const shared =
+    safeInputByTool &&
+    typeof safeInputByTool === "object" &&
+    !Array.isArray(safeInputByTool) &&
+    !("website_page_draft_create" in safeInputByTool) &&
+    !("website_draft_preview_create" in safeInputByTool) &&
+    !("website_publish_approved_draft" in safeInputByTool)
+      ? (safeInputByTool as Record<string, unknown>)
+      : {};
+
   for (const toolKey of tools.slice(0, MAX_STEPS)) {
     const tool = getKompisOperatorTool(toolKey);
     if (!tool) continue;
@@ -284,6 +323,31 @@ function buildSteps(
         unavailableReason: tool.unavailableReason ?? "tool_unavailable",
         riskClass: tool.riskClass,
       };
+    }
+    const perTool =
+      safeInputByTool &&
+      typeof safeInputByTool === "object" &&
+      toolKey in safeInputByTool &&
+      typeof (safeInputByTool as Record<string, unknown>)[toolKey] === "object"
+        ? ((safeInputByTool as Record<string, unknown>)[toolKey] as Record<string, unknown>)
+        : shared;
+    const safeInput = { ...perTool };
+    if (toolRequiresCoreApproval(toolKey) && isEmptySafeInput(safeInput)) {
+      return {
+        steps: [],
+        unavailableReason: APPROVAL_SCOPE_INCOMPLETE.toLowerCase(),
+        riskClass: tool.riskClass,
+      };
+    }
+    if (toolRequiresCoreApproval(toolKey)) {
+      const scopeCheck = validateCoreApprovalScopeForTool(toolKey, safeInput);
+      if (!scopeCheck.ok) {
+        return {
+          steps: [],
+          unavailableReason: APPROVAL_SCOPE_INCOMPLETE.toLowerCase(),
+          riskClass: tool.riskClass,
+        };
+      }
     }
     steps.push({
       sequence: steps.length + 1,
@@ -300,6 +364,45 @@ function buildSteps(
   }
   const riskClass = Math.max(...steps.map((step) => step.riskClass)) as KompisOperatorRiskClass;
   return { steps, riskClass };
+}
+
+function buildContentUpdateSafeInputs(request: string): {
+  byTool: Record<string, Record<string, unknown>>;
+  scope: Record<string, unknown>;
+  preparePublishAfterPreview: boolean;
+} {
+  const hints = extractWebsiteContentHints(request);
+  const path = hints.path ?? (hints.isNorwegianQaUpdate ? NORWEGIAN_QA_DRAFT.path : null);
+  const locale = hints.locale ?? (hints.isNorwegianQaUpdate ? NORWEGIAN_QA_DRAFT.locale : "no");
+  const title = hints.title ?? NORWEGIAN_QA_DRAFT.title;
+  const text = hints.text ?? NORWEGIAN_QA_DRAFT.text;
+  const draftInput: Record<string, unknown> = {
+    path,
+    locale,
+    title,
+    text,
+    excludeHomepage: true,
+    excludeOtherPaths: true,
+    preparePublishAfterPreview: true,
+  };
+  return {
+    byTool: {
+      website_page_draft_create: draftInput,
+      website_draft_preview_create: {
+        resolveDraftIdFromPreviousStep: true,
+        path,
+        locale,
+      },
+    },
+    scope: {
+      path,
+      locale,
+      title,
+      prepare_publish_after_preview: true,
+      excluded_paths: ["/", "/home", "/index"],
+    },
+    preparePublishAfterPreview: true,
+  };
 }
 
 export function planKompisOperatorRequestDeterministic(rawRequest: string): KompisOperatorPlan {
@@ -400,7 +503,46 @@ export function planKompisOperatorRequestDeterministic(rawRequest: string): Komp
     };
   }
 
-  const built = buildSteps(matched.tools, matched.safeInput ?? {});
+  let safeInputArg: Record<string, Record<string, unknown>> | Record<string, unknown> =
+    matched.safeInput ?? {};
+  let scope: Record<string, unknown> | undefined;
+  let preparePublishAfterPreview = false;
+
+  if (matched.intent === "website_content_update_prepare_publish") {
+    const content = buildContentUpdateSafeInputs(request);
+    safeInputArg = content.byTool;
+    scope = content.scope;
+    preparePublishAfterPreview = true;
+  } else if (matched.intent === "website_publish" || matched.intent === "website_rollback") {
+    // Fail closed: bare publish/rollback without complete scope cannot become a plan.
+    return {
+      intent: matched.intent,
+      title: matched.title,
+      userSummary:
+        "Kompis needs a complete website, path, candidate or version scope before publish approval can be prepared.",
+      riskClass: 2,
+      requiresApproval: false,
+      confidence: "high",
+      steps: [],
+      unavailableReason: APPROVAL_SCOPE_INCOMPLETE.toLowerCase(),
+      blockedReasonCode: APPROVAL_SCOPE_INCOMPLETE.toLowerCase(),
+      plannerSource: "deterministic",
+      providerStatus: runtime.providerStatus,
+    };
+  } else if (matched.intent === "website_page_draft") {
+    const hints = extractWebsiteContentHints(request);
+    if (hints.path || hints.locale || hints.title) {
+      safeInputArg = {
+        path: hints.path,
+        locale: hints.locale ?? "en",
+        title: hints.title,
+        text: hints.text,
+        excludeHomepage: true,
+      };
+    }
+  }
+
+  const built = buildSteps(matched.tools, safeInputArg);
   if (built.steps.length === 0) {
     return {
       intent: matched.intent,
@@ -425,6 +567,8 @@ export function planKompisOperatorRequestDeterministic(rawRequest: string): Komp
     requiresApproval: built.riskClass >= 1,
     confidence: matched.confidence ?? "high",
     steps: built.steps,
+    scope,
+    preparePublishAfterPreview,
     plannerSource: "deterministic",
     providerStatus: runtime.providerStatus,
   };
@@ -494,6 +638,14 @@ function validateAiCandidate(candidate: KompisAiPlanCandidate): KompisOperatorPl
           ? (row.safeInput as Record<string, unknown>)
           : {},
     });
+    const last = steps[steps.length - 1]!;
+    if (toolRequiresCoreApproval(toolKey) && isEmptySafeInput(last.safeInput)) {
+      return null;
+    }
+    if (toolRequiresCoreApproval(toolKey)) {
+      const scopeCheck = validateCoreApprovalScopeForTool(toolKey, last.safeInput);
+      if (!scopeCheck.ok) return null;
+    }
   }
 
   if (confidence === "low") {
@@ -578,6 +730,8 @@ export function planToRpcJson(plan: KompisOperatorPlan): Record<string, unknown>
     modelIdentifier: plan.plannerSource === "ai" ? "ai_planner_v2" : "deterministic_planner_v2",
     plannerSource: plan.plannerSource,
     providerStatus: plan.providerStatus,
+    scope: plan.scope ?? {},
+    preparePublishAfterPreview: plan.preparePublishAfterPreview === true,
     steps: plan.steps.map((step) => ({
       sequence: step.sequence,
       toolKey: step.toolKey,

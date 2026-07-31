@@ -58,6 +58,13 @@ function run() {
   assert.equal(
     resolveKompisCoreApprovalPresentation({
       coreApprovalRequired: true,
+      safeErrorCode: "approval_scope_incomplete",
+    }),
+    "incomplete_scope",
+  );
+  assert.equal(
+    resolveKompisCoreApprovalPresentation({
+      coreApprovalRequired: true,
       coreApprovalRequestId: "11111111-1111-4111-8111-111111111111",
       coreApprovalStatus: "pending",
       approvalStatus: "pending",

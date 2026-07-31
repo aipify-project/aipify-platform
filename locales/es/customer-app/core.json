@@ -562,7 +562,10 @@
     "reviewAndApprove": "Revisar y aprobar",
     "approvalCreationFailedTitle": "No se pudo crear la aprobación",
     "approvalCreationFailedBody": "La acción permanece bloqueada hasta que se cree la aprobación. Puede intentarlo de nuevo.",
-    "returnToKompis": "Volver a Kompis"
+    "returnToKompis": "Volver a Kompis",
+    "incompleteScopeTitle": "No se pudo preparar la acción",
+    "incompleteScopeBody": "A Kompis le falta información necesaria sobre la página, el borrador o la versión. No se realizó ninguna aprobación ni publicación.",
+    "incompleteScopeTechnical": "APPROVAL_SCOPE_INCOMPLETE"
   },
   "websiteCms": {
     "title": "CMS del sitio web",
