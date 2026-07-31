@@ -83,6 +83,11 @@ type ApprovalsCenterPanelProps = {
     internalReason?: string;
     reasonPlaceholder?: string;
     focusedMissing?: string;
+    couldNotOpen?: string;
+    couldNotOpenBody?: string;
+    backToApprovals?: string;
+    incompleteScopeTitle?: string;
+    incompleteScopeBody?: string;
     kompisPublishTitle?: string;
     kompisRollbackTitle?: string;
   };
@@ -247,6 +252,14 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
     void refreshAll();
   }, [refreshAll]);
 
+  const visibleItems = useMemo(() => {
+    if (!focusedRequestId) return items;
+    return items.filter((item) => item.id === focusedRequestId);
+  }, [focusedRequestId, items]);
+
+  const focusedMissing =
+    Boolean(focusedRequestId) && !trustLoading && !trustLoadError && visibleItems.length === 0;
+
   async function postApprovalAction(
     source: "trust" | "companion",
     actionId: string,
@@ -295,20 +308,12 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
     await refreshTrust();
   }
 
-  if (trustLoading && companionLoading) {
-    return <AipifyLoadingState message={labels.loading} centered />;
-  }
-
   const emergencyActive =
     emergencyState === "paused" || emergencyState === "emergency_shutdown";
 
-  const visibleItems = useMemo(() => {
-    if (!focusedRequestId) return items;
-    return items.filter((item) => item.id === focusedRequestId);
-  }, [focusedRequestId, items]);
-
-  const focusedMissing =
-    Boolean(focusedRequestId) && !trustLoading && !trustLoadError && visibleItems.length === 0;
+  if (trustLoading && companionLoading) {
+    return <AipifyLoadingState message={labels.loading} centered />;
+  }
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-6">
@@ -405,10 +410,25 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
           <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
         ) : trustLoadError ? null : focusedMissing ? (
           <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
-            <p>{labels.focusedMissing ?? labels.empty}</p>
-            <Link href="/app/approvals" className="font-medium text-indigo-700 underline">
-              {labels.title}
-            </Link>
+            <p className="font-medium">{labels.couldNotOpen ?? labels.focusedMissing ?? labels.empty}</p>
+            <p>{labels.couldNotOpenBody ?? labels.focusedMissing ?? labels.empty}</p>
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => void retryAll()}
+                className="rounded-lg border border-amber-300 px-3 py-1.5 text-sm font-medium hover:bg-amber-100"
+              >
+                {labels.retry}
+              </button>
+              <Link href="/app/approvals" className="font-medium text-indigo-700 underline">
+                {labels.backToApprovals ?? labels.title}
+              </Link>
+              {labels.returnToKompis ? (
+                <Link href="/app/kompis" className="font-medium text-indigo-700 underline">
+                  {labels.returnToKompis}
+                </Link>
+              ) : null}
+            </div>
           </div>
         ) : (
           <ul className="space-y-3">

@@ -56,6 +56,11 @@ export default async function ApprovalsPage() {
             internalReason: t("customerApp.approvals.internalReason"),
             reasonPlaceholder: t("customerApp.approvals.reasonPlaceholder"),
             focusedMissing: t("customerApp.approvals.focusedMissing"),
+            couldNotOpen: t("customerApp.approvals.couldNotOpen"),
+            couldNotOpenBody: t("customerApp.approvals.couldNotOpenBody"),
+            backToApprovals: t("customerApp.approvals.backToApprovals"),
+            incompleteScopeTitle: t("customerApp.approvals.incompleteScopeTitle"),
+            incompleteScopeBody: t("customerApp.approvals.incompleteScopeBody"),
             kompisPublishTitle: t("customerApp.approvals.kompisPublishTitle"),
             kompisRollbackTitle: t("customerApp.approvals.kompisRollbackTitle"),
             riskLevels: {

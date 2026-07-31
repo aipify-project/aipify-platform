@@ -1040,7 +1040,8 @@
         "invoicePaid": "Рахунок оплачено"
       },
       "recordDescriptions": {
-        "completePendingExecutiveApprovalToday": "Завершіть очікуване керівне погодження сьогодні."
+        "completePendingExecutiveApprovalToday": "Завершіть очікуване керівне погодження сьогодні.",
+        "level3ActionAwaitingApproval": "Дію з критичним ризиком потрібно схвалити, перш ніж роботу можна продовжити."
       },
       "integrationSignalMeta": "{events} подій · {alerts} сповіщень",
       "orgNameUnavailable": "Організація недоступна",
@@ -1192,6 +1193,14 @@
         "awaitingApproval": "Очікує перегляду",
         "inProgress": "В процесі",
         "completed": "Завершено"
+      }
+    },
+    "tabs": {
+      "approvals": {
+        "typeApproval": "Схвалення",
+        "actions": {
+          "refresh": "Оновити"
+        }
       }
     }
   }

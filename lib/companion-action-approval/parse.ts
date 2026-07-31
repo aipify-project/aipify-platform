@@ -53,15 +53,55 @@ export function resolveTrustApproveRequest(
   };
 }
 
+/** Canonical Approval Center detail route: `/app/approvals?request=<uuid>`. */
+export const APPROVAL_REQUEST_UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+export function isApprovalRequestUuid(value: string | null | undefined): boolean {
+  return typeof value === "string" && APPROVAL_REQUEST_UUID_RE.test(value.trim());
+}
+
 export function buildApprovalsDeepLink(actionRequestId: string): string {
-  return `/app/approvals?request=${encodeURIComponent(actionRequestId)}`;
+  return `/app/approvals?request=${encodeURIComponent(actionRequestId.trim())}`;
+}
+
+export function extractApprovalRequestIdFromHref(href: string | null | undefined): string | null {
+  if (typeof href !== "string" || !href.startsWith("/")) return null;
+  try {
+    const url = new URL(href, "https://app.aipify.ai");
+    if (!url.pathname.startsWith("/app/approvals")) return null;
+    const request = url.searchParams.get("request")?.trim() ?? "";
+    return isApprovalRequestUuid(request) ? request : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Resolve the canonical Approval Center detail href from ECC/CORE record fields.
+ * Returns null when no exact approval UUID is available (do not deep-link to an empty list).
+ */
+export function resolveApprovalDetailHref(record: Record<string, unknown>): string | null {
+  const fromHref = extractApprovalRequestIdFromHref(
+    typeof record.record_href === "string" ? record.record_href : null,
+  );
+  if (fromHref) return buildApprovalsDeepLink(fromHref);
+
+  for (const field of ["approval_id", "action_request_id", "request_id", "id"]) {
+    const value = record[field];
+    if (typeof value === "string" && isApprovalRequestUuid(value)) {
+      return buildApprovalsDeepLink(value);
+    }
+  }
+
+  return null;
 }
 
 export function selectFocusedApprovalId(
   searchParams: URLSearchParams | { get(name: string): string | null },
 ): string | null {
   const raw = searchParams.get("request")?.trim() ?? "";
-  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(raw)) {
+  if (!isApprovalRequestUuid(raw)) {
     return null;
   }
   return raw;

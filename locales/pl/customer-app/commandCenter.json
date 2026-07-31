@@ -1040,7 +1040,8 @@
         "invoicePaid": "Faktura opłacona"
       },
       "recordDescriptions": {
-        "completePendingExecutiveApprovalToday": "Dokończ oczekujące zatwierdzenie kierownictwa jeszcze dziś."
+        "completePendingExecutiveApprovalToday": "Dokończ oczekujące zatwierdzenie kierownictwa jeszcze dziś.",
+        "level3ActionAwaitingApproval": "Działanie o krytycznym ryzyku musi zostać zatwierdzone, zanim praca będzie mogła być kontynuowana."
       },
       "integrationSignalMeta": "{events} zdarzeń · {alerts} alertów",
       "orgNameUnavailable": "Organizacja niedostępna",
@@ -1192,6 +1193,14 @@
         "awaitingApproval": "Oczekuje przeglądu",
         "inProgress": "W toku",
         "completed": "Ukończone"
+      }
+    },
+    "tabs": {
+      "approvals": {
+        "typeApproval": "Zatwierdzenie",
+        "actions": {
+          "refresh": "Odśwież"
+        }
       }
     }
   }

@@ -1660,7 +1660,8 @@
         "invoicePaid": "Faktura betalt"
       },
       "recordDescriptions": {
-        "completePendingExecutiveApprovalToday": "Fullfør den ventende ledergodkjenningen i dag."
+        "completePendingExecutiveApprovalToday": "Fullfør den ventende ledergodkjenningen i dag.",
+        "level3ActionAwaitingApproval": "En handling med kritisk risiko må godkjennes før arbeidet kan fortsette."
       },
       "integrationSignalMeta": "{events} hendelser · {alerts} varsler",
       "orgNameUnavailable": "Organisasjon utilgjengelig",
@@ -1826,8 +1827,10 @@
         "requester": "Forespurt av",
         "blocked": "Blokkert til godkjent",
         "actions": {
-          "review": "Gjennomgå godkjenning"
-        }
+          "review": "Gjennomgå godkjenning",
+          "refresh": "Oppdater"
+        },
+        "typeApproval": "Godkjenning"
       },
       "risks": {
         "actions": {

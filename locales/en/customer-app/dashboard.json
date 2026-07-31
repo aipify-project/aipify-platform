@@ -183,7 +183,13 @@
       "pending": "Pending",
       "approved": "Approved",
       "rejected": "Rejected",
-      "completed": "Completed"
+      "completed": "Completed",
+      "awaiting_approval": "Pending",
+      "expired": "Expired",
+      "cancelled": "Cancelled",
+      "canceled": "Cancelled",
+      "consumed": "Used",
+      "failed": "Failed"
     },
     "categoryLabels": {
       "notification": "Notification",
@@ -208,7 +214,19 @@
     "reasonPlaceholder": "Describe why this action should proceed",
     "focusedMissing": "This approval was not found or is no longer pending.",
     "kompisPublishTitle": "Kompis: publish website draft",
-    "kompisRollbackTitle": "Kompis: roll back website version"
+    "kompisRollbackTitle": "Kompis: roll back website version",
+    "couldNotOpen": "The approval could not be opened",
+    "couldNotOpenBody": "We could not find the approval, or you do not have access to it.",
+    "backToApprovals": "Back to approvals",
+    "incompleteScopeTitle": "This approval cannot be processed",
+    "incompleteScopeBody": "Required scope is incomplete. Approve and reject stay disabled until the binding is complete.",
+    "invalidLink": "This approval link is not valid.",
+    "accessDenied": "You do not have access to this approval.",
+    "historicalExpired": "Expired",
+    "historicalCancelled": "Cancelled",
+    "historicalConsumed": "Used",
+    "historicalFailed": "Failed",
+    "technicalDetails": "Technical details"
   },
   "installations": {
     "title": "Installations",

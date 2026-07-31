@@ -1660,7 +1660,8 @@
         "invoicePaid": "Faktura betald"
       },
       "recordDescriptions": {
-        "completePendingExecutiveApprovalToday": "Slutför det väntande ledningsgodkännandet i dag."
+        "completePendingExecutiveApprovalToday": "Slutför det väntande ledningsgodkännandet i dag.",
+        "level3ActionAwaitingApproval": "En åtgärd med kritisk risk måste godkännas innan arbetet kan fortsätta."
       },
       "integrationSignalMeta": "{events} händelser · {alerts} varningar",
       "orgNameUnavailable": "Organisation otillgänglig",
@@ -1826,8 +1827,10 @@
         "requester": "Begärt av",
         "blocked": "Blockerat tills godkänt",
         "actions": {
-          "review": "Granska godkännande"
-        }
+          "review": "Granska godkännande",
+          "refresh": "Uppdatera"
+        },
+        "typeApproval": "Godkännande"
       },
       "risks": {
         "actions": {

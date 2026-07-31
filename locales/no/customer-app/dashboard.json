@@ -180,10 +180,16 @@
       "reasoning": "Hvorfor Aipify anbefaler dette"
     },
     "statusLabels": {
-      "pending": "Pending",
-      "approved": "Approved",
-      "rejected": "Rejected",
-      "completed": "Completed"
+      "pending": "Venter på godkjenning",
+      "approved": "Godkjent",
+      "rejected": "Avvist",
+      "completed": "Fullført",
+      "awaiting_approval": "Venter på godkjenning",
+      "expired": "Utløpt",
+      "cancelled": "Kansellert",
+      "canceled": "Kansellert",
+      "consumed": "Brukt",
+      "failed": "Mislyktes"
     },
     "categoryLabels": {
       "notification": "Notification",
@@ -208,7 +214,19 @@
     "reasonPlaceholder": "Beskriv hvorfor handlingen skal gjennomføres",
     "focusedMissing": "Denne godkjenningen ble ikke funnet, eller den venter ikke lenger.",
     "kompisPublishTitle": "Kompis: publiser nettstedutkast",
-    "kompisRollbackTitle": "Kompis: rull tilbake nettstedversjon"
+    "kompisRollbackTitle": "Kompis: rull tilbake nettstedversjon",
+    "couldNotOpen": "Godkjenningen kunne ikke åpnes",
+    "couldNotOpenBody": "Vi fant ikke godkjenningen, eller du har ikke tilgang til den.",
+    "backToApprovals": "Tilbake til godkjenninger",
+    "incompleteScopeTitle": "Godkjenningen kan ikke behandles",
+    "incompleteScopeBody": "Nødvendig scope er ufullstendig. Godkjenn og avvis forblir deaktivert til bindingen er komplett.",
+    "invalidLink": "Godkjenningslenken er ugyldig.",
+    "accessDenied": "Du har ikke tilgang til denne godkjenningen.",
+    "historicalExpired": "Utløpt",
+    "historicalCancelled": "Kansellert",
+    "historicalConsumed": "Brukt",
+    "historicalFailed": "Mislyktes",
+    "technicalDetails": "Teknisk detalj"
   },
   "installations": {
     "title": "Installations",

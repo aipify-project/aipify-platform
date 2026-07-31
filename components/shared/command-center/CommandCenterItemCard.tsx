@@ -5,6 +5,7 @@ import { SemanticBadge } from "@/components/ui/semantic-badge";
 import { getSemanticPresentation } from "@/lib/design/semantic-status-system";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import type { CommandCenterItem } from "@/lib/command-center/ecc-tab-datasets";
+import { resolveCommandBriefRecordTitle } from "@/lib/command-center/command-brief-record-title-labels";
 
 type CommandCenterItemCardProps = {
   item: CommandCenterItem;
@@ -28,17 +29,31 @@ export function CommandCenterItemCard({
   const borderClasses = `${primaryPresentation.borderClassName} ${primaryPresentation.backgroundClassName}`;
   const timestamp = formatTimestamp(item.timestamp);
   const actionLabel = resolveLabel(item.actionLabelKey);
+  const title = item.titleLabelKey
+    ? resolveLabel(item.titleLabelKey)
+    : resolveCommandBriefRecordTitle(item.title, resolveLabel);
+  const description = item.descriptionLabelKey
+    ? resolveLabel(item.descriptionLabelKey)
+    : item.description;
+  const typeLabel = item.itemTypeLabelKey
+    ? resolveLabel(item.itemTypeLabelKey)
+    : item.itemType
+      ? item.itemType.replace(/_/g, " ")
+      : null;
+  const href = item.staleLink ? "/app/command-center/approvals" : item.href;
 
   return (
     <Link
-      href={item.href}
+      href={href}
       className={`block rounded-xl border border-l-4 p-5 transition hover:shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aipify-accent ${AppPremiumShell.elevatedCardHover} ${borderClasses}`}
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0 flex-1 space-y-2">
           <div className="flex flex-wrap items-center gap-2">
             {item.source ? (
-              <span className="text-xs font-medium uppercase tracking-wide text-aipify-text-muted">{item.source}</span>
+              <span className="text-xs font-medium tracking-wide text-aipify-text-muted">
+                {item.itemTypeLabelKey ? resolveLabel(item.itemTypeLabelKey) : item.source}
+              </span>
             ) : null}
             <SemanticBadge
               type={item.primaryBadge.type}
@@ -55,7 +70,7 @@ export function CommandCenterItemCard({
           </div>
 
           <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            <h3 className="text-base font-semibold text-aipify-text">{item.title}</h3>
+            <h3 className="text-base font-semibold text-aipify-text">{title}</h3>
             {variant === "health" && typeof item.healthScore === "number" ? (
               <span className="text-sm font-medium text-aipify-text-secondary">{item.healthScore} / 100</span>
             ) : null}
@@ -66,15 +81,15 @@ export function CommandCenterItemCard({
             ) : null}
           </div>
 
-          {item.description ? (
-            <p className="text-sm leading-relaxed text-aipify-text-secondary">{item.description}</p>
+          {description ? (
+            <p className="text-sm leading-relaxed text-aipify-text-secondary">{description}</p>
           ) : null}
 
           <dl className="grid gap-1 text-xs text-aipify-text-muted sm:grid-cols-2">
-            {item.itemType ? (
+            {typeLabel ? (
               <div>
                 <dt className="inline font-medium">{resolveLabel("customerApp.executiveCommandCenter.tabs.shared.type")}: </dt>
-                <dd className="inline capitalize">{item.itemType.replace(/_/g, " ")}</dd>
+                <dd className="inline">{typeLabel}</dd>
               </div>
             ) : null}
             {item.requester ? (
@@ -85,7 +100,7 @@ export function CommandCenterItemCard({
                 <dd className="inline">{item.requester}</dd>
               </div>
             ) : null}
-            {item.blockedSummary ? (
+            {item.blockedSummary && !item.descriptionLabelKey ? (
               <div className="sm:col-span-2">
                 <dt className="inline font-medium">
                   {resolveLabel("customerApp.executiveCommandCenter.tabs.approvals.blocked")}:{" "}
@@ -106,7 +121,7 @@ export function CommandCenterItemCard({
                 <dt className="inline font-medium">
                   {resolveLabel("customerApp.executiveCommandCenter.tabs.opportunities.confidence")}:{" "}
                 </dt>
-                <dd className="inline capitalize">{item.confidenceLabel.replace(/_/g, " ")}</dd>
+                <dd className="inline">{item.confidenceLabel.replace(/_/g, " ")}</dd>
               </div>
             ) : null}
             {item.nextStep ? (

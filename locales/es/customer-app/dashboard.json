@@ -319,7 +319,13 @@
       "pending": "Pending",
       "approved": "Approved",
       "rejected": "Rejected",
-      "completed": "Completed"
+      "completed": "Completed",
+      "awaiting_approval": "Pending",
+      "expired": "Caducada",
+      "cancelled": "Cancelada",
+      "canceled": "Cancelada",
+      "consumed": "Usada",
+      "failed": "Fallida"
     },
     "categoryLabels": {
       "notification": "Notification",
@@ -344,6 +350,18 @@
     "reasonPlaceholder": "Describa por qué debe realizarse la acción",
     "focusedMissing": "Esta aprobación no se encontró o ya no está pendiente.",
     "kompisPublishTitle": "Kompis: publicar borrador del sitio",
-    "kompisRollbackTitle": "Kompis: revertir versión del sitio"
+    "kompisRollbackTitle": "Kompis: revertir versión del sitio",
+    "couldNotOpen": "No se pudo abrir la aprobación",
+    "couldNotOpenBody": "No encontramos la aprobación o no tienes acceso a ella.",
+    "backToApprovals": "Volver a aprobaciones",
+    "incompleteScopeTitle": "La aprobación no se puede procesar",
+    "incompleteScopeBody": "El alcance requerido está incompleto. Aprobar y Rechazar permanecen deshabilitados hasta que el enlace esté completo.",
+    "invalidLink": "El enlace de aprobación no es válido.",
+    "accessDenied": "No tienes acceso a esta aprobación.",
+    "historicalExpired": "Caducada",
+    "historicalCancelled": "Cancelada",
+    "historicalConsumed": "Usada",
+    "historicalFailed": "Fallida",
+    "technicalDetails": "Detalle técnico"
   }
 }

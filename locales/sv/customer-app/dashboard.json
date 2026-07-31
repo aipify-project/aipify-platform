@@ -183,7 +183,13 @@
       "pending": "Pending",
       "approved": "Approved",
       "rejected": "Rejected",
-      "completed": "Completed"
+      "completed": "Completed",
+      "awaiting_approval": "Pending",
+      "expired": "Utgånget",
+      "cancelled": "Avbrutet",
+      "canceled": "Avbrutet",
+      "consumed": "Använt",
+      "failed": "Misslyckades"
     },
     "categoryLabels": {
       "notification": "Notification",
@@ -208,7 +214,19 @@
     "reasonPlaceholder": "Beskriv varför åtgärden ska genomföras",
     "focusedMissing": "Godkännandet hittades inte eller väntar inte längre.",
     "kompisPublishTitle": "Kompis: publicera webbplatsutkast",
-    "kompisRollbackTitle": "Kompis: återställ webbplatsversion"
+    "kompisRollbackTitle": "Kompis: återställ webbplatsversion",
+    "couldNotOpen": "Godkännandet kunde inte öppnas",
+    "couldNotOpenBody": "Vi hittade inte godkännandet, eller så saknar du behörighet.",
+    "backToApprovals": "Tillbaka till godkännanden",
+    "incompleteScopeTitle": "Godkännandet kan inte behandlas",
+    "incompleteScopeBody": "Nödvändigt scope är ofullständigt. Godkänn och avvisa förblir inaktiverade tills bindningen är komplett.",
+    "invalidLink": "Godkännandelänken är ogiltig.",
+    "accessDenied": "Du har inte behörighet till detta godkännande.",
+    "historicalExpired": "Utgånget",
+    "historicalCancelled": "Avbrutet",
+    "historicalConsumed": "Använt",
+    "historicalFailed": "Misslyckades",
+    "technicalDetails": "Teknisk detalj"
   },
   "installations": {
     "title": "Installations",

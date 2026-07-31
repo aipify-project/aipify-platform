@@ -731,6 +731,17 @@
         "pendingTrustApproval": "Aprobación de confianza pendiente",
         "majorCustomerRisk": "Riesgo significativo del cliente",
         "invoicePaid": "Factura pagada"
+      },
+      "recordDescriptions": {
+        "level3ActionAwaitingApproval": "Una acción de riesgo crítico debe aprobarse antes de que el trabajo pueda continuar."
+      }
+    },
+    "tabs": {
+      "approvals": {
+        "typeApproval": "Aprobación",
+        "actions": {
+          "refresh": "Actualizar"
+        }
       }
     }
   }
