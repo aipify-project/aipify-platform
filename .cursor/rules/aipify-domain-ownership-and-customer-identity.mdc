@@ -1,0 +1,35 @@
+---
+description: Aipify domain ownership and Platform customer contact identity
+alwaysApply: true
+---
+
+# Aipify Domain Ownership & Customer Identity
+
+## Ownership
+
+- Aipify Group AS does **not** own `aipify.com`.
+- `aipify.com` must never be used as an active Aipify identity, generator default, fixture, seed, or customer-facing example.
+- Primary owned email domain: `aipify.ai`.
+- Internal Aipify identities must use a verified owned Aipify domain.
+- Documentation and tests use reserved example domains (`example.com`, `customer.example`) unless an owned Aipify domain is intentionally required.
+- Negative tests and security rules that **forbid** `aipify.com` are allowed.
+
+## Platform identity changes
+
+- Production customer contact-email changes go through Platform:
+  - `GET|PATCH /api/platform-portal/customers/[id]/identity`
+  - RPC `update_platform_portal_customer_contact_email`
+- Require super-admin high-risk gate, confirmation, reason, idempotency, expected-current-email, uniqueness, and audit.
+- Do **not** use direct SQL bypass for customer identity updates.
+- Do **not** change auth users, billing profiles, send email, or create notifications unless a separate task explicitly requires it.
+
+## Generators & history
+
+- Generators and reprovision paths must never produce `@aipify.com`.
+- Internal tenant provision default: `admin@aipify.ai`.
+- Historical applied migration files are not rewritten after apply.
+- Policy module: `lib/aipify-domain-ownership/`.
+
+## Release gate
+
+Production release **stops** on active positive `aipify.com` hits in code, defaults, fixtures, live function bodies, or Production identity — excluding historical migrations and explicit forbid/negative-test text.

@@ -27,6 +27,14 @@ import {
   parseRuntimeStatusRpc,
 } from "./parse";
 import { CUSTOMER_WEBSITE_RUNTIME_CONTRACT as CONTRACT, RUNTIME_PROOF_HEADERS } from "./types";
+import {
+  assertAuthorizedAipifyEmail,
+  containsForbiddenAipifyCom,
+  evaluateAipifyEmailDomain,
+  findForbiddenAipifyComHits,
+  isOwnedAipifyEmailDomain,
+  isReservedExampleDomain,
+} from "@/lib/aipify-domain-ownership";
 
 const require = createRequire(import.meta.url);
 
@@ -335,6 +343,11 @@ function runSourceGuardTests() {
   assert.doesNotMatch(migration, /insert into public\.organizations/i);
   assert.doesNotMatch(migration, /insert into public\.customer_websites/i);
   assert.doesNotMatch(migration, /http[s]?:\/\/[^\s']+/i);
+  assert.equal(
+    findForbiddenAipifyComHits(migration).length,
+    0,
+    "runtime migration must not contain aipify.com",
+  );
 
   const routes = [
     "app/api/runtime/v1/website/context/route.ts",
@@ -364,8 +377,83 @@ function runSourceGuardTests() {
   assert.match(rule, /homepage off by default|Homepage is disabled by default|homepage_enabled/i);
   assert.match(rule, /SSRF|ssrf/);
   assert.doesNotMatch(rule, /unonight\.com/i);
+  assert.match(rule, /does \*\*not\*\* own `aipify\.com`|does not own aipify\.com/i);
+  assert.match(rule, /aipify\.ai/);
+  assert.match(rule, /forbidden|Production release \*\*stops\*\*/i);
+
+  // Active feature code/routes must not mint or default to aipify.com.
+  // Negative tests, ownership policy, and forbid-language docs may mention it.
+  const featureCodePaths = [
+    "lib/customer-website-runtime/adapter.ts",
+    "lib/customer-website-runtime/auth.ts",
+    "lib/customer-website-runtime/http-verify.ts",
+    "lib/customer-website-runtime/parse.ts",
+    "lib/customer-website-runtime/ssrf.ts",
+    "lib/customer-website-runtime/types.ts",
+    "lib/customer-website-runtime/labels.ts",
+    "lib/customer-website-runtime/index.ts",
+    "app/api/runtime/v1/website",
+    "app/api/app/website/runtime",
+    "components/platform/platform-portal/CustomerWebsiteRuntimeDeliveryPanel.tsx",
+    "components/app/website/CustomerWebsiteRuntimeReadinessCard.tsx",
+  ];
+  for (const path of featureCodePaths) {
+    walkFiles(path, (file, text) => {
+      if (file.endsWith(".test.ts")) return;
+      const hits = findForbiddenAipifyComHits(text);
+      assert.equal(hits.length, 0, `${file}: forbidden aipify.com hit`);
+    });
+  }
 
   console.log("customer-website-runtime source guards: all tests passed");
+}
+
+function walkFiles(root: string, visit: (file: string, text: string) => void): void {
+  let st;
+  try {
+    st = statSync(root);
+  } catch {
+    return;
+  }
+  if (st.isFile()) {
+    visit(root, readFileSync(root, "utf8"));
+    return;
+  }
+  if (!st.isDirectory()) return;
+  for (const name of readdirSync(root)) {
+    walkFiles(join(root, name), visit);
+  }
+}
+
+function runDomainOwnershipGateTests() {
+  assert.equal(containsForbiddenAipifyCom("team@aipify.com"), true);
+  assert.equal(containsForbiddenAipifyCom("https://aipify.com/path"), true);
+  assert.equal(containsForbiddenAipifyCom("AIPIFY.COM"), true);
+  // Substring lookalikes must not false-positive
+  assert.equal(containsForbiddenAipifyCom("aipify.companion.ui.v1"), false);
+  assert.equal(containsForbiddenAipifyCom("com.aipify.command-center"), false);
+
+  assert.equal(isOwnedAipifyEmailDomain("aipify.ai"), true);
+  assert.equal(isReservedExampleDomain("example.com"), true);
+  assert.equal(isReservedExampleDomain("customer.example"), true);
+
+  assert.equal(evaluateAipifyEmailDomain("aipify.com").ok, false);
+  assert.equal(evaluateAipifyEmailDomain("aipify.ai").ok, true);
+  assert.equal(evaluateAipifyEmailDomain("example.com").ok, true);
+
+  assert.doesNotThrow(() => assertAuthorizedAipifyEmail("ops@aipify.ai"));
+  assert.throws(() => assertAuthorizedAipifyEmail("team@aipify.com"), /aipify_com_not_owned/);
+
+  // Negative: historical seed strings in older migrations are out of this feature,
+  // but active generators must not mint @aipify.com (portal create uses noreply.aipify.internal).
+  const createCustomerSql = readFileSync(
+    "supabase/migrations/20261934400000_platform_portal_customer_creation_global_identity.sql",
+    "utf8",
+  );
+  assert.match(createCustomerSql, /noreply\.aipify\.internal/);
+  assert.equal(findForbiddenAipifyComHits(createCustomerSql).length, 0);
+
+  console.log("customer-website-runtime domain ownership gate: all tests passed");
 }
 
 function runUiContractTests() {
@@ -395,6 +483,7 @@ async function main() {
   runLabelToneTests();
   runLocaleParityTests();
   runSourceGuardTests();
+  runDomainOwnershipGateTests();
   runUiContractTests();
   console.log("customer-website-runtime: ALL TESTS PASSED");
 }

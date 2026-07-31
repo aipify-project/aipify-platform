@@ -4,6 +4,8 @@ Generic, customer-agnostic contract for delivering published Website CMS state t
 
 Example organization name in this document: **Example Customer** (`customer.example`).
 
+Domain ownership: Aipify Group AS does **not** own `aipify.com`. Do not use `@aipify.com` in identities, fixtures, or examples. Use `@aipify.ai` only for authorized Aipify addresses, and reserved example domains (`customer.example`, `example.com`) for customer sketches.
+
 ## Chain
 
 1. Platform manages customer, agreement, APP license, Website Kompis, domain, installation, and canonical delivery.
