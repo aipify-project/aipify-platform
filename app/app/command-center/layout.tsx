@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Suspense } from "react";
 import { ExecutiveCommandCenterLayoutShell } from "@/components/app/executive-command-center/ExecutiveCommandCenterLayoutShell";
 import { buildExecutiveCommandCenterLabels } from "@/lib/executive-command-center-engine/labels";
 import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
@@ -11,5 +12,9 @@ export default async function ExecutiveCommandCenterLayout({ children }: { child
   const t = createTranslator(dict);
   const labels = buildExecutiveCommandCenterLabels(t);
 
-  return <ExecutiveCommandCenterLayoutShell labels={labels}>{children}</ExecutiveCommandCenterLayoutShell>;
+  return (
+    <Suspense fallback={null}>
+      <ExecutiveCommandCenterLayoutShell labels={labels}>{children}</ExecutiveCommandCenterLayoutShell>
+    </Suspense>
+  );
 }

@@ -337,7 +337,9 @@ export function mapApprovalToItem(record: Record<string, unknown>): CommandCente
   const titleLabelKey = resolveCommandBriefRecordTitleLabelKey(title) ?? undefined;
   const descriptionLabelKey = SEED_APPROVAL_SUMMARY.test(description)
     ? "customerApp.executiveCommandCenter.commandBriefOverview.recordDescriptions.level3ActionAwaitingApproval"
-    : undefined;
+    : /^action awaiting approval\.?$/i.test(description)
+      ? "customerApp.executiveCommandCenter.commandBriefOverview.recordDescriptions.kompisWebsitePublishPrepared"
+      : undefined;
 
   return {
     id,

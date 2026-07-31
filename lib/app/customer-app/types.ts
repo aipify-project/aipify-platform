@@ -50,6 +50,20 @@ export type CustomerApproval = {
   resource_type?: string;
   resource_id?: string;
   return_to_kompis?: boolean;
+  /** Website Kompis binding (optional — absent for non-website actions). */
+  website_id?: string | null;
+  website_path?: string | null;
+  website_locale?: string | null;
+  candidate_id?: string | null;
+  expected_current_version_id?: string | null;
+  current_version_id?: string | null;
+  action_checksum?: string | null;
+  binding_complete?: boolean | null;
+  expires_at?: string | null;
+  audit_reference?: string | null;
+  tool_key?: string | null;
+  run_id?: string | null;
+  step_id?: string | null;
 };
 
 export type CustomerTeamMember = {

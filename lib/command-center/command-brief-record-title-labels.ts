@@ -7,6 +7,10 @@ const RECORD_TITLE_LABEL_KEYS: Record<string, string> = {
   major_customer_risk:
     "customerApp.executiveCommandCenter.commandBriefOverview.recordTitles.majorCustomerRisk",
   invoice_paid: "customerApp.executiveCommandCenter.commandBriefOverview.recordTitles.invoicePaid",
+  kompis_website_publish:
+    "customerApp.executiveCommandCenter.commandBriefOverview.recordTitles.kompisWebsitePublish",
+  kompis_website_rollback:
+    "customerApp.executiveCommandCenter.commandBriefOverview.recordTitles.kompisWebsiteRollback",
 };
 
 function normalizeRecordTitleKey(raw: string): string {
@@ -16,6 +20,13 @@ function normalizeRecordTitleKey(raw: string): string {
 export function resolveCommandBriefRecordTitleLabelKey(title: string): string | null {
   const key = normalizeRecordTitleKey(title);
   if (RECORD_TITLE_LABEL_KEYS[key]) return RECORD_TITLE_LABEL_KEYS[key];
+  // Stable aliases from CORE/ECC SQL title strings
+  if (key === "kompis_publish_website_draft" || key === "kompis_publish_website") {
+    return RECORD_TITLE_LABEL_KEYS.kompis_website_publish;
+  }
+  if (key === "kompis_roll_back_website_version" || key === "kompis_website_roll_back") {
+    return RECORD_TITLE_LABEL_KEYS.kompis_website_rollback;
+  }
   return null;
 }
 

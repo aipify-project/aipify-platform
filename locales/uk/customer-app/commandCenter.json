@@ -1037,11 +1037,14 @@
         "criticalApprovalDelay": "Критичне схвалення затримано",
         "pendingTrustApproval": "Очікує схвалення довіри",
         "majorCustomerRisk": "Значний ризик для клієнта",
-        "invoicePaid": "Рахунок оплачено"
+        "invoicePaid": "Рахунок оплачено",
+        "kompisWebsitePublish": "Публікація чернетки вебсайту",
+        "kompisWebsiteRollback": "Відкат версії вебсайту"
       },
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Завершіть очікуване керівне погодження сьогодні.",
-        "level3ActionAwaitingApproval": "Дію з критичним ризиком потрібно схвалити, перш ніж роботу можна продовжити."
+        "level3ActionAwaitingApproval": "Дію з критичним ризиком потрібно схвалити, перш ніж роботу можна продовжити.",
+        "kompisWebsitePublishPrepared": "Kompis підготував зміну, яка потребує затвердження."
       },
       "integrationSignalMeta": "{events} подій · {alerts} сповіщень",
       "orgNameUnavailable": "Організація недоступна",

@@ -98,13 +98,39 @@ export function resolveApprovalDetailHref(record: Record<string, unknown>): stri
 }
 
 export function selectFocusedApprovalId(
-  searchParams: URLSearchParams | { get(name: string): string | null },
+  searchParams: URLSearchParams | { get(name: string): string | null } | null | undefined,
 ): string | null {
+  if (!searchParams || typeof searchParams.get !== "function") {
+    return null;
+  }
   const raw = searchParams.get("request")?.trim() ?? "";
   if (!isApprovalRequestUuid(raw)) {
     return null;
   }
   return raw;
+}
+
+/**
+ * ECC CTA resolver: never drop a concrete `/app/approvals?request=<uuid>` deep link.
+ * Decision authorization stays server-side — client role/profile loading must not rewrite away the ID.
+ */
+export function resolveEccApprovalNavigationHref(input: {
+  href: string;
+  staleLink?: boolean;
+  canAccessApprovals: boolean;
+  returnPath?: string;
+}): string {
+  const href = typeof input.href === "string" ? input.href : "";
+  const approvalId = extractApprovalRequestIdFromHref(href);
+  if (approvalId) {
+    return href.startsWith("/") ? href : buildApprovalsDeepLink(approvalId);
+  }
+
+  const returnPath = input.returnPath ?? "/app/command-center";
+  if (input.staleLink || (href.includes("/app/approvals") && !input.canAccessApprovals)) {
+    return `/app/command-center/approvals?return=${encodeURIComponent(returnPath)}`;
+  }
+  return href || "/app/command-center/approvals";
 }
 
 export function dedupeCompanionPendingById<T extends { id: string }>(items: T[]): T[] {

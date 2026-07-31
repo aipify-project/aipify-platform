@@ -7,6 +7,7 @@ import { resolveCommandBriefModuleAreaLabelKey } from "@/lib/command-center/comm
 import { resolveCommandBriefRecordDescription } from "@/lib/command-center/command-brief-record-description-labels";
 import { resolveCommandBriefRecordTitle } from "@/lib/command-center/command-brief-record-title-labels";
 import { EccTabIcons } from "@/components/app/executive-command-center/ecc-tab-icons";
+import { resolveEccApprovalNavigationHref } from "@/lib/companion-action-approval/parse";
 import { formatDateTime } from "@/lib/i18n/format-date";
 import { formatRelativeTime } from "@/lib/i18n/format-relative-time";
 
@@ -34,10 +35,11 @@ type CommandBriefAttentionRowProps = {
 };
 
 function resolveActionHref(item: CommandBriefAttentionItem, canAccessApprovals: boolean): string {
-  if (item.href.includes("/app/approvals") && !canAccessApprovals) {
-    return `/app/command-center/approvals?return=${encodeURIComponent("/app/command-center")}`;
-  }
-  return item.href;
+  return resolveEccApprovalNavigationHref({
+    href: item.href,
+    staleLink: item.staleLink,
+    canAccessApprovals,
+  });
 }
 
 function resolveIconTone(item: CommandBriefAttentionItem) {

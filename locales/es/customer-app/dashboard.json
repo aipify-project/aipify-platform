@@ -362,6 +362,19 @@
     "historicalCancelled": "Cancelada",
     "historicalConsumed": "Usada",
     "historicalFailed": "Fallida",
-    "technicalDetails": "Detalle técnico"
+    "technicalDetails": "Detalle técnico",
+    "kompisPublishDetailTitle": "Publicar borrador de sitio web aprobado",
+    "websiteKompisSource": "Website Kompis",
+    "localeNorwegian": "Noruego",
+    "whatChanges": "Solo se publica el borrador aprobado de la ruta seleccionada.",
+    "whatUnchanged": "El resto de páginas y contenido no cambia.",
+    "homepageUnchanged": "La página de inicio no cambia.",
+    "pathLabel": "Ruta",
+    "localeLabel": "Idioma",
+    "candidateLabel": "Candidato",
+    "currentVersionLabel": "Versión actual",
+    "expectedVersionLabel": "Versión esperada",
+    "auditReferenceLabel": "Referencia de auditoría",
+    "expiresLabel": "Caduca"
   }
 }

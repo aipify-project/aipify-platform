@@ -7,6 +7,7 @@ import { formatRelativeTime } from "@/lib/i18n/format-relative-time";
 import type { CommandBriefAttentionItem } from "@/lib/command-center/command-brief-attention";
 import { attentionSeverityLabelKey } from "@/lib/command-center/command-brief-attention";
 import { resolveCommandBriefRecordTitle } from "@/lib/command-center/command-brief-record-title-labels";
+import { resolveEccApprovalNavigationHref } from "@/lib/companion-action-approval/parse";
 import { EccTabIcons } from "./ecc-tab-icons";
 
 const ATTENTION_ICONS = {
@@ -40,13 +41,11 @@ function formatAttentionAge(timestamp: string | undefined, locale: string): stri
 }
 
 function resolveActionHref(item: CommandBriefAttentionItem, canAccessApprovals: boolean): string {
-  if (item.staleLink) {
-    return `/app/command-center/approvals?return=${encodeURIComponent("/app/command-center")}`;
-  }
-  if (item.href.includes("/app/approvals") && !canAccessApprovals) {
-    return `/app/command-center/approvals?return=${encodeURIComponent("/app/command-center")}`;
-  }
-  return item.href;
+  return resolveEccApprovalNavigationHref({
+    href: item.href,
+    staleLink: item.staleLink,
+    canAccessApprovals,
+  });
 }
 
 export function CommandBriefAttentionCard({

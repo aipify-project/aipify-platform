@@ -1037,11 +1037,14 @@
         "criticalApprovalDelay": "Krytyczne zatwierdzenie jest opóźnione",
         "pendingTrustApproval": "Oczekuje zatwierdzenie zaufania",
         "majorCustomerRisk": "Istotne ryzyko klienta",
-        "invoicePaid": "Faktura opłacona"
+        "invoicePaid": "Faktura opłacona",
+        "kompisWebsitePublish": "Publikacja wersji roboczej witryny",
+        "kompisWebsiteRollback": "Przywrócenie wersji witryny"
       },
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Dokończ oczekujące zatwierdzenie kierownictwa jeszcze dziś.",
-        "level3ActionAwaitingApproval": "Działanie o krytycznym ryzyku musi zostać zatwierdzone, zanim praca będzie mogła być kontynuowana."
+        "level3ActionAwaitingApproval": "Działanie o krytycznym ryzyku musi zostać zatwierdzone, zanim praca będzie mogła być kontynuowana.",
+        "kompisWebsitePublishPrepared": "Kompis przygotował zmianę wymagającą zatwierdzenia."
       },
       "integrationSignalMeta": "{events} zdarzeń · {alerts} alertów",
       "orgNameUnavailable": "Organizacja niedostępna",

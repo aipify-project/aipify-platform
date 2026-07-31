@@ -174,10 +174,14 @@ export function CommandBriefOverview({
   const nextActionValueClass = AppPremiumShell.commandBriefNextActionValue;
   const metricDescriptionClass = AppPremiumShell.commandBriefMetricDescription;
 
+  // While the dashboard profile is still loading, do not treat approvals as inaccessible —
+  // that previously rewrote concrete UUID deep links away to /app/command-center/approvals.
+  const profileLoading = profile?.loading === true;
   const userRole = profile?.profile?.user.role;
   const canAccessApprovals =
-    userRole != null &&
-    roleHasPermission(mapUserRoleToOrganizationRole(userRole), "approve_ai_actions");
+    profileLoading ||
+    (userRole != null &&
+      roleHasPermission(mapUserRoleToOrganizationRole(userRole), "approve_ai_actions"));
   const approvalsHref = canAccessApprovals ? "/app/approvals" : undefined;
 
   const sinceLastLoginStatus = resolveSinceLastLoginKpiStatus(kpis.sinceLastLogin, kpiStatus);

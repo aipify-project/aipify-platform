@@ -1,0 +1,57 @@
+---
+description: Prevent Production approval-detail crashes (deep link + loader)
+globs:
+  - components/app/approvals/**
+  - components/app/executive-command-center/**
+  - components/shared/command-center/**
+  - lib/command-center/**
+  - lib/companion-action-approval/**
+  - app/app/approvals/**
+  - app/app/error.tsx
+  - app/app/command-center/**
+  - supabase/migrations/**approval_detail*
+alwaysApply: false
+---
+
+# Approval Detail — Production Crash Prevention
+
+## Canonical route
+
+One helper contract only:
+
+`/app/approvals?request=<approval-uuid>`
+
+- Helpers: `buildApprovalsDeepLink`, `resolveApprovalDetailHref`, `selectFocusedApprovalId`, `resolveEccApprovalNavigationHref` in `lib/companion-action-approval/parse.ts`
+- Exact CORE `action_requests.id` UUID in the URL
+- Tenant resolved server-side from session — never from URL org params
+
+## Navigation (mandatory)
+
+- When an approval UUID exists in `href` / `record_href` / `approval_id`, **never rewrite** the CTA to bare `/app/command-center/approvals`
+- Client `canAccessApprovals` / profile-loading must not drop the UUID (decision auth stays server-side)
+- While dashboard profile is loading, treat approvals deep links as keepable — do not assume denied
+- ECC, Approval Center, Kompis, and notifications must share the same approval ID
+
+## Loader
+
+- Normalize with `normalizeApprovalDetail()` — null description, expires_at, actor, and optional binding fields must not throw
+- Website Kompis publish/rollback: show path, locale, candidate, versions, checksum/audit when present
+- Incomplete binding → controlled “cannot process” state + disabled decisions — never crash
+- Historical / wrong-tenant / missing → controlled state — never English `global-error`
+
+## Error UI
+
+- Approval detail and ECC segments must have localized `error.tsx` boundaries
+- Never rely on English `app/global-error.tsx` for approval detail failures
+- Actions: retry, back to approvals, back to Kompis when relevant
+- Technical digest only inside a details section — no raw stacks/secrets/full UUID as primary copy
+
+## Decisions
+
+Approve/Reject only when: found, tenant match, actionable pending, binding complete (website), checksum present, not expired/cancelled/consumed/emergency.
+
+## Forbidden
+
+- UnoNight hardcoding in Core
+- Browser/session/MFA handling in this surface
+- Live approval decision, publish, or rollback inside repair tasks

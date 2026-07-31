@@ -1,6 +1,7 @@
 export * from "./types";
 export * from "./parse";
 export * from "./labels";
+export * from "./normalize-detail";
 
 export const COMPANION_ACTION_LIFECYCLE = [
   "draft",

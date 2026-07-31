@@ -193,7 +193,20 @@
       "canceled": "Скасовано",
       "consumed": "Використано",
       "failed": "Не вдалося"
-    }
+    },
+    "kompisPublishDetailTitle": "Опублікувати затверджену чернетку сайту",
+    "websiteKompisSource": "Website Kompis",
+    "localeNorwegian": "Норвезька",
+    "whatChanges": "Публікується лише затверджена чернетка для вибраного шляху.",
+    "whatUnchanged": "Інші сторінки та вміст залишаються без змін.",
+    "homepageUnchanged": "Головна сторінка не змінюється.",
+    "pathLabel": "Шлях",
+    "localeLabel": "Мова",
+    "candidateLabel": "Кандидат",
+    "currentVersionLabel": "Поточна версія",
+    "expectedVersionLabel": "Очікувана версія",
+    "auditReferenceLabel": "Аудит-посилання",
+    "expiresLabel": "Закінчується"
   },
   "organizationalEarlyWarning": {
     "title": "Центр раннього попередження",

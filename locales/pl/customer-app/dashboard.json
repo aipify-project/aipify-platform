@@ -193,7 +193,20 @@
       "canceled": "Anulowano",
       "consumed": "Użyto",
       "failed": "Nie powiodło się"
-    }
+    },
+    "kompisPublishDetailTitle": "Opublikuj zatwierdzony szkic witryny",
+    "websiteKompisSource": "Website Kompis",
+    "localeNorwegian": "Norweski",
+    "whatChanges": "Opublikowany zostanie tylko zatwierdzony szkic dla wybranej ścieżki.",
+    "whatUnchanged": "Pozostałe strony i treści pozostają bez zmian.",
+    "homepageUnchanged": "Strona główna nie ulega zmianie.",
+    "pathLabel": "Ścieżka",
+    "localeLabel": "Język",
+    "candidateLabel": "Kandydat",
+    "currentVersionLabel": "Bieżąca wersja",
+    "expectedVersionLabel": "Oczekiwana wersja",
+    "auditReferenceLabel": "Odwołanie audytu",
+    "expiresLabel": "Wygasa"
   },
   "organizationalEarlyWarning": {
     "title": "Centrum wczesnego ostrzegania",

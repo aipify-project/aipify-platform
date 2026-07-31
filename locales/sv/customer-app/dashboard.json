@@ -226,7 +226,20 @@
     "historicalCancelled": "Avbrutet",
     "historicalConsumed": "Använt",
     "historicalFailed": "Misslyckades",
-    "technicalDetails": "Teknisk detalj"
+    "technicalDetails": "Teknisk detalj",
+    "kompisPublishDetailTitle": "Publicera godkänt webbplatsutkast",
+    "websiteKompisSource": "Website Kompis",
+    "localeNorwegian": "Norska",
+    "whatChanges": "Endast det godkända utkastet för den valda sökvägen publiceras.",
+    "whatUnchanged": "Övriga sidor och innehåll förblir oförändrade.",
+    "homepageUnchanged": "Startsida ändras inte.",
+    "pathLabel": "Sökväg",
+    "localeLabel": "Språk",
+    "candidateLabel": "Kandidat",
+    "currentVersionLabel": "Aktuell version",
+    "expectedVersionLabel": "Förväntad version",
+    "auditReferenceLabel": "Revisionsreferens",
+    "expiresLabel": "Löper ut"
   },
   "installations": {
     "title": "Installations",

@@ -1657,11 +1657,14 @@
         "criticalApprovalDelay": "Kritisk godkjenning er forsinket",
         "pendingTrustApproval": "Tillitsgodkjenning venter",
         "majorCustomerRisk": "Betydelig kunderisiko",
-        "invoicePaid": "Faktura betalt"
+        "invoicePaid": "Faktura betalt",
+        "kompisWebsitePublish": "Publisering av nettstedutkast",
+        "kompisWebsiteRollback": "Tilbakerulling av nettstedversjon"
       },
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Fullfør den ventende ledergodkjenningen i dag.",
-        "level3ActionAwaitingApproval": "En handling med kritisk risiko må godkjennes før arbeidet kan fortsette."
+        "level3ActionAwaitingApproval": "En handling med kritisk risiko må godkjennes før arbeidet kan fortsette.",
+        "kompisWebsitePublishPrepared": "Kompis har forberedt en endring som krever godkjenning."
       },
       "integrationSignalMeta": "{events} hendelser · {alerts} varsler",
       "orgNameUnavailable": "Organisasjon utilgjengelig",

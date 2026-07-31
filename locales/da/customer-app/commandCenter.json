@@ -1657,11 +1657,14 @@
         "criticalApprovalDelay": "Kritisk godkendelse er forsinket",
         "pendingTrustApproval": "Tillidsgodkendelse afventer",
         "majorCustomerRisk": "Betydelig kunderisiko",
-        "invoicePaid": "Faktura betalt"
+        "invoicePaid": "Faktura betalt",
+        "kompisWebsitePublish": "Publicering af website-udkast",
+        "kompisWebsiteRollback": "Tilbagerulning af websiteversion"
       },
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Fuldfør den afventende ledelsesgodkendelse i dag.",
-        "level3ActionAwaitingApproval": "En handling med kritisk risiko skal godkendes, før arbejdet kan fortsætte."
+        "level3ActionAwaitingApproval": "En handling med kritisk risiko skal godkendes, før arbejdet kan fortsætte.",
+        "kompisWebsitePublishPrepared": "Kompis har forberedt en ændring, der kræver godkendelse."
       },
       "integrationSignalMeta": "{events} hændelser · {alerts} advarsler",
       "orgNameUnavailable": "Organisation utilgængelig",

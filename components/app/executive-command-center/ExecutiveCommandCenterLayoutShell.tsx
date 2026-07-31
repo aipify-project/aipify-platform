@@ -20,7 +20,8 @@ export function ExecutiveCommandCenterLayoutShell({
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const isOverview = getEcc590ActiveSection(pathname, searchParams.get("tab")) === "overview";
+  const tab = searchParams?.get?.("tab") ?? null;
+  const isOverview = getEcc590ActiveSection(pathname, tab) === "overview";
 
   return (
     <ExecutiveCommandCenterRefreshProvider>

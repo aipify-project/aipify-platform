@@ -6,6 +6,7 @@ import { getSemanticPresentation } from "@/lib/design/semantic-status-system";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import type { CommandCenterItem } from "@/lib/command-center/ecc-tab-datasets";
 import { resolveCommandBriefRecordTitle } from "@/lib/command-center/command-brief-record-title-labels";
+import { resolveEccApprovalNavigationHref } from "@/lib/companion-action-approval/parse";
 
 type CommandCenterItemCardProps = {
   item: CommandCenterItem;
@@ -40,7 +41,11 @@ export function CommandCenterItemCard({
     : item.itemType
       ? item.itemType.replace(/_/g, " ")
       : null;
-  const href = item.staleLink ? "/app/command-center/approvals" : item.href;
+  const href = resolveEccApprovalNavigationHref({
+    href: item.href,
+    staleLink: item.staleLink,
+    canAccessApprovals: true,
+  });
 
   return (
     <Link

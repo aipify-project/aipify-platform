@@ -1635,11 +1635,14 @@
         "criticalApprovalDelay": "Critical approval is delayed",
         "pendingTrustApproval": "Trust approval pending",
         "majorCustomerRisk": "Significant customer risk",
-        "invoicePaid": "Invoice paid"
+        "invoicePaid": "Invoice paid",
+        "kompisWebsitePublish": "Publishing a website draft",
+        "kompisWebsiteRollback": "Rolling back a website version"
       },
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Complete the pending executive approval today.",
-        "level3ActionAwaitingApproval": "A critical-risk action must be approved before work can continue."
+        "level3ActionAwaitingApproval": "A critical-risk action must be approved before work can continue.",
+        "kompisWebsitePublishPrepared": "Kompis has prepared a change that requires approval."
       },
       "integrationSignalMeta": "{events} events · {alerts} alerts",
       "orgNameUnavailable": "Organization unavailable",

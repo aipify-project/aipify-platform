@@ -226,7 +226,20 @@
     "historicalCancelled": "Annulleret",
     "historicalConsumed": "Brugt",
     "historicalFailed": "Mislykkedes",
-    "technicalDetails": "Teknisk detalje"
+    "technicalDetails": "Teknisk detalje",
+    "kompisPublishDetailTitle": "Publicer godkendt website-udkast",
+    "websiteKompisSource": "Website Kompis",
+    "localeNorwegian": "Norsk",
+    "whatChanges": "Kun det godkendte udkast til den valgte sti publiceres.",
+    "whatUnchanged": "Andre sider og indhold forbliver uændrede.",
+    "homepageUnchanged": "Forsiden ændres ikke.",
+    "pathLabel": "Sti",
+    "localeLabel": "Sprog",
+    "candidateLabel": "Kandidat",
+    "currentVersionLabel": "Aktuel version",
+    "expectedVersionLabel": "Forventet version",
+    "auditReferenceLabel": "Revisionsreference",
+    "expiresLabel": "Udløber"
   },
   "installations": {
     "title": "Installations",

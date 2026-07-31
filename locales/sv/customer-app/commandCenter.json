@@ -1657,11 +1657,14 @@
         "criticalApprovalDelay": "Kritiskt godkännande är försenat",
         "pendingTrustApproval": "Förtroendegodkännande väntar",
         "majorCustomerRisk": "Betydande kundrisk",
-        "invoicePaid": "Faktura betald"
+        "invoicePaid": "Faktura betald",
+        "kompisWebsitePublish": "Publicering av webbplatsutkast",
+        "kompisWebsiteRollback": "Återställning av webbplatsversion"
       },
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Slutför det väntande ledningsgodkännandet i dag.",
-        "level3ActionAwaitingApproval": "En åtgärd med kritisk risk måste godkännas innan arbetet kan fortsätta."
+        "level3ActionAwaitingApproval": "En åtgärd med kritisk risk måste godkännas innan arbetet kan fortsätta.",
+        "kompisWebsitePublishPrepared": "Kompis har förberett en ändring som kräver godkännande."
       },
       "integrationSignalMeta": "{events} händelser · {alerts} varningar",
       "orgNameUnavailable": "Organisation otillgänglig",
