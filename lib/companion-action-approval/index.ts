@@ -2,6 +2,8 @@ export * from "./types";
 export * from "./parse";
 export * from "./labels";
 export * from "./normalize-detail";
+export * from "./presentation";
+export * from "./approvals-center-labels";
 
 export const COMPANION_ACTION_LIFECYCLE = [
   "draft",

@@ -7112,7 +7112,7 @@
       "verificationStatus": "Verifisering"
     },
     "approvalRequiredTitle": "Godkjenning kreves",
-    "approvalRequiredBody": "Kompis har forberedt en handling som må godkjennes før den kan utføres.",
+    "approvalRequiredBody": "Kompis har klargjort handlingen. Du må gjennomgå omfanget før den kan utføres.",
     "reviewAndApprove": "Gjennomgå og godkjenn",
     "approvalCreationFailedTitle": "Godkjenningen kunne ikke opprettes",
     "approvalCreationFailedBody": "Handlingen forblir blokkert til godkjenningen er opprettet. Du kan prøve igjen.",

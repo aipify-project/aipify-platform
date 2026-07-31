@@ -1,0 +1,57 @@
+---
+description: Premium Approval Center presentation — hierarchy, i18n, no internal copy
+globs:
+  - components/app/approvals/**
+  - app/app/approvals/**
+  - lib/companion-action-approval/**
+  - locales/*/customer-app/dashboard.json
+  - components/app/executive-command-center/**
+  - components/shared/command-center/**
+  - components/app/kompis-operator/**
+alwaysApply: false
+---
+
+# Approval Center — Premium Experience
+
+## Primary content
+
+The approval decision is the main content. Do not render internal phase/program/roadmap copy in ordinary customer tenants:
+
+- Phase / Fase success criteria
+- Self Love (A.76)
+- Human Oversight Engine (A.40)
+- Secure AI Actions / Trust Phase labels
+- Governance & Policy program codes
+- Action Center (AEF) as primary UI
+- English philosophy/mission blocks from RPC meta
+
+Hide such meta unless an explicit Platform/Super internal flag is on.
+
+## Layout
+
+- Desktop-first wide shell: ~`max-w-[1560px]`, not a narrow `max-w-4xl` column
+- Selected approval: main column + sticky decision panel
+- Mobile: one column, sticky bottom actions
+- Technical IDs live under collapsed **Technical details**
+
+## One view model
+
+Use `buildApprovalViewModel()` / helpers in `lib/companion-action-approval/presentation.ts` for:
+
+- title, summary, status, risk, role, source, dates, what changes / unchanged
+
+No parallel raw status/risk/role switches in components. No CSS `capitalize` as i18n.
+
+## Surfaces
+
+ECC, Approval Center list/detail, Kompis cards, briefing, and counts must share the same approval ID, status, risk, title, and source presentation.
+
+## Decisions
+
+Do not change CORE.APPROVAL authority, bindings, checksum, single-use, or decision semantics in UI tasks. Sticky Approve/Reject must respect existing safety gates.
+
+## Forbidden
+
+- UnoNight hardcoding
+- Browser/session/MFA handling in this surface
+- Live publish/rollback inside presentation tasks
