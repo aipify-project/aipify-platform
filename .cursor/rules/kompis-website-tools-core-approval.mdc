@@ -1,0 +1,27 @@
+# Kompis website tools ↔ CORE.APPROVAL
+
+## Locked contracts
+
+1. **Parity** — TypeScript `KOMPIS_OPERATOR_TOOL_KEYS` / registry, planner mappings, SQL `_kompis_operator_tool_allowed`, and executor handlers must stay in parity for every allowed tool.
+2. **No wildcard allowlist** — `_kompis_operator_tool_allowed` is an explicit `IN (...)` list only.
+3. **Unknown tools rejected** — unknown or deprecated tool keys must fail create-run with `TOOL_NOT_ALLOWED`.
+4. **Publish/rollback require CORE.APPROVAL** — `website_publish_approved_draft` and `website_publish_rollback` require Trust & Action Approval Center (`action_requests`) via `kompis_operator_core_approval_bindings`. Local `kompis_operator_approvals` is a mirror/history only and must not override CORE decisions for these tools.
+5. **No parallel approval authority** — do not invent a third approval system; do not let Kompis-local approve execute publish/rollback without an approved CORE binding.
+6. **Scope binding** — CORE approvals bind to organization, run, step (when present), tool, website, path, candidate/target, and expected current version (and checksum when provided).
+7. **Single-use** — a CORE binding may be consumed once (`used_at`); replay must not create duplicate writes.
+8. **No client-selected tenant** — organization/website/version are server-resolved; clients cannot choose another tenant or foreign approval ID for a different action.
+9. **Ordinary CMS RPCs only** — publish uses `publish_customer_website_candidate`; rollback uses `rollback_customer_website_version`. No direct CMS table writes from the executor.
+10. **No false active** — pending runtime verification must not be presented as fully verified/active.
+11. **Runtime proof** — after publish/rollback, DB + acknowledgement + HTTP verification remain required.
+12. **History preserved** — immutable CMS history and historical Kompis approvals remain readable.
+13. **Migration apply-side effects = 0** — migrations must not create runs, approvals, drafts, candidates, publishes, or rollbacks.
+14. **No UnoNight hardcoding** — no customer names, domains, or IDs in Core code or migrations.
+15. **No auth/password/MFA/email/payment/DNS** changes in this integration.
+
+## Code anchors
+
+- SQL: `supabase/migrations/20261936100000_kompis_website_tools_core_approval_v1.sql`
+- Policy: `lib/kompis-operator/core-approval-policy.ts`
+- Adapter: `lib/kompis-operator/core-approval.ts`
+- Registry: `lib/kompis-operator/tools-registry.ts`
+- Executor: `lib/kompis-operator/executor.ts`

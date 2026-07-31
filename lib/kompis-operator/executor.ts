@@ -22,6 +22,7 @@ import {
   publishWebsiteCandidate,
 } from "../website-cms/publish";
 import { rollbackWebsiteVersion } from "../website-cms/rollback";
+import { assertKompisCoreApprovalReady, consumeKompisCoreApproval } from "./core-approval";
 
 type ToolResult = {
   ok: boolean;
@@ -732,6 +733,29 @@ async function executeTool(
         typeof safeInput.expectedCurrentVersionId === "string"
           ? safeInput.expectedCurrentVersionId
           : (cms.website?.currentVersionId ?? null);
+      const path =
+        typeof safeInput.path === "string" && safeInput.path.trim()
+          ? safeInput.path.trim()
+          : null;
+      const core = await assertKompisCoreApprovalReady(supabase, {
+        runId,
+        toolKey: "website_publish_approved_draft",
+        scope: {
+          website_id: cms.website?.id ?? null,
+          path,
+          candidate_id: candidateId,
+          expected_current_version_id: expectedCurrentVersionId,
+        },
+      });
+      if (!core.ok) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "Publish is waiting for Approval Center (CORE.APPROVAL).",
+          errorCode: core.errorCode,
+          data: { actionRequestId: core.actionRequestId ?? null },
+        };
+      }
       const idempotencyKey =
         typeof safeInput.idempotencyKey === "string" && safeInput.idempotencyKey
           ? safeInput.idempotencyKey
@@ -751,6 +775,16 @@ async function executeTool(
           errorCode: result.errorCode,
         };
       }
+      await consumeKompisCoreApproval(supabase, {
+        runId,
+        toolKey: "website_publish_approved_draft",
+        scope: {
+          website_id: cms.website?.id ?? null,
+          path,
+          candidate_id: candidateId,
+          expected_current_version_id: expectedCurrentVersionId,
+        },
+      });
       const verified = result.status === "active" && result.runtimeVerification.verified;
       return {
         ok: true,
@@ -765,6 +799,7 @@ async function executeTool(
           versionId: result.versionId ?? null,
           versionNumber: result.versionNumber ?? null,
           runtimeVerification: result.runtimeVerification,
+          coreApprovalRequestId: core.actionRequestId ?? null,
         },
         errorCode: verified ? undefined : "publish_pending_verification",
       };
@@ -805,6 +840,29 @@ async function executeTool(
         typeof safeInput.expectedCurrentVersionId === "string"
           ? safeInput.expectedCurrentVersionId
           : (cms.website?.currentVersionId ?? null);
+      const path =
+        typeof safeInput.path === "string" && safeInput.path.trim()
+          ? safeInput.path.trim()
+          : null;
+      const core = await assertKompisCoreApprovalReady(supabase, {
+        runId,
+        toolKey: "website_publish_rollback",
+        scope: {
+          website_id: cms.website?.id ?? null,
+          path,
+          target_version_id: targetVersionId,
+          expected_current_version_id: expectedCurrentVersionId,
+        },
+      });
+      if (!core.ok) {
+        return {
+          ok: false,
+          verified: false,
+          summary: "Rollback is waiting for Approval Center (CORE.APPROVAL).",
+          errorCode: core.errorCode,
+          data: { actionRequestId: core.actionRequestId ?? null },
+        };
+      }
       const idempotencyKey =
         typeof safeInput.idempotencyKey === "string" && safeInput.idempotencyKey
           ? safeInput.idempotencyKey
@@ -824,6 +882,16 @@ async function executeTool(
           errorCode: result.errorCode,
         };
       }
+      await consumeKompisCoreApproval(supabase, {
+        runId,
+        toolKey: "website_publish_rollback",
+        scope: {
+          website_id: cms.website?.id ?? null,
+          path,
+          target_version_id: targetVersionId,
+          expected_current_version_id: expectedCurrentVersionId,
+        },
+      });
       const verified = result.status === "active" && result.runtimeVerification.verified;
       return {
         ok: true,
@@ -837,6 +905,7 @@ async function executeTool(
           status: result.status,
           versionId: result.versionId ?? null,
           versionNumber: result.versionNumber ?? null,
+          coreApprovalRequestId: core.actionRequestId ?? null,
           runtimeVerification: result.runtimeVerification,
         },
         errorCode: verified ? undefined : "rollback_pending_verification",

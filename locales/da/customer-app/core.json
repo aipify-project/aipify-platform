@@ -6958,7 +6958,16 @@
     "suggestionWebsite": "Kontrollér webstedet",
     "suggestionSeo": "Kontrollér SEO",
     "approveAndCreateDraft": "Godkend og opret kladde",
-    "noPublishMechanism": "Kompis kan stadig lave sikre kladder og analyser"
+    "noPublishMechanism": "Kompis kan stadig lave sikre kladder og analyser",
+    "awaitingCoreApproval": "Afventer godkendelsescenteret",
+    "coreApprovalRequired": "Publicering og tilbagerulning kræver bekræftelse i godkendelsescenteret.",
+    "coreApproved": "Godkendt i godkendelsescenteret",
+    "coreRejected": "Afvist i godkendelsescenteret",
+    "coreExpired": "Godkendelsen er udløbet",
+    "verifyingWebsite": "Verificerer webstedet",
+    "rolledBack": "Rullet tilbage",
+    "openApprovalCenter": "Åbn godkendelsescenteret",
+    "toolNotAllowed": "Dette værktøj er ikke tilladt"
   },
   "websiteCms": {
     "title": "Websted-CMS",

@@ -6958,7 +6958,16 @@
     "suggestionWebsite": "Kontrollera webbplatsen",
     "suggestionSeo": "Kontrollera SEO",
     "approveAndCreateDraft": "Godkänn och skapa utkast",
-    "noPublishMechanism": "Kompis kan fortfarande skapa säkra utkast och analyser"
+    "noPublishMechanism": "Kompis kan fortfarande skapa säkra utkast och analyser",
+    "awaitingCoreApproval": "Väntar på godkännandecentret",
+    "coreApprovalRequired": "Publicering och återställning kräver bekräftelse i godkännandecentret.",
+    "coreApproved": "Godkänd i godkännandecentret",
+    "coreRejected": "Avvisad i godkännandecentret",
+    "coreExpired": "Godkännandet har gått ut",
+    "verifyingWebsite": "Verifierar webbplatsen",
+    "rolledBack": "Återställd",
+    "openApprovalCenter": "Öppna godkännandecentret",
+    "toolNotAllowed": "Det här verktyget är inte tillåtet"
   },
   "websiteCms": {
     "title": "Webbplats-CMS",

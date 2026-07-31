@@ -87,6 +87,17 @@ export function mapKompisOperatorRpcError(message: string | null | undefined): {
   if (raw.includes("IDEMPOTENCY_CONFLICT")) return { status: 409, code: "idempotency_conflict" };
   if (raw.includes("CRITICAL_BLOCKED")) return { status: 422, code: "critical_blocked" };
   if (raw.includes("TOOL_NOT_ALLOWED")) return { status: 422, code: "tool_not_allowed" };
+  if (raw.includes("CORE_APPROVAL_EXPIRED")) return { status: 409, code: "core_approval_expired" };
+  if (raw.includes("CORE_APPROVAL_REJECTED")) return { status: 409, code: "core_approval_rejected" };
+  if (raw.includes("CORE_APPROVAL_CANCELLED") || raw.includes("CORE_APPROVAL_CANCELED")) {
+    return { status: 409, code: "core_approval_cancelled" };
+  }
+  if (raw.includes("CORE_APPROVAL_ALREADY_USED")) {
+    return { status: 409, code: "core_approval_already_used" };
+  }
+  if (raw.includes("STALE_EXPECTED_VERSION")) return { status: 409, code: "stale_expected_version" };
+  if (raw.includes("SCOPE_MISMATCH")) return { status: 409, code: "scope_mismatch" };
+  if (raw.includes("CORE_APPROVAL_REQUIRED")) return { status: 409, code: "core_approval_required" };
   if (raw.includes("APPROVAL_REQUIRED") || raw.includes("APPROVAL_NOT_PENDING")) {
     return { status: 409, code: "approval_state" };
   }

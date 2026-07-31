@@ -22,6 +22,15 @@ export type KompisOperatorLabels = {
   risk3: string;
   requiresApproval: string;
   awaitingApproval: string;
+  awaitingCoreApproval: string;
+  coreApprovalRequired: string;
+  coreApproved: string;
+  coreRejected: string;
+  coreExpired: string;
+  verifyingWebsite: string;
+  rolledBack: string;
+  openApprovalCenter: string;
+  toolNotAllowed: string;
   approveAndExecute: string;
   rejectPlan: string;
   newPlan: string;
@@ -132,6 +141,15 @@ export function buildKompisOperatorLabels(t: Translator): KompisOperatorLabels {
     risk3: t(`${p}.risk3`),
     requiresApproval: t(`${p}.requiresApproval`),
     awaitingApproval: t(`${p}.awaitingApproval`),
+    awaitingCoreApproval: t(`${p}.awaitingCoreApproval`),
+    coreApprovalRequired: t(`${p}.coreApprovalRequired`),
+    coreApproved: t(`${p}.coreApproved`),
+    coreRejected: t(`${p}.coreRejected`),
+    coreExpired: t(`${p}.coreExpired`),
+    verifyingWebsite: t(`${p}.verifyingWebsite`),
+    rolledBack: t(`${p}.rolledBack`),
+    openApprovalCenter: t(`${p}.openApprovalCenter`),
+    toolNotAllowed: t(`${p}.toolNotAllowed`),
     approveAndExecute: t(`${p}.approveAndExecute`),
     rejectPlan: t(`${p}.rejectPlan`),
     newPlan: t(`${p}.newPlan`),

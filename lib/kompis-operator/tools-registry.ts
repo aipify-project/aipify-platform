@@ -185,7 +185,7 @@ export const KOMPIS_OPERATOR_TOOL_REGISTRY: readonly KompisOperatorToolDefinitio
     description: "Create APP-internal website draft preview",
     riskClass: 1,
     kind: "write",
-    requiresApproval: true,
+    requiresApproval: false,
     requiredRoles: [],
     available: true,
     timeoutMs: 8000,
@@ -202,6 +202,7 @@ export const KOMPIS_OPERATOR_TOOL_REGISTRY: readonly KompisOperatorToolDefinitio
     // Static registry availability is now true; the runtime CMS context (website
     // provisioned + delivery acknowledged + preview verified) still gates the
     // actual publish via `publishCapability` — see `lib/website-cms/v4-adapter.ts`.
+    // Authoritative decision: Approval Center (CORE.APPROVAL / action_requests).
     available: true,
     timeoutMs: 12000,
   },
@@ -214,8 +215,7 @@ export const KOMPIS_OPERATOR_TOOL_REGISTRY: readonly KompisOperatorToolDefinitio
     kind: "write",
     requiresApproval: true,
     requiredRoles: ["owner", "admin", "organization_owner", "organization_admin"],
-    // Static registry availability is now true; runtime gates via `rollbackCapability`
-    // (requires an existing published version to roll back to).
+    // Runtime gates via `rollbackCapability`. Authoritative decision: CORE.APPROVAL.
     available: true,
     timeoutMs: 12000,
   },
