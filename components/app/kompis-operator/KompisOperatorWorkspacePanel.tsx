@@ -13,6 +13,8 @@ import {
   websiteCmsVersionStatusTone,
   websiteCmsWebsiteStatusTone,
 } from "@/lib/website-cms/labels";
+import type { CustomerWebsiteRuntimeLabels } from "@/lib/customer-website-runtime/labels";
+import { CustomerWebsiteRuntimeReadinessCard } from "@/components/app/website/CustomerWebsiteRuntimeReadinessCard";
 import type { WebsiteReleaseChainReadiness } from "@/lib/website-staging-verification/types";
 
 type Workspace = {
@@ -114,10 +116,12 @@ function Badge({
 export function KompisOperatorWorkspacePanel({
   labels,
   websiteCmsLabels,
+  websiteRuntimeLabels,
   locale,
 }: {
   labels: KompisOperatorLabels;
   websiteCmsLabels: WebsiteCmsLabels;
+  websiteRuntimeLabels: CustomerWebsiteRuntimeLabels;
   locale: string;
 }) {
   const [workspace, setWorkspace] = useState<Workspace | null>(null);
@@ -675,6 +679,8 @@ export function KompisOperatorWorkspacePanel({
                     </p>
                   )}
                 </section>
+
+                <CustomerWebsiteRuntimeReadinessCard labels={websiteRuntimeLabels} />
 
                 <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
                   <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{labels.websitePages}</h2>

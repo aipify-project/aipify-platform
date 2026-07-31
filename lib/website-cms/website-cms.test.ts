@@ -134,6 +134,7 @@ async function runLabelsTests() {
   assert.equal(websiteCmsOperationStatusLabelKey("attention"), "operationStatusAttention");
   assert.equal(websiteCmsOperationStatusLabelKey("failed"), "operationStatusFailed");
   assert.equal(websiteCmsOperationStatusLabelKey("pending_verification"), "operationStatusPendingVerification");
+  assert.equal(websiteCmsOperationStatusLabelKey("pending_runtime"), "operationStatusPendingRuntime");
 
   assert.equal(websiteCmsVersionStatusTone("published"), "success");
   assert.equal(websiteCmsVersionStatusTone("failed"), "danger");
@@ -144,6 +145,7 @@ async function runLabelsTests() {
   assert.equal(websiteCmsOperationStatusTone("failed"), "danger");
   assert.equal(websiteCmsOperationStatusTone("attention"), "warning");
   assert.equal(websiteCmsOperationStatusTone("pending_verification"), "warning");
+  assert.equal(websiteCmsOperationStatusTone("pending_runtime"), "warning");
 
   assert.equal(websiteCmsWebsiteStatusTone("ready"), "success");
   assert.equal(websiteCmsWebsiteStatusTone("attention"), "warning");

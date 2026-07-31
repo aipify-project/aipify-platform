@@ -23,7 +23,7 @@ export type ReconcilePublishResult =
   | {
       ok: true;
       operationId: string;
-      status: "pending_verification" | "active" | "attention" | "failed";
+      status: "pending_verification" | "pending_runtime" | "active" | "attention" | "failed";
       runtimeVerification: WebsiteCmsRuntimeVerification;
     }
   | { ok: false; errorCode: string };
@@ -45,7 +45,10 @@ export async function reconcileWebsitePublish(
 
   const row = asRecord(data);
   const status =
-    row.status === "active" || row.status === "attention" || row.status === "failed"
+    row.status === "active" ||
+    row.status === "attention" ||
+    row.status === "failed" ||
+    row.status === "pending_runtime"
       ? row.status
       : "pending_verification";
   return {
@@ -77,7 +80,10 @@ export async function platformReconcileWebsitePublish(
 
   const row = asRecord(data);
   const status =
-    row.status === "active" || row.status === "attention" || row.status === "failed"
+    row.status === "active" ||
+    row.status === "attention" ||
+    row.status === "failed" ||
+    row.status === "pending_runtime"
       ? row.status
       : "pending_verification";
   return {

@@ -9,7 +9,7 @@ Locked schema and RPC surface: `supabase/migrations/20261935500000_platform_webs
 
 ## Rules
 
-1. **Never mark a version "active" without runtime verification.** `publish_customer_website_candidate` and `rollback_customer_website_version` must call the live-domain checksum check (`get_public_website_active_version`) before an operation status becomes `active`. A checksum mismatch or resolve failure is `attention`, not `active`.
+1. **Never mark a version "active" without full runtime proof.** `publish_customer_website_candidate` and `rollback_customer_website_version` must call the live-domain checksum check (`get_public_website_active_version`) first. DB match alone yields `pending_runtime` (not `active`). Full `active` requires Customer Website Runtime Delivery V1 acknowledgement + HTTP read-back proof. A checksum mismatch or resolve failure is `attention`, not `active`. See `customer-website-runtime-delivery-v1.mdc`.
 2. **A verified preview is required before publish** — `preview_verified_at` must be set on the candidate version (via `create_customer_website_version_preview` + `mark_customer_website_preview_verified`) before `publish_customer_website_candidate` proceeds, unless it is the website's first publish.
 3. **Rollback never deletes history.** `rollback_customer_website_version` only moves `customer_websites.current_version_id`; prior `customer_website_versions`, `customer_website_page_revisions`, and `customer_website_operations` rows are immutable and retained.
 4. **Preserve V4 drafts.** `kompis_operator_drafts` and `kompis_website_ops_previews` remain the drafting/preview surface for V4. Candidate builds (`build_customer_website_candidate_from_drafts`) read from drafts — they never mutate or delete them.

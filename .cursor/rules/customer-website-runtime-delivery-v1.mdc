@@ -1,0 +1,43 @@
+---
+description: Customer Website Runtime Delivery V1 — installation-bound CMS runtime, ack, HTTP proof
+alwaysApply: true
+---
+
+# Customer Website Runtime Delivery V1
+
+Migration: `supabase/migrations/20261935800000_customer_website_runtime_delivery_v1.sql`  
+Library: `lib/customer-website-runtime/`  
+API: `/api/runtime/v1/website/*`  
+Feature owner: **PLATFORM** (control plane) + **APP** (readiness) + **customer runtime** (render/ack)
+
+## Authoritative chain
+
+Platform → APP → canonical delivery → installation/installId → customer runtime → acknowledgement → HTTP read-back → checksum → status.
+
+## Rules
+
+1. **No customer-specific Core code** — never hardcode domain, customer, organization, website, or install identifiers (including real customer hostnames).
+2. **No pilot bypass** — ordinary customers use the same contract; no alternate delivery model.
+3. **No direct DB from customer runtime** — only installation-token RPCs via Aipify server routes.
+4. **Server-resolved only** — customer/org/website/domain/installation/version are never selected by query/body/header from the client.
+5. **Installation token server-side only** — never log, never return, never put in public docs as a live secret.
+6. **Default deny routes** — only explicitly mounted paths are served; homepage is disabled by default.
+7. **Safe fallback** — on timeout, network failure, invalid payload, checksum mismatch, or unpublished website, fall back to the customer's own runtime.
+8. **Full green requires three proofs** — DB checksum match + installation acknowledgement + HTTP read-back with proof headers. Never mark `active` from DB resolve alone (`pending_runtime` until ack + HTTP).
+9. **HTTP verifier SSRF protection** — verified host only, DNS private-IP block, manual redirects same-host only, timeout, body-size limit; `200` without proof headers is rejected.
+10. **Rollback history preserved** — never delete versions/revisions/operations; rollback follows the same pending_runtime → ack → HTTP chain.
+11. **No false active** — client cannot submit verified status; server computes acknowledgement/HTTP status.
+12. **Migration apply-side effects = 0** — no customer/website/page/version seeds, no HTTP, no auth/email/payment/DNS.
+13. **Staging V2 stays separate** — path-based staging on APP host must not be broken; ordinary Production status distinguishes DB / ack / HTTP / fully verified.
+14. **Canonical delivery reused** — extend delivery metadata; do not create a parallel entitlement or CMS model.
+
+## Proof headers
+
+- `X-Aipify-Website-Version`
+- `X-Aipify-Manifest-Checksum`
+- `X-Aipify-Page-Checksum`
+- `X-Aipify-Installation`
+
+## Forbidden without a separate task
+
+DNS · auth/password/MFA · payment/invoice · email · env/secrets rotation · dependency/lockfile changes · customer Production activation writes

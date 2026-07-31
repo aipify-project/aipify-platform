@@ -60,6 +60,7 @@ export type WebsiteCmsLabels = {
   operationRollback: string;
   operationReconcile: string;
   operationStatusPendingVerification: string;
+  operationStatusPendingRuntime: string;
   operationStatusActive: string;
   operationStatusAttention: string;
   operationStatusFailed: string;
@@ -148,6 +149,7 @@ export function buildWebsiteCmsLabels(t: Translator): WebsiteCmsLabels {
     operationRollback: t(`${p}.operationRollback`),
     operationReconcile: t(`${p}.operationReconcile`),
     operationStatusPendingVerification: t(`${p}.operationStatusPendingVerification`),
+    operationStatusPendingRuntime: t(`${p}.operationStatusPendingRuntime`),
     operationStatusActive: t(`${p}.operationStatusActive`),
     operationStatusAttention: t(`${p}.operationStatusAttention`),
     operationStatusFailed: t(`${p}.operationStatusFailed`),
@@ -242,6 +244,8 @@ export function websiteCmsOperationStatusLabelKey(status: string): keyof Website
       return "operationStatusAttention";
     case "failed":
       return "operationStatusFailed";
+    case "pending_runtime":
+      return "operationStatusPendingRuntime";
     default:
       return "operationStatusPendingVerification";
   }
@@ -265,6 +269,7 @@ export function websiteCmsOperationStatusTone(status: string): KompisOperatorSev
     case "active":
       return "success";
     case "attention":
+    case "pending_runtime":
       return "warning";
     case "failed":
       return "danger";
