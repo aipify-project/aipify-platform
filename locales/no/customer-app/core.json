@@ -7116,7 +7116,10 @@
     "reviewAndApprove": "Gjennomgå og godkjenn",
     "approvalCreationFailedTitle": "Godkjenningen kunne ikke opprettes",
     "approvalCreationFailedBody": "Handlingen forblir blokkert til godkjenningen er opprettet. Du kan prøve igjen.",
-    "returnToKompis": "Tilbake til Kompis"
+    "returnToKompis": "Tilbake til Kompis",
+    "incompleteScopeTitle": "Handlingen kunne ikke klargjøres",
+    "incompleteScopeBody": "Kompis mangler nødvendig informasjon om side, utkast eller versjon. Ingen godkjenning eller publisering er utført.",
+    "incompleteScopeTechnical": "APPROVAL_SCOPE_INCOMPLETE"
   },
   "websiteCms": {
     "title": "Nettside-CMS",

@@ -7105,7 +7105,10 @@
     "reviewAndApprove": "Review and approve",
     "approvalCreationFailedTitle": "Approval could not be created",
     "approvalCreationFailedBody": "The action stays blocked until approval is created. You can try again.",
-    "returnToKompis": "Back to Kompis"
+    "returnToKompis": "Back to Kompis",
+    "incompleteScopeTitle": "The action could not be prepared",
+    "incompleteScopeBody": "Kompis is missing required information about the page, draft, or version. No approval or publishing was performed.",
+    "incompleteScopeTechnical": "APPROVAL_SCOPE_INCOMPLETE"
   },
   "websiteCms": {
     "title": "Website CMS",

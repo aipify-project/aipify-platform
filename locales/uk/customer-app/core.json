@@ -652,7 +652,10 @@
     "reviewAndApprove": "Переглянути й схвалити",
     "approvalCreationFailedTitle": "Не вдалося створити схвалення",
     "approvalCreationFailedBody": "Дію заблоковано, доки схвалення не буде створено. Можна спробувати знову.",
-    "returnToKompis": "Назад до Kompis"
+    "returnToKompis": "Назад до Kompis",
+    "incompleteScopeTitle": "Дію не вдалося підготувати",
+    "incompleteScopeBody": "Kompis бракує необхідної інформації про сторінку, чернетку або версію. Схвалення або публікацію не виконано.",
+    "incompleteScopeTechnical": "APPROVAL_SCOPE_INCOMPLETE"
   },
   "websiteCms": {
     "title": "CMS веб-сайту",

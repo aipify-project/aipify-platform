@@ -176,7 +176,7 @@ async function runKompisWebsiteOperationsV4Tests() {
   const { discoverOperatorLocales } = await import("./locales");
   const { riskClassTone } = await import("./severity");
 
-  assert.equal(PLANNER_VERSION, "planner_v4");
+  assert.equal(PLANNER_VERSION, "planner_v5");
   assert.ok(getKompisOperatorTool("website_overview_read")?.available);
   // Website CMS publish/rollback v1: the static registry entries are now
   // available; the Website CMS context gates the actual publish/rollback at
@@ -194,15 +194,12 @@ async function runKompisWebsiteOperationsV4Tests() {
   assert.ok(pageDraft.steps.some((step) => step.toolKey === "website_page_draft_create"));
 
   const publish = planKompisOperatorRequestSync("Publiser det godkjente utkastet");
-  assert.equal(publish.riskClass, 2);
-  assert.equal(publish.steps.length, 1);
-  assert.equal(publish.steps[0]?.toolKey, "website_publish_approved_draft");
-  assert.equal(publish.unavailableReason, undefined);
+  assert.equal(publish.steps.length, 0);
+  assert.equal(publish.blockedReasonCode, "approval_scope_incomplete");
 
   const rollback = planKompisOperatorRequestSync("Rull tilbake nettsiden til forrige versjon");
-  assert.equal(rollback.riskClass, 2);
-  assert.equal(rollback.steps.length, 1);
-  assert.equal(rollback.steps[0]?.toolKey, "website_publish_rollback");
+  assert.equal(rollback.steps.length, 0);
+  assert.equal(rollback.blockedReasonCode, "approval_scope_incomplete");
 
   const criticalSite = planKompisOperatorRequestSync("Slett hele nettsiden");
   assert.equal(criticalSite.riskClass, 3);
@@ -325,7 +322,7 @@ async function runKompisWebsiteOperationsV4Tests() {
   // Website CMS publish/rollback v1 replaced the static V4 "no publish path"
   // placeholder with runtime capability gating via the CMS context.
   assert.match(source, /publishCapability|website_publish_capability_not_ready/);
-  assert.match(source, /planner_v4/);
+  assert.match(source, /planner_v5/);
 
   console.log("kompis-website-operations-v4: all tests passed");
 }

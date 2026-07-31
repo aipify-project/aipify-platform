@@ -19,7 +19,10 @@ export type KompisCoreApprovalScope = {
   candidate_id?: string | null;
   target_version_id?: string | null;
   expected_current_version_id?: string | null;
+  locale?: string | null;
+  reason?: string | null;
   action_checksum?: string | null;
+  idempotency_key?: string | null;
 };
 
 export function buildKompisCoreApprovalScope(
@@ -33,6 +36,9 @@ export function buildKompisCoreApprovalScope(
   if (partial.expected_current_version_id) {
     scope.expected_current_version_id = partial.expected_current_version_id;
   }
+  if (partial.locale) scope.locale = partial.locale;
+  if (partial.reason) scope.reason = partial.reason;
   if (partial.action_checksum) scope.action_checksum = partial.action_checksum;
+  if (partial.idempotency_key) scope.idempotency_key = partial.idempotency_key;
   return scope;
 }

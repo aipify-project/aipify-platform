@@ -7116,7 +7116,10 @@
     "reviewAndApprove": "Granska och godkänn",
     "approvalCreationFailedTitle": "Godkännandet kunde inte skapas",
     "approvalCreationFailedBody": "Åtgärden förblir blockerad tills godkännandet skapas. Du kan försöka igen.",
-    "returnToKompis": "Tillbaka till Kompis"
+    "returnToKompis": "Tillbaka till Kompis",
+    "incompleteScopeTitle": "Åtgärden kunde inte förberedas",
+    "incompleteScopeBody": "Kompis saknar nödvändig information om sida, utkast eller version. Ingen godkännande eller publicering utfördes.",
+    "incompleteScopeTechnical": "APPROVAL_SCOPE_INCOMPLETE"
   },
   "websiteCms": {
     "title": "Webbplats-CMS",

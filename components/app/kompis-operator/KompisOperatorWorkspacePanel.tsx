@@ -111,6 +111,7 @@ type RunView = {
   risk_class?: number;
   user_summary?: string;
   result_summary?: string;
+  safe_error_code?: string | null;
   plan?: { title?: string; steps?: Array<{ sequence: number; toolKey: string; purpose: string }> };
 };
 
@@ -1442,6 +1443,30 @@ export function KompisOperatorWorkspacePanel({
                 <details className="text-xs text-rose-700 dark:text-rose-300">
                   <summary>{labels.workspace.technicalReference}</summary>
                   <p className="mt-1">core_approval_create_failed · run {shortenTechnicalId(activeRun.id)}</p>
+                </details>
+                <button
+                  type="button"
+                  className="rounded-xl border border-rose-300 px-3 py-1.5 text-sm dark:border-rose-700"
+                  onClick={() => submitTask(requestText || labels.suggestionKompis)}
+                >
+                  {labels.retry}
+                </button>
+              </div>
+            ) : null}
+
+            {(activeRun.safe_error_code === "approval_scope_incomplete" ||
+              activeRun.result_summary === "approval_scope_incomplete" ||
+              (activeRun.status === "failed" &&
+                String(activeRun.safe_error_code ?? "").includes("scope"))) &&
+            !activeRun.core_approval_request_id ? (
+              <div className="space-y-3 rounded-xl border border-rose-200 bg-rose-50 p-4 dark:border-rose-800 dark:bg-rose-950/30">
+                <h3 className="text-sm font-semibold text-rose-950 dark:text-rose-100">
+                  {labels.incompleteScopeTitle}
+                </h3>
+                <p className="text-sm text-rose-900 dark:text-rose-100">{labels.incompleteScopeBody}</p>
+                <details className="text-xs text-rose-700 dark:text-rose-300">
+                  <summary>{labels.workspace.technicalReference}</summary>
+                  <p className="mt-1">{labels.incompleteScopeTechnical}</p>
                 </details>
                 <button
                   type="button"

@@ -101,6 +101,12 @@ export function mapKompisOperatorRpcError(message: string | null | undefined): {
   if (raw.includes("CORE_APPROVAL_DECISION_REQUIRED")) {
     return { status: 409, code: "core_approval_decision_required" };
   }
+  if (raw.includes("APPROVAL_SCOPE_INCOMPLETE")) {
+    return { status: 422, code: "approval_scope_incomplete" };
+  }
+  if (raw.includes("CLEANUP_NOT_ELIGIBLE")) {
+    return { status: 409, code: "cleanup_not_eligible" };
+  }
   if (raw.includes("CORE_APPROVAL_CREATE_FAILED")) {
     return { status: 422, code: "core_approval_create_failed" };
   }

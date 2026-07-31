@@ -25,12 +25,16 @@ export type KompisCoreApprovalResult =
         | "core_approval_already_used"
         | "scope_mismatch"
         | "stale_expected_version"
+        | "approval_scope_incomplete"
         | "core_approval_error";
       actionRequestId?: string | null;
     };
 
 function mapCoreApprovalError(message: string | null | undefined): KompisCoreApprovalResult {
   const raw = (message ?? "").toUpperCase();
+  if (raw.includes("APPROVAL_SCOPE_INCOMPLETE")) {
+    return { ok: false, errorCode: "approval_scope_incomplete" };
+  }
   if (raw.includes("CORE_APPROVAL_REJECTED")) {
     return { ok: false, errorCode: "core_approval_rejected" };
   }

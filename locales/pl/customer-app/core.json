@@ -652,7 +652,10 @@
     "reviewAndApprove": "Przejrzyj i zatwierdź",
     "approvalCreationFailedTitle": "Nie udało się utworzyć zatwierdzenia",
     "approvalCreationFailedBody": "Działanie pozostaje zablokowane, dopóki zatwierdzenie nie zostanie utworzone. Możesz spróbować ponownie.",
-    "returnToKompis": "Wróć do Kompis"
+    "returnToKompis": "Wróć do Kompis",
+    "incompleteScopeTitle": "Nie udało się przygotować działania",
+    "incompleteScopeBody": "Kompis nie ma wymaganych informacji o stronie, wersji roboczej lub wersji. Nie wykonano zatwierdzenia ani publikacji.",
+    "incompleteScopeTechnical": "APPROVAL_SCOPE_INCOMPLETE"
   },
   "websiteCms": {
     "title": "CMS strony internetowej",
