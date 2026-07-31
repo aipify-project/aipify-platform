@@ -226,7 +226,20 @@
     "historicalCancelled": "Cancelled",
     "historicalConsumed": "Used",
     "historicalFailed": "Failed",
-    "technicalDetails": "Technical details"
+    "technicalDetails": "Technical details",
+    "kompisPublishDetailTitle": "Publish website draft",
+    "websiteKompisSource": "Website Kompis",
+    "localeNorwegian": "Norwegian",
+    "whatChanges": "Only the approved draft for the selected path is published.",
+    "whatUnchanged": "Other pages and content remain unchanged.",
+    "homepageUnchanged": "The homepage is not changed.",
+    "pathLabel": "Path",
+    "localeLabel": "Locale",
+    "candidateLabel": "Candidate",
+    "currentVersionLabel": "Current version",
+    "expectedVersionLabel": "Expected version",
+    "auditReferenceLabel": "Audit reference",
+    "expiresLabel": "Expires"
   },
   "installations": {
     "title": "Installations",

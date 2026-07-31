@@ -730,10 +730,13 @@
         "criticalApprovalDelay": "La aprobación crítica está retrasada",
         "pendingTrustApproval": "Aprobación de confianza pendiente",
         "majorCustomerRisk": "Riesgo significativo del cliente",
-        "invoicePaid": "Factura pagada"
+        "invoicePaid": "Factura pagada",
+        "kompisWebsitePublish": "Publicación de borrador del sitio web",
+        "kompisWebsiteRollback": "Revertir versión del sitio web"
       },
       "recordDescriptions": {
-        "level3ActionAwaitingApproval": "Una acción de riesgo crítico debe aprobarse antes de que el trabajo pueda continuar."
+        "level3ActionAwaitingApproval": "Una acción de riesgo crítico debe aprobarse antes de que el trabajo pueda continuar.",
+        "kompisWebsitePublishPrepared": "Kompis ha preparado un cambio que requiere aprobación."
       }
     },
     "tabs": {

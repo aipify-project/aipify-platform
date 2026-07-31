@@ -2,6 +2,12 @@
 const RECORD_DESCRIPTION_LABEL_KEYS: Record<string, string> = {
   complete_pending_executive_approval_today:
     "customerApp.executiveCommandCenter.commandBriefOverview.recordDescriptions.completePendingExecutiveApprovalToday",
+  level_3_action_awaiting_approval:
+    "customerApp.executiveCommandCenter.commandBriefOverview.recordDescriptions.level3ActionAwaitingApproval",
+  action_awaiting_approval:
+    "customerApp.executiveCommandCenter.commandBriefOverview.recordDescriptions.kompisWebsitePublishPrepared",
+  a_critical_risk_action_must_be_approved_before_work_can_continue:
+    "customerApp.executiveCommandCenter.commandBriefOverview.recordDescriptions.level3ActionAwaitingApproval",
 };
 
 function normalizeRecordDescriptionKey(raw: string): string {

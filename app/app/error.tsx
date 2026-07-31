@@ -3,19 +3,18 @@
 import Link from "next/link";
 import { useEffect } from "react";
 
-type ApprovalsErrorProps = {
+type AppErrorProps = {
   error: Error & { digest?: string };
   reset?: () => void;
   unstable_retry?: () => void;
 };
 
 /**
- * Localized Approval Center error boundary — never fall through to the English global-error page.
- * Copy is Norwegian-first enterprise language (task surface for Svein); English keys remain in i18n for other locales via page labels when available.
+ * Customer App shell error boundary — keep failures out of the English global-error page.
  */
-export default function ApprovalsError({ error, reset, unstable_retry }: ApprovalsErrorProps) {
+export default function AppError({ error, reset, unstable_retry }: AppErrorProps) {
   useEffect(() => {
-    console.error("[approvals/error]", error.digest ?? error.message);
+    console.error("[app/error]", error.digest ?? error.message);
   }, [error]);
 
   const retry = () => {
@@ -25,9 +24,9 @@ export default function ApprovalsError({ error, reset, unstable_retry }: Approva
 
   return (
     <div className="mx-auto flex min-h-[50vh] max-w-lg flex-col items-center justify-center px-6 py-16 text-center">
-      <h1 className="text-xl font-semibold text-slate-900">Godkjenningen kunne ikke åpnes</h1>
+      <h1 className="text-xl font-semibold text-slate-900">Siden kunne ikke åpnes</h1>
       <p className="mt-3 text-sm leading-relaxed text-slate-600">
-        Vi fant ikke godkjenningen, eller den kunne ikke lastes akkurat nå.
+        Noe gikk galt da Aipify lastet denne siden. Prøv igjen, eller gå tilbake til oversikten.
       </p>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
         <button
@@ -38,16 +37,10 @@ export default function ApprovalsError({ error, reset, unstable_retry }: Approva
           Prøv igjen
         </button>
         <Link
-          href="/app/approvals"
+          href="/app/command-center"
           className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
         >
-          Tilbake til godkjenninger
-        </Link>
-        <Link
-          href="/app/kompis"
-          className="rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-        >
-          Tilbake til Kompis
+          Tilbake til oversikten
         </Link>
       </div>
       {error.digest ? (

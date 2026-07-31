@@ -8,6 +8,7 @@ import { AipifyEmptyState } from "@/components/branding";
 import type { CustomerApproval } from "@/lib/app/customer-app";
 import {
   buildCompanionPendingDisplayFields,
+  normalizeApprovalDetail,
   resolveApprovalPostRequest,
   resolveCompanionActionsLoadOutcome,
   resolveTrustApprovalsLoadOutcome,
@@ -90,6 +91,19 @@ type ApprovalsCenterPanelProps = {
     incompleteScopeBody?: string;
     kompisPublishTitle?: string;
     kompisRollbackTitle?: string;
+    kompisPublishDetailTitle?: string;
+    websiteKompisSource?: string;
+    localeNorwegian?: string;
+    whatChanges?: string;
+    whatUnchanged?: string;
+    homepageUnchanged?: string;
+    pathLabel?: string;
+    localeLabel?: string;
+    candidateLabel?: string;
+    currentVersionLabel?: string;
+    expectedVersionLabel?: string;
+    auditReferenceLabel?: string;
+    expiresLabel?: string;
   };
 };
 
@@ -184,6 +198,8 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
             const status = String(row.status ?? "").toLowerCase();
             // Notifications belong in /app/notifications — never as Approval Center cards.
             if (category === "notification") return false;
+            // Focused deep-link may open historical detail without crashing.
+            if (focusedRequestId && row.id === focusedRequestId) return true;
             // Only actionable pending/awaiting rows are "pending approvals".
             if (!["pending", "awaiting_approval", "executing"].includes(status)) return false;
             return true;
@@ -198,7 +214,7 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
     } finally {
       setTrustLoading(false);
     }
-  }, [labels.trustLoadError]);
+  }, [focusedRequestId, labels.trustLoadError]);
 
   const refreshCompanion = useCallback(async () => {
     setCompanionLoadError(null);
@@ -432,12 +448,24 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
           </div>
         ) : (
           <ul className="space-y-3">
-            {visibleItems.map((item) => (
+            {visibleItems.map((item) => {
+              const detail = normalizeApprovalDetail(item, { emergencyActive });
+              if (!detail) return null;
+              const localeLabel =
+                detail.websiteLocale === "no"
+                  ? (labels.localeNorwegian ?? detail.websiteLocale)
+                  : detail.websiteLocale;
+              const decisionDisabled =
+                actingId === detail.id ||
+                !detail.decisionAllowed ||
+                (detail.returnToKompis && decisionReason.trim().length < 3);
+
+              return (
               <li
-                key={`${item.category}-${item.id}`}
-                id={`approval-${item.id}`}
+                key={`${detail.category}-${detail.id}`}
+                id={`approval-${detail.id}`}
                 className={`rounded-xl border bg-white p-4 shadow-sm ${
-                  focusedRequestId === item.id
+                  focusedRequestId === detail.id
                     ? "border-indigo-400 ring-2 ring-indigo-200"
                     : "border-gray-200"
                 }`}
@@ -445,50 +473,121 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
                 <div className="flex flex-wrap items-center gap-2">
                   <h3 className="font-semibold text-gray-900">{humanizeApprovalTitle(item)}</h3>
                   <span
-                    className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[item.status] ?? STATUS_STYLES.pending}`}
+                    className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[detail.status] ?? STATUS_STYLES.pending}`}
                   >
-                    {labels.statusLabels[item.status] ?? item.status}
+                    {labels.statusLabels[detail.status] ?? detail.status}
                   </span>
                   <span
-                    className={`rounded px-2 py-0.5 text-xs font-medium ${riskStyle(item.risk_level)}`}
+                    className={`rounded px-2 py-0.5 text-xs font-medium ${riskStyle(detail.riskLevel)}`}
                   >
-                    {labels.riskLevels[item.risk_level] ?? item.risk_level}
+                    {labels.riskLevels[detail.riskLevel] ?? detail.riskLevel}
                   </span>
                   <span className="text-xs text-gray-500">
-                    {labels.categoryLabels[item.category] ?? item.category}
+                    {labels.categoryLabels[detail.category] ?? detail.category}
                   </span>
                 </div>
 
-                {item.skill_name && (
-                  <p className="mt-2 text-xs text-gray-500">
-                    {labels.fields.skill}: {item.skill_name}
+                {(detail.isWebsiteKompisPublish || detail.isWebsiteKompisRollback) && (
+                  <p className="mt-2 text-xs font-medium text-indigo-800">
+                    {labels.websiteKompisSource ?? "Website Kompis"}
+                    {detail.isWebsiteKompisPublish && labels.kompisPublishDetailTitle
+                      ? ` · ${labels.kompisPublishDetailTitle}`
+                      : null}
                   </p>
                 )}
 
-                {item.description && (
+                {detail.skillName && (
+                  <p className="mt-2 text-xs text-gray-500">
+                    {labels.fields.skill}: {detail.skillName}
+                  </p>
+                )}
+
+                {detail.description && (
                   <p className="mt-2 text-sm text-gray-600">
                     <span className="font-medium text-gray-700">{labels.fields.reasoning}: </span>
-                    {item.description}
+                    {detail.description}
                   </p>
                 )}
 
-                {typeof item.confidence_score === "number" && (
+                {(detail.isWebsiteKompisPublish || detail.isWebsiteKompisRollback) && (
+                  <dl className="mt-3 grid gap-1 text-xs text-gray-600 sm:grid-cols-2">
+                    {detail.websitePath ? (
+                      <div>
+                        <dt className="inline font-medium text-gray-700">{labels.pathLabel ?? "Path"}: </dt>
+                        <dd className="inline font-mono">{detail.websitePath}</dd>
+                      </div>
+                    ) : null}
+                    {localeLabel ? (
+                      <div>
+                        <dt className="inline font-medium text-gray-700">{labels.localeLabel ?? "Locale"}: </dt>
+                        <dd className="inline">{localeLabel}</dd>
+                      </div>
+                    ) : null}
+                    {detail.candidateId ? (
+                      <div>
+                        <dt className="inline font-medium text-gray-700">{labels.candidateLabel ?? "Candidate"}: </dt>
+                        <dd className="inline font-mono">{detail.candidateId.slice(0, 8)}</dd>
+                      </div>
+                    ) : null}
+                    {detail.currentVersionId ? (
+                      <div>
+                        <dt className="inline font-medium text-gray-700">{labels.currentVersionLabel ?? "Current"}: </dt>
+                        <dd className="inline font-mono">{detail.currentVersionId.slice(0, 8)}</dd>
+                      </div>
+                    ) : null}
+                    {detail.expectedCurrentVersionId ? (
+                      <div>
+                        <dt className="inline font-medium text-gray-700">{labels.expectedVersionLabel ?? "Expected"}: </dt>
+                        <dd className="inline font-mono">{detail.expectedCurrentVersionId.slice(0, 8)}</dd>
+                      </div>
+                    ) : null}
+                    {detail.expiresAt ? (
+                      <div>
+                        <dt className="inline font-medium text-gray-700">{labels.expiresLabel ?? "Expires"}: </dt>
+                        <dd className="inline">{formatDate(detail.expiresAt, locale)}</dd>
+                      </div>
+                    ) : null}
+                    {detail.auditReference ? (
+                      <div className="sm:col-span-2">
+                        <dt className="inline font-medium text-gray-700">{labels.auditReferenceLabel ?? "Audit"}: </dt>
+                        <dd className="inline font-mono">{detail.auditReference}</dd>
+                      </div>
+                    ) : null}
+                  </dl>
+                )}
+
+                {(detail.isWebsiteKompisPublish || detail.isWebsiteKompisRollback) && (
+                  <ul className="mt-3 list-disc space-y-1 pl-5 text-xs text-gray-600">
+                    {labels.whatChanges ? <li>{labels.whatChanges}</li> : null}
+                    {labels.whatUnchanged ? <li>{labels.whatUnchanged}</li> : null}
+                    {labels.homepageUnchanged ? <li>{labels.homepageUnchanged}</li> : null}
+                  </ul>
+                )}
+
+                {detail.decisionBlockReason === "incomplete_scope" && (
+                  <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
+                    <p className="font-medium">{labels.incompleteScopeTitle}</p>
+                    <p className="mt-1">{labels.incompleteScopeBody}</p>
+                  </div>
+                )}
+
+                {detail.confidenceScore != null && (
                   <p className="mt-1 text-xs text-gray-500">
-                    {labels.fields.confidence}: {item.confidence_score}%
+                    {labels.fields.confidence}: {detail.confidenceScore}%
                   </p>
                 )}
 
-                {item.approver_role_required && (
+                {detail.approverRoleRequired && (
                   <p className="mt-1 text-xs text-gray-500">
-                    {labels.fields.approver}: {item.approver_role_required}
+                    {labels.fields.approver}: {detail.approverRoleRequired}
                   </p>
                 )}
 
-                <p className="mt-2 text-xs text-gray-400">{formatDate(item.created_at, locale)}</p>
+                <p className="mt-2 text-xs text-gray-400">{formatDate(detail.createdAt, locale)}</p>
 
-                {item.category === "action" && item.status === "pending" && !emergencyActive && (
+                {detail.category === "action" && detail.isActionablePending && (
                   <div className="mt-4 space-y-3">
-                    {(item.return_to_kompis || item.source === "kompis") && (
+                    {detail.returnToKompis && (
                       <label className="block text-sm text-gray-800">
                         {labels.internalReason ?? labels.fields.reasoning}
                         <textarea
@@ -503,25 +602,21 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
                     <div className="flex flex-wrap gap-2">
                       <button
                         type="button"
-                        disabled={
-                          actingId === item.id ||
-                          ((item.return_to_kompis || item.source === "kompis") &&
-                            decisionReason.trim().length < 3)
-                        }
-                        onClick={() => void postApprovalAction("trust", item.id, "approve")}
+                        disabled={decisionDisabled || emergencyActive}
+                        onClick={() => void postApprovalAction("trust", detail.id, "approve")}
                         className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
                       >
-                        {actingId === item.id ? labels.executing : labels.approve}
+                        {actingId === detail.id ? labels.executing : labels.approve}
                       </button>
                       <button
                         type="button"
-                        disabled={actingId === item.id}
-                        onClick={() => void postApprovalAction("trust", item.id, "reject")}
+                        disabled={decisionDisabled || emergencyActive}
+                        onClick={() => void postApprovalAction("trust", detail.id, "reject")}
                         className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50"
                       >
                         {labels.reject}
                       </button>
-                      {(item.return_to_kompis || item.source === "kompis") && labels.returnToKompis ? (
+                      {detail.returnToKompis && labels.returnToKompis ? (
                         <Link
                           href="/app/kompis"
                           className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
@@ -533,7 +628,8 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
                   </div>
                 )}
               </li>
-            ))}
+              );
+            })}
           </ul>
         )}
       </section>
