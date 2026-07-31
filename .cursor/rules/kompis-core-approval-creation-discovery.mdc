@@ -1,0 +1,51 @@
+---
+description: Kompis CORE approval must be created before awaiting UI and discovered in Approval Center
+globs:
+  - lib/kompis-operator/**
+  - components/app/kompis-operator/**
+  - components/app/approvals/**
+  - app/api/app/kompis/**
+  - app/api/app/approvals/**
+  - app/api/actions/**
+  - supabase/migrations/**kompis*approval*
+---
+
+# Kompis CORE approval creation & discovery
+
+## Authority
+
+- Authoritative decision lives in `CORE.APPROVAL` via `action_requests`.
+- `kompis_operator_approvals` is mirror/history only — never unlocks execution alone.
+- Local Kompis approve cannot decide publish/rollback.
+
+## Creation contract
+
+- Approval-required website publish/rollback steps must create or fetch CORE approval during `create_app_kompis_operator_run`.
+- Run/step may show `awaiting_approval` / “Venter på godkjenning” only when a valid `action_request` + binding exist.
+- No awaiting approval without CORE approval.
+- If creation fails: controlled error, no false pending, execution stays blocked, retry available.
+- Creation must be idempotent; concurrency must not duplicate approvals.
+- Scope (tenant, run, step, tool, website, path, candidate/version) is server-resolved.
+
+## Discovery contract
+
+- The same approval ID must appear in Kompis and Approval Center.
+- Deep link must open the exact approval (`/app/approvals?request=<id>`), never an empty generic list when an ID exists.
+- Notifications are not approvals.
+- Expired, cancelled, rejected, and consumed approvals are not pending.
+
+## UX
+
+- One clear card: “Godkjenning kreves” → primary “Gjennomgå og godkjenn”.
+- No competing local “Godkjenn og utfør” for CORE-gated runs.
+- Nontechnical copy; no raw tool keys as primary titles; no raw enums/ISO in primary UI.
+- Status capitalization comes from i18n data — never CSS `capitalize`.
+- No English leakage in Norwegian locale for approval surfaces.
+
+## Forbidden
+
+- No UnoNight hardcoding.
+- No customer hardcoding in Core.
+- No auth/session/MFA handling changes.
+- No live publish/rollback as part of repair verification.
+- No local-authority bypass of CORE.APPROVAL.

@@ -159,7 +159,17 @@
     "trustLoadError": "Aipify nie mogło teraz wczytać zatwierdzeń zaufania.",
     "retry": "Spróbuj ponownie",
     "emergencyStopConfirm": "To wstrzymuje wszystkie oczekujące działania Aipify w Twojej organizacji. Kontynuuj tylko, jeśli chcesz zatrzymać wykonywanie.",
-    "emergencyStopReasonPrompt": "Opisz, dlaczego zatrzymujesz wszystkie oczekujące działania (minimum 8 znaków):"
+    "emergencyStopReasonPrompt": "Opisz, dlaczego zatrzymujesz wszystkie oczekujące działania (minimum 8 znaków):",
+    "title": "Centrum zatwierdzeń",
+    "subtitle": "Decyzje wymagające Twojego nadzoru — w jednym miejscu.",
+    "empty": "Brak oczekujących zatwierdzeń. Aipify pokaże sprawy, gdy potrzebna będzie weryfikacja.",
+    "openActionCenter": "Otwórz Command Center dla priorytetowych działań",
+    "returnToKompis": "Wróć do Kompis",
+    "internalReason": "Uzasadnienie wewnętrzne",
+    "reasonPlaceholder": "Opisz, dlaczego działanie powinno zostać wykonane",
+    "focusedMissing": "Nie znaleziono tego zatwierdzenia lub nie jest już oczekujące.",
+    "kompisPublishTitle": "Kompis: opublikuj szkic witryny",
+    "kompisRollbackTitle": "Kompis: wycofaj wersję witryny"
   },
   "organizationalEarlyWarning": {
     "title": "Centrum wczesnego ostrzegania",

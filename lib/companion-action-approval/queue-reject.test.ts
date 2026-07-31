@@ -341,7 +341,7 @@ test("trust approve routes to trust action endpoint", () => {
   const request = resolveApprovalPostRequest("trust", "trust-request-1", "approve");
   assert.equal(request.url, "/api/actions/trust-request-1/approve");
   assert.equal(request.init.method, "POST");
-  assert.equal(request.init.body, undefined);
+  assert.equal(String(request.init.body), "{}");
 });
 
 test("trust reject routes to trust action endpoint", () => {

@@ -2,7 +2,8 @@
 
 import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { AipifyEmptyState } from "@/components/branding";
 import type { CustomerApproval } from "@/lib/app/customer-app";
 import {
@@ -10,7 +11,9 @@ import {
   resolveApprovalPostRequest,
   resolveCompanionActionsLoadOutcome,
   resolveTrustApprovalsLoadOutcome,
+  resolveTrustApproveRequest,
   runIndependentApprovalLoads,
+  selectFocusedApprovalId,
   shouldShowApprovalsEmptyState,
   type CompanionActionRequest,
 } from "@/lib/companion-action-approval";
@@ -76,6 +79,12 @@ type ApprovalsCenterPanelProps = {
       category: string;
       statusLabels: Record<string, string>;
     };
+    returnToKompis?: string;
+    internalReason?: string;
+    reasonPlaceholder?: string;
+    focusedMissing?: string;
+    kompisPublishTitle?: string;
+    kompisRollbackTitle?: string;
   };
 };
 
@@ -105,6 +114,8 @@ function companionStatusLabel(
 }
 
 export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelProps) {
+  const searchParams = useSearchParams();
+  const focusedRequestId = useMemo(() => selectFocusedApprovalId(searchParams), [searchParams]);
   const [items, setItems] = useState<CustomerApproval[]>([]);
   const [centerMeta, setCenterMeta] = useState<ApprovalsCenterMeta | null>(null);
   const [emergencyState, setEmergencyState] = useState<string | null>(null);
@@ -115,6 +126,18 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
   const [trustLoadError, setTrustLoadError] = useState<string | null>(null);
   const [companionLoadError, setCompanionLoadError] = useState<string | null>(null);
   const [actingId, setActingId] = useState<string | null>(null);
+  const [decisionReason, setDecisionReason] = useState("");
+
+  function humanizeApprovalTitle(item: CustomerApproval): string {
+    const action = String(item.action_name ?? "").toLowerCase();
+    if (action === "website_publish_approved_draft" && labels.kompisPublishTitle) {
+      return labels.kompisPublishTitle;
+    }
+    if (action === "website_publish_rollback" && labels.kompisRollbackTitle) {
+      return labels.kompisRollbackTitle;
+    }
+    return item.title;
+  }
 
   const refreshTrust = useCallback(async () => {
     setTrustLoadError(null);
@@ -231,7 +254,14 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
   ) {
     const actingKey = source === "companion" ? `companion:${actionId}` : actionId;
     setActingId(actingKey);
-    const { url, init } = resolveApprovalPostRequest(source, actionId, decision);
+    const { url, init } =
+      source === "trust" && decision === "approve"
+        ? resolveTrustApproveRequest(actionId, decisionReason)
+        : resolveApprovalPostRequest(source, actionId, decision);
+    if (source === "trust" && decision === "reject") {
+      init.body = JSON.stringify({ reason: decisionReason.trim() || undefined });
+      init.headers = { "Content-Type": "application/json" };
+    }
     await fetch(url, init);
     if (source === "companion") {
       await refreshCompanion();
@@ -239,6 +269,7 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
       await refreshTrust();
     }
     setActingId(null);
+    setDecisionReason("");
   }
 
   async function emergencyStop() {
@@ -270,6 +301,14 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
 
   const emergencyActive =
     emergencyState === "paused" || emergencyState === "emergency_shutdown";
+
+  const visibleItems = useMemo(() => {
+    if (!focusedRequestId) return items;
+    return items.filter((item) => item.id === focusedRequestId);
+  }, [focusedRequestId, items]);
+
+  const focusedMissing =
+    Boolean(focusedRequestId) && !trustLoading && !trustLoadError && visibleItems.length === 0;
 
   return (
     <div className="mx-auto max-w-4xl space-y-6 p-6">
@@ -361,18 +400,30 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
         ) : shouldShowApprovalsEmptyState({
             loading: trustLoading,
             error: trustLoadError,
-            itemCount: items.length,
+            itemCount: visibleItems.length,
           }) ? (
           <AipifyEmptyState message={labels.empty} pulseLabel={labels.pulseLabel} />
-        ) : trustLoadError ? null : (
+        ) : trustLoadError ? null : focusedMissing ? (
+          <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
+            <p>{labels.focusedMissing ?? labels.empty}</p>
+            <Link href="/app/approvals" className="font-medium text-indigo-700 underline">
+              {labels.title}
+            </Link>
+          </div>
+        ) : (
           <ul className="space-y-3">
-            {items.map((item) => (
+            {visibleItems.map((item) => (
               <li
                 key={`${item.category}-${item.id}`}
-                className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+                id={`approval-${item.id}`}
+                className={`rounded-xl border bg-white p-4 shadow-sm ${
+                  focusedRequestId === item.id
+                    ? "border-indigo-400 ring-2 ring-indigo-200"
+                    : "border-gray-200"
+                }`}
               >
                 <div className="flex flex-wrap items-center gap-2">
-                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                  <h3 className="font-semibold text-gray-900">{humanizeApprovalTitle(item)}</h3>
                   <span
                     className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[item.status] ?? STATUS_STYLES.pending}`}
                   >
@@ -416,23 +467,49 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
                 <p className="mt-2 text-xs text-gray-400">{formatDate(item.created_at, locale)}</p>
 
                 {item.category === "action" && item.status === "pending" && !emergencyActive && (
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      disabled={actingId === item.id}
-                      onClick={() => void postApprovalAction("trust", item.id, "approve")}
-                      className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
-                    >
-                      {actingId === item.id ? labels.executing : labels.approve}
-                    </button>
-                    <button
-                      type="button"
-                      disabled={actingId === item.id}
-                      onClick={() => void postApprovalAction("trust", item.id, "reject")}
-                      className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50"
-                    >
-                      {labels.reject}
-                    </button>
+                  <div className="mt-4 space-y-3">
+                    {(item.return_to_kompis || item.source === "kompis") && (
+                      <label className="block text-sm text-gray-800">
+                        {labels.internalReason ?? labels.fields.reasoning}
+                        <textarea
+                          value={decisionReason}
+                          onChange={(event) => setDecisionReason(event.target.value)}
+                          rows={3}
+                          placeholder={labels.reasonPlaceholder}
+                          className="mt-2 w-full rounded-lg border border-gray-200 p-3 text-sm"
+                        />
+                      </label>
+                    )}
+                    <div className="flex flex-wrap gap-2">
+                      <button
+                        type="button"
+                        disabled={
+                          actingId === item.id ||
+                          ((item.return_to_kompis || item.source === "kompis") &&
+                            decisionReason.trim().length < 3)
+                        }
+                        onClick={() => void postApprovalAction("trust", item.id, "approve")}
+                        className="rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700 disabled:opacity-50"
+                      >
+                        {actingId === item.id ? labels.executing : labels.approve}
+                      </button>
+                      <button
+                        type="button"
+                        disabled={actingId === item.id}
+                        onClick={() => void postApprovalAction("trust", item.id, "reject")}
+                        className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 disabled:opacity-50"
+                      >
+                        {labels.reject}
+                      </button>
+                      {(item.return_to_kompis || item.source === "kompis") && labels.returnToKompis ? (
+                        <Link
+                          href="/app/kompis"
+                          className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        >
+                          {labels.returnToKompis}
+                        </Link>
+                      ) : null}
+                    </div>
                   </div>
                 )}
               </li>

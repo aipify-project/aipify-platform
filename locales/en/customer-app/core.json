@@ -6948,14 +6948,14 @@
     "suggestionSeo": "Check website SEO",
     "approveAndCreateDraft": "Approve and create draft",
     "noPublishMechanism": "Kompis can still create secure drafts and analyses",
-    "awaitingCoreApproval": "Waiting for Approval Center",
-    "coreApprovalRequired": "Publishing and rollback require Approval Center confirmation.",
+    "awaitingCoreApproval": "Waiting for approval",
+    "coreApprovalRequired": "Publishing and rollback must be confirmed in the Approval Center.",
     "coreApproved": "Approved in Approval Center",
     "coreRejected": "Rejected in Approval Center",
     "coreExpired": "Approval expired",
     "verifyingWebsite": "Verifying the website",
     "rolledBack": "Rolled back",
-    "openApprovalCenter": "Open Approval Center",
+    "openApprovalCenter": "Open approval",
     "toolNotAllowed": "This tool is not allowed",
     "statuses": {
       "active": "Active",
@@ -7099,7 +7099,13 @@
       "publishedBy": "Published by",
       "versionSource": "Source",
       "verificationStatus": "Verification"
-    }
+    },
+    "approvalRequiredTitle": "Approval required",
+    "approvalRequiredBody": "Kompis has prepared an action that must be approved before it can run.",
+    "reviewAndApprove": "Review and approve",
+    "approvalCreationFailedTitle": "Approval could not be created",
+    "approvalCreationFailedBody": "The action stays blocked until approval is created. You can try again.",
+    "returnToKompis": "Back to Kompis"
   },
   "websiteCms": {
     "title": "Website CMS",

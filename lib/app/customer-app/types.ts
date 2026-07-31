@@ -46,6 +46,10 @@ export type CustomerApproval = {
   confidence_score?: number;
   approver_role_required?: string;
   undo_available?: boolean;
+  source?: string;
+  resource_type?: string;
+  resource_id?: string;
+  return_to_kompis?: boolean;
 };
 
 export type CustomerTeamMember = {

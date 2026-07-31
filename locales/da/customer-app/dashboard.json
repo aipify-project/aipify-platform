@@ -156,11 +156,11 @@
     }
   },
   "approvals": {
-    "title": "Approval center",
-    "subtitle": "Decisions that need your oversight — in one place.",
+    "title": "Godkendelsescenter",
+    "subtitle": "Beslutninger, der kræver din gennemgang — samlet ét sted.",
     "loading": "Forbereder approvals overview…",
-    "empty": "No pending approvals. Aipify will surface items when human review is required.",
-    "openActionCenter": "Open Command Center for quick actions",
+    "empty": "Ingen ventende godkendelser. Aipify viser sager, når menneskelig gennemgang er nødvendig.",
+    "openActionCenter": "Åbn prioriterede handlinger",
     "approve": "Godkend",
     "reject": "Afvis",
     "executing": "Behandler…",
@@ -202,7 +202,13 @@
     "trustLoadError": "Aipify kunne ikke indlæse trust-godkendelser lige nu.",
     "retry": "Prøv igen",
     "emergencyStopConfirm": "Dette sætter alle afventende Aipify-handlinger for din organisation på pause. Fortsæt kun, hvis du agter at stoppe udførelsen.",
-    "emergencyStopReasonPrompt": "Beskriv, hvorfor du stopper alle afventende handlinger (mindst 8 tegn):"
+    "emergencyStopReasonPrompt": "Beskriv, hvorfor du stopper alle afventende handlinger (mindst 8 tegn):",
+    "returnToKompis": "Tilbage til Kompis",
+    "internalReason": "Intern begrundelse",
+    "reasonPlaceholder": "Beskriv hvorfor handlingen skal gennemføres",
+    "focusedMissing": "Denne godkendelse blev ikke fundet, eller den venter ikke længere.",
+    "kompisPublishTitle": "Kompis: publicer webstedsudkast",
+    "kompisRollbackTitle": "Kompis: rul webstedsversion tilbage"
   },
   "installations": {
     "title": "Installations",

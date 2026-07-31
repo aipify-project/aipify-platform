@@ -495,14 +495,14 @@
     "suggestionSeo": "Перевірити SEO",
     "approveAndCreateDraft": "Схвалити та створити чернетку",
     "noPublishMechanism": "Kompis і надалі може створювати безпечні чернетки та аналізи",
-    "awaitingCoreApproval": "Очікування центру схвалення",
+    "awaitingCoreApproval": "Очікує схвалення",
     "coreApprovalRequired": "Публікація та відкат потребують підтвердження в центрі схвалення.",
     "coreApproved": "Схвалено в центрі схвалення",
     "coreRejected": "Відхилено в центрі схвалення",
     "coreExpired": "Термін схвалення минув",
     "verifyingWebsite": "Перевірка вебсайту",
     "rolledBack": "Відкочено",
-    "openApprovalCenter": "Відкрити центр схвалення",
+    "openApprovalCenter": "Відкрити схвалення",
     "toolNotAllowed": "Цей інструмент не дозволено",
     "statuses": {
       "active": "Активний",
@@ -646,7 +646,13 @@
       "publishedBy": "Опубліковано",
       "versionSource": "Джерело",
       "verificationStatus": "Перевірка"
-    }
+    },
+    "approvalRequiredTitle": "Потрібне схвалення",
+    "approvalRequiredBody": "Kompis підготував дію, яку потрібно схвалити перед виконанням.",
+    "reviewAndApprove": "Переглянути й схвалити",
+    "approvalCreationFailedTitle": "Не вдалося створити схвалення",
+    "approvalCreationFailedBody": "Дію заблоковано, доки схвалення не буде створено. Можна спробувати знову.",
+    "returnToKompis": "Назад до Kompis"
   },
   "websiteCms": {
     "title": "CMS веб-сайту",

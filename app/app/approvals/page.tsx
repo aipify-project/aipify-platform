@@ -5,6 +5,8 @@ import { buildCompanionBriefingLabels } from "@/lib/app/companion-briefing-label
 import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { Suspense } from "react";
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 
 export default async function ApprovalsPage() {
   const locale = await getLocale();
@@ -27,79 +29,87 @@ export default async function ApprovalsPage() {
           labels={buildCompanionBriefingLabels(t)}
         />
       </div>
-      <ApprovalsCenterPanel
-        locale={locale}
-        labels={{
-          title: t("customerApp.approvals.title"),
-          subtitle: t("customerApp.approvals.subtitle"),
-          loading: t("customerApp.approvals.loading"),
-          empty: t("customerApp.approvals.empty"),
-          pulseLabel: t("branding.pulseLabel"),
-          openActionCenter: t("customerApp.approvals.openActionCenter"),
-          approve: t("customerApp.approvals.approve"),
-          reject: t("customerApp.approvals.reject"),
-          executing: t("customerApp.approvals.executing"),
-          emergencyStop: t("customerApp.approvals.emergencyStop"),
-          emergencyActive: t("customerApp.approvals.emergencyActive"),
-          emergencyStopConfirm: t("customerApp.approvals.emergencyStopConfirm"),
-          emergencyStopReasonPrompt: t("customerApp.approvals.emergencyStopReasonPrompt"),
-          actionCategories: t("customerApp.approvals.actionCategories"),
-          successCriteria: t("customerApp.approvals.successCriteria"),
-          integrationLinks: t("customerApp.approvals.integrationLinks"),
-          trustSection: t("customerApp.approvals.trustSection"),
-          trustLoadError: t("customerApp.approvals.trustLoadError"),
-          retry: t("customerApp.approvals.retry"),
-          riskLevels: {
-            "0": t("customerApp.approvals.riskLevels.information"),
-            "1": t("customerApp.approvals.riskLevels.low"),
-            "2": t("customerApp.approvals.riskLevels.medium"),
-            "3": t("customerApp.approvals.riskLevels.high"),
-            "4": t("customerApp.approvals.riskLevels.critical"),
-            low: t("customerApp.approvals.riskLevels.low"),
-            medium: t("customerApp.approvals.riskLevels.medium"),
-            high: t("customerApp.approvals.riskLevels.high"),
-            critical: t("customerApp.approvals.riskLevels.critical"),
-          },
-          fields: {
-            skill: t("customerApp.approvals.fields.skill"),
-            confidence: t("customerApp.approvals.fields.confidence"),
-            approver: t("customerApp.approvals.fields.approver"),
-            reasoning: t("customerApp.approvals.fields.reasoning"),
-          },
-          statusLabels: {
-            pending: t("customerApp.approvals.statusLabels.pending"),
-            approved: t("customerApp.approvals.statusLabels.approved"),
-            rejected: t("customerApp.approvals.statusLabels.rejected"),
-            completed: t("customerApp.approvals.statusLabels.completed"),
-          },
-          categoryLabels: {
-            notification: t("customerApp.approvals.categoryLabels.notification"),
-            recommendation: t("customerApp.approvals.categoryLabels.recommendation"),
-            automation: t("customerApp.approvals.categoryLabels.automation"),
-            integration: t("customerApp.approvals.categoryLabels.integration"),
-            update: t("customerApp.approvals.categoryLabels.update"),
-            action: t("customerApp.approvals.categoryLabels.action"),
-          },
-          companion: {
-            section: t("customerApp.approvals.companionSection"),
-            empty: t("customerApp.approvals.companionEmpty"),
-            loadError: companionLabels.errorMessage,
-            openCenter: companionLabels.title,
-            reason: companionLabels.reason,
-            expires: companionLabels.expires,
-            category: companionLabels.category,
-            statusLabels: {
-              pending: companionLabels.status_pending,
-              awaiting_approval: companionLabels.status_pending,
-              approved: companionLabels.status_approved,
-              rejected: companionLabels.status_rejected,
-              status_pending: companionLabels.status_pending,
-              status_approved: companionLabels.status_approved,
-              status_rejected: companionLabels.status_rejected,
+      <Suspense fallback={<AipifyLoadingState message={t("customerApp.approvals.loading")} centered />}>
+        <ApprovalsCenterPanel
+          locale={locale}
+          labels={{
+            title: t("customerApp.approvals.title"),
+            subtitle: t("customerApp.approvals.subtitle"),
+            loading: t("customerApp.approvals.loading"),
+            empty: t("customerApp.approvals.empty"),
+            pulseLabel: t("branding.pulseLabel"),
+            openActionCenter: t("customerApp.approvals.openActionCenter"),
+            approve: t("customerApp.approvals.approve"),
+            reject: t("customerApp.approvals.reject"),
+            executing: t("customerApp.approvals.executing"),
+            emergencyStop: t("customerApp.approvals.emergencyStop"),
+            emergencyActive: t("customerApp.approvals.emergencyActive"),
+            emergencyStopConfirm: t("customerApp.approvals.emergencyStopConfirm"),
+            emergencyStopReasonPrompt: t("customerApp.approvals.emergencyStopReasonPrompt"),
+            actionCategories: t("customerApp.approvals.actionCategories"),
+            successCriteria: t("customerApp.approvals.successCriteria"),
+            integrationLinks: t("customerApp.approvals.integrationLinks"),
+            trustSection: t("customerApp.approvals.trustSection"),
+            trustLoadError: t("customerApp.approvals.trustLoadError"),
+            retry: t("customerApp.approvals.retry"),
+            returnToKompis: t("customerApp.approvals.returnToKompis"),
+            internalReason: t("customerApp.approvals.internalReason"),
+            reasonPlaceholder: t("customerApp.approvals.reasonPlaceholder"),
+            focusedMissing: t("customerApp.approvals.focusedMissing"),
+            kompisPublishTitle: t("customerApp.approvals.kompisPublishTitle"),
+            kompisRollbackTitle: t("customerApp.approvals.kompisRollbackTitle"),
+            riskLevels: {
+              "0": t("customerApp.approvals.riskLevels.information"),
+              "1": t("customerApp.approvals.riskLevels.low"),
+              "2": t("customerApp.approvals.riskLevels.medium"),
+              "3": t("customerApp.approvals.riskLevels.high"),
+              "4": t("customerApp.approvals.riskLevels.critical"),
+              low: t("customerApp.approvals.riskLevels.low"),
+              medium: t("customerApp.approvals.riskLevels.medium"),
+              high: t("customerApp.approvals.riskLevels.high"),
+              critical: t("customerApp.approvals.riskLevels.critical"),
             },
-          },
-        }}
-      />
+            fields: {
+              skill: t("customerApp.approvals.fields.skill"),
+              confidence: t("customerApp.approvals.fields.confidence"),
+              approver: t("customerApp.approvals.fields.approver"),
+              reasoning: t("customerApp.approvals.fields.reasoning"),
+            },
+            statusLabels: {
+              pending: t("customerApp.approvals.statusLabels.pending"),
+              approved: t("customerApp.approvals.statusLabels.approved"),
+              rejected: t("customerApp.approvals.statusLabels.rejected"),
+              completed: t("customerApp.approvals.statusLabels.completed"),
+            },
+            categoryLabels: {
+              notification: t("customerApp.approvals.categoryLabels.notification"),
+              recommendation: t("customerApp.approvals.categoryLabels.recommendation"),
+              automation: t("customerApp.approvals.categoryLabels.automation"),
+              integration: t("customerApp.approvals.categoryLabels.integration"),
+              update: t("customerApp.approvals.categoryLabels.update"),
+              action: t("customerApp.approvals.categoryLabels.action"),
+            },
+            companion: {
+              section: t("customerApp.approvals.companionSection"),
+              empty: t("customerApp.approvals.companionEmpty"),
+              loadError: companionLabels.errorMessage,
+              openCenter: companionLabels.title,
+              reason: companionLabels.reason,
+              expires: companionLabels.expires,
+              category: companionLabels.category,
+              statusLabels: {
+                pending: companionLabels.status_pending,
+                awaiting_approval: companionLabels.status_pending,
+                approved: companionLabels.status_approved,
+                rejected: companionLabels.status_rejected,
+                status_pending: companionLabels.status_pending,
+                status_approved: companionLabels.status_approved,
+                status_rejected: companionLabels.status_rejected,
+              },
+            },
+          }}
+        />
+      </Suspense>
     </div>
   );
 }

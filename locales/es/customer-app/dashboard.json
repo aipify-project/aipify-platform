@@ -290,5 +290,60 @@
     },
     "boardInvestorIntelligenceLink": "Board & Investor Intelligence Center",
     "transformationChangeCenterLink": "Transformation & Change Center"
+  },
+  "approvals": {
+    "title": "Centro de aprobaciones",
+    "subtitle": "Decisiones que requieren su supervisión — en un solo lugar.",
+    "loading": "Revisando actividades pendientes…",
+    "empty": "No hay aprobaciones pendientes. Aipify mostrará elementos cuando se necesite revisión humana.",
+    "openActionCenter": "Abrir Command Center para acciones prioritarias",
+    "approve": "Aprobar",
+    "reject": "Rechazar",
+    "executing": "Revisando…",
+    "emergencyStop": "Detener todas las acciones de Aipify",
+    "emergencyActive": "La parada de emergencia está activa. Todas las acciones pendientes de Aipify están en pausa.",
+    "riskLevels": {
+      "information": "Information",
+      "low": "Low risk",
+      "medium": "Medium risk",
+      "high": "High risk",
+      "critical": "Critical"
+    },
+    "fields": {
+      "skill": "Skill",
+      "confidence": "Confidence",
+      "approver": "Approver required",
+      "reasoning": "Why Aipify recommends this"
+    },
+    "statusLabels": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "completed": "Completed"
+    },
+    "categoryLabels": {
+      "notification": "Notification",
+      "recommendation": "Recommendation",
+      "automation": "Automation",
+      "integration": "Integration",
+      "update": "Update",
+      "action": "Aipify action"
+    },
+    "actionCategories": "Action categories",
+    "successCriteria": "Phase 6 success criteria",
+    "integrationLinks": "Related governance surfaces",
+    "trustSection": "Aprobaciones de confianza",
+    "companionSection": "Aprobaciones Companion",
+    "companionEmpty": "No hay aprobaciones Companion pendientes.",
+    "trustLoadError": "No se pudieron cargar las aprobaciones.",
+    "retry": "Reintentar",
+    "emergencyStopConfirm": "This pauses all pending Aipify actions for your organization. Continue only if you intend to stop execution.",
+    "emergencyStopReasonPrompt": "Describe why you are stopping all pending actions (minimum 8 characters):",
+    "returnToKompis": "Volver a Kompis",
+    "internalReason": "Motivo interno",
+    "reasonPlaceholder": "Describa por qué debe realizarse la acción",
+    "focusedMissing": "Esta aprobación no se encontró o ya no está pendiente.",
+    "kompisPublishTitle": "Kompis: publicar borrador del sitio",
+    "kompisRollbackTitle": "Kompis: revertir versión del sitio"
   }
 }
