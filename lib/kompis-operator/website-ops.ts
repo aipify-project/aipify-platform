@@ -74,11 +74,11 @@ export function buildWebsiteSeoAudit(input: {
   context: KompisWebsiteContext;
   pages: Array<Record<string, unknown>>;
 }) {
+  /** Codes only — UI resolves localized copy. Never emit English detail as primary text. */
   const findings: Array<{
     code: string;
     severity: "info" | "warning" | "danger";
     pageId: string | null;
-    detail: string;
   }> = [];
 
   if (!input.context.acknowledgementOk) {
@@ -86,7 +86,6 @@ export function buildWebsiteSeoAudit(input: {
       code: "runtime_acknowledgement_missing",
       severity: "warning",
       pageId: null,
-      detail: "Website Kompis acknowledgement is not confirmed.",
     });
   }
   if (!input.context.primaryDomain) {
@@ -94,14 +93,12 @@ export function buildWebsiteSeoAudit(input: {
       code: "primary_domain_missing",
       severity: "warning",
       pageId: null,
-      detail: "No primary domain is bound for Website Operations.",
     });
   }
   findings.push({
     code: "crawl_unavailable",
     severity: "info",
     pageId: null,
-    detail: "Live website crawl is not available. Audit uses operator drafts and delivery context only.",
   });
 
   for (const page of input.pages) {
@@ -126,7 +123,6 @@ export function buildWebsiteSeoAudit(input: {
         code: "missing_title",
         severity: "warning",
         pageId,
-        detail: "Draft is missing a page title.",
       });
     }
     if (!metaDescription.trim()) {
@@ -134,7 +130,6 @@ export function buildWebsiteSeoAudit(input: {
         code: "missing_meta_description",
         severity: "warning",
         pageId,
-        detail: "Draft is missing a meta description.",
       });
     }
     if (!canonical.trim()) {
@@ -142,7 +137,6 @@ export function buildWebsiteSeoAudit(input: {
         code: "missing_canonical",
         severity: "info",
         pageId,
-        detail: "Draft has no canonical URL proposal.",
       });
     }
     if (page.draftKind === "website_image_metadata" && !altText.trim()) {
@@ -150,23 +144,30 @@ export function buildWebsiteSeoAudit(input: {
         code: "missing_alt_text",
         severity: "warning",
         pageId,
-        detail: "Image metadata draft is missing alternative text.",
       });
     }
   }
+
+  // Deduplicate by code + page before returning (presentation layer also dedupes with locale/revision).
+  const seen = new Set<string>();
+  const deduped = findings.filter((finding) => {
+    const key = `${finding.code}|${finding.pageId ?? "global"}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 
   return {
     auditedAt: new Date().toISOString(),
     crawlAvailable: false,
     authoritativePageModel: false,
-    findingCount: findings.length,
-    findings: findings.slice(0, 100),
+    findingCount: deduped.length,
+    findings: deduped.slice(0, 100),
   };
 }
 
 export function buildWebsiteContentQualityAudit(pages: Array<Record<string, unknown>>) {
-  const findings: Array<{ code: string; severity: "info" | "warning"; pageId: string | null; detail: string }> =
-    [];
+  const findings: Array<{ code: string; severity: "info" | "warning"; pageId: string | null }> = [];
   for (const page of pages) {
     const body = asRecord(page.body ?? page);
     const text =
@@ -181,7 +182,6 @@ export function buildWebsiteContentQualityAudit(pages: Array<Record<string, unkn
         code: "empty_content",
         severity: "warning",
         pageId,
-        detail: "Draft content is empty.",
       });
     }
     if (/customerApp\.|platform\./.test(text)) {
@@ -189,7 +189,6 @@ export function buildWebsiteContentQualityAudit(pages: Array<Record<string, unkn
         code: "raw_translation_key",
         severity: "warning",
         pageId,
-        detail: "Draft appears to contain a raw translation key.",
       });
     }
     if (containsForbiddenMarkup(text)) {
@@ -197,14 +196,20 @@ export function buildWebsiteContentQualityAudit(pages: Array<Record<string, unkn
         code: "forbidden_markup",
         severity: "warning",
         pageId,
-        detail: "Draft contains markup that is not allowed for website drafts.",
       });
     }
   }
+  const seen = new Set<string>();
+  const deduped = findings.filter((finding) => {
+    const key = `${finding.code}|${finding.pageId ?? "global"}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
   return {
     auditedAt: new Date().toISOString(),
-    findingCount: findings.length,
-    findings: findings.slice(0, 100),
+    findingCount: deduped.length,
+    findings: deduped.slice(0, 100),
   };
 }
 

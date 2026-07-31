@@ -11,15 +11,19 @@ import {
 import { parseRuntimeStatusRpc } from "@/lib/customer-website-runtime/parse";
 import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality";
 
+type RuntimeStatusView = ReturnType<typeof parseRuntimeStatusRpc>;
+
 type Props = {
   labels: CustomerWebsiteRuntimeLabels;
   locale?: string;
+  /** Prefer authoritative parent payload — avoids a parallel stale fetch. */
+  initialStatus?: RuntimeStatusView | null;
 };
 
 type LoadState =
   | { kind: "loading" }
   | { kind: "error" }
-  | { kind: "success"; data: ReturnType<typeof parseRuntimeStatusRpc> };
+  | { kind: "success"; data: RuntimeStatusView };
 
 const TONE: Record<string, string> = {
   success:
@@ -46,10 +50,17 @@ function Badge({ label, tone }: { label: string; tone: string }) {
 export function CustomerWebsiteRuntimeReadinessCard({
   labels,
   locale = "en",
+  initialStatus = null,
 }: Props) {
-  const [state, setState] = useState<LoadState>({ kind: "loading" });
+  const [state, setState] = useState<LoadState>(() =>
+    initialStatus ? { kind: "success", data: initialStatus } : { kind: "loading" },
+  );
 
   useEffect(() => {
+    if (initialStatus) {
+      setState({ kind: "success", data: initialStatus });
+      return;
+    }
     let cancelled = false;
     (async () => {
       try {
@@ -68,7 +79,7 @@ export function CustomerWebsiteRuntimeReadinessCard({
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [initialStatus]);
 
   if (state.kind === "loading") {
     return (

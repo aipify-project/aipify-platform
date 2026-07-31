@@ -98,6 +98,23 @@ export function parseRuntimeManifestRpc(data: unknown) {
   };
 }
 
+function asMountedPaths(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value.filter((item): item is string => typeof item === "string" && item.startsWith("/"));
+  }
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (!trimmed) return [];
+    if (trimmed.startsWith("/")) return [trimmed];
+    try {
+      return asMountedPaths(JSON.parse(trimmed) as unknown);
+    } catch {
+      return [];
+    }
+  }
+  return [];
+}
+
 export function parseRuntimeStatusRpc(data: unknown) {
   const row = asRecord(data);
   return {
@@ -106,7 +123,7 @@ export function parseRuntimeStatusRpc(data: unknown) {
     contractVersion: typeof row.contract_version === "string" ? row.contract_version : null,
     runtimeEnabled: row.runtime_enabled === true,
     homepageEnabled: row.homepage_enabled === true,
-    mountedPaths: asStringArray(row.mounted_paths),
+    mountedPaths: asMountedPaths(row.mounted_paths),
     fallbackMode: typeof row.fallback_mode === "string" ? row.fallback_mode : "customer_runtime",
     configVersion: Number(row.config_version ?? 0),
     activeVersionNumber:
