@@ -1,0 +1,43 @@
+---
+description: Platform UI presentation quality — never show raw dates or enums
+globs:
+  - components/platform/**/*
+  - components/app/**/*
+  - lib/platform-portal/**/*
+  - lib/customer-website-runtime/**/*
+  - lib/platform-presentation-quality/**/*
+  - locales/*/platform.json
+alwaysApply: false
+---
+
+# Platform UI Presentation Quality
+
+See `lib/platform-presentation-quality/`.
+
+## Never show in visible UI
+
+- Raw ISO-8601 timestamps (`2026-07-31T02:42:07…+00:00`)
+- Raw database enums / API status codes (`active`, `ready`, `enabled`, `not_ready`)
+- Raw `snake_case` or `camelCase` technical codes as primary labels
+- Raw translation keys
+- English status fallbacks in Norwegian (or other non-English) UI
+- CSS `text-transform: capitalize` as a status “fix”
+
+## Required contracts
+
+1. **Dates** — use `formatPlatformDateTimeFull` / `Short` / `DateOnly` / `RelativeTime` / `Duration` with active locale + authoritative timezone (`resolveAuthoritativeTimeZone`). Never `toISOString()` for display.
+2. **Statuses** — use `resolvePlatformStatusLabel` / `getPlatformStatusPresentation` with central `platform.presentationQuality.statuses` maps. Severity is separate (`resolvePlatformStatusSeverity`). Capitalization comes from the translated label.
+3. **No duplicated per-component status switches by language.**
+4. **Unknown status** — controlled fallback label; never the raw code in production.
+5. **Null vs missing** — do not map every null to “Not available” when the authoritative relation shows “not linked” / “not configured”.
+6. **Consistency** — the same customer may legitimately show different statuses across delivery, activation, and runtime cards (different RPCs / state machines). Always show the card scope note; never invent a unified status by mutating customer data.
+7. **Tests** — presentation-quality tests under `lib/platform-presentation-quality/**` are required before release of Platform customer presentation changes.
+
+## Allowed
+
+- Minimal read-only adapter changes when a card uses the wrong data source
+- Locale parity for all active locales (`LOCALES` in `lib/i18n/config.ts`)
+
+## Forbidden in this surface
+
+- Customer data writes, license/entitlement/delivery/domain/install/runtime mutations, migrations, dependency/lockfile changes — to “make cards look green”

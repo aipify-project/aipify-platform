@@ -4,6 +4,10 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { mapAgreementDisplayName } from "@/lib/platform-portal/business-language";
+import {
+  formatPlatformDateOnly,
+  formatPlatformDateTimeFull,
+} from "@/lib/platform-presentation-quality";
 import type {
   PlatformCustomerAgreement,
   PlatformCustomerAgreementsDurationFilter,
@@ -131,27 +135,19 @@ function mapLookup(
 }
 
 function formatDate(value: string | null, locale: string, fallback: string): string {
-  if (!value) return fallback;
-  const ms = Date.parse(value);
-  if (Number.isNaN(ms) || ms === 0) return fallback;
-  try {
-    return new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(new Date(ms));
-  } catch {
-    return new Date(ms).toISOString().slice(0, 10);
-  }
+  return formatPlatformDateOnly(value, {
+    locale,
+    emptyFallback: fallback,
+    invalidFallback: fallback,
+  });
 }
 
 function formatGeneratedAt(value: string, locale: string): string {
-  const ms = Date.parse(value);
-  if (Number.isNaN(ms) || ms === 0) return "—";
-  try {
-    return new Intl.DateTimeFormat(locale, {
-      dateStyle: "medium",
-      timeStyle: "short",
-    }).format(new Date(ms));
-  } catch {
-    return new Date(ms).toISOString();
-  }
+  return formatPlatformDateTimeFull(value, {
+    locale,
+    emptyFallback: "—",
+    invalidFallback: "—",
+  });
 }
 
 export function PlatformCustomerAgreementsOverviewPanel({ labels, locale }: PanelProps) {

@@ -9,10 +9,12 @@ import {
   runtimeFullyVerifiedTone,
 } from "@/lib/customer-website-runtime/labels";
 import { parseRuntimeStatusRpc } from "@/lib/customer-website-runtime/parse";
+import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality";
 
 type Props = {
   organizationId: string;
   labels: CustomerWebsiteRuntimeLabels;
+  locale: string;
 };
 
 type LoadState =
@@ -61,7 +63,11 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
   );
 }
 
-export function CustomerWebsiteRuntimeDeliveryPanel({ organizationId, labels }: Props) {
+export function CustomerWebsiteRuntimeDeliveryPanel({
+  organizationId,
+  labels,
+  locale,
+}: Props) {
   const [state, setState] = useState<LoadState>({ kind: "loading" });
   const [action, setAction] = useState<ActionState>({ kind: "idle" });
   const [reason, setReason] = useState("");
@@ -210,8 +216,9 @@ export function CustomerWebsiteRuntimeDeliveryPanel({ organizationId, labels }: 
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h2 className="text-base font-semibold text-slate-900 dark:text-slate-50">{labels.sectionTitle}</h2>
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{labels.scopeNote}</p>
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            {labels.contractVersion}: {data.contractVersion ?? "—"}
+            {labels.contractVersion}: {data.contractVersion ?? labels.emptyDate}
           </p>
         </div>
         <Badge
@@ -260,7 +267,15 @@ export function CustomerWebsiteRuntimeDeliveryPanel({ organizationId, labels }: 
             : labels.fallbackCustomerRuntime}
         </Row>
         <Row label={labels.configVersion}>{String(data.configVersion || "—")}</Row>
-        <Row label={labels.lastVerified}>{data.lastFullyVerifiedAt ?? "—"}</Row>
+        <Row label={labels.lastVerified}>
+          <span className="inline-block max-w-[16rem] break-words text-right">
+            {formatPlatformDateTimeFull(data.lastFullyVerifiedAt, {
+              locale,
+              emptyFallback: labels.emptyDate,
+              invalidFallback: labels.invalidDate,
+            })}
+          </span>
+        </Row>
       </dl>
 
       {action.kind === "success" ? (

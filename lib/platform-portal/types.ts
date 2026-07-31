@@ -782,6 +782,13 @@ export type PlatformPortalWebsiteKompisLabels = {
   loading: string;
   reasonLabels: Record<string, string>;
   activationStatuses: Record<string, string>;
+  presentationStatuses: Record<string, string>;
+  unknownStatus: string;
+  emptyDate: string;
+  invalidDate: string;
+  scopeNote: string;
+  notLinked: string;
+  notConfigured: string;
 };
 
 export type PlatformPortalAppKompisDeliveryModalSteps = {
@@ -857,6 +864,13 @@ export type PlatformPortalAppKompisDeliveryLabels = {
   acknowledgementFailed: string;
   deliveryStatuses: Record<string, string>;
   reasonLabels: Record<string, string>;
+  /** Central presentation-quality status map (never render raw enums). */
+  presentationStatuses: Record<string, string>;
+  unknownStatus: string;
+  emptyDate: string;
+  invalidDate: string;
+  scopeNote: string;
+  notLinked: string;
 };
 
 export type PlatformPortalCustomerDomain = {

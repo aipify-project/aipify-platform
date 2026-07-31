@@ -1,4 +1,5 @@
 import type { Translator } from "@/lib/i18n/translate";
+import { buildPlatformPresentationQualityLabels } from "@/lib/platform-presentation-quality";
 import type { PlatformCustomerAgreementsLabels } from "./customer-agreements";
 import type { PlatformCustomerSuccessLabels } from "./customer-success";
 import type { PlatformLicensesLabels } from "./licenses-overview";
@@ -392,6 +393,7 @@ export function buildPlatformPortalWebsiteKompisLabels(
   t: Translator,
 ): PlatformPortalWebsiteKompisLabels {
   const c = "platform.customers.websiteKompis";
+  const presentation = buildPlatformPresentationQualityLabels(t);
   return {
     title: t(`${c}.title`),
     serviceName: t(`${c}.serviceName`),
@@ -472,6 +474,13 @@ export function buildPlatformPortalWebsiteKompisLabels(
       failed: t(`${c}.failed`),
       revoked: t(`${c}.revoked`),
     },
+    presentationStatuses: presentation.statuses,
+    unknownStatus: presentation.unknownStatus,
+    emptyDate: presentation.emptyDate,
+    invalidDate: presentation.invalidDate,
+    scopeNote: presentation.scopes.activation,
+    notLinked: presentation.notLinked,
+    notConfigured: presentation.notConfigured,
   };
 }
 
@@ -479,6 +488,7 @@ export function buildPlatformPortalAppKompisDeliveryLabels(
   t: Translator,
 ): PlatformPortalAppKompisDeliveryLabels {
   const c = "platform.customers.appKompisDelivery";
+  const presentation = buildPlatformPresentationQualityLabels(t);
   return {
     title: t(`${c}.title`),
     sectionTitle: t(`${c}.sectionTitle`),
@@ -548,6 +558,12 @@ export function buildPlatformPortalAppKompisDeliveryLabels(
     installDisabledLabel: t(`${c}.installDisabledLabel`),
     acknowledgementOk: t(`${c}.acknowledgementOk`),
     acknowledgementFailed: t(`${c}.acknowledgementFailed`),
+    presentationStatuses: presentation.statuses,
+    unknownStatus: presentation.unknownStatus,
+    emptyDate: presentation.emptyDate,
+    invalidDate: presentation.invalidDate,
+    scopeNote: presentation.scopes.delivery,
+    notLinked: presentation.notLinked,
     deliveryStatuses: {
       not_started: t(`${c}.statuses.notStarted`),
       checking_requirements: t(`${c}.statuses.checkingRequirements`),

@@ -13,6 +13,7 @@ import {
   websiteKompisStatusVariant,
   type PlatformPortalWebsiteKompisErrorCode,
 } from "@/lib/platform-portal/website-kompis-activation";
+import { resolvePlatformStatusLabel } from "@/lib/platform-presentation-quality";
 
 type Props = {
   open: boolean;
@@ -80,6 +81,28 @@ function Row({
         {value?.trim() || "—"}
       </dd>
     </div>
+  );
+}
+
+function StatusRow({
+  label,
+  status,
+  labels,
+}: {
+  label: string;
+  status: string | null | undefined;
+  labels: PlatformPortalWebsiteKompisLabels;
+}) {
+  return (
+    <Row
+      label={label}
+      value={resolvePlatformStatusLabel({
+        status,
+        labels: labels.presentationStatuses,
+        unknownFallback: labels.unknownStatus,
+        emptyFallback: labels.notConfigured,
+      })}
+    />
   );
 }
 
@@ -194,7 +217,11 @@ export function PlatformPortalWebsiteKompisActivationPanel({
               {labels.agreement}
             </h3>
             <dl className="mt-2">
-              <Row label={labels.statusLabel} value={status?.agreement.status} />
+              <StatusRow
+                label={labels.statusLabel}
+                status={status?.agreement.status}
+                labels={labels}
+              />
               <Row label={labels.setupStatus} value={status?.agreement.duration} />
             </dl>
           </section>
@@ -204,10 +231,15 @@ export function PlatformPortalWebsiteKompisActivationPanel({
             </h3>
             <dl className="mt-2">
               <Row label={labels.licensePackage} value={labels.appLicense} />
-              <Row label={labels.statusLabel} value={status?.license.status} />
-              <Row
+              <StatusRow
+                label={labels.statusLabel}
+                status={status?.license.status}
+                labels={labels}
+              />
+              <StatusRow
                 label={labels.setupStatus}
-                value={status?.license.provisioningStatus}
+                status={status?.license.provisioningStatus}
+                labels={labels}
               />
             </dl>
           </section>
@@ -216,8 +248,15 @@ export function PlatformPortalWebsiteKompisActivationPanel({
               {labels.domain}
             </h3>
             <dl className="mt-2">
-              <Row label={labels.domain} value={status?.domain.hostname} />
-              <Row label={labels.statusLabel} value={status?.domain.status} />
+              <Row
+                label={labels.domain}
+                value={status?.domain.hostname ?? labels.notLinked}
+              />
+              <StatusRow
+                label={labels.statusLabel}
+                status={status?.domain.status}
+                labels={labels}
+              />
               <Row
                 label={labels.prerequisites}
                 value={
@@ -233,10 +272,13 @@ export function PlatformPortalWebsiteKompisActivationPanel({
               {labels.installation}
             </h3>
             <dl className="mt-2">
-              <Row label={labels.installation} value={status?.installation.id} />
+              <Row
+                label={labels.installation}
+                value={status?.installation.id ?? labels.notConfigured}
+              />
               <Row
                 label={labels.installKey}
-                value={status?.installation.installId}
+                value={status?.installation.installId ?? labels.notConfigured}
               />
             </dl>
           </section>
