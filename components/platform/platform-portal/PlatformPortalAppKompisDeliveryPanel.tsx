@@ -14,10 +14,16 @@ import {
   type PlatformPortalAppKompisDeliveryStatusPayload,
   type PlatformPortalAppKompisErrorCode,
 } from "@/lib/platform-portal/app-kompis-delivery";
+import {
+  formatPlatformDateTimeFull,
+  resolvePlatformStatusLabel,
+  resolvePlatformStatusSeverity,
+} from "@/lib/platform-presentation-quality";
 
 type Props = {
   customerId: string;
   labels: PlatformPortalAppKompisDeliveryLabels;
+  locale: string;
 };
 
 type LoadState =
@@ -49,6 +55,8 @@ const BADGE: Record<string, string> = {
 function Badge({ label, variant }: { label: string; variant: string }) {
   return (
     <span
+      title={label}
+      aria-label={label}
       className={`inline-flex max-w-full items-center rounded-md border px-2 py-0.5 text-xs font-medium ${BADGE[variant] ?? BADGE.muted}`}
     >
       <span className="truncate">{label}</span>
@@ -348,7 +356,11 @@ function DeliveryModal({
   );
 }
 
-export function PlatformPortalAppKompisDeliveryPanel({ customerId, labels }: Props) {
+export function PlatformPortalAppKompisDeliveryPanel({
+  customerId,
+  labels,
+  locale,
+}: Props) {
   const [loadState, setLoadState] = useState<LoadState>({ kind: "loading" });
   const [modal, setModal] = useState<{ open: boolean; mode: ModalMode }>({
     open: false,
@@ -448,13 +460,20 @@ export function PlatformPortalAppKompisDeliveryPanel({ customerId, labels }: Pro
   return (
     <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-950/40">
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-          {labels.sectionTitle}
-        </h2>
+        <div>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+            {labels.sectionTitle}
+          </h2>
+          <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{labels.scopeNote}</p>
+        </div>
         <Badge
           label={
             labels.deliveryStatuses[data.deliveryStatus] ??
-            labels.deliveryStatuses.not_started
+            resolvePlatformStatusLabel({
+              status: data.deliveryStatus,
+              labels: labels.presentationStatuses,
+              unknownFallback: labels.unknownStatus,
+            })
           }
           variant={deliveryStatusVariant(data.deliveryStatus)}
         />
@@ -471,35 +490,77 @@ export function PlatformPortalAppKompisDeliveryPanel({ customerId, labels }: Pro
 
       <dl className="mt-4">
         <Row label={labels.rowAgreement}>
-          {data.agreement.status ?? "—"}
+          <Badge
+            label={resolvePlatformStatusLabel({
+              status: data.agreement.status,
+              labels: labels.presentationStatuses,
+              unknownFallback: labels.unknownStatus,
+              emptyFallback: labels.unknownStatus,
+            })}
+            variant={resolvePlatformStatusSeverity(data.agreement.status)}
+          />
         </Row>
         <Row label={labels.rowParentLicense}>
           <Badge
-            label={data.parentLicense.status ?? "—"}
-            variant={data.parentLicense.eligible ? "success" : "muted"}
+            label={resolvePlatformStatusLabel({
+              status: data.parentLicense.status,
+              labels: labels.presentationStatuses,
+              unknownFallback: labels.unknownStatus,
+              emptyFallback: labels.unknownStatus,
+            })}
+            variant={
+              data.parentLicense.eligible
+                ? "success"
+                : resolvePlatformStatusSeverity(data.parentLicense.status)
+            }
           />
         </Row>
         <Row label={labels.rowAppPanel}>
           <Badge
-            label={data.appPanel.status ?? "—"}
-            variant={data.appPanel.eligible ? "success" : "muted"}
+            label={resolvePlatformStatusLabel({
+              status: data.appPanel.status,
+              labels: labels.presentationStatuses,
+              unknownFallback: labels.unknownStatus,
+              emptyFallback: labels.unknownStatus,
+            })}
+            variant={
+              data.appPanel.eligible
+                ? "success"
+                : resolvePlatformStatusSeverity(data.appPanel.status)
+            }
           />
         </Row>
         <Row label={labels.rowChild}>
           <Badge
-            label={data.childEntitlement.status ?? "—"}
+            label={resolvePlatformStatusLabel({
+              status: data.childEntitlement.status,
+              labels: labels.presentationStatuses,
+              unknownFallback: labels.unknownStatus,
+              emptyFallback: labels.unknownStatus,
+            })}
             variant={
               data.childEntitlement.licensed && data.childEntitlement.enabled
                 ? "success"
-                : "muted"
+                : resolvePlatformStatusSeverity(data.childEntitlement.status)
             }
           />
         </Row>
-        <Row label={labels.rowDomain}>{data.domain.hostname ?? "—"}</Row>
+        <Row label={labels.rowDomain}>
+          {data.domain.hostname ?? labels.notLinked}
+        </Row>
         <Row label={labels.rowInstallation}>
           <Badge
-            label={data.installation.status ?? "—"}
-            variant={data.installation.active ? "success" : "muted"}
+            label={resolvePlatformStatusLabel({
+              status: data.installation.status,
+              labels: labels.presentationStatuses,
+              unknownFallback: labels.unknownStatus,
+              emptyFallback: labels.unknownStatus,
+            })}
+            variant={
+              data.installation.active
+                ? "success"
+                : resolvePlatformStatusSeverity(data.installation.status)
+            }
           />
         </Row>
         <Row label={labels.rowAutoInstall}>
@@ -522,13 +583,33 @@ export function PlatformPortalAppKompisDeliveryPanel({ customerId, labels }: Pro
           <Badge
             label={
               labels.deliveryStatuses[data.deliveryStatus] ??
-              labels.deliveryStatuses.not_started
+              resolvePlatformStatusLabel({
+                status: data.deliveryStatus,
+                labels: labels.presentationStatuses,
+                unknownFallback: labels.unknownStatus,
+              })
             }
             variant={deliveryStatusVariant(data.deliveryStatus)}
           />
         </Row>
-        <Row label={labels.lastCheck}>{data.lastCheckedAt ?? "—"}</Row>
-        <Row label={labels.lastAttempt}>{data.lastAttemptAt ?? "—"}</Row>
+        <Row label={labels.lastCheck}>
+          <span className="inline-block max-w-[16rem] break-words text-right">
+            {formatPlatformDateTimeFull(data.lastCheckedAt, {
+              locale,
+              emptyFallback: labels.emptyDate,
+              invalidFallback: labels.invalidDate,
+            })}
+          </span>
+        </Row>
+        <Row label={labels.lastAttempt}>
+          <span className="inline-block max-w-[16rem] break-words text-right">
+            {formatPlatformDateTimeFull(data.lastAttemptAt, {
+              locale,
+              emptyFallback: labels.emptyDate,
+              invalidFallback: labels.invalidDate,
+            })}
+          </span>
+        </Row>
       </dl>
 
       {action === "blocked" && data.reasons.length > 0 ? (

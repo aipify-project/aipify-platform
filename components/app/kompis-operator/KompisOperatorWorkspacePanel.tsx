@@ -680,7 +680,10 @@ export function KompisOperatorWorkspacePanel({
                   )}
                 </section>
 
-                <CustomerWebsiteRuntimeReadinessCard labels={websiteRuntimeLabels} />
+                <CustomerWebsiteRuntimeReadinessCard
+                  labels={websiteRuntimeLabels}
+                  locale={locale}
+                />
 
                 <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-950">
                   <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{labels.websitePages}</h2>

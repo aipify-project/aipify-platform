@@ -1,4 +1,5 @@
 import type { KompisOperatorSeverityTone } from "@/lib/kompis-operator/severity";
+import { buildPlatformPresentationQualityLabels } from "@/lib/platform-presentation-quality";
 
 type Translator = (key: string) => string;
 
@@ -67,10 +68,14 @@ export type CustomerWebsiteRuntimeLabels = {
   verifyHttp: string;
   verifying: string;
   saving: string;
+  emptyDate: string;
+  invalidDate: string;
+  scopeNote: string;
 };
 
 export function buildCustomerWebsiteRuntimeLabels(t: Translator): CustomerWebsiteRuntimeLabels {
   const p = "platform.customerWebsiteRuntime";
+  const presentation = buildPlatformPresentationQualityLabels(t);
   return {
     title: t(`${p}.title`),
     sectionTitle: t(`${p}.sectionTitle`),
@@ -136,6 +141,9 @@ export function buildCustomerWebsiteRuntimeLabels(t: Translator): CustomerWebsit
     verifyHttp: t(`${p}.verifyHttp`),
     verifying: t(`${p}.verifying`),
     saving: t(`${p}.saving`),
+    emptyDate: presentation.emptyDate,
+    invalidDate: presentation.invalidDate,
+    scopeNote: presentation.scopes.runtime,
   };
 }
 
@@ -206,6 +214,10 @@ export function buildAppCustomerWebsiteRuntimeLabels(t: Translator): CustomerWeb
     verifyHttp: t(`${p}.verifyHttp`),
     verifying: t(`${p}.verifying`),
     saving: t(`${p}.saving`),
+    // APP dictionary does not include platform.presentationQuality.
+    emptyDate: "—",
+    invalidDate: "—",
+    scopeNote: "",
   };
 }
 

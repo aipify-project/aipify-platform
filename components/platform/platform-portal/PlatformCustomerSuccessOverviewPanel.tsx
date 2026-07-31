@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality";
 import type {
   PlatformCustomerSuccessCustomer,
   PlatformCustomerSuccessLabels,
@@ -133,16 +134,11 @@ function mapLookup(
 }
 
 function formatGeneratedAt(value: string, locale: string): string {
-  const ms = Date.parse(value);
-  if (Number.isNaN(ms) || ms === 0) return "—";
-  try {
-    return new Intl.DateTimeFormat(locale, {
-      dateStyle: "medium",
-      timeStyle: "short",
-    }).format(new Date(ms));
-  } catch {
-    return new Date(ms).toISOString();
-  }
+  return formatPlatformDateTimeFull(value, {
+    locale,
+    emptyFallback: "—",
+    invalidFallback: "—",
+  });
 }
 
 export function PlatformCustomerSuccessOverviewPanel({ labels, locale }: PanelProps) {

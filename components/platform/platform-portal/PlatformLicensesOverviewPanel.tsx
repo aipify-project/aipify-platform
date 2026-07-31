@@ -9,6 +9,7 @@ import {
   mapAgreementStatus,
   mapLicenseProductName,
 } from "@/lib/platform-portal/business-language";
+import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality";
 import type {
   PlatformLicenseRow,
   PlatformLicensesLabels,
@@ -144,16 +145,11 @@ function formatTemplate(template: string, count: number): string {
 }
 
 function formatGeneratedAt(value: string, locale: string): string {
-  const ms = Date.parse(value);
-  if (Number.isNaN(ms) || ms === 0) return "—";
-  try {
-    return new Intl.DateTimeFormat(locale, {
-      dateStyle: "medium",
-      timeStyle: "short",
-    }).format(new Date(ms));
-  } catch {
-    return new Date(ms).toISOString();
-  }
+  return formatPlatformDateTimeFull(value, {
+    locale,
+    emptyFallback: "—",
+    invalidFallback: "—",
+  });
 }
 
 function productCatalog(

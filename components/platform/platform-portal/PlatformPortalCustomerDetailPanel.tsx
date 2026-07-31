@@ -39,6 +39,7 @@ import {
   reasonLabel,
   websiteKompisStatusVariant,
 } from "@/lib/platform-portal/website-kompis-activation";
+import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality";
 
 type Props = {
   customerId: string;
@@ -154,13 +155,11 @@ function formatDate(
   locale: string,
   fallback: string,
 ): string {
-  if (!value) return fallback;
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return fallback;
-  return new Intl.DateTimeFormat(locale, {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(date);
+  return formatPlatformDateTimeFull(value, {
+    locale,
+    emptyFallback: fallback,
+    invalidFallback: fallback,
+  });
 }
 
 function formatDateRange(
@@ -1331,10 +1330,12 @@ export function PlatformPortalCustomerDetailPanel({
           <PlatformPortalAppKompisDeliveryPanel
             customerId={customerId}
             labels={appKompisDeliveryLabels}
+            locale={locale}
           />
           <CustomerWebsiteRuntimeDeliveryPanel
             organizationId={customerId}
             labels={websiteRuntimeLabels}
+            locale={locale}
           />
           <SectionCard title={websiteKompisLabels.sectionActivatedServices}>
             <div className="space-y-4">
@@ -1346,6 +1347,9 @@ export function PlatformPortalCustomerDetailPanel({
                   {websiteKompisSuccess}
                 </p>
               ) : null}
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                {websiteKompisLabels.scopeNote}
+              </p>
               <div className="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
@@ -1376,7 +1380,8 @@ export function PlatformPortalCustomerDetailPanel({
                       {websiteKompisLabels.domain}
                     </dt>
                     <dd className="mt-1 text-sm text-slate-800 dark:text-slate-200">
-                      {websiteKompis?.domain.hostname ?? labels.notAvailable}
+                      {websiteKompis?.domain.hostname ??
+                        websiteKompisLabels.notLinked}
                     </dd>
                   </div>
                   <div>
@@ -1385,7 +1390,7 @@ export function PlatformPortalCustomerDetailPanel({
                     </dt>
                     <dd className="mt-1 break-all text-sm text-slate-800 dark:text-slate-200">
                       {websiteKompis?.installation.installId ??
-                        labels.notAvailable}
+                        websiteKompisLabels.notConfigured}
                     </dd>
                   </div>
                 </dl>

@@ -9,9 +9,11 @@ import {
   runtimeFullyVerifiedTone,
 } from "@/lib/customer-website-runtime/labels";
 import { parseRuntimeStatusRpc } from "@/lib/customer-website-runtime/parse";
+import { formatPlatformDateTimeFull } from "@/lib/platform-presentation-quality";
 
 type Props = {
   labels: CustomerWebsiteRuntimeLabels;
+  locale?: string;
 };
 
 type LoadState =
@@ -41,7 +43,10 @@ function Badge({ label, tone }: { label: string; tone: string }) {
   );
 }
 
-export function CustomerWebsiteRuntimeReadinessCard({ labels }: Props) {
+export function CustomerWebsiteRuntimeReadinessCard({
+  labels,
+  locale = "en",
+}: Props) {
   const [state, setState] = useState<LoadState>({ kind: "loading" });
 
   useEffect(() => {
@@ -155,7 +160,13 @@ export function CustomerWebsiteRuntimeReadinessCard({ labels }: Props) {
         </div>
         <div>
           <dt className="text-slate-500">{labels.lastVerified}</dt>
-          <dd className="mt-1">{data.lastFullyVerifiedAt ?? "—"}</dd>
+          <dd className="mt-1">
+            {formatPlatformDateTimeFull(data.lastFullyVerifiedAt, {
+              locale,
+              emptyFallback: labels.emptyDate,
+              invalidFallback: labels.invalidDate,
+            })}
+          </dd>
         </div>
       </dl>
       <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-900/60">
