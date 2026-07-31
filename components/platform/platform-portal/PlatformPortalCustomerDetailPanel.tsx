@@ -32,6 +32,8 @@ import { PlatformPortalCommercialPlanPanel } from "@/components/platform/platfor
 import { PlatformPortalDomainInstallationPanel } from "@/components/platform/platform-portal/PlatformPortalDomainInstallationPanel";
 import { PlatformPortalLicenseProvisioningPanel } from "@/components/platform/platform-portal/PlatformPortalLicenseProvisioningPanel";
 import { PlatformPortalWebsiteKompisActivationPanel } from "@/components/platform/platform-portal/PlatformPortalWebsiteKompisActivationPanel";
+import { PlatformPortalCustomerIdentityPanel } from "@/components/platform/platform-portal/PlatformPortalCustomerIdentityPanel";
+import type { PlatformCustomerIdentityLabels } from "@/lib/platform-portal/customer-identity-labels";
 import {
   parsePlatformPortalWebsiteKompisStatus,
   reasonLabel,
@@ -47,6 +49,7 @@ type Props = {
   websiteKompisLabels: PlatformPortalWebsiteKompisLabels;
   appKompisDeliveryLabels: PlatformPortalAppKompisDeliveryLabels;
   websiteRuntimeLabels: CustomerWebsiteRuntimeLabels;
+  customerIdentityLabels: PlatformCustomerIdentityLabels;
   locale: string;
 };
 
@@ -500,6 +503,7 @@ export function PlatformPortalCustomerDetailPanel({
   websiteKompisLabels,
   appKompisDeliveryLabels,
   websiteRuntimeLabels,
+  customerIdentityLabels,
   locale,
 }: Props) {
   const [loadState, setLoadState] = useState<LoadState>({ kind: "loading" });
@@ -1320,6 +1324,10 @@ export function PlatformPortalCustomerDetailPanel({
         </div>
 
         <aside className="space-y-6">
+          <PlatformPortalCustomerIdentityPanel
+            customerId={customerId}
+            labels={customerIdentityLabels}
+          />
           <PlatformPortalAppKompisDeliveryPanel
             customerId={customerId}
             labels={appKompisDeliveryLabels}

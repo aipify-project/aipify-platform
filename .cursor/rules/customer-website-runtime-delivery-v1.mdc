@@ -30,6 +30,7 @@ Platform → APP → canonical delivery → installation/installId → customer 
 12. **Migration apply-side effects = 0** — no customer/website/page/version seeds, no HTTP, no auth/email/payment/DNS.
 13. **Staging V2 stays separate** — path-based staging on APP host must not be broken; ordinary Production status distinguishes DB / ack / HTTP / fully verified.
 14. **Canonical delivery reused** — extend delivery metadata; do not create a parallel entitlement or CMS model.
+15. **Domain ownership** — Aipify Group AS does **not** own `aipify.com`. That domain is forbidden for Production data, generated emails, internal/staging identities, defaults, fixtures, migrations, and documentation examples that can be copied into Production. Only verified/owned Aipify domains (primary: `aipify.ai`) may be used for Aipify identities. Example code must use reserved example domains (`customer.example`, `example.com`) or an explicitly owned Aipify domain. Negative tests that reject `aipify.com` are allowed. Production release **stops** if an unauthorized Aipify domain appears in the active feature diff or generative path. Policy: `lib/aipify-domain-ownership/`.
 
 ## Proof headers
 
