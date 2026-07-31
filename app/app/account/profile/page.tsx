@@ -1,4 +1,6 @@
-import { renderAppPortalFoundationPage } from "@/lib/app-portal/render-pages";
+import { redirect } from "next/navigation";
+
+/** Profile placeholder is hidden from nav; deep links go to account security. */
 export default function AccountProfilePage() {
-  return renderAppPortalFoundationPage("profile");
+  redirect("/app/account/security");
 }

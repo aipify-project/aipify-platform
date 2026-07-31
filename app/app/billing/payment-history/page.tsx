@@ -1,4 +1,5 @@
-import { renderAppPortalFoundationPage } from "@/lib/app-portal/render-pages";
+import { redirect } from "next/navigation";
+
 export default function BillingPaymentHistoryPage() {
-  return renderAppPortalFoundationPage("paymentHistory");
+  redirect("/app/settings/billing");
 }

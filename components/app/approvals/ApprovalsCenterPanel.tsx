@@ -48,6 +48,8 @@ type ApprovalsCenterPanelProps = {
     executing: string;
     emergencyStop: string;
     emergencyActive: string;
+    emergencyStopConfirm?: string;
+    emergencyStopReasonPrompt?: string;
     actionCategories?: string;
     successCriteria?: string;
     transparencyRequirements?: string;
@@ -148,7 +150,17 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
             : undefined,
           self_love_note: typeof payload.self_love_note === "string" ? payload.self_love_note : undefined,
         });
-        setItems((payload.approvals as CustomerApproval[]) ?? []);
+        setItems(
+          ((payload.approvals as CustomerApproval[]) ?? []).filter((row) => {
+            const category = String(row.category ?? "").toLowerCase();
+            const status = String(row.status ?? "").toLowerCase();
+            // Notifications belong in /app/notifications — never as Approval Center cards.
+            if (category === "notification") return false;
+            // Only actionable pending/awaiting rows are "pending approvals".
+            if (!["pending", "awaiting_approval", "executing"].includes(status)) return false;
+            return true;
+          }),
+        );
         setEmergencyState(
           typeof payload.emergency_state === "string" ? payload.emergency_state : null,
         );
@@ -176,7 +188,15 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
         setCompanionEmergencyStop(false);
         return;
       }
-      setCompanionActions(outcome.actions);
+      setCompanionActions(
+        outcome.actions.filter((action) => {
+          const status = String(action.approval_status || action.lifecycle_status || "").toLowerCase();
+          if (["expired", "cancelled", "rejected", "completed", "failed"].includes(status)) {
+            return false;
+          }
+          return status === "pending" || status === "awaiting_approval" || status === "approved";
+        }),
+      );
       setCompanionEmergencyStop(outcome.emergencyStop);
     } catch {
       setCompanionLoadError(labels.companion.loadError);
@@ -222,10 +242,24 @@ export function ApprovalsCenterPanel({ locale, labels }: ApprovalsCenterPanelPro
   }
 
   async function emergencyStop() {
+    const confirmed = window.confirm(
+      labels.emergencyStopConfirm ??
+        "This pauses all pending Aipify actions for your organization. Continue?",
+    );
+    if (!confirmed) return;
+    const reason = window.prompt(
+      labels.emergencyStopReasonPrompt ?? "Describe why you are stopping actions:",
+      "",
+    );
+    if (!reason || reason.trim().length < 8) return;
     await fetch("/api/actions/emergency-stop", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ state: "emergency_shutdown", reason: "Manual stop" }),
+      body: JSON.stringify({
+        state: "emergency_shutdown",
+        reason: reason.trim(),
+        confirmation: true,
+      }),
     });
     await refreshTrust();
   }

@@ -1056,7 +1056,16 @@
       },
       "viewPackages": "Pakker og adgang",
       "viewPaymentProviders": "Payment providers",
-      "viewInvoiceDetails": "Fakturadetaljer"
+      "viewInvoiceDetails": "Fakturadetaljer",
+      "modulesCount": "{count} licenserede moduler",
+      "emptyHistory": "Ingen faktureringshistorik er tilgængelig endnu.",
+      "statusLabels": {
+        "active": "Aktiv",
+        "trial": "Prøveperiode",
+        "cancelled": "Annulleret",
+        "lifetime": "Livstid",
+        "past_due": "Forfalden"
+      }
     },
     "pricingPhilosophy": {
       "title": "Prissætningsfilosofi",
@@ -5955,7 +5964,9 @@
       "cancelled": "Annulleret"
     },
     "providers": {
-      "generic": { "label": "Tilknyttet leverandør" },
+      "generic": {
+        "label": "Tilknyttet leverandør"
+      },
       "communityMemberDirectory": {
         "label": "Medlemsregister",
         "dataType": "Medlemsregisterdata",
@@ -5989,8 +6000,12 @@
   },
   "authorizationTarget": {
     "providers": {
-      "generic": { "label": "Tilsluttet tjeneste" },
-      "personalStreamingAccount": { "label": "Personlig musikkonto" }
+      "generic": {
+        "label": "Tilsluttet tjeneste"
+      },
+      "personalStreamingAccount": {
+        "label": "Personlig musikkonto"
+      }
     },
     "searchTerms": {
       "personalStreamingAccount": "musik, streaming, afspilningsliste, afspilning"
@@ -5998,12 +6013,18 @@
     "userOwned": {
       "connectLead": "Du kan forbinde {provider}, så Aipify kan hjælpe med afspilning og styring.",
       "connectExplanation": "Dette er din personlige konto. Den går ikke via organisationsgodkendelse — kun den adgang, du godkender, bruges.",
-      "actions": { "connect": "Forbind konto", "cancel": "Annuller" }
+      "actions": {
+        "connect": "Forbind konto",
+        "cancel": "Annuller"
+      }
     },
     "localDevice": {
       "permissionLead": "Aipify skal have tilladelse på denne enhed, før lokal afspilning eller højttalere kan styres.",
       "permissionExplanation": "Dette er en lokal enhedstilladelse — ikke en organisationsanmodning for {provider}.",
-      "actions": { "openSettings": "Åbn enhedsindstillinger", "cancel": "Annuller" }
+      "actions": {
+        "openSettings": "Åbn enhedsindstillinger",
+        "cancel": "Annuller"
+      }
     },
     "approver": {
       "directLead": "Du kan godkende denne organisationsadgang direkte i APP-panelet. Du behøver ikke sende en anmodning til dig selv.",
@@ -6011,7 +6032,10 @@
       "panelTitle": "Godkend organisationsadgang",
       "panelDescription": "Gennemgå omfang, varighed og risiko, før du godkender adgang for organisationen.",
       "noPendingRequest": "Der er endnu ingen ventende anmodning for denne provider. Et teammedlem kan indsende en, eller du kan godkende en matchende anmodning, når den vises nedenfor.",
-      "actions": { "approveAccess": "Godkend adgang", "cancel": "Annuller" }
+      "actions": {
+        "approveAccess": "Godkend adgang",
+        "cancel": "Annuller"
+      }
     },
     "errors": {
       "approverShouldGrantDirectly": "Som organisationsgodkender tildeler du denne adgang i APP-panelet i stedet for at sende en anmodning.",

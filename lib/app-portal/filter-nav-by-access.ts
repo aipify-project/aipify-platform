@@ -1,9 +1,13 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { AppNavGroupConfig } from "@/lib/app/build-nav";
-import { APP_PORTAL_NAV_GROUPS } from "@/lib/app-portal/nav-config";
+import { APP_PORTAL_NAV_GROUPS, type AppPortalNavId } from "@/lib/app-portal/nav-config";
 import { APP_NAV_PERMISSION_KEYS } from "@/lib/app-portal/nav-route-access";
 import { resolvePortalFeatureEnabled } from "@/lib/app-portal/feature-entitlements";
 import { parseAppPortalFeatureAccess } from "@/lib/app-portal/parse";
+import {
+  isAppRouteNavVisible,
+  resolveAppRouteHref,
+} from "@/lib/app-production-experience/route-readiness";
 import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 
 const FEATURE_BY_NAV_ID = new Map(
@@ -61,6 +65,10 @@ function isNavItemVisible(
   featureAccess: Map<string, boolean>,
   permissionAccess: Map<string, boolean>
 ): boolean {
+  if (!isAppRouteNavVisible(navId as AppPortalNavId)) {
+    return false;
+  }
+
   const featureKey = FEATURE_BY_NAV_ID.get(navId as never);
   if (featureKey && featureAccess.get(featureKey) === false) {
     return false;
@@ -97,10 +105,16 @@ export async function filterNavGroupsByAccess(
   return groups
     .map((group) => ({
       ...group,
-      items: group.items.filter((item) => {
-        if (!gatedNavIds.has(item.id)) return true;
-        return isNavItemVisible(item.id, featureAccess, permissionAccess);
-      }),
+      items: group.items
+        .filter((item) => {
+          if (!isAppRouteNavVisible(item.id as AppPortalNavId)) return false;
+          if (!gatedNavIds.has(item.id)) return true;
+          return isNavItemVisible(item.id, featureAccess, permissionAccess);
+        })
+        .map((item) => ({
+          ...item,
+          href: resolveAppRouteHref(item.id as AppPortalNavId, item.href),
+        })),
     }))
     .filter((group) => group.items.length > 0);
 }

@@ -200,7 +200,9 @@
     "companionSection": "Companion-handlinger",
     "companionEmpty": "Ingen Companion-handlinger venter på godkjenning.",
     "trustLoadError": "Aipify kunne ikke laste tillitsgodkjenninger akkurat nå.",
-    "retry": "Prøv igjen"
+    "retry": "Prøv igjen",
+    "emergencyStopConfirm": "Dette pauser alle ventende Aipify-handlinger for organisasjonen din. Fortsett bare hvis du har til hensikt å stoppe utføring.",
+    "emergencyStopReasonPrompt": "Beskriv hvorfor du stopper alle ventende handlinger (minst 8 tegn):"
   },
   "installations": {
     "title": "Installations",
@@ -234,7 +236,13 @@
       "role": "Role",
       "status": "Status"
     },
-    "inviteSoon": "Self-service team invites will be available in a future release."
+    "inviteSoon": "Self-service team invites will be available in a future release.",
+    "statusLabels": {
+      "active": "Aktiv",
+      "pending": "Venter",
+      "invited": "Invitert",
+      "inactive": "Inaktiv"
+    }
   },
   "learning": {
     "title": "Læringssenter",
