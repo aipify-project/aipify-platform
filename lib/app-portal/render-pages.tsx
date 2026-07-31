@@ -348,6 +348,12 @@ export async function renderAppPortalTeamPage() {
           manager: t("dashboard.roles.admin"),
           viewer: t("dashboard.roles.read_only"),
         },
+        statusLabels: {
+          active: t("customerApp.team.statusLabels.active"),
+          pending: t("customerApp.team.statusLabels.pending"),
+          invited: t("customerApp.team.statusLabels.invited"),
+          inactive: t("customerApp.team.statusLabels.inactive"),
+        },
         inviteSoon: t("customerApp.team.inviteSoon"),
         achievementBadges: t("customerApp.team.achievementBadges"),
         noAchievementBadges: t("customerApp.team.noAchievementBadges"),

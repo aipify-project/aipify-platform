@@ -157,7 +157,9 @@
     "companionSection": "Działania Companion",
     "companionEmpty": "Brak działań Companion oczekujących na zatwierdzenie.",
     "trustLoadError": "Aipify nie mogło teraz wczytać zatwierdzeń zaufania.",
-    "retry": "Spróbuj ponownie"
+    "retry": "Spróbuj ponownie",
+    "emergencyStopConfirm": "To wstrzymuje wszystkie oczekujące działania Aipify w Twojej organizacji. Kontynuuj tylko, jeśli chcesz zatrzymać wykonywanie.",
+    "emergencyStopReasonPrompt": "Opisz, dlaczego zatrzymujesz wszystkie oczekujące działania (minimum 8 znaków):"
   },
   "organizationalEarlyWarning": {
     "title": "Centrum wczesnego ostrzegania",

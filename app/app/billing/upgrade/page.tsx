@@ -1,4 +1,6 @@
-import { renderAppPortalFoundationPage } from "@/lib/app-portal/render-pages";
+import { redirect } from "next/navigation";
+
+/** Upgrade shell is not production-ready — send users to billing overview. */
 export default function BillingUpgradePage() {
-  return renderAppPortalFoundationPage("upgradeOptions");
+  redirect("/app/settings/billing");
 }

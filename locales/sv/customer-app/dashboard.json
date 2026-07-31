@@ -200,7 +200,9 @@
     "companionSection": "Companion-åtgärder",
     "companionEmpty": "Inga Companion-åtgärder väntar på godkännande.",
     "trustLoadError": "Aipify kunde inte ladda trust-godkännanden just nu.",
-    "retry": "Försök igen"
+    "retry": "Försök igen",
+    "emergencyStopConfirm": "Detta pausar alla väntande Aipify-åtgärder för din organisation. Fortsätt bara om du avser att stoppa utförandet.",
+    "emergencyStopReasonPrompt": "Beskriv varför du stoppar alla väntande åtgärder (minst 8 tecken):"
   },
   "installations": {
     "title": "Installations",
@@ -234,7 +236,13 @@
       "role": "Role",
       "status": "Status"
     },
-    "inviteSoon": "Self-service team invites will be available in a future release."
+    "inviteSoon": "Self-service team invites will be available in a future release.",
+    "statusLabels": {
+      "active": "Aktiv",
+      "pending": "Väntande",
+      "invited": "Inbjuden",
+      "inactive": "Inaktiv"
+    }
   },
   "learning": {
     "title": "Inlärningscenter",

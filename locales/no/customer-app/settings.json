@@ -1086,7 +1086,16 @@
       },
       "viewPackages": "Pakker og tilgang",
       "viewPaymentProviders": "Betalingsleverandører",
-      "viewInvoiceDetails": "Fakturadetaljer"
+      "viewInvoiceDetails": "Fakturadetaljer",
+      "modulesCount": "{count} lisensierte moduler",
+      "emptyHistory": "Ingen faktureringshistorikk er tilgjengelig ennå.",
+      "statusLabels": {
+        "active": "Aktiv",
+        "trial": "Prøveperiode",
+        "cancelled": "Kansellert",
+        "lifetime": "Livstid",
+        "past_due": "Forfalt"
+      }
     },
     "pricingPhilosophy": {
       "title": "Prisingsfilosofi",

@@ -9,7 +9,7 @@ type Props = { params: Promise<{ id: string }> };
 export default async function PrioritizationEngineDetailPage({ params }: Props) {
   const { id } = await params;
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure"]);
   const t = createTranslator(dict);
   return (
     <div className="p-6">

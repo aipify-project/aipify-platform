@@ -200,7 +200,9 @@
     "companionSection": "Companion actions",
     "companionEmpty": "No Companion actions awaiting approval.",
     "trustLoadError": "Aipify could not load trust approvals right now.",
-    "retry": "Retry"
+    "retry": "Retry",
+    "emergencyStopConfirm": "This pauses all pending Aipify actions for your organization. Continue only if you intend to stop execution.",
+    "emergencyStopReasonPrompt": "Describe why you are stopping all pending actions (minimum 8 characters):"
   },
   "installations": {
     "title": "Installations",
@@ -234,7 +236,13 @@
       "role": "Role",
       "status": "Status"
     },
-    "inviteSoon": "Self-service team invites will be available in a future release."
+    "inviteSoon": "Self-service team invites will be available in a future release.",
+    "statusLabels": {
+      "active": "Active",
+      "pending": "Pending",
+      "invited": "Invited",
+      "inactive": "Inactive"
+    }
   },
   "learning": {
     "title": "Learning review center",

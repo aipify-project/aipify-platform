@@ -200,7 +200,9 @@
     "companionSection": "Companion-handlinger",
     "companionEmpty": "Ingen Companion-handlinger afventer godkendelse.",
     "trustLoadError": "Aipify kunne ikke indlæse trust-godkendelser lige nu.",
-    "retry": "Prøv igen"
+    "retry": "Prøv igen",
+    "emergencyStopConfirm": "Dette sætter alle afventende Aipify-handlinger for din organisation på pause. Fortsæt kun, hvis du agter at stoppe udførelsen.",
+    "emergencyStopReasonPrompt": "Beskriv, hvorfor du stopper alle afventende handlinger (mindst 8 tegn):"
   },
   "installations": {
     "title": "Installations",
@@ -234,7 +236,13 @@
       "role": "Role",
       "status": "Status"
     },
-    "inviteSoon": "Self-service team invites will be available in a future release."
+    "inviteSoon": "Self-service team invites will be available in a future release.",
+    "statusLabels": {
+      "active": "Aktiv",
+      "pending": "Afventer",
+      "invited": "Inviteret",
+      "inactive": "Inaktiv"
+    }
   },
   "learning": {
     "title": "Læringscenter",

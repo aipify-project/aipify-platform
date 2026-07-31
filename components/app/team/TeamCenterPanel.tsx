@@ -1,9 +1,11 @@
 "use client";
 
 import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { AipifyEmptyState } from "@/components/branding";
 import type { CustomerTeamInvitation, CustomerTeamMember } from "@/lib/app/customer-app";
+import { filterProductionPresentableIdentities } from "@/lib/app-production-experience";
 import { formatDate } from "@/lib/i18n/format-date";
 import { createClient } from "@/lib/supabase/client";
 
@@ -34,9 +36,18 @@ type TeamCenterPanelProps = {
       status: string;
     };
     roleLabels: Record<string, string>;
+    statusLabels?: Record<string, string>;
     inviteSoon: string;
   };
 };
+
+function localizeStatus(
+  status: string,
+  labels: TeamCenterPanelProps["labels"]["statusLabels"],
+): string {
+  const normalized = status.trim().toLowerCase();
+  return labels?.[normalized] ?? labels?.[status] ?? status;
+}
 
 export function TeamCenterPanel({ locale, labels }: TeamCenterPanelProps) {
   const [members, setMembers] = useState<CustomerTeamMember[]>([]);
@@ -53,8 +64,10 @@ export function TeamCenterPanel({ locale, labels }: TeamCenterPanelProps) {
 
     const { data, error } = teamRes;
     if (!error && data?.has_customer) {
-      setMembers((data.members as CustomerTeamMember[]) ?? []);
-      setInvitations((data.invitations as CustomerTeamInvitation[]) ?? []);
+      const rawMembers = (data.members as CustomerTeamMember[]) ?? [];
+      const rawInvites = (data.invitations as CustomerTeamInvitation[]) ?? [];
+      setMembers(filterProductionPresentableIdentities(rawMembers));
+      setInvitations(filterProductionPresentableIdentities(rawInvites));
     }
 
     if (badgesRes.ok) {
@@ -81,9 +94,9 @@ export function TeamCenterPanel({ locale, labels }: TeamCenterPanelProps) {
       <section className="rounded-2xl border border-amber-100 bg-amber-50/40 p-5 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h2 className="text-base font-semibold text-gray-900">{labels.achievementBadges}</h2>
-          <a href="/app/certification-achievement-engine" className="text-sm text-amber-900 underline">
+          <Link href="/app/certification-achievement-engine" className="text-sm text-amber-900 underline">
             {labels.viewCertifications}
-          </a>
+          </Link>
         </div>
         {profileBadges.length === 0 ? (
           <p className="mt-3 text-sm text-gray-600">{labels.noAchievementBadges}</p>
@@ -122,7 +135,9 @@ export function TeamCenterPanel({ locale, labels }: TeamCenterPanelProps) {
                   <td className="py-2 font-medium text-gray-900">{member.name}</td>
                   <td className="py-2 text-gray-600">{member.email}</td>
                   <td className="py-2">{labels.roleLabels[member.role] ?? member.role}</td>
-                  <td className="py-2">{member.status}</td>
+                  <td className="py-2">
+                    {localizeStatus(member.status, labels.statusLabels)}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -130,24 +145,20 @@ export function TeamCenterPanel({ locale, labels }: TeamCenterPanelProps) {
         )}
       </section>
 
-      <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-        <h2 className="text-base font-semibold text-gray-900">{labels.invitations}</h2>
-        {invitations.length === 0 ? (
-          <p className="mt-3 text-sm text-gray-500">{labels.noInvitations}</p>
-        ) : (
+      {invitations.length > 0 ? (
+        <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+          <h2 className="text-base font-semibold text-gray-900">{labels.invitations}</h2>
           <ul className="mt-3 space-y-2">
             {invitations.map((invite) => (
               <li key={invite.id} className="text-sm text-gray-700">
-                {invite.email} — {labels.roleLabels[invite.role] ?? invite.role} ({invite.status})
+                {invite.email} — {labels.roleLabels[invite.role] ?? invite.role} (
+                {localizeStatus(invite.status, labels.statusLabels)})
                 <span className="ml-2 text-gray-400">{formatDate(invite.created_at, locale)}</span>
               </li>
             ))}
           </ul>
-        )}
-        <p className="mt-4 rounded-lg border border-dashed border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-600">
-          {labels.inviteSoon}
-        </p>
-      </section>
+        </section>
+      ) : null}
     </div>
   );
 }

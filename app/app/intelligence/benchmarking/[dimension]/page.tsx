@@ -9,7 +9,7 @@ type Props = { params: Promise<{ dimension: string }> };
 export default async function EnterpriseBenchmarkingDimensionPage({ params }: Props) {
   const { dimension } = await params;
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure"]);
   const t = createTranslator(dict);
   return (
     <div className="p-6">

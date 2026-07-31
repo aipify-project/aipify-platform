@@ -1,0 +1,46 @@
+---
+description: APP Production Experience Consistency — no fixture/placeholder debt in ordinary customer APP
+globs:
+  - app/app/**
+  - components/app/**
+  - lib/app-portal/**
+  - lib/app-production-experience/**
+  - lib/app/**
+  - locales/**/customer-app/**
+---
+
+# APP Production Experience Consistency
+
+See `lib/app-production-experience/`.
+
+## Never show in ordinary customer APP
+
+- QA / smoke / probe users (`oaa-*`, `*-smoke-*`, `*-probe-*`)
+- `.invalid` or `example.com` identities
+- Phase 620 / `ps620:` / `app_showcase_data_registry` demo rows as real data
+- Placeholder pages in nav (`coming soon`, foundation-only shells)
+- Raw enums (`pending`, `active`, `action_required`)
+- Raw ISO dates
+- Raw translation keys or leaf placeholders (`Title`, `Subtitle`, `Label`, `Empty Cta`, `Principle`)
+- Mixed language on one page (e.g. English headings in Norwegian UI)
+- Stale notifications presented as pending approvals
+- Generic sales/USD philosophy copy as the customer’s contracted plan or billing history
+- `Aipify Starter` as active plan when the customer has a different contracted plan
+
+## Required contracts
+
+1. **Fixture isolation** — classify via `lib/app-production-experience` and/or `app_showcase_data_registry`; exclude in canonical queries/RPCs. Do not rely on one-off string filters in React components alone.
+2. **Route visibility** — `route-readiness.ts` + license/capability/role gates. Hide unfinished routes; redirect portal billing shells to `/app/settings/billing`.
+3. **Tenant** — use `resolveAppOrganizationContext` / `requireReadyAppPortalContext`. No first-org fallback, no Platform org, no `my-company-1`.
+4. **Counts** — dashboard KPI and list cards for the same domain must share one authoritative aggregate.
+5. **Plan / license / package / module** — keep distinct; never conflate licensed capability rows with “Business Packs installed”.
+6. **Presentation** — reuse Platform presentation-quality formatters/status labels for dates and statuses; full locale parity for active locales.
+7. **i18n splits** — portalStructure pages must load the `portalStructure` dictionary split (never only `dashboard` when reading `customerApp.portalStructure.*`).
+8. **Tests** — new APP surfaces need visual/data consistency coverage under `lib/app-production-experience/**` (or domain tests that assert fixture exclusion and readiness).
+
+## Forbidden
+
+- Shipping visible “kommer snart” / phase-placeholder shells in Production nav
+- Hardcoding UnoNight (or any customer) IDs in components
+- Deleting audit history to “clean” fixtures
+- Mutating agreement, license, entitlement, runtime, CMS, auth, or MFA to fix presentation

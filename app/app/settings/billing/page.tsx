@@ -28,6 +28,15 @@ export default async function BillingSettingsPage() {
         viewPaymentProviders: t("customerApp.commercialPackages.billing.viewPaymentProviders"),
         viewInvoiceDetails: t("customerApp.commercialPackages.billing.viewInvoiceDetails"),
         empty: t("customerApp.commercialPackages.billing.empty"),
+        emptyHistory: t("customerApp.commercialPackages.billing.emptyHistory"),
+        modulesCount: t("customerApp.commercialPackages.billing.modulesCount"),
+        statusLabels: {
+          active: t("customerApp.commercialPackages.billing.statusLabels.active"),
+          trial: t("customerApp.commercialPackages.billing.statusLabels.trial"),
+          past_due: t("customerApp.commercialPackages.billing.statusLabels.past_due"),
+          cancelled: t("customerApp.commercialPackages.billing.statusLabels.cancelled"),
+          lifetime: t("customerApp.commercialPackages.billing.statusLabels.lifetime"),
+        },
         sections: {
           package: t("customerApp.commercialPackages.billing.sections.package"),
           modules: t("customerApp.commercialPackages.billing.sections.modules"),

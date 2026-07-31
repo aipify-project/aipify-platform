@@ -41,6 +41,8 @@ export default async function ApprovalsPage() {
           executing: t("customerApp.approvals.executing"),
           emergencyStop: t("customerApp.approvals.emergencyStop"),
           emergencyActive: t("customerApp.approvals.emergencyActive"),
+          emergencyStopConfirm: t("customerApp.approvals.emergencyStopConfirm"),
+          emergencyStopReasonPrompt: t("customerApp.approvals.emergencyStopReasonPrompt"),
           actionCategories: t("customerApp.approvals.actionCategories"),
           successCriteria: t("customerApp.approvals.successCriteria"),
           integrationLinks: t("customerApp.approvals.integrationLinks"),

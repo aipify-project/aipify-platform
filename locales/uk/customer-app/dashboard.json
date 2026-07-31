@@ -157,7 +157,9 @@
     "companionSection": "Дії Companion",
     "companionEmpty": "Немає дій Companion, що очікують на схвалення.",
     "trustLoadError": "Aipify не вдалося зараз завантажити схвалення довіри.",
-    "retry": "Повторити"
+    "retry": "Повторити",
+    "emergencyStopConfirm": "Це призупиняє всі очікуючі дії Aipify для вашої організації. Продовжуйте лише якщо ви маєте намір зупинити виконання.",
+    "emergencyStopReasonPrompt": "Опишіть, чому ви зупиняєте всі очікуючі дії (мінімум 8 символів):"
   },
   "organizationalEarlyWarning": {
     "title": "Центр раннього попередження",

@@ -9,7 +9,7 @@ type PageProps = { params: Promise<{ id: string }> };
 export default async function FollowUpDetailPage({ params }: PageProps) {
   const { id } = await params;
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure"]);
   const t = createTranslator(dict);
   return (
     <div className="mx-auto max-w-4xl p-6">

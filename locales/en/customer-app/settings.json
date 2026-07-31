@@ -603,7 +603,16 @@
       },
       "viewPackages": "Packages & Access",
       "viewPaymentProviders": "Payment providers",
-      "viewInvoiceDetails": "Invoice details"
+      "viewInvoiceDetails": "Invoice details",
+      "modulesCount": "{count} licensed modules",
+      "emptyHistory": "No billing history is available yet.",
+      "statusLabels": {
+        "active": "Active",
+        "trial": "Trial",
+        "cancelled": "Cancelled",
+        "lifetime": "Lifetime",
+        "past_due": "Past due"
+      }
     },
     "pricingPhilosophy": {
       "title": "Pricing philosophy",
