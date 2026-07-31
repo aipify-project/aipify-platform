@@ -576,7 +576,13 @@ export function KompisOperatorWorkspacePanel({
         return;
       }
       if (!res.ok) {
-        setMessage(body.code === "tool_not_allowed" ? labels.toolNotAllowed : labels.errorTitle);
+        setMessage(
+          body.code === "tool_not_allowed"
+            ? labels.toolNotAllowed
+            : body.code === "core_approval_create_failed"
+              ? labels.approvalCreationFailedTitle
+              : labels.errorTitle,
+        );
         return;
       }
       setActiveRun({
@@ -597,7 +603,11 @@ export function KompisOperatorWorkspacePanel({
   function approveAndExecute() {
     if (!activeRun?.id || activeRun.id === "blocked") return;
     startTransition(async () => {
-      if (activeRun.approval_status === "pending") {
+      if (activeRun.core_approval_required && activeRun.approval_status !== "approved") {
+        setMessage(labels.awaitingCoreApproval);
+        return;
+      }
+      if (activeRun.approval_status === "pending" && !activeRun.core_approval_required) {
         const approve = await fetch(`/api/app/kompis/runs/${activeRun.id}/approve`, {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -611,25 +621,22 @@ export function KompisOperatorWorkspacePanel({
         };
         if (!approve.ok) {
           setMessage(
-            approveBody.code === "core_approval_required"
+            approveBody.code === "core_approval_decision_required" ||
+              approveBody.code === "core_approval_required"
               ? labels.awaitingCoreApproval
               : labels.errorTitle,
           );
           return;
         }
-        if (approveBody.core_approval_required) {
-          setActiveRun((prev) =>
-            prev
-              ? {
-                  ...prev,
-                  approval_status: approveBody.approval_status ?? "approved",
-                  core_approval_required: true,
-                  core_approval_request_id: approveBody.core_approval_request_id ?? null,
-                }
-              : prev,
-          );
-          setMessage(labels.coreApprovalRequired);
-        }
+        setActiveRun((prev) =>
+          prev
+            ? {
+                ...prev,
+                approval_status: approveBody.approval_status ?? "approved",
+                status: "planned",
+              }
+            : prev,
+        );
       }
       const exec = await fetch(`/api/app/kompis/runs/${activeRun.id}/execute`, {
         method: "POST",
@@ -1416,46 +1423,89 @@ export function KompisOperatorWorkspacePanel({
               </p>
             ) : null}
 
-            {activeRun.core_approval_request_id ? (
-              <dl className="grid gap-2 rounded-xl border border-slate-100 p-3 text-xs text-slate-600 dark:border-slate-800 dark:text-slate-300 sm:grid-cols-2">
-                <div>
-                  <dt className="font-medium">{labels.workspace.coreApprovalId}</dt>
-                  <dd>{shortenTechnicalId(activeRun.core_approval_request_id)}</dd>
-                </div>
-                <div>
-                  <dt className="font-medium">{labels.statusLabel}</dt>
-                  <dd>
-                    {statusLabel(
-                      activeRun.approval_status === "pending"
-                        ? "awaiting_approval"
-                        : activeRun.approval_status ?? "awaiting_approval",
-                    )}
-                  </dd>
-                </div>
-                <div className="sm:col-span-2">
-                  <Link href="/app/approvals" className="font-medium text-violet-700 underline dark:text-violet-300">
-                    {labels.openApprovalCenter}
-                  </Link>
-                </div>
-              </dl>
-            ) : null}
-
             {activeRun.status === "blocked" && risk === 3 ? (
               <p className="text-sm text-rose-700 dark:text-rose-300" role="alert">
                 {labels.criticalBlocked}
               </p>
             ) : null}
 
-            {activeRun.approval_status === "pending" ? (
+            {activeRun.approval_status === "pending" &&
+            activeRun.core_approval_required &&
+            !activeRun.core_approval_request_id ? (
+              <div className="space-y-3 rounded-xl border border-rose-200 bg-rose-50 p-4 dark:border-rose-800 dark:bg-rose-950/30">
+                <h3 className="text-sm font-semibold text-rose-950 dark:text-rose-100">
+                  {labels.approvalCreationFailedTitle}
+                </h3>
+                <p className="text-sm text-rose-900 dark:text-rose-100">
+                  {labels.approvalCreationFailedBody}
+                </p>
+                <details className="text-xs text-rose-700 dark:text-rose-300">
+                  <summary>{labels.workspace.technicalReference}</summary>
+                  <p className="mt-1">core_approval_create_failed · run {shortenTechnicalId(activeRun.id)}</p>
+                </details>
+                <button
+                  type="button"
+                  className="rounded-xl border border-rose-300 px-3 py-1.5 text-sm dark:border-rose-700"
+                  onClick={() => submitTask(requestText || labels.suggestionKompis)}
+                >
+                  {labels.retry}
+                </button>
+              </div>
+            ) : null}
+
+            {activeRun.approval_status === "pending" &&
+            activeRun.core_approval_required &&
+            activeRun.core_approval_request_id ? (
+              <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950/30">
+                <h3 className="text-sm font-semibold text-amber-950 dark:text-amber-100">
+                  {labels.approvalRequiredTitle}
+                </h3>
+                <p className="text-sm text-slate-700 dark:text-slate-200">{labels.approvalRequiredBody}</p>
+                <p className="text-sm text-slate-700 dark:text-slate-200">{labels.coreApprovalRequired}</p>
+                <dl className="grid gap-2 text-xs text-slate-600 dark:text-slate-300 sm:grid-cols-2">
+                  <div>
+                    <dt className="font-medium">{labels.statusLabel}</dt>
+                    <dd>{statusLabel("awaiting_approval")}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-medium">{labels.workspace.coreApprovalId}</dt>
+                    <dd>{shortenTechnicalId(activeRun.core_approval_request_id)}</dd>
+                  </div>
+                </dl>
+                <div className="flex flex-wrap gap-2">
+                  <Link
+                    href={`/app/approvals?request=${encodeURIComponent(activeRun.core_approval_request_id)}`}
+                    className="rounded-xl bg-violet-700 px-4 py-2 text-sm font-medium text-white"
+                  >
+                    {labels.reviewAndApprove}
+                  </Link>
+                  <button
+                    type="button"
+                    className="rounded-xl border border-slate-300 px-4 py-2 text-sm dark:border-slate-600"
+                    onClick={() => {
+                      startTransition(async () => {
+                        await fetch(`/api/app/kompis/runs/${activeRun.id}/reject`, {
+                          method: "POST",
+                          headers: { "content-type": "application/json" },
+                          body: JSON.stringify({ reason }),
+                        });
+                        setActiveRun((prev) =>
+                          prev ? { ...prev, status: "rejected", approval_status: "rejected" } : prev,
+                        );
+                      });
+                    }}
+                  >
+                    {labels.rejectPlan}
+                  </button>
+                </div>
+              </div>
+            ) : null}
+
+            {activeRun.approval_status === "pending" && !activeRun.core_approval_required ? (
               <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950/30">
                 <p className="text-sm font-medium text-amber-950 dark:text-amber-100">
-                  {activeRun.core_approval_required
-                    ? labels.awaitingCoreApproval
-                    : labels.awaitingApproval}
+                  {labels.awaitingApproval}
                 </p>
-                {activeRun.core_approval_required ? (
-                  <p className="text-sm text-slate-700 dark:text-slate-200">{labels.coreApprovalRequired}</p>
-                ) : null}
                 {risk >= 2 ? (
                   <label className="block text-sm text-slate-800 dark:text-slate-200">
                     {labels.internalReason}
@@ -1486,14 +1536,6 @@ export function KompisOperatorWorkspacePanel({
                   >
                     {labels.approveAndExecute}
                   </button>
-                  {activeRun.core_approval_required ? (
-                    <Link
-                      href="/app/approvals"
-                      className="rounded-xl border border-slate-300 px-4 py-2 text-sm dark:border-slate-600"
-                    >
-                      {labels.openApprovalCenter}
-                    </Link>
-                  ) : null}
                   <button
                     type="button"
                     className="rounded-xl border border-slate-300 px-4 py-2 text-sm dark:border-slate-600"
@@ -1504,7 +1546,9 @@ export function KompisOperatorWorkspacePanel({
                           headers: { "content-type": "application/json" },
                           body: JSON.stringify({ reason }),
                         });
-                        setActiveRun((prev) => (prev ? { ...prev, status: "rejected", approval_status: "rejected" } : prev));
+                        setActiveRun((prev) =>
+                          prev ? { ...prev, status: "rejected", approval_status: "rejected" } : prev,
+                        );
                       });
                     }}
                   >
@@ -1512,6 +1556,18 @@ export function KompisOperatorWorkspacePanel({
                   </button>
                 </div>
               </div>
+            ) : null}
+
+            {activeRun.core_approval_required &&
+            activeRun.approval_status === "approved" &&
+            activeRun.status === "planned" ? (
+              <button
+                type="button"
+                className="rounded-xl bg-violet-700 px-4 py-2 text-sm font-medium text-white"
+                onClick={approveAndExecute}
+              >
+                {labels.approveAndExecute}
+              </button>
             ) : null}
 
             {activeRun.approval_status === "not_required" &&

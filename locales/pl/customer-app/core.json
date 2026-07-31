@@ -495,14 +495,14 @@
     "suggestionSeo": "Sprawdź SEO",
     "approveAndCreateDraft": "Zatwierdź i utwórz szkic",
     "noPublishMechanism": "Kompis może nadal tworzyć bezpieczne szkice i analizy",
-    "awaitingCoreApproval": "Oczekiwanie na Centrum zatwierdzeń",
+    "awaitingCoreApproval": "Oczekuje na zatwierdzenie",
     "coreApprovalRequired": "Publikacja i wycofanie wymagają potwierdzenia w Centrum zatwierdzeń.",
     "coreApproved": "Zatwierdzono w Centrum zatwierdzeń",
     "coreRejected": "Odrzucono w Centrum zatwierdzeń",
     "coreExpired": "Zatwierdzenie wygasło",
     "verifyingWebsite": "Weryfikowanie witryny",
     "rolledBack": "Przywrócono",
-    "openApprovalCenter": "Otwórz Centrum zatwierdzeń",
+    "openApprovalCenter": "Otwórz zatwierdzenie",
     "toolNotAllowed": "To narzędzie nie jest dozwolone",
     "statuses": {
       "active": "Aktywny",
@@ -646,7 +646,13 @@
       "publishedBy": "Opublikowano przez",
       "versionSource": "Źródło",
       "verificationStatus": "Weryfikacja"
-    }
+    },
+    "approvalRequiredTitle": "Wymagane zatwierdzenie",
+    "approvalRequiredBody": "Kompis przygotował działanie, które wymaga zatwierdzenia przed wykonaniem.",
+    "reviewAndApprove": "Przejrzyj i zatwierdź",
+    "approvalCreationFailedTitle": "Nie udało się utworzyć zatwierdzenia",
+    "approvalCreationFailedBody": "Działanie pozostaje zablokowane, dopóki zatwierdzenie nie zostanie utworzone. Możesz spróbować ponownie.",
+    "returnToKompis": "Wróć do Kompis"
   },
   "websiteCms": {
     "title": "CMS strony internetowej",

@@ -156,7 +156,7 @@
     }
   },
   "approvals": {
-    "title": "Approval center",
+    "title": "Approval Center",
     "subtitle": "Decisions that need your oversight — in one place.",
     "loading": "Reviewing pending activities…",
     "empty": "No pending approvals. Aipify will surface items when human review is required.",
@@ -202,7 +202,13 @@
     "trustLoadError": "Aipify could not load trust approvals right now.",
     "retry": "Retry",
     "emergencyStopConfirm": "This pauses all pending Aipify actions for your organization. Continue only if you intend to stop execution.",
-    "emergencyStopReasonPrompt": "Describe why you are stopping all pending actions (minimum 8 characters):"
+    "emergencyStopReasonPrompt": "Describe why you are stopping all pending actions (minimum 8 characters):",
+    "returnToKompis": "Back to Kompis",
+    "internalReason": "Internal reason",
+    "reasonPlaceholder": "Describe why this action should proceed",
+    "focusedMissing": "This approval was not found or is no longer pending.",
+    "kompisPublishTitle": "Kompis: publish website draft",
+    "kompisRollbackTitle": "Kompis: roll back website version"
   },
   "installations": {
     "title": "Installations",

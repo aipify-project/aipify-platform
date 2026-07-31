@@ -31,8 +31,40 @@ export function resolveApprovalPostRequest(
 
   return {
     url: `/api/actions/${actionId}/approve`,
-    init: { method: "POST" },
+    init: {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({}),
+    },
   };
+}
+
+export function resolveTrustApproveRequest(
+  actionId: string,
+  reason: string,
+): { url: string; init: RequestInit } {
+  return {
+    url: `/api/actions/${actionId}/approve`,
+    init: {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reason: reason.trim().slice(0, 500) }),
+    },
+  };
+}
+
+export function buildApprovalsDeepLink(actionRequestId: string): string {
+  return `/app/approvals?request=${encodeURIComponent(actionRequestId)}`;
+}
+
+export function selectFocusedApprovalId(
+  searchParams: URLSearchParams | { get(name: string): string | null },
+): string | null {
+  const raw = searchParams.get("request")?.trim() ?? "";
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(raw)) {
+    return null;
+  }
+  return raw;
 }
 
 export function dedupeCompanionPendingById<T extends { id: string }>(items: T[]): T[] {

@@ -6959,14 +6959,14 @@
     "suggestionSeo": "Kontrollér SEO",
     "approveAndCreateDraft": "Godkend og opret kladde",
     "noPublishMechanism": "Kompis kan stadig lave sikre kladder og analyser",
-    "awaitingCoreApproval": "Afventer godkendelsescenteret",
-    "coreApprovalRequired": "Publicering og tilbagerulning kræver bekræftelse i godkendelsescenteret.",
+    "awaitingCoreApproval": "Venter på godkendelse",
+    "coreApprovalRequired": "Publicering og tilbagerulning skal bekræftes i godkendelsescenteret.",
     "coreApproved": "Godkendt i godkendelsescenteret",
     "coreRejected": "Afvist i godkendelsescenteret",
     "coreExpired": "Godkendelsen er udløbet",
     "verifyingWebsite": "Verificerer webstedet",
     "rolledBack": "Rullet tilbage",
-    "openApprovalCenter": "Åbn godkendelsescenteret",
+    "openApprovalCenter": "Åbn godkendelse",
     "toolNotAllowed": "Dette værktøj er ikke tilladt",
     "statuses": {
       "active": "Aktiv",
@@ -7110,7 +7110,13 @@
       "publishedBy": "Publiceret af",
       "versionSource": "Kilde",
       "verificationStatus": "Verifikation"
-    }
+    },
+    "approvalRequiredTitle": "Godkendelse kræves",
+    "approvalRequiredBody": "Kompis har forberedt en handling, der skal godkendes, før den kan udføres.",
+    "reviewAndApprove": "Gennemgå og godkend",
+    "approvalCreationFailedTitle": "Godkendelsen kunne ikke oprettes",
+    "approvalCreationFailedBody": "Handlingen forbliver blokeret, indtil godkendelsen er oprettet. Du kan prøve igen.",
+    "returnToKompis": "Tilbage til Kompis"
   },
   "websiteCms": {
     "title": "Websted-CMS",

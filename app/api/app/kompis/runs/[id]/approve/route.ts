@@ -43,6 +43,13 @@ export async function POST(
         { status: mapped.status, headers },
       );
     }
+    const payload = (data ?? {}) as Record<string, unknown>;
+    if (payload.code === "core_approval_decision_required" || payload.decision_path === "approval_center") {
+      return NextResponse.json(
+        { ...payload, code: "core_approval_decision_required" },
+        { status: 409, headers },
+      );
+    }
     return NextResponse.json(data, { headers });
   } catch {
     return NextResponse.json({ error: "Unable to approve run.", code: "unknown" }, { status: 500, headers });

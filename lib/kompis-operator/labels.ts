@@ -30,6 +30,12 @@ export type KompisOperatorLabels = {
   verifyingWebsite: string;
   rolledBack: string;
   openApprovalCenter: string;
+  approvalRequiredTitle: string;
+  approvalRequiredBody: string;
+  reviewAndApprove: string;
+  approvalCreationFailedTitle: string;
+  approvalCreationFailedBody: string;
+  returnToKompis: string;
   toolNotAllowed: string;
   approveAndExecute: string;
   rejectPlan: string;
@@ -164,6 +170,12 @@ export function buildKompisOperatorLabels(t: Translator): KompisOperatorLabels {
     verifyingWebsite: t(`${p}.verifyingWebsite`),
     rolledBack: t(`${p}.rolledBack`),
     openApprovalCenter: t(`${p}.openApprovalCenter`),
+    approvalRequiredTitle: t(`${p}.approvalRequiredTitle`),
+    approvalRequiredBody: t(`${p}.approvalRequiredBody`),
+    reviewAndApprove: t(`${p}.reviewAndApprove`),
+    approvalCreationFailedTitle: t(`${p}.approvalCreationFailedTitle`),
+    approvalCreationFailedBody: t(`${p}.approvalCreationFailedBody`),
+    returnToKompis: t(`${p}.returnToKompis`),
     toolNotAllowed: t(`${p}.toolNotAllowed`),
     approveAndExecute: t(`${p}.approveAndExecute`),
     rejectPlan: t(`${p}.rejectPlan`),

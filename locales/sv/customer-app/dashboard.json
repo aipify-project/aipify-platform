@@ -156,11 +156,11 @@
     }
   },
   "approvals": {
-    "title": "Approval center",
-    "subtitle": "Decisions that need your oversight — in one place.",
+    "title": "Godkännandecenter",
+    "subtitle": "Beslut som behöver din översikt — på ett ställe.",
     "loading": "Förbereder approvals overview…",
-    "empty": "No pending approvals. Aipify will surface items when human review is required.",
-    "openActionCenter": "Open Command Center for quick actions",
+    "empty": "Inga väntande godkännanden. Aipify visar ärenden när mänsklig granskning behövs.",
+    "openActionCenter": "Öppna prioriterade åtgärder",
     "approve": "Godkänn",
     "reject": "Avvisa",
     "executing": "Bearbetar…",
@@ -202,7 +202,13 @@
     "trustLoadError": "Aipify kunde inte ladda trust-godkännanden just nu.",
     "retry": "Försök igen",
     "emergencyStopConfirm": "Detta pausar alla väntande Aipify-åtgärder för din organisation. Fortsätt bara om du avser att stoppa utförandet.",
-    "emergencyStopReasonPrompt": "Beskriv varför du stoppar alla väntande åtgärder (minst 8 tecken):"
+    "emergencyStopReasonPrompt": "Beskriv varför du stoppar alla väntande åtgärder (minst 8 tecken):",
+    "returnToKompis": "Tillbaka till Kompis",
+    "internalReason": "Intern motivering",
+    "reasonPlaceholder": "Beskriv varför åtgärden ska genomföras",
+    "focusedMissing": "Godkännandet hittades inte eller väntar inte längre.",
+    "kompisPublishTitle": "Kompis: publicera webbplatsutkast",
+    "kompisRollbackTitle": "Kompis: återställ webbplatsversion"
   },
   "installations": {
     "title": "Installations",

@@ -6959,14 +6959,14 @@
     "suggestionSeo": "Kontrollera SEO",
     "approveAndCreateDraft": "Godkänn och skapa utkast",
     "noPublishMechanism": "Kompis kan fortfarande skapa säkra utkast och analyser",
-    "awaitingCoreApproval": "Väntar på godkännandecentret",
-    "coreApprovalRequired": "Publicering och återställning kräver bekräftelse i godkännandecentret.",
+    "awaitingCoreApproval": "Väntar på godkännande",
+    "coreApprovalRequired": "Publicering och återställning måste bekräftas i godkännandecentret.",
     "coreApproved": "Godkänd i godkännandecentret",
     "coreRejected": "Avvisad i godkännandecentret",
     "coreExpired": "Godkännandet har gått ut",
     "verifyingWebsite": "Verifierar webbplatsen",
     "rolledBack": "Återställd",
-    "openApprovalCenter": "Öppna godkännandecentret",
+    "openApprovalCenter": "Öppna godkännande",
     "toolNotAllowed": "Det här verktyget är inte tillåtet",
     "statuses": {
       "active": "Aktiv",
@@ -7110,7 +7110,13 @@
       "publishedBy": "Publicerad av",
       "versionSource": "Källa",
       "verificationStatus": "Verifiering"
-    }
+    },
+    "approvalRequiredTitle": "Godkännande krävs",
+    "approvalRequiredBody": "Kompis har förberett en åtgärd som måste godkännas innan den kan utföras.",
+    "reviewAndApprove": "Granska och godkänn",
+    "approvalCreationFailedTitle": "Godkännandet kunde inte skapas",
+    "approvalCreationFailedBody": "Åtgärden förblir blockerad tills godkännandet skapas. Du kan försöka igen.",
+    "returnToKompis": "Tillbaka till Kompis"
   },
   "websiteCms": {
     "title": "Webbplats-CMS",

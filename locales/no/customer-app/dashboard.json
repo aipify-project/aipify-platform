@@ -156,11 +156,11 @@
     }
   },
   "approvals": {
-    "title": "Approval center",
-    "subtitle": "Decisions that need your oversight — in one place.",
+    "title": "Godkjenningssenter",
+    "subtitle": "Beslutninger som trenger din gjennomgang — samlet på ett sted.",
     "loading": "Forbereder approvals overview…",
-    "empty": "No pending approvals. Aipify will surface items when human review is required.",
-    "openActionCenter": "Open Command Center for quick actions",
+    "empty": "Ingen ventende godkjenninger. Aipify viser saker når menneskelig gjennomgang trengs.",
+    "openActionCenter": "Åpne prioriterte handlinger",
     "approve": "Godkjenn",
     "reject": "Avvis",
     "executing": "Behandler…",
@@ -202,7 +202,13 @@
     "trustLoadError": "Aipify kunne ikke laste tillitsgodkjenninger akkurat nå.",
     "retry": "Prøv igjen",
     "emergencyStopConfirm": "Dette pauser alle ventende Aipify-handlinger for organisasjonen din. Fortsett bare hvis du har til hensikt å stoppe utføring.",
-    "emergencyStopReasonPrompt": "Beskriv hvorfor du stopper alle ventende handlinger (minst 8 tegn):"
+    "emergencyStopReasonPrompt": "Beskriv hvorfor du stopper alle ventende handlinger (minst 8 tegn):",
+    "returnToKompis": "Tilbake til Kompis",
+    "internalReason": "Intern begrunnelse",
+    "reasonPlaceholder": "Beskriv hvorfor handlingen skal gjennomføres",
+    "focusedMissing": "Denne godkjenningen ble ikke funnet, eller den venter ikke lenger.",
+    "kompisPublishTitle": "Kompis: publiser nettstedutkast",
+    "kompisRollbackTitle": "Kompis: rull tilbake nettstedversjon"
   },
   "installations": {
     "title": "Installations",
@@ -7490,7 +7496,7 @@
     "completedTitle": "Recently completed",
     "recommendationsTitle": "Aipify recommendations",
     "executiveTitle": "Executive reporting",
-    "emptyPending": "No pending approvals right now.",
+    "emptyPending": "Ingen ventende godkjenninger akkurat nå.",
     "emptyRecommendations": "No open recommendations.",
     "whyAipifyRecommends": "Why Aipify recommends this",
     "riskLevel": "Risk level",

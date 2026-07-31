@@ -98,6 +98,12 @@ export function mapKompisOperatorRpcError(message: string | null | undefined): {
   if (raw.includes("STALE_EXPECTED_VERSION")) return { status: 409, code: "stale_expected_version" };
   if (raw.includes("SCOPE_MISMATCH")) return { status: 409, code: "scope_mismatch" };
   if (raw.includes("CORE_APPROVAL_REQUIRED")) return { status: 409, code: "core_approval_required" };
+  if (raw.includes("CORE_APPROVAL_DECISION_REQUIRED")) {
+    return { status: 409, code: "core_approval_decision_required" };
+  }
+  if (raw.includes("CORE_APPROVAL_CREATE_FAILED")) {
+    return { status: 422, code: "core_approval_create_failed" };
+  }
   if (raw.includes("APPROVAL_REQUIRED") || raw.includes("APPROVAL_NOT_PENDING")) {
     return { status: 409, code: "approval_state" };
   }

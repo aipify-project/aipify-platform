@@ -405,14 +405,14 @@
     "suggestionSeo": "Revisar SEO",
     "approveAndCreateDraft": "Aprobar y crear borrador",
     "noPublishMechanism": "Kompis aún puede crear borradores y análisis seguros",
-    "awaitingCoreApproval": "Esperando el Centro de aprobaciones",
+    "awaitingCoreApproval": "Esperando aprobación",
     "coreApprovalRequired": "La publicación y la reversión requieren confirmación en el Centro de aprobaciones.",
     "coreApproved": "Aprobado en el Centro de aprobaciones",
     "coreRejected": "Rechazado en el Centro de aprobaciones",
     "coreExpired": "La aprobación ha caducado",
     "verifyingWebsite": "Verificando el sitio web",
     "rolledBack": "Revertido",
-    "openApprovalCenter": "Abrir Centro de aprobaciones",
+    "openApprovalCenter": "Abrir aprobación",
     "toolNotAllowed": "Esta herramienta no está permitida",
     "statuses": {
       "active": "Activo",
@@ -556,7 +556,13 @@
       "publishedBy": "Publicado por",
       "versionSource": "Fuente",
       "verificationStatus": "Verificación"
-    }
+    },
+    "approvalRequiredTitle": "Se requiere aprobación",
+    "approvalRequiredBody": "Kompis ha preparado una acción que debe aprobarse antes de ejecutarse.",
+    "reviewAndApprove": "Revisar y aprobar",
+    "approvalCreationFailedTitle": "No se pudo crear la aprobación",
+    "approvalCreationFailedBody": "La acción permanece bloqueada hasta que se cree la aprobación. Puede intentarlo de nuevo.",
+    "returnToKompis": "Volver a Kompis"
   },
   "websiteCms": {
     "title": "CMS del sitio web",
