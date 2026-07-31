@@ -1051,8 +1051,10 @@ export async function executeKompisOperatorPlan(input: {
       : "completed";
 
   const failedStep = stepResults.find((step) => step.status === "failed" || step.status === "blocked");
+  const failedErrorCode =
+    typeof failedStep?.result?.errorCode === "string" ? failedStep.result.errorCode : null;
   const resultSummary = failed
-    ? failedStep?.errorCode === "knowledge_search_failed"
+    ? failedErrorCode === "knowledge_search_failed"
       ? "knowledge_search_failed"
       : "task_stopped_partial"
     : uncertain
@@ -1064,7 +1066,7 @@ export async function executeKompisOperatorPlan(input: {
     p_status: finalStatus === "attention" ? "attention" : finalStatus,
     p_result_summary: resultSummary,
     p_safe_error_code: failed
-      ? failedStep?.errorCode ?? "step_failed"
+      ? failedErrorCode ?? "step_failed"
       : uncertain
         ? "verifier_uncertain"
         : null,
