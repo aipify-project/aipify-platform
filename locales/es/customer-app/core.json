@@ -404,7 +404,16 @@
     "suggestionWebsite": "Revisar el sitio web",
     "suggestionSeo": "Revisar SEO",
     "approveAndCreateDraft": "Aprobar y crear borrador",
-    "noPublishMechanism": "Kompis aún puede crear borradores y análisis seguros"
+    "noPublishMechanism": "Kompis aún puede crear borradores y análisis seguros",
+    "awaitingCoreApproval": "Esperando el Centro de aprobaciones",
+    "coreApprovalRequired": "La publicación y la reversión requieren confirmación en el Centro de aprobaciones.",
+    "coreApproved": "Aprobado en el Centro de aprobaciones",
+    "coreRejected": "Rechazado en el Centro de aprobaciones",
+    "coreExpired": "La aprobación ha caducado",
+    "verifyingWebsite": "Verificando el sitio web",
+    "rolledBack": "Revertido",
+    "openApprovalCenter": "Abrir Centro de aprobaciones",
+    "toolNotAllowed": "Esta herramienta no está permitida"
   },
   "websiteCms": {
     "title": "CMS del sitio web",

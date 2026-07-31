@@ -6947,7 +6947,16 @@
     "suggestionWebsite": "Check the website overview",
     "suggestionSeo": "Check website SEO",
     "approveAndCreateDraft": "Approve and create draft",
-    "noPublishMechanism": "Kompis can still create secure drafts and analyses"
+    "noPublishMechanism": "Kompis can still create secure drafts and analyses",
+    "awaitingCoreApproval": "Waiting for Approval Center",
+    "coreApprovalRequired": "Publishing and rollback require Approval Center confirmation.",
+    "coreApproved": "Approved in Approval Center",
+    "coreRejected": "Rejected in Approval Center",
+    "coreExpired": "Approval expired",
+    "verifyingWebsite": "Verifying the website",
+    "rolledBack": "Rolled back",
+    "openApprovalCenter": "Open Approval Center",
+    "toolNotAllowed": "This tool is not allowed"
   },
   "websiteCms": {
     "title": "Website CMS",

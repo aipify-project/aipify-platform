@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { createKompisOperatorIdempotencyKey } from "@/lib/kompis-operator/ids";
@@ -90,6 +91,8 @@ type RunView = {
   id: string;
   status: string;
   approval_status?: string;
+  core_approval_required?: boolean;
+  core_approval_request_id?: string | null;
   risk_class?: number;
   user_summary?: string;
   result_summary?: string;
@@ -438,6 +441,8 @@ export function KompisOperatorWorkspacePanel({
         id?: string;
         status?: string;
         approval_status?: string;
+        core_approval_required?: boolean;
+        core_approval_request_id?: string | null;
         risk_class?: number;
       };
       if (res.status === 422 && body.blocked) {
@@ -457,13 +462,15 @@ export function KompisOperatorWorkspacePanel({
         return;
       }
       if (!res.ok) {
-        setMessage(labels.errorTitle);
+        setMessage(body.code === "tool_not_allowed" ? labels.toolNotAllowed : labels.errorTitle);
         return;
       }
       setActiveRun({
         id: String(body.id),
         status: String(body.status ?? "planned"),
         approval_status: body.approval_status,
+        core_approval_required: body.core_approval_required === true,
+        core_approval_request_id: body.core_approval_request_id ?? null,
         risk_class: body.risk_class,
         user_summary: body.plan?.title,
         plan: body.plan ?? body.plan,
@@ -482,9 +489,32 @@ export function KompisOperatorWorkspacePanel({
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ confirmation: confirmed, reason }),
         });
+        const approveBody = (await approve.json().catch(() => ({}))) as {
+          approval_status?: string;
+          core_approval_required?: boolean;
+          core_approval_request_id?: string | null;
+          code?: string;
+        };
         if (!approve.ok) {
-          setMessage(labels.errorTitle);
+          setMessage(
+            approveBody.code === "core_approval_required"
+              ? labels.awaitingCoreApproval
+              : labels.errorTitle,
+          );
           return;
+        }
+        if (approveBody.core_approval_required) {
+          setActiveRun((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  approval_status: approveBody.approval_status ?? "approved",
+                  core_approval_required: true,
+                  core_approval_request_id: approveBody.core_approval_request_id ?? null,
+                }
+              : prev,
+          );
+          setMessage(labels.coreApprovalRequired);
         }
       }
       const exec = await fetch(`/api/app/kompis/runs/${activeRun.id}/execute`, {
@@ -495,9 +525,14 @@ export function KompisOperatorWorkspacePanel({
       const body = (await exec.json()) as {
         status?: string;
         resultSummary?: string;
+        safeErrorCode?: string | null;
       };
       if (!exec.ok) {
-        setMessage(labels.errorTitle);
+        setMessage(
+          body.safeErrorCode === "core_approval_required"
+            ? labels.awaitingCoreApproval
+            : labels.errorTitle,
+        );
         return;
       }
       setActiveRun((prev) =>
@@ -505,7 +540,10 @@ export function KompisOperatorWorkspacePanel({
           ? {
               ...prev,
               status: String(body.status ?? "completed"),
-              result_summary: body.resultSummary ?? labels.completed,
+              result_summary:
+                body.status === "verifying"
+                  ? labels.verifyingWebsite
+                  : (body.resultSummary ?? labels.completed),
               approval_status: "approved",
             }
           : prev,
@@ -1084,7 +1122,14 @@ export function KompisOperatorWorkspacePanel({
 
             {activeRun.approval_status === "pending" ? (
               <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950/30">
-                <p className="text-sm font-medium text-amber-950 dark:text-amber-100">{labels.awaitingApproval}</p>
+                <p className="text-sm font-medium text-amber-950 dark:text-amber-100">
+                  {activeRun.core_approval_required
+                    ? labels.awaitingCoreApproval
+                    : labels.awaitingApproval}
+                </p>
+                {activeRun.core_approval_required ? (
+                  <p className="text-sm text-slate-700 dark:text-slate-200">{labels.coreApprovalRequired}</p>
+                ) : null}
                 {risk >= 2 ? (
                   <label className="block text-sm text-slate-800 dark:text-slate-200">
                     {labels.internalReason}
@@ -1115,6 +1160,14 @@ export function KompisOperatorWorkspacePanel({
                   >
                     {labels.approveAndExecute}
                   </button>
+                  {activeRun.core_approval_required ? (
+                    <Link
+                      href="/app/approvals"
+                      className="rounded-xl border border-slate-300 px-4 py-2 text-sm dark:border-slate-600"
+                    >
+                      {labels.openApprovalCenter}
+                    </Link>
+                  ) : null}
                   <button
                     type="button"
                     className="rounded-xl border border-slate-300 px-4 py-2 text-sm dark:border-slate-600"

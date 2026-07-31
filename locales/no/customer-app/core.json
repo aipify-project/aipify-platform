@@ -6958,7 +6958,16 @@
     "suggestionWebsite": "Kontroller nettstedet",
     "suggestionSeo": "Kontroller SEO",
     "approveAndCreateDraft": "Godkjenn og opprett utkast",
-    "noPublishMechanism": "Kompis kan fortsatt lage sikre utkast og analyser"
+    "noPublishMechanism": "Kompis kan fortsatt lage sikre utkast og analyser",
+    "awaitingCoreApproval": "Venter på godkjenningssenteret",
+    "coreApprovalRequired": "Publisering og tilbakestilling krever bekreftelse i godkjenningssenteret.",
+    "coreApproved": "Godkjent i godkjenningssenteret",
+    "coreRejected": "Avvist i godkjenningssenteret",
+    "coreExpired": "Godkjenningen er utløpt",
+    "verifyingWebsite": "Verifiserer nettstedet",
+    "rolledBack": "Rullet tilbake",
+    "openApprovalCenter": "Åpne godkjenningssenteret",
+    "toolNotAllowed": "Dette verktøyet er ikke tillatt"
   },
   "websiteCms": {
     "title": "Nettside-CMS",

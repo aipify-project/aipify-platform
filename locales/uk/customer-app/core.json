@@ -494,7 +494,16 @@
     "suggestionWebsite": "Перевірити сайт",
     "suggestionSeo": "Перевірити SEO",
     "approveAndCreateDraft": "Схвалити та створити чернетку",
-    "noPublishMechanism": "Kompis і надалі може створювати безпечні чернетки та аналізи"
+    "noPublishMechanism": "Kompis і надалі може створювати безпечні чернетки та аналізи",
+    "awaitingCoreApproval": "Очікування центру схвалення",
+    "coreApprovalRequired": "Публікація та відкат потребують підтвердження в центрі схвалення.",
+    "coreApproved": "Схвалено в центрі схвалення",
+    "coreRejected": "Відхилено в центрі схвалення",
+    "coreExpired": "Термін схвалення минув",
+    "verifyingWebsite": "Перевірка вебсайту",
+    "rolledBack": "Відкочено",
+    "openApprovalCenter": "Відкрити центр схвалення",
+    "toolNotAllowed": "Цей інструмент не дозволено"
   },
   "websiteCms": {
     "title": "CMS веб-сайту",
