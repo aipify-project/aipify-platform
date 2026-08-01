@@ -6789,6 +6789,176 @@
             "body": "The integration setup is not complete. Contact your administrator."
           }
         }
+      },
+      "onboarding": {
+        "title": "Connection model",
+        "subtitle": "Aipify connects through an explicit onboarding model — without assuming access to your servers.",
+        "fields": {
+          "implementationOwner": "Implementation owner",
+          "distributionChannel": "Distribution channel",
+          "installTarget": "Install target",
+          "provider": "Provider",
+          "onboardingMode": "Onboarding mode",
+          "readiness": "Readiness",
+          "support": "Support level",
+          "installationState": "Installation state"
+        },
+        "noServerAccessNotice": "Aipify does not install software on your servers automatically. Your team (or your provider) completes the steps for the selected connection model.",
+        "connectProvider": "Connect {providerName}",
+        "installConnector": "Install {connectorName}",
+        "openAdmin": "Open {adminName}",
+        "authorizeAccess": "Authorize access",
+        "customerActionRequired": "Customer action required",
+        "aipifyActionRequired": "Aipify action required",
+        "providerActionRequired": "Provider action required",
+        "connectorVersion": "Connector version {version}",
+        "compatibleWith": "Compatible with {platformVersion}",
+        "updateAvailable": "Update available",
+        "technicalImplementationRequired": "Technical implementation required",
+        "responsibilitiesTitle": "Who does what",
+        "customerRole": "Customer",
+        "aipifyRole": "Aipify",
+        "providerRole": "Provider",
+        "partnerRole": "Partner",
+        "docsTitle": "Documentation",
+        "packageTitle": "Connector package",
+        "checksum": "Checksum",
+        "signature": "Signature",
+        "releaseChannel": "Release channel",
+        "marketplace": "Marketplace",
+        "download": "Download",
+        "installGuide": "Installation guide",
+        "upgradeGuide": "Upgrade guide",
+        "uninstallGuide": "Uninstall guide",
+        "healthCheck": "Health check",
+        "displayOnlyCommand": "Display-only install command (never run automatically)",
+        "modes": {
+          "oauth": "OAuth",
+          "api_key_existing_provider": "API key (existing provider)",
+          "installable_connector": "Installable connector",
+          "aipify_hosted_connector": "Aipify-hosted connector",
+          "custom_provider_implementation": "Custom implementation"
+        },
+        "channels": {
+          "provider_marketplace": "Provider marketplace",
+          "direct_download": "Direct download",
+          "package_registry": "Package registry",
+          "container_image": "Container image",
+          "customer_developer": "Customer developer",
+          "aipify_managed": "Aipify managed",
+          "not_applicable": "Not applicable"
+        },
+        "owners": {
+          "provider": "Provider",
+          "customer": "Customer",
+          "aipify": "Aipify",
+          "shared": "Shared"
+        },
+        "readiness": {
+          "reference_only": "Reference only",
+          "development": "Development",
+          "preview": "Preview",
+          "production_ready": "Production ready",
+          "deprecated": "Deprecated",
+          "blocked": "Blocked",
+          "unsupported": "Unsupported"
+        },
+        "support": {
+          "self_service": "Self-service",
+          "guided": "Guided",
+          "aipify_managed": "Aipify managed",
+          "partner_managed": "Partner managed",
+          "customer_managed": "Customer managed",
+          "unsupported": "Unsupported"
+        },
+        "installTargets": {
+          "none": "None",
+          "provider_saas": "Provider SaaS",
+          "customer_server": "Customer server",
+          "customer_cms": "Customer CMS",
+          "customer_ecommerce": "Customer ecommerce",
+          "customer_cloud": "Customer cloud",
+          "customer_container_platform": "Customer container platform",
+          "aipify_cloud": "Aipify cloud",
+          "customer_custom_system": "Customer custom system"
+        },
+        "states": {
+          "not_started": "Not started",
+          "requirements_pending": "Requirements pending",
+          "awaiting_customer_action": "Awaiting customer action",
+          "awaiting_provider_action": "Awaiting provider action",
+          "awaiting_aipify_action": "Awaiting Aipify action",
+          "installation_in_progress": "Installation in progress",
+          "credential_required": "Credential required",
+          "credential_stored": "Credential stored",
+          "connection_test_required": "Connection test required",
+          "connection_test_failed": "Connection test failed",
+          "verified": "Verified",
+          "activation_required": "Activation required",
+          "active": "Active",
+          "update_available": "Update available",
+          "upgrade_in_progress": "Upgrade in progress",
+          "degraded": "Degraded",
+          "suspended": "Suspended",
+          "revoke_required": "Revoke required",
+          "uninstall_pending": "Uninstall pending",
+          "removed": "Removed",
+          "blocked": "Blocked",
+          "unsupported": "Unsupported"
+        },
+        "responsibilities": {
+          "customerApprove": "Approve access and complete customer-side steps",
+          "aipifyVerify": "Store credentials securely and verify the connection",
+          "customerInstall": "Install the connector in your environment",
+          "customerCredential": "Create and paste the provider credential",
+          "customerScopes": "Review and approve requested scopes",
+          "customerNetwork": "Ensure required network access and domains",
+          "aipifyContract": "Provide the connection contract and connector metadata",
+          "aipifyMonitor": "Monitor connection health after activation",
+          "providerIssue": "Issue API or OAuth credentials and maintain endpoints",
+          "providerLimits": "Enforce rate limits and provider-side availability",
+          "partnerAssist": "Assist with installation or implementation when engaged"
+        },
+        "policy": {
+          "standard": "Standard policy"
+        },
+        "apiKey": "API key",
+        "install": "Install",
+        "provision": "Provision hosted connector",
+        "customEffort": "Custom engineering effort required",
+        "docs": {
+          "gettingStarted": "Getting started",
+          "installation": "Installation",
+          "credentialSetup": "Credential setup",
+          "permissions": "Permissions",
+          "testing": "Testing",
+          "troubleshooting": "Troubleshooting",
+          "upgrade": "Upgrade",
+          "uninstall": "Uninstall",
+          "security": "Security",
+          "privacy": "Privacy",
+          "support": "Support"
+        },
+        "unonight": {
+          "begin": "Open the provider admin and create a connection key",
+          "verify": "Aipify verifies the key with a connection test"
+        },
+        "commerce_provider": {
+          "begin": "Authorize Aipify in the provider marketplace",
+          "verify": "Aipify confirms OAuth tokens and scopes"
+        },
+        "cms_provider": {
+          "begin": "Install the connector package in your CMS",
+          "verify": "Confirm installation health and complete credential binding"
+        },
+        "hosted_connector": {
+          "begin": "Approve Aipify-hosted connector access",
+          "verify": "Aipify provisions and verifies the hosted connector"
+        },
+        "custom_erp": {
+          "begin": "Review technical requirements with your developer",
+          "verify": "Submit validation evidence for certification"
+        }
       }
     },
     "scenarioPlanning": {

@@ -6,6 +6,10 @@ import type {
   IntegrationDuplicateWarning,
   IntegrationVerificationMetadata,
 } from "./types";
+import {
+  parseCoreProviderOnboardingContract,
+  type CoreProviderOnboardingParseResult,
+} from "./onboarding";
 
 function asRecord(raw: unknown): Record<string, unknown> | null {
   return raw && typeof raw === "object" ? (raw as Record<string, unknown>) : null;
@@ -164,7 +168,22 @@ export function parseAppPortalIntegrationSetup(raw: unknown): AppPortalIntegrati
     manual_steps: asStringArray(row.manual_steps),
     oauth_steps: asStringArray(row.oauth_steps),
     presentation_contract: row.presentation_contract ?? row.presentationContract ?? null,
+    onboarding_contract: row.onboarding_contract ?? row.onboardingContract ?? null,
+    installation_state: row.installation_state == null ? undefined : asString(row.installation_state),
+    readiness_level: row.readiness_level == null ? null : asString(row.readiness_level),
+    support_level: row.support_level == null ? null : asString(row.support_level),
+    onboarding_mode: row.onboarding_mode == null ? null : asString(row.onboarding_mode),
+    safe_actions: asRecord(row.safe_actions) as Record<string, boolean> | undefined,
   };
+}
+
+/** Resolves Core onboarding metadata without accepting invalid registry JSON. */
+export function resolveSetupOnboarding(
+  setup: AppPortalIntegrationSetup
+): CoreProviderOnboardingParseResult {
+  return parseCoreProviderOnboardingContract(setup.onboarding_contract, {
+    expectedProviderKey: setup.provider_key,
+  });
 }
 
 export function parseVerificationFromTestResponse(

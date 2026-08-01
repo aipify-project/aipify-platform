@@ -22,6 +22,7 @@ import {
 } from "@/lib/install/integration-setup";
 import {
   parseAppPortalIntegrationSetup,
+  resolveSetupOnboarding,
   parseVerificationFromTestResponse,
   interpolateIntegrationLabel,
   canonicalStatusLabelKey,
@@ -42,6 +43,11 @@ import {
   type AppPortalIntegrationsLabels,
   type IntegrationVerificationMetadata,
 } from "@/lib/app-portal/integrations";
+import { ProviderOnboardingOverview } from "@/components/app/app-portal/ProviderOnboardingOverview";
+import {
+  isCoreProviderInstallationState,
+  mapSecretStreamStatusToInstallationState,
+} from "@/lib/app-portal/integrations/onboarding";
 import {
   enterCredentialStepIndex,
   resolveIntegrationWizardResumeStepIndex,
@@ -674,6 +680,22 @@ export function AppPortalIntegrationSetupPanel({
               </div>
             </div>
           )}
+
+          {(() => {
+            const onboarding = setup ? resolveSetupOnboarding(setup) : null;
+            if (!onboarding?.ok) return null;
+            const installationState = isCoreProviderInstallationState(setup?.installation_state)
+              ? setup.installation_state
+              : mapSecretStreamStatusToInstallationState(canonicalStatus);
+            return (
+              <ProviderOnboardingOverview
+                contract={onboarding.contract}
+                installationState={installationState}
+                providerDisplayName={providerContract.displayName || setup?.display_name || providerKey}
+                t={translate}
+              />
+            );
+          })()}
 
           <ol
             className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible"

@@ -1,0 +1,39 @@
+---
+description: Core provider onboarding and connector distribution — no server-access assumptions
+globs:
+  - components/app/app-portal/**
+  - components/platform/provider-onboarding/**
+  - lib/app-portal/integrations/onboarding/**
+  - locales/**/customer-app/portalStructure.json
+  - supabase/migrations/**onboarding*connector*
+alwaysApply: false
+---
+
+# Core Provider Onboarding & Connector Distribution
+
+See task stream `AIPIFY.CORE.PROVIDER.ONBOARDING.CONNECTOR.DISTRIBUTION.V1`.
+
+## Permanent rules
+
+1. **Never assume server access** — customers connect via oauth, api_key_existing_provider, installable_connector, aipify_hosted_connector, or custom_provider_implementation.
+2. **Onboarding mode, implementation owner, distribution channel, and install target are required** on every Core onboarding contract.
+3. **Core owns the contract** (`app_portal_integration_providers.onboarding_contract`) — APP renders generically.
+4. **No provider/customer hardcoding** in shared APP UI — Unonight is an ordinary `api_key_existing_provider` row.
+5. **No pilot advantage** and **no custom Unonight APP panel**.
+6. **No connector without versioning**; downloads require checksum + signature metadata.
+7. **Never execute install commands** from database content — display-only.
+8. **No open redirects**; package/docs/OAuth URLs must pass allowlist validation.
+9. **No secrets in metadata or URLs**.
+10. **Tenant / provider / installation exact** — no first-row fallback.
+11. **State machine enforced** — no `active` before `verified`; no `active` when blocked/unsupported.
+12. **i18n required** for modes, support, readiness, responsibilities, and states.
+13. **Premium responsive design** required for onboarding surfaces.
+14. Full e2e customer integration readiness is separate from Core onboarding/distribution Production Ready.
+
+## Forbidden
+
+- Parallel provider registries or local JSON as source of truth
+- `if (provider === "unonight")` in shared APP presentation
+- Arbitrary shell execution or unvalidated install command rendering
+- Unsafe file hosting without checksum/signature metadata
+- Mixing vault/secret encryption changes into onboarding contract work

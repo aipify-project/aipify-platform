@@ -191,7 +191,8 @@
     "websiteGovernance": "Website Governance",
     "licenses": "Licenser",
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification"
+    "websiteReleaseVerification": "Website Release Verification",
+    "providerOnboarding": "Provider-onboarding"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -6722,5 +6723,22 @@
       "installationStatus": "Installationsstatus",
       "deliveryStatus": "Leverancestatus"
     }
+  },
+  "providerOnboarding": {
+    "title": "Provider-onboarding og connector-distribution",
+    "subtitle": "Administrer Core-onboardingkontrakter, readiness, supportniveau og connector-metadata. APP renderer kontrakterne generisk.",
+    "loading": "Indlæser providerkontrakter…",
+    "loadFailed": "Kunne ikke indlæse providerkontrakter.",
+    "providers": "Providers",
+    "fixtures": "Forhåndsvisning af fem modi",
+    "save": "Gem kontrakt",
+    "saved": "Kontrakt gemt",
+    "invalidContract": "Ugyldig onboardingkontrakt — lagring blokeret",
+    "denied": "Kræver platform admin-adgang",
+    "advancedEditor": "Avanceret kontrakteditor",
+    "selectProvider": "Vælg en provider",
+    "available": "Tilgængelig",
+    "unavailable": "Utilgængelig",
+    "preview": "Forhåndsvisningstilstand"
   }
 }

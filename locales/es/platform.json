@@ -148,7 +148,8 @@
   },
   "nav": {
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification"
+    "websiteReleaseVerification": "Website Release Verification",
+    "providerOnboarding": "Incorporación de proveedores"
   },
   "kompisAi": {
     "title": "Kompis AI",
@@ -443,5 +444,22 @@
       "installationStatus": "Estado de instalación",
       "deliveryStatus": "Estado de entrega"
     }
+  },
+  "providerOnboarding": {
+    "title": "Incorporación de proveedores y distribución de conectores",
+    "subtitle": "Administra contratos de onboarding de Core, readiness, soporte y metadatos de conectores. APP los renderiza de forma genérica.",
+    "loading": "Cargando contratos de proveedor…",
+    "loadFailed": "No se pudieron cargar los contratos de proveedor.",
+    "providers": "Proveedores",
+    "fixtures": "Vista previa de cinco modos",
+    "save": "Guardar contrato",
+    "saved": "Contrato guardado",
+    "invalidContract": "Contrato de onboarding no válido — guardado bloqueado",
+    "denied": "Se requiere acceso de administrador de plataforma",
+    "advancedEditor": "Editor avanzado de contrato",
+    "selectProvider": "Selecciona un proveedor",
+    "available": "Disponible",
+    "unavailable": "No disponible",
+    "preview": "Modo de vista previa"
   }
 }
