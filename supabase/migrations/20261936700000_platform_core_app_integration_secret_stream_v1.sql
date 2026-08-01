@@ -40,8 +40,7 @@ as $$
   );
 $$;
 
-drop function if exists public._apsf260i_compute_canonical_status(text, boolean, timestamptz, timestamptz, timestamptz, timestamptz, timestamptz);
-
+-- Keep the existing 7-arg signature (no DROP) so dependent RPCs stay valid.
 create or replace function public._apsf260i_compute_canonical_status(
   p_status text,
   p_has_credential boolean,
@@ -49,8 +48,7 @@ create or replace function public._apsf260i_compute_canonical_status(
   p_last_test_failed_at timestamptz,
   p_activated_at timestamptz,
   p_deactivated_at timestamptz,
-  p_removed_at timestamptz,
-  p_last_test_error text default null
+  p_removed_at timestamptz
 )
 returns text
 language plpgsql
@@ -80,11 +78,11 @@ begin
     end if;
   end if;
 
-  if v_test_failed_newer and public._apsf260i_is_rotation_required_error(p_last_test_error) then
-    return 'rotation_required';
+  if v_test_failed_newer then
+    return 'verification_failed';
   end if;
 
-  if v_test_failed_newer or v_status in ('failed', 'error', 'disconnected') then
+  if v_status in ('failed', 'error', 'disconnected') and p_last_test_success_at is null then
     return 'verification_failed';
   end if;
 
@@ -140,9 +138,13 @@ begin
     p_connection.last_test_failed_at,
     p_connection.activated_at,
     p_connection.deactivated_at,
-    p_connection.removed_at,
-    p_connection.last_test_error
+    p_connection.removed_at
   );
+
+  if v_canonical = 'verification_failed'
+     and public._apsf260i_is_rotation_required_error(p_connection.last_test_error) then
+    v_canonical := 'rotation_required';
+  end if;
 
   v_verified_at := coalesce(
     nullif(p_connection.access_summary->>'last_verified_at', '')::timestamptz,
@@ -185,19 +187,14 @@ end;
 $$;
 
 -- ---------------------------------------------------------------------------
--- Credential store: keep ciphertext; persist fingerprint/version; revoke prior
+-- Credential store: keep existing 4-arg signature; fingerprint from access_summary
 -- ---------------------------------------------------------------------------
-
-drop function if exists public._apsf260i_store_credential(uuid, uuid, text);
-drop function if exists public._apsf260i_store_credential(uuid, uuid, text, boolean);
 
 create or replace function public._apsf260i_store_credential(
   p_company_id uuid,
   p_connection_id uuid,
   p_secret text,
-  p_pre_encrypted boolean default false,
-  p_key_fingerprint text default null,
-  p_envelope_version int default null
+  p_pre_encrypted boolean default false
 )
 returns uuid
 language plpgsql
@@ -208,8 +205,8 @@ declare
   v_vault_id uuid;
   v_key text;
   v_payload text;
-  v_fingerprint text := nullif(trim(coalesce(p_key_fingerprint, '')), '');
-  v_envelope int := coalesce(p_envelope_version, 1);
+  v_fingerprint text;
+  v_envelope int := 1;
 begin
   if coalesce(length(trim(p_secret)), 0) < 8 then
     raise exception 'Credential required';
@@ -219,9 +216,15 @@ begin
     raise exception 'Placeholder credentials are not allowed';
   end if;
 
-  -- Reject obvious plaintext when caller claimed pre-encryption (hex digest / short tokens still allowed as ciphertext).
+  select
+    nullif(trim(coalesce(c.access_summary->>'encryption_key_fingerprint', '')), ''),
+    coalesce(nullif(trim(coalesce(c.access_summary->>'envelope_version', '')), '')::int, 1)
+  into v_fingerprint, v_envelope
+  from public.app_portal_integration_connections c
+  where c.id = p_connection_id
+    and c.company_id = p_company_id;
+
   if p_pre_encrypted is not true then
-    -- Legacy path: never store reversible plaintext; hash only.
     v_payload := encode(extensions.digest(p_secret, 'sha256'), 'hex');
   else
     v_payload := trim(p_secret);
@@ -267,7 +270,6 @@ begin
 end;
 $$;
 
-revoke all on function public._apsf260i_store_credential(uuid, uuid, text, boolean, text, int) from public, anon;
 revoke all on function public._apsf260i_store_credential(uuid, uuid, text, boolean) from public, anon;
 revoke all on function public._apsf260i_store_credential(uuid, uuid, text) from public, anon;
 
@@ -376,9 +378,7 @@ begin
       v_company_id,
       v_connection_id,
       v_api_key,
-      true,
-      v_fingerprint,
-      coalesce(v_envelope, 1)
+      true
     );
   end if;
 
