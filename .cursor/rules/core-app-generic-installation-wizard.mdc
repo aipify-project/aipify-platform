@@ -34,6 +34,13 @@ Task: `AIPIFY.CORE.APP.GENERIC.INSTALLATION.WIZARD.V1`
 22. Preview status and responsibility are derived from the locally selected support mode — never live waiting states (`awaiting_*`) before an external process starts.
 23. Customer APP support choices are at most: Aipify-managed, guided, self-service, and IT (IT only when the contract allows). `partner_managed` is Core/Platform routing — never a direct customer choice.
 24. Preview actions panel shows disabled examples only — no dead clickable controls, no Continue later, no invite/order/scheduling/test/activate.
+25. Connect route (`/app/platform/integrations/connect/[providerKey]`) is explicit install mode via `AppPortalIntegrationSetupPanel` (`mode="install"`, `entry="connect_route"`).
+26. Install support selection is local until explicit Fortsett — no session write on option select.
+27. Install waiting states (`awaiting_*`) start only after a real invite/handoff request — never from selection alone.
+28. Install status and responsibility share the same selectedSupportMode / lifecycle source.
+29. Install action panel shows only relevant operational actions for the selected mode/lifecycle.
+30. Continue later requires a real resumable installation session.
+31. Live wrapper (`AppPortalIntegrationSetupPanel`) must be covered by integration/source tests — preview-only tests are insufficient for install runtime.
 
 ## Code map
 

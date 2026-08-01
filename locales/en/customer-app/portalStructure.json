@@ -7140,6 +7140,31 @@
             "selfService": "You complete the steps yourself. Aipify can help when needed",
             "customerItManaged": "Your IT provider performs the technical steps"
           }
+        },
+        "install": {
+          "actionsChooseHint": "Choose how setup should be done to see the next step.",
+          "actionsHeading": "Next step",
+          "sessionPersistError": "Aipify could not save your choice. Please try again.",
+          "primaryActions": {
+            "aipifyManaged": "Ask Aipify to set this up",
+            "guided": "Book guided setup",
+            "selfService": "Start self-service setup",
+            "customerItManaged": "Invite IT provider"
+          },
+          "status": {
+            "choose": "Choose how setup should be done",
+            "aipifyManaged": "Ready to ask Aipify for setup",
+            "guided": "Ready for guided setup",
+            "selfService": "Ready for self-service setup",
+            "customerItManaged": "Ready for IT provider"
+          },
+          "responsibility": {
+            "choose": "Select a setup method to see who is responsible.",
+            "aipifyManaged": "You only need to approve what we ask for.",
+            "guided": "Aipify guides you step by step.",
+            "selfService": "You complete the steps yourself. Aipify can help when needed.",
+            "customerItManaged": "Your IT provider performs the technical steps."
+          }
         }
       }
     },

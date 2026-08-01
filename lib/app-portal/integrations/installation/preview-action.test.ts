@@ -23,7 +23,7 @@ const sessionSrc = readFileSync(SESSION, "utf8");
 assert.match(rowSrc, /previewWizard/);
 assert.match(rowSrc, /InstallationWizardPreviewDialog/);
 assert.match(rowSrc, /canShowInstallationWizardPreview/);
-assert.match(wizardSrc, /mode = "install"/);
+assert.match(wizardSrc, /mode: InstallationWizardMode/);
 assert.match(wizardSrc, /data-installation-wizard-mode/);
 assert.match(wizardSrc, /isPreview/);
 assert.match(wizardSrc, /listCustomerFacingSupportModes/);

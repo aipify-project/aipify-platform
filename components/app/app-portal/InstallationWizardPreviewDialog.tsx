@@ -157,6 +157,7 @@ export function InstallationWizardPreviewDialog({
               labels={labels}
               locale={locale}
               mode="preview"
+              entry="preview_dialog"
               onReload={async () => {
                 /* Preview never reloads persisted setup for mutation. */
               }}

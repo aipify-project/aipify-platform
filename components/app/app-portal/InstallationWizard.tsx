@@ -4,24 +4,28 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   buildInstallationWizardLabels,
   canActivateFromWizard,
+  canShowInstallContinueLater,
   createInstallationWizardPreviewViewState,
   isInstallationSupportMode,
   isInstallationWizardPreviewMode,
-  listCustomerFacingAssistanceActions,
   listCustomerFacingSupportModes,
   listInstallationLocales,
   listPreviewExampleAssistanceActions,
+  listRelevantInstallAssistanceActions,
   nextSafeStep,
   planInstallationSteps,
   previewStateAfterSupportSelect,
+  primaryInstallActionKeyForMode,
   redactSecretFieldValues,
   resolveCustomerSafeText,
+  resolveInstallSupportLifecycle,
   resolveInstallationTextDirection,
   resolveStepPresentation,
   selectDefaultCustomerFacingSupportMode,
   selectDefaultSupportMode,
   resolveInstallationContract,
-  waitingStateForSupportMode,
+  sessionStateAfterSupportConfirm,
+  waitingStateAfterRealHandoff,
   type InstallationAudience,
   type InstallationSessionSnapshot,
   type InstallationSupportMode,
@@ -31,6 +35,12 @@ import {
   type InstallationWizardLabels,
 } from "@/lib/app-portal/integrations/installation";
 import type { AppPortalIntegrationSetup, AppPortalIntegrationsLabels } from "@/lib/app-portal/integrations";
+
+/** Connect-route and other real install entry points — never inferred as preview. */
+export type InstallationWizardEntry =
+  | "connect_route"
+  | "preview_dialog"
+  | "unknown";
 
 type InstallationWizardProps = {
   providerKey: string;
@@ -42,10 +52,12 @@ type InstallationWizardProps = {
   /** When true, show internal technical copy (operators/partners). */
   showInternalDetails?: boolean;
   /**
-   * Explicit runtime mode. Default `install`.
+   * Explicit runtime mode. Connect route must pass `"install"`.
    * `preview` is read-only — no session, secret, test, or activation writes.
    */
-  mode?: InstallationWizardMode;
+  mode: InstallationWizardMode;
+  /** Documents which surface mounted the wizard (live connect vs preview dialog). */
+  entry?: InstallationWizardEntry;
 };
 
 function parseSession(raw: unknown): InstallationSessionSnapshot | null {
@@ -101,7 +113,8 @@ export function InstallationWizard({
   audience = "customer_owner",
   onReload,
   showInternalDetails = false,
-  mode = "install",
+  mode,
+  entry = "unknown",
 }: InstallationWizardProps) {
   const isPreview = isInstallationWizardPreviewMode(mode);
   const effectiveAudience: InstallationAudience = showInternalDetails
@@ -141,6 +154,9 @@ export function InstallationWizard({
   const [previewView, setPreviewView] = useState<InstallationWizardPreviewViewState>(() =>
     createInstallationWizardPreviewViewState()
   );
+  /** Local install support choice — never persisted until explicit Fortsett / handoff. */
+  const [localSupportMode, setLocalSupportMode] = useState<InstallationSupportMode | null>(null);
+  const [confirmInFlight, setConfirmInFlight] = useState(false);
   const [acting, setActing] = useState(false);
   const [handoffNotice, setHandoffNotice] = useState<string | null>(null);
   const [liveRegion, setLiveRegion] = useState("");
@@ -253,9 +269,12 @@ export function InstallationWizard({
   const completedKeys = isPreview
     ? previewView.completed_step_keys
     : (session?.completed_step_keys ?? []);
+  const installLifecycle = isPreview
+    ? null
+    : resolveInstallSupportLifecycle({ localSupportMode, session });
   const selectedSupportMode = isPreview
     ? previewView.support_mode
-    : session?.support_mode;
+    : (localSupportMode ?? session?.support_mode ?? null);
   const supportMode =
     selectedSupportMode ??
     selectDefaultCustomerFacingSupportMode(contract.support_modes) ??
@@ -281,12 +300,14 @@ export function InstallationWizard({
     : (session?.state ?? "not_started");
   const statusLabel = isPreview
     ? wizLabels.previewStatusForMode(selectedSupportMode)
-    : wizLabels.stateLabel(state);
+    : wizLabels.installStatusForLifecycle(
+        selectedSupportMode,
+        installLifecycle ?? "choose",
+        session?.state
+      );
   const responsibilityLabel = isPreview
     ? wizLabels.previewResponsibilityForMode(selectedSupportMode)
-    : wizLabels.responsibleParty(
-        current?.responsible_party ?? contract.responsible_party_default
-      );
+    : wizLabels.installResponsibilityForMode(selectedSupportMode);
   const presentation = current
     ? resolveStepPresentation(current, effectiveAudience)
     : null;
@@ -304,12 +325,25 @@ export function InstallationWizard({
         emptyFallback: wizLabels.reassurance,
       })
     : wizLabels.reassurance;
-  const customerAssistanceActions = listCustomerFacingAssistanceActions(
-    contract.assistance_actions
-  );
+  const installAssistanceActions =
+    !isPreview && installLifecycle
+      ? listRelevantInstallAssistanceActions({
+          actions: contract.assistance_actions,
+          supportMode: selectedSupportMode,
+          lifecycle: installLifecycle,
+        })
+      : [];
   const previewExampleActions = listPreviewExampleAssistanceActions(
     contract.assistance_actions
   );
+  const showContinueLater = !isPreview && canShowInstallContinueLater(session);
+  const onChooseSupportStep =
+    current?.step_type === "choose_support" ||
+    state === "support_selection" ||
+    state === "not_started" ||
+    (!isPreview &&
+      (installLifecycle === "choose" || installLifecycle === "selected") &&
+      !session?.support_mode);
 
   const jumpToPreviewStep = (stepKey: string) => {
     if (!isPreview) return;
@@ -369,17 +403,47 @@ export function InstallationWizard({
       setLiveRegion(wizLabels.supportModeLabel(selected));
       return;
     }
-    const waitState = waitingStateForSupportMode(selected);
-    await persistSession({
-      support_mode: selected,
-      state: selected === "self_service" || selected === "guided" ? "in_progress" : waitState,
-      current_step_key: "choose_support",
-      completed_step_keys: Array.from(
-        new Set([...completedKeys, "introduction", "choose_support"])
-      ),
-      reason: `support_mode:${selected}`,
-    });
+    // Install: local UI selection only — no session write, no awaiting_* yet.
+    setLocalSupportMode(selected);
+    setErrorSummary(null);
+    setHandoffNotice(null);
     setLiveRegion(wizLabels.supportModeLabel(selected));
+  };
+
+  const confirmSupportSelection = async (explicitMode?: InstallationSupportMode) => {
+    if (isPreview || confirmInFlight) return;
+    const modeToPersist = explicitMode ?? localSupportMode ?? session?.support_mode;
+    if (!modeToPersist) return;
+    setConfirmInFlight(true);
+    setActing(true);
+    setErrorSummary(null);
+    try {
+      const nextStep =
+        planned.find(
+          (s) => s.step_type !== "choose_support" && s.step_type !== "introduction"
+        )?.step_key ?? "choose_support";
+      const next = await persistSession({
+        support_mode: modeToPersist,
+        state: sessionStateAfterSupportConfirm(modeToPersist),
+        current_step_key: nextStep,
+        completed_step_keys: Array.from(
+          new Set([...completedKeys, "introduction", "choose_support"])
+        ),
+        paused: false,
+        reason: `confirm_support_mode:${modeToPersist}`,
+        idempotency_key: `confirm_support:${providerKey}:${modeToPersist}`,
+      });
+      if (!next) {
+        setErrorSummary(wizLabels.installSessionPersistError);
+        setLiveRegion(wizLabels.installSessionPersistError);
+        return;
+      }
+      setLocalSupportMode(null);
+      setLiveRegion(wizLabels.primaryContinue);
+    } finally {
+      setConfirmInFlight(false);
+      setActing(false);
+    }
   };
 
   const onContinueLater = async () => {
@@ -398,11 +462,35 @@ export function InstallationWizard({
   const onAssistance = async (actionKey: string) => {
     const action = contract.assistance_actions.find((a) => a.action_key === actionKey);
     if (!action) return;
-    if (action.support_mode) {
+    if (action.support_mode && actionKey !== primaryInstallActionKeyForMode(action.support_mode)) {
       await onSelectSupport(action.support_mode);
       return;
     }
     if (action.handoff === "coming_later" || action.requires_quote || action.requires_order) {
+      if (isPreview) {
+        blockPreviewWrite();
+        return;
+      }
+      const modeForHandoff = action.support_mode ?? selectedSupportMode ?? localSupportMode;
+      if (modeForHandoff) {
+        const wait = waitingStateAfterRealHandoff(modeForHandoff);
+        if (wait) {
+          const next = await persistSession({
+            support_mode: modeForHandoff,
+            state: wait,
+            completed_step_keys: Array.from(
+              new Set([...completedKeys, "introduction", "choose_support"])
+            ),
+            reason: `handoff:${actionKey}`,
+            idempotency_key: `handoff:${providerKey}:${actionKey}`,
+          });
+          if (!next) {
+            setErrorSummary(wizLabels.installSessionPersistError);
+            return;
+          }
+          setLocalSupportMode(null);
+        }
+      }
       setHandoffNotice(wizLabels.comingLater);
       setLiveRegion(wizLabels.comingLater);
       return;
@@ -412,22 +500,42 @@ export function InstallationWizard({
         blockPreviewWrite();
         return;
       }
-      const role =
-        actionKey.includes("partner")
-          ? "partner"
-          : actionKey.includes("provider")
-            ? "external_provider"
-            : "customer_it";
-      const res = await fetch("/api/app-portal/integrations/installation/invite", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ provider_key: providerKey, role }),
-      });
-      if (res.ok) {
+      if (actionKey.includes("partner")) return;
+      const role = actionKey.includes("provider") ? "external_provider" : "customer_it";
+      const modeForHandoff =
+        action.support_mode ?? selectedSupportMode ?? localSupportMode ?? "customer_it_managed";
+      setActing(true);
+      setErrorSummary(null);
+      try {
+        const res = await fetch("/api/app-portal/integrations/installation/invite", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ provider_key: providerKey, role }),
+        });
+        if (!res.ok) {
+          setErrorSummary(wizLabels.installSessionPersistError);
+          setLiveRegion(wizLabels.installSessionPersistError);
+          return;
+        }
+        const wait = waitingStateAfterRealHandoff(modeForHandoff) ?? "awaiting_customer_it";
+        const next = await persistSession({
+          support_mode: modeForHandoff,
+          state: wait,
+          completed_step_keys: Array.from(
+            new Set([...completedKeys, "introduction", "choose_support"])
+          ),
+          reason: `handoff:${actionKey}`,
+          idempotency_key: `handoff:${providerKey}:${actionKey}`,
+        });
+        if (!next) {
+          setErrorSummary(wizLabels.installSessionPersistError);
+          return;
+        }
+        setLocalSupportMode(null);
         setHandoffNotice(wizLabels.invitePlaceholder);
         setLiveRegion(wizLabels.invitePlaceholder);
-      } else {
-        setHandoffNotice(wizLabels.invitePlaceholder);
+      } finally {
+        setActing(false);
       }
       return;
     }
@@ -437,6 +545,15 @@ export function InstallationWizard({
         return;
       }
       window.location.href = "/app/support";
+      return;
+    }
+    if (actionKey === "self_service") {
+      if (isPreview) {
+        blockPreviewWrite();
+        return;
+      }
+      setLocalSupportMode("self_service");
+      await confirmSupportSelection("self_service");
       return;
     }
     if (actionKey === "continue_later") {
@@ -596,6 +713,7 @@ export function InstallationWizard({
       dir={dir}
       data-installation-locales={availableLocales.join(",")}
       data-installation-wizard-mode={mode}
+      data-installation-wizard-entry={entry}
       aria-labelledby="installation-wizard-title"
     >
       {isPreview ? (
@@ -724,8 +842,8 @@ export function InstallationWizard({
             </p>
           ) : null}
 
-          {current?.step_type === "choose_support" || state === "support_selection" || state === "not_started" ? (
-            <div className="space-y-3">
+          {onChooseSupportStep ? (
+            <div className="space-y-3" data-install-support-selection="true">
               <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">
                 {resolveCustomerSafeText(contract.steps.find((s) => s.step_type === "choose_support")?.title ?? {
                   kind: "locale_key",
@@ -733,21 +851,41 @@ export function InstallationWizard({
                 }, { locale, translate, emptyFallback: wizLabels.emptyFallback })}
               </h2>
               <ul className="grid gap-3 sm:grid-cols-2" data-customer-support-choices="true">
-                {visibleSupportModes.map((mode) => (
-                  <li key={mode}>
-                    <button
-                      type="button"
-                      disabled={acting}
-                      onClick={() => void onSelectSupport(mode)}
-                      className="flex min-h-12 w-full items-center justify-center rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-left text-sm font-medium text-slate-800 transition hover:border-violet-400 hover:bg-violet-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:hover:border-violet-400 dark:hover:bg-violet-950/40"
-                    >
-                      {wizLabels.supportModeLabel(mode)}
-                    </button>
-                  </li>
-                ))}
+                {visibleSupportModes.map((supportChoice) => {
+                  const selected = selectedSupportMode === supportChoice;
+                  return (
+                    <li key={supportChoice}>
+                      <button
+                        type="button"
+                        disabled={acting || confirmInFlight}
+                        aria-pressed={selected}
+                        onClick={() => void onSelectSupport(supportChoice)}
+                        className={[
+                          "flex min-h-12 w-full items-center justify-center rounded-xl border px-4 py-3 text-left text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600",
+                          selected
+                            ? "border-violet-500 bg-violet-50 text-violet-950 dark:border-violet-400 dark:bg-violet-950/50 dark:text-violet-50"
+                            : "border-slate-200 bg-slate-50 text-slate-800 hover:border-violet-400 hover:bg-violet-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:hover:border-violet-400 dark:hover:bg-violet-950/40",
+                        ].join(" ")}
+                      >
+                        {wizLabels.supportModeLabel(supportChoice)}
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
               {visibleSupportModes.includes("self_service") ? (
                 <p className="text-sm text-slate-500 dark:text-slate-400">{wizLabels.technicalRequired}</p>
+              ) : null}
+              {!isPreview && selectedSupportMode ? (
+                <button
+                  type="button"
+                  disabled={acting || confirmInFlight}
+                  data-confirm-support="true"
+                  onClick={() => void confirmSupportSelection()}
+                  className="inline-flex min-h-12 items-center rounded-xl bg-violet-600 px-5 py-3 text-sm font-semibold text-white hover:bg-violet-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 disabled:opacity-60"
+                >
+                  {confirmInFlight ? wizLabels.loading : wizLabels.primaryContinue}
+                </button>
               ) : null}
             </div>
           ) : null}
@@ -823,6 +961,7 @@ export function InstallationWizard({
           ) : null}
 
           {!isPreview &&
+          installLifecycle === "handed_off" &&
           (current?.step_type === "waiting_external_party" ||
             ["awaiting_aipify", "awaiting_partner", "awaiting_provider", "awaiting_customer_it"].includes(
               state
@@ -968,21 +1107,24 @@ export function InstallationWizard({
               </>
             ) : (
               <>
-                <button
-                  type="button"
-                  disabled={acting}
-                  onClick={() => void onContinueLater()}
-                  className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-medium text-slate-700 dark:border-slate-600 dark:text-slate-200"
-                >
-                  {wizLabels.continueLater}
-                </button>
+                {showContinueLater ? (
+                  <button
+                    type="button"
+                    disabled={acting}
+                    data-continue-later="true"
+                    onClick={() => void onContinueLater()}
+                    className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-medium text-slate-700 dark:border-slate-600 dark:text-slate-200"
+                  >
+                    {wizLabels.continueLater}
+                  </button>
+                ) : null}
                 {session?.paused ? (
                   <button
                     type="button"
                     disabled={acting}
                     onClick={() =>
                       void persistSession({
-                        state: supportMode === "aipify_managed" ? "awaiting_aipify" : "in_progress",
+                        state: "in_progress",
                         paused: false,
                         reason: "resume",
                       })
@@ -1001,18 +1143,13 @@ export function InstallationWizard({
           <div
             className="rounded-2xl border border-violet-500/25 bg-violet-500/5 p-4"
             data-preview-responsibility={isPreview ? "true" : undefined}
+            data-install-responsibility={!isPreview ? "true" : undefined}
           >
             <h2 className="text-sm font-semibold text-violet-900 dark:text-violet-100">
               {responsibilityLabel}
             </h2>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-              {isPreview
-                ? wizLabels.previewNotice
-                : resolveCustomerSafeText(contract.documentation.customer_help, {
-                    locale,
-                    translate,
-                    emptyFallback: wizLabels.reassurance,
-                  })}
+              {isPreview ? wizLabels.previewNotice : wizLabels.reassurance}
             </p>
           </div>
 
@@ -1020,56 +1157,62 @@ export function InstallationWizard({
             <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
               {isPreview
                 ? wizLabels.previewActionsExampleHeading
-                : resolveCustomerSafeText(
-                    {
-                      kind: "locale_key",
-                      key: "customerApp.portalStructure.integrations.installationWizard.actions.askAipifyHelp",
-                    },
-                    { locale, translate, emptyFallback: "Help" }
-                  )}
+                : wizLabels.installActionsHeading}
             </h2>
-            <ul className="mt-3 space-y-2" data-preview-actions={isPreview ? "true" : undefined}>
-              {isPreview
-                ? previewExampleActions.map((action) => {
-                    const label = resolveCustomerSafeText(action.label, {
-                      locale,
-                      translate,
-                      emptyFallback: action.action_key,
-                    });
-                    return (
-                      <li key={action.action_key}>
-                        <button
-                          type="button"
-                          disabled
-                          title={wizLabels.previewActionsUnavailable}
-                          aria-disabled="true"
-                          className="w-full cursor-not-allowed rounded-lg border border-slate-200 px-3 py-2 text-left text-sm text-slate-500 opacity-70 dark:border-slate-600 dark:text-slate-400"
-                        >
-                          {label}
-                        </button>
-                      </li>
-                    );
-                  })
-                : customerAssistanceActions.map((action) => {
-                    const label = resolveCustomerSafeText(action.label, {
-                      locale,
-                      translate,
-                      emptyFallback: action.action_key,
-                    });
-                    return (
-                      <li key={action.action_key}>
-                        <button
-                          type="button"
-                          disabled={acting}
-                          onClick={() => void onAssistance(action.action_key)}
-                          className="w-full rounded-lg border border-slate-200 px-3 py-2 text-left text-sm text-slate-700 hover:border-violet-400 dark:border-slate-600 dark:text-slate-200"
-                        >
-                          {label}
-                        </button>
-                      </li>
-                    );
-                  })}
-            </ul>
+            {isPreview ? (
+              <ul className="mt-3 space-y-2" data-preview-actions="true">
+                {previewExampleActions.map((action) => {
+                  const label = resolveCustomerSafeText(action.label, {
+                    locale,
+                    translate,
+                    emptyFallback: action.action_key,
+                  });
+                  return (
+                    <li key={action.action_key}>
+                      <button
+                        type="button"
+                        disabled
+                        title={wizLabels.previewActionsUnavailable}
+                        aria-disabled="true"
+                        className="w-full cursor-not-allowed rounded-lg border border-slate-200 px-3 py-2 text-left text-sm text-slate-500 opacity-70 dark:border-slate-600 dark:text-slate-400"
+                      >
+                        {label}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : installLifecycle === "choose" || !selectedSupportMode ? (
+              <p className="mt-3 text-sm text-slate-600 dark:text-slate-300" data-install-actions="empty">
+                {wizLabels.installActionsChooseHint}
+              </p>
+            ) : (
+              <ul className="mt-3 space-y-2" data-install-actions="relevant">
+                {installAssistanceActions.map((action) => {
+                  const modeKey = selectedSupportMode;
+                  const label =
+                    modeKey && primaryInstallActionKeyForMode(modeKey) === action.action_key
+                      ? wizLabels.installPrimaryActionLabel(modeKey)
+                      : resolveCustomerSafeText(action.label, {
+                          locale,
+                          translate,
+                          emptyFallback: action.action_key,
+                        });
+                  return (
+                    <li key={action.action_key}>
+                      <button
+                        type="button"
+                        disabled={acting || confirmInFlight}
+                        onClick={() => void onAssistance(action.action_key)}
+                        className="w-full rounded-lg border border-violet-300 bg-violet-50 px-3 py-2 text-left text-sm font-medium text-violet-950 hover:border-violet-500 dark:border-violet-500/40 dark:bg-violet-950/40 dark:text-violet-50"
+                      >
+                        {label}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
         </aside>
       </div>

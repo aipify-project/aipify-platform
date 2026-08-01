@@ -1367,6 +1367,31 @@
             "selfService": "Du utför stegen själv. Aipify kan hjälpa vid behov",
             "customerItManaged": "Din IT-leverantör utför de tekniska stegen"
           }
+        },
+        "install": {
+          "actionsChooseHint": "Välj hur installationen ska göras för att se nästa steg.",
+          "actionsHeading": "Nästa steg",
+          "sessionPersistError": "Aipify kunde inte spara ditt val. Försök igen.",
+          "primaryActions": {
+            "aipifyManaged": "Be Aipify sköta installationen",
+            "guided": "Boka vägledd installation",
+            "selfService": "Starta självbetjäning",
+            "customerItManaged": "Bjud in IT-leverantör"
+          },
+          "status": {
+            "choose": "Välj hur installationen ska göras",
+            "aipifyManaged": "Redo att be Aipify om installation",
+            "guided": "Redo för vägledd installation",
+            "selfService": "Redo för självbetjäning",
+            "customerItManaged": "Redo för IT-leverantör"
+          },
+          "responsibility": {
+            "choose": "Välj installationsmetod för att se vem som ansvarar.",
+            "aipifyManaged": "Du behöver bara godkänna det vi ber om.",
+            "guided": "Aipify vägleder dig steg för steg.",
+            "selfService": "Du utför stegen själv. Aipify kan hjälpa vid behov.",
+            "customerItManaged": "Din IT-leverantör utför de tekniska stegen."
+          }
         }
       }
     },
