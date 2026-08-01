@@ -75,7 +75,7 @@ assert.deepEqual(modes, [
   "self_service",
   "customer_it_managed",
 ]);
-assert.equal(modes.includes("partner_managed"), false);
+assert.equal((modes as readonly string[]).includes("partner_managed"), false);
 assert.equal(modes.length <= 4, true);
 
 const withoutIt = listCustomerFacingSupportModes([
