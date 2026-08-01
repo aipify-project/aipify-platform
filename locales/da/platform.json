@@ -6733,12 +6733,20 @@
     "fixtures": "Forhåndsvisning af fem modi",
     "save": "Gem kontrakt",
     "saved": "Kontrakt gemt",
-    "invalidContract": "Ugyldig onboardingkontrakt — lagring blokeret",
+    "invalidContract": "Provider-kontrakten er ugyldig",
     "denied": "Kræver platform admin-adgang",
     "advancedEditor": "Avanceret kontrakteditor",
     "selectProvider": "Vælg en provider",
     "available": "Tilgængelig",
     "unavailable": "Utilgængelig",
-    "preview": "Forhåndsvisningstilstand"
+    "preview": "Forhåndsvisningstilstand",
+    "pageLoadFailed": "Siden kunne ikke indlæses",
+    "retry": "Prøv igen",
+    "goBack": "Gå tilbage",
+    "invalidContractBody": "Denne provider skal korrigeres, før den kan bruges.",
+    "partialLoadWarning": "Nogle providerdata kunne ikke indlæses. Resten af siden er stadig tilgængelig.",
+    "openContract": "Åbn kontrakten",
+    "contactAdmin": "Kontakt administrator",
+    "technicalReference": "Teknisk reference"
   }
 }

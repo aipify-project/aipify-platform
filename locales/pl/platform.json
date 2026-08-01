@@ -7287,12 +7287,20 @@
     "fixtures": "Podgląd pięciu trybów",
     "save": "Zapisz kontrakt",
     "saved": "Kontrakt zapisany",
-    "invalidContract": "Nieprawidłowy kontrakt onboardingowy — zapis zablokowany",
+    "invalidContract": "Kontrakt dostawcy jest nieprawidłowy",
     "denied": "Wymagany dostęp administratora platformy",
     "advancedEditor": "Zaawansowany edytor kontraktu",
     "selectProvider": "Wybierz dostawcę",
     "available": "Dostępny",
     "unavailable": "Niedostępny",
-    "preview": "Tryb podglądu"
+    "preview": "Tryb podglądu",
+    "pageLoadFailed": "Nie udało się wczytać strony",
+    "retry": "Spróbuj ponownie",
+    "goBack": "Wróć",
+    "invalidContractBody": "Ten dostawca musi zostać poprawiony, zanim będzie można go użyć.",
+    "partialLoadWarning": "Nie udało się wczytać części danych dostawcy. Reszta strony jest nadal dostępna.",
+    "openContract": "Otwórz kontrakt",
+    "contactAdmin": "Skontaktuj się z administratorem",
+    "technicalReference": "Odwołanie techniczne"
   }
 }

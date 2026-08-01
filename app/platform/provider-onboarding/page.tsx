@@ -2,6 +2,7 @@ import { PlatformProviderOnboardingPanel } from "@/components/platform/provider-
 import { getCustomerAppPageDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
+import { buildPlatformProviderOnboardingPanelProps } from "@/lib/platform/provider-onboarding/panel-props";
 
 export default async function PlatformProviderOnboardingPage() {
   const locale = await getLocale();
@@ -10,27 +11,12 @@ export default async function PlatformProviderOnboardingPage() {
     namespaces: ["platform"],
   });
   const t = createTranslator(dict);
+  const props = buildPlatformProviderOnboardingPanelProps(t);
 
   return (
     <PlatformProviderOnboardingPanel
-      translate={(key) => t(key)}
-      labels={{
-        title: t("platform.providerOnboarding.title"),
-        subtitle: t("platform.providerOnboarding.subtitle"),
-        loading: t("platform.providerOnboarding.loading"),
-        loadFailed: t("platform.providerOnboarding.loadFailed"),
-        providers: t("platform.providerOnboarding.providers"),
-        fixtures: t("platform.providerOnboarding.fixtures"),
-        save: t("platform.providerOnboarding.save"),
-        saved: t("platform.providerOnboarding.saved"),
-        invalidContract: t("platform.providerOnboarding.invalidContract"),
-        denied: t("platform.providerOnboarding.denied"),
-        advancedEditor: t("platform.providerOnboarding.advancedEditor"),
-        selectProvider: t("platform.providerOnboarding.selectProvider"),
-        available: t("platform.providerOnboarding.available"),
-        unavailable: t("platform.providerOnboarding.unavailable"),
-        preview: t("platform.providerOnboarding.preview"),
-      }}
+      messageCatalog={props.messageCatalog}
+      labels={props.labels}
     />
   );
 }

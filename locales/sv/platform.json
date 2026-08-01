@@ -7287,12 +7287,20 @@
     "fixtures": "Förhandsvisning av fem lägen",
     "save": "Spara kontrakt",
     "saved": "Kontrakt sparat",
-    "invalidContract": "Ogiltigt onboardingkontrakt — sparning blockerad",
+    "invalidContract": "Leverantörskontraktet är ogiltigt",
     "denied": "Kräver plattformsadmin",
     "advancedEditor": "Avancerad kontraktredigerare",
     "selectProvider": "Välj en provider",
     "available": "Tillgänglig",
     "unavailable": "Otillgänglig",
-    "preview": "Förhandsvisningsläge"
+    "preview": "Förhandsvisningsläge",
+    "pageLoadFailed": "Sidan kunde inte laddas",
+    "retry": "Försök igen",
+    "goBack": "Gå tillbaka",
+    "invalidContractBody": "Denna leverantör måste korrigeras innan den kan användas.",
+    "partialLoadWarning": "Vissa leverantörsdata kunde inte laddas. Resten av sidan är fortfarande tillgänglig.",
+    "openContract": "Öppna kontraktet",
+    "contactAdmin": "Kontakta administratör",
+    "technicalReference": "Teknisk referens"
   }
 }

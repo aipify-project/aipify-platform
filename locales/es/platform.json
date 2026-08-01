@@ -454,12 +454,20 @@
     "fixtures": "Vista previa de cinco modos",
     "save": "Guardar contrato",
     "saved": "Contrato guardado",
-    "invalidContract": "Contrato de onboarding no válido — guardado bloqueado",
+    "invalidContract": "El contrato del proveedor no es válido",
     "denied": "Se requiere acceso de administrador de plataforma",
     "advancedEditor": "Editor avanzado de contrato",
     "selectProvider": "Selecciona un proveedor",
     "available": "Disponible",
     "unavailable": "No disponible",
-    "preview": "Modo de vista previa"
+    "preview": "Modo de vista previa",
+    "pageLoadFailed": "No se pudo cargar la página",
+    "retry": "Intentar de nuevo",
+    "goBack": "Volver",
+    "invalidContractBody": "Este proveedor debe corregirse antes de poder usarse.",
+    "partialLoadWarning": "No se pudieron cargar algunos datos del proveedor. El resto de la página sigue disponible.",
+    "openContract": "Abrir el contrato",
+    "contactAdmin": "Contactar al administrador",
+    "technicalReference": "Referencia técnica"
   }
 }
