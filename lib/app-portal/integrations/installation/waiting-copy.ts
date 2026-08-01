@@ -37,9 +37,8 @@ export function resolveInstallationWaitingCopyParty(opts: {
 
   if (state === "awaiting_customer_it") return "customer_it";
   if (state === "awaiting_partner") return "partner";
-  if (state === "awaiting_aipify") {
-    return mode === "guided" ? "aipify_guided" : "aipify";
-  }
+  // Guided already returned above via support_mode; remaining awaiting_aipify → Aipify.
+  if (state === "awaiting_aipify") return "aipify";
 
   return "unknown";
 }
