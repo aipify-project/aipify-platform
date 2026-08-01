@@ -29,6 +29,13 @@ See task stream `AIPIFY.CORE.PROVIDER.ONBOARDING.CONNECTOR.DISTRIBUTION.V1`.
 12. **i18n required** for modes, support, readiness, responsibilities, and states.
 13. **Premium responsive design** required for onboarding surfaces.
 14. Full e2e customer integration readiness is separate from Core onboarding/distribution Production Ready.
+15. **One invalid provider must not crash the Platform route** (`/platform/provider-onboarding`).
+16. **Partial failure is isolated per provider** — invalid contracts render a blocker card; valid providers still render.
+17. **Security-critical fields remain fail-closed** (mode, scopes, URLs, secrets, package checksum/signature).
+18. **Non-critical display fields may use safe fallback** — never hide security/data corruption.
+19. **Never pass functions from Server Components into Client Components** — use serializable `messageCatalog` / labels only (RSC digest `340189304` class).
+20. **Authenticated Production route verification is required** before Production Ready.
+21. **No Production Ready from build/Preview alone** — manual live route proof on `app.aipify.ai` is mandatory.
 
 ## Forbidden
 
@@ -37,3 +44,5 @@ See task stream `AIPIFY.CORE.PROVIDER.ONBOARDING.CONNECTOR.DISTRIBUTION.V1`.
 - Arbitrary shell execution or unvalidated install command rendering
 - Unsafe file hosting without checksum/signature metadata
 - Mixing vault/secret encryption changes into onboarding contract work
+- Declaring Production Ready without authenticated live `/platform/provider-onboarding` proof
+- Letting a single bad provider contract crash the entire Platform page

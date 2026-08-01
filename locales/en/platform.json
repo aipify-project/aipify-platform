@@ -7287,12 +7287,20 @@
     "fixtures": "Five-mode fixture preview",
     "save": "Save contract",
     "saved": "Contract saved",
-    "invalidContract": "Invalid onboarding contract — save blocked",
+    "invalidContract": "The provider contract is invalid",
     "denied": "Platform admin access required",
     "advancedEditor": "Advanced contract editor",
     "selectProvider": "Select a provider",
     "available": "Available",
     "unavailable": "Unavailable",
-    "preview": "Preview mode"
+    "preview": "Preview mode",
+    "pageLoadFailed": "This page couldn't load",
+    "retry": "Try again",
+    "goBack": "Go back",
+    "invalidContractBody": "This provider must be corrected before it can be used.",
+    "partialLoadWarning": "Some provider data could not be loaded. The rest of the page is still available.",
+    "openContract": "Open the contract",
+    "contactAdmin": "Contact an administrator",
+    "technicalReference": "Technical reference"
   }
 }

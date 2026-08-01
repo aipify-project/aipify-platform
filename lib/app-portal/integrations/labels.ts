@@ -36,7 +36,8 @@ function buildAuthHelpProviderLabels(
 }
 
 
-function buildOnboardingMessageCatalog(t: Translator): Record<string, string> {
+/** Serializable onboarding copy for Client Components — never pass translator functions across the RSC boundary. */
+export function buildOnboardingMessageCatalog(t: Translator): Record<string, string> {
   const root = "customerApp.portalStructure.integrations.onboarding";
   // Enumerate known leaves so missing locale keys fail closed to translator fallback.
   const keys = [
