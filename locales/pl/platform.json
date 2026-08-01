@@ -219,7 +219,8 @@
     "unonightPilot": "Kontrola pilotażu Unonight",
     "licenses": "Licencje",
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification"
+    "websiteReleaseVerification": "Website Release Verification",
+    "providerOnboarding": "Onboarding dostawców"
   },
   "executive": {
     "title": "Centrum wykonawcze",
@@ -7276,5 +7277,22 @@
       "installationStatus": "Status instalacji",
       "deliveryStatus": "Status dostawy"
     }
+  },
+  "providerOnboarding": {
+    "title": "Onboarding dostawców i dystrybucja łączników",
+    "subtitle": "Zarządzaj kontraktami onboardingowymi Core, gotowością, wsparciem i metadanymi łączników. APP renderuje je generycznie.",
+    "loading": "Ładowanie kontraktów dostawców…",
+    "loadFailed": "Nie udało się załadować kontraktów dostawców.",
+    "providers": "Dostawcy",
+    "fixtures": "Podgląd pięciu trybów",
+    "save": "Zapisz kontrakt",
+    "saved": "Kontrakt zapisany",
+    "invalidContract": "Nieprawidłowy kontrakt onboardingowy — zapis zablokowany",
+    "denied": "Wymagany dostęp administratora platformy",
+    "advancedEditor": "Zaawansowany edytor kontraktu",
+    "selectProvider": "Wybierz dostawcę",
+    "available": "Dostępny",
+    "unavailable": "Niedostępny",
+    "preview": "Tryb podglądu"
   }
 }

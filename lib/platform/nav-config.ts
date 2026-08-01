@@ -4,6 +4,7 @@ export type PlatformNavId =
   | "aosCore"
   | "companionPersonality"
   | "verifiedProviders"
+  | "providerOnboarding"
   | "developerEcosystem"
   | "ecosystemCenter"
   | "businessPackRuntime"
@@ -271,6 +272,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
     id: "verifiedProviders",
     href: "/platform/providers",
     labelKey: "platform.nav.verifiedProviders",
+  },
+  {
+    id: "providerOnboarding",
+    href: "/platform/provider-onboarding",
+    labelKey: "platform.nav.providerOnboarding",
   },
   {
     id: "developerEcosystem",
@@ -583,6 +589,7 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/business-pack-runtime")) return "businessPackRuntime";
   if (pathname.startsWith("/platform/reliability")) return "reliabilityOperations";
   if (pathname.startsWith("/platform/change-operations")) return "changeOperations";
+  if (pathname.startsWith("/platform/provider-onboarding")) return "providerOnboarding";
   if (pathname.startsWith("/platform/providers")) return "verifiedProviders";
   if (pathname.startsWith("/platform/operations/build-health")) return "buildHealthCenter";
   if (pathname.startsWith("/platform/operations/route-registry")) return "buildHealthCenter";

@@ -72,6 +72,13 @@ export type AppPortalIntegrationSetup = {
   oauth_steps: string[];
   /** Raw registry contract JSON — parse with parseCoreAppIntegrationProviderContract. */
   presentation_contract?: unknown;
+  /** Raw authoritative Core onboarding/distribution contract; parse before use. */
+  onboarding_contract?: unknown;
+  installation_state?: string;
+  readiness_level?: string | null;
+  support_level?: string | null;
+  onboarding_mode?: string | null;
+  safe_actions?: Record<string, boolean>;
 };
 
 export type IntegrationPlainLanguageLabels = {

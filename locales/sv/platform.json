@@ -219,7 +219,8 @@
     "unonightPilot": "Unonight pilotkontroll",
     "licenses": "Licenser",
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification"
+    "websiteReleaseVerification": "Website Release Verification",
+    "providerOnboarding": "Provider-onboarding"
   },
   "executive": {
     "title": "Executive Center",
@@ -7276,5 +7277,22 @@
       "installationStatus": "Installationsstatus",
       "deliveryStatus": "Leveransstatus"
     }
+  },
+  "providerOnboarding": {
+    "title": "Provider-onboarding och connector-distribution",
+    "subtitle": "Administrera Core-onboardingkontrakt, readiness, supportnivå och connector-metadata. APP renderar kontrakten generiskt.",
+    "loading": "Laddar providerkontrakt…",
+    "loadFailed": "Kunde inte ladda providerkontrakt.",
+    "providers": "Providers",
+    "fixtures": "Förhandsvisning av fem lägen",
+    "save": "Spara kontrakt",
+    "saved": "Kontrakt sparat",
+    "invalidContract": "Ogiltigt onboardingkontrakt — sparning blockerad",
+    "denied": "Kräver plattformsadmin",
+    "advancedEditor": "Avancerad kontraktredigerare",
+    "selectProvider": "Välj en provider",
+    "available": "Tillgänglig",
+    "unavailable": "Otillgänglig",
+    "preview": "Förhandsvisningsläge"
   }
 }

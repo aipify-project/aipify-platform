@@ -219,7 +219,8 @@
     "unonightPilot": "Unonight Pilot Control",
     "licenses": "Ліцензії",
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification"
+    "websiteReleaseVerification": "Website Release Verification",
+    "providerOnboarding": "Онбординг провайдерів"
   },
   "executive": {
     "title": "Виконавчий центр",
@@ -7276,5 +7277,22 @@
       "installationStatus": "Статус встановлення",
       "deliveryStatus": "Статус доставки"
     }
+  },
+  "providerOnboarding": {
+    "title": "Онбординг провайдерів і дистрибуція конекторів",
+    "subtitle": "Керуйте контрактами онбордингу Core, готовністю, підтримкою та метаданими конекторів. APP відображає їх універсально.",
+    "loading": "Завантаження контрактів провайдерів…",
+    "loadFailed": "Не вдалося завантажити контракти провайдерів.",
+    "providers": "Провайдери",
+    "fixtures": "Перегляд п’яти режимів",
+    "save": "Зберегти контракт",
+    "saved": "Контракт збережено",
+    "invalidContract": "Недійсний контракт онбордингу — збереження заблоковано",
+    "denied": "Потрібен доступ адміністратора платформи",
+    "advancedEditor": "Розширений редактор контракту",
+    "selectProvider": "Виберіть провайдера",
+    "available": "Доступний",
+    "unavailable": "Недоступний",
+    "preview": "Режим попереднього перегляду"
   }
 }

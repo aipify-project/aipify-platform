@@ -35,6 +35,52 @@ function buildAuthHelpProviderLabels(
   return entries;
 }
 
+
+function buildOnboardingMessageCatalog(t: Translator): Record<string, string> {
+  const root = "customerApp.portalStructure.integrations.onboarding";
+  // Enumerate known leaves so missing locale keys fail closed to translator fallback.
+  const keys = [
+    "title", "subtitle", "noServerAccessNotice", "connectProvider", "installConnector", "openAdmin",
+    "authorizeAccess", "customerActionRequired", "aipifyActionRequired", "providerActionRequired",
+    "connectorVersion", "compatibleWith", "updateAvailable", "technicalImplementationRequired",
+    "responsibilitiesTitle", "customerRole", "aipifyRole", "providerRole", "partnerRole", "docsTitle",
+    "packageTitle", "checksum", "signature", "releaseChannel", "marketplace", "download", "installGuide",
+    "upgradeGuide", "uninstallGuide", "healthCheck", "displayOnlyCommand", "apiKey", "install", "provision",
+    "customEffort", "policy.standard",
+    "fields.implementationOwner", "fields.distributionChannel", "fields.installTarget", "fields.provider",
+    "fields.onboardingMode", "fields.readiness", "fields.support", "fields.installationState",
+    "modes.oauth", "modes.api_key_existing_provider", "modes.installable_connector",
+    "modes.aipify_hosted_connector", "modes.custom_provider_implementation",
+    "channels.provider_marketplace", "channels.direct_download", "channels.package_registry",
+    "channels.container_image", "channels.customer_developer", "channels.aipify_managed", "channels.not_applicable",
+    "owners.provider", "owners.customer", "owners.aipify", "owners.shared",
+    "readiness.reference_only", "readiness.development", "readiness.preview", "readiness.production_ready",
+    "readiness.deprecated", "readiness.blocked", "readiness.unsupported",
+    "support.self_service", "support.guided", "support.aipify_managed", "support.partner_managed",
+    "support.customer_managed", "support.unsupported",
+    "installTargets.none", "installTargets.provider_saas", "installTargets.customer_server",
+    "installTargets.customer_cms", "installTargets.customer_ecommerce", "installTargets.customer_cloud",
+    "installTargets.customer_container_platform", "installTargets.aipify_cloud",
+    "installTargets.customer_custom_system",
+    "states.not_started", "states.requirements_pending", "states.awaiting_customer_action",
+    "states.awaiting_provider_action", "states.awaiting_aipify_action", "states.installation_in_progress",
+    "states.credential_required", "states.credential_stored", "states.connection_test_required",
+    "states.connection_test_failed", "states.verified", "states.activation_required", "states.active",
+    "states.update_available", "states.upgrade_in_progress", "states.degraded", "states.suspended",
+    "states.revoke_required", "states.uninstall_pending", "states.removed", "states.blocked", "states.unsupported",
+    "responsibilities.customerApprove", "responsibilities.aipifyVerify", "responsibilities.customerInstall",
+    "responsibilities.customerCredential", "responsibilities.customerScopes", "responsibilities.customerNetwork",
+    "responsibilities.aipifyContract", "responsibilities.aipifyMonitor", "responsibilities.providerIssue",
+    "responsibilities.providerLimits", "responsibilities.partnerAssist",
+    "docs.gettingStarted", "docs.installation", "docs.credentialSetup", "docs.permissions", "docs.testing",
+    "docs.troubleshooting", "docs.upgrade", "docs.uninstall", "docs.security", "docs.privacy", "docs.support",
+    "unonight.begin", "unonight.verify", "commerce_provider.begin", "commerce_provider.verify",
+    "cms_provider.begin", "cms_provider.verify", "hosted_connector.begin", "hosted_connector.verify",
+    "custom_erp.begin", "custom_erp.verify",
+  ].map((suffix) => `${root}.${suffix}`);
+  return Object.fromEntries(keys.map((key) => [key, t(key)]));
+}
+
 function buildIntegrationMessageCatalog(t: Translator): Record<string, string> {
   const keys = [
     ...listIntegrationErrorTranslationKeys(),
@@ -42,7 +88,10 @@ function buildIntegrationMessageCatalog(t: Translator): Record<string, string> {
     // Adapter failure keys remain for server-side message mapping (Class A).
     ...listUnonightFailureTranslationKeys(),
   ];
-  return Object.fromEntries(keys.map((key) => [key, t(key)]));
+  return {
+    ...Object.fromEntries(keys.map((key) => [key, t(key)])),
+    ...buildOnboardingMessageCatalog(t),
+  };
 }
 
 export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegrationsLabels {

@@ -219,7 +219,8 @@
     "unonightPilot": "Unonight Pilot Control",
     "licenses": "Licenses",
     "kompisAi": "Kompis AI",
-    "websiteReleaseVerification": "Website Release Verification"
+    "websiteReleaseVerification": "Website Release Verification",
+    "providerOnboarding": "Provider onboarding"
   },
   "executive": {
     "title": "Executive Center",
@@ -7276,5 +7277,22 @@
       "installationStatus": "Installation status",
       "deliveryStatus": "Delivery status"
     }
+  },
+  "providerOnboarding": {
+    "title": "Provider onboarding & connector distribution",
+    "subtitle": "Administer Core onboarding contracts, readiness, support levels, and connector metadata. APP renders these contracts generically.",
+    "loading": "Loading provider contracts…",
+    "loadFailed": "Could not load provider contracts.",
+    "providers": "Providers",
+    "fixtures": "Five-mode fixture preview",
+    "save": "Save contract",
+    "saved": "Contract saved",
+    "invalidContract": "Invalid onboarding contract — save blocked",
+    "denied": "Platform admin access required",
+    "advancedEditor": "Advanced contract editor",
+    "selectProvider": "Select a provider",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "preview": "Preview mode"
   }
 }
