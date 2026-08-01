@@ -1198,6 +1198,12 @@
         "invitePlaceholder": "Inbjudan är förberedd som en säker överlämning. Fullständig inbjudansleverans kommer i en senare version.",
         "loading": "Förbereder installationen",
         "waiting": "Väntar på ansvarig part",
+        "waitingByParty": {
+          "aipify": "Väntar på Aipify",
+          "aipifyGuided": "Väntar på vägledning från Aipify",
+          "customerIt": "Väntar på IT-leverantör",
+          "partner": "Väntar på Aipifys samarbetspartner"
+        },
         "blocked": "Installationen är blockerad tills problemet är löst",
         "error": "Något oväntat hände. Försök igen eller be Aipify om hjälp.",
         "completed": "Installationen är klar",

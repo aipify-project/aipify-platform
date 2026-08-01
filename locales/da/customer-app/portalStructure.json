@@ -1198,6 +1198,12 @@
         "invitePlaceholder": "Invitationen er forberedt som en sikker overdragelse. Fuld invitationslevering kommer i en senere version.",
         "loading": "Forbereder opsætning",
         "waiting": "Afventer den ansvarlige part",
+        "waitingByParty": {
+          "aipify": "Afventer Aipify",
+          "aipifyGuided": "Afventer vejledning fra Aipify",
+          "customerIt": "Afventer IT-leverandør",
+          "partner": "Afventer Aipifys samarbejdspartner"
+        },
         "blocked": "Opsætningen er blokeret, indtil problemet er løst",
         "error": "Noget uventet skete. Prøv igen, eller bed Aipify om hjælp.",
         "completed": "Opsætningen er fuldført",

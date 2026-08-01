@@ -1199,6 +1199,12 @@
         "invitePlaceholder": "Invitasjonen er forberedt som en sikker overlevering. Full invitasjonslevering kommer i en senere versjon.",
         "loading": "Forbereder oppsett",
         "waiting": "Venter på ansvarlig part",
+        "waitingByParty": {
+          "aipify": "Venter på Aipify",
+          "aipifyGuided": "Venter på veiledning fra Aipify",
+          "customerIt": "Venter på IT-leverandør",
+          "partner": "Venter på Aipifys samarbeidspartner"
+        },
         "blocked": "Oppsettet er blokkert til problemet er løst",
         "error": "Noe uventet skjedde. Prøv igjen eller be Aipify om hjelp.",
         "completed": "Oppsettet er fullført",
