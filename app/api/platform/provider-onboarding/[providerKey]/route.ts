@@ -16,7 +16,18 @@ export async function GET(_request: Request, context: RouteContext) {
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 403, headers: NO_STORE });
     }
-    return NextResponse.json(data ?? {}, { headers: NO_STORE });
+
+    const { data: history } = await supabase
+      .from("platform_provider_contract_audit")
+      .select("created_at, action, onboarding_mode")
+      .eq("provider_key", providerKey)
+      .order("created_at", { ascending: false })
+      .limit(20);
+
+    return NextResponse.json(
+      { ...(data ?? {}), history: history ?? [] },
+      { headers: NO_STORE }
+    );
   } catch {
     return NextResponse.json({ error: "Failed to load provider contract" }, { status: 500, headers: NO_STORE });
   }

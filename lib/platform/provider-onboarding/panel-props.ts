@@ -1,5 +1,19 @@
 import { buildOnboardingMessageCatalog } from "@/lib/app-portal/integrations/labels";
 import type { Translator } from "@/lib/i18n/translate";
+import { buildPlatformProviderOnboardingLabels } from "./admin-labels";
+
+export type ProviderAdminStatusLabels = {
+  active: string;
+  production_ready: string;
+  preview: string;
+  development: string;
+  not_available_yet: string;
+  blocked: string;
+  contract_required: string;
+  contract_invalid: string;
+  deprecated: string;
+  reference_only: string;
+};
 
 export type PlatformProviderOnboardingLabels = {
   title: string;
@@ -26,6 +40,55 @@ export type PlatformProviderOnboardingLabels = {
   unavailable: string;
   preview: string;
   backHref: string;
+  searchPlaceholder: string;
+  filterAll: string;
+  filterAvailable: string;
+  filterReference: string;
+  filterNeedsContract: string;
+  filterInvalid: string;
+  tabOverview: string;
+  tabEdit: string;
+  tabPreview: string;
+  tabAdvancedJson: string;
+  editContract: string;
+  previewInApp: string;
+  validateContract: string;
+  viewHistory: string;
+  advancedJsonWarning: string;
+  formatJson: string;
+  copyJson: string;
+  resetJson: string;
+  unsavedChanges: string;
+  cancel: string;
+  createContract: string;
+  contractMissing: string;
+  contractMissingBody: string;
+  referenceBadge: string;
+  referenceOnlyNotice: string;
+  previewPurpose: string;
+  previewDesktop: string;
+  previewMobile: string;
+  previewLight: string;
+  previewDark: string;
+  showDetails: string;
+  validateContracts: string;
+  openFirstIssue: string;
+  issuesCount: string;
+  providerKeySecondary: string;
+  lastUpdated: string;
+  sectionBasics: string;
+  sectionConnection: string;
+  sectionCapabilities: string;
+  sectionScopes: string;
+  sectionResponsibilities: string;
+  sectionDocs: string;
+  sectionPolicies: string;
+  validationPassed: string;
+  validationFailed: string;
+  dirtyIndicator: string;
+  openProviderList: string;
+  closeProviderList: string;
+  status: ProviderAdminStatusLabels;
 };
 
 export type PlatformProviderOnboardingPanelSerializableProps = {
@@ -33,41 +96,12 @@ export type PlatformProviderOnboardingPanelSerializableProps = {
   messageCatalog: Record<string, string>;
 };
 
-/**
- * Build Client Component props for Platform provider onboarding.
- * Must remain JSON-serializable — never include translator/functions (RSC → client).
- */
 export function buildPlatformProviderOnboardingPanelProps(
   t: Translator
 ): PlatformProviderOnboardingPanelSerializableProps {
   return {
     messageCatalog: buildOnboardingMessageCatalog(t),
-    labels: {
-      title: t("platform.providerOnboarding.title"),
-      subtitle: t("platform.providerOnboarding.subtitle"),
-      loading: t("platform.providerOnboarding.loading"),
-      loadFailed: t("platform.providerOnboarding.loadFailed"),
-      pageLoadFailed: t("platform.providerOnboarding.pageLoadFailed"),
-      retry: t("platform.providerOnboarding.retry"),
-      goBack: t("platform.providerOnboarding.goBack"),
-      providers: t("platform.providerOnboarding.providers"),
-      fixtures: t("platform.providerOnboarding.fixtures"),
-      save: t("platform.providerOnboarding.save"),
-      saved: t("platform.providerOnboarding.saved"),
-      invalidContract: t("platform.providerOnboarding.invalidContract"),
-      invalidContractBody: t("platform.providerOnboarding.invalidContractBody"),
-      partialLoadWarning: t("platform.providerOnboarding.partialLoadWarning"),
-      openContract: t("platform.providerOnboarding.openContract"),
-      contactAdmin: t("platform.providerOnboarding.contactAdmin"),
-      technicalReference: t("platform.providerOnboarding.technicalReference"),
-      denied: t("platform.providerOnboarding.denied"),
-      advancedEditor: t("platform.providerOnboarding.advancedEditor"),
-      selectProvider: t("platform.providerOnboarding.selectProvider"),
-      available: t("platform.providerOnboarding.available"),
-      unavailable: t("platform.providerOnboarding.unavailable"),
-      preview: t("platform.providerOnboarding.preview"),
-      backHref: "/platform",
-    },
+    labels: buildPlatformProviderOnboardingLabels(t),
   };
 }
 
@@ -92,6 +126,5 @@ export function assertSerializableClientProps(value: unknown): void {
     }
   };
   walk(value, "props");
-  // Also ensure JSON round-trip (Date/Map/etc. would fail here if introduced).
   JSON.parse(JSON.stringify(value));
 }
