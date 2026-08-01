@@ -541,7 +541,12 @@ export function InstallationWizard({
           ) : null}
 
           {handoffNotice ? (
-            <p className="mb-4 rounded-lg border border-violet-500/30 bg-violet-500/10 px-3 py-2 text-sm text-violet-900 dark:text-violet-100">
+            <p
+              role="status"
+              aria-live="polite"
+              data-handoff-placeholder="true"
+              className="mb-4 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-sm text-amber-950 dark:border-amber-500/30 dark:bg-amber-950/40 dark:text-amber-100"
+            >
               {handoffNotice}
             </p>
           ) : null}

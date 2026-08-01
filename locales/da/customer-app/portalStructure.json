@@ -1189,159 +1189,159 @@
       },
       "installationWizard": {
         "reassurance": "Aipify hjælper dig gennem opsætningen. Du behøver ikke teknisk viden.",
-        "technicalRequired": "Denne forbindelse kræver teknisk opsætning. Aipify kan guide dig, udføre arbejdet når nødvendig adgang er tilgængelig, eller samarbejde med din leverandør.",
-        "progress": "Fremgang",
+        "technicalRequired": "Denne forbindelse kræver teknisk opsætning. Aipify kan vejlede dig, udføre arbejdet, når den nødvendige adgang er tilgængelig, eller samarbejde med din leverandør.",
+        "progress": "Fremskridt",
         "estimatedTime": "Cirka {minutes} minutter",
-        "emptyFallback": "Fortsett når du er klar.",
-        "comingLater": "Dette alternativet kommer snart. Aipify support kan hjelpe i mellomtiden.",
-        "invitePlaceholder": "Invitasjonen er forberedt som en sikker overlevering. Full invitasjonslevering kommer i en senere versjon.",
-        "loading": "Forbereder oppsett",
-        "waiting": "Venter på ansvarlig part",
-        "blocked": "Oppsettet er blokkert til problemet er løst",
-        "error": "Noe uventet skjedde. Prøv igjen eller be Aipify om hjelp.",
-        "completed": "Oppsettet er fullført",
-        "activateGate": "Aktivering krever en vellykket tilkoblingstest og din eksplisitte bekreftelse.",
-        "pauseSaved": "Fremgangen din er lagret. Du kan fortsette senere.",
-        "resume": "Fortsett oppsett",
-        "staleContract": "Oppsettsveiledningen er oppdatert. Se gjennom stegene før du fortsetter.",
+        "emptyFallback": "Fortsæt, når du er klar.",
+        "comingLater": "Denne mulighed bliver snart tilgængelig. Aipify-support kan hjælpe dig i mellemtiden.",
+        "invitePlaceholder": "Invitationen er forberedt som en sikker overdragelse. Fuld invitationslevering kommer i en senere version.",
+        "loading": "Forbereder opsætning",
+        "waiting": "Afventer den ansvarlige part",
+        "blocked": "Opsætningen er blokeret, indtil problemet er løst",
+        "error": "Noget uventet skete. Prøv igen, eller bed Aipify om hjælp.",
+        "completed": "Opsætningen er fuldført",
+        "activateGate": "Aktivering kræver en vellykket forbindelsestest og din udtrykkelige bekræftelse.",
+        "pauseSaved": "Dine fremskridt er gemt. Du kan fortsætte senere.",
+        "resume": "Fortsæt opsætning",
+        "staleContract": "Opsætningsguiden er opdateret. Gennemgå trinnene, før du fortsætter.",
         "primaryContinue": "Fortsæt",
         "primaryBack": "Tilbage",
         "supportModes": {
           "selfService": "Gør det selv",
-          "guided": "Vejledt opsætning",
-          "aipifyManaged": "Aipify laver opsætningen",
-          "partnerManaged": "Partner laver opsætningen",
-          "customerItManaged": "Jeres IT-leverandør laver opsætningen"
+          "guided": "Guidet opsætning",
+          "aipifyManaged": "Aipify håndterer opsætningen",
+          "partnerManaged": "Partner styret opsætning",
+          "customerItManaged": "Kundens IT-leverandør håndterer opsætningen"
         },
         "states": {
-          "notStarted": "Ikke startet",
-          "supportSelection": "Velg oppsettsmetode",
-          "awaitingCustomer": "Venter på deg",
-          "awaitingAipify": "Venter på Aipify",
-          "awaitingPartner": "Venter på partner",
-          "awaitingProvider": "Venter på leverandør",
-          "awaitingCustomerIt": "Venter på IT-leverandør",
-          "inProgress": "Pågår",
-          "credentialsRequired": "Nøkkel kreves",
-          "configurationRequired": "Konfigurasjon kreves",
-          "readyForTest": "Klar for test",
-          "testing": "Tester tilkobling",
-          "testFailed": "Testen trenger oppmerksomhet",
-          "verified": "Verifisert",
-          "readyForActivation": "Klar for aktivering",
-          "active": "Aktiv",
-          "paused": "Pauset",
-          "blocked": "Blokkert",
-          "unsupported": "Ikke støttet",
-          "cancelled": "Avbrutt",
-          "completed": "Fullført"
+          "notStarted": "Ikke påbegyndt",
+          "supportSelection": "Vælg opsætningsmetode",
+          "awaitingCustomer": "Venter på dig",
+          "awaitingAipify": "Afventer Aipify",
+          "awaitingPartner": "Afventer partner",
+          "awaitingProvider": "Afventer leverandør",
+          "awaitingCustomerIt": "Afventer IT-leverandør",
+          "inProgress": "I gang",
+          "credentialsRequired": "Legitimationsoplysninger mangler",
+          "configurationRequired": "Konfiguration mangler",
+          "readyForTest": "Klar til test",
+          "testing": "Forbindelsen testes",
+          "testFailed": "Testen kræver opmærksomhed",
+          "verified": "Verificeret",
+          "readyForActivation": "Klar til aktivering",
+          "active": "I drift",
+          "paused": "På pause",
+          "blocked": "Blokeret",
+          "unsupported": "Ikke understøttet",
+          "cancelled": "Annulleret",
+          "completed": "Fuldført"
         },
         "test": {
           "testing": "Forbindelsen testes",
           "ok": "Forbindelsen virker",
           "needInfo": "Vi har brug for lidt mere information",
           "followUp": "Aipify følger op på dette",
-          "failed": "Testen kunne ikke gennemføres",
+          "failed": "Testen kunne ikke fuldføres",
           "retry": "Prøv igen",
           "askHelp": "Bed om hjælp"
         },
         "actions": {
           "askAipifyHelp": "Bed Aipify om hjælp",
-          "askAipifyHelpDescription": "Få rolig veiledning uten teknisk sjargong.",
-          "requestGuided": "Bestill veiledet oppsett",
-          "aipifyManaged": "Aipify laver opsætningen",
-          "inviteProvider": "Inviter leverandør",
-          "inviteIt": "Inviter IT-ansvarlig",
-          "invitePartner": "Inviter partner",
-          "selfService": "Gjør det selv",
-          "changeMethod": "Endre oppsettsmetode",
-          "contactSupport": "Kontakt support",
+          "askAipifyHelpDescription": "Få rolig vejledning uden teknisk jargon.",
+          "requestGuided": "Book guidet opsætning",
+          "aipifyManaged": "Aipify håndterer opsætningen",
+          "inviteProvider": "Send invitation til leverandør",
+          "inviteIt": "Send invitation til IT-ansvarlig",
+          "invitePartner": "Send invitation til partner",
+          "selfService": "Gør det selv",
+          "changeMethod": "Skift opsætningsmetode",
+          "contactSupport": "Kontakt supportteamet",
           "continueLater": "Fortsæt senere"
         },
         "responsibleParties": {
-          "customer": "Ditt ansvar",
-          "aipify": "Aipify tar seg av dette",
-          "partner": "Partneren din tar seg av dette",
-          "provider": "Leverandøren tar seg av dette",
-          "customer_it": "IT-leverandøren din tar seg av dette"
+          "customer": "Dit ansvar",
+          "aipify": "Aipify håndterer dette",
+          "partner": "Din partner håndterer dette",
+          "provider": "Leverandøren håndterer dette",
+          "customer_it": "Din IT-leverandør håndterer dette"
         },
         "fields": {
-          "apiKey": "Sikker tilkoblingsnøkkel",
-          "baseUrl": "Tjenesteadresse",
-          "itRecipient": "E-post til IT-kontakt"
+          "apiKey": "Sikker forbindelsesnøgle",
+          "baseUrl": "Adresse til tjenesten",
+          "itRecipient": "IT-kontaktens e-mail"
         },
         "help": {
-          "customer": "Aipify veileder deg steg for steg og ber bare om det som trengs.",
-          "internal": "Følg publisert installasjonskontrakt. Verifiser scopes, kjør health check, deretter aktiveringsgate."
+          "customer": "Aipify vejleder dig trin for trin og beder kun om det nødvendige.",
+          "internal": "Følg den publicerede installationskontrakt. Verificer scopes, kør sundhedstjek, og aktiver først derefter."
         },
         "steps": {
           "introduction": {
             "title": "Velkommen",
-            "description": "Vi sætter forbindelsen op for dig. Du skal bare godkende adgangen, når du bliver bedt om det."
+            "description": "Vi sætter forbindelsen op sammen. Du skal kun godkende adgang, når du bliver bedt om det."
           },
           "chooseSupport": {
             "title": "Hvordan skal opsætningen udføres?",
             "description": "Vælg den enkleste sikre mulighed. Aipify-administreret foretrækkes, når det er muligt."
           },
           "test": {
-            "title": "Test tilkoblingen",
-            "description": "Aipify sjekker at tilkoblingen fungerer før aktivering.",
-            "internalTitle": "Kjør provider-tilkoblingstest",
-            "internalDescription": "Bruk eksisterende testendepunkt, bekreft verifiseringsmetadata, ingen secrets i logger."
+            "title": "Test forbindelsen",
+            "description": "Aipify kontrollerer, at forbindelsen virker, før aktivering.",
+            "internalTitle": "Kør leverandørens forbindelsestest",
+            "internalDescription": "Kald eksisterende testendpoint, bekræft verifikationsmetadata, og log aldrig hemmeligheder."
           },
           "review": {
-            "title": "Gjennomgå tillatelser",
-            "description": "Bekreft tilgangen Aipify skal bruke. Du beholder kontrollen."
+            "title": "Gennemgå tilladelser",
+            "description": "Bekræft den adgang Aipify vil bruge. Du beholder kontrollen."
           },
           "activate": {
-            "title": "Aktiver tilkobling",
-            "description": "Aktivering skjer først etter verifisering og din bekreftelse."
+            "title": "Aktiver forbindelsen",
+            "description": "Aktivering sker først efter verifikation og din bekræftelse."
           },
           "completion": {
-            "title": "Du er klar",
-            "description": "Tilkoblingen er satt opp. Aipify overvåker helsen videre."
+            "title": "I er klar",
+            "description": "Forbindelsen er opsat. Aipify fortsætter med at overvåge sundheden."
           },
           "oauth": {
-            "title": "Godkjenn tilgang",
-            "description": "Logg inn hos leverandøren for å gi den forespurte tilgangen.",
-            "internalTitle": "Fullfør OAuth-autorisering",
-            "internalDescription": "Bekreft PKCE-callback, required scopes og tokenlagring via eksisterende OAuth-strøm."
+            "title": "Godkend adgang",
+            "description": "Log ind hos leverandøren for at give den anmodede adgang.",
+            "internalTitle": "Fuldfør OAuth-autorisation",
+            "internalDescription": "Bekræft PKCE-callback, påkrævede scopes og tokenlagring via eksisterende OAuth-strøm."
           },
           "waitingAipify": {
-            "title": "Aipify setter opp dette",
-            "description": "Du kan fortsette senere. Vi gir beskjed når du trenger å gjøre noe."
+            "title": "Aipify sætter dette op",
+            "description": "Du kan fortsætte senere. Vi giver dig besked, når din handling er nødvendig."
           },
           "installConnector": {
-            "title": "Installer connector",
-            "description": "Installer godkjent connector-pakke, eller la Aipify/IT gjøre det.",
-            "internalTitle": "Installer connector-pakke",
-            "internalDescription": "Verifiser checksum, installer pakkeversjon fra kontrakt, kjør health check."
+            "title": "Installer forbindelsen",
+            "description": "Installer den godkendte forbindelsespakke, eller lad Aipify eller jeres IT håndtere det.",
+            "internalTitle": "Installer forbindelsespakke",
+            "internalDescription": "Verificer checksum, installer pakkeversion fra kontrakten, og kør sundhedstjek."
           },
           "inviteIt": {
-            "title": "Inviter IT-leverandør",
-            "description": "Send en begrenset invitasjon slik at IT kan fullføre tekniske steg."
+            "title": "Inviter jeres IT-leverandør",
+            "description": "Send en begrænset invitation, så IT kan fuldføre tekniske trin."
           },
           "hostedWaiting": {
-            "title": "Aipify forbereder hostet connector",
-            "description": "Du trenger ikke installere noe på egne servere.",
-            "internalTitle": "Provisioner hostet connector",
-            "internalDescription": "Provisioner hostet tjeneste, verifiser health-endepunkt, bekreft konfigurasjonsporter."
+            "title": "Aipify forbereder den hostede forbindelse",
+            "description": "Der kræves ingen serverinstallation på jeres side.",
+            "internalTitle": "Provisionér hostet forbindelse",
+            "internalDescription": "Provisionér hostet tjeneste, verificer sundhedsendpoint, og bekræft kundekonfigurationsgates."
           },
           "customConfig": {
-            "title": "Del konfigurasjonsdetaljer",
-            "description": "Oppgi bare feltene som trengs for en trygg tilkobling.",
-            "internalTitle": "Samle egendefinert konfigurasjon",
-            "internalDescription": "Valider HTTPS allowlist, lagre ikke-hemmelig config, eskaler secrets via sikker strøm."
+            "title": "Del konfigurationsoplysninger",
+            "description": "Angiv kun de felter, der er nødvendige for en sikker forbindelse.",
+            "internalTitle": "Indsaml tilpasset implementeringskonfiguration",
+            "internalDescription": "Valider HTTPS-URL-allowlist, gem ikke-hemmelig konfiguration, og eskalér hemmeligheder via sikker strøm."
           },
           "unsupported": {
-            "title": "Selvbetjening er begrenset for denne tilkoblingen",
-            "description": "Be Aipify om hjelp eller velg en veiledet oppsettsmetode."
+            "title": "Selvbetjening er begrænset for denne forbindelse",
+            "description": "Bed Aipify om hjælp, eller vælg en guidet opsætningsmetode."
           },
           "credentials": {
-            "title": "Legg til sikker tilkoblingsnøkkel",
-            "description": "Lim inn nøkkelen fra leverandørens admin. Aipify lagrer den sikkert og viser den aldri igjen.",
-            "internalTitle": "Lagre API-nøkkel via secret stream",
-            "internalDescription": "Lagre via eksisterende krypteringssti. Aldri returner plaintext. Gå videre til testgate."
+            "title": "Tilføj jeres sikre forbindelsesnøgle",
+            "description": "Indsæt nøglen fra leverandørens admin. Aipify gemmer den sikkert og viser den aldrig igen.",
+            "internalTitle": "Gem API-nøgle via hemmelighedsstrøm",
+            "internalDescription": "Gem via eksisterende krypteringssti. Returnér aldrig klartekst. Fortsæt til testgate."
           }
         }
       }

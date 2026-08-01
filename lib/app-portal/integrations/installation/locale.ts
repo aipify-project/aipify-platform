@@ -4,22 +4,26 @@ import type { InstallationLocalizedText } from "./types";
 /**
  * Canonical global locale list for InstallationWizard.
  * Sourced from Core language foundation (`LOCALES`) — never hardcode in wizard UI.
- * New locales added to the foundation work without wizard code changes.
+ * Optional `registry` lets tests prove new locales work without wizard code changes.
  */
-export function listInstallationLocales(): readonly string[] {
-  return LOCALES;
+export function listInstallationLocales(
+  registry: readonly string[] = LOCALES,
+): readonly string[] {
+  return registry;
 }
 
 export function installationLocaleFallback(): string {
   return DEFAULT_LOCALE;
 }
 
-/** RTL metadata path — extend via Core locale metadata without wizard hardcoding. */
-const RTL_LOCALE_METADATA: Readonly<Record<string, boolean>> = Object.freeze({});
-
+/**
+ * Direction metadata from BCP-47 primary language subtag.
+ * Not a UI locale picker list — wizard tabs must not hardcode language unions.
+ */
 export function isInstallationLocaleRtl(locale: string, contractRtlSupport?: boolean): boolean {
   if (!contractRtlSupport) return false;
-  return RTL_LOCALE_METADATA[locale] === true;
+  const primary = locale.toLowerCase().split("-")[0] ?? "";
+  return primary === "ar" || primary === "he" || primary === "fa" || primary === "ur";
 }
 
 export function resolveInstallationTextDirection(
