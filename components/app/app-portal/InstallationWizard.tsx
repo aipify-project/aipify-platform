@@ -29,6 +29,7 @@ import {
   handoffTypeForSupportMode,
   isOpenHandoffStatus,
   isValidInviteEmail,
+  resolveInstallationWaitingCopyParty,
   type InstallationAudience,
   type InstallationHandoffResponse,
   type InstallationSessionSnapshot,
@@ -175,6 +176,12 @@ export function InstallationWizard({
   const [errorSummary, setErrorSummary] = useState<string | null>(null);
   /** null = not loaded yet; false = no open handoff (repair V3 false waiting). */
   const [hasOpenHandoff, setHasOpenHandoff] = useState<boolean | null>(null);
+  /** Presentation-only fields from persisted handoff — never written back to session. */
+  const [handoffAssignedPartyType, setHandoffAssignedPartyType] = useState<string | null>(
+    null
+  );
+  const [handoffSupportMode, setHandoffSupportMode] =
+    useState<InstallationSupportMode | null>(null);
 
   useEffect(() => {
     if (isPreview) {
@@ -199,6 +206,8 @@ export function InstallationWizard({
             handoff_request_id?: string;
             id?: string;
             status?: string;
+            support_mode?: string;
+            assigned_party_type?: string | null;
             requested_at?: string;
             created_at?: string;
             recipient_email?: string | null;
@@ -210,6 +219,16 @@ export function InstallationWizard({
         const open = isOpenHandoffStatus(handoff?.status);
         setHasOpenHandoff(open);
         if (open && handoff) {
+          setHandoffAssignedPartyType(
+            typeof handoff.assigned_party_type === "string"
+              ? handoff.assigned_party_type
+              : null
+          );
+          setHandoffSupportMode(
+            isInstallationSupportMode(handoff.support_mode)
+              ? handoff.support_mode
+              : null
+          );
           const reference = String(handoff.handoff_request_id ?? handoff.id ?? "");
           const requestedAt = handoff.requested_at ?? handoff.created_at ?? "";
           if (reference) {
@@ -222,6 +241,9 @@ export function InstallationWizard({
                 null,
             });
           }
+        } else {
+          setHandoffAssignedPartyType(null);
+          setHandoffSupportMode(null);
         }
       } catch {
         if (!cancelled) setHasOpenHandoff(false);
@@ -414,6 +436,12 @@ export function InstallationWizard({
   const previewExampleActions = listPreviewExampleAssistanceActions(
     contract.assistance_actions
   );
+  const waitingCopyParty = resolveInstallationWaitingCopyParty({
+    assignedPartyType: handoffAssignedPartyType,
+    supportMode: handoffSupportMode ?? selectedSupportMode,
+    sessionState: state,
+  });
+  const waitingHeading = wizLabels.waitingForParty(waitingCopyParty);
   const showContinueLater = !isPreview && canShowInstallContinueLater(session);
   const onChooseSupportStep =
     current?.step_type === "choose_support" ||
@@ -602,6 +630,24 @@ export function InstallationWizard({
 
       setLocalSupportMode(null);
       setHasOpenHandoff(true);
+      const handoffRow = (payload as { handoff?: { assigned_party_type?: string; support_mode?: string } })
+        .handoff;
+      if (handoffRow?.assigned_party_type) {
+        setHandoffAssignedPartyType(handoffRow.assigned_party_type);
+      } else {
+        setHandoffAssignedPartyType(
+          opts.mode === "customer_it_managed"
+            ? "customer_it"
+            : opts.mode === "partner_managed"
+              ? "partner"
+              : "aipify"
+        );
+      }
+      setHandoffSupportMode(
+        isInstallationSupportMode(handoffRow?.support_mode)
+          ? handoffRow.support_mode
+          : opts.mode
+      );
       const requestedAt = payload.requested_at ?? payload.created_at ?? new Date().toISOString();
       setHandoffConfirmation({
         reference: String(payload.handoff_request_id ?? ""),
@@ -1114,8 +1160,11 @@ export function InstallationWizard({
             ["awaiting_aipify", "awaiting_partner", "awaiting_provider", "awaiting_customer_it"].includes(
               state
             )) ? (
-            <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-950 dark:text-amber-50">
-              <p className="font-medium">{wizLabels.waiting}</p>
+            <div
+              className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-950 dark:text-amber-50"
+              data-waiting-party={waitingCopyParty}
+            >
+              <p className="font-medium">{waitingHeading}</p>
               <p className="mt-2 opacity-90">{description}</p>
             </div>
           ) : null}

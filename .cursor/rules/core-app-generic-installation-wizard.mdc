@@ -50,6 +50,7 @@ Task: `AIPIFY.CORE.APP.GENERIC.INSTALLATION.WIZARD.V1`
 38. Customer IT awaiting state requires a successful invitation handoff with a validated recipient — never placeholder invite + waiting.
 39. All handoffs are tenant-bound, idempotent, and audited (session audit + handoff row).
 40. Live CTA integration tests covering handoff wiring are mandatory for install runtime changes.
+41. Customer-visible waiting labels must name the known responsible party; generic “responsible party” is fallback only — status copy must not alter lifecycle.
 
 ## Code map
 

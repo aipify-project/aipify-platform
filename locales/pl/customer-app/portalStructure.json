@@ -7164,6 +7164,12 @@
         "invitePlaceholder": "Zaproszenie jest przygotowane jako bezpieczne przekazanie. Pełna dostawa zaproszeń przyjdzie później.",
         "loading": "Preparing setup",
         "waiting": "Oczekiwanie na odpowiedzialną stronę",
+        "waitingByParty": {
+          "aipify": "Oczekiwanie na Aipify",
+          "aipifyGuided": "Oczekiwanie na wskazówki od Aipify",
+          "customerIt": "Oczekiwanie na dostawcę IT",
+          "partner": "Oczekiwanie na partnera Aipify"
+        },
         "blocked": "Konfiguracja jest zablokowana do rozwiązania problemu",
         "error": "Wystąpił nieoczekiwany problem. Spróbuj ponownie lub poproś Aipify o pomoc.",
         "completed": "Konfiguracja zakończona",

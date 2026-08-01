@@ -8,6 +8,7 @@ import {
   previewPresentationKeyForSupportMode,
   type PreviewSupportPresentationKey,
 } from "./preview-mode";
+import type { InstallationWaitingCopyParty } from "./waiting-copy";
 
 const BASE = "customerApp.portalStructure.integrations.installationWizard";
 
@@ -25,6 +26,13 @@ export function installationWizardMessageKeys() {
     invitePlaceholder: `${BASE}.invitePlaceholder`,
     loading: `${BASE}.loading`,
     waiting: `${BASE}.waiting`,
+    waitingByParty: {
+      aipify: `${BASE}.waitingByParty.aipify`,
+      aipify_guided: `${BASE}.waitingByParty.aipifyGuided`,
+      customer_it: `${BASE}.waitingByParty.customerIt`,
+      partner: `${BASE}.waitingByParty.partner`,
+      unknown: `${BASE}.waiting`,
+    } satisfies Record<InstallationWaitingCopyParty, string>,
     blocked: `${BASE}.blocked`,
     error: `${BASE}.error`,
     completed: `${BASE}.completed`,
@@ -149,6 +157,7 @@ export type InstallationWizardLabels = {
   comingLater: string;
   invitePlaceholder: string;
   waiting: string;
+  waitingForParty: (party: InstallationWaitingCopyParty) => string;
   blocked: string;
   errorGeneric: string;
   completed: string;
@@ -238,6 +247,7 @@ export function buildInstallationWizardLabels(
   Object.values(keys.installStatus).forEach(put);
   Object.values(keys.installResponsibility).forEach(put);
   Object.values(keys.installPrimaryActions).forEach(put);
+  Object.values(keys.waitingByParty).forEach(put);
   Object.values(keys.supportModes).forEach(put);
   Object.values(keys.states).forEach(put);
 
@@ -257,6 +267,7 @@ export function buildInstallationWizardLabels(
     comingLater: t(keys.comingLater),
     invitePlaceholder: t(keys.invitePlaceholder),
     waiting: t(keys.waiting),
+    waitingForParty: (party) => t(keys.waitingByParty[party]),
     blocked: t(keys.blocked),
     errorGeneric: t(keys.error),
     completed: t(keys.completed),
