@@ -70,9 +70,15 @@ assert.equal(canActivateFromWizard("testing"), false);
 assert.equal(canActivateFromWizard("in_progress"), false);
 assert.equal(canActivateFromWizard("paused"), false);
 
-// Placeholder handoffs remain non-executing in contract metadata
+// Active customer handoffs must use request/invite; incomplete backends stay placeholder.
 for (const fixture of INSTALLATION_CONTRACT_FIXTURES) {
   for (const action of fixture.assistance_actions) {
+    if (action.action_key === "aipify_managed" || action.action_key === "request_guided") {
+      assert.equal(action.handoff, "request", `${action.action_key} must use real handoff`);
+    }
+    if (action.action_key === "invite_it") {
+      assert.equal(action.handoff, "invite", "invite_it must use real invite handoff");
+    }
     if (action.requires_quote || action.requires_order || action.requires_scheduling) {
       assert.ok(
         action.handoff === "coming_later" || action.handoff === "invite_placeholder",

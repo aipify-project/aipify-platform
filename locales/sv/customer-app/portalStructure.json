@@ -1249,10 +1249,10 @@
         "actions": {
           "askAipifyHelp": "Be Aipify om hjälp",
           "askAipifyHelpDescription": "Få lugn vägledning utan teknisk jargong.",
-          "requestGuided": "Boka vägledd installation",
-          "aipifyManaged": "Aipify sköter installationen",
+          "requestGuided": "Begär vägledd installation",
+          "aipifyManaged": "Be Aipify ställa in",
           "inviteProvider": "Bjud in leverantör",
-          "inviteIt": "Bjud in IT-ansvarig",
+          "inviteIt": "Bjud in IT-leverantör",
           "invitePartner": "Bjud in partner",
           "selfService": "Gör det själv",
           "changeMethod": "Byt installationsmetod",
@@ -1373,8 +1373,8 @@
           "actionsHeading": "Nästa steg",
           "sessionPersistError": "Aipify kunde inte spara ditt val. Försök igen.",
           "primaryActions": {
-            "aipifyManaged": "Be Aipify sköta installationen",
-            "guided": "Boka vägledd installation",
+            "aipifyManaged": "Be Aipify ställa in",
+            "guided": "Begär vägledd installation",
             "selfService": "Starta självbetjäning",
             "customerItManaged": "Bjud in IT-leverantör"
           },
@@ -1391,6 +1391,25 @@
             "guided": "Aipify vägleder dig steg för steg.",
             "selfService": "Du utför stegen själv. Aipify kan hjälpa vid behov.",
             "customerItManaged": "Din IT-leverantör utför de tekniska stegen."
+          },
+          "statusAfterHandoff": {
+            "guided": "Vägledning har begärts"
+          }
+        },
+        "handoff": {
+          "submitting": "Skickar begäran…",
+          "failed": "Aipify kunde inte slutföra installationsbegäran. Försök igen.",
+          "invalidRecipient": "Ange en giltig e-postadress för IT-kontakt för att fortsätta.",
+          "nextStepHint": "Din begäran är registrerad. Aipify fortsätter härifrån. Du kan återvända senare.",
+          "referenceLabel": "Begäransreferens",
+          "requestedAtLabel": "Begärd",
+          "recipientLabel": "Inbjudan till",
+          "itRecipientPlaceholder": "namn@foretag.se",
+          "success": {
+            "aipifyManaged": "Aipify har mottagit din begäran om installation. Referens {reference}.",
+            "guided": "Vägledd installation har begärts. Referens {reference}.",
+            "customerItManaged": "Inbjudan registrerad för {email}. Referens {reference}.",
+            "duplicate": "Denna installationsbegäran är redan registrerad. Referens {reference}."
           }
         }
       }

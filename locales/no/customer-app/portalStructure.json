@@ -1251,9 +1251,9 @@
           "askAipifyHelp": "Be Aipify om hjelp",
           "askAipifyHelpDescription": "Få rolig veiledning uten teknisk sjargong.",
           "requestGuided": "Bestill veiledet oppsett",
-          "aipifyManaged": "Aipify gjør oppsettet",
+          "aipifyManaged": "Be Aipify sette opp",
           "inviteProvider": "Inviter leverandør",
-          "inviteIt": "Inviter IT-ansvarlig",
+          "inviteIt": "Inviter IT-leverandør",
           "invitePartner": "Inviter partner",
           "selfService": "Gjør det selv",
           "changeMethod": "Endre oppsettsmetode",
@@ -1392,6 +1392,25 @@
             "guided": "Aipify veileder deg steg for steg.",
             "selfService": "Du utfører stegene selv. Aipify kan hjelpe ved behov.",
             "customerItManaged": "Din IT-leverandør utfører de tekniske stegene."
+          },
+          "statusAfterHandoff": {
+            "guided": "Veiledning er forespurt"
+          }
+        },
+        "handoff": {
+          "submitting": "Sender forespørsel…",
+          "failed": "Aipify kunne ikke fullføre oppsettsforespørselen. Prøv igjen.",
+          "invalidRecipient": "Skriv inn en gyldig e-postadresse for IT-kontakt for å fortsette.",
+          "nextStepHint": "Forespørselen din er registrert. Aipify tar det videre herfra. Du kan komme tilbake senere.",
+          "referenceLabel": "Forespørselsreferanse",
+          "requestedAtLabel": "Forespurt",
+          "recipientLabel": "Invitasjon sendt til",
+          "itRecipientPlaceholder": "navn@firma.no",
+          "success": {
+            "aipifyManaged": "Aipify har mottatt forespørselen din om oppsett. Referanse {reference}.",
+            "guided": "Veiledet oppsett er forespurt. Referanse {reference}.",
+            "customerItManaged": "Invitasjon registrert for {email}. Referanse {reference}.",
+            "duplicate": "Denne oppsettsforespørselen er allerede registrert. Referanse {reference}."
           }
         }
       }

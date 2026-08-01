@@ -46,7 +46,9 @@ assert.notEqual(
   sessionStateAfterSupportConfirm("customer_it_managed"),
   waitingStateForSupportMode("customer_it_managed")
 );
-assert.match(wizardSrc, /waitingStateAfterRealHandoff/);
+// V4: waiting is applied by handoff RPC after success — wizard calls submitInstallationHandoff.
+assert.match(wizardSrc, /submitInstallationHandoff/);
+assert.match(wizardSrc, /installation\/handoff/);
 assert.match(wizardSrc, /installLifecycle === "handed_off"/);
 
 // Continue later gated

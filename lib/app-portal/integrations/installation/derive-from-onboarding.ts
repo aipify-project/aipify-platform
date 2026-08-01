@@ -412,15 +412,16 @@ const DEFAULT_ASSISTANCE = [
     action_key: "request_guided",
     label: K("actions.requestGuided"),
     support_mode: "guided" as const,
-    requires_scheduling: true,
-    handoff: "coming_later" as const,
+    // Guided is a request — not a calendar booking surface.
+    requires_scheduling: false,
+    handoff: "request" as const,
   },
   {
     action_key: "aipify_managed",
     label: K("actions.aipifyManaged"),
     support_mode: "aipify_managed" as const,
-    requires_quote: true,
-    handoff: "coming_later" as const,
+    requires_quote: false,
+    handoff: "request" as const,
   },
   {
     action_key: "invite_provider",
@@ -432,7 +433,7 @@ const DEFAULT_ASSISTANCE = [
     action_key: "invite_it",
     label: K("actions.inviteIt"),
     support_mode: "customer_it_managed" as const,
-    handoff: "invite_placeholder" as const,
+    handoff: "invite" as const,
   },
   {
     action_key: "invite_partner",

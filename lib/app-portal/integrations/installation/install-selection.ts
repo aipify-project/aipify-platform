@@ -53,12 +53,13 @@ export function resolveInstallSupportLifecycle(opts: {
 
 /** Session state after explicit Fortsett — never awaiting_* from selection alone. */
 export function sessionStateAfterSupportConfirm(
-  _mode: InstallationSupportMode
+  mode: InstallationSupportMode
 ): InstallationWizardState {
+  void mode;
   return "in_progress";
 }
 
-/** Waiting state only after a real invite / managed request handoff. */
+/** Waiting state only after a persisted handoff / invite succeeds. */
 export function waitingStateAfterRealHandoff(
   mode: InstallationSupportMode
 ): InstallationWizardState | null {
@@ -68,7 +69,7 @@ export function waitingStateAfterRealHandoff(
     case "customer_it_managed":
       return "awaiting_customer_it";
     case "guided":
-      return "awaiting_customer";
+      return "awaiting_aipify";
     case "partner_managed":
       return "awaiting_partner";
     case "self_service":
@@ -116,13 +117,17 @@ export function listRelevantInstallAssistanceActions(opts: {
   supportMode: InstallationSupportMode | null | undefined;
   lifecycle: InstallSupportLifecycle;
 }): InstallationAssistanceAction[] {
-  if (opts.lifecycle === "choose") return [];
+  if (opts.lifecycle === "choose" || opts.lifecycle === "handed_off") return [];
   const primaryKey = primaryInstallActionKeyForMode(opts.supportMode);
   if (!primaryKey) return [];
   const primary = opts.actions.find((a) => a.action_key === primaryKey);
   if (!primary) return [];
   if (primary.support_mode === "partner_managed") return [];
   if (primary.action_key === "invite_partner" || primary.action_key === "continue_later") {
+    return [];
+  }
+  // Never surface placeholder / coming-later as an active install CTA.
+  if (primary.handoff === "coming_later" || primary.handoff === "invite_placeholder") {
     return [];
   }
   return [primary];

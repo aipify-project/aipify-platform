@@ -98,7 +98,7 @@ const actions: InstallationAssistanceAction[] = [
     action_key: "invite_it",
     label: { kind: "locale_key", key: "x" },
     support_mode: "customer_it_managed",
-    handoff: "invite_placeholder",
+    handoff: "invite",
   },
   {
     action_key: "invite_partner",
@@ -114,7 +114,7 @@ const actions: InstallationAssistanceAction[] = [
     action_key: "aipify_managed",
     label: { kind: "locale_key", key: "a" },
     support_mode: "aipify_managed",
-    handoff: "coming_later",
+    handoff: "request",
   },
 ];
 

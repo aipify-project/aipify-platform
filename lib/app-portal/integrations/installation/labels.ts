@@ -28,6 +28,24 @@ export function installationWizardMessageKeys() {
     blocked: `${BASE}.blocked`,
     error: `${BASE}.error`,
     completed: `${BASE}.completed`,
+    handoffSubmitting: `${BASE}.handoff.submitting`,
+    handoffFailed: `${BASE}.handoff.failed`,
+    handoffInvalidRecipient: `${BASE}.handoff.invalidRecipient`,
+    handoffNextStepHint: `${BASE}.handoff.nextStepHint`,
+    handoffReferenceLabel: `${BASE}.handoff.referenceLabel`,
+    handoffRequestedAtLabel: `${BASE}.handoff.requestedAtLabel`,
+    handoffRecipientLabel: `${BASE}.handoff.recipientLabel`,
+    handoffSuccess: {
+      aipify_managed: `${BASE}.handoff.success.aipifyManaged`,
+      guided: `${BASE}.handoff.success.guided`,
+      customer_it_managed: `${BASE}.handoff.success.customerItManaged`,
+      duplicate: `${BASE}.handoff.success.duplicate`,
+    },
+    itRecipientFieldLabel: `${BASE}.fields.itRecipient`,
+    itRecipientFieldPlaceholder: `${BASE}.handoff.itRecipientPlaceholder`,
+    installStatusAfterHandoff: {
+      guided: `${BASE}.install.statusAfterHandoff.guided`,
+    },
     testTesting: `${BASE}.test.testing`,
     testOk: `${BASE}.test.ok`,
     testNeedInfo: `${BASE}.test.needInfo`,
@@ -134,6 +152,22 @@ export type InstallationWizardLabels = {
   blocked: string;
   errorGeneric: string;
   completed: string;
+  handoffSubmitting: string;
+  handoffFailed: string;
+  handoffInvalidRecipient: string;
+  handoffNextStepHint: string;
+  handoffReferenceLabel: string;
+  handoffRequestedAtLabel: string;
+  handoffRecipientLabel: string;
+  itRecipientFieldLabel: string;
+  itRecipientFieldPlaceholder: string;
+  handoffSuccessNotice: (opts: {
+    mode: InstallationSupportMode;
+    reference: string;
+    requestedAt: string;
+    recipientEmail?: string | null;
+    duplicate?: boolean;
+  }) => string;
   testTesting: string;
   testOk: string;
   testNeedInfo: string;
@@ -188,6 +222,17 @@ export function buildInstallationWizardLabels(
   put(keys.installActionsChooseHint);
   put(keys.installActionsHeading);
   put(keys.installSessionPersistError);
+  put(keys.handoffSubmitting);
+  put(keys.handoffFailed);
+  put(keys.handoffInvalidRecipient);
+  put(keys.handoffNextStepHint);
+  put(keys.handoffReferenceLabel);
+  put(keys.handoffRequestedAtLabel);
+  put(keys.handoffRecipientLabel);
+  put(keys.itRecipientFieldLabel);
+  put(keys.itRecipientFieldPlaceholder);
+  Object.values(keys.handoffSuccess).forEach(put);
+  Object.values(keys.installStatusAfterHandoff).forEach(put);
   Object.values(keys.previewStatus).forEach(put);
   Object.values(keys.previewResponsibility).forEach(put);
   Object.values(keys.installStatus).forEach(put);
@@ -215,6 +260,29 @@ export function buildInstallationWizardLabels(
     blocked: t(keys.blocked),
     errorGeneric: t(keys.error),
     completed: t(keys.completed),
+    handoffSubmitting: t(keys.handoffSubmitting),
+    handoffFailed: t(keys.handoffFailed),
+    handoffInvalidRecipient: t(keys.handoffInvalidRecipient),
+    handoffNextStepHint: t(keys.handoffNextStepHint),
+    handoffReferenceLabel: t(keys.handoffReferenceLabel),
+    handoffRequestedAtLabel: t(keys.handoffRequestedAtLabel),
+    handoffRecipientLabel: t(keys.handoffRecipientLabel),
+    itRecipientFieldLabel: t(keys.itRecipientFieldLabel),
+    itRecipientFieldPlaceholder: t(keys.itRecipientFieldPlaceholder),
+    handoffSuccessNotice: ({ mode, reference, recipientEmail, duplicate }) => {
+      if (duplicate) {
+        return t(keys.handoffSuccess.duplicate).replace("{reference}", reference);
+      }
+      if (mode === "guided") {
+        return t(keys.handoffSuccess.guided).replace("{reference}", reference);
+      }
+      if (mode === "customer_it_managed") {
+        return t(keys.handoffSuccess.customer_it_managed)
+          .replace("{reference}", reference)
+          .replace("{email}", recipientEmail?.trim() || "—");
+      }
+      return t(keys.handoffSuccess.aipify_managed).replace("{reference}", reference);
+    },
     testTesting: t(keys.testTesting),
     testOk: t(keys.testOk),
     testNeedInfo: t(keys.testNeedInfo),
@@ -246,8 +314,13 @@ export function buildInstallationWizardLabels(
       return t(keys.installPrimaryActions[key]);
     },
     installStatusForLifecycle: (mode, lifecycle, sessionState) => {
-      if (lifecycle === "handed_off" && sessionState) {
-        return t(keys.states[sessionState]);
+      if (lifecycle === "handed_off") {
+        if (mode === "guided") {
+          return t(keys.installStatusAfterHandoff.guided);
+        }
+        if (sessionState) {
+          return t(keys.states[sessionState]);
+        }
       }
       return t(keys.installStatus[installPresentationKeyForSupportMode(mode)]);
     },

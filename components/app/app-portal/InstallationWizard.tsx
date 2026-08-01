@@ -25,8 +25,11 @@ import {
   selectDefaultSupportMode,
   resolveInstallationContract,
   sessionStateAfterSupportConfirm,
-  waitingStateAfterRealHandoff,
+  buildHandoffIdempotencyKey,
+  handoffTypeForSupportMode,
+  isValidInviteEmail,
   type InstallationAudience,
+  type InstallationHandoffResponse,
   type InstallationSessionSnapshot,
   type InstallationSupportMode,
   type InstallationWizardMode,
@@ -159,6 +162,12 @@ export function InstallationWizard({
   const [confirmInFlight, setConfirmInFlight] = useState(false);
   const [acting, setActing] = useState(false);
   const [handoffNotice, setHandoffNotice] = useState<string | null>(null);
+  const [handoffConfirmation, setHandoffConfirmation] = useState<{
+    reference: string;
+    requestedAt: string;
+    recipientEmail?: string | null;
+  } | null>(null);
+  const [itRecipientEmail, setItRecipientEmail] = useState("");
   const [liveRegion, setLiveRegion] = useState("");
   const [apiKey, setApiKey] = useState("");
   const [testMessage, setTestMessage] = useState<string | null>(null);
@@ -459,6 +468,91 @@ export function InstallationWizard({
     setLiveRegion(wizLabels.pauseSaved);
   };
 
+  const submitInstallationHandoff = async (opts: {
+    mode: InstallationSupportMode;
+    recipientEmail?: string | null;
+  }) => {
+    const handoffType = handoffTypeForSupportMode(opts.mode);
+    if (!handoffType || handoffType === "self_service_start") {
+      return false;
+    }
+    if (opts.mode === "customer_it_managed" && !isValidInviteEmail(opts.recipientEmail)) {
+      setErrorSummary(wizLabels.handoffInvalidRecipient);
+      setLiveRegion(wizLabels.handoffInvalidRecipient);
+      return false;
+    }
+
+    setActing(true);
+    setErrorSummary(null);
+    setHandoffNotice(null);
+    try {
+      const idempotencyKey = buildHandoffIdempotencyKey({
+        providerKey,
+        handoffType,
+        sessionId: session?.session_id,
+      });
+      const res = await fetch(
+        `/api/app-portal/integrations/${encodeURIComponent(providerKey)}/installation/handoff`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            handoff_type: handoffType,
+            idempotency_key: idempotencyKey,
+            recipient_email: opts.recipientEmail ?? null,
+          }),
+        }
+      );
+      const payload = (await res.json().catch(() => ({}))) as InstallationHandoffResponse & {
+        error?: string;
+        error_code?: string;
+        session?: InstallationSessionSnapshot | null;
+      };
+      if (!res.ok) {
+        const message =
+          payload.error_code === "invalid_recipient_email"
+            ? wizLabels.handoffInvalidRecipient
+            : wizLabels.handoffFailed;
+        setErrorSummary(message);
+        setLiveRegion(message);
+        return false;
+      }
+
+      if (payload.session) {
+        setSession(parseSession(payload.session) ?? session);
+      } else {
+        // Refresh session from server if RPC omitted nested session parse shape.
+        const sessionRes = await fetch(
+          `/api/app-portal/integrations/installation/session?provider_key=${encodeURIComponent(providerKey)}`
+        );
+        if (sessionRes.ok) {
+          const sessionJson = await sessionRes.json();
+          setSession(parseSession(sessionJson?.session) ?? null);
+        }
+      }
+
+      setLocalSupportMode(null);
+      const requestedAt = payload.requested_at ?? payload.created_at ?? new Date().toISOString();
+      setHandoffConfirmation({
+        reference: String(payload.handoff_request_id ?? ""),
+        requestedAt,
+        recipientEmail: payload.recipient_email ?? opts.recipientEmail ?? null,
+      });
+      const successNotice = wizLabels.handoffSuccessNotice({
+        mode: opts.mode,
+        reference: String(payload.handoff_request_id ?? ""),
+        requestedAt,
+        recipientEmail: payload.recipient_email ?? opts.recipientEmail ?? null,
+        duplicate: Boolean(payload.duplicate),
+      });
+      setHandoffNotice(successNotice);
+      setLiveRegion(successNotice);
+      return true;
+    } finally {
+      setActing(false);
+    }
+  };
+
   const onAssistance = async (actionKey: string) => {
     const action = contract.assistance_actions.find((a) => a.action_key === actionKey);
     if (!action) return;
@@ -466,77 +560,45 @@ export function InstallationWizard({
       await onSelectSupport(action.support_mode);
       return;
     }
+
+    // Active handoff CTAs — server-authoritative; waiting only after persisted success.
+    if (action.handoff === "request" || action.handoff === "invite") {
+      if (isPreview) {
+        blockPreviewWrite();
+        return;
+      }
+      const modeForHandoff =
+        action.support_mode ?? selectedSupportMode ?? localSupportMode;
+      if (!modeForHandoff) {
+        setErrorSummary(wizLabels.handoffFailed);
+        return;
+      }
+      await submitInstallationHandoff({
+        mode: modeForHandoff,
+        recipientEmail: modeForHandoff === "customer_it_managed" ? itRecipientEmail : null,
+      });
+      return;
+    }
+
+    // Honest placeholder only when contract still marks an action as not implemented.
     if (action.handoff === "coming_later" || action.requires_quote || action.requires_order) {
       if (isPreview) {
         blockPreviewWrite();
         return;
       }
-      const modeForHandoff = action.support_mode ?? selectedSupportMode ?? localSupportMode;
-      if (modeForHandoff) {
-        const wait = waitingStateAfterRealHandoff(modeForHandoff);
-        if (wait) {
-          const next = await persistSession({
-            support_mode: modeForHandoff,
-            state: wait,
-            completed_step_keys: Array.from(
-              new Set([...completedKeys, "introduction", "choose_support"])
-            ),
-            reason: `handoff:${actionKey}`,
-            idempotency_key: `handoff:${providerKey}:${actionKey}`,
-          });
-          if (!next) {
-            setErrorSummary(wizLabels.installSessionPersistError);
-            return;
-          }
-          setLocalSupportMode(null);
-        }
-      }
       setHandoffNotice(wizLabels.comingLater);
       setLiveRegion(wizLabels.comingLater);
       return;
     }
+
     if (action.handoff === "invite_placeholder") {
       if (isPreview) {
         blockPreviewWrite();
         return;
       }
-      if (actionKey.includes("partner")) return;
-      const role = actionKey.includes("provider") ? "external_provider" : "customer_it";
-      const modeForHandoff =
-        action.support_mode ?? selectedSupportMode ?? localSupportMode ?? "customer_it_managed";
-      setActing(true);
-      setErrorSummary(null);
-      try {
-        const res = await fetch("/api/app-portal/integrations/installation/invite", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ provider_key: providerKey, role }),
-        });
-        if (!res.ok) {
-          setErrorSummary(wizLabels.installSessionPersistError);
-          setLiveRegion(wizLabels.installSessionPersistError);
-          return;
-        }
-        const wait = waitingStateAfterRealHandoff(modeForHandoff) ?? "awaiting_customer_it";
-        const next = await persistSession({
-          support_mode: modeForHandoff,
-          state: wait,
-          completed_step_keys: Array.from(
-            new Set([...completedKeys, "introduction", "choose_support"])
-          ),
-          reason: `handoff:${actionKey}`,
-          idempotency_key: `handoff:${providerKey}:${actionKey}`,
-        });
-        if (!next) {
-          setErrorSummary(wizLabels.installSessionPersistError);
-          return;
-        }
-        setLocalSupportMode(null);
-        setHandoffNotice(wizLabels.invitePlaceholder);
-        setLiveRegion(wizLabels.invitePlaceholder);
-      } finally {
-        setActing(false);
-      }
+      // Partner / provider invite subsystem remains a scoped gap — no fake awaiting_*.
+      setHandoffNotice(wizLabels.invitePlaceholder);
+      setLiveRegion(wizLabels.invitePlaceholder);
       return;
     }
     if (action.handoff === "support" || actionKey === "contact_support") {
@@ -832,14 +894,30 @@ export function InstallationWizard({
           ) : null}
 
           {handoffNotice ? (
-            <p
+            <div
               role="status"
               aria-live="polite"
-              data-handoff-placeholder="true"
-              className="mb-4 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-sm text-amber-950 dark:border-amber-500/30 dark:bg-amber-950/40 dark:text-amber-100"
+              data-handoff-confirmation={handoffConfirmation ? "true" : "false"}
+              className="mb-4 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-950 dark:border-emerald-500/30 dark:bg-emerald-950/40 dark:text-emerald-100"
             >
-              {handoffNotice}
-            </p>
+              <p>{handoffNotice}</p>
+              {handoffConfirmation?.reference ? (
+                <p className="mt-1 text-xs opacity-90" data-handoff-reference="true">
+                  {wizLabels.handoffReferenceLabel}: {handoffConfirmation.reference}
+                </p>
+              ) : null}
+              {handoffConfirmation?.requestedAt ? (
+                <p className="mt-0.5 text-xs opacity-90" data-handoff-timestamp="true">
+                  {wizLabels.handoffRequestedAtLabel}:{" "}
+                  {new Date(handoffConfirmation.requestedAt).toLocaleString(locale)}
+                </p>
+              ) : null}
+              {handoffConfirmation?.recipientEmail ? (
+                <p className="mt-0.5 text-xs opacity-90" data-handoff-recipient="true">
+                  {wizLabels.handoffRecipientLabel}: {handoffConfirmation.recipientEmail}
+                </p>
+              ) : null}
+            </div>
           ) : null}
 
           {onChooseSupportStep ? (
@@ -1186,8 +1264,33 @@ export function InstallationWizard({
               <p className="mt-3 text-sm text-slate-600 dark:text-slate-300" data-install-actions="empty">
                 {wizLabels.installActionsChooseHint}
               </p>
+            ) : installLifecycle === "handed_off" ? (
+              <p
+                className="mt-3 text-sm text-slate-600 dark:text-slate-300"
+                data-install-actions="handed_off"
+              >
+                {wizLabels.handoffNextStepHint}
+              </p>
             ) : (
               <ul className="mt-3 space-y-2" data-install-actions="relevant">
+                {selectedSupportMode === "customer_it_managed" ? (
+                  <li>
+                    <label className="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-300">
+                      {wizLabels.itRecipientFieldLabel}
+                    </label>
+                    <input
+                      type="email"
+                      name="it_recipient_email"
+                      autoComplete="email"
+                      value={itRecipientEmail}
+                      onChange={(event) => setItRecipientEmail(event.target.value)}
+                      disabled={acting || confirmInFlight}
+                      placeholder={wizLabels.itRecipientFieldPlaceholder}
+                      className="mb-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-50"
+                      data-it-recipient-email="true"
+                    />
+                  </li>
+                ) : null}
                 {installAssistanceActions.map((action) => {
                   const modeKey = selectedSupportMode;
                   const label =
@@ -1202,11 +1305,16 @@ export function InstallationWizard({
                     <li key={action.action_key}>
                       <button
                         type="button"
-                        disabled={acting || confirmInFlight}
+                        disabled={
+                          acting ||
+                          confirmInFlight ||
+                          (modeKey === "customer_it_managed" && !isValidInviteEmail(itRecipientEmail))
+                        }
                         onClick={() => void onAssistance(action.action_key)}
-                        className="w-full rounded-lg border border-violet-300 bg-violet-50 px-3 py-2 text-left text-sm font-medium text-violet-950 hover:border-violet-500 dark:border-violet-500/40 dark:bg-violet-950/40 dark:text-violet-50"
+                        className="w-full rounded-lg border border-violet-300 bg-violet-50 px-3 py-2 text-left text-sm font-medium text-violet-950 hover:border-violet-500 disabled:opacity-60 dark:border-violet-500/40 dark:bg-violet-950/40 dark:text-violet-50"
+                        data-handoff-cta={action.action_key}
                       >
-                        {label}
+                        {acting ? wizLabels.handoffSubmitting : label}
                       </button>
                     </li>
                   );
