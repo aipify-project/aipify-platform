@@ -8216,6 +8216,38 @@
         "autoCommunicate": "Can Aipify automatically communicate on behalf of leaders?",
         "autoCommunicateAnswer": "No. Aipify supports preparation, delivery and tracking, but humans remain responsible for communication content and approvals."
       }
+    },
+    "kompisWorkspace": {
+      "title": "Kompis",
+      "reassurance": "Kompis kan hjälpa med information och åtgärder du har tillgång till.",
+      "emptyFallback": "Continue when you are ready.",
+      "commercialDisabled": "Kommersiell vägledning är avstängd för den här arbetsytan.",
+      "whyDenied": "Varför detta inte är tillgängligt",
+      "handoff": {
+        "authenticatedReady": "Du är nu inloggad. Kompis kan hjälpa med information och åtgärder du har tillgång till."
+      },
+      "sections": {
+        "knowledge": "Kunskap",
+        "suggestions": "Förslag",
+        "actions": "Åtgärder",
+        "confirmation": "Bekräfta åtgärd",
+        "support": "Supportöverlämning"
+      },
+      "states": {
+        "denied": "Inte tillgängligt här",
+        "loading": "Förbereder hjälp",
+        "empty": "Inga objekt ännu",
+        "error": "Något oväntat hände. Försök igen.",
+        "expired": "Sessionen har gått ut. Logga in igen för att fortsätta.",
+        "offline": "Du verkar vara offline."
+      },
+      "actions": {
+        "confirm": "Bekräfta",
+        "cancel": "Avbryt",
+        "continueLater": "Fortsätt senare",
+        "minimize": "Minimera",
+        "expand": "Expandera"
+      }
     }
   }
 }

@@ -1,0 +1,41 @@
+# Kompis Core — Authenticated Customer Workspace
+
+Task: `AIPIFY.KOMPIS.CORE.AUTHENTICATED.CUSTOMER.WORKSPACE.V1`
+
+## Clean Core only
+
+- No customer names, pilot names, customer domains, or customer-specific routes/modules/types in Core.
+- Use generic terms: customer, tenant, workspace, member area, module, entity, role, access tier, tool, action.
+- Reference fixtures only: `reference_customer_*`, `reference_member_portal`, etc.
+
+## Ownership
+
+- Core owns `kompis_customer_workspace_contract` and permission evaluation.
+- Customer explicitly activates public/authenticated access, tools, knowledge, and confirmation policies.
+- Fail-closed by default — no implicit tool access, no auto-activation.
+
+## Session & public runtime
+
+- Public and authenticated sessions are separated; handoff requires server rebind.
+- Anonymous claims never upgrade to authenticated claims.
+- Verified public Website Kompis runtime remains protected — do not change ask/embed pipelines incompatibly.
+- On logout, authenticated tools are removed immediately.
+
+## Tools & security
+
+- No direct database access from Kompis tools.
+- No tool without contract allowlist.
+- No write without confirmation policy; Kompis never confirms for the user.
+- No more access than the current authenticated user.
+- Private messages disabled by default.
+- Audit permission changes, tool invocations, and confirmations.
+
+## Locale
+
+- Dynamic global locale list from Core language foundation.
+- English fallback; never show raw keys; never hardcode locale unions in workspace UI.
+
+## Branding & proof
+
+- Customer branding via canonical theme contract only.
+- Authenticated Production proof required before Production Ready.

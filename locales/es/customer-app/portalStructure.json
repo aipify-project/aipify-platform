@@ -6985,6 +6985,38 @@
           "verify": "Submit validation evidence for certification"
         }
       }
+    },
+    "kompisWorkspace": {
+      "title": "Kompis",
+      "reassurance": "Kompis puede ayudar con información y acciones a las que tienes acceso.",
+      "emptyFallback": "Continue when you are ready.",
+      "commercialDisabled": "La orientación comercial está desactivada en este espacio de trabajo.",
+      "whyDenied": "Por qué no está disponible",
+      "handoff": {
+        "authenticatedReady": "Ya has iniciado sesión. Kompis puede ayudar con información y acciones a las que tienes acceso."
+      },
+      "sections": {
+        "knowledge": "Conocimiento",
+        "suggestions": "Sugerencias",
+        "actions": "Acciones",
+        "confirmation": "Confirmar acción",
+        "support": "Derivación a soporte"
+      },
+      "states": {
+        "denied": "No disponible aquí",
+        "loading": "Preparando ayuda",
+        "empty": "Aún no hay elementos",
+        "error": "Ocurrió algo inesperado. Inténtalo de nuevo.",
+        "expired": "Tu sesión expiró. Inicia sesión de nuevo para continuar.",
+        "offline": "Parece que estás sin conexión."
+      },
+      "actions": {
+        "confirm": "Confirmar",
+        "cancel": "Cancelar",
+        "continueLater": "Continuar más tarde",
+        "minimize": "Minimizar",
+        "expand": "Expandir"
+      }
     }
   }
 }

@@ -7153,6 +7153,38 @@
           "verify": "Submit validation evidence for certification"
         }
       }
+    },
+    "kompisWorkspace": {
+      "title": "Kompis",
+      "reassurance": "Kompis може допомогти з інформацією та діями, до яких у вас є доступ.",
+      "emptyFallback": "Continue when you are ready.",
+      "commercialDisabled": "Комерційні поради вимкнено для цього робочого простору.",
+      "whyDenied": "Чому це недоступно",
+      "handoff": {
+        "authenticatedReady": "Ви ввійшли. Kompis може допомогти з інформацією та діями, до яких у вас є доступ."
+      },
+      "sections": {
+        "knowledge": "Знання",
+        "suggestions": "Пропозиції",
+        "actions": "Дії",
+        "confirmation": "Підтвердити дію",
+        "support": "Передача в підтримку"
+      },
+      "states": {
+        "denied": "Недоступно тут",
+        "loading": "Підготовка допомоги",
+        "empty": "Поки немає елементів",
+        "error": "Сталося щось несподіване. Спробуйте ще раз.",
+        "expired": "Сеанс закінчився. Увійдіть знову, щоб продовжити.",
+        "offline": "Схоже, ви офлайн."
+      },
+      "actions": {
+        "confirm": "Підтвердити",
+        "cancel": "Скасувати",
+        "continueLater": "Продовжити пізніше",
+        "minimize": "Згорнути",
+        "expand": "Розгорнути"
+      }
     }
   }
 }
