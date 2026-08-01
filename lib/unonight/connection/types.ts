@@ -40,6 +40,8 @@ export type UnonightConnectionFailureCode =
   | "invalid_token"
   | "revoked_token"
   | "credential_unavailable"
+  | "rotation_required"
+  | "secret_decryption_failed"
   | "endpoint_unreachable"
   | "unexpected_http_status"
   | "organization_mismatch"
@@ -112,6 +114,8 @@ export function normalizeUnonightFailureCode(
       return "unsupported_response";
     case "server_error":
       return "unexpected_http_status";
+    case "secret_decryption_failed":
+      return "rotation_required";
     default:
       return code;
   }

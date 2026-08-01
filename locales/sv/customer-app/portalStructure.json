@@ -608,7 +608,8 @@
         "revoked": "❌ Återkallad",
         "removed": "Borttagen",
         "notConfigured": "ℹ️ Inte konfigurerad",
-        "awaitingVerification": "⏳ Väntar på verifiering"
+        "awaitingVerification": "⏳ Väntar på verifiering",
+        "rotationRequired": "Nyckeln måste förnyas"
       },
       "wizard7Steps": {
         "choose_system": "Välj system",
@@ -789,7 +790,8 @@
           "invalidBaseUrlHttps": "Unonight-adressen måste börja med https://.",
           "invalidBaseUrlEmail": "Unonight-adressen måste vara en URL, inte en e-postadress.",
           "verificationRecordFailed": "Anslutningstestet lyckades men Aipify kunde inte spara verifieringsresultatet. Försök igen.",
-          "placeholderNotConfigured": "En tillfällig platshållarnyckel är konfigurerad. Byt ut den mot en riktig Unonight-nyckel."
+          "placeholderNotConfigured": "En tillfällig platshållarnyckel är konfigurerad. Byt ut den mot en riktig Unonight-nyckel.",
+          "rotationRequired": "Aipify kan inte använda den sparade nyckeln. Klistra in en ny nyckel, spara säkert och testa anslutningen igen."
         },
         "errorPanels": {
           "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
@@ -834,6 +836,10 @@
           "verificationRecordFailed": {
             "title": "Verifieringen kunde inte sparas",
             "body": "Live-testet lyckades men Aipify kunde inte spara verifieringsresultatet. Försök igen."
+          },
+          "rotationRequired": {
+            "title": "Nyckeln måste förnyas",
+            "body": "Aipify lagrar nyckeln krypterad och använder den bara på servern. Den nuvarande nyckeln kan inte läsas säkert — klistra in en ny nyckel, spara och testa anslutningen."
           }
         }
       },

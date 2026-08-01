@@ -27,6 +27,8 @@ export type AppPortalIntegrationConnection = {
   permission_level: string;
   approved_scopes: string[];
   masked_credential_hint: string | null;
+  credentials_reference?: string | null;
+  encryption_key_fingerprint?: string | null;
   last_test_success_at: string | null;
   last_test_failed_at: string | null;
   last_test_error: string | null;
@@ -93,6 +95,7 @@ export type IntegrationStatusLabels = {
   removed: string;
   notConfigured: string;
   awaitingVerification: string;
+  rotationRequired: string;
 };
 
 export type IntegrationScopeDescriptionLabels = Record<string, string>;

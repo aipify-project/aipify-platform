@@ -608,7 +608,8 @@
         "revoked": "❌ Tilbagekaldt",
         "removed": "Fjernet",
         "notConfigured": "ℹ️ Ikke konfigureret",
-        "awaitingVerification": "⏳ Afventer verificering"
+        "awaitingVerification": "⏳ Afventer verificering",
+        "rotationRequired": "Nøglen skal fornyes"
       },
       "wizard7Steps": {
         "choose_system": "Vælg system",
@@ -789,7 +790,8 @@
           "invalidBaseUrlHttps": "Unonight-adressen skal starte med https://.",
           "invalidBaseUrlEmail": "Unonight-adressen skal være en URL, ikke en e-mailadresse.",
           "verificationRecordFailed": "Forbindelsestesten lykkedes, men Aipify kunne ikke gemme verifikationsresultatet. Prøv igen.",
-          "placeholderNotConfigured": "En midlertidig pladsholdernøgle er konfigureret. Erstat den med en rigtig Unonight-nøgle."
+          "placeholderNotConfigured": "En midlertidig pladsholdernøgle er konfigureret. Erstat den med en rigtig Unonight-nøgle.",
+          "rotationRequired": "Aipify kan ikke bruge den gemte nøgle. Indsæt en ny nøgle, gem sikkert og test forbindelsen igen."
         },
         "errorPanels": {
           "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
@@ -834,6 +836,10 @@
           "verificationRecordFailed": {
             "title": "Verifikationen kunne ikke gemmes",
             "body": "Den live test lykkedes, men Aipify kunne ikke gemme verifikationsresultatet. Prøv igen."
+          },
+          "rotationRequired": {
+            "title": "Nøglen skal fornyes",
+            "body": "Aipify gemmer nøglen krypteret og bruger den kun på serveren. Den nuværende nøgle kan ikke læses sikkert — indsæt en ny nøgle, gem og test forbindelsen."
           }
         }
       },

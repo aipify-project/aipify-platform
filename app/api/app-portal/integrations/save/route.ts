@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { revalidateAppPortalIntegrationSurfaces } from "@/lib/app-portal/integrations/invalidate-server";
+import { encryptIntegrationPortalCredential } from "@/lib/app-portal/integrations/credential-crypto";
 import { createClient } from "@/lib/supabase/server";
 import {
   UNONIGHT_DEFAULT_SCOPES,
   UNONIGHT_PROVIDER_KEY,
-  encryptIntegrationCredential,
   getUnonightBaseUrlValidationMessageKey,
   validateUnonightBaseUrlInput,
 } from "@/lib/unonight/connection";
@@ -37,6 +37,7 @@ export async function POST(request: Request) {
             error: "invalid_base_url",
             error_code: baseValidation.code,
             message_key: getUnonightBaseUrlValidationMessageKey(baseValidation.code),
+            stored: false,
           },
           { status: 400, headers: NO_STORE }
         );
@@ -52,9 +53,22 @@ export async function POST(request: Request) {
       };
     }
 
-    let storedSecret: string | null = apiKey.length > 0 ? apiKey : null;
-    if (providerKey === UNONIGHT_PROVIDER_KEY && storedSecret) {
-      storedSecret = encryptIntegrationCredential(storedSecret);
+    let storedSecret: string | null = null;
+    let keyFingerprint: string | null = null;
+    let envelopeVersion: number | null = null;
+
+    if (apiKey.length > 0) {
+      // Encrypt every manual secret server-side before Core persistence.
+      // Never pass plaintext with p_pre_encrypted=true.
+      const encrypted = encryptIntegrationPortalCredential(apiKey);
+      storedSecret = encrypted.ciphertext;
+      keyFingerprint = encrypted.keyFingerprint;
+      envelopeVersion = encrypted.envelopeVersion;
+      accessSummary = {
+        ...accessSummary,
+        encryption_key_fingerprint: keyFingerprint,
+        envelope_version: envelopeVersion,
+      };
     }
 
     const { data, error } = await supabase.rpc("save_app_portal_integration_connection", {
@@ -74,16 +88,35 @@ export async function POST(request: Request) {
             error: "invalid_base_url",
             error_code: "email_not_allowed",
             message_key: getUnonightBaseUrlValidationMessageKey("email_not_allowed"),
+            stored: false,
           },
           { status: 400, headers: NO_STORE }
         );
       }
-      return NextResponse.json({ error: "Failed to save integration" }, { status: 400, headers: NO_STORE });
+      return NextResponse.json(
+        { error: "Failed to save integration", stored: false },
+        { status: 400, headers: NO_STORE }
+      );
     }
 
+    const row = (data ?? {}) as Record<string, unknown>;
     revalidateAppPortalIntegrationSurfaces();
-    return NextResponse.json(data, { headers: NO_STORE });
+    return NextResponse.json(
+      {
+        connection_id: row.connection_id ?? null,
+        status: row.status ?? "pending",
+        stored: storedSecret != null || row.masked_credential_hint != null,
+        fingerprint: keyFingerprint,
+        envelope_version: envelopeVersion,
+        updated_at: row.updated_at ?? null,
+        masked_credential_hint: row.masked_credential_hint ?? null,
+      },
+      { headers: NO_STORE }
+    );
   } catch {
-    return NextResponse.json({ error: "Failed to save integration" }, { status: 500, headers: NO_STORE });
+    return NextResponse.json(
+      { error: "Failed to save integration", stored: false },
+      { status: 500, headers: NO_STORE }
+    );
   }
 }

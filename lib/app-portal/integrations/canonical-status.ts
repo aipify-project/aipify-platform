@@ -1,10 +1,12 @@
 import type { SemanticBadgeType } from "@/lib/design/semantic-status-system";
+import { isRotationRequiredErrorCode } from "./credential-crypto";
 import type { AppPortalIntegrationConnection } from "./types";
 export type IntegrationCanonicalStatus =
   | "not_configured"
   | "credential_saved"
   | "verification_pending"
   | "verification_failed"
+  | "rotation_required"
   | "verified"
   | "active"
   | "inactive"
@@ -35,6 +37,7 @@ const CANONICAL_LABEL_KEYS: Record<IntegrationCanonicalStatus, string> = {
   credential_saved: "customerApp.portalStructure.integrations.statuses.credentialSaved",
   verification_pending: "customerApp.portalStructure.integrations.statuses.pending",
   verification_failed: "customerApp.portalStructure.integrations.statuses.failed",
+  rotation_required: "customerApp.portalStructure.integrations.statuses.rotationRequired",
   verified: "customerApp.portalStructure.integrations.statuses.connected",
   active: "customerApp.portalStructure.integrations.statuses.active",
   inactive: "customerApp.portalStructure.integrations.statuses.inactive",
@@ -50,6 +53,7 @@ const CANONICAL_BADGE: Record<
   credential_saved: { type: "workflow", value: "open" },
   verification_pending: { type: "workflow", value: "pending" },
   verification_failed: { type: "severity", value: "critical" },
+  rotation_required: { type: "severity", value: "high" },
   verified: { type: "health", value: "healthy" },
   active: { type: "health", value: "healthy" },
   inactive: { type: "workflow", value: "paused" },
@@ -98,6 +102,11 @@ export function resolveIntegrationCanonicalStatus(
 
   const status = normalizeKey(input.status);
   if (status === "revoked") return "revoked";
+  if (status === "rotation_required") return "rotation_required";
+
+  if (testFailedIsNewer(input) && isRotationRequiredErrorCode(input.last_test_error)) {
+    return "rotation_required";
+  }
 
   if (testFailedIsNewer(input)) {
     return "verification_failed";
@@ -118,6 +127,11 @@ export function resolveIntegrationCanonicalStatus(
 
   if (status === "inactive" || isDeactivated(input)) return "inactive";
 
+  // Never present as active when the stored secret cannot be used.
+  if (isRotationRequiredErrorCode(input.last_test_error) && testFailedIsNewer(input)) {
+    return "rotation_required";
+  }
+
   if (status === "active" || isActivated(input)) return "active";
 
   if (input.last_test_success_at || status === "connected" || status === "verified") {
@@ -133,7 +147,7 @@ export function connectionToCanonicalInput(
   return {
     status: connection.status,
     canonical_status: connection.canonical_status,
-    hasCredential: Boolean(connection.masked_credential_hint || connection.id),
+    hasCredential: Boolean(connection.masked_credential_hint || connection.credentials_reference),
     last_test_success_at: connection.last_test_success_at,
     last_test_failed_at: connection.last_test_failed_at,
     last_test_error: connection.last_test_error,
@@ -160,7 +174,9 @@ export type IntegrationHubActionTier = "active" | "verified" | "failed" | "pendi
 export function resolveCanonicalHubActionTier(
   canonicalStatus: IntegrationCanonicalStatus
 ): IntegrationHubActionTier {
-  if (canonicalStatus === "verification_failed") return "failed";
+  if (canonicalStatus === "verification_failed" || canonicalStatus === "rotation_required") {
+    return "failed";
+  }
   if (canonicalStatus === "active" || canonicalStatus === "inactive") return "active";
   if (canonicalStatus === "verified") return "verified";
   return "pending";
@@ -168,12 +184,13 @@ export function resolveCanonicalHubActionTier(
 
 export function shouldShowLastTestSuccess(connection: AppPortalIntegrationConnection): boolean {
   const canonical = resolveIntegrationCanonicalStatus(connectionToCanonicalInput(connection));
-  if (canonical === "verification_failed") return false;
+  if (canonical === "verification_failed" || canonical === "rotation_required") return false;
   return Boolean(connection.last_test_success_at);
 }
 
 export function shouldShowLastTestFailed(connection: AppPortalIntegrationConnection): boolean {
-  return resolveIntegrationCanonicalStatus(connectionToCanonicalInput(connection)) === "verification_failed";
+  const canonical = resolveIntegrationCanonicalStatus(connectionToCanonicalInput(connection));
+  return canonical === "verification_failed" || canonical === "rotation_required";
 }
 
 const CANONICAL_TO_STATUS_LABEL_KEY: Record<
@@ -184,6 +201,7 @@ const CANONICAL_TO_STATUS_LABEL_KEY: Record<
   credential_saved: "credentialSaved",
   verification_pending: "pending",
   verification_failed: "failed",
+  rotation_required: "rotationRequired",
   verified: "connected",
   active: "active",
   inactive: "inactive",
@@ -208,6 +226,7 @@ export function resolveCompletionModeFromConnection(
   const canonical = resolveIntegrationCanonicalStatus(connectionToCanonicalInput(connection));
   if (
     canonical === "verification_failed" ||
+    canonical === "rotation_required" ||
     canonical === "removed" ||
     canonical === "revoked" ||
     canonical === "not_configured" ||

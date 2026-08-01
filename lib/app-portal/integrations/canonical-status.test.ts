@@ -29,6 +29,29 @@ assert.equal(
   "verification_failed"
 );
 
+// Decrypt failure maps to rotation_required (not false active)
+assert.equal(
+  resolveIntegrationCanonicalStatus({
+    status: "failed",
+    hasCredential: true,
+    last_test_success_at: "2026-07-06T12:00:00Z",
+    last_test_failed_at: "2026-08-01T12:00:00Z",
+    last_test_error: "Credential decrypt failed",
+    activated_at: "2026-07-06T13:00:00Z",
+  }),
+  "rotation_required"
+);
+
+assert.equal(
+  resolveIntegrationCanonicalStatus({
+    status: "rotation_required",
+    hasCredential: true,
+    last_test_failed_at: "2026-08-01T12:00:00Z",
+    last_test_error: "rotation_required",
+  }),
+  "rotation_required"
+);
+
 // Active persists from timestamps
 assert.equal(
   resolveIntegrationCanonicalStatus({
