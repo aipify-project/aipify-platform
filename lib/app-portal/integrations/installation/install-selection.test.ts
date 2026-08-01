@@ -67,8 +67,31 @@ assert.equal(
       last_error_code: null,
       updated_at: "",
     } satisfies InstallationSessionSnapshot,
+    hasOpenHandoff: true,
   }),
   "handed_off"
+);
+// V3 false-waiting: awaiting without persisted handoff reopens ready_for_handoff.
+assert.equal(
+  resolveInstallSupportLifecycle({
+    localSupportMode: null,
+    session: {
+      session_id: "s1",
+      provider_key: "p",
+      contract_version: "1",
+      support_mode: "aipify_managed",
+      state: "awaiting_aipify",
+      current_step_key: "x",
+      completed_step_keys: ["introduction"],
+      field_values: {},
+      paused: false,
+      last_test_status: null,
+      last_error_code: null,
+      updated_at: "",
+    } satisfies InstallationSessionSnapshot,
+    hasOpenHandoff: false,
+  }),
+  "confirmed"
 );
 
 assert.equal(canShowInstallContinueLater(null), false);

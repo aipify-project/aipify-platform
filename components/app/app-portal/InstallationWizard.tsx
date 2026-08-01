@@ -27,6 +27,7 @@ import {
   sessionStateAfterSupportConfirm,
   buildHandoffIdempotencyKey,
   handoffTypeForSupportMode,
+  isOpenHandoffStatus,
   isValidInviteEmail,
   type InstallationAudience,
   type InstallationHandoffResponse,
@@ -172,14 +173,65 @@ export function InstallationWizard({
   const [apiKey, setApiKey] = useState("");
   const [testMessage, setTestMessage] = useState<string | null>(null);
   const [errorSummary, setErrorSummary] = useState<string | null>(null);
+  /** null = not loaded yet; false = no open handoff (repair V3 false waiting). */
+  const [hasOpenHandoff, setHasOpenHandoff] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (isPreview) {
       setSession(null);
+      setHasOpenHandoff(false);
       return;
     }
     setSession(parseSession(setup.installation_session));
   }, [setup.installation_session, isPreview]);
+
+  useEffect(() => {
+    if (isPreview) return;
+    let cancelled = false;
+    const loadHandoff = async () => {
+      try {
+        const res = await fetch(
+          `/api/app-portal/integrations/${encodeURIComponent(providerKey)}/installation/handoff`,
+          { method: "GET", headers: { "Cache-Control": "no-store" } }
+        );
+        const data = (await res.json().catch(() => ({}))) as {
+          handoff?: {
+            handoff_request_id?: string;
+            id?: string;
+            status?: string;
+            requested_at?: string;
+            created_at?: string;
+            recipient_email?: string | null;
+            internal_context?: { recipient_email?: string | null };
+          } | null;
+        };
+        if (cancelled) return;
+        const handoff = data.handoff ?? null;
+        const open = isOpenHandoffStatus(handoff?.status);
+        setHasOpenHandoff(open);
+        if (open && handoff) {
+          const reference = String(handoff.handoff_request_id ?? handoff.id ?? "");
+          const requestedAt = handoff.requested_at ?? handoff.created_at ?? "";
+          if (reference) {
+            setHandoffConfirmation({
+              reference,
+              requestedAt,
+              recipientEmail:
+                handoff.recipient_email ??
+                handoff.internal_context?.recipient_email ??
+                null,
+            });
+          }
+        }
+      } catch {
+        if (!cancelled) setHasOpenHandoff(false);
+      }
+    };
+    void loadHandoff();
+    return () => {
+      cancelled = true;
+    };
+  }, [isPreview, providerKey]);
 
   const dir = resolveInstallationTextDirection(
     locale,
@@ -280,7 +332,11 @@ export function InstallationWizard({
     : (session?.completed_step_keys ?? []);
   const installLifecycle = isPreview
     ? null
-    : resolveInstallSupportLifecycle({ localSupportMode, session });
+    : resolveInstallSupportLifecycle({
+        localSupportMode,
+        session,
+        hasOpenHandoff,
+      });
   const selectedSupportMode = isPreview
     ? previewView.support_mode
     : (localSupportMode ?? session?.support_mode ?? null);
@@ -307,13 +363,26 @@ export function InstallationWizard({
   const state: InstallationWizardState = isPreview
     ? previewView.state
     : (session?.state ?? "not_started");
+  const falseWaitingRepair =
+    !isPreview &&
+    hasOpenHandoff === false &&
+    [
+      "awaiting_aipify",
+      "awaiting_partner",
+      "awaiting_provider",
+      "awaiting_customer_it",
+      "awaiting_customer",
+    ].includes(state);
   const statusLabel = isPreview
     ? wizLabels.previewStatusForMode(selectedSupportMode)
     : wizLabels.installStatusForLifecycle(
         selectedSupportMode,
         installLifecycle ?? "choose",
-        session?.state
+        falseWaitingRepair ? "in_progress" : session?.state
       );
+  const statusToneState: InstallationWizardState = falseWaitingRepair
+    ? "in_progress"
+    : state;
   const responsibilityLabel = isPreview
     ? wizLabels.previewResponsibilityForMode(selectedSupportMode)
     : wizLabels.installResponsibilityForMode(selectedSupportMode);
@@ -532,6 +601,7 @@ export function InstallationWizard({
       }
 
       setLocalSupportMode(null);
+      setHasOpenHandoff(true);
       const requestedAt = payload.requested_at ?? payload.created_at ?? new Date().toISOString();
       setHandoffConfirmation({
         reference: String(payload.handoff_request_id ?? ""),
@@ -816,7 +886,7 @@ export function InstallationWizard({
           className={`shrink-0 rounded-xl border px-4 py-3 text-sm ${
             isPreview
               ? "border-sky-500/40 bg-sky-500/10 text-sky-900 dark:text-sky-100"
-              : statusTone(state)
+              : statusTone(statusToneState)
           }`}
           role="status"
           data-preview-status={isPreview ? "true" : undefined}

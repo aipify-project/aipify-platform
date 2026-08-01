@@ -79,3 +79,15 @@ export function isValidInviteEmail(value: string | null | undefined): boolean {
   const email = value.trim();
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+
+/** Open (not terminal) handoff statuses that mean waiting is legitimate. */
+export function isOpenHandoffStatus(status: string | null | undefined): boolean {
+  if (!status) return false;
+  return (
+    status === "requested" ||
+    status === "acknowledged" ||
+    status === "assigned" ||
+    status === "in_progress" ||
+    status === "waiting_customer"
+  );
+}

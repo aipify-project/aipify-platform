@@ -41,6 +41,42 @@ function mapHandoffError(message: string): { status: number; code: string } {
 }
 
 /**
+ * Read current tenant handoff for the provider (resume / V3 false-waiting repair).
+ */
+export async function GET(_request: Request, context: RouteContext) {
+  try {
+    const { providerKey: rawKey } = await context.params;
+    const providerKey = typeof rawKey === "string" ? decodeURIComponent(rawKey).trim() : "";
+    if (!providerKey) {
+      return NextResponse.json(
+        { error: "provider_key required", error_code: "invalid_request" },
+        { status: 400, headers: NO_STORE }
+      );
+    }
+
+    const supabase = await createClient();
+    const { data, error } = await supabase.rpc("get_app_portal_installation_handoff", {
+      p_provider_key: providerKey,
+    });
+
+    if (error) {
+      const mapped = mapHandoffError(error.message ?? "");
+      return NextResponse.json(
+        { error: error.message, error_code: mapped.code },
+        { status: mapped.status, headers: NO_STORE }
+      );
+    }
+
+    return NextResponse.json(data ?? { handoff: null }, { headers: NO_STORE });
+  } catch {
+    return NextResponse.json(
+      { error: "Failed to load handoff", error_code: "handoff_failed" },
+      { status: 500, headers: NO_STORE }
+    );
+  }
+}
+
+/**
  * Canonical tenant-bound installation handoff.
  * Organization authority comes from authenticated APP access — never from the client body.
  */

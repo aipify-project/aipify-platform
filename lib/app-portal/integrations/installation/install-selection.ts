@@ -33,15 +33,27 @@ export function installPresentationKeyForSupportMode(
 export function resolveInstallSupportLifecycle(opts: {
   localSupportMode: InstallationSupportMode | null;
   session: InstallationSessionSnapshot | null;
+  /**
+   * True when a persisted open handoff exists for this tenant/provider.
+   * False when checked and absent (V3 false-waiting repair → ready_for_handoff).
+   * Null/undefined while unknown — treat awaiting_* conservatively as handed_off.
+   */
+  hasOpenHandoff?: boolean | null;
 }): InstallSupportLifecycle {
   const sessionState = opts.session?.state;
-  if (
+  const isWaitingState =
     sessionState === "awaiting_aipify" ||
     sessionState === "awaiting_customer_it" ||
     sessionState === "awaiting_partner" ||
     sessionState === "awaiting_provider" ||
-    sessionState === "awaiting_customer"
-  ) {
+    sessionState === "awaiting_customer";
+  if (isWaitingState) {
+    // Waiting without a persisted handoff is inconsistent (V3 defect) — reopen handoff CTA.
+    if (opts.hasOpenHandoff === false) {
+      if (opts.session?.session_id && opts.session.support_mode) return "confirmed";
+      if (opts.localSupportMode) return "selected";
+      return "choose";
+    }
     return "handed_off";
   }
   if (opts.session?.session_id && opts.session.support_mode) {

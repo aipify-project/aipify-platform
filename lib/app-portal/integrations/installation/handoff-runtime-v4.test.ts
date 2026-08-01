@@ -106,7 +106,11 @@ assert.equal(
 assert.match(routeSrc, /client_org_forbidden/);
 assert.match(routeSrc, /preview_readonly/);
 assert.match(routeSrc, /create_app_portal_installation_handoff/);
+assert.match(routeSrc, /get_app_portal_installation_handoff/);
+assert.match(routeSrc, /export async function GET/);
 assert.match(routeSrc, /idempotency_key/);
+assert.match(wizardSrc, /hasOpenHandoff/);
+assert.match(wizardSrc, /isOpenHandoffStatus/);
 
 // Migration contract
 assert.match(migrationSrc, /app_portal_installation_handoffs/);
