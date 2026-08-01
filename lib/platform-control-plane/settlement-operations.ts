@@ -48,7 +48,7 @@ export type PartnerSettlementDiscrepancy = {
 export type PartnerSettlementOperationsBundle = {
   generatedAt: string;
   freshness: PlatformDataFreshness;
-  availability: "ready" | "partial" | "unavailable" | "error";
+  availability: PlatformDataFreshness["availability"];
   settlements: PartnerSettlementOperationRow[];
   discrepancies: PartnerSettlementDiscrepancy[];
   sourceNote: string;
@@ -79,12 +79,14 @@ export function parsePartnerSettlementOperations(raw: unknown): PartnerSettlemen
   const generatedAt = asIso(root.generated_at ?? root.generatedAt) ?? new Date(0).toISOString();
   const availabilityRaw = asString(root.availability || "partial");
   const availability =
-    availabilityRaw === "ready" ||
-    availabilityRaw === "partial" ||
-    availabilityRaw === "unavailable" ||
-    availabilityRaw === "error"
-      ? availabilityRaw
-      : "partial";
+    availabilityRaw === "ready" || availabilityRaw === "live"
+      ? ("live" as const)
+      : availabilityRaw === "partial" ||
+          availabilityRaw === "unavailable" ||
+          availabilityRaw === "error" ||
+          availabilityRaw === "stale"
+        ? availabilityRaw
+        : ("partial" as const);
 
   const settlementsRaw = Array.isArray(root.settlements) ? root.settlements : [];
   const discrepanciesRaw = Array.isArray(root.discrepancies) ? root.discrepancies : [];
@@ -147,7 +149,7 @@ export function parsePartnerSettlementOperations(raw: unknown): PartnerSettlemen
       fetchedAt: generatedAt,
       calculatedAt: generatedAt,
       availability,
-      partial: availability !== "ready",
+      partial: availability !== "live",
     }),
     availability,
     settlements,
