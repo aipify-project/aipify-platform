@@ -1,20 +1,24 @@
-import { describe, expect, it } from "vitest";
-import { assertTransition, canTransition, isActivationAllowed, mapSecretStreamStatusToInstallationState } from "./index";
+import assert from "node:assert/strict";
+import {
+  assertTransition,
+  canTransition,
+  isActivationAllowed,
+  mapSecretStreamStatusToInstallationState,
+} from "./index";
 
-describe("provider onboarding state machine", () => {
-  it("allows valid transitions and rejects skipped verification", () => {
-    expect(canTransition("credential_stored", "connection_test_required")).toBe(true);
-    expect(canTransition("credential_stored", "active")).toBe(false);
-    expect(() => assertTransition("credential_stored", "active")).toThrow(/Invalid provider installation transition/);
-  });
-  it("only permits activation after verification and available service", () => {
-    expect(isActivationAllowed("verified", "production_ready", "guided")).toBe(true);
-    expect(isActivationAllowed("credential_stored", "production_ready", "guided")).toBe(false);
-    expect(isActivationAllowed("verified", "blocked", "guided")).toBe(false);
-    expect(isActivationAllowed("verified", "production_ready", "unsupported")).toBe(false);
-  });
-  it("bridges canonical secret-stream status conservatively", () => {
-    expect(mapSecretStreamStatusToInstallationState("rotation_required")).toBe("revoke_required");
-    expect(mapSecretStreamStatusToInstallationState("not-a-status")).toBe("blocked");
-  });
-});
+assert.equal(canTransition("credential_stored", "connection_test_required"), true);
+assert.equal(canTransition("credential_stored", "active"), false);
+assert.throws(
+  () => assertTransition("credential_stored", "active"),
+  /Invalid provider installation transition/
+);
+
+assert.equal(isActivationAllowed("verified", "production_ready", "guided"), true);
+assert.equal(isActivationAllowed("credential_stored", "production_ready", "guided"), false);
+assert.equal(isActivationAllowed("verified", "blocked", "guided"), false);
+assert.equal(isActivationAllowed("verified", "production_ready", "unsupported"), false);
+
+assert.equal(mapSecretStreamStatusToInstallationState("rotation_required"), "revoke_required");
+assert.equal(mapSecretStreamStatusToInstallationState("not-a-status"), "blocked");
+
+console.log("state-machine.test.ts: ok");
