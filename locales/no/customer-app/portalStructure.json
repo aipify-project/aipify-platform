@@ -1187,6 +1187,164 @@
           "begin": "Review technical requirements with your developer",
           "verify": "Submit validation evidence for certification"
         }
+      },
+      "installationWizard": {
+        "reassurance": "Aipify hjelper deg gjennom oppsettet. Du trenger ikke teknisk kunnskap.",
+        "technicalRequired": "Denne tilkoblingen krever teknisk oppsett. Aipify kan veilede deg, utføre arbeidet når nødvendig tilgang er tilgjengelig, eller samarbeide med leverandøren din.",
+        "progress": "Fremdrift",
+        "estimatedTime": "Omtrent {minutes} minutter",
+        "emptyFallback": "Fortsett når du er klar.",
+        "comingLater": "Dette alternativet kommer snart. Aipify support kan hjelpe i mellomtiden.",
+        "invitePlaceholder": "Invitasjonen er forberedt som en sikker overlevering. Full invitasjonslevering kommer i en senere versjon.",
+        "loading": "Forbereder oppsett",
+        "waiting": "Venter på ansvarlig part",
+        "blocked": "Oppsettet er blokkert til problemet er løst",
+        "error": "Noe uventet skjedde. Prøv igjen eller be Aipify om hjelp.",
+        "completed": "Oppsettet er fullført",
+        "activateGate": "Aktivering krever en vellykket tilkoblingstest og din eksplisitte bekreftelse.",
+        "pauseSaved": "Fremgangen din er lagret. Du kan fortsette senere.",
+        "resume": "Fortsett oppsett",
+        "staleContract": "Oppsettsveiledningen er oppdatert. Se gjennom stegene før du fortsetter.",
+        "primaryContinue": "Fortsett",
+        "primaryBack": "Tilbake",
+        "supportModes": {
+          "selfService": "Gjør det selv",
+          "guided": "Veiledet oppsett",
+          "aipifyManaged": "Aipify gjør oppsettet",
+          "partnerManaged": "Partner gjør oppsettet",
+          "customerItManaged": "Kundens IT-leverandør gjør oppsettet"
+        },
+        "states": {
+          "notStarted": "Ikke startet",
+          "supportSelection": "Velg oppsettsmetode",
+          "awaitingCustomer": "Venter på deg",
+          "awaitingAipify": "Venter på Aipify",
+          "awaitingPartner": "Venter på partner",
+          "awaitingProvider": "Venter på leverandør",
+          "awaitingCustomerIt": "Venter på IT-leverandør",
+          "inProgress": "Pågår",
+          "credentialsRequired": "Nøkkel kreves",
+          "configurationRequired": "Konfigurasjon kreves",
+          "readyForTest": "Klar for test",
+          "testing": "Tester tilkobling",
+          "testFailed": "Testen trenger oppmerksomhet",
+          "verified": "Verifisert",
+          "readyForActivation": "Klar for aktivering",
+          "active": "Aktiv",
+          "paused": "Pauset",
+          "blocked": "Blokkert",
+          "unsupported": "Ikke støttet",
+          "cancelled": "Avbrutt",
+          "completed": "Fullført"
+        },
+        "test": {
+          "testing": "Tilkoblingen testes",
+          "ok": "Tilkoblingen fungerer",
+          "needInfo": "Vi trenger litt mer informasjon",
+          "followUp": "Aipify følger opp dette",
+          "failed": "Testen kunne ikke fullføres",
+          "retry": "Prøv igjen",
+          "askHelp": "Be om hjelp"
+        },
+        "actions": {
+          "askAipifyHelp": "Be Aipify om hjelp",
+          "askAipifyHelpDescription": "Få rolig veiledning uten teknisk sjargong.",
+          "requestGuided": "Bestill veiledet oppsett",
+          "aipifyManaged": "Aipify gjør oppsettet",
+          "inviteProvider": "Inviter leverandør",
+          "inviteIt": "Inviter IT-ansvarlig",
+          "invitePartner": "Inviter partner",
+          "selfService": "Gjør det selv",
+          "changeMethod": "Endre oppsettsmetode",
+          "contactSupport": "Kontakt support",
+          "continueLater": "Fortsett senere"
+        },
+        "responsibleParties": {
+          "customer": "Ditt ansvar",
+          "aipify": "Aipify tar seg av dette",
+          "partner": "Partneren din tar seg av dette",
+          "provider": "Leverandøren tar seg av dette",
+          "customer_it": "IT-leverandøren din tar seg av dette"
+        },
+        "fields": {
+          "apiKey": "Sikker tilkoblingsnøkkel",
+          "baseUrl": "Tjenesteadresse",
+          "itRecipient": "E-post til IT-kontakt"
+        },
+        "help": {
+          "customer": "Aipify veileder deg steg for steg og ber bare om det som trengs.",
+          "internal": "Følg publisert installasjonskontrakt. Verifiser scopes, kjør health check, deretter aktiveringsgate."
+        },
+        "steps": {
+          "introduction": {
+            "title": "Velkommen",
+            "description": "Vi setter opp tilkoblingen sammen. Du trenger bare å godkjenne tilgangen når du blir bedt om det."
+          },
+          "chooseSupport": {
+            "title": "Hvordan skal oppsettet utføres?",
+            "description": "Velg det enkleste trygge alternativet. Aipify-administrert foretrekkes når det er mulig."
+          },
+          "test": {
+            "title": "Test tilkoblingen",
+            "description": "Aipify sjekker at tilkoblingen fungerer før aktivering.",
+            "internalTitle": "Kjør provider-tilkoblingstest",
+            "internalDescription": "Bruk eksisterende testendepunkt, bekreft verifiseringsmetadata, ingen secrets i logger."
+          },
+          "review": {
+            "title": "Gjennomgå tillatelser",
+            "description": "Bekreft tilgangen Aipify skal bruke. Du beholder kontrollen."
+          },
+          "activate": {
+            "title": "Aktiver tilkobling",
+            "description": "Aktivering skjer først etter verifisering og din bekreftelse."
+          },
+          "completion": {
+            "title": "Du er klar",
+            "description": "Tilkoblingen er satt opp. Aipify overvåker helsen videre."
+          },
+          "oauth": {
+            "title": "Godkjenn tilgang",
+            "description": "Logg inn hos leverandøren for å gi den forespurte tilgangen.",
+            "internalTitle": "Fullfør OAuth-autorisering",
+            "internalDescription": "Bekreft PKCE-callback, required scopes og tokenlagring via eksisterende OAuth-strøm."
+          },
+          "waitingAipify": {
+            "title": "Aipify setter opp dette",
+            "description": "Du kan fortsette senere. Vi gir beskjed når du trenger å gjøre noe."
+          },
+          "installConnector": {
+            "title": "Installer connector",
+            "description": "Installer godkjent connector-pakke, eller la Aipify/IT gjøre det.",
+            "internalTitle": "Installer connector-pakke",
+            "internalDescription": "Verifiser checksum, installer pakkeversjon fra kontrakt, kjør health check."
+          },
+          "inviteIt": {
+            "title": "Inviter IT-leverandør",
+            "description": "Send en begrenset invitasjon slik at IT kan fullføre tekniske steg."
+          },
+          "hostedWaiting": {
+            "title": "Aipify forbereder hostet connector",
+            "description": "Du trenger ikke installere noe på egne servere.",
+            "internalTitle": "Provisioner hostet connector",
+            "internalDescription": "Provisioner hostet tjeneste, verifiser health-endepunkt, bekreft konfigurasjonsporter."
+          },
+          "customConfig": {
+            "title": "Del konfigurasjonsdetaljer",
+            "description": "Oppgi bare feltene som trengs for en trygg tilkobling.",
+            "internalTitle": "Samle egendefinert konfigurasjon",
+            "internalDescription": "Valider HTTPS allowlist, lagre ikke-hemmelig config, eskaler secrets via sikker strøm."
+          },
+          "unsupported": {
+            "title": "Selvbetjening er begrenset for denne tilkoblingen",
+            "description": "Be Aipify om hjelp eller velg en veiledet oppsettsmetode."
+          },
+          "credentials": {
+            "title": "Legg til sikker tilkoblingsnøkkel",
+            "description": "Lim inn nøkkelen fra leverandørens admin. Aipify lagrer den sikkert og viser den aldri igjen.",
+            "internalTitle": "Lagre API-nøkkel via secret stream",
+            "internalDescription": "Lagre via eksisterende krypteringssti. Aldri returner plaintext. Gå videre til testgate."
+          }
+        }
       }
     },
     "executiveInsights": {

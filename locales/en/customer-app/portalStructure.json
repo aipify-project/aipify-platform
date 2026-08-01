@@ -6959,6 +6959,164 @@
           "begin": "Review technical requirements with your developer",
           "verify": "Submit validation evidence for certification"
         }
+      },
+      "installationWizard": {
+        "reassurance": "Aipify helps you through setup. You do not need technical knowledge.",
+        "technicalRequired": "This connection needs technical setup. Aipify can guide you, perform the work when required access is available, or collaborate with your provider.",
+        "progress": "Progress",
+        "estimatedTime": "About {minutes} minutes",
+        "emptyFallback": "Continue when you are ready.",
+        "comingLater": "This option will be available soon. Aipify support can help in the meantime.",
+        "invitePlaceholder": "Invitation is prepared as a secure handoff. Full invite delivery comes in a later release.",
+        "loading": "Preparing setup",
+        "waiting": "Waiting on the responsible party",
+        "blocked": "Setup is blocked until the issue is resolved",
+        "error": "Something unexpected happened. Please try again or ask Aipify for help.",
+        "completed": "Setup is complete",
+        "activateGate": "Activation requires a successful connection test and your explicit confirmation.",
+        "pauseSaved": "Your progress is saved. You can continue later.",
+        "resume": "Continue setup",
+        "staleContract": "The setup guide was updated. Review the current steps before continuing.",
+        "primaryContinue": "Continue",
+        "primaryBack": "Back",
+        "supportModes": {
+          "selfService": "Do it yourself",
+          "guided": "Guided setup",
+          "aipifyManaged": "Aipify handles setup",
+          "partnerManaged": "Partner handles setup",
+          "customerItManaged": "Your IT provider handles setup"
+        },
+        "states": {
+          "notStarted": "Not started",
+          "supportSelection": "Choose setup method",
+          "awaitingCustomer": "Waiting for you",
+          "awaitingAipify": "Waiting for Aipify",
+          "awaitingPartner": "Waiting for partner",
+          "awaitingProvider": "Waiting for provider",
+          "awaitingCustomerIt": "Waiting for IT provider",
+          "inProgress": "In progress",
+          "credentialsRequired": "Credentials needed",
+          "configurationRequired": "Configuration needed",
+          "readyForTest": "Ready to test",
+          "testing": "Testing connection",
+          "testFailed": "Test needs attention",
+          "verified": "Verified",
+          "readyForActivation": "Ready to activate",
+          "active": "Active",
+          "paused": "Paused",
+          "blocked": "Blocked",
+          "unsupported": "Not supported",
+          "cancelled": "Cancelled",
+          "completed": "Completed"
+        },
+        "test": {
+          "testing": "The connection is being tested",
+          "ok": "The connection works",
+          "needInfo": "We need a little more information",
+          "followUp": "Aipify will follow up on this",
+          "failed": "The test could not be completed",
+          "retry": "Try again",
+          "askHelp": "Ask for help"
+        },
+        "actions": {
+          "askAipifyHelp": "Ask Aipify for help",
+          "askAipifyHelpDescription": "Get calm guidance without technical jargon.",
+          "requestGuided": "Book guided setup",
+          "aipifyManaged": "Aipify handles setup",
+          "inviteProvider": "Invite provider",
+          "inviteIt": "Invite IT owner",
+          "invitePartner": "Invite partner",
+          "selfService": "Do it yourself",
+          "changeMethod": "Change setup method",
+          "contactSupport": "Contact support",
+          "continueLater": "Continue later"
+        },
+        "responsibleParties": {
+          "customer": "Your responsibility",
+          "aipify": "Aipify is handling this",
+          "partner": "Your partner is handling this",
+          "provider": "The provider is handling this",
+          "customer_it": "Your IT provider is handling this"
+        },
+        "fields": {
+          "apiKey": "Secure connection key",
+          "baseUrl": "Service address",
+          "itRecipient": "IT contact email"
+        },
+        "help": {
+          "customer": "Aipify guides you step by step and only asks for what is needed.",
+          "internal": "Follow the published installation contract. Verify scopes, run health check, then gate activation."
+        },
+        "steps": {
+          "introduction": {
+            "title": "Welcome",
+            "description": "We will set up this connection together. You only need to approve access when asked."
+          },
+          "chooseSupport": {
+            "title": "How should setup be done?",
+            "description": "Choose the simplest safe option. Aipify-managed is preferred when available."
+          },
+          "test": {
+            "title": "Test the connection",
+            "description": "Aipify checks that the connection works before activation.",
+            "internalTitle": "Run provider connection test",
+            "internalDescription": "Invoke existing test endpoint, confirm verification metadata, no secrets in logs."
+          },
+          "review": {
+            "title": "Review permissions",
+            "description": "Confirm the access Aipify will use. You stay in control."
+          },
+          "activate": {
+            "title": "Activate connection",
+            "description": "Activation happens only after verification and your confirmation."
+          },
+          "completion": {
+            "title": "You are ready",
+            "description": "The connection is set up. Aipify will keep monitoring health."
+          },
+          "oauth": {
+            "title": "Approve access",
+            "description": "Sign in with the provider to grant the requested access.",
+            "internalTitle": "Complete OAuth authorization",
+            "internalDescription": "Confirm PKCE callback, required scopes, and token storage via existing OAuth stream."
+          },
+          "waitingAipify": {
+            "title": "Aipify is setting this up",
+            "description": "You can continue later. We will notify you when your action is needed."
+          },
+          "installConnector": {
+            "title": "Install the connector",
+            "description": "Install the approved connector package, or let Aipify/your IT handle it.",
+            "internalTitle": "Install connector package",
+            "internalDescription": "Verify checksum, install package version from contract, run health check."
+          },
+          "inviteIt": {
+            "title": "Invite your IT provider",
+            "description": "Send a limited invitation so IT can complete technical steps."
+          },
+          "hostedWaiting": {
+            "title": "Aipify is preparing the hosted connector",
+            "description": "No server installation is required on your side.",
+            "internalTitle": "Provision hosted connector",
+            "internalDescription": "Provision hosted service, verify health endpoint, confirm customer configuration gates."
+          },
+          "customConfig": {
+            "title": "Share configuration details",
+            "description": "Provide only the fields needed for a safe connection.",
+            "internalTitle": "Collect custom implementation configuration",
+            "internalDescription": "Validate HTTPS URL allowlist, store non-secret config, escalate secrets via secure stream."
+          },
+          "unsupported": {
+            "title": "Self-service is limited for this connection",
+            "description": "Ask Aipify for help or choose a guided setup method."
+          },
+          "credentials": {
+            "title": "Add your secure connection key",
+            "description": "Paste the key from your provider admin. Aipify stores it securely and never shows it again.",
+            "internalTitle": "Store API key via secret stream",
+            "internalDescription": "Save through existing encrypt path. Never return plaintext. Proceed to test gate."
+          }
+        }
       }
     },
     "scenarioPlanning": {

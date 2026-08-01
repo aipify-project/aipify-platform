@@ -74,6 +74,10 @@ export type AppPortalIntegrationSetup = {
   presentation_contract?: unknown;
   /** Raw authoritative Core onboarding/distribution contract; parse before use. */
   onboarding_contract?: unknown;
+  /** Raw authoritative Core installation wizard contract; parse before use. */
+  installation_contract?: unknown;
+  /** Persisted wizard session snapshot from Core (no secrets). */
+  installation_session?: unknown;
   installation_state?: string;
   readiness_level?: string | null;
   support_level?: string | null;

@@ -169,6 +169,8 @@ export function parseAppPortalIntegrationSetup(raw: unknown): AppPortalIntegrati
     oauth_steps: asStringArray(row.oauth_steps),
     presentation_contract: row.presentation_contract ?? row.presentationContract ?? null,
     onboarding_contract: row.onboarding_contract ?? row.onboardingContract ?? null,
+    installation_contract: row.installation_contract ?? row.installationContract ?? null,
+    installation_session: row.installation_session ?? row.installationSession ?? null,
     installation_state: row.installation_state == null ? undefined : asString(row.installation_state),
     readiness_level: row.readiness_level == null ? null : asString(row.readiness_level),
     support_level: row.support_level == null ? null : asString(row.support_level),

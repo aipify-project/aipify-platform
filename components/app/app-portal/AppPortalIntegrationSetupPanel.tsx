@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import {
@@ -44,6 +44,7 @@ import {
   type IntegrationVerificationMetadata,
 } from "@/lib/app-portal/integrations";
 import { ProviderOnboardingOverview } from "@/components/app/app-portal/ProviderOnboardingOverview";
+import { InstallationWizard } from "@/components/app/app-portal/InstallationWizard";
 import {
   isCoreProviderInstallationState,
   mapSecretStreamStatusToInstallationState,
@@ -77,6 +78,8 @@ export function AppPortalIntegrationSetupPanel({
   labels,
 }: AppPortalIntegrationSetupPanelProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const preferLegacyTechnical = searchParams.get("legacySetup") === "1";
   const [setup, setSetup] = useState<AppPortalIntegrationSetup | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadFailed, setLoadFailed] = useState(false);
@@ -481,6 +484,35 @@ export function AppPortalIntegrationSetupPanel({
             </Link>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  // Generic Core-driven InstallationWizard is the primary customer setup path.
+  // Legacy presentation_contract UI remains below only when explicitly requested.
+  if (!preferLegacyTechnical) {
+    const locale =
+      typeof document !== "undefined" && document.documentElement.lang
+        ? document.documentElement.lang
+        : "en";
+    return (
+      <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
+        <Link
+          href="/app/platform/integrations"
+          className={`inline-flex text-sm font-medium text-aipify-text-secondary hover:text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
+        >
+          ← {labels.setup.back}
+        </Link>
+        <InstallationWizard
+          providerKey={providerKey}
+          setup={setup}
+          labels={labels}
+          locale={locale}
+          onReload={async () => {
+            resumeInitialized.current = false;
+            await load();
+          }}
+        />
       </div>
     );
   }

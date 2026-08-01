@@ -1186,6 +1186,164 @@
           "begin": "Review technical requirements with your developer",
           "verify": "Submit validation evidence for certification"
         }
+      },
+      "installationWizard": {
+        "reassurance": "Aipify hjälper dig genom installationen. Du behöver ingen teknisk kunskap.",
+        "technicalRequired": "Den här anslutningen kräver teknisk installation. Aipify kan vägleda dig, utföra arbetet när nödvändig åtkomst finns, eller samarbeta med din leverantör.",
+        "progress": "Förlopp",
+        "estimatedTime": "Cirka {minutes} minuter",
+        "emptyFallback": "Fortsätt när du är redo.",
+        "comingLater": "Det här alternativet blir tillgängligt snart. Aipify-support kan hjälpa dig under tiden.",
+        "invitePlaceholder": "Inbjudan är förberedd som en säker överlämning. Fullständig inbjudansleverans kommer i en senare version.",
+        "loading": "Förbereder installationen",
+        "waiting": "Väntar på ansvarig part",
+        "blocked": "Installationen är blockerad tills problemet är löst",
+        "error": "Något oväntat hände. Försök igen eller be Aipify om hjälp.",
+        "completed": "Installationen är klar",
+        "activateGate": "Aktivering kräver ett lyckat anslutningstest och din uttryckliga bekräftelse.",
+        "pauseSaved": "Dina framsteg är sparade. Du kan fortsätta senare.",
+        "resume": "Fortsätt installationen",
+        "staleContract": "Installationsguiden har uppdaterats. Granska stegen innan du fortsätter.",
+        "primaryContinue": "Fortsätt",
+        "primaryBack": "Tillbaka",
+        "supportModes": {
+          "selfService": "Gör det själv",
+          "guided": "Vägledd installation",
+          "aipifyManaged": "Aipify sköter installationen",
+          "partnerManaged": "Partner sköter installationen",
+          "customerItManaged": "Er IT-leverantör sköter installationen"
+        },
+        "states": {
+          "notStarted": "Inte startad",
+          "supportSelection": "Välj installationsmetod",
+          "awaitingCustomer": "Väntar på dig",
+          "awaitingAipify": "Väntar på Aipify",
+          "awaitingPartner": "Väntar på partner",
+          "awaitingProvider": "Väntar på leverantör",
+          "awaitingCustomerIt": "Väntar på IT-leverantör",
+          "inProgress": "Pågående",
+          "credentialsRequired": "Uppgifter behövs",
+          "configurationRequired": "Konfiguration behövs",
+          "readyForTest": "Redo att testa",
+          "testing": "Anslutningen testas",
+          "testFailed": "Testet behöver åtgärdas",
+          "verified": "Verifierad",
+          "readyForActivation": "Redo för aktivering",
+          "active": "I drift",
+          "paused": "Pausad",
+          "blocked": "Blockerad",
+          "unsupported": "Stöds inte",
+          "cancelled": "Avbruten",
+          "completed": "Slutförd"
+        },
+        "test": {
+          "testing": "Anslutningen testas",
+          "ok": "Anslutningen fungerar",
+          "needInfo": "Vi behöver lite mer information",
+          "followUp": "Aipify följer upp detta",
+          "failed": "Testet kunde inte slutföras",
+          "retry": "Försök igen",
+          "askHelp": "Be om hjälp"
+        },
+        "actions": {
+          "askAipifyHelp": "Be Aipify om hjälp",
+          "askAipifyHelpDescription": "Få lugn vägledning utan teknisk jargong.",
+          "requestGuided": "Boka vägledd installation",
+          "aipifyManaged": "Aipify sköter installationen",
+          "inviteProvider": "Bjud in leverantör",
+          "inviteIt": "Bjud in IT-ansvarig",
+          "invitePartner": "Bjud in partner",
+          "selfService": "Gör det själv",
+          "changeMethod": "Byt installationsmetod",
+          "contactSupport": "Kontakta support",
+          "continueLater": "Fortsätt senare"
+        },
+        "responsibleParties": {
+          "customer": "Ert ansvar",
+          "aipify": "Aipify hanterar detta",
+          "partner": "Er partner hanterar detta",
+          "provider": "Leverantören hanterar detta",
+          "customer_it": "Er IT-leverantör hanterar detta"
+        },
+        "fields": {
+          "apiKey": "Säker anslutningsnyckel",
+          "baseUrl": "Tjänstadress",
+          "itRecipient": "IT-kontaktens e-postadress"
+        },
+        "help": {
+          "customer": "Aipify vägleder dig steg för steg och ber bara om det som behövs.",
+          "internal": "Följ det publicerade installationskontraktet. Verifiera behörigheter, kör hälsokontroll och aktivera först därefter."
+        },
+        "steps": {
+          "introduction": {
+            "title": "Välkommen",
+            "description": "Vi sätter upp anslutningen åt dig. Du behöver bara godkänna åtkomst när du blir ombedd."
+          },
+          "chooseSupport": {
+            "title": "Hur ska installationen göras?",
+            "description": "Välj det enklaste säkra alternativet. Aipify-hanterat prioriteras när det är möjligt."
+          },
+          "test": {
+            "title": "Testa anslutningen",
+            "description": "Aipify kontrollerar att anslutningen fungerar innan aktivering.",
+            "internalTitle": "Kör leverantörens anslutningstest",
+            "internalDescription": "Anropa befintlig testendpoint, bekräfta verifieringsmetadata och logga aldrig hemligheter."
+          },
+          "review": {
+            "title": "Granska behörigheter",
+            "description": "Bekräfta den åtkomst Aipify kommer att använda. Du behåller kontrollen."
+          },
+          "activate": {
+            "title": "Aktivera anslutningen",
+            "description": "Aktivering sker först efter verifiering och din bekräftelse."
+          },
+          "completion": {
+            "title": "Ni är klara",
+            "description": "Anslutningen är installerad. Aipify fortsätter att övervaka hälsan."
+          },
+          "oauth": {
+            "title": "Godkänn åtkomst",
+            "description": "Logga in hos leverantören för att bevilja den begärda åtkomsten.",
+            "internalTitle": "Slutför OAuth-auktorisering",
+            "internalDescription": "Bekräfta PKCE-callback, nödvändiga scopes och tokenlagring via befintlig OAuth-ström."
+          },
+          "waitingAipify": {
+            "title": "Aipify installerar detta",
+            "description": "Du kan fortsätta senare. Vi meddelar dig när din åtgärd behövs."
+          },
+          "installConnector": {
+            "title": "Installera anslutningen",
+            "description": "Installera det godkända anslutningspaketet, eller låt Aipify eller er IT hantera det.",
+            "internalTitle": "Installera anslutningspaket",
+            "internalDescription": "Verifiera checksumma, installera paketversion från kontraktet och kör hälsokontroll."
+          },
+          "inviteIt": {
+            "title": "Bjud in er IT-leverantör",
+            "description": "Skicka en begränsad inbjudan så att IT kan slutföra tekniska steg."
+          },
+          "hostedWaiting": {
+            "title": "Aipify förbereder den hostade anslutningen",
+            "description": "Ingen serverinstallation krävs på er sida.",
+            "internalTitle": "Provisionera hostad anslutning",
+            "internalDescription": "Provisionera hostad tjänst, verifiera hälsopunkt och bekräfta kundkonfigurationsgrindar."
+          },
+          "customConfig": {
+            "title": "Dela konfigurationsuppgifter",
+            "description": "Ange bara de fält som behövs för en säker anslutning.",
+            "internalTitle": "Samla in anpassad implementationskonfiguration",
+            "internalDescription": "Validera HTTPS-URL-allowlist, lagra icke-hemlig konfiguration och eskalera hemligheter via säker ström."
+          },
+          "unsupported": {
+            "title": "Självbetjäning är begränsad för den här anslutningen",
+            "description": "Be Aipify om hjälp eller välj en vägledd installationsmetod."
+          },
+          "credentials": {
+            "title": "Lägg till er säkra anslutningsnyckel",
+            "description": "Klistra in nyckeln från leverantörens admin. Aipify lagrar den säkert och visar den aldrig igen.",
+            "internalTitle": "Lagra API-nyckel via hemlighetsström",
+            "internalDescription": "Spara via befintlig krypteringsväg. Returnera aldrig klartext. Fortsätt till testgrind."
+          }
+        }
       }
     },
     "executiveInsights": {

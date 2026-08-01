@@ -1,0 +1,43 @@
+# Core APP Generic Installation Wizard
+
+Task: `AIPIFY.CORE.APP.GENERIC.INSTALLATION.WIZARD.V1`
+
+## Ownership
+
+- **Core** owns the authoritative `installation_contract` on `app_portal_integration_providers`.
+- **Customer APP** only renders the generic `InstallationWizard` from the canonical Core contract.
+- Platform Admin configures the contract; APP never invents provider-specific wizards.
+
+## Hard rules
+
+1. No provider-specific wizard components.
+2. No customer-specific wizard components (including UnoNight special-cases).
+3. No parallel provider registry — extend the existing provider row.
+4. Minimize customer technical effort; assistance-first UX is mandatory.
+5. Prefer Aipify-managed / guided over self-service when supported.
+6. Dynamic global locale list from Core language foundation (`LOCALES`) — never hardcode locale tabs/unions in the wizard.
+7. English fallback required; never show raw translation keys to customers.
+8. Role-based presentation from the same contract (customer vs internal).
+9. No raw technical/internal copy to customer audiences.
+10. No activation before verified; no auto-activation from wizard completion alone.
+11. No secret plaintext to client, logs, or session `field_values`.
+12. Pause/resume required; session state is server-authoritative.
+13. State transitions validated in Core RPCs — client cannot invent authority.
+14. Reference fixtures are not live Production providers.
+15. Premium, responsive, dark-mode, and accessibility requirements apply.
+16. Authenticated Production proof is required before `PRODUCTION_READY`.
+
+## Code map
+
+- Contract: `lib/app-portal/integrations/installation/`
+- Wizard: `components/app/app-portal/InstallationWizard.tsx`
+- Session RPCs: `get_app_portal_installation_session`, `upsert_app_portal_installation_session`
+- Migration: `supabase/migrations/20261937100000_core_provider_installation_wizard_v1.sql`
+
+## Platform editor
+
+Full structured Platform editor for installation steps may depend on:
+
+`AIPIFY.PLATFORM.PROVIDER.ONBOARDING.PREMIUM.STRUCTURED.ADMIN.V2`
+
+Use typed read/preview hooks until that editor covers installation contracts.
