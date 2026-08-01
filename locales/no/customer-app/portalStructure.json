@@ -1209,11 +1209,11 @@
         "primaryContinue": "Fortsett",
         "primaryBack": "Tilbake",
         "supportModes": {
-          "selfService": "Gjør det selv",
-          "guided": "Veiledet oppsett",
+          "selfService": "Jeg gjør det selv",
+          "guided": "Jeg ønsker veiledning",
           "aipifyManaged": "Aipify gjør oppsettet",
           "partnerManaged": "Partner gjør oppsettet",
-          "customerItManaged": "Kundens IT-leverandør gjør oppsettet"
+          "customerItManaged": "Min IT-leverandør hjelper"
         },
         "states": {
           "notStarted": "Ikke startet",
@@ -1351,7 +1351,23 @@
           "notice": "Dette er en forhåndsvisning. Ingen endringer blir lagret.",
           "readOnlyAction": "Denne handlingen er utilgjengelig i forhåndsvisning. Ingen endringer lagres.",
           "close": "Lukk forhåndsvisning",
-          "sampleCredential": "Kun eksempel — lagres ikke"
+          "sampleCredential": "Kun eksempel — lagres ikke",
+          "actionsExampleHeading": "Eksempel på handlinger i aktiv installasjon",
+          "actionsUnavailable": "Ikke tilgjengelig i forhåndsvisning",
+          "status": {
+            "choose": "Velg hvordan oppsettet skal gjøres",
+            "aipifyManaged": "Aipify gjør klart oppsettet",
+            "guided": "Klar for veiledet oppsett",
+            "selfService": "Klar for selvbetjent oppsett",
+            "customerItManaged": "Klar for IT-leverandør"
+          },
+          "responsibility": {
+            "choose": "Velg oppsettsmetode for å se hvem som har ansvaret.",
+            "aipifyManaged": "Du trenger bare å godkjenne det vi ber om",
+            "guided": "Aipify veileder deg steg for steg",
+            "selfService": "Du utfører stegene selv. Aipify kan hjelpe ved behov",
+            "customerItManaged": "Din IT-leverandør utfører de tekniske stegene"
+          }
         }
       }
     },

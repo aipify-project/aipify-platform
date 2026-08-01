@@ -6981,11 +6981,11 @@
         "primaryContinue": "Continue",
         "primaryBack": "Back",
         "supportModes": {
-          "selfService": "Do it yourself",
-          "guided": "Guided setup",
+          "selfService": "I'll do it myself",
+          "guided": "I want guidance",
           "aipifyManaged": "Aipify handles setup",
           "partnerManaged": "Partner handles setup",
-          "customerItManaged": "Your IT provider handles setup"
+          "customerItManaged": "My IT provider helps"
         },
         "states": {
           "notStarted": "Not started",
@@ -7123,7 +7123,23 @@
           "notice": "This is a preview. No changes will be saved.",
           "readOnlyAction": "This action is unavailable in preview. No changes are saved.",
           "close": "Close preview",
-          "sampleCredential": "Sample only — not saved"
+          "sampleCredential": "Sample only — not saved",
+          "actionsExampleHeading": "Example of actions in an active installation",
+          "actionsUnavailable": "Not available in preview",
+          "status": {
+            "choose": "Choose how setup should be done",
+            "aipifyManaged": "Aipify is preparing the setup",
+            "guided": "Ready for guided setup",
+            "selfService": "Ready for self-service setup",
+            "customerItManaged": "Ready for IT provider"
+          },
+          "responsibility": {
+            "choose": "Select a setup method to see who is responsible.",
+            "aipifyManaged": "You only need to approve what we ask for",
+            "guided": "Aipify guides you step by step",
+            "selfService": "You complete the steps yourself. Aipify can help when needed",
+            "customerItManaged": "Your IT provider performs the technical steps"
+          }
         }
       }
     },

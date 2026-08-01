@@ -1208,11 +1208,11 @@
         "primaryContinue": "Fortsæt",
         "primaryBack": "Tilbage",
         "supportModes": {
-          "selfService": "Gør det selv",
-          "guided": "Guidet opsætning",
-          "aipifyManaged": "Aipify håndterer opsætningen",
-          "partnerManaged": "Partner styret opsætning",
-          "customerItManaged": "Kundens IT-leverandør håndterer opsætningen"
+          "selfService": "Jeg gør det selv",
+          "guided": "Jeg ønsker vejledning",
+          "aipifyManaged": "Aipify klarer opsætningen",
+          "partnerManaged": "Partner klarer opsætningen",
+          "customerItManaged": "Min IT-leverandør hjælper"
         },
         "states": {
           "notStarted": "Ikke påbegyndt",
@@ -1346,11 +1346,27 @@
           }
         },
         "preview": {
-          "badge": "Kun visning",
-          "notice": "Dette er en forhåndsvisning. Ingen ændringer bliver gemt.",
-          "readOnlyAction": "Denne handling er utilgængelig i forhåndsvisning. Ingen ændringer gemmes.",
+          "badge": "Forhåndsvisning",
+          "notice": "Dette er en forhåndsvisning. Ingen ændringer gemmes.",
+          "readOnlyAction": "Denne handling er ikke tilgængelig i forhåndsvisning. Ingen ændringer gemmes.",
           "close": "Luk forhåndsvisning",
-          "sampleCredential": "Kun eksempel — gemmes ikke"
+          "sampleCredential": "Kun eksempel — gemmes ikke",
+          "actionsExampleHeading": "Eksempel på handlinger i en aktiv installation",
+          "actionsUnavailable": "Ikke tilgængelig i forhåndsvisning",
+          "status": {
+            "choose": "Vælg, hvordan opsætningen skal laves",
+            "aipifyManaged": "Aipify gør opsætningen klar",
+            "guided": "Klar til vejledt opsætning",
+            "selfService": "Klar til selvbetjent opsætning",
+            "customerItManaged": "Klar til IT-leverandør"
+          },
+          "responsibility": {
+            "choose": "Vælg opsætningsmetode for at se, hvem der har ansvaret.",
+            "aipifyManaged": "Du skal kun godkende det, vi beder om",
+            "guided": "Aipify vejleder dig trin for trin",
+            "selfService": "Du udfører trinnene selv. Aipify kan hjælpe efter behov",
+            "customerItManaged": "Din IT-leverandør udfører de tekniske trin"
+          }
         }
       }
     },

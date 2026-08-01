@@ -1208,11 +1208,11 @@
         "primaryContinue": "Fortsätt",
         "primaryBack": "Tillbaka",
         "supportModes": {
-          "selfService": "Gör det själv",
-          "guided": "Vägledd installation",
+          "selfService": "Jag gör det själv",
+          "guided": "Jag vill ha vägledning",
           "aipifyManaged": "Aipify sköter installationen",
           "partnerManaged": "Partner sköter installationen",
-          "customerItManaged": "Er IT-leverantör sköter installationen"
+          "customerItManaged": "Min IT-leverantör hjälper till"
         },
         "states": {
           "notStarted": "Inte startad",
@@ -1348,9 +1348,25 @@
         "preview": {
           "badge": "Förhandsvisning",
           "notice": "Detta är en förhandsvisning. Inga ändringar sparas.",
-          "readOnlyAction": "Åtgärden är inte tillgänglig i förhandsvisning. Inga ändringar sparas.",
+          "readOnlyAction": "Denna åtgärd är inte tillgänglig i förhandsvisning. Inga ändringar sparas.",
           "close": "Stäng förhandsvisning",
-          "sampleCredential": "Endast exempel — sparas inte"
+          "sampleCredential": "Endast exempel — sparas inte",
+          "actionsExampleHeading": "Exempel på åtgärder i en aktiv installation",
+          "actionsUnavailable": "Inte tillgängligt i förhandsvisning",
+          "status": {
+            "choose": "Välj hur installationen ska göras",
+            "aipifyManaged": "Aipify förbereder installationen",
+            "guided": "Redo för vägledd installation",
+            "selfService": "Redo för självbetjäning",
+            "customerItManaged": "Redo för IT-leverantör"
+          },
+          "responsibility": {
+            "choose": "Välj installationsmetod för att se vem som ansvarar.",
+            "aipifyManaged": "Du behöver bara godkänna det vi ber om",
+            "guided": "Aipify vägleder dig steg för steg",
+            "selfService": "Du utför stegen själv. Aipify kan hjälpa vid behov",
+            "customerItManaged": "Din IT-leverantör utför de tekniska stegen"
+          }
         }
       }
     },
