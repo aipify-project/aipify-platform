@@ -6403,7 +6403,8 @@
           "retry": "Spróbuj ponownie",
           "editSetup": "Edytuj konfigurację",
           "removeIntegration": "Usuń integrację",
-          "continueSetup": "Kontynuuj konfigurację"
+          "continueSetup": "Kontynuuj konfigurację",
+          "previewWizard": "Podgląd kreatora instalacji"
         },
         "removeDialog": {
           "title": "Usunąć integrację {provider}?",
@@ -7309,6 +7310,13 @@
             "internalTitle": "Store API key via secret stream",
             "internalDescription": "Save through existing encrypt path. Never return plaintext. Proceed to test gate."
           }
+        },
+        "preview": {
+          "badge": "Podgląd",
+          "notice": "To jest podgląd. Żadne zmiany nie zostaną zapisane.",
+          "readOnlyAction": "Ta czynność jest niedostępna w podglądzie. Żadne zmiany nie są zapisywane.",
+          "close": "Zamknij podgląd",
+          "sampleCredential": "Tylko przykład — nie jest zapisywany"
         }
       }
     }

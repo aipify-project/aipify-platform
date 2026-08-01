@@ -401,7 +401,8 @@
           "retry": "Prøv på nytt",
           "editSetup": "Rediger oppsett",
           "removeIntegration": "Fjern integrasjon",
-          "continueSetup": "Fortsett oppsett"
+          "continueSetup": "Fortsett oppsett",
+          "previewWizard": "Forhåndsvis installasjonsveiviser"
         },
         "removeDialog": {
           "title": "Fjerne {provider}-integrasjonen?",
@@ -1344,6 +1345,13 @@
             "internalTitle": "Lagre API-nøkkel via secret stream",
             "internalDescription": "Lagre via eksisterende krypteringssti. Aldri returner plaintext. Gå videre til testgate."
           }
+        },
+        "preview": {
+          "badge": "Forhåndsvisning",
+          "notice": "Dette er en forhåndsvisning. Ingen endringer blir lagret.",
+          "readOnlyAction": "Denne handlingen er utilgjengelig i forhåndsvisning. Ingen endringer lagres.",
+          "close": "Lukk forhåndsvisning",
+          "sampleCredential": "Kun eksempel — lagres ikke"
         }
       }
     },

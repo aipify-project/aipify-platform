@@ -7,6 +7,7 @@ export { AppPortalKnowledgePanel } from "./AppPortalKnowledgePanel";
 export { AppPortalIntegrationsHubPanel } from "./AppPortalIntegrationsHubPanel";
 export { AppPortalIntegrationSetupPanel } from "./AppPortalIntegrationSetupPanel";
 export { InstallationWizard } from "./InstallationWizard";
+export { InstallationWizardPreviewDialog } from "./InstallationWizardPreviewDialog";
 export { AppPortalExecutiveInsightsPanel } from "./AppPortalExecutiveInsightsPanel";
 export { FollowUpsCenterPanel } from "./FollowUpsCenterPanel";
 export { FollowUpDetailPanel } from "./FollowUpDetailPanel";

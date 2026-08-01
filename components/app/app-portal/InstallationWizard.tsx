@@ -4,7 +4,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   buildInstallationWizardLabels,
   canActivateFromWizard,
+  createInstallationWizardPreviewViewState,
   isInstallationSupportMode,
+  isInstallationWizardPreviewMode,
   listInstallationLocales,
   nextSafeStep,
   planInstallationSteps,
@@ -18,6 +20,8 @@ import {
   type InstallationAudience,
   type InstallationSessionSnapshot,
   type InstallationSupportMode,
+  type InstallationWizardMode,
+  type InstallationWizardPreviewViewState,
   type InstallationWizardState,
   type InstallationWizardLabels,
 } from "@/lib/app-portal/integrations/installation";
@@ -32,6 +36,11 @@ type InstallationWizardProps = {
   onReload: () => Promise<void>;
   /** When true, show internal technical copy (operators/partners). */
   showInternalDetails?: boolean;
+  /**
+   * Explicit runtime mode. Default `install`.
+   * `preview` is read-only — no session, secret, test, or activation writes.
+   */
+  mode?: InstallationWizardMode;
 };
 
 function parseSession(raw: unknown): InstallationSessionSnapshot | null {
@@ -87,7 +96,9 @@ export function InstallationWizard({
   audience = "customer_owner",
   onReload,
   showInternalDetails = false,
+  mode = "install",
 }: InstallationWizardProps) {
+  const isPreview = isInstallationWizardPreviewMode(mode);
   const effectiveAudience: InstallationAudience = showInternalDetails
     ? "aipify_operator"
     : audience;
@@ -120,7 +131,10 @@ export function InstallationWizard({
   );
 
   const [session, setSession] = useState<InstallationSessionSnapshot | null>(() =>
-    parseSession(setup.installation_session)
+    isPreview ? null : parseSession(setup.installation_session)
+  );
+  const [previewView, setPreviewView] = useState<InstallationWizardPreviewViewState>(() =>
+    createInstallationWizardPreviewViewState()
   );
   const [acting, setActing] = useState(false);
   const [handoffNotice, setHandoffNotice] = useState<string | null>(null);
@@ -130,8 +144,12 @@ export function InstallationWizard({
   const [errorSummary, setErrorSummary] = useState<string | null>(null);
 
   useEffect(() => {
+    if (isPreview) {
+      setSession(null);
+      return;
+    }
     setSession(parseSession(setup.installation_session));
-  }, [setup.installation_session]);
+  }, [setup.installation_session, isPreview]);
 
   const dir = resolveInstallationTextDirection(
     locale,
@@ -154,6 +172,20 @@ export function InstallationWizard({
       reason?: string;
       idempotency_key?: string;
     }) => {
+      if (isPreview) {
+        setPreviewView((prev) => ({
+          support_mode:
+            patch.support_mode !== undefined ? patch.support_mode : prev.support_mode,
+          state: patch.state ?? prev.state,
+          current_step_key:
+            patch.current_step_key !== undefined
+              ? patch.current_step_key
+              : prev.current_step_key,
+          completed_step_keys: patch.completed_step_keys ?? prev.completed_step_keys,
+          paused: typeof patch.paused === "boolean" ? patch.paused : prev.paused,
+        }));
+        return null;
+      }
       if (!contractResult.ok) return null;
       setActing(true);
       setErrorSummary(null);
@@ -180,8 +212,13 @@ export function InstallationWizard({
         setActing(false);
       }
     },
-    [contractResult, providerKey, wizLabels.errorGeneric]
+    [contractResult, isPreview, providerKey, wizLabels.errorGeneric]
   );
+
+  const blockPreviewWrite = useCallback(() => {
+    setLiveRegion(wizLabels.previewReadOnlyAction);
+    setHandoffNotice(wizLabels.previewReadOnlyAction);
+  }, [wizLabels.previewReadOnlyAction]);
 
   if (!contractResult.ok) {
     return (
@@ -200,22 +237,31 @@ export function InstallationWizard({
   }
 
   const contract = contractResult.contract;
+  const completedKeys = isPreview
+    ? previewView.completed_step_keys
+    : (session?.completed_step_keys ?? []);
   const supportMode =
-    session?.support_mode ?? selectDefaultSupportMode(contract);
+    (isPreview ? previewView.support_mode : session?.support_mode) ??
+    selectDefaultSupportMode(contract);
   const planned = planInstallationSteps(contract, {
     supportMode,
     audience: effectiveAudience,
-    completedStepKeys: session?.completed_step_keys ?? [],
+    completedStepKeys: completedKeys,
   });
+  const currentStepKey = isPreview
+    ? previewView.current_step_key
+    : session?.current_step_key;
   const current =
-    planned.find((s) => s.step_key === session?.current_step_key) ??
-    nextSafeStep(planned, session?.completed_step_keys ?? []) ??
+    planned.find((s) => s.step_key === currentStepKey) ??
+    nextSafeStep(planned, completedKeys) ??
     planned[0] ??
     null;
-  const completed = new Set(session?.completed_step_keys ?? []);
+  const completed = new Set(completedKeys);
   const progressIndex = current ? Math.max(0, planned.findIndex((s) => s.step_key === current.step_key)) : 0;
   const progressTotal = Math.max(1, planned.length);
-  const state: InstallationWizardState = session?.state ?? "not_started";
+  const state: InstallationWizardState = isPreview
+    ? previewView.state
+    : (session?.state ?? "not_started");
   const presentation = current
     ? resolveStepPresentation(current, effectiveAudience)
     : null;
@@ -234,8 +280,27 @@ export function InstallationWizard({
       })
     : wizLabels.reassurance;
 
+  const jumpToPreviewStep = (stepKey: string) => {
+    if (!isPreview) return;
+    const idx = planned.findIndex((s) => s.step_key === stepKey);
+    if (idx < 0) return;
+    const nextCompleted = planned.slice(0, idx).map((s) => s.step_key);
+    void persistSession({
+      current_step_key: stepKey,
+      completed_step_keys: nextCompleted,
+      state: idx === 0 ? "not_started" : "in_progress",
+      reason: "preview_jump",
+    });
+  };
+
+  const goPreviewBack = () => {
+    if (!isPreview || progressIndex <= 0) return;
+    const prev = planned[progressIndex - 1];
+    if (prev) jumpToPreviewStep(prev.step_key);
+  };
+
   const completeStep = async (stepKey: string, nextState: InstallationWizardState) => {
-    const nextCompleted = Array.from(new Set([...(session?.completed_step_keys ?? []), stepKey]));
+    const nextCompleted = Array.from(new Set([...completedKeys, stepKey]));
     const nextStep = nextSafeStep(
       planInstallationSteps(contract, {
         supportMode,
@@ -254,21 +319,28 @@ export function InstallationWizard({
     setLiveRegion(wizLabels.primaryContinue);
   };
 
-  const onSelectSupport = async (mode: InstallationSupportMode) => {
-    const waitState = waitingStateForSupportMode(mode);
+  const onSelectSupport = async (selected: InstallationSupportMode) => {
+    const waitState = waitingStateForSupportMode(selected);
     await persistSession({
-      support_mode: mode,
-      state: mode === "self_service" || mode === "guided" ? "in_progress" : waitState,
-      current_step_key: "choose_support",
+      support_mode: selected,
+      state: selected === "self_service" || selected === "guided" ? "in_progress" : waitState,
+      current_step_key: isPreview
+        ? planned.find((s) => s.step_type !== "choose_support" && s.step_type !== "introduction")
+            ?.step_key ?? "choose_support"
+        : "choose_support",
       completed_step_keys: Array.from(
-        new Set([...(session?.completed_step_keys ?? []), "introduction", "choose_support"])
+        new Set([...completedKeys, "introduction", "choose_support"])
       ),
-      reason: `support_mode:${mode}`,
+      reason: `support_mode:${selected}`,
     });
-    setLiveRegion(wizLabels.supportModeLabel(mode));
+    setLiveRegion(wizLabels.supportModeLabel(selected));
   };
 
   const onContinueLater = async () => {
+    if (isPreview) {
+      blockPreviewWrite();
+      return;
+    }
     await persistSession({
       state: "paused",
       paused: true,
@@ -290,6 +362,10 @@ export function InstallationWizard({
       return;
     }
     if (action.handoff === "invite_placeholder") {
+      if (isPreview) {
+        blockPreviewWrite();
+        return;
+      }
       const role =
         actionKey.includes("partner")
           ? "partner"
@@ -310,6 +386,10 @@ export function InstallationWizard({
       return;
     }
     if (action.handoff === "support" || actionKey === "contact_support") {
+      if (isPreview) {
+        blockPreviewWrite();
+        return;
+      }
       window.location.href = "/app/support";
       return;
     }
@@ -319,6 +399,10 @@ export function InstallationWizard({
   };
 
   const onSaveCredential = async () => {
+    if (isPreview) {
+      blockPreviewWrite();
+      return;
+    }
     if (!apiKey.trim()) {
       setErrorSummary(wizLabels.errorGeneric);
       return;
@@ -348,7 +432,7 @@ export function InstallationWizard({
         state: "ready_for_test",
         field_values: fields,
         completed_step_keys: Array.from(
-          new Set([...(session?.completed_step_keys ?? []), current?.step_key ?? "provide_credentials"])
+          new Set([...completedKeys, current?.step_key ?? "provide_credentials"])
         ),
         current_step_key: "run_connection_test",
         reason: "credential_saved",
@@ -360,6 +444,10 @@ export function InstallationWizard({
   };
 
   const onRunTest = async () => {
+    if (isPreview) {
+      blockPreviewWrite();
+      return;
+    }
     if (!setup.connection?.id) {
       setTestMessage(wizLabels.testNeedInfo);
       return;
@@ -388,7 +476,7 @@ export function InstallationWizard({
         state: "verified",
         last_test_status: "passed",
         completed_step_keys: Array.from(
-          new Set([...(session?.completed_step_keys ?? []), "run_connection_test"])
+          new Set([...completedKeys, "run_connection_test"])
         ),
         current_step_key: "review_permissions",
         reason: "test_passed",
@@ -400,6 +488,10 @@ export function InstallationWizard({
   };
 
   const onActivate = async () => {
+    if (isPreview) {
+      blockPreviewWrite();
+      return;
+    }
     // Explicit gate: only verified / ready_for_activation — never auto-activate.
     if (!setup.connection?.id || !canActivateFromWizard(state)) {
       setErrorSummary(wizLabels.activateGate);
@@ -422,7 +514,7 @@ export function InstallationWizard({
       await persistSession({
         state: "active",
         completed_step_keys: Array.from(
-          new Set([...(session?.completed_step_keys ?? []), "review_permissions", "activate"])
+          new Set([...completedKeys, "review_permissions", "activate"])
         ),
         current_step_key: "completion",
         reason: "activated",
@@ -431,7 +523,7 @@ export function InstallationWizard({
         state: "completed",
         completed_step_keys: Array.from(
           new Set([
-            ...(session?.completed_step_keys ?? []),
+            ...completedKeys,
             "review_permissions",
             "activate",
             "completion",
@@ -448,6 +540,7 @@ export function InstallationWizard({
   };
 
   const stale =
+    !isPreview &&
     session?.contract_version &&
     session.contract_version !== contract.contract_version;
 
@@ -456,12 +549,29 @@ export function InstallationWizard({
       className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 lg:px-8"
       dir={dir}
       data-installation-locales={availableLocales.join(",")}
+      data-installation-wizard-mode={mode}
       aria-labelledby="installation-wizard-title"
     >
+      {isPreview ? (
+        <div
+          className="mb-5 rounded-xl border border-sky-500/40 bg-sky-500/10 px-4 py-3 text-sm text-sky-950 dark:border-sky-400/40 dark:bg-sky-950/40 dark:text-sky-50"
+          role="status"
+          data-preview-banner="true"
+        >
+          <p className="font-semibold">{wizLabels.previewBadge}</p>
+          <p className="mt-1 opacity-95">{wizLabels.previewNotice}</p>
+        </div>
+      ) : null}
+
       <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div className="min-w-0 flex-1">
           <p className="text-sm font-medium text-violet-700 dark:text-violet-300">
             {setup.display_name}
+            {isPreview ? (
+              <span className="ml-2 inline-flex rounded-full border border-sky-500/40 bg-sky-500/15 px-2 py-0.5 text-xs font-semibold text-sky-900 dark:text-sky-100">
+                {wizLabels.previewBadge}
+              </span>
+            ) : null}
           </p>
           <h1
             id="installation-wizard-title"
@@ -496,23 +606,35 @@ export function InstallationWizard({
               resolveStepPresentation(step, effectiveAudience).title,
               { locale, translate, emptyFallback: step.step_key }
             );
+            const className = [
+              "rounded-full border px-3 py-1.5 text-xs sm:text-sm",
+              done
+                ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-800 dark:text-emerald-200"
+                : isCurrent
+                  ? "border-violet-500/50 bg-violet-500/15 text-violet-900 dark:text-violet-100"
+                  : "border-slate-300/60 bg-slate-100/60 text-slate-500 dark:border-slate-600 dark:bg-slate-800/60 dark:text-slate-400",
+            ].join(" ");
             return (
-              <li
-                key={step.step_key}
-                className={[
-                  "rounded-full border px-3 py-1.5 text-xs sm:text-sm",
-                  done
-                    ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-800 dark:text-emerald-200"
-                    : isCurrent
-                      ? "border-violet-500/50 bg-violet-500/15 text-violet-900 dark:text-violet-100"
-                      : "border-slate-300/60 bg-slate-100/60 text-slate-500 dark:border-slate-600 dark:bg-slate-800/60 dark:text-slate-400",
-                ].join(" ")}
-                aria-current={isCurrent ? "step" : undefined}
-              >
-                <span className="sr-only">
-                  {wizLabels.progressLabel} {idx + 1}/{progressTotal}
-                </span>
-                {stepTitle}
+              <li key={step.step_key} aria-current={isCurrent ? "step" : undefined}>
+                {isPreview ? (
+                  <button
+                    type="button"
+                    className={className}
+                    onClick={() => jumpToPreviewStep(step.step_key)}
+                  >
+                    <span className="sr-only">
+                      {wizLabels.progressLabel} {idx + 1}/{progressTotal}
+                    </span>
+                    {stepTitle}
+                  </button>
+                ) : (
+                  <span className={className}>
+                    <span className="sr-only">
+                      {wizLabels.progressLabel} {idx + 1}/{progressTotal}
+                    </span>
+                    {stepTitle}
+                  </span>
+                )}
               </li>
             );
           })}
@@ -616,19 +738,36 @@ export function InstallationWizard({
                 <input
                   type="password"
                   autoComplete="off"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  className="mt-2 min-h-12 w-full rounded-xl border border-slate-300 bg-white px-3 text-base text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-50"
+                  value={isPreview ? "" : apiKey}
+                  placeholder={isPreview ? wizLabels.previewSampleCredential : undefined}
+                  readOnly={isPreview}
+                  disabled={isPreview}
+                  onChange={(e) => {
+                    if (!isPreview) setApiKey(e.target.value);
+                  }}
+                  className="mt-2 min-h-12 w-full rounded-xl border border-slate-300 bg-white px-3 text-base text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:opacity-80 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-50 dark:disabled:bg-slate-900"
                 />
               </label>
-              <button
-                type="button"
-                disabled={acting || !apiKey.trim()}
-                onClick={() => void onSaveCredential()}
-                className="inline-flex min-h-12 items-center rounded-xl bg-violet-600 px-5 py-3 text-sm font-semibold text-white hover:bg-violet-700 disabled:opacity-60"
-              >
-                {wizLabels.primaryContinue}
-              </button>
+              {isPreview ? (
+                <button
+                  type="button"
+                  onClick={() =>
+                    void completeStep(current.step_key, "ready_for_test")
+                  }
+                  className="inline-flex min-h-12 items-center rounded-xl bg-violet-600 px-5 py-3 text-sm font-semibold text-white hover:bg-violet-700"
+                >
+                  {wizLabels.primaryContinue}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  disabled={acting || !apiKey.trim()}
+                  onClick={() => void onSaveCredential()}
+                  className="inline-flex min-h-12 items-center rounded-xl bg-violet-600 px-5 py-3 text-sm font-semibold text-white hover:bg-violet-700 disabled:opacity-60"
+                >
+                  {wizLabels.primaryContinue}
+                </button>
+              )}
             </div>
           ) : null}
 
@@ -645,22 +784,34 @@ export function InstallationWizard({
           {current?.step_type === "run_connection_test" ? (
             <div className="space-y-4">
               <p className="text-sm text-slate-600 dark:text-slate-300" aria-live="polite">
-                {testMessage ?? wizLabels.testTesting}
+                {isPreview
+                  ? wizLabels.previewReadOnlyAction
+                  : (testMessage ?? wizLabels.testTesting)}
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
+                {isPreview ? (
+                  <button
+                    type="button"
+                    onClick={() => void completeStep(current.step_key, "verified")}
+                    className="inline-flex min-h-12 items-center justify-center rounded-xl bg-violet-600 px-5 py-3 text-sm font-semibold text-white hover:bg-violet-700"
+                  >
+                    {wizLabels.primaryContinue}
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={acting}
+                    onClick={() => void onRunTest()}
+                    className="inline-flex min-h-12 items-center justify-center rounded-xl bg-sky-600 px-5 py-3 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60"
+                  >
+                    {wizLabels.testRetry}
+                  </button>
+                )}
                 <button
                   type="button"
-                  disabled={acting}
-                  onClick={() => void onRunTest()}
-                  className="inline-flex min-h-12 items-center justify-center rounded-xl bg-sky-600 px-5 py-3 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-60"
-                >
-                  {wizLabels.testRetry}
-                </button>
-                <button
-                  type="button"
-                  disabled={acting}
+                  disabled={acting || isPreview}
                   onClick={() => void onAssistance("ask_aipify_help")}
-                  className="inline-flex min-h-12 items-center justify-center rounded-xl border border-violet-400 px-5 py-3 text-sm font-semibold text-violet-800 dark:text-violet-200"
+                  className="inline-flex min-h-12 items-center justify-center rounded-xl border border-violet-400 px-5 py-3 text-sm font-semibold text-violet-800 disabled:opacity-50 dark:text-violet-200"
                 >
                   {wizLabels.testAskHelp}
                 </button>
@@ -690,15 +841,27 @@ export function InstallationWizard({
 
           {current?.step_type === "activate" ? (
             <div className="space-y-4">
-              <p className="text-sm text-slate-600 dark:text-slate-300">{wizLabels.activateGate}</p>
-              <button
-                type="button"
-                disabled={acting || !["verified", "ready_for_activation"].includes(state)}
-                onClick={() => void onActivate()}
-                className="inline-flex min-h-12 items-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-60"
-              >
-                {wizLabels.primaryContinue}
-              </button>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                {isPreview ? wizLabels.previewReadOnlyAction : wizLabels.activateGate}
+              </p>
+              {isPreview ? (
+                <button
+                  type="button"
+                  onClick={() => void completeStep(current.step_key, "completed")}
+                  className="inline-flex min-h-12 items-center rounded-xl bg-violet-600 px-5 py-3 text-sm font-semibold text-white hover:bg-violet-700"
+                >
+                  {wizLabels.primaryContinue}
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  disabled={acting || !["verified", "ready_for_activation"].includes(state)}
+                  onClick={() => void onActivate()}
+                  className="inline-flex min-h-12 items-center rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700 disabled:opacity-60"
+                >
+                  {wizLabels.primaryContinue}
+                </button>
+              )}
             </div>
           ) : null}
 
@@ -727,30 +890,58 @@ export function InstallationWizard({
           ) : null}
 
           <div className="mt-8 flex flex-col gap-3 border-t border-slate-200 pt-6 dark:border-slate-700 sm:flex-row sm:flex-wrap">
-            <button
-              type="button"
-              disabled={acting}
-              onClick={() => void onContinueLater()}
-              className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-medium text-slate-700 dark:border-slate-600 dark:text-slate-200"
-            >
-              {wizLabels.continueLater}
-            </button>
-            {session?.paused ? (
-              <button
-                type="button"
-                disabled={acting}
-                onClick={() =>
-                  void persistSession({
-                    state: supportMode === "aipify_managed" ? "awaiting_aipify" : "in_progress",
-                    paused: false,
-                    reason: "resume",
-                  })
-                }
-                className="inline-flex min-h-12 items-center justify-center rounded-xl bg-violet-600 px-5 py-3 text-sm font-semibold text-white"
-              >
-                {wizLabels.resume}
-              </button>
-            ) : null}
+            {isPreview ? (
+              <>
+                <button
+                  type="button"
+                  disabled={progressIndex <= 0}
+                  onClick={goPreviewBack}
+                  className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-medium text-slate-700 disabled:opacity-50 dark:border-slate-600 dark:text-slate-200"
+                >
+                  {wizLabels.primaryBack}
+                </button>
+                {current && current.step_type !== "completion" ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const next = planned[progressIndex + 1];
+                      if (next) jumpToPreviewStep(next.step_key);
+                      else void completeStep(current.step_key, "completed");
+                    }}
+                    className="inline-flex min-h-12 items-center justify-center rounded-xl bg-violet-600 px-5 py-3 text-sm font-semibold text-white hover:bg-violet-700"
+                  >
+                    {wizLabels.primaryContinue}
+                  </button>
+                ) : null}
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  disabled={acting}
+                  onClick={() => void onContinueLater()}
+                  className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-medium text-slate-700 dark:border-slate-600 dark:text-slate-200"
+                >
+                  {wizLabels.continueLater}
+                </button>
+                {session?.paused ? (
+                  <button
+                    type="button"
+                    disabled={acting}
+                    onClick={() =>
+                      void persistSession({
+                        state: supportMode === "aipify_managed" ? "awaiting_aipify" : "in_progress",
+                        paused: false,
+                        reason: "resume",
+                      })
+                    }
+                    className="inline-flex min-h-12 items-center justify-center rounded-xl bg-violet-600 px-5 py-3 text-sm font-semibold text-white"
+                  >
+                    {wizLabels.resume}
+                  </button>
+                ) : null}
+              </>
+            )}
           </div>
         </div>
 

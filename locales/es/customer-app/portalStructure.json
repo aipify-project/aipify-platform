@@ -6202,7 +6202,8 @@
           "retry": "Try again",
           "editSetup": "Edit setup",
           "removeIntegration": "Remove integration",
-          "continueSetup": "Continue setup"
+          "continueSetup": "Continue setup",
+          "previewWizard": "Vista previa del asistente de instalación"
         },
         "removeDialog": {
           "title": "Remove {provider} integration?",
@@ -7141,6 +7142,13 @@
             "internalTitle": "Store API key via secret stream",
             "internalDescription": "Save through existing encrypt path. Never return plaintext. Proceed to test gate."
           }
+        },
+        "preview": {
+          "badge": "Vista previa",
+          "notice": "Esto es una vista previa. No se guardarán cambios.",
+          "readOnlyAction": "Esta acción no está disponible en la vista previa. No se guardan cambios.",
+          "close": "Cerrar vista previa",
+          "sampleCredential": "Solo ejemplo — no se guarda"
         }
       }
     }
