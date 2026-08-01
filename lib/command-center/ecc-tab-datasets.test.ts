@@ -89,6 +89,15 @@ const sampleCenter: ExecutiveCommandCenter = {
       summary: "Duplicate pending trust approval.",
     },
     {
+      action_key: "website_publish_core",
+      action_title: "Publish website draft",
+      action_type: "approval",
+      priority: "critical",
+      action_status: "pending",
+      approval_id: "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee",
+      summary: "Authoritative CORE approval awaiting decision.",
+    },
+    {
       action_key: "ps620:act:2",
       action_title: "Demo approval queued",
       action_type: "approval",
@@ -164,11 +173,11 @@ const sampleCenter: ExecutiveCommandCenter = {
       summary: "Duplicate monthly report.",
     },
     {
-      report_key: "annual",
-      report_title: "Annual Summary",
-      report_type: "annual",
+      report_key: "year_end_ops",
+      report_title: "Year-end operations review",
+      report_type: "board_summary",
       report_status: "template",
-      summary: "Annual performance summary.",
+      summary: "Year-end operations review for leadership.",
     },
   ],
   since_last_login: [],
@@ -274,10 +283,20 @@ assert.equal(
 );
 
 // 18. Report states use report presentation (not severity)
-const annualReport = briefing.boardReports.find((item) => item.title === "Annual Summary");
-assert.equal(annualReport?.primaryBadge.type, "report");
-assert.equal(annualReport?.primaryBadge.value, "template");
+const yearEndReport = briefing.boardReports.find(
+  (item) => item.title === "Board Summary" || item.id === "year_end_ops",
+);
+assert.equal(yearEndReport?.primaryBadge.type, "report");
+assert.equal(yearEndReport?.primaryBadge.value, "template");
 assert.match(getReportStatePresentation("template").badgeClassName, /muted|secondary/i);
+assert.equal(
+  isSyntheticEccRecord({
+    report_key: "annual",
+    report_title: "Annual Summary",
+    report_type: "annual",
+  }),
+  true,
+);
 
 // 19. Report title normalization Monthly Mbr → Monthly Business Review
 assert.equal(normalizeReportTitle("Monthly Mbr", "monthly_mbr"), "Monthly Business Review");

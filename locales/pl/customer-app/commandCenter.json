@@ -843,12 +843,12 @@
     "actionHubNote": "Zadania osobiste i zespołowe pozostają w Action Hub — oddzielnie od nadzorowanego wykonywania zewnętrznego."
   },
   "executiveCommandCenter": {
-    "title": "Executive Command Center",
+    "title": "Centrum kierownictwa",
     "subtitle": "Jedno operacyjne podsumowanie po zalogowaniu — co się wydarzyło, co się zmieniło, co wymaga uwagi i co powinno nastąpić dalej.",
     "principle": "Kierownictwo nie powinno szukać informacji — informacje powinny do nich docierać.",
-    "privacyNote": "Tylko metadane executive command — kierownictwo decyduje o wynikach.",
+    "privacyNote": "Tylko zweryfikowane sygnały kierownicze — to Ty decydujesz o wynikach.",
     "loading": "Ładowanie",
-    "empty": "Executive Command Center nie jest dostępne dla tej organizacji.",
+    "empty": "Centrum kierownictwa nie jest dostępne dla tej organizacji.",
     "refresh": "Odśwież",
     "liveRefresh": {
       "updatedNow": "Zaktualizowano przed chwilą",
@@ -858,15 +858,15 @@
       "refreshing": "Aktualizowanie…"
     },
     "overallHealthScore": "Zdrowie organizacji",
-    "companionRecommendations": "Rekomendacje Companion",
+    "companionRecommendations": "Rekomendacje Aipify",
     "noRecords": "Brak rekordów.",
     "sinceLastLogin": "Od ostatniego logowania",
-    "morningBriefing": "Poranny briefing executive",
-    "organizationalTimeline": "Oś czasu Command Center",
+    "morningBriefing": "Poranny briefing kierowniczy",
+    "organizationalTimeline": "Oś czasu centrum kierownictwa",
     "businessPackSignals": "Integracja Business Pack",
     "boardReadyReports": "Raporty gotowe dla zarządu",
     "commandMode": "Tryb Companion Command",
-    "mobileExecutiveMode": "Tryb mobilny executive",
+    "mobileExecutiveMode": "Tryb mobilny kierowniczy",
     "priority": {
       "information": "Informacja",
       "attention": "Uwaga",
@@ -881,7 +881,7 @@
       "risks": "Ryzyka",
       "opportunities": "Możliwości",
       "performance": "Wydajność",
-      "companionBriefing": "Briefing Companion"
+      "companionBriefing": "Briefing Aipify"
     },
     "stats": {
       "sinceLastLoginItems": "Od ostatniego logowania",
@@ -896,14 +896,14 @@
       "risk": "Podsumowanie ryzyka",
       "operational": "Podsumowanie operacyjne",
       "growth": "Podsumowanie wzrostu",
-      "companion": "Rekomendacje Companion"
+      "companion": "Rekomendacje Aipify"
     },
     "premium": {
-      "eyebrow": "Przestrzeń executive",
+      "eyebrow": "Przestrzeń kierownicza",
       "description": "Przegląd dowodzenia po zalogowaniu — co się zmieniło, co wymaga uwagi i co Aipify rekomenduje dalej.",
       "viewSinceLastLogin": "Zobacz od ostatniego logowania",
       "refreshing": "Odświeżanie…",
-      "todaysOverview": "Dzisiejszy przegląd executive",
+      "todaysOverview": "Dzisiejszy przegląd kierowniczy",
       "companionInsight": "Wgląd Aipify",
       "needsAttention": "Wymaga uwagi",
       "needsAttentionSubtitle": "Elementy priorytetowe, które mogą wymagać Twojej oceny lub decyzji.",
@@ -911,35 +911,35 @@
       "retry": "Spróbuj ponownie",
       "openRecord": "Otwórz",
       "emptySection": "Aipify monitoruje — w tej sekcji nie ma nic do wyświetlenia.",
-      "recommendationCategory": "Rekomendacja executive",
+      "recommendationCategory": "Rekomendacja kierownicza",
       "context": {
         "organizationActive": "Organizacja aktywna",
-        "executiveAccessVerified": "Dostęp executive zweryfikowany"
+        "executiveAccessVerified": "Dostęp kierowniczy zweryfikowany"
       },
       "access": {
         "permissionMissing": {
-          "title": "Wymagany dostęp executive",
-          "description": "Twoja rola nie obejmuje dostępu do Executive Command Center. Skontaktuj się z administratorem workspace."
+          "title": "Wymagany dostęp kierowniczy",
+          "description": "Twoja rola nie obejmuje dostępu do Centrum kierownictwa. Skontaktuj się z administratorem workspace."
         },
         "entitlementMissing": {
           "title": "Moduł niedostępny",
-          "description": "Executive Command Center nie jest uwzględniony w bieżących uprawnieniach workspace."
+          "description": "Centrum kierownictwa nie jest uwzględnione w bieżących uprawnieniach workspace."
         },
         "planRequired": {
           "title": "Wymagana aktualizacja planu",
-          "description": "Executive Command Center wymaga aktywnego planu Business lub Enterprise."
+          "description": "Centrum kierownictwa wymaga aktywnego planu Business lub Enterprise."
         },
         "organizationContextMissing": {
           "title": "Wymagany kontekst organizacji",
-          "description": "Wybierz lub aktywuj workspace organizacji przed otwarciem Executive Command Center."
+          "description": "Wybierz lub aktywuj workspace organizacji przed otwarciem Centrum kierownictwa."
         },
         "activationInProgress": {
           "title": "Trwa aktywacja workspace",
-          "description": "Aipify przygotowuje Twoją przestrzeń executive. Sprawdź ponownie wkrótce lub wróć do pulpitu."
+          "description": "Aipify przygotowuje Twoją przestrzeń kierowniczą. Sprawdź ponownie wkrótce lub wróć do pulpitu."
         },
         "generic": {
-          "title": "Executive Command Center niedostępne",
-          "description": "Executive Command Center nie jest obecnie dostępne dla tej organizacji."
+          "title": "Centrum kierownictwa niedostępne",
+          "description": "Centrum kierownictwa nie jest obecnie dostępne dla tej organizacji."
         }
       },
       "metrics": {
@@ -1039,7 +1039,15 @@
         "majorCustomerRisk": "Istotne ryzyko klienta",
         "invoicePaid": "Faktura opłacona",
         "kompisWebsitePublish": "Publikacja wersji roboczej witryny",
-        "kompisWebsiteRollback": "Przywrócenie wersji witryny"
+        "kompisWebsiteRollback": "Przywrócenie wersji witryny",
+        "contractExpiring": "Wygasająca umowa",
+        "revenueAlerts": "Alerty przychodów",
+        "newPartnerLeads": "Nowe możliwości partnerskie",
+        "riskDetected": "Wykryto ryzyko",
+        "largeInvoiceOverdue": "Duża przeterminowana faktura",
+        "dailyExecutiveBriefing": "Dzienny briefing kierowniczy",
+        "annualSummary": "Podsumowanie roczne",
+        "activitySummary": "Przegląd aktywności"
       },
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Dokończ oczekujące zatwierdzenie kierownictwa jeszcze dziś.",
@@ -1205,6 +1213,22 @@
           "refresh": "Odśwież"
         }
       }
+    },
+    "types": {
+      "approvalDelay": "Opóźnione zatwierdzenie",
+      "customerRisk": "Ryzyko klienta",
+      "invoiceOverdue": "Przeterminowana faktura",
+      "contractExpiring": "Wygasająca umowa",
+      "revenueAlert": "Alert przychodów",
+      "partnerLead": "Nowa możliwość partnerska",
+      "dailyExecutive": "Dzienny briefing kierowniczy",
+      "annual": "Podsumowanie roczne",
+      "activitySummary": "Przegląd aktywności",
+      "websitePublish": "Publikacja witryny",
+      "websitePreview": "Podgląd witryny",
+      "approval": "Zatwierdzenie",
+      "risk": "Ryzyko",
+      "opportunity": "Możliwość"
     }
   }
 }

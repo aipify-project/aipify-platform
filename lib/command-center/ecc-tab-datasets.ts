@@ -12,6 +12,13 @@ import {
   resolveApprovalDetailHref,
 } from "@/lib/companion-action-approval/parse";
 import { resolveCommandBriefRecordTitleLabelKey } from "@/lib/command-center/command-brief-record-title-labels";
+import { isShowcaseCustomerRecord } from "@/lib/app-production-experience/showcase-filter";
+import {
+  countActionableApprovals,
+  isActionableApprovalRecord,
+  shouldShowApprovalDelayAlert,
+} from "@/lib/app-production-experience/approval-parity";
+import { resolveBusinessTypeLabelKey } from "@/lib/app-production-experience/business-type-labels";
 
 export type CommandCenterBadge = {
   type: SemanticBadgeType;
@@ -114,6 +121,7 @@ export function isSyntheticEccRecord(record: Record<string, unknown>): boolean {
   if (isEccDemoModeEnabled()) return false;
 
   if (isSeedApprovalPlaceholder(record)) return true;
+  if (isShowcaseCustomerRecord(record)) return true;
 
   const idFields = [
     record.alert_key,
@@ -285,14 +293,18 @@ export function mapAlertToItem(record: Record<string, unknown>): CommandCenterIt
   const priority = record.priority;
   const severity = mapExecutivePriorityToSeverity(priority);
   const id = resolveRecordId(record, ["alert_key"]) || title;
+  const alertType = String(record.alert_type ?? "alert");
+  const typeLabelKey = resolveBusinessTypeLabelKey(alertType) ?? undefined;
+  const titleLabelKey = resolveCommandBriefRecordTitleLabelKey(title) ?? undefined;
 
   return {
     id,
     dedupeKey: resolveDedupeKey(record, "alert", title),
     title,
     description: String(record.companion_recommendation || record.summary || ""),
-    source: String(record.alert_type ?? "alert").replace(/_/g, " "),
-    itemType: String(record.alert_type ?? "alert"),
+    titleLabelKey,
+    itemType: alertType,
+    itemTypeLabelKey: typeLabelKey,
     timestamp: parseTimestamp(record),
     count: 1,
     href: resolveAlertHref(record),
@@ -516,6 +528,8 @@ export function mapBriefingToItem(record: Record<string, unknown>): CommandCente
   const briefingType = String(record.briefing_type ?? "daily_executive");
   const id = resolveRecordId(record, ["briefing_key"]) || title;
   const status = String(record.briefing_status ?? "generated").toLowerCase();
+  const typeLabelKey = resolveBusinessTypeLabelKey(briefingType) ?? undefined;
+  const titleLabelKey = resolveCommandBriefRecordTitleLabelKey(title) ?? undefined;
 
   const description =
     String(record.summary ?? "") ||
@@ -536,8 +550,9 @@ export function mapBriefingToItem(record: Record<string, unknown>): CommandCente
     dedupeKey: resolveDedupeKey(record, `briefing:${briefingType}`, title),
     title,
     description,
-    source: briefingType.replace(/_/g, " "),
+    titleLabelKey,
     itemType: briefingType,
+    itemTypeLabelKey: typeLabelKey,
     timestamp: parseTimestamp(record),
     count: 1,
     href: `/app/command-center/companion-briefing?highlight=${encodeURIComponent(id)}`,
@@ -561,16 +576,16 @@ export function sortBySeverity(items: CommandCenterItem[]): CommandCenterItem[] 
 }
 
 export function buildAlertsDataset(center: ExecutiveCommandCenter): CommandCenterItem[] {
-  const alerts = filterRealRecords(center.alerts ?? []).map(mapAlertToItem);
+  const actionableCount = countActionableApprovals(filterRealRecords(center.actions ?? []));
+  const alerts = filterRealRecords(center.alerts ?? [])
+    .filter((record) => shouldShowApprovalDelayAlert(record, actionableCount))
+    .map(mapAlertToItem);
   return sortBySeverity(crossTabSafeguardDedupe(deduplicateCommandCenterItems(alerts)));
 }
 
 export function buildApprovalsDataset(center: ExecutiveCommandCenter): CommandCenterItem[] {
   const approvals = filterRealRecords(center.actions ?? [])
-    .filter((record) => {
-      const actionType = String(record.action_type ?? "").toLowerCase();
-      return actionType === "approval" || actionType.includes("approval");
-    })
+    .filter((record) => isActionableApprovalRecord(record))
     .map(mapApprovalToItem);
 
   return sortBySeverity(crossTabSafeguardDedupe(deduplicateCommandCenterItems(approvals)));
@@ -580,8 +595,10 @@ export function buildRisksDataset(center: ExecutiveCommandCenter): {
   activeRisks: CommandCenterItem[];
   operationalHealth: CommandCenterItem[];
 } {
+  const actionableCount = countActionableApprovals(filterRealRecords(center.actions ?? []));
   const riskAlerts = filterRealRecords(center.alerts ?? [])
     .filter((record) => RISK_ALERT_TYPES.has(String(record.alert_type ?? "").toLowerCase()))
+    .filter((record) => shouldShowApprovalDelayAlert(record, actionableCount))
     .map(mapRiskAlertToItem);
 
   const operationalHealth = filterRealRecords(center.health ?? []).map(mapHealthToItem);

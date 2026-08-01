@@ -256,7 +256,7 @@ export function CustomerHomePanel({
     welcome.period === "late" ? labels.overviewLate : bundle.executive_overview;
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6 p-6">
+    <div className="mx-auto w-full max-w-[1560px] space-y-6 px-4 py-6 sm:px-6 lg:px-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
           {welcome.message}

@@ -843,12 +843,12 @@
     "actionHubNote": "Особисті та командні завдання залишаються в Action Hub — окремо від керованого зовнішнього виконання."
   },
   "executiveCommandCenter": {
-    "title": "Executive Command Center",
+    "title": "Центр керівництва",
     "subtitle": "Один операційний огляд після входу — що сталося, що змінилося, що потребує уваги та що має відбутися далі.",
     "principle": "Керівництво не повинно шукати інформацію — інформація має приходити до них.",
-    "privacyNote": "Лише метадані executive command — керівництво приймає рішення.",
+    "privacyNote": "Лише перевірені сигнали керівництва — ви вирішуєте результати.",
     "loading": "Завантаження",
-    "empty": "Executive Command Center недоступний для цієї організації.",
+    "empty": "Центр керівництва недоступний для цієї організації.",
     "refresh": "Оновити",
     "liveRefresh": {
       "updatedNow": "Щойно оновлено",
@@ -858,15 +858,15 @@
       "refreshing": "Оновлення…"
     },
     "overallHealthScore": "Здоров'я організації",
-    "companionRecommendations": "Рекомендації Companion",
+    "companionRecommendations": "Рекомендації Aipify",
     "noRecords": "Записів ще немає.",
     "sinceLastLogin": "З моменту останнього входу",
-    "morningBriefing": "Ранковий executive-брифінг",
-    "organizationalTimeline": "Хронологія Command Center",
+    "morningBriefing": "Ранковий керівний брифінг",
+    "organizationalTimeline": "Хронологія центру керівництва",
     "businessPackSignals": "Інтеграція Business Pack",
     "boardReadyReports": "Звіти для ради директорів",
     "commandMode": "Режим Companion Command",
-    "mobileExecutiveMode": "Мобільний executive-режим",
+    "mobileExecutiveMode": "Мобільний керівний режим",
     "priority": {
       "information": "Інформація",
       "attention": "Увага",
@@ -881,7 +881,7 @@
       "risks": "Ризики",
       "opportunities": "Можливості",
       "performance": "Ефективність",
-      "companionBriefing": "Брифінг Companion"
+      "companionBriefing": "Брифінг Aipify"
     },
     "stats": {
       "sinceLastLoginItems": "З моменту останнього входу",
@@ -896,14 +896,14 @@
       "risk": "Підсумок ризиків",
       "operational": "Операційний підсумок",
       "growth": "Підсумок зростання",
-      "companion": "Рекомендації Companion"
+      "companion": "Рекомендації Aipify"
     },
     "premium": {
-      "eyebrow": "Executive-робочий простір",
+      "eyebrow": "Керівний робочий простір",
       "description": "Огляд командування після входу — що змінилося, що потребує уваги та що Aipify рекомендує далі.",
       "viewSinceLastLogin": "Переглянути з моменту останнього входу",
       "refreshing": "Оновлення…",
-      "todaysOverview": "Сьогоднішній executive-огляд",
+      "todaysOverview": "Сьогоднішній керівний огляд",
       "companionInsight": "Інсайт Aipify",
       "needsAttention": "Потребує уваги",
       "needsAttentionSubtitle": "Пріоритетні елементи, які можуть потребувати вашого перегляду або рішення.",
@@ -911,35 +911,35 @@
       "retry": "Спробувати знову",
       "openRecord": "Відкрити",
       "emptySection": "Aipify моніторить — у цьому розділі зараз нічого показувати.",
-      "recommendationCategory": "Executive-рекомендація",
+      "recommendationCategory": "Керівна рекомендація",
       "context": {
         "organizationActive": "Організація активна",
-        "executiveAccessVerified": "Executive-доступ підтверджено"
+        "executiveAccessVerified": "Керівний доступ підтверджено"
       },
       "access": {
         "permissionMissing": {
-          "title": "Потрібен executive-доступ",
-          "description": "Ваша роль не включає доступ до Executive Command Center. Зверніться до адміністратора workspace."
+          "title": "Потрібен керівний доступ",
+          "description": "Ваша роль не включає доступ до Центру керівництва. Зверніться до адміністратора workspace."
         },
         "entitlementMissing": {
           "title": "Модуль не включено",
-          "description": "Executive Command Center не включено до ваших поточних прав workspace."
+          "description": "Центр керівництва не включено до ваших поточних прав workspace."
         },
         "planRequired": {
           "title": "Потрібне оновлення плану",
-          "description": "Executive Command Center потребує активного плану Business або Enterprise."
+          "description": "Центр керівництва потребує активного плану Business або Enterprise."
         },
         "organizationContextMissing": {
           "title": "Потрібен контекст організації",
-          "description": "Оберіть або активуйте workspace організації перед відкриттям Executive Command Center."
+          "description": "Оберіть або активуйте workspace організації перед відкриттям Центру керівництва."
         },
         "activationInProgress": {
           "title": "Триває активація workspace",
-          "description": "Aipify готує ваш executive-робочий простір. Перевірте знову незабаром або поверніться до панелі."
+          "description": "Aipify готує ваш керівний робочий простір. Перевірте знову незабаром або поверніться до панелі."
         },
         "generic": {
-          "title": "Executive Command Center недоступний",
-          "description": "Executive Command Center зараз недоступний для цієї організації."
+          "title": "Центр керівництва недоступний",
+          "description": "Центр керівництва зараз недоступний для цієї організації."
         }
       },
       "metrics": {
@@ -1039,7 +1039,15 @@
         "majorCustomerRisk": "Значний ризик для клієнта",
         "invoicePaid": "Рахунок оплачено",
         "kompisWebsitePublish": "Публікація чернетки вебсайту",
-        "kompisWebsiteRollback": "Відкат версії вебсайту"
+        "kompisWebsiteRollback": "Відкат версії вебсайту",
+        "contractExpiring": "Договір закінчується",
+        "revenueAlerts": "Сигнали доходу",
+        "newPartnerLeads": "Нові партнерські можливості",
+        "riskDetected": "Виявлено ризик",
+        "largeInvoiceOverdue": "Великий прострочений рахунок",
+        "dailyExecutiveBriefing": "Щоденний керівний брифінг",
+        "annualSummary": "Річний підсумок",
+        "activitySummary": "Огляд активності"
       },
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Завершіть очікуване керівне погодження сьогодні.",
@@ -1205,6 +1213,22 @@
           "refresh": "Оновити"
         }
       }
+    },
+    "types": {
+      "approvalDelay": "Затримане схвалення",
+      "customerRisk": "Ризик клієнта",
+      "invoiceOverdue": "Прострочений рахунок",
+      "contractExpiring": "Договір закінчується",
+      "revenueAlert": "Сигнал доходу",
+      "partnerLead": "Нова партнерська можливість",
+      "dailyExecutive": "Щоденний керівний брифінг",
+      "annual": "Річний підсумок",
+      "activitySummary": "Огляд активності",
+      "websitePublish": "Публікація вебсайту",
+      "websitePreview": "Попередній перегляд вебсайту",
+      "approval": "Схвалення",
+      "risk": "Ризик",
+      "opportunity": "Можливість"
     }
   }
 }

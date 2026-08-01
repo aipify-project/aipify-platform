@@ -5090,14 +5090,14 @@
     }
   },
   "executiveCopilotOperations": {
-    "title": "Executive Command Center",
+    "title": "Ledelsessenter",
     "subtitle": "Styr organisasjonen gjennom Aipify med naturlig språk, veiledede arbeidsflyter og styrt utførelse — ett lederarbeidsområde.",
-    "decisionsTitle": "Decision Support Center",
+    "decisionsTitle": "Beslutningsstøtte",
     "boardReportsTitle": "Styreportgenerator",
-    "loading": "Forbereder Executive Command Center",
+    "loading": "Forbereder Ledelsessenter",
     "back": "Tilbake",
     "principle": "Ledere skal ikke trenge å navigere 100 skjermer — spør, og Aipify forstår, forbereder, koordinerer og utfører godkjente handlinger.",
-    "emptyState": "Executive Command Center-data er utilgjengelig.",
+    "emptyState": "Ledelsessenter-data er utilgjengelig.",
     "tabs": {
       "overview": "Oversikt",
       "briefings": "Executive Briefings",

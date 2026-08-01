@@ -32,6 +32,7 @@ import {
   WEBSITE_SEO_FINDING_LOCALE_KEYS,
   type WebsiteSeoFindingCode,
 } from "@/lib/kompis-operator/website-presentation";
+import { resolveKompisHistoryTitle } from "@/lib/kompis-operator/history-presentation";
 
 type Workspace = {
   available: boolean;
@@ -101,7 +102,16 @@ type WebsiteCmsOperationRow = {
   created_at?: string | null;
 };
 
-type Conversation = { id: string; title: string; updated_at?: string };
+type Conversation = {
+  id: string;
+  title: string;
+  updated_at?: string;
+  latest_request_text?: string | null;
+  latest_result_summary?: string | null;
+  latest_status?: string | null;
+  latest_approval_status?: string | null;
+  latest_tool_key?: string | null;
+};
 type RunView = {
   id: string;
   status: string;
@@ -230,10 +240,19 @@ export function KompisOperatorWorkspacePanel({
     if (code === "ready_for_publish") return labels.statuses.readyForPublish;
     if (code === "publish_requires_approval") return labels.statuses.publishRequiresApproval;
     if (code === "publish_temporarily_blocked") return labels.statuses.publishTemporarilyBlocked;
-    if (code === "publish_not_configured") return labels.statuses.publishNotConfigured;
-    if (cms?.capabilities.publishCapability || website?.publish?.mechanismAvailable) {
-      return labels.statuses.publishRequiresApproval;
+    const chainPresent =
+      Boolean(website?.context?.websiteId) ||
+      Boolean(website?.runtime?.websiteProvisioned) ||
+      Boolean(website?.publish?.mechanismAvailable) ||
+      Boolean(cms?.capabilities.publishCapability) ||
+      Boolean(workspace?.websiteKompis?.acknowledgement_ok);
+    if (code === "publish_not_configured") {
+      // Avoid false "not configured" when authoritative website/runtime chain exists.
+      return chainPresent
+        ? labels.statuses.publishRequiresApproval
+        : labels.statuses.publishNotConfigured;
     }
+    if (chainPresent) return labels.statuses.publishRequiresApproval;
     return labels.statuses.publishNotConfigured;
   };
   const runtimeBusinessLabel = () => {
@@ -1619,7 +1638,12 @@ export function KompisOperatorWorkspacePanel({
                     activeRun.result_summary ?? labels.nothingChanged,
                   )}
                 </p>
-                <p className="mt-1">{labels.auditReference}: {activeRun.id}</p>
+                <details className="mt-2 text-xs">
+                  <summary className="cursor-pointer font-medium">{labels.workspace.technicalReference}</summary>
+                  <p className="mt-1 font-mono">
+                    {labels.auditReference}: {shortenTechnicalId(activeRun.id)}
+                  </p>
+                </details>
               </div>
             ) : null}
           </article>
@@ -1681,7 +1705,27 @@ export function KompisOperatorWorkspacePanel({
                     className="w-full rounded-xl border border-slate-100 px-3 py-2 text-left text-sm hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-900"
                     onClick={() => setConversationId(conversation.id)}
                   >
-                    {conversation.title}
+                    <span className="block font-medium text-slate-900 dark:text-slate-50">
+                      {resolveKompisHistoryTitle({
+                        title: conversation.title,
+                        latestRequestText: conversation.latest_request_text,
+                        latestResultSummary: conversation.latest_result_summary,
+                        latestToolKey: conversation.latest_tool_key,
+                        toolLabel: conversation.latest_tool_key
+                          ? resolveKompisToolLabel(
+                              conversation.latest_tool_key,
+                              labels.tools,
+                              labels.activity,
+                            )
+                          : null,
+                        fallback: labels.activity,
+                      })}
+                    </span>
+                    {conversation.updated_at ? (
+                      <span className="mt-0.5 block text-xs text-slate-500 dark:text-slate-400">
+                        {formatDate(conversation.updated_at)}
+                      </span>
+                    ) : null}
                   </button>
                 </li>
               ))}
