@@ -25,6 +25,13 @@ const SEARCH_KEYWORDS: Record<string, string[]> = {
   growthPartners: ["partners", "growth partners", "attribution"],
   commissions: ["commissions", "partner", "provisjon"],
   exceptionQueue: ["exceptions", "queue", "incidents", "follow-up"],
+  partnerSettlement: [
+    "partner settlement",
+    "settlement",
+    "partner invoice",
+    "discrepancy",
+    "commission payout",
+  ],
   reliabilityOperations: ["reliability", "incidents", "monitoring"],
   verifiedProviders: ["providers", "templates", "integrations"],
 };

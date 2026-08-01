@@ -29,5 +29,9 @@ Platform is Aipify Group AS **business control plane**.
 - IA / matrix / overview: `lib/platform-control-plane/`
 - Nav groups: `lib/platform/nav-groups.ts`
 - Partners hub: `/platform/partners`
+- Partner settlement ops (read-only): `/platform/partners/settlement`
 - Exception queue: `/platform/exceptions`
 - Overview RPC: `get_platform_control_plane_overview`
+- Settlement ops RPC: `get_platform_partner_settlement_operations`
+- Finance closeout migration: `20261937400000_platform_control_plane_finance_settlement_closeout_v1.sql`
+- Search: navigation search delivered; global entity search is an explicit gap

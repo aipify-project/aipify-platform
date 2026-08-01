@@ -72,12 +72,12 @@ export const PLATFORM_EXCEPTION_DEFINITIONS: PlatformExceptionDefinition[] = [
   {
     id: "partner_settlement",
     category: "partner_invoice_mismatch",
-    href: "/partners/settlement",
+    href: "/platform/partners/settlement",
     severity: "attention",
     labelKey: "platform.controlPlane.exceptions.partnerSettlement",
     nextActionKey: "platform.controlPlane.exceptions.next.reviewPartnerSettlement",
     requiresCapability: "partner_read",
-    authoritativeSource: "partners portal settlement engine",
+    authoritativeSource: "get_platform_partner_settlement_operations",
   },
   {
     id: "provider_template_validation",

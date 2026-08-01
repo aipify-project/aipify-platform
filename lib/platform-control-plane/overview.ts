@@ -16,9 +16,16 @@ export type PlatformControlPlaneOverview = {
     paymentPastDue: NullableCount;
     paymentTrialing: NullableCount;
     outstandingInvoices: NullableCount;
+    outstandingInvoiceCurrency: string | null;
     failedPayments: NullableCount;
     monthlyRecurringRevenue: NullableCount;
+    mrrCurrency: string | null;
     sourceNote: string;
+    drillDown: {
+      outstandingInvoices: string;
+      monthlyRecurringRevenue: string;
+      paymentPastDue: string;
+    };
   };
   partners: {
     activePartners: NullableCount;
@@ -104,15 +111,43 @@ export function parsePlatformControlPlaneOverview(raw: unknown): PlatformControl
       outstandingInvoices: asNullableNumber(
         finance.outstanding_invoices ?? finance.outstandingInvoices,
       ),
+      outstandingInvoiceCurrency:
+        typeof (finance.outstanding_invoice_currency ?? finance.outstandingInvoiceCurrency) ===
+        "string"
+          ? String(finance.outstanding_invoice_currency ?? finance.outstandingInvoiceCurrency)
+          : null,
       failedPayments: asNullableNumber(finance.failed_payments ?? finance.failedPayments),
       monthlyRecurringRevenue: asNullableNumber(
         finance.monthly_recurring_revenue ?? finance.monthlyRecurringRevenue,
       ),
+      mrrCurrency:
+        typeof (finance.mrr_currency ?? finance.mrrCurrency) === "string"
+          ? String(finance.mrr_currency ?? finance.mrrCurrency)
+          : "NOK",
       sourceNote: String(
         finance.source_note ??
           finance.sourceNote ??
           "subscription_status_only",
       ),
+      drillDown: (() => {
+        const dd =
+          finance.drill_down && typeof finance.drill_down === "object"
+            ? (finance.drill_down as Record<string, unknown>)
+            : finance.drillDown && typeof finance.drillDown === "object"
+              ? (finance.drillDown as Record<string, unknown>)
+              : {};
+        return {
+          outstandingInvoices: String(
+            dd.outstanding_invoices ?? dd.outstandingInvoices ?? "/platform/billing/invoices",
+          ),
+          monthlyRecurringRevenue: String(
+            dd.monthly_recurring_revenue ?? dd.monthlyRecurringRevenue ?? "/platform/billing",
+          ),
+          paymentPastDue: String(
+            dd.payment_past_due ?? dd.paymentPastDue ?? "/platform/billing/payment-operations",
+          ),
+        };
+      })(),
     },
     partners: {
       activePartners: asNullableNumber(partners.active_partners ?? partners.activePartners),
@@ -146,4 +181,29 @@ export function formatControlPlaneMetric(
   if (resolved.kind === "error") return labels.error;
   if (resolved.kind === "unavailable") return labels.noData;
   return String(resolved.value);
+}
+
+export function formatControlPlaneMoney(
+  value: NullableCount,
+  currency: string | null,
+  locale: string,
+  labels: { noData: string; error: string },
+  availability: PlatformDataFreshness["availability"] = "partial",
+): string {
+  const resolved = resolveMetricDisplay(value, value === null ? "unavailable" : availability);
+  if (resolved.kind === "error") return labels.error;
+  if (resolved.kind === "unavailable") return labels.noData;
+  const amount = Number(resolved.value);
+  const code = currency && currency !== "MIXED" ? currency : "NOK";
+  try {
+    const formatted = new Intl.NumberFormat(locale, {
+      style: "currency",
+      currency: code,
+      currencyDisplay: "code",
+      maximumFractionDigits: 2,
+    }).format(amount);
+    return currency === "MIXED" ? `${formatted} (MIXED)` : formatted;
+  } catch {
+    return `${amount} ${code}`;
+  }
 }

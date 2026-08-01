@@ -226,7 +226,8 @@
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
     "providerOnboarding": "Provider onboarding",
-    "exceptionQueue": "Exception queue"
+    "exceptionQueue": "Exception queue",
+    "partnerSettlement": "Partner settlement"
   },
   "executive": {
     "title": "Executive Center",
@@ -7391,7 +7392,7 @@
       "activeSubscriptions": "Active subscriptions",
       "requiringAttention": "Requires follow-up",
       "openSupport": "Open support cases",
-      "paymentPastDue": "Past-due payments",
+      "paymentPastDue": "Past-due subscriptions",
       "outstandingInvoices": "Outstanding invoices",
       "failedPayments": "Failed payments",
       "mrr": "Monthly recurring revenue",
@@ -7400,7 +7401,9 @@
       "pendingPartnerInvoices": "Pending partner invoices",
       "systemHealth": "System health",
       "openIncidents": "Open incidents",
-      "pendingApprovals": "Pending approvals"
+      "pendingApprovals": "Pending approvals",
+      "drillDown": "Open underlying data",
+      "source": "Authoritative source"
     },
     "health": {
       "healthy": "Healthy",
@@ -7472,6 +7475,87 @@
       "governance": {
         "description": "Approvals, trust, compliance, and audit."
       }
+    },
+    "settlementOps": {
+      "title": "Partner settlement operations",
+      "subtitle": "Read-only operational view over the existing partner settlement and self-billing engine.",
+      "empty": "No partner settlements found.",
+      "error": "Unable to load partner settlement operations.",
+      "partial": "Partial settlement data",
+      "freshness": "Last calculated",
+      "filters": "Filters",
+      "searchPlaceholder": "Search partner, period, or invoice",
+      "noMutations": "Read-only. No payout, invoice creation, or accounting mutation from this surface.",
+      "discrepanciesTitle": "Partner invoice discrepancies",
+      "discrepanciesSubtitle": "Exceptions requiring administrative follow-up. No automatic correction.",
+      "discrepanciesEmpty": "No settlement discrepancies detected.",
+      "columns": {
+        "partner": "Partner",
+        "period": "Period",
+        "commissionBasis": "Commission basis",
+        "qualified": "Qualified amount",
+        "earned": "Earned amount",
+        "approved": "Approved amount",
+        "invoiceBasis": "Invoice basis",
+        "invoice": "Received invoice",
+        "matching": "Matching status",
+        "discrepancy": "Discrepancy",
+        "approval": "Approval",
+        "payout": "Payout status",
+        "accounting": "Accounting sync",
+        "updated": "Last updated",
+        "owner": "Owner",
+        "nextAction": "Next action",
+        "severity": "Severity",
+        "expected": "Expected",
+        "actual": "Actual",
+        "difference": "Difference",
+        "reason": "Reason",
+        "dueDate": "Due date",
+        "status": "Status"
+      },
+      "statuses": {
+        "draft": "Calculated",
+        "awaiting_partner_approval": "Awaiting partner approval",
+        "approved": "Approved",
+        "invoice_generated": "Invoice ready",
+        "sent_to_accounting": "Sent to accounting",
+        "paid": "Paid out",
+        "rejected": "Rejected",
+        "cancelled": "Cancelled",
+        "matched": "Matched",
+        "missing_invoice": "Missing invoice",
+        "amount_mismatch": "Amount discrepancy",
+        "period_mismatch": "Period discrepancy",
+        "payout_mismatch": "Payout mismatch",
+        "accounting_sync_pending": "Accounting sync pending",
+        "missing_commission_basis": "Missing commission basis",
+        "finalized": "Finalized",
+        "monitor": "Monitor",
+        "await_partner_approval": "Await partner approval",
+        "review_settlement_basis": "Review settlement basis",
+        "await_invoice_generation": "Await invoice generation",
+        "investigate_amount_discrepancy": "Investigate amount discrepancy",
+        "investigate_payout_mismatch": "Investigate payout mismatch",
+        "review_partner_settlement": "Review partner settlement",
+        "critical": "Critical",
+        "attention": "Attention",
+        "info": "Info",
+        "unknown": "Unknown"
+      }
+    },
+    "search": {
+      "navigationSearch": "Navigation search",
+      "navigationSearchHint": "Finds Platform routes and functions.",
+      "entitySearch": "Global entity search",
+      "entitySearchPlanned": "Global entity search is planned. Navigation search is available now.",
+      "entitySearchGap": "Not delivered in this release"
+    },
+    "financeBoundaries": {
+      "subscriptionNote": "Active subscription status does not alone prove payment.",
+      "invoiceNote": "Invoiced does not mean paid.",
+      "paidNote": "Paid does not mean posted to accounting without an accounting event.",
+      "outstandingSource": "Sum of invoice amounts with status sent or overdue."
     }
   }
 }

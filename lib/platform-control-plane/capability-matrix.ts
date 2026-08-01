@@ -97,12 +97,12 @@ export const PLATFORM_CAPABILITY_MATRIX: PlatformCapabilityMatrixRow[] = [
   },
   {
     area: "Partner invoices",
-    existingUi: "Partners portal settlement; Platform hub link only",
-    existingData: "growth_partner_portal_settlement_invoices",
-    authoritativeSource: "partners portal settlement engine",
-    gaps: "No dedicated Platform partner-invoice UI",
-    risk: "high",
-    recommendedPlacement: "Partners (hub → settlement)",
+    existingUi: "/platform/partners/settlement (read-only ops + discrepancy queue)",
+    existingData: "get_platform_partner_settlement_operations",
+    authoritativeSource: "growth_partner_portal_settlements + settlement_invoices",
+    gaps: "No payout/invoice mutation from Platform; Partners portal remains write path",
+    risk: "medium",
+    recommendedPlacement: "Partners → Settlement operations",
   },
   {
     area: "Product / Core",

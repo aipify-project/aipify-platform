@@ -21,7 +21,7 @@ export default async function PlatformPortalPage() {
   return (
     <div className="space-y-2">
       <div className="mx-auto w-full max-w-[1680px] px-6 pt-6">
-        <PlatformControlPlaneMetricsStrip labels={controlPlaneLabels} />
+        <PlatformControlPlaneMetricsStrip labels={controlPlaneLabels} locale={locale} />
       </div>
       <PlatformPortalDashboardPanel labels={labels.dashboard} navGroups={navGroups} />
       <div className="mx-auto w-full max-w-[1680px] px-6 pb-8">

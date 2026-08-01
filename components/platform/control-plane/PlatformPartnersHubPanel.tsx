@@ -15,7 +15,7 @@ const LINKS = [
     key: "commissions" as const,
   },
   {
-    href: "/partners/settlement",
+    href: "/platform/partners/settlement",
     key: "settlement" as const,
   },
 ];

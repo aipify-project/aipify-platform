@@ -205,7 +205,8 @@
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
     "providerOnboarding": "Provider-onboarding",
-    "exceptionQueue": "Unntakskø"
+    "exceptionQueue": "Unntakskø",
+    "partnerSettlement": "Partneroppgjør"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -7114,7 +7115,7 @@
       "activeSubscriptions": "Aktive abonnementer",
       "requiringAttention": "Krever oppfølging",
       "openSupport": "Åpne supportsaker",
-      "paymentPastDue": "Forfalte betalinger",
+      "paymentPastDue": "Forfalte abonnementer",
       "outstandingInvoices": "Utestående faktura",
       "failedPayments": "Mislykkede betalinger",
       "mrr": "Månedlig tilbakevendende inntekt",
@@ -7123,7 +7124,9 @@
       "pendingPartnerInvoices": "Ventende partnerfaktura",
       "systemHealth": "Systemhelse",
       "openIncidents": "Åpne incidenter",
-      "pendingApprovals": "Ventende godkjenninger"
+      "pendingApprovals": "Ventende godkjenninger",
+      "drillDown": "Åpne underliggende data",
+      "source": "Autoritativ kilde"
     },
     "health": {
       "healthy": "God",
@@ -7137,8 +7140,8 @@
       "subtitle": "Platform-hub over eksisterende attribusjon, provisjon og oppgjør. Ingen parallell partnermodell.",
       "attribution": "Partnerattribusjon",
       "commissions": "Provisjon",
-      "settlement": "Partneroppgjør og faktura",
-      "settlementNote": "Partnerfaktura og utbetaling ligger i Partners-oppgjørsflyten. Platform utfører ikke utbetaling her.",
+      "settlement": "Partneroppgjør (operativt)",
+      "settlementNote": "Oppgjør og partnerfaktura er skrivebeskyttet operativ sannhet fra eksisterende Partners-oppgjørsengine. Platform utfører ikke utbetaling her.",
       "noPayoutHere": "Ingen automatisk utbetaling fra denne flaten."
     },
     "exceptions": {
@@ -7195,6 +7198,87 @@
       "governance": {
         "description": "Godkjenninger, tillit, compliance og audit."
       }
+    },
+    "settlementOps": {
+      "title": "Partneroppgjør – operativ visning",
+      "subtitle": "Skrivebeskyttet operativ visning over eksisterende partneroppgjør og self-billing-engine.",
+      "empty": "Ingen partneroppgjør funnet.",
+      "error": "Kunne ikke laste partneroppgjør.",
+      "partial": "Delvis oppgjørsdata",
+      "freshness": "Sist beregnet",
+      "filters": "Filtre",
+      "searchPlaceholder": "Søk partner, periode eller faktura",
+      "noMutations": "Skrivebeskyttet. Ingen utbetaling, fakturaopprettelse eller regnskapsmutasjon herfra.",
+      "discrepanciesTitle": "Avvikskø for partnerfaktura",
+      "discrepanciesSubtitle": "Unntak som krever administrativ oppfølging. Ingen automatisk korrigering.",
+      "discrepanciesEmpty": "Ingen oppgjørsavvik oppdaget.",
+      "columns": {
+        "partner": "Partner",
+        "period": "Periode",
+        "commissionBasis": "Provisjonsgrunnlag",
+        "qualified": "Kvalifisert beløp",
+        "earned": "Opptjent beløp",
+        "approved": "Godkjent beløp",
+        "invoiceBasis": "Fakturagrunnlag",
+        "invoice": "Mottatt faktura",
+        "matching": "Matchingstatus",
+        "discrepancy": "Avvik",
+        "approval": "Godkjenning",
+        "payout": "Utbetalingsstatus",
+        "accounting": "Regnskapssynk",
+        "updated": "Sist oppdatert",
+        "owner": "Eier",
+        "nextAction": "Neste handling",
+        "severity": "Alvorlighet",
+        "expected": "Forventet",
+        "actual": "Faktisk",
+        "difference": "Differanse",
+        "reason": "Årsak",
+        "dueDate": "Forfall",
+        "status": "Status"
+      },
+      "statuses": {
+        "draft": "Beregnet",
+        "awaiting_partner_approval": "Venter partnergodkjenning",
+        "approved": "Godkjent",
+        "invoice_generated": "Fakturaklar",
+        "sent_to_accounting": "Sendt til regnskap",
+        "paid": "Utbetalt",
+        "rejected": "Avvist",
+        "cancelled": "Kansellert",
+        "matched": "Matchet",
+        "missing_invoice": "Manglende faktura",
+        "amount_mismatch": "Beløpsavvik",
+        "period_mismatch": "Periodeavvik",
+        "payout_mismatch": "Utbetalingsavvik",
+        "accounting_sync_pending": "Regnskapssynk venter",
+        "missing_commission_basis": "Manglende provisjonsgrunnlag",
+        "finalized": "Ferdigstilt",
+        "monitor": "Overvåk",
+        "await_partner_approval": "Vent på partnergodkjenning",
+        "review_settlement_basis": "Gjennomgå oppgjørsgrunnlag",
+        "await_invoice_generation": "Vent på fakturagenerering",
+        "investigate_amount_discrepancy": "Undersøk beløpsavvik",
+        "investigate_payout_mismatch": "Undersøk utbetalingsavvik",
+        "review_partner_settlement": "Gjennomgå partneroppgjør",
+        "critical": "Kritisk",
+        "attention": "Oppmerksomhet",
+        "info": "Info",
+        "unknown": "Ukjent"
+      }
+    },
+    "search": {
+      "navigationSearch": "Navigasjonssøk",
+      "navigationSearchHint": "Finner Platform-ruter og funksjoner.",
+      "entitySearch": "Globalt enhetssøk",
+      "entitySearchPlanned": "Globalt enhetssøk er planlagt. Navigasjonssøk er tilgjengelig nå.",
+      "entitySearchGap": "Ikke levert i denne releasen"
+    },
+    "financeBoundaries": {
+      "subscriptionNote": "Aktivt abonnement alene beviser ikke betaling.",
+      "invoiceNote": "Fakturert betyr ikke betalt.",
+      "paidNote": "Betalt betyr ikke bokført uten regnskapshendelse.",
+      "outstandingSource": "Sum av fakturabeløp med status sendt eller forfalt."
     }
   }
 }

@@ -68,10 +68,12 @@ describe("platform-control-plane", () => {
         payment_active: 9,
         payment_past_due: 1,
         payment_trialing: 2,
-        outstanding_invoices: null,
+        outstanding_invoices: 2500,
+        outstanding_invoice_currency: "NOK",
         failed_payments: null,
-        monthly_recurring_revenue: null,
-        source_note: "subscription_status_only",
+        monthly_recurring_revenue: 9000,
+        mrr_currency: "NOK",
+        source_note: "subscriptions_and_invoices_aligned_with_get_platform_metrics",
       },
       partners: {
         active_partners: 3,
@@ -88,10 +90,16 @@ describe("platform-control-plane", () => {
     });
 
     assert.equal(parsed.customers.organizationsTotal, 12);
-    assert.equal(parsed.finance.outstandingInvoices, null);
-    assert.equal(parsed.finance.monthlyRecurringRevenue, null);
+    assert.equal(parsed.finance.outstandingInvoices, 2500);
+    assert.equal(parsed.finance.monthlyRecurringRevenue, 9000);
+    assert.equal(parsed.finance.failedPayments, null);
     assert.equal(parsed.operations.systemHealth, null);
     assert.equal(parsed.freshness.partial, true);
+  });
+
+  it("exception queue partner settlement points at Platform ops view", () => {
+    const partner = PLATFORM_EXCEPTION_DEFINITIONS.find((e) => e.id === "partner_settlement");
+    assert.equal(partner?.href, "/platform/partners/settlement");
   });
 
   it("enforces least-privilege capability defaults", () => {

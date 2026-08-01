@@ -178,6 +178,13 @@ export const PLATFORM_CONTROL_PLANE_IA: PlatformControlPlaneSection[] = [
         authoritativeSource: "unified billing admin commissions section",
         requiresCapability: "partner_read",
       },
+      {
+        navId: "partnerSettlement",
+        href: "/platform/partners/settlement",
+        readiness: "engine",
+        authoritativeSource: "get_platform_partner_settlement_operations",
+        requiresCapability: "partner_read",
+      },
     ],
   },
   {

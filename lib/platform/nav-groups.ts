@@ -66,6 +66,7 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
         labelKey: "platform.billingCommerceCenter.nav.growthPartnerAttribution",
       },
       { id: "commissions", labelKey: "platform.billingCommerceCenter.nav.commissions" },
+      { id: "partnerSettlement", labelKey: "platform.nav.partnerSettlement" },
     ],
   },
   {

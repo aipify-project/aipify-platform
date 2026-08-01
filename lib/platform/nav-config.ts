@@ -20,6 +20,7 @@ export type PlatformNavId =
   | "payments"
   | "marketplace"
   | "growthPartners"
+  | "partnerSettlement"
   | "exceptionQueue"
   | "knowledgeCenter"
   | "translationManagement"
@@ -314,6 +315,11 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   { id: "payments", href: "/platform/billing", labelKey: "platform.nav.payments" },
   { id: "marketplace", href: "/platform/skills", labelKey: "platform.nav.marketplace" },
   { id: "growthPartners", href: "/platform/partners", labelKey: "platform.nav.growthPartners" },
+  {
+    id: "partnerSettlement",
+    href: "/platform/partners/settlement",
+    labelKey: "platform.nav.partnerSettlement",
+  },
   { id: "exceptionQueue", href: "/platform/exceptions", labelKey: "platform.nav.exceptionQueue" },
   { id: "knowledgeCenter", href: "/platform/knowledge/evolution-center", labelKey: "platform.nav.knowledgeCenter" },
   { id: "translationManagement", href: "/platform/knowledge/translation-management", labelKey: "platform.nav.translationManagement" },
@@ -584,6 +590,7 @@ export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
 
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname === "/platform") return "overview";
+  if (pathname.startsWith("/platform/partners/settlement")) return "partnerSettlement";
   if (pathname.startsWith("/platform/partners")) return "growthPartners";
   if (pathname.startsWith("/platform/exceptions")) return "exceptionQueue";
   if (pathname.startsWith("/platform/aos-core")) return "aosCore";

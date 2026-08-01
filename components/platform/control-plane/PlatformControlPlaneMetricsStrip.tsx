@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   formatControlPlaneMetric,
+  formatControlPlaneMoney,
   parsePlatformControlPlaneOverview,
   type PlatformControlPlaneLabels,
   type PlatformControlPlaneOverview,
@@ -11,6 +13,7 @@ import { AipifyLoader } from "@/components/ui/aipify-loader";
 
 type Props = {
   labels: PlatformControlPlaneLabels;
+  locale: string;
 };
 
 function MetricTile({
@@ -48,7 +51,7 @@ function toneForCount(value: number | null, elevated: "warning" | "danger" = "wa
   return elevated;
 }
 
-export function PlatformControlPlaneMetricsStrip({ labels }: Props) {
+export function PlatformControlPlaneMetricsStrip({ labels, locale }: Props) {
   const [overview, setOverview] = useState<PlatformControlPlaneOverview | null>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -146,18 +149,32 @@ export function PlatformControlPlaneMetricsStrip({ labels }: Props) {
         />
         <MetricTile
           label={labels.metrics.outstandingInvoices}
-          value={formatControlPlaneMetric(overview.finance.outstandingInvoices, metricLabels)}
-          tone="neutral"
+          value={formatControlPlaneMoney(
+            overview.finance.outstandingInvoices,
+            overview.finance.outstandingInvoiceCurrency,
+            locale,
+            metricLabels,
+          )}
+          tone={toneForCount(overview.finance.outstandingInvoices, "warning")}
         />
         <MetricTile
           label={labels.metrics.failedPayments}
-          value={formatControlPlaneMetric(overview.finance.failedPayments, metricLabels)}
+          value={
+            overview.finance.failedPayments === null
+              ? labels.metrics.notConnected
+              : formatControlPlaneMetric(overview.finance.failedPayments, metricLabels)
+          }
           tone="neutral"
         />
         <MetricTile
           label={labels.metrics.mrr}
-          value={formatControlPlaneMetric(overview.finance.monthlyRecurringRevenue, metricLabels)}
-          tone="neutral"
+          value={formatControlPlaneMoney(
+            overview.finance.monthlyRecurringRevenue,
+            overview.finance.mrrCurrency,
+            locale,
+            metricLabels,
+          )}
+          tone="purple"
         />
         <MetricTile
           label={labels.metrics.activePartners}
@@ -177,10 +194,27 @@ export function PlatformControlPlaneMetricsStrip({ labels }: Props) {
         />
         <MetricTile
           label={labels.metrics.pendingApprovals}
-          value={formatControlPlaneMetric(overview.operations.pendingApprovals, metricLabels)}
+          value={
+            overview.operations.pendingApprovals === null
+              ? labels.metrics.notConnected
+              : formatControlPlaneMetric(overview.operations.pendingApprovals, metricLabels)
+          }
           tone="neutral"
         />
       </dl>
+      <p className="text-xs text-slate-500 dark:text-slate-400">
+        {labels.financeBoundaries.outstandingSource}{" "}
+        <Link
+          href={overview.finance.drillDown.outstandingInvoices}
+          className="font-medium text-violet-700 underline-offset-2 hover:underline dark:text-violet-300"
+        >
+          {labels.metrics.drillDown}
+        </Link>
+      </p>
+      <p className="text-xs text-slate-500 dark:text-slate-400">
+        {labels.financeBoundaries.subscriptionNote} {labels.financeBoundaries.invoiceNote}{" "}
+        {labels.financeBoundaries.paidNote}
+      </p>
     </section>
   );
 }

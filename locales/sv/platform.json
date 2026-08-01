@@ -226,7 +226,8 @@
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
     "providerOnboarding": "Provider-onboarding",
-    "exceptionQueue": "Undantagskö"
+    "exceptionQueue": "Undantagskö",
+    "partnerSettlement": "Partneravräkning"
   },
   "executive": {
     "title": "Executive Center",
@@ -7375,103 +7376,186 @@
     "principle": "Platform sätter globala standarder. Core distribuerar. Customer APP driver. Manuellt arbete är för undantag.",
     "openSurface": "Öppna",
     "readiness": {
-      "production": "Production",
-      "engine": "Operational engine",
-      "hub": "Control hub",
-      "planned": "Planned",
-      "stub": "Structure only"
+      "production": "Produktion",
+      "engine": "Operativ motor",
+      "hub": "Kontrollhub",
+      "planned": "Planerad",
+      "stub": "Endast struktur"
     },
     "metrics": {
       "noData": "Ingen data",
-      "notConnected": "Not connected",
-      "updateFailed": "Update failed",
-      "freshness": "Last calculated",
-      "partial": "Partial data",
-      "organizationsTotal": "Organizations",
-      "activeSubscriptions": "Active subscriptions",
-      "requiringAttention": "Requires follow-up",
-      "openSupport": "Open support cases",
-      "paymentPastDue": "Past-due payments",
-      "outstandingInvoices": "Outstanding invoices",
-      "failedPayments": "Failed payments",
-      "mrr": "Monthly recurring revenue",
-      "activePartners": "Active partners",
-      "earnedCommission": "Earned partner commission",
-      "pendingPartnerInvoices": "Pending partner invoices",
-      "systemHealth": "System health",
-      "openIncidents": "Open incidents",
-      "pendingApprovals": "Pending approvals"
+      "notConnected": "Inte ansluten",
+      "updateFailed": "Uppdatering misslyckades",
+      "freshness": "Senast beräknad",
+      "partial": "Delvis data",
+      "organizationsTotal": "Organisationer",
+      "activeSubscriptions": "Aktiva prenumerationer",
+      "requiringAttention": "Kräver uppföljning",
+      "openSupport": "Öppna supportärenden",
+      "paymentPastDue": "Förfallna prenumerationer",
+      "outstandingInvoices": "Utestående fakturor",
+      "failedPayments": "Misslyckade betalningar",
+      "mrr": "Månatlig återkommande intäkt",
+      "activePartners": "Aktiva partners",
+      "earnedCommission": "Intjänad partnerprovision",
+      "pendingPartnerInvoices": "Väntande partnerfakturor",
+      "systemHealth": "Systemhälsa",
+      "openIncidents": "Öppna incidenter",
+      "pendingApprovals": "Väntande godkännanden",
+      "drillDown": "Öppna underliggande data",
+      "source": "Auktoritativ källa"
     },
     "health": {
-      "healthy": "Healthy",
-      "degraded": "Degraded",
-      "critical": "Critical",
-      "unknown": "Unknown",
-      "noSource": "No data source"
+      "healthy": "Frisk",
+      "degraded": "Degraderad",
+      "critical": "Kritisk",
+      "unknown": "Okänd",
+      "noSource": "Ingen datakälla"
     },
     "partnersHub": {
       "title": "Partners",
-      "subtitle": "Platform partner control hub over existing attribution, commission, and settlement sources. No parallel partner model.",
-      "attribution": "Partner attribution",
-      "commissions": "Commissions",
-      "settlement": "Partner settlement & invoices",
-      "settlementNote": "Partner invoices and payouts remain in the Partners settlement flow. Platform does not execute payouts here.",
-      "noPayoutHere": "No automatic payout from this surface."
+      "subtitle": "Platform-hub över befintlig attribution, provision och avräkning. Ingen parallell partnermodell.",
+      "attribution": "Partnerattribution",
+      "commissions": "Provision",
+      "settlement": "Partneravräkning (operativ)",
+      "settlementNote": "Avräkning och partnerfakturor är skrivskyddad operativ sanning från befintlig Partners-avräkningsmotor. Platform utför ingen utbetalning här.",
+      "noPayoutHere": "Ingen automatisk utbetalning från denna yta."
     },
     "exceptions": {
       "title": "Undantagskö",
-      "subtitle": "Manual exceptions requiring administrative follow-up. Normal flows stay automated through Core.",
-      "open": "Open queue item",
+      "subtitle": "Manuella undantag som kräver administrativ uppföljning. Normalflöden automatiseras via Core.",
+      "open": "Öppna köobjekt",
       "severity": {
         "info": "Info",
-        "attention": "Attention",
-        "critical": "Critical"
+        "attention": "Uppmärksamhet",
+        "critical": "Kritisk"
       },
-      "customerFollowUp": "Customer requires follow-up",
-      "paymentPastDue": "Payment past due",
-      "invoiceReview": "Invoice requires review",
-      "commissionApproval": "Commission awaiting review",
-      "partnerSettlement": "Partner settlement / invoice exception",
-      "providerTemplate": "Provider template validation failure",
-      "reliabilityIncident": "Reliability or integration incident",
-      "supportEscalation": "Support escalation",
-      "securityEvent": "Security event",
-      "approvalPending": "Approval pending",
+      "customerFollowUp": "Kund kräver uppföljning",
+      "paymentPastDue": "Betalning förfallen",
+      "invoiceReview": "Faktura kräver granskning",
+      "commissionApproval": "Provision väntar granskning",
+      "partnerSettlement": "Partneravräkning / fakturaavvikelse",
+      "providerTemplate": "Ogiltig providermall",
+      "reliabilityIncident": "Tillförlitlighets- eller integrationsincident",
+      "supportEscalation": "Supporteskalering",
+      "securityEvent": "Säkerhetshändelse",
+      "approvalPending": "Godkännande väntar",
       "next": {
-        "reviewCustomerSuccess": "Review customer success",
-        "reviewPaymentOperations": "Review payment operations",
-        "reviewInvoices": "Review invoices",
-        "reviewCommissions": "Review commissions",
-        "reviewPartnerSettlement": "Open partner settlement",
-        "reviewProviderOnboarding": "Review provider onboarding",
-        "reviewReliability": "Review reliability operations",
-        "reviewSupport": "Review support queue",
-        "reviewSecurity": "Review security governance",
-        "reviewApprovals": "Review approvals"
+        "reviewCustomerSuccess": "Gå till kundframgång",
+        "reviewPaymentOperations": "Gå till betalningsoperationer",
+        "reviewInvoices": "Gå till fakturor",
+        "reviewCommissions": "Gå till provision",
+        "reviewPartnerSettlement": "Öppna partneravräkning",
+        "reviewProviderOnboarding": "Gå till provider-onboarding",
+        "reviewReliability": "Gå till tillförlitlighetsoperationer",
+        "reviewSupport": "Gå till supportkö",
+        "reviewSecurity": "Gå till säkerhetsstyrning",
+        "reviewApprovals": "Gå till godkännanden"
       }
     },
     "sections": {
       "overview": {
-        "description": "Global operating overview with authoritative KPIs and freshness."
+        "description": "Global driftöversikt med auktoritativa KPI:er och aktualitet."
       },
       "customers": {
-        "description": "Organizations, success, support, agreements, licenses, and installations."
+        "description": "Organisationer, framgång, support, avtal, licenser och installationer."
       },
       "salesFinance": {
-        "description": "Payments, invoices, revenue, and tax — without inventing financial truth."
+        "description": "Betalningar, fakturor, intäkter och skatt — utan att uppfinna ekonomisk sanning."
       },
       "partners": {
-        "description": "Partner attribution, commissions, and settlement visibility."
+        "description": "Partnerattribution, provision och avräkningssynlighet."
       },
       "productCore": {
-        "description": "Providers, modules, Kompis, verification, and global templates."
+        "description": "Providers, moduler, Kompis, verifiering och globala mallar."
       },
       "operations": {
-        "description": "Health, reliability, change operations, and exception follow-up."
+        "description": "Hälsa, tillförlitlighet, förändringsoperationer och undantagsuppföljning."
       },
       "governance": {
-        "description": "Approvals, trust, compliance, and audit."
+        "description": "Godkännanden, tillit, efterlevnad och revision."
       }
+    },
+    "settlementOps": {
+      "title": "Partneravräkning – operativ vy",
+      "subtitle": "Skrivskyddad operativ vy över befintlig partneravräkning och self-billing-motor.",
+      "empty": "Inga partneravräkningar hittades.",
+      "error": "Kunde inte läsa partneravräkning.",
+      "partial": "Delvis avräkningsdata",
+      "freshness": "Senast beräknad",
+      "filters": "Filter",
+      "searchPlaceholder": "Sök partner, period eller faktura",
+      "noMutations": "Skrivskyddad. Ingen utbetalning, fakturaskapande eller redovisningsmutation härifrån.",
+      "discrepanciesTitle": "Avvikskö för partnerfaktura",
+      "discrepanciesSubtitle": "Undantag som kräver administrativ uppföljning. Ingen automatisk korrigering.",
+      "discrepanciesEmpty": "Inga avräkningsavvikelser upptäckta.",
+      "columns": {
+        "partner": "Partner",
+        "period": "Period",
+        "commissionBasis": "Provisionsunderlag",
+        "qualified": "Kvalificerat belopp",
+        "earned": "Intjänat belopp",
+        "approved": "Godkänt belopp",
+        "invoiceBasis": "Fakturaunderlag",
+        "invoice": "Mottagen faktura",
+        "matching": "Matchningsstatus",
+        "discrepancy": "Avvikelse",
+        "approval": "Godkännande",
+        "payout": "Utbetalningsstatus",
+        "accounting": "Redovisningssynk",
+        "updated": "Senast uppdaterad",
+        "owner": "Ägare",
+        "nextAction": "Nästa åtgärd",
+        "severity": "Allvarlighetsgrad",
+        "expected": "Förväntat",
+        "actual": "Faktiskt",
+        "difference": "Differens",
+        "reason": "Orsak",
+        "dueDate": "Förfallodatum",
+        "status": "Status"
+      },
+      "statuses": {
+        "draft": "Beräknad",
+        "awaiting_partner_approval": "Väntar partnergodkännande",
+        "approved": "Godkänd",
+        "invoice_generated": "Redo för faktura",
+        "sent_to_accounting": "Skickad till redovisning",
+        "paid": "Utbetald",
+        "rejected": "Avvisad",
+        "cancelled": "Annullerad",
+        "matched": "Matchad",
+        "missing_invoice": "Saknad faktura",
+        "amount_mismatch": "Beloppsavvikelse",
+        "period_mismatch": "Periodavvikelse",
+        "payout_mismatch": "Utbetalningsavvikelse",
+        "accounting_sync_pending": "Redovisningssynk väntar",
+        "missing_commission_basis": "Saknat provisionsunderlag",
+        "finalized": "Slutförd",
+        "monitor": "Övervaka",
+        "await_partner_approval": "Vänta på partnergodkännande",
+        "review_settlement_basis": "Granska avräkningsunderlag",
+        "await_invoice_generation": "Vänta på fakturagenerering",
+        "investigate_amount_discrepancy": "Undersök beloppsavvikelse",
+        "investigate_payout_mismatch": "Undersök utbetalningsavvikelse",
+        "review_partner_settlement": "Granska partneravräkning",
+        "critical": "Kritisk",
+        "attention": "Uppmärksamhet",
+        "info": "Info",
+        "unknown": "Okänd"
+      }
+    },
+    "search": {
+      "navigationSearch": "Navigationssökning",
+      "navigationSearchHint": "Hittar Platform-rutter och funktioner.",
+      "entitySearch": "Global enhetssökning",
+      "entitySearchPlanned": "Global enhetssökning är planerad. Navigationssökning är tillgänglig nu.",
+      "entitySearchGap": "Inte levererad i denna release"
+    },
+    "financeBoundaries": {
+      "subscriptionNote": "Aktiv prenumeration ensam bevisar inte betalning.",
+      "invoiceNote": "Fakturerad betyder inte betald.",
+      "paidNote": "Betald betyder inte bokförd utan redovisningshändelse.",
+      "outstandingSource": "Summa av fakturabelopp med status skickad eller förfallen."
     }
   }
 }

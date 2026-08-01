@@ -150,7 +150,8 @@
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
     "providerOnboarding": "Incorporación de proveedores",
-    "exceptionQueue": "Cola de excepciones"
+    "exceptionQueue": "Cola de excepciones",
+    "partnerSettlement": "Liquidación de partners"
   },
   "kompisAi": {
     "title": "Kompis AI",
@@ -572,7 +573,9 @@
       "pendingPartnerInvoices": "Pending partner invoices",
       "systemHealth": "System health",
       "openIncidents": "Open incidents",
-      "pendingApprovals": "Pending approvals"
+      "pendingApprovals": "Pending approvals",
+      "drillDown": "Abrir datos subyacentes",
+      "source": "Fuente autoritativa"
     },
     "health": {
       "healthy": "Healthy",
@@ -644,6 +647,87 @@
       "governance": {
         "description": "Approvals, trust, compliance, and audit."
       }
+    },
+    "settlementOps": {
+      "title": "Partner settlement operations",
+      "subtitle": "Read-only operational view over the existing partner settlement and self-billing engine.",
+      "empty": "No partner settlements found.",
+      "error": "Unable to load partner settlement operations.",
+      "partial": "Partial settlement data",
+      "freshness": "Last calculated",
+      "filters": "Filters",
+      "searchPlaceholder": "Search partner, period, or invoice",
+      "noMutations": "Read-only. No payout, invoice creation, or accounting mutation from this surface.",
+      "discrepanciesTitle": "Partner invoice discrepancies",
+      "discrepanciesSubtitle": "Exceptions requiring administrative follow-up. No automatic correction.",
+      "discrepanciesEmpty": "No settlement discrepancies detected.",
+      "columns": {
+        "partner": "Partner",
+        "period": "Period",
+        "commissionBasis": "Commission basis",
+        "qualified": "Qualified amount",
+        "earned": "Earned amount",
+        "approved": "Approved amount",
+        "invoiceBasis": "Invoice basis",
+        "invoice": "Received invoice",
+        "matching": "Matching status",
+        "discrepancy": "Discrepancy",
+        "approval": "Approval",
+        "payout": "Payout status",
+        "accounting": "Accounting sync",
+        "updated": "Last updated",
+        "owner": "Owner",
+        "nextAction": "Next action",
+        "severity": "Severity",
+        "expected": "Expected",
+        "actual": "Actual",
+        "difference": "Difference",
+        "reason": "Reason",
+        "dueDate": "Due date",
+        "status": "Status"
+      },
+      "statuses": {
+        "draft": "Calculated",
+        "awaiting_partner_approval": "Awaiting partner approval",
+        "approved": "Approved",
+        "invoice_generated": "Invoice ready",
+        "sent_to_accounting": "Sent to accounting",
+        "paid": "Paid out",
+        "rejected": "Rejected",
+        "cancelled": "Cancelled",
+        "matched": "Matched",
+        "missing_invoice": "Missing invoice",
+        "amount_mismatch": "Amount discrepancy",
+        "period_mismatch": "Period discrepancy",
+        "payout_mismatch": "Payout mismatch",
+        "accounting_sync_pending": "Accounting sync pending",
+        "missing_commission_basis": "Missing commission basis",
+        "finalized": "Finalized",
+        "monitor": "Monitor",
+        "await_partner_approval": "Await partner approval",
+        "review_settlement_basis": "Review settlement basis",
+        "await_invoice_generation": "Await invoice generation",
+        "investigate_amount_discrepancy": "Investigate amount discrepancy",
+        "investigate_payout_mismatch": "Investigate payout mismatch",
+        "review_partner_settlement": "Review partner settlement",
+        "critical": "Critical",
+        "attention": "Attention",
+        "info": "Info",
+        "unknown": "Unknown"
+      }
+    },
+    "search": {
+      "navigationSearch": "Búsqueda de navegación",
+      "navigationSearchHint": "Encuentra rutas y funciones de Platform.",
+      "entitySearch": "Búsqueda global de entidades",
+      "entitySearchPlanned": "La búsqueda global de entidades está planificada. La búsqueda de navegación está disponible ahora.",
+      "entitySearchGap": "No entregado en esta versión"
+    },
+    "financeBoundaries": {
+      "subscriptionNote": "Una suscripción activa no prueba por sí sola el pago.",
+      "invoiceNote": "Facturado no significa pagado.",
+      "paidNote": "Pagado no significa contabilizado sin un evento contable.",
+      "outstandingSource": "Suma de importes de factura con estado enviado o vencido."
     }
   }
 }
