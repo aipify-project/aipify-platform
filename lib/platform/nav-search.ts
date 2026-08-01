@@ -8,16 +8,25 @@ export type PlatformNavSearchEntry = NavSearchEntry & {
 };
 
 const SEARCH_KEYWORDS: Record<string, string[]> = {
-  overview: ["home", "dashboard", "overview"],
+  overview: ["home", "dashboard", "overview", "control plane"],
   executive: ["executive", "briefing", "mission control"],
   platformAcademyStudio: ["academy", "growth partner", "training", "certification"],
   skills: ["skills", "marketplace", "capabilities"],
   companionMarketplace: ["companion", "marketplace", "digital employee"],
   skillGovernancePipeline: ["governance", "pipeline", "rollout", "skills"],
-  paymentProviders: ["payment", "stripe", "providers", "billing"],
+  paymentProviders: ["payment", "providers", "billing"],
   revenueOperations: ["revenue", "activation", "billing orchestration"],
   trust: ["trust", "security", "audit"],
   customers: ["customers", "tenants", "lifecycle"],
+  organizations: ["organizations", "customers", "companies"],
+  customerSuccess: ["customer success", "follow-up", "health"],
+  payments: ["payments", "billing", "finance"],
+  invoices: ["invoices", "finance", "billing"],
+  growthPartners: ["partners", "growth partners", "attribution"],
+  commissions: ["commissions", "partner", "provisjon"],
+  exceptionQueue: ["exceptions", "queue", "incidents", "follow-up"],
+  reliabilityOperations: ["reliability", "incidents", "monitoring"],
+  verifiedProviders: ["providers", "templates", "integrations"],
 };
 
 export function getPlatformGroupIdForNavItem(navId: string): PlatformNavGroupId | null {

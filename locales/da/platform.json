@@ -90,7 +90,12 @@
     "product": "Produkt",
     "auditGovernance": "Kontrol og styring",
     "system": "System",
-    "platformAdmin": "Platform Admin"
+    "platformAdmin": "Platform Admin",
+    "overview": "Oversigt",
+    "salesFinance": "Salg og økonomi",
+    "partners": "Partnere",
+    "productCore": "Produkt og Core",
+    "governance": "Kontrol og styring"
   },
   "search": "Søg efter kunder…",
   "sidebar": {
@@ -192,7 +197,8 @@
     "licenses": "Licenser",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
-    "providerOnboarding": "Provider-onboarding"
+    "providerOnboarding": "Provider-onboarding",
+    "exceptionQueue": "Undtagelseskø"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -6807,6 +6813,111 @@
       "contract_invalid": "Kontrakten skal rettes",
       "deprecated": "Forældet",
       "reference_only": "Kun forhåndsvisning"
+    }
+  },
+  "controlPlane": {
+    "title": "Globalt kontrolplan",
+    "subtitle": "Organiser kunder, økonomi, partnere, produkt, drift og styring fra autoritative Core-kilder.",
+    "principle": "Platform sætter globale standarder. Core distribuerer. Customer APP driver. Manuelt arbejde er for undtagelser.",
+    "openSurface": "Åbn",
+    "readiness": {
+      "production": "Production",
+      "engine": "Operational engine",
+      "hub": "Control hub",
+      "planned": "Planned",
+      "stub": "Structure only"
+    },
+    "metrics": {
+      "noData": "Ingen data",
+      "notConnected": "Not connected",
+      "updateFailed": "Update failed",
+      "freshness": "Last calculated",
+      "partial": "Partial data",
+      "organizationsTotal": "Organizations",
+      "activeSubscriptions": "Active subscriptions",
+      "requiringAttention": "Requires follow-up",
+      "openSupport": "Open support cases",
+      "paymentPastDue": "Past-due payments",
+      "outstandingInvoices": "Outstanding invoices",
+      "failedPayments": "Failed payments",
+      "mrr": "Monthly recurring revenue",
+      "activePartners": "Active partners",
+      "earnedCommission": "Earned partner commission",
+      "pendingPartnerInvoices": "Pending partner invoices",
+      "systemHealth": "System health",
+      "openIncidents": "Open incidents",
+      "pendingApprovals": "Pending approvals"
+    },
+    "health": {
+      "healthy": "Healthy",
+      "degraded": "Degraded",
+      "critical": "Critical",
+      "unknown": "Unknown",
+      "noSource": "No data source"
+    },
+    "partnersHub": {
+      "title": "Partnere",
+      "subtitle": "Platform partner control hub over existing attribution, commission, and settlement sources. No parallel partner model.",
+      "attribution": "Partner attribution",
+      "commissions": "Commissions",
+      "settlement": "Partner settlement & invoices",
+      "settlementNote": "Partner invoices and payouts remain in the Partners settlement flow. Platform does not execute payouts here.",
+      "noPayoutHere": "No automatic payout from this surface."
+    },
+    "exceptions": {
+      "title": "Undtagelseskø",
+      "subtitle": "Manual exceptions requiring administrative follow-up. Normal flows stay automated through Core.",
+      "open": "Open queue item",
+      "severity": {
+        "info": "Info",
+        "attention": "Attention",
+        "critical": "Critical"
+      },
+      "customerFollowUp": "Customer requires follow-up",
+      "paymentPastDue": "Payment past due",
+      "invoiceReview": "Invoice requires review",
+      "commissionApproval": "Commission awaiting review",
+      "partnerSettlement": "Partner settlement / invoice exception",
+      "providerTemplate": "Provider template validation failure",
+      "reliabilityIncident": "Reliability or integration incident",
+      "supportEscalation": "Support escalation",
+      "securityEvent": "Security event",
+      "approvalPending": "Approval pending",
+      "next": {
+        "reviewCustomerSuccess": "Review customer success",
+        "reviewPaymentOperations": "Review payment operations",
+        "reviewInvoices": "Review invoices",
+        "reviewCommissions": "Review commissions",
+        "reviewPartnerSettlement": "Open partner settlement",
+        "reviewProviderOnboarding": "Review provider onboarding",
+        "reviewReliability": "Review reliability operations",
+        "reviewSupport": "Review support queue",
+        "reviewSecurity": "Review security governance",
+        "reviewApprovals": "Review approvals"
+      }
+    },
+    "sections": {
+      "overview": {
+        "description": "Global operating overview with authoritative KPIs and freshness."
+      },
+      "customers": {
+        "description": "Organizations, success, support, agreements, licenses, and installations."
+      },
+      "salesFinance": {
+        "description": "Payments, invoices, revenue, and tax — without inventing financial truth."
+      },
+      "partners": {
+        "description": "Partner attribution, commissions, and settlement visibility."
+      },
+      "productCore": {
+        "description": "Providers, modules, Kompis, verification, and global templates."
+      },
+      "operations": {
+        "description": "Health, reliability, change operations, and exception follow-up."
+      },
+      "governance": {
+        "description": "Approvals, trust, compliance, and audit."
+      }
     }
   }
 }

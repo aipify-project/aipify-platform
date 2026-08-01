@@ -20,6 +20,7 @@ export type PlatformNavId =
   | "payments"
   | "marketplace"
   | "growthPartners"
+  | "exceptionQueue"
   | "knowledgeCenter"
   | "translationManagement"
   | "documentation"
@@ -312,7 +313,8 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   { id: "commercialIntelligence", href: "/platform/revenue", labelKey: "platform.nav.commercialIntelligence" },
   { id: "payments", href: "/platform/billing", labelKey: "platform.nav.payments" },
   { id: "marketplace", href: "/platform/skills", labelKey: "platform.nav.marketplace" },
-  { id: "growthPartners", href: "/platform/pilot-operations", labelKey: "platform.nav.growthPartners" },
+  { id: "growthPartners", href: "/platform/partners", labelKey: "platform.nav.growthPartners" },
+  { id: "exceptionQueue", href: "/platform/exceptions", labelKey: "platform.nav.exceptionQueue" },
   { id: "knowledgeCenter", href: "/platform/knowledge/evolution-center", labelKey: "platform.nav.knowledgeCenter" },
   { id: "translationManagement", href: "/platform/knowledge/translation-management", labelKey: "platform.nav.translationManagement" },
   { id: "documentation", href: "/platform/knowledge/documentation", labelKey: "platform.nav.documentation" },
@@ -433,8 +435,8 @@ export const PLATFORM_ADMIN_NAV: PlatformNavItem[] = [
   },
   {
     id: "invoices",
-    href: "/platform/billing/enterprise-invoices",
-    labelKey: "platform.nav.enterpriseInvoices",
+    href: "/platform/billing/invoices",
+    labelKey: "platform.nav.invoices",
   },
   {
     id: "taxVerification",
@@ -582,6 +584,8 @@ export const PLATFORM_MOBILE_NAV_IDS: PlatformNavId[] = [
 
 export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname === "/platform") return "overview";
+  if (pathname.startsWith("/platform/partners")) return "growthPartners";
+  if (pathname.startsWith("/platform/exceptions")) return "exceptionQueue";
   if (pathname.startsWith("/platform/aos-core")) return "aosCore";
   if (pathname.startsWith("/platform/companion/personality")) return "companionPersonality";
   if (pathname.startsWith("/platform/developers")) return "developerEcosystem";
@@ -607,16 +611,18 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/billing/vat-engine")) return "taxVerification";
   if (pathname.startsWith("/platform/billing/tax-verification")) return "taxVerification";
   if (pathname.startsWith("/platform/billing/payment-operations")) return "paymentOperations";
+  if (pathname.startsWith("/platform/billing/invoices")) return "invoices";
+  if (pathname.startsWith("/platform/billing/enterprise-invoices")) return "invoices";
   if (pathname.startsWith("/platform/billing/growth-partner-attribution")) {
     return "growthPartnerAttribution";
   }
   if (pathname.startsWith("/platform/billing/commissions")) return "commissions";
-  if (pathname.startsWith("/platform/billing")) return "billing";
+  if (pathname.startsWith("/platform/billing")) return "payments";
   if (pathname.startsWith("/platform/subscriptions")) return "subscriptions";
   if (pathname.startsWith("/platform/licenses")) return "licenses";
   if (pathname.startsWith("/platform/companion-marketplace")) return "marketplace";
   if (pathname.startsWith("/platform/skills")) return "marketplace";
-  if (pathname.startsWith("/platform/pilot-operations")) return "growthPartners";
+  if (pathname.startsWith("/platform/pilot-operations")) return "pilotOperations";
   if (pathname.startsWith("/platform/knowledge/translation-management")) return "translationManagement";
   if (pathname.startsWith("/platform/knowledge/documentation")) return "documentation";
   if (pathname.startsWith("/platform/knowledge/evolution-center")) return "knowledgeCenter";
@@ -637,10 +643,8 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/trust")) return "trust";
   if (pathname.startsWith("/platform/impact")) return "impact";
   if (pathname.startsWith("/platform/presence-pilot")) return "presencePilot";
-  if (pathname.startsWith("/platform/pilot-operations")) return "pilotOperations";
   if (pathname.startsWith("/platform/unonight-pilot")) return "unonightPilot";
   if (pathname.startsWith("/platform/install/unonight")) return "pilotInstall";
-  if (pathname.startsWith("/platform/installations")) return "installations";
   if (pathname.startsWith("/platform/analytics/customer-journeys")) return "analyticsCustomerJourneys";
   if (pathname.startsWith("/platform/analytics")) return "analyticsCustomerJourneys";
   if (pathname.startsWith("/platform/website-intelligence")) return "websiteIntelligence";
@@ -649,7 +653,6 @@ export function getPlatformActiveNavId(pathname: string): PlatformNavId {
   if (pathname.startsWith("/platform/marketing/seo")) return "marketingSeo";
   if (pathname.startsWith("/platform/metrics")) return "metrics";
   if (pathname.startsWith("/platform/stats")) return "metrics";
-  if (pathname.startsWith("/platform/support")) return "support";
   if (pathname.startsWith("/platform/automations")) return "automations";
   if (pathname.startsWith("/platform/intelligence")) return "intelligence";
   if (pathname.startsWith("/platform/actions")) return "actions";

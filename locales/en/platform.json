@@ -116,7 +116,12 @@
       "platformAcademyStudio": "Growth Partner Academy — training, certifications, and commercial enablement.",
       "companionMarketplace": "Governed Companion catalog and deployment oversight.",
       "skillGovernancePipeline": "Skill rollout pipeline, governance, and approval workflows."
-    }
+    },
+    "overview": "Overview",
+    "salesFinance": "Sales & finance",
+    "partners": "Partners",
+    "productCore": "Product & Core",
+    "governance": "Governance"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -220,7 +225,8 @@
     "licenses": "Licenses",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
-    "providerOnboarding": "Provider onboarding"
+    "providerOnboarding": "Provider onboarding",
+    "exceptionQueue": "Exception queue"
   },
   "executive": {
     "title": "Executive Center",
@@ -7361,6 +7367,111 @@
       "contract_invalid": "Contract must be corrected",
       "deprecated": "Deprecated",
       "reference_only": "Reference only"
+    }
+  },
+  "controlPlane": {
+    "title": "Global control plane",
+    "subtitle": "Organize customers, finance, partners, product, operations, and governance from authoritative Core sources.",
+    "principle": "Platform sets global standards. Core distributes. Customer APP operates. Manual work is for exceptions only.",
+    "openSurface": "Open",
+    "readiness": {
+      "production": "Production",
+      "engine": "Operational engine",
+      "hub": "Control hub",
+      "planned": "Planned",
+      "stub": "Structure only"
+    },
+    "metrics": {
+      "noData": "No data",
+      "notConnected": "Not connected",
+      "updateFailed": "Update failed",
+      "freshness": "Last calculated",
+      "partial": "Partial data",
+      "organizationsTotal": "Organizations",
+      "activeSubscriptions": "Active subscriptions",
+      "requiringAttention": "Requires follow-up",
+      "openSupport": "Open support cases",
+      "paymentPastDue": "Past-due payments",
+      "outstandingInvoices": "Outstanding invoices",
+      "failedPayments": "Failed payments",
+      "mrr": "Monthly recurring revenue",
+      "activePartners": "Active partners",
+      "earnedCommission": "Earned partner commission",
+      "pendingPartnerInvoices": "Pending partner invoices",
+      "systemHealth": "System health",
+      "openIncidents": "Open incidents",
+      "pendingApprovals": "Pending approvals"
+    },
+    "health": {
+      "healthy": "Healthy",
+      "degraded": "Degraded",
+      "critical": "Critical",
+      "unknown": "Unknown",
+      "noSource": "No data source"
+    },
+    "partnersHub": {
+      "title": "Partners",
+      "subtitle": "Platform partner control hub over existing attribution, commission, and settlement sources. No parallel partner model.",
+      "attribution": "Partner attribution",
+      "commissions": "Commissions",
+      "settlement": "Partner settlement & invoices",
+      "settlementNote": "Partner invoices and payouts remain in the Partners settlement flow. Platform does not execute payouts here.",
+      "noPayoutHere": "No automatic payout from this surface."
+    },
+    "exceptions": {
+      "title": "Exception queue",
+      "subtitle": "Manual exceptions requiring administrative follow-up. Normal flows stay automated through Core.",
+      "open": "Open queue item",
+      "severity": {
+        "info": "Info",
+        "attention": "Attention",
+        "critical": "Critical"
+      },
+      "customerFollowUp": "Customer requires follow-up",
+      "paymentPastDue": "Payment past due",
+      "invoiceReview": "Invoice requires review",
+      "commissionApproval": "Commission awaiting review",
+      "partnerSettlement": "Partner settlement / invoice exception",
+      "providerTemplate": "Provider template validation failure",
+      "reliabilityIncident": "Reliability or integration incident",
+      "supportEscalation": "Support escalation",
+      "securityEvent": "Security event",
+      "approvalPending": "Approval pending",
+      "next": {
+        "reviewCustomerSuccess": "Review customer success",
+        "reviewPaymentOperations": "Review payment operations",
+        "reviewInvoices": "Review invoices",
+        "reviewCommissions": "Review commissions",
+        "reviewPartnerSettlement": "Open partner settlement",
+        "reviewProviderOnboarding": "Review provider onboarding",
+        "reviewReliability": "Review reliability operations",
+        "reviewSupport": "Review support queue",
+        "reviewSecurity": "Review security governance",
+        "reviewApprovals": "Review approvals"
+      }
+    },
+    "sections": {
+      "overview": {
+        "description": "Global operating overview with authoritative KPIs and freshness."
+      },
+      "customers": {
+        "description": "Organizations, success, support, agreements, licenses, and installations."
+      },
+      "salesFinance": {
+        "description": "Payments, invoices, revenue, and tax — without inventing financial truth."
+      },
+      "partners": {
+        "description": "Partner attribution, commissions, and settlement visibility."
+      },
+      "productCore": {
+        "description": "Providers, modules, Kompis, verification, and global templates."
+      },
+      "operations": {
+        "description": "Health, reliability, change operations, and exception follow-up."
+      },
+      "governance": {
+        "description": "Approvals, trust, compliance, and audit."
+      }
     }
   }
 }
