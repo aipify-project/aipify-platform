@@ -6,3 +6,4 @@ export * from "./provider-display";
 export * from "./hub-actions";
 export * from "./canonical-status";
 export * from "./invalidate";
+export * from "./provider-contract";

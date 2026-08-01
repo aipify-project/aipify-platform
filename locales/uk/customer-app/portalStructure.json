@@ -6468,14 +6468,22 @@
         "continueStep": "Продовжити",
         "steps": {},
         "manualSteps": {
-          "login": "Увійдіть до Unonight Admin.",
-          "open_menu": "Відкрийте Інтеграції → Aipify.",
-          "locate_keys": "Створіть новий безпечний ключ підключення.",
-          "choose_permissions": "Оберіть лише доступ для читання.",
-          "avoid_permissions": "Переконайтеся, що дозволи включають metadata.read та organization.read.",
-          "copy_key": "Скопіюйте ключ, коли він з’явиться.",
-          "paste_in_aipify": "Вставте ключ у Aipify.",
-          "test_connection": "Перевірте підключення."
+          "login": "Log in to {adminName}.",
+          "open_menu": "Open Integrations → Aipify.",
+          "locate_keys": "Create a new {credentialName}.",
+          "choose_permissions": "Choose read-only access only.",
+          "avoid_permissions": "Confirm only the approved scopes are enabled.",
+          "copy_key": "Copy the {credentialName} when it is shown.",
+          "paste_in_aipify": "Paste the {credentialName} into Aipify.",
+          "test_connection": "Test the connection.",
+          "open_provider_admin": "Open {adminName}.",
+          "navigate_to_integration": "Open Integrations → Aipify.",
+          "create_credential": "Create a new {credentialName}.",
+          "confirm_scopes": "Confirm the required read-only access scopes.",
+          "copy_credential": "Copy the {credentialName} when it is shown.",
+          "return_to_app": "Return to Aipify.",
+          "save_credential": "Paste the {credentialName} into Aipify and save securely.",
+          "external_login": "Log in to {adminName}."
         },
         "oauthSteps": {},
         "confirmActivation": "Підтвердити активацію",
@@ -6491,7 +6499,7 @@
         "backToIntegrations": "Назад до інтеграцій",
         "apiKeyLabel": "Безпечний ключ підключення",
         "completion": {
-          "verifiedHeading": "Unonight підключено та перевірено",
+          "verifiedHeading": "{providerName} підключено та перевірено",
           "credentialSavedHeading": "Ключ підключення збережено",
           "statusActive": "✅ Активно",
           "statusReadOnly": "🔒 Доступ лише для читання",
@@ -6506,7 +6514,7 @@
           "apiVersionLabel": "Версія API",
           "technicalDetailsLabel": "Розширені технічні деталі",
           "technicalScopeLabel": "Технічні ідентифікатори областей",
-          "verifiedBody": "Aipify перевірило ваше підключення лише для читання до Unonight. Керуйте інтеграцією в Платформа → Інтеграції.",
+          "verifiedBody": "Aipify перевірив з’єднання лише для читання з {providerName}. Керуйте інтеграцією у Platform → Integrations.",
           "credentialSavedBody": "Ключ підключення збережено безпечно. Запустіть перевірку підключення перед активацією.",
           "primaryIntegrations": "Перейти до підключених інтеграцій",
           "secondaryRetest": "Перевірити підключення знову",
@@ -6530,7 +6538,8 @@
           "titleNamed": "Видалити інтеграцію {provider}?",
           "bodyFailed": "Невдале підключення та збережений ключ підключення будуть видалені. Історичні журнали активності збережуться."
         },
-        "manageIntegration": "Керувати інтеграцією"
+        "manageIntegration": "Керувати інтеграцією",
+        "connectTitle": "Підключити: {providerName}"
       },
       "guidance": {
         "whyAccess": "Навіщо Aipify потрібен доступ",
@@ -6728,11 +6737,11 @@
         }
       },
       "unonightConnection": {
-        "baseUrlLabel": "Базовий URL API Unonight",
-        "baseUrlHint": "Використайте URL від Unonight для вашого середовища. Aipify зберігає його безпечно разом із ключем.",
+        "baseUrlLabel": "Базовий URL API {providerName}",
+        "baseUrlHint": "Використайте URL від {providerName} для вашого середовища. Aipify зберігає його безпечно разом із ключем.",
         "baseUrlPlaceholder": "https://www.unonight.com",
         "connectionNameLabel": "Назва з’єднання",
-        "connectionNamePlaceholder": "Unonight read-only production",
+        "connectionNamePlaceholder": "{providerName} read-only production",
         "statuses": {
           "connectedVerified": "Підключено та перевірено",
           "needsCheck": "З’єднання потребує перевірки",
@@ -6742,62 +6751,61 @@
         },
         "failures": {
           "invalidToken": "Ключ з’єднання не прийнято. Перевірте, що скопійовано повний bearer token.",
-          "expiredOrRevoked": "Ключ прострочено або відкликано в Unonight. Створіть новий read-only ключ.",
+          "expiredOrRevoked": "Ключ прострочено або відкликано в {providerName}. Створіть новий read-only ключ.",
           "wrongOrg": "Ключ належить іншій організації, ніж ваш робочий простір Aipify.",
           "missingScope": "У ключі бракує обов’язкового read-only scope. Увімкніть metadata.read, organization.read і integration.status.read.",
-          "unreachable": "Aipify не змогла досягти API Unonight. Перевірте базовий URL і повторіть спробу.",
+          "unreachable": "Aipify не змогла досягти API {providerName}. Перевірте базовий URL і повторіть спробу.",
           "timeout": "Час перевірки з’єднання минув. Спробуйте ще раз незабаром.",
-          "badCertificate": "Сертифікат API Unonight не вдалося перевірити. Зверніться до підтримки Unonight.",
-          "unsupportedApiVersion": "Ця версія API Unonight ще не підтримується. Зверніться до Aipify Support.",
-          "malformedResponse": "Unonight повернув неочікувану відповідь. Перевірте базовий URL і ключ.",
-          "serverError": "Unonight повернув помилку сервера під час тесту з’єднання. Спробуйте пізніше.",
+          "badCertificate": "Сертифікат API {providerName} не вдалося перевірити. Зверніться до підтримки {providerName}.",
+          "unsupportedApiVersion": "Ця версія API {providerName} ще не підтримується. Зверніться до Aipify Support.",
+          "malformedResponse": "{providerName} повернув неочікувану відповідь. Перевірте базовий URL і ключ.",
+          "serverError": "{providerName} повернув помилку сервера під час тесту з’єднання. Спробуйте пізніше.",
           "credentialUnavailable": "Aipify не змогла прочитати збережений ключ з’єднання. Збережіть ключ знову й перевірте з’єднання.",
-          "invalidBaseUrl": "Введіть дійсну HTTPS-адресу середовища Unonight.",
-          "invalidBaseUrlHttps": "Адреса Unonight має починатися з https://.",
-          "invalidBaseUrlEmail": "Адреса Unonight має бути URL, а не електронною поштою.",
+          "invalidBaseUrl": "Введіть дійсну HTTPS-адресу середовища {providerName}.",
+          "invalidBaseUrlHttps": "Адреса {providerName} має починатися з https://.",
+          "invalidBaseUrlEmail": "Адреса {providerName} має бути URL, а не електронною поштою.",
           "verificationRecordFailed": "Тест з’єднання пройшов, але Aipify не змогла зберегти результат перевірки. Спробуйте ще раз.",
-          "placeholderNotConfigured": "Налаштовано тимчасовий ключ-заповнювач. Замініть його справжнім ключем Unonight.",
+          "placeholderNotConfigured": "Налаштовано тимчасовий ключ-заповнювач. Замініть його справжнім ключем {providerName}.",
           "rotationRequired": "Збережений ключ не можна безпечно використати. Введіть новий ключ, збережіть його безпечно та знову перевірте з’єднання."
         },
         "errorPanels": {
-          "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
           "actions": {
             "retry": "Спробувати ще раз",
             "updateKey": "Оновити ключ",
-            "openUnonightAdmin": "Відкрити Unonight Admin",
+            "openUnonightAdmin": "Відкрити {adminName}",
             "backToIntegrations": "Назад до інтеграцій"
           },
           "invalidToken": {
             "title": "Ключ відхилено",
-            "body": "Збережений ключ більше не дійсний. Створіть новий ключ у Unonight Admin і спробуйте ще раз."
+            "body": "Збережений ключ більше не дійсний. Створіть новий ключ у {adminName} і спробуйте ще раз."
           },
           "revokedToken": {
             "title": "Ключ відкликано",
-            "body": "Ключ відкликано в Unonight. Створіть новий read-only ключ у Unonight Admin і спробуйте ще раз."
+            "body": "Ключ відкликано в {providerName}. Створіть новий read-only ключ у {adminName} і спробуйте ще раз."
           },
           "credentialUnavailable": {
             "title": "Збережений ключ недоступний",
             "body": "Aipify не змогла прочитати збережений ключ. Вставте ключ знову, збережіть і перевірте з’єднання."
           },
           "unreachable": {
-            "title": "Unonight не відповів",
-            "body": "Aipify не змогла зв’язатися з Unonight зараз. Перевірте базовий URL і спробуйте ще раз."
+            "title": "{providerName} не відповів",
+            "body": "Aipify не змогла зв’язатися з {providerName} зараз. Перевірте базовий URL і спробуйте ще раз."
           },
           "unexpectedHttpStatus": {
-            "title": "Неочікувана відповідь Unonight",
-            "body": "Тест з’єднання отримав неочікувану HTTP-відповідь від Unonight. Спробуйте ще раз незабаром."
+            "title": "Неочікувана відповідь {providerName}",
+            "body": "Тест з’єднання отримав неочікувану HTTP-відповідь від {providerName}. Спробуйте ще раз незабаром."
           },
           "organizationMismatch": {
             "title": "Організація не збігається",
-            "body": "Ключ належить іншій організації Unonight, ніж цей робочий простір Aipify."
+            "body": "Ключ належить іншій організації {providerName}, ніж цей робочий простір Aipify."
           },
           "missingScope": {
             "title": "Бракує необхідного доступу на читання",
             "body": "Переконайтеся, що ключ має metadata.read і organization.read."
           },
           "unsupportedResponse": {
-            "title": "Неочікувана відповідь Unonight",
-            "body": "Unonight відповів, але відповідь не відповідає очікуваному read-only контракту."
+            "title": "Неочікувана відповідь {providerName}",
+            "body": "{providerName} відповів, але відповідь не відповідає очікуваному read-only контракту."
           },
           "verificationRecordFailed": {
             "title": "Не вдалося зберегти перевірку",
@@ -6879,7 +6887,102 @@
         "read_orders": "Читання замовлень",
         "read_customers": "Читання клієнтів"
       },
-      "scopeUnknownFallback": "Схвалений доступ лише для читання"
+      "scopeUnknownFallback": "Схвалений доступ лише для читання",
+      "credentialFields": {
+        "connectionNameLabel": "Connection name",
+        "connectionNamePlaceholder": "{providerName} read-only production",
+        "baseUrlLabel": "{providerName} API base URL",
+        "baseUrlHint": "Use the HTTPS URL provided for your {providerName} environment.",
+        "baseUrlPlaceholder": "https://"
+      },
+      "connectionFailures": {
+        "actions": {
+          "retry": "Спробувати знову",
+          "updateKey": "Оновити ключ підключення",
+          "openAdmin": "Відкрити {adminName}",
+          "backToIntegrations": "Назад до інтеграцій"
+        },
+        "contractIncompleteTitle": "Налаштування інтеграції неповне",
+        "contractIncompleteBody": "Налаштування інтеграції не завершено. Зверніться до адміністратора.",
+        "panels": {
+          "invalid_token": {
+            "title": "Connection key is not valid",
+            "body": "The saved key is no longer valid. Create a new {credentialName} in {adminName} and try again."
+          },
+          "revoked_token": {
+            "title": "Connection key was revoked",
+            "body": "This key was revoked in {adminName}. Create a new {credentialName} and try again."
+          },
+          "credential_unavailable": {
+            "title": "Connection key unavailable",
+            "body": "Aipify could not use the saved connection key. Update the key and try again."
+          },
+          "rotation_required": {
+            "title": "New connection key required",
+            "body": "Create a new {credentialName} in {adminName}, then paste it here and test again."
+          },
+          "unreachable": {
+            "title": "{providerName} did not respond",
+            "body": "Aipify could not reach {providerName} right now. Verify the base URL and try again."
+          },
+          "server_error": {
+            "title": "{providerName} returned a server error",
+            "body": "{providerName} returned a server error during the connection test. Try again later."
+          },
+          "org_mismatch": {
+            "title": "Organization mismatch",
+            "body": "The key belongs to a different organization than this Aipify workspace."
+          },
+          "scope_mismatch": {
+            "title": "Required access is missing",
+            "body": "The connection key does not include the required read-only scopes. Create a new key with the approved scopes."
+          },
+          "unsupported_response": {
+            "title": "Unexpected response",
+            "body": "{providerName} responded, but the payload did not match the expected connection contract."
+          },
+          "timeout": {
+            "title": "Connection timed out",
+            "body": "The connection test timed out. Try again shortly."
+          },
+          "bad_certificate": {
+            "title": "Certificate could not be verified",
+            "body": "The API certificate could not be verified. Contact support if this continues."
+          },
+          "unsupported_api_version": {
+            "title": "API version not supported",
+            "body": "This API version is not supported yet. Contact Aipify Support."
+          },
+          "malformed_response": {
+            "title": "Unexpected response",
+            "body": "{providerName} returned an unexpected response. Verify the API base URL and key."
+          },
+          "placeholder_not_configured": {
+            "title": "Placeholder key detected",
+            "body": "A placeholder connection key is configured. Replace it with a live {credentialName}."
+          },
+          "invalid_base_url": {
+            "title": "Invalid API address",
+            "body": "Enter a valid HTTPS URL for your {providerName} environment."
+          },
+          "invalid_base_url_https": {
+            "title": "HTTPS required",
+            "body": "The {providerName} address must begin with https://."
+          },
+          "invalid_base_url_email": {
+            "title": "URL required",
+            "body": "The {providerName} address must be a URL, not an email address."
+          },
+          "host_not_allowlisted": {
+            "title": "Address not allowed",
+            "body": "This API address is not approved for {providerName}. Use the address from your administrator."
+          },
+          "contract_incomplete": {
+            "title": "Integration setup is incomplete",
+            "body": "The integration setup is not complete. Contact your administrator."
+          }
+        }
+      }
     }
   }
 }

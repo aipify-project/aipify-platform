@@ -3,10 +3,10 @@
 import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
-import type { UnonightConnectionErrorPanelLabels } from "@/lib/unonight/connection/error-panel";
+import type { ProviderConnectionErrorPanelLabels } from "@/lib/app-portal/integrations/provider-contract";
 
-type UnonightConnectionErrorPanelProps = {
-  labels: UnonightConnectionErrorPanelLabels;
+type ProviderConnectionErrorPanelProps = {
+  labels: ProviderConnectionErrorPanelLabels;
   onRetry?: () => void;
   onUpdateKey?: () => void;
   retryDisabled?: boolean;
@@ -14,14 +14,14 @@ type UnonightConnectionErrorPanelProps = {
   variant?: "error" | "rotation";
 };
 
-export function UnonightConnectionErrorPanel({
+export function ProviderConnectionErrorPanel({
   labels,
   onRetry,
   onUpdateKey,
   retryDisabled,
   updateKeyDisabled,
   variant = "error",
-}: UnonightConnectionErrorPanelProps) {
+}: ProviderConnectionErrorPanelProps) {
   const isRotation = variant === "rotation";
   const shell = isRotation
     ? "rounded-2xl border border-amber-200/90 bg-amber-50/70 p-5 dark:border-amber-500/30 dark:bg-amber-950/30"
@@ -42,14 +42,14 @@ export function UnonightConnectionErrorPanel({
     <div
       className={shell}
       role="alert"
-      aria-labelledby="unonight-connection-error-title"
+      aria-labelledby="provider-connection-error-title"
       aria-live="polite"
     >
       <div className="flex gap-3">
         <AlertTriangle className={iconClass} aria-hidden="true" />
         <div className="min-w-0 flex-1 space-y-4">
           <div>
-            <h3 id="unonight-connection-error-title" className={titleClass}>
+            <h3 id="provider-connection-error-title" className={titleClass}>
               {labels.title}
             </h3>
             <p className={bodyClass}>{labels.body}</p>
@@ -80,14 +80,16 @@ export function UnonightConnectionErrorPanel({
                 {labels.retry}
               </button>
             ) : null}
-            <Link
-              href={labels.openUnonightAdminHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex min-h-11 items-center ${secondaryBtn} ${AppPremiumShell.focusRing}`}
-            >
-              {labels.openUnonightAdmin}
-            </Link>
+            {labels.openAdminHref ? (
+              <Link
+                href={labels.openAdminHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex min-h-11 items-center ${secondaryBtn} ${AppPremiumShell.focusRing}`}
+              >
+                {labels.openAdmin}
+              </Link>
+            ) : null}
             <Link
               href={labels.backToIntegrationsHref}
               className={`inline-flex min-h-11 items-center text-sm font-medium text-aipify-text-secondary underline-offset-2 hover:underline ${AppPremiumShell.focusRing}`}

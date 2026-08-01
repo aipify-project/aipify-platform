@@ -1,0 +1,41 @@
+---
+description: Core APP dynamic provider integration contract — no customer/provider hardcoding
+globs:
+  - components/app/app-portal/**
+  - components/app/integration-setup/**
+  - lib/app-portal/integrations/**
+  - locales/**/customer-app/portalStructure.json
+  - supabase/migrations/**provider*contract*
+alwaysApply: false
+---
+
+# Core APP Dynamic Provider Contract
+
+See task stream `AIPIFY.CORE.APP.DYNAMIC.PROVIDER.CONTRACT.V1`.
+
+## Permanent rules
+
+1. **Core APP is provider-agnostic** — shared APP UI never hardcodes customer or provider names.
+2. **No pilot advantages** — Unonight is an ordinary registry record, not a special APP solution.
+3. **No custom customer panels** — one generic wizard for all providers.
+4. Provider presentation data comes from the **canonical Core registry** (`app_portal_integration_providers.presentation_contract`).
+5. **Scopes, URLs, setup steps, and help** come from the contract — never JSX/locale hardcoding.
+6. The same generic components serve all live APP panels; Core updates propagate automatically.
+7. Website Kompis follows the same Core presentation rule; do not open frozen Kompis runtime streams for presentation fixes unless explicitly required.
+8. Provider adapters may remain **server-side**; they must not require customer-specific APP UI.
+9. **Fail-closed** when the contract is missing or invalid — never fall back to Unonight or invent destinations.
+10. Do not declare Production Ready from fixture-only proof; ordinary provider parity tests are required.
+
+## Forbidden
+
+- `if (provider === "unonight")` / `switch ("unonight")` in shared APP presentation
+- Hardcoded admin URLs (e.g. `www.unonight.com/...`) in APP components or locale copy
+- Hardcoded scope lists or numbered setup steps with provider proper names in UI/locale
+- Parallel provider registries or local JSON as source of truth
+- Custom Unonight APP wizard/error business logic
+
+## Allowed
+
+- Server-side provider adapters under `lib/<provider>/`
+- Registry/seed data that stores display names and destinations for ordinary providers
+- Generic locale templates with `{providerName}`, `{adminName}`, `{credentialName}`

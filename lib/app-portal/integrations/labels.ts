@@ -10,6 +10,7 @@ import {
   listIntegrationErrorTranslationKeys,
 } from "@/lib/install/integration-setup";
 import { listUnonightFailureTranslationKeys } from "@/lib/unonight/connection/failures";
+import { listProviderConnectionFailureTranslationKeys } from "./provider-contract";
 import type { AppPortalIntegrationsLabels } from "./types";
 import { APP_PORTAL_HOME_ROUTE } from "@/lib/app-portal/nav-config";
 
@@ -37,6 +38,8 @@ function buildAuthHelpProviderLabels(
 function buildIntegrationMessageCatalog(t: Translator): Record<string, string> {
   const keys = [
     ...listIntegrationErrorTranslationKeys(),
+    ...listProviderConnectionFailureTranslationKeys(),
+    // Adapter failure keys remain for server-side message mapping (Class A).
     ...listUnonightFailureTranslationKeys(),
   ];
   return Object.fromEntries(keys.map((key) => [key, t(key)]));
@@ -47,7 +50,6 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
   const s = `${base}.setup`;
   const g = `${base}.guidance`;
   const pl = `${base}.plainLanguage`;
-  const sd = `${base}.scopeDescriptions`;
   const st = `${base}.statuses`;
   const ah = `${base}.authHelp`;
   const sw = `${base}.securityWarnings`;
@@ -300,13 +302,19 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
       confirmActivation: t(`${s}.confirmActivation`),
       confirmActivationBody: t(`${s}.confirmActivationBody`),
       connectionStatusLabel: t(`${s}.connectionStatusLabel`),
-      unonight: {
-        baseUrlLabel: t(`${base}.unonightConnection.baseUrlLabel`),
-        baseUrlHint: t(`${base}.unonightConnection.baseUrlHint`),
-        baseUrlPlaceholder: t(`${base}.unonightConnection.baseUrlPlaceholder`),
-        connectionNameLabel: t(`${base}.unonightConnection.connectionNameLabel`),
-        connectionNamePlaceholder: t(`${base}.unonightConnection.connectionNamePlaceholder`),
+      credentialFields: {
+        connectionNameLabel: t(`${base}.credentialFields.connectionNameLabel`),
+        connectionNamePlaceholder: t(`${base}.credentialFields.connectionNamePlaceholder`),
+        baseUrlLabel: t(`${base}.credentialFields.baseUrlLabel`),
+        baseUrlHint: t(`${base}.credentialFields.baseUrlHint`),
+        baseUrlPlaceholder: t(`${base}.credentialFields.baseUrlPlaceholder`),
       },
+      contractError: {
+        title: t(`${base}.connectionFailures.contractIncompleteTitle`),
+        body: t(`${base}.connectionFailures.contractIncompleteBody`),
+      },
+      openAdmin: t(`${base}.connectionFailures.actions.openAdmin`),
+      connectTitle: t(`${s}.connectTitle`),
       authHelpAsideTitle: t(`${s}.authHelpAsideTitle`),
       testFailedTitle: t(`${s}.testFailedTitle`),
       activateCta: t(`${s}.activateCta`),

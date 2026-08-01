@@ -70,6 +70,8 @@ export type AppPortalIntegrationSetup = {
   connection: AppPortalIntegrationConnection | null;
   manual_steps: string[];
   oauth_steps: string[];
+  /** Raw registry contract JSON — parse with parseCoreAppIntegrationProviderContract. */
+  presentation_contract?: unknown;
 };
 
 export type IntegrationPlainLanguageLabels = {
@@ -295,13 +297,20 @@ export type AppPortalIntegrationsLabels = {
     confirmActivation: string;
     confirmActivationBody: string;
     connectionStatusLabel: string;
-    unonight?: {
+    /** Generic field labels for contract-driven credential forms. */
+    credentialFields: {
+      connectionNameLabel: string;
+      connectionNamePlaceholder: string;
       baseUrlLabel: string;
       baseUrlHint: string;
       baseUrlPlaceholder: string;
-      connectionNameLabel: string;
-      connectionNamePlaceholder: string;
     };
+    contractError: {
+      title: string;
+      body: string;
+    };
+    openAdmin: string;
+    connectTitle: string;
     authHelpAsideTitle: string;
     testFailedTitle: string;
     activateCta: string;

@@ -6174,6 +6174,647 @@
         "whoShouldUse": "Who should use this module?",
         "whoShouldUseAnswer": "Owners, executives and authorized leaders responsible for organizational direction and long-term planning."
       }
+    },
+    "integrations": {
+      "hub": {
+        "title": "Integrations",
+        "subtitle": "Connect external platforms to Aipify — self-service setup with read-only access by default.",
+        "loading": "Loading integrations…",
+        "readOnlyPrinciple": "Aipify only requests the access needed to help your organization. Read-only access is preferred whenever possible.",
+        "privacyNote": "Credentials are encrypted at rest. Full secrets are never shown after saving.",
+        "canManageNote": "You can connect, test, replace, and remove integrations for your organization.",
+        "viewOnlyNote": "Your role can view integrations but cannot change credentials. Contact an organization admin.",
+        "connectedTitle": "Connected integrations",
+        "noConnections": "No integrations connected yet.",
+        "providersTitle": "Available platforms",
+        "connectCta": "Connect",
+        "manageCta": "Manage",
+        "lastTestSuccess": "Last connection test succeeded",
+        "lastTestFailed": "Last connection test failed",
+        "permissionReadOnly": "Read-only access",
+        "permissionReadWrite": "Read & write access",
+        "helpTitle": "Integration help",
+        "actionsMenuLabel": "Actions",
+        "actions": {
+          "manage": "Manage",
+          "retryTest": "Retry test",
+          "disconnect": "Disconnect",
+          "retry": "Try again",
+          "editSetup": "Edit setup",
+          "removeIntegration": "Remove integration",
+          "continueSetup": "Continue setup"
+        },
+        "removeDialog": {
+          "title": "Remove {provider} integration?",
+          "body": "The failed connection and stored connection key will be removed. Historical activity logs are preserved."
+        },
+        "disconnectDialog": {
+          "title": "Disconnect {provider}?",
+          "body": "This disconnects Aipify from the external platform for this organization."
+        },
+        "feedback": {
+          "removeFailed": "Could not remove integration. Try again.",
+          "testFailed": "Connection test failed. Review setup and try again.",
+          "activateFailed": "Could not activate integration. Try again.",
+          "deactivateFailed": "Could not deactivate integration. Try again."
+        },
+        "duplicateWarningTitle": "Duplicate connection detected",
+        "duplicateWarningBody": "Multiple integrations appear to point to the same external endpoint. Aipify recommends keeping one canonical connection.",
+        "duplicateWarningPreferred": "Preferred connection",
+        "duplicateWarningCleanup": "Review each connection and remove duplicates after confirming which provider should remain.",
+        "activateIntegration": "Activate integration",
+        "deactivateIntegration": "Deactivate integration"
+      },
+      "providerNames": {
+        "custom_api": "Custom API",
+        "unonight": "Unonight",
+        "shopify": "Shopify",
+        "wordpress": "WordPress",
+        "stripe": "Stripe",
+        "woocommerce": "WooCommerce"
+      },
+      "setup": {
+        "title": "Connect to",
+        "loading": "Loading setup…",
+        "back": "Back to integrations",
+        "selectSetupType": "Choose connection method",
+        "oauthOption": "Automatic connection (OAuth / official app)",
+        "manualOption": "Manual connection key",
+        "permissionPreview": "Review permissions before approving",
+        "approveScopes": "I approve these access permissions and understand what Aipify can read",
+        "approveScopesRequired": "Scope approval is required before saving",
+        "apiKeyLabel": "Secure connection key",
+        "apiKeyPlaceholder": "Paste your read-only connection key",
+        "apiKeyMaskedNote": "Saved key (masked)",
+        "accessSummaryTitle": "Access summary",
+        "whatAipifyReads": "Aipify can read operational metadata required for the approved scopes only.",
+        "whatAipifyCannotDo": "Aipify cannot change data in your external system with read-only access.",
+        "credentialStorage": "Credentials are encrypted at rest and never displayed in full after saving.",
+        "revokeAccess": "You can revoke access by removing the integration at any time.",
+        "rotateKey": "Replace credentials by saving a new API key and revoking the old one in your external platform.",
+        "connectionFailed": "Connection test failed — review permissions and try again.",
+        "save": "Save securely",
+        "test": "Test connection",
+        "remove": "Remove integration",
+        "replace": "Replace credentials",
+        "connectOAuth": "Connect with provider",
+        "saving": "Saving…",
+        "testing": "Testing…",
+        "successTitle": "Integration saved",
+        "successBody": "Your connection was saved and logged. Full secrets are never shown again.",
+        "whyAccess": "Aipify needs limited access to deliver value inside your workspace — scoped to what you approve.",
+        "whatNotToEnable": "Do not enable admin-wide, destructive, or write permissions unless explicitly required.",
+        "backStep": "Back",
+        "continueStep": "Continue",
+        "steps": {
+          "select_platform": "Select platform",
+          "explain_needs": "What Aipify needs",
+          "find_api_key": "Find your API key",
+          "choose_permissions": "Choose permissions",
+          "validate_connection": "Validate connection",
+          "access_summary": "Access summary",
+          "save_securely": "Save securely",
+          "log_action": "Complete & log"
+        },
+        "manualSteps": {
+          "login": "Log in to {adminName}.",
+          "open_menu": "Open Integrations → Aipify.",
+          "locate_keys": "Create a new {credentialName}.",
+          "choose_permissions": "Choose read-only access only.",
+          "avoid_permissions": "Confirm only the approved scopes are enabled.",
+          "copy_key": "Copy the {credentialName} when it is shown.",
+          "paste_in_aipify": "Paste the {credentialName} into Aipify.",
+          "test_connection": "Test the connection.",
+          "open_provider_admin": "Open {adminName}.",
+          "navigate_to_integration": "Open Integrations → Aipify.",
+          "create_credential": "Create a new {credentialName}.",
+          "confirm_scopes": "Confirm the required read-only access scopes.",
+          "copy_credential": "Copy the {credentialName} when it is shown.",
+          "return_to_app": "Return to Aipify.",
+          "save_credential": "Paste the {credentialName} into Aipify and save securely.",
+          "external_login": "Log in to {adminName}."
+        },
+        "oauthSteps": {
+          "connect_button": "Click Connect with provider",
+          "permission_preview": "Review the permission preview",
+          "provider_redirect": "Sign in on the provider redirect page",
+          "success_confirmation": "Confirm success in Aipify",
+          "connected_summary": "Review the connected account summary"
+        },
+        "confirmActivation": "Confirm activation",
+        "confirmActivationBody": "Your connection is saved securely. Run a final test to activate the integration in your workspace.",
+        "connectionStatusLabel": "Connection setup progress",
+        "authHelpAsideTitle": "Connection help",
+        "testFailedTitle": "Connection test failed",
+        "activateCta": "Activate integration",
+        "activating": "Activating…",
+        "loadErrorTitle": "Connection setup could not be loaded",
+        "loadErrorBody": "Aipify could not load the integration setup right now. Try again or return to integrations.",
+        "retryLoad": "Try again",
+        "backToIntegrations": "Back to integrations",
+        "completion": {
+          "verifiedHeading": "{providerName} está conectado y verificado",
+          "credentialSavedHeading": "Connection key saved",
+          "statusActive": "✅ Active",
+          "statusReadOnly": "🔒 Read-only access",
+          "statusAwaitingVerification": "⏳ Awaiting verification",
+          "statusVerified": "🛡️ Connected and verified",
+          "statusInactive": "ℹ️ Deactivated",
+          "deactivateCta": "Deactivate integration",
+          "organizationLabel": "Organization",
+          "accessTypeLabel": "Access type",
+          "permissionsLabel": "Permissions",
+          "lastVerifiedLabel": "Last verified",
+          "apiVersionLabel": "API version",
+          "technicalDetailsLabel": "Advanced technical details",
+          "technicalScopeLabel": "Technical scope identifiers",
+          "verifiedBody": "Aipify verificó su conexión de solo lectura con {providerName}. Puede gestionar la integración en Platform → Integrations.",
+          "credentialSavedBody": "Your connection key is stored securely. Run a connection test to verify access before activation.",
+          "primaryIntegrations": "Go to connected integrations",
+          "secondaryRetest": "Test connection again",
+          "tertiaryOverview": "Back to overview",
+          "primaryTest": "Test connection",
+          "secondaryIntegrations": "Back to integrations",
+          "activateCta": "Activate integration",
+          "activating": "Activating…",
+          "overviewHref": "/app/command-center"
+        },
+        "removeDialog": {
+          "title": "Remove integration?",
+          "body": "This disconnects Aipify from your external platform for this organization.",
+          "disconnectWhat": "The live connection to your external platform will be disconnected.",
+          "syncStops": "Background sync and ingestion for this integration will stop.",
+          "credentialsRemoved": "Stored credentials will be removed from Aipify.",
+          "auditRemains": "Audit records of setup and removal actions will remain.",
+          "confirm": "❌ Remove integration",
+          "confirmDisconnect": "❌ Disconnect",
+          "cancel": "Cancel",
+          "titleNamed": "Remove {provider} integration?",
+          "bodyFailed": "The failed connection and stored connection key will be removed. Historical activity logs are preserved."
+        },
+        "manageIntegration": "Manage integration",
+        "connectTitle": "Conectar a: {providerName}"
+      },
+      "guidance": {
+        "whyAccess": "Why Aipify needs access",
+        "whatCanRead": "Aipify reads only metadata and operational signals covered by approved scopes — not private conversations or payment card data.",
+        "whatCannotDo": "Aipify cannot modify your external system with read-only access and never executes destructive actions.",
+        "howStored": "Credentials are encrypted at rest. Masked hints may display; full secrets never appear after save.",
+        "howRevoke": "Remove the integration from Platform → Integrations to revoke access immediately.",
+        "howRotate": "Generate a new read-only key externally, replace credentials in Aipify, test, then revoke the old key.",
+        "ifFails": "If connection fails, verify read-only scopes, key validity, and run Test connection again."
+      },
+      "faq": {
+        "connectExternalPlatform": "How do I connect an external platform to Aipify?",
+        "whatIsReadOnlyAccess": "What is read-only access?",
+        "whyApiAccess": "Why does Aipify ask for API access?",
+        "whereFindApiKey": "Where do I find my API key?",
+        "whichPermissionsToChoose": "How do I know which permissions to choose?",
+        "canAipifyChangeData": "Can Aipify change data in my external system?",
+        "removeIntegration": "How do I remove an integration?",
+        "rotateApiKey": "How do I rotate an API key?",
+        "integrationFails": "What should I do if an integration fails?",
+        "oauthVsApiKeys": "What is the difference between OAuth and API keys?",
+        "isItSafeToConnect": "Is it safe to connect my business tools to Aipify?",
+        "whatIsSecureConnectionKey": "What is a secure connection key?",
+        "howToTestConnection": "How do I test an integration connection?",
+        "canChangePermissionsLater": "Can I change permissions later?",
+        "whoCanManageIntegrations": "Who can manage integrations in my organization?"
+      },
+      "faqAnswers": {
+        "connect-external-platform": "Open APP → Platform → Integrations, select a provider, approve scopes, and complete OAuth or manual API key setup. Test before finishing.",
+        "what-is-read-only-access": "Read-only access lets Aipify read approved operational metadata without changing data in your external system. It is the default.",
+        "why-api-access": "Limited API access lets Aipify understand your systems and surface insights in your workspace — always scoped to what you approve.",
+        "where-find-api-key": "Each provider differs. The setup wizard shows where to log in, which menu to open, and where keys are created for your platform.",
+        "which-permissions-to-choose": "Choose the lowest level covering listed scopes. Prefer read-only. Avoid admin, destructive, or write permissions unless explicitly required.",
+        "can-aipify-change-data": "Not with read-only access. Write permissions are never default and require explicit approval.",
+        "remove-integration": "Open the integration in Platform → Integrations and choose Remove. Credentials are revoked and the action is audit logged.",
+        "rotate-api-key": "Create a new read-only key externally, replace credentials in Aipify, test, then revoke the old key in the external platform.",
+        "integration-fails": "Verify scopes, key validity, and read-only selection. Run Test connection again or contact Support.",
+        "oauth-vs-api-keys": "OAuth uses provider redirect and official authorization. API keys are copied manually from the provider admin. Both require scope approval.",
+        "is-it-safe-to-connect": "Credentials are encrypted, masked after save, revocable anytime, and all actions are audit logged.",
+        "what-is-secure-connection-key": "A secure connection key (often called an API key) lets Aipify connect to your external system with the permissions you approve. Aipify stores it encrypted and never shows the full key after setup.",
+        "how-to-test-connection": "After entering your connection key, click Test the connection. Aipify verifies access with your approved read-only scopes before activation.",
+        "can-change-permissions-later": "Yes. Remove the integration, create a new key with updated scopes externally, and reconnect. All changes are audit logged.",
+        "who-can-manage-integrations": "Organization owners and administrators can connect, test, and remove integrations. Other roles may have view-only access."
+      },
+      "plainLanguage": {
+        "apiKey": "Secure connection key",
+        "accessScope": "What Aipify can access",
+        "readOnly": "Aipify can read information but not change anything",
+        "connectionTest": "Test the connection",
+        "secureConnectionKey": "Secure connection key"
+      },
+      "statuses": {
+        "pending": "⏳ Waiting for setup",
+        "missingInfo": "ℹ️ Information missing",
+        "needsReview": "👀 Connection needs review",
+        "connected": "✅ Connected and verified",
+        "failed": "❌ Connection failed",
+        "readOnly": "🔒 Limited to read-only access",
+        "credentialSaved": "ℹ️ Connection key saved securely",
+        "verifiedReadOnly": "✅ Connected and verified",
+        "active": "✅ Integration is active",
+        "inactive": "ℹ️ Deactivated",
+        "revoked": "❌ Revoked",
+        "removed": "Removed",
+        "notConfigured": "ℹ️ Not configured",
+        "awaitingVerification": "⏳ Awaiting verification",
+        "rotationRequired": "Key must be renewed"
+      },
+      "wizard7Steps": {
+        "choose_system": "Choose your system",
+        "explain_access": "Understand what Aipify needs",
+        "find_credential": "Find your connection key",
+        "enter_credential": "Enter your connection key",
+        "test_connection": "Test the connection",
+        "access_summary": "Review access summary",
+        "confirm_activation": "Confirm and activate"
+      },
+      "securityWarnings": {
+        "readOnlyDefault": "Read-only access is the default — Aipify can read information but not change anything in your external system.",
+        "noWriteWithoutApproval": "Write or admin permissions are never enabled without your explicit approval.",
+        "credentialsEncrypted": "Your connection key is encrypted at rest and never shown in full after saving.",
+        "revokeAnytime": "You can revoke access at any time by removing the integration."
+      },
+      "kcLinks": {
+        "setupGuide": "Integration setup guide",
+        "setupGuideHref": "/app/support/knowledge/aipify/integration-setup/faq/integration-setup-faq",
+        "faq": "Integration FAQ",
+        "faqHref": "/app/support/knowledge/aipify/integration-setup/faq/integration-setup-faq",
+        "findApiKey": "Where to find your connection key",
+        "findApiKeyHref": "/app/support/knowledge/aipify/integration-setup/faq/integration-setup-faq#where-do-i-find-my-api-key"
+      },
+      "companionPrompts": {
+        "whereFindKey": "Where do I find my connection key for this integration?",
+        "whichProject": "Which project or store should I connect?",
+        "isAccessSafe": "Is it safe to give Aipify read-only access?",
+        "whyConnectionFails": "Why did my connection test fail?",
+        "checkMySetup": "Can you check if my integration setup looks correct?"
+      },
+      "authHelp": {
+        "sectionTitles": {
+          "what": "What is this?",
+          "why": "Why Aipify needs it",
+          "where": "Where to find the key",
+          "project": "Which project or business should I choose?",
+          "permissions": "Which access permissions should I choose?",
+          "canChange": "Can I change this later?",
+          "revoke": "How do I revoke access?"
+        },
+        "stepsTitle": "Step-by-step",
+        "technicalDetailsTitle": "Technical details",
+        "technicalDetailsToggleShow": "Show technical details",
+        "technicalDetailsToggleHide": "Hide technical details",
+        "shopify": {
+          "what": "A Shopify Admin API access token lets Aipify read store data you approve — orders, products, and customers metadata.",
+          "why": "Aipify uses read-only store signals to surface operational insights in your workspace.",
+          "where": "Shopify Admin → Settings → Apps and sales channels → Develop apps → Create an app → Configure Admin API scopes.",
+          "project": "Select the Shopify store (production or development) you want Aipify to connect to.",
+          "permissions": "Enable read-only scopes only — for example read_products, read_orders. Avoid write scopes unless explicitly required.",
+          "canChange": "Yes. Create a new token with updated scopes in Shopify, replace credentials in Aipify, then revoke the old token.",
+          "revoke": "Delete the custom app or revoke the token in Shopify Admin, then remove the integration in Aipify.",
+          "steps": {
+            "1": "Log in to Shopify Admin for your store.",
+            "2": "Go to Settings → Apps and sales channels → Develop apps.",
+            "3": "Create an app and configure Admin API read-only scopes.",
+            "4": "Install the app and copy the Admin API access token.",
+            "5": "Paste the token into Aipify and run Test the connection."
+          },
+          "technicalDetails": "Uses Shopify Admin REST/GraphQL API with custom app access tokens. Token shown once at creation."
+        },
+        "wordpress": {
+          "what": "An Application Password or REST API token lets Aipify read approved WordPress site metadata.",
+          "why": "Aipify connects to understand your site structure and surface operational context.",
+          "where": "WordPress Admin → Users → Profile → Application Passwords (or a security plugin's API section).",
+          "permissions": "Create a dedicated user with read-only capabilities. Avoid administrator accounts for API access.",
+          "canChange": "Revoke the application password in WordPress and create a new one in Aipify.",
+          "revoke": "Remove the Application Password in WordPress Admin and delete the integration in Aipify.",
+          "steps": {
+            "1": "Log in to WordPress Admin.",
+            "2": "Open Users → Profile → Application Passwords.",
+            "3": "Create a new application password with a descriptive name.",
+            "4": "Copy the generated password and paste it into Aipify."
+          },
+          "technicalDetails": "WordPress Application Passwords (WP 5.6+) use Basic Auth over HTTPS for REST API access."
+        },
+        "woocommerce": {
+          "what": "WooCommerce REST API keys let Aipify read store data from your WordPress/WooCommerce site.",
+          "why": "Read-only commerce signals help Aipify prepare operational insights for your organization.",
+          "where": "WordPress Admin → WooCommerce → Settings → Advanced → REST API → Add key.",
+          "project": "Select the WooCommerce store URL that matches your live or staging environment.",
+          "permissions": "Set permission to Read. Never choose Write unless explicitly approved.",
+          "canChange": "Revoke the key in WooCommerce, generate a new read key, and update Aipify.",
+          "revoke": "Delete the REST API key in WooCommerce and remove the integration in Aipify.",
+          "steps": {
+            "1": "Log in to WordPress Admin.",
+            "2": "Go to WooCommerce → Settings → Advanced → REST API.",
+            "3": "Click Add key, set Read permission, and generate.",
+            "4": "Copy Consumer key and Consumer secret.",
+            "5": "Paste into Aipify and run Test the connection."
+          },
+          "technicalDetails": "WooCommerce REST API v3 uses Consumer key/secret over HTTPS."
+        },
+        "custom_api": {
+          "what": "A secure API key or bearer token for your custom system lets Aipify read approved operational data.",
+          "why": "Custom integrations let Aipify work inside your existing admin or API without replacing your tools.",
+          "where": "Check your system's Admin, Developer, or Integrations settings — each platform differs.",
+          "permissions": "Request read-only or minimum scopes. Document which endpoints Aipify may call.",
+          "canChange": "Rotate the key in your system and update credentials in Aipify.",
+          "revoke": "Revoke the API key in your external system and remove the integration in Aipify.",
+          "steps": {
+            "1": "Log in to your system's admin panel.",
+            "2": "Open Developer, API, or Integrations settings.",
+            "3": "Create a read-only API key or token.",
+            "4": "Copy the key and paste it into Aipify."
+          },
+          "technicalDetails": "Supports HTTPS REST APIs with API key, Bearer token, or Basic Auth as configured."
+        },
+        "stripe": {
+          "what": "A Stripe restricted API key lets Aipify read payment and subscription metadata you approve.",
+          "why": "Billing and subscription signals help Aipify align workspace insights with your commercial data.",
+          "where": "Stripe Dashboard → Developers → API keys → Create restricted key.",
+          "project": "Select the correct Stripe account (test or live mode) before creating the key.",
+          "permissions": "Grant read-only permissions for the resources listed in the setup wizard. Never use the secret key.",
+          "canChange": "Roll the restricted key in Stripe and update Aipify credentials.",
+          "revoke": "Delete the restricted key in Stripe Dashboard and remove the integration in Aipify.",
+          "steps": {
+            "1": "Log in to Stripe Dashboard.",
+            "2": "Go to Developers → API keys.",
+            "3": "Create a restricted key with read-only permissions.",
+            "4": "Copy the key (shown once).",
+            "5": "Paste into Aipify and run Test the connection."
+          },
+          "technicalDetails": "Uses Stripe restricted API keys — not the account secret key. Test/live mode must match your environment."
+        },
+        "unonight": {
+          "what": "A Unonight read-only connection key lets Aipify verify organization identity and approved metadata scopes — never members, messages, or payments.",
+          "why": "Aipify needs a live, tenant-scoped read-only link before enabling Unonight platform ingestion.",
+          "where": "Unonight Admin → Integrations → Aipify → Create read-only connection key.",
+          "project": "Select the Unonight organization environment that matches your Aipify workspace.",
+          "permissions": "Enable metadata.read, organization.read, and integration.status.read only. Do not grant write or service-role access.",
+          "canChange": "Rotate the read-only key in Unonight, replace credentials in Aipify, test again, then revoke the old key.",
+          "revoke": "Revoke the connection key in Unonight Admin and remove the integration in Aipify.",
+          "steps": {
+            "1": "Log in to {adminName}.",
+            "2": "Open Integrations → Aipify.",
+            "3": "Create a new secure connection key.",
+            "4": "Choose read-only access only.",
+            "5": "Confirm access includes metadata.read and organization.read.",
+            "6": "Copy the key when it is shown.",
+            "7": "Paste the key into Aipify.",
+            "8": "Test the connection."
+          },
+          "technicalDetails": "Uses GET /api/aipify/v1/connection with Authorization: Bearer. Live HTTP verification is required before activation."
+        }
+      },
+      "unonightConnection": {
+        "baseUrlLabel": "{providerName} API base URL",
+        "baseUrlHint": "Use the URL provided by {providerName} for your environment. Aipify stores it securely with your connection key.",
+        "baseUrlPlaceholder": "https://www.unonight.com",
+        "connectionNameLabel": "Connection name",
+        "connectionNamePlaceholder": "{providerName} read-only production",
+        "statuses": {
+          "connectedVerified": "Connected and verified",
+          "needsCheck": "Connection needs check",
+          "failed": "Connection failed",
+          "readOnlyLimited": "Read-only access (limited)",
+          "pendingSetup": "Pending setup"
+        },
+        "failures": {
+          "invalidToken": "The connection key was not accepted. Check that you copied the full read-only bearer token.",
+          "expiredOrRevoked": "This connection key has expired or was revoked in {providerName}. Create a new read-only key.",
+          "wrongOrg": "The key belongs to a different organization than your Aipify workspace.",
+          "missingScope": "The key is missing a required read-only scope. Enable metadata.read, organization.read, and integration.status.read.",
+          "unreachable": "Aipify could not reach the {providerName} API. Verify the base URL and try again.",
+          "timeout": "The connection test timed out. {providerName} may be busy — try again shortly.",
+          "badCertificate": "The {providerName} API certificate could not be verified. Contact {providerName} support if this continues.",
+          "unsupportedApiVersion": "This {providerName} API version is not supported yet. Contact Aipify Support.",
+          "malformedResponse": "{providerName} returned an unexpected response. Verify the API base URL and key.",
+          "serverError": "{providerName} returned a server error during the connection test. Try again later.",
+          "credentialUnavailable": "Aipify could not read the saved connection key. Save the key again and run the test once more.",
+          "invalidBaseUrl": "Enter a valid HTTPS URL for your {providerName} environment.",
+          "invalidBaseUrlHttps": "The {providerName} address must begin with https://.",
+          "invalidBaseUrlEmail": "The {providerName} address must be a URL, not an email address.",
+          "verificationRecordFailed": "The connection test succeeded but Aipify could not store the verification result. Try again.",
+          "placeholderNotConfigured": "A placeholder connection key is configured. Replace it with a live {providerName} read-only key.",
+          "rotationRequired": "The saved key cannot be used securely. Enter a new key, save it securely, and test the connection again."
+        },
+        "errorPanels": {
+          "actions": {
+            "retry": "Try again",
+            "updateKey": "Update key",
+            "openUnonightAdmin": "Open {adminName}",
+            "backToIntegrations": "Back to integrations"
+          },
+          "invalidToken": {
+            "title": "The connection key was rejected",
+            "body": "The saved key is no longer valid. Create a new read-only key in {adminName} and try again."
+          },
+          "revokedToken": {
+            "title": "The connection key was revoked",
+            "body": "This key was revoked in {providerName}. Create a new read-only key in {adminName} and try again."
+          },
+          "credentialUnavailable": {
+            "title": "Saved key unavailable",
+            "body": "Aipify could not read the stored connection key. Paste the key again, save, and test the connection."
+          },
+          "unreachable": {
+            "title": "{providerName} did not respond",
+            "body": "Aipify could not reach {providerName} right now. Verify the base URL and try again."
+          },
+          "unexpectedHttpStatus": {
+            "title": "{providerName} returned an unexpected response",
+            "body": "The connection test received an unexpected HTTP response from {providerName}. Try again shortly."
+          },
+          "organizationMismatch": {
+            "title": "Organization does not match",
+            "body": "The key belongs to a different {providerName} organization than this Aipify workspace."
+          },
+          "missingScope": {
+            "title": "Required read access is missing",
+            "body": "Confirm the key includes metadata.read, organization.read, and integration.status.read."
+          },
+          "unsupportedResponse": {
+            "title": "Unexpected {providerName} response",
+            "body": "{providerName} responded, but the payload did not match the expected read-only connection contract."
+          },
+          "verificationRecordFailed": {
+            "title": "Verification could not be saved",
+            "body": "The live test succeeded but Aipify could not store the verification result. Try again."
+          },
+          "rotationRequired": {
+            "title": "The key must be renewed",
+            "body": "The saved key cannot be used securely. Enter a new key, save it securely, and test the connection again."
+          }
+        }
+      },
+      "errorGuidance": {
+        "actions": {
+          "retry": "Try again",
+          "findKey": "Help finding my key",
+          "contactSupport": "Contact support"
+        },
+        "findKeyHref": "/app/support/knowledge/aipify/integration-setup/faq/integration-setup-faq#where-do-i-find-my-api-key",
+        "contactSupportHref": "/app/support/contact",
+        "unauthorized": {
+          "title": "The connection key was not accepted",
+          "body": "The external system rejected the credentials. This usually means the key is wrong, expired, or missing required read permissions.",
+          "checklist": {
+            "verifyKey": "Verify you copied the full connection key without extra spaces.",
+            "readOnly": "Confirm the key has read-only permissions for the scopes Aipify listed.",
+            "notRevoked": "Check the key has not been revoked in your external platform.",
+            "correctProject": "Make sure you selected the correct store, site, or project."
+          }
+        },
+        "network": {
+          "title": "Could not reach the external system",
+          "body": "Aipify could not connect to the provider. This may be a temporary network issue or the provider may be unavailable.",
+          "checklist": {
+            "connectivity": "Check your internet connection and try again.",
+            "providerStatus": "Verify the external platform is online and accessible.",
+            "retryLater": "Wait a few minutes and run Test the connection again."
+          }
+        },
+        "invalidScope": {
+          "title": "The approved permissions do not match",
+          "body": "The connection key does not include the read permissions Aipify needs for this integration.",
+          "checklist": {
+            "readOnly": "Create a new key with read-only scopes listed in the setup wizard.",
+            "approvedScopes": "Compare approved scopes in Aipify with permissions on the external key.",
+            "regenerateKey": "Regenerate the key after updating permissions, then paste the new key."
+          }
+        },
+        "missingEnv": {
+          "title": "Integration configuration is incomplete",
+          "body": "A required platform setting is missing. Your organization admin or Aipify Support may need to complete configuration.",
+          "checklist": {
+            "contactAdmin": "Contact your organization administrator to verify integration settings.",
+            "supportTicket": "Open a support request with your provider name and setup step."
+          }
+        },
+        "validationPending": {
+          "title": "Connection validation is still in progress",
+          "body": "Aipify is still verifying the connection. This can take a moment after saving credentials.",
+          "checklist": {
+            "wait": "Wait a few seconds and try again.",
+            "retryTest": "Click Test the connection once more."
+          }
+        },
+        "unknown": {
+          "title": "Something unexpected happened",
+          "body": "The connection test did not succeed. Review your setup and try again, or contact support if the issue continues.",
+          "checklist": {
+            "verifySetup": "Walk through the setup steps and confirm read-only permissions.",
+            "retryTest": "Run Test the connection again after verifying your key."
+          }
+        }
+      },
+      "scopeDescriptions": {
+        "metadata_read": "Read basic integration information",
+        "organization_read": "Read your organization name and identity for verification",
+        "integration_status_read": "Read integration health and connection status",
+        "platform_metadata_read": "Read platform metadata for verified live signals",
+        "read_products": "Read products",
+        "read_orders": "Read orders",
+        "read_customers": "Read customers"
+      },
+      "scopeUnknownFallback": "Approved read-only access scope",
+      "credentialFields": {
+        "connectionNameLabel": "Connection name",
+        "connectionNamePlaceholder": "{providerName} read-only production",
+        "baseUrlLabel": "{providerName} API base URL",
+        "baseUrlHint": "Use the HTTPS URL provided for your {providerName} environment.",
+        "baseUrlPlaceholder": "https://"
+      },
+      "connectionFailures": {
+        "actions": {
+          "retry": "Intentar de nuevo",
+          "updateKey": "Actualizar clave de conexión",
+          "openAdmin": "Abrir {adminName}",
+          "backToIntegrations": "Volver a integraciones"
+        },
+        "contractIncompleteTitle": "La configuración de integración está incompleta",
+        "contractIncompleteBody": "La configuración de integración no está completa. Contacte al administrador.",
+        "panels": {
+          "invalid_token": {
+            "title": "Connection key is not valid",
+            "body": "The saved key is no longer valid. Create a new {credentialName} in {adminName} and try again."
+          },
+          "revoked_token": {
+            "title": "Connection key was revoked",
+            "body": "This key was revoked in {adminName}. Create a new {credentialName} and try again."
+          },
+          "credential_unavailable": {
+            "title": "Connection key unavailable",
+            "body": "Aipify could not use the saved connection key. Update the key and try again."
+          },
+          "rotation_required": {
+            "title": "New connection key required",
+            "body": "Create a new {credentialName} in {adminName}, then paste it here and test again."
+          },
+          "unreachable": {
+            "title": "{providerName} did not respond",
+            "body": "Aipify could not reach {providerName} right now. Verify the base URL and try again."
+          },
+          "server_error": {
+            "title": "{providerName} returned a server error",
+            "body": "{providerName} returned a server error during the connection test. Try again later."
+          },
+          "org_mismatch": {
+            "title": "Organization mismatch",
+            "body": "The key belongs to a different organization than this Aipify workspace."
+          },
+          "scope_mismatch": {
+            "title": "Required access is missing",
+            "body": "The connection key does not include the required read-only scopes. Create a new key with the approved scopes."
+          },
+          "unsupported_response": {
+            "title": "Unexpected response",
+            "body": "{providerName} responded, but the payload did not match the expected connection contract."
+          },
+          "timeout": {
+            "title": "Connection timed out",
+            "body": "The connection test timed out. Try again shortly."
+          },
+          "bad_certificate": {
+            "title": "Certificate could not be verified",
+            "body": "The API certificate could not be verified. Contact support if this continues."
+          },
+          "unsupported_api_version": {
+            "title": "API version not supported",
+            "body": "This API version is not supported yet. Contact Aipify Support."
+          },
+          "malformed_response": {
+            "title": "Unexpected response",
+            "body": "{providerName} returned an unexpected response. Verify the API base URL and key."
+          },
+          "placeholder_not_configured": {
+            "title": "Placeholder key detected",
+            "body": "A placeholder connection key is configured. Replace it with a live {credentialName}."
+          },
+          "invalid_base_url": {
+            "title": "Invalid API address",
+            "body": "Enter a valid HTTPS URL for your {providerName} environment."
+          },
+          "invalid_base_url_https": {
+            "title": "HTTPS required",
+            "body": "The {providerName} address must begin with https://."
+          },
+          "invalid_base_url_email": {
+            "title": "URL required",
+            "body": "The {providerName} address must be a URL, not an email address."
+          },
+          "host_not_allowlisted": {
+            "title": "Address not allowed",
+            "body": "This API address is not approved for {providerName}. Use the address from your administrator."
+          },
+          "contract_incomplete": {
+            "title": "Integration setup is incomplete",
+            "body": "The integration setup is not complete. Contact your administrator."
+          }
+        }
+      }
     }
   }
 }
