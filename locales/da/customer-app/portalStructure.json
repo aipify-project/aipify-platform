@@ -400,7 +400,8 @@
           "retry": "Prøv igen",
           "editSetup": "Rediger opsætning",
           "removeIntegration": "Fjern integration",
-          "continueSetup": "Fortsæt opsætning"
+          "continueSetup": "Fortsæt opsætning",
+          "previewWizard": "Forhåndsvis installationsguiden"
         },
         "removeDialog": {
           "title": "Fjerne {provider}-integrationen?",
@@ -1343,6 +1344,13 @@
             "internalTitle": "Gem API-nøgle via hemmelighedsstrøm",
             "internalDescription": "Gem via eksisterende krypteringssti. Returnér aldrig klartekst. Fortsæt til testgate."
           }
+        },
+        "preview": {
+          "badge": "Kun visning",
+          "notice": "Dette er en forhåndsvisning. Ingen ændringer bliver gemt.",
+          "readOnlyAction": "Denne handling er utilgængelig i forhåndsvisning. Ingen ændringer gemmes.",
+          "close": "Luk forhåndsvisning",
+          "sampleCredential": "Kun eksempel — gemmes ikke"
         }
       }
     },

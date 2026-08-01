@@ -25,6 +25,13 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    // Explicit preview payloads must never mutate session state.
+    if (body?.preview_mode === true || body?.mode === "preview") {
+      return NextResponse.json(
+        { error: "Preview mode is read-only" },
+        { status: 403, headers: NO_STORE }
+      );
+    }
     const providerKey = typeof body?.provider_key === "string" ? body.provider_key.trim() : "";
     const contractVersion =
       typeof body?.contract_version === "string" ? body.contract_version.trim() : "";

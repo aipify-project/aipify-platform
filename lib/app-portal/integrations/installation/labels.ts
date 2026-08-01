@@ -30,6 +30,11 @@ export function installationWizardMessageKeys() {
     pauseSaved: `${BASE}.pauseSaved`,
     resume: `${BASE}.resume`,
     staleContract: `${BASE}.staleContract`,
+    previewBadge: `${BASE}.preview.badge`,
+    previewNotice: `${BASE}.preview.notice`,
+    previewReadOnlyAction: `${BASE}.preview.readOnlyAction`,
+    previewClose: `${BASE}.preview.close`,
+    previewSampleCredential: `${BASE}.preview.sampleCredential`,
     supportModes: {
       self_service: `${BASE}.supportModes.selfService`,
       guided: `${BASE}.supportModes.guided`,
@@ -91,6 +96,11 @@ export type InstallationWizardLabels = {
   pauseSaved: string;
   resume: string;
   staleContract: string;
+  previewBadge: string;
+  previewNotice: string;
+  previewReadOnlyAction: string;
+  previewClose: string;
+  previewSampleCredential: string;
   emptyFallback: string;
   messageCatalog: Record<string, string>;
 };
@@ -105,6 +115,11 @@ export function buildInstallationWizardLabels(
   };
   put(keys.reassurance);
   put(keys.technicalRequired);
+  put(keys.previewBadge);
+  put(keys.previewNotice);
+  put(keys.previewReadOnlyAction);
+  put(keys.previewClose);
+  put(keys.previewSampleCredential);
   Object.values(keys.supportModes).forEach(put);
   Object.values(keys.states).forEach(put);
 
@@ -137,6 +152,11 @@ export function buildInstallationWizardLabels(
     pauseSaved: t(keys.pauseSaved),
     resume: t(keys.resume),
     staleContract: t(keys.staleContract),
+    previewBadge: t(keys.previewBadge),
+    previewNotice: t(keys.previewNotice),
+    previewReadOnlyAction: t(keys.previewReadOnlyAction),
+    previewClose: t(keys.previewClose),
+    previewSampleCredential: t(keys.previewSampleCredential),
     emptyFallback: t(`${BASE}.emptyFallback`),
     messageCatalog: catalog,
   };

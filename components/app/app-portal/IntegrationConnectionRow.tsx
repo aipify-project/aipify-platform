@@ -19,6 +19,8 @@ import {
   type AppPortalIntegrationProvider,
   type AppPortalIntegrationsLabels,
 } from "@/lib/app-portal/integrations";
+import { canShowInstallationWizardPreview } from "@/lib/app-portal/integrations/installation";
+import { InstallationWizardPreviewDialog } from "@/components/app/app-portal/InstallationWizardPreviewDialog";
 
 type IntegrationConnectionRowProps = {
   connection: AppPortalIntegrationConnection;
@@ -42,6 +44,7 @@ export function IntegrationConnectionRow({
   const [acting, setActing] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
   const [dialogVariant, setDialogVariant] = useState<"remove" | "disconnect" | null>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const canonicalInput = connectionToCanonicalInput(connection);
   const canonicalStatus = resolveIntegrationCanonicalStatus(canonicalInput);
@@ -55,6 +58,26 @@ export function IntegrationConnectionRow({
   );
   const actionTier = resolveIntegrationHubActionTier(connection);
   const setupHref = `/app/platform/integrations/connect/${encodeURIComponent(connection.provider_key)}`;
+  const showWizardPreview = canShowInstallationWizardPreview({
+    canManage,
+    actionTier,
+  });
+  const locale =
+    typeof document !== "undefined" && document.documentElement.lang
+      ? document.documentElement.lang
+      : "en";
+
+  const previewMenuItem = showWizardPreview
+    ? {
+        key: "previewWizard",
+        label: labels.hub.actions.previewWizard,
+        onClick: () => {
+          setMenuOpen(false);
+          setPreviewOpen(true);
+        },
+        href: undefined as string | undefined,
+      }
+    : null;
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -140,10 +163,11 @@ export function IntegrationConnectionRow({
   const disconnectTitle = interpolateIntegrationLabel(labels.hub.disconnectDialog.title, providerName);
   const disconnectBody = interpolateIntegrationLabel(labels.hub.disconnectDialog.body, providerName);
 
-  const menuItems =
+  const menuItems = (
     actionTier === "active"
       ? [
           { key: "manage", href: setupHref, label: labels.hub.actions.manage, onClick: undefined },
+          ...(previewMenuItem ? [previewMenuItem] : []),
           { key: "retryTest", label: labels.hub.actions.retryTest, onClick: () => void retryTest() },
           canonicalStatus === "active"
             ? {
@@ -168,6 +192,7 @@ export function IntegrationConnectionRow({
       : actionTier === "verified"
         ? [
             { key: "manage", href: setupHref, label: labels.hub.actions.manage, onClick: undefined },
+            ...(previewMenuItem ? [previewMenuItem] : []),
             {
               key: "activate",
               label: labels.hub.activateIntegration,
@@ -185,6 +210,7 @@ export function IntegrationConnectionRow({
           ]
         : actionTier === "failed"
           ? [
+              ...(previewMenuItem ? [previewMenuItem] : []),
               { key: "retry", label: labels.hub.actions.retry, onClick: () => void retryTest() },
               { key: "editSetup", href: setupHref, label: labels.hub.actions.editSetup, onClick: undefined },
               {
@@ -206,7 +232,13 @@ export function IntegrationConnectionRow({
                   setDialogVariant("remove");
                 },
               },
-            ];
+            ]
+  ) as Array<{
+    key: string;
+    label: string;
+    href?: string;
+    onClick?: () => void;
+  }>;
 
   return (
     <li className="rounded-xl border border-slate-100 px-4 py-3 text-sm">
@@ -298,6 +330,14 @@ export function IntegrationConnectionRow({
           onConfirm={() => void confirmRemoval()}
         />
       ) : null}
+
+      <InstallationWizardPreviewDialog
+        open={previewOpen}
+        providerKey={connection.provider_key}
+        labels={labels}
+        locale={locale}
+        onClose={() => setPreviewOpen(false)}
+      />
     </li>
   );
 }

@@ -168,6 +168,7 @@ export type IntegrationHubActionLabels = {
   editSetup: string;
   removeIntegration: string;
   continueSetup: string;
+  previewWizard: string;
 };
 
 export type IntegrationHubFeedbackLabels = {

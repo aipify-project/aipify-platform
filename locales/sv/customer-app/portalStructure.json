@@ -400,7 +400,8 @@
           "retry": "Försök igen",
           "editSetup": "Redigera inställning",
           "removeIntegration": "Ta bort integration",
-          "continueSetup": "Fortsätt installation"
+          "continueSetup": "Fortsätt installation",
+          "previewWizard": "Förhandsgranska installationsguiden"
         },
         "removeDialog": {
           "title": "Ta bort {provider}-integrationen?",
@@ -1343,6 +1344,13 @@
             "internalTitle": "Lagra API-nyckel via hemlighetsström",
             "internalDescription": "Spara via befintlig krypteringsväg. Returnera aldrig klartext. Fortsätt till testgrind."
           }
+        },
+        "preview": {
+          "badge": "Förhandsvisning",
+          "notice": "Detta är en förhandsvisning. Inga ändringar sparas.",
+          "readOnlyAction": "Åtgärden är inte tillgänglig i förhandsvisning. Inga ändringar sparas.",
+          "close": "Stäng förhandsvisning",
+          "sampleCredential": "Endast exempel — sparas inte"
         }
       }
     },
