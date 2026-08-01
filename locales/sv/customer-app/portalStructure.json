@@ -791,7 +791,7 @@
           "invalidBaseUrlEmail": "Unonight-adressen måste vara en URL, inte en e-postadress.",
           "verificationRecordFailed": "Anslutningstestet lyckades men Aipify kunde inte spara verifieringsresultatet. Försök igen.",
           "placeholderNotConfigured": "En tillfällig platshållarnyckel är konfigurerad. Byt ut den mot en riktig Unonight-nyckel.",
-          "rotationRequired": "Aipify kan inte använda den sparade nyckeln. Klistra in en ny nyckel, spara säkert och testa anslutningen igen."
+          "rotationRequired": "Den sparade nyckeln kan inte användas säkert. Ange en ny nyckel, spara den säkert och testa anslutningen igen."
         },
         "errorPanels": {
           "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
@@ -839,7 +839,7 @@
           },
           "rotationRequired": {
             "title": "Nyckeln måste förnyas",
-            "body": "Aipify lagrar nyckeln krypterad och använder den bara på servern. Den nuvarande nyckeln kan inte läsas säkert — klistra in en ny nyckel, spara och testa anslutningen."
+            "body": "Den sparade nyckeln kan inte användas säkert. Ange en ny nyckel, spara den säkert och testa anslutningen igen."
           }
         }
       },

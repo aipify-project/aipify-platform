@@ -36,7 +36,13 @@ import {
   type IntegrationVerificationMetadata,
 } from "@/lib/app-portal/integrations";
 import {
+  enterCredentialStepIndex,
+  resolveIntegrationWizardResumeStepIndex,
+  shouldShowIntegrationCompletionSummary,
+} from "@/lib/app-portal/integrations/rotation-recovery";
+import {
   buildUnonightConnectionErrorPanelLabels,
+  buildUnonightConnectionErrorPanelModel,
   parseUnonightTestErrorFromResponse,
   type UnonightConnectionErrorPanelModel,
 } from "@/lib/unonight/connection/error-panel";
@@ -66,24 +72,6 @@ function resolveInitialCompletionMode(
   return resolveCompletionModeFromConnection(setup.connection);
 }
 
-function resolveInitialStepIndex(setup: AppPortalIntegrationSetup): number {
-  const connection = setup.connection;
-  if (!connection) return 0;
-
-  const canonical = resolveIntegrationCanonicalStatus(connectionToCanonicalInput(connection));
-
-  if (canonical === "verified" || canonical === "active" || canonical === "inactive") {
-    return INTEGRATION_WIZARD_STEPS.indexOf("confirm_activation");
-  }
-  if (canonical === "credential_saved" || canonical === "verification_failed") {
-    return INTEGRATION_WIZARD_STEPS.indexOf("test_connection");
-  }
-  if (connection.masked_credential_hint) {
-    return INTEGRATION_WIZARD_STEPS.indexOf("enter_credential");
-  }
-  return 0;
-}
-
 export function AppPortalIntegrationSetupPanel({
   providerKey,
   labels,
@@ -110,6 +98,7 @@ export function AppPortalIntegrationSetupPanel({
   const [unonightTestError, setUnonightTestError] = useState<UnonightConnectionErrorPanelModel | null>(null);
   const [showRemoveDialog, setShowRemoveDialog] = useState(false);
   const resumeInitialized = useRef(false);
+  const focusCredentialInput = useRef(false);
 
   const currentStep = wizardStepAt(stepIndex);
   const flowSteps = INTEGRATION_WIZARD_STEPS;
@@ -168,13 +157,50 @@ export function AppPortalIntegrationSetupPanel({
     if (initialCompletion) {
       setCompletionMode(initialCompletion);
     }
-    setStepIndex(resolveInitialStepIndex(setup));
-  }, [setup]);
+    setStepIndex(resolveIntegrationWizardResumeStepIndex(setup));
+
+    const initialCanonical = setup.connection
+      ? resolveIntegrationCanonicalStatus(connectionToCanonicalInput(setup.connection))
+      : null;
+
+    // Resume mid-flow: scopes were already approved when the connection exists.
+    if (setup.connection) {
+      setApprovedScopes(true);
+    }
+
+    if (
+      providerKey === UNONIGHT_PROVIDER_KEY &&
+      initialCanonical === "rotation_required" &&
+      setup.connection?.last_test_error
+    ) {
+      setUnonightTestError(
+        buildUnonightConnectionErrorPanelModel(setup.connection.last_test_error)
+      );
+    }
+  }, [setup, providerKey]);
 
   const canonicalStatus = useMemo(() => {
     if (!setup?.connection) return "not_configured" as const;
     return resolveIntegrationCanonicalStatus(connectionToCanonicalInput(setup.connection));
   }, [setup]);
+
+  const isRotationRequired = canonicalStatus === "rotation_required";
+
+  const goToUpdateKeyStep = useCallback(() => {
+    setCompletionMode(null);
+    setTestError(null);
+    focusCredentialInput.current = true;
+    setStepIndex(enterCredentialStepIndex());
+  }, []);
+
+  useEffect(() => {
+    if (currentStep !== "enter_credential" || !focusCredentialInput.current) return;
+    focusCredentialInput.current = false;
+    const input = document.getElementById("api-key-input") as HTMLInputElement | null;
+    if (!input) return;
+    input.focus();
+    input.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [currentStep, stepIndex]);
 
   const activationComplete = canonicalStatus === "active";
 
@@ -257,6 +283,9 @@ export function AppPortalIntegrationSetupPanel({
       if (res.ok) {
         const body = (await res.json()) as { connection_id?: string };
         if (body.connection_id) setConnectionId(body.connection_id);
+        setApiKey("");
+        setUnonightTestError(null);
+        setTestError(null);
         await load();
         setStepIndex(flowSteps.indexOf("test_connection"));
         setCompletionMode(null);
@@ -314,7 +343,10 @@ export function AppPortalIntegrationSetupPanel({
         } else if (!isActivation && refreshedCanonical === "verified") {
           setStepIndex(flowSteps.indexOf("confirm_activation"));
           setCompletionMode("verified");
-        } else if (refreshedCanonical === "verification_failed") {
+        } else if (
+          refreshedCanonical === "verification_failed" ||
+          refreshedCanonical === "rotation_required"
+        ) {
           setCompletionMode(null);
           setStepIndex(flowSteps.indexOf("test_connection"));
         } else {
@@ -327,9 +359,8 @@ export function AppPortalIntegrationSetupPanel({
           const guidance = await parseIntegrationErrorFromResponse(res);
           setTestError(guidance);
         }
-        if (isActivation) {
-          setCompletionMode(null);
-        }
+        setCompletionMode(null);
+        setStepIndex(flowSteps.indexOf("test_connection"));
         await load();
         refreshAppPortalIntegrationSurfaces(router);
       }
@@ -437,7 +468,10 @@ export function AppPortalIntegrationSetupPanel({
     );
   }
 
-  if (completionMode && canonicalStatus !== "verification_failed") {
+  if (
+    completionMode &&
+    shouldShowIntegrationCompletionSummary(completionMode, canonicalStatus)
+  ) {
     return (
       <>
         <IntegrationSetupCompletionSummary
@@ -503,53 +537,109 @@ export function AppPortalIntegrationSetupPanel({
     unonightTestError &&
     buildUnonightConnectionErrorPanelLabels(unonightTestError, translate);
 
+  const showRotationRecovery =
+    isRotationRequired || unonightTestError?.errorCode === "rotation_required";
+
+  const rotationRecoveryLabels =
+    showRotationRecovery
+      ? unonightErrorPanelLabels ??
+        buildUnonightConnectionErrorPanelLabels(
+          buildUnonightConnectionErrorPanelModel("rotation_required"),
+          translate
+        )
+      : null;
+
   return (
     <>
       <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
         <Link
           href="/app/platform/integrations"
-          className={`text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
+          className={`inline-flex text-sm font-medium text-aipify-text-secondary hover:text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
         >
           ← {labels.setup.back}
         </Link>
 
-        <header className="space-y-3">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <p className={AppPremiumShell.eyebrow}>{labels.setup.plainLanguage.connectionTest}</p>
-              <h1 className={AppPremiumShell.pageTitle}>
-                {labels.setup.title}: {setup.display_name}
-              </h1>
-            </div>
-            <IntegrationConnectionStatusBadge
-              label={statusLabel}
-              canonicalStatus={canonicalStatus}
-            />
+        <header className="space-y-5">
+          <div className="space-y-2">
+            <p className={AppPremiumShell.eyebrow}>{labels.setup.plainLanguage.connectionTest}</p>
+            <h1 className={`${AppPremiumShell.pageTitle} max-w-4xl text-balance`}>
+              {labels.setup.title}: {setup.display_name}
+            </h1>
           </div>
 
-          <ol className="flex flex-wrap gap-2" aria-label={labels.setup.connectionStatusLabel}>
-            {flowSteps.map((key, index) => (
-              <li
-                key={key}
-                className={`rounded-full px-3 py-1 text-xs font-medium ${
-                  index === stepIndex
-                    ? "bg-violet-700 text-white"
-                    : index < stepIndex
-                      ? "bg-violet-50 text-violet-800 ring-1 ring-violet-100"
-                      : "bg-aipify-surface text-aipify-text-secondary ring-1 ring-aipify-border"
-                }`}
-              >
-                {labels.setup.wizard7StepLabels[key]}
-              </li>
-            ))}
+          {(isRotationRequired || statusLabel) && (
+            <div
+              className="rounded-2xl border border-aipify-border bg-aipify-surface px-4 py-3 sm:px-5"
+              role="status"
+              aria-live="polite"
+            >
+              <div className="flex flex-wrap items-center gap-3">
+                <IntegrationConnectionStatusBadge
+                  label={statusLabel}
+                  canonicalStatus={canonicalStatus}
+                />
+                {isRotationRequired ? (
+                  <p className="min-w-0 flex-1 text-sm leading-relaxed text-aipify-text-secondary">
+                    {translate(
+                      "customerApp.portalStructure.integrations.unonightConnection.failures.rotationRequired"
+                    )}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          )}
+
+          <ol
+            className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:overflow-visible"
+            aria-label={labels.setup.connectionStatusLabel}
+          >
+            {flowSteps.map((key, index) => {
+              const isActive = index === stepIndex;
+              const isComplete = index < stepIndex;
+              const canJump = isComplete || isActive || (isRotationRequired && key === "enter_credential");
+              return (
+                <li key={key} className="shrink-0">
+                  <button
+                    type="button"
+                    disabled={!canJump}
+                    onClick={() => {
+                      if (!canJump) return;
+                      setStepIndex(index);
+                    }}
+                    aria-current={isActive ? "step" : undefined}
+                    className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors disabled:cursor-default ${
+                      isActive
+                        ? "bg-violet-700 text-white"
+                        : isComplete
+                          ? "bg-violet-50 text-violet-800 ring-1 ring-violet-100 dark:bg-violet-950/40 dark:text-violet-100 dark:ring-violet-800/60"
+                          : "bg-aipify-surface text-aipify-text-secondary ring-1 ring-aipify-border"
+                    } ${AppPremiumShell.focusRing}`}
+                  >
+                    {labels.setup.wizard7StepLabels[key]}
+                  </button>
+                </li>
+              );
+            })}
           </ol>
         </header>
 
-        <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
-          <section className={`${AppPremiumShell.elevatedCard} space-y-4 p-6`}>
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(320px,380px)]">
+          <section className={`${AppPremiumShell.elevatedCard} space-y-5 p-5 sm:p-6 lg:p-7`}>
             <h2 className={AppPremiumShell.sectionTitle}>
               {labels.setup.wizard7StepLabels[currentStep]}
             </h2>
+
+            {showRotationRecovery &&
+            rotationRecoveryLabels &&
+            currentStep !== "enter_credential" ? (
+              <UnonightConnectionErrorPanel
+                labels={rotationRecoveryLabels}
+                variant="rotation"
+                onUpdateKey={goToUpdateKeyStep}
+                onRetry={connectionId ? () => void testConnection() : undefined}
+                retryDisabled={acting || !connectionId}
+              />
+            ) : null}
 
             {currentStep === "choose_system" && (
               <>
@@ -646,6 +736,19 @@ export function AppPortalIntegrationSetupPanel({
 
             {currentStep === "enter_credential" && (
               <>
+                {showRotationRecovery && rotationRecoveryLabels ? (
+                  <UnonightConnectionErrorPanel
+                    labels={rotationRecoveryLabels}
+                    variant="rotation"
+                    onUpdateKey={() => {
+                      focusCredentialInput.current = true;
+                      const input = document.getElementById("api-key-input") as HTMLInputElement | null;
+                      input?.focus();
+                    }}
+                    onRetry={connectionId ? () => void testConnection() : undefined}
+                    retryDisabled={acting || !connectionId}
+                  />
+                ) : null}
                 {mode === "manual" ? (
                   <>
                     {isUnonight ? (
@@ -706,6 +809,31 @@ export function AppPortalIntegrationSetupPanel({
                         {labels.setup.apiKeyMaskedNote}: {setup.connection.masked_credential_hint}
                       </p>
                     ) : null}
+                    <p className="mt-3 text-sm leading-relaxed text-aipify-text-secondary">
+                      {labels.setup.securityWarnings.credentialsEncrypted}
+                    </p>
+                    <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                      <button
+                        type="button"
+                        disabled={
+                          acting ||
+                          !approvedScopes ||
+                          (mode === "manual" && apiKey.trim().length < 8)
+                        }
+                        onClick={() => void saveConnection()}
+                        className={`min-h-11 rounded-lg bg-violet-700 px-4 py-2.5 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-50 ${AppPremiumShell.focusRing}`}
+                      >
+                        {acting ? labels.setup.saving : labels.setup.save}
+                      </button>
+                      <button
+                        type="button"
+                        disabled={acting}
+                        onClick={() => setStepIndex(Math.max(0, stepIndex - 1))}
+                        className={`min-h-11 rounded-lg border border-aipify-border bg-aipify-surface px-4 py-2.5 text-sm font-medium text-aipify-text disabled:opacity-50 ${AppPremiumShell.focusRing}`}
+                      >
+                        {labels.setup.backStep}
+                      </button>
+                    </div>
                   </>
                 ) : (
                   <button
@@ -724,13 +852,17 @@ export function AppPortalIntegrationSetupPanel({
               <>
                 <p className={AppPremiumShell.sectionSubtitle}>{labels.setup.plainLanguage.connectionTest}</p>
                 {wizardPhase === "credential_saved" ? (
-                  <p className="rounded-xl border border-blue-100 bg-blue-50/70 px-4 py-3 text-sm text-aipify-text-secondary" role="status">
+                  <p className="rounded-xl border border-blue-100 bg-blue-50/70 px-4 py-3 text-sm text-aipify-text-secondary dark:border-blue-500/30 dark:bg-blue-950/30" role="status">
                     {labels.setup.statuses.credentialSaved}
                   </p>
                 ) : null}
                 {unonightTestError && unonightErrorPanelLabels ? (
                   <UnonightConnectionErrorPanel
                     labels={unonightErrorPanelLabels}
+                    variant={
+                      unonightTestError.errorCode === "rotation_required" ? "rotation" : "error"
+                    }
+                    onUpdateKey={goToUpdateKeyStep}
                     onRetry={() => void testConnection()}
                     retryDisabled={acting || !connectionId}
                   />
@@ -743,21 +875,34 @@ export function AppPortalIntegrationSetupPanel({
                     retryDisabled={acting || !connectionId}
                   />
                 ) : null}
-                <div className="flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    disabled={acting || !approvedScopes || (mode === "manual" && apiKey.length < 8 && !connectionId)}
-                    onClick={() => void saveConnection()}
-                    className={`rounded-lg bg-violet-700 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 ${AppPremiumShell.focusRing}`}
-                  >
-                    {acting ? labels.setup.saving : labels.setup.save}
-                  </button>
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  {isRotationRequired || apiKey.trim().length >= 8 ? (
+                    <button
+                      type="button"
+                      disabled={
+                        acting ||
+                        !approvedScopes ||
+                        (mode === "manual" && apiKey.trim().length < 8)
+                      }
+                      onClick={() => void saveConnection()}
+                      className={`min-h-11 rounded-lg bg-violet-700 px-4 py-2.5 text-sm font-medium text-white disabled:cursor-not-allowed disabled:opacity-50 ${AppPremiumShell.focusRing}`}
+                    >
+                      {acting ? labels.setup.saving : labels.setup.save}
+                    </button>
+                  ) : null}
                   {connectionId ? (
                     <button
                       type="button"
-                      disabled={acting}
+                      disabled={acting || isRotationRequired}
+                      title={
+                        isRotationRequired
+                          ? translate(
+                              "customerApp.portalStructure.integrations.unonightConnection.failures.rotationRequired"
+                            )
+                          : undefined
+                      }
                       onClick={() => void testConnection()}
-                      className={`rounded-lg border border-aipify-border bg-aipify-surface px-4 py-2 text-sm font-medium text-aipify-text disabled:opacity-50 ${AppPremiumShell.focusRing}`}
+                      className={`min-h-11 rounded-lg border border-aipify-border bg-aipify-surface px-4 py-2.5 text-sm font-medium text-aipify-text disabled:cursor-not-allowed disabled:opacity-50 ${AppPremiumShell.focusRing}`}
                     >
                       {acting ? labels.setup.testing : labels.setup.test}
                     </button>
@@ -806,7 +951,10 @@ export function AppPortalIntegrationSetupPanel({
                   type="button"
                   disabled={
                     (currentStep === "explain_access" && !approvedScopes) ||
-                    (currentStep === "enter_credential" && mode === "manual" && apiKey.length < 8 && !connectionId)
+                    (currentStep === "enter_credential" &&
+                      mode === "manual" &&
+                      apiKey.trim().length < 8 &&
+                      (!connectionId || isRotationRequired))
                   }
                   onClick={() => setStepIndex((s) => Math.min(flowSteps.length - 1, s + 1))}
                   className={`rounded-lg bg-aipify-text px-4 py-2 text-sm font-medium text-white disabled:opacity-50 ${AppPremiumShell.focusRing}`}

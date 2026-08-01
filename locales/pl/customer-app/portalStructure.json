@@ -6757,7 +6757,7 @@
           "invalidBaseUrlEmail": "Adres Unonight musi być adresem URL, a nie adresem e-mail.",
           "verificationRecordFailed": "Test połączenia się powiódł, ale Aipify nie mogło zapisać wyniku weryfikacji. Spróbuj ponownie.",
           "placeholderNotConfigured": "Skonfigurowano tymczasowy klucz zastępczy. Zastąp go prawdziwym kluczem Unonight.",
-          "rotationRequired": "Aipify nie może użyć zapisanego klucza. Wklej nowy klucz, zapisz bezpiecznie i ponownie przetestuj połączenie."
+          "rotationRequired": "Zapisany klucz nie może być używany bezpiecznie. Wprowadź nowy klucz, zapisz go bezpiecznie i ponownie przetestuj połączenie."
         },
         "errorPanels": {
           "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
@@ -6805,7 +6805,7 @@
           },
           "rotationRequired": {
             "title": "Klucz musi zostać odnowiony",
-            "body": "Aipify przechowuje klucz w formie zaszyfrowanej i używa go tylko po stronie serwera. Obecnego klucza nie można bezpiecznie odczytać — wklej nowy klucz, zapisz i przetestuj połączenie."
+            "body": "Zapisany klucz nie może być używany bezpiecznie. Wprowadź nowy klucz, zapisz go bezpiecznie i ponownie przetestuj połączenie."
           }
         }
       },

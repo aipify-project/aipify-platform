@@ -6564,7 +6564,7 @@
           "invalidBaseUrlEmail": "The Unonight address must be a URL, not an email address.",
           "verificationRecordFailed": "The connection test succeeded but Aipify could not store the verification result. Try again.",
           "placeholderNotConfigured": "A placeholder connection key is configured. Replace it with a live Unonight read-only key.",
-          "rotationRequired": "Aipify cannot use the saved connection key. Paste a new key, save it securely, and test the connection again."
+          "rotationRequired": "The saved key cannot be used securely. Enter a new key, save it securely, and test the connection again."
         },
         "errorPanels": {
           "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
@@ -6611,8 +6611,8 @@
             "body": "The live test succeeded but Aipify could not store the verification result. Try again."
           },
           "rotationRequired": {
-            "title": "The connection key must be renewed",
-            "body": "Aipify stores the key encrypted and uses it only on the server. The current key can no longer be read securely, so paste a new key, save it, and run the connection test."
+            "title": "The key must be renewed",
+            "body": "The saved key cannot be used securely. Enter a new key, save it securely, and test the connection again."
           }
         }
       },

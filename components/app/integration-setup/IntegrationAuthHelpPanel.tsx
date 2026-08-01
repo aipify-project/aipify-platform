@@ -34,7 +34,7 @@ export function IntegrationAuthHelpPanel({ providerKey, labels }: IntegrationAut
 
   return (
     <aside
-      className={`${AppPremiumShell.elevatedCard} space-y-4 p-5`}
+      className={`${AppPremiumShell.elevatedCard} space-y-5 p-5 sm:p-6 xl:sticky xl:top-6 xl:self-start`}
       aria-labelledby="integration-auth-help-heading"
     >
       <h3
