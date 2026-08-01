@@ -31,6 +31,9 @@ Task: `AIPIFY.CORE.APP.GENERIC.INSTALLATION.WIZARD.V1`
 19. Support mode switching in preview is local UI state only and resets on close.
 20. Preview is tenant-bound and requires integration manage authorization (`can_manage`).
 21. Dynamic locale remains required for preview copy — no hardcoded locale lists.
+22. Preview status and responsibility are derived from the locally selected support mode — never live waiting states (`awaiting_*`) before an external process starts.
+23. Customer APP support choices are at most: Aipify-managed, guided, self-service, and IT (IT only when the contract allows). `partner_managed` is Core/Platform routing — never a direct customer choice.
+24. Preview actions panel shows disabled examples only — no dead clickable controls, no Continue later, no invite/order/scheduling/test/activate.
 
 ## Code map
 

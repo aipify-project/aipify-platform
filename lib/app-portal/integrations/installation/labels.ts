@@ -1,4 +1,8 @@
 import type { InstallationSupportMode, InstallationWizardState } from "./enums";
+import {
+  previewPresentationKeyForSupportMode,
+  type PreviewSupportPresentationKey,
+} from "./preview-mode";
 
 const BASE = "customerApp.portalStructure.integrations.installationWizard";
 
@@ -35,6 +39,22 @@ export function installationWizardMessageKeys() {
     previewReadOnlyAction: `${BASE}.preview.readOnlyAction`,
     previewClose: `${BASE}.preview.close`,
     previewSampleCredential: `${BASE}.preview.sampleCredential`,
+    previewActionsExampleHeading: `${BASE}.preview.actionsExampleHeading`,
+    previewActionsUnavailable: `${BASE}.preview.actionsUnavailable`,
+    previewStatus: {
+      choose: `${BASE}.preview.status.choose`,
+      aipify_managed: `${BASE}.preview.status.aipifyManaged`,
+      guided: `${BASE}.preview.status.guided`,
+      self_service: `${BASE}.preview.status.selfService`,
+      customer_it_managed: `${BASE}.preview.status.customerItManaged`,
+    } satisfies Record<PreviewSupportPresentationKey, string>,
+    previewResponsibility: {
+      choose: `${BASE}.preview.responsibility.choose`,
+      aipify_managed: `${BASE}.preview.responsibility.aipifyManaged`,
+      guided: `${BASE}.preview.responsibility.guided`,
+      self_service: `${BASE}.preview.responsibility.selfService`,
+      customer_it_managed: `${BASE}.preview.responsibility.customerItManaged`,
+    } satisfies Record<PreviewSupportPresentationKey, string>,
     supportModes: {
       self_service: `${BASE}.supportModes.selfService`,
       guided: `${BASE}.supportModes.guided`,
@@ -101,6 +121,10 @@ export type InstallationWizardLabels = {
   previewReadOnlyAction: string;
   previewClose: string;
   previewSampleCredential: string;
+  previewActionsExampleHeading: string;
+  previewActionsUnavailable: string;
+  previewStatusForMode: (mode: InstallationSupportMode | null | undefined) => string;
+  previewResponsibilityForMode: (mode: InstallationSupportMode | null | undefined) => string;
   emptyFallback: string;
   messageCatalog: Record<string, string>;
 };
@@ -120,6 +144,10 @@ export function buildInstallationWizardLabels(
   put(keys.previewReadOnlyAction);
   put(keys.previewClose);
   put(keys.previewSampleCredential);
+  put(keys.previewActionsExampleHeading);
+  put(keys.previewActionsUnavailable);
+  Object.values(keys.previewStatus).forEach(put);
+  Object.values(keys.previewResponsibility).forEach(put);
   Object.values(keys.supportModes).forEach(put);
   Object.values(keys.states).forEach(put);
 
@@ -157,6 +185,12 @@ export function buildInstallationWizardLabels(
     previewReadOnlyAction: t(keys.previewReadOnlyAction),
     previewClose: t(keys.previewClose),
     previewSampleCredential: t(keys.previewSampleCredential),
+    previewActionsExampleHeading: t(keys.previewActionsExampleHeading),
+    previewActionsUnavailable: t(keys.previewActionsUnavailable),
+    previewStatusForMode: (mode) =>
+      t(keys.previewStatus[previewPresentationKeyForSupportMode(mode)]),
+    previewResponsibilityForMode: (mode) =>
+      t(keys.previewResponsibility[previewPresentationKeyForSupportMode(mode)]),
     emptyFallback: t(`${BASE}.emptyFallback`),
     messageCatalog: catalog,
   };

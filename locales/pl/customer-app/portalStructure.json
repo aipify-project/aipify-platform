@@ -7174,11 +7174,11 @@
         "primaryContinue": "Kontynuuj",
         "primaryBack": "Wstecz",
         "supportModes": {
-          "selfService": "Zrób to samodzielnie",
-          "guided": "Konfiguracja z przewodnikiem",
-          "aipifyManaged": "Aipify przeprowadza konfigurację",
-          "partnerManaged": "Partner przeprowadza konfigurację",
-          "customerItManaged": "Dostawca IT klienta przeprowadza konfigurację"
+          "selfService": "Zrobię to sam",
+          "guided": "Chcę wskazówek",
+          "aipifyManaged": "Aipify zajmuje się konfiguracją",
+          "partnerManaged": "Partner zajmuje się konfiguracją",
+          "customerItManaged": "Pomaga mój dostawca IT"
         },
         "states": {
           "notStarted": "Not started",
@@ -7316,7 +7316,23 @@
           "notice": "To jest podgląd. Żadne zmiany nie zostaną zapisane.",
           "readOnlyAction": "Ta czynność jest niedostępna w podglądzie. Żadne zmiany nie są zapisywane.",
           "close": "Zamknij podgląd",
-          "sampleCredential": "Tylko przykład — nie jest zapisywany"
+          "sampleCredential": "Tylko przykład — nie jest zapisywany",
+          "actionsExampleHeading": "Przykład działań w aktywnej instalacji",
+          "actionsUnavailable": "Niedostępne w podglądzie",
+          "status": {
+            "choose": "Wybierz sposób konfiguracji",
+            "aipifyManaged": "Aipify przygotowuje konfigurację",
+            "guided": "Gotowe do konfiguracji z przewodnikiem",
+            "selfService": "Gotowe do samodzielnej konfiguracji",
+            "customerItManaged": "Gotowe dla dostawcy IT"
+          },
+          "responsibility": {
+            "choose": "Wybierz metodę konfiguracji, aby zobaczyć, kto jest odpowiedzialny.",
+            "aipifyManaged": "Wystarczy, że zatwierdzisz to, o co poprosimy",
+            "guided": "Aipify prowadzi Cię krok po kroku",
+            "selfService": "Wykonujesz kroki samodzielnie. Aipify może pomóc w razie potrzeby",
+            "customerItManaged": "Twój dostawca IT wykonuje kroki techniczne"
+          }
         }
       }
     }

@@ -7,13 +7,18 @@ import {
   createInstallationWizardPreviewViewState,
   isInstallationSupportMode,
   isInstallationWizardPreviewMode,
+  listCustomerFacingAssistanceActions,
+  listCustomerFacingSupportModes,
   listInstallationLocales,
+  listPreviewExampleAssistanceActions,
   nextSafeStep,
   planInstallationSteps,
+  previewStateAfterSupportSelect,
   redactSecretFieldValues,
   resolveCustomerSafeText,
   resolveInstallationTextDirection,
   resolveStepPresentation,
+  selectDefaultCustomerFacingSupportMode,
   selectDefaultSupportMode,
   resolveInstallationContract,
   waitingStateForSupportMode,
@@ -237,11 +242,23 @@ export function InstallationWizard({
   }
 
   const contract = contractResult.contract;
+  const isInternalAudience =
+    showInternalDetails ||
+    effectiveAudience === "aipify_operator" ||
+    effectiveAudience === "aipify_platform_admin" ||
+    effectiveAudience === "partner";
+  const visibleSupportModes = isInternalAudience
+    ? contract.support_modes
+    : listCustomerFacingSupportModes(contract.support_modes);
   const completedKeys = isPreview
     ? previewView.completed_step_keys
     : (session?.completed_step_keys ?? []);
+  const selectedSupportMode = isPreview
+    ? previewView.support_mode
+    : session?.support_mode;
   const supportMode =
-    (isPreview ? previewView.support_mode : session?.support_mode) ??
+    selectedSupportMode ??
+    selectDefaultCustomerFacingSupportMode(contract.support_modes) ??
     selectDefaultSupportMode(contract);
   const planned = planInstallationSteps(contract, {
     supportMode,
@@ -262,6 +279,14 @@ export function InstallationWizard({
   const state: InstallationWizardState = isPreview
     ? previewView.state
     : (session?.state ?? "not_started");
+  const statusLabel = isPreview
+    ? wizLabels.previewStatusForMode(selectedSupportMode)
+    : wizLabels.stateLabel(state);
+  const responsibilityLabel = isPreview
+    ? wizLabels.previewResponsibilityForMode(selectedSupportMode)
+    : wizLabels.responsibleParty(
+        current?.responsible_party ?? contract.responsible_party_default
+      );
   const presentation = current
     ? resolveStepPresentation(current, effectiveAudience)
     : null;
@@ -279,6 +304,12 @@ export function InstallationWizard({
         emptyFallback: wizLabels.reassurance,
       })
     : wizLabels.reassurance;
+  const customerAssistanceActions = listCustomerFacingAssistanceActions(
+    contract.assistance_actions
+  );
+  const previewExampleActions = listPreviewExampleAssistanceActions(
+    contract.assistance_actions
+  );
 
   const jumpToPreviewStep = (stepKey: string) => {
     if (!isPreview) return;
@@ -320,14 +351,29 @@ export function InstallationWizard({
   };
 
   const onSelectSupport = async (selected: InstallationSupportMode) => {
+    if (isPreview) {
+      await persistSession({
+        support_mode: selected,
+        state: previewStateAfterSupportSelect(selected),
+        current_step_key:
+          planned.find(
+            (s) => s.step_type !== "choose_support" && s.step_type !== "introduction"
+          )?.step_key ?? "choose_support",
+        completed_step_keys: Array.from(
+          new Set([...completedKeys, "introduction", "choose_support"])
+        ),
+        reason: `preview_support_mode:${selected}`,
+      });
+      setErrorSummary(null);
+      setHandoffNotice(null);
+      setLiveRegion(wizLabels.supportModeLabel(selected));
+      return;
+    }
     const waitState = waitingStateForSupportMode(selected);
     await persistSession({
       support_mode: selected,
       state: selected === "self_service" || selected === "guided" ? "in_progress" : waitState,
-      current_step_key: isPreview
-        ? planned.find((s) => s.step_type !== "choose_support" && s.step_type !== "introduction")
-            ?.step_key ?? "choose_support"
-        : "choose_support",
+      current_step_key: "choose_support",
       completed_step_keys: Array.from(
         new Set([...completedKeys, "introduction", "choose_support"])
       ),
@@ -587,10 +633,15 @@ export function InstallationWizard({
           </p>
         </div>
         <div
-          className={`shrink-0 rounded-xl border px-4 py-3 text-sm ${statusTone(state)}`}
+          className={`shrink-0 rounded-xl border px-4 py-3 text-sm ${
+            isPreview
+              ? "border-sky-500/40 bg-sky-500/10 text-sky-900 dark:text-sky-100"
+              : statusTone(state)
+          }`}
           role="status"
+          data-preview-status={isPreview ? "true" : undefined}
         >
-          <span className="font-medium">{wizLabels.stateLabel(state)}</span>
+          <span className="font-medium">{statusLabel}</span>
           <p className="mt-1 opacity-90">
             {wizLabels.estimatedTime(current?.estimated_time_minutes ?? contract.estimated_time_minutes)}
           </p>
@@ -681,8 +732,8 @@ export function InstallationWizard({
                   key: "customerApp.portalStructure.integrations.installationWizard.steps.chooseSupport.title",
                 }, { locale, translate, emptyFallback: wizLabels.emptyFallback })}
               </h2>
-              <ul className="grid gap-3 sm:grid-cols-2">
-                {contract.support_modes.map((mode) => (
+              <ul className="grid gap-3 sm:grid-cols-2" data-customer-support-choices="true">
+                {visibleSupportModes.map((mode) => (
                   <li key={mode}>
                     <button
                       type="button"
@@ -695,7 +746,7 @@ export function InstallationWizard({
                   </li>
                 ))}
               </ul>
-              {contract.support_modes.includes("self_service") ? (
+              {visibleSupportModes.includes("self_service") ? (
                 <p className="text-sm text-slate-500 dark:text-slate-400">{wizLabels.technicalRequired}</p>
               ) : null}
             </div>
@@ -713,7 +764,7 @@ export function InstallationWizard({
                       state: "support_selection",
                       current_step_key: "choose_support",
                       completed_step_keys: Array.from(
-                        new Set([...(session?.completed_step_keys ?? []), "introduction"])
+                        new Set([...completedKeys, "introduction"])
                       ),
                       reason: "intro_complete",
                     })
@@ -771,10 +822,11 @@ export function InstallationWizard({
             </div>
           ) : null}
 
-          {current?.step_type === "waiting_external_party" ||
-          ["awaiting_aipify", "awaiting_partner", "awaiting_provider", "awaiting_customer_it"].includes(
-            state
-          ) ? (
+          {!isPreview &&
+          (current?.step_type === "waiting_external_party" ||
+            ["awaiting_aipify", "awaiting_partner", "awaiting_provider", "awaiting_customer_it"].includes(
+              state
+            )) ? (
             <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-950 dark:text-amber-50">
               <p className="font-medium">{wizLabels.waiting}</p>
               <p className="mt-2 opacity-90">{description}</p>
@@ -946,46 +998,77 @@ export function InstallationWizard({
         </div>
 
         <aside className="space-y-4">
-          <div className="rounded-2xl border border-violet-500/25 bg-violet-500/5 p-4">
+          <div
+            className="rounded-2xl border border-violet-500/25 bg-violet-500/5 p-4"
+            data-preview-responsibility={isPreview ? "true" : undefined}
+          >
             <h2 className="text-sm font-semibold text-violet-900 dark:text-violet-100">
-              {wizLabels.responsibleParty(current?.responsible_party ?? contract.responsible_party_default)}
+              {responsibilityLabel}
             </h2>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-              {resolveCustomerSafeText(contract.documentation.customer_help, {
-                locale,
-                translate,
-                emptyFallback: wizLabels.reassurance,
-              })}
+              {isPreview
+                ? wizLabels.previewNotice
+                : resolveCustomerSafeText(contract.documentation.customer_help, {
+                    locale,
+                    translate,
+                    emptyFallback: wizLabels.reassurance,
+                  })}
             </p>
           </div>
 
           <div className="rounded-2xl border border-slate-200 p-4 dark:border-slate-700">
             <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50">
-              {resolveCustomerSafeText(
-                { kind: "locale_key", key: "customerApp.portalStructure.integrations.installationWizard.actions.askAipifyHelp" },
-                { locale, translate, emptyFallback: "Help" }
-              )}
+              {isPreview
+                ? wizLabels.previewActionsExampleHeading
+                : resolveCustomerSafeText(
+                    {
+                      kind: "locale_key",
+                      key: "customerApp.portalStructure.integrations.installationWizard.actions.askAipifyHelp",
+                    },
+                    { locale, translate, emptyFallback: "Help" }
+                  )}
             </h2>
-            <ul className="mt-3 space-y-2">
-              {contract.assistance_actions.map((action) => {
-                const label = resolveCustomerSafeText(action.label, {
-                  locale,
-                  translate,
-                  emptyFallback: action.action_key,
-                });
-                return (
-                  <li key={action.action_key}>
-                    <button
-                      type="button"
-                      disabled={acting}
-                      onClick={() => void onAssistance(action.action_key)}
-                      className="w-full rounded-lg border border-slate-200 px-3 py-2 text-left text-sm text-slate-700 hover:border-violet-400 dark:border-slate-600 dark:text-slate-200"
-                    >
-                      {label}
-                    </button>
-                  </li>
-                );
-              })}
+            <ul className="mt-3 space-y-2" data-preview-actions={isPreview ? "true" : undefined}>
+              {isPreview
+                ? previewExampleActions.map((action) => {
+                    const label = resolveCustomerSafeText(action.label, {
+                      locale,
+                      translate,
+                      emptyFallback: action.action_key,
+                    });
+                    return (
+                      <li key={action.action_key}>
+                        <button
+                          type="button"
+                          disabled
+                          title={wizLabels.previewActionsUnavailable}
+                          aria-disabled="true"
+                          className="w-full cursor-not-allowed rounded-lg border border-slate-200 px-3 py-2 text-left text-sm text-slate-500 opacity-70 dark:border-slate-600 dark:text-slate-400"
+                        >
+                          {label}
+                        </button>
+                      </li>
+                    );
+                  })
+                : customerAssistanceActions.map((action) => {
+                    const label = resolveCustomerSafeText(action.label, {
+                      locale,
+                      translate,
+                      emptyFallback: action.action_key,
+                    });
+                    return (
+                      <li key={action.action_key}>
+                        <button
+                          type="button"
+                          disabled={acting}
+                          onClick={() => void onAssistance(action.action_key)}
+                          className="w-full rounded-lg border border-slate-200 px-3 py-2 text-left text-sm text-slate-700 hover:border-violet-400 dark:border-slate-600 dark:text-slate-200"
+                        >
+                          {label}
+                        </button>
+                      </li>
+                    );
+                  })}
             </ul>
           </div>
         </aside>
