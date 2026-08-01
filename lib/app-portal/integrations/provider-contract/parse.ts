@@ -106,20 +106,21 @@ function parseSetupSteps(raw: unknown, capabilities: CoreAppIntegrationProviderC
 
 function parseHelpSections(raw: unknown): CoreAppIntegrationHelpSection[] {
   if (!Array.isArray(raw)) return [];
-  return raw
-    .map((item) => {
-      const row = asRecord(item);
-      if (!row) return null;
-      const key = asString(row.key);
-      const body = asString(row.body);
-      if (!key || !body) return null;
-      return {
-        key,
-        titleKey: asString(row.titleKey) || undefined,
-        body,
-      };
-    })
-    .filter((section): section is CoreAppIntegrationHelpSection => section !== null);
+  const sections: CoreAppIntegrationHelpSection[] = [];
+  for (const item of raw) {
+    const row = asRecord(item);
+    if (!row) continue;
+    const key = asString(row.key);
+    const body = asString(row.body);
+    if (!key || !body) continue;
+    const titleKey = asString(row.titleKey);
+    sections.push({
+      key,
+      body,
+      ...(titleKey ? { titleKey } : {}),
+    });
+  }
+  return sections;
 }
 
 function parseStatusPresentation(raw: unknown): CoreAppIntegrationStatusPresentation {
