@@ -36,6 +36,16 @@ See task stream `AIPIFY.CORE.PROVIDER.ONBOARDING.CONNECTOR.DISTRIBUTION.V1`.
 19. **Never pass functions from Server Components into Client Components** — use serializable `messageCatalog` / labels only (RSC digest `340189304` class).
 20. **Authenticated Production route verification is required** before Production Ready.
 21. **No Production Ready from build/Preview alone** — manual live route proof on `app.aipify.ai` is mandatory.
+22. **Structured Platform editor is primary** — typed sections for contract administration.
+23. **Raw JSON is advanced secondary only** — accordion/tab with validation; never the default work surface.
+24. **No raw enum/status in UI** — localize modes, readiness, support, states, owners, channels, targets.
+25. **No English leakage** in non-English locales for onboarding/admin copy.
+26. **Reference fixtures must be labeled** — never presented as live production providers.
+27. **Unavailable is not the same as invalid** — missing contract ≠ malformed contract.
+28. **Provider key is secondary technical metadata** — display name is primary.
+29. **All contract editing requires validation / version / audit**.
+30. **Preview must use the same generic APP renderer** (`ProviderOnboardingOverview`).
+31. **Premium desktop / mobile / dark design** is required for Platform provider onboarding.
 
 ## Forbidden
 
@@ -46,3 +56,5 @@ See task stream `AIPIFY.CORE.PROVIDER.ONBOARDING.CONNECTOR.DISTRIBUTION.V1`.
 - Mixing vault/secret encryption changes into onboarding contract work
 - Declaring Production Ready without authenticated live `/platform/provider-onboarding` proof
 - Letting a single bad provider contract crash the entire Platform page
+- Treating reference fixtures or missing contracts as identical to parse failures
+- Making raw JSON the primary Platform admin surface

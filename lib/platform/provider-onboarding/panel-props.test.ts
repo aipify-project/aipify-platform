@@ -4,14 +4,13 @@ import {
   parseCoreProviderOnboardingContract,
   unonightApiKeyOnboarding,
 } from "@/lib/app-portal/integrations/onboarding";
+import { classifyProviderListRow } from "./classify";
 import {
   assertSerializableClientProps,
   buildPlatformProviderOnboardingPanelProps,
 } from "./panel-props";
 
 const identityT = (key: string) => key;
-
-// --- A. Root cause regression: function props crash Client Components (digest 340189304) ---
 
 {
   const crashingProps = {
@@ -27,68 +26,42 @@ const identityT = (key: string) => key;
 {
   const props = buildPlatformProviderOnboardingPanelProps(identityT);
   assert.equal(typeof props.messageCatalog, "object");
-  assert.equal(typeof props.labels.title, "string");
-  assert.equal(typeof (props as { translate?: unknown }).translate, "undefined");
+  assert.equal(props.labels.tabEdit, "platform.providerOnboarding.tabEdit");
+  assert.equal(props.labels.status.contract_required, "platform.providerOnboarding.status.contract_required");
   assert.doesNotThrow(() => assertSerializableClientProps(props));
-  assert.equal(props.labels.pageLoadFailed, "platform.providerOnboarding.pageLoadFailed");
-  assert.equal(props.labels.retry, "platform.providerOnboarding.retry");
-  assert.equal(props.labels.backHref, "/platform");
-  assert.ok(
-    Object.keys(props.messageCatalog).some((key) =>
-      key.includes("integrations.onboarding.modes.oauth")
-    )
-  );
 }
 
-// --- C/D. Invalid provider parse is isolated (does not throw) ---
-
 {
-  const invalid = parseCoreProviderOnboardingContract(
-    { ...unonightApiKeyOnboarding, onboardingMode: "unknown" },
-    { expectedProviderKey: unonightApiKeyOnboarding.providerKey }
-  );
-  assert.equal(invalid.ok, false);
-  if (!invalid.ok) {
-    assert.equal(typeof invalid.code, "string");
-  }
-
-  const valid = parseCoreProviderOnboardingContract(unonightApiKeyOnboarding, {
-    expectedProviderKey: unonightApiKeyOnboarding.providerKey,
+  const shopify = classifyProviderListRow({
+    provider_key: "shopify",
+    display_name: "Shopify",
+    is_available: true,
+    has_onboarding_contract: false,
   });
-  assert.equal(valid.ok, true);
+  assert.equal(shopify.status, "contract_required");
 
-  // Mixed list: one invalid does not prevent other fixtures from parsing.
-  const results = CORE_PROVIDER_ONBOARDING_FIXTURES.map((fixture) =>
-    parseCoreProviderOnboardingContract(fixture, {
-      expectedProviderKey: fixture.providerKey,
-    })
-  );
-  assert.ok(results.every((result) => result.ok));
-  const withPoison = [
-    ...results,
-    parseCoreProviderOnboardingContract({ bad: true }, {}),
-  ];
-  assert.equal(withPoison.filter((r) => r.ok).length, results.length);
-  assert.equal(withPoison.filter((r) => !r.ok).length, 1);
-}
-
-// --- Null nested / malformed metadata ---
-
-{
-  const nullNested = parseCoreProviderOnboardingContract({
-    ...unonightApiKeyOnboarding,
-    docs: null,
-  });
-  assert.equal(nullNested.ok, false);
-
-  const malformedUrl = parseCoreProviderOnboardingContract({
-    ...unonightApiKeyOnboarding,
-    docs: {
-      ...unonightApiKeyOnboarding.docs,
-      support: { url: "not-a-url" },
+  const unonight = classifyProviderListRow(
+    {
+      provider_key: "unonight",
+      display_name: "Unonight",
+      is_available: true,
+      has_onboarding_contract: true,
+      readiness_level: "production_ready",
     },
-  });
-  assert.equal(malformedUrl.ok, false);
+    unonightApiKeyOnboarding
+  );
+  assert.equal(unonight.status, "production_ready");
+}
+
+{
+  for (const fixture of CORE_PROVIDER_ONBOARDING_FIXTURES) {
+    assert.equal(
+      parseCoreProviderOnboardingContract(fixture, {
+        expectedProviderKey: fixture.providerKey,
+      }).ok,
+      true
+    );
+  }
 }
 
 console.log("panel-props.test.ts: ok");

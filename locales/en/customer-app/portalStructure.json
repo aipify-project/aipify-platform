@@ -6798,7 +6798,7 @@
           "distributionChannel": "Distribution channel",
           "installTarget": "Install target",
           "provider": "Provider",
-          "onboardingMode": "Onboarding mode",
+          "onboardingMode": "Connection model",
           "readiness": "Readiness",
           "support": "Support level",
           "installationState": "Installation state"
@@ -6834,7 +6834,7 @@
         "displayOnlyCommand": "Display-only install command (never run automatically)",
         "modes": {
           "oauth": "OAuth",
-          "api_key_existing_provider": "API key (existing provider)",
+          "api_key_existing_provider": "Existing API key",
           "installable_connector": "Installable connector",
           "aipify_hosted_connector": "Aipify-hosted connector",
           "custom_provider_implementation": "Custom implementation"
@@ -6845,56 +6845,56 @@
           "package_registry": "Package registry",
           "container_image": "Container image",
           "customer_developer": "Customer developer",
-          "aipify_managed": "Aipify managed",
+          "aipify_managed": "Managed by Aipify",
           "not_applicable": "Not applicable"
         },
         "owners": {
           "provider": "Provider",
           "customer": "Customer",
           "aipify": "Aipify",
-          "shared": "Shared"
+          "shared": "Shared responsibility"
         },
         "readiness": {
-          "reference_only": "Reference only",
-          "development": "Development",
+          "reference_only": "Reference",
+          "development": "In development",
           "preview": "Preview",
-          "production_ready": "Production ready",
+          "production_ready": "Ready for Production",
           "deprecated": "Deprecated",
           "blocked": "Blocked",
-          "unsupported": "Unsupported"
+          "unsupported": "Not supported"
         },
         "support": {
           "self_service": "Self-service",
           "guided": "Guided",
-          "aipify_managed": "Aipify managed",
-          "partner_managed": "Partner managed",
-          "customer_managed": "Customer managed",
-          "unsupported": "Unsupported"
+          "aipify_managed": "Managed by Aipify",
+          "partner_managed": "Managed by partner",
+          "customer_managed": "Managed by customer",
+          "unsupported": "Not supported"
         },
         "installTargets": {
-          "none": "None",
+          "none": "No installation",
           "provider_saas": "Provider SaaS",
           "customer_server": "Customer server",
           "customer_cms": "Customer CMS",
-          "customer_ecommerce": "Customer ecommerce",
+          "customer_ecommerce": "Customer store",
           "customer_cloud": "Customer cloud",
           "customer_container_platform": "Customer container platform",
-          "aipify_cloud": "Aipify cloud",
+          "aipify_cloud": "Aipify Cloud",
           "customer_custom_system": "Customer custom system"
         },
         "states": {
           "not_started": "Not started",
           "requirements_pending": "Requirements pending",
-          "awaiting_customer_action": "Awaiting customer action",
-          "awaiting_provider_action": "Awaiting provider action",
-          "awaiting_aipify_action": "Awaiting Aipify action",
+          "awaiting_customer_action": "Waiting for customer",
+          "awaiting_provider_action": "Waiting for provider",
+          "awaiting_aipify_action": "Waiting for Aipify",
           "installation_in_progress": "Installation in progress",
-          "credential_required": "Credential required",
-          "credential_stored": "Credential stored",
-          "connection_test_required": "Connection test required",
-          "connection_test_failed": "Connection test failed",
+          "credential_required": "Connection details missing",
+          "credential_stored": "Credentials stored",
+          "connection_test_required": "Ready for test",
+          "connection_test_failed": "Test failed",
           "verified": "Verified",
-          "activation_required": "Activation required",
+          "activation_required": "Ready for activation",
           "active": "Active",
           "update_available": "Update available",
           "upgrade_in_progress": "Upgrade in progress",
@@ -6904,20 +6904,20 @@
           "uninstall_pending": "Uninstall pending",
           "removed": "Removed",
           "blocked": "Blocked",
-          "unsupported": "Unsupported"
+          "unsupported": "Not supported"
         },
         "responsibilities": {
-          "customerApprove": "Approve access and complete customer-side steps",
-          "aipifyVerify": "Store credentials securely and verify the connection",
+          "customerApprove": "Approve required access and complete customer-side steps",
+          "aipifyVerify": "Store connection details securely and verify the connection",
           "customerInstall": "Install the connector in your environment",
-          "customerCredential": "Create and paste the provider credential",
-          "customerScopes": "Review and approve requested scopes",
-          "customerNetwork": "Ensure required network access and domains",
-          "aipifyContract": "Provide the connection contract and connector metadata",
+          "customerCredential": "Provide and rotate credentials when required",
+          "customerScopes": "Approve the required permissions",
+          "customerNetwork": "Ensure network access for approved endpoints",
+          "aipifyContract": "Maintain the provider contract and policies",
           "aipifyMonitor": "Monitor connection health after activation",
-          "providerIssue": "Issue API or OAuth credentials and maintain endpoints",
-          "providerLimits": "Enforce rate limits and provider-side availability",
-          "partnerAssist": "Assist with installation or implementation when engaged"
+          "providerIssue": "Provide the API, OAuth, or connector endpoints",
+          "providerLimits": "Maintain provider limits and availability",
+          "partnerAssist": "Assist with implementation when relevant"
         },
         "policy": {
           "standard": "Standard policy"
@@ -6929,7 +6929,7 @@
         "docs": {
           "gettingStarted": "Getting started",
           "installation": "Installation",
-          "credentialSetup": "Credential setup",
+          "credentialSetup": "Connection setup",
           "permissions": "Permissions",
           "testing": "Testing",
           "troubleshooting": "Troubleshooting",
