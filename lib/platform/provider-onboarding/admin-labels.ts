@@ -1,5 +1,7 @@
 import type { Translator } from "@/lib/i18n/translate";
-import type { PlatformProviderOnboardingLabels } from "./panel-props";
+import type { PlatformProviderOnboardingLabels } from "./label-types";
+
+export type { PlatformProviderOnboardingLabels } from "./label-types";
 
 /** Expandable Platform Admin copy for structured onboarding administration. */
 export function buildPlatformProviderOnboardingLabels(t: Translator): PlatformProviderOnboardingLabels {
