@@ -7333,6 +7333,31 @@
             "selfService": "Wykonujesz kroki samodzielnie. Aipify może pomóc w razie potrzeby",
             "customerItManaged": "Twój dostawca IT wykonuje kroki techniczne"
           }
+        },
+        "install": {
+          "actionsChooseHint": "Wybierz sposób konfiguracji, aby zobaczyć następny krok.",
+          "actionsHeading": "Następny krok",
+          "sessionPersistError": "Aipify nie mógł zapisać Twojego wyboru. Spróbuj ponownie.",
+          "primaryActions": {
+            "aipifyManaged": "Poproś Aipify o konfigurację",
+            "guided": "Zamów konfigurację z przewodnikiem",
+            "selfService": "Rozpocznij samodzielną konfigurację",
+            "customerItManaged": "Zaproś dostawcę IT"
+          },
+          "status": {
+            "choose": "Wybierz sposób konfiguracji",
+            "aipifyManaged": "Gotowe, aby poprosić Aipify o konfigurację",
+            "guided": "Gotowe do konfiguracji z przewodnikiem",
+            "selfService": "Gotowe do samodzielnej konfiguracji",
+            "customerItManaged": "Gotowe dla dostawcy IT"
+          },
+          "responsibility": {
+            "choose": "Wybierz metodę konfiguracji, aby zobaczyć, kto jest odpowiedzialny.",
+            "aipifyManaged": "Wystarczy, że zatwierdzisz to, o co poprosimy.",
+            "guided": "Aipify prowadzi Cię krok po kroku.",
+            "selfService": "Wykonujesz kroki samodzielnie. Aipify może pomóc w razie potrzeby.",
+            "customerItManaged": "Twój dostawca IT wykonuje kroki techniczne."
+          }
         }
       }
     }

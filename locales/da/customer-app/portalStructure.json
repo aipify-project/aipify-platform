@@ -1367,6 +1367,31 @@
             "selfService": "Du udfører trinnene selv. Aipify kan hjælpe efter behov",
             "customerItManaged": "Din IT-leverandør udfører de tekniske trin"
           }
+        },
+        "install": {
+          "actionsChooseHint": "Vælg, hvordan opsætningen skal laves, for at se næste trin.",
+          "actionsHeading": "Næste trin",
+          "sessionPersistError": "Aipify kunne ikke gemme dit valg. Prøv igen.",
+          "primaryActions": {
+            "aipifyManaged": "Bed Aipify om at sætte op",
+            "guided": "Bestil vejledt opsætning",
+            "selfService": "Start selvbetjent opsætning",
+            "customerItManaged": "Inviter IT-leverandør"
+          },
+          "status": {
+            "choose": "Vælg, hvordan opsætningen skal laves",
+            "aipifyManaged": "Klar til at bede Aipify om opsætning",
+            "guided": "Klar til vejledt opsætning",
+            "selfService": "Klar til selvbetjent opsætning",
+            "customerItManaged": "Klar til IT-leverandør"
+          },
+          "responsibility": {
+            "choose": "Vælg opsætningsmetode for at se, hvem der har ansvaret.",
+            "aipifyManaged": "Du skal kun godkende det, vi beder om.",
+            "guided": "Aipify vejleder dig trin for trin.",
+            "selfService": "Du udfører trinnene selv. Aipify kan hjælpe efter behov.",
+            "customerItManaged": "Din IT-leverandør udfører de tekniske trin."
+          }
         }
       }
     },

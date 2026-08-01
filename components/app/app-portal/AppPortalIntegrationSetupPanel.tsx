@@ -488,7 +488,7 @@ export function AppPortalIntegrationSetupPanel({
     );
   }
 
-  // Generic Core-driven InstallationWizard is the primary customer setup path.
+  // Live connect route: real install mode (not preview). Explicit mode/entry required.
   // Legacy presentation_contract UI remains below only when explicitly requested.
   if (!preferLegacyTechnical) {
     const locale =
@@ -496,7 +496,10 @@ export function AppPortalIntegrationSetupPanel({
         ? document.documentElement.lang
         : "en";
     return (
-      <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
+      <div
+        className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}
+        data-installation-entry="connect_route"
+      >
         <Link
           href="/app/platform/integrations"
           className={`inline-flex text-sm font-medium text-aipify-text-secondary hover:text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
@@ -508,6 +511,8 @@ export function AppPortalIntegrationSetupPanel({
           setup={setup}
           labels={labels}
           locale={locale}
+          mode="install"
+          entry="connect_route"
           onReload={async () => {
             resumeInitialized.current = false;
             await load();

@@ -48,7 +48,9 @@ assert.match(wizardSrc, /previewStatusForMode/);
 assert.match(wizardSrc, /previewResponsibilityForMode/);
 assert.match(wizardSrc, /listPreviewExampleAssistanceActions/);
 assert.match(wizardSrc, /!isPreview &&/);
-assert.equal(wizardSrc.includes("waitingStateForSupportMode(selected)"), true);
+// Install selection must not call waitingStateForSupportMode; handoff uses waitingStateAfterRealHandoff.
+assert.equal(wizardSrc.includes("waitingStateForSupportMode(selected)"), false);
+assert.match(wizardSrc, /waitingStateAfterRealHandoff/);
 assert.match(wizardSrc, /if \(isPreview\) \{\s*\n\s*await persistSession/);
 
 // No Continue later in preview footer path — install-only branch.

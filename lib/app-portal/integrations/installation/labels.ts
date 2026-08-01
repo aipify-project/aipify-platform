@@ -1,5 +1,10 @@
 import type { InstallationSupportMode, InstallationWizardState } from "./enums";
 import {
+  installPresentationKeyForSupportMode,
+  type InstallPresentationKey,
+  type InstallSupportLifecycle,
+} from "./install-selection";
+import {
   previewPresentationKeyForSupportMode,
   type PreviewSupportPresentationKey,
 } from "./preview-mode";
@@ -55,6 +60,29 @@ export function installationWizardMessageKeys() {
       self_service: `${BASE}.preview.responsibility.selfService`,
       customer_it_managed: `${BASE}.preview.responsibility.customerItManaged`,
     } satisfies Record<PreviewSupportPresentationKey, string>,
+    installActionsChooseHint: `${BASE}.install.actionsChooseHint`,
+    installActionsHeading: `${BASE}.install.actionsHeading`,
+    installSessionPersistError: `${BASE}.install.sessionPersistError`,
+    installPrimaryActions: {
+      aipify_managed: `${BASE}.install.primaryActions.aipifyManaged`,
+      guided: `${BASE}.install.primaryActions.guided`,
+      self_service: `${BASE}.install.primaryActions.selfService`,
+      customer_it_managed: `${BASE}.install.primaryActions.customerItManaged`,
+    } satisfies Record<Exclude<InstallPresentationKey, "choose">, string>,
+    installStatus: {
+      choose: `${BASE}.install.status.choose`,
+      aipify_managed: `${BASE}.install.status.aipifyManaged`,
+      guided: `${BASE}.install.status.guided`,
+      self_service: `${BASE}.install.status.selfService`,
+      customer_it_managed: `${BASE}.install.status.customerItManaged`,
+    } satisfies Record<InstallPresentationKey, string>,
+    installResponsibility: {
+      choose: `${BASE}.install.responsibility.choose`,
+      aipify_managed: `${BASE}.install.responsibility.aipifyManaged`,
+      guided: `${BASE}.install.responsibility.guided`,
+      self_service: `${BASE}.install.responsibility.selfService`,
+      customer_it_managed: `${BASE}.install.responsibility.customerItManaged`,
+    } satisfies Record<InstallPresentationKey, string>,
     supportModes: {
       self_service: `${BASE}.supportModes.selfService`,
       guided: `${BASE}.supportModes.guided`,
@@ -99,6 +127,7 @@ export type InstallationWizardLabels = {
   continueLater: string;
   primaryContinue: string;
   primaryBack: string;
+  loading: string;
   comingLater: string;
   invitePlaceholder: string;
   waiting: string;
@@ -125,6 +154,16 @@ export type InstallationWizardLabels = {
   previewActionsUnavailable: string;
   previewStatusForMode: (mode: InstallationSupportMode | null | undefined) => string;
   previewResponsibilityForMode: (mode: InstallationSupportMode | null | undefined) => string;
+  installActionsChooseHint: string;
+  installActionsHeading: string;
+  installSessionPersistError: string;
+  installPrimaryActionLabel: (mode: InstallationSupportMode) => string;
+  installStatusForLifecycle: (
+    mode: InstallationSupportMode | null | undefined,
+    lifecycle: InstallSupportLifecycle,
+    sessionState: InstallationWizardState | null | undefined
+  ) => string;
+  installResponsibilityForMode: (mode: InstallationSupportMode | null | undefined) => string;
   emptyFallback: string;
   messageCatalog: Record<string, string>;
 };
@@ -146,8 +185,14 @@ export function buildInstallationWizardLabels(
   put(keys.previewSampleCredential);
   put(keys.previewActionsExampleHeading);
   put(keys.previewActionsUnavailable);
+  put(keys.installActionsChooseHint);
+  put(keys.installActionsHeading);
+  put(keys.installSessionPersistError);
   Object.values(keys.previewStatus).forEach(put);
   Object.values(keys.previewResponsibility).forEach(put);
+  Object.values(keys.installStatus).forEach(put);
+  Object.values(keys.installResponsibility).forEach(put);
+  Object.values(keys.installPrimaryActions).forEach(put);
   Object.values(keys.supportModes).forEach(put);
   Object.values(keys.states).forEach(put);
 
@@ -163,6 +208,7 @@ export function buildInstallationWizardLabels(
     continueLater: t(keys.continueLater),
     primaryContinue: t(keys.primaryContinue),
     primaryBack: t(keys.primaryBack),
+    loading: t(keys.loading),
     comingLater: t(keys.comingLater),
     invitePlaceholder: t(keys.invitePlaceholder),
     waiting: t(keys.waiting),
@@ -191,6 +237,22 @@ export function buildInstallationWizardLabels(
       t(keys.previewStatus[previewPresentationKeyForSupportMode(mode)]),
     previewResponsibilityForMode: (mode) =>
       t(keys.previewResponsibility[previewPresentationKeyForSupportMode(mode)]),
+    installActionsChooseHint: t(keys.installActionsChooseHint),
+    installActionsHeading: t(keys.installActionsHeading),
+    installSessionPersistError: t(keys.installSessionPersistError),
+    installPrimaryActionLabel: (mode) => {
+      const key = installPresentationKeyForSupportMode(mode);
+      if (key === "choose") return t(keys.primaryContinue);
+      return t(keys.installPrimaryActions[key]);
+    },
+    installStatusForLifecycle: (mode, lifecycle, sessionState) => {
+      if (lifecycle === "handed_off" && sessionState) {
+        return t(keys.states[sessionState]);
+      }
+      return t(keys.installStatus[installPresentationKeyForSupportMode(mode)]);
+    },
+    installResponsibilityForMode: (mode) =>
+      t(keys.installResponsibility[installPresentationKeyForSupportMode(mode)]),
     emptyFallback: t(`${BASE}.emptyFallback`),
     messageCatalog: catalog,
   };

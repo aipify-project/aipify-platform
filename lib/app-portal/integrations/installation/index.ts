@@ -11,3 +11,4 @@ export * from "./fixtures";
 export * from "./labels";
 export * from "./fields";
 export * from "./preview-mode";
+export * from "./install-selection";
