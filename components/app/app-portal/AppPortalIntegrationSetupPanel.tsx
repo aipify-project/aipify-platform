@@ -5,11 +5,10 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import {
-  IntegrationAuthHelpPanel,
   IntegrationConnectionStatusBadge,
   IntegrationSetupCompletionSummary,
   IntegrationSetupErrorPanel,
-  UnonightConnectionErrorPanel,
+  ProviderConnectionErrorPanel,
   buildIntegrationErrorPanelLabels,
   mapWizardConnectionPhase,
   type IntegrationSetupCompletionMode,
@@ -18,7 +17,6 @@ import { IntegrationRemoveDialog } from "@/components/app/app-portal/Integration
 import {
   INTEGRATION_WIZARD_STEPS,
   parseIntegrationError,
-  parseIntegrationErrorFromResponse,
   type IntegrationErrorGuidance,
   wizardStepAt,
 } from "@/lib/install/integration-setup";
@@ -31,6 +29,15 @@ import {
   refreshAppPortalIntegrationSurfaces,
   resolveCompletionModeFromConnection,
   resolveIntegrationCanonicalStatus,
+  parseCoreAppIntegrationProviderContract,
+  interpolateProviderContractLabel,
+  resolveContractSetupStepLabels,
+  validateProviderApiBaseUrl,
+  buildProviderConnectionErrorPanelLabels,
+  buildProviderConnectionErrorPanelModel,
+  parseProviderTestErrorFromResponse,
+  type CoreAppIntegrationProviderContract,
+  type ProviderConnectionErrorPanelModel,
   type AppPortalIntegrationSetup,
   type AppPortalIntegrationsLabels,
   type IntegrationVerificationMetadata,
@@ -40,19 +47,6 @@ import {
   resolveIntegrationWizardResumeStepIndex,
   shouldShowIntegrationCompletionSummary,
 } from "@/lib/app-portal/integrations/rotation-recovery";
-import {
-  buildUnonightConnectionErrorPanelLabels,
-  buildUnonightConnectionErrorPanelModel,
-  parseUnonightTestErrorFromResponse,
-  type UnonightConnectionErrorPanelModel,
-} from "@/lib/unonight/connection/error-panel";
-import {
-  UNONIGHT_CANONICAL_BASE_URL,
-  getUnonightBaseUrlValidationMessageKey,
-  resolveUnonightBaseUrlForForm,
-  validateUnonightBaseUrlInput,
-} from "@/lib/unonight/connection/base-url";
-import { UNONIGHT_PROVIDER_KEY } from "@/lib/unonight/connection/constants";
 
 type AppPortalIntegrationSetupPanelProps = {
   providerKey: string;
@@ -85,9 +79,7 @@ export function AppPortalIntegrationSetupPanel({
   const [permissionLevel, setPermissionLevel] = useState("read_only");
   const [approvedScopes, setApprovedScopes] = useState(false);
   const [apiKey, setApiKey] = useState("");
-  const [baseUrl, setBaseUrl] = useState(() =>
-    providerKey === UNONIGHT_PROVIDER_KEY ? UNONIGHT_CANONICAL_BASE_URL : ""
-  );
+  const [baseUrl, setBaseUrl] = useState("");
   const [connectionName, setConnectionName] = useState("");
   const [connectionId, setConnectionId] = useState<string | null>(null);
   const [acting, setActing] = useState(false);
@@ -95,7 +87,7 @@ export function AppPortalIntegrationSetupPanel({
   const [verification, setVerification] = useState<IntegrationVerificationMetadata | null>(null);
   const [lastVerifiedAt, setLastVerifiedAt] = useState<string | null>(null);
   const [testError, setTestError] = useState<IntegrationErrorGuidance | null>(null);
-  const [unonightTestError, setUnonightTestError] = useState<UnonightConnectionErrorPanelModel | null>(null);
+  const [providerTestError, setProviderTestError] = useState<ProviderConnectionErrorPanelModel | null>(null);
   const [showRemoveDialog, setShowRemoveDialog] = useState(false);
   const resumeInitialized = useRef(false);
   const focusCredentialInput = useRef(false);
@@ -131,9 +123,7 @@ export function AppPortalIntegrationSetupPanel({
         if (parsed.connection?.connection_name) {
           setConnectionName(parsed.connection.connection_name);
         }
-        if (providerKey === UNONIGHT_PROVIDER_KEY) {
-          applyUnonightBaseUrlFromSetup(parsed);
-        }
+        applyBaseUrlFromSetup(parsed);
       } else {
         setSetup(null);
         setLoadFailed(true);
@@ -148,6 +138,17 @@ export function AppPortalIntegrationSetupPanel({
   useEffect(() => {
     void load();
   }, [load]);
+
+  const providerContractResult = useMemo(() => {
+    if (!setup) return null;
+    return parseCoreAppIntegrationProviderContract(
+      setup.presentation_contract,
+      setup.provider_key
+    );
+  }, [setup]);
+
+  const providerContract: CoreAppIntegrationProviderContract | null =
+    providerContractResult?.ok === true ? providerContractResult.contract : null;
 
   useEffect(() => {
     if (!setup || resumeInitialized.current) return;
@@ -168,16 +169,12 @@ export function AppPortalIntegrationSetupPanel({
       setApprovedScopes(true);
     }
 
-    if (
-      providerKey === UNONIGHT_PROVIDER_KEY &&
-      initialCanonical === "rotation_required" &&
-      setup.connection?.last_test_error
-    ) {
-      setUnonightTestError(
-        buildUnonightConnectionErrorPanelModel(setup.connection.last_test_error)
+    if (initialCanonical === "rotation_required" && setup.connection?.last_test_error) {
+      setProviderTestError(
+        buildProviderConnectionErrorPanelModel(setup.connection.last_test_error)
       );
     }
-  }, [setup, providerKey]);
+  }, [setup]);
 
   const canonicalStatus = useMemo(() => {
     if (!setup?.connection) return "not_configured" as const;
@@ -226,46 +223,63 @@ export function AppPortalIntegrationSetupPanel({
     labels.setup.statuses[canonicalStatusLabelKey(canonicalStatus)] ??
     labels.setup.statuses.pending;
 
-  const isUnonight = providerKey === UNONIGHT_PROVIDER_KEY;
-
-  function applyUnonightBaseUrlFromSetup(parsed: AppPortalIntegrationSetup) {
+  function applyBaseUrlFromSetup(parsed: AppPortalIntegrationSetup) {
+    const contractParse = parseCoreAppIntegrationProviderContract(
+      parsed.presentation_contract,
+      parsed.provider_key
+    );
+    if (!contractParse.ok || !contractParse.contract.capabilities.collectsBaseUrl) {
+      setBaseUrl("");
+      return;
+    }
     const stored =
       typeof parsed.connection?.access_summary?.base_url === "string"
         ? parsed.connection.access_summary.base_url
         : null;
-    setBaseUrl(resolveUnonightBaseUrlForForm(stored));
+    if (stored) {
+      const validated = validateProviderApiBaseUrl({
+        value: stored,
+        allowedHosts: contractParse.contract.allowedAdminHosts,
+      });
+      setBaseUrl(validated.ok ? validated.value : contractParse.contract.adminBaseUrl);
+      return;
+    }
+    setBaseUrl(contractParse.contract.adminBaseUrl);
   }
 
   async function saveConnection() {
-    if (!approvedScopes) return;
+    if (!approvedScopes || !providerContract) return;
     setActing(true);
     setTestError(null);
-    setUnonightTestError(null);
+    setProviderTestError(null);
     try {
-      if (isUnonight) {
-        const baseValidation = validateUnonightBaseUrlInput(baseUrl);
+      let normalizedBaseUrl: string | null = null;
+      if (providerContract.capabilities.collectsBaseUrl) {
+        const baseValidation = validateProviderApiBaseUrl({
+          value: baseUrl,
+          allowedHosts: providerContract.allowedAdminHosts,
+        });
         if (!baseValidation.ok) {
-          setTestError({
-            category: "validation_pending",
-            titleKey: "customerApp.portalStructure.integrations.errorGuidance.validationPending.title",
-            bodyKey: getUnonightBaseUrlValidationMessageKey(baseValidation.code),
-            checklistKeys: [],
-            actions: {
-              retry: labels.setup.errorGuidance.actions.retry,
-              findKey: labels.setup.errorGuidance.actions.findKey,
-              contactSupport: labels.setup.errorGuidance.actions.contactSupport,
-            },
-          });
+          setProviderTestError(
+            buildProviderConnectionErrorPanelModel(
+              baseValidation.code === "https_required"
+                ? "invalid_base_url_https"
+                : baseValidation.code === "email_not_allowed"
+                  ? "invalid_base_url_email"
+                  : baseValidation.code === "host_not_allowlisted"
+                    ? "host_not_allowlisted"
+                    : "invalid_base_url"
+            )
+          );
           return;
         }
+        normalizedBaseUrl = baseValidation.value;
       }
 
-      const normalizedBaseUrl = isUnonight
-        ? (() => {
-            const validated = validateUnonightBaseUrlInput(baseUrl);
-            return validated.ok ? validated.value : null;
-          })()
-        : null;
+      const scopes =
+        providerContract.requiredScopes.length > 0
+          ? providerContract.requiredScopes
+          : setup?.recommended_scopes ?? [];
 
       const res = await fetch("/api/app-portal/integrations/save", {
         method: "POST",
@@ -274,24 +288,25 @@ export function AppPortalIntegrationSetupPanel({
           provider_key: providerKey,
           setup_type: mode,
           permission_level: permissionLevel,
-          approved_scopes: setup?.recommended_scopes ?? [],
+          approved_scopes: scopes,
           api_key: mode === "manual" && apiKey.trim().length > 0 ? apiKey.trim() : null,
           base_url: normalizedBaseUrl,
-          connection_name: isUnonight ? connectionName || null : null,
+          connection_name: providerContract.capabilities.collectsConnectionName
+            ? connectionName || null
+            : null,
         }),
       });
       if (res.ok) {
         const body = (await res.json()) as { connection_id?: string };
         if (body.connection_id) setConnectionId(body.connection_id);
         setApiKey("");
-        setUnonightTestError(null);
+        setProviderTestError(null);
         setTestError(null);
         await load();
         setStepIndex(flowSteps.indexOf("test_connection"));
         setCompletionMode(null);
       } else {
-        const guidance = await parseIntegrationErrorFromResponse(res);
-        setTestError(guidance);
+        setProviderTestError(await parseProviderTestErrorFromResponse(res));
       }
     } catch {
       setTestError({
@@ -315,7 +330,7 @@ export function AppPortalIntegrationSetupPanel({
     const isActivation = options?.activation === true;
     setActing(true);
     setTestError(null);
-    setUnonightTestError(null);
+    setProviderTestError(null);
     try {
       const res = await fetch("/api/app-portal/integrations/test", {
         method: "POST",
@@ -328,7 +343,7 @@ export function AppPortalIntegrationSetupPanel({
         if (parsedVerification) setVerification(parsedVerification);
         setLastVerifiedAt(body.last_verified_at ?? new Date().toISOString());
         setTestError(null);
-        setUnonightTestError(null);
+        setProviderTestError(null);
         await load();
         refreshAppPortalIntegrationSurfaces(router);
         const refreshed = parseAppPortalIntegrationSetup(
@@ -353,12 +368,7 @@ export function AppPortalIntegrationSetupPanel({
           setCompletionMode(resolveCompletionModeFromConnection(refreshed?.connection ?? null));
         }
       } else {
-        if (isUnonight) {
-          setUnonightTestError(await parseUnonightTestErrorFromResponse(res));
-        } else {
-          const guidance = await parseIntegrationErrorFromResponse(res);
-          setTestError(guidance);
-        }
+        setProviderTestError(await parseProviderTestErrorFromResponse(res));
         setCompletionMode(null);
         setStepIndex(flowSteps.indexOf("test_connection"));
         await load();
@@ -408,18 +418,19 @@ export function AppPortalIntegrationSetupPanel({
     setActing(false);
     if (res.ok) {
       setTestError(null);
-      setUnonightTestError(null);
+      setProviderTestError(null);
       await load();
       refreshAppPortalIntegrationSurfaces(router);
       setCompletionMode("active");
     }
   }
 
-  const removeDialogTitle = setup
-    ? interpolateIntegrationLabel(labels.hub.removeDialog.title, setup.display_name)
+  const displayName = providerContract?.displayName ?? setup?.display_name ?? "";
+  const removeDialogTitle = displayName
+    ? interpolateIntegrationLabel(labels.hub.removeDialog.title, displayName)
     : labels.setup.removeDialog.title;
-  const removeDialogBody = setup
-    ? interpolateIntegrationLabel(labels.hub.removeDialog.body, setup.display_name)
+  const removeDialogBody = displayName
+    ? interpolateIntegrationLabel(labels.hub.removeDialog.body, displayName)
     : labels.setup.removeDialog.body;
 
   if (loading && !setup && !loadFailed) {
@@ -468,6 +479,43 @@ export function AppPortalIntegrationSetupPanel({
     );
   }
 
+  if (!providerContract) {
+    return (
+      <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
+        <Link
+          href="/app/platform/integrations"
+          className={`text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
+        >
+          ← {labels.setup.back}
+        </Link>
+        <div
+          className="rounded-2xl border border-amber-200 bg-amber-50/80 p-6 dark:border-amber-500/30 dark:bg-amber-950/30"
+          role="alert"
+          aria-labelledby="integration-contract-error-title"
+        >
+          <h1 id="integration-contract-error-title" className={AppPremiumShell.pageTitle}>
+            {labels.setup.contractError.title}
+          </h1>
+          <p className={`mt-2 ${AppPremiumShell.pageDescription}`}>{labels.setup.contractError.body}</p>
+          <div className="mt-4">
+            <Link
+              href="/app/platform/integrations"
+              className={`inline-flex items-center rounded-lg border border-aipify-border bg-aipify-surface px-4 py-2 text-sm font-medium text-aipify-text ${AppPremiumShell.focusRing}`}
+            >
+              {labels.setup.backToIntegrations}
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const requiredScopes = providerContract.requiredScopes;
+  const setupStepLabels = resolveContractSetupStepLabels(
+    providerContract,
+    labels.setup.manualStepLabels
+  );
+
   if (
     completionMode &&
     shouldShowIntegrationCompletionSummary(completionMode, canonicalStatus)
@@ -476,10 +524,26 @@ export function AppPortalIntegrationSetupPanel({
       <>
         <IntegrationSetupCompletionSummary
           mode={completionMode}
-          labels={labels}
-          providerName={setup.display_name}
+          labels={{
+            ...labels,
+            setup: {
+              ...labels.setup,
+              completion: {
+                ...labels.setup.completion,
+                verifiedHeading: interpolateProviderContractLabel(
+                  labels.setup.completion.verifiedHeading,
+                  providerContract
+                ),
+                verifiedBody: interpolateProviderContractLabel(
+                  labels.setup.completion.verifiedBody,
+                  providerContract
+                ),
+              },
+            },
+          }}
+          providerName={providerContract.displayName}
           permissionLevel={setup.connection?.permission_level ?? permissionLevel}
-          scopes={setup.connection?.approved_scopes ?? setup.recommended_scopes}
+          scopes={setup.connection?.approved_scopes ?? requiredScopes}
           verification={verification ?? setup.connection?.last_verification ?? null}
           lastVerifiedAt={lastVerifiedAt ?? setup.connection?.last_verified_at ?? setup.connection?.last_test_success_at ?? null}
           connectionName={connectionName || setup.connection?.connection_name || null}
@@ -527,26 +591,30 @@ export function AppPortalIntegrationSetupPanel({
 
   const errorPanelLabels =
     testError &&
-    !isUnonight &&
     buildIntegrationErrorPanelLabels(testError, translate, {
       findKeyHref: labels.setup.errorGuidance.findKeyHref,
       contactSupportHref: labels.setup.errorGuidance.contactSupportHref,
     });
 
-  const unonightErrorPanelLabels =
-    unonightTestError &&
-    buildUnonightConnectionErrorPanelLabels(unonightTestError, translate);
+  const providerErrorPanelLabels =
+    providerTestError &&
+    buildProviderConnectionErrorPanelLabels({
+      model: providerTestError,
+      contract: providerContract,
+      t: translate,
+    });
 
   const showRotationRecovery =
-    isRotationRequired || unonightTestError?.errorCode === "rotation_required";
+    isRotationRequired || providerTestError?.errorCode === "rotation_required";
 
   const rotationRecoveryLabels =
     showRotationRecovery
-      ? unonightErrorPanelLabels ??
-        buildUnonightConnectionErrorPanelLabels(
-          buildUnonightConnectionErrorPanelModel("rotation_required"),
-          translate
-        )
+      ? providerErrorPanelLabels ??
+        buildProviderConnectionErrorPanelLabels({
+          model: buildProviderConnectionErrorPanelModel("rotation_required"),
+          contract: providerContract,
+          t: translate,
+        })
       : null;
 
   return (
@@ -563,8 +631,23 @@ export function AppPortalIntegrationSetupPanel({
           <div className="space-y-2">
             <p className={AppPremiumShell.eyebrow}>{labels.setup.plainLanguage.connectionTest}</p>
             <h1 className={`${AppPremiumShell.pageTitle} max-w-4xl text-balance`}>
-              {labels.setup.title}: {setup.display_name}
+              {interpolateProviderContractLabel(
+                labels.setup.connectTitle.includes("{providerName}")
+                  ? labels.setup.connectTitle
+                  : `${labels.setup.title}: {providerName}`,
+                providerContract
+              )}
             </h1>
+            {providerContract.adminIntegrationUrl ? (
+              <a
+                href={providerContract.adminIntegrationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
+              >
+                {interpolateProviderContractLabel(labels.setup.openAdmin, providerContract)}
+              </a>
+            ) : null}
           </div>
 
           {(isRotationRequired || statusLabel) && (
@@ -580,8 +663,11 @@ export function AppPortalIntegrationSetupPanel({
                 />
                 {isRotationRequired ? (
                   <p className="min-w-0 flex-1 text-sm leading-relaxed text-aipify-text-secondary">
-                    {translate(
-                      "customerApp.portalStructure.integrations.unonightConnection.failures.rotationRequired"
+                    {interpolateProviderContractLabel(
+                      translate(
+                        "customerApp.portalStructure.integrations.connectionFailures.panels.rotation_required.body"
+                      ),
+                      providerContract
                     )}
                   </p>
                 ) : null}
@@ -632,7 +718,7 @@ export function AppPortalIntegrationSetupPanel({
             {showRotationRecovery &&
             rotationRecoveryLabels &&
             currentStep !== "enter_credential" ? (
-              <UnonightConnectionErrorPanel
+              <ProviderConnectionErrorPanel
                 labels={rotationRecoveryLabels}
                 variant="rotation"
                 onUpdateKey={goToUpdateKeyStep}
@@ -684,14 +770,22 @@ export function AppPortalIntegrationSetupPanel({
                 <div>
                   <p className="text-sm font-medium text-aipify-text">{labels.setup.plainLanguage.accessScope}</p>
                   <ul className="mt-2 space-y-2 text-sm">
-                    {setup.recommended_scopes.map((scope) => (
+                    {requiredScopes.map((scope) => (
                       <li
                         key={scope}
                         className="rounded-lg bg-aipify-canvas px-3 py-2 text-aipify-text-secondary"
                       >
                         <span className="font-medium text-aipify-text">
-                          {labels.setup.scopeDescriptions[scope] ?? scope}
+                          {providerContract.scopeLabels[scope] ??
+                            providerContract.scopeDescriptions[scope] ??
+                            labels.setup.scopeDescriptions[scope] ??
+                            labels.setup.scopeUnknownFallback}
                         </span>
+                        {providerContract.scopeDescriptions[scope] ? (
+                          <span className="mt-1 block text-xs text-aipify-text-muted">
+                            {providerContract.scopeDescriptions[scope]}
+                          </span>
+                        ) : null}
                         <span className="mt-1 block font-mono text-xs text-aipify-text-muted">{scope}</span>
                       </li>
                     ))}
@@ -714,8 +808,8 @@ export function AppPortalIntegrationSetupPanel({
               <>
                 {mode === "manual" ? (
                   <ol className="list-decimal space-y-2 pl-5 text-sm text-aipify-text-secondary">
-                    {setup.manual_steps.map((key) => (
-                      <li key={key}>{labels.setup.manualStepLabels[key]}</li>
+                    {setupStepLabels.map((label, index) => (
+                      <li key={`${index}-${label}`}>{label}</li>
                     ))}
                   </ol>
                 ) : (
@@ -725,9 +819,19 @@ export function AppPortalIntegrationSetupPanel({
                     ))}
                   </ol>
                 )}
+                {providerContract.adminIntegrationUrl ? (
+                  <a
+                    href={providerContract.adminIntegrationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-block text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
+                  >
+                    {interpolateProviderContractLabel(labels.setup.openAdmin, providerContract)}
+                  </a>
+                ) : null}
                 <Link
                   href={labels.setup.kcLinks.findApiKeyHref}
-                  className={`inline-block text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
+                  className={`ml-0 block text-sm font-medium text-aipify-companion hover:underline sm:ml-4 sm:inline-block ${AppPremiumShell.focusRing}`}
                 >
                   {labels.setup.kcLinks.findApiKey}
                 </Link>
@@ -737,7 +841,7 @@ export function AppPortalIntegrationSetupPanel({
             {currentStep === "enter_credential" && (
               <>
                 {showRotationRecovery && rotationRecoveryLabels ? (
-                  <UnonightConnectionErrorPanel
+                  <ProviderConnectionErrorPanel
                     labels={rotationRecoveryLabels}
                     variant="rotation"
                     onUpdateKey={() => {
@@ -751,28 +855,44 @@ export function AppPortalIntegrationSetupPanel({
                 ) : null}
                 {mode === "manual" ? (
                   <>
-                    {isUnonight ? (
+                    {providerContract.capabilities.collectsConnectionName ? (
                       <>
                         <label className="block text-sm font-medium text-aipify-text">
-                          {labels.setup.unonight?.connectionNameLabel ?? labels.setup.plainLanguage.secureConnectionKey}
+                          {interpolateProviderContractLabel(
+                            labels.setup.credentialFields.connectionNameLabel,
+                            providerContract
+                          )}
                         </label>
                         <input
                           type="text"
                           value={connectionName}
                           onChange={(e) => setConnectionName(e.target.value)}
-                          placeholder={labels.setup.unonight?.connectionNamePlaceholder ?? ""}
+                          placeholder={interpolateProviderContractLabel(
+                            labels.setup.credentialFields.connectionNamePlaceholder,
+                            providerContract
+                          )}
                           className={`mt-2 w-full rounded-lg border border-aipify-border bg-aipify-surface px-3 py-2 text-sm ${AppPremiumShell.focusRing}`}
                         />
+                      </>
+                    ) : null}
+                    {providerContract.capabilities.collectsBaseUrl ? (
+                      <>
                         <label className="mt-4 block text-sm font-medium text-aipify-text">
-                          {labels.setup.unonight?.baseUrlLabel ?? ""}
+                          {interpolateProviderContractLabel(
+                            labels.setup.credentialFields.baseUrlLabel,
+                            providerContract
+                          )}
                         </label>
                         <p className="mt-1 text-xs text-aipify-text-muted">
-                          {labels.setup.unonight?.baseUrlHint ?? ""}
+                          {interpolateProviderContractLabel(
+                            labels.setup.credentialFields.baseUrlHint,
+                            providerContract
+                          )}
                         </p>
                         <input
                           type="url"
                           inputMode="url"
-                          name="unonight-base-url"
+                          name="provider-base-url"
                           autoComplete="off"
                           autoCorrect="off"
                           spellCheck={false}
@@ -780,13 +900,16 @@ export function AppPortalIntegrationSetupPanel({
                           data-lpignore="true"
                           value={baseUrl}
                           onChange={(e) => setBaseUrl(e.target.value)}
-                          placeholder={labels.setup.unonight?.baseUrlPlaceholder ?? ""}
+                          placeholder={labels.setup.credentialFields.baseUrlPlaceholder}
                           className={`mt-2 w-full rounded-lg border border-aipify-border bg-aipify-surface px-3 py-2 text-sm ${AppPremiumShell.focusRing}`}
                         />
                       </>
                     ) : null}
-                    <label className="block text-sm font-medium text-aipify-text">
-                      {labels.setup.plainLanguage.secureConnectionKey}
+                    <label className="mt-4 block text-sm font-medium text-aipify-text">
+                      {interpolateProviderContractLabel(
+                        "{credentialName}",
+                        providerContract
+                      )}
                     </label>
                     <p className="mt-1 text-xs text-aipify-text-muted">{labels.setup.apiKeyLabel}</p>
                     <input
@@ -856,11 +979,11 @@ export function AppPortalIntegrationSetupPanel({
                     {labels.setup.statuses.credentialSaved}
                   </p>
                 ) : null}
-                {unonightTestError && unonightErrorPanelLabels ? (
-                  <UnonightConnectionErrorPanel
-                    labels={unonightErrorPanelLabels}
+                {providerTestError && providerErrorPanelLabels ? (
+                  <ProviderConnectionErrorPanel
+                    labels={providerErrorPanelLabels}
                     variant={
-                      unonightTestError.errorCode === "rotation_required" ? "rotation" : "error"
+                      providerTestError.errorCode === "rotation_required" ? "rotation" : "error"
                     }
                     onUpdateKey={goToUpdateKeyStep}
                     onRetry={() => void testConnection()}
@@ -896,8 +1019,11 @@ export function AppPortalIntegrationSetupPanel({
                       disabled={acting || isRotationRequired}
                       title={
                         isRotationRequired
-                          ? translate(
-                              "customerApp.portalStructure.integrations.unonightConnection.failures.rotationRequired"
+                          ? interpolateProviderContractLabel(
+                              translate(
+                                "customerApp.portalStructure.integrations.connectionFailures.panels.rotation_required.body"
+                              ),
+                              providerContract
                             )
                           : undefined
                       }
@@ -965,7 +1091,39 @@ export function AppPortalIntegrationSetupPanel({
             </div>
           </section>
 
-          <IntegrationAuthHelpPanel providerKey={providerKey} labels={labels.setup.authHelp} />
+          <aside
+            className={`${AppPremiumShell.elevatedCard} space-y-4 p-5 sm:p-6 xl:sticky xl:top-6 xl:self-start`}
+            aria-labelledby="integration-contract-help-heading"
+          >
+            <h2 id="integration-contract-help-heading" className={AppPremiumShell.sectionTitle}>
+              {labels.setup.authHelpAsideTitle}
+            </h2>
+            {providerContract.helpSections.length > 0 ? (
+              <ul className="space-y-3 text-sm text-aipify-text-secondary">
+                {providerContract.helpSections.map((section) => (
+                  <li key={section.key}>
+                    <p>{interpolateProviderContractLabel(section.body, providerContract)}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ol className="list-decimal space-y-2 pl-5 text-sm text-aipify-text-secondary">
+                {setupStepLabels.map((label, index) => (
+                  <li key={`help-${index}`}>{label}</li>
+                ))}
+              </ol>
+            )}
+            {providerContract.adminIntegrationUrl ? (
+              <a
+                href={providerContract.adminIntegrationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
+              >
+                {interpolateProviderContractLabel(labels.setup.openAdmin, providerContract)}
+              </a>
+            ) : null}
+          </aside>
         </div>
 
         <footer className="flex flex-wrap gap-4 text-sm">

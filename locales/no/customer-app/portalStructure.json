@@ -476,14 +476,22 @@
           "log_action": "Fullfør og loggfør"
         },
         "manualSteps": {
-          "login": "Logg inn i Unonight Admin.",
+          "login": "Logg inn i {adminName}.",
           "open_menu": "Åpne Integrasjoner → Aipify.",
-          "locate_keys": "Opprett en ny sikker tilkoblingsnøkkel.",
-          "choose_permissions": "Velg kun lesetilgang.",
-          "avoid_permissions": "Kontroller at tilgangene inkluderer metadata.read og organization.read.",
-          "copy_key": "Kopier nøkkelen når den vises.",
-          "paste_in_aipify": "Lim nøkkelen inn i Aipify.",
-          "test_connection": "Test tilkoblingen."
+          "locate_keys": "Opprett en ny {credentialName}.",
+          "choose_permissions": "Velg kun skrivebeskyttet tilgang.",
+          "avoid_permissions": "Bekreft at bare godkjente tilganger er aktivert.",
+          "copy_key": "Kopier {credentialName} når den vises.",
+          "paste_in_aipify": "Lim inn {credentialName} i Aipify.",
+          "test_connection": "Test tilkoblingen.",
+          "open_provider_admin": "Åpne {adminName}.",
+          "navigate_to_integration": "Åpne Integrasjoner → Aipify.",
+          "create_credential": "Opprett en ny {credentialName}.",
+          "confirm_scopes": "Bekreft nødvendige skrivebeskyttede tilganger.",
+          "copy_credential": "Kopier {credentialName} når den vises.",
+          "return_to_app": "Gå tilbake til Aipify.",
+          "save_credential": "Lim inn {credentialName} i Aipify og lagre sikkert.",
+          "external_login": "Logg inn i {adminName}."
         },
         "oauthSteps": {
           "connect_button": "Klikk Koble til med leverandør",
@@ -504,7 +512,7 @@
         "retryLoad": "Prøv igjen",
         "backToIntegrations": "Tilbake til integrasjoner",
         "completion": {
-          "verifiedHeading": "Unonight er tilkoblet og verifisert",
+          "verifiedHeading": "{providerName} er tilkoblet og verifisert",
           "credentialSavedHeading": "Tilkoblingsnøkkelen er lagret",
           "statusActive": "✅ Aktiv",
           "statusReadOnly": "🔒 Lesetilgang",
@@ -519,7 +527,7 @@
           "apiVersionLabel": "API-versjon",
           "technicalDetailsLabel": "Avanserte tekniske detaljer",
           "technicalScopeLabel": "Tekniske scope-identifikatorer",
-          "verifiedBody": "Aipify har verifisert den skrivebeskyttede tilkoblingen til Unonight. Du kan administrere integrasjonen under Plattform → Integrasjoner.",
+          "verifiedBody": "Aipify har verifisert den skrivebeskyttede tilkoblingen med {providerName}. Du kan administrere integrasjonen fra Plattform → Integrasjoner.",
           "credentialSavedBody": "Tilkoblingsnøkkelen er lagret sikkert. Kjør en tilkoblingstest for å verifisere tilgang før aktivering.",
           "primaryIntegrations": "Gå til tilkoblede integrasjoner",
           "secondaryRetest": "Test tilkoblingen på nytt",
@@ -543,7 +551,8 @@
           "titleNamed": "Fjerne {provider}-integrasjonen?",
           "bodyFailed": "Den mislykkede tilkoblingen og den lagrede tilkoblingsnøkkelen fjernes. Historiske aktivitetslogger beholdes."
         },
-        "manageIntegration": "Administrer integrasjon"
+        "manageIntegration": "Administrer integrasjon",
+        "connectTitle": "Koble til: {providerName}"
       },
       "guidance": {
         "whyAccess": "Hvorfor Aipify trenger tilgang",
@@ -760,7 +769,7 @@
           "canChange": "Ja. Opprett en ny nøkkel i Unonight, oppdater i Aipify, test på nytt, og trekk tilbake den gamle nøkkelen.",
           "revoke": "Trekk tilbake nøkkelen i Unonight Admin og fjern integrasjonen i Aipify.",
           "steps": {
-            "1": "Logg inn i Unonight Admin.",
+            "1": "Logg inn i {adminName}.",
             "2": "Åpne Integrasjoner → Aipify.",
             "3": "Opprett en ny sikker tilkoblingsnøkkel.",
             "4": "Velg kun lesetilgang.",
@@ -773,11 +782,11 @@
         }
       },
       "unonightConnection": {
-        "baseUrlLabel": "Unonight-adresse",
-        "baseUrlHint": "Bruk adressen Unonight ga deg for miljøet ditt. Aipify lagrer den sikkert sammen med nøkkelen.",
+        "baseUrlLabel": "{providerName}-adresse",
+        "baseUrlHint": "Bruk adressen {providerName} ga deg for miljøet ditt. Aipify lagrer den sikkert sammen med nøkkelen.",
         "baseUrlPlaceholder": "https://www.unonight.com",
         "connectionNameLabel": "Tilkoblingsnavn",
-        "connectionNamePlaceholder": "Unonight skrivebeskyttet produksjon",
+        "connectionNamePlaceholder": "{providerName} skrivebeskyttet produksjon",
         "statuses": {
           "connectedVerified": "Tilkoblet og verifisert",
           "needsCheck": "Tilkobling må sjekkes",
@@ -787,62 +796,61 @@
         },
         "failures": {
           "invalidToken": "Tilkoblingsnøkkelen ble ikke godkjent. Kontroller at du kopierte hele bearer-token.",
-          "expiredOrRevoked": "Nøkkelen er utløpt eller tilbakekalt i Unonight. Opprett en ny skrivebeskyttet nøkkel.",
+          "expiredOrRevoked": "Nøkkelen er utløpt eller tilbakekalt i {providerName}. Opprett en ny skrivebeskyttet nøkkel.",
           "wrongOrg": "Nøkkelen tilhører en annen organisasjon enn Aipify-arbeidsområdet ditt.",
           "missingScope": "Nøkkelen mangler et påkrevd skrivebeskyttet scope. Aktiver metadata.read, organization.read og integration.status.read.",
-          "unreachable": "Aipify nådde ikke Unonight API. Kontroller base-URL og prøv igjen.",
+          "unreachable": "Aipify nådde ikke {providerName} API. Kontroller base-URL og prøv igjen.",
           "timeout": "Tilkoblingstesten tok timeout. Prøv igjen om litt.",
-          "badCertificate": "Unonight API-sertifikatet kunne ikke verifiseres. Kontakt Unonight support ved behov.",
-          "unsupportedApiVersion": "Denne Unonight API-versjonen støttes ikke ennå. Kontakt Aipify Support.",
-          "malformedResponse": "Unonight returnerte et uventet svar. Kontroller base-URL og nøkkel.",
-          "serverError": "Unonight returnerte en serverfeil under tilkoblingstesten. Prøv igjen senere.",
+          "badCertificate": "{providerName} API-sertifikatet kunne ikke verifiseres. Kontakt {providerName} support ved behov.",
+          "unsupportedApiVersion": "Denne {providerName} API-versjonen støttes ikke ennå. Kontakt Aipify Support.",
+          "malformedResponse": "{providerName} returnerte et uventet svar. Kontroller base-URL og nøkkel.",
+          "serverError": "{providerName} returnerte en serverfeil under tilkoblingstesten. Prøv igjen senere.",
           "credentialUnavailable": "Aipify fant ingen lagret nøkkel å teste med. Lim inn nøkkelen på nytt, lagre og test tilkoblingen.",
-          "invalidBaseUrl": "Oppgi en gyldig HTTPS-adresse for Unonight-miljøet ditt.",
-          "invalidBaseUrlHttps": "Unonight-adressen må starte med https://.",
-          "invalidBaseUrlEmail": "Unonight-adressen må være en URL, ikke en e-postadresse.",
+          "invalidBaseUrl": "Oppgi en gyldig HTTPS-adresse for {providerName}-miljøet ditt.",
+          "invalidBaseUrlHttps": "{providerName}-adressen må starte med https://.",
+          "invalidBaseUrlEmail": "{providerName}-adressen må være en URL, ikke en e-postadresse.",
           "verificationRecordFailed": "Tilkoblingstesten lyktes, men Aipify kunne ikke lagre verifiseringsresultatet. Prøv igjen.",
-          "placeholderNotConfigured": "En midlertidig plassholdernøkkel er konfigurert. Bytt den ut med en ekte Unonight-nøkkel.",
+          "placeholderNotConfigured": "En midlertidig plassholdernøkkel er konfigurert. Bytt den ut med en ekte {providerName}-nøkkel.",
           "rotationRequired": "Den lagrede nøkkelen kan ikke brukes sikkert. Legg inn en ny nøkkel, lagre den sikkert og test tilkoblingen på nytt."
         },
         "errorPanels": {
-          "openUnonightAdminHref": "https://www.unonight.com/unonight-admin/integrations/aipify",
           "actions": {
             "retry": "Prøv igjen",
             "updateKey": "Oppdater nøkkelen",
-            "openUnonightAdmin": "Åpne Unonight Admin",
+            "openUnonightAdmin": "Åpne {adminName}",
             "backToIntegrations": "Tilbake til integrasjoner"
           },
           "invalidToken": {
             "title": "Nøkkelen ble avvist",
-            "body": "Den lagrede nøkkelen er ikke lenger gyldig. Opprett en ny nøkkel i Unonight Admin og prøv igjen."
+            "body": "Den lagrede nøkkelen er ikke lenger gyldig. Opprett en ny nøkkel i {adminName} og prøv igjen."
           },
           "revokedToken": {
             "title": "Nøkkelen er tilbakekalt",
-            "body": "Nøkkelen er tilbakekalt i Unonight. Opprett en ny skrivebeskyttet nøkkel i Unonight Admin og prøv igjen."
+            "body": "Nøkkelen er tilbakekalt i {providerName}. Opprett en ny skrivebeskyttet nøkkel i {adminName} og prøv igjen."
           },
           "credentialUnavailable": {
             "title": "Lagret nøkkel utilgjengelig",
             "body": "Aipify kunne ikke lese den lagrede nøkkelen. Lim inn nøkkelen på nytt, lagre og test tilkoblingen."
           },
           "unreachable": {
-            "title": "Unonight svarte ikke",
-            "body": "Aipify fikk ikke kontakt med Unonight akkurat nå. Kontroller base-URL og prøv igjen."
+            "title": "{providerName} svarte ikke",
+            "body": "Aipify fikk ikke kontakt med {providerName} akkurat nå. Kontroller base-URL og prøv igjen."
           },
           "unexpectedHttpStatus": {
-            "title": "Uventet svar fra Unonight",
-            "body": "Tilkoblingstesten fikk et uventet HTTP-svar fra Unonight. Prøv igjen om litt."
+            "title": "Uventet svar fra {providerName}",
+            "body": "Tilkoblingstesten fikk et uventet HTTP-svar fra {providerName}. Prøv igjen om litt."
           },
           "organizationMismatch": {
             "title": "Organisasjonen stemmer ikke",
-            "body": "Nøkkelen tilhører en annen Unonight-organisasjon enn dette Aipify-arbeidsområdet."
+            "body": "Nøkkelen tilhører en annen {providerName}-organisasjon enn dette Aipify-arbeidsområdet."
           },
           "missingScope": {
             "title": "Tilkoblingen mangler nødvendig lesetilgang",
             "body": "Kontroller at nøkkelen har metadata.read og organization.read."
           },
           "unsupportedResponse": {
-            "title": "Uventet svar fra Unonight",
-            "body": "Unonight svarte, men svaret samsvarte ikke med forventet skrivebeskyttet tilkoblingskontrakt."
+            "title": "Uventet svar fra {providerName}",
+            "body": "{providerName} svarte, men svaret samsvarte ikke med forventet skrivebeskyttet tilkoblingskontrakt."
           },
           "verificationRecordFailed": {
             "title": "Verifiseringen kunne ikke lagres",
@@ -912,6 +920,101 @@
           "checklist": {
             "verifySetup": "Walk through the setup steps and confirm read-only permissions.",
             "retryTest": "Run Test the connection again after verifying your key."
+          }
+        }
+      },
+      "credentialFields": {
+        "connectionNameLabel": "Tilkoblingsnavn",
+        "connectionNamePlaceholder": "{providerName} skrivebeskyttet produksjon",
+        "baseUrlLabel": "{providerName} API-base-URL",
+        "baseUrlHint": "Bruk HTTPS-adressen for ditt {providerName}-miljø.",
+        "baseUrlPlaceholder": "https://"
+      },
+      "connectionFailures": {
+        "actions": {
+          "retry": "Prøv igjen",
+          "updateKey": "Oppdater tilkoblingsnøkkel",
+          "openAdmin": "Åpne {adminName}",
+          "backToIntegrations": "Tilbake til integrasjoner"
+        },
+        "contractIncompleteTitle": "Integrasjonsoppsettet er ikke komplett",
+        "contractIncompleteBody": "Integrasjonsoppsettet er ikke komplett. Kontakt administrator.",
+        "panels": {
+          "invalid_token": {
+            "title": "Connection key is not valid",
+            "body": "The saved key is no longer valid. Create a new {credentialName} in {adminName} and try again."
+          },
+          "revoked_token": {
+            "title": "Connection key was revoked",
+            "body": "This key was revoked in {adminName}. Create a new {credentialName} and try again."
+          },
+          "credential_unavailable": {
+            "title": "Connection key unavailable",
+            "body": "Aipify could not use the saved connection key. Update the key and try again."
+          },
+          "rotation_required": {
+            "title": "New connection key required",
+            "body": "Create a new {credentialName} in {adminName}, then paste it here and test again."
+          },
+          "unreachable": {
+            "title": "{providerName} did not respond",
+            "body": "Aipify could not reach {providerName} right now. Verify the base URL and try again."
+          },
+          "server_error": {
+            "title": "{providerName} returned a server error",
+            "body": "{providerName} returned a server error during the connection test. Try again later."
+          },
+          "org_mismatch": {
+            "title": "Organization mismatch",
+            "body": "The key belongs to a different organization than this Aipify workspace."
+          },
+          "scope_mismatch": {
+            "title": "Required access is missing",
+            "body": "The connection key does not include the required read-only scopes. Create a new key with the approved scopes."
+          },
+          "unsupported_response": {
+            "title": "Unexpected response",
+            "body": "{providerName} responded, but the payload did not match the expected connection contract."
+          },
+          "timeout": {
+            "title": "Connection timed out",
+            "body": "The connection test timed out. Try again shortly."
+          },
+          "bad_certificate": {
+            "title": "Certificate could not be verified",
+            "body": "The API certificate could not be verified. Contact support if this continues."
+          },
+          "unsupported_api_version": {
+            "title": "API version not supported",
+            "body": "This API version is not supported yet. Contact Aipify Support."
+          },
+          "malformed_response": {
+            "title": "Unexpected response",
+            "body": "{providerName} returned an unexpected response. Verify the API base URL and key."
+          },
+          "placeholder_not_configured": {
+            "title": "Placeholder key detected",
+            "body": "A placeholder connection key is configured. Replace it with a live {credentialName}."
+          },
+          "invalid_base_url": {
+            "title": "Invalid API address",
+            "body": "Enter a valid HTTPS URL for your {providerName} environment."
+          },
+          "invalid_base_url_https": {
+            "title": "HTTPS required",
+            "body": "The {providerName} address must begin with https://."
+          },
+          "invalid_base_url_email": {
+            "title": "URL required",
+            "body": "The {providerName} address must be a URL, not an email address."
+          },
+          "host_not_allowlisted": {
+            "title": "Address not allowed",
+            "body": "This API address is not approved for {providerName}. Use the address from your administrator."
+          },
+          "contract_incomplete": {
+            "title": "Integration setup is incomplete",
+            "body": "The integration setup is not complete. Contact your administrator."
           }
         }
       }

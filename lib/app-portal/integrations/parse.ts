@@ -163,6 +163,7 @@ export function parseAppPortalIntegrationSetup(raw: unknown): AppPortalIntegrati
     connection: conn,
     manual_steps: asStringArray(row.manual_steps),
     oauth_steps: asStringArray(row.oauth_steps),
+    presentation_contract: row.presentation_contract ?? row.presentationContract ?? null,
   };
 }
 
