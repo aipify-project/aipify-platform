@@ -73,7 +73,7 @@ export type InstallationAssistanceAction = {
   requires_scheduling?: boolean;
   requires_approval?: boolean;
   support_mode?: InstallationSupportMode;
-  handoff?: "coming_later" | "support" | "invite_placeholder";
+  handoff?: "coming_later" | "support" | "invite_placeholder" | "request" | "invite";
 };
 
 export type InstallationInviteContract = {

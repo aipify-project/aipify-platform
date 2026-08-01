@@ -268,7 +268,11 @@ function parseAssistance(
     requires_approval: bool(row.requires_approval),
     support_mode: isInstallationSupportMode(row.support_mode) ? row.support_mode : undefined,
     handoff:
-      row.handoff === "coming_later" || row.handoff === "support" || row.handoff === "invite_placeholder"
+      row.handoff === "coming_later" ||
+      row.handoff === "support" ||
+      row.handoff === "invite_placeholder" ||
+      row.handoff === "request" ||
+      row.handoff === "invite"
         ? row.handoff
         : undefined,
   };

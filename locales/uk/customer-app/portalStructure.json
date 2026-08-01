@@ -7215,10 +7215,10 @@
         "actions": {
           "askAipifyHelp": "Попросити Aipify про допомогу",
           "askAipifyHelpDescription": "Get calm guidance without technical jargon.",
-          "requestGuided": "Book guided setup",
-          "aipifyManaged": "Aipify виконує налаштування",
+          "requestGuided": "Запросити супроводжуване налаштування",
+          "aipifyManaged": "Попросити Aipify налаштувати",
           "inviteProvider": "Invite provider",
-          "inviteIt": "Invite IT owner",
+          "inviteIt": "Запросити IT-постачальника",
           "invitePartner": "Invite partner",
           "selfService": "Do it yourself",
           "changeMethod": "Change setup method",
@@ -7340,7 +7340,7 @@
           "sessionPersistError": "Aipify не зміг зберегти ваш вибір. Спробуйте ще раз.",
           "primaryActions": {
             "aipifyManaged": "Попросити Aipify налаштувати",
-            "guided": "Замовити кероване налаштування",
+            "guided": "Запросити супроводжуване налаштування",
             "selfService": "Почати самостійне налаштування",
             "customerItManaged": "Запросити IT-постачальника"
           },
@@ -7357,6 +7357,25 @@
             "guided": "Aipify супроводжує вас крок за кроком.",
             "selfService": "Ви виконуєте кроки самостійно. Aipify може допомогти за потреби.",
             "customerItManaged": "Ваш IT-постачальник виконує технічні кроки."
+          },
+          "statusAfterHandoff": {
+            "guided": "Супровід запрошено"
+          }
+        },
+        "handoff": {
+          "submitting": "Надсилання запиту…",
+          "failed": "Aipify не зміг завершити запит на налаштування. Спробуйте знову.",
+          "invalidRecipient": "Введіть дійсну електронну адресу IT-контакту, щоб продовжити.",
+          "nextStepHint": "Ваш запит зареєстровано. Aipify продовжить звідси. Ви можете повернутися пізніше.",
+          "referenceLabel": "Номер запиту",
+          "requestedAtLabel": "Надіслано",
+          "recipientLabel": "Отримувач запрошення",
+          "itRecipientPlaceholder": "імʼя@компанія.ua",
+          "success": {
+            "aipifyManaged": "Aipify отримав ваш запит на налаштування. Номер {reference}.",
+            "guided": "Супроводжуване налаштування запрошено. Номер {reference}.",
+            "customerItManaged": "Запрошення зареєстровано для {email}. Номер {reference}.",
+            "duplicate": "Цей запит на налаштування вже зареєстровано. Номер {reference}."
           }
         }
       }

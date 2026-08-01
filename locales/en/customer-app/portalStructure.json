@@ -7022,10 +7022,10 @@
         "actions": {
           "askAipifyHelp": "Ask Aipify for help",
           "askAipifyHelpDescription": "Get calm guidance without technical jargon.",
-          "requestGuided": "Book guided setup",
-          "aipifyManaged": "Aipify handles setup",
+          "requestGuided": "Request guided setup",
+          "aipifyManaged": "Ask Aipify to set this up",
           "inviteProvider": "Invite provider",
-          "inviteIt": "Invite IT owner",
+          "inviteIt": "Invite IT provider",
           "invitePartner": "Invite partner",
           "selfService": "Do it yourself",
           "changeMethod": "Change setup method",
@@ -7147,7 +7147,7 @@
           "sessionPersistError": "Aipify could not save your choice. Please try again.",
           "primaryActions": {
             "aipifyManaged": "Ask Aipify to set this up",
-            "guided": "Book guided setup",
+            "guided": "Request guided setup",
             "selfService": "Start self-service setup",
             "customerItManaged": "Invite IT provider"
           },
@@ -7164,6 +7164,25 @@
             "guided": "Aipify guides you step by step.",
             "selfService": "You complete the steps yourself. Aipify can help when needed.",
             "customerItManaged": "Your IT provider performs the technical steps."
+          },
+          "statusAfterHandoff": {
+            "guided": "Guided setup requested"
+          }
+        },
+        "handoff": {
+          "submitting": "Sending request…",
+          "failed": "Aipify could not complete the setup request. Please try again.",
+          "invalidRecipient": "Enter a valid IT contact email to continue.",
+          "nextStepHint": "Your request is registered. Aipify will continue from here. You can return later.",
+          "referenceLabel": "Request reference",
+          "requestedAtLabel": "Requested",
+          "recipientLabel": "Invitation recipient",
+          "itRecipientPlaceholder": "name@company.com",
+          "success": {
+            "aipifyManaged": "Aipify has received your setup request. Reference {reference}.",
+            "guided": "Guided setup has been requested. Reference {reference}.",
+            "customerItManaged": "Invitation registered for {email}. Reference {reference}.",
+            "duplicate": "This setup request is already registered. Reference {reference}."
           }
         }
       }

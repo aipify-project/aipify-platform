@@ -1249,10 +1249,10 @@
         "actions": {
           "askAipifyHelp": "Bed Aipify om hjælp",
           "askAipifyHelpDescription": "Få rolig vejledning uden teknisk jargon.",
-          "requestGuided": "Book guidet opsætning",
-          "aipifyManaged": "Aipify håndterer opsætningen",
+          "requestGuided": "Anmod vejledt opsætning",
+          "aipifyManaged": "Bed Aipify om at sætte op",
           "inviteProvider": "Send invitation til leverandør",
-          "inviteIt": "Send invitation til IT-ansvarlig",
+          "inviteIt": "Inviter IT-leverandør",
           "invitePartner": "Send invitation til partner",
           "selfService": "Gør det selv",
           "changeMethod": "Skift opsætningsmetode",
@@ -1374,7 +1374,7 @@
           "sessionPersistError": "Aipify kunne ikke gemme dit valg. Prøv igen.",
           "primaryActions": {
             "aipifyManaged": "Bed Aipify om at sætte op",
-            "guided": "Bestil vejledt opsætning",
+            "guided": "Anmod vejledt opsætning",
             "selfService": "Start selvbetjent opsætning",
             "customerItManaged": "Inviter IT-leverandør"
           },
@@ -1391,6 +1391,25 @@
             "guided": "Aipify vejleder dig trin for trin.",
             "selfService": "Du udfører trinnene selv. Aipify kan hjælpe efter behov.",
             "customerItManaged": "Din IT-leverandør udfører de tekniske trin."
+          },
+          "statusAfterHandoff": {
+            "guided": "Vejledning er anmodet"
+          }
+        },
+        "handoff": {
+          "submitting": "Sender anmodning…",
+          "failed": "Aipify kunne ikke fuldføre opsætningsanmodningen. Prøv igen.",
+          "invalidRecipient": "Angiv en gyldig e-mailadresse til IT-kontakt for at fortsætte.",
+          "nextStepHint": "Din anmodning er registreret. Aipify fortsætter herfra. Du kan vende tilbage senere.",
+          "referenceLabel": "Anmodningsreference",
+          "requestedAtLabel": "Anmodet",
+          "recipientLabel": "Invitation til",
+          "itRecipientPlaceholder": "navn@firma.dk",
+          "success": {
+            "aipifyManaged": "Aipify har modtaget din anmodning om opsætning. Reference {reference}.",
+            "guided": "Vejledt opsætning er anmodet. Reference {reference}.",
+            "customerItManaged": "Invitation registreret for {email}. Reference {reference}.",
+            "duplicate": "Denne opsætningsanmodning er allerede registreret. Reference {reference}."
           }
         }
       }

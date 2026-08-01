@@ -7215,10 +7215,10 @@
         "actions": {
           "askAipifyHelp": "Poproś Aipify o pomoc",
           "askAipifyHelpDescription": "Get calm guidance without technical jargon.",
-          "requestGuided": "Book guided setup",
-          "aipifyManaged": "Aipify przeprowadza konfigurację",
+          "requestGuided": "Poproś o prowadzoną konfigurację",
+          "aipifyManaged": "Poproś Aipify o konfigurację",
           "inviteProvider": "Invite provider",
-          "inviteIt": "Invite IT owner",
+          "inviteIt": "Zaproś dostawcę IT",
           "invitePartner": "Invite partner",
           "selfService": "Do it yourself",
           "changeMethod": "Change setup method",
@@ -7340,7 +7340,7 @@
           "sessionPersistError": "Aipify nie mógł zapisać Twojego wyboru. Spróbuj ponownie.",
           "primaryActions": {
             "aipifyManaged": "Poproś Aipify o konfigurację",
-            "guided": "Zamów konfigurację z przewodnikiem",
+            "guided": "Poproś o prowadzoną konfigurację",
             "selfService": "Rozpocznij samodzielną konfigurację",
             "customerItManaged": "Zaproś dostawcę IT"
           },
@@ -7357,6 +7357,25 @@
             "guided": "Aipify prowadzi Cię krok po kroku.",
             "selfService": "Wykonujesz kroki samodzielnie. Aipify może pomóc w razie potrzeby.",
             "customerItManaged": "Twój dostawca IT wykonuje kroki techniczne."
+          },
+          "statusAfterHandoff": {
+            "guided": "Poproszono o prowadzenie"
+          }
+        },
+        "handoff": {
+          "submitting": "Wysyłanie prośby…",
+          "failed": "Aipify nie mogło ukończyć prośby o konfigurację. Spróbuj ponownie.",
+          "invalidRecipient": "Podaj prawidłowy adres e-mail kontaktu IT, aby kontynuować.",
+          "nextStepHint": "Twoja prośba została zarejestrowana. Aipify kontynuuje stąd. Możesz wrócić później.",
+          "referenceLabel": "Numer referencyjny",
+          "requestedAtLabel": "Wysłano",
+          "recipientLabel": "Odbiorca zaproszenia",
+          "itRecipientPlaceholder": "imie@firma.pl",
+          "success": {
+            "aipifyManaged": "Aipify otrzymało prośbę o konfigurację. Numer {reference}.",
+            "guided": "Poproszono o prowadzoną konfigurację. Numer {reference}.",
+            "customerItManaged": "Zaproszenie zarejestrowane dla {email}. Numer {reference}.",
+            "duplicate": "Ta prośba o konfigurację jest już zarejestrowana. Numer {reference}."
           }
         }
       }

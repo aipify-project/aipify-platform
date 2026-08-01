@@ -33,15 +33,27 @@ export function installPresentationKeyForSupportMode(
 export function resolveInstallSupportLifecycle(opts: {
   localSupportMode: InstallationSupportMode | null;
   session: InstallationSessionSnapshot | null;
+  /**
+   * True when a persisted open handoff exists for this tenant/provider.
+   * False when checked and absent (V3 false-waiting repair → ready_for_handoff).
+   * Null/undefined while unknown — treat awaiting_* conservatively as handed_off.
+   */
+  hasOpenHandoff?: boolean | null;
 }): InstallSupportLifecycle {
   const sessionState = opts.session?.state;
-  if (
+  const isWaitingState =
     sessionState === "awaiting_aipify" ||
     sessionState === "awaiting_customer_it" ||
     sessionState === "awaiting_partner" ||
     sessionState === "awaiting_provider" ||
-    sessionState === "awaiting_customer"
-  ) {
+    sessionState === "awaiting_customer";
+  if (isWaitingState) {
+    // Waiting without a persisted handoff is inconsistent (V3 defect) — reopen handoff CTA.
+    if (opts.hasOpenHandoff === false) {
+      if (opts.session?.session_id && opts.session.support_mode) return "confirmed";
+      if (opts.localSupportMode) return "selected";
+      return "choose";
+    }
     return "handed_off";
   }
   if (opts.session?.session_id && opts.session.support_mode) {
@@ -53,12 +65,13 @@ export function resolveInstallSupportLifecycle(opts: {
 
 /** Session state after explicit Fortsett — never awaiting_* from selection alone. */
 export function sessionStateAfterSupportConfirm(
-  _mode: InstallationSupportMode
+  mode: InstallationSupportMode
 ): InstallationWizardState {
+  void mode;
   return "in_progress";
 }
 
-/** Waiting state only after a real invite / managed request handoff. */
+/** Waiting state only after a persisted handoff / invite succeeds. */
 export function waitingStateAfterRealHandoff(
   mode: InstallationSupportMode
 ): InstallationWizardState | null {
@@ -68,7 +81,7 @@ export function waitingStateAfterRealHandoff(
     case "customer_it_managed":
       return "awaiting_customer_it";
     case "guided":
-      return "awaiting_customer";
+      return "awaiting_aipify";
     case "partner_managed":
       return "awaiting_partner";
     case "self_service":
@@ -116,13 +129,17 @@ export function listRelevantInstallAssistanceActions(opts: {
   supportMode: InstallationSupportMode | null | undefined;
   lifecycle: InstallSupportLifecycle;
 }): InstallationAssistanceAction[] {
-  if (opts.lifecycle === "choose") return [];
+  if (opts.lifecycle === "choose" || opts.lifecycle === "handed_off") return [];
   const primaryKey = primaryInstallActionKeyForMode(opts.supportMode);
   if (!primaryKey) return [];
   const primary = opts.actions.find((a) => a.action_key === primaryKey);
   if (!primary) return [];
   if (primary.support_mode === "partner_managed") return [];
   if (primary.action_key === "invite_partner" || primary.action_key === "continue_later") {
+    return [];
+  }
+  // Never surface placeholder / coming-later as an active install CTA.
+  if (primary.handoff === "coming_later" || primary.handoff === "invite_placeholder") {
     return [];
   }
   return [primary];

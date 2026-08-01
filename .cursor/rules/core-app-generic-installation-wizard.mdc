@@ -41,6 +41,15 @@ Task: `AIPIFY.CORE.APP.GENERIC.INSTALLATION.WIZARD.V1`
 29. Install action panel shows only relevant operational actions for the selected mode/lifecycle.
 30. Continue later requires a real resumable installation session.
 31. Live wrapper (`AppPortalIntegrationSetupPanel`) must be covered by integration/source tests — preview-only tests are insufficient for install runtime.
+32. Handoff CTAs must map to a real tenant-bound server action (`POST …/installation/handoff`) — never a no-op or placeholder success.
+33. Waiting states (`awaiting_*`) must be set only after a persisted handoff request succeeds — never before the request, and never from selection alone.
+34. Never show an active customer CTA for `coming_later` / `invite_placeholder` actions; hide or honestly disable unimplemented modes.
+35. Aipify-managed handoff creates a canonical `app_portal_installation_handoffs` request (plus audit and operational visibility) — not a client-only status flip.
+36. Guided mode creates a guided setup request — never fake calendar booking.
+37. Self-service confirms support mode and advances technical steps — it does not create an external waiting state.
+38. Customer IT awaiting state requires a successful invitation handoff with a validated recipient — never placeholder invite + waiting.
+39. All handoffs are tenant-bound, idempotent, and audited (session audit + handoff row).
+40. Live CTA integration tests covering handoff wiring are mandatory for install runtime changes.
 
 ## Code map
 
@@ -49,7 +58,10 @@ Task: `AIPIFY.CORE.APP.GENERIC.INSTALLATION.WIZARD.V1`
 - Preview dialog: `components/app/app-portal/InstallationWizardPreviewDialog.tsx`
 - Preview helpers: `lib/app-portal/integrations/installation/preview-mode.ts`
 - Session RPCs: `get_app_portal_installation_session`, `upsert_app_portal_installation_session`
+- Handoff RPC/API: `create_app_portal_installation_handoff`, `POST /api/app-portal/integrations/[providerKey]/installation/handoff`
+- Platform ops list: `list_platform_installation_handoffs`
 - Migration: `supabase/migrations/20261937100000_core_provider_installation_wizard_v1.sql`
+- Handoff migration: `supabase/migrations/20261937200000_core_app_installation_handoff_lifecycle_v1.sql`
 
 ## Platform editor
 
