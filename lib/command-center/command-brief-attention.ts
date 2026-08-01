@@ -8,6 +8,11 @@ import {
   mapHealthToItem,
   type CommandCenterItem,
 } from "@/lib/command-center/ecc-tab-datasets";
+import {
+  countActionableApprovals,
+  isActionableApprovalRecord,
+  shouldShowApprovalDelayAlert,
+} from "@/lib/app-production-experience/approval-parity";
 import { getSeverityPresentation, mapExecutivePriorityToSeverity } from "@/lib/design/semantic-status-system";
 import type { ExecutiveCommandCenter } from "@/lib/executive-command-center-engine/parse";
 
@@ -280,13 +285,16 @@ export function buildCommandBriefAttentionItemsFromCenter(
   center: ExecutiveCommandCenter
 ): CommandBriefAttentionResult {
   const candidates: CommandBriefAttentionItem[] = [];
+  const realActions = filterRealRecords(center.actions ?? []);
+  const actionableApprovalCount = countActionableApprovals(realActions);
 
   for (const record of filterRealRecords(center.alerts ?? [])) {
     if (!isAttentionWorthyAlert(record)) continue;
+    if (!shouldShowApprovalDelayAlert(record, actionableApprovalCount)) continue;
     const item = mapAlertToItem(record);
     candidates.push(
       enrichAttentionItem(item, {
-        moduleArea: String(record.alert_type ?? "alert").replace(/_/g, " "),
+        moduleArea: String(record.alert_type ?? "alert"),
         dueAt: typeof record.due_at === "string" ? record.due_at : undefined,
         alertType: String(record.alert_type ?? ""),
         detailHref: item.href,
@@ -294,17 +302,17 @@ export function buildCommandBriefAttentionItemsFromCenter(
     );
   }
 
-  for (const record of filterRealRecords(center.actions ?? [])) {
-    if (isAttentionWorthyApproval(record)) {
+  for (const record of realActions) {
+    if (isActionableApprovalRecord(record)) {
       const item = mapApprovalToItem(record);
       candidates.push(
         enrichAttentionItem(item, {
-          moduleArea: String(record.action_type ?? "approval").replace(/_/g, " "),
+          moduleArea: "approval",
           responsiblePerson: typeof record.requester === "string" ? record.requester : undefined,
           dueAt: typeof record.due_at === "string" ? record.due_at : undefined,
           alertType: String(record.action_type ?? "approval"),
           detailHref: item.href,
-        })
+        }),
       );
       continue;
     }
@@ -317,12 +325,12 @@ export function buildCommandBriefAttentionItemsFromCenter(
       });
       candidates.push(
         enrichAttentionItem(item, {
-          moduleArea: String(record.action_type ?? "task").replace(/_/g, " "),
+          moduleArea: String(record.action_type ?? "task"),
           responsiblePerson: typeof record.requester === "string" ? record.requester : undefined,
           dueAt: typeof record.due_at === "string" ? record.due_at : undefined,
           alertType: String(record.action_type ?? "task"),
           detailHref: item.href,
-        })
+        }),
       );
     }
   }

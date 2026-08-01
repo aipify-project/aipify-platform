@@ -701,7 +701,7 @@
     "executiveCockpitLink": "Executive Strategic Decision Cockpit"
   },
   "executiveCommandCenter": {
-    "title": "Centro de mando ejecutivo",
+    "title": "Centro de liderazgo",
     "refresh": "Actualizar",
     "loading": "Cargando",
     "liveRefresh": {
@@ -712,7 +712,40 @@
       "refreshing": "Actualizando…"
     },
     "premium": {
-      "refreshing": "Actualizando…"
+      "refreshing": "Actualizando…",
+      "eyebrow": "Espacio de liderazgo",
+      "todaysOverview": "Resumen de liderazgo de hoy",
+      "recommendationCategory": "Recomendación de liderazgo",
+      "context": {
+        "organizationActive": "Organización activa",
+        "executiveAccessVerified": "Acceso de liderazgo verificado"
+      },
+      "access": {
+        "permissionMissing": {
+          "title": "Se requiere acceso de liderazgo",
+          "description": "Su rol no incluye acceso al Centro de liderazgo. Contacte al administrador del workspace."
+        },
+        "entitlementMissing": {
+          "title": "Módulo no incluido",
+          "description": "El Centro de liderazgo no está incluido en sus derechos actuales del workspace."
+        },
+        "planRequired": {
+          "title": "Se requiere actualización del plan",
+          "description": "El Centro de liderazgo requiere un plan Business o Enterprise activo."
+        },
+        "organizationContextMissing": {
+          "title": "Se requiere contexto de organización",
+          "description": "Seleccione o active el workspace de su organización antes de abrir el Centro de liderazgo."
+        },
+        "activationInProgress": {
+          "title": "Activación del workspace en curso",
+          "description": "Aipify está preparando su espacio de liderazgo. Vuelva pronto o regrese al panel."
+        },
+        "generic": {
+          "title": "Centro de liderazgo no disponible",
+          "description": "El Centro de liderazgo no está disponible para esta organización en este momento."
+        }
+      }
     },
     "commandBriefOverview": {
       "organizationHealthTitle": "Salud organizacional",
@@ -732,7 +765,15 @@
         "majorCustomerRisk": "Riesgo significativo del cliente",
         "invoicePaid": "Factura pagada",
         "kompisWebsitePublish": "Publicación de borrador del sitio web",
-        "kompisWebsiteRollback": "Revertir versión del sitio web"
+        "kompisWebsiteRollback": "Revertir versión del sitio web",
+        "contractExpiring": "Contrato por vencer",
+        "revenueAlerts": "Alertas de ingresos",
+        "newPartnerLeads": "Nuevas oportunidades de partner",
+        "riskDetected": "Riesgo detectado",
+        "largeInvoiceOverdue": "Factura vencida importante",
+        "dailyExecutiveBriefing": "Briefing diario de liderazgo",
+        "annualSummary": "Resumen anual",
+        "activitySummary": "Resumen de actividad"
       },
       "recordDescriptions": {
         "level3ActionAwaitingApproval": "Una acción de riesgo crítico debe aprobarse antes de que el trabajo pueda continuar.",
@@ -746,6 +787,34 @@
           "refresh": "Actualizar"
         }
       }
+    },
+    "privacyNote": "Solo señales de liderazgo verificadas — usted decide los resultados.",
+    "empty": "El Centro de liderazgo no está disponible para esta organización.",
+    "companionRecommendations": "Recomendaciones de Aipify",
+    "morningBriefing": "Briefing matutino de liderazgo",
+    "organizationalTimeline": "Línea de tiempo del Centro de liderazgo",
+    "mobileExecutiveMode": "Modo móvil de liderazgo",
+    "sections": {
+      "companionBriefing": "Briefing de Aipify"
+    },
+    "briefing": {
+      "companion": "Recomendaciones de Aipify"
+    },
+    "types": {
+      "approvalDelay": "Aprobación retrasada",
+      "customerRisk": "Riesgo del cliente",
+      "invoiceOverdue": "Factura vencida",
+      "contractExpiring": "Contrato por vencer",
+      "revenueAlert": "Alerta de ingresos",
+      "partnerLead": "Nueva oportunidad de partner",
+      "dailyExecutive": "Briefing diario de liderazgo",
+      "annual": "Resumen anual",
+      "activitySummary": "Resumen de actividad",
+      "websitePublish": "Publicación del sitio web",
+      "websitePreview": "Vista previa del sitio web",
+      "approval": "Aprobación",
+      "risk": "Riesgo",
+      "opportunity": "Oportunidad"
     }
   }
 }

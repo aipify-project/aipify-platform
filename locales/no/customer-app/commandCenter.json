@@ -1461,12 +1461,12 @@
     "actionHubNote": "Personlige og teamoppgaver ligger i Action Hub — adskilt fra styrt ekstern utførelse."
   },
   "executiveCommandCenter": {
-    "title": "Executive Command Center",
+    "title": "Ledelsessenter",
     "subtitle": "Én operativ oversikt etter innlogging — hva skjedde, hva endret seg, hva krever oppmerksomhet og hva bør skje videre.",
     "principle": "Ledere skal ikke måtte lete etter informasjon — informasjonen skal komme til dem.",
-    "privacyNote": "Kun metadata for executive command — ledelsen bestemmer utfall.",
+    "privacyNote": "Kun verifiserte ledelsessignaler — du bestemmer utfallene.",
     "loading": "Laster",
-    "empty": "Executive Command Center er ikke tilgjengelig for denne organisasjonen.",
+    "empty": "Ledelsessenter er ikke tilgjengelig for denne organisasjonen.",
     "refresh": "Oppdater",
     "liveRefresh": {
       "updatedNow": "Oppdatert nå",
@@ -1476,15 +1476,15 @@
       "refreshing": "Oppdaterer…"
     },
     "overallHealthScore": "Organisasjonshelse",
-    "companionRecommendations": "Companion-anbefalinger",
+    "companionRecommendations": "Aipify-anbefalinger",
     "noRecords": "Ingen poster ennå.",
     "sinceLastLogin": "Siden sist innlogging",
-    "morningBriefing": "Executive morgenbriefing",
-    "organizationalTimeline": "Command Center-tidslinje",
+    "morningBriefing": "Morgenbrief for ledelsen",
+    "organizationalTimeline": "Ledelsessenter-tidslinje",
     "businessPackSignals": "Business Pack-integrasjon",
     "boardReadyReports": "Styreklare rapporter",
     "commandMode": "Companion Command Mode",
-    "mobileExecutiveMode": "Executive mobilmodus",
+    "mobileExecutiveMode": "Mobil ledelsesmodus",
     "priority": {
       "information": "Informasjon",
       "attention": "Oppmerksomhet",
@@ -1499,7 +1499,7 @@
       "risks": "Risikoer",
       "opportunities": "Muligheter",
       "performance": "Ytelse",
-      "companionBriefing": "Companion-briefing"
+      "companionBriefing": "Aipify-briefing"
     },
     "stats": {
       "sinceLastLoginItems": "Siden sist innlogging",
@@ -1514,14 +1514,14 @@
       "risk": "Risikosammendrag",
       "operational": "Operativt sammendrag",
       "growth": "Vekstsammendrag",
-      "companion": "Companion-anbefalinger"
+      "companion": "Aipify-anbefalinger"
     },
     "premium": {
-      "eyebrow": "Executive-arbeidsområde",
+      "eyebrow": "Ledelsesarbeidsområde",
       "description": "Din kommandooversikt etter innlogging — hva som endret seg, hva som krever oppmerksomhet og hva Aipify anbefaler videre.",
       "viewSinceLastLogin": "Vis siden sist innlogging",
       "refreshing": "Oppdaterer…",
-      "todaysOverview": "Dagens executive-oversikt",
+      "todaysOverview": "Dagens ledelsesoversikt",
       "companionInsight": "Aipify-innsikt",
       "needsAttention": "Krever oppmerksomhet",
       "needsAttentionSubtitle": "Prioriterte elementer som kan kreve din vurdering eller beslutning.",
@@ -1529,35 +1529,35 @@
       "retry": "Prøv igjen",
       "openRecord": "Åpne",
       "emptySection": "Aipify overvåker — ingenting å vise i denne seksjonen akkurat nå.",
-      "recommendationCategory": "Executive-anbefaling",
+      "recommendationCategory": "Ledelsesanbefaling",
       "context": {
         "organizationActive": "Organisasjon aktiv",
-        "executiveAccessVerified": "Executive-tilgang verifisert"
+        "executiveAccessVerified": "Ledelsestilgang verifisert"
       },
       "access": {
         "permissionMissing": {
-          "title": "Executive-tilgang kreves",
-          "description": "Rollen din inkluderer ikke tilgang til Executive Command Center. Kontakt workspace-administratoren."
+          "title": "Ledelsestilgang kreves",
+          "description": "Rollen din inkluderer ikke tilgang til Ledelsessenter. Kontakt workspace-administratoren."
         },
         "entitlementMissing": {
           "title": "Modulen er ikke inkludert",
-          "description": "Executive Command Center er ikke inkludert i dine nåværende workspace-rettigheter."
+          "description": "Ledelsessenter er ikke inkludert i dine nåværende workspace-rettigheter."
         },
         "planRequired": {
           "title": "Planoppgradering kreves",
-          "description": "Executive Command Center krever en aktiv Business- eller Enterprise-plan."
+          "description": "Ledelsessenter krever en aktiv Business- eller Enterprise-plan."
         },
         "organizationContextMissing": {
           "title": "Organisasjonskontekst kreves",
-          "description": "Velg eller aktiver organisasjons-workspace før du åpner Executive Command Center."
+          "description": "Velg eller aktiver organisasjons-workspace før du åpner Ledelsessenter."
         },
         "activationInProgress": {
           "title": "Workspace-aktivering pågår",
-          "description": "Aipify forbereder ditt executive-arbeidsområde. Sjekk igjen snart eller gå tilbake til dashbordet."
+          "description": "Aipify forbereder ditt ledelsesarbeidsområde. Sjekk igjen snart eller gå tilbake til dashbordet."
         },
         "generic": {
-          "title": "Executive Command Center utilgjengelig",
-          "description": "Executive Command Center er ikke tilgjengelig for denne organisasjonen akkurat nå."
+          "title": "Ledelsessenter utilgjengelig",
+          "description": "Ledelsessenter er ikke tilgjengelig for denne organisasjonen akkurat nå."
         }
       },
       "metrics": {
@@ -1659,7 +1659,15 @@
         "majorCustomerRisk": "Betydelig kunderisiko",
         "invoicePaid": "Faktura betalt",
         "kompisWebsitePublish": "Publisering av nettstedutkast",
-        "kompisWebsiteRollback": "Tilbakerulling av nettstedversjon"
+        "kompisWebsiteRollback": "Tilbakerulling av nettstedversjon",
+        "contractExpiring": "Avtale utløper",
+        "revenueAlerts": "Inntektsvarsler",
+        "newPartnerLeads": "Nye partnermuligheter",
+        "riskDetected": "Risiko oppdaget",
+        "largeInvoiceOverdue": "Stor forfalt faktura",
+        "dailyExecutiveBriefing": "Daglig ledelsesbrief",
+        "annualSummary": "Årsoppsummering",
+        "activitySummary": "Aktivitetsoversikt"
       },
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Fullfør den ventende ledergodkjenningen i dag.",
@@ -1924,6 +1932,22 @@
         "inProgress": "Under arbeid",
         "completed": "Fullført"
       }
+    },
+    "types": {
+      "approvalDelay": "Forsinket godkjenning",
+      "customerRisk": "Kunderisiko",
+      "invoiceOverdue": "Forfalt faktura",
+      "contractExpiring": "Avtale utløper",
+      "revenueAlert": "Inntektsvarsel",
+      "partnerLead": "Ny partnermulighet",
+      "dailyExecutive": "Daglig ledelsesbrief",
+      "annual": "Årsoppsummering",
+      "activitySummary": "Aktivitetsoversikt",
+      "websitePublish": "Publisering av nettsted",
+      "websitePreview": "Forhåndsvisning av nettsted",
+      "approval": "Godkjenning",
+      "risk": "Risiko",
+      "opportunity": "Mulighet"
     }
   },
   "unonightPilot621": {

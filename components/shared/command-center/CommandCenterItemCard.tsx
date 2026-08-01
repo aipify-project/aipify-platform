@@ -36,11 +36,7 @@ export function CommandCenterItemCard({
   const description = item.descriptionLabelKey
     ? resolveLabel(item.descriptionLabelKey)
     : item.description;
-  const typeLabel = item.itemTypeLabelKey
-    ? resolveLabel(item.itemTypeLabelKey)
-    : item.itemType
-      ? item.itemType.replace(/_/g, " ")
-      : null;
+  const typeLabel = item.itemTypeLabelKey ? resolveLabel(item.itemTypeLabelKey) : null;
   const href = resolveEccApprovalNavigationHref({
     href: item.href,
     staleLink: item.staleLink,
@@ -55,9 +51,9 @@ export function CommandCenterItemCard({
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0 flex-1 space-y-2">
           <div className="flex flex-wrap items-center gap-2">
-            {item.source ? (
+            {typeLabel ? (
               <span className="text-xs font-medium tracking-wide text-aipify-text-muted">
-                {item.itemTypeLabelKey ? resolveLabel(item.itemTypeLabelKey) : item.source}
+                {typeLabel}
               </span>
             ) : null}
             <SemanticBadge

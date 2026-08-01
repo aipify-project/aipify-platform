@@ -1439,12 +1439,12 @@
     "actionHubNote": "Personal and team action items remain in the Action Hub inbox — distinct from governed external execution."
   },
   "executiveCommandCenter": {
-    "title": "Executive Command Center",
+    "title": "Leadership Center",
     "subtitle": "One operational overview after login — what happened, what changed, what needs attention, and what should happen next.",
     "principle": "Executives should not need to search for information — information should come to them.",
-    "privacyNote": "Executive command metadata only — leadership decides outcomes.",
+    "privacyNote": "Verified leadership signals only — you decide the outcomes.",
     "loading": "Loading",
-    "empty": "Executive Command Center is not available for this organization.",
+    "empty": "Leadership Center is not available for this organization.",
     "refresh": "Refresh",
     "liveRefresh": {
       "updatedNow": "Updated just now",
@@ -1454,11 +1454,11 @@
       "refreshing": "Updating…"
     },
     "overallHealthScore": "Organizational Health",
-    "companionRecommendations": "Companion Recommendations",
+    "companionRecommendations": "Aipify recommendations",
     "noRecords": "No records yet.",
     "sinceLastLogin": "Since Last Login",
-    "morningBriefing": "Executive Morning Briefing",
-    "organizationalTimeline": "Command Center Timeline",
+    "morningBriefing": "Morning leadership brief",
+    "organizationalTimeline": "Leadership Center timeline",
     "businessPackSignals": "Business Pack Integration",
     "boardReadyReports": "Board-Ready Reports",
     "commandMode": "Companion Command Mode",
@@ -1477,7 +1477,7 @@
       "risks": "Risks",
       "opportunities": "Opportunities",
       "performance": "Performance",
-      "companionBriefing": "Companion Briefing"
+      "companionBriefing": "Aipify briefing"
     },
     "stats": {
       "sinceLastLoginItems": "Since last login",
@@ -1492,14 +1492,14 @@
       "risk": "Risk Summary",
       "operational": "Operational Summary",
       "growth": "Growth Summary",
-      "companion": "Companion Recommendations"
+      "companion": "Aipify recommendations"
     },
     "premium": {
-      "eyebrow": "Executive workspace",
+      "eyebrow": "Leadership workspace",
       "description": "Your command overview after login — what changed, what needs attention, and what Aipify recommends next.",
       "viewSinceLastLogin": "View since last login",
       "refreshing": "Refreshing…",
-      "todaysOverview": "Today's Executive Overview",
+      "todaysOverview": "Today's leadership overview",
       "companionInsight": "Aipify insight",
       "needsAttention": "Needs Attention",
       "needsAttentionSubtitle": "Priority items that may require your review or decision.",
@@ -1507,35 +1507,35 @@
       "retry": "Try again",
       "openRecord": "Open",
       "emptySection": "Aipify is monitoring — nothing to display in this section right now.",
-      "recommendationCategory": "Executive recommendation",
+      "recommendationCategory": "Leadership recommendation",
       "context": {
         "organizationActive": "Organization active",
-        "executiveAccessVerified": "Executive access verified"
+        "executiveAccessVerified": "Leadership access verified"
       },
       "access": {
         "permissionMissing": {
-          "title": "Executive access required",
-          "description": "Your role does not include Executive Command Center access. Contact your workspace administrator."
+          "title": "Leadership access required",
+          "description": "Your role does not include Leadership Center access. Contact your workspace administrator."
         },
         "entitlementMissing": {
           "title": "Module not included",
-          "description": "Executive Command Center is not included in your current workspace entitlements."
+          "description": "Leadership Center is not included in your current workspace entitlements."
         },
         "planRequired": {
           "title": "Plan upgrade required",
-          "description": "Executive Command Center requires an active Business or Enterprise plan."
+          "description": "Leadership Center requires an active Business or Enterprise plan."
         },
         "organizationContextMissing": {
           "title": "Organization context required",
-          "description": "Select or activate your organization workspace before opening the Executive Command Center."
+          "description": "Select or activate your organization workspace before opening the Leadership Center."
         },
         "activationInProgress": {
           "title": "Workspace activation in progress",
-          "description": "Aipify is preparing your executive workspace. Check back shortly or return to your dashboard."
+          "description": "Aipify is preparing your leadership workspace. Check back shortly or return to your dashboard."
         },
         "generic": {
-          "title": "Executive Command Center unavailable",
-          "description": "Executive Command Center is not available for this organization right now."
+          "title": "Leadership Center unavailable",
+          "description": "Leadership Center is not available for this organization right now."
         }
       },
       "metrics": {
@@ -1637,7 +1637,15 @@
         "majorCustomerRisk": "Significant customer risk",
         "invoicePaid": "Invoice paid",
         "kompisWebsitePublish": "Publishing a website draft",
-        "kompisWebsiteRollback": "Rolling back a website version"
+        "kompisWebsiteRollback": "Rolling back a website version",
+        "contractExpiring": "Contract expiring",
+        "revenueAlerts": "Revenue alerts",
+        "newPartnerLeads": "New partner opportunities",
+        "riskDetected": "Risk detected",
+        "largeInvoiceOverdue": "Large overdue invoice",
+        "dailyExecutiveBriefing": "Daily leadership brief",
+        "annualSummary": "Annual summary",
+        "activitySummary": "Activity overview"
       },
       "recordDescriptions": {
         "completePendingExecutiveApprovalToday": "Complete the pending executive approval today.",
@@ -1902,6 +1910,22 @@
         "inProgress": "In progress",
         "completed": "Completed"
       }
+    },
+    "types": {
+      "approvalDelay": "Delayed approval",
+      "customerRisk": "Customer risk",
+      "invoiceOverdue": "Overdue invoice",
+      "contractExpiring": "Contract expiring",
+      "revenueAlert": "Revenue alert",
+      "partnerLead": "New partner opportunity",
+      "dailyExecutive": "Daily leadership brief",
+      "annual": "Annual summary",
+      "activitySummary": "Activity overview",
+      "websitePublish": "Website publishing",
+      "websitePreview": "Website preview",
+      "approval": "Approval",
+      "risk": "Risk",
+      "opportunity": "Opportunity"
     }
   },
   "unonightPilot621": {

@@ -1,0 +1,31 @@
+# Core APP Production Experience V2
+
+See task `AIPIFY.CORE.APP.PRODUCTION.EXPERIENCE.V2`.
+
+## Locked contracts
+
+1. **Wide desktop-first layout** — primary APP surfaces use ~1480–1600px max width (`AppPremiumShell`, `max-w-[1560px]`). No unnecessary narrow centered columns.
+2. **Authoritative customer data only** — Production customer UI may show A/B/C (authoritative, verified system signals, tenant-derived). Showcase/demo/fixture/stale rows must be filtered via `lib/app-production-experience/showcase-filter.ts` and related helpers.
+3. **No showcase/demo in ordinary customer Production** — never present Phase seed titles (`Contract Expiring`, `Daily Executive Briefing`, etc.) as live work.
+4. **No stale actionable states** — never show “critical approval delayed” when actionable approval count is 0 (`shouldShowApprovalDelayAlert`, `approval-parity.ts`).
+5. **Approval parity** — Dashboard, ECC, Approval Center, briefing, and Kompis must share the same actionable-approval definition (`isActionableApprovalRecord` / `countActionableApprovals`).
+6. **One attention model** — attention lists use shared ECC/Command Brief builders; actionable only, deduped, with destinations.
+7. **No mixed language** — locale-complete copy; Norwegian must not leak English product titles like “Executive Command Center” or “Companion-briefing”. Prefer Ledelsessenter / Aipify-briefing.
+8. **No raw enum/type/role/ISO in primary UI** — map via locale keys (`executiveCommandCenter.types`, status helpers, date formatters).
+9. **No raw UUID in primary UI** — shorten and fold under technical details (`shortenTechnicalId`, `<details>`).
+10. **Command Brief ≠ Companion briefing** — Command Brief is the leadership report; Companion/Aipify briefing is a short summary with a link to the full brief.
+11. **Kompis history must be meaningful** — never list generic “Kompis” alone; use request/tool/result titles (`history-presentation.ts` + enriched list RPC).
+12. **Website status authoritative** — do not show “publish not configured” when website/runtime/CMS chain is present.
+13. **Polished loading/empty/error** — AipifyLoader, localized empty/error, no English crash pages.
+14. **Responsive, dark mode, accessibility mandatory** on touched surfaces.
+15. **No functional approval/CMS/auth changes** without explicit approval — presentation and read-only query filters only.
+16. **No UnoNight hardcoding** — tenant-safe, global customer contracts only.
+17. **No browser/session/MFA handling** in this experience layer.
+
+## Code anchors
+
+- `lib/app-production-experience/`
+- `lib/command-center/ecc-tab-datasets.ts`
+- `lib/command-center/command-brief-attention.ts`
+- `lib/kompis-operator/history-presentation.ts`
+- `lib/design/app-premium-shell.ts`

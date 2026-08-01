@@ -10,12 +10,12 @@
     }
   },
   "companionBriefing": {
-    "companionBriefing": "Companion-briefing",
-    "loading": "Laster Companion-briefing…",
+    "companionBriefing": "Aipify-briefing",
+    "loading": "Laster Aipify-briefing…",
     "viewDetails": "Se detaljer",
     "aipifyNoticed": "Aipify la merke til",
     "companionNote": "Companion-merknad",
-    "privacy": "Companion-briefinger oppsummerer verifisert modulaktivitet — metadata, rolig tone, menneskelig kontroll."
+    "privacy": "Aipify-briefinger oppsummerer verifisert modulaktivitet — metadata, rolig tone, menneskelig kontroll."
   },
   "companionWorkforceEngine": {
     "title": "Companion Workforce Center",

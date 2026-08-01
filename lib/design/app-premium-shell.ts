@@ -2,9 +2,9 @@ import { AipifyShellClasses } from "@/lib/design/light-enterprise-theme";
 
 /** Shared APP premium surface tokens — Design Pilot 01 / Light Enterprise */
 export const AppPremiumShell = {
-  page: "mx-auto w-full max-w-[1440px] px-4 pb-10 pt-6 sm:px-6 lg:px-8",
+  page: "mx-auto w-full max-w-[1560px] px-4 pb-10 pt-6 sm:px-6 lg:px-8",
   /** Command Brief overview — full APP workspace width, sidebar-aligned padding only */
-  commandBriefPage: "w-full px-6 pb-8 pt-5 sm:px-8",
+  commandBriefPage: "mx-auto w-full max-w-[1560px] px-6 pb-8 pt-5 sm:px-8",
   commandBriefGrid: "grid grid-cols-12 gap-3 lg:gap-4 xl:gap-5",
   commandBriefSectionTitle: "text-base font-semibold tracking-tight text-aipify-text sm:text-[1.0625rem]",
   commandBriefBody: "text-base leading-relaxed text-aipify-text-secondary sm:text-lg sm:leading-7",

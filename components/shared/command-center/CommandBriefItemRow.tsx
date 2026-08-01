@@ -51,9 +51,12 @@ export function CommandBriefItemRow({
   const timestamp = formatItemTimestamp(item.timestamp, locale);
   const href = actionHref ?? item.href;
   const title = resolveCommandBriefRecordTitle(item.title, resolveLabel);
-  const sourceLabel = item.source
-    ? `${sourcePrefix}: ${resolveCommandBriefRecordTitle(item.source.replace(/_/g, " "), resolveLabel)}`
-    : undefined;
+  const typeLabel = item.itemTypeLabelKey ? resolveLabel(item.itemTypeLabelKey) : null;
+  const sourceLabel = typeLabel
+    ? `${sourcePrefix}: ${typeLabel}`
+    : item.source
+      ? `${sourcePrefix}: ${resolveCommandBriefRecordTitle(item.source.replace(/_/g, " "), resolveLabel)}`
+      : undefined;
 
   return (
     <CommandBriefPremiumRow
