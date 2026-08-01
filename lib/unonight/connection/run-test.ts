@@ -1,7 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { isUnonightAipifyTokenFormat } from "@/lib/unonight-platform/constants";
 import { UNONIGHT_ORGANIZATION_SLUG, UNONIGHT_PROVIDER_KEY } from "./constants";
-import { decryptIntegrationCredential } from "./crypto";
+import { decryptIntegrationCredentialSafe } from "./crypto";
 import { buildUnonightConnectionDiagnostics } from "./diagnostics";
 import type { UnonightConnectionDiagnostics } from "./types";
 import { getUnonightFailureMessageKey } from "./failures";
@@ -145,34 +145,37 @@ export async function runUnonightAppPortalConnectionTest(
     );
   }
 
-  let bearerToken: string;
-  try {
-    bearerToken = decryptIntegrationCredential(material.encrypted_payload);
-  } catch {
+  const decrypted = decryptIntegrationCredentialSafe(material.encrypted_payload);
+  if (!decrypted.ok) {
+    const failureCode =
+      decrypted.code === "SECRET_CIPHERTEXT_MISSING"
+        ? "credential_unavailable"
+        : "rotation_required";
     const diagnostics = buildUnonightConnectionDiagnostics({
       baseUrl,
-      credentialFound: true,
+      credentialFound: decrypted.code !== "SECRET_CIPHERTEXT_MISSING",
       tokenPrefixValid: false,
       authorizationAttached: false,
       schemaMatched: false,
-      safeResponseCode: "decrypt_failed",
+      safeResponseCode: decrypted.code.toLowerCase(),
     });
     const recorded = await recordAppPortalIntegrationTestResult(supabase, connectionId, {
       success: false,
-      error_code: "credential_unavailable",
-      customer_message_key: getUnonightFailureMessageKey("credential_unavailable"),
-      technical_reason: "Credential decrypt failed",
+      error_code: failureCode,
+      customer_message_key: getUnonightFailureMessageKey(failureCode),
+      technical_reason: decrypted.code,
     });
     return (
       (recorded as UnonightAppPortalTestResponse | null) ?? {
         success: false,
         status: "failed",
-        error_code: "credential_unavailable",
-        message_key: getUnonightFailureMessageKey("credential_unavailable"),
+        error_code: failureCode,
+        message_key: getUnonightFailureMessageKey(failureCode),
         diagnostics,
       }
     );
   }
+  const bearerToken = decrypted.plaintext;
 
   const tokenPrefixValid = isUnonightAipifyTokenFormat(bearerToken);
 

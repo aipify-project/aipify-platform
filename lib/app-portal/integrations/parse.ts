@@ -92,6 +92,10 @@ function parseConnection(raw: unknown): AppPortalIntegrationConnection {
     permission_level: asString(row.permission_level),
     approved_scopes: asStringArray(row.approved_scopes),
     masked_credential_hint: row.masked_credential_hint == null ? null : asString(row.masked_credential_hint),
+    credentials_reference:
+      row.credentials_reference == null ? null : asString(row.credentials_reference),
+    encryption_key_fingerprint:
+      row.encryption_key_fingerprint == null ? null : asString(row.encryption_key_fingerprint),
     last_test_success_at: row.last_test_success_at == null ? null : asString(row.last_test_success_at),
     last_test_failed_at: row.last_test_failed_at == null ? null : asString(row.last_test_failed_at),
     last_test_error: row.last_test_error == null ? null : asString(row.last_test_error),

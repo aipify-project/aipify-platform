@@ -8,6 +8,10 @@ const FAILURE_MESSAGE_KEYS: Record<UnonightConnectionFailureCode, string> = {
     "customerApp.portalStructure.integrations.unonightConnection.failures.expiredOrRevoked",
   credential_unavailable:
     "customerApp.portalStructure.integrations.unonightConnection.failures.credentialUnavailable",
+  rotation_required:
+    "customerApp.portalStructure.integrations.unonightConnection.failures.rotationRequired",
+  secret_decryption_failed:
+    "customerApp.portalStructure.integrations.unonightConnection.failures.rotationRequired",
   endpoint_unreachable:
     "customerApp.portalStructure.integrations.unonightConnection.failures.unreachable",
   unexpected_http_status:
@@ -71,6 +75,8 @@ export function getUnonightFailureErrorPanelKey(
     invalid_token: "invalidToken",
     revoked_token: "revokedToken",
     credential_unavailable: "credentialUnavailable",
+    rotation_required: "rotationRequired",
+    secret_decryption_failed: "rotationRequired",
     endpoint_unreachable: "unreachable",
     unexpected_http_status: "unexpectedHttpStatus",
     organization_mismatch: "organizationMismatch",
@@ -88,6 +94,7 @@ export function listUnonightFailureTranslationKeys(): string[] {
     "invalidToken",
     "revokedToken",
     "credentialUnavailable",
+    "rotationRequired",
     "unreachable",
     "unexpectedHttpStatus",
     "organizationMismatch",

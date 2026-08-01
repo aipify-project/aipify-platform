@@ -221,6 +221,7 @@ export function buildAppPortalIntegrationsLabels(t: Translator): AppPortalIntegr
         removed: t(`${st}.removed`),
         notConfigured: t(`${st}.notConfigured`),
         awaitingVerification: t(`${st}.awaitingVerification`),
+        rotationRequired: t(`${st}.rotationRequired`),
       },
       authHelp: {
         sectionTitles: Object.fromEntries(
