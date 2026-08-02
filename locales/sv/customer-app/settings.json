@@ -366,6 +366,54 @@
       "deniedTitle": "Åtkomst till inställningar är begränsad",
       "deniedBody": "Organisationsinställningar är tillgängliga för arbetsyteägare och administratörer.",
       "backToApp": "Tillbaka till arbetsytan"
+    },
+    "operativeTitle": "Inställningar",
+    "operativeSubtitle": "Hantera säkerhet, fakturering, integrationer och utvecklaråtkomst för organisationen.",
+    "operativeCategories": {
+      "accountSecurity": {
+        "title": "Säkerhet",
+        "description": "Inloggningsverifiering och säkerhetskontroller för organisationen.",
+        "links": {
+          "signInVerification": {
+            "href": "/app/settings/two-factor",
+            "label": "Inloggningsverifiering"
+          },
+          "security": {
+            "href": "/app/settings/security",
+            "label": "Säkerhetsöversikt"
+          }
+        }
+      },
+      "billingSubscription": {
+        "title": "Fakturering",
+        "description": "Granska prenumeration och kommersiell status.",
+        "links": {
+          "billing": {
+            "href": "/app/settings/billing",
+            "label": "Prenumeration och fakturering"
+          }
+        }
+      },
+      "integrations": {
+        "title": "Integrationer",
+        "description": "Anslutna system som organisationen använder.",
+        "links": {
+          "connectedApps": {
+            "href": "/app/platform/integrations/connected",
+            "label": "Anslutna appar"
+          }
+        }
+      },
+      "developerAccess": {
+        "title": "Utvecklare",
+        "description": "Installationstokens och utvecklar diagnostik för arbetsytan.",
+        "links": {
+          "developer": {
+            "href": "/app/settings/developer",
+            "label": "Utvecklarinställningar"
+          }
+        }
+      }
     }
   },
   "governance": {

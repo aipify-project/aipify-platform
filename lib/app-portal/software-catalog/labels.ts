@@ -8,6 +8,7 @@ export type SoftwareCatalogLabels = {
   subtitle: string;
   loading: string;
   empty: string;
+  emptyBusinessPacks: string;
   error: string;
   retry: string;
   partialNotice: string;
@@ -34,6 +35,7 @@ export function buildSoftwareCatalogLabels(t: Translator): SoftwareCatalogLabels
     subtitle: t(`${NS}.subtitle`),
     loading: t(`${NS}.loading`),
     empty: t(`${NS}.empty`),
+    emptyBusinessPacks: t(`${NS}.emptyBusinessPacks`),
     error: t(`${NS}.error`),
     retry: t(`${NS}.retry`),
     partialNotice: t(`${NS}.partialNotice`),

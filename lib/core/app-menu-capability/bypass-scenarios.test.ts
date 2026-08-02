@@ -128,7 +128,7 @@ describe("bypass scenario 03 — dynamic active without entitlement hidden", () 
     assert.equal(isCapabilityAllowed(bundle, "installedBusinessPacks"), false);
     assert.equal(
       bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks")?.state,
-      "available"
+      "foundation"
     );
 
     const dynamic = dynamicCandidates([
@@ -192,7 +192,7 @@ describe("bypass scenario 05 — pending not in nav", () => {
       })
     );
     const installed = bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks");
-    assert.equal(installed?.state, "pending");
+    assert.equal(installed?.state, "foundation");
     assert.equal(installed?.visibleInNavigation, false);
     assert.equal(installed?.usable, false);
     assert.equal(isCapabilityAllowed(bundle, "installedBusinessPacks"), false);
@@ -208,7 +208,7 @@ describe("bypass scenario 06 — available not in nav", () => {
       })
     );
     const installed = bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks");
-    assert.equal(installed?.state, "available");
+    assert.equal(installed?.state, "foundation");
     assert.equal(installed?.visibleInNavigation, false);
     assert.equal(isCapabilityAllowed(bundle, "softwareCatalog"), true);
     assert.equal(isCapabilityAllowed(bundle, "installedBusinessPacks"), false);
@@ -223,7 +223,9 @@ describe("bypass scenario 07 — revoked removed after fresh bundle", () => {
         activePackKeys: new Set(["aipify_hosts"]),
       })
     );
-    assert.equal(isCapabilityAllowed(active, "installedBusinessPacks"), true);
+    // Unfinished installed-packs shell stays foundation-hidden even when packs are active.
+    assert.equal(isCapabilityAllowed(active, "installedBusinessPacks"), false);
+    assert.equal(isCapabilityAllowed(active, "softwareCatalog"), true);
 
     const revoked = resolveAppMenuCapabilityBundle(
       ctx({
@@ -234,7 +236,7 @@ describe("bypass scenario 07 — revoked removed after fresh bundle", () => {
     );
     assert.equal(
       revoked.capabilities.find((c) => c.capabilityId === "installedBusinessPacks")?.state,
-      "revoked"
+      "foundation"
     );
     assert.equal(isCapabilityAllowed(revoked, "installedBusinessPacks"), false);
     assert.equal(
@@ -256,7 +258,7 @@ describe("bypass scenario 08 — suspended pack not operative nav", () => {
       })
     );
     const installed = bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks");
-    assert.equal(installed?.state, "revoked");
+    assert.equal(installed?.state, "foundation");
     assert.equal(installed?.visibleInNavigation, false);
     assert.equal(installed?.usable, false);
     const presented = presentAppNavFromCapabilities(bundle, t);
@@ -311,8 +313,10 @@ describe("bypass scenario 10 — organization switch cache isolation", () => {
     );
     assert.equal(orgA.organizationId, "org-a");
     assert.equal(orgB.organizationId, "org-b");
-    assert.equal(isCapabilityAllowed(orgA, "installedBusinessPacks"), true);
+    assert.equal(isCapabilityAllowed(orgA, "installedBusinessPacks"), false);
     assert.equal(isCapabilityAllowed(orgB, "installedBusinessPacks"), false);
+    assert.equal(isCapabilityAllowed(orgA, "softwareCatalog"), true);
+    assert.notEqual(orgA.organizationId, orgB.organizationId);
     const presentedB = presentAppNavFromCapabilities(orgB, t);
     assert.equal(presentedB.navConfig.some((i) => i.id === "installedBusinessPacks"), false);
   });

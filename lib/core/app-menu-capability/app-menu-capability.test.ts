@@ -56,6 +56,9 @@ describe("core app menu capability contract", () => {
       "apiAccess",
       "profile",
       "upgradeOptions",
+      "installedBusinessPacks",
+      "availableBusinessPacks",
+      "businessPackSettings",
     ]) {
       const cap = bundle.capabilities.find((item) => item.capabilityId === id);
       assert.ok(cap, id);
@@ -68,7 +71,7 @@ describe("core app menu capability contract", () => {
     }
   });
 
-  it("marks unavailable feature entitlement as catalog-only available", () => {
+  it("keeps software catalog while unfinished pack shells stay foundation-hidden", () => {
     const bundle = resolveAppMenuCapabilityBundle(
       emptyCtx({
         featureEnabled: new Map([["business_packs", false], ["billing", true]]),
@@ -77,10 +80,11 @@ describe("core app menu capability contract", () => {
     const installed = bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks");
     assert.equal(installed?.visibleInNavigation, false);
     assert.equal(installed?.usable, false);
-    assert.equal(installed?.state, "available");
-    // Catalog entry remains navigable; installed pack nav does not.
+    assert.equal(installed?.state, "foundation");
     assert.equal(isCapabilityAllowed(bundle, "softwareCatalog"), true);
     assert.equal(isCapabilityAllowed(bundle, "installedBusinessPacks"), false);
+    assert.equal(isCapabilityAllowed(bundle, "availableBusinessPacks"), false);
+    assert.equal(isCapabilityAllowed(bundle, "businessPackSettings"), false);
   });
 
   it("keeps pending packs out of navigation", () => {
@@ -92,7 +96,7 @@ describe("core app menu capability contract", () => {
       })
     );
     const installed = bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks");
-    assert.equal(installed?.state, "pending");
+    assert.equal(installed?.state, "foundation");
     assert.equal(installed?.visibleInNavigation, false);
   });
 
@@ -105,7 +109,8 @@ describe("core app menu capability contract", () => {
       })
     );
     const installed = bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks");
-    assert.equal(installed?.state, "revoked");
+    // Foundation readiness wins — unfinished shells stay hidden even when revoked.
+    assert.equal(installed?.state, "foundation");
     assert.equal(installed?.visibleInNavigation, false);
   });
 
@@ -223,15 +228,16 @@ describe("core app menu capability contract", () => {
     assert.equal(isCapabilityAllowed(bundle, "totallyUnknownCapability"), false);
   });
 
-  it("active pack entitlement surfaces installed packs nav", () => {
+  it("active pack entitlement cannot reintroduce unfinished installed packs nav", () => {
     const bundle = resolveAppMenuCapabilityBundle(
       emptyCtx({
         featureEnabled: new Map([["business_packs", true]]),
         activePackKeys: new Set(["aipify_hosts"]),
       })
     );
-    assert.equal(isCapabilityAllowed(bundle, "installedBusinessPacks"), true);
+    assert.equal(isCapabilityAllowed(bundle, "installedBusinessPacks"), false);
     const installed = bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks");
-    assert.equal(installed?.state, "active");
+    assert.equal(installed?.state, "foundation");
+    assert.equal(isCapabilityAllowed(bundle, "softwareCatalog"), true);
   });
 });

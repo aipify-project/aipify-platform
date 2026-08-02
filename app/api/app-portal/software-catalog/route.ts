@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
+import { buildSoftwareCatalogLocalizers } from "@/lib/app-portal/software-catalog/localize";
 import { loadSoftwareCatalog } from "@/lib/app-portal/software-catalog";
+import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +18,9 @@ export async function GET() {
   }
 
   try {
-    const catalog = await loadSoftwareCatalog(supabase);
+    const locale = await getLocale();
+    const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure"]);
+    const catalog = await loadSoftwareCatalog(supabase, buildSoftwareCatalogLocalizers(dict));
     return NextResponse.json(catalog);
   } catch (error) {
     const message = error instanceof Error ? error.message.slice(0, 160) : "catalog_unavailable";
