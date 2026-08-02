@@ -106,7 +106,8 @@
       "connectedApps": "Connected Apps",
       "dataSources": "Data Sources",
       "apiDeveloperSettings": "API & Developer Settings",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "kompisCustomerWorkspace": "Kompis workspace"
     },
     "dashboard": {
       "title": "APP Dashboard",
@@ -8403,6 +8404,29 @@
         "continueLater": "Continue later",
         "minimize": "Minimize",
         "expand": "Expand"
+      },
+      "runtime": {
+        "readAction": "Review access status",
+        "draftAction": "Create draft",
+        "confirmPrefAction": "Propose preference change",
+        "draftTitle": "Workspace draft",
+        "draftBody": "This is a customer-editable draft. It has not been executed.",
+        "resultTitle": "Result",
+        "receiptOk": "Action completed with receipt.",
+        "contextSummary": "Authenticated Kompis workspace for your organization."
+      },
+      "admin": {
+        "title": "Kompis workspace controls",
+        "enable": "Enable Kompis for this workspace",
+        "disable": "Disable Kompis for this workspace",
+        "hiddenForMembers": "Admin controls are available to owners and administrators only."
+      },
+      "tools": {
+        "getMyAccessStatus": "Review my access status",
+        "createDraft": "Create a draft",
+        "updatePreference": "Update a preference",
+        "searchKnowledge": "Search approved knowledge",
+        "getCurrentPageHelp": "Get help for this page"
       }
     }
   }

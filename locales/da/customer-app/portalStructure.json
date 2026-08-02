@@ -106,7 +106,8 @@
       "connectedApps": "Tilknyttede apps",
       "dataSources": "Datakilder",
       "apiDeveloperSettings": "API og udviklerindstillinger",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "kompisCustomerWorkspace": "Kompis-arbejdsområde"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -8479,6 +8480,29 @@
         "continueLater": "Fortsæt senere",
         "minimize": "Minimer",
         "expand": "Udvid"
+      },
+      "runtime": {
+        "readAction": "Se adgangsstatus",
+        "draftAction": "Opret kladde",
+        "confirmPrefAction": "Foreslå præferenceændring",
+        "draftTitle": "Arbejdsområdekladde",
+        "draftBody": "Dette er en redigerbar kladde. Den er ikke udført.",
+        "resultTitle": "Resultat",
+        "receiptOk": "Handlingen er fuldført med kvittering.",
+        "contextSummary": "Godkendt Kompis-arbejdsområde for din organisation."
+      },
+      "admin": {
+        "title": "Kompis-kontroller for arbejdsområdet",
+        "enable": "Aktiver Kompis for dette arbejdsområde",
+        "disable": "Deaktiver Kompis for dette arbejdsområde",
+        "hiddenForMembers": "Administratorkontroller er kun synlige for ejere og administratorer."
+      },
+      "tools": {
+        "getMyAccessStatus": "Se min adgangsstatus",
+        "createDraft": "Opret en kladde",
+        "updatePreference": "Opdater en præference",
+        "searchKnowledge": "Søg i godkendt viden",
+        "getCurrentPageHelp": "Få hjælp til denne side"
       }
     }
   }

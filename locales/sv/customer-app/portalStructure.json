@@ -106,7 +106,8 @@
       "connectedApps": "Anslutna appar",
       "dataSources": "Datakällor",
       "apiDeveloperSettings": "API och utvecklarinställningar",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "kompisCustomerWorkspace": "Kompis-arbetsyta"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -8479,6 +8480,29 @@
         "continueLater": "Fortsätt senare",
         "minimize": "Minimera",
         "expand": "Expandera"
+      },
+      "runtime": {
+        "readAction": "Granska åtkomststatus",
+        "draftAction": "Skapa utkast",
+        "confirmPrefAction": "Föreslå preferensändring",
+        "draftTitle": "Arbetsyteutkast",
+        "draftBody": "Detta är ett redigerbart utkast. Det har inte utförts.",
+        "resultTitle": "Resultat",
+        "receiptOk": "Åtgärden slutfördes med kvitto.",
+        "contextSummary": "Autentiserad Kompis-arbetsyta för din organisation."
+      },
+      "admin": {
+        "title": "Kompis-kontroller för arbetsytan",
+        "enable": "Aktivera Kompis för denna arbetsyta",
+        "disable": "Inaktivera Kompis för denna arbetsyta",
+        "hiddenForMembers": "Administratörskontroller visas endast för ägare och administratörer."
+      },
+      "tools": {
+        "getMyAccessStatus": "Granska min åtkomststatus",
+        "createDraft": "Skapa ett utkast",
+        "updatePreference": "Uppdatera en preferens",
+        "searchKnowledge": "Sök godkänd kunskap",
+        "getCurrentPageHelp": "Få hjälp för den här sidan"
       }
     }
   }

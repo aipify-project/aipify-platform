@@ -106,7 +106,8 @@
       "connectedApps": "Tilkoblede apper",
       "dataSources": "Datakilder",
       "apiDeveloperSettings": "API og utviklerinnstillinger",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "kompisCustomerWorkspace": "Kompis-arbeidsområde"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -8480,6 +8481,29 @@
         "continueLater": "Fortsett senere",
         "minimize": "Minimer",
         "expand": "Utvid"
+      },
+      "runtime": {
+        "readAction": "Se tilgangsstatus",
+        "draftAction": "Opprett utkast",
+        "confirmPrefAction": "Foreslå preferanseendring",
+        "draftTitle": "Arbeidsområdeutkast",
+        "draftBody": "Dette er et redigerbart utkast. Det er ikke utført.",
+        "resultTitle": "Resultat",
+        "receiptOk": "Handlingen er fullført med kvittering.",
+        "contextSummary": "Autentisert Kompis-arbeidsområde for organisasjonen din."
+      },
+      "admin": {
+        "title": "Kompis-kontroller for arbeidsområdet",
+        "enable": "Aktiver Kompis for dette arbeidsområdet",
+        "disable": "Deaktiver Kompis for dette arbeidsområdet",
+        "hiddenForMembers": "Administratorkontroller er kun tilgjengelige for eiere og administratorer."
+      },
+      "tools": {
+        "getMyAccessStatus": "Se tilgangsstatusen min",
+        "createDraft": "Opprett et utkast",
+        "updatePreference": "Oppdater en preferanse",
+        "searchKnowledge": "Søk i godkjent kunnskap",
+        "getCurrentPageHelp": "Få hjelp for denne siden"
       }
     }
   }

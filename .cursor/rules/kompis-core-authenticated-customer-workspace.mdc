@@ -13,22 +13,29 @@ Task: `AIPIFY.KOMPIS.CORE.AUTHENTICATED.CUSTOMER.WORKSPACE.V1`
 - Core owns `kompis_customer_workspace_contract` and permission evaluation.
 - Customer explicitly activates public/authenticated access, tools, knowledge, and confirmation policies.
 - Fail-closed by default — no implicit tool access, no auto-activation.
+- Authenticated Kompis uses the same Core contract as the public surface (separate sessions, one contract).
 
 ## Session & public runtime
 
 - Public and authenticated sessions are separated; handoff requires server rebind.
 - Anonymous claims never upgrade to authenticated claims.
+- Public-auth handoff must revalidate organization, permission, and context after login.
 - Verified public Website Kompis runtime remains protected — do not change ask/embed pipelines incompatibly.
 - On logout, authenticated tools are removed immediately.
 
 ## Tools & security
 
-- No direct database access from Kompis tools.
+- Read / draft / action are distinct capability classes.
+- Draft never auto-executes.
+- Privileged action requires server-validated confirmation (stale confirmations rejected).
+- No direct database access from Kompis tools — allowlisted server adapters only.
 - No tool without contract allowlist.
 - No write without confirmation policy; Kompis never confirms for the user.
 - No more access than the current authenticated user.
+- Tenant-bound context only — no cross-tenant knowledge or handoff.
 - Private messages disabled by default.
 - Audit permission changes, tool invocations, and confirmations.
+- Fixture-only proof is insufficient for Production Ready.
 
 ## Locale
 

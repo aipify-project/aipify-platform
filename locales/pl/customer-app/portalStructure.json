@@ -256,7 +256,8 @@
       "connectedApps": "Połączone aplikacje",
       "dataSources": "Źródła danych",
       "apiDeveloperSettings": "API i ustawienia deweloperskie",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "kompisCustomerWorkspace": "Przestrzeń Kompis"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7416,6 +7417,29 @@
         "continueLater": "Kontynuuj później",
         "minimize": "Minimalizuj",
         "expand": "Rozwiń"
+      },
+      "runtime": {
+        "readAction": "Sprawdź status dostępu",
+        "draftAction": "Utwórz szkic",
+        "confirmPrefAction": "Zaproponuj zmianę preferencji",
+        "draftTitle": "Szkic przestrzeni roboczej",
+        "draftBody": "To edytowalny szkic. Nie został wykonany.",
+        "resultTitle": "Wynik",
+        "receiptOk": "Działanie zakończone z potwierdzeniem.",
+        "contextSummary": "Uwierzytelniona przestrzeń Kompis dla Twojej organizacji."
+      },
+      "admin": {
+        "title": "Kontrolki Kompis przestrzeni roboczej",
+        "enable": "Włącz Kompis dla tej przestrzeni",
+        "disable": "Wyłącz Kompis dla tej przestrzeni",
+        "hiddenForMembers": "Kontrolki administratora są dostępne tylko dla właścicieli i administratorów."
+      },
+      "tools": {
+        "getMyAccessStatus": "Sprawdź mój status dostępu",
+        "createDraft": "Utwórz szkic",
+        "updatePreference": "Zaktualizuj preferencję",
+        "searchKnowledge": "Przeszukaj zatwierdzoną wiedzę",
+        "getCurrentPageHelp": "Uzyskaj pomoc dla tej strony"
       }
     }
   }

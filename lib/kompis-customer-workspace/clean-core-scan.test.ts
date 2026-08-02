@@ -8,7 +8,7 @@ const UI = join(process.cwd(), "components/app/kompis-customer-workspace");
 const API = join(process.cwd(), "app/api/kompis-customer-workspace");
 const MIGRATION = join(
   process.cwd(),
-  "supabase/migrations/20261937200000_kompis_authenticated_customer_workspace_v1.sql"
+  "supabase/migrations/20261937500000_kompis_authenticated_customer_workspace_v1.sql"
 );
 
 function walk(dir: string): string[] {
@@ -63,7 +63,7 @@ try {
   });
   const scoped = diff
     .split("\n")
-    .filter((p) => p.includes("kompis-customer-workspace") || p.includes("202619372"));
+    .filter((p) => p.includes("kompis-customer-workspace") || p.includes("202619375"));
   for (const path of scoped) {
     if (!path) continue;
     try {

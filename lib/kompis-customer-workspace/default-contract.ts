@@ -1,5 +1,42 @@
 import { KOMPIS_CUSTOMER_WORKSPACE_CONTRACT_VERSION } from "./parse";
-import type { KompisCustomerWorkspaceContract } from "./types";
+import type { KompisCustomerWorkspaceContract, KompisWorkspaceToolPermission } from "./types";
+
+/** Minimum authenticated runtime tools used by the Customer APP closeout surface. */
+export const KOMPIS_WORKSPACE_MINIMUM_RUNTIME_TOOLS: KompisWorkspaceToolPermission[] = [
+  {
+    tool_key: "get_my_access_status",
+    enabled: true,
+    kind: "read",
+    confirmation_level: "none",
+    roles: [],
+    access_tiers: [],
+    modules: [],
+    routes: [],
+    risk_classification: "low",
+  },
+  {
+    tool_key: "create_draft",
+    enabled: true,
+    kind: "draft",
+    confirmation_level: "lightweight",
+    roles: [],
+    access_tiers: [],
+    modules: [],
+    routes: [],
+    risk_classification: "moderate",
+  },
+  {
+    tool_key: "update_preference",
+    enabled: true,
+    kind: "write",
+    confirmation_level: "explicit",
+    roles: [],
+    access_tiers: [],
+    modules: [],
+    routes: [],
+    risk_classification: "moderate",
+  },
+];
 
 /** Fail-closed published contract template for reference tenants. */
 export function buildDefaultKompisCustomerWorkspaceContract(
@@ -24,9 +61,27 @@ export function buildDefaultKompisCustomerWorkspaceContract(
     public_enabled: opts?.public_enabled ?? false,
     authenticated_enabled: opts?.authenticated_enabled ?? false,
     allowed_surfaces: ["public_website", "authenticated_portal", "member_area"],
-    allowed_routes: ["/portal", "/portal/*", "/member", "/member/*"],
-    denied_routes: ["/admin", "/admin/*", "/moderation", "/moderation/*"],
-    allowed_roles: ["member", "customer_user", "customer_admin"],
+    allowed_routes: [
+      "/app",
+      "/app/*",
+      "/app/kompis-workspace",
+      "/portal",
+      "/portal/*",
+      "/member",
+      "/member/*",
+    ],
+    denied_routes: ["/admin", "/admin/*", "/moderation", "/moderation/*", "/platform", "/platform/*"],
+    allowed_roles: [
+      "member",
+      "customer_user",
+      "customer_admin",
+      "owner",
+      "admin",
+      "organization_owner",
+      "organization_admin",
+      "support",
+      "staff",
+    ],
     denied_roles: ["anonymous"],
     allowed_access_tiers: ["basic", "standard", "premium"],
     allowed_user_groups: [],
@@ -58,7 +113,7 @@ export function buildDefaultKompisCustomerWorkspaceContract(
         risk_classification: "moderate",
       },
     ],
-    tool_permissions: opts?.tool_permissions ?? [],
+    tool_permissions: opts?.tool_permissions ?? KOMPIS_WORKSPACE_MINIMUM_RUNTIME_TOOLS,
     action_confirmation_policies: {},
     context_fields: [
       "route",
