@@ -7168,7 +7168,8 @@
           "aipify": "Oczekiwanie na Aipify",
           "aipifyGuided": "Oczekiwanie na wskazówki od Aipify",
           "customerIt": "Oczekiwanie na dostawcę IT",
-          "partner": "Oczekiwanie na partnera Aipify"
+          "partner": "Oczekiwanie na partnera Aipify",
+          "unknown": "Oczekiwanie na odpowiedzialną stronę"
         },
         "blocked": "Konfiguracja jest zablokowana do rozwiązania problemu",
         "error": "Wystąpił nieoczekiwany problem. Spróbuj ponownie lub poproś Aipify o pomoc.",

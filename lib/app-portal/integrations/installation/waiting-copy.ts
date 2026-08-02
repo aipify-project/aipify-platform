@@ -42,3 +42,39 @@ export function resolveInstallationWaitingCopyParty(opts: {
 
   return "unknown";
 }
+
+const RAW_KEY_PREFIX = "customerApp.";
+
+/** True when a translator returned an unresolved i18n key (or empty). */
+export function isUnresolvedInstallationI18nValue(value: string, key: string): boolean {
+  const trimmed = value.trim();
+  if (!trimmed) return true;
+  if (trimmed === key) return true;
+  if (trimmed.startsWith(RAW_KEY_PREFIX)) return true;
+  return false;
+}
+
+/**
+ * Resolve waiting-card copy for a responsible party.
+ * Order: party key → generic waiting key → English customer-safe last resort.
+ * Never returns a raw i18n key.
+ */
+export function resolveInstallationWaitingCopyText(opts: {
+  translate: (key: string) => string;
+  partyKey: string;
+  waitingKey: string;
+  /** English customer-safe last resort when catalog/dictionary both miss. */
+  englishGenericFallback?: string;
+}): string {
+  const englishGeneric =
+    opts.englishGenericFallback?.trim() || "Waiting on the responsible party";
+  const primary = opts.translate(opts.partyKey);
+  if (!isUnresolvedInstallationI18nValue(primary, opts.partyKey)) {
+    return primary.trim();
+  }
+  const waiting = opts.translate(opts.waitingKey);
+  if (!isUnresolvedInstallationI18nValue(waiting, opts.waitingKey)) {
+    return waiting.trim();
+  }
+  return englishGeneric;
+}
