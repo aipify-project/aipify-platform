@@ -81,13 +81,15 @@ export function buildNavSearchFromDynamicNavigation(
   return entries;
 }
 
+/**
+ * @deprecated Customer APP menu is Core capability–authoritative.
+ * Dynamic navigation must never replace portal presentation after Core filter.
+ * Always returns Core/presentation fallback — dynamic payloads cannot append items.
+ */
 export function mergeDynamicWithFallbackNav(
-  dynamic: { navGroups: AppNavGroupConfig[]; navConfig: AppNavLink[] },
+  _dynamic: { navGroups: AppNavGroupConfig[]; navConfig: AppNavLink[] },
   fallbackGroups: AppNavGroupConfig[],
   fallbackConfig: AppNavLink[],
 ): { navGroups: AppNavGroupConfig[]; navConfig: AppNavLink[] } {
-  if (dynamic.navConfig.length === 0) {
-    return { navGroups: fallbackGroups, navConfig: fallbackConfig };
-  }
-  return dynamic;
+  return { navGroups: fallbackGroups, navConfig: fallbackConfig };
 }

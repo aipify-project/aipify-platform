@@ -77,7 +77,7 @@ export const PURCHASE_ACTIVATION_CHAIN: readonly PurchaseChainStep[] = [
     id: "menu_refresh",
     layer: "nav",
     description: "Canonical nav filtered by readiness + feature + permission + pack gates",
-    path: "filterNavGroupsByAccess · resolveCanonicalNavVisibility",
+    path: "loadAppMenuCapabilityBundle · presentAppNavFromCapabilities",
     status: "partial",
   },
   {

@@ -1,3 +1,8 @@
+/**
+ * @deprecated Customer APP layout uses Core `loadAppMenuCapabilityBundle` +
+ * `presentAppNavFromCapabilities`. Do not use this helper to rebuild the main menu —
+ * it is not the authoritative path and must not reintroduce dynamic/mega-nav items.
+ */
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { AppNavGroupConfig } from "@/lib/app/build-nav";
 import {
