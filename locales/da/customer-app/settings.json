@@ -1028,22 +1028,25 @@
     "billing": {
       "title": "Fakturering og pakker",
       "subtitle": "Din pakke, forbrug, opgraderinger og tilføjelser — betal kun for det, du har brug for.",
-      "loading": "Indlæser fakturering…",
+      "loading": "Forbereder indhold",
       "back": "Tilbage til indstillinger",
       "viewLicense": "Licensscenter",
       "viewModules": "Modulstyring",
-      "viewCommercial": "Commercial model portal",
+      "viewCommercial": "Kommerciel oversigt",
       "empty": "Intet at vise endnu.",
       "sections": {
         "package": "Aktuel pakke",
-        "modules": "Aktiverede moduler",
-        "usage": "Forbrug denne måned",
-        "limits": "Lejergrenser",
+        "modules": "Licenserede moduler",
+        "usage": "Brug i perioden",
+        "limits": "Inkluderet kapacitet",
         "upgrades": "Opgraderingsmuligheder",
-        "addons": "Tilføjselsmarked",
-        "recommendations": "Opgraderingsanbefalinger",
+        "addons": "Tilvalg",
+        "recommendations": "Anbefalinger",
         "history": "Faktureringshistorik",
-        "suites": "Produktpakker"
+        "suites": "Produktpakker",
+        "locked": "Funktioner, der ikke er inkluderet",
+        "nextStep": "Anbefalet næste trin",
+        "support": "Hjælp til fakturering"
       },
       "usage": {
         "supportCases": "Supportsager",
@@ -1064,8 +1067,42 @@
         "trial": "Prøveperiode",
         "cancelled": "Annulleret",
         "lifetime": "Livstid",
-        "past_due": "Forfalden"
-      }
+        "past_due": "Forfalden",
+        "unknown": "Status utilgængelig"
+      },
+      "retry": "Prøv igen",
+      "loadError": "Faktureringsoplysningerne kunne ikke indlæses. Prøv igen.",
+      "emptyLocked": "Ingen yderligere pakker eller funktioner er listet for din organisation lige nu.",
+      "emptyPackage": "Ingen aktiv pakke er tilgængelig for denne organisation.",
+      "unavailable": "Ikke tilgængelig",
+      "unlimited": "Ubegrænset",
+      "usedOfMax": "{used} af {max}",
+      "privacyNote": "Denne side viser pakke- og brugsoversigter for din organisation. Kortoplysninger ligger hos betalingsudbyderen.",
+      "eyebrow": "Fakturering",
+      "limits": {
+        "users": "Brugere",
+        "installations": "Installationer",
+        "domains": "Domæner",
+        "used": "Brugt",
+        "included": "Inkluderet"
+      },
+      "locked": {
+        "upgradeReason": "Ikke inkluderet i din aktuelle pakke.",
+        "addonReason": "Tilgængelig som valgfrit tilvalg.",
+        "recommendationReason": "Foreslået ud fra din aktuelle pakke og brug.",
+        "viewPackagesCta": "Se pakker"
+      },
+      "nextStep": {
+        "viewPackages": "Gennemgå pakker og adgangsmuligheder for at finde det, der passer til organisationen.",
+        "reviewUsage": "Sammenlign brug med inkluderet kapacitet, og vurder om pakken stadig passer.",
+        "none": "Pakke og brug ser stabile ud. Ingen ændring er nødvendig lige nu."
+      },
+      "support": {
+        "body": "Har du brug for hjælp til fakturaer eller pakkeadgang? Åbn fakturadetaljer eller pakker.",
+        "invoiceDetails": "Åbn fakturadetaljer"
+      },
+      "nextBillingDate": "Næste faktureringsdato",
+      "statusColumn": "Status"
     },
     "pricingPhilosophy": {
       "title": "Prissætningsfilosofi",

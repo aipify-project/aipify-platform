@@ -575,22 +575,25 @@
     "billing": {
       "title": "Billing & packages",
       "subtitle": "Your current package, usage, upgrades, and add-ons — pay only for what you need.",
-      "loading": "Preparing billing center overview…",
+      "loading": "Preparing content",
       "back": "Back to settings",
       "viewLicense": "License center",
       "viewModules": "Module management",
-      "viewCommercial": "Commercial model portal",
+      "viewCommercial": "Commercial overview",
       "empty": "Nothing to show yet.",
       "sections": {
         "package": "Current package",
-        "modules": "Enabled modules",
-        "usage": "Usage this month",
-        "limits": "Tenant limits",
+        "modules": "Licensed modules",
+        "usage": "Usage this period",
+        "limits": "Included capacity",
         "upgrades": "Upgrade options",
-        "addons": "Add-on marketplace",
-        "recommendations": "Upgrade recommendations",
+        "addons": "Add-ons",
+        "recommendations": "Recommendations",
         "history": "Billing history",
-        "suites": "Product suites"
+        "suites": "Product suites",
+        "locked": "Capabilities not included",
+        "nextStep": "Recommended next step",
+        "support": "Help with billing"
       },
       "usage": {
         "supportCases": "Support cases",
@@ -611,8 +614,42 @@
         "trial": "Trial",
         "cancelled": "Cancelled",
         "lifetime": "Lifetime",
-        "past_due": "Past due"
-      }
+        "past_due": "Past due",
+        "unknown": "Status unavailable"
+      },
+      "retry": "Try again",
+      "loadError": "Billing details could not be loaded. Please try again.",
+      "emptyLocked": "No additional packages or capabilities are listed for your organization right now.",
+      "emptyPackage": "No active package is available for this organization.",
+      "unavailable": "Not available",
+      "unlimited": "Unlimited",
+      "usedOfMax": "{used} of {max}",
+      "privacyNote": "This page shows package and usage summaries for your organization. Payment card details stay with your payment provider.",
+      "eyebrow": "Billing",
+      "limits": {
+        "users": "Users",
+        "installations": "Installations",
+        "domains": "Domains",
+        "used": "Used",
+        "included": "Included"
+      },
+      "locked": {
+        "upgradeReason": "Not included in your current package.",
+        "addonReason": "Available as an optional add-on.",
+        "recommendationReason": "Suggested based on your current package and usage.",
+        "viewPackagesCta": "Review packages"
+      },
+      "nextStep": {
+        "viewPackages": "Review packages and access options to see what fits your organization.",
+        "reviewUsage": "Review usage against your included capacity, then decide if your package still fits.",
+        "none": "Your package and usage look settled. No change is required right now."
+      },
+      "support": {
+        "body": "Need help with invoices or package access? Open invoice details or packages.",
+        "invoiceDetails": "Open invoice details"
+      },
+      "nextBillingDate": "Next billing date",
+      "statusColumn": "Status"
     },
     "pricingPhilosophy": {
       "title": "Pricing philosophy",

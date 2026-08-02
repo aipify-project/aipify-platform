@@ -681,7 +681,10 @@
       "userRoleDeniedContext": "Ваша роль не включає доступ до {dataType}. Організаційне схвалення доступу постачальника не змінює ваші особисті права.",
       "providerContext": "Запит стосується {provider}.",
       "panelNote": "Тут ви можете надсилати запити на доступ. Затвердження потребує власника організації або уповноваженого адміністратора.",
-      "actions": { "submit": "Надіслати запит", "cancel": "Скасувати" }
+      "actions": {
+        "submit": "Надіслати запит",
+        "cancel": "Скасувати"
+      }
     },
     "create": {
       "title": "Надіслати запит на доступ",
@@ -701,26 +704,60 @@
         "risk": "Рівень ризику",
         "requester": "Запит від"
       },
-      "accessMode": { "oneTime": "Разовий доступ", "ongoing": "Постійний доступ" },
+      "accessMode": {
+        "oneTime": "Разовий доступ",
+        "ongoing": "Постійний доступ"
+      },
       "durationOpenEnded": "Безстроково до відкликання",
       "durationHours": "{hours} годин",
-      "riskLevels": { "0": "Інформаційний", "1": "Низький", "2": "Помірний", "3": "Чутливий — потрібне додаткове підтвердження" },
+      "riskLevels": {
+        "0": "Інформаційний",
+        "1": "Низький",
+        "2": "Помірний",
+        "3": "Чутливий — потрібне додаткове підтвердження"
+      },
       "requester": "Запит від {name}",
       "unknownProvider": "Затверджений постачальник",
       "unknownScope": "Затверджений обсяг даних",
       "afterApprovalDetail": "Після затвердження Aipify активує лише запитуваний обсяг і продовжує початкову дію, коли це безпечно.",
       "afterApproval": "Після затвердження",
-      "actions": { "approve": "Затвердити", "deny": "Відхилити" },
+      "actions": {
+        "approve": "Затвердити",
+        "deny": "Відхилити"
+      },
       "approved": "Запит на доступ затверджено.",
       "denied": "Запит на доступ відхилено."
     },
-    "status": { "pending": "Очікує", "approved": "Затверджено", "denied": "Відхилено", "cancelled": "Скасовано" },
+    "status": {
+      "pending": "Очікує",
+      "approved": "Затверджено",
+      "denied": "Відхилено",
+      "cancelled": "Скасовано"
+    },
     "providers": {
-      "generic": { "label": "Підключений постачальник" },
-      "communityMemberDirectory": { "label": "Реєстр учасників", "dataType": "Дані реєстру учасників", "whyNeeded": "Aipify потребує доступу на читання, щоб точно відповідати на запитання про учасників." },
-      "memberCount": { "label": "Кількість учасників", "dataType": "Агреговані підсумки учасників", "whyNeeded": "Aipify потребує доступу на читання, щоб повідомляти, скільки учасників зареєстровано." },
-      "supportOperations": { "label": "Операції підтримки", "dataType": "Черга підтримки та сигнали SLA", "whyNeeded": "Aipify потребує доступу на читання, щоб виділяти звернення підтримки з ризиком SLA." },
-      "memberVerification": { "label": "Верифікація учасників", "dataType": "Статус черги верифікації", "whyNeeded": "Aipify потребує доступу на читання, щоб показувати очікувану верифікацію учасників." }
+      "generic": {
+        "label": "Підключений постачальник"
+      },
+      "communityMemberDirectory": {
+        "label": "Реєстр учасників",
+        "dataType": "Дані реєстру учасників",
+        "whyNeeded": "Aipify потребує доступу на читання, щоб точно відповідати на запитання про учасників."
+      },
+      "memberCount": {
+        "label": "Кількість учасників",
+        "dataType": "Агреговані підсумки учасників",
+        "whyNeeded": "Aipify потребує доступу на читання, щоб повідомляти, скільки учасників зареєстровано."
+      },
+      "supportOperations": {
+        "label": "Операції підтримки",
+        "dataType": "Черга підтримки та сигнали SLA",
+        "whyNeeded": "Aipify потребує доступу на читання, щоб виділяти звернення підтримки з ризиком SLA."
+      },
+      "memberVerification": {
+        "label": "Верифікація учасників",
+        "dataType": "Статус черги верифікації",
+        "whyNeeded": "Aipify потребує доступу на читання, щоб показувати очікувану верифікацію учасників."
+      }
     },
     "scopes": {
       "communityMembersRead": "Перегляд реєстру учасників",
@@ -734,8 +771,12 @@
   },
   "authorizationTarget": {
     "providers": {
-      "generic": { "label": "Підключений сервіс" },
-      "personalStreamingAccount": { "label": "Особистий музичний акаунт" }
+      "generic": {
+        "label": "Підключений сервіс"
+      },
+      "personalStreamingAccount": {
+        "label": "Особистий музичний акаунт"
+      }
     },
     "searchTerms": {
       "personalStreamingAccount": "музика, streaming, плейлист, відтворення"
@@ -743,12 +784,18 @@
     "userOwned": {
       "connectLead": "Ви можете підключити {provider}, щоб Aipify допомагав із відтворенням і керуванням.",
       "connectExplanation": "Це ваш особистий акаунт. Він не проходить через організаційне схвалення — використовується лише доступ, який ви схвалите.",
-      "actions": { "connect": "Підключити акаунт", "cancel": "Скасувати" }
+      "actions": {
+        "connect": "Підключити акаунт",
+        "cancel": "Скасувати"
+      }
     },
     "localDevice": {
       "permissionLead": "Aipify потребує дозволу на цьому пристрої, перш ніж можна керувати локальним відтворенням або динаміками.",
       "permissionExplanation": "Це локальний дозвіл пристрою — не організаційний запит для {provider}.",
-      "actions": { "openSettings": "Відкрити налаштування пристрою", "cancel": "Скасувати" }
+      "actions": {
+        "openSettings": "Відкрити налаштування пристрою",
+        "cancel": "Скасувати"
+      }
     },
     "approver": {
       "directLead": "Ви можете схвалити цей організаційний доступ безпосередньо в панелі APP. Не потрібно надсилати запит собі.",
@@ -756,7 +803,10 @@
       "panelTitle": "Схвалити організаційний доступ",
       "panelDescription": "Перегляньте область, тривалість і ризик перед схваленням доступу для організації.",
       "noPendingRequest": "Поки що немає очікуваного запиту для цього provider. Учасник команди може надіслати його, або ви зможете схвалити відповідний запит, коли він з’явиться нижче.",
-      "actions": { "approveAccess": "Схвалити доступ", "cancel": "Скасувати" }
+      "actions": {
+        "approveAccess": "Схвалити доступ",
+        "cancel": "Скасувати"
+      }
     },
     "errors": {
       "approverShouldGrantDirectly": "Як уповноважений організації, надайте цей доступ у панелі APP замість надсилання запиту.",
@@ -819,6 +869,129 @@
       "welcomeVariants": {
         "standard": "Стандартний",
         "compact": "Компактний"
+      }
+    }
+  },
+  "commercialPackages": {
+    "billing": {
+      "title": "Рахунки та пакети",
+      "subtitle": "Поточний пакет, використання, оновлення та додатки — платіть лише за те, що потрібно.",
+      "loading": "Підготовка вмісту",
+      "back": "Назад до налаштувань",
+      "viewLicense": "Центр ліцензій",
+      "viewModules": "Керування модулями",
+      "viewCommercial": "Комерційний огляд",
+      "empty": "Поки що немає що показати.",
+      "sections": {
+        "package": "Поточний пакет",
+        "modules": "Ліцензовані модулі",
+        "usage": "Використання за період",
+        "limits": "Включена місткість",
+        "upgrades": "Варіанти оновлення",
+        "addons": "Додатки",
+        "recommendations": "Рекомендації",
+        "history": "Історія рахунків",
+        "suites": "Продуктові пакети",
+        "locked": "Можливості, які не включено",
+        "nextStep": "Рекомендований наступний крок",
+        "support": "Допомога з рахунками"
+      },
+      "usage": {
+        "supportCases": "Звернення підтримки",
+        "autonomous": "Автономні вирішення",
+        "knowledgeSearches": "Пошуки знань",
+        "employeeInteractions": "Взаємодії працівників",
+        "insightReports": "Аналітичні звіти",
+        "apiCalls": "Виклики API",
+        "aiUsage": "Обсяг використання Aipify"
+      },
+      "viewPackages": "Пакети та доступ",
+      "viewPaymentProviders": "Платіжні провайдери",
+      "viewInvoiceDetails": "Деталі рахунку",
+      "modulesCount": "{count} ліцензованих модулів",
+      "emptyHistory": "Історія рахунків ще недоступна.",
+      "statusLabels": {
+        "active": "Активний",
+        "trial": "Пробний період",
+        "cancelled": "Скасовано",
+        "lifetime": "Безстроково",
+        "past_due": "Прострочено",
+        "unknown": "Статус недоступний"
+      },
+      "retry": "Спробувати знову",
+      "loadError": "Не вдалося завантажити дані рахунків. Спробуйте знову.",
+      "emptyLocked": "Зараз для вашої організації немає додаткових пакетів або можливостей.",
+      "emptyPackage": "Для цієї організації немає активного пакета.",
+      "unavailable": "Недоступно",
+      "unlimited": "Без обмежень",
+      "usedOfMax": "{used} з {max}",
+      "privacyNote": "На цій сторінці показано підсумки пакета та використання для вашої організації. Дані картки залишаються у платіжного провайдера.",
+      "eyebrow": "Рахунки",
+      "limits": {
+        "users": "Користувачі",
+        "installations": "Встановлення",
+        "domains": "Домени",
+        "used": "Використано",
+        "included": "Включено"
+      },
+      "locked": {
+        "upgradeReason": "Не включено до поточного пакета.",
+        "addonReason": "Доступно як додаткова опція.",
+        "recommendationReason": "Запропоновано на основі поточного пакета та використання.",
+        "viewPackagesCta": "Переглянути пакети"
+      },
+      "nextStep": {
+        "viewPackages": "Перегляньте пакети та варіанти доступу, щоб знайти підходящий для організації.",
+        "reviewUsage": "Порівняйте використання з включеною місткістю й оцініть, чи пакет досі підходить.",
+        "none": "Пакет і використання виглядають стабільно. Зараз зміни не потрібні."
+      },
+      "support": {
+        "body": "Потрібна допомога з рахунками або доступом до пакета? Відкрийте деталі рахунку або пакети.",
+        "invoiceDetails": "Відкрити деталі рахунку"
+      },
+      "nextBillingDate": "Наступна дата рахунку",
+      "statusColumn": "Статус"
+    },
+    "pricingPhilosophy": {
+      "title": "Pricing philosophy",
+      "principleLead": "Aipify is priced as a Business Operating System — not per message or token.",
+      "priceOn": "Value priced on",
+      "avoid": "Not priced on",
+      "planGuidance": "Plan guidance (USD monthly)",
+      "positioning": "How Aipify is positioned",
+      "abosPrinciple": "Aipify Business Operating System (ABOS) — install-first operations, not a chat interface.",
+      "guidanceNote": "Recommended ranges are sales guidance. Your live subscription follows your contracted plan.",
+      "usdRange": "USD guidance",
+      "plans": {
+        "starter": "Aipify Starter",
+        "growth": "Aipify Growth",
+        "business": "Aipify Business",
+        "enterprise": "Aipify Enterprise"
+      },
+      "bullets": {
+        "operationalScope": "Operational scope — installs, modules, and users",
+        "outcomes": "Business outcomes — support, knowledge, workflows",
+        "governance": "Governance — approvals, audit, enterprise security",
+        "noTokens": "Not per-message or token metering",
+        "notChatbot": "Not consumer chatbot pricing"
+      }
+    },
+    "modules": {
+      "title": "Module management",
+      "subtitle": "Enable or disable purchased modules. Aipify grows with your business.",
+      "loading": "Preparing modules overview…",
+      "back": "Back to settings",
+      "viewBilling": "Billing & packages",
+      "empty": "No modules available.",
+      "enable": "Enable",
+      "disable": "Disable",
+      "sections": {
+        "installed": "Installed modules",
+        "available": "Available with upgrade",
+        "trials": "Trial modules",
+        "recommendations": "Upgrade recommendations",
+        "packages": "Commercial packages",
+        "flags": "Feature flag states"
       }
     }
   }

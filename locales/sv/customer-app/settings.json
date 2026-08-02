@@ -1028,22 +1028,25 @@
     "billing": {
       "title": "Fakturering och paket",
       "subtitle": "Ditt paket, användning, uppgraderingar och tillägg — betala bara för det du behöver.",
-      "loading": "Laddar faktureringscenter…",
+      "loading": "Förbereder innehåll",
       "back": "Tillbaka till inställningar",
       "viewLicense": "Licenscenter",
       "viewModules": "Modulhantering",
-      "viewCommercial": "Commercial model portal",
+      "viewCommercial": "Kommersiell översikt",
       "empty": "Inget att visa ännu.",
       "sections": {
         "package": "Aktuellt paket",
-        "modules": "Aktiverade moduler",
-        "usage": "Användning denna månad",
-        "limits": "Hyresgästgränser",
+        "modules": "Licensierade moduler",
+        "usage": "Användning under perioden",
+        "limits": "Inkluderad kapacitet",
         "upgrades": "Uppgraderingsalternativ",
-        "addons": "Tilläggsmarknad",
-        "recommendations": "Uppgraderingsrekommendationer",
+        "addons": "Tillägg",
+        "recommendations": "Rekommendationer",
         "history": "Faktureringshistorik",
-        "suites": "Produktpaket"
+        "suites": "Produktpaket",
+        "locked": "Funktioner som inte ingår",
+        "nextStep": "Rekommenderat nästa steg",
+        "support": "Hjälp med fakturering"
       },
       "usage": {
         "supportCases": "Supportärenden",
@@ -1064,8 +1067,42 @@
         "trial": "Provperiod",
         "cancelled": "Avbruten",
         "lifetime": "Livstid",
-        "past_due": "Förfallen"
-      }
+        "past_due": "Förfallen",
+        "unknown": "Status otillgänglig"
+      },
+      "retry": "Försök igen",
+      "loadError": "Faktureringsuppgifterna kunde inte läsas in. Försök igen.",
+      "emptyLocked": "Inga ytterligare paket eller funktioner listas för din organisation just nu.",
+      "emptyPackage": "Inget aktivt paket är tillgängligt för den här organisationen.",
+      "unavailable": "Inte tillgängligt",
+      "unlimited": "Obegränsat",
+      "usedOfMax": "{used} av {max}",
+      "privacyNote": "Den här sidan visar paket- och användningssammanfattningar för din organisation. Kortuppgifter finns hos betalningsleverantören.",
+      "eyebrow": "Fakturering",
+      "limits": {
+        "users": "Användare",
+        "installations": "Installationer",
+        "domains": "Domäner",
+        "used": "Använt",
+        "included": "Inkluderat"
+      },
+      "locked": {
+        "upgradeReason": "Ingår inte i ditt aktuella paket.",
+        "addonReason": "Tillgängligt som valfritt tillägg.",
+        "recommendationReason": "Föreslaget utifrån ditt aktuella paket och din användning.",
+        "viewPackagesCta": "Visa paket"
+      },
+      "nextStep": {
+        "viewPackages": "Granska paket och åtkomstalternativ för att se vad som passar organisationen.",
+        "reviewUsage": "Jämför användning med inkluderad kapacitet och bedöm om paketet fortfarande passar.",
+        "none": "Paket och användning ser stabila ut. Ingen ändring behövs just nu."
+      },
+      "support": {
+        "body": "Behöver du hjälp med fakturor eller paketåtkomst? Öppna fakturadetaljer eller paket.",
+        "invoiceDetails": "Öppna fakturadetaljer"
+      },
+      "nextBillingDate": "Nästa faktureringsdatum",
+      "statusColumn": "Status"
     },
     "pricingPhilosophy": {
       "title": "Prissättningsfilosofi",
