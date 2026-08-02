@@ -1,5 +1,14 @@
 import type { BillingCenter } from "./types";
 import { parseBillingCenter } from "./parse";
+import {
+  canonicalProductIdentityKey,
+  dedupeLockedCapabilities,
+  lockedCapabilityPriority,
+  resolveCustomerFacingFeatureLabel,
+  resolveTrustedCustomerFacingModulesCount,
+  type PackagePresentationOptions,
+  type LockedCapabilityCandidate,
+} from "./package-presentation";
 
 export type BillingLimitMeter = {
   key: "users" | "installations" | "domains";
@@ -17,7 +26,8 @@ export type BillingUsageItem = {
 export type BillingHistoryItem = {
   planName: string;
   statusKey: string;
-  nextBillingDate: string | null;
+  /** Present only when a real renewal date exists and status is not lifetime. */
+  renewalDate: string | null;
   updatedAt: string | null;
 };
 
@@ -40,13 +50,15 @@ export type BillingViewModel = {
   packageDescription: string | null;
   packageFeatures: string[];
   statusKey: string | null;
-  modulesCount: number;
+  /** Null when count is not a trusted customer-facing licensed-feature count. */
+  modulesCount: number | null;
   usageItems: BillingUsageItem[];
   limits: BillingLimitMeter[];
   history: BillingHistoryItem[];
   lockedCapabilities: BillingLockedCapability[];
   nextStep: BillingNextStep;
-  nextBillingDate: string | null;
+  /** Renewal date for the active subscription — never presented as an invoice date. */
+  renewalDate: string | null;
   periodMonth: string | null;
   /** Which sections have usable Production data (missing ≠ fatal). */
   sections: {
@@ -91,7 +103,6 @@ function meter(
 function customerSafeName(raw: unknown, fallback: string): string {
   const text = typeof raw === "string" ? raw.trim() : "";
   if (!text) return fallback;
-  // Hide snake_case / dotted internal keys from customers
   if (/^[a-z0-9]+([._][a-z0-9]+)+$/.test(text)) return fallback;
   return text;
 }
@@ -107,10 +118,15 @@ function customerSafeDescription(raw: unknown): string {
  * Build a customer-safe view model from the live billing API payload.
  * Never invents package, usage, invoice, or recommendation values.
  */
-export function buildBillingViewModel(input: unknown): BillingViewModel {
+export function buildBillingViewModel(
+  input: unknown,
+  options: PackagePresentationOptions = {}
+): BillingViewModel {
   const center: BillingCenter = parseBillingCenter(input);
   const limitsRaw = (center.tenant_limits ?? {}) as Record<string, unknown>;
   const usageRaw = (center.usage ?? {}) as Record<string, unknown>;
+  const localizePackage = options.localizePackage;
+  const localizeFeature = options.localizeFeature;
 
   const usageKeys = [
     "support_cases_handled",
@@ -129,107 +145,159 @@ export function buildBillingViewModel(input: unknown): BillingViewModel {
 
   const history: BillingHistoryItem[] = (center.billing_history ?? []).map((row) => {
     const r = row as Record<string, unknown>;
+    const statusKey = typeof r.status === "string" ? r.status.toLowerCase() : "unknown";
+    const next =
+      typeof r.next_billing_date === "string" && r.next_billing_date.trim()
+        ? r.next_billing_date.trim()
+        : null;
     return {
       planName: customerSafeName(r.plan_name, "—"),
-      statusKey: typeof r.status === "string" ? r.status.toLowerCase() : "unknown",
-      nextBillingDate:
-        typeof r.next_billing_date === "string" ? r.next_billing_date : null,
+      statusKey,
+      renewalDate: statusKey === "lifetime" ? null : next,
       updatedAt: typeof r.updated_at === "string" ? r.updated_at : null,
     };
   });
 
   const statusKey = history[0]?.statusKey ?? (center.current_package ? "active" : null);
-  const nextBillingDate = history.find((h) => h.nextBillingDate)?.nextBillingDate ?? null;
+  const renewalDate =
+    statusKey === "lifetime"
+      ? null
+      : history.find((h) => h.renewalDate)?.renewalDate ?? null;
 
-  const lockedFromUpgrades: BillingLockedCapability[] = (center.upgrade_options ?? [])
-    .slice(0, 6)
-    .map((row, index) => {
-      const r = row as Record<string, unknown>;
-      return {
-        id: `upgrade-${String(r.package_key ?? index)}`,
-        name: customerSafeName(r.package_name, ""),
-        description: customerSafeDescription(r.description),
-        kind: "upgrade" as const,
-      };
-    })
-    .filter((item) => item.name.length > 0);
+  const lockedCandidates: LockedCapabilityCandidate[] = [];
 
-  const lockedFromAddons: BillingLockedCapability[] = (center.addon_marketplace ?? [])
-    .slice(0, 4)
-    .map((row, index) => {
-      const r = row as Record<string, unknown>;
-      return {
-        id: `addon-${String(r.addon_key ?? index)}`,
-        name: customerSafeName(r.name ?? r.package_name, ""),
-        description: customerSafeDescription(r.description),
-        kind: "addon" as const,
-      };
-    })
-    .filter((item) => item.name.length > 0);
+  (center.upgrade_recommendations ?? []).slice(0, 3).forEach((row, index) => {
+    const r = row as Record<string, unknown>;
+    const packageKey =
+      typeof r.package_key === "string"
+        ? r.package_key
+        : typeof r.packageKey === "string"
+          ? r.packageKey
+          : null;
+    const localized = packageKey ? localizePackage?.(packageKey) : null;
+    const name = customerSafeName(
+      localized?.name ?? r.title ?? r.package_name ?? r.recommendation,
+      ""
+    );
+    if (!name) return;
+    lockedCandidates.push({
+      id: `rec-${packageKey ?? index}`,
+      identityKey: canonicalProductIdentityKey({
+        packageKey,
+        kind: "recommendation",
+        fallbackIndex: index,
+      }),
+      name,
+      description: customerSafeDescription(
+        localized?.description ?? r.reason ?? r.description ?? r.message
+      ),
+      kind: "recommendation",
+      priority: lockedCapabilityPriority("recommendation"),
+    });
+  });
 
-  const lockedFromRecommendations: BillingLockedCapability[] = (
-    center.upgrade_recommendations ?? []
-  )
-    .slice(0, 3)
-    .map((row, index) => {
-      const r = row as Record<string, unknown>;
-      return {
-        id: `rec-${index}`,
-        name: customerSafeName(
-          r.title ?? r.package_name ?? r.recommendation,
-          ""
-        ),
-        description: customerSafeDescription(r.reason ?? r.description ?? r.message),
-        kind: "recommendation" as const,
-      };
-    })
-    .filter((item) => item.name.length > 0);
+  (center.upgrade_options ?? []).slice(0, 6).forEach((row, index) => {
+    const r = row as Record<string, unknown>;
+    const packageKey =
+      typeof r.package_key === "string"
+        ? r.package_key
+        : typeof r.packageKey === "string"
+          ? r.packageKey
+          : null;
+    const localized = packageKey ? localizePackage?.(packageKey) : null;
+    const name = customerSafeName(localized?.name ?? r.package_name, "");
+    if (!name) return;
+    lockedCandidates.push({
+      id: `upgrade-${packageKey ?? index}`,
+      identityKey: canonicalProductIdentityKey({
+        packageKey,
+        kind: "upgrade",
+        fallbackIndex: index,
+      }),
+      name,
+      description: customerSafeDescription(localized?.description ?? r.description),
+      kind: "upgrade",
+      priority: lockedCapabilityPriority("upgrade"),
+    });
+  });
 
-  const lockedCapabilities = [
-    ...lockedFromRecommendations,
-    ...lockedFromUpgrades,
-    ...lockedFromAddons,
-  ].slice(0, 8);
+  (center.addon_marketplace ?? []).slice(0, 4).forEach((row, index) => {
+    const r = row as Record<string, unknown>;
+    const addonKey =
+      typeof r.addon_key === "string"
+        ? r.addon_key
+        : typeof r.package_key === "string"
+          ? r.package_key
+          : null;
+    const localized = addonKey ? localizePackage?.(addonKey) : null;
+    const name = customerSafeName(localized?.name ?? r.name ?? r.package_name, "");
+    if (!name) return;
+    lockedCandidates.push({
+      id: `addon-${addonKey ?? index}`,
+      identityKey: canonicalProductIdentityKey({
+        packageKey: addonKey,
+        addonKey,
+        kind: "addon",
+        fallbackIndex: index,
+      }),
+      name,
+      description: customerSafeDescription(localized?.description ?? r.description),
+      kind: "addon",
+      priority: lockedCapabilityPriority("addon"),
+    });
+  });
 
-  const firstRecommendation = lockedFromRecommendations[0]?.description
-    || lockedFromRecommendations[0]?.name
-    || null;
+  const lockedCapabilities = dedupeLockedCapabilities(lockedCandidates, 8);
+
+  const firstRecommendation = lockedCapabilities.find((c) => c.kind === "recommendation");
+  const firstRecommendationText =
+    firstRecommendation?.description || firstRecommendation?.name || null;
 
   let nextStep: BillingNextStep = { kind: "none", recommendationText: null };
   if (lockedCapabilities.length > 0) {
     nextStep = {
       kind: "view_packages",
-      recommendationText: firstRecommendation,
+      recommendationText: firstRecommendationText,
     };
   } else if (usageItems.some((u) => u.value > 0)) {
     nextStep = { kind: "review_usage", recommendationText: null };
   }
 
+  const packageKey = center.current_package?.package_key?.trim() || null;
+  const localizedPackage = packageKey ? localizePackage?.(packageKey) : null;
+  const packageName =
+    localizedPackage?.name?.trim() ||
+    center.current_package?.package_name?.trim() ||
+    null;
+  const packageDescription =
+    localizedPackage?.description?.trim() ||
+    customerSafeDescription(center.current_package?.description) ||
+    null;
+
   const packageFeatures = (center.current_package?.features ?? [])
-    .map((f) => customerSafeName(f, ""))
-    .filter(Boolean);
+    .map((f) => resolveCustomerFacingFeatureLabel(String(f), localizeFeature))
+    .filter((f): f is string => Boolean(f));
 
   const limits = [
     meter("users", limitsRaw.used_users, limitsRaw.max_users),
     meter("installations", limitsRaw.used_installations, limitsRaw.max_installations),
     meter("domains", limitsRaw.used_domains, limitsRaw.max_domains),
   ];
-  const packageName = center.current_package?.package_name?.trim() || null;
 
   return {
     hasCustomer: center.has_customer,
     packageName,
-    packageKey: center.current_package?.package_key?.trim() || null,
-    packageDescription: customerSafeDescription(center.current_package?.description) || null,
+    packageKey,
+    packageDescription,
     packageFeatures,
     statusKey,
-    modulesCount: center.enabled_modules?.length ?? 0,
+    modulesCount: resolveTrustedCustomerFacingModulesCount(center.enabled_modules),
     usageItems,
     limits,
     history,
     lockedCapabilities,
     nextStep,
-    nextBillingDate,
+    renewalDate,
     periodMonth:
       typeof usageRaw.period_month === "string" ? usageRaw.period_month : null,
     sections: {

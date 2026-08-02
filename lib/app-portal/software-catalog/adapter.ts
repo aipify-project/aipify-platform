@@ -1,4 +1,5 @@
 import { parseBillingCenter, parseModulesCenter } from "@/lib/commercial-packages/parse";
+import { resolveCustomerFacingFeatureLabel } from "@/lib/commercial-packages/package-presentation";
 import type { BusinessPackActivationGateItem } from "@/lib/business-pack-activation-gate";
 import {
   resolveCustomerFacingModuleName,
@@ -21,11 +22,17 @@ function str(value: unknown): string | null {
   return typeof value === "string" && value.trim() ? value.trim() : null;
 }
 
-function asStringArray(value: unknown): string[] {
+function asFeatureArray(
+  value: unknown,
+  localizeFeature?: (feature: string) => string | null
+): string[] {
   if (!Array.isArray(value)) return [];
-  return value
-    .map((entry) => String(entry))
-    .filter((entry) => entry.trim().length > 0 && !entry.includes("_"));
+  const labels: string[] = [];
+  for (const entry of value) {
+    const label = resolveCustomerFacingFeatureLabel(String(entry), localizeFeature);
+    if (label) labels.push(label);
+  }
+  return labels;
 }
 
 function packStatus(
@@ -82,6 +89,8 @@ export function buildSoftwareCatalogViewModel(input: {
   localizePackage?: (packageKey: string) => { name?: string | null; description?: string | null } | null;
   /** Optional localized module display names keyed by module_key — never invented. */
   localizeModuleName?: (moduleKey: string) => string | null;
+  /** Optional localized included-feature labels — never invented. */
+  localizeFeature?: (feature: string) => string | null;
 }): SoftwareCatalogViewModel {
   const diagnostics: string[] = [];
   const billing = parseBillingCenter(input.billingRaw);
@@ -98,6 +107,7 @@ export function buildSoftwareCatalogViewModel(input: {
 
   const localizePackage = input.localizePackage;
   const localizeModuleName = input.localizeModuleName;
+  const localizeFeature = input.localizeFeature;
 
   let currentPackage = billing.current_package
     ? {
@@ -124,13 +134,16 @@ export function buildSoftwareCatalogViewModel(input: {
   if (billing.current_package) {
     const key = billing.current_package.package_key;
     const localized = localizePackage?.(key);
+    const description =
+      localized?.description ?? (billing.current_package.description || null);
     items.push({
       id: `package:${key}`,
       sourceType: "package",
       canonicalKey: key,
       name: localized?.name ?? billing.current_package.package_name,
-      valueProposition: billing.positioning ?? null,
-      description: localized?.description ?? (billing.current_package.description || null),
+      // Never prefer English backend positioning over localized package copy.
+      valueProposition: description,
+      description,
       category: "package",
       price: null,
       billingPeriod: null,
@@ -141,7 +154,7 @@ export function buildSoftwareCatalogViewModel(input: {
       detailsRoute: "/app/settings/billing",
       currentEntitlement: key,
       readiness: "operational",
-      features: asStringArray(billing.current_package.features),
+      features: asFeatureArray(billing.current_package.features, localizeFeature),
     });
   }
 
@@ -170,7 +183,7 @@ export function buildSoftwareCatalogViewModel(input: {
       detailsRoute: "/app/settings/billing",
       currentEntitlement: null,
       readiness: "operational",
-      features: asStringArray(option.features),
+      features: asFeatureArray(option.features, localizeFeature),
     });
   }
 
@@ -206,7 +219,7 @@ export function buildSoftwareCatalogViewModel(input: {
       detailsRoute: "/app/settings/billing",
       currentEntitlement: resolved.entitled ? key : null,
       readiness: "operational",
-      features: asStringArray(mod.features),
+      features: asFeatureArray(mod.features, localizeFeature),
     });
   }
 
@@ -243,7 +256,7 @@ export function buildSoftwareCatalogViewModel(input: {
       detailsRoute: "/app/settings/billing",
       currentEntitlement: null,
       readiness: "operational",
-      features: asStringArray(mod.features),
+      features: asFeatureArray(mod.features, localizeFeature),
     });
   }
 
@@ -288,7 +301,7 @@ export function buildSoftwareCatalogViewModel(input: {
       detailsRoute,
       currentEntitlement: status === "active" ? key : null,
       readiness: "operational",
-      features: asStringArray(pack.features),
+      features: asFeatureArray(pack.features, localizeFeature),
     });
   }
 

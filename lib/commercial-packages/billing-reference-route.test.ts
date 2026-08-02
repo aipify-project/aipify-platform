@@ -18,6 +18,8 @@ function run() {
 
   assert.match(page, /BillingAdminPanel/);
   assert.match(page, /buildBillingReferenceLabels/);
+  assert.match(page, /buildBillingPresentationMaps/);
+  assert.match(page, /portalStructure/);
   assert.doesNotMatch(page, /AipifyCompanionBriefingBanner/);
   assert.doesNotMatch(page, /Companion/);
 
@@ -69,9 +71,28 @@ function run() {
     const billing = settings.commercialPackages.billing;
     assert.equal(typeof billing.title, "string");
     assert.equal(typeof billing.retry, "string");
+    assert.equal(typeof billing.renewalDate, "string");
+    assert.equal(typeof billing.lastUpdated, "string");
     assert.equal(typeof (billing.limits as { users: string }).users, "string");
     assert.notEqual(billing.retry, "Retry");
     assert.doesNotMatch(String(billing.title), /customerApp\./);
+    const sections = billing.sections as { history?: string };
+    assert.doesNotMatch(String(sections.history ?? ""), /Faktureringshistorikk|Billing history/);
+    const portal = JSON.parse(read(`locales/${locale}/customer-app/portalStructure.json`)) as {
+      portalStructure: {
+        softwareCatalog: {
+          featureLabels: Record<string, string>;
+          packageCopy: Record<string, { description?: string }>;
+        };
+      };
+    };
+    const features = portal.portalStructure.softwareCatalog.featureLabels;
+    assert.equal(typeof features.install_engine, "string");
+    assert.doesNotMatch(features.install_engine, /^Install Engine$/);
+    assert.doesNotMatch(
+      String(portal.portalStructure.softwareCatalog.packageCopy.business?.description ?? ""),
+      /Employee Knowledge Engine/
+    );
   }
 
   console.log("billing-reference-route.test.ts: ok");

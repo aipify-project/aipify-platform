@@ -927,8 +927,8 @@
   },
   "commercialPackages": {
     "billing": {
-      "title": "Rozliczenia i pakiety",
-      "subtitle": "Bieżący pakiet, użycie, ulepszenia i dodatki — płać tylko za to, czego potrzebujesz.",
+      "title": "Subskrypcja i pakiety",
+      "subtitle": "Bieżący pakiet, pojemność i dostępne ulepszenia — oddzielnie od faktur.",
       "loading": "Przygotowywanie treści",
       "back": "Wróć do ustawień",
       "viewLicense": "Centrum licencji",
@@ -943,11 +943,11 @@
         "upgrades": "Opcje ulepszenia",
         "addons": "Dodatki",
         "recommendations": "Rekomendacje",
-        "history": "Historia rozliczeń",
+        "history": "Historia subskrypcji",
         "suites": "Pakiety produktowe",
         "locked": "Funkcje niedostępne",
         "nextStep": "Zalecany następny krok",
-        "support": "Pomoc w rozliczeniach"
+        "support": "Pomoc dotycząca pakietów i faktur"
       },
       "usage": {
         "supportCases": "Zgłoszenia wsparcia",
@@ -962,7 +962,7 @@
       "viewPaymentProviders": "Dostawcy płatności",
       "viewInvoiceDetails": "Szczegóły faktury",
       "modulesCount": "{count} licencjonowanych modułów",
-      "emptyHistory": "Historia rozliczeń nie jest jeszcze dostępna.",
+      "emptyHistory": "Historia subskrypcji nie jest jeszcze dostępna.",
       "statusLabels": {
         "active": "Aktywny",
         "trial": "Okres próbny",
@@ -978,8 +978,8 @@
       "unavailable": "Niedostępne",
       "unlimited": "Bez limitu",
       "usedOfMax": "{used} z {max}",
-      "privacyNote": "Ta strona pokazuje podsumowanie pakietu i użycia dla Twojej organizacji. Dane karty pozostają u dostawcy płatności.",
-      "eyebrow": "Rozliczenia",
+      "privacyNote": "Ta strona pokazuje podsumowanie pakietu i użycia dla Twojej organizacji. Faktury są dostępne w szczegółach faktur, gdy zostaną wystawione.",
+      "eyebrow": "Subskrypcja",
       "limits": {
         "users": "Użytkownicy",
         "installations": "Instalacje",
@@ -999,11 +999,13 @@
         "none": "Pakiet i użycie wyglądają stabilnie. Na razie nie jest wymagana zmiana."
       },
       "support": {
-        "body": "Potrzebujesz pomocy z fakturami lub dostępem do pakietu? Otwórz szczegóły faktury lub pakiety.",
-        "invoiceDetails": "Otwórz szczegóły faktury"
+        "body": "Potrzebujesz pomocy z dostępem do pakietu lub fakturami? Otwórz pakiety lub szczegóły faktur.",
+        "invoiceDetails": "Otwórz szczegóły faktur"
       },
       "nextBillingDate": "Następna data rozliczenia",
-      "statusColumn": "Status"
+      "statusColumn": "Status",
+      "renewalDate": "Następne odnowienie",
+      "lastUpdated": "Ostatnia aktualizacja"
     },
     "pricingPhilosophy": {
       "title": "Pricing philosophy",

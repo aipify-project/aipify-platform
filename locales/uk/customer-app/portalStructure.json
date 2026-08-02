@@ -7429,7 +7429,7 @@
         },
         "business": {
           "name": "Aipify Business",
-          "description": "Для організацій із співробітниками та внутрішніми процесами — Employee Knowledge Engine."
+          "description": "Для організацій із співробітниками та внутрішніми процесами — знання співробітників і керована робота."
         },
         "insights": {
           "name": "Aipify Insights",
@@ -7440,7 +7440,15 @@
           "description": "Розширена аналітика, управління та масштабованість для великих організацій."
         }
       },
-      "moduleDisplayNames": {}
+      "moduleDisplayNames": {},
+      "featureLabels": {
+        "aipify_core": "Ядро Aipify",
+        "install_engine": "Керована установка",
+        "support_assistant": "Асистент підтримки",
+        "faq_knowledge": "База FAQ",
+        "human_approval": "Людське затвердження",
+        "basic_analytics": "Базова аналітика"
+      }
     }
   }
 }

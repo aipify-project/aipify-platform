@@ -7429,7 +7429,7 @@
         },
         "business": {
           "name": "Aipify Business",
-          "description": "Dla organizacji z pracownikami i procesami wewnętrznymi — Employee Knowledge Engine."
+          "description": "Dla organizacji z pracownikami i procesami wewnętrznymi — wiedza pracownicza i prowadzona praca."
         },
         "insights": {
           "name": "Aipify Insights",
@@ -7440,7 +7440,15 @@
           "description": "Zaawansowana inteligencja, zarządzanie i skalowalność dla dużych organizacji."
         }
       },
-      "moduleDisplayNames": {}
+      "moduleDisplayNames": {},
+      "featureLabels": {
+        "aipify_core": "Rdzeń Aipify",
+        "install_engine": "Prowadzona instalacja",
+        "support_assistant": "Asystent wsparcia",
+        "faq_knowledge": "Baza FAQ",
+        "human_approval": "Zatwierdzenie przez człowieka",
+        "basic_analytics": "Podstawowa analityka"
+      }
     }
   }
 }

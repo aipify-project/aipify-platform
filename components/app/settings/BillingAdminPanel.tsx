@@ -4,7 +4,9 @@ import { AipifyLoader } from "@/components/ui/aipify-loader";
 import { AipifyStatusBadge } from "@/components/ui/aipify-status-badge";
 import {
   buildBillingViewModel,
+  presentationOptionsFromMaps,
   type BillingLockedCapability,
+  type BillingPresentationMaps,
   type BillingReferenceLabels,
   type BillingViewModel,
 } from "@/lib/commercial-packages";
@@ -13,11 +15,12 @@ import { AppPremiumShell } from "@/lib/design/app-premium-shell";
 import type { AipifyStatusKind } from "@/lib/design/status-system";
 import { formatDate } from "@/lib/i18n/format-date";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 type BillingAdminPanelProps = {
   labels: BillingReferenceLabels;
   locale: string;
+  presentation?: BillingPresentationMaps;
 };
 
 function statusKind(statusKey: string | null): AipifyStatusKind {
@@ -100,10 +103,18 @@ function UsageMeter({
   );
 }
 
-export function BillingAdminPanel({ labels, locale }: BillingAdminPanelProps) {
+export function BillingAdminPanel({
+  labels,
+  locale,
+  presentation,
+}: BillingAdminPanelProps) {
   const [vm, setVm] = useState<BillingViewModel | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
+  const presentationOptions = useMemo(
+    () => presentationOptionsFromMaps(presentation),
+    [presentation]
+  );
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -117,14 +128,14 @@ export function BillingAdminPanel({ labels, locale }: BillingAdminPanelProps) {
       }
       const payload = await res.json();
       // HTTP 200 always renders — sparse/partial payloads must not collapse the page.
-      setVm(buildBillingViewModel(payload));
+      setVm(buildBillingViewModel(payload, presentationOptions));
     } catch {
       setVm(null);
       setLoadError(true);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [presentationOptions]);
 
   useEffect(() => {
     void refresh();
@@ -213,9 +224,11 @@ export function BillingAdminPanel({ labels, locale }: BillingAdminPanelProps) {
                 <h2 id="billing-package-heading" className={AppPremiumShell.sectionTitle}>
                   {labels.sections.package}
                 </h2>
-                <p className={AppPremiumShell.sectionSubtitle}>
-                  {labels.modulesCount.replace("{count}", String(vm.modulesCount))}
-                </p>
+                {vm.modulesCount != null ? (
+                  <p className={AppPremiumShell.sectionSubtitle}>
+                    {labels.modulesCount.replace("{count}", String(vm.modulesCount))}
+                  </p>
+                ) : null}
               </div>
               <AipifyStatusBadge kind={statusKind(vm.statusKey)} label={packageStatus} />
             </div>
@@ -227,11 +240,11 @@ export function BillingAdminPanel({ labels, locale }: BillingAdminPanelProps) {
                     {vm.packageDescription}
                   </p>
                 ) : null}
-                {vm.nextBillingDate ? (
+                {vm.renewalDate ? (
                   <p className="mt-3 text-sm text-aipify-text-secondary">
-                    {labels.nextBillingDate}:{" "}
+                    {labels.renewalDate}:{" "}
                     <span className="font-medium text-aipify-text">
-                      {formatDate(vm.nextBillingDate, locale)}
+                      {formatDate(vm.renewalDate, locale)}
                     </span>
                   </p>
                 ) : null}
@@ -315,7 +328,8 @@ export function BillingAdminPanel({ labels, locale }: BillingAdminPanelProps) {
                     <tr className="border-b border-aipify-border text-aipify-text-secondary">
                       <th className="px-2 py-2 font-medium">{labels.sections.package}</th>
                       <th className="px-2 py-2 font-medium">{labels.statusColumn}</th>
-                      <th className="px-2 py-2 font-medium">{labels.nextBillingDate}</th>
+                      <th className="px-2 py-2 font-medium">{labels.renewalDate}</th>
+                      <th className="px-2 py-2 font-medium">{labels.lastUpdated}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -329,9 +343,10 @@ export function BillingAdminPanel({ labels, locale }: BillingAdminPanelProps) {
                           />
                         </td>
                         <td className="px-2 py-3 text-aipify-text-secondary">
-                          {row.nextBillingDate
-                            ? formatDate(row.nextBillingDate, locale)
-                            : labels.unavailable}
+                          {row.renewalDate ? formatDate(row.renewalDate, locale) : "—"}
+                        </td>
+                        <td className="px-2 py-3 text-aipify-text-secondary">
+                          {row.updatedAt ? formatDate(row.updatedAt, locale) : "—"}
                         </td>
                       </tr>
                     ))}

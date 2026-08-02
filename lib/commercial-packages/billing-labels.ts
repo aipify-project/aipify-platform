@@ -17,7 +17,8 @@ export type BillingReferenceLabels = {
   usedOfMax: string;
   modulesCount: string;
   privacyNote: string;
-  nextBillingDate: string;
+  renewalDate: string;
+  lastUpdated: string;
   statusColumn: string;
   viewLicense: string;
   viewModules: string;
@@ -76,7 +77,8 @@ export function buildBillingReferenceLabels(t: Translator): BillingReferenceLabe
     usedOfMax: t(`${NS}.usedOfMax`),
     modulesCount: t(`${NS}.modulesCount`),
     privacyNote: t(`${NS}.privacyNote`),
-    nextBillingDate: t(`${NS}.nextBillingDate`),
+    renewalDate: t(`${NS}.renewalDate`),
+    lastUpdated: t(`${NS}.lastUpdated`),
     statusColumn: t(`${NS}.statusColumn`),
     viewLicense: t(`${NS}.viewLicense`),
     viewModules: t(`${NS}.viewModules`),

@@ -8408,7 +8408,7 @@
       "packageCopy": {
         "starter": {
           "name": "Aipify Starter",
-          "description": "For businesses beginning with Aipify — support assistance and FAQ knowledge."
+          "description": "For businesses starting with Aipify — support assistance and FAQ knowledge."
         },
         "professional": {
           "name": "Aipify Professional",
@@ -8416,7 +8416,7 @@
         },
         "business": {
           "name": "Aipify Business",
-          "description": "For organizations with employees and internal processes — Employee Knowledge Engine."
+          "description": "For organizations with employees and internal processes — employee knowledge and guided work."
         },
         "insights": {
           "name": "Aipify Insights",
@@ -8427,7 +8427,15 @@
           "description": "Advanced intelligence, governance, and scalability for large organizations."
         }
       },
-      "moduleDisplayNames": {}
+      "moduleDisplayNames": {},
+      "featureLabels": {
+        "aipify_core": "Aipify Core",
+        "install_engine": "Guided installation",
+        "support_assistant": "Support assistant",
+        "faq_knowledge": "FAQ knowledge",
+        "human_approval": "Human approval",
+        "basic_analytics": "Basic analytics"
+      }
     }
   }
 }

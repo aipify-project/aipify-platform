@@ -8493,7 +8493,7 @@
         },
         "business": {
           "name": "Aipify Business",
-          "description": "For organisasjoner med ansatte og interne prosesser — Employee Knowledge Engine."
+          "description": "For organisasjoner med ansatte og interne prosesser — ansattkunnskap og veiledet arbeid."
         },
         "insights": {
           "name": "Aipify Insights",
@@ -8504,7 +8504,15 @@
           "description": "Avansert innsikt, styring og skalerbarhet for store organisasjoner."
         }
       },
-      "moduleDisplayNames": {}
+      "moduleDisplayNames": {},
+      "featureLabels": {
+        "aipify_core": "Aipify-kjerne",
+        "install_engine": "Veiledet installasjon",
+        "support_assistant": "Supportassistent",
+        "faq_knowledge": "FAQ-kunnskap",
+        "human_approval": "Menneskelig godkjenning",
+        "basic_analytics": "Grunnleggende analyse"
+      }
     }
   }
 }

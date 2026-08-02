@@ -76,6 +76,13 @@ describe("software catalog adapter", () => {
     assert.equal(view.referencePackKey, "aipify_hosts");
     assert.equal(view.currentPackage?.packageKey, "business");
     assert.ok(view.items.every((item) => item.price === null));
+    const currentPackageCard = view.items.find((item) => item.id === "package:business");
+    assert.equal(currentPackageCard?.valueProposition, "Operations package");
+    assert.notEqual(
+      currentPackageCard?.valueProposition,
+      "Operational clarity for growing teams",
+      "English backend positioning must not override package copy"
+    );
 
     const hosts = view.items.find((item) => item.canonicalKey === CANONICAL_HOSTS_PACK_KEY);
     assert.ok(hosts);
@@ -224,6 +231,46 @@ describe("software catalog adapter", () => {
       view.currentPackage?.description,
       "For organisasjoner med ansatte og interne prosesser."
     );
+  });
+
+  it("localizes starter features and hides unknown technical labels", () => {
+    const view = buildSoftwareCatalogViewModel({
+      billingRaw: {
+        has_customer: true,
+        current_package: {
+          package_key: "starter",
+          package_name: "Aipify Starter",
+          description: "English starter",
+          features: ["Install Engine", "FAQ Knowledge", "plain language feature", "raw.feature_key"],
+        },
+        positioning: "Backend positioning must stay hidden",
+      },
+      modulesRaw: { has_customer: true },
+      identityDashboardRaw: { has_access: true, packs: [] },
+      localizePackage: (key) =>
+        key === "starter"
+          ? {
+              name: "Aipify Starter",
+              description: "For virksomheter som starter med Aipify — supportassistanse og FAQ-kunnskap.",
+            }
+          : null,
+      localizeFeature: (feature) => {
+        if (feature === "Install Engine") return "Veiledet installasjon";
+        if (feature === "FAQ Knowledge") return "FAQ-kunnskap";
+        return null;
+      },
+    });
+    const card = view.items.find((item) => item.id === "package:starter");
+    assert.equal(
+      card?.description,
+      "For virksomheter som starter med Aipify — supportassistanse og FAQ-kunnskap."
+    );
+    assert.equal(card?.valueProposition, card?.description);
+    assert.deepEqual(card?.features, [
+      "Veiledet installasjon",
+      "FAQ-kunnskap",
+      "plain language feature",
+    ]);
   });
 });
 

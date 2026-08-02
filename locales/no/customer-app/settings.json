@@ -1109,8 +1109,8 @@
   },
   "commercialPackages": {
     "billing": {
-      "title": "Fakturering og pakker",
-      "subtitle": "Din pakke, bruk, oppgraderinger og tillegg — betal kun for det du trenger.",
+      "title": "Abonnement og pakker",
+      "subtitle": "Gjeldende pakke, kapasitet og tilgjengelige oppgraderinger — adskilt fra fakturaer.",
       "loading": "Forbereder innhold",
       "back": "Tilbake til innstillinger",
       "viewLicense": "Lisenssenter",
@@ -1125,11 +1125,11 @@
         "upgrades": "Oppgraderingsalternativer",
         "addons": "Tillegg",
         "recommendations": "Anbefalinger",
-        "history": "Faktureringshistorikk",
+        "history": "Abonnementshistorikk",
         "suites": "Produktpakker",
         "locked": "Funksjoner som ikke er inkludert",
         "nextStep": "Anbefalt neste steg",
-        "support": "Hjelp med fakturering"
+        "support": "Hjelp med pakker og fakturaer"
       },
       "usage": {
         "supportCases": "Support-saker",
@@ -1144,7 +1144,7 @@
       "viewPaymentProviders": "Betalingsleverandører",
       "viewInvoiceDetails": "Fakturadetaljer",
       "modulesCount": "{count} lisensierte moduler",
-      "emptyHistory": "Ingen faktureringshistorikk er tilgjengelig ennå.",
+      "emptyHistory": "Ingen abonnementshistorikk er tilgjengelig ennå.",
       "statusLabels": {
         "active": "Aktiv",
         "trial": "Prøveperiode",
@@ -1160,8 +1160,8 @@
       "unavailable": "Ikke tilgjengelig",
       "unlimited": "Ubegrenset",
       "usedOfMax": "{used} av {max}",
-      "privacyNote": "Denne siden viser pakke- og brukssammendrag for organisasjonen din. Betalingskortdetaljer ligger hos betalingsleverandøren.",
-      "eyebrow": "Fakturering",
+      "privacyNote": "Denne siden viser pakke- og brukssammendrag for organisasjonen din. Fakturaer finner du under fakturadetaljer når de er utstedt.",
+      "eyebrow": "Abonnement",
       "limits": {
         "users": "Brukere",
         "installations": "Installasjoner",
@@ -1181,11 +1181,13 @@
         "none": "Pakke og bruk ser stabile ut. Ingen endring er nødvendig akkurat nå."
       },
       "support": {
-        "body": "Trenger du hjelp med fakturaer eller pakketilgang? Åpne fakturadetaljer eller pakker.",
+        "body": "Trenger du hjelp med pakketilgang eller fakturaer? Åpne pakker eller fakturadetaljer.",
         "invoiceDetails": "Åpne fakturadetaljer"
       },
       "nextBillingDate": "Neste fakturadato",
-      "statusColumn": "Status"
+      "statusColumn": "Status",
+      "renewalDate": "Neste fornyelse",
+      "lastUpdated": "Sist oppdatert"
     },
     "pricingPhilosophy": {
       "title": "Prisingsfilosofi",
