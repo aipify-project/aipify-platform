@@ -48,6 +48,14 @@ export type BillingViewModel = {
   nextStep: BillingNextStep;
   nextBillingDate: string | null;
   periodMonth: string | null;
+  /** Which sections have usable Production data (missing ≠ fatal). */
+  sections: {
+    package: boolean;
+    usage: boolean;
+    limits: boolean;
+    history: boolean;
+    locked: boolean;
+  };
 };
 
 function asNumber(value: unknown): number {
@@ -201,25 +209,35 @@ export function buildBillingViewModel(input: unknown): BillingViewModel {
     .map((f) => customerSafeName(f, ""))
     .filter(Boolean);
 
+  const limits = [
+    meter("users", limitsRaw.used_users, limitsRaw.max_users),
+    meter("installations", limitsRaw.used_installations, limitsRaw.max_installations),
+    meter("domains", limitsRaw.used_domains, limitsRaw.max_domains),
+  ];
+  const packageName = center.current_package?.package_name?.trim() || null;
+
   return {
     hasCustomer: center.has_customer,
-    packageName: center.current_package?.package_name?.trim() || null,
+    packageName,
     packageKey: center.current_package?.package_key?.trim() || null,
     packageDescription: customerSafeDescription(center.current_package?.description) || null,
     packageFeatures,
     statusKey,
     modulesCount: center.enabled_modules?.length ?? 0,
     usageItems,
-    limits: [
-      meter("users", limitsRaw.used_users, limitsRaw.max_users),
-      meter("installations", limitsRaw.used_installations, limitsRaw.max_installations),
-      meter("domains", limitsRaw.used_domains, limitsRaw.max_domains),
-    ],
+    limits,
     history,
     lockedCapabilities,
     nextStep,
     nextBillingDate,
     periodMonth:
       typeof usageRaw.period_month === "string" ? usageRaw.period_month : null,
+    sections: {
+      package: Boolean(packageName),
+      usage: usageItems.length > 0,
+      limits: Object.keys(limitsRaw).length > 0,
+      history: history.length > 0,
+      locked: lockedCapabilities.length > 0,
+    },
   };
 }

@@ -1,11 +1,12 @@
-import { UnifiedBillingCenterPanel } from "@/components/app/unified-billing";
-import { buildUnifiedBillingLabels } from "@/lib/unified-billing-engine";
-import { getCustomerAppDictionaryForModule } from "@/lib/i18n/get-dictionary";
-import { getLocale } from "@/lib/i18n/get-locale";
-import { createTranslator } from "@/lib/i18n/translate";
+import { redirect } from "next/navigation";
 
-export default async function UnifiedBillingPage() {
-  const dict = await getCustomerAppDictionaryForModule(await getLocale(), "unifiedBilling");
-  const labels = buildUnifiedBillingLabels(createTranslator(dict));
-  return <UnifiedBillingCenterPanel labels={labels} backHref="/app" />;
+/**
+ * Legacy /app/billing shell used UnifiedBillingCenterPanel, which collapsed to a
+ * single empty string when the STABLE unified-billing RPC attempted a seed INSERT
+ * inside a read-only transaction.
+ *
+ * Authoritative customer billing surface is /app/settings/billing (commercial packages).
+ */
+export default function BillingAliasPage() {
+  redirect("/app/settings/billing");
 }

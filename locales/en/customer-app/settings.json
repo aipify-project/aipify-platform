@@ -5910,7 +5910,9 @@
     "advisor": {
       "title": "Billing guidance",
       "openBilling": "Open Billing"
-    }
+    },
+    "retry": "Try again",
+    "openPackages": "Open billing & packages"
   },
   "businessPackRuntime": {
     "title": "Business Pack Runtime",

@@ -106,12 +106,15 @@ function run() {
   );
 
   assert.equal(vm.nextStep.kind, "view_packages");
+  assert.equal(vm.sections.package, true);
+  assert.equal(vm.sections.locked, true);
 
   const empty = buildBillingViewModel({ has_customer: false });
   assert.equal(empty.packageName, null);
   assert.equal(empty.history.length, 0);
   assert.equal(empty.lockedCapabilities.length, 0);
   assert.equal(empty.nextStep.kind, "none");
+  assert.equal(empty.sections.package, false);
 
   const partial = buildBillingViewModel({
     has_customer: true,

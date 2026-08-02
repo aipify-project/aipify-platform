@@ -13,6 +13,8 @@ export function buildUnifiedBillingLabels(t: Translator) {
     manageProfile: t(`${p}.manageProfile`),
     viewCheckout: t(`${p}.viewCheckout`),
     viewUpgrade: t(`${p}.viewUpgrade`),
+    retry: t(`${p}.retry`),
+    openPackages: t(`${p}.openPackages`),
     sections: {
       profiles: t(`${p}.sections.profiles`),
       subscriptions: t(`${p}.sections.subscriptions`),

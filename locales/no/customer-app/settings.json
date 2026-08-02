@@ -5897,7 +5897,9 @@
     "advisor": {
       "title": "Faktureringsveiledning",
       "openBilling": "Åpne fakturering"
-    }
+    },
+    "retry": "Prøv igjen",
+    "openPackages": "Åpne fakturering og pakker"
   },
   "businessPackRuntime": {
     "title": "Business Pack Runtime",
