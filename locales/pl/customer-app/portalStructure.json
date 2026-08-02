@@ -6403,7 +6403,8 @@
           "retry": "Spróbuj ponownie",
           "editSetup": "Edytuj konfigurację",
           "removeIntegration": "Usuń integrację",
-          "continueSetup": "Kontynuuj konfigurację"
+          "continueSetup": "Kontynuuj konfigurację",
+          "previewWizard": "Podgląd kreatora instalacji"
         },
         "removeDialog": {
           "title": "Usunąć integrację {provider}?",
@@ -7151,6 +7152,237 @@
         "custom_erp": {
           "begin": "Review technical requirements with your developer",
           "verify": "Submit validation evidence for certification"
+        }
+      },
+      "installationWizard": {
+        "reassurance": "Aipify przeprowadzi Cię przez konfigurację. Nie potrzebujesz wiedzy technicznej.",
+        "technicalRequired": "To połączenie wymaga konfiguracji technicznej. Aipify może Cię poprowadzić, wykonać pracę gdy dostęp będzie dostępny albo współpracować z dostawcą.",
+        "progress": "Postęp",
+        "estimatedTime": "Około {minutes} minut",
+        "emptyFallback": "Kontynuuj, gdy będziesz gotowy.",
+        "comingLater": "Ta opcja będzie dostępna wkrótce. W międzyczasie pomoże support Aipify.",
+        "invitePlaceholder": "Zaproszenie jest przygotowane jako bezpieczne przekazanie. Pełna dostawa zaproszeń przyjdzie później.",
+        "loading": "Preparing setup",
+        "waiting": "Oczekiwanie na odpowiedzialną stronę",
+        "waitingByParty": {
+          "aipify": "Oczekiwanie na Aipify",
+          "aipifyGuided": "Oczekiwanie na wskazówki od Aipify",
+          "customerIt": "Oczekiwanie na dostawcę IT",
+          "partner": "Oczekiwanie na partnera Aipify"
+        },
+        "blocked": "Konfiguracja jest zablokowana do rozwiązania problemu",
+        "error": "Wystąpił nieoczekiwany problem. Spróbuj ponownie lub poproś Aipify o pomoc.",
+        "completed": "Konfiguracja zakończona",
+        "activateGate": "Aktywacja wymaga udanego testu połączenia i Twojego wyraźnego potwierdzenia.",
+        "pauseSaved": "Postęp został zapisany. Możesz kontynuować później.",
+        "resume": "Kontynuuj konfigurację",
+        "staleContract": "Przewodnik został zaktualizowany. Sprawdź bieżące kroki przed kontynuacją.",
+        "primaryContinue": "Kontynuuj",
+        "primaryBack": "Wstecz",
+        "supportModes": {
+          "selfService": "Zrobię to sam",
+          "guided": "Chcę wskazówek",
+          "aipifyManaged": "Aipify zajmuje się konfiguracją",
+          "partnerManaged": "Partner zajmuje się konfiguracją",
+          "customerItManaged": "Pomaga mój dostawca IT"
+        },
+        "states": {
+          "notStarted": "Not started",
+          "supportSelection": "Choose setup method",
+          "awaitingCustomer": "Waiting for you",
+          "awaitingAipify": "Waiting for Aipify",
+          "awaitingPartner": "Waiting for partner",
+          "awaitingProvider": "Waiting for provider",
+          "awaitingCustomerIt": "Waiting for IT provider",
+          "inProgress": "In progress",
+          "credentialsRequired": "Credentials needed",
+          "configurationRequired": "Configuration needed",
+          "readyForTest": "Ready to test",
+          "testing": "Testing connection",
+          "testFailed": "Test needs attention",
+          "verified": "Verified",
+          "readyForActivation": "Ready to activate",
+          "active": "Active",
+          "paused": "Paused",
+          "blocked": "Blocked",
+          "unsupported": "Not supported",
+          "cancelled": "Cancelled",
+          "completed": "Completed"
+        },
+        "test": {
+          "testing": "Połączenie jest testowane",
+          "ok": "Połączenie działa",
+          "needInfo": "Potrzebujemy trochę więcej informacji",
+          "followUp": "Aipify zajmie się tym dalej",
+          "failed": "Nie udało się ukończyć testu",
+          "retry": "Spróbuj ponownie",
+          "askHelp": "Poproś o pomoc"
+        },
+        "actions": {
+          "askAipifyHelp": "Poproś Aipify o pomoc",
+          "askAipifyHelpDescription": "Get calm guidance without technical jargon.",
+          "requestGuided": "Poproś o prowadzoną konfigurację",
+          "aipifyManaged": "Poproś Aipify o konfigurację",
+          "inviteProvider": "Invite provider",
+          "inviteIt": "Zaproś dostawcę IT",
+          "invitePartner": "Invite partner",
+          "selfService": "Do it yourself",
+          "changeMethod": "Change setup method",
+          "contactSupport": "Contact support",
+          "continueLater": "Kontynuuj później"
+        },
+        "responsibleParties": {
+          "customer": "Your responsibility",
+          "aipify": "Aipify is handling this",
+          "partner": "Your partner is handling this",
+          "provider": "The provider is handling this",
+          "customer_it": "Your IT provider is handling this"
+        },
+        "fields": {
+          "apiKey": "Secure connection key",
+          "baseUrl": "Service address",
+          "itRecipient": "IT contact email"
+        },
+        "help": {
+          "customer": "Aipify guides you step by step and only asks for what is needed.",
+          "internal": "Follow the published installation contract. Verify scopes, run health check, then gate activation."
+        },
+        "steps": {
+          "introduction": {
+            "title": "Witamy",
+            "description": "Skonfigurujemy połączenie razem. Musisz tylko zatwierdzić dostęp, gdy o to poprosimy."
+          },
+          "chooseSupport": {
+            "title": "Jak ma przebiegać konfiguracja?",
+            "description": "Wybierz najprostszą bezpieczną opcję. Preferujemy zarządzanie przez Aipify, gdy jest dostępne."
+          },
+          "test": {
+            "title": "Test the connection",
+            "description": "Aipify checks that the connection works before activation.",
+            "internalTitle": "Run provider connection test",
+            "internalDescription": "Invoke existing test endpoint, confirm verification metadata, no secrets in logs."
+          },
+          "review": {
+            "title": "Review permissions",
+            "description": "Confirm the access Aipify will use. You stay in control."
+          },
+          "activate": {
+            "title": "Activate connection",
+            "description": "Activation happens only after verification and your confirmation."
+          },
+          "completion": {
+            "title": "You are ready",
+            "description": "The connection is set up. Aipify will keep monitoring health."
+          },
+          "oauth": {
+            "title": "Approve access",
+            "description": "Sign in with the provider to grant the requested access.",
+            "internalTitle": "Complete OAuth authorization",
+            "internalDescription": "Confirm PKCE callback, required scopes, and token storage via existing OAuth stream."
+          },
+          "waitingAipify": {
+            "title": "Aipify is setting this up",
+            "description": "You can continue later. We will notify you when your action is needed."
+          },
+          "installConnector": {
+            "title": "Install the connector",
+            "description": "Install the approved connector package, or let Aipify/your IT handle it.",
+            "internalTitle": "Install connector package",
+            "internalDescription": "Verify checksum, install package version from contract, run health check."
+          },
+          "inviteIt": {
+            "title": "Invite your IT provider",
+            "description": "Send a limited invitation so IT can complete technical steps."
+          },
+          "hostedWaiting": {
+            "title": "Aipify is preparing the hosted connector",
+            "description": "No server installation is required on your side.",
+            "internalTitle": "Provision hosted connector",
+            "internalDescription": "Provision hosted service, verify health endpoint, confirm customer configuration gates."
+          },
+          "customConfig": {
+            "title": "Share configuration details",
+            "description": "Provide only the fields needed for a safe connection.",
+            "internalTitle": "Collect custom implementation configuration",
+            "internalDescription": "Validate HTTPS URL allowlist, store non-secret config, escalate secrets via secure stream."
+          },
+          "unsupported": {
+            "title": "Self-service is limited for this connection",
+            "description": "Ask Aipify for help or choose a guided setup method."
+          },
+          "credentials": {
+            "title": "Add your secure connection key",
+            "description": "Paste the key from your provider admin. Aipify stores it securely and never shows it again.",
+            "internalTitle": "Store API key via secret stream",
+            "internalDescription": "Save through existing encrypt path. Never return plaintext. Proceed to test gate."
+          }
+        },
+        "preview": {
+          "badge": "Podgląd",
+          "notice": "To jest podgląd. Żadne zmiany nie zostaną zapisane.",
+          "readOnlyAction": "Ta czynność jest niedostępna w podglądzie. Żadne zmiany nie są zapisywane.",
+          "close": "Zamknij podgląd",
+          "sampleCredential": "Tylko przykład — nie jest zapisywany",
+          "actionsExampleHeading": "Przykład działań w aktywnej instalacji",
+          "actionsUnavailable": "Niedostępne w podglądzie",
+          "status": {
+            "choose": "Wybierz sposób konfiguracji",
+            "aipifyManaged": "Aipify przygotowuje konfigurację",
+            "guided": "Gotowe do konfiguracji z przewodnikiem",
+            "selfService": "Gotowe do samodzielnej konfiguracji",
+            "customerItManaged": "Gotowe dla dostawcy IT"
+          },
+          "responsibility": {
+            "choose": "Wybierz metodę konfiguracji, aby zobaczyć, kto jest odpowiedzialny.",
+            "aipifyManaged": "Wystarczy, że zatwierdzisz to, o co poprosimy",
+            "guided": "Aipify prowadzi Cię krok po kroku",
+            "selfService": "Wykonujesz kroki samodzielnie. Aipify może pomóc w razie potrzeby",
+            "customerItManaged": "Twój dostawca IT wykonuje kroki techniczne"
+          }
+        },
+        "install": {
+          "actionsChooseHint": "Wybierz sposób konfiguracji, aby zobaczyć następny krok.",
+          "actionsHeading": "Następny krok",
+          "sessionPersistError": "Aipify nie mógł zapisać Twojego wyboru. Spróbuj ponownie.",
+          "primaryActions": {
+            "aipifyManaged": "Poproś Aipify o konfigurację",
+            "guided": "Poproś o prowadzoną konfigurację",
+            "selfService": "Rozpocznij samodzielną konfigurację",
+            "customerItManaged": "Zaproś dostawcę IT"
+          },
+          "status": {
+            "choose": "Wybierz sposób konfiguracji",
+            "aipifyManaged": "Gotowe, aby poprosić Aipify o konfigurację",
+            "guided": "Gotowe do konfiguracji z przewodnikiem",
+            "selfService": "Gotowe do samodzielnej konfiguracji",
+            "customerItManaged": "Gotowe dla dostawcy IT"
+          },
+          "responsibility": {
+            "choose": "Wybierz metodę konfiguracji, aby zobaczyć, kto jest odpowiedzialny.",
+            "aipifyManaged": "Wystarczy, że zatwierdzisz to, o co poprosimy.",
+            "guided": "Aipify prowadzi Cię krok po kroku.",
+            "selfService": "Wykonujesz kroki samodzielnie. Aipify może pomóc w razie potrzeby.",
+            "customerItManaged": "Twój dostawca IT wykonuje kroki techniczne."
+          },
+          "statusAfterHandoff": {
+            "guided": "Poproszono o prowadzenie"
+          }
+        },
+        "handoff": {
+          "submitting": "Wysyłanie prośby…",
+          "failed": "Aipify nie mogło ukończyć prośby o konfigurację. Spróbuj ponownie.",
+          "invalidRecipient": "Podaj prawidłowy adres e-mail kontaktu IT, aby kontynuować.",
+          "nextStepHint": "Twoja prośba została zarejestrowana. Aipify kontynuuje stąd. Możesz wrócić później.",
+          "referenceLabel": "Numer referencyjny",
+          "requestedAtLabel": "Wysłano",
+          "recipientLabel": "Odbiorca zaproszenia",
+          "itRecipientPlaceholder": "imie@firma.pl",
+          "success": {
+            "aipifyManaged": "Aipify otrzymało prośbę o konfigurację. Numer {reference}.",
+            "guided": "Poproszono o prowadzoną konfigurację. Numer {reference}.",
+            "customerItManaged": "Zaproszenie zarejestrowane dla {email}. Numer {reference}.",
+            "duplicate": "Ta prośba o konfigurację jest już zarejestrowana. Numer {reference}."
+          }
         }
       }
     },

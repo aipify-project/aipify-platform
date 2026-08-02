@@ -1,0 +1,73 @@
+# Core APP Generic Installation Wizard
+
+Task: `AIPIFY.CORE.APP.GENERIC.INSTALLATION.WIZARD.V1`
+
+## Ownership
+
+- **Core** owns the authoritative `installation_contract` on `app_portal_integration_providers`.
+- **Customer APP** only renders the generic `InstallationWizard` from the canonical Core contract.
+- Platform Admin configures the contract; APP never invents provider-specific wizards.
+
+## Hard rules
+
+1. No provider-specific wizard components.
+2. No customer-specific wizard components (including UnoNight special-cases).
+3. No parallel provider registry — extend the existing provider row.
+4. Minimize customer technical effort; assistance-first UX is mandatory.
+5. Prefer Aipify-managed / guided over self-service when supported.
+6. Dynamic global locale list from Core language foundation (`LOCALES`) — never hardcode locale tabs/unions in the wizard.
+7. English fallback required; never show raw translation keys to customers.
+8. Role-based presentation from the same contract (customer vs internal).
+9. No raw technical/internal copy to customer audiences.
+10. No activation before verified; no auto-activation from wizard completion alone.
+11. No secret plaintext to client, logs, or session `field_values`.
+12. Pause/resume required; session state is server-authoritative.
+13. State transitions validated in Core RPCs — client cannot invent authority.
+14. Reference fixtures are not live Production providers.
+15. Premium, responsive, dark-mode, and accessibility requirements apply.
+16. Authenticated Production proof is required before `PRODUCTION_READY`.
+17. Connected integrations support safe read-only wizard preview via the same generic `InstallationWizard` renderer (`mode: "preview"`).
+18. Preview must never create or mutate installation sessions, call test/verify/activate/save/invite, or read secret plaintext.
+19. Support mode switching in preview is local UI state only and resets on close.
+20. Preview is tenant-bound and requires integration manage authorization (`can_manage`).
+21. Dynamic locale remains required for preview copy — no hardcoded locale lists.
+22. Preview status and responsibility are derived from the locally selected support mode — never live waiting states (`awaiting_*`) before an external process starts.
+23. Customer APP support choices are at most: Aipify-managed, guided, self-service, and IT (IT only when the contract allows). `partner_managed` is Core/Platform routing — never a direct customer choice.
+24. Preview actions panel shows disabled examples only — no dead clickable controls, no Continue later, no invite/order/scheduling/test/activate.
+25. Connect route (`/app/platform/integrations/connect/[providerKey]`) is explicit install mode via `AppPortalIntegrationSetupPanel` (`mode="install"`, `entry="connect_route"`).
+26. Install support selection is local until explicit Fortsett — no session write on option select.
+27. Install waiting states (`awaiting_*`) start only after a real invite/handoff request — never from selection alone.
+28. Install status and responsibility share the same selectedSupportMode / lifecycle source.
+29. Install action panel shows only relevant operational actions for the selected mode/lifecycle.
+30. Continue later requires a real resumable installation session.
+31. Live wrapper (`AppPortalIntegrationSetupPanel`) must be covered by integration/source tests — preview-only tests are insufficient for install runtime.
+32. Handoff CTAs must map to a real tenant-bound server action (`POST …/installation/handoff`) — never a no-op or placeholder success.
+33. Waiting states (`awaiting_*`) must be set only after a persisted handoff request succeeds — never before the request, and never from selection alone.
+34. Never show an active customer CTA for `coming_later` / `invite_placeholder` actions; hide or honestly disable unimplemented modes.
+35. Aipify-managed handoff creates a canonical `app_portal_installation_handoffs` request (plus audit and operational visibility) — not a client-only status flip.
+36. Guided mode creates a guided setup request — never fake calendar booking.
+37. Self-service confirms support mode and advances technical steps — it does not create an external waiting state.
+38. Customer IT awaiting state requires a successful invitation handoff with a validated recipient — never placeholder invite + waiting.
+39. All handoffs are tenant-bound, idempotent, and audited (session audit + handoff row).
+40. Live CTA integration tests covering handoff wiring are mandatory for install runtime changes.
+41. Customer-visible waiting labels must name the known responsible party; generic “responsible party” is fallback only — status copy must not alter lifecycle.
+
+## Code map
+
+- Contract: `lib/app-portal/integrations/installation/`
+- Wizard: `components/app/app-portal/InstallationWizard.tsx`
+- Preview dialog: `components/app/app-portal/InstallationWizardPreviewDialog.tsx`
+- Preview helpers: `lib/app-portal/integrations/installation/preview-mode.ts`
+- Session RPCs: `get_app_portal_installation_session`, `upsert_app_portal_installation_session`
+- Handoff RPC/API: `create_app_portal_installation_handoff`, `POST /api/app-portal/integrations/[providerKey]/installation/handoff`
+- Platform ops list: `list_platform_installation_handoffs`
+- Migration: `supabase/migrations/20261937100000_core_provider_installation_wizard_v1.sql`
+- Handoff migration: `supabase/migrations/20261937200000_core_app_installation_handoff_lifecycle_v1.sql`
+
+## Platform editor
+
+Full structured Platform editor for installation steps may depend on:
+
+`AIPIFY.PLATFORM.PROVIDER.ONBOARDING.PREMIUM.STRUCTURED.ADMIN.V2`
+
+Use typed read/preview hooks until that editor covers installation contracts.

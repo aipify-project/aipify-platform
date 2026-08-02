@@ -400,7 +400,8 @@
           "retry": "Försök igen",
           "editSetup": "Redigera inställning",
           "removeIntegration": "Ta bort integration",
-          "continueSetup": "Fortsätt installation"
+          "continueSetup": "Fortsätt installation",
+          "previewWizard": "Förhandsgranska installationsguiden"
         },
         "removeDialog": {
           "title": "Ta bort {provider}-integrationen?",
@@ -1185,6 +1186,237 @@
         "custom_erp": {
           "begin": "Review technical requirements with your developer",
           "verify": "Submit validation evidence for certification"
+        }
+      },
+      "installationWizard": {
+        "reassurance": "Aipify hjälper dig genom installationen. Du behöver ingen teknisk kunskap.",
+        "technicalRequired": "Den här anslutningen kräver teknisk installation. Aipify kan vägleda dig, utföra arbetet när nödvändig åtkomst finns, eller samarbeta med din leverantör.",
+        "progress": "Förlopp",
+        "estimatedTime": "Cirka {minutes} minuter",
+        "emptyFallback": "Fortsätt när du är redo.",
+        "comingLater": "Det här alternativet blir tillgängligt snart. Aipify-support kan hjälpa dig under tiden.",
+        "invitePlaceholder": "Inbjudan är förberedd som en säker överlämning. Fullständig inbjudansleverans kommer i en senare version.",
+        "loading": "Förbereder installationen",
+        "waiting": "Väntar på ansvarig part",
+        "waitingByParty": {
+          "aipify": "Väntar på Aipify",
+          "aipifyGuided": "Väntar på vägledning från Aipify",
+          "customerIt": "Väntar på IT-leverantör",
+          "partner": "Väntar på Aipifys samarbetspartner"
+        },
+        "blocked": "Installationen är blockerad tills problemet är löst",
+        "error": "Något oväntat hände. Försök igen eller be Aipify om hjälp.",
+        "completed": "Installationen är klar",
+        "activateGate": "Aktivering kräver ett lyckat anslutningstest och din uttryckliga bekräftelse.",
+        "pauseSaved": "Dina framsteg är sparade. Du kan fortsätta senare.",
+        "resume": "Fortsätt installationen",
+        "staleContract": "Installationsguiden har uppdaterats. Granska stegen innan du fortsätter.",
+        "primaryContinue": "Fortsätt",
+        "primaryBack": "Tillbaka",
+        "supportModes": {
+          "selfService": "Jag gör det själv",
+          "guided": "Jag vill ha vägledning",
+          "aipifyManaged": "Aipify sköter installationen",
+          "partnerManaged": "Partner sköter installationen",
+          "customerItManaged": "Min IT-leverantör hjälper till"
+        },
+        "states": {
+          "notStarted": "Inte startad",
+          "supportSelection": "Välj installationsmetod",
+          "awaitingCustomer": "Väntar på dig",
+          "awaitingAipify": "Väntar på Aipify",
+          "awaitingPartner": "Väntar på partner",
+          "awaitingProvider": "Väntar på leverantör",
+          "awaitingCustomerIt": "Väntar på IT-leverantör",
+          "inProgress": "Pågående",
+          "credentialsRequired": "Uppgifter behövs",
+          "configurationRequired": "Konfiguration behövs",
+          "readyForTest": "Redo att testa",
+          "testing": "Anslutningen testas",
+          "testFailed": "Testet behöver åtgärdas",
+          "verified": "Verifierad",
+          "readyForActivation": "Redo för aktivering",
+          "active": "I drift",
+          "paused": "Pausad",
+          "blocked": "Blockerad",
+          "unsupported": "Stöds inte",
+          "cancelled": "Avbruten",
+          "completed": "Slutförd"
+        },
+        "test": {
+          "testing": "Anslutningen testas",
+          "ok": "Anslutningen fungerar",
+          "needInfo": "Vi behöver lite mer information",
+          "followUp": "Aipify följer upp detta",
+          "failed": "Testet kunde inte slutföras",
+          "retry": "Försök igen",
+          "askHelp": "Be om hjälp"
+        },
+        "actions": {
+          "askAipifyHelp": "Be Aipify om hjälp",
+          "askAipifyHelpDescription": "Få lugn vägledning utan teknisk jargong.",
+          "requestGuided": "Begär vägledd installation",
+          "aipifyManaged": "Be Aipify ställa in",
+          "inviteProvider": "Bjud in leverantör",
+          "inviteIt": "Bjud in IT-leverantör",
+          "invitePartner": "Bjud in partner",
+          "selfService": "Gör det själv",
+          "changeMethod": "Byt installationsmetod",
+          "contactSupport": "Kontakta support",
+          "continueLater": "Fortsätt senare"
+        },
+        "responsibleParties": {
+          "customer": "Ert ansvar",
+          "aipify": "Aipify hanterar detta",
+          "partner": "Er partner hanterar detta",
+          "provider": "Leverantören hanterar detta",
+          "customer_it": "Er IT-leverantör hanterar detta"
+        },
+        "fields": {
+          "apiKey": "Säker anslutningsnyckel",
+          "baseUrl": "Tjänstadress",
+          "itRecipient": "IT-kontaktens e-postadress"
+        },
+        "help": {
+          "customer": "Aipify vägleder dig steg för steg och ber bara om det som behövs.",
+          "internal": "Följ det publicerade installationskontraktet. Verifiera behörigheter, kör hälsokontroll och aktivera först därefter."
+        },
+        "steps": {
+          "introduction": {
+            "title": "Välkommen",
+            "description": "Vi sätter upp anslutningen åt dig. Du behöver bara godkänna åtkomst när du blir ombedd."
+          },
+          "chooseSupport": {
+            "title": "Hur ska installationen göras?",
+            "description": "Välj det enklaste säkra alternativet. Aipify-hanterat prioriteras när det är möjligt."
+          },
+          "test": {
+            "title": "Testa anslutningen",
+            "description": "Aipify kontrollerar att anslutningen fungerar innan aktivering.",
+            "internalTitle": "Kör leverantörens anslutningstest",
+            "internalDescription": "Anropa befintlig testendpoint, bekräfta verifieringsmetadata och logga aldrig hemligheter."
+          },
+          "review": {
+            "title": "Granska behörigheter",
+            "description": "Bekräfta den åtkomst Aipify kommer att använda. Du behåller kontrollen."
+          },
+          "activate": {
+            "title": "Aktivera anslutningen",
+            "description": "Aktivering sker först efter verifiering och din bekräftelse."
+          },
+          "completion": {
+            "title": "Ni är klara",
+            "description": "Anslutningen är installerad. Aipify fortsätter att övervaka hälsan."
+          },
+          "oauth": {
+            "title": "Godkänn åtkomst",
+            "description": "Logga in hos leverantören för att bevilja den begärda åtkomsten.",
+            "internalTitle": "Slutför OAuth-auktorisering",
+            "internalDescription": "Bekräfta PKCE-callback, nödvändiga scopes och tokenlagring via befintlig OAuth-ström."
+          },
+          "waitingAipify": {
+            "title": "Aipify installerar detta",
+            "description": "Du kan fortsätta senare. Vi meddelar dig när din åtgärd behövs."
+          },
+          "installConnector": {
+            "title": "Installera anslutningen",
+            "description": "Installera det godkända anslutningspaketet, eller låt Aipify eller er IT hantera det.",
+            "internalTitle": "Installera anslutningspaket",
+            "internalDescription": "Verifiera checksumma, installera paketversion från kontraktet och kör hälsokontroll."
+          },
+          "inviteIt": {
+            "title": "Bjud in er IT-leverantör",
+            "description": "Skicka en begränsad inbjudan så att IT kan slutföra tekniska steg."
+          },
+          "hostedWaiting": {
+            "title": "Aipify förbereder den hostade anslutningen",
+            "description": "Ingen serverinstallation krävs på er sida.",
+            "internalTitle": "Provisionera hostad anslutning",
+            "internalDescription": "Provisionera hostad tjänst, verifiera hälsopunkt och bekräfta kundkonfigurationsgrindar."
+          },
+          "customConfig": {
+            "title": "Dela konfigurationsuppgifter",
+            "description": "Ange bara de fält som behövs för en säker anslutning.",
+            "internalTitle": "Samla in anpassad implementationskonfiguration",
+            "internalDescription": "Validera HTTPS-URL-allowlist, lagra icke-hemlig konfiguration och eskalera hemligheter via säker ström."
+          },
+          "unsupported": {
+            "title": "Självbetjäning är begränsad för den här anslutningen",
+            "description": "Be Aipify om hjälp eller välj en vägledd installationsmetod."
+          },
+          "credentials": {
+            "title": "Lägg till er säkra anslutningsnyckel",
+            "description": "Klistra in nyckeln från leverantörens admin. Aipify lagrar den säkert och visar den aldrig igen.",
+            "internalTitle": "Lagra API-nyckel via hemlighetsström",
+            "internalDescription": "Spara via befintlig krypteringsväg. Returnera aldrig klartext. Fortsätt till testgrind."
+          }
+        },
+        "preview": {
+          "badge": "Förhandsvisning",
+          "notice": "Detta är en förhandsvisning. Inga ändringar sparas.",
+          "readOnlyAction": "Denna åtgärd är inte tillgänglig i förhandsvisning. Inga ändringar sparas.",
+          "close": "Stäng förhandsvisning",
+          "sampleCredential": "Endast exempel — sparas inte",
+          "actionsExampleHeading": "Exempel på åtgärder i en aktiv installation",
+          "actionsUnavailable": "Inte tillgängligt i förhandsvisning",
+          "status": {
+            "choose": "Välj hur installationen ska göras",
+            "aipifyManaged": "Aipify förbereder installationen",
+            "guided": "Redo för vägledd installation",
+            "selfService": "Redo för självbetjäning",
+            "customerItManaged": "Redo för IT-leverantör"
+          },
+          "responsibility": {
+            "choose": "Välj installationsmetod för att se vem som ansvarar.",
+            "aipifyManaged": "Du behöver bara godkänna det vi ber om",
+            "guided": "Aipify vägleder dig steg för steg",
+            "selfService": "Du utför stegen själv. Aipify kan hjälpa vid behov",
+            "customerItManaged": "Din IT-leverantör utför de tekniska stegen"
+          }
+        },
+        "install": {
+          "actionsChooseHint": "Välj hur installationen ska göras för att se nästa steg.",
+          "actionsHeading": "Nästa steg",
+          "sessionPersistError": "Aipify kunde inte spara ditt val. Försök igen.",
+          "primaryActions": {
+            "aipifyManaged": "Be Aipify ställa in",
+            "guided": "Begär vägledd installation",
+            "selfService": "Starta självbetjäning",
+            "customerItManaged": "Bjud in IT-leverantör"
+          },
+          "status": {
+            "choose": "Välj hur installationen ska göras",
+            "aipifyManaged": "Redo att be Aipify om installation",
+            "guided": "Redo för vägledd installation",
+            "selfService": "Redo för självbetjäning",
+            "customerItManaged": "Redo för IT-leverantör"
+          },
+          "responsibility": {
+            "choose": "Välj installationsmetod för att se vem som ansvarar.",
+            "aipifyManaged": "Du behöver bara godkänna det vi ber om.",
+            "guided": "Aipify vägleder dig steg för steg.",
+            "selfService": "Du utför stegen själv. Aipify kan hjälpa vid behov.",
+            "customerItManaged": "Din IT-leverantör utför de tekniska stegen."
+          },
+          "statusAfterHandoff": {
+            "guided": "Vägledning har begärts"
+          }
+        },
+        "handoff": {
+          "submitting": "Skickar begäran…",
+          "failed": "Aipify kunde inte slutföra installationsbegäran. Försök igen.",
+          "invalidRecipient": "Ange en giltig e-postadress för IT-kontakt för att fortsätta.",
+          "nextStepHint": "Din begäran är registrerad. Aipify fortsätter härifrån. Du kan återvända senare.",
+          "referenceLabel": "Begäransreferens",
+          "requestedAtLabel": "Begärd",
+          "recipientLabel": "Inbjudan till",
+          "itRecipientPlaceholder": "namn@foretag.se",
+          "success": {
+            "aipifyManaged": "Aipify har mottagit din begäran om installation. Referens {reference}.",
+            "guided": "Vägledd installation har begärts. Referens {reference}.",
+            "customerItManaged": "Inbjudan registrerad för {email}. Referens {reference}.",
+            "duplicate": "Denna installationsbegäran är redan registrerad. Referens {reference}."
+          }
         }
       }
     },

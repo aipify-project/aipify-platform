@@ -6403,7 +6403,8 @@
           "retry": "Спробувати знову",
           "editSetup": "Редагувати налаштування",
           "removeIntegration": "Видалити інтеграцію",
-          "continueSetup": "Продовжити налаштування"
+          "continueSetup": "Продовжити налаштування",
+          "previewWizard": "Переглянути майстер встановлення"
         },
         "removeDialog": {
           "title": "Видалити інтеграцію {provider}?",
@@ -7151,6 +7152,237 @@
         "custom_erp": {
           "begin": "Review technical requirements with your developer",
           "verify": "Submit validation evidence for certification"
+        }
+      },
+      "installationWizard": {
+        "reassurance": "Aipify допоможе вам з налаштуванням. Технічні знання не потрібні.",
+        "technicalRequired": "Це підключення потребує технічного налаштування. Aipify може провести вас, виконати роботу за наявності доступу або співпрацювати з вашим постачальником.",
+        "progress": "Прогрес",
+        "estimatedTime": "Приблизно {minutes} хвилин",
+        "emptyFallback": "Продовжуйте, коли будете готові.",
+        "comingLater": "Цей варіант з’явиться незабаром. Підтримка Aipify може допомогти тим часом.",
+        "invitePlaceholder": "Запрошення підготовлено як безпечну передачу. Повна доставка запрошень буде пізніше.",
+        "loading": "Preparing setup",
+        "waiting": "Очікування відповідальної сторони",
+        "waitingByParty": {
+          "aipify": "Очікування Aipify",
+          "aipifyGuided": "Очікування настанов від Aipify",
+          "customerIt": "Очікування IT-постачальника",
+          "partner": "Очікування партнера Aipify"
+        },
+        "blocked": "Налаштування заблоковано, доки проблему не буде вирішено",
+        "error": "Сталося щось несподіване. Спробуйте ще раз або попросіть Aipify про допомогу.",
+        "completed": "Налаштування завершено",
+        "activateGate": "Активація потребує успішного тесту підключення та вашого явного підтвердження.",
+        "pauseSaved": "Ваш прогрес збережено. Ви можете продовжити пізніше.",
+        "resume": "Продовжити налаштування",
+        "staleContract": "Посібник з налаштування оновлено. Перегляньте поточні кроки перед продовженням.",
+        "primaryContinue": "Продовжити",
+        "primaryBack": "Назад",
+        "supportModes": {
+          "selfService": "Я зроблю це сам",
+          "guided": "Я хочу супровід",
+          "aipifyManaged": "Aipify виконує налаштування",
+          "partnerManaged": "Партнер виконує налаштування",
+          "customerItManaged": "Допомагає мій IT-постачальник"
+        },
+        "states": {
+          "notStarted": "Not started",
+          "supportSelection": "Choose setup method",
+          "awaitingCustomer": "Waiting for you",
+          "awaitingAipify": "Waiting for Aipify",
+          "awaitingPartner": "Waiting for partner",
+          "awaitingProvider": "Waiting for provider",
+          "awaitingCustomerIt": "Waiting for IT provider",
+          "inProgress": "In progress",
+          "credentialsRequired": "Credentials needed",
+          "configurationRequired": "Configuration needed",
+          "readyForTest": "Ready to test",
+          "testing": "Testing connection",
+          "testFailed": "Test needs attention",
+          "verified": "Verified",
+          "readyForActivation": "Ready to activate",
+          "active": "Active",
+          "paused": "Paused",
+          "blocked": "Blocked",
+          "unsupported": "Not supported",
+          "cancelled": "Cancelled",
+          "completed": "Completed"
+        },
+        "test": {
+          "testing": "Підключення перевіряється",
+          "ok": "Підключення працює",
+          "needInfo": "Нам потрібно трохи більше інформації",
+          "followUp": "Aipify продовжить роботу з цим",
+          "failed": "Тест не вдалося завершити",
+          "retry": "Спробувати знову",
+          "askHelp": "Попросити допомогу"
+        },
+        "actions": {
+          "askAipifyHelp": "Попросити Aipify про допомогу",
+          "askAipifyHelpDescription": "Get calm guidance without technical jargon.",
+          "requestGuided": "Запросити супроводжуване налаштування",
+          "aipifyManaged": "Попросити Aipify налаштувати",
+          "inviteProvider": "Invite provider",
+          "inviteIt": "Запросити IT-постачальника",
+          "invitePartner": "Invite partner",
+          "selfService": "Do it yourself",
+          "changeMethod": "Change setup method",
+          "contactSupport": "Contact support",
+          "continueLater": "Продовжити пізніше"
+        },
+        "responsibleParties": {
+          "customer": "Your responsibility",
+          "aipify": "Aipify is handling this",
+          "partner": "Your partner is handling this",
+          "provider": "The provider is handling this",
+          "customer_it": "Your IT provider is handling this"
+        },
+        "fields": {
+          "apiKey": "Secure connection key",
+          "baseUrl": "Service address",
+          "itRecipient": "IT contact email"
+        },
+        "help": {
+          "customer": "Aipify guides you step by step and only asks for what is needed.",
+          "internal": "Follow the published installation contract. Verify scopes, run health check, then gate activation."
+        },
+        "steps": {
+          "introduction": {
+            "title": "Ласкаво просимо",
+            "description": "Ми налаштуємо підключення разом. Вам потрібно лише схвалити доступ, коли вас попросять."
+          },
+          "chooseSupport": {
+            "title": "Як виконати налаштування?",
+            "description": "Оберіть найпростіший безпечний варіант. Керування Aipify має пріоритет, коли доступне."
+          },
+          "test": {
+            "title": "Test the connection",
+            "description": "Aipify checks that the connection works before activation.",
+            "internalTitle": "Run provider connection test",
+            "internalDescription": "Invoke existing test endpoint, confirm verification metadata, no secrets in logs."
+          },
+          "review": {
+            "title": "Review permissions",
+            "description": "Confirm the access Aipify will use. You stay in control."
+          },
+          "activate": {
+            "title": "Activate connection",
+            "description": "Activation happens only after verification and your confirmation."
+          },
+          "completion": {
+            "title": "You are ready",
+            "description": "The connection is set up. Aipify will keep monitoring health."
+          },
+          "oauth": {
+            "title": "Approve access",
+            "description": "Sign in with the provider to grant the requested access.",
+            "internalTitle": "Complete OAuth authorization",
+            "internalDescription": "Confirm PKCE callback, required scopes, and token storage via existing OAuth stream."
+          },
+          "waitingAipify": {
+            "title": "Aipify is setting this up",
+            "description": "You can continue later. We will notify you when your action is needed."
+          },
+          "installConnector": {
+            "title": "Install the connector",
+            "description": "Install the approved connector package, or let Aipify/your IT handle it.",
+            "internalTitle": "Install connector package",
+            "internalDescription": "Verify checksum, install package version from contract, run health check."
+          },
+          "inviteIt": {
+            "title": "Invite your IT provider",
+            "description": "Send a limited invitation so IT can complete technical steps."
+          },
+          "hostedWaiting": {
+            "title": "Aipify is preparing the hosted connector",
+            "description": "No server installation is required on your side.",
+            "internalTitle": "Provision hosted connector",
+            "internalDescription": "Provision hosted service, verify health endpoint, confirm customer configuration gates."
+          },
+          "customConfig": {
+            "title": "Share configuration details",
+            "description": "Provide only the fields needed for a safe connection.",
+            "internalTitle": "Collect custom implementation configuration",
+            "internalDescription": "Validate HTTPS URL allowlist, store non-secret config, escalate secrets via secure stream."
+          },
+          "unsupported": {
+            "title": "Self-service is limited for this connection",
+            "description": "Ask Aipify for help or choose a guided setup method."
+          },
+          "credentials": {
+            "title": "Add your secure connection key",
+            "description": "Paste the key from your provider admin. Aipify stores it securely and never shows it again.",
+            "internalTitle": "Store API key via secret stream",
+            "internalDescription": "Save through existing encrypt path. Never return plaintext. Proceed to test gate."
+          }
+        },
+        "preview": {
+          "badge": "Попередній перегляд",
+          "notice": "Це попередній перегляд. Зміни не буде збережено.",
+          "readOnlyAction": "Ця дія недоступна в попередньому перегляді. Зміни не зберігаються.",
+          "close": "Закрити попередній перегляд",
+          "sampleCredential": "Лише приклад — не зберігається",
+          "actionsExampleHeading": "Приклад дій в активній інсталяції",
+          "actionsUnavailable": "Недоступно в попередньому перегляді",
+          "status": {
+            "choose": "Оберіть спосіб налаштування",
+            "aipifyManaged": "Aipify готує налаштування",
+            "guided": "Готово до керованого налаштування",
+            "selfService": "Готово до самостійного налаштування",
+            "customerItManaged": "Готово для IT-постачальника"
+          },
+          "responsibility": {
+            "choose": "Оберіть спосіб налаштування, щоб побачити, хто відповідає.",
+            "aipifyManaged": "Вам потрібно лише схвалити те, про що ми попросимо",
+            "guided": "Aipify супроводжує вас крок за кроком",
+            "selfService": "Ви виконуєте кроки самостійно. Aipify може допомогти за потреби",
+            "customerItManaged": "Ваш IT-постачальник виконує технічні кроки"
+          }
+        },
+        "install": {
+          "actionsChooseHint": "Оберіть спосіб налаштування, щоб побачити наступний крок.",
+          "actionsHeading": "Наступний крок",
+          "sessionPersistError": "Aipify не зміг зберегти ваш вибір. Спробуйте ще раз.",
+          "primaryActions": {
+            "aipifyManaged": "Попросити Aipify налаштувати",
+            "guided": "Запросити супроводжуване налаштування",
+            "selfService": "Почати самостійне налаштування",
+            "customerItManaged": "Запросити IT-постачальника"
+          },
+          "status": {
+            "choose": "Оберіть спосіб налаштування",
+            "aipifyManaged": "Готово попросити Aipify про налаштування",
+            "guided": "Готово до керованого налаштування",
+            "selfService": "Готово до самостійного налаштування",
+            "customerItManaged": "Готово для IT-постачальника"
+          },
+          "responsibility": {
+            "choose": "Оберіть спосіб налаштування, щоб побачити, хто відповідає.",
+            "aipifyManaged": "Вам потрібно лише схвалити те, про що ми попросимо.",
+            "guided": "Aipify супроводжує вас крок за кроком.",
+            "selfService": "Ви виконуєте кроки самостійно. Aipify може допомогти за потреби.",
+            "customerItManaged": "Ваш IT-постачальник виконує технічні кроки."
+          },
+          "statusAfterHandoff": {
+            "guided": "Супровід запрошено"
+          }
+        },
+        "handoff": {
+          "submitting": "Надсилання запиту…",
+          "failed": "Aipify не зміг завершити запит на налаштування. Спробуйте знову.",
+          "invalidRecipient": "Введіть дійсну електронну адресу IT-контакту, щоб продовжити.",
+          "nextStepHint": "Ваш запит зареєстровано. Aipify продовжить звідси. Ви можете повернутися пізніше.",
+          "referenceLabel": "Номер запиту",
+          "requestedAtLabel": "Надіслано",
+          "recipientLabel": "Отримувач запрошення",
+          "itRecipientPlaceholder": "імʼя@компанія.ua",
+          "success": {
+            "aipifyManaged": "Aipify отримав ваш запит на налаштування. Номер {reference}.",
+            "guided": "Супроводжуване налаштування запрошено. Номер {reference}.",
+            "customerItManaged": "Запрошення зареєстровано для {email}. Номер {reference}.",
+            "duplicate": "Цей запит на налаштування вже зареєстровано. Номер {reference}."
+          }
         }
       }
     },

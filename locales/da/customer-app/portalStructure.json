@@ -400,7 +400,8 @@
           "retry": "Prøv igen",
           "editSetup": "Rediger opsætning",
           "removeIntegration": "Fjern integration",
-          "continueSetup": "Fortsæt opsætning"
+          "continueSetup": "Fortsæt opsætning",
+          "previewWizard": "Forhåndsvis installationsguiden"
         },
         "removeDialog": {
           "title": "Fjerne {provider}-integrationen?",
@@ -1185,6 +1186,237 @@
         "custom_erp": {
           "begin": "Review technical requirements with your developer",
           "verify": "Submit validation evidence for certification"
+        }
+      },
+      "installationWizard": {
+        "reassurance": "Aipify hjælper dig gennem opsætningen. Du behøver ikke teknisk viden.",
+        "technicalRequired": "Denne forbindelse kræver teknisk opsætning. Aipify kan vejlede dig, udføre arbejdet, når den nødvendige adgang er tilgængelig, eller samarbejde med din leverandør.",
+        "progress": "Fremskridt",
+        "estimatedTime": "Cirka {minutes} minutter",
+        "emptyFallback": "Fortsæt, når du er klar.",
+        "comingLater": "Denne mulighed bliver snart tilgængelig. Aipify-support kan hjælpe dig i mellemtiden.",
+        "invitePlaceholder": "Invitationen er forberedt som en sikker overdragelse. Fuld invitationslevering kommer i en senere version.",
+        "loading": "Forbereder opsætning",
+        "waiting": "Afventer den ansvarlige part",
+        "waitingByParty": {
+          "aipify": "Afventer Aipify",
+          "aipifyGuided": "Afventer vejledning fra Aipify",
+          "customerIt": "Afventer IT-leverandør",
+          "partner": "Afventer Aipifys samarbejdspartner"
+        },
+        "blocked": "Opsætningen er blokeret, indtil problemet er løst",
+        "error": "Noget uventet skete. Prøv igen, eller bed Aipify om hjælp.",
+        "completed": "Opsætningen er fuldført",
+        "activateGate": "Aktivering kræver en vellykket forbindelsestest og din udtrykkelige bekræftelse.",
+        "pauseSaved": "Dine fremskridt er gemt. Du kan fortsætte senere.",
+        "resume": "Fortsæt opsætning",
+        "staleContract": "Opsætningsguiden er opdateret. Gennemgå trinnene, før du fortsætter.",
+        "primaryContinue": "Fortsæt",
+        "primaryBack": "Tilbage",
+        "supportModes": {
+          "selfService": "Jeg gør det selv",
+          "guided": "Jeg ønsker vejledning",
+          "aipifyManaged": "Aipify klarer opsætningen",
+          "partnerManaged": "Partner klarer opsætningen",
+          "customerItManaged": "Min IT-leverandør hjælper"
+        },
+        "states": {
+          "notStarted": "Ikke påbegyndt",
+          "supportSelection": "Vælg opsætningsmetode",
+          "awaitingCustomer": "Venter på dig",
+          "awaitingAipify": "Afventer Aipify",
+          "awaitingPartner": "Afventer partner",
+          "awaitingProvider": "Afventer leverandør",
+          "awaitingCustomerIt": "Afventer IT-leverandør",
+          "inProgress": "I gang",
+          "credentialsRequired": "Legitimationsoplysninger mangler",
+          "configurationRequired": "Konfiguration mangler",
+          "readyForTest": "Klar til test",
+          "testing": "Forbindelsen testes",
+          "testFailed": "Testen kræver opmærksomhed",
+          "verified": "Verificeret",
+          "readyForActivation": "Klar til aktivering",
+          "active": "I drift",
+          "paused": "På pause",
+          "blocked": "Blokeret",
+          "unsupported": "Ikke understøttet",
+          "cancelled": "Annulleret",
+          "completed": "Fuldført"
+        },
+        "test": {
+          "testing": "Forbindelsen testes",
+          "ok": "Forbindelsen virker",
+          "needInfo": "Vi har brug for lidt mere information",
+          "followUp": "Aipify følger op på dette",
+          "failed": "Testen kunne ikke fuldføres",
+          "retry": "Prøv igen",
+          "askHelp": "Bed om hjælp"
+        },
+        "actions": {
+          "askAipifyHelp": "Bed Aipify om hjælp",
+          "askAipifyHelpDescription": "Få rolig vejledning uden teknisk jargon.",
+          "requestGuided": "Anmod vejledt opsætning",
+          "aipifyManaged": "Bed Aipify om at sætte op",
+          "inviteProvider": "Send invitation til leverandør",
+          "inviteIt": "Inviter IT-leverandør",
+          "invitePartner": "Send invitation til partner",
+          "selfService": "Gør det selv",
+          "changeMethod": "Skift opsætningsmetode",
+          "contactSupport": "Kontakt supportteamet",
+          "continueLater": "Fortsæt senere"
+        },
+        "responsibleParties": {
+          "customer": "Dit ansvar",
+          "aipify": "Aipify håndterer dette",
+          "partner": "Din partner håndterer dette",
+          "provider": "Leverandøren håndterer dette",
+          "customer_it": "Din IT-leverandør håndterer dette"
+        },
+        "fields": {
+          "apiKey": "Sikker forbindelsesnøgle",
+          "baseUrl": "Adresse til tjenesten",
+          "itRecipient": "IT-kontaktens e-mail"
+        },
+        "help": {
+          "customer": "Aipify vejleder dig trin for trin og beder kun om det nødvendige.",
+          "internal": "Følg den publicerede installationskontrakt. Verificer scopes, kør sundhedstjek, og aktiver først derefter."
+        },
+        "steps": {
+          "introduction": {
+            "title": "Velkommen",
+            "description": "Vi sætter forbindelsen op sammen. Du skal kun godkende adgang, når du bliver bedt om det."
+          },
+          "chooseSupport": {
+            "title": "Hvordan skal opsætningen udføres?",
+            "description": "Vælg den enkleste sikre mulighed. Aipify-administreret foretrækkes, når det er muligt."
+          },
+          "test": {
+            "title": "Test forbindelsen",
+            "description": "Aipify kontrollerer, at forbindelsen virker, før aktivering.",
+            "internalTitle": "Kør leverandørens forbindelsestest",
+            "internalDescription": "Kald eksisterende testendpoint, bekræft verifikationsmetadata, og log aldrig hemmeligheder."
+          },
+          "review": {
+            "title": "Gennemgå tilladelser",
+            "description": "Bekræft den adgang Aipify vil bruge. Du beholder kontrollen."
+          },
+          "activate": {
+            "title": "Aktiver forbindelsen",
+            "description": "Aktivering sker først efter verifikation og din bekræftelse."
+          },
+          "completion": {
+            "title": "I er klar",
+            "description": "Forbindelsen er opsat. Aipify fortsætter med at overvåge sundheden."
+          },
+          "oauth": {
+            "title": "Godkend adgang",
+            "description": "Log ind hos leverandøren for at give den anmodede adgang.",
+            "internalTitle": "Fuldfør OAuth-autorisation",
+            "internalDescription": "Bekræft PKCE-callback, påkrævede scopes og tokenlagring via eksisterende OAuth-strøm."
+          },
+          "waitingAipify": {
+            "title": "Aipify sætter dette op",
+            "description": "Du kan fortsætte senere. Vi giver dig besked, når din handling er nødvendig."
+          },
+          "installConnector": {
+            "title": "Installer forbindelsen",
+            "description": "Installer den godkendte forbindelsespakke, eller lad Aipify eller jeres IT håndtere det.",
+            "internalTitle": "Installer forbindelsespakke",
+            "internalDescription": "Verificer checksum, installer pakkeversion fra kontrakten, og kør sundhedstjek."
+          },
+          "inviteIt": {
+            "title": "Inviter jeres IT-leverandør",
+            "description": "Send en begrænset invitation, så IT kan fuldføre tekniske trin."
+          },
+          "hostedWaiting": {
+            "title": "Aipify forbereder den hostede forbindelse",
+            "description": "Der kræves ingen serverinstallation på jeres side.",
+            "internalTitle": "Provisionér hostet forbindelse",
+            "internalDescription": "Provisionér hostet tjeneste, verificer sundhedsendpoint, og bekræft kundekonfigurationsgates."
+          },
+          "customConfig": {
+            "title": "Del konfigurationsoplysninger",
+            "description": "Angiv kun de felter, der er nødvendige for en sikker forbindelse.",
+            "internalTitle": "Indsaml tilpasset implementeringskonfiguration",
+            "internalDescription": "Valider HTTPS-URL-allowlist, gem ikke-hemmelig konfiguration, og eskalér hemmeligheder via sikker strøm."
+          },
+          "unsupported": {
+            "title": "Selvbetjening er begrænset for denne forbindelse",
+            "description": "Bed Aipify om hjælp, eller vælg en guidet opsætningsmetode."
+          },
+          "credentials": {
+            "title": "Tilføj jeres sikre forbindelsesnøgle",
+            "description": "Indsæt nøglen fra leverandørens admin. Aipify gemmer den sikkert og viser den aldrig igen.",
+            "internalTitle": "Gem API-nøgle via hemmelighedsstrøm",
+            "internalDescription": "Gem via eksisterende krypteringssti. Returnér aldrig klartekst. Fortsæt til testgate."
+          }
+        },
+        "preview": {
+          "badge": "Forhåndsvisning",
+          "notice": "Dette er en forhåndsvisning. Ingen ændringer gemmes.",
+          "readOnlyAction": "Denne handling er ikke tilgængelig i forhåndsvisning. Ingen ændringer gemmes.",
+          "close": "Luk forhåndsvisning",
+          "sampleCredential": "Kun eksempel — gemmes ikke",
+          "actionsExampleHeading": "Eksempel på handlinger i en aktiv installation",
+          "actionsUnavailable": "Ikke tilgængelig i forhåndsvisning",
+          "status": {
+            "choose": "Vælg, hvordan opsætningen skal laves",
+            "aipifyManaged": "Aipify gør opsætningen klar",
+            "guided": "Klar til vejledt opsætning",
+            "selfService": "Klar til selvbetjent opsætning",
+            "customerItManaged": "Klar til IT-leverandør"
+          },
+          "responsibility": {
+            "choose": "Vælg opsætningsmetode for at se, hvem der har ansvaret.",
+            "aipifyManaged": "Du skal kun godkende det, vi beder om",
+            "guided": "Aipify vejleder dig trin for trin",
+            "selfService": "Du udfører trinnene selv. Aipify kan hjælpe efter behov",
+            "customerItManaged": "Din IT-leverandør udfører de tekniske trin"
+          }
+        },
+        "install": {
+          "actionsChooseHint": "Vælg, hvordan opsætningen skal laves, for at se næste trin.",
+          "actionsHeading": "Næste trin",
+          "sessionPersistError": "Aipify kunne ikke gemme dit valg. Prøv igen.",
+          "primaryActions": {
+            "aipifyManaged": "Bed Aipify om at sætte op",
+            "guided": "Anmod vejledt opsætning",
+            "selfService": "Start selvbetjent opsætning",
+            "customerItManaged": "Inviter IT-leverandør"
+          },
+          "status": {
+            "choose": "Vælg, hvordan opsætningen skal laves",
+            "aipifyManaged": "Klar til at bede Aipify om opsætning",
+            "guided": "Klar til vejledt opsætning",
+            "selfService": "Klar til selvbetjent opsætning",
+            "customerItManaged": "Klar til IT-leverandør"
+          },
+          "responsibility": {
+            "choose": "Vælg opsætningsmetode for at se, hvem der har ansvaret.",
+            "aipifyManaged": "Du skal kun godkende det, vi beder om.",
+            "guided": "Aipify vejleder dig trin for trin.",
+            "selfService": "Du udfører trinnene selv. Aipify kan hjælpe efter behov.",
+            "customerItManaged": "Din IT-leverandør udfører de tekniske trin."
+          },
+          "statusAfterHandoff": {
+            "guided": "Vejledning er anmodet"
+          }
+        },
+        "handoff": {
+          "submitting": "Sender anmodning…",
+          "failed": "Aipify kunne ikke fuldføre opsætningsanmodningen. Prøv igen.",
+          "invalidRecipient": "Angiv en gyldig e-mailadresse til IT-kontakt for at fortsætte.",
+          "nextStepHint": "Din anmodning er registreret. Aipify fortsætter herfra. Du kan vende tilbage senere.",
+          "referenceLabel": "Anmodningsreference",
+          "requestedAtLabel": "Anmodet",
+          "recipientLabel": "Invitation til",
+          "itRecipientPlaceholder": "navn@firma.dk",
+          "success": {
+            "aipifyManaged": "Aipify har modtaget din anmodning om opsætning. Reference {reference}.",
+            "guided": "Vejledt opsætning er anmodet. Reference {reference}.",
+            "customerItManaged": "Invitation registreret for {email}. Reference {reference}.",
+            "duplicate": "Denne opsætningsanmodning er allerede registreret. Reference {reference}."
+          }
         }
       }
     },

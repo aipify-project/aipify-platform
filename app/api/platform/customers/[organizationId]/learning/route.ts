@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseIntelligenceFoundation } from "@/lib/platform/intelligence-foundation";
+import { parseCustomerSelfLearning } from "@/lib/platform/self-learning";
 
 export async function GET(
   _request: Request,
-  context: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ organizationId: string }> }
 ) {
   try {
-    const { id } = await context.params;
+    const { organizationId } = await context.params;
     const supabase = await createClient();
     const {
       data: { user },
@@ -17,17 +17,16 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { data, error } = await supabase.rpc("get_customer_intelligence_foundation", {
-      p_tenant_id: id,
+    const { data, error } = await supabase.rpc("get_customer_self_learning", {
+      p_tenant_id: organizationId,
     });
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
-    const foundation = parseIntelligenceFoundation(data);
-    return NextResponse.json({ timeline: foundation.timeline });
+    return NextResponse.json(parseCustomerSelfLearning(data));
   } catch {
-    return NextResponse.json({ error: "Failed to load timeline" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to load self-learning data" }, { status: 500 });
   }
 }
