@@ -60,6 +60,11 @@
       "markAllAsRead": "Позначити всі як прочитані",
       "openAction": "Відкрити",
       "categoryLabel": "Категорія"
+    },
+    "organizationSettingsAccess": {
+      "deniedTitle": "Доступ до налаштувань обмежено",
+      "deniedBody": "Налаштування організації доступні власникам і адміністраторам робочого простору.",
+      "backToApp": "Назад до робочого простору"
     }
   },
   "expertiseOperations": {

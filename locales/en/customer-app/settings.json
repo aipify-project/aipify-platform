@@ -395,6 +395,11 @@
         "body": "Knowledge Center is available in Aipify Growth and above because it lets Aipify support itself with trusted, editable documentation.",
         "cta": "View packages"
       }
+    },
+    "organizationSettingsAccess": {
+      "deniedTitle": "Settings access restricted",
+      "deniedBody": "Organization settings are available to workspace owners and administrators.",
+      "backToApp": "Back to workspace"
     }
   },
   "paymentProviders": {

@@ -24,6 +24,7 @@ Task lineage:
 8. **Entitlement revoke removes nav** on the next Core bundle (org/user/version keyed; layout is force-dynamic).
 9. **Server route authorization remains mandatory** — menu hiding is not access control.
 10. Products without entitlement appear in **`/app/software`**, not as half-finished main-menu items.
+11. **`/app/settings` requires server-side owner/admin** via `requireAppSettingsOwnerAdminAccess` — direct URL must not rely on nav hiding alone.
 
 ## Canonical resolution order
 

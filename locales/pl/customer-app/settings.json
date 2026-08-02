@@ -60,6 +60,11 @@
       "markAllAsRead": "Oznacz wszystkie jako przeczytane",
       "openAction": "Otwórz",
       "categoryLabel": "Kategoria"
+    },
+    "organizationSettingsAccess": {
+      "deniedTitle": "Dostęp do ustawień jest ograniczony",
+      "deniedBody": "Ustawienia organizacji są dostępne dla właścicieli i administratorów obszaru roboczego.",
+      "backToApp": "Powrót do obszaru roboczego"
     }
   },
   "expertiseOperations": {

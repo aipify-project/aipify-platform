@@ -1,4 +1,5 @@
 import type { AppPortalNavId } from "@/lib/app-portal/nav-config";
+import { organizationRoleAllows } from "@/lib/tenant/organization-role";
 import { buildCanonicalNavContracts } from "./contract";
 import type {
   CanonicalNavResolution,
@@ -22,19 +23,7 @@ export type NavResolverContext = {
 };
 
 function roleAllows(required: "any" | "owner_admin" | "manager_plus", role: string | null): boolean {
-  const normalized = (role ?? "").toLowerCase().replace(/\s+/g, "_");
-  if (required === "any") return true;
-  const isOwnerAdmin =
-    normalized.includes("owner") ||
-    normalized.includes("admin") ||
-    normalized === "organization_owner" ||
-    normalized === "organization_admin";
-  if (required === "owner_admin") return isOwnerAdmin;
-  const isManagerPlus =
-    isOwnerAdmin ||
-    normalized.includes("manager") ||
-    normalized === "organization_manager";
-  return isManagerPlus;
+  return organizationRoleAllows(required, role);
 }
 
 function decide(

@@ -391,6 +391,11 @@
         "body": "Kunnskapssenter er tilgjengelig i Aipify Growth og høyere fordi det lar Aipify støtte seg selv med pålitelig, redigerbar dokumentasjon.",
         "cta": "Se pakker"
       }
+    },
+    "organizationSettingsAccess": {
+      "deniedTitle": "Tilgang til innstillinger er begrenset",
+      "deniedBody": "Organisasjonsinnstillinger er tilgjengelige for eiere og administratorer i arbeidsområdet.",
+      "backToApp": "Tilbake til arbeidsområdet"
     }
   },
   "governance": {

@@ -361,6 +361,11 @@
         "body": "Videnscenter er tilgængelig i Aipify Growth og højere, fordi det lader Aipify understøtte sig selv med pålidelig, redigerbar dokumentation.",
         "cta": "Se pakker"
       }
+    },
+    "organizationSettingsAccess": {
+      "deniedTitle": "Adgang til indstillinger er begrænset",
+      "deniedBody": "Organisationsindstillinger er tilgængelige for arbejdsområdets ejere og administratorer.",
+      "backToApp": "Tilbage til arbejdsområdet"
     }
   },
   "governance": {

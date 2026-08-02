@@ -361,6 +361,11 @@
         "body": "Kunskapscenter finns i Aipify Growth och högre eftersom det låter Aipify stödja sig själv med pålitlig, redigerbar dokumentation.",
         "cta": "Visa paket"
       }
+    },
+    "organizationSettingsAccess": {
+      "deniedTitle": "Åtkomst till inställningar är begränsad",
+      "deniedBody": "Organisationsinställningar är tillgängliga för arbetsyteägare och administratörer.",
+      "backToApp": "Tillbaka till arbetsytan"
     }
   },
   "governance": {
