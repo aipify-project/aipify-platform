@@ -5,3 +5,5 @@ export * from "./client";
 export * from "./pricing-philosophy";
 export * from "./billing-view-model";
 export * from "./billing-labels";
+export * from "./billing-presentation-copy";
+export * from "./package-presentation";

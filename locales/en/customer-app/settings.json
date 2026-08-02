@@ -626,8 +626,8 @@
   },
   "commercialPackages": {
     "billing": {
-      "title": "Billing & packages",
-      "subtitle": "Your current package, usage, upgrades, and add-ons — pay only for what you need.",
+      "title": "Subscription & packages",
+      "subtitle": "Your current package, usage capacity, and available upgrades — separate from invoices.",
       "loading": "Preparing content",
       "back": "Back to settings",
       "viewLicense": "License center",
@@ -642,11 +642,11 @@
         "upgrades": "Upgrade options",
         "addons": "Add-ons",
         "recommendations": "Recommendations",
-        "history": "Billing history",
+        "history": "Subscription history",
         "suites": "Product suites",
         "locked": "Capabilities not included",
         "nextStep": "Recommended next step",
-        "support": "Help with billing"
+        "support": "Help with packages and invoices"
       },
       "usage": {
         "supportCases": "Support cases",
@@ -661,7 +661,7 @@
       "viewPaymentProviders": "Payment providers",
       "viewInvoiceDetails": "Invoice details",
       "modulesCount": "{count} licensed modules",
-      "emptyHistory": "No billing history is available yet.",
+      "emptyHistory": "No subscription history is available yet.",
       "statusLabels": {
         "active": "Active",
         "trial": "Trial",
@@ -677,8 +677,8 @@
       "unavailable": "Not available",
       "unlimited": "Unlimited",
       "usedOfMax": "{used} of {max}",
-      "privacyNote": "This page shows package and usage summaries for your organization. Payment card details stay with your payment provider.",
-      "eyebrow": "Billing",
+      "privacyNote": "This page shows package and usage summaries for your organization. Invoice documents are available under invoice details when issued.",
+      "eyebrow": "Subscription",
       "limits": {
         "users": "Users",
         "installations": "Installations",
@@ -698,11 +698,13 @@
         "none": "Your package and usage look settled. No change is required right now."
       },
       "support": {
-        "body": "Need help with invoices or package access? Open invoice details or packages.",
+        "body": "Need help with package access or invoices? Open packages or invoice details.",
         "invoiceDetails": "Open invoice details"
       },
       "nextBillingDate": "Next billing date",
-      "statusColumn": "Status"
+      "statusColumn": "Status",
+      "renewalDate": "Next renewal",
+      "lastUpdated": "Last updated"
     },
     "pricingPhilosophy": {
       "title": "Pricing philosophy",

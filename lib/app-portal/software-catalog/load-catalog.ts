@@ -23,6 +23,7 @@ function isReadOnlySeedFailure(message: string): boolean {
 export type SoftwareCatalogLocalizers = {
   localizePackage?: (packageKey: string) => { name?: string | null; description?: string | null } | null;
   localizeModuleName?: (moduleKey: string) => string | null;
+  localizeFeature?: (feature: string) => string | null;
 };
 
 /**
@@ -76,6 +77,7 @@ export async function loadSoftwareCatalog(
     activationGates: gates.found ? gates.items ?? [] : [],
     localizePackage: localizers.localizePackage,
     localizeModuleName: localizers.localizeModuleName,
+    localizeFeature: localizers.localizeFeature,
   });
 
   const mergedDiagnostics = [...view.diagnostics, ...diagnostics];

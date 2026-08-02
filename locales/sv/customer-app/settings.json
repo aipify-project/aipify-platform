@@ -1079,8 +1079,8 @@
   },
   "commercialPackages": {
     "billing": {
-      "title": "Fakturering och paket",
-      "subtitle": "Ditt paket, användning, uppgraderingar och tillägg — betala bara för det du behöver.",
+      "title": "Prenumeration och paket",
+      "subtitle": "Ditt aktuella paket, kapacitet och tillgängliga uppgraderingar — separat från fakturor.",
       "loading": "Förbereder innehåll",
       "back": "Tillbaka till inställningar",
       "viewLicense": "Licenscenter",
@@ -1095,11 +1095,11 @@
         "upgrades": "Uppgraderingsalternativ",
         "addons": "Tillägg",
         "recommendations": "Rekommendationer",
-        "history": "Faktureringshistorik",
+        "history": "Prenumerationshistorik",
         "suites": "Produktpaket",
         "locked": "Funktioner som inte ingår",
         "nextStep": "Rekommenderat nästa steg",
-        "support": "Hjälp med fakturering"
+        "support": "Hjälp med paket och fakturor"
       },
       "usage": {
         "supportCases": "Supportärenden",
@@ -1114,7 +1114,7 @@
       "viewPaymentProviders": "Payment providers",
       "viewInvoiceDetails": "Fakturadetaljer",
       "modulesCount": "{count} licensierade moduler",
-      "emptyHistory": "Ingen faktureringshistorik finns ännu.",
+      "emptyHistory": "Ingen prenumerationshistorik är tillgänglig ännu.",
       "statusLabels": {
         "active": "Aktiv",
         "trial": "Provperiod",
@@ -1130,8 +1130,8 @@
       "unavailable": "Inte tillgängligt",
       "unlimited": "Obegränsat",
       "usedOfMax": "{used} av {max}",
-      "privacyNote": "Den här sidan visar paket- och användningssammanfattningar för din organisation. Kortuppgifter finns hos betalningsleverantören.",
-      "eyebrow": "Fakturering",
+      "privacyNote": "Den här sidan visar paket- och användningssammanfattningar för din organisation. Fakturor finns under fakturadetaljer när de har utfärdats.",
+      "eyebrow": "Prenumeration",
       "limits": {
         "users": "Användare",
         "installations": "Installationer",
@@ -1151,11 +1151,13 @@
         "none": "Paket och användning ser stabila ut. Ingen ändring behövs just nu."
       },
       "support": {
-        "body": "Behöver du hjälp med fakturor eller paketåtkomst? Öppna fakturadetaljer eller paket.",
+        "body": "Behöver du hjälp med paketåtkomst eller fakturor? Öppna paket eller fakturadetaljer.",
         "invoiceDetails": "Öppna fakturadetaljer"
       },
       "nextBillingDate": "Nästa faktureringsdatum",
-      "statusColumn": "Status"
+      "statusColumn": "Status",
+      "renewalDate": "Nästa förnyelse",
+      "lastUpdated": "Senast uppdaterad"
     },
     "pricingPhilosophy": {
       "title": "Prissättningsfilosofi",
