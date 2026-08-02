@@ -71,6 +71,43 @@ assert.equal(
   }),
   "handed_off"
 );
+// Open handoff wins even when session is still in_progress / ready_for_handoff.
+assert.equal(
+  resolveInstallSupportLifecycle({
+    localSupportMode: null,
+    session: {
+      session_id: "s1",
+      provider_key: "p",
+      contract_version: "1",
+      support_mode: "aipify_managed",
+      state: "in_progress",
+      current_step_key: "x",
+      completed_step_keys: ["introduction"],
+      field_values: {},
+      paused: false,
+      last_test_status: null,
+      last_error_code: null,
+      updated_at: "",
+    } satisfies InstallationSessionSnapshot,
+    hasOpenHandoff: true,
+  }),
+  "handed_off"
+);
+assert.deepEqual(
+  listRelevantInstallAssistanceActions({
+    actions: [
+      {
+        action_key: "aipify_managed",
+        label: { kind: "locale_key", key: "a" },
+        support_mode: "aipify_managed",
+        handoff: "request",
+      },
+    ],
+    supportMode: "aipify_managed",
+    lifecycle: "handed_off",
+  }),
+  []
+);
 // V3 false-waiting: awaiting without persisted handoff reopens ready_for_handoff.
 assert.equal(
   resolveInstallSupportLifecycle({

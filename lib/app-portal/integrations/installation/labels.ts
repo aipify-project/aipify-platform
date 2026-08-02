@@ -8,7 +8,10 @@ import {
   previewPresentationKeyForSupportMode,
   type PreviewSupportPresentationKey,
 } from "./preview-mode";
-import type { InstallationWaitingCopyParty } from "./waiting-copy";
+import {
+  resolveInstallationWaitingCopyText,
+  type InstallationWaitingCopyParty,
+} from "./waiting-copy";
 
 const BASE = "customerApp.portalStructure.integrations.installationWizard";
 
@@ -31,7 +34,7 @@ export function installationWizardMessageKeys() {
       aipify_guided: `${BASE}.waitingByParty.aipifyGuided`,
       customer_it: `${BASE}.waitingByParty.customerIt`,
       partner: `${BASE}.waitingByParty.partner`,
-      unknown: `${BASE}.waiting`,
+      unknown: `${BASE}.waitingByParty.unknown`,
     } satisfies Record<InstallationWaitingCopyParty, string>,
     blocked: `${BASE}.blocked`,
     error: `${BASE}.error`,
@@ -266,8 +269,17 @@ export function buildInstallationWizardLabels(
     loading: t(keys.loading),
     comingLater: t(keys.comingLater),
     invitePlaceholder: t(keys.invitePlaceholder),
-    waiting: t(keys.waiting),
-    waitingForParty: (party) => t(keys.waitingByParty[party]),
+    waiting: resolveInstallationWaitingCopyText({
+      translate: t,
+      partyKey: keys.waiting,
+      waitingKey: keys.waiting,
+    }),
+    waitingForParty: (party) =>
+      resolveInstallationWaitingCopyText({
+        translate: t,
+        partyKey: keys.waitingByParty[party],
+        waitingKey: keys.waiting,
+      }),
     blocked: t(keys.blocked),
     errorGeneric: t(keys.error),
     completed: t(keys.completed),

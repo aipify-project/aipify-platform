@@ -1204,7 +1204,8 @@
           "aipify": "Venter på Aipify",
           "aipifyGuided": "Venter på veiledning fra Aipify",
           "customerIt": "Venter på IT-leverandør",
-          "partner": "Venter på Aipifys samarbeidspartner"
+          "partner": "Venter på Aipifys samarbeidspartner",
+          "unknown": "Venter på ansvarlig part"
         },
         "blocked": "Oppsettet er blokkert til problemet er løst",
         "error": "Noe uventet skjedde. Prøv igjen eller be Aipify om hjelp.",

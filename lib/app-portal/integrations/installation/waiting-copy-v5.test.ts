@@ -91,6 +91,7 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk"]) {
   assert.ok(wiz.waitingByParty.aipifyGuided);
   assert.ok(wiz.waitingByParty.customerIt);
   assert.ok(wiz.waitingByParty.partner);
+  assert.ok(wiz.waitingByParty.unknown);
   assert.ok(wiz.waiting);
   assert.notEqual(wiz.waitingByParty.aipify, wiz.waiting);
 }

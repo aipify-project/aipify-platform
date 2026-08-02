@@ -110,7 +110,14 @@ assert.match(routeSrc, /get_app_portal_installation_handoff/);
 assert.match(routeSrc, /export async function GET/);
 assert.match(routeSrc, /idempotency_key/);
 assert.match(wizardSrc, /hasOpenHandoff/);
-assert.match(wizardSrc, /isOpenHandoffStatus/);
+assert.match(wizardSrc, /resolveHydratedInstallationState/);
+assert.match(wizardSrc, /parsePersistedInstallationHandoff/);
+// Open-status check lives in read-side hydrate parser (not duplicated in wizard).
+const hydrateSrc = readFileSync(
+  join(process.cwd(), "lib/app-portal/integrations/installation/hydrate-state.ts"),
+  "utf8"
+);
+assert.match(hydrateSrc, /isOpenHandoffStatus/);
 
 // Migration contract
 assert.match(migrationSrc, /app_portal_installation_handoffs/);

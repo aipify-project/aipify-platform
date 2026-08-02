@@ -6976,7 +6976,8 @@
           "aipify": "Waiting for Aipify",
           "aipifyGuided": "Waiting for guidance from Aipify",
           "customerIt": "Waiting for IT provider",
-          "partner": "Waiting for Aipify's partner"
+          "partner": "Waiting for Aipify's partner",
+          "unknown": "Waiting on the responsible party"
         },
         "blocked": "Setup is blocked until the issue is resolved",
         "error": "Something unexpected happened. Please try again or ask Aipify for help.",
