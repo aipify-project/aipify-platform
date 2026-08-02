@@ -13,6 +13,7 @@ import { listUnonightFailureTranslationKeys } from "@/lib/unonight/connection/fa
 import { listProviderConnectionFailureTranslationKeys } from "./provider-contract";
 import type { AppPortalIntegrationsLabels } from "./types";
 import { APP_PORTAL_HOME_ROUTE } from "@/lib/app-portal/nav-config";
+import { installationWizardMessageKeys } from "./installation/labels";
 
 const base = "customerApp.portalStructure.integrations";
 
@@ -94,6 +95,11 @@ function buildInstallationWizardMessageCatalog(t: Translator): Record<string, st
     "invitePlaceholder",
     "loading",
     "waiting",
+    "waitingByParty.aipify",
+    "waitingByParty.aipifyGuided",
+    "waitingByParty.customerIt",
+    "waitingByParty.partner",
+    "waitingByParty.unknown",
     "blocked",
     "error",
     "completed",
@@ -245,7 +251,16 @@ function buildInstallationWizardMessageCatalog(t: Translator): Record<string, st
     "steps.credentials.internalTitle",
     "steps.credentials.internalDescription",
   ];
-  return Object.fromEntries(suffixes.map((suffix) => [`${root}.${suffix}`, t(`${root}.${suffix}`)]));
+  const fromSuffixes = Object.fromEntries(
+    suffixes.map((suffix) => [`${root}.${suffix}`, t(`${root}.${suffix}`)])
+  );
+  // Keep waiting-party keys in sync with installationWizardMessageKeys() so client
+  // messageCatalog never omits a key the wizard resolves at runtime.
+  const wizKeys = installationWizardMessageKeys();
+  const waitingPartyEntries = Object.fromEntries(
+    [wizKeys.waiting, ...Object.values(wizKeys.waitingByParty)].map((key) => [key, t(key)])
+  );
+  return { ...fromSuffixes, ...waitingPartyEntries };
 }
 
 function buildIntegrationMessageCatalog(t: Translator): Record<string, string> {

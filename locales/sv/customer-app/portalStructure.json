@@ -1202,7 +1202,8 @@
           "aipify": "Väntar på Aipify",
           "aipifyGuided": "Väntar på vägledning från Aipify",
           "customerIt": "Väntar på IT-leverantör",
-          "partner": "Väntar på Aipifys samarbetspartner"
+          "partner": "Väntar på Aipifys samarbetspartner",
+          "unknown": "Väntar på ansvarig part"
         },
         "blocked": "Installationen är blockerad tills problemet är löst",
         "error": "Något oväntat hände. Försök igen eller be Aipify om hjälp.",

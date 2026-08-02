@@ -1202,7 +1202,8 @@
           "aipify": "Afventer Aipify",
           "aipifyGuided": "Afventer vejledning fra Aipify",
           "customerIt": "Afventer IT-leverandør",
-          "partner": "Afventer Aipifys samarbejdspartner"
+          "partner": "Afventer Aipifys samarbejdspartner",
+          "unknown": "Afventer den ansvarlige part"
         },
         "blocked": "Opsætningen er blokeret, indtil problemet er løst",
         "error": "Noget uventet skete. Prøv igen, eller bed Aipify om hjælp.",

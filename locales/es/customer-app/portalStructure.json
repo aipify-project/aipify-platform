@@ -6996,6 +6996,13 @@
         "invitePlaceholder": "La invitación se prepara como una transferencia segura. La entrega completa llegará más adelante.",
         "loading": "Preparing setup",
         "waiting": "Esperando a la parte responsable",
+        "waitingByParty": {
+          "aipify": "Esperando a Aipify",
+          "aipifyGuided": "Esperando orientación de Aipify",
+          "customerIt": "Esperando al proveedor de TI",
+          "partner": "Esperando al socio de Aipify",
+          "unknown": "Esperando a la parte responsable"
+        },
         "blocked": "La configuración está bloqueada hasta resolver el problema",
         "error": "Ocurrió algo inesperado. Inténtalo de nuevo o pide ayuda a Aipify.",
         "completed": "La configuración está completa",
