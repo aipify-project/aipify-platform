@@ -106,7 +106,8 @@
       "connectedApps": "Anslutna appar",
       "dataSources": "Datakällor",
       "apiDeveloperSettings": "API och utvecklarinställningar",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "softwareCatalog": "Programvara"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -8448,6 +8449,36 @@
         "acknowledgementsAnswer": "Acknowledgements help organizations understand whether important information has been reviewed by intended audiences.",
         "autoCommunicate": "Can Aipify automatically communicate on behalf of leaders?",
         "autoCommunicateAnswer": "No. Aipify supports preparation, delivery and tracking, but humans remain responsible for communication content and approvals."
+      }
+    },
+    "softwareCatalog": {
+      "title": "Programvara",
+      "subtitle": "Se ditt aktiva paket, moduler och Business Packs från Aipify — utan att lämna arbetsytan.",
+      "loading": "Laddar programvarukatalog",
+      "empty": "Inga programvaruobjekt är tillgängliga för den här organisationen ännu.",
+      "error": "Programvaruinformation är tillfälligt otillgänglig. Försök igen.",
+      "retry": "Försök igen",
+      "partialNotice": "Vissa katalogavsnitt kunde inte laddas. Tillgängliga objekt visas nedan.",
+      "currentPackage": "Ditt paket",
+      "packages": "Paket",
+      "modules": "Moduler",
+      "businessPacks": "Business Packs",
+      "activeModules": "Aktiva moduler",
+      "availableModules": "Tillgängliga moduler",
+      "seeDetails": "Visa detaljer",
+      "contactSales": "Kontakta sälj",
+      "filterAll": "Alla",
+      "statuses": {
+        "active": "Aktiv",
+        "included": "Inkluderad",
+        "available": "Tillgänglig",
+        "pendingApproval": "Väntar på godkännande",
+        "unavailable": "Inte tillgänglig"
+      },
+      "sourceTypes": {
+        "package": "Paket",
+        "module": "Modul",
+        "businessPack": "Business Pack"
       }
     }
   }

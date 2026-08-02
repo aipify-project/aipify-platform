@@ -7,14 +7,10 @@ import {
   getOrganizationBusinessPackActivationGates,
 } from "@/lib/business-pack-activation-gate";
 import { parseAppPortalFeatureAccess } from "@/lib/app-portal/parse";
-import {
-  filterFlatNavByAccess,
-  filterNavGroupsByAccess,
-} from "@/lib/app-portal/filter-nav-by-access";
+import { presentAppNavFromCapabilities } from "@/lib/app-portal/canonical-nav";
 import type { AppNavGroupConfig } from "@/lib/app/build-nav";
 import DashboardShell from "@/components/dashboard/DashboardShell";
 import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfileProvider";
-import { buildAppNavConfig, buildAppNavGroupConfig } from "@/lib/app/build-nav";
 import {
   buildLayoutCommandBarLabels,
   buildLayoutCompanionExperienceLabels,
@@ -24,15 +20,12 @@ import {
   buildLayoutVocWidgetLabels,
 } from "@/lib/app/layout-shell-labels";
 import { buildAppNavSearchIndex, type AppNavSearchEntry } from "@/lib/app/nav-search";
-import { APP_MOBILE_NAV_IDS } from "@/lib/app/nav-config";
 import { customerNavSourcesFromSearchIndex } from "@/lib/command-bar";
 import {
-  buildAppNavFromDynamicNavigation,
-  buildNavSearchFromDynamicNavigation,
-  getDynamicAppNavigation,
-  mergeDynamicWithFallbackNav,
-  parseDynamicAppNavigation,
-} from "@/lib/dynamic-navigation";
+  buildFailClosedAppMenuCapabilityBundle,
+  loadAppMenuCapabilityBundle,
+} from "@/lib/core/app-menu-capability";
+import { getDynamicAppNavigation, parseDynamicAppNavigation } from "@/lib/dynamic-navigation";
 import { getAppLayoutDictionary, getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -66,13 +59,23 @@ export default async function AppLayout({
   const pwaLabels = buildPwaInstallLabels(pwaT);
   const consentDict = await getDictionary(locale, ["analyticsConsent"]);
   const analyticsConsentLabels = buildAnalyticsConsentLabels(createTranslator(consentDict));
-  const fallbackGroups = buildAppNavGroupConfig(t);
-  const fallbackConfig = buildAppNavConfig(t);
+  const failClosedPresented = presentAppNavFromCapabilities(
+    buildFailClosedAppMenuCapabilityBundle({
+      organizationId: null,
+      userId: null,
+      role: null,
+    }),
+    t
+  );
 
-  let navGroups = fallbackGroups;
-  let navConfig = fallbackConfig;
-  let navSearchIndex: AppNavSearchEntry[] = buildAppNavSearchIndex(fallbackGroups, fallbackConfig, t);
-  let mobileNavIds: string[] = [...APP_MOBILE_NAV_IDS];
+  let navGroups = failClosedPresented.navGroups;
+  let navConfig = failClosedPresented.navConfig;
+  let navSearchIndex: AppNavSearchEntry[] = buildAppNavSearchIndex(
+    failClosedPresented.navGroups,
+    failClosedPresented.navConfig,
+    t
+  );
+  let mobileNavIds: string[] = [...failClosedPresented.mobileNavIds];
   let suspendedNotice: string | null = null;
   let showActivationBanner = false;
   const activationLabels = buildBusinessPackActivationGateLabels(t);
@@ -119,30 +122,21 @@ export default async function AppLayout({
 
   if (layoutBranch === "shell") {
     try {
-      const [dynamicRaw, activationGates, featureAccessRaw] = await Promise.all([
-        getDynamicAppNavigation(supabase),
+      // Core is the sole authority for which capability ids may appear in Customer APP nav.
+      // Dynamic navigation may only contribute suspension notices — never menu items.
+      const [capabilityBundle, activationGates, featureAccessRaw, dynamicRaw] = await Promise.all([
+        loadAppMenuCapabilityBundle(supabase),
         getOrganizationBusinessPackActivationGates(supabase).catch(() => ({ found: false as const })),
         supabase.rpc("get_app_portal_feature_access", { p_feature: "business_packs" }),
+        getDynamicAppNavigation(supabase).catch(() => null),
       ]);
-      const dynamicNav = parseDynamicAppNavigation(dynamicRaw);
-      if (dynamicNav?.found) {
-        const built = buildAppNavFromDynamicNavigation(dynamicNav, t);
-        const merged = mergeDynamicWithFallbackNav(built, fallbackGroups, fallbackConfig);
-        navGroups = merged.navGroups;
-        navConfig = merged.navConfig;
-        navSearchIndex = buildNavSearchFromDynamicNavigation(dynamicNav).map((entry) => ({
-          ...entry,
-          groupId: "modules" as const,
-          groupLabel: entry.groupLabel,
-        }));
-        if (navSearchIndex.length === 0) {
-          navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
-        }
-        mobileNavIds = built.mobileNavIds;
-        if (dynamicNav.suspended && dynamicNav.suspended_notice) {
-          suspendedNotice = dynamicNav.suspended_notice;
-        }
-      }
+
+      const presented = presentAppNavFromCapabilities(capabilityBundle, t);
+      navGroups = presented.navGroups;
+      navConfig = presented.navConfig;
+      mobileNavIds = presented.mobileNavIds;
+      navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
+
       showActivationBanner =
         activationGates.found === true &&
         (activationGates.items?.some((item) =>
@@ -165,12 +159,26 @@ export default async function AppLayout({
         );
       }
 
-      navGroups = await filterNavGroupsByAccess(supabase, navGroups);
-      navConfig = filterFlatNavByAccess(navConfig, navGroups);
-      navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
-      mobileNavIds = mobileNavIds.filter((id) => navConfig.some((item) => item.id === id));
+      if (dynamicRaw) {
+        const dynamicNav = parseDynamicAppNavigation(dynamicRaw);
+        if (dynamicNav?.suspended && dynamicNav.suspended_notice) {
+          suspendedNotice = dynamicNav.suspended_notice;
+        }
+      }
     } catch {
-      // Fallback to static navigation when dynamic engine unavailable
+      // Fail closed — never restore mega-nav or unfiltered dynamic payloads.
+      const closed = presentAppNavFromCapabilities(
+        buildFailClosedAppMenuCapabilityBundle({
+          organizationId: null,
+          userId: null,
+          role: null,
+        }),
+        t
+      );
+      navGroups = closed.navGroups;
+      navConfig = closed.navConfig;
+      mobileNavIds = closed.mobileNavIds;
+      navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
     }
   }
 

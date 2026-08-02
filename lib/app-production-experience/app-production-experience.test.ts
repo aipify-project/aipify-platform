@@ -85,6 +85,16 @@ describe("app production experience — route readiness", () => {
     assert.equal(resolveAppRouteReadiness("profile").status, "hidden");
   });
 
+  it("hides foundation portal shells from customer nav", () => {
+    assert.equal(isAppRouteNavVisible("appTasks"), false);
+    assert.equal(isAppRouteNavVisible("workflows"), false);
+    assert.equal(isAppRouteNavVisible("rolesPermissions"), false);
+    assert.equal(isAppRouteNavVisible("contactSupport"), false);
+    assert.equal(isAppRouteNavVisible("accountSecurity"), false);
+    assert.equal(isAppRouteNavVisible("activityOverview"), false);
+    assert.equal(isAppRouteNavVisible("apiAccess"), false);
+  });
+
   it("redirects billing shells to settings billing", () => {
     assert.equal(resolveAppRouteHref("subscription", "/app/billing/subscription"), "/app/settings/billing");
     assert.equal(resolveAppRouteHref("paymentHistory", "/app/billing/payment-history"), "/app/settings/billing");
@@ -94,5 +104,6 @@ describe("app production experience — route readiness", () => {
   it("keeps production routes visible by default", () => {
     assert.equal(isAppRouteNavVisible("teamMembers"), true);
     assert.equal(isAppRouteNavVisible("appDashboard"), true);
+    assert.equal(isAppRouteNavVisible("softwareCatalog"), true);
   });
 });

@@ -256,7 +256,8 @@
       "connectedApps": "Підключені застосунки",
       "dataSources": "Джерела даних",
       "apiDeveloperSettings": "API та налаштування розробника",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "softwareCatalog": "Програмне забезпечення"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7385,6 +7386,36 @@
             "duplicate": "Цей запит на налаштування вже зареєстровано. Номер {reference}."
           }
         }
+      }
+    },
+    "softwareCatalog": {
+      "title": "Програмне забезпечення",
+      "subtitle": "Переглядайте активний пакет, модулі та Business Packs від Aipify — не залишаючи робочий простір.",
+      "loading": "Завантаження каталогу програмного забезпечення",
+      "empty": "Для цієї організації ще немає елементів програмного забезпечення.",
+      "error": "Інформація про програмне забезпечення тимчасово недоступна. Спробуйте знову.",
+      "retry": "Спробувати знову",
+      "partialNotice": "Деякі розділи каталогу не вдалося завантажити. Нижче показано доступні елементи.",
+      "currentPackage": "Ваш пакет",
+      "packages": "Пакети",
+      "modules": "Модулі",
+      "businessPacks": "Business Packs",
+      "activeModules": "Активні модулі",
+      "availableModules": "Доступні модулі",
+      "seeDetails": "Переглянути деталі",
+      "contactSales": "Зв’язатися з відділом продажів",
+      "filterAll": "Усі",
+      "statuses": {
+        "active": "Активний",
+        "included": "Включено",
+        "available": "Доступний",
+        "pendingApproval": "Очікує схвалення",
+        "unavailable": "Недоступний"
+      },
+      "sourceTypes": {
+        "package": "Пакет",
+        "module": "Модуль",
+        "businessPack": "Business Pack"
       }
     }
   }

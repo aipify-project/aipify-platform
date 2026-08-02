@@ -106,7 +106,8 @@
       "connectedApps": "Tilkoblede apper",
       "dataSources": "Datakilder",
       "apiDeveloperSettings": "API og utviklerinnstillinger",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "softwareCatalog": "Programvare"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -8449,6 +8450,36 @@
         "acknowledgementsAnswer": "Acknowledgements help organizations understand whether important information has been reviewed by intended audiences.",
         "autoCommunicate": "Can Aipify automatically communicate on behalf of leaders?",
         "autoCommunicateAnswer": "No. Aipify supports preparation, delivery and tracking, but humans remain responsible for communication content and approvals."
+      }
+    },
+    "softwareCatalog": {
+      "title": "Programvare",
+      "subtitle": "Se aktiv pakke, moduler og Business Packs fra Aipify — uten å forlate arbeidsflaten.",
+      "loading": "Laster programvarekatalog",
+      "empty": "Ingen programvareelementer er tilgjengelige for denne organisasjonen ennå.",
+      "error": "Programvareinformasjon er midlertidig utilgjengelig. Prøv igjen.",
+      "retry": "Prøv igjen",
+      "partialNotice": "Noen katalogseksjoner kunne ikke lastes. Tilgjengelige elementer vises nedenfor.",
+      "currentPackage": "Din pakke",
+      "packages": "Pakker",
+      "modules": "Moduler",
+      "businessPacks": "Business Packs",
+      "activeModules": "Aktive moduler",
+      "availableModules": "Tilgjengelige moduler",
+      "seeDetails": "Se detaljer",
+      "contactSales": "Kontakt salg",
+      "filterAll": "Alle",
+      "statuses": {
+        "active": "Aktiv",
+        "included": "Inkludert",
+        "available": "Tilgjengelig",
+        "pendingApproval": "Venter på godkjenning",
+        "unavailable": "Ikke tilgjengelig"
+      },
+      "sourceTypes": {
+        "package": "Pakke",
+        "module": "Modul",
+        "businessPack": "Business Pack"
       }
     }
   }

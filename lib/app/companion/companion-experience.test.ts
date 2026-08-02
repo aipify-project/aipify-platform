@@ -27,13 +27,15 @@ function loadPortalNav(locale: string) {
 }
 
 // 1. Intelligence nav leads with Aipify Companion (not Support Assistant).
+// commandBrief lives once under Home — no duplicate id in Intelligence.
 const intelligenceGroup = APP_PORTAL_NAV_GROUPS.find((g) => g.id === "intelligence");
 assert.ok(intelligenceGroup);
 assert.equal(intelligenceGroup.items[0]?.id, "aipifyCompanion");
 assert.equal(intelligenceGroup.items[0]?.href, COMPANION_EXPERIENCE_ROUTE);
-assert.equal(intelligenceGroup.items[1]?.id, "commandBrief");
-assert.equal(intelligenceGroup.items[2]?.id, "sinceLastLogin");
-assert.equal(intelligenceGroup.items[3]?.id, "appNotifications");
+assert.equal(
+  intelligenceGroup.items.some((item) => item.id === "commandBrief"),
+  false,
+);
 
 // 2. Support group must not bury Companion as support link.
 const supportGroup = APP_PORTAL_NAV_GROUPS.find((g) => g.id === "support");

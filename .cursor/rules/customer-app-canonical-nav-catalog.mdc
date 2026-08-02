@@ -1,0 +1,54 @@
+# Customer APP — Canonical Navigation & Core Menu Capability Contract
+
+Task lineage:
+- `AIPIFY.CUSTOMER.APP.CANONICAL.NAV.AND.CATALOG.FOUNDATION.V1`
+- `AIPIFY.CORE.CANONICAL.APP.MENU.CAPABILITY.CONTRACT.V1`
+
+## Ownership
+
+| Concern | Owner |
+|---|---|
+| Capability ids, entitlements, role/permission, readiness, visibility, reason codes | **Core** (`lib/core/app-menu-capability/`) |
+| Group order, locale labels, icons, active route, responsive layout | **APP** (`APP_PORTAL_NAV_GROUPS`) |
+| Product/package catalog, commercial grant/revoke initiation | **Platform** |
+
+## Absolute rules
+
+1. **Core owns APP capability visibility.** APP never decides entitlement, role, readiness, or foundation visibility.
+2. **`APP_PORTAL_NAV_GROUPS` is presentation only** — maps Core-allowed ids to labels, icons, routes, groups.
+3. **No dynamic item after Core filter.** Dynamic navigation may contribute suspension notices only — never append menu items after Core resolution.
+4. **No mega-nav fallback.** `lib/app/nav-config.ts` must not drive Customer APP menu rendering and must not grow as a parallel register.
+5. **Unknown capability ids fail closed** — hidden, never rendered, never treated as allowed.
+6. **Foundation always hidden** — never restored from dynamic payload, stale cache, or fallback mega-nav.
+7. **Available / pending are catalog-only** — not operative main-menu items before activation.
+8. **Entitlement revoke removes nav** on the next Core bundle (org/user/version keyed; layout is force-dynamic).
+9. **Server route authorization remains mandatory** — menu hiding is not access control.
+10. Products without entitlement appear in **`/app/software`**, not as half-finished main-menu items.
+11. **`/app/settings` requires server-side owner/admin** via `requireAppSettingsOwnerAdminAccess` — direct URL must not rely on nav hiding alone.
+
+## Canonical resolution order
+
+1. Core resolves organization + user (trusted session)
+2. Core resolves role / permissions
+3. Core resolves package / modules / packs / licenses
+4. Core resolves readiness
+5. Core returns allowed capability ids + states
+6. APP maps ids → presentation metadata
+7. APP renders only allowed ids
+
+## Fail-closed
+
+On resolver/load failure: minimal safe operational nav from Core (`buildFailClosedAppMenuCapabilityBundle`). Never full mega-nav. Never unfiltered dynamic payload. Never foundation.
+
+## Code anchors
+
+- Core contract/resolver: `lib/core/app-menu-capability/`
+- Presentation mapper: `lib/app-portal/canonical-nav/present-from-capabilities.ts`
+- Presentation registry: `lib/app-portal/nav-config.ts` (`APP_PORTAL_NAV_GROUPS`)
+- Layout consumer: `app/app/layout.tsx`
+- Readiness: `lib/app-production-experience/route-readiness.ts`
+- Catalog: `lib/app-portal/software-catalog/` · `/app/software`
+
+## Still forbidden
+
+No new commerce tables · no invoice system · no purchase mutation · no client entitlement authority · no PR #80 changes as part of menu work.

@@ -1,4 +1,6 @@
 import { CustomerSettingsCenterPanel } from "@/components/app/settings/CustomerSettingsCenterPanel";
+import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
+import { requireAppSettingsOwnerAdminAccess } from "@/lib/app/settings/require-settings-owner-admin";
 import {
   PRESENCE_NOTIFICATION_LEVELS,
   type PresenceNotificationLevel,
@@ -8,6 +10,10 @@ import { getCustomerAppDictionaryForSplits, getDictionary } from "@/lib/i18n/get
 import { getLocale } from "@/lib/i18n/get-locale";
 import { coerceToAppLocale } from "@/lib/i18n/app-locales";
 import { createTranslator } from "@/lib/i18n/translate";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+
+export const dynamic = "force-dynamic";
 
 export default async function SettingsPage() {
   const locale = await getLocale();
@@ -17,6 +23,27 @@ export default async function SettingsPage() {
   };
   const t = createTranslator(dict, { locale });
   const p = "customerApp.settings";
+
+  const supabase = await createClient();
+  const access = await requireAppSettingsOwnerAdminAccess(supabase);
+  if (!access.ok) {
+    if (access.reason === "unauthenticated") {
+      redirect("/login?next=/app/settings");
+    }
+    // Deny before panel render — no protected content flash.
+    return (
+      <div className="mx-auto max-w-3xl p-6">
+        <PlatformEmptyState
+          title={t(`${p}.organizationSettingsAccess.deniedTitle`)}
+          message={t(`${p}.organizationSettingsAccess.deniedBody`)}
+          primaryAction={{
+            label: t(`${p}.organizationSettingsAccess.backToApp`),
+            href: "/app",
+          }}
+        />
+      </div>
+    );
+  }
 
   const levelLabels = Object.fromEntries(
     PRESENCE_NOTIFICATION_LEVELS.map((level) => [
