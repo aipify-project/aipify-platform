@@ -994,5 +994,9 @@
         "flags": "Feature flag states"
       }
     }
+  },
+  "unifiedBilling": {
+    "retry": "Спробувати знову",
+    "openPackages": "Відкрити рахунки та пакети"
   }
 }

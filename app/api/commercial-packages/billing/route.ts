@@ -34,9 +34,9 @@ export async function GET() {
     const access_state = isDatabaseExecutionError(message)
       ? "database_execution_error"
       : classifyAppPortalError(message);
-    console.error("[commercial-packages/billing]", message);
+    console.error("[commercial-packages/billing]", message.slice(0, 240));
     return NextResponse.json(
-      { error: message, access_state, found: false },
+      { error: "billing_center_unavailable", access_state, found: false },
       { status: rpcErrorStatus(message, access_state) }
     );
   }

@@ -5736,7 +5736,9 @@
     "advisor": {
       "title": "Faktureringsvejledning",
       "openBilling": "Åbn fakturering"
-    }
+    },
+    "retry": "Prøv igen",
+    "openPackages": "Åbn fakturering og pakker"
   },
   "businessPackRuntime": {
     "title": "Business Pack Runtime",

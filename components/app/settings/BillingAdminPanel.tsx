@@ -115,7 +115,9 @@ export function BillingAdminPanel({ labels, locale }: BillingAdminPanelProps) {
         setLoadError(true);
         return;
       }
-      setVm(buildBillingViewModel(await res.json()));
+      const payload = await res.json();
+      // HTTP 200 always renders — sparse/partial payloads must not collapse the page.
+      setVm(buildBillingViewModel(payload));
     } catch {
       setVm(null);
       setLoadError(true);
