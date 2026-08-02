@@ -1,5 +1,9 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { AppNavGroupConfig } from "@/lib/app/build-nav";
+import {
+  resolveCanonicalNavVisibility,
+  type NavResolverContext,
+} from "@/lib/app-portal/canonical-nav";
 import { APP_PORTAL_NAV_GROUPS, type AppPortalNavId } from "@/lib/app-portal/nav-config";
 import { APP_NAV_PERMISSION_KEYS } from "@/lib/app-portal/nav-route-access";
 import { resolvePortalFeatureEnabled } from "@/lib/app-portal/feature-entitlements";
@@ -8,6 +12,7 @@ import {
   isAppRouteNavVisible,
   resolveAppRouteHref,
 } from "@/lib/app-production-experience/route-readiness";
+import { getOrganizationBusinessPackActivationGates } from "@/lib/business-pack-activation-gate";
 import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organization-context";
 
 const FEATURE_BY_NAV_ID = new Map(
@@ -60,47 +65,57 @@ async function loadPermissionAccess(
   return new Map(results);
 }
 
-function isNavItemVisible(
-  navId: string,
-  featureAccess: Map<string, boolean>,
-  permissionAccess: Map<string, boolean>
-): boolean {
-  if (!isAppRouteNavVisible(navId as AppPortalNavId)) {
-    return false;
-  }
-
-  const featureKey = FEATURE_BY_NAV_ID.get(navId as never);
-  if (featureKey && featureAccess.get(featureKey) === false) {
-    return false;
-  }
-
-  const permissionKeys = APP_NAV_PERMISSION_KEYS[navId as keyof typeof APP_NAV_PERMISSION_KEYS];
-  if (permissionKeys?.length) {
-    const allowed = permissionKeys.some((key) => permissionAccess.get(key) === true);
-    if (!allowed) return false;
-  }
-
-  return true;
-}
-
-export async function filterNavGroupsByAccess(
-  supabase: SupabaseClient,
-  groups: AppNavGroupConfig[]
-): Promise<AppNavGroupConfig[]> {
-  const gatedNavIds = new Set<string>([
-    ...FEATURE_BY_NAV_ID.keys(),
-    ...Object.keys(APP_NAV_PERMISSION_KEYS),
-  ]);
-
+async function buildResolverContext(supabase: SupabaseClient): Promise<NavResolverContext> {
   const featureKeys = [...new Set([...FEATURE_BY_NAV_ID.values()])];
   const permissionKeys = [
     ...new Set(Object.values(APP_NAV_PERMISSION_KEYS).flatMap((keys) => keys ?? [])),
   ];
 
-  const [featureAccess, permissionAccess] = await Promise.all([
+  const [featureEnabled, permissionGranted, contextData, activationGates] = await Promise.all([
     featureKeys.length ? loadFeatureAccess(supabase, featureKeys) : Promise.resolve(new Map()),
-    permissionKeys.length ? loadPermissionAccess(supabase, permissionKeys) : Promise.resolve(new Map()),
+    permissionKeys.length
+      ? loadPermissionAccess(supabase, permissionKeys)
+      : Promise.resolve(new Map()),
+    supabase.rpc("get_app_organization_context"),
+    getOrganizationBusinessPackActivationGates(supabase).catch(() => ({ found: false as const })),
   ]);
+
+  const context = parseAppOrganizationContext(contextData.data);
+  const activePackKeys = new Set<string>();
+  const pendingPackKeys = new Set<string>();
+  if (activationGates.found && activationGates.items) {
+    for (const item of activationGates.items) {
+      if (item.activation_status === "active") activePackKeys.add(item.pack_key);
+      if (
+        item.activation_status === "pending_activation" ||
+        item.activation_status === "validating"
+      ) {
+        pendingPackKeys.add(item.pack_key);
+      }
+    }
+  }
+
+  return {
+    organizationRole: context.organization_role ?? context.user_role,
+    featureEnabled,
+    permissionGranted,
+    activePackKeys,
+    pendingPackKeys,
+    activeModuleKeys: new Set(),
+  };
+}
+
+/**
+ * Filter grouped nav using canonical readiness + role + feature/permission entitlement.
+ * Page-local visibility logic is forbidden — this is the server gate.
+ */
+export async function filterNavGroupsByAccess(
+  supabase: SupabaseClient,
+  groups: AppNavGroupConfig[]
+): Promise<AppNavGroupConfig[]> {
+  const ctx = await buildResolverContext(supabase);
+  const resolution = resolveCanonicalNavVisibility(ctx);
+  const visible = new Set(resolution.visibleNavIds);
 
   return groups
     .map((group) => ({
@@ -108,8 +123,7 @@ export async function filterNavGroupsByAccess(
       items: group.items
         .filter((item) => {
           if (!isAppRouteNavVisible(item.id as AppPortalNavId)) return false;
-          if (!gatedNavIds.has(item.id)) return true;
-          return isNavItemVisible(item.id, featureAccess, permissionAccess);
+          return visible.has(item.id as AppPortalNavId);
         })
         .map((item) => ({
           ...item,

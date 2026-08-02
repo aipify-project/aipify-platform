@@ -1,0 +1,33 @@
+# Customer APP — Canonical Navigation & Catalog Foundation
+
+Task lineage: `AIPIFY.CUSTOMER.APP.CANONICAL.NAV.AND.CATALOG.FOUNDATION.V1`.
+
+## Canonical sources (locked)
+
+| Concern | Source |
+|---|---|
+| Customer menu | `APP_PORTAL_NAV_GROUPS` in `lib/app-portal/nav-config.ts` |
+| Packages | `subscription_packages` + `get_customer_billing_center` |
+| Modules | `tenant_modules` + `get_customer_modules_center` |
+| Business Packs | Business Pack Identity + `organization_business_pack_activation_gates` |
+| Licenses | `get_customer_license_center` |
+| Reference pack | `aipify_hosts` |
+
+## Rules
+
+1. **Do not grow** `lib/app/nav-config.ts` as a parallel mega-register for Customer APP menu.
+2. Menu visibility requires **readiness + role + entitlement/feature/permission** via `filterNavGroupsByAccess` / `resolveCanonicalNavVisibility`.
+3. **Foundation / unready routes stay hidden** from the main menu (`APP_ROUTE_READINESS` status `hidden`). Do not delete route code just to hide them.
+4. Products **without entitlement** appear in the **software catalog** (`/app/software`), not as half-finished main-menu items.
+5. **No new commerce tables**, package/module/license/entitlement models, or invoice systems in APP.
+6. `billing_history` is **not** an invoice list. Platform owns invoices.
+7. Catalog is **read-only** in this foundation — no purchase mutation, no client-side activation.
+8. Use canonical **`aipify_hosts`** for hospitality pack presentation — never invent an “Airbnb Operations” SKU or hardcode customer/provider product logic.
+9. **No runtime fixtures** for catalog data. Degrade on RPC failure without inventing prices/status.
+10. Preview/Production proof must use **actual routes**, not component-only screenshots.
+
+## Code anchors
+
+- Nav contract: `lib/app-portal/canonical-nav/`
+- Readiness: `lib/app-production-experience/route-readiness.ts`
+- Catalog: `lib/app-portal/software-catalog/` · `/app/software` · `GET /api/app-portal/software-catalog`

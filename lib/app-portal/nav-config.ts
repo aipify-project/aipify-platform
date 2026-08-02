@@ -23,6 +23,7 @@ export type AppPortalNavId =
   | "activityOverview"
   | "installedBusinessPacks"
   | "availableBusinessPacks"
+  | "softwareCatalog"
   | "businessPackSettings"
   | "businessPackSuccess"
   | "businessPackRecommendations"
@@ -153,6 +154,7 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     id: "businessPacks",
     labelKey: "customerApp.portalStructure.navGroups.businessPacks",
     items: [
+      { id: "softwareCatalog", href: "/app/software", labelKey: "customerApp.portalStructure.nav.softwareCatalog" },
       { id: "installedBusinessPacks", href: "/app/business-packs/installed", labelKey: "customerApp.portalStructure.nav.installedBusinessPacks", featureKey: "business_packs" },
       { id: "availableBusinessPacks", href: "/app/business-packs/available", labelKey: "customerApp.portalStructure.nav.marketplace" },
       { id: "businessPackSettings", href: "/app/business-packs/settings", labelKey: "customerApp.portalStructure.nav.businessPackSettings", featureKey: "business_packs" },
@@ -178,7 +180,6 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
     items: [
       { id: "aipifyCompanion", href: "/app/companion", labelKey: "customerApp.portalStructure.nav.aipifyCompanion" },
       { id: "kompisOperator", href: "/app/kompis", labelKey: "customerApp.portalStructure.nav.kompisOperator" },
-      { id: "commandBrief", href: "/app/command-center/companion-briefing", labelKey: "customerApp.portalStructure.nav.commandBrief" },
       { id: "intelligenceCommandCenter", href: "/app/intelligence/intelligence-command-center", labelKey: "customerApp.portalStructure.nav.intelligenceCommandCenter" },
       { id: "scenarioPlanning", href: "/app/intelligence/scenario-planning", labelKey: "customerApp.portalStructure.nav.scenarioPlanning" },
       { id: "managementInsights", href: "/app/intelligence/executive-companion", labelKey: "customerApp.portalStructure.nav.managementInsights" },
@@ -232,6 +233,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname === "/app") return "appDashboard";
   if (pathname.startsWith("/app/command-center/companion-briefing")) return "commandBrief";
   if (pathname === "/app/command-center" || pathname.startsWith("/app/command-center/")) return "appDashboard";
+  if (pathname.startsWith("/app/software")) return "softwareCatalog";
   if (pathname.startsWith("/app/settings")) return "organizationSettings";
   if (pathname.startsWith("/app/business-packs/recommendations")) return "availableBusinessPacks";
   if (pathname.startsWith("/app/platform/integrations/connect")) return "dataSources";

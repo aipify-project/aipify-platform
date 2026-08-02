@@ -106,7 +106,8 @@
       "connectedApps": "Tilknyttede apps",
       "dataSources": "Datakilder",
       "apiDeveloperSettings": "API og udviklerindstillinger",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "softwareCatalog": "Software"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -8448,6 +8449,36 @@
         "acknowledgementsAnswer": "Acknowledgements help organizations understand whether important information has been reviewed by intended audiences.",
         "autoCommunicate": "Can Aipify automatically communicate on behalf of leaders?",
         "autoCommunicateAnswer": "No. Aipify supports preparation, delivery and tracking, but humans remain responsible for communication content and approvals."
+      }
+    },
+    "softwareCatalog": {
+      "title": "Software",
+      "subtitle": "Se din aktive pakke, moduler og Business Packs fra Aipify — uden at forlade arbejdsfladen.",
+      "loading": "Indlæser softwarekatalog",
+      "empty": "Ingen softwareelementer er tilgængelige for denne organisation endnu.",
+      "error": "Softwareinformation er midlertidigt utilgængelig. Prøv igen.",
+      "retry": "Prøv igen",
+      "partialNotice": "Nogle katalogsektioner kunne ikke indlæses. Tilgængelige elementer vises nedenfor.",
+      "currentPackage": "Din pakke",
+      "packages": "Pakker",
+      "modules": "Moduler",
+      "businessPacks": "Business Packs",
+      "activeModules": "Aktive moduler",
+      "availableModules": "Tilgængelige moduler",
+      "seeDetails": "Se detaljer",
+      "contactSales": "Kontakt salg",
+      "filterAll": "Alle",
+      "statuses": {
+        "active": "Aktiv",
+        "included": "Inkluderet",
+        "available": "Tilgængelig",
+        "pendingApproval": "Afventer godkendelse",
+        "unavailable": "Ikke tilgængelig"
+      },
+      "sourceTypes": {
+        "package": "Pakke",
+        "module": "Modul",
+        "businessPack": "Business Pack"
       }
     }
   }

@@ -256,7 +256,8 @@
       "connectedApps": "Połączone aplikacje",
       "dataSources": "Źródła danych",
       "apiDeveloperSettings": "API i ustawienia deweloperskie",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "softwareCatalog": "Oprogramowanie"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7385,6 +7386,36 @@
             "duplicate": "Ta prośba o konfigurację jest już zarejestrowana. Numer {reference}."
           }
         }
+      }
+    },
+    "softwareCatalog": {
+      "title": "Oprogramowanie",
+      "subtitle": "Zobacz aktywny pakiet, moduły i Business Packs od Aipify — bez opuszczania przestrzeni roboczej.",
+      "loading": "Ładowanie katalogu oprogramowania",
+      "empty": "Brak elementów oprogramowania dla tej organizacji.",
+      "error": "Informacje o oprogramowaniu są chwilowo niedostępne. Spróbuj ponownie.",
+      "retry": "Spróbuj ponownie",
+      "partialNotice": "Niektórych sekcji katalogu nie udało się wczytać. Poniżej widać dostępne elementy.",
+      "currentPackage": "Twój pakiet",
+      "packages": "Pakiety",
+      "modules": "Moduły",
+      "businessPacks": "Business Packs",
+      "activeModules": "Aktywne moduły",
+      "availableModules": "Dostępne moduły",
+      "seeDetails": "Zobacz szczegóły",
+      "contactSales": "Kontakt ze sprzedażą",
+      "filterAll": "Wszystkie",
+      "statuses": {
+        "active": "Aktywny",
+        "included": "W zestawie",
+        "available": "Dostępny",
+        "pendingApproval": "Oczekuje na zatwierdzenie",
+        "unavailable": "Niedostępny"
+      },
+      "sourceTypes": {
+        "package": "Pakiet",
+        "module": "Moduł",
+        "businessPack": "Business Pack"
       }
     }
   }

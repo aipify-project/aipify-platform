@@ -106,7 +106,8 @@
       "connectedApps": "Connected Apps",
       "dataSources": "Data Sources",
       "apiDeveloperSettings": "API & Developer Settings",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "softwareCatalog": "Software"
     },
     "dashboard": {
       "title": "APP Dashboard",
@@ -8372,6 +8373,36 @@
         "createsStrategyAnswer": "No. Leadership remains responsible for strategy. Aipify provides structure, visibility and planning support.",
         "whoShouldUse": "Who should use this module?",
         "whoShouldUseAnswer": "Owners, executives and authorized leaders responsible for organizational direction and long-term planning."
+      }
+    },
+    "softwareCatalog": {
+      "title": "Software",
+      "subtitle": "See your active package, modules, and Business Packs from Aipify — without leaving your workspace.",
+      "loading": "Loading software catalog",
+      "empty": "No software items are available for this organization yet.",
+      "error": "Software information is temporarily unavailable. Please try again.",
+      "retry": "Try again",
+      "partialNotice": "Some catalog sections could not be loaded. Available items are shown below.",
+      "currentPackage": "Your package",
+      "packages": "Packages",
+      "modules": "Modules",
+      "businessPacks": "Business Packs",
+      "activeModules": "Active modules",
+      "availableModules": "Available modules",
+      "seeDetails": "View details",
+      "contactSales": "Contact sales",
+      "filterAll": "All",
+      "statuses": {
+        "active": "Active",
+        "included": "Included",
+        "available": "Available",
+        "pendingApproval": "Pending approval",
+        "unavailable": "Unavailable"
+      },
+      "sourceTypes": {
+        "package": "Package",
+        "module": "Module",
+        "businessPack": "Business Pack"
       }
     }
   }
