@@ -79,10 +79,23 @@ export const APP_ROUTE_READINESS: Partial<Record<AppPortalNavId, AppRouteReadine
     status: "hidden",
     reason: "Profile is coming-soon placeholder — hide until real profile ships.",
   },
-  // Read-only software catalog foundation (operational presentation)
+  // Read-only software catalog (customer-ready presentation after repair)
   softwareCatalog: {
     status: "production",
     reason: "Read-only software catalog over authoritative package/module/pack sources.",
+  },
+  // Business Pack marketplace / installed / pack settings — not customer-ready as nav shells
+  installedBusinessPacks: {
+    status: "hidden",
+    reason: "Installed Business Packs route is not an operative customer menu surface yet.",
+  },
+  availableBusinessPacks: {
+    status: "hidden",
+    reason: "Marketplace route is not an operative customer menu surface yet.",
+  },
+  businessPackSettings: {
+    status: "hidden",
+    reason: "Business Pack settings shell is not an operative customer menu surface yet.",
   },
   // Intelligence surfaces that require explicit grants — keep gated via permissions;
   // readiness stays production so permitted roles can open them with localized lock states.

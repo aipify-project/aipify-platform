@@ -366,6 +366,54 @@
       "deniedTitle": "Adgang til indstillinger er begrænset",
       "deniedBody": "Organisationsindstillinger er tilgængelige for arbejdsområdets ejere og administratorer.",
       "backToApp": "Tilbage til arbejdsområdet"
+    },
+    "operativeTitle": "Indstillinger",
+    "operativeSubtitle": "Administrer sikkerhed, fakturering, integrationer og udvikleradgang for organisationen.",
+    "operativeCategories": {
+      "accountSecurity": {
+        "title": "Sikkerhed",
+        "description": "Loginbekræftelse og sikkerhedskontroller for organisationen.",
+        "links": {
+          "signInVerification": {
+            "href": "/app/settings/two-factor",
+            "label": "Loginbekræftelse"
+          },
+          "security": {
+            "href": "/app/settings/security",
+            "label": "Sikkerhedsoversigt"
+          }
+        }
+      },
+      "billingSubscription": {
+        "title": "Fakturering",
+        "description": "Se abonnement og kommerciel status.",
+        "links": {
+          "billing": {
+            "href": "/app/settings/billing",
+            "label": "Abonnement og fakturering"
+          }
+        }
+      },
+      "integrations": {
+        "title": "Integrationer",
+        "description": "Tilsluttede systemer, som organisationen bruger.",
+        "links": {
+          "connectedApps": {
+            "href": "/app/platform/integrations/connected",
+            "label": "Tilsluttede apps"
+          }
+        }
+      },
+      "developerAccess": {
+        "title": "Udvikler",
+        "description": "Installationstokens og udviklerdiagnostik for arbejdsområdet.",
+        "links": {
+          "developer": {
+            "href": "/app/settings/developer",
+            "label": "Udviklerindstillinger"
+          }
+        }
+      }
     }
   },
   "governance": {

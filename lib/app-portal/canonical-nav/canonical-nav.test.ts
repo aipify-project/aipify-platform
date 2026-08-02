@@ -30,6 +30,9 @@ describe("canonical nav foundation", () => {
       "apiAccess",
       "profile",
       "upgradeOptions",
+      "installedBusinessPacks",
+      "availableBusinessPacks",
+      "businessPackSettings",
     ] as const) {
       assert.equal(isAppRouteNavVisible(id), false, id);
       assert.equal(resolveAppRouteReadiness(id).status, "hidden", id);
@@ -54,10 +57,12 @@ describe("canonical nav foundation", () => {
       activeModuleKeys: new Set(),
     });
     assert.equal(resolution.visibleNavIds.includes("installedBusinessPacks"), false);
+    assert.equal(resolution.visibleNavIds.includes("availableBusinessPacks"), false);
     assert.equal(resolution.visibleNavIds.includes("appTasks"), false);
     assert.equal(resolution.visibleNavIds.includes("softwareCatalog"), true);
     const installed = resolution.decisions.find((d) => d.id === "installedBusinessPacks");
-    assert.equal(installed?.catalogEligible, true);
+    assert.equal(installed?.visibleInNav, false);
+    assert.equal(installed?.reason, "foundation_hidden");
   });
 
   it("hides permission-gated intelligence without grants", () => {

@@ -7416,7 +7416,31 @@
         "package": "Пакет",
         "module": "Модуль",
         "businessPack": "Business Pack"
-      }
+      },
+      "emptyBusinessPacks": "Для цієї організації ще немає доступних Business Packs.",
+      "packageCopy": {
+        "starter": {
+          "name": "Aipify Starter",
+          "description": "Для бізнесів, що починають з Aipify — підтримка та знання FAQ."
+        },
+        "professional": {
+          "name": "Aipify Professional",
+          "description": "Для бізнесів, що зростають і потребують автоматизації підтримки та Business DNA."
+        },
+        "business": {
+          "name": "Aipify Business",
+          "description": "Для організацій із співробітниками та внутрішніми процесами — Employee Knowledge Engine."
+        },
+        "insights": {
+          "name": "Aipify Insights",
+          "description": "Додаткова операційна аналітика — тренди, вузькі місця та висновки для керівництва."
+        },
+        "enterprise": {
+          "name": "Aipify Enterprise",
+          "description": "Розширена аналітика, управління та масштабованість для великих організацій."
+        }
+      },
+      "moduleDisplayNames": {}
     }
   }
 }

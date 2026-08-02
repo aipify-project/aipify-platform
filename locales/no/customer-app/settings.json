@@ -1,7 +1,7 @@
 {
   "settings": {
-    "title": "Settings",
-    "subtitle": "Notification, presence, and workspace preferences.",
+    "title": "Innstillinger",
+    "subtitle": "Administrer sikkerhet, fakturering, integrasjoner og utvikler tilgang for organisasjonen.",
     "sections": {
       "notifications": "Notification levels",
       "presence": "Presence & desktop",
@@ -396,6 +396,54 @@
       "deniedTitle": "Tilgang til innstillinger er begrenset",
       "deniedBody": "Organisasjonsinnstillinger er tilgjengelige for eiere og administratorer i arbeidsområdet.",
       "backToApp": "Tilbake til arbeidsområdet"
+    },
+    "operativeTitle": "Innstillinger",
+    "operativeSubtitle": "Administrer sikkerhet, fakturering, integrasjoner og utvikler tilgang for organisasjonen.",
+    "operativeCategories": {
+      "accountSecurity": {
+        "title": "Sikkerhet",
+        "description": "Påloggingsbekreftelse og sikkerhetskontroller for organisasjonen.",
+        "links": {
+          "signInVerification": {
+            "href": "/app/settings/two-factor",
+            "label": "Påloggingsbekreftelse"
+          },
+          "security": {
+            "href": "/app/settings/security",
+            "label": "Sikkerhetsoversikt"
+          }
+        }
+      },
+      "billingSubscription": {
+        "title": "Fakturering",
+        "description": "Se abonnement og kommersiell status.",
+        "links": {
+          "billing": {
+            "href": "/app/settings/billing",
+            "label": "Abonnement og fakturering"
+          }
+        }
+      },
+      "integrations": {
+        "title": "Integrasjoner",
+        "description": "Tilkoblede systemer som organisasjonen bruker.",
+        "links": {
+          "connectedApps": {
+            "href": "/app/platform/integrations/connected",
+            "label": "Tilkoblede apper"
+          }
+        }
+      },
+      "developerAccess": {
+        "title": "Utvikler",
+        "description": "Installasjonstokener og utviklerdiagnostikk for arbeidsområdet.",
+        "links": {
+          "developer": {
+            "href": "/app/settings/developer",
+            "label": "Utviklerinnstillinger"
+          }
+        }
+      }
     }
   },
   "governance": {

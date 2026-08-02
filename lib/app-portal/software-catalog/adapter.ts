@@ -1,8 +1,21 @@
 import { parseBillingCenter, parseModulesCenter } from "@/lib/commercial-packages/parse";
 import type { BusinessPackActivationGateItem } from "@/lib/business-pack-activation-gate";
+import {
+  resolveCustomerFacingModuleName,
+  resolveModuleCatalogStatus,
+  unwrapBusinessPackIdentityPayload,
+} from "./module-presentation";
 import type { SoftwareCatalogItem, SoftwareCatalogStatus, SoftwareCatalogViewModel } from "./types";
 
 export const CANONICAL_HOSTS_PACK_KEY = "aipify_hosts" as const;
+
+/** Diagnostics that represent hard section failures (show partial notice). */
+export const SOFTWARE_CATALOG_HARD_FAILURE_DIAGNOSTICS = new Set([
+  "billing_center_error",
+  "modules_center_error",
+  "billing_or_modules_unavailable",
+  "api_error",
+]);
 
 function str(value: unknown): string | null {
   return typeof value === "string" && value.trim() ? value.trim() : null;
@@ -10,7 +23,9 @@ function str(value: unknown): string | null {
 
 function asStringArray(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
-  return value.map((entry) => String(entry)).filter(Boolean);
+  return value
+    .map((entry) => String(entry))
+    .filter((entry) => entry.trim().length > 0 && !entry.includes("_"));
 }
 
 function packStatus(
@@ -49,6 +64,10 @@ function parseIdentityPacks(raw: unknown): Array<Record<string, unknown>> {
   return Array.isArray(row.packs) ? (row.packs as Record<string, unknown>[]) : [];
 }
 
+export function computeSoftwareCatalogPartial(diagnostics: string[]): boolean {
+  return diagnostics.some((code) => SOFTWARE_CATALOG_HARD_FAILURE_DIAGNOSTICS.has(code));
+}
+
 /**
  * Pure adapter — maps authoritative RPC payloads into a read-only catalog view model.
  * No fake prices, no runtime fixtures, no mutations.
@@ -59,6 +78,10 @@ export function buildSoftwareCatalogViewModel(input: {
   identityDashboardRaw: unknown;
   hostsLandingRaw?: unknown;
   activationGates?: BusinessPackActivationGateItem[];
+  /** Optional localized package copy keyed by package_key — never invented. */
+  localizePackage?: (packageKey: string) => { name?: string | null; description?: string | null } | null;
+  /** Optional localized module display names keyed by module_key — never invented. */
+  localizeModuleName?: (moduleKey: string) => string | null;
 }): SoftwareCatalogViewModel {
   const diagnostics: string[] = [];
   const billing = parseBillingCenter(input.billingRaw);
@@ -73,7 +96,10 @@ export function buildSoftwareCatalogViewModel(input: {
     diagnostics.push("billing_or_modules_unavailable");
   }
 
-  const currentPackage = billing.current_package
+  const localizePackage = input.localizePackage;
+  const localizeModuleName = input.localizeModuleName;
+
+  let currentPackage = billing.current_package
     ? {
         packageKey: billing.current_package.package_key,
         packageName: billing.current_package.package_name,
@@ -87,14 +113,24 @@ export function buildSoftwareCatalogViewModel(input: {
         }
       : null;
 
+  if (currentPackage && localizePackage) {
+    const localized = localizePackage(currentPackage.packageKey);
+    if (localized?.name) currentPackage = { ...currentPackage, packageName: localized.name };
+    if (localized?.description) {
+      currentPackage = { ...currentPackage, description: localized.description };
+    }
+  }
+
   if (billing.current_package) {
+    const key = billing.current_package.package_key;
+    const localized = localizePackage?.(key);
     items.push({
-      id: `package:${billing.current_package.package_key}`,
+      id: `package:${key}`,
       sourceType: "package",
-      canonicalKey: billing.current_package.package_key,
-      name: billing.current_package.package_name,
+      canonicalKey: key,
+      name: localized?.name ?? billing.current_package.package_name,
       valueProposition: billing.positioning ?? null,
-      description: billing.current_package.description || null,
+      description: localized?.description ?? (billing.current_package.description || null),
       category: "package",
       price: null,
       billingPeriod: null,
@@ -103,24 +139,27 @@ export function buildSoftwareCatalogViewModel(input: {
       status: "active",
       ...statusFlags("active"),
       detailsRoute: "/app/settings/billing",
-      currentEntitlement: billing.current_package.package_key,
+      currentEntitlement: key,
       readiness: "operational",
-      features: billing.current_package.features,
+      features: asStringArray(billing.current_package.features),
     });
   }
 
   for (const option of billing.upgrade_options ?? []) {
     const key = str(option.package_key) ?? str(option.packageKey);
-    const name = str(option.package_name) ?? str(option.packageName) ?? key;
-    if (!key || !name) continue;
+    if (!key) continue;
+    const localized = localizePackage?.(key);
+    const name =
+      localized?.name ?? str(option.package_name) ?? str(option.packageName);
+    if (!name) continue;
     if (items.some((item) => item.id === `package:${key}`)) continue;
     items.push({
       id: `package:${key}`,
       sourceType: "package",
       canonicalKey: key,
       name,
-      valueProposition: str(option.description),
-      description: str(option.description),
+      valueProposition: localized?.description ?? str(option.description),
+      description: localized?.description ?? str(option.description),
       category: "package",
       price: null,
       billingPeriod: null,
@@ -128,7 +167,7 @@ export function buildSoftwareCatalogViewModel(input: {
       capacity: null,
       status: "available",
       ...statusFlags("available"),
-      detailsRoute: "/app/settings/billing/packages",
+      detailsRoute: "/app/settings/billing",
       currentEntitlement: null,
       readiness: "operational",
       features: asStringArray(option.features),
@@ -138,10 +177,55 @@ export function buildSoftwareCatalogViewModel(input: {
   const installed = modules.installed_modules ?? [];
   for (const mod of installed) {
     const key = str(mod.module_key) ?? str(mod.moduleKey) ?? str(mod.key);
-    const name = str(mod.module_name) ?? str(mod.name) ?? key;
-    if (!key || !name) continue;
-    const enabled = mod.enabled === true || mod.licensed === true || mod.status === "enabled";
-    const status: SoftwareCatalogStatus = enabled ? "included" : "unavailable";
+    if (!key) continue;
+    const name = resolveCustomerFacingModuleName({
+      moduleKey: key,
+      moduleName: str(mod.module_name),
+      name: str(mod.name),
+      localizedName: localizeModuleName?.(key) ?? null,
+    });
+    if (!name) {
+      diagnostics.push(`module_hidden_missing_display_name:${key}`);
+      continue;
+    }
+    const resolved = resolveModuleCatalogStatus(mod);
+    items.push({
+      id: `module:${key}`,
+      sourceType: "module",
+      canonicalKey: key,
+      name,
+      valueProposition: str(mod.description),
+      description: str(mod.description),
+      category: str(mod.suite) ?? str(mod.category) ?? "module",
+      price: null,
+      billingPeriod: null,
+      licenseModel: null,
+      capacity: null,
+      status: resolved.status,
+      ...statusFlags(resolved.status),
+      detailsRoute: "/app/settings/billing",
+      currentEntitlement: resolved.entitled ? key : null,
+      readiness: "operational",
+      features: asStringArray(mod.features),
+    });
+  }
+
+  for (const mod of modules.available_modules ?? []) {
+    const key = str(mod.module_key) ?? str(mod.moduleKey) ?? str(mod.key);
+    if (!key) continue;
+    if (items.some((item) => item.id === `module:${key}`)) continue;
+    const name = resolveCustomerFacingModuleName({
+      moduleKey: key,
+      moduleName: str(mod.module_name),
+      name: str(mod.name),
+      localizedName: localizeModuleName?.(key) ?? null,
+    });
+    if (!name) {
+      diagnostics.push(`module_hidden_missing_display_name:${key}`);
+      continue;
+    }
+    // Available catalog rows are never "included"
+    const status: SoftwareCatalogStatus = "available";
     items.push({
       id: `module:${key}`,
       sourceType: "module",
@@ -156,33 +240,7 @@ export function buildSoftwareCatalogViewModel(input: {
       capacity: null,
       status,
       ...statusFlags(status),
-      detailsRoute: "/app/settings/modules",
-      currentEntitlement: enabled ? key : null,
-      readiness: "operational",
-      features: asStringArray(mod.features),
-    });
-  }
-
-  for (const mod of modules.available_modules ?? []) {
-    const key = str(mod.module_key) ?? str(mod.moduleKey) ?? str(mod.key);
-    const name = str(mod.module_name) ?? str(mod.name) ?? key;
-    if (!key || !name) continue;
-    if (items.some((item) => item.id === `module:${key}`)) continue;
-    items.push({
-      id: `module:${key}`,
-      sourceType: "module",
-      canonicalKey: key,
-      name,
-      valueProposition: str(mod.description),
-      description: str(mod.description),
-      category: str(mod.suite) ?? str(mod.category) ?? "module",
-      price: null,
-      billingPeriod: null,
-      licenseModel: null,
-      capacity: null,
-      status: "available",
-      ...statusFlags("available"),
-      detailsRoute: "/app/settings/modules",
+      detailsRoute: "/app/settings/billing",
       currentEntitlement: null,
       readiness: "operational",
       features: asStringArray(mod.features),
@@ -190,23 +248,25 @@ export function buildSoftwareCatalogViewModel(input: {
   }
 
   let identityPacks = parseIdentityPacks(input.identityDashboardRaw);
-  if (identityPacks.length === 0) {
-    diagnostics.push("business_pack_identity_partial");
+  if (
+    input.identityDashboardRaw &&
+    typeof input.identityDashboardRaw === "object" &&
+    (input.identityDashboardRaw as Record<string, unknown>).has_access === false
+  ) {
+    diagnostics.push("business_pack_identity_unavailable");
+  } else if (identityPacks.length === 0) {
+    diagnostics.push("business_pack_identity_empty");
   }
 
-  if (input.hostsLandingRaw && typeof input.hostsLandingRaw === "object") {
-    const landing = input.hostsLandingRaw as Record<string, unknown>;
-    if (landing.found !== false && str(landing.pack_key) === CANONICAL_HOSTS_PACK_KEY) {
-      const exists = identityPacks.some(
-        (pack) => str(pack.pack_key) === CANONICAL_HOSTS_PACK_KEY
-      );
-      if (!exists) identityPacks = [landing, ...identityPacks];
-    }
+  const hostsIdentity = unwrapBusinessPackIdentityPayload(input.hostsLandingRaw);
+  if (hostsIdentity && str(hostsIdentity.pack_key) === CANONICAL_HOSTS_PACK_KEY) {
+    const exists = identityPacks.some((pack) => str(pack.pack_key) === CANONICAL_HOSTS_PACK_KEY);
+    if (!exists) identityPacks = [hostsIdentity, ...identityPacks];
   }
 
   for (const pack of identityPacks) {
     const key = str(pack.pack_key);
-    const name = str(pack.pack_name) ?? key;
+    const name = str(pack.pack_name);
     if (!key || !name) continue;
     const status = packStatus(key, gateByPack, str(pack.status));
     const detailsRoute =
@@ -237,9 +297,10 @@ export function buildSoftwareCatalogViewModel(input: {
       item.sourceType === "business_pack" && item.canonicalKey === CANONICAL_HOSTS_PACK_KEY
   );
   if (!hasHosts) {
-    diagnostics.push("aipify_hosts_missing_from_identity");
+    diagnostics.push("aipify_hosts_unavailable");
   }
 
+  const viewDiagnostics = diagnostics;
   return {
     found: Boolean(currentPackage) || items.length > 0,
     currentPackage,
@@ -250,7 +311,7 @@ export function buildSoftwareCatalogViewModel(input: {
       modules: items.some((item) => item.sourceType === "module"),
       businessPacks: items.some((item) => item.sourceType === "business_pack"),
     },
-    partial: diagnostics.length > 0,
-    diagnostics,
+    partial: computeSoftwareCatalogPartial(viewDiagnostics),
+    diagnostics: viewDiagnostics,
   };
 }

@@ -116,6 +116,28 @@ export function SoftwareCatalogPanel({ labels }: { labels: SoftwareCatalogLabels
     void load();
   }, [load]);
 
+  const filterOptions = useMemo(() => {
+    if (!catalog) return [] as Array<[FilterId, string]>;
+    const options: Array<[FilterId, string]> = [["all", labels.filterAll]];
+    if (catalog.sections.packages) options.push(["package", labels.packages]);
+    if (catalog.sections.modules) options.push(["module", labels.modules]);
+    if (catalog.sections.businessPacks) options.push(["business_pack", labels.businessPacks]);
+    return options;
+  }, [catalog, labels]);
+
+  useEffect(() => {
+    if (!catalog) return;
+    if (filter === "business_pack" && !catalog.sections.businessPacks) {
+      setFilter("all");
+    }
+    if (filter === "module" && !catalog.sections.modules) {
+      setFilter("all");
+    }
+    if (filter === "package" && !catalog.sections.packages) {
+      setFilter("all");
+    }
+  }, [catalog, filter]);
+
   const filteredItems = useMemo(() => {
     const items = catalog?.items ?? [];
     if (filter === "all") return items;
@@ -182,32 +204,29 @@ export function SoftwareCatalogPanel({ labels }: { labels: SoftwareCatalogLabels
         </p>
       ) : null}
 
-      <div className="flex flex-wrap gap-2">
-        {(
-          [
-            ["all", labels.filterAll],
-            ["package", labels.packages],
-            ["module", labels.modules],
-            ["business_pack", labels.businessPacks],
-          ] as const
-        ).map(([id, label]) => (
-          <button
-            key={id}
-            type="button"
-            onClick={() => setFilter(id)}
-            className={
-              filter === id
-                ? `rounded-full bg-aipify-companion px-4 py-1.5 text-sm font-medium text-white ${AppPremiumShell.focusRing}`
-                : `rounded-full border border-aipify-border px-4 py-1.5 text-sm text-aipify-text ${AppPremiumShell.focusRing}`
-            }
-          >
-            {label}
-          </button>
-        ))}
-      </div>
+      {filterOptions.length > 1 ? (
+        <div className="flex flex-wrap gap-2">
+          {filterOptions.map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setFilter(id)}
+              className={
+                filter === id
+                  ? `rounded-full bg-aipify-companion px-4 py-1.5 text-sm font-medium text-white ${AppPremiumShell.focusRing}`
+                  : `rounded-full border border-aipify-border px-4 py-1.5 text-sm text-aipify-text ${AppPremiumShell.focusRing}`
+              }
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       {filteredItems.length === 0 ? (
-        <p className="text-sm text-aipify-text-secondary">{labels.empty}</p>
+        <p className="text-sm text-aipify-text-secondary">
+          {filter === "business_pack" ? labels.emptyBusinessPacks : labels.empty}
+        </p>
       ) : (
         <div className="space-y-10">
           {packages.length > 0 ? (

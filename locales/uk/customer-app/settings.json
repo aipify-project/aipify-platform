@@ -65,6 +65,54 @@
       "deniedTitle": "Доступ до налаштувань обмежено",
       "deniedBody": "Налаштування організації доступні власникам і адміністраторам робочого простору.",
       "backToApp": "Назад до робочого простору"
+    },
+    "operativeTitle": "Налаштування",
+    "operativeSubtitle": "Керуйте безпекою, оплатою, інтеграціями та доступом розробника для організації.",
+    "operativeCategories": {
+      "accountSecurity": {
+        "title": "Безпека",
+        "description": "Підтвердження входу та засоби безпеки організації.",
+        "links": {
+          "signInVerification": {
+            "href": "/app/settings/two-factor",
+            "label": "Підтвердження входу"
+          },
+          "security": {
+            "href": "/app/settings/security",
+            "label": "Огляд безпеки"
+          }
+        }
+      },
+      "billingSubscription": {
+        "title": "Оплата",
+        "description": "Переглядайте підписку та комерційний статус.",
+        "links": {
+          "billing": {
+            "href": "/app/settings/billing",
+            "label": "Підписка та оплата"
+          }
+        }
+      },
+      "integrations": {
+        "title": "Інтеграції",
+        "description": "Підключені системи, які використовує організація.",
+        "links": {
+          "connectedApps": {
+            "href": "/app/platform/integrations/connected",
+            "label": "Підключені додатки"
+          }
+        }
+      },
+      "developerAccess": {
+        "title": "Розробник",
+        "description": "Токени встановлення та діагностика розробника для робочого простору.",
+        "links": {
+          "developer": {
+            "href": "/app/settings/developer",
+            "label": "Налаштування розробника"
+          }
+        }
+      }
     }
   },
   "expertiseOperations": {

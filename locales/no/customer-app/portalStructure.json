@@ -8480,7 +8480,31 @@
         "package": "Pakke",
         "module": "Modul",
         "businessPack": "Business Pack"
-      }
+      },
+      "emptyBusinessPacks": "Ingen Business Packs er tilgjengelige for denne organisasjonen ennå.",
+      "packageCopy": {
+        "starter": {
+          "name": "Aipify Starter",
+          "description": "For virksomheter som starter med Aipify — supportassistanse og FAQ-kunnskap."
+        },
+        "professional": {
+          "name": "Aipify Professional",
+          "description": "For voksende virksomheter som trenger supportautomatisering og Business DNA."
+        },
+        "business": {
+          "name": "Aipify Business",
+          "description": "For organisasjoner med ansatte og interne prosesser — Employee Knowledge Engine."
+        },
+        "insights": {
+          "name": "Aipify Insights",
+          "description": "Valgfri operasjonell innsikt — trender, flaskehalser og lederinnsikt."
+        },
+        "enterprise": {
+          "name": "Aipify Enterprise",
+          "description": "Avansert innsikt, styring og skalerbarhet for store organisasjoner."
+        }
+      },
+      "moduleDisplayNames": {}
     }
   }
 }

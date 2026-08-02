@@ -93,6 +93,9 @@ describe("app production experience — route readiness", () => {
     assert.equal(isAppRouteNavVisible("accountSecurity"), false);
     assert.equal(isAppRouteNavVisible("activityOverview"), false);
     assert.equal(isAppRouteNavVisible("apiAccess"), false);
+    assert.equal(isAppRouteNavVisible("installedBusinessPacks"), false);
+    assert.equal(isAppRouteNavVisible("availableBusinessPacks"), false);
+    assert.equal(isAppRouteNavVisible("businessPackSettings"), false);
   });
 
   it("redirects billing shells to settings billing", () => {

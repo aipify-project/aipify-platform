@@ -7416,7 +7416,31 @@
         "package": "Pakiet",
         "module": "Moduł",
         "businessPack": "Business Pack"
-      }
+      },
+      "emptyBusinessPacks": "Brak dostępnych Business Packs dla tej organizacji.",
+      "packageCopy": {
+        "starter": {
+          "name": "Aipify Starter",
+          "description": "Dla firm zaczynających z Aipify — wsparcie i wiedza FAQ."
+        },
+        "professional": {
+          "name": "Aipify Professional",
+          "description": "Dla rosnących firm potrzebujących automatyzacji supportu i Business DNA."
+        },
+        "business": {
+          "name": "Aipify Business",
+          "description": "Dla organizacji z pracownikami i procesami wewnętrznymi — Employee Knowledge Engine."
+        },
+        "insights": {
+          "name": "Aipify Insights",
+          "description": "Opcjonalna inteligencja operacyjna — trendy, wąskie gardła i wnioski dla zarządu."
+        },
+        "enterprise": {
+          "name": "Aipify Enterprise",
+          "description": "Zaawansowana inteligencja, zarządzanie i skalowalność dla dużych organizacji."
+        }
+      },
+      "moduleDisplayNames": {}
     }
   }
 }

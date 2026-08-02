@@ -65,6 +65,54 @@
       "deniedTitle": "Dostęp do ustawień jest ograniczony",
       "deniedBody": "Ustawienia organizacji są dostępne dla właścicieli i administratorów obszaru roboczego.",
       "backToApp": "Powrót do obszaru roboczego"
+    },
+    "operativeTitle": "Ustawienia",
+    "operativeSubtitle": "Zarządzaj bezpieczeństwem, rozliczeniami, integracjami i dostępem deweloperskim organizacji.",
+    "operativeCategories": {
+      "accountSecurity": {
+        "title": "Bezpieczeństwo",
+        "description": "Weryfikacja logowania i kontrola bezpieczeństwa organizacji.",
+        "links": {
+          "signInVerification": {
+            "href": "/app/settings/two-factor",
+            "label": "Weryfikacja logowania"
+          },
+          "security": {
+            "href": "/app/settings/security",
+            "label": "Przegląd bezpieczeństwa"
+          }
+        }
+      },
+      "billingSubscription": {
+        "title": "Rozliczenia",
+        "description": "Przeglądaj subskrypcję i status handlowy.",
+        "links": {
+          "billing": {
+            "href": "/app/settings/billing",
+            "label": "Subskrypcja i rozliczenia"
+          }
+        }
+      },
+      "integrations": {
+        "title": "Integracje",
+        "description": "Połączone systemy używane przez organizację.",
+        "links": {
+          "connectedApps": {
+            "href": "/app/platform/integrations/connected",
+            "label": "Połączone aplikacje"
+          }
+        }
+      },
+      "developerAccess": {
+        "title": "Deweloper",
+        "description": "Tokeny instalacji i diagnostyka deweloperska obszaru roboczego.",
+        "links": {
+          "developer": {
+            "href": "/app/settings/developer",
+            "label": "Ustawienia deweloperskie"
+          }
+        }
+      }
     }
   },
   "expertiseOperations": {

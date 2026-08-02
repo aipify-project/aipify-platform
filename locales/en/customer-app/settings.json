@@ -400,6 +400,54 @@
       "deniedTitle": "Settings access restricted",
       "deniedBody": "Organization settings are available to workspace owners and administrators.",
       "backToApp": "Back to workspace"
+    },
+    "operativeTitle": "Settings",
+    "operativeSubtitle": "Manage security, billing, integrations, and developer access for your organization.",
+    "operativeCategories": {
+      "accountSecurity": {
+        "title": "Security",
+        "description": "Sign-in verification and organization security controls.",
+        "links": {
+          "signInVerification": {
+            "href": "/app/settings/two-factor",
+            "label": "Sign-in verification"
+          },
+          "security": {
+            "href": "/app/settings/security",
+            "label": "Security overview"
+          }
+        }
+      },
+      "billingSubscription": {
+        "title": "Billing",
+        "description": "Review your subscription and commercial status.",
+        "links": {
+          "billing": {
+            "href": "/app/settings/billing",
+            "label": "Subscription and billing"
+          }
+        }
+      },
+      "integrations": {
+        "title": "Integrations",
+        "description": "Connected systems used by your organization.",
+        "links": {
+          "connectedApps": {
+            "href": "/app/platform/integrations/connected",
+            "label": "Connected apps"
+          }
+        }
+      },
+      "developerAccess": {
+        "title": "Developer",
+        "description": "Installation tokens and developer diagnostics for your workspace.",
+        "links": {
+          "developer": {
+            "href": "/app/settings/developer",
+            "label": "Developer settings"
+          }
+        }
+      }
     }
   },
   "paymentProviders": {

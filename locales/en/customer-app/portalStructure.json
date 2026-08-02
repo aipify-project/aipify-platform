@@ -8403,7 +8403,31 @@
         "package": "Package",
         "module": "Module",
         "businessPack": "Business Pack"
-      }
+      },
+      "emptyBusinessPacks": "No Business Packs are available for this organization yet.",
+      "packageCopy": {
+        "starter": {
+          "name": "Aipify Starter",
+          "description": "For businesses beginning with Aipify — support assistance and FAQ knowledge."
+        },
+        "professional": {
+          "name": "Aipify Professional",
+          "description": "For growing businesses that need support automation and Business DNA."
+        },
+        "business": {
+          "name": "Aipify Business",
+          "description": "For organizations with employees and internal processes — Employee Knowledge Engine."
+        },
+        "insights": {
+          "name": "Aipify Insights",
+          "description": "Optional operational intelligence — trends, bottlenecks, and executive insights."
+        },
+        "enterprise": {
+          "name": "Aipify Enterprise",
+          "description": "Advanced intelligence, governance, and scalability for large organizations."
+        }
+      },
+      "moduleDisplayNames": {}
     }
   }
 }

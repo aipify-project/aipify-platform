@@ -1,7 +1,14 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getOrganizationBusinessPackActivationGates } from "@/lib/business-pack-activation-gate";
-import { getBusinessPackIdentityEngineDashboard, getBusinessPackIdentityLanding } from "@/lib/core/business-pack-identity-engine";
-import { buildSoftwareCatalogViewModel, CANONICAL_HOSTS_PACK_KEY } from "./adapter";
+import {
+  getBusinessPackIdentityEngineDashboard,
+  getBusinessPackIdentityLanding,
+} from "@/lib/core/business-pack-identity-engine";
+import {
+  buildSoftwareCatalogViewModel,
+  CANONICAL_HOSTS_PACK_KEY,
+  computeSoftwareCatalogPartial,
+} from "./adapter";
 import type { SoftwareCatalogViewModel } from "./types";
 
 function isReadOnlySeedFailure(message: string): boolean {
@@ -13,12 +20,19 @@ function isReadOnlySeedFailure(message: string): boolean {
   );
 }
 
+export type SoftwareCatalogLocalizers = {
+  localizePackage?: (packageKey: string) => { name?: string | null; description?: string | null } | null;
+  localizeModuleName?: (moduleKey: string) => string | null;
+};
+
 /**
  * Server-side catalog load over authoritative RPCs.
- * Degrades on seed/read-only failures without inventing product data.
+ * Soft-fails Business Pack identity when GET RPCs write (read-only) — packages/modules still render.
+ * Hard partial only when billing/modules centers fail.
  */
 export async function loadSoftwareCatalog(
-  supabase: SupabaseClient
+  supabase: SupabaseClient,
+  localizers: SoftwareCatalogLocalizers = {}
 ): Promise<SoftwareCatalogViewModel> {
   const diagnostics: string[] = [];
 
@@ -60,11 +74,14 @@ export async function loadSoftwareCatalog(
     identityDashboardRaw,
     hostsLandingRaw: hostsLandingRaw ?? undefined,
     activationGates: gates.found ? gates.items ?? [] : [],
+    localizePackage: localizers.localizePackage,
+    localizeModuleName: localizers.localizeModuleName,
   });
 
+  const mergedDiagnostics = [...view.diagnostics, ...diagnostics];
   return {
     ...view,
-    diagnostics: [...view.diagnostics, ...diagnostics],
-    partial: view.partial || diagnostics.length > 0,
+    diagnostics: mergedDiagnostics,
+    partial: computeSoftwareCatalogPartial(mergedDiagnostics),
   };
 }

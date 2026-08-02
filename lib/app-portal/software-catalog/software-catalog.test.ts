@@ -3,7 +3,14 @@ import { describe, it } from "node:test";
 import {
   buildSoftwareCatalogViewModel,
   CANONICAL_HOSTS_PACK_KEY,
+  computeSoftwareCatalogPartial,
 } from "@/lib/app-portal/software-catalog/adapter";
+import {
+  isTechnicalIdentifier,
+  resolveCustomerFacingModuleName,
+  resolveModuleCatalogStatus,
+  unwrapBusinessPackIdentityPayload,
+} from "@/lib/app-portal/software-catalog/module-presentation";
 
 describe("software catalog adapter", () => {
   it("maps packages modules and aipify_hosts without inventing prices", () => {
@@ -29,7 +36,13 @@ describe("software catalog adapter", () => {
         has_customer: true,
         current_package: "business",
         installed_modules: [
-          { module_key: "support_ai", module_name: "Support", enabled: true, licensed: true },
+          {
+            module_key: "support_ai",
+            module_name: "Support",
+            enabled: true,
+            licensed: true,
+            status: "enabled",
+          },
         ],
         available_modules: [
           { module_key: "insights", module_name: "Insights", description: "Analytics module" },
@@ -78,14 +91,95 @@ describe("software catalog adapter", () => {
     assert.equal(support?.status, "included");
   });
 
-  it("marks unavailable packs and reports missing hosts diagnostics", () => {
+  it("hides raw module keys and never marks available as included", () => {
     const view = buildSoftwareCatalogViewModel({
-      billingRaw: { has_customer: true, current_package: {
-        package_key: "starter",
-        package_name: "Aipify Starter",
-        description: "",
-        features: [],
-      } },
+      billingRaw: {
+        has_customer: true,
+        current_package: {
+          package_key: "starter",
+          package_name: "Aipify Starter",
+          description: "",
+          features: [],
+        },
+      },
+      modulesRaw: {
+        has_customer: true,
+        installed_modules: [
+          { module_key: "additional_automation", licensed: true, enabled: true, status: "enabled" },
+          { module_key: "admin_assistant_engine", licensed: true, enabled: true, status: "enabled" },
+          {
+            module_key: "support_ai",
+            module_name: "Support Specialist",
+            licensed: true,
+            enabled: true,
+            status: "enabled",
+          },
+        ],
+        available_modules: [
+          { module_key: "advanced_analytics", licensed: false },
+          { module_key: "insights", module_name: "Insights" },
+        ],
+      },
+      identityDashboardRaw: { has_access: true, packs: [] },
+    });
+
+    assert.equal(
+      view.items.some((item) => item.name === "additional_automation"),
+      false
+    );
+    assert.equal(
+      view.items.some((item) => item.canonicalKey === "admin_assistant_engine"),
+      false
+    );
+    assert.ok(view.items.some((item) => item.canonicalKey === "support_ai"));
+    const insights = view.items.find((item) => item.canonicalKey === "insights");
+    assert.equal(insights?.status, "available");
+    assert.equal(insights?.included, false);
+    assert.equal(view.sections.businessPacks, false);
+    assert.equal(view.partial, false);
+  });
+
+  it("unwraps hosts landing identity and soft-fails empty packs without hard partial", () => {
+    const view = buildSoftwareCatalogViewModel({
+      billingRaw: {
+        has_customer: true,
+        current_package: {
+          package_key: "starter",
+          package_name: "Aipify Starter",
+          description: "",
+          features: [],
+        },
+      },
+      modulesRaw: { has_customer: true },
+      identityDashboardRaw: { has_access: false, packs: [] },
+      hostsLandingRaw: {
+        found: true,
+        identity: {
+          pack_key: CANONICAL_HOSTS_PACK_KEY,
+          pack_name: "Aipify Hosts",
+          status: "active",
+          short_description: "Hospitality pack",
+          features: ["Property operations"],
+          landing_route: "/app/marketplace/packs/aipify_hosts",
+        },
+      },
+    });
+    assert.ok(view.sections.businessPacks);
+    assert.ok(view.items.some((item) => item.canonicalKey === CANONICAL_HOSTS_PACK_KEY));
+    assert.equal(view.partial, false);
+  });
+
+  it("marks unavailable packs without hard partial for empty identity", () => {
+    const view = buildSoftwareCatalogViewModel({
+      billingRaw: {
+        has_customer: true,
+        current_package: {
+          package_key: "starter",
+          package_name: "Aipify Starter",
+          description: "",
+          features: [],
+        },
+      },
       modulesRaw: { has_customer: true },
       identityDashboardRaw: {
         has_access: true,
@@ -99,8 +193,91 @@ describe("software catalog adapter", () => {
         ],
       },
     });
-    assert.ok(view.diagnostics.includes("aipify_hosts_missing_from_identity"));
+    assert.ok(view.diagnostics.includes("aipify_hosts_unavailable"));
     const commerce = view.items.find((item) => item.canonicalKey === "aipify_commerce");
     assert.equal(commerce?.status, "unavailable");
+    assert.equal(computeSoftwareCatalogPartial(view.diagnostics), false);
+  });
+
+  it("applies localized package copy when provided", () => {
+    const view = buildSoftwareCatalogViewModel({
+      billingRaw: {
+        has_customer: true,
+        current_package: {
+          package_key: "business",
+          package_name: "Aipify Business",
+          description: "English only",
+          features: [],
+        },
+      },
+      modulesRaw: { has_customer: true },
+      identityDashboardRaw: { has_access: true, packs: [] },
+      localizePackage: (key) =>
+        key === "business"
+          ? {
+              name: "Aipify Business",
+              description: "For organisasjoner med ansatte og interne prosesser.",
+            }
+          : null,
+    });
+    assert.equal(
+      view.currentPackage?.description,
+      "For organisasjoner med ansatte og interne prosesser."
+    );
+  });
+});
+
+describe("module presentation entitlement badges", () => {
+  it("detects technical identifiers", () => {
+    assert.equal(isTechnicalIdentifier("additional_automation"), true);
+    assert.equal(isTechnicalIdentifier("admin_assistant_engine"), true);
+    assert.equal(isTechnicalIdentifier("aipify_companion_presence"), true);
+    assert.equal(isTechnicalIdentifier("Support Specialist"), false);
+  });
+
+  it("hides missing display names", () => {
+    assert.equal(
+      resolveCustomerFacingModuleName({ moduleKey: "advanced_analytics" }),
+      null
+    );
+    assert.equal(
+      resolveCustomerFacingModuleName({
+        moduleKey: "support_ai",
+        localizedName: "Support Specialist",
+      }),
+      "Support Specialist"
+    );
+  });
+
+  it("included only with canonical licensed+enabled proof", () => {
+    assert.equal(
+      resolveModuleCatalogStatus({
+        licensed: true,
+        enabled: true,
+        status: "enabled",
+      }).status,
+      "included"
+    );
+    assert.equal(
+      resolveModuleCatalogStatus({ licensed: false, enabled: false }).status,
+      "available"
+    );
+    assert.equal(
+      resolveModuleCatalogStatus({ licensed: true, enabled: false, status: "enabled" }).status,
+      "unavailable"
+    );
+    assert.equal(
+      resolveModuleCatalogStatus({ status: "pending_activation" }).status,
+      "pending_approval"
+    );
+    assert.equal(resolveModuleCatalogStatus({}).status, "unavailable");
+  });
+
+  it("unwraps nested identity landing payloads", () => {
+    const identity = unwrapBusinessPackIdentityPayload({
+      found: true,
+      identity: { pack_key: "aipify_hosts", pack_name: "Aipify Hosts" },
+    });
+    assert.equal(identity?.pack_key, "aipify_hosts");
   });
 });
