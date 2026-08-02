@@ -54,6 +54,9 @@ Task: `AIPIFY.CORE.APP.GENERIC.INSTALLATION.WIZARD.V1`
 42. Customer-visible i18n must never render a raw key (`customerApp.*`). Waiting-party keys must be present in the Production `labels.setup.messageCatalog` allowlist (`buildInstallationWizardMessageCatalog`), not only in source locale JSON.
 43. Runtime/i18n tests for waiting copy must use the Production-equivalent path: page builds `messageCatalog` via `buildAppPortalIntegrationsLabels`, client resolves through catalog lookup — source locale presence alone is insufficient.
 44. Missing waiting-party copy falls back English → generic waiting (`waiting` / `waitingByParty.unknown`) → English customer-safe last resort; never raw key. Lifecycle, handoff, session, and APIs must not change for copy fixes.
+45. Persisted open handoff has highest read-side priority over session ready_for_handoff / local selection — use `resolveHydratedInstallationState`.
+46. Hydration must never create or mutate lifecycle (no POST/session write from GET hydrate). Matching open handoff hides handoff CTAs; refresh must preserve authoritative waiting presentation.
+47. No wrong-state flash before handoff GET completes (`statusPendingHydration` / suppress CTAs). Read-side hydrate resolver must be covered by integration tests.
 
 ## Code map
 

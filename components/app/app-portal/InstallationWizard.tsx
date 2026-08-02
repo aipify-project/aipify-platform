@@ -18,7 +18,6 @@ import {
   primaryInstallActionKeyForMode,
   redactSecretFieldValues,
   resolveCustomerSafeText,
-  resolveInstallSupportLifecycle,
   resolveInstallationTextDirection,
   resolveStepPresentation,
   selectDefaultCustomerFacingSupportMode,
@@ -27,9 +26,11 @@ import {
   sessionStateAfterSupportConfirm,
   buildHandoffIdempotencyKey,
   handoffTypeForSupportMode,
-  isOpenHandoffStatus,
   isValidInviteEmail,
+  parsePersistedInstallationHandoff,
+  resolveHydratedInstallationState,
   resolveInstallationWaitingCopyParty,
+  type HandoffLoadState,
   type InstallationAudience,
   type InstallationHandoffResponse,
   type InstallationSessionSnapshot,
@@ -38,6 +39,7 @@ import {
   type InstallationWizardPreviewViewState,
   type InstallationWizardState,
   type InstallationWizardLabels,
+  type PersistedInstallationHandoff,
 } from "@/lib/app-portal/integrations/installation";
 import type { AppPortalIntegrationSetup, AppPortalIntegrationsLabels } from "@/lib/app-portal/integrations";
 
@@ -174,19 +176,18 @@ export function InstallationWizard({
   const [apiKey, setApiKey] = useState("");
   const [testMessage, setTestMessage] = useState<string | null>(null);
   const [errorSummary, setErrorSummary] = useState<string | null>(null);
-  /** null = not loaded yet; false = no open handoff (repair V3 false waiting). */
-  const [hasOpenHandoff, setHasOpenHandoff] = useState<boolean | null>(null);
-  /** Presentation-only fields from persisted handoff — never written back to session. */
-  const [handoffAssignedPartyType, setHandoffAssignedPartyType] = useState<string | null>(
-    null
+  /** Read-side handoff GET — presentation only; never writes lifecycle. */
+  const [handoffLoadState, setHandoffLoadState] = useState<HandoffLoadState>(() =>
+    isPreview ? "ready" : "loading"
   );
-  const [handoffSupportMode, setHandoffSupportMode] =
-    useState<InstallationSupportMode | null>(null);
+  const [persistedHandoff, setPersistedHandoff] =
+    useState<PersistedInstallationHandoff | null>(null);
 
   useEffect(() => {
     if (isPreview) {
       setSession(null);
-      setHasOpenHandoff(false);
+      setHandoffLoadState("ready");
+      setPersistedHandoff(null);
       return;
     }
     setSession(parseSession(setup.installation_session));
@@ -195,58 +196,27 @@ export function InstallationWizard({
   useEffect(() => {
     if (isPreview) return;
     let cancelled = false;
+    setHandoffLoadState("loading");
     const loadHandoff = async () => {
       try {
         const res = await fetch(
           `/api/app-portal/integrations/${encodeURIComponent(providerKey)}/installation/handoff`,
           { method: "GET", headers: { "Cache-Control": "no-store" } }
         );
-        const data = (await res.json().catch(() => ({}))) as {
-          handoff?: {
-            handoff_request_id?: string;
-            id?: string;
-            status?: string;
-            support_mode?: string;
-            assigned_party_type?: string | null;
-            requested_at?: string;
-            created_at?: string;
-            recipient_email?: string | null;
-            internal_context?: { recipient_email?: string | null };
-          } | null;
-        };
+        const data = (await res.json().catch(() => ({}))) as unknown;
         if (cancelled) return;
-        const handoff = data.handoff ?? null;
-        const open = isOpenHandoffStatus(handoff?.status);
-        setHasOpenHandoff(open);
-        if (open && handoff) {
-          setHandoffAssignedPartyType(
-            typeof handoff.assigned_party_type === "string"
-              ? handoff.assigned_party_type
-              : null
-          );
-          setHandoffSupportMode(
-            isInstallationSupportMode(handoff.support_mode)
-              ? handoff.support_mode
-              : null
-          );
-          const reference = String(handoff.handoff_request_id ?? handoff.id ?? "");
-          const requestedAt = handoff.requested_at ?? handoff.created_at ?? "";
-          if (reference) {
-            setHandoffConfirmation({
-              reference,
-              requestedAt,
-              recipientEmail:
-                handoff.recipient_email ??
-                handoff.internal_context?.recipient_email ??
-                null,
-            });
-          }
-        } else {
-          setHandoffAssignedPartyType(null);
-          setHandoffSupportMode(null);
+        if (!res.ok) {
+          setPersistedHandoff(null);
+          setHandoffLoadState("error");
+          return;
         }
+        setPersistedHandoff(parsePersistedInstallationHandoff(data));
+        setHandoffLoadState("ready");
       } catch {
-        if (!cancelled) setHasOpenHandoff(false);
+        if (!cancelled) {
+          setPersistedHandoff(null);
+          setHandoffLoadState("error");
+        }
       }
     };
     void loadHandoff();
@@ -352,16 +322,19 @@ export function InstallationWizard({
   const completedKeys = isPreview
     ? previewView.completed_step_keys
     : (session?.completed_step_keys ?? []);
-  const installLifecycle = isPreview
+  const hydrated = isPreview
     ? null
-    : resolveInstallSupportLifecycle({
-        localSupportMode,
+    : resolveHydratedInstallationState({
         session,
-        hasOpenHandoff,
+        localSupportMode,
+        handoff: persistedHandoff,
+        handoffLoadState,
       });
+  const installLifecycle = isPreview ? null : hydrated!.lifecycle;
+  const hasOpenHandoff = isPreview ? false : hydrated!.hasOpenHandoff;
   const selectedSupportMode = isPreview
     ? previewView.support_mode
-    : (localSupportMode ?? session?.support_mode ?? null);
+    : (hydrated!.supportMode ?? localSupportMode ?? session?.support_mode ?? null);
   const supportMode =
     selectedSupportMode ??
     selectDefaultCustomerFacingSupportMode(contract.support_modes) ??
@@ -395,16 +368,23 @@ export function InstallationWizard({
       "awaiting_customer_it",
       "awaiting_customer",
     ].includes(state);
+  const presentationState: InstallationWizardState | null = isPreview
+    ? previewView.state
+    : falseWaitingRepair
+      ? "in_progress"
+      : (hydrated?.presentationState ?? session?.state ?? null);
   const statusLabel = isPreview
     ? wizLabels.previewStatusForMode(selectedSupportMode)
-    : wizLabels.installStatusForLifecycle(
-        selectedSupportMode,
-        installLifecycle ?? "choose",
-        falseWaitingRepair ? "in_progress" : session?.state
-      );
+    : hydrated?.statusPendingHydration
+      ? wizLabels.loading
+      : wizLabels.installStatusForLifecycle(
+          selectedSupportMode,
+          installLifecycle ?? "choose",
+          presentationState
+        );
   const statusToneState: InstallationWizardState = falseWaitingRepair
     ? "in_progress"
-    : state;
+    : (presentationState ?? state);
   const responsibilityLabel = isPreview
     ? wizLabels.previewResponsibilityForMode(selectedSupportMode)
     : wizLabels.installResponsibilityForMode(selectedSupportMode);
@@ -426,7 +406,7 @@ export function InstallationWizard({
       })
     : wizLabels.reassurance;
   const installAssistanceActions =
-    !isPreview && installLifecycle
+    !isPreview && installLifecycle && hydrated?.showHandoffCta
       ? listRelevantInstallAssistanceActions({
           actions: contract.assistance_actions,
           supportMode: selectedSupportMode,
@@ -436,13 +416,29 @@ export function InstallationWizard({
   const previewExampleActions = listPreviewExampleAssistanceActions(
     contract.assistance_actions
   );
-  const waitingCopyParty = resolveInstallationWaitingCopyParty({
-    assignedPartyType: handoffAssignedPartyType,
-    supportMode: handoffSupportMode ?? selectedSupportMode,
-    sessionState: state,
-  });
+  const waitingCopyParty =
+    hydrated?.waitingCopyParty ??
+    resolveInstallationWaitingCopyParty({
+      assignedPartyType: null,
+      supportMode: selectedSupportMode,
+      sessionState: presentationState ?? state,
+    });
   const waitingHeading = wizLabels.waitingForParty(waitingCopyParty);
-  const showContinueLater = !isPreview && canShowInstallContinueLater(session);
+  const showContinueLater =
+    !isPreview && (hydrated?.canContinueLater ?? canShowInstallContinueLater(session));
+  const showWaitingPresentation = Boolean(hydrated?.showWaitingPresentation);
+  const confirmationData = handoffConfirmation ?? hydrated?.confirmation ?? null;
+  const confirmationNotice =
+    handoffNotice ??
+    (hydrated?.showConfirmationBanner && hydrated.supportMode && hydrated.confirmation
+      ? wizLabels.handoffSuccessNotice({
+          mode: hydrated.supportMode,
+          reference: hydrated.confirmation.reference,
+          requestedAt: hydrated.confirmation.requestedAt,
+          recipientEmail: hydrated.confirmation.recipientEmail,
+          duplicate: true,
+        })
+      : null);
   const onChooseSupportStep =
     current?.step_type === "choose_support" ||
     state === "support_selection" ||
@@ -629,36 +625,51 @@ export function InstallationWizard({
       }
 
       setLocalSupportMode(null);
-      setHasOpenHandoff(true);
-      const handoffRow = (payload as { handoff?: { assigned_party_type?: string; support_mode?: string } })
-        .handoff;
-      if (handoffRow?.assigned_party_type) {
-        setHandoffAssignedPartyType(handoffRow.assigned_party_type);
-      } else {
-        setHandoffAssignedPartyType(
-          opts.mode === "customer_it_managed"
+      const handoffRow = (payload as { handoff?: Record<string, unknown> }).handoff;
+      const assignedPartyType =
+        typeof handoffRow?.assigned_party_type === "string"
+          ? handoffRow.assigned_party_type
+          : opts.mode === "customer_it_managed"
             ? "customer_it"
             : opts.mode === "partner_managed"
               ? "partner"
-              : "aipify"
-        );
-      }
-      setHandoffSupportMode(
-        isInstallationSupportMode(handoffRow?.support_mode)
-          ? handoffRow.support_mode
-          : opts.mode
-      );
+              : "aipify";
       const requestedAt = payload.requested_at ?? payload.created_at ?? new Date().toISOString();
+      const reference = String(payload.handoff_request_id ?? "");
+      const recipientEmail = payload.recipient_email ?? opts.recipientEmail ?? null;
+      setPersistedHandoff({
+        handoff_request_id: reference,
+        status:
+          typeof handoffRow?.status === "string" ? handoffRow.status : payload.status || "requested",
+        support_mode: isInstallationSupportMode(handoffRow?.support_mode)
+          ? handoffRow.support_mode
+          : opts.mode,
+        assigned_party_type: assignedPartyType,
+        requested_at: requestedAt,
+        created_at: payload.created_at ?? requestedAt,
+        recipient_email: recipientEmail,
+        lifecycle_state:
+          typeof handoffRow?.lifecycle_state === "string"
+            ? handoffRow.lifecycle_state
+            : payload.lifecycle_state ?? null,
+        next_step:
+          typeof handoffRow?.next_step === "string"
+            ? handoffRow.next_step
+            : payload.next_step ?? null,
+        handoff_type:
+          typeof handoffRow?.handoff_type === "string" ? handoffRow.handoff_type : handoffType,
+      });
+      setHandoffLoadState("ready");
       setHandoffConfirmation({
-        reference: String(payload.handoff_request_id ?? ""),
+        reference,
         requestedAt,
-        recipientEmail: payload.recipient_email ?? opts.recipientEmail ?? null,
+        recipientEmail,
       });
       const successNotice = wizLabels.handoffSuccessNotice({
         mode: opts.mode,
-        reference: String(payload.handoff_request_id ?? ""),
+        reference,
         requestedAt,
-        recipientEmail: payload.recipient_email ?? opts.recipientEmail ?? null,
+        recipientEmail,
         duplicate: Boolean(payload.duplicate),
       });
       setHandoffNotice(successNotice);
@@ -1009,28 +1020,28 @@ export function InstallationWizard({
             </div>
           ) : null}
 
-          {handoffNotice ? (
+          {confirmationNotice ? (
             <div
               role="status"
               aria-live="polite"
-              data-handoff-confirmation={handoffConfirmation ? "true" : "false"}
+              data-handoff-confirmation={confirmationData ? "true" : "false"}
               className="mb-4 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-950 dark:border-emerald-500/30 dark:bg-emerald-950/40 dark:text-emerald-100"
             >
-              <p>{handoffNotice}</p>
-              {handoffConfirmation?.reference ? (
+              <p>{confirmationNotice}</p>
+              {confirmationData?.reference ? (
                 <p className="mt-1 text-xs opacity-90" data-handoff-reference="true">
-                  {wizLabels.handoffReferenceLabel}: {handoffConfirmation.reference}
+                  {wizLabels.handoffReferenceLabel}: {confirmationData.reference}
                 </p>
               ) : null}
-              {handoffConfirmation?.requestedAt ? (
+              {confirmationData?.requestedAt ? (
                 <p className="mt-0.5 text-xs opacity-90" data-handoff-timestamp="true">
                   {wizLabels.handoffRequestedAtLabel}:{" "}
-                  {new Date(handoffConfirmation.requestedAt).toLocaleString(locale)}
+                  {new Date(confirmationData.requestedAt).toLocaleString(locale)}
                 </p>
               ) : null}
-              {handoffConfirmation?.recipientEmail ? (
+              {confirmationData?.recipientEmail ? (
                 <p className="mt-0.5 text-xs opacity-90" data-handoff-recipient="true">
-                  {wizLabels.handoffRecipientLabel}: {handoffConfirmation.recipientEmail}
+                  {wizLabels.handoffRecipientLabel}: {confirmationData.recipientEmail}
                 </p>
               ) : null}
             </div>
@@ -1154,12 +1165,7 @@ export function InstallationWizard({
             </div>
           ) : null}
 
-          {!isPreview &&
-          installLifecycle === "handed_off" &&
-          (current?.step_type === "waiting_external_party" ||
-            ["awaiting_aipify", "awaiting_partner", "awaiting_provider", "awaiting_customer_it"].includes(
-              state
-            )) ? (
+          {!isPreview && showWaitingPresentation ? (
             <div
               className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 text-sm text-amber-950 dark:text-amber-50"
               data-waiting-party={waitingCopyParty}
@@ -1379,6 +1385,13 @@ export function InstallationWizard({
                   );
                 })}
               </ul>
+            ) : hydrated?.statusPendingHydration ? (
+              <p
+                className="mt-3 text-sm text-slate-600 dark:text-slate-300"
+                data-install-actions="hydrating"
+              >
+                {wizLabels.loading}
+              </p>
             ) : installLifecycle === "choose" || !selectedSupportMode ? (
               <p className="mt-3 text-sm text-slate-600 dark:text-slate-300" data-install-actions="empty">
                 {wizLabels.installActionsChooseHint}

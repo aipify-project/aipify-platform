@@ -40,6 +40,11 @@ export function resolveInstallSupportLifecycle(opts: {
    */
   hasOpenHandoff?: boolean | null;
 }): InstallSupportLifecycle {
+  // Read-side priority #1: persisted open handoff overrides session ready_for_handoff.
+  if (opts.hasOpenHandoff === true) {
+    return "handed_off";
+  }
+
   const sessionState = opts.session?.state;
   const isWaitingState =
     sessionState === "awaiting_aipify" ||
