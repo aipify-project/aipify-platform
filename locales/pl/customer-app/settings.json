@@ -681,7 +681,10 @@
       "userRoleDeniedContext": "Twoja rola nie obejmuje dostępu do {dataType}. Zatwierdzenie dostępu dostawcy przez organizację nie zmienia Twoich osobistych uprawnień.",
       "providerContext": "Wniosek dotyczy {provider}.",
       "panelNote": "Możesz wysyłać wnioski o dostęp tutaj. Zatwierdzenie wymaga właściciela organizacji lub upoważnionego administratora.",
-      "actions": { "submit": "Wyślij wniosek", "cancel": "Anuluj" }
+      "actions": {
+        "submit": "Wyślij wniosek",
+        "cancel": "Anuluj"
+      }
     },
     "create": {
       "title": "Wyślij wniosek o dostęp",
@@ -701,26 +704,60 @@
         "risk": "Poziom ryzyka",
         "requester": "Wnioskodawca"
       },
-      "accessMode": { "oneTime": "Jednorazowy dostęp", "ongoing": "Stały dostęp" },
+      "accessMode": {
+        "oneTime": "Jednorazowy dostęp",
+        "ongoing": "Stały dostęp"
+      },
       "durationOpenEnded": "Bezterminowo do cofnięcia",
       "durationHours": "{hours} godzin",
-      "riskLevels": { "0": "Informacyjny", "1": "Niski", "2": "Umiarkowany", "3": "Wrażliwy — wymagane dodatkowe potwierdzenie" },
+      "riskLevels": {
+        "0": "Informacyjny",
+        "1": "Niski",
+        "2": "Umiarkowany",
+        "3": "Wrażliwy — wymagane dodatkowe potwierdzenie"
+      },
       "requester": "Wnioskodawca: {name}",
       "unknownProvider": "Zatwierdzony dostawca",
       "unknownScope": "Zatwierdzony zakres danych",
       "afterApprovalDetail": "Po zatwierdzeniu Aipify aktywuje tylko żądany zakres i kontynuuje pierwotną akcję, gdy jest to bezpieczne.",
       "afterApproval": "Po zatwierdzeniu",
-      "actions": { "approve": "Zatwierdź", "deny": "Odrzuć" },
+      "actions": {
+        "approve": "Zatwierdź",
+        "deny": "Odrzuć"
+      },
       "approved": "Wniosek o dostęp zatwierdzony.",
       "denied": "Wniosek o dostęp odrzucony."
     },
-    "status": { "pending": "Oczekuje", "approved": "Zatwierdzony", "denied": "Odrzucony", "cancelled": "Anulowany" },
+    "status": {
+      "pending": "Oczekuje",
+      "approved": "Zatwierdzony",
+      "denied": "Odrzucony",
+      "cancelled": "Anulowany"
+    },
     "providers": {
-      "generic": { "label": "Połączony dostawca" },
-      "communityMemberDirectory": { "label": "Rejestr członków", "dataType": "Dane rejestru członków", "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby dokładnie odpowiadać na pytania o członków." },
-      "memberCount": { "label": "Liczba członków", "dataType": "Zagregowane liczby członków", "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby raportować liczbę zarejestrowanych członków." },
-      "supportOperations": { "label": "Operacje wsparcia", "dataType": "Kolejka wsparcia i sygnały SLA", "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby wskazywać sprawy wsparcia zbliżające się do ryzyka SLA." },
-      "memberVerification": { "label": "Weryfikacja członków", "dataType": "Status kolejki weryfikacji", "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby pokazać oczekującą weryfikację członków." }
+      "generic": {
+        "label": "Połączony dostawca"
+      },
+      "communityMemberDirectory": {
+        "label": "Rejestr członków",
+        "dataType": "Dane rejestru członków",
+        "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby dokładnie odpowiadać na pytania o członków."
+      },
+      "memberCount": {
+        "label": "Liczba członków",
+        "dataType": "Zagregowane liczby członków",
+        "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby raportować liczbę zarejestrowanych członków."
+      },
+      "supportOperations": {
+        "label": "Operacje wsparcia",
+        "dataType": "Kolejka wsparcia i sygnały SLA",
+        "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby wskazywać sprawy wsparcia zbliżające się do ryzyka SLA."
+      },
+      "memberVerification": {
+        "label": "Weryfikacja członków",
+        "dataType": "Status kolejki weryfikacji",
+        "whyNeeded": "Aipify potrzebuje dostępu do odczytu, aby pokazać oczekującą weryfikację członków."
+      }
     },
     "scopes": {
       "communityMembersRead": "Wyświetl rejestr członków",
@@ -734,8 +771,12 @@
   },
   "authorizationTarget": {
     "providers": {
-      "generic": { "label": "Połączona usługa" },
-      "personalStreamingAccount": { "label": "Osobiste konto muzyczne" }
+      "generic": {
+        "label": "Połączona usługa"
+      },
+      "personalStreamingAccount": {
+        "label": "Osobiste konto muzyczne"
+      }
     },
     "searchTerms": {
       "personalStreamingAccount": "muzyka, streaming, playlista, odtwarzanie"
@@ -743,12 +784,18 @@
     "userOwned": {
       "connectLead": "Możesz połączyć {provider}, aby Aipify pomagał w odtwarzaniu i sterowaniu.",
       "connectExplanation": "To jest Twoje osobiste konto. Nie przechodzi przez zatwierdzenie organizacji — używany jest tylko dostęp, który zatwierdzisz.",
-      "actions": { "connect": "Połącz konto", "cancel": "Anuluj" }
+      "actions": {
+        "connect": "Połącz konto",
+        "cancel": "Anuluj"
+      }
     },
     "localDevice": {
       "permissionLead": "Aipify potrzebuje uprawnienia na tym urządzeniu, zanim będzie mógł sterować lokalnym odtwarzaniem lub głośnikami.",
       "permissionExplanation": "To jest lokalne uprawnienie urządzenia — nie wniosek organizacyjny dla {provider}.",
-      "actions": { "openSettings": "Otwórz ustawienia urządzenia", "cancel": "Anuluj" }
+      "actions": {
+        "openSettings": "Otwórz ustawienia urządzenia",
+        "cancel": "Anuluj"
+      }
     },
     "approver": {
       "directLead": "Możesz zatwierdzić ten dostęp organizacji bezpośrednio w panelu APP. Nie musisz wysyłać wniosku do siebie.",
@@ -756,7 +803,10 @@
       "panelTitle": "Zatwierdź dostęp organizacji",
       "panelDescription": "Przejrzyj zakres, czas trwania i ryzyko przed zatwierdzeniem dostępu dla organizacji.",
       "noPendingRequest": "Nie ma jeszcze oczekującej prośby dla tego dostawcy. Członek zespołu może ją wysłać, albo możesz zatwierdzić pasującą prośbę, gdy pojawi się poniżej.",
-      "actions": { "approveAccess": "Zatwierdź dostęp", "cancel": "Anuluj" }
+      "actions": {
+        "approveAccess": "Zatwierdź dostęp",
+        "cancel": "Anuluj"
+      }
     },
     "errors": {
       "approverShouldGrantDirectly": "Jako zatwierdzający organizacji nadaj ten dostęp w panelu APP zamiast wysyłać wniosek.",
@@ -819,6 +869,129 @@
       "welcomeVariants": {
         "standard": "Standardowy",
         "compact": "Kompaktowy"
+      }
+    }
+  },
+  "commercialPackages": {
+    "billing": {
+      "title": "Rozliczenia i pakiety",
+      "subtitle": "Bieżący pakiet, użycie, ulepszenia i dodatki — płać tylko za to, czego potrzebujesz.",
+      "loading": "Przygotowywanie treści",
+      "back": "Wróć do ustawień",
+      "viewLicense": "Centrum licencji",
+      "viewModules": "Zarządzanie modułami",
+      "viewCommercial": "Przegląd komercyjny",
+      "empty": "Nie ma jeszcze nic do pokazania.",
+      "sections": {
+        "package": "Bieżący pakiet",
+        "modules": "Licencjonowane moduły",
+        "usage": "Użycie w okresie",
+        "limits": "Zawarta pojemność",
+        "upgrades": "Opcje ulepszenia",
+        "addons": "Dodatki",
+        "recommendations": "Rekomendacje",
+        "history": "Historia rozliczeń",
+        "suites": "Pakiety produktowe",
+        "locked": "Funkcje niedostępne",
+        "nextStep": "Zalecany następny krok",
+        "support": "Pomoc w rozliczeniach"
+      },
+      "usage": {
+        "supportCases": "Zgłoszenia wsparcia",
+        "autonomous": "Autonomiczne rozwiązania",
+        "knowledgeSearches": "Wyszukiwania wiedzy",
+        "employeeInteractions": "Interakcje pracowników",
+        "insightReports": "Raporty insight",
+        "apiCalls": "Wywołania API",
+        "aiUsage": "Wolumen użycia Aipify"
+      },
+      "viewPackages": "Pakiety i dostęp",
+      "viewPaymentProviders": "Dostawcy płatności",
+      "viewInvoiceDetails": "Szczegóły faktury",
+      "modulesCount": "{count} licencjonowanych modułów",
+      "emptyHistory": "Historia rozliczeń nie jest jeszcze dostępna.",
+      "statusLabels": {
+        "active": "Aktywny",
+        "trial": "Okres próbny",
+        "cancelled": "Anulowany",
+        "lifetime": "Bezterminowy",
+        "past_due": "Zaległy",
+        "unknown": "Status niedostępny"
+      },
+      "retry": "Spróbuj ponownie",
+      "loadError": "Nie udało się wczytać szczegółów rozliczeń. Spróbuj ponownie.",
+      "emptyLocked": "Obecnie nie ma dodatkowych pakietów ani funkcji dla Twojej organizacji.",
+      "emptyPackage": "Brak aktywnego pakietu dla tej organizacji.",
+      "unavailable": "Niedostępne",
+      "unlimited": "Bez limitu",
+      "usedOfMax": "{used} z {max}",
+      "privacyNote": "Ta strona pokazuje podsumowanie pakietu i użycia dla Twojej organizacji. Dane karty pozostają u dostawcy płatności.",
+      "eyebrow": "Rozliczenia",
+      "limits": {
+        "users": "Użytkownicy",
+        "installations": "Instalacje",
+        "domains": "Domeny",
+        "used": "Użyte",
+        "included": "W pakiecie"
+      },
+      "locked": {
+        "upgradeReason": "Nie jest uwzględnione w bieżącym pakiecie.",
+        "addonReason": "Dostępne jako opcjonalny dodatek.",
+        "recommendationReason": "Sugerowane na podstawie bieżącego pakietu i użycia.",
+        "viewPackagesCta": "Zobacz pakiety"
+      },
+      "nextStep": {
+        "viewPackages": "Przejrzyj pakiety i opcje dostępu, aby znaleźć odpowiednie dla organizacji.",
+        "reviewUsage": "Porównaj użycie z zawartą pojemnością i oceń, czy pakiet nadal pasuje.",
+        "none": "Pakiet i użycie wyglądają stabilnie. Na razie nie jest wymagana zmiana."
+      },
+      "support": {
+        "body": "Potrzebujesz pomocy z fakturami lub dostępem do pakietu? Otwórz szczegóły faktury lub pakiety.",
+        "invoiceDetails": "Otwórz szczegóły faktury"
+      },
+      "nextBillingDate": "Następna data rozliczenia",
+      "statusColumn": "Status"
+    },
+    "pricingPhilosophy": {
+      "title": "Pricing philosophy",
+      "principleLead": "Aipify is priced as a Business Operating System — not per message or token.",
+      "priceOn": "Value priced on",
+      "avoid": "Not priced on",
+      "planGuidance": "Plan guidance (USD monthly)",
+      "positioning": "How Aipify is positioned",
+      "abosPrinciple": "Aipify Business Operating System (ABOS) — install-first operations, not a chat interface.",
+      "guidanceNote": "Recommended ranges are sales guidance. Your live subscription follows your contracted plan.",
+      "usdRange": "USD guidance",
+      "plans": {
+        "starter": "Aipify Starter",
+        "growth": "Aipify Growth",
+        "business": "Aipify Business",
+        "enterprise": "Aipify Enterprise"
+      },
+      "bullets": {
+        "operationalScope": "Operational scope — installs, modules, and users",
+        "outcomes": "Business outcomes — support, knowledge, workflows",
+        "governance": "Governance — approvals, audit, enterprise security",
+        "noTokens": "Not per-message or token metering",
+        "notChatbot": "Not consumer chatbot pricing"
+      }
+    },
+    "modules": {
+      "title": "Module management",
+      "subtitle": "Enable or disable purchased modules. Aipify grows with your business.",
+      "loading": "Preparing modules overview…",
+      "back": "Back to settings",
+      "viewBilling": "Billing & packages",
+      "empty": "No modules available.",
+      "enable": "Enable",
+      "disable": "Disable",
+      "sections": {
+        "installed": "Installed modules",
+        "available": "Available with upgrade",
+        "trials": "Trial modules",
+        "recommendations": "Upgrade recommendations",
+        "packages": "Commercial packages",
+        "flags": "Feature flag states"
       }
     }
   }

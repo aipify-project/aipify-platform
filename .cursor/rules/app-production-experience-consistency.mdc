@@ -38,6 +38,18 @@ See `lib/app-production-experience/`.
 7. **i18n splits** — portalStructure pages must load the `portalStructure` dictionary split (never only `dashboard` when reading `customerApp.portalStructure.*`).
 8. **Tests** — new APP surfaces need visual/data consistency coverage under `lib/app-production-experience/**` (or domain tests that assert fixture exclusion and readiness).
 
+## Billing reference page (first Customer APP recovery standard)
+
+`/app/settings/billing` is the first Customer APP reference page for layout, language, and data truth.
+
+1. **Canonical width** — use `AppLayoutClasses` / `AppPremiumShell.page` (`max-w-[1560px]`). No page-local random `max-w-4xl` / `5xl` / `6xl` on Billing.
+2. **Real data only** — live `GET /api/commercial-packages/billing` → `buildBillingViewModel`. No fixtures, sample invoices, or invented usage in runtime UI.
+3. **Localized copy** — all visible strings via `buildBillingReferenceLabels` + locale splits. No hardcoded EN/NO, no mixed language, no raw feature keys or enums.
+4. **Actions** — only operative, tenant-safe CTAs (packages, invoice details, modules, license, payment providers, retry). No dead upgrade/checkout or Companion/Kompis CTAs on this page.
+5. **States** — loading / empty / error / partial are first-class and localized.
+6. **Tests** — mount the actual route chain (page → panel → API → view model). Preview screenshots required before merge.
+7. **Out of scope on Billing work** — global Kompis, Companion redesign, Dashboard/Integrations redesign, PR #80, migrations, auth/MFA.
+
 ## Forbidden
 
 - Shipping visible “kommer snart” / phase-placeholder shells in Production nav

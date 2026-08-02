@@ -21,3 +21,13 @@ See [COMMERCIAL_PACKAGES.md](../../COMMERCIAL_PACKAGES.md).
 ## Tables
 
 `subscription_packages` · `tenant_modules` · `tenant_usage_metrics`
+
+## Billing reference page
+
+`/app/settings/billing` is the Customer APP billing reference implementation:
+
+- Canonical width via `lib/design/app-layout.ts` (`AppLayoutClasses`)
+- View model: `lib/commercial-packages/billing-view-model.ts`
+- Labels: `lib/commercial-packages/billing-labels.ts`
+- No fake billing data, no raw feature keys, no dead CTAs
+- Preview visual QA required before merge; do not treat green unit tests alone as sufficient
