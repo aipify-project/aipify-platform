@@ -106,7 +106,8 @@
       "connectedApps": "Anslutna appar",
       "dataSources": "Datakällor",
       "apiDeveloperSettings": "API och utvecklarinställningar",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "kompisCustomerWorkspace": "Kompis-arbetsyta"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -8448,6 +8449,122 @@
         "acknowledgementsAnswer": "Acknowledgements help organizations understand whether important information has been reviewed by intended audiences.",
         "autoCommunicate": "Can Aipify automatically communicate on behalf of leaders?",
         "autoCommunicateAnswer": "No. Aipify supports preparation, delivery and tracking, but humans remain responsible for communication content and approvals."
+      }
+    },
+    "kompisWorkspace": {
+      "title": "Kompis",
+      "reassurance": "Kompis kan hjälpa med information och åtgärder du har tillgång till.",
+      "emptyFallback": "Continue when you are ready.",
+      "commercialDisabled": "Kommersiell vägledning är avstängd för den här arbetsytan.",
+      "whyDenied": "Varför detta inte är tillgängligt",
+      "handoff": {
+        "authenticatedReady": "Du är nu inloggad. Kompis kan hjälpa med information och åtgärder du har tillgång till."
+      },
+      "sections": {
+        "knowledge": "Kunskap",
+        "suggestions": "Förslag",
+        "actions": "Åtgärder",
+        "confirmation": "Bekräfta åtgärd",
+        "support": "Supportöverlämning"
+      },
+      "states": {
+        "denied": "Inte tillgängligt här",
+        "loading": "Förbereder hjälp",
+        "empty": "Inga objekt ännu",
+        "error": "Något oväntat hände. Försök igen.",
+        "expired": "Sessionen har gått ut. Logga in igen för att fortsätta.",
+        "offline": "Du verkar vara offline."
+      },
+      "actions": {
+        "confirm": "Bekräfta",
+        "cancel": "Avbryt",
+        "continueLater": "Fortsätt senare",
+        "minimize": "Minimera",
+        "expand": "Expandera",
+        "close": "Stäng"
+      },
+      "runtime": {
+        "readAction": "Granska åtkomststatus",
+        "draftAction": "Skapa utkast",
+        "confirmPrefAction": "Föreslå preferensändring",
+        "draftTitle": "Arbetsyteutkast",
+        "draftBody": "Detta är ett redigerbart utkast. Det har inte utförts.",
+        "resultTitle": "Resultat",
+        "receiptOk": "Åtgärden slutfördes med kvitto.",
+        "contextSummary": "Autentiserad Kompis-arbetsyta för din organisation."
+      },
+      "admin": {
+        "title": "Kompis-kontroller för arbetsytan",
+        "enable": "Aktivera Kompis för denna arbetsyta",
+        "disable": "Inaktivera Kompis för denna arbetsyta",
+        "hiddenForMembers": "Administratörskontroller visas endast för ägare och administratörer."
+      },
+      "tools": {
+        "getMyAccessStatus": "Granska min åtkomststatus",
+        "createDraft": "Skapa ett utkast",
+        "updatePreference": "Uppdatera en preferens",
+        "searchKnowledge": "Sök godkänd kunskap",
+        "getCurrentPageHelp": "Få hjälp för den här sidan"
+      },
+      "shell": {
+        "openButton": "Kompis",
+        "closeButton": "Stäng Kompis",
+        "ariaOpen": "Öppna Kompis-arbetsyta",
+        "ariaClose": "Stäng Kompis-arbetsyta",
+        "available": "Kompis är tillgänglig",
+        "contextPrefix": "Aktuell sida",
+        "contexts": {
+          "dashboard": "Instrumentpanel",
+          "integrations": "Integrationer",
+          "billing": "Fakturering",
+          "support": "Support",
+          "organization": "Organisation",
+          "approvals": "Godkännanden",
+          "workspace": "Kompis-arbetsyta",
+          "generic": "Den här sidan"
+        },
+        "prompts": {
+          "dashboard": {
+            "1": "Vad bör jag prioritera idag?",
+            "2": "Vad kräver uppmärksamhet i organisationen?",
+            "3": "Sammanfatta integrations- och faktureringsstatus"
+          },
+          "integrations": {
+            "1": "Förklara aktuell anslutningsstatus",
+            "2": "Vad är nästa installationssteg?",
+            "3": "Hjälp mig förbereda en supportförfrågan"
+          },
+          "billing": {
+            "1": "Förklara min fakturastatus",
+            "2": "Sammanfatta kommande betalningar",
+            "3": "Skapa ett utkast till betalningspåminnelse"
+          },
+          "support": {
+            "1": "Sammanfatta det här supportärendet",
+            "2": "Föreslå ett kundklart svar",
+            "3": "Vilken kunskap gäller här?"
+          },
+          "organization": {
+            "1": "Förklara rollerna på den här sidan",
+            "2": "Vem bör få vilken behörighet?",
+            "3": "Hjälp mig skapa en inbjudan"
+          },
+          "approvals": {
+            "1": "Vilka godkännanden kräver uppmärksamhet?",
+            "2": "Förklara konsekvensen av den här begäran",
+            "3": "Vad händer om jag väntar?"
+          },
+          "workspace": {
+            "1": "Vad kan Kompis göra här?",
+            "2": "Visa min åtkomststatus",
+            "3": "Skapa ett utkast för granskning"
+          },
+          "generic": {
+            "1": "Förklara den här sidan",
+            "2": "Vad bör jag göra härnäst?",
+            "3": "Sammanfatta det jag kan se här"
+          }
+        }
       }
     }
   }

@@ -106,7 +106,8 @@
       "connectedApps": "Tilkoblede apper",
       "dataSources": "Datakilder",
       "apiDeveloperSettings": "API og utviklerinnstillinger",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "kompisCustomerWorkspace": "Kompis-arbeidsområde"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -8449,6 +8450,122 @@
         "acknowledgementsAnswer": "Acknowledgements help organizations understand whether important information has been reviewed by intended audiences.",
         "autoCommunicate": "Can Aipify automatically communicate on behalf of leaders?",
         "autoCommunicateAnswer": "No. Aipify supports preparation, delivery and tracking, but humans remain responsible for communication content and approvals."
+      }
+    },
+    "kompisWorkspace": {
+      "title": "Kompis",
+      "reassurance": "Kompis kan hjelpe med informasjon og handlinger du har tilgang til.",
+      "emptyFallback": "Fortsett når du er klar.",
+      "commercialDisabled": "Kommersiell veiledning er avslått for dette arbeidsområdet.",
+      "whyDenied": "Hvorfor dette ikke er tilgjengelig",
+      "handoff": {
+        "authenticatedReady": "Du er nå logget inn. Kompis kan hjelpe med informasjon og handlinger du har tilgang til."
+      },
+      "sections": {
+        "knowledge": "Kunnskap",
+        "suggestions": "Forslag",
+        "actions": "Handlinger",
+        "confirmation": "Bekreft handling",
+        "support": "Support-overlevering"
+      },
+      "states": {
+        "denied": "Ikke tilgjengelig her",
+        "loading": "Forbereder hjelp",
+        "empty": "Ingen elementer ennå",
+        "error": "Noe uventet skjedde. Prøv igjen.",
+        "expired": "Økten er utløpt. Logg inn igjen for å fortsette.",
+        "offline": "Du ser ut til å være frakoblet."
+      },
+      "actions": {
+        "confirm": "Bekreft",
+        "cancel": "Avbryt",
+        "continueLater": "Fortsett senere",
+        "minimize": "Minimer",
+        "expand": "Utvid",
+        "close": "Lukk"
+      },
+      "runtime": {
+        "readAction": "Se tilgangsstatus",
+        "draftAction": "Opprett utkast",
+        "confirmPrefAction": "Foreslå preferanseendring",
+        "draftTitle": "Arbeidsområdeutkast",
+        "draftBody": "Dette er et redigerbart utkast. Det er ikke utført.",
+        "resultTitle": "Resultat",
+        "receiptOk": "Handlingen er fullført med kvittering.",
+        "contextSummary": "Autentisert Kompis-arbeidsområde for organisasjonen din."
+      },
+      "admin": {
+        "title": "Kompis-kontroller for arbeidsområdet",
+        "enable": "Aktiver Kompis for dette arbeidsområdet",
+        "disable": "Deaktiver Kompis for dette arbeidsområdet",
+        "hiddenForMembers": "Administratorkontroller er kun tilgjengelige for eiere og administratorer."
+      },
+      "tools": {
+        "getMyAccessStatus": "Se tilgangsstatusen min",
+        "createDraft": "Opprett et utkast",
+        "updatePreference": "Oppdater en preferanse",
+        "searchKnowledge": "Søk i godkjent kunnskap",
+        "getCurrentPageHelp": "Få hjelp for denne siden"
+      },
+      "shell": {
+        "openButton": "Kompis",
+        "closeButton": "Lukk Kompis",
+        "ariaOpen": "Åpne Kompis-arbeidsområde",
+        "ariaClose": "Lukk Kompis-arbeidsområde",
+        "available": "Kompis er tilgjengelig",
+        "contextPrefix": "Gjeldende side",
+        "contexts": {
+          "dashboard": "Dashboard",
+          "integrations": "Integrasjoner",
+          "billing": "Fakturering",
+          "support": "Support",
+          "organization": "Organisasjon",
+          "approvals": "Godkjenninger",
+          "workspace": "Kompis-arbeidsområde",
+          "generic": "Denne siden"
+        },
+        "prompts": {
+          "dashboard": {
+            "1": "Hva bør jeg prioritere i dag?",
+            "2": "Hva krever oppmerksomhet i organisasjonen?",
+            "3": "Oppsummer integrasjons- og faktureringsstatus"
+          },
+          "integrations": {
+            "1": "Forklar gjeldende tilkoblingsstatus",
+            "2": "Hva er neste steg i installasjonen?",
+            "3": "Hjelp meg å forberede en supportforespørsel"
+          },
+          "billing": {
+            "1": "Forklar fakturastatusen min",
+            "2": "Oppsummer kommende betalinger",
+            "3": "Lag et utkast til betalingspåminnelse"
+          },
+          "support": {
+            "1": "Oppsummer denne supportsaken",
+            "2": "Foreslå et kundeklart svar",
+            "3": "Hvilken kunnskap gjelder her?"
+          },
+          "organization": {
+            "1": "Forklar rollene på denne siden",
+            "2": "Hvem bør få hvilken tilgang?",
+            "3": "Hjelp meg å lage en invitasjon"
+          },
+          "approvals": {
+            "1": "Hvilke godkjenninger krever oppmerksomhet?",
+            "2": "Forklar konsekvensen av denne forespørselen",
+            "3": "Hva skjer hvis jeg venter?"
+          },
+          "workspace": {
+            "1": "Hva kan Kompis gjøre her?",
+            "2": "Vis tilgangsstatusen min",
+            "3": "Lag et utkast til gjennomgang"
+          },
+          "generic": {
+            "1": "Forklar denne siden",
+            "2": "Hva bør jeg gjøre videre?",
+            "3": "Oppsummer det jeg kan se her"
+          }
+        }
       }
     }
   }

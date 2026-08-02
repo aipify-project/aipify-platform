@@ -1,0 +1,52 @@
+# Kompis Core — Authenticated Customer Workspace
+
+Task: `AIPIFY.KOMPIS.CORE.AUTHENTICATED.CUSTOMER.WORKSPACE.V1`
+
+## Clean Core only
+
+- No customer names, pilot names, customer domains, or customer-specific routes/modules/types in Core.
+- Use generic terms: customer, tenant, workspace, member area, module, entity, role, access tier, tool, action.
+- Reference fixtures only: `reference_customer_*`, `reference_member_portal`, etc.
+
+## Ownership
+
+- Core owns `kompis_customer_workspace_contract` and permission evaluation.
+- Customer explicitly activates public/authenticated access, tools, knowledge, and confirmation policies.
+- Fail-closed by default — no implicit tool access, no auto-activation.
+- Authenticated Kompis uses the same Core contract as the public surface (separate sessions, one contract).
+
+## Session & public runtime
+
+- Public and authenticated sessions are separated; handoff requires server rebind.
+- Anonymous claims never upgrade to authenticated claims.
+- Public-auth handoff must revalidate organization, permission, and context after login.
+- Verified public Website Kompis runtime remains protected — do not change ask/embed pipelines incompatibly.
+- On logout, authenticated tools are removed immediately.
+
+## Tools & security
+
+- Read / draft / action are distinct capability classes.
+- Draft never auto-executes.
+- Privileged action requires server-validated confirmation (stale confirmations rejected).
+- No direct database access from Kompis tools — allowlisted server adapters only.
+- No tool without contract allowlist.
+- No write without confirmation policy; Kompis never confirms for the user.
+- No more access than the current authenticated user.
+- Tenant-bound context only — no cross-tenant knowledge or handoff.
+- Private messages disabled by default.
+- Audit permission changes, tool invocations, and confirmations.
+- Fixture-only proof is insufficient for Production Ready.
+
+## Locale
+
+- Dynamic global locale list from Core language foundation.
+- English fallback; never show raw keys; never hardcode locale unions in workspace UI.
+
+## Branding & proof
+
+- Customer branding via canonical theme contract only.
+- Authenticated Production proof required before Production Ready.
+
+## Global APP shell (related)
+
+See `app-global-kompis-workspace-and-canonical-width.mdc` for global entry, canonical width tokens, split/overlay layout, and no empty reserved column when closed.

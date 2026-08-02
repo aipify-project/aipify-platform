@@ -74,7 +74,7 @@ export function BillingAdminPanel({ labels }: BillingAdminPanelProps) {
 
   if (loadError) {
     return (
-      <div className="mx-auto max-w-4xl space-y-4 p-6">
+      <div className="mx-auto w-full max-w-[1560px] space-y-4">
         <Link href="/app/settings" className="text-sm text-indigo-600 hover:underline">
           ← {labels.back}
         </Link>
@@ -95,7 +95,7 @@ export function BillingAdminPanel({ labels }: BillingAdminPanelProps) {
   const limits = center?.tenant_limits ?? {};
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 p-6">
+    <div className="mx-auto w-full max-w-[1560px] space-y-6" data-kompis-layout-hint="overlay">
       <div>
         <Link href="/app/settings" className="text-sm text-indigo-600 hover:underline">
           ← {labels.back}

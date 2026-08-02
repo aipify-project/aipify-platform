@@ -147,7 +147,8 @@
       "connectedApps": "Aplicaciones conectadas",
       "dataSources": "Fuentes de datos",
       "apiDeveloperSettings": "API y configuración de desarrollador",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "kompisCustomerWorkspace": "Kompis workspace"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7157,6 +7158,61 @@
           "close": "Cerrar vista previa",
           "sampleCredential": "Solo ejemplo — no se guarda"
         }
+      }
+    },
+    "kompisWorkspace": {
+      "title": "Kompis",
+      "reassurance": "Kompis puede ayudar con información y acciones a las que tienes acceso.",
+      "emptyFallback": "Continue when you are ready.",
+      "commercialDisabled": "La orientación comercial está desactivada en este espacio de trabajo.",
+      "whyDenied": "Por qué no está disponible",
+      "handoff": {
+        "authenticatedReady": "Ya has iniciado sesión. Kompis puede ayudar con información y acciones a las que tienes acceso."
+      },
+      "sections": {
+        "knowledge": "Conocimiento",
+        "suggestions": "Sugerencias",
+        "actions": "Acciones",
+        "confirmation": "Confirmar acción",
+        "support": "Derivación a soporte"
+      },
+      "states": {
+        "denied": "No disponible aquí",
+        "loading": "Preparando ayuda",
+        "empty": "Aún no hay elementos",
+        "error": "Ocurrió algo inesperado. Inténtalo de nuevo.",
+        "expired": "Tu sesión expiró. Inicia sesión de nuevo para continuar.",
+        "offline": "Parece que estás sin conexión."
+      },
+      "actions": {
+        "confirm": "Confirmar",
+        "cancel": "Cancelar",
+        "continueLater": "Continuar más tarde",
+        "minimize": "Minimizar",
+        "expand": "Expandir"
+      },
+      "runtime": {
+        "readAction": "Review access status",
+        "draftAction": "Create draft",
+        "confirmPrefAction": "Propose preference change",
+        "draftTitle": "Workspace draft",
+        "draftBody": "This is a customer-editable draft. It has not been executed.",
+        "resultTitle": "Result",
+        "receiptOk": "Action completed with receipt.",
+        "contextSummary": "Authenticated Kompis workspace for your organization."
+      },
+      "admin": {
+        "title": "Kompis workspace controls",
+        "enable": "Enable Kompis for this workspace",
+        "disable": "Disable Kompis for this workspace",
+        "hiddenForMembers": "Admin controls are available to owners and administrators only."
+      },
+      "tools": {
+        "getMyAccessStatus": "Review my access status",
+        "createDraft": "Create a draft",
+        "updatePreference": "Update a preference",
+        "searchKnowledge": "Search approved knowledge",
+        "getCurrentPageHelp": "Get help for this page"
       }
     }
   }

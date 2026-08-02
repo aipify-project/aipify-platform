@@ -12,6 +12,7 @@ import {
   type AppPortalIntegrationsLabels,
 } from "@/lib/app-portal/integrations";
 import { IntegrationConnectionRow } from "@/components/app/app-portal/IntegrationConnectionRow";
+import { AppLayoutClasses } from "@/lib/design/app-layout";
 
 type AppPortalIntegrationsHubPanelProps = {
   labels: AppPortalIntegrationsLabels;
@@ -56,7 +57,7 @@ export function AppPortalIntegrationsHubPanel({
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-8">
+    <div className={`${AppLayoutClasses.pageWidth} space-y-8`}>
       <div>
         <h1 className="text-2xl font-semibold tracking-tight text-slate-900">{labels.hub.title}</h1>
         <p className="mt-2 text-slate-600">{labels.hub.subtitle}</p>

@@ -106,7 +106,8 @@
       "connectedApps": "Tilknyttede apps",
       "dataSources": "Datakilder",
       "apiDeveloperSettings": "API og udviklerindstillinger",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "kompisCustomerWorkspace": "Kompis-arbejdsområde"
     },
     "dashboard": {
       "title": "APP-dashboard",
@@ -8448,6 +8449,122 @@
         "acknowledgementsAnswer": "Acknowledgements help organizations understand whether important information has been reviewed by intended audiences.",
         "autoCommunicate": "Can Aipify automatically communicate on behalf of leaders?",
         "autoCommunicateAnswer": "No. Aipify supports preparation, delivery and tracking, but humans remain responsible for communication content and approvals."
+      }
+    },
+    "kompisWorkspace": {
+      "title": "Kompis",
+      "reassurance": "Kompis kan hjælpe med information og handlinger, du har adgang til.",
+      "emptyFallback": "Continue when you are ready.",
+      "commercialDisabled": "Kommerciel vejledning er slået fra for dette arbejdsområde.",
+      "whyDenied": "Hvorfor dette ikke er tilgængeligt",
+      "handoff": {
+        "authenticatedReady": "Du er nu logget ind. Kompis kan hjælpe med information og handlinger, du har adgang til."
+      },
+      "sections": {
+        "knowledge": "Viden",
+        "suggestions": "Forslag",
+        "actions": "Handlinger",
+        "confirmation": "Bekræft handling",
+        "support": "Support-overlevering"
+      },
+      "states": {
+        "denied": "Ikke tilgængelig her",
+        "loading": "Forbereder hjælp",
+        "empty": "Ingen elementer endnu",
+        "error": "Noget uventet skete. Prøv igen.",
+        "expired": "Din session er udløbet. Log ind igen for at fortsætte.",
+        "offline": "Du ser ud til at være offline."
+      },
+      "actions": {
+        "confirm": "Bekræft",
+        "cancel": "Annuller",
+        "continueLater": "Fortsæt senere",
+        "minimize": "Minimer",
+        "expand": "Udvid",
+        "close": "Luk"
+      },
+      "runtime": {
+        "readAction": "Se adgangsstatus",
+        "draftAction": "Opret kladde",
+        "confirmPrefAction": "Foreslå præferenceændring",
+        "draftTitle": "Arbejdsområdekladde",
+        "draftBody": "Dette er en redigerbar kladde. Den er ikke udført.",
+        "resultTitle": "Resultat",
+        "receiptOk": "Handlingen er fuldført med kvittering.",
+        "contextSummary": "Godkendt Kompis-arbejdsområde for din organisation."
+      },
+      "admin": {
+        "title": "Kompis-kontroller for arbejdsområdet",
+        "enable": "Aktiver Kompis for dette arbejdsområde",
+        "disable": "Deaktiver Kompis for dette arbejdsområde",
+        "hiddenForMembers": "Administratorkontroller er kun synlige for ejere og administratorer."
+      },
+      "tools": {
+        "getMyAccessStatus": "Se min adgangsstatus",
+        "createDraft": "Opret en kladde",
+        "updatePreference": "Opdater en præference",
+        "searchKnowledge": "Søg i godkendt viden",
+        "getCurrentPageHelp": "Få hjælp til denne side"
+      },
+      "shell": {
+        "openButton": "Kompis",
+        "closeButton": "Luk Kompis",
+        "ariaOpen": "Åbn Kompis-arbejdsområde",
+        "ariaClose": "Luk Kompis-arbejdsområde",
+        "available": "Kompis er tilgængelig",
+        "contextPrefix": "Aktuel side",
+        "contexts": {
+          "dashboard": "Dashboard",
+          "integrations": "Integrationer",
+          "billing": "Fakturering",
+          "support": "Support",
+          "organization": "Organisation",
+          "approvals": "Godkendelser",
+          "workspace": "Kompis-arbejdsområde",
+          "generic": "Denne side"
+        },
+        "prompts": {
+          "dashboard": {
+            "1": "Hvad bør jeg prioritere i dag?",
+            "2": "Hvad kræver opmærksomhed i organisationen?",
+            "3": "Opsummer integrations- og faktureringsstatus"
+          },
+          "integrations": {
+            "1": "Forklar den aktuelle forbindelsesstatus",
+            "2": "Hvad er næste installationstrin?",
+            "3": "Hjælp mig med at forberede en supportanmodning"
+          },
+          "billing": {
+            "1": "Forklar min fakturastatus",
+            "2": "Opsummer kommende betalinger",
+            "3": "Lav et udkast til betalingspåmindelse"
+          },
+          "support": {
+            "1": "Opsummer denne supportsag",
+            "2": "Foreslå et kundeklart svar",
+            "3": "Hvilken viden gælder her?"
+          },
+          "organization": {
+            "1": "Forklar rollerne på denne side",
+            "2": "Hvem bør have hvilken adgang?",
+            "3": "Hjælp mig med at lave en invitation"
+          },
+          "approvals": {
+            "1": "Hvilke godkendelser kræver opmærksomhed?",
+            "2": "Forklar konsekvensen af denne anmodning",
+            "3": "Hvad sker der, hvis jeg venter?"
+          },
+          "workspace": {
+            "1": "Hvad kan Kompis gøre her?",
+            "2": "Vis min adgangsstatus",
+            "3": "Opret et udkast til gennemgang"
+          },
+          "generic": {
+            "1": "Forklar denne side",
+            "2": "Hvad bør jeg gøre herefter?",
+            "3": "Opsummer det, jeg kan se her"
+          }
+        }
       }
     }
   }

@@ -177,3 +177,106 @@ export function buildLayoutNotificationCenterLabels(
 ): UnifiedNotificationCenterLabels {
   return buildUnifiedNotificationCenterLabels(t);
 }
+
+export type LayoutKompisGlobalLabels = {
+  title: string;
+  openButton: string;
+  closeButton: string;
+  ariaOpen: string;
+  ariaClose: string;
+  available: string;
+  contextPrefix: string;
+  contexts: Record<string, string>;
+  prompts: {
+    dashboard: string[];
+    integrations: string[];
+    billing: string[];
+    support: string[];
+    organization: string[];
+    approvals: string[];
+    workspace: string[];
+    generic: string[];
+  };
+  labelsCatalog: Record<string, string>;
+};
+
+export function buildLayoutKompisGlobalLabels(t: Translator): LayoutKompisGlobalLabels {
+  const p = "customerApp.portalStructure.kompisWorkspace";
+  const shell = `${p}.shell`;
+  const promptKeys = [
+    "dashboard",
+    "integrations",
+    "billing",
+    "support",
+    "organization",
+    "approvals",
+    "workspace",
+    "generic",
+  ] as const;
+
+  const prompts = Object.fromEntries(
+    promptKeys.map((key) => [
+      key,
+      [1, 2, 3].map((n) => t(`${shell}.prompts.${key}.${n}`)).filter(Boolean),
+    ])
+  ) as LayoutKompisGlobalLabels["prompts"];
+
+  const contexts = Object.fromEntries(
+    promptKeys.map((key) => [key, t(`${shell}.contexts.${key}`)])
+  ) as Record<string, string>;
+
+  const messageKeys = [
+    `${p}.title`,
+    `${p}.reassurance`,
+    `${p}.emptyFallback`,
+    `${p}.commercialDisabled`,
+    `${p}.whyDenied`,
+    `${p}.handoff.authenticatedReady`,
+    `${p}.sections.knowledge`,
+    `${p}.sections.suggestions`,
+    `${p}.sections.actions`,
+    `${p}.sections.confirmation`,
+    `${p}.sections.support`,
+    `${p}.states.denied`,
+    `${p}.states.loading`,
+    `${p}.states.empty`,
+    `${p}.states.error`,
+    `${p}.states.expired`,
+    `${p}.states.offline`,
+    `${p}.actions.confirm`,
+    `${p}.actions.cancel`,
+    `${p}.actions.continueLater`,
+    `${p}.actions.minimize`,
+    `${p}.actions.expand`,
+    `${p}.actions.close`,
+  ];
+
+  const labelsCatalog: Record<string, string> = {};
+  for (const key of messageKeys) {
+    labelsCatalog[key] = t(key);
+  }
+  labelsCatalog.readAction = t(`${p}.runtime.readAction`);
+  labelsCatalog.draftAction = t(`${p}.runtime.draftAction`);
+  labelsCatalog.confirmPrefAction = t(`${p}.runtime.confirmPrefAction`);
+  labelsCatalog.draftTitle = t(`${p}.runtime.draftTitle`);
+  labelsCatalog.draftBody = t(`${p}.runtime.draftBody`);
+  labelsCatalog.resultTitle = t(`${p}.runtime.resultTitle`);
+  labelsCatalog.receiptOk = t(`${p}.runtime.receiptOk`);
+  labelsCatalog.adminTitle = t(`${p}.admin.title`);
+  labelsCatalog.adminEnable = t(`${p}.admin.enable`);
+  labelsCatalog.adminDisable = t(`${p}.admin.disable`);
+  labelsCatalog.adminHidden = t(`${p}.admin.hiddenForMembers`);
+
+  return {
+    title: t(`${p}.title`),
+    openButton: t(`${shell}.openButton`),
+    closeButton: t(`${shell}.closeButton`),
+    ariaOpen: t(`${shell}.ariaOpen`),
+    ariaClose: t(`${shell}.ariaClose`),
+    available: t(`${shell}.available`),
+    contextPrefix: t(`${shell}.contextPrefix`),
+    contexts,
+    prompts,
+    labelsCatalog,
+  };
+}

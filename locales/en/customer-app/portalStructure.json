@@ -106,7 +106,8 @@
       "connectedApps": "Connected Apps",
       "dataSources": "Data Sources",
       "apiDeveloperSettings": "API & Developer Settings",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "kompisCustomerWorkspace": "Kompis workspace"
     },
     "dashboard": {
       "title": "APP Dashboard",
@@ -8372,6 +8373,122 @@
         "createsStrategyAnswer": "No. Leadership remains responsible for strategy. Aipify provides structure, visibility and planning support.",
         "whoShouldUse": "Who should use this module?",
         "whoShouldUseAnswer": "Owners, executives and authorized leaders responsible for organizational direction and long-term planning."
+      }
+    },
+    "kompisWorkspace": {
+      "title": "Kompis",
+      "reassurance": "Kompis can help with information and actions you have access to.",
+      "emptyFallback": "Continue when you are ready.",
+      "commercialDisabled": "Commercial guidance is turned off for this workspace.",
+      "whyDenied": "Why this is unavailable",
+      "handoff": {
+        "authenticatedReady": "You are now signed in. Kompis can help with information and actions you have access to."
+      },
+      "sections": {
+        "knowledge": "Knowledge",
+        "suggestions": "Suggestions",
+        "actions": "Actions",
+        "confirmation": "Confirm action",
+        "support": "Support handoff"
+      },
+      "states": {
+        "denied": "Not available here",
+        "loading": "Preparing help",
+        "empty": "No items yet",
+        "error": "Something unexpected happened. Please try again.",
+        "expired": "Your session expired. Sign in again to continue.",
+        "offline": "You appear to be offline."
+      },
+      "actions": {
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "continueLater": "Continue later",
+        "minimize": "Minimize",
+        "expand": "Expand",
+        "close": "Close"
+      },
+      "runtime": {
+        "readAction": "Review access status",
+        "draftAction": "Create draft",
+        "confirmPrefAction": "Propose preference change",
+        "draftTitle": "Workspace draft",
+        "draftBody": "This is a customer-editable draft. It has not been executed.",
+        "resultTitle": "Result",
+        "receiptOk": "Action completed with receipt.",
+        "contextSummary": "Authenticated Kompis workspace for your organization."
+      },
+      "admin": {
+        "title": "Kompis workspace controls",
+        "enable": "Enable Kompis for this workspace",
+        "disable": "Disable Kompis for this workspace",
+        "hiddenForMembers": "Admin controls are available to owners and administrators only."
+      },
+      "tools": {
+        "getMyAccessStatus": "Review my access status",
+        "createDraft": "Create a draft",
+        "updatePreference": "Update a preference",
+        "searchKnowledge": "Search approved knowledge",
+        "getCurrentPageHelp": "Get help for this page"
+      },
+      "shell": {
+        "openButton": "Kompis",
+        "closeButton": "Close Kompis",
+        "ariaOpen": "Open Kompis workspace",
+        "ariaClose": "Close Kompis workspace",
+        "available": "Kompis is available",
+        "contextPrefix": "Current page",
+        "contexts": {
+          "dashboard": "Dashboard",
+          "integrations": "Integrations",
+          "billing": "Billing",
+          "support": "Support",
+          "organization": "Organization",
+          "approvals": "Approvals",
+          "workspace": "Kompis workspace",
+          "generic": "This page"
+        },
+        "prompts": {
+          "dashboard": {
+            "1": "What should I prioritize today?",
+            "2": "What needs attention in my organization?",
+            "3": "Summarize integration and billing status"
+          },
+          "integrations": {
+            "1": "Explain the current connection status",
+            "2": "What is the next installation step?",
+            "3": "Help me prepare a support request"
+          },
+          "billing": {
+            "1": "Explain my current invoice status",
+            "2": "Summarize upcoming payments",
+            "3": "Draft a payment reminder"
+          },
+          "support": {
+            "1": "Summarize this support case",
+            "2": "Suggest a customer-ready reply",
+            "3": "What knowledge applies here?"
+          },
+          "organization": {
+            "1": "Explain roles on this page",
+            "2": "Who should get which access?",
+            "3": "Help draft an invitation"
+          },
+          "approvals": {
+            "1": "What approvals need attention?",
+            "2": "Explain the impact of this request",
+            "3": "What happens if I wait?"
+          },
+          "workspace": {
+            "1": "What can Kompis do here?",
+            "2": "Show my access status",
+            "3": "Create a draft for review"
+          },
+          "generic": {
+            "1": "Explain this page",
+            "2": "What should I do next?",
+            "3": "Summarize what I can see here"
+          }
+        }
       }
     }
   }
