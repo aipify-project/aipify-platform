@@ -21,6 +21,7 @@ export function kompisWorkspaceMessageKeys() {
     continueLater: `${BASE}.actions.continueLater`,
     minimize: `${BASE}.actions.minimize`,
     expand: `${BASE}.actions.expand`,
+    close: `${BASE}.actions.close`,
     whyDenied: `${BASE}.whyDenied`,
     commercialDisabled: `${BASE}.commercialDisabled`,
     emptyFallback: `${BASE}.emptyFallback`,
@@ -47,6 +48,7 @@ export type KompisWorkspaceLabels = {
   continueLater: string;
   minimize: string;
   expand: string;
+  close: string;
   whyDenied: string;
   commercialDisabled: string;
   emptyFallback: string;
@@ -79,6 +81,7 @@ export function buildKompisWorkspaceLabels(t: (key: string) => string): KompisWo
     continueLater: t(keys.continueLater),
     minimize: t(keys.minimize),
     expand: t(keys.expand),
+    close: t(keys.close),
     whyDenied: t(keys.whyDenied),
     commercialDisabled: t(keys.commercialDisabled),
     emptyFallback: t(keys.emptyFallback),

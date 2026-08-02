@@ -8480,7 +8480,8 @@
         "cancel": "Avbryt",
         "continueLater": "Fortsätt senare",
         "minimize": "Minimera",
-        "expand": "Expandera"
+        "expand": "Expandera",
+        "close": "Stäng"
       },
       "runtime": {
         "readAction": "Granska åtkomststatus",
@@ -8504,6 +8505,66 @@
         "updatePreference": "Uppdatera en preferens",
         "searchKnowledge": "Sök godkänd kunskap",
         "getCurrentPageHelp": "Få hjälp för den här sidan"
+      },
+      "shell": {
+        "openButton": "Kompis",
+        "closeButton": "Stäng Kompis",
+        "ariaOpen": "Öppna Kompis-arbetsyta",
+        "ariaClose": "Stäng Kompis-arbetsyta",
+        "available": "Kompis är tillgänglig",
+        "contextPrefix": "Aktuell sida",
+        "contexts": {
+          "dashboard": "Instrumentpanel",
+          "integrations": "Integrationer",
+          "billing": "Fakturering",
+          "support": "Support",
+          "organization": "Organisation",
+          "approvals": "Godkännanden",
+          "workspace": "Kompis-arbetsyta",
+          "generic": "Den här sidan"
+        },
+        "prompts": {
+          "dashboard": {
+            "1": "Vad bör jag prioritera idag?",
+            "2": "Vad kräver uppmärksamhet i organisationen?",
+            "3": "Sammanfatta integrations- och faktureringsstatus"
+          },
+          "integrations": {
+            "1": "Förklara aktuell anslutningsstatus",
+            "2": "Vad är nästa installationssteg?",
+            "3": "Hjälp mig förbereda en supportförfrågan"
+          },
+          "billing": {
+            "1": "Förklara min fakturastatus",
+            "2": "Sammanfatta kommande betalningar",
+            "3": "Skapa ett utkast till betalningspåminnelse"
+          },
+          "support": {
+            "1": "Sammanfatta det här supportärendet",
+            "2": "Föreslå ett kundklart svar",
+            "3": "Vilken kunskap gäller här?"
+          },
+          "organization": {
+            "1": "Förklara rollerna på den här sidan",
+            "2": "Vem bör få vilken behörighet?",
+            "3": "Hjälp mig skapa en inbjudan"
+          },
+          "approvals": {
+            "1": "Vilka godkännanden kräver uppmärksamhet?",
+            "2": "Förklara konsekvensen av den här begäran",
+            "3": "Vad händer om jag väntar?"
+          },
+          "workspace": {
+            "1": "Vad kan Kompis göra här?",
+            "2": "Visa min åtkomststatus",
+            "3": "Skapa ett utkast för granskning"
+          },
+          "generic": {
+            "1": "Förklara den här sidan",
+            "2": "Vad bör jag göra härnäst?",
+            "3": "Sammanfatta det jag kan se här"
+          }
+        }
       }
     }
   }

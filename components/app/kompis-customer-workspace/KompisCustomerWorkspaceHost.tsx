@@ -37,6 +37,11 @@ type Props = {
   initialPermissions: KompisWorkspacePermissions | null;
   contextSummary: string;
   isAdmin: boolean;
+  /** Server-validated current route; defaults to dedicated workspace page. */
+  route?: string;
+  module?: string;
+  /** When true, omit floating shell (global APP shell owns presentation). */
+  suppressFloatingShell?: boolean;
 };
 
 type RuntimeResult = {
@@ -56,6 +61,9 @@ export function KompisCustomerWorkspaceHost({
   initialPermissions,
   contextSummary,
   isAdmin,
+  route = "/app/kompis-workspace",
+  module = "account",
+  suppressFloatingShell = false,
 }: Props) {
   const [permissions, setPermissions] = useState(initialPermissions);
   const [confirmation, setConfirmation] = useState<KompisConfirmationCard | null>(null);
@@ -68,14 +76,14 @@ export function KompisCustomerWorkspaceHost({
 
   const contextHeader = useMemo(
     () => ({
-      module: "account",
-      route: "/app/kompis-workspace",
+      module,
+      route,
       safeSummary: handoffTopic
         ? `${contextSummary} · ${handoffTopic}`
         : contextSummary,
       status: permissions?.enabled ? undefined : labelsCatalog["customerApp.portalStructure.kompisWorkspace.states.denied"],
     }),
-    [contextSummary, handoffTopic, labelsCatalog, permissions?.enabled]
+    [contextSummary, handoffTopic, labelsCatalog, module, permissions?.enabled, route]
   );
 
   useEffect(() => {
@@ -95,7 +103,7 @@ export function KompisCustomerWorkspaceHost({
               public_session_id: publicSessionId,
               topic_summary: topic,
               locale,
-              return_path: "/app/kompis-workspace",
+              return_path: route,
             }),
           });
           const handoffJson = await handoffRes.json().catch(() => ({}));
@@ -136,7 +144,7 @@ export function KompisCustomerWorkspaceHost({
     return () => {
       cancelled = true;
     };
-  }, [isAdmin, labelsCatalog, locale]);
+  }, [isAdmin, labelsCatalog, locale, route]);
 
   const invoke = async (toolKey: string, extra?: Record<string, unknown>) => {
     setActing(true);
@@ -147,8 +155,8 @@ export function KompisCustomerWorkspaceHost({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           tool_key: toolKey,
-          route: "/app/kompis-workspace",
-          module: "account",
+          route,
+          module,
           locale,
           session_id: sessionId,
           ...extra,
@@ -190,7 +198,7 @@ export function KompisCustomerWorkspaceHost({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           confirmation_id: confirmation.confirmation_id,
-          route: "/app/kompis-workspace",
+          route,
           locale,
         }),
       });
@@ -354,15 +362,18 @@ export function KompisCustomerWorkspaceHost({
         ) : null}
       </div>
 
-      <KompisCustomerWorkspaceShell
-        locale={locale}
-        labelsCatalog={labelsCatalog}
-        contextHeader={contextHeader}
-        permissions={permissions}
-        confirmation={confirmation}
-        onConfirm={() => void onConfirm()}
-        onCancelConfirm={() => setConfirmation(null)}
-      />
+      {suppressFloatingShell ? null : (
+        <KompisCustomerWorkspaceShell
+          locale={locale}
+          labelsCatalog={labelsCatalog}
+          contextHeader={contextHeader}
+          permissions={permissions}
+          confirmation={confirmation}
+          onConfirm={() => void onConfirm()}
+          onCancelConfirm={() => setConfirmation(null)}
+          presentation="overlay"
+        />
+      )}
     </div>
   );
 }

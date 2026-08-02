@@ -1,4 +1,13 @@
 export {
+  APP_CONTENT_MAX_WIDTH_PX,
+  APP_KOMPIS_DRAWER_MAX_WIDTH_CLASS,
+  APP_KOMPIS_SPLIT_FRACTION,
+  APP_LAYOUT_BREAKPOINTS,
+  AppLayoutClasses,
+  type AppKompisLayoutMode,
+} from "./app-layout";
+export { AppPremiumShell } from "./app-premium-shell";
+export {
   AipifyDesignColors,
   AipifyDesignTokens,
   AipifyMarketingClasses,

@@ -7417,7 +7417,8 @@
         "cancel": "Anuluj",
         "continueLater": "Kontynuuj później",
         "minimize": "Minimalizuj",
-        "expand": "Rozwiń"
+        "expand": "Rozwiń",
+        "close": "Zamknij"
       },
       "runtime": {
         "readAction": "Sprawdź status dostępu",
@@ -7441,6 +7442,66 @@
         "updatePreference": "Zaktualizuj preferencję",
         "searchKnowledge": "Przeszukaj zatwierdzoną wiedzę",
         "getCurrentPageHelp": "Uzyskaj pomoc dla tej strony"
+      },
+      "shell": {
+        "openButton": "Kompis",
+        "closeButton": "Zamknij Kompis",
+        "ariaOpen": "Otwórz przestrzeń roboczą Kompis",
+        "ariaClose": "Zamknij przestrzeń roboczą Kompis",
+        "available": "Kompis jest dostępny",
+        "contextPrefix": "Bieżąca strona",
+        "contexts": {
+          "dashboard": "Pulpit",
+          "integrations": "Integracje",
+          "billing": "Rozliczenia",
+          "support": "Wsparcie",
+          "organization": "Organizacja",
+          "approvals": "Zatwierdzenia",
+          "workspace": "Przestrzeń Kompis",
+          "generic": "Ta strona"
+        },
+        "prompts": {
+          "dashboard": {
+            "1": "Co powinienem dziś priorytetyzować?",
+            "2": "Co wymaga uwagi w organizacji?",
+            "3": "Podsumuj status integracji i rozliczeń"
+          },
+          "integrations": {
+            "1": "Wyjaśnij bieżący status połączenia",
+            "2": "Jaki jest następny krok instalacji?",
+            "3": "Pomóż przygotować zgłoszenie do wsparcia"
+          },
+          "billing": {
+            "1": "Wyjaśnij status mojej faktury",
+            "2": "Podsumuj nadchodzące płatności",
+            "3": "Przygotuj szkic przypomnienia o płatności"
+          },
+          "support": {
+            "1": "Podsumuj tę sprawę wsparcia",
+            "2": "Zaproponuj odpowiedź gotową dla klienta",
+            "3": "Jaka wiedza ma tu zastosowanie?"
+          },
+          "organization": {
+            "1": "Wyjaśnij role na tej stronie",
+            "2": "Kto powinien otrzymać jaki dostęp?",
+            "3": "Pomóż przygotować zaproszenie"
+          },
+          "approvals": {
+            "1": "Które zatwierdzenia wymagają uwagi?",
+            "2": "Wyjaśnij wpływ tego wniosku",
+            "3": "Co się stanie, jeśli poczekam?"
+          },
+          "workspace": {
+            "1": "Co Kompis może zrobić tutaj?",
+            "2": "Pokaż mój status dostępu",
+            "3": "Utwórz szkic do przeglądu"
+          },
+          "generic": {
+            "1": "Wyjaśnij tę stronę",
+            "2": "Co powinienem zrobić dalej?",
+            "3": "Podsumuj to, co widzę tutaj"
+          }
+        }
       }
     }
   }

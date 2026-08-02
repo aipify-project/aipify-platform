@@ -4,6 +4,17 @@ import type { KompisCustomerWorkspaceContract, KompisWorkspaceToolPermission } f
 /** Minimum authenticated runtime tools used by the Customer APP closeout surface. */
 export const KOMPIS_WORKSPACE_MINIMUM_RUNTIME_TOOLS: KompisWorkspaceToolPermission[] = [
   {
+    tool_key: "get_current_page_help",
+    enabled: true,
+    kind: "read",
+    confirmation_level: "none",
+    roles: [],
+    access_tiers: [],
+    modules: [],
+    routes: [],
+    risk_classification: "low",
+  },
+  {
     tool_key: "get_my_access_status",
     enabled: true,
     kind: "read",

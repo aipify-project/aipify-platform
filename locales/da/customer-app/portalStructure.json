@@ -8480,7 +8480,8 @@
         "cancel": "Annuller",
         "continueLater": "Fortsæt senere",
         "minimize": "Minimer",
-        "expand": "Udvid"
+        "expand": "Udvid",
+        "close": "Luk"
       },
       "runtime": {
         "readAction": "Se adgangsstatus",
@@ -8504,6 +8505,66 @@
         "updatePreference": "Opdater en præference",
         "searchKnowledge": "Søg i godkendt viden",
         "getCurrentPageHelp": "Få hjælp til denne side"
+      },
+      "shell": {
+        "openButton": "Kompis",
+        "closeButton": "Luk Kompis",
+        "ariaOpen": "Åbn Kompis-arbejdsområde",
+        "ariaClose": "Luk Kompis-arbejdsområde",
+        "available": "Kompis er tilgængelig",
+        "contextPrefix": "Aktuel side",
+        "contexts": {
+          "dashboard": "Dashboard",
+          "integrations": "Integrationer",
+          "billing": "Fakturering",
+          "support": "Support",
+          "organization": "Organisation",
+          "approvals": "Godkendelser",
+          "workspace": "Kompis-arbejdsområde",
+          "generic": "Denne side"
+        },
+        "prompts": {
+          "dashboard": {
+            "1": "Hvad bør jeg prioritere i dag?",
+            "2": "Hvad kræver opmærksomhed i organisationen?",
+            "3": "Opsummer integrations- og faktureringsstatus"
+          },
+          "integrations": {
+            "1": "Forklar den aktuelle forbindelsesstatus",
+            "2": "Hvad er næste installationstrin?",
+            "3": "Hjælp mig med at forberede en supportanmodning"
+          },
+          "billing": {
+            "1": "Forklar min fakturastatus",
+            "2": "Opsummer kommende betalinger",
+            "3": "Lav et udkast til betalingspåmindelse"
+          },
+          "support": {
+            "1": "Opsummer denne supportsag",
+            "2": "Foreslå et kundeklart svar",
+            "3": "Hvilken viden gælder her?"
+          },
+          "organization": {
+            "1": "Forklar rollerne på denne side",
+            "2": "Hvem bør have hvilken adgang?",
+            "3": "Hjælp mig med at lave en invitation"
+          },
+          "approvals": {
+            "1": "Hvilke godkendelser kræver opmærksomhed?",
+            "2": "Forklar konsekvensen af denne anmodning",
+            "3": "Hvad sker der, hvis jeg venter?"
+          },
+          "workspace": {
+            "1": "Hvad kan Kompis gøre her?",
+            "2": "Vis min adgangsstatus",
+            "3": "Opret et udkast til gennemgang"
+          },
+          "generic": {
+            "1": "Forklar denne side",
+            "2": "Hvad bør jeg gøre herefter?",
+            "3": "Opsummer det, jeg kan se her"
+          }
+        }
       }
     }
   }

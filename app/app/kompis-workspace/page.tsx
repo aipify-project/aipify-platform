@@ -1,4 +1,5 @@
 import { KompisCustomerWorkspaceHost } from "@/components/app/kompis-customer-workspace/KompisCustomerWorkspaceHost";
+import { AppLayoutClasses } from "@/lib/design/app-layout";
 import {
   buildKompisWorkspaceLabels,
   loadKompisServerWorkspaceBundle,
@@ -48,7 +49,7 @@ export default async function KompisCustomerWorkspacePage() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+    <div className={AppLayoutClasses.fullWorkspace}>
       <KompisCustomerWorkspaceHost
         locale={locale}
         labelsCatalog={labelsCatalog}
@@ -57,6 +58,9 @@ export default async function KompisCustomerWorkspacePage() {
         initialPermissions={permissions}
         contextSummary={t("customerApp.portalStructure.kompisWorkspace.runtime.contextSummary")}
         isAdmin={isAdmin}
+        route="/app/kompis-workspace"
+        module="account"
+        suppressFloatingShell
       />
     </div>
   );

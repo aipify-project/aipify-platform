@@ -46,3 +46,7 @@ Task: `AIPIFY.KOMPIS.CORE.AUTHENTICATED.CUSTOMER.WORKSPACE.V1`
 
 - Customer branding via canonical theme contract only.
 - Authenticated Production proof required before Production Ready.
+
+## Global APP shell (related)
+
+See `app-global-kompis-workspace-and-canonical-width.mdc` for global entry, canonical width tokens, split/overlay layout, and no empty reserved column when closed.

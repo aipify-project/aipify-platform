@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import {
   buildKompisWorkspaceLabels,
   listKompisWorkspaceLocales,
@@ -12,6 +12,8 @@ import {
 function catalogTranslate(catalog: Record<string, string>, key: string): string {
   return catalog[key] ?? "";
 }
+
+export type KompisWorkspacePresentation = "overlay" | "docked" | "full";
 
 export type KompisCustomerWorkspaceShellProps = {
   locale: string;
@@ -27,6 +29,11 @@ export type KompisCustomerWorkspaceShellProps = {
   onConfirm?: () => void;
   onCancelConfirm?: () => void;
   onMinimizeChange?: (minimized: boolean) => void;
+  onClose?: () => void;
+  presentation?: KompisWorkspacePresentation;
+  suggestedPrompts?: string[];
+  onPromptSelect?: (prompt: string) => void;
+  runtimeSlot?: React.ReactNode;
   rtlSupport?: boolean;
 };
 
@@ -56,6 +63,11 @@ export function KompisCustomerWorkspaceShell({
   onConfirm,
   onCancelConfirm,
   onMinimizeChange,
+  onClose,
+  presentation = "overlay",
+  suggestedPrompts = [],
+  onPromptSelect,
+  runtimeSlot,
   rtlSupport = true,
 }: KompisCustomerWorkspaceShellProps) {
   const [minimized, setMinimized] = useState(false);
@@ -66,13 +78,14 @@ export function KompisCustomerWorkspaceShell({
   );
   const dir = resolveKompisWorkspaceTextDirection(locale, rtlSupport);
   const locales = listKompisWorkspaceLocales();
+  const isDocked = presentation === "docked" || presentation === "full";
 
   const setMin = (value: boolean) => {
     setMinimized(value);
     onMinimizeChange?.(value);
   };
 
-  if (minimized) {
+  if (minimized && !isDocked) {
     return (
       <button
         type="button"
@@ -89,16 +102,21 @@ export function KompisCustomerWorkspaceShell({
 
   const denied = permissions != null && !permissions.enabled;
 
+  const surfaceClass = isDocked
+    ? "relative flex h-full min-h-[24rem] w-full flex-col border-0 bg-transparent shadow-none"
+    : [
+        "fixed z-40 flex flex-col border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-950",
+        "bottom-0 right-0 left-0 max-h-[92vh] rounded-t-2xl sm:bottom-4 sm:right-4 sm:left-auto sm:w-[26rem] sm:max-h-[80vh] sm:rounded-2xl",
+        expanded ? "sm:w-[36rem]" : "",
+      ].join(" ");
+
   return (
     <section
       dir={dir}
       data-kompis-workspace-locales={locales.join(",")}
+      data-kompis-presentation={presentation}
       aria-label={labels.title}
-      className={[
-        "fixed z-40 flex flex-col border border-slate-200 bg-white shadow-xl dark:border-slate-700 dark:bg-slate-950",
-        "bottom-0 right-0 left-0 max-h-[92vh] rounded-t-2xl sm:bottom-4 sm:right-4 sm:left-auto sm:w-[26rem] sm:max-h-[80vh] sm:rounded-2xl",
-        expanded ? "sm:w-[36rem]" : "",
-      ].join(" ")}
+      className={surfaceClass}
     >
       <header className={`border-b px-4 py-3 ${toneClass("assist")}`}>
         <div className="flex items-start justify-between gap-3">
@@ -107,19 +125,27 @@ export function KompisCustomerWorkspaceShell({
             <p className="mt-1 text-sm opacity-90">{labels.reassurance}</p>
           </div>
           <div className="flex shrink-0 gap-2">
+            {!isDocked ? (
+              <button
+                type="button"
+                className="min-h-10 rounded-lg border border-current/20 px-3 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                onClick={() => setExpanded((v) => !v)}
+              >
+                {expanded ? labels.minimize : labels.expand}
+              </button>
+            ) : null}
             <button
               type="button"
               className="min-h-10 rounded-lg border border-current/20 px-3 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              onClick={() => setExpanded((v) => !v)}
+              onClick={() => {
+                if (onClose) {
+                  onClose();
+                  return;
+                }
+                setMin(true);
+              }}
             >
-              {expanded ? labels.minimize : labels.expand}
-            </button>
-            <button
-              type="button"
-              className="min-h-10 rounded-lg border border-current/20 px-3 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              onClick={() => setMin(true)}
-            >
-              {labels.minimize}
+              {onClose ? labels.close : labels.minimize}
             </button>
           </div>
         </div>
@@ -135,6 +161,32 @@ export function KompisCustomerWorkspaceShell({
       </header>
 
       <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4" role="region" aria-live="polite">
+        {suggestedPrompts.length > 0 ? (
+          <section aria-labelledby="kompis-suggestions-heading">
+            <h3
+              id="kompis-suggestions-heading"
+              className="text-sm font-semibold text-slate-900 dark:text-slate-50"
+            >
+              {labels.suggestions}
+            </h3>
+            <ul className="mt-2 space-y-2">
+              {suggestedPrompts.map((prompt) => (
+                <li key={prompt}>
+                  <button
+                    type="button"
+                    className={`w-full rounded-lg border px-3 py-2 text-left text-sm ${toneClass("assist")}`}
+                    onClick={() => onPromptSelect?.(prompt)}
+                  >
+                    {prompt}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        {runtimeSlot}
+
         {denied ? (
           <div className={`rounded-xl border px-3 py-3 text-sm ${toneClass("danger")}`} role="alert">
             <p className="font-medium">{labels.denied}</p>

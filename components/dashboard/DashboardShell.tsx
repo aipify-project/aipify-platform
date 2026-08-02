@@ -13,6 +13,12 @@ import GroupedSidebar from "./GroupedSidebar";
 import SidebarBrand, { SidebarBrandLegacy } from "./SidebarBrand";
 import { TopbarShareFeedbackButton } from "@/components/app/voice-of-the-customer";
 import { CompanionShell, CompanionTopBarButton } from "@/components/app/companion-experience";
+import {
+  KompisGlobalShell,
+  KompisLayoutFrame,
+} from "@/components/app/kompis-customer-workspace/KompisGlobalShell";
+import { KompisTopBarButton } from "@/components/app/kompis-customer-workspace/KompisTopBarButton";
+import type { KompisGlobalLabels } from "@/components/app/kompis-customer-workspace/KompisGlobalProvider";
 import type { CompanionExperienceLabels } from "@/lib/app/companion/types";
 import type { VocWidgetLabels } from "@/lib/voice-of-the-customer";
 import type { CompanionPresenceLabels } from "@/components/app/companion-presence";
@@ -95,6 +101,11 @@ type DashboardShellProps = {
   presenceLabels?: PresenceLabels;
   companionPresenceLabels?: CompanionPresenceLabels;
   companionExperienceLabels?: CompanionExperienceLabels;
+  kompisGlobalLabels?: KompisGlobalLabels;
+  kompisOrganizationName?: string;
+  kompisUserRole?: string;
+  kompisIsAdmin?: boolean;
+  kompisInitialPermissionsJson?: string | null;
   locale?: string;
   languageSelectorLabels?: {
     label: string;
@@ -155,6 +166,11 @@ export default function DashboardShell({
   presenceLabels,
   companionPresenceLabels,
   companionExperienceLabels,
+  kompisGlobalLabels,
+  kompisOrganizationName,
+  kompisUserRole,
+  kompisIsAdmin,
+  kompisInitialPermissionsJson,
   locale = "en",
   languageSelectorLabels,
   shellUiLabels,
@@ -197,6 +213,11 @@ export default function DashboardShell({
           platformBrandMark={platformBrandMark}
           licensePanelLabels={licensePanelLabels}
           presenceLabels={presenceLabels}
+          kompisGlobalLabels={kompisGlobalLabels}
+          kompisOrganizationName={kompisOrganizationName}
+          kompisUserRole={kompisUserRole}
+          kompisIsAdmin={kompisIsAdmin}
+          kompisInitialPermissionsJson={kompisInitialPermissionsJson}
           companionPresenceLabels={companionPresenceLabels}
           companionExperienceLabels={companionExperienceLabels}
           voiceOfCustomerLabels={voiceOfCustomerLabels}
@@ -244,6 +265,11 @@ export default function DashboardShell({
       presenceLabels={presenceLabels}
       companionPresenceLabels={companionPresenceLabels}
       companionExperienceLabels={companionExperienceLabels}
+      kompisGlobalLabels={kompisGlobalLabels}
+      kompisOrganizationName={kompisOrganizationName}
+      kompisUserRole={kompisUserRole}
+      kompisIsAdmin={kompisIsAdmin}
+      kompisInitialPermissionsJson={kompisInitialPermissionsJson}
       voiceOfCustomerLabels={voiceOfCustomerLabels}
       notificationCenterLabels={notificationCenterLabels}
       locale={locale}
@@ -288,6 +314,11 @@ function DashboardShellFrame({
   presenceLabels,
   companionPresenceLabels,
   companionExperienceLabels,
+  kompisGlobalLabels,
+  kompisOrganizationName = "Organization",
+  kompisUserRole = "member",
+  kompisIsAdmin = false,
+  kompisInitialPermissionsJson = null,
   locale = "en",
   languageSelectorLabels,
   shellUiLabels,
@@ -545,8 +576,11 @@ function DashboardShellFrame({
           }
           pwaLabels={shellVariant === "customer" ? pwaLabels : undefined}
           companionButton={
-            shellVariant === "customer" && companionExperienceLabels ? (
-              <CompanionTopBarButton />
+            shellVariant === "customer" && (kompisGlobalLabels || companionExperienceLabels) ? (
+              <div className="flex items-center gap-2">
+                {kompisGlobalLabels ? <KompisTopBarButton /> : null}
+                {companionExperienceLabels ? <CompanionTopBarButton /> : null}
+              </div>
             ) : undefined
           }
           feedbackButton={
@@ -557,7 +591,15 @@ function DashboardShellFrame({
         />
 
         <main className="flex-1 overflow-y-auto scroll-pb-[calc(6rem+env(safe-area-inset-bottom))] px-4 py-6 pb-[calc(6rem+env(safe-area-inset-bottom))] sm:px-6 sm:py-8 lg:scroll-pb-8 lg:px-8 lg:pb-8">
-          <div className="animate-fade-in-up">{children}</div>
+          <div className="animate-fade-in-up">
+            {shellVariant === "customer" &&
+            pathname.startsWith("/app") &&
+            kompisGlobalLabels ? (
+              <KompisLayoutFrame>{children}</KompisLayoutFrame>
+            ) : (
+              children
+            )}
+          </div>
         </main>
 
         <nav
@@ -596,15 +638,33 @@ function DashboardShellFrame({
     </div>
   );
 
+  const withKompis =
+    shellVariant === "customer" &&
+    pathname.startsWith("/app") &&
+    kompisGlobalLabels ? (
+      <KompisGlobalShell
+        labels={kompisGlobalLabels}
+        locale={locale}
+        organizationName={kompisOrganizationName}
+        userRole={kompisUserRole}
+        isAdmin={kompisIsAdmin}
+        initialPermissionsJson={kompisInitialPermissionsJson}
+      >
+        {shell}
+      </KompisGlobalShell>
+    ) : (
+      shell
+    );
+
   const withCompanionExperience =
     shellVariant === "customer" &&
     pathname.startsWith("/app") &&
     companionExperienceLabels ? (
       <CompanionShell labels={companionExperienceLabels} locale={locale}>
-        {shell}
+        {withKompis}
       </CompanionShell>
     ) : (
-      shell
+      withKompis
     );
 
   const withUnifiedNotifications =

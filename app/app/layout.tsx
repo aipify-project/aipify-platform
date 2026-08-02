@@ -19,10 +19,12 @@ import {
   buildLayoutCommandBarLabels,
   buildLayoutCompanionExperienceLabels,
   buildLayoutCompanionPresenceLabels,
+  buildLayoutKompisGlobalLabels,
   buildLayoutLicensePanelLabels,
   buildLayoutNotificationCenterLabels,
   buildLayoutVocWidgetLabels,
 } from "@/lib/app/layout-shell-labels";
+import { loadKompisServerWorkspaceBundle } from "@/lib/kompis-customer-workspace";
 import { buildAppNavSearchIndex, type AppNavSearchEntry } from "@/lib/app/nav-search";
 import { APP_MOBILE_NAV_IDS } from "@/lib/app/nav-config";
 import { customerNavSourcesFromSearchIndex } from "@/lib/command-bar";
@@ -76,6 +78,11 @@ export default async function AppLayout({
   let suspendedNotice: string | null = null;
   let showActivationBanner = false;
   const activationLabels = buildBusinessPackActivationGateLabels(t);
+  let kompisOrganizationName = "Organization";
+  let kompisUserRole = "member";
+  let kompisIsAdmin = false;
+  let kompisInitialPermissionsJson: string | null = null;
+  const kompisGlobalLabels = buildLayoutKompisGlobalLabels(t);
 
   function applyBusinessPackSettingsNavLock(groups: AppNavGroupConfig[]): AppNavGroupConfig[] {
     const lockHint = t("customerApp.portalStructure.businessPackSettings.navRequiresUpgrade");
@@ -172,6 +179,24 @@ export default async function AppLayout({
     } catch {
       // Fallback to static navigation when dynamic engine unavailable
     }
+
+    try {
+      const kompisLoaded = await loadKompisServerWorkspaceBundle(supabase, {
+        route: "/app",
+        module: "home",
+        locale,
+      });
+      if (kompisLoaded.ok) {
+        kompisOrganizationName = kompisLoaded.bundle.organizationName;
+        kompisUserRole = kompisLoaded.bundle.userRole;
+        kompisIsAdmin = ["organization_owner", "organization_admin", "owner", "admin"].includes(
+          kompisLoaded.bundle.userRole
+        );
+        kompisInitialPermissionsJson = JSON.stringify(kompisLoaded.bundle.permissions);
+      }
+    } catch {
+      // Kompis remains available with fail-closed defaults from client session boot
+    }
   }
 
   return (
@@ -216,6 +241,11 @@ export default async function AppLayout({
           licensePanelLabels={buildLayoutLicensePanelLabels(t)}
           companionExperienceLabels={buildLayoutCompanionExperienceLabels(t)}
           companionPresenceLabels={buildLayoutCompanionPresenceLabels(t)}
+          kompisGlobalLabels={kompisGlobalLabels}
+          kompisOrganizationName={kompisOrganizationName}
+          kompisUserRole={kompisUserRole}
+          kompisIsAdmin={kompisIsAdmin}
+          kompisInitialPermissionsJson={kompisInitialPermissionsJson}
           voiceOfCustomerLabels={buildLayoutVocWidgetLabels(t)}
           notificationCenterLabels={buildLayoutNotificationCenterLabels(t)}
           locale={locale}

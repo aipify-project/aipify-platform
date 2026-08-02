@@ -46,6 +46,53 @@ function assertToolAllowed(
   return { ok: true };
 }
 
+/** READ — contextual page help from server-validated route. No mutation. */
+export async function executeKompisReadPageHelp(
+  ctx: KompisAdapterContext,
+  input?: { prompt?: string }
+): Promise<KompisAdapterResult> {
+  const toolKey = "get_current_page_help";
+  const allowed = assertToolAllowed(ctx.permissions, toolKey);
+  if (!allowed.ok) return allowed;
+
+  const { error } = await ctx.supabase.rpc("record_kompis_customer_workspace_tool_invocation", {
+    p_session_id: ctx.sessionId,
+    p_tool_key: toolKey,
+    p_confirmation_level: "none",
+    p_confirmation_id: null,
+    p_outcome: "read_ok",
+    p_denied_reason: null,
+    p_metadata: {
+      organization_id: ctx.organizationId,
+      route: ctx.route,
+      prompt_len: typeof input?.prompt === "string" ? input.prompt.length : 0,
+    },
+  });
+  if (error) {
+    return { ok: false, code: "audit_failed", message: error.message };
+  }
+
+  const prompt =
+    typeof input?.prompt === "string" && input.prompt.trim()
+      ? input.prompt.trim().slice(0, 280)
+      : null;
+
+  return {
+    ok: true,
+    kind: "read",
+    tool_key: toolKey,
+    title: "Page guidance",
+    body: [
+      `You are on a Customer APP surface for ${ctx.organizationName}.`,
+      `Current route context: ${ctx.route}`,
+      prompt ? `Focus: ${prompt}` : "Ask about status, next steps, or what this page is for.",
+      "Kompis can explain and prepare drafts. Privileged changes require your confirmation.",
+    ].join("\n"),
+    source: "route_context",
+    executed: false,
+  };
+}
+
 /** READ — tenant-bound organization access summary. No mutation. */
 export async function executeKompisReadAccessStatus(
   ctx: KompisAdapterContext

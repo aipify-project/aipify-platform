@@ -1,0 +1,39 @@
+# APP Global Kompis Workspace & Canonical Width V1
+
+Task: `AIPIFY.APP.GLOBAL.KOMPIS.WORKSPACE.AND.CANONICAL.PANEL.WIDTH.V1`
+
+## Ownership
+
+| Concern | Owner |
+|---|---|
+| Contract, tools, permissions, confirmation, audit, tenant scope | **Core** |
+| Global entry, route context UI, layout/grid, draft/review UX | **Customer APP** |
+| Governance / capability configuration | **Platform** |
+
+## Hard rules
+
+1. **Kompis is globally available, contextually rendered** — one shell instance via `KompisGlobalShell` / `KompisLayoutFrame`; no duplicate mounts, no parallel chatbot runtime.
+2. **No fixed empty column when closed** — main content reclaims full canonical width (`data-kompis-main-width="full"`).
+3. **Canonical APP width tokens are mandatory** — use `AppLayoutClasses` / `AppPremiumShell.page` from `lib/design/app-layout.ts`. Do not invent page-local `max-w-*` for APP panels.
+4. **Route context is server-validated** — client may send pathname as a hint; Core resolves tenant/role/permissions. No client authority, no cross-tenant data, no secrets in UI.
+5. **Read / draft / confirmed action are distinct** — drafts never auto-execute; privileged actions require explicit confirmation, idempotency, audit, and receipt.
+6. **Wide / data-heavy pages may use overlay mode** — `resolveKompisRouteLayout()` chooses `split` | `overlay` | `full`; do not force split on every route.
+7. **No customer/provider hardcoding** — no UnoNight or real customer names in Core/APP Kompis paths.
+8. **Fixture-only proof is insufficient** — Production-ready requires authenticated runtime proof.
+
+## Code anchors
+
+- Tokens: `lib/design/app-layout.ts`, `lib/design/app-premium-shell.ts`
+- Route layout: `lib/kompis-customer-workspace/route-layout.ts`
+- Shell: `components/app/kompis-customer-workspace/KompisGlobal{Provider,Shell,Panel}.tsx`
+- APP layout wire: `components/dashboard/DashboardShell.tsx`, `app/app/layout.tsx`
+- Core adapters: `lib/kompis-customer-workspace/adapters.ts`
+
+## Forbidden
+
+- Parallel Kompis/tool registries
+- Auto-execution of drafts
+- Bypassing confirmation for privileged actions
+- Reserving a permanent empty right column
+- Migrating all APP routes blindly in one change
+- Changing auth/MFA, Website Kompis verified runtime, or tenant boundaries as part of layout work

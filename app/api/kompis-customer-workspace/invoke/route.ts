@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import {
   executeKompisCreateDraft,
   executeKompisReadAccessStatus,
+  executeKompisReadPageHelp,
   proposeKompisUpdatePreference,
 } from "@/lib/kompis-customer-workspace/adapters";
 import { loadKompisServerWorkspaceBundle } from "@/lib/kompis-customer-workspace/server-context";
@@ -47,6 +48,13 @@ export async function POST(request: Request) {
       locale,
       route,
     };
+
+    if (toolKey === "get_current_page_help") {
+      const result = await executeKompisReadPageHelp(ctx, {
+        prompt: typeof body?.prompt === "string" ? body.prompt : undefined,
+      });
+      return NextResponse.json(result, { status: result.ok ? 200 : 403, headers: NO_STORE });
+    }
 
     if (toolKey === "get_my_access_status") {
       const result = await executeKompisReadAccessStatus(ctx);

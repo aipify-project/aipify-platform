@@ -8404,7 +8404,8 @@
         "cancel": "Cancel",
         "continueLater": "Continue later",
         "minimize": "Minimize",
-        "expand": "Expand"
+        "expand": "Expand",
+        "close": "Close"
       },
       "runtime": {
         "readAction": "Review access status",
@@ -8428,6 +8429,66 @@
         "updatePreference": "Update a preference",
         "searchKnowledge": "Search approved knowledge",
         "getCurrentPageHelp": "Get help for this page"
+      },
+      "shell": {
+        "openButton": "Kompis",
+        "closeButton": "Close Kompis",
+        "ariaOpen": "Open Kompis workspace",
+        "ariaClose": "Close Kompis workspace",
+        "available": "Kompis is available",
+        "contextPrefix": "Current page",
+        "contexts": {
+          "dashboard": "Dashboard",
+          "integrations": "Integrations",
+          "billing": "Billing",
+          "support": "Support",
+          "organization": "Organization",
+          "approvals": "Approvals",
+          "workspace": "Kompis workspace",
+          "generic": "This page"
+        },
+        "prompts": {
+          "dashboard": {
+            "1": "What should I prioritize today?",
+            "2": "What needs attention in my organization?",
+            "3": "Summarize integration and billing status"
+          },
+          "integrations": {
+            "1": "Explain the current connection status",
+            "2": "What is the next installation step?",
+            "3": "Help me prepare a support request"
+          },
+          "billing": {
+            "1": "Explain my current invoice status",
+            "2": "Summarize upcoming payments",
+            "3": "Draft a payment reminder"
+          },
+          "support": {
+            "1": "Summarize this support case",
+            "2": "Suggest a customer-ready reply",
+            "3": "What knowledge applies here?"
+          },
+          "organization": {
+            "1": "Explain roles on this page",
+            "2": "Who should get which access?",
+            "3": "Help draft an invitation"
+          },
+          "approvals": {
+            "1": "What approvals need attention?",
+            "2": "Explain the impact of this request",
+            "3": "What happens if I wait?"
+          },
+          "workspace": {
+            "1": "What can Kompis do here?",
+            "2": "Show my access status",
+            "3": "Create a draft for review"
+          },
+          "generic": {
+            "1": "Explain this page",
+            "2": "What should I do next?",
+            "3": "Summarize what I can see here"
+          }
+        }
       }
     }
   }
