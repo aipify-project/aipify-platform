@@ -90,7 +90,12 @@
     "product": "Produkt",
     "auditGovernance": "Kontrol og styring",
     "system": "System",
-    "platformAdmin": "Platform Admin"
+    "platformAdmin": "Platform Admin",
+    "overview": "Oversigt",
+    "salesFinance": "Salg og økonomi",
+    "partners": "Partnere",
+    "productCore": "Produkt og Core",
+    "governance": "Kontrol og styring"
   },
   "search": "Søg efter kunder…",
   "sidebar": {
@@ -192,7 +197,9 @@
     "licenses": "Licenser",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
-    "providerOnboarding": "Provider-onboarding"
+    "providerOnboarding": "Provider-onboarding",
+    "exceptionQueue": "Undtagelseskø",
+    "partnerSettlement": "Partnerafregning"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -6807,6 +6814,194 @@
       "contract_invalid": "Kontrakten skal rettes",
       "deprecated": "Forældet",
       "reference_only": "Kun forhåndsvisning"
+    }
+  },
+  "controlPlane": {
+    "title": "Globalt kontrolplan",
+    "subtitle": "Organiser kunder, økonomi, partnere, produkt, drift og styring ud fra autoritative Core-kilder.",
+    "principle": "Platform sætter globale standarder. Core distribuerer. Customer APP driver. Manuelt arbejde er til undtagelser.",
+    "openSurface": "Åbn",
+    "readiness": {
+      "production": "Produktion",
+      "engine": "Driftsmotor",
+      "hub": "Kontrolhub",
+      "planned": "Planlagt",
+      "stub": "Kun struktur"
+    },
+    "metrics": {
+      "noData": "Ingen data",
+      "notConnected": "Ikke forbundet",
+      "updateFailed": "Opdatering mislykkedes",
+      "freshness": "Sidst beregnet",
+      "partial": "Delvise data",
+      "organizationsTotal": "Organisationer",
+      "activeSubscriptions": "Aktive abonnementer",
+      "requiringAttention": "Kræver opfølgning",
+      "openSupport": "Åbne supportsager",
+      "paymentPastDue": "Forfaldne abonnementer",
+      "outstandingInvoices": "Udestående fakturaer",
+      "failedPayments": "Fejlslagne betalinger",
+      "mrr": "Månedlig tilbagevendende indtægt",
+      "activePartners": "Aktive partnere",
+      "earnedCommission": "Optjent partnerprovision",
+      "pendingPartnerInvoices": "Afventende partnerfakturaer",
+      "systemHealth": "Systemhelbred",
+      "openIncidents": "Åbne incidents",
+      "pendingApprovals": "Afventende godkendelser",
+      "drillDown": "Åbn underliggende data",
+      "source": "Autoritative kilde"
+    },
+    "health": {
+      "healthy": "Sund",
+      "degraded": "Degraderet",
+      "critical": "Kritisk",
+      "unknown": "Ukendt",
+      "noSource": "Ingen datakilde"
+    },
+    "partnersHub": {
+      "title": "Partnere",
+      "subtitle": "Platform-hub over eksisterende attribution, provision og afregning. Ingen parallel partnermodel.",
+      "attribution": "Partnerattribution",
+      "commissions": "Provision",
+      "settlement": "Partnerafregning (operativ)",
+      "settlementNote": "Afregning og partnerfakturaer er skrivebeskyttet operativ sandhed fra den eksisterende Partners-afregningsmotor. Platform udfører ikke udbetaling her.",
+      "noPayoutHere": "Ingen automatisk udbetaling fra denne flade."
+    },
+    "exceptions": {
+      "title": "Undtagelseskø",
+      "subtitle": "Manuelle undtagelser der kræver administrativ opfølgning. Normalflow automatiseres via Core.",
+      "open": "Åbn køelement",
+      "severity": {
+        "info": "Info",
+        "attention": "Opmærksomhed",
+        "critical": "Kritisk"
+      },
+      "customerFollowUp": "Kunde kræver opfølgning",
+      "paymentPastDue": "Betaling forfalden",
+      "invoiceReview": "Faktura kræver gennemgang",
+      "commissionApproval": "Provision afventer gennemgang",
+      "partnerSettlement": "Partnerafregning / fakturaafvigelse",
+      "providerTemplate": "Ugyldig providerskabelon",
+      "reliabilityIncident": "Pålideligheds- eller integrationsincident",
+      "supportEscalation": "Supporteskalering",
+      "securityEvent": "Sikkerhedshændelse",
+      "approvalPending": "Godkendelse afventer",
+      "next": {
+        "reviewCustomerSuccess": "Gå til kundesucces",
+        "reviewPaymentOperations": "Gå til betalingsoperationer",
+        "reviewInvoices": "Gå til fakturaer",
+        "reviewCommissions": "Gå til provision",
+        "reviewPartnerSettlement": "Åbn partnerafregning",
+        "reviewProviderOnboarding": "Gå til provider-onboarding",
+        "reviewReliability": "Gå til pålidelighedsoperationer",
+        "reviewSupport": "Gå til supportkøen",
+        "reviewSecurity": "Gå til sikkerhedsstyring",
+        "reviewApprovals": "Gå til godkendelser"
+      }
+    },
+    "sections": {
+      "overview": {
+        "description": "Global driftsoversigt med autoritative KPI’er og friskhed."
+      },
+      "customers": {
+        "description": "Organisationer, succes, support, aftaler, licenser og installationer."
+      },
+      "salesFinance": {
+        "description": "Betalinger, fakturaer, indtægt og skat — uden at opfinde økonomisk sandhed."
+      },
+      "partners": {
+        "description": "Partnerattribution, provision og afregningssynlighed."
+      },
+      "productCore": {
+        "description": "Providers, moduler, Kompis, verifikation og globale skabeloner."
+      },
+      "operations": {
+        "description": "Helbred, pålidelighed, ændringsoperationer og undtagelsesopfølgning."
+      },
+      "governance": {
+        "description": "Godkendelser, tillid, compliance og revision."
+      }
+    },
+    "settlementOps": {
+      "title": "Partnerafregning – operativ visning",
+      "subtitle": "Skrivebeskyttet operativ visning over eksisterende partnerafregning og self-billing-motor.",
+      "empty": "Ingen partnerafregninger fundet.",
+      "error": "Kunne ikke indlæse partnerafregning.",
+      "partial": "Delvis afregningsdata",
+      "freshness": "Sidst beregnet",
+      "filters": "Filtre",
+      "searchPlaceholder": "Søg partner, periode eller faktura",
+      "noMutations": "Skrivebeskyttet. Ingen udbetaling, fakturaoprettelse eller regnskabsmutation herfra.",
+      "discrepanciesTitle": "Afvigelseskø for partnerfaktura",
+      "discrepanciesSubtitle": "Undtagelser der kræver administrativ opfølgning. Ingen automatisk korrektion.",
+      "discrepanciesEmpty": "Ingen afregningsafvigelser fundet.",
+      "columns": {
+        "partner": "Partner",
+        "period": "Periode",
+        "commissionBasis": "Provisionsgrundlag",
+        "qualified": "Kvalificeret beløb",
+        "earned": "Optjent beløb",
+        "approved": "Godkendt beløb",
+        "invoiceBasis": "Fakturagrundlag",
+        "invoice": "Modtaget faktura",
+        "matching": "Matchstatus",
+        "discrepancy": "Afvigelse",
+        "approval": "Godkendelse",
+        "payout": "Udbetalingsstatus",
+        "accounting": "Regnskabssynk",
+        "updated": "Sidst opdateret",
+        "owner": "Ejer",
+        "nextAction": "Næste handling",
+        "severity": "Alvorlighed",
+        "expected": "Forventet",
+        "actual": "Faktisk",
+        "difference": "Difference",
+        "reason": "Årsag",
+        "dueDate": "Forfald",
+        "status": "Status"
+      },
+      "statuses": {
+        "draft": "Beregnet",
+        "awaiting_partner_approval": "Afventer partnergodkendelse",
+        "approved": "Godkendt",
+        "invoice_generated": "Klar til faktura",
+        "sent_to_accounting": "Sendt til regnskab",
+        "paid": "Udbetalt",
+        "rejected": "Afvist",
+        "cancelled": "Annulleret",
+        "matched": "Matchet",
+        "missing_invoice": "Manglende faktura",
+        "amount_mismatch": "Beløbsafvigelse",
+        "period_mismatch": "Periodeafvigelse",
+        "payout_mismatch": "Udbetalingsafvigelse",
+        "accounting_sync_pending": "Regnskabssynk afventer",
+        "missing_commission_basis": "Manglende provisionsgrundlag",
+        "finalized": "Afsluttet",
+        "monitor": "Overvåg",
+        "await_partner_approval": "Afvent partnergodkendelse",
+        "review_settlement_basis": "Gennemgå afregningsgrundlag",
+        "await_invoice_generation": "Afvent fakturagenerering",
+        "investigate_amount_discrepancy": "Undersøg beløbsafvigelse",
+        "investigate_payout_mismatch": "Undersøg udbetalingsafvigelse",
+        "review_partner_settlement": "Gennemgå partnerafregning",
+        "critical": "Kritisk",
+        "attention": "Opmærksomhed",
+        "info": "Info",
+        "unknown": "Ukendt"
+      }
+    },
+    "search": {
+      "navigationSearch": "Navigationssøgning",
+      "navigationSearchHint": "Finder Platform-ruter og funktioner.",
+      "entitySearch": "Global enhedssøgning",
+      "entitySearchPlanned": "Global enhedssøgning er planlagt. Navigationssøgning er tilgængelig nu.",
+      "entitySearchGap": "Ikke leveret i denne release"
+    },
+    "financeBoundaries": {
+      "subscriptionNote": "Et aktivt abonnement alene beviser ikke betaling.",
+      "invoiceNote": "Faktureret betyder ikke betalt.",
+      "paidNote": "Betalt betyder ikke bogført uden en regnskabsbegivenhed.",
+      "outstandingSource": "Sum af fakturabeløb med status sendt eller forfalden."
     }
   }
 }

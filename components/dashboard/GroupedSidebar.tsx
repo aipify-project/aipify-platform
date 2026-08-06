@@ -70,7 +70,7 @@ function createStorageHelpers(mode: "customer" | "platform") {
     mode === "platform" ? getPlatformGroupIdForNavItem : getGroupIdForNavItem;
   const filterSearch =
     mode === "platform" ? filterPlatformNavSearchEntries : filterAppNavSearchEntries;
-  const defaultOpenGroup = mode === "platform" ? "platformAdmin" : "organization";
+  const defaultOpenGroup = mode === "platform" ? "overview" : "organization";
 
   return {
     openGroupKey,

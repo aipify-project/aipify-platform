@@ -116,7 +116,12 @@
       "platformAcademyStudio": "Growth Partner Academy — навчання, сертифікація та комерційна підтримка.",
       "companionMarketplace": "Керований каталог Companion і нагляд за розгортанням.",
       "skillGovernancePipeline": "Процеси впровадження навичок, управління та затвердження."
-    }
+    },
+    "overview": "Огляд",
+    "salesFinance": "Продажі та фінанси",
+    "partners": "Партнери",
+    "productCore": "Продукт і Core",
+    "governance": "Контроль і управління"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -220,7 +225,9 @@
     "licenses": "Ліцензії",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
-    "providerOnboarding": "Онбординг провайдерів"
+    "providerOnboarding": "Онбординг провайдерів",
+    "exceptionQueue": "Черга винятків",
+    "partnerSettlement": "Партнерські розрахунки"
   },
   "executive": {
     "title": "Виконавчий центр",
@@ -7361,6 +7368,194 @@
       "contract_invalid": "Контракт потрібно виправити",
       "deprecated": "Застарілий",
       "reference_only": "Лише попередній перегляд"
+    }
+  },
+  "controlPlane": {
+    "title": "Глобальна площина керування",
+    "subtitle": "Організовуйте клієнтів, фінанси, партнерів, продукт, операції та управління з авторитетних джерел Core.",
+    "principle": "Platform встановлює глобальні стандарти. Core розповсюджує. Customer APP обслуговує. Ручна робота — для винятків.",
+    "openSurface": "Відкрити",
+    "readiness": {
+      "production": "Продакшен",
+      "engine": "Операційний рушій",
+      "hub": "Контрольний центр",
+      "planned": "Заплановано",
+      "stub": "Лише структура"
+    },
+    "metrics": {
+      "noData": "Немає даних",
+      "notConnected": "Не підключено",
+      "updateFailed": "Не вдалося оновити",
+      "freshness": "Останній розрахунок",
+      "partial": "Часткові дані",
+      "organizationsTotal": "Організації",
+      "activeSubscriptions": "Активні підписки",
+      "requiringAttention": "Потребує супроводу",
+      "openSupport": "Відкриті звернення підтримки",
+      "paymentPastDue": "Прострочені підписки",
+      "outstandingInvoices": "Неоплачені рахунки",
+      "failedPayments": "Невдалі платежі",
+      "mrr": "Щомісячний регулярний дохід",
+      "activePartners": "Активні партнери",
+      "earnedCommission": "Нарахована партнерська комісія",
+      "pendingPartnerInvoices": "Очікувані партнерські рахунки",
+      "systemHealth": "Стан системи",
+      "openIncidents": "Відкриті інциденти",
+      "pendingApprovals": "Очікувані затвердження",
+      "drillDown": "Відкрити базові дані",
+      "source": "Авторитетне джерело"
+    },
+    "health": {
+      "healthy": "Здоровий",
+      "degraded": "Погіршений",
+      "critical": "Критичний",
+      "unknown": "Невідомо",
+      "noSource": "Немає джерела даних"
+    },
+    "partnersHub": {
+      "title": "Партнери",
+      "subtitle": "Центр Platform над наявною атрибуцією, комісіями та розрахунками. Без паралельної моделі партнера.",
+      "attribution": "Атрибуція партнера",
+      "commissions": "Комісії",
+      "settlement": "Партнерські розрахунки (операційні)",
+      "settlementNote": "Розрахунки та партнерські рахунки — лише для читання з наявного рушія Partners. Platform не виконує виплат тут.",
+      "noPayoutHere": "Немає автоматичної виплати з цієї поверхні."
+    },
+    "exceptions": {
+      "title": "Черга винятків",
+      "subtitle": "Ручні винятки, що потребують адміністративного супроводу. Звичайні потоки автоматизовані через Core.",
+      "open": "Відкрити елемент черги",
+      "severity": {
+        "info": "Інфо",
+        "attention": "Увага",
+        "critical": "Критично"
+      },
+      "customerFollowUp": "Клієнт потребує супроводу",
+      "paymentPastDue": "Платіж прострочено",
+      "invoiceReview": "Рахунок потребує перегляду",
+      "commissionApproval": "Комісія очікує перегляду",
+      "partnerSettlement": "Партнерський розрахунок / розбіжність рахунка",
+      "providerTemplate": "Недійсний шаблон провайдера",
+      "reliabilityIncident": "Інцидент надійності або інтеграції",
+      "supportEscalation": "Ескалація підтримки",
+      "securityEvent": "Подія безпеки",
+      "approvalPending": "Очікує затвердження",
+      "next": {
+        "reviewCustomerSuccess": "Переглянути успіх клієнта",
+        "reviewPaymentOperations": "Переглянути платіжні операції",
+        "reviewInvoices": "Переглянути рахунки",
+        "reviewCommissions": "Переглянути комісії",
+        "reviewPartnerSettlement": "Відкрити партнерські розрахунки",
+        "reviewProviderOnboarding": "Переглянути онбординг провайдера",
+        "reviewReliability": "Переглянути операції надійності",
+        "reviewSupport": "Переглянути чергу підтримки",
+        "reviewSecurity": "Переглянути управління безпекою",
+        "reviewApprovals": "Переглянути затвердження"
+      }
+    },
+    "sections": {
+      "overview": {
+        "description": "Глобальний операційний огляд з авторитетними KPI та актуальністю."
+      },
+      "customers": {
+        "description": "Організації, успіх, підтримка, угоди, ліцензії та інсталяції."
+      },
+      "salesFinance": {
+        "description": "Платежі, рахунки, дохід і податки — без вигадування фінансової істини."
+      },
+      "partners": {
+        "description": "Атрибуція партнерів, комісії та видимість розрахунків."
+      },
+      "productCore": {
+        "description": "Провайдери, модулі, Kompis, перевірка та глобальні шаблони."
+      },
+      "operations": {
+        "description": "Здоров’я, надійність, зміни та супровід винятків."
+      },
+      "governance": {
+        "description": "Затвердження, довіра, відповідність і аудит."
+      }
+    },
+    "settlementOps": {
+      "title": "Операції партнерських розрахунків",
+      "subtitle": "Лише для читання: операційний огляд наявного рушія партнерських розрахунків і self-billing.",
+      "empty": "Партнерських розрахунків не знайдено.",
+      "error": "Не вдалося завантажити операції розрахунків.",
+      "partial": "Часткові дані розрахунків",
+      "freshness": "Останній розрахунок",
+      "filters": "Фільтри",
+      "searchPlaceholder": "Пошук партнера, періоду або рахунка",
+      "noMutations": "Лише читання. Без виплат, створення рахунків або змін у бухобліку з цієї поверхні.",
+      "discrepanciesTitle": "Черга розбіжностей партнерських рахунків",
+      "discrepanciesSubtitle": "Винятки, що потребують адміністративного супроводу. Без автоматичного виправлення.",
+      "discrepanciesEmpty": "Розбіжностей розрахунків не виявлено.",
+      "columns": {
+        "partner": "Партнер",
+        "period": "Період",
+        "commissionBasis": "База комісії",
+        "qualified": "Кваліфікована сума",
+        "earned": "Нарахована сума",
+        "approved": "Затверджена сума",
+        "invoiceBasis": "База рахунка",
+        "invoice": "Отриманий рахунок",
+        "matching": "Статус зіставлення",
+        "discrepancy": "Розбіжність",
+        "approval": "Затвердження",
+        "payout": "Статус виплати",
+        "accounting": "Синхронізація бухобліку",
+        "updated": "Останнє оновлення",
+        "owner": "Власник",
+        "nextAction": "Наступна дія",
+        "severity": "Серйозність",
+        "expected": "Очікувано",
+        "actual": "Фактично",
+        "difference": "Різниця",
+        "reason": "Причина",
+        "dueDate": "Термін",
+        "status": "Статус"
+      },
+      "statuses": {
+        "draft": "Розраховано",
+        "awaiting_partner_approval": "Очікує схвалення партнера",
+        "approved": "Схвалено",
+        "invoice_generated": "Готово до рахунка",
+        "sent_to_accounting": "Надіслано до бухобліку",
+        "paid": "Виплачено",
+        "rejected": "Відхилено",
+        "cancelled": "Скасовано",
+        "matched": "Зіставлено",
+        "missing_invoice": "Немає рахунка",
+        "amount_mismatch": "Розбіжність суми",
+        "period_mismatch": "Розбіжність періоду",
+        "payout_mismatch": "Розбіжність виплати",
+        "accounting_sync_pending": "Очікує синхр. бухобліку",
+        "missing_commission_basis": "Немає бази комісії",
+        "finalized": "Завершено",
+        "monitor": "Моніторити",
+        "await_partner_approval": "Чекати схвалення партнера",
+        "review_settlement_basis": "Переглянути базу розрахунку",
+        "await_invoice_generation": "Чекати генерації рахунка",
+        "investigate_amount_discrepancy": "Дослідити розбіжність суми",
+        "investigate_payout_mismatch": "Дослідити розбіжність виплати",
+        "review_partner_settlement": "Переглянути партнерський розрахунок",
+        "critical": "Критично",
+        "attention": "Увага",
+        "info": "Інфо",
+        "unknown": "Невідомо"
+      }
+    },
+    "search": {
+      "navigationSearch": "Навігаційний пошук",
+      "navigationSearchHint": "Знаходить маршрути та функції Platform.",
+      "entitySearch": "Глобальний пошук сутностей",
+      "entitySearchPlanned": "Глобальний пошук сутностей заплановано. Навігаційний пошук доступний зараз.",
+      "entitySearchGap": "Не поставлено в цьому релізі"
+    },
+    "financeBoundaries": {
+      "subscriptionNote": "Активна підписка сама по собі не доводить оплату.",
+      "invoiceNote": "Виставлений рахунок не означає оплачено.",
+      "paidNote": "Оплачено не означає проведено в бухобліку без облікової події.",
+      "outstandingSource": "Сума рахунків зі статусом надіслано або прострочено."
     }
   }
 }

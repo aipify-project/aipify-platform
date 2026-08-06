@@ -116,7 +116,12 @@
       "platformAcademyStudio": "Growth Partner Academy — szkolenia, certyfikacje i wsparcie komercyjne.",
       "companionMarketplace": "Zarządzany katalog Companion i nadzór nad wdrożeniami.",
       "skillGovernancePipeline": "Proces wdrażania Skills, ład organizacyjny i procesy zatwierdzania."
-    }
+    },
+    "overview": "Przegląd",
+    "salesFinance": "Sprzedaż i finanse",
+    "partners": "Partnerzy",
+    "productCore": "Produkt i Core",
+    "governance": "Kontrola i zarządzanie"
   },
   "sidebar": {
     "plan": "Platform Admin",
@@ -220,7 +225,9 @@
     "licenses": "Licencje",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
-    "providerOnboarding": "Onboarding dostawców"
+    "providerOnboarding": "Onboarding dostawców",
+    "exceptionQueue": "Kolejka wyjątków",
+    "partnerSettlement": "Rozliczenia partnerskie"
   },
   "executive": {
     "title": "Centrum wykonawcze",
@@ -7361,6 +7368,194 @@
       "contract_invalid": "Kontrakt musi zostać poprawiony",
       "deprecated": "Wycofane",
       "reference_only": "Tylko podgląd"
+    }
+  },
+  "controlPlane": {
+    "title": "Globalna płaszczyzna sterowania",
+    "subtitle": "Organizuj klientów, finanse, partnerów, produkt, operacje i zarządzanie z autorytatywnych źródeł Core.",
+    "principle": "Platform ustala globalne standardy. Core dystrybuuje. Customer APP obsługuje. Praca ręczna dotyczy wyjątków.",
+    "openSurface": "Otwórz",
+    "readiness": {
+      "production": "Produkcja",
+      "engine": "Silnik operacyjny",
+      "hub": "Centrum kontroli",
+      "planned": "Planowane",
+      "stub": "Tylko struktura"
+    },
+    "metrics": {
+      "noData": "Brak danych",
+      "notConnected": "Niepołączone",
+      "updateFailed": "Aktualizacja nie powiodła się",
+      "freshness": "Ostatnie wyliczenie",
+      "partial": "Dane częściowe",
+      "organizationsTotal": "Organizacje",
+      "activeSubscriptions": "Aktywne subskrypcje",
+      "requiringAttention": "Wymaga działań",
+      "openSupport": "Otwarte sprawy supportu",
+      "paymentPastDue": "Zaległe subskrypcje",
+      "outstandingInvoices": "Zaległe faktury",
+      "failedPayments": "Nieudane płatności",
+      "mrr": "Miesięczny przychód cykliczny",
+      "activePartners": "Aktywni partnerzy",
+      "earnedCommission": "Naliczona prowizja partnerska",
+      "pendingPartnerInvoices": "Oczekujące faktury partnerskie",
+      "systemHealth": "Kondycja systemu",
+      "openIncidents": "Otwarte incydenty",
+      "pendingApprovals": "Oczekujące zatwierdzenia",
+      "drillDown": "Otwórz dane źródłowe",
+      "source": "Źródło autorytatywne"
+    },
+    "health": {
+      "healthy": "Sprawny",
+      "degraded": "Obniżona",
+      "critical": "Krytyczny",
+      "unknown": "Nieznany",
+      "noSource": "Brak źródła danych"
+    },
+    "partnersHub": {
+      "title": "Partnerzy",
+      "subtitle": "Centrum Platform nad istniejącą atrybucją, prowizjami i rozliczeniami. Bez równoległego modelu partnera.",
+      "attribution": "Atrybucja partnera",
+      "commissions": "Prowizje",
+      "settlement": "Rozliczenia partnerskie (operacyjne)",
+      "settlementNote": "Rozliczenia i faktury partnerskie to widok tylko do odczytu z istniejącego silnika Partners. Platform nie wykonuje wypłat tutaj.",
+      "noPayoutHere": "Brak automatycznej wypłaty z tej powierzchni."
+    },
+    "exceptions": {
+      "title": "Kolejka wyjątków",
+      "subtitle": "Ręczne wyjątki wymagające działań administracyjnych. Normalne przepływy pozostają zautomatyzowane przez Core.",
+      "open": "Otwórz element kolejki",
+      "severity": {
+        "info": "Info",
+        "attention": "Uwaga",
+        "critical": "Krytyczne"
+      },
+      "customerFollowUp": "Klient wymaga działań",
+      "paymentPastDue": "Płatność zaległa",
+      "invoiceReview": "Faktura wymaga przeglądu",
+      "commissionApproval": "Prowizja oczekuje na przegląd",
+      "partnerSettlement": "Rozliczenie partnera / rozbieżność faktury",
+      "providerTemplate": "Nieprawidłowy szablon providera",
+      "reliabilityIncident": "Incydent niezawodności lub integracji",
+      "supportEscalation": "Eskalacja supportu",
+      "securityEvent": "Zdarzenie bezpieczeństwa",
+      "approvalPending": "Oczekujące zatwierdzenie",
+      "next": {
+        "reviewCustomerSuccess": "Przejrzyj sukces klienta",
+        "reviewPaymentOperations": "Przejrzyj operacje płatności",
+        "reviewInvoices": "Przejrzyj faktury",
+        "reviewCommissions": "Przejrzyj prowizje",
+        "reviewPartnerSettlement": "Otwórz rozliczenia partnerskie",
+        "reviewProviderOnboarding": "Przejrzyj onboarding providera",
+        "reviewReliability": "Przejrzyj operacje niezawodności",
+        "reviewSupport": "Przejrzyj kolejkę supportu",
+        "reviewSecurity": "Przejrzyj zarządzanie bezpieczeństwem",
+        "reviewApprovals": "Przejrzyj zatwierdzenia"
+      }
+    },
+    "sections": {
+      "overview": {
+        "description": "Globalny przegląd operacyjny z autorytatywnymi KPI i aktualnością."
+      },
+      "customers": {
+        "description": "Organizacje, sukces, support, umowy, licencje i instalacje."
+      },
+      "salesFinance": {
+        "description": "Płatności, faktury, przychody i podatki — bez tworzenia równoległej prawdy finansowej."
+      },
+      "partners": {
+        "description": "Atrybucja partnerów, prowizje i widoczność rozliczeń."
+      },
+      "productCore": {
+        "description": "Providerzy, moduły, Kompis, weryfikacja i globalne szablony."
+      },
+      "operations": {
+        "description": "Kondycja, niezawodność, operacje zmian i obsługa wyjątków."
+      },
+      "governance": {
+        "description": "Zatwierdzenia, zaufanie, zgodność i audyt."
+      }
+    },
+    "settlementOps": {
+      "title": "Operacje rozliczeń partnerskich",
+      "subtitle": "Widok tylko do odczytu nad istniejącym silnikiem rozliczeń i self-billing partnerów.",
+      "empty": "Nie znaleziono rozliczeń partnerskich.",
+      "error": "Nie można wczytać operacji rozliczeń partnerskich.",
+      "partial": "Częściowe dane rozliczeń",
+      "freshness": "Ostatnie wyliczenie",
+      "filters": "Filtry",
+      "searchPlaceholder": "Szukaj partnera, okresu lub faktury",
+      "noMutations": "Tylko do odczytu. Brak wypłat, tworzenia faktur ani mutacji księgowych z tej powierzchni.",
+      "discrepanciesTitle": "Kolejka rozbieżności faktur partnerskich",
+      "discrepanciesSubtitle": "Wyjątki wymagające działań administracyjnych. Bez automatycznej korekty.",
+      "discrepanciesEmpty": "Nie wykryto rozbieżności rozliczeń.",
+      "columns": {
+        "partner": "Partner",
+        "period": "Okres",
+        "commissionBasis": "Podstawa prowizji",
+        "qualified": "Kwota kwalifikowana",
+        "earned": "Kwota naliczona",
+        "approved": "Kwota zatwierdzona",
+        "invoiceBasis": "Podstawa faktury",
+        "invoice": "Otrzymana faktura",
+        "matching": "Status dopasowania",
+        "discrepancy": "Rozbieżność",
+        "approval": "Zatwierdzenie",
+        "payout": "Status wypłaty",
+        "accounting": "Synchronizacja księgowa",
+        "updated": "Ostatnia aktualizacja",
+        "owner": "Właściciel",
+        "nextAction": "Następne działanie",
+        "severity": "Dotkliwość",
+        "expected": "Oczekiwane",
+        "actual": "Rzeczywiste",
+        "difference": "Różnica",
+        "reason": "Powód",
+        "dueDate": "Termin",
+        "status": "Status"
+      },
+      "statuses": {
+        "draft": "Wyliczone",
+        "awaiting_partner_approval": "Oczekuje na zatwierdzenie partnera",
+        "approved": "Zatwierdzone",
+        "invoice_generated": "Gotowe do faktury",
+        "sent_to_accounting": "Wysłane do księgowości",
+        "paid": "Wypłacone",
+        "rejected": "Odrzucone",
+        "cancelled": "Anulowane",
+        "matched": "Dopasowane",
+        "missing_invoice": "Brak faktury",
+        "amount_mismatch": "Rozbieżność kwoty",
+        "period_mismatch": "Rozbieżność okresu",
+        "payout_mismatch": "Rozbieżność wypłaty",
+        "accounting_sync_pending": "Oczekuje synch. księgowej",
+        "missing_commission_basis": "Brak podstawy prowizji",
+        "finalized": "Sfinalizowane",
+        "monitor": "Monitoruj",
+        "await_partner_approval": "Czekaj na zatwierdzenie partnera",
+        "review_settlement_basis": "Przejrzyj podstawę rozliczenia",
+        "await_invoice_generation": "Czekaj na generowanie faktury",
+        "investigate_amount_discrepancy": "Zbadaj rozbieżność kwoty",
+        "investigate_payout_mismatch": "Zbadaj rozbieżność wypłaty",
+        "review_partner_settlement": "Przejrzyj rozliczenie partnera",
+        "critical": "Krytyczne",
+        "attention": "Uwaga",
+        "info": "Info",
+        "unknown": "Nieznany"
+      }
+    },
+    "search": {
+      "navigationSearch": "Wyszukiwanie nawigacji",
+      "navigationSearchHint": "Znajduje trasy i funkcje Platform.",
+      "entitySearch": "Globalne wyszukiwanie jednostek",
+      "entitySearchPlanned": "Globalne wyszukiwanie jednostek jest zaplanowane. Wyszukiwanie nawigacji jest dostępne teraz.",
+      "entitySearchGap": "Niedostarczone w tym wydaniu"
+    },
+    "financeBoundaries": {
+      "subscriptionNote": "Aktywna subskrypcja sama w sobie nie potwierdza płatności.",
+      "invoiceNote": "Zafakturowane nie oznacza zapłacone.",
+      "paidNote": "Zapłacone nie oznacza zaksięgowane bez zdarzenia księgowego.",
+      "outstandingSource": "Suma kwot faktur ze statusem wysłana lub zaległa."
     }
   }
 }
