@@ -12,6 +12,7 @@ export type ExtractedPublicPage = {
   excerpt: string;
   chunks: string[];
   contentHash: string;
+  noindex: boolean;
 };
 
 function stripTags(html: string): string {
@@ -92,10 +93,16 @@ export function chunkPublicSiteBodyText(bodyText: string, maxChunks = 16): strin
   return chunks;
 }
 
+export function pageDeclaresNoindex(html: string): boolean {
+  const robots = `${matchMeta(html, "robots")} ${matchMeta(html, "googlebot")}`.toLowerCase();
+  return /\bnoindex\b/.test(robots);
+}
+
 export function extractPublicPageFromHtml(html: string, preferredLocale?: string): ExtractedPublicPage {
   const title = matchTitle(html);
   const metaDescription = matchMeta(html, "description") || matchMeta(html, "og:description");
   const locale = preferredLocale?.trim().toLowerCase() || matchHtmlLang(html);
+  const noindex = pageDeclaresNoindex(html);
 
   // Prefer main/article content when present
   const mainMatch =
@@ -118,11 +125,13 @@ export function extractPublicPageFromHtml(html: string, preferredLocale?: string
     excerpt,
     chunks,
     contentHash,
+    noindex,
   };
 }
 
-/** Reject pages that look like login walls or empty shells. */
+/** Reject pages that look like login walls, empty shells, or noindex. */
 export function isIndexableExtractedPage(page: ExtractedPublicPage): boolean {
+  if (page.noindex) return false;
   if (!page.title && !page.bodyText) return false;
   if (page.bodyText.length < 80 && page.metaDescription.length < 40) return false;
   const lowered = `${page.title} ${page.bodyText}`.toLowerCase();

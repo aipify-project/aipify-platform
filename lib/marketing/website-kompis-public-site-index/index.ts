@@ -44,6 +44,18 @@ export {
 
 export {
   ingestTenantPublicSiteIndex,
+  loadRobotsPolicyFailClosed,
   type PublicSiteIndexIngestInput,
   type PublicSiteIndexIngestResult,
+  type RobotsPolicyResult,
 } from "./ingest";
+
+export {
+  resolvePublicSiteIndexOperatorTrust,
+  type PublicSiteIndexOperatorTrust,
+} from "./operator-trust";
+
+export {
+  composePublicSiteIndexAnswerText,
+  tokenizePublicSiteIndexQuestion,
+} from "./answer";

@@ -1,19 +1,28 @@
--- AIPIFY.CORE.WEBSITE.KOMPIS.REAL.KNOWLEDGE.AND.MEMBER.RUNTIME.AIPIFY.ONLY.V2
--- Feature owner: PLATFORM (ingest) + INSTALL ENGINE / APP (public retrieval)
--- Scope: tenant-scoped PUBLIC website index for Website Kompis cross-page answers.
--- Does NOT seed customer content. Does NOT enable sources.publicSiteIndex by default.
--- Apply requires separate explicit owner approval (schema + later index data writes).
+-- AIPIFY.PR96.PUBLIC.SITE.INDEX.SECURITY.AND.FUNCTIONAL.PROOF.V1
+-- Feature owner: PLATFORM (ingest) + INSTALL ENGINE (public retrieval)
+-- Scope: tenant-scoped PUBLIC website index for Website Kompis.
+-- Does NOT seed customer content. Does NOT enable sources.publicSiteIndex.
+-- Apply requires separate explicit owner approval.
+-- Ledger note: Production schema_migrations ends at 20261937500000 at authoring time (no collision).
 
 -- ---------------------------------------------------------------------------
--- 1. Documents (one row per canonical public URL)
+-- 1. Documents
 -- ---------------------------------------------------------------------------
 create table if not exists public.tenant_public_site_index_documents (
   id uuid primary key default gen_random_uuid(),
   tenant_id uuid not null,
   install_id uuid null references public.installations (id) on delete set null,
-  verified_host text not null,
-  canonical_url text not null,
-  pathname text not null,
+  verified_host text not null
+    check (
+      verified_host = lower(verified_host)
+      and verified_host !~ '\s'
+      and length(verified_host) between 1 and 253
+      and verified_host !~ '^(localhost|127\.|0\.|10\.|192\.168\.|169\.254\.)'
+    ),
+  canonical_url text not null
+    check (canonical_url ~ '^https://'),
+  pathname text not null
+    check (pathname ~ '^/'),
   locale text not null default 'no',
   title text not null default '',
   meta_description text not null default '',
@@ -47,11 +56,16 @@ create index if not exists idx_tpsid_body_fts
     )
   );
 
+alter table public.tenant_public_site_index_documents enable row level security;
+alter table public.tenant_public_site_index_documents force row level security;
+
 revoke all on table public.tenant_public_site_index_documents from public, anon, authenticated;
 grant select, insert, update, delete on table public.tenant_public_site_index_documents to service_role;
 
+-- No anon/authenticated policies: direct table access denied. service_role bypasses RLS.
+
 -- ---------------------------------------------------------------------------
--- 2. Chunks (bounded passages for ranking)
+-- 2. Chunks
 -- ---------------------------------------------------------------------------
 create table if not exists public.tenant_public_site_index_chunks (
   id uuid primary key default gen_random_uuid(),
@@ -73,11 +87,14 @@ create index if not exists idx_tpsic_content_fts
   on public.tenant_public_site_index_chunks
   using gin (to_tsvector('simple', coalesce(content, '')));
 
+alter table public.tenant_public_site_index_chunks enable row level security;
+alter table public.tenant_public_site_index_chunks force row level security;
+
 revoke all on table public.tenant_public_site_index_chunks from public, anon, authenticated;
 grant select, insert, update, delete on table public.tenant_public_site_index_chunks to service_role;
 
 -- ---------------------------------------------------------------------------
--- 3. Crawl run ledger (operator/service only)
+-- 3. Crawl runs
 -- ---------------------------------------------------------------------------
 create table if not exists public.tenant_public_site_index_crawl_runs (
   id uuid primary key default gen_random_uuid(),
@@ -99,11 +116,14 @@ create table if not exists public.tenant_public_site_index_crawl_runs (
 create index if not exists idx_tpsir_tenant_created
   on public.tenant_public_site_index_crawl_runs (tenant_id, created_at desc);
 
+alter table public.tenant_public_site_index_crawl_runs enable row level security;
+alter table public.tenant_public_site_index_crawl_runs force row level security;
+
 revoke all on table public.tenant_public_site_index_crawl_runs from public, anon, authenticated;
 grant select, insert, update, delete on table public.tenant_public_site_index_crawl_runs to service_role;
 
 -- ---------------------------------------------------------------------------
--- 4. Token helper (reuse FAQ tokenizer shape)
+-- 4. Helpers
 -- ---------------------------------------------------------------------------
 create or replace function public._wpsi_query_tokens(p_query text)
 returns text[]
@@ -127,7 +147,7 @@ begin
     where length(t) >= 2
       and t not in (
         'og', 'i', 'på', 'til', 'av', 'en', 'et', 'den', 'det', 'de', 'som',
-        'er', 'for', 'med', 'fra', 'om', 'the', 'and', 'for', 'with', 'from',
+        'er', 'for', 'med', 'fra', 'om', 'the', 'and', 'with', 'from',
         'how', 'what', 'hva', 'hvordan', 'hvor'
       )
     limit 24
@@ -137,8 +157,71 @@ $$;
 
 revoke all on function public._wpsi_query_tokens(text) from public, anon, authenticated;
 
+create or replace function public._wpsi_assert_tenant_host_install(
+  p_tenant_id uuid,
+  p_install_id uuid,
+  p_verified_host text
+)
+returns boolean
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  v_host text;
+  v_install public.installations;
+begin
+  v_host := lower(trim(coalesce(p_verified_host, '')));
+  if p_tenant_id is null or v_host = '' then
+    return false;
+  end if;
+
+  if not exists (
+    select 1
+    from public.customer_domains cd
+    where cd.customer_id = p_tenant_id
+      and cd.domain = v_host
+      and cd.verification_status = 'verified'
+      and cd.status = 'active'
+  ) then
+    return false;
+  end if;
+
+  if not coalesce(public.is_tenant_module_enabled(p_tenant_id, 'website_kompis'), false) then
+    return false;
+  end if;
+
+  if p_install_id is not null then
+    select * into v_install
+    from public.installations i
+    where i.id = p_install_id
+      and i.revoked_at is null
+      and i.status in ('ready', 'installing', 'active', 'warning')
+    limit 1;
+
+    if v_install.id is null then
+      return false;
+    end if;
+
+    if coalesce(v_install.customer_id, (
+      select c.id from public.customers c where c.company_id = v_install.company_id limit 1
+    )) is distinct from p_tenant_id then
+      return false;
+    end if;
+  end if;
+
+  return true;
+end;
+$$;
+
+revoke all on function public._wpsi_assert_tenant_host_install(uuid, uuid, text)
+  from public, anon, authenticated;
+grant execute on function public._wpsi_assert_tenant_host_install(uuid, uuid, text)
+  to service_role;
+
 -- ---------------------------------------------------------------------------
--- 5. Public search (fail-closed; anon via install/domain visitor context)
+-- 5. Public search (SECURITY DEFINER only read path for visitors)
 -- ---------------------------------------------------------------------------
 create or replace function public.search_tenant_public_site_index(
   p_install_id uuid,
@@ -168,6 +251,7 @@ as $$
 declare
   v_tenant_id uuid;
   v_domain text;
+  v_install_id uuid;
   v_locale text;
   v_query text;
   v_limit integer;
@@ -178,18 +262,27 @@ begin
     return;
   end if;
 
+  -- Require install id for public site index (stricter than FAQ-only domain fallback).
+  if p_install_id is null then
+    return;
+  end if;
+
   v_limit := greatest(1, least(coalesce(p_limit, 5), 8));
   v_locale := lower(trim(coalesce(nullif(p_locale, ''), 'no')));
   if length(v_locale) > 16 then
     v_locale := 'no';
   end if;
 
-  select c.tenant_id, c.resolved_domain
-  into v_tenant_id, v_domain
+  select c.tenant_id, c.resolved_domain, c.resolved_install_id
+  into v_tenant_id, v_domain, v_install_id
   from public._wpkf_resolve_visitor_context(p_install_id, p_domain) c
   limit 1;
 
-  if v_tenant_id is null then
+  if v_tenant_id is null or v_domain is null or v_install_id is null then
+    return;
+  end if;
+
+  if not public._wpsi_assert_tenant_host_install(v_tenant_id, v_install_id, v_domain) then
     return;
   end if;
 
@@ -239,10 +332,10 @@ begin
       on ch.document_id = d.id
      and ch.tenant_id = d.tenant_id
     where d.tenant_id = v_tenant_id
+      and d.verified_host = v_domain
       and d.status = 'active'
       and d.robots_allowed = true
       and d.stale_after > now()
-      and (v_domain is null or d.verified_host = v_domain)
       and (
         d.locale = v_locale
         or d.locale = 'en'
@@ -274,7 +367,7 @@ grant execute on function public.search_tenant_public_site_index(uuid, text, tex
   to anon, authenticated, service_role;
 
 -- ---------------------------------------------------------------------------
--- 6. Service-role document replace (ingest path; no anon/authenticated write)
+-- 6. Service-role document replace (trust-bound)
 -- ---------------------------------------------------------------------------
 create or replace function public.replace_tenant_public_site_index_document(
   p_tenant_id uuid,
@@ -309,21 +402,26 @@ begin
     raise exception 'SERVICE_ROLE_REQUIRED';
   end if;
 
-  if p_tenant_id is null then
-    raise exception 'TENANT_REQUIRED';
-  end if;
-
   v_host := lower(trim(coalesce(p_verified_host, '')));
   v_url := trim(coalesce(p_canonical_url, ''));
   v_path := trim(coalesce(p_pathname, ''));
   v_locale := lower(trim(coalesce(nullif(p_locale, ''), 'no')));
 
-  if v_host = '' or v_url = '' or v_path = '' or left(v_path, 1) <> '/' then
+  if not public._wpsi_assert_tenant_host_install(p_tenant_id, p_install_id, v_host) then
+    raise exception 'TRUST_CONTEXT_REJECTED';
+  end if;
+
+  if v_url !~ '^https://' or v_path = '' or left(v_path, 1) <> '/' then
     raise exception 'INVALID_DOCUMENT';
   end if;
 
   if length(coalesce(p_content_hash, '')) < 8 then
     raise exception 'INVALID_CONTENT_HASH';
+  end if;
+
+  -- Canonical URL host must match verified host exactly.
+  if lower(split_part(regexp_replace(v_url, '^https://', ''), '/', 1)) is distinct from v_host then
+    raise exception 'HOST_MISMATCH';
   end if;
 
   insert into public.tenant_public_site_index_documents (
@@ -386,7 +484,7 @@ begin
   where document_id = v_doc_id;
 
   if p_chunks is not null then
-    for v_i in 1 .. least(array_length(p_chunks, 1), 24) loop
+    for v_i in 1 .. least(coalesce(array_length(p_chunks, 1), 0), 24) loop
       if length(trim(p_chunks[v_i])) >= 24 then
         insert into public.tenant_public_site_index_chunks (
           document_id,
@@ -418,7 +516,7 @@ grant execute on function public.replace_tenant_public_site_index_document(
 ) to service_role;
 
 -- ---------------------------------------------------------------------------
--- 7. Mark documents stale for a tenant host (service role)
+-- 7. Mark stale
 -- ---------------------------------------------------------------------------
 create or replace function public.mark_tenant_public_site_index_stale(
   p_tenant_id uuid,
@@ -435,6 +533,10 @@ declare
 begin
   if auth.role() is distinct from 'service_role' then
     raise exception 'SERVICE_ROLE_REQUIRED';
+  end if;
+
+  if not public._wpsi_assert_tenant_host_install(p_tenant_id, null, lower(trim(p_verified_host))) then
+    raise exception 'TRUST_CONTEXT_REJECTED';
   end if;
 
   update public.tenant_public_site_index_documents

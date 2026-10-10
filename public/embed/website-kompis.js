@@ -59,6 +59,10 @@
     "/register",
     "/app",
     "/api",
+    "/chat",
+    "/discover",
+    "/wishlist",
+    "/marketplace",
   ];
   var LOCALE_SEGMENTS = {
     en: true,

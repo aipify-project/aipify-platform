@@ -711,7 +711,12 @@ async function tryBuildPublicSiteIndexAnswer(
     return null;
   }
 
-  const built = buildPublicSiteIndexAnswer(hits, locale, visitorContext.domain);
+  const built = buildPublicSiteIndexAnswer(
+    hits,
+    locale,
+    visitorContext.domain,
+    question,
+  );
   if (!built) {
     return null;
   }

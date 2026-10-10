@@ -16,21 +16,30 @@ import {
 
 export type PublicSiteIndexIngestInput = {
   tenantId: string;
-  installId: string | null;
+  installId: string;
   verifiedHost: string;
   /** Explicit seed URLs and/or sitemap discovery starting points. */
   seedUrls: string[];
   localeHint?: string;
   maxPages?: number;
+  /** When true, discover/fetch/extract but do not persist. */
+  dryRun?: boolean;
 };
 
 export type PublicSiteIndexIngestResult = {
   discovered: number;
   indexed: number;
   rejected: number;
+  dryRun: boolean;
+  robotsStatus: "ok" | "fail_closed";
   errors: Array<{ url: string; reason: string }>;
   indexedUrls: string[];
+  rejectedPrivateSample: string[];
 };
+
+export type RobotsPolicyResult =
+  | { ok: true; disallow: string[] }
+  | { ok: false; reason: "robots_fetch_failed" | "robots_empty_ambiguous" };
 
 function uniqueUrls(urls: string[]): string[] {
   return [...new Set(urls.map((u) => u.trim()).filter(Boolean))];
@@ -59,29 +68,68 @@ async function discoverFromSitemap(
   return out;
 }
 
-async function loadRobotsDisallows(verifiedHost: string): Promise<string[]> {
+/** Fail closed: robots fetch errors or empty ambiguous bodies block ingest. */
+export async function loadRobotsPolicyFailClosed(
+  verifiedHost: string,
+): Promise<RobotsPolicyResult> {
   const fetched = await fetchVerifiedPublicSiteUrl({
     url: `https://${verifiedHost}/robots.txt`,
     verifiedHost,
   });
-  if (!fetched.ok) return [];
-  return parseRobotsTxtDisallowPaths(fetched.body);
+  if (!fetched.ok) {
+    return { ok: false, reason: "robots_fetch_failed" };
+  }
+  const body = fetched.body.trim();
+  if (!body || body.length < 8) {
+    return { ok: false, reason: "robots_empty_ambiguous" };
+  }
+  return { ok: true, disallow: parseRobotsTxtDisallowPaths(body) };
 }
 
 /**
  * Bounded SSRF-safe public site ingest into Core.
  * Must be invoked only by approved operator/service paths — never from visitor ask.
+ * Caller must resolve tenantId/installId/verifiedHost from Core trust (not client-supplied alone).
  */
 export async function ingestTenantPublicSiteIndex(
   input: PublicSiteIndexIngestInput,
 ): Promise<PublicSiteIndexIngestResult> {
   const host = input.verifiedHost.trim().toLowerCase();
+  const installId = input.installId?.trim();
+  if (!installId) {
+    return {
+      discovered: 0,
+      indexed: 0,
+      rejected: 0,
+      dryRun: Boolean(input.dryRun),
+      robotsStatus: "fail_closed",
+      errors: [{ url: host, reason: "install_required" }],
+      indexedUrls: [],
+      rejectedPrivateSample: [],
+    };
+  }
+
   const maxPages = Math.min(
     input.maxPages ?? WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_PAGES,
     WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_PAGES,
   );
+  const dryRun = Boolean(input.dryRun);
 
-  const disallow = await loadRobotsDisallows(host);
+  const robots = await loadRobotsPolicyFailClosed(host);
+  if (!robots.ok) {
+    return {
+      discovered: 0,
+      indexed: 0,
+      rejected: 0,
+      dryRun,
+      robotsStatus: "fail_closed",
+      errors: [{ url: `https://${host}/robots.txt`, reason: robots.reason }],
+      indexedUrls: [],
+      rejectedPrivateSample: [],
+    };
+  }
+
+  const disallow = robots.disallow;
   const seeds = uniqueUrls([
     ...input.seedUrls,
     `https://${host}/sitemap.xml`,
@@ -89,9 +137,15 @@ export async function ingestTenantPublicSiteIndex(
   ]);
 
   const discovered = new Set<string>();
+  const rejectedPrivateSample: string[] = [];
   for (const seed of seeds) {
     const decision = evaluatePublicSiteIndexUrl(seed, host);
-    if (!decision.ok) continue;
+    if (!decision.ok) {
+      if (decision.reason === "private_path" && rejectedPrivateSample.length < 12) {
+        rejectedPrivateSample.push(seed);
+      }
+      continue;
+    }
 
     if (decision.pathname.endsWith(".xml") || decision.pathname.includes("sitemap")) {
       const fromSitemap = await discoverFromSitemap(host, decision.url.toString());
@@ -103,7 +157,7 @@ export async function ingestTenantPublicSiteIndex(
   }
 
   const candidates = [...discovered].slice(0, maxPages);
-  const supabase = createServiceRoleClient();
+  const supabase = dryRun ? null : createServiceRoleClient();
   const errors: Array<{ url: string; reason: string }> = [];
   const indexedUrls: string[] = [];
   let rejected = 0;
@@ -113,6 +167,9 @@ export async function ingestTenantPublicSiteIndex(
     if (!decision.ok) {
       rejected += 1;
       errors.push({ url, reason: decision.reason });
+      if (decision.reason === "private_path" && rejectedPrivateSample.length < 12) {
+        rejectedPrivateSample.push(url);
+      }
       continue;
     }
     if (isPathDisallowedByRobots(decision.pathname, disallow)) {
@@ -129,7 +186,6 @@ export async function ingestTenantPublicSiteIndex(
     }
 
     if (!fetched.contentType.includes("html") && !fetched.contentType.includes("xml")) {
-      // Allow text/html missing content-type on some hosts
       if (fetched.contentType && !fetched.body.includes("<html")) {
         rejected += 1;
         errors.push({ url, reason: "not_html" });
@@ -140,7 +196,7 @@ export async function ingestTenantPublicSiteIndex(
     const extracted = extractPublicPageFromHtml(fetched.body, input.localeHint);
     if (!isIndexableExtractedPage(extracted)) {
       rejected += 1;
-      errors.push({ url, reason: "not_indexable" });
+      errors.push({ url, reason: extracted.noindex ? "noindex" : "not_indexable" });
       continue;
     }
 
@@ -151,11 +207,18 @@ export async function ingestTenantPublicSiteIndex(
       continue;
     }
 
+    const canonical = normalizePublicSiteIndexCanonicalUrl(finalDecision.url);
+
+    if (dryRun || !supabase) {
+      indexedUrls.push(canonical);
+      continue;
+    }
+
     const { error } = await supabase.rpc("replace_tenant_public_site_index_document", {
       p_tenant_id: input.tenantId,
-      p_install_id: input.installId,
+      p_install_id: installId,
       p_verified_host: host,
-      p_canonical_url: normalizePublicSiteIndexCanonicalUrl(finalDecision.url),
+      p_canonical_url: canonical,
       p_pathname: finalDecision.pathname,
       p_locale: extracted.locale || input.localeHint || "no",
       p_title: extracted.title,
@@ -173,14 +236,17 @@ export async function ingestTenantPublicSiteIndex(
       continue;
     }
 
-    indexedUrls.push(normalizePublicSiteIndexCanonicalUrl(finalDecision.url));
+    indexedUrls.push(canonical);
   }
 
   return {
     discovered: discovered.size,
     indexed: indexedUrls.length,
     rejected,
+    dryRun,
+    robotsStatus: "ok",
     errors: errors.slice(0, 40),
     indexedUrls,
+    rejectedPrivateSample,
   };
 }

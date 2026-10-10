@@ -20,6 +20,10 @@ export const WEBSITE_KOMPIS_PRIVATE_PATH_PREFIXES = [
   "/register",
   "/app",
   "/api",
+  "/chat",
+  "/discover",
+  "/wishlist",
+  "/marketplace",
 ] as const;
 
 const LOCALE_SEGMENT = /^(en|no|nb|nn|sv|da|pl|uk|es|de|fr)$/i;

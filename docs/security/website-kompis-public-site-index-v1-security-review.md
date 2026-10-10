@@ -1,39 +1,41 @@
-# Website Kompis Public Site Index V1 — Security Review (proposed)
+# Website Kompis Public Site Index V1 — Security Review (PR #96 repair)
 
-Task: `AIPIFY.CORE.WEBSITE.KOMPIS.REAL.KNOWLEDGE.AND.MEMBER.RUNTIME.AIPIFY.ONLY.V2`  
+Task: `AIPIFY.PR96.PUBLIC.SITE.INDEX.SECURITY.AND.FUNCTIONAL.PROOF.V1`  
 Migration: `supabase/migrations/20261937600000_website_kompis_public_site_index_v1.sql`  
-Status: **NOT APPLIED** — requires separate owner approval before SQL apply / data ingest / Production enablement.
+Status: **NOT APPLIED** — owner approval required before SQL apply / Production ingest / enablement.
 
-## Threat model
+## Ledger
+
+Production `schema_migrations` at review time includes through `20261937500000` only. `20261937600000` does not collide with applied versions.
+
+## RLS / grants
+
+| Object | RLS | FORCE | anon/auth table grants | Notes |
+|---|---|---|---|---|
+| `tenant_public_site_index_documents` | ENABLE | FORCE | REVOKED | No policies → deny direct access |
+| `tenant_public_site_index_chunks` | ENABLE | FORCE | REVOKED | Same |
+| `tenant_public_site_index_crawl_runs` | ENABLE | FORCE | REVOKED | Same |
+
+- Visitor read: only `search_tenant_public_site_index` (SECURITY DEFINER), gated by `_wpkf_resolve_visitor_context` + `_wpsi_assert_tenant_host_install` (verified domain + install + `website_kompis` module).
+- Writes: `replace_*` / `mark_*_stale` require `auth.role() = service_role` and trust assert.
+- Isolated Docker Postgres matrix: `lib/marketing/website-kompis-public-site-index/rls-matrix.test.ts`.
+
+## Threat mitigations (repair)
 
 | Threat | Mitigation |
 |---|---|
-| SSRF / DNS rebinding | `assertPublicHostnameAllowed` + exact verified host match; private/reserved IP block |
-| Cross-host redirect | Manual redirects; same-host only |
-| Private/member path indexing | Locale-aware private prefix denylist + robots disallow |
-| Visitor-supplied crawl URL | Ingest only from verified host + seed/sitemap discovery; ask path never fetches |
-| Cross-tenant leak | Visitor search via `_wpkf_resolve_visitor_context`; rows scoped by `tenant_id` |
-| Prompt injection from page HTML | Indexed text treated as untrusted evidence; neutralization strip; extractive answers only |
-| Anon write | `replace_*` / `mark_*_stale` require `auth.role() = service_role` |
-| Oversize fetch | 8s timeout, 256KB body cap, max 80 pages |
-| Auth cookies / secrets | `credentials: omit`; no cookie forwarding; token/email redaction in extract |
+| Missing RLS | ENABLE + FORCE on all three tables |
+| SSRF / DNS rebinding | DNS/public-IP assert before every hop + after headers; HTTPS-only; same-host redirects |
+| Robots ignore on fetch fail | Fail closed — ingest aborts if robots.txt unavailable/ambiguous |
+| noindex pages | Meta robots + `X-Robots-Tag` rejected |
+| Client-trusted tenant/host | Platform operator route resolves Core status RPC; dryRun default true |
+| Raw chunk as answer | Question-token overlap + sentence selection; null on low overlap |
+| Private paths | Locale-aware denylist includes marketplace/chat/discover/messages/… |
 
-## Fail-closed
-
-- Missing/invalid install or unverified domain → empty search
-- Stale documents (`stale_after` / status) excluded
-- `sources.publicSiteIndex` defaults **false**; admin UI still forces off until separately enabled after ingest proof
-- Empty/low-score hits → ask falls through to FAQ / safe fallback
-
-## Rollback
-
-1. Keep `sources.publicSiteIndex = false` (default).
-2. Drop functions/tables from migration 202619376 if needed (service-role only; no customer data dependency for other modules).
-3. Loader/UI resize is independent of schema and can remain.
-
-## Explicit non-goals of this PR
+## Explicit non-goals / stops
 
 - No Production SQL apply
 - No Production index data write
+- No `publicSiteIndex` Production enablement
 - No UnoNight source/PR/deploy changes
-- No enablement of `publicSiteIndex` in live install config without approved ingest
+- No merge/deploy in this task

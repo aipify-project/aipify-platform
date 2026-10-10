@@ -79,6 +79,7 @@ async function main() {
   );
 
   assert.equal(siteIndexCalled, true);
+  assert.match(response.answer.directAnswer, /Ut fra nettstedets offentlige sider/);
   assert.match(response.answer.directAnswer, /Bronze/);
   assert.equal(
     response.sources[0]?.route,

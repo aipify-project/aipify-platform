@@ -16,6 +16,7 @@ export type SafePublicFetchResult =
       status: number;
       body: string;
       contentType: string;
+      xRobotsTag: string | null;
     }
   | {
       ok: false;
@@ -26,7 +27,8 @@ export type SafePublicFetchResult =
         | "redirect_blocked"
         | "http_error"
         | "body_too_large"
-        | "network_error";
+        | "network_error"
+        | "noindex";
       detail?: string;
     };
 
@@ -58,9 +60,21 @@ async function readBodyCapped(response: Response, maxBytes: number): Promise<str
   return Buffer.concat(chunks.map((c) => Buffer.from(c))).toString("utf8");
 }
 
+async function assertHostStillPublic(
+  hostname: string,
+  verifiedHost: string,
+): Promise<{ ok: true } | { ok: false; detail: string }> {
+  const hostGate = await assertPublicHostnameAllowed(hostname, verifiedHost);
+  if (!hostGate.ok) {
+    return { ok: false, detail: hostGate.reason };
+  }
+  return { ok: true };
+}
+
 /**
- * SSRF-safe fetch for verified customer public hosts.
- * Same-host redirects only; no cookies/auth; bounded body/time.
+ * SSRF-hardened fetch for verified customer public hosts.
+ * Re-validates DNS/public IP before every hop to reduce DNS-rebinding risk.
+ * Same-host HTTPS redirects only; no cookies/auth; bounded body/time.
  */
 export async function fetchVerifiedPublicSiteUrl(input: {
   url: string;
@@ -72,18 +86,21 @@ export async function fetchVerifiedPublicSiteUrl(input: {
     return { ok: false, reason: "url_rejected", detail: decision.reason };
   }
 
-  const hostGate = await assertPublicHostnameAllowed(
-    decision.url.hostname,
-    input.verifiedHost,
-  );
-  if (!hostGate.ok) {
-    return { ok: false, reason: "ssrf_blocked", detail: hostGate.reason };
-  }
-
   let current = normalizePublicSiteIndexCanonicalUrl(decision.url);
   const maxRedirects = input.maxRedirects ?? 3;
 
   for (let hop = 0; hop <= maxRedirects; hop += 1) {
+    const hopDecision = evaluatePublicSiteIndexUrl(current, input.verifiedHost);
+    if (!hopDecision.ok) {
+      return { ok: false, reason: "url_rejected", detail: hopDecision.reason };
+    }
+
+    // Re-resolve DNS on every hop (mitigate rebinding between hops).
+    const dnsGate = await assertHostStillPublic(hopDecision.url.hostname, input.verifiedHost);
+    if (!dnsGate.ok) {
+      return { ok: false, reason: "ssrf_blocked", detail: dnsGate.detail };
+    }
+
     const controller = new AbortController();
     const timer = setTimeout(
       () => controller.abort(),
@@ -99,10 +116,15 @@ export async function fetchVerifiedPublicSiteUrl(input: {
           Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
           "User-Agent": "AipifyPublicSiteIndex/1.0 (+https://aipify.ai)",
         },
-        // Never forward cookies or credentials
         credentials: "omit",
         cache: "no-store",
       });
+
+      // Re-check DNS after response headers (before consuming body).
+      const postDns = await assertHostStillPublic(hopDecision.url.hostname, input.verifiedHost);
+      if (!postDns.ok) {
+        return { ok: false, reason: "ssrf_blocked", detail: postDns.detail };
+      }
 
       if (response.status >= 300 && response.status < 400) {
         const location = response.headers.get("location");
@@ -125,6 +147,11 @@ export async function fetchVerifiedPublicSiteUrl(input: {
         return { ok: false, reason: "http_error", detail: String(response.status) };
       }
 
+      const xRobotsTag = response.headers.get("x-robots-tag");
+      if (xRobotsTag && /\bnoindex\b/i.test(xRobotsTag)) {
+        return { ok: false, reason: "noindex", detail: "x-robots-tag" };
+      }
+
       const contentType = (response.headers.get("content-type") || "").toLowerCase();
       const body = await readBodyCapped(response, WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_BYTES);
       if (body == null) {
@@ -137,6 +164,7 @@ export async function fetchVerifiedPublicSiteUrl(input: {
         status: response.status,
         body,
         contentType,
+        xRobotsTag,
       };
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {

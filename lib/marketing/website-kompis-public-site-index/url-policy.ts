@@ -35,11 +35,11 @@ export function evaluatePublicSiteIndexUrl(
     return { ok: false, reason: "invalid_url" };
   }
 
-  if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
+  // Fail closed: indexed public pages must be HTTPS only (no http upgrade trust).
+  if (parsed.protocol !== "https:") {
     return { ok: false, reason: "protocol_blocked" };
   }
 
-  // Prefer https for indexed public pages; allow http only when host matches and will be normalized.
   if (parsed.username || parsed.password) {
     return { ok: false, reason: "credentials_present" };
   }
@@ -57,9 +57,6 @@ export function evaluatePublicSiteIndexUrl(
   // Drop query/hash for canonical indexing identity (keep path only).
   parsed.hash = "";
   parsed.search = "";
-  if (parsed.protocol === "http:") {
-    parsed.protocol = "https:";
-  }
 
   return { ok: true, url: parsed, pathname };
 }
