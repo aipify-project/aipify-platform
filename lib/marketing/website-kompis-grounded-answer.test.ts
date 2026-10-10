@@ -183,7 +183,7 @@ async function main() {
 
   await test("required cost controls fail closed without supabase (no provider call)", async () => {
     const { requestKompisGroundedTextCompletion } = await import(
-      "../kompis-operator/grounded-completion.ts"
+      "../kompis-operator/grounded-completion"
     );
     const originalFetch = globalThis.fetch;
     let fetchCalls = 0;
