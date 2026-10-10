@@ -74,6 +74,19 @@ async function main() {
 
   await test("parse rejects oversized or invalid JSON payloads", () => {
     assert.equal(parseWebsiteKompisGroundedModelPayload("not-json"), null);
+    const fenced = parseWebsiteKompisGroundedModelPayload(
+      "```json\n" +
+        JSON.stringify({
+          covered: true,
+          answer: "Standard koster 199 kroner.",
+          sourceIds: ["faq:syn-a-membership"],
+          followUp: "Vil du vite mer?",
+        }) +
+        "\n```",
+    );
+    assert.ok(fenced);
+    assert.equal(fenced?.covered, true);
+    assert.match(fenced?.answer ?? "", /199/);
     assert.equal(
       parseWebsiteKompisGroundedModelPayload(
         JSON.stringify({ covered: true, answer: "x".repeat(1201), sourceIds: ["faq:1"] }),
