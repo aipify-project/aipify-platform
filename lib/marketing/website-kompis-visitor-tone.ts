@@ -18,7 +18,10 @@ export type WebsiteKompisVisitorAnswerSource =
 
 export type WebsiteKompisEmbedUiLabels = {
   title: string;
+  /** Short header subtitle — not the conversation greeting. */
   prompt: string;
+  /** Shown once in an empty conversation, near the composer. */
+  greeting: string;
   placeholder: string;
   send: string;
   sending: string;
@@ -146,67 +149,79 @@ const EMBED_UI_COPY: Record<
   WebsiteKompisEmbedLocale,
   Record<
     WebsiteKompisWelcomeMessageVariant,
-    Pick<WebsiteKompisEmbedUiLabels, "prompt" | "placeholder">
+    Pick<WebsiteKompisEmbedUiLabels, "prompt" | "greeting" | "placeholder">
   >
 > = {
   no: {
     standard: {
-      prompt: "Spør meg om det du lurer på — jeg svarer ut fra det som står på nettsiden.",
-      placeholder: "Hva lurer du på?",
+      prompt: "Svarer ut fra det som står på nettsiden",
+      greeting: "Hei! Hva kan jeg hjelpe deg med?",
+      placeholder: "Skriv en melding…",
     },
     compact: {
-      prompt: "Spør om denne siden",
-      placeholder: "Skriv et spørsmål …",
+      prompt: "Om denne siden",
+      greeting: "Hei! Hva kan jeg hjelpe deg med?",
+      placeholder: "Skriv en melding…",
     },
   },
   en: {
     standard: {
-      prompt: "Ask what you need — I answer from what is published on this website.",
-      placeholder: "What would you like to know?",
+      prompt: "Answers from what is published on this website",
+      greeting: "Hi! How can I help you?",
+      placeholder: "Type a message…",
     },
     compact: {
-      prompt: "Ask about this page",
-      placeholder: "Type a question …",
+      prompt: "About this page",
+      greeting: "Hi! How can I help you?",
+      placeholder: "Type a message…",
     },
   },
   sv: {
     standard: {
-      prompt: "Fråga om det du undrar — jag svarar utifrån det som står på webbplatsen.",
-      placeholder: "Vad undrar du över?",
+      prompt: "Svarar utifrån det som står på webbplatsen",
+      greeting: "Hej! Hur kan jag hjälpa dig?",
+      placeholder: "Skriv ett meddelande…",
     },
     compact: {
-      prompt: "Fråga om den här sidan",
-      placeholder: "Skriv en fråga …",
+      prompt: "Om den här sidan",
+      greeting: "Hej! Hur kan jag hjälpa dig?",
+      placeholder: "Skriv ett meddelande…",
     },
   },
   da: {
     standard: {
-      prompt: "Spørg om det, du undrer dig over — jeg svarer ud fra det, der står på hjemmesiden.",
-      placeholder: "Hvad vil du vide?",
+      prompt: "Svarer ud fra det, der står på hjemmesiden",
+      greeting: "Hej! Hvordan kan jeg hjælpe dig?",
+      placeholder: "Skriv en besked…",
     },
     compact: {
-      prompt: "Spørg om denne side",
-      placeholder: "Skriv et spørgsmål …",
+      prompt: "Om denne side",
+      greeting: "Hej! Hvordan kan jeg hjælpe dig?",
+      placeholder: "Skriv en besked…",
     },
   },
   pl: {
     standard: {
-      prompt: "Zapytaj o to, czego potrzebujesz — odpowiadam na podstawie treści opublikowanych na tej stronie.",
-      placeholder: "O czym chcesz zapytać?",
+      prompt: "Odpowiada na podstawie treści opublikowanych na tej stronie",
+      greeting: "Cześć! W czym mogę pomóc?",
+      placeholder: "Napisz wiadomość…",
     },
     compact: {
-      prompt: "Zapytaj o tę stronę",
-      placeholder: "Wpisz pytanie …",
+      prompt: "O tej stronie",
+      greeting: "Cześć! W czym mogę pomóc?",
+      placeholder: "Napisz wiadomość…",
     },
   },
   uk: {
     standard: {
-      prompt: "Запитайте про те, що вас цікавить — я відповідаю на основі опублікованого на сайті.",
-      placeholder: "Що вас цікавить?",
+      prompt: "Відповідає на основі опублікованого на сайті",
+      greeting: "Привіт! Чим можу допомогти?",
+      placeholder: "Напишіть повідомлення…",
     },
     compact: {
-      prompt: "Запитайте про цю сторінку",
-      placeholder: "Введіть питання …",
+      prompt: "Про цю сторінку",
+      greeting: "Привіт! Чим можу допомогти?",
+      placeholder: "Напишіть повідомлення…",
     },
   },
 };
@@ -283,6 +298,7 @@ export function resolveWebsiteKompisEmbedUiLabels(input: {
   return {
     ...shell,
     prompt: welcome.prompt,
+    greeting: welcome.greeting,
     placeholder: welcome.placeholder,
   };
 }
