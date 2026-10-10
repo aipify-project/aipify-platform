@@ -36,9 +36,13 @@ export {
   PUBLIC_SITE_INDEX_MIN_RELEVANCE_SCORE,
   WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_SOURCE,
   buildPublicSiteIndexAnswer,
+  filterAndRankPublicSiteIndexHits,
+  focusPublicSiteIndexQuery,
   isRelevantPublicSiteIndexResult,
   sanitizePublicSiteIndexSourceUrl,
   neutralizeUntrustedPageEvidence,
+  scorePublicSiteIndexHitTopicOverlap,
+  topicTokensForPublicSiteIndex,
   type PublicSiteIndexHit,
   type PublicSiteIndexAnswer,
 } from "./answer";
@@ -94,3 +98,4 @@ export {
   composePublicSiteIndexAnswerText,
   tokenizePublicSiteIndexQuestion,
 } from "./answer";
+
