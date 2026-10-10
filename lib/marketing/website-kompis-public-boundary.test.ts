@@ -281,7 +281,7 @@ async function main() {
         capabilityKey: "website_kompis",
       }),
       searchTenantVisitorKnowledge: async (input) => {
-        if (input.installId === tenantAInstall || input.domain.includes("customer-a")) {
+        if (input.installId === tenantAInstall || (input.domain ?? "").includes("customer-a")) {
           tenantBSawTenantA = true;
         }
         assert.equal(input.installId, tenantBInstall);
