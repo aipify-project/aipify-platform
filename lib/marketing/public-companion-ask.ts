@@ -71,6 +71,7 @@ import {
 import type { WebsiteKompisLicensedAvailability } from "@/lib/marketing/website-kompis-licensed-availability";
 import {
   buildWebsiteKompisEvidencePack,
+  createDefaultWebsiteKompisGroundedCompletion,
   synthesizeWebsiteKompisGroundedAnswer,
 } from "@/lib/marketing/website-kompis-grounded-answer";
 import type { KompisGroundedCompletionResult } from "@/lib/kompis-operator/grounded-completion";
@@ -973,9 +974,20 @@ export async function askPublicPlatformCompanion(
       indexCount: siteIndexHits.length,
       evidenceCount: evidencePack.evidence.length,
     });
+    // Preview: allow provider smoke without Core metering writes (Preview shares Production DB).
+    // Production: require metering/circuit context — fail closed when it cannot be applied.
+    // Existing APP RPCs require authenticated operator auth.uid(); public embed cannot satisfy
+    // them without schema/grant changes (out of scope). Fail-closed blocks silent skip.
+    const isPreviewEnv = process.env.VERCEL_ENV === "preview";
+    const groundedCostControls = isPreviewEnv ? "off" : "required";
     const groundedResult = await synthesizeWebsiteKompisGroundedAnswer({
       pack: evidencePack,
-      completion: options?.groundedCompletion,
+      completion:
+        options?.groundedCompletion ??
+        createDefaultWebsiteKompisGroundedCompletion({
+          costControls: groundedCostControls,
+        }),
+      costControls: groundedCostControls,
     });
     if (groundedResult.status === "ok") {
       const groundedAnswer = groundedResult.response;
@@ -999,7 +1011,7 @@ export async function askPublicPlatformCompanion(
           source: groundedSource,
         },
       );
-      if (process.env.VERCEL_ENV === "preview") {
+      if (isPreviewEnv) {
         return {
           ...groundedResponse,
           diagnostics: {
@@ -1008,25 +1020,31 @@ export async function askPublicPlatformCompanion(
               evidenceCount: evidencePack.evidence.length,
               faqCount: faqRows.length,
               indexCount: siteIndexHits.length,
+              costControls: groundedCostControls,
+              provider: groundedResult.providerDiagnostics ?? null,
             },
           },
         } as PublicCompanionAskResponse;
       }
       return groundedResponse;
     }
-    const previewGroundedDiagnostic =
-      process.env.VERCEL_ENV === "preview"
-        ? {
-            grounded: {
-              status: groundedResult.status,
-              reason: groundedResult.reason,
-              detail: "detail" in groundedResult ? groundedResult.detail : null,
-              evidenceCount: groundedResult.evidenceCount,
-              faqCount: faqRows.length,
-              indexCount: siteIndexHits.length,
-            },
-          }
-        : null;
+    const previewGroundedDiagnostic = isPreviewEnv
+      ? {
+          grounded: {
+            status: groundedResult.status,
+            reason: groundedResult.reason,
+            detail: "detail" in groundedResult ? groundedResult.detail : null,
+            evidenceCount: groundedResult.evidenceCount,
+            faqCount: faqRows.length,
+            indexCount: siteIndexHits.length,
+            costControls: groundedCostControls,
+            provider:
+              "providerDiagnostics" in groundedResult
+                ? groundedResult.providerDiagnostics ?? null
+                : null,
+          },
+        }
+      : null;
     if (previewGroundedDiagnostic) {
       console.warn("[website-kompis-grounded]", {
         event: "ask_grounded_not_used",

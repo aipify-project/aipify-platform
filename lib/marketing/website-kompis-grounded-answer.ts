@@ -3,6 +3,8 @@ import { selectModelProfile } from "@/lib/intelligence/router";
 import {
   requestKompisGroundedTextCompletion,
   type KompisGroundedCompletionResult,
+  type KompisGroundedCostControlsMode,
+  type KompisGroundedProviderDiagnostics,
 } from "@/lib/kompis-operator/grounded-completion";
 import type { PublicCompanionTenantFaqRow } from "@/lib/marketing/public-companion-tenant-faq";
 import type { PublicSiteIndexHit } from "@/lib/marketing/website-kompis-public-site-index";
@@ -303,6 +305,7 @@ export function createDefaultWebsiteKompisGroundedCompletion(options?: {
   supabase?: SupabaseClient;
   organizationId?: string | null;
   runId?: string | null;
+  costControls?: KompisGroundedCostControlsMode;
 }): WebsiteKompisGroundedCompletionFn {
   return async ({ system, user }) =>
     requestKompisGroundedTextCompletion({
@@ -310,12 +313,18 @@ export function createDefaultWebsiteKompisGroundedCompletion(options?: {
       user,
       supabase: options?.supabase,
       organizationId: options?.organizationId,
-      runId: options?.runId ?? "website-kompis-grounded",
+      // Core RPC expects uuid | null — never a free-form label string.
+      runId: options?.runId ?? null,
+      costControls: options?.costControls,
     });
 }
 
 export type WebsiteKompisGroundedSynthesizeResult =
-  | { status: "ok"; response: WebsiteKompisGroundedAskResponse }
+  | {
+      status: "ok";
+      response: WebsiteKompisGroundedAskResponse;
+      providerDiagnostics?: KompisGroundedProviderDiagnostics;
+    }
   | {
       status: "skipped";
       reason: "no_evidence" | "injection";
@@ -326,11 +335,15 @@ export type WebsiteKompisGroundedSynthesizeResult =
       reason: "provider" | "parse" | "validate";
       detail: string;
       evidenceCount: number;
+      providerDiagnostics?: KompisGroundedProviderDiagnostics;
     };
 
 export async function synthesizeWebsiteKompisGroundedAnswer(input: {
   pack: WebsiteKompisEvidencePack;
   completion?: WebsiteKompisGroundedCompletionFn;
+  costControls?: KompisGroundedCostControlsMode;
+  supabase?: SupabaseClient;
+  organizationId?: string | null;
 }): Promise<WebsiteKompisGroundedSynthesizeResult> {
   const pack = input.pack;
   if (pack.evidence.length === 0) {
@@ -351,7 +364,12 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
 
   const intelligence = resolveWebsiteKompisGroundedIntelligenceProfile();
   const requestCompletion =
-    input.completion ?? createDefaultWebsiteKompisGroundedCompletion();
+    input.completion ??
+    createDefaultWebsiteKompisGroundedCompletion({
+      supabase: input.supabase,
+      organizationId: input.organizationId,
+      costControls: input.costControls,
+    });
 
   const completion = await requestCompletion({
     system: buildWebsiteKompisGroundedSystemPrompt(pack.locale),
@@ -363,12 +381,17 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
       event: "synthesize_provider_failed",
       errorCode: completion.errorCode,
       modelProfile: completion.modelProfile,
+      category: completion.providerDiagnostics?.category ?? null,
+      providerErrorType: completion.providerDiagnostics?.providerErrorType ?? null,
+      providerErrorCode: completion.providerDiagnostics?.providerErrorCode ?? null,
+      requestId: completion.providerDiagnostics?.requestId ?? null,
     });
     return {
       status: "failed",
       reason: "provider",
       detail: completion.errorCode,
       evidenceCount: pack.evidence.length,
+      providerDiagnostics: completion.providerDiagnostics,
     };
   }
 
@@ -429,5 +452,6 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
         : { offered: true, reason: "knowledge_gap" },
       locale: pack.locale,
     },
+    providerDiagnostics: completion.providerDiagnostics,
   };
 }

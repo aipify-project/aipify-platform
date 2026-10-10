@@ -9,6 +9,7 @@ export const KOMPIS_CIRCUIT_COOLDOWN_SECONDS = 300;
 const CIRCUIT_ELIGIBLE_ERRORS = new Set([
   "provider_timeout",
   "provider_rate_limited",
+  "provider_quota_exhausted",
   "provider_output_invalid",
   "provider_http_5xx",
   "provider_network_failure",

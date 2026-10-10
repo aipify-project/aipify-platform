@@ -181,6 +181,32 @@ async function main() {
     assert.equal(result.detail, "provider_timeout");
   });
 
+  await test("required cost controls fail closed without supabase (no provider call)", async () => {
+    const { requestKompisGroundedTextCompletion } = await import(
+      "../kompis-operator/grounded-completion.ts"
+    );
+    const originalFetch = globalThis.fetch;
+    let fetchCalls = 0;
+    globalThis.fetch = (async () => {
+      fetchCalls += 1;
+      throw new Error("provider must not be called");
+    }) as typeof fetch;
+    try {
+      process.env.OPENAI_API_KEY = process.env.OPENAI_API_KEY || "sk-test-not-used";
+      const result = await requestKompisGroundedTextCompletion({
+        system: "sys",
+        user: "user",
+        costControls: "required",
+      });
+      assert.equal(result.ok, false);
+      if (result.ok) return;
+      assert.equal(result.errorCode, "AI_PROVIDER_CONTROLS_UNAVAILABLE");
+      assert.equal(fetchCalls, 0);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
   await test("honest gap payload is accepted without sources", async () => {
     const pack = buildWebsiteKompisEvidencePack({
       question: "Hva er privat kontostatus?",
