@@ -43,6 +43,59 @@ export const WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE =
 export const WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE =
   "aipify.websiteKompis.requestPageContext" as const;
 
+export const WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE =
+  "aipify.websiteKompis.resize" as const;
+
+export const WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX = 72;
+export const WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX = 72;
+export const WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX = 420;
+export const WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX = 640;
+
+export type WebsiteKompisEmbedResizeMessage = {
+  type: typeof WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE;
+  open: boolean;
+  width: number;
+  height: number;
+};
+
+export function buildWebsiteKompisEmbedResizeMessage(open: boolean): WebsiteKompisEmbedResizeMessage {
+  return {
+    type: WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE,
+    open,
+    width: open ? WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX : WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
+    height: open ? WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX : WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
+  };
+}
+
+export function parseWebsiteKompisEmbedResizeMessage(
+  value: unknown,
+): WebsiteKompisEmbedResizeMessage | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+  const record = value as Record<string, unknown>;
+  if (record.type !== WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE) {
+    return null;
+  }
+  if (typeof record.open !== "boolean") {
+    return null;
+  }
+  const width = typeof record.width === "number" ? record.width : NaN;
+  const height = typeof record.height === "number" ? record.height : NaN;
+  if (!Number.isFinite(width) || !Number.isFinite(height)) {
+    return null;
+  }
+  if (width < 48 || width > 560 || height < 48 || height > 800) {
+    return null;
+  }
+  return {
+    type: WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE,
+    open: record.open,
+    width: Math.round(width),
+    height: Math.round(height),
+  };
+}
+
 export type WebsiteKompisEmbedAskPayload = {
   question: string;
   locale: WebsiteKompisEmbedLocale;

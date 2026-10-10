@@ -4,6 +4,7 @@ import {
   COMPANION_SUBMIT_PAGE_CONTEXT_MAX_TITLE_LENGTH,
   type CompanionSubmitPageContextSurface,
 } from "@/lib/companion-runtime/companion-submit-page-context";
+import { isPrivateWebsiteKompisPathnameNormalized } from "@/lib/marketing/website-kompis-public-site-index/private-paths";
 
 export const WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE = "website-kompis-current-page" as const;
 
@@ -48,20 +49,6 @@ const ALLOWED_PAGE_CONTEXT_KEYS = new Set([
   "structuredDataSummary",
   "capturedAt",
 ]);
-
-const PRIVATE_PATHNAME_PREFIXES = [
-  "/admin",
-  "/member",
-  "/members",
-  "/profile",
-  "/account",
-  "/auth",
-  "/onboarding",
-  "/checkout",
-  "/payment",
-  "/messages",
-  "/app/",
-] as const;
 
 const EMAIL_PATTERN = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
 const TOKEN_PATTERN =
@@ -131,12 +118,7 @@ function tokenize(value: string): string[] {
 }
 
 export function isPrivateWebsiteKompisPathname(pathname: string | undefined): boolean {
-  if (!pathname) return false;
-  const normalized = pathname.trim().toLowerCase();
-  if (!normalized.startsWith("/")) return true;
-  return PRIVATE_PATHNAME_PREFIXES.some(
-    (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`),
-  );
+  return isPrivateWebsiteKompisPathnameNormalized(pathname);
 }
 
 function sanitizeCanonicalUrl(value: string): string | undefined {

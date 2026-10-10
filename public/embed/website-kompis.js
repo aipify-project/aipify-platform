@@ -25,6 +25,11 @@
 
   var PAGE_CONTEXT_MESSAGE_TYPE = "aipify.websiteKompis.pageContext";
   var PAGE_CONTEXT_REQUEST_MESSAGE_TYPE = "aipify.websiteKompis.requestPageContext";
+  var RESIZE_MESSAGE_TYPE = "aipify.websiteKompis.resize";
+  var CLOSED_WIDTH = 72;
+  var CLOSED_HEIGHT = 72;
+  var OPEN_WIDTH = 420;
+  var OPEN_HEIGHT = 640;
   var MAX_PATHNAME_LENGTH = 240;
   var MAX_TITLE_LENGTH = 200;
   var MAX_META_DESCRIPTION_LENGTH = 320;
@@ -45,8 +50,33 @@
     "/checkout",
     "/payment",
     "/messages",
-    "/app/",
+    "/billing",
+    "/settings",
+    "/login",
+    "/logout",
+    "/signin",
+    "/signup",
+    "/register",
+    "/app",
+    "/api",
+    "/chat",
+    "/discover",
+    "/wishlist",
+    "/marketplace",
   ];
+  var LOCALE_SEGMENTS = {
+    en: true,
+    no: true,
+    nb: true,
+    nn: true,
+    sv: true,
+    da: true,
+    pl: true,
+    uk: true,
+    es: true,
+    de: true,
+    fr: true,
+  };
   var SKIP_ANCESTOR_SELECTOR = "form, input, textarea, select, button, script, style, noscript";
   var EMAIL_PATTERN = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
   var TOKEN_PATTERN =
@@ -62,6 +92,32 @@
       .slice(0, maxLength);
   }
 
+  function stripLocalePrefix(pathname) {
+    var normalized = String(pathname || "").trim().toLowerCase();
+    if (!normalized.startsWith("/")) {
+      return normalized;
+    }
+    var parts = normalized.split("/").filter(Boolean);
+    if (parts.length === 0) {
+      return "/";
+    }
+    if (!LOCALE_SEGMENTS[parts[0]]) {
+      return normalized;
+    }
+    var rest = parts.slice(1);
+    return rest.length === 0 ? "/" : "/" + rest.join("/");
+  }
+
+  function matchesPrivatePrefix(pathname) {
+    for (var i = 0; i < PRIVATE_PATH_PREFIXES.length; i += 1) {
+      var prefix = PRIVATE_PATH_PREFIXES[i];
+      if (pathname === prefix || pathname.indexOf(prefix + "/") === 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   function isPrivatePathname(pathname) {
     var normalized = String(pathname || "")
       .trim()
@@ -69,13 +125,10 @@
     if (!normalized.startsWith("/")) {
       return true;
     }
-    for (var i = 0; i < PRIVATE_PATH_PREFIXES.length; i += 1) {
-      var prefix = PRIVATE_PATH_PREFIXES[i];
-      if (normalized === prefix || normalized.indexOf(prefix + "/") === 0) {
-        return true;
-      }
+    if (matchesPrivatePrefix(normalized)) {
+      return true;
     }
-    return false;
+    return matchesPrivatePrefix(stripLocalePrefix(normalized));
   }
 
   function isInsideSkipZone(element) {
@@ -201,16 +254,42 @@
   iframe.title = "Website Kompis";
   iframe.setAttribute("aria-label", "Website Kompis");
   iframe.setAttribute("loading", "lazy");
+  iframe.setAttribute("allow", "clipboard-write");
   iframe.style.position = "fixed";
-  iframe.style.right = "0";
-  iframe.style.bottom = "0";
-  iframe.style.width = "420px";
-  iframe.style.height = "640px";
+  iframe.style.right = "12px";
+  iframe.style.bottom = "12px";
+  iframe.style.width = CLOSED_WIDTH + "px";
+  iframe.style.height = CLOSED_HEIGHT + "px";
   iframe.style.border = "0";
   iframe.style.zIndex = "9999";
   iframe.style.maxWidth = "100vw";
   iframe.style.maxHeight = "100vh";
   iframe.style.background = "transparent";
+  iframe.style.colorScheme = "normal";
+  iframe.style.overflow = "hidden";
+  iframe.style.pointerEvents = "auto";
+  iframe.setAttribute("scrolling", "no");
+
+  function applyResize(open, width, height) {
+    var nextWidth = open ? OPEN_WIDTH : CLOSED_WIDTH;
+    var nextHeight = open ? OPEN_HEIGHT : CLOSED_HEIGHT;
+    if (typeof width === "number" && width >= 48 && width <= 560) {
+      nextWidth = Math.round(width);
+    }
+    if (typeof height === "number" && height >= 48 && height <= 800) {
+      nextHeight = Math.round(height);
+    }
+    if (window.innerWidth && nextWidth > window.innerWidth) {
+      nextWidth = window.innerWidth;
+    }
+    if (window.innerHeight && nextHeight > window.innerHeight) {
+      nextHeight = window.innerHeight;
+    }
+    iframe.style.width = nextWidth + "px";
+    iframe.style.height = nextHeight + "px";
+    iframe.style.right = open ? "0" : "12px";
+    iframe.style.bottom = open ? "0" : "12px";
+  }
 
   function postPageContextToIframe() {
     if (!iframe.contentWindow) {
@@ -237,10 +316,19 @@
     if (event.source !== iframe.contentWindow) {
       return;
     }
-    if (!event.data || event.data.type !== PAGE_CONTEXT_REQUEST_MESSAGE_TYPE) {
+    if (event.origin !== coreOrigin) {
       return;
     }
-    postPageContextToIframe();
+    if (!event.data || typeof event.data !== "object") {
+      return;
+    }
+    if (event.data.type === PAGE_CONTEXT_REQUEST_MESSAGE_TYPE) {
+      postPageContextToIframe();
+      return;
+    }
+    if (event.data.type === RESIZE_MESSAGE_TYPE) {
+      applyResize(Boolean(event.data.open), event.data.width, event.data.height);
+    }
   });
 
   document.body.appendChild(iframe);

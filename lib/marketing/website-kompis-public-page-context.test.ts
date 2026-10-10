@@ -51,6 +51,8 @@ assert.equal(sanitized?.headings?.length, 2);
 assert.equal(sanitized?.textSnippets?.[1]?.includes("support@"), false);
 assert.equal(isPrivateWebsiteKompisPathname("/admin/users"), true);
 assert.equal(isPrivateWebsiteKompisPathname("/about"), false);
+assert.equal(isPrivateWebsiteKompisPathname("/no/member/inbox"), true);
+assert.equal(isPrivateWebsiteKompisPathname("/en/messages"), true);
 
 assert.equal(
   sanitizeWebsiteKompisPublicPageContext({

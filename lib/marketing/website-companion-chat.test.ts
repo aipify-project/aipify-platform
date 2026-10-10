@@ -52,7 +52,7 @@ const history: WebsiteCompanionChatMessage[] = [
     directAnswer: "Sammenlign planer.",
     explanation: "Oppgraderinger gir mer kapasitet.",
     steps: ["Åpne Fakturering."],
-    sources: ["Oppgraderinger"],
+    sources: [{ title: "Oppgraderinger", href: null }],
     actions: [],
   },
 ];
@@ -164,7 +164,7 @@ const mapped = mapWebsiteCompanionApiResponse(response);
 assert.equal(mapped.directAnswer, "Svar.");
 assert.equal(mapped.explanation, "Forklaring.");
 assert.deepEqual(mapped.steps, ["Steg 1", "Steg 2"]);
-assert.deepEqual(mapped.sources, ["Kunnskapssenter"]);
+assert.deepEqual(mapped.sources, [{ title: "Kunnskapssenter", href: null }]);
 assert.equal(mapped.actions.length, 1);
 assert.equal(mapped.actions[0]?.href, "/app/companion");
 

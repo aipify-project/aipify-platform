@@ -39,13 +39,18 @@ export type WebsiteCompanionUserMessage = {
   text: string;
 };
 
+export type WebsiteCompanionUiSource = {
+  title: string;
+  href: string | null;
+};
+
 export type WebsiteCompanionAssistantMessage = {
   id: string;
   role: "assistant";
   directAnswer: string;
   explanation: string | null;
   steps: string[];
-  sources: string[];
+  sources: WebsiteCompanionUiSource[];
   actions: WebsiteCompanionUiAction[];
   failed?: false;
 };
@@ -246,6 +251,29 @@ export function assertWebsiteCompanionAskBodyShape(
   }
 }
 
+function mapWebsiteCompanionSource(source: {
+  title: string;
+  route: string;
+}): WebsiteCompanionUiSource | null {
+  const title = source.title.trim();
+  if (!title) return null;
+  const route = source.route.trim();
+  let href: string | null = null;
+  if (/^https?:\/\//i.test(route)) {
+    try {
+      const parsed = new URL(route);
+      if (parsed.protocol === "http:" || parsed.protocol === "https:") {
+        href = parsed.toString();
+      }
+    } catch {
+      href = null;
+    }
+  } else if (route.startsWith("/") && !route.startsWith("//")) {
+    href = route;
+  }
+  return { title, href };
+}
+
 export function mapWebsiteCompanionApiResponse(
   payload: PublicCompanionAskResponseShape,
 ): Omit<WebsiteCompanionAssistantMessage, "id" | "role"> {
@@ -253,7 +281,9 @@ export function mapWebsiteCompanionApiResponse(
     directAnswer: payload.answer.directAnswer,
     explanation: payload.answer.explanation,
     steps: (payload.answer.steps ?? []).filter((step) => step.trim().length > 0),
-    sources: payload.sources.map((source) => source.title).filter(Boolean),
+    sources: payload.sources
+      .map(mapWebsiteCompanionSource)
+      .filter((source): source is WebsiteCompanionUiSource => source !== null),
     actions: filterWebsiteCompanionUiActions(payload.actions),
     failed: false,
   };
