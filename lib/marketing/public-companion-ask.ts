@@ -76,6 +76,11 @@ import {
 } from "@/lib/marketing/website-kompis-grounded-answer";
 import type { KompisGroundedCompletionResult } from "@/lib/kompis-operator/grounded-completion";
 import {
+  finalizeWebsiteKompisPublicAiCostControls,
+  reserveWebsiteKompisPublicAiCostControls,
+  type WebsiteKompisPublicAiCostDecision,
+} from "@/lib/marketing/website-kompis-public-ai-cost-controls";
+import {
   buildPublicSiteIndexAnswer,
   isRelevantPublicSiteIndexResult,
   searchTenantPublicSiteIndex,
@@ -974,21 +979,72 @@ export async function askPublicPlatformCompanion(
       indexCount: siteIndexHits.length,
       evidenceCount: evidencePack.evidence.length,
     });
-    // Preview: allow provider smoke without Core metering writes (Preview shares Production DB).
-    // Production: require metering/circuit context — fail closed when it cannot be applied.
-    // Existing APP RPCs require authenticated operator auth.uid(); public embed cannot satisfy
-    // them without schema/grant changes (out of scope). Fail-closed blocks silent skip.
+
+    // Public embed must never expose a costControls bypass via query/body/browser.
+    // Preview SSO is not a cost limit. Injected completion is test-harness only (NODE_ENV=test).
     const isPreviewEnv = process.env.VERCEL_ENV === "preview";
-    const groundedCostControls = isPreviewEnv ? "off" : "required";
-    const groundedResult = await synthesizeWebsiteKompisGroundedAnswer({
-      pack: evidencePack,
-      completion:
-        options?.groundedCompletion ??
-        createDefaultWebsiteKompisGroundedCompletion({
-          costControls: groundedCostControls,
-        }),
-      costControls: groundedCostControls,
-    });
+    // Injected completion is server-options only (never request body/query) — unit/testharness.
+    const injectedCompletion = options?.groundedCompletion;
+    const testHarnessCompletion = Boolean(injectedCompletion);
+
+    let publicCostDecision: WebsiteKompisPublicAiCostDecision | null = null;
+    if (!testHarnessCompletion) {
+      publicCostDecision = await reserveWebsiteKompisPublicAiCostControls({
+        visitorContext,
+      });
+      if (!publicCostDecision.allowed) {
+        console.warn("[website-kompis-grounded]", {
+          event: "public_ai_cost_denied",
+          reason: publicCostDecision.reason,
+          detail: publicCostDecision.detail ?? null,
+          vercelEnv: process.env.VERCEL_ENV ?? null,
+        });
+      }
+    }
+
+    const canCallProvider =
+      testHarnessCompletion || publicCostDecision?.allowed === true;
+
+    const groundedResult = canCallProvider
+      ? await synthesizeWebsiteKompisGroundedAnswer({
+          pack: evidencePack,
+          completion:
+            injectedCompletion ??
+            createDefaultWebsiteKompisGroundedCompletion({
+              // Public reservation (or test harness) already owns metering.
+              // Do not use operator auth.uid() APP RPCs on anonymous embed.
+              costControls: "off",
+            }),
+          costControls: "off",
+        })
+      : {
+          status: "failed" as const,
+          reason: "provider" as const,
+          detail:
+            publicCostDecision && !publicCostDecision.allowed
+              ? `public_cost_${publicCostDecision.reason}`
+              : "public_cost_denied",
+          evidenceCount: evidencePack.evidence.length,
+        };
+
+    if (publicCostDecision?.allowed) {
+      await finalizeWebsiteKompisPublicAiCostControls({
+        decision: publicCostDecision,
+        result:
+          groundedResult.status === "ok"
+            ? "success"
+            : groundedResult.status === "failed" && groundedResult.reason === "provider"
+              ? "provider_error"
+              : groundedResult.status === "failed"
+                ? "fallback"
+                : "skipped",
+        safeErrorCode:
+          groundedResult.status === "failed" && "detail" in groundedResult
+            ? groundedResult.detail
+            : null,
+      });
+    }
+
     if (groundedResult.status === "ok") {
       const groundedAnswer = groundedResult.response;
       const groundedSource: WebsiteKompisVisitorAnswerSource =
@@ -1020,8 +1076,9 @@ export async function askPublicPlatformCompanion(
               evidenceCount: evidencePack.evidence.length,
               faqCount: faqRows.length,
               indexCount: siteIndexHits.length,
-              costControls: groundedCostControls,
-              provider: groundedResult.providerDiagnostics ?? null,
+              costControls: "public_required",
+              // No provider request IDs in public embed responses.
+              provider: null,
             },
           },
         } as PublicCompanionAskResponse;
@@ -1037,18 +1094,19 @@ export async function askPublicPlatformCompanion(
             evidenceCount: groundedResult.evidenceCount,
             faqCount: faqRows.length,
             indexCount: siteIndexHits.length,
-            costControls: groundedCostControls,
-            provider:
-              "providerDiagnostics" in groundedResult
-                ? groundedResult.providerDiagnostics ?? null
-                : null,
+            costControls: "public_required",
+            provider: null,
           },
         }
       : null;
     if (previewGroundedDiagnostic) {
       console.warn("[website-kompis-grounded]", {
         event: "ask_grounded_not_used",
-        ...previewGroundedDiagnostic.grounded,
+        status: previewGroundedDiagnostic.grounded.status,
+        reason: previewGroundedDiagnostic.grounded.reason,
+        detail: previewGroundedDiagnostic.grounded.detail,
+        evidenceCount: previewGroundedDiagnostic.grounded.evidenceCount,
+        costControls: "public_required",
       });
     }
 
