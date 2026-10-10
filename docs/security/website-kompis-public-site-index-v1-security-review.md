@@ -26,6 +26,7 @@ Production `schema_migrations` at review time includes through `20261937500000` 
 |---|---|
 | Missing RLS | ENABLE + FORCE on all three tables |
 | SSRF / DNS rebinding | DNS/public-IP assert before every hop + after headers; HTTPS-only; same-host redirects |
+| Oversized HTML DoS | Decoded body hard-cap **2 MiB** (`WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_BYTES`); stream+cancel; no partial index; Content-Length early hint only |
 | Robots ignore on fetch fail | Fail closed — ingest aborts if robots.txt unavailable/ambiguous |
 | noindex pages | Meta robots + `X-Robots-Tag` rejected |
 | Client-trusted tenant/host | Platform operator route resolves Core status RPC; dryRun default true |

@@ -35,6 +35,16 @@ export type PublicSiteIndexIngestResult = {
   errors: Array<{ url: string; reason: string }>;
   indexedUrls: string[];
   rejectedPrivateSample: string[];
+  /** Bounded outcome samples for operator dry-run reports (no HTML body). */
+  pageOutcomes: Array<{
+    url: string;
+    outcome: "eligible" | string;
+    decodedBytes?: number;
+    locale?: string | null;
+    title?: string;
+    /** Short sanitized public excerpt for dry-run quality checks only. */
+    excerptSample?: string;
+  }>;
 };
 
 export type RobotsPolicyResult =
@@ -106,6 +116,7 @@ export async function ingestTenantPublicSiteIndex(
       errors: [{ url: host, reason: "install_required" }],
       indexedUrls: [],
       rejectedPrivateSample: [],
+      pageOutcomes: [],
     };
   }
 
@@ -126,6 +137,7 @@ export async function ingestTenantPublicSiteIndex(
       errors: [{ url: `https://${host}/robots.txt`, reason: robots.reason }],
       indexedUrls: [],
       rejectedPrivateSample: [],
+      pageOutcomes: [],
     };
   }
 
@@ -160,13 +172,38 @@ export async function ingestTenantPublicSiteIndex(
   const supabase = dryRun ? null : createServiceRoleClient();
   const errors: Array<{ url: string; reason: string }> = [];
   const indexedUrls: string[] = [];
+  const pageOutcomes: PublicSiteIndexIngestResult["pageOutcomes"] = [];
   let rejected = 0;
+
+  const pushOutcome = (
+    url: string,
+    outcome: "eligible" | string,
+    extra?: {
+      decodedBytes?: number;
+      locale?: string | null;
+      title?: string;
+      excerptSample?: string;
+    },
+  ) => {
+    if (pageOutcomes.length >= 40) return;
+    pageOutcomes.push({
+      url,
+      outcome,
+      decodedBytes: extra?.decodedBytes,
+      locale: extra?.locale,
+      title: extra?.title ? extra.title.slice(0, 120) : undefined,
+      excerptSample: extra?.excerptSample
+        ? extra.excerptSample.slice(0, 160)
+        : undefined,
+    });
+  };
 
   for (const url of candidates) {
     const decision = evaluatePublicSiteIndexUrl(url, host);
     if (!decision.ok) {
       rejected += 1;
       errors.push({ url, reason: decision.reason });
+      pushOutcome(url, decision.reason);
       if (decision.reason === "private_path" && rejectedPrivateSample.length < 12) {
         rejectedPrivateSample.push(url);
       }
@@ -175,6 +212,7 @@ export async function ingestTenantPublicSiteIndex(
     if (isPathDisallowedByRobots(decision.pathname, disallow)) {
       rejected += 1;
       errors.push({ url, reason: "robots_disallow" });
+      pushOutcome(url, "robots_disallow");
       continue;
     }
 
@@ -182,6 +220,7 @@ export async function ingestTenantPublicSiteIndex(
     if (!fetched.ok) {
       rejected += 1;
       errors.push({ url, reason: fetched.reason });
+      pushOutcome(url, fetched.reason);
       continue;
     }
 
@@ -189,14 +228,21 @@ export async function ingestTenantPublicSiteIndex(
       if (fetched.contentType && !fetched.body.includes("<html")) {
         rejected += 1;
         errors.push({ url, reason: "not_html" });
+        pushOutcome(url, "not_html", { decodedBytes: fetched.decodedBytes });
         continue;
       }
     }
 
     const extracted = extractPublicPageFromHtml(fetched.body, input.localeHint);
     if (!isIndexableExtractedPage(extracted)) {
+      const reason = extracted.noindex ? "noindex" : "not_indexable";
       rejected += 1;
-      errors.push({ url, reason: extracted.noindex ? "noindex" : "not_indexable" });
+      errors.push({ url, reason });
+      pushOutcome(url, reason, {
+        decodedBytes: fetched.decodedBytes,
+        locale: extracted.locale,
+        title: extracted.title,
+      });
       continue;
     }
 
@@ -204,6 +250,7 @@ export async function ingestTenantPublicSiteIndex(
     if (!finalDecision.ok) {
       rejected += 1;
       errors.push({ url, reason: finalDecision.reason });
+      pushOutcome(url, finalDecision.reason, { decodedBytes: fetched.decodedBytes });
       continue;
     }
 
@@ -211,6 +258,12 @@ export async function ingestTenantPublicSiteIndex(
 
     if (dryRun || !supabase) {
       indexedUrls.push(canonical);
+      pushOutcome(canonical, "eligible", {
+        decodedBytes: fetched.decodedBytes,
+        locale: extracted.locale,
+        title: extracted.title,
+        excerptSample: extracted.excerpt || extracted.bodyText.slice(0, 160),
+      });
       continue;
     }
 
@@ -233,10 +286,16 @@ export async function ingestTenantPublicSiteIndex(
     if (error) {
       rejected += 1;
       errors.push({ url, reason: "persist_failed" });
+      pushOutcome(url, "persist_failed", { decodedBytes: fetched.decodedBytes });
       continue;
     }
 
     indexedUrls.push(canonical);
+    pushOutcome(canonical, "eligible", {
+      decodedBytes: fetched.decodedBytes,
+      locale: extracted.locale,
+      title: extracted.title,
+    });
   }
 
   return {
@@ -248,5 +307,6 @@ export async function ingestTenantPublicSiteIndex(
     errors: errors.slice(0, 40),
     indexedUrls,
     rejectedPrivateSample,
+    pageOutcomes,
   };
 }

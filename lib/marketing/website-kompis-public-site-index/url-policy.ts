@@ -1,8 +1,17 @@
 import { isPrivateWebsiteKompisPathnameNormalized } from "./private-paths";
 
 export const WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_PAGES = 80;
-export const WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_BYTES = 256_000;
-export const WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_FETCH_TIMEOUT_MS = 8_000;
+
+/**
+ * Absolute decoded-body cap for public HTML/XML fetches (2 MiB).
+ * Rationale: modern marketing/Next.js pages commonly ship ~0.5–1.2 MiB HTML with
+ * inline hydration scripts; 256 KiB rejected all sampled Production public pages.
+ * Responses larger than this are rejected entirely (no partial index). Not unlimited.
+ */
+export const WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_BYTES = 2 * 1024 * 1024;
+
+/** Per-request wall clock including DNS rechecks + body stream (bounded). */
+export const WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_FETCH_TIMEOUT_MS = 15_000;
 
 export type PublicSiteIndexUrlDecision =
   | { ok: true; url: URL; pathname: string }

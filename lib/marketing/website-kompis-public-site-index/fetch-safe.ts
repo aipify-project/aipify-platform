@@ -17,6 +17,7 @@ export type SafePublicFetchResult =
       body: string;
       contentType: string;
       xRobotsTag: string | null;
+      decodedBytes: number;
     }
   | {
       ok: false;
@@ -27,37 +28,84 @@ export type SafePublicFetchResult =
         | "redirect_blocked"
         | "http_error"
         | "body_too_large"
+        | "body_unavailable"
         | "network_error"
         | "noindex";
       detail?: string;
     };
 
-async function readBodyCapped(response: Response, maxBytes: number): Promise<string | null> {
+export type ReadBodyCappedResult =
+  | { ok: true; body: string; decodedBytes: number }
+  | { ok: false; reason: "body_too_large" | "body_unavailable" };
+
+/**
+ * Stream decoded Response.body with hard byte accounting.
+ * Character length is never used as a size gate. Missing body → fail closed.
+ * Content-Length is an early reject hint only when present and finite.
+ */
+export async function readResponseBodyCapped(
+  response: Response,
+  maxBytes: number,
+): Promise<ReadBodyCappedResult> {
+  if (!Number.isFinite(maxBytes) || maxBytes <= 0) {
+    return { ok: false, reason: "body_unavailable" };
+  }
+
+  const contentLengthHeader = response.headers.get("content-length");
+  if (contentLengthHeader != null && contentLengthHeader.trim() !== "") {
+    const declared = Number(contentLengthHeader);
+    if (Number.isFinite(declared) && declared > maxBytes) {
+      try {
+        await response.body?.cancel();
+      } catch {
+        // ignore
+      }
+      return { ok: false, reason: "body_too_large" };
+    }
+  }
+
   const reader = response.body?.getReader();
   if (!reader) {
-    const text = await response.text();
-    if (text.length > maxBytes) return null;
-    return text;
+    return { ok: false, reason: "body_unavailable" };
   }
 
   const chunks: Uint8Array[] = [];
   let total = 0;
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    if (!value) continue;
-    total += value.byteLength;
-    if (total > maxBytes) {
-      try {
-        await reader.cancel();
-      } catch {
-        // ignore
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (!value || value.byteLength === 0) continue;
+
+      // Reject if this chunk alone would cross the cap (no partial accept).
+      if (total + value.byteLength > maxBytes) {
+        try {
+          await reader.cancel();
+        } catch {
+          // ignore
+        }
+        return { ok: false, reason: "body_too_large" };
       }
-      return null;
+
+      total += value.byteLength;
+      chunks.push(value);
     }
-    chunks.push(value);
+  } catch {
+    try {
+      await reader.cancel();
+    } catch {
+      // ignore
+    }
+    return { ok: false, reason: "body_unavailable" };
   }
-  return Buffer.concat(chunks.map((c) => Buffer.from(c))).toString("utf8");
+
+  if (total === 0) {
+    return { ok: false, reason: "body_unavailable" };
+  }
+
+  const decoded = Buffer.concat(chunks.map((c) => Buffer.from(c))).toString("utf8");
+  return { ok: true, body: decoded, decodedBytes: total };
 }
 
 async function assertHostStillPublic(
@@ -80,6 +128,7 @@ export async function fetchVerifiedPublicSiteUrl(input: {
   url: string;
   verifiedHost: string;
   maxRedirects?: number;
+  maxBytes?: number;
 }): Promise<SafePublicFetchResult> {
   const decision = evaluatePublicSiteIndexUrl(input.url, input.verifiedHost);
   if (!decision.ok) {
@@ -88,6 +137,7 @@ export async function fetchVerifiedPublicSiteUrl(input: {
 
   let current = normalizePublicSiteIndexCanonicalUrl(decision.url);
   const maxRedirects = input.maxRedirects ?? 3;
+  const maxBytes = input.maxBytes ?? WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_BYTES;
 
   for (let hop = 0; hop <= maxRedirects; hop += 1) {
     const hopDecision = evaluatePublicSiteIndexUrl(current, input.verifiedHost);
@@ -149,22 +199,28 @@ export async function fetchVerifiedPublicSiteUrl(input: {
 
       const xRobotsTag = response.headers.get("x-robots-tag");
       if (xRobotsTag && /\bnoindex\b/i.test(xRobotsTag)) {
+        try {
+          await response.body?.cancel();
+        } catch {
+          // ignore
+        }
         return { ok: false, reason: "noindex", detail: "x-robots-tag" };
       }
 
       const contentType = (response.headers.get("content-type") || "").toLowerCase();
-      const body = await readBodyCapped(response, WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_BYTES);
-      if (body == null) {
-        return { ok: false, reason: "body_too_large" };
+      const bodyResult = await readResponseBodyCapped(response, maxBytes);
+      if (!bodyResult.ok) {
+        return { ok: false, reason: bodyResult.reason };
       }
 
       return {
         ok: true,
         finalUrl: current,
         status: response.status,
-        body,
+        body: bodyResult.body,
         contentType,
         xRobotsTag,
+        decodedBytes: bodyResult.decodedBytes,
       };
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {

@@ -18,11 +18,17 @@ export {
   chunkPublicSiteBodyText,
   extractPublicPageFromHtml,
   isIndexableExtractedPage,
+  looksLikeHydrationOrScriptBlob,
+  resolveExtractedLocale,
+  selectPublicContentRegion,
+  stripNonContentMarkup,
   type ExtractedPublicPage,
 } from "./extract";
 
 export {
   fetchVerifiedPublicSiteUrl,
+  readResponseBodyCapped,
+  type ReadBodyCappedResult,
   type SafePublicFetchResult,
 } from "./fetch-safe";
 
