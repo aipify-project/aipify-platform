@@ -22,6 +22,9 @@ export const WEBSITE_KOMPIS_EMBED_INSTALL_ID_PATTERN =
 
 export const WEBSITE_KOMPIS_EMBED_DEFAULT_CORE_ORIGIN = "https://aipify.ai";
 
+/** Keep in sync with PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGE_LENGTH (ask validation). */
+export const WEBSITE_KOMPIS_EMBED_MAX_CONTEXT_MESSAGE_LENGTH = 500;
+
 export type WebsiteKompisEmbedParams = {
   installId: string;
   domain: string;
@@ -237,10 +240,16 @@ export function buildWebsiteKompisAskPayload(input: {
   if (input.recentContext && input.recentContext.length > 0) {
     payload.recentContext = input.recentContext
       .filter((entry) => entry.text.trim().length > 0)
-      .map((entry) => ({
-        role: entry.role,
-        text: entry.text.trim(),
-      }));
+      .map((entry) => {
+        const text = entry.text.trim();
+        return {
+          role: entry.role,
+          text:
+            text.length > WEBSITE_KOMPIS_EMBED_MAX_CONTEXT_MESSAGE_LENGTH
+              ? text.slice(0, WEBSITE_KOMPIS_EMBED_MAX_CONTEXT_MESSAGE_LENGTH)
+              : text,
+        };
+      });
   }
 
   if (input.pageContext) {

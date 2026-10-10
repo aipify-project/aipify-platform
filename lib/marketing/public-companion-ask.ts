@@ -46,8 +46,10 @@ import {
   type PublicCompanionVisitorContext,
 } from "@/lib/marketing/public-companion-tenant-faq";
 import {
+  buildWebsiteKompisPrivateScopeRefusalResponse,
   buildWebsiteKompisSafeFallbackResponse,
   isCustomerWebsiteVisitorContext,
+  isOutOfScopePrivateMemberOrAdminQuestion,
   shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite,
 } from "@/lib/marketing/website-kompis-public-boundary";
 import {
@@ -424,10 +426,13 @@ function sanitizeRecentContext(value: unknown): PublicCompanionRecentContextMess
     if (!text) {
       throw new PublicCompanionAskValidationError("recentContext text required");
     }
-    if (text.length > PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGE_LENGTH) {
-      throw new PublicCompanionAskValidationError("recentContext text too long");
-    }
-    return { role: row.role, text };
+    // Truncate overlong prior turns instead of failing the ask — embed threads
+    // often carry extractive answers longer than the server context cap.
+    const clipped =
+      text.length > PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGE_LENGTH
+        ? text.slice(0, PUBLIC_COMPANION_ASK_MAX_CONTEXT_MESSAGE_LENGTH)
+        : text;
+    return { role: row.role, text: clipped };
   });
 }
 
@@ -914,6 +919,17 @@ export async function askPublicPlatformCompanion(
 
   if (!installConfig.enabled) {
     return buildWebsiteKompisDisabledResponse(locale, visitorContext.domain) as PublicCompanionAskResponse;
+  }
+
+  // Private account / admin-console asks must never fall through to FAQ or paid grounding.
+  if (
+    onCustomerWebsite &&
+    isOutOfScopePrivateMemberOrAdminQuestion(validated.question)
+  ) {
+    return buildWebsiteKompisPrivateScopeRefusalResponse(
+      locale,
+      visitorContext.domain,
+    ) as PublicCompanionAskResponse;
   }
 
   const dict = await getCustomerAppDictionaryForSplits(locale as Locale, [
