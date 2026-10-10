@@ -14,6 +14,10 @@ import {
   resolveWebsiteKompisLicensedAvailabilityForPublicTenant,
   resolveWebsiteKompisPublicInstallDomainTrust,
 } from "@/lib/marketing/website-kompis-licensed-availability-server";
+import {
+  assertWebsiteKompisEmbedProtectedRequest,
+  websiteKompisPublicSecurityErrorResponse,
+} from "@/lib/marketing/website-kompis-public-security-gate";
 
 /** Public embed metadata for Core-owned Website Kompis / Companion launcher icon variants. */
 export async function GET(request: Request) {
@@ -27,6 +31,14 @@ export async function GET(request: Request) {
   let publicMetadata = null;
 
   if (hasInstallSelector) {
+    const gate = await assertWebsiteKompisEmbedProtectedRequest(request, {
+      installId,
+      domain,
+      category: "launcher",
+    });
+    if (!gate.ok) {
+      return websiteKompisPublicSecurityErrorResponse(gate);
+    }
     const visitorContext = resolvePublicCompanionVisitorContext({
       clientDomain: domain,
       requestHost: url.hostname,

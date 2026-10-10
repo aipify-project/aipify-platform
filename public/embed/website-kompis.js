@@ -25,6 +25,8 @@
 
   var PAGE_CONTEXT_MESSAGE_TYPE = "aipify.websiteKompis.pageContext";
   var PAGE_CONTEXT_REQUEST_MESSAGE_TYPE = "aipify.websiteKompis.requestPageContext";
+  var EMBED_SESSION_MESSAGE_TYPE = "aipify.websiteKompis.embedSession";
+  var EMBED_SESSION_API_PATH = "/api/embed/website-kompis/session";
   var MAX_PATHNAME_LENGTH = 240;
   var MAX_TITLE_LENGTH = 200;
   var MAX_META_DESCRIPTION_LENGTH = 320;
@@ -196,24 +198,26 @@
     locale: locale || "no",
   });
 
-  var iframe = document.createElement("iframe");
-  iframe.src = coreOrigin + "/embed/website-kompis?" + params.toString();
-  iframe.title = "Website Kompis";
-  iframe.setAttribute("aria-label", "Website Kompis");
-  iframe.setAttribute("loading", "lazy");
-  iframe.style.position = "fixed";
-  iframe.style.right = "0";
-  iframe.style.bottom = "0";
-  iframe.style.width = "420px";
-  iframe.style.height = "640px";
-  iframe.style.border = "0";
-  iframe.style.zIndex = "9999";
-  iframe.style.maxWidth = "100vw";
-  iframe.style.maxHeight = "100vh";
-  iframe.style.background = "transparent";
+  var iframe = null;
+  var embedSession = null;
+  var embedSessionExpiresAt = 0;
+
+  function postEmbedSessionToIframe() {
+    if (!iframe || !iframe.contentWindow || !embedSession) {
+      return;
+    }
+    iframe.contentWindow.postMessage(
+      {
+        type: EMBED_SESSION_MESSAGE_TYPE,
+        embedSession: embedSession,
+        expiresAt: embedSessionExpiresAt,
+      },
+      coreOrigin,
+    );
+  }
 
   function postPageContextToIframe() {
-    if (!iframe.contentWindow) {
+    if (!iframe || !iframe.contentWindow) {
       return;
     }
     var pageContext = capturePageContext();
@@ -229,20 +233,67 @@
     );
   }
 
-  iframe.addEventListener("load", function onIframeLoad() {
-    postPageContextToIframe();
-  });
+  function mountIframe() {
+    iframe = document.createElement("iframe");
+    iframe.src = coreOrigin + "/embed/website-kompis?" + params.toString();
+    iframe.title = "Website Kompis";
+    iframe.setAttribute("aria-label", "Website Kompis");
+    iframe.setAttribute("loading", "lazy");
+    iframe.style.position = "fixed";
+    iframe.style.right = "0";
+    iframe.style.bottom = "0";
+    iframe.style.width = "420px";
+    iframe.style.height = "640px";
+    iframe.style.border = "0";
+    iframe.style.zIndex = "9999";
+    iframe.style.maxWidth = "100vw";
+    iframe.style.maxHeight = "100vh";
+    iframe.style.background = "transparent";
 
-  window.addEventListener("message", function onEmbedMessage(event) {
-    if (event.source !== iframe.contentWindow) {
-      return;
-    }
-    if (!event.data || event.data.type !== PAGE_CONTEXT_REQUEST_MESSAGE_TYPE) {
-      return;
-    }
-    postPageContextToIframe();
-  });
+    iframe.addEventListener("load", function onIframeLoad() {
+      postEmbedSessionToIframe();
+      postPageContextToIframe();
+    });
 
-  document.body.appendChild(iframe);
-  window.__AIPIFY_WEBSITE_KOMPIS_EMBED__ = true;
+    window.addEventListener("message", function onEmbedMessage(event) {
+      if (!iframe || event.source !== iframe.contentWindow) {
+        return;
+      }
+      if (!event.data || event.data.type !== PAGE_CONTEXT_REQUEST_MESSAGE_TYPE) {
+        return;
+      }
+      postPageContextToIframe();
+    });
+
+    document.body.appendChild(iframe);
+    window.__AIPIFY_WEBSITE_KOMPIS_EMBED__ = true;
+  }
+
+  fetch(coreOrigin + EMBED_SESSION_API_PATH, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ installId: installId }),
+    credentials: "omit",
+  })
+    .then(function (response) {
+      if (!response.ok) {
+        return null;
+      }
+      return response.json();
+    })
+    .then(function (payload) {
+      if (
+        !payload ||
+        typeof payload.embedSession !== "string" ||
+        !payload.embedSession.trim()
+      ) {
+        return;
+      }
+      embedSession = payload.embedSession.trim();
+      embedSessionExpiresAt = Number(payload.expiresAt) || 0;
+      mountIframe();
+    })
+    .catch(function () {
+      return;
+    });
 })();

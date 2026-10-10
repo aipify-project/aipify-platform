@@ -43,6 +43,14 @@ export const WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE =
 export const WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE =
   "aipify.websiteKompis.requestPageContext" as const;
 
+export const WEBSITE_KOMPIS_EMBED_SESSION_MESSAGE_TYPE =
+  "aipify.websiteKompis.embedSession" as const;
+
+export const WEBSITE_KOMPIS_EMBED_SESSION_API_PATH =
+  "/api/embed/website-kompis/session" as const;
+
+export const WEBSITE_KOMPIS_EMBED_SESSION_HEADER = "x-aipify-embed-session" as const;
+
 export type WebsiteKompisEmbedAskPayload = {
   question: string;
   locale: WebsiteKompisEmbedLocale;
@@ -195,6 +203,33 @@ export function buildWebsiteKompisAskPayload(input: {
   }
 
   return payload;
+}
+
+export function parseWebsiteKompisEmbedSessionMessage(
+  value: unknown,
+): { embedSession: string; expiresAt: number } | undefined {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return undefined;
+  }
+
+  const record = value as Record<string, unknown>;
+  if (record.type !== WEBSITE_KOMPIS_EMBED_SESSION_MESSAGE_TYPE) {
+    return undefined;
+  }
+
+  if (typeof record.embedSession !== "string" || !record.embedSession.trim()) {
+    return undefined;
+  }
+
+  const expiresAt = Number(record.expiresAt);
+  if (!Number.isFinite(expiresAt) || expiresAt <= 0) {
+    return undefined;
+  }
+
+  return {
+    embedSession: record.embedSession.trim(),
+    expiresAt,
+  };
 }
 
 export function parseWebsiteKompisEmbedPageContextMessage(
