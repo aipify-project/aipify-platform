@@ -65,11 +65,114 @@ async function main() {
         surface: "public",
       },
     });
-    assert.equal(pack.evidence[0]?.id, "faq:syn-a-membership");
+    assert.ok(pack.evidence.some((item) => item.id === "faq:syn-a-membership"));
     assert.ok(pack.evidence.some((item) => item.kind === "current-page"));
     const pageText = pack.evidence.find((item) => item.kind === "current-page")?.text ?? "";
     assert.doesNotMatch(pageText, /ignore previous instructions/i);
     assert.doesNotMatch(pageText, /system prompt/i);
+  });
+
+  await test("evidence pack prefers topical index guide over off-topic FAQ hub", async () => {
+    const {
+      buildWebsiteKompisEvidencePack: buildPack,
+      validateWebsiteKompisGroundedPayloadForQuestion,
+    } = await import("./website-kompis-grounded-answer");
+    const pack = buildPack({
+      question: "What does the membership guide say about membership levels?",
+      locale: "en",
+      faqRows: [
+        {
+          ...faqRow,
+          item_id: "faq-terms-hub",
+          title: "Terms overview",
+          answer: "Legal agreement covering chat, gifts, marketplace and membership.",
+          locale: "en",
+        },
+      ],
+      siteIndexHits: [
+        {
+          documentId: "d-guide",
+          chunkId: "c-guide",
+          title: "Membership Guide",
+          canonicalUrl: "https://www.customer.example/en/membership-guide",
+          pathname: "/en/membership-guide",
+          locale: "en",
+          excerpt: "Membership levels unlock visibility.",
+          chunkContent:
+            "Membership levels unlock visibility and features. Compare Bronze and Gold.",
+          score: 50,
+          matchedReason: "public_site_index",
+          crawledAt: null,
+        },
+        {
+          documentId: "d-terms",
+          chunkId: "c-terms",
+          title: "Terms and Conditions",
+          canonicalUrl: "https://www.customer.example/en/terms-and-conditions",
+          pathname: "/en/terms-and-conditions",
+          locale: "en",
+          excerpt: "Legal agreement including membership.",
+          chunkContent: "Legal agreement for gifts, marketplace and membership.",
+          score: 60,
+          matchedReason: "public_site_index",
+          crawledAt: null,
+        },
+      ],
+    });
+    assert.ok(pack.evidence[0]?.url?.includes("membership-guide"));
+    assert.ok(!pack.evidence.some((e) => e.url?.includes("terms-and-conditions")));
+
+    const rejected = validateWebsiteKompisGroundedPayloadForQuestion(
+      {
+        covered: true,
+        answer: "Membership is described in the legal terms.",
+        sourceIds: ["index:c-terms"],
+        followUp: null,
+      },
+      [
+        {
+          id: "index:c-terms",
+          kind: "public-site-index",
+          title: "Terms and Conditions",
+          url: "https://www.customer.example/en/terms-and-conditions",
+          locale: "en",
+          text: "Legal agreement for gifts, marketplace and membership.",
+        },
+        {
+          id: "index:c-guide",
+          kind: "public-site-index",
+          title: "Membership Guide",
+          url: "https://www.customer.example/en/membership-guide",
+          locale: "en",
+          text: "Membership levels unlock visibility and features.",
+        },
+      ],
+      "What does the membership guide say about membership levels?",
+    );
+    // Valid sourceId on terms is not enough without guide-level topical fit.
+    assert.equal(rejected.ok, false);
+    if (!rejected.ok) assert.equal(rejected.reason, "sources_off_topic");
+
+    const offTopic = validateWebsiteKompisGroundedPayloadForQuestion(
+      {
+        covered: true,
+        answer: "Send gifts discreetly.",
+        sourceIds: ["index:c-gift"],
+        followUp: null,
+      },
+      [
+        {
+          id: "index:c-gift",
+          kind: "public-site-index",
+          title: "How gifting works",
+          url: "https://www.customer.example/no/how-gifting-works",
+          locale: "no",
+          text: "Send gifts discreetly with gift cards.",
+        },
+      ],
+      "Hvordan fungerer sikkerhet og verifisering?",
+    );
+    assert.equal(offTopic.ok, false);
   });
 
   await test("parse rejects oversized or invalid JSON payloads", () => {
@@ -207,12 +310,31 @@ async function main() {
     }
   });
 
-  await test("honest gap payload is accepted without sources", async () => {
+  await test("off-topic FAQ is dropped so private-status asks get no false evidence", async () => {
     const pack = buildWebsiteKompisEvidencePack({
       question: "Hva er privat kontostatus?",
       locale: "no",
       faqRows: [faqRow],
     });
+    assert.equal(pack.evidence.length, 0);
+    const skipped = await synthesizeWebsiteKompisGroundedAnswer({
+      pack,
+      completion: async () => {
+        throw new Error("provider must not run without topical evidence");
+      },
+    });
+    assert.equal(skipped.status, "skipped");
+    if (skipped.status !== "skipped") return;
+    assert.equal(skipped.reason, "no_evidence");
+  });
+
+  await test("honest gap payload is accepted without sources when evidence exists", async () => {
+    const pack = buildWebsiteKompisEvidencePack({
+      question: "Hva koster medlemskap?",
+      locale: "no",
+      faqRows: [faqRow],
+    });
+    assert.ok(pack.evidence.length > 0);
     const result = await synthesizeWebsiteKompisGroundedAnswer({
       pack,
       completion: async () => ({

@@ -1,7 +1,11 @@
 import "server-only";
 
 import { createPublicAnonSupabaseClient } from "@/lib/supabase/public-anon";
-import type { PublicSiteIndexHit } from "./answer";
+import {
+  filterAndRankPublicSiteIndexHits,
+  focusPublicSiteIndexQuery,
+  type PublicSiteIndexHit,
+} from "./answer";
 
 export const PUBLIC_SITE_INDEX_SEARCH_RPC = "search_tenant_public_site_index" as const;
 
@@ -41,20 +45,27 @@ export async function searchTenantPublicSiteIndex(input: {
   query: string;
   limit?: number;
 }): Promise<PublicSiteIndexHit[]> {
+  const limit = Math.max(1, Math.min(input.limit ?? 5, 8));
+  const originalQuery = input.query.trim();
+  const focusedQuery = focusPublicSiteIndexQuery(originalQuery);
   const client = createPublicAnonSupabaseClient();
+  // Fetch a slightly wider window so client topic re-rank can demote boilerplate.
+  const fetchLimit = Math.min(8, Math.max(limit, 6));
   const { data, error } = await client.rpc(PUBLIC_SITE_INDEX_SEARCH_RPC, {
     p_install_id: input.installId ?? null,
     p_domain: input.domain ?? null,
     p_locale: input.locale,
-    p_query: input.query.trim(),
-    p_limit: input.limit ?? 5,
+    p_query: focusedQuery,
+    p_limit: fetchLimit,
   });
 
   if (error || !Array.isArray(data)) {
     return [];
   }
 
-  return data
+  const mapped = data
     .map((row) => mapRow(row as Record<string, unknown>))
     .filter((row): row is PublicSiteIndexHit => row !== null);
+
+  return filterAndRankPublicSiteIndexHits(mapped, originalQuery).slice(0, limit);
 }
