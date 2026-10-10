@@ -177,9 +177,9 @@ async function main() {
       searchTenantVisitorKnowledge: async () => [
         {
           item_id: "faq-1",
-          title: "Opening hours",
-          answer: "We are open Monday to Friday.",
-          category: "hours",
+          title: "Løsninger og tjenester",
+          answer: "Vi tilbyr medlemskap, markedsplass og støtte for besøkende på nettstedet.",
+          category: "løsninger",
           content_type: "faq",
           locale: "no",
           source_url: null,
