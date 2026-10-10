@@ -145,7 +145,10 @@ export async function requestKompisGroundedTextCompletion(input: {
           usage?: { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number };
         };
         const content = payload.choices?.[0]?.message?.content?.trim() ?? "";
-        if (!content || content.length > profile.maxOutput) {
+        // maxOutput is a token budget for the provider request; allow ~4 chars/token
+        // plus JSON overhead so valid grounded payloads are not rejected as invalid.
+        const maxContentChars = Math.max(2_400, profile.maxOutput * 4);
+        if (!content || content.length > maxContentChars) {
           lastError = "provider_output_invalid";
           continue;
         }
