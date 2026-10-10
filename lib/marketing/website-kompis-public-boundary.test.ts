@@ -26,10 +26,12 @@ async function main() {
 
   const {
     WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE,
+    buildWebsiteKompisPrivateScopeRefusalResponse,
     buildWebsiteKompisSafeFallbackResponse,
     isCustomerWebsiteVisitorContext,
     isExplicitAipifyOrKompisQuestion,
     isExplicitAipifyPricingQuestion,
+    isOutOfScopePrivateMemberOrAdminQuestion,
     shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite,
   } = await import("./website-kompis-public-boundary");
 
@@ -48,6 +50,22 @@ async function main() {
   assert.equal(isExplicitAipifyPricingQuestion("Hvilke priser har dere?"), false);
   assert.equal(shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hva er Aipify?"), true);
   assert.equal(shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hvilke fordeler får jeg her?"), false);
+
+  assert.equal(
+    isOutOfScopePrivateMemberOrAdminQuestion(
+      "Hvordan logger jeg inn på min private medlemskonto og adminpanel?",
+    ),
+    true,
+  );
+  assert.equal(isOutOfScopePrivateMemberOrAdminQuestion("Hva er min private kontostatus?"), true);
+  assert.equal(isOutOfScopePrivateMemberOrAdminQuestion("Hvordan logger jeg inn?"), false);
+  assert.equal(
+    isOutOfScopePrivateMemberOrAdminQuestion("Hvordan oppgraderer jeg medlemskapet?"),
+    false,
+  );
+  const privateRefusalCopy = buildWebsiteKompisPrivateScopeRefusalResponse("no", "www.customer.example");
+  assert.equal(privateRefusalCopy.sources.length, 0);
+  assert.match(privateRefusalCopy.answer.directAnswer, /private medlemskontoer|admin/i);
 
   const customerPageContext = {
     pathname: "/medlemskap",
@@ -295,6 +313,65 @@ async function main() {
   assert.ok(
     !tenantBResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
   );
+
+  // Private/admin intent must refuse without FAQ/provider — even if FAQ would score high.
+  let privateFaqCalled = false;
+  const privateAdminRefusal = await askPublicPlatformCompanion(
+    {
+      question: "Hvordan logger jeg inn på min private medlemskonto og adminpanel?",
+      locale: "no",
+      domain: "www.customer.example",
+      installId: "11111111-1111-4111-8111-111111111111",
+    },
+    {
+      ...customerAskOptions,
+      requestHost: "www.customer.example",
+      searchTenantVisitorKnowledge: async () => {
+        privateFaqCalled = true;
+        return [
+          {
+            item_id: "faq-marketplace",
+            title: "Markedsplass",
+            answer: "Du legger ut annonsen i markedsplassen fra min konto.",
+            category: "marketplace",
+            content_type: "faq",
+            locale: "no",
+            source_url: "https://www.customer.example/faq",
+            score: 90,
+            matched_reason: "title",
+          },
+        ];
+      },
+      groundedCompletion: async () => {
+        throw new Error("provider must not run for private-scope refusal");
+      },
+    },
+  );
+  assert.equal(privateFaqCalled, false);
+  assert.equal(privateAdminRefusal.sources.length, 0);
+  assert.equal(privateAdminRefusal.supportEscalation.offered, true);
+  assert.match(privateAdminRefusal.answer.directAnswer, /ikke tilgang|private/i);
+  assert.doesNotMatch(privateAdminRefusal.answer.directAnswer, /markedsplass|annonse/i);
+
+  // Public login help still reaches retrieval (not private-scope blocked).
+  let publicLoginFaqCalled = false;
+  await askPublicPlatformCompanion(
+    {
+      question: "Hvordan logger jeg inn?",
+      locale: "no",
+      domain: "www.customer.example",
+      installId: "11111111-1111-4111-8111-111111111111",
+    },
+    {
+      ...customerAskOptions,
+      requestHost: "www.customer.example",
+      searchTenantVisitorKnowledge: async () => {
+        publicLoginFaqCalled = true;
+        return [];
+      },
+    },
+  );
+  assert.equal(publicLoginFaqCalled, true);
 
   // Index OFF / empty knowledge → honest fallback, not platform product copy.
   const indexOffFallback = await askPublicPlatformCompanion(

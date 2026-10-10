@@ -90,6 +90,19 @@ assert.equal(askPayload.domain, exampleDomain);
 assert.equal(askPayload.installId, exampleInstallId);
 assert.equal(askPayload.recentContext?.length, 1);
 
+const longPrior = "X".repeat(800);
+const clippedAsk = buildWebsiteKompisAskPayload({
+  question: "Hvordan fungerer gaveguiden?",
+  locale: "no",
+  domain: exampleDomain,
+  installId: exampleInstallId,
+  recentContext: [
+    { role: "user", text: "Hvordan fungerer gaveguiden på NETTSTED_NAVN?" },
+    { role: "assistant", text: longPrior },
+  ],
+});
+assert.equal(clippedAsk.recentContext?.[1]?.text.length, 500);
+
 const askPayloadWithPageContext = buildWebsiteKompisAskPayload({
   question: "Hva tilbyr dere?",
   locale: "no",

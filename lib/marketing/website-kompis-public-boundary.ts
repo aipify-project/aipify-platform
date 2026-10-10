@@ -4,6 +4,7 @@ import type { PublicCompanionVisitorContext } from "@/lib/marketing/public-compa
 import { hasPublicCompanionVisitorContext } from "@/lib/marketing/public-companion-tenant-faq";
 
 export const WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE = "website-kompis-safe-fallback" as const;
+export const WEBSITE_KOMPIS_PRIVATE_SCOPE_SOURCE = "website-kompis-private-scope" as const;
 
 const AIPIFY_MARKETING_DOMAINS = new Set(["aipify.ai", "www.aipify.ai"]);
 
@@ -72,6 +73,99 @@ function normalizeVisitorQuestion(question: string): string {
     .toLowerCase()
     .replace(/[?!.]+$/, "")
     .replace(/\s+/g, " ");
+}
+
+/**
+ * Public Website Kompis cannot answer private account data or admin-console access.
+ * Distinguishes those from ordinary public login/membership help covered by site guides.
+ */
+export function isOutOfScopePrivateMemberOrAdminQuestion(question: string): boolean {
+  const normalized = normalizeVisitorQuestion(question);
+  if (!normalized) return false;
+
+  const mentionsAdminPanel =
+    /\b(adminpanel|admin-panel|admin\s*panel|kontrollpanel|control\s*panel|backoffice|back-office)\b/.test(
+      normalized,
+    ) ||
+    (/\badmin\b/.test(normalized) &&
+      /\b(panel|område|area|portal|tilgang|access|innlogging|login)\b/.test(normalized));
+
+  const mentionsPrivateAccount =
+    /\b(privat(?:e)?\s+medlemskonto|private\s+(?:member\s+)?account|min\s+private\s+konto|privat\s+kontostatus|private\s+account\s+status|min\s+kontosaldo|private\s+(?:account\s+)?balance)\b/.test(
+      normalized,
+    ) ||
+    (/\b(privat|private)\b/.test(normalized) &&
+      /\b(konto|account|kontostatus|saldo|inbox|meldinger|messages|dashboard)\b/.test(normalized) &&
+      /\b(min|my|meg|me|vår|our)\b/.test(normalized));
+
+  const privateLoginPlusAdmin =
+    /\b(min|my)\b/.test(normalized) &&
+    /\b(privat|private)\b/.test(normalized) &&
+    /\b(konto|account|medlemskonto)\b/.test(normalized) &&
+    /\b(logg\w*|login|sign\s*in|innlogging)\b/.test(normalized) &&
+    mentionsAdminPanel;
+
+  return mentionsAdminPanel || mentionsPrivateAccount || privateLoginPlusAdmin;
+}
+
+function privateScopeRefusalCopy(locale: string, siteLabel: string | null): {
+  directAnswer: string;
+  explanation: string | null;
+} {
+  const site = siteLabel ?? "this website";
+  switch (locale) {
+    case "en":
+      return {
+        directAnswer: `I can only help with what is published publicly on ${site}. I cannot access private member accounts or admin areas. Use the site's own sign-in if you need your account, or contact ${site} support for help with private access.`,
+        explanation: "Private account and admin access stay outside the public Website Kompis.",
+      };
+    case "sv":
+      return {
+        directAnswer: `Jag kan bara hjälpa med det som är publikt publicerat på ${site}. Jag har inte tillgång till privata medlemskonton eller adminytor. Använd webbplatsens egen inloggning för ditt konto, eller kontakta ${site} om du behöver hjälp med privat åtkomst.`,
+        explanation: "Privata konton och adminåtkomst ligger utanför den publika Website Kompis.",
+      };
+    case "da":
+      return {
+        directAnswer: `Jeg kan kun hjælpe med det, der er offentliggjort på ${site}. Jeg har ikke adgang til private medlemskonti eller adminområder. Brug sidens egen login til din konto, eller kontakt ${site}, hvis du har brug for hjælp til privat adgang.`,
+        explanation: "Private konti og adminadgang ligger uden for den offentlige Website Kompis.",
+      };
+    case "pl":
+      return {
+        directAnswer: `Mogę pomóc tylko w zakresie treści publicznie opublikowanych na ${site}. Nie mam dostępu do prywatnych kont członkowskich ani panelu admina. Użyj logowania na stronie albo skontaktuj się z ${site} w sprawie prywatnego dostępu.`,
+        explanation: "Prywatne konta i dostęp administracyjny są poza publicznym Website Kompis.",
+      };
+    case "uk":
+      return {
+        directAnswer: `Я можу допомогти лише з тим, що опубліковано публічно на ${site}. Я не маю доступу до приватних облікових записів чи адмін-панелі. Скористайтеся входом на сайті або зверніться до ${site} щодо приватного доступу.`,
+        explanation: "Приватні облікові записи та адмін-доступ поза публічним Website Kompis.",
+      };
+    default:
+      return {
+        directAnswer: `Jeg kan bare hjelpe med det som er publisert offentlig på ${site}. Jeg har ikke tilgang til private medlemskontoer eller adminområder. Bruk nettstedets egen innlogging for kontoen din, eller kontakt ${site} hvis du trenger hjelp med privat tilgang.`,
+        explanation: "Private kontoer og admintilgang ligger utenfor den offentlige Website Kompis.",
+      };
+  }
+}
+
+export function buildWebsiteKompisPrivateScopeRefusalResponse(
+  locale: string,
+  domain: string | null | undefined,
+) {
+  const siteLabel = siteLabelFromDomain(domain ?? null);
+  const copy = privateScopeRefusalCopy(locale, siteLabel);
+
+  return {
+    answer: {
+      directAnswer: copy.directAnswer,
+      explanation: copy.explanation,
+      steps: [] as [],
+    },
+    actions: [] as [],
+    sources: [] as Array<{ title: string; route: string }>,
+    confidence: { level: "low" as const, score: 0.15 },
+    supportEscalation: { offered: true as const, reason: "knowledge_gap" as const },
+    locale,
+  };
 }
 
 /** Aipify product pricing on a customer domain — not the customer's own prices. */
