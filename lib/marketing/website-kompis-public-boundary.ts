@@ -192,11 +192,92 @@ export function isExplicitAipifySupportQuestion(question: string): boolean {
   return /\b(support|hjelp|help|kontakt aipify|contact aipify|kundeservice)\b/.test(normalized);
 }
 
+export type WebsiteKompisRoutingRecentContext = Array<{
+  role: "user" | "assistant";
+  text: string;
+}>;
+
+const CUSTOMER_SITE_THREAD_TOPIC_RE =
+  /\b(sikkerhet|verifiser\w*|verification|verify|personvern|privacy|moderering|medlemskap|membership|gaveguide|wishlist|ønskeliste|safety)\b/i;
+
+/**
+ * Customer-site feature names that include "Aipify" (e.g. Aipify Verify) are not
+ * platform/ABOS product questions. Keep them on the tenant public evidence path.
+ */
+export function isAipifyBrandedCustomerSiteFeatureQuestion(question: string): boolean {
+  const normalized = normalizeVisitorQuestion(question);
+  if (!normalized) return false;
+  if (/\baipify\s+verify\b/i.test(normalized)) return true;
+  return (
+    /\baipify\b/.test(normalized) &&
+    /\b(verifiser\w*|verification|verify|sikkerhet|personvern|privacy|moderering)\b/.test(
+      normalized,
+    )
+  );
+}
+
+export function recentContextSuggestsCustomerSiteTopic(
+  recentContext?: WebsiteKompisRoutingRecentContext | null,
+): boolean {
+  if (!recentContext?.length) return false;
+  return CUSTOMER_SITE_THREAD_TOPIC_RE.test(recentContext.map((entry) => entry.text).join("\n"));
+}
+
+/**
+ * Follow-ups in an active customer-site thread must not jump to ABOS/platform FAQ
+ * just because the visitor reused an Aipify-branded site feature name.
+ * Explicit platform pricing/support/widget identity questions still win.
+ */
+export function isContinuingCustomerSiteTopicFollowUp(
+  question: string,
+  recentContext?: WebsiteKompisRoutingRecentContext | null,
+): boolean {
+  if (!recentContextSuggestsCustomerSiteTopic(recentContext)) return false;
+  if (isExplicitAipifyPricingQuestion(question) || isExplicitAipifySupportQuestion(question)) {
+    return false;
+  }
+
+  const normalized = normalizeVisitorQuestion(question);
+  if (!normalized) return false;
+
+  if (
+    /\b(website kompis|website-kompis|kompis-widget|denne widgeten|denne assistenten|dette widgetet)\b/.test(
+      normalized,
+    )
+  ) {
+    return false;
+  }
+
+  if (
+    /\b(what is aipify|hva er aipify|what is abos|hva er abos)\b/.test(normalized) &&
+    !isAipifyBrandedCustomerSiteFeatureQuestion(question)
+  ) {
+    return false;
+  }
+
+  if (isAipifyBrandedCustomerSiteFeatureQuestion(question)) return true;
+  if (CUSTOMER_SITE_THREAD_TOPIC_RE.test(normalized)) return true;
+  return /^(fortell mer|kan du utdype|tell me more|what does that mean|hva betyr det|utdyp)\b/.test(
+    normalized,
+  );
+}
+
 /**
  * Platform/Aipify knowledge is allowed on a customer public domain only for explicit
  * Aipify, Website Kompis, pricing, product, or support questions.
+ * recentContext is relevance help only — never authorization or trusted evidence.
  */
-export function shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(question: string): boolean {
+export function shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(
+  question: string,
+  recentContext?: WebsiteKompisRoutingRecentContext | null,
+): boolean {
+  if (isContinuingCustomerSiteTopicFollowUp(question, recentContext)) {
+    return false;
+  }
+  // Cold asks about Aipify-branded site features stay on tenant evidence / honest gap.
+  if (isAipifyBrandedCustomerSiteFeatureQuestion(question)) {
+    return false;
+  }
   return (
     isExplicitAipifyOrKompisQuestion(question) ||
     isExplicitAipifyPricingQuestion(question) ||
