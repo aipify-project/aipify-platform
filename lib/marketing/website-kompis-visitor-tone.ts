@@ -10,7 +10,11 @@ export type WebsiteKompisVisitorAnswerShape = {
   steps: string[];
 };
 
-export type WebsiteKompisVisitorAnswerSource = "current-page" | "faq" | "fallback";
+export type WebsiteKompisVisitorAnswerSource =
+  | "current-page"
+  | "faq"
+  | "public-site-index"
+  | "fallback";
 
 export type WebsiteKompisEmbedUiLabels = {
   title: string;

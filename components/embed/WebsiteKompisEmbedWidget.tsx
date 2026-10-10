@@ -7,6 +7,7 @@ import type { CompanionLauncherIconEmbedConfig } from "@/lib/branding/companion-
 import type { PublicCompanionAskResponse } from "@/lib/marketing/public-companion-ask";
 import {
   buildWebsiteKompisAskPayload,
+  buildWebsiteKompisEmbedResizeMessage,
   buildWebsiteKompisMetadataRequestPath,
   parseWebsiteKompisEmbedPageContextMessage,
   WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE,
@@ -23,11 +24,18 @@ import {
   mapWebsiteCompanionApiResponse,
   validateWebsiteCompanionQuestion,
   WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH,
+  type WebsiteCompanionUiSource,
 } from "@/lib/marketing/website-companion-chat";
 
 type ChatMessage =
   | { id: string; role: "user"; text: string }
-  | { id: string; role: "assistant"; text: string; failed?: false }
+  | {
+      id: string;
+      role: "assistant";
+      text: string;
+      sources?: WebsiteCompanionUiSource[];
+      failed?: false;
+    }
   | { id: string; role: "assistant"; failed: true; retryQuestion: string };
 
 function createMessageId(): string {
@@ -46,6 +54,31 @@ function toRecentContext(messages: ChatMessage[]): WebsiteKompisEmbedRecentConte
       text: message.text.trim(),
     }))
     .filter((entry) => entry.text.length > 0);
+}
+
+function resolveParentPostMessageOrigin(): string {
+  if (typeof document === "undefined") {
+    return "*";
+  }
+  try {
+    const referrer = document.referrer?.trim();
+    if (!referrer) {
+      return "*";
+    }
+    return new URL(referrer).origin;
+  } catch {
+    return "*";
+  }
+}
+
+function postResizeToParent(open: boolean) {
+  if (typeof window === "undefined" || window.parent === window) {
+    return;
+  }
+  window.parent.postMessage(
+    buildWebsiteKompisEmbedResizeMessage(open),
+    resolveParentPostMessageOrigin(),
+  );
 }
 
 export function WebsiteKompisEmbedWidget({
@@ -82,11 +115,16 @@ export function WebsiteKompisEmbedWidget({
 
     window.addEventListener("message", handleMessage);
     window.parent.postMessage({ type: WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE }, "*");
+    postResizeToParent(false);
 
     return () => {
       window.removeEventListener("message", handleMessage);
     };
   }, []);
+
+  useEffect(() => {
+    postResizeToParent(open);
+  }, [open]);
 
   useEffect(() => {
     let cancelled = false;
@@ -173,6 +211,7 @@ export function WebsiteKompisEmbedWidget({
             id: createMessageId(),
             role: "assistant",
             text: answerParts.join("\n\n"),
+            sources: mapped.sources,
           },
         ]);
       } catch {
@@ -203,26 +242,20 @@ export function WebsiteKompisEmbedWidget({
 
   if (metadataState === "loading") {
     return (
-      <div className="flex min-h-dvh items-center justify-center">
+      <div className="flex h-full min-h-[72px] w-full items-end justify-end bg-transparent p-2">
         <AipifyLoader size="sm" centered={false} label="" />
       </div>
     );
   }
 
   if (unavailable) {
-    return (
-      <div className="flex min-h-dvh items-center justify-center p-4">
-        <p className="rounded-lg border border-aipify-border bg-aipify-surface px-4 py-3 text-sm text-aipify-text-secondary">
-          {labels.unavailable}
-        </p>
-      </div>
-    );
+    return <div className="h-full w-full bg-transparent" aria-hidden />;
   }
 
   return (
-    <div className="relative min-h-dvh w-full">
+    <div className="relative h-full w-full bg-transparent">
       {open ? (
-        <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col overflow-hidden rounded-t-2xl border border-aipify-border bg-aipify-surface shadow-lg">
+        <div className="absolute inset-0 flex flex-col overflow-hidden rounded-t-2xl border border-aipify-border bg-aipify-surface shadow-lg">
           <header className="flex items-center justify-between border-b border-aipify-border px-4 py-3">
             <div>
               <p className="text-sm font-semibold text-aipify-text">{labels.title}</p>
@@ -239,6 +272,10 @@ export function WebsiteKompisEmbedWidget({
           </header>
 
           <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-3">
+            {messages.length === 0 ? (
+              <p className="text-sm text-aipify-text-secondary">{labels.prompt}</p>
+            ) : null}
+
             {messages.map((message) => {
               if ("failed" in message && message.failed) {
                 return (
@@ -247,7 +284,12 @@ export function WebsiteKompisEmbedWidget({
                       <p className="text-sm text-aipify-text-secondary">{labels.error}</p>
                       <button
                         type="button"
-                        onClick={() => void submitQuestion(message.retryQuestion, messages.filter((m) => m.id !== message.id))}
+                        onClick={() =>
+                          void submitQuestion(
+                            message.retryQuestion,
+                            messages.filter((m) => m.id !== message.id),
+                          )
+                        }
                         className="mt-2 text-xs font-medium text-aipify-companion hover:underline"
                         disabled={sending}
                       >
@@ -259,6 +301,8 @@ export function WebsiteKompisEmbedWidget({
               }
 
               const isUser = message.role === "user";
+              const sources =
+                message.role === "assistant" && "sources" in message ? message.sources : undefined;
               return (
                 <div key={message.id} className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
                   <div
@@ -269,6 +313,26 @@ export function WebsiteKompisEmbedWidget({
                     }`}
                   >
                     {message.text}
+                    {sources && sources.length > 0 ? (
+                      <ul className="mt-3 space-y-1 border-t border-aipify-border pt-2">
+                        {sources.map((source) => (
+                          <li key={`${source.title}-${source.href ?? "none"}`}>
+                            {source.href ? (
+                              <a
+                                href={source.href}
+                                target="_blank"
+                                rel="noopener noreferrer nofollow"
+                                className="text-xs font-medium text-aipify-companion hover:underline"
+                              >
+                                {source.title}
+                              </a>
+                            ) : (
+                              <span className="text-xs text-aipify-text-secondary">{source.title}</span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
                   </div>
                 </div>
               );
@@ -321,7 +385,9 @@ export function WebsiteKompisEmbedWidget({
         </div>
       ) : null}
 
-      <div className="fixed bottom-4 right-4 z-50 pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)]">
+      <div
+        className={`absolute bottom-0 right-0 z-50 ${open ? "pointer-events-none opacity-0" : ""}`}
+      >
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}

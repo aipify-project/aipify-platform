@@ -251,6 +251,70 @@ async function main() {
     `expected aipify-capabilities on marketing ask, got ${JSON.stringify(marketingCore.sources)}`,
   );
 
+  // Tenant A FAQ must not surface for tenant B install/domain.
+  const tenantAInstall = "11111111-1111-4111-8111-111111111111";
+  const tenantBInstall = "22222222-2222-4222-8222-222222222222";
+  let tenantBSawTenantA = false;
+  const tenantBResponse = await askPublicPlatformCompanion(
+    {
+      question: "Hva koster medlemskap?",
+      locale: "no",
+      domain: "www.customer-b.example",
+      installId: tenantBInstall,
+    },
+    {
+      requestHost: "www.customer-b.example",
+      rawInstallConfig: {
+        website_kompis: {
+          enabled: true,
+          sources: {
+            faq: true,
+            currentPage: true,
+            aipifyPublic: true,
+            publicSiteIndex: false,
+          },
+        },
+      },
+      resolveLicensedAvailability: async () => ({
+        available: true,
+        reason: "available" as const,
+        capabilityKey: "website_kompis",
+      }),
+      searchTenantVisitorKnowledge: async (input) => {
+        if (input.installId === tenantAInstall || (input.domain ?? "").includes("customer-a")) {
+          tenantBSawTenantA = true;
+        }
+        assert.equal(input.installId, tenantBInstall);
+        assert.equal(input.domain, "www.customer-b.example");
+        return [];
+      },
+    },
+  );
+  assert.equal(tenantBSawTenantA, false);
+  assert.equal(tenantBResponse.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  assert.ok(
+    !tenantBResponse.sources.some((source) => source.route.includes("aipify-capabilities")),
+  );
+
+  // Index OFF / empty knowledge → honest fallback, not platform product copy.
+  const indexOffFallback = await askPublicPlatformCompanion(
+    {
+      question: "Fortell om Bronze Silver Gold",
+      locale: "no",
+      domain: "www.customer-a.example",
+      installId: tenantAInstall,
+    },
+    {
+      ...customerAskOptions,
+      requestHost: "www.customer-a.example",
+      searchTenantVisitorKnowledge: async () => [],
+    },
+  );
+  assert.equal(indexOffFallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
+  assert.ok(
+    !indexOffFallback.sources.some((source) => source.route.includes("aipify-capabilities")),
+  );
+
   console.log("website-kompis-public-boundary.test.ts: all assertions passed");
 }
 
