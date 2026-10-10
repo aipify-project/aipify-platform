@@ -33,8 +33,13 @@ const compactLabels = resolveWebsiteKompisEmbedUiLabels({
   welcomeMessageVariant: "compact",
 });
 assert.equal(compactLabels.greeting, "Hei! Hva kan jeg hjelpe deg med?");
+assert.equal(compactLabels.greetingSupport, "Spør meg om det du lurer på.");
 assert.equal(compactLabels.placeholder, "Skriv en melding…");
-assert.equal(compactLabels.prompt, "Om denne siden");
+assert.equal(compactLabels.productName, "Kompis");
+assert.equal(compactLabels.credit, "Drevet av Aipify");
+assert.equal(compactLabels.sourceFromSite, "Kilde fra nettstedet");
+assert.equal(compactLabels.quickActions.length, 2);
+assert.ok(!compactLabels.quickActions.some((action) => /kontakt/i.test(action.label)));
 
 const standardLabels = resolveWebsiteKompisEmbedUiLabels({
   locale: "no",
@@ -42,8 +47,7 @@ const standardLabels = resolveWebsiteKompisEmbedUiLabels({
 });
 assert.equal(standardLabels.greeting, "Hei! Hva kan jeg hjelpe deg med?");
 assert.equal(standardLabels.placeholder, "Skriv en melding…");
-assert.match(standardLabels.prompt, /nettsiden/);
-assert.notEqual(standardLabels.greeting, standardLabels.prompt);
+assert.notEqual(standardLabels.greeting, standardLabels.greetingSupport);
 
 const enLabels = resolveWebsiteKompisEmbedUiLabels({
   locale: "en",
@@ -51,5 +55,6 @@ const enLabels = resolveWebsiteKompisEmbedUiLabels({
 });
 assert.equal(enLabels.greeting, "Hi! How can I help you?");
 assert.equal(enLabels.placeholder, "Type a message…");
+assert.equal(enLabels.credit, "Powered by Aipify");
 
 console.log("website-kompis-visitor-tone.test.ts: all assertions passed");

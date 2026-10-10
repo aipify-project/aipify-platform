@@ -10,7 +10,6 @@ import {
   type FormEvent,
   type UIEvent,
 } from "react";
-import { AipifyCompanionLauncherIcon } from "@/components/branding/AipifyCompanionLauncherIcon";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import type { CompanionLauncherIconEmbedConfig } from "@/lib/branding/companion-launcher-icon";
 import {
@@ -34,6 +33,7 @@ import type { WebsiteKompisPublicPageContext } from "@/lib/marketing/website-kom
 import { shouldHideWebsiteKompisLauncherFromEmbedMetadata } from "@/lib/marketing/website-kompis-launcher-visibility";
 import {
   resolveWebsiteKompisEmbedUiLabels,
+  WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE,
   type WebsiteKompisEmbedUiLabels,
 } from "@/lib/marketing/website-kompis-visitor-tone";
 import {
@@ -42,6 +42,20 @@ import {
   WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH,
   type WebsiteCompanionUiSource,
 } from "@/lib/marketing/website-companion-chat";
+import {
+  AkIconArrowUp,
+  AkIconChevronRight,
+  AkIconClose,
+  AkIconDocument,
+  AkIconExternalLink,
+  AkIconMinimize,
+  AkIconRocket,
+} from "@/components/embed/website-kompis-design-icons";
+import "@/components/embed/website-kompis-design-v1.css";
+
+const DESIGN_LOGO_SRC = `${WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE}/brand/aipify-logo-dark.svg`;
+const DESIGN_MARK_SRC = `${WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE}/brand/aipify-mark.svg`;
+const DESIGN_AVATAR_SRC = `${WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE}/images/aipify-kompis-avatar.svg`;
 
 type ChatMessage =
   | { id: string; role: "user"; text: string }
@@ -97,6 +111,22 @@ function postResizeToParent(open: boolean) {
   );
 }
 
+function resizeComposerTextarea(element: HTMLTextAreaElement | null) {
+  if (!element) return;
+  element.style.height = "auto";
+  element.style.height = `${Math.min(element.scrollHeight, 112)}px`;
+}
+
+function renderMessageParagraphs(text: string) {
+  const parts = text.split(/\n{2,}/).map((part) => part.trim()).filter(Boolean);
+  if (parts.length === 0) {
+    return <p>{text}</p>;
+  }
+  return parts.map((part, index) => (
+    <p key={`${index}-${part.slice(0, 12)}`}>{part}</p>
+  ));
+}
+
 export function WebsiteKompisEmbedWidget({
   installId,
   domain,
@@ -108,6 +138,8 @@ export function WebsiteKompisEmbedWidget({
 }) {
   const inputId = useId();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const latestMessageRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const stickToBottomRef = useRef(true);
   const userJustSentRef = useRef(false);
   const savedScrollTopRef = useRef<number | null>(null);
@@ -175,6 +207,10 @@ export function WebsiteKompisEmbedWidget({
     };
   }, [domain, installId]);
 
+  useEffect(() => {
+    resizeComposerTextarea(textareaRef.current);
+  }, [draft, open]);
+
   const contentSignature = `${messages.length}:${sending ? "1" : "0"}:${messages.at(-1)?.id ?? "none"}`;
 
   useLayoutEffect(() => {
@@ -195,9 +231,13 @@ export function WebsiteKompisEmbedWidget({
       userJustSentMessage: userJustSentRef.current,
     });
     if (shouldScroll) {
-      // Instant only — smooth scroll fires intermediate onScroll events that
-      // clear stick-to-bottom before the assistant reply arrives.
-      scrollCompanionChatToLatest(container, "instant");
+      const latest = latestMessageRef.current;
+      if (latest && latest.offsetHeight > container.clientHeight * 0.7) {
+        // Long new reply: keep the start readable; user can scroll the rest.
+        latest.scrollIntoView({ block: "start", inline: "nearest" });
+      } else {
+        scrollCompanionChatToLatest(container, "instant");
+      }
       stickToBottomRef.current = true;
     }
     userJustSentRef.current = false;
@@ -213,6 +253,14 @@ export function WebsiteKompisEmbedWidget({
     locale,
     welcomeMessageVariant: metadata?.welcomeMessageVariant,
   });
+
+  const fillDraft = useCallback((text: string) => {
+    setDraft(text.slice(0, WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH));
+    requestAnimationFrame(() => {
+      textareaRef.current?.focus();
+      resizeComposerTextarea(textareaRef.current);
+    });
+  }, []);
 
   const submitQuestion = useCallback(
     async (question: string, priorMessages: ChatMessage[]) => {
@@ -334,6 +382,8 @@ export function WebsiteKompisEmbedWidget({
     return <div className="h-full w-full bg-transparent" aria-hidden />;
   }
 
+  const lastMessageId = messages.at(-1)?.id;
+
   return (
     <div
       className={`relative bg-transparent ${
@@ -349,160 +399,211 @@ export function WebsiteKompisEmbedWidget({
       }
     >
       {open ? (
-        <div className="absolute inset-0 flex flex-col overflow-hidden rounded-t-2xl border border-aipify-border bg-aipify-surface shadow-lg">
-          <header className="flex shrink-0 items-center justify-between border-b border-aipify-border px-4 py-3">
-            <div>
-              <p className="text-sm font-semibold text-aipify-text">{labels.title}</p>
-              <p className="text-xs text-aipify-text-secondary">{labels.prompt}</p>
+        <div className="ak-widget absolute inset-0">
+          <header className="ak-header">
+            <img className="ak-logo" src={DESIGN_LOGO_SRC} alt="Aipify" width={115} height={30} />
+            <span className="ak-name">{labels.productName}</span>
+            <div className="ak-controls">
+              <button
+                type="button"
+                className="ak-icon-button"
+                onClick={handleClose}
+                aria-label={labels.minimize}
+              >
+                <AkIconMinimize />
+              </button>
+              <button
+                type="button"
+                className="ak-icon-button"
+                onClick={handleClose}
+                aria-label={labels.close}
+              >
+                <AkIconClose />
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={handleClose}
-              className="rounded-full border border-aipify-border px-3 py-1 text-xs font-medium text-aipify-text-secondary hover:bg-aipify-surface-muted"
-              aria-label={labels.close}
-            >
-              {labels.close}
-            </button>
           </header>
 
           <div
             ref={scrollContainerRef}
             onScroll={handleConversationScroll}
-            className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 py-3"
+            className="ak-scroll"
           >
-            <div className="mt-auto flex flex-col space-y-3">
-              {messages.length === 0 ? (
-                <div className="flex justify-start">
-                  <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3 text-sm text-aipify-text">
-                    {labels.greeting}
-                  </div>
-                </div>
-              ) : null}
-
-              {messages.map((message) => {
-                if ("failed" in message && message.failed) {
-                  return (
-                    <div key={message.id} className="flex justify-start">
-                      <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
-                        <p className="text-sm text-aipify-text-secondary">{labels.error}</p>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            void submitQuestion(
-                              message.retryQuestion,
-                              messages.filter((m) => m.id !== message.id),
-                            )
-                          }
-                          className="mt-2 text-xs font-medium text-aipify-companion hover:underline"
-                          disabled={sending}
-                        >
-                          {labels.send}
-                        </button>
-                      </div>
-                    </div>
-                  );
-                }
-
-                const isUser = message.role === "user";
-                const sources =
-                  message.role === "assistant" && "sources" in message ? message.sources : undefined;
-                return (
-                  <div key={message.id} className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
-                    <div
-                      className={`max-w-[92%] rounded-2xl px-3 py-3 text-sm whitespace-pre-wrap ${
-                        isUser
-                          ? "rounded-br-md bg-aipify-companion text-white"
-                          : "rounded-bl-md border border-aipify-border bg-aipify-surface text-aipify-text"
-                      }`}
+            {messages.length === 0 ? (
+              <section className="ak-welcome">
+                <img className="ak-hero" src={DESIGN_AVATAR_SRC} alt="" width={136} height={136} />
+                <h1>{labels.greeting}</h1>
+                <p>{labels.greetingSupport}</p>
+                <div className="ak-quick-list">
+                  {labels.quickActions.map((action) => (
+                    <button
+                      key={action.id}
+                      type="button"
+                      className="ak-quick"
+                      onClick={() => fillDraft(action.draft)}
+                      disabled={sending}
                     >
-                      {message.text}
-                      {sources && sources.length > 0 ? (
-                        <ul className="mt-3 space-y-1 border-t border-aipify-border pt-2">
-                          {sources.map((source) => (
-                            <li key={`${source.title}-${source.href ?? "none"}`}>
-                              {source.href ? (
+                      {action.id === "get_started" ? <AkIconRocket /> : <AkIconDocument />}
+                      <span>{action.label}</span>
+                      <AkIconChevronRight className="ak-icon ak-chevron" />
+                    </button>
+                  ))}
+                </div>
+              </section>
+            ) : (
+              <div className="ak-messages" role="log" aria-live="polite" aria-relevant="additions text">
+                {messages.map((message) => {
+                  const isLatest = message.id === lastMessageId;
+                  if ("failed" in message && message.failed) {
+                    return (
+                      <div
+                        key={message.id}
+                        className="ak-row"
+                        ref={isLatest ? latestMessageRef : undefined}
+                      >
+                        <img className="ak-avatar" src={DESIGN_AVATAR_SRC} alt="" width={36} height={36} />
+                        <div className="ak-bubble">
+                          <p className="ak-error" style={{ margin: 0 }}>
+                            {labels.error}
+                          </p>
+                          <button
+                            type="button"
+                            className="ak-followup"
+                            style={{ marginTop: 10 }}
+                            onClick={() =>
+                              void submitQuestion(
+                                message.retryQuestion,
+                                messages.filter((m) => m.id !== message.id),
+                              )
+                            }
+                            disabled={sending}
+                          >
+                            {labels.send}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  const isUser = message.role === "user";
+                  const sources =
+                    message.role === "assistant" && "sources" in message
+                      ? message.sources
+                      : undefined;
+
+                  return (
+                    <div
+                      key={message.id}
+                      className={`ak-row${isUser ? " ak-row--user" : ""}`}
+                      ref={isLatest ? latestMessageRef : undefined}
+                    >
+                      {!isUser ? (
+                        <img className="ak-avatar" src={DESIGN_AVATAR_SRC} alt="" width={36} height={36} />
+                      ) : null}
+                      <div className={`ak-bubble${isUser ? " ak-bubble--user" : ""}`}>
+                        {renderMessageParagraphs(message.text)}
+                        {sources && sources.length > 0
+                          ? sources.map((source) =>
+                              source.href ? (
                                 <a
+                                  key={`${source.title}-${source.href}`}
+                                  className="ak-source"
                                   href={source.href}
                                   target="_blank"
                                   rel="noopener noreferrer nofollow"
-                                  className="text-xs font-medium text-aipify-companion hover:underline"
                                 >
-                                  {source.title}
+                                  <AkIconDocument />
+                                  <span className="ak-source-copy">
+                                    <strong>{source.title}</strong>
+                                    <small>{labels.sourceFromSite}</small>
+                                  </span>
+                                  <AkIconExternalLink className="ak-icon ak-external" />
                                 </a>
                               ) : (
-                                <span className="text-xs text-aipify-text-secondary">{source.title}</span>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                      ) : null}
+                                <div
+                                  key={`${source.title}-nolink`}
+                                  className="ak-source"
+                                  style={{ cursor: "default" }}
+                                >
+                                  <AkIconDocument />
+                                  <span className="ak-source-copy">
+                                    <strong>{source.title}</strong>
+                                    <small>{labels.sourceFromSite}</small>
+                                  </span>
+                                </div>
+                              ),
+                            )
+                          : null}
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {sending ? (
+                  <div className="ak-row" ref={latestMessageRef}>
+                    <img className="ak-avatar" src={DESIGN_AVATAR_SRC} alt="" width={36} height={36} />
+                    <div className="ak-bubble">
+                      <AipifyLoader size="sm" centered={false} label="" />
+                      <p className="ak-status ak-sr-only">{labels.sending}</p>
                     </div>
                   </div>
-                );
-              })}
-
-              {sending ? (
-                <div className="flex justify-start">
-                  <div className="rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
-                    <AipifyLoader size="sm" centered={false} label="" />
-                    <span className="sr-only">{labels.sending}</span>
-                  </div>
-                </div>
-              ) : null}
-            </div>
+                ) : null}
+              </div>
+            )}
           </div>
 
-          <form
-            onSubmit={(event) => void handleSubmit(event)}
-            className="shrink-0 border-t border-aipify-border px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
-          >
-            <label htmlFor={inputId} className="sr-only">
-              {labels.placeholder}
-            </label>
-            <textarea
-              id={inputId}
-              value={draft}
-              onChange={(event) =>
-                setDraft(event.target.value.slice(0, WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH))
-              }
-              onKeyDown={(event) => {
-                if (event.key === "Enter" && !event.shiftKey) {
-                  event.preventDefault();
-                  void handleSubmit();
+          <div className="ak-composer-area">
+            <form className="ak-composer" onSubmit={(event) => void handleSubmit(event)}>
+              <label htmlFor={inputId} className="ak-sr-only">
+                {labels.placeholder}
+              </label>
+              <textarea
+                ref={textareaRef}
+                id={inputId}
+                className="ak-input"
+                value={draft}
+                rows={1}
+                placeholder={labels.placeholder}
+                disabled={sending}
+                onChange={(event) =>
+                  setDraft(event.target.value.slice(0, WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH))
                 }
-              }}
-              rows={2}
-              placeholder={labels.placeholder}
-              disabled={sending}
-              className="w-full resize-none rounded-xl border border-aipify-border bg-aipify-surface px-3 py-2 text-sm text-aipify-text outline-none ring-aipify-focus placeholder:text-aipify-text-muted focus:ring-2 disabled:opacity-60"
-            />
-            <div className="mt-2 flex justify-end">
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) {
+                    event.preventDefault();
+                    void handleSubmit();
+                  }
+                }}
+              />
               <button
                 type="submit"
+                className="ak-send"
                 disabled={sending || !draft.trim()}
-                className="inline-flex min-h-10 items-center rounded-full bg-aipify-companion px-4 py-2 text-sm font-medium text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                aria-label={sending ? labels.sending : labels.send}
               >
-                {sending ? labels.sending : labels.send}
+                <AkIconArrowUp />
               </button>
-            </div>
-          </form>
+            </form>
+            <p className="ak-credit">{labels.credit}</p>
+          </div>
         </div>
       ) : null}
 
       <div
-        className={`absolute bottom-0 right-0 z-50 ${open ? "pointer-events-none opacity-0" : ""}`}
+        className={`absolute bottom-0 right-0 z-50 flex h-full w-full items-center justify-center ${
+          open ? "pointer-events-none opacity-0" : ""
+        }`}
         aria-hidden={open}
       >
         <button
           type="button"
+          className="ak-launcher"
           onClick={handleOpenToggle}
-          className="relative flex h-12 w-12 items-center justify-center rounded-full border border-aipify-border bg-aipify-surface shadow-lg transition hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-aipify-focus"
           aria-expanded={open}
           aria-label={labels.open}
           title={labels.title}
           tabIndex={open ? -1 : 0}
         >
-          <AipifyCompanionLauncherIcon size={40} availabilityRing title={labels.title} ariaLabel={labels.title} />
+          <img src={DESIGN_MARK_SRC} alt="" width={36} height={36} />
         </button>
       </div>
     </div>
