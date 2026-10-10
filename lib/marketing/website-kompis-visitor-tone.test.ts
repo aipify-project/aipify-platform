@@ -32,12 +32,24 @@ const compactLabels = resolveWebsiteKompisEmbedUiLabels({
   locale: "no",
   welcomeMessageVariant: "compact",
 });
-assert.equal(compactLabels.prompt, "Spør om denne siden");
+assert.equal(compactLabels.greeting, "Hei! Hva kan jeg hjelpe deg med?");
+assert.equal(compactLabels.placeholder, "Skriv en melding…");
+assert.equal(compactLabels.prompt, "Om denne siden");
 
 const standardLabels = resolveWebsiteKompisEmbedUiLabels({
   locale: "no",
   welcomeMessageVariant: "standard",
 });
-assert.match(standardLabels.prompt, /Spør meg om det du lurer på/);
+assert.equal(standardLabels.greeting, "Hei! Hva kan jeg hjelpe deg med?");
+assert.equal(standardLabels.placeholder, "Skriv en melding…");
+assert.match(standardLabels.prompt, /nettsiden/);
+assert.notEqual(standardLabels.greeting, standardLabels.prompt);
+
+const enLabels = resolveWebsiteKompisEmbedUiLabels({
+  locale: "en",
+  welcomeMessageVariant: "standard",
+});
+assert.equal(enLabels.greeting, "Hi! How can I help you?");
+assert.equal(enLabels.placeholder, "Type a message…");
 
 console.log("website-kompis-visitor-tone.test.ts: all assertions passed");

@@ -1,15 +1,31 @@
 "use client";
 
-import { useCallback, useEffect, useId, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type FormEvent,
+  type UIEvent,
+} from "react";
 import { AipifyCompanionLauncherIcon } from "@/components/branding/AipifyCompanionLauncherIcon";
 import { AipifyLoader } from "@/components/ui/aipify-loader";
 import type { CompanionLauncherIconEmbedConfig } from "@/lib/branding/companion-launcher-icon";
+import {
+  isCompanionChatNearBottom,
+  scrollCompanionChatToLatest,
+  shouldAutoScrollCompanionChatOnUpdate,
+} from "@/lib/app/companion/companion-chat-scroll-policy";
 import type { PublicCompanionAskResponse } from "@/lib/marketing/public-companion-ask";
 import {
   buildWebsiteKompisAskPayload,
   buildWebsiteKompisEmbedResizeMessage,
   buildWebsiteKompisMetadataRequestPath,
   parseWebsiteKompisEmbedPageContextMessage,
+  WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
+  WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
   WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE,
   type WebsiteKompisEmbedLocale,
   type WebsiteKompisEmbedRecentContextMessage,
@@ -91,6 +107,10 @@ export function WebsiteKompisEmbedWidget({
   locale: WebsiteKompisEmbedLocale;
 }) {
   const inputId = useId();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const stickToBottomRef = useRef(true);
+  const userJustSentRef = useRef(false);
+  const savedScrollTopRef = useRef<number | null>(null);
   const [metadata, setMetadata] = useState<CompanionLauncherIconEmbedConfig | null>(null);
   const [metadataState, setMetadataState] = useState<"loading" | "ready" | "error">("loading");
   const [open, setOpen] = useState(false);
@@ -155,6 +175,38 @@ export function WebsiteKompisEmbedWidget({
     };
   }, [domain, installId]);
 
+  const contentSignature = `${messages.length}:${sending ? "1" : "0"}:${messages.at(-1)?.id ?? "none"}`;
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    if (savedScrollTopRef.current !== null) {
+      container.scrollTop = savedScrollTopRef.current;
+      savedScrollTopRef.current = null;
+      stickToBottomRef.current = isCompanionChatNearBottom(container);
+      userJustSentRef.current = false;
+      return;
+    }
+
+    const shouldScroll = shouldAutoScrollCompanionChatOnUpdate({
+      isNearBottom: stickToBottomRef.current,
+      userJustSentMessage: userJustSentRef.current,
+    });
+    if (shouldScroll) {
+      // Instant only — smooth scroll fires intermediate onScroll events that
+      // clear stick-to-bottom before the assistant reply arrives.
+      scrollCompanionChatToLatest(container, "instant");
+      stickToBottomRef.current = true;
+    }
+    userJustSentRef.current = false;
+  }, [contentSignature, open]);
+
+  const handleConversationScroll = useCallback((event: UIEvent<HTMLDivElement>) => {
+    stickToBottomRef.current = isCompanionChatNearBottom(event.currentTarget);
+  }, []);
+
   const hidden = shouldHideWebsiteKompisLauncherFromEmbedMetadata(metadata);
   const unavailable = metadataState === "error" || (metadataState === "ready" && hidden);
   const labels: WebsiteKompisEmbedUiLabels = resolveWebsiteKompisEmbedUiLabels({
@@ -173,6 +225,8 @@ export function WebsiteKompisEmbedWidget({
         text: validation.question,
       };
 
+      userJustSentRef.current = true;
+      stickToBottomRef.current = true;
       setMessages((current) => [...current, userMessage]);
       setDraft("");
       setSending(true);
@@ -232,7 +286,7 @@ export function WebsiteKompisEmbedWidget({
   );
 
   const handleSubmit = useCallback(
-    async (event?: React.FormEvent) => {
+    async (event?: FormEvent) => {
       event?.preventDefault();
       if (sending || !draft.trim()) return;
       await submitQuestion(draft, messages);
@@ -240,9 +294,37 @@ export function WebsiteKompisEmbedWidget({
     [draft, messages, sending, submitQuestion],
   );
 
+  const handleClose = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      savedScrollTopRef.current = container.scrollTop;
+    }
+    setOpen(false);
+  }, []);
+
+  const handleOpenToggle = useCallback(() => {
+    setOpen((value) => {
+      if (value) {
+        const container = scrollContainerRef.current;
+        if (container) {
+          savedScrollTopRef.current = container.scrollTop;
+        }
+        return false;
+      }
+      stickToBottomRef.current = true;
+      return true;
+    });
+  }, []);
+
   if (metadataState === "loading") {
     return (
-      <div className="flex h-full min-h-[72px] w-full items-end justify-end bg-transparent p-2">
+      <div
+        className="ml-auto flex items-end justify-end bg-transparent p-2"
+        style={{
+          width: WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
+          height: WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
+        }}
+      >
         <AipifyLoader size="sm" centered={false} label="" />
       </div>
     );
@@ -253,17 +335,29 @@ export function WebsiteKompisEmbedWidget({
   }
 
   return (
-    <div className="relative h-full w-full bg-transparent">
+    <div
+      className={`relative bg-transparent ${
+        open ? "h-full w-full" : "ml-auto mt-auto"
+      }`}
+      style={
+        open
+          ? undefined
+          : {
+              width: WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
+              height: WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
+            }
+      }
+    >
       {open ? (
         <div className="absolute inset-0 flex flex-col overflow-hidden rounded-t-2xl border border-aipify-border bg-aipify-surface shadow-lg">
-          <header className="flex items-center justify-between border-b border-aipify-border px-4 py-3">
+          <header className="flex shrink-0 items-center justify-between border-b border-aipify-border px-4 py-3">
             <div>
               <p className="text-sm font-semibold text-aipify-text">{labels.title}</p>
               <p className="text-xs text-aipify-text-secondary">{labels.prompt}</p>
             </div>
             <button
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={handleClose}
               className="rounded-full border border-aipify-border px-3 py-1 text-xs font-medium text-aipify-text-secondary hover:bg-aipify-surface-muted"
               aria-label={labels.close}
             >
@@ -271,86 +365,96 @@ export function WebsiteKompisEmbedWidget({
             </button>
           </header>
 
-          <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-3">
-            {messages.length === 0 ? (
-              <p className="text-sm text-aipify-text-secondary">{labels.prompt}</p>
-            ) : null}
+          <div
+            ref={scrollContainerRef}
+            onScroll={handleConversationScroll}
+            className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 py-3"
+          >
+            <div className="mt-auto flex flex-col space-y-3">
+              {messages.length === 0 ? (
+                <div className="flex justify-start">
+                  <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3 text-sm text-aipify-text">
+                    {labels.greeting}
+                  </div>
+                </div>
+              ) : null}
 
-            {messages.map((message) => {
-              if ("failed" in message && message.failed) {
+              {messages.map((message) => {
+                if ("failed" in message && message.failed) {
+                  return (
+                    <div key={message.id} className="flex justify-start">
+                      <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
+                        <p className="text-sm text-aipify-text-secondary">{labels.error}</p>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            void submitQuestion(
+                              message.retryQuestion,
+                              messages.filter((m) => m.id !== message.id),
+                            )
+                          }
+                          className="mt-2 text-xs font-medium text-aipify-companion hover:underline"
+                          disabled={sending}
+                        >
+                          {labels.send}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                }
+
+                const isUser = message.role === "user";
+                const sources =
+                  message.role === "assistant" && "sources" in message ? message.sources : undefined;
                 return (
-                  <div key={message.id} className="flex justify-start">
-                    <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
-                      <p className="text-sm text-aipify-text-secondary">{labels.error}</p>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          void submitQuestion(
-                            message.retryQuestion,
-                            messages.filter((m) => m.id !== message.id),
-                          )
-                        }
-                        className="mt-2 text-xs font-medium text-aipify-companion hover:underline"
-                        disabled={sending}
-                      >
-                        {labels.send}
-                      </button>
+                  <div key={message.id} className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
+                    <div
+                      className={`max-w-[92%] rounded-2xl px-3 py-3 text-sm whitespace-pre-wrap ${
+                        isUser
+                          ? "rounded-br-md bg-aipify-companion text-white"
+                          : "rounded-bl-md border border-aipify-border bg-aipify-surface text-aipify-text"
+                      }`}
+                    >
+                      {message.text}
+                      {sources && sources.length > 0 ? (
+                        <ul className="mt-3 space-y-1 border-t border-aipify-border pt-2">
+                          {sources.map((source) => (
+                            <li key={`${source.title}-${source.href ?? "none"}`}>
+                              {source.href ? (
+                                <a
+                                  href={source.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer nofollow"
+                                  className="text-xs font-medium text-aipify-companion hover:underline"
+                                >
+                                  {source.title}
+                                </a>
+                              ) : (
+                                <span className="text-xs text-aipify-text-secondary">{source.title}</span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
                     </div>
                   </div>
                 );
-              }
+              })}
 
-              const isUser = message.role === "user";
-              const sources =
-                message.role === "assistant" && "sources" in message ? message.sources : undefined;
-              return (
-                <div key={message.id} className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
-                  <div
-                    className={`max-w-[92%] rounded-2xl px-3 py-3 text-sm whitespace-pre-wrap ${
-                      isUser
-                        ? "rounded-br-md bg-aipify-companion text-white"
-                        : "rounded-bl-md border border-aipify-border bg-aipify-surface text-aipify-text"
-                    }`}
-                  >
-                    {message.text}
-                    {sources && sources.length > 0 ? (
-                      <ul className="mt-3 space-y-1 border-t border-aipify-border pt-2">
-                        {sources.map((source) => (
-                          <li key={`${source.title}-${source.href ?? "none"}`}>
-                            {source.href ? (
-                              <a
-                                href={source.href}
-                                target="_blank"
-                                rel="noopener noreferrer nofollow"
-                                className="text-xs font-medium text-aipify-companion hover:underline"
-                              >
-                                {source.title}
-                              </a>
-                            ) : (
-                              <span className="text-xs text-aipify-text-secondary">{source.title}</span>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
+              {sending ? (
+                <div className="flex justify-start">
+                  <div className="rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
+                    <AipifyLoader size="sm" centered={false} label="" />
+                    <span className="sr-only">{labels.sending}</span>
                   </div>
                 </div>
-              );
-            })}
-
-            {sending ? (
-              <div className="flex justify-start">
-                <div className="rounded-2xl rounded-bl-md border border-aipify-border bg-aipify-surface px-3 py-3">
-                  <AipifyLoader size="sm" centered={false} label="" />
-                  <span className="sr-only">{labels.sending}</span>
-                </div>
-              </div>
-            ) : null}
+              ) : null}
+            </div>
           </div>
 
           <form
             onSubmit={(event) => void handleSubmit(event)}
-            className="border-t border-aipify-border px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+            className="shrink-0 border-t border-aipify-border px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
           >
             <label htmlFor={inputId} className="sr-only">
               {labels.placeholder}
@@ -387,14 +491,16 @@ export function WebsiteKompisEmbedWidget({
 
       <div
         className={`absolute bottom-0 right-0 z-50 ${open ? "pointer-events-none opacity-0" : ""}`}
+        aria-hidden={open}
       >
         <button
           type="button"
-          onClick={() => setOpen((value) => !value)}
+          onClick={handleOpenToggle}
           className="relative flex h-12 w-12 items-center justify-center rounded-full border border-aipify-border bg-aipify-surface shadow-lg transition hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-aipify-focus"
           aria-expanded={open}
-          aria-label={open ? labels.close : labels.open}
+          aria-label={labels.open}
           title={labels.title}
+          tabIndex={open ? -1 : 0}
         >
           <AipifyCompanionLauncherIcon size={40} availabilityRing title={labels.title} ariaLabel={labels.title} />
         </button>
