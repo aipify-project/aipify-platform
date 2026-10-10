@@ -16,12 +16,22 @@ export type WebsiteKompisVisitorAnswerSource =
   | "public-site-index"
   | "fallback";
 
+export type WebsiteKompisEmbedQuickAction = {
+  id: "get_started" | "find_info";
+  label: string;
+  draft: string;
+};
+
 export type WebsiteKompisEmbedUiLabels = {
   title: string;
+  /** Short product name next to logo (Design V1). */
+  productName: string;
   /** Short header subtitle — not the conversation greeting. */
   prompt: string;
-  /** Shown once in an empty conversation, near the composer. */
+  /** Shown once in an empty conversation. */
   greeting: string;
+  /** Supporting line under greeting. */
+  greetingSupport: string;
   placeholder: string;
   send: string;
   sending: string;
@@ -29,6 +39,10 @@ export type WebsiteKompisEmbedUiLabels = {
   error: string;
   open: string;
   close: string;
+  minimize: string;
+  credit: string;
+  sourceFromSite: string;
+  quickActions: WebsiteKompisEmbedQuickAction[];
 };
 
 function siteLabelFromDomain(domain: string | null | undefined): string | null {
@@ -149,142 +163,292 @@ const EMBED_UI_COPY: Record<
   WebsiteKompisEmbedLocale,
   Record<
     WebsiteKompisWelcomeMessageVariant,
-    Pick<WebsiteKompisEmbedUiLabels, "prompt" | "greeting" | "placeholder">
+    Pick<
+      WebsiteKompisEmbedUiLabels,
+      "prompt" | "greeting" | "greetingSupport" | "placeholder" | "quickActions"
+    >
   >
 > = {
   no: {
     standard: {
       prompt: "Svarer ut fra det som står på nettsiden",
       greeting: "Hei! Hva kan jeg hjelpe deg med?",
+      greetingSupport: "Spør meg om det du lurer på.",
       placeholder: "Skriv en melding…",
+      quickActions: [
+        { id: "get_started", label: "Kom i gang", draft: "Hvordan kommer jeg i gang?" },
+        {
+          id: "find_info",
+          label: "Finn informasjon",
+          draft: "Hvor finner jeg mer informasjon?",
+        },
+      ],
     },
     compact: {
       prompt: "Om denne siden",
       greeting: "Hei! Hva kan jeg hjelpe deg med?",
+      greetingSupport: "Spør meg om det du lurer på.",
       placeholder: "Skriv en melding…",
+      quickActions: [
+        { id: "get_started", label: "Kom i gang", draft: "Hvordan kommer jeg i gang?" },
+        {
+          id: "find_info",
+          label: "Finn informasjon",
+          draft: "Hvor finner jeg mer informasjon?",
+        },
+      ],
     },
   },
   en: {
     standard: {
       prompt: "Answers from what is published on this website",
       greeting: "Hi! How can I help you?",
+      greetingSupport: "Ask me what you need to know.",
       placeholder: "Type a message…",
+      quickActions: [
+        { id: "get_started", label: "Get started", draft: "How do I get started?" },
+        {
+          id: "find_info",
+          label: "Find information",
+          draft: "Where can I find more information?",
+        },
+      ],
     },
     compact: {
       prompt: "About this page",
       greeting: "Hi! How can I help you?",
+      greetingSupport: "Ask me what you need to know.",
       placeholder: "Type a message…",
+      quickActions: [
+        { id: "get_started", label: "Get started", draft: "How do I get started?" },
+        {
+          id: "find_info",
+          label: "Find information",
+          draft: "Where can I find more information?",
+        },
+      ],
     },
   },
   sv: {
     standard: {
       prompt: "Svarar utifrån det som står på webbplatsen",
       greeting: "Hej! Hur kan jag hjälpa dig?",
+      greetingSupport: "Fråga mig om det du undrar över.",
       placeholder: "Skriv ett meddelande…",
+      quickActions: [
+        { id: "get_started", label: "Kom igång", draft: "Hur kommer jag igång?" },
+        {
+          id: "find_info",
+          label: "Hitta information",
+          draft: "Var hittar jag mer information?",
+        },
+      ],
     },
     compact: {
       prompt: "Om den här sidan",
       greeting: "Hej! Hur kan jag hjälpa dig?",
+      greetingSupport: "Fråga mig om det du undrar över.",
       placeholder: "Skriv ett meddelande…",
+      quickActions: [
+        { id: "get_started", label: "Kom igång", draft: "Hur kommer jag igång?" },
+        {
+          id: "find_info",
+          label: "Hitta information",
+          draft: "Var hittar jag mer information?",
+        },
+      ],
     },
   },
   da: {
     standard: {
       prompt: "Svarer ud fra det, der står på hjemmesiden",
       greeting: "Hej! Hvordan kan jeg hjælpe dig?",
+      greetingSupport: "Spørg mig om det, du undrer dig over.",
       placeholder: "Skriv en besked…",
+      quickActions: [
+        { id: "get_started", label: "Kom i gang", draft: "Hvordan kommer jeg i gang?" },
+        {
+          id: "find_info",
+          label: "Find information",
+          draft: "Hvor finder jeg mere information?",
+        },
+      ],
     },
     compact: {
       prompt: "Om denne side",
       greeting: "Hej! Hvordan kan jeg hjælpe dig?",
+      greetingSupport: "Spørg mig om det, du undrer dig over.",
       placeholder: "Skriv en besked…",
+      quickActions: [
+        { id: "get_started", label: "Kom i gang", draft: "Hvordan kommer jeg i gang?" },
+        {
+          id: "find_info",
+          label: "Find information",
+          draft: "Hvor finder jeg mere information?",
+        },
+      ],
     },
   },
   pl: {
     standard: {
       prompt: "Odpowiada na podstawie treści opublikowanych na tej stronie",
       greeting: "Cześć! W czym mogę pomóc?",
+      greetingSupport: "Zapytaj o to, czego potrzebujesz.",
       placeholder: "Napisz wiadomość…",
+      quickActions: [
+        { id: "get_started", label: "Zacznij", draft: "Jak zacząć?" },
+        {
+          id: "find_info",
+          label: "Znajdź informacje",
+          draft: "Gdzie znajdę więcej informacji?",
+        },
+      ],
     },
     compact: {
       prompt: "O tej stronie",
       greeting: "Cześć! W czym mogę pomóc?",
+      greetingSupport: "Zapytaj o to, czego potrzebujesz.",
       placeholder: "Napisz wiadomość…",
+      quickActions: [
+        { id: "get_started", label: "Zacznij", draft: "Jak zacząć?" },
+        {
+          id: "find_info",
+          label: "Znajdź informacje",
+          draft: "Gdzie znajdę więcej informacji?",
+        },
+      ],
     },
   },
   uk: {
     standard: {
       prompt: "Відповідає на основі опублікованого на сайті",
       greeting: "Привіт! Чим можу допомогти?",
+      greetingSupport: "Запитайте про те, що вас цікавить.",
       placeholder: "Напишіть повідомлення…",
+      quickActions: [
+        { id: "get_started", label: "Почати", draft: "Як почати?" },
+        {
+          id: "find_info",
+          label: "Знайти інформацію",
+          draft: "Де знайти більше інформації?",
+        },
+      ],
     },
     compact: {
       prompt: "Про цю сторінку",
       greeting: "Привіт! Чим можу допомогти?",
+      greetingSupport: "Запитайте про те, що вас цікавить.",
       placeholder: "Напишіть повідомлення…",
+      quickActions: [
+        { id: "get_started", label: "Почати", draft: "Як почати?" },
+        {
+          id: "find_info",
+          label: "Знайти інформацію",
+          draft: "Де знайти більше інформації?",
+        },
+      ],
     },
   },
 };
 
 const EMBED_UI_SHELL: Record<
   WebsiteKompisEmbedLocale,
-  Pick<WebsiteKompisEmbedUiLabels, "title" | "send" | "sending" | "unavailable" | "error" | "open" | "close">
+  Pick<
+    WebsiteKompisEmbedUiLabels,
+    | "title"
+    | "productName"
+    | "send"
+    | "sending"
+    | "unavailable"
+    | "error"
+    | "open"
+    | "close"
+    | "minimize"
+    | "credit"
+    | "sourceFromSite"
+  >
 > = {
   no: {
     title: "Website Kompis",
+    productName: "Kompis",
     send: "Send",
-    sending: "Sender …",
+    sending: "Sender…",
     unavailable: "Midlertidig utilgjengelig",
     error: "Noe gikk galt. Prøv igjen.",
-    open: "Åpne Website Kompis",
-    close: "Lukk Website Kompis",
+    open: "Åpne Kompis",
+    close: "Lukk chat",
+    minimize: "Minimer chat",
+    credit: "Drevet av Aipify",
+    sourceFromSite: "Kilde fra nettstedet",
   },
   en: {
     title: "Website Kompis",
+    productName: "Kompis",
     send: "Send",
-    sending: "Sending …",
+    sending: "Sending…",
     unavailable: "Temporarily unavailable",
     error: "Something went wrong. Please try again.",
-    open: "Open Website Kompis",
-    close: "Close Website Kompis",
+    open: "Open Kompis",
+    close: "Close chat",
+    minimize: "Minimize chat",
+    credit: "Powered by Aipify",
+    sourceFromSite: "Source from the website",
   },
   sv: {
     title: "Website Kompis",
+    productName: "Kompis",
     send: "Skicka",
-    sending: "Skickar …",
+    sending: "Skickar…",
     unavailable: "Tillfälligt otillgänglig",
     error: "Något gick fel. Försök igen.",
-    open: "Öppna Website Kompis",
-    close: "Stäng Website Kompis",
+    open: "Öppna Kompis",
+    close: "Stäng chatten",
+    minimize: "Minimera chatten",
+    credit: "Drivs av Aipify",
+    sourceFromSite: "Källa från webbplatsen",
   },
   da: {
     title: "Website Kompis",
+    productName: "Kompis",
     send: "Send",
-    sending: "Sender …",
+    sending: "Sender…",
     unavailable: "Midlertidigt utilgængelig",
     error: "Noget gik galt. Prøv igen.",
-    open: "Åbn Website Kompis",
-    close: "Luk Website Kompis",
+    open: "Åbn Kompis",
+    close: "Luk chat",
+    minimize: "Minimer chat",
+    credit: "Drevet af Aipify",
+    sourceFromSite: "Kilde fra hjemmesiden",
   },
   pl: {
     title: "Website Kompis",
+    productName: "Kompis",
     send: "Wyślij",
-    sending: "Wysyłanie …",
+    sending: "Wysyłanie…",
     unavailable: "Tymczasowo niedostępne",
     error: "Coś poszło nie tak. Spróbuj ponownie.",
-    open: "Otwórz Website Kompis",
-    close: "Zamknij Website Kompis",
+    open: "Otwórz Kompis",
+    close: "Zamknij czat",
+    minimize: "Zminimalizuj czat",
+    credit: "Napędzane przez Aipify",
+    sourceFromSite: "Źródło ze strony",
   },
   uk: {
     title: "Website Kompis",
+    productName: "Kompis",
     send: "Надіслати",
-    sending: "Надсилання …",
+    sending: "Надсилання…",
     unavailable: "Тимчасово недоступно",
     error: "Щось пішло не так. Спробуйте ще раз.",
-    open: "Відкрити Website Kompis",
-    close: "Закрити Website Kompis",
+    open: "Відкрити Kompis",
+    close: "Закрити чат",
+    minimize: "Згорнути чат",
+    credit: "Працює на Aipify",
+    sourceFromSite: "Джерело з сайту",
   },
 };
+
+export const WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE = "/website-kompis/design-v1" as const;
 
 export function resolveWebsiteKompisEmbedUiLabels(input: {
   locale: WebsiteKompisEmbedLocale;
@@ -299,6 +463,8 @@ export function resolveWebsiteKompisEmbedUiLabels(input: {
     ...shell,
     prompt: welcome.prompt,
     greeting: welcome.greeting,
+    greetingSupport: welcome.greetingSupport,
     placeholder: welcome.placeholder,
+    quickActions: welcome.quickActions,
   };
 }
