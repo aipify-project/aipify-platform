@@ -90,6 +90,7 @@ async function runKompisLiveAiGovernanceV3Tests() {
 
   assert.equal(isCircuitEligibleError("provider_timeout"), true);
   assert.equal(isCircuitEligibleError("provider_rate_limited"), true);
+  assert.equal(isCircuitEligibleError("provider_quota_exhausted"), true);
   assert.equal(isCircuitEligibleError("critical_blocked"), false);
 
   const profile = resolveKompisPlannerProfile();
