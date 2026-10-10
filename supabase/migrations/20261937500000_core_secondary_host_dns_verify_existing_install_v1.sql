@@ -4,6 +4,8 @@
 -- Does NOT create installations, mutate license.domain_reference, or set verified
 -- without a matching challenge token hash.
 -- Feature owner: PLATFORM (operator) · Runtime trust remains customer_domains.
+-- SECURITY REPAIR: verify/bind is service_role-only; DNS proof stays in trusted server runtime.
+-- Migration version 20261937500000 avoids Production ledger collision on 20261937300000.
 
 -- ---------------------------------------------------------------------------
 -- 1. Challenge table (token stored as SHA-256 hex only)
@@ -98,16 +100,15 @@ begin
     raise exception 'CUSTOMER_NOT_FOUND' using errcode = 'P0001';
   end if;
 
+  -- Exact customer ownership only — no company_id OR fallback (prevents cross-tenant bind).
   select *
   into v_install
   from public.installations i
   where i.id = p_installation_id
+    and i.customer_id = p_customer_id
+    and i.company_id = v_company_id
     and i.revoked_at is null
     and lower(coalesce(i.status, '')) in ('active', 'ready', 'installing', 'warning')
-    and (
-      i.customer_id = p_customer_id
-      or i.company_id = v_company_id
-    )
   limit 1;
 
   if v_install.id is null then
@@ -119,6 +120,104 @@ end;
 $$;
 
 revoke all on function public._secondary_domain_assert_install_for_customer(uuid, uuid)
+  from public, anon, authenticated;
+
+-- Service-role gate for bind: authenticated JWT cannot invoke verify/bind.
+create or replace function public._secondary_domain_require_service_role()
+returns void
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+begin
+  if coalesce(auth.jwt() ->> 'role', '') is distinct from 'service_role' then
+    raise exception 'SERVICE_ROLE_REQUIRED' using errcode = 'P0001';
+  end if;
+end;
+$$;
+
+revoke all on function public._secondary_domain_require_service_role()
+  from public, anon, authenticated;
+
+-- Actor must be a real platform admin; client cannot spoof without service_role.
+create or replace function public._secondary_domain_assert_platform_actor(p_actor_auth_user_id uuid)
+returns void
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+begin
+  if p_actor_auth_user_id is null then
+    raise exception 'BIND_ACTOR_REQUIRED' using errcode = 'P0001';
+  end if;
+
+  if not exists (
+    select 1
+    from public.platform_admins pa
+    where pa.auth_user_id = p_actor_auth_user_id
+      and pa.role in ('super_admin', 'platform_support')
+      and coalesce(pa.status, 'active') = 'active'
+  ) then
+    raise exception 'BIND_ACTOR_NOT_PLATFORM_ADMIN' using errcode = 'P0001';
+  end if;
+end;
+$$;
+
+revoke all on function public._secondary_domain_assert_platform_actor(uuid)
+  from public, anon, authenticated;
+
+-- Audit write that preserves actor identity under service_role (auth.uid() is null).
+create or replace function public._secondary_domain_record_bind_audit(
+  p_actor_auth_user_id uuid,
+  p_action_type text,
+  p_target_type text,
+  p_target_id text,
+  p_metadata jsonb
+)
+returns uuid
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_id uuid;
+  v_meta jsonb;
+begin
+  perform public._secondary_domain_require_service_role();
+  perform public._secondary_domain_assert_platform_actor(p_actor_auth_user_id);
+
+  v_meta := coalesce(p_metadata, '{}'::jsonb);
+  -- never include token or token hash
+  if v_meta ? 'presented_token'
+     or v_meta ? 'challenge_token'
+     or v_meta ? 'challenge_token_hash'
+     or v_meta ? 'dns_txt_value' then
+    raise exception 'TOKEN_MATERIAL_IN_AUDIT_FORBIDDEN' using errcode = 'P0001';
+  end if;
+
+  insert into public.platform_admin_audit_logs (
+    admin_auth_user_id,
+    action_type,
+    target_type,
+    target_id,
+    metadata
+  )
+  values (
+    p_actor_auth_user_id,
+    p_action_type,
+    p_target_type,
+    p_target_id,
+    v_meta
+  )
+  returning id into v_id;
+
+  return v_id;
+end;
+$$;
+
+revoke all on function public._secondary_domain_record_bind_audit(uuid, text, text, text, jsonb)
   from public, anon, authenticated;
 
 -- ---------------------------------------------------------------------------
@@ -346,7 +445,7 @@ begin
     and hostname = v_hostname
     and status = 'pending';
 
-  v_token := encode(gen_random_bytes(32), 'hex');
+  v_token := encode(extensions.gen_random_bytes(32), 'hex');
   v_token_hash := public._secondary_domain_dns_challenge_hash(v_token);
   v_record_name := public._secondary_domain_dns_record_name(v_hostname);
 
@@ -533,14 +632,19 @@ grant execute on function public.get_platform_portal_secondary_domain_dns_challe
   to authenticated;
 
 -- ---------------------------------------------------------------------------
--- 5. Verify + bind (requires presented token from external DNS proof)
+-- 5. Verify + bind (server-only: service_role + DNS-presented token + platform actor)
 -- ---------------------------------------------------------------------------
+drop function if exists public.verify_and_bind_platform_portal_secondary_domain_dns_challenge(
+  uuid, uuid, text, text, text
+);
+
 create or replace function public.verify_and_bind_platform_portal_secondary_domain_dns_challenge(
   p_customer_id uuid,
   p_challenge_id uuid,
   p_presented_token text,
   p_internal_reason text,
-  p_idempotency_key text
+  p_idempotency_key text,
+  p_actor_auth_user_id uuid
 )
 returns jsonb
 language plpgsql
@@ -561,7 +665,9 @@ declare
   v_conflict public.customer_domains;
   v_domain_before jsonb;
 begin
-  perform public._ppsf258_require_platform_access();
+  -- Hard boundary: authenticated operators cannot call this RPC directly.
+  perform public._secondary_domain_require_service_role();
+  perform public._secondary_domain_assert_platform_actor(p_actor_auth_user_id);
 
   if p_customer_id is null or p_challenge_id is null then
     raise exception 'INVALID_CHALLENGE' using errcode = 'P0001';
@@ -588,7 +694,8 @@ begin
   v_payload_hash := md5(
     p_customer_id::text || '|' ||
     p_challenge_id::text || '|' ||
-    v_reason
+    v_reason || '|' ||
+    p_actor_auth_user_id::text
   );
 
   select metadata
@@ -596,6 +703,7 @@ begin
   from public.platform_admin_audit_logs
   where action_type = 'platform_secondary_domain_dns_challenge_verify_bind'
     and metadata->>'idempotency_key' = v_key
+    and metadata->>'customer_id' = p_customer_id::text
   order by created_at desc
   limit 1;
 
@@ -603,16 +711,25 @@ begin
     if coalesce(v_prior->>'payload_hash', '') <> v_payload_hash then
       raise exception 'IDEMPOTENCY_CONFLICT' using errcode = 'P0001';
     end if;
+    if coalesce(v_prior->>'actor_auth_user_id', '') <> p_actor_auth_user_id::text then
+      raise exception 'IDEMPOTENCY_CONFLICT' using errcode = 'P0001';
+    end if;
 
     select *
     into v_domain
     from public.customer_domains
-    where id = nullif(v_prior->>'domain_id', '')::uuid;
+    where id = nullif(v_prior->>'domain_id', '')::uuid
+      and customer_id = p_customer_id;
+
+    if v_domain.id is null then
+      raise exception 'IDEMPOTENCY_REPLAY_MISSING' using errcode = 'P0001';
+    end if;
 
     select *
     into v_challenge
     from public.customer_domain_dns_challenges
-    where id = p_challenge_id;
+    where id = p_challenge_id
+      and customer_id = p_customer_id;
 
     return jsonb_build_object(
       'ok', true,
@@ -647,6 +764,9 @@ begin
     raise exception 'CHALLENGE_NOT_FOUND' using errcode = 'P0001';
   end if;
 
+  -- Serialize concurrent verify/bind for the same hostname across tenants.
+  perform pg_advisory_xact_lock(88117733, hashtext(v_challenge.hostname));
+
   if v_challenge.status = 'verified' then
     raise exception 'CHALLENGE_ALREADY_VERIFIED' using errcode = 'P0001';
   end if;
@@ -675,7 +795,7 @@ begin
     raise exception 'DNS_PROOF_MISMATCH' using errcode = 'P0001';
   end if;
 
-  -- Re-check install eligibility at bind time.
+  -- Re-check install eligibility at bind time (exact customer ownership).
   v_install := public._secondary_domain_assert_install_for_customer(
     p_customer_id,
     v_challenge.installation_id
@@ -693,7 +813,7 @@ begin
   order by (lower(coalesce(ll.license_status, '')) = 'active') desc, ll.created_at desc nulls last
   limit 1;
 
-  -- Global conflict: another verified active host.
+  -- Global conflict: another verified active host (re-check under advisory lock).
   select *
   into v_conflict
   from public.customer_domains cd
@@ -716,6 +836,11 @@ begin
 
   if v_domain.id is null then
     raise exception 'DOMAIN_NOT_FOUND' using errcode = 'P0001';
+  end if;
+
+  -- Exact hostname bind only — never rewrite domain to a different host.
+  if lower(btrim(v_domain.domain)) is distinct from v_challenge.hostname then
+    raise exception 'HOSTNAME_MISMATCH' using errcode = 'P0001';
   end if;
 
   v_domain_before := jsonb_build_object(
@@ -756,7 +881,8 @@ begin
     raise exception 'LICENSE_DOMAIN_REFERENCE_MUTATION_FORBIDDEN' using errcode = 'P0001';
   end if;
 
-  perform public.record_platform_admin_audit_event(
+  perform public._secondary_domain_record_bind_audit(
+    p_actor_auth_user_id,
     'platform_secondary_domain_dns_challenge_verify_bind',
     'customer_domain',
     v_domain.id::text,
@@ -768,6 +894,7 @@ begin
       'domain_id', v_domain.id,
       'hostname', v_domain.domain,
       'installation_id', v_install.id,
+      'actor_auth_user_id', p_actor_auth_user_id,
       'before', v_domain_before,
       'after', jsonb_build_object(
         'status', v_domain.status,
@@ -804,11 +931,11 @@ end;
 $$;
 
 revoke all on function public.verify_and_bind_platform_portal_secondary_domain_dns_challenge(
-  uuid, uuid, text, text, text
-) from public, anon;
+  uuid, uuid, text, text, text, uuid
+) from public, anon, authenticated;
 grant execute on function public.verify_and_bind_platform_portal_secondary_domain_dns_challenge(
-  uuid, uuid, text, text, text
-) to authenticated;
+  uuid, uuid, text, text, text, uuid
+) to service_role;
 
 -- ---------------------------------------------------------------------------
 -- 6. Revoke pending challenge (safe rollback without deleting domain history)
@@ -864,15 +991,18 @@ begin
   from public.customer_domains
   where id = v_challenge.domain_id;
 
-  -- Keep pending domain row; do not mark verified. Optional soft disable.
+  -- Keep history. Never regress a verified/active domain from an old challenge revoke.
   if v_domain.id is not null
-     and lower(coalesce(v_domain.verification_status, '')) <> 'verified' then
+     and lower(coalesce(v_domain.verification_status, '')) <> 'verified'
+     and lower(coalesce(v_domain.status, '')) <> 'active' then
     update public.customer_domains
     set
       status = 'pending',
       verification_status = 'failed',
       updated_at = now()
     where id = v_domain.id
+      and lower(coalesce(verification_status, '')) <> 'verified'
+      and lower(coalesce(status, '')) <> 'active'
     returning * into v_domain;
   end if;
 

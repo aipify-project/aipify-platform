@@ -381,6 +381,10 @@ export function mapSecondaryDomainDnsChallengeRpcError(
     ["DNS_PROOF_MISMATCH", 409, "dns_proof_mismatch"],
     ["IDEMPOTENCY_CONFLICT", 409, "idempotency_conflict"],
     ["IDEMPOTENCY_REPLAY_MISSING", 409, "idempotency_conflict"],
+    ["SERVICE_ROLE_REQUIRED", 403, "forbidden"],
+    ["BIND_ACTOR_REQUIRED", 403, "forbidden"],
+    ["BIND_ACTOR_NOT_PLATFORM_ADMIN", 403, "forbidden"],
+    ["HOSTNAME_MISMATCH", 409, "invalid_hostname"],
     ["ACCESS DENIED", 403, "forbidden"],
     ["PLATFORM ADMIN", 403, "forbidden"],
   ];

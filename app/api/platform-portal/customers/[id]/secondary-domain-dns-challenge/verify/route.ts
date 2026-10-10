@@ -6,6 +6,7 @@ import {
 } from "@/lib/platform-portal/secondary-domain-dns-challenge";
 import { lookupSecondaryDomainDnsChallengeToken } from "@/lib/platform-portal/secondary-domain-dns-resolve";
 import { createClient } from "@/lib/supabase/server";
+import { createServiceRoleClient } from "@/lib/supabase/service-role";
 
 const UUID_REGEX =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -20,8 +21,9 @@ function jsonError(message: string, status: number, code?: string) {
 }
 
 /**
- * POST — server DNS TXT lookup, then verify/bind RPC with presented token.
- * Client cannot self-attest verification. Token authority comes from live DNS only.
+ * POST — authenticate platform operator, live DNS TXT lookup, then service-role
+ * verify/bind with attested actor id. Client cannot self-attest verification;
+ * authenticated JWT cannot execute the bind RPC directly.
  */
 export async function POST(
   request: Request,
@@ -55,6 +57,22 @@ export async function POST(
         ? (body as Record<string, unknown>)
         : {};
 
+    // Reject client-supplied verification / token material — DNS is server-only.
+    if (
+      bodyRecord.verified != null ||
+      bodyRecord.p_verified != null ||
+      bodyRecord.presentedToken != null ||
+      bodyRecord.presented_token != null ||
+      bodyRecord.dnsTxtValue != null ||
+      bodyRecord.dns_txt_value != null
+    ) {
+      return jsonError(
+        "Client DNS attestation is not accepted.",
+        400,
+        "forbidden",
+      );
+    }
+
     const challengeId = String(bodyRecord.challengeId ?? bodyRecord.challenge_id ?? "").trim();
     const internalReason = String(
       bodyRecord.internalReason ?? bodyRecord.internal_reason ?? "",
@@ -67,6 +85,7 @@ export async function POST(
       return jsonError("Invalid challenge id.", 400, "invalid_challenge");
     }
 
+    // Platform authorization via authenticated session (canonical portal gate).
     const { data: statusData, error: statusError } = await supabase.rpc(
       "get_platform_portal_secondary_domain_dns_challenge_status",
       {
@@ -105,6 +124,7 @@ export async function POST(
       );
     }
 
+    // Hostname comes from trusted challenge row, never from client host headers.
     const dns = await lookupSecondaryDomainDnsChallengeToken({ hostname });
     if (!dns.ok) {
       return jsonError(
@@ -127,7 +147,10 @@ export async function POST(
     }
 
     const { value } = parsedInput;
-    const { data, error } = await supabase.rpc(
+
+    // Bind uses service_role only — never the operator's authenticated JWT.
+    const service = createServiceRoleClient();
+    const { data, error } = await service.rpc(
       "verify_and_bind_platform_portal_secondary_domain_dns_challenge",
       {
         p_customer_id: value.customerId,
@@ -135,6 +158,7 @@ export async function POST(
         p_presented_token: value.presentedToken,
         p_internal_reason: value.internalReason,
         p_idempotency_key: value.idempotencyKey,
+        p_actor_auth_user_id: user.id,
       },
     );
 

@@ -20,7 +20,7 @@ const TOKEN = "a".repeat(64);
 
 const MIGRATION = join(
   process.cwd(),
-  "supabase/migrations/20261937300000_core_secondary_host_dns_verify_existing_install_v1.sql",
+  "supabase/migrations/20261937500000_core_secondary_host_dns_verify_existing_install_v1.sql",
 );
 
 describe("secondary domain DNS challenge parsers", () => {
@@ -197,28 +197,42 @@ describe("secondary domain DNS migration contract", () => {
     assert.doesNotMatch(sql, /domain_reference\s*=/);
   });
 
-  it("verify/bind requires presented token hash match and platform access", () => {
+  it("verify/bind requires service_role, actor attestation, and token hash match", () => {
     assert.match(sql, /verify_and_bind_platform_portal_secondary_domain_dns_challenge/);
-    assert.match(sql, /_ppsf258_require_platform_access\(\)/);
+    assert.match(sql, /_secondary_domain_require_service_role\(\)/);
+    assert.match(sql, /_secondary_domain_assert_platform_actor/);
+    assert.match(sql, /p_actor_auth_user_id uuid/);
     assert.match(sql, /DNS_PROOF_MISMATCH/);
     assert.match(sql, /_secondary_domain_dns_challenge_hash/);
     assert.match(sql, /challenge_token_hash = repeat\('0', 64\)/);
+    assert.match(sql, /pg_advisory_xact_lock/);
+    assert.match(sql, /i\.customer_id = p_customer_id/);
     assert.doesNotMatch(sql, /p_verified\s+boolean/i);
-    assert.doesNotMatch(sql, /verified\s*=\s*true/i);
+    assert.doesNotMatch(sql, /or i\.company_id = v_company_id/);
   });
 
-  it("grants execute only to authenticated and revokes public/anon", () => {
+  it("grants issue to authenticated; bind only to service_role", () => {
     assert.match(
       sql,
-      /revoke all on function public\.issue_platform_portal_secondary_domain_dns_challenge[\s\S]*from public, anon;/,
+      /revoke all on function public\.issue_platform_portal_secondary_domain_dns_challenge[\s\S]{0,200}from public, anon;/,
     );
     assert.match(
       sql,
-      /grant execute on function public\.issue_platform_portal_secondary_domain_dns_challenge[\s\S]*to authenticated;/,
+      /grant execute on function public\.issue_platform_portal_secondary_domain_dns_challenge[\s\S]{0,200}to authenticated;/,
     );
     assert.match(
       sql,
-      /grant execute on function public\.verify_and_bind_platform_portal_secondary_domain_dns_challenge[\s\S]*to authenticated;/,
+      /revoke all on function public\.verify_and_bind_platform_portal_secondary_domain_dns_challenge\(\s*uuid, uuid, text, text, text, uuid\s*\) from public, anon, authenticated;/,
+    );
+    assert.match(
+      sql,
+      /grant execute on function public\.verify_and_bind_platform_portal_secondary_domain_dns_challenge\(\s*uuid, uuid, text, text, text, uuid\s*\)\s*to service_role;/,
+    );
+    assert.equal(
+      /grant execute on function public\.verify_and_bind_platform_portal_secondary_domain_dns_challenge\([^)]*\)\s*to authenticated;/m.test(
+        sql,
+      ),
+      false,
     );
   });
 
@@ -256,14 +270,15 @@ describe("API route fail-closed contracts", () => {
     "utf8",
   );
 
-  it("verify route uses live DNS and never trusts client verified flag", () => {
+  it("verify route uses live DNS, service-role bind, and rejects client token", () => {
     assert.match(verifyRoute, /lookupSecondaryDomainDnsChallengeToken/);
     assert.match(verifyRoute, /presentedToken: dns\.token/);
-    assert.match(verifyRoute, /Client cannot self-attest verification/);
-    assert.doesNotMatch(verifyRoute, /bodyRecord\.verified/);
-    assert.doesNotMatch(verifyRoute, /p_verified/);
+    assert.match(verifyRoute, /createServiceRoleClient/);
+    assert.match(verifyRoute, /p_actor_auth_user_id: user\.id/);
+    assert.match(verifyRoute, /Client DNS attestation is not accepted/);
     assert.match(verifyRoute, /licenseDomainReferenceUnchanged/);
     assert.match(verifyRoute, /installationCreated/);
+    assert.doesNotMatch(verifyRoute, /supabase\.rpc\(\s*"verify_and_bind/);
   });
 
   it("issue route requires authenticated session and safety invariants", () => {
