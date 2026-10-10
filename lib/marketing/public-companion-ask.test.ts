@@ -671,6 +671,218 @@ async function main() {
     assert.match(publicCompanionAskSource, /createEmptyCompanionTenantContext/);
   });
 
+  await test("customer site uses mocked Core grounded completion with validated sources", async () => {
+    let completionCalled = false;
+    const response = await askPublicPlatformCompanion(
+      {
+        question: "Hva er forskjellen mellom Bronze og Gold?",
+        locale: "no",
+        installId: "11111111-1111-4111-8111-111111111111",
+        domain: "www.customer-a.example",
+      },
+      {
+        requestHost: "www.customer-a.example",
+        rawInstallConfig: {
+          website_kompis: {
+            enabled: true,
+            sources: {
+              faq: true,
+              currentPage: false,
+              aipifyPublic: true,
+              publicSiteIndex: true,
+            },
+          },
+        },
+        resolveLicensedAvailability: async () => ({
+          available: true,
+          reason: "available" as const,
+          capabilityKey: "website_kompis",
+        }),
+        searchTenantVisitorKnowledge: async () => [
+          {
+            item_id: "faq-bronze-gold",
+            title: "Medlemsnivåer",
+            answer:
+              "Bronze er startnivået. Gold gir flere profilfunksjoner enn Bronze på NETTSTED_NAVN.",
+            source_url: "https://www.customer-a.example/no/membership",
+            locale: "no",
+            score: 42,
+            category: "membership",
+            content_type: "faq",
+            matched_reason: "faq",
+          },
+        ],
+        searchTenantPublicSiteIndex: async () => [
+          {
+            documentId: "doc-1",
+            chunkId: "chunk-1",
+            title: "Medlemsguide",
+            canonicalUrl: "https://www.customer-a.example/no/membership-guide",
+            pathname: "/no/membership-guide",
+            locale: "no",
+            excerpt: "Sammenlign nivåer",
+            chunkContent:
+              "Bronze er startnivået. Gold gir flere profilfunksjoner enn Bronze.",
+            score: 48,
+            matchedReason: "public_site_index",
+            crawledAt: null,
+          },
+        ],
+        groundedCompletion: async () => {
+          completionCalled = true;
+          return {
+            ok: true,
+            text: JSON.stringify({
+              covered: true,
+              answer:
+                "Bronze er startnivået, mens Gold gir flere profilfunksjoner enn Bronze.",
+              sourceIds: ["faq:faq-bronze-gold", "index:chunk-1"],
+              followUp: "Vil du også høre om Silver?",
+            }),
+            modelProfile: "kompis_result_summary_v1",
+            latencyMs: 18,
+            usage: { inputUnits: 20, outputUnits: 40, totalUnits: 60 },
+          };
+        },
+      },
+    );
+
+    assert.equal(completionCalled, true);
+    assert.match(response.answer.directAnswer, /Gold/);
+    assert.doesNotMatch(response.answer.directAnswer, /Business Operating System|799/);
+    assert.ok(
+      response.sources.some((source) => source.route.includes("membership")),
+    );
+  });
+
+  await test("follow-up uses recent context for retrieval without platform fallthrough", async () => {
+    let faqQuery = "";
+    const response = await askPublicPlatformCompanion(
+      {
+        question: "Hva betyr det?",
+        locale: "no",
+        installId: "11111111-1111-4111-8111-111111111111",
+        domain: "www.customer-a.example",
+        recentContext: [
+          {
+            role: "user",
+            text: "Hva er forskjellen mellom Bronze og Gold?",
+          },
+          {
+            role: "assistant",
+            text: "Bronze er startnivået. Gold gir flere profilfunksjoner.",
+          },
+        ],
+      },
+      {
+        requestHost: "www.customer-a.example",
+        rawInstallConfig: {
+          website_kompis: {
+            enabled: true,
+            sources: {
+              faq: true,
+              currentPage: false,
+              aipifyPublic: true,
+              publicSiteIndex: false,
+            },
+          },
+        },
+        resolveLicensedAvailability: async () => ({
+          available: true,
+          reason: "available" as const,
+          capabilityKey: "website_kompis",
+        }),
+        searchTenantVisitorKnowledge: async (input) => {
+          faqQuery = input.query;
+          return [
+            {
+              item_id: "faq-bronze-gold",
+              title: "Medlemsnivåer",
+              answer:
+                "Bronze er startnivået. Gold gir flere profilfunksjoner enn Bronze.",
+              source_url: "https://www.customer-a.example/no/membership",
+              locale: "no",
+              score: 40,
+              category: "membership",
+              content_type: "faq",
+              matched_reason: "faq",
+            },
+          ];
+        },
+        groundedCompletion: async () => ({
+          ok: true,
+          text: JSON.stringify({
+            covered: true,
+            answer:
+              "Det betyr at Gold gir flere profilfunksjoner enn Bronze-startnivået.",
+            sourceIds: ["faq:faq-bronze-gold"],
+            followUp: null,
+          }),
+          modelProfile: "kompis_result_summary_v1",
+          latencyMs: 10,
+          usage: { inputUnits: 10, outputUnits: 12, totalUnits: 22 },
+        }),
+      },
+    );
+
+    assert.match(faqQuery, /Bronze/);
+    assert.match(response.answer.directAnswer, /Gold|Bronze/);
+    assert.doesNotMatch(response.answer.directAnswer, /799|ABOS/);
+  });
+
+  await test("grounded provider failure falls back to extractive FAQ without platform copy", async () => {
+    const response = await askPublicPlatformCompanion(
+      {
+        question: "Hva er forskjellen mellom Bronze og Gold?",
+        locale: "no",
+        installId: "11111111-1111-4111-8111-111111111111",
+        domain: "www.customer-a.example",
+      },
+      {
+        requestHost: "www.customer-a.example",
+        rawInstallConfig: {
+          website_kompis: {
+            enabled: true,
+            sources: {
+              faq: true,
+              currentPage: false,
+              aipifyPublic: true,
+              publicSiteIndex: false,
+            },
+          },
+        },
+        resolveLicensedAvailability: async () => ({
+          available: true,
+          reason: "available" as const,
+          capabilityKey: "website_kompis",
+        }),
+        searchTenantVisitorKnowledge: async () => [
+          {
+            item_id: "faq-bronze-gold",
+            title: "Medlemsnivåer",
+            answer:
+              "Bronze er startnivået. Gold gir flere profilfunksjoner enn Bronze på NETTSTED_NAVN.",
+            source_url: "https://www.customer-a.example/no/membership",
+            locale: "no",
+            score: 42,
+            category: "membership",
+            content_type: "faq",
+            matched_reason: "faq",
+          },
+        ],
+        groundedCompletion: async () => ({
+          ok: false,
+          errorCode: "provider_timeout",
+          modelProfile: "kompis_result_summary_v1",
+          latencyMs: 80,
+        }),
+      },
+    );
+
+    assert.match(response.answer.directAnswer, /Bronze|Gold|profil/);
+    assert.doesNotMatch(response.answer.directAnswer, /799|Business Operating System/);
+  });
+
   if (failures.length > 0) {
     console.error(`public-companion-ask.test.ts: ${failures.length} failed`);
     process.exit(1);
