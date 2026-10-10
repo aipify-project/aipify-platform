@@ -80,7 +80,7 @@ export async function requestKompisGroundedTextCompletion(input: {
   const baseUrl = readProviderBaseUrl();
 
   if (!apiKey || !hasKompisAiProviderSecretConfigured()) {
-    console.info("[website-kompis-grounded]", {
+    console.warn("[website-kompis-grounded]", {
       event: "completion_unavailable",
       errorCode: "AI_PROVIDER_NOT_CONFIGURED",
       modelProfile: profile.id,
@@ -92,7 +92,7 @@ export async function requestKompisGroundedTextCompletion(input: {
     };
   }
   if (!isKompisAiBaseUrlAllowlisted(baseUrl)) {
-    console.info("[website-kompis-grounded]", {
+    console.warn("[website-kompis-grounded]", {
       event: "completion_unavailable",
       errorCode: "AI_PROVIDER_BASE_URL_INVALID",
       modelProfile: profile.id,
@@ -214,7 +214,7 @@ export async function requestKompisGroundedTextCompletion(input: {
       });
     }
 
-    console.info("[website-kompis-grounded]", {
+    console.warn("[website-kompis-grounded]", {
       event: "completion_failed",
       errorCode: lastError,
       modelProfile: profile.id,

@@ -323,7 +323,7 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
   if (detectWebsiteKompisPromptInjection(pack.question)) {
     return null;
   }
-  console.info("[website-kompis-grounded]", {
+  console.warn("[website-kompis-grounded]", {
     event: "synthesize_start",
     evidenceCount: pack.evidence.length,
     evidenceKinds: pack.evidence.map((item) => item.kind),
@@ -339,7 +339,7 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
   });
 
   if (!completion.ok) {
-    console.info("[website-kompis-grounded]", {
+    console.warn("[website-kompis-grounded]", {
       event: "synthesize_provider_failed",
       errorCode: completion.errorCode,
       modelProfile: completion.modelProfile,
@@ -349,7 +349,7 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
 
   const payload = parseWebsiteKompisGroundedModelPayload(completion.text);
   if (!payload) {
-    console.info("[website-kompis-grounded]", {
+    console.warn("[website-kompis-grounded]", {
       event: "synthesize_parse_failed",
       textChars: completion.text.length,
     });
@@ -358,7 +358,7 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
 
   const validated = validateWebsiteKompisGroundedPayload(payload, pack.evidence);
   if (!validated.ok) {
-    console.info("[website-kompis-grounded]", {
+    console.warn("[website-kompis-grounded]", {
       event: "synthesize_validate_failed",
       reason: validated.reason,
     });

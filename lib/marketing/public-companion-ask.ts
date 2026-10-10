@@ -967,6 +967,12 @@ export async function askPublicPlatformCompanion(
         : null,
     });
 
+    console.warn("[website-kompis-grounded]", {
+      event: "ask_evidence_ready",
+      faqCount: faqRows.length,
+      indexCount: siteIndexHits.length,
+      evidenceCount: evidencePack.evidence.length,
+    });
     const groundedAnswer = await synthesizeWebsiteKompisGroundedAnswer({
       pack: evidencePack,
       completion: options?.groundedCompletion,
