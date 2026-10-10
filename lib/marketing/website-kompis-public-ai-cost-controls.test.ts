@@ -57,12 +57,18 @@ async function main() {
     assert.equal(denied.reason, "untrusted_binding");
   }
 
-  process.env.NODE_ENV = "test";
-  const harness = await reserveWebsiteKompisPublicAiCostControls({
-    visitorContext: { installId: null, domain: null },
-    testHarnessAllow: true,
-  });
-  assert.equal(harness.allowed, true);
+  const env = process.env as { NODE_ENV?: string };
+  const previousNodeEnv = env.NODE_ENV;
+  env.NODE_ENV = "test";
+  try {
+    const harness = await reserveWebsiteKompisPublicAiCostControls({
+      visitorContext: { installId: null, domain: null },
+      testHarnessAllow: true,
+    });
+    assert.equal(harness.allowed, true);
+  } finally {
+    env.NODE_ENV = previousNodeEnv;
+  }
 
   console.log("ok website-kompis-public-ai-cost-controls");
 }
