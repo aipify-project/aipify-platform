@@ -901,15 +901,21 @@ export async function askPublicPlatformCompanion(
     }
   }
 
-  if (onCustomerWebsite && !installConfig.sources.aipifyPublic) {
-    return buildWebsiteKompisCustomerSiteFallbackResponse(
-      locale,
-      visitorContext.domain,
-      installConfig.fallbackTone,
-    );
-  }
-
-  if (!installConfig.sources.aipifyPublic) {
+  // Customer embeds: platform/Aipify knowledge only for explicit Aipify/Kompis
+  // questions when sources.aipifyPublic is enabled. Generic site questions must
+  // never fall through to searchPlatformKnowledge (even if aipifyPublic=true).
+  if (onCustomerWebsite) {
+    if (
+      !installConfig.sources.aipifyPublic ||
+      !shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(validated.question)
+    ) {
+      return buildWebsiteKompisCustomerSiteFallbackResponse(
+        locale,
+        visitorContext.domain,
+        installConfig.fallbackTone,
+      );
+    }
+  } else if (!installConfig.sources.aipifyPublic) {
     return buildWebsiteKompisCustomerSiteFallbackResponse(
       locale,
       visitorContext.domain,

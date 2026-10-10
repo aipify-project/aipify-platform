@@ -152,7 +152,20 @@ function AssistantAnswerBody({
           </p>
           <ul className="mt-1 space-y-0.5 text-xs text-aipify-text-secondary">
             {message.sources.map((source) => (
-              <li key={source}>{source}</li>
+              <li key={`${source.title}-${source.href ?? "none"}`}>
+                {source.href ? (
+                  <a
+                    href={source.href}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="font-medium text-aipify-companion hover:underline"
+                  >
+                    {source.title}
+                  </a>
+                ) : (
+                  source.title
+                )}
+              </li>
             ))}
           </ul>
         </div>
