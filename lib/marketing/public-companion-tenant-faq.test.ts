@@ -97,6 +97,30 @@ async function main() {
   );
   assert.equal(isRelevantPublicCompanionTenantFaqResult(fixtureRows, "a"), false);
 
+  // Weak token_match membership FAQ must not answer partnership questions.
+  const membershipFaq = [
+    {
+      item_id: "b3c55135-6222-415a-aee9-29b8db6e3df9",
+      title: "Medlemskap",
+      answer:
+        "Medlemskap er helt gratis, du kan bruke chat, markedsplass og du kan tjene poeng slik at du får høyere status.",
+      category: null,
+      content_type: "faq",
+      locale: "no",
+      source_url: null,
+      score: 10,
+      matched_reason: "token_match",
+    },
+  ];
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult(membershipFaq, "Kan jeg bli partner med dere?"),
+    false,
+  );
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult(membershipFaq, "Hva koster det å bli medlem?"),
+    true,
+  );
+
   const response = buildPublicCompanionTenantFaqResponse(fixtureRows, "no");
   assert.match(response.answer.directAnswer, /stengt 17/);
   assert.ok(response.sources.some((source) => source.title === "Åpningstider i påsken"));

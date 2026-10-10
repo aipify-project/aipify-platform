@@ -21,9 +21,92 @@ export type PublicCompanionTenantFaqAnswer = {
 export const PUBLIC_COMPANION_TENANT_FAQ_RPC = "search_tenant_public_visitor_knowledge" as const;
 export const PUBLIC_COMPANION_TENANT_FAQ_MIN_QUERY_LENGTH = 2;
 export const PUBLIC_COMPANION_TENANT_FAQ_MIN_RELEVANCE_SCORE = 10;
+/** Weak RPC token_match alone must clear this higher bar or prove content overlap. */
+export const PUBLIC_COMPANION_TENANT_FAQ_WEAK_MATCH_MIN_SCORE = 20;
 export const PUBLIC_COMPANION_DOMAIN_MAX_LENGTH = 253;
 export const PUBLIC_COMPANION_INSTALL_ID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+const PUBLIC_COMPANION_FAQ_STOPWORDS = new Set([
+  "og",
+  "i",
+  "på",
+  "til",
+  "av",
+  "en",
+  "et",
+  "den",
+  "det",
+  "de",
+  "som",
+  "er",
+  "for",
+  "med",
+  "fra",
+  "om",
+  "the",
+  "and",
+  "with",
+  "from",
+  "how",
+  "what",
+  "hva",
+  "hvordan",
+  "hvor",
+  "kan",
+  "jeg",
+  "meg",
+  "du",
+  "deg",
+  "bli",
+  "dere",
+  "you",
+  "your",
+  "har",
+  "å",
+  "a",
+  "an",
+  "to",
+  "is",
+  "are",
+  "do",
+  "does",
+  "can",
+  "could",
+  "would",
+  "should",
+]);
+
+/** Distinctive content tokens from a visitor question (stopwords removed). */
+export function tokenizePublicCompanionFaqQuestion(question: string): string[] {
+  return question
+    .toLowerCase()
+    .split(/[^\p{L}\p{N}]+/u)
+    .map((token) => token.trim())
+    .filter((token) => token.length >= 3 && !PUBLIC_COMPANION_FAQ_STOPWORDS.has(token))
+    .slice(0, 24);
+}
+
+function faqRowCorpus(row: Pick<PublicCompanionTenantFaqRow, "title" | "answer" | "category">): string {
+  return `${row.title}\n${row.answer}\n${row.category ?? ""}`.toLowerCase();
+}
+
+/** True when at least one distinctive query token appears in the FAQ corpus. */
+export function faqQuestionHasContentOverlap(
+  question: string,
+  row: Pick<PublicCompanionTenantFaqRow, "title" | "answer" | "category">,
+): boolean {
+  const tokens = tokenizePublicCompanionFaqQuestion(question);
+  if (tokens.length === 0) return false;
+  const corpus = faqRowCorpus(row);
+  return tokens.some(
+    (token) =>
+      corpus.includes(token) ||
+      tokenizePublicCompanionFaqQuestion(corpus).some(
+        (corpusToken) => corpusToken.includes(token) || token.includes(corpusToken),
+      ),
+  );
+}
 
 export type PublicCompanionTenantFaqRow = {
   item_id: string;
@@ -106,8 +189,31 @@ export function isRelevantPublicCompanionTenantFaqResult(
     return false;
   }
 
-  const topScore = rows[0]?.score ?? 0;
-  return topScore >= PUBLIC_COMPANION_TENANT_FAQ_MIN_RELEVANCE_SCORE;
+  const top = rows[0];
+  const topScore = top?.score ?? 0;
+  if (topScore < PUBLIC_COMPANION_TENANT_FAQ_MIN_RELEVANCE_SCORE) {
+    return false;
+  }
+
+  const contentTokens = tokenizePublicCompanionFaqQuestion(trimmedQuery);
+  // Questions with distinctive content (e.g. "partner") must overlap the FAQ topic.
+  // Prevents weak RPC token_match on stopwords ("bli"/"dere") from surfacing unrelated FAQ.
+  if (contentTokens.length > 0 && top && !faqQuestionHasContentOverlap(trimmedQuery, top)) {
+    return false;
+  }
+
+  const weakReason =
+    top?.matched_reason === "token_match" ||
+    top?.matched_reason === "fallback" ||
+    top?.matched_reason == null;
+  if (weakReason && topScore < PUBLIC_COMPANION_TENANT_FAQ_WEAK_MATCH_MIN_SCORE) {
+    // Allow weak scores only when content overlap already proved topical fit above.
+    if (!top || !faqQuestionHasContentOverlap(trimmedQuery, top)) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 function mapRpcRow(row: Record<string, unknown>): PublicCompanionTenantFaqRow | null {

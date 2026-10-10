@@ -5,23 +5,92 @@ export {
 } from "./private-paths";
 
 export {
+  WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_PAGES,
+  WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_BYTES,
+  WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_FETCH_TIMEOUT_MS,
   evaluatePublicSiteIndexUrl,
   normalizePublicSiteIndexCanonicalUrl,
+  isPathDisallowedByRobots,
+  parseRobotsTxtDisallowPaths,
 } from "./url-policy";
+
+export {
+  chunkPublicSiteBodyText,
+  extractPublicPageFromHtml,
+  isIndexableExtractedPage,
+  looksLikeHydrationOrScriptBlob,
+  resolveExtractedLocale,
+  selectPublicContentRegion,
+  stripNonContentMarkup,
+  type ExtractedPublicPage,
+} from "./extract";
+
+export {
+  fetchVerifiedPublicSiteUrl,
+  readResponseBodyCapped,
+  type ReadBodyCappedResult,
+  type SafePublicFetchResult,
+} from "./fetch-safe";
 
 export {
   PUBLIC_SITE_INDEX_MIN_RELEVANCE_SCORE,
   WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_SOURCE,
   buildPublicSiteIndexAnswer,
   isRelevantPublicSiteIndexResult,
-  neutralizeUntrustedPageEvidence,
   sanitizePublicSiteIndexSourceUrl,
-  tokenizePublicSiteIndexQuestion,
-  type PublicSiteIndexAnswer,
+  neutralizeUntrustedPageEvidence,
   type PublicSiteIndexHit,
+  type PublicSiteIndexAnswer,
 } from "./answer";
 
 export {
   PUBLIC_SITE_INDEX_SEARCH_RPC,
   searchTenantPublicSiteIndex,
 } from "./search";
+
+export {
+  ingestTenantPublicSiteIndex,
+  loadRobotsPolicyFailClosed,
+  type PublicSiteIndexIngestInput,
+  type PublicSiteIndexIngestResult,
+  type RobotsPolicyResult,
+} from "./ingest";
+
+export {
+  discoverPublicSiteIndexUrls,
+  fingerprintDiscoveredUrls,
+  sortDiscoveredUrlsDeterministically,
+  WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_DISCOVERED,
+  WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_SITEMAP_DEPTH,
+  type PublicSiteDiscoveryResult,
+} from "./discovery";
+
+export {
+  encodePublicSiteIndexCursor,
+  validatePublicSiteIndexCursor,
+  WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_CURSOR_TTL_MS,
+} from "./cursor";
+
+export {
+  planPublicSiteIndexRefresh,
+  registerPublicSiteIndexAutoRefreshScheduler,
+  nextPublicSiteIndexRetryBackoff,
+  WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_STALE_AFTER_MS,
+  type PublicSiteRefreshPlan,
+} from "./refresh";
+
+export {
+  isPublicSiteIndexPersistEnabled,
+  isPublicSiteIndexAutoRefreshEnabled,
+  resolvePublicSiteIndexPersistGate,
+} from "./write-gate";
+
+export {
+  resolvePublicSiteIndexOperatorTrust,
+  type PublicSiteIndexOperatorTrust,
+} from "./operator-trust";
+
+export {
+  composePublicSiteIndexAnswerText,
+  tokenizePublicSiteIndexQuestion,
+} from "./answer";
