@@ -323,6 +323,11 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
   if (detectWebsiteKompisPromptInjection(pack.question)) {
     return null;
   }
+  console.info("[website-kompis-grounded]", {
+    event: "synthesize_start",
+    evidenceCount: pack.evidence.length,
+    evidenceKinds: pack.evidence.map((item) => item.kind),
+  });
 
   const intelligence = resolveWebsiteKompisGroundedIntelligenceProfile();
   const requestCompletion =
@@ -334,14 +339,31 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
   });
 
   if (!completion.ok) {
+    console.info("[website-kompis-grounded]", {
+      event: "synthesize_provider_failed",
+      errorCode: completion.errorCode,
+      modelProfile: completion.modelProfile,
+    });
     return null;
   }
 
   const payload = parseWebsiteKompisGroundedModelPayload(completion.text);
-  if (!payload) return null;
+  if (!payload) {
+    console.info("[website-kompis-grounded]", {
+      event: "synthesize_parse_failed",
+      textChars: completion.text.length,
+    });
+    return null;
+  }
 
   const validated = validateWebsiteKompisGroundedPayload(payload, pack.evidence);
-  if (!validated.ok) return null;
+  if (!validated.ok) {
+    console.info("[website-kompis-grounded]", {
+      event: "synthesize_validate_failed",
+      reason: validated.reason,
+    });
+    return null;
+  }
 
   void intelligence.profileId; // selected via selectModelProfile(knowledge_retrieval)
 
