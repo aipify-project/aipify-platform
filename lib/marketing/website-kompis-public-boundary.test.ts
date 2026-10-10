@@ -29,6 +29,8 @@ async function main() {
     buildWebsiteKompisPrivateScopeRefusalResponse,
     buildWebsiteKompisSafeFallbackResponse,
     isCustomerWebsiteVisitorContext,
+    isAipifyBrandedCustomerSiteFeatureQuestion,
+    isContinuingCustomerSiteTopicFollowUp,
     isExplicitAipifyOrKompisQuestion,
     isExplicitAipifyPricingQuestion,
     isOutOfScopePrivateMemberOrAdminQuestion,
@@ -50,6 +52,46 @@ async function main() {
   assert.equal(isExplicitAipifyPricingQuestion("Hvilke priser har dere?"), false);
   assert.equal(shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hva er Aipify?"), true);
   assert.equal(shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hvilke fordeler får jeg her?"), false);
+  assert.equal(isAipifyBrandedCustomerSiteFeatureQuestion("Hva er Aipify Verify?"), true);
+  assert.equal(isAipifyBrandedCustomerSiteFeatureQuestion("Hva er Aipify?"), false);
+  assert.equal(
+    shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hva er Aipify Verify?"),
+    false,
+  );
+  assert.equal(
+    shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hvilke pakker selger Aipify?"),
+    true,
+  );
+  const safetyThread = [
+    {
+      role: "user" as const,
+      text: "Hvordan fungerer sikkerhet og verifisering?",
+    },
+    {
+      role: "assistant" as const,
+      text: "Ut fra nettstedets offentlige sider: Aipify Verify og bildekontroll.",
+    },
+  ];
+  assert.equal(
+    isContinuingCustomerSiteTopicFollowUp("Hva er Aipify Verify?", safetyThread),
+    true,
+  );
+  assert.equal(
+    shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hva er Aipify Verify?", safetyThread),
+    false,
+  );
+  assert.equal(
+    shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hva er Aipify?", safetyThread),
+    true,
+  );
+  assert.equal(
+    shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hva koster Aipify?", safetyThread),
+    true,
+  );
+  assert.equal(
+    isContinuingCustomerSiteTopicFollowUp("fortell mer", safetyThread),
+    true,
+  );
 
   assert.equal(
     isOutOfScopePrivateMemberOrAdminQuestion(

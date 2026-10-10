@@ -706,6 +706,7 @@ async function tryBuildPublicSiteIndexAnswer(
   onCustomerWebsite: boolean,
   installConfig: WebsiteKompisInstallConfig,
   searchPublicSiteIndex: typeof searchTenantPublicSiteIndex,
+  recentContext?: PublicCompanionAskRequest["recentContext"],
 ): Promise<PublicCompanionAskResponse | null> {
   if (!installConfig.sources.publicSiteIndex) {
     return null;
@@ -716,7 +717,7 @@ async function tryBuildPublicSiteIndexAnswer(
   if (!hasPublicCompanionVisitorContext(visitorContext)) {
     return null;
   }
-  if (shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(question)) {
+  if (shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(question, recentContext)) {
     return null;
   }
 
@@ -755,10 +756,15 @@ async function collectCustomerWebsiteEvidence(input: {
   const faqRows: PublicCompanionTenantFaqRow[] = [];
   const siteIndexHits: PublicSiteIndexHit[] = [];
 
+  const allowPlatform = shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(
+    input.question,
+    input.validated.recentContext,
+  );
+
   if (
     input.installConfig.sources.faq &&
     hasPublicCompanionVisitorContext(input.visitorContext) &&
-    !shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(input.question)
+    !allowPlatform
   ) {
     const rows = await input.searchTenantVisitorKnowledge({
       installId: input.visitorContext.installId,
@@ -776,7 +782,7 @@ async function collectCustomerWebsiteEvidence(input: {
   if (
     input.installConfig.sources.publicSiteIndex &&
     hasPublicCompanionVisitorContext(input.visitorContext) &&
-    !shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(input.question)
+    !allowPlatform
   ) {
     const hits = await input.searchPublicSiteIndex({
       installId: input.visitorContext.installId,
@@ -808,7 +814,7 @@ async function tryBuildPublicTenantFaqAnswer(
   }
 
   if (onCustomerWebsite) {
-    if (shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(question)) {
+    if (shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(question, validated.recentContext)) {
       return null;
     }
   } else if (isPlatformProductKnowledgeQuery(question)) {
@@ -889,7 +895,10 @@ export async function askPublicPlatformCompanion(
   const onCustomerWebsite = isCustomerWebsiteVisitorContext(visitorContext);
   const allowAipifyPlatformKnowledge =
     !onCustomerWebsite ||
-    shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(validated.question);
+    shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(
+      validated.question,
+      validated.recentContext,
+    );
 
   if (hasPublicCompanionVisitorContext(visitorContext)) {
     const resolveAvailability =
@@ -1166,6 +1175,7 @@ export async function askPublicPlatformCompanion(
       onCustomerWebsite,
       installConfig,
       searchPublicSiteIndex,
+      validated.recentContext,
     );
     if (siteIndexAnswer) {
       return withPreviewDiagnostic(
@@ -1235,7 +1245,10 @@ export async function askPublicPlatformCompanion(
   if (onCustomerWebsite) {
     if (
       !installConfig.sources.aipifyPublic ||
-      !shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(validated.question)
+      !shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(
+        validated.question,
+        validated.recentContext,
+      )
     ) {
       return buildWebsiteKompisCustomerSiteFallbackResponse(
         locale,
