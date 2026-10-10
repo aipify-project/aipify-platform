@@ -2,15 +2,22 @@ import assert from "node:assert/strict";
 import {
   buildWebsiteKompisAskPayload,
   buildWebsiteKompisEmbedIframeSrc,
+  buildWebsiteKompisEmbedResizeMessage,
   buildWebsiteKompisMetadataRequestPath,
   buildWebsiteKompisScriptEmbedSnippet,
   escapeWebsiteKompisEmbedAttributeValue,
   normalizeWebsiteKompisEmbedDomain,
   normalizeWebsiteKompisEmbedInstallId,
   parseWebsiteKompisEmbedPageContextMessage,
+  parseWebsiteKompisEmbedResizeMessage,
   parseWebsiteKompisEmbedSearchParams,
   sanitizeWebsiteKompisEmbedLocale,
+  WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
+  WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
+  WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX,
+  WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX,
   WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE,
+  WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE,
 } from "@/lib/marketing/website-kompis-embed";
 
 const exampleInstallId = "11111111-1111-4111-8111-111111111111";
@@ -152,5 +159,18 @@ assert.equal(
 
 assert.equal(buildWebsiteKompisScriptEmbedSnippet({ installId: "", domain: exampleDomain }), null);
 assert.equal(buildWebsiteKompisScriptEmbedSnippet({ installId: exampleInstallId, domain: "" }), null);
+
+const closedResize = buildWebsiteKompisEmbedResizeMessage(false);
+assert.equal(closedResize.type, WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE);
+assert.equal(closedResize.open, false);
+assert.equal(closedResize.width, WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX);
+assert.equal(closedResize.height, WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX);
+
+const openResize = buildWebsiteKompisEmbedResizeMessage(true);
+assert.equal(openResize.open, true);
+assert.equal(openResize.width, WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX);
+assert.equal(openResize.height, WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX);
+assert.deepEqual(parseWebsiteKompisEmbedResizeMessage(openResize), openResize);
+assert.equal(parseWebsiteKompisEmbedResizeMessage({ type: "other" }), null);
 
 console.log("website-kompis-embed.test.ts: all assertions passed");

@@ -560,6 +560,70 @@ async function main() {
     assert.match(response.answer.directAnswer, /temporarily unavailable/i);
   });
 
+  await test("publicSiteIndex returns real host source URLs when index hits are relevant", async () => {
+    let siteIndexCalled = false;
+    const response = await askPublicPlatformCompanion(
+      {
+        question: "Hva er forskjellen mellom Bronze Silver Gold og Elite Diamond?",
+        locale: "no",
+        installId: "11111111-1111-4111-8111-111111111111",
+        domain: "www.customer.example",
+        pageContext: {
+          pathname: "/no",
+          title: "Hjem",
+          surface: "public",
+          textSnippets: ["Velkommen til startsiden."],
+        },
+      },
+      {
+        requestHost: "www.customer.example",
+        rawInstallConfig: {
+          website_kompis: {
+            enabled: true,
+            sources: {
+              faq: true,
+              currentPage: true,
+              aipifyPublic: false,
+              publicSiteIndex: true,
+            },
+          },
+        },
+        resolveLicensedAvailability: async () => ({
+          available: true,
+          reason: "available" as const,
+          capabilityKey: "website_kompis",
+        }),
+        searchTenantVisitorKnowledge: async () => [],
+        searchTenantPublicSiteIndex: async () => {
+          siteIndexCalled = true;
+          return [
+            {
+              documentId: "11111111-1111-4111-8111-111111111111",
+              chunkId: "22222222-2222-4222-8222-222222222222",
+              title: "Medlemsguide",
+              canonicalUrl: "https://www.customer.example/no/membership-guide",
+              pathname: "/no/membership-guide",
+              locale: "no",
+              excerpt: "Sammenlign medlemsnivåer",
+              chunkContent:
+                "Bronze, Silver, Gold og Elite Diamond har ulike fordeler. Se medlemsguiden for sammenligning.",
+              score: 44,
+              matchedReason: "public_site_index",
+              crawledAt: new Date().toISOString(),
+            },
+          ];
+        },
+      },
+    );
+
+    assert.equal(siteIndexCalled, true);
+    assert.match(response.answer.directAnswer, /Bronze/);
+    assert.equal(
+      response.sources[0]?.route,
+      "https://www.customer.example/no/membership-guide",
+    );
+  });
+
   await test("new files do not reference Unonight or customer-specific runtime symbols", () => {
     const forbidden =
       /\bunonight\b|loadCompanionTenantContext|search_organization_knowledge|record_companion_answer_feedback/i;

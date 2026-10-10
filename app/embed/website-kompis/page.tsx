@@ -11,16 +11,14 @@ export default async function WebsiteKompisEmbedPage({ searchParams }: WebsiteKo
 
   if (!parsed.ok) {
     return (
-      <main className="flex min-h-dvh items-center justify-center p-4">
-        <p className="rounded-lg border border-aipify-border bg-aipify-surface px-4 py-3 text-sm text-aipify-text-secondary">
-          Midlertidig utilgjengelig
-        </p>
+      <main className="flex h-[72px] w-[72px] items-center justify-center bg-transparent p-2">
+        <p className="sr-only">Midlertidig utilgjengelig</p>
       </main>
     );
   }
 
   return (
-    <main className="min-h-dvh w-full">
+    <main className="h-full min-h-0 w-full bg-transparent">
       <WebsiteKompisEmbedWidget
         installId={parsed.params.installId}
         domain={parsed.params.domain}

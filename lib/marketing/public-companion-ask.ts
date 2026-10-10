@@ -56,6 +56,12 @@ import {
 } from "@/lib/marketing/website-kompis-faq-match-safety";
 import { tryBuildWebsiteKompisCurrentPublicPageAnswer } from "@/lib/marketing/website-kompis-public-page-context";
 import {
+  buildPublicSiteIndexAnswer,
+  isRelevantPublicSiteIndexResult,
+  type PublicSiteIndexHit,
+} from "@/lib/marketing/website-kompis-public-site-index/answer";
+import { searchTenantPublicSiteIndex } from "@/lib/marketing/website-kompis-public-site-index/search";
+import {
   presentWebsiteKompisCustomerSiteAnswer,
   type WebsiteKompisVisitorAnswerSource,
 } from "@/lib/marketing/website-kompis-visitor-tone";
@@ -107,6 +113,7 @@ export type PublicCompanionAskRequest = {
 export type PublicCompanionAskOptions = {
   requestHost?: string | null;
   searchTenantVisitorKnowledge?: typeof searchPublicCompanionTenantFaq;
+  searchTenantPublicSiteIndex?: typeof searchTenantPublicSiteIndex;
   rawInstallConfig?: unknown;
   loadInstallConfig?: GetWebsiteKompisInstallConfigOptions["loadInstallConfig"];
   resolveLicensedAvailability?: (
@@ -671,6 +678,47 @@ async function tryBuildPublicPageContextAnswer(
   };
 }
 
+async function tryBuildPublicSiteIndexAnswer(
+  question: string,
+  locale: PublicCompanionAskLocale,
+  visitorContext: PublicCompanionVisitorContext,
+  onCustomerWebsite: boolean,
+  installConfig: WebsiteKompisInstallConfig,
+  searchPublicSiteIndex: typeof searchTenantPublicSiteIndex,
+): Promise<PublicCompanionAskResponse | null> {
+  if (!installConfig.sources.publicSiteIndex) {
+    return null;
+  }
+  if (!onCustomerWebsite) {
+    return null;
+  }
+  if (!hasPublicCompanionVisitorContext(visitorContext)) {
+    return null;
+  }
+  if (shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(question)) {
+    return null;
+  }
+
+  const hits: PublicSiteIndexHit[] = await searchPublicSiteIndex({
+    installId: visitorContext.installId,
+    domain: visitorContext.domain,
+    locale,
+    query: question,
+    limit: 5,
+  });
+
+  if (!isRelevantPublicSiteIndexResult(hits, question)) {
+    return null;
+  }
+
+  const built = buildPublicSiteIndexAnswer(hits, locale, visitorContext.domain);
+  if (!built) {
+    return null;
+  }
+
+  return built as PublicCompanionAskResponse;
+}
+
 async function tryBuildPublicTenantFaqAnswer(
   question: string,
   locale: PublicCompanionAskLocale,
@@ -756,6 +804,8 @@ export async function askPublicPlatformCompanion(
   const locale = resolvePublicCompanionLocale(validated.locale, validated.messageLocale);
   const searchTenantVisitorKnowledge =
     options?.searchTenantVisitorKnowledge ?? searchPublicCompanionTenantFaq;
+  const searchPublicSiteIndex =
+    options?.searchTenantPublicSiteIndex ?? searchTenantPublicSiteIndex;
 
   const visitorContext = resolvePublicCompanionVisitorContext({
     clientDomain: validated.domain,
@@ -849,6 +899,21 @@ export async function askPublicPlatformCompanion(
       return applyWebsiteKompisCustomerSiteTone(safetyPolicyAnswer, {
         ...customerSiteTone,
         source: "faq",
+      });
+    }
+
+    const siteIndexAnswer = await tryBuildPublicSiteIndexAnswer(
+      validated.question,
+      locale,
+      visitorContext,
+      onCustomerWebsite,
+      installConfig,
+      searchPublicSiteIndex,
+    );
+    if (siteIndexAnswer) {
+      return applyWebsiteKompisCustomerSiteTone(siteIndexAnswer, {
+        ...customerSiteTone,
+        source: "public-site-index",
       });
     }
 
