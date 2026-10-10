@@ -57,6 +57,35 @@ export {
 } from "./ingest";
 
 export {
+  discoverPublicSiteIndexUrls,
+  fingerprintDiscoveredUrls,
+  sortDiscoveredUrlsDeterministically,
+  WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_DISCOVERED,
+  WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_SITEMAP_DEPTH,
+  type PublicSiteDiscoveryResult,
+} from "./discovery";
+
+export {
+  encodePublicSiteIndexCursor,
+  validatePublicSiteIndexCursor,
+  WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_CURSOR_TTL_MS,
+} from "./cursor";
+
+export {
+  planPublicSiteIndexRefresh,
+  registerPublicSiteIndexAutoRefreshScheduler,
+  nextPublicSiteIndexRetryBackoff,
+  WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_STALE_AFTER_MS,
+  type PublicSiteRefreshPlan,
+} from "./refresh";
+
+export {
+  isPublicSiteIndexPersistEnabled,
+  isPublicSiteIndexAutoRefreshEnabled,
+  resolvePublicSiteIndexPersistGate,
+} from "./write-gate";
+
+export {
   resolvePublicSiteIndexOperatorTrust,
   type PublicSiteIndexOperatorTrust,
 } from "./operator-trust";

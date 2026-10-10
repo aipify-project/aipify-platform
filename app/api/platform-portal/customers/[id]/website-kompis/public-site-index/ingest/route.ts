@@ -1,13 +1,18 @@
 import { NextResponse } from "next/server";
 import { ingestTenantPublicSiteIndex } from "@/lib/marketing/website-kompis-public-site-index/ingest";
 import { resolvePublicSiteIndexOperatorTrust } from "@/lib/marketing/website-kompis-public-site-index/operator-trust";
+import {
+  isPublicSiteIndexPersistEnabled,
+  resolvePublicSiteIndexPersistGate,
+} from "@/lib/marketing/website-kompis-public-site-index/write-gate";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const headers = { "Cache-Control": "no-store" };
 
 /**
- * Platform-only operator entrypoint for public site index ingest.
- * Defaults to dryRun=true. Persist requires explicit confirmation=true AND dryRun=false.
+ * Platform-only operator entrypoint for public site index ingest batches.
+ * Defaults to dryRun=true. Persist requires confirmation=true AND dryRun=false
+ * AND server env AIPIFY_PUBLIC_SITE_INDEX_WRITES_ENABLED=true (default off).
  * Never trusts client-supplied tenantId/host alone — resolves Core trust first.
  */
 export async function POST(
@@ -40,6 +45,16 @@ export async function POST(
     const seedUrls = Array.isArray(body?.seedUrls)
       ? body.seedUrls.filter((u): u is string => typeof u === "string").slice(0, 40)
       : [];
+    const cursor = typeof body?.cursor === "string" ? body.cursor : null;
+    const maxPages =
+      typeof body?.maxPages === "number" && Number.isFinite(body.maxPages)
+        ? Math.floor(body.maxPages)
+        : 30;
+
+    const persistGate = resolvePublicSiteIndexPersistGate({
+      dryRun,
+      confirmation,
+    });
 
     if (!dryRun && !confirmation) {
       return NextResponse.json(
@@ -48,6 +63,18 @@ export async function POST(
           code: "confirmation_required",
         },
         { status: 400, headers },
+      );
+    }
+
+    if (!persistGate.allowPersist && !dryRun && confirmation) {
+      return NextResponse.json(
+        {
+          error:
+            "Public site index writes are disabled until owner-approved enablement.",
+          code: "writes_disabled",
+          writesEnabled: isPublicSiteIndexPersistEnabled(),
+        },
+        { status: 403, headers },
       );
     }
 
@@ -68,15 +95,16 @@ export async function POST(
       );
     }
 
-    // Hard stop: this route intentionally defaults dry-run. Production persist
-    // remains owner-approval gated even when confirmation is present.
     const result = await ingestTenantPublicSiteIndex({
       tenantId: trust.tenantId,
       installId: trust.installId,
       verifiedHost: trust.verifiedHost,
       seedUrls,
       localeHint,
-      dryRun: dryRun || !confirmation,
+      maxPages,
+      cursor,
+      dryRun: dryRun || !confirmation || !persistGate.allowPersist,
+      confirmation: confirmation && persistGate.allowPersist,
     });
 
     return NextResponse.json(
@@ -86,6 +114,7 @@ export async function POST(
           installId: trust.installId,
           verifiedHost: trust.verifiedHost,
         },
+        writesEnabled: isPublicSiteIndexPersistEnabled(),
         result,
       },
       { headers },

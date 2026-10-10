@@ -30,6 +30,8 @@ Production `schema_migrations` at review time includes through `20261937500000` 
 | Robots ignore on fetch fail | Fail closed — ingest aborts if robots.txt unavailable/ambiguous |
 | noindex pages | Meta robots + `X-Robots-Tag` rejected |
 | Client-trusted tenant/host | Platform operator route resolves Core status RPC; dryRun default true |
+| Accidental persist after deploy | `AIPIFY_PUBLIC_SITE_INDEX_WRITES_ENABLED` default off; confirmation alone insufficient |
+| Multi-batch cursor tamper / cross-tenant | Cursor digest + trust + discovery fingerprint revalidation (see multibatch-refresh design) |
 | Raw chunk as answer | Question-token overlap + sentence selection; null on low overlap |
 | Private paths | Locale-aware denylist includes marketplace/chat/discover/messages/… |
 

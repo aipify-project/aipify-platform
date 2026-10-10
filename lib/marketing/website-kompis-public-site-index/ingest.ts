@@ -2,6 +2,14 @@ import "server-only";
 
 import { createServiceRoleClient } from "@/lib/supabase/service-role";
 import {
+  encodePublicSiteIndexCursor,
+  validatePublicSiteIndexCursor,
+} from "./cursor";
+import {
+  discoverPublicSiteIndexUrls,
+  loadRobotsPolicyFailClosed,
+} from "./discovery";
+import {
   extractPublicPageFromHtml,
   isIndexableExtractedPage,
 } from "./extract";
@@ -11,26 +19,45 @@ import {
   evaluatePublicSiteIndexUrl,
   isPathDisallowedByRobots,
   normalizePublicSiteIndexCanonicalUrl,
-  parseRobotsTxtDisallowPaths,
 } from "./url-policy";
+import { resolvePublicSiteIndexPersistGate } from "./write-gate";
+
+export type { RobotsPolicyResult } from "./discovery";
+export { loadRobotsPolicyFailClosed } from "./discovery";
 
 export type PublicSiteIndexIngestInput = {
   tenantId: string;
   installId: string;
   verifiedHost: string;
   /** Explicit seed URLs and/or sitemap discovery starting points. */
-  seedUrls: string[];
+  seedUrls?: string[];
   localeHint?: string;
+  /** Per-batch page ceiling (hard-capped by MAX_PAGES). */
   maxPages?: number;
+  /** Opaque continuation from a prior incomplete batch. */
+  cursor?: string | null;
   /** When true, discover/fetch/extract but do not persist. */
   dryRun?: boolean;
+  /** Required with dryRun=false; still blocked unless persist env gate is on. */
+  confirmation?: boolean;
+  fetchImpl?: typeof fetchVerifiedPublicSiteUrl;
 };
 
 export type PublicSiteIndexIngestResult = {
   discovered: number;
   indexed: number;
   rejected: number;
+  remaining: number;
+  processedInBatch: number;
+  batchOffset: number;
+  batchSize: number;
+  complete: boolean;
+  runStatus: "in_progress" | "complete" | "failed" | "fail_closed";
+  nextCursor: string | null;
+  discoveryFingerprint: string;
+  discoveryTruncated: boolean;
   dryRun: boolean;
+  persistAttempted: boolean;
   robotsStatus: "ok" | "fail_closed";
   errors: Array<{ url: string; reason: string }>;
   indexedUrls: string[];
@@ -47,133 +74,122 @@ export type PublicSiteIndexIngestResult = {
   }>;
 };
 
-export type RobotsPolicyResult =
-  | { ok: true; disallow: string[] }
-  | { ok: false; reason: "robots_fetch_failed" | "robots_empty_ambiguous" };
-
-function uniqueUrls(urls: string[]): string[] {
-  return [...new Set(urls.map((u) => u.trim()).filter(Boolean))];
-}
-
-async function discoverFromSitemap(
-  verifiedHost: string,
-  sitemapUrl: string,
-): Promise<string[]> {
-  const fetched = await fetchVerifiedPublicSiteUrl({
-    url: sitemapUrl,
-    verifiedHost,
-  });
-  if (!fetched.ok) return [];
-
-  const locs = [...fetched.body.matchAll(/<loc>\s*([^<]+)\s*<\/loc>/gi)].map((m) =>
-    m[1].trim(),
-  );
-  const out: string[] = [];
-  for (const loc of locs) {
-    const decision = evaluatePublicSiteIndexUrl(loc, verifiedHost);
-    if (decision.ok) {
-      out.push(normalizePublicSiteIndexCanonicalUrl(decision.url));
-    }
-  }
-  return out;
-}
-
-/** Fail closed: robots fetch errors or empty ambiguous bodies block ingest. */
-export async function loadRobotsPolicyFailClosed(
-  verifiedHost: string,
-): Promise<RobotsPolicyResult> {
-  const fetched = await fetchVerifiedPublicSiteUrl({
-    url: `https://${verifiedHost}/robots.txt`,
-    verifiedHost,
-  });
-  if (!fetched.ok) {
-    return { ok: false, reason: "robots_fetch_failed" };
-  }
-  const body = fetched.body.trim();
-  if (!body || body.length < 8) {
-    return { ok: false, reason: "robots_empty_ambiguous" };
-  }
-  return { ok: true, disallow: parseRobotsTxtDisallowPaths(body) };
+function emptyResult(
+  partial: Partial<PublicSiteIndexIngestResult> &
+    Pick<PublicSiteIndexIngestResult, "dryRun" | "robotsStatus" | "runStatus">,
+): PublicSiteIndexIngestResult {
+  return {
+    discovered: 0,
+    indexed: 0,
+    rejected: 0,
+    remaining: 0,
+    processedInBatch: 0,
+    batchOffset: 0,
+    batchSize: 0,
+    complete: false,
+    nextCursor: null,
+    discoveryFingerprint: "",
+    discoveryTruncated: false,
+    persistAttempted: false,
+    errors: [],
+    indexedUrls: [],
+    rejectedPrivateSample: [],
+    pageOutcomes: [],
+    ...partial,
+  };
 }
 
 /**
- * Bounded SSRF-safe public site ingest into Core.
+ * Bounded SSRF-safe public site ingest batch into Core.
+ * Multi-batch: one call processes at most maxPages; resume via nextCursor.
  * Must be invoked only by approved operator/service paths — never from visitor ask.
- * Caller must resolve tenantId/installId/verifiedHost from Core trust (not client-supplied alone).
+ * Caller must resolve tenantId/installId/verifiedHost from Core trust.
  */
 export async function ingestTenantPublicSiteIndex(
   input: PublicSiteIndexIngestInput,
 ): Promise<PublicSiteIndexIngestResult> {
   const host = input.verifiedHost.trim().toLowerCase();
   const installId = input.installId?.trim();
+  const dryRunRequested = input.dryRun !== false; // default true
+  const confirmation = input.confirmation === true;
+  const persistGate = resolvePublicSiteIndexPersistGate({
+    dryRun: dryRunRequested,
+    confirmation,
+  });
+  const allowPersist = persistGate.allowPersist;
+  const dryRun = !allowPersist;
+
   if (!installId) {
-    return {
-      discovered: 0,
-      indexed: 0,
-      rejected: 0,
-      dryRun: Boolean(input.dryRun),
-      robotsStatus: "fail_closed",
-      errors: [{ url: host, reason: "install_required" }],
-      indexedUrls: [],
-      rejectedPrivateSample: [],
-      pageOutcomes: [],
-    };
-  }
-
-  const maxPages = Math.min(
-    input.maxPages ?? WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_PAGES,
-    WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_PAGES,
-  );
-  const dryRun = Boolean(input.dryRun);
-
-  const robots = await loadRobotsPolicyFailClosed(host);
-  if (!robots.ok) {
-    return {
-      discovered: 0,
-      indexed: 0,
-      rejected: 0,
+    return emptyResult({
       dryRun,
       robotsStatus: "fail_closed",
-      errors: [{ url: `https://${host}/robots.txt`, reason: robots.reason }],
-      indexedUrls: [],
-      rejectedPrivateSample: [],
-      pageOutcomes: [],
-    };
+      runStatus: "fail_closed",
+      errors: [{ url: host, reason: "install_required" }],
+    });
   }
 
-  const disallow = robots.disallow;
-  const seeds = uniqueUrls([
-    ...input.seedUrls,
-    `https://${host}/sitemap.xml`,
-    `https://${host}/`,
-  ]);
+  const batchSize = Math.min(
+    Math.max(1, input.maxPages ?? 30),
+    WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_PAGES,
+  );
 
-  const discovered = new Set<string>();
-  const rejectedPrivateSample: string[] = [];
-  for (const seed of seeds) {
-    const decision = evaluatePublicSiteIndexUrl(seed, host);
-    if (!decision.ok) {
-      if (decision.reason === "private_path" && rejectedPrivateSample.length < 12) {
-        rejectedPrivateSample.push(seed);
-      }
-      continue;
-    }
+  const discovery = await discoverPublicSiteIndexUrls({
+    verifiedHost: host,
+    seedUrls: input.seedUrls ?? [],
+    fetchImpl: input.fetchImpl,
+  });
 
-    if (decision.pathname.endsWith(".xml") || decision.pathname.includes("sitemap")) {
-      const fromSitemap = await discoverFromSitemap(host, decision.url.toString());
-      for (const url of fromSitemap) discovered.add(url);
-      continue;
-    }
-
-    discovered.add(normalizePublicSiteIndexCanonicalUrl(decision.url));
+  if (discovery.robotsStatus !== "ok") {
+    return emptyResult({
+      dryRun,
+      robotsStatus: "fail_closed",
+      runStatus: "fail_closed",
+      discoveryFingerprint: discovery.discoveryFingerprint,
+      rejectedPrivateSample: discovery.rejectedPrivateSample,
+      errors: [
+        {
+          url: `https://${host}/robots.txt`,
+          reason: discovery.robotsReason ?? "robots_fetch_failed",
+        },
+      ],
+    });
   }
 
-  const candidates = [...discovered].slice(0, maxPages);
-  const supabase = dryRun ? null : createServiceRoleClient();
+  let offset = 0;
+  if (input.cursor) {
+    const validated = validatePublicSiteIndexCursor({
+      rawCursor: input.cursor,
+      tenantId: input.tenantId,
+      installId,
+      verifiedHost: host,
+      discoveryFingerprint: discovery.discoveryFingerprint,
+      discoveredCount: discovery.urls.length,
+    });
+    if (!validated.ok) {
+      return emptyResult({
+        dryRun,
+        robotsStatus: "ok",
+        runStatus: "failed",
+        discovered: discovery.urls.length,
+        discoveryFingerprint: discovery.discoveryFingerprint,
+        discoveryTruncated: discovery.truncated,
+        rejectedPrivateSample: discovery.rejectedPrivateSample,
+        errors: [{ url: host, reason: validated.reason }],
+      });
+    }
+    offset = validated.cursor.offset;
+  }
+
+  const batchUrls = discovery.urls.slice(offset, offset + batchSize);
+  const disallow = discovery.disallow;
+  const fetchImpl = input.fetchImpl ?? fetchVerifiedPublicSiteUrl;
+  const supabase = allowPersist ? createServiceRoleClient() : null;
   const errors: Array<{ url: string; reason: string }> = [];
   const indexedUrls: string[] = [];
   const pageOutcomes: PublicSiteIndexIngestResult["pageOutcomes"] = [];
+  const rejectedPrivateSample = [...discovery.rejectedPrivateSample];
   let rejected = 0;
+  let persistAttempted = false;
 
   const pushOutcome = (
     url: string,
@@ -198,7 +214,7 @@ export async function ingestTenantPublicSiteIndex(
     });
   };
 
-  for (const url of candidates) {
+  for (const url of batchUrls) {
     const decision = evaluatePublicSiteIndexUrl(url, host);
     if (!decision.ok) {
       rejected += 1;
@@ -216,7 +232,7 @@ export async function ingestTenantPublicSiteIndex(
       continue;
     }
 
-    const fetched = await fetchVerifiedPublicSiteUrl({ url, verifiedHost: host });
+    const fetched = await fetchImpl({ url, verifiedHost: host });
     if (!fetched.ok) {
       rejected += 1;
       errors.push({ url, reason: fetched.reason });
@@ -256,7 +272,7 @@ export async function ingestTenantPublicSiteIndex(
 
     const canonical = normalizePublicSiteIndexCanonicalUrl(finalDecision.url);
 
-    if (dryRun || !supabase) {
+    if (!allowPersist || !supabase) {
       indexedUrls.push(canonical);
       pushOutcome(canonical, "eligible", {
         decodedBytes: fetched.decodedBytes,
@@ -267,6 +283,7 @@ export async function ingestTenantPublicSiteIndex(
       continue;
     }
 
+    persistAttempted = true;
     const { error } = await supabase.rpc("replace_tenant_public_site_index_document", {
       p_tenant_id: input.tenantId,
       p_install_id: installId,
@@ -298,11 +315,37 @@ export async function ingestTenantPublicSiteIndex(
     });
   }
 
+  const nextOffset = offset + batchUrls.length;
+  const remaining = Math.max(0, discovery.urls.length - nextOffset);
+  const complete = remaining === 0 && !discovery.truncated;
+  const nextCursor =
+    remaining > 0
+      ? encodePublicSiteIndexCursor({
+          tenantId: input.tenantId,
+          installId,
+          verifiedHost: host,
+          discoveryFingerprint: discovery.discoveryFingerprint,
+          offset: nextOffset,
+          batchSize,
+          issuedAt: Date.now(),
+        })
+      : null;
+
   return {
-    discovered: discovered.size,
+    discovered: discovery.urls.length,
     indexed: indexedUrls.length,
     rejected,
+    remaining,
+    processedInBatch: batchUrls.length,
+    batchOffset: offset,
+    batchSize,
+    complete,
+    runStatus: complete ? "complete" : "in_progress",
+    nextCursor,
+    discoveryFingerprint: discovery.discoveryFingerprint,
+    discoveryTruncated: discovery.truncated,
     dryRun,
+    persistAttempted,
     robotsStatus: "ok",
     errors: errors.slice(0, 40),
     indexedUrls,
