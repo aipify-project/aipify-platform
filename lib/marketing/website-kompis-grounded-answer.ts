@@ -314,14 +314,34 @@ export function createDefaultWebsiteKompisGroundedCompletion(options?: {
     });
 }
 
+export type WebsiteKompisGroundedSynthesizeResult =
+  | { status: "ok"; response: WebsiteKompisGroundedAskResponse }
+  | {
+      status: "skipped";
+      reason: "no_evidence" | "injection";
+      evidenceCount: number;
+    }
+  | {
+      status: "failed";
+      reason: "provider" | "parse" | "validate";
+      detail: string;
+      evidenceCount: number;
+    };
+
 export async function synthesizeWebsiteKompisGroundedAnswer(input: {
   pack: WebsiteKompisEvidencePack;
   completion?: WebsiteKompisGroundedCompletionFn;
-}): Promise<WebsiteKompisGroundedAskResponse | null> {
+}): Promise<WebsiteKompisGroundedSynthesizeResult> {
   const pack = input.pack;
-  if (pack.evidence.length === 0) return null;
+  if (pack.evidence.length === 0) {
+    return { status: "skipped", reason: "no_evidence", evidenceCount: 0 };
+  }
   if (detectWebsiteKompisPromptInjection(pack.question)) {
-    return null;
+    return {
+      status: "skipped",
+      reason: "injection",
+      evidenceCount: pack.evidence.length,
+    };
   }
   console.warn("[website-kompis-grounded]", {
     event: "synthesize_start",
@@ -344,7 +364,12 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
       errorCode: completion.errorCode,
       modelProfile: completion.modelProfile,
     });
-    return null;
+    return {
+      status: "failed",
+      reason: "provider",
+      detail: completion.errorCode,
+      evidenceCount: pack.evidence.length,
+    };
   }
 
   const payload = parseWebsiteKompisGroundedModelPayload(completion.text);
@@ -353,7 +378,12 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
       event: "synthesize_parse_failed",
       textChars: completion.text.length,
     });
-    return null;
+    return {
+      status: "failed",
+      reason: "parse",
+      detail: `text_chars:${completion.text.length}`,
+      evidenceCount: pack.evidence.length,
+    };
   }
 
   const validated = validateWebsiteKompisGroundedPayload(payload, pack.evidence);
@@ -362,34 +392,42 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
       event: "synthesize_validate_failed",
       reason: validated.reason,
     });
-    return null;
+    return {
+      status: "failed",
+      reason: "validate",
+      detail: validated.reason,
+      evidenceCount: pack.evidence.length,
+    };
   }
 
   void intelligence.profileId; // selected via selectModelProfile(knowledge_retrieval)
 
   return {
-    answer: {
-      directAnswer: payload.answer,
-      explanation: payload.followUp,
-      steps: [],
+    status: "ok",
+    response: {
+      answer: {
+        directAnswer: payload.answer,
+        explanation: payload.followUp,
+        steps: [],
+      },
+      actions: [],
+      sources: validated.sources.map((source) => ({
+        title: source.title,
+        route:
+          source.kind === "current-page"
+            ? WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE
+            : source.url || source.id,
+      })),
+      confidence: payload.covered
+        ? {
+            level: validated.sources.length >= 2 ? "high" : "medium",
+            score: validated.sources.length >= 2 ? 0.86 : 0.72,
+          }
+        : { level: "low", score: 0.25 },
+      supportEscalation: payload.covered
+        ? { offered: false, reason: null }
+        : { offered: true, reason: "knowledge_gap" },
+      locale: pack.locale,
     },
-    actions: [],
-    sources: validated.sources.map((source) => ({
-      title: source.title,
-      route:
-        source.kind === "current-page"
-          ? WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE
-          : source.url || source.id,
-    })),
-    confidence: payload.covered
-      ? {
-          level: validated.sources.length >= 2 ? "high" : "medium",
-          score: validated.sources.length >= 2 ? 0.86 : 0.72,
-        }
-      : { level: "low", score: 0.25 },
-    supportEscalation: payload.covered
-      ? { offered: false, reason: null }
-      : { offered: true, reason: "knowledge_gap" },
-    locale: pack.locale,
   };
 }

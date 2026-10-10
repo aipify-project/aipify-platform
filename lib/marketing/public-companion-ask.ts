@@ -973,18 +973,19 @@ export async function askPublicPlatformCompanion(
       indexCount: siteIndexHits.length,
       evidenceCount: evidencePack.evidence.length,
     });
-    const groundedAnswer = await synthesizeWebsiteKompisGroundedAnswer({
+    const groundedResult = await synthesizeWebsiteKompisGroundedAnswer({
       pack: evidencePack,
       completion: options?.groundedCompletion,
     });
-    if (groundedAnswer) {
+    if (groundedResult.status === "ok") {
+      const groundedAnswer = groundedResult.response;
       const groundedSource: WebsiteKompisVisitorAnswerSource =
         siteIndexHits.length > 0
           ? "public-site-index"
           : faqRows.length > 0
             ? "faq"
             : "current-page";
-      return applyWebsiteKompisCustomerSiteTone(
+      const groundedResponse = applyWebsiteKompisCustomerSiteTone(
         {
           answer: groundedAnswer.answer,
           actions: groundedAnswer.actions,
@@ -998,7 +999,47 @@ export async function askPublicPlatformCompanion(
           source: groundedSource,
         },
       );
+      if (process.env.VERCEL_ENV === "preview") {
+        return {
+          ...groundedResponse,
+          diagnostics: {
+            grounded: {
+              status: groundedResult.status,
+              evidenceCount: evidencePack.evidence.length,
+              faqCount: faqRows.length,
+              indexCount: siteIndexHits.length,
+            },
+          },
+        } as PublicCompanionAskResponse;
+      }
+      return groundedResponse;
     }
+    const previewGroundedDiagnostic =
+      process.env.VERCEL_ENV === "preview"
+        ? {
+            grounded: {
+              status: groundedResult.status,
+              reason: groundedResult.reason,
+              detail: "detail" in groundedResult ? groundedResult.detail : null,
+              evidenceCount: groundedResult.evidenceCount,
+              faqCount: faqRows.length,
+              indexCount: siteIndexHits.length,
+            },
+          }
+        : null;
+    if (previewGroundedDiagnostic) {
+      console.warn("[website-kompis-grounded]", {
+        event: "ask_grounded_not_used",
+        ...previewGroundedDiagnostic.grounded,
+      });
+    }
+
+    const withPreviewDiagnostic = <T extends PublicCompanionAskResponse>(
+      response: T,
+    ): T => {
+      if (!previewGroundedDiagnostic) return response;
+      return { ...response, diagnostics: previewGroundedDiagnostic } as T;
+    };
 
     if (installConfig.sources.currentPage) {
       const currentPageAnswer = tryBuildWebsiteKompisCurrentPublicPageAnswer({
@@ -1007,19 +1048,21 @@ export async function askPublicPlatformCompanion(
         locale,
       });
       if (currentPageAnswer) {
-        return applyWebsiteKompisCustomerSiteTone(
-          {
-            answer: currentPageAnswer.answer,
-            actions: [],
-            sources: currentPageAnswer.sources,
-            confidence: {
-              level: currentPageAnswer.confidence.level,
-              score: currentPageAnswer.confidence.score,
+        return withPreviewDiagnostic(
+          applyWebsiteKompisCustomerSiteTone(
+            {
+              answer: currentPageAnswer.answer,
+              actions: [],
+              sources: currentPageAnswer.sources,
+              confidence: {
+                level: currentPageAnswer.confidence.level,
+                score: currentPageAnswer.confidence.score,
+              },
+              supportEscalation: { offered: false, reason: null },
+              locale,
             },
-            supportEscalation: { offered: false, reason: null },
-            locale,
-          },
-          { ...customerSiteTone, source: "current-page" },
+            { ...customerSiteTone, source: "current-page" },
+          ),
         );
       }
     }
@@ -1033,10 +1076,12 @@ export async function askPublicPlatformCompanion(
       searchPublicSiteIndex,
     );
     if (siteIndexAnswer) {
-      return applyWebsiteKompisCustomerSiteTone(siteIndexAnswer, {
-        ...customerSiteTone,
-        source: "public-site-index",
-      });
+      return withPreviewDiagnostic(
+        applyWebsiteKompisCustomerSiteTone(siteIndexAnswer, {
+          ...customerSiteTone,
+          source: "public-site-index",
+        }),
+      );
     }
 
     const customerFaqAnswer = await tryBuildPublicTenantFaqAnswer(
@@ -1050,16 +1095,20 @@ export async function askPublicPlatformCompanion(
       installConfig,
     );
     if (customerFaqAnswer) {
-      return applyWebsiteKompisCustomerSiteTone(customerFaqAnswer, {
-        ...customerSiteTone,
-        source: "faq",
-      });
+      return withPreviewDiagnostic(
+        applyWebsiteKompisCustomerSiteTone(customerFaqAnswer, {
+          ...customerSiteTone,
+          source: "faq",
+        }),
+      );
     }
 
-    return buildWebsiteKompisCustomerSiteFallbackResponse(
-      locale,
-      visitorContext.domain,
-      installConfig.fallbackTone,
+    return withPreviewDiagnostic(
+      buildWebsiteKompisCustomerSiteFallbackResponse(
+        locale,
+        visitorContext.domain,
+        installConfig.fallbackTone,
+      ),
     );
   }
 

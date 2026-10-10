@@ -150,10 +150,14 @@ async function main() {
         usage: { inputUnits: 10, outputUnits: 20, totalUnits: 30 },
       }),
     });
-    assert.ok(result);
-    assert.match(result!.answer.directAnswer, /199/);
-    assert.equal(result!.sources[0]?.route, "https://www.customer-a.example/medlemskap");
-    assert.equal(result!.supportEscalation.offered, false);
+    assert.equal(result.status, "ok");
+    if (result.status !== "ok") return;
+    assert.match(result.response.answer.directAnswer, /199/);
+    assert.equal(
+      result.response.sources[0]?.route,
+      "https://www.customer-a.example/medlemskap",
+    );
+    assert.equal(result.response.supportEscalation.offered, false);
   });
 
   await test("synthesize falls back to null when provider fails", async () => {
@@ -171,7 +175,10 @@ async function main() {
         latencyMs: 5,
       }),
     });
-    assert.equal(result, null);
+    assert.equal(result.status, "failed");
+    if (result.status !== "failed") return;
+    assert.equal(result.reason, "provider");
+    assert.equal(result.detail, "provider_timeout");
   });
 
   await test("honest gap payload is accepted without sources", async () => {
@@ -195,10 +202,11 @@ async function main() {
         usage: { inputUnits: 1, outputUnits: 1, totalUnits: 2 },
       }),
     });
-    assert.ok(result);
-    assert.equal(result!.confidence.level, "low");
-    assert.equal(result!.supportEscalation.offered, true);
-    assert.equal(result!.sources.length, 0);
+    assert.equal(result.status, "ok");
+    if (result.status !== "ok") return;
+    assert.equal(result.response.confidence.level, "low");
+    assert.equal(result.response.supportEscalation.offered, true);
+    assert.equal(result.response.sources.length, 0);
   });
 
   if (failures.length) {
