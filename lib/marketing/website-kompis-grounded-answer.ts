@@ -211,11 +211,29 @@ export function buildWebsiteKompisGroundedUserPrompt(pack: WebsiteKompisEvidence
   ].join("\n\n");
 }
 
+function extractJsonObjectText(raw: string): string {
+  const trimmed = raw.trim();
+  if (!trimmed) return "";
+  const fenced = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  if (fenced?.[1]) {
+    return fenced[1].trim();
+  }
+  if (trimmed.startsWith("{") && trimmed.endsWith("}")) {
+    return trimmed;
+  }
+  const start = trimmed.indexOf("{");
+  const end = trimmed.lastIndexOf("}");
+  if (start >= 0 && end > start) {
+    return trimmed.slice(start, end + 1);
+  }
+  return trimmed;
+}
+
 export function parseWebsiteKompisGroundedModelPayload(
   raw: string,
 ): WebsiteKompisGroundedModelPayload | null {
   try {
-    const parsed = JSON.parse(raw) as Record<string, unknown>;
+    const parsed = JSON.parse(extractJsonObjectText(raw)) as Record<string, unknown>;
     const answer = typeof parsed.answer === "string" ? parsed.answer.trim() : "";
     if (!answer || answer.length > 1200) return null;
     const sourceIds = Array.isArray(parsed.sourceIds)

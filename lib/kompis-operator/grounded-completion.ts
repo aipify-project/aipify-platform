@@ -111,10 +111,13 @@ export async function requestKompisGroundedTextCompletion(input: {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), profile.timeoutMs);
   const maxTokens = Math.min(600, profile.maxOutput);
+  // Allow one retry for transient provider/http failures even when the summary
+  // profile lists retry=0 — grounded ask should prefer model over extractive.
+  const maxAttempts = Math.max(1, profile.retry) + 1;
 
   try {
     let lastError = "provider_unavailable";
-    for (let attempt = 0; attempt <= profile.retry; attempt += 1) {
+    for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
       try {
         const response = await fetch(`${baseUrl}/chat/completions`, {
           method: "POST",
