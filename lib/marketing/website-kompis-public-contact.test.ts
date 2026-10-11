@@ -118,4 +118,34 @@ assert.equal(
   null,
 );
 
+assert.equal(
+  pickWebsiteKompisPublicContactHrefFromIndex(
+    [
+      {
+        title: "Kundeservice",
+        pathname: "/no/kunde-service",
+        canonicalUrl: "https://customer.example/no/kunde-service",
+        score: 55,
+      },
+    ],
+    "customer.example",
+  ),
+  "https://customer.example/no/kunde-service",
+);
+
+assert.equal(
+  pickWebsiteKompisPublicContactHrefFromIndex(
+    [
+      {
+        title: "Kundeservice",
+        pathname: "/no/customer-service",
+        canonicalUrl: "https://customer.example/no/customer-service",
+        score: 35,
+      },
+    ],
+    "customer.example",
+  ),
+  "https://customer.example/no/customer-service",
+);
+
 console.log("website-kompis-public-contact.test.ts: all assertions passed");

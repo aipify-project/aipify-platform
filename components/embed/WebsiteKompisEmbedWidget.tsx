@@ -116,22 +116,15 @@ function resolveParentPostMessageOrigin(): string {
   }
 }
 
-function readViewportHeightPx(): number | null {
-  if (typeof window === "undefined") return null;
-  const visual =
-    window.visualViewport && typeof window.visualViewport.height === "number"
-      ? window.visualViewport.height
-      : null;
-  const inner = typeof window.innerHeight === "number" ? window.innerHeight : null;
-  return visual && visual > 0 ? visual : inner && inner > 0 ? inner : null;
-}
-
 function postResizeToParent(open: boolean) {
   if (typeof window === "undefined" || window.parent === window) {
     return;
   }
+  // Never clamp open size to the iframe's own viewport — that is often 72px (closed)
+  // or a previously undersized host frame, which sticky-locks the panel below 800px.
+  // Host loader owns viewport / keyboard / safe-area clamps from the parent window.
   window.parent.postMessage(
-    buildWebsiteKompisEmbedResizeMessage(open, readViewportHeightPx()),
+    buildWebsiteKompisEmbedResizeMessage(open),
     resolveParentPostMessageOrigin(),
   );
 }
@@ -348,19 +341,8 @@ export function WebsiteKompisEmbedWidget({
     postResizeToParent(open);
   }, [open]);
 
-  useEffect(() => {
-    function onViewportChange() {
-      if (openRef.current) {
-        postResizeToParent(true);
-      }
-    }
-    window.visualViewport?.addEventListener("resize", onViewportChange);
-    window.addEventListener("resize", onViewportChange);
-    return () => {
-      window.visualViewport?.removeEventListener("resize", onViewportChange);
-      window.removeEventListener("resize", onViewportChange);
-    };
-  }, []);
+  // Host loader reclamps on parent visualViewport; iframe resize listeners only
+  // re-assert the preferred open size (no iframe-height clamp).
 
   useEffect(() => {
     let cancelled = false;

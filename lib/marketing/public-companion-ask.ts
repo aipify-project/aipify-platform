@@ -64,6 +64,7 @@ import {
 } from "@/lib/marketing/website-kompis-visitor-tone";
 import {
   evaluateWebsiteKompisDeterministicAnswerPolicy,
+  isWebsiteKompisProviderKnowledgeGapResponse,
   withWebsiteKompisPublicAnswerPathDiagnostic,
   type WebsiteKompisPublicAnswerPath,
 } from "@/lib/marketing/website-kompis-public-answer-policy";
@@ -1201,6 +1202,8 @@ export async function askPublicPlatformCompanion(
       });
     }
 
+    let providerHonestGapRetry = false;
+    let providerHonestGapResponse: PublicCompanionAskResponse | null = null;
     if (groundedResult.status === "ok") {
       const groundedAnswer = groundedResult.response;
       const groundedSource: WebsiteKompisVisitorAnswerSource =
@@ -1227,37 +1230,52 @@ export async function askPublicPlatformCompanion(
         "provider_grounded",
         isPreviewEnv,
       );
-      if (isPreviewEnv) {
-        const existingDiagnostics =
-          groundedResponse.diagnostics &&
-          typeof groundedResponse.diagnostics === "object"
-            ? (groundedResponse.diagnostics as Record<string, unknown>)
-            : {};
-        return {
-          ...groundedResponse,
-          diagnostics: {
-            ...existingDiagnostics,
-            grounded: {
-              status: groundedResult.status,
-              evidenceCount: evidencePack.evidence.length,
-              faqCount: faqRows.length,
-              indexCount: siteIndexHits.length,
-              costControls: "public_required",
-              // No provider request IDs in public embed responses.
-              provider: null,
+      // Provider honest-gap (covered:false) must NOT skip page/index/FAQ composition.
+      // Sufficient published evidence can still answer via deterministic paths.
+      if (!isWebsiteKompisProviderKnowledgeGapResponse(groundedAnswer)) {
+        if (isPreviewEnv) {
+          const existingDiagnostics =
+            groundedResponse.diagnostics &&
+            typeof groundedResponse.diagnostics === "object"
+              ? (groundedResponse.diagnostics as Record<string, unknown>)
+              : {};
+          return {
+            ...groundedResponse,
+            diagnostics: {
+              ...existingDiagnostics,
+              grounded: {
+                status: groundedResult.status,
+                evidenceCount: evidencePack.evidence.length,
+                faqCount: faqRows.length,
+                indexCount: siteIndexHits.length,
+                costControls: "public_required",
+                // No provider request IDs in public embed responses.
+                provider: null,
+              },
             },
-          },
-        } as PublicCompanionAskResponse;
+          } as PublicCompanionAskResponse;
+        }
+        return groundedResponse;
       }
-      return groundedResponse;
+      providerHonestGapRetry = true;
+      providerHonestGapResponse = groundedResponse;
     }
     const previewGroundedDiagnostic = isPreviewEnv
       ? {
           grounded: {
-            status: groundedResult.status,
-            reason: groundedResult.reason,
-            detail: "detail" in groundedResult ? groundedResult.detail : null,
-            evidenceCount: groundedResult.evidenceCount,
+            status: providerHonestGapRetry
+              ? ("gap_retry_deterministic" as const)
+              : groundedResult.status,
+            reason: providerHonestGapRetry
+              ? "knowledge_gap"
+              : groundedResult.status === "ok"
+                ? null
+                : groundedResult.reason,
+            detail:
+              !providerHonestGapRetry && "detail" in groundedResult
+                ? groundedResult.detail
+                : null,
+            evidenceCount: evidencePack.evidence.length,
             faqCount: faqRows.length,
             indexCount: siteIndexHits.length,
             costControls: "public_required",
@@ -1267,7 +1285,9 @@ export async function askPublicPlatformCompanion(
       : null;
     if (previewGroundedDiagnostic) {
       console.warn("[website-kompis-grounded]", {
-        event: "ask_grounded_not_used",
+        event: providerHonestGapRetry
+          ? "provider_honest_gap_retry_deterministic"
+          : "ask_grounded_not_used",
         status: previewGroundedDiagnostic.grounded.status,
         reason: previewGroundedDiagnostic.grounded.reason,
         detail: previewGroundedDiagnostic.grounded.detail,
@@ -1362,6 +1382,10 @@ export async function askPublicPlatformCompanion(
           tagCustomerSiteAnswerPath(faqResponse, "faq", isPreviewEnv),
         );
       }
+    }
+
+    if (providerHonestGapResponse) {
+      return withPreviewDiagnostic(providerHonestGapResponse);
     }
 
     return withPreviewDiagnostic(
