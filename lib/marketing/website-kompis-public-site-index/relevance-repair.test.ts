@@ -250,4 +250,41 @@ const topics = topicTokensForPublicSiteIndex("Hvordan fungerer sikkerhet?");
 assert.ok(topics.includes("sikkerhet"));
 assert.ok(!topics.includes("fungerer"));
 
+// LIVE.13: membership-cost must not accept marketplace Push FAQ via body "medlemmer"/"koster".
+const marketplacePush = hit({
+  pathname: "/no/faq/marketplace-listing-push",
+  title: "Push annonsen til toppen av markedsplassen",
+  chunkContent:
+    "Dette kan gjøre annonsen mer synlig for andre medlemmer. En Push koster {pushCost} poeng. Før poengene trekkes, får du alltid se kostnaden.",
+  score: 40,
+  locale: "no",
+});
+assert.equal(
+  isRelevantPublicSiteIndexResult(
+    [marketplacePush],
+    "Hva koster det å bli medlem?",
+  ),
+  false,
+);
+assert.equal(
+  buildPublicSiteIndexAnswer(
+    [marketplacePush],
+    "no",
+    "www.customer.example",
+    "Hva koster det å bli medlem?",
+  ),
+  null,
+);
+
+// Placeholder sentences must not be composed even on an otherwise topical Push question.
+const pushCostQuestion = buildPublicSiteIndexAnswer(
+  [marketplacePush],
+  "no",
+  "www.customer.example",
+  "Hva koster en Push på markedsplassen?",
+);
+if (pushCostQuestion) {
+  assert.doesNotMatch(pushCostQuestion.answer.directAnswer, /\{pushCost\}/);
+}
+
 console.log("website-kompis-public-site-index relevance-repair: passed");
