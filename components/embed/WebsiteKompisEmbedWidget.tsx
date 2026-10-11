@@ -10,7 +10,7 @@ import {
   type FormEvent,
   type UIEvent,
 } from "react";
-import { AipifyLoader } from "@/components/ui/aipify-loader";
+import { AipifyCompanionLauncherIcon } from "@/components/branding/AipifyCompanionLauncherIcon";
 import type { CompanionLauncherIconEmbedConfig } from "@/lib/branding/companion-launcher-icon";
 import {
   isCompanionChatNearBottom,
@@ -55,7 +55,9 @@ import "@/components/embed/website-kompis-design-v1.css";
 
 const DESIGN_LOGO_SRC = `${WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE}/brand/aipify-logo-dark.svg`;
 const DESIGN_MARK_SRC = `${WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE}/brand/aipify-mark.svg`;
+/** Owner robot mascot (V2 wrapper + original PNG SHA 9646db7d…). */
 const DESIGN_AVATAR_SRC = `${WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE}/images/aipify-kompis-avatar.svg`;
+const AIPIFY_BRAND_HOME_HREF = "https://aipify.ai";
 
 type ChatMessage =
   | { id: string; role: "user"; text: string }
@@ -367,13 +369,18 @@ export function WebsiteKompisEmbedWidget({
   if (metadataState === "loading") {
     return (
       <div
-        className="ml-auto flex items-end justify-end bg-transparent p-2"
+        className="ml-auto flex items-center justify-center bg-transparent"
         style={{
           width: WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
           height: WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
         }}
       >
-        <AipifyLoader size="sm" centered={false} label="" />
+        <span className="ak-thinking" aria-hidden="true">
+          <AipifyCompanionLauncherIcon size={40} withRing title="" ariaLabel="" />
+        </span>
+        <span className="ak-sr-only" role="status">
+          {labels.sending}
+        </span>
       </div>
     );
   }
@@ -539,12 +546,18 @@ export function WebsiteKompisEmbedWidget({
                 })}
 
                 {sending ? (
-                  <div className="ak-row" ref={latestMessageRef}>
-                    <img className="ak-avatar" src={DESIGN_AVATAR_SRC} alt="" width={36} height={36} />
-                    <div className="ak-bubble">
-                      <AipifyLoader size="sm" centered={false} label="" />
-                      <p className="ak-status ak-sr-only">{labels.sending}</p>
-                    </div>
+                  <div className="ak-thinking-row" ref={latestMessageRef}>
+                    <span className="ak-thinking" aria-hidden="true">
+                      <AipifyCompanionLauncherIcon
+                        size={40}
+                        withRing
+                        title=""
+                        ariaLabel=""
+                      />
+                    </span>
+                    <span className="ak-sr-only" role="status">
+                      {labels.sending}
+                    </span>
                   </div>
                 ) : null}
               </div>
@@ -583,7 +596,15 @@ export function WebsiteKompisEmbedWidget({
                 <AkIconArrowUp />
               </button>
             </form>
-            <p className="ak-credit">{labels.credit}</p>
+            <p className="ak-credit">
+              <a
+                href={AIPIFY_BRAND_HOME_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {labels.credit}
+              </a>
+            </p>
           </div>
         </div>
       ) : null}

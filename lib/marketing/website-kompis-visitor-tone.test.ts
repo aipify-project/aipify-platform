@@ -57,4 +57,17 @@ assert.equal(enLabels.greeting, "Hi! How can I help you?");
 assert.equal(enLabels.placeholder, "Type a message…");
 assert.equal(enLabels.credit, "Powered by Aipify");
 
+for (const locale of ["en", "no", "sv", "da", "pl", "uk"] as const) {
+  const labels = resolveWebsiteKompisEmbedUiLabels({
+    locale,
+    welcomeMessageVariant: "standard",
+  });
+  assert.ok(labels.credit.trim().length > 0, `credit missing for ${locale}`);
+  assert.ok(labels.sending.trim().length > 0, `sending missing for ${locale}`);
+  assert.ok(labels.greeting.trim().length > 0, `greeting missing for ${locale}`);
+  assert.ok(labels.placeholder.trim().length > 0, `placeholder missing for ${locale}`);
+  assert.ok(labels.open.trim().length > 0, `open missing for ${locale}`);
+  assert.ok(labels.error.trim().length > 0, `error missing for ${locale}`);
+}
+
 console.log("website-kompis-visitor-tone.test.ts: all assertions passed");
