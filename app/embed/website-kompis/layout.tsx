@@ -11,6 +11,15 @@ export default function WebsiteKompisEmbedLayout({ children }: { children: React
           overflow: hidden;
           height: 100%;
           width: 100%;
+          color-scheme: normal;
+        }
+        /* Closed chrome must not inherit a full-viewport paint surface. */
+        html[data-ak-shell="closed"],
+        html[data-ak-shell="closed"] body {
+          height: 72px !important;
+          width: 72px !important;
+          min-height: 72px !important;
+          max-height: 72px !important;
         }
       `}</style>
       {children}

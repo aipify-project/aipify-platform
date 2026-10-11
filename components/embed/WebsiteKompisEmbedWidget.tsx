@@ -116,14 +116,29 @@ function resolveParentPostMessageOrigin(): string {
   }
 }
 
+function readViewportHeightPx(): number | null {
+  if (typeof window === "undefined") return null;
+  const visual =
+    window.visualViewport && typeof window.visualViewport.height === "number"
+      ? window.visualViewport.height
+      : null;
+  const inner = typeof window.innerHeight === "number" ? window.innerHeight : null;
+  return visual && visual > 0 ? visual : inner && inner > 0 ? inner : null;
+}
+
 function postResizeToParent(open: boolean) {
   if (typeof window === "undefined" || window.parent === window) {
     return;
   }
   window.parent.postMessage(
-    buildWebsiteKompisEmbedResizeMessage(open),
+    buildWebsiteKompisEmbedResizeMessage(open, readViewportHeightPx()),
     resolveParentPostMessageOrigin(),
   );
+}
+
+function setEmbedShellAttribute(open: boolean) {
+  if (typeof document === "undefined") return;
+  document.documentElement.setAttribute("data-ak-shell", open ? "open" : "closed");
 }
 
 function postNavigateToParent(href: string) {
@@ -250,10 +265,18 @@ export function WebsiteKompisEmbedWidget({
     undefined,
   );
   const [sessionReady, setSessionReady] = useState(false);
+  const askAbortRef = useRef<AbortController | null>(null);
+  const askGenerationRef = useRef(0);
 
   useEffect(() => {
     openRef.current = open;
+    setEmbedShellAttribute(open);
   }, [open]);
+
+  useLayoutEffect(() => {
+    setEmbedShellAttribute(false);
+    postResizeToParent(false);
+  }, []);
 
   useEffect(() => {
     const restored = readWebsiteKompisEmbedSession(getSessionStorageSafe(), {
@@ -264,9 +287,11 @@ export function WebsiteKompisEmbedWidget({
       setOpen(restored.open);
       setUiLocale(sanitizeWebsiteKompisEmbedLocale(restored.locale));
       setMessages(fromSessionMessages(restored.messages));
-      if (restored.open) {
-        postResizeToParent(true);
-      }
+      setEmbedShellAttribute(restored.open);
+      postResizeToParent(restored.open);
+    } else {
+      setEmbedShellAttribute(false);
+      postResizeToParent(false);
     }
     setSessionReady(true);
   }, [domain, installId]);
@@ -300,7 +325,6 @@ export function WebsiteKompisEmbedWidget({
 
     window.addEventListener("message", handleMessage);
     window.parent.postMessage({ type: WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE }, "*");
-    postResizeToParent(false);
 
     return () => {
       window.removeEventListener("message", handleMessage);
@@ -325,13 +349,31 @@ export function WebsiteKompisEmbedWidget({
   }, [open]);
 
   useEffect(() => {
+    function onViewportChange() {
+      if (openRef.current) {
+        postResizeToParent(true);
+      }
+    }
+    window.visualViewport?.addEventListener("resize", onViewportChange);
+    window.addEventListener("resize", onViewportChange);
+    return () => {
+      window.visualViewport?.removeEventListener("resize", onViewportChange);
+      window.removeEventListener("resize", onViewportChange);
+    };
+  }, []);
+
+  useEffect(() => {
     let cancelled = false;
 
     async function loadMetadata() {
       setMetadataState("loading");
       try {
         const response = await fetch(
-          buildWebsiteKompisMetadataRequestPath({ installId, domain }),
+          buildWebsiteKompisMetadataRequestPath({
+            installId,
+            domain,
+            locale: uiLocale,
+          }),
         );
         if (!response.ok) {
           throw new Error("metadata request failed");
@@ -351,7 +393,7 @@ export function WebsiteKompisEmbedWidget({
     return () => {
       cancelled = true;
     };
-  }, [domain, installId]);
+  }, [domain, installId, uiLocale]);
 
   useEffect(() => {
     resizeComposerTextarea(textareaRef.current);
@@ -432,6 +474,12 @@ export function WebsiteKompisEmbedWidget({
       const validation = validateWebsiteCompanionQuestion(question);
       if (!validation.valid || sending) return;
 
+      askAbortRef.current?.abort();
+      const controller = new AbortController();
+      askAbortRef.current = controller;
+      const generation = askGenerationRef.current + 1;
+      askGenerationRef.current = generation;
+
       const userMessage: ChatMessage = {
         id: createMessageId(),
         role: "user",
@@ -448,6 +496,7 @@ export function WebsiteKompisEmbedWidget({
         const response = await fetch("/api/marketing/companion/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          signal: controller.signal,
           body: JSON.stringify(
             buildWebsiteKompisAskPayload({
               question: validation.question,
@@ -460,11 +509,15 @@ export function WebsiteKompisEmbedWidget({
           ),
         });
 
+        if (generation !== askGenerationRef.current) return;
+
         if (!response.ok) {
           throw new Error("ask request failed");
         }
 
         const payload = (await response.json()) as PublicAskPayload;
+        if (generation !== askGenerationRef.current) return;
+
         const mapped = mapWebsiteCompanionApiResponse(payload);
         const answerParts = [mapped.directAnswer.trim()];
         if (mapped.explanation?.trim()) answerParts.push(mapped.explanation.trim());
@@ -484,6 +537,9 @@ export function WebsiteKompisEmbedWidget({
           },
         ]);
       } catch {
+        if (controller.signal.aborted || generation !== askGenerationRef.current) {
+          return;
+        }
         setMessages((current) => [
           ...current,
           {
@@ -494,11 +550,35 @@ export function WebsiteKompisEmbedWidget({
           },
         ]);
       } finally {
-        setSending(false);
+        if (generation === askGenerationRef.current) {
+          setSending(false);
+        }
       }
     },
     [domain, installId, pageContext, sending, uiLocale],
   );
+
+  const handleNewChat = useCallback(() => {
+    askAbortRef.current?.abort();
+    askAbortRef.current = null;
+    askGenerationRef.current += 1;
+    setSending(false);
+    setDraft("");
+    setMessages([]);
+    stickToBottomRef.current = true;
+    savedScrollTopRef.current = null;
+    userJustSentRef.current = false;
+    setOpen(true);
+    writeWebsiteKompisEmbedSession(getSessionStorageSafe(), {
+      v: 1,
+      installId,
+      domain,
+      open: true,
+      locale: uiLocale,
+      messages: [],
+      updatedAt: Date.now(),
+    });
+  }, [domain, installId, uiLocale]);
 
   const handleSubmit = useCallback(
     async (event?: FormEvent) => {
@@ -551,9 +631,22 @@ export function WebsiteKompisEmbedWidget({
   }
 
   if (unavailable) {
-    return <div className="h-full w-full bg-transparent" aria-hidden />;
+    return (
+      <div
+        className="bg-transparent"
+        style={{
+          width: WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
+          height: WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
+        }}
+        aria-hidden
+      />
+    );
   }
 
+  const publicContactUrl =
+    typeof metadata?.publicContactUrl === "string" && metadata.publicContactUrl.trim()
+      ? metadata.publicContactUrl.trim()
+      : null;
   const lastMessageId = messages.at(-1)?.id;
 
   return (
@@ -576,6 +669,15 @@ export function WebsiteKompisEmbedWidget({
             <img className="ak-logo" src={DESIGN_LOGO_SRC} alt="Aipify" width={115} height={30} />
             <span className="ak-name">{labels.productName}</span>
             <div className="ak-controls">
+              <button
+                type="button"
+                className="ak-header-action"
+                onClick={handleNewChat}
+                aria-label={labels.newChat}
+                title={labels.newChat}
+              >
+                {labels.newChat}
+              </button>
               <button
                 type="button"
                 className="ak-icon-button"
@@ -619,6 +721,19 @@ export function WebsiteKompisEmbedWidget({
                       <AkIconChevronRight className="ak-icon ak-chevron" />
                     </button>
                   ))}
+                  {publicContactUrl ? (
+                    <button
+                      key="contact_support"
+                      type="button"
+                      className="ak-quick"
+                      onClick={() => navigateToHostSource(publicContactUrl)}
+                      disabled={sending}
+                    >
+                      <AkIconDocument />
+                      <span>{labels.contactSupport}</span>
+                      <AkIconChevronRight className="ak-icon ak-chevron" />
+                    </button>
+                  ) : null}
                 </div>
               </section>
             ) : (

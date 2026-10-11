@@ -16,7 +16,15 @@
 .ak-widget :focus-visible { outline:3px solid #9b73ef; outline-offset:3px; }
 .ak-header { flex:0 0 auto; display:flex; align-items:center; gap:12px; padding:17px 20px; border-bottom:1px solid var(--ak-border); }
 .ak-logo { display:block; width:115px; height:30px; object-fit:contain; }
-.ak-name { color:var(--ak-muted); font-size:14px; font-weight:600; }
+.ak-name {
+  color:var(--ak-ink); font-size:22px; line-height:30px; font-weight:750;
+  letter-spacing:-.3px; height:30px; display:inline-flex; align-items:center;
+}
+.ak-header-action {
+  min-height:44px; padding:0 10px; border:0; border-radius:10px;
+  background:transparent; color:var(--ak-purple); font-size:13px; font-weight:650;
+}
+.ak-header-action:hover { background:var(--ak-soft); }
 .ak-controls { display:flex; align-items:center; gap:2px; margin-left:auto; }
 .ak-icon-button { display:grid; place-items:center; width:44px; height:44px; padding:11px; background:transparent; color:var(--ak-muted); border:0; border-radius:10px; }
 .ak-icon-button:hover { background:var(--ak-soft); color:var(--ak-purple); }
@@ -114,7 +122,7 @@
  .ak-widget { --ak-radius:20px; font-size:14px; }
  .ak-header { padding:12px 14px; gap:9px; }
  .ak-logo { width:105px; height:28px; }
- .ak-name { font-size:13px; }
+ .ak-name { font-size:20px; line-height:28px; height:28px; }
  .ak-scroll { padding:16px 12px; }
  .ak-bubble { padding:12px; }
  .ak-welcome h1 { font-size:25px; }

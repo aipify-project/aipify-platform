@@ -41,7 +41,10 @@
   var CLOSED_WIDTH = 72;
   var CLOSED_HEIGHT = 72;
   var OPEN_WIDTH = 420;
-  var OPEN_HEIGHT = 720;
+  var OPEN_HEIGHT = 800;
+  var OPEN_HEIGHT_MAX = 900;
+  var OPEN_HEIGHT_MIN = 560;
+  var VIEWPORT_HEIGHT_GUTTER = 24;
   var MAX_PATHNAME_LENGTH = 240;
   var MAX_TITLE_LENGTH = 200;
   var MAX_META_DESCRIPTION_LENGTH = 320;
@@ -451,11 +454,29 @@
   iframe.style.background = "transparent";
   iframe.style.colorScheme = "normal";
   iframe.style.overflow = "hidden";
-  iframe.style.pointerEvents = "auto";
+  iframe.style.pointerEvents = "none";
+  iframe.style.opacity = "0";
   iframe.setAttribute("scrolling", "no");
 
+  var shellReady = false;
   var lastPathname = String(window.location.pathname || "");
   var lastHref = String(window.location.href || "");
+
+  function markShellReady() {
+    if (shellReady) return;
+    shellReady = true;
+    iframe.style.opacity = "1";
+    iframe.style.pointerEvents = "auto";
+  }
+
+  function preferredOpenHeight(viewportHeight) {
+    var preferred = OPEN_HEIGHT;
+    if (typeof viewportHeight !== "number" || !isFinite(viewportHeight) || viewportHeight <= 0) {
+      return preferred;
+    }
+    var capped = Math.floor(viewportHeight - VIEWPORT_HEIGHT_GUTTER);
+    return Math.max(OPEN_HEIGHT_MIN, Math.min(preferred, capped, OPEN_HEIGHT_MAX));
+  }
 
   function maybePostPageContextOnRouteChange() {
     var nextPath = String(window.location.pathname || "");
@@ -499,18 +520,23 @@
   }
 
   function applyResize(open, width, height) {
-    var nextWidth = open ? OPEN_WIDTH : CLOSED_WIDTH;
-    var nextHeight = open ? OPEN_HEIGHT : CLOSED_HEIGHT;
-    if (typeof width === "number" && width >= 48 && width <= 560) {
-      nextWidth = Math.round(width);
-    }
-    if (typeof height === "number" && height >= 48 && height <= 800) {
-      nextHeight = Math.round(height);
-    }
     var viewportWidth =
       (window.visualViewport && window.visualViewport.width) || window.innerWidth || 0;
     var viewportHeight =
       (window.visualViewport && window.visualViewport.height) || window.innerHeight || 0;
+    var nextWidth = open ? OPEN_WIDTH : CLOSED_WIDTH;
+    var nextHeight = open ? preferredOpenHeight(viewportHeight) : CLOSED_HEIGHT;
+    if (typeof width === "number" && width >= 48 && width <= 560) {
+      nextWidth = Math.round(width);
+    }
+    if (typeof height === "number" && height >= 48 && height <= OPEN_HEIGHT_MAX) {
+      nextHeight = Math.round(height);
+    }
+    if (!open) {
+      // Fail closed: never keep a panel-sized host frame while Kompis is closed.
+      nextWidth = CLOSED_WIDTH;
+      nextHeight = CLOSED_HEIGHT;
+    }
     if (viewportWidth && nextWidth > viewportWidth) {
       nextWidth = Math.floor(viewportWidth);
     }
@@ -521,6 +547,7 @@
     iframe.style.height = nextHeight + "px";
     iframe.style.right = open ? "0" : "12px";
     iframe.style.bottom = open ? "0" : "12px";
+    markShellReady();
   }
 
   function postPageContextToIframe() {
@@ -586,7 +613,7 @@
         resizeWidth < 48 ||
         resizeWidth > 560 ||
         resizeHeight < 48 ||
-        resizeHeight > 800
+        resizeHeight > OPEN_HEIGHT_MAX
       ) {
         // Ignore malformed size payloads; keep last good frame size.
         return;
@@ -611,4 +638,10 @@
   document.body.appendChild(iframe);
   window.__AIPIFY_WEBSITE_KOMPIS_EMBED__ = true;
   applyAccessClass(readHostAccessClass(), { skipContext: true });
+  // Failsafe: never leave an invisible host frame if the iframe never posts resize.
+  window.setTimeout(function ensureShellVisible() {
+    if (!shellReady) {
+      applyResize(false, CLOSED_WIDTH, CLOSED_HEIGHT);
+    }
+  }, 2500);
 })();

@@ -100,6 +100,14 @@ assert.equal(
   isAllowedWebsiteKompisHostNavigateHref("https://evil.example/no/faq", ["customer.example"]),
   false,
 );
+assert.equal(
+  isAllowedWebsiteKompisHostNavigateHref("/kontakt", ["customer.example"]),
+  true,
+);
+assert.equal(
+  isAllowedWebsiteKompisHostNavigateHref("//evil.example/kontakt", ["customer.example"]),
+  false,
+);
 
 assert.equal(sanitizeWebsiteKompisEmbedLocale("de"), "en");
 assert.equal(sanitizeWebsiteKompisEmbedLocale("de-DE"), "en");

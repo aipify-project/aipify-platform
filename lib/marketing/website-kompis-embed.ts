@@ -80,7 +80,11 @@ export const WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE =
 export const WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX = 72;
 export const WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX = 72;
 export const WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX = 420;
-export const WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX = 720;
+/** Preferred open panel height; clamped to viewport by host + resolve helper. */
+export const WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX = 800;
+export const WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MAX_PX = 900;
+export const WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MIN_PX = 560;
+export const WEBSITE_KOMPIS_EMBED_VIEWPORT_HEIGHT_GUTTER_PX = 24;
 
 export type WebsiteKompisEmbedResizeMessage = {
   type: typeof WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE;
@@ -89,12 +93,35 @@ export type WebsiteKompisEmbedResizeMessage = {
   height: number;
 };
 
-export function buildWebsiteKompisEmbedResizeMessage(open: boolean): WebsiteKompisEmbedResizeMessage {
+export function resolveWebsiteKompisEmbedOpenHeightPx(
+  viewportHeightPx?: number | null,
+): number {
+  const preferred = WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX;
+  if (
+    typeof viewportHeightPx !== "number" ||
+    !Number.isFinite(viewportHeightPx) ||
+    viewportHeightPx <= 0
+  ) {
+    return preferred;
+  }
+  const capped = Math.floor(viewportHeightPx - WEBSITE_KOMPIS_EMBED_VIEWPORT_HEIGHT_GUTTER_PX);
+  return Math.max(
+    WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MIN_PX,
+    Math.min(preferred, capped, WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MAX_PX),
+  );
+}
+
+export function buildWebsiteKompisEmbedResizeMessage(
+  open: boolean,
+  viewportHeightPx?: number | null,
+): WebsiteKompisEmbedResizeMessage {
   return {
     type: WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE,
     open,
     width: open ? WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX : WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
-    height: open ? WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX : WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
+    height: open
+      ? resolveWebsiteKompisEmbedOpenHeightPx(viewportHeightPx)
+      : WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
   };
 }
 
@@ -116,7 +143,12 @@ export function parseWebsiteKompisEmbedResizeMessage(
   if (!Number.isFinite(width) || !Number.isFinite(height)) {
     return null;
   }
-  if (width < 48 || width > 560 || height < 48 || height > 800) {
+  if (
+    width < 48 ||
+    width > 560 ||
+    height < 48 ||
+    height > WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MAX_PX
+  ) {
     return null;
   }
   return {
@@ -210,8 +242,17 @@ export function isAllowedWebsiteKompisHostNavigateHref(
   href: string,
   allowedHosts: readonly string[],
 ): boolean {
+  const trimmed = href.trim();
+  if (!trimmed) return false;
+  // Host-relative public paths are resolved against the parent location by the loader.
+  if (trimmed.startsWith("/") && !trimmed.startsWith("//")) {
+    if (trimmed.includes("\\") || trimmed.includes("<") || /\s/.test(trimmed)) {
+      return false;
+    }
+    return true;
+  }
   try {
-    const parsed = new URL(href, "https://example.invalid");
+    const parsed = new URL(trimmed);
     if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return false;
     const host = parsed.hostname.toLowerCase();
     const allowed = new Set(
@@ -292,11 +333,15 @@ export function buildWebsiteKompisEmbedIframeSrc(input: {
 export function buildWebsiteKompisMetadataRequestPath(input: {
   installId: string;
   domain: string;
+  locale?: string;
 }): string {
   const params = new URLSearchParams({
     installId: input.installId,
     domain: input.domain,
   });
+  if (input.locale?.trim()) {
+    params.set("locale", sanitizeWebsiteKompisEmbedLocale(input.locale));
+  }
   return `/api/embed/companion/launcher-icon?${params.toString()}`;
 }
 
