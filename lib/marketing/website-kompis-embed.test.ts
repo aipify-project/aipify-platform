@@ -313,6 +313,11 @@ assert.match(loaderSource, /width >= host\.width/);
 assert.doesNotMatch(widgetSource, /readViewportHeightPx/);
 assert.match(widgetSource, /buildWebsiteKompisEmbedResizeMessage\(open\)/);
 assert.match(loaderSource, /PRICE_HINT/);
+assert.match(loaderSource, /details\[open\]/);
+assert.match(loaderSource, /aria-expanded/);
+assert.match(loaderSource, /collectOpenDisclosureSnippets/);
+assert.match(loaderSource, /faq-answer/);
+assert.match(loaderSource, /isElementVisiblyOpen/);
 // Universal public surface contract — Core owns activation from host access adapter.
 assert.match(loaderSource, /aipify\.websiteKompis\.surface/);
 assert.match(loaderSource, /data-aipify-kompis-access/);

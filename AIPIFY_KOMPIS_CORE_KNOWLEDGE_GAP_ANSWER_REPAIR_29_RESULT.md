@@ -8,10 +8,10 @@ Scope: Core gap validation + fallback when a concrete requested value is missing
 
 | Skill | Status |
 |-------|--------|
-| SAFE GAP HANDLING | **YES** (local + code LIVE pending owner Push retest) — clear missing-value statement + evidence-backed next step; no invented price / `{pushCost}` / unrelated FAQ follow-up |
-| EXACT PRICE COVERAGE | **NOT COVERED** — job does not invent the missing Push point amount |
-| CODE FIX LIVE | pending merge/apex verification in this report’s deploy section |
-| SAFE TO FREEZE WHOLE CHAIN | **NO** |
+| SAFE GAP HANDLING | **YES** (owner retest 2026-10-11) — wording clear/friendly; gap presentation confirmed |
+| EXACT PRICE COVERAGE | **NOT COVERED / NOT PROVEN SOLVED** — gap presentation ≠ proof that no public number exists site-wide, that retrieval was exhaustive, or that exact price coverage is solved (see job 30) |
+| CODE FIX LIVE | **YES** |
+| OWNER ACCEPTANCE / FREEZE | **NO** — owner: wording OK, answer still wrong for price coverage; SAFE TO FREEZE = NO |
 
 ## Shipping LIVE preserved (job 28 evidence)
 
@@ -71,23 +71,30 @@ Raw LIVE model JSON was not retained — stubs are labeled as fixtures, not hist
 
 ## Deploy / LIVE proof
 
-_Filled after PR merge + apex READY._
-
 | Item | Value |
 |------|-------|
-| PR | |
-| Feature head | |
-| Merge / `origin/main` | |
+| PR | [#123](https://github.com/aipify-project/aipify-platform/pull/123) MERGED |
+| Feature head | `fa626e7e0ad59a7772ef2683f6474a7bff1f161c` |
+| Merge / `origin/main` | `6720bab3b1b21a68fc7e0ed754932a8d5b7dc6c8` |
 | Apex project | `aipify-platform-iz5z` / `prj_rekqU1SLEr3v2ifYuUkQ5d4fKR7j` |
-| Production deploy | |
-| Aliases | `aipify.ai` |
+| Production deploy | `dpl_DKEQAhrSApRNAREFGLSqyLhMKw6Y` |
+| Ready URL | `aipify-platform-iz5z-njwhsaqj7-unonight-platform-s-projects.vercel.app` |
+| State | READY · target production · GitHub `Vercel – aipify-platform-iz5z` success for merge SHA |
+| Aliases | `aipify.ai`, `www.aipify.ai` |
 
-## READY FOR OWNER TEST
+## Owner Push retest (gap presentation only)
 
-One Push ask only (do not run from Cursor):
+| Field | Value |
+|-------|-------|
+| CSV | `aipify-platform-iz5z-log-export-2026-10-11T21-09-17.csv` |
+| Screenshot | owner 23:08 / delivered asset 23:13 — missing-points wording + next-step cost-before-confirm |
+| requestId | `2nnm5-1791752910188-322cf2c0e695` |
+| correlationId | `85de7d6a-00c8-4eff-b1e6-052d43416134` |
+| Time | 21:08:30–34 UTC / 23:08:30–34 Oslo |
+| Deploy | `dpl_DKEQAhrSApRNAREFGLSqyLhMKw6Y` / SHA `6720bab3` (#123) |
+| Trace | `provider_grounded`, `rejectReason=null`, `policy=website_kompis_public_v1`, `evidenceKinds=[public-site-index]`, `faqCount=0`, `indexCount=1`, `contextChars=782` |
+| UI | States points amount unavailable in provided material; points to cost shown before confirm; one Push source card |
 
-1. Ny chat on `/no/faq/marketplace-listing-push`
-2. Ask: **Hvor mange poeng koster én Push?**
-3. Expect clear missing concrete amount + kostnad-before-confirm if still in sources; no invented points; capture answer/time + apex CSV
+**Limitation (mandatory):** This confirms **gap presentation** for this ask. It does **not** prove the correct number is unavailable on the whole site, that retrieval was exhaustive, or that exact price coverage is solved. Job 30 documents that the public Push page HTML currently contains both `En Push koster 25 poeng` and `{pushCost}` placeholders.
 
-Duplicate source cards and exact Push price ingestion remain open.
+Duplicate source cards remain a separate queue item. SAFE TO FREEZE WHOLE CHAIN = **NO**.

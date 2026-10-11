@@ -578,18 +578,241 @@ export function collectPublicPageContextCorpus(pageContext: WebsiteKompisPublicP
   return corpus;
 }
 
+export type WebsiteKompisEmbedParentElement = {
+  textContent?: string | null;
+  tagName?: string;
+  id?: string;
+  className?: string | { baseVal?: string; toString(): string };
+  hidden?: boolean;
+  open?: boolean;
+  style?: { display?: string; visibility?: string; opacity?: string };
+  getAttribute?(name: string): string | null;
+  closest?(selector: string): unknown | null;
+  querySelector?(selector: string): WebsiteKompisEmbedParentElement | null;
+  nextElementSibling?: WebsiteKompisEmbedParentElement | null;
+  parentElement?: WebsiteKompisEmbedParentElement | null;
+};
+
 export type WebsiteKompisEmbedParentDocument = {
   title: string;
-  querySelector(selector: string): { getAttribute?(name: string): string | null; textContent?: string | null } | null;
-  querySelectorAll(selector: string): Iterable<{ textContent?: string | null; closest?(selector: string): unknown | null; tagName?: string }>;
+  querySelector(selector: string): WebsiteKompisEmbedParentElement | null;
+  querySelectorAll(selector: string): Iterable<WebsiteKompisEmbedParentElement>;
+  getElementById?(id: string): WebsiteKompisEmbedParentElement | null;
   body?: { textContent?: string | null } | null;
 };
 
 const EMBED_PARENT_SKIP_ANCESTOR_SELECTORS = "form, input, textarea, select, button, script, style, noscript";
+const EMBED_PARENT_UNSAFE_CONTENT_SELECTORS = "form, input, textarea, select, script, style, noscript, [contenteditable='true']";
+const EMBED_PARENT_CHROME_SELECTORS = "nav, footer, [role='navigation']";
+const EMBED_PARENT_OPEN_DETAILS_SELECTOR =
+  "main details[open], article details[open], [role='main'] details[open]";
+const EMBED_PARENT_EXPANDED_CONTROL_SELECTOR =
+  "main [aria-expanded='true'], article [aria-expanded='true'], [role='main'] [aria-expanded='true']";
+const EMBED_PARENT_ANSWER_PANEL_SELECTOR =
+  "main [class*='faq-answer'], main [class*='FaqAnswer'], article [class*='faq-answer'], article [class*='FaqAnswer'], [role='main'] [class*='faq-answer'], main [class*='accordion-panel'], article [class*='accordion-panel'], [role='main'] [class*='accordion-panel']";
+const EMBED_PARENT_ANSWER_PANEL_CLASS_HINT =
+  /faq[-_]?answer|accordion[-_]?(?:panel|content|body)|disclosure[-_]?(?:panel|content)|panel[-_]?body|answer[-_]?body/i;
 
-function isInsideEmbedParentSkipZone(element: { closest?(selector: string): unknown | null }): boolean {
+function embedParentClassName(element: WebsiteKompisEmbedParentElement): string {
+  const value = element.className;
+  if (typeof value === "string") return value;
+  if (value && typeof value.toString === "function") return value.toString();
+  return element.getAttribute?.("class") ?? "";
+}
+
+function isInsideEmbedParentSkipZone(element: WebsiteKompisEmbedParentElement): boolean {
   if (!element.closest) return false;
   return Boolean(element.closest(EMBED_PARENT_SKIP_ANCESTOR_SELECTORS));
+}
+
+function isInsideEmbedParentUnsafeContent(element: WebsiteKompisEmbedParentElement): boolean {
+  if (!element.closest) return false;
+  return Boolean(element.closest(EMBED_PARENT_UNSAFE_CONTENT_SELECTORS));
+}
+
+function isInsideEmbedParentChrome(element: WebsiteKompisEmbedParentElement): boolean {
+  if (!element.closest) return false;
+  return Boolean(element.closest(EMBED_PARENT_CHROME_SELECTORS));
+}
+
+function isOpenDetailsElement(element: WebsiteKompisEmbedParentElement): boolean {
+  const openAttr = element.getAttribute?.("open");
+  return element.open === true || openAttr === "" || openAttr === "true" || openAttr != null;
+}
+
+function isEmbedParentElementVisiblyOpen(element: WebsiteKompisEmbedParentElement): boolean {
+  if (element.hidden) return false;
+  if (element.getAttribute?.("aria-hidden") === "true") return false;
+  if (element.getAttribute?.("hidden") != null && element.getAttribute("hidden") !== "false") {
+    return false;
+  }
+  if (element.closest?.("[hidden], [aria-hidden='true']")) return false;
+  const detailsAncestor = element.closest?.("details") as WebsiteKompisEmbedParentElement | null | undefined;
+  if (detailsAncestor && detailsAncestor !== element && !isOpenDetailsElement(detailsAncestor)) {
+    return false;
+  }
+  if (
+    element.style?.display === "none" ||
+    element.style?.visibility === "hidden" ||
+    element.style?.opacity === "0"
+  ) {
+    return false;
+  }
+  return true;
+}
+
+function resolveExpandedAnswerPanel(
+  control: WebsiteKompisEmbedParentElement,
+  documentLike: WebsiteKompisEmbedParentDocument,
+): WebsiteKompisEmbedParentElement | null {
+  const controlsId = control.getAttribute?.("aria-controls")?.trim();
+  if (controlsId && documentLike.getElementById) {
+    const byId = documentLike.getElementById(controlsId);
+    if (byId) return byId;
+  }
+
+  let sibling = control.nextElementSibling ?? null;
+  for (let step = 0; sibling && step < 4; step += 1) {
+    const role = sibling.getAttribute?.("role");
+    const className = embedParentClassName(sibling);
+    const dataState = sibling.getAttribute?.("data-state");
+    if (
+      role === "region" ||
+      EMBED_PARENT_ANSWER_PANEL_CLASS_HINT.test(className) ||
+      dataState === "open"
+    ) {
+      return sibling;
+    }
+    sibling = sibling.nextElementSibling ?? null;
+  }
+  return null;
+}
+
+function detailsAnswerText(details: WebsiteKompisEmbedParentElement): string {
+  const summary = details.querySelector?.("summary");
+  const summaryText = summary?.textContent?.trim() ?? "";
+  let full = details.textContent ?? "";
+  if (summaryText) {
+    const idx = full.indexOf(summaryText);
+    if (idx >= 0) {
+      full = `${full.slice(0, idx)} ${full.slice(idx + summaryText.length)}`;
+    }
+  }
+  return full;
+}
+
+function findAssociatedDisclosureQuestion(
+  panel: WebsiteKompisEmbedParentElement,
+  documentLike: WebsiteKompisEmbedParentDocument,
+): string {
+  const panelId = typeof panel.id === "string" ? panel.id.trim() : panel.getAttribute?.("id")?.trim();
+  if (panelId) {
+    for (const control of documentLike.querySelectorAll(EMBED_PARENT_EXPANDED_CONTROL_SELECTOR)) {
+      if (control.getAttribute?.("aria-controls")?.trim() === panelId) {
+        return control.textContent ?? "";
+      }
+    }
+  }
+  const details = panel.closest?.("details") as WebsiteKompisEmbedParentElement | null | undefined;
+  if (details) {
+    const summary = details.querySelector?.("summary");
+    if (summary?.textContent) return summary.textContent;
+  }
+  let sibling = panel.parentElement?.querySelector?.("button, summary, h2, h3, [aria-expanded]");
+  if (sibling?.textContent) return sibling.textContent;
+  return "";
+}
+
+function formatOpenPanelSnippet(questionRaw: string, answerRaw: string): string | null {
+  const question = sanitizePlainText(questionRaw, WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_HEADING_LENGTH);
+  const answer = sanitizePlainText(answerRaw, WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPET_LENGTH);
+  if (!answer || answer.length < 12) return null;
+  if (!question) return answer;
+  const questionPrefix = question.slice(0, 48).toLowerCase();
+  if (questionPrefix && answer.toLowerCase().includes(questionPrefix)) {
+    return answer;
+  }
+  return sanitizePlainText(
+    `${question}: ${answer}`,
+    WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPET_LENGTH,
+  );
+}
+
+function isInsideAlreadyCapturedOpenDisclosure(element: WebsiteKompisEmbedParentElement): boolean {
+  if (!element.closest) return false;
+  const openDetails = element.closest("details[open], details");
+  if (openDetails) {
+    const details = openDetails as WebsiteKompisEmbedParentElement;
+    if (isOpenDetailsElement(details)) return true;
+  }
+  let node: WebsiteKompisEmbedParentElement | null | undefined = element;
+  for (let depth = 0; node && depth < 8; depth += 1) {
+    if (EMBED_PARENT_ANSWER_PANEL_CLASS_HINT.test(embedParentClassName(node))) {
+      return isEmbedParentElementVisiblyOpen(node);
+    }
+    node = node.parentElement ?? null;
+  }
+  return false;
+}
+
+function collectOpenDisclosureTextSnippets(
+  documentLike: WebsiteKompisEmbedParentDocument,
+  snippets: string[],
+  push: (raw: string, minLength: number) => void,
+): void {
+  for (const details of documentLike.querySelectorAll(EMBED_PARENT_OPEN_DETAILS_SELECTOR)) {
+    if (snippets.length >= WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPETS) break;
+    if (isInsideEmbedParentUnsafeContent(details) || isInsideEmbedParentChrome(details)) continue;
+    if (!isOpenDetailsElement(details) || !isEmbedParentElementVisiblyOpen(details)) continue;
+    const summary = details.querySelector?.("summary");
+    const formatted = formatOpenPanelSnippet(summary?.textContent ?? "", detailsAnswerText(details));
+    if (formatted) push(formatted, 12);
+  }
+
+  for (const control of documentLike.querySelectorAll(EMBED_PARENT_EXPANDED_CONTROL_SELECTOR)) {
+    if (snippets.length >= WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPETS) break;
+    if (isInsideEmbedParentUnsafeContent(control) || isInsideEmbedParentChrome(control)) continue;
+    if (control.getAttribute?.("aria-expanded") !== "true") continue;
+    const panel = resolveExpandedAnswerPanel(control, documentLike);
+    if (!panel) continue;
+    if (isInsideEmbedParentUnsafeContent(panel) || isInsideEmbedParentChrome(panel)) continue;
+    if (!isEmbedParentElementVisiblyOpen(panel)) continue;
+    // Skip panels already covered via open <details>.
+    if (panel.closest?.("details[open], details") && isOpenDetailsElement(
+      (panel.closest("details[open], details") as WebsiteKompisEmbedParentElement) ?? panel,
+    )) {
+      continue;
+    }
+    const formatted = formatOpenPanelSnippet(control.textContent ?? "", panel.textContent ?? "");
+    if (formatted) push(formatted, 12);
+  }
+
+  for (const panel of documentLike.querySelectorAll(EMBED_PARENT_ANSWER_PANEL_SELECTOR)) {
+    if (snippets.length >= WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPETS) break;
+    if (isInsideEmbedParentUnsafeContent(panel) || isInsideEmbedParentChrome(panel)) continue;
+    if (!isEmbedParentElementVisiblyOpen(panel)) continue;
+    if (panel.closest?.("details") && !isOpenDetailsElement(
+      (panel.closest("details") as WebsiteKompisEmbedParentElement) ?? panel,
+    )) {
+      continue;
+    }
+    const panelId = typeof panel.id === "string" ? panel.id.trim() : panel.getAttribute?.("id")?.trim();
+    if (panelId) {
+      let controlledByExpanded = false;
+      let controlledByCollapsed = false;
+      for (const control of documentLike.querySelectorAll(
+        "main [aria-expanded], article [aria-expanded], [role='main'] [aria-expanded]",
+      )) {
+        if (control.getAttribute?.("aria-controls")?.trim() !== panelId) continue;
+        if (control.getAttribute?.("aria-expanded") === "true") controlledByExpanded = true;
+        if (control.getAttribute?.("aria-expanded") === "false") controlledByCollapsed = true;
+      }
+      if (controlledByCollapsed && !controlledByExpanded) continue;
+    }
+    const question = findAssociatedDisclosureQuestion(panel, documentLike);
+    const formatted = formatOpenPanelSnippet(question, panel.textContent ?? "");
+    if (formatted) push(formatted, 12);
+  }
 }
 
 function collectEmbedParentHeadings(
@@ -619,8 +842,17 @@ function collectEmbedParentTextSnippets(
     const text = sanitizePlainText(raw, WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPET_LENGTH);
     if (!text || text.length < minLength) return;
     if (snippets.includes(text)) return;
+    // Skip shorter duplicates already covered by an open-panel snippet.
+    const lower = text.toLowerCase();
+    if (snippets.some((existing) => existing.toLowerCase().includes(lower))) {
+      return;
+    }
+    if (snippets.length >= WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPETS) return;
     snippets.push(text);
   };
+
+  // Open FAQ/accordion panels first so early generic paragraphs cannot displace them.
+  collectOpenDisclosureTextSnippets(documentLike, snippets, push);
 
   for (const element of documentLike.querySelectorAll(
     "main [class*='product'], main [class*='Product'], main [class*='offer'], main [data-product], main article, [role='main'] article, main li",
@@ -638,6 +870,7 @@ function collectEmbedParentTextSnippets(
   for (const element of documentLike.querySelectorAll("main p, article p, [role='main'] p, body > p")) {
     if (snippets.length >= WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPETS) break;
     if (isInsideEmbedParentSkipZone(element)) continue;
+    if (isInsideAlreadyCapturedOpenDisclosure(element)) continue;
     push(element.textContent ?? "", 24);
   }
 

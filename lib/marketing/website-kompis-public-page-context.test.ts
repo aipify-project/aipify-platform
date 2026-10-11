@@ -162,4 +162,257 @@ assert.equal(
   undefined,
 );
 
+// Neutral FAQ/accordion fixtures (other domain/topic than owner acceptance cases).
+const OPEN_DETAILS_SELECTOR =
+  "main details[open], article details[open], [role='main'] details[open]";
+const EXPANDED_CONTROL_SELECTOR =
+  "main [aria-expanded='true'], article [aria-expanded='true'], [role='main'] [aria-expanded='true']";
+const ANSWER_PANEL_SELECTOR =
+  "main [class*='faq-answer'], main [class*='FaqAnswer'], article [class*='faq-answer'], article [class*='FaqAnswer'], [role='main'] [class*='faq-answer'], main [class*='accordion-panel'], article [class*='accordion-panel'], [role='main'] [class*='accordion-panel']";
+const ALL_ARIA_EXPANDED_SELECTOR =
+  "main [aria-expanded], article [aria-expanded], [role='main'] [aria-expanded]";
+const PRODUCT_SELECTOR =
+  "main [class*='product'], main [class*='Product'], main [class*='offer'], main [data-product], main article, [role='main'] article, main li";
+const PARAGRAPH_SELECTOR = "main p, article p, [role='main'] p, body > p";
+
+function makeClosest(matches: Record<string, unknown>) {
+  return (selector: string) => {
+    const parts = selector.split(",").map((part) => part.trim());
+    for (const part of parts) {
+      if (part in matches) return matches[part];
+    }
+    return null;
+  };
+}
+
+const openDetailsSummary = {
+  textContent: "How do workshop bookings work?",
+};
+const openDetails = {
+  tagName: "DETAILS",
+  open: true,
+  getAttribute: (name: string) => (name === "open" ? "" : null),
+  querySelector: (selector: string) => (selector === "summary" ? openDetailsSummary : null),
+  textContent:
+    "How do workshop bookings work? Bookings open each Monday. Bring a photo ID and arrive 10 minutes early.",
+  closest: makeClosest({}),
+};
+const closedDetails = {
+  tagName: "DETAILS",
+  open: false,
+  getAttribute: () => null,
+  querySelector: (selector: string) =>
+    selector === "summary" ? { textContent: "Hidden refund policy details" } : null,
+  textContent: "Hidden refund policy details Secret refund clause must not leak.",
+  closest: makeClosest({}),
+};
+const expandedButton = {
+  tagName: "BUTTON",
+  textContent: "What languages are supported?",
+  getAttribute: (name: string) => {
+    if (name === "aria-expanded") return "true";
+    if (name === "aria-controls") return "lang-panel";
+    return null;
+  },
+  closest: makeClosest({}),
+  nextElementSibling: null as { textContent?: string } | null,
+};
+const expandedPanel = {
+  id: "lang-panel",
+  tagName: "DIV",
+  role: "region",
+  className: "accordion-panel",
+  getAttribute: (name: string) => {
+    if (name === "role") return "region";
+    if (name === "id") return "lang-panel";
+    return null;
+  },
+  textContent: "Support covers English, Norwegian, Swedish, and Danish help pages.",
+  closest: makeClosest({}),
+  style: {},
+};
+expandedButton.nextElementSibling = expandedPanel;
+
+const collapsedButton = {
+  tagName: "BUTTON",
+  textContent: "Closed shipping FAQ",
+  getAttribute: (name: string) => {
+    if (name === "aria-expanded") return "false";
+    if (name === "aria-controls") return "ship-panel";
+    return null;
+  },
+  closest: makeClosest({}),
+};
+const collapsedPanel = {
+  id: "ship-panel",
+  tagName: "DIV",
+  className: "faq-answer",
+  getAttribute: (name: string) => {
+    if (name === "id") return "ship-panel";
+    if (name === "aria-hidden") return "true";
+    return null;
+  },
+  textContent: "Overnight courier options are listed only when this panel is open.",
+  closest: makeClosest({ "[aria-hidden='true']": true, "[hidden], [aria-hidden='true']": true }),
+  style: { display: "none" },
+  hidden: false,
+};
+
+const visibleFaqAnswer = {
+  id: "hours-panel",
+  tagName: "DIV",
+  className: "faq-answer",
+  getAttribute: (name: string) => (name === "id" ? "hours-panel" : null),
+  textContent: "Visitor desk hours: weekdays 09:00-17:00. Weekend visits need a prior appointment.",
+  closest: makeClosest({}),
+  style: {},
+};
+const hoursButton = {
+  tagName: "BUTTON",
+  textContent: "When is the visitor desk open?",
+  getAttribute: (name: string) => {
+    if (name === "aria-expanded") return "true";
+    if (name === "aria-controls") return "hours-panel";
+    return null;
+  },
+  closest: makeClosest({}),
+  nextElementSibling: visibleFaqAnswer,
+};
+
+const paragraphInsideOpenDetails = {
+  textContent: "Bookings open each Monday. Bring a photo ID and arrive 10 minutes early.",
+  closest: (selector: string) => {
+    if (selector.includes("details")) return openDetails;
+    if (selector.includes("form")) return null;
+    return null;
+  },
+};
+
+const introParagraph = {
+  textContent: "This help center explains workshop logistics for partner venues.",
+  closest: () => null,
+};
+
+const formInputLeak = {
+  tagName: "INPUT",
+  textContent: "",
+  closest: makeClosest({ form: true, "form, input, textarea, select, button, script, style, noscript": true }),
+};
+
+const faqDocument = {
+  title: "Partner venue help",
+  getElementById(id: string) {
+    if (id === "lang-panel") return expandedPanel;
+    if (id === "ship-panel") return collapsedPanel;
+    if (id === "hours-panel") return visibleFaqAnswer;
+    return null;
+  },
+  querySelector(selector: string) {
+    if (selector === 'meta[name="description"]') {
+      return { getAttribute: () => "Partner venue logistics and desk hours." };
+    }
+    if (selector === 'link[rel="canonical"]') {
+      return { getAttribute: () => "https://partner-help.example/venue-faq" };
+    }
+    return null;
+  },
+  querySelectorAll(selector: string) {
+    if (selector === "h1, h2") {
+      return [{ tagName: "H1", textContent: "Partner venue help", closest: () => null }];
+    }
+    if (selector === OPEN_DETAILS_SELECTOR) return [openDetails];
+    if (selector === EXPANDED_CONTROL_SELECTOR) return [expandedButton, hoursButton];
+    if (selector === ANSWER_PANEL_SELECTOR) return [expandedPanel, collapsedPanel, visibleFaqAnswer];
+    if (selector === ALL_ARIA_EXPANDED_SELECTOR) return [expandedButton, collapsedButton, hoursButton];
+    if (selector === PRODUCT_SELECTOR) return [];
+    if (selector === PARAGRAPH_SELECTOR) return [introParagraph, paragraphInsideOpenDetails];
+    if (selector.includes("form") || selector.includes("input")) return [formInputLeak];
+    return [];
+  },
+};
+
+const faqCollected = collectWebsiteKompisEmbedParentPageContext({
+  location: { pathname: "/venue-faq", href: "https://partner-help.example/venue-faq" },
+  locale: "en",
+  document: faqDocument,
+});
+assert.ok(faqCollected);
+assert.ok(faqCollected?.textSnippets?.some((snippet) => /workshop bookings/i.test(snippet)));
+assert.ok(faqCollected?.textSnippets?.some((snippet) => /Bookings open each Monday/i.test(snippet)));
+assert.ok(faqCollected?.textSnippets?.some((snippet) => /English, Norwegian, Swedish/i.test(snippet)));
+assert.ok(faqCollected?.textSnippets?.some((snippet) => /Visitor desk hours/i.test(snippet)));
+assert.ok(faqCollected?.textSnippets?.every((snippet) => !/Secret refund clause/i.test(snippet)));
+assert.ok(faqCollected?.textSnippets?.every((snippet) => !/Overnight courier/i.test(snippet)));
+// Paragraph inside open details must not duplicate the already-captured answer body.
+const mondayMatches =
+  faqCollected?.textSnippets?.filter((snippet) => /Bookings open each Monday/i.test(snippet)) ?? [];
+assert.equal(mondayMatches.length, 1);
+assert.ok((faqCollected?.textSnippets?.length ?? 0) <= 8);
+assert.ok((faqCollected?.textSnippets ?? []).every((snippet) => snippet.length <= 240));
+
+const manyOpenPanels = Array.from({ length: 12 }, (_, index) => ({
+  tagName: "DETAILS",
+  open: true,
+  getAttribute: (name: string) => (name === "open" ? "" : null),
+  querySelector: (sel: string) =>
+    sel === "summary" ? { textContent: `Topic ${index + 1} question for partners` } : null,
+  textContent: `Topic ${index + 1} question for partners Answer body ${index + 1} explains a distinct operational step with enough length.`,
+  closest: makeClosest({}),
+}));
+const cappedFaq = collectWebsiteKompisEmbedParentPageContext({
+  location: { pathname: "/ops-faq" },
+  locale: "en",
+  document: {
+    title: "Ops FAQ",
+    querySelector: () => null,
+    querySelectorAll(selector: string) {
+      if (selector === "h1, h2") return [];
+      if (selector === OPEN_DETAILS_SELECTOR) return manyOpenPanels;
+      if (selector === EXPANDED_CONTROL_SELECTOR) return [];
+      if (selector === ANSWER_PANEL_SELECTOR) return [];
+      if (selector === PRODUCT_SELECTOR) return [];
+      if (selector === PARAGRAPH_SELECTOR) return [];
+      return [];
+    },
+  },
+});
+assert.ok(cappedFaq);
+assert.equal(cappedFaq?.textSnippets?.length, 8);
+
+const pricedOnly = collectWebsiteKompisEmbedParentPageContext({
+  location: { pathname: "/pricing" },
+  locale: "pl",
+  document: {
+    title: "Cennik usług",
+    querySelector: () => null,
+    querySelectorAll(selector: string) {
+      if (selector === "h1, h2") {
+        return [{ tagName: "H1", textContent: "Cennik usług", closest: () => null }];
+      }
+      if (selector === OPEN_DETAILS_SELECTOR) return [];
+      if (selector === EXPANDED_CONTROL_SELECTOR) return [];
+      if (selector === ANSWER_PANEL_SELECTOR) return [];
+      if (selector === PRODUCT_SELECTOR) {
+        return [
+          {
+            textContent: "Pakiet startowy 199 kr miesięcznie z podstawowym wsparciem.",
+            closest: () => null,
+          },
+        ];
+      }
+      if (selector === PARAGRAPH_SELECTOR) {
+        return [
+          {
+            textContent: "Transparentny cennik dla zespołów w całej Europie Środkowej.",
+            closest: () => null,
+          },
+        ];
+      }
+      return [];
+    },
+  },
+});
+assert.ok(pricedOnly?.textSnippets?.some((snippet) => /199 kr/i.test(snippet)));
+assert.ok(pricedOnly?.textSnippets?.some((snippet) => /Transparentny cennik/i.test(snippet)));
+
 console.log("website-kompis-public-page-context.test.ts: all assertions passed");
