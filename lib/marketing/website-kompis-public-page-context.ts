@@ -756,11 +756,34 @@ function isInsideAlreadyCapturedOpenDisclosure(element: WebsiteKompisEmbedParent
   return false;
 }
 
+export type WebsiteKompisPreferredOpenDisclosure = {
+  question: string;
+  answer: string;
+};
+
+/**
+ * Format + place a visitor-preferred open disclosure first.
+ * Preferred uses one 240-char slot; remaining slots stay for other open panels / page text.
+ */
+export function formatPreferredOpenDisclosureSnippet(
+  preferred: WebsiteKompisPreferredOpenDisclosure | undefined,
+): string | null {
+  if (!preferred) return null;
+  return formatOpenPanelSnippet(preferred.question, preferred.answer);
+}
+
 function collectOpenDisclosureTextSnippets(
   documentLike: WebsiteKompisEmbedParentDocument,
   snippets: string[],
   push: (raw: string, minLength: number) => void,
+  preferred?: WebsiteKompisPreferredOpenDisclosure,
 ): void {
+  // Visitor-activated panel first (1 slot) so SSR default-open panels cannot displace it.
+  const preferredSnippet = formatPreferredOpenDisclosureSnippet(preferred);
+  if (preferredSnippet) {
+    push(preferredSnippet, 12);
+  }
+
   for (const details of documentLike.querySelectorAll(EMBED_PARENT_OPEN_DETAILS_SELECTOR)) {
     if (snippets.length >= WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPETS) break;
     if (isInsideEmbedParentUnsafeContent(details) || isInsideEmbedParentChrome(details)) continue;
@@ -837,6 +860,7 @@ function collectEmbedParentHeadings(
 
 function collectEmbedParentTextSnippets(
   documentLike: WebsiteKompisEmbedParentDocument,
+  preferredOpenDisclosure?: WebsiteKompisPreferredOpenDisclosure,
 ): string[] {
   const snippets: string[] = [];
   const push = (raw: string, minLength: number) => {
@@ -852,8 +876,8 @@ function collectEmbedParentTextSnippets(
     snippets.push(text);
   };
 
-  // Open FAQ/accordion panels first so early generic paragraphs cannot displace them.
-  collectOpenDisclosureTextSnippets(documentLike, snippets, push);
+  // Preferred visitor panel, then other open FAQ/accordion panels, then products/<p>.
+  collectOpenDisclosureTextSnippets(documentLike, snippets, push, preferredOpenDisclosure);
 
   for (const element of documentLike.querySelectorAll(
     "main [class*='product'], main [class*='Product'], main [class*='offer'], main [data-product], main article, [role='main'] article, main li",
@@ -883,6 +907,8 @@ export function collectWebsiteKompisEmbedParentPageContext(input: {
   location: { pathname: string; href?: string };
   document: WebsiteKompisEmbedParentDocument;
   locale?: string;
+  /** Visitor-activated open disclosure (from host loader); not SSR default-open order. */
+  preferredOpenDisclosure?: WebsiteKompisPreferredOpenDisclosure;
 }): WebsiteKompisPublicPageContext | undefined {
   const pathname = input.location.pathname?.trim().slice(0, COMPANION_SUBMIT_PAGE_CONTEXT_MAX_PATHNAME_LENGTH) ?? "";
   if (!pathname.startsWith("/") || isPrivateWebsiteKompisPathname(pathname)) {
@@ -900,7 +926,10 @@ export function collectWebsiteKompisEmbedParentPageContext(input: {
       "",
   );
   const headings = collectEmbedParentHeadings(input.document);
-  const textSnippets = collectEmbedParentTextSnippets(input.document);
+  const textSnippets = collectEmbedParentTextSnippets(
+    input.document,
+    input.preferredOpenDisclosure,
+  );
 
   return sanitizeWebsiteKompisPublicPageContext({
     pathname,
