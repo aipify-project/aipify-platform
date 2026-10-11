@@ -70,6 +70,14 @@ Width remains 420.
 - `npx tsx lib/marketing/website-kompis-context-faq-answer-repair-02.test.ts`
 - `npx tsc --noEmit -p tsconfig.json`
 
+## Merge / deploy
+
+- PR: https://github.com/aipify-project/aipify-platform/pull/113
+- Feature head: `b755702e369e45a83048c83bfa2bd347992a71c9`
+- Merge on `main`: `a9a79ab734adcfd01ceccf8eee6b39a890649f9c`
+- Vercel Preview CI: green (SSO-protected — browser Preview QA not completed from agent)
+- Production deploy: follows Vercel main pipeline after merge
+
 ## Confirmations
 
 - Core-only (no Host changes)
