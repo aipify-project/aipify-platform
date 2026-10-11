@@ -42,12 +42,14 @@ No new payload fields. No customer-specific selectors or UnoNight hardcoding.
 
 | Item | Value |
 |------|-------|
-| PR | _(pending)_ |
-| Feature head | _(pending)_ |
-| Merge / `origin/main` | _(pending)_ |
+| PR | [#124](https://github.com/aipify-project/aipify-platform/pull/124) MERGED |
+| Feature head | `307382d167fccbc156d45db7ce5122f2eff9f65c` |
+| Merge / `origin/main` | `b028a738beb9bfcac0acbba84ae73dd7c3d0f6d4` |
 | Apex project | `aipify-platform-iz5z` / `prj_rekqU1SLEr3v2ifYuUkQ5d4fKR7j` |
-| Production deploy | _(pending)_ |
-| Loader verify | _(pending)_ — Apex `/embed/website-kompis.js` must include `collectOpenDisclosureSnippets` |
+| Production deploy | `dpl_7TwyYzbQBuRKToSoe9WUVBt1y8La` READY |
+| Ready URL | `aipify-platform-iz5z-j245k9g9c-unonight-platform-s-projects.vercel.app` |
+| Aliases | `aipify.ai`, `www.aipify.ai` |
+| Loader verify | `https://aipify.ai/embed/website-kompis.js` contains `collectOpenDisclosureSnippets`, `details[open]`, `faq-answer` (HTTP 200) |
 
 ## Path register
 
