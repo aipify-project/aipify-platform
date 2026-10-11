@@ -10,7 +10,7 @@ import {
   pseudonymizeInstallId,
   WEBSITE_KOMPIS_PUBLIC_ASK_POLICY_ID,
   WEBSITE_KOMPIS_PUBLIC_ASK_TRACE_EVENT,
-} from "./website-kompis-public-ask-trace.ts";
+} from "./website-kompis-public-ask-trace";
 
 const correlationId = createWebsiteKompisPublicAskCorrelationId();
 assert.match(correlationId, /^[0-9a-f-]{36}$/i);
