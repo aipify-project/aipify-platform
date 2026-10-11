@@ -113,6 +113,7 @@ export function WebsiteKompisDomainSettingsCard({
           iconVariant: draft.iconVariant,
           fallbackTone: draft.fallbackTone,
           welcomeMessageVariant: draft.welcomeMessageVariant,
+          supportContactUrl: draft.supportContactUrl,
           sources: {
             faq: draft.sources.faq,
             currentPage: draft.sources.currentPage,
@@ -123,11 +124,15 @@ export function WebsiteKompisDomainSettingsCard({
       }),
     });
 
-    const body = (await res.json()) as SettingsResponse;
+    const body = (await res.json()) as SettingsResponse & { reason?: string };
     setSaving(false);
 
     if (!res.ok || !body.settings) {
-      setError(body.error ?? labels.saveError);
+      setError(
+        body.error === "invalid_support_contact_url"
+          ? labels.supportContactUrlInvalid
+          : (body.error ?? labels.saveError),
+      );
       return;
     }
 
@@ -410,6 +415,48 @@ export function WebsiteKompisDomainSettingsCard({
               {labels.sourceAipifyPublic}
             </label>
           </fieldset>
+
+          <div className="space-y-2 text-sm text-gray-800">
+            <label className="block">
+              <span className="mb-1 block font-medium">{labels.supportContactUrlLabel}</span>
+              <input
+                type="url"
+                inputMode="url"
+                autoComplete="off"
+                spellCheck={false}
+                placeholder="https://"
+                value={draft.supportContactUrl ?? ""}
+                disabled={locked || saving}
+                onChange={(event) =>
+                  setDraft({
+                    ...draft,
+                    supportContactUrl: event.target.value.trim() ? event.target.value : null,
+                  })
+                }
+                className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+              />
+            </label>
+            <p className="text-sm text-gray-600">{labels.supportContactUrlHelp}</p>
+            {settings?.contactSource === "configured" ? (
+              <p className="text-sm text-emerald-800">{labels.supportContactConfigured}</p>
+            ) : settings?.contactSource === "discovered" && settings.discoveredContactUrl ? (
+              <p className="break-all text-sm text-gray-600">
+                {labels.supportContactDiscovered}: {settings.discoveredContactUrl}
+              </p>
+            ) : (
+              <p className="text-sm text-amber-900">{labels.supportContactMissing}</p>
+            )}
+            {draft.supportContactUrl ? (
+              <button
+                type="button"
+                disabled={locked || saving}
+                onClick={() => setDraft({ ...draft, supportContactUrl: null })}
+                className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-60"
+              >
+                {labels.supportContactUrlClear}
+              </button>
+            ) : null}
+          </div>
 
           <div className="flex flex-wrap gap-2 pt-1">
             <button

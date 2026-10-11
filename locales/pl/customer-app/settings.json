@@ -922,7 +922,14 @@
       "welcomeVariants": {
         "standard": "Standardowy",
         "compact": "Kompaktowy"
-      }
+      },
+      "supportContactUrlLabel": "Strona wsparcia lub kontaktu",
+      "supportContactUrlHelp": "Kompis zwykle znajduje stronę kontaktową automatycznie. Wpisz tutaj publiczną stronę, jeśli nie zostanie znaleziona.",
+      "supportContactDiscovered": "Automatycznie znaleziona strona kontaktowa",
+      "supportContactConfigured": "Używana jest skonfigurowana strona wsparcia lub kontaktu.",
+      "supportContactMissing": "Nie ma jeszcze publicznej strony kontaktowej. Dodaj zapasowy adres URL powyżej albo poczekaj na automatyczne wykrycie.",
+      "supportContactUrlInvalid": "Podaj prawidłowy adres HTTPS na tej zweryfikowanej domenie. Strony prywatne lub administracyjne nie są dozwolone.",
+      "supportContactUrlClear": "Wyczyść zapasowy URL"
     }
   },
   "commercialPackages": {

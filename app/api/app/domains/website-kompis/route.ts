@@ -24,11 +24,14 @@ import {
   loadWebsiteKompisInstallIdForTenantDomain,
   resolveWebsiteKompisCustomerDomainBinding,
 } from "@/lib/marketing/website-kompis-domain-settings-server";
+import { discoverWebsiteKompisPublicContactUrl } from "@/lib/marketing/website-kompis-public-contact-server";
+import { validateWebsiteKompisConfiguredSupportContactUrl } from "@/lib/marketing/website-kompis-public-contact";
 import {
   requireReadyAppPortalContext,
   appPortalAccessDeniedResponse,
 } from "@/lib/tenant/app-portal-route-access";
 import { createClient } from "@/lib/supabase/server";
+import { sanitizeWebsiteKompisEmbedLocale } from "@/lib/marketing/website-kompis-embed";
 
 function findDomainRecord(
   center: Record<string, unknown>,
@@ -109,6 +112,24 @@ async function buildDomainSettingsResponse(input: {
       ? await loadWebsiteKompisInstallConfigForApp(input.supabase, installId)
       : null;
 
+  const configLocale = sanitizeWebsiteKompisEmbedLocale(
+    rpcResult?.normalized_config &&
+      typeof rpcResult.normalized_config === "object" &&
+      !Array.isArray(rpcResult.normalized_config) &&
+      typeof (rpcResult.normalized_config as Record<string, unknown>).defaultLocale === "string"
+      ? ((rpcResult.normalized_config as Record<string, unknown>).defaultLocale as string)
+      : "no",
+  );
+
+  const discoveredContactUrl =
+    installId != null
+      ? await discoverWebsiteKompisPublicContactUrl({
+          installId,
+          domain: record.domain,
+          locale: configLocale,
+        })
+      : null;
+
   const view = buildWebsiteKompisDomainSettingsView({
     record,
     availability,
@@ -116,6 +137,7 @@ async function buildDomainSettingsResponse(input: {
     installId,
     metadataOrigin: input.origin,
     rpcResult,
+    discoveredContactUrl,
   });
 
   return NextResponse.json({
@@ -256,6 +278,24 @@ export async function POST(request: Request) {
 
       if (Object.keys(patch).length === 0) {
         return NextResponse.json({ error: "empty_patch" }, { status: 400 });
+      }
+
+      if ("supportContactUrl" in patch) {
+        const validated = validateWebsiteKompisConfiguredSupportContactUrl(
+          patch.supportContactUrl,
+          record.domain,
+        );
+        if (!validated.ok) {
+          return NextResponse.json(
+            {
+              error: "invalid_support_contact_url",
+              reason: validated.reason,
+              found: false,
+            },
+            { status: 400 },
+          );
+        }
+        patch.supportContactUrl = validated.url;
       }
 
       if (patch.enabled === true && !installId) {

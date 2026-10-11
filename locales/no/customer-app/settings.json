@@ -2045,7 +2045,14 @@
       "welcomeVariants": {
         "standard": "Standard",
         "compact": "Kompakt"
-      }
+      },
+      "supportContactUrlLabel": "Support- eller kontaktside",
+      "supportContactUrlHelp": "Kompis finner normalt kontaktsiden automatisk. Legg inn en offentlig side her dersom den ikke blir funnet.",
+      "supportContactDiscovered": "Automatisk funnet kontaktside",
+      "supportContactConfigured": "Bruker den konfigurerte support- eller kontaktsiden.",
+      "supportContactMissing": "Ingen offentlig kontaktside er tilgjengelig ennå. Legg inn en reserve-URL over, eller vent til automatisk oppdagelse finner én.",
+      "supportContactUrlInvalid": "Oppgi en gyldig HTTPS-URL på dette bekreftede domenet. Private eller admin-sider er ikke tillatt.",
+      "supportContactUrlClear": "Fjern reserve-URL"
     }
   },
   "taskManagement": {

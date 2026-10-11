@@ -2068,7 +2068,14 @@
       "welcomeVariants": {
         "standard": "Standard",
         "compact": "Compact"
-      }
+      },
+      "supportContactUrlLabel": "Support or contact page",
+      "supportContactUrlHelp": "Kompis normally finds the contact page automatically. Enter a public page here if it is not found.",
+      "supportContactDiscovered": "Auto-discovered contact page",
+      "supportContactConfigured": "Using your configured support or contact page.",
+      "supportContactMissing": "No public contact page is available yet. Add a reserve URL above, or wait until discovery finds one.",
+      "supportContactUrlInvalid": "Enter a valid HTTPS URL on this verified domain. Private or admin pages are not allowed.",
+      "supportContactUrlClear": "Clear reserve URL"
     }
   },
   "taskManagement": {

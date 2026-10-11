@@ -922,7 +922,14 @@
       "welcomeVariants": {
         "standard": "Стандартний",
         "compact": "Компактний"
-      }
+      },
+      "supportContactUrlLabel": "Сторінка підтримки або контактів",
+      "supportContactUrlHelp": "Kompis зазвичай знаходить контактну сторінку автоматично. Вкажіть тут публічну сторінку, якщо її не знайдено.",
+      "supportContactDiscovered": "Автоматично знайдена контактна сторінка",
+      "supportContactConfigured": "Використовується налаштована сторінка підтримки або контактів.",
+      "supportContactMissing": "Публічної контактної сторінки ще немає. Додайте резервну URL вище або зачекайте на автоматичне виявлення.",
+      "supportContactUrlInvalid": "Вкажіть дійсну HTTPS URL на цьому підтвердженому домені. Приватні або адміністративні сторінки заборонені.",
+      "supportContactUrlClear": "Очистити резервну URL"
     }
   },
   "commercialPackages": {

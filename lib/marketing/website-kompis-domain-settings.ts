@@ -8,6 +8,10 @@ import {
 } from "@/lib/marketing/website-kompis-install-config";
 import type { WebsiteKompisInstallConfigRpcResult } from "@/lib/marketing/website-kompis-install-config-storage";
 import type { WebsiteKompisLicensedAvailability } from "@/lib/marketing/website-kompis-licensed-availability";
+import {
+  validateWebsiteKompisConfiguredSupportContactUrl,
+  type WebsiteKompisPublicContactSource,
+} from "@/lib/marketing/website-kompis-public-contact";
 
 export type WebsiteKompisDomainSettingsRecord = {
   domainId: string;
@@ -25,6 +29,10 @@ export type WebsiteKompisDomainSettingsView = {
   installId: string | null;
   metadataUrl: string | null;
   config: WebsiteKompisInstallConfig;
+  /** Auto-discovered candidate for APP status display (may be null). */
+  discoveredContactUrl: string | null;
+  /** Effective CTA source after configured → discovered priority. */
+  contactSource: WebsiteKompisPublicContactSource;
 };
 
 export function isWebsiteKompisDomainVerified(record: WebsiteKompisDomainSettingsRecord): boolean {
@@ -53,6 +61,7 @@ export function buildWebsiteKompisDomainSettingsView(input: {
   installId?: string | null;
   metadataOrigin?: string;
   rpcResult?: WebsiteKompisInstallConfigRpcResult | null;
+  discoveredContactUrl?: string | null;
 }): WebsiteKompisDomainSettingsView {
   const config = normalizeWebsiteKompisInstallConfig(
     input.rpcResult?.normalized_config ?? input.rpcResult?.config,
@@ -74,6 +83,18 @@ export function buildWebsiteKompisDomainSettingsView(input: {
         })
       : null;
 
+  const discoveredContactUrl = input.discoveredContactUrl ?? null;
+  const configured = validateWebsiteKompisConfiguredSupportContactUrl(
+    config.supportContactUrl,
+    input.record.domain,
+  );
+  let contactSource: WebsiteKompisPublicContactSource = "none";
+  if (configured.ok && configured.url) {
+    contactSource = "configured";
+  } else if (discoveredContactUrl) {
+    contactSource = "discovered";
+  }
+
   return {
     domainId: input.record.domainId,
     domain: input.record.domain,
@@ -83,6 +104,8 @@ export function buildWebsiteKompisDomainSettingsView(input: {
     installId,
     metadataUrl,
     config,
+    discoveredContactUrl,
+    contactSource,
   };
 }
 
@@ -103,6 +126,9 @@ export function buildWebsiteKompisSettingsPatch(body: Record<string, unknown>): 
   }
   if ("sources" in body && body.sources && typeof body.sources === "object") {
     patch.sources = body.sources;
+  }
+  if ("supportContactUrl" in body) {
+    patch.supportContactUrl = body.supportContactUrl;
   }
 
   return patch;

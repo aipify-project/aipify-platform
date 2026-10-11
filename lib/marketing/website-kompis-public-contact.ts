@@ -59,6 +59,78 @@ function normalizeContactHref(raw: string, domain: string): string | null {
   }
 }
 
+export type WebsiteKompisPublicContactSource = "configured" | "discovered" | "none";
+
+export type WebsiteKompisConfiguredSupportContactRejectReason =
+  | "empty"
+  | "invalid_url"
+  | "scheme_rejected"
+  | "credentials_rejected"
+  | "host_rejected"
+  | "private_path"
+  | "too_long";
+
+export type WebsiteKompisConfiguredSupportContactResult =
+  | { ok: true; url: string | null }
+  | { ok: false; reason: WebsiteKompisConfiguredSupportContactRejectReason };
+
+const SUPPORT_CONTACT_URL_MAX_LENGTH = 500;
+
+/**
+ * Validate an APP-configured support/contact URL before save and before runtime use.
+ * HTTPS + same verified host + public path. Empty/null clears the override.
+ */
+export function validateWebsiteKompisConfiguredSupportContactUrl(
+  raw: unknown,
+  domain: string,
+): WebsiteKompisConfiguredSupportContactResult {
+  if (raw == null) {
+    return { ok: true, url: null };
+  }
+  if (typeof raw !== "string") {
+    return { ok: false, reason: "invalid_url" };
+  }
+  const trimmed = raw.trim();
+  if (!trimmed) {
+    return { ok: true, url: null };
+  }
+  if (trimmed.length > SUPPORT_CONTACT_URL_MAX_LENGTH) {
+    return { ok: false, reason: "too_long" };
+  }
+
+  let parsed: URL;
+  try {
+    parsed = new URL(trimmed);
+  } catch {
+    return { ok: false, reason: "invalid_url" };
+  }
+
+  if (parsed.protocol !== "https:") {
+    return { ok: false, reason: "scheme_rejected" };
+  }
+  if (parsed.username || parsed.password) {
+    return { ok: false, reason: "credentials_rejected" };
+  }
+  if (parsed.hash.toLowerCase().startsWith("#javascript:")) {
+    return { ok: false, reason: "invalid_url" };
+  }
+
+  const normalizedDomain = normalizeWebsiteKompisEmbedDomain(domain);
+  if (!normalizedDomain) {
+    return { ok: false, reason: "host_rejected" };
+  }
+  if (!isAllowedWebsiteKompisHostNavigateHref(parsed.toString(), [normalizedDomain])) {
+    return { ok: false, reason: "host_rejected" };
+  }
+  if (isPrivateWebsiteKompisPathnameNormalized(parsed.pathname)) {
+    return { ok: false, reason: "private_path" };
+  }
+
+  // Deterministic normalization: drop hash; keep pathname/search as customer provided.
+  parsed.hash = "";
+  return { ok: true, url: parsed.toString() };
+}
+
 export function isWebsiteKompisContactRelevantText(value: string): boolean {
   return CONTACT_TEXT_RE.test(value) || CONTACT_PATH_RE.test(value) || CONTACT_FORM_RE.test(value);
 }

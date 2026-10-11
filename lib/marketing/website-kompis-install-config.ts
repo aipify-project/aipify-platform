@@ -39,6 +39,8 @@ export type WebsiteKompisInstallConfig = {
   fallbackTone: WebsiteKompisFallbackTone;
   sources: WebsiteKompisInstallSourceConfig;
   welcomeMessageVariant: WebsiteKompisWelcomeMessageVariant;
+  /** APP-configured public support page URL; null when unset. */
+  supportContactUrl: string | null;
   updatedAt?: string;
 };
 
@@ -57,6 +59,7 @@ export const DEFAULT_WEBSITE_KOMPIS_INSTALL_CONFIG: WebsiteKompisInstallConfig =
   fallbackTone: "professional-friendly",
   sources: { ...DEFAULT_WEBSITE_KOMPIS_INSTALL_SOURCE_CONFIG },
   welcomeMessageVariant: "standard",
+  supportContactUrl: null,
 };
 
 const FORBIDDEN_CONFIG_KEYS = new Set(["iconUrl", "iconPath", "tenantId", "tenant_id", "installId"]);
@@ -68,8 +71,11 @@ const ALLOWED_CONFIG_KEYS = new Set([
   "fallbackTone",
   "sources",
   "welcomeMessageVariant",
+  "supportContactUrl",
   "updatedAt",
 ]);
+
+const SUPPORT_CONTACT_URL_MAX_LENGTH = 500;
 
 const ALLOWED_SOURCE_KEYS = new Set([
   "faq",
@@ -117,6 +123,16 @@ function parseUpdatedAt(value: unknown): string | undefined {
   return trimmed || undefined;
 }
 
+/** Persist shape only — domain/trust validation runs at save and resolve time. */
+function parseSupportContactUrl(value: unknown): string | null {
+  if (value == null) return null;
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  if (trimmed.length > SUPPORT_CONTACT_URL_MAX_LENGTH) return null;
+  return trimmed;
+}
+
 function parseSources(value: unknown): WebsiteKompisInstallSourceConfig {
   const defaults = DEFAULT_WEBSITE_KOMPIS_INSTALL_SOURCE_CONFIG;
   if (!value || typeof value !== "object" || Array.isArray(value)) {
@@ -157,7 +173,8 @@ function extractRawWebsiteKompisBlock(raw: unknown): Record<string, unknown> | n
     "sources" in record ||
     "fallbackTone" in record ||
     "welcomeMessageVariant" in record ||
-    "defaultLocale" in record
+    "defaultLocale" in record ||
+    "supportContactUrl" in record
   ) {
     return record;
   }
@@ -203,6 +220,7 @@ export function normalizeWebsiteKompisInstallConfig(
     fallbackTone: parseFallbackTone(block.fallbackTone),
     sources: parseSources(block.sources),
     welcomeMessageVariant: parseWelcomeMessageVariant(block.welcomeMessageVariant),
+    supportContactUrl: parseSupportContactUrl(block.supportContactUrl),
     updatedAt: parseUpdatedAt(block.updatedAt),
   };
 }
