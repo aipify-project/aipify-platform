@@ -120,6 +120,14 @@ async function main() {
     isRelevantPublicCompanionTenantFaqResult(membershipFaq, "Hva koster det å bli medlem?"),
     true,
   );
+  // LIVE.14: marketplace Push cost must not accept membership FAQ via shared koster/markedsplass.
+  assert.equal(
+    isRelevantPublicCompanionTenantFaqResult(
+      membershipFaq,
+      "Hva koster en Push på markedsplassen?",
+    ),
+    false,
+  );
 
   const response = buildPublicCompanionTenantFaqResponse(fixtureRows, "no");
   assert.match(response.answer.directAnswer, /stengt 17/);

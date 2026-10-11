@@ -38,6 +38,18 @@ const bioReject = evaluateWebsiteKompisDeterministicAnswerPolicy({
 });
 assert.equal(bioReject.ok, false);
 
+// LIVE.14: long Push extract with kostnad/poeng signals must not be rejected as bio.
+assert.equal(
+  evaluateWebsiteKompisDeterministicAnswerPolicy({
+    question: "Hva koster en Push på markedsplassen?",
+    directAnswer:
+      "Ut fra nettstedets offentlige sider:\n\nMed Push kan du flytte en aktiv annonse til toppen av markedsplassen. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen. ".repeat(
+        2,
+      ),
+  }).ok,
+  true,
+);
+
 const tagged = withWebsiteKompisPublicAnswerPathDiagnostic(
   { answer: "ok" } as { answer: string; diagnostics?: { answerPath?: string } },
   "public_site_index",

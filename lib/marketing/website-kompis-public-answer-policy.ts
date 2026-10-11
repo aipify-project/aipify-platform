@@ -72,7 +72,9 @@ export function evaluateWebsiteKompisDeterministicAnswerPolicy(input: {
       /\b(kjøp|kjop|buy|purchase|bestill|order)\b/i.test(question)) &&
     !textLooksLikePublishedPrice(answer) &&
     answer.length > 280 &&
-    !/\b(kr|nok|eur|usd|price|pris|kost)\b/i.test(answer)
+    !/\b(kr|nok|eur|usd|price|pris|kost(?:er|nad(?:en)?)?|poeng|points?)\b/i.test(
+      answer,
+    )
   ) {
     // Long bio-like text without price signals for a price/purchase ask → refuse.
     return { ok: false, reason: "off_topic_bio_for_price" };
