@@ -14,7 +14,7 @@
 
   var installId = (currentScript.getAttribute("data-install-id") || "").trim();
   var domain = (currentScript.getAttribute("data-domain") || "").trim().toLowerCase();
-  var locale = (currentScript.getAttribute("data-locale") || "no").trim().toLowerCase();
+  var dataLocale = (currentScript.getAttribute("data-locale") || "").trim().toLowerCase();
   var coreOrigin = (currentScript.getAttribute("data-core-origin") || "https://aipify.ai")
     .trim()
     .replace(/\/$/, "");
@@ -26,6 +26,15 @@
   var PAGE_CONTEXT_MESSAGE_TYPE = "aipify.websiteKompis.pageContext";
   var PAGE_CONTEXT_REQUEST_MESSAGE_TYPE = "aipify.websiteKompis.requestPageContext";
   var RESIZE_MESSAGE_TYPE = "aipify.websiteKompis.resize";
+  var NAVIGATE_MESSAGE_TYPE = "aipify.websiteKompis.navigate";
+  var SUPPORTED_EMBED_LOCALES = {
+    en: true,
+    no: true,
+    sv: true,
+    da: true,
+    pl: true,
+    uk: true,
+  };
   var CLOSED_WIDTH = 72;
   var CLOSED_HEIGHT = 72;
   var OPEN_WIDTH = 420;
@@ -90,6 +99,63 @@
       .replace(/\s+/g, " ")
       .trim()
       .slice(0, maxLength);
+  }
+
+  function normalizeLocaleTag(value) {
+    var normalized = String(value || "")
+      .trim()
+      .toLowerCase()
+      .replace(/_/g, "-");
+    if (!normalized) return "";
+    var base = normalized.split("-")[0] || normalized;
+    if (base === "nb" || base === "nn") return "no";
+    return base;
+  }
+
+  /** Explicit unsupported host locales map to English — never Norwegian by accident. */
+  function sanitizeEmbedLocale(value) {
+    var normalized = normalizeLocaleTag(value);
+    if (SUPPORTED_EMBED_LOCALES[normalized]) return normalized;
+    if (normalized) return "en";
+    return "no";
+  }
+
+  function resolveRuntimeLocale() {
+    var path = String(window.location.pathname || "").toLowerCase();
+    var parts = path.split("/").filter(Boolean);
+    if (parts.length > 0 && LOCALE_SEGMENTS[parts[0]]) {
+      return sanitizeEmbedLocale(parts[0]);
+    }
+    var htmlLang = document.documentElement && document.documentElement.getAttribute
+      ? document.documentElement.getAttribute("lang")
+      : "";
+    if (htmlLang) {
+      return sanitizeEmbedLocale(htmlLang);
+    }
+    return sanitizeEmbedLocale(dataLocale || "no");
+  }
+
+  var locale = resolveRuntimeLocale();
+
+  function hostsMatchAllowed(candidateHost) {
+    var allowed = String(domain || "").toLowerCase();
+    var host = String(candidateHost || "").toLowerCase();
+    if (!allowed || !host) return false;
+    if (host === allowed) return true;
+    if (allowed.indexOf("www.") === 0 && host === allowed.slice(4)) return true;
+    if (host.indexOf("www.") === 0 && host.slice(4) === allowed) return true;
+    return false;
+  }
+
+  function isAllowedNavigateHref(href) {
+    try {
+      var parsed = new URL(String(href || ""), window.location.href);
+      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return false;
+      if (!hostsMatchAllowed(parsed.hostname)) return false;
+      return true;
+    } catch (_error) {
+      return false;
+    }
   }
 
   function stripLocalePrefix(pathname) {
@@ -230,8 +296,9 @@
     if (canonicalUrl) {
       pageContext.canonicalUrl = canonicalUrl;
     }
-    if (locale) {
-      pageContext.locale = normalizeText(locale, MAX_LOCALE_LENGTH);
+    var runtimeLocale = resolveRuntimeLocale();
+    if (runtimeLocale) {
+      pageContext.locale = normalizeText(runtimeLocale, MAX_LOCALE_LENGTH);
     }
     if (headings.length > 0) {
       pageContext.headings = headings;
@@ -269,6 +336,50 @@
   iframe.style.overflow = "hidden";
   iframe.style.pointerEvents = "auto";
   iframe.setAttribute("scrolling", "no");
+
+  var lastPathname = String(window.location.pathname || "");
+  var lastHref = String(window.location.href || "");
+
+  function maybePostPageContextOnRouteChange() {
+    var nextPath = String(window.location.pathname || "");
+    var nextHref = String(window.location.href || "");
+    if (nextPath === lastPathname && nextHref === lastHref) {
+      return;
+    }
+    lastPathname = nextPath;
+    lastHref = nextHref;
+    locale = resolveRuntimeLocale();
+    postPageContextToIframe();
+  }
+
+  function patchHistoryMethod(methodName) {
+    var original = window.history[methodName];
+    if (typeof original !== "function") return;
+    window.history[methodName] = function patchedHistory() {
+      var result = original.apply(this, arguments);
+      window.setTimeout(maybePostPageContextOnRouteChange, 0);
+      return result;
+    };
+  }
+  patchHistoryMethod("pushState");
+  patchHistoryMethod("replaceState");
+  window.addEventListener("popstate", maybePostPageContextOnRouteChange);
+
+  function postLocaleAwarePageContext() {
+    locale = resolveRuntimeLocale();
+    postPageContextToIframe();
+  }
+
+  window.addEventListener("languagechange", postLocaleAwarePageContext);
+  if (typeof MutationObserver === "function" && document.documentElement) {
+    var langObserver = new MutationObserver(function onHtmlLangChange() {
+      postLocaleAwarePageContext();
+    });
+    langObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["lang"],
+    });
+  }
 
   function applyResize(open, width, height) {
     var nextWidth = open ? OPEN_WIDTH : CLOSED_WIDTH;
@@ -346,6 +457,19 @@
         return;
       }
       applyResize(event.data.open, resizeWidth, resizeHeight);
+      return;
+    }
+    if (event.data.type === NAVIGATE_MESSAGE_TYPE) {
+      var href = event.data.href;
+      if (typeof href !== "string" || !isAllowedNavigateHref(href)) {
+        return;
+      }
+      try {
+        var target = new URL(href, window.location.href);
+        window.location.assign(target.toString());
+      } catch (_error) {
+        /* ignore invalid navigation */
+      }
     }
   });
 

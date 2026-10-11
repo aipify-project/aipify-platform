@@ -37,6 +37,7 @@ import {
 } from "@/lib/marketing/website-companion-chat";
 import {
   buildPublicCompanionTenantFaqResponse,
+  faqQuestionHasContentOverlap,
   hasPublicCompanionVisitorContext,
   isRelevantPublicCompanionTenantFaqResult,
   resolvePublicCompanionVisitorContext,
@@ -85,10 +86,46 @@ import {
 import {
   buildPublicSiteIndexAnswer,
   isRelevantPublicSiteIndexResult,
+  scorePublicSiteIndexHitTopicOverlap,
   searchTenantPublicSiteIndex,
+  topicTokensForPublicSiteIndex,
   type PublicSiteIndexHit,
 } from "@/lib/marketing/website-kompis-public-site-index";
 import type { PublicCompanionTenantFaqRow } from "@/lib/marketing/public-companion-tenant-faq";
+
+/** Prefer strong site-index evidence over thin/stale structured FAQ without source URL. */
+export function preferStrongSiteIndexOverSparseFaq(input: {
+  question: string;
+  faqRows: PublicCompanionTenantFaqRow[];
+  siteIndexHits: PublicSiteIndexHit[];
+}): {
+  faqRows: PublicCompanionTenantFaqRow[];
+  siteIndexHits: PublicSiteIndexHit[];
+} {
+  const { question, faqRows, siteIndexHits } = input;
+  if (faqRows.length === 0 || siteIndexHits.length === 0) {
+    return { faqRows, siteIndexHits };
+  }
+  const topics = topicTokensForPublicSiteIndex(question);
+  const topIndex = siteIndexHits[0];
+  const indexTopic = scorePublicSiteIndexHitTopicOverlap(topIndex, topics);
+  if (indexTopic < 4) {
+    return { faqRows, siteIndexHits };
+  }
+
+  const keptFaq = faqRows.filter((row) => {
+    const score = row.score ?? 0;
+    const overlap = faqQuestionHasContentOverlap(question, row);
+    if (!overlap) return false;
+    // Strong, sourced FAQ may still contribute alongside index.
+    if (row.source_url && score >= 30) return true;
+    // High-confidence FAQ with clear overlap may still win when richer than index hub noise.
+    if (score >= 50 && overlap) return true;
+    return false;
+  });
+
+  return { faqRows: keptFaq, siteIndexHits };
+}
 
 export const PUBLIC_COMPANION_ASK_LOCALES = ["en", "no", "sv", "da", "pl", "uk", "es"] as const;
 export type PublicCompanionAskLocale = (typeof PUBLIC_COMPANION_ASK_LOCALES)[number];
@@ -356,6 +393,40 @@ export function buildPublicCompanionQuery(
   if (!recentContext?.length) return question;
   const contextLines = recentContext.map((entry) => `${entry.role}: ${entry.text}`);
   return [...contextLines, `user: ${question}`].join("\n");
+}
+
+const LOW_SIGNAL_FOLLOW_UP_RE =
+  /^(fortell mer|kan du utdype|tell me more|what does that mean|hva betyr det|utdyp|hvordan gjør jeg (det|dette)|how do i (do that|do this)|more please|og mer)[?.!\s]*$/i;
+
+/** True when the visitor turn alone has little retrieval signal. */
+export function isLowSignalPublicCompanionFollowUp(question: string): boolean {
+  const trimmed = question.trim();
+  if (!trimmed) return false;
+  if (LOW_SIGNAL_FOLLOW_UP_RE.test(trimmed)) return true;
+  const tokens = trimmed.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter((t) => t.length >= 2);
+  return tokens.length > 0 && tokens.length <= 4 && /^(fortell|utdyp|more|how|hvordan|kan|please)/i.test(tokens[0] ?? "");
+}
+
+/**
+ * Retrieval query for FAQ/index: keep topic from recent turns when the latest
+ * ask is a low-signal follow-up ("fortell mer"), without unbounded payload growth.
+ */
+export function buildPublicCompanionRetrievalQuestion(
+  question: string,
+  recentContext?: PublicCompanionRecentContextMessage[],
+): string {
+  const trimmed = question.trim();
+  if (!recentContext?.length) return trimmed;
+  if (!isLowSignalPublicCompanionFollowUp(trimmed)) {
+    return buildPublicCompanionQuery(trimmed, recentContext);
+  }
+  const prior = recentContext
+    .slice(-4)
+    .map((entry) => entry.text.trim())
+    .filter(Boolean)
+    .join(" ");
+  const combined = `${prior}\n${trimmed}`.trim();
+  return combined.slice(0, 900);
 }
 
 function assertAllowedRequestKeys(body: Record<string, unknown>): void {
@@ -721,19 +792,26 @@ async function tryBuildPublicSiteIndexAnswer(
     return null;
   }
 
+  const retrievalQuestion = buildPublicCompanionRetrievalQuestion(question, recentContext);
+
   const hits: PublicSiteIndexHit[] = await searchPublicSiteIndex({
     installId: visitorContext.installId,
     domain: visitorContext.domain,
     locale,
-    query: question,
+    query: retrievalQuestion,
     limit: 5,
   });
 
-  if (!isRelevantPublicSiteIndexResult(hits, question)) {
+  if (!isRelevantPublicSiteIndexResult(hits, retrievalQuestion)) {
     return null;
   }
 
-  const built = buildPublicSiteIndexAnswer(hits, locale, visitorContext.domain, question);
+  const built = buildPublicSiteIndexAnswer(
+    hits,
+    locale,
+    visitorContext.domain,
+    retrievalQuestion,
+  );
   if (!built) {
     return null;
   }
@@ -796,7 +874,11 @@ async function collectCustomerWebsiteEvidence(input: {
     }
   }
 
-  return { faqRows, siteIndexHits };
+  return preferStrongSiteIndexOverSparseFaq({
+    question: input.question,
+    faqRows,
+    siteIndexHits,
+  });
 }
 
 async function tryBuildPublicTenantFaqAnswer(
@@ -825,20 +907,25 @@ async function tryBuildPublicTenantFaqAnswer(
     return null;
   }
 
+  const retrievalQuestion = buildPublicCompanionRetrievalQuestion(
+    question,
+    validated.recentContext,
+  );
+
   const rows = await searchTenantVisitorKnowledge({
     installId: visitorContext.installId,
     domain: visitorContext.domain,
     locale,
-    query: question,
+    query: retrievalQuestion,
     pathname: validated.pageContext?.pathname ?? null,
     limit: 5,
   });
 
-  if (!isRelevantPublicCompanionTenantFaqResult(rows, question)) {
+  if (!isRelevantPublicCompanionTenantFaqResult(rows, retrievalQuestion)) {
     return null;
   }
 
-  const safeRows = filterWebsiteKompisSafeFaqRows(question, rows);
+  const safeRows = filterWebsiteKompisSafeFaqRows(retrievalQuestion, rows);
   if (safeRows.length === 0) {
     return null;
   }
@@ -972,7 +1059,7 @@ export async function askPublicPlatformCompanion(
       });
     }
 
-    const retrievalQuestion = buildPublicCompanionQuery(
+    const retrievalQuestion = buildPublicCompanionRetrievalQuestion(
       validated.question,
       validated.recentContext,
     );

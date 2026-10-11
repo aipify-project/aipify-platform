@@ -53,11 +53,94 @@ async function main() {
     PUBLIC_COMPANION_ASK_MAX_QUESTION_LENGTH,
     askPublicPlatformCompanion,
     buildPublicCompanionQuery,
+    buildPublicCompanionRetrievalQuestion,
     buildPublicPageContextRetrievalQuery,
+    isLowSignalPublicCompanionFollowUp,
     isPublicPageContextQuestion,
+    preferStrongSiteIndexOverSparseFaq,
     sanitizePublicCompanionActions,
     validatePublicCompanionAskRequest,
   } = await import("./public-companion-ask");
+
+  await test("unsupported follow-up binds prior topic into retrieval question", () => {
+    assert.equal(isLowSignalPublicCompanionFollowUp("fortell mer"), true);
+    assert.equal(isLowSignalPublicCompanionFollowUp("Hva koster medlemskap?"), false);
+    const retrieval = buildPublicCompanionRetrievalQuestion("fortell mer", [
+      { role: "user", text: "Hvordan fungerer frakt på markedsplassen?" },
+      { role: "assistant", text: "Selgeren setter fraktprisen for fysiske varer." },
+    ]);
+    assert.match(retrieval, /frakt|markedsplass/i);
+  });
+
+  await test("strong site-index can drop sparse unsourced FAQ; sourced FAQ kept", () => {
+    const preferred = preferStrongSiteIndexOverSparseFaq({
+      question: "Er det gratis å bli medlem?",
+      faqRows: [
+        {
+          item_id: "faq-1",
+          title: "Medlemskap",
+          answer: "Medlemskap er helt gratis.",
+          category: "Medlemskap",
+          content_type: "faq",
+          locale: "no",
+          source_url: null,
+          score: 18,
+          matched_reason: "question_match",
+        },
+      ],
+      siteIndexHits: [
+        {
+          documentId: "doc-1",
+          chunkId: "chunk-1",
+          title: "Medlemskapsguide",
+          canonicalUrl: "https://customer.example/no/membership-guide",
+          pathname: "/no/membership-guide",
+          locale: "no",
+          excerpt: "Bronze-medlemskap er helt gratis for nye medlemmer",
+          chunkContent:
+            "Er det gratis å bli medlem? Bronze-medlemskap er helt gratis for nye medlemmer på NETTSTED_NAVN.",
+          score: 42,
+          matchedReason: "public_site_index",
+          crawledAt: null,
+        },
+      ],
+    });
+    assert.equal(preferred.faqRows.length, 0);
+    assert.equal(preferred.siteIndexHits.length, 1);
+
+    const keepSourcedFaq = preferStrongSiteIndexOverSparseFaq({
+      question: "Hva koster medlemskap?",
+      faqRows: [
+        {
+          item_id: "faq-2",
+          title: "Medlemskap",
+          answer: "Bronze er gratis. Se medlemskapsguiden.",
+          category: "Medlemskap",
+          content_type: "faq",
+          locale: "no",
+          source_url: "https://customer.example/no/membership-guide",
+          score: 40,
+          matched_reason: "question_match",
+        },
+      ],
+      siteIndexHits: [
+        {
+          documentId: "doc-2",
+          chunkId: "chunk-2",
+          title: "Medlemskapsguide",
+          canonicalUrl: "https://customer.example/no/membership-guide",
+          pathname: "/no/membership-guide",
+          locale: "no",
+          excerpt: "Bronze er gratis",
+          chunkContent: "Bronze er gratis på medlemskapsguiden.",
+          score: 48,
+          matchedReason: "public_site_index",
+          crawledAt: null,
+        },
+      ],
+    });
+    assert.equal(keepSourcedFaq.faqRows.length, 1);
+  });
 
   // Phase 2A isolation first — customer embed must not fall through to platform product copy.
   await test("customer site generic question never uses platform knowledge even if aipifyPublic=true", async () => {

@@ -65,6 +65,13 @@
 .ak-thinking-row { display:flex; align-items:center; min-height:48px; }
 .ak-thinking { display:inline-grid; place-items:center; width:40px; height:40px; border:0; background:transparent; border-radius:50%; }
 .ak-thinking img, .ak-thinking svg { display:block; width:40px; height:40px; }
+@media (prefers-reduced-motion: no-preference) {
+  .ak-thinking { animation: ak-thinking-fade 1.6s ease-in-out infinite; }
+}
+@keyframes ak-thinking-fade {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.42; }
+}
 .ak-status { color:var(--ak-muted); font-size:13px; }
 .ak-error { padding:10px 12px; border-radius:12px; background:#fff5f5; color:#8f343b; font-size:13px; }
 .ak-launcher { width:64px; height:64px; display:grid; place-items:center; padding:14px; border-radius:50%; border:1px solid #e6ddf7; background:#fff; box-shadow:0 8px 28px rgb(50 24 95 / 13%); cursor:pointer; }

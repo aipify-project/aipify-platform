@@ -3,7 +3,10 @@ import {
   type WebsiteKompisPublicPageContext,
 } from "@/lib/marketing/website-kompis-public-page-context";
 
+/** Used only when host omits locale entirely (loader may still default separately). */
 export const WEBSITE_KOMPIS_EMBED_DEFAULT_LOCALE = "no" as const;
+/** Explicit unsupported host locales (e.g. de) must not fall through to Norwegian. */
+export const WEBSITE_KOMPIS_EMBED_UNSUPPORTED_FALLBACK_LOCALE = "en" as const;
 
 export const WEBSITE_KOMPIS_EMBED_LOCALES = [
   "en",
@@ -15,6 +18,14 @@ export const WEBSITE_KOMPIS_EMBED_LOCALES = [
 ] as const;
 
 export type WebsiteKompisEmbedLocale = (typeof WEBSITE_KOMPIS_EMBED_LOCALES)[number];
+
+export const WEBSITE_KOMPIS_EMBED_NAVIGATE_MESSAGE_TYPE =
+  "aipify.websiteKompis.navigate" as const;
+
+export type WebsiteKompisEmbedNavigateMessage = {
+  type: typeof WEBSITE_KOMPIS_EMBED_NAVIGATE_MESSAGE_TYPE;
+  href: string;
+};
 
 export const WEBSITE_KOMPIS_EMBED_DOMAIN_MAX_LENGTH = 253;
 export const WEBSITE_KOMPIS_EMBED_INSTALL_ID_PATTERN =
@@ -137,15 +148,65 @@ export function normalizeWebsiteKompisEmbedDomain(value: unknown): string | null
   return normalized;
 }
 
+export function normalizeWebsiteKompisEmbedLocaleTag(value: string): string {
+  const normalized = value.trim().toLowerCase().replace(/_/g, "-");
+  if (!normalized) return "";
+  const base = normalized.split("-")[0] ?? normalized;
+  if (base === "nb" || base === "nn") return "no";
+  return base;
+}
+
 export function sanitizeWebsiteKompisEmbedLocale(value: unknown): WebsiteKompisEmbedLocale {
-  if (typeof value !== "string") {
+  if (typeof value !== "string" || !value.trim()) {
     return WEBSITE_KOMPIS_EMBED_DEFAULT_LOCALE;
   }
-  const normalized = value.trim().toLowerCase();
+  const normalized = normalizeWebsiteKompisEmbedLocaleTag(value);
   if ((WEBSITE_KOMPIS_EMBED_LOCALES as readonly string[]).includes(normalized)) {
     return normalized as WebsiteKompisEmbedLocale;
   }
-  return WEBSITE_KOMPIS_EMBED_DEFAULT_LOCALE;
+  // Explicit but unsupported selection (de, fr, es-only hosts, unknown) → English.
+  return WEBSITE_KOMPIS_EMBED_UNSUPPORTED_FALLBACK_LOCALE;
+}
+
+export function buildWebsiteKompisEmbedNavigateMessage(href: string): WebsiteKompisEmbedNavigateMessage {
+  return {
+    type: WEBSITE_KOMPIS_EMBED_NAVIGATE_MESSAGE_TYPE,
+    href,
+  };
+}
+
+export function parseWebsiteKompisEmbedNavigateMessage(
+  value: unknown,
+): WebsiteKompisEmbedNavigateMessage | null {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+  const record = value as Record<string, unknown>;
+  if (record.type !== WEBSITE_KOMPIS_EMBED_NAVIGATE_MESSAGE_TYPE) return null;
+  if (typeof record.href !== "string" || !record.href.trim()) return null;
+  return {
+    type: WEBSITE_KOMPIS_EMBED_NAVIGATE_MESSAGE_TYPE,
+    href: record.href.trim(),
+  };
+}
+
+/** Same-origin public navigation only — never javascript:/data: or cross-site. */
+export function isAllowedWebsiteKompisHostNavigateHref(
+  href: string,
+  allowedHosts: readonly string[],
+): boolean {
+  try {
+    const parsed = new URL(href, "https://example.invalid");
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return false;
+    const host = parsed.hostname.toLowerCase();
+    const allowed = new Set(
+      allowedHosts
+        .map((entry) => entry.trim().toLowerCase())
+        .filter(Boolean)
+        .flatMap((entry) => (entry.startsWith("www.") ? [entry, entry.slice(4)] : [entry, `www.${entry}`])),
+    );
+    return allowed.has(host);
+  } catch {
+    return false;
+  }
 }
 
 function readSearchParam(
