@@ -69,6 +69,13 @@ import {
   type WebsiteKompisPublicAnswerPath,
 } from "@/lib/marketing/website-kompis-public-answer-policy";
 import {
+  buildWebsiteKompisPublicAskTracePayload,
+  createWebsiteKompisPublicAskCorrelationId,
+  estimatePublicPageContextChars,
+  listAvailablePublicPageSignals,
+  logWebsiteKompisPublicAskTrace,
+} from "@/lib/marketing/website-kompis-public-ask-trace";
+import {
   buildWebsiteKompisDisabledResponse,
   getWebsiteKompisInstallConfigForPublicRequest,
   type GetWebsiteKompisInstallConfigOptions,
@@ -993,6 +1000,46 @@ function tagCustomerSiteAnswerPath(
   }) as PublicCompanionAskResponse;
 }
 
+/** Redacted server trace for owner correlation — never mutates answer behavior. */
+function finishCustomerWebsiteAskWithTrace(
+  response: PublicCompanionAskResponse,
+  input: {
+    correlationId: string;
+    installValidated: boolean;
+    installId: string | null;
+    domain: string | null;
+    pageContext: PublicCompanionPageContext | null | undefined;
+    answerPath: WebsiteKompisPublicAnswerPath;
+    pageSignalsUsed: string[];
+    rejectReason?: string | null;
+    status?: "ok" | "disabled" | "private_scope" | "rejected_chain";
+    contextChars?: number;
+  },
+): PublicCompanionAskResponse {
+  const pageContext = input.pageContext ?? null;
+  logWebsiteKompisPublicAskTrace(
+    buildWebsiteKompisPublicAskTracePayload({
+      correlationId: input.correlationId,
+      installValidated: input.installValidated,
+      installId: input.installId,
+      domain: input.domain,
+      pagePathname: pageContext?.pathname ?? null,
+      pageLocale: pageContext?.locale ?? null,
+      titlePresent: Boolean(pageContext?.title?.trim()),
+      pageContextPresent: Boolean(pageContext),
+      pageSignalsAvailable: listAvailablePublicPageSignals(pageContext),
+      pageSignalsUsed: input.pageSignalsUsed,
+      sourceRoutes: response.sources.map((source) => source.route),
+      contextChars:
+        input.contextChars ?? estimatePublicPageContextChars(pageContext),
+      answerPath: input.answerPath,
+      rejectReason: input.rejectReason ?? null,
+      status: input.status ?? "ok",
+    }),
+  );
+  return response;
+}
+
 function buildWebsiteKompisCustomerSiteFallbackResponse(
   locale: string,
   domain: string | null | undefined,
@@ -1087,6 +1134,19 @@ export async function askPublicPlatformCompanion(
       fallbackTone: installConfig.fallbackTone,
       domain: visitorContext.domain,
     };
+    const askCorrelationId = createWebsiteKompisPublicAskCorrelationId();
+    const installValidated = Boolean(visitorContext.installId);
+    const activePageContext = installConfig.sources.currentPage
+      ? validated.pageContext
+      : null;
+    const pageSignalsAvailable = listAvailablePublicPageSignals(activePageContext);
+    const traceBase = {
+      correlationId: askCorrelationId,
+      installValidated,
+      installId: visitorContext.installId,
+      domain: visitorContext.domain,
+      pageContext: activePageContext,
+    };
 
     // Public embed must never expose a costControls bypass via query/body/browser.
     // Preview SSO is not a cost limit. Injected completion is test-harness only (NODE_ENV=test).
@@ -1097,13 +1157,20 @@ export async function askPublicPlatformCompanion(
       locale,
     );
     if (safetyPolicyAnswer) {
-      return tagCustomerSiteAnswerPath(
-        applyWebsiteKompisCustomerSiteTone(safetyPolicyAnswer, {
-          ...customerSiteTone,
-          source: "faq",
-        }),
-        "safety_policy",
-        isPreviewEnv,
+      return finishCustomerWebsiteAskWithTrace(
+        tagCustomerSiteAnswerPath(
+          applyWebsiteKompisCustomerSiteTone(safetyPolicyAnswer, {
+            ...customerSiteTone,
+            source: "faq",
+          }),
+          "safety_policy",
+          isPreviewEnv,
+        ),
+        {
+          ...traceBase,
+          answerPath: "safety_policy",
+          pageSignalsUsed: [],
+        },
       );
     }
 
@@ -1233,29 +1300,50 @@ export async function askPublicPlatformCompanion(
       // Provider honest-gap (covered:false) must NOT skip page/index/FAQ composition.
       // Sufficient published evidence can still answer via deterministic paths.
       if (!isWebsiteKompisProviderKnowledgeGapResponse(groundedAnswer)) {
+        const groundedSignalsUsed =
+          groundedSource === "current-page" ? pageSignalsAvailable : [];
         if (isPreviewEnv) {
           const existingDiagnostics =
             groundedResponse.diagnostics &&
             typeof groundedResponse.diagnostics === "object"
               ? (groundedResponse.diagnostics as Record<string, unknown>)
               : {};
-          return {
-            ...groundedResponse,
-            diagnostics: {
-              ...existingDiagnostics,
-              grounded: {
-                status: groundedResult.status,
-                evidenceCount: evidencePack.evidence.length,
-                faqCount: faqRows.length,
-                indexCount: siteIndexHits.length,
-                costControls: "public_required",
-                // No provider request IDs in public embed responses.
-                provider: null,
+          return finishCustomerWebsiteAskWithTrace(
+            {
+              ...groundedResponse,
+              diagnostics: {
+                ...existingDiagnostics,
+                grounded: {
+                  status: groundedResult.status,
+                  evidenceCount: evidencePack.evidence.length,
+                  faqCount: faqRows.length,
+                  indexCount: siteIndexHits.length,
+                  costControls: "public_required",
+                  // No provider request IDs in public embed responses.
+                  provider: null,
+                },
               },
+            } as PublicCompanionAskResponse,
+            {
+              ...traceBase,
+              answerPath: "provider_grounded",
+              pageSignalsUsed: groundedSignalsUsed,
+              contextChars: evidencePack.evidence.reduce(
+                (sum, item) => sum + (item.text?.length ?? 0),
+                0,
+              ),
             },
-          } as PublicCompanionAskResponse;
+          );
         }
-        return groundedResponse;
+        return finishCustomerWebsiteAskWithTrace(groundedResponse, {
+          ...traceBase,
+          answerPath: "provider_grounded",
+          pageSignalsUsed: groundedSignalsUsed,
+          contextChars: evidencePack.evidence.reduce(
+            (sum, item) => sum + (item.text?.length ?? 0),
+            0,
+          ),
+        });
       }
       providerHonestGapRetry = true;
       providerHonestGapResponse = groundedResponse;
@@ -1328,8 +1416,15 @@ export async function askPublicPlatformCompanion(
           validated.question,
         );
         if (pageResponse) {
-          return withPreviewDiagnostic(
-            tagCustomerSiteAnswerPath(pageResponse, "current_page", isPreviewEnv),
+          return finishCustomerWebsiteAskWithTrace(
+            withPreviewDiagnostic(
+              tagCustomerSiteAnswerPath(pageResponse, "current_page", isPreviewEnv),
+            ),
+            {
+              ...traceBase,
+              answerPath: "current_page",
+              pageSignalsUsed: pageSignalsAvailable,
+            },
           );
         }
       }
@@ -1353,8 +1448,17 @@ export async function askPublicPlatformCompanion(
         validated.question,
       );
       if (indexResponse) {
-        return withPreviewDiagnostic(
-          tagCustomerSiteAnswerPath(indexResponse, "public_site_index", isPreviewEnv),
+        return finishCustomerWebsiteAskWithTrace(
+          withPreviewDiagnostic(
+            tagCustomerSiteAnswerPath(indexResponse, "public_site_index", isPreviewEnv),
+          ),
+          {
+            ...traceBase,
+            answerPath: "public_site_index",
+            pageSignalsUsed: pageSignalsAvailable.includes("pathname")
+              ? ["pathname"]
+              : [],
+          },
         );
       }
     }
@@ -1378,26 +1482,58 @@ export async function askPublicPlatformCompanion(
         validated.question,
       );
       if (faqResponse) {
-        return withPreviewDiagnostic(
-          tagCustomerSiteAnswerPath(faqResponse, "faq", isPreviewEnv),
+        return finishCustomerWebsiteAskWithTrace(
+          withPreviewDiagnostic(
+            tagCustomerSiteAnswerPath(faqResponse, "faq", isPreviewEnv),
+          ),
+          {
+            ...traceBase,
+            answerPath: "faq",
+            pageSignalsUsed: [],
+          },
         );
       }
     }
 
     if (providerHonestGapResponse) {
-      return withPreviewDiagnostic(providerHonestGapResponse);
+      return finishCustomerWebsiteAskWithTrace(
+        withPreviewDiagnostic(providerHonestGapResponse),
+        {
+          ...traceBase,
+          answerPath: "provider_grounded",
+          pageSignalsUsed: [],
+          rejectReason: "provider_knowledge_gap",
+          status: "ok",
+        },
+      );
     }
 
-    return withPreviewDiagnostic(
-      tagCustomerSiteAnswerPath(
-        buildWebsiteKompisCustomerSiteFallbackResponse(
-          locale,
-          visitorContext.domain,
-          installConfig.fallbackTone,
+    const costRejectReason =
+      publicCostDecision && !publicCostDecision.allowed
+        ? `public_cost_${publicCostDecision.reason}`
+        : groundedResult.status === "failed"
+          ? groundedResult.reason
+          : null;
+
+    return finishCustomerWebsiteAskWithTrace(
+      withPreviewDiagnostic(
+        tagCustomerSiteAnswerPath(
+          buildWebsiteKompisCustomerSiteFallbackResponse(
+            locale,
+            visitorContext.domain,
+            installConfig.fallbackTone,
+          ),
+          "safe_fallback",
+          isPreviewEnv,
         ),
-        "safe_fallback",
-        isPreviewEnv,
       ),
+      {
+        ...traceBase,
+        answerPath: "safe_fallback",
+        pageSignalsUsed: [],
+        rejectReason: costRejectReason,
+        status: "rejected_chain",
+      },
     );
   }
 
