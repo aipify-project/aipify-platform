@@ -244,6 +244,7 @@ const widgetSource = readFileSync(
   "utf8",
 );
 assert.match(widgetSource, /aipify-kompis-avatar\.svg/);
+assert.match(widgetSource, /DESIGN_AVATAR_SRC/);
 assert.match(widgetSource, /AIPIFY_BRAND_HOME_HREF = "https:\/\/aipify\.ai"/);
 assert.match(widgetSource, /target="_blank"/);
 assert.match(widgetSource, /rel="noopener noreferrer"/);
@@ -253,6 +254,12 @@ assert.match(widgetSource, /writeWebsiteKompisEmbedSession/);
 assert.match(widgetSource, /readWebsiteKompisEmbedSession/);
 assert.match(widgetSource, /AipifyCompanionLauncherIcon/);
 assert.doesNotMatch(widgetSource, /AipifyLoader/);
+// Closed launcher must use the robot avatar, not the brand mark alone.
+assert.match(widgetSource, /className="ak-launcher"[\s\S]*DESIGN_AVATAR_SRC/);
+assert.doesNotMatch(widgetSource, /DESIGN_MARK_SRC/);
+assert.match(loaderSource, /OPEN_HEIGHT = 720/);
+assert.match(loaderSource, /visualViewport/);
+assert.match(loaderSource, /PRICE_HINT/);
 
 const designCss = readFileSync(
   path.join(

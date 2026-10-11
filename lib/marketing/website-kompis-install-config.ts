@@ -9,6 +9,7 @@ import {
   resolvePublicCompanionVisitorContext,
 } from "@/lib/marketing/public-companion-tenant-faq";
 import { loadWebsiteKompisInstallConfigFromStorage } from "@/lib/marketing/website-kompis-install-config-storage";
+import { siteLabelFromDomain } from "@/lib/marketing/website-kompis-site-label";
 
 export const WEBSITE_KOMPIS_DISABLED_SOURCE = "website-kompis-disabled" as const;
 
@@ -246,13 +247,6 @@ export async function getWebsiteKompisInstallConfigForPublicRequest(
   return normalizeWebsiteKompisInstallConfig(rawConfig, {
     requestLocale: options.requestLocale ?? context.locale,
   });
-}
-
-function siteLabelFromDomain(domain: string | null | undefined): string | null {
-  if (!domain) return null;
-  const label = domain.split(".")[0]?.trim();
-  if (!label) return null;
-  return label.charAt(0).toUpperCase() + label.slice(1);
 }
 
 function disabledCopy(locale: string, siteLabel: string | null): string {

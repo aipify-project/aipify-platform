@@ -2,6 +2,7 @@ import type { WebsiteKompisFallbackTone } from "@/lib/marketing/website-kompis-i
 import { buildWebsiteKompisWarmSafeFallbackCopy } from "@/lib/marketing/website-kompis-visitor-tone";
 import type { PublicCompanionVisitorContext } from "@/lib/marketing/public-companion-tenant-faq";
 import { hasPublicCompanionVisitorContext } from "@/lib/marketing/public-companion-tenant-faq";
+import { siteLabelFromDomain } from "@/lib/marketing/website-kompis-site-label";
 
 export const WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE = "website-kompis-safe-fallback" as const;
 export const WEBSITE_KOMPIS_PRIVATE_SCOPE_SOURCE = "website-kompis-private-scope" as const;
@@ -285,13 +286,6 @@ export function shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(
   );
 }
 
-function siteLabelFromDomain(domain: string | null | undefined): string | null {
-  if (!domain) return null;
-  const label = domain.split(".")[0]?.trim();
-  if (!label) return null;
-  return label.charAt(0).toUpperCase() + label.slice(1);
-}
-
 function safeFallbackCopy(
   locale: string,
   siteLabel: string | null,
@@ -315,7 +309,7 @@ export function buildWebsiteKompisSafeFallbackResponse(
       steps: [],
     },
     actions: [],
-    sources: [{ title: siteLabel ?? "Website Kompis", route: WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE }],
+    sources: [{ title: siteLabel ?? "nettstedet", route: WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE }],
     confidence: { level: "low" as const, score: 0.2 },
     supportEscalation: { offered: true as const, reason: "knowledge_gap" as const },
     locale,

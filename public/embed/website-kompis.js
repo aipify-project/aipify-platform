@@ -38,7 +38,7 @@
   var CLOSED_WIDTH = 72;
   var CLOSED_HEIGHT = 72;
   var OPEN_WIDTH = 420;
-  var OPEN_HEIGHT = 640;
+  var OPEN_HEIGHT = 720;
   var MAX_PATHNAME_LENGTH = 240;
   var MAX_TITLE_LENGTH = 200;
   var MAX_META_DESCRIPTION_LENGTH = 320;
@@ -48,6 +48,7 @@
   var MAX_TEXT_SNIPPET_LENGTH = 240;
   var MAX_CANONICAL_URL_LENGTH = 320;
   var MAX_LOCALE_LENGTH = 16;
+  // Auth entry pages (/login, /register) stay mountable; form fields are skipped via SKIP_ANCESTOR.
   var PRIVATE_PATH_PREFIXES = [
     "/admin",
     "/member",
@@ -61,11 +62,7 @@
     "/messages",
     "/billing",
     "/settings",
-    "/login",
     "/logout",
-    "/signin",
-    "/signup",
-    "/register",
     "/app",
     "/api",
     "/chat",
@@ -261,6 +258,37 @@
     }
 
     var textSnippets = [];
+    function pushSnippet(raw) {
+      var snippetText = normalizeText(raw, MAX_TEXT_SNIPPET_LENGTH);
+      if (!snippetText || snippetText.length < 12) {
+        return;
+      }
+      if (textSnippets.indexOf(snippetText) !== -1) {
+        return;
+      }
+      textSnippets.push(snippetText);
+    }
+
+    // Prefer published product/offer cards (title + price kept on same snippet).
+    var productNodes = document.querySelectorAll(
+      "main [class*='product'], main [class*='Product'], main [class*='offer'], main [class*='Offer'], main [data-product], main article, [role='main'] article, main li, [role='listitem']",
+    );
+    var PRICE_HINT = /(?:\d{1,3}(?:[.\s]\d{3})*(?:,\d{2})?|\d+(?:[.,]\d{2})?)\s*(?:kr|nok|usd|eur|\$)|(?:kr|nok)\s*\d/i;
+    for (var c = 0; c < productNodes.length && textSnippets.length < MAX_TEXT_SNIPPETS; c += 1) {
+      var cardNode = productNodes[c];
+      if (isInsideSkipZone(cardNode)) {
+        continue;
+      }
+      var cardText = normalizeText(cardNode.textContent, MAX_TEXT_SNIPPET_LENGTH);
+      if (!cardText || !PRICE_HINT.test(cardText)) {
+        continue;
+      }
+      if (cardText.length < 16 || cardText.length > MAX_TEXT_SNIPPET_LENGTH) {
+        continue;
+      }
+      pushSnippet(cardText);
+    }
+
     var paragraphNodes = document.querySelectorAll("main p, article p, [role='main'] p, body > p");
     for (var p = 0; p < paragraphNodes.length && textSnippets.length < MAX_TEXT_SNIPPETS; p += 1) {
       var paragraphNode = paragraphNodes[p];
@@ -271,10 +299,7 @@
       if (!snippetText || snippetText.length < 24) {
         continue;
       }
-      if (textSnippets.indexOf(snippetText) !== -1) {
-        continue;
-      }
-      textSnippets.push(snippetText);
+      pushSnippet(snippetText);
     }
 
     if (!title && !metaDescription && headings.length === 0 && textSnippets.length === 0) {
@@ -390,11 +415,15 @@
     if (typeof height === "number" && height >= 48 && height <= 800) {
       nextHeight = Math.round(height);
     }
-    if (window.innerWidth && nextWidth > window.innerWidth) {
-      nextWidth = window.innerWidth;
+    var viewportWidth =
+      (window.visualViewport && window.visualViewport.width) || window.innerWidth || 0;
+    var viewportHeight =
+      (window.visualViewport && window.visualViewport.height) || window.innerHeight || 0;
+    if (viewportWidth && nextWidth > viewportWidth) {
+      nextWidth = Math.floor(viewportWidth);
     }
-    if (window.innerHeight && nextHeight > window.innerHeight) {
-      nextHeight = window.innerHeight;
+    if (viewportHeight && nextHeight > viewportHeight) {
+      nextHeight = Math.floor(viewportHeight);
     }
     iframe.style.width = nextWidth + "px";
     iframe.style.height = nextHeight + "px";

@@ -13,6 +13,13 @@ import {
   topicTokensForPublicSiteIndex,
 } from "@/lib/marketing/website-kompis-public-site-index";
 import {
+  dedupeCompanionSourcesByRoute,
+  isProductOrPriceVisitorQuestion,
+  isPurchaseProcessVisitorQuestion,
+  looksLikeFaqQuestionList,
+  textLooksLikePublishedPrice,
+} from "@/lib/marketing/website-kompis-answer-relevance";
+import {
   WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE,
   type WebsiteKompisPublicPageContext,
 } from "@/lib/marketing/website-kompis-public-page-context";
@@ -77,17 +84,29 @@ function clip(text: string, max: number): string {
 export function buildWebsiteKompisFaqEvidence(
   rows: PublicCompanionTenantFaqRow[],
 ): WebsiteKompisEvidenceSnippet[] {
-  return rows.slice(0, WEBSITE_KOMPIS_GROUNDED_MAX_EVIDENCE).map((row, index) => ({
-    id: `faq:${row.item_id || index}`,
-    kind: "faq" as const,
-    title: row.title?.trim() || "FAQ",
-    url: row.source_url,
-    locale: row.locale || "no",
-    text: clip(
-      neutralizeUntrustedPageEvidence(`${row.title}\n${row.answer}`),
-      WEBSITE_KOMPIS_GROUNDED_MAX_EVIDENCE_CHARS,
-    ),
-  }));
+  return rows
+    .slice(0, WEBSITE_KOMPIS_GROUNDED_MAX_EVIDENCE * 2)
+    .filter((row) => {
+      const answer = typeof row.answer === "string" ? row.answer : "";
+      const title = typeof row.title === "string" ? row.title : "";
+      if (!answer.trim()) return false;
+      if (looksLikeFaqQuestionList(answer) || looksLikeFaqQuestionList(`${title}\n${answer}`)) {
+        return false;
+      }
+      return true;
+    })
+    .slice(0, WEBSITE_KOMPIS_GROUNDED_MAX_EVIDENCE)
+    .map((row, index) => ({
+      id: `faq:${row.item_id || index}`,
+      kind: "faq" as const,
+      title: row.title?.trim() || "FAQ",
+      url: row.source_url,
+      locale: row.locale || "no",
+      text: clip(
+        neutralizeUntrustedPageEvidence(`${row.title}\n${row.answer}`),
+        WEBSITE_KOMPIS_GROUNDED_MAX_EVIDENCE_CHARS,
+      ),
+    }));
 }
 
 export function buildWebsiteKompisPageEvidence(
@@ -197,13 +216,21 @@ export function buildWebsiteKompisEvidencePack(input: {
     ...buildWebsiteKompisPageEvidence(input.pageContext, input.locale),
   ].filter((item) => item.text.trim().length > 0);
 
+  const productQ = isProductOrPriceVisitorQuestion(question);
+  const purchaseQ = isPurchaseProcessVisitorQuestion(question);
   const seen = new Set<string>();
   const ranked = candidates
     .filter((item) => {
       if (seen.has(item.id)) return false;
       seen.add(item.id);
-      // Keep current-page when present; topical filter applies to faq/index.
-      if (item.kind === "current-page") return true;
+      if (looksLikeFaqQuestionList(item.text)) return false;
+      // Keep current-page when present — unless product/price Q and page has no price.
+      if (item.kind === "current-page") {
+        if ((productQ || purchaseQ) && !textLooksLikePublishedPrice(item.text)) {
+          return false;
+        }
+        return true;
+      }
       if (topicTokens.length === 0) return true;
       return evidenceSnippetMatchesQuestionTopic(item, question);
     })
@@ -345,7 +372,10 @@ export function validateWebsiteKompisGroundedPayload(
   }
 
   const sources: WebsiteKompisEvidenceSnippet[] = [];
+  const seenIds = new Set<string>();
   for (const id of payload.sourceIds) {
+    if (seenIds.has(id)) continue;
+    seenIds.add(id);
     const match = byId.get(id);
     if (!match) return { ok: false, reason: `unknown_source:${id}` };
     sources.push(match);
@@ -528,13 +558,15 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
         steps: [],
       },
       actions: [],
-      sources: validated.sources.map((source) => ({
-        title: source.title,
-        route:
-          source.kind === "current-page"
-            ? WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE
-            : source.url || source.id,
-      })),
+      sources: dedupeCompanionSourcesByRoute(
+        validated.sources.map((source) => ({
+          title: source.title,
+          route:
+            source.kind === "current-page"
+              ? WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE
+              : source.url || source.id,
+        })),
+      ),
       confidence: payload.covered
         ? {
             level:

@@ -1,5 +1,10 @@
 import "server-only";
 
+import {
+  dedupeCompanionSourcesByRoute,
+  expandFaqIntentTokens,
+  looksLikeFaqQuestionList,
+} from "@/lib/marketing/website-kompis-answer-relevance";
 import { createPublicAnonSupabaseClient } from "@/lib/supabase/public-anon";
 
 export type PublicCompanionTenantFaqAnswer = {
@@ -96,7 +101,10 @@ export function faqQuestionHasContentOverlap(
   question: string,
   row: Pick<PublicCompanionTenantFaqRow, "title" | "answer" | "category">,
 ): boolean {
-  const tokens = tokenizePublicCompanionFaqQuestion(question);
+  const tokens = [
+    ...tokenizePublicCompanionFaqQuestion(question),
+    ...expandFaqIntentTokens(question),
+  ];
   if (tokens.length === 0) return false;
   const corpus = faqRowCorpus(row);
   return tokens.some(
@@ -195,6 +203,11 @@ export function isRelevantPublicCompanionTenantFaqResult(
     return false;
   }
 
+  // Hub dumps (lists of FAQ questions) are not valid answers.
+  if (top && looksLikeFaqQuestionList(`${top.title}\n${top.answer}`)) {
+    return false;
+  }
+
   const contentTokens = tokenizePublicCompanionFaqQuestion(trimmedQuery);
   // Questions with distinctive content (e.g. "partner") must overlap the FAQ topic.
   // Prevents weak RPC token_match on stopwords ("bli"/"dere") from surfacing unrelated FAQ.
@@ -282,31 +295,29 @@ export function buildPublicCompanionTenantFaqResponse(
   rows: PublicCompanionTenantFaqRow[],
   locale: string,
 ): PublicCompanionTenantFaqAnswer {
-  const primary = rows[0];
-  const supplemental = rows.slice(1, 3);
+  const usable = rows.filter(
+    (row) => !looksLikeFaqQuestionList(`${row.title}\n${row.answer}`),
+  );
+  const primary = usable[0] ?? rows[0];
+  // One relevant FAQ answer — do not append unrelated sibling FAQ titles/answers.
+  const directAnswer = primary.answer.trim();
 
-  const answerParts = [primary.answer.trim()];
-  for (const row of supplemental) {
-    const text = row.answer.trim();
-    if (text && !answerParts.includes(text)) {
-      answerParts.push(text);
-    }
-  }
-
-  const sources = rows.slice(0, 3).map((row) => ({
-    title: row.title,
-    route:
-      row.source_url && isSafeTenantFaqSourceUrl(row.source_url)
-        ? row.source_url
-        : `website-kompis-faq:${row.content_type}`,
-  }));
+  const sources = dedupeCompanionSourcesByRoute(
+    [primary].map((row) => ({
+      title: row.title,
+      route:
+        row.source_url && isSafeTenantFaqSourceUrl(row.source_url)
+          ? row.source_url
+          : `website-kompis-faq:${row.content_type}`,
+    })),
+  );
 
   const topScore = primary.score ?? 0;
   const confidenceLevel = topScore >= 40 ? "high" : topScore >= 20 ? "medium" : "low";
 
   return {
     answer: {
-      directAnswer: answerParts.join("\n\n"),
+      directAnswer,
       explanation: null,
       steps: [],
     },
