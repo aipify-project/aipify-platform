@@ -132,6 +132,55 @@ export function resolveWebsiteKompisEmbedHostOpenSize(input: {
   };
 }
 
+/**
+ * Preferred outer iframe size for a host viewport.
+ * Desktop 1440×1000 → panel 420×800 → host 444×824 (frame outset).
+ * Undersized embed posts must not win over this floor in the loader.
+ */
+export function resolveWebsiteKompisEmbedPreferredHostOpenSize(
+  viewportWidthPx?: number | null,
+  viewportHeightPx?: number | null,
+): { width: number; height: number; panelWidth: number; panelHeight: number } {
+  const panelHeight = resolveWebsiteKompisEmbedOpenHeightPx(viewportHeightPx);
+  const panelWidth = WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX;
+  const host = resolveWebsiteKompisEmbedHostOpenSize({ panelWidth, panelHeight });
+  let width = host.width;
+  let height = host.height;
+  if (
+    typeof viewportWidthPx === "number" &&
+    Number.isFinite(viewportWidthPx) &&
+    viewportWidthPx > 0
+  ) {
+    width = Math.min(
+      width,
+      Math.max(
+        WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
+        Math.floor(viewportWidthPx - WEBSITE_KOMPIS_EMBED_OPEN_EDGE_INSET_PX),
+      ),
+    );
+  }
+  if (
+    typeof viewportHeightPx === "number" &&
+    Number.isFinite(viewportHeightPx) &&
+    viewportHeightPx > 0
+  ) {
+    height = Math.min(
+      height,
+      Math.max(
+        WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
+        Math.floor(viewportHeightPx - WEBSITE_KOMPIS_EMBED_OPEN_EDGE_INSET_PX),
+      ),
+    );
+  }
+  return { width, height, panelWidth, panelHeight };
+}
+
+/**
+ * Build resize postMessage for the host loader.
+ * Embed widget must call with preferred size only (no iframe viewportHeightPx).
+ * Host `website-kompis.js` clamps using the parent window visualViewport.
+ * Optional viewportHeightPx is for host-side/unit tests — never the iframe height.
+ */
 export function buildWebsiteKompisEmbedResizeMessage(
   open: boolean,
   viewportHeightPx?: number | null,

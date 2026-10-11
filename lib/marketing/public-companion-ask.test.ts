@@ -910,6 +910,71 @@ async function main() {
     assert.doesNotMatch(response.answer.directAnswer, /799|ABOS|Business Operating System/);
   });
 
+  await test("provider covered:false falls through to FAQ instead of keeping gap", async () => {
+    const response = await askPublicPlatformCompanion(
+      {
+        question: "Hva er forskjellen mellom Bronze og Gold?",
+        locale: "no",
+        installId: "11111111-1111-4111-8111-111111111111",
+        domain: "www.customer-a.example",
+      },
+      {
+        requestHost: "www.customer-a.example",
+        rawInstallConfig: {
+          website_kompis: {
+            enabled: true,
+            sources: {
+              faq: true,
+              currentPage: false,
+              aipifyPublic: true,
+              publicSiteIndex: false,
+            },
+          },
+        },
+        resolveLicensedAvailability: async () => ({
+          available: true,
+          reason: "available" as const,
+          capabilityKey: "website_kompis",
+        }),
+        searchTenantVisitorKnowledge: async () => [
+          {
+            item_id: "faq-bronze-gold",
+            title: "Medlemsnivåer",
+            answer:
+              "Bronze er startnivået. Gold gir flere profilfunksjoner enn Bronze på NETTSTED_NAVN.",
+            source_url: "https://www.customer-a.example/no/membership",
+            locale: "no",
+            score: 44,
+            category: "membership",
+            content_type: "faq",
+            matched_reason: "faq",
+          },
+        ],
+        groundedCompletion: async () => ({
+          ok: true,
+          text: JSON.stringify({
+            covered: false,
+            answer: "Jeg finner ikke nok publisert informasjon om dette.",
+            sourceIds: [],
+            followUp: null,
+          }),
+          modelProfile: "kompis_result_summary_v1",
+          latencyMs: 4,
+          usage: { inputUnits: 2, outputUnits: 4, totalUnits: 6 },
+        }),
+      },
+    );
+
+    assert.match(response.answer.directAnswer, /Bronze|Gold/);
+    assert.doesNotMatch(
+      response.answer.directAnswer,
+      /finner ikke nok publisert informasjon/i,
+    );
+    assert.ok(
+      response.sources.some((source) => source.route.includes("membership")),
+    );
+  });
+
   await test("safety-thread Aipify Verify follow-up stays on site evidence not ABOS", async () => {
     let indexQuery = "";
     let platformCalled = false;

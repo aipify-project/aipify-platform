@@ -19,8 +19,12 @@ import {
   WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
   WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
   WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX,
+  WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MIN_PX,
+  WEBSITE_KOMPIS_EMBED_OPEN_EDGE_INSET_PX,
   WEBSITE_KOMPIS_EMBED_OPEN_FRAME_OUTSET_PX,
   resolveWebsiteKompisEmbedHostOpenSize,
+  resolveWebsiteKompisEmbedOpenHeightPx,
+  resolveWebsiteKompisEmbedPreferredHostOpenSize,
   WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX,
   WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE,
   WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE,
@@ -197,6 +201,15 @@ const expectedOpenHost = resolveWebsiteKompisEmbedHostOpenSize({
 assert.equal(openResize.width, expectedOpenHost.width);
 assert.equal(openResize.height, expectedOpenHost.height);
 assert.equal(openResize.width, WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX + WEBSITE_KOMPIS_EMBED_OPEN_FRAME_OUTSET_PX * 2);
+// Spacious desktop 1440×1000: preferred panel 420×800 → host outer 444×824.
+assert.equal(resolveWebsiteKompisEmbedOpenHeightPx(1000), 800);
+assert.deepEqual(
+  resolveWebsiteKompisEmbedHostOpenSize({ panelWidth: 420, panelHeight: 800 }),
+  { width: 444, height: 824 },
+);
+// Undersized iframe-like viewport must not be used by the embed widget path
+// (widget posts preferred size; host clamps). Helper still documents host clamp.
+assert.equal(resolveWebsiteKompisEmbedOpenHeightPx(72), 560);
 const shortViewportResize = buildWebsiteKompisEmbedResizeMessage(true, 640);
 assert.ok(shortViewportResize.height <= 640);
 assert.ok(
@@ -275,9 +288,25 @@ assert.match(loaderSource, /OPEN_HEIGHT = 800/);
 assert.match(loaderSource, /OPEN_HEIGHT_MAX = 900/);
 assert.match(loaderSource, /OPEN_FRAME_OUTSET = 12/);
 assert.match(loaderSource, /OPEN_EDGE_INSET = 12/);
+assert.match(loaderSource, /height >= host\.height/);
+assert.match(loaderSource, /reclampOpenFromHostViewport/);
 assert.match(loaderSource, /markShellReady/);
+
+const desktop1440 = resolveWebsiteKompisEmbedPreferredHostOpenSize(1440, 1000);
+assert.equal(desktop1440.panelWidth, 420);
+assert.equal(desktop1440.panelHeight, 800);
+assert.equal(desktop1440.width, 444);
+assert.equal(desktop1440.height, 824);
+const mobile390 = resolveWebsiteKompisEmbedPreferredHostOpenSize(390, 844);
+assert.ok(mobile390.width <= 390 - WEBSITE_KOMPIS_EMBED_OPEN_EDGE_INSET_PX);
+assert.ok(mobile390.height <= 844 - WEBSITE_KOMPIS_EMBED_OPEN_EDGE_INSET_PX);
+assert.ok(mobile390.panelHeight >= WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MIN_PX);
 assert.match(loaderSource, /opacity = "0"/);
 assert.match(loaderSource, /visualViewport/);
+assert.match(loaderSource, /width >= host\.width/);
+// Embed must not clamp open size to the iframe's own viewport height.
+assert.doesNotMatch(widgetSource, /readViewportHeightPx/);
+assert.match(widgetSource, /buildWebsiteKompisEmbedResizeMessage\(open\)/);
 assert.match(loaderSource, /PRICE_HINT/);
 // Universal public surface contract — Core owns activation from host access adapter.
 assert.match(loaderSource, /aipify\.websiteKompis\.surface/);

@@ -22,10 +22,10 @@ export type WebsiteKompisPublicContactIndexCandidate = {
 };
 
 const CONTACT_PATH_RE =
-  /(?:^|\/)(contact|kontakt|support|kundeservice|hjaelp|hjælp|hjelp|help)(?:\/|$)/i;
+  /(?:^|\/)(contact|kontakt|support|kundeservice|kunde-?service|customer-?service|hjaelp|hjælp|hjelp|help)(?:\/|$)/i;
 
 const CONTACT_TEXT_RE =
-  /\b(contact|kontakt|support|kundeservice|customer\s*service|hjälp|hjaelp|hjælp|hjelp|help\s*center|get\s*in\s*touch)\b/i;
+  /\b(contact|kontakt|support|kundeservice|kunde\s*service|customer\s*service|hjälp|hjaelp|hjælp|hjelp|help\s*center|get\s*in\s*touch)\b/i;
 
 function normalizeContactHref(raw: string, domain: string): string | null {
   const trimmed = raw.trim();

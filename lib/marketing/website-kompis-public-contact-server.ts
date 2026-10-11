@@ -32,34 +32,51 @@ export async function resolveWebsiteKompisPublicContactUrl(input: {
   const locale = input.locale.trim().toLowerCase() || "en";
   const query = CONTACT_QUERY_BY_LOCALE[locale] ?? CONTACT_QUERY_BY_LOCALE.en;
 
-  const faqRows = await searchPublicCompanionTenantFaq({
-    installId: input.installId,
-    domain,
-    locale,
-    query,
-    limit: 8,
-  });
+  const queries = [query];
+  // Second pass uses a shorter contact-oriented query when the first pack misses.
+  const altQuery =
+    locale === "no" || locale === "nb" || locale === "nn"
+      ? "kundeservice kontakt"
+      : locale === "sv"
+        ? "kundservice kontakt"
+        : locale === "da"
+          ? "kundeservice kontakt"
+          : "customer service contact";
+  if (altQuery !== query) queries.push(altQuery);
 
-  const fromFaq = pickWebsiteKompisPublicContactHref(faqRows, domain);
-  if (fromFaq) return fromFaq;
+  for (const contactQuery of queries) {
+    const faqRows = await searchPublicCompanionTenantFaq({
+      installId: input.installId,
+      domain,
+      locale,
+      query: contactQuery,
+      limit: 10,
+    });
 
-  const indexHits = await searchTenantPublicSiteIndex({
-    installId: input.installId,
-    domain,
-    locale,
-    query,
-    limit: 8,
-  });
+    const fromFaq = pickWebsiteKompisPublicContactHref(faqRows, domain);
+    if (fromFaq) return fromFaq;
 
-  return pickWebsiteKompisPublicContactHrefFromIndex(
-    indexHits.map((hit) => ({
-      title: hit.title,
-      pathname: hit.pathname,
-      canonicalUrl: hit.canonicalUrl,
-      excerpt: hit.excerpt,
-      score: hit.score,
-      locale: hit.locale,
-    })),
-    domain,
-  );
+    const indexHits = await searchTenantPublicSiteIndex({
+      installId: input.installId,
+      domain,
+      locale,
+      query: contactQuery,
+      limit: 12,
+    });
+
+    const fromIndex = pickWebsiteKompisPublicContactHrefFromIndex(
+      indexHits.map((hit) => ({
+        title: hit.title,
+        pathname: hit.pathname,
+        canonicalUrl: hit.canonicalUrl,
+        excerpt: hit.excerpt,
+        score: hit.score,
+        locale: hit.locale,
+      })),
+      domain,
+    );
+    if (fromIndex) return fromIndex;
+  }
+
+  return null;
 }

@@ -101,6 +101,16 @@ export function buildWebsiteKompisHonestGapVisitorAnswer(input: {
   };
 }
 
+/**
+ * Provider returned an honest knowledge-gap answer (status ok, covered=false).
+ * Ask chain should still try deterministic FAQ/index/page before accepting the gap.
+ */
+export function isWebsiteKompisProviderKnowledgeGapResponse(response: {
+  supportEscalation?: { offered?: boolean; reason?: string | null } | null;
+}): boolean {
+  return response.supportEscalation?.reason === "knowledge_gap";
+}
+
 export function withWebsiteKompisPublicAnswerPathDiagnostic<T extends Record<string, unknown>>(
   response: T,
   path: WebsiteKompisPublicAnswerPath,

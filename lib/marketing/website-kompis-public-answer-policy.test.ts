@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import {
   buildWebsiteKompisPublicAnswerPolicyPrompt,
   evaluateWebsiteKompisDeterministicAnswerPolicy,
+  isWebsiteKompisProviderKnowledgeGapResponse,
   withWebsiteKompisPublicAnswerPathDiagnostic,
 } from "@/lib/marketing/website-kompis-public-answer-policy";
 
@@ -50,6 +51,19 @@ assert.equal(
     { includeDiagnostics: false },
   ).diagnostics,
   undefined,
+);
+
+assert.equal(
+  isWebsiteKompisProviderKnowledgeGapResponse({
+    supportEscalation: { offered: true, reason: "knowledge_gap" },
+  }),
+  true,
+);
+assert.equal(
+  isWebsiteKompisProviderKnowledgeGapResponse({
+    supportEscalation: { offered: false, reason: null },
+  }),
+  false,
 );
 
 console.log("website-kompis-public-answer-policy.test.ts: all assertions passed");

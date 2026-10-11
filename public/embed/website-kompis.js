@@ -488,6 +488,13 @@
     };
   }
 
+  function readHostViewportSize() {
+    return {
+      width: (window.visualViewport && window.visualViewport.width) || window.innerWidth || 0,
+      height: (window.visualViewport && window.visualViewport.height) || window.innerHeight || 0,
+    };
+  }
+
   function maybePostPageContextOnRouteChange() {
     var nextPath = String(window.location.pathname || "");
     var nextHref = String(window.location.href || "");
@@ -529,25 +536,33 @@
     });
   }
 
+  var lastOpenRequested = false;
+
   function applyResize(open, width, height) {
-    var viewportWidth =
-      (window.visualViewport && window.visualViewport.width) || window.innerWidth || 0;
-    var viewportHeight =
-      (window.visualViewport && window.visualViewport.height) || window.innerHeight || 0;
+    var viewport = readHostViewportSize();
+    var viewportWidth = viewport.width;
+    var viewportHeight = viewport.height;
     var nextWidth = CLOSED_WIDTH;
     var nextHeight = CLOSED_HEIGHT;
+    lastOpenRequested = Boolean(open);
     if (open) {
+      // Host window decides preferred open size from real viewport (not iframe height).
       var panelHeight = preferredOpenPanelHeight(viewportHeight);
       var host = hostOpenSize(OPEN_WIDTH, panelHeight);
       nextWidth = host.width;
       nextHeight = host.height;
-      // Prefer embed-posted host size (already includes frame outset) when valid.
-      if (typeof width === "number" && width >= 48 && width <= 560) {
+      // Accept embed-posted host size only when it is at least the host-preferred floor.
+      // Undersized posts (legacy iframe-viewport clamp) must not shrink a spacious desktop.
+      if (
+        typeof width === "number" &&
+        width >= host.width &&
+        width <= 560
+      ) {
         nextWidth = Math.round(width);
       }
       if (
         typeof height === "number" &&
-        height >= 48 &&
+        height >= host.height &&
         height <= OPEN_HEIGHT_MAX + OPEN_FRAME_OUTSET * 2
       ) {
         nextHeight = Math.round(height);
@@ -570,6 +585,16 @@
     iframe.style.right = OPEN_EDGE_INSET + "px";
     iframe.style.bottom = OPEN_EDGE_INSET + "px";
     markShellReady();
+  }
+
+  function reclampOpenFromHostViewport() {
+    if (!lastOpenRequested) return;
+    applyResize(true);
+  }
+
+  window.addEventListener("resize", reclampOpenFromHostViewport);
+  if (window.visualViewport && typeof window.visualViewport.addEventListener === "function") {
+    window.visualViewport.addEventListener("resize", reclampOpenFromHostViewport);
   }
 
   function postPageContextToIframe() {
@@ -625,22 +650,28 @@
       if (typeof event.data.open !== "boolean") {
         return;
       }
-      var resizeWidth = event.data.width;
-      var resizeHeight = event.data.height;
-      if (
-        typeof resizeWidth !== "number" ||
-        typeof resizeHeight !== "number" ||
-        !isFinite(resizeWidth) ||
-        !isFinite(resizeHeight) ||
-        resizeWidth < 48 ||
-        resizeWidth > 560 ||
-        resizeHeight < 48 ||
-        resizeHeight > OPEN_HEIGHT_MAX + OPEN_FRAME_OUTSET * 2
-      ) {
-        // Ignore malformed size payloads; keep last good frame size.
+      if (!event.data.open) {
+        applyResize(false);
         return;
       }
-      applyResize(event.data.open, resizeWidth, resizeHeight);
+      var resizeWidth = event.data.width;
+      var resizeHeight = event.data.height;
+      var widthOk =
+        typeof resizeWidth === "number" &&
+        isFinite(resizeWidth) &&
+        resizeWidth >= 48 &&
+        resizeWidth <= 560;
+      var heightOk =
+        typeof resizeHeight === "number" &&
+        isFinite(resizeHeight) &&
+        resizeHeight >= 48 &&
+        resizeHeight <= OPEN_HEIGHT_MAX + OPEN_FRAME_OUTSET * 2;
+      // Open always applies host-preferred size; optional posted dims may only grow it.
+      applyResize(
+        true,
+        widthOk ? resizeWidth : undefined,
+        heightOk ? resizeHeight : undefined,
+      );
       return;
     }
     if (event.data.type === NAVIGATE_MESSAGE_TYPE) {
