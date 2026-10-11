@@ -272,15 +272,14 @@ assert.deepEqual(
   ),
   { ok: true, url: "https://customer.example/kontakt" },
 );
-assert.equal(
-  validateWebsiteKompisConfiguredSupportContactUrl("", "customer.example").ok,
-  true,
+const clearedConfigured = validateWebsiteKompisConfiguredSupportContactUrl(
+  "",
+  "customer.example",
 );
-assert.equal(
-  validateWebsiteKompisConfiguredSupportContactUrl("", "customer.example").ok &&
-    validateWebsiteKompisConfiguredSupportContactUrl("", "customer.example").url === null,
-  true,
-);
+assert.equal(clearedConfigured.ok, true);
+if (clearedConfigured.ok) {
+  assert.equal(clearedConfigured.url, null);
+}
 assert.equal(
   validateWebsiteKompisConfiguredSupportContactUrl(
     "http://customer.example/kontakt",
