@@ -87,3 +87,28 @@ export function AkIconUser(props: IconProps) {
     </BaseIcon>
   );
 }
+
+export function AkIconThumbUp(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path d="M7 11v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3Zm0 0 3.2-6.4A2 2 0 0 1 12 3.5V7h5.4a2 2 0 0 1 1.95 2.44l-1.2 5.2A2 2 0 0 1 16.2 16H7" />
+    </BaseIcon>
+  );
+}
+
+export function AkIconThumbDown(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <path d="M17 13V3h3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-3Zm0 0-3.2 6.4A2 2 0 0 1 12 20.5V17H6.6a2 2 0 0 1-1.95-2.44l1.2-5.2A2 2 0 0 1 7.8 8H17" />
+    </BaseIcon>
+  );
+}
+
+export function AkIconCopy(props: IconProps) {
+  return (
+    <BaseIcon {...props}>
+      <rect x="9" y="9" width="11" height="11" rx="2" />
+      <path d="M5 15V5a2 2 0 0 1 2-2h10" />
+    </BaseIcon>
+  );
+}

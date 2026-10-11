@@ -6851,7 +6851,8 @@
       "da": "Danska",
       "pl": "Polska",
       "uk": "Ukrainska"
-    }
+    },
+    "feedbackOverviewLink": "Visa svarsfeedback"
   },
   "kompisOperator": {
     "title": "Kompis",
@@ -7276,5 +7277,40 @@
     "verifyHttp": "Verifiera HTTP-runtime",
     "verifying": "Verifierar",
     "saving": "Sparar"
+  },
+  "websiteKompisFeedback": {
+    "title": "Website Kompis svarsfeedback",
+    "subtitle": "Granska besökares betyg på Website Kompis-svar. En positiv röst är en prioriteringssignal — inte bevis på att svaret är korrekt.",
+    "navTitle": "Website Kompis feedback",
+    "backToFaq": "Tillbaka till Website Kompis FAQ",
+    "loading": "Förbereder feedbacköversikt…",
+    "accessDenied": "Ägar- eller administratörsbehörighet krävs för att visa Website Kompis-feedback.",
+    "errorGeneric": "Något gick fel. Försök igen.",
+    "retry": "Försök igen",
+    "emptyTitle": "Ingen besökarfeedback ännu",
+    "emptyDescription": "När besökare betygsätter Website Kompis-svar visas sammanfattningar här endast för din organisation.",
+    "persistenceUnavailableTitle": "Feedbacklagring är inte klar",
+    "persistenceUnavailableBody": "Kopiering kan fortfarande fungera för besökare. Betyg visas här när lagring är aktiverad.",
+    "reuseOffNote": "Automatisk återanvändning av betygsatta svar är av tills källkontroll och aktualitetsgrindar finns.",
+    "helpfulNotTruth": "Behandla inte en positiv röst som bekräftelse på att ett svar är korrekt för återanvändning.",
+    "totals": {
+      "answers": "Svarskvitton",
+      "helpful": "Hjälpsamma betyg",
+      "notHelpful": "Inte hjälpsamma betyg",
+      "withComment": "Med kommentar"
+    },
+    "columns": {
+      "vote": "Betyg",
+      "question": "Fråga",
+      "answer": "Svar",
+      "comment": "Kommentar",
+      "page": "Sida",
+      "locale": "Språk",
+      "when": "När"
+    },
+    "votes": {
+      "helpful": "Hjälpsamt",
+      "notHelpful": "Inte hjälpsamt"
+    }
   }
 }

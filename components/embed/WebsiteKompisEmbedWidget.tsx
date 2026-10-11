@@ -18,6 +18,7 @@ import {
   shouldAutoScrollCompanionChatOnUpdate,
 } from "@/lib/app/companion/companion-chat-scroll-policy";
 import type { PublicCompanionAskResponse } from "@/lib/marketing/public-companion-ask";
+import type { WebsiteKompisAskFeedbackFields } from "@/lib/marketing/website-kompis-answer-feedback";
 import {
   buildWebsiteKompisAskPayload,
   buildWebsiteKompisEmbedNavigateMessage,
@@ -59,7 +60,10 @@ import {
   AkIconMinimize,
   AkIconRocket,
 } from "@/components/embed/website-kompis-design-icons";
+import { WebsiteKompisAnswerActions } from "@/components/embed/WebsiteKompisAnswerActions";
 import "@/components/embed/website-kompis-design-v1.css";
+
+type PublicAskPayload = PublicCompanionAskResponse & WebsiteKompisAskFeedbackFields;
 
 const DESIGN_LOGO_SRC = `${WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE}/brand/aipify-logo-dark.svg`;
 /** Owner robot mascot (V2 wrapper + original PNG SHA 9646db7d…). */
@@ -73,6 +77,8 @@ type ChatMessage =
       role: "assistant";
       text: string;
       sources?: WebsiteCompanionUiSource[];
+      answerId?: string | null;
+      feedbackPersistenceReady?: boolean;
       failed?: false;
     }
   | { id: string; role: "assistant"; failed: true; retryQuestion: string };
@@ -164,6 +170,8 @@ function toSessionMessages(messages: ChatMessage[]): WebsiteKompisEmbedSessionMe
         title: source.title,
         href: source.href ?? null,
       })),
+      answerId: message.answerId ?? null,
+      feedbackPersistenceReady: message.feedbackPersistenceReady === true,
     };
   });
 }
@@ -189,6 +197,11 @@ function fromSessionMessages(messages: WebsiteKompisEmbedSessionMessage[]): Chat
         title: source.title,
         href: source.href ?? null,
       })),
+      answerId: "answerId" in message ? message.answerId ?? null : null,
+      feedbackPersistenceReady:
+        "feedbackPersistenceReady" in message
+          ? message.feedbackPersistenceReady === true
+          : false,
     };
   });
 }
@@ -451,7 +464,7 @@ export function WebsiteKompisEmbedWidget({
           throw new Error("ask request failed");
         }
 
-        const payload = (await response.json()) as PublicCompanionAskResponse;
+        const payload = (await response.json()) as PublicAskPayload;
         const mapped = mapWebsiteCompanionApiResponse(payload);
         const answerParts = [mapped.directAnswer.trim()];
         if (mapped.explanation?.trim()) answerParts.push(mapped.explanation.trim());
@@ -466,6 +479,8 @@ export function WebsiteKompisEmbedWidget({
             role: "assistant",
             text: answerParts.join("\n\n"),
             sources: mapped.sources,
+            answerId: typeof payload.answerId === "string" ? payload.answerId : null,
+            feedbackPersistenceReady: payload.feedbackPersistenceReady !== false && Boolean(payload.answerId),
           },
         ]);
       } catch {
@@ -692,6 +707,36 @@ export function WebsiteKompisEmbedWidget({
                               ),
                             )
                           : null}
+                        {!isUser && !("failed" in message && message.failed) ? (
+                          <WebsiteKompisAnswerActions
+                            answerText={message.text}
+                            sources={sources}
+                            answerId={"answerId" in message ? message.answerId : null}
+                            feedbackPersistenceReady={
+                              "feedbackPersistenceReady" in message
+                                ? message.feedbackPersistenceReady
+                                : false
+                            }
+                            installId={installId}
+                            domain={domain}
+                            labels={{
+                              helpful: labels.feedbackHelpful,
+                              notHelpful: labels.feedbackNotHelpful,
+                              copy: labels.feedbackCopy,
+                              copied: labels.feedbackCopied,
+                              copyFailed: labels.feedbackCopyFailed,
+                              commentPrompt: labels.feedbackCommentPrompt,
+                              commentPlaceholder: labels.feedbackCommentPlaceholder,
+                              commentSkip: labels.feedbackCommentSkip,
+                              commentSend: labels.feedbackCommentSend,
+                              saved: labels.feedbackSaved,
+                              saveFailed: labels.feedbackSaveFailed,
+                              unavailable: labels.feedbackUnavailable,
+                              clearVote: labels.feedbackClearVote,
+                              retry: labels.feedbackRetry,
+                            }}
+                          />
+                        ) : null}
                       </div>
                     </div>
                   );

@@ -268,8 +268,18 @@ export function WebsiteKompisFaqAdminPanel({ labels }: WebsiteKompisFaqAdminPane
         <Link href="/app/settings" className="text-sm text-violet-600 hover:underline">
           {labels.back}
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold text-slate-900">{labels.title}</h1>
-        <p className="mt-1 text-sm text-slate-600">{labels.subtitle}</p>
+        <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h1 className="text-2xl font-semibold text-slate-900">{labels.title}</h1>
+            <p className="mt-1 text-sm text-slate-600">{labels.subtitle}</p>
+          </div>
+          <Link
+            href="/app/website-kompis/feedback"
+            className="rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-sm font-medium text-violet-800 hover:bg-violet-100"
+          >
+            {labels.feedbackOverviewLink}
+          </Link>
+        </div>
       </div>
 
       <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">

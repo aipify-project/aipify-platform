@@ -6851,7 +6851,8 @@
       "da": "Dansk",
       "pl": "Polsk",
       "uk": "Ukrainsk"
-    }
+    },
+    "feedbackOverviewLink": "Se svarefeedback"
   },
   "kompisOperator": {
     "title": "Kompis",
@@ -7276,5 +7277,40 @@
     "verifyHttp": "Verificér HTTP-runtime",
     "verifying": "Verificerer",
     "saving": "Gemmer"
+  },
+  "websiteKompisFeedback": {
+    "title": "Website Kompis svarefeedback",
+    "subtitle": "Gennemgå besøgendes vurderinger af Website Kompis-svar. En positiv stemme er et prioriteringssignal — ikke bevis på, at svaret er korrekt.",
+    "navTitle": "Website Kompis feedback",
+    "backToFaq": "Tilbage til Website Kompis FAQ",
+    "loading": "Forbereder feedbackoversigt…",
+    "accessDenied": "Ejer- eller administratoradgang kræves for at se Website Kompis-feedback.",
+    "errorGeneric": "Noget gik galt. Prøv igen.",
+    "retry": "Prøv igen",
+    "emptyTitle": "Ingen besøgsfeedback endnu",
+    "emptyDescription": "Når besøgende vurderer Website Kompis-svar, vises opsummeringer her kun for din organisation.",
+    "persistenceUnavailableTitle": "Feedbacklagring er ikke klar",
+    "persistenceUnavailableBody": "Kopiering kan stadig fungere for besøgende. Vurderinger vises her, når lagring er aktiveret.",
+    "reuseOffNote": "Automatisk genbrug af vurderede svar er slået fra, indtil kildekontrol og aktualitetsgates er på plads.",
+    "helpfulNotTruth": "Behandl ikke en positiv stemme som bekræftelse på, at et svar er korrekt til genbrug.",
+    "totals": {
+      "answers": "Svar-kvitteringer",
+      "helpful": "Nyttige vurderinger",
+      "notHelpful": "Ikke nyttige vurderinger",
+      "withComment": "Med kommentar"
+    },
+    "columns": {
+      "vote": "Vurdering",
+      "question": "Spørgsmål",
+      "answer": "Svar",
+      "comment": "Kommentar",
+      "page": "Side",
+      "locale": "Sprog",
+      "when": "Hvornår"
+    },
+    "votes": {
+      "helpful": "Nyttigt",
+      "notHelpful": "Ikke nyttigt"
+    }
   }
 }

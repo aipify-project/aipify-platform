@@ -6840,7 +6840,8 @@
       "da": "Danish",
       "pl": "Polish",
       "uk": "Ukrainian"
-    }
+    },
+    "feedbackOverviewLink": "View answer feedback"
   },
   "kompisOperator": {
     "title": "Kompis",
@@ -7265,5 +7266,40 @@
     "verifyHttp": "Verify HTTP runtime",
     "verifying": "Verifying",
     "saving": "Saving"
+  },
+  "websiteKompisFeedback": {
+    "title": "Website Kompis answer feedback",
+    "subtitle": "Review visitor ratings for Website Kompis answers. A helpful vote is a prioritization signal — not proof that an answer is correct.",
+    "navTitle": "Website Kompis feedback",
+    "backToFaq": "Back to Website Kompis FAQ",
+    "loading": "Preparing feedback overview…",
+    "accessDenied": "Owner or administrator access is required to view Website Kompis feedback.",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "retry": "Try again",
+    "emptyTitle": "No visitor feedback yet",
+    "emptyDescription": "When visitors rate Website Kompis answers, summaries appear here for your organization only.",
+    "persistenceUnavailableTitle": "Feedback storage is not ready",
+    "persistenceUnavailableBody": "Copy can still work for visitors. Ratings will appear here after feedback storage is applied.",
+    "reuseOffNote": "Automatic reuse of rated answers is off until source-control and freshness gates are applied.",
+    "helpfulNotTruth": "Do not treat a helpful vote as confirmation that an answer is correct for reuse.",
+    "totals": {
+      "answers": "Answer receipts",
+      "helpful": "Helpful ratings",
+      "notHelpful": "Not helpful ratings",
+      "withComment": "With comments"
+    },
+    "columns": {
+      "vote": "Rating",
+      "question": "Question",
+      "answer": "Answer",
+      "comment": "Comment",
+      "page": "Page",
+      "locale": "Language",
+      "when": "When"
+    },
+    "votes": {
+      "helpful": "Helpful",
+      "notHelpful": "Not helpful"
+    }
   }
 }

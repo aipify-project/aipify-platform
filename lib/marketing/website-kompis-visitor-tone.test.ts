@@ -68,6 +68,11 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk"] as const) {
   assert.ok(labels.placeholder.trim().length > 0, `placeholder missing for ${locale}`);
   assert.ok(labels.open.trim().length > 0, `open missing for ${locale}`);
   assert.ok(labels.error.trim().length > 0, `error missing for ${locale}`);
+  assert.ok(labels.feedbackHelpful.trim().length > 0, `feedbackHelpful missing for ${locale}`);
+  assert.ok(labels.feedbackCopy.trim().length > 0, `feedbackCopy missing for ${locale}`);
+  assert.ok(labels.feedbackNotHelpful.trim().length > 0, `feedbackNotHelpful missing for ${locale}`);
 }
+assert.equal(enLabels.feedbackCopied, "Copied");
+assert.equal(compactLabels.feedbackHelpful, "Nyttig svar");
 
 console.log("website-kompis-visitor-tone.test.ts: all assertions passed");

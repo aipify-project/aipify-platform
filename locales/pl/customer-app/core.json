@@ -387,7 +387,8 @@
       "da": "Duński",
       "pl": "Polski",
       "uk": "Ukraiński"
-    }
+    },
+    "feedbackOverviewLink": "Zobacz opinie o odpowiedziach"
   },
   "kompisOperator": {
     "title": "Kompis",
@@ -812,5 +813,40 @@
     "verifyHttp": "Weryfikuj runtime HTTP",
     "verifying": "Weryfikacja",
     "saving": "Zapisywanie"
+  },
+  "websiteKompisFeedback": {
+    "title": "Opinie o odpowiedziach Website Kompis",
+    "subtitle": "Przeglądaj oceny odwiedzających dla odpowiedzi Website Kompis. Pozytywny głos to sygnał priorytetu — nie dowód poprawności.",
+    "navTitle": "Opinie Website Kompis",
+    "backToFaq": "Wróć do FAQ Website Kompis",
+    "loading": "Przygotowywanie przeglądu opinii…",
+    "accessDenied": "Do przeglądania opinii Website Kompis wymagany jest dostęp właściciela lub administratora.",
+    "errorGeneric": "Coś poszło nie tak. Spróbuj ponownie.",
+    "retry": "Spróbuj ponownie",
+    "emptyTitle": "Brak opinii odwiedzających",
+    "emptyDescription": "Gdy odwiedzający ocenią odpowiedzi Website Kompis, podsumowania pojawią się tutaj tylko dla Twojej organizacji.",
+    "persistenceUnavailableTitle": "Przechowywanie opinii nie jest gotowe",
+    "persistenceUnavailableBody": "Kopiowanie nadal może działać. Oceny pojawią się tutaj po włączeniu przechowywania.",
+    "reuseOffNote": "Automatyczne ponowne użycie ocenionych odpowiedzi jest wyłączone do czasu bramek kontroli źródeł i aktualności.",
+    "helpfulNotTruth": "Nie traktuj pozytywnego głosu jako potwierdzenia poprawności odpowiedzi do ponownego użycia.",
+    "totals": {
+      "answers": "Potwierdzenia odpowiedzi",
+      "helpful": "Oceny pomocne",
+      "notHelpful": "Oceny niepomocne",
+      "withComment": "Z komentarzem"
+    },
+    "columns": {
+      "vote": "Ocena",
+      "question": "Pytanie",
+      "answer": "Odpowiedź",
+      "comment": "Komentarz",
+      "page": "Strona",
+      "locale": "Język",
+      "when": "Kiedy"
+    },
+    "votes": {
+      "helpful": "Pomocne",
+      "notHelpful": "Niepomocne"
+    }
   }
 }
