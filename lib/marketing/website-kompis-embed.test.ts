@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -225,5 +226,33 @@ assert.match(loaderSource, /aipify\.websiteKompis\.resize/);
 assert.match(loaderSource, /event\.origin !== coreOrigin/);
 assert.match(loaderSource, /event\.source !== iframe\.contentWindow/);
 assert.doesNotMatch(loaderSource, /iframe\.style\.width = "420px"/);
+// No sandbox attribute — brand credit target=_blank must open without allow-popups widening.
+assert.doesNotMatch(loaderSource, /setAttribute\(\s*["']sandbox["']/);
+
+const widgetSource = readFileSync(
+  path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../../components/embed/WebsiteKompisEmbedWidget.tsx",
+  ),
+  "utf8",
+);
+assert.match(widgetSource, /aipify-kompis-avatar\.svg/);
+assert.match(widgetSource, /AIPIFY_BRAND_HOME_HREF = "https:\/\/aipify\.ai"/);
+assert.match(widgetSource, /target="_blank"/);
+assert.match(widgetSource, /rel="noopener noreferrer"/);
+assert.match(widgetSource, /ak-thinking-row/);
+assert.match(widgetSource, /AipifyCompanionLauncherIcon/);
+assert.doesNotMatch(widgetSource, /AipifyLoader/);
+
+const avatarPng = readFileSync(
+  path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../../public/website-kompis/design-v1/images/aipify-kompis-avatar.png",
+  ),
+);
+assert.equal(
+  createHash("sha256").update(avatarPng).digest("hex"),
+  "9646db7d446c150c8567dd28b812c82ba9c66d435e83e08106a8915951a41ef6",
+);
 
 console.log("website-kompis-embed.test.ts: all assertions passed");
