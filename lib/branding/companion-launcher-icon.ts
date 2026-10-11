@@ -40,6 +40,8 @@ export type CompanionLauncherIconEmbedConfig = {
   unavailableReason?: string;
   welcomeMessageVariant?: string;
   fallbackTone?: string;
+  /** Tenant-bound public contact URL when published FAQ evidence exists. */
+  publicContactUrl?: string | null;
 };
 
 export type CompanionLauncherIconVariantPublicMetadata = Pick<
@@ -65,6 +67,7 @@ export type GetCompanionLauncherIconEmbedConfigOptions = {
     iconVariant?: string | null;
     welcomeMessageVariant?: string;
     fallbackTone?: string;
+    publicContactUrl?: string | null;
   } | null;
   preferInstallConfigVariant?: boolean;
 };
@@ -139,6 +142,14 @@ export function getCompanionLauncherIconEmbedConfig(
     }
     if (options.installConfig.fallbackTone) {
       config.fallbackTone = options.installConfig.fallbackTone;
+    }
+    if (
+      typeof options.installConfig.publicContactUrl === "string" &&
+      options.installConfig.publicContactUrl.trim()
+    ) {
+      config.publicContactUrl = options.installConfig.publicContactUrl.trim();
+    } else if (options.installConfig.publicContactUrl === null) {
+      config.publicContactUrl = null;
     }
   }
 

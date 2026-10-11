@@ -190,6 +190,9 @@ const openResize = buildWebsiteKompisEmbedResizeMessage(true);
 assert.equal(openResize.open, true);
 assert.equal(openResize.width, WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX);
 assert.equal(openResize.height, WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX);
+const shortViewportResize = buildWebsiteKompisEmbedResizeMessage(true, 640);
+assert.ok(shortViewportResize.height <= 640);
+assert.ok(shortViewportResize.height >= 560);
 assert.deepEqual(parseWebsiteKompisEmbedResizeMessage(openResize), openResize);
 assert.equal(parseWebsiteKompisEmbedResizeMessage({ type: "other" }), null);
 assert.equal(
@@ -257,7 +260,10 @@ assert.doesNotMatch(widgetSource, /AipifyLoader/);
 // Closed launcher must use the robot avatar, not the brand mark alone.
 assert.match(widgetSource, /className="ak-launcher"[\s\S]*DESIGN_AVATAR_SRC/);
 assert.doesNotMatch(widgetSource, /DESIGN_MARK_SRC/);
-assert.match(loaderSource, /OPEN_HEIGHT = 720/);
+assert.match(loaderSource, /OPEN_HEIGHT = 800/);
+assert.match(loaderSource, /OPEN_HEIGHT_MAX = 900/);
+assert.match(loaderSource, /markShellReady/);
+assert.match(loaderSource, /opacity = "0"/);
 assert.match(loaderSource, /visualViewport/);
 assert.match(loaderSource, /PRICE_HINT/);
 // Universal public surface contract — Core owns activation from host access adapter.

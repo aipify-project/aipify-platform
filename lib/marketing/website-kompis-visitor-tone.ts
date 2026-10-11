@@ -57,6 +57,8 @@ export type WebsiteKompisEmbedUiLabels = {
   feedbackUnavailable: string;
   feedbackClearVote: string;
   feedbackRetry: string;
+  newChat: string;
+  contactSupport: string;
   quickActions: WebsiteKompisEmbedQuickAction[];
 };
 
@@ -377,6 +379,8 @@ const EMBED_FEEDBACK_SHELL: Record<
     | "feedbackUnavailable"
     | "feedbackClearVote"
     | "feedbackRetry"
+    | "newChat"
+    | "contactSupport"
   >
 > = {
   no: {
@@ -394,6 +398,8 @@ const EMBED_FEEDBACK_SHELL: Record<
     feedbackUnavailable: "Tilbakemelding er ikke tilgjengelig ennå.",
     feedbackClearVote: "Fjern vurdering",
     feedbackRetry: "Prøv igjen",
+    newChat: "Ny chat",
+    contactSupport: "Kontakt support",
   },
   en: {
     feedbackHelpful: "Helpful",
@@ -410,6 +416,8 @@ const EMBED_FEEDBACK_SHELL: Record<
     feedbackUnavailable: "Feedback is not available yet.",
     feedbackClearVote: "Clear rating",
     feedbackRetry: "Try again",
+    newChat: "New chat",
+    contactSupport: "Contact support",
   },
   sv: {
     feedbackHelpful: "Hjälpsamt",
@@ -426,6 +434,8 @@ const EMBED_FEEDBACK_SHELL: Record<
     feedbackUnavailable: "Feedback är inte tillgänglig ännu.",
     feedbackClearVote: "Ta bort betyg",
     feedbackRetry: "Försök igen",
+    newChat: "Ny chatt",
+    contactSupport: "Kontakta support",
   },
   da: {
     feedbackHelpful: "Nyttigt",
@@ -442,6 +452,8 @@ const EMBED_FEEDBACK_SHELL: Record<
     feedbackUnavailable: "Feedback er ikke tilgængelig endnu.",
     feedbackClearVote: "Fjern vurdering",
     feedbackRetry: "Prøv igen",
+    newChat: "Ny chat",
+    contactSupport: "Kontakt support",
   },
   pl: {
     feedbackHelpful: "Pomocne",
@@ -458,6 +470,8 @@ const EMBED_FEEDBACK_SHELL: Record<
     feedbackUnavailable: "Opinie nie są jeszcze dostępne.",
     feedbackClearVote: "Usuń ocenę",
     feedbackRetry: "Spróbuj ponownie",
+    newChat: "Nowa rozmowa",
+    contactSupport: "Kontakt z pomocą",
   },
   uk: {
     feedbackHelpful: "Корисно",
@@ -474,6 +488,8 @@ const EMBED_FEEDBACK_SHELL: Record<
     feedbackUnavailable: "Відгуки ще недоступні.",
     feedbackClearVote: "Прибрати оцінку",
     feedbackRetry: "Спробувати знову",
+    newChat: "Новий чат",
+    contactSupport: "Зв’язатися з підтримкою",
   },
 };
 

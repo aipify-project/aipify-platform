@@ -14,6 +14,8 @@ import {
   resolveWebsiteKompisLicensedAvailabilityForPublicTenant,
   resolveWebsiteKompisPublicInstallDomainTrust,
 } from "@/lib/marketing/website-kompis-licensed-availability-server";
+import { resolveWebsiteKompisPublicContactUrl } from "@/lib/marketing/website-kompis-public-contact-server";
+import { sanitizeWebsiteKompisEmbedLocale } from "@/lib/marketing/website-kompis-embed";
 
 /** Public embed metadata for Core-owned Website Kompis / Companion launcher icon variants. */
 export async function GET(request: Request) {
@@ -61,9 +63,21 @@ export async function GET(request: Request) {
             requestHost: url.hostname,
           });
 
-          publicMetadata = installConfig.enabled
-            ? toWebsiteKompisPublicInstallMetadata(installConfig)
-            : buildWebsiteKompisLicensedDisabledPublicMetadata("not_available");
+          if (installConfig.enabled) {
+            const contactUrl = await resolveWebsiteKompisPublicContactUrl({
+              installId: trust.installId ?? installId,
+              domain: trust.domain ?? domain,
+              locale: sanitizeWebsiteKompisEmbedLocale(
+                url.searchParams.get("locale") ?? installConfig.defaultLocale,
+              ),
+            });
+            publicMetadata = {
+              ...toWebsiteKompisPublicInstallMetadata(installConfig),
+              publicContactUrl: contactUrl,
+            };
+          } else {
+            publicMetadata = buildWebsiteKompisLicensedDisabledPublicMetadata("not_available");
+          }
         }
       }
     }

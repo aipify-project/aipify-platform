@@ -74,5 +74,8 @@ for (const locale of ["en", "no", "sv", "da", "pl", "uk"] as const) {
 }
 assert.equal(enLabels.feedbackCopied, "Copied");
 assert.equal(compactLabels.feedbackHelpful, "Nyttig svar");
+assert.equal(enLabels.newChat, "New chat");
+assert.equal(compactLabels.contactSupport, "Kontakt support");
+assert.equal(enLabels.contactSupport, "Contact support");
 
 console.log("website-kompis-visitor-tone.test.ts: all assertions passed");

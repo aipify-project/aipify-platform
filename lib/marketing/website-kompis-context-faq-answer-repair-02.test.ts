@@ -171,7 +171,7 @@ async function main() {
   ]);
   assert.equal(deduped.length, 2);
 
-  assert.equal(WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX, 720);
+  assert.equal(WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX, 800);
 
   console.log("website-kompis-context-faq-answer-repair-02.test.ts: all assertions passed");
 }
