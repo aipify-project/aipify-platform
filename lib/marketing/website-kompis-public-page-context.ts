@@ -604,12 +604,13 @@ export type WebsiteKompisEmbedParentDocument = {
 const EMBED_PARENT_SKIP_ANCESTOR_SELECTORS = "form, input, textarea, select, button, script, style, noscript";
 const EMBED_PARENT_UNSAFE_CONTENT_SELECTORS = "form, input, textarea, select, script, style, noscript, [contenteditable='true']";
 const EMBED_PARENT_CHROME_SELECTORS = "nav, footer, [role='navigation']";
+// Prefer landmark scopes; also allow FAQ/accordion sections outside <main>.
 const EMBED_PARENT_OPEN_DETAILS_SELECTOR =
-  "main details[open], article details[open], [role='main'] details[open]";
+  "main details[open], article details[open], [role='main'] details[open], [class*='faq'] details[open], [class*='Faq'] details[open], [class*='accordion'] details[open], section details[open]";
 const EMBED_PARENT_EXPANDED_CONTROL_SELECTOR =
-  "main [aria-expanded='true'], article [aria-expanded='true'], [role='main'] [aria-expanded='true']";
+  "main [aria-expanded='true'], article [aria-expanded='true'], [role='main'] [aria-expanded='true'], [class*='faq'] [aria-expanded='true'], [class*='Faq'] [aria-expanded='true'], [class*='accordion'] [aria-expanded='true'], section [aria-expanded='true']";
 const EMBED_PARENT_ANSWER_PANEL_SELECTOR =
-  "main [class*='faq-answer'], main [class*='FaqAnswer'], article [class*='faq-answer'], article [class*='FaqAnswer'], [role='main'] [class*='faq-answer'], main [class*='accordion-panel'], article [class*='accordion-panel'], [role='main'] [class*='accordion-panel']";
+  "main [class*='faq-answer'], main [class*='FaqAnswer'], article [class*='faq-answer'], article [class*='FaqAnswer'], [role='main'] [class*='faq-answer'], [class*='faq'] [class*='faq-answer'], [class*='Faq'] [class*='faq-answer'], [class*='faq'] [class*='FaqAnswer'], section [class*='faq-answer'], section [class*='FaqAnswer'], main [class*='accordion-panel'], article [class*='accordion-panel'], [role='main'] [class*='accordion-panel'], [class*='accordion'] [class*='accordion-panel'], section [class*='accordion-panel']";
 const EMBED_PARENT_ANSWER_PANEL_CLASS_HINT =
   /faq[-_]?answer|accordion[-_]?(?:panel|content|body)|disclosure[-_]?(?:panel|content)|panel[-_]?body|answer[-_]?body/i;
 
@@ -801,7 +802,7 @@ function collectOpenDisclosureTextSnippets(
       let controlledByExpanded = false;
       let controlledByCollapsed = false;
       for (const control of documentLike.querySelectorAll(
-        "main [aria-expanded], article [aria-expanded], [role='main'] [aria-expanded]",
+        "main [aria-expanded], article [aria-expanded], [role='main'] [aria-expanded], [class*='faq'] [aria-expanded], [class*='Faq'] [aria-expanded], [class*='accordion'] [aria-expanded], section [aria-expanded]",
       )) {
         if (control.getAttribute?.("aria-controls")?.trim() !== panelId) continue;
         if (control.getAttribute?.("aria-expanded") === "true") controlledByExpanded = true;

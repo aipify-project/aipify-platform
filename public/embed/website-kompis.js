@@ -94,11 +94,12 @@
   var SKIP_ANCESTOR_SELECTOR = "form, input, textarea, select, button, script, style, noscript";
   var UNSAFE_CONTENT_SELECTOR = "form, input, textarea, select, script, style, noscript, [contenteditable='true']";
   var CHROME_SELECTOR = "nav, footer, [role='navigation']";
-  var OPEN_DETAILS_SELECTOR = "main details[open], article details[open], [role='main'] details[open]";
+  var OPEN_DETAILS_SELECTOR =
+    "main details[open], article details[open], [role='main'] details[open], [class*='faq'] details[open], [class*='Faq'] details[open], [class*='accordion'] details[open], section details[open]";
   var EXPANDED_CONTROL_SELECTOR =
-    "main [aria-expanded='true'], article [aria-expanded='true'], [role='main'] [aria-expanded='true']";
+    "main [aria-expanded='true'], article [aria-expanded='true'], [role='main'] [aria-expanded='true'], [class*='faq'] [aria-expanded='true'], [class*='Faq'] [aria-expanded='true'], [class*='accordion'] [aria-expanded='true'], section [aria-expanded='true']";
   var ANSWER_PANEL_SELECTOR =
-    "main [class*='faq-answer'], main [class*='FaqAnswer'], article [class*='faq-answer'], article [class*='FaqAnswer'], [role='main'] [class*='faq-answer'], main [class*='accordion-panel'], article [class*='accordion-panel'], [role='main'] [class*='accordion-panel']";
+    "main [class*='faq-answer'], main [class*='FaqAnswer'], article [class*='faq-answer'], article [class*='FaqAnswer'], [role='main'] [class*='faq-answer'], [class*='faq'] [class*='faq-answer'], [class*='Faq'] [class*='faq-answer'], [class*='faq'] [class*='FaqAnswer'], section [class*='faq-answer'], section [class*='FaqAnswer'], main [class*='accordion-panel'], article [class*='accordion-panel'], [role='main'] [class*='accordion-panel'], [class*='accordion'] [class*='accordion-panel'], section [class*='accordion-panel']";
   var ANSWER_PANEL_CLASS_HINT =
     /faq[-_]?answer|accordion[-_]?(?:panel|content|body)|disclosure[-_]?(?:panel|content)|panel[-_]?body|answer[-_]?body/i;
   var EMAIL_PATTERN = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
@@ -476,7 +477,7 @@
       var answerPanelId = answerPanel.id ? String(answerPanel.id).trim() : "";
       if (answerPanelId) {
         var allControls = document.querySelectorAll(
-          "main [aria-expanded], article [aria-expanded], [role='main'] [aria-expanded]",
+          "main [aria-expanded], article [aria-expanded], [role='main'] [aria-expanded], [class*='faq'] [aria-expanded], [class*='Faq'] [aria-expanded], [class*='accordion'] [aria-expanded], section [aria-expanded]",
         );
         var controlledByExpanded = false;
         var controlledByCollapsed = false;
@@ -850,6 +851,45 @@
     accessObserver.observe(document.documentElement, {
       attributes: true,
       attributeFilter: [ACCESS_DATA_ATTR],
+    });
+  }
+
+  // Re-capture when visitors open/close FAQ/accordion panels so ask does not use a stale snapshot.
+  var disclosureRefreshTimer = null;
+  function scheduleDisclosurePageContextRefresh() {
+    if (disclosureRefreshTimer) {
+      window.clearTimeout(disclosureRefreshTimer);
+    }
+    disclosureRefreshTimer = window.setTimeout(function onDisclosureRefresh() {
+      disclosureRefreshTimer = null;
+      postPageContextToIframe();
+    }, 120);
+  }
+
+  if (typeof MutationObserver === "function" && document.body) {
+    var disclosureObserver = new MutationObserver(function onDisclosureMutation(mutations) {
+      for (var i = 0; i < mutations.length; i += 1) {
+        var mutation = mutations[i];
+        if (mutation.type !== "attributes") continue;
+        var attr = mutation.attributeName;
+        if (
+          attr === "open" ||
+          attr === "aria-expanded" ||
+          attr === "aria-hidden" ||
+          attr === "hidden" ||
+          attr === "data-state" ||
+          attr === "class" ||
+          attr === "style"
+        ) {
+          scheduleDisclosurePageContextRefresh();
+          return;
+        }
+      }
+    });
+    disclosureObserver.observe(document.body, {
+      attributes: true,
+      subtree: true,
+      attributeFilter: ["open", "aria-expanded", "aria-hidden", "hidden", "data-state", "class", "style"],
     });
   }
 
