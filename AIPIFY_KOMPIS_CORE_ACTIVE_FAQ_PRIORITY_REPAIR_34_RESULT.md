@@ -38,12 +38,14 @@ SSR-style pages with ≥11 simultaneous open FAQ panels filled capture slots in 
 
 | Item | Value |
 |------|-------|
-| PR | _(pending)_ |
-| Feature head | _(pending)_ |
-| Merge / `origin/main` | _(pending)_ |
+| PR | [#129](https://github.com/aipify-project/aipify-platform/pull/129) MERGED |
+| Feature head | `113bc0977bae9871ef0d9bca966a0fadf53078d3` |
+| Merge / `origin/main` | `13693105339a1dfd1763631ac79dc87ff05b17d3` |
 | Apex | `aipify-platform-iz5z` / `prj_rekqU1SLEr3v2ifYuUkQ5d4fKR7j` |
-| Production deploy | _(pending)_ |
-| Loader verify | _(pending)_ — `lastActiveDisclosure` / `onDisclosureUserActivate` |
+| Production deploy | `dpl_EVAssncjQk3G8VXePV31T2gC1mVU` READY |
+| Ready URL | `aipify-platform-iz5z-5embdadbt-unonight-platform-s-projects.vercel.app` |
+| Aliases | `aipify.ai`, `www.aipify.ai` |
+| Loader verify | `https://aipify.ai/embed/website-kompis.js` HTTP 200 · 39512 bytes · includes `lastActiveDisclosure` + `onDisclosureUserActivate` + preferred-first `collectOpenDisclosureSnippets` (matches repo loader byte size) |
 
 ## Path register
 
