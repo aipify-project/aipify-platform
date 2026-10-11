@@ -20,15 +20,23 @@ import {
 import type { PublicCompanionAskResponse } from "@/lib/marketing/public-companion-ask";
 import {
   buildWebsiteKompisAskPayload,
+  buildWebsiteKompisEmbedNavigateMessage,
   buildWebsiteKompisEmbedResizeMessage,
   buildWebsiteKompisMetadataRequestPath,
+  isAllowedWebsiteKompisHostNavigateHref,
   parseWebsiteKompisEmbedPageContextMessage,
+  sanitizeWebsiteKompisEmbedLocale,
   WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
   WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
   WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE,
   type WebsiteKompisEmbedLocale,
   type WebsiteKompisEmbedRecentContextMessage,
 } from "@/lib/marketing/website-kompis-embed";
+import {
+  readWebsiteKompisEmbedSession,
+  writeWebsiteKompisEmbedSession,
+  type WebsiteKompisEmbedSessionMessage,
+} from "@/lib/marketing/website-kompis-embed-session";
 import type { WebsiteKompisPublicPageContext } from "@/lib/marketing/website-kompis-public-page-context";
 import { shouldHideWebsiteKompisLauncherFromEmbedMetadata } from "@/lib/marketing/website-kompis-launcher-visibility";
 import {
@@ -47,7 +55,6 @@ import {
   AkIconChevronRight,
   AkIconClose,
   AkIconDocument,
-  AkIconExternalLink,
   AkIconMinimize,
   AkIconRocket,
 } from "@/components/embed/website-kompis-design-icons";
@@ -113,6 +120,79 @@ function postResizeToParent(open: boolean) {
   );
 }
 
+function postNavigateToParent(href: string) {
+  if (typeof window === "undefined" || window.parent === window) {
+    window.location.assign(href);
+    return;
+  }
+  window.parent.postMessage(
+    buildWebsiteKompisEmbedNavigateMessage(href),
+    resolveParentPostMessageOrigin(),
+  );
+}
+
+function getSessionStorageSafe(): Storage | null {
+  try {
+    if (typeof window === "undefined" || !window.sessionStorage) return null;
+    const probe = "__ak_wk_probe__";
+    window.sessionStorage.setItem(probe, "1");
+    window.sessionStorage.removeItem(probe);
+    return window.sessionStorage;
+  } catch {
+    return null;
+  }
+}
+
+function toSessionMessages(messages: ChatMessage[]): WebsiteKompisEmbedSessionMessage[] {
+  return messages.map((message) => {
+    if (message.role === "user") {
+      return { id: message.id, role: "user", text: message.text };
+    }
+    if (message.failed) {
+      return {
+        id: message.id,
+        role: "assistant",
+        failed: true,
+        retryQuestion: message.retryQuestion,
+      };
+    }
+    return {
+      id: message.id,
+      role: "assistant",
+      text: message.text,
+      sources: message.sources?.map((source) => ({
+        title: source.title,
+        href: source.href ?? null,
+      })),
+    };
+  });
+}
+
+function fromSessionMessages(messages: WebsiteKompisEmbedSessionMessage[]): ChatMessage[] {
+  return messages.map((message) => {
+    if (message.role === "user") {
+      return { id: message.id, role: "user", text: message.text };
+    }
+    if ("failed" in message && message.failed) {
+      return {
+        id: message.id,
+        role: "assistant",
+        failed: true,
+        retryQuestion: message.retryQuestion,
+      };
+    }
+    return {
+      id: message.id,
+      role: "assistant",
+      text: "text" in message ? message.text : "",
+      sources: message.sources?.map((source) => ({
+        title: source.title,
+        href: source.href ?? undefined,
+      })),
+    };
+  });
+}
+
 function resizeComposerTextarea(element: HTMLTextAreaElement | null) {
   if (!element) return;
   element.style.height = "auto";
@@ -147,6 +227,7 @@ export function WebsiteKompisEmbedWidget({
   const savedScrollTopRef = useRef<number | null>(null);
   const [metadata, setMetadata] = useState<CompanionLauncherIconEmbedConfig | null>(null);
   const [metadataState, setMetadataState] = useState<"loading" | "ready" | "error">("loading");
+  const [uiLocale, setUiLocale] = useState<WebsiteKompisEmbedLocale>(locale);
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -154,6 +235,23 @@ export function WebsiteKompisEmbedWidget({
   const [pageContext, setPageContext] = useState<WebsiteKompisPublicPageContext | undefined>(
     undefined,
   );
+  const [sessionReady, setSessionReady] = useState(false);
+
+  useEffect(() => {
+    const restored = readWebsiteKompisEmbedSession(getSessionStorageSafe(), {
+      installId,
+      domain,
+    });
+    if (restored) {
+      setOpen(restored.open);
+      setUiLocale(sanitizeWebsiteKompisEmbedLocale(restored.locale));
+      setMessages(fromSessionMessages(restored.messages));
+      if (restored.open) {
+        postResizeToParent(true);
+      }
+    }
+    setSessionReady(true);
+  }, [domain, installId]);
 
   useEffect(() => {
     function handleMessage(event: MessageEvent) {
@@ -164,6 +262,9 @@ export function WebsiteKompisEmbedWidget({
       const nextPageContext = parseWebsiteKompisEmbedPageContextMessage(event.data);
       if (nextPageContext) {
         setPageContext(nextPageContext);
+        if (nextPageContext.locale) {
+          setUiLocale(sanitizeWebsiteKompisEmbedLocale(nextPageContext.locale));
+        }
       }
     }
 
@@ -175,6 +276,19 @@ export function WebsiteKompisEmbedWidget({
       window.removeEventListener("message", handleMessage);
     };
   }, []);
+
+  useEffect(() => {
+    if (!sessionReady) return;
+    writeWebsiteKompisEmbedSession(getSessionStorageSafe(), {
+      v: 1,
+      installId,
+      domain,
+      open,
+      locale: uiLocale,
+      messages: toSessionMessages(messages),
+      updatedAt: Date.now(),
+    });
+  }, [domain, installId, messages, open, sessionReady, uiLocale]);
 
   useEffect(() => {
     postResizeToParent(open);
@@ -252,9 +366,28 @@ export function WebsiteKompisEmbedWidget({
   const hidden = shouldHideWebsiteKompisLauncherFromEmbedMetadata(metadata);
   const unavailable = metadataState === "error" || (metadataState === "ready" && hidden);
   const labels: WebsiteKompisEmbedUiLabels = resolveWebsiteKompisEmbedUiLabels({
-    locale,
+    locale: uiLocale,
     welcomeMessageVariant: metadata?.welcomeMessageVariant,
   });
+
+  const navigateToHostSource = useCallback(
+    (href: string) => {
+      if (!isAllowedWebsiteKompisHostNavigateHref(href, [domain])) {
+        return;
+      }
+      writeWebsiteKompisEmbedSession(getSessionStorageSafe(), {
+        v: 1,
+        installId,
+        domain,
+        open: true,
+        locale: uiLocale,
+        messages: toSessionMessages(messages),
+        updatedAt: Date.now(),
+      });
+      postNavigateToParent(href);
+    },
+    [domain, installId, messages, uiLocale],
+  );
 
   const fillDraft = useCallback((text: string) => {
     setDraft(text.slice(0, WEBSITE_COMPANION_CHAT_MAX_QUESTION_LENGTH));
@@ -288,7 +421,7 @@ export function WebsiteKompisEmbedWidget({
           body: JSON.stringify(
             buildWebsiteKompisAskPayload({
               question: validation.question,
-              locale,
+              locale: uiLocale,
               domain,
               installId,
               recentContext: toRecentContext(priorMessages),
@@ -332,7 +465,7 @@ export function WebsiteKompisEmbedWidget({
         setSending(false);
       }
     },
-    [domain, installId, locale, pageContext, sending],
+    [domain, installId, pageContext, sending, uiLocale],
   );
 
   const handleSubmit = useCallback(
@@ -515,15 +648,17 @@ export function WebsiteKompisEmbedWidget({
                                   key={`${source.title}-${source.href}`}
                                   className="ak-source"
                                   href={source.href}
-                                  target="_blank"
-                                  rel="noopener noreferrer nofollow"
+                                  onClick={(event) => {
+                                    event.preventDefault();
+                                    navigateToHostSource(source.href!);
+                                  }}
                                 >
                                   <AkIconDocument />
                                   <span className="ak-source-copy">
                                     <strong>{source.title}</strong>
                                     <small>{labels.sourceFromSite}</small>
                                   </span>
-                                  <AkIconExternalLink className="ak-icon ak-external" />
+                                  <AkIconChevronRight className="ak-icon ak-external" />
                                 </a>
                               ) : (
                                 <div

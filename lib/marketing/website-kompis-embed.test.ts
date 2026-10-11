@@ -29,7 +29,10 @@ const exampleDomain = "example-a.test";
 
 assert.equal(sanitizeWebsiteKompisEmbedLocale(undefined), "no");
 assert.equal(sanitizeWebsiteKompisEmbedLocale("sv"), "sv");
-assert.equal(sanitizeWebsiteKompisEmbedLocale("xx"), "no");
+assert.equal(sanitizeWebsiteKompisEmbedLocale("nb"), "no");
+assert.equal(sanitizeWebsiteKompisEmbedLocale("de"), "en");
+assert.equal(sanitizeWebsiteKompisEmbedLocale("de-DE"), "en");
+assert.equal(sanitizeWebsiteKompisEmbedLocale("xx"), "en");
 
 assert.equal(normalizeWebsiteKompisEmbedDomain("HTTPS://EXAMPLE-A.TEST/path"), exampleDomain);
 assert.equal(normalizeWebsiteKompisEmbedDomain("bad..domain"), null);
@@ -223,8 +226,12 @@ const loaderSource = readFileSync(
 );
 assert.match(loaderSource, /CLOSED_WIDTH = 72/);
 assert.match(loaderSource, /aipify\.websiteKompis\.resize/);
+assert.match(loaderSource, /aipify\.websiteKompis\.navigate/);
 assert.match(loaderSource, /event\.origin !== coreOrigin/);
 assert.match(loaderSource, /event\.source !== iframe\.contentWindow/);
+assert.match(loaderSource, /MutationObserver/);
+assert.match(loaderSource, /attributeFilter:\s*\["lang"\]/);
+assert.match(loaderSource, /return "en"/);
 assert.doesNotMatch(loaderSource, /iframe\.style\.width = "420px"/);
 // No sandbox attribute — brand credit target=_blank must open without allow-popups widening.
 assert.doesNotMatch(loaderSource, /setAttribute\(\s*["']sandbox["']/);
@@ -241,8 +248,21 @@ assert.match(widgetSource, /AIPIFY_BRAND_HOME_HREF = "https:\/\/aipify\.ai"/);
 assert.match(widgetSource, /target="_blank"/);
 assert.match(widgetSource, /rel="noopener noreferrer"/);
 assert.match(widgetSource, /ak-thinking-row/);
+assert.match(widgetSource, /navigateToHostSource/);
+assert.match(widgetSource, /writeWebsiteKompisEmbedSession/);
+assert.match(widgetSource, /readWebsiteKompisEmbedSession/);
 assert.match(widgetSource, /AipifyCompanionLauncherIcon/);
 assert.doesNotMatch(widgetSource, /AipifyLoader/);
+
+const designCss = readFileSync(
+  path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../../components/embed/website-kompis-design-v1.css",
+  ),
+  "utf8",
+);
+assert.match(designCss, /ak-thinking-fade/);
+assert.match(designCss, /prefers-reduced-motion:\s*no-preference/);
 
 const avatarPng = readFileSync(
   path.join(
