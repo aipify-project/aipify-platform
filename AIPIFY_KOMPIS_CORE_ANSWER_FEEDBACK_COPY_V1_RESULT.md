@@ -4,10 +4,17 @@
 
 | Gate | Status |
 | --- | --- |
-| COPY LIVE | Ready in Core UI (clipboard path); deploy with PR merge |
+| COPY LIVE | Merged to `main` (PR #112 / `a443fc13`); Vercel CI green — Production deploy follows Vercel main pipeline |
 | FEEDBACK PERSISTENCE VERIFIED | Not verified in Production — migration proposed, SQL APPLY not authorized |
-| CUSTOMER OVERVIEW VERIFIED | Code + APP route ready; live data requires applied schema |
+| CUSTOMER OVERVIEW VERIFIED | Code + APP route merged; live data requires applied schema |
 | Answer reuse | **OFF** (application-enforced) |
+
+## Merge / deploy
+
+- PR: https://github.com/aipify-project/aipify-platform/pull/112
+- Feature head: `87b67c5c457809c1c2b47f4b5be28d462647ee67`
+- Merge commit on `main`: `a443fc13c70420b0c2b8d2d5eba80dd6c2a8175f`
+- Host changes: none
 
 ## Scope
 
