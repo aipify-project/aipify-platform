@@ -34,6 +34,7 @@ async function runWebsiteKompisInstallConfigTests() {
   assert.equal(defaults.enabled, true);
   assert.equal(defaults.iconVariant, "companion-purple-default");
   assert.equal(defaults.sources.publicSiteIndex, false);
+  assert.equal(defaults.supportContactUrl, null);
 
   const invalidVariant = normalizeWebsiteKompisInstallConfig({
     website_kompis: { iconVariant: "not-a-real-variant" },
@@ -76,6 +77,7 @@ async function runWebsiteKompisInstallConfigTests() {
       fallbackTone: "short-direct",
       welcomeMessageVariant: "compact",
       defaultLocale: "en",
+      supportContactUrl: "https://example-a.test/kontakt",
     },
   });
   assert.equal(toggles.enabled, false);
@@ -85,6 +87,12 @@ async function runWebsiteKompisInstallConfigTests() {
   assert.equal(toggles.fallbackTone, "short-direct");
   assert.equal(toggles.welcomeMessageVariant, "compact");
   assert.equal(toggles.defaultLocale, "en");
+  assert.equal(toggles.supportContactUrl, "https://example-a.test/kontakt");
+
+  const clearedSupport = normalizeWebsiteKompisInstallConfig({
+    website_kompis: { supportContactUrl: "" },
+  });
+  assert.equal(clearedSupport.supportContactUrl, null);
 
   const metadata = toWebsiteKompisPublicInstallMetadata(toggles);
   assert.equal(metadata.enabled, false);

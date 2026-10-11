@@ -3,6 +3,7 @@ import {
   evaluateWebsiteKompisPublicContactHrefFromIndex,
   pickWebsiteKompisPublicContactHref,
   pickWebsiteKompisPublicContactHrefFromIndex,
+  validateWebsiteKompisConfiguredSupportContactUrl,
 } from "@/lib/marketing/website-kompis-public-contact";
 
 assert.equal(
@@ -261,6 +262,59 @@ assert.equal(
     "customer.example",
   ),
   null,
+);
+
+// APP-configured supportContactUrl validation
+assert.deepEqual(
+  validateWebsiteKompisConfiguredSupportContactUrl(
+    "https://customer.example/kontakt",
+    "customer.example",
+  ),
+  { ok: true, url: "https://customer.example/kontakt" },
+);
+assert.equal(
+  validateWebsiteKompisConfiguredSupportContactUrl("", "customer.example").ok,
+  true,
+);
+assert.equal(
+  validateWebsiteKompisConfiguredSupportContactUrl("", "customer.example").ok &&
+    validateWebsiteKompisConfiguredSupportContactUrl("", "customer.example").url === null,
+  true,
+);
+assert.equal(
+  validateWebsiteKompisConfiguredSupportContactUrl(
+    "http://customer.example/kontakt",
+    "customer.example",
+  ).ok,
+  false,
+);
+assert.equal(
+  validateWebsiteKompisConfiguredSupportContactUrl(
+    "https://evil.example/kontakt",
+    "customer.example",
+  ).ok,
+  false,
+);
+assert.equal(
+  validateWebsiteKompisConfiguredSupportContactUrl(
+    "https://user:pass@customer.example/kontakt",
+    "customer.example",
+  ).ok,
+  false,
+);
+assert.equal(
+  validateWebsiteKompisConfiguredSupportContactUrl(
+    "https://customer.example/admin",
+    "customer.example",
+  ).ok,
+  false,
+);
+assert.equal(
+  validateWebsiteKompisConfiguredSupportContactUrl(
+    "https://customer.example/account/settings",
+    "customer.example",
+  ).ok,
+  false,
 );
 
 console.log("website-kompis-public-contact.test.ts: all assertions passed");

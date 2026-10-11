@@ -5957,7 +5957,14 @@
       "welcomeVariants": {
         "standard": "Standard",
         "compact": "Kompakt"
-      }
+      },
+      "supportContactUrlLabel": "Support- eller kontaktsida",
+      "supportContactUrlHelp": "Kompis hittar vanligtvis kontaktsidan automatiskt. Ange en offentlig sida här om den inte hittas.",
+      "supportContactDiscovered": "Automatiskt hittad kontaktsida",
+      "supportContactConfigured": "Använder den konfigurerade support- eller kontaktsidan.",
+      "supportContactMissing": "Ingen offentlig kontaktsida är tillgänglig ännu. Lägg till en reserv-URL ovan, eller vänta tills upptäckten hittar en.",
+      "supportContactUrlInvalid": "Ange en giltig HTTPS-URL på den här verifierade domänen. Privata eller adminsidor tillåts inte.",
+      "supportContactUrlClear": "Rensa reserv-URL"
     }
   },
   "checkoutVat": {

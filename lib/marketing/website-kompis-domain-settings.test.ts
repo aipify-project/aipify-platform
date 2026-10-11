@@ -73,7 +73,57 @@ async function runWebsiteKompisDomainSettingsTests() {
   assert.equal(editable.canManage, true);
   assert.match(editable.metadataUrl ?? "", /launcher-icon\?installId=/);
   assert.equal(editable.config.iconVariant, "companion-purple-dark");
+  assert.equal(editable.config.supportContactUrl, null);
+  assert.equal(editable.contactSource, "none");
+  assert.equal(editable.discoveredContactUrl, null);
   assert.equal(Object.hasOwn(editable.config as unknown as Record<string, unknown>, "tenantId"), false);
+
+  const withConfigured = buildWebsiteKompisDomainSettingsView({
+    record: {
+      domainId: "33333333-3333-4333-8333-333333333333",
+      domain: "example-c.test",
+      verificationStatus: "verified",
+      domainStatus: "active",
+    },
+    availability: {
+      available: true,
+      reason: "available",
+      capabilityKey: "website_kompis",
+    },
+    canManage: true,
+    installId: "11111111-1111-4111-8111-111111111111",
+    metadataOrigin: "https://aipify.ai",
+    rpcResult: {
+      ok: true,
+      install_id: "11111111-1111-4111-8111-111111111111",
+      normalized_config: {
+        enabled: true,
+        supportContactUrl: "https://example-c.test/kontakt",
+      },
+    },
+    discoveredContactUrl: "https://example-c.test/support",
+  });
+  assert.equal(withConfigured.contactSource, "configured");
+  assert.equal(withConfigured.config.supportContactUrl, "https://example-c.test/kontakt");
+  assert.equal(withConfigured.discoveredContactUrl, "https://example-c.test/support");
+
+  const withDiscovered = buildWebsiteKompisDomainSettingsView({
+    record: {
+      domainId: "33333333-3333-4333-8333-333333333333",
+      domain: "example-c.test",
+      verificationStatus: "verified",
+      domainStatus: "active",
+    },
+    availability: {
+      available: true,
+      reason: "available",
+      capabilityKey: "website_kompis",
+    },
+    canManage: true,
+    installId: "11111111-1111-4111-8111-111111111111",
+    discoveredContactUrl: "https://example-c.test/kontakt",
+  });
+  assert.equal(withDiscovered.contactSource, "discovered");
 
   console.log("website-kompis-domain-settings.test.ts: all assertions passed");
 }

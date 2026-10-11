@@ -5957,7 +5957,14 @@
       "welcomeVariants": {
         "standard": "Standard",
         "compact": "Kompakt"
-      }
+      },
+      "supportContactUrlLabel": "Support- eller kontaktside",
+      "supportContactUrlHelp": "Kompis finder normalt kontaktsiden automatisk. Indtast en offentlig side her, hvis den ikke bliver fundet.",
+      "supportContactDiscovered": "Automatisk fundet kontaktside",
+      "supportContactConfigured": "Bruger den konfigurerede support- eller kontaktside.",
+      "supportContactMissing": "Ingen offentlig kontaktside er tilgængelig endnu. Tilføj en reserve-URL ovenfor, eller vent til automatisk opdagelse finder én.",
+      "supportContactUrlInvalid": "Angiv en gyldig HTTPS-URL på dette verificerede domæne. Private eller admin-sider er ikke tilladt.",
+      "supportContactUrlClear": "Fjern reserve-URL"
     }
   },
   "checkoutVat": {

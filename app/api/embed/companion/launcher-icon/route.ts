@@ -70,6 +70,7 @@ export async function GET(request: Request) {
               locale: sanitizeWebsiteKompisEmbedLocale(
                 url.searchParams.get("locale") ?? installConfig.defaultLocale,
               ),
+              configuredSupportContactUrl: installConfig.supportContactUrl,
             });
             publicMetadata = {
               ...toWebsiteKompisPublicInstallMetadata(installConfig),
