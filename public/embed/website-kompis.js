@@ -40,7 +40,7 @@
   };
   var CLOSED_WIDTH = 72;
   var CLOSED_HEIGHT = 72;
-  var OPEN_WIDTH = 420;
+  var OPEN_WIDTH = 450;
   var OPEN_HEIGHT = 800;
   var OPEN_HEIGHT_MAX = 900;
   var OPEN_HEIGHT_MIN = 560;

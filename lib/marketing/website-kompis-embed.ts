@@ -79,7 +79,8 @@ export const WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE =
 
 export const WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX = 72;
 export const WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX = 72;
-export const WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX = 420;
+/** Visible open panel width (CSS px). Outer iframe = panel + OPEN_FRAME_OUTSET×2. */
+export const WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX = 450;
 /** Preferred open panel height; clamped to viewport by host + resolve helper. */
 export const WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX = 800;
 export const WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MAX_PX = 900;
@@ -134,7 +135,7 @@ export function resolveWebsiteKompisEmbedHostOpenSize(input: {
 
 /**
  * Preferred outer iframe size for a host viewport.
- * Desktop 1440×1000 → panel 420×800 → host 444×824 (frame outset).
+ * Desktop 1440×1000 → panel 450×800 → host 474×824 (frame outset 12).
  * Undersized embed posts must not win over this floor in the loader.
  */
 export function resolveWebsiteKompisEmbedPreferredHostOpenSize(

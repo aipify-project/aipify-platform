@@ -8,18 +8,22 @@ import { normalizeWebsiteKompisEmbedDomain } from "@/lib/marketing/website-kompi
 import { searchPublicCompanionTenantFaq } from "@/lib/marketing/public-companion-tenant-faq";
 import { searchTenantPublicSiteIndex } from "@/lib/marketing/website-kompis-public-site-index/search";
 
-const CONTACT_QUERY_BY_LOCALE: Record<string, string> = {
-  en: "contact support",
-  no: "kontakt support",
-  sv: "kontakta support",
-  da: "kontakt support",
-  pl: "kontakt wsparcie",
-  uk: "контакт підтримка",
+const CONTACT_QUERY_BY_LOCALE: Record<string, string[]> = {
+  en: ["contact support", "contact us", "customer service", "contact form", "support"],
+  no: ["kontakt support", "kontakt oss", "kundeservice", "kontaktskjema", "kontakt"],
+  nb: ["kontakt support", "kontakt oss", "kundeservice", "kontaktskjema", "kontakt"],
+  nn: ["kontakt support", "kontakt oss", "kundeservice", "kontaktskjema", "kontakt"],
+  sv: ["kontakta support", "kontakta oss", "kundservice", "kontaktformulär", "kontakt"],
+  da: ["kontakt support", "kontakt os", "kundeservice", "kontaktformular", "kontakt"],
+  pl: ["kontakt wsparcie", "kontakt", "obsługa klienta", "formularz kontaktowy"],
+  uk: ["контакт підтримка", "контакт", "служба підтримки", "форма зворотного зв'язку"],
 };
 
 /**
  * Resolve a tenant-bound public contact URL from published FAQ and/or site-index.
+ * Priority: FAQ contact-typed/relevant rows, then site-index path/title/form evidence.
  * Returns null when no safe contact source exists — callers must not invent /contact.
+ * Install-config override is not available without schema allowlist (separate BLOCKED gate).
  */
 export async function resolveWebsiteKompisPublicContactUrl(input: {
   installId?: string | null;
@@ -30,19 +34,7 @@ export async function resolveWebsiteKompisPublicContactUrl(input: {
   if (!domain || !input.installId) return null;
 
   const locale = input.locale.trim().toLowerCase() || "en";
-  const query = CONTACT_QUERY_BY_LOCALE[locale] ?? CONTACT_QUERY_BY_LOCALE.en;
-
-  const queries = [query];
-  // Second pass uses a shorter contact-oriented query when the first pack misses.
-  const altQuery =
-    locale === "no" || locale === "nb" || locale === "nn"
-      ? "kundeservice kontakt"
-      : locale === "sv"
-        ? "kundservice kontakt"
-        : locale === "da"
-          ? "kundeservice kontakt"
-          : "customer service contact";
-  if (altQuery !== query) queries.push(altQuery);
+  const queries = CONTACT_QUERY_BY_LOCALE[locale] ?? CONTACT_QUERY_BY_LOCALE.en;
 
   for (const contactQuery of queries) {
     const faqRows = await searchPublicCompanionTenantFaq({
@@ -50,7 +42,7 @@ export async function resolveWebsiteKompisPublicContactUrl(input: {
       domain,
       locale,
       query: contactQuery,
-      limit: 10,
+      limit: 12,
     });
 
     const fromFaq = pickWebsiteKompisPublicContactHref(faqRows, domain);
@@ -61,7 +53,7 @@ export async function resolveWebsiteKompisPublicContactUrl(input: {
       domain,
       locale,
       query: contactQuery,
-      limit: 12,
+      limit: 20,
     });
 
     const fromIndex = pickWebsiteKompisPublicContactHrefFromIndex(

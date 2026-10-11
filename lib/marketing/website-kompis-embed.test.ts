@@ -201,11 +201,15 @@ const expectedOpenHost = resolveWebsiteKompisEmbedHostOpenSize({
 assert.equal(openResize.width, expectedOpenHost.width);
 assert.equal(openResize.height, expectedOpenHost.height);
 assert.equal(openResize.width, WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX + WEBSITE_KOMPIS_EMBED_OPEN_FRAME_OUTSET_PX * 2);
-// Spacious desktop 1440×1000: preferred panel 420×800 → host outer 444×824.
+// Spacious desktop 1440×1000: preferred panel 450×800 → host outer 474×824.
 assert.equal(resolveWebsiteKompisEmbedOpenHeightPx(1000), 800);
+assert.equal(WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX, 450);
 assert.deepEqual(
-  resolveWebsiteKompisEmbedHostOpenSize({ panelWidth: 420, panelHeight: 800 }),
-  { width: 444, height: 824 },
+  resolveWebsiteKompisEmbedHostOpenSize({
+    panelWidth: WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX,
+    panelHeight: 800,
+  }),
+  { width: 474, height: 824 },
 );
 // Undersized iframe-like viewport must not be used by the embed widget path
 // (widget posts preferred size; host clamps). Helper still documents host clamp.
@@ -284,6 +288,7 @@ assert.doesNotMatch(widgetSource, /AipifyLoader/);
 // Closed launcher must use the robot avatar, not the brand mark alone.
 assert.match(widgetSource, /className="ak-launcher"[\s\S]*DESIGN_AVATAR_SRC/);
 assert.doesNotMatch(widgetSource, /DESIGN_MARK_SRC/);
+assert.match(loaderSource, /OPEN_WIDTH = 450/);
 assert.match(loaderSource, /OPEN_HEIGHT = 800/);
 assert.match(loaderSource, /OPEN_HEIGHT_MAX = 900/);
 assert.match(loaderSource, /OPEN_FRAME_OUTSET = 12/);
@@ -293,9 +298,9 @@ assert.match(loaderSource, /reclampOpenFromHostViewport/);
 assert.match(loaderSource, /markShellReady/);
 
 const desktop1440 = resolveWebsiteKompisEmbedPreferredHostOpenSize(1440, 1000);
-assert.equal(desktop1440.panelWidth, 420);
+assert.equal(desktop1440.panelWidth, 450);
 assert.equal(desktop1440.panelHeight, 800);
-assert.equal(desktop1440.width, 444);
+assert.equal(desktop1440.width, 474);
 assert.equal(desktop1440.height, 824);
 const mobile390 = resolveWebsiteKompisEmbedPreferredHostOpenSize(390, 844);
 assert.ok(mobile390.width <= 390 - WEBSITE_KOMPIS_EMBED_OPEN_EDGE_INSET_PX);
