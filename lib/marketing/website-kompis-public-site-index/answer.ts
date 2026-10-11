@@ -199,6 +199,11 @@ function isPublicSiteIndexHubPath(pathname: string): boolean {
   );
 }
 
+/** Leaf FAQ articles under /faq/... — title/path must carry the topic, not body alone. */
+function isSpecificPublicFaqArticlePath(pathname: string): boolean {
+  return /\/faq\/[^/]+/i.test(pathname);
+}
+
 /**
  * Narrow long natural-language questions to topic tokens so RPC ranking
  * is not dominated by process verbs ("fungerer"/"works") matching boilerplate titles.
@@ -218,19 +223,46 @@ function hitCorpus(hit: PublicSiteIndexHit): string {
   return `${hit.title} ${hit.pathname} ${hit.excerpt} ${hit.chunkContent}`.toLowerCase();
 }
 
+/** True when a topic token matches a whole word/slug or a clear stem (not raw substring). */
+function textHasTopicToken(text: string, token: string): boolean {
+  const lower = text.toLowerCase();
+  // Keep hyphenated path slugs (how-it-works) as single tokens.
+  const words = lower.split(/[^\p{L}\p{N}-]+/u).filter(Boolean);
+  if (words.includes(token)) return true;
+  // Also match slug pieces (how / works) from hyphenated path segments.
+  const pieces = words.flatMap((word) => (word.includes("-") ? word.split("-") : [word]));
+  if (pieces.includes(token)) return true;
+  if (token.length < 4) return false;
+  const stem = token.slice(0, Math.min(5, token.length));
+  return [...words, ...pieces].some(
+    (word) =>
+      word.length >= 4 && (word.startsWith(stem) || token.startsWith(word.slice(0, 4))),
+  );
+}
+
+function titlePathHasTopicToken(hit: PublicSiteIndexHit, token: string): boolean {
+  const titlePath = `${hit.title || ""} ${hit.pathname || ""}`;
+  return textHasTopicToken(titlePath, token);
+}
+
+/** Unresolved CMS/template placeholders must never surface in public answers. */
+function looksLikeUnresolvedTemplatePlaceholder(text: string): boolean {
+  return /\{[A-Za-z][A-Za-z0-9_]*\}/.test(text);
+}
+
 export function scorePublicSiteIndexHitTopicOverlap(
   hit: PublicSiteIndexHit,
   topicTokens: string[],
 ): number {
   if (topicTokens.length === 0) return 0;
-  const title = (hit.title || "").toLowerCase();
-  const pathname = (hit.pathname || "").toLowerCase();
-  const body = `${hit.excerpt} ${hit.chunkContent}`.toLowerCase();
+  const title = hit.title || "";
+  const pathname = hit.pathname || "";
+  const body = `${hit.excerpt} ${hit.chunkContent}`;
   let score = 0;
   for (const token of topicTokens) {
-    if (title.includes(token)) score += 4;
-    if (pathname.includes(token)) score += 3;
-    if (body.includes(token)) score += 1;
+    if (textHasTopicToken(title, token)) score += 4;
+    if (textHasTopicToken(pathname, token)) score += 3;
+    if (textHasTopicToken(body, token)) score += 1;
   }
   return score;
 }
@@ -299,21 +331,23 @@ export function isRelevantPublicSiteIndexResult(
     return false;
   }
 
-  // Multi-token questions: require title/path topic fit, a shared stem, or ≥2 matched tokens.
-  if (topics.length >= 2 && topOverlap < 3) {
-    const corpus = hitCorpus(top);
-    const matched = topics.filter((t) => corpus.includes(t)).length;
-    const titlePath = `${top.title} ${top.pathname}`.toLowerCase();
-    const titlePathHit = topics.some((t) => titlePath.includes(t));
-    const stemHit = topics.some((topic) => {
-      if (topic.length < 4) return false;
-      const stem = topic.slice(0, Math.min(5, topic.length));
-      return titlePath
-        .split(/[^\p{L}\p{N}]+/u)
-        .some((word) => word.length >= 4 && (word.startsWith(stem) || topic.startsWith(word.slice(0, 4))));
-    });
-    if (matched < 1 && !stemHit) return false;
-    if (!titlePathHit && !stemHit && matched < 2) return false;
+  // Multi-token questions: avoid body-only collisions on leaf FAQ articles
+  // (e.g. marketplace Push page matching "medlemmer"/"koster" for membership cost).
+  if (topics.length >= 2) {
+    const titlePathHit = topics.some((t) => titlePathHasTopicToken(top, t));
+    const corpusMatched = topics.filter((t) => textHasTopicToken(hitCorpus(top), t)).length;
+
+    if (isSpecificPublicFaqArticlePath(top.pathname)) {
+      // Leaf FAQ answers must name the topic in title or path — not only body.
+      if (!titlePathHit) {
+        return false;
+      }
+    } else if (topOverlap < 3) {
+      // Guide/content pages may answer from body when ≥2 topic tokens match.
+      if (!titlePathHit && corpusMatched < 2) {
+        return false;
+      }
+    }
   }
 
   return true;
@@ -351,8 +385,7 @@ function splitSentences(text: string): string[] {
 }
 
 function scoreSentence(sentence: string, tokens: string[]): number {
-  const lower = sentence.toLowerCase();
-  return tokens.reduce((sum, token) => (lower.includes(token) ? sum + 1 : sum), 0);
+  return tokens.reduce((sum, token) => (textHasTopicToken(sentence, token) ? sum + 1 : sum), 0);
 }
 
 /**
@@ -393,7 +426,8 @@ export function composePublicSiteIndexAnswerText(
       (entry) =>
         entry.score > 0 &&
         !looksLikeBareFaqQuestionHeading(entry.sentence) &&
-        !looksLikeFaqQuestionList(entry.sentence),
+        !looksLikeFaqQuestionList(entry.sentence) &&
+        !looksLikeUnresolvedTemplatePlaceholder(entry.sentence),
     )
     .sort((a, b) => b.score - a.score);
 
