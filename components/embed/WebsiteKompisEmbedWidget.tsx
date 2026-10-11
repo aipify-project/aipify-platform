@@ -25,6 +25,7 @@ import {
   buildWebsiteKompisMetadataRequestPath,
   isAllowedWebsiteKompisHostNavigateHref,
   parseWebsiteKompisEmbedPageContextMessage,
+  parseWebsiteKompisEmbedSurfaceMessage,
   sanitizeWebsiteKompisEmbedLocale,
   WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
   WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
@@ -228,6 +229,7 @@ export function WebsiteKompisEmbedWidget({
   const [metadataState, setMetadataState] = useState<"loading" | "ready" | "error">("loading");
   const [uiLocale, setUiLocale] = useState<WebsiteKompisEmbedLocale>(locale);
   const [open, setOpen] = useState(false);
+  const openRef = useRef(false);
   const [draft, setDraft] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [sending, setSending] = useState(false);
@@ -235,6 +237,10 @@ export function WebsiteKompisEmbedWidget({
     undefined,
   );
   const [sessionReady, setSessionReady] = useState(false);
+
+  useEffect(() => {
+    openRef.current = open;
+  }, [open]);
 
   useEffect(() => {
     const restored = readWebsiteKompisEmbedSession(getSessionStorageSafe(), {
@@ -255,6 +261,18 @@ export function WebsiteKompisEmbedWidget({
   useEffect(() => {
     function handleMessage(event: MessageEvent) {
       if (event.source !== window.parent) {
+        return;
+      }
+
+      const surface = parseWebsiteKompisEmbedSurfaceMessage(event.data);
+      if (surface) {
+        if (surface.clearPageContext || !surface.active) {
+          setPageContext(undefined);
+        }
+        if (!surface.active && openRef.current) {
+          setOpen(false);
+          postResizeToParent(false);
+        }
         return;
       }
 

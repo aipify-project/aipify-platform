@@ -57,6 +57,23 @@ export const WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE =
 export const WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE =
   "aipify.websiteKompis.requestPageContext" as const;
 
+export {
+  WEBSITE_KOMPIS_ACCESS_DATA_ATTRIBUTE,
+  WEBSITE_KOMPIS_ACCESS_DATASET_KEY,
+  WEBSITE_KOMPIS_ACCESS_WINDOW_FLAG,
+  WEBSITE_KOMPIS_EMBED_SURFACE_MESSAGE_TYPE,
+  accessClassFromHostPrivateBoundary,
+  buildWebsiteKompisEmbedSurfaceMessage,
+  parseWebsiteKompisEmbedSurfaceMessage,
+  parseWebsiteKompisPublicAccessClass,
+  readWebsiteKompisAccessClassFromAdapter,
+  resolveWebsiteKompisPublicSurfaceState,
+  transitionWebsiteKompisPublicSurface,
+  type WebsiteKompisEmbedSurfaceMessage,
+  type WebsiteKompisPublicAccessClass,
+  type WebsiteKompisPublicSurfaceState,
+} from "@/lib/marketing/website-kompis-public-surface-contract";
+
 export const WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE =
   "aipify.websiteKompis.resize" as const;
 

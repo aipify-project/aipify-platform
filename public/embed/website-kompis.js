@@ -25,8 +25,11 @@
 
   var PAGE_CONTEXT_MESSAGE_TYPE = "aipify.websiteKompis.pageContext";
   var PAGE_CONTEXT_REQUEST_MESSAGE_TYPE = "aipify.websiteKompis.requestPageContext";
+  var SURFACE_MESSAGE_TYPE = "aipify.websiteKompis.surface";
   var RESIZE_MESSAGE_TYPE = "aipify.websiteKompis.resize";
   var NAVIGATE_MESSAGE_TYPE = "aipify.websiteKompis.navigate";
+  var ACCESS_DATA_ATTR = "data-aipify-kompis-access";
+  var ACCESS_WINDOW_FLAG = "__AIPIFY_WEBSITE_KOMPIS_ACCESS__";
   var SUPPORTED_EMBED_LOCALES = {
     en: true,
     no: true,
@@ -48,7 +51,7 @@
   var MAX_TEXT_SNIPPET_LENGTH = 240;
   var MAX_CANONICAL_URL_LENGTH = 320;
   var MAX_LOCALE_LENGTH = 16;
-  // Auth entry pages (/login, /register) stay mountable; form fields are skipped via SKIP_ANCESTOR.
+  // Fail-closed context deny-list only (not surface availability). Forms skipped via SKIP_ANCESTOR.
   var PRIVATE_PATH_PREFIXES = [
     "/admin",
     "/member",
@@ -133,6 +136,91 @@
   }
 
   var locale = resolveRuntimeLocale();
+
+  function parseAccessClass(value) {
+    var normalized = String(value || "")
+      .trim()
+      .toLowerCase();
+    if (normalized === "public" || normalized === "private" || normalized === "unknown") {
+      return normalized;
+    }
+    return "unknown";
+  }
+
+  function readHostAccessClass() {
+    var docEl = document.documentElement;
+    var fromDoc =
+      docEl && docEl.getAttribute ? docEl.getAttribute(ACCESS_DATA_ATTR) : null;
+    if (fromDoc != null && String(fromDoc).trim() !== "") {
+      return parseAccessClass(fromDoc);
+    }
+    var fromScript =
+      currentScript.getAttribute(ACCESS_DATA_ATTR) ||
+      currentScript.getAttribute("data-access-class");
+    if (fromScript != null && String(fromScript).trim() !== "") {
+      return parseAccessClass(fromScript);
+    }
+    var fromWindow = window[ACCESS_WINDOW_FLAG];
+    if (fromWindow != null && String(fromWindow).trim() !== "") {
+      return parseAccessClass(fromWindow);
+    }
+    // Host chose to load this public loader without an adapter attribute yet.
+    return "public";
+  }
+
+  var surfaceActive = true;
+  var lastAccessClass = "public";
+
+  function resolveSurfaceActive(accessClass) {
+    return accessClass === "public";
+  }
+
+  function applySurfaceVisibility(active) {
+    if (!iframe) return;
+    if (active) {
+      iframe.style.display = "block";
+      iframe.style.visibility = "visible";
+      iframe.style.pointerEvents = "auto";
+      iframe.setAttribute("aria-hidden", "false");
+    } else {
+      iframe.style.display = "none";
+      iframe.style.visibility = "hidden";
+      iframe.style.pointerEvents = "none";
+      iframe.setAttribute("aria-hidden", "true");
+      applyResize(false);
+    }
+  }
+
+  function postSurfaceToIframe(accessClass, active, clearPageContext) {
+    if (!iframe || !iframe.contentWindow) return;
+    iframe.contentWindow.postMessage(
+      {
+        type: SURFACE_MESSAGE_TYPE,
+        accessClass: accessClass,
+        active: active,
+        clearPageContext: Boolean(clearPageContext),
+      },
+      coreOrigin,
+    );
+  }
+
+  function applyAccessClass(nextAccessClass, options) {
+    var accessClass = parseAccessClass(nextAccessClass);
+    var nextActive = resolveSurfaceActive(accessClass);
+    var clearContext = !nextActive || (options && options.forceClear);
+    var becameInactive = surfaceActive && !nextActive;
+    surfaceActive = nextActive;
+    lastAccessClass = accessClass;
+    applySurfaceVisibility(nextActive);
+    if (clearContext || becameInactive) {
+      postSurfaceToIframe(accessClass, nextActive, true);
+    } else {
+      postSurfaceToIframe(accessClass, nextActive, false);
+    }
+    if (nextActive && !(options && options.skipContext)) {
+      postPageContextToIframe();
+    }
+  }
 
   function hostsMatchAllowed(candidateHost) {
     var allowed = String(domain || "").toLowerCase();
@@ -220,9 +308,13 @@
   }
 
   function capturePageContext() {
+    if (!surfaceActive || lastAccessClass !== "public") {
+      return null;
+    }
     var pathname = String(window.location.pathname || "")
       .trim()
       .slice(0, MAX_PATHNAME_LENGTH);
+    // Fail-closed context safety — does not decide surface availability (host adapter does).
     if (!pathname.startsWith("/") || isPrivatePathname(pathname)) {
       return null;
     }
@@ -374,7 +466,7 @@
     lastPathname = nextPath;
     lastHref = nextHref;
     locale = resolveRuntimeLocale();
-    postPageContextToIframe();
+    applyAccessClass(readHostAccessClass());
   }
 
   function patchHistoryMethod(methodName) {
@@ -435,6 +527,10 @@
     if (!iframe.contentWindow) {
       return;
     }
+    if (!surfaceActive || lastAccessClass !== "public") {
+      postSurfaceToIframe(lastAccessClass, false, true);
+      return;
+    }
     var pageContext = capturePageContext();
     if (!pageContext) {
       return;
@@ -449,8 +545,18 @@
   }
 
   iframe.addEventListener("load", function onIframeLoad() {
-    postPageContextToIframe();
+    applyAccessClass(readHostAccessClass(), { skipContext: false });
   });
+
+  if (typeof MutationObserver === "function" && document.documentElement) {
+    var accessObserver = new MutationObserver(function onAccessAttrChange() {
+      applyAccessClass(readHostAccessClass());
+    });
+    accessObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: [ACCESS_DATA_ATTR],
+    });
+  }
 
   window.addEventListener("message", function onEmbedMessage(event) {
     if (event.source !== iframe.contentWindow) {
@@ -504,4 +610,5 @@
 
   document.body.appendChild(iframe);
   window.__AIPIFY_WEBSITE_KOMPIS_EMBED__ = true;
+  applyAccessClass(readHostAccessClass(), { skipContext: true });
 })();
