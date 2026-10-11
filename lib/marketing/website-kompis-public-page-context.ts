@@ -4,6 +4,11 @@ import {
   COMPANION_SUBMIT_PAGE_CONTEXT_MAX_TITLE_LENGTH,
   type CompanionSubmitPageContextSurface,
 } from "@/lib/companion-runtime/companion-submit-page-context";
+import {
+  isProductOrPriceVisitorQuestion,
+  isPurchaseProcessVisitorQuestion,
+  textLooksLikePublishedPrice,
+} from "@/lib/marketing/website-kompis-answer-relevance";
 
 export const WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE = "website-kompis-current-page" as const;
 
@@ -342,7 +347,7 @@ export function isCustomerWebsitePageIntentQuestion(question: string): boolean {
   }
 
   const customerSiteTopic =
-    /\b(åpningstid\w*|opening hours|kontakt|contact|medlemskap|membership|medlem|member|sikkerhet|safety|plan\w*|fordeler|benefits|tilbud|offer\w*|pris\w*|kost\w*|services|tjenester|produkt\w*)\b/.test(
+    /\b(åpningstid\w*|opening hours|kontakt|contact|medlemskap|membership|medlem|member|sikkerhet|safety|plan\w*|fordeler|benefits|tilbud|offer\w*|pris\w*|kost\w*|services|tjenester|produkt\w*|reise\w*|travel|kjøp|kjop|buy|gavekort|template|upgrade)\b/.test(
       normalized,
     );
   const customerSiteScope =
@@ -390,32 +395,104 @@ export function scoreWebsiteKompisPublicPageContextMatch(
   return score;
 }
 
-function pickAnswerSegments(pageContext: WebsiteKompisPublicPageContext): {
+function scoreSegmentForQuestion(text: string, questionTokens: string[]): number {
+  if (!text.trim() || questionTokens.length === 0) return 0;
+  const lower = text.toLowerCase();
+  let score = 0;
+  for (const token of questionTokens) {
+    if (lower.includes(token)) score += 2;
+  }
+  if (textLooksLikePublishedPrice(text)) score += 4;
+  return score;
+}
+
+function pickAnswerSegments(
+  pageContext: WebsiteKompisPublicPageContext,
+  question: string,
+): {
   directAnswer: string;
   explanation: string | null;
 } {
-  const primaryHeading = pageContext.headings?.find((heading) => heading.level === 1)?.text;
-  const secondaryHeading = pageContext.headings?.find((heading) => heading.level === 2)?.text;
-  const snippet = pageContext.textSnippets?.[0];
-  const structured = pageContext.structuredDataSummary?.[0];
+  const questionTokens = tokenize(question);
+  const priceOrProduct = isProductOrPriceVisitorQuestion(question);
+  const purchaseProcess = isPurchaseProcessVisitorQuestion(question);
 
-  const directAnswer =
-    pageContext.metaDescription?.trim() ||
-    snippet?.trim() ||
-    structured?.trim() ||
-    primaryHeading?.trim() ||
-    pageContext.title?.trim() ||
-    "";
+  const candidates: Array<{ text: string; score: number; kind: string }> = [];
+  for (const snippet of pageContext.textSnippets ?? []) {
+    const text = snippet.trim();
+    if (!text) continue;
+    candidates.push({
+      text,
+      score: scoreSegmentForQuestion(text, questionTokens) + 1,
+      kind: "snippet",
+    });
+  }
+  for (const summary of pageContext.structuredDataSummary ?? []) {
+    const text = summary.trim();
+    if (!text) continue;
+    candidates.push({
+      text,
+      score: scoreSegmentForQuestion(text, questionTokens) + 2,
+      kind: "structured",
+    });
+  }
+  for (const heading of pageContext.headings ?? []) {
+    const text = heading.text.trim();
+    if (!text) continue;
+    candidates.push({
+      text,
+      score: scoreSegmentForQuestion(text, questionTokens) + (heading.level === 1 ? 1 : 0),
+      kind: "heading",
+    });
+  }
+
+  const meta = pageContext.metaDescription?.trim() || "";
+  if (meta) {
+    const metaScore = scoreSegmentForQuestion(meta, questionTokens);
+    // Meta bio alone must not win product/price questions without price or strong overlap.
+    if (!(priceOrProduct || purchaseProcess) || metaScore >= 4 || textLooksLikePublishedPrice(meta)) {
+      candidates.push({ text: meta, score: metaScore, kind: "meta" });
+    }
+  }
+
+  candidates.sort((a, b) => b.score - a.score);
+
+  if (priceOrProduct || purchaseProcess) {
+    // Price alone (+4) + snippet bump (+1) is not enough — need product-token overlap.
+    const priced = candidates.find((entry) => {
+      if (!textLooksLikePublishedPrice(entry.text)) return false;
+      const lower = entry.text.toLowerCase();
+      const productTokens = questionTokens.filter(
+        (token) =>
+          !/^(pris|prisen|price|cost|koster|kostnad|kjøp|kjop|buy|purchase|produkt|product)$/i.test(
+            token,
+          ),
+      );
+      const topicHit = productTokens.some((token) => lower.includes(token));
+      return topicHit && entry.score >= 6;
+    });
+    if (priced) {
+      const explanation =
+        candidates.find((entry) => entry.text !== priced.text && entry.score > 0)?.text ?? null;
+      return { directAnswer: priced.text, explanation };
+    }
+    // No on-topic priced segment — honest gap path (do not return unrelated bio/price).
+    return { directAnswer: "", explanation: null };
+  }
+
+  const best = candidates[0];
+  if (!best || (questionTokens.length > 0 && best.score < 2 && !isWebsiteKompisExplicitCurrentPageQuestion(question))) {
+    const fallback =
+      pageContext.title?.trim() ||
+      pageContext.headings?.find((heading) => heading.level === 1)?.text?.trim() ||
+      "";
+    return { directAnswer: fallback, explanation: null };
+  }
 
   const explanation =
-    snippet && snippet !== directAnswer
-      ? snippet
-      : secondaryHeading && secondaryHeading !== directAnswer
-        ? secondaryHeading
-        : pageContext.textSnippets?.[1] ?? null;
-
+    candidates.find((entry) => entry.text !== best.text && entry.score > 0)?.text ?? null;
   return {
-    directAnswer,
+    directAnswer: best.text,
     explanation: explanation?.trim() || null,
   };
 }
@@ -445,14 +522,22 @@ export function tryBuildWebsiteKompisCurrentPublicPageAnswer(input: {
   const score = scoreWebsiteKompisPublicPageContextMatch(input.question, pageContext);
   const explicitPage = isWebsiteKompisExplicitCurrentPageQuestion(input.question);
   const pageIntent = isCustomerWebsitePageIntentQuestion(input.question);
-  const minScore = explicitPage ? 2 : pageIntent ? 0 : 4;
+  const priceOrProduct =
+    isProductOrPriceVisitorQuestion(input.question) ||
+    isPurchaseProcessVisitorQuestion(input.question);
+  // Price/product questions need real on-page overlap — never win on meta bio alone.
+  const minScore = explicitPage ? 2 : priceOrProduct ? 4 : pageIntent ? 2 : 4;
 
-  const { directAnswer, explanation } = pickAnswerSegments(pageContext);
+  const { directAnswer, explanation } = pickAnswerSegments(pageContext, input.question);
   if (!directAnswer) {
     return null;
   }
 
   if (score < minScore) {
+    return null;
+  }
+
+  if (priceOrProduct && !textLooksLikePublishedPrice(directAnswer) && score < 6) {
     return null;
   }
 
@@ -530,14 +615,30 @@ function collectEmbedParentTextSnippets(
   documentLike: WebsiteKompisEmbedParentDocument,
 ): string[] {
   const snippets: string[] = [];
+  const push = (raw: string, minLength: number) => {
+    const text = sanitizePlainText(raw, WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPET_LENGTH);
+    if (!text || text.length < minLength) return;
+    if (snippets.includes(text)) return;
+    snippets.push(text);
+  };
+
+  for (const element of documentLike.querySelectorAll(
+    "main [class*='product'], main [class*='Product'], main [class*='offer'], main [data-product], main article, [role='main'] article, main li",
+  )) {
+    if (snippets.length >= WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPETS) break;
+    if (isInsideEmbedParentSkipZone(element)) continue;
+    const text = sanitizePlainText(
+      element.textContent ?? "",
+      WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPET_LENGTH,
+    );
+    if (!textLooksLikePublishedPrice(text)) continue;
+    push(text, 16);
+  }
 
   for (const element of documentLike.querySelectorAll("main p, article p, [role='main'] p, body > p")) {
-    if (isInsideEmbedParentSkipZone(element)) continue;
-    const text = sanitizePlainText(element.textContent ?? "", WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPET_LENGTH);
-    if (!text || text.length < 24) continue;
-    if (snippets.includes(text)) continue;
-    snippets.push(text);
     if (snippets.length >= WEBSITE_KOMPIS_PAGE_CONTEXT_MAX_TEXT_SNIPPETS) break;
+    if (isInsideEmbedParentSkipZone(element)) continue;
+    push(element.textContent ?? "", 24);
   }
 
   return snippets;

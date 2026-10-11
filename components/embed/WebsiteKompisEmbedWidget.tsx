@@ -61,7 +61,6 @@ import {
 import "@/components/embed/website-kompis-design-v1.css";
 
 const DESIGN_LOGO_SRC = `${WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE}/brand/aipify-logo-dark.svg`;
-const DESIGN_MARK_SRC = `${WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE}/brand/aipify-mark.svg`;
 /** Owner robot mascot (V2 wrapper + original PNG SHA 9646db7d…). */
 const DESIGN_AVATAR_SRC = `${WEBSITE_KOMPIS_DESIGN_V1_ASSET_BASE}/images/aipify-kompis-avatar.svg`;
 const AIPIFY_BRAND_HOME_HREF = "https://aipify.ai";
@@ -759,7 +758,7 @@ export function WebsiteKompisEmbedWidget({
           title={labels.title}
           tabIndex={open ? -1 : 0}
         >
-          <img src={DESIGN_MARK_SRC} alt="" width={36} height={36} />
+          <img src={DESIGN_AVATAR_SRC} alt="" width={54} height={54} />
         </button>
       </div>
     </div>

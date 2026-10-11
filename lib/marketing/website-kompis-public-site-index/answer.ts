@@ -1,4 +1,9 @@
 import {
+  dedupeCompanionSourcesByRoute,
+  looksLikeBareFaqQuestionHeading,
+  looksLikeFaqQuestionList,
+} from "@/lib/marketing/website-kompis-answer-relevance";
+import {
   evaluatePublicSiteIndexUrl,
   normalizePublicSiteIndexCanonicalUrl,
 } from "./url-policy";
@@ -373,10 +378,23 @@ export function composePublicSiteIndexAnswerText(
     ...rankedHits.slice(1, 3).map((h) => neutralizeUntrustedPageEvidence(h.chunkContent || "")),
   ].filter(Boolean);
 
+  // FAQ hub chunks that are mostly question titles are not usable answers.
+  if (
+    evidencePool.some((block) => looksLikeFaqQuestionList(block)) &&
+    !evidencePool.some((block) => !looksLikeFaqQuestionList(block) && block.length >= 40)
+  ) {
+    return null;
+  }
+
   const sentences = evidencePool.flatMap(splitSentences);
   const ranked = sentences
     .map((sentence) => ({ sentence, score: scoreSentence(sentence, tokens) }))
-    .filter((entry) => entry.score > 0)
+    .filter(
+      (entry) =>
+        entry.score > 0 &&
+        !looksLikeBareFaqQuestionHeading(entry.sentence) &&
+        !looksLikeFaqQuestionList(entry.sentence),
+    )
     .sort((a, b) => b.score - a.score);
 
   if (ranked.length === 0) {
@@ -434,24 +452,26 @@ export function buildPublicSiteIndexAnswer(
     return null;
   }
 
-  const sources = ranked
-    .slice(0, 3)
-    .map((hit) => {
-      const route =
-        sanitizePublicSiteIndexSourceUrl(hit.canonicalUrl, verifiedHost) ||
-        (hit.pathname.startsWith("/") && verifiedHost
-          ? `https://${verifiedHost}${hit.pathname}`
-          : null);
-      const safeRoute = route
-        ? sanitizePublicSiteIndexSourceUrl(route, verifiedHost)
-        : null;
-      if (!safeRoute) return null;
-      return {
-        title: hit.title || hit.pathname,
-        route: safeRoute,
-      };
-    })
-    .filter((source): source is { title: string; route: string } => source !== null);
+  const sources = dedupeCompanionSourcesByRoute(
+    ranked
+      .slice(0, 3)
+      .map((hit) => {
+        const route =
+          sanitizePublicSiteIndexSourceUrl(hit.canonicalUrl, verifiedHost) ||
+          (hit.pathname.startsWith("/") && verifiedHost
+            ? `https://${verifiedHost}${hit.pathname}`
+            : null);
+        const safeRoute = route
+          ? sanitizePublicSiteIndexSourceUrl(route, verifiedHost)
+          : null;
+        if (!safeRoute) return null;
+        return {
+          title: hit.title || hit.pathname,
+          route: safeRoute,
+        };
+      })
+      .filter((source): source is { title: string; route: string } => source !== null),
+  );
 
   if (sources.length === 0) {
     return null;

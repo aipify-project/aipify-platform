@@ -3,6 +3,7 @@ import type {
   WebsiteKompisWelcomeMessageVariant,
 } from "@/lib/marketing/website-kompis-install-config";
 import type { WebsiteKompisEmbedLocale } from "@/lib/marketing/website-kompis-embed";
+import { siteLabelFromDomain } from "@/lib/marketing/website-kompis-site-label";
 
 export type WebsiteKompisVisitorAnswerShape = {
   directAnswer: string;
@@ -45,13 +46,6 @@ export type WebsiteKompisEmbedUiLabels = {
   quickActions: WebsiteKompisEmbedQuickAction[];
 };
 
-function siteLabelFromDomain(domain: string | null | undefined): string | null {
-  if (!domain) return null;
-  const label = domain.split(".")[0]?.trim();
-  if (!label) return null;
-  return label.charAt(0).toUpperCase() + label.slice(1);
-}
-
 export function buildWebsiteKompisWarmSafeFallbackCopy(
   locale: string,
   siteLabel: string | null,
@@ -64,20 +58,20 @@ export function buildWebsiteKompisWarmSafeFallbackCopy(
       case "no":
         return named
           ? `Ikke nok publisert info om ${named} til å svare trygt. Kontakt ${named}.`
-          : "Ikke nok publisert info til å svare trygt. Kontakt virksomheten.";
+          : "Ikke nok publisert info til å svare trygt. Kontakt nettstedet.";
       case "sv":
         return named
           ? `Inte tillräcklig publicerad info om ${named}. Kontakta ${named}.`
-          : "Inte tillräcklig publicerad info. Kontakta verksomheten.";
+          : "Inte tillräcklig publicerad info. Kontakta webbplatsen.";
       case "da":
         return named
           ? `Ikke nok offentliggjort info om ${named}. Kontakt ${named}.`
-          : "Ikke nok offentliggjort info. Kontakt virksomheden.";
+          : "Ikke nok offentliggjort info. Kontakt webstedet.";
       case "en":
       default:
         return named
           ? `Not enough published info about ${named} to answer safely. Contact ${named}.`
-          : "Not enough published info to answer safely. Contact the business.";
+          : "Not enough published info to answer safely. Contact the website.";
     }
   }
 
@@ -85,20 +79,20 @@ export function buildWebsiteKompisWarmSafeFallbackCopy(
     case "no":
       return named
         ? `Jeg finner ikke nok publisert informasjon om ${named} til å svare trygt på det akkurat nå. Ta gjerne kontakt med ${named} — så hjelper de deg videre.`
-        : "Jeg finner ikke nok publisert informasjon til å svare trygt på det akkurat nå. Ta gjerne kontakt med virksomheten — de hjelper deg videre.";
+        : "Jeg finner ikke nok publisert informasjon til å svare trygt på det akkurat nå. Ta gjerne kontakt med nettstedet — de hjelper deg videre.";
     case "sv":
       return named
         ? `Jag hittar inte tillräckligt publicerad information om ${named} för att svara säkert just nu. Kontakta gärna ${named} — de hjälper dig vidare.`
-        : "Jag hittar inte tillräckligt publicerad information för att svara säkert just nu. Kontakta gärna verksamheten — de hjälper dig vidare.";
+        : "Jag hittar inte tillräckligt publicerad information för att svara säkert just nu. Kontakta gärna webbplatsen — de hjälper dig vidare.";
     case "da":
       return named
         ? `Jeg finder ikke nok offentliggjort information om ${named} til at svare sikkert lige nu. Kontakt gerne ${named} — de hjælper dig videre.`
-        : "Jeg finder ikke nok offentliggjort information til at svare sikkert lige nu. Kontakt gerne virksomheden — de hjælper dig videre.";
+        : "Jeg finder ikke nok offentliggjort information til at svare sikkert lige nu. Kontakt gerne webstedet — de hjælper dig videre.";
     case "en":
     default:
       return named
         ? `I cannot find enough published information about ${named} to answer this safely right now. Please contact ${named} — they will help you move forward.`
-        : "I cannot find enough published information to answer this safely right now. Please contact the business — they will help you move forward.";
+        : "I cannot find enough published information to answer this safely right now. Please contact the website — they will help you move forward.";
   }
 }
 
