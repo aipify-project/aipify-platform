@@ -21,6 +21,7 @@ import {
 } from "@/lib/marketing/website-kompis-answer-relevance";
 import {
   WEBSITE_KOMPIS_PUBLIC_PAGE_CONTEXT_SOURCE,
+  isWebsiteKompisExplicitCurrentPageQuestion,
   type WebsiteKompisPublicPageContext,
 } from "@/lib/marketing/website-kompis-public-page-context";
 import { buildWebsiteKompisPublicAnswerPolicyPrompt } from "@/lib/marketing/website-kompis-public-answer-policy";
@@ -174,6 +175,14 @@ export function evidenceSnippetMatchesQuestionTopic(
   item: WebsiteKompisEvidenceSnippet,
   question: string,
 ): boolean {
+  // Deictic "what is this page about" questions: topic tokens are meta words
+  // (e.g. handler/denne) that never appear in page body. The topical target is
+  // the current-page evidence itself — not FAQ/index rows that share those words.
+  // Do not auto-approve every current-page cite for concrete product/price asks.
+  if (isWebsiteKompisExplicitCurrentPageQuestion(question)) {
+    return item.kind === "current-page";
+  }
+
   const topics = topicTokensForPublicSiteIndex(question);
   if (topics.length === 0) return true;
   const score = evidenceTopicScore(item, topics);
