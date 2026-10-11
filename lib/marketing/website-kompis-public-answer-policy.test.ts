@@ -38,18 +38,17 @@ const bioReject = evaluateWebsiteKompisDeterministicAnswerPolicy({
 assert.equal(bioReject.ok, false);
 
 const tagged = withWebsiteKompisPublicAnswerPathDiagnostic(
-  { answer: "ok" },
+  { answer: "ok" } as { answer: string; diagnostics?: { answerPath?: string } },
   "public_site_index",
   { includeDiagnostics: true },
 );
+assert.equal(tagged.diagnostics?.answerPath, "public_site_index");
 assert.equal(
-  (tagged.diagnostics as { answerPath?: string }).answerPath,
-  "public_site_index",
-);
-assert.equal(
-  withWebsiteKompisPublicAnswerPathDiagnostic({ answer: "ok" }, "faq", {
-    includeDiagnostics: false,
-  }).diagnostics,
+  withWebsiteKompisPublicAnswerPathDiagnostic(
+    { answer: "ok" } as { answer: string; diagnostics?: { answerPath?: string } },
+    "faq",
+    { includeDiagnostics: false },
+  ).diagnostics,
   undefined,
 );
 
