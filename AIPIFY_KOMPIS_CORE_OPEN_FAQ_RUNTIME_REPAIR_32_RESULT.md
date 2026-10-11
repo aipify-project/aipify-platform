@@ -4,6 +4,10 @@ Date: 2026-10-11
 Feature owner: INSTALL ENGINE / public Website Kompis Core  
 Scope: Make open FAQ panel text reach ask evidence at runtime. No history/retrieval, Push price, gap-contract, UI, or Host changes. No LIVE asks from Cursor. Reuse OFF.
 
+## OWNER ACCEPTANCE — FAILED (job 33)
+
+Owner retest 2026-10-12 00:14–00:17 (screenshots + CSV `aipify-platform-iz5z-log-export-2026-10-11T22-18-29.csv`) on job-32 deploys `dpl_BVAUUK…` / `dpl_3zD5…` (`84b49f55` includes #126). Open «Hva skjer når panelet blir åpnet?» still yielded gap despite `current-page` in synthesize (`29rc8`, `contextChars=1927`). Trace job 33: refresh alone is insufficient — **8×240 DOM-order capture displaces the late open panel among many simultaneously open FAQs**. See `AIPIFY_KOMPIS_CORE_FAILED_OPEN_PANEL_TRACE_33_RESULT.md`.
+
 ## OWNER ACCEPTANCE (job 31) — FAILED
 
 Preserved in `AIPIFY_KOMPIS_CORE_OPEN_FAQ_CONTEXT_REPAIR_31_RESULT.md`. Screenshots 23:46–23:47 + CSV `aipify-platform-iz5z-log-export-2026-10-11T21-48-05.csv`: open panels visible; answers claimed missing; `contextChars=208`, `evidenceKinds=[current-page]`, `provider_grounded` / `rejectReason=null`.
@@ -72,7 +76,8 @@ Fixture limitation: constructed partner-venue / desk-pass topics (not owner word
 | Path | Role |
 |------|------|
 | `public/embed/website-kompis.js` · `capturePageContext` / disclosure observer | Capture + refresh triggers |
-| `WebsiteKompisEmbedWidget` · `refreshWebsiteKompisEmbedPageContextFromParent` | **Job 32 first-loss fix** — fresh snapshot before ask |
+| `WebsiteKompisEmbedWidget` · `refreshWebsiteKompisEmbedPageContextFromParent` | Job 32 — fresh snapshot before ask (**necessary, not sufficient**) |
+| `collectOpenDisclosureSnippets` DOM-order + 8 cap | **Job 33** — displaces late open FAQ when many panels open |
 | `buildWebsiteKompisPageEvidence` | Unchanged consumer of `textSnippets` |
 | `buildPublicCompanionRetrievalQuestion` | Still separate (history concat) — not this job |
 
