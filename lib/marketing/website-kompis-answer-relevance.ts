@@ -54,9 +54,21 @@ export function isProductOrPriceVisitorQuestion(question: string): boolean {
   );
 }
 
+/**
+ * Visitor is asking for a published amount (price / points), not merely where/how
+ * to buy or activate. "Kjøpe" alone must not trigger the missing-cost gap template.
+ */
+export function isConcreteCostSeekingVisitorQuestion(question: string): boolean {
+  const q = question.trim().toLowerCase();
+  if (!q) return false;
+  return /\b(pris\w*|koster|kostnad\w*|price\w*|cost\w*|poeng\w*|points?|beløp|amount)\b/i.test(
+    q,
+  );
+}
+
 export function isPurchaseProcessVisitorQuestion(question: string): boolean {
   const q = question.trim().toLowerCase();
-  return /\b(kjøp\w*|kjop\w*|buy|purchase|bestill\w*|order|hvordan kjøper|how (?:do|can) i (?:buy|purchase))\b/i.test(
+  return /\b(kjøp\w*|kjop\w*|buy|purchase|bestill\w*|order|aktiver\w*|activat\w*|hvordan kjøper|how (?:do|can) i (?:buy|purchase|activate))\b/i.test(
     q,
   );
 }

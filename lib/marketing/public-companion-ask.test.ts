@@ -1237,6 +1237,179 @@ async function main() {
     assert.doesNotMatch(response.answer.directAnswer, /799|Business Operating System/);
   });
 
+  await test("empty grounded pack does not reintroduce rejected index as cost-gap or membership dump", async () => {
+    let indexSearchCount = 0;
+    const response = await askPublicPlatformCompanion(
+      {
+        question: "Hvor kjøper eller aktiverer jeg Desk Pass?",
+        locale: "no",
+        installId: "11111111-1111-4111-8111-111111111111",
+        domain: "www.customer-a.example",
+        recentContext: [
+          {
+            role: "user",
+            text: "Hva er forskjellen mellom Bronze og Gold?",
+          },
+          {
+            role: "assistant",
+            text: "Bronze er startnivået. Gold gir flere profilfunksjoner.",
+          },
+        ],
+      },
+      {
+        requestHost: "www.customer-a.example",
+        rawInstallConfig: {
+          website_kompis: {
+            enabled: true,
+            sources: {
+              faq: true,
+              currentPage: false,
+              aipifyPublic: false,
+              publicSiteIndex: true,
+            },
+          },
+        },
+        resolveLicensedAvailability: async () => ({
+          available: true,
+          reason: "available" as const,
+          capabilityKey: "website_kompis",
+        }),
+        searchTenantVisitorKnowledge: async () => [],
+        searchTenantPublicSiteIndex: async () => {
+          indexSearchCount += 1;
+          return [
+            {
+              documentId: "doc-faq",
+              chunkId: "chunk-faq",
+              title: "FAQ — hjelp og svar",
+              canonicalUrl: "https://www.customer-a.example/no/faq",
+              pathname: "/no/faq",
+              locale: "no",
+              excerpt: "Hva koster medlemskap?",
+              chunkContent:
+                "Hva koster medlemskap? Hvordan kjøper jeg poeng? Før poengene trekkes, får du alltid se kostnaden.",
+              score: 30,
+              matchedReason: "public_site_index",
+              crawledAt: null,
+            },
+            {
+              documentId: "doc-terms",
+              chunkId: "chunk-terms",
+              title: "Terms and Conditions",
+              canonicalUrl:
+                "https://www.customer-a.example/en/terms-and-conditions",
+              pathname: "/en/terms-and-conditions",
+              locale: "en",
+              excerpt: "Membership plans",
+              chunkContent:
+                "Membership plans may include Bronze, Silver, and Gold. Purchases are subject to published terms.",
+              score: 24,
+              matchedReason: "public_site_index",
+              crawledAt: null,
+            },
+            {
+              documentId: "doc-membership",
+              chunkId: "chunk-membership",
+              title: "Membership Guide",
+              canonicalUrl:
+                "https://www.customer-a.example/no/membership-guide",
+              pathname: "/no/membership-guide",
+              locale: "no",
+              excerpt: "Bronze og Gold",
+              chunkContent:
+                "Bronze er startnivået. Gold gir flere profilfunksjoner enn Bronze på NETTSTED_NAVN.",
+              score: 44,
+              matchedReason: "public_site_index",
+              crawledAt: null,
+            },
+          ];
+        },
+        groundedCompletion: async () => {
+          throw new Error("provider must not run with empty evidence pack");
+        },
+      },
+    );
+
+    // Collect once; empty pack must not trigger a second loose index search.
+    assert.equal(indexSearchCount, 1);
+    assert.doesNotMatch(
+      response.answer.directAnswer,
+      /finner ikke et konkret|poengtall|Bronze|Gold|Membership/i,
+    );
+    // Honest safe fallback — not a fact-looking public_site_index answer.
+    assert.ok(response.answer.directAnswer.trim().length > 0);
+    assert.ok(
+      !response.sources.some((source) =>
+        /\/faq|terms-and-conditions|membership-guide/i.test(source.route),
+      ),
+      "rejected FAQ/terms/membership routes must not reappear as sources",
+    );
+    assert.ok(
+      response.sources.some((source) =>
+        source.route.includes("website-kompis-safe-fallback"),
+      ),
+      "empty pack with no topical hits must land on safe_fallback",
+    );
+  });
+
+  await test("empty pack with topical activation evidence still answers from collected hits", async () => {
+    const response = await askPublicPlatformCompanion(
+      {
+        question: "Hvor kjøper eller aktiverer jeg Desk Pass?",
+        locale: "no",
+        installId: "11111111-1111-4111-8111-111111111111",
+        domain: "www.customer-a.example",
+      },
+      {
+        requestHost: "www.customer-a.example",
+        rawInstallConfig: {
+          website_kompis: {
+            enabled: true,
+            sources: {
+              faq: false,
+              currentPage: false,
+              aipifyPublic: false,
+              publicSiteIndex: true,
+            },
+          },
+        },
+        resolveLicensedAvailability: async () => ({
+          available: true,
+          reason: "available" as const,
+          capabilityKey: "website_kompis",
+        }),
+        searchTenantPublicSiteIndex: async () => [
+          {
+            documentId: "doc-desk",
+            chunkId: "chunk-desk",
+            title: "Desk Pass",
+            canonicalUrl: "https://www.customer-a.example/no/desk-pass",
+            pathname: "/no/desk-pass",
+            locale: "no",
+            excerpt: "Aktiver Desk Pass",
+            chunkContent:
+              "Desk Pass aktiveres under Konto → Abonnement. Velg Desk Pass og bekreft aktiveringen før tilgangen åpnes.",
+            score: 50,
+            matchedReason: "public_site_index",
+            crawledAt: null,
+          },
+        ],
+        groundedCompletion: async () => ({
+          ok: false,
+          errorCode: "AI_PROVIDER_NOT_CONFIGURED",
+          modelProfile: "kompis_result_summary_v1",
+          latencyMs: 1,
+        }),
+      },
+    );
+
+    assert.match(response.answer.directAnswer, /aktiveres|Konto|Abonnement/i);
+    assert.doesNotMatch(response.answer.directAnswer, /finner ikke et konkret/i);
+    assert.ok(
+      response.sources.some((source) => source.route.includes("desk-pass")),
+    );
+  });
+
   if (failures.length > 0) {
     console.error(`public-companion-ask.test.ts: ${failures.length} failed`);
     process.exit(1);

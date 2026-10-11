@@ -89,6 +89,7 @@ import type { WebsiteKompisLicensedAvailability } from "@/lib/marketing/website-
 import {
   buildWebsiteKompisEvidencePack,
   createDefaultWebsiteKompisGroundedCompletion,
+  filterSiteIndexHitsMatchingEvidenceTopic,
   synthesizeWebsiteKompisGroundedAnswer,
 } from "@/lib/marketing/website-kompis-grounded-answer";
 import type { KompisGroundedCompletionResult } from "@/lib/kompis-operator/grounded-completion";
@@ -1436,15 +1437,39 @@ export async function askPublicPlatformCompanion(
       }
     }
 
-    const siteIndexAnswer = await tryBuildPublicSiteIndexAnswer(
-      validated.question,
-      locale,
-      visitorContext,
-      onCustomerWebsite,
-      installConfig,
-      searchPublicSiteIndex,
-      validated.recentContext,
-    );
+    // Empty grounded pack means collected index/FAQ candidates already failed the
+    // visitor-question topic bar. A second loose search must not reintroduce them
+    // as a fact-looking public_site_index answer (price-gap / membership dump).
+    // Provider honest-gap retry may still re-search when the pack had evidence.
+    const groundedPackEmpty = evidencePack.evidence.length === 0;
+    let siteIndexAnswer: PublicCompanionAskResponse | null = null;
+    if (groundedPackEmpty && !providerHonestGapRetry) {
+      const topicalHits = filterSiteIndexHitsMatchingEvidenceTopic(
+        siteIndexHits,
+        validated.question,
+      );
+      if (topicalHits.length > 0) {
+        const built = buildPublicSiteIndexAnswer(
+          topicalHits,
+          locale,
+          visitorContext.domain,
+          validated.question,
+        );
+        if (built) {
+          siteIndexAnswer = built as PublicCompanionAskResponse;
+        }
+      }
+    } else {
+      siteIndexAnswer = await tryBuildPublicSiteIndexAnswer(
+        validated.question,
+        locale,
+        visitorContext,
+        onCustomerWebsite,
+        installConfig,
+        searchPublicSiteIndex,
+        validated.recentContext,
+      );
+    }
     if (siteIndexAnswer) {
       const indexResponse = applyCustomerSiteDeterministicPolicy(
         applyWebsiteKompisCustomerSiteTone(siteIndexAnswer, {
@@ -1469,16 +1494,20 @@ export async function askPublicPlatformCompanion(
       }
     }
 
-    const customerFaqAnswer = await tryBuildPublicTenantFaqAnswer(
-      validated.question,
-      locale,
-      validated,
-      options?.requestHost,
-      searchTenantVisitorKnowledge,
-      visitorContext,
-      onCustomerWebsite,
-      installConfig,
-    );
+    // Same rule for FAQ: empty pack → do not re-search a looser FAQ path.
+    const customerFaqAnswer =
+      groundedPackEmpty && !providerHonestGapRetry
+        ? null
+        : await tryBuildPublicTenantFaqAnswer(
+            validated.question,
+            locale,
+            validated,
+            options?.requestHost,
+            searchTenantVisitorKnowledge,
+            visitorContext,
+            onCustomerWebsite,
+            installConfig,
+          );
     if (customerFaqAnswer) {
       const faqResponse = applyCustomerSiteDeterministicPolicy(
         applyWebsiteKompisCustomerSiteTone(customerFaqAnswer, {

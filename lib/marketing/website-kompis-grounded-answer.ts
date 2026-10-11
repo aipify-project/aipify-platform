@@ -172,6 +172,23 @@ function evidenceTopicScore(
   return score;
 }
 
+/**
+ * Keep only index hits that would survive grounded pack topic filtering for the
+ * visitor question — used when empty pack must not reintroduce rejected material.
+ */
+export function filterSiteIndexHitsMatchingEvidenceTopic(
+  hits: PublicSiteIndexHit[],
+  question: string,
+): PublicSiteIndexHit[] {
+  if (hits.length === 0) return [];
+  return hits.filter((hit) => {
+    const [snippet] = buildWebsiteKompisIndexEvidence([hit]);
+    if (!snippet?.text.trim()) return false;
+    if (looksLikeFaqQuestionList(snippet.text)) return false;
+    return evidenceSnippetMatchesQuestionTopic(snippet, question);
+  });
+}
+
 export function evidenceSnippetMatchesQuestionTopic(
   item: WebsiteKompisEvidenceSnippet,
   question: string,
