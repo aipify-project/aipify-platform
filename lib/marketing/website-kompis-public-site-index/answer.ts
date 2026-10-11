@@ -1,5 +1,6 @@
 import {
   dedupeCompanionSourcesByRoute,
+  isProductOrPriceVisitorQuestion,
   looksLikeBareFaqQuestionHeading,
   looksLikeFaqQuestionList,
 } from "@/lib/marketing/website-kompis-answer-relevance";
@@ -385,8 +386,28 @@ function splitSentences(text: string): string[] {
     .filter((s) => s.length >= 24);
 }
 
-function scoreSentence(sentence: string, tokens: string[]): number {
-  return tokens.reduce((sum, token) => (textHasTopicToken(sentence, token) ? sum + 1 : sum), 0);
+/** Cost/price evidence signals — aligned with public deterministic answer policy. */
+function sentenceHasPriceOrCostSignal(sentence: string): boolean {
+  return /\b(kr|nok|eur|usd|price|pris\w*|kost(?:er|nad(?:en)?)?|poeng|points?)\b/i.test(
+    sentence,
+  );
+}
+
+function scoreSentence(sentence: string, tokens: string[], question: string): number {
+  const topicScore = tokens.reduce(
+    (sum, token) => (textHasTopicToken(sentence, token) ? sum + 1 : sum),
+    0,
+  );
+  // Price asks: prefer sentences that still carry cost evidence after placeholder filtering
+  // (e.g. "se kostnaden" when "{pushCost}" lines were dropped).
+  if (
+    topicScore > 0 &&
+    isProductOrPriceVisitorQuestion(question) &&
+    sentenceHasPriceOrCostSignal(sentence)
+  ) {
+    return topicScore + 2;
+  }
+  return topicScore;
 }
 
 /**
@@ -422,7 +443,7 @@ export function composePublicSiteIndexAnswerText(
 
   const sentences = evidencePool.flatMap(splitSentences);
   const ranked = sentences
-    .map((sentence) => ({ sentence, score: scoreSentence(sentence, tokens) }))
+    .map((sentence) => ({ sentence, score: scoreSentence(sentence, tokens, question) }))
     .filter(
       (entry) =>
         entry.score > 0 &&

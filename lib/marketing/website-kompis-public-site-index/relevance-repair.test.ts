@@ -311,4 +311,26 @@ assert.ok(
   stalePushAnswer!.sources[0]?.route.includes("marketplace-listing-push"),
 );
 
+// LIVE.14: long nav+definition chunk must keep the kostnad sentence (policy needs cost signal).
+const productionLikePush = hit({
+  pathname: "/no/faq/marketplace-listing-push",
+  title: "Push annonsen til toppen av markedsplassen",
+  excerpt:
+    "Med Push kan du flytte en aktiv annonse til toppen av markedsplassen. En Push koster {pushCost} poeng. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen.",
+  chunkContent:
+    "Tilbake til Mine annonser Markedsplass Push annonsen til toppen av markedsplassen Med Push kan du flytte en aktiv annonse til toppen av markedsplassen. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen. Sist oppdatert {6/24/2026} Markedsplass Øk synligheten til annonsen Stilisert produktbilde som representerer synlighet for markedsplassannonser Hva er Push? − Push er en funksjon som flytter en aktiv og godkjent annonse til toppen av markedsplassens annonseoversikt. Dette kan gjøre annonsen mer synlig for andre medlemmer.",
+  score: 38,
+  locale: "no",
+});
+const productionLikePushAnswer = buildPublicSiteIndexAnswer(
+  [productionLikePush],
+  "no",
+  "www.customer.example",
+  "Hva koster en Push på markedsplassen?",
+);
+assert.ok(productionLikePushAnswer);
+assert.doesNotMatch(productionLikePushAnswer!.answer.directAnswer, /\{[^}]+\}/);
+assert.match(productionLikePushAnswer!.answer.directAnswer, /kostnaden/i);
+assert.match(productionLikePushAnswer!.answer.directAnswer, /Push/i);
+
 console.log("website-kompis-public-site-index relevance-repair: passed");
