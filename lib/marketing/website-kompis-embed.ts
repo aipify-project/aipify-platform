@@ -480,6 +480,78 @@ export function parseWebsiteKompisEmbedPageContextMessage(
   }
 }
 
+/** Default wait for parent loader to re-capture and post pageContext before ask. */
+export const WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REFRESH_TIMEOUT_MS = 450;
+
+export type WebsiteKompisEmbedPageContextRefreshWindow = {
+  parent: {
+    postMessage(message: unknown, targetOrigin: string): void;
+  };
+  addEventListener(type: "message", listener: (event: MessageEvent) => void): void;
+  removeEventListener(type: "message", listener: (event: MessageEvent) => void): void;
+  setTimeout(handler: () => void, timeout: number): unknown;
+  clearTimeout(handle: unknown): void;
+};
+
+/**
+ * Ask the host loader for a fresh pageContext snapshot (open FAQ panels included).
+ * Resolves with the next valid pageContext message, or undefined on timeout.
+ */
+export function refreshWebsiteKompisEmbedPageContextFromParent(input?: {
+  timeoutMs?: number;
+  win?: WebsiteKompisEmbedPageContextRefreshWindow;
+}): Promise<WebsiteKompisPublicPageContext | undefined> {
+  const win =
+    input?.win ??
+    (typeof window !== "undefined"
+      ? (window as unknown as WebsiteKompisEmbedPageContextRefreshWindow)
+      : undefined);
+  if (!win?.parent?.postMessage) {
+    return Promise.resolve(undefined);
+  }
+
+  const timeoutMs = Math.max(
+    50,
+    Math.min(2000, input?.timeoutMs ?? WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REFRESH_TIMEOUT_MS),
+  );
+
+  return new Promise((resolve) => {
+    let settled = false;
+    let timeoutHandle: unknown;
+    const parent = win.parent;
+
+    const finish = (value: WebsiteKompisPublicPageContext | undefined) => {
+      if (settled) return;
+      settled = true;
+      win.removeEventListener("message", onMessage);
+      if (timeoutHandle != null) {
+        win.clearTimeout(timeoutHandle);
+      }
+      resolve(value);
+    };
+
+    const onMessage = (event: MessageEvent) => {
+      // Browser: only accept parent. Tests may omit source.
+      if (event.source != null && event.source !== (parent as unknown)) {
+        return;
+      }
+      const next = parseWebsiteKompisEmbedPageContextMessage(event.data);
+      if (next) {
+        finish(next);
+      }
+    };
+
+    win.addEventListener("message", onMessage);
+    try {
+      parent.postMessage({ type: WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE }, "*");
+    } catch {
+      finish(undefined);
+      return;
+    }
+    timeoutHandle = win.setTimeout(() => finish(undefined), timeoutMs);
+  });
+}
+
 export function escapeWebsiteKompisEmbedAttributeValue(value: string): string {
   return value
     .replace(/&/g, "&amp;")

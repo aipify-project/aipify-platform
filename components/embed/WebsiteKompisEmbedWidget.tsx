@@ -27,6 +27,7 @@ import {
   isAllowedWebsiteKompisHostNavigateHref,
   parseWebsiteKompisEmbedPageContextMessage,
   parseWebsiteKompisEmbedSurfaceMessage,
+  refreshWebsiteKompisEmbedPageContextFromParent,
   sanitizeWebsiteKompisEmbedLocale,
   WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
   WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
@@ -475,6 +476,17 @@ export function WebsiteKompisEmbedWidget({
       setSending(true);
 
       try {
+        // Fresh host capture so open FAQ/accordion panels opened after load are included.
+        const refreshedPageContext = await refreshWebsiteKompisEmbedPageContextFromParent();
+        if (generation !== askGenerationRef.current) return;
+        const askPageContext = refreshedPageContext ?? pageContext;
+        if (refreshedPageContext) {
+          setPageContext(refreshedPageContext);
+          if (refreshedPageContext.locale) {
+            setUiLocale(sanitizeWebsiteKompisEmbedLocale(refreshedPageContext.locale));
+          }
+        }
+
         const response = await fetch("/api/marketing/companion/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -486,7 +498,7 @@ export function WebsiteKompisEmbedWidget({
               domain,
               installId,
               recentContext: toRecentContext(priorMessages),
-              pageContext,
+              pageContext: askPageContext,
             }),
           ),
         });

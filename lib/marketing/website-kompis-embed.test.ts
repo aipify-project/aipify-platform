@@ -15,6 +15,7 @@ import {
   parseWebsiteKompisEmbedPageContextMessage,
   parseWebsiteKompisEmbedResizeMessage,
   parseWebsiteKompisEmbedSearchParams,
+  refreshWebsiteKompisEmbedPageContextFromParent,
   sanitizeWebsiteKompisEmbedLocale,
   WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
   WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
@@ -27,8 +28,27 @@ import {
   resolveWebsiteKompisEmbedPreferredHostOpenSize,
   WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX,
   WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE,
+  WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE,
   WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE,
 } from "@/lib/marketing/website-kompis-embed";
+import {
+  sanitizeWebsiteKompisPublicPageContext,
+  type WebsiteKompisPublicPageContext,
+} from "@/lib/marketing/website-kompis-public-page-context";
+
+/** Mirrors buildWebsiteKompisPageEvidence join (avoid server-only grounded-answer import here). */
+function joinCurrentPageEvidenceText(pageContext: WebsiteKompisPublicPageContext | undefined): string {
+  if (!pageContext) return "";
+  return [
+    pageContext.title,
+    pageContext.metaDescription,
+    ...(pageContext.headings ?? []).map((heading) => heading.text),
+    ...(pageContext.textSnippets ?? []),
+  ]
+    .filter((value): value is string => typeof value === "string" && value.trim().length > 0)
+    .slice(0, 8)
+    .join("\n");
+}
 
 const exampleInstallId = "11111111-1111-4111-8111-111111111111";
 const exampleDomain = "example-a.test";
@@ -318,6 +338,9 @@ assert.match(loaderSource, /aria-expanded/);
 assert.match(loaderSource, /collectOpenDisclosureSnippets/);
 assert.match(loaderSource, /faq-answer/);
 assert.match(loaderSource, /isElementVisiblyOpen/);
+assert.match(loaderSource, /scheduleDisclosurePageContextRefresh/);
+assert.match(loaderSource, /attributeFilter:\s*\[[^\]]*aria-expanded/);
+assert.match(widgetSource, /refreshWebsiteKompisEmbedPageContextFromParent/);
 // Universal public surface contract — Core owns activation from host access adapter.
 assert.match(loaderSource, /aipify\.websiteKompis\.surface/);
 assert.match(loaderSource, /data-aipify-kompis-access/);
@@ -349,4 +372,166 @@ assert.equal(
   "9646db7d446c150c8567dd28b812c82ba9c66d435e83e08106a8915951a41ef6",
 );
 
-console.log("website-kompis-embed.test.ts: all assertions passed");
+// Transport: stale snapshot vs refresh-before-ask → current-page evidence (no provider).
+const stalePageContext = sanitizeWebsiteKompisPublicPageContext({
+  pathname: "/help/venue",
+  title: "Partner venue help",
+  metaDescription: "Logistics for partner venues.",
+  surface: "public",
+  headings: [{ level: 1, text: "Partner venue help" }],
+  textSnippets: ["This help center explains workshop logistics for partner venues."],
+});
+assert.ok(stalePageContext);
+const staleEvidenceText = joinCurrentPageEvidenceText(stalePageContext);
+assert.ok(staleEvidenceText.length > 0);
+assert.doesNotMatch(staleEvidenceText, /photo ID verification/i);
+
+const openPanelPageContext = sanitizeWebsiteKompisPublicPageContext({
+  pathname: "/help/venue",
+  title: "Partner venue help",
+  metaDescription: "Logistics for partner venues.",
+  surface: "public",
+  headings: [{ level: 1, text: "Partner venue help" }],
+  textSnippets: [
+    "How are desk passes issued?: Desk passes are issued at reception after photo ID verification on weekdays before 16:00.",
+    "Visitor lounge hours: weekdays 09:00-17:00 with prior appointment on weekends.",
+  ],
+});
+assert.ok(openPanelPageContext);
+
+async function assertPageContextRefreshTransport() {
+  const listeners: Array<(event: MessageEvent) => void> = [];
+  const parent = {
+    postMessage(message: unknown) {
+      assert.equal(
+        (message as { type?: string }).type,
+        WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE,
+      );
+      queueMicrotask(() => {
+        for (const listener of listeners) {
+          listener({
+            data: {
+              type: WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE,
+              pageContext: openPanelPageContext,
+            },
+            source: parent,
+          } as unknown as MessageEvent);
+        }
+      });
+    },
+  };
+  const win = {
+    parent,
+    addEventListener(_type: "message", listener: (event: MessageEvent) => void) {
+      listeners.push(listener);
+    },
+    removeEventListener(_type: "message", listener: (event: MessageEvent) => void) {
+      const index = listeners.indexOf(listener);
+      if (index >= 0) listeners.splice(index, 1);
+    },
+    setTimeout(handler: () => void, timeout: number) {
+      return setTimeout(handler, timeout);
+    },
+    clearTimeout(handle: unknown) {
+      clearTimeout(handle as NodeJS.Timeout);
+    },
+  };
+
+  const refreshed = await refreshWebsiteKompisEmbedPageContextFromParent({
+    timeoutMs: 200,
+    win,
+  });
+  assert.ok(refreshed);
+  assert.ok(refreshed?.textSnippets?.some((snippet) => /photo ID verification/i.test(snippet)));
+
+  const askPayload = buildWebsiteKompisAskPayload({
+    question: "How are desk passes issued at the venue?",
+    locale: "en",
+    domain: exampleDomain,
+    installId: exampleInstallId,
+    pageContext: refreshed ?? stalePageContext,
+  });
+  assert.ok(askPayload.pageContext);
+  const evidenceText = joinCurrentPageEvidenceText(
+    askPayload.pageContext as WebsiteKompisPublicPageContext,
+  );
+  assert.match(evidenceText, /photo ID verification/i);
+  assert.match(evidenceText, /Visitor lounge hours/i);
+
+  // Second panel switch: refresh replaces prior open-panel snippets in ask payload.
+  const switchedPanel = sanitizeWebsiteKompisPublicPageContext({
+    pathname: "/help/venue",
+    title: "Partner venue help",
+    surface: "public",
+    textSnippets: [
+      "Can partners bring guests?: Guest badges require a named host and same-day check-in at reception.",
+    ],
+  });
+  assert.ok(switchedPanel);
+  const switchListeners: Array<(event: MessageEvent) => void> = [];
+  const switchParent = {
+    postMessage() {
+      queueMicrotask(() => {
+        for (const listener of switchListeners) {
+          listener({
+            data: {
+              type: WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE,
+              pageContext: switchedPanel,
+            },
+            source: switchParent,
+          } as unknown as MessageEvent);
+        }
+      });
+    },
+  };
+  const switched = await refreshWebsiteKompisEmbedPageContextFromParent({
+    timeoutMs: 200,
+    win: {
+      parent: switchParent,
+      addEventListener(_type: "message", listener: (event: MessageEvent) => void) {
+        switchListeners.push(listener);
+      },
+      removeEventListener(_type: "message", listener: (event: MessageEvent) => void) {
+        const index = switchListeners.indexOf(listener);
+        if (index >= 0) switchListeners.splice(index, 1);
+      },
+      setTimeout(handler: () => void, timeout: number) {
+        return setTimeout(handler, timeout);
+      },
+      clearTimeout(handle: unknown) {
+        clearTimeout(handle as NodeJS.Timeout);
+      },
+    },
+  });
+  assert.ok(switched?.textSnippets?.some((snippet) => /Guest badges require a named host/i.test(snippet)));
+  const switchedEvidenceText = joinCurrentPageEvidenceText(switched);
+  assert.match(switchedEvidenceText, /Guest badges require a named host/i);
+  assert.doesNotMatch(switchedEvidenceText, /photo ID verification/i);
+}
+
+async function assertPageContextRefreshTimeoutFallback() {
+  const timedOut = await refreshWebsiteKompisEmbedPageContextFromParent({
+    timeoutMs: 40,
+    win: {
+      parent: { postMessage() {} },
+      addEventListener() {},
+      removeEventListener() {},
+      setTimeout(handler: () => void, timeout: number) {
+        return setTimeout(handler, timeout);
+      },
+      clearTimeout(handle: unknown) {
+        clearTimeout(handle as NodeJS.Timeout);
+      },
+    },
+  });
+  assert.equal(timedOut, undefined);
+}
+
+void Promise.all([assertPageContextRefreshTransport(), assertPageContextRefreshTimeoutFallback()])
+  .then(() => {
+    console.log("website-kompis-embed.test.ts: all assertions passed");
+  })
+  .catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });

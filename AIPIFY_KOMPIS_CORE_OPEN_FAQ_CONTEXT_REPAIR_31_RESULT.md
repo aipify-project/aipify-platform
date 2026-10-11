@@ -4,6 +4,10 @@ Date: 2026-10-11
 Feature owner: INSTALL ENGINE / public Website Kompis Core  
 Scope: Open FAQ/accordion text into `textSnippets` via existing page-context capture. No history/retrieval, Push price, dedupe, or gap-contract changes. No LIVE asks from Cursor. Reuse OFF.
 
+## OWNER ACCEPTANCE — FAILED (job 32)
+
+Owner retest 2026-10-11 (screenshots 23:46–23:47 + CSV `aipify-platform-iz5z-log-export-2026-10-11T21-48-05.csv`) on Apex deploys `dpl_7TwyYzbQBuRKToSoe9WUVBt1y8La` / `dpl_EUJPaNh2RXSLdvZ87oNwS8BdfjPf`: open FAQ panels visible («Ledig Nå», «Hvem kan se profilen min?»), asks still returned gap-style “not in sources” with `contextChars=208`, `evidenceKinds=[current-page]`. Loader symbol presence ≠ acceptance. Follow-up: job 32 runtime transport repair. Local job-31 shipping proof below is preserved.
+
 ## First break (from READ.30)
 
 `capturePageContext()` / `collectEmbedParentTextSnippets()` only sampled priced product cards and `<p>` nodes. Open FAQ answers rendered as `.faq-answer` / accordion panels (div/list, no `<p>`) never entered `textSnippets`, so visible open-panel text was missing from public ask evidence.

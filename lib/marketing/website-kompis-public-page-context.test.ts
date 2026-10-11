@@ -164,13 +164,13 @@ assert.equal(
 
 // Neutral FAQ/accordion fixtures (other domain/topic than owner acceptance cases).
 const OPEN_DETAILS_SELECTOR =
-  "main details[open], article details[open], [role='main'] details[open]";
+  "main details[open], article details[open], [role='main'] details[open], [class*='faq'] details[open], [class*='Faq'] details[open], [class*='accordion'] details[open], section details[open]";
 const EXPANDED_CONTROL_SELECTOR =
-  "main [aria-expanded='true'], article [aria-expanded='true'], [role='main'] [aria-expanded='true']";
+  "main [aria-expanded='true'], article [aria-expanded='true'], [role='main'] [aria-expanded='true'], [class*='faq'] [aria-expanded='true'], [class*='Faq'] [aria-expanded='true'], [class*='accordion'] [aria-expanded='true'], section [aria-expanded='true']";
 const ANSWER_PANEL_SELECTOR =
-  "main [class*='faq-answer'], main [class*='FaqAnswer'], article [class*='faq-answer'], article [class*='FaqAnswer'], [role='main'] [class*='faq-answer'], main [class*='accordion-panel'], article [class*='accordion-panel'], [role='main'] [class*='accordion-panel']";
+  "main [class*='faq-answer'], main [class*='FaqAnswer'], article [class*='faq-answer'], article [class*='FaqAnswer'], [role='main'] [class*='faq-answer'], [class*='faq'] [class*='faq-answer'], [class*='Faq'] [class*='faq-answer'], [class*='faq'] [class*='FaqAnswer'], section [class*='faq-answer'], section [class*='FaqAnswer'], main [class*='accordion-panel'], article [class*='accordion-panel'], [role='main'] [class*='accordion-panel'], [class*='accordion'] [class*='accordion-panel'], section [class*='accordion-panel']";
 const ALL_ARIA_EXPANDED_SELECTOR =
-  "main [aria-expanded], article [aria-expanded], [role='main'] [aria-expanded]";
+  "main [aria-expanded], article [aria-expanded], [role='main'] [aria-expanded], [class*='faq'] [aria-expanded], [class*='Faq'] [aria-expanded], [class*='accordion'] [aria-expanded], section [aria-expanded]";
 const PRODUCT_SELECTOR =
   "main [class*='product'], main [class*='Product'], main [class*='offer'], main [data-product], main article, [role='main'] article, main li";
 const PARAGRAPH_SELECTOR = "main p, article p, [role='main'] p, body > p";
@@ -414,5 +414,50 @@ const pricedOnly = collectWebsiteKompisEmbedParentPageContext({
 });
 assert.ok(pricedOnly?.textSnippets?.some((snippet) => /199 kr/i.test(snippet)));
 assert.ok(pricedOnly?.textSnippets?.some((snippet) => /Transparentny cennik/i.test(snippet)));
+
+// FAQ section outside <main> (common help layouts) — still capture open answer panels.
+const sectionFaqButton = {
+  tagName: "BUTTON",
+  textContent: "How are desk passes issued?",
+  getAttribute: (name: string) => {
+    if (name === "aria-expanded") return "true";
+    if (name === "aria-controls") return "desk-pass-panel";
+    return null;
+  },
+  closest: makeClosest({}),
+  nextElementSibling: null as { textContent?: string; id?: string } | null,
+};
+const sectionFaqPanel = {
+  id: "desk-pass-panel",
+  tagName: "DIV",
+  className: "faq-answer",
+  getAttribute: (name: string) => (name === "id" ? "desk-pass-panel" : null),
+  textContent:
+    "Desk passes are issued at reception after photo ID verification on weekdays before 16:00.",
+  closest: makeClosest({}),
+  style: {},
+};
+sectionFaqButton.nextElementSibling = sectionFaqPanel;
+
+const sectionFaqCollected = collectWebsiteKompisEmbedParentPageContext({
+  location: { pathname: "/help/desk-passes" },
+  locale: "en",
+  document: {
+    title: "Desk pass help",
+    getElementById: (id: string) => (id === "desk-pass-panel" ? sectionFaqPanel : null),
+    querySelector: () => null,
+    querySelectorAll(selector: string) {
+      if (selector === "h1, h2") return [];
+      if (selector === OPEN_DETAILS_SELECTOR) return [];
+      if (selector === EXPANDED_CONTROL_SELECTOR) return [sectionFaqButton];
+      if (selector === ANSWER_PANEL_SELECTOR) return [sectionFaqPanel];
+      if (selector === ALL_ARIA_EXPANDED_SELECTOR) return [sectionFaqButton];
+      if (selector === PRODUCT_SELECTOR) return [];
+      if (selector === PARAGRAPH_SELECTOR) return [];
+      return [];
+    },
+  },
+});
+assert.ok(sectionFaqCollected?.textSnippets?.some((snippet) => /photo ID verification/i.test(snippet)));
 
 console.log("website-kompis-public-page-context.test.ts: all assertions passed");
