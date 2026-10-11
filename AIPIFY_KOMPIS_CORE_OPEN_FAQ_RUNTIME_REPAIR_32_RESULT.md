@@ -57,12 +57,15 @@ Fixture limitation: constructed partner-venue / desk-pass topics (not owner word
 
 | Item | Value |
 |------|-------|
-| PR | _(pending)_ |
-| Feature head | _(pending)_ |
-| Merge / `origin/main` | _(pending)_ |
+| PR | [#126](https://github.com/aipify-project/aipify-platform/pull/126) MERGED |
+| Feature head | `0de7390c2dfeffed3f1a76be608f8dc637a08c37` |
+| Merge / `origin/main` | `5c8c168349cf4ebca06ab73c884b37b5e3303e65` |
 | Apex | `aipify-platform-iz5z` / `prj_rekqU1SLEr3v2ifYuUkQ5d4fKR7j` |
-| Production deploy | _(pending)_ |
-| Loader verify | _(pending)_ — must include `scheduleDisclosurePageContextRefresh` + ask-time refresh in widget bundle |
+| Production deploy | `dpl_BVAUUKRQz8vg2micRLwJn1rRJybr` READY |
+| Ready URL | `aipify-platform-iz5z-k1w024yjp-unonight-platform-s-projects.vercel.app` |
+| Aliases | `aipify.ai`, `www.aipify.ai` |
+| Loader verify | `https://aipify.ai/embed/website-kompis.js` includes `scheduleDisclosurePageContextRefresh` + disclosure `attributeFilter` |
+| Widget verify | Embed chunks on Apex include `aipify.websiteKompis.requestPageContext` (ask-time refresh path) |
 
 ## Path register (update)
 
