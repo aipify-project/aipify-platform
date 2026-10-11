@@ -26,7 +26,9 @@ export function looksLikeBareFaqQuestionHeading(text: string): boolean {
   const trimmed = text.trim();
   if (!trimmed || trimmed.length > 160) return false;
   if (!/\?\s*$/.test(trimmed)) return false;
-  return /^(hva|hvordan|hvorfor|kan jeg|må jeg|hvilke|what|how|why|can i)\b/i.test(trimmed);
+  return /^(hva|hvordan|hvorfor|hvor|kan jeg|må jeg|hvilke|what|how|why|where|can i)\b/i.test(
+    trimmed,
+  );
 }
 
 const PRICE_AMOUNT =
@@ -34,6 +36,13 @@ const PRICE_AMOUNT =
 
 export function textLooksLikePublishedPrice(text: string): boolean {
   return PRICE_AMOUNT.test(text);
+}
+
+/** Concrete published cost: currency amount or an explicit point count (not process wording alone). */
+export function textLooksLikeConcretePublishedCost(text: string): boolean {
+  return (
+    textLooksLikePublishedPrice(text) || /\b\d{1,7}\s*(?:poeng|points?)\b/i.test(text)
+  );
 }
 
 export function isProductOrPriceVisitorQuestion(question: string): boolean {

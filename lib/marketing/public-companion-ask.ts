@@ -65,6 +65,7 @@ import {
 import {
   evaluateWebsiteKompisDeterministicAnswerPolicy,
   isWebsiteKompisProviderKnowledgeGapResponse,
+  isWebsiteKompisProviderPartialKnowledgeGapResponse,
   withWebsiteKompisPublicAnswerPathDiagnostic,
   type WebsiteKompisPublicAnswerPath,
 } from "@/lib/marketing/website-kompis-public-answer-policy";
@@ -1297,9 +1298,14 @@ export async function askPublicPlatformCompanion(
         "provider_grounded",
         isPreviewEnv,
       );
-      // Provider honest-gap (covered:false) must NOT skip page/index/FAQ composition.
-      // Sufficient published evidence can still answer via deterministic paths.
-      if (!isWebsiteKompisProviderKnowledgeGapResponse(groundedAnswer)) {
+      // Empty-source honest gaps must NOT skip page/index/FAQ composition —
+      // sufficient published evidence can still answer via deterministic paths.
+      // Partial gaps (covered=false with validated sources) keep provider wording
+      // so extractive fallback cannot overwrite a clear missing-value statement.
+      const keepProviderGrounded =
+        !isWebsiteKompisProviderKnowledgeGapResponse(groundedAnswer) ||
+        isWebsiteKompisProviderPartialKnowledgeGapResponse(groundedAnswer);
+      if (keepProviderGrounded) {
         const groundedSignalsUsed =
           groundedSource === "current-page" ? pageSignalsAvailable : [];
         if (isPreviewEnv) {

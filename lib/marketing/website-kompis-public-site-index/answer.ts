@@ -3,7 +3,9 @@ import {
   isProductOrPriceVisitorQuestion,
   looksLikeBareFaqQuestionHeading,
   looksLikeFaqQuestionList,
+  textLooksLikeConcretePublishedCost,
 } from "@/lib/marketing/website-kompis-answer-relevance";
+import { buildWebsiteKompisMissingConcreteCostGapAnswer } from "@/lib/marketing/website-kompis-public-answer-policy";
 import {
   evaluatePublicSiteIndexUrl,
   normalizePublicSiteIndexCanonicalUrl,
@@ -40,7 +42,10 @@ export type PublicSiteIndexAnswer = {
     level: "high" | "medium" | "low";
     score: number;
   };
-  supportEscalation: { offered: false; reason: null };
+  supportEscalation: {
+    offered: boolean;
+    reason: "knowledge_gap" | null;
+  };
   locale: string;
 };
 
@@ -467,6 +472,28 @@ export function composePublicSiteIndexAnswerText(
     .map((entry) => entry.sentence)
     .filter((sentence, index, all) => all.indexOf(sentence) === index);
 
+  // Price/points ask with topical process text but no concrete published amount:
+  // state the missing value clearly; keep only evidence-backed next-step sentences.
+  if (
+    isProductOrPriceVisitorQuestion(question) &&
+    !textLooksLikeConcretePublishedCost(chosen.join(" "))
+  ) {
+    const nextStep = chosen
+      .filter(
+        (sentence) =>
+          sentenceHasPriceOrCostSignal(sentence) &&
+          !looksLikeBareFaqQuestionHeading(sentence) &&
+          !looksLikeUnresolvedTemplatePlaceholder(sentence),
+      )
+      .slice(0, 2)
+      .join(" ");
+    const gap = buildWebsiteKompisMissingConcreteCostGapAnswer({
+      locale,
+      supportedNextStepFromEvidence: nextStep || null,
+    });
+    return { directAnswer: gap.directAnswer, explanation: null };
+  }
+
   const lead =
     locale === "en"
       ? "Based on the site's public pages:"
@@ -535,8 +562,12 @@ export function buildPublicSiteIndexAnswer(
 
   const topics = topicTokensForPublicSiteIndex(q);
   const topicScore = scorePublicSiteIndexHitTopicOverlap(ranked[0], topics);
-  const confidenceLevel =
-    topicScore >= 6 && ranked[0].score >= 40
+  const missingConcreteCost =
+    isProductOrPriceVisitorQuestion(q) &&
+    !textLooksLikeConcretePublishedCost(composed.directAnswer);
+  const confidenceLevel = missingConcreteCost
+    ? "low"
+    : topicScore >= 6 && ranked[0].score >= 40
       ? "high"
       : topicScore >= 3 || ranked[0].score >= 24
         ? "medium"
@@ -552,9 +583,13 @@ export function buildPublicSiteIndexAnswer(
     sources,
     confidence: {
       level: confidenceLevel,
-      score: Math.min(0.92, Math.max(0.28, (ranked[0].score + topicScore * 4) / 120)),
+      score: missingConcreteCost
+        ? 0.28
+        : Math.min(0.92, Math.max(0.28, (ranked[0].score + topicScore * 4) / 120)),
     },
-    supportEscalation: { offered: false, reason: null },
+    supportEscalation: missingConcreteCost
+      ? { offered: true, reason: "knowledge_gap" }
+      : { offered: false, reason: null },
     locale,
   };
 }

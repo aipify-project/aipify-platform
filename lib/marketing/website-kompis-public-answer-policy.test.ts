@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
 import {
+  buildWebsiteKompisMissingConcreteCostGapAnswer,
   buildWebsiteKompisPublicAnswerPolicyPrompt,
   evaluateWebsiteKompisDeterministicAnswerPolicy,
   isWebsiteKompisProviderKnowledgeGapResponse,
+  isWebsiteKompisProviderPartialKnowledgeGapResponse,
   withWebsiteKompisPublicAnswerPathDiagnostic,
 } from "@/lib/marketing/website-kompis-public-answer-policy";
 
@@ -11,6 +13,17 @@ assert.match(prompt, /Use ONLY the provided evidence/);
 assert.match(prompt, /untrusted data/);
 assert.match(prompt, /FAQ question lists/);
 assert.match(prompt, /language code "no"/);
+assert.match(prompt, /concrete requested value/);
+assert.match(prompt, /covered=false/);
+
+const missingCost = buildWebsiteKompisMissingConcreteCostGapAnswer({
+  locale: "no",
+  supportedNextStepFromEvidence:
+    "Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen.",
+});
+assert.match(missingCost.directAnswer, /finner ikke et konkret/i);
+assert.match(missingCost.directAnswer, /kostnaden/i);
+assert.equal(missingCost.explanation, null);
 
 assert.equal(
   evaluateWebsiteKompisDeterministicAnswerPolicy({
@@ -74,6 +87,20 @@ assert.equal(
 assert.equal(
   isWebsiteKompisProviderKnowledgeGapResponse({
     supportEscalation: { offered: false, reason: null },
+  }),
+  false,
+);
+assert.equal(
+  isWebsiteKompisProviderPartialKnowledgeGapResponse({
+    supportEscalation: { offered: true, reason: "knowledge_gap" },
+    sources: [{ title: "Push", route: "https://www.customer.example/push" }],
+  }),
+  true,
+);
+assert.equal(
+  isWebsiteKompisProviderPartialKnowledgeGapResponse({
+    supportEscalation: { offered: true, reason: "knowledge_gap" },
+    sources: [],
   }),
   false,
 );

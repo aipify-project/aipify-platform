@@ -561,6 +561,90 @@ async function main() {
     assert.equal(result.response.sources.length, 0);
   });
 
+  await test("partial knowledge gap may cite topical sources for next step without inventing price", async () => {
+    // Fixture stub — not a retained LIVE model payload from Push gap_with_sources.
+    const pack = buildWebsiteKompisEvidencePack({
+      question: "Hvor mange poeng koster én Push?",
+      locale: "no",
+      siteIndexHits: [
+        {
+          documentId: "doc-push",
+          chunkId: "chunk-push-gap",
+          title: "Push på markedsplassen",
+          canonicalUrl: pushPageContext.canonicalUrl,
+          pathname: pushPageContext.pathname,
+          locale: "no",
+          excerpt: "Push synliggjør annonsen. Før poengene trekkes, får du alltid se kostnaden.",
+          chunkContent:
+            "Push gjør annonsen mer synlig. En Push koster {pushCost} poeng. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen.",
+          score: 36,
+          matchedReason: "title",
+          crawledAt: null,
+        },
+      ],
+      pageContext: {
+        ...pushPageContext,
+        textSnippets: [
+          "Push gjør annonsen mer synlig. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen.",
+        ],
+      },
+    });
+    assert.ok(pack.evidence.some((item) => item.id === "index:chunk-push-gap"));
+
+    const accepted = validateWebsiteKompisGroundedPayloadForQuestion(
+      {
+        covered: false,
+        answer:
+          "Jeg finner ikke et konkret poengtall i informasjonen jeg har. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen.",
+        sourceIds: ["index:chunk-push-gap"],
+        followUp: "Hvor ser jeg hvor mange poeng jeg har?",
+      },
+      pack.evidence,
+      "Hvor mange poeng koster én Push?",
+    );
+    assert.equal(accepted.ok, true);
+    if (accepted.ok) {
+      assert.equal(accepted.sources[0]?.id, "index:chunk-push-gap");
+    }
+
+    const invented = validateWebsiteKompisGroundedPayload(
+      {
+        covered: false,
+        answer: "En Push koster 99 poeng.",
+        sourceIds: ["index:chunk-push-gap"],
+        followUp: null,
+      },
+      pack.evidence,
+    );
+    assert.equal(invented.ok, false);
+    if (!invented.ok) assert.match(invented.reason, /ungrounded_number:99/);
+
+    const synthesized = await synthesizeWebsiteKompisGroundedAnswer({
+      pack,
+      completion: async () => ({
+        ok: true,
+        text: JSON.stringify({
+          covered: false,
+          answer:
+            "Jeg finner ikke et konkret poengtall i informasjonen jeg har. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen.",
+          sourceIds: ["chunk-push-gap"],
+          followUp: "Hvor ser jeg hvor mange poeng jeg har?",
+        }),
+        modelProfile: "kompis_result_summary_v1",
+        latencyMs: 1,
+        usage: { inputUnits: 2, outputUnits: 4, totalUnits: 6 },
+      }),
+    });
+    assert.equal(synthesized.status, "ok");
+    if (synthesized.status !== "ok") return;
+    assert.match(synthesized.response.answer.directAnswer, /finner ikke et konkret poengtall/i);
+    assert.match(synthesized.response.answer.directAnswer, /kostnaden/i);
+    assert.doesNotMatch(synthesized.response.answer.directAnswer, /\{pushCost\}|99/);
+    assert.equal(synthesized.response.answer.explanation, null);
+    assert.equal(synthesized.response.supportEscalation.reason, "knowledge_gap");
+    assert.ok(synthesized.response.sources.length >= 1);
+  });
+
   await test("deictic current-page summaries pass topical validation for Push and Shipping", async () => {
     const question = "Hva handler denne siden om?";
     for (const pageContext of [pushPageContext, shippingPageContext]) {

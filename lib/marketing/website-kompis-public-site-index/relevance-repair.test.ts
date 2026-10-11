@@ -283,18 +283,19 @@ const pushCostQuestion = buildPublicSiteIndexAnswer(
   "www.customer.example",
   "Hva koster en Push på markedsplassen?",
 );
-if (pushCostQuestion) {
-  assert.doesNotMatch(pushCostQuestion.answer.directAnswer, /\{pushCost\}/);
-}
+assert.ok(pushCostQuestion);
+assert.doesNotMatch(pushCostQuestion!.answer.directAnswer, /\{pushCost\}/);
+assert.match(pushCostQuestion!.answer.directAnswer, /finner ikke et konkret/i);
+assert.doesNotMatch(pushCostQuestion!.answer.directAnswer, /Hvor ser jeg/i);
 
-// LIVE.14: stale chunk with CMS holes must still yield a usable Push cost path (not empty).
+// LIVE.14 / job.29: stale chunk with CMS holes → clear missing-value gap + next-step kostnad wording.
 const stalePushChunk = hit({
   pathname: "/no/faq/marketplace-listing-push",
   title: "Push annonsen til toppen av markedsplassen",
   excerpt:
     "Med Push kan du flytte en aktiv annonse til toppen av markedsplassen. En Push koster {pushCost} poeng. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen.",
   chunkContent:
-    "Med Push kan du flytte en aktiv annonse til toppen av markedsplassen. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen. Sist oppdatert {6/24/2026} Markedsplass Øk synligheten.",
+    "Med Push kan du flytte en aktiv annonse til toppen av markedsplassen. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen. Sist oppdatert {6/24/2026} Markedsplass Øk synligheten. Hvor ser jeg hvor mange poeng jeg har?",
   score: 38,
   locale: "no",
 });
@@ -302,16 +303,19 @@ const stalePushAnswer = buildPublicSiteIndexAnswer(
   [stalePushChunk],
   "no",
   "www.customer.example",
-  "Hva koster en Push på markedsplassen?",
+  "Hvor mange poeng koster én Push?",
 );
 assert.ok(stalePushAnswer);
 assert.doesNotMatch(stalePushAnswer!.answer.directAnswer, /\{[^}]+\}/);
-assert.match(stalePushAnswer!.answer.directAnswer, /Push|kostnad/i);
+assert.match(stalePushAnswer!.answer.directAnswer, /finner ikke et konkret/i);
+assert.match(stalePushAnswer!.answer.directAnswer, /kostnaden/i);
+assert.doesNotMatch(stalePushAnswer!.answer.directAnswer, /Hvor ser jeg/i);
+assert.equal(stalePushAnswer!.supportEscalation.reason, "knowledge_gap");
 assert.ok(
   stalePushAnswer!.sources[0]?.route.includes("marketplace-listing-push"),
 );
 
-// LIVE.14: long nav+definition chunk must keep the kostnad sentence (policy needs cost signal).
+// LIVE.14 / job.29: long nav+definition chunk — missing concrete amount stays an honest gap.
 const productionLikePush = hit({
   pathname: "/no/faq/marketplace-listing-push",
   title: "Push annonsen til toppen av markedsplassen",
@@ -330,7 +334,29 @@ const productionLikePushAnswer = buildPublicSiteIndexAnswer(
 );
 assert.ok(productionLikePushAnswer);
 assert.doesNotMatch(productionLikePushAnswer!.answer.directAnswer, /\{[^}]+\}/);
+assert.match(productionLikePushAnswer!.answer.directAnswer, /finner ikke et konkret/i);
 assert.match(productionLikePushAnswer!.answer.directAnswer, /kostnaden/i);
-assert.match(productionLikePushAnswer!.answer.directAnswer, /Push/i);
+assert.equal(productionLikePushAnswer!.supportEscalation.reason, "knowledge_gap");
+
+// Known concrete point amount still answers directly (exact price coverage path).
+const pricedPush = hit({
+  pathname: "/no/faq/marketplace-listing-push",
+  title: "Push annonsen til toppen av markedsplassen",
+  excerpt: "En Push koster 49 poeng.",
+  chunkContent:
+    "En Push koster 49 poeng. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen.",
+  score: 40,
+  locale: "no",
+});
+const pricedPushAnswer = buildPublicSiteIndexAnswer(
+  [pricedPush],
+  "no",
+  "www.customer.example",
+  "Hvor mange poeng koster én Push?",
+);
+assert.ok(pricedPushAnswer);
+assert.match(pricedPushAnswer!.answer.directAnswer, /49\s*poeng/i);
+assert.doesNotMatch(pricedPushAnswer!.answer.directAnswer, /finner ikke et konkret/i);
+assert.equal(pricedPushAnswer!.supportEscalation.offered, false);
 
 console.log("website-kompis-public-site-index relevance-repair: passed");
