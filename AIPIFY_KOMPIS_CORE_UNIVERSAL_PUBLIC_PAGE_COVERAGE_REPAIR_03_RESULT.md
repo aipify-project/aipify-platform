@@ -52,14 +52,14 @@ Preview browser-QA: code-level contract verified; Production smoke after deploy 
 
 ## Deploy
 
-(filled after merge)
+Deploy order used: Core first, then Host.
 
 | Surface | PR | Merge SHA | Production |
 |--------|----|-----------|------------|
-| Core | TBD | TBD | TBD |
-| Host | TBD | TBD | TBD |
+| Core | [#110](https://github.com/aipify-project/aipify-platform/pull/110) MERGED | `79d34c20` | READY (`dpl_6GnpaUvJEwAMQudp9tegtNajRvPP` / aipify) |
+| Host | [#649](https://github.com/Unonight/unonight-platform/pull/649) MERGED | `79e6573a` | READY (Vercel Production success) |
 
-Deploy order: Core first, then Host.
+Code LIVE ≠ full browser Production QA. Smoke login/register + member private still recommended.
 
 ## Out of scope
 
