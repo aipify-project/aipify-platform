@@ -48,10 +48,12 @@ async function main() {
   const {
     buildWebsiteKompisEvidencePack,
     parseWebsiteKompisGroundedModelPayload,
+    resolveWebsiteKompisCitedEvidenceId,
     validateWebsiteKompisGroundedPayload,
     validateWebsiteKompisGroundedPayloadForQuestion,
     synthesizeWebsiteKompisGroundedAnswer,
     detectWebsiteKompisPromptInjection,
+    buildWebsiteKompisGroundedUserPrompt,
   } = await import("./website-kompis-grounded-answer");
 
   const pushPageContext = {
@@ -275,6 +277,158 @@ async function main() {
       pack.evidence,
     );
     assert.equal(unknown.ok, false);
+  });
+
+  await test("source-id contract: unique bare index chunk id resolves in mixed shipping pack", async () => {
+    // LIVE.27 reject shape: unknown_source:93850dad-… with EvidenceKinds index+current-page.
+    // Gap: raw model payload was not retained — this stub reproduces the bare-UUID citation.
+    const chunkId = "93850dad-b932-4d89-91f5-33e0c5506b6c";
+    const pack = buildWebsiteKompisEvidencePack({
+      question: "Hvem betaler frakten?",
+      locale: "no",
+      siteIndexHits: [
+        {
+          documentId: "doc-shipping",
+          chunkId,
+          title: "Frakt av fysiske varer",
+          canonicalUrl: shippingPageContext.canonicalUrl,
+          pathname: shippingPageContext.pathname,
+          locale: "no",
+          excerpt: "Kjøper betaler frakten for fysiske varer.",
+          chunkContent:
+            "Kjøper betaler frakten for fysiske varer, med mindre selger og kjøper avtaler noe annet. Digitale varer sendes ikke.",
+          score: 12,
+          matchedReason: "title",
+          crawledAt: null,
+        },
+      ],
+      pageContext: {
+        ...shippingPageContext,
+        textSnippets: [
+          "Kjøper betaler frakten for fysiske varer, med mindre selger og kjøper avtaler noe annet.",
+        ],
+      },
+    });
+
+    assert.ok(pack.evidence.some((item) => item.id === `index:${chunkId}`));
+    assert.ok(pack.evidence.some((item) => item.id === "page:current"));
+    assert.match(
+      buildWebsiteKompisGroundedUserPrompt(pack),
+      /exact bracket ids, including kind prefixes/,
+    );
+
+    assert.equal(
+      resolveWebsiteKompisCitedEvidenceId(chunkId, pack.evidence)?.id,
+      `index:${chunkId}`,
+    );
+    assert.equal(
+      resolveWebsiteKompisCitedEvidenceId(`index:${chunkId}`, pack.evidence)?.id,
+      `index:${chunkId}`,
+    );
+    assert.equal(
+      resolveWebsiteKompisCitedEvidenceId("page:current", pack.evidence)?.id,
+      "page:current",
+    );
+    assert.equal(
+      resolveWebsiteKompisCitedEvidenceId("aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee", pack.evidence),
+      null,
+    );
+
+    const bareAccepted = validateWebsiteKompisGroundedPayloadForQuestion(
+      {
+        covered: true,
+        answer:
+          "Kjøper betaler frakten for fysiske varer, med mindre selger og kjøper avtaler noe annet.",
+        sourceIds: [chunkId],
+        followUp: null,
+      },
+      pack.evidence,
+      "Hvem betaler frakten?",
+    );
+    assert.equal(bareAccepted.ok, true);
+    if (bareAccepted.ok) {
+      assert.equal(bareAccepted.sources[0]?.id, `index:${chunkId}`);
+      assert.equal(bareAccepted.sources[0]?.kind, "public-site-index");
+    }
+
+    const prefixedOk = validateWebsiteKompisGroundedPayloadForQuestion(
+      {
+        covered: true,
+        answer: "Kjøper betaler frakten for fysiske varer.",
+        sourceIds: [`index:${chunkId}`, "page:current"],
+        followUp: null,
+      },
+      pack.evidence,
+      "Hvem betaler frakten?",
+    );
+    assert.equal(prefixedOk.ok, true);
+
+    const foreign = validateWebsiteKompisGroundedPayload(
+      {
+        covered: true,
+        answer: "Kjøper betaler frakten.",
+        sourceIds: ["aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee"],
+        followUp: null,
+      },
+      pack.evidence,
+    );
+    assert.equal(foreign.ok, false);
+    if (!foreign.ok) {
+      assert.equal(foreign.reason, "unknown_source:aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee");
+    }
+
+    const ambiguous = validateWebsiteKompisGroundedPayload(
+      {
+        covered: true,
+        answer: "Kjøper betaler frakten.",
+        sourceIds: ["shared-suffix"],
+        followUp: null,
+      },
+      [
+        {
+          id: "index:shared-suffix",
+          kind: "public-site-index",
+          title: "Index shipping",
+          url: shippingPageContext.canonicalUrl,
+          locale: "no",
+          text: "Kjøper betaler frakten.",
+        },
+        {
+          id: "faq:shared-suffix",
+          kind: "faq",
+          title: "FAQ shipping",
+          url: shippingPageContext.canonicalUrl,
+          locale: "no",
+          text: "Kjøper betaler frakten.",
+        },
+      ],
+    );
+    assert.equal(ambiguous.ok, false);
+    if (!ambiguous.ok) assert.equal(ambiguous.reason, "unknown_source:shared-suffix");
+
+    const synthesized = await synthesizeWebsiteKompisGroundedAnswer({
+      pack,
+      completion: async () => ({
+        ok: true,
+        text: JSON.stringify({
+          covered: true,
+          answer:
+            "Kjøper betaler frakten for fysiske varer, med mindre selger og kjøper avtaler noe annet.",
+          sourceIds: [chunkId],
+          followUp: null,
+        }),
+        modelProfile: "kompis_result_summary_v1",
+        latencyMs: 1,
+        usage: { inputUnits: 2, outputUnits: 4, totalUnits: 6 },
+      }),
+    });
+    assert.equal(synthesized.status, "ok");
+    if (synthesized.status !== "ok") return;
+    assert.match(synthesized.response.answer.directAnswer, /Kjøper betaler frakten/i);
+    assert.equal(
+      synthesized.response.sources[0]?.route,
+      shippingPageContext.canonicalUrl,
+    );
   });
 
   await test("detects prompt injection in visitor question", () => {
