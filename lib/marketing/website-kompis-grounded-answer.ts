@@ -297,7 +297,7 @@ export function buildWebsiteKompisGroundedUserPrompt(pack: WebsiteKompisEvidence
     `Visitor locale: ${pack.locale}`,
     `Question: ${clip(pack.question, 500)}`,
     recent ? `Recent conversation:\n${recent}` : "Recent conversation: (none)",
-    "Evidence:",
+    "Evidence (cite sourceIds using the exact bracket ids, including kind prefixes):",
     evidenceBlock || "(none)",
   ].join("\n\n");
 }
@@ -352,6 +352,31 @@ export function detectWebsiteKompisPromptInjection(question: string): boolean {
   return INJECTION_MARKERS.test(question);
 }
 
+/**
+ * Resolve a model-cited source id against THIS request's evidence pack only.
+ * Canonical ids are kind-prefixed (`faq:…`, `index:…`, `page:current`).
+ * Compatibility: if the model omits the kind prefix and exactly one pack item
+ * has that id segment after the first `:`, accept that unique match.
+ * Ambiguous aliases and ids outside the pack stay unknown — never cross-tenant.
+ */
+export function resolveWebsiteKompisCitedEvidenceId(
+  citedId: string,
+  evidence: readonly WebsiteKompisEvidenceSnippet[],
+): WebsiteKompisEvidenceSnippet | null {
+  const cited = citedId.trim();
+  if (!cited) return null;
+
+  const exact = evidence.find((item) => item.id === cited);
+  if (exact) return exact;
+
+  const suffixMatches = evidence.filter((item) => {
+    const separator = item.id.indexOf(":");
+    if (separator <= 0) return false;
+    return item.id.slice(separator + 1) === cited;
+  });
+  return suffixMatches.length === 1 ? suffixMatches[0]! : null;
+}
+
 export function validateWebsiteKompisGroundedPayload(
   payload: WebsiteKompisGroundedModelPayload,
   evidence: WebsiteKompisEvidenceSnippet[],
@@ -360,7 +385,6 @@ export function validateWebsiteKompisGroundedPayload(
     return { ok: false, reason: "injection_in_answer" };
   }
 
-  const byId = new Map(evidence.map((item) => [item.id, item]));
   if (!payload.covered) {
     if (payload.sourceIds.length > 0) {
       return { ok: false, reason: "gap_with_sources" };
@@ -375,10 +399,10 @@ export function validateWebsiteKompisGroundedPayload(
   const sources: WebsiteKompisEvidenceSnippet[] = [];
   const seenIds = new Set<string>();
   for (const id of payload.sourceIds) {
-    if (seenIds.has(id)) continue;
-    seenIds.add(id);
-    const match = byId.get(id);
+    const match = resolveWebsiteKompisCitedEvidenceId(id, evidence);
     if (!match) return { ok: false, reason: `unknown_source:${id}` };
+    if (seenIds.has(match.id)) continue;
+    seenIds.add(match.id);
     sources.push(match);
   }
 
