@@ -460,4 +460,127 @@ const sectionFaqCollected = collectWebsiteKompisEmbedParentPageContext({
 });
 assert.ok(sectionFaqCollected?.textSnippets?.some((snippet) => /photo ID verification/i.test(snippet)));
 
+// Job 34: ≥11 SSR-open panels displace a late panel unless visitor preference is applied.
+const manyOpenControls = Array.from({ length: 11 }, (_, index) => {
+  const id = `slot-panel-${index + 1}`;
+  const panel = {
+    id,
+    tagName: "DIV",
+    className: "faq-answer",
+    getAttribute: (name: string) => (name === "id" ? id : null),
+    textContent: `Reserve answer body ${index + 1} describes an earlier default-open operational topic with enough length.`,
+    closest: makeClosest({}),
+    style: {},
+  };
+  const button = {
+    tagName: "BUTTON",
+    textContent: `Early open topic ${index + 1} for partners`,
+    getAttribute: (name: string) => {
+      if (name === "aria-expanded") return "true";
+      if (name === "aria-controls") return id;
+      return null;
+    },
+    closest: makeClosest({}),
+    nextElementSibling: panel,
+  };
+  return { button, panel };
+});
+const latePanel = {
+  id: "late-active-panel",
+  tagName: "DIV",
+  className: "faq-answer",
+  getAttribute: (name: string) => (name === "id" ? "late-active-panel" : null),
+  textContent:
+    "When desk access is active, use the operations panel for profile setup, offers, orders, delivery, and payment settings under current features.",
+  closest: makeClosest({}),
+  style: {},
+};
+const lateButton = {
+  tagName: "BUTTON",
+  textContent: "What happens when the operations panel opens?",
+  getAttribute: (name: string) => {
+    if (name === "aria-expanded") return "true";
+    if (name === "aria-controls") return "late-active-panel";
+    return null;
+  },
+  closest: makeClosest({}),
+  nextElementSibling: latePanel,
+};
+const crowdedFaqDocument = {
+  title: "Crowded help",
+  getElementById(id: string) {
+    if (id === "late-active-panel") return latePanel;
+    const hit = manyOpenControls.find((entry) => entry.panel.id === id);
+    return hit?.panel ?? null;
+  },
+  querySelector: () => null,
+  querySelectorAll(selector: string) {
+    if (selector === "h1, h2") return [];
+    if (selector === OPEN_DETAILS_SELECTOR) return [];
+    if (selector === EXPANDED_CONTROL_SELECTOR) {
+      return [...manyOpenControls.map((entry) => entry.button), lateButton];
+    }
+    if (selector === ANSWER_PANEL_SELECTOR) {
+      return [...manyOpenControls.map((entry) => entry.panel), latePanel];
+    }
+    if (selector === ALL_ARIA_EXPANDED_SELECTOR) {
+      return [...manyOpenControls.map((entry) => entry.button), lateButton];
+    }
+    if (selector === PRODUCT_SELECTOR) return [];
+    if (selector === PARAGRAPH_SELECTOR) return [];
+    return [];
+  },
+};
+const crowdedWithoutPreference = collectWebsiteKompisEmbedParentPageContext({
+  location: { pathname: "/help/crowded" },
+  locale: "en",
+  document: crowdedFaqDocument,
+});
+assert.equal(crowdedWithoutPreference?.textSnippets?.length, 8);
+assert.ok(
+  crowdedWithoutPreference?.textSnippets?.every(
+    (snippet) => !/operations panel for profile setup/i.test(snippet),
+  ),
+);
+
+const crowdedWithPreference = collectWebsiteKompisEmbedParentPageContext({
+  location: { pathname: "/help/crowded" },
+  locale: "en",
+  document: crowdedFaqDocument,
+  preferredOpenDisclosure: {
+    question: "What happens when the operations panel opens?",
+    answer:
+      "When desk access is active, use the operations panel for profile setup, offers, orders, delivery, and payment settings under current features.",
+  },
+});
+assert.ok(crowdedWithPreference?.textSnippets?.[0]);
+assert.match(
+  crowdedWithPreference!.textSnippets![0]!,
+  /operations panel for profile setup/i,
+);
+assert.ok((crowdedWithPreference?.textSnippets?.length ?? 0) <= 8);
+assert.ok((crowdedWithPreference?.textSnippets ?? []).every((snippet) => snippet.length <= 240));
+// Preferred uses one slot; other open panels still fill remaining reserve slots.
+assert.ok((crowdedWithPreference?.textSnippets?.length ?? 0) >= 2);
+assert.ok(
+  crowdedWithPreference?.textSnippets?.some((snippet) => /Early open topic 1/i.test(snippet)),
+);
+
+const switchedPreference = collectWebsiteKompisEmbedParentPageContext({
+  location: { pathname: "/help/crowded" },
+  locale: "en",
+  document: crowdedFaqDocument,
+  preferredOpenDisclosure: {
+    question: "Early open topic 10 for partners",
+    answer:
+      "Reserve answer body 10 describes an earlier default-open operational topic with enough length.",
+  },
+});
+assert.match(switchedPreference!.textSnippets![0]!, /Reserve answer body 10/i);
+assert.ok(
+  switchedPreference?.textSnippets?.every(
+    (snippet) => !/operations panel for profile setup/i.test(snippet),
+  ),
+);
+
 console.log("website-kompis-public-page-context.test.ts: all assertions passed");

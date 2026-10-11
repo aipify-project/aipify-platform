@@ -228,6 +228,7 @@
     lastAccessClass = accessClass;
     applySurfaceVisibility(nextActive);
     if (clearContext || becameInactive) {
+      clearActiveDisclosure();
       postSurfaceToIframe(accessClass, nextActive, true);
     } else {
       postSurfaceToIframe(accessClass, nextActive, false);
@@ -434,7 +435,112 @@
     return false;
   }
 
+  // Visitor-activated disclosure only (not SSR default-open DOM order).
+  var lastActiveDisclosure = null;
+  var pendingUserDisclosureControl = null;
+  var pendingUserDisclosureAt = 0;
+
+  function clearActiveDisclosure() {
+    lastActiveDisclosure = null;
+    pendingUserDisclosureControl = null;
+    pendingUserDisclosureAt = 0;
+  }
+
+  function findDisclosureControlFromTarget(target) {
+    if (!target || !target.closest) return null;
+    var control = target.closest("[aria-expanded], summary");
+    if (control) return control;
+    var answerPanel = target.closest
+      ? target.closest("[class*='faq-answer'], [class*='FaqAnswer'], [class*='accordion-panel'], [role='region']")
+      : null;
+    if (!answerPanel) return null;
+    var panelId = answerPanel.id ? String(answerPanel.id).trim() : "";
+    if (panelId) {
+      var controls = document.querySelectorAll("[aria-controls]");
+      for (var ci = 0; ci < controls.length; ci += 1) {
+        var candidate = controls[ci];
+        var controlsId = candidate.getAttribute
+          ? String(candidate.getAttribute("aria-controls") || "").trim()
+          : "";
+        if (controlsId === panelId) return candidate;
+      }
+    }
+    var prev = answerPanel.previousElementSibling;
+    if (prev && prev.getAttribute && prev.getAttribute("aria-expanded") != null) {
+      return prev;
+    }
+    return null;
+  }
+
+  function rememberActiveDisclosureFromControl(control) {
+    if (!control || isInsideUnsafeContent(control) || isInsideChrome(control)) return;
+    var question = "";
+    var answer = "";
+    var panel = null;
+    var tag = String(control.tagName || "").toUpperCase();
+    if (tag === "SUMMARY" && control.parentElement) {
+      var details = control.parentElement;
+      if (!isOpenDetailsElement(details) || !isElementVisiblyOpen(details)) return;
+      question = control.textContent || "";
+      answer = detailsAnswerText(details);
+      panel = details;
+    } else {
+      if (control.getAttribute && control.getAttribute("aria-expanded") !== "true") return;
+      panel = resolveExpandedAnswerPanel(control);
+      if (!panel || !isElementVisiblyOpen(panel)) return;
+      if (isInsideUnsafeContent(panel) || isInsideChrome(panel)) return;
+      question = control.textContent || "";
+      answer = panel.textContent || "";
+    }
+    var snippet = formatOpenPanelSnippet(question, answer);
+    if (!snippet) return;
+    lastActiveDisclosure = {
+      question: normalizeText(question, MAX_HEADING_LENGTH),
+      answer: normalizeText(answer, MAX_TEXT_SNIPPET_LENGTH),
+      panel: panel,
+      control: control,
+      snippet: snippet,
+    };
+  }
+
+  function onDisclosureUserActivate(event) {
+    if (!event || !event.target) return;
+    var control = findDisclosureControlFromTarget(event.target);
+    if (!control) return;
+    pendingUserDisclosureControl = control;
+    pendingUserDisclosureAt = Date.now();
+    // Already-open panel: click/focus activates it without an attribute change.
+    rememberActiveDisclosureFromControl(control);
+    scheduleDisclosurePageContextRefresh();
+  }
+
   function collectOpenDisclosureSnippets(pushSnippet, textSnippets) {
+    // Prefer visitor-activated panel (one 240-char slot), then other open panels.
+    if (lastActiveDisclosure) {
+      var activePanel = lastActiveDisclosure.panel;
+      var activeControl = lastActiveDisclosure.control;
+      var stillOpen = false;
+      if (activePanel && isElementVisiblyOpen(activePanel)) {
+        if (activeControl && activeControl.getAttribute) {
+          var tagName = String(activeControl.tagName || "").toUpperCase();
+          if (tagName === "SUMMARY") {
+            stillOpen = activeControl.parentElement
+              ? isOpenDetailsElement(activeControl.parentElement)
+              : false;
+          } else {
+            stillOpen = activeControl.getAttribute("aria-expanded") === "true";
+          }
+        } else {
+          stillOpen = true;
+        }
+      }
+      if (stillOpen && lastActiveDisclosure.snippet) {
+        pushSnippet(lastActiveDisclosure.snippet);
+      } else {
+        clearActiveDisclosure();
+      }
+    }
+
     var detailsNodes = document.querySelectorAll(OPEN_DETAILS_SELECTOR);
     for (var d = 0; d < detailsNodes.length && textSnippets.length < MAX_TEXT_SNIPPETS; d += 1) {
       var details = detailsNodes[d];
@@ -725,6 +831,7 @@
     }
     lastPathname = nextPath;
     lastHref = nextHref;
+    clearActiveDisclosure();
     locale = resolveRuntimeLocale();
     applyAccessClass(readHostAccessClass());
   }
@@ -866,24 +973,53 @@
     }, 120);
   }
 
+  document.addEventListener("click", onDisclosureUserActivate, true);
+  document.addEventListener("focusin", onDisclosureUserActivate, true);
+
   if (typeof MutationObserver === "function" && document.body) {
     var disclosureObserver = new MutationObserver(function onDisclosureMutation(mutations) {
+      var shouldRefresh = false;
       for (var i = 0; i < mutations.length; i += 1) {
         var mutation = mutations[i];
         if (mutation.type !== "attributes") continue;
         var attr = mutation.attributeName;
         if (
-          attr === "open" ||
-          attr === "aria-expanded" ||
-          attr === "aria-hidden" ||
-          attr === "hidden" ||
-          attr === "data-state" ||
-          attr === "class" ||
-          attr === "style"
+          attr !== "open" &&
+          attr !== "aria-expanded" &&
+          attr !== "aria-hidden" &&
+          attr !== "hidden" &&
+          attr !== "data-state" &&
+          attr !== "class" &&
+          attr !== "style"
         ) {
-          scheduleDisclosurePageContextRefresh();
-          return;
+          continue;
         }
+        shouldRefresh = true;
+        // Only promote last-active from attribute opens tied to a recent user gesture.
+        var target = mutation.target;
+        if (
+          target &&
+          pendingUserDisclosureControl &&
+          Date.now() - pendingUserDisclosureAt < 1000 &&
+          (target === pendingUserDisclosureControl ||
+            (pendingUserDisclosureControl.contains &&
+              pendingUserDisclosureControl.contains(target)) ||
+            (target.contains && target.contains(pendingUserDisclosureControl)))
+        ) {
+          if (attr === "aria-expanded" && target.getAttribute && target.getAttribute("aria-expanded") === "true") {
+            rememberActiveDisclosureFromControl(target);
+          } else if (attr === "open" && isOpenDetailsElement(target)) {
+            var summary = target.querySelector ? target.querySelector("summary") : null;
+            if (summary) rememberActiveDisclosureFromControl(summary);
+          } else if (attr === "aria-expanded" && target.getAttribute && target.getAttribute("aria-expanded") === "false") {
+            if (lastActiveDisclosure && lastActiveDisclosure.control === target) {
+              clearActiveDisclosure();
+            }
+          }
+        }
+      }
+      if (shouldRefresh) {
+        scheduleDisclosurePageContextRefresh();
       }
     });
     disclosureObserver.observe(document.body, {

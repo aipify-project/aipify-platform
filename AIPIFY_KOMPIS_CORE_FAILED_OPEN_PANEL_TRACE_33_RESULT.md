@@ -107,7 +107,7 @@ Constructed FAQ list: eight early open `.faq-answer` panels with neutral copy + 
 
 | Path | Role |
 |------|------|
-| `collectOpenDisclosureSnippets` DOM-order + 8 cap | **Job 33 first break** — displaces late open FAQ among many open panels |
+| `collectOpenDisclosureSnippets` DOM-order + 8 cap | **Job 33 first break** — displaces late open FAQ among many open panels → repaired in job 34 (visitor-preferred panel first) |
 | `refreshWebsiteKompisEmbedPageContextFromParent` | Job 32 — necessary but insufficient alone |
 | `buildWebsiteKompisPageEvidence` (900-char clip) | Downstream; not first loss for missing open-panel sentence |
 | `buildWebsiteKompisEvidencePack` topic filter → empty pack | Feeds `9l562` zero-evidence then index fallback |

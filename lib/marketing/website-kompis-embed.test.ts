@@ -32,6 +32,7 @@ import {
   WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE,
 } from "@/lib/marketing/website-kompis-embed";
 import {
+  collectWebsiteKompisEmbedParentPageContext,
   sanitizeWebsiteKompisPublicPageContext,
   type WebsiteKompisPublicPageContext,
 } from "@/lib/marketing/website-kompis-public-page-context";
@@ -340,6 +341,10 @@ assert.match(loaderSource, /faq-answer/);
 assert.match(loaderSource, /isElementVisiblyOpen/);
 assert.match(loaderSource, /scheduleDisclosurePageContextRefresh/);
 assert.match(loaderSource, /attributeFilter:\s*\[[^\]]*aria-expanded/);
+assert.match(loaderSource, /lastActiveDisclosure/);
+assert.match(loaderSource, /onDisclosureUserActivate/);
+assert.match(loaderSource, /rememberActiveDisclosureFromControl/);
+assert.match(loaderSource, /clearActiveDisclosure/);
 assert.match(widgetSource, /refreshWebsiteKompisEmbedPageContextFromParent/);
 // Universal public surface contract — Core owns activation from host access adapter.
 assert.match(loaderSource, /aipify\.websiteKompis\.surface/);
@@ -509,6 +514,102 @@ async function assertPageContextRefreshTransport() {
   assert.doesNotMatch(switchedEvidenceText, /photo ID verification/i);
 }
 
+async function assertPreferredDisclosureTransport() {
+  const earlyPanels = Array.from({ length: 11 }, (_, index) => ({
+    tagName: "DETAILS",
+    open: true,
+    getAttribute: (name: string) => (name === "open" ? "" : null),
+    querySelector: (sel: string) =>
+      sel === "summary" ? { textContent: `Catalog item ${index + 1} question` } : null,
+    textContent: `Catalog item ${index + 1} question Catalog item ${index + 1} answer body with enough length for capture.`,
+    closest: () => null,
+  }));
+  const preferredQuestion = "What happens when the operations panel opens?";
+  const preferredAnswer =
+    "When desk access is active, use the operations panel for profile setup, offers, orders, delivery, and payment settings under current features.";
+  const openDetailsSelector =
+    "main details[open], article details[open], [role='main'] details[open], [class*='faq'] details[open], [class*='Faq'] details[open], [class*='accordion'] details[open], section details[open]";
+  const crowdedDoc = {
+    title: "Crowded venue help",
+    querySelector: () => null,
+    querySelectorAll(selector: string) {
+      if (selector === "h1, h2") return [];
+      if (selector === openDetailsSelector) return earlyPanels;
+      return [];
+    },
+  };
+  const withoutPreferred = collectWebsiteKompisEmbedParentPageContext({
+    location: { pathname: "/help/ops" },
+    locale: "en",
+    document: crowdedDoc,
+  });
+  assert.ok(
+    withoutPreferred?.textSnippets?.every((snippet) => !/operations panel for profile setup/i.test(snippet)),
+  );
+
+  const withPreferred = collectWebsiteKompisEmbedParentPageContext({
+    location: { pathname: "/help/ops" },
+    locale: "en",
+    document: crowdedDoc,
+    preferredOpenDisclosure: {
+      question: preferredQuestion,
+      answer: preferredAnswer,
+    },
+  });
+  assert.match(withPreferred!.textSnippets![0]!, /operations panel for profile setup/i);
+
+  const listeners: Array<(event: MessageEvent) => void> = [];
+  const parent = {
+    postMessage(message: unknown) {
+      assert.equal(
+        (message as { type?: string }).type,
+        WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_REQUEST_MESSAGE_TYPE,
+      );
+      queueMicrotask(() => {
+        for (const listener of listeners) {
+          listener({
+            data: {
+              type: WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE,
+              pageContext: withPreferred,
+            },
+            source: parent,
+          } as unknown as MessageEvent);
+        }
+      });
+    },
+  };
+  const refreshed = await refreshWebsiteKompisEmbedPageContextFromParent({
+    timeoutMs: 200,
+    win: {
+      parent,
+      addEventListener(_type: "message", listener: (event: MessageEvent) => void) {
+        listeners.push(listener);
+      },
+      removeEventListener(_type: "message", listener: (event: MessageEvent) => void) {
+        const index = listeners.indexOf(listener);
+        if (index >= 0) listeners.splice(index, 1);
+      },
+      setTimeout(handler: () => void, timeout: number) {
+        return setTimeout(handler, timeout);
+      },
+      clearTimeout(handle: unknown) {
+        clearTimeout(handle as NodeJS.Timeout);
+      },
+    },
+  });
+  const askPayload = buildWebsiteKompisAskPayload({
+    question: "What happens when the operations panel opens?",
+    locale: "en",
+    domain: exampleDomain,
+    installId: exampleInstallId,
+    pageContext: refreshed,
+  });
+  const evidenceText = joinCurrentPageEvidenceText(
+    askPayload.pageContext as WebsiteKompisPublicPageContext,
+  );
+  assert.match(evidenceText, /operations panel for profile setup/i);
+}
+
 async function assertPageContextRefreshTimeoutFallback() {
   const timedOut = await refreshWebsiteKompisEmbedPageContextFromParent({
     timeoutMs: 40,
@@ -527,7 +628,11 @@ async function assertPageContextRefreshTimeoutFallback() {
   assert.equal(timedOut, undefined);
 }
 
-void Promise.all([assertPageContextRefreshTransport(), assertPageContextRefreshTimeoutFallback()])
+void Promise.all([
+  assertPageContextRefreshTransport(),
+  assertPreferredDisclosureTransport(),
+  assertPageContextRefreshTimeoutFallback(),
+])
   .then(() => {
     console.log("website-kompis-embed.test.ts: all assertions passed");
   })
