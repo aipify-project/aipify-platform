@@ -19,6 +19,8 @@ import {
   WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
   WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
   WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX,
+  WEBSITE_KOMPIS_EMBED_OPEN_FRAME_OUTSET_PX,
+  resolveWebsiteKompisEmbedHostOpenSize,
   WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX,
   WEBSITE_KOMPIS_EMBED_PAGE_CONTEXT_MESSAGE_TYPE,
   WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE,
@@ -188,11 +190,20 @@ assert.equal(closedResize.height, WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX);
 
 const openResize = buildWebsiteKompisEmbedResizeMessage(true);
 assert.equal(openResize.open, true);
-assert.equal(openResize.width, WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX);
-assert.equal(openResize.height, WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX);
+const expectedOpenHost = resolveWebsiteKompisEmbedHostOpenSize({
+  panelWidth: WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX,
+  panelHeight: WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX,
+});
+assert.equal(openResize.width, expectedOpenHost.width);
+assert.equal(openResize.height, expectedOpenHost.height);
+assert.equal(openResize.width, WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX + WEBSITE_KOMPIS_EMBED_OPEN_FRAME_OUTSET_PX * 2);
 const shortViewportResize = buildWebsiteKompisEmbedResizeMessage(true, 640);
 assert.ok(shortViewportResize.height <= 640);
-assert.ok(shortViewportResize.height >= 560);
+assert.ok(
+  shortViewportResize.height >=
+    560 + WEBSITE_KOMPIS_EMBED_OPEN_FRAME_OUTSET_PX * 2 ||
+    shortViewportResize.height >= 560,
+);
 assert.deepEqual(parseWebsiteKompisEmbedResizeMessage(openResize), openResize);
 assert.equal(parseWebsiteKompisEmbedResizeMessage({ type: "other" }), null);
 assert.equal(
@@ -262,6 +273,8 @@ assert.match(widgetSource, /className="ak-launcher"[\s\S]*DESIGN_AVATAR_SRC/);
 assert.doesNotMatch(widgetSource, /DESIGN_MARK_SRC/);
 assert.match(loaderSource, /OPEN_HEIGHT = 800/);
 assert.match(loaderSource, /OPEN_HEIGHT_MAX = 900/);
+assert.match(loaderSource, /OPEN_FRAME_OUTSET = 12/);
+assert.match(loaderSource, /OPEN_EDGE_INSET = 12/);
 assert.match(loaderSource, /markShellReady/);
 assert.match(loaderSource, /opacity = "0"/);
 assert.match(loaderSource, /visualViewport/);

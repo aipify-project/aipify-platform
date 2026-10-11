@@ -85,6 +85,10 @@ export const WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_PX = 800;
 export const WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MAX_PX = 900;
 export const WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MIN_PX = 560;
 export const WEBSITE_KOMPIS_EMBED_VIEWPORT_HEIGHT_GUTTER_PX = 24;
+/** Host iframe inset so Design V1 border/shadow is not clipped when open. */
+export const WEBSITE_KOMPIS_EMBED_OPEN_FRAME_OUTSET_PX = 12;
+/** Keep open panel off the viewport edge (matches closed launcher inset). */
+export const WEBSITE_KOMPIS_EMBED_OPEN_EDGE_INSET_PX = 12;
 
 export type WebsiteKompisEmbedResizeMessage = {
   type: typeof WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE;
@@ -104,24 +108,52 @@ export function resolveWebsiteKompisEmbedOpenHeightPx(
   ) {
     return preferred;
   }
-  const capped = Math.floor(viewportHeightPx - WEBSITE_KOMPIS_EMBED_VIEWPORT_HEIGHT_GUTTER_PX);
+  // Leave room for edge inset + frame outset so the panel chrome is not clipped.
+  const reserved =
+    WEBSITE_KOMPIS_EMBED_VIEWPORT_HEIGHT_GUTTER_PX +
+    WEBSITE_KOMPIS_EMBED_OPEN_EDGE_INSET_PX +
+    WEBSITE_KOMPIS_EMBED_OPEN_FRAME_OUTSET_PX * 2;
+  const capped = Math.floor(viewportHeightPx - reserved);
   return Math.max(
     WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MIN_PX,
     Math.min(preferred, capped, WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MAX_PX),
   );
 }
 
+/** Host iframe outer size includes frame outset around the open panel. */
+export function resolveWebsiteKompisEmbedHostOpenSize(input: {
+  panelWidth: number;
+  panelHeight: number;
+}): { width: number; height: number } {
+  const outset = WEBSITE_KOMPIS_EMBED_OPEN_FRAME_OUTSET_PX * 2;
+  return {
+    width: Math.round(input.panelWidth + outset),
+    height: Math.round(input.panelHeight + outset),
+  };
+}
+
 export function buildWebsiteKompisEmbedResizeMessage(
   open: boolean,
   viewportHeightPx?: number | null,
 ): WebsiteKompisEmbedResizeMessage {
+  if (!open) {
+    return {
+      type: WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE,
+      open: false,
+      width: WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
+      height: WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
+    };
+  }
+  const panelHeight = resolveWebsiteKompisEmbedOpenHeightPx(viewportHeightPx);
+  const host = resolveWebsiteKompisEmbedHostOpenSize({
+    panelWidth: WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX,
+    panelHeight,
+  });
   return {
     type: WEBSITE_KOMPIS_EMBED_RESIZE_MESSAGE_TYPE,
-    open,
-    width: open ? WEBSITE_KOMPIS_EMBED_OPEN_WIDTH_PX : WEBSITE_KOMPIS_EMBED_CLOSED_WIDTH_PX,
-    height: open
-      ? resolveWebsiteKompisEmbedOpenHeightPx(viewportHeightPx)
-      : WEBSITE_KOMPIS_EMBED_CLOSED_HEIGHT_PX,
+    open: true,
+    width: host.width,
+    height: host.height,
   };
 }
 
@@ -143,12 +175,9 @@ export function parseWebsiteKompisEmbedResizeMessage(
   if (!Number.isFinite(width) || !Number.isFinite(height)) {
     return null;
   }
-  if (
-    width < 48 ||
-    width > 560 ||
-    height < 48 ||
-    height > WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MAX_PX
-  ) {
+  const maxHostHeight =
+    WEBSITE_KOMPIS_EMBED_OPEN_HEIGHT_MAX_PX + WEBSITE_KOMPIS_EMBED_OPEN_FRAME_OUTSET_PX * 2;
+  if (width < 48 || width > 560 || height < 48 || height > maxHostHeight) {
     return null;
   }
   return {
