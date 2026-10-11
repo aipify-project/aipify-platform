@@ -4,6 +4,20 @@ const EMAIL_PATTERN = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
 const TOKEN_PATTERN =
   /\b(?:eyJ[A-Za-z0-9_-]{10,}|Bearer\s+[A-Za-z0-9._-]{10,}|session[_-]?id\s*[:=]\s*\S+|api[_-]?key\s*[:=]\s*\S+)\b/gi;
 
+/**
+ * Closed accordion answers are still public FAQ — not private/hidden-by-auth text.
+ * Hub pages often ship 100–250 published FAQ records; 16×24k alone cannot keep
+ * late Q→A pairs. Caps below bound FAQ harvest only (not unlimited page HTML).
+ */
+export const WEBSITE_KOMPIS_PUBLIC_FAQ_PAIR_MAX = 240;
+/** FAQ-pair chunks may use a higher slot count than generic body chunking (16). */
+export const WEBSITE_KOMPIS_PUBLIC_FAQ_CHUNK_MAX = 48;
+const WEBSITE_KOMPIS_PUBLIC_FAQ_BODY_MAX = 48_000;
+const FAQ_QUESTION_MIN = 8;
+const FAQ_QUESTION_MAX = 240;
+const FAQ_ANSWER_MIN = 12;
+const FAQ_ANSWER_MAX = 900;
+
 export type ExtractedPublicPage = {
   title: string;
   metaDescription: string;
@@ -13,6 +27,11 @@ export type ExtractedPublicPage = {
   chunks: string[];
   contentHash: string;
   noindex: boolean;
+};
+
+export type PublicFaqPair = {
+  question: string;
+  answer: string;
 };
 
 /** Remove script/style/RSC/hydration shells before visible-text extraction. */
@@ -153,6 +172,196 @@ export function pageDeclaresNoindex(html: string): boolean {
   return /\bnoindex\b/.test(robots);
 }
 
+function decodeHtmlEntities(value: string): string {
+  return value
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&#(\d+);/g, (_, code) => {
+      const n = Number(code);
+      return Number.isFinite(n) ? String.fromCodePoint(n) : "";
+    })
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => {
+      const n = Number.parseInt(hex, 16);
+      return Number.isFinite(n) ? String.fromCodePoint(n) : "";
+    });
+}
+
+/** Decode JSON string literals from page payloads (including `\\"` / `\\uXXXX`). */
+export function decodeJsonStringLiteral(value: string): string {
+  try {
+    return JSON.parse(`"${value}"`) as string;
+  } catch {
+    return value
+      .replace(/\\u([0-9a-f]{4})/gi, (_, hex) =>
+        String.fromCharCode(Number.parseInt(hex, 16)),
+      )
+      .replace(/\\"/g, '"')
+      .replace(/\\n/g, "\n")
+      .replace(/\\t/g, "\t")
+      .replace(/\\\\/g, "\\");
+  }
+}
+
+function normalizeFaqKey(question: string): string {
+  return question
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+}
+
+function isSafePublicFaqPair(question: string, answer: string): boolean {
+  const q = question.trim();
+  const a = answer.trim();
+  if (q.length < FAQ_QUESTION_MIN || q.length > FAQ_QUESTION_MAX) return false;
+  if (a.length < FAQ_ANSWER_MIN || a.length > FAQ_ANSWER_MAX) return false;
+  // One FAQ item — reject accordion title dumps ("Q1? + Q2? + Q3?").
+  const questionMarks = (q.match(/\?/g) ?? []).length;
+  if (questionMarks > 1) return false;
+  if (/\+\s*(hva|hvordan|hvor|kan|må|hvilke|what|how|where|can)\b/i.test(q)) return false;
+  if (!/\?/.test(q) && !/^(hva|hvordan|hvor|kan|må|hvilke|what|how|where|can|do)\b/i.test(q)) {
+    return false;
+  }
+  if (
+    new RegExp(EMAIL_PATTERN.source, "i").test(a) ||
+    new RegExp(TOKEN_PATTERN.source, "i").test(a) ||
+    new RegExp(TOKEN_PATTERN.source, "i").test(q)
+  ) {
+    return false;
+  }
+  if (looksLikeHydrationOrScriptBlob(a) || looksLikeHydrationOrScriptBlob(q)) return false;
+  if (/\{[^{}\n]{1,80}\}/.test(a)) return false;
+  if (/<script|javascript:|data:text\/html/i.test(`${q} ${a}`)) return false;
+  return true;
+}
+
+function pushFaqPair(
+  out: PublicFaqPair[],
+  seen: Set<string>,
+  questionRaw: string,
+  answerRaw: string,
+): void {
+  const question = sanitizeText(decodeHtmlEntities(questionRaw), FAQ_QUESTION_MAX);
+  const answer = sanitizeText(decodeHtmlEntities(answerRaw), FAQ_ANSWER_MAX);
+  if (!isSafePublicFaqPair(question, answer)) return;
+  const key = normalizeFaqKey(question);
+  if (!key || seen.has(key)) return;
+  seen.add(key);
+  out.push({ question, answer });
+}
+
+/**
+ * Collect public FAQ Q→A pairs from disclosure markup and published FAQ records.
+ * Closed accordion / aria-expanded=false is still public content — extract it.
+ * Does not keep raw script/hydration blobs; only validated question/answer strings.
+ */
+export function extractPublicFaqPairsFromHtml(html: string): PublicFaqPair[] {
+  const out: PublicFaqPair[] = [];
+  const seen = new Set<string>();
+
+  // 1) Published FAQ records in page payloads (often script JSON). Highest signal
+  // for closed accordions — harvest before noisy DOM title lists fill the budget.
+  const jsonPairPatterns = [
+    /"question"\s*:\s*"((?:\\.|[^"\\]){8,240})"\s*,\s*"answer"\s*:\s*"((?:\\.|[^"\\]){8,900})"/g,
+    /\\"question\\"\s*:\s*\\"((?:\\\\.|[^"\\]){8,240})\\"\s*,\s*\\"answer\\"\s*:\s*\\"((?:\\\\.|[^"\\]){8,900})\\"/g,
+  ];
+  for (const pattern of jsonPairPatterns) {
+    for (const match of html.matchAll(pattern)) {
+      const question = decodeJsonStringLiteral(match[1] ?? "");
+      const answer = decodeJsonStringLiteral(match[2] ?? "");
+      pushFaqPair(out, seen, question, answer);
+      if (out.length >= WEBSITE_KOMPIS_PUBLIC_FAQ_PAIR_MAX) return out;
+    }
+  }
+
+  // 2) <details><summary>Question?</summary>Answer</details>
+  for (const match of html.matchAll(
+    /<details\b[^>]*>\s*<summary\b[^>]*>([\s\S]*?)<\/summary>([\s\S]*?)<\/details>/gi,
+  )) {
+    const question = stripNonContentMarkup(match[1] ?? "");
+    const answer = stripNonContentMarkup(match[2] ?? "");
+    pushFaqPair(out, seen, question, answer);
+    if (out.length >= WEBSITE_KOMPIS_PUBLIC_FAQ_PAIR_MAX) return out;
+  }
+
+  // 3) Control label + sibling .faq-answer (open panels still in DOM).
+  for (const match of html.matchAll(
+    /<(button|h2|h3)\b([^>]*)>([\s\S]*?)<\/\1>\s*<div\b[^>]*class=["'][^"']*faq-answer[^"']*["'][^>]*>([\s\S]*?)<\/div>/gi,
+  )) {
+    const question = stripNonContentMarkup(match[3] ?? "");
+    const answer = stripNonContentMarkup(match[4] ?? "");
+    pushFaqPair(out, seen, question, answer);
+    if (out.length >= WEBSITE_KOMPIS_PUBLIC_FAQ_PAIR_MAX) return out;
+  }
+
+  // 4) aria-controls → id panel
+  for (const match of html.matchAll(
+    /<(button|a|h2|h3)\b([^>]*\baria-controls=["']([^"']+)["'][^>]*)>([\s\S]*?)<\/\1>/gi,
+  )) {
+    const panelId = match[3]?.trim();
+    if (!panelId) continue;
+    const question = stripNonContentMarkup(match[4] ?? "");
+    const idRe = new RegExp(
+      `<([a-z0-9-]+)\\b[^>]*\\bid=["']${panelId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["'][^>]*>([\\s\\S]*?)<\\/\\1>`,
+      "i",
+    );
+    const panel = html.match(idRe);
+    if (!panel?.[2]) continue;
+    pushFaqPair(out, seen, question, stripNonContentMarkup(panel[2]));
+    if (out.length >= WEBSITE_KOMPIS_PUBLIC_FAQ_PAIR_MAX) return out;
+  }
+
+  return out;
+}
+
+/**
+ * Pack FAQ Q→A into bounded chunks without splitting a pair across chunks.
+ * Multiple short pairs may share one ≤900-char chunk for hub coverage.
+ */
+export function chunkPublicFaqPairs(
+  pairs: PublicFaqPair[],
+  maxChunks = WEBSITE_KOMPIS_PUBLIC_FAQ_CHUNK_MAX,
+): string[] {
+  const chunks: string[] = [];
+  let buffer = "";
+  for (const pair of pairs) {
+    const passage = sanitizeText(`${pair.question} ${pair.answer}`, 900);
+    if (passage.length < 40) continue;
+    if (!buffer) {
+      buffer = passage;
+      continue;
+    }
+    const merged = `${buffer}\n${passage}`;
+    if (merged.length <= 900) {
+      buffer = merged;
+      continue;
+    }
+    chunks.push(buffer.slice(0, 1800));
+    if (chunks.length >= maxChunks) return chunks;
+    buffer = passage;
+  }
+  if (buffer.length >= 40 && chunks.length < maxChunks) {
+    chunks.push(buffer.slice(0, 1800));
+  }
+  return chunks;
+}
+
+function mergeUniqueChunks(primary: string[], secondary: string[], maxChunks: number): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const chunk of [...primary, ...secondary]) {
+    const key = chunk.toLowerCase().slice(0, 160);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    out.push(chunk);
+    if (out.length >= maxChunks) break;
+  }
+  return out;
+}
+
 export function extractPublicPageFromHtml(html: string, preferredLocale?: string): ExtractedPublicPage {
   const title = matchTitle(html);
   const metaDescription = matchMeta(html, "description") || matchMeta(html, "og:description");
@@ -160,9 +369,27 @@ export function extractPublicPageFromHtml(html: string, preferredLocale?: string
   const noindex = pageDeclaresNoindex(html);
 
   const bodySource = selectPublicContentRegion(html);
-  const bodyText = sanitizeText(stripNonContentMarkup(bodySource), 24_000);
+  const visibleBody = sanitizeText(stripNonContentMarkup(bodySource), 24_000);
+  // FAQ pairs are harvested before script strip (closed accordion answers often
+  // live only in published page FAQ JSON). Raw scripts are never kept as body.
+  const faqPairs = extractPublicFaqPairsFromHtml(html);
+  const faqChunks = chunkPublicFaqPairs(faqPairs);
+  const faqBody = sanitizeText(
+    faqPairs.map((pair) => `${pair.question} ${pair.answer}`).join("\n"),
+    WEBSITE_KOMPIS_PUBLIC_FAQ_BODY_MAX,
+  );
+  // FAQ-first so late hub answers are not truncated away by chrome / title lists.
+  const bodyText = faqBody
+    ? sanitizeText(`${faqBody}\n${visibleBody}`, WEBSITE_KOMPIS_PUBLIC_FAQ_BODY_MAX)
+    : visibleBody;
+
   const excerpt = (metaDescription || bodyText).slice(0, 420);
-  const chunks = chunkPublicSiteBodyText(bodyText);
+  const chunkBudget = faqChunks.length > 0 ? WEBSITE_KOMPIS_PUBLIC_FAQ_CHUNK_MAX : 16;
+  const chunks = mergeUniqueChunks(
+    faqChunks,
+    chunkPublicSiteBodyText(visibleBody),
+    chunkBudget,
+  );
   const contentHash = createHash("sha256")
     .update(`${title}\n${metaDescription}\n${bodyText}`)
     .digest("hex");
