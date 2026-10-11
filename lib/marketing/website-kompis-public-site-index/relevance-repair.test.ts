@@ -287,4 +287,28 @@ if (pushCostQuestion) {
   assert.doesNotMatch(pushCostQuestion.answer.directAnswer, /\{pushCost\}/);
 }
 
+// LIVE.14: stale chunk with CMS holes must still yield a usable Push cost path (not empty).
+const stalePushChunk = hit({
+  pathname: "/no/faq/marketplace-listing-push",
+  title: "Push annonsen til toppen av markedsplassen",
+  excerpt:
+    "Med Push kan du flytte en aktiv annonse til toppen av markedsplassen. En Push koster {pushCost} poeng. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen.",
+  chunkContent:
+    "Med Push kan du flytte en aktiv annonse til toppen av markedsplassen. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen. Sist oppdatert {6/24/2026} Markedsplass Øk synligheten.",
+  score: 38,
+  locale: "no",
+});
+const stalePushAnswer = buildPublicSiteIndexAnswer(
+  [stalePushChunk],
+  "no",
+  "www.customer.example",
+  "Hva koster en Push på markedsplassen?",
+);
+assert.ok(stalePushAnswer);
+assert.doesNotMatch(stalePushAnswer!.answer.directAnswer, /\{[^}]+\}/);
+assert.match(stalePushAnswer!.answer.directAnswer, /Push|kostnad/i);
+assert.ok(
+  stalePushAnswer!.sources[0]?.route.includes("marketplace-listing-push"),
+);
+
 console.log("website-kompis-public-site-index relevance-repair: passed");

@@ -92,6 +92,37 @@ export function tokenizePublicCompanionFaqQuestion(question: string): string[] {
     .slice(0, 24);
 }
 
+/**
+ * Shared commerce/membership wording that often co-occurs across unrelated FAQ rows.
+ * When the question also has a more specific token (e.g. "push"), that token must match.
+ */
+const FAQ_GENERIC_TOPIC_TOKENS = new Set([
+  "koster",
+  "kostnad",
+  "kostnaden",
+  "pris",
+  "prisen",
+  "price",
+  "cost",
+  "costs",
+  "markedsplass",
+  "markedsplassen",
+  "marketplace",
+  "medlem",
+  "medlemmer",
+  "medlemskap",
+  "gratis",
+  "poeng",
+  "points",
+]);
+
+/** Non-generic topic tokens that must appear in FAQ when present in the question. */
+export function distinctivePublicCompanionFaqTopicTokens(question: string): string[] {
+  return tokenizePublicCompanionFaqQuestion(question).filter(
+    (token) => token.length >= 4 && !FAQ_GENERIC_TOPIC_TOKENS.has(token),
+  );
+}
+
 function faqRowCorpus(row: Pick<PublicCompanionTenantFaqRow, "title" | "answer" | "category">): string {
   return `${row.title}\n${row.answer}\n${row.category ?? ""}`.toLowerCase();
 }
@@ -213,6 +244,23 @@ export function isRelevantPublicCompanionTenantFaqResult(
   // Prevents weak RPC token_match on stopwords ("bli"/"dere") from surfacing unrelated FAQ.
   if (contentTokens.length > 0 && top && !faqQuestionHasContentOverlap(trimmedQuery, top)) {
     return false;
+  }
+
+  // "Hva koster en Push …" must not accept membership FAQ via shared koster/markedsplass.
+  const distinctive = distinctivePublicCompanionFaqTopicTokens(trimmedQuery);
+  if (distinctive.length > 0 && top) {
+    const corpus = faqRowCorpus(top);
+    const corpusTokens = tokenizePublicCompanionFaqQuestion(corpus);
+    const distinctiveHit = distinctive.some(
+      (token) =>
+        corpus.includes(token) ||
+        corpusTokens.some(
+          (corpusToken) => corpusToken.includes(token) || token.includes(corpusToken),
+        ),
+    );
+    if (!distinctiveHit) {
+      return false;
+    }
   }
 
   const weakReason =

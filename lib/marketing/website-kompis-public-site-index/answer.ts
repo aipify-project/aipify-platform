@@ -247,7 +247,8 @@ function titlePathHasTopicToken(hit: PublicSiteIndexHit, token: string): boolean
 
 /** Unresolved CMS/template placeholders must never surface in public answers. */
 function looksLikeUnresolvedTemplatePlaceholder(text: string): boolean {
-  return /\{[A-Za-z][A-Za-z0-9_]*\}/.test(text);
+  // Named tokens ({pushCost}) and CMS date/value holes ({6/24/2026}).
+  return /\{[^{}\n]{1,80}\}/.test(text);
 }
 
 export function scorePublicSiteIndexHitTopicOverlap(
