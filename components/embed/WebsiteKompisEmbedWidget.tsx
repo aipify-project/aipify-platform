@@ -187,7 +187,7 @@ function fromSessionMessages(messages: WebsiteKompisEmbedSessionMessage[]): Chat
       text: "text" in message ? message.text : "",
       sources: message.sources?.map((source) => ({
         title: source.title,
-        href: source.href ?? undefined,
+        href: source.href ?? null,
       })),
     };
   });
