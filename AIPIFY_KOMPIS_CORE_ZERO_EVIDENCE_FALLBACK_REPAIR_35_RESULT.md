@@ -79,10 +79,15 @@ History concat remains a **separate** parked gap (RESULT.30); this job does not 
 | `lastActiveDisclosure` preferred-first | Job 34 — preserved; acceptance unverified |
 | `refreshWebsiteKompisEmbedPageContextFromParent` | Job 32 |
 | `buildPublicCompanionRetrievalQuestion` history concat | Parked — not this job |
+| Closed FAQ answers missing from index extract | **Job 36** — FAQ_GAP_EVIDENCE_READ |
 | Profile / sparse current-page (`wxhgw`) | Separate |
 
 ## Owner test
 
 READY FOR OWNER TEST after LIVE: natural concrete **activation/buy** question (not a scripted price ask). Deliver answer/time/CSV. No hardcoded expected wording.
+
+## Owner retest note (2026-10-12 01:25)
+
+OWNER ACCEPTANCE35 = **NOT EXERCISED**. Asks `m7t46` / `lhshh` were FAQ knowledge-gap cases with `evidenceCount` 6 and 1 (not empty-pack → loose index). See `AIPIFY_KOMPIS_CORE_FAQ_GAP_EVIDENCE_READ_36_RESULT.md`. Do not roll back job 35 from those alone.
 
 SAFE TO FREEZE WHOLE CHAIN = **NO**
