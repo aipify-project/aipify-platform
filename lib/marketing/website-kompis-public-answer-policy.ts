@@ -49,10 +49,42 @@ export function buildWebsiteKompisPublicAnswerPolicyPrompt(locale: string): stri
     "Never claim access to other visitors, tenants, accounts, or private areas.",
     `Reply in language code "${locale}" when the visitor used that language; otherwise match the visitor.`,
     "Return JSON only with keys: covered (boolean), answer (string), sourceIds (string[] of exact evidence bracket ids including the kind prefix such as faq:…, index:…, or page:current), followUp (string|null).",
-    "If evidence does not cover the question, set covered=false, give a short honest gap answer, sourceIds=[], and optionally one clarifying followUp.",
+    "If a concrete requested value (price, point count, or similar) is missing from evidence, set covered=false and clearly say that concrete value is not in the information you have. Do not invent numbers or unresolved template placeholders such as {pushCost}.",
+    "When covered=false, you may still cite sourceIds that support a verified next step from evidence (for example that cost is shown before confirmation). Do not cite sources for unsupported claims, and do not add unrelated FAQ-style followUp questions.",
+    "If nothing useful can be cited, set covered=false, sourceIds=[], and optionally one clarifying followUp.",
     "If covered=true, every factual claim must be supported by the cited sourceIds.",
     "Do not answer with FAQ question lists or unrelated profile biography when the visitor asked about price or how to buy.",
   ].join(" ");
+}
+
+/**
+ * Honest gap when a price/points question has topical evidence but no concrete published amount.
+ * Optional next-step sentences must already be grounded in evidence (caller responsibility).
+ */
+export function buildWebsiteKompisMissingConcreteCostGapAnswer(input: {
+  locale: string;
+  supportedNextStepFromEvidence?: string | null;
+}): {
+  directAnswer: string;
+  explanation: null;
+  steps: [];
+} {
+  const locale = input.locale.trim().toLowerCase();
+  const missing =
+    locale === "en"
+      ? "I cannot find a concrete price or point amount in the information I have."
+      : locale === "sv"
+        ? "Jag hittar inte ett konkret pris eller poängtal i informationen jag har."
+        : locale === "da"
+          ? "Jeg finder ikke et konkret beløb eller pointtal i informationen jeg har."
+          : locale === "pl"
+            ? "Nie znajduję konkretnej ceny ani liczby punktów w dostępnych informacjach."
+            : locale === "uk"
+              ? "Я не знаходжу конкретної ціни чи кількості балів у наявній інформації."
+              : "Jeg finner ikke et konkret poengtall eller pris i informasjonen jeg har.";
+  const next = input.supportedNextStepFromEvidence?.replace(/\s+/g, " ").trim() || "";
+  const directAnswer = next ? `${missing} ${next}`.slice(0, 900) : missing;
+  return { directAnswer, explanation: null, steps: [] };
 }
 
 export function evaluateWebsiteKompisDeterministicAnswerPolicy(input: {
@@ -105,12 +137,25 @@ export function buildWebsiteKompisHonestGapVisitorAnswer(input: {
 
 /**
  * Provider returned an honest knowledge-gap answer (status ok, covered=false).
- * Ask chain should still try deterministic FAQ/index/page before accepting the gap.
+ * Empty-source gaps may still try deterministic FAQ/index/page before accepting the gap.
+ * Gaps that already cite validated sources are treated as final partial answers.
  */
 export function isWebsiteKompisProviderKnowledgeGapResponse(response: {
   supportEscalation?: { offered?: boolean; reason?: string | null } | null;
 }): boolean {
   return response.supportEscalation?.reason === "knowledge_gap";
+}
+
+/** Partial gap: covered=false with at least one validated source citation. */
+export function isWebsiteKompisProviderPartialKnowledgeGapResponse(response: {
+  supportEscalation?: { offered?: boolean; reason?: string | null } | null;
+  sources?: Array<unknown> | null;
+}): boolean {
+  return (
+    isWebsiteKompisProviderKnowledgeGapResponse(response) &&
+    Array.isArray(response.sources) &&
+    response.sources.length > 0
+  );
 }
 
 export function withWebsiteKompisPublicAnswerPathDiagnostic<T extends Record<string, unknown>>(

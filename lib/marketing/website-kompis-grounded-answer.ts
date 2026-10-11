@@ -16,6 +16,7 @@ import {
   dedupeCompanionSourcesByRoute,
   isProductOrPriceVisitorQuestion,
   isPurchaseProcessVisitorQuestion,
+  looksLikeBareFaqQuestionHeading,
   looksLikeFaqQuestionList,
   textLooksLikePublishedPrice,
 } from "@/lib/marketing/website-kompis-answer-relevance";
@@ -377,25 +378,10 @@ export function resolveWebsiteKompisCitedEvidenceId(
   return suffixMatches.length === 1 ? suffixMatches[0]! : null;
 }
 
-export function validateWebsiteKompisGroundedPayload(
+function resolveAndGroundCitedSources(
   payload: WebsiteKompisGroundedModelPayload,
   evidence: WebsiteKompisEvidenceSnippet[],
 ): { ok: true; sources: WebsiteKompisEvidenceSnippet[] } | { ok: false; reason: string } {
-  if (detectWebsiteKompisPromptInjection(payload.answer)) {
-    return { ok: false, reason: "injection_in_answer" };
-  }
-
-  if (!payload.covered) {
-    if (payload.sourceIds.length > 0) {
-      return { ok: false, reason: "gap_with_sources" };
-    }
-    return { ok: true, sources: [] };
-  }
-
-  if (payload.sourceIds.length === 0) {
-    return { ok: false, reason: "missing_sources" };
-  }
-
   const sources: WebsiteKompisEvidenceSnippet[] = [];
   const seenIds = new Set<string>();
   for (const id of payload.sourceIds) {
@@ -414,11 +400,33 @@ export function validateWebsiteKompisGroundedPayload(
     }
   }
 
-  // Valid sourceIds alone are not enough — cited snippets must match question topic.
-  // Use the pack question via joined evidence titles when available from caller path:
-  // synthesize passes pack.evidence only; topical check uses answer+source corpus vs source text.
-  // Callers that know the question should use validateWebsiteKompisGroundedPayloadForQuestion.
   return { ok: true, sources };
+}
+
+export function validateWebsiteKompisGroundedPayload(
+  payload: WebsiteKompisGroundedModelPayload,
+  evidence: WebsiteKompisEvidenceSnippet[],
+): { ok: true; sources: WebsiteKompisEvidenceSnippet[] } | { ok: false; reason: string } {
+  if (detectWebsiteKompisPromptInjection(payload.answer)) {
+    return { ok: false, reason: "injection_in_answer" };
+  }
+
+  // covered=false may cite sources for a verified next step when the concrete
+  // requested value is missing — that is a partial knowledge gap, not always an error.
+  if (!payload.covered) {
+    if (payload.sourceIds.length === 0) {
+      return { ok: true, sources: [] };
+    }
+    return resolveAndGroundCitedSources(payload, evidence);
+  }
+
+  if (payload.sourceIds.length === 0) {
+    return { ok: false, reason: "missing_sources" };
+  }
+
+  // Valid sourceIds alone are not enough — cited snippets must match question topic.
+  // Callers that know the question should use validateWebsiteKompisGroundedPayloadForQuestion.
+  return resolveAndGroundCitedSources(payload, evidence);
 }
 
 export function validateWebsiteKompisGroundedPayloadForQuestion(
@@ -574,12 +582,17 @@ export async function synthesizeWebsiteKompisGroundedAnswer(input: {
     0,
   );
 
+  const followUp =
+    payload.followUp && !looksLikeBareFaqQuestionHeading(payload.followUp)
+      ? payload.followUp
+      : null;
+
   return {
     status: "ok",
     response: {
       answer: {
         directAnswer: payload.answer,
-        explanation: payload.followUp,
+        explanation: followUp,
         steps: [],
       },
       actions: [],

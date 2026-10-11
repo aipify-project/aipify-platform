@@ -975,6 +975,89 @@ async function main() {
     );
   });
 
+  await test("provider partial knowledge gap with sources is kept over index extract", async () => {
+    // Stub provider payload — not the retained LIVE Push model response.
+    const response = await askPublicPlatformCompanion(
+      {
+        question: "Hvor mange poeng koster én Push?",
+        locale: "no",
+        installId: "11111111-1111-4111-8111-111111111111",
+        domain: "www.customer-a.example",
+        pageContext: {
+          pathname: "/no/faq/marketplace-listing-push",
+          title: "Push på markedsplassen",
+          canonicalUrl: "https://www.customer-a.example/no/faq/marketplace-listing-push",
+          locale: "no",
+          textSnippets: [
+            "Push synliggjør annonsen. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen.",
+          ],
+          surface: "public",
+        },
+      },
+      {
+        requestHost: "www.customer-a.example",
+        rawInstallConfig: {
+          website_kompis: {
+            enabled: true,
+            sources: {
+              faq: true,
+              currentPage: true,
+              aipifyPublic: false,
+              publicSiteIndex: true,
+            },
+          },
+        },
+        resolveLicensedAvailability: async () => ({
+          available: true,
+          reason: "available" as const,
+          capabilityKey: "website_kompis",
+        }),
+        searchTenantVisitorKnowledge: async () => [],
+        searchTenantPublicSiteIndex: async () => [
+          {
+            documentId: "doc-push",
+            chunkId: "chunk-push-ask",
+            title: "Push på markedsplassen",
+            canonicalUrl:
+              "https://www.customer-a.example/no/faq/marketplace-listing-push",
+            pathname: "/no/faq/marketplace-listing-push",
+            locale: "no",
+            excerpt:
+              "Push synliggjør annonsen. Før poengene trekkes, får du alltid se kostnaden.",
+            chunkContent:
+              "Push gjør annonsen mer synlig. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen. Hvor ser jeg hvor mange poeng jeg har?",
+            score: 40,
+            matchedReason: "title",
+            crawledAt: null,
+          },
+        ],
+        groundedCompletion: async () => ({
+          ok: true,
+          text: JSON.stringify({
+            covered: false,
+            answer:
+              "Jeg finner ikke et konkret poengtall i informasjonen jeg har. Før poengene trekkes, får du alltid se kostnaden og bekrefte handlingen.",
+            sourceIds: ["index:chunk-push-ask"],
+            followUp: null,
+          }),
+          modelProfile: "kompis_result_summary_v1",
+          latencyMs: 4,
+          usage: { inputUnits: 2, outputUnits: 6, totalUnits: 8 },
+        }),
+      },
+    );
+
+    assert.match(response.answer.directAnswer, /finner ikke et konkret poengtall/i);
+    assert.match(response.answer.directAnswer, /kostnaden/i);
+    assert.doesNotMatch(response.answer.directAnswer, /Hvor ser jeg|Ut fra nettstedets/i);
+    assert.equal(response.supportEscalation.reason, "knowledge_gap");
+    assert.ok(
+      response.sources.some((source) =>
+        source.route.includes("marketplace-listing-push"),
+      ),
+    );
+  });
+
   await test("safety-thread Aipify Verify follow-up stays on site evidence not ABOS", async () => {
     let indexQuery = "";
     let platformCalled = false;
