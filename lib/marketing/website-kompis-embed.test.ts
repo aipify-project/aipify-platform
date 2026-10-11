@@ -260,6 +260,15 @@ assert.doesNotMatch(widgetSource, /DESIGN_MARK_SRC/);
 assert.match(loaderSource, /OPEN_HEIGHT = 720/);
 assert.match(loaderSource, /visualViewport/);
 assert.match(loaderSource, /PRICE_HINT/);
+// Universal public surface contract — Core owns activation from host access adapter.
+assert.match(loaderSource, /aipify\.websiteKompis\.surface/);
+assert.match(loaderSource, /data-aipify-kompis-access/);
+assert.match(loaderSource, /readHostAccessClass/);
+assert.match(loaderSource, /applyAccessClass/);
+assert.match(loaderSource, /attributeFilter:\s*\[[^\]]*ACCESS_DATA_ATTR/);
+assert.doesNotMatch(loaderSource, /"\/login"/);
+assert.doesNotMatch(loaderSource, /"\/register"/);
+assert.match(widgetSource, /parseWebsiteKompisEmbedSurfaceMessage/);
 
 const designCss = readFileSync(
   path.join(
