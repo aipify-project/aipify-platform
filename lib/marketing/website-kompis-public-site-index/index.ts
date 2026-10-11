@@ -15,7 +15,12 @@ export {
 } from "./url-policy";
 
 export {
+  WEBSITE_KOMPIS_PUBLIC_FAQ_CHUNK_MAX,
+  WEBSITE_KOMPIS_PUBLIC_FAQ_PAIR_MAX,
+  chunkPublicFaqPairs,
   chunkPublicSiteBodyText,
+  decodeJsonStringLiteral,
+  extractPublicFaqPairsFromHtml,
   extractPublicPageFromHtml,
   isIndexableExtractedPage,
   looksLikeHydrationOrScriptBlob,
@@ -23,6 +28,7 @@ export {
   selectPublicContentRegion,
   stripNonContentMarkup,
   type ExtractedPublicPage,
+  type PublicFaqPair,
 } from "./extract";
 
 export {
