@@ -54,10 +54,14 @@ SSR-style pages with ≥11 simultaneous open FAQ panels filled capture slots in 
 | `lastActiveDisclosure` + user activate handlers | **Job 34** — visitor preference |
 | `collectOpenDisclosureSnippets` preferred-first | Selection under 8×240 |
 | `refreshWebsiteKompisEmbedPageContextFromParent` | Job 32 — still required |
-| `evidenceCount=0` → index fallback | **Next queue** — not this job |
+| `evidenceCount=0` → index fallback | **Job 35** — see ZERO_EVIDENCE_FALLBACK_REPAIR_35 |
 
 ## Owner test
 
 READY FOR OWNER TEST after LIVE: hard-refresh loader, leave multiple FAQ panels open, **activate** a later panel, ask with natural wording. Do not collapse the page to a single open answer to force green.
+
+## Owner retest note (2026-10-12 00:51–00:52)
+
+OWNER ACCEPTANCE34 = **NOT VERIFIED**. Screenshots did not show the active FAQ panel; asks on `dpl_EVAssncj…` included empty-pack → `public_site_index` (`qcp75`) which is job **35**, not a collector verdict. Preferred-panel priority remains shipped.
 
 SAFE TO FREEZE WHOLE CHAIN = **NO**

@@ -1,6 +1,6 @@
 import {
   dedupeCompanionSourcesByRoute,
-  isProductOrPriceVisitorQuestion,
+  isConcreteCostSeekingVisitorQuestion,
   looksLikeBareFaqQuestionHeading,
   looksLikeFaqQuestionList,
   textLooksLikeConcretePublishedCost,
@@ -407,7 +407,7 @@ function scoreSentence(sentence: string, tokens: string[], question: string): nu
   // (e.g. "se kostnaden" when "{pushCost}" lines were dropped).
   if (
     topicScore > 0 &&
-    isProductOrPriceVisitorQuestion(question) &&
+    isConcreteCostSeekingVisitorQuestion(question) &&
     sentenceHasPriceOrCostSignal(sentence)
   ) {
     return topicScore + 2;
@@ -472,10 +472,11 @@ export function composePublicSiteIndexAnswerText(
     .map((entry) => entry.sentence)
     .filter((sentence, index, all) => all.indexOf(sentence) === index);
 
-  // Price/points ask with topical process text but no concrete published amount:
+  // Cost/points ask with topical process text but no concrete published amount:
   // state the missing value clearly; keep only evidence-backed next-step sentences.
+  // Purchase/activation wording alone ("hvor kjøper/aktiverer") is not a cost ask.
   if (
-    isProductOrPriceVisitorQuestion(question) &&
+    isConcreteCostSeekingVisitorQuestion(question) &&
     !textLooksLikeConcretePublishedCost(chosen.join(" "))
   ) {
     const nextStep = chosen
@@ -563,7 +564,7 @@ export function buildPublicSiteIndexAnswer(
   const topics = topicTokensForPublicSiteIndex(q);
   const topicScore = scorePublicSiteIndexHitTopicOverlap(ranked[0], topics);
   const missingConcreteCost =
-    isProductOrPriceVisitorQuestion(q) &&
+    isConcreteCostSeekingVisitorQuestion(q) &&
     !textLooksLikeConcretePublishedCost(composed.directAnswer);
   const confidenceLevel = missingConcreteCost
     ? "low"

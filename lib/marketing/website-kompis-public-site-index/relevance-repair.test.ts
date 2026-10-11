@@ -359,4 +359,52 @@ assert.match(pricedPushAnswer!.answer.directAnswer, /49\s*poeng/i);
 assert.doesNotMatch(pricedPushAnswer!.answer.directAnswer, /finner ikke et konkret/i);
 assert.equal(pricedPushAnswer!.supportEscalation.offered, false);
 
+// Job 35: buy/activate ask must not become a missing-cost gap from FAQ/terms hubs.
+const faqHub = hit({
+  pathname: "/no/faq",
+  title: "FAQ — hjelp og svar",
+  chunkContent:
+    "Hva koster medlemskap? Hvordan kjøper jeg poeng? Før poengene trekkes, får du alltid se kostnaden.",
+  score: 28,
+  locale: "no",
+});
+const termsHub = hit({
+  pathname: "/en/terms-and-conditions",
+  title: "Terms and Conditions",
+  chunkContent:
+    "Membership plans may include Bronze, Silver, and Gold. Purchases are subject to the published terms.",
+  score: 22,
+  locale: "en",
+});
+const buyActivateQ = "Hvor kjøper eller aktiverer jeg Desk Pass?";
+assert.equal(
+  buildPublicSiteIndexAnswer(
+    [faqHub, termsHub],
+    "no",
+    "www.customer.example",
+    buyActivateQ,
+  ),
+  null,
+);
+
+// Relevant activation evidence still yields a procedure extract (not a cost gap).
+const deskPassGuide = hit({
+  pathname: "/no/desk-pass",
+  title: "Desk Pass",
+  chunkContent:
+    "Desk Pass aktiveres under Konto → Abonnement. Velg Desk Pass og bekreft aktiveringen før tilgangen åpnes.",
+  score: 48,
+  locale: "no",
+});
+const activateAnswer = buildPublicSiteIndexAnswer(
+  [deskPassGuide, faqHub, termsHub],
+  "no",
+  "www.customer.example",
+  buyActivateQ,
+);
+assert.ok(activateAnswer);
+assert.match(activateAnswer!.answer.directAnswer, /aktiveres|Konto|Abonnement/i);
+assert.doesNotMatch(activateAnswer!.answer.directAnswer, /finner ikke et konkret/i);
+assert.ok(activateAnswer!.sources[0]?.route.includes("desk-pass"));
+
 console.log("website-kompis-public-site-index relevance-repair: passed");
