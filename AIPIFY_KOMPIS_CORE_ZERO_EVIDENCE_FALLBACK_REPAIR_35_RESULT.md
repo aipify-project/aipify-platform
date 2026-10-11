@@ -60,11 +60,14 @@ History concat remains a **separate** parked gap (RESULT.30); this job does not 
 
 | Item | Value |
 |------|-------|
-| PR | _(pending)_ |
-| Feature head | _(pending)_ |
-| Merge / `origin/main` | _(pending)_ |
+| PR | [#131](https://github.com/aipify-project/aipify-platform/pull/131) MERGED |
+| Feature head | `dc23aae6cca81e2126ed088d6a22f0973ef06478` |
+| Merge / `origin/main` | `413333fda3c26ec163beaa956c8d2402984764f8` |
 | Apex | `aipify-platform-iz5z` / `prj_rekqU1SLEr3v2ifYuUkQ5d4fKR7j` |
-| Production deploy | _(pending)_ |
+| Production deploy | `dpl_Hy6Xf1c1abezJuzjHvGZx3Ux3N4M` READY |
+| Ready URL | `aipify-platform-iz5z-pb5cwr60i-unonight-platform-s-projects.vercel.app` |
+| Aliases | `aipify.ai`, `www.aipify.ai` |
+| LIVE verify | Production target SHA `413333fd` on Apex (server ask path; no loader change this job) |
 
 ## Path register
 
