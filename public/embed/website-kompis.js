@@ -92,6 +92,15 @@
     fr: true,
   };
   var SKIP_ANCESTOR_SELECTOR = "form, input, textarea, select, button, script, style, noscript";
+  var UNSAFE_CONTENT_SELECTOR = "form, input, textarea, select, script, style, noscript, [contenteditable='true']";
+  var CHROME_SELECTOR = "nav, footer, [role='navigation']";
+  var OPEN_DETAILS_SELECTOR = "main details[open], article details[open], [role='main'] details[open]";
+  var EXPANDED_CONTROL_SELECTOR =
+    "main [aria-expanded='true'], article [aria-expanded='true'], [role='main'] [aria-expanded='true']";
+  var ANSWER_PANEL_SELECTOR =
+    "main [class*='faq-answer'], main [class*='FaqAnswer'], article [class*='faq-answer'], article [class*='FaqAnswer'], [role='main'] [class*='faq-answer'], main [class*='accordion-panel'], article [class*='accordion-panel'], [role='main'] [class*='accordion-panel']";
+  var ANSWER_PANEL_CLASS_HINT =
+    /faq[-_]?answer|accordion[-_]?(?:panel|content|body)|disclosure[-_]?(?:panel|content)|panel[-_]?body|answer[-_]?body/i;
   var EMAIL_PATTERN = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi;
   var TOKEN_PATTERN =
     /\b(?:eyJ[A-Za-z0-9_-]{10,}|Bearer\s+[A-Za-z0-9._-]{10,}|session[_-]?id\s*[:=]\s*\S+|api[_-]?key\s*[:=]\s*\S+)\b/gi;
@@ -294,6 +303,203 @@
     return Boolean(element.closest(SKIP_ANCESTOR_SELECTOR));
   }
 
+  function isInsideUnsafeContent(element) {
+    if (!element || !element.closest) {
+      return false;
+    }
+    return Boolean(element.closest(UNSAFE_CONTENT_SELECTOR));
+  }
+
+  function isInsideChrome(element) {
+    if (!element || !element.closest) {
+      return false;
+    }
+    return Boolean(element.closest(CHROME_SELECTOR));
+  }
+
+  function isOpenDetailsElement(element) {
+    if (!element) return false;
+    if (element.open === true) return true;
+    var openAttr = element.getAttribute ? element.getAttribute("open") : null;
+    return openAttr === "" || openAttr === "true" || openAttr != null;
+  }
+
+  function isElementVisiblyOpen(element) {
+    if (!element) return false;
+    if (element.hidden) return false;
+    if (element.getAttribute && element.getAttribute("aria-hidden") === "true") return false;
+    if (element.closest) {
+      if (element.closest("[hidden], [aria-hidden='true']")) return false;
+      var detailsAncestor = element.closest("details");
+      if (detailsAncestor && detailsAncestor !== element && !isOpenDetailsElement(detailsAncestor)) {
+        return false;
+      }
+    }
+    try {
+      if (window.getComputedStyle) {
+        var style = window.getComputedStyle(element);
+        if (
+          style.display === "none" ||
+          style.visibility === "hidden" ||
+          style.opacity === "0"
+        ) {
+          return false;
+        }
+      }
+    } catch (_error) {
+      // Ignore computed-style failures; fall through to attribute checks.
+    }
+    return true;
+  }
+
+  function resolveExpandedAnswerPanel(control) {
+    if (!control) return null;
+    var controlsId = control.getAttribute ? String(control.getAttribute("aria-controls") || "").trim() : "";
+    if (controlsId) {
+      var byId = document.getElementById(controlsId);
+      if (byId) return byId;
+    }
+    var sibling = control.nextElementSibling;
+    for (var step = 0; sibling && step < 4; step += 1) {
+      var role = sibling.getAttribute ? sibling.getAttribute("role") : "";
+      var className = String(sibling.className || "");
+      var dataState = sibling.getAttribute ? sibling.getAttribute("data-state") : "";
+      if (role === "region" || ANSWER_PANEL_CLASS_HINT.test(className) || dataState === "open") {
+        return sibling;
+      }
+      sibling = sibling.nextElementSibling;
+    }
+    return null;
+  }
+
+  function detailsAnswerText(details) {
+    var summary = details.querySelector ? details.querySelector("summary") : null;
+    var summaryText = summary && summary.textContent ? String(summary.textContent).trim() : "";
+    var full = details.textContent ? String(details.textContent) : "";
+    if (summaryText) {
+      var idx = full.indexOf(summaryText);
+      if (idx >= 0) {
+        full = full.slice(0, idx) + " " + full.slice(idx + summaryText.length);
+      }
+    }
+    return full;
+  }
+
+  function findAssociatedDisclosureQuestion(panel) {
+    var panelId = panel && panel.id ? String(panel.id).trim() : "";
+    if (panelId) {
+      var controls = document.querySelectorAll(EXPANDED_CONTROL_SELECTOR);
+      for (var i = 0; i < controls.length; i += 1) {
+        var control = controls[i];
+        var controlsId = control.getAttribute ? String(control.getAttribute("aria-controls") || "").trim() : "";
+        if (controlsId === panelId) {
+          return control.textContent || "";
+        }
+      }
+    }
+    if (panel && panel.closest) {
+      var details = panel.closest("details");
+      if (details && details.querySelector) {
+        var summary = details.querySelector("summary");
+        if (summary && summary.textContent) return summary.textContent;
+      }
+    }
+    return "";
+  }
+
+  function formatOpenPanelSnippet(questionRaw, answerRaw) {
+    var question = normalizeText(questionRaw, MAX_HEADING_LENGTH);
+    var answer = normalizeText(answerRaw, MAX_TEXT_SNIPPET_LENGTH);
+    if (!answer || answer.length < 12) return "";
+    if (!question) return answer;
+    var questionPrefix = question.slice(0, 48).toLowerCase();
+    if (questionPrefix && answer.toLowerCase().indexOf(questionPrefix) !== -1) {
+      return answer;
+    }
+    return normalizeText(question + ": " + answer, MAX_TEXT_SNIPPET_LENGTH);
+  }
+
+  function isInsideAlreadyCapturedOpenDisclosure(element) {
+    if (!element || !element.closest) return false;
+    var details = element.closest("details");
+    if (details && isOpenDetailsElement(details)) return true;
+    var node = element;
+    for (var depth = 0; node && depth < 8; depth += 1) {
+      if (ANSWER_PANEL_CLASS_HINT.test(String(node.className || ""))) {
+        return isElementVisiblyOpen(node);
+      }
+      node = node.parentElement;
+    }
+    return false;
+  }
+
+  function collectOpenDisclosureSnippets(pushSnippet, textSnippets) {
+    var detailsNodes = document.querySelectorAll(OPEN_DETAILS_SELECTOR);
+    for (var d = 0; d < detailsNodes.length && textSnippets.length < MAX_TEXT_SNIPPETS; d += 1) {
+      var details = detailsNodes[d];
+      if (isInsideUnsafeContent(details) || isInsideChrome(details)) continue;
+      if (!isOpenDetailsElement(details) || !isElementVisiblyOpen(details)) continue;
+      var summary = details.querySelector ? details.querySelector("summary") : null;
+      var detailsSnippet = formatOpenPanelSnippet(
+        summary && summary.textContent ? summary.textContent : "",
+        detailsAnswerText(details),
+      );
+      if (detailsSnippet) pushSnippet(detailsSnippet);
+    }
+
+    var expandedControls = document.querySelectorAll(EXPANDED_CONTROL_SELECTOR);
+    for (var e = 0; e < expandedControls.length && textSnippets.length < MAX_TEXT_SNIPPETS; e += 1) {
+      var control = expandedControls[e];
+      if (isInsideUnsafeContent(control) || isInsideChrome(control)) continue;
+      if (!control.getAttribute || control.getAttribute("aria-expanded") !== "true") continue;
+      var panel = resolveExpandedAnswerPanel(control);
+      if (!panel) continue;
+      if (isInsideUnsafeContent(panel) || isInsideChrome(panel)) continue;
+      if (!isElementVisiblyOpen(panel)) continue;
+      if (panel.closest) {
+        var panelDetails = panel.closest("details");
+        if (panelDetails && isOpenDetailsElement(panelDetails)) continue;
+      }
+      var expandedSnippet = formatOpenPanelSnippet(control.textContent || "", panel.textContent || "");
+      if (expandedSnippet) pushSnippet(expandedSnippet);
+    }
+
+    var answerPanels = document.querySelectorAll(ANSWER_PANEL_SELECTOR);
+    for (var a = 0; a < answerPanels.length && textSnippets.length < MAX_TEXT_SNIPPETS; a += 1) {
+      var answerPanel = answerPanels[a];
+      if (isInsideUnsafeContent(answerPanel) || isInsideChrome(answerPanel)) continue;
+      if (!isElementVisiblyOpen(answerPanel)) continue;
+      if (answerPanel.closest) {
+        var closedDetails = answerPanel.closest("details");
+        if (closedDetails && !isOpenDetailsElement(closedDetails)) continue;
+      }
+      var answerPanelId = answerPanel.id ? String(answerPanel.id).trim() : "";
+      if (answerPanelId) {
+        var allControls = document.querySelectorAll(
+          "main [aria-expanded], article [aria-expanded], [role='main'] [aria-expanded]",
+        );
+        var controlledByExpanded = false;
+        var controlledByCollapsed = false;
+        for (var c = 0; c < allControls.length; c += 1) {
+          var linked = allControls[c];
+          var linkedId = linked.getAttribute
+            ? String(linked.getAttribute("aria-controls") || "").trim()
+            : "";
+          if (linkedId !== answerPanelId) continue;
+          var expanded = linked.getAttribute ? linked.getAttribute("aria-expanded") : "";
+          if (expanded === "true") controlledByExpanded = true;
+          if (expanded === "false") controlledByCollapsed = true;
+        }
+        if (controlledByCollapsed && !controlledByExpanded) continue;
+      }
+      var classSnippet = formatOpenPanelSnippet(
+        findAssociatedDisclosureQuestion(answerPanel),
+        answerPanel.textContent || "",
+      );
+      if (classSnippet) pushSnippet(classSnippet);
+    }
+  }
+
   function sanitizeCanonicalUrl(value) {
     var trimmed = String(value || "")
       .trim()
@@ -363,8 +569,20 @@
       if (textSnippets.indexOf(snippetText) !== -1) {
         return;
       }
+      var lower = snippetText.toLowerCase();
+      for (var s = 0; s < textSnippets.length; s += 1) {
+        if (textSnippets[s].toLowerCase().indexOf(lower) !== -1) {
+          return;
+        }
+      }
+      if (textSnippets.length >= MAX_TEXT_SNIPPETS) {
+        return;
+      }
       textSnippets.push(snippetText);
     }
+
+    // Open FAQ/accordion panels first so early generic paragraphs cannot displace them.
+    collectOpenDisclosureSnippets(pushSnippet, textSnippets);
 
     // Prefer published product/offer cards (title + price kept on same snippet).
     var productNodes = document.querySelectorAll(
@@ -390,6 +608,9 @@
     for (var p = 0; p < paragraphNodes.length && textSnippets.length < MAX_TEXT_SNIPPETS; p += 1) {
       var paragraphNode = paragraphNodes[p];
       if (isInsideSkipZone(paragraphNode)) {
+        continue;
+      }
+      if (isInsideAlreadyCapturedOpenDisclosure(paragraphNode)) {
         continue;
       }
       var snippetText = normalizeText(paragraphNode.textContent, MAX_TEXT_SNIPPET_LENGTH);
