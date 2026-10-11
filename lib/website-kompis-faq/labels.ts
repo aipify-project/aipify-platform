@@ -25,6 +25,7 @@ export function buildWebsiteKompisFaqLabels(t: TranslateFn) {
     title: t(`${prefix}.title`),
     subtitle: t(`${prefix}.subtitle`),
     navTitle: t(`${prefix}.navTitle`),
+    feedbackOverviewLink: t(`${prefix}.feedbackOverviewLink`),
     warningBanner: t(`${prefix}.warningBanner`),
     loading: t(`${prefix}.loading`),
     accessDenied: t(`${prefix}.accessDenied`),

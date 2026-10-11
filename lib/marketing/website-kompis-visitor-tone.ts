@@ -43,6 +43,20 @@ export type WebsiteKompisEmbedUiLabels = {
   minimize: string;
   credit: string;
   sourceFromSite: string;
+  feedbackHelpful: string;
+  feedbackNotHelpful: string;
+  feedbackCopy: string;
+  feedbackCopied: string;
+  feedbackCopyFailed: string;
+  feedbackCommentPrompt: string;
+  feedbackCommentPlaceholder: string;
+  feedbackCommentSkip: string;
+  feedbackCommentSend: string;
+  feedbackSaved: string;
+  feedbackSaveFailed: string;
+  feedbackUnavailable: string;
+  feedbackClearVote: string;
+  feedbackRetry: string;
   quickActions: WebsiteKompisEmbedQuickAction[];
 };
 
@@ -345,6 +359,124 @@ const EMBED_UI_COPY: Record<
   },
 };
 
+const EMBED_FEEDBACK_SHELL: Record<
+  WebsiteKompisEmbedLocale,
+  Pick<
+    WebsiteKompisEmbedUiLabels,
+    | "feedbackHelpful"
+    | "feedbackNotHelpful"
+    | "feedbackCopy"
+    | "feedbackCopied"
+    | "feedbackCopyFailed"
+    | "feedbackCommentPrompt"
+    | "feedbackCommentPlaceholder"
+    | "feedbackCommentSkip"
+    | "feedbackCommentSend"
+    | "feedbackSaved"
+    | "feedbackSaveFailed"
+    | "feedbackUnavailable"
+    | "feedbackClearVote"
+    | "feedbackRetry"
+  >
+> = {
+  no: {
+    feedbackHelpful: "Nyttig svar",
+    feedbackNotHelpful: "Ikke nyttig",
+    feedbackCopy: "Kopier svar",
+    feedbackCopied: "Kopiert",
+    feedbackCopyFailed: "Kunne ikke kopiere. Prøv igjen.",
+    feedbackCommentPrompt: "Hva manglet? (valgfritt)",
+    feedbackCommentPlaceholder: "Beskriv kort hva som manglet…",
+    feedbackCommentSkip: "Hopp over",
+    feedbackCommentSend: "Send kommentar",
+    feedbackSaved: "Takk for tilbakemeldingen",
+    feedbackSaveFailed: "Kunne ikke lagre. Prøv igjen.",
+    feedbackUnavailable: "Tilbakemelding er ikke tilgjengelig ennå.",
+    feedbackClearVote: "Fjern vurdering",
+    feedbackRetry: "Prøv igjen",
+  },
+  en: {
+    feedbackHelpful: "Helpful",
+    feedbackNotHelpful: "Not helpful",
+    feedbackCopy: "Copy answer",
+    feedbackCopied: "Copied",
+    feedbackCopyFailed: "Could not copy. Please try again.",
+    feedbackCommentPrompt: "What was missing? (optional)",
+    feedbackCommentPlaceholder: "Briefly describe what was missing…",
+    feedbackCommentSkip: "Skip",
+    feedbackCommentSend: "Send comment",
+    feedbackSaved: "Thanks for the feedback",
+    feedbackSaveFailed: "Could not save. Please try again.",
+    feedbackUnavailable: "Feedback is not available yet.",
+    feedbackClearVote: "Clear rating",
+    feedbackRetry: "Try again",
+  },
+  sv: {
+    feedbackHelpful: "Hjälpsamt",
+    feedbackNotHelpful: "Inte hjälpsamt",
+    feedbackCopy: "Kopiera svar",
+    feedbackCopied: "Kopierat",
+    feedbackCopyFailed: "Kunde inte kopiera. Försök igen.",
+    feedbackCommentPrompt: "Vad saknades? (valfritt)",
+    feedbackCommentPlaceholder: "Beskriv kort vad som saknades…",
+    feedbackCommentSkip: "Hoppa över",
+    feedbackCommentSend: "Skicka kommentar",
+    feedbackSaved: "Tack för feedbacken",
+    feedbackSaveFailed: "Kunde inte spara. Försök igen.",
+    feedbackUnavailable: "Feedback är inte tillgänglig ännu.",
+    feedbackClearVote: "Ta bort betyg",
+    feedbackRetry: "Försök igen",
+  },
+  da: {
+    feedbackHelpful: "Nyttigt",
+    feedbackNotHelpful: "Ikke nyttigt",
+    feedbackCopy: "Kopiér svar",
+    feedbackCopied: "Kopieret",
+    feedbackCopyFailed: "Kunne ikke kopiere. Prøv igen.",
+    feedbackCommentPrompt: "Hvad manglede? (valgfrit)",
+    feedbackCommentPlaceholder: "Beskriv kort hvad der manglede…",
+    feedbackCommentSkip: "Spring over",
+    feedbackCommentSend: "Send kommentar",
+    feedbackSaved: "Tak for feedbacken",
+    feedbackSaveFailed: "Kunne ikke gemme. Prøv igen.",
+    feedbackUnavailable: "Feedback er ikke tilgængelig endnu.",
+    feedbackClearVote: "Fjern vurdering",
+    feedbackRetry: "Prøv igen",
+  },
+  pl: {
+    feedbackHelpful: "Pomocne",
+    feedbackNotHelpful: "Niepomocne",
+    feedbackCopy: "Kopiuj odpowiedź",
+    feedbackCopied: "Skopiowano",
+    feedbackCopyFailed: "Nie udało się skopiować. Spróbuj ponownie.",
+    feedbackCommentPrompt: "Czego brakowało? (opcjonalnie)",
+    feedbackCommentPlaceholder: "Krótko opisz, czego brakowało…",
+    feedbackCommentSkip: "Pomiń",
+    feedbackCommentSend: "Wyślij komentarz",
+    feedbackSaved: "Dziękujemy za opinię",
+    feedbackSaveFailed: "Nie udało się zapisać. Spróbuj ponownie.",
+    feedbackUnavailable: "Opinie nie są jeszcze dostępne.",
+    feedbackClearVote: "Usuń ocenę",
+    feedbackRetry: "Spróbuj ponownie",
+  },
+  uk: {
+    feedbackHelpful: "Корисно",
+    feedbackNotHelpful: "Не корисно",
+    feedbackCopy: "Копіювати відповідь",
+    feedbackCopied: "Скопійовано",
+    feedbackCopyFailed: "Не вдалося скопіювати. Спробуйте ще раз.",
+    feedbackCommentPrompt: "Чого не вистачало? (необов’язково)",
+    feedbackCommentPlaceholder: "Коротко опишіть, чого не вистачало…",
+    feedbackCommentSkip: "Пропустити",
+    feedbackCommentSend: "Надіслати коментар",
+    feedbackSaved: "Дякуємо за відгук",
+    feedbackSaveFailed: "Не вдалося зберегти. Спробуйте ще раз.",
+    feedbackUnavailable: "Відгуки ще недоступні.",
+    feedbackClearVote: "Прибрати оцінку",
+    feedbackRetry: "Спробувати знову",
+  },
+};
+
 const EMBED_UI_SHELL: Record<
   WebsiteKompisEmbedLocale,
   Pick<
@@ -451,10 +583,12 @@ export function resolveWebsiteKompisEmbedUiLabels(input: {
   const variant =
     input.welcomeMessageVariant === "compact" ? "compact" : ("standard" as const);
   const shell = EMBED_UI_SHELL[input.locale] ?? EMBED_UI_SHELL.no;
+  const feedback = EMBED_FEEDBACK_SHELL[input.locale] ?? EMBED_FEEDBACK_SHELL.no;
   const welcome = EMBED_UI_COPY[input.locale]?.[variant] ?? EMBED_UI_COPY.no[variant];
 
   return {
     ...shell,
+    ...feedback,
     prompt: welcome.prompt,
     greeting: welcome.greeting,
     greetingSupport: welcome.greetingSupport,

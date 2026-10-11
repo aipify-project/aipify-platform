@@ -8,6 +8,10 @@ function main() {
   assert.equal(labels.contentTypes.faq, "customerApp.websiteKompisFaq.contentTypes.faq");
   assert.equal(labels.statuses.draft, "customerApp.websiteKompisFaq.statuses.draft");
   assert.equal(labels.previewTitle, "customerApp.websiteKompisFaq.previewTitle");
+  assert.equal(
+    labels.feedbackOverviewLink,
+    "customerApp.websiteKompisFaq.feedbackOverviewLink",
+  );
 
   console.log("website-kompis-faq-labels.test.ts: all assertions passed");
 }

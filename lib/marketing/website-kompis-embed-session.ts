@@ -13,6 +13,8 @@ export type WebsiteKompisEmbedSessionMessage =
       role: "assistant";
       text: string;
       sources?: Array<{ title: string; href?: string | null }>;
+      answerId?: string | null;
+      feedbackPersistenceReady?: boolean;
       failed?: false;
     }
   | {
@@ -104,6 +106,9 @@ export function sanitizeWebsiteKompisEmbedSessionState(
         role: "assistant",
         text: row.text.slice(0, 8000),
         sources,
+        answerId: typeof row.answerId === "string" ? row.answerId.slice(0, 80) : null,
+        feedbackPersistenceReady:
+          row.feedbackPersistenceReady === true && typeof row.answerId === "string",
       });
     }
   }
