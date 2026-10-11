@@ -63,6 +63,11 @@ import {
   type WebsiteKompisVisitorAnswerSource,
 } from "@/lib/marketing/website-kompis-visitor-tone";
 import {
+  evaluateWebsiteKompisDeterministicAnswerPolicy,
+  withWebsiteKompisPublicAnswerPathDiagnostic,
+  type WebsiteKompisPublicAnswerPath,
+} from "@/lib/marketing/website-kompis-public-answer-policy";
+import {
   buildWebsiteKompisDisabledResponse,
   getWebsiteKompisInstallConfigForPublicRequest,
   type GetWebsiteKompisInstallConfigOptions,
@@ -208,6 +213,8 @@ export type PublicCompanionAskResponse = {
   confidence: PublicCompanionAskConfidence;
   supportEscalation: PublicCompanionAskSupportEscalation;
   locale: PublicCompanionAskLocale;
+  /** Preview/test only — never required for visitor UI. */
+  diagnostics?: Record<string, unknown>;
 };
 
 export class PublicCompanionAskValidationError extends Error {
@@ -953,6 +960,38 @@ function applyWebsiteKompisCustomerSiteTone(
   };
 }
 
+/**
+ * Deterministic extract/FAQ must satisfy the shared public answer policy.
+ * Returns null so the ask chain can try the next evidence path (honest gap last).
+ */
+function applyCustomerSiteDeterministicPolicy(
+  response: PublicCompanionAskResponse,
+  question: string,
+): PublicCompanionAskResponse | null {
+  const policy = evaluateWebsiteKompisDeterministicAnswerPolicy({
+    question,
+    directAnswer: response.answer.directAnswer,
+  });
+  if (!policy.ok) {
+    console.warn("[website-kompis-policy]", {
+      event: "deterministic_answer_rejected",
+      reason: policy.reason,
+    });
+    return null;
+  }
+  return response;
+}
+
+function tagCustomerSiteAnswerPath(
+  response: PublicCompanionAskResponse,
+  path: WebsiteKompisPublicAnswerPath,
+  includeDiagnostics: boolean,
+): PublicCompanionAskResponse {
+  return withWebsiteKompisPublicAnswerPathDiagnostic(response, path, {
+    includeDiagnostics,
+  }) as PublicCompanionAskResponse;
+}
+
 function buildWebsiteKompisCustomerSiteFallbackResponse(
   locale: string,
   domain: string | null | undefined,
@@ -1048,15 +1087,23 @@ export async function askPublicPlatformCompanion(
       domain: visitorContext.domain,
     };
 
+    // Public embed must never expose a costControls bypass via query/body/browser.
+    // Preview SSO is not a cost limit. Injected completion is test-harness only (NODE_ENV=test).
+    const isPreviewEnv = process.env.VERCEL_ENV === "preview";
+
     const safetyPolicyAnswer = tryBuildWebsiteKompisSafetyPolicyAnswer(
       validated.question,
       locale,
     );
     if (safetyPolicyAnswer) {
-      return applyWebsiteKompisCustomerSiteTone(safetyPolicyAnswer, {
-        ...customerSiteTone,
-        source: "faq",
-      });
+      return tagCustomerSiteAnswerPath(
+        applyWebsiteKompisCustomerSiteTone(safetyPolicyAnswer, {
+          ...customerSiteTone,
+          source: "faq",
+        }),
+        "safety_policy",
+        isPreviewEnv,
+      );
     }
 
     const retrievalQuestion = buildPublicCompanionRetrievalQuestion(
@@ -1092,9 +1139,6 @@ export async function askPublicPlatformCompanion(
       evidenceCount: evidencePack.evidence.length,
     });
 
-    // Public embed must never expose a costControls bypass via query/body/browser.
-    // Preview SSO is not a cost limit. Injected completion is test-harness only (NODE_ENV=test).
-    const isPreviewEnv = process.env.VERCEL_ENV === "preview";
     // Injected completion is server-options only (never request body/query) — unit/testharness.
     const injectedCompletion = options?.groundedCompletion;
     const testHarnessCompletion = Boolean(injectedCompletion);
@@ -1165,24 +1209,34 @@ export async function askPublicPlatformCompanion(
           : faqRows.length > 0
             ? "faq"
             : "current-page";
-      const groundedResponse = applyWebsiteKompisCustomerSiteTone(
-        {
-          answer: groundedAnswer.answer,
-          actions: groundedAnswer.actions,
-          sources: groundedAnswer.sources,
-          confidence: groundedAnswer.confidence,
-          supportEscalation: groundedAnswer.supportEscalation,
-          locale: groundedAnswer.locale as PublicCompanionAskLocale,
-        },
-        {
-          ...customerSiteTone,
-          source: groundedSource,
-        },
+      const groundedResponse = tagCustomerSiteAnswerPath(
+        applyWebsiteKompisCustomerSiteTone(
+          {
+            answer: groundedAnswer.answer,
+            actions: groundedAnswer.actions,
+            sources: groundedAnswer.sources,
+            confidence: groundedAnswer.confidence,
+            supportEscalation: groundedAnswer.supportEscalation,
+            locale: groundedAnswer.locale as PublicCompanionAskLocale,
+          },
+          {
+            ...customerSiteTone,
+            source: groundedSource,
+          },
+        ),
+        "provider_grounded",
+        isPreviewEnv,
       );
       if (isPreviewEnv) {
+        const existingDiagnostics =
+          groundedResponse.diagnostics &&
+          typeof groundedResponse.diagnostics === "object"
+            ? (groundedResponse.diagnostics as Record<string, unknown>)
+            : {};
         return {
           ...groundedResponse,
           diagnostics: {
+            ...existingDiagnostics,
             grounded: {
               status: groundedResult.status,
               evidenceCount: evidencePack.evidence.length,
@@ -1236,7 +1290,7 @@ export async function askPublicPlatformCompanion(
         locale,
       });
       if (currentPageAnswer) {
-        return withPreviewDiagnostic(
+        const pageResponse = applyCustomerSiteDeterministicPolicy(
           applyWebsiteKompisCustomerSiteTone(
             {
               answer: currentPageAnswer.answer,
@@ -1251,7 +1305,13 @@ export async function askPublicPlatformCompanion(
             },
             { ...customerSiteTone, source: "current-page" },
           ),
+          validated.question,
         );
+        if (pageResponse) {
+          return withPreviewDiagnostic(
+            tagCustomerSiteAnswerPath(pageResponse, "current_page", isPreviewEnv),
+          );
+        }
       }
     }
 
@@ -1265,12 +1325,18 @@ export async function askPublicPlatformCompanion(
       validated.recentContext,
     );
     if (siteIndexAnswer) {
-      return withPreviewDiagnostic(
+      const indexResponse = applyCustomerSiteDeterministicPolicy(
         applyWebsiteKompisCustomerSiteTone(siteIndexAnswer, {
           ...customerSiteTone,
           source: "public-site-index",
         }),
+        validated.question,
       );
+      if (indexResponse) {
+        return withPreviewDiagnostic(
+          tagCustomerSiteAnswerPath(indexResponse, "public_site_index", isPreviewEnv),
+        );
+      }
     }
 
     const customerFaqAnswer = await tryBuildPublicTenantFaqAnswer(
@@ -1284,19 +1350,29 @@ export async function askPublicPlatformCompanion(
       installConfig,
     );
     if (customerFaqAnswer) {
-      return withPreviewDiagnostic(
+      const faqResponse = applyCustomerSiteDeterministicPolicy(
         applyWebsiteKompisCustomerSiteTone(customerFaqAnswer, {
           ...customerSiteTone,
           source: "faq",
         }),
+        validated.question,
       );
+      if (faqResponse) {
+        return withPreviewDiagnostic(
+          tagCustomerSiteAnswerPath(faqResponse, "faq", isPreviewEnv),
+        );
+      }
     }
 
     return withPreviewDiagnostic(
-      buildWebsiteKompisCustomerSiteFallbackResponse(
-        locale,
-        visitorContext.domain,
-        installConfig.fallbackTone,
+      tagCustomerSiteAnswerPath(
+        buildWebsiteKompisCustomerSiteFallbackResponse(
+          locale,
+          visitorContext.domain,
+          installConfig.fallbackTone,
+        ),
+        "safe_fallback",
+        isPreviewEnv,
       ),
     );
   }

@@ -45,6 +45,8 @@
   var OPEN_HEIGHT_MAX = 900;
   var OPEN_HEIGHT_MIN = 560;
   var VIEWPORT_HEIGHT_GUTTER = 24;
+  var OPEN_FRAME_OUTSET = 12;
+  var OPEN_EDGE_INSET = 12;
   var MAX_PATHNAME_LENGTH = 240;
   var MAX_TITLE_LENGTH = 200;
   var MAX_META_DESCRIPTION_LENGTH = 320;
@@ -469,13 +471,21 @@
     iframe.style.pointerEvents = "auto";
   }
 
-  function preferredOpenHeight(viewportHeight) {
+  function preferredOpenPanelHeight(viewportHeight) {
     var preferred = OPEN_HEIGHT;
     if (typeof viewportHeight !== "number" || !isFinite(viewportHeight) || viewportHeight <= 0) {
       return preferred;
     }
-    var capped = Math.floor(viewportHeight - VIEWPORT_HEIGHT_GUTTER);
+    var reserved = VIEWPORT_HEIGHT_GUTTER + OPEN_EDGE_INSET + OPEN_FRAME_OUTSET * 2;
+    var capped = Math.floor(viewportHeight - reserved);
     return Math.max(OPEN_HEIGHT_MIN, Math.min(preferred, capped, OPEN_HEIGHT_MAX));
+  }
+
+  function hostOpenSize(panelWidth, panelHeight) {
+    return {
+      width: Math.round(panelWidth + OPEN_FRAME_OUTSET * 2),
+      height: Math.round(panelHeight + OPEN_FRAME_OUTSET * 2),
+    };
   }
 
   function maybePostPageContextOnRouteChange() {
@@ -524,29 +534,41 @@
       (window.visualViewport && window.visualViewport.width) || window.innerWidth || 0;
     var viewportHeight =
       (window.visualViewport && window.visualViewport.height) || window.innerHeight || 0;
-    var nextWidth = open ? OPEN_WIDTH : CLOSED_WIDTH;
-    var nextHeight = open ? preferredOpenHeight(viewportHeight) : CLOSED_HEIGHT;
-    if (typeof width === "number" && width >= 48 && width <= 560) {
-      nextWidth = Math.round(width);
-    }
-    if (typeof height === "number" && height >= 48 && height <= OPEN_HEIGHT_MAX) {
-      nextHeight = Math.round(height);
+    var nextWidth = CLOSED_WIDTH;
+    var nextHeight = CLOSED_HEIGHT;
+    if (open) {
+      var panelHeight = preferredOpenPanelHeight(viewportHeight);
+      var host = hostOpenSize(OPEN_WIDTH, panelHeight);
+      nextWidth = host.width;
+      nextHeight = host.height;
+      // Prefer embed-posted host size (already includes frame outset) when valid.
+      if (typeof width === "number" && width >= 48 && width <= 560) {
+        nextWidth = Math.round(width);
+      }
+      if (
+        typeof height === "number" &&
+        height >= 48 &&
+        height <= OPEN_HEIGHT_MAX + OPEN_FRAME_OUTSET * 2
+      ) {
+        nextHeight = Math.round(height);
+      }
     }
     if (!open) {
       // Fail closed: never keep a panel-sized host frame while Kompis is closed.
       nextWidth = CLOSED_WIDTH;
       nextHeight = CLOSED_HEIGHT;
     }
-    if (viewportWidth && nextWidth > viewportWidth) {
-      nextWidth = Math.floor(viewportWidth);
+    if (viewportWidth && nextWidth > viewportWidth - OPEN_EDGE_INSET) {
+      nextWidth = Math.max(CLOSED_WIDTH, Math.floor(viewportWidth - OPEN_EDGE_INSET));
     }
-    if (viewportHeight && nextHeight > viewportHeight) {
-      nextHeight = Math.floor(viewportHeight);
+    if (viewportHeight && nextHeight > viewportHeight - OPEN_EDGE_INSET) {
+      nextHeight = Math.max(CLOSED_HEIGHT, Math.floor(viewportHeight - OPEN_EDGE_INSET));
     }
     iframe.style.width = nextWidth + "px";
     iframe.style.height = nextHeight + "px";
-    iframe.style.right = open ? "0" : "12px";
-    iframe.style.bottom = open ? "0" : "12px";
+    // Keep open panel inset so border/shadow are not flush-clipped against the viewport edge.
+    iframe.style.right = OPEN_EDGE_INSET + "px";
+    iframe.style.bottom = OPEN_EDGE_INSET + "px";
     markShellReady();
   }
 
@@ -613,7 +635,7 @@
         resizeWidth < 48 ||
         resizeWidth > 560 ||
         resizeHeight < 48 ||
-        resizeHeight > OPEN_HEIGHT_MAX
+        resizeHeight > OPEN_HEIGHT_MAX + OPEN_FRAME_OUTSET * 2
       ) {
         // Ignore malformed size payloads; keep last good frame size.
         return;

@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
-import { pickWebsiteKompisPublicContactHref } from "@/lib/marketing/website-kompis-public-contact";
+import {
+  pickWebsiteKompisPublicContactHref,
+  pickWebsiteKompisPublicContactHrefFromIndex,
+} from "@/lib/marketing/website-kompis-public-contact";
 
 assert.equal(
   pickWebsiteKompisPublicContactHref(
@@ -57,6 +60,57 @@ assert.equal(
         title: "Membership",
         content_type: "faq",
         source_url: "https://customer.example/membership",
+      },
+    ],
+    "customer.example",
+  ),
+  null,
+);
+
+assert.equal(
+  pickWebsiteKompisPublicContactHrefFromIndex(
+    [
+      {
+        title: "About",
+        pathname: "/about",
+        canonicalUrl: "https://customer.example/about",
+        score: 90,
+      },
+      {
+        title: "Kontakt oss",
+        pathname: "/kontakt",
+        canonicalUrl: "https://customer.example/kontakt",
+        score: 40,
+      },
+    ],
+    "customer.example",
+  ),
+  "https://customer.example/kontakt",
+);
+
+assert.equal(
+  pickWebsiteKompisPublicContactHrefFromIndex(
+    [
+      {
+        title: "Membership guide",
+        pathname: "/no/membership-guide",
+        canonicalUrl: "https://customer.example/no/membership-guide",
+        score: 88,
+      },
+    ],
+    "customer.example",
+  ),
+  null,
+);
+
+assert.equal(
+  pickWebsiteKompisPublicContactHrefFromIndex(
+    [
+      {
+        title: "Support",
+        pathname: "/help/support",
+        canonicalUrl: "https://evil.example/help/support",
+        score: 70,
       },
     ],
     "customer.example",

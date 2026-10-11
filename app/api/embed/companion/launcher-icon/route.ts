@@ -91,7 +91,8 @@ export async function GET(request: Request) {
     }),
     {
       headers: {
-        "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
+        // Contact URL is resolved from live FAQ/index — avoid day-long stale absence.
+        "Cache-Control": "public, max-age=300, stale-while-revalidate=3600",
       },
     },
   );

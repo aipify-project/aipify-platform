@@ -20,6 +20,14 @@ export default function WebsiteKompisEmbedLayout({ children }: { children: React
           width: 72px !important;
           min-height: 72px !important;
           max-height: 72px !important;
+          padding: 0 !important;
+        }
+        /* Open shell: pad inside host iframe so Design V1 border/shadow is not clipped. */
+        html[data-ak-shell="open"],
+        html[data-ak-shell="open"] body {
+          padding: 12px !important;
+          box-sizing: border-box !important;
+          background: transparent !important;
         }
       `}</style>
       {children}
