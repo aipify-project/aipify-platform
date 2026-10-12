@@ -8571,11 +8571,65 @@
       "attentionEmpty": "Nothing needs attention right now",
       "openWeb": "Open Kompis Web",
       "openBedrift": "Open Kompis Bedrift",
-      "openBilling": "Open billing",
+      "openBilling": "Åbn kontocenter",
       "openNotifications": "Notification settings",
       "statusAvailable": "Available",
       "statusUnavailable": "Not available",
       "statusReady": "Ready"
+    },
+    "productHubs": {
+      "common": {
+        "home": "Hjem",
+        "orgFallback": "Din organisation",
+        "backToBedrift": "Tilbage til Kompis Bedrift",
+        "backToAccount": "Tilbage til Konto",
+        "statusReady": "Klar",
+        "openWorkspace": "Åbn arbejdsområde"
+      },
+      "web": {
+        "modulesCard": "Se software og moduler til website-companions."
+      },
+      "bedrift": {
+        "dashboardTitle": "Oversigt for Kompis Bedrift",
+        "dashboardDescription": "Et roligt udgangspunkt for medarbejdere, dokumenter, intern viden og samarbejde.",
+        "employeesCard": "Inviter personer og se roller med tydelige adgangsnavne.",
+        "documentsCard": "Se dokumenter, der er tilgængelige for organisationen.",
+        "knowledgeCard": "Intern FAQ og viden til teamet — adskilt fra det offentlige website.",
+        "commsCard": "Saml intern kommunikation uden at sende beskeder herfra.",
+        "meetingsCard": "Se møder, når de findes for arbejdsområdet.",
+        "modulesCard": "Se moduler til Kompis Bedrift på denne konto.",
+        "settingsHint": "Kun produktindstillinger — faktura og notifikationer ligger under Konto.",
+        "employeesDescription": "Administrer, hvem der har adgang. Roller vises med forståelige navne.",
+        "documentsDescription": "Dokumenter for organisationen. Status vises kun, når systemet kan dokumentere den.",
+        "knowledgeDescription": "Intern viden til medarbejdere. Dette er ikke den offentlige Website Kompis-FAQ.",
+        "knowledgeEmptyTitle": "Åbn intern viden",
+        "knowledgeEmptyBody": "Brug arbejdsområdet for medarbejderviden til godkendt intern vejledning. Intet opfindes her.",
+        "openInternalKnowledge": "Åbn medarbejderviden",
+        "knowledgeWorkspaceHint": "Godkendte interne kilder, tilladelser og vejledning til teamet.",
+        "knowledgePublicSeparation": "Offentlig website-FAQ ligger under Kompis Web og blandes ikke ind her.",
+        "commsDescription": "Oversigt over intern kommunikation. Leveringssystemer ændres ikke fra denne hub.",
+        "meetingsDescription": "Møder for organisationen. Tomt, når mødedata mangler.",
+        "modulesDescription": "Moduler knyttet til kontoen. Denne visning aktiverer eller køber ikke moduler.",
+        "modulesAccountHint": "Abonnement og fakturering håndteres under Konto — ikke duplikeret her.",
+        "settingsDescription": "Produktindstillinger for Kompis Bedrift. Abonnement, faktura, integrationer og globale notifikationer ligger under Konto.",
+        "settingsModulesCard": "Se Bedrift-moduler på denne konto.",
+        "settingsKnowledgeCard": "Åbn indstillinger for intern viden.",
+        "settingsEmployeesCard": "Se teammedlemmer og adgang.",
+        "settingsAccountSeparation": "Har du brug for abonnement, faktura, integrationer eller notifikationsindstillinger?"
+      },
+      "account": {
+        "overviewTitle": "Kontocenter",
+        "overviewDescription": "Fælles kontoindstillinger for arbejdsområdet — abonnement, fakturering, integrationer og notifikationer.",
+        "subscriptionCard": "Se planstatus og faktureringsdetaljer fra den autoritative flade.",
+        "invoicesCard": "Åbn faktura- og betalingsdetaljer, når de findes — uden opdigtede lister.",
+        "integrationsCard": "Se tilsluttede apps og hvad der kræver handling.",
+        "notificationsCard": "Vælg, hvordan Aipify underretter din konto.",
+        "subscriptionDescription": "Dit abonnement og faktureringsreference. Handlinger via ekstern portal forklares der.",
+        "invoicesTitle": "Fakturering og fakturaer",
+        "invoicesDescription": "Faktura- og betalingsdetaljer fra den eksisterende kontoflade. Hvis dokumenter håndteres eksternt, vises det ærligt.",
+        "integrationsDescription": "Tilsluttede systemer for kontoen. Status vises kun, når den kan verificeres.",
+        "notificationsDescription": "Globale notifikationsindstillinger for kontoen."
+      }
     }
   }
 }

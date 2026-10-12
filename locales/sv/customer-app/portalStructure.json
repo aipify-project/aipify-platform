@@ -8571,11 +8571,65 @@
       "attentionEmpty": "Nothing needs attention right now",
       "openWeb": "Open Kompis Web",
       "openBedrift": "Open Kompis Bedrift",
-      "openBilling": "Open billing",
+      "openBilling": "Öppna kontocenter",
       "openNotifications": "Notification settings",
       "statusAvailable": "Available",
       "statusUnavailable": "Not available",
       "statusReady": "Ready"
+    },
+    "productHubs": {
+      "common": {
+        "home": "Hem",
+        "orgFallback": "Din organisation",
+        "backToBedrift": "Tillbaka till Kompis Bedrift",
+        "backToAccount": "Tillbaka till Konto",
+        "statusReady": "Redo",
+        "openWorkspace": "Öppna arbetsyta"
+      },
+      "web": {
+        "modulesCard": "Se programvara och moduler för webbkompanjonen."
+      },
+      "bedrift": {
+        "dashboardTitle": "Översikt för Kompis Bedrift",
+        "dashboardDescription": "En lugn startpunkt för medarbetare, dokument, intern kunskap och samarbete.",
+        "employeesCard": "Bjud in personer och granska roller med tydliga behörighetsnamn.",
+        "documentsCard": "Se dokument som är tillgängliga för organisationen.",
+        "knowledgeCard": "Intern FAQ och kunskap för teamet — skild från den offentliga webbplatsen.",
+        "commsCard": "Samla intern kommunikation utan att skicka meddelanden härifrån.",
+        "meetingsCard": "Se möten när de finns för arbetsytan.",
+        "modulesCard": "Se moduler för Kompis Bedrift på det här kontot.",
+        "settingsHint": "Endast produktinställningar — faktura och aviseringar finns under Konto.",
+        "employeesDescription": "Hantera vem som har åtkomst. Roller visas med vardagliga namn.",
+        "documentsDescription": "Dokument för organisationen. Status visas bara när systemet kan bevisa den.",
+        "knowledgeDescription": "Intern kunskap för medarbetare. Detta är inte den offentliga Website Kompis-FAQ:n.",
+        "knowledgeEmptyTitle": "Öppna intern kunskap",
+        "knowledgeEmptyBody": "Använd arbetsytan för medarbetarkunskap för godkänd intern vägledning. Inget hittas på här.",
+        "openInternalKnowledge": "Öppna medarbetarkunskap",
+        "knowledgeWorkspaceHint": "Godkända interna källor, behörigheter och vägledning för teamet.",
+        "knowledgePublicSeparation": "Offentlig webbplats-FAQ ligger under Kompis Web och blandas inte in här.",
+        "commsDescription": "Översikt över intern kommunikation. Leveranssystem ändras inte från den här hubben.",
+        "meetingsDescription": "Möten för organisationen. Tomt när mötesdata saknas.",
+        "modulesDescription": "Moduler kopplade till kontot. Den här vyn aktiverar eller köper inte moduler.",
+        "modulesAccountHint": "Prenumeration och fakturering hanteras under Konto — inte duplicerat här.",
+        "settingsDescription": "Produktinställningar för Kompis Bedrift. Prenumeration, faktura, integrationer och globala aviseringar finns under Konto.",
+        "settingsModulesCard": "Granska Bedrift-moduler på det här kontot.",
+        "settingsKnowledgeCard": "Öppna inställningar för intern kunskap.",
+        "settingsEmployeesCard": "Granska teammedlemmar och åtkomst.",
+        "settingsAccountSeparation": "Behöver du prenumeration, faktura, integrationer eller aviseringsinställningar?"
+      },
+      "account": {
+        "overviewTitle": "Kontocenter",
+        "overviewDescription": "Delade kontoinställningar för arbetsytan — prenumeration, fakturering, integrationer och aviseringar.",
+        "subscriptionCard": "Granska planstatus och faktureringsdetaljer från den auktoritativa ytan.",
+        "invoicesCard": "Öppna faktura- och betalningsdetaljer när de finns — utan påhittade listor.",
+        "integrationsCard": "Se anslutna appar och vad som kräver åtgärd.",
+        "notificationsCard": "Välj hur Aipify aviserar ditt konto.",
+        "subscriptionDescription": "Din prenumeration och faktureringsreferens. Åtgärder via extern portal förklaras där.",
+        "invoicesTitle": "Fakturering och fakturor",
+        "invoicesDescription": "Faktura- och betalningsdetaljer från befintlig kontoyta. Om dokument hanteras externt visas det ärligt.",
+        "integrationsDescription": "Anslutna system för kontot. Status visas bara när den kan verifieras.",
+        "notificationsDescription": "Globala aviseringsinställningar för kontot."
+      }
     }
   }
 }

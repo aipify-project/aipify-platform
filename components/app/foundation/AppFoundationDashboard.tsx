@@ -188,7 +188,7 @@ export function AppFoundationDashboard({
           </div>
           <div className="flex flex-wrap gap-2">
             <Link
-              href={FOUNDATION_NAV_BINDINGS.accountSubscription}
+              href={FOUNDATION_NAV_BINDINGS.accountHome}
               className="inline-flex rounded-lg bg-aipify-companion px-4 py-2 text-sm font-medium text-white transition hover:bg-aipify-companion-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus"
             >
               {labels.openBilling}

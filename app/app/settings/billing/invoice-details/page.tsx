@@ -1,18 +1,7 @@
-import { EnterpriseInvoiceDetailsPanel } from "@/components/shared/enterprise-invoicing";
-import { buildEnterpriseInvoicingLabels } from "@/lib/enterprise-invoicing";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
-import { getLocale } from "@/lib/i18n/get-locale";
-import { createTranslator } from "@/lib/i18n/translate";
+import { redirect } from "next/navigation";
+import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 
-export default async function EnterpriseInvoiceDetailsPage() {
-  const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["dashboard"]);
-  const t = createTranslator(dict);
-
-  return (
-    <EnterpriseInvoiceDetailsPanel
-      backHref="/app/settings/billing"
-      labels={buildEnterpriseInvoicingLabels(t, "customerApp")}
-    />
-  );
+/** Legacy invoice-details path — Account Center invoices is canonical. */
+export default function LegacyInvoiceDetailsRedirect() {
+  redirect(FOUNDATION_NAV_BINDINGS.accountInvoices);
 }

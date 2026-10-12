@@ -1,5 +1,7 @@
-import { renderAppPortalIntegrationsHubPage } from "@/lib/app-portal/render-pages";
+import { redirect } from "next/navigation";
+import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 
-export default function AppPlatformConnectedIntegrationsPage() {
-  return renderAppPortalIntegrationsHubPage();
+/** Legacy connected integrations path — Account Center is canonical. */
+export default function LegacyConnectedIntegrationsRedirect() {
+  redirect(FOUNDATION_NAV_BINDINGS.accountIntegrations);
 }

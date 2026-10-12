@@ -8495,11 +8495,65 @@
       "attentionEmpty": "Nothing needs attention right now",
       "openWeb": "Open Kompis Web",
       "openBedrift": "Open Kompis Bedrift",
-      "openBilling": "Open billing",
+      "openBilling": "Open account center",
       "openNotifications": "Notification settings",
       "statusAvailable": "Available",
       "statusUnavailable": "Not available",
       "statusReady": "Ready"
+    },
+    "productHubs": {
+      "common": {
+        "home": "Home",
+        "orgFallback": "Your organization",
+        "backToBedrift": "Back to Kompis Bedrift",
+        "backToAccount": "Back to Account",
+        "statusReady": "Ready",
+        "openWorkspace": "Open workspace"
+      },
+      "web": {
+        "modulesCard": "See software and modules available for your website companion."
+      },
+      "bedrift": {
+        "dashboardTitle": "Kompis Bedrift overview",
+        "dashboardDescription": "A calm starting point for employees, documents, internal knowledge, and collaboration.",
+        "employeesCard": "Invite people and review roles with clear access labels.",
+        "documentsCard": "See documents available to your organization.",
+        "knowledgeCard": "Internal FAQ and knowledge for your team — separate from the public website.",
+        "commsCard": "Organize internal communication without sending messages from here.",
+        "meetingsCard": "Review meetings when they exist for your workspace.",
+        "modulesCard": "See modules available for Kompis Bedrift on this account.",
+        "settingsHint": "Product settings only — billing and notifications stay under Account.",
+        "employeesDescription": "Manage who can access your organization. Roles use everyday names.",
+        "documentsDescription": "Documents for your organization. Status only appears when the system can prove it.",
+        "knowledgeDescription": "Internal knowledge for employees. This is not the public Website Kompis FAQ.",
+        "knowledgeEmptyTitle": "Open internal knowledge",
+        "knowledgeEmptyBody": "Use the employee knowledge workspace for approved internal guidance. Nothing is invented here.",
+        "openInternalKnowledge": "Open employee knowledge",
+        "knowledgeWorkspaceHint": "Approved internal sources, permissions, and guidance for your team.",
+        "knowledgePublicSeparation": "Public website FAQ stays under Kompis Web and is not mixed into this area.",
+        "commsDescription": "Internal communication overview. Delivery systems are not changed from this hub.",
+        "meetingsDescription": "Meetings for your organization. Empty when no meeting data is available yet.",
+        "modulesDescription": "Modules tied to your account. This view does not activate or purchase modules.",
+        "modulesAccountHint": "Subscription and billing are managed in Account — not duplicated here.",
+        "settingsDescription": "Product settings for Kompis Bedrift. Account billing, invoices, integrations, and global notifications live under Account.",
+        "settingsModulesCard": "Review Bedrift modules available on this account.",
+        "settingsKnowledgeCard": "Open internal knowledge settings for employees.",
+        "settingsEmployeesCard": "Review team members and access.",
+        "settingsAccountSeparation": "Need billing, invoices, integrations, or notification settings?"
+      },
+      "account": {
+        "overviewTitle": "Account center",
+        "overviewDescription": "Shared account settings for your workspace — subscription, invoicing entry, integrations, and notifications.",
+        "subscriptionCard": "Review plan status and billing details from the authoritative billing surface.",
+        "invoicesCard": "Open invoicing and billing details when available — without inventing invoice lists.",
+        "integrationsCard": "See connected apps and what still needs attention.",
+        "notificationsCard": "Choose how Aipify notifies your account.",
+        "subscriptionDescription": "Your subscription and billing reference. Changes that require an external portal are explained there.",
+        "invoicesTitle": "Billing and invoices",
+        "invoicesDescription": "Invoice and billing details from the existing account surface. If documents are managed externally, that path is shown honestly.",
+        "integrationsDescription": "Connected systems for this account. Status only appears when it can be verified.",
+        "notificationsDescription": "Global notification preferences for your account."
+      }
     }
   }
 }

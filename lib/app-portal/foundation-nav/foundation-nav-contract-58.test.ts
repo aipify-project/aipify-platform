@@ -38,10 +38,12 @@ assert.equal(ids.filter((id) => id.startsWith("account")).length, 4);
 assert.ok(!ids.includes("kompisOperator"));
 assert.ok(!hrefs.includes("/app/kompis"));
 
-// 4. Active state for nested routes
+// 4. Active state for nested routes (canonical hubs + legacy aliases)
+assert.equal(getAppPortalActiveNavId("/app/account/invoices"), "accountInvoices");
 assert.equal(getAppPortalActiveNavId("/app/settings/billing/invoice-details"), "accountInvoices");
-assert.equal(getAppPortalActiveNavId("/app/settings/billing"), "accountSubscription");
+assert.equal(getAppPortalActiveNavId("/app/account/subscription"), "accountSubscription");
 assert.equal(getAppPortalActiveNavId("/app/website-kompis/faq"), "kompisWebFaq");
+assert.equal(getAppPortalActiveNavId("/app/kompis-bedrift/employees"), "kompisBedriftEmployees");
 assert.equal(getAppPortalActiveNavId("/app/organization/team"), "kompisBedriftEmployees");
 assert.equal(getAppPortalActiveNavId("/app"), "appDashboard");
 
