@@ -1,3 +1,5 @@
+import { expandWebsiteKompisRetrievalSynonymTokens } from "@/lib/marketing/website-kompis-retrieval-intent";
+
 /**
  * Detect FAQ hub / accordion dumps that are lists of questions rather than one Q+A answer.
  */
@@ -76,7 +78,7 @@ export function isPurchaseProcessVisitorQuestion(question: string): boolean {
 /** Soft synonym expansion for FAQ intent matching (not translation). */
 export function expandFaqIntentTokens(question: string): string[] {
   const lower = question.toLowerCase();
-  const extras: string[] = [];
+  const extras: string[] = [...expandWebsiteKompisRetrievalSynonymTokens(question)];
   if (/\b(ekte\s+navn|real\s+name|riktig\s+navn)\b/.test(lower)) {
     extras.push("ekte", "navn", "brukernavn", "pseudonym");
   }
@@ -86,7 +88,7 @@ export function expandFaqIntentTokens(question: string): string[] {
   if (/\b(reise|reiser|travel)\b/.test(lower)) {
     extras.push("reise", "reiser", "travel", "tur");
   }
-  return extras;
+  return Array.from(new Set(extras));
 }
 
 export function dedupeCompanionSourcesByRoute<T extends { title: string; route: string }>(

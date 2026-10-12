@@ -260,15 +260,24 @@ export function buildWebsiteKompisEvidencePack(input: {
         return true;
       }
       if (topicTokens.length === 0) return true;
-      return evidenceSnippetMatchesQuestionTopic(item, question);
+      if (!evidenceSnippetMatchesQuestionTopic(item, question)) return false;
+      // Weak FAQ lexical hits must not crowd out stronger public pages.
+      // Require at least 2 topic hits when the question has ≥2 topics (not 3 —
+      // short distinctive pairs like Bronze/Gold would otherwise never qualify).
+      if (item.kind === "faq" && topicTokens.length >= 2) {
+        const faqScore = evidenceTopicScore(item, topicTokens);
+        if (faqScore < 2) return false;
+      }
+      return true;
     })
     .sort((a, b) => {
       const scoreDelta =
         evidenceTopicScore(b, topicTokens) - evidenceTopicScore(a, topicTokens);
       if (scoreDelta !== 0) return scoreDelta;
-      // Prefer index over FAQ when topic scores tie (guide pages beat hub FAQ).
+      // Kind alone must not win — only break ties after thematic score.
+      // Prefer index over FAQ when scores tie (guide pages beat hub FAQ).
       const kindRank = (kind: WebsiteKompisEvidenceKind) =>
-        kind === "public-site-index" ? 0 : kind === "faq" ? 1 : 2;
+        kind === "public-site-index" ? 0 : kind === "current-page" ? 1 : 2;
       return kindRank(a.kind) - kindRank(b.kind);
     })
     .slice(0, WEBSITE_KOMPIS_GROUNDED_MAX_EVIDENCE);
@@ -295,7 +304,7 @@ export function resolveWebsiteKompisGroundedIntelligenceProfile(): {
 }
 
 export function buildWebsiteKompisGroundedSystemPrompt(locale: string): string {
-  // Shared public Website Kompis contract — same rules as deterministic extract/FAQ/fallback paths.
+  // Shared public Website Kompis contract — same policy id as deterministic extract/FAQ/fallback.
   return buildWebsiteKompisPublicAnswerPolicyPrompt(locale);
 }
 

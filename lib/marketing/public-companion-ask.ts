@@ -47,6 +47,10 @@ import {
   type PublicCompanionVisitorContext,
 } from "@/lib/marketing/public-companion-tenant-faq";
 import {
+  isLowSignalWebsiteKompisFollowUp,
+  rewriteWebsiteKompisRetrievalIntent,
+} from "@/lib/marketing/website-kompis-retrieval-intent";
+import {
   buildWebsiteKompisPrivateScopeRefusalResponse,
   buildWebsiteKompisSafeFallbackResponse,
   isCustomerWebsiteVisitorContext,
@@ -412,38 +416,32 @@ export function buildPublicCompanionQuery(
   return [...contextLines, `user: ${question}`].join("\n");
 }
 
-const LOW_SIGNAL_FOLLOW_UP_RE =
-  /^(fortell mer|kan du utdype|tell me more|what does that mean|hva betyr det|utdyp|hvordan gjør jeg (det|dette)|how do i (do that|do this)|more please|og mer)[?.!\s]*$/i;
-
 /** True when the visitor turn alone has little retrieval signal. */
 export function isLowSignalPublicCompanionFollowUp(question: string): boolean {
-  const trimmed = question.trim();
-  if (!trimmed) return false;
-  if (LOW_SIGNAL_FOLLOW_UP_RE.test(trimmed)) return true;
-  const tokens = trimmed.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter((t) => t.length >= 2);
-  return tokens.length > 0 && tokens.length <= 4 && /^(fortell|utdyp|more|how|hvordan|kan|please)/i.test(tokens[0] ?? "");
+  return isLowSignalWebsiteKompisFollowUp(question);
 }
 
 /**
- * Retrieval query for FAQ/index: keep topic from recent turns when the latest
- * ask is a low-signal follow-up ("fortell mer"), without unbounded payload growth.
+ * Retrieval query for FAQ/index.
+ * Uses a bounded intent rewrite (synonyms + last user topic for low-signal/referential
+ * follow-ups). Never dumps the full chat transcript as the search string.
  */
 export function buildPublicCompanionRetrievalQuestion(
   question: string,
   recentContext?: PublicCompanionRecentContextMessage[],
 ): string {
-  const trimmed = question.trim();
-  if (!recentContext?.length) return trimmed;
-  if (!isLowSignalPublicCompanionFollowUp(trimmed)) {
-    return buildPublicCompanionQuery(trimmed, recentContext);
-  }
-  const prior = recentContext
-    .slice(-4)
-    .map((entry) => entry.text.trim())
-    .filter(Boolean)
-    .join(" ");
-  const combined = `${prior}\n${trimmed}`.trim();
-  return combined.slice(0, 900);
+  return rewriteWebsiteKompisRetrievalIntent({
+    question,
+    recentContext,
+  }).retrievalQuery;
+}
+
+/** Intent metadata for tests / diagnostics — same rewrite as retrieval. */
+export function resolvePublicCompanionRetrievalIntent(
+  question: string,
+  recentContext?: PublicCompanionRecentContextMessage[],
+) {
+  return rewriteWebsiteKompisRetrievalIntent({ question, recentContext });
 }
 
 function assertAllowedRequestKeys(body: Record<string, unknown>): void {
