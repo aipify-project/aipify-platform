@@ -121,13 +121,14 @@ This job did **not** enable writes, call ingest persist, or mutate Production in
 
 | Item | Value |
 |------|-------|
-| PR | _(filled after merge)_ |
-| Feature head | _(filled after push)_ |
-| Merge / `origin/main` | _(filled after merge)_ |
+| PR | [#134](https://github.com/aipify-project/aipify-platform/pull/134) MERGED |
+| Feature head | `234882cbd4823b76b613de428a939824f1555f7e` |
+| Merge / `origin/main` | `f01c1a22ec43e05b5d65fc74fa110b137f7c20ce` |
 | Apex | `aipify-platform-iz5z` / `prj_rekqU1SLEr3v2ifYuUkQ5d4fKR7j` |
-| Production deploy | _(filled after READY)_ |
+| Production deploy | `dpl_5xu3UdKfWzXdMzV68xfKfPB6atga` READY |
+| Ready URL | `aipify-platform-iz5z-bgantyywh-unonight-platform-s-projects.vercel.app` |
 | Aliases | `aipify.ai`, `www.aipify.ai` |
-| LIVE verify | Production target SHA on Apex includes extract FAQ harvest — **code only**; index data still stale until refresh |
+| LIVE verify | Production target SHA `f01c1a22` on Apex includes FAQ harvest extract — **CODE FIX LIVE**; stored index chunks still stale until controlled refresh |
 
 ---
 
