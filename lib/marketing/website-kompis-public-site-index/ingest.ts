@@ -8,6 +8,8 @@ import {
 import {
   discoverPublicSiteIndexUrls,
   loadRobotsPolicyFailClosed,
+  normalizePublicSiteIndexDiscoveryMode,
+  type PublicSiteIndexDiscoveryMode,
 } from "./discovery";
 import {
   extractPublicPageFromHtml,
@@ -31,6 +33,12 @@ export type PublicSiteIndexIngestInput = {
   verifiedHost: string;
   /** Explicit seed URLs and/or sitemap discovery starting points. */
   seedUrls?: string[];
+  /**
+   * standard (default): robots + sitemap expansion.
+   * seed_only: only validated page seeds — no sitemap/root expansion.
+   * Must be re-supplied on every cursor resume (bound into discovery fingerprint).
+   */
+  discoveryMode?: PublicSiteIndexDiscoveryMode;
   localeHint?: string;
   /** Per-batch page ceiling (hard-capped by MAX_PAGES). */
   maxPages?: number;
@@ -59,6 +67,7 @@ export type PublicSiteIndexIngestResult = {
   dryRun: boolean;
   persistAttempted: boolean;
   robotsStatus: "ok" | "fail_closed";
+  discoveryMode: PublicSiteIndexDiscoveryMode;
   errors: Array<{ url: string; reason: string }>;
   indexedUrls: string[];
   rejectedPrivateSample: string[];
@@ -91,6 +100,7 @@ function emptyResult(
     discoveryFingerprint: "",
     discoveryTruncated: false,
     persistAttempted: false,
+    discoveryMode: "standard",
     errors: [],
     indexedUrls: [],
     rejectedPrivateSample: [],
@@ -132,10 +142,12 @@ export async function ingestTenantPublicSiteIndex(
     Math.max(1, input.maxPages ?? 30),
     WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_PAGES,
   );
+  const discoveryMode = normalizePublicSiteIndexDiscoveryMode(input.discoveryMode);
 
   const discovery = await discoverPublicSiteIndexUrls({
     verifiedHost: host,
     seedUrls: input.seedUrls ?? [],
+    discoveryMode,
     fetchImpl: input.fetchImpl,
   });
 
@@ -144,6 +156,7 @@ export async function ingestTenantPublicSiteIndex(
       dryRun,
       robotsStatus: "fail_closed",
       runStatus: "fail_closed",
+      discoveryMode,
       discoveryFingerprint: discovery.discoveryFingerprint,
       rejectedPrivateSample: discovery.rejectedPrivateSample,
       errors: [
@@ -152,6 +165,26 @@ export async function ingestTenantPublicSiteIndex(
           reason: discovery.robotsReason ?? "robots_fetch_failed",
         },
       ],
+    });
+  }
+
+  if (
+    discoveryMode === "seed_only" &&
+    discovery.urls.length === 0
+  ) {
+    const seedErrors =
+      discovery.seedRejectReasons?.length
+        ? discovery.seedRejectReasons
+        : [{ url: host, reason: "seed_urls_required" }];
+    return emptyResult({
+      dryRun,
+      robotsStatus: "ok",
+      runStatus: "failed",
+      discoveryMode: "seed_only",
+      discoveryFingerprint: discovery.discoveryFingerprint,
+      rejectedPrivateSample: discovery.rejectedPrivateSample,
+      rejected: seedErrors.length,
+      errors: seedErrors.slice(0, 40),
     });
   }
 
@@ -170,6 +203,7 @@ export async function ingestTenantPublicSiteIndex(
         dryRun,
         robotsStatus: "ok",
         runStatus: "failed",
+        discoveryMode,
         discovered: discovery.urls.length,
         discoveryFingerprint: discovery.discoveryFingerprint,
         discoveryTruncated: discovery.truncated,
@@ -181,6 +215,7 @@ export async function ingestTenantPublicSiteIndex(
   }
 
   const batchUrls = discovery.urls.slice(offset, offset + batchSize);
+  const seedScope = new Set(discovery.urls);
   const disallow = discovery.disallow;
   const fetchImpl = input.fetchImpl ?? fetchVerifiedPublicSiteUrl;
   const supabase = allowPersist ? createServiceRoleClient() : null;
@@ -271,6 +306,14 @@ export async function ingestTenantPublicSiteIndex(
     }
 
     const canonical = normalizePublicSiteIndexCanonicalUrl(finalDecision.url);
+    if (discoveryMode === "seed_only" && !seedScope.has(canonical)) {
+      rejected += 1;
+      errors.push({ url, reason: "seed_scope_mismatch" });
+      pushOutcome(url, "seed_scope_mismatch", {
+        decodedBytes: fetched.decodedBytes,
+      });
+      continue;
+    }
 
     if (!allowPersist || !supabase) {
       indexedUrls.push(canonical);
@@ -347,6 +390,7 @@ export async function ingestTenantPublicSiteIndex(
     dryRun,
     persistAttempted,
     robotsStatus: "ok",
+    discoveryMode,
     errors: errors.slice(0, 40),
     indexedUrls,
     rejectedPrivateSample,

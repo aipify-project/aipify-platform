@@ -15,6 +15,9 @@ export const WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_DISCOVERED = 5_000;
 /** Nested sitemap-index depth (sitemapindex → child sitemaps → urls). */
 export const WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_SITEMAP_DEPTH = 3;
 
+/** standard = robots + sitemap expansion; seed_only = explicit page seeds only. */
+export type PublicSiteIndexDiscoveryMode = "standard" | "seed_only";
+
 export type PublicSiteDiscoveryResult = {
   robotsStatus: "ok" | "fail_closed";
   robotsReason?: "robots_fetch_failed" | "robots_empty_ambiguous";
@@ -23,9 +26,12 @@ export type PublicSiteDiscoveryResult = {
   urls: string[];
   /** SHA-256 of joined urls — binds continuation cursors to this discovery set. */
   discoveryFingerprint: string;
+  discoveryMode: PublicSiteIndexDiscoveryMode;
   sitemapFetches: number;
   truncated: boolean;
   rejectedPrivateSample: string[];
+  /** Seed-only: reasons seeds were rejected before any page fetch. */
+  seedRejectReasons?: Array<{ url: string; reason: string }>;
 };
 
 function uniquePreserve(urls: string[]): string[] {
@@ -36,9 +42,23 @@ export function sortDiscoveredUrlsDeterministically(urls: string[]): string[] {
   return [...urls].sort((a, b) => a.localeCompare(b, "en"));
 }
 
-export function fingerprintDiscoveredUrls(urls: string[]): string {
+export function fingerprintDiscoveredUrls(
+  urls: string[],
+  discoveryMode: PublicSiteIndexDiscoveryMode = "standard",
+): string {
   const sorted = sortDiscoveredUrlsDeterministically(urls);
-  return createHash("sha256").update(sorted.join("\n")).digest("hex");
+  // Prefix only seed_only so in-flight standard cursors stay compatible.
+  const material =
+    discoveryMode === "seed_only"
+      ? `seed_only\n${sorted.join("\n")}`
+      : sorted.join("\n");
+  return createHash("sha256").update(material).digest("hex");
+}
+
+export function normalizePublicSiteIndexDiscoveryMode(
+  raw: unknown,
+): PublicSiteIndexDiscoveryMode {
+  return raw === "seed_only" ? "seed_only" : "standard";
 }
 
 export function isSitemapPathname(pathname: string): boolean {
@@ -168,14 +188,17 @@ async function collectFromSitemapDocument(input: {
 
 /**
  * Universal public URL discovery for a verified host.
- * robots.txt (fail-closed) + Sitemap: directives + nested sitemap indexes + root.
+ * standard: robots.txt (fail-closed) + Sitemap: directives + nested indexes + root.
+ * seed_only: robots.txt for allow/deny only — no sitemap/root expansion; explicit page seeds only.
  */
 export async function discoverPublicSiteIndexUrls(input: {
   verifiedHost: string;
   seedUrls?: string[];
+  discoveryMode?: PublicSiteIndexDiscoveryMode;
   fetchImpl?: typeof fetchVerifiedPublicSiteUrl;
 }): Promise<PublicSiteDiscoveryResult> {
   const host = input.verifiedHost.trim().toLowerCase();
+  const discoveryMode = normalizePublicSiteIndexDiscoveryMode(input.discoveryMode);
   const fetchImpl = input.fetchImpl ?? fetchVerifiedPublicSiteUrl;
   const rejectedPrivateSample: string[] = [];
 
@@ -186,10 +209,63 @@ export async function discoverPublicSiteIndexUrls(input: {
       robotsReason: robots.reason,
       disallow: [],
       urls: [],
-      discoveryFingerprint: fingerprintDiscoveredUrls([]),
+      discoveryFingerprint: fingerprintDiscoveredUrls([], discoveryMode),
+      discoveryMode,
       sitemapFetches: 0,
       truncated: false,
       rejectedPrivateSample: [],
+    };
+  }
+
+  if (discoveryMode === "seed_only") {
+    const seedRejectReasons: Array<{ url: string; reason: string }> = [];
+    const pageUrls = new Set<string>();
+    const rawSeeds = uniquePreserve(input.seedUrls ?? []);
+    if (rawSeeds.length === 0) {
+      return {
+        robotsStatus: "ok",
+        disallow: robots.disallow,
+        urls: [],
+        discoveryFingerprint: fingerprintDiscoveredUrls([], "seed_only"),
+        discoveryMode: "seed_only",
+        sitemapFetches: 0,
+        truncated: false,
+        rejectedPrivateSample: [],
+        seedRejectReasons: [{ url: host, reason: "seed_urls_required" }],
+      };
+    }
+    for (const seed of rawSeeds) {
+      const decision = evaluatePublicSiteIndexUrl(seed, host);
+      if (!decision.ok) {
+        seedRejectReasons.push({ url: seed, reason: decision.reason });
+        if (
+          decision.reason === "private_path" &&
+          rejectedPrivateSample.length < 12
+        ) {
+          rejectedPrivateSample.push(seed.split("?")[0] ?? seed);
+        }
+        continue;
+      }
+      if (isSitemapPathname(decision.pathname)) {
+        seedRejectReasons.push({ url: seed, reason: "seed_sitemap_not_allowed" });
+        continue;
+      }
+      pageUrls.add(normalizePublicSiteIndexCanonicalUrl(decision.url));
+    }
+    const urls = sortDiscoveredUrlsDeterministically([...pageUrls]).slice(
+      0,
+      WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_DISCOVERED,
+    );
+    return {
+      robotsStatus: "ok",
+      disallow: robots.disallow,
+      urls,
+      discoveryFingerprint: fingerprintDiscoveredUrls(urls, "seed_only"),
+      discoveryMode: "seed_only",
+      sitemapFetches: 0,
+      truncated: false,
+      rejectedPrivateSample,
+      seedRejectReasons,
     };
   }
 
@@ -244,7 +320,8 @@ export async function discoverPublicSiteIndexUrls(input: {
     robotsStatus: "ok",
     disallow: robots.disallow,
     urls,
-    discoveryFingerprint: fingerprintDiscoveredUrls(urls),
+    discoveryFingerprint: fingerprintDiscoveredUrls(urls, "standard"),
+    discoveryMode: "standard",
     sitemapFetches: counters.sitemapFetches,
     truncated:
       counters.truncated || pageUrls.size > WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_DISCOVERED,

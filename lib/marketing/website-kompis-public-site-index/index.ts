@@ -72,10 +72,12 @@ export {
 export {
   discoverPublicSiteIndexUrls,
   fingerprintDiscoveredUrls,
+  normalizePublicSiteIndexDiscoveryMode,
   sortDiscoveredUrlsDeterministically,
   WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_DISCOVERED,
   WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_MAX_SITEMAP_DEPTH,
   type PublicSiteDiscoveryResult,
+  type PublicSiteIndexDiscoveryMode,
 } from "./discovery";
 
 export {

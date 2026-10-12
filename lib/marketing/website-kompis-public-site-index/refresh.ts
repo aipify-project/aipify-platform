@@ -38,6 +38,11 @@ export function planPublicSiteIndexRefresh(input: {
   discoveredUrls: string[];
   existingDocuments: IndexedDocumentRefreshView[];
   discoveryIncomplete: boolean;
+  /**
+   * seed_only must never be treated as a complete site discovery — unvisited
+   * neighbor documents must not be marked stale.
+   */
+  discoveryMode?: "standard" | "seed_only";
   nowMs?: number;
   env?: PublicSiteIndexEnv;
 }): PublicSiteRefreshPlan {
@@ -46,6 +51,9 @@ export function planPublicSiteIndexRefresh(input: {
   const existingByUrl = new Map(
     input.existingDocuments.map((d) => [d.canonicalUrl, d]),
   );
+  // Explicit seed-only scope is never a full-site inventory.
+  const discoveryIncomplete =
+    input.discoveryMode === "seed_only" ? true : input.discoveryIncomplete;
 
   const urlsToProcess: string[] = [];
   const urlsFreshSkip: string[] = [];
@@ -66,7 +74,7 @@ export function planPublicSiteIndexRefresh(input: {
   }
 
   const urlsToMarkStale: string[] = [];
-  if (!input.discoveryIncomplete) {
+  if (!discoveryIncomplete) {
     for (const doc of input.existingDocuments) {
       if (doc.status !== "active") continue;
       if (!discovered.has(doc.canonicalUrl)) {
