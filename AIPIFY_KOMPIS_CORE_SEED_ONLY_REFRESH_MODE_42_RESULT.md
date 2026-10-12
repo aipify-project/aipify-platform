@@ -78,13 +78,16 @@ Persist path remains per-document RPC `replace_tenant_public_site_index_document
 ## Merge / Apex LIVE
 
 | Item | Value |
-|------|-------|
-| PR | (filled after open) |
-| Feature head | (filled after merge) |
-| Apex Production deploy | (filled after READY) |
-| Aliases | `aipify.ai`, `www.aipify.ai` |
+|------|--------|
+| PR | [#140](https://github.com/aipify-project/aipify-platform/pull/140) |
+| Feature commit | `d35f0df6` |
+| Merge SHA (main) | `9248b48e` |
+| Apex Production deploy | `dpl_E16NhJTZptT3vsXCe4CUFasVzSbX` **READY** |
+| Project | `aipify-platform-iz5z` / `prj_rekqU1SLEr3v2ifYuUkQ5d4fKR7j` |
+| Aliases | `aipify.ai`, `www.aipify.ai` (also `super.aipify.ai`) |
 | SQL | none |
 | Production ingest | **not executed** |
+| Worker | Platform ingest route on Apex now accepts `discoveryMode: "seed_only"` |
 
 ---
 
