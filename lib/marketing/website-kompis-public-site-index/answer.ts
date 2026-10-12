@@ -5,6 +5,7 @@ import {
   looksLikeFaqQuestionList,
   textLooksLikeConcretePublishedCost,
 } from "@/lib/marketing/website-kompis-answer-relevance";
+import { expandWebsiteKompisRetrievalSynonymTokens } from "@/lib/marketing/website-kompis-retrieval-intent";
 import { buildWebsiteKompisMissingConcreteCostGapAnswer } from "@/lib/marketing/website-kompis-public-answer-policy";
 import {
   evaluatePublicSiteIndexUrl,
@@ -191,9 +192,20 @@ export function tokenizePublicSiteIndexQuestion(question: string): string[] {
  */
 export function topicTokensForPublicSiteIndex(question: string): string[] {
   const tokens = tokenizePublicSiteIndexQuestion(question);
-  const strong = tokens.filter((t) => t.length >= 4);
-  if (strong.length >= 1) return strong.slice(0, 8);
-  return tokens.slice(0, 8);
+  // Gift/redeem (and similar) synonym boost for paraphrase ranking — do not pull in
+  // generic price/membership expanders here; those inflate false FAQ topic hits
+  // (e.g. "koster"/"kost" on unrelated membership rows for Push asks).
+  const giftBoost = expandWebsiteKompisRetrievalSynonymTokens(question)
+    .map((t) => t.toLowerCase())
+    .filter((t) =>
+      /^(gavekort|gift|card|cards|voucher|innløs|innlos|redeem|bruke|use|aktivere|activate)$/i.test(
+        t,
+      ),
+    );
+  const merged = Array.from(new Set([...tokens, ...giftBoost]));
+  const strong = merged.filter((t) => t.length >= 4);
+  if (strong.length >= 1) return strong.slice(0, 12);
+  return merged.slice(0, 12);
 }
 
 /** Hub/legal paths that often share nav keywords without answering the topic. */
