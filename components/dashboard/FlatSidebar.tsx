@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { AipifyNavClasses, AipifySidebarTypography } from "@/lib/design";
+import { AipifySidebarTypography } from "@/lib/design";
+import { AppVisualClasses } from "@/lib/design/app-visual-system";
 import { getNavIcon } from "./nav-icons";
 
 export type FlatNavItem = {
@@ -22,7 +23,7 @@ type FlatSidebarProps = {
 };
 
 /**
- * Job 60 — one vertical menu list. No accordion, nesting, or group headers.
+ * Job 60 — one vertical menu list. Job 63 — premium soft active state.
  */
 export default function FlatSidebar({
   items,
@@ -32,7 +33,7 @@ export default function FlatSidebar({
   navigationAriaLabel = "Navigation",
 }: FlatSidebarProps) {
   return (
-    <nav className={`flex flex-col gap-1 ${className}`} aria-label={navigationAriaLabel}>
+    <nav className={`flex flex-col gap-1.5 ${className}`} aria-label={navigationAriaLabel}>
       {items.map((item) => {
         const isActive = item.id === activeId;
         const icon: ReactNode = getNavIcon(item.id);
@@ -43,16 +44,16 @@ export default function FlatSidebar({
             onClick={onNavigate}
             title={item.accessHint ?? item.label}
             aria-disabled={item.locked || undefined}
-            className={`${AipifySidebarTypography.navItemRow} ${
+            className={`${AipifySidebarTypography.navItemRow} min-h-11 ${
               isActive
-                ? `${AipifyNavClasses.itemActive} ${AipifySidebarTypography.navigationItemActive}`
-                : `${AipifyNavClasses.item} ${AipifySidebarTypography.navigationItem}`
-            } ${item.locked ? "opacity-60" : ""}`}
+                ? `${AppVisualClasses.navItemActive} text-[13px] font-semibold leading-snug`
+                : `${AppVisualClasses.navItem} ${AipifySidebarTypography.navigationItem}`
+            } ${AppVisualClasses.focusRing} ${item.locked ? "opacity-60" : ""}`}
             aria-current={isActive ? "page" : undefined}
           >
             <span
               className={`mt-0.5 ${AipifySidebarTypography.navIcon} ${
-                isActive ? AipifyNavClasses.itemActiveIcon : AipifyNavClasses.itemIcon
+                isActive ? AppVisualClasses.navItemActiveIcon : "text-[var(--app-text-muted)]"
               }`}
             >
               {icon}

@@ -1,16 +1,16 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { AppLayoutClasses } from "@/lib/design/app-layout";
+import { AppVisualClasses } from "@/lib/design/app-visual-system";
 
 export type AppIconActionCardTone = "purple" | "blue" | "lavender" | "slate" | "emerald" | "amber";
 
 const TONE_CLASSES: Record<AppIconActionCardTone, string> = {
-  purple: "bg-violet-100 text-violet-700 ring-violet-200",
-  blue: "bg-indigo-100 text-indigo-700 ring-indigo-200",
-  lavender: "bg-purple-100 text-purple-700 ring-purple-200",
-  slate: "bg-slate-100 text-slate-700 ring-slate-200",
-  emerald: "bg-emerald-100 text-emerald-800 ring-emerald-200",
-  amber: "bg-amber-100 text-amber-900 ring-amber-200",
+  purple: "bg-[var(--app-primary-soft)] text-[var(--app-primary)] ring-[var(--app-border-accent)]",
+  blue: "bg-[#E8EEFC] text-[var(--app-primary-blue)] ring-[#C9D4F8]",
+  lavender: "bg-[#F3EDFF] text-[#6B4FD8] ring-[var(--app-border-accent)]",
+  slate: "bg-[var(--app-soft-surface)] text-[var(--app-text-muted)] ring-[var(--app-border)]",
+  emerald: "bg-[#E8F7F0] text-[var(--app-positive)] ring-[#B7E4CF]",
+  amber: "bg-[#FFF4E5] text-[var(--app-pending)] ring-[#F5D4A3]",
 };
 
 type AppIconActionCardProps = {
@@ -35,7 +35,7 @@ export function AppIconActionCard({
   return (
     <Link
       href={href}
-      className={`${AppLayoutClasses.card} group flex h-full flex-col gap-4 transition hover:border-aipify-accent hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus`}
+      className={`${AppVisualClasses.cardInteractive} group relative z-[1] flex h-full flex-col gap-4`}
     >
       <div className="flex items-start justify-between gap-3">
         <span
@@ -46,18 +46,46 @@ export function AppIconActionCard({
         </span>
         {statusLabel ? (
           <span
-            className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${TONE_CLASSES[statusTone]}`}
+            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${TONE_CLASSES[statusTone]}`}
           >
+            <StatusDot tone={statusTone} />
             {statusLabel}
           </span>
         ) : null}
       </div>
-      <div className="min-w-0 space-y-1.5">
-        <h3 className="text-base font-semibold text-aipify-text group-hover:text-aipify-companion">
-          {title}
-        </h3>
-        <p className="text-sm leading-relaxed text-aipify-text-secondary">{description}</p>
+      <div className="flex min-w-0 flex-1 items-start justify-between gap-3">
+        <div className="min-w-0 space-y-1.5">
+          <h3 className="text-base font-semibold text-[var(--app-text)] group-hover:text-[var(--app-primary)]">
+            {title}
+          </h3>
+          <p className="text-sm leading-relaxed text-[var(--app-text-muted)]">{description}</p>
+        </div>
+        <span
+          className="mt-1 shrink-0 text-[var(--app-primary)] opacity-60 transition group-hover:translate-x-0.5 group-hover:opacity-100"
+          aria-hidden="true"
+        >
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.75} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </span>
       </div>
     </Link>
+  );
+}
+
+function StatusDot({ tone }: { tone: AppIconActionCardTone }) {
+  return (
+    <span
+      className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${
+        tone === "emerald"
+          ? "bg-[var(--app-positive)]"
+          : tone === "amber"
+            ? "bg-[var(--app-pending)]"
+            : tone === "slate"
+              ? "bg-[var(--app-neutral)]"
+              : "bg-[var(--app-primary)]"
+      }`}
+      aria-hidden="true"
+    />
   );
 }

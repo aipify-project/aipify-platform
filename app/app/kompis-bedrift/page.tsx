@@ -70,6 +70,7 @@ export default async function KompisBedriftDashboardPage() {
       description={hubT(t, "bedrift.dashboardDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
       status={{ label: common.statusReady, tone: "emerald" }}
+      decorativeAccent
       primaryAction={{
         label: t("customerApp.portalStructure.nav.kompisBedriftEmployees"),
         href: FOUNDATION_NAV_BINDINGS.kompisBedriftEmployees,

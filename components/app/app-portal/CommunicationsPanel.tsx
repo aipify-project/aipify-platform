@@ -138,7 +138,7 @@ export function CommunicationsPanel({ labels, embedded = false }: Props) {
       ) : null}
 
       {dash && dash.recently_published.length > 0 ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <section className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] p-4 shadow-sm">
           <p className="text-sm font-medium text-slate-900">{labels.dashboard.recentlyPublished}</p>
           <ul className="mt-2 flex flex-wrap gap-2 text-sm">
             {dash.recently_published.map((c) => (
@@ -174,7 +174,7 @@ export function CommunicationsPanel({ labels, embedded = false }: Props) {
       </section>
 
       {showForm ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
+        <section className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] p-6 shadow-sm space-y-4">
           <h2 className="font-semibold">{labels.form.createTitle}</h2>
           <input value={formTitle} onChange={(e) => setFormTitle(e.target.value)} placeholder={labels.form.title} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" />
           <textarea value={formSummary} onChange={(e) => setFormSummary(e.target.value)} placeholder={labels.form.summary} rows={2} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" />
@@ -203,7 +203,7 @@ export function CommunicationsPanel({ labels, embedded = false }: Props) {
       ) : null}
 
       {empty ? (
-        <section className="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+        <section className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] p-8 text-center shadow-sm">
           <h2 className="text-lg font-semibold text-slate-900">{labels.emptyTitle}</h2>
           <p className="mt-2 text-sm text-slate-600">{labels.emptyBody}</p>
           {data?.can_manage ? (
@@ -213,7 +213,7 @@ export function CommunicationsPanel({ labels, embedded = false }: Props) {
       ) : (
         <ul className="space-y-3">
           {data?.items.map((item) => (
-            <li key={item.id} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <li key={item.id} className="rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] p-4 shadow-sm">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <Link href={`/app/organization/communications/${item.id}`} className="font-medium text-slate-900 hover:text-indigo-700">{item.title}</Link>
@@ -243,7 +243,7 @@ export function CommunicationsPanel({ labels, embedded = false }: Props) {
         </section>
       ) : null}
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-card)] p-6 shadow-sm">
         <h2 className="font-semibold">{labels.faq.title}</h2>
         <dl className="mt-4 space-y-3 text-sm">
           <div><dt className="font-medium">{labels.faq.whatIs}</dt><dd className="mt-1 text-slate-600">{labels.faq.whatIsAnswer}</dd></div>
@@ -257,7 +257,7 @@ export function CommunicationsPanel({ labels, embedded = false }: Props) {
 
 function Stat({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+    <div className="rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] p-4 shadow-sm">
       <p className="text-xs text-slate-500">{label}</p>
       <p className="mt-1 text-2xl font-semibold text-slate-900">{value}</p>
     </div>

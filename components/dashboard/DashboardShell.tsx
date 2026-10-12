@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AipifyShellClasses, AipifySidebarTypography, AipifySidebarLayout } from "@/lib/design";
+import { AppVisualClasses } from "@/lib/design/app-visual-system";
+import { AppCanvasBackground } from "@/components/app/design/AppCanvasBackground";
 import { useEffect, useMemo, useState } from "react";
 import { usePlatformProfile } from "@/components/platform/PlatformProfileProvider";
 import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
@@ -448,9 +450,24 @@ function DashboardShellFrame({
     mobileNavIds.includes(item.id)
   );
 
+  const isCustomerApp = shellVariant === "customer";
+
   const shell = (
-    <div className={`flex min-h-screen ${AipifyShellClasses.canvas}`}>
-      <aside className={`${AipifySidebarLayout.asideDesktop} ${AipifyShellClasses.sidebarDesktopWidth} ${AipifyShellClasses.sidebar}`}>
+    <div
+      className={
+        isCustomerApp
+          ? AppVisualClasses.shellRoot
+          : `flex min-h-screen ${AipifyShellClasses.canvas}`
+      }
+      data-aipify-app-shell={isCustomerApp ? "true" : undefined}
+    >
+      {isCustomerApp ? <AppCanvasBackground /> : null}
+      <div className={isCustomerApp ? AppVisualClasses.appFrame : "flex min-h-screen w-full"}>
+      <aside
+        className={`${AipifySidebarLayout.asideDesktop} ${AipifyShellClasses.sidebarDesktopWidth} ${
+          isCustomerApp ? AppVisualClasses.sidebar : AipifyShellClasses.sidebar
+        }`}
+      >
         <div className={AipifySidebarLayout.brandRegion}>{brandBlock}</div>
         <div className={`${AipifySidebarLayout.navScrollRegion} p-4`}>
           {renderProductSwitcher()}
@@ -482,7 +499,11 @@ function DashboardShellFrame({
             aria-label={shellUiLabels?.closeMenu ?? "Close menu"}
             onClick={() => setSidebarOpen(false)}
           />
-          <aside className={`absolute left-0 top-0 flex h-full ${AipifyShellClasses.sidebarDesktopWidth} flex-col overflow-hidden shadow-xl ${AipifyShellClasses.sidebar}`}>
+          <aside
+            className={`absolute left-0 top-0 flex h-full ${AipifyShellClasses.sidebarDesktopWidth} flex-col overflow-hidden shadow-xl ${
+              isCustomerApp ? AppVisualClasses.sidebar : AipifyShellClasses.sidebar
+            }`}
+          >
             <div className={`relative border-b border-aipify-border ${AipifySidebarLayout.brandRegion}`}>
               {brandBlock}
               <button
@@ -562,7 +583,7 @@ function DashboardShellFrame({
         </div>
       )}
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className={isCustomerApp ? AppVisualClasses.mainColumn : "flex min-w-0 flex-1 flex-col"}>
         <Topbar
           searchPlaceholder={searchPlaceholder}
           searchQuery={navSearchQuery}
@@ -602,7 +623,13 @@ function DashboardShellFrame({
           }
         />
 
-        <main className="flex-1 overflow-y-auto scroll-pb-[calc(6rem+env(safe-area-inset-bottom))] px-4 py-6 pb-[calc(6rem+env(safe-area-inset-bottom))] sm:px-6 sm:py-8 lg:scroll-pb-8 lg:px-8 lg:pb-8">
+        <main
+          className={
+            isCustomerApp
+              ? AppVisualClasses.mainScroll
+              : "flex-1 overflow-y-auto scroll-pb-[calc(6rem+env(safe-area-inset-bottom))] px-4 py-6 pb-[calc(6rem+env(safe-area-inset-bottom))] sm:px-6 sm:py-8 lg:scroll-pb-8 lg:px-8 lg:pb-8"
+          }
+        >
           <div className="animate-fade-in-up">{children}</div>
         </main>
 
@@ -638,6 +665,7 @@ function DashboardShellFrame({
             })}
           </div>
         </nav>
+      </div>
       </div>
     </div>
   );

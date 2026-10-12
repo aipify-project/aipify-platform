@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { AppContentWidth, AppPageHeader } from "@/components/app/design";
+import { AppContentWidth, AppDecorativeOrb, AppPageHeader } from "@/components/app/design";
 import type { AppIconActionCardTone } from "@/components/app/design";
 
 export type AppHubBreadcrumbItem = {
@@ -14,12 +14,12 @@ export type AppHubStatus = {
 };
 
 const STATUS_TONE: Record<AppIconActionCardTone, string> = {
-  purple: "bg-violet-100 text-violet-800 ring-violet-200",
-  blue: "bg-indigo-100 text-indigo-800 ring-indigo-200",
-  lavender: "bg-purple-100 text-purple-800 ring-purple-200",
-  slate: "bg-slate-100 text-slate-700 ring-slate-200",
-  emerald: "bg-emerald-100 text-emerald-900 ring-emerald-200",
-  amber: "bg-amber-100 text-amber-900 ring-amber-200",
+  purple: "bg-[var(--app-primary-soft)] text-[var(--app-primary)] ring-[var(--app-border-accent)]",
+  blue: "bg-[#E8EEFC] text-[var(--app-primary-blue)] ring-[#C9D4F8]",
+  lavender: "bg-[#F3EDFF] text-[#6B4FD8] ring-[var(--app-border-accent)]",
+  slate: "bg-[var(--app-soft-surface)] text-[var(--app-text-muted)] ring-[var(--app-border)]",
+  emerald: "bg-[#E8F7F0] text-[var(--app-positive)] ring-[#B7E4CF]",
+  amber: "bg-[#FFF4E5] text-[var(--app-pending)] ring-[#F5D4A3]",
 };
 
 type AppHubShellProps = {
@@ -30,6 +30,8 @@ type AppHubShellProps = {
   contextLabel?: string | null;
   status?: AppHubStatus | null;
   primaryAction?: { label: string; href: string } | null;
+  /** Discrete decorative orb for dashboards/hub overviews — off on dense detail pages. */
+  decorativeAccent?: boolean;
   children?: ReactNode;
 };
 
@@ -41,12 +43,15 @@ export function AppHubShell({
   contextLabel,
   status,
   primaryAction,
+  decorativeAccent = false,
   children,
 }: AppHubShellProps) {
   return (
-    <AppContentWidth>
-      <nav aria-label="Breadcrumb" className="mb-4">
-        <ol className="flex flex-wrap items-center gap-1.5 text-sm text-aipify-text-secondary">
+    <AppContentWidth className="relative">
+      {decorativeAccent ? <AppDecorativeOrb /> : null}
+
+      <nav aria-label="Breadcrumb" className="relative z-[1] mb-4">
+        <ol className="flex flex-wrap items-center gap-1.5 text-sm text-[var(--app-text-muted)]">
           {breadcrumb.map((item, index) => {
             const isLast = index === breadcrumb.length - 1;
             return (
@@ -55,12 +60,15 @@ export function AppHubShell({
                 {item.href && !isLast ? (
                   <Link
                     href={item.href}
-                    className="font-medium text-aipify-accent hover:text-aipify-companion focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus rounded"
+                    className="rounded font-medium text-[var(--app-primary-blue)] hover:text-[var(--app-primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
                   >
                     {item.label}
                   </Link>
                 ) : (
-                  <span className={isLast ? "font-medium text-aipify-text" : undefined} aria-current={isLast ? "page" : undefined}>
+                  <span
+                    className={isLast ? "font-medium text-[var(--app-text)]" : undefined}
+                    aria-current={isLast ? "page" : undefined}
+                  >
                     {item.label}
                   </span>
                 )}
@@ -70,39 +78,53 @@ export function AppHubShell({
         </ol>
       </nav>
 
-      <AppPageHeader
-        eyebrow={eyebrow}
-        title={title}
-        description={description}
-        actions={
-          primaryAction ? (
-            <Link
-              href={primaryAction.href}
-              className="inline-flex rounded-lg bg-aipify-companion px-4 py-2.5 text-sm font-medium text-white transition hover:bg-aipify-companion-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus"
-            >
-              {primaryAction.label}
-            </Link>
-          ) : null
-        }
-        contextRow={
-          contextLabel || status ? (
-            <div className="flex flex-wrap items-center gap-3">
-              {contextLabel ? (
-                <p className="text-sm text-aipify-text-secondary">{contextLabel}</p>
-              ) : null}
-              {status ? (
-                <span
-                  className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${STATUS_TONE[status.tone ?? "slate"]}`}
-                >
-                  {status.label}
-                </span>
-              ) : null}
-            </div>
-          ) : null
-        }
-      />
+      <div className="relative z-[1]">
+        <AppPageHeader
+          eyebrow={eyebrow}
+          title={title}
+          description={description}
+          actions={
+            primaryAction ? (
+              <Link
+                href={primaryAction.href}
+                className="inline-flex rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+              >
+                {primaryAction.label}
+              </Link>
+            ) : null
+          }
+          contextRow={
+            contextLabel || status ? (
+              <div className="flex flex-wrap items-center gap-3">
+                {contextLabel ? (
+                  <p className="text-sm text-[var(--app-text-muted)]">{contextLabel}</p>
+                ) : null}
+                {status ? (
+                  <span
+                    className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${STATUS_TONE[status.tone ?? "slate"]}`}
+                  >
+                    <span
+                      className={`inline-block h-1.5 w-1.5 rounded-full ${
+                        status.tone === "emerald"
+                          ? "bg-[var(--app-positive)]"
+                          : status.tone === "amber"
+                            ? "bg-[var(--app-pending)]"
+                            : status.tone === "slate" || !status.tone
+                              ? "bg-[var(--app-neutral)]"
+                              : "bg-[var(--app-primary)]"
+                      }`}
+                      aria-hidden="true"
+                    />
+                    {status.label}
+                  </span>
+                ) : null}
+              </div>
+            ) : null
+          }
+        />
+      </div>
 
-      {children ? <div className="space-y-6">{children}</div> : null}
+      {children ? <div className="relative z-[1] space-y-6">{children}</div> : null}
     </AppContentWidth>
   );
 }

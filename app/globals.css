@@ -366,7 +366,138 @@ body {
   .motion-safe\:animate-\[aipify-loader-pulse_2\.4s_ease-in-out_infinite\],
   .motion-safe\:animate-\[aipify-loader-glow_2\.4s_ease-in-out_infinite\],
   .motion-safe\:animate-\[aipify-presence-ring_2\.8s_ease-in-out_infinite\],
-  .motion-safe\:animate-\[aipify-verify-flash_3\.2s_ease-in-out_infinite\] {
+  .motion-safe\:animate-\[aipify-verify-flash_3\.2s_ease-in-out_infinite\],
+  .aipify-app-canvas-layer,
+  .aipify-app-decorative-orb {
     animation: none !important;
+  }
+}
+
+/*
+ * Job 63 — Customer APP premium visual system (scoped).
+ * Remaps semantic --aipify-* aliases only inside .aipify-app-shell so Platform/public stay unchanged.
+ */
+.aipify-app-shell {
+  --app-canvas: #f3f5f9;
+  --app-surface: #f8f9fd;
+  --app-surface-alt: #f5f7fb;
+  --app-card: #ffffff;
+  --app-soft-surface: #f1f3f8;
+  --app-primary: #7357e8;
+  --app-primary-blue: #5577f2;
+  --app-primary-soft: #eeeafe;
+  --app-primary-soft-fill: linear-gradient(135deg, #eeeafe 0%, #e8eefc 100%);
+  --app-primary-gradient: linear-gradient(135deg, #7357e8 0%, #5577f2 100%);
+  --app-border: #e5e7f0;
+  --app-border-accent: #cfc4ff;
+  --app-text: #202336;
+  --app-text-muted: #5c6275;
+  --app-positive: #22a06b;
+  --app-pending: #e78a18;
+  --app-negative: #d64545;
+  --app-neutral: #7b8194;
+  --app-focus: #cfc4ff;
+  --app-radius-sm: 0.5rem;
+  --app-radius-md: 0.75rem;
+  --app-radius-lg: 1rem;
+  --app-shadow-card: 0 1px 2px rgba(32, 35, 54, 0.04), 0 8px 24px rgba(32, 35, 54, 0.05);
+  --app-shadow-card-hover: 0 2px 4px rgba(32, 35, 54, 0.05), 0 12px 28px rgba(115, 87, 232, 0.08);
+  --app-shadow-frame: 0 0 0 1px rgba(229, 231, 240, 0.9), 0 18px 48px rgba(32, 35, 54, 0.06);
+
+  /* Remap existing utility tokens for APP shell consumers only */
+  --aipify-canvas: var(--app-canvas);
+  --aipify-surface: var(--app-card);
+  --aipify-surface-muted: var(--app-soft-surface);
+  --aipify-surface-subtle: var(--app-surface-alt);
+  --aipify-border: var(--app-border);
+  --aipify-border-strong: var(--app-border-accent);
+  --aipify-text-primary: var(--app-text);
+  --aipify-text-secondary: var(--app-text-muted);
+  --aipify-text-muted: var(--app-neutral);
+  --aipify-companion-purple: var(--app-primary);
+  --aipify-companion-purple-hover: #6246d4;
+  --aipify-accent: var(--app-primary-blue);
+  --aipify-accent-soft: var(--app-primary-soft);
+  --aipify-accent-muted: #e0e7ff;
+  --aipify-focus-ring: var(--app-focus);
+  --background: var(--app-canvas);
+  --foreground: var(--app-text);
+}
+
+.aipify-app-canvas-layer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 50% at 12% -10%, rgba(115, 87, 232, 0.14), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 88% 0%, rgba(85, 119, 242, 0.12), transparent 50%),
+    radial-gradient(ellipse 50% 35% at 70% 18%, rgba(115, 87, 232, 0.06), transparent 60%),
+    linear-gradient(180deg, #f7f8fc 0%, var(--app-canvas) 42%, var(--app-canvas) 100%);
+}
+
+.aipify-app-canvas-layer::before {
+  content: "";
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  top: -18%;
+  height: 52%;
+  background:
+    radial-gradient(ellipse 45% 70% at 20% 40%, rgba(115, 87, 232, 0.1), transparent 70%),
+    radial-gradient(ellipse 40% 60% at 55% 30%, rgba(85, 119, 242, 0.09), transparent 68%),
+    radial-gradient(ellipse 35% 55% at 82% 45%, rgba(115, 87, 232, 0.07), transparent 70%);
+  filter: blur(2px);
+  opacity: 0.95;
+}
+
+.aipify-app-canvas-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='420' viewBox='0 0 1200 420' fill='none'%3E%3Cpath d='M0 260C180 200 280 140 420 160C560 180 620 260 780 240C940 220 1040 120 1200 150V420H0V260Z' fill='%237357E8' fill-opacity='0.05'/%3E%3Cpath d='M0 300C200 250 320 210 460 230C620 255 700 310 860 290C1000 272 1100 210 1200 230V420H0V300Z' fill='%235577F2' fill-opacity='0.045'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: min(1400px, 120%) auto;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .aipify-app-canvas-layer::before,
+  .aipify-app-canvas-layer::after {
+    opacity: 0.45;
+  }
+}
+
+.aipify-app-decorative-orb {
+  pointer-events: none;
+  position: absolute;
+  right: -2rem;
+  top: -1.5rem;
+  z-index: 0;
+  height: 11rem;
+  width: 11rem;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.55), transparent 45%),
+    linear-gradient(135deg, rgba(115, 87, 232, 0.35), rgba(85, 119, 242, 0.22));
+  opacity: 0.55;
+  filter: blur(0.5px);
+  box-shadow: 0 20px 50px rgba(115, 87, 232, 0.12);
+}
+
+@media (max-width: 768px) {
+  .aipify-app-decorative-orb {
+    height: 7rem;
+    width: 7rem;
+    opacity: 0.35;
+    right: -1rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .aipify-app-decorative-orb {
+    animation: aipify-orb-breathe 8s ease-in-out infinite;
   }
 }

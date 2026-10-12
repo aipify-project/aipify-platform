@@ -1,12 +1,14 @@
 import Link from "next/link";
 import {
   AppContentWidth,
+  AppDecorativeOrb,
   AppEmptyState,
   AppIconActionCard,
   AppPageHeader,
 } from "@/components/app/design";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { AppLayoutClasses } from "@/lib/design/app-layout";
+import { AppVisualClasses } from "@/lib/design/app-visual-system";
 
 export type AppFoundationDashboardLabels = {
   eyebrow: string;
@@ -78,13 +80,15 @@ export function AppFoundationDashboard({
       : { label: labels.statusAvailable, tone: "emerald" as const };
 
   return (
-    <AppContentWidth>
+    <AppContentWidth className="relative">
+      <AppDecorativeOrb />
+      <div className="relative z-[1] space-y-6">
       <AppPageHeader
         eyebrow={labels.eyebrow}
         title={labels.title}
         description={welcome}
         contextRow={
-          <p className="text-sm text-aipify-text-secondary">
+          <p className="text-sm text-[var(--app-text-muted)]">
             {organizationName?.trim() || labels.orgFallback}
             {planLabel ? ` · ${planLabel}` : null}
             {licenseStatusLabel ? ` · ${licenseStatusLabel}` : null}
@@ -176,26 +180,26 @@ export function AppFoundationDashboard({
             {labels.accountDescription}
           </p>
         </div>
-        <div className={`${AppLayoutClasses.card} flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between`}>
+        <div className={`${AppVisualClasses.card} flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between`}>
           <div className="min-w-0 space-y-1">
-            <h3 className="text-base font-semibold text-aipify-text">{labels.subscriptionTitle}</h3>
-            <p className="text-sm leading-relaxed text-aipify-text-secondary">
+            <h3 className="text-base font-semibold text-[var(--app-text)]">{labels.subscriptionTitle}</h3>
+            <p className="text-sm leading-relaxed text-[var(--app-text-muted)]">
               {labels.subscriptionDescription}
             </p>
-            <p className="text-sm text-aipify-text">
+            <p className="text-sm text-[var(--app-text)]">
               {[planLabel, licenseStatusLabel].filter(Boolean).join(" · ") || labels.statusReady}
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <Link
               href={FOUNDATION_NAV_BINDINGS.accountHome}
-              className="inline-flex rounded-lg bg-aipify-companion px-4 py-2 text-sm font-medium text-white transition hover:bg-aipify-companion-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus"
+              className="inline-flex rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {labels.openBilling}
             </Link>
             <Link
               href={FOUNDATION_NAV_BINDINGS.accountNotifications}
-              className="inline-flex rounded-lg border border-aipify-border bg-aipify-surface px-4 py-2 text-sm font-medium text-aipify-text transition hover:bg-aipify-surface-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus"
+              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-4 py-2 text-sm font-medium text-[var(--app-text)] transition hover:bg-[var(--app-soft-surface)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             >
               {labels.openNotifications}
             </Link>
@@ -205,15 +209,16 @@ export function AppFoundationDashboard({
 
       <section className="space-y-3" aria-labelledby="foundation-attention-heading">
         <div>
-          <h2 id="foundation-attention-heading" className="text-lg font-semibold text-aipify-text">
+          <h2 id="foundation-attention-heading" className="text-lg font-semibold text-[var(--app-text)]">
             {labels.attentionTitle}
           </h2>
-          <p className="mt-1 text-sm leading-relaxed text-aipify-text-secondary">
+          <p className="mt-1 text-sm leading-relaxed text-[var(--app-text-muted)]">
             {labels.attentionDescription}
           </p>
         </div>
         <AppEmptyState title={labels.attentionEmpty} description={labels.attentionDescription} />
       </section>
+      </div>
     </AppContentWidth>
   );
 }

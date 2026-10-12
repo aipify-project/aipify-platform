@@ -73,7 +73,7 @@ function DocRow({
 function DocList({ docs, labels, ...actions }: { docs: DocumentRecord[]; labels: DocumentManagementLabels; onSubmitReview?: (id: string) => void; onApprove?: (id: string) => void; onReject?: (id: string) => void; onArchive?: (id: string) => void }) {
   if (docs.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-8 text-center">
+      <div className="rounded-2xl border border-dashed border-[var(--app-border-accent)] bg-[var(--app-soft-surface)] p-8 text-center sm:p-10">
         <p className="font-medium text-gray-900">{labels.noDocuments}</p>
         <p className="mt-1 text-sm text-gray-600">{labels.noDocumentsHint}</p>
       </div>

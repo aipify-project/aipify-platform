@@ -84,21 +84,21 @@ export function ProductContextSwitcher({
 
   return (
     <div ref={ref} className="mb-4">
-      <p className="mb-1 text-xs font-medium uppercase tracking-wide text-aipify-text-secondary">
+      <p className="mb-1 text-xs font-medium uppercase tracking-wide text-[var(--app-text-muted)]">
         {labels.label}
       </p>
-      <div className="rounded-xl border border-aipify-border bg-white px-3 py-2.5 shadow-sm">
-        <p className="truncate text-sm font-semibold text-aipify-text" title={organizationName}>
+      <div className="rounded-xl border border-[var(--app-border)] bg-[var(--app-soft-surface)] px-3 py-2.5 shadow-sm">
+        <p className="truncate text-sm font-semibold text-[var(--app-text)]" title={organizationName}>
           {organizationName}
         </p>
-        <p className="mt-0.5 text-sm text-aipify-text-secondary">
+        <p className="mt-0.5 text-sm text-[var(--app-text-muted)]">
           <span className="sr-only">{labels.activeProduct}: </span>
           {activeLabel}
         </p>
         {canSwitch ? (
           <button
             type="button"
-            className="mt-2 w-full rounded-lg bg-aipify-companion/10 px-3 py-2 text-left text-sm font-medium text-aipify-companion transition hover:bg-aipify-companion/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus"
+            className="mt-2 w-full rounded-lg bg-[var(--app-primary-soft)] px-3 py-2 text-left text-sm font-medium text-[var(--app-primary)] transition hover:ring-1 hover:ring-[var(--app-border-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             aria-expanded={open}
             aria-controls={panelId}
             onClick={() => setOpen((v) => !v)}
@@ -106,7 +106,7 @@ export function ProductContextSwitcher({
             {labels.switchProduct}
           </button>
         ) : (
-          <p className="mt-2 text-xs text-aipify-text-secondary">{labels.singleContextHint}</p>
+          <p className="mt-2 text-xs text-[var(--app-text-muted)]">{labels.singleContextHint}</p>
         )}
       </div>
       {open && canSwitch ? (
@@ -114,7 +114,7 @@ export function ProductContextSwitcher({
           id={panelId}
           role="dialog"
           aria-label={labels.switchProduct}
-          className="mt-2 space-y-2 rounded-xl border border-aipify-border bg-white p-2 shadow-lg"
+          className="mt-2 space-y-2 rounded-xl border border-[var(--app-border)] bg-[var(--app-card)] p-2 shadow-lg"
         >
           {availableProducts.map((product) => {
             const selected = product === activeProduct;
@@ -123,15 +123,15 @@ export function ProductContextSwitcher({
                 key={product}
                 type="button"
                 onClick={() => selectProduct(product)}
-                className={`flex w-full flex-col rounded-lg px-3 py-3 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus ${
+                className={`flex w-full flex-col rounded-lg px-3 py-3 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)] ${
                   selected
-                    ? "bg-aipify-companion text-white"
-                    : "bg-aipify-canvas hover:bg-aipify-companion/10 text-aipify-text"
+                    ? "bg-[image:var(--app-primary-gradient)] text-white"
+                    : "bg-[var(--app-soft-surface)] text-[var(--app-text)] hover:ring-1 hover:ring-[var(--app-border-accent)]"
                 }`}
                 aria-current={selected ? "true" : undefined}
               >
                 <span className="text-sm font-semibold">{productLabel(product, labels)}</span>
-                <span className={`text-xs ${selected ? "text-white/80" : "text-aipify-text-secondary"}`}>
+                <span className={`text-xs ${selected ? "text-white/80" : "text-[var(--app-text-muted)]"}`}>
                   {organizationName}
                 </span>
               </button>
@@ -139,7 +139,7 @@ export function ProductContextSwitcher({
           })}
           <button
             type="button"
-            className="w-full rounded-lg px-3 py-2 text-sm text-aipify-text-secondary hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus"
+            className="w-full rounded-lg px-3 py-2 text-sm text-[var(--app-text-muted)] hover:bg-[var(--app-soft-surface)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
             onClick={() => setOpen(false)}
           >
             {labels.close}

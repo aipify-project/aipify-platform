@@ -59,6 +59,7 @@ export default async function WebsiteKompisHubPage() {
       description={t("customerApp.portalStructure.webHub.description")}
       contextLabel={formatHubContextLine(common, ctx)}
       status={{ label: common.statusReady, tone: "emerald" }}
+      decorativeAccent
       primaryAction={{
         label: t("customerApp.portalStructure.nav.kompisWebQa"),
         href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
