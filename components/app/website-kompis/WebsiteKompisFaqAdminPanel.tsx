@@ -5,6 +5,7 @@ import { PlatformEmptyState } from "@/components/platform/PlatformEmptyState";
 import { WebsiteKompisFaqPreviewPanel } from "@/components/app/website-kompis/WebsiteKompisFaqPreviewPanel";
 import { WebsiteKompisFaqPublishDialog } from "@/components/app/website-kompis/WebsiteKompisFaqPublishDialog";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   WPKF_CONTENT_TYPES,
@@ -106,6 +107,8 @@ export function WebsiteKompisFaqAdminPanel({
   const [localeFilter, setLocaleFilter] = useState("");
   const [contentTypeFilter, setContentTypeFilter] = useState<WpkfContentType | "">("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [suggestFromFeedback, setSuggestFromFeedback] = useState(false);
+  const searchParams = useSearchParams();
 
   const riskyWords = useMemo(
     () =>
@@ -159,26 +162,33 @@ export function WebsiteKompisFaqAdminPanel({
     void refresh();
   }, [refresh]);
 
-  const [suggestFromFeedback, setSuggestFromFeedback] = useState(false);
-
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const params = new URLSearchParams(window.location.search);
-    const suggestQuestion = params.get("suggestQuestion")?.trim() ?? "";
-    if (!suggestQuestion) return;
-    const suggestLocale = params.get("suggestLocale")?.trim() || "no";
-    const fromFeedback = params.get("fromFeedback") === "1";
-    setDraft({
-      ...createEmptyDraft(),
-      locale: suggestLocale.slice(0, 16),
-      title: suggestQuestion.slice(0, 120),
-      question: suggestQuestion.slice(0, 2000),
-      answer: "",
-    });
-    setSuggestFromFeedback(fromFeedback);
-    setEditorOpen(true);
-    setError(null);
-  }, []);
+    const suggestQuestion = searchParams.get("suggestQuestion")?.trim() ?? "";
+    if (suggestQuestion) {
+      const suggestLocale = searchParams.get("suggestLocale")?.trim() || "no";
+      const fromFeedback = searchParams.get("fromFeedback") === "1";
+      setDraft({
+        ...createEmptyDraft(),
+        locale: suggestLocale.slice(0, 16),
+        title: suggestQuestion.slice(0, 120),
+        question: suggestQuestion.slice(0, 2000),
+        answer: "",
+      });
+      setSuggestFromFeedback(fromFeedback);
+      setEditorOpen(true);
+      setError(null);
+      return;
+    }
+    if (searchParams.get("create") === "1") {
+      setDraft(createEmptyDraft());
+      setSuggestFromFeedback(false);
+      setEditorOpen(true);
+      setError(null);
+    }
+    if (searchParams.get("status") === "draft") {
+      setStatusFilter("draft");
+    }
+  }, [searchParams]);
 
   function openCreate() {
     setDraft(createEmptyDraft());

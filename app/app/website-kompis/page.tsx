@@ -9,6 +9,8 @@ import {
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
 import { buildWebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
+import { buildWebsiteKompisKnowledgeLabels } from "@/lib/website-kompis-knowledge/labels";
+import { loadWebsiteKompisKnowledgeSummary } from "@/lib/website-kompis-knowledge/load-summary";
 import { getWebsiteKompisAnswerFeedbackOverview } from "@/lib/marketing/website-kompis-answer-feedback-server";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -24,9 +26,13 @@ export default async function WebsiteKompisHubPage() {
   const common = hubCommon(t);
   const ctx = await resolveHubWorkspaceContext();
   const feedbackLabels = buildWebsiteKompisFeedbackLabels(t);
+  const knowledgeLabels = buildWebsiteKompisKnowledgeLabels(t);
 
   const supabase = await createClient();
-  const overview = await getWebsiteKompisAnswerFeedbackOverview(supabase, { limit: 1 });
+  const [overview, knowledge] = await Promise.all([
+    getWebsiteKompisAnswerFeedbackOverview(supabase, { limit: 1 }),
+    loadWebsiteKompisKnowledgeSummary(supabase),
+  ]);
 
   const cards = [
     {
@@ -72,6 +78,57 @@ export default async function WebsiteKompisHubPage() {
         href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
       }}
     >
+      {knowledge.faqLoadOk ? (
+        <section className="space-y-3" aria-labelledby="wk-knowledge-status">
+          <div>
+            <h2 id="wk-knowledge-status" className="text-lg font-semibold text-[var(--app-text)]">
+              {knowledgeLabels.dashboardTitle}
+            </h2>
+            <p className="mt-1 text-sm text-[var(--app-text-muted)]">
+              {knowledgeLabels.dashboardDescription}
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {[
+              { label: knowledgeLabels.counts.published, value: knowledge.faq.published },
+              { label: knowledgeLabels.counts.draft, value: knowledge.faq.draft },
+              { label: knowledgeLabels.counts.archived, value: knowledge.faq.archived },
+              {
+                label: knowledgeLabels.counts.needsReview,
+                value: knowledge.feedbackNeedsReview,
+              },
+            ].map((item) => (
+              <div key={item.label} className={AppVisualClasses.card}>
+                <p className="text-xs uppercase tracking-wide text-[var(--app-text-muted)]">
+                  {item.label}
+                </p>
+                <p className="mt-1 text-2xl font-semibold text-[var(--app-text)]">{item.value}</p>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?create=1`}
+              className="inline-flex rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+            >
+              {knowledgeLabels.createFaq}
+            </Link>
+            <Link
+              href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?section=followUp`}
+              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+            >
+              {knowledgeLabels.reviewDrafts}
+            </Link>
+            <Link
+              href={`${FOUNDATION_NAV_BINDINGS.kompisWebFaq}?section=pages`}
+              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+            >
+              {knowledgeLabels.sections.pages}
+            </Link>
+          </div>
+        </section>
+      ) : null}
+
       {overview.persistenceReady ? (
         <section className="space-y-3" aria-labelledby="wk-quality-signals">
           <div>
