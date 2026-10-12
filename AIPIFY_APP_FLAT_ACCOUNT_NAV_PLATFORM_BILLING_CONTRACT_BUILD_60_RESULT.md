@@ -1,10 +1,11 @@
 # AIPIFY – FLAT ACCOUNT NAVIGATION & PLATFORM BILLING CONTRACT BUILD 60 — RESULT
 
 **Branch:** `feature/app-flat-account-nav-billing-contract-60`  
-**PR:** _(filled after open)_  
-**Merge SHA:** _(filled after merge)_  
+**Feature commit:** `24ac0eaeef04199c2625022cac9856e195f910fc`  
+**PR:** [#152](https://github.com/aipify-project/aipify-platform/pull/152)  
+**Merge SHA:** `98f3d010651d6da2c8c674c90860e1fdbcacd41d`  
 **APP project:** `aipify-platform` (`prj_tPgcqwgUAAkGvBy802arVXVYf1fv`)  
-**Deployment ID:** _(filled after deploy)_  
+**Deployment ID:** `dpl_EkrYRcsNFxgn1zbKZmLzKW1QK6R7` — **READY**  
 **Canonical domain:** `app.aipify.ai`
 
 | Gate | Result |
