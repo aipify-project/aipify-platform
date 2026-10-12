@@ -7279,38 +7279,84 @@
     "saving": "Lagrer"
   },
   "websiteKompisFeedback": {
-    "title": "Website Kompis svartilbakemelding",
-    "subtitle": "Se besøkendes vurderinger av Website Kompis-svar. En positiv stemme er et prioriteringssignal — ikke bevis på at svaret er korrekt.",
-    "navTitle": "Website Kompis tilbakemelding",
-    "backToFaq": "Tilbake til Website Kompis FAQ",
+    "title": "Spørsmål, svar og tilbakemelding",
+    "subtitle": "Se hva besøkende spurte Website Kompis, hvordan de vurderte svarene, og hva som bør forbedres i FAQ — uten automatiske Core- eller FAQ-endringer.",
+    "navTitle": "Spørsmål og svar",
+    "backToFaq": "Åpne FAQ",
     "loading": "Forbereder tilbakemeldingsoversikt…",
     "accessDenied": "Eier- eller administratorrettigheter kreves for å se Website Kompis-tilbakemelding.",
     "errorGeneric": "Noe gikk galt. Prøv igjen.",
     "retry": "Prøv igjen",
     "emptyTitle": "Ingen besøkertilbakemelding ennå",
     "emptyDescription": "Når besøkende vurderer Website Kompis-svar, vises oppsummeringer her bare for din organisasjon.",
+    "noResultsTitle": "Ingen treff",
+    "noResultsDescription": "Prøv å tømme filtrene eller utvide søket. Bare siste tilbakemeldingsbatch fra Core er tilgjengelig før rikere listing kommer.",
     "persistenceUnavailableTitle": "Tilbakemeldingslagring er ikke klar",
     "persistenceUnavailableBody": "Kopier kan fortsatt fungere for besøkende. Vurderinger vises her etter at lagring er aktivert.",
     "reuseOffNote": "Automatisk gjenbruk av vurderte svar er av til kildekontroll og aktualitetsgates er på plass.",
-    "helpfulNotTruth": "Ikke behandle en positiv stemme som bekreftelse på at et svar er korrekt for gjenbruk.",
+    "helpfulNotTruth": "En positiv stemme er et prioriteringssignal — ikke bevis på at svaret er korrekt.",
+    "negativeNotAutoChange": "En negativ vurdering åpner gjennomgang for deg. Den endrer aldri FAQ, prompts eller Core automatisk.",
+    "scopeNote": "Viser de siste tilbakemeldingssignalene for organisasjonen din (maks 100). Fullt svar, kilder, ubesvarte spørsmål og review-status krever senere Core-kontrakt.",
+    "sourcesUnavailable": "Kildekort er ikke tilgjengelige i denne oversikten ennå. Svaret lagret sitater i Core, men APP-detalj krever egen lese-RPC.",
+    "unansweredGapTitle": "Ubesvarte spørsmål listes ikke ennå",
+    "unansweredGapBody": "Core lagrer svarkvitteringer når Website Kompis ga et svar. Ubesvarte spørsmål, sikkerhetsstopp og tekniske feil er ikke i denne oversikten.",
+    "securityRejectNote": "Sikkerhets- eller policyavvisninger blandes ikke inn i kunnskapshull her — de finnes ikke i dette datasettet.",
+    "detailTitle": "Tilbakemeldingsdetalj",
+    "detailClose": "Lukk",
+    "openDetail": "Åpne",
+    "filtersHeading": "Filtre",
+    "filterVote": "Vurdering",
+    "filterComment": "Kommentar",
+    "filterQuery": "Søk i spørsmål eller svar",
+    "filterLocale": "Språk",
+    "filterPage": "Sidebane",
+    "filterAll": "Alle",
+    "filterWithComment": "Med kommentar",
+    "filterWithoutComment": "Uten kommentar",
+    "clearFilters": "Tøm filtre",
+    "sectionReviewQueue": "Trenger gjennomgang",
+    "sectionReviewQueueHint": "Ikke-nyttige vurderinger først. Bruk kommentarer som evidens, og forbedre FAQ via trygg editor — aldri auto-publiser.",
+    "sectionTable": "Tilbakemeldingsliste",
+    "suggestFaqWarning": "Dette utkastet er forhåndsutfylt fra et besøksspørsmål. Behandle ikke Website Kompis-svaret som verifisert sannhet uten å sjekke kildene.",
     "totals": {
       "answers": "Svarkvitteringer",
-      "helpful": "Nyttige vurderinger",
-      "notHelpful": "Ikke nyttige vurderinger",
-      "withComment": "Med kommentar"
+      "helpful": "Nyttig",
+      "notHelpful": "Ikke nyttig",
+      "withComment": "Med kommentar",
+      "needsReview": "Trenger gjennomgang"
     },
     "columns": {
       "vote": "Vurdering",
+      "status": "Status",
       "question": "Spørsmål",
       "answer": "Svar",
       "comment": "Kommentar",
       "page": "Side",
       "locale": "Språk",
-      "when": "Når"
+      "when": "Når",
+      "actions": "Handlinger"
     },
     "votes": {
       "helpful": "Nyttig",
       "notHelpful": "Ikke nyttig"
+    },
+    "status": {
+      "helpful": "Nyttig",
+      "needsReview": "Trenger gjennomgang",
+      "commented": "Kommentert",
+      "noFeedbackSignal": "Ingen vurdering"
+    },
+    "actions": {
+      "reviewAnswer": "Gjennomgå",
+      "openFaq": "Åpne FAQ",
+      "suggestFaqDraft": "Foreslå FAQ-utkast",
+      "checkConnection": "Kontroller tilkobling",
+      "viewUnanswered": "Ubesvart (ikke tilgjengelig ennå)",
+      "reviewNegative": "Gjennomgå ikke-nyttige"
+    },
+    "dashboard": {
+      "title": "Kvalitetssignaler",
+      "description": "Live tall fra Website Kompis-tilbakemelding — samme tenant-scope som spørsmål/svar-arbeidsflaten."
     }
   }
 }

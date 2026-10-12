@@ -7,6 +7,7 @@ import {
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
 import { buildWebsiteKompisFaqLabels } from "@/lib/website-kompis-faq/labels";
+import { buildWebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -17,6 +18,7 @@ export default async function WebsiteKompisFaqPage() {
   const dict = await getCustomerAppDictionaryForSplits(locale, ["core", "portalStructure"]);
   const t = createTranslator(dict);
   const labels = buildWebsiteKompisFaqLabels(t);
+  const feedbackLabels = buildWebsiteKompisFeedbackLabels(t);
   const common = hubCommon(t);
   const ctx = await resolveHubWorkspaceContext();
 
@@ -39,7 +41,11 @@ export default async function WebsiteKompisFaqPage() {
         href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
       }}
     >
-      <WebsiteKompisFaqAdminPanel labels={labels} embedded />
+      <WebsiteKompisFaqAdminPanel
+        labels={labels}
+        embedded
+        suggestFromFeedbackWarning={feedbackLabels.suggestFaqWarning}
+      />
     </AppHubShell>
   );
 }

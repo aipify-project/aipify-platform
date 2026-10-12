@@ -28,6 +28,8 @@ type WebsiteKompisFaqAdminPanelProps = {
   labels: WebsiteKompisFaqLabels;
   /** Job 61 — inside AppHubShell: no duplicate page header / settings back-link as nav. */
   embedded?: boolean;
+  /** Job 64 — shown when opening a draft suggested from visitor feedback. */
+  suggestFromFeedbackWarning?: string;
 };
 
 const STATUS_STYLES: Record<WpkfStatus, string> = {
@@ -89,6 +91,7 @@ function formatDate(value: string | null): string {
 export function WebsiteKompisFaqAdminPanel({
   labels,
   embedded = false,
+  suggestFromFeedbackWarning,
 }: WebsiteKompisFaqAdminPanelProps) {
   const [items, setItems] = useState<WebsiteKompisFaqItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -156,8 +159,30 @@ export function WebsiteKompisFaqAdminPanel({
     void refresh();
   }, [refresh]);
 
+  const [suggestFromFeedback, setSuggestFromFeedback] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const suggestQuestion = params.get("suggestQuestion")?.trim() ?? "";
+    if (!suggestQuestion) return;
+    const suggestLocale = params.get("suggestLocale")?.trim() || "no";
+    const fromFeedback = params.get("fromFeedback") === "1";
+    setDraft({
+      ...createEmptyDraft(),
+      locale: suggestLocale.slice(0, 16),
+      title: suggestQuestion.slice(0, 120),
+      question: suggestQuestion.slice(0, 2000),
+      answer: "",
+    });
+    setSuggestFromFeedback(fromFeedback);
+    setEditorOpen(true);
+    setError(null);
+  }, []);
+
   function openCreate() {
     setDraft(createEmptyDraft());
+    setSuggestFromFeedback(false);
     setEditorOpen(true);
     setError(null);
   }
@@ -171,6 +196,7 @@ export function WebsiteKompisFaqAdminPanel({
   function closeEditor() {
     setEditorOpen(false);
     setPublishDialogOpen(false);
+    setSuggestFromFeedback(false);
     setDraft(createEmptyDraft());
   }
 
@@ -502,6 +528,11 @@ export function WebsiteKompisFaqAdminPanel({
                 {labels.cancel}
               </button>
             </div>
+            {suggestFromFeedback && suggestFromFeedbackWarning ? (
+              <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
+                {suggestFromFeedbackWarning}
+              </div>
+            ) : null}
 
             <div className="grid gap-4 md:grid-cols-2">
               <label className="text-sm md:col-span-2">

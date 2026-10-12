@@ -7268,38 +7268,84 @@
     "saving": "Saving"
   },
   "websiteKompisFeedback": {
-    "title": "Website Kompis answer feedback",
-    "subtitle": "Review visitor ratings for Website Kompis answers. A helpful vote is a prioritization signal — not proof that an answer is correct.",
-    "navTitle": "Website Kompis feedback",
-    "backToFaq": "Back to Website Kompis FAQ",
+    "title": "Questions, answers & feedback",
+    "subtitle": "Review what visitors asked Website Kompis, how they rated the answers, and what to improve in FAQ — without automatic Core or FAQ changes.",
+    "navTitle": "Questions & answers",
+    "backToFaq": "Open FAQ",
     "loading": "Preparing feedback overview…",
     "accessDenied": "Owner or administrator access is required to view Website Kompis feedback.",
     "errorGeneric": "Something went wrong. Please try again.",
     "retry": "Try again",
     "emptyTitle": "No visitor feedback yet",
     "emptyDescription": "When visitors rate Website Kompis answers, summaries appear here for your organization only.",
+    "noResultsTitle": "No matching feedback",
+    "noResultsDescription": "Try clearing filters or widening the search. Only the latest feedback batch from Core is available until richer listing is added.",
     "persistenceUnavailableTitle": "Feedback storage is not ready",
     "persistenceUnavailableBody": "Copy can still work for visitors. Ratings will appear here after feedback storage is applied.",
     "reuseOffNote": "Automatic reuse of rated answers is off until source-control and freshness gates are applied.",
-    "helpfulNotTruth": "Do not treat a helpful vote as confirmation that an answer is correct for reuse.",
+    "helpfulNotTruth": "A helpful vote is a prioritization signal — not proof that an answer is correct.",
+    "negativeNotAutoChange": "A not-helpful rating opens review work for you. It never rewrites FAQ, prompts, or Core automatically.",
+    "scopeNote": "Showing the latest feedback signals for your organization (max 100). Full answer text, sources, unanswered asks, and review state need a later Core listing contract.",
+    "sourcesUnavailable": "Source cards are not available in this overview yet. The original answer stored citations in Core, but APP detail listing still needs a dedicated read RPC.",
+    "unansweredGapTitle": "Unanswered questions are not listed yet",
+    "unansweredGapBody": "Core currently stores answer receipts when Website Kompis produced an answer. Unanswered asks, security stops, and technical failures are not in this feedback overview.",
+    "securityRejectNote": "Security or policy rejects are not mixed into knowledge gaps here — they are not present in this dataset.",
+    "detailTitle": "Feedback detail",
+    "detailClose": "Close",
+    "openDetail": "Open",
+    "filtersHeading": "Filters",
+    "filterVote": "Rating",
+    "filterComment": "Comment",
+    "filterQuery": "Search question or answer",
+    "filterLocale": "Language",
+    "filterPage": "Page path",
+    "filterAll": "All",
+    "filterWithComment": "With comment",
+    "filterWithoutComment": "Without comment",
+    "clearFilters": "Clear filters",
+    "sectionReviewQueue": "Needs review",
+    "sectionReviewQueueHint": "Not-helpful ratings first. Use comments as evidence, then improve FAQ through the safe editor — never auto-publish.",
+    "sectionTable": "Feedback list",
+    "suggestFaqWarning": "This draft is prefilled from a visitor question. Do not treat the Website Kompis answer as verified truth without checking your sources.",
     "totals": {
       "answers": "Answer receipts",
-      "helpful": "Helpful ratings",
-      "notHelpful": "Not helpful ratings",
-      "withComment": "With comments"
+      "helpful": "Helpful",
+      "notHelpful": "Not helpful",
+      "withComment": "With comments",
+      "needsReview": "Needs review"
     },
     "columns": {
       "vote": "Rating",
+      "status": "Status",
       "question": "Question",
       "answer": "Answer",
       "comment": "Comment",
       "page": "Page",
       "locale": "Language",
-      "when": "When"
+      "when": "When",
+      "actions": "Actions"
     },
     "votes": {
       "helpful": "Helpful",
       "notHelpful": "Not helpful"
+    },
+    "status": {
+      "helpful": "Helpful",
+      "needsReview": "Needs review",
+      "commented": "Commented",
+      "noFeedbackSignal": "No rating"
+    },
+    "actions": {
+      "reviewAnswer": "Review",
+      "openFaq": "Open FAQ",
+      "suggestFaqDraft": "Suggest FAQ draft",
+      "checkConnection": "Check connection",
+      "viewUnanswered": "Unanswered (not available yet)",
+      "reviewNegative": "Review not-helpful"
+    },
+    "dashboard": {
+      "title": "Quality signals",
+      "description": "Live totals from your Website Kompis feedback overview — same tenant scope as the Q&A workspace."
     }
   }
 }
