@@ -4,6 +4,18 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
+## Website Kompis Public Chain — FROZEN (mandatory)
+
+The public Website Kompis visitor chain is an **owner-accepted frozen Core contract**.
+
+- Contract: [docs/integrations/website-kompis-public-chain-frozen-contract.md](./docs/integrations/website-kompis-public-chain-frozen-contract.md)
+- Manifest (protected paths + SHA256): [docs/integrations/website-kompis-public-chain-frozen-manifest.json](./docs/integrations/website-kompis-public-chain-frozen-manifest.json)
+- Cursor rule: [.cursor/rules/website-kompis-public-chain-frozen.mdc](./.cursor/rules/website-kompis-public-chain-frozen.mdc)
+
+**Rule:** Aipify Website Kompis Public Chain is frozen at the documented baseline. No coding agent may change, refactor, move, reformat, or “clean up” the protected runtime files or their contracts without explicit owner approval that names **Website Kompis Public Chain** and the concrete goal. A new task must preserve existing acceptance tests, document affected chain links, and stop before SQL, secrets, config, ingest, or Production data without separate approval. Shared-file work must narrow the diff or stop.
+
+Baseline: PR #146 · `4b7fd0b8` · `dpl_EdcvpRZ5wqstwhjRgBcVr5eiRdUG` on `aipify.ai`.
+
 ## Aipify Group AS — company foundation (mandatory first)
 
 Read **[AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md](./AIPIFY_GROUP_AS_COMPANY_FOUNDATION_DIRECTIVE.md)** first. **Aipify Group AS** is the parent company (Norway · *From Norway. For the world.*) — not merely a project name. All development, documentation, legal copy, investor material, and platform communications must reflect this identity.

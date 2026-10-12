@@ -1,0 +1,255 @@
+{
+  "contractId": "website-kompis-public-chain-frozen-v1",
+  "status": "FROZEN",
+  "baseline": {
+    "repo": "aipify-project/aipify-platform",
+    "apexDomain": "aipify.ai",
+    "vercelProject": "aipify-platform-iz5z",
+    "vercelProjectId": "prj_rekqU1SLEr3v2ifYuUkQ5d4fKR7j",
+    "pr": 146,
+    "mergeCommit": "4b7fd0b81e7acb2d571c6a1dd6ff754cd2a50696",
+    "featureCommit": "aef9b7f4bd2097dee55d9684c1c1f2cceb9c7515",
+    "deploymentId": "dpl_EdcvpRZ5wqstwhjRgBcVr5eiRdUG",
+    "askOrigin": "POST https://aipify.ai/api/marketing/companion/ask"
+  },
+  "policyIds": {
+    "askTraceSurface": "website_kompis_public_v1",
+    "answerContract": "website-kompis-public-answer-policy-v1"
+  },
+  "layoutPx": {
+    "closed": { "width": 72, "height": 72 },
+    "openVisible": { "width": 450, "height": 800 }
+  },
+  "protectedRuntimeFiles": [
+    {
+      "path": "app/api/marketing/companion/ask/route.ts",
+      "role": "Public ask HTTP entry",
+      "sha256": "e2f497cebb8ddcf9506f25439aa06a945f749894597ab16fde514e3ce50797cd"
+    },
+    {
+      "path": "app/api/marketing/companion/answer-feedback/route.ts",
+      "role": "Copy/feedback receipt HTTP entry",
+      "sha256": "521eae6d384599f951c62f24abbccdb0c65fc64142579ca9f7ec80da79b2dfac"
+    },
+    {
+      "path": "app/embed/layout.tsx",
+      "role": "Embed shell layout",
+      "sha256": "2de4f6a27243ab78c7c186978144dfa954b0ea3a4f6badab81fa287941b2276a"
+    },
+    {
+      "path": "app/embed/website-kompis/layout.tsx",
+      "role": "Closed-shell handshake layout",
+      "sha256": "428c983d4d13fb2f80e4621bc637e384581f7731980a79ef1757bf92c5ae5c1c"
+    },
+    {
+      "path": "app/embed/website-kompis/page.tsx",
+      "role": "Embed page mount",
+      "sha256": "e0299acbba7cc6d9f098008890a14ffe3524ec0c582e372c75d75499a5581dc5"
+    },
+    {
+      "path": "components/embed/WebsiteKompisEmbedWidget.tsx",
+      "role": "Public widget UI",
+      "sha256": "73585a579de9ee5127cb4b4c0cc258202eb7c37ddff243e8ae283325c1134863"
+    },
+    {
+      "path": "components/embed/WebsiteKompisAnswerActions.tsx",
+      "role": "Copy/feedback actions",
+      "sha256": "db8b25af4982b79b12cceeec5f0e9bf1131ce20fb6b227d50f5efa9025b0a835"
+    },
+    {
+      "path": "public/embed/website-kompis.js",
+      "role": "Host loader lifecycle",
+      "sha256": "37743654086c5253545dff566db7f59efb3b9ada79d5ed55ec5aa28db63a71b8"
+    },
+    {
+      "path": "lib/marketing/public-companion-ask.ts",
+      "role": "Ask orchestration + evidence collection",
+      "sha256": "3f826ea8edaa509f7e7cadd0ca1ec5ffe87dca5805c5243f53c4c24937de1f96"
+    },
+    {
+      "path": "lib/marketing/public-companion-tenant-faq.ts",
+      "role": "Tenant FAQ retrieval + relevance",
+      "sha256": "c3bc317ee311c365805855955a39e7da982612dc7741a3fd438359d8d6160737"
+    },
+    {
+      "path": "lib/marketing/website-kompis-retrieval-intent.ts",
+      "role": "Bounded intent/retrieval rewrite",
+      "sha256": "c1877f442499bc81390d80a8e64663fe10d99a8627f7de54a4e50264f618e53c"
+    },
+    {
+      "path": "lib/marketing/website-kompis-answer-relevance.ts",
+      "role": "Topic/intent relevance helpers",
+      "sha256": "3f94b152e15114d4fd846a557b4de8f881c976857e35e2cc533ba7216cc72597"
+    },
+    {
+      "path": "lib/marketing/website-kompis-faq-match-safety.ts",
+      "role": "FAQ match safety",
+      "sha256": "b10f7ffc482fda9d1d3d08b89a3c4a947f599bd68591898a1d4d85f71f56145c"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-page-context.ts",
+      "role": "Current-page context + extract",
+      "sha256": "7361d006eee4c4ee71a4a31ec2c0cf7886372e14bbbb5b8fd0a8f65cde0abfe8"
+    },
+    {
+      "path": "lib/marketing/website-kompis-grounded-answer.ts",
+      "role": "Evidence pack + provider grounded path",
+      "sha256": "15286ffff337f0b48a9d33229e8f0fea71baee14bdaa07806e249ce912004168"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-answer-policy.ts",
+      "role": "Shared answer policy (inner)",
+      "sha256": "ae14aacb3aff82bc803b5ec2d6ac7de7cb2242f6571564a859c4bdc65c90b42a"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-ask-trace.ts",
+      "role": "Ask trace surface policy (outer)",
+      "sha256": "07af94be6b90a7cc3812d9e9f3cd7256cb25254ad7b66c49c69d4a85abe981d5"
+    },
+    {
+      "path": "lib/marketing/website-kompis-visitor-tone.ts",
+      "role": "Visitor tone / safe fallback copy",
+      "sha256": "7bca9ce4120c390e80766283bf0c85747aa4b7cd5731b11ea837454a2c98ffb1"
+    },
+    {
+      "path": "lib/marketing/website-kompis-site-label.ts",
+      "role": "Site label helper",
+      "sha256": "7947c61ac91f20eecea7ef4d597d00bea9d322e7898ff68bc96681c02c479639"
+    },
+    {
+      "path": "lib/marketing/website-kompis-install-config.ts",
+      "role": "Install source gates",
+      "sha256": "531b06c77a3ac19dfa6fcb9022a4bdf4242f8cd4a6fe5a6290cd8d06fc59d7f9"
+    },
+    {
+      "path": "lib/marketing/website-kompis-install-config-storage.ts",
+      "role": "Install config storage",
+      "sha256": "7f0216289a36dd78ea064d5fc732873fe9e8b23169a22159e1764acee62e8417"
+    },
+    {
+      "path": "lib/marketing/website-kompis-licensed-availability.ts",
+      "role": "License capability types",
+      "sha256": "9a5ff8d73e16bb4202d7dc5173e3f743ffa14039cc5054e07e0ee4e49ebd8cb4"
+    },
+    {
+      "path": "lib/marketing/website-kompis-licensed-availability-server.ts",
+      "role": "License availability server",
+      "sha256": "b83323b34bb8a21a09d6c8534295c99de9cfff46e7a7c0e27855e83f147cd489"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-ai-cost-controls.ts",
+      "role": "Public AI cost controls",
+      "sha256": "44b4213a7b74c24c00ae3134cf511bc8d40264f0608540a22397a23291fa68d0"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-availability-resilience.ts",
+      "role": "Public availability resilience",
+      "sha256": "27f58c94c28617d5f0daf89909dc082ee56ed395b62b51cc8c330a6488a6f3ad"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-contact.ts",
+      "role": "Public contact helpers",
+      "sha256": "5406fe564aece34dae7e3fa174c84f7aa56e7fb551c1c9d52160d48011a7cbe4"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-contact-server.ts",
+      "role": "Public contact server",
+      "sha256": "5d6abe61b9d97f5ac04c97c9651aab6a78d698e5fde26a1bda26d537f43b67ad"
+    },
+    {
+      "path": "lib/marketing/website-kompis-answer-feedback.ts",
+      "role": "Answer feedback model",
+      "sha256": "1415c3ad405ee14e1cdc40de15e57f19ded615067303da999ce47c59330c7a10"
+    },
+    {
+      "path": "lib/marketing/website-kompis-answer-feedback-attach.ts",
+      "role": "Feedback receipt attach",
+      "sha256": "50b42b8d1cc0d289143d2a328cea07aaa9858d08966048f4154b239f3c2b07a2"
+    },
+    {
+      "path": "lib/marketing/website-kompis-answer-feedback-server.ts",
+      "role": "Feedback server write",
+      "sha256": "00600726e501ec59661660a229b996deff085d9c412687cafa4bf4e4348e0f0a"
+    },
+    {
+      "path": "lib/marketing/website-kompis-visitor-key.ts",
+      "role": "Visitor key helper",
+      "sha256": "ac394a46da2daa904b920fb51468d181794b9fe21d7414d87382ab89b499a0d5"
+    },
+    {
+      "path": "lib/marketing/website-kompis-embed.ts",
+      "role": "Embed sizing + loader constants",
+      "sha256": "a255a0c2d55a1bd39f18b265c71766e0ffa3ba42af3630497d756cbf92afb353"
+    },
+    {
+      "path": "lib/marketing/website-kompis-embed-session.ts",
+      "role": "Embed session",
+      "sha256": "edd3d1fd761ab1e4fbb0d84f4d0508fe2b51838361c5f0126103dd22815f243d"
+    },
+    {
+      "path": "lib/marketing/website-kompis-launcher-visibility.ts",
+      "role": "Launcher visibility",
+      "sha256": "8335f77037f6b7231fb7c17fa981a3d63bb04869a4a2553e47f93fb42d06e7a6"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-surface-contract.ts",
+      "role": "Public surface access contract",
+      "sha256": "0e858b0c39babb5cc874e6f91a5c026ac12c84bf4ec7aed84d610225210a670c"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-boundary.ts",
+      "role": "Public/private boundary",
+      "sha256": "04a7906f501cbca67590a804efe404d185c75939bffcf96e5496fe10b0ed692b"
+    },
+    {
+      "path": "lib/marketing/website-kompis-domain-activation.ts",
+      "role": "Domain activation",
+      "sha256": "79d15e99b0cfa4a3966686a8aabc2320ffd70bcbfe183d392eb96c5c047e241d"
+    },
+    {
+      "path": "lib/marketing/website-kompis-domain-activation-client.ts",
+      "role": "Domain activation client",
+      "sha256": "8ae8e526446648e669005bb51e6f879ca62076b64558a11d91a9a9f150ca55a6"
+    },
+    {
+      "path": "lib/marketing/website-kompis-domain-settings.ts",
+      "role": "Domain settings",
+      "sha256": "47f1accc51b14772e0e47d977dc50ee97249180c0fec2b0ee98e62de19aba863"
+    },
+    {
+      "path": "lib/marketing/website-kompis-domain-settings-server.ts",
+      "role": "Domain settings server",
+      "sha256": "502e735d4a9c55528b79cf643d64738ebece13f126562d2fe652adeb3ef07928"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-site-index/answer.ts",
+      "role": "Site-index ranking + answer",
+      "sha256": "5ceca1a79ed884a2d2d2b496102db8cf0a5a962cb8fd490434202edc528c8b5a"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-site-index/index.ts",
+      "role": "Site-index module exports",
+      "sha256": "fef10d1a7f14a67ad285109a33ddf04b5cf9d30acb66f3ac9dc8e39770592134"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-site-index/search.ts",
+      "role": "Site-index search RPC",
+      "sha256": "bfdb4064e6a50fe1eb543191e03812a3a25566b06caf8f15c6a1cdb5585bf135"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-site-index/locale-contract.ts",
+      "role": "no↔nb / nn locale expand",
+      "sha256": "5add299f1bc64d6208a1e9340a032830fb96fee73d68f323dff67fda5e5b8fa7"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-site-index/url-policy.ts",
+      "role": "Public URL policy",
+      "sha256": "42ea503ff51496590f7abb813f69e04394b93a7590576747f3ddf281c6d43f6e"
+    },
+    {
+      "path": "lib/marketing/website-kompis-public-site-index/private-paths.ts",
+      "role": "Protected path failsafe",
+      "sha256": "7d1403d7bc7791bd2ff99239aa803cb6e0b33f49d228777ac7934ff334cde4f1"
+    }
+  ]
+}

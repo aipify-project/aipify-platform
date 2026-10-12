@@ -1,5 +1,7 @@
 # Website Kompis — universal public surface contract
 
+> **Frozen public chain:** the full visitor ask/lifecycle contract (including this surface) is frozen at owner-accepted baseline — see [website-kompis-public-chain-frozen-contract.md](./website-kompis-public-chain-frozen-contract.md). Do not edit protected runtime files without explicit owner approval naming **Website Kompis Public Chain**.
+
 Core owns when the public Companion surface is active. Customer hosts mount the Core loader once and publish an access class from their existing layout/access boundary.
 
 ## Host responsibilities
