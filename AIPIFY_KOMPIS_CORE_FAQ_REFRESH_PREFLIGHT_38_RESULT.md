@@ -11,7 +11,7 @@ Feature owner: INSTALL ENGINE / public Website Kompis Core
 | CODE SCOPE VERIFIED | **YES** | #134 at merge `f01c1a22` / Apex `dpl_5xu3UdKfWzXdMzV68xfKfPB6atga` touches only extract + exports + test + RESULT.37 |
 | PUBLIC FAQ JSON BOUNDARY VERIFIED | **YES** | Escaped published FAQ `question`/`answer` pairs in page script payloads (not JSON-LD FAQPage); pair gate rejects tokens/hydration; fixture negatives pass |
 | INDEX RUNTIME VERIFIED | **YES** | Ingest + ask both on Apex `aipify-platform-iz5z`; extract used only inside `ingestTenantPublicSiteIndex`; search is FTS RPC (no embeddings) |
-| CONTROLLED REFRESH READY | **NO** | Extract places travel A1/A2 at chunk **43** / beyond body 24k; Core persist RPC still caps **24 chunks** + **24k body** — a refresh today would re-store title-heavy FAQ without those answers |
+| CONTROLLED REFRESH READY | **NO** | Extract places travel A1/A2 at chunk **43** / beyond body 24k; Core persist RPC still caps **24 chunks** + **24k body** — a refresh today would re-store title-heavy FAQ without those answers. Job **39** delivers local storage-contract repair + unapplied migration; still not refresh-ready until SQL applied + Apex code LIVE |
 
 OWNER ACCEPTANCE34 = **NOT VERIFIED** · OWNER ACCEPTANCE35 = **NOT EXERCISED** · SAFE TO FREEZE WHOLE CHAIN = **NO**
 
@@ -202,6 +202,7 @@ Do **not** imply EN/other locales/other tenants are included; host/tenant trust 
 | Public FAQ Q→A in escaped page FAQ records; extract dropped scripts | Job **36** first break |
 | Extract harvest + FAQ caps 240/48/48k LIVE on Apex | Job **37** CODE FIX LIVE |
 | Persist RPC still 24 chunks / 24k body | **Job 38 blocker** — refresh would still drop travel A1/A2 |
+| Storage contract repair (48/48k) + FAQ-chunk packing | Job **39** — LOCAL STORAGE VERIFIED; SQL not applied; CODE not LIVE |
 | Discovery always expands beyond seed URL | Job **38** — no exclusive single-page mode |
 | Stale `/no/faq` stored (12 chunks, no A1/A2) | Still true (Core read 2026-10-12) |
 | Empty-pack loose index fallback | Job **35** — NOT EXERCISED |

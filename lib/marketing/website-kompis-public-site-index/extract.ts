@@ -8,11 +8,22 @@ const TOKEN_PATTERN =
  * Closed accordion answers are still public FAQ — not private/hidden-by-auth text.
  * Hub pages often ship 100–250 published FAQ records; 16×24k alone cannot keep
  * late Q→A pairs. Caps below bound FAQ harvest only (not unlimited page HTML).
+ *
+ * Persist contract (replace_tenant_public_site_index_document) must match these
+ * FAQ ceilings — see WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_PERSIST_* and migration
+ * 20261938100000_website_kompis_public_site_index_faq_storage_contract_v1.sql.
+ * Ordinary non-FAQ pages still use ≤16 chunks / ≤24k visible body in extract.
  */
 export const WEBSITE_KOMPIS_PUBLIC_FAQ_PAIR_MAX = 240;
 /** FAQ-pair chunks may use a higher slot count than generic body chunking (16). */
 export const WEBSITE_KOMPIS_PUBLIC_FAQ_CHUNK_MAX = 48;
-const WEBSITE_KOMPIS_PUBLIC_FAQ_BODY_MAX = 48_000;
+export const WEBSITE_KOMPIS_PUBLIC_FAQ_BODY_MAX = 48_000;
+/** Server persist body ceiling — must equal FAQ body max after job 39. */
+export const WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_PERSIST_BODY_MAX =
+  WEBSITE_KOMPIS_PUBLIC_FAQ_BODY_MAX;
+/** Server persist chunk ceiling — must equal FAQ chunk max after job 39. */
+export const WEBSITE_KOMPIS_PUBLIC_SITE_INDEX_PERSIST_CHUNK_MAX =
+  WEBSITE_KOMPIS_PUBLIC_FAQ_CHUNK_MAX;
 const FAQ_QUESTION_MIN = 8;
 const FAQ_QUESTION_MAX = 240;
 const FAQ_ANSWER_MIN = 12;
@@ -349,19 +360,6 @@ export function chunkPublicFaqPairs(
   return chunks;
 }
 
-function mergeUniqueChunks(primary: string[], secondary: string[], maxChunks: number): string[] {
-  const seen = new Set<string>();
-  const out: string[] = [];
-  for (const chunk of [...primary, ...secondary]) {
-    const key = chunk.toLowerCase().slice(0, 160);
-    if (!key || seen.has(key)) continue;
-    seen.add(key);
-    out.push(chunk);
-    if (out.length >= maxChunks) break;
-  }
-  return out;
-}
-
 export function extractPublicPageFromHtml(html: string, preferredLocale?: string): ExtractedPublicPage {
   const title = matchTitle(html);
   const metaDescription = matchMeta(html, "description") || matchMeta(html, "og:description");
@@ -384,12 +382,14 @@ export function extractPublicPageFromHtml(html: string, preferredLocale?: string
     : visibleBody;
 
   const excerpt = (metaDescription || bodyText).slice(0, 420);
-  const chunkBudget = faqChunks.length > 0 ? WEBSITE_KOMPIS_PUBLIC_FAQ_CHUNK_MAX : 16;
-  const chunks = mergeUniqueChunks(
-    faqChunks,
-    chunkPublicSiteBodyText(visibleBody),
-    chunkBudget,
-  );
+  // When published FAQ pairs exist, persist those Q→A chunks only. Merging the
+  // closed-accordion title list (`+ Hva …`) into the same 48-slot budget lets
+  // FTS rank question titles over answer prose (job 38/39). Visible titles remain
+  // in body_text for document-level scoring; ordinary non-FAQ pages keep 16 body chunks.
+  const chunks =
+    faqChunks.length > 0
+      ? faqChunks.slice(0, WEBSITE_KOMPIS_PUBLIC_FAQ_CHUNK_MAX)
+      : chunkPublicSiteBodyText(visibleBody);
   const contentHash = createHash("sha256")
     .update(`${title}\n${metaDescription}\n${bodyText}`)
     .digest("hex");

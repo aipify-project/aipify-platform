@@ -14,7 +14,7 @@ Scope: Closed public FAQ Q→A into `extractPublicPageFromHtml` body/chunks. Loc
 | OWNER ACCEPTANCE34 | **NOT VERIFIED** |
 | OWNER ACCEPTANCE35 | **NOT EXERCISED** |
 | READY FOR OWNER TEST | **NO** |
-| READY FOR CONTROLLED INDEX REFRESH | **YES** (after CODE FIX LIVE) |
+| READY FOR CONTROLLED INDEX REFRESH | **NO** — superseded by RESULT.38/39 (persist RPC 24/24k; storage contract repair pending apply) |
 | SAFE TO FREEZE WHOLE CHAIN | **NO** |
 
 Provenance baseline: RESULT.36 / PR #133 · asks `m7t46` / `lhshh` · Apex `dpl_Hy6Xf1c1abezJuzjHvGZx3Ux3N4M` · `installRef` `edf1e1be`.
@@ -40,6 +40,7 @@ Closed accordion ≠ private/auth-gated text. Visibility filter for hydration/se
 | `chunkPublicFaqPairs` | Dense ≤900-char multi-pair chunks; pair never split mid-chunk |
 | FAQ-first body | `faqBody` prepended so late hub answers survive truncation |
 | Caps (FAQ harvest only) | **240** pairs · **48** FAQ chunks · **48k** FAQ body — required because live hub has ~229 pairs; prior 16×24k dropped travel answers near pair ~179 |
+| Scope deviation (honest) | Extract caps raised **without** aligning `replace_tenant_public_site_index_document` (still 24 chunks / 24k body). Local extract ≠ stored. See RESULT.38/39. |
 
 Allowed paths edited: `lib/marketing/website-kompis-public-site-index/extract.ts`, `index.ts` exports, `faq-extraction-repair.test.ts`, this RESULT.
 
