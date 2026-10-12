@@ -12,6 +12,11 @@ export {
   LIGHT_ENTERPRISE_THEME,
 } from "./light-enterprise-theme";
 export {
+  APP_VISUAL_SYSTEM_VERSION,
+  AppVisualClasses,
+  AppVisualColors,
+} from "./app-visual-system";
+export {
   AipifyStatusPresentations,
   getAipifyStatusPresentation,
   type AipifyStatusKind,

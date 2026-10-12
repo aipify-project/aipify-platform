@@ -6,6 +6,8 @@ export {
   type AppSectionTabSize,
 } from "./AppSectionTabs";
 export { AppContentWidth } from "./AppContentWidth";
+export { AppCanvasBackground } from "./AppCanvasBackground";
+export { AppDecorativeOrb } from "./AppDecorativeOrb";
 export {
   AppIconActionCard,
   type AppIconActionCardTone,
