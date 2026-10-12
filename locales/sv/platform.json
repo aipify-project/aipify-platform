@@ -756,6 +756,29 @@
       "agreementDisplayNames": {
         "unonightPilotAgreement": "Unonight pilotavtal",
         "unonightUnlimitedAgreement": "Unonight obegränsat avtal"
+      },
+      "controlPlane": {
+        "sectionControlPlane": "Åtkomstöversikt",
+        "overallStatus": "Samlad status",
+        "products": "Produkter",
+        "web": "Kompis Web",
+        "bedrift": "Kompis Bedrift",
+        "websiteKompis": "Website Kompis",
+        "modules": "Moduler",
+        "provisioning": "Installationsberedskap",
+        "ready": "Redo",
+        "notReady": "Inte redo",
+        "membership": "Ägarskap",
+        "reason": "Orsakskod",
+        "statuses": {
+          "active": "Aktiv",
+          "pending": "Väntar",
+          "suspended": "Suspenderad",
+          "expired": "Utgången",
+          "cancelled": "Avslutad",
+          "unavailable": "Otillgänglig",
+          "conflict": "Kräver granskning"
+        }
       }
     },
     "createCustomer": "Skapa kund",

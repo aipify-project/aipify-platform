@@ -25,6 +25,8 @@ import {
   mapLicenseProductName,
   shouldShowTrialBadge,
 } from "@/lib/platform-portal/business-language";
+import { buildPlatformCustomerControlPlaneSummary } from "@/lib/core/access-control-plane";
+import type { AccessProductStatus } from "@/lib/core/access-control-plane";
 import { PlatformPortalAppKompisDeliveryPanel } from "@/components/platform/platform-portal/PlatformPortalAppKompisDeliveryPanel";
 import { CustomerWebsiteRuntimeDeliveryPanel } from "@/components/platform/platform-portal/CustomerWebsiteRuntimeDeliveryPanel";
 import type { CustomerWebsiteRuntimeLabels } from "@/lib/customer-website-runtime/labels";
@@ -119,6 +121,98 @@ const BADGE_STYLES: Record<MetricVariant, string> = {
   muted:
     "border-slate-200 bg-slate-100 text-slate-600 dark:border-slate-700 dark:bg-slate-800/80 dark:text-slate-300",
 };
+
+function controlPlaneStatusVariant(status: AccessProductStatus): MetricVariant {
+  switch (status) {
+    case "active":
+      return "success";
+    case "pending":
+    case "conflict":
+      return "warning";
+    case "suspended":
+    case "expired":
+    case "cancelled":
+      return "danger";
+    default:
+      return "muted";
+  }
+}
+
+function ControlPlaneOverviewCard({
+  labels,
+  data,
+}: {
+  labels: PlatformPortalCustomerDetailLabels;
+  data: PlatformPortalCustomerDetail;
+}) {
+  const summary = buildPlatformCustomerControlPlaneSummary(data);
+  const cp = labels.controlPlane;
+  const statusLabel = (status: string) => cp.statuses[status] ?? labels.unknownStatus;
+  const productLabel = (key: "web" | "bedrift" | "website_kompis") => {
+    if (key === "web") return cp.web;
+    if (key === "bedrift") return cp.bedrift;
+    return cp.websiteKompis;
+  };
+
+  return (
+    <section
+      className="rounded-2xl border border-violet-200/80 bg-violet-50/40 p-5 shadow-sm dark:border-violet-800/60 dark:bg-violet-950/25"
+      aria-label={cp.sectionControlPlane}
+    >
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">
+            {cp.sectionControlPlane}
+          </h2>
+          <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+            {cp.overallStatus}
+          </p>
+        </div>
+        <StatusBadge
+          label={statusLabel(summary.overallStatus)}
+          variant={controlPlaneStatusVariant(summary.overallStatus)}
+        />
+      </div>
+      <dl className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <MetricCard
+          label={cp.membership}
+          value={summary.membershipReady ? cp.ready : cp.notReady}
+          variant={summary.membershipReady ? "success" : "warning"}
+        />
+        <MetricCard
+          label={cp.provisioning}
+          value={summary.provisioningReady ? cp.ready : cp.notReady}
+          variant={summary.provisioningReady ? "success" : "warning"}
+        />
+        <MetricCard
+          label={cp.modules}
+          value={`${summary.modulesActiveCount}/${summary.modulesTotalCount}`}
+          variant={summary.modulesActiveCount > 0 ? "info" : "muted"}
+        />
+        <MetricCard
+          label={cp.reason}
+          value={summary.overallReasonCode}
+          variant="muted"
+        />
+      </dl>
+      <div className="mt-4">
+        <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
+          {cp.products}
+        </p>
+        <ul className="mt-2 flex flex-wrap gap-2">
+          {summary.products.map((product) => (
+            <li key={`${product.productId}-${product.labelKey}`}>
+              <StatusBadge
+                label={`${productLabel(product.labelKey)} · ${statusLabel(product.status)}`}
+                variant={controlPlaneStatusVariant(product.status)}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
 
 function isDetailPayload(value: unknown): value is PlatformPortalCustomerDetail {
   if (!value || typeof value !== "object") return false;
@@ -847,6 +941,8 @@ export function PlatformPortalCustomerDetailPanel({
           />
         </dl>
       </section>
+
+      <ControlPlaneOverviewCard labels={labels} data={data} />
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">

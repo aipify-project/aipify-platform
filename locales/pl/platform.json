@@ -756,6 +756,29 @@
       "agreementDisplayNames": {
         "unonightPilotAgreement": "Umowa pilotażowa Unonight",
         "unonightUnlimitedAgreement": "Umowa bezterminowa Unonight"
+      },
+      "controlPlane": {
+        "sectionControlPlane": "Przegląd dostępu",
+        "overallStatus": "Status ogólny",
+        "products": "Produkty",
+        "web": "Kompis Web",
+        "bedrift": "Kompis Bedrift",
+        "websiteKompis": "Website Kompis",
+        "modules": "Moduły",
+        "provisioning": "Gotowość konfiguracji",
+        "ready": "Gotowe",
+        "notReady": "Niegotowe",
+        "membership": "Członkostwo właściciela",
+        "reason": "Kod przyczyny",
+        "statuses": {
+          "active": "Aktywny",
+          "pending": "Oczekuje",
+          "suspended": "Zawieszony",
+          "expired": "Wygasły",
+          "cancelled": "Anulowany",
+          "unavailable": "Niedostępny",
+          "conflict": "Wymaga przeglądu"
+        }
       }
     },
     "createCustomer": "Utwórz klienta",

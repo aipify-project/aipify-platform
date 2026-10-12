@@ -756,6 +756,29 @@
       "agreementDisplayNames": {
         "unonightPilotAgreement": "Пілотна угода Unonight",
         "unonightUnlimitedAgreement": "Безстрокова угода Unonight"
+      },
+      "controlPlane": {
+        "sectionControlPlane": "Огляд доступу",
+        "overallStatus": "Загальний стан",
+        "products": "Продукти",
+        "web": "Kompis Web",
+        "bedrift": "Kompis Bedrift",
+        "websiteKompis": "Website Kompis",
+        "modules": "Модулі",
+        "provisioning": "Готовність налаштування",
+        "ready": "Готово",
+        "notReady": "Не готово",
+        "membership": "Членство власника",
+        "reason": "Код причини",
+        "statuses": {
+          "active": "Активний",
+          "pending": "Очікує",
+          "suspended": "Призупинено",
+          "expired": "Закінчився",
+          "cancelled": "Скасовано",
+          "unavailable": "Недоступний",
+          "conflict": "Потребує перевірки"
+        }
       }
     },
     "createCustomer": "Створити клієнта",

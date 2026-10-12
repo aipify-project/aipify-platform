@@ -109,8 +109,8 @@ export async function loadAppMenuCapabilityBundle(
       }
     }
 
-    // Entitlement adapter (job 58): read tenant_modules without new license schema.
-    // website_kompis denied → sentinel; missing/error → empty set (fail-open for Web nav).
+    // Entitlement adapter: tenant_modules via is_tenant_module_enabled (no new schema).
+    // Job 62: denied → sentinel; enabled → key; missing/error → empty (fail-closed for Web).
     const activeModuleKeys = new Set<string>();
     const tenantId = context.customer_id ?? context.organization_id;
     if (tenantId) {
@@ -128,7 +128,7 @@ export async function loadAppMenuCapabilityBundle(
           activeModuleKeys.add("website_kompis");
         }
       } catch {
-        // Fail-open: do not hide Kompis Web when module RPC is unavailable.
+        // Fail-closed: leave empty so website_kompis entitlements stay hidden.
       }
     }
 
