@@ -11,6 +11,8 @@ import {
 import { buildWebsiteKompisFeedbackLabels } from "@/lib/website-kompis-feedback/labels";
 import { buildWebsiteKompisKnowledgeLabels } from "@/lib/website-kompis-knowledge/labels";
 import { loadWebsiteKompisKnowledgeSummary } from "@/lib/website-kompis-knowledge/load-summary";
+import { buildWebsiteKompisConnectionLabels } from "@/lib/website-kompis-connection/labels";
+import { loadWebsiteKompisConnectionSummary } from "@/lib/website-kompis-connection/load-summary";
 import { getWebsiteKompisAnswerFeedbackOverview } from "@/lib/marketing/website-kompis-answer-feedback-server";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
@@ -27,11 +29,13 @@ export default async function WebsiteKompisHubPage() {
   const ctx = await resolveHubWorkspaceContext();
   const feedbackLabels = buildWebsiteKompisFeedbackLabels(t);
   const knowledgeLabels = buildWebsiteKompisKnowledgeLabels(t);
+  const connectionLabels = buildWebsiteKompisConnectionLabels(t);
 
   const supabase = await createClient();
-  const [overview, knowledge] = await Promise.all([
+  const [overview, knowledge, connection] = await Promise.all([
     getWebsiteKompisAnswerFeedbackOverview(supabase, { limit: 1 }),
     loadWebsiteKompisKnowledgeSummary(supabase),
+    loadWebsiteKompisConnectionSummary(supabase),
   ]);
 
   const cards = [
@@ -71,13 +75,67 @@ export default async function WebsiteKompisHubPage() {
       title={t("customerApp.portalStructure.nav.kompisWebDashboard")}
       description={t("customerApp.portalStructure.webHub.description")}
       contextLabel={formatHubContextLine(common, ctx)}
-      status={{ label: common.statusReady, tone: "emerald" }}
+      status={{
+        label: connectionLabels.aggregate[connection.summary.aggregate],
+        tone:
+          connection.summary.aggregate === "active"
+            ? "emerald"
+            : connection.summary.aggregate === "error" ||
+                connection.summary.aggregate === "suspended"
+              ? "purple"
+              : connection.summary.aggregate === "pending" ||
+                  connection.summary.aggregate === "action_required"
+                ? "amber"
+                : "slate",
+      }}
       decorativeAccent
       primaryAction={{
         label: t("customerApp.portalStructure.nav.kompisWebQa"),
         href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
       }}
     >
+      <section className="space-y-3" aria-labelledby="wk-connection-status">
+        <div>
+          <h2 id="wk-connection-status" className="text-lg font-semibold text-[var(--app-text)]">
+            {connectionLabels.dashboardTitle}
+          </h2>
+          <p className="mt-1 text-sm text-[var(--app-text-muted)]">
+            {connectionLabels.dashboardDescription}
+          </p>
+        </div>
+        <div className={AppVisualClasses.card}>
+          <p className="text-xs uppercase tracking-wide text-[var(--app-text-muted)]">
+            {connectionLabels.title}
+          </p>
+          <p className="mt-1 text-2xl font-semibold text-[var(--app-text)]">
+            {connectionLabels.aggregate[connection.summary.aggregate]}
+          </p>
+          <p className="mt-2 text-sm text-[var(--app-text-muted)]">
+            {connectionLabels.aggregateExplain[connection.summary.aggregate]}
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Link
+              href={FOUNDATION_NAV_BINDINGS.kompisWebConnection}
+              className="inline-flex rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-3 py-2 text-sm font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+            >
+              {connectionLabels.openConnection}
+            </Link>
+            <Link
+              href={`${FOUNDATION_NAV_BINDINGS.kompisWebConnection}?section=domains`}
+              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+            >
+              {connectionLabels.domainsTitle}
+            </Link>
+            <Link
+              href={`${FOUNDATION_NAV_BINDINGS.kompisWebConnection}?section=help`}
+              className="inline-flex rounded-[var(--app-radius-md)] border border-[var(--app-border)] bg-[var(--app-card)] px-3 py-2 text-sm font-medium text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+            >
+              {connectionLabels.diagnosisTitle}
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {knowledge.faqLoadOk ? (
         <section className="space-y-3" aria-labelledby="wk-knowledge-status">
           <div>
