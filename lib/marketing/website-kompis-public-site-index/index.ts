@@ -48,6 +48,7 @@ export {
   filterAndRankPublicSiteIndexHits,
   focusPublicSiteIndexQuery,
   isRelevantPublicSiteIndexResult,
+  isWeakGeneralPublicSitePath,
   sanitizePublicSiteIndexSourceUrl,
   neutralizeUntrustedPageEvidence,
   scorePublicSiteIndexHitTopicOverlap,
