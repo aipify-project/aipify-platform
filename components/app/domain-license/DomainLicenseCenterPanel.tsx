@@ -18,7 +18,13 @@ import { WebsiteKompisDomainSettingsCard } from "@/components/app/domain-license
 
 type Tab = "overview" | "active" | "pending" | "licenses" | "packs";
 
-export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabels }) {
+export function DomainLicenseCenterPanel({
+  labels,
+  embedded = false,
+}: {
+  labels: DomainLicenseLabels;
+  embedded?: boolean;
+}) {
   const [center, setCenter] = useState<DomainLicenseCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<Tab>("overview");
@@ -107,15 +113,19 @@ export function DomainLicenseCenterPanel({ labels }: { labels: DomainLicenseLabe
   ];
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6 p-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">{labels.title}</h1>
-        <p className="mt-2 text-gray-600">{labels.subtitle}</p>
-        {center.principle ? <p className="mt-2 text-sm font-medium text-violet-800">{center.principle}</p> : null}
-        <Link href={center.store_route ?? "/app/store"} className="mt-3 inline-block text-sm text-indigo-700 hover:underline">
-          {labels.storeLink}
-        </Link>
-      </div>
+    <div className={embedded ? "w-full space-y-6" : "mx-auto max-w-6xl space-y-6 p-6"}>
+      {!embedded ? (
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">{labels.title}</h1>
+          <p className="mt-2 text-gray-600">{labels.subtitle}</p>
+          {center.principle ? <p className="mt-2 text-sm font-medium text-violet-800">{center.principle}</p> : null}
+          <Link href={center.store_route ?? "/app/store"} className="mt-3 inline-block text-sm text-indigo-700 hover:underline">
+            {labels.storeLink}
+          </Link>
+        </div>
+      ) : center.principle ? (
+        <p className="text-sm font-medium text-violet-800">{center.principle}</p>
+      ) : null}
 
       {summary ? (
         <div className="grid gap-3 sm:grid-cols-3">

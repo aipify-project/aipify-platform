@@ -324,6 +324,7 @@ export async function renderAppPortalTeamPage() {
   return (
     <TeamCenterPanel
       locale={locale}
+      embedded
       labels={{
         title: t("customerApp.portalStructure.pages.teamMembers.title"),
         subtitle: t("customerApp.portalStructure.pages.teamMembers.subtitle"),

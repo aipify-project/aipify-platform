@@ -34,7 +34,7 @@ export default async function KompisBedriftCommunicationsPage() {
       description={hubT(t, "bedrift.commsDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
     >
-      <CommunicationsPanel labels={buildCommunicationsLabels(t)} />
+      <CommunicationsPanel labels={buildCommunicationsLabels(t)} embedded />
     </AppHubShell>
   );
 }

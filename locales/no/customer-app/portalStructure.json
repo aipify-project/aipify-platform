@@ -8640,7 +8640,8 @@
         "invoicesDescription": "Fakturaer og kvitteringer fra Aipify til kontoen din. Aipify lager ikke fakturaer som du sender til dine egne kunder.",
         "integrationsDescription": "Tilkoblede systemer for kontoen. Status vises bare når den kan verifiseres.",
         "notificationsDescription": "Globale varslingsinnstillinger for kontoen.",
-        "invoicesEyebrow": "Aipify-fakturering"
+        "invoicesEyebrow": "Aipify-fakturering",
+        "subscriptionEyebrow": "Aipify-abonnement"
       }
     },
     "productContext": {

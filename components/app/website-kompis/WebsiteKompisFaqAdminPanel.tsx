@@ -26,6 +26,8 @@ import type {
 
 type WebsiteKompisFaqAdminPanelProps = {
   labels: WebsiteKompisFaqLabels;
+  /** Job 61 — inside AppHubShell: no duplicate page header / settings back-link as nav. */
+  embedded?: boolean;
 };
 
 const STATUS_STYLES: Record<WpkfStatus, string> = {
@@ -84,7 +86,10 @@ function formatDate(value: string | null): string {
   }).format(new Date(parsed));
 }
 
-export function WebsiteKompisFaqAdminPanel({ labels }: WebsiteKompisFaqAdminPanelProps) {
+export function WebsiteKompisFaqAdminPanel({
+  labels,
+  embedded = false,
+}: WebsiteKompisFaqAdminPanelProps) {
   const [items, setItems] = useState<WebsiteKompisFaqItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [accessDenied, setAccessDenied] = useState(false);
@@ -263,16 +268,27 @@ export function WebsiteKompisFaqAdminPanel({ labels }: WebsiteKompisFaqAdminPane
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <Link href="/app/settings" className="text-sm text-violet-600 hover:underline">
-          {labels.back}
-        </Link>
-        <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <h1 className="text-2xl font-semibold text-slate-900">{labels.title}</h1>
-            <p className="mt-1 text-sm text-slate-600">{labels.subtitle}</p>
+    <div className="w-full space-y-6">
+      {!embedded ? (
+        <div>
+          <Link href="/app/settings" className="text-sm text-violet-600 hover:underline">
+            {labels.back}
+          </Link>
+          <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h1 className="text-2xl font-semibold text-slate-900">{labels.title}</h1>
+              <p className="mt-1 text-sm text-slate-600">{labels.subtitle}</p>
+            </div>
+            <Link
+              href="/app/website-kompis/feedback"
+              className="rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-sm font-medium text-violet-800 hover:bg-violet-100"
+            >
+              {labels.feedbackOverviewLink}
+            </Link>
           </div>
+        </div>
+      ) : (
+        <div className="flex justify-end">
           <Link
             href="/app/website-kompis/feedback"
             className="rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-sm font-medium text-violet-800 hover:bg-violet-100"
@@ -280,7 +296,7 @@ export function WebsiteKompisFaqAdminPanel({ labels }: WebsiteKompisFaqAdminPane
             {labels.feedbackOverviewLink}
           </Link>
         </div>
-      </div>
+      )}
 
       <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
         {labels.warningBanner}

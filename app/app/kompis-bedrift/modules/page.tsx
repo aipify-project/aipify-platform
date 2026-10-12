@@ -34,6 +34,7 @@ export default async function KompisBedriftModulesPage() {
       contextLabel={formatHubContextLine(common, ctx)}
     >
       <ModulesAdminPanel
+        embedded
         labels={{
           title: t("customerApp.commercialPackages.modules.title"),
           subtitle: t("customerApp.commercialPackages.modules.subtitle"),

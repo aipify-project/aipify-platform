@@ -1,14 +1,10 @@
-import { DomainLicenseCenterPanel } from "@/components/app/domain-license";
-import { buildDomainLicenseLabels } from "@/lib/domain-license/labels";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
-import { getLocale } from "@/lib/i18n/get-locale";
-import { createTranslator } from "@/lib/i18n/translate";
+import { redirect } from "next/navigation";
+import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 
-export default async function DomainsPage() {
-  const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["settings"]);
-  const t = createTranslator(dict);
-  const labels = buildDomainLicenseLabels(t);
-
-  return <DomainLicenseCenterPanel labels={labels} />;
+/**
+ * Legacy domains entry — canonical connection/license hub owns presentation.
+ * Bookmark-compatible redirect (no loop; product context preserved via path).
+ */
+export default function DomainsPage() {
+  redirect(FOUNDATION_NAV_BINDINGS.kompisWebConnection);
 }

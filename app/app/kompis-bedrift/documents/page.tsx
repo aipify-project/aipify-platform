@@ -34,7 +34,7 @@ export default async function KompisBedriftDocumentsPage() {
       description={hubT(t, "bedrift.documentsDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
     >
-      <DocumentManagementPanel labels={buildDocumentManagementLabels(t)} />
+      <DocumentManagementPanel labels={buildDocumentManagementLabels(t)} embedded />
     </AppHubShell>
   );
 }

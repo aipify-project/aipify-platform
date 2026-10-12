@@ -13,6 +13,8 @@ import {
 type EnterpriseInvoiceDetailsPanelProps = {
   labels: EnterpriseInvoicingLabels;
   backHref: string;
+  /** Inside AppHubShell — omit page chrome and narrow max-width. */
+  embedded?: boolean;
 };
 
 const EMPTY_PROFILE: EnterpriseBillingProfile = {
@@ -39,6 +41,7 @@ const EMPTY_PROFILE: EnterpriseBillingProfile = {
 export function EnterpriseInvoiceDetailsPanel({
   labels,
   backHref,
+  embedded = false,
 }: EnterpriseInvoiceDetailsPanelProps) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -97,14 +100,18 @@ export function EnterpriseInvoiceDetailsPanel({
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 p-6">
+    <div className={embedded ? "w-full space-y-6" : "mx-auto max-w-4xl space-y-6 p-6"}>
       <div>
-        <Link href={backHref} className="text-sm text-indigo-600 hover:underline">
-          ← {labels.back}
-        </Link>
-        <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">{labels.title}</h1>
-        <p className="mt-2 text-slate-600">{labels.subtitle}</p>
-        <p className="mt-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+        {!embedded ? (
+          <>
+            <Link href={backHref} className="text-sm text-indigo-600 hover:underline">
+              ← {labels.back}
+            </Link>
+            <h1 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">{labels.title}</h1>
+            <p className="mt-2 text-slate-600">{labels.subtitle}</p>
+          </>
+        ) : null}
+        <p className={`${embedded ? "" : "mt-3 "}rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700`}>
           {labels.principle}
         </p>
         {!canEdit && (

@@ -10,7 +10,7 @@ import {
   type MeetingsLabels,
 } from "@/lib/app-portal/meetings";
 
-type Props = { labels: MeetingsLabels };
+type Props = { labels: MeetingsLabels; embedded?: boolean };
 
 const TYPES: MeetingType[] = [
   "executive_meeting", "team_meeting", "project_meeting", "customer_meeting", "vendor_meeting",
@@ -18,7 +18,7 @@ const TYPES: MeetingType[] = [
 ];
 const STATUSES: MeetingStatus[] = ["scheduled", "in_progress", "completed", "cancelled"];
 
-export function MeetingsPanel({ labels }: Props) {
+export function MeetingsPanel({ labels, embedded = false }: Props) {
   const [data, setData] = useState<MeetingListResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [meetingType, setMeetingType] = useState("");
@@ -88,13 +88,17 @@ export function MeetingsPanel({ labels }: Props) {
   const empty = (data?.items.length ?? 0) === 0 && !meetingType && !status && !search;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8">
-      <div>
-        <Link href="/app" className="text-sm font-medium text-indigo-700 hover:underline">← APP Dashboard</Link>
-        <h1 className="mt-4 text-2xl font-semibold text-slate-900">{labels.title}</h1>
-        <p className="mt-2 text-slate-600">{labels.subtitle}</p>
-        <p className="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50/60 px-5 py-4 text-sm text-slate-800">{labels.principle}</p>
-      </div>
+    <div className={embedded ? "w-full space-y-8" : "mx-auto max-w-5xl space-y-8"}>
+      {!embedded ? (
+        <div>
+          <Link href="/app" className="text-sm font-medium text-indigo-700 hover:underline">← APP Dashboard</Link>
+          <h1 className="mt-4 text-2xl font-semibold text-slate-900">{labels.title}</h1>
+          <p className="mt-2 text-slate-600">{labels.subtitle}</p>
+          <p className="mt-4 rounded-2xl border border-indigo-100 bg-indigo-50/60 px-5 py-4 text-sm text-slate-800">{labels.principle}</p>
+        </div>
+      ) : (
+        <p className="rounded-2xl border border-indigo-100 bg-indigo-50/60 px-5 py-4 text-sm text-slate-800">{labels.principle}</p>
+      )}
 
       {dash ? (
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

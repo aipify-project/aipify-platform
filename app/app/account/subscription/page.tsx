@@ -26,13 +26,9 @@ export default async function AccountSubscriptionPage() {
     <AppHubShell
       breadcrumb={[
         { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
-        {
-          label: t("customerApp.portalStructure.navGroups.account"),
-          href: FOUNDATION_NAV_BINDINGS.accountHome,
-        },
         { label: t("customerApp.portalStructure.nav.accountSubscription") },
       ]}
-      eyebrow={t("customerApp.portalStructure.navGroups.account")}
+      eyebrow={hubT(t, "account.subscriptionEyebrow")}
       title={t("customerApp.portalStructure.nav.accountSubscription")}
       description={hubT(t, "account.subscriptionDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
@@ -41,6 +37,7 @@ export default async function AccountSubscriptionPage() {
         labels={buildBillingReferenceLabels(t)}
         locale={locale}
         presentation={buildBillingPresentationMaps(dict)}
+        embedded
       />
     </AppHubShell>
   );

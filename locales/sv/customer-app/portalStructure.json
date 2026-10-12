@@ -8639,7 +8639,8 @@
         "invoicesDescription": "Fakturor och kvitton från Aipify till ditt konto. Aipify skapar inte fakturor som du skickar till dina egna kunder.",
         "integrationsDescription": "Anslutna system för kontot. Status visas bara när den kan verifieras.",
         "notificationsDescription": "Globala aviseringsinställningar för kontot.",
-        "invoicesEyebrow": "Aipify-fakturering"
+        "invoicesEyebrow": "Aipify-fakturering",
+        "subscriptionEyebrow": "Aipify-prenumeration"
       }
     },
     "productContext": {

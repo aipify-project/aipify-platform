@@ -20,6 +20,7 @@ export default async function WebsiteKompisHubPage() {
   const common = hubCommon(t);
   const ctx = await resolveHubWorkspaceContext();
 
+  // High-signal owner overview — settings/appearance live under Settings, not duplicated here.
   const cards = [
     {
       href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
@@ -40,22 +41,10 @@ export default async function WebsiteKompisHubPage() {
       tone: "lavender" as const,
     },
     {
-      href: FOUNDATION_NAV_BINDINGS.kompisWebAppearance,
-      title: t("customerApp.portalStructure.nav.kompisWebAppearance"),
-      description: t("customerApp.portalStructure.webHub.appearanceDescription"),
-      tone: "lavender" as const,
-    },
-    {
       href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
       title: t("customerApp.portalStructure.nav.kompisWebModules"),
       description: hubT(t, "web.modulesCard"),
       tone: "slate" as const,
-    },
-    {
-      href: FOUNDATION_NAV_BINDINGS.kompisWebSettings,
-      title: t("customerApp.portalStructure.nav.kompisWebSettings"),
-      description: t("customerApp.portalStructure.webHub.settingsDescription"),
-      tone: "blue" as const,
     },
   ];
 

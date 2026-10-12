@@ -86,7 +86,13 @@ function ProductCard({
   );
 }
 
-export function SoftwareCatalogPanel({ labels }: { labels: SoftwareCatalogLabels }) {
+export function SoftwareCatalogPanel({
+  labels,
+  embedded = false,
+}: {
+  labels: SoftwareCatalogLabels;
+  embedded?: boolean;
+}) {
   const [catalog, setCatalog] = useState<SoftwareCatalogViewModel | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -144,21 +150,25 @@ export function SoftwareCatalogPanel({ labels }: { labels: SoftwareCatalogLabels
     return items.filter((item) => item.sourceType === filter);
   }, [catalog?.items, filter]);
 
+  const frame = embedded ? "w-full space-y-8" : `${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`;
+
   if (loading) {
     return (
-      <div className={AppPremiumShell.page}>
-        <AipifyLoader centered fullPage />
+      <div className={embedded ? "w-full" : AppPremiumShell.page}>
+        <AipifyLoader centered fullPage={!embedded} />
       </div>
     );
   }
 
   if (error || !catalog?.found) {
     return (
-      <div className={AppPremiumShell.page}>
-        <header className="mb-8 max-w-3xl">
-          <h1 className={AppPremiumShell.pageTitle}>{labels.title}</h1>
-          <p className={AppPremiumShell.pageDescription}>{labels.subtitle}</p>
-        </header>
+      <div className={frame}>
+        {!embedded ? (
+          <header className="mb-8 max-w-3xl">
+            <h1 className={AppPremiumShell.pageTitle}>{labels.title}</h1>
+            <p className={AppPremiumShell.pageDescription}>{labels.subtitle}</p>
+          </header>
+        ) : null}
         <div className="rounded-2xl border border-red-200 bg-red-50 p-6 dark:border-red-900/40 dark:bg-red-950/30">
           <p className="text-sm text-red-800 dark:text-red-200">{labels.error}</p>
           <button
@@ -178,11 +188,13 @@ export function SoftwareCatalogPanel({ labels }: { labels: SoftwareCatalogLabels
   const packs = filteredItems.filter((item) => item.sourceType === "business_pack");
 
   return (
-    <div className={`${AppPremiumShell.page} ${AppPremiumShell.sectionGap}`}>
-      <header className="max-w-3xl">
-        <h1 className={AppPremiumShell.pageTitle}>{labels.title}</h1>
-        <p className={AppPremiumShell.pageDescription}>{labels.subtitle}</p>
-      </header>
+    <div className={frame}>
+      {!embedded ? (
+        <header className="max-w-3xl">
+          <h1 className={AppPremiumShell.pageTitle}>{labels.title}</h1>
+          <p className={AppPremiumShell.pageDescription}>{labels.subtitle}</p>
+        </header>
+      ) : null}
 
       {catalog.currentPackage ? (
         <section className={`${AppPremiumShell.elevatedCard} p-6`}>

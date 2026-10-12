@@ -17,6 +17,7 @@ type ProfileBadge = {
 
 type TeamCenterPanelProps = {
   locale: string;
+  embedded?: boolean;
   labels: {
     title: string;
     subtitle: string;
@@ -49,7 +50,7 @@ function localizeStatus(
   return labels?.[normalized] ?? labels?.[status] ?? status;
 }
 
-export function TeamCenterPanel({ locale, labels }: TeamCenterPanelProps) {
+export function TeamCenterPanel({ locale, labels, embedded = false }: TeamCenterPanelProps) {
   const [members, setMembers] = useState<CustomerTeamMember[]>([]);
   const [invitations, setInvitations] = useState<CustomerTeamInvitation[]>([]);
   const [profileBadges, setProfileBadges] = useState<ProfileBadge[]>([]);
@@ -85,11 +86,13 @@ export function TeamCenterPanel({ locale, labels }: TeamCenterPanelProps) {
   if (loading) return <AipifyLoadingState message={labels.loading} centered />;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 p-6">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
-        <p className="mt-2 text-gray-600">{labels.subtitle}</p>
-      </div>
+    <div className={embedded ? "w-full space-y-6" : "mx-auto max-w-5xl space-y-6 p-6"}>
+      {!embedded ? (
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
+          <p className="mt-2 text-gray-600">{labels.subtitle}</p>
+        </div>
+      ) : null}
 
       <section className="rounded-2xl border border-amber-100 bg-amber-50/40 p-5 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-2">
