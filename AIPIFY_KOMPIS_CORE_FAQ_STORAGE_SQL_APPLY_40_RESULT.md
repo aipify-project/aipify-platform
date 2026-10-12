@@ -13,7 +13,7 @@ Scope: Owner-approved Production apply of FAQ storage-contract migration + merge
 | EXISTING INDEX REFRESHED | **NO** — `/no/faq` still body_len≈12583 / 12 chunks (pre-refresh) |
 | LIVE ANSWER VERIFIED | **NO** |
 | READY FOR OWNER TEST | **NO** |
-| CONTROLLED REFRESH READY | **YES** (schema + extract code LIVE; separate owner job required) |
+| CONTROLLED REFRESH READY | **BLOCKED for single-page approval** — see RESULT.41 (existing ingest always sitewide-discovers; job 41 stopped before mutation) |
 | OWNER ACCEPTANCE34 | **NOT VERIFIED** |
 | OWNER ACCEPTANCE35 | **NOT EXERCISED** |
 | SAFE TO FREEZE WHOLE CHAIN | **NO** |
