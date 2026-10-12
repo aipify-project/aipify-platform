@@ -1,11 +1,11 @@
 # AIPIFY – VISIBLE ROUTES & LEGACY UI CONSOLIDATION BUILD 61 — RESULT
 
 **Branch:** `feature/app-visible-routes-legacy-ui-consolidation-61`  
-**Feature commit:** `47d3bc7f63ad7d603c4ae45e05669e40d7663760`  
-**PR:** _(filled after PR)_  
-**Merge SHA:** _(filled after merge)_  
+**Feature commit:** `b19dd4bb320f8f1a343a16cc43d3b1c686356a09`  
+**PR:** [#153](https://github.com/aipify-project/aipify-platform/pull/153)  
+**Merge SHA:** `c9f1d3b53bd358a25366281d33cefd45e575102e`  
 **APP project:** `aipify-platform` (`prj_tPgcqwgUAAkGvBy802arVXVYf1fv`)  
-**Deployment ID:** _(filled after deploy)_  
+**Deployment ID:** `dpl_2pVrA2tFfVENshQMzxvtWjvefe1k` — **READY**  
 **Canonical domain:** `app.aipify.ai`
 
 | Gate | Result |
