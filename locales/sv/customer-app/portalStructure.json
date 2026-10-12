@@ -12,7 +12,9 @@
       "intelligence": "Intelligence",
       "tasksAndOperations": "Uppgifter och drift",
       "aipifyIntelligence": "Aipify Intelligence",
-      "integrations": "Integrationer"
+      "integrations": "Integrationer",
+      "kompisWeb": "Kompis Web",
+      "kompisBedrift": "Kompis Företag"
     },
     "nav": {
       "dashboard": "Dashboard",
@@ -107,7 +109,25 @@
       "dataSources": "Datakällor",
       "apiDeveloperSettings": "API och utvecklarinställningar",
       "kompisOperator": "Kompis",
-      "softwareCatalog": "Programvara"
+      "softwareCatalog": "Programvara",
+      "kompisWebDashboard": "Dashboard",
+      "kompisWebQa": "Frågor och svar",
+      "kompisWebFaq": "FAQ och kunskap",
+      "kompisWebConnection": "Anslutning och åtkomst",
+      "kompisWebAppearance": "Utseende",
+      "kompisWebModules": "Moduler",
+      "kompisWebSettings": "Inställningar",
+      "kompisBedriftDashboard": "Dashboard",
+      "kompisBedriftEmployees": "Anställda och åtkomst",
+      "kompisBedriftDocuments": "Dokument",
+      "kompisBedriftFaq": "FAQ och kunskap",
+      "kompisBedriftComms": "Kommunikation",
+      "kompisBedriftMeetings": "Möten",
+      "kompisBedriftModules": "Moduler",
+      "kompisBedriftSettings": "Inställningar",
+      "accountSubscription": "Prenumeration",
+      "accountInvoices": "Faktura",
+      "accountIntegrations": "Integrationer"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -8512,6 +8532,50 @@
         "human_approval": "Mänskligt godkännande",
         "basic_analytics": "Grundläggande analys"
       }
+    },
+    "webHub": {
+      "description": "Manage your public website companion: visitor questions, FAQ, connection, and appearance.",
+      "qaDescription": "Review visitor questions and feedback from your website.",
+      "faqDescription": "Publish and maintain public FAQ and knowledge for your website.",
+      "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
+      "appearanceDescription": "Choose widget look, welcome messages, and presentation for visitors.",
+      "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
+      "operatorLink": "Open website publisher (Kompis)"
+    },
+    "foundationDashboard": {
+      "eyebrow": "Översikt",
+      "title": "Din Aipify-arbetsyta",
+      "description": "A calm starting point for your products and account.",
+      "welcomeNamed": "Welcome back. You are working in {organization}.",
+      "welcomeGeneric": "Welcome back. Choose a product or review your account.",
+      "orgFallback": "Your organization",
+      "productsTitle": "Produkter",
+      "productsDescription": "Open the product you need. Only entitled products appear in the menu.",
+      "webTitle": "Kompis Web",
+      "webDescription": "Public website companion, FAQ, and visitor guidance.",
+      "webUnavailable": "Kompis Web is not active on this account yet.",
+      "bedriftTitle": "Kompis Bedrift",
+      "bedriftDescription": "Employees, documents, internal knowledge, and collaboration.",
+      "setupTitle": "Setup and connection",
+      "setupDescription": "Keep domains and integrations in a healthy state.",
+      "connectionTitle": "Domain connection",
+      "connectionDescription": "Verify domains and visitor access for Kompis Web.",
+      "integrationsTitle": "Integrations",
+      "integrationsDescription": "See connected apps and complete pending connections.",
+      "accountTitle": "Konto",
+      "accountDescription": "Subscription status and notification preferences — without fake invoice lists.",
+      "subscriptionTitle": "Subscription and billing",
+      "subscriptionDescription": "Review plan status and billing details in one place.",
+      "attentionTitle": "Needs attention",
+      "attentionDescription": "Only real items that need your decision will appear here.",
+      "attentionEmpty": "Nothing needs attention right now",
+      "openWeb": "Open Kompis Web",
+      "openBedrift": "Open Kompis Bedrift",
+      "openBilling": "Open billing",
+      "openNotifications": "Notification settings",
+      "statusAvailable": "Available",
+      "statusUnavailable": "Not available",
+      "statusReady": "Ready"
     }
   }
 }

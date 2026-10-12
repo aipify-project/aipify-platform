@@ -12,7 +12,9 @@
       "intelligence": "Intelligence",
       "tasksAndOperations": "Oppgaver og drift",
       "aipifyIntelligence": "Aipify Intelligence",
-      "integrations": "Integrasjoner"
+      "integrations": "Integrasjoner",
+      "kompisWeb": "Kompis Web",
+      "kompisBedrift": "Kompis Bedrift"
     },
     "nav": {
       "dashboard": "Dashboard",
@@ -107,7 +109,25 @@
       "dataSources": "Datakilder",
       "apiDeveloperSettings": "API og utviklerinnstillinger",
       "kompisOperator": "Kompis",
-      "softwareCatalog": "Programvare"
+      "softwareCatalog": "Programvare",
+      "kompisWebDashboard": "Dashboard",
+      "kompisWebQa": "Spørsmål og svar",
+      "kompisWebFaq": "FAQ og kunnskap",
+      "kompisWebConnection": "Tilkobling og tilgang",
+      "kompisWebAppearance": "Utseende",
+      "kompisWebModules": "Moduler",
+      "kompisWebSettings": "Innstillinger",
+      "kompisBedriftDashboard": "Dashboard",
+      "kompisBedriftEmployees": "Ansatte og tilgang",
+      "kompisBedriftDocuments": "Dokumenter",
+      "kompisBedriftFaq": "FAQ og kunnskap",
+      "kompisBedriftComms": "Kommunikasjon",
+      "kompisBedriftMeetings": "Møter",
+      "kompisBedriftModules": "Moduler",
+      "kompisBedriftSettings": "Innstillinger",
+      "accountSubscription": "Abonnement",
+      "accountInvoices": "Faktura",
+      "accountIntegrations": "Integrasjoner"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -8513,6 +8533,50 @@
         "human_approval": "Menneskelig godkjenning",
         "basic_analytics": "Grunnleggende analyse"
       }
+    },
+    "webHub": {
+      "description": "Administrer din offentlige nettstedskompanjong: besøkende spørsmål, FAQ, tilkobling og utseende.",
+      "qaDescription": "Se spørsmål og tilbakemeldinger fra besøkende på nettstedet.",
+      "faqDescription": "Publiser og vedlikehold offentlig FAQ og kunnskap for nettstedet.",
+      "connectionDescription": "Koble domener, installasjoner og besøkendes tilgang for Kompis Web.",
+      "appearanceDescription": "Velg widget-utseende, velkomstmeldinger og presentasjon for besøkende.",
+      "settingsDescription": "Nettstedinnstillinger for tilkobling, utseende og avanserte verktøy.",
+      "operatorLink": "Åpne nettstedsutgiver (Kompis)"
+    },
+    "foundationDashboard": {
+      "eyebrow": "Oversikt",
+      "title": "Ditt Aipify-arbeidsområde",
+      "description": "Et rolig utgangspunkt for produktene og kontoen din.",
+      "welcomeNamed": "Velkommen tilbake. Du arbeider i {organization}.",
+      "welcomeGeneric": "Velkommen tilbake. Velg et produkt eller se gjennom kontoen.",
+      "orgFallback": "Din organisasjon",
+      "productsTitle": "Produkter",
+      "productsDescription": "Åpne produktet du trenger. Bare tilgjengelige produkter vises i menyen.",
+      "webTitle": "Kompis Web",
+      "webDescription": "Offentlig nettstedskompanjong, FAQ og veiledning for besøkende.",
+      "webUnavailable": "Kompis Web er ikke aktivert på denne kontoen ennå.",
+      "bedriftTitle": "Kompis Bedrift",
+      "bedriftDescription": "Ansatte, dokumenter, intern kunnskap og samarbeid.",
+      "setupTitle": "Oppsett og tilkobling",
+      "setupDescription": "Hold domener og integrasjoner i god stand.",
+      "connectionTitle": "Domenetilkobling",
+      "connectionDescription": "Bekreft domener og besøkendes tilgang for Kompis Web.",
+      "integrationsTitle": "Integrasjoner",
+      "integrationsDescription": "Se tilkoblede apper og fullfør ventende tilkoblinger.",
+      "accountTitle": "Konto",
+      "accountDescription": "Abonnementsstatus og varslingsinnstillinger — uten falske fakturalister.",
+      "subscriptionTitle": "Abonnement og fakturering",
+      "subscriptionDescription": "Se planstatus og faktureringsdetaljer på ett sted.",
+      "attentionTitle": "Krever oppmerksomhet",
+      "attentionDescription": "Bare reelle saker som trenger din beslutning vises her.",
+      "attentionEmpty": "Ingenting krever oppmerksomhet nå",
+      "openWeb": "Åpne Kompis Web",
+      "openBedrift": "Åpne Kompis Bedrift",
+      "openBilling": "Åpne fakturering",
+      "openNotifications": "Varslingsinnstillinger",
+      "statusAvailable": "Tilgjengelig",
+      "statusUnavailable": "Ikke tilgjengelig",
+      "statusReady": "Klar"
     }
   }
 }

@@ -31,11 +31,9 @@ import type {
   CommandBarLabels,
   CommandBarNavSource,
   CommandBarPortal,
-  CustomerRole,
-  PlatformRole,
 } from "@/lib/command-bar";
-import { buildAppNavConfig, type AppNavGroupConfig, type AppNavLink } from "@/lib/app/build-nav";
-import { getAppActiveNavId } from "@/lib/app/nav-config";
+import type { AppNavGroupConfig, AppNavLink } from "@/lib/app/build-nav";
+import { getAppPortalActiveNavId } from "@/lib/app-portal/nav-config";
 import { getCustomerActiveNavId } from "@/lib/dashboard/nav-config";
 import { getPlatformActiveNavId } from "@/lib/platform/nav-config";
 import { getNavIcon } from "./nav-icons";
@@ -280,7 +278,6 @@ function DashboardShellFrame({
   platformBrandMark,
   licensePanelLabels,
   presenceLabels,
-  companionPresenceLabels,
   locale = "en",
   languageSelectorLabels,
   shellUiLabels,
@@ -298,7 +295,7 @@ function DashboardShellFrame({
       return getPlatformActiveNavId(pathname);
     }
     if (pathname.startsWith("/app")) {
-      return getAppActiveNavId(pathname);
+      return getAppPortalActiveNavId(pathname);
     }
     return getCustomerActiveNavId(pathname);
   }, [shellVariant, pathname]);

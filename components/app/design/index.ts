@@ -5,6 +5,11 @@ export {
   type AppSectionTabItem,
   type AppSectionTabSize,
 } from "./AppSectionTabs";
+export { AppContentWidth } from "./AppContentWidth";
+export {
+  AppIconActionCard,
+  type AppIconActionCardTone,
+} from "./AppIconActionCard";
 export { ExecutiveMetricCard } from "./ExecutiveMetricCard";
 export { CompanionInsightBanner } from "./CompanionInsightBanner";
 export { PriorityRecommendationCard } from "./PriorityRecommendationCard";

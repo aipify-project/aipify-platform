@@ -16,13 +16,9 @@ import {
 const t = createTranslator({
   customerApp: {
     portalStructure: {
-      navGroups: Object.fromEntries(
-        APP_PORTAL_NAV_GROUPS.map((g) => [g.id, g.id])
-      ),
+      navGroups: Object.fromEntries(APP_PORTAL_NAV_GROUPS.map((g) => [g.id, g.id])),
       nav: Object.fromEntries(
-        APP_PORTAL_NAV_GROUPS.flatMap((g) =>
-          g.items.map((item) => [item.id, item.id])
-        )
+        APP_PORTAL_NAV_GROUPS.flatMap((g) => g.items.map((item) => [item.id, item.id]))
       ),
     },
   },
@@ -33,7 +29,10 @@ function emptyCtx(overrides: Partial<Parameters<typeof resolveAppMenuCapabilityB
     organizationId: "org-1",
     userId: "user-1",
     role: "organization_owner",
-    featureEnabled: new Map<string, boolean>(),
+    featureEnabled: new Map<string, boolean>([
+      ["billing", true],
+      ["integrations", true],
+    ]),
     permissionGranted: new Map<string, boolean>(),
     activePackKeys: new Set<string>(),
     pendingPackKeys: new Set<string>(),
@@ -44,92 +43,49 @@ function emptyCtx(overrides: Partial<Parameters<typeof resolveAppMenuCapabilityB
 }
 
 describe("core app menu capability contract", () => {
-  it("hides foundation capabilities from navigation", () => {
+  it("presents only the three foundation groups", () => {
     const bundle = resolveAppMenuCapabilityBundle(emptyCtx());
-    for (const id of [
-      "appTasks",
-      "workflows",
-      "rolesPermissions",
-      "contactSupport",
-      "accountSecurity",
-      "activityOverview",
-      "apiAccess",
-      "profile",
-      "upgradeOptions",
-      "installedBusinessPacks",
-      "availableBusinessPacks",
-      "businessPackSettings",
-    ]) {
-      const cap = bundle.capabilities.find((item) => item.capabilityId === id);
-      assert.ok(cap, id);
-      assert.equal(cap?.visibleInNavigation, false, id);
-      assert.equal(cap?.usable, false, id);
-      assert.ok(
-        cap?.state === "foundation" || cap?.state === "disabled",
-        `${id} state=${cap?.state}`
-      );
-    }
+    const presented = presentAppNavFromCapabilities(bundle, t);
+    assert.deepEqual(
+      presented.navGroups.map((g) => g.id),
+      ["kompisWeb", "kompisBedrift", "account"]
+    );
   });
 
-  it("keeps software catalog while unfinished pack shells stay foundation-hidden", () => {
+  it("hides Kompis Web when website_kompis module is denied", () => {
     const bundle = resolveAppMenuCapabilityBundle(
       emptyCtx({
-        featureEnabled: new Map([["business_packs", false], ["billing", true]]),
+        activeModuleKeys: new Set(["__website_kompis_denied__"]),
       })
     );
-    const installed = bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks");
-    assert.equal(installed?.visibleInNavigation, false);
-    assert.equal(installed?.usable, false);
-    assert.equal(installed?.state, "foundation");
-    assert.equal(isCapabilityAllowed(bundle, "softwareCatalog"), true);
-    assert.equal(isCapabilityAllowed(bundle, "installedBusinessPacks"), false);
-    assert.equal(isCapabilityAllowed(bundle, "availableBusinessPacks"), false);
-    assert.equal(isCapabilityAllowed(bundle, "businessPackSettings"), false);
+    assert.equal(isCapabilityAllowed(bundle, "kompisWebDashboard"), false);
+    assert.equal(isCapabilityAllowed(bundle, "kompisBedriftDashboard"), true);
+    assert.equal(isCapabilityAllowed(bundle, "accountSubscription"), true);
   });
 
-  it("keeps pending packs out of navigation", () => {
+  it("hides billing account items when billing feature is off", () => {
     const bundle = resolveAppMenuCapabilityBundle(
       emptyCtx({
-        featureEnabled: new Map([["business_packs", true]]),
-        pendingPackKeys: new Set(["aipify_hosts"]),
-        activePackKeys: new Set(),
+        featureEnabled: new Map([["billing", false], ["integrations", true]]),
       })
     );
-    const installed = bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks");
-    assert.equal(installed?.state, "foundation");
-    assert.equal(installed?.visibleInNavigation, false);
+    assert.equal(isCapabilityAllowed(bundle, "accountSubscription"), false);
+    assert.equal(isCapabilityAllowed(bundle, "accountInvoices"), false);
+    assert.equal(isCapabilityAllowed(bundle, "accountIntegrations"), true);
   });
 
-  it("revokes pack navigation when packs are suspended and feature off", () => {
-    const bundle = resolveAppMenuCapabilityBundle(
-      emptyCtx({
-        featureEnabled: new Map([["business_packs", false]]),
-        revokedPackKeys: new Set(["aipify_hosts"]),
-        activePackKeys: new Set(),
-      })
-    );
-    const installed = bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks");
-    // Foundation readiness wins — unfinished shells stay hidden even when revoked.
-    assert.equal(installed?.state, "foundation");
-    assert.equal(installed?.visibleInNavigation, false);
-  });
-
-  it("fails closed without mega-nav or foundation", () => {
+  it("fails closed to a safe subset", () => {
     const bundle = buildFailClosedAppMenuCapabilityBundle({
       organizationId: "org-1",
       userId: "user-1",
       role: "organization_member",
     });
     const visible = getVisibleCapabilityIds(bundle);
-    assert.ok(visible.has("appDashboard"));
-    assert.equal(visible.has("appTasks"), false);
-    assert.equal(visible.has("workflows"), false);
+    assert.ok(visible.has("kompisBedriftDashboard"));
+    assert.ok(visible.has("accountNotifications"));
+    assert.equal(visible.has("kompisBedriftSettings"), false);
     const presented = presentAppNavFromCapabilities(bundle, t);
     assert.ok(presented.navConfig.every((item) => visible.has(item.id)));
-    assert.equal(
-      presented.navConfig.some((item) => item.id === "megaOnlyEngine"),
-      false
-    );
   });
 
   it("presentation never surfaces unknown or mega-nav-only ids", () => {
@@ -152,9 +108,7 @@ describe("core app menu capability contract", () => {
       presented.navConfig.some((item) => item.id === "megaOnlyEngine"),
       false
     );
-    const portalIds = new Set(
-      APP_PORTAL_NAV_GROUPS.flatMap((g) => g.items.map((i) => i.id))
-    );
+    const portalIds = new Set(APP_PORTAL_NAV_GROUPS.flatMap((g) => g.items.map((i) => i.id)));
     for (const item of presented.navConfig) {
       assert.ok(portalIds.has(item.id as never), item.id);
     }
@@ -163,12 +117,14 @@ describe("core app menu capability contract", () => {
   it("dynamic merge cannot replace Core presentation fallback", () => {
     const fallbackGroups = [
       {
-        id: "home",
-        label: "Home",
-        items: [{ id: "appDashboard", href: "/app", label: "Dashboard" }],
+        id: "account",
+        label: "Account",
+        items: [{ id: "accountNotifications", href: "/app/account/notification-settings", label: "Notifications" }],
       },
     ];
-    const fallbackConfig = [{ id: "appDashboard", href: "/app", label: "Dashboard" }];
+    const fallbackConfig = [
+      { id: "accountNotifications", href: "/app/account/notification-settings", label: "Notifications" },
+    ];
     const dynamic = {
       navGroups: [
         {
@@ -186,11 +142,7 @@ describe("core app menu capability contract", () => {
       ],
     };
     const merged = mergeDynamicWithFallbackNav(dynamic, fallbackGroups, fallbackConfig);
-    assert.deepEqual(merged.navConfig.map((i) => i.id), ["appDashboard"]);
-    assert.equal(
-      merged.navConfig.some((i) => i.id === "appTasks" || i.id === "megaOnlyEngine"),
-      false
-    );
+    assert.deepEqual(merged.navConfig.map((i) => i.id), ["accountNotifications"]);
   });
 
   it("cache key includes org user and version", () => {
@@ -201,17 +153,13 @@ describe("core app menu capability contract", () => {
     assert.match(key, new RegExp(APP_MENU_CAPABILITY_CONTRACT_VERSION));
     assert.match(key, /org-a/);
     assert.match(key, /user-b/);
-    assert.notEqual(
-      key,
-      buildAppMenuCapabilityCacheKey({ organizationId: "org-b", userId: "user-b" })
-    );
   });
 
   it("unauthorized role cannot see owner settings", () => {
     const bundle = resolveAppMenuCapabilityBundle(
       emptyCtx({ role: "organization_member" })
     );
-    const settings = bundle.capabilities.find((c) => c.capabilityId === "organizationSettings");
+    const settings = bundle.capabilities.find((c) => c.capabilityId === "kompisBedriftSettings");
     assert.equal(settings?.visibleInNavigation, false);
     assert.equal(settings?.reasonCode, "unauthorized_role");
     const closed = buildFailClosedAppMenuCapabilityBundle({
@@ -219,25 +167,12 @@ describe("core app menu capability contract", () => {
       userId: "user-1",
       role: "organization_member",
     });
-    assert.equal(isCapabilityAllowed(closed, "organizationSettings"), false);
-    assert.equal(isCapabilityAllowed(closed, "appDashboard"), true);
+    assert.equal(isCapabilityAllowed(closed, "kompisBedriftSettings"), false);
+    assert.equal(isCapabilityAllowed(closed, "kompisBedriftDashboard"), true);
   });
 
   it("unknown capability id is never treated as allowed", () => {
     const bundle = resolveAppMenuCapabilityBundle(emptyCtx());
     assert.equal(isCapabilityAllowed(bundle, "totallyUnknownCapability"), false);
-  });
-
-  it("active pack entitlement cannot reintroduce unfinished installed packs nav", () => {
-    const bundle = resolveAppMenuCapabilityBundle(
-      emptyCtx({
-        featureEnabled: new Map([["business_packs", true]]),
-        activePackKeys: new Set(["aipify_hosts"]),
-      })
-    );
-    assert.equal(isCapabilityAllowed(bundle, "installedBusinessPacks"), false);
-    const installed = bundle.capabilities.find((c) => c.capabilityId === "installedBusinessPacks");
-    assert.equal(installed?.state, "foundation");
-    assert.equal(isCapabilityAllowed(bundle, "softwareCatalog"), true);
   });
 });

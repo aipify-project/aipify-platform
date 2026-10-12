@@ -109,6 +109,29 @@ export async function loadAppMenuCapabilityBundle(
       }
     }
 
+    // Entitlement adapter (job 58): read tenant_modules without new license schema.
+    // website_kompis denied → sentinel; missing/error → empty set (fail-open for Web nav).
+    const activeModuleKeys = new Set<string>();
+    const tenantId = context.customer_id ?? context.organization_id;
+    if (tenantId) {
+      try {
+        const { data: wkEnabled, error: wkError } = await supabase.rpc(
+          "is_tenant_module_enabled",
+          {
+            p_tenant_id: tenantId,
+            p_module_key: "website_kompis",
+          }
+        );
+        if (!wkError && wkEnabled === false) {
+          activeModuleKeys.add("__website_kompis_denied__");
+        } else if (!wkError && wkEnabled === true) {
+          activeModuleKeys.add("website_kompis");
+        }
+      } catch {
+        // Fail-open: do not hide Kompis Web when module RPC is unavailable.
+      }
+    }
+
     return resolveAppMenuCapabilityBundle({
       organizationId: context.organization_id ?? context.company_id,
       userId: user.id,
@@ -118,7 +141,7 @@ export async function loadAppMenuCapabilityBundle(
       activePackKeys,
       pendingPackKeys,
       revokedPackKeys,
-      activeModuleKeys: new Set(),
+      activeModuleKeys,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message.slice(0, 160) : "capability_load_failed";
