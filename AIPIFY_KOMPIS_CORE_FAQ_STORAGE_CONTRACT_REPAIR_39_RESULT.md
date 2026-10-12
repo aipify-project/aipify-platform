@@ -92,6 +92,11 @@ Honest note: job 37 local extract tests never proved storage; job 38 found the R
 
 ## PR / Preview / approval gates
 
+| Item | Value |
+|------|-------|
+| PR | [#137](https://github.com/aipify-project/aipify-platform/pull/137) — **OPEN, not merged** |
+| Feature head | `3771bfe3` (branch `fix/website-kompis-faq-storage-contract-39`) |
+
 | Gate | Required |
 |------|----------|
 | PR + Preview/CI green | Yes (reviewable underlag) |
