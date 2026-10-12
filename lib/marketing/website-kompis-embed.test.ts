@@ -317,6 +317,8 @@ assert.match(loaderSource, /OPEN_EDGE_INSET = 12/);
 assert.match(loaderSource, /height >= host\.height/);
 assert.match(loaderSource, /reclampOpenFromHostViewport/);
 assert.match(loaderSource, /markShellReady/);
+assert.match(loaderSource, /closedHandshakeDone/);
+assert.doesNotMatch(loaderSource, /setAttribute\("loading"/);
 
 const desktop1440 = resolveWebsiteKompisEmbedPreferredHostOpenSize(1440, 1000);
 assert.equal(desktop1440.panelWidth, 450);
