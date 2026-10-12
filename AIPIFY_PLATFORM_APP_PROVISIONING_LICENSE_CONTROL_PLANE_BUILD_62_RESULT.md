@@ -1,8 +1,8 @@
 # AIPIFY – PLATFORM → APP PROVISIONING & LICENSE CONTROL PLANE BUILD 62 — RESULT
 
 **Branch:** `feature/platform-app-provisioning-license-control-plane-62`  
-**Feature commit:** _(filled after commit)_  
-**PR:** _(filled after PR)_  
+**Feature commit:** `7633efa0fac431868006eb6946947964b1b0e463`  
+**PR:** [#154](https://github.com/aipify-project/aipify-platform/pull/154)  
 **Merge SHA:** _(filled after merge)_  
 **APP project:** `aipify-platform` (`prj_tPgcqwgUAAkGvBy802arVXVYf1fv`)  
 **Deployment ID:** _(filled after deploy)_  
