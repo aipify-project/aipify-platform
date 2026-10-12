@@ -39,4 +39,11 @@ Not drift — two intentional layers.
 
 ## Freeze PR / deploy
 
-Filled after merge of this documentation PR.
+| Field | Value |
+|-------|-------|
+| Freeze PR | [#147](https://github.com/aipify-project/aipify-platform/pull/147) merged |
+| Freeze merge commit | `5605d0eb` (docs `9e45f892`) |
+| Apex after freeze docs | `dpl_G7hZkiVGDQu8YXUEezaxYPhyaB7r` · READY · `aipify.ai` |
+| Runtime vs owner baseline `4b7fd0b8` | **identical** (`RUNTIME DIFF = 0`) |
+
+Protected inventory SHA256 values remain those of runtime baseline `4b7fd0b8` (unchanged by this docs-only merge).
