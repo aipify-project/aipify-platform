@@ -12,8 +12,6 @@ import Sidebar, { type NavItem } from "./Sidebar";
 import GroupedSidebar from "./GroupedSidebar";
 import SidebarBrand, { SidebarBrandLegacy } from "./SidebarBrand";
 import { TopbarShareFeedbackButton } from "@/components/app/voice-of-the-customer";
-import { CompanionShell, CompanionTopBarButton } from "@/components/app/companion-experience";
-import type { CompanionExperienceLabels } from "@/lib/app/companion/types";
 import type { VocWidgetLabels } from "@/lib/voice-of-the-customer";
 import type { CompanionPresenceLabels } from "@/components/app/companion-presence";
 import { PresenceProvider, type PresenceLabels } from "@/components/presence/PresenceProvider";
@@ -94,7 +92,6 @@ type DashboardShellProps = {
   };
   presenceLabels?: PresenceLabels;
   companionPresenceLabels?: CompanionPresenceLabels;
-  companionExperienceLabels?: CompanionExperienceLabels;
   locale?: string;
   languageSelectorLabels?: {
     label: string;
@@ -154,7 +151,6 @@ export default function DashboardShell({
   licensePanelLabels,
   presenceLabels,
   companionPresenceLabels,
-  companionExperienceLabels,
   locale = "en",
   languageSelectorLabels,
   shellUiLabels,
@@ -198,7 +194,6 @@ export default function DashboardShell({
           licensePanelLabels={licensePanelLabels}
           presenceLabels={presenceLabels}
           companionPresenceLabels={companionPresenceLabels}
-          companionExperienceLabels={companionExperienceLabels}
           voiceOfCustomerLabels={voiceOfCustomerLabels}
           notificationCenterLabels={notificationCenterLabels}
           locale={locale}
@@ -243,7 +238,6 @@ export default function DashboardShell({
       licensePanelLabels={licensePanelLabels}
       presenceLabels={presenceLabels}
       companionPresenceLabels={companionPresenceLabels}
-      companionExperienceLabels={companionExperienceLabels}
       voiceOfCustomerLabels={voiceOfCustomerLabels}
       notificationCenterLabels={notificationCenterLabels}
       locale={locale}
@@ -287,7 +281,6 @@ function DashboardShellFrame({
   licensePanelLabels,
   presenceLabels,
   companionPresenceLabels,
-  companionExperienceLabels,
   locale = "en",
   languageSelectorLabels,
   shellUiLabels,
@@ -544,11 +537,6 @@ function DashboardShellFrame({
             shellVariant === "customer" ? languageSelectorLabels : undefined
           }
           pwaLabels={shellVariant === "customer" ? pwaLabels : undefined}
-          companionButton={
-            shellVariant === "customer" && companionExperienceLabels ? (
-              <CompanionTopBarButton />
-            ) : undefined
-          }
           feedbackButton={
             shellVariant === "customer" && voiceOfCustomerLabels ? (
               <TopbarShareFeedbackButton labels={voiceOfCustomerLabels} />
@@ -596,27 +584,16 @@ function DashboardShellFrame({
     </div>
   );
 
-  const withCompanionExperience =
-    shellVariant === "customer" &&
-    pathname.startsWith("/app") &&
-    companionExperienceLabels ? (
-      <CompanionShell labels={companionExperienceLabels} locale={locale}>
-        {shell}
-      </CompanionShell>
-    ) : (
-      shell
-    );
-
   const withUnifiedNotifications =
     shellVariant === "customer" &&
     pathname.startsWith("/app") &&
     notificationCenterLabels ? (
       <UnifiedNotificationFeedProvider labels={notificationCenterLabels}>
-        {withCompanionExperience}
+        {shell}
         <NotificationCenterDrawer />
       </UnifiedNotificationFeedProvider>
     ) : (
-      withCompanionExperience
+      shell
     );
 
   if (!presenceLabels) {

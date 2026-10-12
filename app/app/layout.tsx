@@ -13,7 +13,6 @@ import DashboardShell from "@/components/dashboard/DashboardShell";
 import { DashboardProfileProvider } from "@/components/dashboard/DashboardProfileProvider";
 import {
   buildLayoutCommandBarLabels,
-  buildLayoutCompanionExperienceLabels,
   buildLayoutCompanionPresenceLabels,
   buildLayoutLicensePanelLabels,
   buildLayoutNotificationCenterLabels,
@@ -222,7 +221,6 @@ export default async function AppLayout({
           shellVariant="customer"
           mobileNavIds={mobileNavIds}
           licensePanelLabels={buildLayoutLicensePanelLabels(t)}
-          companionExperienceLabels={buildLayoutCompanionExperienceLabels(t)}
           companionPresenceLabels={buildLayoutCompanionPresenceLabels(t)}
           voiceOfCustomerLabels={buildLayoutVocWidgetLabels(t)}
           notificationCenterLabels={buildLayoutNotificationCenterLabels(t)}
