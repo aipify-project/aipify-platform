@@ -351,10 +351,14 @@ assert.match(loaderSource, /aipify\.websiteKompis\.surface/);
 assert.match(loaderSource, /data-aipify-kompis-access/);
 assert.match(loaderSource, /readHostAccessClass/);
 assert.match(loaderSource, /applyAccessClass/);
+assert.match(loaderSource, /resolveEffectiveAccessClass/);
+assert.match(loaderSource, /applyAccessClassFromEnvironment/);
 assert.match(loaderSource, /attributeFilter:\s*\[[^\]]*ACCESS_DATA_ATTR/);
 assert.doesNotMatch(loaderSource, /"\/login"/);
 assert.doesNotMatch(loaderSource, /"\/register"/);
 assert.match(widgetSource, /parseWebsiteKompisEmbedSurfaceMessage/);
+assert.match(widgetSource, /surfaceActiveRef/);
+assert.match(widgetSource, /abortInFlightAskForSurfaceChange/);
 
 const designCss = readFileSync(
   path.join(

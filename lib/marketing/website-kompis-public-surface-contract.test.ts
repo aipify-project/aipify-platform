@@ -5,6 +5,7 @@ import {
   parseWebsiteKompisEmbedSurfaceMessage,
   parseWebsiteKompisPublicAccessClass,
   readWebsiteKompisAccessClassFromAdapter,
+  resolveWebsiteKompisEffectiveAccessClass,
   resolveWebsiteKompisPublicSurfaceState,
   transitionWebsiteKompisPublicSurface,
   WEBSITE_KOMPIS_EMBED_SURFACE_MESSAGE_TYPE,
@@ -144,10 +145,36 @@ assert.equal(surfaceMessage.type, WEBSITE_KOMPIS_EMBED_SURFACE_MESSAGE_TYPE);
 assert.deepEqual(parseWebsiteKompisEmbedSurfaceMessage(surfaceMessage), surfaceMessage);
 assert.equal(parseWebsiteKompisEmbedSurfaceMessage({ type: "other" }), null);
 
-// Core never encodes customer login/register paths — only access class.
+// Core never encodes customer-specific product routes — only access class + shared failsafe.
 assert.doesNotMatch(
   String(accessClassFromHostPrivateBoundary),
-  /login|register|unonight/i,
+  /unonight/i,
 );
+
+assert.equal(
+  resolveWebsiteKompisEffectiveAccessClass({
+    hostAccessClass: "public",
+    pathname: "/admin/panel",
+  }),
+  "private",
+);
+assert.equal(
+  resolveWebsiteKompisEffectiveAccessClass({
+    hostAccessClass: "public",
+    pathname: "/login",
+  }),
+  "public",
+);
+
+const pathDenyWins = transitionWebsiteKompisPublicSurface({
+  previous: tenantAPublic,
+  nextAccessClass: "public",
+  pathname: "/admin/panel",
+  installEnabled: true,
+  installIdPresent: true,
+  domainPresent: true,
+});
+assert.equal(pathDenyWins.state.active, false);
+assert.equal(pathDenyWins.shouldClearPageContext, true);
 
 console.log("website-kompis-public-surface-contract.test.ts: all assertions passed");
