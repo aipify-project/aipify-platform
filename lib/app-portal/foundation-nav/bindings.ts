@@ -1,6 +1,6 @@
 /**
- * Job 58 — unambiguous route bindings for the foundation APP nav.
- * No duplicate hrefs across the visible menu. /app/kompis stays out of primary nav.
+ * Canonical APP foundation nav bindings (jobs 58–59).
+ * Visible menu hrefs are unique. /app/kompis stays out of primary nav.
  */
 
 export const FOUNDATION_NAV_BINDINGS = {
@@ -12,18 +12,19 @@ export const FOUNDATION_NAV_BINDINGS = {
   kompisWebAppearance: "/app/website-kompis/appearance",
   kompisWebModules: "/app/software",
   kompisWebSettings: "/app/website-kompis/settings",
-  kompisBedriftDashboard: "/app/organization",
-  kompisBedriftEmployees: "/app/organization/team",
-  kompisBedriftDocuments: "/app/documents",
-  kompisBedriftFaq: "/app/settings/employee-knowledge",
-  kompisBedriftComms: "/app/organization/communications",
-  kompisBedriftMeetings: "/app/operations/meetings",
-  kompisBedriftModules: "/app/settings/modules",
-  kompisBedriftSettings: "/app/settings",
-  accountSubscription: "/app/settings/billing",
-  accountInvoices: "/app/settings/billing/invoice-details",
-  accountIntegrations: "/app/platform/integrations/connected",
-  accountNotifications: "/app/account/notification-settings",
+  kompisBedriftDashboard: "/app/kompis-bedrift",
+  kompisBedriftEmployees: "/app/kompis-bedrift/employees",
+  kompisBedriftDocuments: "/app/kompis-bedrift/documents",
+  kompisBedriftFaq: "/app/kompis-bedrift/knowledge",
+  kompisBedriftComms: "/app/kompis-bedrift/communications",
+  kompisBedriftMeetings: "/app/kompis-bedrift/meetings",
+  kompisBedriftModules: "/app/kompis-bedrift/modules",
+  kompisBedriftSettings: "/app/kompis-bedrift/settings",
+  accountHome: "/app/account",
+  accountSubscription: "/app/account/subscription",
+  accountInvoices: "/app/account/invoices",
+  accountIntegrations: "/app/account/integrations",
+  accountNotifications: "/app/account/notifications",
   /** Preserved operator — not primary nav; linked from Web hub only. */
   kompisOperatorPreserved: "/app/kompis",
 } as const;

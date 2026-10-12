@@ -287,12 +287,47 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
 export const APP_PORTAL_NAV: AppPortalNavItem[] = APP_PORTAL_NAV_GROUPS.flatMap((g) => g.items);
 
 export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
-  // Most-specific foundation routes first (avoid /app/settings swallowing invoice-details).
-  if (pathname.startsWith("/app/settings/billing/invoice-details")) return "accountInvoices";
-  if (pathname.startsWith("/app/settings/billing")) return "accountSubscription";
-  if (pathname.startsWith("/app/settings/employee-knowledge")) return "kompisBedriftFaq";
-  if (pathname.startsWith("/app/settings/modules")) return "kompisBedriftModules";
-  if (pathname === "/app/settings" || pathname === "/app/settings/") return "kompisBedriftSettings";
+  // Most-specific foundation routes first (canonical hubs + legacy deep links).
+  if (pathname.startsWith("/app/account/invoices") || pathname.startsWith("/app/settings/billing/invoice-details")) {
+    return "accountInvoices";
+  }
+  if (pathname.startsWith("/app/account/subscription") || pathname.startsWith("/app/settings/billing")) {
+    return "accountSubscription";
+  }
+  if (pathname.startsWith("/app/account/integrations") || pathname.startsWith("/app/platform/integrations/connected")) {
+    return "accountIntegrations";
+  }
+  if (
+    pathname.startsWith("/app/account/notifications") ||
+    pathname.startsWith("/app/account/notification-settings")
+  ) {
+    return "accountNotifications";
+  }
+  if (pathname.startsWith("/app/kompis-bedrift/knowledge") || pathname.startsWith("/app/settings/employee-knowledge")) {
+    return "kompisBedriftFaq";
+  }
+  if (pathname.startsWith("/app/kompis-bedrift/modules") || pathname.startsWith("/app/settings/modules")) {
+    return "kompisBedriftModules";
+  }
+  if (pathname.startsWith("/app/kompis-bedrift/settings")) return "kompisBedriftSettings";
+  if (pathname.startsWith("/app/kompis-bedrift/employees") || pathname.startsWith("/app/organization/team")) {
+    return "kompisBedriftEmployees";
+  }
+  if (
+    pathname.startsWith("/app/kompis-bedrift/communications") ||
+    pathname.startsWith("/app/organization/communications")
+  ) {
+    return "kompisBedriftComms";
+  }
+  if (pathname.startsWith("/app/kompis-bedrift/documents") || pathname.startsWith("/app/documents")) {
+    return "kompisBedriftDocuments";
+  }
+  if (pathname.startsWith("/app/kompis-bedrift/meetings") || pathname.startsWith("/app/operations/meetings")) {
+    return "kompisBedriftMeetings";
+  }
+  if (pathname === "/app/kompis-bedrift" || pathname === "/app/kompis-bedrift/") {
+    return "kompisBedriftDashboard";
+  }
   if (pathname.startsWith("/app/website-kompis/feedback")) return "kompisWebQa";
   if (pathname.startsWith("/app/website-kompis/faq")) return "kompisWebFaq";
   if (pathname.startsWith("/app/website-kompis/appearance")) return "kompisWebAppearance";
@@ -302,15 +337,6 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   }
   if (pathname.startsWith("/app/domains")) return "kompisWebConnection";
   if (pathname.startsWith("/app/software")) return "kompisWebModules";
-  if (pathname.startsWith("/app/platform/integrations/connected")) return "accountIntegrations";
-  if (pathname.startsWith("/app/account/notification-settings")) return "accountNotifications";
-  if (pathname.startsWith("/app/organization/team")) return "kompisBedriftEmployees";
-  if (pathname.startsWith("/app/organization/communications")) return "kompisBedriftComms";
-  if (pathname === "/app/organization" || pathname === "/app/organization/") {
-    return "kompisBedriftDashboard";
-  }
-  if (pathname.startsWith("/app/documents")) return "kompisBedriftDocuments";
-  if (pathname.startsWith("/app/operations/meetings")) return "kompisBedriftMeetings";
   if (pathname === "/app" || pathname === "/app/") return "appDashboard";
 
   // Longest-prefix match against foundation registry.

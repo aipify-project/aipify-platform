@@ -1,22 +1,7 @@
-import { BillingAdminPanel } from "@/components/app/settings/BillingAdminPanel";
-import {
-  buildBillingPresentationMaps,
-  buildBillingReferenceLabels,
-} from "@/lib/commercial-packages";
-import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
-import { getLocale } from "@/lib/i18n/get-locale";
-import { createTranslator } from "@/lib/i18n/translate";
+import { redirect } from "next/navigation";
+import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 
-export default async function BillingSettingsPage() {
-  const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["settings", "portalStructure"]);
-  const t = createTranslator(dict);
-
-  return (
-    <BillingAdminPanel
-      labels={buildBillingReferenceLabels(t)}
-      locale={locale}
-      presentation={buildBillingPresentationMaps(dict)}
-    />
-  );
+/** Legacy billing path — Account Center subscription is canonical. */
+export default function LegacyBillingSettingsRedirect() {
+  redirect(FOUNDATION_NAV_BINDINGS.accountSubscription);
 }
