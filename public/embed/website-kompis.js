@@ -211,13 +211,20 @@
     if (active) {
       iframe.style.display = "block";
       iframe.style.visibility = "visible";
-      iframe.style.pointerEvents = "auto";
       iframe.setAttribute("aria-hidden", "false");
+      // Re-assert closed host geometry when reactivating unless the panel is open.
+      if (!lastOpenRequested) {
+        applyResize(false);
+      } else {
+        markShellReady();
+      }
     } else {
       iframe.style.display = "none";
       iframe.style.visibility = "hidden";
       iframe.style.pointerEvents = "none";
+      iframe.style.opacity = "0";
       iframe.setAttribute("aria-hidden", "true");
+      lastOpenRequested = false;
       applyResize(false);
     }
   }
@@ -801,8 +808,9 @@
   iframe.src = coreOrigin + "/embed/website-kompis?" + params.toString();
   iframe.title = "Website Kompis";
   iframe.setAttribute("aria-label", "Website Kompis");
-  iframe.setAttribute("loading", "lazy");
+  // Eager load — lazy delays the closed resize handshake and can leave a host-sized blank frame.
   iframe.setAttribute("allow", "clipboard-write");
+  iframe.setAttribute("allowtransparency", "true");
   iframe.style.position = "fixed";
   iframe.style.right = "12px";
   iframe.style.bottom = "12px";
@@ -813,6 +821,7 @@
   iframe.style.maxWidth = "100vw";
   iframe.style.maxHeight = "100vh";
   iframe.style.background = "transparent";
+  iframe.style.backgroundColor = "transparent";
   iframe.style.colorScheme = "normal";
   iframe.style.overflow = "hidden";
   iframe.style.pointerEvents = "none";
@@ -820,11 +829,25 @@
   iframe.setAttribute("scrolling", "no");
 
   var shellReady = false;
+  /** First closed resize must win before the host frame may become visible or accept open size. */
+  var closedHandshakeDone = false;
+  var lastOpenRequested = false;
   var lastPathname = String(window.location.pathname || "");
   var lastHref = String(window.location.href || "");
 
   function markShellReady() {
-    if (shellReady) return;
+    // Never reveal a panel-sized (or empty) host frame before a closed 72×72 handshake.
+    if (!closedHandshakeDone) return;
+    if (!surfaceActive) {
+      iframe.style.opacity = "0";
+      iframe.style.pointerEvents = "none";
+      return;
+    }
+    if (shellReady) {
+      iframe.style.opacity = "1";
+      iframe.style.pointerEvents = "auto";
+      return;
+    }
     shellReady = true;
     iframe.style.opacity = "1";
     iframe.style.pointerEvents = "auto";
@@ -897,16 +920,24 @@
     });
   }
 
-  var lastOpenRequested = false;
-
   function applyResize(open, width, height) {
     var viewport = readHostViewportSize();
     var viewportWidth = viewport.width;
     var viewportHeight = viewport.height;
     var nextWidth = CLOSED_WIDTH;
     var nextHeight = CLOSED_HEIGHT;
-    lastOpenRequested = Boolean(open);
-    if (open) {
+    var wantOpen = Boolean(open);
+    // Premature open sizing before a closed handshake paints a large white host frame
+    // with only the closed launcher chrome — refuse until closed 72×72 is established.
+    if (wantOpen && !closedHandshakeDone) {
+      wantOpen = false;
+    }
+    // Inactive/private surface must never retain panel geometry for a later reveal.
+    if (wantOpen && !surfaceActive) {
+      wantOpen = false;
+    }
+    lastOpenRequested = wantOpen;
+    if (wantOpen) {
       // Host window decides preferred open size from real viewport (not iframe height).
       var panelHeight = preferredOpenPanelHeight(viewportHeight);
       var host = hostOpenSize(OPEN_WIDTH, panelHeight);
@@ -929,10 +960,11 @@
         nextHeight = Math.round(height);
       }
     }
-    if (!open) {
+    if (!wantOpen) {
       // Fail closed: never keep a panel-sized host frame while Kompis is closed.
       nextWidth = CLOSED_WIDTH;
       nextHeight = CLOSED_HEIGHT;
+      closedHandshakeDone = true;
     }
     if (viewportWidth && nextWidth > viewportWidth - OPEN_EDGE_INSET) {
       nextWidth = Math.max(CLOSED_WIDTH, Math.floor(viewportWidth - OPEN_EDGE_INSET));
@@ -945,7 +977,11 @@
     // Keep open panel inset so border/shadow are not flush-clipped against the viewport edge.
     iframe.style.right = OPEN_EDGE_INSET + "px";
     iframe.style.bottom = OPEN_EDGE_INSET + "px";
-    markShellReady();
+    if (!wantOpen) {
+      markShellReady();
+    } else if (closedHandshakeDone) {
+      markShellReady();
+    }
   }
 
   function reclampOpenFromHostViewport() {
