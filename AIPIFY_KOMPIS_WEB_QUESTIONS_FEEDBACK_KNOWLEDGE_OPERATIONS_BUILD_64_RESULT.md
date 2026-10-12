@@ -1,16 +1,16 @@
 # AIPIFY – KOMPIS WEB QUESTIONS, FEEDBACK & KNOWLEDGE OPERATIONS BUILD 64 — RESULT
 
 **Branch:** `feature/kompis-web-questions-feedback-knowledge-ops-64`  
-**Feature commit:** _(filled after commit)_  
-**PR:** _(filled after open)_  
-**Merge SHA:** _(filled after merge)_  
+**Feature commit:** `ba172d46b3cb486aac2629b278fa74b3000bc167`  
+**PR:** [#157](https://github.com/aipify-project/aipify-platform/pull/157)  
+**Merge SHA:** `804e310821198571a6b89649c0bcd536b212717a`  
 **APP project:** `aipify-platform` (`prj_tPgcqwgUAAkGvBy802arVXVYf1fv`)  
-**Deployment ID:** _(filled after deploy)_  
+**Deployment ID:** `dpl_3roPmqZ47bEQfbeW8oUg3m3s27bf` — **READY**  
 **Canonical domain:** `app.aipify.ai`
 
 | Gate | Result |
 |------|--------|
-| `READY FOR OWNER APP FUNCTION TEST` | **YES** (after LIVE; authenticated list QA may be BLOCKED) |
+| `READY FOR OWNER APP FUNCTION TEST` | **YES** |
 | `SAFE TO FREEZE KOMPIS WEB OPERATIONS` | **NO** |
 | `MIGRATION CREATED/APPLIED` | **NO** |
 | Auth preserved | **YES** |
@@ -102,6 +102,7 @@ Minimal plan for a future approved migration (do not apply in job 64):
 | `tsc --noEmit` | PASS |
 | `npm run build` | PASS |
 | Frozen WK SHA256 | MATCH |
+| Production deploy | READY on `app.aipify.ai` |
 | Authenticated browser QA | **BLOCKED** |
 
 ---
