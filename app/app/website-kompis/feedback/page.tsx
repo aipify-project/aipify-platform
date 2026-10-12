@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import { WebsiteKompisFeedbackOverviewPanel } from "@/components/app/website-kompis/WebsiteKompisFeedbackOverviewPanel";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
+import { AipifyLoadingState } from "@/components/ui/aipify-loading-state";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon } from "@/lib/app-portal/hubs/hub-copy";
 import {
@@ -11,7 +13,7 @@ import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
-/** Web Q&A — existing feedback overview inside the wide product hub shell. */
+/** Web Q&A operations — feedback overview, review queue, FAQ suggest deep links. */
 export default async function WebsiteKompisFeedbackPage() {
   const locale = await getLocale();
   const dict = await getCustomerAppDictionaryForSplits(locale, ["core", "portalStructure"]);
@@ -31,15 +33,17 @@ export default async function WebsiteKompisFeedbackPage() {
         { label: t("customerApp.portalStructure.nav.kompisWebQa") },
       ]}
       eyebrow={t("customerApp.portalStructure.navGroups.kompisWeb")}
-      title={t("customerApp.portalStructure.nav.kompisWebQa")}
-      description={t("customerApp.portalStructure.webHub.qaDescription")}
+      title={labels.title}
+      description={labels.subtitle}
       contextLabel={formatHubContextLine(common, ctx)}
       primaryAction={{
         label: t("customerApp.portalStructure.nav.kompisWebFaq"),
         href: FOUNDATION_NAV_BINDINGS.kompisWebFaq,
       }}
     >
-      <WebsiteKompisFeedbackOverviewPanel labels={labels} embedded />
+      <Suspense fallback={<AipifyLoadingState />}>
+        <WebsiteKompisFeedbackOverviewPanel labels={labels} embedded />
+      </Suspense>
     </AppHubShell>
   );
 }
