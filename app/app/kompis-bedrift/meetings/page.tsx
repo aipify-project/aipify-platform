@@ -34,7 +34,7 @@ export default async function KompisBedriftMeetingsPage() {
       description={hubT(t, "bedrift.meetingsDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
     >
-      <MeetingsPanel labels={buildMeetingsLabels(t)} />
+      <MeetingsPanel labels={buildMeetingsLabels(t)} embedded />
     </AppHubShell>
   );
 }

@@ -24,12 +24,12 @@ export default async function AccountIntegrationsPage() {
       breadcrumb={[
         { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
         {
-          label: t("customerApp.portalStructure.navGroups.account"),
-          href: FOUNDATION_NAV_BINDINGS.accountHome,
+          label: t("customerApp.portalStructure.nav.kompisWebSettings"),
+          href: FOUNDATION_NAV_BINDINGS.kompisWebSettings,
         },
         { label: t("customerApp.portalStructure.nav.accountIntegrations") },
       ]}
-      eyebrow={t("customerApp.portalStructure.navGroups.account")}
+      eyebrow={t("customerApp.portalStructure.nav.kompisWebSettings")}
       title={t("customerApp.portalStructure.nav.accountIntegrations")}
       description={hubT(t, "account.integrationsDescription")}
       contextLabel={formatHubContextLine(common, ctx)}

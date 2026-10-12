@@ -8639,7 +8639,8 @@
         "invoicesDescription": "Fakturaer og kvitteringer fra Aipify til din konto. Aipify opretter ikke fakturaer, som du sender til dine egne kunder.",
         "integrationsDescription": "Tilsluttede systemer for kontoen. Status vises kun, når den kan verificeres.",
         "notificationsDescription": "Globale notifikationsindstillinger for kontoen.",
-        "invoicesEyebrow": "Aipify-fakturering"
+        "invoicesEyebrow": "Aipify-fakturering",
+        "subscriptionEyebrow": "Aipify-abonnement"
       }
     },
     "productContext": {

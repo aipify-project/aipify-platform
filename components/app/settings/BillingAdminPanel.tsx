@@ -21,6 +21,8 @@ type BillingAdminPanelProps = {
   labels: BillingReferenceLabels;
   locale: string;
   presentation?: BillingPresentationMaps;
+  /** Inside AppHubShell — omit page chrome and extra width padding. */
+  embedded?: boolean;
 };
 
 function statusKind(statusKey: string | null): AipifyStatusKind {
@@ -107,6 +109,7 @@ export function BillingAdminPanel({
   labels,
   locale,
   presentation,
+  embedded = false,
 }: BillingAdminPanelProps) {
   const [vm, setVm] = useState<BillingViewModel | null>(null);
   const [loading, setLoading] = useState(true);
@@ -115,6 +118,9 @@ export function BillingAdminPanel({
     () => presentationOptionsFromMaps(presentation),
     [presentation]
   );
+  const frame = embedded
+    ? `w-full ${AppLayoutClasses.sectionGap}`
+    : `${AppLayoutClasses.page} ${AppLayoutClasses.sectionGap}`;
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -143,7 +149,7 @@ export function BillingAdminPanel({
 
   if (loading) {
     return (
-      <div className={AppLayoutClasses.page}>
+      <div className={embedded ? "w-full" : AppLayoutClasses.page}>
         <AipifyLoader centered />
         <span className="sr-only">{labels.title}</span>
       </div>
@@ -152,18 +158,22 @@ export function BillingAdminPanel({
 
   if (loadError || !vm) {
     return (
-      <div className={`${AppLayoutClasses.page} ${AppLayoutClasses.sectionGap}`}>
-        <Link
-          href="/app/settings"
-          className={`text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
-        >
-          ← {labels.back}
-        </Link>
-        <header>
-          <p className={AppPremiumShell.eyebrow}>{labels.eyebrow}</p>
-          <h1 className={`mt-2 ${AppPremiumShell.pageTitle}`}>{labels.title}</h1>
-          <p className={`mt-2 ${AppPremiumShell.pageDescription}`}>{labels.subtitle}</p>
-        </header>
+      <div className={frame}>
+        {!embedded ? (
+          <>
+            <Link
+              href="/app/settings"
+              className={`text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
+            >
+              ← {labels.back}
+            </Link>
+            <header>
+              <p className={AppPremiumShell.eyebrow}>{labels.eyebrow}</p>
+              <h1 className={`mt-2 ${AppPremiumShell.pageTitle}`}>{labels.title}</h1>
+              <p className={`mt-2 ${AppPremiumShell.pageDescription}`}>{labels.subtitle}</p>
+            </header>
+          </>
+        ) : null}
         <div className={`${AppLayoutClasses.card} border-rose-200 bg-rose-50/70 dark:border-rose-900 dark:bg-rose-950/30`}>
           <p className="text-sm text-rose-800 dark:text-rose-200">{labels.loadError}</p>
           <button
@@ -183,20 +193,24 @@ export function BillingAdminPanel({
   const usageRows = usageWithValues.length > 0 ? usageWithValues : vm.usageItems;
 
   return (
-    <div className={`${AppLayoutClasses.page} ${AppLayoutClasses.sectionGap}`}>
+    <div className={frame}>
       <header className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="min-w-0 max-w-3xl">
-          <Link
-            href="/app/settings"
-            className={`text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
-          >
-            ← {labels.back}
-          </Link>
-          <p className={`mt-3 ${AppPremiumShell.eyebrow}`}>{labels.eyebrow}</p>
-          <h1 className={`mt-2 ${AppPremiumShell.pageTitle}`}>{labels.title}</h1>
-          <p className={`mt-2 ${AppPremiumShell.pageDescription}`}>{labels.subtitle}</p>
-          <p className="mt-3 text-sm text-aipify-text-muted">{labels.privacyNote}</p>
-        </div>
+        {!embedded ? (
+          <div className="min-w-0 max-w-3xl">
+            <Link
+              href="/app/settings"
+              className={`text-sm font-medium text-aipify-companion hover:underline ${AppPremiumShell.focusRing}`}
+            >
+              ← {labels.back}
+            </Link>
+            <p className={`mt-3 ${AppPremiumShell.eyebrow}`}>{labels.eyebrow}</p>
+            <h1 className={`mt-2 ${AppPremiumShell.pageTitle}`}>{labels.title}</h1>
+            <p className={`mt-2 ${AppPremiumShell.pageDescription}`}>{labels.subtitle}</p>
+            <p className="mt-3 text-sm text-aipify-text-muted">{labels.privacyNote}</p>
+          </div>
+        ) : (
+          <p className="min-w-0 text-sm text-aipify-text-muted">{labels.privacyNote}</p>
+        )}
         <div className="flex shrink-0 flex-col items-start gap-3 sm:flex-row sm:items-center lg:flex-col lg:items-end">
           <AipifyStatusBadge kind={statusKind(vm.statusKey)} label={packageStatus} />
           <div className="flex flex-wrap gap-2">

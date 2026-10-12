@@ -88,7 +88,13 @@ function DocList({ docs, labels, ...actions }: { docs: DocumentRecord[]; labels:
   );
 }
 
-export function DocumentManagementPanel({ labels }: { labels: DocumentManagementLabels }) {
+export function DocumentManagementPanel({
+  labels,
+  embedded = false,
+}: {
+  labels: DocumentManagementLabels;
+  embedded?: boolean;
+}) {
   const [center, setCenter] = useState<DocumentManagementCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<Tab>("recent");
@@ -158,15 +164,24 @@ export function DocumentManagementPanel({ labels }: { labels: DocumentManagement
   };
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-6">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">{labels.title}</h1>
-        <p className="mt-2 text-gray-600">{labels.subtitle}</p>
-        {center.principle ? <p className="mt-2 text-sm font-medium text-violet-800">{center.principle}</p> : null}
-        {center.knowledge_route ? (
-          <Link href={center.knowledge_route} className="mt-3 inline-block text-sm text-indigo-700 hover:underline">{labels.knowledgeLink}</Link>
-        ) : null}
-      </div>
+    <div className={embedded ? "w-full space-y-6" : "mx-auto max-w-6xl space-y-6 p-4 sm:p-6"}>
+      {!embedded ? (
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">{labels.title}</h1>
+          <p className="mt-2 text-gray-600">{labels.subtitle}</p>
+          {center.principle ? <p className="mt-2 text-sm font-medium text-violet-800">{center.principle}</p> : null}
+          {center.knowledge_route ? (
+            <Link href={center.knowledge_route} className="mt-3 inline-block text-sm text-indigo-700 hover:underline">{labels.knowledgeLink}</Link>
+          ) : null}
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {center.principle ? <p className="text-sm font-medium text-violet-800">{center.principle}</p> : null}
+          {center.knowledge_route ? (
+            <Link href={center.knowledge_route} className="inline-block text-sm text-indigo-700 hover:underline">{labels.knowledgeLink}</Link>
+          ) : null}
+        </div>
+      )}
 
       {center.overview ? (
         <div className="grid gap-3 grid-cols-2 sm:grid-cols-4">

@@ -7285,7 +7285,8 @@
         "invoicesDescription": "Facturas y recibos de Aipify para su cuenta. Aipify no crea facturas que usted envíe a sus propios clientes.",
         "integrationsDescription": "Connected systems for this account. Status only appears when it can be verified.",
         "notificationsDescription": "Global notification preferences for your account.",
-        "invoicesEyebrow": "Facturación de Aipify"
+        "invoicesEyebrow": "Facturación de Aipify",
+        "subscriptionEyebrow": "Suscripción de Aipify"
       }
     },
     "productContext": {

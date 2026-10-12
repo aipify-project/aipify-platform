@@ -24,12 +24,12 @@ export default async function AccountNotificationsPage() {
       breadcrumb={[
         { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
         {
-          label: t("customerApp.portalStructure.navGroups.account"),
-          href: FOUNDATION_NAV_BINDINGS.accountHome,
+          label: t("customerApp.portalStructure.nav.kompisWebSettings"),
+          href: FOUNDATION_NAV_BINDINGS.kompisWebSettings,
         },
         { label: t("customerApp.portalStructure.nav.accountNotifications") },
       ]}
-      eyebrow={t("customerApp.portalStructure.navGroups.account")}
+      eyebrow={t("customerApp.portalStructure.nav.kompisWebSettings")}
       title={t("customerApp.portalStructure.nav.accountNotifications")}
       description={hubT(t, "account.notificationsDescription")}
       contextLabel={formatHubContextLine(common, ctx)}

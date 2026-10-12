@@ -7576,7 +7576,8 @@
         "invoicesDescription": "Рахунки та квитанції від Aipify до вашого облікового запису. Aipify не створює рахунки, які ви надсилаєте своїм клієнтам.",
         "integrationsDescription": "Connected systems for this account. Status only appears when it can be verified.",
         "notificationsDescription": "Global notification preferences for your account.",
-        "invoicesEyebrow": "Рахунки Aipify"
+        "invoicesEyebrow": "Рахунки Aipify",
+        "subscriptionEyebrow": "Підписка Aipify"
       }
     },
     "productContext": {

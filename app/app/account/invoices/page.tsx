@@ -36,6 +36,7 @@ export default async function AccountInvoicesPage() {
       <EnterpriseInvoiceDetailsPanel
         backHref={FOUNDATION_NAV_BINDINGS.accountSubscription}
         labels={buildEnterpriseInvoicingLabels(t, "customerApp")}
+        embedded
       />
     </AppHubShell>
   );

@@ -24,9 +24,11 @@ type ModulesAdminPanelProps = {
       flags: string;
     };
   };
+  /** Job 61 — inside AppHubShell / product Modules page. */
+  embedded?: boolean;
 };
 
-export function ModulesAdminPanel({ labels }: ModulesAdminPanelProps) {
+export function ModulesAdminPanel({ labels, embedded = false }: ModulesAdminPanelProps) {
   const [center, setCenter] = useState<ModulesCenter | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -62,11 +64,15 @@ export function ModulesAdminPanel({ labels }: ModulesAdminPanelProps) {
 
   if (loadError) {
     return (
-      <div className="mx-auto max-w-4xl space-y-4 p-6">
-        <Link href="/app/settings" className="text-sm text-indigo-600 hover:underline">
-          ← {labels.back}
-        </Link>
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
+      <div className={embedded ? "w-full space-y-4" : "mx-auto max-w-4xl space-y-4 p-6"}>
+        {!embedded ? (
+          <>
+            <Link href="/app/settings" className="text-sm text-indigo-600 hover:underline">
+              ← {labels.back}
+            </Link>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
+          </>
+        ) : null}
         <p className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">{loadError}</p>
         <button
           type="button"
@@ -80,22 +86,36 @@ export function ModulesAdminPanel({ labels }: ModulesAdminPanelProps) {
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 p-6">
-      <div>
-        <Link href="/app/settings" className="text-sm text-indigo-600 hover:underline">
-          ← {labels.back}
-        </Link>
-        <h1 className="mt-2 text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
-        <p className="mt-2 text-gray-600">{labels.subtitle}</p>
-        {center?.documentation_note && (
-          <p className="mt-2 text-sm text-gray-500">{center.documentation_note}</p>
-        )}
-        <div className="mt-3">
-          <Link href="/app/settings/billing" className="text-sm text-indigo-600 hover:underline">
+    <div className={embedded ? "w-full space-y-6" : "mx-auto max-w-4xl space-y-6 p-6"}>
+      {!embedded ? (
+        <div>
+          <Link href="/app/settings" className="text-sm text-indigo-600 hover:underline">
+            ← {labels.back}
+          </Link>
+          <h1 className="mt-2 text-2xl font-bold tracking-tight text-gray-900">{labels.title}</h1>
+          <p className="mt-2 text-gray-600">{labels.subtitle}</p>
+          {center?.documentation_note && (
+            <p className="mt-2 text-sm text-gray-500">{center.documentation_note}</p>
+          )}
+          <div className="mt-3">
+            <Link href="/app/settings/billing" className="text-sm text-indigo-600 hover:underline">
+              {labels.viewBilling}
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {center?.documentation_note ? (
+            <p className="text-sm text-gray-500">{center.documentation_note}</p>
+          ) : null}
+          <Link
+            href="/app/account/subscription"
+            className="text-sm font-medium text-indigo-600 hover:underline"
+          >
             {labels.viewBilling}
           </Link>
         </div>
-      </div>
+      )}
 
       <section className="rounded-2xl border border-indigo-100 bg-indigo-50/40 p-5">
         <h2 className="font-semibold text-indigo-900">{labels.sections.installed}</h2>

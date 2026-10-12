@@ -8563,7 +8563,8 @@
         "invoicesDescription": "Invoices and receipts from Aipify to your account. Aipify does not create invoices that you send to your own customers.",
         "integrationsDescription": "Connected systems for this account. Status only appears when it can be verified.",
         "notificationsDescription": "Global notification preferences for your account.",
-        "invoicesEyebrow": "Aipify billing"
+        "invoicesEyebrow": "Aipify billing",
+        "subscriptionEyebrow": "Aipify subscription"
       }
     },
     "productContext": {

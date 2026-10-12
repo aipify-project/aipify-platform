@@ -31,6 +31,8 @@ type OverviewPayload = {
 
 type WebsiteKompisFeedbackOverviewPanelProps = {
   labels: WebsiteKompisFeedbackLabels;
+  /** Job 61 — inside AppHubShell: no narrow frame or duplicate page header. */
+  embedded?: boolean;
 };
 
 function formatWhen(value: string): string {
@@ -48,6 +50,7 @@ function formatWhen(value: string): string {
 
 export function WebsiteKompisFeedbackOverviewPanel({
   labels,
+  embedded = false,
 }: WebsiteKompisFeedbackOverviewPanelProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -88,7 +91,7 @@ export function WebsiteKompisFeedbackOverviewPanel({
 
   if (error) {
     return (
-      <div className="mx-auto max-w-5xl space-y-4 px-4 py-8">
+      <div className={embedded ? "w-full space-y-4" : "mx-auto max-w-5xl space-y-4 px-4 py-8"}>
         <PlatformEmptyState
           title={labels.accessDenied === error ? labels.accessDenied : labels.errorGeneric}
           message={error}
@@ -108,18 +111,20 @@ export function WebsiteKompisFeedbackOverviewPanel({
   const recent = data?.recent ?? [];
 
   return (
-    <div className="mx-auto max-w-5xl space-y-6 px-4 py-8">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <p className="text-sm text-slate-500">
-            <Link href="/app/website-kompis/faq" className="text-violet-700 hover:underline">
-              {labels.backToFaq}
-            </Link>
-          </p>
-          <h1 className="mt-2 text-2xl font-semibold text-slate-900">{labels.title}</h1>
-          <p className="mt-1 max-w-2xl text-sm text-slate-600">{labels.subtitle}</p>
+    <div className={embedded ? "w-full space-y-6" : "mx-auto max-w-5xl space-y-6 px-4 py-8"}>
+      {!embedded ? (
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <p className="text-sm text-slate-500">
+              <Link href="/app/website-kompis/faq" className="text-violet-700 hover:underline">
+                {labels.backToFaq}
+              </Link>
+            </p>
+            <h1 className="mt-2 text-2xl font-semibold text-slate-900">{labels.title}</h1>
+            <p className="mt-1 max-w-2xl text-sm text-slate-600">{labels.subtitle}</p>
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {!persistenceReady ? (
         <div className="rounded-xl border border-violet-200 bg-violet-50 px-4 py-3 text-sm text-violet-900">
