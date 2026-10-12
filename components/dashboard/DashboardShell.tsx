@@ -9,6 +9,7 @@ import { useOptionalDashboardProfile } from "./DashboardProfileProvider";
 import { AipifyPlatformBrandMark } from "@/components/branding";
 import { LicenseSidebarPanel } from "@/components/app/license";
 import Sidebar, { type NavItem } from "./Sidebar";
+import FlatSidebar from "./FlatSidebar";
 import GroupedSidebar from "./GroupedSidebar";
 import SidebarBrand, { SidebarBrandLegacy } from "./SidebarBrand";
 import { TopbarShareFeedbackButton } from "@/components/app/voice-of-the-customer";
@@ -23,6 +24,10 @@ import type { UnifiedNotificationCenterLabels } from "@/lib/presence/unified-not
 import Topbar from "./Topbar";
 import { OrganizationSwitcher } from "@/components/app/organization";
 import {
+  ProductContextSwitcher,
+  type ProductContextSwitcherLabels,
+} from "@/components/app/product-context/ProductContextSwitcher";
+import {
   AppLanguageSelector,
   coerceClientAppLocale,
 } from "@/components/app/AppLanguageSelector";
@@ -33,13 +38,23 @@ import type {
   CommandBarPortal,
 } from "@/lib/command-bar";
 import type { AppNavGroupConfig, AppNavLink } from "@/lib/app/build-nav";
-import { getAppPortalActiveNavId } from "@/lib/app-portal/nav-config";
+import {
+  getAppPortalActiveNavId,
+  getAppPortalSettingsActiveNavId,
+} from "@/lib/app-portal/nav-config";
+import type { AppProductContextId } from "@/lib/app-portal/product-context/constants";
 import { getCustomerActiveNavId } from "@/lib/dashboard/nav-config";
 import { getPlatformActiveNavId } from "@/lib/platform/nav-config";
 import { getNavIcon } from "./nav-icons";
 import { AipifyWebAppInstallAction } from "@/components/pwa/AipifyWebAppInstallAction";
 import { coerceToAppLocale } from "@/lib/i18n/app-locales";
 import type { PwaInstallLabels } from "@/lib/pwa/types";
+
+const SETTINGS_SURFACE_NAV_IDS = new Set([
+  "accountIntegrations",
+  "accountNotifications",
+  "kompisWebAppearance",
+]);
 
 type DashboardShellProps = {
   appName: string;
@@ -108,6 +123,12 @@ type DashboardShellProps = {
     label: string;
     switching: string;
   };
+  /** Job 60 — flat product menu + context switcher (customer APP only). */
+  productContext?: {
+    activeProduct: AppProductContextId | null;
+    availableProducts: AppProductContextId[];
+    labels: ProductContextSwitcherLabels;
+  };
   twoFactorBadgeLabels?: {
     enabled: string;
     required: string;
@@ -153,6 +174,7 @@ export default function DashboardShell({
   languageSelectorLabels,
   shellUiLabels,
   organizationSwitcherLabels,
+  productContext,
   twoFactorBadgeLabels,
   commandBar,
   voiceOfCustomerLabels,
@@ -201,6 +223,7 @@ export default function DashboardShell({
           pwaLabels={pwaLabels}
           shellUiLabels={shellUiLabels}
           organizationSwitcherLabels={organizationSwitcherLabels}
+          productContext={productContext}
           twoFactorBadgeLabels={twoFactorBadgeLabels}
           commandBarLabels={commandBar.labels}
         >
@@ -243,6 +266,7 @@ export default function DashboardShell({
       pwaLabels={pwaLabels}
       shellUiLabels={shellUiLabels}
       organizationSwitcherLabels={organizationSwitcherLabels}
+      productContext={productContext}
       twoFactorBadgeLabels={twoFactorBadgeLabels}
     >
       {children}
@@ -282,6 +306,7 @@ function DashboardShellFrame({
   languageSelectorLabels,
   shellUiLabels,
   organizationSwitcherLabels,
+  productContext,
   twoFactorBadgeLabels,
   voiceOfCustomerLabels,
   notificationCenterLabels,
@@ -295,10 +320,17 @@ function DashboardShellFrame({
       return getPlatformActiveNavId(pathname);
     }
     if (pathname.startsWith("/app")) {
-      return getAppPortalActiveNavId(pathname);
+      const raw = getAppPortalActiveNavId(pathname);
+      if (
+        productContext?.activeProduct &&
+        SETTINGS_SURFACE_NAV_IDS.has(raw)
+      ) {
+        return getAppPortalSettingsActiveNavId(productContext.activeProduct);
+      }
+      return raw;
     }
     return getCustomerActiveNavId(pathname);
-  }, [shellVariant, pathname]);
+  }, [shellVariant, pathname, productContext?.activeProduct]);
   const customerContext = useOptionalDashboardProfile();
   const platformContext = usePlatformProfile();
   const commandBarContext = useOptionalCommandBar();
@@ -313,6 +345,9 @@ function DashboardShellFrame({
       })),
     [navConfig]
   );
+
+  const useFlatProductSidebar =
+    shellVariant === "customer" && pathname.startsWith("/app") && Boolean(productContext);
 
   const profileName =
     customerContext?.profile?.user.full_name ??
@@ -350,9 +385,26 @@ function DashboardShellFrame({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [commandBarContext]);
 
-  const useGroupedSidebar = Boolean(navGroups && navSearchIndex);
+  const useGroupedSidebar = Boolean(navGroups && navSearchIndex) && !useFlatProductSidebar;
 
-  const sidebarNav = useGroupedSidebar ? (
+  const renderProductSwitcher = () =>
+    useFlatProductSidebar && productContext ? (
+      <ProductContextSwitcher
+        activeProduct={productContext.activeProduct}
+        availableProducts={productContext.availableProducts}
+        organizationName={companyName}
+        labels={productContext.labels}
+        pathname={pathname}
+      />
+    ) : null;
+
+  const sidebarNav = useFlatProductSidebar ? (
+    <FlatSidebar
+      items={navConfig}
+      activeId={activeNav}
+      navigationAriaLabel={navigationAriaLabel}
+    />
+  ) : useGroupedSidebar ? (
     <GroupedSidebar
       groups={navGroups!}
       searchIndex={navSearchIndex!}
@@ -401,6 +453,7 @@ function DashboardShellFrame({
       <aside className={`${AipifySidebarLayout.asideDesktop} ${AipifyShellClasses.sidebarDesktopWidth} ${AipifyShellClasses.sidebar}`}>
         <div className={AipifySidebarLayout.brandRegion}>{brandBlock}</div>
         <div className={`${AipifySidebarLayout.navScrollRegion} p-4`}>
+          {renderProductSwitcher()}
           {sidebarNav}
         </div>
         {shellVariant === "customer" && licensePanelLabels ? (
@@ -458,7 +511,15 @@ function DashboardShellFrame({
                   <AipifyWebAppInstallAction labels={pwaLabels} variant="button" showGuideLink={false} />
                 </div>
               ) : null}
-              {useGroupedSidebar ? (
+              {renderProductSwitcher()}
+              {useFlatProductSidebar ? (
+                <FlatSidebar
+                  items={navConfig}
+                  activeId={activeNav}
+                  onNavigate={() => setSidebarOpen(false)}
+                  navigationAriaLabel={navigationAriaLabel}
+                />
+              ) : useGroupedSidebar ? (
                 <GroupedSidebar
                   groups={navGroups!}
                   searchIndex={navSearchIndex!}

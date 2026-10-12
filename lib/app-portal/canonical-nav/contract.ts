@@ -1,6 +1,10 @@
 import {
+  APP_PORTAL_NAV,
   APP_PORTAL_NAV_GROUPS,
+  APP_SETTINGS_SURFACE_ITEMS,
+  type AppPortalNavGroupId,
   type AppPortalNavId,
+  type AppPortalNavItem,
 } from "@/lib/app-portal/nav-config";
 import { APP_NAV_PERMISSION_KEYS } from "@/lib/app-portal/nav-route-access";
 import { toCanonicalNavReadiness } from "@/lib/app-production-experience/route-readiness";
@@ -18,9 +22,42 @@ function defaultVisibilityPolicy(
   return "always_when_authorized";
 }
 
+function pushContract(
+  contracts: CanonicalNavItemContract[],
+  seen: Set<AppPortalNavId>,
+  item: AppPortalNavItem,
+  group: AppPortalNavGroupId
+) {
+  if (seen.has(item.id)) return;
+  seen.add(item.id);
+  const readiness = toCanonicalNavReadiness(item.id);
+  const requiredPermissionKeys = APP_NAV_PERMISSION_KEYS[item.id];
+  contracts.push({
+    id: item.id,
+    localeKey: item.labelKey,
+    route: item.href,
+    group,
+    requiredRole:
+      item.id === "organizationSettings" ||
+      item.id === "businessPackSettings" ||
+      item.id === "kompisBedriftSettings" ||
+      item.id === "kompisWebSettings"
+        ? "owner_admin"
+        : "any",
+    requiredFeatureKey: item.featureKey,
+    requiredPermissionKeys: requiredPermissionKeys?.length
+      ? [...requiredPermissionKeys]
+      : undefined,
+    requiredEntitlement:
+      item.moduleKey ?? (item.id === "installedBusinessPacks" ? "business_packs" : undefined),
+    readiness,
+    visibilityPolicy: defaultVisibilityPolicy(item.id, readiness, item.featureKey),
+  });
+}
+
 /**
- * Canonical menu contract derived from APP_PORTAL_NAV_GROUPS + readiness registry.
- * Mega-nav (lib/app/nav-config.ts) must not grow — this is the customer menu source.
+ * Canonical menu contract from flat product menus + settings surfaces.
+ * Shared Faktura/Abonnement ids appear in both product lists but contract once.
  */
 export function buildCanonicalNavContracts(): CanonicalNavItemContract[] {
   const contracts: CanonicalNavItemContract[] = [];
@@ -28,33 +65,11 @@ export function buildCanonicalNavContracts(): CanonicalNavItemContract[] {
 
   for (const group of APP_PORTAL_NAV_GROUPS) {
     for (const item of group.items) {
-      if (seen.has(item.id)) continue;
-      seen.add(item.id);
-      const readiness = toCanonicalNavReadiness(item.id);
-      const requiredPermissionKeys = APP_NAV_PERMISSION_KEYS[item.id];
-      contracts.push({
-        id: item.id,
-        localeKey: item.labelKey,
-        route: item.href,
-        group: group.id,
-        requiredRole:
-          item.id === "organizationSettings" ||
-          item.id === "businessPackSettings" ||
-          item.id === "kompisBedriftSettings" ||
-          item.id === "kompisWebSettings"
-            ? "owner_admin"
-            : "any",
-        requiredFeatureKey: item.featureKey,
-        requiredPermissionKeys: requiredPermissionKeys?.length
-          ? [...requiredPermissionKeys]
-          : undefined,
-        requiredEntitlement:
-          item.moduleKey ??
-          (item.id === "installedBusinessPacks" ? "business_packs" : undefined),
-        readiness,
-        visibilityPolicy: defaultVisibilityPolicy(item.id, readiness, item.featureKey),
-      });
+      pushContract(contracts, seen, item, group.id);
     }
+  }
+  for (const item of APP_SETTINGS_SURFACE_ITEMS) {
+    pushContract(contracts, seen, item, "account");
   }
 
   return contracts;
@@ -72,9 +87,9 @@ export function assertCanonicalNavIntegrity(contracts = buildCanonicalNavContrac
     }
     ids.add(item.id);
   }
-  const registryIds = APP_PORTAL_NAV_GROUPS.flatMap((g) => g.items.map((i) => i.id));
-  const registrySet = new Set(registryIds);
-  if (registrySet.size !== registryIds.length) {
-    throw new Error("APP_PORTAL_NAV_GROUPS contains duplicate item ids");
+  // Shared invoice/subscription ids may appear in both product order lists — unique registry is APP_PORTAL_NAV.
+  const registryIds = APP_PORTAL_NAV.map((item) => item.id);
+  if (new Set(registryIds).size !== registryIds.length) {
+    throw new Error("APP_PORTAL_NAV contains duplicate item ids");
   }
 }

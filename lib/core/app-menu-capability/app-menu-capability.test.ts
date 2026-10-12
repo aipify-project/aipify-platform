@@ -43,13 +43,14 @@ function emptyCtx(overrides: Partial<Parameters<typeof resolveAppMenuCapabilityB
 }
 
 describe("core app menu capability contract", () => {
-  it("presents only the three foundation groups", () => {
+  it("presents one flat product menu at a time (job 60)", () => {
     const bundle = resolveAppMenuCapabilityBundle(emptyCtx());
-    const presented = presentAppNavFromCapabilities(bundle, t);
-    assert.deepEqual(
-      presented.navGroups.map((g) => g.id),
-      ["kompisWeb", "kompisBedrift", "account"]
-    );
+    const presented = presentAppNavFromCapabilities(bundle, t, { activeProduct: "kompisWeb" });
+    assert.deepEqual(presented.navGroups.map((g) => g.id), ["kompisWeb"]);
+    assert.ok(!presented.navConfig.some((i) => i.id.startsWith("kompisBedrift")));
+    const bedrift = presentAppNavFromCapabilities(bundle, t, { activeProduct: "kompisBedrift" });
+    assert.deepEqual(bedrift.navGroups.map((g) => g.id), ["kompisBedrift"]);
+    assert.ok(!bedrift.navConfig.some((i) => i.id.startsWith("kompisWeb")));
   });
 
   it("hides Kompis Web when website_kompis module is denied", () => {

@@ -113,7 +113,7 @@
       "kompisWebDashboard": "Dashboard",
       "kompisWebQa": "Spørsmål og svar",
       "kompisWebFaq": "FAQ og kunnskap",
-      "kompisWebConnection": "Tilkobling og tilgang",
+      "kompisWebConnection": "Tilkobling/lisens",
       "kompisWebAppearance": "Utseende",
       "kompisWebModules": "Moduler",
       "kompisWebSettings": "Innstillinger",
@@ -127,7 +127,8 @@
       "kompisBedriftSettings": "Innstillinger",
       "accountSubscription": "Abonnement",
       "accountInvoices": "Faktura",
-      "accountIntegrations": "Integrasjoner"
+      "accountIntegrations": "Integrasjoner",
+      "kompisBedriftConnection": "Tilkobling/lisens"
     },
     "dashboard": {
       "title": "APP-dashbord",
@@ -8588,7 +8589,12 @@
         "openWorkspace": "Åpne arbeidsområde"
       },
       "web": {
-        "modulesCard": "Se programvare og moduler for nettstedskompanjongen."
+        "modulesCard": "Se programvare og moduler for nettstedskompanjongen.",
+        "connectionDescription": "Se om Kompis Web er koblet opp, aktivert og gyldig for denne kontoen. Planendringer ligger under Abonnement.",
+        "connectionDomainsTitle": "Domener og installasjoner",
+        "connectionDomainsCard": "Kontroller domener og besøkertilgang for nettstedskompanjongen.",
+        "connectionVsSubscription": "Abonnement viser Aipify-planen. Tilkobling viser om produktet er klart for denne kontoen.",
+        "connectionLicenseNote": "Trenger du plan- eller betalingsdetaljer?"
       },
       "bedrift": {
         "dashboardTitle": "Oversikt for Kompis Bedrift",
@@ -8616,21 +8622,33 @@
         "settingsModulesCard": "Se Bedrift-moduler på denne kontoen.",
         "settingsKnowledgeCard": "Åpne innstillinger for intern kunnskap.",
         "settingsEmployeesCard": "Se teammedlemmer og tilgang.",
-        "settingsAccountSeparation": "Trenger du abonnement, faktura, integrasjoner eller varslingsinnstillinger?"
+        "settingsAccountSeparation": "Trenger du abonnement, faktura, integrasjoner eller varslingsinnstillinger?",
+        "connectionDescription": "Se om Kompis Bedrift er tilgjengelig og gyldig for denne kontoen. Planendringer ligger under Abonnement.",
+        "connectionAccessCard": "Se personer og tilgang for organisasjonen.",
+        "connectionVsSubscription": "Abonnement viser Aipify-planen. Tilkobling viser om produktet er klart for denne kontoen.",
+        "connectionLicenseNote": "Trenger du plan- eller betalingsdetaljer?"
       },
       "account": {
         "overviewTitle": "Kontosenter",
         "overviewDescription": "Felles kontoinnstillinger for arbeidsområdet — abonnement, fakturainngang, integrasjoner og varsler.",
         "subscriptionCard": "Se planstatus og faktureringsdetaljer fra den autoritative flaten.",
-        "invoicesCard": "Åpne faktura- og betalingsdetaljer når de finnes — uten oppdiktede lister.",
+        "invoicesCard": "Se fakturaer fra Aipify for denne kontoen når de finnes.",
         "integrationsCard": "Se tilkoblede apper og hva som krever handling.",
         "notificationsCard": "Velg hvordan Aipify varsler kontoen din.",
         "subscriptionDescription": "Abonnement og faktureringsreferanse. Handling som skjer eksternt forklares der.",
-        "invoicesTitle": "Fakturering og faktura",
-        "invoicesDescription": "Faktura- og betalingsdetaljer fra eksisterende kontoflate. Hvis dokumenter håndteres eksternt, vises det ærlig.",
+        "invoicesTitle": "Faktura fra Aipify",
+        "invoicesDescription": "Fakturaer og kvitteringer fra Aipify til kontoen din. Aipify lager ikke fakturaer som du sender til dine egne kunder.",
         "integrationsDescription": "Tilkoblede systemer for kontoen. Status vises bare når den kan verifiseres.",
-        "notificationsDescription": "Globale varslingsinnstillinger for kontoen."
+        "notificationsDescription": "Globale varslingsinnstillinger for kontoen.",
+        "invoicesEyebrow": "Aipify-fakturering"
       }
+    },
+    "productContext": {
+      "label": "Aktivt produkt",
+      "activeProduct": "Aktivt produkt",
+      "switchProduct": "Bytt produkt",
+      "singleContextHint": "Dette er det eneste produktet tilgjengelig på denne kontoen.",
+      "close": "Lukk"
     }
   }
 }

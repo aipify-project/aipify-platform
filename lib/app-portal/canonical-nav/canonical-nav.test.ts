@@ -13,10 +13,13 @@ import {
 } from "@/lib/app-production-experience/route-readiness";
 
 describe("canonical nav foundation", () => {
-  it("uses APP_PORTAL_NAV_GROUPS without duplicate ids", () => {
+  it("builds unique canonical contracts (shared invoice/subscription appear once)", () => {
     assertCanonicalNavIntegrity();
-    const ids = APP_PORTAL_NAV_GROUPS.flatMap((group) => group.items.map((item) => item.id));
+    const contracts = buildCanonicalNavContracts();
+    const ids = contracts.map((item) => item.id);
     assert.equal(new Set(ids).size, ids.length);
+    // Shared items may appear in both product order lists; groups alone are not unique.
+    assert.ok(APP_PORTAL_NAV_GROUPS.length >= 1);
   });
 
   it("hides foundation shells from nav visibility", () => {
@@ -39,15 +42,15 @@ describe("canonical nav foundation", () => {
     }
   });
 
-  it("keeps software catalog operational", () => {
-    assert.equal(isAppRouteNavVisible("softwareCatalog"), true);
-    const contract = buildCanonicalNavContracts().find((item) => item.id === "softwareCatalog");
+  it("keeps Web modules route operational (software surface via product menu)", () => {
+    assert.equal(isAppRouteNavVisible("kompisWebModules"), true);
+    const contract = buildCanonicalNavContracts().find((item) => item.id === "kompisWebModules");
     assert.ok(contract);
     assert.equal(contract?.route, "/app/software");
     assert.equal(contract?.readiness, "operational");
   });
 
-  it("hides entitled nav without feature entitlement and keeps catalog-eligible", () => {
+  it("hides legacy mega-nav shells that are not in the flat product contracts", () => {
     const resolution = resolveCanonicalNavVisibility({
       organizationRole: "organization_member",
       featureEnabled: new Map([["business_packs", false], ["billing", true], ["workflows", false]]),
@@ -59,10 +62,8 @@ describe("canonical nav foundation", () => {
     assert.equal(resolution.visibleNavIds.includes("installedBusinessPacks"), false);
     assert.equal(resolution.visibleNavIds.includes("availableBusinessPacks"), false);
     assert.equal(resolution.visibleNavIds.includes("appTasks"), false);
-    assert.equal(resolution.visibleNavIds.includes("softwareCatalog"), true);
-    const installed = resolution.decisions.find((d) => d.id === "installedBusinessPacks");
-    assert.equal(installed?.visibleInNav, false);
-    assert.equal(installed?.reason, "foundation_hidden");
+    assert.equal(resolution.visibleNavIds.includes("softwareCatalog"), false);
+    assert.ok(resolution.visibleNavIds.includes("accountSubscription"));
   });
 
   it("hides permission-gated intelligence without grants", () => {

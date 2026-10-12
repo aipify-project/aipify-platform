@@ -113,7 +113,7 @@
       "kompisWebDashboard": "Dashboard",
       "kompisWebQa": "Frågor och svar",
       "kompisWebFaq": "FAQ och kunskap",
-      "kompisWebConnection": "Anslutning och åtkomst",
+      "kompisWebConnection": "Anslutning/licens",
       "kompisWebAppearance": "Utseende",
       "kompisWebModules": "Moduler",
       "kompisWebSettings": "Inställningar",
@@ -127,7 +127,8 @@
       "kompisBedriftSettings": "Inställningar",
       "accountSubscription": "Prenumeration",
       "accountInvoices": "Faktura",
-      "accountIntegrations": "Integrationer"
+      "accountIntegrations": "Integrationer",
+      "kompisBedriftConnection": "Anslutning/licens"
     },
     "dashboard": {
       "title": "APP-instrumentpanel",
@@ -8587,7 +8588,12 @@
         "openWorkspace": "Öppna arbetsyta"
       },
       "web": {
-        "modulesCard": "Se programvara och moduler för webbkompanjonen."
+        "modulesCard": "Se programvara och moduler för webbkompanjonen.",
+        "connectionDescription": "Se om Kompis Web är ansluten, aktiverad och giltig för det här kontot. Planändringar finns under Prenumeration.",
+        "connectionDomainsTitle": "Domäner och installationer",
+        "connectionDomainsCard": "Granska domäner och besökaråtkomst för webbplatskompanjonen.",
+        "connectionVsSubscription": "Prenumeration visar din Aipify-plan. Anslutning visar produktberedskap för kontot.",
+        "connectionLicenseNote": "Behöver du plan- eller betalningsuppgifter?"
       },
       "bedrift": {
         "dashboardTitle": "Översikt för Kompis Bedrift",
@@ -8615,21 +8621,33 @@
         "settingsModulesCard": "Granska Bedrift-moduler på det här kontot.",
         "settingsKnowledgeCard": "Öppna inställningar för intern kunskap.",
         "settingsEmployeesCard": "Granska teammedlemmar och åtkomst.",
-        "settingsAccountSeparation": "Behöver du prenumeration, faktura, integrationer eller aviseringsinställningar?"
+        "settingsAccountSeparation": "Behöver du prenumeration, faktura, integrationer eller aviseringsinställningar?",
+        "connectionDescription": "Se om Kompis Bedrift är tillgänglig och giltig för det här kontot. Planändringar finns under Prenumeration.",
+        "connectionAccessCard": "Granska personer och åtkomst för organisationen.",
+        "connectionVsSubscription": "Prenumeration visar din Aipify-plan. Anslutning visar produktberedskap för kontot.",
+        "connectionLicenseNote": "Behöver du plan- eller betalningsuppgifter?"
       },
       "account": {
         "overviewTitle": "Kontocenter",
         "overviewDescription": "Delade kontoinställningar för arbetsytan — prenumeration, fakturering, integrationer och aviseringar.",
         "subscriptionCard": "Granska planstatus och faktureringsdetaljer från den auktoritativa ytan.",
-        "invoicesCard": "Öppna faktura- och betalningsdetaljer när de finns — utan påhittade listor.",
+        "invoicesCard": "Visa fakturor från Aipify för det här kontot när de finns.",
         "integrationsCard": "Se anslutna appar och vad som kräver åtgärd.",
         "notificationsCard": "Välj hur Aipify aviserar ditt konto.",
         "subscriptionDescription": "Din prenumeration och faktureringsreferens. Åtgärder via extern portal förklaras där.",
-        "invoicesTitle": "Fakturering och fakturor",
-        "invoicesDescription": "Faktura- och betalningsdetaljer från befintlig kontoyta. Om dokument hanteras externt visas det ärligt.",
+        "invoicesTitle": "Fakturor från Aipify",
+        "invoicesDescription": "Fakturor och kvitton från Aipify till ditt konto. Aipify skapar inte fakturor som du skickar till dina egna kunder.",
         "integrationsDescription": "Anslutna system för kontot. Status visas bara när den kan verifieras.",
-        "notificationsDescription": "Globala aviseringsinställningar för kontot."
+        "notificationsDescription": "Globala aviseringsinställningar för kontot.",
+        "invoicesEyebrow": "Aipify-fakturering"
       }
+    },
+    "productContext": {
+      "label": "Aktiv produkt",
+      "activeProduct": "Aktiv produkt",
+      "switchProduct": "Byt produkt",
+      "singleContextHint": "Detta är den enda produkten som finns på det här kontot.",
+      "close": "Stäng"
     }
   }
 }

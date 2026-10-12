@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { AppIconActionCard } from "@/components/app/design";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
 import { HubArrowIcon } from "@/components/app/hubs/HubArrowIcon";
@@ -13,8 +12,7 @@ import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 /**
- * Product-specific Bedrift settings hub.
- * Account billing, invoices, integrations, and global notifications live under Account.
+ * Bedrift settings hub — Integrations/Notifications as page cards, not sidebar rows.
  */
 export default async function KompisBedriftSettingsPage() {
   const locale = await getLocale();
@@ -23,7 +21,7 @@ export default async function KompisBedriftSettingsPage() {
   const common = hubCommon(t);
   const ctx = await resolveHubWorkspaceContext();
 
-  const productCards = [
+  const cards = [
     {
       href: FOUNDATION_NAV_BINDINGS.kompisBedriftModules,
       title: t("customerApp.portalStructure.nav.kompisBedriftModules"),
@@ -41,6 +39,18 @@ export default async function KompisBedriftSettingsPage() {
       title: t("customerApp.portalStructure.nav.kompisBedriftEmployees"),
       description: hubT(t, "bedrift.settingsEmployeesCard"),
       tone: "lavender" as const,
+    },
+    {
+      href: FOUNDATION_NAV_BINDINGS.accountIntegrations,
+      title: t("customerApp.portalStructure.nav.accountIntegrations"),
+      description: hubT(t, "account.integrationsCard"),
+      tone: "slate" as const,
+    },
+    {
+      href: FOUNDATION_NAV_BINDINGS.accountNotifications,
+      title: t("customerApp.portalStructure.nav.accountNotifications"),
+      description: hubT(t, "account.notificationsCard"),
+      tone: "emerald" as const,
     },
   ];
 
@@ -60,7 +70,7 @@ export default async function KompisBedriftSettingsPage() {
       contextLabel={formatHubContextLine(common, ctx)}
     >
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {productCards.map((card) => (
+        {cards.map((card) => (
           <AppIconActionCard
             key={card.href}
             href={card.href}
@@ -71,15 +81,6 @@ export default async function KompisBedriftSettingsPage() {
           />
         ))}
       </div>
-      <p className="text-sm leading-relaxed text-aipify-text-secondary">
-        {hubT(t, "bedrift.settingsAccountSeparation")}{" "}
-        <Link
-          href={FOUNDATION_NAV_BINDINGS.accountHome}
-          className="font-medium text-aipify-accent hover:text-aipify-companion focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus rounded"
-        >
-          {hubT(t, "account.overviewTitle")}
-        </Link>
-      </p>
     </AppHubShell>
   );
 }

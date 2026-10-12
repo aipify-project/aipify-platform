@@ -339,7 +339,9 @@ describe("bypass scenario 12 — duplicate capability id deterministic", () => {
         },
       ],
     };
-    const presented = presentAppNavFromCapabilities(duplicated, t);
+    const presented = presentAppNavFromCapabilities(duplicated, t, {
+      activeProduct: "kompisBedrift",
+    });
     const dashboardHits = presented.navConfig.filter((i) => i.id === "kompisBedriftDashboard");
     assert.equal(dashboardHits.length, 1);
     assert.equal(getVisibleCapabilityIds(duplicated).has("kompisBedriftDashboard"), true);

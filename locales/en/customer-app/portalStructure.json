@@ -113,7 +113,7 @@
       "kompisWebDashboard": "Dashboard",
       "kompisWebQa": "Questions and answers",
       "kompisWebFaq": "FAQ and knowledge",
-      "kompisWebConnection": "Connection and access",
+      "kompisWebConnection": "Connection and license",
       "kompisWebAppearance": "Appearance",
       "kompisWebModules": "Modules",
       "kompisWebSettings": "Settings",
@@ -127,7 +127,8 @@
       "kompisBedriftSettings": "Settings",
       "accountSubscription": "Subscription",
       "accountInvoices": "Invoices",
-      "accountIntegrations": "Integrations"
+      "accountIntegrations": "Integrations",
+      "kompisBedriftConnection": "Connection and license"
     },
     "dashboard": {
       "title": "APP Dashboard",
@@ -8511,7 +8512,12 @@
         "openWorkspace": "Open workspace"
       },
       "web": {
-        "modulesCard": "See software and modules available for your website companion."
+        "modulesCard": "See software and modules available for your website companion.",
+        "connectionDescription": "See whether Kompis Web is connected, activated, and valid for this account. Plan changes belong under Subscription.",
+        "connectionDomainsTitle": "Domains and installs",
+        "connectionDomainsCard": "Review domains and visitor access for this website companion.",
+        "connectionVsSubscription": "Subscription shows your Aipify plan. Connection shows product readiness for this account.",
+        "connectionLicenseNote": "Need plan or billing details?"
       },
       "bedrift": {
         "dashboardTitle": "Kompis Bedrift overview",
@@ -8539,21 +8545,33 @@
         "settingsModulesCard": "Review Bedrift modules available on this account.",
         "settingsKnowledgeCard": "Open internal knowledge settings for employees.",
         "settingsEmployeesCard": "Review team members and access.",
-        "settingsAccountSeparation": "Need billing, invoices, integrations, or notification settings?"
+        "settingsAccountSeparation": "Need billing, invoices, integrations, or notification settings?",
+        "connectionDescription": "See whether Kompis Bedrift is available and valid for this account. Plan changes belong under Subscription.",
+        "connectionAccessCard": "Review people and access for this organization.",
+        "connectionVsSubscription": "Subscription shows your Aipify plan. Connection shows product readiness for this account.",
+        "connectionLicenseNote": "Need plan or billing details?"
       },
       "account": {
         "overviewTitle": "Account center",
         "overviewDescription": "Shared account settings for your workspace — subscription, invoicing entry, integrations, and notifications.",
         "subscriptionCard": "Review plan status and billing details from the authoritative billing surface.",
-        "invoicesCard": "Open invoicing and billing details when available — without inventing invoice lists.",
+        "invoicesCard": "View invoices from Aipify for this account when available.",
         "integrationsCard": "See connected apps and what still needs attention.",
         "notificationsCard": "Choose how Aipify notifies your account.",
         "subscriptionDescription": "Your subscription and billing reference. Changes that require an external portal are explained there.",
-        "invoicesTitle": "Billing and invoices",
-        "invoicesDescription": "Invoice and billing details from the existing account surface. If documents are managed externally, that path is shown honestly.",
+        "invoicesTitle": "Aipify invoices",
+        "invoicesDescription": "Invoices and receipts from Aipify to your account. Aipify does not create invoices that you send to your own customers.",
         "integrationsDescription": "Connected systems for this account. Status only appears when it can be verified.",
-        "notificationsDescription": "Global notification preferences for your account."
+        "notificationsDescription": "Global notification preferences for your account.",
+        "invoicesEyebrow": "Aipify billing"
       }
+    },
+    "productContext": {
+      "label": "Active product",
+      "activeProduct": "Active product",
+      "switchProduct": "Switch product",
+      "singleContextHint": "This is the only product available on this account.",
+      "close": "Close"
     }
   }
 }

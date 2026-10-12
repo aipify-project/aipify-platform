@@ -151,7 +151,7 @@
       "kompisWebDashboard": "Dashboard",
       "kompisWebQa": "Preguntas y respuestas",
       "kompisWebFaq": "FAQ y conocimiento",
-      "kompisWebConnection": "Conexión y acceso",
+      "kompisWebConnection": "Conexión y licencia",
       "kompisWebAppearance": "Apariencia",
       "kompisWebModules": "Módulos",
       "kompisWebSettings": "Ajustes",
@@ -165,7 +165,8 @@
       "kompisBedriftSettings": "Ajustes",
       "accountSubscription": "Suscripción",
       "accountInvoices": "Facturas",
-      "accountIntegrations": "Integraciones"
+      "accountIntegrations": "Integraciones",
+      "kompisBedriftConnection": "Conexión y licencia"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -7233,7 +7234,12 @@
         "openWorkspace": "Open workspace"
       },
       "web": {
-        "modulesCard": "See software and modules available for your website companion."
+        "modulesCard": "See software and modules available for your website companion.",
+        "connectionDescription": "Compruebe si Kompis Web está conectado, activado y válido para esta cuenta. Los cambios de plan están en Suscripción.",
+        "connectionDomainsTitle": "Dominios e instalaciones",
+        "connectionDomainsCard": "Revise dominios y acceso de visitantes para el compañero del sitio.",
+        "connectionVsSubscription": "La suscripción muestra su plan Aipify. La conexión muestra la preparación del producto para la cuenta.",
+        "connectionLicenseNote": "¿Necesita detalles del plan o del pago?"
       },
       "bedrift": {
         "dashboardTitle": "Kompis Bedrift overview",
@@ -7261,21 +7267,33 @@
         "settingsModulesCard": "Review Bedrift modules available on this account.",
         "settingsKnowledgeCard": "Open internal knowledge settings for employees.",
         "settingsEmployeesCard": "Review team members and access.",
-        "settingsAccountSeparation": "Need billing, invoices, integrations, or notification settings?"
+        "settingsAccountSeparation": "Need billing, invoices, integrations, or notification settings?",
+        "connectionDescription": "Compruebe si Kompis Bedrift está disponible y válido para esta cuenta. Los cambios de plan están en Suscripción.",
+        "connectionAccessCard": "Revise personas y acceso de la organización.",
+        "connectionVsSubscription": "La suscripción muestra su plan Aipify. La conexión muestra la preparación del producto para la cuenta.",
+        "connectionLicenseNote": "¿Necesita detalles del plan o del pago?"
       },
       "account": {
         "overviewTitle": "Account center",
         "overviewDescription": "Shared account settings for your workspace — subscription, invoicing entry, integrations, and notifications.",
         "subscriptionCard": "Review plan status and billing details from the authoritative billing surface.",
-        "invoicesCard": "Open invoicing and billing details when available — without inventing invoice lists.",
+        "invoicesCard": "Vea facturas de Aipify para esta cuenta cuando estén disponibles.",
         "integrationsCard": "See connected apps and what still needs attention.",
         "notificationsCard": "Choose how Aipify notifies your account.",
         "subscriptionDescription": "Your subscription and billing reference. Changes that require an external portal are explained there.",
-        "invoicesTitle": "Billing and invoices",
-        "invoicesDescription": "Invoice and billing details from the existing account surface. If documents are managed externally, that path is shown honestly.",
+        "invoicesTitle": "Facturas de Aipify",
+        "invoicesDescription": "Facturas y recibos de Aipify para su cuenta. Aipify no crea facturas que usted envíe a sus propios clientes.",
         "integrationsDescription": "Connected systems for this account. Status only appears when it can be verified.",
-        "notificationsDescription": "Global notification preferences for your account."
+        "notificationsDescription": "Global notification preferences for your account.",
+        "invoicesEyebrow": "Facturación de Aipify"
       }
+    },
+    "productContext": {
+      "label": "Producto activo",
+      "activeProduct": "Producto activo",
+      "switchProduct": "Cambiar producto",
+      "singleContextHint": "Este es el único producto disponible en esta cuenta.",
+      "close": "Cerrar"
     }
   }
 }
