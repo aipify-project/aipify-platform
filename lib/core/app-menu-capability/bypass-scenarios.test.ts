@@ -47,7 +47,8 @@ function ctx(
     activePackKeys: new Set<string>(),
     pendingPackKeys: new Set<string>(),
     revokedPackKeys: new Set<string>(),
-    activeModuleKeys: new Set<string>(),
+    // Job 62: Web requires explicit tenant_modules enable (fail closed).
+    activeModuleKeys: new Set<string>(["website_kompis"]),
     ...overrides,
   };
 }

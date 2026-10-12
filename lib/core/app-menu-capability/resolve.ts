@@ -102,7 +102,7 @@ function resolveOne(
       };
     }
   } else if (contract.requiredEntitlement === "website_kompis") {
-    // Adapter: tenant_modules via activeModuleKeys. Unknown (RPC miss) → show (fail-open for nav).
+    // Job 62 control plane: require explicit tenant_modules enable — fail closed on unknown.
     if (ctx.activeModuleKeys.has("__website_kompis_denied__")) {
       return {
         capabilityId,
@@ -110,6 +110,15 @@ function resolveOne(
         visibleInNavigation: false,
         usable: false,
         reasonCode: "feature_not_entitled",
+      };
+    }
+    if (!ctx.activeModuleKeys.has("website_kompis")) {
+      return {
+        capabilityId,
+        state: "available",
+        visibleInNavigation: false,
+        usable: false,
+        reasonCode: "module_status_unknown",
       };
     }
   } else if (contract.requiredFeatureKey) {

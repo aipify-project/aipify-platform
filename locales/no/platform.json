@@ -603,6 +603,29 @@
       "agreementDisplayNames": {
         "unonightPilotAgreement": "Unonight pilotavtale",
         "unonightUnlimitedAgreement": "Unonight ubegrenset avtale"
+      },
+      "controlPlane": {
+        "sectionControlPlane": "Tilgangsoversikt",
+        "overallStatus": "Samlet status",
+        "products": "Produkter",
+        "web": "Kompis Web",
+        "bedrift": "Kompis Bedrift",
+        "websiteKompis": "Website Kompis",
+        "modules": "Moduler",
+        "provisioning": "Oppsettklarhet",
+        "ready": "Klar",
+        "notReady": "Ikke klar",
+        "membership": "Eiermedlemskap",
+        "reason": "Årsakskode",
+        "statuses": {
+          "active": "Aktiv",
+          "pending": "Venter",
+          "suspended": "Suspendert",
+          "expired": "Utløpt",
+          "cancelled": "Avsluttet",
+          "unavailable": "Utilgjengelig",
+          "conflict": "Krever gjennomgang"
+        }
       }
     },
     "createCustomer": "Opprett kunde",

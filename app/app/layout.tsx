@@ -40,7 +40,10 @@ import { cookies, headers } from "next/headers";
 import { APP_PRODUCT_CONTEXT_COOKIE } from "@/lib/app-portal/product-context/constants";
 import type { AppProductContextId } from "@/lib/app-portal/product-context/constants";
 import { availableProductsFromBundle } from "@/lib/app-portal/product-context/available-from-bundle";
-import { resolveActiveProductContext } from "@/lib/app-portal/product-context/resolve";
+import {
+  authorizeProductContext,
+  loadAccessControlPlaneSnapshot,
+} from "@/lib/core/access-control-plane";
 
 /** Authenticated app shell — skip build-time static prerender (700+ routes). */
 export const dynamic = "force-dynamic";
@@ -135,19 +138,28 @@ export default async function AppLayout({
     try {
       // Core is the sole authority for which capability ids may appear in Customer APP nav.
       // Dynamic navigation may only contribute suspension notices — never menu items.
-      const [capabilityBundle, activationGates, featureAccessRaw, dynamicRaw] = await Promise.all([
-        loadAppMenuCapabilityBundle(supabase),
-        getOrganizationBusinessPackActivationGates(supabase).catch(() => ({ found: false as const })),
-        supabase.rpc("get_app_portal_feature_access", { p_feature: "business_packs" }),
-        getDynamicAppNavigation(supabase).catch(() => null),
-      ]);
+      const [capabilityBundle, accessSnapshot, activationGates, featureAccessRaw, dynamicRaw] =
+        await Promise.all([
+          loadAppMenuCapabilityBundle(supabase),
+          loadAccessControlPlaneSnapshot(supabase),
+          getOrganizationBusinessPackActivationGates(supabase).catch(() => ({ found: false as const })),
+          supabase.rpc("get_app_portal_feature_access", { p_feature: "business_packs" }),
+          getDynamicAppNavigation(supabase).catch(() => null),
+        ]);
 
-      availableProducts = availableProductsFromBundle(capabilityBundle);
-      activeProduct = resolveActiveProductContext({
+      // Cookie is preference only — server control plane authorizes product contexts.
+      const fromCapabilities = availableProductsFromBundle(capabilityBundle);
+      const authz = authorizeProductContext({
+        snapshot: accessSnapshot,
         pathname: requestPathname,
         cookieValue: productCookie,
-        availableProducts,
       });
+      // Intersect control-plane authorization with capability-visible products (fail closed).
+      availableProducts = authz.availableProducts.filter((id) => fromCapabilities.includes(id));
+      activeProduct =
+        authz.activeProduct && availableProducts.includes(authz.activeProduct)
+          ? authz.activeProduct
+          : availableProducts[0] ?? null;
       const presented = presentAppNavFromCapabilities(capabilityBundle, t, {
         activeProduct,
       });
@@ -193,11 +205,7 @@ export default async function AppLayout({
         role: null,
       });
       availableProducts = availableProductsFromBundle(closedBundle);
-      activeProduct = resolveActiveProductContext({
-        pathname: requestPathname,
-        cookieValue: productCookie,
-        availableProducts,
-      });
+      activeProduct = availableProducts[0] ?? null;
       const closed = presentAppNavFromCapabilities(closedBundle, t, { activeProduct });
       navGroups = closed.navGroups;
       navConfig = closed.navConfig;

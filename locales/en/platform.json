@@ -756,6 +756,29 @@
       "agreementDisplayNames": {
         "unonightPilotAgreement": "Unonight pilot agreement",
         "unonightUnlimitedAgreement": "Unonight unlimited agreement"
+      },
+      "controlPlane": {
+        "sectionControlPlane": "Access control overview",
+        "overallStatus": "Overall status",
+        "products": "Products",
+        "web": "Kompis Web",
+        "bedrift": "Kompis Bedrift",
+        "websiteKompis": "Website Kompis",
+        "modules": "Modules",
+        "provisioning": "Setup readiness",
+        "ready": "Ready",
+        "notReady": "Not ready",
+        "membership": "Owner membership",
+        "reason": "Reason code",
+        "statuses": {
+          "active": "Active",
+          "pending": "Pending",
+          "suspended": "Suspended",
+          "expired": "Expired",
+          "cancelled": "Cancelled",
+          "unavailable": "Unavailable",
+          "conflict": "Needs review"
+        }
       }
     },
     "createCustomer": "Create customer",

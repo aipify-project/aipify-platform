@@ -37,14 +37,16 @@ function emptyCtx(overrides: Partial<Parameters<typeof resolveAppMenuCapabilityB
     activePackKeys: new Set<string>(),
     pendingPackKeys: new Set<string>(),
     revokedPackKeys: new Set<string>(),
-    activeModuleKeys: new Set<string>(),
+    activeModuleKeys: new Set<string>(["website_kompis"]),
     ...overrides,
   };
 }
 
 describe("core app menu capability contract", () => {
   it("presents one flat product menu at a time (job 60)", () => {
-    const bundle = resolveAppMenuCapabilityBundle(emptyCtx());
+    const bundle = resolveAppMenuCapabilityBundle(
+      emptyCtx({ activeModuleKeys: new Set(["website_kompis"]) })
+    );
     const presented = presentAppNavFromCapabilities(bundle, t, { activeProduct: "kompisWeb" });
     assert.deepEqual(presented.navGroups.map((g) => g.id), ["kompisWeb"]);
     assert.ok(!presented.navConfig.some((i) => i.id.startsWith("kompisBedrift")));
@@ -62,6 +64,12 @@ describe("core app menu capability contract", () => {
     assert.equal(isCapabilityAllowed(bundle, "kompisWebDashboard"), false);
     assert.equal(isCapabilityAllowed(bundle, "kompisBedriftDashboard"), true);
     assert.equal(isCapabilityAllowed(bundle, "accountSubscription"), true);
+  });
+
+  it("hides Kompis Web when website_kompis module status is unknown (fail closed)", () => {
+    const bundle = resolveAppMenuCapabilityBundle(emptyCtx({ activeModuleKeys: new Set() }));
+    assert.equal(isCapabilityAllowed(bundle, "kompisWebDashboard"), false);
+    assert.equal(isCapabilityAllowed(bundle, "kompisBedriftDashboard"), true);
   });
 
   it("hides billing account items when billing feature is off", () => {

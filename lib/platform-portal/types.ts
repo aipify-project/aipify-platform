@@ -243,6 +243,22 @@ export type PlatformPortalCustomerDetail = {
   };
 };
 
+export type PlatformPortalCustomerDetailControlPlaneLabels = {
+  sectionControlPlane: string;
+  overallStatus: string;
+  products: string;
+  web: string;
+  bedrift: string;
+  websiteKompis: string;
+  modules: string;
+  provisioning: string;
+  ready: string;
+  notReady: string;
+  membership: string;
+  reason: string;
+  statuses: Record<string, string>;
+};
+
 export type PlatformPortalCustomerDetailLabels = {
   title: string;
   backToCustomers: string;
@@ -258,6 +274,7 @@ export type PlatformPortalCustomerDetailLabels = {
   sectionDomains: string;
   sectionEntitlements: string;
   sectionStatus: string;
+  controlPlane: PlatformPortalCustomerDetailControlPlaneLabels;
   organizationNumber: string;
   legalName: string;
   customerName: string;
