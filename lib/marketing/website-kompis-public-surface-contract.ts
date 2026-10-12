@@ -3,8 +3,12 @@
  *
  * Hosts mount the Core loader once and publish an access class via the adapter.
  * Core decides activation, context capture, and private deactivation.
+ * A shared path failsafe complements the host adapter — it does not replace it
+ * and does not claim complete private-route detection for every customer.
  * No customer route whitelist, domain, or product names belong here.
  */
+
+import { isPrivateWebsiteKompisSurfacePathname } from "@/lib/marketing/website-kompis-public-site-index/private-paths";
 
 export const WEBSITE_KOMPIS_PUBLIC_ACCESS_CLASSES = ["public", "private", "unknown"] as const;
 export type WebsiteKompisPublicAccessClass = (typeof WEBSITE_KOMPIS_PUBLIC_ACCESS_CLASSES)[number];
@@ -54,11 +58,28 @@ export function parseWebsiteKompisPublicAccessClass(
 }
 
 /**
+ * Combine host access adapter + Core surface path failsafe.
+ * Explicit host `public` must not override a known private surface path.
+ * Public auth entries (`/login`, `/register`, …) are not path-failsafe hides.
+ */
+export function resolveWebsiteKompisEffectiveAccessClass(input: {
+  hostAccessClass: unknown;
+  pathname?: string | null;
+}): WebsiteKompisPublicAccessClass {
+  if (isPrivateWebsiteKompisSurfacePathname(input.pathname ?? undefined)) {
+    return "private";
+  }
+  return parseWebsiteKompisPublicAccessClass(input.hostAccessClass);
+}
+
+/**
  * Resolve Core surface state from host adapter access class + install gates.
+ * Pass `pathname` so the shared path failsafe can deactivate on known private routes.
  * Unknown/private never activate the public surface or allow context capture.
  */
 export function resolveWebsiteKompisPublicSurfaceState(input: {
   accessClass: unknown;
+  pathname?: string | null;
   installEnabled?: boolean;
   installIdPresent?: boolean;
   domainPresent?: boolean;
@@ -82,7 +103,10 @@ export function resolveWebsiteKompisPublicSurfaceState(input: {
     };
   }
 
-  const accessClass = parseWebsiteKompisPublicAccessClass(input.accessClass);
+  const accessClass = resolveWebsiteKompisEffectiveAccessClass({
+    hostAccessClass: input.accessClass,
+    pathname: input.pathname,
+  });
   if (accessClass === "public") {
     return {
       accessClass,
@@ -140,6 +164,7 @@ export function readWebsiteKompisAccessClassFromAdapter(input: {
 export function transitionWebsiteKompisPublicSurface(input: {
   previous: WebsiteKompisPublicSurfaceState | null;
   nextAccessClass: unknown;
+  pathname?: string | null;
   installEnabled?: boolean;
   installIdPresent?: boolean;
   domainPresent?: boolean;
@@ -151,6 +176,7 @@ export function transitionWebsiteKompisPublicSurface(input: {
 } {
   const state = resolveWebsiteKompisPublicSurfaceState({
     accessClass: input.nextAccessClass,
+    pathname: input.pathname,
     installEnabled: input.installEnabled,
     installIdPresent: input.installIdPresent,
     domainPresent: input.domainPresent,
@@ -203,4 +229,97 @@ export function parseWebsiteKompisEmbedSurfaceMessage(
  */
 export function accessClassFromHostPrivateBoundary(isPrivateSurface: boolean): WebsiteKompisPublicAccessClass {
   return isPrivateSurface ? "private" : "public";
+}
+
+/** Pure loader/iframe lifecycle step for local harnesses (no DOM / network). */
+export type WebsiteKompisProtectedRouteLifecycleSnapshot = {
+  pathname: string;
+  hostAccessClass: WebsiteKompisPublicAccessClass;
+  surfaceActive: boolean;
+  accessClass: WebsiteKompisPublicAccessClass;
+  heldPageContext: { pathname: string } | null;
+  askGeneration: number;
+  askAborted: boolean;
+  captureAllowed: boolean;
+  pendingDisclosureRefresh: boolean;
+};
+
+/**
+ * Simulate one navigation/access evaluation the way the public loader must behave.
+ * Capture miss / inactive always clears held pageContext (null ≠ keep stale).
+ */
+export function stepWebsiteKompisProtectedRouteLifecycle(
+  previous: WebsiteKompisProtectedRouteLifecycleSnapshot,
+  input: {
+    pathname: string;
+    hostAccessClass: unknown;
+    /** Simulated capture result when surface would allow capture. */
+    capturePathname?: string | null;
+    /** In-flight ask present before this step. */
+    askInFlight?: boolean;
+    scheduleDisclosureRefresh?: boolean;
+  },
+): WebsiteKompisProtectedRouteLifecycleSnapshot {
+  const transition = transitionWebsiteKompisPublicSurface({
+    previous: {
+      accessClass: previous.accessClass,
+      active: previous.surfaceActive,
+      allowPageContext: previous.surfaceActive,
+      clearPageContext: !previous.surfaceActive,
+      reason: previous.surfaceActive ? "public_active" : "private_inactive",
+    },
+    nextAccessClass: input.hostAccessClass,
+    pathname: input.pathname,
+    installEnabled: true,
+    installIdPresent: true,
+    domainPresent: true,
+  });
+
+  const becameInactive = transition.becameInactive;
+  let askGeneration = previous.askGeneration;
+  let askAborted = false;
+  if (becameInactive || !transition.state.active) {
+    if (input.askInFlight || previous.askAborted === false) {
+      askAborted = Boolean(input.askInFlight) || becameInactive;
+    }
+    if (input.askInFlight || becameInactive) {
+      askGeneration += 1;
+      askAborted = true;
+    }
+  }
+
+  let heldPageContext = previous.heldPageContext;
+  let captureAllowed = false;
+  let pendingDisclosureRefresh = false;
+
+  if (!transition.state.active || transition.shouldClearPageContext) {
+    heldPageContext = null;
+    pendingDisclosureRefresh = false;
+  } else if (transition.state.allowPageContext) {
+    const captured =
+      input.capturePathname === undefined
+        ? { pathname: input.pathname }
+        : input.capturePathname
+          ? { pathname: input.capturePathname }
+          : null;
+    if (!captured) {
+      heldPageContext = null;
+    } else {
+      heldPageContext = captured;
+      captureAllowed = true;
+    }
+    pendingDisclosureRefresh = Boolean(input.scheduleDisclosureRefresh) && captureAllowed;
+  }
+
+  return {
+    pathname: input.pathname,
+    hostAccessClass: parseWebsiteKompisPublicAccessClass(input.hostAccessClass),
+    surfaceActive: transition.state.active,
+    accessClass: transition.state.accessClass,
+    heldPageContext,
+    askGeneration,
+    askAborted,
+    captureAllowed,
+    pendingDisclosureRefresh,
+  };
 }

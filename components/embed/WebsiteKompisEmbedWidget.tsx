@@ -261,6 +261,7 @@ export function WebsiteKompisEmbedWidget({
   const [sessionReady, setSessionReady] = useState(false);
   const askAbortRef = useRef<AbortController | null>(null);
   const askGenerationRef = useRef(0);
+  const surfaceActiveRef = useRef(true);
 
   useEffect(() => {
     openRef.current = open;
@@ -291,25 +292,40 @@ export function WebsiteKompisEmbedWidget({
   }, [domain, installId]);
 
   useEffect(() => {
+    function abortInFlightAskForSurfaceChange() {
+      askAbortRef.current?.abort();
+      askAbortRef.current = null;
+      askGenerationRef.current += 1;
+      setSending(false);
+    }
+
     function handleMessage(event: MessageEvent) {
+      // Only accept loader messages from the embedding parent (install-bound host).
       if (event.source !== window.parent) {
         return;
       }
 
       const surface = parseWebsiteKompisEmbedSurfaceMessage(event.data);
       if (surface) {
+        surfaceActiveRef.current = surface.active;
         if (surface.clearPageContext || !surface.active) {
           setPageContext(undefined);
         }
-        if (!surface.active && openRef.current) {
-          setOpen(false);
-          postResizeToParent(false);
+        if (!surface.active) {
+          abortInFlightAskForSurfaceChange();
+          if (openRef.current) {
+            setOpen(false);
+            postResizeToParent(false);
+          }
         }
         return;
       }
 
       const nextPageContext = parseWebsiteKompisEmbedPageContextMessage(event.data);
       if (nextPageContext) {
+        if (!surfaceActiveRef.current) {
+          return;
+        }
         setPageContext(nextPageContext);
         if (nextPageContext.locale) {
           setUiLocale(sanitizeWebsiteKompisEmbedLocale(nextPageContext.locale));
@@ -456,6 +472,7 @@ export function WebsiteKompisEmbedWidget({
     async (question: string, priorMessages: ChatMessage[]) => {
       const validation = validateWebsiteCompanionQuestion(question);
       if (!validation.valid || sending) return;
+      if (!surfaceActiveRef.current) return;
 
       askAbortRef.current?.abort();
       const controller = new AbortController();
@@ -478,14 +495,19 @@ export function WebsiteKompisEmbedWidget({
       try {
         // Fresh host capture so open FAQ/accordion panels opened after load are included.
         const refreshedPageContext = await refreshWebsiteKompisEmbedPageContextFromParent();
-        if (generation !== askGenerationRef.current) return;
-        const askPageContext = refreshedPageContext ?? pageContext;
-        if (refreshedPageContext) {
+        if (generation !== askGenerationRef.current || !surfaceActiveRef.current) return;
+        // Never attach pageContext after a private/inactive transition; prior chat is not page ground.
+        const askPageContext = surfaceActiveRef.current
+          ? (refreshedPageContext ?? pageContext)
+          : undefined;
+        if (refreshedPageContext && surfaceActiveRef.current) {
           setPageContext(refreshedPageContext);
           if (refreshedPageContext.locale) {
             setUiLocale(sanitizeWebsiteKompisEmbedLocale(refreshedPageContext.locale));
           }
         }
+
+        if (!surfaceActiveRef.current || generation !== askGenerationRef.current) return;
 
         const response = await fetch("/api/marketing/companion/ask", {
           method: "POST",
@@ -503,14 +525,14 @@ export function WebsiteKompisEmbedWidget({
           ),
         });
 
-        if (generation !== askGenerationRef.current) return;
+        if (generation !== askGenerationRef.current || !surfaceActiveRef.current) return;
 
         if (!response.ok) {
           throw new Error("ask request failed");
         }
 
         const payload = (await response.json()) as PublicAskPayload;
-        if (generation !== askGenerationRef.current) return;
+        if (generation !== askGenerationRef.current || !surfaceActiveRef.current) return;
 
         const mapped = mapWebsiteCompanionApiResponse(payload);
         const answerParts = [mapped.directAnswer.trim()];
@@ -531,7 +553,7 @@ export function WebsiteKompisEmbedWidget({
           },
         ]);
       } catch {
-        if (controller.signal.aborted || generation !== askGenerationRef.current) {
+        if (controller.signal.aborted || generation !== askGenerationRef.current || !surfaceActiveRef.current) {
           return;
         }
         setMessages((current) => [

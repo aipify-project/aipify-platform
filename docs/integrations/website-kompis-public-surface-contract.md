@@ -26,17 +26,20 @@ Optional equivalents: `data-aipify-kompis-access` / `data-access-class` on the s
 
 ## Core responsibilities
 
-- Activate the public widget only when access is `public` and install/domain/license gates allow.
-- On `private` / `unknown`: hide the surface, clear public pageContext, ignore delayed context for the wrong page.
-- Keep one loader/iframe across soft navigation; update context on public→public.
-- Fail-closed context filters remain (no form/input scraping) and do not replace the host access adapter.
+- Activate the public widget only when **effective** access is `public` and install/domain/license gates allow.
+- Effective access = host adapter **plus** a shared Core path failsafe for known private prefixes (`/admin`, `/member`, `/app`, …). Explicit host `public` does **not** override that failsafe.
+- Public auth entry paths (`/login`, `/register`, `/signin`, `/signup`) are **not** failsafe-hidden; mark them `public` when visitors can open them without a session.
+- On `private` / `unknown`: hide the surface, clear public pageContext, stop disclosure refresh timers, and abort in-flight asks. Capture miss must clear — never keep a stale snapshot.
+- Keep one loader/iframe across soft navigation; update context on public→public with a **fresh** capture only.
+- Fail-closed context filters remain (no form/input scraping). Path failsafe complements the host adapter — it does **not** replace it.
 
 ## What Core does not do
 
-- Guess public/private from URL path names
+- Claim complete detection of every customer private/admin URL (unknown protected routes still need the host adapter)
 - Whitelist customer routes, domains, or products
 - Bypass CSP, auth, install, domain, or license controls
 - Remotely inject the loader onto pages that never load the integration
+- Treat install/domain trust as a path grant
 
 ## Next-customer checklist
 
@@ -44,3 +47,4 @@ Optional equivalents: `data-aipify-kompis-access` / `data-access-class` on the s
 2. Set `data-aipify-kompis-access` from your access boundary on first paint and on SPA navigations.
 3. Confirm kill switch / install disable still prevents mount or activation.
 4. Verify login/register (or your public auth entry) are `public` if visitors can open them without a session.
+5. Confirm known private shells also update the adapter — path failsafe is a safety net, not full auth.

@@ -185,9 +185,25 @@
 
   var surfaceActive = true;
   var lastAccessClass = "public";
+  var disclosureRefreshTimer = null;
 
   function resolveSurfaceActive(accessClass) {
     return accessClass === "public";
+  }
+
+  /**
+   * Host access + Core path failsafe. Explicit host public must not override
+   * a known private surface path. /login and /register are not in PRIVATE_PATH_PREFIXES.
+   */
+  function resolveEffectiveAccessClass(pathnameOverride) {
+    var pathname =
+      pathnameOverride != null
+        ? String(pathnameOverride)
+        : String(window.location.pathname || "");
+    if (isPrivatePathname(pathname)) {
+      return "private";
+    }
+    return readHostAccessClass();
   }
 
   function applySurfaceVisibility(active) {
@@ -219,6 +235,13 @@
     );
   }
 
+  function clearDisclosureRefreshTimer() {
+    if (disclosureRefreshTimer) {
+      window.clearTimeout(disclosureRefreshTimer);
+      disclosureRefreshTimer = null;
+    }
+  }
+
   function applyAccessClass(nextAccessClass, options) {
     var accessClass = parseAccessClass(nextAccessClass);
     var nextActive = resolveSurfaceActive(accessClass);
@@ -227,6 +250,10 @@
     surfaceActive = nextActive;
     lastAccessClass = accessClass;
     applySurfaceVisibility(nextActive);
+    if (!nextActive) {
+      clearDisclosureRefreshTimer();
+      clearActiveDisclosure();
+    }
     if (clearContext || becameInactive) {
       clearActiveDisclosure();
       postSurfaceToIframe(accessClass, nextActive, true);
@@ -236,6 +263,10 @@
     if (nextActive && !(options && options.skipContext)) {
       postPageContextToIframe();
     }
+  }
+
+  function applyAccessClassFromEnvironment(options) {
+    applyAccessClass(resolveEffectiveAccessClass(), options);
   }
 
   function hostsMatchAllowed(candidateHost) {
@@ -832,8 +863,9 @@
     lastPathname = nextPath;
     lastHref = nextHref;
     clearActiveDisclosure();
+    clearDisclosureRefreshTimer();
     locale = resolveRuntimeLocale();
-    applyAccessClass(readHostAccessClass());
+    applyAccessClassFromEnvironment();
   }
 
   function patchHistoryMethod(methodName) {
@@ -930,12 +962,23 @@
     if (!iframe.contentWindow) {
       return;
     }
+    // Re-evaluate path failsafe before capture (SPA mid-flight / stale timers).
+    var effective = resolveEffectiveAccessClass();
+    if (effective !== "public") {
+      applyAccessClass(effective, { skipContext: true, forceClear: true });
+      return;
+    }
+    if (!surfaceActive || lastAccessClass !== "public") {
+      applyAccessClass("public", { skipContext: true });
+    }
     if (!surfaceActive || lastAccessClass !== "public") {
       postSurfaceToIframe(lastAccessClass, false, true);
       return;
     }
     var pageContext = capturePageContext();
     if (!pageContext) {
+      // null must clear — never keep a stale public snapshot on denied/miss.
+      postSurfaceToIframe(lastAccessClass, true, true);
       return;
     }
     iframe.contentWindow.postMessage(
@@ -948,12 +991,12 @@
   }
 
   iframe.addEventListener("load", function onIframeLoad() {
-    applyAccessClass(readHostAccessClass(), { skipContext: false });
+    applyAccessClassFromEnvironment({ skipContext: false });
   });
 
   if (typeof MutationObserver === "function" && document.documentElement) {
     var accessObserver = new MutationObserver(function onAccessAttrChange() {
-      applyAccessClass(readHostAccessClass());
+      applyAccessClassFromEnvironment();
     });
     accessObserver.observe(document.documentElement, {
       attributes: true,
@@ -962,13 +1005,22 @@
   }
 
   // Re-capture when visitors open/close FAQ/accordion panels so ask does not use a stale snapshot.
-  var disclosureRefreshTimer = null;
   function scheduleDisclosurePageContextRefresh() {
+    if (!surfaceActive || lastAccessClass !== "public") {
+      return;
+    }
+    if (isPrivatePathname(String(window.location.pathname || ""))) {
+      applyAccessClassFromEnvironment({ forceClear: true });
+      return;
+    }
     if (disclosureRefreshTimer) {
       window.clearTimeout(disclosureRefreshTimer);
     }
     disclosureRefreshTimer = window.setTimeout(function onDisclosureRefresh() {
       disclosureRefreshTimer = null;
+      if (!surfaceActive || lastAccessClass !== "public") {
+        return;
+      }
       postPageContextToIframe();
     }, 120);
   }
@@ -1087,10 +1139,11 @@
 
   document.body.appendChild(iframe);
   window.__AIPIFY_WEBSITE_KOMPIS_EMBED__ = true;
-  applyAccessClass(readHostAccessClass(), { skipContext: true });
+  applyAccessClassFromEnvironment({ skipContext: true });
   // Failsafe: never leave an invisible host frame if the iframe never posts resize.
+  // Skip when path/host already marked the surface inactive.
   window.setTimeout(function ensureShellVisible() {
-    if (!shellReady) {
+    if (!shellReady && surfaceActive) {
       applyResize(false, CLOSED_WIDTH, CLOSED_HEIGHT);
     }
   }, 2500);
