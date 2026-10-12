@@ -76,6 +76,33 @@ export function expandWebsiteKompisRetrievalSynonymTokens(question: string): str
   return extras;
 }
 
+/**
+ * Synonym tokens safe to merge into site-index topic ranking.
+ * General paraphrase boost (not a gift-only allowlist). Excludes bare
+ * price/membership generics that inflate false hits on weak FAQ/legal rows
+ * via URL/title substring collisions (e.g. member ⊂ medlemskap).
+ */
+const TOPIC_BOOST_GENERIC_NOISE = new Set([
+  "pris",
+  "price",
+  "kost",
+  "cost",
+  "poeng",
+  "points",
+  "medlemskap",
+  "membership",
+  "member",
+  "medlem",
+  "card",
+  "cards",
+]);
+
+export function expandWebsiteKompisTopicBoostTokens(question: string): string[] {
+  return expandWebsiteKompisRetrievalSynonymTokens(question)
+    .map((t) => t.toLowerCase())
+    .filter((t) => t.length >= 4 && !TOPIC_BOOST_GENERIC_NOISE.has(t));
+}
+
 function lastUserTopic(recentContext?: Array<{ role: string; text: string }> | null): string {
   if (!recentContext?.length) return "";
   for (let i = recentContext.length - 1; i >= 0; i -= 1) {

@@ -5,7 +5,7 @@ import {
   looksLikeFaqQuestionList,
   textLooksLikeConcretePublishedCost,
 } from "@/lib/marketing/website-kompis-answer-relevance";
-import { expandWebsiteKompisRetrievalSynonymTokens } from "@/lib/marketing/website-kompis-retrieval-intent";
+import { expandWebsiteKompisTopicBoostTokens } from "@/lib/marketing/website-kompis-retrieval-intent";
 import { buildWebsiteKompisMissingConcreteCostGapAnswer } from "@/lib/marketing/website-kompis-public-answer-policy";
 import {
   evaluatePublicSiteIndexUrl,
@@ -192,17 +192,9 @@ export function tokenizePublicSiteIndexQuestion(question: string): string[] {
  */
 export function topicTokensForPublicSiteIndex(question: string): string[] {
   const tokens = tokenizePublicSiteIndexQuestion(question);
-  // Gift/redeem (and similar) synonym boost for paraphrase ranking — do not pull in
-  // generic price/membership expanders here; those inflate false FAQ topic hits
-  // (e.g. "koster"/"kost" on unrelated membership rows for Push asks).
-  const giftBoost = expandWebsiteKompisRetrievalSynonymTokens(question)
-    .map((t) => t.toLowerCase())
-    .filter((t) =>
-      /^(gavekort|gift|card|cards|voucher|innløs|innlos|redeem|bruke|use|aktivere|activate)$/i.test(
-        t,
-      ),
-    );
-  const merged = Array.from(new Set([...tokens, ...giftBoost]));
+  // Soft paraphrase boost from retrieval synonym families (price noise excluded).
+  const boost = expandWebsiteKompisTopicBoostTokens(question);
+  const merged = Array.from(new Set([...tokens, ...boost]));
   const strong = merged.filter((t) => t.length >= 4);
   if (strong.length >= 1) return strong.slice(0, 12);
   return merged.slice(0, 12);
@@ -214,6 +206,19 @@ function isPublicSiteIndexHubPath(pathname: string): boolean {
   return (
     /\/(terms|terms-and-conditions|privacy|cookie|cookies)(\/|$)/.test(p) ||
     /\/faq\/?$/.test(p)
+  );
+}
+
+/**
+ * Home / campaign surfaces that pick up loose nav keywords ("profil", "synlig")
+ * without answering the visitor question. Generic path patterns only — no tenant URLs.
+ */
+export function isWeakGeneralPublicSitePath(pathname: string): boolean {
+  const p = pathname.toLowerCase().replace(/\/+$/, "") || "/";
+  // Locale home: /, /no, /en, …
+  if (/^\/(?:[a-z]{2})?$/.test(p)) return true;
+  return /\/(referrals?|referral|verv|invite|invitation|campaigns?|kampanje)(?:\/|$)/i.test(
+    p,
   );
 }
 
@@ -303,11 +308,24 @@ export function filterAndRankPublicSiteIndexHits(
   const scored = hits
     .map((hit) => {
       let topicScore = scorePublicSiteIndexHitTopicOverlap(hit, topics);
-      // Demote legal/FAQ hubs that only share a weak keyword with a stronger guide
-      // page. Keep strong body Q→A hub matches (needed after no↔nb locale expand
-      // surfaces FAQ hubs alongside same-language guide pages).
+      // Demote legal/FAQ hubs that only share a single weak keyword with a stronger
+      // guide page. Multi-token body Q→A (score ≥2) must stay — demoting those to 0
+      // dropped published FAQ hubs behind referrals/home after loose keyword ties.
       if (
         isPublicSiteIndexHubPath(hit.pathname) &&
+        topicScore > 0 &&
+        topicScore < 4
+      ) {
+        if (topicScore >= 2) {
+          // Mild tie-break only; never zero a multi-token FAQ Q→A body match.
+          topicScore = Math.max(2, topicScore - 1);
+        } else {
+          topicScore = Math.max(0, topicScore - 2);
+        }
+      }
+      // Home / campaign / referral paths: loose keyword ties must not beat FAQ Q→A.
+      if (
+        isWeakGeneralPublicSitePath(hit.pathname) &&
         topicScore > 0 &&
         topicScore < 4
       ) {
@@ -357,17 +375,21 @@ export function isRelevantPublicSiteIndexResult(
   const topOverlap = scorePublicSiteIndexHitTopicOverlap(top, topics);
   if (topOverlap < PUBLIC_SITE_INDEX_MIN_TOPIC_OVERLAP) return false;
 
-  // Hub pages need a stronger topical fit than guide/content pages.
-  if (isPublicSiteIndexHubPath(top.pathname) && topOverlap < 4) {
-    return false;
+  const titlePathHit = topics.some((t) => titlePathHasTopicToken(top, t));
+  const corpusMatched = topics.filter((t) => textHasTopicToken(hitCorpus(top), t)).length;
+
+  // Hub pages need stronger fit than guides — but multi-token FAQ Q→A body matches
+  // (overlap ≥2 with ≥2 corpus hits) are valid after no↔nb hub surfacing.
+  if (isPublicSiteIndexHubPath(top.pathname)) {
+    const strongHubQa = topOverlap >= 2 && corpusMatched >= 2;
+    if (topOverlap < 4 && !strongHubQa) {
+      return false;
+    }
   }
 
   // Multi-token questions: avoid body-only collisions on leaf FAQ articles
   // (e.g. marketplace Push page matching "medlemmer"/"koster" for membership cost).
   if (topics.length >= 2) {
-    const titlePathHit = topics.some((t) => titlePathHasTopicToken(top, t));
-    const corpusMatched = topics.filter((t) => textHasTopicToken(hitCorpus(top), t)).length;
-
     if (isSpecificPublicFaqArticlePath(top.pathname)) {
       // Leaf FAQ answers must name the topic in title or path — not only body.
       if (!titlePathHit) {

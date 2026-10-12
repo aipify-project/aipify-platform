@@ -9,6 +9,7 @@ import {
 import type { PublicCompanionTenantFaqRow } from "@/lib/marketing/public-companion-tenant-faq";
 import type { PublicSiteIndexHit } from "@/lib/marketing/website-kompis-public-site-index";
 import {
+  isWeakGeneralPublicSitePath,
   neutralizeUntrustedPageEvidence,
   topicTokensForPublicSiteIndex,
 } from "@/lib/marketing/website-kompis-public-site-index";
@@ -275,10 +276,21 @@ export function buildWebsiteKompisEvidencePack(input: {
         evidenceTopicScore(b, topicTokens) - evidenceTopicScore(a, topicTokens);
       if (scoreDelta !== 0) return scoreDelta;
       // Kind alone must not win — only break ties after thematic score.
-      // Prefer index over FAQ when scores tie (guide pages beat hub FAQ).
-      const kindRank = (kind: WebsiteKompisEvidenceKind) =>
-        kind === "public-site-index" ? 0 : kind === "current-page" ? 1 : 2;
-      return kindRank(a.kind) - kindRank(b.kind);
+      // Guide/index pages beat FAQ on ties; FAQ beats weak home/campaign index paths.
+      const kindRank = (item: WebsiteKompisEvidenceSnippet) => {
+        if (item.kind === "current-page") return 1;
+        if (item.kind === "faq") return 2;
+        const path = (() => {
+          try {
+            return new URL(item.url ?? "", "https://example.invalid").pathname;
+          } catch {
+            return item.url ?? "";
+          }
+        })();
+        if (isWeakGeneralPublicSitePath(path)) return 3;
+        return 0;
+      };
+      return kindRank(a) - kindRank(b);
     })
     .slice(0, WEBSITE_KOMPIS_GROUNDED_MAX_EVIDENCE);
 

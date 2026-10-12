@@ -105,6 +105,7 @@ import {
 import {
   buildPublicSiteIndexAnswer,
   isRelevantPublicSiteIndexResult,
+  isWeakGeneralPublicSitePath,
   scorePublicSiteIndexHitTopicOverlap,
   searchTenantPublicSiteIndex,
   topicTokensForPublicSiteIndex,
@@ -128,7 +129,8 @@ export function preferStrongSiteIndexOverSparseFaq(input: {
   const topics = topicTokensForPublicSiteIndex(question);
   const topIndex = siteIndexHits[0];
   const indexTopic = scorePublicSiteIndexHitTopicOverlap(topIndex, topics);
-  if (indexTopic < 4) {
+  // Weak home/campaign pages must never clear the "strong index" bar.
+  if (indexTopic < 4 || isWeakGeneralPublicSitePath(topIndex.pathname)) {
     return { faqRows, siteIndexHits };
   }
 
