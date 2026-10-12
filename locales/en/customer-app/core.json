@@ -7347,5 +7347,46 @@
       "title": "Quality signals",
       "description": "Live totals from your Website Kompis feedback overview — same tenant scope as the Q&A workspace."
     }
+  },
+  "websiteKompisKnowledge": {
+    "title": "Knowledge Center",
+    "subtitle": "See and manage the public knowledge Website Kompis can use — FAQ first, with clear status for website pages and documents when available.",
+    "sections": {
+      "faq": "FAQ",
+      "pages": "Website pages",
+      "documents": "Documents",
+      "followUp": "Needs follow-up"
+    },
+    "sectionHints": {
+      "faq": "Draft, publish, unpublish, and archive public-safe FAQ answers through the existing secure workflow.",
+      "pages": "Indexed public pages are used by Website Kompis at answer time. An APP inventory of crawl status is not available yet.",
+      "documents": "Public document upload for Website Kompis is not available in this product. Private Bedrift files are never mixed here.",
+      "followUp": "Draft FAQ items and not-helpful feedback that may need knowledge improvement — never auto-published."
+    },
+    "counts": {
+      "published": "Published",
+      "draft": "Drafts",
+      "archived": "Archived",
+      "needsReview": "Needs review",
+      "lastUpdated": "Last updated",
+      "unavailable": "Not available yet"
+    },
+    "pagesUnavailableTitle": "Website page inventory is not available in APP yet",
+    "pagesUnavailableBody": "Website Kompis still uses approved public site content at answer time. Listing crawl status and pages for owners requires a dedicated Core read contract — not created in this job.",
+    "documentsUnavailableTitle": "Public documents are not available for Website Kompis yet",
+    "documentsUnavailableBody": "There is no public document upload pipeline for Website Kompis. Do not use Kompis Bedrift files as public web knowledge.",
+    "followUpEmptyTitle": "Nothing needs follow-up right now",
+    "followUpEmptyBody": "When you have FAQ drafts or not-helpful visitor feedback, they appear here as work to review.",
+    "followUpDrafts": "FAQ drafts waiting",
+    "followUpFeedback": "Not-helpful feedback to review",
+    "openFaqEditor": "Open FAQ editor",
+    "openFeedback": "Open questions & feedback",
+    "openConnection": "Check connection",
+    "createFaq": "Create FAQ",
+    "reviewDrafts": "Review drafts",
+    "neverAutoPublish": "Feedback and suggestions never publish automatically. You always confirm draft and publish.",
+    "bedriftNotMixed": "Private Kompis Bedrift knowledge is never shown or mixed into this public Knowledge Center.",
+    "dashboardTitle": "Knowledge status",
+    "dashboardDescription": "Live FAQ counts and feedback review signals for your organization — same sources as the Knowledge Center."
   }
 }

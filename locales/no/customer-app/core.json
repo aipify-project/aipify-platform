@@ -7358,5 +7358,46 @@
       "title": "Kvalitetssignaler",
       "description": "Live tall fra Website Kompis-tilbakemelding — samme tenant-scope som spørsmål/svar-arbeidsflaten."
     }
+  },
+  "websiteKompisKnowledge": {
+    "title": "Kunnskapssenter",
+    "subtitle": "Se og administrer den offentlige kunnskapen Website Kompis kan bruke — FAQ først, med tydelig status for nettsider og dokumenter når det finnes.",
+    "sections": {
+      "faq": "FAQ",
+      "pages": "Nettsider",
+      "documents": "Dokumenter",
+      "followUp": "Krever oppfølging"
+    },
+    "sectionHints": {
+      "faq": "Opprett, publiser, avpubliser og arkiver offentlige FAQ-svar via eksisterende trygg arbeidsflyt.",
+      "pages": "Indekserte offentlige sider brukes av Website Kompis ved svar. APP-oversikt over crawl-status finnes ikke ennå.",
+      "documents": "Offentlig dokumentopplasting for Website Kompis finnes ikke i dette produktet. Private Bedrift-filer blandes aldri inn her.",
+      "followUp": "FAQ-utkast og ikke-nyttig tilbakemelding som kan kreve kunnskapsforbedring — aldri auto-publisert."
+    },
+    "counts": {
+      "published": "Publisert",
+      "draft": "Utkast",
+      "archived": "Arkivert",
+      "needsReview": "Trenger gjennomgang",
+      "lastUpdated": "Sist oppdatert",
+      "unavailable": "Ikke tilgjengelig ennå"
+    },
+    "pagesUnavailableTitle": "Nettsideoversikt er ikke tilgjengelig i APP ennå",
+    "pagesUnavailableBody": "Website Kompis bruker fortsatt godkjent offentlig sideinnhold ved svar. Listing av crawl-status for eiere krever egen Core-lesekontrakt — ikke opprettet i denne jobben.",
+    "documentsUnavailableTitle": "Offentlige dokumenter er ikke tilgjengelige for Website Kompis ennå",
+    "documentsUnavailableBody": "Det finnes ingen offentlig dokumentpipeline for Website Kompis. Ikke bruk Kompis Bedrift-filer som offentlig nettkunnskap.",
+    "followUpEmptyTitle": "Ingenting krever oppfølging akkurat nå",
+    "followUpEmptyBody": "Når du har FAQ-utkast eller ikke-nyttig tilbakemelding, vises det her som arbeid å gjennomgå.",
+    "followUpDrafts": "FAQ-utkast som venter",
+    "followUpFeedback": "Ikke-nyttig tilbakemelding å gjennomgå",
+    "openFaqEditor": "Åpne FAQ-editor",
+    "openFeedback": "Åpne spørsmål og tilbakemelding",
+    "openConnection": "Kontroller tilkobling",
+    "createFaq": "Opprett FAQ",
+    "reviewDrafts": "Gjennomgå utkast",
+    "neverAutoPublish": "Tilbakemelding og forslag publiseres aldri automatisk. Du bekrefter alltid utkast og publisering.",
+    "bedriftNotMixed": "Privat Kompis Bedrift-kunnskap vises aldri eller blandes inn i dette offentlige Kunnskapssenteret.",
+    "dashboardTitle": "Kunnskapsstatus",
+    "dashboardDescription": "Live FAQ-tall og tilbakemeldingssignaler for organisasjonen din — samme kilder som Kunnskapssenteret."
   }
 }

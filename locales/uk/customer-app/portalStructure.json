@@ -7474,7 +7474,7 @@
     "webHub": {
       "description": "Manage your public website companion: visitor questions, FAQ, connection, and appearance.",
       "qaDescription": "Review visitor questions and feedback from your website.",
-      "faqDescription": "Publish and maintain public FAQ and knowledge for your website.",
+      "faqDescription": "Публікуйте та підтримуйте публічні FAQ і знання для вашого сайту — сторінки та документи коли доступні.",
       "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
       "appearanceDescription": "Choose widget look, welcome messages, and presentation for visitors.",
       "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",

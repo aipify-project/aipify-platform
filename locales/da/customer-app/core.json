@@ -7358,5 +7358,46 @@
       "title": "Kvalitetssignaler",
       "description": "Live totaler fra Website Kompis-feedback — samme tenant-scope som Q&A-arbejdsfladen."
     }
+  },
+  "websiteKompisKnowledge": {
+    "title": "Videncenter",
+    "subtitle": "Se og administrer den offentlige viden Website Kompis kan bruge — FAQ først, med tydelig status for sider og dokumenter når det findes.",
+    "sections": {
+      "faq": "FAQ",
+      "pages": "Websider",
+      "documents": "Dokumenter",
+      "followUp": "Kræver opfølgning"
+    },
+    "sectionHints": {
+      "faq": "Opret, publicer, afpublicer og arkivér offentlige FAQ-svar via den eksisterende sikre arbejdsgang.",
+      "pages": "Indekserede offentlige sider bruges af Website Kompis ved svar. APP-oversigt over crawl-status findes ikke endnu.",
+      "documents": "Offentlig dokumentupload til Website Kompis findes ikke i dette produkt. Private Bedrift-filer blandes aldrig ind her.",
+      "followUp": "FAQ-kladder og ikke-nyttig feedback der kan kræve vidensforbedring — aldrig auto-publiceret."
+    },
+    "counts": {
+      "published": "Publiceret",
+      "draft": "Kladder",
+      "archived": "Arkiveret",
+      "needsReview": "Kræver gennemgang",
+      "lastUpdated": "Sidst opdateret",
+      "unavailable": "Ikke tilgængelig endnu"
+    },
+    "pagesUnavailableTitle": "Sideoversigt er ikke tilgængelig i APP endnu",
+    "pagesUnavailableBody": "Website Kompis bruger stadig godkendt offentligt sideindhold ved svar. Listing af crawl-status for ejere kræver en egen Core-læsekontrakt — ikke oprettet i dette job.",
+    "documentsUnavailableTitle": "Offentlige dokumenter er ikke tilgængelige for Website Kompis endnu",
+    "documentsUnavailableBody": "Der findes ingen offentlig dokumentpipeline til Website Kompis. Brug ikke Kompis Bedrift-filer som offentlig webviden.",
+    "followUpEmptyTitle": "Intet kræver opfølgning lige nu",
+    "followUpEmptyBody": "Når du har FAQ-kladder eller ikke-nyttig feedback, vises det her som arbejde at gennemgå.",
+    "followUpDrafts": "FAQ-kladder der venter",
+    "followUpFeedback": "Ikke-nyttig feedback at gennemgå",
+    "openFaqEditor": "Åbn FAQ-editor",
+    "openFeedback": "Åbn spørgsmål og feedback",
+    "openConnection": "Kontrollér forbindelse",
+    "createFaq": "Opret FAQ",
+    "reviewDrafts": "Gennemgå kladder",
+    "neverAutoPublish": "Feedback og forslag offentliggøres aldrig automatisk. Du bekræfter altid kladde og publicering.",
+    "bedriftNotMixed": "Privat Kompis Bedrift-viden vises aldrig eller blandes ind i dette offentlige Videncenter.",
+    "dashboardTitle": "Vidensstatus",
+    "dashboardDescription": "Live FAQ-tal og feedbacksignaler for din organisation — samme kilder som Videncentret."
   }
 }

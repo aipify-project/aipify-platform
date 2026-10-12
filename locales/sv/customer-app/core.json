@@ -7358,5 +7358,46 @@
       "title": "Kvalitetssignaler",
       "description": "Live-totaler från Website Kompis-feedback — samma tenant-scope som Q&A-ytan."
     }
+  },
+  "websiteKompisKnowledge": {
+    "title": "Kunskapscenter",
+    "subtitle": "Se och hantera den offentliga kunskap Website Kompis kan använda — FAQ först, med tydlig status för webbsidor och dokument när det finns.",
+    "sections": {
+      "faq": "FAQ",
+      "pages": "Webbsidor",
+      "documents": "Dokument",
+      "followUp": "Behöver uppföljning"
+    },
+    "sectionHints": {
+      "faq": "Skapa, publicera, avpublicera och arkivera offentliga FAQ-svar via befintligt säkert arbetsflöde.",
+      "pages": "Indexerade offentliga sidor används av Website Kompis vid svar. APP-översikt över crawl-status finns inte ännu.",
+      "documents": "Offentlig dokumentuppladdning för Website Kompis finns inte i denna produkt. Privata Bedrift-filer blandas aldrig in här.",
+      "followUp": "FAQ-utkast och inte-hjälpsam feedback som kan kräva kunskapsförbättring — aldrig auto-publicerat."
+    },
+    "counts": {
+      "published": "Publicerad",
+      "draft": "Utkast",
+      "archived": "Arkiverad",
+      "needsReview": "Behöver granskning",
+      "lastUpdated": "Senast uppdaterad",
+      "unavailable": "Inte tillgängligt ännu"
+    },
+    "pagesUnavailableTitle": "Webbsideöversikt är inte tillgänglig i APP ännu",
+    "pagesUnavailableBody": "Website Kompis använder fortfarande godkänt offentligt sidinnehåll vid svar. Listning av crawl-status för ägare kräver ett eget Core-läskontrakt — skapat inte i detta jobb.",
+    "documentsUnavailableTitle": "Offentliga dokument är inte tillgängliga för Website Kompis ännu",
+    "documentsUnavailableBody": "Det finns ingen offentlig dokumentpipeline för Website Kompis. Använd inte Kompis Bedrift-filer som offentlig webbkunskap.",
+    "followUpEmptyTitle": "Inget behöver uppföljning just nu",
+    "followUpEmptyBody": "När du har FAQ-utkast eller inte-hjälpsam feedback visas det här som arbete att granska.",
+    "followUpDrafts": "FAQ-utkast som väntar",
+    "followUpFeedback": "Inte-hjälpsam feedback att granska",
+    "openFaqEditor": "Öppna FAQ-redigeraren",
+    "openFeedback": "Öppna frågor och feedback",
+    "openConnection": "Kontrollera anslutning",
+    "createFaq": "Skapa FAQ",
+    "reviewDrafts": "Granska utkast",
+    "neverAutoPublish": "Feedback och förslag publiceras aldrig automatiskt. Du bekräftar alltid utkast och publicering.",
+    "bedriftNotMixed": "Privat Kompis Bedrift-kunskap visas aldrig eller blandas in i detta offentliga Kunskapscenter.",
+    "dashboardTitle": "Kunskapsstatus",
+    "dashboardDescription": "Live FAQ-siffror och feedbacksignaler för din organisation — samma källor som Kunskapscentret."
   }
 }

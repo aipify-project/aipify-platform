@@ -894,5 +894,46 @@
       "title": "Sygnały jakości",
       "description": "Bieżące sumy z opinii Website Kompis — ten sam zakres tenanta co obszar Q&A."
     }
+  },
+  "websiteKompisKnowledge": {
+    "title": "Centrum wiedzy",
+    "subtitle": "Przeglądaj i zarządzaj publiczną wiedzą, której może używać Website Kompis — najpierw FAQ, ze statusem stron i dokumentów gdy są dostępne.",
+    "sections": {
+      "faq": "FAQ",
+      "pages": "Strony WWW",
+      "documents": "Dokumenty",
+      "followUp": "Wymaga uwagi"
+    },
+    "sectionHints": {
+      "faq": "Twórz, publikuj, cofaj publikację i archiwizuj publiczne odpowiedzi FAQ przez istniejący bezpieczny przepływ.",
+      "pages": "Zindeksowane publiczne strony są używane przez Website Kompis przy odpowiedziach. Inwentarz statusu crawl w APP nie jest jeszcze dostępny.",
+      "documents": "Publiczne przesyłanie dokumentów dla Website Kompis nie jest dostępne w tym produkcie. Prywatne pliki Bedrift nigdy nie są tu mieszane.",
+      "followUp": "Szkice FAQ i niepomocne opinie, które mogą wymagać poprawy wiedzy — nigdy nie publikowane automatycznie."
+    },
+    "counts": {
+      "published": "Opublikowane",
+      "draft": "Szkice",
+      "archived": "Zarchiwizowane",
+      "needsReview": "Do przeglądu",
+      "lastUpdated": "Ostatnia aktualizacja",
+      "unavailable": "Jeszcze niedostępne"
+    },
+    "pagesUnavailableTitle": "Inwentarz stron nie jest jeszcze dostępny w APP",
+    "pagesUnavailableBody": "Website Kompis nadal używa zatwierdzonej publicznej treści stron przy odpowiedziach. Lista statusu crawl dla właścicieli wymaga osobnej umowy odczytu Core — nie utworzonej w tym zadaniu.",
+    "documentsUnavailableTitle": "Publiczne dokumenty nie są jeszcze dostępne dla Website Kompis",
+    "documentsUnavailableBody": "Nie ma publicznej ścieżki dokumentów dla Website Kompis. Nie używaj plików Kompis Bedrift jako publicznej wiedzy WWW.",
+    "followUpEmptyTitle": "Nic nie wymaga uwagi",
+    "followUpEmptyBody": "Gdy masz szkice FAQ lub niepomocne opinie, pojawią się tutaj jako praca do przeglądu.",
+    "followUpDrafts": "Oczekujące szkice FAQ",
+    "followUpFeedback": "Niepomocne opinie do przeglądu",
+    "openFaqEditor": "Otwórz edytor FAQ",
+    "openFeedback": "Otwórz pytania i opinie",
+    "openConnection": "Sprawdź połączenie",
+    "createFaq": "Utwórz FAQ",
+    "reviewDrafts": "Przejrzyj szkice",
+    "neverAutoPublish": "Opinie i sugestie nigdy nie publikują się automatycznie. Zawsze zatwierdzasz szkic i publikację.",
+    "bedriftNotMixed": "Prywatna wiedza Kompis Bedrift nigdy nie jest pokazywana ani mieszana w tym publicznym Centrum wiedzy.",
+    "dashboardTitle": "Status wiedzy",
+    "dashboardDescription": "Aktualne liczby FAQ i sygnały opinii dla Twojej organizacji — te same źródła co Centrum wiedzy."
   }
 }
