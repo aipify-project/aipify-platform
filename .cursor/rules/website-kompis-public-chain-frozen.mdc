@@ -1,0 +1,26 @@
+---
+description: Website Kompis Public Chain is frozen — no agent edits without explicit owner approval naming this chain.
+globs: public/embed/website-kompis.js,app/embed/**/*,components/embed/WebsiteKompis*.tsx,app/api/marketing/companion/**/*,lib/marketing/public-companion-*.ts,lib/marketing/website-kompis-*.ts,lib/marketing/website-kompis-public-site-index/{answer,index,search,locale-contract,url-policy,private-paths}.ts,docs/integrations/website-kompis-public-chain-frozen*
+alwaysApply: true
+---
+
+# Website Kompis Public Chain — FROZEN
+
+Canonical contract: [docs/integrations/website-kompis-public-chain-frozen-contract.md](../../docs/integrations/website-kompis-public-chain-frozen-contract.md)  
+Manifest (paths + SHA256): [docs/integrations/website-kompis-public-chain-frozen-manifest.json](../../docs/integrations/website-kompis-public-chain-frozen-manifest.json)
+
+**Baseline:** PR #146 · commit `4b7fd0b8` · deploy `dpl_EdcvpRZ5wqstwhjRgBcVr5eiRdUG` on `aipify.ai`.
+
+## Mandatory rule
+
+Aipify Website Kompis Public Chain is frozen at the documented baseline. No coding agent may change, refactor, move, reformat, or “clean up” the protected runtime files or their contracts without explicit owner approval that names **Website Kompis Public Chain** and the concrete goal. A new task must preserve existing acceptance tests, document affected chain links, and stop before SQL, secrets, config, ingest, or Production data without separate approval.
+
+If another feature shares a protected file, narrow the diff to non-chain concerns or **stop**.
+
+## Do not touch without named approval
+
+Loader/widget lifecycle, install/domain/route gates, ask orchestration, bounded retrieval intent, FAQ + site-index + current-page retrieval/ranking/evidence, public answer policy, provider/fallback validation, copy/feedback, closed **72×72** / open **450×800**, job 51 route hide, job 52 first-load shell.
+
+## Separate (not this freeze)
+
+APP panel, document upload, Kompis Bedrift, Partner, Host customer apps, SQL/migrations, ingest/refresh operators — each needs its own explicit approval; none unlock silent edits to this public chain.
