@@ -291,14 +291,26 @@ export function filterAndRankPublicSiteIndexHits(
   const scored = hits
     .map((hit) => {
       let topicScore = scorePublicSiteIndexHitTopicOverlap(hit, topics);
-      // Demote legal/FAQ hubs that only share a keyword with a stronger guide page.
-      if (isPublicSiteIndexHubPath(hit.pathname) && topicScore > 0) {
+      // Demote legal/FAQ hubs that only share a weak keyword with a stronger guide
+      // page. Keep strong body Q→A hub matches (needed after no↔nb locale expand
+      // surfaces FAQ hubs alongside same-language guide pages).
+      if (
+        isPublicSiteIndexHubPath(hit.pathname) &&
+        topicScore > 0 &&
+        topicScore < 4
+      ) {
         topicScore = Math.max(0, topicScore - 2);
       }
       return { hit, topicScore };
     })
     .filter((entry) => entry.topicScore >= PUBLIC_SITE_INDEX_MIN_TOPIC_OVERLAP)
     .sort((a, b) => {
+      // Blend topic fit with RPC score so high-confidence FAQ Q→A chunks are not
+      // permanently buried by guide-page title keyword hits on paraphrases.
+      const rank = (entry: { topicScore: number; hit: PublicSiteIndexHit }) =>
+        entry.topicScore * 3 + entry.hit.score;
+      const delta = rank(b) - rank(a);
+      if (delta !== 0) return delta;
       if (b.topicScore !== a.topicScore) return b.topicScore - a.topicScore;
       return b.hit.score - a.hit.score;
     });

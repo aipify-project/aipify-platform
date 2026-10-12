@@ -6,8 +6,25 @@ import {
   focusPublicSiteIndexQuery,
   type PublicSiteIndexHit,
 } from "./answer";
+import {
+  expandPublicSiteIndexSearchLocales,
+  mergePublicSiteIndexHitsByChunkId,
+  normalizePublicSiteIndexLocaleTag,
+} from "./locale-contract";
 
 export const PUBLIC_SITE_INDEX_SEARCH_RPC = "search_tenant_public_site_index" as const;
+
+export type PublicSiteIndexSearchRpcParams = {
+  p_install_id: string | null;
+  p_domain: string | null;
+  p_locale: string;
+  p_query: string;
+  p_limit: number;
+};
+
+export type PublicSiteIndexSearchRpc = (
+  params: PublicSiteIndexSearchRpcParams,
+) => Promise<{ data: unknown; error: unknown }>;
 
 function mapRow(row: Record<string, unknown>): PublicSiteIndexHit | null {
   const documentId = typeof row.document_id === "string" ? row.document_id : null;
@@ -38,34 +55,55 @@ function mapRow(row: Record<string, unknown>): PublicSiteIndexHit | null {
   };
 }
 
-export async function searchTenantPublicSiteIndex(input: {
-  installId?: string | null;
-  domain?: string | null;
-  locale: string;
-  query: string;
-  limit?: number;
-}): Promise<PublicSiteIndexHit[]> {
+async function defaultPublicSiteIndexSearchRpc(
+  params: PublicSiteIndexSearchRpcParams,
+): Promise<{ data: unknown; error: unknown }> {
+  const client = createPublicAnonSupabaseClient();
+  const { data, error } = await client.rpc(PUBLIC_SITE_INDEX_SEARCH_RPC, params);
+  return { data, error };
+}
+
+export async function searchTenantPublicSiteIndex(
+  input: {
+    installId?: string | null;
+    domain?: string | null;
+    locale: string;
+    query: string;
+    limit?: number;
+  },
+  options?: {
+    rpc?: PublicSiteIndexSearchRpc;
+  },
+): Promise<PublicSiteIndexHit[]> {
   const limit = Math.max(1, Math.min(input.limit ?? 5, 8));
   const originalQuery = input.query.trim();
   const focusedQuery = focusPublicSiteIndexQuery(originalQuery);
-  const client = createPublicAnonSupabaseClient();
   // Fetch a slightly wider window so client topic re-rank can demote boilerplate.
   const fetchLimit = Math.min(8, Math.max(limit, 6));
-  const { data, error } = await client.rpc(PUBLIC_SITE_INDEX_SEARCH_RPC, {
-    p_install_id: input.installId ?? null,
-    p_domain: input.domain ?? null,
-    p_locale: input.locale,
-    p_query: focusedQuery,
-    p_limit: fetchLimit,
-  });
+  const searchLocales = expandPublicSiteIndexSearchLocales(input.locale);
+  const rpc = options?.rpc ?? defaultPublicSiteIndexSearchRpc;
 
-  if (error || !Array.isArray(data)) {
-    return [];
+  const windows: PublicSiteIndexHit[][] = [];
+  for (const locale of searchLocales) {
+    const { data, error } = await rpc({
+      p_install_id: input.installId ?? null,
+      p_domain: input.domain ?? null,
+      p_locale: normalizePublicSiteIndexLocaleTag(locale),
+      p_query: focusedQuery,
+      p_limit: fetchLimit,
+    });
+
+    if (error || !Array.isArray(data)) {
+      continue;
+    }
+
+    windows.push(
+      data
+        .map((row) => mapRow(row as Record<string, unknown>))
+        .filter((row): row is PublicSiteIndexHit => row !== null),
+    );
   }
 
-  const mapped = data
-    .map((row) => mapRow(row as Record<string, unknown>))
-    .filter((row): row is PublicSiteIndexHit => row !== null);
-
+  const mapped = mergePublicSiteIndexHitsByChunkId(windows);
   return filterAndRankPublicSiteIndexHits(mapped, originalQuery).slice(0, limit);
 }

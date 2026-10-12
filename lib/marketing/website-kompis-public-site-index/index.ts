@@ -59,7 +59,17 @@ export {
 export {
   PUBLIC_SITE_INDEX_SEARCH_RPC,
   searchTenantPublicSiteIndex,
+  type PublicSiteIndexSearchRpc,
+  type PublicSiteIndexSearchRpcParams,
 } from "./search";
+
+export {
+  PUBLIC_SITE_INDEX_BOKMAL_LOCALES,
+  expandPublicSiteIndexSearchLocales,
+  isPublicSiteIndexBokmalLocale,
+  mergePublicSiteIndexHitsByChunkId,
+  normalizePublicSiteIndexLocaleTag,
+} from "./locale-contract";
 
 export {
   ingestTenantPublicSiteIndex,
