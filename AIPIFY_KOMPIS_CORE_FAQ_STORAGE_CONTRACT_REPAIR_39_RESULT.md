@@ -9,8 +9,8 @@ Scope: Align extract → persist → FTS/retrieval so late public FAQ answer pro
 | Flag | Status |
 |------|--------|
 | LOCAL STORAGE VERIFIED | **YES** — extract → `replace_tenant_public_site_index_document` → read-back → FTS → evidence (Docker) |
-| CODE LIVE | **NO** — PR opened for review; **STOP before merge** (runtime needs schema) |
-| SQL APPLIED | **NO** — migration authored, not applied to Production |
+| CODE LIVE | **YES** — see RESULT.40 (Apex `72050a74` / `dpl_4oSMhz4tvYqZQBxmkHi7sLhMEQNv`) |
+| SQL APPLIED | **YES** — see RESULT.40 (`20261938100000` on Core `qbcqoixhrvhnuwphefvw`) |
 | EXISTING INDEX REFRESHED | **NO** |
 | LIVE ANSWER VERIFIED | **NO** |
 | CONTROLLED REFRESH READY | **NO** until SQL applied + Apex code LIVE + dry-run proof |
