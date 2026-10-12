@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { normalizePublicSiteIndexDiscoveryMode } from "@/lib/marketing/website-kompis-public-site-index/discovery";
 import { ingestTenantPublicSiteIndex } from "@/lib/marketing/website-kompis-public-site-index/ingest";
 import { resolvePublicSiteIndexOperatorTrust } from "@/lib/marketing/website-kompis-public-site-index/operator-trust";
 import {
@@ -45,11 +46,22 @@ export async function POST(
     const seedUrls = Array.isArray(body?.seedUrls)
       ? body.seedUrls.filter((u): u is string => typeof u === "string").slice(0, 40)
       : [];
+    const discoveryMode = normalizePublicSiteIndexDiscoveryMode(body?.discoveryMode);
     const cursor = typeof body?.cursor === "string" ? body.cursor : null;
     const maxPages =
       typeof body?.maxPages === "number" && Number.isFinite(body.maxPages)
         ? Math.floor(body.maxPages)
         : 30;
+
+    if (discoveryMode === "seed_only" && seedUrls.length === 0) {
+      return NextResponse.json(
+        {
+          error: "seed_only discovery requires non-empty seedUrls.",
+          code: "seed_urls_required",
+        },
+        { status: 400, headers },
+      );
+    }
 
     const persistGate = resolvePublicSiteIndexPersistGate({
       dryRun,
@@ -100,6 +112,7 @@ export async function POST(
       installId: trust.installId,
       verifiedHost: trust.verifiedHost,
       seedUrls,
+      discoveryMode,
       localeHint,
       maxPages,
       cursor,
@@ -115,6 +128,7 @@ export async function POST(
           verifiedHost: trust.verifiedHost,
         },
         writesEnabled: isPublicSiteIndexPersistEnabled(),
+        discoveryMode,
         result,
       },
       { headers },
