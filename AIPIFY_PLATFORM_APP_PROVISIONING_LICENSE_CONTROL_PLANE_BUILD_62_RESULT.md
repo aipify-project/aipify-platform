@@ -3,9 +3,9 @@
 **Branch:** `feature/platform-app-provisioning-license-control-plane-62`  
 **Feature commit:** `7633efa0fac431868006eb6946947964b1b0e463`  
 **PR:** [#154](https://github.com/aipify-project/aipify-platform/pull/154)  
-**Merge SHA:** _(filled after merge)_  
+**Merge SHA:** `a652fc6413ea9042274c896cc2db77a60f92d54b`  
 **APP project:** `aipify-platform` (`prj_tPgcqwgUAAkGvBy802arVXVYf1fv`)  
-**Deployment ID:** _(filled after deploy)_  
+**Deployment ID:** `dpl_DwZeSF1YrYg9b9CX8GN3KNN1RtgJ` — **READY**  
 **Canonical domain:** `app.aipify.ai`
 
 | Gate | Result |
