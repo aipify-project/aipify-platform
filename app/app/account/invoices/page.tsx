@@ -26,13 +26,9 @@ export default async function AccountInvoicesPage() {
     <AppHubShell
       breadcrumb={[
         { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
-        {
-          label: t("customerApp.portalStructure.navGroups.account"),
-          href: FOUNDATION_NAV_BINDINGS.accountHome,
-        },
         { label: t("customerApp.portalStructure.nav.accountInvoices") },
       ]}
-      eyebrow={t("customerApp.portalStructure.navGroups.account")}
+      eyebrow={hubT(t, "account.invoicesEyebrow")}
       title={hubT(t, "account.invoicesTitle")}
       description={hubT(t, "account.invoicesDescription")}
       contextLabel={formatHubContextLine(common, ctx)}

@@ -36,6 +36,11 @@ import { parseAppOrganizationContext } from "@/lib/tenant/resolve-app-organizati
 import AnalyticsConsentProvider from "@/components/analytics/AnalyticsConsentProvider";
 import { buildAnalyticsConsentLabels } from "@/lib/product-analytics/consent";
 import { redirect } from "next/navigation";
+import { cookies, headers } from "next/headers";
+import { APP_PRODUCT_CONTEXT_COOKIE } from "@/lib/app-portal/product-context/constants";
+import type { AppProductContextId } from "@/lib/app-portal/product-context/constants";
+import { availableProductsFromBundle } from "@/lib/app-portal/product-context/available-from-bundle";
+import { resolveActiveProductContext } from "@/lib/app-portal/product-context/resolve";
 
 /** Authenticated app shell — skip build-time static prerender (700+ routes). */
 export const dynamic = "force-dynamic";
@@ -75,9 +80,16 @@ export default async function AppLayout({
     t
   );
   let mobileNavIds: string[] = [...failClosedPresented.mobileNavIds];
+  let activeProduct: AppProductContextId | null = failClosedPresented.activeProduct;
+  let availableProducts: AppProductContextId[] = [];
   let suspendedNotice: string | null = null;
   let showActivationBanner = false;
   const activationLabels = buildBusinessPackActivationGateLabels(t);
+
+  const cookieStore = await cookies();
+  const headerStore = await headers();
+  const requestPathname = headerStore.get("x-pathname") ?? "/app";
+  const productCookie = cookieStore.get(APP_PRODUCT_CONTEXT_COOKIE)?.value ?? null;
 
   function applyBusinessPackSettingsNavLock(groups: AppNavGroupConfig[]): AppNavGroupConfig[] {
     const lockHint = t("customerApp.portalStructure.businessPackSettings.navRequiresUpgrade");
@@ -130,10 +142,19 @@ export default async function AppLayout({
         getDynamicAppNavigation(supabase).catch(() => null),
       ]);
 
-      const presented = presentAppNavFromCapabilities(capabilityBundle, t);
+      availableProducts = availableProductsFromBundle(capabilityBundle);
+      activeProduct = resolveActiveProductContext({
+        pathname: requestPathname,
+        cookieValue: productCookie,
+        availableProducts,
+      });
+      const presented = presentAppNavFromCapabilities(capabilityBundle, t, {
+        activeProduct,
+      });
       navGroups = presented.navGroups;
       navConfig = presented.navConfig;
       mobileNavIds = presented.mobileNavIds;
+      activeProduct = presented.activeProduct;
       navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
 
       showActivationBanner =
@@ -166,17 +187,22 @@ export default async function AppLayout({
       }
     } catch {
       // Fail closed — never restore mega-nav or unfiltered dynamic payloads.
-      const closed = presentAppNavFromCapabilities(
-        buildFailClosedAppMenuCapabilityBundle({
-          organizationId: null,
-          userId: null,
-          role: null,
-        }),
-        t
-      );
+      const closedBundle = buildFailClosedAppMenuCapabilityBundle({
+        organizationId: null,
+        userId: null,
+        role: null,
+      });
+      availableProducts = availableProductsFromBundle(closedBundle);
+      activeProduct = resolveActiveProductContext({
+        pathname: requestPathname,
+        cookieValue: productCookie,
+        availableProducts,
+      });
+      const closed = presentAppNavFromCapabilities(closedBundle, t, { activeProduct });
       navGroups = closed.navGroups;
       navConfig = closed.navConfig;
       mobileNavIds = closed.mobileNavIds;
+      activeProduct = closed.activeProduct;
       navSearchIndex = buildAppNavSearchIndex(navGroups, navConfig, t);
     }
   }
@@ -228,6 +254,19 @@ export default async function AppLayout({
           organizationSwitcherLabels={{
             label: t("shell.multiTenantArchitecture.organizationSwitcher"),
             switching: t("shell.multiTenantArchitecture.switchingOrganization"),
+          }}
+          productContext={{
+            activeProduct,
+            availableProducts,
+            labels: {
+              label: t("customerApp.portalStructure.productContext.label"),
+              activeProduct: t("customerApp.portalStructure.productContext.activeProduct"),
+              switchProduct: t("customerApp.portalStructure.productContext.switchProduct"),
+              kompisWeb: t("customerApp.portalStructure.navGroups.kompisWeb"),
+              kompisBedrift: t("customerApp.portalStructure.navGroups.kompisBedrift"),
+              singleContextHint: t("customerApp.portalStructure.productContext.singleContextHint"),
+              close: t("customerApp.portalStructure.productContext.close"),
+            },
           }}
           languageSelectorLabels={{
             label: t("shell.languageSelector.label"),

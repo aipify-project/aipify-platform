@@ -33,8 +33,5 @@ export const APP_NAV_LAST_ITEM_STORAGE_KEY = "aipify.app.nav.lastItem.v2";
 export const APP_NAV_INITIALIZED_STORAGE_KEY = "aipify.app.nav.initialized.v2";
 export const APP_NAV_COMPACT_STORAGE_KEY = "aipify.app.nav.compact.v2";
 
-export const APP_COLLAPSIBLE_GROUPS: AppNavGroupId[] = [
-  "kompisWeb",
-  "kompisBedrift",
-  "account",
-];
+/** Legacy accordion keys — FlatSidebar (job 60) does not expand groups. */
+export const APP_COLLAPSIBLE_GROUPS: AppNavGroupId[] = ["kompisWeb", "kompisBedrift"];

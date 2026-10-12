@@ -3,57 +3,109 @@ import {
   getVisibleCapabilityIds,
   type AppMenuCapabilityBundle,
 } from "@/lib/core/app-menu-capability";
-import { APP_PORTAL_NAV_GROUPS, type AppPortalNavId } from "@/lib/app-portal/nav-config";
+import {
+  KOMPIS_BEDRIFT_FLAT_NAV,
+  KOMPIS_WEB_FLAT_NAV,
+  type AppPortalNavId,
+  type AppPortalNavItem,
+} from "@/lib/app-portal/nav-config";
+import type { AppProductContextId } from "@/lib/app-portal/product-context/constants";
 import { resolveAppRouteHref } from "@/lib/app-production-experience/route-readiness";
 import type { Translator } from "@/lib/i18n/translate";
 
 const DEFAULT_MOBILE_IDS: AppPortalNavId[] = [
   "kompisWebDashboard",
   "kompisBedriftDashboard",
+  "accountInvoices",
   "accountSubscription",
-  "accountIntegrations",
-  "accountNotifications",
+  "kompisWebSettings",
+  "kompisBedriftSettings",
 ];
+
+function linksForItems(
+  items: AppPortalNavItem[],
+  allowed: Set<string>,
+  t: Translator
+): AppNavLink[] {
+  const links: AppNavLink[] = [];
+  const seen = new Set<string>();
+  for (const item of items) {
+    if (!allowed.has(item.id) || seen.has(item.id)) continue;
+    seen.add(item.id);
+    links.push({
+      id: item.id,
+      href: resolveAppRouteHref(item.id, item.href),
+      label: t(item.labelKey),
+    });
+  }
+  return links;
+}
+
+export type PresentAppNavOptions = {
+  /** When set, return only that product's flat menu (job 60). */
+  activeProduct?: AppProductContextId | null;
+};
 
 /**
  * APP presentation mapper — Core capability ids → localized portal nav.
- * Never invents items. Unknown / non-visible ids are dropped.
- * Mega-nav (lib/app/nav-config.ts) is not consulted.
+ * Job 60: one flat product menu at a time (no nested Account group).
  */
 export function presentAppNavFromCapabilities(
   bundle: AppMenuCapabilityBundle,
-  t: Translator
+  t: Translator,
+  options: PresentAppNavOptions = {}
 ): {
   navGroups: AppNavGroupConfig[];
   navConfig: AppNavLink[];
   mobileNavIds: string[];
+  productNav: Record<AppProductContextId, AppNavLink[]>;
+  activeProduct: AppProductContextId | null;
 } {
   const allowed = getVisibleCapabilityIds(bundle);
-  const navConfig: AppNavLink[] = [];
-  const seen = new Set<string>();
 
-  const navGroups = APP_PORTAL_NAV_GROUPS.map((group) => ({
-    id: group.id,
-    label: t(group.labelKey),
-    items: group.items
-      .filter((item) => allowed.has(item.id))
-      .map((item) => {
-        if (seen.has(item.id)) return null;
-        seen.add(item.id);
-        const link: AppNavLink = {
-          id: item.id,
-          href: resolveAppRouteHref(item.id, item.href),
-          label: t(item.labelKey),
-        };
-        navConfig.push(link);
-        return link;
-      })
-      .filter((item): item is AppNavLink => item !== null),
-  })).filter((group) => group.items.length > 0);
+  const productNav: Record<AppProductContextId, AppNavLink[]> = {
+    kompisWeb: linksForItems(KOMPIS_WEB_FLAT_NAV, allowed, t),
+    kompisBedrift: linksForItems(KOMPIS_BEDRIFT_FLAT_NAV, allowed, t),
+  };
 
-  const mobileNavIds = DEFAULT_MOBILE_IDS.filter((id) => allowed.has(id));
+  // Prefer explicit product; otherwise first non-empty product — never mix both in one menu.
+  const activeProduct: AppProductContextId | null =
+    options.activeProduct ??
+    (productNav.kompisWeb.length > 0
+      ? "kompisWeb"
+      : productNav.kompisBedrift.length > 0
+        ? "kompisBedrift"
+        : null);
 
-  return { navGroups, navConfig, mobileNavIds };
+  const flatItems =
+    activeProduct === "kompisWeb"
+      ? productNav.kompisWeb
+      : activeProduct === "kompisBedrift"
+        ? productNav.kompisBedrift
+        : [];
+
+  // Single synthetic group for search/index — FlatSidebar renders the flat list only.
+  const navGroups: AppNavGroupConfig[] =
+    activeProduct && flatItems.length > 0
+      ? [
+          {
+            id: activeProduct,
+            label: t(
+              activeProduct === "kompisWeb"
+                ? "customerApp.portalStructure.navGroups.kompisWeb"
+                : "customerApp.portalStructure.navGroups.kompisBedrift"
+            ),
+            items: flatItems,
+          },
+        ]
+      : [];
+
+  const navConfig = flatItems;
+  const mobileNavIds = DEFAULT_MOBILE_IDS.filter((id) => allowed.has(id)).filter((id) =>
+    flatItems.some((item) => item.id === id)
+  );
+
+  return { navGroups, navConfig, mobileNavIds, productNav, activeProduct };
 }
 
 /**

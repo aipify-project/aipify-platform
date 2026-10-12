@@ -267,6 +267,7 @@ export function getNavIcon(id: string) {
     case "kompisWebQa":
     case "kompisWebFaq":
     case "kompisWebConnection":
+    case "kompisBedriftConnection":
     case "kompisWebAppearance":
     case "kompisWebModules":
     case "kompisWebSettings":

@@ -28,6 +28,7 @@ export type AppPortalNavId =
   | "kompisBedriftComms"
   | "kompisBedriftMeetings"
   | "kompisBedriftModules"
+  | "kompisBedriftConnection"
   | "kompisBedriftSettings"
   | "accountSubscription"
   | "accountInvoices"
@@ -151,140 +152,173 @@ export type AppPortalNavGroup = {
 };
 
 /**
- * Job 58 — canonical visible Customer APP navigation (3 product areas).
- * Underlying legacy routes remain reachable by URL; they are not listed here.
- * /app/kompis operator is preserved but intentionally omitted from primary nav.
+ * Job 60 — flat product menus (no nested Account group in the sidebar).
+ * Shared Faktura/Abonnement items appear in both product order lists.
+ * Integrations & notifications are settings-page cards, not primary nav.
+ * Appearance remains a route under Web settings, not a sidebar row.
+ */
+const SHARED_ACCOUNT_INVOICES: AppPortalNavItem = {
+  id: "accountInvoices",
+  href: FOUNDATION_NAV_BINDINGS.accountInvoices,
+  labelKey: "customerApp.portalStructure.nav.accountInvoices",
+  featureKey: "billing",
+};
+
+const SHARED_ACCOUNT_SUBSCRIPTION: AppPortalNavItem = {
+  id: "accountSubscription",
+  href: FOUNDATION_NAV_BINDINGS.accountSubscription,
+  labelKey: "customerApp.portalStructure.nav.accountSubscription",
+  featureKey: "billing",
+};
+
+/** Exact Kompis Web sidebar order (owner decision). */
+export const KOMPIS_WEB_FLAT_NAV: AppPortalNavItem[] = [
+  {
+    id: "kompisWebDashboard",
+    href: FOUNDATION_NAV_BINDINGS.kompisWebDashboard,
+    labelKey: "customerApp.portalStructure.nav.kompisWebDashboard",
+    moduleKey: "website_kompis",
+  },
+  {
+    id: "kompisWebQa",
+    href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
+    labelKey: "customerApp.portalStructure.nav.kompisWebQa",
+    moduleKey: "website_kompis",
+  },
+  {
+    id: "kompisWebFaq",
+    href: FOUNDATION_NAV_BINDINGS.kompisWebFaq,
+    labelKey: "customerApp.portalStructure.nav.kompisWebFaq",
+    moduleKey: "website_kompis",
+  },
+  SHARED_ACCOUNT_INVOICES,
+  {
+    id: "kompisWebModules",
+    href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
+    labelKey: "customerApp.portalStructure.nav.kompisWebModules",
+    moduleKey: "website_kompis",
+  },
+  {
+    id: "kompisWebConnection",
+    href: FOUNDATION_NAV_BINDINGS.kompisWebConnection,
+    labelKey: "customerApp.portalStructure.nav.kompisWebConnection",
+    moduleKey: "website_kompis",
+  },
+  SHARED_ACCOUNT_SUBSCRIPTION,
+  {
+    id: "kompisWebSettings",
+    href: FOUNDATION_NAV_BINDINGS.kompisWebSettings,
+    labelKey: "customerApp.portalStructure.nav.kompisWebSettings",
+    moduleKey: "website_kompis",
+  },
+];
+
+/** Exact Kompis Bedrift sidebar order (owner decision). */
+export const KOMPIS_BEDRIFT_FLAT_NAV: AppPortalNavItem[] = [
+  {
+    id: "kompisBedriftDashboard",
+    href: FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard,
+    labelKey: "customerApp.portalStructure.nav.kompisBedriftDashboard",
+  },
+  {
+    id: "kompisBedriftEmployees",
+    href: FOUNDATION_NAV_BINDINGS.kompisBedriftEmployees,
+    labelKey: "customerApp.portalStructure.nav.kompisBedriftEmployees",
+  },
+  {
+    id: "kompisBedriftDocuments",
+    href: FOUNDATION_NAV_BINDINGS.kompisBedriftDocuments,
+    labelKey: "customerApp.portalStructure.nav.kompisBedriftDocuments",
+  },
+  {
+    id: "kompisBedriftFaq",
+    href: FOUNDATION_NAV_BINDINGS.kompisBedriftFaq,
+    labelKey: "customerApp.portalStructure.nav.kompisBedriftFaq",
+  },
+  {
+    id: "kompisBedriftComms",
+    href: FOUNDATION_NAV_BINDINGS.kompisBedriftComms,
+    labelKey: "customerApp.portalStructure.nav.kompisBedriftComms",
+  },
+  {
+    id: "kompisBedriftMeetings",
+    href: FOUNDATION_NAV_BINDINGS.kompisBedriftMeetings,
+    labelKey: "customerApp.portalStructure.nav.kompisBedriftMeetings",
+  },
+  SHARED_ACCOUNT_INVOICES,
+  {
+    id: "kompisBedriftModules",
+    href: FOUNDATION_NAV_BINDINGS.kompisBedriftModules,
+    labelKey: "customerApp.portalStructure.nav.kompisBedriftModules",
+  },
+  SHARED_ACCOUNT_SUBSCRIPTION,
+  {
+    id: "kompisBedriftConnection",
+    href: FOUNDATION_NAV_BINDINGS.kompisBedriftConnection,
+    labelKey: "customerApp.portalStructure.nav.kompisBedriftConnection",
+  },
+  {
+    id: "kompisBedriftSettings",
+    href: FOUNDATION_NAV_BINDINGS.kompisBedriftSettings,
+    labelKey: "customerApp.portalStructure.nav.kompisBedriftSettings",
+  },
+];
+
+/**
+ * Capability contract source — product groups only (no Account sidebar group).
+ * Shared invoice/subscription items are listed once per product for order;
+ * `buildCanonicalNavContracts` de-duplicates by id.
  */
 export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
   {
     id: "kompisWeb",
     labelKey: "customerApp.portalStructure.navGroups.kompisWeb",
     defaultExpanded: true,
-    items: [
-      {
-        id: "kompisWebDashboard",
-        href: FOUNDATION_NAV_BINDINGS.kompisWebDashboard,
-        labelKey: "customerApp.portalStructure.nav.kompisWebDashboard",
-        moduleKey: "website_kompis",
-      },
-      {
-        id: "kompisWebQa",
-        href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
-        labelKey: "customerApp.portalStructure.nav.kompisWebQa",
-        moduleKey: "website_kompis",
-      },
-      {
-        id: "kompisWebFaq",
-        href: FOUNDATION_NAV_BINDINGS.kompisWebFaq,
-        labelKey: "customerApp.portalStructure.nav.kompisWebFaq",
-        moduleKey: "website_kompis",
-      },
-      {
-        id: "kompisWebConnection",
-        href: FOUNDATION_NAV_BINDINGS.kompisWebConnection,
-        labelKey: "customerApp.portalStructure.nav.kompisWebConnection",
-        moduleKey: "website_kompis",
-      },
-      {
-        id: "kompisWebAppearance",
-        href: FOUNDATION_NAV_BINDINGS.kompisWebAppearance,
-        labelKey: "customerApp.portalStructure.nav.kompisWebAppearance",
-        moduleKey: "website_kompis",
-      },
-      {
-        id: "kompisWebModules",
-        href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
-        labelKey: "customerApp.portalStructure.nav.kompisWebModules",
-        moduleKey: "website_kompis",
-      },
-      {
-        id: "kompisWebSettings",
-        href: FOUNDATION_NAV_BINDINGS.kompisWebSettings,
-        labelKey: "customerApp.portalStructure.nav.kompisWebSettings",
-        moduleKey: "website_kompis",
-      },
-    ],
+    items: KOMPIS_WEB_FLAT_NAV,
   },
   {
     id: "kompisBedrift",
     labelKey: "customerApp.portalStructure.navGroups.kompisBedrift",
     defaultExpanded: true,
-    items: [
-      {
-        id: "kompisBedriftDashboard",
-        href: FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard,
-        labelKey: "customerApp.portalStructure.nav.kompisBedriftDashboard",
-      },
-      {
-        id: "kompisBedriftEmployees",
-        href: FOUNDATION_NAV_BINDINGS.kompisBedriftEmployees,
-        labelKey: "customerApp.portalStructure.nav.kompisBedriftEmployees",
-      },
-      {
-        id: "kompisBedriftDocuments",
-        href: FOUNDATION_NAV_BINDINGS.kompisBedriftDocuments,
-        labelKey: "customerApp.portalStructure.nav.kompisBedriftDocuments",
-      },
-      {
-        id: "kompisBedriftFaq",
-        href: FOUNDATION_NAV_BINDINGS.kompisBedriftFaq,
-        labelKey: "customerApp.portalStructure.nav.kompisBedriftFaq",
-      },
-      {
-        id: "kompisBedriftComms",
-        href: FOUNDATION_NAV_BINDINGS.kompisBedriftComms,
-        labelKey: "customerApp.portalStructure.nav.kompisBedriftComms",
-      },
-      {
-        id: "kompisBedriftMeetings",
-        href: FOUNDATION_NAV_BINDINGS.kompisBedriftMeetings,
-        labelKey: "customerApp.portalStructure.nav.kompisBedriftMeetings",
-      },
-      {
-        id: "kompisBedriftModules",
-        href: FOUNDATION_NAV_BINDINGS.kompisBedriftModules,
-        labelKey: "customerApp.portalStructure.nav.kompisBedriftModules",
-      },
-      {
-        id: "kompisBedriftSettings",
-        href: FOUNDATION_NAV_BINDINGS.kompisBedriftSettings,
-        labelKey: "customerApp.portalStructure.nav.kompisBedriftSettings",
-      },
-    ],
-  },
-  {
-    id: "account",
-    labelKey: "customerApp.portalStructure.navGroups.account",
-    defaultExpanded: true,
-    items: [
-      {
-        id: "accountSubscription",
-        href: FOUNDATION_NAV_BINDINGS.accountSubscription,
-        labelKey: "customerApp.portalStructure.nav.accountSubscription",
-        featureKey: "billing",
-      },
-      {
-        id: "accountInvoices",
-        href: FOUNDATION_NAV_BINDINGS.accountInvoices,
-        labelKey: "customerApp.portalStructure.nav.accountInvoices",
-        featureKey: "billing",
-      },
-      {
-        id: "accountIntegrations",
-        href: FOUNDATION_NAV_BINDINGS.accountIntegrations,
-        labelKey: "customerApp.portalStructure.nav.accountIntegrations",
-        featureKey: "integrations",
-      },
-      {
-        id: "accountNotifications",
-        href: FOUNDATION_NAV_BINDINGS.accountNotifications,
-        labelKey: "customerApp.portalStructure.nav.accountNotifications",
-      },
-    ],
+    items: KOMPIS_BEDRIFT_FLAT_NAV,
   },
 ];
 
-export const APP_PORTAL_NAV: AppPortalNavItem[] = APP_PORTAL_NAV_GROUPS.flatMap((g) => g.items);
+/** Settings-only destinations (not primary sidebar rows). */
+export const APP_SETTINGS_SURFACE_ITEMS: AppPortalNavItem[] = [
+  {
+    id: "accountIntegrations",
+    href: FOUNDATION_NAV_BINDINGS.accountIntegrations,
+    labelKey: "customerApp.portalStructure.nav.accountIntegrations",
+    featureKey: "integrations",
+  },
+  {
+    id: "accountNotifications",
+    href: FOUNDATION_NAV_BINDINGS.accountNotifications,
+    labelKey: "customerApp.portalStructure.nav.accountNotifications",
+  },
+  {
+    id: "kompisWebAppearance",
+    href: FOUNDATION_NAV_BINDINGS.kompisWebAppearance,
+    labelKey: "customerApp.portalStructure.nav.kompisWebAppearance",
+    moduleKey: "website_kompis",
+  },
+];
+
+export const APP_PORTAL_NAV: AppPortalNavItem[] = (() => {
+  const seen = new Set<string>();
+  const items: AppPortalNavItem[] = [];
+  for (const item of [
+    ...KOMPIS_WEB_FLAT_NAV,
+    ...KOMPIS_BEDRIFT_FLAT_NAV,
+    ...APP_SETTINGS_SURFACE_ITEMS,
+  ]) {
+    if (seen.has(item.id)) continue;
+    seen.add(item.id);
+    items.push(item);
+  }
+  return items;
+})();
 
 export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   // Most-specific foundation routes first (canonical hubs + legacy deep links).
@@ -294,7 +328,14 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   if (pathname.startsWith("/app/account/subscription") || pathname.startsWith("/app/settings/billing")) {
     return "accountSubscription";
   }
-  if (pathname.startsWith("/app/account/integrations") || pathname.startsWith("/app/platform/integrations/connected")) {
+  // Settings surfaces — shell remaps to the active product's Settings row.
+  if (pathname.startsWith("/app/website-kompis/appearance")) {
+    return "kompisWebAppearance";
+  }
+  if (
+    pathname.startsWith("/app/account/integrations") ||
+    pathname.startsWith("/app/platform/integrations/connected")
+  ) {
     return "accountIntegrations";
   }
   if (
@@ -303,6 +344,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   ) {
     return "accountNotifications";
   }
+  if (pathname.startsWith("/app/kompis-bedrift/connection")) return "kompisBedriftConnection";
   if (pathname.startsWith("/app/kompis-bedrift/knowledge") || pathname.startsWith("/app/settings/employee-knowledge")) {
     return "kompisBedriftFaq";
   }
@@ -330,7 +372,7 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
   }
   if (pathname.startsWith("/app/website-kompis/feedback")) return "kompisWebQa";
   if (pathname.startsWith("/app/website-kompis/faq")) return "kompisWebFaq";
-  if (pathname.startsWith("/app/website-kompis/appearance")) return "kompisWebAppearance";
+  if (pathname.startsWith("/app/website-kompis/connection")) return "kompisWebConnection";
   if (pathname.startsWith("/app/website-kompis/settings")) return "kompisWebSettings";
   if (pathname === "/app/website-kompis" || pathname === "/app/website-kompis/") {
     return "kompisWebDashboard";
@@ -347,6 +389,13 @@ export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
     if (href !== "/app" && pathname.startsWith(href)) return item.id;
   }
   return "appDashboard";
+}
+
+/** Map settings deep-links to the Settings sidebar row for the active product. */
+export function getAppPortalSettingsActiveNavId(
+  product: "kompisWeb" | "kompisBedrift"
+): AppPortalNavId {
+  return product === "kompisWeb" ? "kompisWebSettings" : "kompisBedriftSettings";
 }
 
 export const APP_PORTAL_FAQ_ARTICLES = [
