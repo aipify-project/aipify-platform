@@ -35,11 +35,11 @@ assert.doesNotMatch(appLayout, /companionExperienceLabels/);
 // 3. SPA remount path: shell no longer wraps children in CompanionShell for any /app route.
 assert.doesNotMatch(dashboardShell, /withCompanionExperience/);
 
-// 4. /app/kompis operator route preserved (nav + page).
-const portalNav = read("lib/app-portal/nav-config.ts");
-assert.match(portalNav, /kompisOperator/);
-assert.match(portalNav, /href:\s*"\/app\/kompis"/);
+// 4. /app/kompis operator route preserved (page + binding; intentionally off primary nav).
+const bindings = read("lib/app-portal/foundation-nav/bindings.ts");
+assert.match(bindings, /kompisOperatorPreserved:\s*"\/app\/kompis"/);
 assert.ok(fs.existsSync(path.join(ROOT, "app/app/kompis/page.tsx")));
+assert.doesNotMatch(read("lib/app-portal/nav-config.ts"), /href:\s*FOUNDATION_NAV_BINDINGS\.kompisOperatorPreserved/);
 
 // 5. Frozen Website Kompis manifest hashes unchanged for protected runtime files.
 const manifest = JSON.parse(

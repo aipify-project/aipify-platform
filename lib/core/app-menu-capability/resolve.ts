@@ -101,6 +101,17 @@ function resolveOne(
         reasonCode: "pack_not_active",
       };
     }
+  } else if (contract.requiredEntitlement === "website_kompis") {
+    // Adapter: tenant_modules via activeModuleKeys. Unknown (RPC miss) → show (fail-open for nav).
+    if (ctx.activeModuleKeys.has("__website_kompis_denied__")) {
+      return {
+        capabilityId,
+        state: "available",
+        visibleInNavigation: false,
+        usable: false,
+        reasonCode: "feature_not_entitled",
+      };
+    }
   } else if (contract.requiredFeatureKey) {
     const enabled = ctx.featureEnabled.get(contract.requiredFeatureKey);
     if (enabled === false) {
@@ -164,12 +175,11 @@ export function resolveAppMenuCapabilityBundle(
 
 /** Fail-closed minimal allowlist when resolver cannot load entitlements. */
 export const FAIL_CLOSED_SAFE_CAPABILITY_IDS = [
-  "appDashboard",
-  "commandBrief",
-  "appNotifications",
-  "gettingStarted",
-  "knowledgeCenter",
-  "organizationSettings",
+  "kompisBedriftDashboard",
+  "kompisBedriftEmployees",
+  "kompisBedriftSettings",
+  "accountNotifications",
+  "accountSubscription",
 ] as const;
 
 export function buildFailClosedAppMenuCapabilityBundle(input: {

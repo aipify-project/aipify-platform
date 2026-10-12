@@ -34,13 +34,7 @@ export const APP_NAV_INITIALIZED_STORAGE_KEY = "aipify.app.nav.initialized.v2";
 export const APP_NAV_COMPACT_STORAGE_KEY = "aipify.app.nav.compact.v2";
 
 export const APP_COLLAPSIBLE_GROUPS: AppNavGroupId[] = [
-  "home",
-  "organization",
-  "businessPacks",
-  "operations",
-  "intelligence",
-  "billing",
-  "support",
+  "kompisWeb",
+  "kompisBedrift",
   "account",
-  "integrations",
 ];

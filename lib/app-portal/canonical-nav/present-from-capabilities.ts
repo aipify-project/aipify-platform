@@ -8,11 +8,11 @@ import { resolveAppRouteHref } from "@/lib/app-production-experience/route-readi
 import type { Translator } from "@/lib/i18n/translate";
 
 const DEFAULT_MOBILE_IDS: AppPortalNavId[] = [
-  "appDashboard",
-  "commandBrief",
-  "aipifyCompanion",
-  "teamMembers",
-  "supportRequests",
+  "kompisWebDashboard",
+  "kompisBedriftDashboard",
+  "accountSubscription",
+  "accountIntegrations",
+  "accountNotifications",
 ];
 
 /**

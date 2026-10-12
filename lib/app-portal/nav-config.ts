@@ -1,4 +1,6 @@
-export const APP_PORTAL_HOME_ROUTE = "/app/command-center";
+import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
+
+export const APP_PORTAL_HOME_ROUTE = "/app";
 
 export const APP_ORGANIZATION_ROLES = [
   "organization_owner",
@@ -9,8 +11,28 @@ export const APP_ORGANIZATION_ROLES = [
 
 export type AppOrganizationRole = (typeof APP_ORGANIZATION_ROLES)[number];
 
+/** Foundation nav ids (job 58) plus legacy ids retained for deep-link / type compatibility. */
 export type AppPortalNavId =
   | "appDashboard"
+  | "kompisWebDashboard"
+  | "kompisWebQa"
+  | "kompisWebFaq"
+  | "kompisWebConnection"
+  | "kompisWebAppearance"
+  | "kompisWebModules"
+  | "kompisWebSettings"
+  | "kompisBedriftDashboard"
+  | "kompisBedriftEmployees"
+  | "kompisBedriftDocuments"
+  | "kompisBedriftFaq"
+  | "kompisBedriftComms"
+  | "kompisBedriftMeetings"
+  | "kompisBedriftModules"
+  | "kompisBedriftSettings"
+  | "accountSubscription"
+  | "accountInvoices"
+  | "accountIntegrations"
+  | "accountNotifications"
   | "sinceLastLogin"
   | "appNotifications"
   | "teamMembers"
@@ -89,7 +111,6 @@ export type AppPortalNavId =
   | "profile"
   | "preferences"
   | "accountSecurity"
-  | "accountNotifications"
   | "integrations"
   | "connectedIntegrations"
   | "connectIntegration"
@@ -101,13 +122,15 @@ export type AppPortalNavId =
   | "organizationSettings";
 
 export type AppPortalNavGroupId =
+  | "kompisWeb"
+  | "kompisBedrift"
+  | "account"
   | "home"
   | "organization"
   | "businessPacks"
   | "operations"
   | "billing"
   | "support"
-  | "account"
   | "integrations"
   | "intelligence";
 
@@ -116,6 +139,8 @@ export type AppPortalNavItem = {
   href: string;
   labelKey: string;
   featureKey?: string;
+  /** tenant_modules key — read-only entitlement adapter (no new license schema). */
+  moduleKey?: string;
 };
 
 export type AppPortalNavGroup = {
@@ -125,104 +150,136 @@ export type AppPortalNavGroup = {
   defaultExpanded?: boolean;
 };
 
+/**
+ * Job 58 — canonical visible Customer APP navigation (3 product areas).
+ * Underlying legacy routes remain reachable by URL; they are not listed here.
+ * /app/kompis operator is preserved but intentionally omitted from primary nav.
+ */
 export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
   {
-    id: "home",
-    labelKey: "customerApp.portalStructure.navGroups.home",
+    id: "kompisWeb",
+    labelKey: "customerApp.portalStructure.navGroups.kompisWeb",
     defaultExpanded: true,
     items: [
-      { id: "appDashboard", href: "/app", labelKey: "customerApp.portalStructure.nav.dashboard" },
-      { id: "commandBrief", href: "/app/command-center/companion-briefing", labelKey: "customerApp.portalStructure.nav.commandBrief" },
-      { id: "sinceLastLogin", href: "/app/since-last-login", labelKey: "customerApp.portalStructure.nav.sinceLastLogin" },
-      { id: "appNotifications", href: "/app/notifications", labelKey: "customerApp.portalStructure.nav.notifications" },
+      {
+        id: "kompisWebDashboard",
+        href: FOUNDATION_NAV_BINDINGS.kompisWebDashboard,
+        labelKey: "customerApp.portalStructure.nav.kompisWebDashboard",
+        moduleKey: "website_kompis",
+      },
+      {
+        id: "kompisWebQa",
+        href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
+        labelKey: "customerApp.portalStructure.nav.kompisWebQa",
+        moduleKey: "website_kompis",
+      },
+      {
+        id: "kompisWebFaq",
+        href: FOUNDATION_NAV_BINDINGS.kompisWebFaq,
+        labelKey: "customerApp.portalStructure.nav.kompisWebFaq",
+        moduleKey: "website_kompis",
+      },
+      {
+        id: "kompisWebConnection",
+        href: FOUNDATION_NAV_BINDINGS.kompisWebConnection,
+        labelKey: "customerApp.portalStructure.nav.kompisWebConnection",
+        moduleKey: "website_kompis",
+      },
+      {
+        id: "kompisWebAppearance",
+        href: FOUNDATION_NAV_BINDINGS.kompisWebAppearance,
+        labelKey: "customerApp.portalStructure.nav.kompisWebAppearance",
+        moduleKey: "website_kompis",
+      },
+      {
+        id: "kompisWebModules",
+        href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
+        labelKey: "customerApp.portalStructure.nav.kompisWebModules",
+        moduleKey: "website_kompis",
+      },
+      {
+        id: "kompisWebSettings",
+        href: FOUNDATION_NAV_BINDINGS.kompisWebSettings,
+        labelKey: "customerApp.portalStructure.nav.kompisWebSettings",
+        moduleKey: "website_kompis",
+      },
     ],
   },
   {
-    id: "organization",
-    labelKey: "customerApp.portalStructure.navGroups.organization",
+    id: "kompisBedrift",
+    labelKey: "customerApp.portalStructure.navGroups.kompisBedrift",
+    defaultExpanded: true,
     items: [
-      { id: "teamMembers", href: "/app/organization/team", labelKey: "customerApp.portalStructure.nav.teamMembers" },
-      { id: "rolesPermissions", href: "/app/organization/roles", labelKey: "customerApp.portalStructure.nav.rolesPermissions", featureKey: "team_management" },
-      { id: "responsibilities", href: "/app/organization/responsibilities", labelKey: "customerApp.portalStructure.nav.responsibilities" },
-      { id: "externalRelationships", href: "/app/organization/external-relationships", labelKey: "customerApp.portalStructure.nav.externalRelationships" },
-      { id: "organizationalAssets", href: "/app/organization/assets", labelKey: "customerApp.portalStructure.nav.organizationalAssets" },
-      { id: "communications", href: "/app/organization/communications", labelKey: "customerApp.portalStructure.nav.communications" },
-      { id: "activityOverview", href: "/app/organization/activity", labelKey: "customerApp.portalStructure.nav.activityOverview" },
-    ],
-  },
-  {
-    id: "businessPacks",
-    labelKey: "customerApp.portalStructure.navGroups.businessPacks",
-    items: [
-      { id: "softwareCatalog", href: "/app/software", labelKey: "customerApp.portalStructure.nav.softwareCatalog" },
-      { id: "installedBusinessPacks", href: "/app/business-packs/installed", labelKey: "customerApp.portalStructure.nav.installedBusinessPacks", featureKey: "business_packs" },
-      { id: "availableBusinessPacks", href: "/app/business-packs/available", labelKey: "customerApp.portalStructure.nav.marketplace" },
-      { id: "businessPackSettings", href: "/app/business-packs/settings", labelKey: "customerApp.portalStructure.nav.businessPackSettings", featureKey: "business_packs" },
-    ],
-  },
-  {
-    id: "operations",
-    labelKey: "customerApp.portalStructure.navGroups.tasksAndOperations",
-    items: [
-      { id: "appTasks", href: "/app/operations/tasks", labelKey: "customerApp.portalStructure.nav.tasks" },
-      { id: "workflows", href: "/app/operations/workflows", labelKey: "customerApp.portalStructure.nav.workflows", featureKey: "workflows" },
-      { id: "followUps", href: "/app/operations/follow-ups", labelKey: "customerApp.portalStructure.nav.followUps" },
-      { id: "decisionCenter", href: "/app/operations/decision-center", labelKey: "customerApp.portalStructure.nav.decisionCenter" },
-      { id: "goalsObjectives", href: "/app/operations/goals", labelKey: "customerApp.portalStructure.nav.goalsObjectives" },
-      { id: "risksCompliance", href: "/app/operations/risks", labelKey: "customerApp.portalStructure.nav.risksCompliance" },
-      { id: "meetings", href: "/app/operations/meetings", labelKey: "customerApp.portalStructure.nav.meetings" },
-      { id: "operationsCenter", href: "/app/operations", labelKey: "customerApp.portalStructure.nav.operationsCenter" },
-    ],
-  },
-  {
-    id: "intelligence",
-    labelKey: "customerApp.portalStructure.navGroups.aipifyIntelligence",
-    items: [
-      { id: "aipifyCompanion", href: "/app/companion", labelKey: "customerApp.portalStructure.nav.aipifyCompanion" },
-      { id: "kompisOperator", href: "/app/kompis", labelKey: "customerApp.portalStructure.nav.kompisOperator" },
-      { id: "intelligenceCommandCenter", href: "/app/intelligence/intelligence-command-center", labelKey: "customerApp.portalStructure.nav.intelligenceCommandCenter" },
-      { id: "scenarioPlanning", href: "/app/intelligence/scenario-planning", labelKey: "customerApp.portalStructure.nav.scenarioPlanning" },
-      { id: "managementInsights", href: "/app/intelligence/executive-companion", labelKey: "customerApp.portalStructure.nav.managementInsights" },
-    ],
-  },
-  {
-    id: "billing",
-    labelKey: "customerApp.portalStructure.navGroups.billing",
-    items: [
-      { id: "subscription", href: "/app/billing/subscription", labelKey: "customerApp.portalStructure.nav.subscription", featureKey: "billing" },
-      { id: "paymentHistory", href: "/app/billing/payment-history", labelKey: "customerApp.portalStructure.nav.paymentHistory", featureKey: "billing" },
-      { id: "invoices", href: "/app/billing/invoices", labelKey: "customerApp.portalStructure.nav.invoices", featureKey: "billing" },
-      { id: "upgradeOptions", href: "/app/billing/upgrade", labelKey: "customerApp.portalStructure.nav.upgradeOptions", featureKey: "billing" },
-    ],
-  },
-  {
-    id: "support",
-    labelKey: "customerApp.portalStructure.navGroups.support",
-    items: [
-      { id: "knowledgeCenter", href: "/app/support/knowledge", labelKey: "customerApp.portalStructure.nav.knowledgeCenter" },
-      { id: "contactSupport", href: "/app/support/contact", labelKey: "customerApp.portalStructure.nav.contactSupport" },
-      { id: "supportRequests", href: "/app/support/requests", labelKey: "customerApp.portalStructure.nav.supportRequests" },
-      { id: "gettingStarted", href: "/app/support/getting-started", labelKey: "customerApp.portalStructure.nav.gettingStarted" },
-      { id: "customerAcademy", href: "/app/support/academy", labelKey: "customerApp.portalStructure.nav.customerAcademy" },
+      {
+        id: "kompisBedriftDashboard",
+        href: FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard,
+        labelKey: "customerApp.portalStructure.nav.kompisBedriftDashboard",
+      },
+      {
+        id: "kompisBedriftEmployees",
+        href: FOUNDATION_NAV_BINDINGS.kompisBedriftEmployees,
+        labelKey: "customerApp.portalStructure.nav.kompisBedriftEmployees",
+      },
+      {
+        id: "kompisBedriftDocuments",
+        href: FOUNDATION_NAV_BINDINGS.kompisBedriftDocuments,
+        labelKey: "customerApp.portalStructure.nav.kompisBedriftDocuments",
+      },
+      {
+        id: "kompisBedriftFaq",
+        href: FOUNDATION_NAV_BINDINGS.kompisBedriftFaq,
+        labelKey: "customerApp.portalStructure.nav.kompisBedriftFaq",
+      },
+      {
+        id: "kompisBedriftComms",
+        href: FOUNDATION_NAV_BINDINGS.kompisBedriftComms,
+        labelKey: "customerApp.portalStructure.nav.kompisBedriftComms",
+      },
+      {
+        id: "kompisBedriftMeetings",
+        href: FOUNDATION_NAV_BINDINGS.kompisBedriftMeetings,
+        labelKey: "customerApp.portalStructure.nav.kompisBedriftMeetings",
+      },
+      {
+        id: "kompisBedriftModules",
+        href: FOUNDATION_NAV_BINDINGS.kompisBedriftModules,
+        labelKey: "customerApp.portalStructure.nav.kompisBedriftModules",
+      },
+      {
+        id: "kompisBedriftSettings",
+        href: FOUNDATION_NAV_BINDINGS.kompisBedriftSettings,
+        labelKey: "customerApp.portalStructure.nav.kompisBedriftSettings",
+      },
     ],
   },
   {
     id: "account",
     labelKey: "customerApp.portalStructure.navGroups.account",
+    defaultExpanded: true,
     items: [
-      { id: "profile", href: "/app/account/profile", labelKey: "customerApp.portalStructure.nav.profile" },
-      { id: "accountSecurity", href: "/app/account/security", labelKey: "customerApp.portalStructure.nav.security" },
-      { id: "accountNotifications", href: "/app/account/notification-settings", labelKey: "customerApp.portalStructure.nav.accountNotifications" },
-      { id: "organizationSettings", href: "/app/settings", labelKey: "customerApp.portalStructure.nav.organizationSettings" },
-    ],
-  },
-  {
-    id: "integrations",
-    labelKey: "customerApp.portalStructure.navGroups.integrations",
-    items: [
-      { id: "connectedIntegrations", href: "/app/platform/integrations/connected", labelKey: "customerApp.portalStructure.nav.connectedApps", featureKey: "integrations" },
-      { id: "dataSources", href: "/app/platform/integrations", labelKey: "customerApp.portalStructure.nav.dataSources", featureKey: "integrations" },
-      { id: "apiAccess", href: "/app/platform/api-access", labelKey: "customerApp.portalStructure.nav.apiDeveloperSettings", featureKey: "integrations" },
+      {
+        id: "accountSubscription",
+        href: FOUNDATION_NAV_BINDINGS.accountSubscription,
+        labelKey: "customerApp.portalStructure.nav.accountSubscription",
+        featureKey: "billing",
+      },
+      {
+        id: "accountInvoices",
+        href: FOUNDATION_NAV_BINDINGS.accountInvoices,
+        labelKey: "customerApp.portalStructure.nav.accountInvoices",
+        featureKey: "billing",
+      },
+      {
+        id: "accountIntegrations",
+        href: FOUNDATION_NAV_BINDINGS.accountIntegrations,
+        labelKey: "customerApp.portalStructure.nav.accountIntegrations",
+        featureKey: "integrations",
+      },
+      {
+        id: "accountNotifications",
+        href: FOUNDATION_NAV_BINDINGS.accountNotifications,
+        labelKey: "customerApp.portalStructure.nav.accountNotifications",
+      },
     ],
   },
 ];
@@ -230,81 +287,38 @@ export const APP_PORTAL_NAV_GROUPS: AppPortalNavGroup[] = [
 export const APP_PORTAL_NAV: AppPortalNavItem[] = APP_PORTAL_NAV_GROUPS.flatMap((g) => g.items);
 
 export function getAppPortalActiveNavId(pathname: string): AppPortalNavId {
-  if (pathname === "/app") return "appDashboard";
-  if (pathname.startsWith("/app/command-center/companion-briefing")) return "commandBrief";
-  if (pathname === "/app/command-center" || pathname.startsWith("/app/command-center/")) return "appDashboard";
-  if (pathname.startsWith("/app/software")) return "softwareCatalog";
-  if (pathname.startsWith("/app/settings")) return "organizationSettings";
-  if (pathname.startsWith("/app/business-packs/recommendations")) return "availableBusinessPacks";
-  if (pathname.startsWith("/app/platform/integrations/connect")) return "dataSources";
-  if (pathname.startsWith("/app/platform/integrations/connected")) return "connectedIntegrations";
-  if (pathname.startsWith("/app/platform/integrations")) return "dataSources";
-  if (pathname.startsWith("/app/platform/api-access")) return "apiAccess";
-  if (pathname.startsWith("/app/operations/compliance")) return "risksCompliance";
-  if (pathname.startsWith("/app/intelligence/predictive")) return "scenarioPlanning";
-  if (pathname.startsWith("/app/intelligence/scenario-planning")) return "scenarioPlanning";
-  if (pathname.startsWith("/dashboard/intelligence/scenario-planning")) return "scenarioPlanning";
-  if (pathname.startsWith("/app/intelligence/executive-foresight")) return "scenarioPlanning";
-  if (pathname.startsWith("/dashboard/intelligence/executive-foresight")) return "scenarioPlanning";
-  if (pathname.startsWith("/app/intelligence/strategic-opportunities")) return "scenarioPlanning";
-  if (pathname.startsWith("/dashboard/intelligence/strategic-opportunities")) return "scenarioPlanning";
-  if (pathname.startsWith("/app/intelligence/organizational-forecasting")) return "scenarioPlanning";
-  if (pathname.startsWith("/dashboard/intelligence/organizational-forecasting")) return "scenarioPlanning";
-  if (pathname.startsWith("/app/intelligence/enterprise-readiness")) return "scenarioPlanning";
-  if (pathname.startsWith("/dashboard/intelligence/enterprise-readiness")) return "scenarioPlanning";
-  if (pathname.startsWith("/app/intelligence/cross-functional-intelligence")) return "scenarioPlanning";
-  if (pathname.startsWith("/dashboard/intelligence/cross-functional-intelligence")) return "scenarioPlanning";
-  if (pathname.startsWith("/app/intelligence/future-state-planning")) return "scenarioPlanning";
-  if (pathname.startsWith("/dashboard/intelligence/future-state-planning")) return "scenarioPlanning";
-  if (pathname.startsWith("/app/intelligence/benchmarking")) return "scenarioPlanning";
-  if (pathname.startsWith("/app/intelligence/command-center")) return "intelligenceCommandCenter";
-  if (pathname.startsWith("/app/intelligence/executive-companion")) return "managementInsights";
-  if (pathname.startsWith("/app/intelligence/intelligence-command-center")) return "intelligenceCommandCenter";
-  if (pathname.startsWith("/app/operations/executive-insights")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/follow-ups")) return "followUps";
-  if (pathname.startsWith("/app/operations/decision-center")) return "decisionCenter";
-  if (pathname.startsWith("/app/operations/activity-history")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/capability-center")) return "operationsCenter";
-  if (pathname.startsWith("/app/organization/responsibilities")) return "responsibilities";
-  if (pathname.startsWith("/app/organization/external-relationships")) return "externalRelationships";
-  if (pathname.startsWith("/app/organization/assets")) return "organizationalAssets";
-  if (pathname.startsWith("/app/organization/communications")) return "communications";
-  if (pathname.startsWith("/app/organization/culture")) return "activityOverview";
-  if (pathname.startsWith("/app/operations/goals")) return "goalsObjectives";
-  if (pathname.startsWith("/app/operations/playbooks")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/risks")) return "risksCompliance";
-  if (pathname.startsWith("/app/operations/meetings")) return "meetings";
-  if (pathname.startsWith("/app/operations/continuity")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/learning")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/capacity")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/success")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/strategy")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/prioritization")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/commitments")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/briefings")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/momentum")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/resilience")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/insights")) return "operationsCenter";
-  if (pathname.startsWith("/app/operations/workflows")) return "workflows";
-  if (pathname.startsWith("/app/operations/tasks")) return "appTasks";
-  if (pathname === "/app/operations" || pathname === "/app/operations/") return "operationsCenter";
-  if (pathname.startsWith("/app/operations/")) return "operationsCenter";
-  if (pathname.startsWith("/app/support/requests")) return "supportRequests";
-  if (pathname.startsWith("/app/support/history")) return "supportRequests";
-  if (pathname.startsWith("/app/support/success-center")) return "supportRequests";
-  if (pathname.startsWith("/app/support/customer-success")) return "supportRequests";
-  if (pathname.startsWith("/app/support/customer-health")) return "supportRequests";
-  if (pathname === "/app/companion") return "aipifyCompanion";
-  if (pathname.startsWith("/app/kompis")) return "kompisOperator";
-  if (pathname.startsWith("/app/support/assistant")) return "aipifyCompanion";
-  if (pathname.startsWith("/app/support/getting-started")) return "gettingStarted";
-  if (pathname.startsWith("/app/support/academy")) return "customerAcademy";
-  for (const group of APP_PORTAL_NAV_GROUPS) {
-    for (const item of group.items) {
-      if (item.href !== "/app" && pathname.startsWith(item.href)) {
-        return item.id;
-      }
-    }
+  // Most-specific foundation routes first (avoid /app/settings swallowing invoice-details).
+  if (pathname.startsWith("/app/settings/billing/invoice-details")) return "accountInvoices";
+  if (pathname.startsWith("/app/settings/billing")) return "accountSubscription";
+  if (pathname.startsWith("/app/settings/employee-knowledge")) return "kompisBedriftFaq";
+  if (pathname.startsWith("/app/settings/modules")) return "kompisBedriftModules";
+  if (pathname === "/app/settings" || pathname === "/app/settings/") return "kompisBedriftSettings";
+  if (pathname.startsWith("/app/website-kompis/feedback")) return "kompisWebQa";
+  if (pathname.startsWith("/app/website-kompis/faq")) return "kompisWebFaq";
+  if (pathname.startsWith("/app/website-kompis/appearance")) return "kompisWebAppearance";
+  if (pathname.startsWith("/app/website-kompis/settings")) return "kompisWebSettings";
+  if (pathname === "/app/website-kompis" || pathname === "/app/website-kompis/") {
+    return "kompisWebDashboard";
+  }
+  if (pathname.startsWith("/app/domains")) return "kompisWebConnection";
+  if (pathname.startsWith("/app/software")) return "kompisWebModules";
+  if (pathname.startsWith("/app/platform/integrations/connected")) return "accountIntegrations";
+  if (pathname.startsWith("/app/account/notification-settings")) return "accountNotifications";
+  if (pathname.startsWith("/app/organization/team")) return "kompisBedriftEmployees";
+  if (pathname.startsWith("/app/organization/communications")) return "kompisBedriftComms";
+  if (pathname === "/app/organization" || pathname === "/app/organization/") {
+    return "kompisBedriftDashboard";
+  }
+  if (pathname.startsWith("/app/documents")) return "kompisBedriftDocuments";
+  if (pathname.startsWith("/app/operations/meetings")) return "kompisBedriftMeetings";
+  if (pathname === "/app" || pathname === "/app/") return "appDashboard";
+
+  // Longest-prefix match against foundation registry.
+  const ranked = APP_PORTAL_NAV.flatMap((item) => [{ item, href: item.href }]).sort(
+    (a, b) => b.href.length - a.href.length
+  );
+  for (const { item, href } of ranked) {
+    if (href !== "/app" && pathname.startsWith(href)) return item.id;
   }
   return "appDashboard";
 }

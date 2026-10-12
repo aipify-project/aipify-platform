@@ -142,12 +142,30 @@
       "contactSupport": "Contactar soporte",
       "profile": "Perfil",
       "security": "Seguridad",
-      "accountNotifications": "Preferencias de notificaciones",
+      "accountNotifications": "Ajustes de notificaciones",
       "organizationSettings": "Configuración de la organización",
       "connectedApps": "Aplicaciones conectadas",
       "dataSources": "Fuentes de datos",
       "apiDeveloperSettings": "API y configuración de desarrollador",
-      "kompisOperator": "Kompis"
+      "kompisOperator": "Kompis",
+      "kompisWebDashboard": "Dashboard",
+      "kompisWebQa": "Preguntas y respuestas",
+      "kompisWebFaq": "FAQ y conocimiento",
+      "kompisWebConnection": "Conexión y acceso",
+      "kompisWebAppearance": "Apariencia",
+      "kompisWebModules": "Módulos",
+      "kompisWebSettings": "Ajustes",
+      "kompisBedriftDashboard": "Dashboard",
+      "kompisBedriftEmployees": "Empleados y acceso",
+      "kompisBedriftDocuments": "Documentos",
+      "kompisBedriftFaq": "FAQ y conocimiento",
+      "kompisBedriftComms": "Comunicación",
+      "kompisBedriftMeetings": "Reuniones",
+      "kompisBedriftModules": "Módulos",
+      "kompisBedriftSettings": "Ajustes",
+      "accountSubscription": "Suscripción",
+      "accountInvoices": "Facturas",
+      "accountIntegrations": "Integraciones"
     },
     "followUps": {
       "title": "Organizational Memory & Follow-Up Center",
@@ -3403,7 +3421,9 @@
       "billing": "Facturación",
       "support": "Soporte",
       "account": "Cuenta",
-      "integrations": "Integraciones"
+      "integrations": "Integraciones",
+      "kompisWeb": "Kompis Web",
+      "kompisBedrift": "Kompis Empresa"
     },
     "executiveCompanion": {
       "title": "Executive Companion",
@@ -7158,6 +7178,50 @@
           "sampleCredential": "Solo ejemplo — no se guarda"
         }
       }
+    },
+    "webHub": {
+      "description": "Manage your public website companion: visitor questions, FAQ, connection, and appearance.",
+      "qaDescription": "Review visitor questions and feedback from your website.",
+      "faqDescription": "Publish and maintain public FAQ and knowledge for your website.",
+      "connectionDescription": "Connect domains, installs, and visitor access for Kompis Web.",
+      "appearanceDescription": "Choose widget look, welcome messages, and presentation for visitors.",
+      "settingsDescription": "Web settings for connection, appearance, and advanced website tools.",
+      "operatorLink": "Open website publisher (Kompis)"
+    },
+    "foundationDashboard": {
+      "eyebrow": "Overview",
+      "title": "Your Aipify workspace",
+      "description": "A calm starting point for your products and account.",
+      "welcomeNamed": "Welcome back. You are working in {organization}.",
+      "welcomeGeneric": "Welcome back. Choose a product or review your account.",
+      "orgFallback": "Your organization",
+      "productsTitle": "Products",
+      "productsDescription": "Open the product you need. Only entitled products appear in the menu.",
+      "webTitle": "Kompis Web",
+      "webDescription": "Public website companion, FAQ, and visitor guidance.",
+      "webUnavailable": "Kompis Web is not active on this account yet.",
+      "bedriftTitle": "Kompis Bedrift",
+      "bedriftDescription": "Employees, documents, internal knowledge, and collaboration.",
+      "setupTitle": "Setup and connection",
+      "setupDescription": "Keep domains and integrations in a healthy state.",
+      "connectionTitle": "Domain connection",
+      "connectionDescription": "Verify domains and visitor access for Kompis Web.",
+      "integrationsTitle": "Integrations",
+      "integrationsDescription": "See connected apps and complete pending connections.",
+      "accountTitle": "Account",
+      "accountDescription": "Subscription status and notification preferences — without fake invoice lists.",
+      "subscriptionTitle": "Subscription and billing",
+      "subscriptionDescription": "Review plan status and billing details in one place.",
+      "attentionTitle": "Needs attention",
+      "attentionDescription": "Only real items that need your decision will appear here.",
+      "attentionEmpty": "Nothing needs attention right now",
+      "openWeb": "Open Kompis Web",
+      "openBedrift": "Open Kompis Bedrift",
+      "openBilling": "Open billing",
+      "openNotifications": "Notification settings",
+      "statusAvailable": "Available",
+      "statusUnavailable": "Not available",
+      "statusReady": "Ready"
     }
   }
 }

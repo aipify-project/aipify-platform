@@ -38,7 +38,10 @@ export function buildCanonicalNavContracts(): CanonicalNavItemContract[] {
         route: item.href,
         group: group.id,
         requiredRole:
-          item.id === "organizationSettings" || item.id === "businessPackSettings"
+          item.id === "organizationSettings" ||
+          item.id === "businessPackSettings" ||
+          item.id === "kompisBedriftSettings" ||
+          item.id === "kompisWebSettings"
             ? "owner_admin"
             : "any",
         requiredFeatureKey: item.featureKey,
@@ -46,7 +49,8 @@ export function buildCanonicalNavContracts(): CanonicalNavItemContract[] {
           ? [...requiredPermissionKeys]
           : undefined,
         requiredEntitlement:
-          item.id === "installedBusinessPacks" ? "business_packs" : undefined,
+          item.moduleKey ??
+          (item.id === "installedBusinessPacks" ? "business_packs" : undefined),
         readiness,
         visibilityPolicy: defaultVisibilityPolicy(item.id, readiness, item.featureKey),
       });
