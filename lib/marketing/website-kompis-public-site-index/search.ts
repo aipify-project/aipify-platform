@@ -55,11 +55,12 @@ function mapRow(row: Record<string, unknown>): PublicSiteIndexHit | null {
   };
 }
 
-function defaultPublicSiteIndexSearchRpc(
+async function defaultPublicSiteIndexSearchRpc(
   params: PublicSiteIndexSearchRpcParams,
 ): Promise<{ data: unknown; error: unknown }> {
   const client = createPublicAnonSupabaseClient();
-  return client.rpc(PUBLIC_SITE_INDEX_SEARCH_RPC, params);
+  const { data, error } = await client.rpc(PUBLIC_SITE_INDEX_SEARCH_RPC, params);
+  return { data, error };
 }
 
 export async function searchTenantPublicSiteIndex(
