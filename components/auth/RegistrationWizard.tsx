@@ -198,6 +198,7 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
     switch (step) {
       case 1: {
         if (!draft.owner.fullName.trim()) return labels.errors.requiredFields;
+        if (!draft.organization.companyName.trim()) return labels.errors.requiredFields;
         if (!draft.owner.businessEmail.trim()) return labels.errors.requiredFields;
         if (!isBusinessEmail(draft.owner.businessEmail)) return labels.errors.businessEmailInvalid;
         if (!isValidPhone(draft.owner.phone)) return labels.errors.phoneInvalid;
@@ -210,6 +211,7 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
       case 2: {
         const org = draft.organization;
         const profile = draft.profile;
+        /* companyName collected in step 1 — same canonical organization.companyName field. */
         if (!org.companyName.trim()) return labels.errors.requiredFields;
         if (!profile.industry || !profile.employeeRange) return labels.errors.requiredFields;
         if (!org.primaryLanguage) return labels.errors.requiredFields;
@@ -402,6 +404,20 @@ export default function RegistrationWizard({ labels }: RegistrationWizardProps) 
             <input id="fullName" type="text" autoComplete="name" value={draft.owner.fullName}
               onChange={(e) => updateDraft({ owner: { ...draft.owner, fullName: e.target.value } })}
               className={inputClass} required />
+          </div>
+          <div>
+            <label htmlFor="companyNameStep1" className={labelClass}>{labels.fields.companyName}</label>
+            <input
+              id="companyNameStep1"
+              type="text"
+              autoComplete="organization"
+              value={draft.organization.companyName}
+              onChange={(e) =>
+                updateDraft({ organization: { ...draft.organization, companyName: e.target.value } })
+              }
+              className={inputClass}
+              required
+            />
           </div>
           <div>
             <label htmlFor="businessEmail" className={labelClass}>{labels.fields.businessEmail}</label>

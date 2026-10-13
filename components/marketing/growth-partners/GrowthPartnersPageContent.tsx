@@ -15,23 +15,25 @@ export type { GrowthPartnersPageRedesignLabels as GrowthPartnersPageLabels } fro
 
 export default function GrowthPartnersPageContent({ labels, verificationLabels }: GrowthPartnersPageContentProps) {
   return (
-    <>
+    <div className="bg-[#f3f5fb] text-[#1f2235]">
       <GrowthPartnerHeroWithForm labels={labels} verificationLabels={verificationLabels} />
-      <GrowthPartnerSplitSection split={labels.split} />
-      <GrowthPartnerPortalPreview portal={labels.portalPreview} />
-      <GrowthPartnerJourney journey={labels.journey} />
-      <GrowthPartnerCertificationSection
-        certification={labels.certification}
-        partnerAdvisor={labels.partnerAdvisor}
-      />
-      <GrowthPartnerCommissionSection commission={labels.commission} />
-      <GrowthPartnerRequirementsSection requirements={labels.requirements} />
-      <GrowthPartnerBusinessModelSection businessModel={labels.businessModel} />
-      <GrowthPartnerFaqAccordion faq={labels.faq} />
-      <GrowthPartnerFinalCta finalCta={labels.finalCta} />
-      <footer className={`${PublicMarketingClasses.container} pb-10 text-center text-sm text-aipify-text-muted`}>
+      <div className="space-y-2 pb-4">
+        <GrowthPartnerSplitSection split={labels.split} />
+        <GrowthPartnerPortalPreview portal={labels.portalPreview} />
+        <GrowthPartnerJourney journey={labels.journey} />
+        <GrowthPartnerCertificationSection
+          certification={labels.certification}
+          partnerAdvisor={labels.partnerAdvisor}
+        />
+        <GrowthPartnerCommissionSection commission={labels.commission} />
+        <GrowthPartnerRequirementsSection requirements={labels.requirements} />
+        <GrowthPartnerBusinessModelSection businessModel={labels.businessModel} />
+        <GrowthPartnerFaqAccordion faq={labels.faq} />
+        <GrowthPartnerFinalCta finalCta={labels.finalCta} />
+      </div>
+      <footer className={`${PublicMarketingClasses.container} pb-10 text-center text-sm text-[#687086]`}>
         {labels.footerNote}
       </footer>
-    </>
+    </div>
   );
 }

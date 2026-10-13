@@ -7163,438 +7163,438 @@
   },
   "growthPartnersPageRedesign": {
     "meta": {
-      "title": "Growth Partners — bygg virksomhed med Aipify",
-      "description": "Ansøg om at blive certificeret Aipify Growth Partner. For konsulenter og rådgivere — træning, godkendelse og transparent provisionsopfølgning."
+      "title": "Growth Partners — Sælg Kompis Web og Kompis Bedrift med Aipify",
+      "description": "Selskaber og enkeltmandsvirksomheder kan søge om at blive Aipify Growth Partner og præsentere Kompis Web og Kompis Bedrift efter partneraftalen."
     },
     "breadcrumbs": {
-      "home": "Hjem",
+      "home": "Home",
       "current": "Growth Partners"
     },
     "hero": {
-      "eyebrow": "CERTIFICERET FORRETNINGSPARTNERSKAB",
-      "headline": "Byg din virksomhed med Aipify.",
-      "copy": "Bliv certificeret Growth Partner og hjælp organisationer med at modernisere driften — et professionelt partnerskab, ikke affiliate-marketing.",
+      "eyebrow": "AIPIFY GROWTH PARTNER",
+      "headline": "Bliv Aipify-partner. Hjælp virksomheder med smartere kundeservice og intern viden.",
+      "copy": "Driver du et selskab eller en enkeltmandsvirksomhed? Ansøg om at blive Growth Partner, præsentér Kompis Web og Kompis Bedrift for dine kunder, og tjen provision på salg omfattet af partneraftalen.",
       "keyPoints": [
         {
-          "text": "Driv som selvstændig virksomhed med provisionsopfølgning i partnerportalen."
+          "text": "Præsentér Kompis Web til offentlig webhjælp og Kompis Bedrift til intern virksomhedsviden."
         },
         {
-          "text": "Gennemfør Aipify-certificering, før aktive salgsrettigheder gives."
+          "text": "Drift som registreret selskab eller enkeltmandsvirksomhed — vurdering før salgsrettigheder."
         },
         {
-          "text": "Partner Success fra Aipify Group AS — vejledning gennem onboarding og certificering."
+          "text": "Provision, optjening og udbetaling følger gældende partneraftale og godkendte registreringer."
         }
       ],
       "trustStatus": [
-        "Kort guidet ansøgning",
-        "Selvstændig virksomhed",
-        "Certificering påkrævet",
-        "Professionelt partnerskab"
+        "Selskab eller enkeltmandsvirksomhed",
+        "Ansøgningsvurdering",
+        "Partneraftale",
+        "Provision på kvalificerede salg"
       ],
       "whatHappensNext": {
-        "title": "Det sker derefter",
+        "title": "Det sker herefter",
         "steps": [
           "Send ansøgningen med registrerede virksomhedsoplysninger.",
-          "Partner Success gennemgår ansøgningen og bekræfter næste trin.",
-          "Gennemfør certificering inden for platform, styring og kundepositionering.",
-          "Få adgang til Growth Partner-portalen og byg din kundeportefølje."
+          "Aipify vurderer ansøgningen og bekræfter næste skridt.",
+          "Gennemfør nødvendig partner-onboarding for de produkter, du skal repræsentere.",
+          "Efter godkendelse kan du præsentere Kompis Web og Kompis Bedrift efter partneraftalen."
         ]
       }
     },
     "form": {
-      "title": "Ansøg som Growth Partner",
-      "stepAbout": "Om dig",
-      "stepBusiness": "Virksomhed",
-      "stepAccount": "Konto",
-      "stepCounter": "Trin {current} af {total}",
-      "continue": "Fortsæt",
-      "back": "Tilbage",
-      "password": "Adgangskode",
-      "passwordConfirm": "Bekræft adgangskode",
-      "fullName": "Fulde navn",
-      "professionalRole": "Erhvervsrolle",
-      "professionalRoleOptional": "valgfrit",
-      "companyName": "Firmanavn",
-      "businessRegistrationNumber": "CVR-nummer",
-      "businessRegistrationHelper": "Angiv officielt virksomheds- eller registreringsnummer.",
+      "title": "Ansøg om at blive Growth Partner",
+      "stepAbout": "About you",
+      "stepBusiness": "Business",
+      "stepAccount": "Account",
+      "stepCounter": "Step {current} of {total}",
+      "continue": "Continue",
+      "back": "Back",
+      "password": "Password",
+      "passwordConfirm": "Confirm password",
+      "fullName": "Full name",
+      "professionalRole": "Professional role",
+      "professionalRoleOptional": "optional",
+      "companyName": "Company name",
+      "businessRegistrationNumber": "Business registration number",
+      "businessRegistrationHelper": "Enter your official business registration identifier.",
       "businessRegistrationHelpers": {
-        "NO": "Organisationsnummer / Org.nr",
+        "NO": "Organization Number / Org.nr",
         "SE": "Organisationsnummer",
-        "DK": "CVR-nummer",
+        "DK": "CVR Number",
         "FI": "Business ID / Y-tunnus",
         "GB": "Company Number",
-        "US": "EIN eller virksomhedsregistreringsnummer",
-        "DE": "Handelsregisternummer eller Steuernummer",
+        "US": "EIN or business registration number",
+        "DE": "Handelsregisternummer or Steuernummer",
         "FR": "SIREN / SIRET",
-        "NL": "KvK-nummer",
+        "NL": "KvK Number",
         "ES": "CIF / NIF",
         "IT": "Partita IVA",
-        "EU": "Momsnummer eller virksomhedsregistreringsnummer",
-        "OTHER": "Virksomhedsregistreringsnummer, skatte-ID, selskabsnummer eller tilsvarende lokalt nummer."
+        "EU": "VAT number or company registration number",
+        "OTHER": "Business registration number, tax ID, company number, or local equivalent."
       },
-      "country": "Land",
+      "country": "Country",
       "countryOptions": {
-        "NO": "Norge",
-        "SE": "Sverige",
-        "DK": "Danmark",
+        "NO": "Norway",
+        "SE": "Sweden",
+        "DK": "Denmark",
         "FI": "Finland",
-        "GB": "Storbritannien",
-        "US": "USA",
-        "DE": "Tyskland",
-        "FR": "Frankrig",
-        "NL": "Nederlandene",
-        "ES": "Spanien",
-        "IT": "Italien",
-        "EU": "Andet EU-land",
-        "OTHER": "Andet"
+        "GB": "United Kingdom",
+        "US": "United States",
+        "DE": "Germany",
+        "FR": "France",
+        "NL": "Netherlands",
+        "ES": "Spain",
+        "IT": "Italy",
+        "EU": "Other EU",
+        "OTHER": "Other"
       },
-      "address": "Adresse",
+      "address": "Address",
       "website": "Website",
-      "websiteOptional": "valgfrit",
-      "market": "Primært marked",
-      "marketOptional": "valgfrit",
-      "experience": "Relevant erfaring",
-      "experienceOptional": "valgfrit",
-      "phoneCountryCode": "Landekode",
-      "phoneNumber": "Telefonnummer",
-      "email": "E-mail",
-      "checkboxRegisteredBusiness": "Jeg bekræfter, at jeg driver via registreret virksomhed.",
-      "checkboxCertification": "Jeg forstår, at jeg skal gennemføre Aipify-træning og certificering, før jeg kan sælge aktivt.",
-      "checkboxInfoAccurate": "Jeg bekræfter, at de oplysninger, jeg giver, er korrekte.",
-      "checkboxTerms": "Jeg accepterer",
-      "termsLinkLabel": "vilkår for Growth Partners",
-      "submit": "Ansøg som Growth Partner",
-      "submitting": "Sender ansøgningen …",
-      "errorGeneric": "Noget gik galt. Prøv igen.",
-      "errorPasswordMismatch": "Adgangskoderne skal være ens og mindst otte tegn.",
-      "errorRequired": "Dette felt er påkrævet.",
-      "legalNote": "Ved registrering bekræfter du, at du driver selvstændigt, håndterer egne skatte- og rapporteringsforpligtelser og repræsenterer Aipify Group AS professionelt.",
-      "successTitle": "Ansøgning modtaget",
-      "successBody": "Tak for ansøgningen. Partner Success gennemgår den og vejleder dig gennem certificering.",
+      "websiteOptional": "optional",
+      "market": "Primary market",
+      "marketOptional": "optional",
+      "experience": "Relevant experience",
+      "experienceOptional": "optional",
+      "phoneCountryCode": "Phone country code",
+      "phoneNumber": "Phone number",
+      "email": "Email",
+      "checkboxRegisteredBusiness": "I confirm that I operate through a registered business.",
+      "checkboxCertification": "I understand that I must complete Aipify training and certification before becoming an active seller.",
+      "checkboxInfoAccurate": "I confirm that the information I provide is correct.",
+      "checkboxTerms": "I agree to the",
+      "termsLinkLabel": "Growth Partner Terms & Conditions",
+      "submit": "Ansøg om at blive Growth Partner",
+      "submitting": "Submitting your application…",
+      "errorGeneric": "Something went wrong. Please try again.",
+      "errorPasswordMismatch": "Passwords must match and be at least 8 characters.",
+      "errorRequired": "This field is required.",
+      "legalNote": "By registering, you confirm that you operate independently, handle your own tax and reporting obligations, and represent Aipify Group AS professionally.",
+      "successTitle": "Application received",
+      "successBody": "Tak for ansøgningen. Aipify vurderer den og bekræfter næste skridt.",
       "successReferenceLabel": "Reference",
-      "successNextStepsTitle": "Dine næste trin",
+      "successNextStepsTitle": "Your next steps",
       "successNextSteps": [
-        "Tjek din e-mail for kontobekræftelse, hvis det er nødvendigt.",
-        "Log ind i dit Growth Partner-arbejdsområde.",
-        "Gennemfør profilen og start certificeringstræningen.",
-        "Send spørgsmål til partners@aipify.ai under onboarding."
+        "Check your email to confirm your account if required.",
+        "Sign in to your Growth Partner workspace when invited.",
+        "Complete any required onboarding for the products you will represent.",
+        "Email partners@aipify.ai if you have questions during onboarding."
       ],
-      "successContact": "Spørgsmål? Send e-mail til partners@aipify.ai eller brug kontaktsiden — vi svarer med tydelige næste trin.",
-      "successPortalCta": "Fortsæt til Growth Partner-arbejdsområde"
+      "successContact": "Questions? Email partners@aipify.ai or use the contact page — we respond with clear next steps.",
+      "successPortalCta": "Continue to Growth Partner workspace"
     },
     "split": {
       "youBuild": {
-        "title": "Det du bygger",
+        "title": "What you do as a partner",
         "items": [
-          "Generer og kvalificer kundeemner på dit marked.",
-          "Byg tillidsfulde kunderelationer.",
-          "Vejled onboarding og implementering.",
-          "Lever ydelser omkring kundesucces.",
-          "Udvikl en langsigtet kundeportefølje."
+          "Introduce Kompis Web and Kompis Bedrift to businesses in your market.",
+          "Build trusted customer relationships around real needs.",
+          "Guide customers through onboarding when that is part of your service.",
+          "Follow partner terms for accurate representation of what is available today.",
+          "Grow a long-term portfolio of attributed customers."
         ]
       },
       "aipifyProvides": {
-        "title": "Det Aipify leverer",
+        "title": "What Aipify delivers",
         "items": [
-          "Virksomhedsplatform og Business Packs.",
-          "Træning og professionel certificering.",
-          "Growth Partner-portal og salgsressourcer.",
-          "Provisionssporing og attribuering.",
-          "Afregnings- og udbetalingsgennemgang.",
-          "Løbende produktudvikling og platformsstøtte."
+          "Kompis Web — public answers from approved website content and published FAQ, with relevant sources.",
+          "Kompis Bedrift — a closed workspace direction for employees and internal knowledge (communicate only shipped capabilities).",
+          "Aipify Core as the shared engine for knowledge, language, and governance.",
+          "Partner application, review, and agreement process.",
+          "Commission terms for eligible sales covered by the partner agreement.",
+          "Ongoing product development for Web and Bedrift."
         ]
       }
     },
     "portalPreview": {
-      "title": "Forhåndsvisning af partnerportal",
-      "subtitle": "Ét arbejdsområde for kundeemner, provision, certificering og ressourcer — illustrativ visning.",
+      "title": "Partner workspace (illustrative)",
+      "subtitle": "Illustrative preview of a partner workspace — not a live data view. Actual tools appear after approval and access.",
       "tabs": {
-        "leads": "Kundeemner",
-        "commissions": "Provision",
-        "certification": "Certificering",
-        "resources": "Ressourcer"
+        "leads": "Leads",
+        "commissions": "Commissions",
+        "certification": "Certification",
+        "resources": "Resources"
       },
-      "previewNote": "Illustrativ forhåndsvisning — faktiske data vises efter godkendelse og portaladgang.",
+      "previewNote": "Illustrative demo only — sample values are not live metrics.",
       "leads": {
-        "heading": "Kundeemne-pipeline",
+        "heading": "Lead pipeline",
         "rows": [
           {
-            "label": "Nye henvendelser",
-            "value": "Eksempelvisning"
+            "label": "New inquiries",
+            "value": "Sample view"
           },
           {
-            "label": "Under vurdering",
-            "value": "Eksempelvisning"
+            "label": "In review",
+            "value": "Sample view"
           },
           {
-            "label": "Kvalificeret",
-            "value": "Eksempelvisning"
+            "label": "Qualified",
+            "value": "Sample view"
           },
           {
-            "label": "Attribuerede kunder",
-            "value": "Eksempelvisning"
+            "label": "Attributed customers",
+            "value": "Sample view"
           }
         ]
       },
       "commissions": {
-        "heading": "Provisionsoversigt",
+        "heading": "Commission overview",
         "rows": [
           {
-            "label": "Aktive kunder",
-            "value": "Spores i portalen"
+            "label": "Active customers",
+            "value": "Tracked in portal"
           },
           {
-            "label": "Ventende provision",
-            "value": "Spores i portalen"
+            "label": "Pending commissions",
+            "value": "Tracked in portal"
           },
           {
-            "label": "Udbetalingsstatus",
-            "value": "Synlig efter certificering"
+            "label": "Payout status",
+            "value": "Visible after certification"
           },
           {
-            "label": "Attribueringsregler",
-            "value": "Regler vist i Growth Partner-portalen"
+            "label": "Attribution rules",
+            "value": "Rules shown in Growth Partner portal"
           }
         ]
       },
       "certification": {
-        "heading": "Certificeringsfremdrift",
+        "heading": "Certification progress",
         "modules": [
           {
-            "name": "Platformgrundlag",
-            "status": "Påkrævet"
+            "name": "Kompis Web fundamentals",
+            "status": "Planned / required when offered"
           },
           {
-            "name": "Business Packs",
-            "status": "Påkrævet"
+            "name": "Kompis Bedrift fundamentals",
+            "status": "Planned / required when offered"
           },
           {
-            "name": "Companion og styring",
-            "status": "Påkrævet"
+            "name": "Responsible selling & security basics",
+            "status": "Required when offered"
           },
           {
-            "name": "Kundepositionering",
-            "status": "Påkrævet"
+            "name": "Customer positioning",
+            "status": "Required when offered"
           }
         ]
       },
       "resources": {
-        "heading": "Partnerressourcer",
+        "heading": "Partner resources",
         "items": [
-          "Salgsmateriale",
-          "Demomateriale",
-          "Partnertræning",
-          "Videnscenter",
-          "Brandretningslinjer",
-          "Provisionsdokumentation"
+          "Product overview for Kompis Web",
+          "Product overview for Kompis Bedrift",
+          "Partner onboarding materials (when available)",
+          "Knowledge Center",
+          "Brand guidelines",
+          "Partner agreement overview"
         ]
       }
     },
     "journey": {
-      "title": "Sådan fungerer partnerskabet",
+      "title": "How partnership works",
       "steps": [
         {
-          "title": "Ansøg",
-          "description": "Send virksomhedsoplysninger i en kort guidet ansøgning."
+          "title": "Apply",
+          "description": "Submit company or sole proprietorship details in the guided application on this page."
         },
         {
-          "title": "Gennemgang",
-          "description": "Partner Success gennemgår ansøgningen og bekræfter kravene."
+          "title": "Review",
+          "description": "Aipify reviews your application against current partner requirements."
         },
         {
-          "title": "Certificering",
-          "description": "Gennemfør træning i platform, Business Packs, Companion og styring."
+          "title": "Onboarding",
+          "description": "Complete required onboarding for Kompis Web, Kompis Bedrift, security basics, and responsible selling when those modules are offered."
         },
         {
-          "title": "Godkendelse",
-          "description": "Efter certificeringsgennemgang får du aktiv partnerstatus."
+          "title": "Approval",
+          "description": "Selling rights follow successful review and any required onboarding — not before."
         },
         {
-          "title": "Portaladgang",
-          "description": "Få adgang til kundeemner, provision, træning og marketingmateriale."
+          "title": "Represent",
+          "description": "Present approved Aipify products under the partner agreement."
         },
         {
-          "title": "Byg og tjen",
-          "description": "Udvikl porteføljen med transparent provisionssporing — indtægt afhænger af din aktivitet."
+          "title": "Earn",
+          "description": "Commission on eligible sales follows the current partner agreement. Income is not guaranteed."
         }
       ]
     },
     "certification": {
-      "title": "Træning og certificering",
-      "intro": "Alle Growth Partners gennemfører certificering før aktivt salg. Programmet sikrer, at du kan positionere Aipify professionelt og opbygge kundetillid.",
+      "title": "Training and onboarding",
+      "intro": "Partners should understand Kompis Web, Kompis Bedrift, basic security, and responsible selling before representing Aipify. Exact modules follow what Aipify currently offers in partner onboarding.",
       "topics": [
-        "Platformgrundlag",
-        "Business Packs",
-        "Companion",
-        "Styring",
-        "Operationel værdi",
-        "Kundepositionering"
+        "Kompis Web",
+        "Kompis Bedrift",
+        "Security basics",
+        "Responsible selling",
+        "Source-based answers",
+        "Customer positioning"
       ],
-      "note": "Certificeringen vedrører Aipify-produkt og salgstræning. Den indebærer ikke offentlig, statslig eller uafhængig professionel autorisation."
+      "note": "Onboarding covers Aipify product positioning. It does not imply public, government, or independent professional authorization. Planned add-ons such as Design Studio or AI Translator are not available to sell as live products until released."
     },
     "commission": {
-      "title": "Provision og attribuering",
-      "intro": "Partnere skal vide, hvad de har optjent, hvorfor, hvornår udbetaling sker, og hvordan resultatet beregnes — uden løfte om faste satser.",
-      "lifecycleTitle": "Provisionens livscyklus",
+      "title": "Commission and attribution",
+      "intro": "Commission, earning, and payout follow the current partner agreement and approved registrations — without promised fixed rates on this page.",
+      "lifecycleTitle": "Commission lifecycle",
       "lifecycleStages": [
-        "Kundeattribuering til din partnerkonto",
-        "Kvalificering efter regler vist i Growth Partner-portalen",
-        "Aktivt abonnement og kundestatus",
-        "Provisionsopbygning efter vilkår vist i Growth Partner-portalen",
-        "Gennemgang og godkendelse af udbetaling",
-        "Udbetaling til registreret virksomhed"
+        "Customer attribution to your partner account",
+        "Qualification against rules shown in the Growth Partner portal",
+        "Active subscription and customer status",
+        "Commission accrual per terms shown in the Growth Partner portal",
+        "Payout review and approval",
+        "Payout to your registered business"
       ],
-      "exampleTitle": "Eksempel på provisionsvisning",
+      "exampleTitle": "Example commission view",
       "exampleRows": [
         {
-          "label": "Attribueringsstatus",
-          "value": "Synlig i portalen"
+          "label": "Attribution status",
+          "value": "Visible in portal"
         },
         {
-          "label": "Provisionsgrundlag",
-          "value": "Regler vist i Growth Partner-portalen"
+          "label": "Commission basis",
+          "value": "Rules shown in Growth Partner portal"
         },
         {
-          "label": "Udbetalingsperiode",
-          "value": "Efter partnervilkår"
+          "label": "Payout period",
+          "value": "Per partner terms"
         },
         {
-          "label": "Historik og revision",
-          "value": "Fuldt spor i portalen"
+          "label": "History & audit",
+          "value": "Full trail in portal"
         }
       ],
-      "disclaimer": "Ingen garanteret indtægt eller faste provisionssatser. Indtægt afhænger af aktivitet, kundefastholdelse, planværdi og aktiv partnerstatus. Regler vises i Growth Partner-portalen."
+      "disclaimer": "No guaranteed income or fixed commission rates on this page. Earnings depend on your activity, eligible sales, and the current partner agreement."
     },
     "requirements": {
-      "title": "Krav",
+      "title": "Requirements",
       "cards": [
         {
-          "title": "Registreret virksomhed",
-          "body": "Driv gennem et lovligt registreret selskab med gyldig registrering i dit land."
+          "title": "Registered company or sole proprietorship",
+          "body": "Apply as a company or sole proprietorship (ENK) with valid business registration details for your jurisdiction."
         },
         {
-          "title": "Certificering påkrævet",
-          "body": "Gennemfør Aipify-træning og certificering, før aktive salgsrettigheder tildeles."
+          "title": "Certification required",
+          "body": "Complete Aipify training and certification before active selling rights are granted."
         },
         {
-          "title": "Professionel optræden",
-          "body": "Repræsenter Aipify Group AS professionelt og følg retningslinjer for brand og styring."
+          "title": "Professional conduct",
+          "body": "Represent Aipify Group AS professionally and follow brand and governance guidelines."
         },
         {
-          "title": "Transparent rapportering",
-          "body": "Hold korrekte registre for skat og rapportering i din selvstændige virksomhed."
+          "title": "Transparent reporting",
+          "body": "Maintain accurate records for your independent business tax and reporting obligations."
         }
       ],
-      "checklistTitle": "Før du ansøger",
+      "checklistTitle": "Before you apply",
       "checklistItems": [
-        "Registreret virksomhed med gyldige registreringsoplysninger",
-        "Forståelse af, at certificering kræves før salg",
-        "Forpligtelse til korrekte oplysninger og professionel repræsentation",
-        "Accept af vilkår for Growth Partners"
+        "Company or sole proprietorship with valid registration details",
+        "Understanding that approval is required before selling",
+        "Commitment to accurate information and professional representation",
+        "Acceptance of Growth Partner Terms & Conditions"
       ],
-      "copy": "Gyldig virksomhedsregistrering og gennemført certificering er påkrævet. Aipify garanterer ikke indtægt — resultat afhænger af aktivitet og kundeudfald."
+      "copy": "Valid registration and approval are required before selling rights. Aipify does not guarantee income — earnings depend on your activity and the partner agreement."
     },
     "businessModel": {
-      "title": "Selvstændig forretningsmodel",
-      "intro": "Growth Partners driver selvstændigt, mens de repræsenterer Aipify — som konsulenter, rådgivere og implementeringspartnere.",
+      "title": "Independent business model",
+      "intro": "Growth Partners are independent registered businesses that apply for partnership and may sell approved Aipify products against agreed commission.",
       "columns": [
         {
-          "title": "Partnerens ansvar",
+          "title": "Partner responsibilities",
           "items": [
-            "Generering af kundeemner og kunderelationer",
-            "Onboarding og implementeringstjenester",
-            "Lokal drift og efterlevelse",
-            "Skat og rapportering for dit selskab"
+            "Lead generation and customer relationships",
+            "Onboarding and implementation services",
+            "Local business operations and compliance",
+            "Tax and reporting for your company"
           ]
         },
         {
-          "title": "Aipifys ansvar",
+          "title": "Aipify responsibilities",
           "items": [
-            "Platformleverance og abonnement",
-            "Produktudvikling og styring",
-            "Partnerportal og provisionsinfrastruktur",
-            "Certificering og støtte fra Partner Success"
+            "Kompis Web and Kompis Bedrift product delivery",
+            "Core platform development and governance",
+            "Partner application and agreement process",
+            "Commission terms under the partner agreement"
           ]
         },
         {
-          "title": "Kundeejerskab",
+          "title": "Customer ownership",
           "items": [
-            "Kunder tilhører Aipify Platform",
-            "Partnere får attribuering og provision",
-            "Partnere ejer ikke kundekonti",
-            "Relationer bygges gennem professionelt partnerskab"
+            "Customer accounts are administered on the Aipify Platform under platform terms",
+            "Partners receive attribution and commission per the partner agreement",
+            "Partners do not independently own customer platform accounts",
+            "Commercial details follow the signed partner agreement"
           ]
         }
       ]
     },
     "faq": {
-      "title": "Ofte stillede spørgsmål",
+      "title": "Frequently asked questions",
       "items": [
         {
-          "question": "Hvad er en Aipify Growth Partner?",
-          "answer": "En selvstændig forretningsprofessionel, der hjælper organisationer med at tage Aipify i brug. Partnere bygger kunderelationer, gennemfører certificering og tjener provision gennem et transparent program — ikke et affiliate-setup."
+          "question": "What is an Aipify Growth Partner?",
+          "answer": "A registered company or sole proprietorship that applies to present Kompis Web and Kompis Bedrift and earn commission on eligible sales under the partner agreement — not a simple affiliate link program."
         },
         {
-          "question": "Er dette et affiliate- eller henvisningsprogram?",
-          "answer": "Nej. Growth Partners driver registrerede virksomheder, gennemfører certificering og bygger langsigtede porteføljer. Aipify leverer platform, styring og partnerstøtte."
+          "question": "Is this an affiliate or referral program?",
+          "answer": "No. Growth Partners operate registered businesses, complete required review/onboarding, and build longer-term customer relationships under partner terms."
         },
         {
-          "question": "Hvad kræves for at ansøge?",
-          "answer": "Registreret virksomhed, korrekte registreringsoplysninger, accept af partnervilkår og gennemført certificering før aktive salgsrettigheder."
+          "question": "What are the requirements to apply?",
+          "answer": "Provide accurate registration details for a company or sole proprietorship, accept the Growth Partner Terms, and complete review before any selling rights."
         },
         {
-          "question": "Hvordan fungerer certificering?",
-          "answer": "Efter ansøgningsvurdering gennemfører du træning i platform, Business Packs, Companion, styring og kundepositionering. Certificering kræves, før du repræsenterer Aipify over for kunder."
+          "question": "Which products can I present?",
+          "answer": "Primary products are Kompis Web and Kompis Bedrift, with Aipify Core as the shared engine. Do not present planned add-ons as available unless released."
         },
         {
-          "question": "Hvornår kan jeg begynde at sælge?",
-          "answer": "Aktive salgsrettigheder gives efter certificering og partnergodkendelse. Indtil da vejleder Partner Success dig gennem onboarding og træning."
+          "question": "When can I start selling?",
+          "answer": "Selling rights follow application review and any required onboarding. Until then, you should not represent Aipify as an approved active seller."
         },
         {
-          "question": "Hvordan spores provision?",
-          "answer": "Attribuering, regler, optjening og udbetalingshistorik er synlige i partnerportalen. Beregning følger vilkår vist i Growth Partner-portalen — ikke skjulte formler eller løfter om faste satser."
+          "question": "How are commissions handled?",
+          "answer": "Commission, earning, and payout follow the current partner agreement and approved registrations. This page does not publish rates or payout schedules."
         },
         {
-          "question": "Ejer jeg de kunder, jeg formidler?",
-          "answer": "Kunder tilhører Aipify Platform. Growth Partners får attribuering og provision for kvalificerede introduktioner, men ejer ikke kundekonti."
+          "question": "Do I own the customers I bring?",
+          "answer": "Customer accounts are administered on the Aipify Platform. Partners receive attribution and commission according to the partner agreement."
         },
         {
-          "question": "Hvilken støtte giver Aipify?",
-          "answer": "Partner Success fra Aipify Group AS støtter onboarding og certificering. Partnere får også salgsmateriale, demomateriale, træning og Videnscenter via portalen."
+          "question": "What support does Aipify provide?",
+          "answer": "Aipify provides product, partner process, and contact through partners@aipify.ai. Specific portal tools depend on what is enabled after approval."
         },
         {
-          "question": "Kan jeg arbejde i flere lande?",
-          "answer": "Partnere kan betjene markeder, hvor Aipify er tilgængelig og i tråd med partnervilkår. Afklar internationalt omfang med Partner Success under onboarding."
+          "question": "Can sole proprietorships (ENK) apply?",
+          "answer": "Yes. Companies and sole proprietorships may apply when they meet registration and partner requirements."
         },
         {
-          "question": "Hvordan kommer jeg i gang?",
-          "answer": "Gennemfør ansøgningen på denne side. Partner Success gennemgår den og vejleder dig gennem certificering og portaladgang."
+          "question": "How do I get started?",
+          "answer": "Complete the application on this page. Aipify reviews your submission and confirms next steps."
         }
       ]
     },
     "finalCta": {
-      "title": "Klar til at bygge virksomhed med Aipify?",
-      "subtitle": "Ansøg som certificeret Growth Partner — professionelt partnerskab, transparent provision og støtte fra Partner Success.",
-      "primary": "Ansøg som Growth Partner",
-      "secondary": "Kontakt Partner Success"
+      "title": "Klar til at blive partner med Aipify?",
+      "subtitle": "Ansøg som Growth Partner for Kompis Web og Kompis Bedrift. Provision følger partneraftalen — indkomst er ikke garanteret.",
+      "primary": "Ansøg om at blive Growth Partner",
+      "secondary": "Kontakt partners@aipify.ai"
     },
     "partnerAdvisor": {
-      "title": "Partner Success",
-      "teamName": "Partner Success",
-      "location": "Bergen, Norge",
-      "photoPlaceholder": "Partner Success",
-      "role": "Onboarding for Growth Partners",
-      "availability": "Tilgængelig for onboarding og certificeringsvejledning",
-      "contactLabel": "Kontakt",
+      "title": "Partner Success Team",
+      "teamName": "Partner Success Team",
+      "location": "Bergen, Norway",
+      "photoPlaceholder": "Partner Success Team",
+      "role": "Growth Partner onboarding",
+      "availability": "Contact for onboarding questions",
+      "contactLabel": "Contact",
       "contactPath": "partners@aipify.ai",
       "services": [
-        "Onboarding for Growth Partners",
-        "Certificeringsvejledning",
-        "Partnerstøtte",
-        "Partnerudvikling"
+        "Growth Partner onboarding questions",
+        "Application guidance",
+        "Partner process assistance",
+        "Product orientation for Web and Bedrift"
       ]
     },
-    "footerNote": "Aipify Group AS · Bergen, Norge · partners@aipify.ai"
+    "footerNote": "Aipify Group AS · Bergen, Norway · partners@aipify.ai"
   },
   "knowledgePageRedesign": {
     "hero": {

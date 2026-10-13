@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PublicAccessAtmosphere } from "@/components/auth/PublicAccessAtmosphere";
 
 type AuthLayoutProps = {
   appName: string;
@@ -9,6 +10,7 @@ type AuthLayoutProps = {
   bare?: boolean;
   alignTop?: boolean;
   trustNote?: string;
+  showMascot?: boolean;
 };
 
 export default function AuthLayout({
@@ -20,21 +22,19 @@ export default function AuthLayout({
   bare = false,
   alignTop = false,
   trustNote,
+  showMascot = true,
 }: AuthLayoutProps) {
   return (
-    <div className="relative flex min-h-screen flex-col bg-gray-50">
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute -top-32 right-0 h-96 w-96 rounded-full bg-blue-100/50 blur-3xl" />
-        <div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-violet-100/40 blur-3xl" />
-      </div>
+    <div className="relative flex min-h-screen flex-col text-[#1f2235]">
+      <PublicAccessAtmosphere showMascot={showMascot} />
 
-      <header className="relative z-10 border-b border-gray-200/80 bg-white/90 backdrop-blur-md">
+      <header className="relative z-10 border-b border-[rgba(96,82,176,.12)] bg-white/85 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-violet-600 text-sm font-bold text-white">
+          <Link href="/" className="flex items-center gap-2 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5577f2]/38] focus-visible:ring-offset-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[linear-gradient(135deg,#7357e8,#5577f2)] text-sm font-bold text-white shadow-sm">
               A
             </span>
-            <span className="text-xl font-bold tracking-tight text-gray-900">
+            <span className="text-xl font-bold tracking-tight text-[#1f2235]">
               {appName}
             </span>
           </Link>
@@ -50,10 +50,10 @@ export default function AuthLayout({
           {title || subtitle ? (
             <div className="mb-8 text-center">
               {title ? (
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{title}</h1>
+                <h1 className="text-3xl font-bold tracking-tight text-[#1f2235] sm:text-4xl">{title}</h1>
               ) : null}
               {subtitle ? (
-                <p className="mt-3 text-base text-gray-600 sm:text-lg">{subtitle}</p>
+                <p className="mt-3 text-base text-[#687086] sm:text-lg">{subtitle}</p>
               ) : null}
             </div>
           ) : null}
@@ -61,12 +61,12 @@ export default function AuthLayout({
           {bare ? (
             children
           ) : (
-            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-xl shadow-gray-200/50 sm:p-8">
+            <div className="rounded-[28px] border border-[rgba(96,82,176,.15)] bg-white p-6 shadow-[0_12px_30px_rgba(38,33,87,.07)] sm:p-8">
               {children}
             </div>
           )}
           {trustNote ? (
-            <p className="mt-4 text-center text-sm text-gray-500">{trustNote}</p>
+            <p className="mt-4 text-center text-sm text-[#687086]">{trustNote}</p>
           ) : null}
         </div>
       </main>
