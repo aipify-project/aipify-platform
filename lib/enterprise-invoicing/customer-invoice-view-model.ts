@@ -3,7 +3,8 @@
  * Never invents payment URLs, PDF originals, or billing periods.
  */
 
-import type { EnterpriseInvoice, InvoiceStatus } from "./types";
+import type { InvoiceStatus } from "./constants";
+import type { EnterpriseInvoice } from "./types";
 
 export type CustomerInvoiceBucket =
   | "overdue"
