@@ -39,9 +39,16 @@ const STATUS_STYLES: Record<WpkfStatus, string> = {
   archived: "bg-amber-100 text-amber-800",
 };
 
-function createEmptyDraft(): WebsiteKompisFaqUpsertInput {
+type OwnedSiteOption = {
+  installId: string;
+  domain: string;
+};
+
+function createEmptyDraft(site?: OwnedSiteOption | null): WebsiteKompisFaqUpsertInput {
   return {
     itemId: null,
+    installId: site?.installId ?? null,
+    domain: site?.domain ?? null,
     locale: "no",
     title: "",
     question: "",
@@ -108,7 +115,19 @@ export function WebsiteKompisFaqAdminPanel({
   const [contentTypeFilter, setContentTypeFilter] = useState<WpkfContentType | "">("");
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestFromFeedback, setSuggestFromFeedback] = useState(false);
+  const [sites, setSites] = useState<OwnedSiteOption[]>([]);
+  const [selectedInstallId, setSelectedInstallId] = useState<string>("");
+  const [siteState, setSiteState] = useState<"no_sites" | "single_site" | "multi_site" | "loading">(
+    "loading",
+  );
+  const [legacyNullVisible, setLegacyNullVisible] = useState(false);
+  const [requiresSiteSelection, setRequiresSiteSelection] = useState(false);
   const searchParams = useSearchParams();
+
+  const selectedSite = useMemo(
+    () => sites.find((site) => site.installId === selectedInstallId) ?? null,
+    [selectedInstallId, sites],
+  );
 
   const riskyWords = useMemo(
     () =>
@@ -137,6 +156,7 @@ export function WebsiteKompisFaqAdminPanel({
     if (localeFilter) params.set("locale", localeFilter);
     if (contentTypeFilter) params.set("contentType", contentTypeFilter);
     if (searchQuery.trim()) params.set("query", searchQuery.trim());
+    if (selectedInstallId) params.set("installId", selectedInstallId);
 
     const res = await fetch(`/api/website-kompis/faq?${params.toString()}`);
     if (res.status === 403) {
@@ -146,7 +166,17 @@ export function WebsiteKompisFaqAdminPanel({
       return;
     }
 
-    const body = (await res.json()) as { items?: WebsiteKompisFaqItem[]; error?: string };
+    const body = (await res.json()) as {
+      items?: WebsiteKompisFaqItem[];
+      error?: string;
+      siteContext?: {
+        state?: "no_sites" | "single_site" | "multi_site";
+        selectedInstallId?: string | null;
+        sites?: OwnedSiteOption[];
+        requiresSiteSelection?: boolean;
+        legacyNullVisible?: boolean;
+      };
+    };
     if (!res.ok) {
       setError(body.error ?? labels.errorGeneric);
       setItems([]);
@@ -154,9 +184,54 @@ export function WebsiteKompisFaqAdminPanel({
       return;
     }
 
+    const nextSites = body.siteContext?.sites ?? [];
+    if (nextSites.length > 0) {
+      setSites(nextSites);
+      setSiteState(body.siteContext?.state ?? (nextSites.length === 1 ? "single_site" : "multi_site"));
+      const nextSelected =
+        body.siteContext?.selectedInstallId ??
+        selectedInstallId ??
+        (nextSites.length === 1 ? nextSites[0]!.installId : "");
+      if (nextSelected && nextSelected !== selectedInstallId) {
+        setSelectedInstallId(nextSelected);
+      }
+    } else if (body.siteContext?.state === "no_sites") {
+      setSites([]);
+      setSiteState("no_sites");
+    }
+
+    setRequiresSiteSelection(body.siteContext?.requiresSiteSelection === true);
+    setLegacyNullVisible(body.siteContext?.legacyNullVisible === true);
     setItems(body.items ?? []);
     setLoading(false);
-  }, [contentTypeFilter, labels.errorGeneric, localeFilter, searchQuery, statusFilter]);
+  }, [
+    contentTypeFilter,
+    labels.errorGeneric,
+    localeFilter,
+    searchQuery,
+    selectedInstallId,
+    statusFilter,
+  ]);
+
+  useEffect(() => {
+    void (async () => {
+      const res = await fetch("/api/website-kompis/sites");
+      if (!res.ok) {
+        setSiteState("no_sites");
+        return;
+      }
+      const body = (await res.json()) as {
+        sites?: OwnedSiteOption[];
+        state?: "no_sites" | "single_site" | "multi_site";
+      };
+      const nextSites = body.sites ?? [];
+      setSites(nextSites);
+      setSiteState(body.state ?? (nextSites.length === 0 ? "no_sites" : nextSites.length === 1 ? "single_site" : "multi_site"));
+      if (nextSites.length === 1) {
+        setSelectedInstallId(nextSites[0]!.installId);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     void refresh();
@@ -168,7 +243,7 @@ export function WebsiteKompisFaqAdminPanel({
       const suggestLocale = searchParams.get("suggestLocale")?.trim() || "no";
       const fromFeedback = searchParams.get("fromFeedback") === "1";
       setDraft({
-        ...createEmptyDraft(),
+        ...createEmptyDraft(selectedSite),
         locale: suggestLocale.slice(0, 16),
         title: suggestQuestion.slice(0, 120),
         question: suggestQuestion.slice(0, 2000),
@@ -180,7 +255,7 @@ export function WebsiteKompisFaqAdminPanel({
       return;
     }
     if (searchParams.get("create") === "1") {
-      setDraft(createEmptyDraft());
+      setDraft(createEmptyDraft(selectedSite));
       setSuggestFromFeedback(false);
       setEditorOpen(true);
       setError(null);
@@ -188,10 +263,10 @@ export function WebsiteKompisFaqAdminPanel({
     if (searchParams.get("status") === "draft") {
       setStatusFilter("draft");
     }
-  }, [searchParams]);
+  }, [searchParams, selectedSite]);
 
   function openCreate() {
-    setDraft(createEmptyDraft());
+    setDraft(createEmptyDraft(selectedSite));
     setSuggestFromFeedback(false);
     setEditorOpen(true);
     setError(null);
@@ -207,7 +282,7 @@ export function WebsiteKompisFaqAdminPanel({
     setEditorOpen(false);
     setPublishDialogOpen(false);
     setSuggestFromFeedback(false);
-    setDraft(createEmptyDraft());
+    setDraft(createEmptyDraft(selectedSite));
   }
 
   async function saveDraft() {
@@ -338,6 +413,47 @@ export function WebsiteKompisFaqAdminPanel({
         {labels.warningBanner}
       </div>
 
+      <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-3">
+        <div>
+          <p className="text-sm font-semibold text-slate-900">{labels.siteContext.label}</p>
+          <p className="mt-1 text-sm text-slate-600">{labels.siteContext.hint}</p>
+        </div>
+        {siteState === "no_sites" ? (
+          <p className="text-sm text-amber-900">{labels.siteContext.noSites}</p>
+        ) : null}
+        {siteState === "multi_site" || siteState === "single_site" ? (
+          <label className="block text-sm">
+            <span className="mb-1 block text-xs font-medium text-slate-600">
+              {labels.siteContext.label}
+            </span>
+            <select
+              value={selectedInstallId}
+              onChange={(event) => setSelectedInstallId(event.target.value)}
+              disabled={siteState === "single_site"}
+              className="w-full max-w-md rounded-md border border-slate-300 px-3 py-2 text-sm"
+            >
+              {siteState === "multi_site" ? (
+                <option value="">{labels.siteContext.selectRequired}</option>
+              ) : null}
+              {sites.map((site) => (
+                <option key={site.installId} value={site.installId}>
+                  {site.domain}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : null}
+        {requiresSiteSelection ? (
+          <p className="text-sm font-medium text-amber-900">{labels.siteContext.selectRequired}</p>
+        ) : null}
+        {legacyNullVisible ? (
+          <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
+            {labels.siteContext.legacyWarning}
+          </p>
+        ) : null}
+        <p className="text-xs text-slate-500">{labels.siteContext.visitorPartialNote}</p>
+      </section>
+
       {error ? (
         <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
           {error}
@@ -450,7 +566,20 @@ export function WebsiteKompisFaqAdminPanel({
                 <tbody>
                   {items.map((item) => (
                     <tr key={item.id} className="border-b border-slate-100">
-                      <td className="px-4 py-3 font-medium text-slate-900">{item.title}</td>
+                      <td className="px-4 py-3 font-medium text-slate-900">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span>{item.title}</span>
+                          {item.scope?.isLegacyTenantGlobal ? (
+                            <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-900">
+                              {labels.siteContext.legacyBadge}
+                            </span>
+                          ) : item.installId ? (
+                            <span className="rounded-full bg-violet-100 px-2 py-0.5 text-xs font-semibold text-violet-900">
+                              {labels.siteContext.siteScopedBadge}
+                            </span>
+                          ) : null}
+                        </div>
+                      </td>
                       <td className="px-4 py-3">{labels.locales[item.locale as keyof typeof labels.locales] ?? item.locale}</td>
                       <td className="px-4 py-3">{item.category ?? "—"}</td>
                       <td className="px-4 py-3">{labels.contentTypes[item.contentType]}</td>

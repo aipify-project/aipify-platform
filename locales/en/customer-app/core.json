@@ -6910,7 +6910,17 @@
       "pl": "Polish",
       "uk": "Ukrainian"
     },
-    "feedbackOverviewLink": "View answer feedback"
+    "feedbackOverviewLink": "View answer feedback",
+    "siteContext": {
+      "label": "Website",
+      "hint": "FAQ for the selected website installation. One account can manage several websites.",
+      "selectRequired": "Select a website to view or create public FAQ items.",
+      "legacyBadge": "Shared (legacy)",
+      "legacyWarning": "Some FAQ items are not tied to a specific website (legacy). They stay visible for all installations until a separate migration is approved. New items are saved to the selected website.",
+      "siteScopedBadge": "This website",
+      "noSites": "No verified website installation is linked yet. Connect a domain under Connection before scoping FAQ by website.",
+      "visitorPartialNote": "Visitor answers may still include shared legacy FAQ until a Core isolation update is authorized."
+    }
   },
   "kompisOperator": {
     "title": "Kompis",

@@ -21,6 +21,11 @@ export type WebsiteKompisFaqItem = {
   publishedAt: string | null;
   createdAt: string;
   updatedAt: string;
+  scope?: {
+    scopeKind: "site_scoped" | "legacy_tenant_global";
+    isLegacyTenantGlobal: boolean;
+    matchesSelectedSite: boolean;
+  };
 };
 
 export type WebsiteKompisFaqListFilters = {

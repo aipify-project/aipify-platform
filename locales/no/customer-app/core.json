@@ -6921,7 +6921,17 @@
       "pl": "Polsk",
       "uk": "Ukrainsk"
     },
-    "feedbackOverviewLink": "Se svartilbakemelding"
+    "feedbackOverviewLink": "Se svartilbakemelding",
+    "siteContext": {
+      "label": "Nettsted",
+      "hint": "FAQ for valgt nettstedinstallasjon. Én konto kan administrere flere nettsteder.",
+      "selectRequired": "Velg et nettsted for å vise eller opprette offentlig FAQ.",
+      "legacyBadge": "Delt (eldre)",
+      "legacyWarning": "Noen FAQ-elementer er ikke knyttet til et bestemt nettsted (eldre). De forblir synlige for alle installasjoner til en egen migrering er godkjent. Nye elementer lagres på valgt nettsted.",
+      "siteScopedBadge": "Dette nettstedet",
+      "noSites": "Ingen verifisert nettstedinstallasjon er knyttet ennå. Koble et domene under Tilkobling før FAQ scopes per nettsted.",
+      "visitorPartialNote": "Besøkendes svar kan fortsatt inkludere delt eldre FAQ til en Core-isolasjonsoppdatering er autorisert."
+    }
   },
   "kompisOperator": {
     "title": "Kompis",
