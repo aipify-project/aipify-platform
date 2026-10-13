@@ -159,9 +159,11 @@ Full request object: `WEBSITE_KOMPIS_VISITOR_FAQ_ISOLATION_REOPEN_REQUEST`.
 | Item | Value |
 |------|--------|
 | Branch | `feature/kompis-web-visitor-faq-isolation-phase2-2026-10-13` |
+| Head | `a8f6958d40314b14d843de59f27d19e74967e272` |
+| PR | [#180](https://github.com/aipify-project/aipify-platform/pull/180) |
 | Scope | Non-frozen policy + reopen request + tests + RESULT |
 | Visitor isolation LIVE claim | **NO** |
-| PR / deploy | Filled if ordinary contract PR ships; not a claim of Core isolation |
+| Merge / deploy | Pending CI; merge ships documentation only — not Core visitor isolation |
 
 ---
 
