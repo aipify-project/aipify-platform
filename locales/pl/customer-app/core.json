@@ -1153,7 +1153,7 @@
     },
     "customerWorkspace": {
       "nextDueTitle": "Następny termin płatności",
-      "nextDueEmpty": "Brak zaległych faktur.",
+      "nextDueEmpty": "Brak nadchodzącej faktury",
       "payeeLabel": "Odbiorca płatności",
       "amountLabel": "Kwota",
       "dueLabel": "Termin płatności",
@@ -1180,7 +1180,11 @@
       "paidAmountLabel": "Kwota zapłacona",
       "retry": "Spróbuj ponownie",
       "loadError": "Nie udało się wczytać faktur. Spróbuj ponownie.",
-      "billingProfileToggle": "Profil rozliczeniowy"
+      "billingProfileToggle": "Profil rozliczeniowy",
+      "nextDueEmptyBody": "Gdy Aipify wystawi fakturę za subskrypcję, pojawi się tu automatycznie. Nie tworzysz faktur w aplikacji klienta.",
+      "historyEmptyTitle": "Brak faktur",
+      "historyEmptyBody": "Historia faktur pojawi się tutaj, gdy Aipify Platform wystawi faktury za Twój plan. Ta strona pokazuje tylko faktury wystawione przez Aipify dla Twojej organizacji.",
+      "requiresPayment": "Wymaga płatności"
     }
   }
 }

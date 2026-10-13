@@ -170,6 +170,10 @@ export type EnterpriseInvoicingLabels = {
   customerWorkspace: {
     nextDueTitle: string;
     nextDueEmpty: string;
+    nextDueEmptyBody: string;
+    historyEmptyTitle: string;
+    historyEmptyBody: string;
+    requiresPayment: string;
     payeeLabel: string;
     amountLabel: string;
     dueLabel: string;

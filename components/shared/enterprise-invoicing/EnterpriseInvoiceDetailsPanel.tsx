@@ -7,11 +7,9 @@ import {
   buildCustomerInvoiceWorkspace,
   formatInvoiceDate,
   formatInvoiceMoney,
-  parseEnterpriseBillingProfile,
   parseEnterpriseInvoiceBillingCenter,
   type CustomerInvoiceListItem,
   type CustomerInvoiceTone,
-  type EnterpriseBillingProfile,
   type EnterpriseInvoice,
   type EnterpriseInvoicingLabels,
 } from "@/lib/enterprise-invoicing";
@@ -23,27 +21,6 @@ type EnterpriseInvoiceDetailsPanelProps = {
   locale?: string;
   /** Inside AppHubShell — omit page chrome and narrow max-width. */
   embedded?: boolean;
-};
-
-const EMPTY_PROFILE: EnterpriseBillingProfile = {
-  tenant_id: "",
-  company_name: "",
-  organization_number: "",
-  vat_number: "",
-  billing_address: {},
-  invoice_email: "",
-  ap_contact_name: "",
-  ap_contact_email: "",
-  purchase_order_number: "",
-  internal_reference: "",
-  payment_terms: "net_30",
-  payment_terms_custom: "",
-  preferred_currency: "NOK",
-  billing_language: "en",
-  access_unlock_policy: "contract_approval",
-  auto_send_invoices: false,
-  require_approval_before_send: true,
-  configured: false,
 };
 
 function StatusChip({
@@ -75,6 +52,16 @@ function StatusChip({
   );
 }
 
+function statusLabelForItem(
+  item: CustomerInvoiceListItem,
+  labels: EnterpriseInvoicingLabels
+): string {
+  const cw = labels.customerWorkspace;
+  if (item.bucket === "overdue") return cw.requiresPayment;
+  if (item.bucket === "paid") return labels.statuses.paid;
+  return labels.statuses[item.invoice.status] ?? item.invoice.status;
+}
+
 function InvoiceCard({
   item,
   labels,
@@ -93,7 +80,6 @@ function InvoiceCard({
   const money = formatInvoiceMoney(invoice.total_amount, invoice.currency, locale);
   const due = formatInvoiceDate(invoice.due_date, locale);
   const issued = formatInvoiceDate(invoice.created_at, locale);
-  const statusLabel = labels.statuses[invoice.status] ?? invoice.status;
 
   return (
     <article className="rounded-2xl border border-[var(--app-border,#e5e7f0)] bg-[var(--app-card,#fff)] p-5 shadow-sm sm:p-6">
@@ -113,7 +99,7 @@ function InvoiceCard({
             {cw.dueLabel}: {due ?? "—"} · {cw.issuedLabel}: {issued ?? "—"}
           </p>
         </div>
-        <StatusChip tone={item.tone} label={statusLabel} />
+        <StatusChip tone={item.tone} label={statusLabelForItem(item, labels)} />
       </div>
 
       <div className="mt-4 flex flex-wrap gap-2">
@@ -138,14 +124,12 @@ function InvoiceCard({
 
       {expanded ? (
         <div className="mt-5 space-y-3 border-t border-[var(--app-border,#e5e7f0)] pt-4 text-sm text-[var(--app-text,#202336)]">
-          <p>
-            <span className="font-medium text-[var(--app-text-muted,#5C6275)]">{cw.descriptionLabel}: </span>
-            {invoice.description || "—"}
-          </p>
-          <p>
-            <span className="font-medium text-[var(--app-text-muted,#5C6275)]">{cw.periodLabel}: </span>
-            {cw.periodUnavailable}
-          </p>
+          {invoice.description ? (
+            <p>
+              <span className="font-medium text-[var(--app-text-muted,#5C6275)]">{cw.descriptionLabel}: </span>
+              {invoice.description}
+            </p>
+          ) : null}
           <div className="grid gap-2 sm:grid-cols-3">
             <p>
               <span className="font-medium text-[var(--app-text-muted,#5C6275)]">{cw.netLabel}: </span>
@@ -185,6 +169,9 @@ function InvoiceCard({
             </div>
           ) : null}
           <p className="text-[var(--app-text-muted,#5C6275)]">{cw.originalDocumentUnavailable}</p>
+          <p className="text-[var(--app-text-muted,#5C6275)]">
+            {cw.periodLabel}: {cw.periodUnavailable}
+          </p>
         </div>
       ) : null}
     </article>
@@ -228,6 +215,10 @@ function InvoiceSection({
   );
 }
 
+/**
+ * Customer APP invoice receiver — displays invoices issued by Aipify Platform.
+ * Does not create, edit, or issue invoices. No billing-profile editor on this surface.
+ */
 export function EnterpriseInvoiceDetailsPanel({
   labels,
   backHref,
@@ -237,12 +228,7 @@ export function EnterpriseInvoiceDetailsPanel({
   const locale = localeProp;
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
-  const [canEdit, setCanEdit] = useState(false);
   const [invoices, setInvoices] = useState<EnterpriseInvoice[]>([]);
-  const [form, setForm] = useState<EnterpriseBillingProfile>(EMPTY_PROFILE);
-  const [showProfile, setShowProfile] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const cw = labels.customerWorkspace;
@@ -255,11 +241,7 @@ export function EnterpriseInvoiceDetailsPanel({
     if (res.ok) {
       const center = parseEnterpriseInvoiceBillingCenter(await res.json());
       if (center) {
-        setCanEdit(center.can_edit_billing_details);
         setInvoices(center.invoices);
-        if (center.profile) {
-          setForm(center.profile);
-        }
       } else {
         setLoadError(true);
       }
@@ -272,31 +254,6 @@ export function EnterpriseInvoiceDetailsPanel({
   useEffect(() => {
     void load();
   }, [load]);
-
-  async function handleSave() {
-    if (!canEdit) return;
-    setSaving(true);
-    setSaved(false);
-    const res = await fetch("/api/enterprise-invoicing/profile", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    setSaving(false);
-    if (res.ok) {
-      const profile = parseEnterpriseBillingProfile(await res.json());
-      if (profile) setForm(profile);
-      setSaved(true);
-      await load();
-    }
-  }
-
-  function updateField<K extends keyof EnterpriseBillingProfile>(
-    key: K,
-    value: EnterpriseBillingProfile[K]
-  ) {
-    setForm((prev) => ({ ...prev, [key]: value }));
-  }
 
   if (loading) {
     return <p className="p-6 text-base text-[var(--app-text-muted,#5C6275)]">{labels.loading}</p>;
@@ -335,14 +292,14 @@ export function EnterpriseInvoiceDetailsPanel({
         </div>
       ) : null}
 
-      {/* Hero — next due */}
+      {/* Hero — next due (neutral when empty — never green success for no data) */}
       <section
         className={`rounded-2xl border p-6 sm:p-8 ${
           next?.tone === "critical"
             ? "border-rose-200 bg-rose-50/60"
             : next
               ? "border-amber-200 bg-amber-50/50"
-              : "border-emerald-200 bg-emerald-50/50"
+              : "border-[var(--app-border,#e5e7f0)] bg-[var(--app-card,#fff)]"
         }`}
       >
         <p className="text-sm font-semibold uppercase tracking-wide text-[var(--app-text-muted,#5C6275)]">
@@ -365,12 +322,12 @@ export function EnterpriseInvoiceDetailsPanel({
                 </span>
               </p>
               <p className="text-base text-[var(--app-text-muted,#5C6275)]">
-                {cw.periodLabel}: {cw.periodUnavailable}
+                {cw.issuedLabel}:{" "}
+                <span className="font-medium text-[var(--app-text,#202336)]">
+                  {formatInvoiceDate(next.invoice.created_at, locale) ?? "—"}
+                </span>
               </p>
-              <StatusChip
-                tone={next.tone}
-                label={labels.statuses[next.invoice.status] ?? next.invoice.status}
-              />
+              <StatusChip tone={next.tone} label={statusLabelForItem(next, labels)} />
             </div>
             <div className="space-y-3 rounded-xl border border-white/70 bg-white/80 p-4">
               <p className="text-sm font-medium text-[var(--app-text-muted,#5C6275)]">{cw.payeeLabel}</p>
@@ -378,7 +335,7 @@ export function EnterpriseInvoiceDetailsPanel({
                 {COMPANY_CONFIG.legalCompanyName}
               </p>
               <p className="text-sm text-[var(--app-text-muted,#5C6275)]">
-                Org.nr. {COMPANY_CONFIG.organizationNumberDisplay}
+                {labels.fields.organizationNumber}: {COMPANY_CONFIG.organizationNumberDisplay}
               </p>
               {next.canPayOnline && next.paymentUrl ? (
                 <a
@@ -410,139 +367,70 @@ export function EnterpriseInvoiceDetailsPanel({
             </div>
           </div>
         ) : (
-          <div className="mt-3 space-y-2">
-            <p className="text-2xl font-semibold text-emerald-900">{cw.nextDueEmpty}</p>
-            <StatusChip tone="positive" label={cw.nextDueEmpty} />
+          <div className="mt-4 max-w-2xl space-y-2">
+            <p className="text-2xl font-semibold text-[var(--app-text,#202336)]">{cw.nextDueEmpty}</p>
+            <p className="text-base leading-relaxed text-[var(--app-text-muted,#5C6275)]">
+              {cw.nextDueEmptyBody}
+            </p>
+            <StatusChip tone="neutral" label={cw.nextDueEmpty} />
           </div>
         )}
       </section>
 
-      <InvoiceSection
-        title={cw.sectionOverdue}
-        items={workspace.overdue}
-        labels={labels}
-        locale={locale}
-        expandedId={expandedId}
-        setExpandedId={setExpandedId}
-      />
-      <InvoiceSection
-        title={cw.sectionAwaiting}
-        items={workspace.awaitingPayment}
-        labels={labels}
-        locale={locale}
-        expandedId={expandedId}
-        setExpandedId={setExpandedId}
-      />
-      <InvoiceSection
-        title={cw.sectionPaid}
-        items={workspace.paid}
-        labels={labels}
-        locale={locale}
-        expandedId={expandedId}
-        setExpandedId={setExpandedId}
-      />
-      <InvoiceSection
-        title={cw.sectionOther}
-        items={workspace.other}
-        labels={labels}
-        locale={locale}
-        expandedId={expandedId}
-        setExpandedId={setExpandedId}
-      />
-
-      {!workspace.hasAnyInvoices ? (
-        <p className="rounded-xl border border-[var(--app-border,#e5e7f0)] bg-white px-4 py-6 text-base text-[var(--app-text-muted,#5C6275)]">
-          {labels.empty}
-        </p>
-      ) : null}
-
-      <div>
-        <button
-          type="button"
-          onClick={() => setShowProfile((v) => !v)}
-          className="rounded-xl border border-[var(--app-border,#e5e7f0)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--app-text,#202336)] hover:bg-[var(--app-soft-surface,#F2F3F9)]"
-        >
-          {cw.billingProfileToggle}
-        </button>
-      </div>
-
-      {showProfile ? (
-        <section className="rounded-2xl border border-[var(--app-border,#e5e7f0)] bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-[var(--app-text,#202336)]">
-            {labels.sections.billingDetails}
-          </h2>
-          {!canEdit && (
-            <p className="mt-2 text-sm text-amber-700">{labels.permissions.viewOnly}</p>
-          )}
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            {(
-              [
-                ["company_name", labels.fields.companyName],
-                ["organization_number", labels.fields.organizationNumber],
-                ["vat_number", labels.fields.vatNumber],
-                ["invoice_email", labels.fields.invoiceEmail],
-                ["ap_contact_name", labels.fields.apContactName],
-                ["ap_contact_email", labels.fields.apContactEmail],
-                ["purchase_order_number", labels.fields.purchaseOrderNumber],
-                ["internal_reference", labels.fields.internalReference],
-                ["preferred_currency", labels.fields.preferredCurrency],
-                ["billing_language", labels.fields.billingLanguage],
-              ] as const
-            ).map(([key, label]) => (
-              <label key={key} className="block text-sm">
-                <span className="font-medium text-[var(--app-text,#202336)]">{label}</span>
-                <input
-                  className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-base disabled:bg-slate-50"
-                  value={form[key]}
-                  disabled={!canEdit}
-                  onChange={(e) => updateField(key, e.target.value)}
-                />
-              </label>
-            ))}
+      {workspace.hasAnyInvoices ? (
+        <>
+          <InvoiceSection
+            title={cw.sectionOverdue}
+            items={workspace.overdue}
+            labels={labels}
+            locale={locale}
+            expandedId={expandedId}
+            setExpandedId={setExpandedId}
+          />
+          <InvoiceSection
+            title={cw.sectionAwaiting}
+            items={workspace.awaitingPayment}
+            labels={labels}
+            locale={locale}
+            expandedId={expandedId}
+            setExpandedId={setExpandedId}
+          />
+          <InvoiceSection
+            title={cw.sectionPaid}
+            items={workspace.paid}
+            labels={labels}
+            locale={locale}
+            expandedId={expandedId}
+            setExpandedId={setExpandedId}
+          />
+          <InvoiceSection
+            title={cw.sectionOther}
+            items={workspace.other}
+            labels={labels}
+            locale={locale}
+            expandedId={expandedId}
+            setExpandedId={setExpandedId}
+          />
+        </>
+      ) : (
+        <section className="rounded-2xl border border-[var(--app-border,#e5e7f0)] bg-[var(--app-card,#fff)] p-8 shadow-sm sm:p-10">
+          <div className="mx-auto flex max-w-xl flex-col items-start gap-4">
+            <span
+              aria-hidden
+              className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--app-primary-soft,#EEEAFE)] text-[var(--app-primary,#7357E8)]"
+            >
+              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M7 3.75h7.5L19.5 8.75V20.25a.75.75 0 01-.75.75H7.75a.75.75 0 01-.75-.75V4.5a.75.75 0 01.75-.75z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 3.75V8.5h4.75" />
+              </svg>
+            </span>
+            <h2 className="text-xl font-semibold text-[var(--app-text,#202336)]">{cw.historyEmptyTitle}</h2>
+            <p className="text-base leading-relaxed text-[var(--app-text-muted,#5C6275)]">
+              {cw.historyEmptyBody}
+            </p>
           </div>
-
-          <h3 className="mt-6 text-sm font-semibold text-[var(--app-text,#202336)]">
-            {labels.sections.paymentTerms}
-          </h3>
-          <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label={labels.fields.paymentTerms}>
-            {Object.entries(labels.paymentTerms).map(([value, label]) => {
-              const selected = form.payment_terms === value;
-              return (
-                <button
-                  key={value}
-                  type="button"
-                  disabled={!canEdit}
-                  aria-pressed={selected}
-                  onClick={() =>
-                    updateField("payment_terms", value as EnterpriseBillingProfile["payment_terms"])
-                  }
-                  className={`rounded-xl px-3.5 py-2 text-sm font-medium ring-1 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus,#7C3AED)] disabled:opacity-60 ${
-                    selected
-                      ? "bg-[var(--app-primary-soft,#EEEAFE)] text-[var(--app-primary,#7357E8)] ring-[var(--app-border-accent,#CFC4FF)]"
-                      : "bg-white text-[var(--app-text,#202336)] ring-[var(--app-border,#e5e7f0)] hover:bg-[var(--app-soft-surface,#F2F3F9)]"
-                  }`}
-                >
-                  {label}
-                </button>
-              );
-            })}
-          </div>
-
-          {canEdit && (
-            <div className="mt-6 flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => void handleSave()}
-                disabled={saving}
-                className="rounded-xl bg-[var(--app-primary,#7357E8)] px-4 py-2.5 text-sm font-semibold text-white hover:opacity-95 disabled:opacity-60"
-              >
-                {saving ? labels.saving : labels.save}
-              </button>
-              {saved && <span className="text-sm text-emerald-700">{labels.saved}</span>}
-            </div>
-          )}
         </section>
-      ) : null}
+      )}
     </div>
   );
 }

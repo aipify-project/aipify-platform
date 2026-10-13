@@ -6430,7 +6430,7 @@
     },
     "customerWorkspace": {
       "nextDueTitle": "Nästa förfallodatum",
-      "nextDueEmpty": "Inga utestående fakturor.",
+      "nextDueEmpty": "Ingen kommande faktura",
       "payeeLabel": "Betalningsmottagare",
       "amountLabel": "Belopp",
       "dueLabel": "Förfallodatum",
@@ -6457,7 +6457,11 @@
       "paidAmountLabel": "Betalt belopp",
       "retry": "Försök igen",
       "loadError": "Fakturor kunde inte läsas in. Försök igen.",
-      "billingProfileToggle": "Faktureringsprofil"
+      "billingProfileToggle": "Faktureringsprofil",
+      "nextDueEmptyBody": "När Aipify utfärdar en faktura för din prenumeration visas den här automatiskt. Du skapar inte fakturor i kund-APP:en.",
+      "historyEmptyTitle": "Inga fakturor ännu",
+      "historyEmptyBody": "Fakturahistorik visas här när Aipify Platform utfärdar fakturor för ditt paket. Den här sidan visar bara fakturor som Aipify har utfärdat till din organisation.",
+      "requiresPayment": "Kräver betalning"
     }
   },
   "boardInvestorIntelligence": {
