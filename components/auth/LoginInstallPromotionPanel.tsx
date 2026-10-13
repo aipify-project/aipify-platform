@@ -26,22 +26,22 @@ export function LoginInstallPromotionPanel({ labels }: LoginInstallPromotionPane
   return (
     <aside
       aria-label={labels.panelA11yLabel}
-      className="rounded-xl border border-gray-200/90 bg-white/90 p-4 shadow-sm sm:p-5"
+      className="rounded-[22px] border border-[rgba(96,82,176,.15)] bg-white/95 p-4 shadow-[0_12px_30px_rgba(38,33,87,.06)] sm:p-5"
     >
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-6">
         <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
           <div
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-violet-50 text-violet-700 ring-1 ring-violet-100"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#eeeafe,#e8eefc)] text-[#6042d4] ring-1 ring-[rgba(96,82,176,.15)]"
             aria-hidden="true"
           >
             <Plug className="h-5 w-5" />
           </div>
 
           <div className="min-w-0 text-left">
-            <h2 className="text-sm font-semibold tracking-tight text-gray-900 sm:text-[0.9375rem]">
+            <h2 className="text-sm font-semibold tracking-tight text-[#1f2235] sm:text-[0.9375rem]">
               {labels.heading}
             </h2>
-            <p className="mt-1.5 text-sm leading-relaxed text-gray-600">{labels.description}</p>
+            <p className="mt-1.5 text-sm leading-relaxed text-[#687086]">{labels.description}</p>
           </div>
         </div>
 
@@ -49,7 +49,7 @@ export function LoginInstallPromotionPanel({ labels }: LoginInstallPromotionPane
           <Link
             href={installStartHref}
             aria-label={labels.primaryA11yLabel}
-            className="inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-violet-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-600 focus-visible:ring-offset-2 sm:w-auto"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-xl bg-[linear-gradient(135deg,#7357e8,#5577f2)] px-4 py-2.5 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(96,66,212,.22)] transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5577f2]/45 focus-visible:ring-offset-2 sm:w-auto"
           >
             <span>{labels.primaryAction}</span>
             <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -58,7 +58,7 @@ export function LoginInstallPromotionPanel({ labels }: LoginInstallPromotionPane
           <Link
             href={installHelpHref}
             aria-label={labels.secondaryA11yLabel}
-            className="inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:border-violet-200 hover:bg-violet-50/40 hover:text-violet-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-600 focus-visible:ring-offset-2 sm:w-auto"
+            className="inline-flex min-h-11 w-full items-center justify-center rounded-xl border border-[rgba(96,82,176,.15)] bg-white px-4 py-2.5 text-sm font-medium text-[#1f2235] transition hover:border-[#7357e8]/40 hover:bg-[#eeeafe]/50 hover:text-[#6042d4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5577f2]/45 focus-visible:ring-offset-2 sm:w-auto"
           >
             {labels.secondaryAction}
           </Link>

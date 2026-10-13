@@ -18,8 +18,8 @@ function read(rel: string) {
   return fs.readFileSync(path.join(ROOT, rel), "utf8");
 }
 
-assert.equal(APP_VISUAL_SYSTEM_VERSION, "63.1");
-assert.equal(AppVisualColors.canvas, "#F3F5F9");
+assert.equal(APP_VISUAL_SYSTEM_VERSION, "63.2");
+assert.equal(AppVisualColors.canvas, "#F3F5FB");
 assert.equal(AppVisualColors.surface, "#F8F9FD");
 assert.equal(AppVisualColors.card, "#FFFFFF");
 assert.equal(AppVisualColors.primary, "#7357E8");
@@ -29,7 +29,7 @@ assert.ok(AppVisualClasses.navItemActive.includes("primary-soft"));
 
 const globals = read("app/globals.css");
 assert.match(globals, /\.aipify-app-shell\s*\{/);
-assert.match(globals, /--app-canvas:\s*#f3f5f9/i);
+assert.match(globals, /--app-canvas:\s*#f3f5fb/i);
 assert.match(globals, /--app-primary:\s*#7357e8/i);
 assert.match(globals, /\.aipify-app-canvas-layer/);
 assert.match(globals, /\.aipify-app-decorative-orb/);

@@ -2,15 +2,15 @@
  * Job 63 — Customer APP premium visual system (scoped; does not redefine Platform/public tokens).
  */
 
-export const APP_VISUAL_SYSTEM_VERSION = "63.1";
+export const APP_VISUAL_SYSTEM_VERSION = "63.2";
 
-/** Final documented palette (brief start values; contrast-tuned muted text). */
+/** Final documented palette (Public Home V1 family; contrast-tuned muted text). */
 export const AppVisualColors = {
-  canvas: "#F3F5F9",
+  canvas: "#F3F5FB",
   surface: "#F8F9FD",
-  surfaceAlt: "#F5F7FB",
+  surfaceAlt: "#EEF2FF",
   card: "#FFFFFF",
-  softSurface: "#F1F3F8",
+  softSurface: "#F2F3F9",
   primary: "#7357E8",
   primaryBlue: "#5577F2",
   primarySoft: "#EEEAFE",

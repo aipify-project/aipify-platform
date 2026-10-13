@@ -213,5 +213,440 @@
     "ctaTitle": "Give customers and teams a Kompis that actually knows the business.",
     "ctaBody": "Choose Kompis Web, Kompis Bedrift, or both. Aipify keeps control in one clear APP panel.",
     "ctaButton": "Замовити демо"
+  },
+  "growthPartnersPageRedesign": {
+    "meta": {
+      "title": "Growth Partners — Sell Kompis Web and Kompis Bedrift with Aipify",
+      "description": "Companies and sole proprietorships can apply to become an Aipify Growth Partner and present Kompis Web and Kompis Bedrift under the partner agreement."
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "current": "Growth Partners"
+    },
+    "hero": {
+      "eyebrow": "AIPIFY GROWTH PARTNER",
+      "headline": "Станьте партнером Aipify. Допомагайте бізнесу з розумнішою підтримкою клієнтів і внутрішніми знаннями.",
+      "copy": "Маєте компанію чи ФОП? Подайте заявку на Growth Partner, презентуйте Kompis Web і Kompis Bedrift клієнтам і отримуйте комісію з продажів за партнерською угодою.",
+      "keyPoints": [
+        {
+          "text": "Present Kompis Web for public website help and Kompis Bedrift for internal company knowledge."
+        },
+        {
+          "text": "Operate as a registered company or sole proprietorship (ENK) — complete review before selling rights."
+        },
+        {
+          "text": "Commission, earning, and payout follow the current partner agreement and approved registrations."
+        }
+      ],
+      "trustStatus": [
+        "Company or sole proprietorship",
+        "Application review",
+        "Partner agreement",
+        "Commission on eligible sales"
+      ],
+      "whatHappensNext": {
+        "title": "What happens next",
+        "steps": [
+          "Submit your application with registered business details.",
+          "Aipify reviews your application and confirms next steps.",
+          "Complete any required partner onboarding for the products you will represent.",
+          "After approval, present Kompis Web and Kompis Bedrift under the partner agreement."
+        ]
+      }
+    },
+    "form": {
+      "title": "Подати заявку на Growth Partner",
+      "stepAbout": "About you",
+      "stepBusiness": "Business",
+      "stepAccount": "Account",
+      "stepCounter": "Step {current} of {total}",
+      "continue": "Continue",
+      "back": "Back",
+      "password": "Password",
+      "passwordConfirm": "Confirm password",
+      "fullName": "Full name",
+      "professionalRole": "Professional role",
+      "professionalRoleOptional": "optional",
+      "companyName": "Company name",
+      "businessRegistrationNumber": "Business registration number",
+      "businessRegistrationHelper": "Enter your official business registration identifier.",
+      "businessRegistrationHelpers": {
+        "NO": "Organization Number / Org.nr",
+        "SE": "Organisationsnummer",
+        "DK": "CVR Number",
+        "FI": "Business ID / Y-tunnus",
+        "GB": "Company Number",
+        "US": "EIN or business registration number",
+        "DE": "Handelsregisternummer or Steuernummer",
+        "FR": "SIREN / SIRET",
+        "NL": "KvK Number",
+        "ES": "CIF / NIF",
+        "IT": "Partita IVA",
+        "EU": "VAT number or company registration number",
+        "OTHER": "Business registration number, tax ID, company number, or local equivalent."
+      },
+      "country": "Country",
+      "countryOptions": {
+        "NO": "Norway",
+        "SE": "Sweden",
+        "DK": "Denmark",
+        "FI": "Finland",
+        "GB": "United Kingdom",
+        "US": "United States",
+        "DE": "Germany",
+        "FR": "France",
+        "NL": "Netherlands",
+        "ES": "Spain",
+        "IT": "Italy",
+        "EU": "Other EU",
+        "OTHER": "Other"
+      },
+      "address": "Address",
+      "website": "Website",
+      "websiteOptional": "optional",
+      "market": "Primary market",
+      "marketOptional": "optional",
+      "experience": "Relevant experience",
+      "experienceOptional": "optional",
+      "phoneCountryCode": "Phone country code",
+      "phoneNumber": "Phone number",
+      "email": "Email",
+      "checkboxRegisteredBusiness": "I confirm that I operate through a registered business.",
+      "checkboxCertification": "I understand that I must complete Aipify training and certification before becoming an active seller.",
+      "checkboxInfoAccurate": "I confirm that the information I provide is correct.",
+      "checkboxTerms": "I agree to the",
+      "termsLinkLabel": "Growth Partner Terms & Conditions",
+      "submit": "Подати заявку на Growth Partner",
+      "submitting": "Submitting your application…",
+      "errorGeneric": "Something went wrong. Please try again.",
+      "errorPasswordMismatch": "Passwords must match and be at least 8 characters.",
+      "errorRequired": "This field is required.",
+      "legalNote": "By registering, you confirm that you operate independently, handle your own tax and reporting obligations, and represent Aipify Group AS professionally.",
+      "successTitle": "Application received",
+      "successBody": "Thank you for applying. Aipify will review your application and confirm the next steps.",
+      "successReferenceLabel": "Reference",
+      "successNextStepsTitle": "Your next steps",
+      "successNextSteps": [
+        "Check your email to confirm your account if required.",
+        "Sign in to your Growth Partner workspace when invited.",
+        "Complete any required onboarding for the products you will represent.",
+        "Email partners@aipify.ai if you have questions during onboarding."
+      ],
+      "successContact": "Questions? Email partners@aipify.ai or use the contact page — we respond with clear next steps.",
+      "successPortalCta": "Continue to Growth Partner workspace"
+    },
+    "split": {
+      "youBuild": {
+        "title": "What you do as a partner",
+        "items": [
+          "Introduce Kompis Web and Kompis Bedrift to businesses in your market.",
+          "Build trusted customer relationships around real needs.",
+          "Guide customers through onboarding when that is part of your service.",
+          "Follow partner terms for accurate representation of what is available today.",
+          "Grow a long-term portfolio of attributed customers."
+        ]
+      },
+      "aipifyProvides": {
+        "title": "What Aipify delivers",
+        "items": [
+          "Kompis Web — public answers from approved website content and published FAQ, with relevant sources.",
+          "Kompis Bedrift — a closed workspace direction for employees and internal knowledge (communicate only shipped capabilities).",
+          "Aipify Core as the shared engine for knowledge, language, and governance.",
+          "Partner application, review, and agreement process.",
+          "Commission terms for eligible sales covered by the partner agreement.",
+          "Ongoing product development for Web and Bedrift."
+        ]
+      }
+    },
+    "portalPreview": {
+      "title": "Partner workspace (illustrative)",
+      "subtitle": "Illustrative preview of a partner workspace — not a live data view. Actual tools appear after approval and access.",
+      "tabs": {
+        "leads": "Leads",
+        "commissions": "Commissions",
+        "certification": "Certification",
+        "resources": "Resources"
+      },
+      "previewNote": "Illustrative demo only — sample values are not live metrics.",
+      "leads": {
+        "heading": "Lead pipeline",
+        "rows": [
+          {
+            "label": "New inquiries",
+            "value": "Sample view"
+          },
+          {
+            "label": "In review",
+            "value": "Sample view"
+          },
+          {
+            "label": "Qualified",
+            "value": "Sample view"
+          },
+          {
+            "label": "Attributed customers",
+            "value": "Sample view"
+          }
+        ]
+      },
+      "commissions": {
+        "heading": "Commission overview",
+        "rows": [
+          {
+            "label": "Active customers",
+            "value": "Tracked in portal"
+          },
+          {
+            "label": "Pending commissions",
+            "value": "Tracked in portal"
+          },
+          {
+            "label": "Payout status",
+            "value": "Visible after certification"
+          },
+          {
+            "label": "Attribution rules",
+            "value": "Rules shown in Growth Partner portal"
+          }
+        ]
+      },
+      "certification": {
+        "heading": "Certification progress",
+        "modules": [
+          {
+            "name": "Kompis Web fundamentals",
+            "status": "Planned / required when offered"
+          },
+          {
+            "name": "Kompis Bedrift fundamentals",
+            "status": "Planned / required when offered"
+          },
+          {
+            "name": "Responsible selling & security basics",
+            "status": "Required when offered"
+          },
+          {
+            "name": "Customer positioning",
+            "status": "Required when offered"
+          }
+        ]
+      },
+      "resources": {
+        "heading": "Partner resources",
+        "items": [
+          "Product overview for Kompis Web",
+          "Product overview for Kompis Bedrift",
+          "Partner onboarding materials (when available)",
+          "Knowledge Center",
+          "Brand guidelines",
+          "Partner agreement overview"
+        ]
+      }
+    },
+    "journey": {
+      "title": "How partnership works",
+      "steps": [
+        {
+          "title": "Apply",
+          "description": "Submit company or sole proprietorship details in the guided application on this page."
+        },
+        {
+          "title": "Review",
+          "description": "Aipify reviews your application against current partner requirements."
+        },
+        {
+          "title": "Onboarding",
+          "description": "Complete required onboarding for Kompis Web, Kompis Bedrift, security basics, and responsible selling when those modules are offered."
+        },
+        {
+          "title": "Approval",
+          "description": "Selling rights follow successful review and any required onboarding — not before."
+        },
+        {
+          "title": "Represent",
+          "description": "Present approved Aipify products under the partner agreement."
+        },
+        {
+          "title": "Earn",
+          "description": "Commission on eligible sales follows the current partner agreement. Income is not guaranteed."
+        }
+      ]
+    },
+    "certification": {
+      "title": "Training and onboarding",
+      "intro": "Partners should understand Kompis Web, Kompis Bedrift, basic security, and responsible selling before representing Aipify. Exact modules follow what Aipify currently offers in partner onboarding.",
+      "topics": [
+        "Kompis Web",
+        "Kompis Bedrift",
+        "Security basics",
+        "Responsible selling",
+        "Source-based answers",
+        "Customer positioning"
+      ],
+      "note": "Onboarding covers Aipify product positioning. It does not imply public, government, or independent professional authorization. Planned add-ons such as Design Studio or AI Translator are not available to sell as live products until released."
+    },
+    "commission": {
+      "title": "Commission and attribution",
+      "intro": "Commission, earning, and payout follow the current partner agreement and approved registrations — without promised fixed rates on this page.",
+      "lifecycleTitle": "Commission lifecycle",
+      "lifecycleStages": [
+        "Customer attribution to your partner account",
+        "Qualification against rules shown in the Growth Partner portal",
+        "Active subscription and customer status",
+        "Commission accrual per terms shown in the Growth Partner portal",
+        "Payout review and approval",
+        "Payout to your registered business"
+      ],
+      "exampleTitle": "Example commission view",
+      "exampleRows": [
+        {
+          "label": "Attribution status",
+          "value": "Visible in portal"
+        },
+        {
+          "label": "Commission basis",
+          "value": "Rules shown in Growth Partner portal"
+        },
+        {
+          "label": "Payout period",
+          "value": "Per partner terms"
+        },
+        {
+          "label": "History & audit",
+          "value": "Full trail in portal"
+        }
+      ],
+      "disclaimer": "No guaranteed income or fixed commission rates on this page. Earnings depend on your activity, eligible sales, and the current partner agreement."
+    },
+    "requirements": {
+      "title": "Requirements",
+      "cards": [
+        {
+          "title": "Registered company or sole proprietorship",
+          "body": "Apply as a company or sole proprietorship (ENK) with valid business registration details for your jurisdiction."
+        },
+        {
+          "title": "Certification required",
+          "body": "Complete Aipify training and certification before active selling rights are granted."
+        },
+        {
+          "title": "Professional conduct",
+          "body": "Represent Aipify Group AS professionally and follow brand and governance guidelines."
+        },
+        {
+          "title": "Transparent reporting",
+          "body": "Maintain accurate records for your independent business tax and reporting obligations."
+        }
+      ],
+      "checklistTitle": "Before you apply",
+      "checklistItems": [
+        "Company or sole proprietorship with valid registration details",
+        "Understanding that approval is required before selling",
+        "Commitment to accurate information and professional representation",
+        "Acceptance of Growth Partner Terms & Conditions"
+      ],
+      "copy": "Valid registration and approval are required before selling rights. Aipify does not guarantee income — earnings depend on your activity and the partner agreement."
+    },
+    "businessModel": {
+      "title": "Independent business model",
+      "intro": "Growth Partners are independent registered businesses that apply for partnership and may sell approved Aipify products against agreed commission.",
+      "columns": [
+        {
+          "title": "Partner responsibilities",
+          "items": [
+            "Lead generation and customer relationships",
+            "Onboarding and implementation services",
+            "Local business operations and compliance",
+            "Tax and reporting for your company"
+          ]
+        },
+        {
+          "title": "Aipify responsibilities",
+          "items": [
+            "Kompis Web and Kompis Bedrift product delivery",
+            "Core platform development and governance",
+            "Partner application and agreement process",
+            "Commission terms under the partner agreement"
+          ]
+        },
+        {
+          "title": "Customer ownership",
+          "items": [
+            "Customer accounts are administered on the Aipify Platform under platform terms",
+            "Partners receive attribution and commission per the partner agreement",
+            "Partners do not independently own customer platform accounts",
+            "Commercial details follow the signed partner agreement"
+          ]
+        }
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "What is an Aipify Growth Partner?",
+          "answer": "A registered company or sole proprietorship that applies to present Kompis Web and Kompis Bedrift and earn commission on eligible sales under the partner agreement — not a simple affiliate link program."
+        },
+        {
+          "question": "Is this an affiliate or referral program?",
+          "answer": "No. Growth Partners operate registered businesses, complete required review/onboarding, and build longer-term customer relationships under partner terms."
+        },
+        {
+          "question": "What are the requirements to apply?",
+          "answer": "Provide accurate registration details for a company or sole proprietorship, accept the Growth Partner Terms, and complete review before any selling rights."
+        },
+        {
+          "question": "Which products can I present?",
+          "answer": "Primary products are Kompis Web and Kompis Bedrift, with Aipify Core as the shared engine. Do not present planned add-ons as available unless released."
+        },
+        {
+          "question": "When can I start selling?",
+          "answer": "Selling rights follow application review and any required onboarding. Until then, you should not represent Aipify as an approved active seller."
+        },
+        {
+          "question": "How are commissions handled?",
+          "answer": "Commission, earning, and payout follow the current partner agreement and approved registrations. This page does not publish rates or payout schedules."
+        },
+        {
+          "question": "Do I own the customers I bring?",
+          "answer": "Customer accounts are administered on the Aipify Platform. Partners receive attribution and commission according to the partner agreement."
+        },
+        {
+          "question": "What support does Aipify provide?",
+          "answer": "Aipify provides product, partner process, and contact through partners@aipify.ai. Specific portal tools depend on what is enabled after approval."
+        },
+        {
+          "question": "Can sole proprietorships (ENK) apply?",
+          "answer": "Yes. Companies and sole proprietorships may apply when they meet registration and partner requirements."
+        },
+        {
+          "question": "How do I get started?",
+          "answer": "Complete the application on this page. Aipify reviews your submission and confirms next steps."
+        }
+      ]
+    },
+    "finalCta": {
+      "title": "Ready to partner with Aipify?",
+      "subtitle": "Apply as a Growth Partner for Kompis Web and Kompis Bedrift. Commission follows the partner agreement — income is not guaranteed.",
+      "primary": "Подати заявку на Growth Partner",
+      "secondary": "Contact partners@aipify.ai"
+    },
+    "partnerAdvisor": {
+      "title": "Partner Success Team",
+      "teamName": "Partner Success Team",
+      "location": "Bergen, Norway",
+      "photoPlaceholder": "Partner Success Team",
+      "role": "Growth Partner onboarding",
+      "availability": "Contact for onboarding questions",
+      "contactLabel": "Contact",
+      "contactPath": "partners@aipify.ai",
+      "services": [
+        "Growth Partner onboarding questions",
+        "Application guidance",
+        "Partner process assistance",
+        "Product orientation for Web and Bedrift"
+      ]
+    },
+    "footerNote": "Aipify Group AS · Bergen, Norway · partners@aipify.ai"
   }
 }
