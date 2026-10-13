@@ -84,10 +84,23 @@
 
 ## Release IDs
 
-_(filled after merge/deploy)_
+- **Feature head:** `43c08d9797628448051dbd54c8fd23256eb22901`
+- **PR:** [#165](https://github.com/aipify-project/aipify-platform/pull/165) MERGED
+- **Merge-SHA:** `334f7143d78fff62e994cee6e8d924244a3adff2`
+- **Public (aipify.ai / iz5z):** `dpl_2JnYAt8jbBG2iQjfvBVsqk12nHms` READY
+- **APP (app.aipify.ai / aipify-platform):** `dpl_s4eNXEArCavzdcfzCMNEES7o5QrY` READY
 
-- Feature head:
-- PR:
-- Merge-SHA:
-- Public deploy:
-- APP deploy:
+## Production smoke (2026-10-13)
+
+| URL | Result |
+|-----|--------|
+| https://aipify.ai/ | 200 — Planned/Available now markers, Add-ons nav, product-cta, mascot present |
+| https://aipify.ai/login | 200 — mascot top-right (`top-[-28px]`), avatar present, old bottom position absent |
+| https://aipify.ai/register | 200 — field order fullName → companyName → businessEmail |
+| https://aipify.ai/growth-partners | 200 |
+| https://app.aipify.ai/ | 200 (authenticated APP panel visual = BLOCKED without login) |
+
+**OWNER VISUAL ACCEPTANCE = PENDING**  
+**SAFE TO FREEZE APP DESIGN = NO**  
+**Safari = NOT RUN**  
+**Frozen WK touched = 0**
