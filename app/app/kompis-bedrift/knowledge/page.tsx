@@ -1,6 +1,6 @@
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
 import { AppEmptyState, AppIconActionCard } from "@/components/app/design";
-import { HubArrowIcon } from "@/components/app/hubs/HubArrowIcon";
+import { HubFeatureIcon } from "@/components/app/hubs/HubFeatureIcon";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon, hubT } from "@/lib/app-portal/hubs/hub-copy";
 import {
@@ -51,7 +51,7 @@ export default async function KompisBedriftKnowledgePage() {
           title={hubT(t, "bedrift.openInternalKnowledge")}
           description={hubT(t, "bedrift.knowledgeWorkspaceHint")}
           tone="purple"
-          icon={<HubArrowIcon />}
+          icon={<HubFeatureIcon kind="faq" />}
         />
       </div>
       <p className="text-sm text-aipify-text-secondary">{hubT(t, "bedrift.knowledgePublicSeparation")}</p>

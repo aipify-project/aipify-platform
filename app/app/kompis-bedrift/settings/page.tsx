@@ -1,6 +1,6 @@
 import { AppIconActionCard } from "@/components/app/design";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
-import { HubArrowIcon } from "@/components/app/hubs/HubArrowIcon";
+import { HubFeatureIcon } from "@/components/app/hubs/HubFeatureIcon";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon, hubT } from "@/lib/app-portal/hubs/hub-copy";
 import {
@@ -27,30 +27,35 @@ export default async function KompisBedriftSettingsPage() {
       title: t("customerApp.portalStructure.nav.kompisBedriftModules"),
       description: hubT(t, "bedrift.settingsModulesCard"),
       tone: "blue" as const,
+      icon: "modules" as const,
     },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisBedriftFaq,
       title: t("customerApp.portalStructure.nav.kompisBedriftFaq"),
       description: hubT(t, "bedrift.settingsKnowledgeCard"),
       tone: "purple" as const,
+      icon: "faq" as const,
     },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisBedriftEmployees,
       title: t("customerApp.portalStructure.nav.kompisBedriftEmployees"),
       description: hubT(t, "bedrift.settingsEmployeesCard"),
       tone: "lavender" as const,
+      icon: "users" as const,
     },
     {
       href: FOUNDATION_NAV_BINDINGS.accountIntegrations,
       title: t("customerApp.portalStructure.nav.accountIntegrations"),
       description: hubT(t, "account.integrationsCard"),
       tone: "slate" as const,
+      icon: "connection" as const,
     },
     {
       href: FOUNDATION_NAV_BINDINGS.accountNotifications,
       title: t("customerApp.portalStructure.nav.accountNotifications"),
       description: hubT(t, "account.notificationsCard"),
       tone: "emerald" as const,
+      icon: "messages" as const,
     },
   ];
 
@@ -77,7 +82,7 @@ export default async function KompisBedriftSettingsPage() {
             title={card.title}
             description={card.description}
             tone={card.tone}
-            icon={<HubArrowIcon />}
+            icon={<HubFeatureIcon kind={card.icon} />}
           />
         ))}
       </div>

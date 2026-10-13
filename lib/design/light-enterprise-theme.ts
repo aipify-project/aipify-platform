@@ -57,8 +57,8 @@ export const AipifyShellClasses = {
   surfaceMuted: "bg-aipify-surface-muted",
   topbar: "border-b border-aipify-border bg-aipify-surface/95 backdrop-blur-sm",
   sidebar: "border-r border-aipify-border bg-aipify-surface",
-  /** Shared APP sidebar desktop width — keep feedback offset in sync. */
-  sidebarDesktopWidth: "w-[280px]",
+  /** Shared APP sidebar desktop width — keep feedback/privacy offsets in sync (V2: 256 within 240–260). */
+  sidebarDesktopWidth: "w-[256px]",
   input:
     "rounded-xl border border-aipify-border bg-aipify-surface-muted text-aipify-text placeholder:text-aipify-text-muted focus:border-aipify-accent focus:bg-aipify-surface focus:outline-none focus:ring-2 focus:ring-aipify-focus",
   ghostButton:
@@ -70,8 +70,8 @@ export const AipifyShellClasses = {
   link: "text-aipify-accent hover:text-aipify-companion",
   dangerButton:
     "rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm font-medium text-red-800 transition hover:bg-red-100",
-  pageTitle: "text-[1.6875rem] font-semibold leading-tight tracking-tight text-aipify-text sm:text-[1.8125rem]",
-  pageSubtitle: "mt-1.5 text-[0.9375rem] leading-relaxed text-aipify-text-secondary sm:text-base",
+  pageTitle: "text-[1.75rem] font-semibold leading-tight tracking-tight text-aipify-text sm:text-[1.875rem]",
+  pageSubtitle: "mt-2 text-base leading-relaxed text-aipify-text-secondary sm:text-[1.0625rem]",
   metricWidget: "rounded-2xl border border-aipify-border bg-aipify-surface p-4 shadow-sm",
   widgetGrid: "grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
 } as const;
@@ -117,43 +117,45 @@ export const AipifySidebarTypography = {
   sectionLabelButton:
     "text-[12px] font-semibold uppercase tracking-[0.06em] text-aipify-text/80 transition hover:bg-aipify-surface-muted hover:text-aipify-text",
   navigationItem:
-    "text-[14px] font-medium leading-snug text-aipify-text-secondary",
-  navigationItemActive: "text-[14px] font-semibold leading-snug text-white",
-  subNavigationItem: "text-[14px] font-medium leading-snug text-aipify-text-secondary",
-  accessHint: "text-[12px] font-normal leading-snug text-amber-800",
-  workspaceSummary: "text-[12px] leading-[1.35] text-aipify-text-muted sm:text-[13px]",
+    "text-[15px] font-medium leading-snug text-aipify-text-secondary",
+  navigationItemActive: "text-[15px] font-semibold leading-snug text-white",
+  subNavigationItem: "text-[15px] font-medium leading-snug text-aipify-text-secondary",
+  accessHint: "text-[13px] font-normal leading-snug text-amber-800",
+  workspaceSummary: "text-[13px] leading-[1.4] text-aipify-text-muted sm:text-[14px]",
   workspaceSummaryLabel:
-    "shrink-0 text-[12px] font-medium leading-[1.35] text-aipify-text-muted sm:text-[13px]",
+    "block text-[11px] font-semibold uppercase tracking-[0.06em] leading-snug text-aipify-text-muted sm:text-[12px]",
   workspaceSummaryValue:
-    "min-w-0 text-[12px] font-semibold leading-[1.35] text-aipify-text-secondary sm:text-[13px]",
-  workspaceSummaryRow: "flex flex-wrap items-baseline gap-x-1 gap-y-0",
-  workspaceSummaryRowTight: "flex min-w-0 items-baseline gap-x-1",
+    "mt-0.5 block min-w-0 text-[13px] font-semibold leading-snug text-aipify-text sm:text-[14px]",
+  workspaceSummaryRow: "space-y-0.5",
+  workspaceSummaryRowTight: "space-y-0.5",
   workspaceSummaryFooter:
-    "text-[12px] font-semibold leading-[1.35] text-aipify-text-secondary sm:text-[13px]",
+    "text-[13px] font-semibold leading-[1.4] text-aipify-text-secondary sm:text-[14px]",
   workspaceSummaryCopyright:
-    "text-[11px] leading-[1.35] text-aipify-text-muted sm:text-[12px]",
-  feedbackButton: "text-[13px] font-medium leading-none",
+    "text-[12px] leading-[1.4] text-aipify-text-muted sm:text-[13px]",
+  feedbackButton: "text-[14px] font-medium leading-none",
   keyboardHint: "text-[12px] font-semibold uppercase tracking-wide text-aipify-text-secondary",
-  searchInput: "text-[13px] text-aipify-text placeholder:text-aipify-text-secondary",
-  mobileNavItem: "text-[13px] font-semibold leading-snug",
+  searchInput: "text-[14px] text-aipify-text placeholder:text-aipify-text-secondary",
+  mobileNavItem: "text-[14px] font-semibold leading-snug",
   mobileNavLabel: "min-w-0 max-w-[5.25rem] break-words text-center text-[12px] leading-snug line-clamp-2",
   navLabelWrap: "block break-words leading-snug line-clamp-2",
   navItemRow:
-    "flex w-full min-h-10 items-start gap-2.5 rounded-xl px-3 py-2 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2",
-  navIcon: "size-[20px] shrink-0",
+    "flex w-full min-h-12 items-center gap-3 rounded-xl px-3.5 py-2.5 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2",
+  navIcon: "size-[22px] shrink-0",
   chevron: "size-5 shrink-0 text-aipify-text/70",
   compactToggle: "rounded-lg p-2 text-aipify-text-secondary transition hover:bg-aipify-surface-muted hover:text-aipify-text focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus",
 } as const;
 
 /** APP sidebar layout tokens — desktop shell + feedback positioning */
 export const AipifySidebarLayout = {
-  desktopWidthPx: 280,
+  desktopWidthPx: 256,
   navScrollRegion: "min-h-0 flex-1 overflow-y-auto overscroll-contain",
-  footerRegion: "shrink-0",
+  footerRegion: "shrink-0 pb-[calc(3.5rem+env(safe-area-inset-bottom))] lg:pb-4",
   brandRegion: "shrink-0",
   asideDesktop:
     "hidden h-screen shrink-0 flex-col overflow-hidden lg:flex",
-  feedbackDesktopPosition: "lg:left-[calc(280px+1rem)] lg:bottom-6",
+  feedbackDesktopPosition: "lg:left-[calc(256px+1rem)] lg:bottom-6",
+  /** Privacy settings trigger offset so it does not cover sidebar license card. */
+  privacyTriggerDesktopPosition: "lg:left-[calc(256px+1rem)] lg:bottom-4",
 } as const;
 
 /** Surfaces that must NOT use pure #FFFFFF as page background */

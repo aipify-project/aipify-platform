@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AppIconActionCard } from "@/components/app/design";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
-import { HubArrowIcon } from "@/components/app/hubs/HubArrowIcon";
+import { HubFeatureIcon } from "@/components/app/hubs/HubFeatureIcon";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon, hubT } from "@/lib/app-portal/hubs/hub-copy";
 import {
@@ -28,12 +28,14 @@ export default async function KompisBedriftConnectionPage() {
       title: t("customerApp.portalStructure.nav.kompisBedriftEmployees"),
       description: hubT(t, "bedrift.connectionAccessCard"),
       tone: "purple" as const,
+      icon: "users" as const,
     },
     {
       href: FOUNDATION_NAV_BINDINGS.accountSubscription,
       title: t("customerApp.portalStructure.nav.accountSubscription"),
       description: hubT(t, "bedrift.connectionVsSubscription"),
       tone: "blue" as const,
+      icon: "connection" as const,
     },
   ];
 
@@ -65,7 +67,7 @@ export default async function KompisBedriftConnectionPage() {
             title={card.title}
             description={card.description}
             tone={card.tone}
-            icon={<HubArrowIcon />}
+            icon={<HubFeatureIcon kind={card.icon} />}
           />
         ))}
       </div>

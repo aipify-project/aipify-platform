@@ -18,7 +18,7 @@ function read(rel: string) {
   return fs.readFileSync(path.join(ROOT, rel), "utf8");
 }
 
-assert.equal(APP_VISUAL_SYSTEM_VERSION, "63.3");
+assert.equal(APP_VISUAL_SYSTEM_VERSION, "63.4");
 assert.equal(AppVisualColors.canvas, "#F3F5FB");
 assert.equal(AppVisualColors.surface, "#F8F9FD");
 assert.equal(AppVisualColors.card, "#FFFFFF");
@@ -61,6 +61,16 @@ assert.match(read("components/app/foundation/AppFoundationDashboard.tsx"), /AppD
 const card = read("components/app/design/AppIconActionCard.tsx");
 assert.match(card, /AppVisualClasses\.cardInteractive/);
 assert.match(card, /StatusDot/);
+
+const bedriftDash = read("app/app/kompis-bedrift/page.tsx");
+assert.match(bedriftDash, /HubFeatureIcon/);
+assert.doesNotMatch(bedriftDash, /HubArrowIcon/);
+assert.match(read("components/app/hubs/HubFeatureIcon.tsx"), /export function HubFeatureIcon/);
+assert.match(read("lib/design/light-enterprise-theme.ts"), /w-\[256px\]/);
+assert.match(read("lib/design/light-enterprise-theme.ts"), /desktopWidthPx:\s*256/);
+assert.match(read("components/analytics/AnalyticsConsentProvider.tsx"), /aipify-privacy-settings-trigger/);
+assert.match(globals, /aipify-privacy-settings-trigger/);
+assert.match(globals, /aipify-app-decorative-orb__mascot/);
 
 // Flat nav contract preserved (job 60/61)
 assert.equal(KOMPIS_WEB_FLAT_NAV.length, 8);
