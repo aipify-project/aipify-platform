@@ -109,7 +109,7 @@ export default function AnalyticsConsentProvider({
         />
       ) : null}
       {showSettingsTrigger ? (
-        <div className="fixed bottom-4 left-4 z-[90]">
+        <div className="aipify-privacy-settings-trigger fixed bottom-4 left-4 z-[90]">
           <button
             type="button"
             onClick={openPrivacySettings}

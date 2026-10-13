@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AppIconActionCard } from "@/components/app/design";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
-import { HubArrowIcon } from "@/components/app/hubs/HubArrowIcon";
+import { HubFeatureIcon, type HubFeatureIconKind } from "@/components/app/hubs/HubFeatureIcon";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon, hubT } from "@/lib/app-portal/hubs/hub-copy";
 import {
@@ -20,42 +20,54 @@ export default async function KompisBedriftDashboardPage() {
   const common = hubCommon(t);
   const ctx = await resolveHubWorkspaceContext();
 
-  const cards = [
+  const cards: Array<{
+    href: string;
+    title: string;
+    description: string;
+    tone: "blue" | "lavender" | "purple" | "slate";
+    icon: HubFeatureIconKind;
+  }> = [
     {
       href: FOUNDATION_NAV_BINDINGS.kompisBedriftEmployees,
       title: t("customerApp.portalStructure.nav.kompisBedriftEmployees"),
       description: hubT(t, "bedrift.employeesCard"),
-      tone: "blue" as const,
+      tone: "blue",
+      icon: "users",
     },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisBedriftDocuments,
       title: t("customerApp.portalStructure.nav.kompisBedriftDocuments"),
       description: hubT(t, "bedrift.documentsCard"),
-      tone: "lavender" as const,
+      tone: "lavender",
+      icon: "document",
     },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisBedriftFaq,
       title: t("customerApp.portalStructure.nav.kompisBedriftFaq"),
       description: hubT(t, "bedrift.knowledgeCard"),
-      tone: "purple" as const,
+      tone: "purple",
+      icon: "faq",
     },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisBedriftComms,
       title: t("customerApp.portalStructure.nav.kompisBedriftComms"),
       description: hubT(t, "bedrift.commsCard"),
-      tone: "blue" as const,
+      tone: "blue",
+      icon: "messages",
     },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisBedriftMeetings,
       title: t("customerApp.portalStructure.nav.kompisBedriftMeetings"),
       description: hubT(t, "bedrift.meetingsCard"),
-      tone: "lavender" as const,
+      tone: "lavender",
+      icon: "calendar",
     },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisBedriftModules,
       title: t("customerApp.portalStructure.nav.kompisBedriftModules"),
       description: hubT(t, "bedrift.modulesCard"),
-      tone: "slate" as const,
+      tone: "slate",
+      icon: "modules",
     },
   ];
 
@@ -72,7 +84,7 @@ export default async function KompisBedriftDashboardPage() {
       status={{ label: common.statusReady, tone: "emerald" }}
       decorativeAccent
     >
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {cards.map((card) => (
           <AppIconActionCard
             key={card.href}
@@ -80,7 +92,7 @@ export default async function KompisBedriftDashboardPage() {
             title={card.title}
             description={card.description}
             tone={card.tone}
-            icon={<HubArrowIcon />}
+            icon={<HubFeatureIcon kind={card.icon} />}
           />
         ))}
       </div>

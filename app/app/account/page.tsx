@@ -1,6 +1,6 @@
 import { AppIconActionCard } from "@/components/app/design";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
-import { HubArrowIcon } from "@/components/app/hubs/HubArrowIcon";
+import { HubFeatureIcon } from "@/components/app/hubs/HubFeatureIcon";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon, hubT } from "@/lib/app-portal/hubs/hub-copy";
 import {
@@ -25,24 +25,28 @@ export default async function AccountCenterPage() {
       title: t("customerApp.portalStructure.nav.accountSubscription"),
       description: hubT(t, "account.subscriptionCard"),
       tone: "purple" as const,
+      icon: "connection" as const,
     },
     {
       href: FOUNDATION_NAV_BINDINGS.accountInvoices,
       title: t("customerApp.portalStructure.nav.accountInvoices"),
       description: hubT(t, "account.invoicesCard"),
       tone: "blue" as const,
+      icon: "document" as const,
     },
     {
       href: FOUNDATION_NAV_BINDINGS.accountIntegrations,
       title: t("customerApp.portalStructure.nav.accountIntegrations"),
       description: hubT(t, "account.integrationsCard"),
       tone: "lavender" as const,
+      icon: "modules" as const,
     },
     {
       href: FOUNDATION_NAV_BINDINGS.accountNotifications,
       title: t("customerApp.portalStructure.nav.accountNotifications"),
       description: hubT(t, "account.notificationsCard"),
       tone: "slate" as const,
+      icon: "messages" as const,
     },
   ];
 
@@ -74,7 +78,7 @@ export default async function AccountCenterPage() {
             title={card.title}
             description={card.description}
             tone={card.tone}
-            icon={<HubArrowIcon />}
+            icon={<HubFeatureIcon kind={card.icon} />}
           />
         ))}
       </div>

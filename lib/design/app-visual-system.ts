@@ -2,7 +2,7 @@
  * Job 63 — Customer APP premium visual system (scoped; does not redefine Platform/public tokens).
  */
 
-export const APP_VISUAL_SYSTEM_VERSION = "63.3";
+export const APP_VISUAL_SYSTEM_VERSION = "63.4";
 
 /** Final documented palette (Public Home V1 family; contrast-tuned muted text). */
 export const AppVisualColors = {
@@ -34,9 +34,11 @@ export const AppVisualClasses = {
     "relative z-[1] flex min-h-screen w-full flex-col lg:flex-row lg:rounded-none lg:shadow-[var(--app-shadow-frame)]",
   sidebar:
     "border-r border-[var(--app-border)] bg-[var(--app-card)]/95 backdrop-blur-[2px]",
-  mainColumn: "relative z-[1] flex min-w-0 flex-1 flex-col bg-[var(--app-surface)]",
+  /** Soft translucent surface so canvas waves remain faintly visible behind work content. */
+  mainColumn:
+    "relative z-[1] flex min-w-0 flex-1 flex-col bg-[color-mix(in_srgb,var(--app-surface)_82%,transparent)]",
   mainScroll:
-    "relative z-[1] flex-1 overflow-y-auto scroll-pb-[calc(6rem+env(safe-area-inset-bottom))] px-4 py-6 pb-[calc(6rem+env(safe-area-inset-bottom))] sm:px-6 sm:py-8 lg:scroll-pb-8 lg:px-8 lg:pb-8",
+    "relative z-[1] flex-1 overflow-y-auto scroll-pb-[calc(6rem+env(safe-area-inset-bottom))] px-4 py-6 pb-[calc(6rem+env(safe-area-inset-bottom))] sm:px-6 sm:py-8 lg:scroll-pb-10 lg:px-10 lg:pb-10",
   card:
     "rounded-[var(--app-radius-lg)] border border-[var(--app-border)] bg-[var(--app-card)] p-5 shadow-[var(--app-shadow-card)] sm:p-6",
   cardInteractive:

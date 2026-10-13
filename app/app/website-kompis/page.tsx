@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AppIconActionCard } from "@/components/app/design";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
-import { HubArrowIcon } from "@/components/app/hubs/HubArrowIcon";
+import { HubFeatureIcon, type HubFeatureIconKind } from "@/components/app/hubs/HubFeatureIcon";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { hubCommon, hubT } from "@/lib/app-portal/hubs/hub-copy";
 import {
@@ -38,30 +38,40 @@ export default async function WebsiteKompisHubPage() {
     loadWebsiteKompisConnectionSummary(supabase),
   ]);
 
-  const cards = [
+  const cards: Array<{
+    href: string;
+    title: string;
+    description: string;
+    tone: "purple" | "blue" | "lavender" | "slate";
+    icon: HubFeatureIconKind;
+  }> = [
     {
       href: FOUNDATION_NAV_BINDINGS.kompisWebQa,
       title: t("customerApp.portalStructure.nav.kompisWebQa"),
       description: t("customerApp.portalStructure.webHub.qaDescription"),
-      tone: "purple" as const,
+      tone: "purple",
+      icon: "qa",
     },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisWebFaq,
       title: t("customerApp.portalStructure.nav.kompisWebFaq"),
       description: t("customerApp.portalStructure.webHub.faqDescription"),
-      tone: "blue" as const,
+      tone: "blue",
+      icon: "faq",
     },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisWebConnection,
       title: t("customerApp.portalStructure.nav.kompisWebConnection"),
       description: t("customerApp.portalStructure.webHub.connectionDescription"),
-      tone: "lavender" as const,
+      tone: "lavender",
+      icon: "connection",
     },
     {
       href: FOUNDATION_NAV_BINDINGS.kompisWebModules,
       title: t("customerApp.portalStructure.nav.kompisWebModules"),
       description: hubT(t, "web.modulesCard"),
-      tone: "slate" as const,
+      tone: "slate",
+      icon: "modules",
     },
   ];
 
@@ -235,7 +245,7 @@ export default async function WebsiteKompisHubPage() {
         </section>
       ) : null}
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {cards.map((card) => (
           <AppIconActionCard
             key={card.href}
@@ -243,7 +253,7 @@ export default async function WebsiteKompisHubPage() {
             title={card.title}
             description={card.description}
             tone={card.tone}
-            icon={<HubArrowIcon />}
+            icon={<HubFeatureIcon kind={card.icon} />}
           />
         ))}
       </div>

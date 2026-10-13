@@ -35,30 +35,30 @@ export function AppIconActionCard({
   return (
     <Link
       href={href}
-      className={`${AppVisualClasses.cardInteractive} group relative z-[1] flex h-full flex-col gap-4`}
+      className={`${AppVisualClasses.cardInteractive} group relative z-[1] flex h-full flex-col gap-5 !p-6 sm:!p-7`}
     >
       <div className="flex items-start justify-between gap-3">
         <span
-          className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl shadow-sm ring-1 ${TONE_CLASSES[tone]}`}
+          className={`inline-flex h-[3.25rem] w-[3.25rem] shrink-0 items-center justify-center rounded-2xl shadow-sm ring-1 ${TONE_CLASSES[tone]}`}
           aria-hidden="true"
         >
           <span className="[&_svg]:h-6 [&_svg]:w-6 [&_svg]:stroke-[1.75]">{icon}</span>
         </span>
         {statusLabel ? (
           <span
-            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${TONE_CLASSES[statusTone]}`}
+            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[13px] font-medium ring-1 ${TONE_CLASSES[statusTone]}`}
           >
             <StatusDot tone={statusTone} />
             {statusLabel}
           </span>
         ) : null}
       </div>
-      <div className="flex min-w-0 flex-1 items-start justify-between gap-3">
-        <div className="min-w-0 space-y-1.5">
-          <h3 className="text-[1.0625rem] font-semibold tracking-tight text-[var(--app-text)] group-hover:text-[var(--app-primary)] sm:text-lg">
+      <div className="flex min-w-0 flex-1 items-start justify-between gap-4">
+        <div className="min-w-0 space-y-2">
+          <h3 className="text-[1.125rem] font-semibold tracking-tight text-[var(--app-text)] group-hover:text-[var(--app-primary)] sm:text-[1.1875rem]">
             {title}
           </h3>
-          <p className="text-[0.9375rem] leading-relaxed text-[var(--app-text-muted)]">{description}</p>
+          <p className="text-[0.9375rem] leading-relaxed text-[var(--app-text-muted)] sm:text-base">{description}</p>
         </div>
         <span
           className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--app-primary-soft)] text-[var(--app-primary)] ring-1 ring-[var(--app-border-accent)] transition group-hover:translate-x-0.5 group-hover:bg-[image:var(--app-primary-soft-fill)]"
