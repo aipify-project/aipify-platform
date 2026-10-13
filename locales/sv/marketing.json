@@ -34,7 +34,7 @@
   },
   "nav": {
     "platform": "Plattform",
-    "businessPacks": "Business Packs",
+    "businessPacks": "Tillägg",
     "solutions": "Lösningar",
     "enterprise": "Enterprise",
     "partners": "Partners",
@@ -59,11 +59,11 @@
     "getStarted": "Kom igång"
   },
   "footer": {
-    "tagline": "Aipify Business Operating System (ABOS) — operativ intelligens med mänsklig kontroll inbyggd.",
+    "tagline": "Kompis Web hjälper besökare offentligt. Kompis Bedrift är den slutna arbetsytan för team — styrd av Aipify Core.",
     "companyName": "Aipify Group AS",
     "organizationNumberLabel": "Org.nr.",
     "headquarters": "Bergen, Norge",
-    "businessOperatingSystem": "Business Operating System",
+    "businessOperatingSystem": "Kompis Web · Kompis Bedrift · Core",
     "description": "Bygger intelligenta affärssystem — ett komplett Business Operating System med styrning, operativt djup och mänsklig kontroll.",
     "signature": "Norge. For the world.",
     "brandSignatureLine1": "Aipify Group AS",
@@ -72,7 +72,7 @@
     "foundingPrinciple": "Vår ambition är global. Våra värderingar förblir norska.",
     "product": "Produkt",
     "products": "Produkter",
-    "businessPacks": "Business Packs",
+    "businessPacks": "Tillägg",
     "enterprise": "Enterprise",
     "companyPage": "Om Aipify",
     "careers": "Karriär",
@@ -8334,17 +8334,17 @@
     },
     "demoCompany": {
       "kicker": "Kompis Bedrift",
-      "title": "Conversations, documents, and knowledge — together.",
-      "text": "Employees write together in a closed workspace and can bring Kompis into the conversation to find answers in allowed documents.",
+      "title": "En sluten arbetsyta för teamet — som växer steg för steg.",
+      "text": "I dag hanterar team medarbetare, åtkomst och intern kunskap i APP. Privat chatt, presence och dokumentsamarbete är planerat nästa steg.",
       "pills": [
-        "Private chat",
-        "Share a document",
-        "Search knowledge"
+        "Medarbetare & åtkomst",
+        "Intern kunskap",
+        "Planerat samarbete"
       ],
       "name": "Kompis Bedrift",
-      "question": "@Kompis, what was agreed about the delivery date?",
-      "answer": "The project agreement states 18 November. Kari shared the latest version in the project group yesterday.",
-      "source": "↗ Source: Project agreement v3"
+      "question": "Var hanterar vi medarbetaråtkomst?",
+      "answer": "Använd Medarbetare och åtkomst i APP-panelen för att se vilka som tillhör arbetsytan och vilka roller de har.",
+      "source": "↗ Källa: APP · Medarbetare & åtkomst"
     },
     "productsLabel": "Two products",
     "productsTitle": "The right Kompis for the right conversation.",
@@ -8352,19 +8352,43 @@
     "productWebTitle": "Kompis Web",
     "productWebBody": "A public helper that understands the page a customer is on and finds answers across the approved website.",
     "productWebFeatures": [
-      "Pages, FAQ, and approved documents in one knowledge path",
-      "Natural questions and follow-ups in the customer’s language",
-      "Sources, feedback, and knowledge gaps in the APP panel",
-      "Domain, installation, and license in one place"
+      {
+        "text": "Sidor, FAQ och godkända dokument i samma kunskapsspår",
+        "status": "available"
+      },
+      {
+        "text": "Naturliga frågor och uppföljningar på kundens språk",
+        "status": "available"
+      },
+      {
+        "text": "Källor, feedback och kunskapsluckor i APP-panelen",
+        "status": "available"
+      },
+      {
+        "text": "Domän, installation och licens på ett ställe",
+        "status": "available"
+      }
     ],
     "productWebCta": "See Kompis Web →",
     "productBedriftTitle": "Kompis Bedrift",
-    "productBedriftBody": "A closed workspace where employees write together, share documents, and use Kompis to find internal knowledge.",
+    "productBedriftBody": "En sluten arbetsyta för medarbetare — med APP-hubbar för åtkomst, kunskap och inställningar i dag, och rikare samarbete som byggs vidare.",
     "productBedriftFeatures": [
-      "Private chat, groups, and who is online",
-      "Document sharing inside the conversation",
-      "Ask Kompis about documents, meetings, and internal answers",
-      "Roles and access follow each employee and each source"
+      {
+        "text": "Medarbetare och åtkomst i APP-panelen",
+        "status": "available"
+      },
+      {
+        "text": "Interna kunskaps- och FAQ-hubbar för organisationen",
+        "status": "available"
+      },
+      {
+        "text": "Privat chatt, grupper och presence för team",
+        "status": "planned"
+      },
+      {
+        "text": "Dokumentdelning och Kompis-svar inne i samtal",
+        "status": "planned"
+      }
     ],
     "productBedriftCta": "See Kompis Bedrift →",
     "productIconAlt": "Aipify Kompis mascot",
@@ -8439,6 +8463,8 @@
     "plannedTag": "Planerat tillägg",
     "ctaTitle": "Give customers and teams a Kompis that actually knows the business.",
     "ctaBody": "Choose Kompis Web, Kompis Bedrift, or both. Aipify keeps control in one clear APP panel.",
-    "ctaButton": "Boka en demo"
+    "ctaButton": "Boka en demo",
+    "availableNowLabel": "Tillgängligt nu",
+    "plannedLabel": "Planerat"
   }
 }

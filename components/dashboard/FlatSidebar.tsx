@@ -46,14 +46,16 @@ export default function FlatSidebar({
             aria-disabled={item.locked || undefined}
             className={`${AipifySidebarTypography.navItemRow} min-h-11 ${
               isActive
-                ? `${AppVisualClasses.navItemActive} text-[13px] font-semibold leading-snug`
+                ? `${AppVisualClasses.navItemActive} text-[14px] font-semibold leading-snug`
                 : `${AppVisualClasses.navItem} ${AipifySidebarTypography.navigationItem}`
             } ${AppVisualClasses.focusRing} ${item.locked ? "opacity-60" : ""}`}
             aria-current={isActive ? "page" : undefined}
           >
             <span
               className={`mt-0.5 ${AipifySidebarTypography.navIcon} ${
-                isActive ? AppVisualClasses.navItemActiveIcon : "text-[var(--app-text-muted)]"
+                isActive
+                  ? AppVisualClasses.navItemActiveIcon
+                  : "text-[var(--app-primary-blue)] opacity-80"
               }`}
             >
               {icon}

@@ -39,10 +39,10 @@ export function AppIconActionCard({
     >
       <div className="flex items-start justify-between gap-3">
         <span
-          className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ring-1 ${TONE_CLASSES[tone]}`}
+          className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl shadow-sm ring-1 ${TONE_CLASSES[tone]}`}
           aria-hidden="true"
         >
-          <span className="[&_svg]:h-6 [&_svg]:w-6">{icon}</span>
+          <span className="[&_svg]:h-6 [&_svg]:w-6 [&_svg]:stroke-[1.75]">{icon}</span>
         </span>
         {statusLabel ? (
           <span
@@ -55,16 +55,16 @@ export function AppIconActionCard({
       </div>
       <div className="flex min-w-0 flex-1 items-start justify-between gap-3">
         <div className="min-w-0 space-y-1.5">
-          <h3 className="text-base font-semibold text-[var(--app-text)] group-hover:text-[var(--app-primary)]">
+          <h3 className="text-[1.0625rem] font-semibold tracking-tight text-[var(--app-text)] group-hover:text-[var(--app-primary)] sm:text-lg">
             {title}
           </h3>
-          <p className="text-sm leading-relaxed text-[var(--app-text-muted)]">{description}</p>
+          <p className="text-[0.9375rem] leading-relaxed text-[var(--app-text-muted)]">{description}</p>
         </div>
         <span
-          className="mt-1 shrink-0 text-[var(--app-primary)] opacity-60 transition group-hover:translate-x-0.5 group-hover:opacity-100"
+          className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--app-primary-soft)] text-[var(--app-primary)] ring-1 ring-[var(--app-border-accent)] transition group-hover:translate-x-0.5 group-hover:bg-[image:var(--app-primary-soft-fill)]"
           aria-hidden="true"
         >
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.75} stroke="currentColor">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
           </svg>
         </span>

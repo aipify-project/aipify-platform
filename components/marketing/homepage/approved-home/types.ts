@@ -11,6 +11,12 @@ export type ApprovedPublicHomeDemoContent = {
   source: string;
 };
 
+/** Product capability line with verified availability status. */
+export type ApprovedPublicHomeFeature = {
+  text: string;
+  status: "available" | "planned";
+};
+
 export type ApprovedPublicHomeLabels = {
   demoBadge: string;
   eyebrow: string;
@@ -38,13 +44,15 @@ export type ApprovedPublicHomeLabels = {
   productsSubtitle: string;
   productWebTitle: string;
   productWebBody: string;
-  productWebFeatures: string[];
+  productWebFeatures: ApprovedPublicHomeFeature[];
   productWebCta: string;
   productBedriftTitle: string;
   productBedriftBody: string;
-  productBedriftFeatures: string[];
+  productBedriftFeatures: ApprovedPublicHomeFeature[];
   productBedriftCta: string;
   productIconAlt: string;
+  availableNowLabel: string;
+  plannedLabel: string;
   coreLabel: string;
   coreTitle: string;
   coreBody: string;

@@ -107,17 +107,17 @@
     },
     "demoCompany": {
       "kicker": "Kompis Bedrift",
-      "title": "Conversations, documents, and knowledge — together.",
-      "text": "Employees write together in a closed workspace and can bring Kompis into the conversation to find answers in allowed documents.",
+      "title": "Zamknięta przestrzeń dla zespołu — rozwijana krok po kroku.",
+      "text": "Dziś zespoły zarządzają pracownikami, dostępem i wiedzą wewnętrzną w APP. Prywatny czat, presence i współpraca nad dokumentami są planowane.",
       "pills": [
-        "Private chat",
-        "Share a document",
-        "Search knowledge"
+        "Pracownicy i dostęp",
+        "Wiedza wewnętrzna",
+        "Planowana współpraca"
       ],
       "name": "Kompis Bedrift",
-      "question": "@Kompis, what was agreed about the delivery date?",
-      "answer": "The project agreement states 18 November. Kari shared the latest version in the project group yesterday.",
-      "source": "↗ Source: Project agreement v3"
+      "question": "Gdzie zarządzamy dostępem pracowników?",
+      "answer": "Użyj Pracownicy i dostęp w panelu APP, aby zobaczyć, kto należy do przestrzeni i jakie ma role.",
+      "source": "↗ Źródło: APP · Pracownicy i dostęp"
     },
     "productsLabel": "Two products",
     "productsTitle": "The right Kompis for the right conversation.",
@@ -125,19 +125,43 @@
     "productWebTitle": "Kompis Web",
     "productWebBody": "A public helper that understands the page a customer is on and finds answers across the approved website.",
     "productWebFeatures": [
-      "Pages, FAQ, and approved documents in one knowledge path",
-      "Natural questions and follow-ups in the customer’s language",
-      "Sources, feedback, and knowledge gaps in the APP panel",
-      "Domain, installation, and license in one place"
+      {
+        "text": "Strony, FAQ i zatwierdzone dokumenty w jednej ścieżce wiedzy",
+        "status": "available"
+      },
+      {
+        "text": "Naturalne pytania i kontynuacje w języku klienta",
+        "status": "available"
+      },
+      {
+        "text": "Źródła, feedback i luki wiedzy w panelu APP",
+        "status": "available"
+      },
+      {
+        "text": "Domena, instalacja i licencja w jednym miejscu",
+        "status": "available"
+      }
     ],
     "productWebCta": "See Kompis Web →",
     "productBedriftTitle": "Kompis Bedrift",
-    "productBedriftBody": "A closed workspace where employees write together, share documents, and use Kompis to find internal knowledge.",
+    "productBedriftBody": "Zamknięta przestrzeń dla pracowników — z hubami APP do dostępu, wiedzy i ustawień już dziś, oraz bogatszą współpracą rozwijaną dalej.",
     "productBedriftFeatures": [
-      "Private chat, groups, and who is online",
-      "Document sharing inside the conversation",
-      "Ask Kompis about documents, meetings, and internal answers",
-      "Roles and access follow each employee and each source"
+      {
+        "text": "Pracownicy i dostęp w panelu APP",
+        "status": "available"
+      },
+      {
+        "text": "Wewnętrzne huby wiedzy i FAQ dla organizacji",
+        "status": "available"
+      },
+      {
+        "text": "Prywatny czat, grupy i presence dla zespołów",
+        "status": "planned"
+      },
+      {
+        "text": "Udostępnianie dokumentów i odpowiedzi Kompis w rozmowach",
+        "status": "planned"
+      }
     ],
     "productBedriftCta": "See Kompis Bedrift →",
     "productIconAlt": "Aipify Kompis mascot",
@@ -212,7 +236,9 @@
     "plannedTag": "Planowany dodatek",
     "ctaTitle": "Give customers and teams a Kompis that actually knows the business.",
     "ctaBody": "Choose Kompis Web, Kompis Bedrift, or both. Aipify keeps control in one clear APP panel.",
-    "ctaButton": "Umów demo"
+    "ctaButton": "Umów demo",
+    "availableNowLabel": "Dostępne teraz",
+    "plannedLabel": "Planowane"
   },
   "growthPartnersPageRedesign": {
     "meta": {

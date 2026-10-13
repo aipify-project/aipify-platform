@@ -87,7 +87,7 @@ export function AppHubShell({
             primaryAction ? (
               <Link
                 href={primaryAction.href}
-                className="inline-flex rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
+                className="inline-flex min-h-11 items-center rounded-[var(--app-radius-md)] bg-[image:var(--app-primary-gradient)] px-5 py-2.5 text-[0.9375rem] font-semibold text-white shadow-sm transition hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus)]"
               >
                 {primaryAction.label}
               </Link>

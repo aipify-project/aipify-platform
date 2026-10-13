@@ -36,13 +36,17 @@ export function PublicAccessAtmosphere({
         <Image
           src="/brand/aipify-kompis-avatar.png"
           alt=""
-          width={420}
-          height={420}
-          className="absolute -right-16 bottom-[-40px] hidden w-[min(42vw,380px)] opacity-[0.16] sm:block"
+          width={480}
+          height={480}
+          className="absolute -right-10 top-[-28px] hidden w-[min(48vw,420px)] opacity-[0.2] sm:block md:opacity-[0.22] lg:-right-6 lg:top-[-12px] lg:w-[min(40vw,460px)]"
           style={{
-            transform: "rotate(-12deg)",
-            WebkitMaskImage: "linear-gradient(90deg, transparent, #000 40%)",
-            maskImage: "linear-gradient(90deg, transparent, #000 40%)",
+            transform: "rotate(-10deg)",
+            WebkitMaskImage:
+              "linear-gradient(90deg, transparent 0%, #000 38%), linear-gradient(180deg, #000 55%, transparent 92%)",
+            WebkitMaskComposite: "source-in",
+            maskImage:
+              "linear-gradient(90deg, transparent 0%, #000 38%), linear-gradient(180deg, #000 55%, transparent 92%)",
+            maskComposite: "intersect",
           }}
           priority={false}
         />
