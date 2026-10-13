@@ -3,6 +3,11 @@
 **Date:** 2026-10-13  
 **Baseline:** `origin/main` `32fdfeadb16caa7ba72fe02db10b49ed4a5796f7` (PR #163 Public Home V1 LIVE)  
 **Branch:** `feature/total-visual-consistency-2026-10-13`  
+**Feature head:** `f132ca399352e234a72420685a7e5371117d61fe`  
+**PR:** [#164](https://github.com/aipify-project/aipify-platform/pull/164) — **MERGED**  
+**Merge-SHA:** `663fdbe1644ea0054568d3a41e04c72599f5f149`  
+**Public Production (iz5z / aipify.ai):** `dpl_79vdyuNAZTF8vPuNgCPVtMp6Eo37` — **READY**  
+**APP Production (aipify-platform / app.aipify.ai):** `dpl_H8vzu9XoSxkb6SbvfKTLq6ibQCmF` — **READY**  
 **Feature owner:** CUSTOMER APP (APP shell) + public marketing/auth (login/register/partners/home CSS)
 
 | Gate | Result |
@@ -12,8 +17,10 @@
 | Frozen Website Kompis (46 files) | **touched=0 / runtime diff=0** |
 | Partner application form / backend | **diff=0** |
 | Auth/session/redirect contracts | **unchanged** |
-| `MIGRATION CREATED/APPLIED` | **NO** |
+| `MIGRATION CREATED/APPLIED` | **NO** (SQL not required) |
 | Safari scroll profile | **NOT RUN** |
+| Preview SSO automated browse | **BLOCKED** (Vercel login gate) |
+| Production smoke aipify.ai | **PASS** |
 
 ---
 
@@ -87,8 +94,9 @@ Canvas `#F3F5FB` + stronger Public Home–family radial gradients (no live blur)
 | premium-visual-system-63.test | PASS |
 | Locale JSON parse en/no/sv/da/pl/uk | PASS |
 | Typecheck | PASS (tsc --noEmit) |
-| Preview visual QA | PENDING until Preview READY |
-| Production smoke aipify.ai + app.aipify.ai | PENDING until LIVE |
+| Preview visual QA | BLOCKED (Vercel SSO) — CI Preview READY |
+| Production smoke aipify.ai | PASS (`/`, `/login`, `/register` field order, `/growth-partners` copy) |
+| Production smoke app.aipify.ai | PASS (HTTP reachability; OWNER visual PENDING) |
 | Safari | NOT RUN |
 
 ---
