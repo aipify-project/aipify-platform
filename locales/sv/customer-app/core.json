@@ -6427,6 +6427,37 @@
     "invoiceCenter": {
       "title": "Enterprise Invoice Center",
       "emptyStructure": "No enterprise invoices yet. Your invoice history will appear here."
+    },
+    "customerWorkspace": {
+      "nextDueTitle": "Nästa förfallodatum",
+      "nextDueEmpty": "Inga utestående fakturor.",
+      "payeeLabel": "Betalningsmottagare",
+      "amountLabel": "Belopp",
+      "dueLabel": "Förfallodatum",
+      "issuedLabel": "Fakturadatum",
+      "periodLabel": "Fakturaperiod",
+      "periodUnavailable": "Period anges inte på denna faktura",
+      "statusLabel": "Status",
+      "payCta": "Betala",
+      "payUnavailableTitle": "Så här betalar du",
+      "payUnavailableBody": "Onlinebetalning är ännu inte tillgänglig för denna faktura i Aipify. Använd betalningsuppgifterna på fakturan, eller kontakta Aipify billing om du behöver hjälp.",
+      "kidLabel": "OCR/KID",
+      "bankReferenceLabel": "Bankreferens",
+      "sectionOverdue": "Förfallen",
+      "sectionAwaiting": "Väntar på betalning",
+      "sectionPaid": "Betalda fakturor",
+      "sectionOther": "Övriga fakturor",
+      "showDetails": "Visa detaljer",
+      "hideDetails": "Dölj detaljer",
+      "originalDocumentUnavailable": "Originalfakturan från Aipifys utfärdare är ännu inte tillgänglig för nedladdning här.",
+      "descriptionLabel": "Beskrivning",
+      "netLabel": "Netto",
+      "taxLabel": "Moms",
+      "totalLabel": "Totalt",
+      "paidAmountLabel": "Betalt belopp",
+      "retry": "Försök igen",
+      "loadError": "Fakturor kunde inte läsas in. Försök igen.",
+      "billingProfileToggle": "Faktureringsprofil"
     }
   },
   "boardInvestorIntelligence": {

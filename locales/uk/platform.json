@@ -4253,6 +4253,37 @@
     "permissions": {
       "viewOnly": "Доступ лише для перегляду.",
       "financeRequired": "Потрібні дозволи адміністратора фінансів."
+    },
+    "customerWorkspace": {
+      "nextDueTitle": "Наступний платіж",
+      "nextDueEmpty": "Немає непогашених рахунків.",
+      "payeeLabel": "Отримувач платежу",
+      "amountLabel": "Сума",
+      "dueLabel": "Термін оплати",
+      "issuedLabel": "Дата рахунку",
+      "periodLabel": "Розрахунковий період",
+      "periodUnavailable": "Період не вказано в цьому рахунку",
+      "statusLabel": "Статус",
+      "payCta": "Сплатити",
+      "payUnavailableTitle": "Як сплатити",
+      "payUnavailableBody": "Онлайн-оплата ще недоступна для цього рахунку в Aipify. Скористайтеся платіжними реквізитами в рахунку або зверніться до білінгу Aipify.",
+      "kidLabel": "KID",
+      "bankReferenceLabel": "Банківське посилання",
+      "sectionOverdue": "Прострочені",
+      "sectionAwaiting": "Очікують оплати",
+      "sectionPaid": "Сплачені рахунки",
+      "sectionOther": "Інші рахунки",
+      "showDetails": "Показати деталі",
+      "hideDetails": "Сховати деталі",
+      "originalDocumentUnavailable": "Оригінальний документ рахунку від емітента Aipify ще недоступний для завантаження тут.",
+      "descriptionLabel": "Опис",
+      "netLabel": "Нетто",
+      "taxLabel": "Податок",
+      "totalLabel": "Разом",
+      "paidAmountLabel": "Сплачена сума",
+      "retry": "Спробувати знову",
+      "loadError": "Не вдалося завантажити рахунки. Спробуйте знову.",
+      "billingProfileToggle": "Профіль виставлення рахунків"
     }
   },
   "invoices": {

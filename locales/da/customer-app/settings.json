@@ -1199,6 +1199,24 @@
         "recommendations": "Opgraderingsanbefalinger",
         "packages": "Kommercielle pakker",
         "flags": "Funktionsflag"
+      },
+      "statusActive": "Aktiv",
+      "statusAvailable": "Tilgængelig",
+      "statusTrial": "Prøveperiode",
+      "openManage": "Nuværende pakke",
+      "upgradeRequired": "Indgår ved opgradering — ingen købshandling fra dette kort.",
+      "plannedSection": "Planlagte tilføjelser",
+      "plannedHint": "Disse funktioner er planlagt. Køb og aktivering er endnu ikke tilgængelige i Aipify.",
+      "plannedCta": "Kommer senere",
+      "plannedProducts": {
+        "designStudio": {
+          "name": "Design Studio",
+          "description": "Designpakker til arbejdsområdets udseende. Køb og pakketering er endnu ikke leveret."
+        },
+        "aiTranslator": {
+          "name": "Aipify Translator",
+          "description": "Kundebetalte oversættelseskreditter. Køb, kreditter og aktivering er endnu ikke leveret."
+        }
       }
     }
   },

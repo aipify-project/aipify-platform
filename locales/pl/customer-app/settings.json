@@ -1054,6 +1054,24 @@
         "recommendations": "Upgrade recommendations",
         "packages": "Commercial packages",
         "flags": "Feature flag states"
+      },
+      "statusActive": "Aktywny",
+      "statusAvailable": "Dostępny",
+      "statusTrial": "Okres próbny",
+      "openManage": "Bieżący pakiet",
+      "upgradeRequired": "Dostępne po uaktualnieniu — brak zakupu z tej karty.",
+      "plannedSection": "Planowane dodatki",
+      "plannedHint": "Te możliwości są planowane. Zakup i aktywacja nie są jeszcze dostępne w Aipify.",
+      "plannedCta": "Wkrótce",
+      "plannedProducts": {
+        "designStudio": {
+          "name": "Design Studio",
+          "description": "Pakiety projektowe wyglądu przestrzeni. Zakup i pakietowanie nie są jeszcze dostarczone."
+        },
+        "aiTranslator": {
+          "name": "Aipify Translator",
+          "description": "Płatne kredyty tłumaczeniowe. Zakup, kredyty i aktywacja nie są jeszcze dostarczone."
+        }
       }
     }
   },

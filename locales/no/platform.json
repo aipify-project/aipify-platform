@@ -1785,6 +1785,37 @@
     "invoiceCenter": {
       "title": "Enterprise Invoice Center",
       "emptyStructure": "No enterprise invoices yet. The table below is ready for customer invoice records."
+    },
+    "customerWorkspace": {
+      "nextDueTitle": "Neste forfall",
+      "nextDueEmpty": "Ingen utestående fakturaer.",
+      "payeeLabel": "Betalingsmottaker",
+      "amountLabel": "Beløp",
+      "dueLabel": "Forfallsdato",
+      "issuedLabel": "Fakturadato",
+      "periodLabel": "Fakturaperiode",
+      "periodUnavailable": "Periode er ikke oppgitt på denne fakturaen",
+      "statusLabel": "Status",
+      "payCta": "Betal",
+      "payUnavailableTitle": "Slik betaler du",
+      "payUnavailableBody": "Nettbetaling er ikke tilgjengelig for denne fakturaen i Aipify ennå. Bruk betalingsopplysningene på fakturaen, eller kontakt Aipify billing hvis du trenger hjelp.",
+      "kidLabel": "KID",
+      "bankReferenceLabel": "Bankreferanse",
+      "sectionOverdue": "Forfalt",
+      "sectionAwaiting": "Til betaling / venter",
+      "sectionPaid": "Betalte fakturaer",
+      "sectionOther": "Andre fakturaer",
+      "showDetails": "Vis detaljer",
+      "hideDetails": "Skjul detaljer",
+      "originalDocumentUnavailable": "Originalfakturaen fra Aipifys utsteder er ikke tilgjengelig for nedlasting her ennå.",
+      "descriptionLabel": "Beskrivelse",
+      "netLabel": "Netto",
+      "taxLabel": "MVA",
+      "totalLabel": "Totalt",
+      "paidAmountLabel": "Betalt beløp",
+      "retry": "Prøv igjen",
+      "loadError": "Fakturaer kunne ikke lastes. Prøv igjen.",
+      "billingProfileToggle": "Fakturaprofil"
     }
   },
   "invoices": {
