@@ -4,8 +4,11 @@
 
 - **origin/main before work:** `13fe8a26` (feedback/footer RESULT IDs / PR #169)
 - **Branch:** `feature/app-billing-modules-functional-2026-10-13`
-- **Feature head / PR / merge / APP deploy:** _(filled after LIVE)_
-- **Canonical domain:** `https://app.aipify.ai`
+- **Feature head:** `b38e0b96` (fix on `ae15a526`)
+- **PR:** [#170](https://github.com/aipify-project/aipify-platform/pull/170) MERGED
+- **Merge-SHA:** `d0ee7b0b9a421f3ee88f52e0b5eb787be4ba4b21`
+- **APP deploy:** `dpl_E12F3QPqXrkkkVaf8CHHc4tNrCgg` — **READY**
+- **Canonical domain:** `https://app.aipify.ai` (Link `dpl=` match; `/app/account/invoices` → HTTP 307 auth redirect)
 - **Frozen Website Kompis protected files touched:** **0**
 
 ## Call-graph status (invoice)
