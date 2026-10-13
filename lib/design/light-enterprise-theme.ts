@@ -149,13 +149,12 @@ export const AipifySidebarTypography = {
 export const AipifySidebarLayout = {
   desktopWidthPx: 256,
   navScrollRegion: "min-h-0 flex-1 overflow-y-auto overscroll-contain",
-  footerRegion: "shrink-0 pb-[calc(3.5rem+env(safe-area-inset-bottom))] lg:pb-4",
+  /** Footer hosts license card + privacy control — safe-area only (no floating offset). */
+  footerRegion: "shrink-0 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:pb-3",
   brandRegion: "shrink-0",
   asideDesktop:
     "hidden h-screen shrink-0 flex-col overflow-hidden lg:flex",
   feedbackDesktopPosition: "lg:left-[calc(256px+1rem)] lg:bottom-6",
-  /** Privacy settings trigger offset so it does not cover sidebar license card. */
-  privacyTriggerDesktopPosition: "lg:left-[calc(256px+1rem)] lg:bottom-4",
 } as const;
 
 /** Surfaces that must NOT use pure #FFFFFF as page background */

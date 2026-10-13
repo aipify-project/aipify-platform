@@ -465,15 +465,9 @@ body {
   opacity: 1;
 }
 
-/* Privacy settings trigger: clear of APP sidebar license footer (provider behavior unchanged). */
+/* APP owns privacy in sidebar footer — floating marketing/partners trigger unchanged. */
 body:has(.aipify-app-shell) .aipify-privacy-settings-trigger {
-  left: 1rem;
-  bottom: 1rem;
-}
-@media (min-width: 1024px) {
-  body:has(.aipify-app-shell) .aipify-privacy-settings-trigger {
-    left: calc(256px + 1rem);
-  }
+  display: none;
 }
 
 @media (max-width: 768px) {

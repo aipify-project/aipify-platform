@@ -2,7 +2,7 @@
  * Job 63 — Customer APP premium visual system (scoped; does not redefine Platform/public tokens).
  */
 
-export const APP_VISUAL_SYSTEM_VERSION = "63.4";
+export const APP_VISUAL_SYSTEM_VERSION = "63.5";
 
 /** Final documented palette (Public Home V1 family; contrast-tuned muted text). */
 export const AppVisualColors = {

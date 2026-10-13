@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type RefObject } from "react";
+import { createPortal } from "react-dom";
 import {
   CUSTOMER_FEEDBACK_POLICY_ARTICLE_PATH,
   CUSTOMER_STATUS_BADGES,
@@ -15,7 +16,12 @@ type ShareFeedbackDialogProps = {
   labels: VocWidgetLabels;
   open: boolean;
   onClose: () => void;
+  /** Element that opened the dialog — focus returns here on close. */
+  returnFocusRef?: RefObject<HTMLElement | null>;
 };
+
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 function StatusPill({ label, className }: { label: string; className: string }) {
   return (
@@ -25,7 +31,16 @@ function StatusPill({ label, className }: { label: string; className: string }) 
   );
 }
 
-export function ShareFeedbackDialog({ labels, open, onClose }: ShareFeedbackDialogProps) {
+export function ShareFeedbackDialog({
+  labels,
+  open,
+  onClose,
+  returnFocusRef,
+}: ShareFeedbackDialogProps) {
+  const titleId = useId();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const [mounted, setMounted] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -48,6 +63,10 @@ export function ShareFeedbackDialog({ labels, open, onClose }: ShareFeedbackDial
   }, []);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (open && showHistory) void loadHistory();
   }, [open, showHistory, loadHistory]);
 
@@ -57,6 +76,61 @@ export function ShareFeedbackDialog({ labels, open, onClose }: ShareFeedbackDial
       setShowHistory(false);
     }
   }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const previouslyFocused =
+      returnFocusRef?.current ?? (document.activeElement as HTMLElement | null);
+
+    // Defer focus so portal content is painted (Safari).
+    const focusTimer = window.setTimeout(() => {
+      closeRef.current?.focus();
+    }, 0);
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab" || !dialogRef.current) return;
+
+      const focusables = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+      ).filter((el) => !el.hasAttribute("disabled") && el.tabIndex !== -1);
+
+      if (focusables.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (event.shiftKey) {
+        if (active === first || !dialogRef.current.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else if (active === last || !dialogRef.current.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.clearTimeout(focusTimer);
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+      previouslyFocused?.focus?.();
+    };
+  }, [open, onClose, returnFocusRef]);
 
   const handleSubmit = async () => {
     if (!form.title.trim()) return;
@@ -92,20 +166,26 @@ export function ShareFeedbackDialog({ labels, open, onClose }: ShareFeedbackDial
     }
   };
 
-  if (!open) return null;
+  if (!open || !mounted) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-black/30">
-      <div className="flex min-h-full items-start justify-center px-4 pb-8 pt-[max(1rem,env(safe-area-inset-top))] sm:items-start sm:px-6 sm:pb-10 sm:pt-10">
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[110] flex items-center justify-center overflow-y-auto overscroll-contain bg-black/40 p-4 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-6"
+      role="presentation"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="voc-dialog-title"
-        className="my-0 max-h-[min(90vh,calc(100dvh-2rem))] w-full max-w-lg overflow-y-auto rounded-2xl border border-[var(--app-border,#e5e7f0)] bg-[var(--app-card,#fff)] p-6 shadow-xl sm:max-h-[min(88vh,calc(100dvh-5rem))]"
+        aria-labelledby={titleId}
+        className="my-auto w-full max-w-lg max-h-[min(90vh,calc(100dvh-2rem))] overflow-y-auto rounded-2xl border border-[var(--app-border,#e5e7f0)] bg-[var(--app-card,#fff)] p-6 shadow-xl outline-none"
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h2 id="voc-dialog-title" className="text-lg font-semibold text-gray-900">
+            <h2 id={titleId} className="text-lg font-semibold text-gray-900">
               {labels.title}
             </h2>
             <p className="mt-1 text-sm text-gray-600">{labels.subtitle}</p>
@@ -124,9 +204,10 @@ export function ShareFeedbackDialog({ labels, open, onClose }: ShareFeedbackDial
             </p>
           </div>
           <button
+            ref={closeRef}
             type="button"
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="shrink-0 rounded-lg px-2 py-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--app-focus,#7C3AED)]"
             aria-label={labels.close}
           >
             ×
@@ -272,7 +353,7 @@ export function ShareFeedbackDialog({ labels, open, onClose }: ShareFeedbackDial
           </div>
         )}
       </div>
-      </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

@@ -104,6 +104,7 @@ type DashboardShellProps = {
     contextLoading: string;
     contextUnavailable: string;
     pulseLabel: string;
+    privacySettingsOpen: string;
   };
   presenceLabels?: PresenceLabels;
   companionPresenceLabels?: CompanionPresenceLabels;

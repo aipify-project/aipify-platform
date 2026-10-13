@@ -216,7 +216,11 @@ export default async function AppLayout({
   }
 
   return (
-    <AnalyticsConsentProvider labels={analyticsConsentLabels} privacyHref="/privacy">
+    <AnalyticsConsentProvider
+      labels={analyticsConsentLabels}
+      privacyHref="/privacy"
+      hideFloatingSettingsTrigger
+    >
     <CustomerPortalGuard loadingLabel={t("common.loadingState.preparingContent")}>
       <TwoFactorSessionGate loadingLabel={t("common.loadingState.preparingContent")}>
       {layoutBranch === "bootstrap" ? (
@@ -254,7 +258,10 @@ export default async function AppLayout({
           navSearchResultsLabel={t("shell.navSearch.results")}
           shellVariant="customer"
           mobileNavIds={mobileNavIds}
-          licensePanelLabels={buildLayoutLicensePanelLabels(t)}
+          licensePanelLabels={{
+            ...buildLayoutLicensePanelLabels(t),
+            privacySettingsOpen: analyticsConsentLabels.privacySettingsOpen,
+          }}
           companionPresenceLabels={buildLayoutCompanionPresenceLabels(t)}
           voiceOfCustomerLabels={buildLayoutVocWidgetLabels(t)}
           notificationCenterLabels={buildLayoutNotificationCenterLabels(t)}
