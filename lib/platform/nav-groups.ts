@@ -76,6 +76,7 @@ export const PLATFORM_NAV_GROUPS: PlatformNavGroup[] = [
     items: [
       { id: "businessPacks", labelKey: "platform.nav.businessPacks" },
       { id: "productManagement", labelKey: "platform.nav.productManagement" },
+      { id: "websiteKompisPlans", labelKey: "platform.nav.websiteKompisPlans" },
       { id: "installationOversight", labelKey: "platform.nav.installationOversight" },
     ],
   },

@@ -220,7 +220,8 @@
     "licenses": "Licencje",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
-    "providerOnboarding": "Onboarding dostawców"
+    "providerOnboarding": "Onboarding dostawców",
+    "websiteKompisPlans": "Plany Kompis Web"
   },
   "executive": {
     "title": "Centrum wykonawcze",
@@ -7419,6 +7420,89 @@
       "contract_invalid": "Kontrakt musi zostać poprawiony",
       "deprecated": "Wycofane",
       "reference_only": "Tylko podgląd"
+    }
+  },
+  "websiteKompisPlans": {
+    "title": "Komunikacja planów Kompis Web",
+    "subtitle": "Autorytatywny planowany katalog i szkice e-maili do klientów. Dostawa nie jest aktywna.",
+    "catalogSection": "Planowany katalog planów",
+    "templatesSection": "Szkice szablonów e-mail",
+    "deliveryDraftOnly": "Tylko podgląd — bez wysyłki do klientów.",
+    "noCustomerSend": "Ta powierzchnia nigdy nie wysyła e-maili do klientów i nie zmienia Stripe ani uprawnień.",
+    "previewSubject": "Temat",
+    "previewBody": "Treść",
+    "readinessSection": "Bramki gotowości do aktualizacji (przyszła autoryzacja)",
+    "readinessLedger": "A — Ledger odpowiedzi + ponowne otwarcie zamrożonego ask",
+    "readinessMultisite": "B — ACL wiedzy multisite",
+    "readinessStripe": "C — Stripe SKU / kasa / webhooki",
+    "readinessEmail": "D — Zdarzenia e-mail Platform",
+    "readinessInvoice": "E — Pozycje faktury na witrynę",
+    "templates": {
+      "welcome_free": "Powitanie (Bezpłatny)",
+      "quota_remaining_30": "Pozostało 30 odpowiedzi",
+      "quota_remaining_10": "Pozostało 10 odpowiedzi",
+      "quota_remaining_0": "Pozostało 0 odpowiedzi",
+      "upgrade_confirmed": "Aktualizacja potwierdzona",
+      "invoice_paid": "Faktura opłacona",
+      "payment_failed": "Płatność nieudana",
+      "payment_grace_3_days": "3-dniowy okres płatności",
+      "reactivated": "Ponownie aktywowano"
+    },
+    "preview": {
+      "welcome_free": {
+        "subject": "Witamy w Kompis Web Free",
+        "title": "Plan Free jest gotowy do poznania",
+        "body": "Możesz zacząć od 150 odpowiedzi na czas życia na licencję witryny. Karta nie jest wymagana. Po wykorzystaniu limitu potrzebna jest aktualizacja.",
+        "cta": "Otwórz plany Kompis Web"
+      },
+      "quota_remaining_30": {
+        "subject": "Pozostało 30 odpowiedzi Free",
+        "title": "Limit Free zaczyna się kończyć",
+        "body": "Na tej licencji witryny pozostało około 30 odpowiedzi. Przejrzyj planowane pakiety Standard lub Pro — kasa nie jest jeszcze aktywna.",
+        "cta": "Zobacz planowane plany"
+      },
+      "quota_remaining_10": {
+        "subject": "Pozostało 10 odpowiedzi Free",
+        "title": "Pozostało niewiele odpowiedzi Free",
+        "body": "Pozostało około 10 odpowiedzi. Przygotuj aktualizację, gdy płatność za Standard lub Pro zostanie autoryzowana.",
+        "cta": "Zobacz planowane plany"
+      },
+      "quota_remaining_0": {
+        "subject": "Odpowiedzi Free wyczerpane",
+        "title": "Więcej odpowiedzi wymaga aktualizacji",
+        "body": "Dożywotni limit Free na tej licencji witryny został użyty. Dodatkowe odpowiedzi AI wymagają płatnego pakietu po autoryzacji kasy.",
+        "cta": "Zobacz planowane plany"
+      },
+      "upgrade_confirmed": {
+        "subject": "Aktualizacja Kompis Web potwierdzona",
+        "title": "Nowy plan jest przygotowywany",
+        "body": "Kontrole płatności i aktywacji zakończyły się powodzeniem. Limit licencji witryny będzie zgodny ze zweryfikowanym płatnym pakietem po zakończeniu provisioningu.",
+        "cta": "Otwórz status połączenia"
+      },
+      "invoice_paid": {
+        "subject": "Otrzymano płatność",
+        "title": "Faktura oznaczona jako opłacona",
+        "body": "Aipify zarejestrował udaną płatność dla organizacji. Otwórz faktury w APP, aby zobaczyć rekord tylko do odczytu.",
+        "cta": "Otwórz faktury"
+      },
+      "payment_failed": {
+        "subject": "Nie udało się dokończyć płatności",
+        "title": "Sprawdź rozliczenia",
+        "body": "Próba płatności nie powiodła się. Zaktualizuj dane rozliczeniowe, gdy kasa będzie dostępna dla pakietu.",
+        "cta": "Otwórz Subskrypcję"
+      },
+      "payment_grace_3_days": {
+        "subject": "Okres na płatność",
+        "title": "Trzy dni na przywrócenie płatności",
+        "body": "Wykryto problem z płatnością. Rozwiąż rozliczenia w oknie karencji, aby usługi mogły trwać według polityki licencji.",
+        "cta": "Otwórz Subskrypcję"
+      },
+      "reactivated": {
+        "subject": "Kompis Web ponownie aktywowany",
+        "title": "Dostęp przywrócony",
+        "body": "Kontrole rozliczeń i licencji wyglądają zdrowo. Odpowiedzi dla odwiedzających mogą być kontynuowane w zweryfikowanych limitach pakietu.",
+        "cta": "Otwórz status połączenia"
+      }
     }
   }
 }

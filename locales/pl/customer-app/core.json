@@ -1271,5 +1271,51 @@
       "retry": "Spróbuj ponownie",
       "loadError": "Nie udało się wczytać wiedzy pracowników. Spróbuj ponownie."
     }
+  },
+  "websiteKompisPlans": {
+    "title": "Plany Kompis Web",
+    "subtitle": "Planowane pakiety odpowiedzi na licencję witryny. Kasa i bieżące zużycie odpowiedzi nie są jeszcze aktywne.",
+    "plannedBadge": "Planowane",
+    "notActiveCheckout": "Zakup i aktualizacja tych pakietów nie są jeszcze dostępne.",
+    "usageUnavailableTitle": "Zużycie odpowiedzi nie jest jeszcze dostępne",
+    "usageUnavailableBody": "Aipify nie może pokazać użytych ani pozostałych odpowiedzi, dopóki nie zostanie dostarczony serwerowy licznik odpowiedzi. Karty wyjaśniają tylko planowane reguły pakietów.",
+    "seePlans": "Zobacz plany",
+    "monthlyPrice": "Miesięcznie",
+    "annualPrice": "Rocznie",
+    "annualHint": "Płatność roczna: zapłać za 10 miesięcy, otrzymaj 12. Odpowiedzi odnawiają się co miesiąc — cały roczny wolumen nie jest uwalniany naraz.",
+    "freePrice": "Bez karty · łączny limit na czas życia na licencję witryny",
+    "vatUnknown": "Wyświetlanie VAT i podatku B2B nie jest jeszcze ostateczne dla tej listy cen.",
+    "multiSiteNote": "Jedno konto organizacji może mieć wiele licencji witryn. Każda witryna zachowa własną wiedzę, domeny, licencję i licznik, gdy model będzie w pełni aktywny.",
+    "grandfatherNote": "Istniejące umowy nie są automatycznie przenoszone na te planowane pakiety.",
+    "upgradeReadinessTitle": "Gotowość do aktualizacji",
+    "upgradeReadinessBody": "Płatne poziomy i zmiany limitu aktywują się dopiero po zweryfikowanej płatności/subskrypcji oraz bramce aktywacji Business Pack. Ta strona nie uruchamia kasy Stripe.",
+    "openSubscription": "Otwórz Subskrypcję",
+    "openInvoices": "Otwórz faktury",
+    "plans": {
+      "free": {
+        "name": "Bezpłatny",
+        "tagline": "Zacznij bez karty",
+        "quotaLabel": "150 odpowiedzi łącznie",
+        "feature1": "Łączny limit odpowiedzi na czas życia na licencję witryny",
+        "feature2": "Bez rejestracji karty i bez automatycznego odnawiania",
+        "feature3": "Po wykorzystaniu limitu wymagana jest aktualizacja"
+      },
+      "standard": {
+        "name": "Standard",
+        "tagline": "Stabilna miesięczna pojemność",
+        "quotaLabel": "2 500 odpowiedzi miesięcznie",
+        "feature1": "Odnawiające się co miesiąc odpowiedzi na licencję witryny",
+        "feature2": "NOK 599 / miesiąc lub NOK 5 990 / rok",
+        "feature3": "Aktywacja dopiero po zweryfikowanej płatności i bramce produktu"
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Wyższa miesięczna pojemność",
+        "quotaLabel": "10 000 odpowiedzi miesięcznie",
+        "feature1": "Odnawiające się co miesiąc odpowiedzi na licencję witryny",
+        "feature2": "NOK 1 199 / miesiąc lub NOK 11 990 / rok",
+        "feature3": "Aktywacja dopiero po zweryfikowanej płatności i bramce produktu"
+      }
+    }
   }
 }

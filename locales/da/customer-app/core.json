@@ -7567,5 +7567,51 @@
     "dashboardTitle": "Forbindelsesstatus",
     "dashboardDescription": "Om Kompis Web er autoriseret og forbundet — samme oversigt som Forbindelse/licens.",
     "openConnection": "Åbn forbindelse"
+  },
+  "websiteKompisPlans": {
+    "title": "Kompis Web-planer",
+    "subtitle": "Planlagte svarpakker pr. webstedlicens. Kasse og live svarforbrug er ikke aktive endnu.",
+    "plannedBadge": "Planlagt",
+    "notActiveCheckout": "Køb og opgradering for disse pakker er ikke tilgængelig endnu.",
+    "usageUnavailableTitle": "Svarforbrug er ikke tilgængeligt endnu",
+    "usageUnavailableBody": "Aipify kan ikke vise brugte eller resterende svar, før den serverbaserede svarmåler er leveret. Kortene forklarer kun de planlagte pakkeregler.",
+    "seePlans": "Se planer",
+    "monthlyPrice": "Månedlig",
+    "annualPrice": "Årlig",
+    "annualHint": "Årsbetaling: betal for 10 måneder, få 12. Svar fornyes alligevel hver måned — hele årsvolumen frigives ikke på én gang.",
+    "freePrice": "Intet kort · livstids total pr. webstedlicens",
+    "vatUnknown": "Moms- og B2B-skattevisning er ikke endelig for denne prisliste.",
+    "multiSiteNote": "Én virksomhedskonto kan have flere webstedlicenser. Hvert websted beholder egen viden, domæner, licens og måler, når modellen er fuldt aktiveret.",
+    "grandfatherNote": "Eksisterende aftaler flyttes ikke automatisk over på disse planlagte pakker.",
+    "upgradeReadinessTitle": "Opgraderingsklarhed",
+    "upgradeReadinessBody": "Betalte niveauer og kvoteændringer aktiveres først efter verificeret betaling/abonnement og Business Pack-aktiveringsporten. Denne side starter ikke Stripe-kasse.",
+    "openSubscription": "Åbn Abonnement",
+    "openInvoices": "Åbn fakturaer",
+    "plans": {
+      "free": {
+        "name": "Gratis",
+        "tagline": "Start uden kort",
+        "quotaLabel": "150 svar i alt",
+        "feature1": "Livstids svarsum pr. webstedlicens",
+        "feature2": "Ingen kortregistrering og ingen automatisk fornyelse",
+        "feature3": "Opgradering kræves for flere svar, når totalen er brugt"
+      },
+      "standard": {
+        "name": "Standard",
+        "tagline": "Stabil månedlig kapacitet",
+        "quotaLabel": "2 500 svar pr. måned",
+        "feature1": "Månedligt fornyende svar pr. webstedlicens",
+        "feature2": "NOK 599 / måned eller NOK 5 990 / år",
+        "feature3": "Aktiveres først efter verificeret betaling og produktport"
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Højere månedlig kapacitet",
+        "quotaLabel": "10 000 svar pr. måned",
+        "feature1": "Månedligt fornyende svar pr. webstedlicens",
+        "feature2": "NOK 1 199 / måned eller NOK 11 990 / år",
+        "feature3": "Aktiveres først efter verificeret betaling og produktport"
+      }
+    }
   }
 }
