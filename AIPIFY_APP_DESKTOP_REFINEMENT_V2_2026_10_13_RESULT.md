@@ -66,9 +66,14 @@
 
 ## Release IDs
 
-_(filled after merge/deploy)_
+- Feature head: `7226e3332d38d045d76745a71918bf675b1dc031`
+- PR: [#166](https://github.com/aipify-project/aipify-platform/pull/166) MERGED
+- Merge-SHA: `b64a542a0991de3b41037e396ed4cdc40507a61e`
+- APP project: `aipify-platform`
+- APP deploy: `dpl_6U7sK1oMXd9ZieNASEkCHKh11fBE` — **READY**
+- Canonical domain: `https://app.aipify.ai` (smoke HTTP 200; `dpl=` matches deploy ID in Link headers)
+- Related Production (same SHA): Apex `aipify-platform-iz5z` `dpl_Bfh1d8EAmTSiSDHqJPsh9hpXTE7L`; linked `aipify` `dpl_G4U7nh1AwNLnEkiY8xvoReNzGDpr` — READY (out of visual scope for this job)
 
-- Feature head:
-- PR:
-- Merge-SHA:
-- APP project / deploy / READY / domain:
+## Verdict
+
+**APP Desktop Refinement V2 is LIVE on Production.** Owner visual acceptance remains PENDING; SAFE TO FREEZE APP DESIGN = NO.
