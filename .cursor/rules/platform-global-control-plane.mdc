@@ -1,0 +1,37 @@
+# Platform Global Control Plane
+
+## Role
+
+Platform is Aipify Group AS **business control plane**.
+
+- Platform sets global standards and oversees customers, finance, partners, product, operations, and governance.
+- Core automates distribution.
+- Customer APP handles customer workflows.
+
+## Rules
+
+1. Reuse existing authoritative data — never create parallel customer, finance, or partner models.
+2. Prefer hubs and navigation organization over rebuilding Production surfaces.
+3. No manual per-customer duplication of global templates when Core can distribute.
+4. Dynamic global locales via `LOCALES` / `getPlatformControlPlaneLocales()` — no hardcoded Platform locale list.
+5. English fallback; never show raw translation keys, enums, or ISO timestamps in primary UI.
+6. Platform copy is administrative (this global template, affected customers, authoritative status) — not customer-facing onboarding copy.
+7. Desktop-first wide layout; semantic colors; status not color-only.
+8. Data freshness must be visible; null/unavailable metrics show “No data” / “Not connected” — never fake zero or fake health.
+9. Exceptions over manual normal flow — exception queue links to existing authoritative surfaces.
+10. Finance actions (payment, invoice create, commission approve, payout) require strict existing backend authority — this control plane must not invent unsafe write paths.
+11. Server-side permission/capability checks required — UI hiding is not security.
+12. Authenticated Production proof required before `PRODUCTION_READY`.
+13. Do not incompatibly change auth/MFA, APP tenant boundary, shared-host routing, CORE.APPROVAL, Website Kompis runtime, secret/vault, or payment/invoice/partner accounting integrity.
+
+## Canonical code
+
+- IA / matrix / overview: `lib/platform-control-plane/`
+- Nav groups: `lib/platform/nav-groups.ts`
+- Partners hub: `/platform/partners`
+- Partner settlement ops (read-only): `/platform/partners/settlement`
+- Exception queue: `/platform/exceptions`
+- Overview RPC: `get_platform_control_plane_overview`
+- Settlement ops RPC: `get_platform_partner_settlement_operations`
+- Finance closeout migration: `20261937400000_platform_control_plane_finance_settlement_closeout_v1.sql`
+- Search: navigation search delivered; global entity search is an explicit gap

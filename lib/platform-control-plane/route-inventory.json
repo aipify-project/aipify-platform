@@ -1,0 +1,1397 @@
+{
+  "generatedFor": "AIPIFY_PLATFORM_GLOBAL_CONTROL_PLANE_V1_CLOSEOUT",
+  "routeCount": 198,
+  "routes": [
+    {
+      "route": "/platform/academy",
+      "section": "academy",
+      "page": "app/platform/academy/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/actions/approved",
+      "section": "actions",
+      "page": "app/platform/actions/approved/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/actions/executed",
+      "section": "actions",
+      "page": "app/platform/actions/executed/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/actions/failed",
+      "section": "actions",
+      "page": "app/platform/actions/failed/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/actions/logs",
+      "section": "actions",
+      "page": "app/platform/actions/logs/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/actions",
+      "section": "actions",
+      "page": "app/platform/actions/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/actions/pending",
+      "section": "actions",
+      "page": "app/platform/actions/pending/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/actions/policies",
+      "section": "actions",
+      "page": "app/platform/actions/policies/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/actions/templates",
+      "section": "actions",
+      "page": "app/platform/actions/templates/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/analytics/customer-journeys",
+      "section": "analytics",
+      "page": "app/platform/analytics/customer-journeys/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/aos-core/engines",
+      "section": "aos-core",
+      "page": "app/platform/aos-core/engines/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/aos-core/features",
+      "section": "aos-core",
+      "page": "app/platform/aos-core/features/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/aos-core",
+      "section": "aos-core",
+      "page": "app/platform/aos-core/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/automations",
+      "section": "automations",
+      "page": "app/platform/automations/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/accounting-export",
+      "section": "billing",
+      "page": "app/platform/billing/accounting-export/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/accounting-integration",
+      "section": "billing",
+      "page": "app/platform/billing/accounting-integration/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/business-packs",
+      "section": "billing",
+      "page": "app/platform/billing/business-packs/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/commissions",
+      "section": "billing",
+      "page": "app/platform/billing/commissions/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/customer-identity",
+      "section": "billing",
+      "page": "app/platform/billing/customer-identity/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/disputes",
+      "section": "billing",
+      "page": "app/platform/billing/disputes/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/domain-licenses",
+      "section": "billing",
+      "page": "app/platform/billing/domain-licenses/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/enterprise-invoices",
+      "section": "billing",
+      "page": "app/platform/billing/enterprise-invoices/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/growth-partner-attribution",
+      "section": "billing",
+      "page": "app/platform/billing/growth-partner-attribution/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/invoices",
+      "section": "billing",
+      "page": "app/platform/billing/invoices/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/license-purchases",
+      "section": "billing",
+      "page": "app/platform/billing/license-purchases/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/licenses",
+      "section": "billing",
+      "page": "app/platform/billing/licenses/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing",
+      "section": "billing",
+      "page": "app/platform/billing/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/payment-analytics",
+      "section": "billing",
+      "page": "app/platform/billing/payment-analytics/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/payment-health",
+      "section": "billing",
+      "page": "app/platform/billing/payment-health/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/payment-operations",
+      "section": "billing",
+      "page": "app/platform/billing/payment-operations/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/payment-providers",
+      "section": "billing",
+      "page": "app/platform/billing/payment-providers/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/profiles",
+      "section": "billing",
+      "page": "app/platform/billing/profiles/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/reports",
+      "section": "billing",
+      "page": "app/platform/billing/reports/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/revenue-operations",
+      "section": "billing",
+      "page": "app/platform/billing/revenue-operations/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/subscription-operations",
+      "section": "billing",
+      "page": "app/platform/billing/subscription-operations/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/subscriptions",
+      "section": "billing",
+      "page": "app/platform/billing/subscriptions/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/tax-rules",
+      "section": "billing",
+      "page": "app/platform/billing/tax-rules/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/tax-verification",
+      "section": "billing",
+      "page": "app/platform/billing/tax-verification/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/billing/vat-engine",
+      "section": "billing",
+      "page": "app/platform/billing/vat-engine/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-factory/builder",
+      "section": "business-pack-factory",
+      "page": "app/platform/business-pack-factory/builder/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-factory",
+      "section": "business-pack-factory",
+      "page": "app/platform/business-pack-factory/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-factory/skills",
+      "section": "business-pack-factory",
+      "page": "app/platform/business-pack-factory/skills/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-factory/testing",
+      "section": "business-pack-factory",
+      "page": "app/platform/business-pack-factory/testing/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-runtime/deployments",
+      "section": "business-pack-runtime",
+      "page": "app/platform/business-pack-runtime/deployments/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-runtime/domains",
+      "section": "business-pack-runtime",
+      "page": "app/platform/business-pack-runtime/domains/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-runtime/health",
+      "section": "business-pack-runtime",
+      "page": "app/platform/business-pack-runtime/health/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-runtime/incidents",
+      "section": "business-pack-runtime",
+      "page": "app/platform/business-pack-runtime/incidents/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-runtime/installed-packs",
+      "section": "business-pack-runtime",
+      "page": "app/platform/business-pack-runtime/installed-packs/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-runtime/instances",
+      "section": "business-pack-runtime",
+      "page": "app/platform/business-pack-runtime/instances/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-runtime",
+      "section": "business-pack-runtime",
+      "page": "app/platform/business-pack-runtime/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-runtime/permissions",
+      "section": "business-pack-runtime",
+      "page": "app/platform/business-pack-runtime/permissions/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-runtime/reports",
+      "section": "business-pack-runtime",
+      "page": "app/platform/business-pack-runtime/reports/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-runtime/rollbacks",
+      "section": "business-pack-runtime",
+      "page": "app/platform/business-pack-runtime/rollbacks/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/business-pack-runtime/versions",
+      "section": "business-pack-runtime",
+      "page": "app/platform/business-pack-runtime/versions/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/advisory",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/advisory/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/approvals",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/approvals/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/calendar",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/calendar/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/change-requests",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/change-requests/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/database-changes",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/database-changes/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/deployments",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/deployments/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/emergency-changes",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/emergency-changes/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/environments",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/environments/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/evidence",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/evidence/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/feature-flags",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/feature-flags/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/history",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/history/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/releases",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/releases/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/reports",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/reports/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/change-operations/rollback",
+      "section": "change-operations",
+      "page": "app/platform/change-operations/rollback/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/communications/announcement-center",
+      "section": "communications",
+      "page": "app/platform/communications/announcement-center/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/companion/personality",
+      "section": "companion",
+      "page": "app/platform/companion/personality/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customer-success/adoption",
+      "section": "customer-success",
+      "page": "app/platform/customer-success/adoption/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customer-success/customers",
+      "section": "customer-success",
+      "page": "app/platform/customer-success/customers/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customer-success/health-scores",
+      "section": "customer-success",
+      "page": "app/platform/customer-success/health-scores/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customer-success/onboarding",
+      "section": "customer-success",
+      "page": "app/platform/customer-success/onboarding/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customer-success/opportunities",
+      "section": "customer-success",
+      "page": "app/platform/customer-success/opportunities/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customer-success",
+      "section": "customer-success",
+      "page": "app/platform/customer-success/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customer-success/playbooks",
+      "section": "customer-success",
+      "page": "app/platform/customer-success/playbooks/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customer-success/renewals",
+      "section": "customer-success",
+      "page": "app/platform/customer-success/renewals/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customer-success/reports",
+      "section": "customer-success",
+      "page": "app/platform/customer-success/reports/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customer-success/risks",
+      "section": "customer-success",
+      "page": "app/platform/customer-success/risks/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customers/[id]/discovery",
+      "section": "customers",
+      "page": "app/platform/customers/[id]/discovery/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customers/[id]/integrations",
+      "section": "customers",
+      "page": "app/platform/customers/[id]/integrations/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customers/[id]/modules",
+      "section": "customers",
+      "page": "app/platform/customers/[id]/modules/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customers/[id]",
+      "section": "customers",
+      "page": "app/platform/customers/[id]/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customers/[id]/pilot-status",
+      "section": "customers",
+      "page": "app/platform/customers/[id]/pilot-status/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customers/lifecycle-center",
+      "section": "customers",
+      "page": "app/platform/customers/lifecycle-center/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customers/new",
+      "section": "customers",
+      "page": "app/platform/customers/new/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customers",
+      "section": "customers",
+      "page": "app/platform/customers/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/customers/success-operations",
+      "section": "customers",
+      "page": "app/platform/customers/success-operations/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/developers/api",
+      "section": "developers",
+      "page": "app/platform/developers/api/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/developers/marketplace",
+      "section": "developers",
+      "page": "app/platform/developers/marketplace/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/developers",
+      "section": "developers",
+      "page": "app/platform/developers/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/developers/projects",
+      "section": "developers",
+      "page": "app/platform/developers/projects/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/developers/publishing",
+      "section": "developers",
+      "page": "app/platform/developers/publishing/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/developers/reports",
+      "section": "developers",
+      "page": "app/platform/developers/reports/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/developers/sdk",
+      "section": "developers",
+      "page": "app/platform/developers/sdk/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/developers/testing",
+      "section": "developers",
+      "page": "app/platform/developers/testing/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/ecosystem/business-packs",
+      "section": "ecosystem",
+      "page": "app/platform/ecosystem/business-packs/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/ecosystem/certifications",
+      "section": "ecosystem",
+      "page": "app/platform/ecosystem/certifications/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/ecosystem/governance",
+      "section": "ecosystem",
+      "page": "app/platform/ecosystem/governance/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/ecosystem/marketplace",
+      "section": "ecosystem",
+      "page": "app/platform/ecosystem/marketplace/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/ecosystem",
+      "section": "ecosystem",
+      "page": "app/platform/ecosystem/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/ecosystem/providers",
+      "section": "ecosystem",
+      "page": "app/platform/ecosystem/providers/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/ecosystem/reports",
+      "section": "ecosystem",
+      "page": "app/platform/ecosystem/reports/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/ecosystem/revenue",
+      "section": "ecosystem",
+      "page": "app/platform/ecosystem/revenue/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/ecosystem/reviews",
+      "section": "ecosystem",
+      "page": "app/platform/ecosystem/reviews/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/exceptions",
+      "section": "exceptions",
+      "page": "app/platform/exceptions/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "hub"
+    },
+    {
+      "route": "/platform/executive/operations-center",
+      "section": "executive",
+      "page": "app/platform/executive/operations-center/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/executive",
+      "section": "executive",
+      "page": "app/platform/executive/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/governance/activity-logs",
+      "section": "governance",
+      "page": "app/platform/governance/activity-logs/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/governance/compliance-center",
+      "section": "governance",
+      "page": "app/platform/governance/compliance-center/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/impact",
+      "section": "impact",
+      "page": "app/platform/impact/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/install/unonight",
+      "section": "install",
+      "page": "app/platform/install/unonight/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/install-engine",
+      "section": "install-engine",
+      "page": "app/platform/install-engine/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/installations",
+      "section": "installations",
+      "page": "app/platform/installations/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/intelligence/audit-log",
+      "section": "intelligence",
+      "page": "app/platform/intelligence/audit-log/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/intelligence/decision-center",
+      "section": "intelligence",
+      "page": "app/platform/intelligence/decision-center/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/intelligence/global-patterns",
+      "section": "intelligence",
+      "page": "app/platform/intelligence/global-patterns/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/intelligence/learning-queue",
+      "section": "intelligence",
+      "page": "app/platform/intelligence/learning-queue/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/intelligence",
+      "section": "intelligence",
+      "page": "app/platform/intelligence/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/intelligence/self-healing",
+      "section": "intelligence",
+      "page": "app/platform/intelligence/self-healing/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/intelligence/settings",
+      "section": "intelligence",
+      "page": "app/platform/intelligence/settings/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/invoices",
+      "section": "invoices",
+      "page": "app/platform/invoices/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/knowledge/documentation",
+      "section": "knowledge",
+      "page": "app/platform/knowledge/documentation/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/knowledge/evolution-center",
+      "section": "knowledge",
+      "page": "app/platform/knowledge/evolution-center/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/knowledge/translation-management",
+      "section": "knowledge",
+      "page": "app/platform/knowledge/translation-management/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/kompis-ai",
+      "section": "kompis-ai",
+      "page": "app/platform/kompis-ai/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/licenses",
+      "section": "licenses",
+      "page": "app/platform/licenses/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/marketing/seo",
+      "section": "marketing",
+      "page": "app/platform/marketing/seo/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/metrics",
+      "section": "metrics",
+      "page": "app/platform/metrics/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/modules/registry",
+      "section": "modules",
+      "page": "app/platform/modules/registry/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/operations/audit-logs",
+      "section": "operations",
+      "page": "app/platform/operations/audit-logs/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/operations/build-health",
+      "section": "operations",
+      "page": "app/platform/operations/build-health/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/operations/deployments",
+      "section": "operations",
+      "page": "app/platform/operations/deployments/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/operations/overview",
+      "section": "operations",
+      "page": "app/platform/operations/overview/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/operations/platform-health",
+      "section": "operations",
+      "page": "app/platform/operations/platform-health/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/operations/playbooks/[id]/designer",
+      "section": "operations",
+      "page": "app/platform/operations/playbooks/[id]/designer/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/operations/playbooks/[id]",
+      "section": "operations",
+      "page": "app/platform/operations/playbooks/[id]/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/operations/playbooks",
+      "section": "operations",
+      "page": "app/platform/operations/playbooks/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/operations/route-registry",
+      "section": "operations",
+      "page": "app/platform/operations/route-registry/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform",
+      "section": "(root)",
+      "page": "app/platform/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/partners",
+      "section": "partners",
+      "page": "app/platform/partners/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "hub"
+    },
+    {
+      "route": "/platform/partners/settlement",
+      "section": "partners",
+      "page": "app/platform/partners/settlement/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "hub"
+    },
+    {
+      "route": "/platform/payment-providers",
+      "section": "payment-providers",
+      "page": "app/platform/payment-providers/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/pilot-operations",
+      "section": "pilot-operations",
+      "page": "app/platform/pilot-operations/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/presence-pilot",
+      "section": "presence-pilot",
+      "page": "app/platform/presence-pilot/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/product/business-packs",
+      "section": "product",
+      "page": "app/platform/product/business-packs/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/product/feedback-center",
+      "section": "product",
+      "page": "app/platform/product/feedback-center/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/product/management",
+      "section": "product",
+      "page": "app/platform/product/management/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/product/release-center",
+      "section": "product",
+      "page": "app/platform/product/release-center/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/product/roadmap-center",
+      "section": "product",
+      "page": "app/platform/product/roadmap-center/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/provider-onboarding",
+      "section": "provider-onboarding",
+      "page": "app/platform/provider-onboarding/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/providers",
+      "section": "providers",
+      "page": "app/platform/providers/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/reliability/dependencies",
+      "section": "reliability",
+      "page": "app/platform/reliability/dependencies/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/reliability/health-signals",
+      "section": "reliability",
+      "page": "app/platform/reliability/health-signals/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/reliability/incidents",
+      "section": "reliability",
+      "page": "app/platform/reliability/incidents/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/reliability/maintenance",
+      "section": "reliability",
+      "page": "app/platform/reliability/maintenance/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/reliability",
+      "section": "reliability",
+      "page": "app/platform/reliability/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/reliability/reports",
+      "section": "reliability",
+      "page": "app/platform/reliability/reports/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/reliability/self-healing",
+      "section": "reliability",
+      "page": "app/platform/reliability/self-healing/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/reliability/service-levels",
+      "section": "reliability",
+      "page": "app/platform/reliability/service-levels/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/reliability/services",
+      "section": "reliability",
+      "page": "app/platform/reliability/services/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/reliability/status-communication",
+      "section": "reliability",
+      "page": "app/platform/reliability/status-communication/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/revenue/business-packs",
+      "section": "revenue",
+      "page": "app/platform/revenue/business-packs/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/revenue/customers",
+      "section": "revenue",
+      "page": "app/platform/revenue/customers/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/revenue/forecasts",
+      "section": "revenue",
+      "page": "app/platform/revenue/forecasts/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/revenue/growth",
+      "section": "revenue",
+      "page": "app/platform/revenue/growth/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/revenue",
+      "section": "revenue",
+      "page": "app/platform/revenue/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/revenue/reports",
+      "section": "revenue",
+      "page": "app/platform/revenue/reports/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/revenue/retention",
+      "section": "revenue",
+      "page": "app/platform/revenue/retention/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/revenue/revenue",
+      "section": "revenue",
+      "page": "app/platform/revenue/revenue/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/revenue/subscriptions",
+      "section": "revenue",
+      "page": "app/platform/revenue/subscriptions/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/skills/[key]",
+      "section": "skills",
+      "page": "app/platform/skills/[key]/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/skills",
+      "section": "skills",
+      "page": "app/platform/skills/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/stats",
+      "section": "stats",
+      "page": "app/platform/stats/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/store/revenue",
+      "section": "store",
+      "page": "app/platform/store/revenue/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/subscriptions",
+      "section": "subscriptions",
+      "page": "app/platform/subscriptions/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/support",
+      "section": "support",
+      "page": "app/platform/support/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/system",
+      "section": "system",
+      "page": "app/platform/system/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust/actions",
+      "section": "trust",
+      "page": "app/platform/trust/actions/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust/audit",
+      "section": "trust",
+      "page": "app/platform/trust/audit/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust/commercial",
+      "section": "trust",
+      "page": "app/platform/trust/commercial/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust/decisions",
+      "section": "trust",
+      "page": "app/platform/trust/decisions/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust/goals",
+      "section": "trust",
+      "page": "app/platform/trust/goals/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust/identity",
+      "section": "trust",
+      "page": "app/platform/trust/identity/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust/knowledge",
+      "section": "trust",
+      "page": "app/platform/trust/knowledge/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust/life",
+      "section": "trust",
+      "page": "app/platform/trust/life/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust",
+      "section": "trust",
+      "page": "app/platform/trust/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust/privacy",
+      "section": "trust",
+      "page": "app/platform/trust/privacy/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust/relationships",
+      "section": "trust",
+      "page": "app/platform/trust/relationships/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/trust/security",
+      "section": "trust",
+      "page": "app/platform/trust/security/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/unonight-pilot",
+      "section": "unonight-pilot",
+      "page": "app/platform/unonight-pilot/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/updates/[id]",
+      "section": "updates",
+      "page": "app/platform/updates/[id]/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/updates",
+      "section": "updates",
+      "page": "app/platform/updates/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/website-governance",
+      "section": "website-governance",
+      "page": "app/platform/website-governance/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/website-intelligence",
+      "section": "website-intelligence",
+      "page": "app/platform/website-intelligence/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    },
+    {
+      "route": "/platform/website-verification",
+      "section": "website-verification",
+      "page": "app/platform/website-verification/page.tsx",
+      "localeSource": "locales/*/platform.json + getLocale()",
+      "productionRelevance": "existing"
+    }
+  ],
+  "notes": [
+    "Full inventory of app/platform page.tsx routes.",
+    "Language remediation in this closeout focused on controlPlane.* and critical hubs; remaining historical pages tracked as residual gaps.",
+    "Search: navigation search delivered; global entity search documented as gap."
+  ]
+}
