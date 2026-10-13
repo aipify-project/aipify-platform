@@ -1,4 +1,5 @@
 import { SoftwareCatalogPanel } from "@/components/app/app-portal/SoftwareCatalogPanel";
+import { WebsiteKompisPlansPanel } from "@/components/app/website-kompis/WebsiteKompisPlansPanel";
 import { AppHubShell } from "@/components/app/hubs/AppHubShell";
 import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
 import { buildSoftwareCatalogLabels } from "@/lib/app-portal/software-catalog";
@@ -7,16 +8,17 @@ import {
   formatHubContextLine,
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
+import { buildWebsiteKompisPlanLabels } from "@/lib/website-kompis-plans";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
 export const dynamic = "force-dynamic";
 
-/** Web Modules — software catalog inside the wide product hub (no purchase/activation). */
+/** Web Modules — software catalog + planned Kompis Web plans (no purchase/activation). */
 export default async function SoftwareCatalogPage() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "core"]);
   const t = createTranslator(dict);
   const common = hubCommon(t);
   const ctx = await resolveHubWorkspaceContext();
@@ -36,7 +38,10 @@ export default async function SoftwareCatalogPage() {
       description={hubT(t, "web.modulesCard")}
       contextLabel={formatHubContextLine(common, ctx)}
     >
-      <SoftwareCatalogPanel labels={buildSoftwareCatalogLabels(t)} embedded />
+      <div className="space-y-10">
+        <SoftwareCatalogPanel labels={buildSoftwareCatalogLabels(t)} embedded />
+        <WebsiteKompisPlansPanel labels={buildWebsiteKompisPlanLabels(t)} />
+      </div>
     </AppHubShell>
   );
 }

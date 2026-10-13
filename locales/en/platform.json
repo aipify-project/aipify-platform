@@ -220,7 +220,8 @@
     "licenses": "Licenses",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
-    "providerOnboarding": "Provider onboarding"
+    "providerOnboarding": "Provider onboarding",
+    "websiteKompisPlans": "Kompis Web plans"
   },
   "executive": {
     "title": "Executive Center",
@@ -7419,6 +7420,89 @@
       "contract_invalid": "Contract must be corrected",
       "deprecated": "Deprecated",
       "reference_only": "Reference only"
+    }
+  },
+  "websiteKompisPlans": {
+    "title": "Kompis Web plan communication",
+    "subtitle": "Authoritative planned catalog and draft customer email previews. Delivery is not live.",
+    "catalogSection": "Planned plan catalog",
+    "templatesSection": "Draft email templates",
+    "deliveryDraftOnly": "Draft preview only — no customer send pipeline.",
+    "noCustomerSend": "This surface never sends email to customers and never mutates Stripe or entitlements.",
+    "previewSubject": "Subject",
+    "previewBody": "Body",
+    "readinessSection": "Upgrade readiness gates (future authorization)",
+    "readinessLedger": "A — Answer ledger + frozen ask reopen",
+    "readinessMultisite": "B — Multisite knowledge ACL",
+    "readinessStripe": "C — Stripe SKU / checkout / webhooks",
+    "readinessEmail": "D — Platform email delivery events",
+    "readinessInvoice": "E — Invoice lines per website",
+    "templates": {
+      "welcome_free": "Welcome (Free)",
+      "quota_remaining_30": "30 answers remaining",
+      "quota_remaining_10": "10 answers remaining",
+      "quota_remaining_0": "0 answers remaining",
+      "upgrade_confirmed": "Upgrade confirmed",
+      "invoice_paid": "Invoice paid",
+      "payment_failed": "Payment failed",
+      "payment_grace_3_days": "3-day payment grace",
+      "reactivated": "Reactivated"
+    },
+    "preview": {
+      "welcome_free": {
+        "subject": "Welcome to Kompis Web Free",
+        "title": "Your Free plan is ready to explore",
+        "body": "You can start with 150 lifetime answers per website license. No card is required. When the total is used, upgrade is needed for more answers.",
+        "cta": "Open Kompis Web plans"
+      },
+      "quota_remaining_30": {
+        "subject": "30 answers remaining on Free",
+        "title": "Your Free answer total is getting low",
+        "body": "About 30 answers remain on this website license. Review planned Standard or Pro packages when you are ready — checkout is not active yet.",
+        "cta": "See planned plans"
+      },
+      "quota_remaining_10": {
+        "subject": "10 answers remaining on Free",
+        "title": "Only a few Free answers remain",
+        "body": "About 10 answers remain. Prepare an upgrade path once billing for Standard or Pro is authorized.",
+        "cta": "See planned plans"
+      },
+      "quota_remaining_0": {
+        "subject": "Free answers used",
+        "title": "More answers require an upgrade",
+        "body": "The Free lifetime total for this website license is used. Additional AI answers need a paid package after checkout is authorized.",
+        "cta": "See planned plans"
+      },
+      "upgrade_confirmed": {
+        "subject": "Kompis Web upgrade confirmed",
+        "title": "Your new plan is preparing",
+        "body": "Payment and activation checks passed. Your website license quota will follow the verified paid package once provisioning completes.",
+        "cta": "Open connection status"
+      },
+      "invoice_paid": {
+        "subject": "Payment received",
+        "title": "Your invoice is marked paid",
+        "body": "Aipify recorded a successful payment for your organization. Open invoices in APP for the read-only record.",
+        "cta": "Open invoices"
+      },
+      "payment_failed": {
+        "subject": "Payment could not be completed",
+        "title": "Please review billing",
+        "body": "A payment attempt did not succeed. Update billing details when checkout is available for your package.",
+        "cta": "Open Subscription"
+      },
+      "payment_grace_3_days": {
+        "subject": "Payment grace period",
+        "title": "Three days to restore payment",
+        "body": "A payment issue was detected. Resolve billing during the grace window so services can continue under your license policy.",
+        "cta": "Open Subscription"
+      },
+      "reactivated": {
+        "subject": "Kompis Web reactivated",
+        "title": "Access is restored",
+        "body": "Billing and license checks look healthy again. Visitor answers can resume within your verified package limits.",
+        "cta": "Open connection status"
+      }
     }
   }
 }

@@ -199,7 +199,8 @@
     "licenses": "Lisenser",
     "kompisAi": "Kompis AI",
     "websiteReleaseVerification": "Website Release Verification",
-    "providerOnboarding": "Provider-onboarding"
+    "providerOnboarding": "Provider-onboarding",
+    "websiteKompisPlans": "Kompis Web-planer"
   },
   "overview": {
     "title": "Aipify Platform Admin",
@@ -7142,6 +7143,89 @@
       "contract_invalid": "Kontrakten må korrigeres",
       "deprecated": "Utdatert",
       "reference_only": "Kun forhåndsvisning"
+    }
+  },
+  "websiteKompisPlans": {
+    "title": "Kompis Web plankommunikasjon",
+    "subtitle": "Autoritativ planlagt katalog og utkast til kundee-post. Levering er ikke live.",
+    "catalogSection": "Planlagt plankatalog",
+    "templatesSection": "Utkast til e-postmaler",
+    "deliveryDraftOnly": "Kun forhåndsvisning — ingen kundesending.",
+    "noCustomerSend": "Denne flaten sender aldri e-post til kunder og endrer aldri Stripe eller rettigheter.",
+    "previewSubject": "Emne",
+    "previewBody": "Brødtekst",
+    "readinessSection": "Oppgraderingsporter (fremtidig autorisasjon)",
+    "readinessLedger": "A — Svarledger + gjenåpning av frossen ask",
+    "readinessMultisite": "B — Multisite kunnskaps-ACL",
+    "readinessStripe": "C — Stripe SKU / kasse / webhooks",
+    "readinessEmail": "D — Platform e-posthendelser",
+    "readinessInvoice": "E — Fakturalinjer per nettsted",
+    "templates": {
+      "welcome_free": "Velkommen (Gratis)",
+      "quota_remaining_30": "30 svar igjen",
+      "quota_remaining_10": "10 svar igjen",
+      "quota_remaining_0": "0 svar igjen",
+      "upgrade_confirmed": "Oppgradering bekreftet",
+      "invoice_paid": "Faktura betalt",
+      "payment_failed": "Betaling feilet",
+      "payment_grace_3_days": "3 dagers betalingsfrist",
+      "reactivated": "Reaktivert"
+    },
+    "preview": {
+      "welcome_free": {
+        "subject": "Velkommen til Kompis Web Gratis",
+        "title": "Gratisplanen er klar å utforske",
+        "body": "Du kan starte med 150 livstidssvar per nettstedlisens. Kort kreves ikke. Når totalen er brukt, trengs oppgradering for flere svar.",
+        "cta": "Åpne Kompis Web-planer"
+      },
+      "quota_remaining_30": {
+        "subject": "30 svar igjen på Gratis",
+        "title": "Gratis-kvoten begynner å bli lav",
+        "body": "Omtrent 30 svar gjenstår på denne nettstedlisensen. Se planlagte Standard- eller Pro-pakker når du er klar — kasse er ikke aktiv ennå.",
+        "cta": "Se planlagte planer"
+      },
+      "quota_remaining_10": {
+        "subject": "10 svar igjen på Gratis",
+        "title": "Bare noen få Gratis-svar gjenstår",
+        "body": "Omtrent 10 svar gjenstår. Forbered oppgradering når betaling for Standard eller Pro er autorisert.",
+        "cta": "Se planlagte planer"
+      },
+      "quota_remaining_0": {
+        "subject": "Gratis-svar er brukt",
+        "title": "Flere svar krever oppgradering",
+        "body": "Livstidstotalen for Gratis på denne nettstedlisensen er brukt. Flere AI-svar krever betalt pakke etter at kasse er autorisert.",
+        "cta": "Se planlagte planer"
+      },
+      "upgrade_confirmed": {
+        "subject": "Kompis Web-oppgradering bekreftet",
+        "title": "Ny plan forberedes",
+        "body": "Betaling og aktiveringskontroller bestått. Nettstedlisensens kvote følger den verifiserte betalte pakken når provisjonering er ferdig.",
+        "cta": "Åpne tilkoblingsstatus"
+      },
+      "invoice_paid": {
+        "subject": "Betaling mottatt",
+        "title": "Fakturaen er merket betalt",
+        "body": "Aipify registrerte en vellykket betaling for organisasjonen. Åpne fakturaer i APP for den skrivebeskyttede oversikten.",
+        "cta": "Åpne fakturaer"
+      },
+      "payment_failed": {
+        "subject": "Betalingen kunne ikke fullføres",
+        "title": "Gå gjennom fakturering",
+        "body": "Et betalingsforsøk lyktes ikke. Oppdater betalingsdetaljer når kasse er tilgjengelig for pakken.",
+        "cta": "Åpne Abonnement"
+      },
+      "payment_grace_3_days": {
+        "subject": "Betalingsfrist",
+        "title": "Tre dager til å gjenopprette betaling",
+        "body": "Et betalingsproblem ble oppdaget. Løs fakturering i fristvinduet slik at tjenester kan fortsette etter lisenspolicy.",
+        "cta": "Åpne Abonnement"
+      },
+      "reactivated": {
+        "subject": "Kompis Web er reaktivert",
+        "title": "Tilgangen er gjenopprettet",
+        "body": "Fakturering og lisenskontroller ser sunne ut igjen. Besøkendes svar kan fortsette innen verifiserte pakkegrenser.",
+        "cta": "Åpne tilkoblingsstatus"
+      }
     }
   }
 }

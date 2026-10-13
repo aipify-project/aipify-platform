@@ -7556,5 +7556,51 @@
     "dashboardTitle": "Connection status",
     "dashboardDescription": "Whether Kompis Web is authorized and connected — same summary as Tilkobling/lisens.",
     "openConnection": "Open connection"
+  },
+  "websiteKompisPlans": {
+    "title": "Kompis Web plans",
+    "subtitle": "Planned answer packages for each website license. Checkout and live usage metering are not active yet.",
+    "plannedBadge": "Planned",
+    "notActiveCheckout": "Purchase and upgrade checkout for these packages is not available yet.",
+    "usageUnavailableTitle": "Answer usage is not available yet",
+    "usageUnavailableBody": "Aipify cannot show used or remaining answers until the server answer meter is delivered. These cards explain the planned package rules only.",
+    "seePlans": "See plans",
+    "monthlyPrice": "Monthly",
+    "annualPrice": "Annual",
+    "annualHint": "Annual billing: pay for 10 months, get 12. Answers still renew every month — the full year volume is not released at once.",
+    "freePrice": "No card · lifetime total per website license",
+    "vatUnknown": "VAT and B2B tax display are not finalized for this list price.",
+    "multiSiteNote": "One organization account can hold several website licenses. Each site keeps its own knowledge, domains, license, and meter when that model is fully activated.",
+    "grandfatherNote": "Existing agreements are not moved automatically onto these planned packages.",
+    "upgradeReadinessTitle": "Upgrade readiness",
+    "upgradeReadinessBody": "Paid levels and quota changes activate only after verified payment/subscription and the Business Pack activation gate. This page does not start Stripe checkout.",
+    "openSubscription": "Open Subscription",
+    "openInvoices": "Open invoices",
+    "plans": {
+      "free": {
+        "name": "Free",
+        "tagline": "Start without a card",
+        "quotaLabel": "150 answers total",
+        "feature1": "Lifetime answer total per website license",
+        "feature2": "No card registration and no automatic renewal",
+        "feature3": "Upgrade required for more answers after the total is used"
+      },
+      "standard": {
+        "name": "Standard",
+        "tagline": "Steady monthly capacity",
+        "quotaLabel": "2 500 answers per month",
+        "feature1": "Monthly renewing answers per website license",
+        "feature2": "NOK 599 / month or NOK 5 990 / year",
+        "feature3": "Activated only after verified payment and product gate"
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Higher monthly capacity",
+        "quotaLabel": "10 000 answers per month",
+        "feature1": "Monthly renewing answers per website license",
+        "feature2": "NOK 1 199 / month or NOK 11 990 / year",
+        "feature3": "Activated only after verified payment and product gate"
+      }
+    }
   }
 }
