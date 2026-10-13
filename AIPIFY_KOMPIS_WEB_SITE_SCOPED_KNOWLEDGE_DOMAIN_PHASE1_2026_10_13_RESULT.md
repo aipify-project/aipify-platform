@@ -120,10 +120,13 @@ Documented as `WEBSITE_KOMPIS_SITE_SCOPE_FUTURE_SQL_CHANGESET` — **not applied
 
 ## 6. Release
 
-Filled after PR/deploy if completed; otherwise:
-
-- **PR / deploy:** see git history for this branch  
-- If report written before merge: treat as pending until GREEN LIVE  
+| Item | Value |
+|------|--------|
+| PR | [#178](https://github.com/aipify-project/aipify-platform/pull/178) MERGED |
+| Merge SHA | `d843e8bbd677d47e5841297852e438fe94fdaf7b` |
+| Production `aipify-platform` | `dpl_4fKQhLwJ5YzTWXpCpFEezV71n6Hv` **READY** · `app.aipify.ai` |
+| Production `aipify` | `dpl_H8HvgYfwDMLVK2Z6xCuZMe8gXAgp` (GitHub success) |
+| Production `aipify-platform-iz5z` | `dpl_A58MfpjaAR3aegPrLw9UukK59vCi` (GitHub success) |
 
 ---
 
