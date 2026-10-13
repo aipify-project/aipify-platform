@@ -159,11 +159,13 @@ Full request object: `WEBSITE_KOMPIS_VISITOR_FAQ_ISOLATION_REOPEN_REQUEST`.
 | Item | Value |
 |------|--------|
 | Branch | `feature/kompis-web-visitor-faq-isolation-phase2-2026-10-13` |
-| Head | `a8f6958d40314b14d843de59f27d19e74967e272` |
-| PR | [#180](https://github.com/aipify-project/aipify-platform/pull/180) |
+| PR | [#180](https://github.com/aipify-project/aipify-platform/pull/180) MERGED |
+| Merge SHA | `25ccb6f2b77d615c6b08c31b69ce5fd804a690fe` |
 | Scope | Non-frozen policy + reopen request + tests + RESULT |
-| Visitor isolation LIVE claim | **NO** |
-| Merge / deploy | Pending CI; merge ships documentation only — not Core visitor isolation |
+| Visitor isolation LIVE claim | **NO** — merge ships documentation/contract only |
+| Production `aipify-platform` | GitHub **success** · [dashboard](https://vercel.com/unonight-platform-s-projects/aipify-platform/3EpiUCVAgF3jFCsC76kcQPxKdePa) · `app.aipify.ai` |
+| Production `aipify-platform-iz5z` | GitHub **success** · [dashboard](https://vercel.com/unonight-platform-s-projects/aipify-platform-iz5z/HgcAxnorGarkFjmdKkwdkZ3xQE1n) · `aipify.ai` |
+| Production `aipify` | GitHub **success** · [dashboard](https://vercel.com/unonight-platform-s-projects/aipify/4N8xsFpZdozaP6QzQg9ixbdFfiYp) |
 
 ---
 
