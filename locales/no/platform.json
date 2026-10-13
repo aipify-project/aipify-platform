@@ -1788,7 +1788,7 @@
     },
     "customerWorkspace": {
       "nextDueTitle": "Neste forfall",
-      "nextDueEmpty": "Ingen utestående fakturaer.",
+      "nextDueEmpty": "Ingen kommende faktura",
       "payeeLabel": "Betalingsmottaker",
       "amountLabel": "Beløp",
       "dueLabel": "Forfallsdato",
@@ -1815,7 +1815,11 @@
       "paidAmountLabel": "Betalt beløp",
       "retry": "Prøv igjen",
       "loadError": "Fakturaer kunne ikke lastes. Prøv igjen.",
-      "billingProfileToggle": "Fakturaprofil"
+      "billingProfileToggle": "Fakturaprofil",
+      "nextDueEmptyBody": "Når Aipify utsteder en faktura for abonnementet ditt, vises den her automatisk. Du oppretter ikke fakturaer i kunde-APP-en.",
+      "historyEmptyTitle": "Ingen fakturaer ennå",
+      "historyEmptyBody": "Fakturahistorikk vises her når Aipify Platform utsteder fakturaer for planen din. Denne siden viser bare fakturaer Aipify har utstedt til organisasjonen din.",
+      "requiresPayment": "Krever betaling"
     }
   },
   "invoices": {

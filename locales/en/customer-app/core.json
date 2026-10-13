@@ -852,7 +852,7 @@
     },
     "customerWorkspace": {
       "nextDueTitle": "Next payment due",
-      "nextDueEmpty": "No outstanding invoices.",
+      "nextDueEmpty": "No upcoming invoice",
       "payeeLabel": "Payment recipient",
       "amountLabel": "Amount",
       "dueLabel": "Due date",
@@ -879,7 +879,11 @@
       "paidAmountLabel": "Amount paid",
       "retry": "Try again",
       "loadError": "Invoices could not be loaded. Please try again.",
-      "billingProfileToggle": "Billing profile"
+      "billingProfileToggle": "Billing profile",
+      "nextDueEmptyBody": "When Aipify issues an invoice for your subscription, it appears here automatically. You do not create invoices in the customer APP.",
+      "historyEmptyTitle": "No invoices yet",
+      "historyEmptyBody": "Invoice history will appear here when Aipify Platform issues invoices for your plan. This page only shows invoices Aipify has issued to your organization.",
+      "requiresPayment": "Payment required"
     }
   },
   "boardInvestorIntelligence": {

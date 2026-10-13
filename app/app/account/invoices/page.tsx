@@ -17,7 +17,13 @@ import { createTranslator } from "@/lib/i18n/translate";
  */
 export default async function AccountInvoicesPage() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["portalStructure", "dashboard"]);
+  // `enterpriseInvoicing` lives in customer-app/core.json — without `core`,
+  // label builder falls back to humanized key fragments (e.g. "NEXT DUE TITLE").
+  const dict = await getCustomerAppDictionaryForSplits(locale, [
+    "portalStructure",
+    "dashboard",
+    "core",
+  ]);
   const t = createTranslator(dict);
   const common = hubCommon(t);
   const ctx = await resolveHubWorkspaceContext();

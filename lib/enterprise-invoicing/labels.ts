@@ -118,6 +118,10 @@ export function buildEnterpriseInvoicingLabels(
     customerWorkspace: {
       nextDueTitle: t(`${prefix}.customerWorkspace.nextDueTitle`),
       nextDueEmpty: t(`${prefix}.customerWorkspace.nextDueEmpty`),
+      nextDueEmptyBody: t(`${prefix}.customerWorkspace.nextDueEmptyBody`),
+      historyEmptyTitle: t(`${prefix}.customerWorkspace.historyEmptyTitle`),
+      historyEmptyBody: t(`${prefix}.customerWorkspace.historyEmptyBody`),
+      requiresPayment: t(`${prefix}.customerWorkspace.requiresPayment`),
       payeeLabel: t(`${prefix}.customerWorkspace.payeeLabel`),
       amountLabel: t(`${prefix}.customerWorkspace.amountLabel`),
       dueLabel: t(`${prefix}.customerWorkspace.dueLabel`),
