@@ -10,8 +10,12 @@ Multilingual one-article / many-language-block persistence, empty-answer drafts,
 |-------|-------|
 | **origin/main before work** | `755e0804` (invoice receiver RESULT IDs #173) |
 | **Branch** | `feature/bedrift-multilingual-faq-knowledge-2026-10-13` |
-| **Feature HEAD / PR / merge / APP deploy** | _(filled after LIVE)_ |
-| **Canonical domain** | `https://app.aipify.ai` |
+| **Feature HEAD** | `0c4912be` |
+| **PR** | [#174](https://github.com/aipify-project/aipify-platform/pull/174) MERGED |
+| **Merge SHA** | `0d5d2c3f4d33f007cd1b444d66e60b1152cfc73a` |
+| **APP project** | `aipify-platform` |
+| **APP Production deploy** | `dpl_AXBwZFWe2Yk2doKP2WYbQSxmVLkt` — **READY** |
+| **Canonical domain** | `https://app.aipify.ai` (Link `dpl=` match; `/app/settings/employee-knowledge` → HTTP 307 auth) |
 | **Frozen Website Kompis protected files touched** | **0** |
 | **New SQL / schema / RLS** | **NONE** |
 | **Paid provider / AI Translator** | **NOT ACTIVATED** |
