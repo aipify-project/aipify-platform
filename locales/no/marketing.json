@@ -3481,7 +3481,11 @@
     },
     "growthProgression": {
       "title": "Når organisasjonen vokser, vokser Aipify med dere",
-      "stageEyebrows": ["Start", "Voks", "Skaler"],
+      "stageEyebrows": [
+        "Start",
+        "Voks",
+        "Skaler"
+      ],
       "stages": [
         {
           "name": "Kjerneorganisasjon",
@@ -8308,5 +8312,148 @@
         "finalCtaSubtitle": "Skaff Warehouse Operations Pack på planen din — eller bestill demo for å se fulfillment-koordinering i praksis."
       }
     }
+  },
+  "approvedPublicHome": {
+    "demoBadge": "Produktdemo",
+    "eyebrow": "To AI-hjelpere. Én trygg plattform.",
+    "heroTitleBefore": "AIpify som kjenner",
+    "heroTitleMid": "nettsiden",
+    "heroTitleAnd": "og",
+    "heroTitleEnd": "bedriften din.",
+    "heroCopy": "Kompis Web hjelper kundene dine offentlig. Kompis Bedrift samler ansatte, samtaler og intern kunnskap i et lukket arbeidsrom.",
+    "ctaExploreWeb": "Utforsk Kompis Web",
+    "ctaExploreBedrift": "Se Kompis Bedrift",
+    "trustSource": "Kildebaserte svar",
+    "trustMultilingual": "Flerspråklig",
+    "trustHuman": "Menneskelig kontroll",
+    "demoAria": "Illustrert produktvisning",
+    "demoAddress": "aipify.ai / produktdemo",
+    "demoInputPlaceholder": "Skriv et spørsmål …",
+    "demoSwitchAria": "Velg produktvisning",
+    "demoWebTab": "Kompis Web",
+    "demoCompanyTab": "Kompis Bedrift",
+    "demoOnline": "Klar til å hjelpe",
+    "demoWeb": {
+      "kicker": "Kompis Web",
+      "title": "Hjelp på riktig side, i riktig øyeblikk.",
+      "text": "Kompis leser godkjent innhold fra nettsiden, publisert FAQ og dokumenter — og viser kildene bak svaret.",
+      "pills": [
+        "Aktuell side",
+        "Publisert FAQ",
+        "Flere språk"
+      ],
+      "name": "Aipify Kompis",
+      "question": "Hvor kan jeg bruke gavekortet?",
+      "answer": "Gavekortet kan brukes på opplevelser og produkter som er tilgjengelige i gavekortguiden. Jeg kan også vise deg hvordan du bruker det.",
+      "source": "↗ Kilde: Gavekortguide"
+    },
+    "demoCompany": {
+      "kicker": "Kompis Bedrift",
+      "title": "Samtaler, dokumenter og kunnskap — samlet.",
+      "text": "Ansatte skriver sammen i et lukket arbeidsrom og kan trekke Kompis inn i samtalen for å finne svar i tillatte dokumenter.",
+      "pills": [
+        "Privat chat",
+        "Del dokument",
+        "Søk i kunnskap"
+      ],
+      "name": "Kompis Bedrift",
+      "question": "@Kompis, hva ble avtalt om leveringsdato?",
+      "answer": "Prosjektavtalen oppgir 18. november. Kari delte den nyeste versjonen i prosjektgruppen i går.",
+      "source": "↗ Kilde: Prosjektavtale v3"
+    },
+    "productsLabel": "To produkter",
+    "productsTitle": "Riktig Kompis for riktig samtale.",
+    "productsSubtitle": "Den offentlige hjelperen møter kundene. Den interne hjelperen arbeider sammen med de ansatte. Begge styres fra Aipify.",
+    "productWebTitle": "Kompis Web",
+    "productWebBody": "En offentlig AI-hjelper som forstår siden kunden står på og finner svar i hele det godkjente nettstedet.",
+    "productWebFeatures": [
+      "Nettsider, FAQ og godkjente dokumenter i samme kunnskapsbane",
+      "Naturlige spørsmål og oppfølginger på kundens språk",
+      "Kilder, feedback og kunnskapshull i APP-panelet",
+      "Domene, installasjon og lisens samlet på ett sted"
+    ],
+    "productWebCta": "Se Kompis Web →",
+    "productBedriftTitle": "Kompis Bedrift",
+    "productBedriftBody": "Et lukket arbeidsrom der ansatte skriver sammen, deler dokumenter og bruker Kompis til å finne intern kunnskap.",
+    "productBedriftFeatures": [
+      "Privat chat, grupper og oversikt over hvem som er online",
+      "Dokumentdeling direkte i samtalen",
+      "Spør Kompis om dokumenter, møter og interne svar",
+      "Roller og tilgang følger hver ansatt og hver kilde"
+    ],
+    "productBedriftCta": "Se Kompis Bedrift →",
+    "productIconAlt": "Aipify Kompis-maskoten",
+    "coreLabel": "Aipify Core",
+    "coreTitle": "Én kontrollert vei fra kunnskap til svar.",
+    "coreBody": "Kunden administrerer innholdet i APP. Core kontrollerer språk, tilgang og publisering. Kompis bruker bare godkjente kilder når den svarer.",
+    "coreCta": "Se hvordan vi bygger tillit",
+    "coreSteps": [
+      {
+        "title": "Samle kunnskap",
+        "detail": "Nettside, FAQ og dokumenter",
+        "status": "Koblet"
+      },
+      {
+        "title": "Kontroller og publiser",
+        "detail": "Språk, roller og menneskelig godkjenning",
+        "status": "Godkjent"
+      },
+      {
+        "title": "Finn riktig kilde",
+        "detail": "Tenant, side og språk følger spørsmålet",
+        "status": "Verifisert"
+      },
+      {
+        "title": "Svar og lær",
+        "detail": "Kilder, feedback og kunnskapshull",
+        "status": "Aktiv"
+      }
+    ],
+    "securityLabel": "Bygget for tillit",
+    "securityTitle": "AIpify viser deg hvor svaret kommer fra.",
+    "securitySubtitle": "Aipify kombinerer menneskelig kontroll med tydelige kilder og strenge produktgrenser.",
+    "values": [
+      {
+        "icon": "⌁",
+        "title": "Kildebasert",
+        "body": "Kompis bruker publisert kunnskap og viser kildene bak svaret."
+      },
+      {
+        "icon": "◎",
+        "title": "Riktig kontekst",
+        "body": "Domene, side, språk og produkt følger hele kunnskapskjeden."
+      },
+      {
+        "icon": "✓",
+        "title": "Menneskelig kontroll",
+        "body": "AI kan foreslå utkast. Kunden bestemmer hva som publiseres."
+      },
+      {
+        "icon": "◇",
+        "title": "Adskilte produkter",
+        "body": "Offentlig Web-kunnskap og privat Bedrift-kunnskap blandes aldri."
+      },
+      {
+        "icon": "↗",
+        "title": "Forbedres i APP",
+        "body": "Feedback, svake svar og manglende kunnskap blir synlige for eieren."
+      },
+      {
+        "icon": "文",
+        "title": "Alle språk",
+        "body": "Kunden aktiverer språk etter behov og publiserer hver versjon separat."
+      }
+    ],
+    "addonsLabel": "Tilleggsmoduler",
+    "addonsTitle": "Utvid Aipify når behovet vokser.",
+    "addonsSubtitle": "Start med kjernefunksjonene. Aktiver spesialiserte moduler når de gir verdi for bedriften.",
+    "addonDesignTitle": "Kompis Design Studio",
+    "addonDesignBody": "Velg ferdige Design Packs, farger, bakgrunner og kommunikasjon for Web eller Bedrift.",
+    "addonTranslatorTitle": "Aipify AI Translator",
+    "addonTranslatorBody": "Lag kontrollerte oversettelsesutkast med kreditter og kostnadsoversikt. Menneskelig godkjenning før publisering.",
+    "plannedTag": "Planlagt tillegg",
+    "ctaTitle": "Gi kundene og teamet en Kompis som faktisk kjenner virksomheten.",
+    "ctaBody": "Velg Kompis Web, Kompis Bedrift eller begge. Aipify samler kontrollen i ett ryddig APP-panel.",
+    "ctaButton": "Book en demo"
   }
 }

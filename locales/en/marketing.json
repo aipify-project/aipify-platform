@@ -3443,7 +3443,11 @@
     },
     "growthProgression": {
       "title": "As your organization grows, Aipify grows with you",
-      "stageEyebrows": ["Start", "Grow", "Scale"],
+      "stageEyebrows": [
+        "Start",
+        "Grow",
+        "Scale"
+      ],
       "stages": [
         {
           "name": "Core organization",
@@ -7883,5 +7887,148 @@
         "finalCtaSubtitle": "Get Warehouse Operations Pack on your plan — or book a demo to see fulfillment coordination in practice."
       }
     }
+  },
+  "approvedPublicHome": {
+    "demoBadge": "Product demo",
+    "eyebrow": "Two Aipify helpers. One trusted platform.",
+    "heroTitleBefore": "AIpify that knows",
+    "heroTitleMid": "your website",
+    "heroTitleAnd": "and",
+    "heroTitleEnd": "your business.",
+    "heroCopy": "Kompis Web helps your customers in public. Kompis Bedrift brings employees, conversations, and internal knowledge together in a closed workspace.",
+    "ctaExploreWeb": "Explore Kompis Web",
+    "ctaExploreBedrift": "See Kompis Bedrift",
+    "trustSource": "Source-based answers",
+    "trustMultilingual": "Multilingual",
+    "trustHuman": "Human control",
+    "demoAria": "Illustrated product preview",
+    "demoAddress": "aipify.ai / product demo",
+    "demoInputPlaceholder": "Type a question …",
+    "demoSwitchAria": "Choose product preview",
+    "demoWebTab": "Kompis Web",
+    "demoCompanyTab": "Kompis Bedrift",
+    "demoOnline": "Ready to help",
+    "demoWeb": {
+      "kicker": "Kompis Web",
+      "title": "Help on the right page, at the right moment.",
+      "text": "Kompis reads approved website content, published FAQ, and documents — and shows the sources behind the answer.",
+      "pills": [
+        "Current page",
+        "Published FAQ",
+        "Multiple languages"
+      ],
+      "name": "Aipify Kompis",
+      "question": "Where can I use the gift card?",
+      "answer": "The gift card can be used on experiences and products available in the gift card guide. I can also show you how to redeem it.",
+      "source": "↗ Source: Gift card guide"
+    },
+    "demoCompany": {
+      "kicker": "Kompis Bedrift",
+      "title": "Conversations, documents, and knowledge — together.",
+      "text": "Employees write together in a closed workspace and can bring Kompis into the conversation to find answers in allowed documents.",
+      "pills": [
+        "Private chat",
+        "Share a document",
+        "Search knowledge"
+      ],
+      "name": "Kompis Bedrift",
+      "question": "@Kompis, what was agreed about the delivery date?",
+      "answer": "The project agreement states 18 November. Kari shared the latest version in the project group yesterday.",
+      "source": "↗ Source: Project agreement v3"
+    },
+    "productsLabel": "Two products",
+    "productsTitle": "The right Kompis for the right conversation.",
+    "productsSubtitle": "The public helper meets customers. The internal helper works with employees. Both are governed from Aipify.",
+    "productWebTitle": "Kompis Web",
+    "productWebBody": "A public helper that understands the page a customer is on and finds answers across the approved website.",
+    "productWebFeatures": [
+      "Pages, FAQ, and approved documents in one knowledge path",
+      "Natural questions and follow-ups in the customer’s language",
+      "Sources, feedback, and knowledge gaps in the APP panel",
+      "Domain, installation, and license in one place"
+    ],
+    "productWebCta": "See Kompis Web →",
+    "productBedriftTitle": "Kompis Bedrift",
+    "productBedriftBody": "A closed workspace where employees write together, share documents, and use Kompis to find internal knowledge.",
+    "productBedriftFeatures": [
+      "Private chat, groups, and who is online",
+      "Document sharing inside the conversation",
+      "Ask Kompis about documents, meetings, and internal answers",
+      "Roles and access follow each employee and each source"
+    ],
+    "productBedriftCta": "See Kompis Bedrift →",
+    "productIconAlt": "Aipify Kompis mascot",
+    "coreLabel": "Aipify Core",
+    "coreTitle": "One controlled path from knowledge to answer.",
+    "coreBody": "Customers manage content in APP. Core controls language, access, and publishing. Kompis only uses approved sources when answering.",
+    "coreCta": "See how we build trust",
+    "coreSteps": [
+      {
+        "title": "Gather knowledge",
+        "detail": "Website, FAQ, and documents",
+        "status": "Connected"
+      },
+      {
+        "title": "Review and publish",
+        "detail": "Language, roles, and human approval",
+        "status": "Approved"
+      },
+      {
+        "title": "Find the right source",
+        "detail": "Tenant, page, and language follow the question",
+        "status": "Verified"
+      },
+      {
+        "title": "Answer and learn",
+        "detail": "Sources, feedback, and knowledge gaps",
+        "status": "Active"
+      }
+    ],
+    "securityLabel": "Built for trust",
+    "securityTitle": "AIpify shows you where the answer comes from.",
+    "securitySubtitle": "Aipify combines human control with clear sources and strict product boundaries.",
+    "values": [
+      {
+        "icon": "⌁",
+        "title": "Source-based",
+        "body": "Kompis uses published knowledge and shows the sources behind the answer."
+      },
+      {
+        "icon": "◎",
+        "title": "Right context",
+        "body": "Domain, page, language, and product follow the full knowledge chain."
+      },
+      {
+        "icon": "✓",
+        "title": "Human control",
+        "body": "Aipify can prepare drafts. Customers decide what is published."
+      },
+      {
+        "icon": "◇",
+        "title": "Separated products",
+        "body": "Public Web knowledge and private Bedrift knowledge are never mixed."
+      },
+      {
+        "icon": "↗",
+        "title": "Improved in APP",
+        "body": "Feedback, weak answers, and missing knowledge stay visible to the owner."
+      },
+      {
+        "icon": "文",
+        "title": "Any language",
+        "body": "Customers activate languages as needed and publish each version separately."
+      }
+    ],
+    "addonsLabel": "Add-on modules",
+    "addonsTitle": "Extend Aipify as needs grow.",
+    "addonsSubtitle": "Start with the core. Activate specialized modules when they create value.",
+    "addonDesignTitle": "Kompis Design Studio",
+    "addonDesignBody": "Choose Design Packs, colors, backgrounds, and communication for Web or Bedrift.",
+    "addonTranslatorTitle": "Aipify AI Translator",
+    "addonTranslatorBody": "Create controlled translation drafts with credits and cost visibility. Human approval before publishing.",
+    "plannedTag": "Planned add-on",
+    "ctaTitle": "Give customers and teams a Kompis that actually knows the business.",
+    "ctaBody": "Choose Kompis Web, Kompis Bedrift, or both. Aipify keeps control in one clear APP panel.",
+    "ctaButton": "Book a demo"
   }
 }
