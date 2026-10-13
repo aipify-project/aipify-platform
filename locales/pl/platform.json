@@ -4253,6 +4253,37 @@
     "permissions": {
       "viewOnly": "Dostęp tylko do wyświetlania.",
       "financeRequired": "Wymagane są uprawnienia administratora finansowego."
+    },
+    "customerWorkspace": {
+      "nextDueTitle": "Następny termin płatności",
+      "nextDueEmpty": "Brak zaległych faktur.",
+      "payeeLabel": "Odbiorca płatności",
+      "amountLabel": "Kwota",
+      "dueLabel": "Termin płatności",
+      "issuedLabel": "Data faktury",
+      "periodLabel": "Okres rozliczeniowy",
+      "periodUnavailable": "Okres nie jest podany na tej fakturze",
+      "statusLabel": "Status",
+      "payCta": "Zapłać",
+      "payUnavailableTitle": "Jak zapłacić",
+      "payUnavailableBody": "Płatność online nie jest jeszcze dostępna dla tej faktury w Aipify. Skorzystaj z danych płatności na fakturze lub skontaktuj się z rozliczeniami Aipify.",
+      "kidLabel": "KID",
+      "bankReferenceLabel": "Referencja bankowa",
+      "sectionOverdue": "Zaległe",
+      "sectionAwaiting": "Oczekujące na płatność",
+      "sectionPaid": "Opłacone faktury",
+      "sectionOther": "Inne faktury",
+      "showDetails": "Pokaż szczegóły",
+      "hideDetails": "Ukryj szczegóły",
+      "originalDocumentUnavailable": "Oryginalny dokument faktury od wystawcy Aipify nie jest jeszcze dostępny do pobrania tutaj.",
+      "descriptionLabel": "Opis",
+      "netLabel": "Netto",
+      "taxLabel": "Podatek",
+      "totalLabel": "Razem",
+      "paidAmountLabel": "Kwota zapłacona",
+      "retry": "Spróbuj ponownie",
+      "loadError": "Nie udało się wczytać faktur. Spróbuj ponownie.",
+      "billingProfileToggle": "Profil rozliczeniowy"
     }
   },
   "invoices": {

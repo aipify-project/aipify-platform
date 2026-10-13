@@ -6,6 +6,7 @@ import {
   formatHubContextLine,
   resolveHubWorkspaceContext,
 } from "@/lib/app-portal/hubs/resolve-workspace-context";
+import { buildModulesAdminPanelLabels } from "@/lib/commercial-packages/modules-panel-labels";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
@@ -33,27 +34,7 @@ export default async function KompisBedriftModulesPage() {
       description={hubT(t, "bedrift.modulesDescription")}
       contextLabel={formatHubContextLine(common, ctx)}
     >
-      <ModulesAdminPanel
-        embedded
-        labels={{
-          title: t("customerApp.commercialPackages.modules.title"),
-          subtitle: t("customerApp.commercialPackages.modules.subtitle"),
-          loading: t("customerApp.commercialPackages.modules.loading"),
-          back: t("customerApp.commercialPackages.modules.back"),
-          viewBilling: t("customerApp.commercialPackages.modules.viewBilling"),
-          empty: t("customerApp.commercialPackages.modules.empty"),
-          enable: t("customerApp.commercialPackages.modules.enable"),
-          disable: t("customerApp.commercialPackages.modules.disable"),
-          sections: {
-            installed: t("customerApp.commercialPackages.modules.sections.installed"),
-            available: t("customerApp.commercialPackages.modules.sections.available"),
-            trials: t("customerApp.commercialPackages.modules.sections.trials"),
-            recommendations: t("customerApp.commercialPackages.modules.sections.recommendations"),
-            packages: t("customerApp.commercialPackages.modules.sections.packages"),
-            flags: t("customerApp.commercialPackages.modules.sections.flags"),
-          },
-        }}
-      />
+      <ModulesAdminPanel embedded labels={buildModulesAdminPanelLabels(t)} />
       <p className="text-sm text-aipify-text-secondary">{hubT(t, "bedrift.modulesAccountHint")}</p>
     </AppHubShell>
   );

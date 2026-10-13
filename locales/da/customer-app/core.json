@@ -6461,6 +6461,37 @@
     "invoiceCenter": {
       "title": "Enterprise Invoice Center",
       "emptyStructure": "No enterprise invoices yet. Your invoice history will appear here."
+    },
+    "customerWorkspace": {
+      "nextDueTitle": "Næste forfald",
+      "nextDueEmpty": "Ingen udestående fakturaer.",
+      "payeeLabel": "Betalingsmodtager",
+      "amountLabel": "Beløb",
+      "dueLabel": "Forfaldsdato",
+      "issuedLabel": "Fakturadato",
+      "periodLabel": "Fakturaperiode",
+      "periodUnavailable": "Periode er ikke angivet på denne faktura",
+      "statusLabel": "Status",
+      "payCta": "Betal",
+      "payUnavailableTitle": "Sådan betaler du",
+      "payUnavailableBody": "Onlinebetaling er endnu ikke tilgængelig for denne faktura i Aipify. Brug betalingsoplysningerne på fakturaen, eller kontakt Aipify billing hvis du har brug for hjælp.",
+      "kidLabel": "KID",
+      "bankReferenceLabel": "Bankreference",
+      "sectionOverdue": "Forfalden",
+      "sectionAwaiting": "Afventer betaling",
+      "sectionPaid": "Betalte fakturaer",
+      "sectionOther": "Andre fakturaer",
+      "showDetails": "Vis detaljer",
+      "hideDetails": "Skjul detaljer",
+      "originalDocumentUnavailable": "Originalfakturaen fra Aipifys udsteder er endnu ikke tilgængelig til download her.",
+      "descriptionLabel": "Beskrivelse",
+      "netLabel": "Netto",
+      "taxLabel": "Moms",
+      "totalLabel": "I alt",
+      "paidAmountLabel": "Betalt beløb",
+      "retry": "Prøv igen",
+      "loadError": "Fakturaer kunne ikke indlæses. Prøv igen.",
+      "billingProfileToggle": "Faktureringsprofil"
     }
   },
   "boardInvestorIntelligence": {

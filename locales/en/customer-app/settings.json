@@ -746,6 +746,24 @@
         "recommendations": "Upgrade recommendations",
         "packages": "Commercial packages",
         "flags": "Feature flag states"
+      },
+      "statusActive": "Active",
+      "statusAvailable": "Available",
+      "statusTrial": "Trial",
+      "openManage": "Current package",
+      "upgradeRequired": "Included when you upgrade — no purchase action is available from this card.",
+      "plannedSection": "Planned additions",
+      "plannedHint": "These capabilities are planned. Purchase and activation are not available in Aipify yet.",
+      "plannedCta": "Coming later",
+      "plannedProducts": {
+        "designStudio": {
+          "name": "Design Studio",
+          "description": "Design packs for your workspace appearance. Purchase and packaging are not delivered yet."
+        },
+        "aiTranslator": {
+          "name": "Aipify Translator",
+          "description": "Customer-paid translation credits. Purchase, credits, and activation are not delivered yet."
+        }
       }
     }
   },

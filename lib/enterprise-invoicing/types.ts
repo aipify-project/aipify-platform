@@ -166,4 +166,36 @@ export type EnterpriseInvoicingLabels = {
     viewOnly: string;
     financeRequired: string;
   };
+  /** Customer Account Center invoice workspace (job 2026-10-13). */
+  customerWorkspace: {
+    nextDueTitle: string;
+    nextDueEmpty: string;
+    payeeLabel: string;
+    amountLabel: string;
+    dueLabel: string;
+    issuedLabel: string;
+    periodLabel: string;
+    periodUnavailable: string;
+    statusLabel: string;
+    payCta: string;
+    payUnavailableTitle: string;
+    payUnavailableBody: string;
+    kidLabel: string;
+    bankReferenceLabel: string;
+    sectionOverdue: string;
+    sectionAwaiting: string;
+    sectionPaid: string;
+    sectionOther: string;
+    showDetails: string;
+    hideDetails: string;
+    originalDocumentUnavailable: string;
+    descriptionLabel: string;
+    netLabel: string;
+    taxLabel: string;
+    totalLabel: string;
+    paidAmountLabel: string;
+    retry: string;
+    loadError: string;
+    billingProfileToggle: string;
+  };
 };

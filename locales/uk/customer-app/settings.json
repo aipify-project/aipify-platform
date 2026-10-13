@@ -1054,6 +1054,24 @@
         "recommendations": "Upgrade recommendations",
         "packages": "Commercial packages",
         "flags": "Feature flag states"
+      },
+      "statusActive": "Активний",
+      "statusAvailable": "Доступний",
+      "statusTrial": "Пробний період",
+      "openManage": "Поточний пакет",
+      "upgradeRequired": "Входить після оновлення — покупки з цієї картки немає.",
+      "plannedSection": "Заплановані додатки",
+      "plannedHint": "Ці можливості заплановані. Купівля та активація ще недоступні в Aipify.",
+      "plannedCta": "Згодом",
+      "plannedProducts": {
+        "designStudio": {
+          "name": "Design Studio",
+          "description": "Пакети дизайну вигляду робочого простору. Купівля та пакування ще не доставлені."
+        },
+        "aiTranslator": {
+          "name": "Aipify Translator",
+          "description": "Платні кредити перекладу. Купівля, кредити та активація ще не доставлені."
+        }
       }
     }
   },

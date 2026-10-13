@@ -4253,6 +4253,37 @@
     "permissions": {
       "viewOnly": "View-only access.",
       "financeRequired": "Finance admin permissions required."
+    },
+    "customerWorkspace": {
+      "nextDueTitle": "Next payment due",
+      "nextDueEmpty": "No outstanding invoices.",
+      "payeeLabel": "Payment recipient",
+      "amountLabel": "Amount",
+      "dueLabel": "Due date",
+      "issuedLabel": "Invoice date",
+      "periodLabel": "Billing period",
+      "periodUnavailable": "Period not provided on this invoice",
+      "statusLabel": "Status",
+      "payCta": "Pay",
+      "payUnavailableTitle": "How to pay",
+      "payUnavailableBody": "Online payment is not available for this invoice in Aipify yet. Use the payment details on the invoice, or contact Aipify billing if you need help.",
+      "kidLabel": "KID",
+      "bankReferenceLabel": "Bank reference",
+      "sectionOverdue": "Overdue",
+      "sectionAwaiting": "Awaiting payment",
+      "sectionPaid": "Paid invoices",
+      "sectionOther": "Other invoices",
+      "showDetails": "Show details",
+      "hideDetails": "Hide details",
+      "originalDocumentUnavailable": "The original invoice document from Aipify’s issuer is not available for download here yet.",
+      "descriptionLabel": "Description",
+      "netLabel": "Net",
+      "taxLabel": "Tax",
+      "totalLabel": "Total",
+      "paidAmountLabel": "Amount paid",
+      "retry": "Try again",
+      "loadError": "Invoices could not be loaded. Please try again.",
+      "billingProfileToggle": "Billing profile"
     }
   },
   "invoices": {
