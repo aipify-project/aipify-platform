@@ -18,7 +18,7 @@ function read(rel: string) {
   return fs.readFileSync(path.join(ROOT, rel), "utf8");
 }
 
-assert.equal(APP_VISUAL_SYSTEM_VERSION, "63.2");
+assert.equal(APP_VISUAL_SYSTEM_VERSION, "63.3");
 assert.equal(AppVisualColors.canvas, "#F3F5FB");
 assert.equal(AppVisualColors.surface, "#F8F9FD");
 assert.equal(AppVisualColors.card, "#FFFFFF");

@@ -209,13 +209,23 @@ export default function ApprovedPublicHome({ labels }: Props) {
               <p>{labels.productWebBody}</p>
               <ul className="feature-list">
                 {labels.productWebFeatures.map((item) => (
-                  <li key={item}>
-                    <span className="check">✓</span>
-                    <span>{item}</span>
+                  <li key={item.text}>
+                    <span
+                      className={`check${item.status === "planned" ? " planned" : ""}`}
+                      title={item.status === "planned" ? labels.plannedLabel : labels.availableNowLabel}
+                    >
+                      {item.status === "planned" ? "○" : "✓"}
+                    </span>
+                    <span>
+                      {item.text}
+                      {item.status === "planned" ? (
+                        <span className="feature-status">{labels.plannedLabel}</span>
+                      ) : null}
+                    </span>
                   </li>
                 ))}
               </ul>
-              <Link className="button ghost" href={APPROVED_PUBLIC_HOME_CTA.contact}>
+              <Link className="button ghost product-cta" href={APPROVED_PUBLIC_HOME_CTA.contact}>
                 {labels.productWebCta}
               </Link>
             </article>
@@ -232,13 +242,23 @@ export default function ApprovedPublicHome({ labels }: Props) {
               <p>{labels.productBedriftBody}</p>
               <ul className="feature-list">
                 {labels.productBedriftFeatures.map((item) => (
-                  <li key={item}>
-                    <span className="check">✓</span>
-                    <span>{item}</span>
+                  <li key={item.text}>
+                    <span
+                      className={`check${item.status === "planned" ? " planned" : ""}`}
+                      title={item.status === "planned" ? labels.plannedLabel : labels.availableNowLabel}
+                    >
+                      {item.status === "planned" ? "○" : "✓"}
+                    </span>
+                    <span>
+                      {item.text}
+                      {item.status === "planned" ? (
+                        <span className="feature-status">{labels.plannedLabel}</span>
+                      ) : null}
+                    </span>
                   </li>
                 ))}
               </ul>
-              <Link className="button ghost" href={APPROVED_PUBLIC_HOME_CTA.contact}>
+              <Link className="button ghost product-cta" href={APPROVED_PUBLIC_HOME_CTA.contact}>
                 {labels.productBedriftCta}
               </Link>
             </article>

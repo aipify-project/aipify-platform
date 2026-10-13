@@ -64,14 +64,14 @@ export const AipifyShellClasses = {
   ghostButton:
     "rounded-lg border border-transparent bg-transparent px-4 py-2 text-sm font-medium text-aipify-text-secondary transition hover:bg-aipify-surface-muted focus:outline-none focus:ring-2 focus:ring-aipify-focus",
   primaryButton:
-    "rounded-lg bg-aipify-companion px-4 py-2 text-sm font-medium text-white transition hover:bg-aipify-companion-hover focus:outline-none focus:ring-2 focus:ring-aipify-focus disabled:opacity-50",
+    "rounded-xl bg-[image:var(--app-primary-gradient,linear-gradient(135deg,#7357e8,#5577f2))] px-5 py-2.5 text-[0.9375rem] font-semibold text-white shadow-sm transition hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-aipify-focus disabled:opacity-50",
   secondaryButton:
     "rounded-lg border border-aipify-border bg-aipify-surface px-4 py-2 text-sm font-medium text-aipify-text transition hover:bg-aipify-surface-muted",
   link: "text-aipify-accent hover:text-aipify-companion",
   dangerButton:
     "rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-sm font-medium text-red-800 transition hover:bg-red-100",
-  pageTitle: "text-[1.5625rem] font-semibold leading-tight tracking-tight text-aipify-text sm:text-[1.625rem]",
-  pageSubtitle: "mt-1.5 text-sm leading-relaxed text-aipify-text-secondary",
+  pageTitle: "text-[1.6875rem] font-semibold leading-tight tracking-tight text-aipify-text sm:text-[1.8125rem]",
+  pageSubtitle: "mt-1.5 text-[0.9375rem] leading-relaxed text-aipify-text-secondary sm:text-base",
   metricWidget: "rounded-2xl border border-aipify-border bg-aipify-surface p-4 shadow-sm",
   widgetGrid: "grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
 } as const;
@@ -117,9 +117,9 @@ export const AipifySidebarTypography = {
   sectionLabelButton:
     "text-[12px] font-semibold uppercase tracking-[0.06em] text-aipify-text/80 transition hover:bg-aipify-surface-muted hover:text-aipify-text",
   navigationItem:
-    "text-[13px] font-medium leading-snug text-aipify-text-secondary",
-  navigationItemActive: "text-[13px] font-semibold leading-snug text-white",
-  subNavigationItem: "text-[13px] font-medium leading-snug text-aipify-text-secondary",
+    "text-[14px] font-medium leading-snug text-aipify-text-secondary",
+  navigationItemActive: "text-[14px] font-semibold leading-snug text-white",
+  subNavigationItem: "text-[14px] font-medium leading-snug text-aipify-text-secondary",
   accessHint: "text-[12px] font-normal leading-snug text-amber-800",
   workspaceSummary: "text-[12px] leading-[1.35] text-aipify-text-muted sm:text-[13px]",
   workspaceSummaryLabel:
@@ -140,7 +140,7 @@ export const AipifySidebarTypography = {
   navLabelWrap: "block break-words leading-snug line-clamp-2",
   navItemRow:
     "flex w-full min-h-10 items-start gap-2.5 rounded-xl px-3 py-2 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2",
-  navIcon: "size-[18px] shrink-0",
+  navIcon: "size-[20px] shrink-0",
   chevron: "size-5 shrink-0 text-aipify-text/70",
   compactToggle: "rounded-lg p-2 text-aipify-text-secondary transition hover:bg-aipify-surface-muted hover:text-aipify-text focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus",
 } as const;

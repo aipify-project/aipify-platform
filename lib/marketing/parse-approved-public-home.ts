@@ -1,4 +1,7 @@
-import type { ApprovedPublicHomeLabels } from "@/components/marketing/homepage/approved-home/types";
+import type {
+  ApprovedPublicHomeFeature,
+  ApprovedPublicHomeLabels,
+} from "@/components/marketing/homepage/approved-home/types";
 import { getSection } from "@/lib/marketing/parse-marketing";
 
 function str(value: unknown, fallback = ""): string {
@@ -8,6 +11,28 @@ function str(value: unknown, fallback = ""): string {
 function strList(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
   return value.map((item) => str(item)).filter(Boolean);
+}
+
+function features(value: unknown, fallbackStatus: "available" | "planned" = "available"): ApprovedPublicHomeFeature[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (typeof item === "string") {
+        const text = str(item);
+        return text ? { text, status: fallbackStatus } : null;
+      }
+      if (item && typeof item === "object") {
+        const row = item as Record<string, unknown>;
+        const text = str(row.text);
+        if (!text) return null;
+        const statusRaw = str(row.status).toLowerCase();
+        const status: "available" | "planned" =
+          statusRaw === "planned" || statusRaw === "under_development" ? "planned" : "available";
+        return { text, status };
+      }
+      return null;
+    })
+    .filter((item): item is ApprovedPublicHomeFeature => item !== null);
 }
 
 function demo(value: unknown) {
@@ -56,13 +81,15 @@ export function parseApprovedPublicHome(marketing: Record<string, unknown>): App
     productsSubtitle: str(section.productsSubtitle),
     productWebTitle: str(section.productWebTitle),
     productWebBody: str(section.productWebBody),
-    productWebFeatures: strList(section.productWebFeatures),
+    productWebFeatures: features(section.productWebFeatures, "available"),
     productWebCta: str(section.productWebCta),
     productBedriftTitle: str(section.productBedriftTitle),
     productBedriftBody: str(section.productBedriftBody),
-    productBedriftFeatures: strList(section.productBedriftFeatures),
+    productBedriftFeatures: features(section.productBedriftFeatures, "planned"),
     productBedriftCta: str(section.productBedriftCta),
     productIconAlt: str(section.productIconAlt),
+    availableNowLabel: str(section.availableNowLabel, "Available now"),
+    plannedLabel: str(section.plannedLabel, "Planned"),
     coreLabel: str(section.coreLabel),
     coreTitle: str(section.coreTitle),
     coreBody: str(section.coreBody),

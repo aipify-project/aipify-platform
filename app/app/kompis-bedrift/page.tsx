@@ -71,10 +71,6 @@ export default async function KompisBedriftDashboardPage() {
       contextLabel={formatHubContextLine(common, ctx)}
       status={{ label: common.statusReady, tone: "emerald" }}
       decorativeAccent
-      primaryAction={{
-        label: t("customerApp.portalStructure.nav.kompisBedriftEmployees"),
-        href: FOUNDATION_NAV_BINDINGS.kompisBedriftEmployees,
-      }}
     >
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {cards.map((card) => (
