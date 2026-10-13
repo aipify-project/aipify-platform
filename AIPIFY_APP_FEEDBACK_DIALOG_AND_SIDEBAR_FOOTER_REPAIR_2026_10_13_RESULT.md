@@ -36,7 +36,8 @@ Dialog was rendered **inside** the sticky APP topbar / `aipify-app-shell` tree. 
 
 | Gate | Result |
 |------|--------|
-| premium-visual-system-63.test.ts | _(run before ship)_ |
+| premium-visual-system-63.test.ts | PASS |
+| consent.test.ts | PASS |
 | Frozen WK protected files | **0** touched; hashes asserted in test |
 | Feedback fields / submit API | Unchanged |
 | Consent cookie / banner | Unchanged |
@@ -49,9 +50,13 @@ Dialog was rendered **inside** the sticky APP topbar / `aipify-app-shell` tree. 
 
 ## Release IDs
 
-_(filled after merge/deploy)_
+- Feature head: `4917d816`
+- PR: [#168](https://github.com/aipify-project/aipify-platform/pull/168) MERGED
+- Merge-SHA: `502ae64c715eace0be1222315d3f3881c2ee5795`
+- APP project: `aipify-platform`
+- APP deploy: `dpl_5r4eMdBQm3PidbQ4zeis9XGy3WfD` — **READY**
+- Canonical domain: `https://app.aipify.ai` (HTTP 200; Link `dpl=` matches)
 
-- Feature head:
-- PR:
-- Merge-SHA:
-- APP project / deploy / READY / domain:
+## Verdict
+
+**Repair LIVE on APP Production.** Confirm in Safari: full feedback modal + privacy under license card. SAFE TO FREEZE APP DESIGN = NO.
