@@ -728,10 +728,44 @@
       "run": "Search"
     },
     "create": {
-      "title": "Article title",
+      "title": "Question",
       "category": "Category",
-      "content": "Content",
-      "submit": "Add knowledge item"
+      "content": "Answer",
+      "submit": "Save knowledge item"
+    },
+    "workspace": {
+      "createFaq": "Create FAQ",
+      "articles": "Knowledge articles",
+      "pendingReview": "Awaiting approval",
+      "gaps": "Knowledge gaps",
+      "askTest": "Test with Aipify",
+      "searchKnowledge": "Search knowledge",
+      "recentTitle": "Recently saved",
+      "seeAllArticles": "See all knowledge articles",
+      "questionLabel": "Question",
+      "answerLabel": "Answer",
+      "saveDraft": "Save draft",
+      "sendForApproval": "Send for approval",
+      "statusDraft": "Draft",
+      "statusApproved": "Approved",
+      "statusPending": "Awaiting approval",
+      "emptyArticlesTitle": "No knowledge articles yet",
+      "emptyArticlesBody": "When you save an FAQ draft, it appears here for internal administration. Approved items become available to authorized employees.",
+      "emptyAnswerBlocked": "Both question and answer are required to save. Empty answers cannot be stored until Core supports incomplete language drafts.",
+      "multilingualGapTitle": "Multilingual FAQ versions need Core authorization",
+      "multilingualGapBody": "Employee Knowledge stores one title and content per item today — without locale, article grouping, empty-draft storage, update RPC, or review/publish statuses. Language tabs and + Add language are withheld until a separate schema/RPC approval.",
+      "approve": "Approve",
+      "editUnavailable": "Editing a saved item needs a Core update operation that is not available yet.",
+      "createSuccess": "Knowledge item saved.",
+      "createError": "Could not save. Check that question and answer are filled in.",
+      "filterAll": "All",
+      "filterDraft": "Drafts",
+      "filterApproved": "Approved",
+      "updatedLabel": "Updated",
+      "noRecent": "No recent articles yet.",
+      "roleLabel": "Role",
+      "retry": "Try again",
+      "loadError": "Could not load employee knowledge. Please try again."
     }
   },
   "enterpriseInvoicing": {

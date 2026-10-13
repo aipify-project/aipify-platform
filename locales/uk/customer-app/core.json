@@ -1186,5 +1186,90 @@
       "historyEmptyBody": "Історія рахунків з’явиться тут, коли Aipify Platform виставить рахунки за ваш план. Ця сторінка показує лише рахунки, які Aipify виставив вашій організації.",
       "requiresPayment": "Потрібна оплата"
     }
+  },
+  "employeeKnowledge": {
+    "title": "Знання співробітників",
+    "subtitle": "Внутрішній партнер знань — затверджена документація, доступ за ролями та покрокові підказки.",
+    "loading": "Підготовка огляду знань співробітників…",
+    "back": "Назад до налаштувань",
+    "save": "Зберегти налаштування",
+    "saved": "Збережено",
+    "privacy": "Навчання лише з затверджених джерел. Співробітники бачать вміст, дозволений для їхньої ролі.",
+    "viewBusinessDna": "Business DNA",
+    "youControl": "Адміністратори схвалюють усі знання — прозорість обов’язкова.",
+    "empty": "Нічого в очікуванні.",
+    "sections": {
+      "health": "Knowledge health score",
+      "coverage": "Knowledge coverage",
+      "gaps": "Knowledge gaps",
+      "onboarding": "Onboarding path",
+      "permissions": "Role permissions",
+      "sources": "Approved sources",
+      "pending": "Pending approval",
+      "ask": "Employee assistant",
+      "search": "Knowledge search",
+      "audit": "Audit log",
+      "ethics": "Ethical safeguards",
+      "settings": "Settings"
+    },
+    "settings": {
+      "assistant": "Employee assistant mode",
+      "gapDetection": "Knowledge gap detection",
+      "onboarding": "Onboarding engine",
+      "improvementLoop": "Improvement loop",
+      "adminApproval": "Require admin approval",
+      "videoSupport": "Video knowledge support"
+    },
+    "ask": {
+      "placeholder": "How do we process a refund?",
+      "run": "Ask",
+      "confidence": "Confidence",
+      "escalate": "Escalation recommended — no approved documentation found.",
+      "steps": "Step-by-step guidance"
+    },
+    "search": {
+      "placeholder": "Search knowledge…",
+      "run": "Search"
+    },
+    "create": {
+      "title": "Заголовок статті",
+      "category": "Категорія",
+      "content": "Зміст",
+      "submit": "Додати елемент знань"
+    },
+    "workspace": {
+      "createFaq": "Створити FAQ",
+      "articles": "Статті знань",
+      "pendingReview": "Очікує схвалення",
+      "gaps": "Пробіли в знаннях",
+      "askTest": "Перевірити з Aipify",
+      "searchKnowledge": "Пошук знань",
+      "recentTitle": "Нещодавно збережені",
+      "seeAllArticles": "Переглянути всі статті знань",
+      "questionLabel": "Питання",
+      "answerLabel": "Відповідь",
+      "saveDraft": "Зберегти чернетку",
+      "sendForApproval": "Надіслати на схвалення",
+      "statusDraft": "Чернетка",
+      "statusApproved": "Схвалено",
+      "statusPending": "Очікує схвалення",
+      "emptyArticlesTitle": "Ще немає статей знань",
+      "emptyArticlesBody": "Після збереження чернетки FAQ вона з’явиться тут для внутрішнього адміністрування. Схвалені елементи стануть доступні уповноваженим співробітникам.",
+      "emptyAnswerBlocked": "Для збереження потрібні і питання, і відповідь. Порожні відповіді не можна зберігати, доки Core не підтримає неповні мовні чернетки.",
+      "multilingualGapTitle": "Багатомовні версії FAQ потребують авторизації Core",
+      "multilingualGapBody": "Знання співробітників зараз зберігають один заголовок і зміст на елемент — без locale, групування статей, порожньої чернетки, RPC оновлення чи статусів review/публікації. Мовні вкладки та «+ Додати мову» відкладено до окремого схвалення схеми/RPC.",
+      "approve": "Схвалити",
+      "editUnavailable": "Редагування збережених елементів потребує операції оновлення Core, якої ще немає.",
+      "createSuccess": "Елемент знань збережено.",
+      "createError": "Не вдалося зберегти. Перевірте, що питання та відповідь заповнені.",
+      "filterAll": "Усі",
+      "filterDraft": "Чернетки",
+      "filterApproved": "Схвалені",
+      "updatedLabel": "Оновлено",
+      "noRecent": "Ще немає нещодавніх статей.",
+      "roleLabel": "Роль",
+      "retry": "Спробувати знову",
+      "loadError": "Не вдалося завантажити знання співробітників. Спробуйте знову."
+    }
   }
 }
