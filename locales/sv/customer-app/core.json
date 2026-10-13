@@ -6921,7 +6921,17 @@
       "pl": "Polska",
       "uk": "Ukrainska"
     },
-    "feedbackOverviewLink": "Visa svarsfeedback"
+    "feedbackOverviewLink": "Visa svarsfeedback",
+    "siteContext": {
+      "label": "Webbplats",
+      "hint": "FAQ för den valda webbplatsinstallationen. Ett konto kan hantera flera webbplatser.",
+      "selectRequired": "Välj en webbplats för att visa eller skapa offentlig FAQ.",
+      "legacyBadge": "Delad (äldre)",
+      "legacyWarning": "Vissa FAQ-poster är inte kopplade till en specifik webbplats (äldre). De förblir synliga för alla installationer tills en separat migrering godkänns. Nya poster sparas på den valda webbplatsen.",
+      "siteScopedBadge": "Denna webbplats",
+      "noSites": "Ingen verifierad webbplatsinstallation är kopplad ännu. Anslut en domän under Anslutning innan FAQ scopes per webbplats.",
+      "visitorPartialNote": "Besökarsvar kan fortfarande inkludera delad äldre FAQ tills en Core-isoleringsuppdatering är auktoriserad."
+    }
   },
   "kompisOperator": {
     "title": "Kompis",

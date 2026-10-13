@@ -388,7 +388,17 @@
       "pl": "Polski",
       "uk": "Ukraiński"
     },
-    "feedbackOverviewLink": "Zobacz opinie o odpowiedziach"
+    "feedbackOverviewLink": "Zobacz opinie o odpowiedziach",
+    "siteContext": {
+      "label": "Witryna",
+      "hint": "FAQ dla wybranej instalacji witryny. Jedno konto może zarządzać wieloma witrynami.",
+      "selectRequired": "Wybierz witrynę, aby wyświetlić lub utworzyć publiczne FAQ.",
+      "legacyBadge": "Współdzielone (starsze)",
+      "legacyWarning": "Niektóre elementy FAQ nie są powiązane z konkretną witryną (starsze). Pozostają widoczne dla wszystkich instalacji, dopóki nie zostanie zatwierdzona osobna migracja. Nowe elementy są zapisywane dla wybranej witryny.",
+      "siteScopedBadge": "Ta witryna",
+      "noSites": "Nie powiązano jeszcze zweryfikowanej instalacji witryny. Połącz domenę w Połączeniu, zanim FAQ będzie zakresowane per witryna.",
+      "visitorPartialNote": "Odpowiedzi dla odwiedzających mogą nadal zawierać współdzielone starsze FAQ, dopóki nie zostanie autoryzowana aktualizacja izolacji w Core."
+    }
   },
   "kompisOperator": {
     "title": "Kompis",

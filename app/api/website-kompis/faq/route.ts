@@ -18,6 +18,13 @@ import {
   parseWebsiteKompisFaqList,
   parseWebsiteKompisFaqUpsertResult,
 } from "@/lib/website-kompis-faq/parse";
+import {
+  annotateWebsiteKompisFaqScope,
+  filterWebsiteKompisFaqItemsForSiteContext,
+  requireInstallIdForFaqWrite,
+  resolveWebsiteKompisSiteContextForRequest,
+  loadWebsiteKompisOwnedSites,
+} from "@/lib/website-kompis-site-context";
 
 async function requireAuthenticatedSupabase() {
   const supabase = await createClient();
@@ -81,6 +88,37 @@ export async function GET(request: Request) {
     const locale = url.searchParams.get("locale")?.trim() || null;
     const contentType = sanitizeContentType(url.searchParams.get("contentType"));
     const query = url.searchParams.get("query")?.trim().slice(0, WPKF_QUERY_MAX_LENGTH) || null;
+    const requestedInstallId = url.searchParams.get("installId");
+
+    const siteContext = await resolveWebsiteKompisSiteContextForRequest(
+      auth.supabase,
+      requestedInstallId,
+    );
+
+    if (siteContext.state === "unauthenticated") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (siteContext.state === "invalid_selection") {
+      return NextResponse.json(
+        { error: "Invalid website selection", code: "invalid_site_selection" },
+        { status: 400 },
+      );
+    }
+
+    if (siteContext.state === "multi_site" && !siteContext.selectedInstallId) {
+      return NextResponse.json({
+        items: [],
+        siteContext: {
+          state: siteContext.state,
+          selectedInstallId: null,
+          selectedDomain: null,
+          sites: siteContext.sites,
+          visitorIsolation: siteContext.visitorIsolation,
+          requiresSiteSelection: true,
+        },
+      });
+    }
 
     const { data, error } = await auth.supabase.rpc("list_tenant_public_companion_faq_items", {
       p_status: status,
@@ -96,7 +134,25 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: error.message }, { status: statusCode });
     }
 
-    return NextResponse.json({ items: parseWebsiteKompisFaqList(data) });
+    const parsed = parseWebsiteKompisFaqList(data);
+    const filtered = filterWebsiteKompisFaqItemsForSiteContext(parsed, siteContext);
+    const items = filtered.map((item) => ({
+      ...item,
+      scope: annotateWebsiteKompisFaqScope(item, siteContext.selectedInstallId),
+    }));
+
+    return NextResponse.json({
+      items,
+      siteContext: {
+        state: siteContext.state,
+        selectedInstallId: siteContext.selectedInstallId,
+        selectedDomain: siteContext.selectedDomain,
+        sites: siteContext.sites,
+        visitorIsolation: siteContext.visitorIsolation,
+        requiresSiteSelection: false,
+        legacyNullVisible: items.some((item) => item.scope.isLegacyTenantGlobal),
+      },
+    });
   } catch {
     return NextResponse.json({ error: "FAQ list request failed" }, { status: 500 });
   }
@@ -124,10 +180,52 @@ export async function POST(request: Request) {
       );
     }
 
+    const itemId = sanitizeOptionalUuid(body.itemId);
+    const requestedInstallId = sanitizeOptionalUuid(body.installId);
+    const { sites } = await loadWebsiteKompisOwnedSites(auth.supabase);
+
+    let existingInstallId: string | null = null;
+    if (itemId) {
+      const { data: existingRows, error: existingError } = await auth.supabase.rpc(
+        "list_tenant_public_companion_faq_items",
+        {
+          p_status: null,
+          p_locale: null,
+          p_content_type: null,
+          p_query: null,
+          p_limit: WPKF_LIST_LIMIT_DEFAULT,
+          p_offset: 0,
+        },
+      );
+      if (existingError) {
+        const statusCode = /owner or admin/i.test(existingError.message) ? 403 : 400;
+        return NextResponse.json({ error: existingError.message }, { status: statusCode });
+      }
+      const existing = parseWebsiteKompisFaqList(existingRows).find((row) => row.id === itemId);
+      if (!existing) {
+        return NextResponse.json({ error: "FAQ item not found" }, { status: 404 });
+      }
+      existingInstallId = existing.installId;
+    }
+
+    const writeGate = requireInstallIdForFaqWrite({
+      sites,
+      requestedInstallId,
+      isUpdate: Boolean(itemId),
+      existingInstallId,
+    });
+
+    if (!writeGate.ok) {
+      return NextResponse.json(
+        { error: "Valid website selection is required", code: writeGate.reason },
+        { status: 400 },
+      );
+    }
+
     const { data, error } = await auth.supabase.rpc("upsert_tenant_public_companion_faq_item", {
-      p_item_id: sanitizeOptionalUuid(body.itemId),
-      p_install_id: sanitizeOptionalUuid(body.installId),
-      p_domain: typeof body.domain === "string" ? body.domain.trim().slice(0, 253) || null : null,
+      p_item_id: itemId,
+      p_install_id: writeGate.installId,
+      p_domain: writeGate.domain,
       p_locale: locale,
       p_title: title,
       p_question:

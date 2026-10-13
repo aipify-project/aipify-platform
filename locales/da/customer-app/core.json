@@ -6921,7 +6921,17 @@
       "pl": "Polsk",
       "uk": "Ukrainsk"
     },
-    "feedbackOverviewLink": "Se svarefeedback"
+    "feedbackOverviewLink": "Se svarefeedback",
+    "siteContext": {
+      "label": "Websted",
+      "hint": "FAQ for den valgte webstedinstallation. Én konto kan administrere flere websteder.",
+      "selectRequired": "Vælg et websted for at vise eller oprette offentlig FAQ.",
+      "legacyBadge": "Delt (ældre)",
+      "legacyWarning": "Nogle FAQ-elementer er ikke knyttet til et bestemt websted (ældre). De forbliver synlige for alle installationer, indtil en separat migrering er godkendt. Nye elementer gemmes på det valgte websted.",
+      "siteScopedBadge": "Dette websted",
+      "noSites": "Ingen verificeret webstedinstallation er knyttet endnu. Tilslut et domæne under Forbindelse, før FAQ scopes pr. websted.",
+      "visitorPartialNote": "Besøgendes svar kan stadig inkludere delt ældre FAQ, indtil en Core-isoleringsopdatering er autoriseret."
+    }
   },
   "kompisOperator": {
     "title": "Kompis",
