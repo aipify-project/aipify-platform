@@ -1,66 +1,47 @@
+import { AppHubShell } from "@/components/app/hubs/AppHubShell";
 import { EmployeeKnowledgeAdminPanel } from "@/components/app/settings/EmployeeKnowledgeAdminPanel";
+import { FOUNDATION_NAV_BINDINGS } from "@/lib/app-portal/foundation-nav/bindings";
+import { hubCommon } from "@/lib/app-portal/hubs/hub-copy";
+import {
+  formatHubContextLine,
+  resolveHubWorkspaceContext,
+} from "@/lib/app-portal/hubs/resolve-workspace-context";
+import { buildEmployeeKnowledgeLabels } from "@/lib/employee-knowledge-engine";
 import { getCustomerAppDictionaryForSplits } from "@/lib/i18n/get-dictionary";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { createTranslator } from "@/lib/i18n/translate";
 
+/**
+ * Ansattkunnskap / Employee Knowledge workspace.
+ * Feature owner: CUSTOMER APP — Bedrift-internal; not Website Kompis public FAQ.
+ */
 export default async function EmployeeKnowledgeSettingsPage() {
   const locale = await getLocale();
-  const dict = await getCustomerAppDictionaryForSplits(locale, ["core"]);
+  const dict = await getCustomerAppDictionaryForSplits(locale, [
+    "core",
+    "portalStructure",
+  ]);
   const t = createTranslator(dict);
+  const common = hubCommon(t);
+  const ctx = await resolveHubWorkspaceContext();
+  const labels = buildEmployeeKnowledgeLabels(t);
 
   return (
-    <EmployeeKnowledgeAdminPanel
-      labels={{
-        title: t("customerApp.employeeKnowledge.title"),
-        subtitle: t("customerApp.employeeKnowledge.subtitle"),
-        loading: t("customerApp.employeeKnowledge.loading"),
-        back: t("customerApp.employeeKnowledge.back"),
-        save: t("customerApp.employeeKnowledge.save"),
-        saved: t("customerApp.employeeKnowledge.saved"),
-        privacy: t("customerApp.employeeKnowledge.privacy"),
-        viewBusinessDna: t("customerApp.employeeKnowledge.viewBusinessDna"),
-        youControl: t("customerApp.employeeKnowledge.youControl"),
-        empty: t("customerApp.employeeKnowledge.empty"),
-        sections: {
-          health: t("customerApp.employeeKnowledge.sections.health"),
-          coverage: t("customerApp.employeeKnowledge.sections.coverage"),
-          gaps: t("customerApp.employeeKnowledge.sections.gaps"),
-          onboarding: t("customerApp.employeeKnowledge.sections.onboarding"),
-          permissions: t("customerApp.employeeKnowledge.sections.permissions"),
-          sources: t("customerApp.employeeKnowledge.sections.sources"),
-          pending: t("customerApp.employeeKnowledge.sections.pending"),
-          ask: t("customerApp.employeeKnowledge.sections.ask"),
-          search: t("customerApp.employeeKnowledge.sections.search"),
-          audit: t("customerApp.employeeKnowledge.sections.audit"),
-          ethics: t("customerApp.employeeKnowledge.sections.ethics"),
-          settings: t("customerApp.employeeKnowledge.sections.settings"),
+    <AppHubShell
+      breadcrumb={[
+        { label: common.home, href: FOUNDATION_NAV_BINDINGS.appHome },
+        {
+          label: t("customerApp.portalStructure.navGroups.kompisBedrift"),
+          href: FOUNDATION_NAV_BINDINGS.kompisBedriftDashboard,
         },
-        settings: {
-          assistant: t("customerApp.employeeKnowledge.settings.assistant"),
-          gapDetection: t("customerApp.employeeKnowledge.settings.gapDetection"),
-          onboarding: t("customerApp.employeeKnowledge.settings.onboarding"),
-          improvementLoop: t("customerApp.employeeKnowledge.settings.improvementLoop"),
-          adminApproval: t("customerApp.employeeKnowledge.settings.adminApproval"),
-          videoSupport: t("customerApp.employeeKnowledge.settings.videoSupport"),
-        },
-        ask: {
-          placeholder: t("customerApp.employeeKnowledge.ask.placeholder"),
-          run: t("customerApp.employeeKnowledge.ask.run"),
-          confidence: t("customerApp.employeeKnowledge.ask.confidence"),
-          escalate: t("customerApp.employeeKnowledge.ask.escalate"),
-          steps: t("customerApp.employeeKnowledge.ask.steps"),
-        },
-        search: {
-          placeholder: t("customerApp.employeeKnowledge.search.placeholder"),
-          run: t("customerApp.employeeKnowledge.search.run"),
-        },
-        create: {
-          title: t("customerApp.employeeKnowledge.create.title"),
-          category: t("customerApp.employeeKnowledge.create.category"),
-          content: t("customerApp.employeeKnowledge.create.content"),
-          submit: t("customerApp.employeeKnowledge.create.submit"),
-        },
-      }}
-    />
+        { label: labels.title },
+      ]}
+      eyebrow={t("customerApp.portalStructure.navGroups.kompisBedrift")}
+      title={labels.title}
+      description={labels.subtitle}
+      contextLabel={formatHubContextLine(common, ctx)}
+    >
+      <EmployeeKnowledgeAdminPanel labels={labels} embedded />
+    </AppHubShell>
   );
 }

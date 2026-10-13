@@ -2521,10 +2521,44 @@
       "run": "Søk"
     },
     "create": {
-      "title": "Artikkeltittel",
+      "title": "Spørsmål",
       "category": "Kategori",
-      "content": "Innhold",
-      "submit": "Legg til kunnskapselement"
+      "content": "Svar",
+      "submit": "Lagre kunnskapselement"
+    },
+    "workspace": {
+      "createFaq": "Opprett FAQ",
+      "articles": "Kunnskapsartikler",
+      "pendingReview": "Til godkjenning",
+      "gaps": "Kunnskapshull",
+      "askTest": "Test med Aipify",
+      "searchKnowledge": "Søk i kunnskap",
+      "recentTitle": "Nylig lagret",
+      "seeAllArticles": "Se alle kunnskapsartikler",
+      "questionLabel": "Spørsmål",
+      "answerLabel": "Svar",
+      "saveDraft": "Lagre utkast",
+      "sendForApproval": "Send til godkjenning",
+      "statusDraft": "Utkast",
+      "statusApproved": "Godkjent",
+      "statusPending": "Til godkjenning",
+      "emptyArticlesTitle": "Ingen kunnskapsartikler ennå",
+      "emptyArticlesBody": "Når du lagrer et FAQ-utkast, vises det her for intern administrasjon. Godkjente elementer blir tilgjengelige for autoriserte ansatte.",
+      "emptyAnswerBlocked": "Både spørsmål og svar kreves for å lagre. Tomme svar kan ikke lagres før Core støtter ufullstendige språkutkast.",
+      "multilingualGapTitle": "Flerspråklige FAQ-versjoner krever Core-autorisasjon",
+      "multilingualGapBody": "Ansattkunnskap lagrer i dag én tittel og ett innhold per element — uten locale, artikkelgruppering, tomt utkast, oppdaterings-RPC eller review/publiseringsstatus. Språkfaner og «+ Legg til språk» er holdt tilbake til separat schema/RPC-godkjenning.",
+      "approve": "Godkjenn",
+      "editUnavailable": "Redigering av lagrede elementer krever en Core-oppdateringsoperasjon som ikke finnes ennå.",
+      "createSuccess": "Kunnskapselement lagret.",
+      "createError": "Kunne ikke lagre. Kontroller at spørsmål og svar er fylt ut.",
+      "filterAll": "Alle",
+      "filterDraft": "Utkast",
+      "filterApproved": "Godkjent",
+      "updatedLabel": "Oppdatert",
+      "noRecent": "Ingen nylige artikler ennå.",
+      "roleLabel": "Rolle",
+      "retry": "Prøv igjen",
+      "loadError": "Kunne ikke laste ansattkunnskap. Prøv igjen."
     }
   },
   "innovationImpactEngine": {

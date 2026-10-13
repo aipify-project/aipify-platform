@@ -1186,5 +1186,90 @@
       "historyEmptyBody": "Historia faktur pojawi się tutaj, gdy Aipify Platform wystawi faktury za Twój plan. Ta strona pokazuje tylko faktury wystawione przez Aipify dla Twojej organizacji.",
       "requiresPayment": "Wymaga płatności"
     }
+  },
+  "employeeKnowledge": {
+    "title": "Wiedza pracowników",
+    "subtitle": "Wewnętrzny partner wiedzy — zatwierdzona dokumentacja, dostęp oparty na rolach i wskazówki krok po kroku.",
+    "loading": "Przygotowywanie przeglądu wiedzy pracowników…",
+    "back": "Powrót do ustawień",
+    "save": "Zapisz ustawienia",
+    "saved": "Zapisano",
+    "privacy": "Uczymy się tylko z zatwierdzonych źródeł. Pracownicy widzą treści dozwolone dla swojej roli.",
+    "viewBusinessDna": "Business DNA",
+    "youControl": "Administratorzy zatwierdzają całą wiedzę — przejrzystość jest obowiązkowa.",
+    "empty": "Nic nie oczekuje.",
+    "sections": {
+      "health": "Knowledge health score",
+      "coverage": "Knowledge coverage",
+      "gaps": "Knowledge gaps",
+      "onboarding": "Onboarding path",
+      "permissions": "Role permissions",
+      "sources": "Approved sources",
+      "pending": "Pending approval",
+      "ask": "Employee assistant",
+      "search": "Knowledge search",
+      "audit": "Audit log",
+      "ethics": "Ethical safeguards",
+      "settings": "Settings"
+    },
+    "settings": {
+      "assistant": "Employee assistant mode",
+      "gapDetection": "Knowledge gap detection",
+      "onboarding": "Onboarding engine",
+      "improvementLoop": "Improvement loop",
+      "adminApproval": "Require admin approval",
+      "videoSupport": "Video knowledge support"
+    },
+    "ask": {
+      "placeholder": "How do we process a refund?",
+      "run": "Ask",
+      "confidence": "Confidence",
+      "escalate": "Escalation recommended — no approved documentation found.",
+      "steps": "Step-by-step guidance"
+    },
+    "search": {
+      "placeholder": "Search knowledge…",
+      "run": "Search"
+    },
+    "create": {
+      "title": "Tytuł artykułu",
+      "category": "Kategoria",
+      "content": "Treść",
+      "submit": "Dodaj element wiedzy"
+    },
+    "workspace": {
+      "createFaq": "Utwórz FAQ",
+      "articles": "Artykuły wiedzy",
+      "pendingReview": "Do zatwierdzenia",
+      "gaps": "Luki w wiedzy",
+      "askTest": "Przetestuj z Aipify",
+      "searchKnowledge": "Szukaj w wiedzy",
+      "recentTitle": "Ostatnio zapisane",
+      "seeAllArticles": "Zobacz wszystkie artykuły wiedzy",
+      "questionLabel": "Pytanie",
+      "answerLabel": "Odpowiedź",
+      "saveDraft": "Zapisz szkic",
+      "sendForApproval": "Wyślij do zatwierdzenia",
+      "statusDraft": "Szkic",
+      "statusApproved": "Zatwierdzono",
+      "statusPending": "Do zatwierdzenia",
+      "emptyArticlesTitle": "Brak artykułów wiedzy",
+      "emptyArticlesBody": "Po zapisaniu szkicu FAQ pojawi się tutaj w administracji wewnętrznej. Zatwierdzone elementy będą dostępne dla upoważnionych pracowników.",
+      "emptyAnswerBlocked": "Do zapisania wymagane są pytanie i odpowiedź. Puste odpowiedzi nie mogą być przechowywane, dopóki Core nie obsłuży niekompletnych szkiców językowych.",
+      "multilingualGapTitle": "Wielojęzyczne wersje FAQ wymagają autoryzacji Core",
+      "multilingualGapBody": "Wiedza pracowników przechowuje dziś jeden tytuł i treść na element — bez locale, grupowania artykułów, pustego szkicu, RPC aktualizacji ani statusów review/publikacji. Karty językowe i «+ Dodaj język» są wstrzymane do osobnej zgody na schemat/RPC.",
+      "approve": "Zatwierdź",
+      "editUnavailable": "Edycja zapisanych elementów wymaga operacji aktualizacji Core, której jeszcze nie ma.",
+      "createSuccess": "Element wiedzy zapisany.",
+      "createError": "Nie udało się zapisać. Sprawdź, czy pytanie i odpowiedź są wypełnione.",
+      "filterAll": "Wszystkie",
+      "filterDraft": "Szkice",
+      "filterApproved": "Zatwierdzone",
+      "updatedLabel": "Zaktualizowano",
+      "noRecent": "Brak ostatnich artykułów.",
+      "roleLabel": "Rola",
+      "retry": "Spróbuj ponownie",
+      "loadError": "Nie udało się wczytać wiedzy pracowników. Spróbuj ponownie."
+    }
   }
 }
