@@ -1,6 +1,9 @@
 # AIPIFY – PUBLIC HOME APPROVED DESIGN V1 — RESULT
 
 **Branch:** `feature/public-home-approved-design-v1`  
+**Commit:** `6fafb4f3fa09ffaec4ca99e5450c4455e16879f8`  
+**PR:** [#163](https://github.com/aipify-project/aipify-platform/pull/163)  
+**Public Preview (iz5z):** https://aipify-platform-iz5z-git-fe-905559-unonight-platform-s-projects.vercel.app  
 **Package verified:** MANIFEST SHA-256 all OK (mascot `9646db7d…`)  
 **Status:** Preview PR only — **do not merge/deploy in this job**
 
