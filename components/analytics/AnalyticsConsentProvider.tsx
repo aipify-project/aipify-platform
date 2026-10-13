@@ -42,12 +42,19 @@ export function useAnalyticsConsent(): AnalyticsConsentContextValue {
 type Props = {
   labels: AnalyticsConsentLabels;
   privacyHref?: string;
+  /**
+   * When true, do not render the floating bottom-left privacy trigger.
+   * Customer APP mounts an equivalent control in the sidebar footer instead.
+   * Marketing/partners keep the floating trigger (default).
+   */
+  hideFloatingSettingsTrigger?: boolean;
   children: ReactNode;
 };
 
 export default function AnalyticsConsentProvider({
   labels,
   privacyHref = "/privacy",
+  hideFloatingSettingsTrigger = false,
   children,
 }: Props) {
   const [consent, setConsentState] = useState<AnalyticsConsentState>(() =>
@@ -83,7 +90,11 @@ export default function AnalyticsConsentProvider({
 
   const showInitialBanner = hydrated && consent === "unknown";
   const showManageBanner = hydrated && manageOpen && consent !== "unknown";
-  const showSettingsTrigger = hydrated && consent !== "unknown" && !manageOpen;
+  const showSettingsTrigger =
+    hydrated &&
+    consent !== "unknown" &&
+    !manageOpen &&
+    !hideFloatingSettingsTrigger;
 
   return (
     <AnalyticsConsentContext.Provider value={contextValue}>

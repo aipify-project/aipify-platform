@@ -18,7 +18,7 @@ function read(rel: string) {
   return fs.readFileSync(path.join(ROOT, rel), "utf8");
 }
 
-assert.equal(APP_VISUAL_SYSTEM_VERSION, "63.4");
+assert.equal(APP_VISUAL_SYSTEM_VERSION, "63.5");
 assert.equal(AppVisualColors.canvas, "#F3F5FB");
 assert.equal(AppVisualColors.surface, "#F8F9FD");
 assert.equal(AppVisualColors.card, "#FFFFFF");
@@ -69,7 +69,14 @@ assert.match(read("components/app/hubs/HubFeatureIcon.tsx"), /export function Hu
 assert.match(read("lib/design/light-enterprise-theme.ts"), /w-\[256px\]/);
 assert.match(read("lib/design/light-enterprise-theme.ts"), /desktopWidthPx:\s*256/);
 assert.match(read("components/analytics/AnalyticsConsentProvider.tsx"), /aipify-privacy-settings-trigger/);
+assert.match(read("components/analytics/AnalyticsConsentProvider.tsx"), /hideFloatingSettingsTrigger/);
+assert.match(read("app/app/layout.tsx"), /hideFloatingSettingsTrigger/);
+assert.match(read("components/app/license/LicenseSidebarPanel.tsx"), /aipify-sidebar-privacy-trigger/);
+assert.match(read("components/app/license/LicenseSidebarPanel.tsx"), /openPrivacySettings/);
+assert.match(read("components/app/voice-of-the-customer/ShareFeedbackDialog.tsx"), /createPortal/);
+assert.match(read("components/app/voice-of-the-customer/ShareFeedbackDialog.tsx"), /document\.body/);
 assert.match(globals, /aipify-privacy-settings-trigger/);
+assert.match(globals, /display:\s*none/);
 assert.match(globals, /aipify-app-decorative-orb__mascot/);
 
 // Flat nav contract preserved (job 60/61)

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useAnalyticsConsent } from "@/components/analytics/AnalyticsConsentProvider";
 import { useOptionalDashboardProfile } from "@/components/dashboard/DashboardProfileProvider";
 import { AipifySidebarTypography } from "@/lib/design";
 import { AipifyPulse } from "@/components/branding";
@@ -36,6 +37,8 @@ type LicenseSidebarPanelProps = {
     poweredBy: string;
     copyright: string;
     pulseLabel: string;
+    /** Same copy as analyticsConsent.privacySettings.open — footer owns APP placement. */
+    privacySettingsOpen: string;
   };
 };
 
@@ -48,6 +51,7 @@ const LICENSE_CACHE_KEY = LICENSE_SIDEBAR_CACHE_KEY;
 
 export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps) {
   const profileContext = useOptionalDashboardProfile();
+  const { openPrivacySettings, consent } = useAnalyticsConsent();
   const cached = getCachedValue<LicenseCache>(LICENSE_CACHE_KEY);
   const [phase, setPhase] = useState<SidebarOrganizationDisplayPhase>(cached?.phase ?? "loading");
   const [context, setContext] = useState<AppOrganizationContext | null>(cached?.context ?? null);
@@ -138,60 +142,75 @@ export default function LicenseSidebarPanel({ labels }: LicenseSidebarPanelProps
     void load();
   }, [load]);
 
+  const showPrivacyControl = consent !== "unknown";
+
   return (
-    <Link
-      href={licenseHref}
-      className="relative mx-3 mb-3 block shrink-0 rounded-xl border border-[var(--app-border,var(--aipify-border))] bg-[var(--app-soft-surface,var(--aipify-surface-muted))] px-3.5 py-3.5 transition hover:border-[var(--app-border-accent)] hover:bg-[var(--app-primary-soft)]/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2"
-      aria-label={labels.poweredBy}
-      aria-busy={display.phase === "loading"}
-    >
-      <div className="flex items-start gap-3">
-        <AipifyPulse
-          size={sidebarMark.pulseSize}
-          variant="mono"
-          opacity={sidebarMark.pulseOpacity}
-          title={labels.pulseLabel}
-          aria-label={labels.pulseLabel}
-          className="mt-0.5 shrink-0 text-aipify-companion"
-        />
-        <div className={`min-w-0 flex-1 space-y-2.5 ${AipifySidebarTypography.workspaceSummary}`}>
-          <div className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.workspace} ${display.workspaceName}`}>
-            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.workspace}</span>
-            <span
-              className={`${AipifySidebarTypography.workspaceSummaryValue} line-clamp-2`}
-              title={display.workspaceName}
-            >
-              {display.workspaceName}
-            </span>
-          </div>
-          <div className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.licensedTo} ${display.licensedTo}`}>
-            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.licensedTo}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} line-clamp-2`}>
-              {display.licensedTo}
-            </span>
-          </div>
-          <div className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.plan} ${display.planName}`}>
-            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.plan}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{display.planName}</span>
-          </div>
-          <div className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.status} ${display.statusLabel}`}>
-            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.status}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{display.statusLabel}</span>
-          </div>
-          <div className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.version} ${formatSoftwareVersion("1.0.0")}`}>
-            <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.version}</span>
-            <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>
-              {formatSoftwareVersion("1.0.0")}
-            </span>
-          </div>
-          <div className="space-y-1 border-t border-[var(--app-border)] pt-2.5">
-            <p className={AipifySidebarTypography.workspaceSummaryFooter}>
-              {labels.poweredBy} Aipify™
-            </p>
-            <p className={AipifySidebarTypography.workspaceSummaryCopyright}>{labels.copyright}</p>
+    <div className="mx-3 mb-3 shrink-0 space-y-2">
+      <Link
+        href={licenseHref}
+        className="relative block rounded-xl border border-[var(--app-border,var(--aipify-border))] bg-[var(--app-soft-surface,var(--aipify-surface-muted))] px-3.5 py-3 transition hover:border-[var(--app-border-accent)] hover:bg-[var(--app-primary-soft)]/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2"
+        aria-label={labels.poweredBy}
+        aria-busy={display.phase === "loading"}
+      >
+        <div className="flex items-start gap-3">
+          <AipifyPulse
+            size={sidebarMark.pulseSize}
+            variant="mono"
+            opacity={sidebarMark.pulseOpacity}
+            title={labels.pulseLabel}
+            aria-label={labels.pulseLabel}
+            className="mt-0.5 shrink-0 text-aipify-companion"
+          />
+          <div className={`min-w-0 flex-1 space-y-2 ${AipifySidebarTypography.workspaceSummary}`}>
+            <div className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.workspace} ${display.workspaceName}`}>
+              <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.workspace}</span>
+              <span
+                className={`${AipifySidebarTypography.workspaceSummaryValue} line-clamp-2`}
+                title={display.workspaceName}
+              >
+                {display.workspaceName}
+              </span>
+            </div>
+            <div className={AipifySidebarTypography.workspaceSummaryRow} title={`${labels.licensedTo} ${display.licensedTo}`}>
+              <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.licensedTo}</span>
+              <span className={`${AipifySidebarTypography.workspaceSummaryValue} line-clamp-2`}>
+                {display.licensedTo}
+              </span>
+            </div>
+            <div className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.plan} ${display.planName}`}>
+              <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.plan}</span>
+              <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{display.planName}</span>
+            </div>
+            <div className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.status} ${display.statusLabel}`}>
+              <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.status}</span>
+              <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>{display.statusLabel}</span>
+            </div>
+            <div className={AipifySidebarTypography.workspaceSummaryRowTight} title={`${labels.version} ${formatSoftwareVersion("1.0.0")}`}>
+              <span className={AipifySidebarTypography.workspaceSummaryLabel}>{labels.version}</span>
+              <span className={`${AipifySidebarTypography.workspaceSummaryValue} min-w-0 truncate`}>
+                {formatSoftwareVersion("1.0.0")}
+              </span>
+            </div>
+            <div className="space-y-0.5 border-t border-[var(--app-border)] pt-2">
+              <p className={AipifySidebarTypography.workspaceSummaryFooter}>
+                {labels.poweredBy} Aipify™
+              </p>
+              <p className={AipifySidebarTypography.workspaceSummaryCopyright}>{labels.copyright}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+
+      {showPrivacyControl ? (
+        <button
+          type="button"
+          onClick={openPrivacySettings}
+          aria-haspopup="dialog"
+          className="aipify-sidebar-privacy-trigger flex w-full items-center justify-center rounded-xl border border-[var(--app-border,var(--aipify-border))] bg-[var(--app-card,#fff)] px-3 py-2 text-xs font-medium text-[var(--app-text-muted,var(--aipify-text-secondary))] shadow-sm transition hover:border-[var(--app-border-accent)] hover:bg-[var(--app-soft-surface)] hover:text-[var(--app-text)] focus:outline-none focus-visible:ring-2 focus-visible:ring-aipify-focus focus-visible:ring-offset-2"
+        >
+          {labels.privacySettingsOpen}
+        </button>
+      ) : null}
+    </div>
   );
 }
