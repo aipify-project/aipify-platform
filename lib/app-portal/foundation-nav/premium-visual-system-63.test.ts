@@ -53,6 +53,13 @@ assert.ok(fs.existsSync(path.join(ROOT, "components/app/design/AppDecorativeOrb.
 const hub = read("components/app/hubs/AppHubShell.tsx");
 assert.match(hub, /decorativeAccent/);
 assert.match(hub, /AppDecorativeOrb/);
+assert.match(hub, /clearDecorativeOrb=\{decorativeAccent\}/);
+
+const pageHeader = read("components/app/design/AppPageHeader.tsx");
+assert.match(pageHeader, /clearDecorativeOrb/);
+assert.match(pageHeader, /max-w-2xl/);
+assert.match(pageHeader, /--app-border-accent/);
+assert.doesNotMatch(pageHeader, /border-b border-aipify-border/);
 
 assert.match(read("app/app/website-kompis/page.tsx"), /decorativeAccent/);
 assert.match(read("app/app/kompis-bedrift/page.tsx"), /decorativeAccent/);
