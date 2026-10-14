@@ -1056,6 +1056,16 @@ export function buildPlatformPortalCustomerCreationLabels(
     retry: t(`${c}.retry`),
     slugPreview: t(`${c}.slugPreview`),
     addressUnavailableNote: t(`${c}.addressUnavailableNote`),
+    prepareAction: t(`${c}.prepareAction`),
+    prepareRunning: t(`${c}.prepareRunning`),
+    prepareReady: t(`${c}.prepareReady`),
+    prepareBlocked: t(`${c}.prepareBlocked`),
+    prepareReason: t(`${c}.prepareReason`),
+    prepareSideEffectsNone: t(`${c}.prepareSideEffectsNone`),
+    prepareDuplicateAdvisory: t(`${c}.prepareDuplicateAdvisory`),
+    prepareCoreDeferred: t(`${c}.prepareCoreDeferred`),
+    prepareExecuteLocked: t(`${c}.prepareExecuteLocked`),
+    prepareProductSeparation: t(`${c}.prepareProductSeparation`),
   };
 }
 

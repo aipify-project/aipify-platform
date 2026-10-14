@@ -691,7 +691,17 @@
       "enterManually": "Skriv inn virksomhetsopplysningene manuelt.",
       "queryTooShort": "Søket må inneholde minst to tegn",
       "registryNoResponse": "Enhetsregisteret svarte ikke",
-      "registrationNumberRequired": "Registreringsnummeret er obligatorisk"
+      "registrationNumberRequired": "Registreringsnummeret er obligatorisk",
+      "prepareAction": "Forbered dry-run (D1)",
+      "prepareRunning": "Forbereder…",
+      "prepareReady": "Dry-run klar — ingen kunde opprettet",
+      "prepareBlocked": "Forberedelse fant blokkerende eller rådgivende konflikter",
+      "prepareReason": "Intern begrunnelse for forberedelsesrevisjon",
+      "prepareSideEffectsNone": "Ingen bedrift, kunde, organisasjon, auth, e-post, medlemskap eller Bedrift-tildeling i dette steget.",
+      "prepareDuplicateAdvisory": "Registerskanning fant mulig duplikat. Core-unikhet håndheves fortsatt kun ved Production-opprettelse.",
+      "prepareCoreDeferred": "Autoritative duplikatavvisninger skjer først når opprettelse senere eiergodkjennes.",
+      "prepareExecuteLocked": "Production-opprettelse er utenfor denne D1-jobben. Execute på /customers/prepare forblir fail-closed.",
+      "prepareProductSeparation": "Forberedelse knytter aldri administrator, bruker aldri e-post til auto-kobling av tenant, og tildeler aldri kompis_bedrift eller endrer UnoNight."
     },
     "commercialPlan": {
       "managePlan": "Administrer avtale",

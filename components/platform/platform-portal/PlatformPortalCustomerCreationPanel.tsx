@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import type {
   PlatformPortalCompanyLookupMatch,
@@ -18,6 +17,10 @@ import {
   suggestCustomerSlug,
   type PlatformPortalCustomerCreationErrorCode,
 } from "@/lib/platform-portal/create-customer";
+import {
+  createCustomerPrepareIdempotencyKey,
+  type CustomerCreatePreparePlan,
+} from "@/lib/platform-portal/create-customer-prepare";
 
 type Props = {
   labels: PlatformPortalCustomerCreationLabels;
@@ -73,7 +76,6 @@ function errorMessage(
 }
 
 export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
-  const router = useRouter();
   const countries = useMemo(() => listIsoAlpha2Countries(locale), [locale]);
 
   const [country, setCountry] = useState("");
@@ -97,6 +99,13 @@ export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
   );
   const [lookup, setLookup] = useState<LookupState>({ kind: "idle" });
   const [submit, setSubmit] = useState<SubmitState>({ kind: "idle" });
+  const [prepareReason, setPrepareReason] = useState("");
+  const [prepareKey] = useState(() => createCustomerPrepareIdempotencyKey());
+  const [preparePlan, setPreparePlan] = useState<CustomerCreatePreparePlan | null>(
+    null,
+  );
+  const [prepareRunning, setPrepareRunning] = useState(false);
+  const [prepareError, setPrepareError] = useState(false);
 
   const isNorway = country === "NO";
   const hasLookup = countryHasCompanyLookupProvider(country);
@@ -251,67 +260,65 @@ export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
     }
   }
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (submit.kind === "submitting" || submit.kind === "success") return;
-
+  async function runPrepare() {
     setSubmitted(true);
-    setSubmit({ kind: "idle" });
+    setPrepareError(false);
+    setPreparePlan(null);
+    if (!canSubmit || !normalizedOrg || !normalizedSlug) return;
+    if (prepareReason.trim().length < 3) return;
 
-    if (!canSubmit || !normalizedOrg || !normalizedSlug) {
-      return;
-    }
-
-    setSubmit({ kind: "submitting" });
-
+    setPrepareRunning(true);
     try {
-      const response = await fetch("/api/platform-portal/customers", {
+      const response = await fetch("/api/platform-portal/customers/prepare", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         cache: "no-store",
         body: JSON.stringify({
+          mode: "prepare",
           organizationNumber: normalizedOrg,
           legalName: legalName.trim(),
           displayName: displayName.trim() || legalName.trim(),
           slug: normalizedSlug,
           country,
           verificationSource,
+          internalReason: prepareReason.trim(),
+          confirmation: true,
+          idempotencyKey: prepareKey,
         }),
       });
-
       if (response.status === 401) {
         setSubmit({ kind: "error", code: "unauthorized" });
+        setPrepareError(true);
         return;
       }
       if (response.status === 403) {
         setSubmit({ kind: "error", code: "forbidden" });
+        setPrepareError(true);
         return;
       }
-
-      const payload = (await response.json().catch(() => null)) as {
-        customer?: { id?: string };
-        code?: PlatformPortalCustomerCreationErrorCode;
-      } | null;
-
       if (!response.ok) {
-        setSubmit({ kind: "error", code: payload?.code ?? "unknown" });
+        setPrepareError(true);
         return;
       }
-
-      const customerId = payload?.customer?.id;
-      if (!customerId) {
-        setSubmit({ kind: "error", code: "unknown" });
+      const plan = (await response.json()) as CustomerCreatePreparePlan;
+      if (!plan?.dryRun || plan.mode !== "prepare") {
+        setPrepareError(true);
         return;
       }
-
-      setSubmit({ kind: "success" });
-      router.push(`/platform/customers/${customerId}`);
+      setPreparePlan(plan);
     } catch {
-      setSubmit({ kind: "error", code: "unknown" });
+      setPrepareError(true);
+    } finally {
+      setPrepareRunning(false);
     }
   }
 
-  const isSubmitting = submit.kind === "submitting";
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    await runPrepare();
+  }
+
+  const isSubmitting = prepareRunning;
   const bannerError =
     submit.kind === "error" ? errorMessage(labels, submit.code, country) : null;
 
@@ -656,6 +663,49 @@ export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
           </div>
         </section>
 
+        <section className="rounded-2xl border border-amber-200 bg-amber-50/70 p-5 dark:border-amber-800/70 dark:bg-amber-950/30">
+          <h2 className="text-base font-semibold text-amber-950 dark:text-amber-100">
+            {labels.prepareAction}
+          </h2>
+          <p className="mt-2 text-sm text-amber-900/90 dark:text-amber-100/90">
+            {labels.prepareProductSeparation}
+          </p>
+          <p className="mt-2 text-sm text-amber-900/90 dark:text-amber-100/90">
+            {labels.prepareExecuteLocked}
+          </p>
+          <label className="mt-4 block text-sm">
+            <span className="font-medium text-amber-950 dark:text-amber-100">
+              {labels.prepareReason}
+            </span>
+            <textarea
+              value={prepareReason}
+              onChange={(event) => setPrepareReason(event.target.value)}
+              rows={2}
+              className="mt-1 w-full rounded-lg border border-amber-200 bg-white px-3 py-2 text-sm text-slate-900 dark:border-amber-800 dark:bg-slate-900 dark:text-slate-100"
+            />
+          </label>
+          {prepareError ? (
+            <p className="mt-3 text-sm text-rose-700 dark:text-rose-300">
+              {labels.error}
+            </p>
+          ) : null}
+          {preparePlan ? (
+            <div className="mt-3 space-y-2 rounded-xl border border-emerald-200 bg-emerald-50/80 p-3 text-sm text-emerald-950 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-100">
+              <p className="font-medium">
+                {preparePlan.readyForLaterCreate
+                  ? labels.prepareReady
+                  : labels.prepareBlocked}
+              </p>
+              <p>{labels.prepareSideEffectsNone}</p>
+              <p>{labels.prepareCoreDeferred}</p>
+              {preparePlan.duplicateProbe.organizationNumberMatchCustomerId ||
+              preparePlan.duplicateProbe.slugMatchCustomerId ? (
+                <p>{labels.prepareDuplicateAdvisory}</p>
+              ) : null}
+            </div>
+          ) : null}
+        </section>
+
         <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
           <Link
             href="/platform/customers"
@@ -664,11 +714,21 @@ export function PlatformPortalCustomerCreationPanel({ labels, locale }: Props) {
             {labels.cancel}
           </Link>
           <button
+            type="button"
+            disabled
+            title={labels.prepareExecuteLocked}
+            className="inline-flex cursor-not-allowed items-center justify-center rounded-lg border border-slate-300 bg-slate-100 px-4 py-2.5 text-sm font-medium text-slate-500 opacity-70 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400"
+          >
+            {labels.submit}
+          </button>
+          <button
             type="submit"
-            disabled={!canSubmit}
+            disabled={
+              !canSubmit || isSubmitting || prepareReason.trim().length < 3
+            }
             className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-violet-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-violet-500 dark:hover:bg-violet-400"
           >
-            {isSubmitting ? labels.submitting : labels.submit}
+            {isSubmitting ? labels.prepareRunning : labels.prepareAction}
           </button>
         </div>
       </form>
