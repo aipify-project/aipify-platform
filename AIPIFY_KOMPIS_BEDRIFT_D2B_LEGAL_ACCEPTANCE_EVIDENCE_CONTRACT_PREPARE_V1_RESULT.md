@@ -95,7 +95,8 @@
 
 ## Footer (after PR)
 
-- PR:  
-- Head SHA:  
-- Merge: not auto-merged until gates green + owner review of NOT_APPLIED draft  
+- PR: https://github.com/aipify-project/aipify-platform/pull/215
+- Head SHA: `523ae37c4255c88f5fca97640d996b052d940ac2`
+- Merge: not auto-merged (typecheck/build NOT RUN locally; NOT_APPLIED SQL needs owner approval before any Core apply)
 - LIVE: **not claimed**
+- Isolation note: briefly mixed onto polish branch tip locally; cherry-picked onto D2B branch; polish restored to `82734c39` before any polish push
