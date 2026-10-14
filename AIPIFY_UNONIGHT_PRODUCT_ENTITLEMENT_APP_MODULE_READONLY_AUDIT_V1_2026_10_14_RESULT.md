@@ -38,7 +38,7 @@ No tokens, emails, FAQ answer text, or private EKE content included.
 | APP Bedrift **route exposure** | **FAIL** vs Web-only policy | Bedrift nav items have **no** `moduleKey`; menu resolver treats them as **included**; control plane authorizes Bedrift on membership alone |
 | APP Web **route exposure** | **PASS** (gated) | Web nav requires `moduleKey: website_kompis` + `is_tenant_module_enabled` |
 | Backend EKE API authorization | **FAIL** vs product separation | `/api/employee-knowledge*` only checks auth user → RPC; **no** Bedrift/Web product gate |
-| Page/layout Bedrift gate | **FAIL** | `/app/settings/employee-knowledge` renders panel with no license/product gate |
+| Page/layout Bedrift gate | **FAIL** | `/app/settings/employee-knowledge` and `/app/kompis-bedrift/*` render with no product entitlement redirect; layout computes `pathDenied` but **does not redirect** (`app/app/layout.tsx`) — direct URLs can open pages even when product is not in `availableProducts` |
 | Internal EKE data inventory | **PARTIAL** | settings/permissions/gap present; **0** knowledge articles (no private content read) |
 | Core Web install / public FAQ | **PASS** (aggregates) | install active; FAQ total **5** / published **5** / searchable_est **4** / expired `valid_until` **1** / null install_id **4** / scoped **1** |
 | Authenticated APP UI (owner session) | **NOT RUN** | No owner session; prior jobs already documented owner saw Bedrift + Ansattkunnskap error |
@@ -139,6 +139,7 @@ No verified evidence these PRs *introduced* membership-default Bedrift; that log
    - Pass `bedriftModuleEnabled` from `is_tenant_module_enabled` in `load-snapshot.ts` + `load-bundle.ts`.  
    - Add `moduleKey: "kompis_bedrift"` (or decided key) to `KOMPIS_BEDRIFT_FLAT_NAV`.  
    - Gate `/api/employee-knowledge*` and Bedrift pages with the same server check (not UI-only).  
+   - Honor `pathDenied` from `authorizeProductContext` with redirect/403 (today nav falls back but children still render).  
    - Revisit `FAIL_CLOSED_SAFE_CAPABILITY_IDS` so Web-only orgs do not get Bedrift defaults.  
 3. **License data (separate owner approval):** Decide whether UnoNight’s `employee_knowledge*` module flags stay enabled for legacy reasons or are turned off; **no silent Production UPDATE in audit**. Preserve EKE bootstrap rows until a cleanup job is approved.  
 4. **Later:** Create **separate** Bedrift test organization with `admin@aipify.tech` under its own plan/approval.  
