@@ -146,8 +146,39 @@ const plan = buildCustomerCreatePreparePlan({
 });
 assert.equal(plan.dryRun, true);
 assert.equal(plan.mode, "prepare");
-assert.equal(plan.readyForLaterCreate, true);
+// D2F: Core environment_type RPC not connected — must not claim ready for create.
+assert.equal(plan.readyForLaterCreate, false);
+assert.equal(plan.environmentType.resolved, "production");
+assert.equal(plan.environmentType.rpcConnected, false);
+assert.equal(plan.environmentType.coreWouldPersistToday, "production");
+assert.ok(
+  plan.executeBlockedReasons.includes("environment_type_rpc_not_connected"),
+);
 assert.equal(plan.ownerApprovalRequired, true);
+
+assert.equal(
+  parseCustomerCreatePrepareInput({
+    ...validIdentity,
+    environmentType: "internal",
+    internalReason: "client forgery attempt",
+    confirmation: true,
+    idempotencyKey: "cpk-key-internal01",
+    mode: "prepare",
+  }).ok,
+  false,
+);
+
+assert.equal(
+  parseCustomerCreatePrepareInput({
+    ...validIdentity,
+    environmentType: "staging",
+    internalReason: "invalid environment",
+    confirmation: true,
+    idempotencyKey: "cpk-key-staging001",
+    mode: "prepare",
+  }).ok,
+  false,
+);
 assert.equal(plan.sideEffects.createsCompany, false);
 assert.equal(plan.sideEffects.createsCustomer, false);
 assert.equal(plan.sideEffects.createsOrganization, false);

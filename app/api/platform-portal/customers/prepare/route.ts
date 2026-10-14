@@ -75,6 +75,7 @@ export async function POST(request: Request) {
       })),
       internalReason: parsed.value.internalReason,
       idempotencyKey: parsed.value.idempotencyKey,
+      environmentResolution: parsed.value.environmentResolution,
     });
 
     return NextResponse.json(plan, { headers });
