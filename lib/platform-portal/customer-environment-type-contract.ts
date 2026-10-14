@@ -50,6 +50,16 @@ export const CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED = false;
  */
 export const CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED = false;
 
+/**
+ * D2G authored executable Core SQL (NOT_APPLIED — not in supabase/migrations/).
+ * Authoring this file does not apply it. SHA must match file bytes exactly.
+ */
+export const CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_PATH =
+  "docs/platform/NOT_APPLIED_platform_customer_create_internal_environment_enforcement_v1.sql" as const;
+
+export const CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_SHA256 =
+  "83056fb8fbf9c80293da68237ef8a4045ddfae96257669c8de7e5a4b6890733b" as const;
+
 /** What Core create writes today regardless of Platform prepare intent. */
 export const CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE =
   "production" as const;
@@ -75,6 +85,11 @@ export type InternalEnvironmentInvariantStatus = {
   key: string;
   declared: true;
   enforcedToday: boolean;
+  /**
+   * Honest post-apply expectation for the D2G NOT_APPLIED executable SQL only.
+   * Still false until an owner apply YES; Platform connect may remain separate.
+   */
+  enforcedAfterExecutableSqlApply: boolean;
   evidence: string;
 };
 
@@ -200,13 +215,15 @@ export function listInternalEnvironmentInvariants(): InternalEnvironmentInvarian
       key: "not_billable",
       declared: true,
       enforcedToday: false,
+      enforcedAfterExecutableSqlApply: true,
       evidence:
-        "No Core billable/invoice exemption flag on create_platform_portal_customer",
+        "After D2G SQL apply: triggers block subscriptions + license links for internal; Stripe/provider objects remain a separate gate",
     },
     {
       key: "no_automatic_provisioning",
       declared: true,
       enforcedToday: true,
+      enforcedAfterExecutableSqlApply: true,
       evidence:
         "Create RPC already creates identity only (no licenses/domains/installs)",
     },
@@ -214,43 +231,57 @@ export function listInternalEnvironmentInvariants(): InternalEnvironmentInvarian
       key: "no_public_website_binding",
       declared: true,
       enforcedToday: false,
+      enforcedAfterExecutableSqlApply: true,
       evidence:
-        "No create-time block on public domain/website attach for environment_type=internal",
+        "After D2G SQL apply: triggers block organization_domains, customer_domains, installations for internal; website CMS publish paths remain a separate gate if needed",
     },
     {
       key: "no_automatic_license_grant",
       declared: true,
       enforcedToday: true,
+      enforcedAfterExecutableSqlApply: true,
       evidence:
-        "Create does not write tenant_modules; Bedrift activate remain allowlist-gated",
+        "Create does not write tenant_modules; Bedrift activate remain allowlist-gated; license-link trigger blocks internal",
     },
     {
       key: "no_security_control_bypass",
       declared: true,
       enforcedToday: true,
+      enforcedAfterExecutableSqlApply: true,
       evidence:
-        "Platform access still required via _ppsf258_require_platform_access()",
+        "Platform access still required; internal additionally requires super_admin + fail-closed helper",
+    },
+    {
+      key: "super_admin_only_internal_create",
+      declared: true,
+      enforcedToday: false,
+      enforcedAfterExecutableSqlApply: true,
+      evidence:
+        "After apply: platform_support denied via INTERNAL_ENVIRONMENT_SUPER_ADMIN_REQUIRED; helper still false",
     },
     {
       key: "admin_reporting_label",
       declared: true,
       enforcedToday: false,
+      enforcedAfterExecutableSqlApply: false,
       evidence:
-        "No Platform UI badge/filter for internal create-path customers yet",
+        "No Platform UI badge/filter for internal create-path customers yet (UI follow-up)",
     },
     {
       key: "full_audit_isolation",
       declared: true,
       enforcedToday: false,
+      enforcedAfterExecutableSqlApply: true,
       evidence:
-        "Audit event exists for create but does not record environment_type today",
+        "After apply: platform_customer_created audit metadata includes environment_type",
     },
     {
       key: "persisted_environment_type_internal",
       declared: true,
       enforcedToday: false,
+      enforcedAfterExecutableSqlApply: true,
       evidence:
-        "create_platform_portal_customer inserts environment_type='production' literally",
+        "After apply + helper authorize: create persists p_environment_type; today still hardcoded production; helper remains false so internal create stays blocked",
     },
   ];
 }

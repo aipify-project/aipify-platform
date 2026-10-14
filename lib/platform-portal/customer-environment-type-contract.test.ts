@@ -5,6 +5,8 @@ import {
   CUSTOMER_CREATE_CORE_HARDCODED_ENVIRONMENT_TYPE,
   CUSTOMER_CREATE_ENVIRONMENT_TYPE_RPC_CONNECTED,
   CUSTOMER_CREATE_INTERNAL_ENVIRONMENT_AUTHORIZED,
+  CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_PATH,
+  CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_SHA256,
   CUSTOMERS_ENVIRONMENT_TYPE_SCHEMA_VALUES,
   D2F_OWNER_STATED_SANDBOX_IDENTITY,
   PLATFORM_CUSTOMER_CREATE_ENVIRONMENT_TYPES,
@@ -76,7 +78,8 @@ assert.ok(
   invariants.some(
     (row) =>
       row.key === "persisted_environment_type_internal" &&
-      row.enforcedToday === false,
+      row.enforcedToday === false &&
+      row.enforcedAfterExecutableSqlApply === true,
   ),
 );
 assert.ok(
@@ -84,6 +87,19 @@ assert.ok(
     (row) => row.key === "no_automatic_license_grant" && row.enforcedToday,
   ),
 );
+assert.ok(
+  invariants.some(
+    (row) =>
+      row.key === "super_admin_only_internal_create" &&
+      row.enforcedToday === false &&
+      row.enforcedAfterExecutableSqlApply === true,
+  ),
+);
+assert.equal(
+  CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_PATH,
+  "docs/platform/NOT_APPLIED_platform_customer_create_internal_environment_enforcement_v1.sql",
+);
+assert.equal(CUSTOMER_CREATE_INTERNAL_ENV_EXECUTABLE_SQL_SHA256.length, 64);
 
 const packet = buildCustomerCreateEnvironmentTypePreparePacket({
   requested: "internal",
