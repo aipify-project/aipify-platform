@@ -50,6 +50,13 @@ async function main() {
   assert.equal(isExplicitAipifyOrKompisQuestion("Kan jeg bli partner?"), false);
   assert.equal(isExplicitAipifyPricingQuestion("Hva koster Aipify?"), true);
   assert.equal(isExplicitAipifyPricingQuestion("Hvilke priser har dere?"), false);
+  assert.equal(
+    isExplicitAipifyPricingQuestion(
+      "How much does the Aipify Platform subscription cost for enterprises?",
+    ),
+    true,
+  );
+  assert.equal(isExplicitAipifyPricingQuestion("Hvilke pakker selger Aipify?"), true);
   assert.equal(shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hva er Aipify?"), true);
   assert.equal(shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hvilke fordeler får jeg her?"), false);
   assert.equal(isAipifyBrandedCustomerSiteFeatureQuestion("Hva er Aipify Verify?"), true);
@@ -58,9 +65,20 @@ async function main() {
     shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hva er Aipify Verify?"),
     false,
   );
+  // P1: Aipify Platform package/subscription pricing never allowed on customer hosts.
   assert.equal(
     shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hvilke pakker selger Aipify?"),
-    true,
+    false,
+  );
+  assert.equal(
+    shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hva koster Aipify?"),
+    false,
+  );
+  assert.equal(
+    shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite(
+      "How much does the Aipify Platform subscription cost for enterprises?",
+    ),
+    false,
   );
   const safetyThread = [
     {
@@ -86,7 +104,7 @@ async function main() {
   );
   assert.equal(
     shouldAllowAipifyPlatformKnowledgeOnCustomerWebsite("Hva koster Aipify?", safetyThread),
-    true,
+    false,
   );
   assert.equal(
     isContinuingCustomerSiteTopicFollowUp("fortell mer", safetyThread),
@@ -432,6 +450,74 @@ async function main() {
   assert.equal(indexOffFallback.sources[0]?.route, WEBSITE_KOMPIS_SAFE_FALLBACK_SOURCE);
   assert.ok(
     !indexOffFallback.sources.some((source) => source.route.includes("aipify-capabilities")),
+  );
+
+  // P1 Q15: customer host must not inject Aipify Platform public-pricing ladder.
+  const q15Customer = await askPublicPlatformCompanion(
+    {
+      question: "How much does the Aipify Platform subscription cost for enterprises?",
+      locale: "en",
+      domain: "www.customer-a.example",
+      installId: tenantAInstall,
+    },
+    {
+      ...customerAskOptions,
+      requestHost: "www.customer-a.example",
+      searchTenantVisitorKnowledge: async () => [],
+      groundedCompletion: async () => {
+        throw new Error("provider must not run for Q15 P1 customer pricing deny");
+      },
+    },
+  );
+  const q15Combined = [q15Customer.answer.directAnswer, q15Customer.answer.explanation ?? ""].join(
+    "\n",
+  );
+  assert.doesNotMatch(q15Combined, /799|3\s?990|14\s?500|public-pricing/i);
+  assert.ok(
+    !q15Customer.sources.some((source) => source.route.includes("public-pricing.ts")),
+    `Q15 customer must not cite public-pricing.ts, got ${JSON.stringify(q15Customer.sources)}`,
+  );
+
+  // Host FAQ about membership still works when Aipify platform pricing is asked elsewhere.
+  const hostFaqStillWorks = await askPublicPlatformCompanion(
+    {
+      question: "Hva koster det å bli medlem?",
+      locale: "no",
+      domain: "www.customer-a.example",
+      installId: tenantAInstall,
+    },
+    {
+      ...customerAskOptions,
+      requestHost: "www.customer-a.example",
+      searchTenantVisitorKnowledge: async () => [
+        {
+          item_id: "faq-membership",
+          title: "Medlemskap",
+          answer: "Medlemskap på nettstedet starter fra 199 per måned.",
+          category: "medlemskap",
+          content_type: "faq",
+          locale: "no",
+          source_url: "https://www.customer-a.example/no/membership",
+          score: 80,
+          matched_reason: "title",
+        },
+      ],
+    },
+  );
+  assert.match(hostFaqStillWorks.answer.directAnswer, /199/);
+  assert.doesNotMatch(hostFaqStillWorks.answer.directAnswer, /799|14\s?500/);
+  assert.ok(
+    !hostFaqStillWorks.sources.some((source) => source.route.includes("public-pricing.ts")),
+  );
+
+  // Aipify-owned assistant (no customer install context) still returns published ladder.
+  const aipifyOwnedPricing = await askPublicPlatformCompanion({
+    question: "How much does the Aipify Platform subscription cost for enterprises?",
+    locale: "en",
+  });
+  assert.match(aipifyOwnedPricing.answer.directAnswer, /799/);
+  assert.ok(
+    aipifyOwnedPricing.sources.some((source) => source.route.includes("public-pricing.ts")),
   );
 
   console.log("website-kompis-public-boundary.test.ts: all assertions passed");

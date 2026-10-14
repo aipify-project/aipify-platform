@@ -176,6 +176,86 @@ async function main() {
     assert.doesNotMatch(combined, /Business Operating System|ABOS|799|lisenser/i);
   });
 
+  await test("P1 Q15 customer host denies Aipify Platform pricing even when aipifyPublic=true", async () => {
+    const response = await askPublicPlatformCompanion(
+      {
+        question: "How much does the Aipify Platform subscription cost for enterprises?",
+        locale: "en",
+        installId: "11111111-1111-4111-8111-111111111111",
+        domain: "www.customer-a.example",
+      },
+      {
+        requestHost: "www.customer-a.example",
+        rawInstallConfig: {
+          website_kompis: {
+            enabled: true,
+            sources: {
+              faq: true,
+              currentPage: false,
+              aipifyPublic: true,
+              publicSiteIndex: false,
+            },
+          },
+        },
+        resolveLicensedAvailability: async () => ({
+          available: true,
+          reason: "available" as const,
+          capabilityKey: "website_kompis",
+        }),
+        searchTenantVisitorKnowledge: async () => [],
+        groundedCompletion: async () => {
+          throw new Error("provider must not run for P1 Q15 customer pricing deny");
+        },
+      },
+    );
+    const combined = [response.answer.directAnswer, response.answer.explanation ?? ""].join("\n");
+    assert.doesNotMatch(combined, /799|3\s?990|14\s?500/);
+    assert.ok(!response.sources.some((source) => source.route.includes("public-pricing.ts")));
+  });
+
+  await test("P1 multilingual Aipify pricing variants denied on customer host", async () => {
+    for (const question of [
+      "Hva koster Aipify?",
+      "What does Aipify cost?",
+      "Vad kostar Aipify?",
+      "Hvad koster Aipify?",
+    ]) {
+      const response = await askPublicPlatformCompanion(
+        {
+          question,
+          locale: "en",
+          installId: "11111111-1111-4111-8111-111111111111",
+          domain: "www.customer-a.example",
+        },
+        {
+          requestHost: "www.customer-a.example",
+          rawInstallConfig: {
+            website_kompis: {
+              enabled: true,
+              sources: {
+                faq: true,
+                currentPage: false,
+                aipifyPublic: true,
+                publicSiteIndex: false,
+              },
+            },
+          },
+          resolveLicensedAvailability: async () => ({
+            available: true,
+            reason: "available" as const,
+            capabilityKey: "website_kompis",
+          }),
+          searchTenantVisitorKnowledge: async () => [],
+          groundedCompletion: async () => {
+            throw new Error("provider must not run for P1 multilingual pricing deny");
+          },
+        },
+      );
+      assert.doesNotMatch(response.answer.directAnswer, /799|14\s?500/);
+      assert.ok(!response.sources.some((source) => source.route.includes("public-pricing.ts")));
+    }
+  });
+
   await test("tenant A FAQ is not returned for tenant B install", async () => {
     const response = await askPublicPlatformCompanion(
       {
@@ -1138,7 +1218,8 @@ async function main() {
     void platformCalled;
   });
 
-  await test("explicit Aipify platform package question still uses platform path", async () => {
+  await test("P1 explicit Aipify package question on customer host denies platform pricing", async () => {
+    let indexCalled = false;
     const response = await askPublicPlatformCompanion(
       {
         question: "Hvilke pakker selger Aipify?",
@@ -1175,13 +1256,18 @@ async function main() {
           capabilityKey: "website_kompis",
         }),
         searchTenantPublicSiteIndex: async () => {
-          throw new Error("site index must not run for explicit platform package ask");
+          indexCalled = true;
+          return [];
+        },
+        groundedCompletion: async () => {
+          throw new Error("provider must not run for P1 package pricing deny");
         },
       },
     );
 
-    // Platform knowledge / pricing-style answers — must not be site safety extractive only
-    assert.doesNotMatch(response.answer.directAnswer, /bildekontroll|18\+/i);
+    assert.equal(indexCalled, true);
+    assert.doesNotMatch(response.answer.directAnswer, /799|3\s?990|14\s?500/);
+    assert.ok(!response.sources.some((source) => source.route.includes("public-pricing.ts")));
   });
 
   await test("grounded provider failure falls back to extractive FAQ without platform copy", async () => {
