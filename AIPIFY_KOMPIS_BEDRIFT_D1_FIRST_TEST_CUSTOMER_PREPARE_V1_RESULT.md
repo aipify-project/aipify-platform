@@ -94,10 +94,12 @@ Separate later job only after explicit owner authorization:
 
 **Stop signals:** any Production write from prepare, cross-tenant auto-attach, Bedrift sneak-in, frozen-chain touch, UnoNight mutation → STOP.
 
-## Footer (fill after PR/LIVE)
+## Footer (after PR/LIVE)
 
-- PR: _(pending)_
-- Head SHA: _(pending)_
-- Merge SHA: _(pending)_
-- Vercel deployment: _(pending)_
-- Final verdict: _(pending)_
+- PR: https://github.com/aipify-project/aipify-platform/pull/210 (MERGED)
+- Head SHA: `2aa72a1c690635d8d1d4dd9779a4a35a94fcded8`
+- Merge SHA: `1264912e0ca89473e2487e33c3f0ca0de8349edb`
+- Vercel production: `dpl_5nHfAuUP3uv6T3WmP2ZyHYrSWJRT` (aipify-platform, commit `1264912e`, GitHub statuses success)
+- Final verdict: **PASS / LIVE**
+
+Not claimed after D1: test customer does not exist; admin not invited; Bedrift license not granted.
