@@ -4,6 +4,7 @@ import {
   buildPlatformPortalCommercialPlanLabels,
   buildPlatformPortalCustomerDetailLabels,
   buildPlatformPortalDomainInstallationLabels,
+  buildPlatformPortalKompisBedriftLabels,
   buildPlatformPortalLicenseProvisioningLabels,
   buildPlatformPortalWebsiteKompisLabels,
 } from "@/lib/platform-portal";
@@ -27,6 +28,7 @@ export default async function PlatformCustomerDetailPage({ params }: CustomerDet
   const licenseProvisioningLabels = buildPlatformPortalLicenseProvisioningLabels(t);
   const domainInstallationLabels = buildPlatformPortalDomainInstallationLabels(t);
   const websiteKompisLabels = buildPlatformPortalWebsiteKompisLabels(t);
+  const kompisBedriftLabels = buildPlatformPortalKompisBedriftLabels(t);
   const appKompisDeliveryLabels = buildPlatformPortalAppKompisDeliveryLabels(t);
   const websiteRuntimeLabels = buildCustomerWebsiteRuntimeLabels(t);
   const customerIdentityLabels = buildPlatformCustomerIdentityLabels(t);
@@ -39,6 +41,7 @@ export default async function PlatformCustomerDetailPage({ params }: CustomerDet
       licenseProvisioningLabels={licenseProvisioningLabels}
       domainInstallationLabels={domainInstallationLabels}
       websiteKompisLabels={websiteKompisLabels}
+      kompisBedriftLabels={kompisBedriftLabels}
       appKompisDeliveryLabels={appKompisDeliveryLabels}
       websiteRuntimeLabels={websiteRuntimeLabels}
       customerIdentityLabels={customerIdentityLabels}

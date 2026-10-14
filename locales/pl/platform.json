@@ -1128,6 +1128,41 @@
         "activationNotConflictingMissing": "Website Kompis jest już aktywny lub w konflikcie"
       }
     },
+    "kompisBedrift": {
+      "title": "Kompis Bedrift",
+      "serviceName": "Kompis Bedrift",
+      "sectionTitle": "Licencja Kompis Bedrift",
+      "statusLabel": "Status Kompis Bedrift",
+      "sourceCore": "Status z Aipify Core (kompis_bedrift). Nie członkostwo. Nie wiedza pracownicza.",
+      "active": "Aktywna",
+      "eligible": "Gotowa do aktywacji",
+      "inactive": "Nieaktywna",
+      "unknown": "Nieznany",
+      "noGrant": "Brak nadania Kompis Bedrift",
+      "moduleKey": "Klucz produktu",
+      "agreement": "Umowa klienta",
+      "subscriptionStatus": "Status umowy",
+      "planKey": "Plan",
+      "prerequisites": "Wymagania wstępne",
+      "productDistinctionTitle": "Rozdzielenie produktów",
+      "productWebsiteKompis": "Website Kompis (website_kompis) — osobny produkt witryny",
+      "productKompisBedrift": "Kompis Bedrift (kompis_bedrift) — ten status licencji",
+      "productEmployeeKnowledge": "Wiedza pracownicza",
+      "productEmployeeKnowledgeNote": "nie jest licencją Kompis Bedrift",
+      "activateLockedTitle": "Aktywacja zablokowana",
+      "activateLockedBody": "Aktywacja produkcyjna jest wyłączona, dopóki właściciel nie autoryzuje wskazanego klienta. Platforma nie tworzy nadań z członkostwa.",
+      "activateUnavailable": "Aktywuj (wymagana autoryzacja właściciela)",
+      "alreadyActive": "Kompis Bedrift jest już aktywny dla tego klienta",
+      "loading": "Ładowanie statusu Kompis Bedrift",
+      "error": "Nie udało się załadować statusu Kompis Bedrift",
+      "unauthorized": "Nie jesteś zalogowany",
+      "forbidden": "Nie masz dostępu platformowego do tego klienta",
+      "retry": "Spróbuj ponownie",
+      "reasons": {
+        "agreementActiveOk": "Umowa klienta jest aktywna",
+        "agreementActiveMissing": "Umowa klienta jest niedostępna lub niekwalifikująca"
+      }
+    },
     "appKompisDelivery": {
       "title": "Dostawa APP i Website Kompis",
       "sectionTitle": "APP i Website Kompis",

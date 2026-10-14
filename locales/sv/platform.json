@@ -1128,6 +1128,41 @@
         "activationNotConflictingMissing": "Website Kompis är redan aktiv eller i konflikt"
       }
     },
+    "kompisBedrift": {
+      "title": "Kompis Bedrift",
+      "serviceName": "Kompis Bedrift",
+      "sectionTitle": "Kompis Bedrift-licens",
+      "statusLabel": "Kompis Bedrift-status",
+      "sourceCore": "Status från Aipify Core (kompis_bedrift). Inte medlemskap. Inte medarbetarkunskap.",
+      "active": "Aktiv",
+      "eligible": "Redo för aktivering",
+      "inactive": "Inte aktiv",
+      "unknown": "Okänd",
+      "noGrant": "Ingen Kompis Bedrift-tilldelning",
+      "moduleKey": "Produktnyckel",
+      "agreement": "Kundavtal",
+      "subscriptionStatus": "Avtalsstatus",
+      "planKey": "Plan",
+      "prerequisites": "Förutsättningar",
+      "productDistinctionTitle": "Produktseparation",
+      "productWebsiteKompis": "Website Kompis (website_kompis) — separat webbplatsprodukt",
+      "productKompisBedrift": "Kompis Bedrift (kompis_bedrift) — denna licensstatus",
+      "productEmployeeKnowledge": "Medarbetarkunskap",
+      "productEmployeeKnowledgeNote": "är inte en Kompis Bedrift-licens",
+      "activateLockedTitle": "Aktivering låst",
+      "activateLockedBody": "Produktionsaktivering är stängd tills ägaren auktoriserar en namngiven kund. Platform skapar inte tilldelningar från medlemskap.",
+      "activateUnavailable": "Aktivera (kräver ägarauktorisation)",
+      "alreadyActive": "Kompis Bedrift är redan aktiv för den här kunden",
+      "loading": "Läser in Kompis Bedrift-status",
+      "error": "Kunde inte läsa in Kompis Bedrift-status",
+      "unauthorized": "Du är inte inloggad",
+      "forbidden": "Du har inte plattformsåtkomst för den här kunden",
+      "retry": "Försök igen",
+      "reasons": {
+        "agreementActiveOk": "Kundavtalet är aktivt",
+        "agreementActiveMissing": "Kundavtalet saknas eller är inte berättigat"
+      }
+    },
     "appKompisDelivery": {
       "title": "Leverans av APP och Website Kompis",
       "sectionTitle": "APP och Website Kompis",

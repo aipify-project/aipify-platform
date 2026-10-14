@@ -3,6 +3,7 @@ import { buildPlatformPresentationQualityLabels } from "@/lib/platform-presentat
 import type { PlatformCustomerAgreementsLabels } from "./customer-agreements";
 import type { PlatformCustomerSuccessLabels } from "./customer-success";
 import type { PlatformLicensesLabels } from "./licenses-overview";
+import type { PlatformPortalKompisBedriftLabels } from "./kompis-bedrift-activation";
 import type {
   PlatformPortalAppKompisDeliveryLabels,
   PlatformPortalCommercialPlanLabels,
@@ -386,6 +387,51 @@ export function buildPlatformLicensesOverviewLabels(
     lifetimeAgreement: t(`${c}.lifetimeAgreement`),
     websiteKompis: t(`${c}.websiteKompis`),
     servicesCount: t(`${c}.servicesCount`),
+  };
+}
+
+export function buildPlatformPortalKompisBedriftLabels(
+  t: Translator,
+): PlatformPortalKompisBedriftLabels {
+  const c = "platform.customers.kompisBedrift";
+  const presentation = buildPlatformPresentationQualityLabels(t);
+  return {
+    title: t(`${c}.title`),
+    serviceName: t(`${c}.serviceName`),
+    sectionTitle: t(`${c}.sectionTitle`),
+    statusLabel: t(`${c}.statusLabel`),
+    sourceCore: t(`${c}.sourceCore`),
+    active: t(`${c}.active`),
+    eligible: t(`${c}.eligible`),
+    inactive: t(`${c}.inactive`),
+    unknown: t(`${c}.unknown`),
+    noGrant: t(`${c}.noGrant`),
+    moduleKey: t(`${c}.moduleKey`),
+    agreement: t(`${c}.agreement`),
+    subscriptionStatus: t(`${c}.subscriptionStatus`),
+    planKey: t(`${c}.planKey`),
+    prerequisites: t(`${c}.prerequisites`),
+    productDistinctionTitle: t(`${c}.productDistinctionTitle`),
+    productWebsiteKompis: t(`${c}.productWebsiteKompis`),
+    productKompisBedrift: t(`${c}.productKompisBedrift`),
+    productEmployeeKnowledge: t(`${c}.productEmployeeKnowledge`),
+    productEmployeeKnowledgeNote: t(`${c}.productEmployeeKnowledgeNote`),
+    activateLockedTitle: t(`${c}.activateLockedTitle`),
+    activateLockedBody: t(`${c}.activateLockedBody`),
+    activateUnavailable: t(`${c}.activateUnavailable`),
+    alreadyActive: t(`${c}.alreadyActive`),
+    loading: t(`${c}.loading`),
+    error: t(`${c}.error`),
+    unauthorized: t(`${c}.unauthorized`),
+    forbidden: t(`${c}.forbidden`),
+    retry: t(`${c}.retry`),
+    notConfigured: presentation.notConfigured,
+    unknownStatus: presentation.unknownStatus,
+    presentationStatuses: presentation.statuses,
+    reasonLabels: {
+      agreement_activeOk: t(`${c}.reasons.agreementActiveOk`),
+      agreement_activeMissing: t(`${c}.reasons.agreementActiveMissing`),
+    },
   };
 }
 

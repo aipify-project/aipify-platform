@@ -933,6 +933,41 @@
         "activationNotConflictingMissing": "Website Kompis er allerede aktiv eller i konflikt"
       }
     },
+    "kompisBedrift": {
+      "title": "Kompis Bedrift",
+      "serviceName": "Kompis Bedrift",
+      "sectionTitle": "Kompis Bedrift-licens",
+      "statusLabel": "Kompis Bedrift-status",
+      "sourceCore": "Status fra Aipify Core (kompis_bedrift). Ikke medlemskab. Ikke medarbejderviden.",
+      "active": "Aktiv",
+      "eligible": "Klar til aktivering",
+      "inactive": "Ikke aktiv",
+      "unknown": "Ukendt",
+      "noGrant": "Ingen Kompis Bedrift-tildeling",
+      "moduleKey": "Produktnøgle",
+      "agreement": "Kundeaaftale",
+      "subscriptionStatus": "Aftalestatus",
+      "planKey": "Plan",
+      "prerequisites": "Forudsætninger",
+      "productDistinctionTitle": "Produktadskillelse",
+      "productWebsiteKompis": "Website Kompis (website_kompis) — separat websiteprodukt",
+      "productKompisBedrift": "Kompis Bedrift (kompis_bedrift) — denne licensstatus",
+      "productEmployeeKnowledge": "Medarbejderviden",
+      "productEmployeeKnowledgeNote": "er ikke en Kompis Bedrift-licens",
+      "activateLockedTitle": "Aktivering låst",
+      "activateLockedBody": "Produktionsaktivering er lukket, indtil ejeren autoriserer en navngiven kunde. Platform opretter ikke tildelinger ud fra medlemskab.",
+      "activateUnavailable": "Aktiver (kræver ejerautorisering)",
+      "alreadyActive": "Kompis Bedrift er allerede aktiv for denne kunde",
+      "loading": "Indlæser Kompis Bedrift-status",
+      "error": "Kunne ikke indlæse Kompis Bedrift-status",
+      "unauthorized": "Du er ikke logget ind",
+      "forbidden": "Du har ikke platformadgang for denne kunde",
+      "retry": "Prøv igen",
+      "reasons": {
+        "agreementActiveOk": "Kundeaftalen er aktiv",
+        "agreementActiveMissing": "Kundeaftalen mangler eller er ikke berettiget"
+      }
+    },
     "appKompisDelivery": {
       "title": "Levering af APP og Website Kompis",
       "sectionTitle": "APP og Website Kompis",

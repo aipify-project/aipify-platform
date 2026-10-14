@@ -975,6 +975,41 @@
         "activationNotConflictingMissing": "Website Kompis er allerede aktiv eller i konflikt"
       }
     },
+    "kompisBedrift": {
+      "title": "Kompis Bedrift",
+      "serviceName": "Kompis Bedrift",
+      "sectionTitle": "Kompis Bedrift-lisens",
+      "statusLabel": "Kompis Bedrift-status",
+      "sourceCore": "Status fra Aipify Core (kompis_bedrift). Ikke medlemskap. Ikke ansattkunnskap.",
+      "active": "Aktiv",
+      "eligible": "Klar for aktivering",
+      "inactive": "Ikke aktiv",
+      "unknown": "Ukjent",
+      "noGrant": "Ingen Kompis Bedrift-tildeling",
+      "moduleKey": "Produktnøkkel",
+      "agreement": "Kundeavtale",
+      "subscriptionStatus": "Avtalestatus",
+      "planKey": "Plan",
+      "prerequisites": "Forutsetninger",
+      "productDistinctionTitle": "Produktseparasjon",
+      "productWebsiteKompis": "Website Kompis (website_kompis) — separat nettstedprodukt",
+      "productKompisBedrift": "Kompis Bedrift (kompis_bedrift) — denne lisensstatusen",
+      "productEmployeeKnowledge": "Ansattkunnskap",
+      "productEmployeeKnowledgeNote": "er ikke en Kompis Bedrift-lisens",
+      "activateLockedTitle": "Aktivering låst",
+      "activateLockedBody": "Produksjonsaktivering er stengt til eier autoriserer en navngitt kunde. Platform oppretter ikke tildelinger fra medlemskap.",
+      "activateUnavailable": "Aktiver (krever eierautorisasjon)",
+      "alreadyActive": "Kompis Bedrift er allerede aktiv for denne kunden",
+      "loading": "Laster Kompis Bedrift-status",
+      "error": "Kunne ikke laste Kompis Bedrift-status",
+      "unauthorized": "Du er ikke innlogget",
+      "forbidden": "Du har ikke plattformtilgang for denne kunden",
+      "retry": "Prøv igjen",
+      "reasons": {
+        "agreementActiveOk": "Kundeavtalen er aktiv",
+        "agreementActiveMissing": "Kundeavtalen mangler eller er ikke kvalifisert"
+      }
+    },
     "appKompisDelivery": {
       "title": "Leveranse av APP og Website Kompis",
       "sectionTitle": "APP og Website Kompis",
