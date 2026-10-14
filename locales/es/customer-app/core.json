@@ -722,5 +722,90 @@
     "verifyHttp": "Verificar runtime HTTP",
     "verifying": "Verificando",
     "saving": "Guardando"
+  },
+  "employeeKnowledge": {
+    "title": "Conocimiento de empleados",
+    "subtitle": "Socio de conocimiento interno — documentación aprobada, acceso por roles y orientación paso a paso.",
+    "loading": "Preparando el resumen de conocimiento de empleados…",
+    "back": "Volver a ajustes",
+    "save": "Guardar ajustes",
+    "saved": "Guardado",
+    "privacy": "Solo se aprenden fuentes aprobadas. Los empleados ven el contenido autorizado para su rol.",
+    "viewBusinessDna": "Business DNA",
+    "youControl": "Los administradores aprueban todo el conocimiento — la transparencia es obligatoria.",
+    "empty": "Nada pendiente.",
+    "sections": {
+      "health": "Puntuación de salud del conocimiento",
+      "coverage": "Cobertura de conocimiento",
+      "gaps": "Brechas de conocimiento",
+      "onboarding": "Ruta de incorporación",
+      "permissions": "Permisos por rol",
+      "sources": "Fuentes aprobadas",
+      "pending": "Pendiente de aprobación",
+      "ask": "Asistente para empleados",
+      "search": "Búsqueda de conocimiento",
+      "audit": "Registro de auditoría",
+      "ethics": "Salvaguardas éticas",
+      "settings": "Ajustes"
+    },
+    "settings": {
+      "assistant": "Modo asistente para empleados",
+      "gapDetection": "Detección de brechas de conocimiento",
+      "onboarding": "Motor de incorporación",
+      "improvementLoop": "Bucle de mejora",
+      "adminApproval": "Requerir aprobación de administrador",
+      "videoSupport": "Soporte de conocimiento en video"
+    },
+    "ask": {
+      "placeholder": "¿Cómo procesamos un reembolso?",
+      "run": "Preguntar",
+      "confidence": "Confianza",
+      "escalate": "Se recomienda escalar — no se encontró documentación aprobada.",
+      "steps": "Orientación paso a paso"
+    },
+    "search": {
+      "placeholder": "Buscar conocimiento…",
+      "run": "Buscar"
+    },
+    "create": {
+      "title": "Pregunta",
+      "category": "Categoría",
+      "content": "Respuesta",
+      "submit": "Guardar elemento de conocimiento"
+    },
+    "workspace": {
+      "createFaq": "Crear FAQ",
+      "articles": "Artículos de conocimiento",
+      "pendingReview": "Pendiente de aprobación",
+      "gaps": "Brechas de conocimiento",
+      "askTest": "Probar con Aipify",
+      "searchKnowledge": "Buscar conocimiento",
+      "recentTitle": "Guardados recientemente",
+      "seeAllArticles": "Ver todos los artículos de conocimiento",
+      "questionLabel": "Pregunta",
+      "answerLabel": "Respuesta",
+      "saveDraft": "Guardar borrador",
+      "sendForApproval": "Enviar para aprobación",
+      "statusDraft": "Borrador",
+      "statusApproved": "Aprobado",
+      "statusPending": "Pendiente de aprobación",
+      "emptyArticlesTitle": "Aún no hay artículos de conocimiento",
+      "emptyArticlesBody": "Cuando guarde un borrador de FAQ, aparecerá aquí para la administración interna. Los elementos aprobados quedan disponibles para los empleados autorizados.",
+      "emptyAnswerBlocked": "Se requieren pregunta y respuesta para guardar. Las respuestas vacías no se pueden almacenar hasta que Core admita borradores incompletos por idioma.",
+      "multilingualGapTitle": "Las versiones multilingües de FAQ requieren autorización de Core",
+      "multilingualGapBody": "Employee Knowledge almacena hoy un título y un contenido por elemento — sin locale, agrupación de artículos, borradores vacíos, RPC de actualización ni estados de revisión/publicación. Las pestañas de idioma y + Añadir idioma se omiten hasta una aprobación separada de esquema/RPC.",
+      "approve": "Aprobar",
+      "editUnavailable": "Editar un elemento guardado requiere una operación de actualización de Core que aún no está disponible.",
+      "createSuccess": "Elemento de conocimiento guardado.",
+      "createError": "No se pudo guardar. Compruebe que la pregunta y la respuesta estén completas.",
+      "filterAll": "Todos",
+      "filterDraft": "Borradores",
+      "filterApproved": "Aprobados",
+      "updatedLabel": "Actualizado",
+      "noRecent": "Aún no hay artículos recientes.",
+      "roleLabel": "Rol",
+      "retry": "Intentar de nuevo",
+      "loadError": "No se pudo cargar el conocimiento de empleados. Inténtelo de nuevo."
+    }
   }
 }
