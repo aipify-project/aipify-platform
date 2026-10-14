@@ -102,8 +102,10 @@ No Production customer/org/auth/invite/membership/agreement/license/Bedrift writ
 
 ## Footer (after PR/LIVE)
 
-- PR: _(pending)_
-- Head SHA: _(pending)_
-- Merge SHA: _(pending)_
-- Vercel deployment: _(pending)_
-- Final verdict: _(pending)_
+- PR: https://github.com/aipify-project/aipify-platform/pull/212 (MERGED)
+- Head SHA: `cae426debbbc813c9c1143bb867bff9f83f88982`
+- Merge SHA: `ee323b1500c0aaf926636220f1ed09dd6235f095`
+- Vercel production: `dpl_8QJyehhJz6tU4dSyZtwPihJyudQx` (aipify-platform, commit `ee323b15`, GitHub statuses success)
+- Final verdict: **PASS / LIVE** (with AGREEMENT_UNVERIFIED legal status — no forged contract)
+
+Not claimed after D2: no test customer, no verified agreement, no admin, no Bedrift license.
