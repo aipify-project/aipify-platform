@@ -106,7 +106,16 @@
 
 ## Repo / deployment
 
-Recorded after this RESULT is committed with migration + evidence (see git/PR section completed in same job).
+| Item | Value |
+|------|--------|
+| PR | https://github.com/aipify-project/aipify-platform/pull/186 |
+| Feature commit | `27abf60d131077e323901496d3c13e454e8aae24` |
+| Merge commit | `2fa6ddc946c19c183a97c52edb8e1b41d78c6743` |
+| Merged at (UTC) | 2026-10-14T07:11:52Z |
+| Vercel PR checks | **PASS** (aipify, aipify-platform, aipify-platform-iz5z) |
+| Core SQL APPLY | Independent of Vercel — already applied once at 2026-10-14T07:03:40Z |
+
+Note: APP runtime route was already calling the Core RPC; SQL fix is live on Core regardless of frontend deploy. UI verification still requires owner session.
 
 ---
 
