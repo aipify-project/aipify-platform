@@ -1,0 +1,34 @@
+DO
+REVOKE
+REVOKE
+GRANT
+GRANT
+CREATE TABLE
+DO
+DO
+DO
+DO
+DO
+DO
+DO
+DO
+DO
+DO
+              name               | pass |                                                                                                                                                                  detail                                                                                                                                                                  
+---------------------------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ anon_execute_denied             | t    | denied
+ authenticated_execute_denied    | t    | denied
+ finalize_wrong_install          | t    | {"ok": false, "reason": "reservation_not_found"}
+ happy_reserve_finalize          | t    | {"limit": 60, "status": "allowed", "allowed": true, "reservation_id": "170fc461-b2ce-46e9-9032-866aa7ed4aa6", "reserved_count": 1} | {"ok": true, "status": "success", "reservation_id": "170fc461-b2ce-46e9-9032-866aa7ed4aa6"} | {"ok": true, "reason": "already_finalized", "reservation_id": "170fc461-b2ce-46e9-9032-866aa7ed4aa6"}
+ idem_after_finalize_no_reauth   | f    | {"reason": "idempotent_replay", "status": "allowed", "allowed": true, "reservation_id": "4b39ce6c-be9d-4921-8236-92ff7a2ef9d3"}
+ idem_binding_mismatch_denied    | f    | {"reason": "idempotent_replay", "status": "allowed", "allowed": true, "reservation_id": "4b39ce6c-be9d-4921-8236-92ff7a2ef9d3"}
+ inflight_idempotent_replay      | t    | {"limit": 60, "status": "allowed", "allowed": true, "reservation_id": "4191197b-43e8-4a32-9e60-12e058441a6d", "reserved_count": 1} | {"reason": "idempotent_replay", "status": "allowed", "allowed": true, "reservation_id": "4191197b-43e8-4a32-9e60-12e058441a6d"}
+ null_binding_denied             | t    | {"reason": "untrusted_binding", "status": "denied", "allowed": false}
+ race_at_limit_no_overshoot      | t    | allowed=1 denied=3 reserved=60
+ release_does_not_free_rate_slot | t    | before=1 after=1
+ schema_is_v2_semantics          | f    | r2=idempotent_replay r3=idempotent_replay
+ sequential_rate_60              | t    | allowed=60 denied=5
+(12 rows)
+
+ERROR:  CONTRACT_FAILURES=3
+CONTEXT:  PL/pgSQL function inline_code_block line 7 at RAISE
